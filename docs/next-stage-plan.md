@@ -38,3 +38,13 @@
 4. **Дальнейшие улучшения:** удобство schema, storage/cache, adapters и parallel compute — по условиям follow-up задач и измерениям.
 
 Открыто до evidence: Data/Type support, конкретный layout, ID/reuse, delta/journal, способ специализации и численные performance budgets. Это технические задачи исследования; пользователь выбирает только выявленные компромиссы требований.
+
+## T12 checkpoint по отрицательному evidence (2026-10-03)
+
+[T12 redesign candidate](t12-redesign-decision.md): T03 constructor-authority gate
+FAILED. Следующий локальный пакет — safe provider expressibility, затем условная
+checked-action альтернатива с отдельным specification decision. Это кандидат для
+человеческого review до публикации, не новый approved API. Ordinary proof/simulation
+specification ждёт required capability reports и #10/#11/#12; implementation и
+proof gates не открываются наличием этого документа. [F07–F11](follow-ups.md)
+сохраняют зависимости позднего core и copied integration.

@@ -53,3 +53,13 @@
 **D4 — restore влияет на identity и visibility.** `snapshot` сохраняет entities/relations/non-transient resources/current machines и allocator progress, но не services, closures, reader positions или runtime queues. Значения shared, поэтому JSON round trip нужен для независимого save. `restore` validates before mutation, очищает pending commands/machines/events/transition/relation-failure streams и выполняет despawn/spawn lifecycle. Он не создаёт новый Runtime и не очищает system slots: не утверждать full runtime recovery/reset всех cursors. Fields ресурсов/machines вне snapshot не объявлять сброшенными: apply пишет только validated entries. Условия свежести старых handles после restore требуют отдельного решения до универсального world-scoped API.
 
 Эти записи — ограниченные decisions/blockers, а не одобренные новые законы или полная спецификация поздних edge cases. Если требование невыразимо, T12 redesign открывается сразу; implementation/proof acceptance остаётся заблокированным.
+
+## T12 evidence overlay (2026-10-03)
+
+[T12 redesign checkpoint](../t12-redesign-decision.md) фиксирует T03 constructor
+capability bypass: report завершён, authority gate FAILED. Статусы каталога выше
+не превращаются в runtime passes. Ordinary proof/simulation specification ждёт
+capabilities и #10/#11/#12; next action — локальный R-A provider probe для review.
+Relations/scopes, states, validation/restore/tooling и copied canonical-defense
+сохраняют return conditions выше, дополненные [F07–F11](../follow-ups.md).
+Runtime refinement и mandatory final native/JS performance остаются отдельными gates.
