@@ -13,6 +13,7 @@ This repository currently contains research and a development specification; no 
 - [Follow-up tasks](docs/follow-ups.md)
 - [Bend architecture research](docs/bend2-ecs-port.md)
 - [bevy-ts analysis](docs/bevy-ts-analysis.md)
+- [Core catalogue and six reference traces](docs/reference/core-map.md) (T02; runtime observations pending dependency approval)
 - [Pinned references](.references/sources.json)
 
 Performance requirements: low-level native builds must substantially outperform bevy-ts; JavaScript builds must be at least comparable on equivalent workloads. Numerical acceptance thresholds remain to be established; these are requirements, not benchmark claims.
