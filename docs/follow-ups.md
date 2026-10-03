@@ -50,3 +50,9 @@ constructor-boundary design; R-A/R-C1 are separate bounded evidence.
 
 The original dependent probes #5, #6, #10 and #12 may resume only through the
 coordinator's independently verified return decision. The parent remains open.
+
+## T04 affine-payload evidence (2026-10-03)
+
+F05 remains open. [T04 report](../experiments/t04/README.md) records freshly executed native/JS/TS observations: an affine Type Payload containing Array<U32> survives three updates through the R-C1 world; a Data record containing an owned array rejects at the kind boundary. Read callbacks receive a projection and an abstract handle, not a mutable owned-array alias. Separate affine-element swap/take/traversal controls work; closure/IO-handle payloads and rollback remain unestablished.
+
+Return before selecting component/query/write APIs: establish general Type read/write and failure restoration contracts, measure scalable traversal and explicit cloning/copy costs on equivalent native/JS/TS workloads, and obtain approval of specific falsified laws and numerical performance thresholds. If retained no-copy `Cell & OwnedArray` reads are required, request a bounded redesign; rejection is not approval to adopt Data-only scope. Fixed rows/slot update and Data projection are experimental simplifications, not removal of the full core.
