@@ -124,3 +124,9 @@ Issue #13 ran through isolated state `/workspace/formal-proofs/.dalph-bendvy-bet
 Deliverable: `docs/t12-redesign-decision.md`, with evidence ledger, staged R-A/R-B/R-C/R-D proposals and preserved full-core/performance/refinement gates; follow-up map updated. No new GitHub tickets were published (tracker still contains #1–#13). This closes the permitted bounded redesign report only: ordinary proof/simulation specification and capability acceptance are not complete. Human review of the proposed breakdown remains required before publishing the next packages. No Dalph execution problem observed in this Run.
 
 Operator feedback: a CLOSED issue/Completed Run can represent a negative experimental report or an early conditional specification checkpoint. Graph/progress UI should expose that outcome and remaining gates alongside delivery status; otherwise #4/#13 look as if they authorize the ordinary downstream branch.
+
+Coordinator prepared local `docs/tickets/13-safe-provider-draft.md` for review: exact 2/4/6 Motion checkpoints, paired negative controls including reconstruction and schema misuse, trusted-provider boundary, reproducible runner and explicit outcome limits. It is not published or scheduled; human review of the T12 breakdown is still pending. No live executor remains from #13; its recorded terminal exit was independently confirmed.
+
+### R-A publication and launch authorized
+
+User reviewed the concrete R-A proposal and explicitly approved continuation. English issue #14 was created for the safe-provider experiment; subsequent task instructions and reports must be in English. Original implementation/proof gates remain closed pending evidence. Start a separate Dalph Run at the newly published master, capacity 1, repaired provider configuration. Expected 5–20 minutes; absolute stop 2026-10-03T23:12:00Z. Negative/inconclusive outcomes require a bounded report rather than scope reduction.

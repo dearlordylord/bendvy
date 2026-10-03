@@ -1,5 +1,7 @@
 # Bendvy task execution
 
+- Write new issue/ticket text, task instructions, task reports and executor/integrator messages in English. User-facing conversation may remain in Russian. Existing Russian documents are not evidence that new task artifacts should use Russian.
+
 - Work only in the exact task worktree supplied by Dalph. Do not update `master`, push, close issues, or alter Dalph claims/state: the coordinator/integrator owns delivery. Commit a verified task candidate and follow the executor's final-result protocol.
 - Read the selected GitHub issue and the linked specification. The full core remains the goal; this stage contains bounded experimental slices. Never treat an incomplete capability gate as passed merely because an experiment produced a report.
 - Use Bend types, affine ownership and runtime correctly. Require negative controls for undeclared access, cross-schema misuse and writes through read. Data-only components have not been approved.
