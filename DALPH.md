@@ -116,3 +116,11 @@ Docker-IP API repair committed as `73451747b` and merged into the existing Dalph
 ### T03 negative report verified; early T12 checkpoint
 
 Remote master delivered T03 merge `5f740d11c21ee8ba394972c90baab261861b07cf`; direct Run exit is 0. Coordinator pulled that revision and independently ran `experiments/t03/run.sh`: finite TS/native/JS outputs match, but exported constructors permit the planted write-capability forgery (`99`). The script's successful reproduction confirms a FAILED capability gate, not an accepted query API. Normal downstream implementation/proofs remain blocked. T12 (#13) explicitly permits an early bounded redesign document after this negative outcome; prepare that checkpoint through Dalph, retaining full core requirements and human review before publishing any new ticket breakdown.
+
+### T12 bounded redesign delivery verified
+
+Issue #13 ran through isolated state `/workspace/formal-proofs/.dalph-bendvy-beta-issue13`, base `f754d45679b8d0b77a6ae5686344b9dbe734b649`, capacity 1, repaired provider configuration and a 20-minute deadline. Run emitted Completed and direct child exited 0 at 2026-10-03T22:43:05Z. Independent tracker read confirms #13 CLOSED; remote master merge `c5ef307c63444469d46d6985bea7a715516ff512` has exact parents base and accepted candidate `d49a288d003585f137b0949c40cc34338ed0d0f1`. Coordinator pulled the merge and checked its documentation delta.
+
+Deliverable: `docs/t12-redesign-decision.md`, with evidence ledger, staged R-A/R-B/R-C/R-D proposals and preserved full-core/performance/refinement gates; follow-up map updated. No new GitHub tickets were published (tracker still contains #1–#13). This closes the permitted bounded redesign report only: ordinary proof/simulation specification and capability acceptance are not complete. Human review of the proposed breakdown remains required before publishing the next packages. No Dalph execution problem observed in this Run.
+
+Operator feedback: a CLOSED issue/Completed Run can represent a negative experimental report or an early conditional specification checkpoint. Graph/progress UI should expose that outcome and remaining gates alongside delivery status; otherwise #4/#13 look as if they authorize the ordinary downstream branch.
