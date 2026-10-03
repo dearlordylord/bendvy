@@ -11,3 +11,5 @@ Record expected duration and an absolute stop time before each run. After reques
 Delivery requires all three: `RunDisposition: Completed`, independently checked published Git lineage, and intended tracker completion. Exit 0 or empty status entries alone are insufficient. Run task-specific verification from the published commit.
 
 Local retained T01 state: `/workspace/formal-proofs/.dalph-bendvy-beta`. Working executable adapter: `codex-diagnostic-proxy.py`, now metadata logging plus dedicated provider environment only. No protocol rewriting. Original provider home is untouched. Full observations: [DALPH.md](../DALPH.md).
+
+TS reference: existing Node v24.20.0 can import the pinned core directly via `.ts` imports without installing dependencies. Use a small public API adapter for required checkpoints; import success alone does not prove trace observations. Extra upstream test tooling needs approval only when its adoption is actually necessary.
