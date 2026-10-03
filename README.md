@@ -7,6 +7,7 @@ This repository currently contains research and a development specification; no 
 - [Specification](docs/SPEC.md)
 - [GitHub task #1](https://github.com/dearlordylord/bendvy/issues/1) (`ready-for-agent`)
 - [Near-term plan](docs/next-stage-plan.md)
+- [Published tickets and dependencies](docs/ticket-breakdown.md)
 - [Agreed scope](docs/planning-scope.md)
 - [Development roadmap](docs/development-roadmap.md)
 - [Follow-up tasks](docs/follow-ups.md)

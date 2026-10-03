@@ -1,0 +1,170 @@
+{
+  "repository": "dearlordylord/bendvy",
+  "parent": 1,
+  "tickets": {
+    "T01": {
+      "number": 2,
+      "id": 5693298781,
+      "url": "https://github.com/dearlordylord/bendvy/issues/2",
+      "title": "T01: Воспроизводимый native/JS и proof canary",
+      "local_file": "docs/tickets/01-toolchain-canary.md",
+      "blocked_by": [],
+      "native_blocked_by": []
+    },
+    "T02": {
+      "number": 3,
+      "id": 5693298911,
+      "url": "https://github.com/dearlordylord/bendvy/issues/3",
+      "title": "T02: Карта core и reference traces",
+      "local_file": "docs/tickets/02-contract-reference.md",
+      "blocked_by": [],
+      "native_blocked_by": []
+    },
+    "T03": {
+      "number": 4,
+      "id": 5693299042,
+      "url": "https://github.com/dearlordylord/bendvy/issues/4",
+      "title": "T03: Повторяемая типобезопасная query на двух мирах",
+      "local_file": "docs/tickets/03-typed-query.md",
+      "blocked_by": [
+        1,
+        2
+      ],
+      "native_blocked_by": [
+        1,
+        2
+      ]
+    },
+    "T04": {
+      "number": 5,
+      "id": 5693299360,
+      "url": "https://github.com/dearlordylord/bendvy/issues/5",
+      "title": "T04: Affine payload без потери владения",
+      "local_file": "docs/tickets/04-affine-payload.md",
+      "blocked_by": [
+        3
+      ],
+      "native_blocked_by": [
+        3
+      ]
+    },
+    "T05": {
+      "number": 6,
+      "id": 5693299637,
+      "url": "https://github.com/dearlordylord/bendvy/issues/6",
+      "title": "T05: Reservation, lookup и явный structural barrier",
+      "local_file": "docs/tickets/05-handles-commands.md",
+      "blocked_by": [
+        3
+      ],
+      "native_blocked_by": [
+        3
+      ]
+    },
+    "T06": {
+      "number": 7,
+      "id": 5693299892,
+      "url": "https://github.com/dearlordylord/bendvy/issues/7",
+      "title": "T06: Успешный commit и failed-system rollback",
+      "local_file": "docs/tickets/06-system-transaction.md",
+      "blocked_by": [
+        4,
+        5
+      ],
+      "native_blocked_by": [
+        4,
+        5
+      ]
+    },
+    "T07": {
+      "number": 8,
+      "id": 5693300415,
+      "url": "https://github.com/dearlordylord/bendvy/issues/8",
+      "title": "T07: Два event reader, retry и retention",
+      "local_file": "docs/tickets/07-event-readers.md",
+      "blocked_by": [
+        6
+      ],
+      "native_blocked_by": [
+        6
+      ]
+    },
+    "T08": {
+      "number": 9,
+      "id": 5693300684,
+      "url": "https://github.com/dearlordylord/bendvy/issues/9",
+      "title": "T08: Независимые change/removal observations",
+      "local_file": "docs/tickets/08-change-observations.md",
+      "blocked_by": [
+        6
+      ],
+      "native_blocked_by": [
+        6
+      ]
+    },
+    "T09": {
+      "number": 10,
+      "id": 5693300906,
+      "url": "https://github.com/dearlordylord/bendvy/issues/10",
+      "title": "T09: Вложенный schedule с provisioning и failure",
+      "local_file": "docs/tickets/09-schedule-requirements.md",
+      "blocked_by": [
+        3
+      ],
+      "native_blocked_by": [
+        3
+      ]
+    },
+    "T10": {
+      "number": 11,
+      "id": 5693301112,
+      "url": "https://github.com/dearlordylord/bendvy/issues/11",
+      "title": "T10: Сопоставимые native/JS benchmarks",
+      "local_file": "docs/tickets/10-performance-evidence.md",
+      "blocked_by": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "native_blocked_by": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    "T11": {
+      "number": 12,
+      "id": 5693301943,
+      "url": "https://github.com/dearlordylord/bendvy/issues/12",
+      "title": "T11: Первый конкретный пакет законов и falsification",
+      "local_file": "docs/tickets/11-candidate-laws.md",
+      "blocked_by": [
+        2,
+        3,
+        5
+      ],
+      "native_blocked_by": [
+        2,
+        3,
+        5
+      ]
+    },
+    "T12": {
+      "number": 13,
+      "id": 5693302343,
+      "url": "https://github.com/dearlordylord/bendvy/issues/13",
+      "title": "T12: Спецификация proofs и следующего этапа по evidence",
+      "local_file": "docs/tickets/12-next-specification.md",
+      "blocked_by": [
+        9,
+        10,
+        11
+      ],
+      "native_blocked_by": []
+    }
+  }
+}
