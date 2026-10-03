@@ -1,0 +1,13 @@
+# Bendvy task execution
+
+- Work only in the exact task worktree supplied by Dalph. Do not update `master`, push, close issues, or alter Dalph claims/state: the coordinator/integrator owns delivery. Commit a verified task candidate and follow the executor's final-result protocol.
+- Read the selected GitHub issue and the linked specification. The full core remains the goal; this stage contains bounded experimental slices. Never treat an incomplete capability gate as passed merely because an experiment produced a report.
+- Use Bend types, affine ownership and runtime correctly. Require negative controls for undeclared access, cross-schema misuse and writes through read. Data-only components have not been approved.
+- Follow `/home/node/.codex/skills/bend-ldd/SKILL.md`. Run `bend version` and `bend guide` before Bend work; wrap checker invocations in a five-second limit. Draft/falsify specific laws before presenting them for approval; write no ECS proof against unapproved laws. Infrastructure canaries of known elementary true/false facts are not approval of ECS laws.
+- Specific laws, numerical performance thresholds and new project dependencies require the approvals described in the specification. If needed, record the exact request and why in the task report; do not invent approval, silently weaken a law, or claim full completion.
+- Performance is mandatory: native low-level builds substantially outperform bevy-ts; JavaScript builds are at least comparable on equivalent work. Prototype measurements are evidence, not final product acceptance.
+- Explicitly document follow-ups for simplifications. Distinguish model proofs, executable-function proofs, finite trace comparisons and universal runtime refinement.
+- Read-only source references are already available at `/workspace/formal-proofs/bendvy/.references/bevy-ts`, `/workspace/formal-proofs/bendvy/.references/bevy`, and `/workspace/formal-proofs/bendvy/.references/bend2`. Check their commits against the tracked manifest. They are excluded from Git and will not automatically exist in isolated worktrees; use these absolute read-only locations or document any unavailable reference.
+- Never modify `/workspace/typescript/jev` or `/workspace/typescript/dalph`. Canonical-defense integration uses a separate copy when its planned prerequisites are satisfied.
+- Keep task artifacts small and verifiable. Record commands, inputs, output evidence and limits. Do not report another task's passing results as this task's acceptance.
+- `DALPH.md` is the coordinator's beta-test journal. Task workers report Dalph-related problems in their task evidence; the coordinator consolidates them rather than parallel workers editing the same journal.
