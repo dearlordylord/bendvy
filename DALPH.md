@@ -146,3 +146,11 @@ Issue #15 Run completed, direct child exit 0 at 2026-10-03T23:19:58Z; independen
 Translated and published the eight remaining open issue titles/bodies (#5–#12) in English, preserving acceptance and dependency scope. Executor guidance now identifies the verified successor reports to avoid mistaking the failed original T03 report for an unresolved blocker to these bounded probes.
 
 Next: issue #5 affine Data/Type owned-array payload, isolated Run with repaired provider configuration, capacity 1. Expected 5–20 minutes; absolute stop 2026-10-03T23:45:00Z. Extend the verified provider rather than bypass authority/ownership; record unsupported behavior explicitly and preserve rollback/performance follow-ups.
+
+### T04 delivery independently verified; T05 launch
+
+Issue #5 Run completed, direct child exit 0 at 2026-10-03T23:32:40Z; independent tracker read confirms CLOSED. Remote merge `439cc72a3283783e05d8da73bc512ff61740a27a` has exact parents baseline `d31870ed0808afd93dc5bc7afe2b4953227d858c` and candidate `fca32665b630f489f51c0a2e8969712f43772e55`. Coordinator pulled and ran `experiments/t04/run.sh`, exit 0: prior provider/query gates reproduced, seven paired intended-kind/type controls passed, six ordered Type-owned-array read/update checkpoints matched native/JS/actual TS reference, local affine-element swap/take/traversal controls executed, and compiling no-update mutant detected. General retained owned-array reads, closures/IO-handle payloads, rollback and performance remain open. F05 records explicit costs and return conditions; Data-only scope was not adopted.
+
+Executor reported a rejected `rm -f` cleanup command and used explicit temporary-file deletion instead; no requested work was abandoned. Initial plain gh issue reads hit deprecated projectCards; explicit JSON reads succeeded. These are environment/CLI observations, not demonstrated Dalph delivery failures.
+
+Next original task: #6 reservation/lookup/explicit barriers, isolated state, capacity 1, repaired provider configuration. Read D1 before choosing the experimental runtime-world boundary; same-schema foreign-world safety must not be hidden by normalization or claimed as TS parity. Expected 5–25 minutes; absolute stop 2026-10-04T00:00:00Z. Candidate identity laws remain unapproved and no ECS proofs are authorized.
