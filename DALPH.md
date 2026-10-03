@@ -78,3 +78,41 @@ Operator reference-runtime check: existing Node v24.20.0 imports pinned bevy-ts 
 ### T02 delivery verified with repaired configuration
 
 Issue #3 Run completed, direct child exit 0, independent tracker read CLOSED; remote/master `0d52cd7d6930961606b07a7da43080fce23f6d9a` has parents `ab41a899ec3cb44558e3f1a9c7eccd41c5cb2122` and accepted candidate `424018ac781cecd7144793aab99128e77d800f42`. Main checkout pulled fast-forward. Independent review found a rollback bootstrap ambiguity, which worker repaired before final review. Deliverables are `docs/reference/{core-map,traces,report}.md`; runtime TS goldens remain missing, as explicitly reported. This catalogue completion is not a comparison gate pass. Dedicated provider home works for both executor and integrator of the fresh Run.
+
+### T03 typed-query experiment launch
+
+Start #4 using repaired configuration, capacity 1, isolated clone/state `/workspace/formal-proofs/.dalph-bendvy-beta-issue4`, baseline `74e48cd44825a3a306c04900ec33bc1509d54f4a`, original Codex protocol with dedicated beta provider home. Both native prerequisite issues #2/#3 have completed delivery; source-derived goldens still require actual Node execution for comparison. Expected 10–20 minutes; stop 2026-10-03T21:55:27.045362+00:00. Candidate laws do not authorize proofs; dependency/ownership/access gates remain intact.
+
+### Graph inspection capability
+
+Verified CLI help and production source: `dalph host --production --config ... --listen http://127.0.0.1:PORT TARGET` exposes passive `dalph attach snapshot --host ... --json` and MCP `dalph_read_snapshot`. Ready snapshot contains graph, task placements, current delivery status and held executor correlations. Our #4 invocation uses `run`, so it has no listening host endpoint; do not start a competing host against its common directory. Its emitted HistoricalSnapshot at cursor 85 contains the three-task DAG (#2/#3 completed, #4 open with both prerequisites). Reducer Lab README describes a graphical maintained-cassette viewer, not a dashboard connected to this production Run. User requested graph visibility; choose listening host for a subsequent invocation rather than interrupt ongoing task solely for presentation.
+
+### Native live graph and Docker attachment requirement
+
+User requests live viewing attached to Docker IP, then explicitly rejects a custom viewer/workaround: improve Dalph itself. No viewer/server was launched; empty staging directory removed. Current CLI offers native host/snapshot/MCP, but LocalHostAddress currently accepts only literal 127.0.0.1 and native HTTP boundary rejects browser Origin. Reducer Lab shows maintained cassettes rather than our production Run. Required product follow-up: native production live graph/attachment suitable for Docker IP, with clear supported launch/attachment workflow. Do not present an external log viewer as this feature. Existing #4 executor left untouched.
+
+During discovery a single read-only GitHub GraphQL request failed with "API rate limit already exceeded". No retry or mutation followed; live viewing should consume the host snapshot rather than add tracker API polling.
+
+### Full work graph requested
+
+User requests a native way to retrieve the full graph of the current project/work scope, including tasks outside the selected Run. The observed #4 Run snapshot contains only #2, #3 and #4; the twelve-task diagram shown in chat was assembled by the operator from tickets, not returned by Dalph.
+
+The full graph should include all tasks and dependencies in the declared work scope, with lifecycle statuses and explicit markings for the selected Run and current runnable frontier. Expose the scope and observation freshness so a Run graph cannot be mistaken for the full work graph. Provide this through native attachment/API for live inspection; graph retrieval must not start or schedule the remaining tasks. This is requested product feedback, not an implemented capability.
+
+### Native real-time graph page requested
+
+User explicitly requests a native Dalph browser page showing the current full work graph and its progress in real time: task dependencies and statuses, active Run, runnable frontier, and active execution/integration. The page must update from the running host's observations without manual refresh and show connection/freshness state. It must be accessible through the Docker IP and must not schedule tasks merely by opening it.
+
+This must be a supported Dalph page connected to actual work, not Reducer Lab, a cassette replay, or an operator-built external viewer. The inspected host/attach HTTP boundary provides JSON snapshots, not a live graph page; removing its loopback restriction alone does not implement this requirement. The operator previously confused those capabilities and showed Lab instead of the requested live page. This feedback requests the missing native UI; no implemented live page is claimed.
+
+### Native Docker-IP attachment repair authorized
+
+User explicitly authorizes editing Dalph itself. Source confirms both LocalHostAddress schema and listener bind are hardcoded to 127.0.0.1. Isolated branch/worktree `fix/docker-host-address` at `/workspace/typescript/dalph-docker-host-fix`, base `843511df5a2c3664947c86659c32b9d038d6a200`, protects current running executor and other source changes. Preparation expected 1–3 minutes; stop 2026-10-03T21:50:39.787309+00:00. Record accepted Docker-IP scenario before runtime edits; retain exact Host checks and Origin rejection.
+
+Docker host fix validation intent: focused native HTTP/contract/CLI/MCP tests, then isolated package build and `check:fast`; expected 1–4 minutes, stop 2026-10-03T21:56:45.901487+00:00. First new test used fetch with an overridden Host header, which the client normalized, so it did not send the intended negative input. Replaced that test request with node:http to verify actual authority rejection; production guard unchanged.
+
+Docker-IP API repair committed as `73451747b` and merged into the existing Dalph master without replacing intervening changes. Verification: package build, `check:fast`, five focused files / 77 tests, and recorded-catalog coverage passed. This enables native JSON/CLI/MCP attachment on an explicit IPv4 interface; it does not create a browser page. Original checkout build is being refreshed; expected 1–3 minutes, bounded by ten minutes from invocation.
+
+### T03 negative report verified; early T12 checkpoint
+
+Remote master delivered T03 merge `5f740d11c21ee8ba394972c90baab261861b07cf`; direct Run exit is 0. Coordinator pulled that revision and independently ran `experiments/t03/run.sh`: finite TS/native/JS outputs match, but exported constructors permit the planted write-capability forgery (`99`). The script's successful reproduction confirms a FAILED capability gate, not an accepted query API. Normal downstream implementation/proofs remain blocked. T12 (#13) explicitly permits an early bounded redesign document after this negative outcome; prepare that checkpoint through Dalph, retaining full core requirements and human review before publishing any new ticket breakdown.
