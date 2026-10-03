@@ -123,4 +123,4 @@ The shared understanding from the interview is confirmed, with the final perform
 
 At creation, the repository contains research and planning documents only. Reference commits are pinned in the reference manifest; reference source checkouts are local and excluded from Git. Installed Bend was previously observed as 2.0.34; its compatibility and alignment with the pinned source must be checked again during environment preparation.
 
-The issue tracker is GitHub Issues, the triage label is `ready-for-agent`, and the repository's primary branch is `master`. The test-seam proposal is awaiting the required user check before issue publication; it does not block preparing the local specification or creating the repository.
+The issue tracker is GitHub Issues, the triage label is `ready-for-agent`, and the repository's primary branch is `master`. The primary testing boundary follows the previously approved plan: identical TS/Bend scenarios compared by observable behavior, plus negative compile checks for access guarantees. There is no request to approve a new internal testing boundary.
