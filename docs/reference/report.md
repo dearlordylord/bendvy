@@ -50,3 +50,9 @@ Acceptance ledger всех R1–R6: expected source-derived; raw runtime output 
 - Нет изменений original jev/dalph, DALPH.md, master, reference checkouts или coordinator state; публикация/close issue остаётся integrator.
 
 Documentation verification: relative links и все source file paths проверяются перед commit; `git diff --check` должен пройти. Fresh independent review проверяет `Base..HEAD` перед accepted result; findings фиксируются ниже после review. Dalph-related execution problems кроме отсутствия автоматической передачи dependency approval не наблюдались; отсутствие approval ожидаемо по gate и не объявляется Dalph defect.
+
+## Candidate verification и независимый review
+
+- Проверка Python standard library (`pathlib/re/json/subprocess`): относительные Markdown links разрешаются; explicit `src/`, `test/`, `dtslint/` paths существуют в pinned core; simulation source проверен отдельно; все manifest commits совпадают; headings дают ровно R1–R6. Output: `PASS: relative links, pinned commits, explicit core source paths, exactly six trace descriptions`. Первый regex ошибочно считал вложенный `examples/top-down/test/simulation.test.ts` core path; исправлена проверка границы path, source существовал.
+- `git diff --check`: exit 0. Документационный check не является TS/Bend execution или acceptance traces.
+- Round 1: fresh reviewer, inherited same model, medium reasoning, Base..`fd7e39158469314392fddb362cfcd84f1705296d`. Один blocker: R3 registration не задавал empty callback branch; также уточнить separate Ping read/write slots и explicit ObserverPing registration. Исправлено: host phase bootstrap читает и succeeds без mutation/publication, registration schedule вызывает оба readers, attempt phase activates fail-once writes. Остальных reasonable blockers reviewer не обнаружил. Исправленный candidate подлежит fresh round 2 до accepted result.
