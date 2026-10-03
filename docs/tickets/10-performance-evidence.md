@@ -1,6 +1,6 @@
-# T10: Сопоставимые native/JS benchmarks
+# T10: Comparable native/JavaScript benchmarks
 
-**Status:** опубликован, `ready-for-agent`. [GitHub #11](https://github.com/dearlordylord/bendvy/issues/11).
+**Status:** published, `ready-for-agent`. [GitHub #11](https://github.com/dearlordylord/bendvy/issues/11).
 
 ## Parent
 
@@ -8,26 +8,25 @@ https://github.com/dearlordylord/bendvy/issues/1
 
 ## What to build
 
-Разработчик воспроизводимо сравнивает bevy-ts с native и JS экспериментальным ECS на одинаковых операциях и видит стоимость traversal, updates, churn, readers и rollback.
+Reproducibly compare bevy-ts with the native and JavaScript experimental ECS on equivalent operations, exposing traversal, update, churn, reader and rollback costs.
 
 ## Acceptance criteria
 
-- [ ] Результаты всех измеряемых workloads предварительно совпадают по наблюдениям; benchmark не упрощает semantics ради выигрыша.
-- [ ] Входы и среды закреплены; compilation/checker/setup отделены от исполнения; worker count, JS warmup, повторения и разброс опубликованы.
-- [ ] Есть sparse/dense traversal, updates, structural churn, event reads и rollback на нескольких размерах; измерение памяти описывает метод и ограничения.
-- [ ] Численные критерии native significant speedup и JS comparability предложены с обоснованием для согласования; performance requirement не отменено.
-- [ ] Отчёт не требует уже готового full-core engine. Медленный prototype не скрывается: записаны конкретные проблемы, альтернативы и что это блокирует.
-- [ ] Микронагрузки не используются как доказательство окончательного performance acceptance; полные workload gates остаются follow-up.
-
+- [ ] Validate matching observations for every measured workload before timing; do not weaken semantics to improve benchmark results.
+- [ ] Pin inputs/environments; separate compilation/checking/setup from execution; publish worker count, JavaScript warmup, repetitions and variability.
+- [ ] Include sparse/dense traversal, updates, structural churn, event reads and rollback at multiple sizes; document memory measurement methods and limitations.
+- [ ] Propose justified numerical thresholds for significant native speedup and JavaScript comparability for approval; preserve the performance requirement.
+- [ ] The report does not require an already completed full-core engine. Expose a slow prototype honestly, identifying concrete problems, alternatives and blockers.
+- [ ] Microbenchmarks do not establish final performance acceptance; full workload gates remain explicit follow-ups.
 
 ## Blocked by
 
-- T04: Affine payload без потери владения
-- T05: Reservation, lookup и явный structural barrier
-- T06: Успешный commit и failed-system rollback
-- T07: Два event reader, retry и retention
-- T08: Независимые change/removal observations
+- T04: Affine payload without losing ownership
+- T05: Reservation, lookup and explicit structural barrier
+- T06: Successful commit and failed-system rollback
+- T07: Two event readers, retry and retention
+- T08: Independent change/removal observations
 
 ## Outcome gates
 
-Исследование может завершиться воспроизводимым отрицательным результатом: это завершённый report, но не пройденный capability gate. При невозможности обязательного поведения немедленно готовим ограниченный redesign/specification decision; зависимые implementation/proof работы остаются заблокированы. Follow-up не означает, что поведение принято или исключено из цели.
+Research may conclude with a reproducible negative result: the report is complete, but the capability gate has not passed. If mandatory behavior cannot be expressed, immediately prepare a bounded redesign/specification decision; dependent implementation/proof work remains blocked. A follow-up does not mean the behavior has been accepted or removed from the goal.

@@ -1,6 +1,6 @@
-# T09: Вложенный schedule с provisioning и failure
+# T09: Nested schedule with provisioning and failure
 
-**Status:** опубликован, `ready-for-agent`. [GitHub #10](https://github.com/dearlordylord/bendvy/issues/10).
+**Status:** published, `ready-for-agent`. [GitHub #10](https://github.com/dearlordylord/bendvy/issues/10).
 
 ## Parent
 
@@ -8,21 +8,20 @@ https://github.com/dearlordylord/bendvy/issues/1
 
 ## What to build
 
-Повторно запускаемый вложенный schedule получает объявленные resource/service requirements и возвращает ожидаемый typed system failure без выдачи лишнего доступа.
+A repeatedly executable nested schedule receives declared resource/service requirements and returns the expected typed system failure without granting extra access.
 
 ## Acceptance criteria
 
-- [ ] Есть один корректно обеспеченный schedule и controls с missing/incompatible provision; static/dynamic граница зафиксирована по evidence.
-- [ ] Вложенность сохраняет порядок и требования; ошибка не теряет identity system и не требует безусловного whole-world access.
-- [ ] Host service interaction не обещает ECS rollback внешних эффектов.
-- [ ] Публичный пример исполняется native/JS; ограничения affine callbacks и repeated execution проверены.
-- [ ] Это минимальная композиция, не полное покрытие fragments/features/phases/conditions.
-
+- [ ] Provide one correctly provisioned schedule and missing/incompatible-provision controls; establish the static/dynamic boundary from evidence.
+- [ ] Nesting preserves order and requirements; failures retain system identity and do not require unconditional whole-world access.
+- [ ] Host service interactions do not promise ECS rollback of external effects.
+- [ ] Execute the public example on native/JavaScript; test affine callback and repeated-execution limits.
+- [ ] This is a minimal composition, not complete coverage of fragments/features/phases/conditions.
 
 ## Blocked by
 
-- T03: Повторяемая типобезопасная query на двух мирах
+- T03: Repeatable type-safe queries on two worlds
 
 ## Outcome gates
 
-Исследование может завершиться воспроизводимым отрицательным результатом: это завершённый report, но не пройденный capability gate. При невозможности обязательного поведения немедленно готовим ограниченный redesign/specification decision; зависимые implementation/proof работы остаются заблокированы. Follow-up не означает, что поведение принято или исключено из цели.
+Research may conclude with a reproducible negative result: the report is complete, but the capability gate has not passed. If mandatory behavior cannot be expressed, immediately prepare a bounded redesign/specification decision; dependent implementation/proof work remains blocked. A follow-up does not mean the behavior has been accepted or removed from the goal.

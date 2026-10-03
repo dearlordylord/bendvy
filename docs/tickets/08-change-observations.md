@@ -1,6 +1,6 @@
-# T08: Независимые change/removal observations
+# T08: Independent change/removal observations
 
-**Status:** опубликован, `ready-for-agent`. [GitHub #9](https://github.com/dearlordylord/bendvy/issues/9).
+**Status:** published, `ready-for-agent`. [GitHub #9](https://github.com/dearlordylord/bendvy/issues/9).
 
 ## Parent
 
@@ -8,20 +8,20 @@ https://github.com/dearlordylord/bendvy/issues/1
 
 ## What to build
 
-Две системы с разной частотой независимо наблюдают added/changed и removed/despawned в маленьком сценарии; пропуск и failure не смешивают жизненные циклы с buffered events.
+Two systems running at different rates independently observe added/changed and removed/despawned in a small scenario; skipping and failure must not conflate lifecycle observations with buffered events.
 
 ## Acceptance criteria
 
-- [ ] Добавление и обновление компонента видны каждому reader ровно по reference-позиции; отсутствие structural marker не подменяет commit visibility.
-- [ ] Removal/despawn observations доступны после исчезновения сущности и независимы между readers; retention/lag сверены с соответствующим upstream контрактом.
-- [ ] Failed reader сохраняет позицию; skip правила проверены именно для change/lifecycle, а не перенесены из event stream автоматически.
-- [ ] Native/JS наблюдения совпадают с нормализованным TS reference; controls различают message cursor и change tick.
-- [ ] Candidate guarantees и границы доказуемого слоя записаны; это не proof universal refinement.
+- [ ] Each reader observes component additions/updates at the reference position; absence of a structural marker does not replace commit visibility.
+- [ ] Removal/despawn observations survive entity disappearance and are independent across readers; compare retention/lag with the corresponding upstream contract.
+- [ ] A failed reader retains its position; test change/lifecycle skip rules directly rather than importing event-stream rules.
+- [ ] Native/JavaScript observations match the normalized TypeScript reference; controls distinguish message cursors from change ticks.
+- [ ] Record candidate guarantees and boundaries of the provable layer; this is not universal refinement proof.
 
 ## Blocked by
 
-- T06: Успешный commit и failed-system rollback
+- T06: Successful commit and failed-system rollback
 
 ## Outcome gates
 
-Исследование может завершиться воспроизводимым отрицательным результатом: это завершённый report, но не пройденный capability gate. При невозможности обязательного поведения немедленно готовим ограниченный redesign/specification decision; зависимые implementation/proof работы остаются заблокированы. Follow-up не означает, что поведение принято или исключено из цели.
+Research may conclude with a reproducible negative result: the report is complete, but the capability gate has not passed. If mandatory behavior cannot be expressed, immediately prepare a bounded redesign/specification decision; dependent implementation/proof work remains blocked. A follow-up does not mean the behavior has been accepted or removed from the goal.

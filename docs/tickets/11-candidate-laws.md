@@ -1,6 +1,6 @@
-# T11: Первый конкретный пакет законов и falsification
+# T11: First concrete law and falsification package
 
-**Status:** опубликован, `ready-for-agent`. [GitHub #12](https://github.com/dearlordylord/bendvy/issues/12).
+**Status:** published, `ready-for-agent`. [GitHub #12](https://github.com/dearlordylord/bendvy/issues/12).
 
 ## Parent
 
@@ -8,24 +8,24 @@ https://github.com/dearlordylord/bendvy/issues/1
 
 ## What to build
 
-Пользователь получает первый конечный пакет кандидатных законов для экспериментальных identity/query/commands: с объяснениями, falsification/control и эскизами proof. Пакет задаёт достаточно точные обязательства для спецификации отдельных proof-тикетов.
+Present the first finite candidate-law package for experimental identity/query/commands, including explanations, falsification/controls and proof sketches. The package must define precise obligations for separate proof tickets.
 
 ## Acceptance criteria
 
-- [ ] Указаны конкретные функции/интерфейсы и конечный список general laws; проверены полнота membership, preservation и bounds, а не только soundness.
-- [ ] Для каждой law указан предмет: исполняемая функция либо отдельная модель. Для модели заданы runtime-to-model mapping, допустимые состояния и обязательства correspondence/preservation переходов.
-- [ ] Runtime traces — конечное test evidence, не universal refinement proof; недоказанный refinement не позволяет объявить runtime API доказанным.
-- [ ] Falsification охватывает premises и границы, посаженный компилируемый дефект обнаруживается; skips/error/coverage gaps записаны, checker runs ограничены 5 s.
-- [ ] У каждой law есть plain-language rationale, controls и proof sketch; dependencies proof пакета следуют именно используемым определениям и representation choices.
-- [ ] Пакет представлен для явного approval; при требуемом пересмотре типов/storage ожидается соответствующее evidence, а не blanket approval.
-- [ ] Законы transaction/readers/provisioning подготавливаются по готовности их собственных модулей, без общей блокировки benchmark; их точные review/proof тикеты оформляются следующим checkpoint. Нынешний тикет не пишет proofs и не превращает неопределённые пакеты в ready-for-agent задачи.
+- [ ] Identify concrete functions/interfaces and a finite set of general laws; test membership completeness, preservation and bounds rather than soundness alone.
+- [ ] Identify each law's subject: an executable function or a separate model. For models, specify runtime-to-model mapping, admissible states and transition correspondence/preservation obligations.
+- [ ] Runtime traces are finite test evidence, not universal refinement proofs; unproved refinement cannot justify calling the runtime API proven.
+- [ ] Falsification covers premises and boundaries and detects a planted compiling defect; record skips/errors/coverage gaps and bound checker invocations to five seconds.
+- [ ] Give every law a plain-language rationale, controls and proof sketch; proof-package dependencies follow the actual definitions and representation choices.
+- [ ] Present the package for explicit approval; required type/storage redesign waits for relevant evidence rather than blanket approval.
+- [ ] Prepare transaction/reader/provisioning laws as their modules become ready, without a blanket benchmark dependency; specify exact review/proof tickets at the next checkpoint. This ticket writes no proofs and does not mark undefined packages ready-for-agent.
 
 ## Blocked by
 
-- T02: Карта core и reference traces
-- T03: Повторяемая типобезопасная query на двух мирах
-- T05: Reservation, lookup и явный structural barrier
+- T02: Core catalogue and reference traces
+- T03: Repeatable type-safe queries on two worlds
+- T05: Reservation, lookup and explicit structural barrier
 
 ## Outcome gates
 
-Исследование может завершиться воспроизводимым отрицательным результатом: это завершённый report, но не пройденный capability gate. При невозможности обязательного поведения немедленно готовим ограниченный redesign/specification decision; зависимые implementation/proof работы остаются заблокированы. Follow-up не означает, что поведение принято или исключено из цели.
+Research may conclude with a reproducible negative result: the report is complete, but the capability gate has not passed. If mandatory behavior cannot be expressed, immediately prepare a bounded redesign/specification decision; dependent implementation/proof work remains blocked. A follow-up does not mean the behavior has been accepted or removed from the goal.

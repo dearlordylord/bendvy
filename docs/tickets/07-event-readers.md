@@ -1,6 +1,6 @@
-# T07: Два event reader, retry и retention
+# T07: Two event readers, retry and retention
 
-**Status:** опубликован, `ready-for-agent`. [GitHub #8](https://github.com/dearlordylord/bendvy/issues/8).
+**Status:** published, `ready-for-agent`. [GitHub #8](https://github.com/dearlordylord/bendvy/issues/8).
 
 ## Parent
 
@@ -8,20 +8,19 @@ https://github.com/dearlordylord/bendvy/issues/1
 
 ## What to build
 
-Два независимо запускаемых event reader работают с разной частотой; failed reader повторяет чтение, skipped reader и overflow ведут себя по reference-контрактам.
+Run two independent event readers at different rates; a failed reader retries its read, while skipped-reader and overflow behavior follows the reference contracts.
 
 ## Acceptance criteria
 
-- [ ] Один reader не расходует данные другого; commit event виден по reference-порядку без привязки к structural flush.
-- [ ] Failed reader не продвигает cursor; skip rules различают messages и change detection.
-- [ ] Retention/capacity/lag проверены на маленьких граничных входах; native/JS наблюдения сопоставлены с TS.
-- [ ] Candidate laws ограничены buffered event readers; change/lifecycle observations — отдельный тикет, transition/relation streams остаются в карте core.
-
+- [ ] One reader does not consume another reader's data; committed events follow reference visibility/order without requiring a structural flush.
+- [ ] A failed reader does not advance its cursor; distinguish message skip rules from change detection.
+- [ ] Test retention/capacity/lag on small boundary inputs; compare native/JavaScript observations with TypeScript.
+- [ ] Limit candidate laws to buffered event readers; change/lifecycle observations have a separate ticket, and transition/relation streams remain in the core map.
 
 ## Blocked by
 
-- T06: Успешный commit и failed-system rollback
+- T06: Successful commit and failed-system rollback
 
 ## Outcome gates
 
-Исследование может завершиться воспроизводимым отрицательным результатом: это завершённый report, но не пройденный capability gate. При невозможности обязательного поведения немедленно готовим ограниченный redesign/specification decision; зависимые implementation/proof работы остаются заблокированы. Follow-up не означает, что поведение принято или исключено из цели.
+Research may conclude with a reproducible negative result: the report is complete, but the capability gate has not passed. If mandatory behavior cannot be expressed, immediately prepare a bounded redesign/specification decision; dependent implementation/proof work remains blocked. A follow-up does not mean the behavior has been accepted or removed from the goal.

@@ -1,6 +1,6 @@
-# T05: Reservation, lookup и явный structural barrier
+# T05: Reservation, lookup and explicit structural barrier
 
-**Status:** опубликован, `ready-for-agent`. [GitHub #6](https://github.com/dearlordylord/bendvy/issues/6).
+**Status:** published, `ready-for-agent`. [GitHub #6](https://github.com/dearlordylord/bendvy/issues/6).
 
 ## Parent
 
@@ -8,21 +8,20 @@ https://github.com/dearlordylord/bendvy/issues/1
 
 ## What to build
 
-Через экспериментальный API резервируется сущность, становится live лишь на marker, затем удаляется; lookup и query дают правильные результаты до и после каждого действия.
+Reserve an entity through the experimental API, make it live only at an explicit marker, then remove it; lookup/query observations must be correct before and after each action.
 
 ## Acceptance criteria
 
-- [ ] Сценарий показывает pending spawn, live handle, stale и foreign handle; storage bounds проверяются до array access.
-- [ ] Schedule completion не flush-ит pending commands; следующий schedule может применить их явным marker.
-- [ ] Insert/remove/despawn и порядок query сохраняют ожидаемые наблюдения; reuse/exhaustion policy не выбрана без явного обоснования.
-- [ ] Native/JS trace совпадает с TS reference после нормализации; reservation не трактуется как доказательство liveness.
-- [ ] Кандидатные законы identity, membership и commands представлены с plain-language смыслом; proof ещё не пишется.
-
+- [ ] Cover pending spawn, live, stale and foreign handles; check storage bounds before array access.
+- [ ] Schedule completion does not flush pending commands; a subsequent schedule can apply them through an explicit marker.
+- [ ] Insert/remove/despawn and query order preserve expected observations; justify any chosen reuse/exhaustion policy explicitly.
+- [ ] Native/JavaScript traces match the normalized TypeScript reference; reservation is not evidence of liveness.
+- [ ] Present candidate identity, membership and command laws with plain-language explanations; do not write proofs yet.
 
 ## Blocked by
 
-- T03: Повторяемая типобезопасная query на двух мирах
+- T03: Repeatable type-safe queries on two worlds
 
 ## Outcome gates
 
-Исследование может завершиться воспроизводимым отрицательным результатом: это завершённый report, но не пройденный capability gate. При невозможности обязательного поведения немедленно готовим ограниченный redesign/specification decision; зависимые implementation/proof работы остаются заблокированы. Follow-up не означает, что поведение принято или исключено из цели.
+Research may conclude with a reproducible negative result: the report is complete, but the capability gate has not passed. If mandatory behavior cannot be expressed, immediately prepare a bounded redesign/specification decision; dependent implementation/proof work remains blocked. A follow-up does not mean the behavior has been accepted or removed from the goal.
