@@ -1,0 +1,6 @@
+#!/bin/sh
+set -u
+TO=timeout
+command -v "$TO" >/dev/null 2>&1 || TO=gtimeout
+command -v "$TO" >/dev/null 2>&1 || exit 127
+exec "$TO" --signal=KILL 5 bend "$@"
