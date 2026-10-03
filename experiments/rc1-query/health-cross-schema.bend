@@ -1,0 +1,10 @@
+import Base
+import ./api.bend as A
+import ./schemas.bend as S
+import ./system.bend as C
+
+def wrong(-P: Type, -M: Type, result: P & U32, m: M) -> P & (M & String):
+  match result:
+    case (p, x): (p, (m, U32.show(x)))
+def bad(-P: Type, -M: Type, get: P -> S.HealthToken -> P & U32, aux: M -> M & S.CombatData, label: String, p: P, m: M) -> P & (M & String):
+  wrong(P, M, get(p, S.Position{}), m)

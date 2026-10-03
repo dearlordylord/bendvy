@@ -121,3 +121,16 @@ State/membership всё время после setup live a; update не новы
 **Evidence/replay:** “reports missing nominal requirements before executing an erased schedule”; `src/Requirement.ts`; `test/Runtime.resources.test.ts:282,329` service identity; `dtslint/Runtime.tst.ts` static provision constraints. Dynamic erased preflight не заменяет Bend compile-time declaration checks. Nested schedules/conditions/features union requirements остаётся T09.
 
 **Blocks:** T09 provisioning acceptance; related failures должны distinguish authored missing requirement от runtime system error.
+
+## R-C1 observed R2 checkpoint (2026-10-03)
+
+The initial `not-observed` status above is historical. The R2 component/query
+recipe has now been executed in [R-C1](../../experiments/rc1-query/README.md), with
+[actual Node transcript](../../experiments/rc1-query/observed.txt), matching native
+and JavaScript observations. It includes all setup/three-step own-read and later
+reader checkpoints, presence/absence/optional traversals and live-b lookup,
+without sorting query order or flushing after component writes. A second
+HitPoints/Damage/optional-Armor composition has its own executed inputs and
+checkpoints. R1 and R3–R6 are not upgraded by this report. Bend structural setup
+parity, lifecycle identity, rollback/readers, universal refinement and performance
+remain open; no source-derived description is relabeled as executed evidence.
