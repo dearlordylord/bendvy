@@ -5,6 +5,7 @@ Bevy-style ECS for Bend 2. Target: the full core behavior of the pinned bevy-ts 
 This repository currently contains research and a development specification; no ECS implementation or performance results exist yet.
 
 - [Specification](docs/SPEC.md)
+- [GitHub task #1](https://github.com/dearlordylord/bendvy/issues/1) (`ready-for-agent`)
 - [Near-term plan](docs/next-stage-plan.md)
 - [Agreed scope](docs/planning-scope.md)
 - [Development roadmap](docs/development-roadmap.md)
