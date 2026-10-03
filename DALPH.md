@@ -130,3 +130,9 @@ Coordinator prepared local `docs/tickets/13-safe-provider-draft.md` for review: 
 ### R-A publication and launch authorized
 
 User reviewed the concrete R-A proposal and explicitly approved continuation. English issue #14 was created for the safe-provider experiment; subsequent task instructions and reports must be in English. Original implementation/proof gates remain closed pending evidence. Start a separate Dalph Run at the newly published master, capacity 1, repaired provider configuration. Expected 5–20 minutes; absolute stop 2026-10-03T23:12:00Z. Negative/inconclusive outcomes require a bounded report rather than scope reduction.
+
+### R-A delivery verified; conditional query integration
+
+Issue #14 Run completed; direct child exit 0 at 2026-10-03T22:58:35Z. Independent tracker read confirms CLOSED. Remote merge `35a910ea39bb64a6ac634e5d78b0b5c326efe77b` has exact parents approved base and candidate `6c36c3dbd73db1ef88b35563511aff407dd24f05`. Coordinator pulled and independently executed `experiments/ra-provider/run.sh`, exit 0: seven intended-type rejection fixtures with paired positive controls, native/JS/reference checkpoints 2/4/6, and a detected compiling no-update mutant. Rank-2 abstract affine handles establish a bounded safe-provider result for tested closed callbacks; two complete schemas/full R2 and universal refinement remain open. No Dalph execution failure observed.
+
+User approved continuation after being shown the conditional path: successful provider probe expands to two worlds and full query observations. English issue #15 implements only that next experimental R-C1 slice; it does not authorize a production API, checked-action replacement, proofs or reduced core scope. Launch isolated Run, capacity 1, repaired configuration; expected 10–25 minutes, absolute stop 2026-10-03T23:30:00Z. Normal dependent implementation remains gated on complete independent verification of #15.
