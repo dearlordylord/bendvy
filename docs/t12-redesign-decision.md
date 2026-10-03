@@ -136,3 +136,14 @@ redesign, не превращает прежние результаты в но�
 Нет изменения master, parent, DALPH.md, claims, references, original canonical-defense
 или dependencies. Dalph-related проблем не наблюдалось. Ordinary acceptance T12
 остаётся условной и неполной; результат этой задачи — bounded redesign candidate.
+
+## R-C1 evidence update (2026-10-03)
+
+[R-C1](../experiments/rc1-query/README.md) now supplies bounded abstract query
+integration on two distinct component compositions, including full post-setup R2
+ordered public checkpoints, 28 paired type controls and a compiling detected
+mutant. This is a candidate experimental return gate, subject to independent
+coordinator verification. It does not select production storage/API, approve laws,
+close affine Type payload/identity/transaction/reader/schedule/refinement or
+performance gates, or reopen simulation implementation without those prerequisites.
+See the [updated evidence map](follow-ups.md#r-c1-bounded-query-evidence-2026-10-03).

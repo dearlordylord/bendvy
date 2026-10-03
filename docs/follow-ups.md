@@ -29,3 +29,24 @@
 F02 дополнительно зависит от F08/F09/F10 в объёме реально используемых copied
 canonical-defense контрактов: integration planning определяет этот объём после
 headless simulation. Original jev/dalph остаются неизменны; F06 не разрешён автоматически.
+
+## R-C1 bounded query evidence (2026-10-03)
+
+[R-C1 report](../experiments/rc1-query/README.md) records this task's executed
+62 ordered native/JS/Node-reference checkpoints and 28 paired type controls.
+Subject to coordinator verification, the experimental two-schema typed-query/R2
+return gate passes. This does not accept a production API, Data-only payloads,
+universal confinement/refinement or performance. Historical T03 remains a failed
+constructor-boundary design; R-A/R-C1 are separate bounded evidence.
+
+| Gate / simplification | Exact new coverage | Remaining blocker / return condition |
+|---|---|---|
+| F07 authority integration | Abstract per-row read/write callbacks; two composed schemas; constructor, nested query/lookup, malformed returns and cross-schema controls | Broader callbacks/captures, language-wide confinement and approved laws; return before production API selection |
+| F01/F05 storage/query | Fixed two-row ordered traversal; required/present/absent/optional and live-b mismatch/optional lookup; immediate and later reads across three steps | Affine Type payloads #5, identity/barriers #6, dynamic/scalable layout and update/rollback costs; fixed fixtures are not final storage |
+| Closed callbacks / finite operations | Repeated closed Step templates; two separate affine readers before/after a write; no copied world/row/cell | Captured state, errors, general operation sequences and nested schedules/provisioning #10 |
+| Transactions/readers | Only successful component-update visibility without structural flush | Rollback #7 and independent event/change reader gates #8/#9 unchanged |
+| F11 proof/performance return | Finite runtime comparison and compiling no-update mutant; candidate statements recorded before proof | #11 representative performance and approved thresholds; #12 exact law approval; model/executable proofs and universal refinement absent |
+| Full core F08/F09/F10, F02/F06 | No scope reduction or integration claim | Relations/scopes, states, tooling and copied canonical-defense retain their original prerequisites |
+
+The original dependent probes #5, #6, #10 and #12 may resume only through the
+coordinator's independently verified return decision. The parent remains open.

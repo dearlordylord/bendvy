@@ -1,0 +1,170 @@
+[
+  {
+    "fixture": "motion-write-read",
+    "expected": "A.Cell<S.MotionToken>",
+    "observed": "P",
+    "location": "bad"
+  },
+  {
+    "fixture": "motion-undeclared",
+    "expected": "S.TagCell",
+    "observed": "M",
+    "location": "bad"
+  },
+  {
+    "fixture": "motion-cross-schema",
+    "expected": "S.MotionToken",
+    "observed": "S.HealthToken",
+    "location": "bad"
+  },
+  {
+    "fixture": "motion-reconstruct",
+    "expected": "P",
+    "observed": "A.Cell",
+    "location": "forge"
+  },
+  {
+    "fixture": "motion-fabricate-setter",
+    "expected": "P",
+    "observed": "A.Cell<S.MotionToken>",
+    "location": "bad"
+  },
+  {
+    "fixture": "motion-fabricate-world",
+    "expected": "P",
+    "observed": "A.World<S.MotionToken, S.TagCell>",
+    "location": "bad"
+  },
+  {
+    "fixture": "motion-fabricate-row",
+    "expected": "P",
+    "observed": "A.Row",
+    "location": "bad"
+  },
+  {
+    "fixture": "motion-fabricate-aux",
+    "expected": "M",
+    "observed": "S.TagCell",
+    "location": "bad"
+  },
+  {
+    "fixture": "motion-query-return",
+    "expected": "P",
+    "observed": "A.World<S.MotionToken, S.TagCell>",
+    "location": "nested"
+  },
+  {
+    "fixture": "motion-lookup-return",
+    "expected": "P",
+    "observed": "A.World<S.MotionToken, S.TagCell>",
+    "location": "looked"
+  },
+  {
+    "fixture": "health-write-read",
+    "expected": "A.Cell<S.HealthToken>",
+    "observed": "P",
+    "location": "bad"
+  },
+  {
+    "fixture": "health-undeclared",
+    "expected": "S.CombatCell",
+    "observed": "M",
+    "location": "bad"
+  },
+  {
+    "fixture": "health-cross-schema",
+    "expected": "S.HealthToken",
+    "observed": "S.MotionToken",
+    "location": "bad"
+  },
+  {
+    "fixture": "health-reconstruct",
+    "expected": "P",
+    "observed": "A.Cell",
+    "location": "forge"
+  },
+  {
+    "fixture": "health-fabricate-setter",
+    "expected": "P",
+    "observed": "A.Cell<S.HealthToken>",
+    "location": "bad"
+  },
+  {
+    "fixture": "health-fabricate-world",
+    "expected": "P",
+    "observed": "A.World<S.HealthToken, S.CombatCell>",
+    "location": "bad"
+  },
+  {
+    "fixture": "health-fabricate-row",
+    "expected": "P",
+    "observed": "A.Row",
+    "location": "bad"
+  },
+  {
+    "fixture": "health-fabricate-aux",
+    "expected": "M",
+    "observed": "S.CombatCell",
+    "location": "bad"
+  },
+  {
+    "fixture": "health-query-return",
+    "expected": "P",
+    "observed": "A.World<S.HealthToken, S.CombatCell>",
+    "location": "nested"
+  },
+  {
+    "fixture": "health-lookup-return",
+    "expected": "P",
+    "observed": "A.World<S.HealthToken, S.CombatCell>",
+    "location": "looked"
+  },
+  {
+    "fixture": "motion-write-return",
+    "expected": "P",
+    "observed": "A.Cell<S.MotionToken>",
+    "location": "bad"
+  },
+  {
+    "fixture": "motion-cross-cell",
+    "expected": "A.Cell<S.MotionToken>",
+    "observed": "A.Cell<S.HealthToken>",
+    "location": "bad"
+  },
+  {
+    "fixture": "health-write-return",
+    "expected": "P",
+    "observed": "A.Cell<S.HealthToken>",
+    "location": "bad"
+  },
+  {
+    "fixture": "health-cross-cell",
+    "expected": "A.Cell<S.HealthToken>",
+    "observed": "A.Cell<S.MotionToken>",
+    "location": "bad"
+  },
+  {
+    "fixture": "motion-cross-world",
+    "expected": "A.World<S.MotionToken, S.TagCell>",
+    "observed": "A.World<S.HealthToken, S.CombatCell>",
+    "location": "bad"
+  },
+  {
+    "fixture": "health-cross-world",
+    "expected": "A.World<S.HealthToken, S.CombatCell>",
+    "observed": "A.World<S.MotionToken, S.TagCell>",
+    "location": "bad"
+  },
+  {
+    "fixture": "motion-writable-provider",
+    "expected": "P",
+    "observed": "A.World<S.MotionToken, S.TagCell>",
+    "location": "nested"
+  },
+  {
+    "fixture": "health-writable-provider",
+    "expected": "P",
+    "observed": "A.World<S.HealthToken, S.CombatCell>",
+    "location": "nested"
+  }
+]
