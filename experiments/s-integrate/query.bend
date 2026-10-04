@@ -50,10 +50,15 @@ def row_join(-M: Type,-A: Type,-F: Data,-O: Data,result: S.Row<M,A,F> & Maybe<&2
   match result:
     case (row,None{}): join_empty(M,A,F,O,row,tail)
     case (row,Some{value}): join_value(M,A,F,O,row,value,tail)
-def read_rows(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),rows: List<S.Row<M,A,F>>,+selection: Selection,+namespace: U32) -> List<S.Row<M,A,F>> & List<&2,O>:
+def read_rows_finish(-M:Type,-A:Type,-F:Data,-O:Data,result:List<S.Row<M,A,F>> & List<&2,O>) -> List<S.Row<M,A,F>> & List<&2,O>:
+  match result:
+    case (rows,values): (List.reverse(&1,S.Row<M,A,F>,rows),List.reverse(&2,O,values))
+def read_rows_go(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),rows: List<S.Row<M,A,F>>,+selection: Selection,+namespace: U32,state: List<S.Row<M,A,F>> & List<&2,O>) -> List<S.Row<M,A,F>> & List<&2,O>:
   match rows:
-    case Nil{}: ([],[])
-    case Con{row,tail}: row_join(M,A,F,O,read_row(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,selection,namespace,row),read_rows(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,tail,selection,namespace))
+    case Nil{}: read_rows_finish(M,A,F,O,state)
+    case Con{row,tail}: read_rows_go(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,tail,selection,namespace,row_join(M,A,F,O,read_row(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,selection,namespace,row),state))
+def read_rows(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),rows: List<S.Row<M,A,F>>,+selection: Selection,+namespace: U32) -> List<S.Row<M,A,F>> & List<&2,O>:
+  read_rows_go(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,rows,selection,namespace,([],[]))
 def each_return(-Schema: Data,-M: Type,-A: Type,-F: Data,-L: Type,-Mode: Data,-O: Data,namespace: U32,next: U32,pending: List<S.Command<M,A,F>>,ledger: Maybe<L>,mode: Mode,result: List<S.Row<M,A,F>> & List<&2,O>) -> S.World<Schema,M,A,F,L,Mode> & List<&2,O>:
   match result:
     case (rows,observations): (S.World{namespace,next,rows,pending,ledger,mode},observations)

@@ -62,11 +62,17 @@ def rows_head(-M: Type,-A: Type,-F: Data,-V: Data,-AV: Data,
   head: S.Row<M,A,F> & RowView<V,AV,F>,tail: List<S.Row<M,A,F>> & List<&2,RowView<V,AV,F>>) -> List<S.Row<M,A,F>> & List<&2,RowView<V,AV,F>>:
   match head:
     case (owner,value): rows_tail(M,A,F,V,AV,owner,value,tail)
+def rows_finish(-M:Type,-A:Type,-F:Data,-V:Data,-AV:Data,result:List<S.Row<M,A,F>> & List<&2,RowView<V,AV,F>>) -> List<S.Row<M,A,F>> & List<&2,RowView<V,AV,F>>:
+  match result:
+    case (owners,values): (List.reverse(&1,S.Row<M,A,F>,owners),List.reverse(&2,RowView<V,AV,F>,values))
+def rows_go(~M: Type,~A: Type,~F: Data,~V: Data,~AV: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,
+  owners: List<S.Row<M,A,F>>,state: List<S.Row<M,A,F>> & List<&2,RowView<V,AV,F>>) -> List<S.Row<M,A,F>> & List<&2,RowView<V,AV,F>>:
+  match owners:
+    case Nil{}: rows_finish(M,A,F,V,AV,state)
+    case Con{head,tail}: rows_go(~M,~A,~F,~V,~AV,~main_get,~aux_get,tail,rows_head(M,A,F,V,AV,row(~M,~A,~F,~V,~AV,~main_get,~aux_get,head),state))
 def rows(~M: Type,~A: Type,~F: Data,~V: Data,~AV: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,
   owners: List<S.Row<M,A,F>>) -> List<S.Row<M,A,F>> & List<&2,RowView<V,AV,F>>:
-  match owners:
-    case Nil{}: ([],[])
-    case Con{head,tail}: rows_head(M,A,F,V,AV,row(~M,~A,~F,~V,~AV,~main_get,~aux_get,head),rows(~M,~A,~F,~V,~AV,~main_get,~aux_get,tail))
+  rows_go(~M,~A,~F,~V,~AV,~main_get,~aux_get,owners,([],[]))
 
 def bundle_aux(-M: Type,-A: Type,-F: Data,-V: Data,-AV: Data,main: Maybe<M>,value: Maybe<&2,V>,+flag: Maybe<&2,F>,result: Maybe<A> & Maybe<&2,AV>) -> S.Bundle<M,A,F> & BundleView<V,AV,F>:
   match result:

@@ -1,0 +1,72 @@
+{
+  "scope": "baseline after rank2 binder correction, before traversal repair",
+  "cases": [
+    {
+      "schema": 0,
+      "count": 17,
+      "backend": "native",
+      "output": "true",
+      "passed": true
+    },
+    {
+      "schema": 0,
+      "count": 17,
+      "backend": "js",
+      "output": "true",
+      "passed": true
+    },
+    {
+      "schema": 0,
+      "count": 65537,
+      "backend": "native",
+      "output": "true",
+      "passed": true
+    },
+    {
+      "schema": 0,
+      "count": 65537,
+      "backend": "js",
+      "passed": false,
+      "error": "exit 1, expected 0: ['node', PosixPath('/workspace/formal-proofs/bendvy-worktrees/query-bulk/.artifacts/query-bulk-baseline/query-bulk-controls.js'), '0', '65537']\nbend: memory fault (machine stack overflow?)\n"
+    },
+    {
+      "schema": 1,
+      "count": 17,
+      "backend": "native",
+      "output": "true",
+      "passed": true
+    },
+    {
+      "schema": 1,
+      "count": 17,
+      "backend": "js",
+      "output": "true",
+      "passed": true
+    },
+    {
+      "schema": 1,
+      "count": 65537,
+      "backend": "native",
+      "output": "true",
+      "passed": true
+    },
+    {
+      "schema": 1,
+      "count": 65537,
+      "backend": "js",
+      "passed": false,
+      "error": "exit 1, expected 0: ['node', PosixPath('/workspace/formal-proofs/bendvy-worktrees/query-bulk/.artifacts/query-bulk-baseline/query-bulk-controls.js'), '1', '65537']\nbend: memory fault (machine stack overflow?)\n"
+    }
+  ],
+  "sourceCommitForTraversal": "6bc12a7",
+  "traversalSourceHashes": {
+    "query.bend": "ebdc270c94a55c6d49cf0580ff9c84a85df93b1358e3da9714bf06a90d49a772",
+    "observations.bend": "5b9af610a0b7027e07a5c5d7ff3fcdec16a8ed395709891aae681addff3120cc"
+  },
+  "compiledArtifactHashes": {
+    "query-bulk-controls.js": "d7cbc8948e5413d12a69fbdcd698f0d80e79da39f5095abba5d1fb108cc9d8e2",
+    "query-bulk-controls.c": "31585c6851811cb0fdc98c59351437047dd5387bbe3d1e9f9ed2d8feca647fc7"
+  },
+  "limitSeconds": 5,
+  "fixtureNote": "Canary gained additional mode/flag assertions after this baseline; compiled baseline artifact hashes identify the original execution."
+}

@@ -1,0 +1,74 @@
+{
+  "scope": "actual query and owner-return world-read prerequisite; not full E11",
+  "checkerLimitSeconds": 5,
+  "runtimeLimitSeconds": 5,
+  "cases": [
+    {
+      "schema": "Motion",
+      "count": 1,
+      "nativeJsEqual": true,
+      "allFieldsChecked": true
+    },
+    {
+      "schema": "Motion",
+      "count": 17,
+      "nativeJsEqual": true,
+      "allFieldsChecked": true
+    },
+    {
+      "schema": "Motion",
+      "count": 65537,
+      "nativeJsEqual": true,
+      "allFieldsChecked": true
+    },
+    {
+      "schema": "Health",
+      "count": 1,
+      "nativeJsEqual": true,
+      "allFieldsChecked": true
+    },
+    {
+      "schema": "Health",
+      "count": 17,
+      "nativeJsEqual": true,
+      "allFieldsChecked": true
+    },
+    {
+      "schema": "Health",
+      "count": 65537,
+      "nativeJsEqual": true,
+      "allFieldsChecked": true
+    }
+  ],
+  "mutants": [
+    {
+      "name": "reverse-query-observations",
+      "compilingNativeJs": true,
+      "detectedOnBothBackends": true
+    },
+    {
+      "name": "reverse-returned-owned-rows",
+      "compilingNativeJs": true,
+      "detectedOnBothBackends": true
+    },
+    {
+      "name": "reverse-world-observations",
+      "compilingNativeJs": true,
+      "detectedOnBothBackends": true
+    }
+  ],
+  "sources": {
+    "query-bulk-controls.bend": "777e8c857b14a47c1b19197f48089b60e64e52cce2453b948e6a521f9573e64c",
+    "query.bend": "a34d9a6473ea0cd14c53465c4769a91fa511692ae4547ffd7912748e4ee01f5d",
+    "observations.bend": "81e6afcd4ae06a396669cff14d1da68a4c597539b6eb64e68648ebbe7b235136",
+    "types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+    "storage.bend": "605d073615798f87f3675931475eee6a0668bc63c08559d4beecdb2e73c72986",
+    "identity.bend": "2c88babc9e853d3706f7a6c1f8f0ae48c198949143df2da6562bd774237d7329",
+    "commands.bend": "022ea5ca1f44c952ae77071689d0735e5a38976d7f628203d85fd9cc920a1194",
+    "payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "commands-bulk-controls.bend": "5161641014e6d0e0222e3f4f4c8890c8daa69bb908d3d71a58593ae2c06e8d4e",
+    "storage-stage-fixture.bend": "581771140c45189c8b9038a73def804f780b5e64b7ffdecdcb45b966fc21aee7",
+    "query-bulk-run.py": "25e1b29ca5da422fead150d5fb1b23f50a4d49461468ce103e1d464dcd432c28",
+    "QUERY-BULK-LAWS-DRAFT.md": "5ac8e989f9c09f3e86023fe4ebe80766c104c746a377059101838caf6df5d85d"
+  }
+}
