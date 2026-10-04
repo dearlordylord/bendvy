@@ -89,3 +89,14 @@ branches on the unchanged independent S.run_safe, transports it using the review
 safety package, and consumes the terminal owner through final-observation.
 The exact approved law block is copied into the package; no additional binder or
 premise is introduced. Until all imports check these assembly files are drafts.
+
+
+Candidate-only continuation: after the exact scalar bridge and unchanged kernel
+passed in the independently pinned isolated checker experiment, the preserved full
+composition was tested in a temporary mirror. Entire Bump traversal, full endpoint,
+and mixed/false-domain controls passed without proof or domain edits. Only then were
+the `.bend.draft` files restored. The candidate runner pins checker source/toolchain,
+uses the unchanged installed kernel, preserves five-second process-group limits,
+and checks actual compiling implicit-flush/dropped-tail mutants against unchanged
+complete-law witnesses and dedicated induction. Installed-tool failure remains an
+explicit negative baseline; no adoption or aggregate completion is inferred.

@@ -1,0 +1,233 @@
+{
+  "status": "CANDIDATE-ONLY: full exact approved owned theorem and own mutation gates pass; installed compiler fails; adoption and root aggregate acceptance remain separate",
+  "checker_seconds": 5,
+  "candidate_runner": "/workspace/formal-proofs/bendvy-worktrees/owned-checker-diagnostic/experiments/p-owned-checker-diagnostic/verify.py",
+  "candidate_pins": {
+    "checker_commit": "3ed5bf7",
+    "checker_runner_sha256": "c099387fed050494315ce30917e346705ca8f202bd9ecc55b4f4f8c26dc0abf6",
+    "checker_pins_sha256": "68a3f674512053e2a7e92d086257204c441f42ec835af856bd7b20553fcf057b",
+    "provenance": "Pinned source checker 2.0.35 plus recursive-rigid patch; unchanged installed 2.0.34 kernel; candidate diagnostic only"
+  },
+  "toolchain_manifest": {
+    "source_revision": "a950fd683c0d76f09794078e6174fe98a1492876",
+    "files": {
+      "/workspace/formal-proofs/bendvy/.references/bend2/bend2/bend.ts": "1d133151652b597a1a035c77c172475e6de096da37f3b9e3adc23c2f75bdfe49",
+      "/workspace/formal-proofs/bendvy/.references/bend2/bend2/safe.ts": "54cb3a534ab7cc9ee313bf6383b3948ccdcac022469b3020e00745bbfe6f7e04",
+      "/workspace/formal-proofs/bendvy/.references/bend2/bend2/base.bend": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+      "/workspace/formal-proofs/bendvy/.references/bend2/bend2/bendtt.lean": "e15042434e73aab07ab05cea4b77b5619082c00a6d4924ea2d4a2cdec05facce",
+      "/home/node/.bend/bin/bend": "d4821d04932218216c9dc906223ed0e23dd86726d4357a567fb76ee6c976db4e",
+      "/home/node/.bend/bend2/base.bend": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+      "/home/node/.bend/bend2/bendtt.lean": "61e0d2d9f4ddd7dd8bb1497fa612fb49a7274fcac647bf70702ba22321d7c292",
+      "/home/node/.bend/bendtt/61e0d2d9f4ddd7dd/bendtt": "d9b3b8799a1aec6c3619998ea5348d7b18401c53139be49d99205c5f1580bea3",
+      "false.bend": "2dbc1c9411bd9c456fd2f64dc9c3fa60cac3a4c3ccde1dd0127cd17eaa224050",
+      "found-word.bend": "c1d1209296d004f2770fd6feedc7311d57e683c15f27354b912b723f2f7735f4",
+      "hole.bend": "b90aca24cda368b56ca165d5cb31cf64c182335ef99d347c83658f3d9f8c90a5",
+      "schema.bend": "fe4726c1937d687c243b10d685d12ef1ec22915b513b83548c426102faedec80",
+      "affine.bend": "7db7b8aed5ac9a45efc416f73f1b78ee36f4b2af53438f1524976fc7f000848c",
+      "found-neutral.bend": "ae7e844b31a6d8232b5bc782c12c575ee2c36802bdac4241ec690b75db3b6985",
+      "unsafe.bend": "4f8ff0c7e21e25b2941efc40816bd0add61fbc6de766bb8561299e695c6b6326",
+      "recursive-rigid.patch": "1dfb865d9530edbc7e3a72b5cfe3d261248fee929c4a4395d16acb61223d5f2c",
+      "comparator.mjs": "4d19068e2fb8daf0075f7e7371610e640b5fb01ca717a300993bb700d88ec192"
+    }
+  },
+  "runner_sha256": "db255820840a31496794ef117660830803a95df6a555f92a62b92b962c0b050f",
+  "frozen": {
+    "experiments/t11-replacement/LAWS.bend": "e0c607d723ad250a189c096d9fa3fd6a36913f4c72efd3a3be6dacd7fadb2cbc",
+    "experiments/t11-replacement/types.bend": "0261b9381f51b4aecdf61b76bfa61149d10d662b0c02ddc320da2236ec17d287",
+    "experiments/t11-replacement/model.bend": "53ac1f776c721a5bea0c063eefe229c1d43b4e09d95a269e283fe900a2934c40",
+    "experiments/t11-replacement/spec.bend": "3b7a96d9131919fe087dac5e024058bbfa916ce5c108dce3a7d72119b7ccd465",
+    "experiments/t11-replacement/runtime.bend": "014ed398324f257ced9985f1db29a94dd74f34952dd3aa3c2b11809118502550",
+    "experiments/t11-replacement/owned-spec.bend": "edca58e81a96e03109e2d575146eee456ee543b20746519bfef202d047a9e50e",
+    "experiments/p-owned-route/PROPOSED.bend": "8e400d78b08530ff17295fa32190d0cf93b1f4641816d2710506b64a8ae2940b"
+  },
+  "closure": {
+    "experiments/p-approved-owned-safety/member-safety.bend": "486944795bfa1af9efc4c95d387db258cbe0e846166e27c8e6483d5767123bb6",
+    "experiments/p-approved-owned-safety/safety.bend": "1314af37783dfdab0007721ab9d134fcfbf69ec11f297749aa7696b2857764bf",
+    "experiments/p-approved-owned-safety/transport.bend": "5cf6615d32906bf39650afab13c15e8e811d6aacafa3cd5c847266036590e019",
+    "experiments/p-approved-owned-schedule/LAWS.bend": "59f5bc3e3a15f3c460da158e93f94c7b84c41bf02174d81e73d0f2a00bffa2ed",
+    "experiments/p-approved-owned-schedule/PROOF.bend": "230b2c2ce627deb6b6627a3f2eb5e1c570204342b079f62481b11a3227f8ea2a",
+    "experiments/p-approved-owned-schedule/advance.bend": "2ed88ff3e24ac6ab7c547c3d492531b85fec1f05772fea9ed0c980e108659a78",
+    "experiments/p-approved-owned-schedule/allocation.bend": "8af13ac977fe639bc14118fb3178a735dc8a2db984f1e473fed1e978cdc609f7",
+    "experiments/p-approved-owned-schedule/arrays.bend": "bf0980b15e1f9fd423ab4dbc6d7990cb3845d055d7a8c2b29e1695898eb0f310",
+    "experiments/p-approved-owned-schedule/barrier.bend": "71213b099eb31173049b166e6817c30d5db15e5fd842105b106cf3378e3a0ce3",
+    "experiments/p-approved-owned-schedule/bump-rows.bend": "434b8c2e209c98f472305ec44d322e5470ed0be3c91476fd141ef3c1196c4600",
+    "experiments/p-approved-owned-schedule/bump-world.bend": "f5f6db20125b0c0315d483d5d550d8a07c2a13f2820cece7e1c96d6cc9bddfdd",
+    "experiments/p-approved-owned-schedule/bump.bend": "e65c3d33e3444e48e3841c71f882bba8dcbd58e8ede4fa46b9b4e8c3c4addc01",
+    "experiments/p-approved-owned-schedule/capture.bend": "73cfa48b79b1f73ca06f616fe944a81dc2800be75867901cfa80ddc7bee4be42",
+    "experiments/p-approved-owned-schedule/commands.bend": "55a6bdbd8e0819080c181061ac1a6fe3d066e556d0d1285896d23ceb66b5f481",
+    "experiments/p-approved-owned-schedule/endpoint.bend": "d88c948f9c103db574b2ce34748ce6fcf04c1b85067c83b0062dbb5aaac98854",
+    "experiments/p-approved-owned-schedule/final-observation.bend": "35ce0b494fa801480dfa752181d782ff0d896e9793f2b92fb451d01daee8ddd0",
+    "experiments/p-approved-owned-schedule/frames.bend": "edae73d200588541c2989a387b264b4cfda062c68e551b15cc33649e195c0ef6",
+    "experiments/p-approved-owned-schedule/full-controls.bend": "de2f9ea2eaeb0c94ce14705d66c078153e6f81098649a41e935c6d678365403b",
+    "experiments/p-approved-owned-schedule/full-witness.bend": "b56e9a68242b29861ea3c77ee22bcc7e0d379d909e9a273f6a8e5738fce799e7",
+    "experiments/p-approved-owned-schedule/point.bend": "62abc8cb2a9766c50687a4d733b6696480daf703185e2baaf50e134074f35e01",
+    "experiments/p-approved-owned-schedule/schedule.bend": "aacbea7943e8bad2e804cba1159e15ebdf1fe8f4af90a4dc9e250d9238c92a41",
+    "experiments/p-approved-owned-schedule/tick-context.bend": "5d8768d94025713c0a855630b40c819f32ec285bdb46060608d5d2f7f9a2f237",
+    "experiments/p-approved-owned-word-context/helpers.bend": "32103c04f62d5c8b60fe551f7da77d1fa7b75787e071b292e3f679c31f4d8bc7",
+    "experiments/p-approved-u32-comparison/LAWS.bend": "129ea622b5408fdf5b308f129e69377d2fdbdbc822ace512f2e2900497ef89f1",
+    "experiments/p-approved-u32-comparison/PROOF.bend": "073153f8dd097c6b4357a364f86149861db1e15271d59e60c5aceecd0dca225e",
+    "experiments/p-approved-u32-comparison/structural.bend": "042fd0626a45602f7be880046ffc349e674a8be1b61c1db7411a4a6b82aec9eb",
+    "experiments/p-approved-u32-increment/LAWS.bend": "9804c0cf8cba3e330c94e4db6e53dd0c112d0873b446743bd55369b6e71916dd",
+    "experiments/p-approved-u32-increment/PROOF.bend": "13e82a4c268019237134acf0199ef103e6c9f6bdd8470938445738a1e220d593",
+    "experiments/p-observe-flush/coherence.bend": "ecb79eddd1a0a9001eb6cca34929a20b79b3c4949956fee689eccbec0fd2f887",
+    "experiments/p-observe-flush/materialization.bend": "1610b5035956448bd80e8771fa2fd2f2adb7364fb3cf2e3dc8e11bcee8500e68",
+    "experiments/p-observe-flush/prefix.bend": "1b430c5346359727bc9567aa55537ab0f64380ab050edaaca7d51e55ad3179e3",
+    "experiments/p-observe-flush/toolkit.bend": "d370e490bcbcfe0a0135943b3e64e2a2ea02c4e438c466baaff5505cd0899dd8",
+    "experiments/p-observe-lookup/LAWS.bend": "95a8c2307f8e8a7eac399dc46e8b0c5a42c5e6f50540f2c6a63df8e9f53c0603",
+    "experiments/p-observe-lookup/PROOF.bend": "00f6638706a9dafb28039d8631a96b9e8b96aa874df4839202c19cc87b221c01",
+    "experiments/p-observe-queries/complete.bend": "6251ed244326bcb45ecc0a7bca710b9d0e7ec4dcaac1992fa0760d718b456c25",
+    "experiments/p-observe-queries/enum-lookup.bend": "9746bc7c140857e687b8b3ae23870fd6c55236067ef1fbaed6e3a855e07463bb",
+    "experiments/p-observe-queries/helpers.bend": "d6a4e2ed063042ef275af99dc4aa5afa26537de4a65b44e78b18847514c7ffb0",
+    "experiments/p-observe-queries/insertion.bend": "513d4038ce6c0d49b211cbc87e254c0c32a5e0fb20c24fca3afe6a6c982fca09",
+    "experiments/p-observe-queries/intervals.bend": "ecc40a89979abef46b5532a0c6b37c700c2a0f7493392366c4b98883035c6a9d",
+    "experiments/p-observe-queries/invariants.bend": "172b3fa37a00946d299efa107697ac9eb08da11c59731976777a373ccb56eeaf",
+    "experiments/p-observe-queries/order.bend": "5ced479fc833f02cd14b7bc9a75ebd8c6b8fe3c9453c56896df723c2f26914d0",
+    "experiments/p-observe-schedule/LAWS.bend": "7905def67e1735469dd64692e24fcfd418a81cc74ed79d6d4806c481fd1045e6",
+    "experiments/p-observe-schedule/PROOF.bend": "49b295ee69245531c2208162c9850cd580dc41972c4380683b96aff818166724",
+    "experiments/p-observe-schedule/allocation.bend": "ff29075121eecbe8027f0d534390f342c762922259caafd7adf3bc47dd8fa7fe",
+    "experiments/p-observe-schedule/barrier.bend": "3d43b6c285ad0803f5c701fe024a46feaf9407bfd9428512e48068e64d96b7cb",
+    "experiments/p-observe-schedule/bump.bend": "072cf6f3a59b9a5101c4025c02850a12123367fdfe31f8eb623a82483608717a",
+    "experiments/p-observe-schedule/context.bend": "29be45f46727046d5855cc543905e5938d38fb4ccb21911e563ec088b5cc5ee7",
+    "experiments/p-observe-schedule/induction.bend": "74c2e5306c5ca50627bbcbad728bf3775e3637ec3dda7f5aa15e8aa5449fee72",
+    "experiments/p-observe-schedule/invariants.bend": "6f3c59da2f2c9a8b94ded4f185ee055c4b0be82ab8e91b3db797ac24f2c1a9e2",
+    "experiments/p-observe-schedule/relation.bend": "8f1ae1ec6184791f83f7819afce9837c4a3537768a4855200f3bc8bc5b947947",
+    "experiments/p-observe-schedule/schedule.bend": "bda1247d6e7b5d1878a743b205adafd4e27fc078efd989b3764b11871efc4358",
+    "experiments/p-observe-schedule/successor.bend": "d6cb87b34fde2e2662891bc52ce27009da1c564a2e1b2d55fdc6a17548a9396b",
+    "experiments/p-owned-arithmetic/structural.bend": "39e6edaa38954a53097b04488c36648dc5f1613d23d84a86a9a0bf4f61edc996",
+    "experiments/t11-replacement/bridge.bend": "c20d2d4bac15b3bf4bff7a20a28a140f6f74862081ffff23955cdc6326441f80",
+    "experiments/t11-replacement/model.bend": "53ac1f776c721a5bea0c063eefe229c1d43b4e09d95a269e283fe900a2934c40",
+    "experiments/t11-replacement/owned-spec.bend": "edca58e81a96e03109e2d575146eee456ee543b20746519bfef202d047a9e50e",
+    "experiments/t11-replacement/runtime.bend": "014ed398324f257ced9985f1db29a94dd74f34952dd3aa3c2b11809118502550",
+    "experiments/t11-replacement/spec.bend": "3b7a96d9131919fe087dac5e024058bbfa916ce5c108dce3a7d72119b7ccd465",
+    "experiments/t11-replacement/types.bend": "0261b9381f51b4aecdf61b76bfa61149d10d662b0c02ddc320da2236ec17d287"
+  },
+  "checks": [
+    {
+      "label": "original PROOF.bend",
+      "subject": "PROOF.bend",
+      "source_sha256": "230b2c2ce627deb6b6627a3f2eb5e1c570204342b079f62481b11a3227f8ea2a",
+      "kernel_negative": false,
+      "result": {
+        "exit": 0,
+        "stdout": "CHECK PASS\nKERNEL PASS\n",
+        "stderr": ""
+      }
+    },
+    {
+      "label": "original full-controls.bend",
+      "subject": "full-controls.bend",
+      "source_sha256": "de2f9ea2eaeb0c94ce14705d66c078153e6f81098649a41e935c6d678365403b",
+      "kernel_negative": false,
+      "result": {
+        "exit": 0,
+        "stdout": "CHECK PASS\nKERNEL PASS\n",
+        "stderr": ""
+      }
+    },
+    {
+      "label": "original full-witness.bend",
+      "subject": "full-witness.bend",
+      "source_sha256": "b56e9a68242b29861ea3c77ee22bcc7e0d379d909e9a273f6a8e5738fce799e7",
+      "kernel_negative": false,
+      "result": {
+        "exit": 0,
+        "stdout": "CHECK PASS\nKERNEL PASS\n",
+        "stderr": ""
+      }
+    },
+    {
+      "label": "false equality control",
+      "subject": "false-negative.bend",
+      "source_sha256": "c7f36912b466efe61b637c5a62ead4953f332ffd7f7fa5e3c0abb4b4dc6d77fd",
+      "kernel_negative": false,
+      "result": {
+        "exit": 1,
+        "stdout": "",
+        "stderr": "Error:\n- expected : 0n\n- observed : 1n\nLocation: false_fact\n1 | \n2>| def false_fact() -> {0n == 1n : Nat}: {==}\n  |                                       ^^^^\n3 | \n"
+      }
+    },
+    {
+      "label": "full proof rejects false kernel",
+      "subject": "PROOF.bend",
+      "source_sha256": "230b2c2ce627deb6b6627a3f2eb5e1c570204342b079f62481b11a3227f8ea2a",
+      "kernel_negative": true,
+      "result": {
+        "exit": 1,
+        "stdout": "CHECK PASS\n",
+        "stderr": "Error: kernel rejection\nError: kernel rejection\n    at file:///tmp/owned-checker-kkt7thnl/check.mjs:1:349\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n",
+        "controlled_kernel_override": "/usr/bin/false"
+      }
+    },
+    {
+      "label": "implicit final flush: actual runtime compiles and kernel accepts",
+      "subject": "runtime.bend",
+      "source_sha256": "ca5f39efd5609b111ce069e35f11963646ac27c2ab3f246910c9bd273e3cb8c1",
+      "kernel_negative": false,
+      "result": {
+        "exit": 0,
+        "stdout": "CHECK PASS\nKERNEL PASS\n",
+        "stderr": ""
+      }
+    },
+    {
+      "label": "implicit final flush: complete original-safe witness fails",
+      "subject": "full-witness.bend",
+      "source_sha256": "b56e9a68242b29861ea3c77ee22bcc7e0d379d909e9a273f6a8e5738fce799e7",
+      "kernel_negative": false,
+      "result": {
+        "exit": 1,
+        "stdout": "",
+        "stderr": "Error:\n- expected : T.Observation{7n, 2n, [T.Row{1n, 9n, False{}}], []}\n- observed : T.Observation{7n, 2n, [], [T.Spawn{1n, 9n}]}\nLocation: pending_equation\n11 | def pending_safe() -> {True{} == S.run_safe(O.steps(pending_steps()),U32.to_nat(4),O.snapshot(pending_world())) : Bool}: {==}\n12>| def pending_equation() -> {M.observe(R.snapshot(R.project(R.tick(pending_steps(),4,pending_world())))) == S.schedule_observation(U32.to_nat(4),O.snapshot(pending_world()),O.steps(pending_steps())) : T.Observation}: {==}\n   |                                                                                                                                                                                                                        ^^^^\n13 | \n"
+      }
+    },
+    {
+      "label": "implicit final flush: unchanged dedicated endpoint induction fails",
+      "subject": "PROOF.bend",
+      "source_sha256": "230b2c2ce627deb6b6627a3f2eb5e1c570204342b079f62481b11a3227f8ea2a",
+      "kernel_negative": false,
+      "result": {
+        "exit": 1,
+        "stdout": "",
+        "stderr": "Error:\n- expected : world\n- observed : R.flush(world)\nContext:\n- limit    : U32\n- world    : R.World\n- data     : T.World\n- observed : {O.snapshot(world) == data : T.World}\n- safe     : {True{} == ../t11-replacement/spec.admissible(U32.to_nat(limit), data) : Bool}\nLocation: tick\n29 |   match steps:\n30>|     case Nil{}: F.WorldResult{world,{==},observed}\n   |                                     ^^^^\n31 |     case Con{+operation,+tail}:\n"
+      }
+    },
+    {
+      "label": "dropped tail: actual runtime compiles and kernel accepts",
+      "subject": "runtime.bend",
+      "source_sha256": "9bdcc314739d39accc5f1067617e0f933d861e3df1aaca3a0f2cbad65718eccb",
+      "kernel_negative": false,
+      "result": {
+        "exit": 0,
+        "stdout": "CHECK PASS\nKERNEL PASS\n",
+        "stderr": ""
+      }
+    },
+    {
+      "label": "dropped tail: complete original-safe witness fails",
+      "subject": "full-witness.bend",
+      "source_sha256": "b56e9a68242b29861ea3c77ee22bcc7e0d379d909e9a273f6a8e5738fce799e7",
+      "kernel_negative": false,
+      "result": {
+        "exit": 1,
+        "stdout": "",
+        "stderr": "Error:\n- expected : T.Observation{7n, 2n, [], [T.Spawn{1n, 9n}]}\n- observed : T.Observation{7n, 2n, [T.Row{1n, 10n, False{}}], []}\nLocation: tail_equation\n16 | def tail_safe() -> {True{} == S.run_safe(O.steps(tail_steps()),U32.to_nat(4),O.snapshot(tail_world())) : Bool}: {==}\n17>| def tail_equation() -> {M.observe(R.snapshot(R.project(R.tick(tail_steps(),4,tail_world())))) == S.schedule_observation(U32.to_nat(4),O.snapshot(tail_world()),O.steps(tail_steps())) : T.Observation}: {==}\n   |                                                                                                                                                                                                         ^^^^\n18 | \n"
+      }
+    },
+    {
+      "label": "dropped tail: unchanged dedicated endpoint induction fails",
+      "subject": "PROOF.bend",
+      "source_sha256": "230b2c2ce627deb6b6627a3f2eb5e1c570204342b079f62481b11a3227f8ea2a",
+      "kernel_negative": false,
+      "result": {
+        "exit": 1,
+        "stdout": "",
+        "stderr": "Error:\n- expected : F.WorldResult<R.step(limit, source, operation), M.tick(O.steps(tail), U32.to_nat(limit), M.step(U32.to_nat(limit), data, O.step(operation)))>\n- observed : F.WorldResult<R.tick(tail, limit, R.step(limit, source, operation)), M.tick(O.steps(tail), U32.to_nat(limit), M.step(U32.to_nat(limit), data, O.step(operation)))>\nContext:\n- operation : R.Step\n- tail      : List<&2, R.Step>\n- limit     : U32\n- source    : R.World\n- data      : T.World\n- observed  : {O.snapshot(source) == data : T.World}\n- safe      : {True{} == V.ModelSafe(O.steps(tail), U32.to_nat(limit), M.step(U32.to_nat(limit), data, O.step(operation))) : Bool}\n- owner     : R.World\n- exact     : {owner == R.step(limit, source, operation) : R.World}\n- next      : {O.snapshot(owner) == M.step(U32.to_nat(limit), O.snapshot(source), O.step(operation)) : T.World}\n- ih        : @owner:R.World -> @_:{O.snapshot(owner) == M.step(U32.to_nat(limit), data, O.step(operation)) : T.World} -> @_:{True{} == V.ModelSafe(O.steps(tail), U32.to_nat(limit), M.step(U32.to_nat(limit), data, O.step(operation))) : Bool} -> F.WorldResult<R.tick(tail, limit, owner), M.tick(O.steps(tail), U32.to_nat(limit), M.step(U32.to_nat(limit), data, O.step(operation)))>\n- eq        : {O.snapshot(owner) == M.step(U32.to_nat(limit), data, O.step(operation)) : T.World}\nLocation: continue_tick\n22 |       eq = C.next_observed(limit,operation,source,owner,data,observed,next)\n23>|       C.finish(limit,operation,tail,source,owner,data,exact,ih(owner,eq,safe))\n   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n24 | \n"
+      }
+    }
+  ],
+  "installed_baseline": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "SOME PROOFS FAIL\nError: the machine stack overflowed (a deep recursion, or a literal too large to expand)\nbend 2.0.35 is available: run bend update\n"
+  }
+}
