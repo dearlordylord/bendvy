@@ -1,0 +1,314 @@
+{
+  "status": "PASS: fresh public TS allocation checkpoint",
+  "node": "v24.20.0",
+  "reference": {
+    "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts",
+    "commit": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334",
+    "files": {
+      "index.ts": "a74d79748f5eff6e9f732b54ed6efc0a42826e4cf8ffc7ab9504d11257e6d61f",
+      "Entity.ts": "05d724f241b2d662a7a03ce82da5f133c4b587df92e5e22fdfdb7484edbca68e",
+      "Command.ts": "de5db2093401e24ce54fae8166e7f686c153852094b6446dc0ee22cfa28cef28",
+      "System.ts": "ae53852dbd815ad441446cbcfc663d25aed6c2bd0afcfacbc3c20e0c40dc2ba7",
+      "Runtime.ts": "c744aa5c52845bd3323358c5085161b40a452c6802a1653e3851bfd34c69f5b4",
+      "Schedule.ts": "ab1610c356bfbcedf6ac85758e04c7032cda1f2458ff13c8a483c53d94b55c2a",
+      "Schema.ts": "26e7c140a6f3c2a98ea4e43c1f067a18e47c03ff6f56939c8139f1535ae1a0ec",
+      "Query.ts": "45e2fe513f66e336f97d40b41b3c866363a1af17ecbc90087086e00c08b28414",
+      "Fx.ts": "75242b8513225601589f4658d59c86100351557fef39cc8d17506c958dd2c5b3",
+      "internal/world.ts": "e71b4b060fec85fae690957104c14051e4bea0d857bacd648993ea69a6fe27d7"
+    }
+  },
+  "adapterSha256": "f135a0f1d3393f72cb977b9b0cfaf2ec71125860193ad90c3d6f1d3228ba7ee5",
+  "rawReservationIds": {
+    "seed": 1,
+    "earlier": 2,
+    "failed": 3,
+    "subsequent": 4
+  },
+  "conclusion": {
+    "earlierCommitRetained": true,
+    "failedComponentWriteRestored": true,
+    "failedSpawnDiscarded": true,
+    "failedReservationConsumed": true,
+    "escapedFailedHandleNeverReissued": true,
+    "explicitBarrierRequired": true,
+    "tailSkipped": true
+  },
+  "actions": [
+    {
+      "operation": "commands.spawn",
+      "label": "seed",
+      "payload": 10,
+      "rawReservationId": 1,
+      "rawHandleId": 1
+    },
+    {
+      "operation": "A.write",
+      "seedId": 1,
+      "readYourWrites": 11
+    },
+    {
+      "operation": "commands.spawn",
+      "label": "earlier",
+      "payload": 20,
+      "rawReservationId": 2,
+      "rawHandleId": 2
+    },
+    {
+      "operation": "B.write",
+      "seedId": 1,
+      "readYourWrites": 99
+    },
+    {
+      "operation": "commands.spawn",
+      "label": "failed",
+      "payload": 30,
+      "rawReservationId": 3,
+      "rawHandleId": 3
+    },
+    {
+      "operation": "B.lookup-reserved",
+      "rawHandleId": 3,
+      "result": "MissingEntity"
+    },
+    {
+      "operation": "commands.spawn",
+      "label": "subsequent",
+      "payload": 40,
+      "rawReservationId": 4,
+      "rawHandleId": 4
+    }
+  ],
+  "checkpoints": [
+    {
+      "name": "initial-live",
+      "rows": [
+        {
+          "rawEntityId": 1,
+          "payload": 10
+        }
+      ],
+      "lookups": {
+        "seed": {
+          "result": "Found",
+          "rawEntityId": 1,
+          "payload": 10
+        }
+      },
+      "tailRuns": 0,
+      "priorResult": {
+        "result": "Success"
+      }
+    },
+    {
+      "name": "after-A-commit-B-failure",
+      "rows": [
+        {
+          "rawEntityId": 1,
+          "payload": 11
+        }
+      ],
+      "lookups": {
+        "seed": {
+          "result": "Found",
+          "rawEntityId": 1,
+          "payload": 11
+        },
+        "earlier": {
+          "result": "MissingEntity",
+          "rawHandleId": 2
+        },
+        "failed": {
+          "result": "MissingEntity",
+          "rawHandleId": 3
+        }
+      },
+      "tailRuns": 0,
+      "priorResult": {
+        "result": "Failure",
+        "system": "B",
+        "code": 7
+      }
+    },
+    {
+      "name": "empty-schedule-no-implicit-flush",
+      "rows": [
+        {
+          "rawEntityId": 1,
+          "payload": 11
+        }
+      ],
+      "lookups": {
+        "seed": {
+          "result": "Found",
+          "rawEntityId": 1,
+          "payload": 11
+        },
+        "earlier": {
+          "result": "MissingEntity",
+          "rawHandleId": 2
+        },
+        "failed": {
+          "result": "MissingEntity",
+          "rawHandleId": 3
+        }
+      },
+      "tailRuns": 0,
+      "priorResult": {
+        "result": "Success"
+      }
+    },
+    {
+      "name": "explicit-barrier-after-failure",
+      "rows": [
+        {
+          "rawEntityId": 1,
+          "payload": 11
+        },
+        {
+          "rawEntityId": 2,
+          "payload": 20
+        }
+      ],
+      "lookups": {
+        "seed": {
+          "result": "Found",
+          "rawEntityId": 1,
+          "payload": 11
+        },
+        "earlier": {
+          "result": "Found",
+          "rawEntityId": 2,
+          "payload": 20
+        },
+        "failed": {
+          "result": "MissingEntity",
+          "rawHandleId": 3
+        }
+      },
+      "tailRuns": 0,
+      "priorResult": {
+        "result": "Success"
+      }
+    },
+    {
+      "name": "subsequent-reservation-pending",
+      "rows": [
+        {
+          "rawEntityId": 1,
+          "payload": 11
+        },
+        {
+          "rawEntityId": 2,
+          "payload": 20
+        }
+      ],
+      "lookups": {
+        "seed": {
+          "result": "Found",
+          "rawEntityId": 1,
+          "payload": 11
+        },
+        "earlier": {
+          "result": "Found",
+          "rawEntityId": 2,
+          "payload": 20
+        },
+        "failed": {
+          "result": "MissingEntity",
+          "rawHandleId": 3
+        },
+        "subsequent": {
+          "result": "MissingEntity",
+          "rawHandleId": 4
+        }
+      },
+      "tailRuns": 0,
+      "priorResult": {
+        "result": "Success"
+      }
+    },
+    {
+      "name": "subsequent-empty-schedule-no-implicit-flush",
+      "rows": [
+        {
+          "rawEntityId": 1,
+          "payload": 11
+        },
+        {
+          "rawEntityId": 2,
+          "payload": 20
+        }
+      ],
+      "lookups": {
+        "seed": {
+          "result": "Found",
+          "rawEntityId": 1,
+          "payload": 11
+        },
+        "earlier": {
+          "result": "Found",
+          "rawEntityId": 2,
+          "payload": 20
+        },
+        "failed": {
+          "result": "MissingEntity",
+          "rawHandleId": 3
+        },
+        "subsequent": {
+          "result": "MissingEntity",
+          "rawHandleId": 4
+        }
+      },
+      "tailRuns": 0,
+      "priorResult": {
+        "result": "Success"
+      }
+    },
+    {
+      "name": "subsequent-explicit-barrier",
+      "rows": [
+        {
+          "rawEntityId": 1,
+          "payload": 11
+        },
+        {
+          "rawEntityId": 2,
+          "payload": 20
+        },
+        {
+          "rawEntityId": 4,
+          "payload": 40
+        }
+      ],
+      "lookups": {
+        "seed": {
+          "result": "Found",
+          "rawEntityId": 1,
+          "payload": 11
+        },
+        "earlier": {
+          "result": "Found",
+          "rawEntityId": 2,
+          "payload": 20
+        },
+        "failed": {
+          "result": "MissingEntity",
+          "rawHandleId": 3
+        },
+        "subsequent": {
+          "result": "Found",
+          "rawEntityId": 4,
+          "payload": 40
+        }
+      },
+      "tailRuns": 0,
+      "priorResult": {
+        "result": "Success"
+      }
+    }
+  ],
+  "limits": {
+    "runtimeSeconds": 5,
+    "scope": "One schema and scalar component; reference prerequisite only. No Bend integration or universal allocator policy claim."
+  }
+}
