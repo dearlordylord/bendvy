@@ -22,14 +22,14 @@ def client_aux(-Schema: Data,-P: Type,-U: Type,-V: Data,-AV: Data,-F: Data,
   handle: S.Handle<Schema>,flag: Maybe<&2,F>,owner: P,main: V,result: U & Maybe<&2,AV>) -> P & (U & QueryRow<Schema,V,AV,F>):
   match result:
     case (aux,value): (owner,(aux,QueryRow{handle,main,value,flag}))
-def client_main(~Schema: Data,~P: Type,~U: Type,~V: Data,~AV: Data,~F: Data,
+def client_main(-Schema: Data,-P: Type,-U: Type,-V: Data,-AV: Data,-F: Data,
   aux_get: U -> U & Maybe<&2,AV>,handle: S.Handle<Schema>,flag: Maybe<&2,F>,aux: U,result: P & V) -> P & (U & QueryRow<Schema,V,AV,F>):
   match result:
     case (owner,value): client_aux(Schema,P,U,V,AV,F,handle,flag,owner,value,aux_get(aux))
 def client(~Schema: Data,~Tok: Data,~V: Data,~AV: Data,~F: Data,~token: Tok,
   -P: Type,-U: Type,main_get: P -> Tok -> P & V,aux_get: U -> U & Maybe<&2,AV>,
   handle: S.Handle<Schema>,flag: Maybe<&2,F>,main: P,aux: U) -> P & (U & QueryRow<Schema,V,AV,F>):
-  client_main(~Schema,~P,~U,~V,~AV,~F,aux_get,handle,flag,aux,main_get(main,token))
+  client_main(Schema,P,U,V,AV,F,aux_get,handle,flag,aux,main_get(main,token))
 
 def maybe_present(-Owner: Type,-View: Data,result: Owner & View) -> Maybe<Owner> & Maybe<&2,View>:
   match result:
