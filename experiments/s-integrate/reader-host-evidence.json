@@ -1,0 +1,112 @@
+{
+  "scope": "Actual factory/command notification to reader-host adapter, separate from full dispatcher",
+  "versions": {
+    "bend": "bend 2.0.34\n",
+    "node": "v24.20.0\n"
+  },
+  "checkerAndExecutionLimitSeconds": 5,
+  "sourceSha256": {
+    "reader-host.bend": "50f1251c6d476b07055c36c5a97e3350a4cb46e5d826ff97ced2860d40798a64",
+    "reader-host-controls.bend": "18ed642281669b8e574abb1b9e52d6bfd24f11205186a1eb38d52ae4f4a8730c",
+    "reader-host-run.py": "4306cb7afaeb780c61ec00cd356c0efac65c150d65a36f8beb247daa2987cdb2",
+    "readers.bend": "2673082b4ef5cd6c5d8f61c362e22f74b13daeb27196894278cc20b1459c22e9",
+    "streams.bend": "1a1c7991d6a1b4ebfb3b47dc62459beb83ed5e38ded56d27cc20b5478fc0d315",
+    "commands.bend": "022ea5ca1f44c952ae77071689d0735e5a38976d7f628203d85fd9cc920a1194",
+    "storage.bend": "605d073615798f87f3675931475eee6a0668bc63c08559d4beecdb2e73c72986",
+    "identity.bend": "2c88babc9e853d3706f7a6c1f8f0ae48c198949143df2da6562bd774237d7329",
+    "types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+    "storage-stage-fixture.bend": "581771140c45189c8b9038a73def804f780b5e64b7ffdecdcb45b966fc21aee7",
+    "reader-host-schema-positive.bend": "2b889483a56496f1854c6fe495612d34676bcc418976c5d9ffaa121422ec5b65",
+    "reader-host-schema-negative.bend": "1adc7c12c88bff85eaa60344d3b2c89823ed4518ed6f0bb3ea102b1de3b4cf51"
+  },
+  "original": [
+    {
+      "capacity": 1,
+      "bothBackends": true,
+      "stdout": "Motion\nadded-not-removed:since=0/0;run=2;messages=;removed=;despawned=;lag=false/false/false\nno-lifecycle-boundary:since=0/0;run=5;messages=;removed=1/1;1/2;;despawned=1/2;;lag=false/false/false\nfailed:since=2/2;run=6;messages=;removed=1/2;;despawned=1/2;;lag=true/true/false\nretry:since=2/2;run=7;messages=;removed=1/2;;despawned=1/2;;lag=true/true/false\nlate:since=0/0;run=8;messages=;removed=1/2;;despawned=1/2;;lag=false/false/false\ncompleted:since=7/7;run=9;messages=;removed=;despawned=;lag=false/false/false\nHealth\nadded-not-removed:since=0/0;run=2;messages=;removed=;despawned=;lag=false/false/false\nno-lifecycle-boundary:since=0/0;run=5;messages=;removed=1/1;1/2;;despawned=1/2;;lag=false/false/false\nfailed:since=2/2;run=6;messages=;removed=1/2;;despawned=1/2;;lag=true/true/false\nretry:since=2/2;run=7;messages=;removed=1/2;;despawned=1/2;;lag=true/true/false\nlate:since=0/0;run=8;messages=;removed=1/2;;despawned=1/2;;lag=false/false/false\ncompleted:since=7/7;run=9;messages=;removed=;despawned=;lag=false/false/false"
+    },
+    {
+      "capacity": 3,
+      "bothBackends": true,
+      "stdout": "Motion\nadded-not-removed:since=0/0;run=2;messages=;removed=;despawned=;lag=false/false/false\nno-lifecycle-boundary:since=0/0;run=5;messages=11,22,;removed=1/1;1/2;;despawned=1/2;;lag=false/false/false\nfailed:since=2/2;run=6;messages=11,22,;removed=1/1;1/2;;despawned=1/2;;lag=false/false/false\nretry:since=2/2;run=7;messages=11,22,;removed=1/1;1/2;;despawned=1/2;;lag=false/false/false\nlate:since=0/0;run=8;messages=11,22,;removed=1/1;1/2;;despawned=1/2;;lag=false/false/false\ncompleted:since=7/7;run=9;messages=;removed=;despawned=;lag=false/false/false\nHealth\nadded-not-removed:since=0/0;run=2;messages=;removed=;despawned=;lag=false/false/false\nno-lifecycle-boundary:since=0/0;run=5;messages=11,22,;removed=1/1;1/2;;despawned=1/2;;lag=false/false/false\nfailed:since=2/2;run=6;messages=11,22,;removed=1/1;1/2;;despawned=1/2;;lag=false/false/false\nretry:since=2/2;run=7;messages=11,22,;removed=1/1;1/2;;despawned=1/2;;lag=false/false/false\nlate:since=0/0;run=8;messages=11,22,;removed=1/1;1/2;;despawned=1/2;;lag=false/false/false\ncompleted:since=7/7;run=9;messages=;removed=;despawned=;lag=false/false/false"
+    }
+  ],
+  "mutants": [
+    {
+      "name": "drop-despawn",
+      "capacity": 1,
+      "old": "S.append_lifecycle(W.Handle<Schema>,despawned,tick,[handle])",
+      "new": "despawned",
+      "checkedBuiltBothBackends": true,
+      "firstDifference": {
+        "actual": "no-lifecycle-boundary:since=0/0;run=5;messages=;removed=1/1;1/2;;despawned=;lag=false/false/false",
+        "expected": "no-lifecycle-boundary:since=0/0;run=5;messages=;removed=1/1;1/2;;despawned=1/2;;lag=false/false/false"
+      },
+      "stdout": "Motion\nadded-not-removed:since=0/0;run=2;messages=;removed=;despawned=;lag=false/false/false\nno-lifecycle-boundary:since=0/0;run=5;messages=;removed=1/1;1/2;;despawned=;lag=false/false/false\nfailed:since=2/2;run=6;messages=;removed=1/2;;despawned=;lag=true/true/false\nretry:since=2/2;run=7;messages=;removed=1/2;;despawned=;lag=true/true/false\nlate:since=0/0;run=8;messages=;removed=1/2;;despawned=;lag=false/false/false\ncompleted:since=7/7;run=9;messages=;removed=;despawned=;lag=false/false/false\nHealth\nadded-not-removed:since=0/0;run=2;messages=;removed=;despawned=;lag=false/false/false\nno-lifecycle-boundary:since=0/0;run=5;messages=;removed=1/1;1/2;;despawned=;lag=false/false/false\nfailed:since=2/2;run=6;messages=;removed=1/2;;despawned=;lag=true/true/false\nretry:since=2/2;run=7;messages=;removed=1/2;;despawned=;lag=true/true/false\nlate:since=0/0;run=8;messages=;removed=1/2;;despawned=;lag=false/false/false\ncompleted:since=7/7;run=9;messages=;removed=;despawned=;lag=false/false/false"
+    },
+    {
+      "name": "added-as-removed",
+      "capacity": 1,
+      "old": "case saved _: saved",
+      "new": "case Logs{ping,removed,despawned} W.MainAdded{handle}: Logs{ping,S.append_lifecycle(W.Handle<Schema>,removed,tick,[handle]),despawned}\n    case saved _: saved",
+      "checkedBuiltBothBackends": true,
+      "firstDifference": {
+        "actual": "added-not-removed:since=0/0;run=2;messages=;removed=1/1;1/2;;despawned=;lag=false/false/false",
+        "expected": "added-not-removed:since=0/0;run=2;messages=;removed=;despawned=;lag=false/false/false"
+      },
+      "stdout": "Motion\nadded-not-removed:since=0/0;run=2;messages=;removed=1/1;1/2;;despawned=;lag=false/false/false\nno-lifecycle-boundary:since=0/0;run=5;messages=;removed=1/1;1/2;1/1;1/2;;despawned=1/2;;lag=false/false/false\nfailed:since=2/2;run=6;messages=;removed=1/2;;despawned=1/2;;lag=true/true/false\nretry:since=2/2;run=7;messages=;removed=1/2;;despawned=1/2;;lag=true/true/false\nlate:since=0/0;run=8;messages=;removed=1/2;;despawned=1/2;;lag=false/false/false\ncompleted:since=7/7;run=9;messages=;removed=;despawned=;lag=false/false/false\nHealth\nadded-not-removed:since=0/0;run=2;messages=;removed=1/1;1/2;;despawned=;lag=false/false/false\nno-lifecycle-boundary:since=0/0;run=5;messages=;removed=1/1;1/2;1/1;1/2;;despawned=1/2;;lag=false/false/false\nfailed:since=2/2;run=6;messages=;removed=1/2;;despawned=1/2;;lag=true/true/false\nretry:since=2/2;run=7;messages=;removed=1/2;;despawned=1/2;;lag=true/true/false\nlate:since=0/0;run=8;messages=;removed=1/2;;despawned=1/2;;lag=false/false/false\ncompleted:since=7/7;run=9;messages=;removed=;despawned=;lag=false/false/false"
+    },
+    {
+      "name": "suppress-removal-lag",
+      "capacity": 1,
+      "old": "messageLag,removedLag,despawnedLag}}",
+      "new": "messageLag,False{},despawnedLag}}",
+      "checkedBuiltBothBackends": true,
+      "firstDifference": {
+        "actual": "failed:since=2/2;run=6;messages=;removed=1/2;;despawned=1/2;;lag=true/false/false",
+        "expected": "failed:since=2/2;run=6;messages=;removed=1/2;;despawned=1/2;;lag=true/true/false"
+      },
+      "stdout": "Motion\nadded-not-removed:since=0/0;run=2;messages=;removed=;despawned=;lag=false/false/false\nno-lifecycle-boundary:since=0/0;run=5;messages=;removed=1/1;1/2;;despawned=1/2;;lag=false/false/false\nfailed:since=2/2;run=6;messages=;removed=1/2;;despawned=1/2;;lag=true/false/false\nretry:since=2/2;run=7;messages=;removed=1/2;;despawned=1/2;;lag=true/false/false\nlate:since=0/0;run=8;messages=;removed=1/2;;despawned=1/2;;lag=false/false/false\ncompleted:since=7/7;run=9;messages=;removed=;despawned=;lag=false/false/false\nHealth\nadded-not-removed:since=0/0;run=2;messages=;removed=;despawned=;lag=false/false/false\nno-lifecycle-boundary:since=0/0;run=5;messages=;removed=1/1;1/2;;despawned=1/2;;lag=false/false/false\nfailed:since=2/2;run=6;messages=;removed=1/2;;despawned=1/2;;lag=true/false/false\nretry:since=2/2;run=7;messages=;removed=1/2;;despawned=1/2;;lag=true/false/false\nlate:since=0/0;run=8;messages=;removed=1/2;;despawned=1/2;;lag=false/false/false\ncompleted:since=7/7;run=9;messages=;removed=;despawned=;lag=false/false/false"
+    },
+    {
+      "name": "wrong-main-holder-kind",
+      "capacity": 1,
+      "old": "R.Removed{0}",
+      "new": "R.Removed{1}",
+      "checkedBuiltBothBackends": true,
+      "firstDifference": {
+        "actual": "failed:since=2/2;run=6;messages=;removed=;despawned=1/2;;lag=true/true/false",
+        "expected": "failed:since=2/2;run=6;messages=;removed=1/2;;despawned=1/2;;lag=true/true/false"
+      },
+      "stdout": "Motion\nadded-not-removed:since=0/0;run=2;messages=;removed=;despawned=;lag=false/false/false\nno-lifecycle-boundary:since=0/0;run=5;messages=;removed=1/1;1/2;;despawned=1/2;;lag=false/false/false\nfailed:since=2/2;run=6;messages=;removed=;despawned=1/2;;lag=true/true/false\nretry:since=2/2;run=7;messages=;removed=;despawned=1/2;;lag=true/true/false\nlate:since=0/0;run=8;messages=;removed=;despawned=1/2;;lag=false/false/false\ncompleted:since=7/7;run=9;messages=;removed=;despawned=;lag=false/false/false\nHealth\nadded-not-removed:since=0/0;run=2;messages=;removed=;despawned=;lag=false/false/false\nno-lifecycle-boundary:since=0/0;run=5;messages=;removed=1/1;1/2;;despawned=1/2;;lag=false/false/false\nfailed:since=2/2;run=6;messages=;removed=;despawned=1/2;;lag=true/true/false\nretry:since=2/2;run=7;messages=;removed=;despawned=1/2;;lag=true/true/false\nlate:since=0/0;run=8;messages=;removed=;despawned=1/2;;lag=false/false/false\ncompleted:since=7/7;run=9;messages=;removed=;despawned=;lag=false/false/false"
+    },
+    {
+      "name": "trim-without-lifecycle-boundary",
+      "capacity": 1,
+      "old": "case None{}: log",
+      "new": "case None{}: S.trim_lifecycle(W.Handle<Schema>,log,0,holds)",
+      "checkedBuiltBothBackends": true,
+      "firstDifference": {
+        "actual": "no-lifecycle-boundary:since=0/0;run=5;messages=;removed=1/2;;despawned=1/2;;lag=false/false/false",
+        "expected": "no-lifecycle-boundary:since=0/0;run=5;messages=;removed=1/1;1/2;;despawned=1/2;;lag=false/false/false"
+      },
+      "stdout": "Motion\nadded-not-removed:since=0/0;run=2;messages=;removed=;despawned=;lag=false/false/false\nno-lifecycle-boundary:since=0/0;run=5;messages=;removed=1/2;;despawned=1/2;;lag=false/false/false\nfailed:since=2/2;run=6;messages=;removed=1/2;;despawned=1/2;;lag=true/true/false\nretry:since=2/2;run=7;messages=;removed=1/2;;despawned=1/2;;lag=true/true/false\nlate:since=0/0;run=8;messages=;removed=1/2;;despawned=1/2;;lag=false/false/false\ncompleted:since=7/7;run=9;messages=;removed=;despawned=;lag=false/false/false\nHealth\nadded-not-removed:since=0/0;run=2;messages=;removed=;despawned=;lag=false/false/false\nno-lifecycle-boundary:since=0/0;run=5;messages=;removed=1/2;;despawned=1/2;;lag=false/false/false\nfailed:since=2/2;run=6;messages=;removed=1/2;;despawned=1/2;;lag=true/true/false\nretry:since=2/2;run=7;messages=;removed=1/2;;despawned=1/2;;lag=true/true/false\nlate:since=0/0;run=8;messages=;removed=1/2;;despawned=1/2;;lag=false/false/false\ncompleted:since=7/7;run=9;messages=;removed=;despawned=;lag=false/false/false"
+    },
+    {
+      "name": "discard-message-publication",
+      "capacity": 3,
+      "old": "S.append(P,ping,tick,values)",
+      "new": "ping",
+      "checkedBuiltBothBackends": true,
+      "firstDifference": {
+        "actual": "no-lifecycle-boundary:since=0/0;run=5;messages=;removed=1/1;1/2;;despawned=1/2;;lag=false/false/false",
+        "expected": "no-lifecycle-boundary:since=0/0;run=5;messages=11,22,;removed=1/1;1/2;;despawned=1/2;;lag=false/false/false"
+      },
+      "stdout": "Motion\nadded-not-removed:since=0/0;run=2;messages=;removed=;despawned=;lag=false/false/false\nno-lifecycle-boundary:since=0/0;run=5;messages=;removed=1/1;1/2;;despawned=1/2;;lag=false/false/false\nfailed:since=2/2;run=6;messages=;removed=1/1;1/2;;despawned=1/2;;lag=false/false/false\nretry:since=2/2;run=7;messages=;removed=1/1;1/2;;despawned=1/2;;lag=false/false/false\nlate:since=0/0;run=8;messages=;removed=1/1;1/2;;despawned=1/2;;lag=false/false/false\ncompleted:since=7/7;run=9;messages=;removed=;despawned=;lag=false/false/false\nHealth\nadded-not-removed:since=0/0;run=2;messages=;removed=;despawned=;lag=false/false/false\nno-lifecycle-boundary:since=0/0;run=5;messages=;removed=1/1;1/2;;despawned=1/2;;lag=false/false/false\nfailed:since=2/2;run=6;messages=;removed=1/1;1/2;;despawned=1/2;;lag=false/false/false\nretry:since=2/2;run=7;messages=;removed=1/1;1/2;;despawned=1/2;;lag=false/false/false\nlate:since=0/0;run=8;messages=;removed=1/1;1/2;;despawned=1/2;;lag=false/false/false\ncompleted:since=7/7;run=9;messages=;removed=;despawned=;lag=false/false/false"
+    }
+  ],
+  "schemaControl": {
+    "positive": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\nbend 2.0.35 is available: run bend update\n",
+    "negative": "SOME PROOFS FAIL\nError:\n- expected : W.Handle<T.MotionSchema>\n- observed : W.Handle<T.HealthSchema>\nContext:\n- logs   : H.Logs<T.MotionSchema, T.MotionPing>\n- handle : W.Handle<T.HealthSchema>\nLocation: route\n6 | def route(logs: H.Logs<T.MotionSchema,T.MotionPing>,handle: W.Handle<T.HealthSchema>) -> H.Logs<T.MotionSchema,T.MotionPing>:\n7>|   H.append_changes(T.MotionSchema,T.MotionPing,logs,1,[W.MainRemoved{handle}])\n  |                                                                      ^^^^^^\n8 | \nbend 2.0.35 is available: run bend update\n"
+  }
+}
