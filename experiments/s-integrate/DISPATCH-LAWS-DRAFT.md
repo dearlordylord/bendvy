@@ -38,3 +38,31 @@ that explicit fuel. Declared reader interests currently correspond to the main
 trace's Ping/Main ordinal0/despawn declarations. There is no public tick setup or
 frame-retention join yet. Checker success is signature/body feasibility only;
 full dispatcher Native/JS execution and semantic mutants remain open.
+
+Next checked join: `dispatcher.tick` now observes actual World Ledger presence
+and retained actual Audit owner, preflights every nested declaration, and calls
+the trusted frame adapter only on empty missing requirements. The adapter owns
+actual log trimming/holder mechanics and returns World/Readers/Clock; it is not
+a callback capability. Mode carrier is present in trusted-created worlds.
+Tick/count/key aggregate bounds and concrete Host adapter binding remain open.
+
+Finite source controls executed using `experiments/t05/run.py`'s `build` and
+`paired(...,quoted=True)` with temporary output directories (checker5s,
+codegen30s, clang120s, each runtime5s), source `dispatcher-controls.bend`.
+Both Native and JS produced exactly:
+```
+present=
+missing=resource:MotionLedger;service:Audit;
+returned=2:2,0,0,0
+regenerated=2:2,0,0,0
+```
+Two isolated compiling source mutations were rejected by that unchanged expected
+output on both backends: replacing `preflight` Nested branch union with only
+`preflight(tail,ledger,audit,state,ledgerName,stateName)` erased missing entries;
+replacing capture Regenerated `call(closure(local))` with
+`call(closure(initial()))` changed regenerated result to `1:1,0,0,0`.
+An earlier inadequate fixture repeated B outside nesting and missed the first
+mutation; revised fixture has B only inside nesting and a requirement-free Tail
+outside. This evidence covers preflight traversal and capture continuation only.
+It does not establish failure-tail execution, owner-invariant rollback, full
+reader tuples or E0–E11 integrated reference parity.

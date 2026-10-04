@@ -204,3 +204,46 @@ def run(~W:Type,~H:Data,~presence:W -> W & Presence,
       IO.bind(Dispatched<W,H>,Dispatched<W,H>,call(W,H,presence,invoke,system,mode,runtime),result => continue_case(W,H,state => run(W,H,presence,invoke,barrier,transition,tail,state),result))
     case Con{Q.Deferred{},tail}: run(W,H,presence,invoke,barrier,transition,tail,deferred(W,H,barrier,runtime))
     case Con{Q.StateTransition{},tail}: run(W,H,presence,invoke,barrier,transition,tail,state_transition(W,H,barrier,transition,runtime))
+
+# Trusted frame adapter trims actual logs using real registered holders.
+def tick_frame(~W:Type,~H:Data,~presence:W -> W & Presence,
+  ~invoke:Q.System -> Q.Mode -> U32 -> U32 -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
+  ~barrier:W -> U32 -> W,~transition:W -> Maybe<&2,Bool> -> U32 -> W,
+  ~frame:W -> R.Readers -> R.Frame -> W & (R.Readers & R.Clock),
+  +nodes:List<&2,Q.Node>,registry:Q.Registry,audit:Maybe<Audit>,style:C.Style,escaped:List<&2,H>,observations:List<&2,U.Observation>,nextMode:Maybe<&2,Bool>,owners:W & (R.Readers & R.Clock)) -> IO(Dispatched<W,H>):
+  match owners:
+    case (world,(readers,clock)):
+      run(W,H,presence,invoke,barrier,transition,nodes,Runtime{world,registry,readers,clock,audit,style,escaped,observations,nextMode})
+def tick_missing(~W:Type,~H:Data,~presence:W -> W & Presence,
+  ~invoke:Q.System -> Q.Mode -> U32 -> U32 -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
+  ~barrier:W -> U32 -> W,~transition:W -> Maybe<&2,Bool> -> U32 -> W,
+  ~frame:W -> R.Readers -> R.Frame -> W & (R.Readers & R.Clock),
+  +nodes:List<&2,Q.Node>,missing:List<&2,Requirement>,runtime:Runtime<W,H>) -> IO(Dispatched<W,H>):
+  match missing runtime:
+    case Nil{} Runtime{world,registry,readers,clock,audit,style,escaped,observations,nextMode}:
+      tick_frame(W,H,presence,invoke,barrier,transition,frame,nodes,registry,audit,style,escaped,observations,nextMode,frame(world,readers,R.frame(clock)))
+    case requirements state: IO.pure(Dispatched<W,H>,Dispatched{state,MissingRuntimeRequirements{requirements}})
+def tick_audit(~W:Type,~H:Data,~presence:W -> W & Presence,
+  ~invoke:Q.System -> Q.Mode -> U32 -> U32 -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
+  ~barrier:W -> U32 -> W,~transition:W -> Maybe<&2,Bool> -> U32 -> W,
+  ~frame:W -> R.Readers -> R.Frame -> W & (R.Readers & R.Clock),
+  +nodes:List<&2,Q.Node>,+ledger:Bool,+ledgerName:String,+stateName:String,world:W,registry:Q.Registry,readers:R.Readers,clock:R.Clock,style:C.Style,escaped:List<&2,H>,observations:List<&2,U.Observation>,nextMode:Maybe<&2,Bool>,service:Maybe<Audit> & Bool) -> IO(Dispatched<W,H>):
+  match service:
+    case (audit,available):
+      tick_missing(W,H,presence,invoke,barrier,transition,frame,nodes,preflight(nodes,ledger,available,True{},ledgerName,stateName),Runtime{world,registry,readers,clock,audit,style,escaped,observations,nextMode})
+def tick_presence(~W:Type,~H:Data,~presence:W -> W & Presence,
+  ~invoke:Q.System -> Q.Mode -> U32 -> U32 -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
+  ~barrier:W -> U32 -> W,~transition:W -> Maybe<&2,Bool> -> U32 -> W,
+  ~frame:W -> R.Readers -> R.Frame -> W & (R.Readers & R.Clock),
+  +nodes:List<&2,Q.Node>,+ledgerName:String,+stateName:String,registry:Q.Registry,readers:R.Readers,clock:R.Clock,audit:Maybe<Audit>,style:C.Style,escaped:List<&2,H>,observations:List<&2,U.Observation>,nextMode:Maybe<&2,Bool>,owners:W & Presence) -> IO(Dispatched<W,H>):
+  match owners:
+    case (world,Presence{ledger,_}):
+      tick_audit(W,H,presence,invoke,barrier,transition,frame,nodes,ledger,ledgerName,stateName,world,registry,readers,clock,style,escaped,observations,nextMode,audit_present(audit))
+def tick(~W:Type,~H:Data,~presence:W -> W & Presence,
+  ~invoke:Q.System -> Q.Mode -> U32 -> U32 -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
+  ~barrier:W -> U32 -> W,~transition:W -> Maybe<&2,Bool> -> U32 -> W,
+  ~frame:W -> R.Readers -> R.Frame -> W & (R.Readers & R.Clock),
+  +nodes:List<&2,Q.Node>,+ledgerName:String,+stateName:String,runtime:Runtime<W,H>) -> IO(Dispatched<W,H>):
+  match runtime:
+    case Runtime{world,registry,readers,clock,audit,style,escaped,observations,nextMode}:
+      tick_presence(W,H,presence,invoke,barrier,transition,frame,nodes,ledgerName,stateName,registry,readers,clock,audit,style,escaped,observations,nextMode,presence(world))
