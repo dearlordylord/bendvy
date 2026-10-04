@@ -78,6 +78,12 @@ each available lag result. Added/changed rows carry current full payloads;
 removal/despawn records carry handles, not payloads recovered from deleted rows.
 Tables abbreviate these outputs as `(added,changed,removed,despawned; messages)`.
 Empty entries mean exact empty sequences, not omitted assertions.
+Event lag uses the public event view `lagged()`. Removed/despawned system views
+have no equivalent method: observe their actual public `runtime.debug.observe`
+`system.missed` entries for the selected system (`removed`/`despawned` kinds;
+Runtime.ts:1250–1265). This passive trace listener does not run or complete a
+reader. Record its diagnostic provenance separately from callback read values;
+ignore nondeterministic timing fields when comparing normalized observations.
 
 Only the real dispatched `Fast` and `B` base instances are the two registered
 readers. B has a state condition `Mode=On`; copies/nesting reuse the same base

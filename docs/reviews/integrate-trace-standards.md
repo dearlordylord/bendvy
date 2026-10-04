@@ -119,3 +119,81 @@ traces precede checksum timing controls, and no favorable aggregate hides regres
 publication/application/reader boundaries. These documents remain reviewable
 prerequisites, with #18 dependency and exact trace/interface/law gates before
 runtime implementation; no measured or production acceptance is inferred.
+
+## Fresh public E11 retention reference — `891370b`
+
+Reviewed adapter, README, refreshed ten-case evidence and trace's lifecycle lag
+observability correction. Current adapter/trace hashes match recorded evidence.
+
+**Hard violations: none found.** Each complete schema/case child is bounded by
+`execFileSync(timeout:5000)`, including imports, runtime operations, comparisons
+and serialization. Timeout or execution/semantic failure remains nonzero for the
+sweep; only task-owned children are controlled. Pins include actual bevy-ts
+commit/files, manifest, adapter and trace hashes, with no dependency changes.
+
+Public query/added/changed rows are deeply compared at every actual element,
+including all four Main cells, metadata, Aux fields and Flag. Ordered message/
+removal/despawn/raw-ID arrays are compared before compact range/formula encoding;
+first full discrepancies are retained and leave the lane failed. Encodings do
+not replace actual reads with expected ranges. Ten PASS cases are freshly recorded
+across both nominal schemas.
+
+B's first post-drop attempt fails with actual dispatcher B/code7, and the same
+base instance retries the retained sequences. Independent Fast and late
+registration are separately observed. Message lag uses the real public reader
+API; lifecycle views expose values but no lagged method, so public debug system
+trace `missed` supplies that distinct signal. No private saved cursor is read
+or invented lifecycle method claimed. Deleted-row records and surviving changed
+marks are tested separately.
+
+The initial adapter ordering failure is disclosed: Fast moved into the actual
+Delete/deferred-barrier tick to observe pre-trim removals, preserving expected
+retention instead of changing answers. Reports distinguish initial-check outcomes,
+real reads and scope; they accept no integrated Bend ownership/runtime or performance.
+
+Reviewer independently replayed Motion/removal under a five-second subprocess
+limit without writing artifacts: exit 0 and JSON exactly matched its recorded case
+after excluding the sweep's wall-time metadata. Other nine cases were inspected,
+not independently replayed by this reviewer.
+
+**Heuristic findings: none actionable.** Explicit lane separation and full-field
+checks make registration/drop/failure boundaries verifiable.
+
+## Main reference and internal retention supplement — `b2ba594`, `e00d1eb`
+
+Reviewed both adapters, READMEs and coordinator-refreshed evidence. Independently
+replayed the complete four-lane main adapter and all five internal cases, each
+under a five-second subprocess limit without writing artifacts. Main JSON matched
+the recorded evidence exactly; internal case JSON matched after removing only the
+sweep's measured wall time. All passed. Recorded adapter/trace/source hashes match
+current bytes; both adapters check the pinned manifest commit and reference HEAD.
+The internal supplement additionally records the manifest hash.
+
+**Hard violations: none found.** Main observations use actual public system
+instances, nested dispatcher, queries/lookups, resource access, command reservations
+and Audit calls. Complete ordered payload fields, metadata, memberships, lifecycle
+records, messages, capture histories and resource values are deeply compared.
+Reservation labels retain actual returned IDs and verify collision/failed-reservation
+consumption; they do not replace allocator execution. Diagnostic snapshot copying
+does not implement rollback: failed transactional writes/publications and unchanged
+receiver worlds are observed through the runtime, while real Audit effects survive
+failed B. Retry uses the same B instance, and preflight failures preserve invocation
+counts and effects. Returned-owner and regenerated-closure lanes establish TS
+capture behavior only, without claiming Bend affine typing or owner guarantees.
+
+The internal supplement explicitly imports internal streams/world APIs and uses
+capacity three/zero, actual allocation/deletion, full seed payloads and ordered
+retained IDs. It distinguishes repeated boundary reads from dispatcher failure/
+retry and does not satisfy public capacity or integrated runtime requirements.
+Its complete child invocations have five-second bounds; only directly owned Node
+children are controlled. The main adapter is bounded by its documented external
+command and was independently replayed with the same complete-invocation limit.
+
+Reports preserve the outstanding Bend runtime, ownership/access negative controls,
+index relocation, foreign structural-command policy and performance gates. Public
+E11 retention remains separately evidenced; no internal diagnostic or favorable
+TS result grants production API, universal refinement or performance acceptance.
+
+**Heuristic findings: none actionable.** Repeated assertions keep complete schema
+and publication boundaries explicit; extraction would not materially improve this
+bounded reference adapter.
