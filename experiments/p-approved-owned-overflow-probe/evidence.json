@@ -17,75 +17,75 @@
   "checks": [
     {
       "command": [
-        "/workspace/formal-proofs/bendvy-worktrees/owned-overflow-probe/experiments/t01/bend-check",
-        "/workspace/formal-proofs/bendvy-worktrees/owned-overflow-probe/experiments/p-approved-owned-overflow-probe/bridge.bend",
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-approved-owned-overflow-probe/bridge.bend",
         "--check-only"
       ],
       "exit": 0,
-      "wall_seconds": 0.21389542985707521,
+      "wall_seconds": 0.16629913495853543,
       "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\nbend 2.0.35 is available: run bend update\n"
     },
     {
       "command": [
-        "/workspace/formal-proofs/bendvy-worktrees/owned-overflow-probe/experiments/t01/bend-check",
-        "/workspace/formal-proofs/bendvy-worktrees/owned-overflow-probe/experiments/p-approved-owned-overflow-probe/bridge.bend",
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-approved-owned-overflow-probe/bridge.bend",
         "--verdict"
       ],
       "exit": 0,
-      "wall_seconds": 0.3700971179641783,
+      "wall_seconds": 0.2571160269435495,
       "output": "ALL PROOFS CHECK\nbend 2.0.35 is available: run bend update\n"
     },
     {
       "command": [
-        "/workspace/formal-proofs/bendvy-worktrees/owned-overflow-probe/experiments/t01/bend-check",
-        "/workspace/formal-proofs/bendvy-worktrees/owned-overflow-probe/experiments/p-approved-owned-overflow-probe/controls.bend",
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-approved-owned-overflow-probe/controls.bend",
         "--verdict"
       ],
       "exit": 0,
-      "wall_seconds": 0.505127573153004,
+      "wall_seconds": 0.22769840294495225,
       "output": "ALL PROOFS CHECK\nbend 2.0.35 is available: run bend update\n"
     },
     {
       "command": [
-        "/workspace/formal-proofs/bendvy-worktrees/owned-overflow-probe/experiments/t01/bend-check",
-        "/workspace/formal-proofs/bendvy-worktrees/owned-overflow-probe/experiments/p-approved-owned-overflow-probe/false.bend",
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-approved-owned-overflow-probe/false.bend",
         "--check-only"
       ],
       "exit": 1,
-      "wall_seconds": 0.22309882892295718,
+      "wall_seconds": 0.1367315931711346,
       "output": "SOME PROOFS FAIL\nError:\n- expected : {T.Found{T.Row{0n, 0n, False{}}} == T.Missing{} : T.Lookup}\n- observed : {T.Found{T.Row{0n, 0n, False{}}} == T.Found{T.Row{0n, 0n, False{}}} : T.Lookup}\nLocation: wrong_describe_result\n6 | def wrong_describe_result() -> {S.describe(T.Any{},Some{T.Row{0n,0n,False{}}}) == T.Missing{} : T.Lookup}:\n7>|   P.describe_any(0n,0n,False{})\n  |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n8 | \nbend 2.0.35 is available: run bend update\n"
     }
   ],
   "residuals": [
     {
       "command": [
-        "/workspace/formal-proofs/bendvy-worktrees/owned-overflow-probe/experiments/t01/bend-check",
-        "/workspace/formal-proofs/bendvy-worktrees/owned-overflow-probe/experiments/p-approved-owned-overflow-probe/declaration.bend",
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-approved-owned-overflow-probe/declaration.bend",
         "--check-only"
       ],
       "exit": 1,
-      "wall_seconds": 0.40441282000392675,
+      "wall_seconds": 0.13358581997454166,
       "output": "SOME PROOFS FAIL\nError: 1 TODO found.\nThe code is incomplete, and not a valid proof yet.\nbend 2.0.35 is available: run bend update\n"
     },
     {
       "command": [
-        "/workspace/formal-proofs/bendvy-worktrees/owned-overflow-probe/experiments/t01/bend-check",
-        "/workspace/formal-proofs/bendvy-worktrees/owned-overflow-probe/experiments/p-approved-owned-overflow-probe/found-neutral.bend",
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-approved-owned-overflow-probe/found-neutral.bend",
         "--check-only"
       ],
       "exit": 1,
-      "wall_seconds": 0.24443368706852198,
+      "wall_seconds": 0.13892498286440969,
       "output": "SOME PROOFS FAIL\nError: the machine stack overflowed (a deep recursion, or a literal too large to expand)\nbend 2.0.35 is available: run bend update\n"
     }
   ],
   "kernel_negative": {
     "command": [
-      "/workspace/formal-proofs/bendvy-worktrees/owned-overflow-probe/experiments/t01/bend-check",
-      "/workspace/formal-proofs/bendvy-worktrees/owned-overflow-probe/experiments/p-approved-owned-overflow-probe/bridge.bend",
+      "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+      "/workspace/formal-proofs/bendvy/experiments/p-approved-owned-overflow-probe/bridge.bend",
       "--verdict"
     ],
     "exit": 1,
-    "wall_seconds": 0.8597189988940954,
+    "wall_seconds": 0.20024904212914407,
     "output": "SOME PROOFS FAIL\nSorry - this is a mismatch between the TypeScript implementation, and the formalized BendTT kernel. Your proofs may or may not be correct, and we cannot validate them yet. This will be addressed in a future update. Meanwhile, feel free to open an issue to report this bug.\nbend 2.0.35 is available: run bend update\n"
   },
   "source_hashes": {
