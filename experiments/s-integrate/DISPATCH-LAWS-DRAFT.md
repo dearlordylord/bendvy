@@ -82,3 +82,15 @@ The dispatcher T hook therefore calls actual barrier before transition; no
 second implicit barrier is introduced after the transition in this bounded
 no-transition-schedule fixture. General exit/transition/enter schedules remain
 full-core follow-ups outside this main fixture.
+
+Clock join correction (supersedes earlier tick-hook signatures): actual command
+barrier consumes World and Clock and returns both; transition consumes World,
+pending state and Clock and returns both. Runtime.ts1443 advances the tick even
+for an empty deferred drain; Runtime.ts1581 advances again for an applied state
+transition. The trusted adapters must implement these observed operations and
+return their actual clocks, avoiding a guessed marker tick in generic glue.
+`Invoked`/`Visit` also carry `published:Bool`, true only after an actual successful
+nonempty staged-message batch publication at thisRun+1 (Runtime.ts1030).
+The dispatcher advances its clock once for that actual publication while
+completing the reader at the unchanged Run.thisRun. Failure/empty commit return
+false. Concrete adapter/trace checks must falsify omitted/extra clock advances.
