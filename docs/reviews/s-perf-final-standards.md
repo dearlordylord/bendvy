@@ -4,7 +4,7 @@ Independent review of `a976667...d95f83c`, including the subsequent clean-checko
 `owned-storage-run.py` repair (SHA256
 `02d50b146f3b50d61b013bfc1db1f3875d7e22b4127f7b418c8542aae3e676ba`).
 Standards: AGENTS.md, issue-tracker.md, SPEC.md, indexed-storage/API/design review,
-and bend-ldd. Live #20 was read. Delivery artifacts require the closing
+bend-ldd and live #20. Delivery artifacts require the closing
 review supplement below.
 
 **Hard standards violations: none found in the reviewed implementation.**
@@ -32,14 +32,11 @@ review supplement below.
 `access-run.py`, `occupancy-run.py`, `candidate/owned-storage-run.py` duplicate
 process-group deadline cleanup: `os.killpg(p.pid,signal.SIGKILL)` followed by
 `communicate()`. Fowler DuplicatedCode suggests a shared bounded-runner shape
-when these experimental scripts become maintained tooling. Separate frozen
-subjects currently aid evidence attribution; no extraction is required now.
+when these experimental scripts become maintained tooling. No extraction is required now.
 
 `failure-indexed-prepare.py` names historical `/tmp/bendvy-indexed-final2` and
 an absolute repository path. Fowler MysteriousName suggests naming this as a
-historical construction helper. Clean replay should use committed frozen overlays
-and documented build/validation commands; recreating that vanished snapshot is
-not a prerequisite for inspecting or executing those packages.
+historical construction helper. Replay uses committed frozen overlays; recreating that snapshot is unnecessary.
 
 ## Delivery supplement
 
@@ -50,5 +47,13 @@ retained. The clean owned replay now documents its three semantic mutants.
 The README supplies fresh-overlay commands. The provisional completion report
 explicitly marks evaluation incomplete, rejects production adoption and records
 missing workload/diagnostic gates and concrete return conditions. Final quiet
-FailedTxn, actual Bend Readers diagnostics and the final closure decision remain
-outside this supplement; they require their own source/evidence review.
+FailedTxn and the closure decision still require review.
+
+Readers supplement `397a6e8`/`19f3746`: no hard violations. Independently verified
+all twelve gzip hashes, 14352 records, Native/JS record equality, physical/cache
+consistency, recomputed checkpoint maxima and retained final records. Hooks return
+actual World/registry/Run owners without invoking readers or trimming. Missing
+active-Tx/setup/RSS cells remain explicit. The report distinguishes single-world
+diagnostics from failed measurement children; #21 retains performance, timer
+resolution and actual transaction-meter return conditions. No duplicate runtime
+was run for this review.
