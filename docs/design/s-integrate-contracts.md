@@ -39,8 +39,11 @@ trace; no second fixture/constants table is introduced here.
   no additional allocator/error policy is selected here.
 - **Proposed:** command entry receives the actual handle and derives its target;
   no separate caller-supplied target. Return world plus command result, retaining
-  any unqueued Type payload on rejection. Distinguish reservation, staged system
-  commands, committed pending FIFO, and applied membership in shared result types.
+  any unqueued Type payload to the caller on rejection. Accepted staged payloads
+  belong to the transaction and are released exactly once on failure; committed
+  payloads transfer to pending FIFO, then live storage at the explicit barrier.
+  Preserve the trace's public publication/disposal observations across these
+  distinct ownership transitions.
 - **Proposed:** storage extraction returns the actual cell owner and a reinsertion
   obligation; a callback returns that owner for reinsertion on every outcome.
   The transaction journal owns ordered inverse records for recoverable numeric
@@ -67,10 +70,11 @@ not a required internal journal/log representation or raw generation rewind.
 | Success | Advance only the invoked reader's reference-defined positions. Commit publishes after its run tick; B sees its post-run event later without reading its same-run changed stamp. |
 | Failure/retry | Do not complete the failed reader; retry sees the same retained messages/lifecycle values and lag. Restore observable failed write marks; preserve other readers. |
 | Skip | No callback or capture increment. Advance message boundary only, retaining change/removal/despawn boundary. |
-| Retention | Preserve registration-aware holds and exact public E11 capacity behavior: whole message batches versus individual lifecycle records; expose loss/lag. |
+| Retention | Preserve registration-aware holds and exact public E11 capacity behavior: whole message batches versus individual lifecycle records; expose loss/lag and preserve first-failure/same-instance retry at capacity65536. |
 
-**Proposed dispatcher boundary:** preflight the actual nested schedule's declared
-Ledger/Audit requirements before invoking any system. Provision returned owners,
+**Proposed dispatcher boundary:** preflight all declared/provisioning requirements
+of the actual nested schedule before invoking any system. Ledger/Audit are E10's
+exercised missing-requirement cases. Provision returned owners,
 execute sequentially, and propagate B/code7 through nesting while suppressing both
 tails. Explicit D and T remain authored operations. Schedule owner returns distinct
 A/B/Fast capture owners; both returned-owner and regenerated once-only closure
@@ -103,3 +107,6 @@ compiling semantic mutants are #19 evidence, separate from #18/model proofs.
 No production layout, root/reuse/exhaustion, general Local, destructive-recovery or
 arbitrary Type message fan-out policy is chosen. Retain those full-core follow-ups
 and measure equivalent integrated workloads before performance acceptance.
+
+Astra reviewed this draft on 2026-10-04: required scope retained; clarified staged
+payload ownership, complete preflight and the exact public overflow retry boundary.
