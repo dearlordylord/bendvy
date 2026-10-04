@@ -81,3 +81,13 @@ Keep separate return gates for generic affine element restoration, captured/IO
 payloads, allocation/membership/change-tick rollback, integrated schedules and
 scalable journal/layout cost. Fixed slots and two command-intent kinds are probe
 boundaries, not full-core exclusions or approved proofs.
+
+## T07 event-reader return conditions
+
+[T07](../experiments/t07/README.md) passes 24 ordered native/JS/reference
+observations and detects six compiling mutants. Preserve separate production
+gates for generic keyed streams, reader lifecycle and declared authority, affine
+message fan-out, captured callbacks, integrated schedules, clock exhaustion and
+scalable retention costs. Public runtime retention and internal small-capacity
+boundaries are distinct evidence; event skip does not advance change/lifecycle
+positions. T08 establishes those positions separately.
