@@ -522,3 +522,48 @@ hard five-second wrapper; temporary mutation files are scoped and removed.
 Bend structural/affine transport. This is supporting safety evidence only: actual
 runtime/member-wise Bump correspondence, full owned endpoint, integration and
 performance remain open.
+
+## Contextual owned Word caller links — `7495625` (2026-10-04)
+
+**Hard violations: none found.** Reviewed `098df4a...7495625`, inventory, helper
+interfaces, frozen pins and controls. Independently archived the frozen commit to
+an isolated temporary directory and ran its verifier: exit 0, six expected
+outcomes passed. Root evidence was untouched. The runner asserts its recorded
+canonical law/spec/bridge, approval and imported arithmetic proof pins plus
+compiler/Base hashes before checking, then records source/runner hashes.
+
+Equality projection uses the proved generic Word comparator. Structural Reserve
+reasoning proves its below-MAX conclusion from the actual supplied U32 comparison
+premise, with no invented allocator policy or weaker domain. Bump transports the
+independent Nat not-ge guard to the actual U32 bound and eliminates the approved
+increment conditional using live proof evidence. The caller still must supply
+connected prefix/lookup premises; generic helpers do not silently discharge those
+runtime obligations. Contradictory Bool elimination is checked evidence, not an
+unsafe assumption or filled unapproved catalogue contract. All U32 duplication
+is legitimate Data use; no affine world/array cloning is introduced.
+
+General helper checker/kernel and complete positive controls pass. Invalid Reserve
+premise and incorrect Bump result reject at their exact intended sections. These
+are accurately described as negative proof controls rather than compiling runtime
+mutants. Forced false BendTT rejects the otherwise accepted kernel gate. Every
+invocation retains the hard five-second wrapper; the supervisor handles only its
+own process. The failed direct MAX-specialized transport attempt is disclosed;
+parameterized generic transport fixes it without changing interfaces, limits or
+numeric domains, and no unary MAX Nat fixture is claimed.
+
+**Heuristic findings: none actionable.** Structural case helpers express Bend's
+match and quantity constraints. The package proves contextual interfaces only;
+actual primitive/owner correspondence, member-wise lookup safety, full schedule,
+integration and performance remain separate gates.
+
+### Safety provenance correction — `0dd610f` (2026-10-04)
+
+Independent frozen temporary replay passes all twelve outcomes. New pre-check
+assertions enforce original source, proposal, approval and listed contextual
+proof digests, resolving their prior record-only treatment. Proof source is unchanged.
+
+**Remaining low provenance finding:** recursive inspection of actual imports finds
+`experiments/p-observe-lookup/PROOF.bend` and `LAWS.bend` outside the frozen list.
+They are transitively imported by the contextual query/schedule closure. Add these
+two digests to make the claimed complete contextual freeze accurate. This is a
+provenance-enforcement gap, not a failure of the independently reviewed proof.

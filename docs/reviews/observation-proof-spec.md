@@ -167,3 +167,15 @@ Independent isolated-package replay of `python3 experiments/p-approved-owned-saf
 Reviewed SHA256: `safety.bend` = `1314af37783dfdab0007721ab9d134fcfbf69ec11f297749aa7696b2857764bf`; `transport.bend` = `5cf6615d32906bf39650afab13c15e8e811d6aacafa3cd5c847266036590e019`; `run.py` = `50de8162204b672565feff50afc6fffba211e6e222acf6cdd716bac60f84d133`.
 
 No semantic blocker was found. This discharges independent-to-model safety transport; actual affine runtime primitive correspondence, per-member runtime Bump premises and full owner-threaded schedule composition still require their own evidence. The approved owned theorem remains incomplete.
+
+## Contextual Word caller links — 2026-10-04, `7495625`
+
+**PASS as supporting arithmetic; full owned correspondence remains open.** Reviewed `098df4a...7495625`. `equality` projects the checked arbitrary-word comparator through `Cmp.is_eq`, connecting actual U32 equality with Nat conversion for every pair. Reserve's structural all-ones bound and width induction derive `next < MAX` from the actual `next < limit` evidence for arbitrary U32 limits; no smaller-limit premise or unary MAX evaluation is substituted. Bump transport matches precisely `Bool.not(Nat.is_ge(value,MAX))` from the independent found-row safety predicate and invokes the approved increment theorem to obtain the actual inline `U32.add(value,1)` equation.
+
+Every premise remains explicit. These helpers do not manufacture the runtime row's guard from an unrelated observation; the caller still must connect the selected array value to the safe-prefix lookup. Conditional introduction/elimination and Bool contradiction helpers are ordinary evidence operations, not renamed unapproved conditional-Type equations. No additional catalogue contract or runtime policy is filled or assumed.
+
+Independent isolated-package `python3 experiments/p-approved-owned-word-context/verify.py` exited0, with helper/control checker/kernel acceptance, intended invalid Reserve-premise and incorrect Bump-result rejections, and forced-kernel failure. Five-second limits remained unchanged; root evidence was preserved. These negatives are correctly classified as false proof controls, not compiling semantic mutants. The report transparently records the earlier direct-MAX conversion stack failure and the final generic-comparison factoring; neither changes the quantified domain.
+
+Reviewed SHA256: `helpers.bend` = `32103c04f62d5c8b60fe551f7da77d1fa7b75787e071b292e3f679c31f4d8bc7`; `verify.py` = `7143dca45c469881028100dcc6ff83cd27b3bbc9a77ed311e456d501bfe8139a`; `subjects.json` = `d79ef9b49702a96972bae5594f25348d287def6335172b0982fdce4bcb0ef1e9`.
+
+No semantic blocker was found for these exact contextual interfaces. Actual primitive-owner correspondence, per-member Bump safety and full schedule composition/mutation gates remain separate; no allocator, root, full-payload, backend or performance acceptance follows.
