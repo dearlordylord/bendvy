@@ -1,0 +1,276 @@
+{
+  "status": "ROUTE BLOCKED: diagnostics verified; exact seventh theorem and arbitrary-world empty case remain unproved",
+  "completed_approved_laws": [],
+  "checker_limit_seconds": 5,
+  "compiler_version": "bend 2.0.34",
+  "compiler_binary_sha256": "d4821d04932218216c9dc906223ed0e23dd86726d4357a567fb76ee6c976db4e",
+  "canonical_sources": {
+    "experiments/t11-replacement/LAWS.bend": "e0c607d723ad250a189c096d9fa3fd6a36913f4c72efd3a3be6dacd7fadb2cbc",
+    "experiments/t11-replacement/types.bend": "0261b9381f51b4aecdf61b76bfa61149d10d662b0c02ddc320da2236ec17d287",
+    "experiments/t11-replacement/model.bend": "53ac1f776c721a5bea0c063eefe229c1d43b4e09d95a269e283fe900a2934c40",
+    "experiments/t11-replacement/spec.bend": "3b7a96d9131919fe087dac5e024058bbfa916ce5c108dce3a7d72119b7ccd465",
+    "experiments/t11-replacement/runtime.bend": "014ed398324f257ced9985f1db29a94dd74f34952dd3aa3c2b11809118502550",
+    "experiments/t11-replacement/owned-spec.bend": "edca58e81a96e03109e2d575146eee456ee543b20746519bfef202d047a9e50e"
+  },
+  "reference_commits": {
+    "bevy-ts": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334",
+    "bevy": "ad678262ce53b5d142fe49ee5e08caff6f00ab60",
+    "bend2": "a950fd683c0d76f09794078e6174fe98a1492876"
+  },
+  "checks": [
+    {
+      "scope": "language/transport/finite diagnostic only; no general owned theorem",
+      "name": "language",
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/p-owned-route/language.bend",
+        "--verdict"
+      ],
+      "exit_code": 0,
+      "output": "ALL PROOFS CHECK\n"
+    },
+    {
+      "scope": "language/transport/finite diagnostic only; no general owned theorem",
+      "name": "owner-diagnostic",
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/p-owned-route/owner-diagnostic.bend",
+        "--verdict"
+      ],
+      "exit_code": 0,
+      "output": "ALL PROOFS CHECK\n"
+    },
+    {
+      "scope": "language/transport/finite diagnostic only; no general owned theorem",
+      "name": "dead-formation",
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/p-owned-route/dead-formation.bend",
+        "--verdict"
+      ],
+      "exit_code": 0,
+      "output": "ALL PROOFS CHECK\n"
+    },
+    {
+      "scope": "language/transport/finite diagnostic only; no general owned theorem",
+      "name": "guard-witness",
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/p-owned-route/guard-witness.bend",
+        "--verdict"
+      ],
+      "exit_code": 0,
+      "output": "ALL PROOFS CHECK\n"
+    },
+    {
+      "scope": "language/transport/finite diagnostic only; no general owned theorem",
+      "name": "empty-instances",
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/p-owned-route/empty-instances.bend",
+        "--verdict"
+      ],
+      "exit_code": 0,
+      "output": "ALL PROOFS CHECK\n"
+    },
+    {
+      "scope": "language/transport/finite diagnostic only; no general owned theorem",
+      "name": "live-empty-constructor",
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/p-owned-route/live-empty-constructor.bend",
+        "--verdict"
+      ],
+      "exit_code": 0,
+      "output": "ALL PROOFS CHECK\n"
+    },
+    {
+      "scope": "language/transport/finite diagnostic only; no general owned theorem",
+      "name": "empty-family",
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/p-owned-route/empty-family.bend",
+        "--verdict"
+      ],
+      "exit_code": 0,
+      "output": "ALL PROOFS CHECK\n"
+    },
+    {
+      "name": "erased-guard-negative",
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/p-owned-route/erased-guard-negative.bend",
+        "--verdict"
+      ],
+      "exit_code": 1,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : -guard\n- observed : guard\nLocation: attempt\n4 | \n5>| def attempt(-guard: Bool) -> S.When(guard,{0n == 0n : Nat}):\n  |              ^^^^^\n6 |   P.introduce(guard,{0n == 0n : Nat},{==})\n"
+    },
+    {
+      "name": "dead-proof-negative",
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/p-owned-route/dead-proof-negative.bend",
+        "--verdict"
+      ],
+      "exit_code": 1,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : -proof\n- observed : proof\nContext:\n- n : Nat\nLocation: attempt\n4 | def attempt(-n: Nat) -> {Nat.add(n,0n) == n : Nat}:\n5>|   -proof = P.add_right_zero(n)\n  |   ^^^^^^\n6 |   proof\n"
+    },
+    {
+      "name": "dead-rewrite-negative",
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/p-owned-route/dead-rewrite-negative.bend",
+        "--verdict"
+      ],
+      "exit_code": 1,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : -proof\n- observed : proof\nContext:\n- n : Nat\nLocation: attempt\n4 | def attempt(-n: Nat) -> {Nat.add(n,0n) == n : Nat}:\n5>|   -proof = P.add_right_zero(n)\n  |   ^^^^^^\n6 |   %proof : {Nat.add(n,0n) == _ : Nat}\n"
+    },
+    {
+      "name": "live-call-negative",
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/p-owned-route/live-call-negative.bend",
+        "--verdict"
+      ],
+      "exit_code": 1,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : -n\n- observed : n\nLocation: attempt\n3 | \n4>| def attempt(-n: Nat) -> {Nat.add(n,0n) == n : Nat}:\n  |              ^\n5 |   P.add_right_zero(n)\n"
+    },
+    {
+      "name": "erased-owner-forward-negative",
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/p-owned-route/erased-owner-forward-negative.bend",
+        "--verdict"
+      ],
+      "exit_code": 1,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : -owner\n- observed : owner\nLocation: attempt\n4 | \n5>| def attempt(-owner: D.Owner) -> S.When(D.flag(owner),{0n == 0n : Nat}):\n  |              ^^^^^\n6 |   D.live(owner)\n"
+    },
+    {
+      "name": "empty-conditional-negative",
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/p-owned-route/empty-conditional-negative.bend",
+        "--verdict"
+      ],
+      "exit_code": 1,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : -world\n- observed : world\nContext:\n- limit : U32\nLocation: attempt\n10 | # This is a route diagnostic, not an attempted proof that the equation holds.\n11>| def attempt(+limit: U32, -world: R.World,\n   |                           ^^^^^\n12 |   proof: {M.observe(R.snapshot(R.project(R.tick([],limit,world)))) == S.schedule_observation(U32.to_nat(limit),O.snapshot(world),O.steps([])) : T.Observation})\n"
+    },
+    {
+      "name": "erased-field-negative",
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/p-owned-route/erased-field-negative.bend",
+        "--verdict"
+      ],
+      "exit_code": 1,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : -proof\n- observed : proof\nContext:\n- A : Type\nLocation: extract\n7 |   match ghost:\n8>|     case Ghost{proof}: proof\n  |                ^^^^^\n9 | \n"
+    },
+    {
+      "name": "false-negative",
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/p-owned-route/false-negative.bend",
+        "--verdict"
+      ],
+      "exit_code": 1,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : 0n\n- observed : 1n\nLocation: false_fact\n3 | def false_fact() -> {0n == 1n : Nat}:\n4>|   {==}\n  |   ^^^^\n5 | \n"
+    },
+    {
+      "name": "false-transport-negative",
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/p-owned-route/false-transport-negative.bend",
+        "--verdict"
+      ],
+      "exit_code": 1,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : True{}\n- observed : False{}\nLocation: false_fact\n5 | def false_fact() -> S.When(False{},{0n == 0n : Nat}):\n6>|   P.from_guard(False{},{==})\n  |                        ^^^^\n7 | \n"
+    },
+    {
+      "name": "empty-exact-negative",
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/p-owned-route/empty-exact-negative.bend",
+        "--verdict"
+      ],
+      "exit_code": 1,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : S.When(S.admissible(U32.to_nat(limit), O.snapshot(world)), {M.observe(R.snapshot(R.project(world))) == S.observe(O.snapshot(world)) : T.Observation})\n- observed : non-inferrable term\nContext:\n- limit : U32\n- world : R.World\nLocation: attempt\n 9 | def attempt(+limit: U32, -world: R.World) -> S.When(S.run_safe(O.steps([]),U32.to_nat(limit),O.snapshot(world)), {M.observe(R.snapshot(R.project(R.tick([],limit,world)))) == S.schedule_observation(U32.to_nat(limit),O.snapshot(world),O.steps([])) : T.Observation}):\n10>|   {==}\n   |   ^^^^\n11 | \n"
+    },
+    {
+      "name": "PROPOSED remains unapproved/open",
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/p-owned-route/PROPOSED.bend",
+        "--verdict"
+      ],
+      "exit_code": 1,
+      "output": "SOME PROOFS FAIL\nError: 1 TODO found.\nThe code is incomplete, and not a valid proof yet.\n"
+    }
+  ],
+  "kernel_negative_control": {
+    "command": [
+      "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/t01/bend-check",
+      "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/p-owned-route/language.bend",
+      "--verdict"
+    ],
+    "exit_code": 1,
+    "output": "SOME PROOFS FAIL\nSorry - this is a mismatch between the TypeScript implementation, and the formalized BendTT kernel. Your proofs may or may not be correct, and we cannot validate them yet. This will be addressed in a future update. Meanwhile, feel free to open an issue to report this bug.\n"
+  },
+  "family_mutant": {
+    "scope": "empty-row family equation only, NOT seventh-law mutation gate",
+    "old": "T.World{U32.to_nat(id),U32.to_nat(next),rows,commands_project(pending)}",
+    "new": "T.World{1n+U32.to_nat(id),U32.to_nat(next),rows,commands_project(pending)}",
+    "copied_positive": {
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/t01/bend-check",
+        "/tmp/owned-family-mutant-t2k8mmu3/p-owned-route/empty-family.bend",
+        "--verdict"
+      ],
+      "exit_code": 0,
+      "output": "ALL PROOFS CHECK\n"
+    },
+    "compiling_runtime": {
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/t01/bend-check",
+        "/tmp/owned-family-mutant-t2k8mmu3/t11-replacement/runtime.bend",
+        "--verdict"
+      ],
+      "exit_code": 0,
+      "output": "ALL PROOFS CHECK\n"
+    },
+    "family_failure": {
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-owned-route/experiments/t01/bend-check",
+        "/tmp/owned-family-mutant-t2k8mmu3/p-owned-route/empty-family.bend",
+        "--verdict"
+      ],
+      "exit_code": 1,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : {T.Observation{1n+U32.to_nat(id), U32.to_nat(next), [], R.commands_project(pending)} == T.Observation{U32.to_nat(id), U32.to_nat(next), S.enumerate_rows(U32.to_nat(next), 0n, [], T.Any{}), O.commands(pending)} : T.Observation}\n- observed : {T.Observation{U32.to_nat(id), U32.to_nat(next), [], R.commands_project(pending)} == T.Observation{U32.to_nat(id), U32.to_nat(next), S.enumerate_rows(U32.to_nat(next), 0n, [], T.Any{}), O.commands(pending)} : T.Observation}\nContext:\n- limit   : U32\n- id      : U32\n- next    : U32\n- pending : List<&2, R.Command>\nLocation: equation\n27 |   -> {M.observe(R.snapshot(R.project(R.tick([],limit,R.World{id,next,[],pending})))) == S.schedule_observation(U32.to_nat(limit),O.snapshot(R.World{id,next,[],pending}),O.steps([])) : T.Observation}:\n28>|   %commands(pending) : {T.Observation{U32.to_nat(id),U32.to_nat(next),[],R.commands_project(pending)} == T.Observation{U32.to_nat(id),U32.to_nat(next),S.enumerate_rows(U32.to_nat(next),0n,[],T.Any{}),_} : T.Observation}\n   |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n29 |   %enumerate_empty(U32.to_nat(next),0n) : {T.Observation{U32.to_nat(id),U32.to_nat(next),[],R.commands_project(pending)} == T.Observation{U32.to_nat(id),U32.to_nat(next),_,R.commands_project(pending)} : T.Observation}\n"
+    }
+  },
+  "proposal_sha256": "8e400d78b08530ff17295fa32190d0cf93b1f4641816d2710506b64a8ae2940b",
+  "proposal_law_block_sha256": "09009b85dce27b1d8cc0fd1d845fa73b9cc76e20937f0c1d0b7f9d258a421197",
+  "source_hashes": {
+    "empty-instances.bend": "ef25d76c6686fa99becd703511a0cd85c7a80210b8b18bd5d96ceb188c1ac626",
+    "erased-guard-negative.bend": "e678802645d77081b335e3a41cf0f28c1462e296a9cce813d4ce5895a8f6a40b",
+    "empty-conditional-negative.bend": "68cd96b0dd86282f5e514b70991e515553e2acc7512703a51076b7f306b5ce03",
+    "live-call-negative.bend": "a8b4eaddc9d39f566ae18dd0161dfb3a4f782f6886bbabca593573fe319e7d39",
+    "empty-exact-negative.bend": "9915ea2ad585e05e5c8d6fa5bd07788eff9dc27fb0f70d718286956732f6d2e0",
+    "live-empty-constructor.bend": "b6bff0ccc3ef1cd1082bf9e0d4fcfa4cc9628be7e05c436805408de570662144",
+    "false-transport-negative.bend": "c1495ad4ae940474aab66fd30b772871c329ea009ce01a6107fe30a4910aab56",
+    "empty-family.bend": "dd85bb8ee8f190eca2ddcd9de9a16e2cad4d0efd67418cd7d66b3ec71efddf00",
+    "PROPOSED.bend": "8e400d78b08530ff17295fa32190d0cf93b1f4641816d2710506b64a8ae2940b",
+    "guard-witness.bend": "acf9ea64d268936c8597d73c5476e98ba7dac7ab9dd0984ee61fc80d62634153",
+    "dead-proof-negative.bend": "8c17e6585663013de88429948b52faa3191d81aaef1271ad6fd09e75787a6614",
+    "false-negative.bend": "1c07c0f8c60272814f24e0fd55d13228666e053198586484df48dd3596cca48e",
+    "erased-owner-forward-negative.bend": "cd50f62d2f5628a5c2274e509658ee4bc125b2a4abeb71d7cd63306aad97f268",
+    "dead-formation.bend": "1b8303e9bf9f80b4d354de4daad9631cfa2ca54c4d16d1d2d335d716e94c8030",
+    "dead-rewrite-negative.bend": "5d358e6e4c42a227a1bceff780295c4ae86f9430fd2d046280df8fae6fa94928",
+    "erased-field-negative.bend": "109abacea1c65d22fca72a12e32c3ce7c38eee49d810404ed3fcb21e27f3cfbb",
+    "owner-diagnostic.bend": "ea73e58ca2085698ee35a10585d760e4154d617c4bce6e84ed49ff3fa652f6a7",
+    "language.bend": "4d44d78c5522c3393d1e947d660a3bd7119790ec5af12ebb0704fa9f5a1e4ca8"
+  },
+  "runner_sha256": "11c9188ee4c507470944a44cba233206a9b188191e97d9c6f07f30fcd6cc504e",
+  "base_sha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+  "installed_kernel_source_sha256": "61e0d2d9f4ddd7dd8bb1497fa612fb49a7274fcac647bf70702ba22321d7c292",
+  "pinned_checker_source_sha256": "1d133151652b597a1a035c77c172475e6de096da37f3b9e3adc23c2f75bdfe49"
+}
