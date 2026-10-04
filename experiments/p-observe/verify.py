@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Seven-endpoint proof gate. Incomplete/invalid proofs always return nonzero."""
+import argparse
 import hashlib
 import json
 import os
@@ -14,6 +15,10 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent.parent
 SUBJECTS = json.loads((HERE / 'subjects.json').read_text())
 WRAPPER = ROOT / 'experiments/t01/bend-check'
+OPTIONS = argparse.ArgumentParser(description=__doc__)
+OPTIONS.add_argument('--source-checker', action='store_true',
+                     help='use the reviewed pinned local source repair and unchanged kernel')
+ARGS = OPTIONS.parse_args()
 
 def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -33,6 +38,22 @@ def check(flag):
         child.communicate()
         raise RuntimeError('checker wrapper failed to enforce its five-second limit')
     return {'command': command, 'exit_code': child.returncode, 'output': output}
+
+def source_check():
+    tool = json.loads((HERE / 'checker.json').read_text())
+    for key in ['runner', 'pins', 'decision']:
+        if digest(ROOT / tool[key + '_path']) != tool[key + '_sha256']:
+            raise RuntimeError('local checker provenance changed: ' + key)
+    command = [sys.executable, str(ROOT / tool['runner_path']), str(HERE / 'PROOF.bend')]
+    # The pinned runner limits its actual checker/kernel process group to five
+    # seconds. This bound contains only additional source setup/reporting time.
+    child = subprocess.run(command, capture_output=True, text=True, timeout=8)
+    result = json.loads(child.stdout)
+    return {'command': command, 'exit_code': child.returncode,
+            'output': result['stdout'] + result['stderr'], 'result': result,
+            'phase': 'source checking and unchanged independent kernel', 'tool': tool,
+            'toolchain_manifest': json.loads((ROOT / tool['pins_path']).read_text()),
+            'node_version': subprocess.check_output(['node', '--version'], text=True).strip()}
 
 def main():
     for path, expected in SUBJECTS['canonical_closure'].items():
@@ -86,17 +107,23 @@ def main():
     actual_imports = re.findall(r'(?m)^import .+$', (HERE / 'LAWS.bend').read_text())
     if actual_imports != expected_imports:
         raise RuntimeError('selected law imports differ from the canonical subjects')
-    rows = [check('--check-only'), check('--verdict')]
-    passed = all(row['exit_code'] == 0 and 'ALL PROOFS CHECK' in row['output'] for row in rows)
+    rows = [source_check()] if ARGS.source_checker else [check('--check-only'), check('--verdict')]
+    if ARGS.source_checker:
+        passed = all(row['exit_code'] == 0 and row['result']['exit'] == 0
+                     and 'CHECK PASS' in row['result']['stdout']
+                     and 'KERNEL PASS' in row['result']['stdout'] for row in rows)
+    else:
+        passed = all(row['exit_code'] == 0 and 'ALL PROOFS CHECK' in row['output'] for row in rows)
     report = {'status': 'PASS: all seven proof endpoints checked' if passed else 'INCOMPLETE: full seven-endpoint proof gate failed',
               'issue': 18, 'approved_ids': SUBJECTS['approved_ids'],
               'approved_source_sha256': SUBJECTS['approved_source_sha256'],
               'canonical_closure_verified': True, 'exact_selection_verified': True,
               'approved_amendments': amendments, 'approved_support': support,
               'checks': rows, 'checker_limit_seconds': 5,
+              'checker_provider': 'reviewed task-local source repair with unchanged installed kernel' if ARGS.source_checker else 'installed compiler',
               'source_hashes': {p.name: digest(p) for p in HERE.iterdir() if p.suffix in ['.bend','.py'] or p.name == 'subjects.json'},
               'base_sha256': digest(Path.home() / '.bend/bend2/base.bend'),
-              'compiler_sha256': digest(Path(shutil.which('bend')).resolve()),
+              'installed_compiler_sha256': digest(Path(shutil.which('bend')).resolve()),
               'limits': 'This gate checks exact statements and proof verdicts. Per-endpoint compiling semantic mutants, controls, independent review and ticket acceptance remain separate required gates.'}
     (HERE / 'evidence.json').write_text(json.dumps(report, indent=2) + '\n')
     print(report['status'])

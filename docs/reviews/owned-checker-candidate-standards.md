@@ -38,3 +38,34 @@ construction writes only task-local output and temporary copied compiler modules
 not adoption, broad compiler validation or full owned endpoint acceptance. Wider
 regressions and exact adopted tool provenance remain necessary. Findings above
 apply to the frozen revision; followup hardening must be reviewed separately.
+
+## Hardening resolution — `d24cf49` (2026-10-04)
+
+**All three frozen-revision findings resolved.** Independently replayed the frozen
+commit from a temporary archive: exit0, all twenty-one checker matrix outcomes,
+seven direct comparator cases on each source variant, and the forced false-kernel
+control passed. Root evidence/source references/installations were untouched.
+
+Each child starts a task-owned session; its complete invocation has a five-second
+deadline, with process-group SIGKILL and output collection on timeout. Diagnostic
+gates now require baseline stack-failure signals and intended false/affine/nominal/
+hole/unsafe reasons, including exact false-equality and nominal fixture names.
+Accepted candidates require explicit kernel success; the false backend control
+first establishes checker acceptance, then rejects at the kernel. A timeout or
+unrelated failure cannot satisfy a positive gate.
+
+Enforced pins cover exact source revision, checker and safe modules, source and
+installed Base (identical hash), source/installed kernel sources, installed binary,
+actual existing kernel executable, patch, comparator and every fixture. The patch
+bytes are also mechanically compared with the generated complete rigid-retry diff.
+The harness rejects holes and non-Base unsafe/foreign definitions before accepting
+proofs; its Base-only exception permits existing trusted intrinsic definitions,
+while every accepted closure still passes the unchanged independent kernel.
+No new dependency, compiler installation, reference edit or production tool change
+is introduced. Existing mode, binder quantity/depth and label cases remain active.
+
+**No new hard violations or actionable smells found.** The source2.0.35/installed
+binary2.0.34 distinction remains explicit. This resolves diagnostic reproducibility
+and cleanup findings; these bounded controls do not establish broad compiler
+regression coverage or full owned proof acceptance, which require separately frozen
+packages and review.

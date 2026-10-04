@@ -9,8 +9,9 @@ import ../p-observe-flush/PROOF.bend as FlushProof
 
 import ../p-observe-schedule/LAWS.bend as N
 import ../p-observe-schedule/PROOF.bend as ScheduleProof
+import ../p-approved-owned-schedule/LAWS.bend as W
+import ../p-approved-owned-schedule/PROOF.bend as OwnedProof
 
-# Owned runtime remains open until its actual proof lands.
 def L.lookup_full_exact(world,handle,selection):
   K.lookup_full_exact(world,handle,selection)
 
@@ -28,3 +29,6 @@ def L.explicit_flush_independent(limit,world):
 
 def L.schedule_execution_exact(limit,world,steps):
   N.schedule_execution_exact(limit,world,steps)
+
+def L.owned_runtime_schedule_correspondence(limit,world,steps):
+  W.owned_runtime_schedule_correspondence(limit,world,steps)

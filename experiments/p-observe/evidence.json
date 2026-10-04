@@ -1,5 +1,5 @@
 {
-  "status": "INCOMPLETE: full seven-endpoint proof gate failed",
+  "status": "PASS: all seven proof endpoints checked",
   "issue": 18,
   "approved_ids": [
     "query_any_complete_ordered",
@@ -37,32 +37,61 @@
   "checks": [
     {
       "command": [
-        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-        "/workspace/formal-proofs/bendvy/experiments/p-observe/PROOF.bend",
-        "--check-only"
+        "/usr/bin/python3",
+        "/workspace/formal-proofs/bendvy/experiments/p-owned-checker-diagnostic/verify.py",
+        "/workspace/formal-proofs/bendvy/experiments/p-observe/PROOF.bend"
       ],
-      "exit_code": 1,
-      "output": "SOME PROOFS FAIL\nError: 1 TODO found.\nThe code is incomplete, and not a valid proof yet.\nbend 2.0.35 is available: run bend update\n"
-    },
-    {
-      "command": [
-        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-        "/workspace/formal-proofs/bendvy/experiments/p-observe/PROOF.bend",
-        "--verdict"
-      ],
-      "exit_code": 1,
-      "output": "SOME PROOFS FAIL\nError: 1 TODO found.\nThe code is incomplete, and not a valid proof yet.\nbend 2.0.35 is available: run bend update\n"
+      "exit_code": 0,
+      "output": "CHECK PASS\nKERNEL PASS\n",
+      "result": {
+        "exit": 0,
+        "stdout": "CHECK PASS\nKERNEL PASS\n",
+        "stderr": ""
+      },
+      "phase": "source checking and unchanged independent kernel",
+      "tool": {
+        "runner_path": "experiments/p-owned-checker-diagnostic/verify.py",
+        "runner_sha256": "c099387fed050494315ce30917e346705ca8f202bd9ecc55b4f4f8c26dc0abf6",
+        "pins_path": "experiments/p-owned-checker-diagnostic/pins.json",
+        "pins_sha256": "68a3f674512053e2a7e92d086257204c441f42ec835af856bd7b20553fcf057b",
+        "decision_path": "docs/reviews/owned-checker-local-use.md",
+        "decision_sha256": "f2653432ccd5da50465e909eaabd192fe8b072f8605315e090ef0df6f9f0e530"
+      },
+      "toolchain_manifest": {
+        "source_revision": "a950fd683c0d76f09794078e6174fe98a1492876",
+        "files": {
+          "/workspace/formal-proofs/bendvy/.references/bend2/bend2/bend.ts": "1d133151652b597a1a035c77c172475e6de096da37f3b9e3adc23c2f75bdfe49",
+          "/workspace/formal-proofs/bendvy/.references/bend2/bend2/safe.ts": "54cb3a534ab7cc9ee313bf6383b3948ccdcac022469b3020e00745bbfe6f7e04",
+          "/workspace/formal-proofs/bendvy/.references/bend2/bend2/base.bend": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+          "/workspace/formal-proofs/bendvy/.references/bend2/bend2/bendtt.lean": "e15042434e73aab07ab05cea4b77b5619082c00a6d4924ea2d4a2cdec05facce",
+          "/home/node/.bend/bin/bend": "d4821d04932218216c9dc906223ed0e23dd86726d4357a567fb76ee6c976db4e",
+          "/home/node/.bend/bend2/base.bend": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+          "/home/node/.bend/bend2/bendtt.lean": "61e0d2d9f4ddd7dd8bb1497fa612fb49a7274fcac647bf70702ba22321d7c292",
+          "/home/node/.bend/bendtt/61e0d2d9f4ddd7dd/bendtt": "d9b3b8799a1aec6c3619998ea5348d7b18401c53139be49d99205c5f1580bea3",
+          "false.bend": "2dbc1c9411bd9c456fd2f64dc9c3fa60cac3a4c3ccde1dd0127cd17eaa224050",
+          "found-word.bend": "c1d1209296d004f2770fd6feedc7311d57e683c15f27354b912b723f2f7735f4",
+          "hole.bend": "b90aca24cda368b56ca165d5cb31cf64c182335ef99d347c83658f3d9f8c90a5",
+          "schema.bend": "fe4726c1937d687c243b10d685d12ef1ec22915b513b83548c426102faedec80",
+          "affine.bend": "7db7b8aed5ac9a45efc416f73f1b78ee36f4b2af53438f1524976fc7f000848c",
+          "found-neutral.bend": "ae7e844b31a6d8232b5bc782c12c575ee2c36802bdac4241ec690b75db3b6985",
+          "unsafe.bend": "4f8ff0c7e21e25b2941efc40816bd0add61fbc6de766bb8561299e695c6b6326",
+          "recursive-rigid.patch": "1dfb865d9530edbc7e3a72b5cfe3d261248fee929c4a4395d16acb61223d5f2c",
+          "comparator.mjs": "4d19068e2fb8daf0075f7e7371610e640b5fb01ca717a300993bb700d88ec192"
+        }
+      },
+      "node_version": "v24.20.0"
     }
   ],
   "checker_limit_seconds": 5,
+  "checker_provider": "reviewed task-local source repair with unchanged installed kernel",
   "source_hashes": {
     "ARITHMETIC-PROPOSED.bend": "7d4ea7b7c94592c473271cffb8bcd3ec1cb1ff7390f6e1aa5cde9918ad9ce937",
-    "PROOF.bend": "39296852499e7114f51e1bcd895fca4b44775d50ff5df5efb3c0227ecb54f79b",
+    "PROOF.bend": "518c2122d0cac57d248017ec1dfed79c0ec8f9dea41270444211b371762f86b8",
     "LAWS.bend": "9c6b173af004e3cfe04508e214bd8f9237f4852a7aca96a7188ce8e0e3095266",
     "subjects.json": "a6d37683805d4b0c93766170dd6d70291cad75104ace1df7798d4f89cb9390b2",
-    "verify.py": "fd2d26346d3009abd2582028bd14457f0d787429c52cbed4e239841ee3756443"
+    "verify.py": "3c6e16f5a6fae51c2fc6f86428094d5080546c18f4cb24f77223e30cd693676b"
   },
   "base_sha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
-  "compiler_sha256": "d4821d04932218216c9dc906223ed0e23dd86726d4357a567fb76ee6c976db4e",
+  "installed_compiler_sha256": "d4821d04932218216c9dc906223ed0e23dd86726d4357a567fb76ee6c976db4e",
   "limits": "This gate checks exact statements and proof verdicts. Per-endpoint compiling semantic mutants, controls, independent review and ticket acceptance remain separate required gates."
 }

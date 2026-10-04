@@ -713,3 +713,41 @@ recursive target, leaving the authored Cons linkage to actual induction.
 **Heuristic findings: none actionable.** Wrapper decomposition resolves concrete
 proof-shape diagnostics without granting a weaker domain. Both reports preserve
 the full owned endpoint/mutation acceptance, integration and performance gates.
+
+## Full owned theorem on pinned checker candidate — `ed3b79c` (2026-10-04)
+
+**Hard violations: none found.** Reviewed restored endpoint/helper closure,
+inventory, exact law selection, controls and candidate runner. Independently
+archived the frozen commit to a temporary root and ran `candidate-run.py` there:
+exit0, eleven candidate outcomes and the expected installed-stack-failure baseline
+passed. Root source/evidence was untouched. Candidate runner/toolchain manifest
+hashes are enforced; the delegated proposal and canonical subjects remain frozen.
+The candidate enforces source/checker/safe/Base/binary/kernel/patch provenance,
+uses identical Base bytes and the unchanged installed kernel. Entire checker-plus-
+kernel child groups retain five-second bounds; outer setup supervision adds no
+proof budget. No global tool installation or reference edit occurs.
+
+The exact approved universal theorem captures the affine world once, branches on
+unchanged independent safety, transports exact prefix premises through ModelSafe,
+threads actual primitive returned owners through structural schedule induction,
+and observes the terminal runtime projection. Bump row traversal derives actual
+member guards and preserves the affine tail in erased proposition positions;
+there is no Type cloning, Data replacement world, weakened array/domain premise,
+unsafe definition or TODO in the accepted closure. Recorded pre-execution inventory
+and candidate continuation distinguish restored assembly from previously unchecked
+drafts; original statements/core remain unchanged.
+
+Full mixed and false-domain controls and original independently safe complete-law
+witnesses pass checker/kernel. False equality rejects at its exact location;
+forcing the kernel false first establishes checker acceptance and then rejects.
+Both actual tick mutations independently compile and pass kernel. Unchanged
+witnesses reject at `pending_equation`/`tail_equation`, and unchanged full proof
+rejects within dedicated induction at `tick`/`continue_tick`. Mutation copies
+verify every non-runtime closure file remains unchanged. These are now full
+owned-endpoint gates on the candidate path, rather than historical finite-only
+or empty-specialization evidence.
+
+**Heuristic findings: none actionable.** Dependent helper decomposition is required
+by Bend ownership/proof transport. Candidate acceptance is explicitly distinct from
+installed compiler success, local tool adoption, root aggregate acceptance and
+production/runtime/performance completion; those coordinator decisions remain open.
