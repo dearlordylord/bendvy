@@ -24,7 +24,15 @@ hide counter rewind, exhaustion or escaped-handle reuse.
 
 Run these workloads separately for Motion and Health worlds, using their own
 nominal descriptors and resources; their names never denote a joint cross-schema
-query. Initialize each measured resource to 0. Register both reader instances
+query. Use Position/Velocity/Selected/MotionLedger in Motion and
+Vitals/Armor/Tracked/HealthLedger in Health as defined by the
+[concrete trace](s-integrate-trace.md). Initial logical labels are j=0..n−1:
+Main has `[j,j+1,j+2,j+3]`; Aux is present iff j mod3=0 and Flag iff j mod3=1.
+Dense has Main on all labels; Sparse has Main iff j mod8=0, so both optional
+presence and Flag presence/absence remain nonempty at the tested sizes. Other
+workloads start with the dense fixture. Preserve the trace's complete scalar
+metadata and Aux payloads. Ledger totals start `[0,101,102,103]`,epoch4;
+resource increments affect only totals[0]. Register both reader instances
 before publication; keep them identical across invocations. The transient reader
 entity is live during reads and removed only afterwards, so added/changed checks
 are nonvacuous and retained removal/despawn records are read after deletion.

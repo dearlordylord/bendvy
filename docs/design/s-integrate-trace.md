@@ -188,10 +188,14 @@ arbitrary irreversible callback can be rolled back.
   payloads from the full target. If the proposed transaction seam still admits a
   consumed owner without recoverability, report that capability failed and require
   an explicit retained-owner/rejection/contract redesign before acceptance.
-- Provisioning uses declared Ledger and Audit. On fresh owners run the real nested
+- Provisioning uses declared Ledger and Audit. On fresh owners use public `runtime.tryTick` for the real nested
   E2 schedule with Ledger missing, then Audit missing: assert the exact
   MissingRuntimeRequirements entry and no A/Fast/B/Tail invocation or side effect.
-  Both present gives E2's SystemFailure B/code7. Do not replace dispatcher failure
+  Keep Mode=On and every other requirement provisioned. Missing Ledger yields
+  `{ok:false,error:{kind:"MissingRuntimeRequirements",requirements:[{kind:"resource",name:"MotionLedger"}]}}`
+  (Health uses `HealthLedger`); missing Audit yields the same outer result with
+  `requirements:[{kind:"service",name:"Audit"}]`. Both present gives E2's
+  `{ok:false,error:{kind:"SystemFailure",system:"B",error:{code:7}}}`. Do not replace dispatcher failure
   with a hand-authored diagnostic or an unrelated toy schedule.
 
 ## E11: retention, capacity and lag boundaries
@@ -203,8 +207,8 @@ Also replay from fresh owners through these exact additional boundaries:
 |---|---|
 | Unheld expiration | Before any reader registration, spawn a:V(10),b:V(20); D; remove(a,Main),despawn(b); D; three empty ticks; first Fast run: Q/added/changed/removal/despawn/messages all empty, no historical lag attributed before registration. |
 | Old surviving marks | Prime Fast only; spawn a:V(10); D; Fast; write a.slot0=11; three empty ticks; first B run: added=[a],changed=[a], both carry [11,11,12,13]. Sparse change-log expiry must not hide surviving marks. |
-| Public message overflow | Fresh registered Fast/B, `C=65536` (pinned runtime capacity). Publish one batch codes [0..C−1]; Fast reads all, B waits. Publish [C]; next empty tick trims. B reads [C], lagged=true; failed B read then retry sees the same. Fast reads [C], lagged=false. Publish oversized batch [C+1..2C+1]; next empty tick: both unread=[] and lagged=true. A newly registered reader after that drop sees [] with lagged=false. |
-| Public lifecycle overflow | Fresh registered Fast/B; reserve C+1 Main entities e0..eC, D; both read to advance past addition. Queue removal of every Main in ascending ID order; D; Fast reads all removals before trimming. Next empty tick: B reads [e1..eC], removal lagged=true; failure/retry repeats it. Fast sees [] and no lag. Repeat on fresh owners with despawn in place of removal and assert both removed and despawned retained sequences. A new reader registered after dropping e0 is not lagged by that drop. |
+| Public message overflow | Fresh registered Fast/B, `C=65536` (pinned runtime capacity). Publish one batch codes [0..C−1]; Fast reads all, B waits. Publish [C]; next empty tick trims. B's first post-drop read is B-observe-fail: [C], lagged=true; it fails, then B-observe retry succeeds with the identical sequence/lag. Fast reads [C], lagged=false. Publish oversized batch [C+1..2C+1]; next empty tick: both unread=[] and lagged=true. A newly registered reader after that drop sees [] with lagged=false. |
+| Public lifecycle overflow | Fresh registered Fast/B; reserve C+1 Main entities e0..eC, D; both read to advance past addition. Queue removal of every Main in ascending ID order; D; Fast reads all removals before trimming. Next empty tick: B's first post-drop read is B-observe-fail: [e1..eC], removal lagged=true; it fails, then B-observe retry succeeds with the identical sequence/lag. Fast sees [] and no lag. Repeat on fresh owners with despawn in place of removal and assert both removed and despawned retained sequences. A new reader registered after dropping e0 is not lagged by that drop. |
 | Small-capacity diagnostic | Supplement with pinned internal Streams.make(3): batches [1,2]@1 and [3,4]@3, trim(0), old cursor0 sees [3,4]/lagged; cursor2 sees [3,4]/not lagged. Oversized [5,6,7,8]@5 then trim drops all. Capacity0 drops [1]@1. Lifecycle makeWorld(schema,3), four same-tick removals/despawns, two frame advances retains only last three. These are explicitly internal reference checks, not public capacity configurability or a replacement for the integrated public lanes. |
 
 Message capacity drops whole batches; lifecycle capacity drops individual records,

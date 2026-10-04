@@ -77,3 +77,45 @@ no integrated runtime, complete trace or measured performance acceptance here.
 
 **Heuristic findings: none actionable.** The comparison matrix organizes real
 seam dependencies rather than introducing speculative production abstractions.
+
+## Concrete trace draft `00b053a...d6adf30`
+
+Reviewed `docs/design/s-integrate-trace.md` and revised measurement contract.
+Checked pinned source anchors for allocation, commit/rollback, reader
+skip/success/failure and explicit transition/deferred barriers.
+
+**Hard violations: none found.** All integrated E checkpoints remain expressly
+source-derived future expectations; only X names the separately executed scalar
+allocation prerequisite. Neither prior probes nor scalar X become Type-integrated
+acceptance. Links pin Sandro's original commit and actual source locations rather
+than presenting unexecuted expectations as observations.
+
+The trace requires complete four-field payload arrays plus schema-specific record
+metadata/resources, owner-returning projections and fresh closed abstract
+capabilities. Two distinct schemas and same-schema pairs are separately exercised;
+numeric collisions do not substitute for threaded factory provenance. Actual base
+instances/dispatcher, retry/skip/nested failure, real structural barriers, full
+reader logs and service effects must execute. Diagnostic strings explicitly cannot
+stand in for claimed host-effect parity. Allocation retains actual returned IDs
+and escaped handles, and failed writes/publications/marks are observed separately.
+
+Compiler controls require intended paired failures, actual consumed aliases and
+Type/Data boundaries; meaningful runtime mutants require compilation and both
+backend differences. Overflow lanes compare complete sequences, distinguish
+whole-batch message versus individual lifecycle retention, and remain unresolved
+if runtime bounds prevent execution. Small internal diagnostics cannot silently
+satisfy public integrated lanes. Unapproved foreign-command result, root authority,
+destructive recovery, law revisions/dependencies and performance remain explicit
+decisions; the document grants none.
+
+Revised measurement now observes A/B successful pending publications before a
+FIFO barrier, then actual successful-spawn disposal at a second barrier. Initial
+live count is restored while allocator consumption persists. Reader work includes
+nonvacuous live additions/changes and subsequent retained deletion observations.
+Dispatch/provider/transaction/barrier/map costs remain included, complete semantic
+traces precede checksum timing controls, and no favorable aggregate hides regressions.
+
+**Heuristic findings: none actionable.** Sequential tables preserve distinct
+publication/application/reader boundaries. These documents remain reviewable
+prerequisites, with #18 dependency and exact trace/interface/law gates before
+runtime implementation; no measured or production acceptance is inferred.
