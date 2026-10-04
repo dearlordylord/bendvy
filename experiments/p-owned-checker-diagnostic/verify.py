@@ -12,6 +12,8 @@ def run(args,env=None):
   return {'exit':r.returncode,'stdout':r.stdout,'stderr':r.stderr}
  except subprocess.TimeoutExpired as e:return {'exit':124,'stdout':str(e.stdout),'stderr':str(e.stderr),'timeout_seconds':5}
 result={'source_revision':subprocess.check_output(['git','-C',str(SOURCE.parent),'rev-parse','HEAD'],text=True).strip(),'version':run(['bend','version']),'hashes':{str(p):sha(p) for p in [SOURCE/'bend.ts',pathlib.Path('/home/node/.bend/bendtt/61e0d2d9f4ddd7dd/bendtt'),pathlib.Path('/home/node/.bend/bin/bend'),pathlib.Path('/home/node/.bend/bend2/base.bend'),pathlib.Path('/home/node/.bend/bend2/bendtt.lean')]},'cases':{}}
+result['fixture_hashes']={p.name:sha(p) for p in sorted(HERE.glob('*.bend'))}
+result['runner_hash']=sha(pathlib.Path(__file__).resolve())
 original=(SOURCE/'bend.ts').read_text()
 needle='  if (lhs === rhs) {\n    return true;\n  }'
 start=original.index('function compare_go(')
