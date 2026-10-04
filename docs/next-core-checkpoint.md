@@ -53,6 +53,7 @@ an earlier bounded redesign checkpoint, not completion of the next-stage specs.
 - [x] Execute and review #16: indexed owned-storage research is complete; dense/JS regressions retain the performance gate.
 - [x] Detail, review and publish [S-INTEGRATE #19](tickets/18-integrated-runtime.md) as planned work with the concrete-trace gate retained.
 - [ ] Execute #19: current joined E0–E10 main, actual E11 retention, access/structural controls and semantic mutation gates pass Native/JS comparisons against fresh TS. Seven-sample Dense/Sparse/Readers measurements expose regressions and deadline failures; production performance remains unmet. Finish exact historical-stale Lifecycle and dynamic repeated FailedTxn workloads, resolve RSS provenance and complete independent review/reporting. See the [current ledger](design/s-integrate-capability-ledger.md).
+- [ ] Execute [S-PERF #20](tickets/19-integrated-performance-redesign.md) after freezing the relevant #19 outcomes: experimental indexed adapter, identical capability/mutation gates and all five workloads. Production adoption remains separate.
 - [ ] Specify and implement the simple simulation after its actual capability/law gates; agree numerical thresholds before accepting performance.
 - [ ] Specify remaining full-core packages and the isolated Tower Defense copy integration as their prerequisites become ready.
 
