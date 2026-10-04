@@ -1,0 +1,442 @@
+{
+  "sourceCommit": "56b72f618227a1b9d03eb3ea234781f2953fc73c",
+  "cpuAffinity": [
+    6
+  ],
+  "isolatedPhases": true,
+  "machineExclusive": false,
+  "sampling": "one execution per listed unchanged case/backend; no retries",
+  "limitsSeconds": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "tools": {
+    "bend version": {
+      "command": [
+        "bend",
+        "version"
+      ],
+      "limitSeconds": 5,
+      "exitCode": 0,
+      "deadline": false,
+      "wallSeconds": 0.06130757206119597,
+      "firstObservedByteSeconds": {
+        "stdout": 0.05699953809380531
+      },
+      "stdoutBytes": 12,
+      "markers": [],
+      "stdoutSHA256": "e11865e3008fcb2a582152daf5c56632b02485909bd41bbd6883fd1e8ecd5c94",
+      "stderr": "",
+      "outputSHA256": "e11865e3008fcb2a582152daf5c56632b02485909bd41bbd6883fd1e8ecd5c94",
+      "firstLine": "bend 2.0.34"
+    },
+    "bend guide": {
+      "command": [
+        "bend",
+        "guide"
+      ],
+      "limitSeconds": 5,
+      "exitCode": 0,
+      "deadline": false,
+      "wallSeconds": 0.041024452773854136,
+      "firstObservedByteSeconds": {
+        "stdout": 0.03336689178831875,
+        "stderr": 0.03555795084685087
+      },
+      "stdoutBytes": 28359,
+      "markers": [],
+      "stdoutSHA256": "9001a4ac112e92dc0c069c8b9d5812e114c2557427d9f962cddeef1ef6c292b6",
+      "stderr": "bend 2.0.35 is available: run bend update\n",
+      "outputSHA256": "9001a4ac112e92dc0c069c8b9d5812e114c2557427d9f962cddeef1ef6c292b6",
+      "firstLine": "# Bend"
+    },
+    "node --version": {
+      "command": [
+        "node",
+        "--version"
+      ],
+      "limitSeconds": 5,
+      "exitCode": 0,
+      "deadline": false,
+      "wallSeconds": 0.0036194869317114353,
+      "firstObservedByteSeconds": {
+        "stdout": 0.0035581118427217007
+      },
+      "stdoutBytes": 9,
+      "markers": [],
+      "stdoutSHA256": "b67d0ced059f9313d861ddbbe734d2d1f9219106a9e036ae6d88407afa0846e6",
+      "stderr": "",
+      "outputSHA256": "b67d0ced059f9313d861ddbbe734d2d1f9219106a9e036ae6d88407afa0846e6",
+      "firstLine": "v24.20.0"
+    },
+    "clang --version": {
+      "command": [
+        "clang",
+        "--version"
+      ],
+      "limitSeconds": 5,
+      "exitCode": 0,
+      "deadline": false,
+      "wallSeconds": 0.054772020084783435,
+      "firstObservedByteSeconds": {
+        "stdout": 0.05287571391090751
+      },
+      "stdoutBytes": 150,
+      "markers": [],
+      "stdoutSHA256": "e1cfdb77a9a7b6d8d343df7c8b61a9ee6d8ef1ff8aa4763d05212c0c68788e16",
+      "stderr": "",
+      "outputSHA256": "e1cfdb77a9a7b6d8d343df7c8b61a9ee6d8ef1ff8aa4763d05212c0c68788e16",
+      "firstLine": "Debian clang version 14.0.6"
+    }
+  },
+  "references": {
+    "bevy-ts": {
+      "expected": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334",
+      "actual": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334"
+    },
+    "bevy": {
+      "expected": "ad678262ce53b5d142fe49ee5e08caff6f00ab60",
+      "actual": "ad678262ce53b5d142fe49ee5e08caff6f00ab60"
+    },
+    "bend2": {
+      "expected": "a950fd683c0d76f09794078e6174fe98a1492876",
+      "actual": "a950fd683c0d76f09794078e6174fe98a1492876"
+    }
+  },
+  "sources": {
+    "experiments/s-perf/candidate/storage.bend": "8440ed1ec21c8d4874072aed8ca0ec4967f4e4e522f88d36f68050685d9e0345",
+    "experiments/s-perf/candidate/query.bend": "5fb8447d34edc2260341341c36dc7970964318fa582cdd078da296c5f9e1a1ce",
+    "experiments/s-perf/failure-quiet-driver.py": "bd0fe0f9210911e17d5907fb77be55e022e8043048ca34401c426dc76e8087f0",
+    "experiments/s-perf/failure-quiet-codec.bend": "8214c7c3b5edf86062e599eeb29f117e73faa7e05f42359a3b4b19e69aa37b46",
+    "experiments/s-perf/failure-quiet-reference.mjs": "2dbeb20c6de520f73683c7401dd9331b2f229bdbf701499b7155e7c1d64483ba",
+    "experiments/s-perf/readers-reference.mjs": "e2d2eaeda0462ec79573377b2d50af19154d3cb5d670c0b273e85a4130ee022e",
+    "experiments/s-integrate/measurement-samples-readers.bend": "525791d08371a62bd5b6c327316c103083e310da7383f5b95652da1c421d6265",
+    "experiments/s-perf/failure-validate.py": "9ea437529e7ec593e45c1c28e81b636cc640242bc85bfcd5af0e349c4031cc47",
+    "experiments/s-integrate/measurement-samples-readers-run.py": "e7dd80369a6fea2ef780e8d01e8f35d9dfb13175ae7f2f48cf839ff81001f58a"
+  },
+  "cases": [
+    {
+      "phase": "unchanged-full-reference",
+      "workload": "readers",
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy-worktrees/prep22-method-design/experiments/s-integrate/measurement-reference.mjs",
+        "Motion",
+        "readers",
+        "1024"
+      ],
+      "limitSeconds": 5,
+      "exitCode": 0,
+      "deadline": false,
+      "wallSeconds": 0.8451512479223311,
+      "firstObservedByteSeconds": {
+        "stdout": 0.8373134769499302
+      },
+      "stdoutBytes": 46594,
+      "markers": [],
+      "stdoutSHA256": "9ea7e1c31ce4b4cbf9852ddbefa73b66b395626cadc8dfd41e0033dfd9c53dc9",
+      "stderr": "",
+      "oracle": "REFERENCE_OBSERVED"
+    },
+    {
+      "phase": "unchanged-runtime",
+      "workload": "readers",
+      "schema": "Motion",
+      "count": 1024,
+      "backend": "Native",
+      "command": [
+        "/tmp/bendvy-indexed-readers3/measurement-samples-readers-native",
+        "0",
+        "1024",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limitSeconds": 5,
+      "exitCode": -9,
+      "deadline": true,
+      "wallSeconds": 5.016261887038127,
+      "firstObservedByteSeconds": {
+        "stdout": 0.05513685685582459
+      },
+      "stdoutBytes": 16052224,
+      "markers": [
+        {
+          "marker": "\"timingMilliseconds\":87",
+          "observedSeconds": 3.1544128118548542
+        }
+      ],
+      "stdoutSHA256": "9424436324eb49a03b9256c48b0b4cd5de6a9e88043fdf4bc3d97664c3c6357e",
+      "stderr": "",
+      "oracle": "UNAVAILABLE: deadline/nonzero output cannot pass full fields",
+      "artifactSHA256": "9e20bd4c796798f019572e17e0e3c5ff866d396621c82c4cd08610d0de84abaf"
+    },
+    {
+      "phase": "unchanged-runtime",
+      "workload": "readers",
+      "schema": "Motion",
+      "count": 1024,
+      "backend": "JS",
+      "command": [
+        "node",
+        "/tmp/bendvy-indexed-readers3/measurement-samples-readers.js",
+        "0",
+        "1024"
+      ],
+      "limitSeconds": 5,
+      "exitCode": -9,
+      "deadline": true,
+      "wallSeconds": 5.036731049884111,
+      "firstObservedByteSeconds": {
+        "stdout": 0.4555621789768338
+      },
+      "stdoutBytes": 13256746,
+      "markers": [
+        {
+          "marker": "\"timingMilliseconds\":376",
+          "observedSeconds": 4.873901332961395
+        }
+      ],
+      "stdoutSHA256": "880a69bc77e579dc9715c46fff2985918479caf4d9c2a525c6d7fc05d0ccbe8d",
+      "stderr": "",
+      "oracle": "UNAVAILABLE: deadline/nonzero output cannot pass full fields",
+      "artifactSHA256": "73aaf0bf1b7c368862f83df9215e0461895d36126a1b9d942eb620c1b8a20669"
+    },
+    {
+      "phase": "unchanged-runtime",
+      "workload": "readers",
+      "schema": "Motion",
+      "count": 1024,
+      "backend": "TS",
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy-worktrees/prep22-method-design/experiments/s-perf/readers-reference.mjs",
+        "Motion",
+        "1024"
+      ],
+      "limitSeconds": 5,
+      "exitCode": 0,
+      "deadline": false,
+      "wallSeconds": 0.8001045968849212,
+      "firstObservedByteSeconds": {
+        "stdout": 0.7573990058153868
+      },
+      "stdoutBytes": 18244107,
+      "markers": [],
+      "stdoutSHA256": "fe26203781331a4e088c1950978948d7720b723a8b535ee4b328c386ac972edb",
+      "stderr": "",
+      "oracle": "PASS unchanged full-field validator",
+      "validatorPhase": {
+        "command": [
+          "python3",
+          "/workspace/formal-proofs/bendvy-worktrees/prep22-method-design/experiments/s-prep/method/validate.py",
+          "readers",
+          "TS",
+          "/workspace/formal-proofs/bendvy-worktrees/prep22-method-design/experiments/s-prep/method/temporary-output.txt",
+          "/workspace/formal-proofs/bendvy-worktrees/prep22-method-design/experiments/s-prep/method/temporary-output.txt",
+          "/workspace/formal-proofs/bendvy-worktrees/prep22-method-design/experiments/s-prep/method/temporary-reference.json"
+        ],
+        "limitSeconds": 5,
+        "exitCode": 0,
+        "deadline": false,
+        "wallSeconds": 2.955054720165208,
+        "firstObservedByteSeconds": {
+          "stdout": 2.947355200070888
+        },
+        "stdoutBytes": 245,
+        "markers": [],
+        "stdoutSHA256": "9354857d9a30d38882771bb37fc86c2f02b21f2027a58dfecb33fc20325bcd3d",
+        "stderr": ""
+      },
+      "fullFieldOutcome": {
+        "milliseconds": 74.03500699999995,
+        "warmupMilliseconds": 112.85502599999995,
+        "freshMeasuredWorlds": 1,
+        "fullReadObservationsPerWorld": 84,
+        "finalSha256": "8f3b742910c4f884f6b7e01bffc0986f601fdbd8f085d9404d2b0dd0cf56a924"
+      }
+    },
+    {
+      "phase": "unchanged-full-reference",
+      "workload": "failed-transaction",
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy-worktrees/prep22-method-design/experiments/s-integrate/measurement-reference.mjs",
+        "Motion",
+        "failed-transaction",
+        "1024"
+      ],
+      "limitSeconds": 5,
+      "exitCode": 0,
+      "deadline": false,
+      "wallSeconds": 1.8294171909801662,
+      "firstObservedByteSeconds": {
+        "stdout": 1.813274519983679
+      },
+      "stdoutBytes": 119498,
+      "markers": [],
+      "stdoutSHA256": "e526e8b84a1f849b7cc227b68f71e9f031fa7ad87d366cf95d421dca81eb4ee4",
+      "stderr": "",
+      "oracle": "REFERENCE_OBSERVED"
+    },
+    {
+      "phase": "unchanged-runtime",
+      "workload": "failed-transaction",
+      "schema": "Motion",
+      "count": 1024,
+      "backend": "Native",
+      "command": [
+        "/tmp/bendvy-perf-failure-quiet-fair/driver-native",
+        "0",
+        "1024",
+        "64",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limitSeconds": 5,
+      "exitCode": 0,
+      "deadline": false,
+      "wallSeconds": 1.3636660969350487,
+      "firstObservedByteSeconds": {
+        "stdout": 1.3153526689857244
+      },
+      "stdoutBytes": 8530980,
+      "markers": [
+        {
+          "marker": "FAILURE-FOLD:4008680973",
+          "observedSeconds": 1.3153831691015512
+        },
+        {
+          "marker": "FAILURE-TIMING:781",
+          "observedSeconds": 1.3153866280335933
+        }
+      ],
+      "stdoutSHA256": "c398f3f6200e5f75763757127f5af1f78a504352718ac0e3a617e4f51dc31729",
+      "stderr": "",
+      "oracle": "FAILED_OR_UNAVAILABLE",
+      "artifactSHA256": "4a4ce21d10f547eea701a8bd3ed71e60f3bdc27958545c9c94a13860c9ef2cac",
+      "validatorPhase": {
+        "command": [
+          "python3",
+          "/workspace/formal-proofs/bendvy-worktrees/prep22-method-design/experiments/s-prep/method/validate.py",
+          "failed-transaction",
+          "Native",
+          "/workspace/formal-proofs/bendvy-worktrees/prep22-method-design/experiments/s-prep/method/temporary-output.txt",
+          "/workspace/formal-proofs/bendvy-worktrees/prep22-method-design/experiments/s-prep/method/temporary-output.txt",
+          "/workspace/formal-proofs/bendvy-worktrees/prep22-method-design/experiments/s-prep/method/temporary-reference.json"
+        ],
+        "limitSeconds": 5,
+        "exitCode": -9,
+        "deadline": true,
+        "wallSeconds": 5.012050268938765,
+        "firstObservedByteSeconds": {},
+        "stdoutBytes": 0,
+        "markers": [],
+        "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr": ""
+      },
+      "methodError": "bounded full-field validator unavailable: {'command': ['python3', '/workspace/formal-proofs/bendvy-worktrees/prep22-method-design/experiments/s-prep/method/validate.py', 'failed-transaction', 'Native', '/workspace/formal-proofs/bendvy-worktrees/prep22-method-design/experiments/s-prep/method/temporary-output.txt', '/workspace/formal-proofs/bendvy-worktrees/prep22-method-design/experiments/s-prep/method/temporary-output.txt', '/workspace/formal-proofs/bendvy-worktrees/prep22-method-design/experiments/s-prep/method/temporary-reference.json'], 'limitSeconds': 5, 'exitCode': -9, 'deadline': True, 'wallSeconds': 5.012050268938765, 'firstObservedByteSeconds': {}, 'stdoutBytes': 0, 'markers': [], 'stdoutSHA256': 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 'stderr': ''}"
+    },
+    {
+      "phase": "unchanged-runtime",
+      "workload": "failed-transaction",
+      "schema": "Motion",
+      "count": 1024,
+      "backend": "JS",
+      "command": [
+        "node",
+        "/tmp/bendvy-perf-failure-quiet-fair/driver.js",
+        "0",
+        "1024",
+        "64"
+      ],
+      "limitSeconds": 5,
+      "exitCode": -9,
+      "deadline": true,
+      "wallSeconds": 5.102845619898289,
+      "firstObservedByteSeconds": {
+        "stdout": 2.605777930933982
+      },
+      "stdoutBytes": 44,
+      "markers": [
+        {
+          "marker": "FAILURE-FOLD:4008680973",
+          "observedSeconds": 2.6058352650143206
+        },
+        {
+          "marker": "FAILURE-TIMING:2559",
+          "observedSeconds": 2.609359542839229
+        }
+      ],
+      "stdoutSHA256": "abd29174f39625280f6dab0877695f7c83fa70e8a7e548f8f938005259e0ca1f",
+      "stderr": "",
+      "oracle": "UNAVAILABLE: deadline/nonzero output cannot pass full fields",
+      "artifactSHA256": "8fd89efc11c130de4ba512bdb028ae22c5797e9b69bacdc3f632e1c51f91ec9a"
+    },
+    {
+      "phase": "unchanged-runtime",
+      "workload": "failed-transaction",
+      "schema": "Motion",
+      "count": 1024,
+      "backend": "TS",
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy-worktrees/prep22-method-design/experiments/s-perf/failure-quiet-reference.mjs",
+        "Motion",
+        "1024"
+      ],
+      "limitSeconds": 5,
+      "exitCode": 0,
+      "deadline": false,
+      "wallSeconds": 1.2705399370752275,
+      "firstObservedByteSeconds": {
+        "stdout": 1.1801747151184827
+      },
+      "stdoutBytes": 8530726,
+      "markers": [
+        {
+          "marker": "FAILURE-FOLD:4008680973",
+          "observedSeconds": 1.1802032571285963
+        },
+        {
+          "marker": "FAILURE-TIMING:756",
+          "observedSeconds": 1.1836998269427568
+        }
+      ],
+      "stdoutSHA256": "a4843645d1c7e3491fba48e76276db8e6e86f9d0d8d47da90b795e2475e47bfd",
+      "stderr": "",
+      "oracle": "FAILED_OR_UNAVAILABLE",
+      "validatorPhase": {
+        "command": [
+          "python3",
+          "/workspace/formal-proofs/bendvy-worktrees/prep22-method-design/experiments/s-prep/method/validate.py",
+          "failed-transaction",
+          "TS",
+          "/workspace/formal-proofs/bendvy-worktrees/prep22-method-design/experiments/s-prep/method/temporary-output.txt",
+          "/workspace/formal-proofs/bendvy-worktrees/prep22-method-design/experiments/s-prep/method/temporary-output.txt",
+          "/workspace/formal-proofs/bendvy-worktrees/prep22-method-design/experiments/s-prep/method/temporary-reference.json"
+        ],
+        "limitSeconds": 5,
+        "exitCode": -9,
+        "deadline": true,
+        "wallSeconds": 5.0404690380673856,
+        "firstObservedByteSeconds": {},
+        "stdoutBytes": 0,
+        "markers": [],
+        "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr": ""
+      },
+      "methodError": "bounded full-field validator unavailable: {'command': ['python3', '/workspace/formal-proofs/bendvy-worktrees/prep22-method-design/experiments/s-prep/method/validate.py', 'failed-transaction', 'TS', '/workspace/formal-proofs/bendvy-worktrees/prep22-method-design/experiments/s-prep/method/temporary-output.txt', '/workspace/formal-proofs/bendvy-worktrees/prep22-method-design/experiments/s-prep/method/temporary-output.txt', '/workspace/formal-proofs/bendvy-worktrees/prep22-method-design/experiments/s-prep/method/temporary-reference.json'], 'limitSeconds': 5, 'exitCode': -9, 'deadline': True, 'wallSeconds': 5.0404690380673856, 'firstObservedByteSeconds': {}, 'stdoutBytes': 0, 'markers': [], 'stdoutSHA256': 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 'stderr': ''}"
+    }
+  ],
+  "interpretation": "Observed first-byte and whole-child boundaries are not isolated ECS costs. No replacement seven rotations, margin acceptance, or ready gate.",
+  "methodSourcesSHA256": {
+    "experiments/s-prep/method/diagnose.py": "7c43ec8f58cc70c353ac2bf2de7ebfe971b69b37c1790019908e6caaf789071a",
+    "experiments/s-prep/method/validate.py": "05ba91ab6ae6b8acb38990a1bbc02832b415c874f23f939f0999793c0d4b89a2"
+  }
+}
