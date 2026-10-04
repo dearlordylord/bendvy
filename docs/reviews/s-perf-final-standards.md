@@ -1,59 +1,43 @@
 # S-PERF Standards review
 
-Independent review of `a976667...d95f83c`, including the subsequent clean-checkout
-`owned-storage-run.py` repair (SHA256
-`02d50b146f3b50d61b013bfc1db1f3875d7e22b4127f7b418c8542aae3e676ba`).
-Standards: AGENTS.md, issue-tracker.md, SPEC.md, indexed-storage/API/design review,
-bend-ldd and live #20. Delivery artifacts require the closing
-review supplement below.
+Independent review: `a976667...d95f83c`, supplements `c838719`, `eb1c066`,
+`397a6e8`, `19f3746`, final quiet package `b2e8d12` and closure ledger `1525208`.
+Sources: AGENTS.md, issue-tracker.md, SPEC.md, indexed-storage/API/design review,
+bend-ldd and live #20. **No hard Standards violations found.** Bounded negative
+research delivery is supported; product performance/adoption remains failed.
 
-**Hard standards violations: none found in the reviewed implementation.**
-
-- `candidate/storage.bend`: SPEC requires affine ownership and forbids an
+- `candidate/storage.bend`: SPEC requires affine ownership and prohibits an
   unapproved Data-only restriction. Main/Aux remain Type arrays; extraction uses
-  `Array.swap(...,None{})` and returned owners are restored. `Array.get` reads
-  only Data metadata. Trusted restoration and finite domain bounds are explicit;
-  universal root authority/destructive recovery are not claimed.
-- Access/owned controls: AGENTS requires undeclared-access, cross-schema and
-  write-through-read negatives. Actual provider controls retain intended
-  diagnostics, including affine Audit duplication. Independent CPU11 replay of
-  the repaired owned runner exits0: 39 Native/JS observations, three compiler
-  negatives and three compiling semantic mutants. Checker/runtime5s,
-  codegen30s/clang120s; no overlapping owned runtime was observed. Output SHA256
-  `7bced8798616cfeee6e40487942d55b0852aac3f64fa34bf622ed8c1139ac52d`.
-- Evidence/build artifacts: retained deadline failures are separate from semantic
-  kills. Baseline/reference pins match actual sources; Bend2.0.34 and guide were
-  checked. No new ECS proof/law, dependency, numerical threshold, reference edit
-  or Tower Defense change appears in this diff. Product performance remains
-  failed; finite traces/inspector controls supply no universal refinement.
+  `Array.swap(...,None{})`, then restores returned owners. `Array.get` reads only
+  Data metadata. Trusted restoration/domain bounds and unresolved root authority
+  are explicit. Actual provider negatives cover undeclared access, cross-schema,
+  write-through-read and affine Audit duplication, as AGENTS requires.
+- `candidate/owned-storage-run.py`: independent CPU11 replay exits0:39 Native/JS
+  observations, three intended compiler negatives and three compiling semantic
+  mutants. Runner SHA256 `02d50b146f3b50d61b013bfc1db1f3875d7e22b4127f7b418c8542aae3e676ba`;
+  output `7bced8798616cfeee6e40487942d55b0852aac3f64fa34bf622ed8c1139ac52d`.
+  Clean dependency materialization works. Checker/runtime5s, codegen30s/clang120s;
+  no overlapping owned runtime was observed.
+- Readers diagnostics: independently checked twelve gzip hashes,14352 records,
+  Native/JS equality, physical/cache consistency, recomputed maxima and retained
+  final records. Hooks return actual owners without invoking readers/trimming.
+  Active-Tx/setup/RSS unavailability remains explicit; fixture peaks never replace
+  workload peaks. TS instrumentation modifies a pinned private copy only.
+- Quiet FailedTxn: source/codec hashes match executed evidence. Actual complete
+  event/effect projection and fold precede the end clock; full lossless decoding
+  validates observations after execution. Two compiling JS mutants retain four
+  exit0 field/reader counterexamples. All126 repetition attempts remain:120 pass,
+  six actual deadlines, five complete groups. Cold-VM warmup and timer resolution
+  are explicit partial gates, with same-child warmup/recollection return conditions
+  in #21. Closure claims bounded negative delivery, not performance acceptance.
 
-**Heuristic observations, not hard violations:**
+Baseline's nine evidence hashes/reference commits independently match. Bend2.0.34
+and guide were checked. No new law/proof, dependency, threshold, reference or Tower
+Defense edit appears. Finite evidence establishes no universal runtime refinement.
 
-`access-run.py`, `occupancy-run.py`, `candidate/owned-storage-run.py` duplicate
-process-group deadline cleanup: `os.killpg(p.pid,signal.SIGKILL)` followed by
-`communicate()`. Fowler DuplicatedCode suggests a shared bounded-runner shape
-when these experimental scripts become maintained tooling. No extraction is required now.
-
-`failure-indexed-prepare.py` names historical `/tmp/bendvy-indexed-final2` and
-an absolute repository path. Fowler MysteriousName suggests naming this as a
-historical construction helper. Replay uses committed frozen overlays; recreating that snapshot is unnecessary.
-
-## Delivery supplement
-
-Reviewed `c838719` and `eb1c066`: no additional hard violations. The TS physical
-diagnostic adapter copies pinned reference sources, records actual state and
-checks unchanged full callback observations; first failed attempts remain
-retained. The clean owned replay now documents its three semantic mutants.
-The README supplies fresh-overlay commands. The provisional completion report
-explicitly marks evaluation incomplete, rejects production adoption and records
-missing workload/diagnostic gates and concrete return conditions. Final quiet
-FailedTxn and the closure decision still require review.
-
-Readers supplement `397a6e8`/`19f3746`: no hard violations. Independently verified
-all twelve gzip hashes, 14352 records, Native/JS record equality, physical/cache
-consistency, recomputed checkpoint maxima and retained final records. Hooks return
-actual World/registry/Run owners without invoking readers or trimming. Missing
-active-Tx/setup/RSS cells remain explicit. The report distinguishes single-world
-diagnostics from failed measurement children; #21 retains performance, timer
-resolution and actual transaction-meter return conditions. No duplicate runtime
-was run for this review.
+**Heuristics, not violations:** DuplicatedCode in access/occupancy/owned runners:
+`os.killpg(p.pid,signal.SIGKILL)` then `communicate()` suggests a shared bounded
+runner when tooling matures. MysteriousName in `failure-indexed-prepare.py`:
+`/tmp/bendvy-indexed-final2` suggests labeling historical construction explicitly;
+replay uses committed frozen overlays. No extraction or historical snapshot
+reconstruction is required for this delivery.
