@@ -82,3 +82,44 @@ are disclosed. No proof, dependency or production/performance adoption follows.
 **Heuristic findings: none actionable.** Remaining actual dispatcher/base-key,
 clock-bound setup, reader/transaction/storage joins and full E0–E11 trace are
 explicit integration gates.
+
+## Linear staging, affine command cursor and dispatcher foundation — `3676e94`, `f723a90`, `3c2e88f` (2026-10-04)
+
+**Hard violations: none found in the delivered boundaries.** Reviewed new source,
+contracts/runners and bounded evidence from detached `3b4b49b`. Independently
+checked transaction, commands and dispatcher modules: all exit0/ALL PROOFS CHECK
+under the existing five-second wrapper. Staging/bulk recorded source hashes match.
+Full runner replay is independently assigned to Spec; this review avoids repeating
+those builds or claiming their observations as a new integrated acceptance run.
+
+Tx staging now conses actual Type commands/Data messages and reverses once at
+successful finish. Storage publication's separate reverse-pending convention stays
+consistent through its handoff. Full ordered staging controls observe65,536 Ping
+values and1,024 full Type commands; omitted reversal mutants isolate command and
+message order. Failure still drops staged owners and unwinds numeric inverse
+journal while preserving allocation state.
+
+Command cursor's reversed prefix and suffix partition actual affine row owners.
+Nondecreasing targets continue locally; lower targets reconstruct/restart, and equal
+targets remain available for repeated writes. Final row/event reversals preserve
+ascending membership and exact FIFO lifecycle order. Optional Main/Aux ownership
+and stale-target disposal are retained. The mixed oracle, lower/equal-target,
+Aux-loss and event-order mutants meaningfully cover the optimization; full bulk
+fields/lifecycle sequences are validated before compact results. Valid unique issued
+spawn IDs/sorted reachable rows remain explicit premises. Alternating targets can
+still be quadratic, and single-run fixture timings are correctly not performance
+acceptance or TS-equivalent benchmarking.
+
+Dispatcher foundation threads actual registry Local, reader Run, world and Audit
+owners. Nested failure preserves registered base identity and suppresses tails;
+preflight traverses nested declarations before frame/invocation. Explicit D/T pass
+actual Clock owners through trusted hooks, with barrier before state transition.
+A successful nonempty publication advances the clock separately while reader
+completion retains thisRun. These hooks require honest concrete Host returns;
+checker success is not evidence that Host performs the actual publication/barrier/
+transition, numeric setup checks or full E0–E11 observations. Public constructors
+and trusted32-entry search bounds are disclosed rather than fictional privacy.
+
+**Heuristic findings: none actionable.** Cursor/frame helpers satisfy concrete
+Bend affine and match constraints. Concrete Host binding, clock/publication mutants,
+full dispatcher/reference traces and performance gates remain open.
