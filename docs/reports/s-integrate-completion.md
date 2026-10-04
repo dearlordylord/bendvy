@@ -1,10 +1,10 @@
 # S-INTEGRATE bounded research outcome
 
-**Completion proposal for final review; #19 remains open.** The integrated
+**Complete bounded research with negative results; accepted by the issue’s negative-result alternative.** The integrated
 experimental ECS passes the reviewed functional trace. Performance requirements
 are unmet and several execution/measurement gates fail or remain unavailable.
 The issue explicitly permits a useful bounded negative with concrete follow-up;
-this report proposes that disposition, never production acceptance.
+Final Spec and Standards reviews support that disposition; production acceptance remains failed.
 
 | Required research evidence | Outcome and direct record |
 | --- | --- |
@@ -19,7 +19,7 @@ this report proposes that disposition, never production acceptance.
 | Dynamic FailedTxn workload | Both schemas Native O3 full values pass64/256; Native1024 and JS256/1024 deadline failures. JS64 complete positives, four JS mutations/eight exact schema witnesses. Import hashes match current root |
 | FailedTxn steady timing/RSS | Unavailable: full Bend diagnostic serialization versus compact TS output is unequal timed work. No ratios invented; quiet full-field validated adapter is explicit #20 return condition |
 | Memory protocol/variability | Original inherited RSS withdrawn. Independently controlled clean launcher:294 children,284 validated/10 deadlines,twelve complete sets; current Lifecycle has its own samples. Whole-process only; peak physical occupancy/lag unavailable |
-| Capability statuses, two-axis review and concrete redesign | Functional and negative records enumerated; current main/mutation/memory reviews delivered. Final disposition review pending. Reviewed #20 is published with exact return conditions |
+| Capability statuses, two-axis review and concrete redesign | Functional and negative records enumerated; current main/mutation/memory reviews delivered. Final Spec and Standards disposition PASS for bounded research. Reviewed #20 is published with exact return conditions |
 
 Native substantially faster than bevy-ts and JS at least comparable remain
 mandatory product goals. These results reject current production adoption.

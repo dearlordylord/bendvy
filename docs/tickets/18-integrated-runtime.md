@@ -1,6 +1,6 @@
 # S-INTEGRATE — bounded two-schema runtime seam
 
-**[GitHub #19](https://github.com/dearlordylord/bendvy/issues/19). Active: #18 is complete; the reference trace is reviewed. Joined functional gates pass; exact remaining workloads, measurement provenance and final research review are the current gates. Production performance is unmet.**
+**[GitHub #19](https://github.com/dearlordylord/bendvy/issues/19). Completed as bounded research with negative results; production performance remains failed. [Completion report](../reports/s-integrate-completion.md).**
 Parent: [#1](https://github.com/dearlordylord/bendvy/issues/1).
 [Astra assessment](../reviews/approved-next-tranche.md).
 Governing [SPEC](../SPEC.md), [checkpoint](../next-core-checkpoint.md),
@@ -60,12 +60,12 @@ Unresolved observable policy choices gate only their dependent implementation.
 
 ## Acceptance and evidence
 
-- [ ] Exact operation inputs, update order, failure injections, barrier placement, observations and bounded domains are reviewable before implementation. Preserve command FIFO and no implicit structural flush; commit visibility is distinct from application.
-- [ ] Fresh checker positive/negative pairs at the actual integrated seam reject undeclared access, cross-schema misuse, writes through read, reconstruction and invalid owner returns for the intended diagnostic. Returned Type owners/full declared payload fields survive reads, updates and failure without Data snapshots/cloning.
-- [ ] Fresh three-backend checkpoints establish stages 2–4, including discovered failed-allocation consumption versus discarded spawn, observable lifecycle marks/publication/cursor rollback and earlier commits. Reference-discovered mismatches are resolved explicitly; do not mask them with adapter constants or borrow isolated probe transcripts.
-- [ ] Compiling Native/JS mutants break namespace/map/order, attempted write/inverse order, incorrect allocation consumption or reserved-handle reissue, lifecycle visibility/publication rollback, selected/other-reader routing, failed cursor, capture isolation and implicit flush. Each must differ at the intended public checkpoint; timeout/parse/type failures are not killed semantic mutants.
-- [ ] Run Bend version/guide and pin compiler/Base/references. Every checker <=5 seconds; distinct build/runtime limits recorded, task-owned process cleanup only. Use existing Node direct imports and dependency-free helpers; no new dependency approved.
-- [ ] Record each capability separately as passed/failed/unresolved, exact artifact hashes and two-axis review. A useful bounded negative result completes research while retaining its missing capability and concrete redesign follow-up. Do not declare production integration, performance or universal refinement complete.
+- [x] Exact operation inputs, update order, failure injections, barrier placement, observations and bounded domains are reviewable before implementation. Preserve command FIFO and no implicit structural flush; commit visibility is distinct from application.
+- [x] Fresh checker positive/negative pairs at the actual integrated seam reject undeclared access, cross-schema misuse, writes through read, reconstruction and invalid owner returns for the intended diagnostic. Returned Type owners/full declared payload fields survive reads, updates and failure without Data snapshots/cloning.
+- [x] Fresh three-backend checkpoints establish stages 2–4, including discovered failed-allocation consumption versus discarded spawn, observable lifecycle marks/publication/cursor rollback and earlier commits. Reference-discovered mismatches are resolved explicitly; do not mask them with adapter constants or borrow isolated probe transcripts.
+- [x] Compiling Native/JS mutants break namespace/map/order, attempted write/inverse order, incorrect allocation consumption or reserved-handle reissue, lifecycle visibility/publication rollback, selected/other-reader routing, failed cursor, capture isolation and implicit flush. Each must differ at the intended public checkpoint; timeout/parse/type failures are not killed semantic mutants.
+- [x] Run Bend version/guide and pin compiler/Base/references. Every checker <=5 seconds; distinct build/runtime limits recorded, task-owned process cleanup only. Use existing Node direct imports and dependency-free helpers; no new dependency approved.
+- [x] Record each capability separately as passed/failed/unresolved, exact artifact hashes and two-axis review. A useful bounded negative result completes research while retaining its missing capability and concrete redesign follow-up. Do not declare production integration, performance or universal refinement complete.
 
 ## Decisions and retained follow-ups
 
@@ -89,7 +89,7 @@ relations/scopes, state failure ordering, restoration/tooling and parallel compu
 remain later detailed packages. Tower Defense validation uses a separate copy of
 needed `/workspace/typescript/jev` sources; the original repository remains untouched.
 
-## Prerequisite progress
+## Historical prerequisite progress
 
 - [Current execution ledger](../design/s-integrate-capability-ledger.md) records delivered actual payload/storage/transaction/reader modules separately from open full-dispatch trace, confinement, retention and measurement gates. #19 remains open.
 
@@ -106,7 +106,7 @@ needed `/workspace/typescript/jev` sources; the original repository remains unto
 The active implementation order remains #18 then #19. Its separately permitted
 trace/reference preparation is delivered; #18 is closed. New exact integration proofs still require their own subject approval.
 
-## Current joined checkpoint — 2026-10-04
+## Historical joined checkpoint — 2026-10-04
 
 The [execution ledger](../design/s-integrate-capability-ledger.md) supersedes
 historical preparation-only pending statements above. Complete E0–E10 main
@@ -122,7 +122,7 @@ Readers256 memory coverage remains incomplete. #19 is open.
 
 Concrete performance return path: [S-PERF #20](19-integrated-performance-redesign.md), with experimental indexed-adapter implementation/evaluation and separate production adoption.
 
-## Final review checkpoint
+## Historical final-review checkpoint
 
 [Completion proposal](../reports/s-integrate-completion.md): all five workload
 outcomes are recorded, including explicit failed/unavailable gates. Exact
@@ -130,3 +130,17 @@ current Lifecycle and byte-identical joined FailedTxn closure are audited;
 performance is failed, quiet FailedTxn timing/RSS unavailable, peak occupancy
 unmeasured and #20 retains concrete return conditions. #19 remains open pending
 final Spec/Standards disposition review. No production acceptance is proposed.
+
+## Accepted final disposition
+
+Final [Spec](../reviews/s-integrate-final-spec.md) and
+[Standards](../reviews/s-integrate-runtime-standards.md) reviews support completion
+through the explicitly permitted bounded-negative alternative. Checked items
+above mean their research evidence is delivered; failed execution/performance
+subgates remain failed. This final disposition supersedes historical “open” and
+“in progress” checkpoints, which remain recorded for provenance.
+
+[S-PERF #20](19-integrated-performance-redesign.md) retains exact quiet FailedTxn
+full-field validation, stable checking/build limits and physical occupancy/lag
+measurement return conditions alongside the indexed-adapter experiment. No
+production adoption, universal refinement or threshold approval is inferred.

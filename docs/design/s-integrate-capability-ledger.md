@@ -3,6 +3,9 @@
 Current bounded progress for [#19](../tickets/18-integrated-runtime.md), not full
 runtime/performance acceptance. Original E0–E11 scope and both nominal schemas remain.
 
+The following table preserves **historical slice checkpoints**; the joined
+checkpoint and accepted final disposition below supersede its pending gates.
+
 | Slice | Delivered observation | Remaining integrated gate |
 | --- | --- | --- |
 | Payload | Six full-field Native/JS rows; actual Type owners, inverse swaps; four compiling wrong-slot mutants. Independent Spec replay passes. | Actual opaque provider/access controls in dispatched systems. |
@@ -63,10 +66,10 @@ Latest bounded additions: [mark filter](../../experiments/s-integrate/host-mark-
   while a fresh isolated checker attempt times out. Equivalent quiet timing/RSS
   is unavailable and remains an explicit #20 return condition.
 
-**#19 remains open pending final negative-result disposition review.** Functional trace parity does not establish production
+**#19 completed as bounded research with negative results.** Functional trace parity does not establish production
 performance, general capability confinement, arbitrary payload recovery or new
 universal proofs. The five workload outcomes and concrete #20 return conditions are recorded in
-the [completion proposal](../reports/s-integrate-completion.md); final review
-precedes reporting bounded research completion.
+the [completion report](../reports/s-integrate-completion.md). Final Spec and
+Standards reviews support the issue’s bounded-negative alternative.
 
 Concrete performance return path: [S-PERF #20](../tickets/19-integrated-performance-redesign.md) implements and evaluates one experimental indexed adapter against the unchanged baseline. It retains full trace/access/mutation gates, all five workloads, corrected memory scope and a separate production-adoption decision.

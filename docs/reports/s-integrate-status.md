@@ -1,9 +1,9 @@
 # S-INTEGRATE status — 2026-10-04
 
-**Incomplete: #19 remains open.** The joined experimental ECS now passes the
+**#19 completed as bounded research with negative results.** The joined experimental ECS now passes the
 functional trace and mutation gates. Current measurements reject performance
-acceptance; all workload outcomes and corrected memory evidence are delivered; final bounded-negative disposition review is pending.
-This is a progress record, not a completion report.
+acceptance; all workload outcomes and corrected memory evidence are delivered and final reviews support the issue’s bounded-negative alternative.
+The [completion report](s-integrate-completion.md) records the accepted final disposition.
 
 | Governing criterion | Status | Direct evidence / remaining gate |
 | --- | --- | --- |
@@ -16,8 +16,8 @@ This is a progress record, not a completion report.
 | Seven repetitions, ratios and variability | Partial | Completed Dense/Sparse/Readers and five root-current Lifecycle cases retain seven samples; failed prerequisites have explicit outcomes |
 | Memory method and limits | Corrected method delivered; partial coverage | Original inherited RSS withdrawn. Clean-launcher run: 284/294 children validated, ten deadlines; twelve complete cases. Root independently audited counts, medians and source/launcher/runner hashes; Readers256 remains incomplete |
 | Native substantially faster, JS comparable | Failed current evidence | Dense/Sparse regress on both backends; JS Readers regresses; Native Readers faster on completed sizes does not establish overall acceptance |
-| Two-axis review and capability disposition | Partial | Main/mutation/memory pins reviewed; current Lifecycle/FailedTxn records and final disposition are under final review |
-| Useful research-negative alternative | Pending | Reviewed concrete redesign follow-up #20 is published; all observations or exact bounded failures recorded; final review before reporting completion |
+| Two-axis review and capability disposition | Delivered | Main/mutation/memory pins reviewed; current Lifecycle/FailedTxn records and final disposition reviewed; Spec and Standards support bounded-negative closure |
+| Useful research-negative alternative | Accepted | Reviewed concrete redesign follow-up #20 is published; accepted by final Spec/Standards reviews; observations, failures and concrete return conditions recorded |
 
 Primary files are under `experiments/s-integrate/`;
 [execution ledger](../design/s-integrate-capability-ledger.md),
@@ -27,4 +27,4 @@ Primary files are under `experiments/s-integrate/`;
 retain the exact scope. No universal runtime refinement, new law approval or
 production layout adoption is inferred. Full-core tracker #1 remains open.
 
-The [completion proposal](s-integrate-completion.md) accounts for every governing criterion and the negative-result alternative.
+The [completion report](s-integrate-completion.md) accounts for every governing criterion and the negative-result alternative.

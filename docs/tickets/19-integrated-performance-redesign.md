@@ -74,6 +74,17 @@ is an admissible baseline; an unfinished gate is not a passing prerequisite.
    child peak-RSS collection without inherited launcher peaks; report whole-process
    scope, retained live count, command/log occupancy and reader lag, marking anything
    unavailable explicitly. Preserve superseded raw evidence and method failures.
+   Add a quiet FailedTxn adapter that executes the identical registered callbacks,
+   writes, queries, current/historical lookups, reader/audit effects, reservations
+   and barriers. Validate all fields and final results against the existing full
+   Bend diagnostics and unchanged TS reference before sampling; move diagnostic
+   serialization outside the interval rather than suppressing authored work.
+   Restore stable positive/negative checking and builds under the existing limits;
+   preserve the recorded byte-identical-source checker timeout as baseline evidence.
+   Instrument actual retained physical log entries/holders, staged and pending
+   commands, and reader positions/unread/lag at workload boundaries. Report peak
+   occupancy and lag separately from whole-process peak RSS; final drains never
+   establish zero physical retention. Record any unavailable metric explicitly.
 7. **Review and decide.** Obtain independent Spec and Standards reviews. Deliver
    implemented candidate sources, exact replay commands/hashes, per-capability
    pass/fail/unresolved results, measured or blocked outcomes for every requested
