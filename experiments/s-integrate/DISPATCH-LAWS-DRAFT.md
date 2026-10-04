@@ -66,3 +66,12 @@ mutation; revised fixture has B only inside nesting and a requirement-free Tail
 outside. This evidence covers preflight traversal and capture continuation only.
 It does not establish failure-tail execution, owner-invariant rollback, full
 reader tuples or E0–E11 integrated reference parity.
+
+Closed A callbacks now exist for both schemas: set actual selected main.slot0=11,
+Ledger.slot0=101, read full updated projections, reserve/stage flagged p V(50),
+remove selected A Flag, stage Ping1 and invoke actual provided Audit action with
+real capture count. `spawn_flagged` is a distinct trusted capability. Bounds in
+the accepted trace guarantee reservation success; the callback parameter carries
+an explicit rejection outcome for callers outside that fixture, rather than
+selecting a production error policy here. Checked callbacks alone do not prove
+concrete adapter/runtime observations; that join remains required.

@@ -93,3 +93,32 @@ def health_before(-Tx:Type,-H:Data,+mode:Q.Mode,count:U32,first:Tx -> T.VitalsTo
     case (owner,view): health_choose(Tx,H,writes(mode),mode,count,first,between,second,after,ledger,set_ledger,spawn,flag,ping,log,owner,[MainObserved{health_view(view)}])
 def health_b(-Tx:Type,-H:Data,mode:Q.Mode,count:U32,before:Tx -> T.VitalsToken -> Tx & T.Access<T.VitalsView>,first:Tx -> T.VitalsToken -> U32 -> Tx,between:Tx -> T.VitalsToken -> Tx & T.Access<T.VitalsView>,second:Tx -> T.VitalsToken -> U32 -> Tx,after:Tx -> T.VitalsToken -> Tx & T.Access<T.VitalsView>,ledger:Tx -> T.HealthLedgerToken -> Tx & Maybe<&2,T.LedgerView>,set_ledger:Tx -> T.HealthLedgerToken -> U32 -> Tx,spawn:Tx -> T.Vitals -> T.Reservation<Tx,H,T.Vitals>,flag:Tx -> T.Tracked -> Tx,ping:Tx -> T.HealthPing -> Tx,log:Tx -> String -> IO(Tx),owner:Tx) -> IO(BodyResult<Tx,H>):
   health_before(Tx,H,mode,count,first,between,second,after,ledger,set_ledger,spawn,flag,ping,log,before(owner,T.VitalsToken{}))
+
+# Closed A body: operations are supplied fresh over opaque Tx; selected handle
+# is bound privately by trusted provisioning to the actual A entity.
+def a_logged(-Tx:Type,-H:Data,observations:List<&2,Observation>,owner:Tx) -> IO(BodyResult<Tx,H>):
+  IO.pure(BodyResult<Tx,H>,BodyResult{owner,T.Success{},None{},observations})
+def motion_a_reserved(-Tx:Type,-H:Data,count:U32,+rejected:T.Outcome,observations:List<&2,Observation>,remove:Tx -> Tx,ping:Tx -> T.MotionPing -> Tx,log:Tx -> String -> IO(Tx),result:T.Reservation<Tx,H,T.Position>) -> IO(BodyResult<Tx,H>):
+  match result:
+    case T.Reserved{owner,_}: IO.bind(Tx,BodyResult<Tx,H>,log(ping(remove(owner),T.MotionPing{1}),"A:attempt:" ++ U32.show(count)),t => a_logged(Tx,H,observations,t))
+    case T.ReserveRejected{owner,_}: IO.pure(BodyResult<Tx,H>,BodyResult{owner,rejected,None{},observations})
+def motion_a_ledger(-Tx:Type,-H:Data,count:U32,+rejected:T.Outcome,observations:List<&2,Observation>,spawn:Tx -> T.Position -> T.Reservation<Tx,H,T.Position>,remove:Tx -> Tx,ping:Tx -> T.MotionPing -> Tx,log:Tx -> String -> IO(Tx),pair:Tx & Maybe<&2,T.LedgerView>) -> IO(BodyResult<Tx,H>):
+  match pair:
+    case (owner,view): motion_a_reserved(Tx,H,count,rejected,List.append(&2,Observation,observations,[LedgerObserved{view}]),remove,ping,log,spawn(owner,T.Position{quad(50,51,52,53),7}))
+def motion_a_main(-Tx:Type,-H:Data,count:U32,+rejected:T.Outcome,ledger:Tx -> T.MotionLedgerToken -> Tx & Maybe<&2,T.LedgerView>,spawn:Tx -> T.Position -> T.Reservation<Tx,H,T.Position>,remove:Tx -> Tx,ping:Tx -> T.MotionPing -> Tx,log:Tx -> String -> IO(Tx),pair:Tx & T.Access<T.PositionView>) -> IO(BodyResult<Tx,H>):
+  match pair:
+    case (owner,view): motion_a_ledger(Tx,H,count,rejected,[MainObserved{motion_view(view)}],spawn,remove,ping,log,ledger(owner,T.MotionLedgerToken{}))
+def motion_a(-Tx:Type,-H:Data,count:U32,+rejected:T.Outcome,set_main:Tx -> T.PositionToken -> U32 -> Tx,set_ledger:Tx -> T.MotionLedgerToken -> U32 -> Tx,read_main:Tx -> T.PositionToken -> Tx & T.Access<T.PositionView>,read_ledger:Tx -> T.MotionLedgerToken -> Tx & Maybe<&2,T.LedgerView>,spawn_flagged:Tx -> T.Position -> T.Reservation<Tx,H,T.Position>,remove:Tx -> Tx,ping:Tx -> T.MotionPing -> Tx,log:Tx -> String -> IO(Tx),owner:Tx) -> IO(BodyResult<Tx,H>):
+  motion_a_main(Tx,H,count,rejected,read_ledger,spawn_flagged,remove,ping,log,read_main(set_ledger(set_main(owner,T.PositionToken{},11),T.MotionLedgerToken{},101),T.PositionToken{}))
+def health_a_reserved(-Tx:Type,-H:Data,count:U32,+rejected:T.Outcome,observations:List<&2,Observation>,remove:Tx -> Tx,ping:Tx -> T.HealthPing -> Tx,log:Tx -> String -> IO(Tx),result:T.Reservation<Tx,H,T.Vitals>) -> IO(BodyResult<Tx,H>):
+  match result:
+    case T.Reserved{owner,_}: IO.bind(Tx,BodyResult<Tx,H>,log(ping(remove(owner),T.HealthPing{1}),"A:attempt:" ++ U32.show(count)),t => a_logged(Tx,H,observations,t))
+    case T.ReserveRejected{owner,_}: IO.pure(BodyResult<Tx,H>,BodyResult{owner,rejected,None{},observations})
+def health_a_ledger(-Tx:Type,-H:Data,count:U32,+rejected:T.Outcome,observations:List<&2,Observation>,spawn:Tx -> T.Vitals -> T.Reservation<Tx,H,T.Vitals>,remove:Tx -> Tx,ping:Tx -> T.HealthPing -> Tx,log:Tx -> String -> IO(Tx),pair:Tx & Maybe<&2,T.LedgerView>) -> IO(BodyResult<Tx,H>):
+  match pair:
+    case (owner,view): health_a_reserved(Tx,H,count,rejected,List.append(&2,Observation,observations,[LedgerObserved{view}]),remove,ping,log,spawn(owner,T.Vitals{quad(50,51,52,53),9,2}))
+def health_a_main(-Tx:Type,-H:Data,count:U32,+rejected:T.Outcome,ledger:Tx -> T.HealthLedgerToken -> Tx & Maybe<&2,T.LedgerView>,spawn:Tx -> T.Vitals -> T.Reservation<Tx,H,T.Vitals>,remove:Tx -> Tx,ping:Tx -> T.HealthPing -> Tx,log:Tx -> String -> IO(Tx),pair:Tx & T.Access<T.VitalsView>) -> IO(BodyResult<Tx,H>):
+  match pair:
+    case (owner,view): health_a_ledger(Tx,H,count,rejected,[MainObserved{health_view(view)}],spawn,remove,ping,log,ledger(owner,T.HealthLedgerToken{}))
+def health_a(-Tx:Type,-H:Data,count:U32,+rejected:T.Outcome,set_main:Tx -> T.VitalsToken -> U32 -> Tx,set_ledger:Tx -> T.HealthLedgerToken -> U32 -> Tx,read_main:Tx -> T.VitalsToken -> Tx & T.Access<T.VitalsView>,read_ledger:Tx -> T.HealthLedgerToken -> Tx & Maybe<&2,T.LedgerView>,spawn_flagged:Tx -> T.Vitals -> T.Reservation<Tx,H,T.Vitals>,remove:Tx -> Tx,ping:Tx -> T.HealthPing -> Tx,log:Tx -> String -> IO(Tx),owner:Tx) -> IO(BodyResult<Tx,H>):
+  health_a_main(Tx,H,count,rejected,read_ledger,spawn_flagged,remove,ping,log,read_main(set_ledger(set_main(owner,T.VitalsToken{},11),T.HealthLedgerToken{},101),T.VitalsToken{}))
