@@ -285,6 +285,20 @@ def health_execute(style:C.Style,maybe:Maybe<HealthLane>) -> IO(Unit):
   match maybe:
     case None{}: IO.print("SETUP-REJECTED")
     case Some{lane}: IO.bind(HealthLane,Unit,health_run(frames(),lane),health_finish_main)
+def main_motion() -> IO(Unit):
+  do IO<Unit>:
+    IO.print("{\"kind\":\"Lane\",\"schema\":\"Motion\",\"style\":\"returned-owner\"}")
+    motion_execute(C.Returned{},motion_initial(C.Returned{}))
+    IO.print("{\"kind\":\"Lane\",\"schema\":\"Motion\",\"style\":\"regenerated-closure\"}")
+    motion_execute(C.Regenerated{},motion_initial(C.Regenerated{}))
+    return Unit{}
+def main_health() -> IO(Unit):
+  do IO<Unit>:
+    IO.print("{\"kind\":\"Lane\",\"schema\":\"Health\",\"style\":\"returned-owner\"}")
+    health_execute(C.Returned{},health_initial(C.Returned{}))
+    IO.print("{\"kind\":\"Lane\",\"schema\":\"Health\",\"style\":\"regenerated-closure\"}")
+    health_execute(C.Regenerated{},health_initial(C.Regenerated{}))
+    return Unit{}
 def main() -> IO(Unit):
   do IO<Unit>:
     IO.print("{\"kind\":\"Lane\",\"schema\":\"Motion\",\"style\":\"returned-owner\"}")
