@@ -1,0 +1,534 @@
+{
+  "provenance": "supplementary internal API only; not public runtime capacity coverage",
+  "node": "v24.20.0",
+  "reference": {
+    "commit": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334",
+    "manifestSha256": "5d4d89ca984a2eb21e21715344219bb9caa022b6bebca0c9f8959584cceb8b8f",
+    "files": {
+      "internal/streams.ts": "3e817555dddf937c51b51014ceb6422f068aeca4a40328281dbb774b8880168e",
+      "internal/world.ts": "e71b4b060fec85fae690957104c14051e4bea0d857bacd648993ea69a6fe27d7",
+      "Schema.ts": "26e7c140a6f3c2a98ea4e43c1f067a18e47c03ff6f56939c8139f1535ae1a0ec",
+      "Descriptor.ts": "03e7339516d9f6bd455763a8dcdf7244d0c11f7165e493aa895aaa64225acab7"
+    }
+  },
+  "adapterSha256": "973069e74c486ddf4e895812917899ca0bdcd085767aac869c46c044206726d3",
+  "traceSha256": "2f8a8d7940ca2b9b16e645d4e0f19af8d74d95152dd92a7ce6c7c8b572f03b7c",
+  "limitSecondsPerInvocation": 5,
+  "results": [
+    {
+      "schema": "streams",
+      "lane": "streams",
+      "status": "PASS",
+      "firstDifference": null,
+      "provenance": "internal supplementary diagnostic; no public dispatcher or capacity API claim",
+      "operations": [
+        {
+          "api": "Streams.make/register/append/trim",
+          "capacity": 3,
+          "batches": [
+            {
+              "tick": 1,
+              "values": [
+                1,
+                2
+              ]
+            },
+            {
+              "tick": 3,
+              "values": [
+                3,
+                4
+              ]
+            }
+          ],
+          "trimBoundary": 0,
+          "heldBoundaries": [
+            0,
+            0
+          ]
+        },
+        {
+          "api": "Streams.append/trim",
+          "tick": 5,
+          "values": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "trimBoundary": 0
+        }
+      ],
+      "observations": [
+        {
+          "name": "old-cursor0",
+          "api": "Streams.since/lagged",
+          "since": 0,
+          "registeredAt": 0,
+          "values": [
+            3,
+            4
+          ],
+          "lagged": true
+        },
+        {
+          "name": "cursor2",
+          "api": "Streams.since/lagged",
+          "since": 2,
+          "registeredAt": 0,
+          "values": [
+            3,
+            4
+          ],
+          "lagged": false
+        },
+        {
+          "name": "repeat-old-cursor0",
+          "api": "Streams.since/lagged",
+          "since": 0,
+          "registeredAt": 0,
+          "values": [
+            3,
+            4
+          ],
+          "lagged": true
+        },
+        {
+          "name": "oversized-old0",
+          "api": "Streams.since/lagged",
+          "since": 0,
+          "registeredAt": 0,
+          "values": [],
+          "lagged": true
+        },
+        {
+          "name": "oversized-cursor2",
+          "api": "Streams.since/lagged",
+          "since": 2,
+          "registeredAt": 0,
+          "values": [],
+          "lagged": true
+        },
+        {
+          "name": "oversized-cursor4",
+          "api": "Streams.since/lagged",
+          "since": 4,
+          "registeredAt": 0,
+          "values": [],
+          "lagged": true
+        },
+        {
+          "name": "oversized-late-registration",
+          "api": "Streams.since/lagged",
+          "since": 0,
+          "registeredAt": 5,
+          "values": [],
+          "lagged": false
+        },
+        {
+          "name": "capacity0",
+          "api": "Streams.make(0)/register/append/trim/since/lagged",
+          "tick": 1,
+          "trimBoundary": 0,
+          "values": [],
+          "lagged": true
+        }
+      ],
+      "wallMilliseconds": 130.37536100000003
+    },
+    {
+      "schema": "Motion",
+      "lane": "removed",
+      "status": "PASS",
+      "firstDifference": null,
+      "provenance": "internal supplementary diagnostic; no public dispatcher or capacity API claim",
+      "operations": [
+        {
+          "api": "makeWorld(schema,3)/registerRemovedReader/registerDespawnedReader/allocateEntity/spawnEntity/removeComponent",
+          "capacity": 3,
+          "actualRawReservationIds": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "heldReaderLastRun": 0,
+          "deletionTick": 3,
+          "beforeFrameTrim": {
+            "removed": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "despawned": []
+          }
+        },
+        {
+          "api": "World.advanceFrame",
+          "calls": 2,
+          "currentTick": 3
+        }
+      ],
+      "observations": [
+        {
+          "name": "old",
+          "api": "World.removedSince/despawnedSince/removedLagged/despawnedLagged",
+          "since": 0,
+          "registeredAt": 0,
+          "removed": [
+            2,
+            3,
+            4
+          ],
+          "despawned": [],
+          "removedLagged": true,
+          "despawnedLagged": false
+        },
+        {
+          "name": "repeat-old",
+          "api": "World.removedSince/despawnedSince/removedLagged/despawnedLagged",
+          "since": 0,
+          "registeredAt": 0,
+          "removed": [
+            2,
+            3,
+            4
+          ],
+          "despawned": [],
+          "removedLagged": true,
+          "despawnedLagged": false
+        },
+        {
+          "name": "caught-up",
+          "api": "World.removedSince/despawnedSince/removedLagged/despawnedLagged",
+          "since": 3,
+          "registeredAt": 0,
+          "removed": [],
+          "despawned": [],
+          "removedLagged": false,
+          "despawnedLagged": false
+        },
+        {
+          "name": "late-registration",
+          "api": "World.removedSince/despawnedSince/removedLagged/despawnedLagged",
+          "since": 0,
+          "registeredAt": 3,
+          "removed": [
+            2,
+            3,
+            4
+          ],
+          "despawned": [],
+          "removedLagged": false,
+          "despawnedLagged": false
+        }
+      ],
+      "wallMilliseconds": 120.417033
+    },
+    {
+      "schema": "Motion",
+      "lane": "despawned",
+      "status": "PASS",
+      "firstDifference": null,
+      "provenance": "internal supplementary diagnostic; no public dispatcher or capacity API claim",
+      "operations": [
+        {
+          "api": "makeWorld(schema,3)/registerRemovedReader/registerDespawnedReader/allocateEntity/spawnEntity/destroyEntity",
+          "capacity": 3,
+          "actualRawReservationIds": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "heldReaderLastRun": 0,
+          "deletionTick": 3,
+          "beforeFrameTrim": {
+            "removed": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "despawned": [
+              1,
+              2,
+              3,
+              4
+            ]
+          }
+        },
+        {
+          "api": "World.advanceFrame",
+          "calls": 2,
+          "currentTick": 3
+        }
+      ],
+      "observations": [
+        {
+          "name": "old",
+          "api": "World.removedSince/despawnedSince/removedLagged/despawnedLagged",
+          "since": 0,
+          "registeredAt": 0,
+          "removed": [
+            2,
+            3,
+            4
+          ],
+          "despawned": [
+            2,
+            3,
+            4
+          ],
+          "removedLagged": true,
+          "despawnedLagged": true
+        },
+        {
+          "name": "repeat-old",
+          "api": "World.removedSince/despawnedSince/removedLagged/despawnedLagged",
+          "since": 0,
+          "registeredAt": 0,
+          "removed": [
+            2,
+            3,
+            4
+          ],
+          "despawned": [
+            2,
+            3,
+            4
+          ],
+          "removedLagged": true,
+          "despawnedLagged": true
+        },
+        {
+          "name": "caught-up",
+          "api": "World.removedSince/despawnedSince/removedLagged/despawnedLagged",
+          "since": 3,
+          "registeredAt": 0,
+          "removed": [],
+          "despawned": [],
+          "removedLagged": false,
+          "despawnedLagged": false
+        },
+        {
+          "name": "late-registration",
+          "api": "World.removedSince/despawnedSince/removedLagged/despawnedLagged",
+          "since": 0,
+          "registeredAt": 3,
+          "removed": [
+            2,
+            3,
+            4
+          ],
+          "despawned": [
+            2,
+            3,
+            4
+          ],
+          "removedLagged": false,
+          "despawnedLagged": false
+        }
+      ],
+      "wallMilliseconds": 143.326213
+    },
+    {
+      "schema": "Health",
+      "lane": "removed",
+      "status": "PASS",
+      "firstDifference": null,
+      "provenance": "internal supplementary diagnostic; no public dispatcher or capacity API claim",
+      "operations": [
+        {
+          "api": "makeWorld(schema,3)/registerRemovedReader/registerDespawnedReader/allocateEntity/spawnEntity/removeComponent",
+          "capacity": 3,
+          "actualRawReservationIds": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "heldReaderLastRun": 0,
+          "deletionTick": 3,
+          "beforeFrameTrim": {
+            "removed": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "despawned": []
+          }
+        },
+        {
+          "api": "World.advanceFrame",
+          "calls": 2,
+          "currentTick": 3
+        }
+      ],
+      "observations": [
+        {
+          "name": "old",
+          "api": "World.removedSince/despawnedSince/removedLagged/despawnedLagged",
+          "since": 0,
+          "registeredAt": 0,
+          "removed": [
+            2,
+            3,
+            4
+          ],
+          "despawned": [],
+          "removedLagged": true,
+          "despawnedLagged": false
+        },
+        {
+          "name": "repeat-old",
+          "api": "World.removedSince/despawnedSince/removedLagged/despawnedLagged",
+          "since": 0,
+          "registeredAt": 0,
+          "removed": [
+            2,
+            3,
+            4
+          ],
+          "despawned": [],
+          "removedLagged": true,
+          "despawnedLagged": false
+        },
+        {
+          "name": "caught-up",
+          "api": "World.removedSince/despawnedSince/removedLagged/despawnedLagged",
+          "since": 3,
+          "registeredAt": 0,
+          "removed": [],
+          "despawned": [],
+          "removedLagged": false,
+          "despawnedLagged": false
+        },
+        {
+          "name": "late-registration",
+          "api": "World.removedSince/despawnedSince/removedLagged/despawnedLagged",
+          "since": 0,
+          "registeredAt": 3,
+          "removed": [
+            2,
+            3,
+            4
+          ],
+          "despawned": [],
+          "removedLagged": false,
+          "despawnedLagged": false
+        }
+      ],
+      "wallMilliseconds": 137.94000400000004
+    },
+    {
+      "schema": "Health",
+      "lane": "despawned",
+      "status": "PASS",
+      "firstDifference": null,
+      "provenance": "internal supplementary diagnostic; no public dispatcher or capacity API claim",
+      "operations": [
+        {
+          "api": "makeWorld(schema,3)/registerRemovedReader/registerDespawnedReader/allocateEntity/spawnEntity/destroyEntity",
+          "capacity": 3,
+          "actualRawReservationIds": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "heldReaderLastRun": 0,
+          "deletionTick": 3,
+          "beforeFrameTrim": {
+            "removed": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "despawned": [
+              1,
+              2,
+              3,
+              4
+            ]
+          }
+        },
+        {
+          "api": "World.advanceFrame",
+          "calls": 2,
+          "currentTick": 3
+        }
+      ],
+      "observations": [
+        {
+          "name": "old",
+          "api": "World.removedSince/despawnedSince/removedLagged/despawnedLagged",
+          "since": 0,
+          "registeredAt": 0,
+          "removed": [
+            2,
+            3,
+            4
+          ],
+          "despawned": [
+            2,
+            3,
+            4
+          ],
+          "removedLagged": true,
+          "despawnedLagged": true
+        },
+        {
+          "name": "repeat-old",
+          "api": "World.removedSince/despawnedSince/removedLagged/despawnedLagged",
+          "since": 0,
+          "registeredAt": 0,
+          "removed": [
+            2,
+            3,
+            4
+          ],
+          "despawned": [
+            2,
+            3,
+            4
+          ],
+          "removedLagged": true,
+          "despawnedLagged": true
+        },
+        {
+          "name": "caught-up",
+          "api": "World.removedSince/despawnedSince/removedLagged/despawnedLagged",
+          "since": 3,
+          "registeredAt": 0,
+          "removed": [],
+          "despawned": [],
+          "removedLagged": false,
+          "despawnedLagged": false
+        },
+        {
+          "name": "late-registration",
+          "api": "World.removedSince/despawnedSince/removedLagged/despawnedLagged",
+          "since": 0,
+          "registeredAt": 3,
+          "removed": [
+            2,
+            3,
+            4
+          ],
+          "despawned": [
+            2,
+            3,
+            4
+          ],
+          "removedLagged": false,
+          "despawnedLagged": false
+        }
+      ],
+      "wallMilliseconds": 148.219377
+    }
+  ]
+}
