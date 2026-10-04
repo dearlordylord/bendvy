@@ -1,0 +1,32 @@
+{
+  "base_commit": "a976667d703ea293b43059824c2cae02c791c281",
+  "checker": "bend 2.0.34",
+  "base_sha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+  "limits_seconds": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "semantic_lines": 39,
+  "negative_controls": 5,
+  "compiling_semantic_mutants": [
+    "bounds-bypass",
+    "wrong-slot",
+    "wrong-growth"
+  ],
+  "source_sha256": {
+    "experiments/s-perf/owned-index-core.bend": "e7202667b7efce24407b8b9ae15c40a2d2e9f5d65c9f85ac020bfc4f179196e3",
+    "experiments/s-perf/owned-index-extended.bend": "76909cd561e9235d35ccc2a3831989c00f9e5396512ecc6c7a06ecedc30e780e",
+    "experiments/s-perf/owned-index-main.bend": "e0b8505c308358df2172bdc898be00ca2865ae4d441557559b2ba57b0a9fd7ce",
+    "experiments/s-perf/owned-index-negative-clone.bend": "91ddaa4d3843615490495b9214085c7bffa38e407986fe5c3282824ac9fbda64",
+    "experiments/s-perf/owned-index-negative-cross-schema.bend": "a3b80e450bef705e30d912628d5f59700463a182371e5e4d10a42d21a3e21d30",
+    "experiments/s-perf/owned-index-negative-duplicate.bend": "d9db799f85149f23797d4eb94c1ee8d9c87aa5e6f58e29723847a780c3bb1d4c",
+    "experiments/s-perf/owned-index-negative-read-write.bend": "8bfd012c796895ddcc0cd3f9190cce3536dc228f00386078103ea2f9829bb7a2",
+    "experiments/s-perf/owned-index-negative-reconstruct.bend": "d1469c031e8ae77b4404fbd41322fa9c153c42b837345320998682eaad802a05",
+    "experiments/s-perf/owned-index-positive.bend": "79f03236d80359eab91700dea36ad27aae50a47e2d74abe70c3a7b28df77d89d",
+    "experiments/s-perf/owned-index-run.py": "a0d9634b73ed3133981452e84ffaef52f8a067602838bcb91c80e76667812754",
+    "experiments/s-perf/owned-index-observed.txt": "4337b8eb1673a2c3dce4779d078d0d7874b5e719fb83b9defbb659bb049da9c8",
+    "docs/design/s-perf-owned-index-gate.md": "9f1117c34103cf02634e702812c70b8d991f10692c6a00ea95cb7111a33be128"
+  }
+}
