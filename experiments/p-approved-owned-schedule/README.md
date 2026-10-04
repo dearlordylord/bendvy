@@ -1,12 +1,11 @@
-# Approved affine owned schedule — candidate-only full proof
+# Approved affine owned schedule — complete scoped proof
 
 Exact revised statement approved in the [delegated decision](../../docs/reviews/delegated-owned-law-approval.md),
 proposal SHA256 `8e400d78b08530ff17295fa32190d0cf93b1f4641816d2710506b64a8ae2940b`.
 The complete exact theorem now passes the **isolated checker candidate and the
 unchanged installed kernel**, together with its full controls and two actual
 `R.tick` mutation gates. Installed Bend 2.0.34 still fails on the guard normalization
-obstruction. Tooling adoption, root aggregate acceptance and #18 completion remain
-separate decisions. This package changes no original catalogue, frozen proposal,
+obstruction. The [scoped local-use decision](../../docs/reviews/owned-checker-local-use.md) now adopts this repair for #18 checks, and the seven-endpoint aggregate and final acceptance audit pass. Historical candidate evidence retains its pre-decision label; global/production compiler adoption remains separate. This package changes no original catalogue, frozen proposal,
 core, domain or affine binder.
 
 Run `python3 experiments/p-approved-owned-schedule/candidate-run.py` when the pinned
@@ -81,7 +80,7 @@ an unbalanced-array Bump. These helpers also pass checker/kernel in the runner.
 
 At the second installed-tool checkpoint, the residuals were member-wise Bump
 guard/row integration, owner-threaded schedule induction, and full endpoint gates.
-The candidate-only results above now discharge those proof obligations on that
+The reviewed local-checker results above now discharge those proof obligations on that
 explicitly different checker path; existing arithmetic proofs alone did not.
 No production owner API, allocator/root policy, full-array preservation, readers,
 transaction rollback, performance or #18 completion is claimed.
@@ -106,4 +105,4 @@ nonempty proof had not yet passed. The separate candidate runner now additionall
 checks its dedicated induction failures; the historical witness-only checks do not
 replace that gate.
 `tick-context.finish` now states its actual target as the expanded tail tick after
-`R.step`; the dedicated schedule induction must establish the authored Cons link.
+`R.step`; the completed dedicated schedule induction now establishes the authored Cons link.

@@ -3,8 +3,7 @@
 Commit `f61e4b3` preserved seven unfinished `.bend.draft` files. They have now been
 restored to their intended `.bend` paths **only after the full closure passed the
 isolated checker candidate and unchanged installed kernel**. No proof/domain edits
-were needed to those preserved drafts. The installed compiler still fails; this
-restoration does not authorize candidate adoption or close the root aggregate.
+were needed to those preserved drafts. The installed compiler still fails; restoration itself did not authorize adoption or close the root aggregate. The later [scoped decision](../../docs/reviews/owned-checker-local-use.md) now permits this task-local repair; all seven aggregate endpoints and both reviews pass.
 
 | Restored path | Role |
 | --- | --- |
@@ -25,4 +24,4 @@ controls, two actual compiling runtime mutants with false complete-law witnesses
 and failures in the dedicated induction. See README for exact provenance and limits.
 
 `run.py` remains the installed-tool partial suite and does not import the full
-proof. Root aggregate acceptance and tooling adoption remain outside this package.
+proof. The later aggregate acceptance and scoped local-use decision are documented separately; global/production compiler adoption remains outside this package.

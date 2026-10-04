@@ -5,19 +5,10 @@ This package selects the seven approved #18 IDs from the unchanged
 `subjects.json` preserves every original exact block and the canonical import closure, and separately records the delegated approval of the sole live-affine owned binder amendment and two supporting arithmetic statements. The selected owned statement matches the exact frozen proposal; its predicate/equality/domain are unchanged. [Astra decision](../../docs/reviews/delegated-owned-law-approval.md) supplies explicit user-delegated authorization.
 The remaining 22 catalogue candidates stay unapproved. Original proposal files remain immutable historical snapshots, including their old UNAPPROVED comments.
 
-`PROOF.bend` delegates the completed total lookup, three queries, explicit flush and pure schedule to its independently checked
-proof package. Other endpoints remain open until their real proofs land. Import
-both the lookup law and its filling proof: Bend does not expose an imported law
-through a nested `P.L` alias. The attempted nested name was rejected; the direct
-law import works and exposes the actual remaining TODOs.
+`PROOF.bend` delegates all seven exact subjects to their separately reviewed complete general proofs. Original true-domain controls and compiling own-endpoint mutations pass in their packages; [completion audit](../../docs/reports/p-observe-completion.md) maps the acceptance criteria.
 
-Run `python3 experiments/p-observe/verify.py`. It verifies frozen subjects and exact
-selection, then checks the aggregate proof with the normal checker and BendTT
-kernel under the existing five-second wrapper. **Incomplete proof returns exit 1**;
-a successful partial worker runner cannot make this full proof gate green.
-Current result is one TODO, not completion. `evidence.json` preserves diagnostics.
+Run `python3 experiments/p-observe/verify.py --source-checker`. The gate verifies canonical subjects, exact selection and approved amendment, then passes the reviewed task-local source repair and unchanged installed BendTT kernel within a hard five-second process-group limit. [Scoped decision](../../docs/reviews/owned-checker-local-use.md) and `checker.json` freeze runner/toolchain provenance. Source2.0.35 and installed2.0.34 remain distinct; Base is byte-identical. No compiler/dependency was installed or reference modified.
 
-Even a future aggregate proof pass will require the separately specified per-law
-compiling mutations, original true-domain controls, independent review and #18
-acceptance audit. This gate is not a substitute for those requirements and says
-nothing about #19 integration, runtime/backend correctness or performance.
+Default `python3 experiments/p-observe/verify.py` uses installed Bend and still exits1 with the reproduced normalization stack failure. Run baseline checks in an isolated copy to preserve accepted root evidence. Historical partial TODOs and compiler diagnostics remain in their original reports; the repaired path is explicitly recorded in `evidence.json`.
+
+All seven proof/mutation/review gates are delivered. This bounded result grants no #19 integration, backend/host IO, full ECS runtime, general payload/authority or performance acceptance. The remaining 22 catalogue candidates remain unapproved.

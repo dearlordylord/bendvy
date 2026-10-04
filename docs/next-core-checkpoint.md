@@ -34,7 +34,7 @@ runner failure are recorded explicitly; no universal proof is inferred.
 limits the public-observation request to seven exact IDs; twenty internal and four
 infrastructure candidates require separate supporting-proof approval. Root authority,
 full-payload preservation and representation-neutral owned-read preservation remain
-open. Numerical thresholds remain pending. The six selected Nat model endpoints are proved; owned runtime correspondence and general runtime refinement remain open.
+open. Numerical thresholds remain pending. All seven selected endpoints are proved and reviewed, including the exact approved affine owned correspondence through the scoped checker repair. General runtime refinement remains open.
 
 ## Execution checklist and tracker ownership
 
@@ -47,7 +47,7 @@ an earlier bounded redesign checkpoint, not completion of the next-stage specs.
 - [x] Present the exact 31-law revision with rationale, controls, proof sketches, dependencies and explicit limits.
 - [x] Obtain human approval of the seven public IDs at the exact revision; see the approval record. Two arithmetic support subjects and the live affine owned binder have since been approved by Astra under user delegation; remaining 22 supporting candidates are unapproved.
 - [x] Detail, Astra-review and publish [P-OBS #18](tickets/17-approved-observation-proofs.md); stages 0/1/2 can proceed independently.
-- [ ] Execute #18: total lookup, all three queries, explicit flush and [pure schedule](../experiments/p-observe-schedule/README.md) are proved, independently verified and reviewed. Owned schedule remains open. [Aggregate seven-law gate](../experiments/p-observe/README.md) still fails with one TODO. [Additional original-signature route diagnostics](../experiments/p-owned-route-alternative/README.md) found no inhabitant through four tested alternatives; this is not an impossibility proof. [Delegated Astra approval](reviews/delegated-owned-law-approval.md) now authorizes the exact live affine owned binder and two arithmetic support subjects. Both exact universal arithmetic proofs are complete and independently reviewed ([comparison](../experiments/p-approved-u32-comparison/README.md), [increment](../experiments/p-approved-u32-increment/README.md)); the full owned theorem remains open. The selected-row Overflow bridge currently encounters a reproducible checker normalization failure; [isolated full drafts](../experiments/p-approved-owned-schedule/DRAFTS.md) are preserved but unverified. Compiler investigation does not approve a changed checker or fill the endpoint. Do not fill the remaining 22 support laws. Complete #18 before executing #19 under the user's explicit goal.
+- [x] Execute #18: all seven exact proofs, original true-domain controls, compiling endpoint mutants and both review axes pass; see [completion audit](reports/p-observe-completion.md). The [aggregate](../experiments/p-observe/README.md) passes `--source-checker` through the [reviewed task-local repair](reviews/owned-checker-local-use.md), identical Base and unchanged kernel under five seconds. Default installed checker failure remains recorded. Two exact arithmetic subjects and the binder revision are approved; 22 candidates remain unapproved. Coordinator owns issue reporting/closure. Continue #19's reviewed integration gates; full runtime and performance remain open.
 - [x] Detail, review and publish [S-LAYOUT #16](tickets/15-indexed-storage.md) and [S-CAPTURE #17](tickets/16-capture-restoration.md). Both can start alongside #12; publication does not mean capability completion.
 - [x] Execute #17 and review both axes: bounded state/closure/restoration evidence is recorded; general capability gates remain open.
 - [x] Execute and review #16: indexed owned-storage research is complete; dense/JS regressions retain the performance gate.
@@ -58,12 +58,11 @@ an earlier bounded redesign checkpoint, not completion of the next-stage specs.
 
 Keep this checklist and the active ticket synchronized when evidence or decisions
 change. A checked research item does not imply a capability, law or performance
-gate passed. The completed research criteria live in #12; its seven-law public subset is approved; supporting-law approval remains open.
+gate passed. The completed research criteria live in #12; its seven-law public subset and two exact arithmetic supports are approved; the remaining 22 candidates need separate approval.
 
 ## Detail now
 
-1. Detail the approved seven-law proof subjects/dependencies. Obtain separate approval before proving any of the remaining 22 catalogue laws. Keep helper/model proofs separate from provider
-   confinement, owned runtime refinement and backend/host IO.
+1. Preserve the delivered seven-law proof evidence and scoped checker provenance. Obtain separate approval before proving any of the remaining 22 catalogue laws. Keep these bounded observation proofs separate from provider confinement, general owned refinement and backend/host IO.
 2. Compare owned indexed columns/slot map with stable ordered membership against
    current dense/sparse/update/churn/read/rollback workloads. Preserve Type payloads,
    identity/bounds/order, explicit barriers and both cursor kinds. No production
