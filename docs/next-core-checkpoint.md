@@ -134,3 +134,7 @@ workloads after the storage/CPU evidence, not silently removed.
 - [ ] [S-LOOP #23](tickets/22-performance-autoresearch-loop.md): blocked on #22 capability/method prerequisites and explicit complete-contract acceptance, including metric/keep semantics and enforceable budget. Do not infer allowance or launch packets from the ticket alone.
 
 The full-core scope, unapproved thresholds/laws and simulation/copied-TD prerequisites remain unchanged. All three authorized Astra calls were used: split review, conditional bounded candidate design review and [final Spec/design review](reviews/s-prep-final-spec.md). No further Astra consultation is authorized by that quota. The user approved a 3600-second future Autoresearch segment followed by results; the contract remains unaccepted and its clock has not started. See [current preparation evidence](reports/s-prep-completion.md) and [proposed focused contract](design/s-prep-contract.md).
+
+### Latest performance target correction
+
+The user rejected the incremental10% JS /5% Native-regression proposal. First-hour success compares with bevy-ts: JS parity or better, Native substantially faster; exact Native minimum unresolved. Old contract/question withdrawn, no session started. Comparator/decision/manifest and implementation scope must be revised before launch. The approved3600-second budget persists.

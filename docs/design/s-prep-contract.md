@@ -1,6 +1,19 @@
-# S-PREP proposed first Autoresearch segment — NOT ACCEPTED
+# S-PREP proposed first Autoresearch segment — WITHDRAWN; REPLACEMENT PENDING
 
 User authorized one hour of Autoresearch, then a result. This proposal makes the remaining contract concrete; publishing it does not authorize setup or packets. #22 preparation is direct engineering. #23/#21 retain every full-matrix/product gate. A focused segment can end stopped-unmet and cannot claim the full tasks complete.
+
+## User correction: authoritative experiment target
+
+The user rejected the proposed10% improvement over old Bend-JS and5% Native regression allowance. Those rules below and their executable receipts are historical, withdrawn proposals, never accepted execution/keep authority. The previous acceptance question is superseded. No session has started.
+
+- Success comparator: pinned **bevy-ts**, on equivalent complete ECS work.
+- JavaScript success: Bend-JS elapsed time **<= bevy-ts elapsed time**, supported by repeated full-field-valid measurements and uncertainty.
+- Native success: Bend-Native must be **substantially faster than bevy-ts**. Exact numerical minimum remains unresolved; the earlier2x product proposal is not approval.
+- Intermediate candidates/measurements may inform the search; an improvement over the old Bend implementation cannot be reported as successful completion. Report stopped-unmet if the approved3600-second budget expires before the target.
+- Old Bend reference remains useful for attribution and regression diagnosis, not the success denominator. Noise/drift safeguards are separate from target performance.
+- Replace the evaluator's comparison/decision code and re-freeze its manifest before setup. Reassess the body-only scope: the reviewed occupancy-tree design may be needed, with integrated controls before representation adoption. No incremental-only goal or body-only scope is inferred from this correction.
+
+The following section retains the superseded proposal for traceability.
 
 ## Proposed goal and evaluator
 

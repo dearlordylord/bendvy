@@ -40,6 +40,10 @@ Any storage mapping/growth/relocation change must retain intended affine ownersh
 
 Final independent Spec/Standards reviews and the skill's permitted finalization produce accepted commit/file sets, evaluator/check identity, all workload/size outcomes, reference/candidate cohorts, variability, remaining blockers and claim limits. Distinguish stopped-unmet from improvement and product acceptance. Preserve the retained reference candidate and rejected experiment evidence. Parent #21 remains open until its full return conditions and separate adoption decision are assessed; simulation/TD integration is not automatically unblocked.
 
-## Proposed first one-hour segment (not accepted)
+## Superseded first one-hour segment (withdrawn)
 
 The user approved3600 seconds followed by results. [Concrete focused proposal](../design/s-prep-contract.md): Health/Dense256, JS inner duration, Native regression/TS drift guards, existing declaration/type/layout-preserving storage/query body edits. Occupancy-tree representation is an explicit subsequent segment: integrated occupancy/order/shape/membership controls and an accepted protected-check transition first. This simplification preserves every parent/full-matrix gate; it does not approve thresholds or packet setup.
+
+## User correction of success criterion
+
+The user rejected10% improvement against old Bend-JS and5% Native regression as experiment success. The proposed contract/rules are withdrawn. Success must compare with pinned bevy-ts: JS parity or better, Native substantially faster, equivalent complete work. Native numerical minimum remains unresolved (earlier2x proposal unapproved). Intermediate progress is evidence only; report stopped-unmet after3600seconds if the actual target is not reached. Replace comparator/decision code and re-freeze/review the contract before setup; no old acceptance request authorizes execution.
