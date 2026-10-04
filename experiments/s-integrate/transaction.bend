@@ -93,3 +93,10 @@ def storage_commit(-Schema: Data,-M: Type,-A: Type,-F: Data,-L: Type,-Mode: Data
   match result:
     case Committed{world,commands,pings,marks}: (S.publish(Schema,M,A,F,L,Mode,storage_mark_all(Schema,M,A,F,L,Mode,marks,world,tick),List.reverse(&1,S.Command<M,A,F>,commands)),pings)
     case Reverted{world}: (world,[])
+
+def reserve_finish(-W: Type,-H: Data,-C: Type,selected: H,undo: List<&2,Inverse<H>>,commands: List<C>,pings: List<&2,U32>,marks: List<&2,H>,result: W & Maybe<&2,H>) -> Tx<W,H,C> & Maybe<&2,H>:
+  match result:
+    case (world,handle): (Tx{world,selected,undo,commands,pings,marks},handle)
+def tx_reserve(-W: Type,-H: Data,-C: Type,reserve: W -> W & Maybe<&2,H>,t: Tx<W,H,C>) -> Tx<W,H,C> & Maybe<&2,H>:
+  match t:
+    case Tx{world,selected,undo,commands,pings,marks}: reserve_finish(W,H,C,selected,undo,commands,pings,marks,reserve(world))
