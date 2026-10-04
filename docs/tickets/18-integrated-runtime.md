@@ -105,3 +105,15 @@ needed `/workspace/typescript/jev` sources; the original repository remains unto
 
 The active implementation order remains #18 then #19. Its separately permitted
 trace/reference preparation is delivered; #18 is closed. New exact integration proofs still require their own subject approval.
+
+## Current joined checkpoint — 2026-10-04
+
+The [execution ledger](../design/s-integrate-capability-ledger.md) supersedes
+historical preparation-only pending statements above. Complete E0–E10 main
+comparisons, actual E11 retention, integrated access/structural controls and
+twelve current-source compiling mutations pass the bounded Native/JS gates.
+Seven-repetition Dense/Sparse/Readers measurements retain regressions and
+deadlines; mandatory production performance is not met. Exact historical-stale
+Lifecycle and dynamic repeated FailedTxn workloads remain in progress. Original
+sampling RSS inherited the launching process high-water mark and is invalid
+for child-memory comparison; corrected measurements are pending. #19 is open.
