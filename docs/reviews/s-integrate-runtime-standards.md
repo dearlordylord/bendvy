@@ -223,3 +223,46 @@ samples do not satisfy mandatory performance acceptance, seven-repeat ratios or
 memory gates. Full-core authority/destructive restoration/general Local/refinement
 and numerical approvals retain explicit follow-ups. A final snapshot audit is
 required after the pending deliveries.
+
+## 2026-10-04 — assembled evidence refresh `019dc0f`
+
+**Standards verdict:** no new hard documented-standard violation or actionable
+baseline smell found in the inspected delivery since `2fd0601`. This is a scoped
+evidence/status refresh, not independent renderer approval: I authored that
+implementation and exclude it again. Pending deliveries and later source bytes
+require their own review.
+
+Independently compared recorded hashes with this snapshot. Main, integrated-access,
+both structural-control source-current records, and E11-original source-current
+records match every recorded current source byte. This resolves the provisional
+assembled-closure gap for those artifacts. Main's ten channels/four lanes and E11's
+twenty originals are finite fresh-reference comparisons; the E11-original record's
+`JOINED_EXECUTION_PASS_MUTANTS_PENDING` status remains distinct from separately
+recorded semantic mutation evidence. Runtime imports in main mutation evidence
+match; its frozen `de73116` fixture wrapper differs from current bytes. The pending
+split/current replay and failed-publication message-length 0→1 witness supplement
+must be frozen and reviewed before claiming that complete current mutation gate.
+
+Inspected source-current runner freezes the recursive closure and verifier tooling,
+checks compiler/Base/artifact provenance, rechecks sources after execution, and
+fails on absent/mismatched observations. Artifact verification is explicitly
+separate from fresh compilation. Checker and complete runtime executions retain
+five-second bounds, with separate documented codegen/clang bounds and task-owned
+cleanup. Native O0 mutation correctness is distinguished from fresh O3 original
+execution. No new dependency, unapproved ECS proof or implicit subject approval
+appears in the inspected delivery. Bend-required nominal helpers remain justified.
+
+**Acceptance remains open:** reported seven-repeat Dense/Sparse ratios regress
+against TS on both backends; Dense1024 still fails five seconds. These pending-final-
+freeze measurements cannot satisfy mandatory native superiority/JS comparability,
+regardless of numerical thresholds remaining unapproved. Reader correctness is
+separate from its unfinished timing. Lifecycle's eight full-lossless successes do
+not override four failed 1024 cases; checksum diagnostics cannot replace full-field
+acceptance. Historical workload/equivalent-work correction and dynamic-failure
+measurement remain pending.
+
+Follow-up: preserve these baselines, optimize actual provider/setter/journal/mark
+paths without weakening affine ownership or ordering/access contracts, then replay
+all requested sizes with full-field correctness, equivalent timed operations,
+seven-repeat ratios/variability and explicit memory limits. No causal performance
+proof or production/full-core completion is asserted here.
