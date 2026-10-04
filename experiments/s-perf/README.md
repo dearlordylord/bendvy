@@ -24,6 +24,7 @@ python3 experiments/s-perf/measure-run.py --overlay /tmp/bendvy-indexed-replay -
 python3 experiments/s-perf/measure-run.py --overlay /tmp/bendvy-indexed-replay --build-dir /tmp/bendvy-indexed-readers --lane readers --cpu 5
 python3 experiments/s-perf/lifecycle-run.py --overlay /tmp/bendvy-indexed-replay --build-dir /tmp/bendvy-indexed-life --cpu 10
 python3 experiments/s-perf/ts-occupancy-run.py --build-dir /tmp/bendvy-ts-physical --cpu 4
+python3 experiments/s-perf/occupancy-readers-run.py --candidate /workspace/formal-proofs/bendvy/experiments/s-perf/candidate
 ```
 
 Use fresh destination paths. Run commands on a supported CPU and serialize work
@@ -43,5 +44,5 @@ the small exec-reset C launcher; allocation counts are not inferred from it.
 
 Main/E11/ownership/access/mutations pass. JS timing parity remains failed;
 Readers' double-world measurement protocol has bounded larger-case failures.
-Quiet FailedTxn and workload occupancy are still being finalized. These results
+Actual Readers physical diagnostics pass; active Tx workload peaks remain unavailable. Quiet FailedTxn measurements are still being finalized. These results
 are finite executions, not universal ECS laws or production acceptance.
