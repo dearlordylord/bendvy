@@ -1,0 +1,51 @@
+{
+  "scope": "Actual payload helpers only; no integrated dispatcher/TS parity/proof/performance claim",
+  "compiler_sha256": "d4821d04932218216c9dc906223ed0e23dd86726d4357a567fb76ee6c976db4e",
+  "base_sha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+  "limits_seconds": {
+    "checker": 5,
+    "codegen": 30,
+    "clang": 120,
+    "runtime": 5
+  },
+  "ordinary_interpreter_attempt": {
+    "exit": 137,
+    "limit_seconds": 5,
+    "result": "Failed initial coordinator attempt; not a passing checker/runtime observation"
+  },
+  "expected": "position:old1=20;between=30,21,22,23:7;old2=30;after=50,21,22,23:7;undo2=50;undo1=30;restore=20,21,22,23:7;\nvitals:old1=20;between=30,21,22,23:9:2;old2=30;after=50,21,22,23:9:2;undo2=50;undo1=30;restore=20,21,22,23:9:2;\nmotionLedger:old1=101;between=201,101,102,103:4;old2=201;after=301,101,102,103:4;undo2=301;undo1=201;restore=101,101,102,103:4;\nhealthLedger:old1=101;between=201,101,102,103:4;old2=201;after=301,101,102,103:4;undo2=301;undo1=201;restore=101,101,102,103:4;\nvelocity:first=1,2,3,4:True;again=1,2,3,4:True;\narmor:first=1,2,3,4:3;again=1,2,3,4:3;",
+  "mutants": {
+    "position-wrong-slot": {
+      "checker": "PASS",
+      "native_js_agree": true,
+      "expected": "position:old1=20;between=30,21,22,23:7;old2=30;after=50,21,22,23:7;undo2=50;undo1=30;restore=20,21,22,23:7;",
+      "actual": "position:old1=21;between=20,30,22,23:7;old2=30;after=20,50,22,23:7;undo2=50;undo1=30;restore=20,21,22,23:7;"
+    },
+    "vitals-wrong-slot": {
+      "checker": "PASS",
+      "native_js_agree": true,
+      "expected": "vitals:old1=20;between=30,21,22,23:9:2;old2=30;after=50,21,22,23:9:2;undo2=50;undo1=30;restore=20,21,22,23:9:2;",
+      "actual": "vitals:old1=21;between=20,30,22,23:9:2;old2=30;after=20,50,22,23:9:2;undo2=50;undo1=30;restore=20,21,22,23:9:2;"
+    },
+    "motion_ledger-wrong-slot": {
+      "checker": "PASS",
+      "native_js_agree": true,
+      "expected": "motionLedger:old1=101;between=201,101,102,103:4;old2=201;after=301,101,102,103:4;undo2=301;undo1=201;restore=101,101,102,103:4;",
+      "actual": "motionLedger:old1=101;between=101,201,102,103:4;old2=201;after=101,301,102,103:4;undo2=301;undo1=201;restore=101,101,102,103:4;"
+    },
+    "health_ledger-wrong-slot": {
+      "checker": "PASS",
+      "native_js_agree": true,
+      "expected": "healthLedger:old1=101;between=201,101,102,103:4;old2=201;after=301,101,102,103:4;undo2=301;undo1=201;restore=101,101,102,103:4;",
+      "actual": "healthLedger:old1=101;between=101,201,102,103:4;old2=201;after=101,301,102,103:4;undo2=301;undo1=201;restore=101,101,102,103:4;"
+    }
+  },
+  "actual_native_js": "position:old1=20;between=30,21,22,23:7;old2=30;after=50,21,22,23:7;undo2=50;undo1=30;restore=20,21,22,23:7;\nvitals:old1=20;between=30,21,22,23:9:2;old2=30;after=50,21,22,23:9:2;undo2=50;undo1=30;restore=20,21,22,23:9:2;\nmotionLedger:old1=101;between=201,101,102,103:4;old2=201;after=301,101,102,103:4;undo2=301;undo1=201;restore=101,101,102,103:4;\nhealthLedger:old1=101;between=201,101,102,103:4;old2=201;after=301,101,102,103:4;undo2=301;undo1=201;restore=101,101,102,103:4;\nvelocity:first=1,2,3,4:True;again=1,2,3,4:True;\narmor:first=1,2,3,4:3;again=1,2,3,4:3;",
+  "source_sha256": {
+    "types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+    "payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "payload-controls.bend": "85d6bd6d9d3964cb5ba3f6b949b051c3e794518b146134a1f339c3dc712d6215",
+    "payload-run.py": "7d21116a1f6324582f853cb80272d8f0bcdbd1f4882ba5d55437a893a601e09d",
+    "PAYLOAD-LAWS-DRAFT.md": "5c061487157084b330f37c3b4b21bcf34c00e610cd71580494cb437608454d65"
+  }
+}
