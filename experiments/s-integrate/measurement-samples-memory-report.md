@@ -36,3 +36,13 @@ Values cover the complete workload process: startup/imports, warmup, both setups
 | Health readers 256 | not complete | not complete | not complete | REGRESSION |
 
 The original repeated 108952 KiB floor was measurement contamination, not equal memory use. Corrected measurements do not repair failed runtime gates or adverse timing results and do not close #19.
+
+Coordinator evidence audit independently checks all 294 records, the 284/10
+pass/deadline split, twelve complete case sets, every reported median/range and
+current closure/launcher/runner hashes. This is a record audit, not a second
+sampling campaign. Live-count inputs are shown per case and payload width is
+four; each child executes a warmup world and a fresh measured world according to
+its adapter. Peak physical command/log occupancy and peak reader lag are not
+instrumented by this protocol and remain unavailable. Final drains and validated
+logical unread observations do not establish physical retention at peak RSS.
+Those occupancy measurements remain a return condition in #20.
