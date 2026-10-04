@@ -319,3 +319,37 @@ separate. Five-second checker limits and kernel-failure control are maintained.
 representation/guard/successor dependencies and Bend declaration/match constraints.
 This bounded Nat theorem accepts neither owned runtime, backend/host IO nor
 performance. Pending quantity/arithmetic proposals remain unapproved.
+
+## Additional erased-route diagnostics — `d23cf6d...634e917`
+
+Reviewed alternative-route inventory, source, runner, frozen original subject and
+current evidence. Recorded Bend/runner hashes match inspected files.
+Included the coordinator's additional installed compiler-binary SHA256 field
+and refreshed runner evidence; current hashes remain consistent.
+
+**Hard violations: none found.** The original erased-owner statement and canonical
+subjects stay frozen. Closed Bool specializations, delayed live closures,
+existential live guard witnesses and an actually constant result Type are
+elementary inhabited infrastructure controls. None fills the original owned
+endpoint, its proposed binder revision or pending arithmetic catalogue laws.
+
+Five intended negative probes fail at `attempt` or `false_conditional`, matching
+the recorded actual diagnostic locations: open template argument, erased captured
+guard, erased first witness field, unresolved same-branch Type and false equality.
+Both flag invocations are correctly identified as initial checker rejections;
+they are not represented as independent kernel refutations. Positive infrastructure
+passes checking/kernel; a forced failing kernel control confirms the positive
+path requires actual kernel acceptance.
+
+The five-second wrapper and six-second process-group cleanup watchdog preserve
+checker deadlines and control only task-owned children. Source/kernel/Base and
+pinned-checker provenance distinguish installed binary authority from a different
+reference revision. No unsafe escape, new dependency, invented live witness or
+erased-owner duplication found. The report describes the tested alternatives as
+unsuccessful and explicitly rejects any universal impossibility/full-theorem claim.
+
+**Heuristic findings: none actionable.** Small paired probes separate formation,
+inhabitation, capture and witness-field quantity boundaries. Optional runner
+hardening: assert the recorded `Location: attempt`/`false_conditional` alongside
+diagnostic fragments to guard future unrelated failures; current evidence already
+shows the intended locations, so this is not a present acceptance blocker.

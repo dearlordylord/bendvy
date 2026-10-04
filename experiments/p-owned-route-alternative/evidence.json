@@ -8,23 +8,23 @@
       "runs": [
         {
           "command": [
-            "/workspace/formal-proofs/bendvy-worktrees/proof-schedule/experiments/t01/bend-check",
-            "/workspace/formal-proofs/bendvy-worktrees/proof-schedule/experiments/p-owned-route-alternative/infrastructure.bend",
+            "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+            "/workspace/formal-proofs/bendvy/experiments/p-owned-route-alternative/infrastructure.bend",
             "--check-only"
           ],
           "exit_code": 0,
           "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n",
-          "elapsed_seconds": 0.1107
+          "elapsed_seconds": 0.111
         },
         {
           "command": [
-            "/workspace/formal-proofs/bendvy-worktrees/proof-schedule/experiments/t01/bend-check",
-            "/workspace/formal-proofs/bendvy-worktrees/proof-schedule/experiments/p-owned-route-alternative/infrastructure.bend",
+            "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+            "/workspace/formal-proofs/bendvy/experiments/p-owned-route-alternative/infrastructure.bend",
             "--verdict"
           ],
           "exit_code": 0,
           "output": "ALL PROOFS CHECK\n",
-          "elapsed_seconds": 0.1577
+          "elapsed_seconds": 0.1345
         }
       ]
     },
@@ -34,23 +34,23 @@
       "runs": [
         {
           "command": [
-            "/workspace/formal-proofs/bendvy-worktrees/proof-schedule/experiments/t01/bend-check",
-            "/workspace/formal-proofs/bendvy-worktrees/proof-schedule/experiments/p-owned-route-alternative/template-negative.bend",
+            "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+            "/workspace/formal-proofs/bendvy/experiments/p-owned-route-alternative/template-negative.bend",
             "--check-only"
           ],
           "exit_code": 1,
           "output": "SOME PROOFS FAIL\nError:\n- expected : a template applied to closed ~ arguments (guard is a variable here, not comptime: pass it at run time)\n- observed : P.specialized\nContext:\n- guard : Bool\nLocation: attempt\n5 | def attempt(-guard: Bool) -> S.When(guard,{0n == 0n : Nat}):\n6>|   P.specialized(~guard)\n  |   ^^^^^^^^^^^^^\n7 | \n",
-          "elapsed_seconds": 0.1077
+          "elapsed_seconds": 0.1039
         },
         {
           "command": [
-            "/workspace/formal-proofs/bendvy-worktrees/proof-schedule/experiments/t01/bend-check",
-            "/workspace/formal-proofs/bendvy-worktrees/proof-schedule/experiments/p-owned-route-alternative/template-negative.bend",
+            "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+            "/workspace/formal-proofs/bendvy/experiments/p-owned-route-alternative/template-negative.bend",
             "--verdict"
           ],
           "exit_code": 1,
           "output": "SOME PROOFS FAIL\nError:\n- expected : a template applied to closed ~ arguments (guard is a variable here, not comptime: pass it at run time)\n- observed : P.specialized\nContext:\n- guard : Bool\nLocation: attempt\n5 | def attempt(-guard: Bool) -> S.When(guard,{0n == 0n : Nat}):\n6>|   P.specialized(~guard)\n  |   ^^^^^^^^^^^^^\n7 | \n",
-          "elapsed_seconds": 0.1113
+          "elapsed_seconds": 0.1185
         }
       ]
     },
@@ -60,23 +60,23 @@
       "runs": [
         {
           "command": [
-            "/workspace/formal-proofs/bendvy-worktrees/proof-schedule/experiments/t01/bend-check",
-            "/workspace/formal-proofs/bendvy-worktrees/proof-schedule/experiments/p-owned-route-alternative/delayed-negative.bend",
+            "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+            "/workspace/formal-proofs/bendvy/experiments/p-owned-route-alternative/delayed-negative.bend",
             "--check-only"
           ],
           "exit_code": 1,
           "output": "SOME PROOFS FAIL\nError:\n- expected : -guard\n- observed : guard\nLocation: attempt\n4 | \n5>| def attempt(-guard: Bool) -> Unit -> S.When(guard,{0n == 0n : Nat}):\n  |              ^^^^^\n6 |   _ => P.introduce(guard)\n",
-          "elapsed_seconds": 0.0992
+          "elapsed_seconds": 0.1057
         },
         {
           "command": [
-            "/workspace/formal-proofs/bendvy-worktrees/proof-schedule/experiments/t01/bend-check",
-            "/workspace/formal-proofs/bendvy-worktrees/proof-schedule/experiments/p-owned-route-alternative/delayed-negative.bend",
+            "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+            "/workspace/formal-proofs/bendvy/experiments/p-owned-route-alternative/delayed-negative.bend",
             "--verdict"
           ],
           "exit_code": 1,
           "output": "SOME PROOFS FAIL\nError:\n- expected : -guard\n- observed : guard\nLocation: attempt\n4 | \n5>| def attempt(-guard: Bool) -> Unit -> S.When(guard,{0n == 0n : Nat}):\n  |              ^^^^^\n6 |   _ => P.introduce(guard)\n",
-          "elapsed_seconds": 0.1074
+          "elapsed_seconds": 0.115
         }
       ]
     },
@@ -86,23 +86,23 @@
       "runs": [
         {
           "command": [
-            "/workspace/formal-proofs/bendvy-worktrees/proof-schedule/experiments/t01/bend-check",
-            "/workspace/formal-proofs/bendvy-worktrees/proof-schedule/experiments/p-owned-route-alternative/witness-negative.bend",
+            "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+            "/workspace/formal-proofs/bendvy/experiments/p-owned-route-alternative/witness-negative.bend",
             "--check-only"
           ],
           "exit_code": 1,
           "output": "SOME PROOFS FAIL\nError:\n- expected : -guard\n- observed : guard\nLocation: attempt\n3 | \n4>| def attempt(-guard: Bool) -> P.GuardWitness(guard):\n  |              ^^^^^\n5 |   (guard,{==})\n",
-          "elapsed_seconds": 0.0929
+          "elapsed_seconds": 0.1019
         },
         {
           "command": [
-            "/workspace/formal-proofs/bendvy-worktrees/proof-schedule/experiments/t01/bend-check",
-            "/workspace/formal-proofs/bendvy-worktrees/proof-schedule/experiments/p-owned-route-alternative/witness-negative.bend",
+            "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+            "/workspace/formal-proofs/bendvy/experiments/p-owned-route-alternative/witness-negative.bend",
             "--verdict"
           ],
           "exit_code": 1,
           "output": "SOME PROOFS FAIL\nError:\n- expected : -guard\n- observed : guard\nLocation: attempt\n3 | \n4>| def attempt(-guard: Bool) -> P.GuardWitness(guard):\n  |              ^^^^^\n5 |   (guard,{==})\n",
-          "elapsed_seconds": 0.1106
+          "elapsed_seconds": 0.1064
         }
       ]
     },
@@ -112,23 +112,23 @@
       "runs": [
         {
           "command": [
-            "/workspace/formal-proofs/bendvy-worktrees/proof-schedule/experiments/t01/bend-check",
-            "/workspace/formal-proofs/bendvy-worktrees/proof-schedule/experiments/p-owned-route-alternative/same-branches-negative.bend",
+            "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+            "/workspace/formal-proofs/bendvy/experiments/p-owned-route-alternative/same-branches-negative.bend",
             "--check-only"
           ],
           "exit_code": 1,
           "output": "SOME PROOFS FAIL\nError:\n- expected : P.SameBranches(guard)\n- observed : Unit\nContext:\n- guard : Bool\nLocation: attempt\n4 | def attempt(-guard: Bool) -> P.SameBranches(guard):\n5>|   Unit{}\n  |   ^^^^^^\n6 | \n",
-          "elapsed_seconds": 0.1405
+          "elapsed_seconds": 0.0996
         },
         {
           "command": [
-            "/workspace/formal-proofs/bendvy-worktrees/proof-schedule/experiments/t01/bend-check",
-            "/workspace/formal-proofs/bendvy-worktrees/proof-schedule/experiments/p-owned-route-alternative/same-branches-negative.bend",
+            "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+            "/workspace/formal-proofs/bendvy/experiments/p-owned-route-alternative/same-branches-negative.bend",
             "--verdict"
           ],
           "exit_code": 1,
           "output": "SOME PROOFS FAIL\nError:\n- expected : P.SameBranches(guard)\n- observed : Unit\nContext:\n- guard : Bool\nLocation: attempt\n4 | def attempt(-guard: Bool) -> P.SameBranches(guard):\n5>|   Unit{}\n  |   ^^^^^^\n6 | \n",
-          "elapsed_seconds": 0.1113
+          "elapsed_seconds": 0.1146
         }
       ]
     },
@@ -138,23 +138,23 @@
       "runs": [
         {
           "command": [
-            "/workspace/formal-proofs/bendvy-worktrees/proof-schedule/experiments/t01/bend-check",
-            "/workspace/formal-proofs/bendvy-worktrees/proof-schedule/experiments/p-owned-route-alternative/false-negative.bend",
+            "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+            "/workspace/formal-proofs/bendvy/experiments/p-owned-route-alternative/false-negative.bend",
             "--check-only"
           ],
           "exit_code": 1,
           "output": "SOME PROOFS FAIL\nError:\n- expected : 0n\n- observed : 1n\nLocation: false_conditional\n4 | def false_conditional() -> S.When(True{},{0n == 1n : Nat}):\n5>|   {==}\n  |   ^^^^\n6 | \n",
-          "elapsed_seconds": 0.1066
+          "elapsed_seconds": 0.1048
         },
         {
           "command": [
-            "/workspace/formal-proofs/bendvy-worktrees/proof-schedule/experiments/t01/bend-check",
-            "/workspace/formal-proofs/bendvy-worktrees/proof-schedule/experiments/p-owned-route-alternative/false-negative.bend",
+            "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+            "/workspace/formal-proofs/bendvy/experiments/p-owned-route-alternative/false-negative.bend",
             "--verdict"
           ],
           "exit_code": 1,
           "output": "SOME PROOFS FAIL\nError:\n- expected : 0n\n- observed : 1n\nLocation: false_conditional\n4 | def false_conditional() -> S.When(True{},{0n == 1n : Nat}):\n5>|   {==}\n  |   ^^^^\n6 | \n",
-          "elapsed_seconds": 0.0996
+          "elapsed_seconds": 0.1026
         }
       ]
     }
@@ -169,13 +169,13 @@
   },
   "forced_kernel_failure": {
     "command": [
-      "/workspace/formal-proofs/bendvy-worktrees/proof-schedule/experiments/t01/bend-check",
-      "/workspace/formal-proofs/bendvy-worktrees/proof-schedule/experiments/p-owned-route-alternative/infrastructure.bend",
+      "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+      "/workspace/formal-proofs/bendvy/experiments/p-owned-route-alternative/infrastructure.bend",
       "--verdict"
     ],
     "exit_code": 1,
     "output": "SOME PROOFS FAIL\nSorry - this is a mismatch between the TypeScript implementation, and the formalized BendTT kernel. Your proofs may or may not be correct, and we cannot validate them yet. This will be addressed in a future update. Meanwhile, feel free to open an issue to report this bug.\n",
-    "elapsed_seconds": 0.1204
+    "elapsed_seconds": 0.1325
   },
   "source_hashes": {
     "delayed-negative.bend": "df4d9ec4a609aaa94919a81bad23cef8be50618696958e5cf7ee00e3fb21a706",
@@ -185,7 +185,7 @@
     "template-negative.bend": "d48002dc6db09072cfd1d67da44a19fb3a901827b61afb8c691d78be49cd2dac",
     "witness-negative.bend": "d6117bdd08ececd33df430007aa9e03ba823f4231347f60aec8ddfe1787fa914"
   },
-  "runner_sha256": "bef829339c42b92d347e5a2ca239a81756170d47cc30f6b9e0614e10f0f5c703",
+  "runner_sha256": "097bf2a6c9a4bd6138d487aa0ce15c740f4533bcd13fd69a408e199a03151dac",
   "inventory_sha256": "2379b1e05b038954e5680a89f02be6cabfe2fb2073e46e59c8fa4d29409e9ee6",
   "inspected_source_hashes": {
     "/home/node/.bend/bend2/base.bend": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
@@ -195,6 +195,7 @@
     "/workspace/formal-proofs/bendvy/experiments/p-owned-route/guard-witness.bend": "acf9ea64d268936c8597d73c5476e98ba7dac7ab9dd0984ee61fc80d62634153",
     "/workspace/formal-proofs/bendvy/experiments/p-owned-route/empty-family.bend": "dd85bb8ee8f190eca2ddcd9de9a16e2cad4d0efd67418cd7d66b3ec71efddf00"
   },
+  "compiler_sha256": "d4821d04932218216c9dc906223ed0e23dd86726d4357a567fb76ee6c976db4e",
   "compiler_version": "bend 2.0.34",
   "pinned_checker_source_commit": "a950fd683c0d76f09794078e6174fe98a1492876"
 }

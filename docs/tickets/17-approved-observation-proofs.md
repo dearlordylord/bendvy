@@ -89,6 +89,9 @@ exact diagnostics and the one-binder proposal, SHA256
 [Supporting arithmetic request](../reviews/owned-arithmetic-approval.md) selects
 two unchanged original infrastructure facts at SHA256
 `7d4ea7b7c94592c473271cffb8bcd3ec1cb1ff7390f6e1aa5cde9918ad9ce937`.
+[Additional original-signature route diagnostics](../../experiments/p-owned-route-alternative/README.md)
+test closed templates, delayed closures, live-witness synthesis and uniform-result conversion.
+Their expected diagnostic matrix passes; none provides the original general theorem.
 Neither request is approval. No complete owned theorem or universal impossibility
 claim follows from the diagnostic family or structural Word helpers. All 24
 remaining catalogue candidates are still unapproved.

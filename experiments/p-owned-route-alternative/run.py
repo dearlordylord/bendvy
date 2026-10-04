@@ -5,6 +5,7 @@ import json
 import os
 from pathlib import Path
 import signal
+import shutil
 import subprocess
 import time
 
@@ -67,6 +68,7 @@ def main():
                  SOURCE_ROOT / 'experiments/p-owned-route/guard-witness.bend',
                  SOURCE_ROOT / 'experiments/p-owned-route/empty-family.bend']
     evidence['inspected_source_hashes'] = {str(path): sha(path) for path in inspected}
+    evidence['compiler_sha256'] = sha(Path(shutil.which('bend')).resolve())
     evidence['compiler_version'] = subprocess.run(['bend', 'version'], capture_output=True, text=True, check=True).stdout.strip()
     evidence['pinned_checker_source_commit'] = subprocess.run(['git', '-C', str(SOURCE_ROOT / '.references/bend2'), 'rev-parse', 'HEAD'], capture_output=True, text=True, check=True).stdout.strip()
     (HERE / 'evidence.json').write_text(json.dumps(evidence, indent=2) + '\n')
