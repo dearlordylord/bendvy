@@ -56,3 +56,18 @@ coordinator's independently verified return decision. The parent remains open.
 F05 remains open. [T04 report](../experiments/t04/README.md) records freshly executed native/JS/TS observations: an affine Type Payload containing Array<U32> survives three updates through the R-C1 world; a Data record containing an owned array rejects at the kind boundary. Read callbacks receive a projection and an abstract handle, not a mutable owned-array alias. Separate affine-element swap/take/traversal controls work; closure/IO-handle payloads and rollback remain unestablished.
 
 Return before selecting component/query/write APIs: establish general Type read/write and failure restoration contracts, measure scalable traversal and explicit cloning/copy costs on equivalent native/JS/TS workloads, and obtain approval of specific falsified laws and numerical performance thresholds. If retained no-copy `Cell & OwnedArray` reads are required, request a bounded redesign; rejection is not approval to adopt Data-only scope. Fixed rows/slot update and Data projection are experimental simplifications, not removal of the full core.
+
+## T05 direct lifecycle return gate
+
+[T05 report](../experiments/t05/README.md) passes the bounded lifecycle probe:
+80 ordered native/JS/actual-reference observations, explicit approved foreign-ID
+divergence, seven boundary scenarios, two paired intended-type controls and four
+compiling mutants. T06 transaction and T11 candidate-law work may use this
+experimental lifecycle surface; this is not production identity acceptance.
+
+Return before production identity/storage selection: runtime-owned namespace
+creation across independent bootstrap roots; general component/affine payload
+commands; integration with actual typed schedules; declared structural authority;
+scalable layout with explicit bounds before array access; reuse/generation and
+exhaustion policy; representative performance. Linked-list traversal and decimal
+keys are measured prototype costs, not waived performance requirements.
