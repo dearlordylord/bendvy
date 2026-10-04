@@ -43,3 +43,52 @@ def binding_find(-Schema:Data,+name:String,values:List<&2,E.Binding<Schema>>) ->
   match values:
     case Nil{}: None{}
     case Con{E.Binding{label,handle},tail}: binding_hit(Schema,String.eq(name,label),handle,binding_find(Schema,name,tail))
+
+def marked_value(changed:Bool,added:U32,last:U32) -> U32:
+  match changed:
+    case True{}: last
+    case False{}: added
+def marked_case(hit:Bool,changed:Bool,added:U32,last:U32,tail:U32) -> U32:
+  match hit:
+    case True{}: marked_value(changed,added,last)
+    case False{}: tail
+def marked(-V:Data,-AV:Data,-F:Data,+id:U32,+changed:Bool,rows:List<&2,O.RowView<V,AV,F>>) -> U32:
+  match rows:
+    case Nil{}: 0
+    case Con{O.RowView{key,_,_,_,added,last},tail}: marked_case(U32.is_eq(id,key),changed,added,last,marked(V,AV,F,id,changed,tail))
+def filter_mark_case(-Schema:Data,-V:Data,-AV:Data,-F:Data,included:Bool,value:O.QueryRow<Schema,V,AV,F>,tail:List<&2,O.QueryRow<Schema,V,AV,F>>) -> List<&2,O.QueryRow<Schema,V,AV,F>>:
+  match included:
+    case True{}: value <> tail
+    case False{}: tail
+def filter_mark(-Schema:Data,-V:Data,-AV:Data,-F:Data,+rows:List<&2,O.RowView<V,AV,F>>,+changed:Bool,+since:U32,+thisRun:U32,values:List<&2,O.QueryRow<Schema,V,AV,F>>) -> List<&2,O.QueryRow<Schema,V,AV,F>>:
+  match values:
+    case Nil{}: []
+    case Con{O.QueryRow{W.Handle{+ns,+id},main,aux,flag},tail}:
+      +tick = {marked(V,AV,F,id,changed,rows):U32}
+      filter_mark_case(Schema,V,AV,F,Bool.and(U32.is_gt(tick,since),U32.is_le(tick,thisRun)),O.QueryRow{W.Handle{ns,id},main,aux,flag},filter_mark(Schema,V,AV,F,rows,changed,since,thisRun,tail))
+def query_return(-Schema:Data,-M:Type,-A:Type,-F:Data,-L:Type,-Mode:Data,-P:Data,-V:Data,-AV:Data,-LV:Data,logs:H.Logs<Schema,P>,bindings:List<&2,E.Binding<Schema>>,worldName:String,step:String,prior:D.DispatchOutcome,events:List<&2,E.TraceEvent<Schema,V,AV,F,LV,Mode,P>>,result:W.World<Schema,M,A,F,L,Mode> & List<&2,O.QueryRow<Schema,V,AV,F>>) -> Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & List<&2,O.QueryRow<Schema,V,AV,F>>:
+  match result:
+    case (world,values): (Host{world,logs,bindings,worldName,step,prior,events},values)
+def query(~Schema:Data,~M:Type,~A:Type,~F:Data,~L:Type,~Mode:Data,~P:Data,~V:Data,~AV:Data,~LV:Data,~Tok:Data,~main_get:M -> M & V,~aux_get:A -> A & AV,~client:@-Owner:Type -> @-Aux:Type -> (Owner -> Tok -> Owner & V) -> (Aux -> Aux & Maybe<&2,AV>) -> W.Handle<Schema> -> Maybe<&2,F> -> Owner -> Aux -> Owner & (Aux & O.QueryRow<Schema,V,AV,F>),selection:Q.Selection,owner:Host<Schema,M,A,F,L,Mode,P,V,AV,LV>) -> Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & List<&2,O.QueryRow<Schema,V,AV,F>>:
+  match owner:
+    case Host{world,logs,bindings,worldName,step,prior,events}:
+      query_return(Schema,M,A,F,L,Mode,P,V,AV,LV,logs,bindings,worldName,step,prior,events,Q.each(~Schema,~M,~A,~F,~Tok,~V,~AV,~O.QueryRow<Schema,V,AV,F>,~L,~Mode,~main_get,~aux_get,~client,selection,world))
+def read_since(boundary:T.ReadBoundary) -> U32:
+  match boundary:
+    case T.ReadBoundary{since,_,_}: since
+def read_now(boundary:T.ReadBoundary) -> U32:
+  match boundary:
+    case T.ReadBoundary{_,_,thisRun}: thisRun
+def read_delivery(-Schema:Data,-M:Type,-A:Type,-F:Data,-L:Type,-Mode:Data,-P:Data,-V:Data,-AV:Data,-LV:Data,system:String,count:U32,world:W.World<Schema,M,A,F,L,Mode>,bindings:List<&2,E.Binding<Schema>>,worldName:String,+step:String,prior:D.DispatchOutcome,events:List<&2,E.TraceEvent<Schema,V,AV,F,LV,Mode,P>>,+query:List<&2,O.QueryRow<Schema,V,AV,F>>,+rows:List<&2,O.RowView<V,AV,F>>,result:H.Read<Schema,P>) -> Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & R.Run:
+  match result:
+    case H.Read{logs,run,H.Delivery{+boundary,messages,removed,despawned,messageLag,removedLag,despawnedLag}}:
+      (Host{world,logs,bindings,worldName,step,prior,List.append(&2,E.TraceEvent<Schema,V,AV,F,LV,Mode,P>,events,[E.Read{step,system,count,boundary,query,filter_mark(Schema,V,AV,F,rows,False{},read_since(boundary),read_now(boundary),query),filter_mark(Schema,V,AV,F,rows,True{},read_since(boundary),read_now(boundary),query),removed,despawned,messages,messageLag,removedLag,despawnedLag}])},run)
+def read_world(~Schema:Data,~M:Type,~A:Type,~F:Data,~L:Type,~Mode:Data,~P:Data,~V:Data,~AV:Data,~LV:Data,~ledger_get:L -> L & LV,system:String,count:U32,logs:H.Logs<Schema,P>,bindings:List<&2,E.Binding<Schema>>,worldName:String,step:String,prior:D.DispatchOutcome,events:List<&2,E.TraceEvent<Schema,V,AV,F,LV,Mode,P>>,query:List<&2,O.QueryRow<Schema,V,AV,F>>,run:R.Run,result:W.World<Schema,M,A,F,L,Mode> & O.WorldView<V,AV,F,LV,Mode>) -> Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & R.Run:
+  match result:
+    case (world,O.WorldView{_,_,rows,_,_,_}): read_delivery(Schema,M,A,F,L,Mode,P,V,AV,LV,system,count,world,bindings,worldName,step,prior,events,query,rows,H.read(Schema,P,logs,run))
+def read_query(~Schema:Data,~M:Type,~A:Type,~F:Data,~L:Type,~Mode:Data,~P:Data,~V:Data,~AV:Data,~LV:Data,~main_get:M -> M & V,~aux_get:A -> A & AV,~ledger_get:L -> L & LV,system:String,count:U32,run:R.Run,result:Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & List<&2,O.QueryRow<Schema,V,AV,F>>) -> Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & R.Run:
+  match result:
+    case (Host{world,logs,bindings,worldName,step,prior,events},query):
+      read_world(Schema,M,A,F,L,Mode,P,V,AV,LV,ledger_get,system,count,logs,bindings,worldName,step,prior,events,query,run,O.world(~Schema,~M,~A,~F,~L,~Mode,~V,~AV,~LV,~main_get,~aux_get,~ledger_get,world))
+def read(~Schema:Data,~M:Type,~A:Type,~F:Data,~L:Type,~Mode:Data,~P:Data,~V:Data,~AV:Data,~LV:Data,~Tok:Data,~main_get:M -> M & V,~aux_get:A -> A & AV,~client:@-Owner:Type -> @-Aux:Type -> (Owner -> Tok -> Owner & V) -> (Aux -> Aux & Maybe<&2,AV>) -> W.Handle<Schema> -> Maybe<&2,F> -> Owner -> Aux -> Owner & (Aux & O.QueryRow<Schema,V,AV,F>),~ledger_get:L -> L & LV,system:String,count:U32,owner:Host<Schema,M,A,F,L,Mode,P,V,AV,LV>,run:R.Run) -> Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & R.Run:
+  read_query(Schema,M,A,F,L,Mode,P,V,AV,LV,main_get,aux_get,ledger_get,system,count,run,query(Schema,M,A,F,L,Mode,P,V,AV,LV,Tok,main_get,aux_get,client,Q.Required{},owner))

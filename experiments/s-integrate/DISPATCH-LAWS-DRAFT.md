@@ -115,3 +115,12 @@ mutation replacing canonical Call lookup with caller System metadata produced
 `forged=` and `unknown=` on both backends and was detected. These controls execute
 canonicalization itself; concrete tick-owner unchanged checks remain in Host
 integration, and no full reference comparison is inferred.
+
+Host read subject now threads actual Q.each abstract providers and returned
+World through full-payload query observations, then obtains persistent raw row
+marks via the owner-return observer. Added/changed selection is since < mark <=
+original thisRun over those actual rows. The same actual Run passes through Ping,
+removed and despawn reads and returns for later completion; no saved boundary is
+reconstructed or advanced by observation. Sparse lifecycle lag and message lag
+remain separate actual values. This checkpoint is checker evidence; integrated
+reference runtime checks are still open.
