@@ -98,7 +98,9 @@ catalogue candidates are still unapproved.
 
 The exact universal [U32 comparison](../../experiments/p-approved-u32-comparison/README.md) and [no-wrap increment](../../experiments/p-approved-u32-increment/README.md) proofs pass checker/kernel, compiling own-endpoint mutants, original true-domain witnesses and independent Spec/Standards reviews. They do not complete owned correspondence.
 
-Current continuation: prove the exact revised owned theorem, including its actual prefix/owner links.
+A [partial owned checkpoint](../../experiments/p-approved-owned-schedule/README.md) proves the exact empty-schedule specialization for every affine world and arbitrary Array tree, with actual returned-owner capture and same-point set/get evidence. Coordinator and independent Spec/Standards replays pass its specialization mutant and controls. This does not establish nonempty correspondence.
+
+Current continuation: prove the exact revised owned theorem, including actual runtime primitive links and safe-prefix/owner induction.
 The pure schedule uses the checked query and flush links without changing their subjects.
 The active execution goal remains **#18, then #19**; six completed laws do not
 close #18 or authorize a completion claim for #19.

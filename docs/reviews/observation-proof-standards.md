@@ -448,3 +448,41 @@ are removed on completion.
 conditional cases. README accurately retains owned-runtime caller/prefix links,
 Type payload/ownership, integration and performance gates; acceptance of this
 exact arithmetic endpoint does not close those tasks.
+
+## Partial approved owned-schedule checkpoint — `5501a43` (2026-10-04)
+
+**Hard violations: none found.** Reviewed `6c4c36a...5501a43`, inventory, proof
+subjects, runner and evidence. Independently archived the frozen commit into an
+isolated temporary directory and ran its complete runner there: exit 0, seventeen
+expected outcomes passed. Root sources/evidence were untouched. The runner checks
+frozen canonical sources and revised proposal, compiler/Base pins, and records
+its seventeen-file imported proof closure. Checker/kernel invocations retain the
+hard five-second wrapper; the six-second subprocess watchdog adds no proof budget.
+
+The empty theorem keeps every affine runtime world and both branches of the
+original safe guard. It constructs its own observation equality after actual
+owner capture, without a supplied equality, empty-row/balanced-tree assumption,
+Data world replacement or domain weakening. Dependent Type frames thread actual
+returned owners with Data observations and proof-only original references; no
+Type clone occurs. Structural array helpers tie size/read/swap/set to their real
+masked traversal for arbitrary trees. Point evidence supports the selected scalar
+observation, without claiming preservation of every payload cell or backend memory.
+These are contextual helpers, not separately filled erased catalogue contracts.
+
+All six positive files pass checker and kernel; false-fact and forced false
+BendTT controls reject as intended. The implicit-empty-flush mutant compiles.
+The unchanged complete-law empty witness has an independently true domain and
+fails at `equation`; the unchanged general empty specialization fails at
+`empty_frame`. This is explicitly the specialization's mutation gate, not evidence
+that the full schedule endpoint passed.
+
+README honestly records the earlier five-second kernel failure with the larger
+pure-schedule import closure. The reduced closure imports the needed query links
+and constructs terminal observation directly; no increased timeout or historical
+standalone pass substitutes for the reproduced final runner. Primitive projection,
+caller guards, safe-prefix transport and nonempty owner-threaded induction remain
+open, together with full endpoint controls and integration/performance gates.
+
+**Heuristic findings: none actionable.** Numerous small dependent helpers express
+Bend's affine/match/proof transport constraints rather than speculative API or
+ordinary duplicated runtime logic. This accepts a partial checkpoint only.
