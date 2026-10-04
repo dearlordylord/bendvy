@@ -62,3 +62,22 @@ shared file, or copy both files into one temporary directory. This checks signat
 only: no kernel/ECS proof, numeric journal algorithm or integrated behavior is
 claimed. Fresh historical t06/read-control and s-capture/read-control checker probes
 also passed within5seconds, solely as prior rank-2 signature evidence.
+
+Executable draft `transaction-predicates.bend` returns True{} for both schemas'
+valid full-field E3 observations and rejection controls for wrong reverse undo,
+untouched array tail corruption, wrong Ledger rollback, failed publication leak,
+reservation reissue and erased earlier A write. Main/Aux/Ledger arrays and metadata
+are all checked. These are planted validator inputs, NOT actual runtime outputs
+or integrated falsification. Ping/pending/mark fields are provisional summaries;
+full command identities/owners and actual public reader traces remain fresh runtime
+gates. Failed namespace/access/reader behavior is not represented by these inputs.
+
+Planned actual operation subjects are `tx_begin`, `tx_read_main`, `tx_set_main0`,
+`tx_read_ledger`, `tx_set_ledger0`, `tx_stage_command`, `tx_stage_ping`,
+`tx_reserve`, `tx_finish_success` and `tx_finish_failure`; shared freeze will bind
+these names to the real store hooks, private retained actual handle and publication
+records. Fixture IDs5/6 validate comparison only; actual runtime must obtain
+handles through reservation and report raw consumed IDs. Reproduce like the
+signature probe by copying the committed shared types and this file into one
+temporary directory; `timeout --kill-after=1s 5s bend transaction-predicates.bend`
+printed True{} under installed2.0.34. No law was proved.
