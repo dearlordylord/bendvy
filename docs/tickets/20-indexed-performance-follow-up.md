@@ -30,4 +30,4 @@ User-authorized split, [independently reviewed by Astra](../reviews/s-perf-split
 
 Parent clauses1/3/4/5 are prepared in #22; clause2 and full comparative clause3 run through #23 after acceptance. Clause6 and the overall adoption decision remain with this parent. Quantization, warmup, deadlines and unavailable metrics must remain visible in every handoff. Neither child completion nor an optimization keep automatically completes #21 or unblocks simulation/application integration.
 
-No Autoresearch session is created by publishing these tickets. Metric aggregation/tradeoffs, keep/noise rules, execution scope and enforceable packet/time allowance are still proposals or unresolved; obtain explicit acceptance before setup or execution.
+No Autoresearch session is created by publishing these tickets. The user approved3600 seconds for the first future Autoresearch segment, then results. Its focused metric/keep/noise/scope and eight-packet cap are frozen proposals awaiting explicit acceptance; this budget does not waive any full-parent return condition. Obtain complete-contract acceptance before setup or execution.
