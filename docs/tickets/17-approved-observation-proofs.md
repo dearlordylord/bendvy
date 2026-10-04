@@ -49,7 +49,7 @@ allocation/exhaustion policy or representation-neutral owner preservation.
 
 ## Execution and acceptance gates
 
-- [ ] Verify the seven unchanged statement hashes/IDs and record dependency status before proofs. Preserve the historical and 31-law proposal artifacts.
+- [ ] Verify the seven approved IDs, historical statement hashes and exact separately approved owned binder amendment; record dependency status before proofs. Preserve the historical and 31-law proposal artifacts.
 - [ ] Run `bend version` and `bend guide`; use the existing `experiments/t01/bend-check` five-second wrapper for every checker/kernel invocation. Timeouts, unsafe/foreign dependencies, missing verdicts and TODOs in a claimed proof are failures. Do not install a new tool/library without concrete need and approval.
 - [ ] Add proofs in a separate package importing the exact approved subjects/functions. Record theorem-specific `ALL PROOFS CHECK`/exit0 evidence; unrelated unapproved TODOs must stay outside each completion entry, not be silently filled or dropped.
 - [ ] For each completed theorem retain an original true-premise instance, compiling decision-path mutant and checking control; require the unchanged proof to fail in its intended theorem section on that mutant. An unrelated shared-lemma/type error, false premise or noncompiling mutant does not pass this gate. Preserve the existing fresh falsification controls, including pending-despawn survivors and no implicit flush.
