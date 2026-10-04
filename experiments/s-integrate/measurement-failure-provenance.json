@@ -1,0 +1,61 @@
+{
+  "installed_compiler_version": "bend 2.0.34",
+  "checker_scope": "static affine/type checks only; no new universal proof",
+  "artifacts": {
+    "/home/node/.bend/bin/bend": "d4821d04932218216c9dc906223ed0e23dd86726d4357a567fb76ee6c976db4e",
+    "/home/node/.bend/bend2/base.bend": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+    "experiments/t01/bend-check": "7c2e4afd996beae6749c650fe508f76d49633267665a96a44938af08ad0ce6a5",
+    "experiments/t05/run.py": "3767d4b66b63f6492aa260213de17b33de9f772fbe2250a91aa579f856c85b19",
+    "experiments/s-integrate/measurement-reference.mjs": "039edf1ec9905ad39c94bf4fcd9850610615251bd8b72e044b93fb7aa7c90376"
+  },
+  "runtime_builds": {
+    "driver.c": "51f4a3fe3d93940257f17715f0c234cbdb3273bca55a3e27753a55fcea83258e",
+    "driver.js": "676602d2e4cf7086ee9553815063cf4b165a1f9d60daaf2a00046da9d3d7c51a",
+    "driver-native": "172bda0910cc93123f6de021446149c70db7b6763c62360c6bebc7247abf40ac",
+    "driver-o3": "d4e887419e9133425cb4637a965e642cf0d65ab0b00eded12ece96d001a8ca58"
+  },
+  "source_reference_commit": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334",
+  "historical_attempts": [
+    "Initial closed invoke could not capture runtime count; actual affine Seed wrapper replaced it.",
+    "Temporary affine use/label errors corrected before successful builds.",
+    "Initial stale repeated handle labels detected by unchanged oracle; wrapper now records actual newest escaped handle.",
+    "Initial external seed skipped actual dispatch clock; actual Seed D.tick replaced it.",
+    "Original full O0 sweep CPU affinity unrestricted; no steady timing inference."
+  ],
+  "owned_artifact_sha256": {
+    "measurement-failure-DRAFT.md": "52cb730e444210b8899add6e9bf167d2d5a5a56c08c61b20856230af282207bf",
+    "measurement-failure-README.md": "f80b9eede9151e6a3b1b694d553a5773d61592c595b3f2c2ef7d1691292bdc6d",
+    "measurement-failure-bounded-evidence.json": "976f58638a6f839adc482b68c08e4f0e5da37868bac81f8413c3160f3e9a5413",
+    "measurement-failure-bounded.py": "f89d0c244c975bce8cf44707b48aae6c5ef8d2cd98031d7f0c0edb0f2a579c89",
+    "measurement-failure-build.py": "be1a64cbfe6f6ca9df3038245372f9be0d59c4df5c986fdfd276c0037c463103",
+    "measurement-failure-callbacks.bend": "55768432050a0fcb86334101b52c194cd5eebe04610d20c15a59e908d3ac8337",
+    "measurement-failure-driver.bend": "5e0507f5fc7fefe00baab2b212b219b87da64637ee4310115a2601100e727a12",
+    "measurement-failure-evidence.json": "4d460e77b0b356674e0be7e54401dc88da485cfcfee0bb51159d79f7b1b52ab9",
+    "measurement-failure-fixture.bend": "854adca9ec4cf56792065962f7fe055d6fbeeba5058b8ad38bda133705b74419",
+    "measurement-failure-host.bend": "d71fb1e7ec9ba8f5c9c2d7687b40b5681f8ebd5a5c34a4ae59aaeda9ca805e2d",
+    "measurement-failure-invoker.bend": "22ae7ae73989b1d0d97820bcbe4c8af46eed815f66584c330b8f3b334928b03e",
+    "measurement-failure-observe.bend": "63f4861a42f8188d99911609bfb66d4c7f5b4830fa40595cdd9d0300c6028893",
+    "measurement-failure-oracle.py": "0c9664719ef72a6905347b412deaf519665d992ce15bdae951254f7c4ff2fdf9",
+    "measurement-failure-run.py": "37a76e7ec00c53be4d3908148aad624db6b417cb4d513f54cec8549e794facda"
+  },
+  "dependency_commits": {
+    "base": "9bdcb55fd654fffbff9a8310b466f909f23ce809",
+    "lifecycle_root": "bbab319",
+    "lifecycle_local": "99eeae8",
+    "initial_callbacks": "86c51e3",
+    "initial_join": "8a903a0"
+  },
+  "stage_provenance": {
+    "original_run": "session71465 exit1: two full originals and four actual NativeO0 runtime5s failures; largeJS not reached",
+    "supplementary": "session94802 exit0: independent largeJS, O3 build and originals, eight compiling semantic mutation counterexamples",
+    "mutation_diagnostic_replay": "session39977 exit0: unchanged Bend closure, exact differing-row diagnostic, two fresh CPU7 originalJS64 complete controls and eight semantic counterexamples",
+    "final_static_check": "CPU7 bend-check driver --check-only <=5 seconds; separate static gate"
+  },
+  "unavailable_acceptance": [
+    "1024 NativeO3 complete invocation under5s",
+    "256/1024 JavaScript complete invocation under5s",
+    "Equivalent quiet seven-repetition steady timing",
+    "Corrected C-launcher RSS samples for equivalent complete work"
+  ],
+  "evidence_encoding": "Lossless JSON; long arrays retain each complete record on one line; decoded data unchanged."
+}
