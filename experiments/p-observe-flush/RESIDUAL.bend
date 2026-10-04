@@ -4,7 +4,8 @@ import ../t11-replacement/model.bend as M
 import ../t11-replacement/spec.bend as S
 
 # command_slot and mixed_fifo_slot now have universal proofs in coherence.bend.
-# The approved flush endpoint remains open until this final bridge is proved.
+# PROOF.bend now fills this bridge and the approved flush endpoint.
+# This declaration file alone remains open until its paired proof is imported.
 # Requires valid applied rows, bounded enumeration/sorting, materialized-list
 # observation adequacy. This is a narrow bridge for this approved endpoint.
 law flush_rows_observation:

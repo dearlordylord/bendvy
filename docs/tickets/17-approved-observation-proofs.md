@@ -63,16 +63,42 @@ a blanket benchmark or full-core completion gate.
 
 ## Delivered progress
 
-`lookup_full_exact` is proved in [the exact selection package](../../experiments/p-observe-lookup/README.md). General checker/kernel verdicts, seven fresh total/malformed controls, a compiling always-Missing mutant failing the unchanged endpoint, and kernel negative control were independently rerun by Astra and the coordinator. [Spec review](../reviews/observation-proof-spec.md) and [Standards review](../reviews/observation-proof-standards.md) pass. Helper-purpose inventory was documented after development; the package records this process deviation. The other six endpoints remain open; #18 must not close.
+| Approved endpoint | Current evidence |
+|---|---|
+| `lookup_full_exact` | Complete general proof, kernel, seven total/malformed controls and own-endpoint compiling mutant. |
+| `query_any_complete_ordered` | Complete general proof, kernel and own-endpoint compiling selection-dispatch mutant. |
+| `query_present_complete_ordered` | Complete general proof, kernel and own-endpoint compiling selection-dispatch mutant. |
+| `query_absent_complete_ordered` | Complete general proof, kernel and own-endpoint compiling selection-dispatch mutant. |
+| `explicit_flush_independent` | Complete general proof, kernel, eight fresh controls and own-endpoint compiling queue-discard mutant. |
+| `schedule_execution_exact` | Checked representation-neutral, Bump and Reserve/Publish toolkit; complete endpoint still open. |
+| `owned_runtime_schedule_correspondence` | Complete endpoint still open. Exact original erased-owner encoding remains unresolved; specific binder amendment and two support facts await separate approval. |
 
-[Erased-owner feasibility](../../experiments/p-observe-feasibility/README.md) records eight expected outcomes and no correspondence theorem: faithful empty/barrier reflexivity attempts fail at unresolved conditional obligations, without an impossibility claim.
+Reports: [lookup](../../experiments/p-observe-lookup/README.md),
+[queries](../../experiments/p-observe-queries/README.md),
+[flush](../../experiments/p-observe-flush/README.md),
+[schedule](../../experiments/p-observe-schedule/README.md). The completed five
+endpoints were independently replayed by Astra and the coordinator and passed
+[Spec](../reviews/observation-proof-spec.md) and
+[Standards](../reviews/observation-proof-standards.md) review. No original law or
+implementation was changed. Lookup's helper inventory chronology deviation is
+retained in its report. Historical partial reports do not override these results.
 
-The [query lane](../../experiments/p-observe-queries/README.md) has independently rerun contextual checker/kernel proofs and two contextual mutation controls. **Zero complete query endpoints are proved.** The exact nonempty sorting/enumeration residual and reviewed continuation inventory are preserved; this is progress, not endpoint acceptance.
+[Owned construction routes](../../experiments/p-owned-route/README.md) retain
+exact diagnostics and the one-binder proposal, SHA256
+`8e400d78b08530ff17295fa32190d0cf93b1f4641816d2710506b64a8ae2940b`.
+[Supporting arithmetic request](../reviews/owned-arithmetic-approval.md) selects
+two unchanged original infrastructure facts at SHA256
+`7d4ea7b7c94592c473271cffb8bcd3ec1cb1ff7390f6e1aa5cde9918ad9ce937`.
+Neither request is approval. No complete owned theorem or universal impossibility
+claim follows from the diagnostic family or structural Word helpers. All 24
+remaining catalogue candidates are still unapproved.
 
-The [flush lane](../../experiments/p-observe-flush/README.md) has checked general FIFO-prefix, Spawn-slot and own-target/same-slot links. Coordinator rerun passed the partial runner, including two compiling contextual mutants; **the complete flush endpoint remains open** at mixed-slot coherence, command-prefix invariants and the observation bridge.
-
-Current continuation: finish query interval insertion/order and compose the three query endpoints with their own-endpoint mutations. Mixed-slot flush and command-prefix work can proceed in parallel; only the final flush observation bridge needs the actual enumeration/order toolkit. Compose flush, then pure schedule. Owned schedule retains its separate conditional/erasure feasibility and Word obligations. No additional supporting catalogue law is approved.
+Current continuation: compose the pure schedule using the actually proved query
+and flush links. Resolve only the owned construction and mathematical approvals
+needed for that remaining theorem, then complete its actual prefix/owner proof.
+The active execution goal remains **#18, then #19**; five completed laws do not
+close #18 or authorize a completion claim for #19.
 
 ## Aggregate completion gate
 
-[Seven-endpoint package](../../experiments/p-observe/README.md) mechanically selects all seven exact approved statements and freezes their full canonical import closure. Run `python3 experiments/p-observe/verify.py`: it must eventually pass ordinary checker and kernel, in addition to all per-endpoint mutation/review gates. Current nonzero exit with six TODOs preserves the full task boundary; partial runner passes cannot close #18.
+[Seven-endpoint package](../../experiments/p-observe/README.md) mechanically selects all seven exact approved statements and freezes their full canonical import closure. Run `python3 experiments/p-observe/verify.py`: it must eventually pass ordinary checker and kernel, in addition to all per-endpoint mutation/review gates. Current nonzero exit with two TODOs preserves the full task boundary; partial runner passes cannot close #18.

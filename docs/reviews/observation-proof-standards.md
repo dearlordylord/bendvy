@@ -205,3 +205,81 @@ query IDs as completed and retains other #18/full-runtime/performance obligation
 
 **Heuristic findings: none actionable.** Contextual mathematical helpers preserve
 independent implementation/oracle reasoning and Bend match/declaration constraints.
+
+## Owned construction routes and one-binder proposal `d590466`
+
+Reviewed route sources, frozen original/proposed statements, diagnostic runner,
+empty-row family and evidence. Current source/runner/proposal hashes match.
+
+**Hard violations: none found.** The approved original seventh statement is
+unchanged. The proposed block is mechanically compared to it with only
+`for -world: R.World` changed to `for world: R.World`; predicate, endpoint equality
+and domain remain verbatim. The separate proposed file retains one TODO and is
+explicitly unapproved. Its exact hash is recorded for human review before proof.
+
+Seventeen diagnostic cases distinguish accepted language/transport/family probes
+from intended erased-evidence/conditional/false-equation failures. The successful
+live constructor takes the entire equation as an explicit premise; it is not
+reported as a correspondence proof. Empty-row/empty-step equations quantify over
+metadata/pending but retain that restricted shape openly. Their compiling actual
+projection mutant fails `equation`, with copied-positive kernel acceptance; it is
+not counted toward seventh-law mutation acceptance.
+
+The runner verifies exact intended diagnostics, subject hashes and the constructor
+pair's sole binder-liveness change. Positive cases require kernel acceptance;
+negative cases fail initial checking and are correctly distinguished from kernel
+rejection. A forced failing kernel supplies its own negative control. Existing
+five-second checker limits remain inside a six-second cleanup watchdog. No unsafe
+escape, new dependency, erased proof extraction or runtime Type duplication found.
+
+README/evidence report zero completed approved laws and retain the arbitrary-world
+empty case/general owned theorem as unresolved. Enumerated failed routes are not
+promoted into an impossibility theorem. The proposal supplies a concrete reviewable
+revision but does not establish that the full revised theorem is provable; actual
+projection/prefix/U32 derivations and specific revision approval remain gates.
+
+**Heuristic findings: none actionable.** Paired narrow probes deliberately separate
+Type formation, evidence inhabitation and conditional construction diagnostics.
+
+## Full flush source completion — worker `36d8079`
+
+Reviewed applied root sources and full runner; refreshed evidence now records
+full PASS with all current Bend/runner hashes matching and four separately scoped
+mutants. This supersedes partial flush status for the inspected proof package.
+Coordinator terminal-process and final issue delivery checks remain separate.
+
+**Hard violations: none found.** The approved selected law and canonical subjects
+stay frozen. General command-slot/mixed-FIFO coherence, counted command-prefix
+validity and materialization correspondence compose with the completed query
+proof and independent enumeration stability. The original true admissibility
+branch supplies the actual premises; false retains Unit. The proof fills the
+real `Laws.explicit_flush_independent` caller equation, not a substitute row-only
+theorem, and preserves namespace/frontier/cleared queue observations.
+
+The runner requires complete ordinary/kernel checking and a fresh admissible
+ground case with Spawn, noncommuting actions, unknown target, deletion and
+survivors. A compiling no-op flush caller leaves contextual algorithms/oracle
+unchanged, rejects the copied-positive universal proof at its own filled endpoint
+and falsifies the ground observation. Earlier contextual mutant results remain
+separate. Five-second checker deadlines, frozen source selection and recorded
+query/lookup dependency hashes are preserved. No unsafe dependency, assumed
+unapproved contract or revised law domain found.
+
+Minor documentary correction reported: `RESIDUAL.bend` still describes the
+endpoint as open, although the new proof fills that bridge and endpoint. This
+stale comment does not alter proof coverage; synchronize it before final report.
+
+**Heuristic findings: none actionable.** Proof decomposition follows actual
+command/replay/invariant/observation dependencies.
+
+## Enumeration extension and schedule partial checkpoint
+
+Reviewed contextual extension `4f8813d` and schedule checkpoint `250c1f5` sources
+and reports. Enumeration lookup adequacy/stability uses actual independent
+interval computation; it does not assume raw physical-list equality. Schedule
+relations permit differing physical order and expose the enlarged-interval
+premise for successful reservation rather than hiding it. Immediate Bump links
+and their counted invariants remain narrower contextual obligations. No standalone
+unapproved catalogue law is filled or assumed. Schedule report explicitly retains
+the endpoint as open and contextual mutations as contextual evidence. No hard
+Standards violation or actionable heuristic identified in these checkpoints.
