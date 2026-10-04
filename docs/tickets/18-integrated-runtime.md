@@ -1,6 +1,6 @@
 # S-INTEGRATE — bounded two-schema runtime seam
 
-**[GitHub #19](https://github.com/dearlordylord/bendvy/issues/19). Planned task: concrete trace preparation and review first; runtime implementation follows that gate.**
+**[GitHub #19](https://github.com/dearlordylord/bendvy/issues/19). Active: #18 is complete; the reference trace is reviewed. Checked runtime joins are the current implementation gate.**
 Parent: [#1](https://github.com/dearlordylord/bendvy/issues/1).
 [Astra assessment](../reviews/approved-next-tranche.md).
 Governing [SPEC](../SPEC.md), [checkpoint](../next-core-checkpoint.md),
@@ -91,6 +91,8 @@ needed `/workspace/typescript/jev` sources; the original repository remains unto
 
 ## Prerequisite progress
 
+- [Checked shared vocabulary](../../experiments/s-integrate/README.md) now supplies nominal full Type payload/view records, opaque owner-return forwarding controls and six intended checker negatives. Coordinator replay passes. These are preparation controls: actual storage/transaction/readers, encoder bindings and subject-bound law falsification remain pending. [Astra interface research](../reviews/s-integrate-interface-research.md) and [reader implementation contract](../design/s-integrate-reader-implementation.md) specify the next joins.
+
 - [Astra-reviewed shared contracts](../design/s-integrate-contracts.md) distinguish exact trace requirements from proposed owner/transaction/publication/reader/provisioning interfaces. They clarify rejected versus staged Type payload ownership and complete preflight; actual Bend signature checks and runtime implementation remain open.
 - [Astra-reviewed execution split](../design/s-integrate-execution.md) records draft module ownership, interface dependencies and staged delivery after #18. It preserves conditional candidate evaluation and incremental controls/mutants; it is planning evidence, not implementation or a new approval gate.
 
@@ -100,4 +102,4 @@ needed `/workspace/typescript/jev` sources; the original repository remains unto
 - [Measurement draft](../design/s-integrate-measurement.md) records equivalent workloads, per-schema inputs, timing/memory limits and retained threshold gates. Its executable Bend setup/capacity/clock freeze depends on the integrated subject and parity trace. No integrated Bend runtime, three-backend seam result, integrated access controls, mutations or measurement result is delivered yet.
 
 The active implementation order remains #18 then #19. Its separately permitted
-trace/reference preparation does not close #18 or bypass its pending law decisions.
+trace/reference preparation is delivered; #18 is closed. New exact integration proofs still require their own subject approval.
