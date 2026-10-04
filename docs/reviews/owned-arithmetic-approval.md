@@ -1,4 +1,8 @@
-# Supporting arithmetic approval request — draft
+# Supporting arithmetic approval request — historical proposal
+
+**Current status:** both exact subjects are approved under explicit user-delegated
+Astra review; see [decision](delegated-owned-law-approval.md). The original request
+below records the pre-approval state. No general proof is complete.
 
 Two exact infrastructure candidates from the original 31-law catalogue are needed
 for the owned schedule proof's U32-to-Nat transition reasoning. They are not yet
@@ -30,3 +34,10 @@ Requested approval is specifically for these two infrastructure facts as support
 proof subjects, with their unchanged domains. It does not approve allocator/reuse
 policy, the other support laws, numerical thresholds, new dependencies or the
 separate owned-binder amendment. Keep that separate decision pending.
+
+## Decision
+
+Both exact subjects above were approved by Astra under the user's explicit
+delegation; see [dated decision](delegated-owned-law-approval.md). This request
+and its frozen proposed statements remain historical evidence. Proofs, kernel
+verdicts and endpoint mutation gates remain outstanding.

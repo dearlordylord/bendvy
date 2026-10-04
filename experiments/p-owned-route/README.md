@@ -1,4 +1,9 @@
-# Exact owned-schedule construction routes — unresolved encoding gate
+# Exact owned-schedule construction routes — historical diagnostics
+
+**Current status:** the exact live affine binder proposal is approved by Astra
+under the user's explicit delegation; see [decision](../../docs/reviews/delegated-owned-law-approval.md).
+The original erased statement and diagnostic/proposal snapshots below remain
+unchanged. Approval supplies no proof of the revised general theorem.
 
 [Issue #18](https://github.com/dearlordylord/bendvy/issues/18), approved seventh
 subject `owned_runtime_schedule_correspondence`, original law SHA256

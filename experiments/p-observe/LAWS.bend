@@ -39,6 +39,6 @@ law schedule_execution_exact:
 
 law owned_runtime_schedule_correspondence:
   for +limit: U32
-  for -world: R.World
+  for world: R.World
   for +steps: List<&2,R.Step>
   S.When(S.run_safe(O.steps(steps),U32.to_nat(limit),O.snapshot(world)), {M.observe(R.snapshot(R.project(R.tick(steps,limit,world)))) == S.schedule_observation(U32.to_nat(limit),O.snapshot(world),O.steps(steps)) : T.Observation})

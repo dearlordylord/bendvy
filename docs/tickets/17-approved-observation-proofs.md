@@ -7,13 +7,13 @@ Governing [SPEC](../SPEC.md), [semantic audit](../reviews/laws-semantic-audit.md
 [finite evidence](../../experiments/t11-replacement/README.md).
 The user approved only the seven IDs below at SHA256
 `e0c607d723ad250a189c096d9fa3fd6a36913f4c72efd3a3be6dacd7fadb2cbc`.
-The other twenty internal and four infrastructure candidates remain unapproved.
+Astra subsequently approved the exact live affine owned binder revision and two arithmetic support subjects under explicit user delegation; see [decision](../reviews/delegated-owned-law-approval.md). Twenty internal and two other infrastructure candidates remain unapproved.
 
 ## Exact scope and staged delivery
 
 | Stage | Approved subjects | Required reasoning / limits |
 |---|---|---|
-| 0: feasibility and dependency inventory | All seven, unchanged | Pin compiler/Base/source hashes; inspect existing Base/mathlib facts without adding dependencies. Inventory missing sorting/enumeration, command replay, invariant, observation and word-conversion links. Check both an elementary canary and a faithful empty-schedule specialization with an actual proof inhabitant of the erased-owner/conditional proposition shape, including checker and kernel, each <=5 seconds. The old erasure canary only constructs a proposition Type; it does not establish this proof capability. |
+| 0: feasibility and dependency inventory | Seven IDs, with the separately approved owned binder revision | Pin compiler/Base/source hashes; inspect existing Base/mathlib facts without adding dependencies. Inventory missing sorting/enumeration, command replay, invariant, observation and word-conversion links. Check both an elementary canary and a faithful empty-schedule specialization with an actual proof inhabitant of the erased-owner/conditional proposition shape, including checker and kernel, each <=5 seconds. The old erasure canary only constructs a proposition Type; it does not establish this proof capability. |
 | 1: model lookup | `lookup_full_exact` | Prove total scoped lookup with selection, including malformed physical row lists and success/mismatch/missing/foreign cases. This exact equation does not establish unforgeable root authority. |
 | 2: model queries (parallel with stage 1) | `query_any_complete_ordered`, `query_present_complete_ordered`, `query_absent_complete_ordered` | Prove complete/unique/ascending results under the exact independent admissibility premise. Connect sorting physical rows to independent `[0,next)` enumeration; do not prove only soundness or reversal invariance. |
 | 3: model flush | `explicit_flush_independent` | Prove per-entity FIFO replay against whole-row mutation, including noncommuting actions, survivors, unknown targets and cleared pending commands. Establish the command-prefix invariants needed by the comparison. |
@@ -37,7 +37,7 @@ narrower, contextual proof-local arithmetic/structural lemmas needed by an appro
 endpoint may be derived; this does not require approval of every intermediate fact.
 List each new proof-local helper and its precise purpose/domain before execution;
 contextual derivations must not change the endpoint's policy/domain. Proof decomposition does not authorize turning any of the
-other 24 catalogue statements into filled, assumed or renamed-equivalent contracts.
+other 22 unapproved catalogue statements into filled, assumed or renamed-equivalent contracts.
 If a required supporting obligation is equivalent to an unapproved catalogue law,
 or adds a standalone semantic/encoding/arithmetic contract beyond the approved
 endpoint, present its exact statement,
@@ -71,7 +71,7 @@ a blanket benchmark or full-core completion gate.
 | `query_absent_complete_ordered` | Complete general proof, kernel and own-endpoint compiling selection-dispatch mutant. |
 | `explicit_flush_independent` | Complete general proof, kernel, eight fresh controls and own-endpoint compiling queue-discard mutant. |
 | `schedule_execution_exact` | Complete general proof and kernel; two compiling tick mutants fail the dedicated universal endpoint induction with independently active complete-law witnesses. |
-| `owned_runtime_schedule_correspondence` | Complete endpoint still open. Exact original erased-owner encoding remains unresolved; specific binder amendment and two support facts await separate approval. |
+| `owned_runtime_schedule_correspondence` | Complete endpoint still open. The exact live affine binder amendment and two support facts are approved under user delegation; their proofs remain outstanding. Original erased-owner signature is historical. |
 
 Reports: [lookup](../../experiments/p-observe-lookup/README.md),
 [queries](../../experiments/p-observe-queries/README.md),
@@ -92,12 +92,11 @@ two unchanged original infrastructure facts at SHA256
 [Additional original-signature route diagnostics](../../experiments/p-owned-route-alternative/README.md)
 test closed templates, delayed closures, live-witness synthesis and uniform-result conversion.
 Their expected diagnostic matrix passes; none provides the original general theorem.
-Neither request is approval. No complete owned theorem or universal impossibility
-claim follows from the diagnostic family or structural Word helpers. All 24
-remaining catalogue candidates are still unapproved.
+Both exact requests were approved by Astra under the user's explicit delegation; the [decision](../reviews/delegated-owned-law-approval.md) pins their hashes and limits. No complete owned theorem or universal impossibility
+claim follows from the diagnostic family or structural Word helpers. The remaining 22
+catalogue candidates are still unapproved.
 
-Current continuation: resolve the owned construction and mathematical approvals
-needed for the remaining theorem, then complete its actual prefix/owner proof.
+Current continuation: prove the two approved arithmetic subjects and the exact revised owned theorem, including its actual prefix/owner links.
 The pure schedule uses the checked query and flush links without changing their subjects.
 The active execution goal remains **#18, then #19**; six completed laws do not
 close #18 or authorize a completion claim for #19.

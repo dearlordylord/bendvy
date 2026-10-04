@@ -45,9 +45,41 @@ def main():
     if list(selected) != SUBJECTS['approved_ids']:
         raise RuntimeError('selection is not exactly the seven approved IDs')
     original_blocks = law_blocks(original.read_text())
+    amendments = SUBJECTS.get('approved_amendments', {})
+    if set(amendments) != {'owned_runtime_schedule_correspondence'}:
+        raise RuntimeError('unexpected approved amendment selection')
     for name, block in selected.items():
-        if block != SUBJECTS['exact_blocks'][name] or block != original_blocks[name]:
-            raise RuntimeError('approved statement changed: ' + name)
+        historical = SUBJECTS['exact_blocks'][name]
+        if historical != original_blocks[name]:
+            raise RuntimeError('historical approved statement changed: ' + name)
+        expected = historical
+        if name in amendments:
+            amendment = amendments[name]
+            for prefix in ['proposal', 'decision']:
+                if digest(ROOT / amendment[prefix + '_path']) != amendment[prefix + '_sha256']:
+                    raise RuntimeError('approved amendment provenance changed: ' + prefix)
+            if amendment['decision'] != 'APPROVE':
+                raise RuntimeError('amendment has no approval')
+            proposed = law_blocks((ROOT / amendment['proposal_path']).read_text())
+            if list(proposed) != [name]:
+                raise RuntimeError('amendment contains unexpected subjects')
+            expected = historical.replace('for -world: R.World', 'for world: R.World')
+            if expected == historical or proposed[name] != expected:
+                raise RuntimeError('amendment differs beyond approved affine binder')
+        if block != expected:
+            raise RuntimeError('selected approved statement changed: ' + name)
+    support = SUBJECTS['approved_support']
+    if support['ids'] != ['u32_increment_no_wrap', 'u32_comparison_agrees_nat'] or support['decision'] != 'APPROVE':
+        raise RuntimeError('unexpected supporting approval')
+    for prefix in ['proposal', 'decision']:
+        if digest(ROOT / support[prefix + '_path']) != support[prefix + '_sha256']:
+            raise RuntimeError('support approval provenance changed: ' + prefix)
+    support_blocks = law_blocks((ROOT / support['proposal_path']).read_text())
+    if list(support_blocks) != support['ids']:
+        raise RuntimeError('support selection changed')
+    for name, block in support_blocks.items():
+        if block != original_blocks[name]:
+            raise RuntimeError('support statement changed: ' + name)
     expected_imports = ['import Base'] + [
         f'import ../t11-replacement/{module}.bend as {alias}'
         for module, alias in [('types','T'),('model','M'),('spec','S'),('runtime','R'),('owned-spec','O')]]
@@ -60,6 +92,7 @@ def main():
               'issue': 18, 'approved_ids': SUBJECTS['approved_ids'],
               'approved_source_sha256': SUBJECTS['approved_source_sha256'],
               'canonical_closure_verified': True, 'exact_selection_verified': True,
+              'approved_amendments': amendments, 'approved_support': support,
               'checks': rows, 'checker_limit_seconds': 5,
               'source_hashes': {p.name: digest(p) for p in HERE.iterdir() if p.suffix in ['.bend','.py'] or p.name == 'subjects.json'},
               'base_sha256': digest(Path.home() / '.bend/bend2/base.bend'),

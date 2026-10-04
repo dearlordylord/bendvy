@@ -13,6 +13,27 @@
   "approved_source_sha256": "e0c607d723ad250a189c096d9fa3fd6a36913f4c72efd3a3be6dacd7fadb2cbc",
   "canonical_closure_verified": true,
   "exact_selection_verified": true,
+  "approved_amendments": {
+    "owned_runtime_schedule_correspondence": {
+      "proposal_path": "experiments/p-owned-route/PROPOSED.bend",
+      "proposal_sha256": "8e400d78b08530ff17295fa32190d0cf93b1f4641816d2710506b64a8ae2940b",
+      "decision": "APPROVE",
+      "decision_path": "docs/reviews/delegated-owned-law-approval.md",
+      "decision_sha256": "f4bcbb952c558093aa572c6499ac6763cf85c0faf9ef6a33485b2160eae0b220",
+      "change": "for -world: R.World -> for world: R.World"
+    }
+  },
+  "approved_support": {
+    "ids": [
+      "u32_increment_no_wrap",
+      "u32_comparison_agrees_nat"
+    ],
+    "proposal_path": "experiments/p-observe/ARITHMETIC-PROPOSED.bend",
+    "proposal_sha256": "7d4ea7b7c94592c473271cffb8bcd3ec1cb1ff7390f6e1aa5cde9918ad9ce937",
+    "decision": "APPROVE",
+    "decision_path": "docs/reviews/delegated-owned-law-approval.md",
+    "decision_sha256": "f4bcbb952c558093aa572c6499ac6763cf85c0faf9ef6a33485b2160eae0b220"
+  },
   "checks": [
     {
       "command": [
@@ -21,7 +42,7 @@
         "--check-only"
       ],
       "exit_code": 1,
-      "output": "SOME PROOFS FAIL\nError: 1 TODO found.\nThe code is incomplete, and not a valid proof yet.\n"
+      "output": "SOME PROOFS FAIL\nError: 1 TODO found.\nThe code is incomplete, and not a valid proof yet.\nbend 2.0.35 is available: run bend update\n"
     },
     {
       "command": [
@@ -30,16 +51,16 @@
         "--verdict"
       ],
       "exit_code": 1,
-      "output": "SOME PROOFS FAIL\nError: 1 TODO found.\nThe code is incomplete, and not a valid proof yet.\n"
+      "output": "SOME PROOFS FAIL\nError: 1 TODO found.\nThe code is incomplete, and not a valid proof yet.\nbend 2.0.35 is available: run bend update\n"
     }
   ],
   "checker_limit_seconds": 5,
   "source_hashes": {
     "ARITHMETIC-PROPOSED.bend": "7d4ea7b7c94592c473271cffb8bcd3ec1cb1ff7390f6e1aa5cde9918ad9ce937",
     "PROOF.bend": "39296852499e7114f51e1bcd895fca4b44775d50ff5df5efb3c0227ecb54f79b",
-    "LAWS.bend": "666281671ce33f754afb06a65f6f904c187cb97f82640486aec15d239168d39c",
-    "subjects.json": "b21faddc370295a6a17f811b25e62d924ddf5b460fb4c5835c99ae0d02e295a9",
-    "verify.py": "6858e763132411011a40ca4048cfba12d5a848131542a70030187c0adaf6e1aa"
+    "LAWS.bend": "9c6b173af004e3cfe04508e214bd8f9237f4852a7aca96a7188ce8e0e3095266",
+    "subjects.json": "a6d37683805d4b0c93766170dd6d70291cad75104ace1df7798d4f89cb9390b2",
+    "verify.py": "fd2d26346d3009abd2582028bd14457f0d787429c52cbed4e239841ee3756443"
   },
   "base_sha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
   "compiler_sha256": "d4821d04932218216c9dc906223ed0e23dd86726d4357a567fb76ee6c976db4e",
