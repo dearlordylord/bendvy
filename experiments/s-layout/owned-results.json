@@ -1,0 +1,102 @@
+{
+  "entities": 2,
+  "payload_array_length": 4,
+  "iterations": 10000,
+  "writes_per_failed_system": 2,
+  "earlier_successful_commits": 1,
+  "warmups_per_process": 3,
+  "samples_ms": {
+    "native": [
+      2.0,
+      4.0,
+      2.0,
+      3.0,
+      10.0
+    ],
+    "js": [
+      18.0,
+      6.0,
+      30.0,
+      39.0,
+      10.0
+    ],
+    "list-native": [
+      3.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0
+    ],
+    "list-js": [
+      4.0,
+      43.0,
+      8.0,
+      13.0,
+      39.0
+    ],
+    "ts": [
+      27.25233700000001,
+      48.70850299999995,
+      66.66422599999999,
+      103.80109799999991,
+      30.560653999999886
+    ]
+  },
+  "median_ms": {
+    "native": 3.0,
+    "js": 18.0,
+    "list-native": 2.0,
+    "list-js": 13.0,
+    "ts": 48.70850299999995
+  },
+  "range_ms": {
+    "native": [
+      2.0,
+      10.0
+    ],
+    "js": [
+      6.0,
+      39.0
+    ],
+    "list-native": [
+      2.0,
+      3.0
+    ],
+    "list-js": [
+      4.0,
+      43.0
+    ],
+    "ts": [
+      27.25233700000001,
+      103.80109799999991
+    ]
+  },
+  "observation": "10->19;restored=10;earlier=19",
+  "cpu_affinity": [
+    11
+  ],
+  "clock": "Bend IO.now ms; TS performance.now ms",
+  "limits_seconds": {
+    "checker": 5,
+    "codegen": 30,
+    "clang": 120,
+    "runtime": 15
+  },
+  "list_baseline": "New T04-style owned linked list, sharing identical Cell get/set/inverse-undo and closed callback; distinct from committed T10 Data baseline.",
+  "source_sha256": {
+    "owned.bend": "83db32ac7ff26f4a505bef5279457bceb540d5ea905b24bce7776c1242ce66e9",
+    "owned-main.bend": "f3c2af03b1af54a8dcbb1dc43c6a36596e7766806bd61c9a4afdf7fe2242400e",
+    "owned-bench.bend": "dfa60a686ec855a441ae91f5452dc991df3e4bfafcc2fb99ac52cbc2713ff5db",
+    "owned-bench-reference.mjs": "15b2ebb7b81d047dd95c1e806356f0ceb9c7760f5ddb73fac5f3981e753d58f9",
+    "owned-list.bend": "81bdb5e676ce409f04474f24a309ddd39546385df6135b67f6ed843fe398c560",
+    "owned-list-bench.bend": "7e748ef4d923bd9b37b14f41484503ff4606da84308525034f57d3fe47422100"
+  },
+  "peak_rss_kib": {
+    "native": 6692,
+    "js": 54724,
+    "list-native": 6672,
+    "list-js": 54904,
+    "ts": 100532
+  },
+  "memory_method": "wait4 exact child lifetime ru_maxrss; inherited Python launcher pre-exec floor, setup/3 warmups/runtime/JIT included"
+}

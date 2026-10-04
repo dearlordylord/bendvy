@@ -1,0 +1,11 @@
+import {Descriptor,Schema} from '/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/index.ts';
+const P=Descriptor.Component()('P');const G=Schema.bind(Schema.fragment({components:{P}}));
+const q=G.Query({selection:{p:G.Query.read(P)}});const r=G.Runtime.make({services:G.Runtime.services()});const ids=[];let label='';
+const Read=G.System('Read',{},({lookup})=>{const x=lookup.getHandle(G.Entity.handle(ids[1]),q);console.log(label+':'+(x.ok?'Matched:'+x.value.data.p.get().x:x.error._tag));});
+const obs=(name,...steps)=>{label=name;r.tick(G.Schedule(...steps,Read));};
+const Spawn=G.System('Spawn',{},({commands})=>{for(const x of [5,7])ids.push(commands.spawn(G.Command.spawn([P,{x}])));});
+const Remove=G.System('Remove',{},({commands})=>{commands.remove(ids[1],P);});
+const Insert=G.System('Insert',{},({commands})=>{commands.insert(ids[1],[P,{x:9}]);});
+const Fifo=G.System('Fifo',{},({commands})=>{commands.insert(ids[1],[P,{x:2}]);commands.insert(ids[1],[P,{x:3}]);});
+const Despawn=G.System('Despawn',{},({commands})=>{commands.despawn(ids[1]);});
+obs('pending',Spawn);obs('next-schedule');obs('live',G.Schedule.applyDeferred());obs('remove-pending',Remove);obs('removed',G.Schedule.applyDeferred());obs('insert-pending',Insert);obs('reinserted',G.Schedule.applyDeferred());obs('fifo',Fifo,G.Schedule.applyDeferred());obs('despawn',Despawn,G.Schedule.applyDeferred());

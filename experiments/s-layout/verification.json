@@ -1,0 +1,235 @@
+{
+  "owned_trace": [
+    "motion:setup:10",
+    "motion:commit-own:10->19",
+    "motion:failed-own:20->19",
+    "motion:earlier-commit:19",
+    "motion:restored:20",
+    "motion:full-restored:[10,19,10,10];[20,20,20,20]",
+    "motion:retry-own:20->19",
+    "motion:retry-visible:19",
+    "motion:remove:disposed:19",
+    "motion:vacant:MissingEntity",
+    "motion:full-after-remove:[10,19,10,10];vacant",
+    "motion:bound:MissingEntity",
+    "motion:max-bound:MissingEntity",
+    "health:commit-own:20->23",
+    "health:failed-own:10->23",
+    "health:restored:10",
+    "health:committed:23"
+  ],
+  "relocation_trace": [
+    "before:0=10;1=20;2=30;",
+    "relocate:moved",
+    "after:0=10;1=20;2=30;",
+    "vacated-component:0=10;2=30;",
+    "reinsert:0=10;1=20;2=30;",
+    "occupied:occupied",
+    "target-bound:bounds",
+    "id-bound:bounds",
+    "preserved:0=10;1=20;2=30;"
+  ],
+  "reader_trace": [
+    "fast:pending:v=;a=;c=;r=;d=;e=",
+    "fast:spawn:v=1,2,;a=1,2,;c=1,2,;r=;d=;e=",
+    "fast:write:v=11,11,;a=;c=11,11,;r=;d=;e=",
+    "slow:late:v=11,11,;a=11,11,;c=11,11,;r=;d=;e=",
+    "fast:insert-pending:v=11,11,;a=;c=;r=;d=;e=",
+    "fast:overwrite:v=9,11,;a=;c=9,;r=;d=;e=",
+    "slow:changed-after-skip:v=21,21,;a=;c=21,21,;r=;d=;e=",
+    "fast:write-held:v=21,21,;a=;c=21,21,;r=;d=;e=6,",
+    "fast:failed-write:v=21,21,;a=;c=;r=;d=;e=",
+    "fast:before-failed-reader:v=31,31,;a=;c=31,31,;r=;d=;e=",
+    "slow:failed:v=31,31,;a=;c=31,31,;r=;d=;e=",
+    "slow:retry:v=31,31,;a=;c=31,31,;r=;d=;e=",
+    "fast:cleanup-pending:v=31,31,;a=;c=;r=;d=;e=",
+    "fast:cleanup:v=;a=;c=;r=0,1,;d=1,;e=",
+    "slow:after-skip-failed:v=;a=;c=;r=0,1,;d=1,;e=",
+    "slow:removal-retry:v=;a=;c=;r=0,1,;d=1,;e=",
+    "fast:event-held:v=;a=;c=;r=;d=;e=7,",
+    "fast:reinsert:v=5,;a=5,;c=5,;r=;d=;e=",
+    "slow:reinsert:v=5,;a=5,;c=5,;r=;d=;e=",
+    "fast:empty:v=5,;a=;c=;r=;d=;e=",
+    "slow:empty:v=5,;a=;c=;r=;d=;e="
+  ],
+  "lifecycle_trace": [
+    "pending:MissingEntity",
+    "next-schedule:MissingEntity",
+    "live:Matched:7",
+    "remove-pending:Matched:7",
+    "removed:QueryMismatch",
+    "insert-pending:QueryMismatch",
+    "reinserted:Matched:9",
+    "fifo:Matched:3",
+    "bound:MissingEntity",
+    "max-bound:MissingEntity",
+    "despawn:MissingEntity",
+    "capacity:no-reuse"
+  ],
+  "foreign_divergence": {
+    "bend": "MissingEntity",
+    "ts": "foreign-collision:lookup:match:local:7",
+    "approved": true,
+    "factory": "T05 single-lineage namespace creation, not fixture constants"
+  },
+  "capacity_controls": [
+    "2048 valid exact all-ID ordered projection",
+    "2049 rejected before filling arrays",
+    "4294967295 rejected before Nat initialization/no wrap"
+  ],
+  "mutants": [
+    {
+      "name": "selected-reader",
+      "native_js_agree": true,
+      "expected": "fast:pending:v=;a=;c=;r=;d=;e=\nfast:spawn:v=1,2,;a=1,2,;c=1,2,;r=;d=;e=\nfast:write:v=11,11,;a=;c=11,11,;r=;d=;e=\nslow:late:v=11,11,;a=11,11,;c=11,11,;r=;d=;e=\nfast:insert-pending:v=11,11,;a=;c=;r=;d=;e=\nfast:overwrite:v=9,11,;a=;c=9,;r=;d=;e=\nslow:changed-after-skip:v=21,21,;a=;c=21,21,;r=;d=;e=\nfast:write-held:v=21,21,;a=;c=21,21,;r=;d=;e=6,\nfast:failed-write:v=21,21,;a=;c=;r=;d=;e=\nfast:before-failed-reader:v=31,31,;a=;c=31,31,;r=;d=;e=\nslow:failed:v=31,31,;a=;c=31,31,;r=;d=;e=\nslow:retry:v=31,31,;a=;c=31,31,;r=;d=;e=\nfast:cleanup-pending:v=31,31,;a=;c=;r=;d=;e=\nfast:cleanup:v=;a=;c=;r=0,1,;d=1,;e=\nslow:after-skip-failed:v=;a=;c=;r=0,1,;d=1,;e=\nslow:removal-retry:v=;a=;c=;r=0,1,;d=1,;e=\nfast:event-held:v=;a=;c=;r=;d=;e=7,\nfast:reinsert:v=5,;a=5,;c=5,;r=;d=;e=\nslow:reinsert:v=5,;a=5,;c=5,;r=;d=;e=\nfast:empty:v=5,;a=;c=;r=;d=;e=\nslow:empty:v=5,;a=;c=;r=;d=;e=",
+      "observed": "fast:pending:v=;a=;c=;r=;d=;e=\nfast:spawn:v=1,2,;a=1,2,;c=1,2,;r=;d=;e=\nfast:write:v=11,11,;a=;c=11,11,;r=;d=;e=\nslow:late:v=11,11,;a=;c=;r=;d=;e=\nfast:insert-pending:v=11,11,;a=;c=;r=;d=;e=\nfast:overwrite:v=9,11,;a=;c=9,;r=;d=;e=\nslow:changed-after-skip:v=21,21,;a=;c=21,21,;r=;d=;e=6,\nfast:write-held:v=21,21,;a=;c=;r=;d=;e=\nfast:failed-write:v=21,21,;a=;c=;r=;d=;e=\nfast:before-failed-reader:v=31,31,;a=;c=31,31,;r=;d=;e=\nslow:failed:v=31,31,;a=;c=;r=;d=;e=\nslow:retry:v=31,31,;a=;c=;r=;d=;e=\nfast:cleanup-pending:v=31,31,;a=;c=;r=;d=;e=\nfast:cleanup:v=;a=;c=;r=0,1,;d=1,;e=\nslow:after-skip-failed:v=;a=;c=;r=;d=;e=7,\nslow:removal-retry:v=;a=;c=;r=;d=;e=7,\nfast:event-held:v=;a=;c=;r=;d=;e=\nfast:reinsert:v=5,;a=5,;c=5,;r=;d=;e=\nslow:reinsert:v=5,;a=;c=;r=;d=;e=\nfast:empty:v=5,;a=;c=;r=;d=;e=\nslow:empty:v=5,;a=;c=;r=;d=;e=",
+      "replacements": [
+        [
+          "seams.bend",
+          "C.read(b, success, with_rows(rs, meta))",
+          "C.read(False{}, success, with_rows(rs, meta))"
+        ]
+      ]
+    },
+    {
+      "name": "skip-reader",
+      "native_js_agree": true,
+      "expected": "fast:pending:v=;a=;c=;r=;d=;e=\nfast:spawn:v=1,2,;a=1,2,;c=1,2,;r=;d=;e=\nfast:write:v=11,11,;a=;c=11,11,;r=;d=;e=\nslow:late:v=11,11,;a=11,11,;c=11,11,;r=;d=;e=\nfast:insert-pending:v=11,11,;a=;c=;r=;d=;e=\nfast:overwrite:v=9,11,;a=;c=9,;r=;d=;e=\nslow:changed-after-skip:v=21,21,;a=;c=21,21,;r=;d=;e=\nfast:write-held:v=21,21,;a=;c=21,21,;r=;d=;e=6,\nfast:failed-write:v=21,21,;a=;c=;r=;d=;e=\nfast:before-failed-reader:v=31,31,;a=;c=31,31,;r=;d=;e=\nslow:failed:v=31,31,;a=;c=31,31,;r=;d=;e=\nslow:retry:v=31,31,;a=;c=31,31,;r=;d=;e=\nfast:cleanup-pending:v=31,31,;a=;c=;r=;d=;e=\nfast:cleanup:v=;a=;c=;r=0,1,;d=1,;e=\nslow:after-skip-failed:v=;a=;c=;r=0,1,;d=1,;e=\nslow:removal-retry:v=;a=;c=;r=0,1,;d=1,;e=\nfast:event-held:v=;a=;c=;r=;d=;e=7,\nfast:reinsert:v=5,;a=5,;c=5,;r=;d=;e=\nslow:reinsert:v=5,;a=5,;c=5,;r=;d=;e=\nfast:empty:v=5,;a=;c=;r=;d=;e=\nslow:empty:v=5,;a=;c=;r=;d=;e=",
+      "observed": "fast:pending:v=;a=;c=;r=;d=;e=\nfast:spawn:v=1,2,;a=1,2,;c=1,2,;r=;d=;e=\nfast:write:v=11,11,;a=;c=11,11,;r=;d=;e=\nslow:late:v=11,11,;a=11,11,;c=11,11,;r=;d=;e=\nfast:insert-pending:v=11,11,;a=;c=;r=;d=;e=\nfast:overwrite:v=9,11,;a=;c=9,;r=;d=;e=\nslow:changed-after-skip:v=21,21,;a=;c=21,21,;r=;d=;e=6,\nfast:write-held:v=21,21,;a=;c=21,21,;r=;d=;e=\nfast:failed-write:v=21,21,;a=;c=;r=;d=;e=\nfast:before-failed-reader:v=31,31,;a=;c=31,31,;r=;d=;e=\nslow:failed:v=31,31,;a=;c=31,31,;r=;d=;e=\nslow:retry:v=31,31,;a=;c=31,31,;r=;d=;e=\nfast:cleanup-pending:v=31,31,;a=;c=;r=;d=;e=\nfast:cleanup:v=;a=;c=;r=0,1,;d=1,;e=\nslow:after-skip-failed:v=;a=;c=;r=0,1,;d=1,;e=7,\nslow:removal-retry:v=;a=;c=;r=0,1,;d=1,;e=7,\nfast:event-held:v=;a=;c=;r=;d=;e=\nfast:reinsert:v=5,;a=5,;c=5,;r=;d=;e=\nslow:reinsert:v=5,;a=5,;c=5,;r=;d=;e=\nfast:empty:v=5,;a=;c=;r=;d=;e=\nslow:empty:v=5,;a=;c=;r=;d=;e=",
+      "replacements": [
+        [
+          "seams.bend",
+          "C.skip(b, meta)",
+          "C.skip(False{}, meta)"
+        ]
+      ]
+    },
+    {
+      "name": "stale-map",
+      "native_js_agree": true,
+      "expected": "before:0=10;1=20;2=30;\nrelocate:moved\nafter:0=10;1=20;2=30;\nvacated-component:0=10;2=30;\nreinsert:0=10;1=20;2=30;\noccupied:occupied\ntarget-bound:bounds\nid-bound:bounds\npreserved:0=10;1=20;2=30;",
+      "observed": "before:0=10;1=20;2=30;\nrelocate:moved\nafter:0=10;MissingEntity;2=30;\nvacated-component:0=10;MissingEntity;2=30;\nreinsert:0=10;MissingEntity;2=30;\noccupied:MissingEntity\ntarget-bound:bounds\nid-bound:bounds\npreserved:0=10;MissingEntity;2=30;",
+      "replacements": [
+        [
+          "relocation.bend",
+          "Array.set(U32, map, id, target)",
+          "map"
+        ]
+      ]
+    },
+    {
+      "name": "mapping",
+      "native_js_agree": true,
+      "expected": "64:64:0|0=1,1=1,2=1,3=1,4=1,5=1,6=1,7=1,8=1,9=1,10=1,11=1,12=1,13=1,14=1,15=1,16=1,17=1,18=1,19=1,20=1,21=1,22=1,23=1,24=1,25=1,26=1,27=1,28=1,29=1,30=1,31=1,32=1,33=1,34=1,35=1,36=1,37=1,38=1,39=1,40=1,41=1,42=1,43=1,44=1,45=1,46=1,47=1,48=1,49=1,50=1,51=1,52=1,53=1,54=1,55=1,56=1,57=1,58=1,59=1,60=1,61=1,62=1,63=1,",
+      "observed": "64:64:0|63=1,62=1,61=1,60=1,59=1,58=1,57=1,56=1,55=1,54=1,53=1,52=1,51=1,50=1,49=1,48=1,47=1,46=1,45=1,44=1,43=1,42=1,41=1,40=1,39=1,38=1,37=1,36=1,35=1,34=1,33=1,32=1,31=1,30=1,29=1,28=1,27=1,26=1,25=1,24=1,23=1,22=1,21=1,20=1,19=1,18=1,17=1,16=1,15=1,14=1,13=1,12=1,11=1,10=1,9=1,8=1,7=1,6=1,5=1,4=1,3=1,2=1,1=1,0=1,",
+      "replacements": [
+        [
+          "core.bend",
+          "Array.get(C.Row, rows, slot(limit, id))",
+          "Array.get(C.Row, rows, id)"
+        ]
+      ]
+    },
+    {
+      "name": "order",
+      "native_js_agree": true,
+      "expected": "64:64:0|0=1,1=1,2=1,3=1,4=1,5=1,6=1,7=1,8=1,9=1,10=1,11=1,12=1,13=1,14=1,15=1,16=1,17=1,18=1,19=1,20=1,21=1,22=1,23=1,24=1,25=1,26=1,27=1,28=1,29=1,30=1,31=1,32=1,33=1,34=1,35=1,36=1,37=1,38=1,39=1,40=1,41=1,42=1,43=1,44=1,45=1,46=1,47=1,48=1,49=1,50=1,51=1,52=1,53=1,54=1,55=1,56=1,57=1,58=1,59=1,60=1,61=1,62=1,63=1,",
+      "observed": "64:64:0|63=1,62=1,61=1,60=1,59=1,58=1,57=1,56=1,55=1,54=1,53=1,52=1,51=1,50=1,49=1,48=1,47=1,46=1,45=1,44=1,43=1,42=1,41=1,40=1,39=1,38=1,37=1,36=1,35=1,34=1,33=1,32=1,31=1,30=1,29=1,28=1,27=1,26=1,25=1,24=1,23=1,22=1,21=1,20=1,19=1,18=1,17=1,16=1,15=1,14=1,13=1,12=1,11=1,10=1,9=1,8=1,7=1,6=1,5=1,4=1,3=1,2=1,1=1,0=1,",
+      "replacements": [
+        [
+          "core.bend",
+          "project(members, limit, rows, Projection{0, 0, \"\"})",
+          "project(List.reverse(&2, U32, members), limit, rows, Projection{0, 0, \"\"})"
+        ]
+      ]
+    },
+    {
+      "name": "write-observation",
+      "native_js_agree": true,
+      "expected": "64:64:320|0=1,1=1,2=1,3=1,4=1,5=1,6=1,7=1,8=1,9=1,10=1,11=1,12=1,13=1,14=1,15=1,16=1,17=1,18=1,19=1,20=1,21=1,22=1,23=1,24=1,25=1,26=1,27=1,28=1,29=1,30=1,31=1,32=1,33=1,34=1,35=1,36=1,37=1,38=1,39=1,40=1,41=1,42=1,43=1,44=1,45=1,46=1,47=1,48=1,49=1,50=1,51=1,52=1,53=1,54=1,55=1,56=1,57=1,58=1,59=1,60=1,61=1,62=1,63=1,",
+      "observed": "64:64:128|0=1,1=1,2=1,3=1,4=1,5=1,6=1,7=1,8=1,9=1,10=1,11=1,12=1,13=1,14=1,15=1,16=1,17=1,18=1,19=1,20=1,21=1,22=1,23=1,24=1,25=1,26=1,27=1,28=1,29=1,30=1,31=1,32=1,33=1,34=1,35=1,36=1,37=1,38=1,39=1,40=1,41=1,42=1,43=1,44=1,45=1,46=1,47=1,48=1,49=1,50=1,51=1,52=1,53=1,54=1,55=1,56=1,57=1,58=1,59=1,60=1,61=1,62=1,63=1,",
+      "replacements": [
+        [
+          "core.bend",
+          "C.set_row(x, tick, old)",
+          "old"
+        ]
+      ]
+    },
+    {
+      "name": "rollback",
+      "native_js_agree": true,
+      "expected": "64:64:320|0=1,1=1,2=1,3=1,4=1,5=1,6=1,7=1,8=1,9=1,10=1,11=1,12=1,13=1,14=1,15=1,16=1,17=1,18=1,19=1,20=1,21=1,22=1,23=1,24=1,25=1,26=1,27=1,28=1,29=1,30=1,31=1,32=1,33=1,34=1,35=1,36=1,37=1,38=1,39=1,40=1,41=1,42=1,43=1,44=1,45=1,46=1,47=1,48=1,49=1,50=1,51=1,52=1,53=1,54=1,55=1,56=1,57=1,58=1,59=1,60=1,61=1,62=1,63=1,",
+      "observed": "64:192:320|0=3,1=3,2=3,3=3,4=3,5=3,6=3,7=3,8=3,9=3,10=3,11=3,12=3,13=3,14=3,15=3,16=3,17=3,18=3,19=3,20=3,21=3,22=3,23=3,24=3,25=3,26=3,27=3,28=3,29=3,30=3,31=3,32=3,33=3,34=3,35=3,36=3,37=3,38=3,39=3,40=3,41=3,42=3,43=3,44=3,45=3,46=3,47=3,48=3,49=3,50=3,51=3,52=3,53=3,54=3,55=3,56=3,57=3,58=3,59=3,60=3,61=3,62=3,63=3,",
+      "replacements": [
+        [
+          "core.bend",
+          "restore(undo, limit, rows), members, meta",
+          "rows, members, meta"
+        ]
+      ]
+    },
+    {
+      "name": "churn",
+      "native_js_agree": true,
+      "expected": "64:64:2|0=1,1=1,2=1,3=1,4=1,5=1,6=1,7=1,8=1,9=1,10=1,11=1,12=1,13=1,14=1,15=1,16=1,17=1,18=1,19=1,20=1,21=1,22=1,23=1,24=1,25=1,26=1,27=1,28=1,29=1,30=1,31=1,32=1,33=1,34=1,35=1,36=1,37=1,38=1,39=1,40=1,41=1,42=1,43=1,44=1,45=1,46=1,47=1,48=1,49=1,50=1,51=1,52=1,53=1,54=1,55=1,56=1,57=1,58=1,59=1,60=1,61=1,62=1,63=1,",
+      "observed": "64:64:0|0=1,1=1,2=1,3=1,4=1,5=1,6=1,7=1,8=1,9=1,10=1,11=1,12=1,13=1,14=1,15=1,16=1,17=1,18=1,19=1,20=1,21=1,22=1,23=1,24=1,25=1,26=1,27=1,28=1,29=1,30=1,31=1,32=1,33=1,34=1,35=1,36=1,37=1,38=1,39=1,40=1,41=1,42=1,43=1,44=1,45=1,46=1,47=1,48=1,49=1,50=1,51=1,52=1,53=1,54=1,55=1,56=1,57=1,58=1,59=1,60=1,61=1,62=1,63=1,",
+      "replacements": [
+        [
+          "core.bend",
+          "flush(queue([C.Remove{0}, C.Insert{0, 1}], w))",
+          "w"
+        ]
+      ]
+    },
+    {
+      "name": "owned-forward-undo",
+      "native_js_agree": true,
+      "expected": "motion:setup:10\nmotion:commit-own:10->19\nmotion:failed-own:20->19\nmotion:earlier-commit:19\nmotion:restored:20\nmotion:full-restored:[10,19,10,10];[20,20,20,20]\nmotion:retry-own:20->19\nmotion:retry-visible:19\nmotion:remove:disposed:19\nmotion:vacant:MissingEntity\nmotion:full-after-remove:[10,19,10,10];vacant\nmotion:bound:MissingEntity\nmotion:max-bound:MissingEntity\nhealth:commit-own:20->23\nhealth:failed-own:10->23\nhealth:restored:10\nhealth:committed:23",
+      "observed": "motion:setup:10\nmotion:commit-own:10->19\nmotion:failed-own:20->19\nmotion:earlier-commit:19\nmotion:restored:17\nmotion:full-restored:[10,19,10,10];[20,17,20,20]\nmotion:retry-own:17->19\nmotion:retry-visible:19\nmotion:remove:disposed:19\nmotion:vacant:MissingEntity\nmotion:full-after-remove:[10,19,10,10];vacant\nmotion:bound:MissingEntity\nmotion:max-bound:MissingEntity\nhealth:commit-own:20->23\nhealth:failed-own:10->23\nhealth:restored:21\nhealth:committed:23",
+      "replacements": [
+        [
+          "owned.bend",
+          "restore_values(undo, items)",
+          "restore_values(List.reverse(&2, U32, undo), items)"
+        ]
+      ]
+    },
+    {
+      "name": "owned-restore",
+      "native_js_agree": true,
+      "expected": "motion:setup:10\nmotion:commit-own:10->19\nmotion:failed-own:20->19\nmotion:earlier-commit:19\nmotion:restored:20\nmotion:full-restored:[10,19,10,10];[20,20,20,20]\nmotion:retry-own:20->19\nmotion:retry-visible:19\nmotion:remove:disposed:19\nmotion:vacant:MissingEntity\nmotion:full-after-remove:[10,19,10,10];vacant\nmotion:bound:MissingEntity\nmotion:max-bound:MissingEntity\nhealth:commit-own:20->23\nhealth:failed-own:10->23\nhealth:restored:10\nhealth:committed:23",
+      "observed": "motion:setup:10\nmotion:commit-own:10->19\nmotion:failed-own:20->19\nmotion:earlier-commit:19\nmotion:restored:19\nmotion:full-restored:[10,19,10,10];[20,19,20,20]\nmotion:retry-own:19->19\nmotion:retry-visible:19\nmotion:remove:disposed:19\nmotion:vacant:MissingEntity\nmotion:full-after-remove:[10,19,10,10];vacant\nmotion:bound:MissingEntity\nmotion:max-bound:MissingEntity\nhealth:commit-own:20->23\nhealth:failed-own:10->23\nhealth:restored:23\nhealth:committed:23",
+      "replacements": [
+        [
+          "owned.bend",
+          "Payload{restore_values(undo, items)}",
+          "Payload{items}"
+        ]
+      ]
+    }
+  ],
+  "source_sha256": {
+    "relocation.bend": "a8674fffc9894302bc448dab51f18816d8c709b9a7e4e7d16ecfeacdf42e53c9",
+    "owned-list.bend": "81bdb5e676ce409f04474f24a309ddd39546385df6135b67f6ed843fe398c560",
+    "controls.py": "cfdd88d0774e38211fee3f9b82ecc3fba79db7505d172446181f1aab835e1ccf",
+    "run.py": "a707b3d7d256f16660f3c9c9a7263bf3c4e01de618fc543ffc36ec530a95b1be",
+    "relocation-reference.mjs": "16f407e23d47d5546339c0365a055fd5f0cacbadc799aeafa342fa3aa2e9873d",
+    "core.bend": "740e398aa772d8021b15f5bbcf4c27596e43547c60362a7c0af1f4a0dbb6fcb3",
+    "identity.bend": "ddad9eeff6180c786296fae365d7b39554e300cd27010dfecd0a0e0849e9a3d0",
+    "owned-bench.bend": "dfa60a686ec855a441ae91f5452dc991df3e4bfafcc2fb99ac52cbc2713ff5db",
+    "owned-bench-reference.mjs": "15b2ebb7b81d047dd95c1e806356f0ceb9c7760f5ddb73fac5f3981e753d58f9",
+    "lifecycle-reference.mjs": "6baf3d364e620762a851fb24c3fd7c3132229632840a3a6576728a81e5737840",
+    "owned.bend": "83db32ac7ff26f4a505bef5279457bceb540d5ea905b24bce7776c1242ce66e9",
+    "owned-reference.mjs": "90ab1d7d1a2d3c1516c6345e3be78893bb647d649c8e3b681e9659efc034ae50",
+    "lifecycle.bend": "2574823dc15f7603f62969b6b4017dfbfa67629fd878c7a5c4716e94dbf38789",
+    "main.bend": "cbe44c1771e96513c34b174063023f3bf0079e40fc637e149f1e4e372b94d243",
+    "owned-list-bench.bend": "7e748ef4d923bd9b37b14f41484503ff4606da84308525034f57d3fe47422100",
+    "verify.py": "685257ca2f58cdb0ddd4ae4ced16e81afbed55f8d5de60d15a4d215bf3b26b49",
+    "readers.bend": "4a274c87889411f7ec2e18a10352c3d49b4502709ae63cb8df59ad3609c79f2c",
+    "foreign.bend": "577a1191e8004334be62fe7f3537c8751d5b767b134a2db829e3e8dfaf034d66",
+    "seams.bend": "f18ccc225aea0654f74d6d94d85b620ce99f09fb06a17f1845fec90df90ed464",
+    "owned-main.bend": "f3c2af03b1af54a8dcbb1dc43c6a36596e7766806bd61c9a4afdf7fe2242400e",
+    "owned-measure.py": "201462fd5bbce8ea25f2b9ba4880b62df160fdfcf7e807e2c688c3d996c85a2d"
+  }
+}

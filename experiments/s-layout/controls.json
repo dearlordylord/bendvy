@@ -1,0 +1,82 @@
+[
+  {
+    "schema": "Motion",
+    "control": "write-read",
+    "positive": "ALL PROOFS CHECK",
+    "negative": "SOME PROOFS FAIL\nError:\n- expected : A.Cell<A.Motion>\n- observed : P\nContext:\n- P   : Type\n- get : @_:P -> @_:A.Motion -> Sigma<&1, &1, P, _ => U32>\n- p   : P\nLocation: callback\n3 | def callback(-P: Type, get: P -> A.Motion -> P & U32, p: P) -> P & String:\n4>|   (A.set(~A.Motion, p, A.Motion{}, 7), \"bad\")\n  |                     ^\n5 | def main() -> A.Store<A.Motion> & String:\n",
+    "negative_source": "import Base\nimport ../owned.bend as A\ndef callback(-P: Type, get: P -> A.Motion -> P & U32, p: P) -> P & String:\n  (A.set(~A.Motion, p, A.Motion{}, 7), \"bad\")\ndef main() -> A.Store<A.Motion> & String:\n  A.read(~A.Motion, ~callback, 0, A.initial(~A.Motion))\n",
+    "positive_source": "import Base\nimport ../owned.bend as A\ndef finish(-P: Type, result: P & U32) -> P & String:\n  match result:\n    case (p, x): (p, U32.show(x))\ndef callback(-P: Type, get: P -> A.Motion -> P & U32, p: P) -> P & String:\n  finish(P, get(p, A.Motion{}))\ndef main() -> A.Store<A.Motion> & String:\n  A.read(~A.Motion, ~callback, 0, A.initial(~A.Motion))\n"
+  },
+  {
+    "schema": "Motion",
+    "control": "undeclared",
+    "positive": "ALL PROOFS CHECK",
+    "negative": "SOME PROOFS FAIL\nError:\n- expected : A.Cell<A.Health>\n- observed : P\nContext:\n- P   : Type\n- get : @_:P -> @_:A.Motion -> Sigma<&1, &1, P, _ => U32>\n- p   : P\nLocation: callback\n6 | def callback(-P: Type, get: P -> A.Motion -> P & U32, p: P) -> P & String:\n7>|   finish(P, A.get(~A.Health, p, A.Health{}))\n  |                              ^\n8 | def main() -> A.Store<A.Motion> & String:\n",
+    "negative_source": "import Base\nimport ../owned.bend as A\ndef finish(-P: Type, result: P & U32) -> P & String:\n  match result:\n    case (p, x): (p, U32.show(x))\ndef callback(-P: Type, get: P -> A.Motion -> P & U32, p: P) -> P & String:\n  finish(P, A.get(~A.Health, p, A.Health{}))\ndef main() -> A.Store<A.Motion> & String:\n  A.read(~A.Motion, ~callback, 0, A.initial(~A.Motion))\n",
+    "positive_source": "import Base\nimport ../owned.bend as A\ndef finish(-P: Type, result: P & U32) -> P & String:\n  match result:\n    case (p, x): (p, U32.show(x))\ndef callback(-P: Type, get: P -> A.Motion -> P & U32, p: P) -> P & String:\n  finish(P, get(p, A.Motion{}))\ndef main() -> A.Store<A.Motion> & String:\n  A.read(~A.Motion, ~callback, 0, A.initial(~A.Motion))\n"
+  },
+  {
+    "schema": "Motion",
+    "control": "cross-schema",
+    "positive": "ALL PROOFS CHECK",
+    "negative": "SOME PROOFS FAIL\nError:\n- expected : A.Motion\n- observed : A.Health\nContext:\n- P   : Type\n- get : @_:P -> @_:A.Motion -> Sigma<&1, &1, P, _ => U32>\n- p   : P\nLocation: callback\n6 | def callback(-P: Type, get: P -> A.Motion -> P & U32, p: P) -> P & String:\n7>|   finish(P, get(p, A.Health{}))\n  |                    ^^^^^^^^^^\n8 | def main() -> A.Store<A.Motion> & String:\n",
+    "negative_source": "import Base\nimport ../owned.bend as A\ndef finish(-P: Type, result: P & U32) -> P & String:\n  match result:\n    case (p, x): (p, U32.show(x))\ndef callback(-P: Type, get: P -> A.Motion -> P & U32, p: P) -> P & String:\n  finish(P, get(p, A.Health{}))\ndef main() -> A.Store<A.Motion> & String:\n  A.read(~A.Motion, ~callback, 0, A.initial(~A.Motion))\n",
+    "positive_source": "import Base\nimport ../owned.bend as A\ndef finish(-P: Type, result: P & U32) -> P & String:\n  match result:\n    case (p, x): (p, U32.show(x))\ndef callback(-P: Type, get: P -> A.Motion -> P & U32, p: P) -> P & String:\n  finish(P, get(p, A.Motion{}))\ndef main() -> A.Store<A.Motion> & String:\n  A.read(~A.Motion, ~callback, 0, A.initial(~A.Motion))\n"
+  },
+  {
+    "schema": "Motion",
+    "control": "fabricate",
+    "positive": "ALL PROOFS CHECK",
+    "negative": "SOME PROOFS FAIL\nError:\n- expected : P\n- observed : A.Cell\nContext:\n- P   : Type\n- get : @_:P -> @_:A.Motion -> Sigma<&1, &1, P, _ => U32>\n- p   : P\nLocation: callback\n3 | def callback(-P: Type, get: P -> A.Motion -> P & U32, p: P) -> P & String:\n4>|   (A.Cell{A.Payload{[7 : U32^2n]}, []}, \"fabricated\")\n  |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n5 | def main() -> A.Store<A.Motion> & String:\n",
+    "negative_source": "import Base\nimport ../owned.bend as A\ndef callback(-P: Type, get: P -> A.Motion -> P & U32, p: P) -> P & String:\n  (A.Cell{A.Payload{[7 : U32^2n]}, []}, \"fabricated\")\ndef main() -> A.Store<A.Motion> & String:\n  A.read(~A.Motion, ~callback, 0, A.initial(~A.Motion))\n",
+    "positive_source": "import Base\nimport ../owned.bend as A\ndef finish(-P: Type, result: P & U32) -> P & String:\n  match result:\n    case (p, x): (p, U32.show(x))\ndef callback(-P: Type, get: P -> A.Motion -> P & U32, p: P) -> P & String:\n  finish(P, get(p, A.Motion{}))\ndef main() -> A.Store<A.Motion> & String:\n  A.read(~A.Motion, ~callback, 0, A.initial(~A.Motion))\n"
+  },
+  {
+    "schema": "Motion",
+    "control": "reconstruct",
+    "positive": "ALL PROOFS CHECK",
+    "negative": "SOME PROOFS FAIL\nError:\n- expected : P\n- observed : A.Cell\nContext:\n- P : Type\n- _ : P\n- x : U32\nLocation: rebuild\n4 |   match result:\n5>|     case (_, +x): (A.Cell{A.Payload{[x : U32^2n]}, []}, U32.show(x))\n  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n6 | def callback(-P: Type, get: P -> A.Motion -> P & U32, p: P) -> P & String:\n",
+    "negative_source": "import Base\nimport ../owned.bend as A\ndef rebuild(-P: Type, result: P & U32) -> P & String:\n  match result:\n    case (_, +x): (A.Cell{A.Payload{[x : U32^2n]}, []}, U32.show(x))\ndef callback(-P: Type, get: P -> A.Motion -> P & U32, p: P) -> P & String:\n  rebuild(P, get(p, A.Motion{}))\ndef main() -> A.Store<A.Motion> & String:\n  A.read(~A.Motion, ~callback, 0, A.initial(~A.Motion))\n",
+    "positive_source": "import Base\nimport ../owned.bend as A\ndef finish(-P: Type, result: P & U32) -> P & String:\n  match result:\n    case (p, x): (p, U32.show(x))\ndef callback(-P: Type, get: P -> A.Motion -> P & U32, p: P) -> P & String:\n  finish(P, get(p, A.Motion{}))\ndef main() -> A.Store<A.Motion> & String:\n  A.read(~A.Motion, ~callback, 0, A.initial(~A.Motion))\n"
+  },
+  {
+    "schema": "Health",
+    "control": "write-read",
+    "positive": "ALL PROOFS CHECK",
+    "negative": "SOME PROOFS FAIL\nError:\n- expected : A.Cell<A.Health>\n- observed : P\nContext:\n- P   : Type\n- get : @_:P -> @_:A.Health -> Sigma<&1, &1, P, _ => U32>\n- p   : P\nLocation: callback\n3 | def callback(-P: Type, get: P -> A.Health -> P & U32, p: P) -> P & String:\n4>|   (A.set(~A.Health, p, A.Health{}, 7), \"bad\")\n  |                     ^\n5 | def main() -> A.Store<A.Health> & String:\n",
+    "negative_source": "import Base\nimport ../owned.bend as A\ndef callback(-P: Type, get: P -> A.Health -> P & U32, p: P) -> P & String:\n  (A.set(~A.Health, p, A.Health{}, 7), \"bad\")\ndef main() -> A.Store<A.Health> & String:\n  A.read(~A.Health, ~callback, 0, A.initial(~A.Health))\n",
+    "positive_source": "import Base\nimport ../owned.bend as A\ndef finish(-P: Type, result: P & U32) -> P & String:\n  match result:\n    case (p, x): (p, U32.show(x))\ndef callback(-P: Type, get: P -> A.Health -> P & U32, p: P) -> P & String:\n  finish(P, get(p, A.Health{}))\ndef main() -> A.Store<A.Health> & String:\n  A.read(~A.Health, ~callback, 0, A.initial(~A.Health))\n"
+  },
+  {
+    "schema": "Health",
+    "control": "undeclared",
+    "positive": "ALL PROOFS CHECK",
+    "negative": "SOME PROOFS FAIL\nError:\n- expected : A.Cell<A.Motion>\n- observed : P\nContext:\n- P   : Type\n- get : @_:P -> @_:A.Health -> Sigma<&1, &1, P, _ => U32>\n- p   : P\nLocation: callback\n6 | def callback(-P: Type, get: P -> A.Health -> P & U32, p: P) -> P & String:\n7>|   finish(P, A.get(~A.Motion, p, A.Motion{}))\n  |                              ^\n8 | def main() -> A.Store<A.Health> & String:\n",
+    "negative_source": "import Base\nimport ../owned.bend as A\ndef finish(-P: Type, result: P & U32) -> P & String:\n  match result:\n    case (p, x): (p, U32.show(x))\ndef callback(-P: Type, get: P -> A.Health -> P & U32, p: P) -> P & String:\n  finish(P, A.get(~A.Motion, p, A.Motion{}))\ndef main() -> A.Store<A.Health> & String:\n  A.read(~A.Health, ~callback, 0, A.initial(~A.Health))\n",
+    "positive_source": "import Base\nimport ../owned.bend as A\ndef finish(-P: Type, result: P & U32) -> P & String:\n  match result:\n    case (p, x): (p, U32.show(x))\ndef callback(-P: Type, get: P -> A.Health -> P & U32, p: P) -> P & String:\n  finish(P, get(p, A.Health{}))\ndef main() -> A.Store<A.Health> & String:\n  A.read(~A.Health, ~callback, 0, A.initial(~A.Health))\n"
+  },
+  {
+    "schema": "Health",
+    "control": "cross-schema",
+    "positive": "ALL PROOFS CHECK",
+    "negative": "SOME PROOFS FAIL\nError:\n- expected : A.Health\n- observed : A.Motion\nContext:\n- P   : Type\n- get : @_:P -> @_:A.Health -> Sigma<&1, &1, P, _ => U32>\n- p   : P\nLocation: callback\n6 | def callback(-P: Type, get: P -> A.Health -> P & U32, p: P) -> P & String:\n7>|   finish(P, get(p, A.Motion{}))\n  |                    ^^^^^^^^^^\n8 | def main() -> A.Store<A.Health> & String:\n",
+    "negative_source": "import Base\nimport ../owned.bend as A\ndef finish(-P: Type, result: P & U32) -> P & String:\n  match result:\n    case (p, x): (p, U32.show(x))\ndef callback(-P: Type, get: P -> A.Health -> P & U32, p: P) -> P & String:\n  finish(P, get(p, A.Motion{}))\ndef main() -> A.Store<A.Health> & String:\n  A.read(~A.Health, ~callback, 0, A.initial(~A.Health))\n",
+    "positive_source": "import Base\nimport ../owned.bend as A\ndef finish(-P: Type, result: P & U32) -> P & String:\n  match result:\n    case (p, x): (p, U32.show(x))\ndef callback(-P: Type, get: P -> A.Health -> P & U32, p: P) -> P & String:\n  finish(P, get(p, A.Health{}))\ndef main() -> A.Store<A.Health> & String:\n  A.read(~A.Health, ~callback, 0, A.initial(~A.Health))\n"
+  },
+  {
+    "schema": "Health",
+    "control": "fabricate",
+    "positive": "ALL PROOFS CHECK",
+    "negative": "SOME PROOFS FAIL\nError:\n- expected : P\n- observed : A.Cell\nContext:\n- P   : Type\n- get : @_:P -> @_:A.Health -> Sigma<&1, &1, P, _ => U32>\n- p   : P\nLocation: callback\n3 | def callback(-P: Type, get: P -> A.Health -> P & U32, p: P) -> P & String:\n4>|   (A.Cell{A.Payload{[7 : U32^2n]}, []}, \"fabricated\")\n  |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n5 | def main() -> A.Store<A.Health> & String:\n",
+    "negative_source": "import Base\nimport ../owned.bend as A\ndef callback(-P: Type, get: P -> A.Health -> P & U32, p: P) -> P & String:\n  (A.Cell{A.Payload{[7 : U32^2n]}, []}, \"fabricated\")\ndef main() -> A.Store<A.Health> & String:\n  A.read(~A.Health, ~callback, 0, A.initial(~A.Health))\n",
+    "positive_source": "import Base\nimport ../owned.bend as A\ndef finish(-P: Type, result: P & U32) -> P & String:\n  match result:\n    case (p, x): (p, U32.show(x))\ndef callback(-P: Type, get: P -> A.Health -> P & U32, p: P) -> P & String:\n  finish(P, get(p, A.Health{}))\ndef main() -> A.Store<A.Health> & String:\n  A.read(~A.Health, ~callback, 0, A.initial(~A.Health))\n"
+  },
+  {
+    "schema": "Health",
+    "control": "reconstruct",
+    "positive": "ALL PROOFS CHECK",
+    "negative": "SOME PROOFS FAIL\nError:\n- expected : P\n- observed : A.Cell\nContext:\n- P : Type\n- _ : P\n- x : U32\nLocation: rebuild\n4 |   match result:\n5>|     case (_, +x): (A.Cell{A.Payload{[x : U32^2n]}, []}, U32.show(x))\n  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n6 | def callback(-P: Type, get: P -> A.Health -> P & U32, p: P) -> P & String:\n",
+    "negative_source": "import Base\nimport ../owned.bend as A\ndef rebuild(-P: Type, result: P & U32) -> P & String:\n  match result:\n    case (_, +x): (A.Cell{A.Payload{[x : U32^2n]}, []}, U32.show(x))\ndef callback(-P: Type, get: P -> A.Health -> P & U32, p: P) -> P & String:\n  rebuild(P, get(p, A.Health{}))\ndef main() -> A.Store<A.Health> & String:\n  A.read(~A.Health, ~callback, 0, A.initial(~A.Health))\n",
+    "positive_source": "import Base\nimport ../owned.bend as A\ndef finish(-P: Type, result: P & U32) -> P & String:\n  match result:\n    case (p, x): (p, U32.show(x))\ndef callback(-P: Type, get: P -> A.Health -> P & U32, p: P) -> P & String:\n  finish(P, get(p, A.Health{}))\ndef main() -> A.Store<A.Health> & String:\n  A.read(~A.Health, ~callback, 0, A.initial(~A.Health))\n"
+  }
+]
