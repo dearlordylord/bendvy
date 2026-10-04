@@ -274,6 +274,15 @@ def prepare():
     (HERE/'host-retention-evidence.json').write_text(json.dumps(evidence,indent=2)+'\n')
     print('PREPARATION_ONLY: ten source runs and eleven comparator controls; actual joined backend binding pending')
 
+COMPARISON_FUNCTIONS=('word','exact','interval','four','template_fields','expand_rows','expand_handles','expand_messages','expand_read','seq','same','source_rows','compare_joined')
+def comparison_fingerprint(source=None,helpers=None):
+    import ast
+    source=(HERE/'host-retention-run.py').read_text() if source is None else source
+    functions={node.name:ast.get_source_segment(source,node) for node in ast.parse(source).body if isinstance(node,ast.FunctionDef)}
+    selected={name:functions[name] for name in COMPARISON_FUNCTIONS}
+    selected['helpers']=helpers if helpers is not None else {name:sha(HERE/name) for name in ('trace-compare.py','trace-decode.py')}
+    return hashlib.sha256(json.dumps(selected,sort_keys=True).encode()).hexdigest()
+
 def source_closure():
     import re
     seen={}
@@ -288,12 +297,12 @@ def source_closure():
 def joined():
     import tempfile,time,os
     source=HERE.parent/'s-integrate-trace'/'reference-retention.mjs'
-    frozen=source_closure();runner_sha=sha(HERE/'host-retention-run.py')
+    frozen=source_closure();runner_sha=sha(HERE/'host-retention-run.py');comparison_sha=comparison_fingerprint()
     evidence={'status':'INCOMPLETE','actualJoinedBendExecuted':False,'productionAcceptance':False,
       'limits':{'checkerSeconds':5,'runtimeSeconds':5,'referenceSeconds':5,'codegenSeconds':30,'nativeCompilationSeconds':120},
       'cpuAffinity':sorted(os.sched_getaffinity(0)) if hasattr(os,'sched_getaffinity') else None,
       'versions':{'bend':B.command(['bend','version']),'node':B.command(['node','--version'])},
-      'sourceClosure':frozen,'referenceSha256':sha(source),'runnerSha256':runner_sha,
+      'sourceClosure':frozen,'referenceSha256':sha(source),'runnerSha256':runner_sha,'comparisonSha256':comparison_sha,
       'publicReference':[],'actual':[],'failures':[],
       'compactDecoderControls':compact_controls(),
       'semanticMutants':{'status':'PENDING','reason':'Full original ten-case gate must pass first'}}
@@ -330,6 +339,7 @@ def joined():
                     save()
                 if len(outputs)==2:same(outputs[0],outputs[1],'exact Native/JS output')
     same(source_closure(),frozen,'unchanged executed source closure')
+    same(comparison_fingerprint(),comparison_sha,'unchanged executed comparator helpers')
     same(sha(HERE/'host-retention-run.py'),runner_sha,'unchanged running comparator')
     if len(evidence['publicReference'])==10:
         project(evidence['publicReference'])
@@ -365,16 +375,23 @@ def mutation_cases():
       ('old-live-marks-erased','host.bend','U32.is_le(tick,thisRun)','U32.is_eq(tick,thisRun)',1,'marks'),
       ('full-payload-cell-corrupted','host-batch-invoker.bend','T.Position{F.vector(x),7}','T.Position{F.vector(U32.add(x,1)),7}',1,'marks'),
       ('reader-dispatch-dropped','host-retention-controls.bend','case B.RetRead{who,fails} _: K.Call{actor(who,actors),read_mode(fails)}','case B.RetRead{who,fails} _: K.Nested{[]}',1,'marks'),
-      ('publication-batch-split','streams.bend',None,None,None,'message')]
+      ('publication-batch-split','streams.bend',None,None,None,'message'),
+      ('main-slot3-only-corrupted','host-batch-invoker.bend','T.Position{F.vector(x),7}','T.Position{Array.set(U32,F.vector(x),3,99),7}',1,'marks')]
 
 def mutants():
     import tempfile,time
     evidence=json.loads((HERE/'host-retention-evidence.json').read_text())
     if evidence['status'] not in ('JOINED_EXECUTION_PASS_MUTANTS_PENDING','BOUNDED_JOINED_PASS') or len(evidence['actual'])!=20:
         raise ValueError('all ten unchanged cases must pass both actual backends first')
+    same(comparison_fingerprint(),evidence['comparisonSha256'],'unchanged comparator and decoder for resumed evidence')
+    same(sha(HERE.parent/'s-integrate-trace/reference-retention.mjs'),evidence['referenceSha256'],'unchanged independent source adapter')
     repository=HERE.parent.parent
     for name,value in evidence['sourceClosure'].items():same(sha(repository/name),value,'unchanged original closure '+name)
+    prior={r['name']:r for r in evidence.get('semanticMutants',{}).get('results',[])}
+    prior_runner=evidence.get('mutantRunnerSha256',evidence.get('runnerSha256'))
     results=[]
+    evidence['status']='JOINED_EXECUTION_PASS_MUTANTS_PENDING'
+    (HERE/'host-retention-evidence.json').write_text(json.dumps(evidence,indent=2)+'\n')
     with tempfile.TemporaryDirectory(prefix='e11-mutants-') as temporary:
         evidence['typeControls']=wrapper_types(Path(temporary))
         for name,file,old,new,count,lane in mutation_cases():
@@ -392,6 +409,15 @@ def mutants():
                 changed=content[:start]+content[end:];index=changed.index('def append_lifecycle(')
                 changed=changed[:index]+append+changed[index:]
             subject.write_text(changed)
+            if name in prior:
+                saved=prior[name]
+                same(saved['originalSha256'],hashlib.sha256(content.encode()).hexdigest(),name+' original subject')
+                same(saved['mutantSha256'],sha(subject),name+' exact resumed mutation')
+                same(saved['input'],{'schema':'Motion','lane':lane},name+' exact resumed input')
+                same(saved['checkerAndBothBuilds'],'PASS',name+' resumed build gate')
+                same([r['backend'] for r in saved['runs']],['Native','JavaScript'],name+' resumed backends')
+                saved.setdefault('runnerSha256',prior_runner);results.append(saved)
+                print('retained verified unchanged mutant: '+name,flush=True);continue
             programs=B.build(root/'experiments/s-integrate/host-retention-controls.bend',root)
             expected=next(r for r in evidence['publicReference'] if r['schema']=='Motion' and r['lane']==lane)
             runs=[];outputs=[]
@@ -407,7 +433,9 @@ def mutants():
             result={'name':name,'subject':file,'originalSha256':hashlib.sha256(content.encode()).hexdigest(),
               'mutantSha256':sha(subject),'old':old,'new':new,'changedOccurrences':count,
               'operation':'split actual publication into single-value batches' if old is None else 'exact string replacement',
-              'input':{'schema':'Motion','lane':lane},'checkerAndBothBuilds':'PASS','runs':runs}
+              'input':{'schema':'Motion','lane':lane},'checkerAndBothBuilds':'PASS','runs':runs,'runnerSha256':sha(HERE/'host-retention-run.py')}
+            if name=='main-slot3-only-corrupted':
+                result['actualRejection']=[{'step':event['step'],'query':event['query']} for event in map(json.loads,outputs[0].splitlines()) if event['kind']=='Read' and isinstance(event['query'],dict) and event['query'].get('encoding')=='unrepresentable']
             results.append(result)
             print('compiling actual joined mutant detected: '+name,flush=True)
             evidence['semanticMutants']={'status':'RUNNING','results':results}

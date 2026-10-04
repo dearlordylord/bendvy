@@ -1,5 +1,5 @@
 {
-  "status": "JOINED_EXECUTION_PASS_MUTANTS_PENDING",
+  "status": "BOUNDED_JOINED_PASS",
   "actualJoinedBendExecuted": true,
   "productionAcceptance": false,
   "limits": {
@@ -21637,8 +21637,347 @@
     ]
   },
   "semanticMutants": {
-    "status": "PENDING",
-    "reason": "Full original ten-case gate must pass first"
+    "status": "PASS",
+    "results": [
+      {
+        "name": "failure-advances-same-reader",
+        "subject": "readers.bend",
+        "originalSha256": "2673082b4ef5cd6c5d8f61c362e22f74b13daeb27196894278cc20b1459c22e9",
+        "mutantSha256": "30fbc44844ce8c0d864e9b1141fb6ec66ed0daaecec6c820dab36bcae87fec54",
+        "old": "case T.Failure{_}: readers",
+        "new": "case T.Failure{_}: completed(readers,run)",
+        "changedOccurrences": 1,
+        "operation": "exact string replacement",
+        "input": {
+          "schema": "Motion",
+          "lane": "message"
+        },
+        "checkerAndBothBuilds": "PASS",
+        "runs": [
+          {
+            "backend": "Native",
+            "executionSeconds": 0.08107531815767288,
+            "difference": "B-same-instance-retry/messages: [{'path': '$', 'expected_length': 1, 'actual_length': 0}]",
+            "rawSha256": "fd575312a5d026f2dce434be07c676fe3a38b2e32f3652ef37b0dddbf274e0aa",
+            "rawBytes": 985787
+          },
+          {
+            "backend": "JavaScript",
+            "executionSeconds": 0.32886768598109484,
+            "difference": "B-same-instance-retry/messages: [{'path': '$', 'expected_length': 1, 'actual_length': 0}]",
+            "rawSha256": "fd575312a5d026f2dce434be07c676fe3a38b2e32f3652ef37b0dddbf274e0aa",
+            "rawBytes": 985787
+          }
+        ],
+        "runnerSha256": "06bd42efaabc2a31595feb6a19fb9a099cc6e80a641603c49cd3812e60bb0448"
+      },
+      {
+        "name": "completion-overwrites-other-readers",
+        "subject": "readers.bend",
+        "originalSha256": "2673082b4ef5cd6c5d8f61c362e22f74b13daeb27196894278cc20b1459c22e9",
+        "mutantSha256": "a4eb5b80bfef7e7c83101b186f559067cd2f83e939d67a450340e6f6cc4a5cd8",
+        "old": "replace_case(U32.is_eq(key,id)",
+        "new": "replace_case(True{}",
+        "changedOccurrences": 1,
+        "operation": "exact string replacement",
+        "input": {
+          "schema": "Motion",
+          "lane": "message"
+        },
+        "checkerAndBothBuilds": "PASS",
+        "runs": [
+          {
+            "backend": "Native",
+            "executionSeconds": 0.11170477280393243,
+            "difference": "fast-full/added count: [{'path': '$', 'expected': 0, 'actual': 1}]",
+            "rawSha256": "f4774cf716023a196fc6b89a9386bf922c63746dfac45b69b703af676a1054ae",
+            "rawBytes": 989411
+          },
+          {
+            "backend": "JavaScript",
+            "executionSeconds": 0.5467239369172603,
+            "difference": "fast-full/added count: [{'path': '$', 'expected': 0, 'actual': 1}]",
+            "rawSha256": "f4774cf716023a196fc6b89a9386bf922c63746dfac45b69b703af676a1054ae",
+            "rawBytes": 989411
+          }
+        ],
+        "runnerSha256": "06bd42efaabc2a31595feb6a19fb9a099cc6e80a641603c49cd3812e60bb0448"
+      },
+      {
+        "name": "registration-ignored",
+        "subject": "streams.bend",
+        "originalSha256": "1a1c7991d6a1b4ebfb3b47dc62459beb83ed5e38ded56d27cc20b5478fc0d315",
+        "mutantSha256": "48b9215d518fef4f55409777340eede58de84b63469df51bb679aae8d8286fad",
+        "old": "maximum(since,registered)",
+        "new": "since",
+        "changedOccurrences": 2,
+        "operation": "exact string replacement",
+        "input": {
+          "schema": "Motion",
+          "lane": "message"
+        },
+        "checkerAndBothBuilds": "PASS",
+        "runs": [
+          {
+            "backend": "Native",
+            "executionSeconds": 0.11792598990723491,
+            "difference": "actual reader lag: [{'path': '$.messages', 'expected': False, 'actual': True}]",
+            "rawSha256": "6511a157276b3a6b42a10684209c90f12eea6af1700ef48b98024bb20e9a3325",
+            "rawBytes": 985795
+          },
+          {
+            "backend": "JavaScript",
+            "executionSeconds": 0.6002948260866106,
+            "difference": "actual reader lag: [{'path': '$.messages', 'expected': False, 'actual': True}]",
+            "rawSha256": "6511a157276b3a6b42a10684209c90f12eea6af1700ef48b98024bb20e9a3325",
+            "rawBytes": 985795
+          }
+        ],
+        "runnerSha256": "06bd42efaabc2a31595feb6a19fb9a099cc6e80a641603c49cd3812e60bb0448"
+      },
+      {
+        "name": "holders-ignored",
+        "subject": "streams.bend",
+        "originalSha256": "1a1c7991d6a1b4ebfb3b47dc62459beb83ed5e38ded56d27cc20b5478fc0d315",
+        "mutantSha256": "4ed51902f5737f8f041726e2d4955c019ea4f7ce5546b67451344281486627a5",
+        "old": "minimum(window,head)",
+        "new": "window",
+        "changedOccurrences": 1,
+        "operation": "exact string replacement",
+        "input": {
+          "schema": "Motion",
+          "lane": "message"
+        },
+        "checkerAndBothBuilds": "PASS",
+        "runs": [
+          {
+            "backend": "Native",
+            "executionSeconds": 0.08933521900326014,
+            "difference": "B-first-post-drop-fails/messages: [{'path': '$', 'expected_length': 1, 'actual_length': 0}]",
+            "rawSha256": "b2a041e48a43a23f41118dbdaed999322da7397e9435aaabdbbf2b30434f2ad6",
+            "rawBytes": 985753
+          },
+          {
+            "backend": "JavaScript",
+            "executionSeconds": 0.4118352700024843,
+            "difference": "B-first-post-drop-fails/messages: [{'path': '$', 'expected_length': 1, 'actual_length': 0}]",
+            "rawSha256": "b2a041e48a43a23f41118dbdaed999322da7397e9435aaabdbbf2b30434f2ad6",
+            "rawBytes": 985753
+          }
+        ],
+        "runnerSha256": "06bd42efaabc2a31595feb6a19fb9a099cc6e80a641603c49cd3812e60bb0448"
+      },
+      {
+        "name": "whole-tick-lifecycle-drop",
+        "subject": "streams.bend",
+        "originalSha256": "1a1c7991d6a1b4ebfb3b47dc62459beb83ed5e38ded56d27cc20b5478fc0d315",
+        "mutantSha256": "2ebb02a727a813637686ca0389504b36f513fb34376b641fcf13c108dd099c98",
+        "old": "Bool.or(U32.is_le(tick,window),U32.is_gt(size,capacity))",
+        "new": "Bool.or(U32.is_le(tick,window),Bool.or(U32.is_gt(size,capacity),U32.is_eq(tick,dropped)))",
+        "changedOccurrences": 1,
+        "operation": "exact string replacement",
+        "input": {
+          "schema": "Motion",
+          "lane": "removed"
+        },
+        "checkerAndBothBuilds": "PASS",
+        "runs": [
+          {
+            "backend": "Native",
+            "executionSeconds": 0.35551152494736016,
+            "difference": "late-registration-retained-records-no-historical-lag/removed: [{'path': '$', 'expected_length': 65536, 'actual_length': 0}]",
+            "rawSha256": "9d3460e3281a4674742e8c66379dee61b23873a0cb39c5630583ea48f9792e6b",
+            "rawBytes": 10023
+          },
+          {
+            "backend": "JavaScript",
+            "executionSeconds": 1.487076663877815,
+            "difference": "late-registration-retained-records-no-historical-lag/removed: [{'path': '$', 'expected_length': 65536, 'actual_length': 0}]",
+            "rawSha256": "9d3460e3281a4674742e8c66379dee61b23873a0cb39c5630583ea48f9792e6b",
+            "rawBytes": 10023
+          }
+        ],
+        "runnerSha256": "06bd42efaabc2a31595feb6a19fb9a099cc6e80a641603c49cd3812e60bb0448"
+      },
+      {
+        "name": "old-live-marks-erased",
+        "subject": "host.bend",
+        "originalSha256": "b50bc903906cb6a842d0ef88ba84fe0dbf0dd7abdb85c0fa436bccf228b74bb9",
+        "mutantSha256": "2cdeb2a39a69381475693b3e28cd8622c5d5f71dfd57e1381c97508672dfbb4e",
+        "old": "U32.is_le(tick,thisRun)",
+        "new": "U32.is_eq(tick,thisRun)",
+        "changedOccurrences": 1,
+        "operation": "exact string replacement",
+        "input": {
+          "schema": "Motion",
+          "lane": "marks"
+        },
+        "checkerAndBothBuilds": "PASS",
+        "runs": [
+          {
+            "backend": "Native",
+            "executionSeconds": 0.006990198045969009,
+            "difference": "Fast-seed/added count: [{'path': '$', 'expected': 1, 'actual': 0}]",
+            "rawSha256": "b3e9001bf0fb589a55335396fb65e286a76df6da7f1c543b9c59f607a69cdd6f",
+            "rawBytes": 4767
+          },
+          {
+            "backend": "JavaScript",
+            "executionSeconds": 0.0539164028596133,
+            "difference": "Fast-seed/added count: [{'path': '$', 'expected': 1, 'actual': 0}]",
+            "rawSha256": "b3e9001bf0fb589a55335396fb65e286a76df6da7f1c543b9c59f607a69cdd6f",
+            "rawBytes": 4767
+          }
+        ],
+        "runnerSha256": "06bd42efaabc2a31595feb6a19fb9a099cc6e80a641603c49cd3812e60bb0448"
+      },
+      {
+        "name": "full-payload-cell-corrupted",
+        "subject": "host-batch-invoker.bend",
+        "originalSha256": "9e074b1e50c2e9797ab049daa4764c8a37377402907a72660cabb0abacce354f",
+        "mutantSha256": "5131e1d3b3625e0c35dbd46a539d5e9db2195ef56f5d53a2f27b6dd8d6014b2b",
+        "old": "T.Position{F.vector(x),7}",
+        "new": "T.Position{F.vector(U32.add(x,1)),7}",
+        "changedOccurrences": 1,
+        "operation": "exact string replacement",
+        "input": {
+          "schema": "Motion",
+          "lane": "marks"
+        },
+        "checkerAndBothBuilds": "PASS",
+        "runs": [
+          {
+            "backend": "Native",
+            "executionSeconds": 0.0076723110396414995,
+            "difference": "Fast-seed/query/0: [{'path': '$.main.coordinates[0]', 'expected': 10, 'actual': 11}]",
+            "rawSha256": "968d8fef19805924e59130f8eef6289c8793cb866850b400a5a30dbabc086a60",
+            "rawBytes": 5957
+          },
+          {
+            "backend": "JavaScript",
+            "executionSeconds": 0.06422251602634788,
+            "difference": "Fast-seed/query/0: [{'path': '$.main.coordinates[0]', 'expected': 10, 'actual': 11}]",
+            "rawSha256": "968d8fef19805924e59130f8eef6289c8793cb866850b400a5a30dbabc086a60",
+            "rawBytes": 5957
+          }
+        ],
+        "runnerSha256": "06bd42efaabc2a31595feb6a19fb9a099cc6e80a641603c49cd3812e60bb0448"
+      },
+      {
+        "name": "reader-dispatch-dropped",
+        "subject": "host-retention-controls.bend",
+        "originalSha256": "408390312f8047a0ae16341ada7295031731fc8da6f919eafcecea9e515cae94",
+        "mutantSha256": "9836d9726a4be9cc06d1f72e76015a9d79aa79f849e81ffeaa0edf370d1ee595",
+        "old": "case B.RetRead{who,fails} _: K.Call{actor(who,actors),read_mode(fails)}",
+        "new": "case B.RetRead{who,fails} _: K.Nested{[]}",
+        "changedOccurrences": 1,
+        "operation": "exact string replacement",
+        "input": {
+          "schema": "Motion",
+          "lane": "marks"
+        },
+        "checkerAndBothBuilds": "PASS",
+        "runs": [
+          {
+            "backend": "Native",
+            "executionSeconds": 0.005874890834093094,
+            "difference": "complete reader invocation count: [{'path': '$', 'expected': 3, 'actual': 0}]",
+            "rawSha256": "4a9b3f8179d582b506dc6f867c42daa729415e67f45f53dcf717a9f305026dbf",
+            "rawBytes": 2883
+          },
+          {
+            "backend": "JavaScript",
+            "executionSeconds": 0.04888001410290599,
+            "difference": "complete reader invocation count: [{'path': '$', 'expected': 3, 'actual': 0}]",
+            "rawSha256": "4a9b3f8179d582b506dc6f867c42daa729415e67f45f53dcf717a9f305026dbf",
+            "rawBytes": 2883
+          }
+        ],
+        "runnerSha256": "06bd42efaabc2a31595feb6a19fb9a099cc6e80a641603c49cd3812e60bb0448"
+      },
+      {
+        "name": "publication-batch-split",
+        "subject": "streams.bend",
+        "originalSha256": "1a1c7991d6a1b4ebfb3b47dc62459beb83ed5e38ded56d27cc20b5478fc0d315",
+        "mutantSha256": "daf3fd11cee915eb53a6b7a166f66462ac17d8bef28d8bde00a2cc1c5edc68e0",
+        "old": null,
+        "new": null,
+        "changedOccurrences": null,
+        "operation": "split actual publication into single-value batches",
+        "input": {
+          "schema": "Motion",
+          "lane": "message"
+        },
+        "checkerAndBothBuilds": "PASS",
+        "runs": [
+          {
+            "backend": "Native",
+            "executionSeconds": 0.4784932539332658,
+            "difference": "B-first-post-drop-fails/messages: [{'path': '$', 'expected_length': 1, 'actual_length': 65536}]",
+            "rawSha256": "6ff882646b22f371adc94b10f68ae6294c6e764cabe61346ac6d899efdd4bb5d",
+            "rawBytes": 4957861
+          },
+          {
+            "backend": "JavaScript",
+            "executionSeconds": 1.609993701102212,
+            "difference": "B-first-post-drop-fails/messages: [{'path': '$', 'expected_length': 1, 'actual_length': 65536}]",
+            "rawSha256": "6ff882646b22f371adc94b10f68ae6294c6e764cabe61346ac6d899efdd4bb5d",
+            "rawBytes": 4957861
+          }
+        ],
+        "runnerSha256": "06bd42efaabc2a31595feb6a19fb9a099cc6e80a641603c49cd3812e60bb0448"
+      },
+      {
+        "name": "main-slot3-only-corrupted",
+        "subject": "host-batch-invoker.bend",
+        "originalSha256": "9e074b1e50c2e9797ab049daa4764c8a37377402907a72660cabb0abacce354f",
+        "mutantSha256": "59222f1cf4dada35291ca0a733570fe933a87c1f7d356c932c99b1f683353329",
+        "old": "T.Position{F.vector(x),7}",
+        "new": "T.Position{Array.set(U32,F.vector(x),3,99),7}",
+        "changedOccurrences": 1,
+        "operation": "exact string replacement",
+        "input": {
+          "schema": "Motion",
+          "lane": "marks"
+        },
+        "checkerAndBothBuilds": "PASS",
+        "runs": [
+          {
+            "backend": "Native",
+            "executionSeconds": 0.0068517280742526054,
+            "difference": "missing or unexpected compact field",
+            "rawSha256": "d42808442dbd750b65f68122514166b64a4a5a25f0cc2717c402961f9684277b",
+            "rawBytes": 4559
+          },
+          {
+            "backend": "JavaScript",
+            "executionSeconds": 0.05005077994428575,
+            "difference": "missing or unexpected compact field",
+            "rawSha256": "d42808442dbd750b65f68122514166b64a4a5a25f0cc2717c402961f9684277b",
+            "rawBytes": 4559
+          }
+        ],
+        "runnerSha256": "476b3e6eeb230c87e5599db3d95df78b2f7faaf8fb3a168e59500c6180c64494",
+        "actualRejection": [
+          {
+            "step": "Fast-seed",
+            "query": {
+              "encoding": "unrepresentable",
+              "reason": "row-fields-or-range",
+              "index": 0
+            }
+          },
+          {
+            "step": "first-B-old-surviving-marks",
+            "query": {
+              "encoding": "unrepresentable",
+              "reason": "row-fields-or-range",
+              "index": 0
+            }
+          }
+        ]
+      }
+    ]
   },
   "oraclePerturbations": [
     {
@@ -21720,5 +22059,31 @@
       "name": "duplicate-lane",
       "rejected": "duplicate lane Motion/message"
     }
-  ]
+  ],
+  "typeControls": [
+    {
+      "name": "positive",
+      "body": "def probe(owner:B.Batch<H.MotionHost()>) -> B.Batch<H.MotionHost()> & D.Presence:\n  B.motion_presence(owner)\n",
+      "exit": 0,
+      "diagnostic": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "name": "schema-negative",
+      "body": "def probe(owner:B.Batch<H.HealthHost()>) -> B.Batch<H.MotionHost()> & D.Presence:\n  B.motion_presence(owner)\n",
+      "exit": 1,
+      "diagnostic": "SOME PROOFS FAIL\nError:\n- expected : B.Batch<H.Host<../../workspace/formal-proofs/bendvy-worktrees/integrate-readers/experiments/s-integrate/types.MotionSchema, ../../workspace/formal-proofs/bendvy-worktrees/integrate-readers/experiments/s-integrate/types.Position, ../../workspace/formal-proofs/bendvy-worktrees/integrate-readers/experiments/s-integrate/types.Velocity, ../../workspace/formal-proofs/bendvy-worktrees/integrate-readers/experiments/s-integrate/types.Selected, ../../workspace/formal-proofs/bendvy-worktrees/integrate-readers/experiments/s-integrate/types.MotionLedger, ../../workspace/formal-proofs/bendvy-worktrees/integrate-readers/experiments/s-integrate/types.MotionMode, ../../workspace/formal-proofs/bendvy-worktrees/integrate-readers/experiments/s-integrate/types.MotionPing, ../../workspace/formal-proofs/bendvy-worktrees/integrate-readers/experiments/s-integrate/types.PositionView, ../../workspace/formal-proofs/bendvy-worktrees/integrate-readers/experiments/s-integrate/types.VelocityView, ../../workspace/formal-proofs/bendvy-worktrees/integrate-readers/experiments/s-integrate/types.LedgerView>>\n- observed : B.Batch<H.Host<../../workspace/formal-proofs/bendvy-worktrees/integrate-readers/experiments/s-integrate/types.HealthSchema, ../../workspace/formal-proofs/bendvy-worktrees/integrate-readers/experiments/s-integrate/types.Vitals, ../../workspace/formal-proofs/bendvy-worktrees/integrate-readers/experiments/s-integrate/types.Armor, ../../workspace/formal-proofs/bendvy-worktrees/integrate-readers/experiments/s-integrate/types.Tracked, ../../workspace/formal-proofs/bendvy-worktrees/integrate-readers/experiments/s-integrate/types.HealthLedger, ../../workspace/formal-proofs/bendvy-worktrees/integrate-readers/experiments/s-integrate/types.HealthMode, ../../workspace/formal-proofs/bendvy-worktrees/integrate-readers/experiments/s-integrate/types.HealthPing, ../../workspace/formal-proofs/bendvy-worktrees/integrate-readers/experiments/s-integrate/types.VitalsView, ../../workspace/formal-proofs/bendvy-worktrees/integrate-readers/experiments/s-integrate/types.ArmorView, ../../workspace/formal-proofs/bendvy-worktrees/integrate-readers/experiments/s-integrate/types.LedgerView>>\nContext:\n- owner : B.Batch<H.Host<../../workspace/formal-proofs/bendvy-worktrees/integrate-readers/experiments/s-integrate/types.HealthSchema, ../../workspace/formal-proofs/bendvy-worktrees/integrate-readers/experiments/s-integrate/types.Vitals, ../../workspace/formal-proofs/bendvy-worktrees/integrate-readers/experiments/s-integrate/types.Armor, ../../workspace/formal-proofs/bendvy-worktrees/integrate-readers/experiments/s-integrate/types.Tracked, ../../workspace/formal-proofs/bendvy-worktrees/integrate-readers/experiments/s-integrate/types.HealthLedger, ../../workspace/formal-proofs/bendvy-worktrees/integrate-readers/experiments/s-integrate/types.HealthMode, ../../workspace/formal-proofs/bendvy-worktrees/integrate-readers/experiments/s-integrate/types.HealthPing, ../../workspace/formal-proofs/bendvy-worktrees/integrate-readers/experiments/s-integrate/types.VitalsView, ../../workspace/formal-proofs/bendvy-worktrees/integrate-readers/experiments/s-integrate/types.ArmorView, ../../workspace/formal-proofs/bendvy-worktrees/integrate-readers/experiments/s-integrate/types.LedgerView>>\nLocation: probe\n5 | def probe(owner:B.Batch<H.HealthHost()>) -> B.Batch<H.MotionHost()> & D.Presence:\n6>|   B.motion_presence(owner)\n  |                     ^^^^^\n7 | \nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "name": "affine-negative",
+      "body": "def probe(owner:B.Batch<H.MotionHost()>) -> (B.Batch<H.MotionHost()> & D.Presence) & (B.Batch<H.MotionHost()> & D.Presence):\n  (B.motion_presence(owner),B.motion_presence(owner))\n",
+      "exit": 1,
+      "diagnostic": "SOME PROOFS FAIL\nError:\n- expected : owner\n- observed : owner (consumed more than once)\nLocation: probe\n4 | \n5>| def probe(owner:B.Batch<H.MotionHost()>) -> (B.Batch<H.MotionHost()> & D.Presence) & (B.Batch<H.MotionHost()> & D.Presence):\n  |           ^^^^^\n6 |   (B.motion_presence(owner),B.motion_presence(owner))\nbend 2.0.35 is available: run bend update\n"
+    }
+  ],
+  "mutantRunnerSha256": "ca5a8059c6dd7fd3bfafd4f6760c695de692865892840ff383f7139800be3d5c",
+  "comparisonSha256": "589abe25ee9890ce09bf2d2fd6bb25292399dcad9659c4ea3e7e6c86e728140f",
+  "comparisonFingerprintAudit": {
+    "originalRunnerCommit": "6c35611",
+    "method": "AST-extracted comparison/decoder function bodies and complete imported trace-compare.py/trace-decode.py hashes match the frozen original runner exactly; added resume guard changes no comparison semantics."
+  }
 }

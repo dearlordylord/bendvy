@@ -1,9 +1,11 @@
 # E11 joined retention operation drafts
 
-Status: executable actual Host/D.tick fixture and strict comparison runner.
-The evidence file records each executed backend separately; any failed case keeps
-the E11 gate incomplete. Compiling pipeline mutations are still required before
-acceptance. No new dispatcher BodyKind or universal proof is declared here.
+Status: local bounded joined gate passed: ten freshly executed public TypeScript
+cases agree with twenty actual Native/JavaScript runs; ten compiling pipeline
+mutations are detected on both backends. Positive, nominal-misuse and affine-copy
+controls pass their intended gates. Independent integration review remains the
+coordinator's next step. This draft approves no universal law, production API or
+performance threshold and adds no dispatcher BodyKind.
 
 Bound subject: factory-created affine Motion/Health worlds, actual reserve
 and command application, `Host` + `D.tick`, stable registered Fast/B/Late bases,
@@ -121,7 +123,7 @@ arrays need not be committed after every element has been compared.
 
 `python3 experiments/s-integrate/host-retention-run.py` first compiles the actual
 entrypoint and compares all ten fresh source cases on Native and JavaScript,
-then checks/builds/runs nine isolated semantic mutants on unchanged complete
+then checks/builds/runs ten isolated semantic mutants on unchanged complete
 public Motion cases. Each mutant must complete normally on both backends and
 differ from the original source observation; compile failures and timeouts do
 not count as detected semantic mutants. Each isolated clone retains the complete
@@ -131,9 +133,9 @@ passed and all executed source hashes still match. `--prepare` remains source
 and decoder preparation only. The source closure and runner are frozen before
 build and checked again afterward to reject evidence from a moving input.
 
-The nine perturbations alter actual failed completion, cross-reader replacement,
+The ten perturbations alter actual failed completion, cross-reader replacement,
 registration-aware lag, holders, same-tick lifecycle capacity trimming, Ping batch
-partition, persistent marks, full Main array cells and actual reader invocation.
+partition, persistent marks, full Main array cells, an isolated slot3-only overwrite, and actual reader invocation.
 They remain finite runtime falsification, not approval or proof of ECS laws.
 
 The final coordinated replay uses `BENDVY_CPU=9` (the inherited child-process
@@ -142,3 +144,35 @@ runners; it does not prove that CPU contention caused every earlier timeout or
 turn runtime bounds into performance acceptance. Checker/runtime/reference limits
 remain five seconds in every phase. Historical failed attempts are retained in
 `host-retention-baseline.json`.
+
+Named subjects for the finite falsification gate:
+
+| Subject | Required observation on the authored complete public case |
+| --- | --- |
+| `R.complete(readers, run, Failure)` | Retry of the same B base keeps the failed attempt's saved positions and retained delivery; registration persists. |
+| `R.completed` / `R.replace` | Completing one base changes only that base; Fast and B remain independent. |
+| `S.read_buffer` / `S.boundary` | Lag uses `dropped > max(since, registered)` and trimming respects actual holders. |
+| `S.append` / `S.trim_front` | A Ping publication is one capacity unit batch; lifecycle capacity drops individual records, including records sharing one tick. |
+| `H.filter_mark` | Surviving Main marks satisfy `since < stamp <= thisRun` after sparse history expires and return current full fields. |
+| `B.motion_bundle` / actual array reads | Every Main cell, Aux cell, metadata field and Flag survives the joined path and agrees with the source fixture. |
+| `node(RetRead)` / `D.tick` | Every authored reader invocation dispatches the registered base and yields its actual result and diagnostic. |
+
+These rows identify existing executable subjects and finite counterexamples. They
+are not new approved universal law signatures and introduce no ECS proof.
+
+The slot3-only mutation uses actual `Array.set(..., 3, 99)` while leaving the
+other Main cells and metadata intact. Its full dispatched trace must complete
+normally; the renderer's all-field guard emits an explicit unrepresentable row
+result, which the unchanged strict decoder rejects. This is recorded as an
+actual compact-admission rejection, not a fabricated expected payload difference.
+
+The evidence records 3,145,860 fully compared row occurrences across both
+backends (query/added/changed lists can refer to the same entity), plus every
+ordered lifecycle handle, Ping code, actual boundary, reader diagnostic and
+dispatch result. The resumed mutant runner checks the original source closure,
+independent oracle adapter and an AST-based comparator/decoder fingerprint.
+Each retained mutation also pins its exact changed subject and complete input;
+a fresh default run executes all ten mutations again. Historical runner hashes
+remain attached to the actual executions rather than being rewritten as fresh
+runs. The fingerprint backfill is audited against frozen commit `6c35611`; its
+comparison function bodies and imported decoder files are unchanged.
