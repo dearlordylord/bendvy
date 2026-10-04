@@ -1,0 +1,34 @@
+# Exact Lifecycle measurement checkpoint
+
+This package extends the earlier bounded Lifecycle observations to the complete historical-stale workload. It is executable finite evidence, not a proof or performance acceptance. Both nominal schemas use genuine affine payloads, actual registered dispatcher callbacks, storage, command queues, barriers, lookups and captures.
+
+The actual selector queries membership and chooses first/middle/last. Each of 64 iterations invokes Select+Reserve, Observe, Deferred, Observe, Dispose+Deferred, Observe. Each Observer reads every Main/Aux/Flag field, Ledger, pending/current/foreign lookup and every previously disposed handle: 192 boundaries and 6,112 historical-stale lookups per case. The foreign world is genuinely created, published and queried before being discarded. Returned reservation handles and payloads are retained as actual events. No expected map drives selection or reconstructs a handle.
+
+Full-output runs compare complete lossless tuples, all 64 actual reservation events, final owner/query/marks/pending/Mode/Ledger and captures. Their row observations also match the unchanged original TS reference’s boundary hashes. The complete TS and Bend lookup results retain the intentional raw-ID foreign collision difference; each is checked against its own expected result, not silently normalized. TS tuple namespace 1 is an explicit observation-lane tag, not reference-world authority. Capture totals are Select/Reserve/Dispose 64 each and Observe 192; the Bend clock is tick 513/frame 385.
+
+Timing uses a fresh identical warmup followed by one fresh measured world, seven rotated Native/TS/JS repetitions, 64 iterations at counts 64/256/1024. Both authored loops consume the same ordered full-field checksum inside the clock. JSON and final diagnostic world reads occur afterward. Descriptor construction is outside the clock; TS lazy internal registration remains part of first invocation. Correctness output is never reported as a steady-loop timing. Checksum equality supports each quiet run only after complete-field correctness; it is not a collision-free substitute for the full trace.
+
+The initial run completed six full-field cases and timing repetitions but was interrupted before mutant builds after discovering invalid inherited-peak RSS accounting. Its evidence is preserved as `measurement-lifecycle-timed-first-evidence.json`; all its RSS values are withdrawn. The corrected harness uses the byte-identical clean C launcher introduced by root 2213b0d. That launcher forks the backend from a small executable image and reports the backend child’s `wait4` peak; the outer Python process’s inherited peak is discarded. RSS includes startup, warmup, setup, final output and backend-owned validation, not only ECS allocations. It is a descriptive process-memory quantity.
+
+Run `python3 experiments/s-integrate/measurement-lifecycle-timed-run.py`. CPU 10 is pinned for the harness and descendants. Checker/runtime children retain five-second process-group limits; codegen and clang retain their separate 30/120-second limits. Source closure, compiler/Base, helper, adapter, launcher and contract hashes are recorded. No dependencies or installed/reference files change. Earlier full-JSON/tuple timeouts remain historical failures; this smaller public-observation stream is a separately identified workload adapter, not a relabeling of those failed runs.
+
+Final results and compiling semantic-mutant outcomes are recorded in `measurement-lifecycle-timed-evidence.json`. Numerical thresholds remain unapproved; slower results are regressions to investigate, not acceptance.
+
+The first corrected-launcher attempt stopped while compiling its tiny C helper because the harness accidentally applied the default five-second runtime deadline to clang. No backend ran in that attempt. The corrected invocation uses the existing 120-second clang build limit; runtime/checker limits remain five seconds.
+
+Strict decoder controls on an actual Motion64 boundary rejected shortened Main cell tuples, a string in a U32 cell and reversed query order. These are protocol/oracle controls; the compiling runtime mutations are recorded separately.
+
+## Corrected measured cases
+
+All four 64/256-row cases passed full fields and seven samples on each backend. Both 1,024-row cases retained Native and JS full-output five-second failures; TS passed. No corrected ratios or memory summaries are published for those unverified cases. The initial pass does not override these current failures.
+
+| Schema/count | Native/TS median time | JS/TS median time | Native/TS/JS median peak KiB |
+| --- | ---: | ---: | --- |
+| Motion 64 | 2.01 | 3.99 | 4064/101048/80512 |
+| Motion 256 | 2.06 | 4.19 | 6364/108904/139116 |
+| Health 64 | 1.46 | 3.22 | 4188/100688/80228 |
+| Health 256 | 3.29 | 5.05 | 6896/100424/135932 |
+
+Ratios above 1 mean Bend took longer. Raw min/median/max and every sample are retained in the JSON; notably Motion64 Native ranged from 22 to 224 ms. This variability prevents treating a single ratio as stable performance. Corrected Native peaks are measured from the clean launcher; the initially inherited parent peaks have no memory interpretation.
+
+Final runner exit: **1 / REGRESSION**, deliberately retaining the four 1,024-row backend deadline failures. Both wrong-target and omitted-disposal mutations compiled to Native/JS and were rejected by the unchanged complete-field validator on both backends. These are actual command/selection mutations, not oracle perturbations. No failed build is counted as a semantic rejection.
