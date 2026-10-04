@@ -61,8 +61,17 @@ def compare(cohorts):
     for c in candidates:
         raw = {b: [s['milliseconds'] for s in c['evidence']['samples'] if s['backend'] == b] for b in reference}
         contrasts.append({b: bootstrap(reference[b], raw[b]) for b in raw})
-    return {'status': 'COMPLETE_COMPARISON', 'contrasts': contrasts,
-            'scope': 'No keep authority. All correctness/noise/contract decisions remain separate.'}
+    medians = {role: {b: [statistics.median([s['milliseconds'] for s in c['evidence']['samples'] if s['backend'] == b]) for c in cohorts if c['role'] == role] for b in reference} for role in ('reference', 'candidate')}
+    paired_drift = {role: {b: max(values) / min(values) - 1 for b, values in backends.items()} for role, backends in medians.items()}
+    ts_drift = [abs(m / statistics.median(reference['TS']) - 1) for m in medians['candidate']['TS']]
+    qualified = all(v <= 0.10 for d in paired_drift.values() for v in d.values()) and all(v <= 0.10 for v in ts_drift)
+    bounds = all(c['JS']['percentile95High'] <= -0.10 and c['Native']['percentile95High'] <= 0.05 for c in contrasts)
+    return {'status': 'COMPLETE_COMPARISON' if qualified else 'UNQUALIFIED', 'contrasts': contrasts,
+            'proposedRuleReceipt': {'rolePairMedianDrift': paired_drift, 'candidateTSDrift': ts_drift,
+                'noiseQualified': qualified, 'bothCandidatePerformanceBounds': bounds,
+                'experimentalKeepEligible': qualified and bounds,
+                'rulesAccepted': False},
+            'scope': 'Frozen proposed rules only; independent checks and accepted session decision required for a keep.'}
 
 
 def main():
@@ -144,6 +153,8 @@ def main():
     result['wallSeconds'] = time.monotonic() - started
     save()
     print(json.dumps({k:v for k,v in result.items() if k != 'cohorts'}, indent=2))
+    if 'metricJSInnerMilliseconds' in result:
+        print('METRIC jsInnerMilliseconds=' + str(result['metricJSInnerMilliseconds']))
     return int(result['status'] not in ('FINITE_CONTROL_PASS', 'COMPLETE_COMPARISON'))
 
 

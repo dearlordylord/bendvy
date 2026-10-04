@@ -39,3 +39,7 @@ Any storage mapping/growth/relocation change must retain intended affine ownersh
 ## Delivery
 
 Final independent Spec/Standards reviews and the skill's permitted finalization produce accepted commit/file sets, evaluator/check identity, all workload/size outcomes, reference/candidate cohorts, variability, remaining blockers and claim limits. Distinguish stopped-unmet from improvement and product acceptance. Preserve the retained reference candidate and rejected experiment evidence. Parent #21 remains open until its full return conditions and separate adoption decision are assessed; simulation/TD integration is not automatically unblocked.
+
+## Proposed first one-hour segment (not accepted)
+
+The user approved3600 seconds followed by results. [Concrete focused proposal](../design/s-prep-contract.md): Health/Dense256, JS inner duration, Native regression/TS drift guards, existing declaration/type/layout-preserving storage/query body edits. Occupancy-tree representation is an explicit subsequent segment: integrated occupancy/order/shape/membership controls and an accepted protected-check transition first. This simplification preserves every parent/full-matrix gate; it does not approve thresholds or packet setup.

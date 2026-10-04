@@ -25,6 +25,22 @@ assert all(v['percentile95High'] == 0 and v['percentile95Low'] == 0
 receipts.append({'control': 'identical constant cohorts', 'result': 'zero shift'})
 assert P.bootstrap([100.0]*14, [80.0]*7)['percentile95High'] < -0.19
 receipts.append({'control': 'known constant contrast', 'result': 'negative shift'})
+assert not answer['proposedRuleReceipt']['experimentalKeepEligible']
+improved = copy.deepcopy(cohorts)
+for cohort in improved:
+    if cohort['role'] == 'candidate':
+        for sample in cohort['evidence']['samples']:
+            if sample['backend'] == 'JS': sample['milliseconds'] = 80.0
+assert P.compare(improved)['proposedRuleReceipt']['experimentalKeepEligible']
+receipts.append({'control': 'constant improvement and unchanged Native/TS', 'result': 'proposed bounds pass; no keep authority'})
+for backend, value, label in [('JS', 120.0, 'candidate JS cohort drift'), ('Native', 110.0, 'Native regression'), ('TS', 120.0, 'TS control drift')]:
+    changed = copy.deepcopy(improved)
+    subjects = [changed[1]] if label == 'candidate JS cohort drift' else [changed[1], changed[3]]
+    for subject in subjects:
+        for sample in subject['evidence']['samples']:
+            if sample['backend'] == backend: sample['milliseconds'] = value
+    assert not P.compare(changed)['proposedRuleReceipt']['experimentalKeepEligible']
+    receipts.append({'control': label, 'result': 'not eligible'})
 for name in ('duplicate repetition', 'missing sample', 'failed sample', 'NaN', 'infinity', 'zero', 'resolution limited', 'wrong repetitions'):
     changed = copy.deepcopy(cohorts)
     e = changed[1]['evidence']
