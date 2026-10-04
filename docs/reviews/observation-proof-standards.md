@@ -383,3 +383,68 @@ historical proposal wording is explicitly identified as pre-decision evidence.
 **Heuristic findings: none actionable.** Explicit validation of both historical
 and amended subjects makes the approval boundary reviewable. This review inspected
 validation logic and recorded evidence; it did not rerun or mutate the root gate.
+
+## Approved universal U32 comparison — `349ec3c` (2026-10-04)
+
+**Hard violations: none found.** Reviewed the complete package and independently
+ran `python3 experiments/p-approved-u32-comparison/run.py`: exit 0, all eleven
+expected outcomes passed, and regeneration left tracked evidence unchanged.
+The selected law is byte-checked against the exact approved proposal; frozen
+approval, bridge, compiler and Base hashes are enforced, along with reference
+commits. No source reference, original catalogue statement or dependency changed.
+
+The endpoint fills the actual `B.less` subject for every U32 pair. Its structural
+helper proves full comparison correspondence for every Word width/pair using
+four low-bit parity lemmas and decreasing structural recursion. No finite grid,
+unary MAX expansion, unsafe definition, assumption or TODO replaces that proof.
+The dependency inventory describes these contextual helpers before execution.
+Both checker and independent kernel accept toolkit, endpoint and original
+complete-law `0 < 1` witness. Every invocation uses the existing hard five-second
+wrapper; the six-second subprocess watchdog adds no checking budget.
+
+The temporary reversed bridge compiles independently. The unchanged structural
+toolkit still passes kernel, while the original witness and unchanged universal
+endpoint fail at their named proof locations. The report accurately claims checker
+rejection for those mutations, without inventing mutant kernel rejection. A forced
+false BendTT executable rejects the otherwise accepted endpoint at the requested
+kernel gate. Temporary mutation files are scoped to the package's owned directory.
+
+**Heuristic findings: none actionable.** Apparent parity repetition expresses
+Bend's required match/structural proof cases. The all-width helper directly serves
+the approved endpoint and its planned equality projection. README retains separate
+increment, owned correspondence, integration and performance gates; this package
+approves no broader runtime refinement or completion claim.
+
+## Approved universal U32 increment — `99f513e` (2026-10-04)
+
+**Hard violations: none found.** Independently ran
+`python3 experiments/p-approved-u32-increment/verify.py`: exit 0, all ten expected
+checker/kernel outcomes passed. The runner enforces exact one-law/import selection
+against the approved proposal and frozen original catalogue, approval, bridge,
+specification, prior contextual arithmetic toolkit, compiler and Base hashes.
+Source and runner hashes are recorded; the replay refreshes measured timings and
+temporary diagnostic paths without changing proof subjects.
+
+The general endpoint proves actual bridge increment conversion for every U32
+inside its unchanged below-MAX guard. Structural arbitrary-width all-ones/carry
+reasoning avoids unary MAX enumeration. The proof uses checked actual add-one/inc
+linkage and guarded conversion, without an assumed comparison agreement theorem,
+unsafe definition or unfinished equation. The pre-execution inventory identifies
+all local helpers and their contextual purpose; no other catalogue law is filled.
+Original proof and complete true-domain witness pass checker/kernel. Separate
+MAX controls honestly distinguish its excluded Unit branch from actual wrapped
+U32 result; they claim no enormous Nat boundary normalization or allocator policy.
+
+A copied positive proof passes kernel before mutation. The +2 bridge compiles,
+the domain remains independently true, and the unchanged universal endpoint fails
+at `L.u32_increment_no_wrap` with expected/observed diagnostics. The unchanged
+complete255 witness independently fails at `exact_true_instance`. The forced false
+BendTT executable rejects the requested original kernel gate. Each invocation uses
+the hard five-second wrapper; the six-second supervisor detects failure of that
+wrapper and cleans only its own process group. Temporary mutation directories
+are removed on completion.
+
+**Heuristic findings: none actionable.** Helpers express required structural and
+conditional cases. README accurately retains owned-runtime caller/prefix links,
+Type payload/ownership, integration and performance gates; acceptance of this
+exact arithmetic endpoint does not close those tasks.

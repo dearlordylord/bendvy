@@ -115,3 +115,29 @@ Independent temporary-copy runner replay exited 0, preserving root evidence. Pos
 Inspected source supports the stated explanations: pinned `def_inst` checks template arguments with an empty context, and installed kernel `Term.uses` traverses lambda captures and live pair fields. Pinned checker source is explicitly distinguished from the installed executable. No semantic blocker to accepting this diagnostic report was found. It adds no original-signature construction route; stopping this bounded search is a scope decision, not a proof of nonexistence. Both approval decisions and owned-runtime completion remain open.
 
 Reviewed SHA256: `infrastructure.bend` = `d251d82f517fe2cc71ffa3a13d371cfc4a1008a2cdc95a0c07f144307c3052d4`; `run.py` = `097bf2a6c9a4bd6138d487aa0ce15c740f4533bcd13fd69a408e199a03151dac`; `subjects.json` = `d2b056a63231c1255ef01da9d622009b9bfbc1541610eb72ba4c81d9a61b088c`.
+
+## Approved universal U32 comparison — 2026-10-04, `349ec3c`
+
+**PASS: `u32_comparison_agrees_nat` meets its exact delegated-approved proof and mutation gates.** The selected block is byte-checked against proposal SHA256 `7d4ea7b7c94592c473271cffb8bcd3ec1cb1ff7390f6e1aa5cde9918ad9ce937`; it retains every U32 pair and the actual `B.less` caller. The approval decision record remains unchanged.
+
+Four structural Nat parity lemmas establish how comparison lifts through low bits. Word-width induction then relates the actual `Word.cmp` to `Nat.cmp` of actual conversions for arbitrary widths and word pairs; width32 and `Cmp.is_lt` yield the approved endpoint. No finite grid, unary MAX evaluation, missing branch, unchecked assumption or unapproved catalogue alias substitutes for that derivation. Full Cmp correspondence is a legitimate mathematical dependency and may support contextual equality reasoning; it does not itself complete owned-runtime correspondence.
+
+Independent temporary-copy replay of `python3 experiments/p-approved-u32-comparison/run.py` exited0. The structural module, exact endpoint and complete-law 0<1 witness passed checker/kernel under the five-second wrapper. The reversed `B.less` implementation compiles; the unchanged structural module still passes the kernel, while the unchanged witness and theorem fail specifically at `true_instance` and `Laws.u32_comparison_agrees_nat`. Thus the mutant exposes actual caller linkage at the approved endpoint, not an unrelated helper defect. Negative failures occur in initial checking; the separate forced-kernel failure verifies that accepted verdicts actually invoke BendTT. Root evidence was preserved.
+
+Reviewed SHA256: `PROOF.bend` = `073153f8dd097c6b4357a364f86149861db1e15271d59e60c5aceecd0dca225e`; `structural.bend` = `042fd0626a45602f7be880046ffc349e674a8be1b61c1db7411a4a6b82aec9eb`; `run.py` = `920ec40e98016c29c2b40810dfb8b1276733dba82c1f29dc5047f64a0b8727a9`.
+
+No semantic blocker was found. This establishes the approved supporting comparison equation only; increment, actual owned Reserve/Publish/Bump linkage, the seventh endpoint, backend correctness and performance retain their separate gates.
+
+## Approved universal U32 increment — 2026-10-04, `99f513e`
+
+**PASS: `u32_increment_no_wrap` meets its exact delegated-approved proof and mutation gates.** The selection retains the original all-U32 quantifier, strict below-MAX guard and actual `B.increment` expression, byte-checked against approved proposal SHA256 `7d4ea7b7c94592c473271cffb8bcd3ec1cb1ff7390f6e1aa5cde9918ad9ce937`. The immutable approval record and original catalogue are unchanged.
+
+The proof constructs the all-ones Word structurally and inducts over arbitrary width/word. A clear low bit supplies an unconditional conversion equation; a set low bit propagates the actual tail conditional through the carry lemma. False comparison branches supply only their specified Unit result. Specializing width32 and the already checked actual add-one/inc equality connects that derivation to the endpoint. No Nat MAX expansion, assumed general comparison theorem, finite-input substitution, unchecked premise or additional catalogue law is used. The local conditional constructor requires actual evidence and does not fill either unapproved conditional-Type infrastructure law.
+
+Independent temporary-copy `python3 experiments/p-approved-u32-increment/verify.py` exited0. General checker/kernel, original/copied positives, full conditional witness255 and its True guard pass under the five-second limit. The +2 bridge mutant compiles, leaves the independently checked guard True, and rejects both the unchanged complete witness and unchanged general proof at `L.u32_increment_no_wrap`. This is the actual approved endpoint failure. The forced failing kernel also rejects the accepted proof's verdict path. Root evidence was preserved.
+
+MAX exclusion and actual U32 wrap are checked separately; the former is a false-domain control, not evidence for a true-domain successor equation at MAX. The universal structural proof, rather than large literal normalization, supplies coverage below MAX.
+
+Reviewed SHA256: `PROOF.bend` = `13e82a4c268019237134acf0199ef103e6c9f6bdd8470938445738a1e220d593`; `verify.py` = `4c127b497b21ff30deb428e336cc640e226d10f3e83a94a8a2cc040d2b5cd41b`; `subjects.json` = `238670cc368627789013c9475bc57a4d456a735b9c8e93fdbbfee53c5f73912f`.
+
+No semantic blocker was found. Both approved arithmetic support statements now pass this review. Their actual Reserve bounds/Bump prefix premises and owner-observation linkage still require proof; neither this result nor comparison completes the seventh endpoint or approves broader allocation/overflow policy, Type preservation, backend correctness or performance.
