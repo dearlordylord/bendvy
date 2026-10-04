@@ -21,52 +21,52 @@
   "checks": [
     {
       "command": [
-        "/workspace/formal-proofs/bendvy-worktrees/owned-word-context/experiments/t01/bend-check",
-        "/workspace/formal-proofs/bendvy-worktrees/owned-word-context/experiments/p-approved-owned-word-context/helpers.bend",
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-approved-owned-word-context/helpers.bend",
         "--check-only"
       ],
       "exit": 0,
-      "wall_seconds": 0.1967684600967914,
+      "wall_seconds": 0.3024386779870838,
       "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\nbend 2.0.35 is available: run bend update\n"
     },
     {
       "command": [
-        "/workspace/formal-proofs/bendvy-worktrees/owned-word-context/experiments/t01/bend-check",
-        "/workspace/formal-proofs/bendvy-worktrees/owned-word-context/experiments/p-approved-owned-word-context/helpers.bend",
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-approved-owned-word-context/helpers.bend",
         "--verdict"
       ],
       "exit": 0,
-      "wall_seconds": 0.3230474211741239,
+      "wall_seconds": 0.42720222705975175,
       "output": "ALL PROOFS CHECK\nbend 2.0.35 is available: run bend update\n"
     },
     {
       "command": [
-        "/workspace/formal-proofs/bendvy-worktrees/owned-word-context/experiments/t01/bend-check",
-        "/workspace/formal-proofs/bendvy-worktrees/owned-word-context/experiments/p-approved-owned-word-context/controls.bend",
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-approved-owned-word-context/controls.bend",
         "--verdict"
       ],
       "exit": 0,
-      "wall_seconds": 0.3087391359731555,
+      "wall_seconds": 0.5657175178639591,
       "output": "ALL PROOFS CHECK\nbend 2.0.35 is available: run bend update\n"
     },
     {
       "command": [
-        "/workspace/formal-proofs/bendvy-worktrees/owned-word-context/experiments/t01/bend-check",
-        "/workspace/formal-proofs/bendvy-worktrees/owned-word-context/experiments/p-approved-owned-word-context/false.bend",
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-approved-owned-word-context/false.bend",
         "--check-only"
       ],
       "exit": 1,
-      "wall_seconds": 0.1695098988711834,
+      "wall_seconds": 0.3676975299604237,
       "output": "SOME PROOFS FAIL\nError:\n- expected : True{}\n- observed : False{}\nLocation: invalid_reserve_premise\n4 | def invalid_reserve_premise() -> {True{} == U32.is_lt(0,4294967295) : Bool}:\n5>|   H.reserve_below_max(0,0,{==})\n  |                           ^^^^\n6 | \nbend 2.0.35 is available: run bend update\n"
     },
     {
       "command": [
-        "/workspace/formal-proofs/bendvy-worktrees/owned-word-context/experiments/t01/bend-check",
-        "/workspace/formal-proofs/bendvy-worktrees/owned-word-context/experiments/p-approved-owned-word-context/false-bump.bend",
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-approved-owned-word-context/false-bump.bend",
         "--check-only"
       ],
       "exit": 1,
-      "wall_seconds": 0.17670427006669343,
+      "wall_seconds": 0.344989615958184,
       "output": "SOME PROOFS FAIL\nError:\n- expected : {8n == 9n : Nat}\n- observed : {8n == 8n : Nat}\nLocation: invalid_bump_result\n4 | def invalid_bump_result() -> {U32.to_nat(U32.add(7,1)) == 9n : Nat}:\n5>|   H.bump_increment(7,{==})\n  |   ^^^^^^^^^^^^^^^^^^^^^^^^\n6 | \nbend 2.0.35 is available: run bend update\n"
     }
   ],
