@@ -60,3 +60,9 @@ representation-neutral owned reads; selected-reader transaction/retention/lag;
 allocator/error policy and integrated scheduler proofs. Integration research may
 advance independently where its actual prerequisites exist; these proofs are not
 a blanket benchmark or full-core completion gate.
+
+## Delivered progress
+
+`lookup_full_exact` is proved in [the exact selection package](../../experiments/p-observe-lookup/README.md). General checker/kernel verdicts, seven fresh total/malformed controls, a compiling always-Missing mutant failing the unchanged endpoint, and kernel negative control were independently rerun by Astra and the coordinator. [Spec review](../reviews/observation-proof-spec.md) and [Standards review](../reviews/observation-proof-standards.md) pass. Helper-purpose inventory was documented after development; the package records this process deviation. The other six endpoints remain open; #18 must not close.
+
+[Erased-owner feasibility](../../experiments/p-observe-feasibility/README.md) records eight expected outcomes and no correspondence theorem: faithful empty/barrier reflexivity attempts fail at unresolved conditional obligations, without an impossibility claim.
