@@ -1,0 +1,72 @@
+{
+  "scope": "original actual publication onto nonempty queue",
+  "sources": {
+    "commands-bulk-controls.bend": "5161641014e6d0e0222e3f4f4c8890c8daa69bb908d3d71a58593ae2c06e8d4e",
+    "commands.bend": "022ea5ca1f44c952ae77071689d0735e5a38976d7f628203d85fd9cc920a1194",
+    "identity.bend": "2c88babc9e853d3706f7a6c1f8f0ae48c198949143df2da6562bd774237d7329",
+    "payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "publish-bulk-controls.bend": "dd0bb453cfa55b7fdc7b7e47bfe113fc4a7752e0d987a168473db2e022c29202",
+    "query.bend": "903af14b5d85d1162df5f872f26f221134a17c772bc82fd17686ce2f4be45759",
+    "storage-stage-fixture.bend": "581771140c45189c8b9038a73def804f780b5e64b7ffdecdcb45b966fc21aee7",
+    "storage.bend": "605d073615798f87f3675931475eee6a0668bc63c08559d4beecdb2e73c72986",
+    "types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56"
+  },
+  "cases": [
+    {
+      "result": "true",
+      "status": "PASS",
+      "schema": "Motion",
+      "count": 17,
+      "backend": "native"
+    },
+    {
+      "result": "true",
+      "status": "PASS",
+      "schema": "Motion",
+      "count": 17,
+      "backend": "javascript"
+    },
+    {
+      "result": "true",
+      "status": "PASS",
+      "schema": "Motion",
+      "count": 65537,
+      "backend": "native"
+    },
+    {
+      "status": "FAIL",
+      "error": "exit 1, expected 0: ['node', PosixPath('/tmp/publish-baseline-x9zbvney/publish-bulk-controls.js'), '0', '65537']\nbend: memory fault (machine stack overflow?)\n",
+      "schema": "Motion",
+      "count": 65537,
+      "backend": "javascript"
+    },
+    {
+      "result": "true",
+      "status": "PASS",
+      "schema": "Health",
+      "count": 17,
+      "backend": "native"
+    },
+    {
+      "result": "true",
+      "status": "PASS",
+      "schema": "Health",
+      "count": 17,
+      "backend": "javascript"
+    },
+    {
+      "result": "true",
+      "status": "PASS",
+      "schema": "Health",
+      "count": 65537,
+      "backend": "native"
+    },
+    {
+      "status": "FAIL",
+      "error": "exit 1, expected 0: ['node', PosixPath('/tmp/publish-baseline-x9zbvney/publish-bulk-controls.js'), '1', '65537']\nbend: memory fault (machine stack overflow?)\n",
+      "schema": "Health",
+      "count": 65537,
+      "backend": "javascript"
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "scope": "actual issued Type commands published onto nonempty queue; finite prerequisite",
+  "checkerLimitSeconds": 5,
+  "runtimeLimitSeconds": 5,
+  "cases": [
+    {
+      "schema": "Motion",
+      "count": 1,
+      "nativeJsEqual": true
+    },
+    {
+      "schema": "Motion",
+      "count": 17,
+      "nativeJsEqual": true
+    },
+    {
+      "schema": "Motion",
+      "count": 65537,
+      "nativeJsEqual": true
+    },
+    {
+      "schema": "Health",
+      "count": 1,
+      "nativeJsEqual": true
+    },
+    {
+      "schema": "Health",
+      "count": 17,
+      "nativeJsEqual": true
+    },
+    {
+      "schema": "Health",
+      "count": 65537,
+      "nativeJsEqual": true
+    }
+  ],
+  "mutants": [
+    {
+      "name": "reverse-staged-order",
+      "compilingNativeJs": true,
+      "bothSchemasDetected": true
+    },
+    {
+      "name": "drop-existing-pending",
+      "compilingNativeJs": true,
+      "bothSchemasDetected": true
+    },
+    {
+      "name": "existing-before-staged",
+      "compilingNativeJs": true,
+      "bothSchemasDetected": true
+    }
+  ],
+  "sources": {
+    "commands-bulk-controls.bend": "5161641014e6d0e0222e3f4f4c8890c8daa69bb908d3d71a58593ae2c06e8d4e",
+    "commands.bend": "022ea5ca1f44c952ae77071689d0735e5a38976d7f628203d85fd9cc920a1194",
+    "identity.bend": "2c88babc9e853d3706f7a6c1f8f0ae48c198949143df2da6562bd774237d7329",
+    "payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "publish-bulk-controls.bend": "dd0bb453cfa55b7fdc7b7e47bfe113fc4a7752e0d987a168473db2e022c29202",
+    "query.bend": "903af14b5d85d1162df5f872f26f221134a17c772bc82fd17686ce2f4be45759",
+    "storage-stage-fixture.bend": "581771140c45189c8b9038a73def804f780b5e64b7ffdecdcb45b966fc21aee7",
+    "storage.bend": "936ee89484a6e58558ab1684d90c16cbf2285ef5027292901dd3d9bf973754ba",
+    "types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+    "publish-bulk-run.py": "869d3ab031cf4223ccbb702eb109e150146a365017d9027bc9d636997f6b58f8"
+  }
+}

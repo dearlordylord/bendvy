@@ -105,7 +105,7 @@ def publish(-S: Data,-M: Type,-A: Type,-F: Data,-L: Type,-Mode: Data,
   world: World<S,M,A,F,L,Mode>,staged: List<Command<M,A,F>>) -> World<S,M,A,F,L,Mode>:
   match world:
     case World{namespace,next,rows,pending,ledger,mode}:
-      World{namespace,next,rows,List.append(&1,Command<M,A,F>,staged,pending),ledger,mode}
+      World{namespace,next,rows,List.reverse.go(&1,Command<M,A,F>,List.reverse(&1,Command<M,A,F>,staged),pending),ledger,mode}
 
 def mark_decide(-M: Type,-A: Type,-F: Data,equal: Bool,row: Row<M,A,F>,tick: U32) -> Row<M,A,F>:
   match equal row:
