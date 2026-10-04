@@ -1,0 +1,150 @@
+{
+  "status": "PARTIAL: contextual toolkit proved; explicit_flush_independent remains OPEN",
+  "checker_limit_seconds": 5,
+  "exact_endpoint_selection": true,
+  "checks": [
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/p-observe-flush/toolkit.bend",
+        "--check-only"
+      ],
+      "exit_code": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/p-observe-flush/toolkit.bend",
+        "--verdict"
+      ],
+      "exit_code": 0,
+      "output": "ALL PROOFS CHECK\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/p-observe-flush/controls.bend",
+        "--verdict"
+      ],
+      "exit_code": 0,
+      "output": "ALL PROOFS CHECK\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/p-observe-flush/LAWS.bend",
+        "--check-only"
+      ],
+      "exit_code": 1,
+      "output": "SOME PROOFS FAIL\nError: 1 TODO found.\nThe code is incomplete, and not a valid proof yet.\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/p-observe-flush/RESIDUAL.bend",
+        "--check-only"
+      ],
+      "exit_code": 1,
+      "output": "SOME PROOFS FAIL\nError: 3 TODOs found.\nThe code is incomplete, and not a valid proof yet.\n"
+    }
+  ],
+  "mutants": [
+    {
+      "name": "spawn-wrong-tag",
+      "old": "case T.Spawn{slot, value}: T.Row{slot, value, False{}} <> rows",
+      "new": "case T.Spawn{slot, value}: T.Row{slot, value, True{}} <> rows",
+      "theorem": "spawn_slot",
+      "focus_excludes_application_prefix": false,
+      "copied_positive": {
+        "command": [
+          "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/t01/bend-check",
+          "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/p-observe-flush/flush-mutant-24sp4_9l/p-observe-flush/toolkit.bend",
+          "--verdict"
+        ],
+        "exit_code": 0,
+        "output": "ALL PROOFS CHECK\n"
+      },
+      "compiling_implementation": {
+        "command": [
+          "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/t01/bend-check",
+          "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/p-observe-flush/flush-mutant-24sp4_9l/t11-replacement/model.bend",
+          "--check-only"
+        ],
+        "exit_code": 0,
+        "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+      },
+      "contextual_proof_failure": {
+        "command": [
+          "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/t01/bend-check",
+          "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/p-observe-flush/flush-mutant-24sp4_9l/p-observe-flush/toolkit.bend",
+          "--check-only"
+        ],
+        "exit_code": 1,
+        "output": "SOME PROOFS FAIL\nError:\n- expected : {S.pick(Nat.cmp(id, slot), T.Row{id, value, True{}}, _ => S.at(rows, slot)) == S.command_at(Nat.cmp(id, slot), T.Spawn{id, value}, S.at(rows, slot)) : Maybe<&2, T.Row>}\n- observed : {S.pick(Nat.cmp(id, slot), T.Row{id, value, False{}}, _ => S.at(rows, slot)) == S.command_at(Nat.cmp(id, slot), T.Spawn{id, value}, S.at(rows, slot)) : Maybe<&2, T.Row>}\nContext:\n- id    : Nat\n- value : Nat\n- slot  : Nat\n- rows  : List<&2, T.Row>\nLocation: spawn_slot\n25 | def spawn_slot(+id: Nat, +value: Nat, +slot: Nat, +rows: List<&2,T.Row>) -> {S.at(M.apply(T.Spawn{id,value},rows),slot) == S.one(T.Spawn{id,value},slot,S.at(rows,slot)) : Maybe<&2,T.Row>}:\n26>|   spawn_case(Nat.cmp(id,slot),id,value,S.at(rows,slot))\n   |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n27 | \n"
+      }
+    },
+    {
+      "name": "reverse-fifo",
+      "old": "case Con{command, tail}: apply_all(tail, apply(command, rows))",
+      "new": "case Con{command, tail}: apply(command, apply_all(tail, rows))",
+      "theorem": "target_fifo",
+      "focus_excludes_application_prefix": true,
+      "copied_positive": {
+        "command": [
+          "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/t01/bend-check",
+          "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/p-observe-flush/flush-mutant-pj04feos/p-observe-flush/toolkit.bend",
+          "--verdict"
+        ],
+        "exit_code": 0,
+        "output": "ALL PROOFS CHECK\n"
+      },
+      "compiling_implementation": {
+        "command": [
+          "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/t01/bend-check",
+          "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/p-observe-flush/flush-mutant-pj04feos/t11-replacement/model.bend",
+          "--check-only"
+        ],
+        "exit_code": 0,
+        "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+      },
+      "contextual_proof_failure": {
+        "command": [
+          "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/t01/bend-check",
+          "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/p-observe-flush/flush-mutant-pj04feos/p-observe-flush/toolkit.bend",
+          "--check-only"
+        ],
+        "exit_code": 1,
+        "output": "SOME PROOFS FAIL\nError:\n- expected : {S.at(M.modify(slot, action, M.apply_all(same_slot_commands(tail, slot), rows)), slot) == S.replay(same_slot_commands(tail, slot), slot, S.command_at(Nat.cmp(slot, slot), T.Target{slot, action}, S.at(rows, slot))) : Maybe<&2, T.Row>}\n- observed : {S.at(M.apply_all(same_slot_commands(tail, slot), M.modify(slot, action, rows)), slot) == S.replay(same_slot_commands(tail, slot), slot, S.command_at(Nat.cmp(slot, slot), T.Target{slot, action}, S.at(rows, slot))) : Maybe<&2, T.Row>}\nContext:\n- action : T.Action\n- tail   : List<&2, T.Action>\n- slot   : Nat\n- rows   : List<&2, T.Row>\nLocation: target_fifo\n75 |     case Con{+action,+tail}:\n76>|       %Equal.sym(Cmp,Nat.cmp(slot,slot),EQ{},comparison_self(slot)) : {S.at(M.apply_all(same_slot_commands(tail,slot),M.modify(slot,action,rows)),slot) == S.replay(same_slot_commands(tail,slot),slot,S.command_at(_,T.Target{slot,action},S.at(rows,slot))) : Maybe<&2,T.Row>}\n   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n77 |       %target_own_slot(rows,slot,action) : {S.at(M.apply_all(same_slot_commands(tail,slot),M.modify(slot,action,rows)),slot) == S.replay(same_slot_commands(tail,slot),slot,_) : Maybe<&2,T.Row>}\n"
+      }
+    }
+  ],
+  "kernel_negative": {
+    "command": [
+      "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/t01/bend-check",
+      "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/p-observe-flush/toolkit.bend",
+      "--verdict"
+    ],
+    "exit_code": 1,
+    "output": "SOME PROOFS FAIL\nSorry - this is a mismatch between the TypeScript implementation, and the formalized BendTT kernel. Your proofs may or may not be correct, and we cannot validate them yet. This will be addressed in a future update. Meanwhile, feel free to open an issue to report this bug.\n"
+  },
+  "canonical_sources": {
+    "experiments/t11-replacement/LAWS.bend": "e0c607d723ad250a189c096d9fa3fd6a36913f4c72efd3a3be6dacd7fadb2cbc",
+    "experiments/t11-replacement/types.bend": "0261b9381f51b4aecdf61b76bfa61149d10d662b0c02ddc320da2236ec17d287",
+    "experiments/t11-replacement/model.bend": "53ac1f776c721a5bea0c063eefe229c1d43b4e09d95a269e283fe900a2934c40",
+    "experiments/t11-replacement/spec.bend": "3b7a96d9131919fe087dac5e024058bbfa916ce5c108dce3a7d72119b7ccd465"
+  },
+  "source_hashes": {
+    "LAWS.bend": "67d11552ef01d5cac07b8d30c2b183f13239cbdebf09035b2c0d3c765f8fff0a",
+    "RESIDUAL.bend": "92f96975ea665017a35854afe3e584bcd0a9cf9746b5c1ef1d3d38a5e4bff543",
+    "controls.bend": "ca814d341c6b4e530267bfe6fed04baa9c19a64a28203a108d5b732dc8329df3",
+    "toolkit.bend": "d370e490bcbcfe0a0135943b3e64e2a2ea02c4e438c466baaff5505cd0899dd8"
+  },
+  "lookup_dependency_hashes": {
+    "experiments/p-observe-lookup/PROOF.bend": "00f6638706a9dafb28039d8631a96b9e8b96aa874df4839202c19cc87b221c01",
+    "experiments/p-observe-lookup/LAWS.bend": "95a8c2307f8e8a7eac399dc46e8b0c5a42c5e6f50540f2c6a63df8e9f53c0603",
+    "experiments/p-observe-lookup/controls.bend": "b58a585fb46a75a18c1a7dfb8b2cc710557c2cd64479bd7b5784dea22f4ff1fc"
+  },
+  "base_sha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+  "runner_sha256": "dc392ea7e96a0fea795c9d88446f4d35db43158a46b20058a9d48e35d9bbbbdd"
+}
