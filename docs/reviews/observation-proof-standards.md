@@ -646,3 +646,36 @@ these as contextual helper/predicate gates, not the full owned endpoint gate.
 bounded checker normalization and supports mutation isolation. Actual runtime
 array mutation/ownership and full schedule induction remain separate obligations;
 integration and performance are not promoted by this helper proof.
+
+## Third partial owned composition checkpoint — `f578dfd` (2026-10-04)
+
+**Hard violations: none found.** Reviewed owned-package changes from `d867968`
+and independently replayed the frozen commit's complete runner from a temporary
+archive: exit 0, thirty-three expected outcomes passed. Root sources/evidence were
+untouched. Canonical/proposal pins and compiler/Base checks remain intact; actual
+recursive imported closure hashes are recorded and copied for mutation checks.
+Every checker/kernel invocation retains the hard five-second wrapper.
+
+`tick-context` extracts admissibility, original head safety and successor ModelSafe
+from cached Data, and joins actual primitive/recursive returned-owner frames by
+runtime tick congruence. `bump-world` transports the exact cached snapshot to the
+reviewed member safety predicate and lifts a supplied row result while preserving
+metadata/pending commands. `final-observation` consumes the actual returned owner
+through capture/project, then joins its observation to the checked complete model
+schedule theorem. Original worlds occur only as erased indices in transport;
+returned affine owners are consumed once. No supplied frame is misrepresented as
+an already constructed full recursive proof, and no live owner is cloned or
+substituted by a Data world.
+
+The inventory describes these precise compositional premises before execution.
+All fourteen positive files pass checker/kernel, with existing false/kernel
+controls and compiling empty-specialization mutation rejections still active.
+The selected Overflow-to-Word specialization and full owner-threaded nonempty
+induction remain absent from the positive list. Failed normalization diagnostics
+are explicitly excluded, disclosed as failed attempts, and not used to infer
+impossibility. Full endpoint mutation acceptance remains open.
+
+**Heuristic findings: none actionable.** Small congruence/guard helpers express
+Bend's affine and match constraints and have concrete immediate consumers. This
+accepts another partial supporting checkpoint, without advancing production,
+full-payload/runtime refinement, integration, performance or #18 completion gates.

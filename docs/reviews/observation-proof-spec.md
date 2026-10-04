@@ -205,3 +205,18 @@ Independent temporary-copy `run.py` completed all twenty expected outcomes with 
 Reviewed SHA256: `member-safety.bend` = `486944795bfa1af9efc4c95d387db258cbe0e846166e27c8e6483d5767123bb6`; `member-controls.bend` = `b5bbdafb669643d5a77784735a35e84df2ad9c6a5ed9ddefd9e62c582a9c032a`; `run.py` = `78192b6e90160e4386f58c4669b355e66eb7f9e871758b803ad63cc79d2a5d38`; `frozen.json` = `a9d8f752ee8e95f0e54299bfc2062e1e6fc6aff58a4bb7a598e6328846c73b16`.
 
 No semantic blocker was found. This supplies the previously missing per-member guard bridge, not actual runtime row mutation or the complete owner-threaded schedule theorem. No additional catalogue contract or domain weakening is introduced.
+
+
+## Owned contextual composition — 2026-10-04, `f578dfd`
+
+**PASS as partial contextual progress only.** Reviewed the three added modules from source checkpoint `9872b85`, integrated as `f578dfd`. `tick-context` extracts current admissibility, exact current step safety and the actual M.step tail predicate from ModelSafe; its frame composition transports the cached observation and threads the returned affine owner through actual R.tick. It neither assumes independent-oracle safety for actual prefixes nor proves the missing operation/list induction.
+
+`bump-world` derives the all-member Overflow predicate from exact admissibility and independent step safety, using the previously reviewed uniqueness-sensitive member proof, then transports it to the actual owned row projection. Its finish helper wraps a supplied actual row-result frame with unchanged world metadata and pending commands. The required row-result frame is still a premise; selected-cell guard specialization and complete Bump row execution remain open here.
+
+`final-observation` consumes the supplied final owner, uses actual capture/project/snapshot correspondence, and composes with the approved pure schedule observation proof. It correctly concludes public Observation equality, not raw M-to-S physical-row equality. Its supplied full tick frame is not manufactured or assumed at the approved endpoint: this checkpoint deliberately has no complete endpoint inhabitant. No reusable Type owner, narrowed domain, circular prefix premise or newly promoted catalogue contract was found.
+
+Independent replay from a temporary `git archive f578dfd` completed `run.py` with exit0, including all new universal checker/kernel modules and retained controls under five-second checker limits. The compiling implicit-flush mutant remains an empty-endpoint gate; it does not establish complete nonempty schedule mutation coverage. Root evidence was preserved.
+
+Reviewed SHA256: `tick-context.bend` = `3ce992fdef07e3c7657c8fbe8b31ce0f8ccf50fc9593e809d6b5f2fe6cdb5843`; `bump-world.bend` = `f5f6db20125b0c0315d483d5d550d8a07c2a13f2820cece7e1c96d6cc9bddfdd`; `final-observation.bend` = `35ce0b494fa801480dfa752181d782ff0d896e9793f2b92fb451d01daee8ddd0`; `run.py` = `46e6770a50167b33ee2890b35994347fccbeafab3b420a76ce12850101f71241`.
+
+No semantic blocker was found in these helpers. Exact selected guard construction, complete owner/list induction and full endpoint mutation evidence remain required before owned-theorem acceptance.
