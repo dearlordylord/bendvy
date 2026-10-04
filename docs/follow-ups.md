@@ -71,3 +71,13 @@ commands; integration with actual typed schedules; declared structural authority
 scalable layout with explicit bounds before array access; reuse/generation and
 exhaustion policy; representative performance. Linked-list traversal and decimal
 keys are measured prototype costs, not waived performance requirements.
+
+## T06 transaction return conditions
+
+[T06](../experiments/t06/README.md) implements inverse-journal restoration for Data
+component/resource writes and reversible U32 field writes into an owned Type
+payload, staged event/command publications and preservation of earlier commits.
+Keep separate return gates for generic affine element restoration, captured/IO
+payloads, allocation/membership/change-tick rollback, integrated schedules and
+scalable journal/layout cost. Fixed slots and two command-intent kinds are probe
+boundaries, not full-core exclusions or approved proofs.

@@ -50,15 +50,19 @@ BENDVY_CPU=11 python3 experiments/t05/run.py
 Bend 2.0.34, pinned Base/compiler/reference identities from T01/reference manifest,
 clang 14.0.6, Node 24.20.0. Runtime does not need npm packages. The runner checks
 ordered output and exact differences; fresh temporary output prevents accidentally
-executing an older build after a failure. Each child process has a five-second
-limit and timeout cleanup kills its owned process group.
+executing an older build after a failure. Each explicit checker/runtime process has a five-second limit; C/JS code
+generation has a thirty-second deadline and clang a 120-second deadline. Timeout
+cleanup kills the owned process group.
 
-Native build is explicitly two bounded stages: Bend emits C under five seconds,
-then clang uses Bend's default CPU flags (`-std=c11 -O3 -lpthread -lm`) under five
-seconds. JS generation is separately bounded. A combined native build initially
-exceeded five seconds; no timeout was enlarged. This is runtime validation, not a
-performance benchmark or a proof verdict. Both schema and capability controls
-were also checked independently after their final edits.
+Native build uses separate C emission and clang stages with Bend's default CPU
+flags (`-std=c11 -O3 -lpthread -lm`). The original T05 execution also bounded those
+build stages to five seconds. During subsequent T06 work that extra restriction
+was found to exceed SPEC, which bounds checker runs; the shared runner now uses a
+strict explicit five-second checker gate followed by separately bounded
+thirty-second code-generation and 120-second optimization stages. Runtime probes remain five
+seconds. This is runtime validation, not a performance benchmark or proof
+verdict. Both schema and capability controls were independently checked after
+final edits.
 
 ## Remaining production obligations
 
