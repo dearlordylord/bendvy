@@ -178,3 +178,48 @@ under five seconds. The extra total explicitly exercises 65,537 staged commands
 plus one existing pending command, avoiding ambiguity between total and staged
 counts. Getter canaries verify all declared cells/metadata before Bool projection;
 large uniform fixtures are not nonuniform/general refinement evidence.
+
+## 2026-10-04 — provisional integration-wide Standards audit
+
+**Snapshot:** nonempty `git diff 9cd750b...2fd0601`, governing AGENTS/SPEC/live
+GitHub #19 and bend-ldd. This extends earlier slice reviews to inspected current
+Host/dispatcher/query/storage/observation/access/runner joins; it does not approve
+later bytes or claim all acceptance gates complete. **No hard documented-standard
+violation or actionable baseline smell identified in that reviewed scope.**
+
+**Independent exclusion:** I authored host-render and its renderer controls. This
+section explicitly gives no independent approval of that implementation, compact
+encoding or its implementation-mutant evidence; another reviewer must cover it.
+
+Current Host joins retain actual affine World/payload/resource/Audit/reader/capture
+owners. Query clients retain erased abstract owner binders and fresh affine
+operations; Data records are complete observations, not reconstructed Type owners.
+Registry metadata is canonicalized before effects, with actual registration-derived
+search fuel. Ordinary registered Snapshot/foreign/read systems retain frame and
+clock effects; foreign bindings are temporary and checked against actual source
+handles. Transactions retain consumed reservation IDs outside scalar undo while
+discarding failed staged structural owners/publications. Public constructors
+remain explicitly trusted representation, without a module-privacy or universal
+root-confinement claim. Tail repairs preserve owners and declared order.
+
+Five-second checker/runtime bounds remain separate from codegen/clang bounds;
+existing helpers clean up task-owned process groups. Independently checked this
+snapshot's host-fixture and integrated-access positive source on CPU11: both pass
+the unchanged wrapper. Decoder rejects unknown access/event kinds and binds foreign
+handles to observed distinct namespaces; preflight event results are checked against
+actual observed invocation/IO intervals. No new dependency, unsafe escape,
+unapproved ECS proof, original proof-law change or external repository edit appears
+in this range. Bend-required nominal/head-match helpers are not duplication smells.
+
+**Evidence/status limits:** main/access/structural evidence in this snapshot pins
+older closures, so it is historical, not acceptance of every current import byte.
+Final refresh must pin the assembled source and compiler/Base/reference provenance.
+The main README's unresolved projection wording and ledger's fourteen-renderer-
+fixture wording also need final status refresh. E10 provisioning, complete E11,
+joined semantic mutations and remaining measurement delivery are still underway;
+this audit does not fault unfinished work as a completed-task violation.
+Dense/Sparse remains 20/24 with four Dense1024 deadlines; single cold diagnostic
+samples do not satisfy mandatory performance acceptance, seven-repeat ratios or
+memory gates. Full-core authority/destructive restoration/general Local/refinement
+and numerical approvals retain explicit follow-ups. A final snapshot audit is
+required after the pending deliveries.
