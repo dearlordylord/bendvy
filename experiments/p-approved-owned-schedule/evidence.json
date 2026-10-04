@@ -28,9 +28,10 @@
     "experiments/p-approved-owned-schedule/empty.bend": "42385435b2324b7ea97f3b24af288e28a5588c78c0d2b92a23fb78c66e19da0a",
     "experiments/p-approved-owned-schedule/final-observation.bend": "35ce0b494fa801480dfa752181d782ff0d896e9793f2b92fb451d01daee8ddd0",
     "experiments/p-approved-owned-schedule/frames.bend": "edae73d200588541c2989a387b264b4cfda062c68e551b15cc33649e195c0ef6",
+    "experiments/p-approved-owned-schedule/full-witness.bend": "b56e9a68242b29861ea3c77ee22bcc7e0d379d909e9a273f6a8e5738fce799e7",
     "experiments/p-approved-owned-schedule/point.bend": "62abc8cb2a9766c50687a4d733b6696480daf703185e2baaf50e134074f35e01",
     "experiments/p-approved-owned-schedule/primitive-controls.bend": "bf59556d2359f1b7f58fef04228711a5c553d1a53f178916eec1fde693587d61",
-    "experiments/p-approved-owned-schedule/tick-context.bend": "3ce992fdef07e3c7657c8fbe8b31ce0f8ccf50fc9593e809d6b5f2fe6cdb5843",
+    "experiments/p-approved-owned-schedule/tick-context.bend": "5d8768d94025713c0a855630b40c819f32ec285bdb46060608d5d2f7f9a2f237",
     "experiments/p-approved-owned-word-context/helpers.bend": "32103c04f62d5c8b60fe551f7da77d1fa7b75787e071b292e3f679c31f4d8bc7",
     "experiments/p-approved-u32-comparison/LAWS.bend": "129ea622b5408fdf5b308f129e69377d2fdbdbc822ace512f2e2900497ef89f1",
     "experiments/p-approved-u32-comparison/PROOF.bend": "073153f8dd097c6b4357a364f86149861db1e15271d59e60c5aceecd0dca225e",
@@ -268,6 +269,20 @@
       "output": "ALL PROOFS CHECK\nbend 2.0.35 is available: run bend update\n"
     },
     {
+      "file": "full-witness.bend",
+      "kernel": false,
+      "kernel_negative": false,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "full-witness.bend",
+      "kernel": true,
+      "kernel_negative": false,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
       "file": "false-negative.bend",
       "kernel": false,
       "kernel_negative": false,
@@ -301,6 +316,27 @@
       "kernel_negative": false,
       "exit": 1,
       "output": "SOME PROOFS FAIL\nError:\n- expected : S.When(S.admissible(U32.to_nat(limit), O.snapshot(world)), {M.observe(R.snapshot(R.project(R.flush(world)))) == S.observe(O.snapshot(world)) : T.Observation})\n- observed : S.When(S.admissible(U32.to_nat(limit), O.snapshot(world)), {M.observe(R.snapshot(R.project(world))) == S.observe(O.snapshot(world)) : T.Observation})\nContext:\n- limit    : U32\n- world    : R.World\n- owner    : R.World\n- data     : T.World\n- exact    : {(owner, data) == R.project(world) : Sigma<&1, &1, R.World, _ => T.World>}\n- observed : {data == O.snapshot(world) : T.World}\n- _        : {owner == world : R.World}\nLocation: empty_frame\n34 |     case C.WorldFrame{owner,+data,exact,observed,_}:\n35>|       %observed : S.When(S.admissible(U32.to_nat(limit),_),{M.observe(R.snapshot(R.project(world))) == S.observe(_) : T.Observation})\n   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n36 |       %exact : S.When(S.admissible(U32.to_nat(limit),data),{M.observe(R.snapshot(_)) == S.observe(data) : T.Observation})\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "full-witness.bend",
+      "kernel": false,
+      "kernel_negative": false,
+      "exit": 1,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : T.Observation{7n, 2n, [T.Row{1n, 9n, False{}}], []}\n- observed : T.Observation{7n, 2n, [], [T.Spawn{1n, 9n}]}\nLocation: pending_equation\n11 | def pending_safe() -> {True{} == S.run_safe(O.steps(pending_steps()),U32.to_nat(4),O.snapshot(pending_world())) : Bool}: {==}\n12>| def pending_equation() -> {M.observe(R.snapshot(R.project(R.tick(pending_steps(),4,pending_world())))) == S.schedule_observation(U32.to_nat(4),O.snapshot(pending_world()),O.steps(pending_steps())) : T.Observation}: {==}\n   |                                                                                                                                                                                                                        ^^^^\n13 | \nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "runtime.bend",
+      "kernel": false,
+      "kernel_negative": false,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "full-witness.bend",
+      "kernel": false,
+      "kernel_negative": false,
+      "exit": 1,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : T.Observation{7n, 2n, [], [T.Spawn{1n, 9n}]}\n- observed : T.Observation{7n, 2n, [T.Row{1n, 10n, False{}}], []}\nLocation: tail_equation\n16 | def tail_safe() -> {True{} == S.run_safe(O.steps(tail_steps()),U32.to_nat(4),O.snapshot(tail_world())) : Bool}: {==}\n17>| def tail_equation() -> {M.observe(R.snapshot(R.project(R.tick(tail_steps(),4,tail_world())))) == S.schedule_observation(U32.to_nat(4),O.snapshot(tail_world()),O.steps(tail_steps())) : T.Observation}: {==}\n   |                                                                                                                                                                                                         ^^^^\n18 | \nbend 2.0.35 is available: run bend update\n"
     }
   ]
 }

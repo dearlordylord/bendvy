@@ -62,3 +62,12 @@ actual recursive and primitive proofs: they do not establish the full endpoint.
 The selected-row Overflow-to-Word guard specialization is under investigation;
 naive normalization expands the large Nat bound and fails the checker. No failed
 diagnostic is included among passing runner subjects or treated as impossibility.
+
+`full-witness.bend` separately establishes two complete-law equations and their
+true independent `S.run_safe` premises on the original core: a pending reservation,
+and Reserve–Barrier–Bump. The actual compiling `R.tick` implicit-final-flush and
+dropped-tail mutations falsify these respective complete equations. The runner
+records those witness failures. They are preparatory evidence only: the universal
+nonempty proof has not passed, and these checks do not replace its mutation gate.
+`tick-context.finish` now states its actual target as the expanded tail tick after
+`R.step`; the dedicated schedule induction must establish the authored Cons link.

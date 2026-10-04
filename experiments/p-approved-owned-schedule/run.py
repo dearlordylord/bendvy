@@ -23,7 +23,7 @@ def check(path, kernel=False, failure=None, reject_kernel=False):
     records.append({"file":path.name,"kernel":kernel,"kernel_negative":reject_kernel,"exit":p.returncode,"output":out})
 
 positive = ["arrays.bend","point.bend","capture.bend","empty.bend","controls.bend","empty-witness.bend",
-    "commands.bend","allocation.bend","barrier.bend","bump.bend","primitive-controls.bend","tick-context.bend","bump-world.bend","final-observation.bend"]
+    "commands.bend","allocation.bend","barrier.bend","bump.bend","primitive-controls.bend","tick-context.bend","bump-world.bend","final-observation.bend","full-witness.bend"]
 for name in positive:
     check(HERE/name)
     check(HERE/name, kernel=True)
@@ -53,6 +53,23 @@ with tempfile.TemporaryDirectory(prefix="owned-empty-mutant-") as tmp:
     assert sha(target/"empty.bend") == sha(HERE/"empty.bend")
     check(target/"empty-witness.bend",failure="Location: equation")
     check(target/"empty.bend",failure="Location: empty_frame")
+    check(target/"full-witness.bend",failure="Location: pending_equation")
+
+with tempfile.TemporaryDirectory(prefix="owned-tail-witness-mutant-") as tmp:
+    mirror = pathlib.Path(tmp)
+    for path in closure:
+        dest = mirror/path.relative_to(ROOT)
+        dest.parent.mkdir(parents=True,exist_ok=True)
+        shutil.copyfile(path,dest)
+    runtime = mirror/"experiments/t11-replacement/runtime.bend"
+    original = runtime.read_text()
+    old = "case Con{s,tail}: tick(tail,limit,step(limit,world,s))"
+    assert original.count(old) == 1
+    runtime.write_text(original.replace(old,"case Con{s,tail}: step(limit,world,s)"))
+    check(runtime)
+    target = mirror/HERE.relative_to(ROOT)
+    assert sha(target/"full-witness.bend") == sha(HERE/"full-witness.bend")
+    check(target/"full-witness.bend",failure="Location: tail_equation")
 
 compiler = pathlib.Path(shutil.which("bend"))
 base = pathlib.Path.home()/".bend/bend2/base.bend"

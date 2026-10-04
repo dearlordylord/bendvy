@@ -80,3 +80,12 @@ Bump world lifting inventory: extract row validity and the exact independent
 Bump guard from the cached Data world, derive the reviewed member-wise guard,
 transport only that guard through the captured snapshot equality, and lift the
 returned row frame into the actual world's unchanged metadata and pending queue.
+Full endpoint assembly inventory (following the accepted contexts): `advance`
+dispatches the four actual R.step constructors, using cached snapshot validity
+and the exact Bump member guard. `schedule.tick` recurses structurally over the
+authored step list, threads each actual returned owner, and consumes the proven
+ModelSafe successor premise. `endpoint` captures the initial affine world once,
+branches on the unchanged independent S.run_safe, transports it using the reviewed
+safety package, and consumes the terminal owner through final-observation.
+The exact approved law block is copied into the package; no additional binder or
+premise is introduced. Until all imports check these assembly files are drafts.
