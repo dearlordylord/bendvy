@@ -17,3 +17,16 @@ numeric-handle lookup; E11 retention uses its separate reference and gate.
 Comparator perturbation controls only establish that comparison detects defects.
 They do not establish any integrated runtime capability. Full Host output and
 fresh TS/Native/JS parity remain required before acceptance.
+
+`trace-decode.py observed.jsonl decoded.json` accepts actual lane headers,
+lossless Host events and actual plain Audit lines. It converts Four records to
+arrays, constructor tags to public result shapes and actual namespaced handles
+to their previously observed labels. Raw IDs remain exact; namespace checks reject
+foreign handles in local observation channels. Original complete events remain
+in `actualEvents`, including world marks/queue/allocator and reader boundaries.
+The extra pre-write B observation remains in that raw evidence while the two
+public own-write checkpoints use its actual middle/after views.
+
+Decoder fixture controls check encoding and invalid observations, not a joined
+execution. Provisioning is deliberately absent until the actual runtime control
+is bound; full comparison then reports incomplete rather than supplying results.
