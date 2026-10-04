@@ -53,16 +53,11 @@ type RowEdit<-Schema: Data,-M: Type,-A: Type,-F: Data> is Type:
   RowEdit{row: Maybe<S.Row<M,A,F>>,changes: List<&2,S.Change<Schema>>}
 def edit_row(-Schema: Data,-M: Type,-A: Type,-F: Data,+namespace: U32,+tick: U32,command: S.Command<M,A,F>,row: S.Row<M,A,F>) -> RowEdit<Schema,M,A,F>:
   match command row:
-    case S.InsertMain{_,main} S.Row{+id,None{},aux,flag,_,_}:
-      RowEdit{Some{S.Row{id,Some{main},aux,flag,tick,tick}},[S.MainAdded{S.Handle{namespace,id}},S.MainChanged{S.Handle{namespace,id}}]}
-    case S.InsertMain{_,main} S.Row{+id,Some{_},aux,flag,added,_}:
-      RowEdit{Some{S.Row{id,Some{main},aux,flag,added,tick}},[S.MainChanged{S.Handle{namespace,id}}]}
     case S.InsertFlag{_,flag} S.Row{id,main,aux,_,added,changed}:
       RowEdit{Some{S.Row{id,main,aux,Some{flag},added,changed}},[]}
     case S.RemoveFlag{_} S.Row{id,main,aux,_,added,changed}:
       RowEdit{Some{S.Row{id,main,aux,None{},added,changed}},[]}
-    case S.RemoveMain{_} S.Row{+id,Some{_},aux,flag,_,_}:
-      RowEdit{Some{S.Row{id,None{},aux,flag,0,0}},[S.MainRemoved{S.Handle{namespace,id}}]}
+    case S.InsertMain{_,_} r: RowEdit{Some{r},[]}
     case S.RemoveMain{_} r: RowEdit{Some{r},[]}
     case S.Despawn{_} S.Row{+id,Some{_},_,_,_,_}:
       RowEdit{None{},[S.MainRemoved{S.Handle{namespace,id}},S.Despawned{S.Handle{namespace,id}}]}
@@ -126,9 +121,18 @@ def targeted(-M: Type,-A: Type,-F: Data,command: S.Command<M,A,F>) -> S.Command<
 def edit_target(-Schema: Data,-M: Type,-A: Type,-F: Data,namespace: U32,tick: U32,rows: S.Rows<M,A,F>,result: S.Command<M,A,F> & U32) -> StepResult<Schema,M,A,F>:
   match result:
     case (command,+id): extracted(Schema,M,A,F,namespace,tick,id,command,S.rows_extract(M,A,F,rows,id))
+def main_effect(-Schema: Data,-M: Type,-A: Type,-F: Data,+namespace: U32,+id: U32,result: S.Rows<M,A,F> & S.MainEffect) -> StepResult<Schema,M,A,F>:
+  match result:
+    case (rows,S.AddedMain{}): Stepped{rows,[S.MainAdded{S.Handle{namespace,id}},S.MainChanged{S.Handle{namespace,id}}]}
+    case (rows,S.ChangedMain{}): Stepped{rows,[S.MainChanged{S.Handle{namespace,id}}]}
+    case (rows,S.RemovedMain{}): Stepped{rows,[S.MainRemoved{S.Handle{namespace,id}}]}
+    case (rows,S.MissingMainTarget{}): Stepped{rows,[]}
+    case (rows,S.NoMainChange{}): Stepped{rows,[]}
 def step(-Schema: Data,-M: Type,-A: Type,-F: Data,namespace: U32,tick: U32,rows: S.Rows<M,A,F>,command: S.Command<M,A,F>) -> StepResult<Schema,M,A,F>:
   match command:
     case S.Spawn{id,bundle}: spawn(Schema,M,A,F,namespace,tick,id,rows,bundle)
+    case S.InsertMain{+id,main}: main_effect(Schema,M,A,F,namespace,id,S.rows_replace_main(M,A,F,rows,id,Some{main},tick))
+    case S.RemoveMain{+id}: main_effect(Schema,M,A,F,namespace,id,S.rows_replace_main(M,A,F,rows,id,None{},tick))
     case other: edit_target(Schema,M,A,F,namespace,tick,rows,targeted(M,A,F,other))
 type BatchResult<-Schema: Data,-M: Type,-A: Type,-F: Data> is Type:
   Completed{rows: S.Rows<M,A,F>,changes: List<&2,S.Change<Schema>>}

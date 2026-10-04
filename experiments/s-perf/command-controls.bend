@@ -93,6 +93,16 @@ def existing_rejected(-Schema:Data,result:S.Placement<Cell,Cell,U32>) -> String:
     case S.Rejected{_,_}: "unexpected-initial-place-rejection"
 def existing(-Schema:Data) -> String:
   existing_rejected(Schema,S.rows_place(Cell,Cell,U32,S.rows_empty(Cell,Cell,U32),S.Row{1,Some{Cell{21,22}},Some{Cell{23,24}},Some{25},26,27}))
+def existing_commands(remove:Bool) -> List<S.Command<Cell,Cell,U32>>:
+  match remove:
+    case False{}: [S.InsertMain{1,Cell{81,82}}]
+    case True{}: [S.RemoveMain{1}]
+def existing_apply(-Schema:Data,remove:Bool,result:S.Placement<Cell,Cell,U32>) -> String:
+  match result:
+    case S.Placed{rows}: applied_text(Schema,C.apply_checked(Schema,Cell,Cell,U32,Cell,U32,S.World{7,3,rows,existing_commands(remove),Some{Cell{71,72}},9},42))
+    case S.Rejected{_,_}: "unexpected-initial-place-rejection"
+def existing_edit(-Schema:Data,remove:Bool) -> String:
+  existing_apply(Schema,remove,S.rows_place(Cell,Cell,U32,S.rows_empty(Cell,Cell,U32),S.Row{1,Some{Cell{21,22}},Some{Cell{23,24}},Some{25},26,27}))
 def main() -> IO(Unit):
   do IO<Unit>:
     IO.print(success(Alpha))
@@ -104,4 +114,6 @@ def main() -> IO(Unit):
     IO.print(invariant_fault(Beta))
     IO.print(existing(Alpha))
     IO.print(existing(Beta))
+    IO.print(existing_edit(Alpha,False{}))
+    IO.print(existing_edit(Beta,True{}))
     return Unit{}

@@ -12,12 +12,13 @@ must terminate at its IO capability boundary on either rejection, rather than
 converting either into an empty successful barrier or MissingEntity.
 
 Finite controls pass checking under five seconds and full-field Native O3/JS
-comparison. Nine exact lines cover both nominal schemas, descending/repeated
+comparison. Eleven exact lines cover both nominal schemas, descending/repeated
 logical targets, remove/reinsert Main, a first-row tombstone and stale subsequent
 edit, live Main absence with retained Aux, growth through ID 65537, stamps and FIFO
 changes. Unsupported IDs 0, 131073 and U32.max retain all queued payload fields;
 a pre-existing live owner's Main/Aux/flag/stamps and ledger/namespace/cursor/mode
-are also preserved. Two malformed duplicate-Spawn controls preserve old storage,
+are also preserved. Existing Main replacement preserves its original added stamp
+and Aux; Main removal clears stamps while retaining Aux and live membership. Two malformed duplicate-Spawn controls preserve old storage,
 incoming Main/Aux, later pending Main and prior committed changes. Three compiling
 mutants are killed on both backends: reverse FIFO, omit MainChanged, skip despawn.
 
@@ -33,6 +34,12 @@ The recorded run used the storage/identity worker snapshot at
 30s, clang 120s; CPU 10, Native O3, one worker, GPU off. Expectations are the
 complete authored fixture output, not a checksum-only validation. This snapshot
 has no universal proof, main-trace acceptance, comparative timing or production
-adoption claim. Main structural edits currently reconstruct one transient row,
-including Aux; a required follow-up replaces them with dedicated Main+metadata
-operations retaining the independent Aux column untouched.
+adoption claim. Structural InsertMain/RemoveMain now use the dedicated indexed
+Main+metadata helper, threading the Aux column unchanged without extracting it.
+The superseded transient-row snapshot is retained in Git commit `5c1e586` and
+`command-controls-row-snapshot-evidence.json`; its temporary storage source hash
+is historical evidence, not current-source acceptance. Current compiling mutant
+outputs are retained as full-field text witnesses alongside the exact original
+expectation. Flag edits and despawn still reconstruct a single transient row;
+metadata-only flag updates remain a concrete optimization follow-up, with the
+same full-field controls as the return condition.
