@@ -8,6 +8,7 @@ import ./transaction-dispatch-adapters.bend as A
 import ./audited-invoker.bend as V
 import ./observations.bend as O
 import ./payload.bend as P
+import ./systems.bend as U
 import ./observation-render.bend as Z
 import ./schedule.bend as Q
 import ./dispatcher.bend as D
@@ -20,6 +21,21 @@ def outcome(value:T.Outcome) -> String:
   match value:
     case T.Success{}: "success"
     case T.Failure{code}: "failure" ++ U32.show(code)
+def main_view(value:T.MainView) -> String:
+  match value:
+    case T.MotionMain{v}: F.position(v)
+    case T.HealthMain{v}: F.vitals(v)
+def access(value:T.Access<T.MainView>) -> String:
+  match value:
+    case T.Found{v}: main_view(v)
+    case T.Mismatch{}: "mismatch"
+    case T.Missing{}: "missing"
+def body_observation(value:U.Observation) -> String:
+  match value:
+    case U.MainObserved{v}: access(v)
+    case U.ReservedObserved{v}: "reserved(" ++ access(v) ++ ")"
+    case U.LedgerObserved{v}: Maybe.show(&2,T.LedgerView,F.ledger_show,v)
+
 def motion_main(value:U32) -> T.Position:
   T.Position{F.vector(value),7}
 def motion_ledger(u:Unit) -> T.MotionLedger:
@@ -29,27 +45,27 @@ def motion_end(audit:D.Audit) -> IO(Unit):
 def motion_retry_world(audit:D.Audit,pair:S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode> & O.WorldView<T.PositionView,T.VelocityView,T.Selected,T.LedgerView,T.MotionMode>) -> IO(Unit):
   match pair:
     case (world,view): IO.bind(Unit,Unit,IO.print("motion:RETRY=" ++ Z.motion(view)), _ => motion_end(audit))
-def motion_retry(result:V.ServiceResult<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>>) -> IO(Unit):
+def motion_retry(result:V.ServiceResult<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,T.PositionView,T.VelocityView,T.Selected>) -> IO(Unit):
   match result:
-    case V.ServiceResult{A.RunResult{world,status,escaped,observations,pings},audit}: IO.bind(Unit,Unit,IO.print("motion:retry:" ++ outcome(status) ++ ":escaped=" ++ handle_id(T.MotionSchema,escaped) ++ ":pings=" ++ List.show(&2,U32,U32.show,pings)), _ => motion_retry_world(audit,O.world(T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode,T.PositionView,T.VelocityView,T.LedgerView,P.position_get,P.velocity_get,P.motion_ledger_get,world)))
+    case V.ServiceResult{A.RunResult{world,status,escaped,observations,pings},audit,reservation}: IO.bind(Unit,Unit,IO.print("motion:retry:" ++ outcome(status) ++ ":escaped=" ++ handle_id(T.MotionSchema,escaped) ++ ":pings=" ++ List.show(&2,U32,U32.show,pings) ++ ":reservation=" ++ Maybe.show(&2,O.BundleView<T.PositionView,T.VelocityView,T.Selected>,Z.bundle(T.PositionView,T.VelocityView,T.Selected,F.position,F.velocity,F.selected),reservation) ++ ":body=" ++ List.show(&2,U.Observation,body_observation,observations)), _ => motion_retry_world(audit,O.world(T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode,T.PositionView,T.VelocityView,T.LedgerView,P.position_get,P.velocity_get,P.motion_ledger_get,world)))
 def motion_after_fail(selected:S.Handle<T.MotionSchema>,world:S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,audit:D.Audit) -> IO(Unit):
-  IO.bind(D.Audit,Unit,D.audit_log(audit,"after-failed-B"), a => IO.bind(V.ServiceResult<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>>,Unit,V.motion_b(Q.Retry{},3,4,world,selected,a),motion_retry))
+  IO.bind(D.Audit,Unit,D.audit_log(audit,"after-failed-B"), a => IO.bind(V.ServiceResult<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,T.PositionView,T.VelocityView,T.Selected>,Unit,V.motion_b(Q.Retry{},3,4,world,selected,a),motion_retry))
 def motion_fail_world(selected:S.Handle<T.MotionSchema>,audit:D.Audit,pair:S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode> & O.WorldView<T.PositionView,T.VelocityView,T.Selected,T.LedgerView,T.MotionMode>) -> IO(Unit):
   match pair:
     case (world,view): IO.bind(Unit,Unit,IO.print("motion:FAIL=" ++ Z.motion(view)), _ => motion_after_fail(selected,world,audit))
-def motion_failed(selected:S.Handle<T.MotionSchema>,result:V.ServiceResult<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>>) -> IO(Unit):
+def motion_failed(selected:S.Handle<T.MotionSchema>,result:V.ServiceResult<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,T.PositionView,T.VelocityView,T.Selected>) -> IO(Unit):
   match result:
-    case V.ServiceResult{A.RunResult{world,status,escaped,observations,pings},audit}: IO.bind(Unit,Unit,IO.print("motion:failed:" ++ outcome(status) ++ ":escaped=" ++ handle_id(T.MotionSchema,escaped) ++ ":pings=" ++ List.show(&2,U32,U32.show,pings)), _ => motion_fail_world(selected,audit,O.world(T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode,T.PositionView,T.VelocityView,T.LedgerView,P.position_get,P.velocity_get,P.motion_ledger_get,world)))
+    case V.ServiceResult{A.RunResult{world,status,escaped,observations,pings},audit,reservation}: IO.bind(Unit,Unit,IO.print("motion:failed:" ++ outcome(status) ++ ":escaped=" ++ handle_id(T.MotionSchema,escaped) ++ ":pings=" ++ List.show(&2,U32,U32.show,pings) ++ ":reservation=" ++ Maybe.show(&2,O.BundleView<T.PositionView,T.VelocityView,T.Selected>,Z.bundle(T.PositionView,T.VelocityView,T.Selected,F.position,F.velocity,F.selected),reservation) ++ ":body=" ++ List.show(&2,U.Observation,body_observation,observations)), _ => motion_fail_world(selected,audit,O.world(T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode,T.PositionView,T.VelocityView,T.LedgerView,P.position_get,P.velocity_get,P.motion_ledger_get,world)))
 def motion_after_a(+selected:S.Handle<T.MotionSchema>,world:S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,audit:D.Audit) -> IO(Unit):
-  IO.bind(D.Audit,Unit,D.audit_log(audit,"after-A"), a => IO.bind(V.ServiceResult<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>>,Unit,V.motion_b(Q.BFail{},2,3,world,selected,a), r => motion_failed(selected,r)))
+  IO.bind(D.Audit,Unit,D.audit_log(audit,"after-A"), a => IO.bind(V.ServiceResult<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,T.PositionView,T.VelocityView,T.Selected>,Unit,V.motion_b(Q.BFail{},2,3,world,selected,a), r => motion_failed(selected,r)))
 def motion_a_world(selected:S.Handle<T.MotionSchema>,audit:D.Audit,pair:S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode> & O.WorldView<T.PositionView,T.VelocityView,T.Selected,T.LedgerView,T.MotionMode>) -> IO(Unit):
   match pair:
     case (world,view): IO.bind(Unit,Unit,IO.print("motion:A=" ++ Z.motion(view)), _ => motion_after_a(selected,world,audit))
-def motion_a_done(selected:S.Handle<T.MotionSchema>,result:V.ServiceResult<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>>) -> IO(Unit):
+def motion_a_done(selected:S.Handle<T.MotionSchema>,result:V.ServiceResult<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,T.PositionView,T.VelocityView,T.Selected>) -> IO(Unit):
   match result:
-    case V.ServiceResult{A.RunResult{world,status,escaped,observations,pings},audit}: IO.bind(Unit,Unit,IO.print("motion:A-result:" ++ outcome(status) ++ ":escaped=" ++ handle_id(T.MotionSchema,escaped) ++ ":pings=" ++ List.show(&2,U32,U32.show,pings)), _ => motion_a_world(selected,audit,O.world(T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode,T.PositionView,T.VelocityView,T.LedgerView,P.position_get,P.velocity_get,P.motion_ledger_get,world)))
+    case V.ServiceResult{A.RunResult{world,status,escaped,observations,pings},audit,reservation}: IO.bind(Unit,Unit,IO.print("motion:A-result:" ++ outcome(status) ++ ":escaped=" ++ handle_id(T.MotionSchema,escaped) ++ ":pings=" ++ List.show(&2,U32,U32.show,pings) ++ ":reservation=" ++ Maybe.show(&2,O.BundleView<T.PositionView,T.VelocityView,T.Selected>,Z.bundle(T.PositionView,T.VelocityView,T.Selected,F.position,F.velocity,F.selected),reservation) ++ ":body=" ++ List.show(&2,U.Observation,body_observation,observations)), _ => motion_a_world(selected,audit,O.world(T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode,T.PositionView,T.VelocityView,T.LedgerView,P.position_get,P.velocity_get,P.motion_ledger_get,world)))
 def motion_a_started(+selected:S.Handle<T.MotionSchema>,world:S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,a:S.Handle<T.MotionSchema>) -> IO(Unit):
-  IO.bind(V.ServiceResult<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>>,Unit,V.motion_a(1,T.Failure{99},2,world,a,D.Console{}), r => motion_a_done(selected,r))
+  IO.bind(V.ServiceResult<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,T.PositionView,T.VelocityView,T.Selected>,Unit,V.motion_a(1,T.Failure{99},2,world,a,D.Console{}), r => motion_a_done(selected,r))
 def motion_seed_applied(selected:S.Handle<T.MotionSchema>,a:S.Handle<T.MotionSchema>,result:S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode> & List<&2,S.Change<T.MotionSchema>>) -> IO(Unit):
   match result:
     case (world,_): motion_a_started(selected,world,a)
@@ -80,27 +96,27 @@ def health_end(audit:D.Audit) -> IO(Unit):
 def health_retry_world(audit:D.Audit,pair:S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode> & O.WorldView<T.VitalsView,T.ArmorView,T.Tracked,T.LedgerView,T.HealthMode>) -> IO(Unit):
   match pair:
     case (world,view): IO.bind(Unit,Unit,IO.print("health:RETRY=" ++ Z.health(view)), _ => health_end(audit))
-def health_retry(result:V.ServiceResult<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>>) -> IO(Unit):
+def health_retry(result:V.ServiceResult<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>,T.VitalsView,T.ArmorView,T.Tracked>) -> IO(Unit):
   match result:
-    case V.ServiceResult{A.RunResult{world,status,escaped,observations,pings},audit}: IO.bind(Unit,Unit,IO.print("health:retry:" ++ outcome(status) ++ ":escaped=" ++ handle_id(T.HealthSchema,escaped) ++ ":pings=" ++ List.show(&2,U32,U32.show,pings)), _ => health_retry_world(audit,O.world(T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode,T.VitalsView,T.ArmorView,T.LedgerView,P.vitals_get,P.armor_get,P.health_ledger_get,world)))
+    case V.ServiceResult{A.RunResult{world,status,escaped,observations,pings},audit,reservation}: IO.bind(Unit,Unit,IO.print("health:retry:" ++ outcome(status) ++ ":escaped=" ++ handle_id(T.HealthSchema,escaped) ++ ":pings=" ++ List.show(&2,U32,U32.show,pings) ++ ":reservation=" ++ Maybe.show(&2,O.BundleView<T.VitalsView,T.ArmorView,T.Tracked>,Z.bundle(T.VitalsView,T.ArmorView,T.Tracked,F.vitals,F.armor,F.tracked),reservation) ++ ":body=" ++ List.show(&2,U.Observation,body_observation,observations)), _ => health_retry_world(audit,O.world(T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode,T.VitalsView,T.ArmorView,T.LedgerView,P.vitals_get,P.armor_get,P.health_ledger_get,world)))
 def health_after_fail(selected:S.Handle<T.HealthSchema>,world:S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,audit:D.Audit) -> IO(Unit):
-  IO.bind(D.Audit,Unit,D.audit_log(audit,"after-failed-B"), a => IO.bind(V.ServiceResult<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>>,Unit,V.health_b(Q.Retry{},3,4,world,selected,a),health_retry))
+  IO.bind(D.Audit,Unit,D.audit_log(audit,"after-failed-B"), a => IO.bind(V.ServiceResult<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>,T.VitalsView,T.ArmorView,T.Tracked>,Unit,V.health_b(Q.Retry{},3,4,world,selected,a),health_retry))
 def health_fail_world(selected:S.Handle<T.HealthSchema>,audit:D.Audit,pair:S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode> & O.WorldView<T.VitalsView,T.ArmorView,T.Tracked,T.LedgerView,T.HealthMode>) -> IO(Unit):
   match pair:
     case (world,view): IO.bind(Unit,Unit,IO.print("health:FAIL=" ++ Z.health(view)), _ => health_after_fail(selected,world,audit))
-def health_failed(selected:S.Handle<T.HealthSchema>,result:V.ServiceResult<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>>) -> IO(Unit):
+def health_failed(selected:S.Handle<T.HealthSchema>,result:V.ServiceResult<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>,T.VitalsView,T.ArmorView,T.Tracked>) -> IO(Unit):
   match result:
-    case V.ServiceResult{A.RunResult{world,status,escaped,observations,pings},audit}: IO.bind(Unit,Unit,IO.print("health:failed:" ++ outcome(status) ++ ":escaped=" ++ handle_id(T.HealthSchema,escaped) ++ ":pings=" ++ List.show(&2,U32,U32.show,pings)), _ => health_fail_world(selected,audit,O.world(T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode,T.VitalsView,T.ArmorView,T.LedgerView,P.vitals_get,P.armor_get,P.health_ledger_get,world)))
+    case V.ServiceResult{A.RunResult{world,status,escaped,observations,pings},audit,reservation}: IO.bind(Unit,Unit,IO.print("health:failed:" ++ outcome(status) ++ ":escaped=" ++ handle_id(T.HealthSchema,escaped) ++ ":pings=" ++ List.show(&2,U32,U32.show,pings) ++ ":reservation=" ++ Maybe.show(&2,O.BundleView<T.VitalsView,T.ArmorView,T.Tracked>,Z.bundle(T.VitalsView,T.ArmorView,T.Tracked,F.vitals,F.armor,F.tracked),reservation) ++ ":body=" ++ List.show(&2,U.Observation,body_observation,observations)), _ => health_fail_world(selected,audit,O.world(T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode,T.VitalsView,T.ArmorView,T.LedgerView,P.vitals_get,P.armor_get,P.health_ledger_get,world)))
 def health_after_a(+selected:S.Handle<T.HealthSchema>,world:S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,audit:D.Audit) -> IO(Unit):
-  IO.bind(D.Audit,Unit,D.audit_log(audit,"after-A"), a => IO.bind(V.ServiceResult<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>>,Unit,V.health_b(Q.BFail{},2,3,world,selected,a), r => health_failed(selected,r)))
+  IO.bind(D.Audit,Unit,D.audit_log(audit,"after-A"), a => IO.bind(V.ServiceResult<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>,T.VitalsView,T.ArmorView,T.Tracked>,Unit,V.health_b(Q.BFail{},2,3,world,selected,a), r => health_failed(selected,r)))
 def health_a_world(selected:S.Handle<T.HealthSchema>,audit:D.Audit,pair:S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode> & O.WorldView<T.VitalsView,T.ArmorView,T.Tracked,T.LedgerView,T.HealthMode>) -> IO(Unit):
   match pair:
     case (world,view): IO.bind(Unit,Unit,IO.print("health:A=" ++ Z.health(view)), _ => health_after_a(selected,world,audit))
-def health_a_done(selected:S.Handle<T.HealthSchema>,result:V.ServiceResult<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>>) -> IO(Unit):
+def health_a_done(selected:S.Handle<T.HealthSchema>,result:V.ServiceResult<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>,T.VitalsView,T.ArmorView,T.Tracked>) -> IO(Unit):
   match result:
-    case V.ServiceResult{A.RunResult{world,status,escaped,observations,pings},audit}: IO.bind(Unit,Unit,IO.print("health:A-result:" ++ outcome(status) ++ ":escaped=" ++ handle_id(T.HealthSchema,escaped) ++ ":pings=" ++ List.show(&2,U32,U32.show,pings)), _ => health_a_world(selected,audit,O.world(T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode,T.VitalsView,T.ArmorView,T.LedgerView,P.vitals_get,P.armor_get,P.health_ledger_get,world)))
+    case V.ServiceResult{A.RunResult{world,status,escaped,observations,pings},audit,reservation}: IO.bind(Unit,Unit,IO.print("health:A-result:" ++ outcome(status) ++ ":escaped=" ++ handle_id(T.HealthSchema,escaped) ++ ":pings=" ++ List.show(&2,U32,U32.show,pings) ++ ":reservation=" ++ Maybe.show(&2,O.BundleView<T.VitalsView,T.ArmorView,T.Tracked>,Z.bundle(T.VitalsView,T.ArmorView,T.Tracked,F.vitals,F.armor,F.tracked),reservation) ++ ":body=" ++ List.show(&2,U.Observation,body_observation,observations)), _ => health_a_world(selected,audit,O.world(T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode,T.VitalsView,T.ArmorView,T.LedgerView,P.vitals_get,P.armor_get,P.health_ledger_get,world)))
 def health_a_started(+selected:S.Handle<T.HealthSchema>,world:S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,a:S.Handle<T.HealthSchema>) -> IO(Unit):
-  IO.bind(V.ServiceResult<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>>,Unit,V.health_a(1,T.Failure{99},2,world,a,D.Console{}), r => health_a_done(selected,r))
+  IO.bind(V.ServiceResult<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>,T.VitalsView,T.ArmorView,T.Tracked>,Unit,V.health_a(1,T.Failure{99},2,world,a,D.Console{}), r => health_a_done(selected,r))
 def health_seed_applied(selected:S.Handle<T.HealthSchema>,a:S.Handle<T.HealthSchema>,result:S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode> & List<&2,S.Change<T.HealthSchema>>) -> IO(Unit):
   match result:
     case (world,_): health_a_started(selected,world,a)
