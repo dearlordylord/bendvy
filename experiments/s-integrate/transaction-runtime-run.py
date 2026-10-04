@@ -4,7 +4,7 @@ import pathlib,tempfile,sys,json,shutil,hashlib
 HERE=pathlib.Path(__file__).resolve().parent
 sys.path.insert(0,str(HERE.parent/'t05'))
 from run import build,paired
-names=['transaction.bend','transaction-runtime-controls.bend','types.bend']
+names=['transaction.bend','transaction-runtime-controls.bend','types.bend','storage.bend','identity.bend','payload.bend','transaction-world-controls.bend']
 mutants={
  'fifo_inverse':('MainInverse{handle,old} <> undo','List.append(&2,Inverse<H>,undo,[MainInverse{handle,old}])'),
  'omit_main_inverse':('MainInverse{handle,old} <> undo','undo'),
@@ -20,6 +20,14 @@ with tempfile.TemporaryDirectory(prefix='transaction-runtime-') as d:
   if replacement:
    p=folder/'transaction.bend';s=p.read_text();assert replacement[0] in s;p.write_text(s.replace(*replacement))
   value=paired(build(folder/'transaction-runtime-controls.bend',folder),quoted=True)
+  world_value=paired(build(folder/'transaction-world-controls.bend',folder),quoted=True)
+  world_expected='20,21,22,23:meta=7:ledger=101,101,102,103:epoch=4:next=2\n20,21,22,23:meta=9:2:ledger=101,101,102,103:epoch=4:next=2'
+  if label=='original':
+   assert world_value==world_expected
+   result['world_original']=world_value
+  else:
+   assert world_value!=world_expected
+   result.setdefault('world_mutants',{})[label]=world_value
   if label=='original':assert value=='20:101:6';result['original']=value
   else:assert value!='20:101:6';result['mutants'][label]=value
 (HERE/'transaction-runtime-evidence.json').write_text(json.dumps(result,indent=2)+'\n')
