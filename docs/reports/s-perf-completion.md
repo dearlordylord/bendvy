@@ -45,4 +45,6 @@ The quiet timing follow-up must build equivalent fresh warmup and measured world
 
 A diagnostics follow-up must expose actual active transaction staging/journal/mark peaks at workload boundaries where currently unavailable; connect owner-preserving hooks and detect lost/incorrect counters without changing callback output. Larger Readers/FailedTxn deadline cases require equivalent work inside the existing limits, or an explicitly reviewed repin shared by every backend. Simulation and copied Tower Defense integration remain behind existing capability/performance prerequisites; `/workspace/typescript/jev` is untouched.
 
+Static `git diff --check a976667...HEAD` reports the unchanged inherited trailing space at host-observations.bend:8 in three frozen diagnostic copies. It is retained to preserve source hashes, not reported as a clean whitespace check. Python runner compilation and all55 quiet package hashes pass.
+
 Verification environment: Bend2.0.34, Node24.20.0, ARM64 clang14, Native O3/one worker/GPU off for timing. Checker/runtime5s, codegen30s, clang120s. CPU affinity does not make the machine exclusive. Installed/source Bend version difference, exact reference pins, scoped checker repair and unchanged kernel/Base are recorded in the evidence. Finite execution and approved endpoint proofs do not establish universal runtime refinement.
