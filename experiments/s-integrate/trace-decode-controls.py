@@ -44,7 +44,18 @@ def main():
     rejects(lambda: lane.event(next(value for value in fixture
         if isinstance(value, dict) and value.get("kind") == "ReadDone")))
     rejects(lambda: decoder.decode(json.dumps(reserved)))
-    rejects(lambda: lane.event(dispatched))  # This fixture omits other actual capture owners.
+    missing = copy.deepcopy(dispatched)
+    missing["worldName"] = "alpha"
+    rejects(lambda: lane.event(missing))  # This fixture omits other actual capture owners.
+    invalid_tracker = copy.deepcopy(dispatched)
+    invalid_tracker["tracked"] = 1
+    rejects(lambda: lane.event(invalid_tracker))
+    untracked = copy.deepcopy(dispatched)
+    untracked["tracked"] = False
+    before = copy.deepcopy(lane.result["dispatches"])
+    lane.event(untracked)
+    assert lane.result["dispatches"] == before
+    assert lane.raw[-1] == untracked
     print(json.dumps({"status": "PASS", "scope": "decoder fixtures only; no actual Host execution",
         "checked": ["full payload/metadata", "raw ID", "failure code", "handle reissue",
                     "foreign namespace", "unmatched completion", "missing lane", "missing captures"]}))

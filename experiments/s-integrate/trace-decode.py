@@ -144,9 +144,20 @@ class Lane:
                 "lookups": {item["label"]: self.lookup(item, world) for item in value["lookups"]},
                 "prior": outcome(value["prior"])})
         elif kind == "Dispatch":
-            counts = {item["system"]: item["value"] for item in value["counts"]}
-            if len(counts) != len(value["counts"]):
-                raise ValueError("duplicate capture instance in dispatch observation")
+            if type(value["tracked"]) is not bool:
+                raise ValueError("dispatch tracker membership must be Boolean")
+            if not value["tracked"]:
+                return
+            if value["worldName"] != "alpha":
+                raise ValueError("public main dispatch tracker must belong to alpha")
+            requested = {"A", "B", "Fast", "TailInner", "TailOuter"}
+            counts = {}
+            for item in value["counts"]:
+                name = item["system"]
+                if name in requested:
+                    if name in counts:
+                        raise ValueError("duplicate selected capture instance in dispatch observation")
+                    counts[name] = item["value"]
             capture = {name: counts[name] for name in ("A", "B", "Fast")}
             tails = {"inner": counts["TailInner"][0], "outer": counts["TailOuter"][0]}
             self.result["dispatches"].append({"name": value["step"],
@@ -154,6 +165,8 @@ class Lane:
             self.result["finalCounts"] = capture
             self.result["tails"] = tails
         elif kind == "OwnWrites":
+            if not value["views"]:
+                return
             mains = []
             ledger = None
             reserved = None
@@ -199,7 +212,12 @@ def decode(text):
             current.result["auditEffects"].append(line)
             continue
         value = json.loads(line)
-        if value["kind"] == "Lane":
+        if isinstance(value, list):
+            if current is None:
+                raise ValueError("Host event array before lane header")
+            for event in value:
+                current.event(event)
+        elif value["kind"] == "Lane":
             if current is not None:
                 lanes.append(current.finish())
             current = Lane(value["schema"], value["style"])
