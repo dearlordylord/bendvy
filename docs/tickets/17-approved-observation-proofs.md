@@ -71,7 +71,7 @@ a blanket benchmark or full-core completion gate.
 | `query_absent_complete_ordered` | Complete general proof, kernel and own-endpoint compiling selection-dispatch mutant. |
 | `explicit_flush_independent` | Complete general proof, kernel, eight fresh controls and own-endpoint compiling queue-discard mutant. |
 | `schedule_execution_exact` | Complete general proof and kernel; two compiling tick mutants fail the dedicated universal endpoint induction with independently active complete-law witnesses. |
-| `owned_runtime_schedule_correspondence` | Complete endpoint still open. The exact live affine binder amendment and two support facts are approved under user delegation; their proofs remain outstanding. Original erased-owner signature is historical. |
+| `owned_runtime_schedule_correspondence` | Complete endpoint still open. The exact live affine binder amendment and two support facts are approved under user delegation; both support proofs are complete and independently reviewed; the full owned proof remains outstanding. Original erased-owner signature is historical. |
 
 Reports: [lookup](../../experiments/p-observe-lookup/README.md),
 [queries](../../experiments/p-observe-queries/README.md),
@@ -96,7 +96,9 @@ Both exact requests were approved by Astra under the user's explicit delegation;
 claim follows from the diagnostic family or structural Word helpers. The remaining 22
 catalogue candidates are still unapproved.
 
-Current continuation: prove the two approved arithmetic subjects and the exact revised owned theorem, including its actual prefix/owner links.
+The exact universal [U32 comparison](../../experiments/p-approved-u32-comparison/README.md) and [no-wrap increment](../../experiments/p-approved-u32-increment/README.md) proofs pass checker/kernel, compiling own-endpoint mutants, original true-domain witnesses and independent Spec/Standards reviews. They do not complete owned correspondence.
+
+Current continuation: prove the exact revised owned theorem, including its actual prefix/owner links.
 The pure schedule uses the checked query and flush links without changing their subjects.
 The active execution goal remains **#18, then #19**; six completed laws do not
 close #18 or authorize a completion claim for #19.
