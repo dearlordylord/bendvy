@@ -27,8 +27,10 @@ numerical thresholds remain pending. No general proofs exist.
 #12 replacement is being implemented in an isolated worktree. Direct erased-owner
 propositions replace the rejected Boolean certificate encoding; no runtime owner
 clone is assumed. Preliminary Astra review found missing public caller links:
-owned query/lookup results and the reservation-returned handle must be constrained
-beside successor-world observations. Add direct operation correspondences and
+owned query/lookup results, the reservation-returned handle and actual runtime
+schedule execution must be constrained beside successor-world observations.
+Runtime schedule correspondence needs prefix-safe increments and must reject
+ignored steps or an implicit final flush. Add direct operation correspondences and
 compiling mutants before presenting exact law IDs/revision. Current draft counts
 and earlier run artifacts are not final evidence or approval.
 
