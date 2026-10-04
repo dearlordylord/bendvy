@@ -140,3 +140,24 @@ inverses or retained owners and an explicit interface decision. S-INTEGRATE must
 still establish actual command application/authority, allocation/marks/cursor
 rollback, general clocks/retention and two-schema composition. Diagnostic host
 strings and a saved event index are not host-IO or universal reader proofs.
+
+
+## S-LAYOUT return conditions
+
+[#16](../experiments/s-layout/README.md) completes bounded indexed/owned storage
+research, including untimed relocation, owned inverse restoration and paired
+provider controls. It does not select a production layout: dense traversal and
+some JS workloads regress, and the two-cell indexed owned provider loses to its
+owned-list counterpart. Before adoption, investigate dense/query projection costs,
+non-head churn and membership maintenance, dynamic ID-to-slot mapping/compaction,
+representative owned payload sizes and retained memory beyond inherited RSS.
+
+Detail and review S-INTEGRATE using #16/#17 evidence: thread the sole world owner
+through two-schema abstract providers, actual identity/commands, transactions,
+independent readers and repeatable schedules; establish allocation/mark/cursor
+restoration and disposition of removed owners. Arbitrary destructive payload
+restoration remains conditional on an explicit recoverable interface. Return to
+performance acceptance only with integrated equivalent workloads, uncertainty
+measurements and approved numerical thresholds; retain mandatory native
+substantial improvement and JS comparability. No general law/refinement proof
+or simulation readiness follows from these finite controls.

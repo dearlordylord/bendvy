@@ -41,4 +41,46 @@ pairs and five compiling mutant checks are wired into the runner. The coordinato
 reports the full CPU10 rerun passed, including both 39-line schedule variants,
 two canaries, six controls and five mutants. This reviewer did not rerun it.
 The coordinator owns delivery checklist synchronization. Specific law, production API and
-performance approval gates remain open. Other packages are not yet reviewed.
+performance approval gates remain open.
+
+## #16 S-LAYOUT
+
+Reviewed cumulative range `484fb88...276a71c`, focusing on
+`df22bf2...276a71c` (`276a71c`, indexed/owned-storage investigation). Authority:
+live [#16](https://github.com/dearlordylord/bendvy/issues/16),
+[ticket](../tickets/15-indexed-storage.md), SPEC, initial review and law decision.
+
+**No blocking Spec findings or scope creep identified for bounded research.**
+All nine acceptance items have concrete implementation or explicitly bounded
+evidence; this does not pass product performance or integration gates.
+
+- Representation/bounds and identity/order: `core.bend` checks logical IDs and
+  setup capacity before reversed-slot array access; trusted fixed constructors
+  establish array sizes. `identity.bend` carries actual factory namespaces,
+  binds commands to handle IDs and retains pending/live distinctions. Lifecycle
+  checks cover FIFO, reinsertion, exhaustion and out-of-range IDs; the foreign
+  collision is checked as the approved TS divergence. `relocation.bend` actually
+  moves a row and updates its map. Its stale-map mutant is observable. Timed
+  fixed mapping and untimed relocation are accurately distinguished.
+- “Data-copy rollback cannot satisfy this bounded owned-payload criterion”:
+  `owned.bend` swaps genuinely Type cells out, returns their sole owners and
+  reverses numeric-field inverses on retained payload arrays. Full snapshots,
+  retry, prior commit and explicit disposal are compared with actual TS.
+  Ten generated provider pairs exercise both nominal schemas through the real
+  indexed read interface, including fabrication/reconstruction and write denial.
+- Data/owned comparison and exact observations: six Data kernels cover all
+  required sizes; separate reader fixtures exercise independent message/change
+  positions through indexed-row projections. The owned comparison uses a
+  disclosed two-cell slice and a distinct owned-list baseline. Neither reader
+  integration nor owned scaling is inferred from Data timings. Ten compiling
+  mutants cover mapping, order, readers, writes, churn and both rollback paths.
+- Reproducibility/tradeoffs/follow-ups: inspected timer placement, three warmups,
+  five samples, raw observations, RSS limitations and integration proposal.
+  Verified source hashes, reference pins, 18 Data cases × five backends × five
+  samples, owned five-backend samples, and recorded Data medians/ranges.
+  Dense, sparse-JS, rollback-JS and owned-versus-list regressions are disclosed.
+  “Research completion is not final performance acceptance” is respected.
+
+This reviewer inspected code, adapters, controls and stored 59 semantic
+checkpoints; no new runtime/measurement run is claimed. Coordinator verification
+was running during review. #12 is not yet reviewed in this report.
