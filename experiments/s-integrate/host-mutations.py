@@ -41,8 +41,8 @@ MUTATIONS = [
 ]
 
 
-def closure():
-    names, pending = set(), ['host-fixture.bend']
+def closure(entrypoints):
+    names, pending = set(), list(entrypoints)
     while pending:
         name = pending.pop()
         if name in names:
@@ -77,11 +77,14 @@ def main():
     reference_text = command(['node', ROOT / 'experiments/s-integrate-trace/reference-main.mjs'])
     reference = json.loads(reference_text)
     assert not reference.get('defect') and not reference.get('differences')
-    names = closure()
+    split = ['host-motion-fixture.bend', 'host-health-fixture.bend']
+    entrypoints = split if all((HERE / name).exists() for name in split) else ['host-fixture.bend']
+    names = closure(entrypoints)
     frozen = {name: (HERE / name).read_text() for name in names}
     evidence = {'scope': args.stage, 'fullTaskAcceptance': False, 'checkerLimitSeconds': 5,
                 'runtimeLimitSeconds': 5, 'referenceSHA256': hashlib.sha256(reference_text.encode()).hexdigest(),
                 'nativeOptimization': args.optimization, 'cpuAffinity': sorted(os.sched_getaffinity(0)),
+                'entrypoints': entrypoints,
                 'decoderSHA256': hashlib.sha256((HERE / 'trace-decode.py').read_bytes()).hexdigest(),
                 'comparatorSHA256': hashlib.sha256((HERE / 'trace-compare.py').read_bytes()).hexdigest(),
                 'sources': {name: hashlib.sha256(frozen[name].encode()).hexdigest() for name in names},
@@ -109,21 +112,25 @@ def main():
 '''
                         source = source.replace('def storage_commit(', helper + '\ndef storage_commit(')
                 (folder / name).write_text(source)
-            if args.optimization == 'O3':
-                programs = build(folder / 'host-fixture.bend', folder)
-            else:
-                source = folder / 'host-fixture.bend'
-                checked = command([CHECK, source, '--check-only'])
-                assert 'ALL PROOFS CHECK' in checked
-                native_c, native, javascript = folder / 'host.c', folder / 'host-native', folder / 'host.js'
-                command(['bend', source, '-o', native_c], timeout=30)
-                command(['clang', '-std=c11', '-O0', native_c, '-lpthread', '-lm', '-o', native], timeout=120)
-                command(['bend', source, '-o', javascript], timeout=30)
-                programs = native, javascript
-                print(label, 'compiled Native O0 correctness-only and JS', flush=True)
+            programs = []
+            for entrypoint in entrypoints:
+                source = folder / entrypoint
+                if args.optimization == 'O3':
+                    programs.append(build(source, folder))
+                else:
+                    checked = command([CHECK, source, '--check-only'])
+                    assert 'ALL PROOFS CHECK' in checked
+                    native_c = folder / (source.stem + '.c')
+                    native = folder / (source.stem + '-native')
+                    javascript = folder / (source.stem + '.js')
+                    command(['bend', source, '-o', native_c], timeout=30)
+                    command(['clang', '-std=c11', '-O0', native_c, '-lpthread', '-lm', '-o', native], timeout=120)
+                    command(['bend', source, '-o', javascript], timeout=30)
+                    programs.append((native, javascript))
+            print(label, 'compiled actual entrypoints: Native ' + args.optimization + ' and JS', flush=True)
             observations = []
-            for backend, executable in zip(['native', 'javascript'], programs):
-                raw = execute(executable)
+            for index, backend in enumerate(['native', 'javascript']):
+                raw = '\n'.join(execute(pair[index]) for pair in programs)
                 try:
                     decoded = DECODE.decode(raw)
                 except ValueError as error:
@@ -155,10 +162,20 @@ def main():
                 diff = differences(reference, decoded, channels)
                 if mutation:
                     intended = [item for item in diff if ('.' + mutation[4]) in item['path']]
+                    if label == 'failed-publication-leak':
+                        intended = [item for item in intended if '.messages' in item['path']]
                     assert intended, (label, backend, diff[:5])
+                    witness = intended[0]
+                    if label == 'failed-publication-leak':
+                        match = re.match(r'^(.*)\.reads\[(\d+)\]', witness['path'])
+                        lane, at = match[1], int(match[2])
+                        actual_read = next(row for row in decoded['results'] if row['lane'] == lane)['reads'][at]
+                        expected_read = next(row for row in reference['results'] if row['lane'] == lane)['reads'][at]
+                        witness = {**witness, 'step': actual_read['step'], 'who': actual_read['who'],
+                                   'expectedMessages': expected_read['messages'], 'actualMessages': actual_read['messages']}
                     observations.append({'backend': backend, 'compiling': True,
                                          'outputSHA256': hashlib.sha256(raw.encode()).hexdigest(),
-                                         'differenceCount': len(diff), 'witness': intended[0]})
+                                         'differenceCount': len(diff), 'witness': witness})
                 else:
                     assert not diff, diff[:10]
                     observations.append({'backend': backend, 'fullSelectedChannelsEqual': True,

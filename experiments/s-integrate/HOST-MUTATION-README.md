@@ -25,3 +25,12 @@ No mutation timing or product-performance acceptance is claimed.
 reference, decoder and runner. It contains all twelve backend witnesses. These
 finite tests do not approve new universal laws, allocator reuse, constructor
 confinement or general destructive recovery. Independent review remains separate.
+
+The refreshed `host-mutation-source-current-evidence.json` pins the unchanged
+actual runtime import closure at `d2f0295`. Both checked schema entrypoints
+execute all four lanes, avoiding the combined translation unit's codegen limit.
+All ten channels match fresh TS, and all twelve compiling mutations are detected
+on Native and JS. The failed-publication witness specifically observes E3 Fast
+messages: the expected empty list becomes actual Ping `{code: 9}`.
+`host-publication-mutation-evidence.json` retains the earlier focused replay;
+older records remain historical evidence rather than being overwritten.

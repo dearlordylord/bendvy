@@ -1,0 +1,100 @@
+{
+  "scope": "actual current split E0-E10 all10 channels/all4lanes; original plus publication mutant",
+  "fullTaskAcceptance": false,
+  "checkerLimitSeconds": 5,
+  "runtimeLimitSeconds": 5,
+  "referenceSHA256": "e1b143510343aa8f982c1d52dfc02c64acdd8fec24b78380ace03b1ec3a04f58",
+  "nativeOptimization": "O0",
+  "cpuAffinity": [
+    2
+  ],
+  "entrypoints": [
+    "host-motion-fixture.bend",
+    "host-health-fixture.bend"
+  ],
+  "decoderSHA256": "c93810aae8a63a36e0fe10d20ff5d7fc179632cfd89cc9f98d4e9ab574738496",
+  "comparatorSHA256": "2cc66b6c15a931f8957b12312794a69fcc3df4fc99ae05cb988f8b8f52b4fb39",
+  "sources": {
+    "audited-invoker.bend": "2ed7e484b8a043f0944e0f662a8799f94388c99f757de331fb1a79b1c07c8853",
+    "capture.bend": "44d5f3117a465c216ee93100026aad78e86f24c40c09c678be99935dde076817",
+    "commands.bend": "022ea5ca1f44c952ae77071689d0735e5a38976d7f628203d85fd9cc920a1194",
+    "dispatcher.bend": "3530c7c20d704ba51a9cdace1f028e507960458b9c0bdcdf0dbc0d546c800b07",
+    "host-fixture.bend": "994f041177923cca6e6a3d72f66d433a0044239b90f7a58f5efed8ca16d1f792",
+    "host-health-fixture.bend": "7f7a19b31072470e82741aade66f96fb179c360b5ac30cd4bc95022428417e82",
+    "host-motion-fixture.bend": "20014d88b3430a51e82bbaf8b76a5db89ce3ebb6edd2baa3635e69f66dc57dfe",
+    "host-observations.bend": "e6a37f6d160a53f14b08254f35cb317a68f1f2c540c40c9b88e600d0d6198e76",
+    "host-preflight.bend": "c1d5ea812dc980ae54c6af678b28c2fe31201ec21329c3468b83025898575e94",
+    "host-render.bend": "1eef120fa604ba633f06d33a8a3910845293926c36dc9c91cd59d4d5c045a28a",
+    "host.bend": "b50bc903906cb6a842d0ef88ba84fe0dbf0dd7abdb85c0fa436bccf228b74bb9",
+    "identity.bend": "2c88babc9e853d3706f7a6c1f8f0ae48c198949143df2da6562bd774237d7329",
+    "observations.bend": "81e6afcd4ae06a396669cff14d1da68a4c597539b6eb64e68648ebbe7b235136",
+    "payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "query.bend": "903af14b5d85d1162df5f872f26f221134a17c772bc82fd17686ce2f4be45759",
+    "reader-host.bend": "50f1251c6d476b07055c36c5a97e3350a4cb46e5d826ff97ced2860d40798a64",
+    "readers.bend": "2673082b4ef5cd6c5d8f61c362e22f74b13daeb27196894278cc20b1459c22e9",
+    "schedule.bend": "98c955f7ee5039aed875a3bd93e3c94840d9ea2f48de0e6415bd28d63ee8fb98",
+    "storage.bend": "936ee89484a6e58558ab1684d90c16cbf2285ef5027292901dd3d9bf973754ba",
+    "streams.bend": "1a1c7991d6a1b4ebfb3b47dc62459beb83ed5e38ded56d27cc20b5478fc0d315",
+    "structural-invoker.bend": "6907a8c5775f77ffed6141123fe5c7033678269ade0f59cd0f24b8680e497932",
+    "systems.bend": "2cfc899215e408cc4c652c8d4c290b18800cdb6e8c96f1061a77853afdac9221",
+    "transaction-dispatch-adapters.bend": "eea16d3f539d70bcd88fd8fd314b75d252ccaff2b9c1c8b63e7d96bfdda34142",
+    "transaction.bend": "d32f0b26e4a14fc784c3ce30c4d6a1ded0cf0a55ed819f54419a558445e298a4",
+    "types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56"
+  },
+  "channels": [
+    "rawReservations",
+    "reads",
+    "readerDiagnostics",
+    "ownWrites",
+    "snapshots",
+    "dispatches",
+    "auditEffects",
+    "provisioning",
+    "finalCounts",
+    "tails"
+  ],
+  "original": [
+    {
+      "backend": "native",
+      "fullSelectedChannelsEqual": true,
+      "outputSHA256": "c61da07f534c7cb1934a92dd7313688d54a9e8d04f85d6c1574da9f42adb6407"
+    },
+    {
+      "backend": "javascript",
+      "fullSelectedChannelsEqual": true,
+      "outputSHA256": "c61da07f534c7cb1934a92dd7313688d54a9e8d04f85d6c1574da9f42adb6407"
+    }
+  ],
+  "mutants": [
+    {
+      "name": "failed-publication-leak",
+      "observations": [
+        {
+          "backend": "native",
+          "compiling": true,
+          "outputSHA256": "c725623d7e28cd61c93a1e3589dfe6cfc89d5c7b43caa9fdbde002109047dee8",
+          "differenceCount": 876,
+          "witness": {
+            "path": "Health/regenerated-closure.reads[5].messages",
+            "expected_length": 0,
+            "actual_length": 1
+          }
+        },
+        {
+          "backend": "javascript",
+          "compiling": true,
+          "outputSHA256": "c725623d7e28cd61c93a1e3589dfe6cfc89d5c7b43caa9fdbde002109047dee8",
+          "differenceCount": 876,
+          "witness": {
+            "path": "Health/regenerated-closure.reads[5].messages",
+            "expected_length": 0,
+            "actual_length": 1
+          }
+        }
+      ]
+    }
+  ],
+  "sourceCommit": "fc0896b",
+  "status": "BOUNDED_PUBLICATION_WITNESS_PASS",
+  "runnerSHA256": "d7ea925927689ca435b8bd5bdfb650b73c394b8d39349a9f3cca11265a401f53"
+}
