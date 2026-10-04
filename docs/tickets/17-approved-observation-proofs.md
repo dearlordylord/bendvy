@@ -1,0 +1,55 @@
+# P-OBS — approved bounded public-observation proofs
+
+**Draft for discussion/review; unpublished. No proof execution in this drafting task.**
+Governing [SPEC](../SPEC.md), [semantic audit](../reviews/laws-semantic-audit.md),
+[exact subjects](../../experiments/t11-replacement/LAWS.bend) and
+[finite evidence](../../experiments/t11-replacement/README.md).
+The user approved only the seven IDs below at SHA256
+`e0c607d723ad250a189c096d9fa3fd6a36913f4c72efd3a3be6dacd7fadb2cbc`.
+The other twenty internal and four infrastructure candidates remain unapproved.
+
+## Exact scope and staged delivery
+
+| Stage | Approved subjects | Required reasoning / limits |
+|---|---|---|
+| 0: feasibility and dependency inventory | All seven, unchanged | Pin compiler/Base/source hashes; inspect existing Base/mathlib facts without adding dependencies. Inventory missing sorting/enumeration, command replay, invariant, observation and word-conversion links. Check proof inhabitation of the erased-owner/conditional proposition shape in an elementary canary, including the checker and kernel, each <=5 seconds. The old erasure canary only constructs a proposition Type; it does not establish this proof capability. |
+| 1: model lookup | `lookup_full_exact` | Prove total scoped lookup with selection, including malformed physical row lists and success/mismatch/missing/foreign cases. This exact equation does not establish unforgeable root authority. |
+| 2: model queries (parallel with stage 1) | `query_any_complete_ordered`, `query_present_complete_ordered`, `query_absent_complete_ordered` | Prove complete/unique/ascending results under the exact independent admissibility premise. Connect sorting physical rows to independent `[0,next)` enumeration; do not prove only soundness or reversal invariance. |
+| 3: model flush | `explicit_flush_independent` | Prove per-entity FIFO replay against whole-row mutation, including noncommuting actions, survivors, unknown targets and cleared pending commands. Establish the command-prefix invariants needed by the comparison. |
+| 4: model schedule | `schedule_execution_exact` | Primitive-step/list induction: immediate Bump, Reserve/Publish and explicit Barrier, with no final implicit flush. Use the public observational relation, not false raw-world equality after independently materialized rows. Establish every needed preservation/adequacy link; a real system/transaction scheduler is outside this theorem. |
+| 5: owned runtime (contingent on early feasibility) | `owned_runtime_schedule_correspondence` | Relate actual returned owner observation to independent schedule at every prefix under exact `S.run_safe`. Establish actual inline U32 comparison/increment connections using structural Word reasoning, primitive operation correspondence and observation adequacy. Element-zero payload observation is the theorem's scope; physical identity/full-array preservation is not implied. |
+
+Stages 1–4 are six Nat model theorems; stage 5 is a separate owned-runtime theorem.
+Stages may deliver separately with explicit unresolved dependencies. No stage is
+complete from literal checks, a proposition-construction canary or a finite trace.
+If inhabitation/checker time or a needed dependency blocks a stage, record the
+minimal reproducible failure and a bounded follow-up; never alter the approved
+statement/domain or increase the timeout to obtain a pass.
+
+## Supporting obligations and approvals
+
+Existing proved library facts may be reused with pinned provenance. List each
+new proof-local helper and its precise purpose/domain before execution. Ordinary contextual derivations serving an approved endpoint are permitted; they
+must not change its policy/domain. Proof decomposition does not authorize turning any of the
+other 24 catalogue statements into proved contracts under renamed helpers.
+If a required supporting obligation is equivalent to an unapproved catalogue law,
+or adds a new semantic/encoding/arithmetic contract, present its exact statement,
+rationale and falsification for separate approval before proving it. In particular
+model preservation, owned-step/projection links, conditional encoder equations and
+Nat/U32 bridges are **dependencies to resolve**, not approvals inherited here.
+Do not assume global root provenance, full-payload restoration, production numeric
+allocation/exhaustion policy or representation-neutral owner preservation.
+
+## Execution and acceptance gates
+
+- [ ] Verify the seven unchanged statement hashes/IDs and record dependency status before proofs. Preserve the historical and 31-law proposal artifacts.
+- [ ] Run `bend version` and `bend guide`; use the existing `experiments/t01/bend-check` five-second wrapper for every checker/kernel invocation. Timeouts, unsafe/foreign dependencies, missing verdicts and TODOs in a claimed proof are failures. Do not install a new tool/library without concrete need and approval.
+- [ ] Add proofs in a separate package importing the exact approved subjects/functions. Record theorem-specific `ALL PROOFS CHECK`/exit0 evidence; unrelated unapproved TODOs must stay outside each completion entry, not be silently filled or dropped.
+- [ ] For each completed theorem retain an original true-premise instance, compiling decision-path mutant and checking control; require the unchanged proof to fail in its intended theorem section on that mutant. An unrelated shared-lemma/type error, false premise or noncompiling mutant does not pass this gate. Preserve the existing fresh falsification controls, including pending-despawn survivors and no implicit flush.
+- [ ] Report completed vs blocked IDs, exact proof/source/dependency hashes, commands, diagnostics and limits. Review Standards and Spec before coordinator delivery; no claim about backend/host IO, full ECS runtime, production authority or performance follows from these proofs.
+
+Follow-ups remain explicit: root confinement; arbitrary Type/full-payload relations;
+representation-neutral owned reads; selected-reader transaction/retention/lag;
+allocator/error policy and integrated scheduler proofs. Integration research may
+advance independently where its actual prerequisites exist; these proofs are not
+a blanket benchmark or full-core completion gate.
