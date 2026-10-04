@@ -30,13 +30,13 @@ def tx_set_ledger0(-W: Type,-H: Data,-C: Type,write: W -> U32 -> W & Maybe<&2,U3
     case Tx{world,selected,undo,commands,pings,marks}: record_ledger(W,H,C,selected,undo,commands,pings,marks,write(world,value))
 def tx_stage_command(-W: Type,-H: Data,-C: Type,t: Tx<W,H,C>,command: C) -> Tx<W,H,C>:
   match t:
-    case Tx{world,selected,undo,commands,pings,marks}: Tx{world,selected,undo,List.append(&1,C,commands,[command]),pings,marks}
+    case Tx{world,selected,undo,commands,pings,marks}: Tx{world,selected,undo,command <> commands,pings,marks}
 def tx_stage_ping(-W: Type,-H: Data,-C: Type,t: Tx<W,H,C>,code: U32) -> Tx<W,H,C>:
   match t:
-    case Tx{world,selected,undo,commands,pings,marks}: Tx{world,selected,undo,commands,List.append(&2,U32,pings,[code]),marks}
+    case Tx{world,selected,undo,commands,pings,marks}: Tx{world,selected,undo,commands,code <> pings,marks}
 def tx_finish_success(-W: Type,-H: Data,-C: Type,t: Tx<W,H,C>) -> Finished<W,C,H>:
   match t:
-    case Tx{world,_,_,commands,pings,marks}: Committed{world,commands,pings,marks}
+    case Tx{world,_,_,commands,pings,marks}: Committed{world,List.reverse(&1,C,commands),List.reverse(&2,U32,pings),marks}
 def unwind(~W: Type,~H: Data,~restore_main: W -> H -> U32 -> W,
   ~restore_ledger: W -> U32 -> W,undo: List<&2,Inverse<H>>,world: W) -> W:
   match undo:

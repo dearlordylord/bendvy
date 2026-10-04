@@ -7,7 +7,7 @@ from run import build,paired
 names=['transaction.bend','transaction-dispatch-fixture.bend','types.bend','storage.bend','identity.bend','commands.bend','payload.bend','payload-controls.bend']
 expected='pending=81,82,83,84:7;80,81,82,83:7;before=20,21,22,23:7;after=81,82,83,84:7\npending=81,82,83,84:9:2;80,81,82,83:9:2;before=20,21,22,23:9:2;after=81,82,83,84:9:2'
 mutants={
- 'stage_reversed':('List.append(&1,C,commands,[command])','command <> commands'),
+ 'stage_reversed':('command <> commands','List.append(&1,C,commands,[command])'),
  'commit_no_reverse':('List.reverse(&1,S.Command<M,A,F>,commands)','commands'),
 }
 r={'scope':'actual reserved/spawned live world; same transaction 80 then81 pending Type owners before explicit apply; full fields both schemas','hashes':{n:hashlib.sha256((HERE/n).read_bytes()).hexdigest() for n in names},'expected':expected,'original':None,'mutants':{}}

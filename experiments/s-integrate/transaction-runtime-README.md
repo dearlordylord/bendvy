@@ -40,3 +40,20 @@ failure/retry, lexical captures, foreign-command rejection, structural disposal 
 full Ping/lifecycle trace still require the dispatcher/storage/readers composition.
 No full runtime refinement, production layout, allocator reuse/exhaustion or
 arbitrary destructive Type recovery is claimed. No general ECS law was proved.
+
+## Linear private staging refresh
+
+Private commands/Pings now prepend in O(1). Success reverses each once to retain
+chronological Finished batches; storage_commit's handoff conversion is unchanged.
+All generic/world mutation gates, actual FIFO publication gates and complete A/B
+oracle gates were rerun against this changed core and passed Native/JS.
+
+`transaction-staging-run.py` additionally checks every actual returned Ping value
+0..65535 and all four fields plus metadata of1024 genuine Type command owners.
+Both backends pass; omitted finish reversal of either batch compiles and fails.
+This is private staging evidence, not public-capacity E11 acceptance or numerical
+performance approval. The original recursive validator exceeded JS stack depth;
+tail recursion with an explicit accumulated check validated the same full inputs
+within the existing5second runtime bound. An expected lowercase Bool.show string
+was corrected to its actual documented constructor-style True/False spelling;
+no operation inputs or payload comparisons were reduced.
