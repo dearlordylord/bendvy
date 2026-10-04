@@ -67,28 +67,31 @@ def each(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,
     case S.World{+namespace,next,rows,pending,ledger,mode}:
       each_return(Schema,M,A,F,L,Mode,O,namespace,next,pending,ledger,mode,read_rows(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,rows,selection,namespace))
 
-def lookup_keep(-M: Type,-A: Type,-F: Data,-O: Data,row: S.Row<M,A,F>,tail: List<S.Row<M,A,F>> & T.Access<O>) -> List<S.Row<M,A,F>> & T.Access<O>:
-  match tail:
-    case (rows,result): (row <> rows,result)
-def lookup_read(-M: Type,-A: Type,-F: Data,-O: Data,rows: List<S.Row<M,A,F>>,result: S.Row<M,A,F> & Maybe<&2,O>) -> List<S.Row<M,A,F>> & T.Access<O>:
+# The scan carries each unmatched affine row in a reversed prefix. Once a
+# matching owner returns, the untouched suffix joins without recursive unwinding.
+type LookupScan<-M: Type,-A: Type,-F: Data,-O: Data> is Type:
+  LookupSeeking{before: List<S.Row<M,A,F>>}
+  LookupRead{before: List<S.Row<M,A,F>>,row: S.Row<M,A,F>,access: T.Access<O>}
+def lookup_read(-M: Type,-A: Type,-F: Data,-O: Data,before: List<S.Row<M,A,F>>,result: S.Row<M,A,F> & Maybe<&2,O>) -> LookupScan<M,A,F,O>:
   match result:
-    case (row,None{}): (row <> rows,T.Mismatch{})
-    case (row,Some{value}): (row <> rows,T.Found{value})
-def lookup_selected(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),selection: Selection,namespace: U32,row: S.Row<M,A,F>,tail: List<S.Row<M,A,F>> & T.Access<O>) -> List<S.Row<M,A,F>> & T.Access<O>:
-  match tail:
-    case (rows,_): lookup_read(M,A,F,O,rows,read_row(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,selection,namespace,row))
-def lookup_decide(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),equal: Bool,selection: Selection,namespace: U32,row: S.Row<M,A,F>,tail: List<S.Row<M,A,F>> & T.Access<O>) -> List<S.Row<M,A,F>> & T.Access<O>:
+    case (row,None{}): LookupRead{before,row,T.Mismatch{}}
+    case (row,Some{value}): LookupRead{before,row,T.Found{value}}
+def lookup_decide(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),equal: Bool,selection: Selection,namespace: U32,before: List<S.Row<M,A,F>>,row: S.Row<M,A,F>) -> LookupScan<M,A,F,O>:
   match equal:
-    case False{}: lookup_keep(M,A,F,O,row,tail)
-    case True{}: lookup_selected(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,selection,namespace,row,tail)
-def lookup_row(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),selection: Selection,namespace: U32,target: U32,row: S.Row<M,A,F>,tail: List<S.Row<M,A,F>> & T.Access<O>) -> List<S.Row<M,A,F>> & T.Access<O>:
+    case False{}: LookupSeeking{row <> before}
+    case True{}: lookup_read(M,A,F,O,before,read_row(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,selection,namespace,row))
+def lookup_row(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),selection: Selection,namespace: U32,target: U32,before: List<S.Row<M,A,F>>,row: S.Row<M,A,F>) -> LookupScan<M,A,F,O>:
   match row:
     case S.Row{+id,main,aux,flag,added,changed}:
-      lookup_decide(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,U32.is_eq(target,id),selection,namespace,S.Row{id,main,aux,flag,added,changed},tail)
-def lookup_rows(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),rows: List<S.Row<M,A,F>>,+selection: Selection,+namespace: U32,+target: U32) -> List<S.Row<M,A,F>> & T.Access<O>:
-  match rows:
-    case Nil{}: ([],T.Missing{})
-    case Con{row,tail}: lookup_row(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,selection,namespace,target,row,lookup_rows(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,tail,selection,namespace,target))
+      lookup_decide(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,U32.is_eq(target,id),selection,namespace,before,S.Row{id,main,aux,flag,added,changed})
+def lookup_scan(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),rows: List<S.Row<M,A,F>>,+selection: Selection,+namespace: U32,+target: U32,state: LookupScan<M,A,F,O>) -> List<S.Row<M,A,F>> & T.Access<O>:
+  match rows state:
+    case tail LookupRead{before,row,access}: (List.reverse.go(&1,S.Row<M,A,F>,before,row <> tail),access)
+    case Nil{} LookupSeeking{before}: (List.reverse(&1,S.Row<M,A,F>,before),T.Missing{})
+    case Con{row,tail} LookupSeeking{before}:
+      lookup_scan(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,tail,selection,namespace,target,lookup_row(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,selection,namespace,target,before,row))
+def lookup_rows(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),rows: List<S.Row<M,A,F>>,selection: Selection,namespace: U32,target: U32) -> List<S.Row<M,A,F>> & T.Access<O>:
+  lookup_scan(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,rows,selection,namespace,target,LookupSeeking{[]})
 def lookup_return(-Schema: Data,-M: Type,-A: Type,-F: Data,-L: Type,-Mode: Data,-O: Data,namespace: U32,next: U32,pending: List<S.Command<M,A,F>>,ledger: Maybe<L>,mode: Mode,result: List<S.Row<M,A,F>> & T.Access<O>) -> S.World<Schema,M,A,F,L,Mode> & T.Access<O>:
   match result:
     case (rows,observation): (S.World{namespace,next,rows,pending,ledger,mode},observation)

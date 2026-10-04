@@ -1,0 +1,149 @@
+{
+  "status": "PASS",
+  "scope": "actual lookup traversal and owner-return prerequisite",
+  "limits": {
+    "checkerSeconds": 5,
+    "runtimeSeconds": 5,
+    "codegenSeconds": 30,
+    "clangSeconds": 120
+  },
+  "oracleRejectedObservations": 442,
+  "negativeControls": {
+    "write-through-read": {
+      "expectedExit": 1,
+      "location": "bad",
+      "diagnostic": [
+        "expected : T.Position",
+        "observed : P"
+      ]
+    },
+    "undeclared-aux": {
+      "expectedExit": 1,
+      "location": "bad",
+      "diagnostic": [
+        "expected : T.Velocity",
+        "observed : P"
+      ]
+    },
+    "wrong-token": {
+      "expectedExit": 1,
+      "location": "bad",
+      "diagnostic": [
+        "expected : T.PositionToken",
+        "observed : T.VitalsToken"
+      ]
+    },
+    "reconstructed-owner": {
+      "expectedExit": 1,
+      "location": "bad",
+      "diagnostic": [
+        "expected : P",
+        "observed : T.Position"
+      ]
+    },
+    "missing-owner": {
+      "expectedExit": 1,
+      "location": "bad",
+      "diagnostic": [
+        "expected : P",
+        "observed : String"
+      ]
+    },
+    "consumed-owner": {
+      "expectedExit": 1,
+      "location": "bad",
+      "diagnostic": [
+        "consumed more than once"
+      ]
+    },
+    "cross-schema-handle": {
+      "expectedExit": 1,
+      "location": "attempt",
+      "diagnostic": [
+        "T.MotionSchema",
+        "T.HealthSchema"
+      ]
+    }
+  },
+  "original": [
+    {
+      "schema": "Motion",
+      "count": 5,
+      "output": "true\ntrue\nfirst=Found(1:1{position[10,11,12,13];frame=7;velocity[1,2,3,4];moving=true;selected=8})\nmiddle=Found(1:3{position[10,11,12,13];frame=7;velocity[1,2,3,4];moving=true;selected=8})\nlast=Found(1:5{position[10,11,12,13];frame=7;velocity[1,2,3,4];moving=true;selected=8})\nfirst-again=Found(1:1{position[10,11,12,13];frame=7;velocity[1,2,3,4];moving=true;selected=8})\nlast-flag-mismatch=QueryMismatch\nmissing=MissingEntity\nforeign=MissingEntity\naux-only-mismatch=QueryMismatch\naux-only-mismatch-again=QueryMismatch\nrestored=Found(1:3{position[10,11,12,13];frame=7;velocity[1,2,3,4];moving=true;selected=8})",
+      "nativeSeconds": 0.006829,
+      "javascriptSeconds": 0.07878
+    },
+    {
+      "schema": "Motion",
+      "count": 65537,
+      "output": "true\ntrue\nfirst=Found(1:1{position[10,11,12,13];frame=7;velocity[1,2,3,4];moving=true;selected=8})\nmiddle=Found(1:32769{position[10,11,12,13];frame=7;velocity[1,2,3,4];moving=true;selected=8})\nlast=Found(1:65537{position[10,11,12,13];frame=7;velocity[1,2,3,4];moving=true;selected=8})\nfirst-again=Found(1:1{position[10,11,12,13];frame=7;velocity[1,2,3,4];moving=true;selected=8})\nlast-flag-mismatch=QueryMismatch\nmissing=MissingEntity\nforeign=MissingEntity\naux-only-mismatch=QueryMismatch\naux-only-mismatch-again=QueryMismatch\nrestored=Found(1:32769{position[10,11,12,13];frame=7;velocity[1,2,3,4];moving=true;selected=8})",
+      "nativeSeconds": 0.122494,
+      "javascriptSeconds": 0.537208
+    },
+    {
+      "schema": "Health",
+      "count": 5,
+      "output": "true\ntrue\nfirst=Found(1:1{vitals[10,11,12,13];reserve=9;class=2;armor[1,2,3,4];grade=3;tracked=8})\nmiddle=Found(1:3{vitals[10,11,12,13];reserve=9;class=2;armor[1,2,3,4];grade=3;tracked=8})\nlast=Found(1:5{vitals[10,11,12,13];reserve=9;class=2;armor[1,2,3,4];grade=3;tracked=8})\nfirst-again=Found(1:1{vitals[10,11,12,13];reserve=9;class=2;armor[1,2,3,4];grade=3;tracked=8})\nlast-flag-mismatch=QueryMismatch\nmissing=MissingEntity\nforeign=MissingEntity\naux-only-mismatch=QueryMismatch\naux-only-mismatch-again=QueryMismatch\nrestored=Found(1:3{vitals[10,11,12,13];reserve=9;class=2;armor[1,2,3,4];grade=3;tracked=8})",
+      "nativeSeconds": 0.004069,
+      "javascriptSeconds": 0.042229
+    },
+    {
+      "schema": "Health",
+      "count": 65537,
+      "output": "true\ntrue\nfirst=Found(1:1{vitals[10,11,12,13];reserve=9;class=2;armor[1,2,3,4];grade=3;tracked=8})\nmiddle=Found(1:32769{vitals[10,11,12,13];reserve=9;class=2;armor[1,2,3,4];grade=3;tracked=8})\nlast=Found(1:65537{vitals[10,11,12,13];reserve=9;class=2;armor[1,2,3,4];grade=3;tracked=8})\nfirst-again=Found(1:1{vitals[10,11,12,13];reserve=9;class=2;armor[1,2,3,4];grade=3;tracked=8})\nlast-flag-mismatch=QueryMismatch\nmissing=MissingEntity\nforeign=MissingEntity\naux-only-mismatch=QueryMismatch\naux-only-mismatch-again=QueryMismatch\nrestored=Found(1:32769{vitals[10,11,12,13];reserve=9;class=2;armor[1,2,3,4];grade=3;tracked=8})",
+      "nativeSeconds": 0.054646,
+      "javascriptSeconds": 0.481403
+    }
+  ],
+  "mutants": [
+    {
+      "name": "live-mismatch-as-missing",
+      "compiled": true,
+      "detectedOnBothBackends": true,
+      "nativeSeconds": 0.006412,
+      "javascriptSeconds": 0.02163
+    },
+    {
+      "name": "discard-prefix",
+      "compiled": true,
+      "detectedOnBothBackends": true,
+      "nativeSeconds": 0.005838,
+      "javascriptSeconds": 0.025795
+    },
+    {
+      "name": "reverse-prefix-order",
+      "compiled": true,
+      "detectedOnBothBackends": true,
+      "nativeSeconds": 0.002334,
+      "javascriptSeconds": 0.020641
+    },
+    {
+      "name": "foreign-collision-as-local",
+      "compiled": true,
+      "detectedOnBothBackends": true,
+      "nativeSeconds": 0.006717,
+      "javascriptSeconds": 0.02382
+    },
+    {
+      "name": "erase-retained-mark",
+      "compiled": true,
+      "detectedOnBothBackends": true,
+      "nativeSeconds": 0.001397,
+      "javascriptSeconds": 0.023629
+    }
+  ],
+  "sources": {
+    "types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+    "payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "storage.bend": "605d073615798f87f3675931475eee6a0668bc63c08559d4beecdb2e73c72986",
+    "identity.bend": "2c88babc9e853d3706f7a6c1f8f0ae48c198949143df2da6562bd774237d7329",
+    "commands.bend": "022ea5ca1f44c952ae77071689d0735e5a38976d7f628203d85fd9cc920a1194",
+    "query.bend": "b78d35f7a3ad04ff255ee2b1e317b006bedc79f01ccb2335a8df43bc31703607",
+    "storage-stage-fixture.bend": "581771140c45189c8b9038a73def804f780b5e64b7ffdecdcb45b966fc21aee7",
+    "commands-bulk-controls.bend": "5161641014e6d0e0222e3f4f4c8890c8daa69bb908d3d71a58593ae2c06e8d4e",
+    "lookup-bulk-controls.bend": "daaff67d54db4440f0b37fd7812ee4755354f6da6b5598e8789525f3e64b6f87",
+    "lookup-bulk-run.py": "a35979b0c7cafd80b608d13dd82648ab9124f2b7feb78970c6bf6a18c107b686",
+    "lookup-bulk-oracle.py": "b1ca6bc3a12d53638c4de4418841aee447f23300902196f533febc8fd197735b",
+    "LOOKUP-BULK-DRAFT.md": "17a456e9fc1e487225f1669d1443492f6428ee575a3b15928511213bd4146653"
+  }
+}

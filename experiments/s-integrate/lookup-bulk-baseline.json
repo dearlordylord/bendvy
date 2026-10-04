@@ -1,0 +1,71 @@
+{
+  "baselineCommit": "ace04c2",
+  "querySha256": "ebdc270c94a55c6d49cf0580ff9c84a85df93b1358e3da9714bf06a90d49a772",
+  "fixtureSha256": "daaff67d54db4440f0b37fd7812ee4755354f6da6b5598e8789525f3e64b6f87",
+  "results": [
+    {
+      "status": "success",
+      "outputSha256": "6b0d18748c805f4931fa26c83bdabb8fcd35594df3b89a5ad906b3cf4fab6557",
+      "schema": "Motion",
+      "count": 5,
+      "backend": "Native",
+      "seconds": 0.003531
+    },
+    {
+      "status": "success",
+      "outputSha256": "6b0d18748c805f4931fa26c83bdabb8fcd35594df3b89a5ad906b3cf4fab6557",
+      "schema": "Motion",
+      "count": 5,
+      "backend": "JS",
+      "seconds": 0.031947
+    },
+    {
+      "status": "success",
+      "outputSha256": "2fd5197eb0cece63442837a784cba48f309e848029abf27cd816a896d8cdbe5d",
+      "schema": "Motion",
+      "count": 65537,
+      "backend": "Native",
+      "seconds": 0.076842
+    },
+    {
+      "status": "failure",
+      "diagnostic": "exit 1; bend: memory fault (machine stack overflow?)",
+      "schema": "Motion",
+      "count": 65537,
+      "backend": "JS",
+      "seconds": 0.274212
+    },
+    {
+      "status": "success",
+      "outputSha256": "396e3387f2aa494d35ae7fcf61bc3e214755e9a2e948e941cc6dee96282bee6f",
+      "schema": "Health",
+      "count": 5,
+      "backend": "Native",
+      "seconds": 0.002781
+    },
+    {
+      "status": "success",
+      "outputSha256": "396e3387f2aa494d35ae7fcf61bc3e214755e9a2e948e941cc6dee96282bee6f",
+      "schema": "Health",
+      "count": 5,
+      "backend": "JS",
+      "seconds": 0.030732
+    },
+    {
+      "status": "success",
+      "outputSha256": "9ae6bfc892cbbd3df0dd05528d6886648ddd9ba340ff55d82256c23e0c233da2",
+      "schema": "Health",
+      "count": 65537,
+      "backend": "Native",
+      "seconds": 0.067149
+    },
+    {
+      "status": "failure",
+      "diagnostic": "exit 1; bend: memory fault (machine stack overflow?)",
+      "schema": "Health",
+      "count": 65537,
+      "backend": "JS",
+      "seconds": 0.238767
+    }
+  ]
+}
