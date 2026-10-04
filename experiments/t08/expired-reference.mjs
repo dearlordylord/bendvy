@@ -1,0 +1,7 @@
+import {Descriptor,Schema} from '/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/index.ts';
+const P=Descriptor.Component()('Position');const G=Schema.bind(Schema.fragment({components:{P}}));const r=G.Runtime.make({services:G.Runtime.services()});const ids=[];
+const Spawn=G.System('Spawn',{},({commands})=>{for(const x of [1,2])ids.push(commands.spawn(G.Command.spawn([P,{x}])));});
+const Delete=G.System('Delete',{},({commands})=>{commands.remove(ids[0],P);commands.despawn(ids[1]);});
+const Q=G.Query({selection:{p:G.Query.read(P)}});
+const Read=G.System('Read',{queries:{v:Q,a:G.Query({selection:{p:G.Query.read(P)},filters:[G.Query.added(P)]}),c:G.Query({selection:{p:G.Query.read(P)},filters:[G.Query.changed(P)]})},removed:{p:G.System.readRemoved(P)},despawned:{e:G.System.readDespawned()}},({queries,removed,despawned})=>{const t=xs=>xs.map(x=>x+',').join('');const map=xs=>xs.map(x=>{const i=ids.findIndex(y=>y.value===x.value);if(i<0)throw Error('unmapped');return i;});console.log('unheld:expired:v='+t(queries.v.each().map(x=>x.data.p.get().x))+';a='+t(queries.a.each().map(x=>x.data.p.get().x))+';c='+t(queries.c.each().map(x=>x.data.p.get().x))+';r='+t(map(removed.p.all()))+';d='+t(map(despawned.e.all()))+';e=');});
+const tick=(...s)=>r.tick(G.Schedule(...s));tick(Spawn,G.Schedule.applyDeferred());tick(Delete,G.Schedule.applyDeferred());tick();tick();tick(Read);

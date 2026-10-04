@@ -91,3 +91,16 @@ message fan-out, captured callbacks, integrated schedules, clock exhaustion and
 scalable retention costs. Public runtime retention and internal small-capacity
 boundaries are distinct evidence; event skip does not advance change/lifecycle
 positions. T08 establishes those positions separately.
+
+## T08 change/lifecycle return conditions
+
+[T08](../experiments/t08/README.md) passes 31 ordered native/JS/reference
+observations and detects nine compiling mutants. Change/lifecycle positions are
+independent of message positions; failure preserves both, skip advances messages
+only. Singleton lifecycle log entries implement individual-record capacity.
+Return before production API selection: general affine payload marks/restoration,
+declared readers and reader lifecycle, integrated schedules/identity, scalable
+sparse storage, allocation/tick rollback, nonwrapping epoch policy and refinement.
+The Data row projection and trusted fixed-command driver do not approve Data-only
+components or replace T04/T06 ownership evidence. T10 may now measure these
+experimental paths; performance thresholds and exact laws still require approval.
