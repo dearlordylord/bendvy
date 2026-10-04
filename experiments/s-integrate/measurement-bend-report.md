@@ -1,0 +1,37 @@
+# Integrated Bend Dense/Sparse measurement — implementation inventory
+
+Work starts from `ff76221`. This is an implementation plan and open checkpoint, not passing evidence or a performance acceptance decision. Only measurement-owned files are changed.
+
+The endpoint is actual `D.tick` with registry canonicalization, declared Ledger preflight, Host frame hook, capture increment and one successful SystemTx per iteration. Register one benchmark descriptor with existing Snapshot kind and explicit benchmark invoke template, subject to Host-owner coordination. Both nominal Host/world wrappers retain their actual Type Main/Aux/Ledger owners. Seed uses actual factory/reservation and explicit deferred application outside timing; 64 steady dispatches run inside IO.now; final complete observation is outside timing.
+
+One trusted benchmark adapter may reselect an actual returned handle inside `X.Tx`, retaining its world, full inverse journal, staged commands/messages and marks. The callback sees arbitrary opaque Tx and fresh declared nominal read/write operations. Actual `Q.each` supplies ordered observations; Main writes use `X.tx_set_main0` and actual Array.swap through storage hooks, Ledger increments use actual resource read/write per row; finish commits the single accumulated journal/marks. No Data observation reconstructs payload owners.
+
+Dense/Sparse inputs and independent oracle are frozen by measurement-reference.mjs and docs/design/s-integrate-measurement.md: both schemas, counts64/256/1024, width4, iterations64, all scalar metadata retained. Sparse needs Aux present/absent/optional queries; shared Q.Present/Absent selects Flag, so it cannot be reused under a false Aux label. A measurement-owned provider traversal/filter must preserve actual Aux membership and complete observations; this seam remains to be checked.
+
+Known risks: storage setter/mark paths can rescan the owned list per row (potential quadratic cost); five-second failures/regressions must remain visible. No helper-only loop may be reported as integrated dispatch. Fresh full-field correctness gates precede reported timing samples; Native/JS equivalence, callback access negatives and compiling mutations are required before delivery. Seven repeated cross-backend performance samples/ratios and unapproved thresholds remain separate later work.
+
+## Delivered bounded implementation and result
+
+`measurement-bend.bend` now implements both schemas with actual `D.tick`, registry canonicalization, Ledger preflight, Host frame/log hook, dispatch clock advancement and retained capture owner. The registered descriptor is `BenchUpdate` with existing Snapshot kind and a measurement-owned invoke template, as coordinated with the Host owner. No shared module was edited.
+
+Every steady iteration enumerates actual required-Main handles through `Q.each`, preserving its opaque owner boundary. A trusted reselect helper changes only the selected issued handle while retaining one `X.Tx` world/journal/commands/Pings/marks. Each row invokes an erased-owner callback with **fresh affine functions** supplied by the actual transaction adapter: read all four Main cells, set cell0+1 via `Array.swap`, read Ledger and set totals0+1. Functions are never falsely marked reusable. A single finish commits all row/resource inverses and marks. Dense is deliberately subject to the current list-based point-read/write and mark costs; it does not replace these with direct array arithmetic.
+
+Sparse additionally performs three actual full Main/Aux/Flag query reads. Measurement-owned filters select Aux presence/absence from the returned optional provider observations; shared Flag-based Present/Absent is not mislabeled. Ordered checksums include all payload cells, scalar metadata, raw namespace/ID and optional presence. The three group checksums have distinct weights1/3/5; the original equal-weight draft could hide swapping present/absent and was strengthened before final evidence. U32 checksum arithmetic wraps explicitly and supplements, rather than replaces, complete final comparisons.
+
+Fresh runner:
+
+```sh
+python3 experiments/s-integrate/measurement-bend-run.py
+```
+
+The run checks a frozen temporary copy of the complete local import closure, compiles Native/JS with existing helpers, runs fresh pinned TS for every case, then deep-compares **all** Bend final rows (including Sparse non-Main rows), array cells, metadata, Ledger, marks, queue, allocator, capture count and clock. Selected normalized rows plus Ledger must match the actual fresh TS final SHA256. This digest follows exact full-object comparisons on both sides. The diagnostic output field `readsum` is the sum of Main read totals plus Sparse selection checksums, not just a read count.
+
+**Result: REGRESSION.** Dense64/256 and Sparse64/256/1024 pass in both nominal schemas on both backends:20 of24 backend cases. Dense1024 reaches the unchanged **five-second runtime deadline on Native and JS in both schemas**. These four failures are retained as failures, without claiming final correctness at that size or raising the limit. There are no checker/type failures counted as semantic results. Two intended opaque-provider rejection controls and three compiling runtime mutants check wrong token/concrete-owner fabrication, omitted Main increment, omitted Ledger increment and wrong Aux-present selection. Initial evidence is retained separately from the strengthened final checksum run.
+
+`IO.now` surrounds only the64 steady dispatched iterations. Factory/reservation setup and its actual deferred-application tick precede the clock; final complete owner observation and JSON dump follow it. A fresh identical diagnostic invocation is recorded only after its full correctness invocation passes. These are **single cold diagnostic samples**, not seven-repeat measurements: no warmup, backend alternation, affinity freeze, process-RSS measurement, ratio or threshold acceptance is claimed. Native uses one worker and GPU off; actual inherited CPU affinity and compiler/Base/build-helper hashes are recorded. Full runtime five-second limits include setup and final dump, independently of the narrower IO.now interval.
+
+### Remaining boundaries
+
+The successful workload is a benchmark-specific closed invoke template through the real dispatcher, not execution of the trace's fixed A/B bodies. Setup stages reservations in the trusted setup adapter, then uses real D.tick Deferred to publish them; the TS setup Seed callback is outside the compared timed interval. Bend setup/dispatch clocks are checked against this fixture (final frame/tick65), not falsely equated to every TS setup clock. Sparse additional query reads occur on the just-committed actual world within the same invoke; these are successful-query workloads, not evidence about throwing queries or failure rollback timing. The full Host failure/readers trace remains separate.
+
+Current storage point-read/set and commit mark traversals repeatedly scan rows, a source-supported candidate cause for Dense scaling; no isolated causal measurement is asserted. Optimize the actual provider/transaction traversal under the same full-field and opaque-owner contracts, then replay Dense1024 under five seconds. Lifecycle/readers/failure measurement workloads, equivalent-work warmup/seven-sample timing, memory evidence, larger scaling and numerical acceptance remain open. No new proof, law approval, dependency, production layout or allocator policy was introduced.

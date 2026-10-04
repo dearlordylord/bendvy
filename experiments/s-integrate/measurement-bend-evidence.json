@@ -1,0 +1,492 @@
+{
+  "scope": "Dense/Sparse actual dispatcher+Host+one SystemTx per iteration; finite correctness before single diagnostic timing; no performance acceptance",
+  "limits": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "compiler": "bend 2.0.34",
+  "node": "v24.20.0",
+  "cpuAffinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "nativeWorkers": 1,
+  "gpu": "off",
+  "iterations": 64,
+  "clock": "IO.now milliseconds; excludes setup/final dump",
+  "compilerSha256": "d4821d04932218216c9dc906223ed0e23dd86726d4357a567fb76ee6c976db4e",
+  "baseSha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+  "buildHelperSha256": "3767d4b66b63f6492aa260213de17b33de9f772fbe2250a91aa579f856c85b19",
+  "checkerWrapperSha256": "7c2e4afd996beae6749c650fe508f76d49633267665a96a44938af08ad0ce6a5",
+  "sources": {
+    "measurement-bend.bend": "29c9f05835adb25e6b34c05048bb756cbfb86049b35edab2ff3649e671283d90",
+    "types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+    "storage.bend": "605d073615798f87f3675931475eee6a0668bc63c08559d4beecdb2e73c72986",
+    "identity.bend": "2c88babc9e853d3706f7a6c1f8f0ae48c198949143df2da6562bd774237d7329",
+    "commands.bend": "022ea5ca1f44c952ae77071689d0735e5a38976d7f628203d85fd9cc920a1194",
+    "query.bend": "903af14b5d85d1162df5f872f26f221134a17c772bc82fd17686ce2f4be45759",
+    "observations.bend": "81e6afcd4ae06a396669cff14d1da68a4c597539b6eb64e68648ebbe7b235136",
+    "payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "transaction.bend": "d32f0b26e4a14fc784c3ce30c4d6a1ded0cf0a55ed819f54419a558445e298a4",
+    "transaction-dispatch-adapters.bend": "eea16d3f539d70bcd88fd8fd314b75d252ccaff2b9c1c8b63e7d96bfdda34142",
+    "systems.bend": "21deefda199f5a92f7f5532d30d37d5a9618407cc2325fca3873dedeae041585",
+    "schedule.bend": "e7f73e9c74eca9f8d60b9300805169b0b1a0d24ed0a9540843d1e2209e807040",
+    "capture.bend": "44d5f3117a465c216ee93100026aad78e86f24c40c09c678be99935dde076817",
+    "host.bend": "0240865532fcccacfad5e8d4b7a7d2e9e04c18fc041ef763f4659563d116769b",
+    "dispatcher.bend": "a0a7c77152b696dde695225d096e2894e7c3e0a7d81fb3f9da8e19fe45cddc52",
+    "readers.bend": "2673082b4ef5cd6c5d8f61c362e22f74b13daeb27196894278cc20b1459c22e9",
+    "reader-host.bend": "50f1251c6d476b07055c36c5a97e3350a4cb46e5d826ff97ced2860d40798a64",
+    "streams.bend": "1a1c7991d6a1b4ebfb3b47dc62459beb83ed5e38ded56d27cc20b5478fc0d315",
+    "host-observations.bend": "c5364c3900fee661459c95ac1c9c2c9a38e63a0f7e2bf0135081861c909151d4",
+    "audited-invoker.bend": "2ed7e484b8a043f0944e0f662a8799f94388c99f757de331fb1a79b1c07c8853",
+    "host-render.bend": "e4b95ee23b49cdbe05b4c8a24202e7ce55f34988aba4e663d8b72cf934df69c9"
+  },
+  "runnerSha256": "25ab577d5234a1c30f46318708455377353ec39d4fb0b6bf1b40ad5ea5da8f84",
+  "referenceAdapterSha256": "039edf1ec9905ad39c94bf4fcd9850610615251bd8b72e044b93fb7aa7c90376",
+  "measurementContractSha256": "f3c063636602e5fadb742c3aefb70e5770350fad6351827e6c471155eca5ab7a",
+  "cases": [
+    {
+      "schema": "Motion",
+      "workload": "dense",
+      "count": 64,
+      "freshReference": "PASS",
+      "backends": {
+        "Native": {
+          "status": "PASS",
+          "milliseconds": 25,
+          "fullRowsCompared": 64,
+          "selectedRowsCompared": 64,
+          "normalizedFinalSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
+          "worksum": 669696,
+          "captures": 64,
+          "tick": 65,
+          "frames": 65,
+          "diagnosticMilliseconds": 23,
+          "timingSamples": 1,
+          "timingAcceptance": false
+        },
+        "JS": {
+          "status": "PASS",
+          "milliseconds": 51,
+          "fullRowsCompared": 64,
+          "selectedRowsCompared": 64,
+          "normalizedFinalSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
+          "worksum": 669696,
+          "captures": 64,
+          "tick": 65,
+          "frames": 65,
+          "diagnosticMilliseconds": 48,
+          "timingSamples": 1,
+          "timingAcceptance": false
+        }
+      }
+    },
+    {
+      "schema": "Motion",
+      "workload": "dense",
+      "count": 256,
+      "freshReference": "PASS",
+      "backends": {
+        "Native": {
+          "status": "PASS",
+          "milliseconds": 313,
+          "fullRowsCompared": 256,
+          "selectedRowsCompared": 256,
+          "normalizedFinalSha256": "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+          "worksum": 8970240,
+          "captures": 64,
+          "tick": 65,
+          "frames": 65,
+          "diagnosticMilliseconds": 314,
+          "timingSamples": 1,
+          "timingAcceptance": false
+        },
+        "JS": {
+          "status": "PASS",
+          "milliseconds": 626,
+          "fullRowsCompared": 256,
+          "selectedRowsCompared": 256,
+          "normalizedFinalSha256": "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+          "worksum": 8970240,
+          "captures": 64,
+          "tick": 65,
+          "frames": 65,
+          "diagnosticMilliseconds": 560,
+          "timingSamples": 1,
+          "timingAcceptance": false
+        }
+      }
+    },
+    {
+      "schema": "Motion",
+      "workload": "dense",
+      "count": 1024,
+      "freshReference": "PASS",
+      "backends": {
+        "Native": {
+          "status": "FAILED",
+          "error": "5s limit: /tmp/measurement-bend-px08njuo/original/measurement-bend-native"
+        },
+        "JS": {
+          "status": "FAILED",
+          "error": "5s limit: node"
+        }
+      }
+    },
+    {
+      "schema": "Motion",
+      "workload": "sparse",
+      "count": 64,
+      "freshReference": "PASS",
+      "backends": {
+        "Native": {
+          "status": "PASS",
+          "milliseconds": 4,
+          "fullRowsCompared": 64,
+          "selectedRowsCompared": 8,
+          "normalizedFinalSha256": "e9227bc45800a0209f9360875d7102b1fafbe6d97f0271b76eda1ab9cb3df256",
+          "worksum": 2053472,
+          "captures": 64,
+          "tick": 65,
+          "frames": 65,
+          "diagnosticMilliseconds": 4,
+          "timingSamples": 1,
+          "timingAcceptance": false
+        },
+        "JS": {
+          "status": "PASS",
+          "milliseconds": 47,
+          "fullRowsCompared": 64,
+          "selectedRowsCompared": 8,
+          "normalizedFinalSha256": "e9227bc45800a0209f9360875d7102b1fafbe6d97f0271b76eda1ab9cb3df256",
+          "worksum": 2053472,
+          "captures": 64,
+          "tick": 65,
+          "frames": 65,
+          "diagnosticMilliseconds": 24,
+          "timingSamples": 1,
+          "timingAcceptance": false
+        }
+      }
+    },
+    {
+      "schema": "Motion",
+      "workload": "sparse",
+      "count": 256,
+      "freshReference": "PASS",
+      "backends": {
+        "Native": {
+          "status": "PASS",
+          "milliseconds": 47,
+          "fullRowsCompared": 256,
+          "selectedRowsCompared": 32,
+          "normalizedFinalSha256": "280a00a79454d62a5ddf678b14915d641dc3d8ff24e93a581cefa71078dfab41",
+          "worksum": 106982496,
+          "captures": 64,
+          "tick": 65,
+          "frames": 65,
+          "diagnosticMilliseconds": 45,
+          "timingSamples": 1,
+          "timingAcceptance": false
+        },
+        "JS": {
+          "status": "PASS",
+          "milliseconds": 97,
+          "fullRowsCompared": 256,
+          "selectedRowsCompared": 32,
+          "normalizedFinalSha256": "280a00a79454d62a5ddf678b14915d641dc3d8ff24e93a581cefa71078dfab41",
+          "worksum": 106982496,
+          "captures": 64,
+          "tick": 65,
+          "frames": 65,
+          "diagnosticMilliseconds": 108,
+          "timingSamples": 1,
+          "timingAcceptance": false
+        }
+      }
+    },
+    {
+      "schema": "Motion",
+      "workload": "sparse",
+      "count": 1024,
+      "freshReference": "PASS",
+      "backends": {
+        "Native": {
+          "status": "PASS",
+          "milliseconds": 835,
+          "fullRowsCompared": 1024,
+          "selectedRowsCompared": 128,
+          "normalizedFinalSha256": "d7035863b11216182aab47cb1aa3945de42e5992394cef5b6a9061edabf2f630",
+          "worksum": 2187192416,
+          "captures": 64,
+          "tick": 65,
+          "frames": 65,
+          "diagnosticMilliseconds": 779,
+          "timingSamples": 1,
+          "timingAcceptance": false
+        },
+        "JS": {
+          "status": "PASS",
+          "milliseconds": 920,
+          "fullRowsCompared": 1024,
+          "selectedRowsCompared": 128,
+          "normalizedFinalSha256": "d7035863b11216182aab47cb1aa3945de42e5992394cef5b6a9061edabf2f630",
+          "worksum": 2187192416,
+          "captures": 64,
+          "tick": 65,
+          "frames": 65,
+          "diagnosticMilliseconds": 869,
+          "timingSamples": 1,
+          "timingAcceptance": false
+        }
+      }
+    },
+    {
+      "schema": "Health",
+      "workload": "dense",
+      "count": 64,
+      "freshReference": "PASS",
+      "backends": {
+        "Native": {
+          "status": "PASS",
+          "milliseconds": 23,
+          "fullRowsCompared": 64,
+          "selectedRowsCompared": 64,
+          "normalizedFinalSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
+          "worksum": 669696,
+          "captures": 64,
+          "tick": 65,
+          "frames": 65,
+          "diagnosticMilliseconds": 23,
+          "timingSamples": 1,
+          "timingAcceptance": false
+        },
+        "JS": {
+          "status": "PASS",
+          "milliseconds": 53,
+          "fullRowsCompared": 64,
+          "selectedRowsCompared": 64,
+          "normalizedFinalSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
+          "worksum": 669696,
+          "captures": 64,
+          "tick": 65,
+          "frames": 65,
+          "diagnosticMilliseconds": 47,
+          "timingSamples": 1,
+          "timingAcceptance": false
+        }
+      }
+    },
+    {
+      "schema": "Health",
+      "workload": "dense",
+      "count": 256,
+      "freshReference": "PASS",
+      "backends": {
+        "Native": {
+          "status": "PASS",
+          "milliseconds": 317,
+          "fullRowsCompared": 256,
+          "selectedRowsCompared": 256,
+          "normalizedFinalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+          "worksum": 8970240,
+          "captures": 64,
+          "tick": 65,
+          "frames": 65,
+          "diagnosticMilliseconds": 318,
+          "timingSamples": 1,
+          "timingAcceptance": false
+        },
+        "JS": {
+          "status": "PASS",
+          "milliseconds": 458,
+          "fullRowsCompared": 256,
+          "selectedRowsCompared": 256,
+          "normalizedFinalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+          "worksum": 8970240,
+          "captures": 64,
+          "tick": 65,
+          "frames": 65,
+          "diagnosticMilliseconds": 456,
+          "timingSamples": 1,
+          "timingAcceptance": false
+        }
+      }
+    },
+    {
+      "schema": "Health",
+      "workload": "dense",
+      "count": 1024,
+      "freshReference": "PASS",
+      "backends": {
+        "Native": {
+          "status": "FAILED",
+          "error": "5s limit: /tmp/measurement-bend-px08njuo/original/measurement-bend-native"
+        },
+        "JS": {
+          "status": "FAILED",
+          "error": "5s limit: node"
+        }
+      }
+    },
+    {
+      "schema": "Health",
+      "workload": "sparse",
+      "count": 64,
+      "freshReference": "PASS",
+      "backends": {
+        "Native": {
+          "status": "PASS",
+          "milliseconds": 3,
+          "fullRowsCompared": 64,
+          "selectedRowsCompared": 8,
+          "normalizedFinalSha256": "c1c1d6cb73ca9e83d03b1149dd5e5a0ab2d723c0c373a2ddcd485c74d65a90ce",
+          "worksum": 2090336,
+          "captures": 64,
+          "tick": 65,
+          "frames": 65,
+          "diagnosticMilliseconds": 4,
+          "timingSamples": 1,
+          "timingAcceptance": false
+        },
+        "JS": {
+          "status": "PASS",
+          "milliseconds": 23,
+          "fullRowsCompared": 64,
+          "selectedRowsCompared": 8,
+          "normalizedFinalSha256": "c1c1d6cb73ca9e83d03b1149dd5e5a0ab2d723c0c373a2ddcd485c74d65a90ce",
+          "worksum": 2090336,
+          "captures": 64,
+          "tick": 65,
+          "frames": 65,
+          "diagnosticMilliseconds": 23,
+          "timingSamples": 1,
+          "timingAcceptance": false
+        }
+      }
+    },
+    {
+      "schema": "Health",
+      "workload": "sparse",
+      "count": 256,
+      "freshReference": "PASS",
+      "backends": {
+        "Native": {
+          "status": "PASS",
+          "milliseconds": 42,
+          "fullRowsCompared": 256,
+          "selectedRowsCompared": 32,
+          "normalizedFinalSha256": "66ac722d662ab9f8b89d2c7531242764d28a014bec7bed35aef32fa382bc754c",
+          "worksum": 107511904,
+          "captures": 64,
+          "tick": 65,
+          "frames": 65,
+          "diagnosticMilliseconds": 42,
+          "timingSamples": 1,
+          "timingAcceptance": false
+        },
+        "JS": {
+          "status": "PASS",
+          "milliseconds": 97,
+          "fullRowsCompared": 256,
+          "selectedRowsCompared": 32,
+          "normalizedFinalSha256": "66ac722d662ab9f8b89d2c7531242764d28a014bec7bed35aef32fa382bc754c",
+          "worksum": 107511904,
+          "captures": 64,
+          "tick": 65,
+          "frames": 65,
+          "diagnosticMilliseconds": 87,
+          "timingSamples": 1,
+          "timingAcceptance": false
+        }
+      }
+    },
+    {
+      "schema": "Health",
+      "workload": "sparse",
+      "count": 1024,
+      "freshReference": "PASS",
+      "backends": {
+        "Native": {
+          "status": "PASS",
+          "milliseconds": 713,
+          "fullRowsCompared": 1024,
+          "selectedRowsCompared": 128,
+          "normalizedFinalSha256": "b59afb025faffeb35135fd4c95b7ed51ad00544e79dd0762ae6fbc000086fabc",
+          "worksum": 2195426400,
+          "captures": 64,
+          "tick": 65,
+          "frames": 65,
+          "diagnosticMilliseconds": 721,
+          "timingSamples": 1,
+          "timingAcceptance": false
+        },
+        "JS": {
+          "status": "PASS",
+          "milliseconds": 1265,
+          "fullRowsCompared": 1024,
+          "selectedRowsCompared": 128,
+          "normalizedFinalSha256": "b59afb025faffeb35135fd4c95b7ed51ad00544e79dd0762ae6fbc000086fabc",
+          "worksum": 2195426400,
+          "captures": 64,
+          "tick": 65,
+          "frames": 65,
+          "diagnosticMilliseconds": 1164,
+          "timingSamples": 1,
+          "timingAcceptance": false
+        }
+      }
+    }
+  ],
+  "negatives": [
+    {
+      "name": "wrong-token",
+      "status": "intended rejection",
+      "diagnostic": "SOME PROOFS FAIL\nError:\n- expected : T.PositionToken\n- observed : T.VitalsToken\nContext:\n- Owner     : Type\n- get       : @_:Owner -> @_:T.PositionToken -> Sigma<&1, &1, Owner, _ => T.Access<T.PositionView>>\n- set       : @_:Owner -> @_:T.PositionToken -> @_:U32 -> Owner\n- ledger    : @_:Owner -> @_:T.MotionLedgerToken -> Sigma<&1, &1, Owner, _ => Maybe<&2, T.LedgerView>>\n- setledger : @_:Owner -> @_:T.MotionLedgerToken -> @_:U32 -> Owner\n- owner     : Owner\nLocation: motion_body\n44 | def motion_body(-Owner:Type,get:Owner -> T.PositionToken -> Owner & T.Access<T.PositionView>,set:Owner -> T.PositionToken -> U32 -> Owner,ledger:Owner -> T.MotionLedgerToken -> Owner & Maybe<&2,T.LedgerView>,setledger:Owner -> T.MotionLedgerToken -> U32 -> Owner,owner:Owner) -> Owner & U32:\n45>|   motion_body_read(Owner,set,ledger,setledger,get(owner,T.VitalsToken{}))\n   |                                                         ^^^^^^^^^^^^^^^\n46 | type MotionRows is Type:\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "name": "reconstruct-opaque-owner",
+      "status": "intended rejection",
+      "diagnostic": "SOME PROOFS FAIL\nError:\n- expected : Owner\n- observed : T.Position\nContext:\n- Owner     : Type\n- get       : @_:Owner -> @_:T.PositionToken -> Sigma<&1, &1, Owner, _ => T.Access<T.PositionView>>\n- set       : @_:Owner -> @_:T.PositionToken -> @_:U32 -> Owner\n- ledger    : @_:Owner -> @_:T.MotionLedgerToken -> Sigma<&1, &1, Owner, _ => Maybe<&2, T.LedgerView>>\n- setledger : @_:Owner -> @_:T.MotionLedgerToken -> @_:U32 -> Owner\n- owner     : Owner\nLocation: motion_body\n44 | def motion_body(-Owner:Type,get:Owner -> T.PositionToken -> Owner & T.Access<T.PositionView>,set:Owner -> T.PositionToken -> U32 -> Owner,ledger:Owner -> T.MotionLedgerToken -> Owner & Maybe<&2,T.LedgerView>,setledger:Owner -> T.MotionLedgerToken -> U32 -> Owner,owner:Owner) -> Owner & U32:\n45>|   motion_body_read(Owner,set,ledger,setledger,get(T.Position{[0:U32^2n],7},T.PositionToken{}))\n   |                                                   ^^^^^^^^^^^^^^^^^^^^^^^^\n46 | type MotionRows is Type:\nbend 2.0.35 is available: run bend update\n"
+    }
+  ],
+  "mutants": [
+    {
+      "name": "main-no-increment",
+      "compiledNativeJs": true,
+      "outcomes": [
+        "detected",
+        "detected"
+      ]
+    },
+    {
+      "name": "ledger-no-increment",
+      "compiledNativeJs": true,
+      "outcomes": [
+        "detected",
+        "detected"
+      ]
+    },
+    {
+      "name": "wrong-Aux-present-selection",
+      "compiledNativeJs": true,
+      "outcomes": [
+        "detected",
+        "detected"
+      ]
+    }
+  ],
+  "status": "REGRESSION"
+}
