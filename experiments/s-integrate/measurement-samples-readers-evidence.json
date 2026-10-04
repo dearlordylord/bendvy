@@ -1,0 +1,2890 @@
+{
+  "scope": "Readers actual dispatcher/affine updates; 64 iterations and retained full event batches; seven repetitions; no acceptance",
+  "cpuAffinity": [
+    5
+  ],
+  "iterationsPerWorld": 64,
+  "warmup": "one fresh identical world per child before measured fresh worlds",
+  "batch": "one fresh measured world per child for all counts",
+  "clock": "Bend IO.now integer milliseconds, TS performance.now; sum only inner execution intervals",
+  "rssMethod": "POSIX posix_spawn + wait4.ru_maxrss; KiB; entire child including startup/warmup/setup/dumps and child-owned validation, not component allocations",
+  "limits": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "compiler": "bend 2.0.34",
+  "clang": "Debian clang version 14.0.6",
+  "node": "v24.20.0",
+  "compilerSha256": "d4821d04932218216c9dc906223ed0e23dd86726d4357a567fb76ee6c976db4e",
+  "baseSha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+  "sources": {
+    "measurement-samples-readers.bend": "525791d08371a62bd5b6c327316c103083e310da7383f5b95652da1c421d6265",
+    "measurement-readers.bend": "319b82558f3ebce5758df7a1ad51fa04c1341b386281a8f32a0b6a717e21f7e1",
+    "measurement-lifecycle.bend": "7f0449909fbd8be645dfabfaed7aaea7b5aa7e29912bdd675a3babd026496708",
+    "measurement-bend.bend": "29c9f05835adb25e6b34c05048bb756cbfb86049b35edab2ff3649e671283d90",
+    "types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+    "storage.bend": "936ee89484a6e58558ab1684d90c16cbf2285ef5027292901dd3d9bf973754ba",
+    "identity.bend": "2c88babc9e853d3706f7a6c1f8f0ae48c198949143df2da6562bd774237d7329",
+    "commands.bend": "022ea5ca1f44c952ae77071689d0735e5a38976d7f628203d85fd9cc920a1194",
+    "query.bend": "903af14b5d85d1162df5f872f26f221134a17c772bc82fd17686ce2f4be45759",
+    "observations.bend": "81e6afcd4ae06a396669cff14d1da68a4c597539b6eb64e68648ebbe7b235136",
+    "payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "transaction.bend": "d32f0b26e4a14fc784c3ce30c4d6a1ded0cf0a55ed819f54419a558445e298a4",
+    "transaction-dispatch-adapters.bend": "eea16d3f539d70bcd88fd8fd314b75d252ccaff2b9c1c8b63e7d96bfdda34142",
+    "systems.bend": "2cfc899215e408cc4c652c8d4c290b18800cdb6e8c96f1061a77853afdac9221",
+    "schedule.bend": "98c955f7ee5039aed875a3bd93e3c94840d9ea2f48de0e6415bd28d63ee8fb98",
+    "capture.bend": "44d5f3117a465c216ee93100026aad78e86f24c40c09c678be99935dde076817",
+    "host.bend": "b50bc903906cb6a842d0ef88ba84fe0dbf0dd7abdb85c0fa436bccf228b74bb9",
+    "dispatcher.bend": "3530c7c20d704ba51a9cdace1f028e507960458b9c0bdcdf0dbc0d546c800b07",
+    "readers.bend": "2673082b4ef5cd6c5d8f61c362e22f74b13daeb27196894278cc20b1459c22e9",
+    "reader-host.bend": "50f1251c6d476b07055c36c5a97e3350a4cb46e5d826ff97ced2860d40798a64",
+    "streams.bend": "1a1c7991d6a1b4ebfb3b47dc62459beb83ed5e38ded56d27cc20b5478fc0d315",
+    "host-observations.bend": "e6a37f6d160a53f14b08254f35cb317a68f1f2c540c40c9b88e600d0d6198e76",
+    "audited-invoker.bend": "2ed7e484b8a043f0944e0f662a8799f94388c99f757de331fb1a79b1c07c8853",
+    "structural-invoker.bend": "6907a8c5775f77ffed6141123fe5c7033678269ade0f59cd0f24b8680e497932",
+    "host-render.bend": "1eef120fa604ba633f06d33a8a3910845293926c36dc9c91cd59d4d5c045a28a"
+  },
+  "runnerSha256": "e25ad2fda3633faa883c155c67142971bc4fd1b0342a3c99fb8996e7fd706e5b",
+  "referenceSha256": "039edf1ec9905ad39c94bf4fcd9850610615251bd8b72e044b93fb7aa7c90376",
+  "timingReferenceSha256": "3195d172802ac4d561e239372819ca4aecc8ee1e93a7c70b2119bb141bbad0d3",
+  "contractSha256": "7b8153b13ad65841a8d64897cb9dd2704e23557e74e137dc6b5d63f32f6c9758",
+  "cases": [
+    {
+      "schema": "Motion",
+      "workload": "readers",
+      "count": 64,
+      "retainedLiveCount": 64,
+      "payloadWidth": 4,
+      "finalCommandOccupancy": 0,
+      "readers": "same Fast/Slow instances; Slow every fourth iteration",
+      "verification": {
+        "Native": {
+          "status": "PASS",
+          "wholeProcessSeconds": 0.2304096349980682,
+          "peakRssKiB": 110080,
+          "exitCode": 0,
+          "command": [
+            "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers-native",
+            "0",
+            "64",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "milliseconds": 5,
+          "warmupMilliseconds": 8,
+          "freshMeasuredWorlds": 1,
+          "fullReadObservationsPerWorld": 84,
+          "finalSha256": "839e0b8f36c180e70c69a772e372f5fcdea2acb0544b220fe6973890edde63c0"
+        },
+        "JS": {
+          "status": "PASS",
+          "wholeProcessSeconds": 0.655155484797433,
+          "peakRssKiB": 110080,
+          "exitCode": 0,
+          "command": [
+            "node",
+            "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers.js",
+            "0",
+            "64"
+          ],
+          "milliseconds": 45,
+          "warmupMilliseconds": 52,
+          "freshMeasuredWorlds": 1,
+          "fullReadObservationsPerWorld": 84,
+          "finalSha256": "839e0b8f36c180e70c69a772e372f5fcdea2acb0544b220fe6973890edde63c0"
+        },
+        "TS": {
+          "status": "PASS",
+          "wholeProcessSeconds": 0.40804250491783023,
+          "peakRssKiB": 112916,
+          "exitCode": 0,
+          "command": [
+            "node",
+            "/workspace/formal-proofs/bendvy-worktrees/measurement-samples/experiments/s-integrate/measurement-samples-readers-reference.mjs",
+            "Motion",
+            "64"
+          ],
+          "milliseconds": 22.110472000000016,
+          "warmupMilliseconds": 17.545893000000035,
+          "freshMeasuredWorlds": 1,
+          "fullReadObservationsPerWorld": 84,
+          "finalSha256": "839e0b8f36c180e70c69a772e372f5fcdea2acb0544b220fe6973890edde63c0"
+        }
+      },
+      "samples": {
+        "Native": [
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.329978157998994,
+            "peakRssKiB": 110080,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers-native",
+              "0",
+              "64",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "repetition": 1,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 8,
+            "warmupMilliseconds": 32,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "839e0b8f36c180e70c69a772e372f5fcdea2acb0544b220fe6973890edde63c0"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.2444388340227306,
+            "peakRssKiB": 110080,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers-native",
+              "0",
+              "64",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "repetition": 2,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 13,
+            "warmupMilliseconds": 8,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "839e0b8f36c180e70c69a772e372f5fcdea2acb0544b220fe6973890edde63c0"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.18624435691162944,
+            "peakRssKiB": 110080,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers-native",
+              "0",
+              "64",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "repetition": 3,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 6,
+            "warmupMilliseconds": 6,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "839e0b8f36c180e70c69a772e372f5fcdea2acb0544b220fe6973890edde63c0"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.2178224897943437,
+            "peakRssKiB": 110080,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers-native",
+              "0",
+              "64",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "repetition": 4,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 9,
+            "warmupMilliseconds": 5,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "839e0b8f36c180e70c69a772e372f5fcdea2acb0544b220fe6973890edde63c0"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.17976734600961208,
+            "peakRssKiB": 110080,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers-native",
+              "0",
+              "64",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "repetition": 5,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 6,
+            "warmupMilliseconds": 5,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "839e0b8f36c180e70c69a772e372f5fcdea2acb0544b220fe6973890edde63c0"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.2230864497832954,
+            "peakRssKiB": 110080,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers-native",
+              "0",
+              "64",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "repetition": 6,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 8,
+            "warmupMilliseconds": 6,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "839e0b8f36c180e70c69a772e372f5fcdea2acb0544b220fe6973890edde63c0"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.19743903214111924,
+            "peakRssKiB": 110080,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers-native",
+              "0",
+              "64",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "repetition": 7,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 5,
+            "warmupMilliseconds": 9,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "839e0b8f36c180e70c69a772e372f5fcdea2acb0544b220fe6973890edde63c0"
+          }
+        ],
+        "JS": [
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.5313683480489999,
+            "peakRssKiB": 110080,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers.js",
+              "0",
+              "64"
+            ],
+            "repetition": 1,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 25,
+            "warmupMilliseconds": 52,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "839e0b8f36c180e70c69a772e372f5fcdea2acb0544b220fe6973890edde63c0"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.6330416379496455,
+            "peakRssKiB": 110080,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers.js",
+              "0",
+              "64"
+            ],
+            "repetition": 2,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 31,
+            "warmupMilliseconds": 41,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "839e0b8f36c180e70c69a772e372f5fcdea2acb0544b220fe6973890edde63c0"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.5103237589355558,
+            "peakRssKiB": 110080,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers.js",
+              "0",
+              "64"
+            ],
+            "repetition": 3,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 20,
+            "warmupMilliseconds": 49,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "839e0b8f36c180e70c69a772e372f5fcdea2acb0544b220fe6973890edde63c0"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.5999514919240028,
+            "peakRssKiB": 110080,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers.js",
+              "0",
+              "64"
+            ],
+            "repetition": 4,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 25,
+            "warmupMilliseconds": 62,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "839e0b8f36c180e70c69a772e372f5fcdea2acb0544b220fe6973890edde63c0"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.5514269701670855,
+            "peakRssKiB": 110080,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers.js",
+              "0",
+              "64"
+            ],
+            "repetition": 5,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 31,
+            "warmupMilliseconds": 39,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "839e0b8f36c180e70c69a772e372f5fcdea2acb0544b220fe6973890edde63c0"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.5761462978553027,
+            "peakRssKiB": 110080,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers.js",
+              "0",
+              "64"
+            ],
+            "repetition": 6,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 30,
+            "warmupMilliseconds": 41,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "839e0b8f36c180e70c69a772e372f5fcdea2acb0544b220fe6973890edde63c0"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.5953810799401253,
+            "peakRssKiB": 110080,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers.js",
+              "0",
+              "64"
+            ],
+            "repetition": 7,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 31,
+            "warmupMilliseconds": 55,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "839e0b8f36c180e70c69a772e372f5fcdea2acb0544b220fe6973890edde63c0"
+          }
+        ],
+        "TS": [
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.32785109896212816,
+            "peakRssKiB": 113028,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-samples/experiments/s-integrate/measurement-samples-readers-reference.mjs",
+              "Motion",
+              "64"
+            ],
+            "repetition": 1,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 14.537702999999965,
+            "warmupMilliseconds": 18.762403000000006,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "839e0b8f36c180e70c69a772e372f5fcdea2acb0544b220fe6973890edde63c0"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.27796348207630217,
+            "peakRssKiB": 112104,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-samples/experiments/s-integrate/measurement-samples-readers-reference.mjs",
+              "Motion",
+              "64"
+            ],
+            "repetition": 2,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 15.599711000000013,
+            "warmupMilliseconds": 15.81804600000001,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "839e0b8f36c180e70c69a772e372f5fcdea2acb0544b220fe6973890edde63c0"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.3592665649484843,
+            "peakRssKiB": 110080,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-samples/experiments/s-integrate/measurement-samples-readers-reference.mjs",
+              "Motion",
+              "64"
+            ],
+            "repetition": 3,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 16.26392500000003,
+            "warmupMilliseconds": 20.571710000000053,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "839e0b8f36c180e70c69a772e372f5fcdea2acb0544b220fe6973890edde63c0"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.36525869695469737,
+            "peakRssKiB": 110080,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-samples/experiments/s-integrate/measurement-samples-readers-reference.mjs",
+              "Motion",
+              "64"
+            ],
+            "repetition": 4,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 16.516842999999994,
+            "warmupMilliseconds": 33.309729999999945,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "839e0b8f36c180e70c69a772e372f5fcdea2acb0544b220fe6973890edde63c0"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.3237273150589317,
+            "peakRssKiB": 110080,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-samples/experiments/s-integrate/measurement-samples-readers-reference.mjs",
+              "Motion",
+              "64"
+            ],
+            "repetition": 5,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 14.499494000000027,
+            "warmupMilliseconds": 20.676751999999965,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "839e0b8f36c180e70c69a772e372f5fcdea2acb0544b220fe6973890edde63c0"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.4501775579992682,
+            "peakRssKiB": 113716,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-samples/experiments/s-integrate/measurement-samples-readers-reference.mjs",
+              "Motion",
+              "64"
+            ],
+            "repetition": 6,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 30.277915000000007,
+            "warmupMilliseconds": 27.192138999999997,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "839e0b8f36c180e70c69a772e372f5fcdea2acb0544b220fe6973890edde63c0"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.35149379214271903,
+            "peakRssKiB": 113344,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-samples/experiments/s-integrate/measurement-samples-readers-reference.mjs",
+              "Motion",
+              "64"
+            ],
+            "repetition": 7,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 16.92088899999999,
+            "warmupMilliseconds": 18.52006799999998,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "839e0b8f36c180e70c69a772e372f5fcdea2acb0544b220fe6973890edde63c0"
+          }
+        ]
+      },
+      "summary": {
+        "Native": {
+          "milliseconds": {
+            "min": 5,
+            "median": 8,
+            "max": 13,
+            "raw": [
+              8,
+              13,
+              6,
+              9,
+              6,
+              8,
+              5
+            ]
+          },
+          "peakRssKiB": {
+            "min": 110080,
+            "median": 110080,
+            "max": 110080,
+            "raw": [
+              110080,
+              110080,
+              110080,
+              110080,
+              110080,
+              110080,
+              110080
+            ]
+          }
+        },
+        "JS": {
+          "milliseconds": {
+            "min": 20,
+            "median": 30,
+            "max": 31,
+            "raw": [
+              25,
+              31,
+              20,
+              25,
+              31,
+              30,
+              31
+            ]
+          },
+          "peakRssKiB": {
+            "min": 110080,
+            "median": 110080,
+            "max": 110080,
+            "raw": [
+              110080,
+              110080,
+              110080,
+              110080,
+              110080,
+              110080,
+              110080
+            ]
+          }
+        },
+        "TS": {
+          "milliseconds": {
+            "min": 14.499494000000027,
+            "median": 16.26392500000003,
+            "max": 30.277915000000007,
+            "raw": [
+              14.537702999999965,
+              15.599711000000013,
+              16.26392500000003,
+              16.516842999999994,
+              14.499494000000027,
+              30.277915000000007,
+              16.92088899999999
+            ]
+          },
+          "peakRssKiB": {
+            "min": 110080,
+            "median": 112104,
+            "max": 113716,
+            "raw": [
+              113028,
+              112104,
+              110080,
+              110080,
+              110080,
+              113716,
+              113344
+            ]
+          }
+        }
+      },
+      "status": "MEASURED",
+      "ratios": {
+        "Native/TS": 0.49188618368567155,
+        "JS/TS": 1.8445731888212684
+      },
+      "resolutionLimited": true,
+      "acceptance": "none: thresholds unapproved; sub-10ms native samples are resolution-limited"
+    },
+    {
+      "schema": "Motion",
+      "workload": "readers",
+      "count": 256,
+      "retainedLiveCount": 256,
+      "payloadWidth": 4,
+      "finalCommandOccupancy": 0,
+      "readers": "same Fast/Slow instances; Slow every fourth iteration",
+      "verification": {
+        "Native": {
+          "status": "PASS",
+          "wholeProcessSeconds": 0.9936746719758958,
+          "peakRssKiB": 110080,
+          "exitCode": 0,
+          "command": [
+            "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers-native",
+            "0",
+            "256",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "milliseconds": 17,
+          "warmupMilliseconds": 17,
+          "freshMeasuredWorlds": 1,
+          "fullReadObservationsPerWorld": 84,
+          "finalSha256": "0922da52ffba8522e4233ebae43269c5408fa9ea96d9375ca60c7c015e5d6378"
+        },
+        "JS": {
+          "status": "PASS",
+          "wholeProcessSeconds": 1.6257510939612985,
+          "peakRssKiB": 220664,
+          "exitCode": 0,
+          "command": [
+            "node",
+            "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers.js",
+            "0",
+            "256"
+          ],
+          "milliseconds": 73,
+          "warmupMilliseconds": 130,
+          "freshMeasuredWorlds": 1,
+          "fullReadObservationsPerWorld": 84,
+          "finalSha256": "0922da52ffba8522e4233ebae43269c5408fa9ea96d9375ca60c7c015e5d6378"
+        },
+        "TS": {
+          "status": "PASS",
+          "wholeProcessSeconds": 0.370069736847654,
+          "peakRssKiB": 124796,
+          "exitCode": 0,
+          "command": [
+            "node",
+            "/workspace/formal-proofs/bendvy-worktrees/measurement-samples/experiments/s-integrate/measurement-samples-readers-reference.mjs",
+            "Motion",
+            "256"
+          ],
+          "milliseconds": 37.710601,
+          "warmupMilliseconds": 26.794261000000006,
+          "freshMeasuredWorlds": 1,
+          "fullReadObservationsPerWorld": 84,
+          "finalSha256": "0922da52ffba8522e4233ebae43269c5408fa9ea96d9375ca60c7c015e5d6378"
+        }
+      },
+      "samples": {
+        "Native": [
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.4424651770386845,
+            "peakRssKiB": 110080,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers-native",
+              "0",
+              "256",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "repetition": 1,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 20,
+            "warmupMilliseconds": 17,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "0922da52ffba8522e4233ebae43269c5408fa9ea96d9375ca60c7c015e5d6378"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.8477362699341029,
+            "peakRssKiB": 110080,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers-native",
+              "0",
+              "256",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "repetition": 2,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 20,
+            "warmupMilliseconds": 16,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "0922da52ffba8522e4233ebae43269c5408fa9ea96d9375ca60c7c015e5d6378"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.8826629719696939,
+            "peakRssKiB": 110080,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers-native",
+              "0",
+              "256",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "repetition": 3,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 20,
+            "warmupMilliseconds": 18,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "0922da52ffba8522e4233ebae43269c5408fa9ea96d9375ca60c7c015e5d6378"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.896095457021147,
+            "peakRssKiB": 110080,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers-native",
+              "0",
+              "256",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "repetition": 4,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 22,
+            "warmupMilliseconds": 18,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "0922da52ffba8522e4233ebae43269c5408fa9ea96d9375ca60c7c015e5d6378"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.8929706809576601,
+            "peakRssKiB": 110080,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers-native",
+              "0",
+              "256",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "repetition": 5,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 19,
+            "warmupMilliseconds": 18,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "0922da52ffba8522e4233ebae43269c5408fa9ea96d9375ca60c7c015e5d6378"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.295331473927945,
+            "peakRssKiB": 110080,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers-native",
+              "0",
+              "256",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "repetition": 6,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 26,
+            "warmupMilliseconds": 25,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "0922da52ffba8522e4233ebae43269c5408fa9ea96d9375ca60c7c015e5d6378"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.9421013758983463,
+            "peakRssKiB": 110080,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers-native",
+              "0",
+              "256",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "repetition": 7,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 18,
+            "warmupMilliseconds": 19,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "0922da52ffba8522e4233ebae43269c5408fa9ea96d9375ca60c7c015e5d6378"
+          }
+        ],
+        "JS": [
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.7860054890625179,
+            "peakRssKiB": 220360,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers.js",
+              "0",
+              "256"
+            ],
+            "repetition": 1,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 98,
+            "warmupMilliseconds": 174,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "0922da52ffba8522e4233ebae43269c5408fa9ea96d9375ca60c7c015e5d6378"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.8617636091075838,
+            "peakRssKiB": 224464,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers.js",
+              "0",
+              "256"
+            ],
+            "repetition": 2,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 122,
+            "warmupMilliseconds": 130,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "0922da52ffba8522e4233ebae43269c5408fa9ea96d9375ca60c7c015e5d6378"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.5496235128957778,
+            "peakRssKiB": 221644,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers.js",
+              "0",
+              "256"
+            ],
+            "repetition": 3,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 85,
+            "warmupMilliseconds": 120,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "0922da52ffba8522e4233ebae43269c5408fa9ea96d9375ca60c7c015e5d6378"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.6622167259920388,
+            "peakRssKiB": 224232,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers.js",
+              "0",
+              "256"
+            ],
+            "repetition": 4,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 79,
+            "warmupMilliseconds": 129,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "0922da52ffba8522e4233ebae43269c5408fa9ea96d9375ca60c7c015e5d6378"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 2.045353818917647,
+            "peakRssKiB": 224652,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers.js",
+              "0",
+              "256"
+            ],
+            "repetition": 5,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 275,
+            "warmupMilliseconds": 123,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "0922da52ffba8522e4233ebae43269c5408fa9ea96d9375ca60c7c015e5d6378"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.8486413350328803,
+            "peakRssKiB": 223492,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers.js",
+              "0",
+              "256"
+            ],
+            "repetition": 6,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 98,
+            "warmupMilliseconds": 153,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "0922da52ffba8522e4233ebae43269c5408fa9ea96d9375ca60c7c015e5d6378"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.9584750249050558,
+            "peakRssKiB": 225932,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers.js",
+              "0",
+              "256"
+            ],
+            "repetition": 7,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 117,
+            "warmupMilliseconds": 129,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "0922da52ffba8522e4233ebae43269c5408fa9ea96d9375ca60c7c015e5d6378"
+          }
+        ],
+        "TS": [
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.45886350492946804,
+            "peakRssKiB": 132116,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-samples/experiments/s-integrate/measurement-samples-readers-reference.mjs",
+              "Motion",
+              "256"
+            ],
+            "repetition": 1,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 40.363831000000005,
+            "warmupMilliseconds": 33.900735999999995,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "0922da52ffba8522e4233ebae43269c5408fa9ea96d9375ca60c7c015e5d6378"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.353645560098812,
+            "peakRssKiB": 127196,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-samples/experiments/s-integrate/measurement-samples-readers-reference.mjs",
+              "Motion",
+              "256"
+            ],
+            "repetition": 2,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 34.65574200000003,
+            "warmupMilliseconds": 29.461157999999983,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "0922da52ffba8522e4233ebae43269c5408fa9ea96d9375ca60c7c015e5d6378"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.4469728658441454,
+            "peakRssKiB": 121192,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-samples/experiments/s-integrate/measurement-samples-readers-reference.mjs",
+              "Motion",
+              "256"
+            ],
+            "repetition": 3,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 84.86136099999999,
+            "warmupMilliseconds": 40.68587400000001,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "0922da52ffba8522e4233ebae43269c5408fa9ea96d9375ca60c7c015e5d6378"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.3335657299030572,
+            "peakRssKiB": 121240,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-samples/experiments/s-integrate/measurement-samples-readers-reference.mjs",
+              "Motion",
+              "256"
+            ],
+            "repetition": 4,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 28.686568000000022,
+            "warmupMilliseconds": 24.46149200000002,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "0922da52ffba8522e4233ebae43269c5408fa9ea96d9375ca60c7c015e5d6378"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.3371907169930637,
+            "peakRssKiB": 134476,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-samples/experiments/s-integrate/measurement-samples-readers-reference.mjs",
+              "Motion",
+              "256"
+            ],
+            "repetition": 5,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 28.124604999999974,
+            "warmupMilliseconds": 24.234489999999994,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "0922da52ffba8522e4233ebae43269c5408fa9ea96d9375ca60c7c015e5d6378"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.3757691169157624,
+            "peakRssKiB": 125456,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-samples/experiments/s-integrate/measurement-samples-readers-reference.mjs",
+              "Motion",
+              "256"
+            ],
+            "repetition": 6,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 45.28774500000003,
+            "warmupMilliseconds": 26.93897000000004,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "0922da52ffba8522e4233ebae43269c5408fa9ea96d9375ca60c7c015e5d6378"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.3768614169675857,
+            "peakRssKiB": 130752,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-samples/experiments/s-integrate/measurement-samples-readers-reference.mjs",
+              "Motion",
+              "256"
+            ],
+            "repetition": 7,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 34.74986799999999,
+            "warmupMilliseconds": 29.10065400000002,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "0922da52ffba8522e4233ebae43269c5408fa9ea96d9375ca60c7c015e5d6378"
+          }
+        ]
+      },
+      "summary": {
+        "Native": {
+          "milliseconds": {
+            "min": 18,
+            "median": 20,
+            "max": 26,
+            "raw": [
+              20,
+              20,
+              20,
+              22,
+              19,
+              26,
+              18
+            ]
+          },
+          "peakRssKiB": {
+            "min": 110080,
+            "median": 110080,
+            "max": 110080,
+            "raw": [
+              110080,
+              110080,
+              110080,
+              110080,
+              110080,
+              110080,
+              110080
+            ]
+          }
+        },
+        "JS": {
+          "milliseconds": {
+            "min": 79,
+            "median": 98,
+            "max": 275,
+            "raw": [
+              98,
+              122,
+              85,
+              79,
+              275,
+              98,
+              117
+            ]
+          },
+          "peakRssKiB": {
+            "min": 220360,
+            "median": 224232,
+            "max": 225932,
+            "raw": [
+              220360,
+              224464,
+              221644,
+              224232,
+              224652,
+              223492,
+              225932
+            ]
+          }
+        },
+        "TS": {
+          "milliseconds": {
+            "min": 28.124604999999974,
+            "median": 34.74986799999999,
+            "max": 84.86136099999999,
+            "raw": [
+              40.363831000000005,
+              34.65574200000003,
+              84.86136099999999,
+              28.686568000000022,
+              28.124604999999974,
+              45.28774500000003,
+              34.74986799999999
+            ]
+          },
+          "peakRssKiB": {
+            "min": 121192,
+            "median": 127196,
+            "max": 134476,
+            "raw": [
+              132116,
+              127196,
+              121192,
+              121240,
+              134476,
+              125456,
+              130752
+            ]
+          }
+        }
+      },
+      "status": "MEASURED",
+      "ratios": {
+        "Native/TS": 0.5755417545758736,
+        "JS/TS": 2.820154597421781
+      },
+      "resolutionLimited": false,
+      "acceptance": "none: thresholds unapproved"
+    },
+    {
+      "schema": "Motion",
+      "workload": "readers",
+      "count": 1024,
+      "retainedLiveCount": 1024,
+      "payloadWidth": 4,
+      "finalCommandOccupancy": 0,
+      "readers": "same Fast/Slow instances; Slow every fourth iteration",
+      "verification": {
+        "Native": {
+          "status": "FAILED",
+          "error": "five-second process-group deadline",
+          "wholeProcessSeconds": 5.018204102059826,
+          "peakRssKiB": 110080,
+          "exitCode": -9,
+          "command": [
+            "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers-native",
+            "0",
+            "1024",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ]
+        },
+        "JS": {
+          "status": "FAILED",
+          "error": "five-second process-group deadline",
+          "wholeProcessSeconds": 5.024633779888973,
+          "peakRssKiB": 287832,
+          "exitCode": -9,
+          "command": [
+            "node",
+            "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers.js",
+            "0",
+            "1024"
+          ]
+        },
+        "TS": {
+          "status": "PASS",
+          "wholeProcessSeconds": 0.6003876619506627,
+          "peakRssKiB": 202744,
+          "exitCode": 0,
+          "command": [
+            "node",
+            "/workspace/formal-proofs/bendvy-worktrees/measurement-samples/experiments/s-integrate/measurement-samples-readers-reference.mjs",
+            "Motion",
+            "1024"
+          ],
+          "milliseconds": 88.57230800000002,
+          "warmupMilliseconds": 71.42196000000001,
+          "freshMeasuredWorlds": 1,
+          "fullReadObservationsPerWorld": 84,
+          "finalSha256": "8f3b742910c4f884f6b7e01bffc0986f601fdbd8f085d9404d2b0dd0cf56a924"
+        }
+      },
+      "samples": {
+        "Native": [],
+        "JS": [],
+        "TS": []
+      },
+      "summary": {},
+      "status": "UNVERIFIED",
+      "reason": "No timing ratios: at least one identical-work verification child failed"
+    },
+    {
+      "schema": "Health",
+      "workload": "readers",
+      "count": 64,
+      "retainedLiveCount": 64,
+      "payloadWidth": 4,
+      "finalCommandOccupancy": 0,
+      "readers": "same Fast/Slow instances; Slow every fourth iteration",
+      "verification": {
+        "Native": {
+          "status": "PASS",
+          "wholeProcessSeconds": 0.19434463209472597,
+          "peakRssKiB": 208960,
+          "exitCode": 0,
+          "command": [
+            "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers-native",
+            "1",
+            "64",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "milliseconds": 6,
+          "warmupMilliseconds": 5,
+          "freshMeasuredWorlds": 1,
+          "fullReadObservationsPerWorld": 84,
+          "finalSha256": "5a826a03c3771034950077a2fb4b9311fbbc00b9dc109414f5c32fc04962ec12"
+        },
+        "JS": {
+          "status": "PASS",
+          "wholeProcessSeconds": 0.5168208950199187,
+          "peakRssKiB": 208960,
+          "exitCode": 0,
+          "command": [
+            "node",
+            "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers.js",
+            "1",
+            "64"
+          ],
+          "milliseconds": 30,
+          "warmupMilliseconds": 52,
+          "freshMeasuredWorlds": 1,
+          "fullReadObservationsPerWorld": 84,
+          "finalSha256": "5a826a03c3771034950077a2fb4b9311fbbc00b9dc109414f5c32fc04962ec12"
+        },
+        "TS": {
+          "status": "PASS",
+          "wholeProcessSeconds": 0.28689084690995514,
+          "peakRssKiB": 208960,
+          "exitCode": 0,
+          "command": [
+            "node",
+            "/workspace/formal-proofs/bendvy-worktrees/measurement-samples/experiments/s-integrate/measurement-samples-readers-reference.mjs",
+            "Health",
+            "64"
+          ],
+          "milliseconds": 18.916070999999988,
+          "warmupMilliseconds": 18.631695000000008,
+          "freshMeasuredWorlds": 1,
+          "fullReadObservationsPerWorld": 84,
+          "finalSha256": "5a826a03c3771034950077a2fb4b9311fbbc00b9dc109414f5c32fc04962ec12"
+        }
+      },
+      "samples": {
+        "Native": [
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.20418100408278406,
+            "peakRssKiB": 208960,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers-native",
+              "1",
+              "64",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "repetition": 1,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 6,
+            "warmupMilliseconds": 6,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "5a826a03c3771034950077a2fb4b9311fbbc00b9dc109414f5c32fc04962ec12"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.19941729889251292,
+            "peakRssKiB": 208960,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers-native",
+              "1",
+              "64",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "repetition": 2,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 6,
+            "warmupMilliseconds": 7,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "5a826a03c3771034950077a2fb4b9311fbbc00b9dc109414f5c32fc04962ec12"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.20775915798731148,
+            "peakRssKiB": 208960,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers-native",
+              "1",
+              "64",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "repetition": 3,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 7,
+            "warmupMilliseconds": 6,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "5a826a03c3771034950077a2fb4b9311fbbc00b9dc109414f5c32fc04962ec12"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.21745244599878788,
+            "peakRssKiB": 208960,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers-native",
+              "1",
+              "64",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "repetition": 4,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 6,
+            "warmupMilliseconds": 8,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "5a826a03c3771034950077a2fb4b9311fbbc00b9dc109414f5c32fc04962ec12"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.18581097899004817,
+            "peakRssKiB": 208960,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers-native",
+              "1",
+              "64",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "repetition": 5,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 6,
+            "warmupMilliseconds": 6,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "5a826a03c3771034950077a2fb4b9311fbbc00b9dc109414f5c32fc04962ec12"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.20737744704820216,
+            "peakRssKiB": 208960,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers-native",
+              "1",
+              "64",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "repetition": 6,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 6,
+            "warmupMilliseconds": 5,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "5a826a03c3771034950077a2fb4b9311fbbc00b9dc109414f5c32fc04962ec12"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.20474205003120005,
+            "peakRssKiB": 208960,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers-native",
+              "1",
+              "64",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "repetition": 7,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 7,
+            "warmupMilliseconds": 6,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "5a826a03c3771034950077a2fb4b9311fbbc00b9dc109414f5c32fc04962ec12"
+          }
+        ],
+        "JS": [
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.6357244928367436,
+            "peakRssKiB": 208960,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers.js",
+              "1",
+              "64"
+            ],
+            "repetition": 1,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 19,
+            "warmupMilliseconds": 60,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "5a826a03c3771034950077a2fb4b9311fbbc00b9dc109414f5c32fc04962ec12"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.6317849191837013,
+            "peakRssKiB": 208960,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers.js",
+              "1",
+              "64"
+            ],
+            "repetition": 2,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 28,
+            "warmupMilliseconds": 73,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "5a826a03c3771034950077a2fb4b9311fbbc00b9dc109414f5c32fc04962ec12"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.6564930391032249,
+            "peakRssKiB": 208960,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers.js",
+              "1",
+              "64"
+            ],
+            "repetition": 3,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 39,
+            "warmupMilliseconds": 46,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "5a826a03c3771034950077a2fb4b9311fbbc00b9dc109414f5c32fc04962ec12"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.5410825940780342,
+            "peakRssKiB": 208960,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers.js",
+              "1",
+              "64"
+            ],
+            "repetition": 4,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 36,
+            "warmupMilliseconds": 46,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "5a826a03c3771034950077a2fb4b9311fbbc00b9dc109414f5c32fc04962ec12"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.5562846350949258,
+            "peakRssKiB": 208960,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers.js",
+              "1",
+              "64"
+            ],
+            "repetition": 5,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 25,
+            "warmupMilliseconds": 52,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "5a826a03c3771034950077a2fb4b9311fbbc00b9dc109414f5c32fc04962ec12"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.5690484889782965,
+            "peakRssKiB": 208960,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers.js",
+              "1",
+              "64"
+            ],
+            "repetition": 6,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 28,
+            "warmupMilliseconds": 56,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "5a826a03c3771034950077a2fb4b9311fbbc00b9dc109414f5c32fc04962ec12"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.5333068640902638,
+            "peakRssKiB": 208960,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers.js",
+              "1",
+              "64"
+            ],
+            "repetition": 7,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 31,
+            "warmupMilliseconds": 51,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "5a826a03c3771034950077a2fb4b9311fbbc00b9dc109414f5c32fc04962ec12"
+          }
+        ],
+        "TS": [
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.3707458667922765,
+            "peakRssKiB": 208960,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-samples/experiments/s-integrate/measurement-samples-readers-reference.mjs",
+              "Health",
+              "64"
+            ],
+            "repetition": 1,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 18.686778000000004,
+            "warmupMilliseconds": 42.29188800000003,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "5a826a03c3771034950077a2fb4b9311fbbc00b9dc109414f5c32fc04962ec12"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.4138180110603571,
+            "peakRssKiB": 208960,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-samples/experiments/s-integrate/measurement-samples-readers-reference.mjs",
+              "Health",
+              "64"
+            ],
+            "repetition": 2,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 23.786361,
+            "warmupMilliseconds": 37.005844999999965,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "5a826a03c3771034950077a2fb4b9311fbbc00b9dc109414f5c32fc04962ec12"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.315525874029845,
+            "peakRssKiB": 208960,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-samples/experiments/s-integrate/measurement-samples-readers-reference.mjs",
+              "Health",
+              "64"
+            ],
+            "repetition": 3,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 14.244492000000037,
+            "warmupMilliseconds": 17.2466,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "5a826a03c3771034950077a2fb4b9311fbbc00b9dc109414f5c32fc04962ec12"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.30777347600087523,
+            "peakRssKiB": 208960,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-samples/experiments/s-integrate/measurement-samples-readers-reference.mjs",
+              "Health",
+              "64"
+            ],
+            "repetition": 4,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 16.77426200000002,
+            "warmupMilliseconds": 17.810103999999995,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "5a826a03c3771034950077a2fb4b9311fbbc00b9dc109414f5c32fc04962ec12"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.3056882929522544,
+            "peakRssKiB": 208960,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-samples/experiments/s-integrate/measurement-samples-readers-reference.mjs",
+              "Health",
+              "64"
+            ],
+            "repetition": 5,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 17.527061000000003,
+            "warmupMilliseconds": 20.717169000000013,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "5a826a03c3771034950077a2fb4b9311fbbc00b9dc109414f5c32fc04962ec12"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.31851735594682395,
+            "peakRssKiB": 208960,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-samples/experiments/s-integrate/measurement-samples-readers-reference.mjs",
+              "Health",
+              "64"
+            ],
+            "repetition": 6,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 16.31125800000001,
+            "warmupMilliseconds": 17.672810999999967,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "5a826a03c3771034950077a2fb4b9311fbbc00b9dc109414f5c32fc04962ec12"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.35792126203887165,
+            "peakRssKiB": 208960,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-samples/experiments/s-integrate/measurement-samples-readers-reference.mjs",
+              "Health",
+              "64"
+            ],
+            "repetition": 7,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 28.414648999999997,
+            "warmupMilliseconds": 25.075580000000002,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "5a826a03c3771034950077a2fb4b9311fbbc00b9dc109414f5c32fc04962ec12"
+          }
+        ]
+      },
+      "summary": {
+        "Native": {
+          "milliseconds": {
+            "min": 6,
+            "median": 6,
+            "max": 7,
+            "raw": [
+              6,
+              6,
+              7,
+              6,
+              6,
+              6,
+              7
+            ]
+          },
+          "peakRssKiB": {
+            "min": 208960,
+            "median": 208960,
+            "max": 208960,
+            "raw": [
+              208960,
+              208960,
+              208960,
+              208960,
+              208960,
+              208960,
+              208960
+            ]
+          }
+        },
+        "JS": {
+          "milliseconds": {
+            "min": 19,
+            "median": 28,
+            "max": 39,
+            "raw": [
+              19,
+              28,
+              39,
+              36,
+              25,
+              28,
+              31
+            ]
+          },
+          "peakRssKiB": {
+            "min": 208960,
+            "median": 208960,
+            "max": 208960,
+            "raw": [
+              208960,
+              208960,
+              208960,
+              208960,
+              208960,
+              208960,
+              208960
+            ]
+          }
+        },
+        "TS": {
+          "milliseconds": {
+            "min": 14.244492000000037,
+            "median": 17.527061000000003,
+            "max": 28.414648999999997,
+            "raw": [
+              18.686778000000004,
+              23.786361,
+              14.244492000000037,
+              16.77426200000002,
+              17.527061000000003,
+              16.31125800000001,
+              28.414648999999997
+            ]
+          },
+          "peakRssKiB": {
+            "min": 208960,
+            "median": 208960,
+            "max": 208960,
+            "raw": [
+              208960,
+              208960,
+              208960,
+              208960,
+              208960,
+              208960,
+              208960
+            ]
+          }
+        }
+      },
+      "status": "MEASURED",
+      "ratios": {
+        "Native/TS": 0.34232778672933234,
+        "JS/TS": 1.597529671403551
+      },
+      "resolutionLimited": true,
+      "acceptance": "none: thresholds unapproved; sub-10ms native samples are resolution-limited"
+    },
+    {
+      "schema": "Health",
+      "workload": "readers",
+      "count": 256,
+      "retainedLiveCount": 256,
+      "payloadWidth": 4,
+      "finalCommandOccupancy": 0,
+      "readers": "same Fast/Slow instances; Slow every fourth iteration",
+      "verification": {
+        "Native": {
+          "status": "PASS",
+          "wholeProcessSeconds": 1.0048305550590158,
+          "peakRssKiB": 208960,
+          "exitCode": 0,
+          "command": [
+            "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers-native",
+            "1",
+            "256",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "milliseconds": 35,
+          "warmupMilliseconds": 16,
+          "freshMeasuredWorlds": 1,
+          "fullReadObservationsPerWorld": 84,
+          "finalSha256": "cbef56b5f69ef86c4727ec3a9053c72de71e520f65625529284dd66f66e61183"
+        },
+        "JS": {
+          "status": "PASS",
+          "wholeProcessSeconds": 1.8257758552208543,
+          "peakRssKiB": 220160,
+          "exitCode": 0,
+          "command": [
+            "node",
+            "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers.js",
+            "1",
+            "256"
+          ],
+          "milliseconds": 127,
+          "warmupMilliseconds": 135,
+          "freshMeasuredWorlds": 1,
+          "fullReadObservationsPerWorld": 84,
+          "finalSha256": "cbef56b5f69ef86c4727ec3a9053c72de71e520f65625529284dd66f66e61183"
+        },
+        "TS": {
+          "status": "PASS",
+          "wholeProcessSeconds": 0.6441636451054364,
+          "peakRssKiB": 208960,
+          "exitCode": 0,
+          "command": [
+            "node",
+            "/workspace/formal-proofs/bendvy-worktrees/measurement-samples/experiments/s-integrate/measurement-samples-readers-reference.mjs",
+            "Health",
+            "256"
+          ],
+          "milliseconds": 55.699873000000025,
+          "warmupMilliseconds": 44.79778300000004,
+          "freshMeasuredWorlds": 1,
+          "fullReadObservationsPerWorld": 84,
+          "finalSha256": "cbef56b5f69ef86c4727ec3a9053c72de71e520f65625529284dd66f66e61183"
+        }
+      },
+      "samples": {
+        "Native": [
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.0848580428864807,
+            "peakRssKiB": 208960,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers-native",
+              "1",
+              "256",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "repetition": 1,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 21,
+            "warmupMilliseconds": 56,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "cbef56b5f69ef86c4727ec3a9053c72de71e520f65625529284dd66f66e61183"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.9111950390506536,
+            "peakRssKiB": 208960,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers-native",
+              "1",
+              "256",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "repetition": 2,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 19,
+            "warmupMilliseconds": 17,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "cbef56b5f69ef86c4727ec3a9053c72de71e520f65625529284dd66f66e61183"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.160281826974824,
+            "peakRssKiB": 208960,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers-native",
+              "1",
+              "256",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "repetition": 3,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 23,
+            "warmupMilliseconds": 19,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "cbef56b5f69ef86c4727ec3a9053c72de71e520f65625529284dd66f66e61183"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.1762702909763902,
+            "peakRssKiB": 208960,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers-native",
+              "1",
+              "256",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "repetition": 4,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 25,
+            "warmupMilliseconds": 19,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "cbef56b5f69ef86c4727ec3a9053c72de71e520f65625529284dd66f66e61183"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.1633851858787239,
+            "peakRssKiB": 208960,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers-native",
+              "1",
+              "256",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "repetition": 5,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 20,
+            "warmupMilliseconds": 22,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "cbef56b5f69ef86c4727ec3a9053c72de71e520f65625529284dd66f66e61183"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.9744092640466988,
+            "peakRssKiB": 208960,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers-native",
+              "1",
+              "256",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "repetition": 6,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 21,
+            "warmupMilliseconds": 24,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "cbef56b5f69ef86c4727ec3a9053c72de71e520f65625529284dd66f66e61183"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.1453189130406827,
+            "peakRssKiB": 208960,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers-native",
+              "1",
+              "256",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "repetition": 7,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 21,
+            "warmupMilliseconds": 26,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "cbef56b5f69ef86c4727ec3a9053c72de71e520f65625529284dd66f66e61183"
+          }
+        ],
+        "JS": [
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 2.127730658976361,
+            "peakRssKiB": 222884,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers.js",
+              "1",
+              "256"
+            ],
+            "repetition": 1,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 104,
+            "warmupMilliseconds": 145,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "cbef56b5f69ef86c4727ec3a9053c72de71e520f65625529284dd66f66e61183"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 2.115785771049559,
+            "peakRssKiB": 223344,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers.js",
+              "1",
+              "256"
+            ],
+            "repetition": 2,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 91,
+            "warmupMilliseconds": 191,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "cbef56b5f69ef86c4727ec3a9053c72de71e520f65625529284dd66f66e61183"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.5714197331108153,
+            "peakRssKiB": 220652,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers.js",
+              "1",
+              "256"
+            ],
+            "repetition": 3,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 75,
+            "warmupMilliseconds": 113,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "cbef56b5f69ef86c4727ec3a9053c72de71e520f65625529284dd66f66e61183"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.8129738341085613,
+            "peakRssKiB": 217032,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers.js",
+              "1",
+              "256"
+            ],
+            "repetition": 4,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 73,
+            "warmupMilliseconds": 121,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "cbef56b5f69ef86c4727ec3a9053c72de71e520f65625529284dd66f66e61183"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.707908057840541,
+            "peakRssKiB": 218680,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers.js",
+              "1",
+              "256"
+            ],
+            "repetition": 5,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 79,
+            "warmupMilliseconds": 129,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "cbef56b5f69ef86c4727ec3a9053c72de71e520f65625529284dd66f66e61183"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.7702636520843953,
+            "peakRssKiB": 221636,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers.js",
+              "1",
+              "256"
+            ],
+            "repetition": 6,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 81,
+            "warmupMilliseconds": 138,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "cbef56b5f69ef86c4727ec3a9053c72de71e520f65625529284dd66f66e61183"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.8711620189715177,
+            "peakRssKiB": 225364,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers.js",
+              "1",
+              "256"
+            ],
+            "repetition": 7,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 93,
+            "warmupMilliseconds": 125,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "cbef56b5f69ef86c4727ec3a9053c72de71e520f65625529284dd66f66e61183"
+          }
+        ],
+        "TS": [
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.39538598502986133,
+            "peakRssKiB": 208960,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-samples/experiments/s-integrate/measurement-samples-readers-reference.mjs",
+              "Health",
+              "256"
+            ],
+            "repetition": 1,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 29.092403999999988,
+            "warmupMilliseconds": 30.03124600000001,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "cbef56b5f69ef86c4727ec3a9053c72de71e520f65625529284dd66f66e61183"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.3991790988948196,
+            "peakRssKiB": 208960,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-samples/experiments/s-integrate/measurement-samples-readers-reference.mjs",
+              "Health",
+              "256"
+            ],
+            "repetition": 2,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 29.874578000000042,
+            "warmupMilliseconds": 29.751742999999976,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "cbef56b5f69ef86c4727ec3a9053c72de71e520f65625529284dd66f66e61183"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.3582291810307652,
+            "peakRssKiB": 208960,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-samples/experiments/s-integrate/measurement-samples-readers-reference.mjs",
+              "Health",
+              "256"
+            ],
+            "repetition": 3,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 30.365455999999995,
+            "warmupMilliseconds": 26.37546599999999,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "cbef56b5f69ef86c4727ec3a9053c72de71e520f65625529284dd66f66e61183"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.37754904804751277,
+            "peakRssKiB": 208960,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-samples/experiments/s-integrate/measurement-samples-readers-reference.mjs",
+              "Health",
+              "256"
+            ],
+            "repetition": 4,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 38.87769300000002,
+            "warmupMilliseconds": 36.097046000000006,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "cbef56b5f69ef86c4727ec3a9053c72de71e520f65625529284dd66f66e61183"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.3439537731464952,
+            "peakRssKiB": 208960,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-samples/experiments/s-integrate/measurement-samples-readers-reference.mjs",
+              "Health",
+              "256"
+            ],
+            "repetition": 5,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 32.44947300000001,
+            "warmupMilliseconds": 24.349406999999985,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "cbef56b5f69ef86c4727ec3a9053c72de71e520f65625529284dd66f66e61183"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.32878785696811974,
+            "peakRssKiB": 208960,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-samples/experiments/s-integrate/measurement-samples-readers-reference.mjs",
+              "Health",
+              "256"
+            ],
+            "repetition": 6,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 23.376441,
+            "warmupMilliseconds": 23.22064899999998,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "cbef56b5f69ef86c4727ec3a9053c72de71e520f65625529284dd66f66e61183"
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.3320465919096023,
+            "peakRssKiB": 208960,
+            "exitCode": 0,
+            "command": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-samples/experiments/s-integrate/measurement-samples-readers-reference.mjs",
+              "Health",
+              "256"
+            ],
+            "repetition": 7,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 27.84701899999999,
+            "warmupMilliseconds": 26.332589999999982,
+            "freshMeasuredWorlds": 1,
+            "fullReadObservationsPerWorld": 84,
+            "finalSha256": "cbef56b5f69ef86c4727ec3a9053c72de71e520f65625529284dd66f66e61183"
+          }
+        ]
+      },
+      "summary": {
+        "Native": {
+          "milliseconds": {
+            "min": 19,
+            "median": 21,
+            "max": 25,
+            "raw": [
+              21,
+              19,
+              23,
+              25,
+              20,
+              21,
+              21
+            ]
+          },
+          "peakRssKiB": {
+            "min": 208960,
+            "median": 208960,
+            "max": 208960,
+            "raw": [
+              208960,
+              208960,
+              208960,
+              208960,
+              208960,
+              208960,
+              208960
+            ]
+          }
+        },
+        "JS": {
+          "milliseconds": {
+            "min": 73,
+            "median": 81,
+            "max": 104,
+            "raw": [
+              104,
+              91,
+              75,
+              73,
+              79,
+              81,
+              93
+            ]
+          },
+          "peakRssKiB": {
+            "min": 217032,
+            "median": 221636,
+            "max": 225364,
+            "raw": [
+              222884,
+              223344,
+              220652,
+              217032,
+              218680,
+              221636,
+              225364
+            ]
+          }
+        },
+        "TS": {
+          "milliseconds": {
+            "min": 23.376441,
+            "median": 29.874578000000042,
+            "max": 38.87769300000002,
+            "raw": [
+              29.092403999999988,
+              29.874578000000042,
+              30.365455999999995,
+              38.87769300000002,
+              32.44947300000001,
+              23.376441,
+              27.84701899999999
+            ]
+          },
+          "peakRssKiB": {
+            "min": 208960,
+            "median": 208960,
+            "max": 208960,
+            "raw": [
+              208960,
+              208960,
+              208960,
+              208960,
+              208960,
+              208960,
+              208960
+            ]
+          }
+        }
+      },
+      "status": "MEASURED",
+      "ratios": {
+        "Native/TS": 0.7029387996710772,
+        "JS/TS": 2.711335370159869
+      },
+      "resolutionLimited": false,
+      "acceptance": "none: thresholds unapproved"
+    },
+    {
+      "schema": "Health",
+      "workload": "readers",
+      "count": 1024,
+      "retainedLiveCount": 1024,
+      "payloadWidth": 4,
+      "finalCommandOccupancy": 0,
+      "readers": "same Fast/Slow instances; Slow every fourth iteration",
+      "verification": {
+        "Native": {
+          "status": "FAILED",
+          "error": "five-second process-group deadline",
+          "wholeProcessSeconds": 5.0309336229693145,
+          "peakRssKiB": 208960,
+          "exitCode": -9,
+          "command": [
+            "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers-native",
+            "1",
+            "1024",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ]
+        },
+        "JS": {
+          "status": "FAILED",
+          "error": "five-second process-group deadline",
+          "wholeProcessSeconds": 5.022584470920265,
+          "peakRssKiB": 289468,
+          "exitCode": -9,
+          "command": [
+            "node",
+            "/tmp/measurement-samples-m3nrndrs/measurement-samples-readers.js",
+            "1",
+            "1024"
+          ]
+        },
+        "TS": {
+          "status": "PASS",
+          "wholeProcessSeconds": 0.6060248340945691,
+          "peakRssKiB": 213284,
+          "exitCode": 0,
+          "command": [
+            "node",
+            "/workspace/formal-proofs/bendvy-worktrees/measurement-samples/experiments/s-integrate/measurement-samples-readers-reference.mjs",
+            "Health",
+            "1024"
+          ],
+          "milliseconds": 76.83837899999997,
+          "warmupMilliseconds": 85.47486599999996,
+          "freshMeasuredWorlds": 1,
+          "fullReadObservationsPerWorld": 84,
+          "finalSha256": "6f4e3a1f2bcbae6d9f4fa09294e8ea7dbd12a38ea060d506398dde94f5606526"
+        }
+      },
+      "samples": {
+        "Native": [],
+        "JS": [],
+        "TS": []
+      },
+      "summary": {},
+      "status": "UNVERIFIED",
+      "reason": "No timing ratios: at least one identical-work verification child failed"
+    }
+  ],
+  "status": "PARTIAL_MEASURED"
+}

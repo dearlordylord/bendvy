@@ -1,0 +1,42 @@
+{
+  "scope": "finite comparator controls on fresh actual timed TS output; not runtime mutants or law proofs",
+  "positive": "PASS",
+  "cpuAffinity": [
+    6
+  ],
+  "controls": [
+    {
+      "name": "Main-slot3",
+      "rejected": true
+    },
+    {
+      "name": "Aux-slot3",
+      "rejected": true
+    },
+    {
+      "name": "Flag-group",
+      "rejected": true
+    },
+    {
+      "name": "lifecycle-identity",
+      "rejected": true
+    },
+    {
+      "name": "message-payload",
+      "rejected": true
+    },
+    {
+      "name": "lag",
+      "rejected": true
+    },
+    {
+      "name": "actual-diagnostic-clock",
+      "rejected": true
+    }
+  ],
+  "sources": {
+    "measurement-samples-readers-reference.mjs": "3195d172802ac4d561e239372819ca4aecc8ee1e93a7c70b2119bb141bbad0d3",
+    "measurement-samples-readers-run.py": "e25ad2fda3633faa883c155c67142971bc4fd1b0342a3c99fb8996e7fd706e5b",
+    "measurement-samples-validation-controls.py": "2a7435c4ca4347a018b2ee6e7530a7e88565fc6f69ffb9fcaa31afd83f2cb237"
+  }
+}
