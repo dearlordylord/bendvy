@@ -1,0 +1,157 @@
+{
+  "status": "PARTIAL: full-domain empty schedule and contextual actual-owner/array point helpers; full nonempty endpoint remains open",
+  "baseline": "8e149fd",
+  "version": "bend 2.0.34",
+  "compiler": "d4821d04932218216c9dc906223ed0e23dd86726d4357a567fb76ee6c976db4e",
+  "Base": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+  "frozen": {
+    "experiments/t11-replacement/LAWS.bend": "e0c607d723ad250a189c096d9fa3fd6a36913f4c72efd3a3be6dacd7fadb2cbc",
+    "experiments/t11-replacement/types.bend": "0261b9381f51b4aecdf61b76bfa61149d10d662b0c02ddc320da2236ec17d287",
+    "experiments/t11-replacement/model.bend": "53ac1f776c721a5bea0c063eefe229c1d43b4e09d95a269e283fe900a2934c40",
+    "experiments/t11-replacement/spec.bend": "3b7a96d9131919fe087dac5e024058bbfa916ce5c108dce3a7d72119b7ccd465",
+    "experiments/t11-replacement/runtime.bend": "014ed398324f257ced9985f1db29a94dd74f34952dd3aa3c2b11809118502550",
+    "experiments/t11-replacement/owned-spec.bend": "edca58e81a96e03109e2d575146eee456ee543b20746519bfef202d047a9e50e",
+    "experiments/p-owned-route/PROPOSED.bend": "8e400d78b08530ff17295fa32190d0cf93b1f4641816d2710506b64a8ae2940b"
+  },
+  "closure": {
+    "experiments/p-approved-owned-schedule/arrays.bend": "bf0980b15e1f9fd423ab4dbc6d7990cb3845d055d7a8c2b29e1695898eb0f310",
+    "experiments/p-approved-owned-schedule/capture.bend": "73cfa48b79b1f73ca06f616fe944a81dc2800be75867901cfa80ddc7bee4be42",
+    "experiments/p-approved-owned-schedule/controls.bend": "f9301d309e35560bc323a0eb1234d2492af8868271d062e29b433e20f6cac2f4",
+    "experiments/p-approved-owned-schedule/empty-witness.bend": "0aa3e9f57fda5428ccefa5295cabc79c750da6ca41a5b596e64a38f2ee4ffad4",
+    "experiments/p-approved-owned-schedule/empty.bend": "42385435b2324b7ea97f3b24af288e28a5588c78c0d2b92a23fb78c66e19da0a",
+    "experiments/p-approved-owned-schedule/point.bend": "62abc8cb2a9766c50687a4d733b6696480daf703185e2baaf50e134074f35e01",
+    "experiments/p-observe-queries/complete.bend": "6251ed244326bcb45ecc0a7bca710b9d0e7ec4dcaac1992fa0760d718b456c25",
+    "experiments/p-observe-queries/helpers.bend": "d6a4e2ed063042ef275af99dc4aa5afa26537de4a65b44e78b18847514c7ffb0",
+    "experiments/p-observe-queries/insertion.bend": "513d4038ce6c0d49b211cbc87e254c0c32a5e0fb20c24fca3afe6a6c982fca09",
+    "experiments/p-observe-queries/intervals.bend": "ecc40a89979abef46b5532a0c6b37c700c2a0f7493392366c4b98883035c6a9d",
+    "experiments/p-observe-queries/invariants.bend": "172b3fa37a00946d299efa107697ac9eb08da11c59731976777a373ccb56eeaf",
+    "experiments/p-observe-queries/order.bend": "5ced479fc833f02cd14b7bc9a75ebd8c6b8fe3c9453c56896df723c2f26914d0",
+    "experiments/t11-replacement/model.bend": "53ac1f776c721a5bea0c063eefe229c1d43b4e09d95a269e283fe900a2934c40",
+    "experiments/t11-replacement/owned-spec.bend": "edca58e81a96e03109e2d575146eee456ee543b20746519bfef202d047a9e50e",
+    "experiments/t11-replacement/runtime.bend": "014ed398324f257ced9985f1db29a94dd74f34952dd3aa3c2b11809118502550",
+    "experiments/t11-replacement/spec.bend": "3b7a96d9131919fe087dac5e024058bbfa916ce5c108dce3a7d72119b7ccd465",
+    "experiments/t11-replacement/types.bend": "0261b9381f51b4aecdf61b76bfa61149d10d662b0c02ddc320da2236ec17d287"
+  },
+  "checker_seconds": 5,
+  "checks": [
+    {
+      "file": "arrays.bend",
+      "kernel": false,
+      "kernel_negative": false,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "arrays.bend",
+      "kernel": true,
+      "kernel_negative": false,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "point.bend",
+      "kernel": false,
+      "kernel_negative": false,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "point.bend",
+      "kernel": true,
+      "kernel_negative": false,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "capture.bend",
+      "kernel": false,
+      "kernel_negative": false,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "capture.bend",
+      "kernel": true,
+      "kernel_negative": false,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "empty.bend",
+      "kernel": false,
+      "kernel_negative": false,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "empty.bend",
+      "kernel": true,
+      "kernel_negative": false,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "controls.bend",
+      "kernel": false,
+      "kernel_negative": false,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "controls.bend",
+      "kernel": true,
+      "kernel_negative": false,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "empty-witness.bend",
+      "kernel": false,
+      "kernel_negative": false,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "empty-witness.bend",
+      "kernel": true,
+      "kernel_negative": false,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "false-negative.bend",
+      "kernel": false,
+      "kernel_negative": false,
+      "exit": 1,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : 0n\n- observed : 1n\nLocation: false_fact\n1 | \n2>| def false_fact() -> {0n == 1n : Nat}: {==}\n  |                                       ^^^^\n3 | \nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "empty.bend",
+      "kernel": true,
+      "kernel_negative": true,
+      "exit": 1,
+      "output": "SOME PROOFS FAIL\nSorry - this is a mismatch between the TypeScript implementation, and the formalized BendTT kernel. Your proofs may or may not be correct, and we cannot validate them yet. This will be addressed in a future update. Meanwhile, feel free to open an issue to report this bug.\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "runtime.bend",
+      "kernel": false,
+      "kernel_negative": false,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "empty-witness.bend",
+      "kernel": false,
+      "kernel_negative": false,
+      "exit": 1,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : T.Observation{7n, 2n, [T.Row{1n, 9n, False{}}], []}\n- observed : T.Observation{7n, 2n, [], [T.Spawn{1n, 9n}]}\nLocation: equation\n11 | def equation() -> {M.observe(R.snapshot(R.project(R.tick([],4,R.World{7,2,[],[R.Spawn{1,9}]}))))\n12>|   == S.schedule_observation(4n,O.snapshot(R.World{7,2,[],[R.Spawn{1,9}]}),[]) : T.Observation}: {==}\n   |                                                                                                 ^^^^\n13 | \nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "empty.bend",
+      "kernel": false,
+      "kernel_negative": false,
+      "exit": 1,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : S.When(S.admissible(U32.to_nat(limit), O.snapshot(world)), {M.observe(R.snapshot(R.project(R.flush(world)))) == S.observe(O.snapshot(world)) : T.Observation})\n- observed : S.When(S.admissible(U32.to_nat(limit), O.snapshot(world)), {M.observe(R.snapshot(R.project(world))) == S.observe(O.snapshot(world)) : T.Observation})\nContext:\n- limit    : U32\n- world    : R.World\n- owner    : R.World\n- data     : T.World\n- exact    : {(owner, data) == R.project(world) : Sigma<&1, &1, R.World, _ => T.World>}\n- observed : {data == O.snapshot(world) : T.World}\n- _        : {owner == world : R.World}\nLocation: empty_frame\n34 |     case C.WorldFrame{owner,+data,exact,observed,_}:\n35>|       %observed : S.When(S.admissible(U32.to_nat(limit),_),{M.observe(R.snapshot(R.project(world))) == S.observe(_) : T.Observation})\n   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n36 |       %exact : S.When(S.admissible(U32.to_nat(limit),data),{M.observe(R.snapshot(_)) == S.observe(data) : T.Observation})\nbend 2.0.35 is available: run bend update\n"
+    }
+  ]
+}
