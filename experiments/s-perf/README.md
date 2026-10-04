@@ -1,6 +1,6 @@
 # S-PERF #20 — indexed ECS storage experiment
 
-Implemented candidate; final evaluation/reviews are in progress. Production
+Implemented and evaluated candidate; bounded negative #20 outcome. Production
 performance and layout adoption are not approved.
 
 `candidate/storage.bend` owns affine Main/Aux columns, Data metadata, balanced
@@ -35,7 +35,7 @@ Primary evidence: `main-evidence.json`, `access-evidence.json`, `e11-evidence.js
 `main-mutations-evidence.json`, `owned-storage-clean-replay-evidence.json`,
 `dense-sparse-evidence.json`, `indexed-readers-evidence.json`, `lifecycle-evidence.json`.
 `readers-evidence.json` is the separate descriptor-alignment gate, not indexed timing.
-FailedTxn has its own `failure-README.md` and frozen replay packages.
+FailedTxn retains historical guarded `failure-README.md` and final common full-field `failure-quiet-README.md`, each with frozen replay packages.
 
 Checker/runtime5s, codegen30s, clang120s; Native O3/one worker/GPU off for measured
 work. Joined semantic mutations use Native O0 and JS, explicitly separate from
@@ -44,5 +44,5 @@ the small exec-reset C launcher; allocation counts are not inferred from it.
 
 Main/E11/ownership/access/mutations pass. JS timing parity remains failed;
 Readers' double-world measurement protocol has bounded larger-case failures.
-Actual Readers physical diagnostics pass; active Tx workload peaks remain unavailable. Quiet FailedTxn measurements are still being finalized. These results
+Actual Readers physical diagnostics pass; active Tx workload peaks remain unavailable. Quiet FailedTxn has five complete cold-VM measurement sets and one failed set; its same-process warmup gate remains a #21 follow-up. These results
 are finite executions, not universal ECS laws or production acceptance.
