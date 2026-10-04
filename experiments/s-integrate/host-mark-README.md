@@ -24,3 +24,5 @@ mark-kind and order mutants differ on both backends. This establishes the bounde
 filter prerequisite, not full dispatched E11, arbitrary authority or performance
 acceptance. Large fields remain uniform; full Host/retention uses its own
 nonuniform payload and comparison gates.
+
+Combined source replay at `9fc42c9` passes all six large/small Native/JS cases, the complete six-row boundary oracle and four compiling mutants. `host-mark-evidence.json` pins this replay import closure; `host-mark-original-evidence.json` preserves the pre-integration closure. These are finite controls, not full E11 or universal refinement.
