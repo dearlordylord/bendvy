@@ -1,0 +1,208 @@
+{
+  "limits_seconds": {
+    "checker": 5,
+    "codegen": 30,
+    "runtime": 5
+  },
+  "protocol": "same-process warmup and measured worlds",
+  "mutants": [
+    {
+      "name": "fourth-owned-payload",
+      "controls": [
+        {
+          "schema": "Motion",
+          "status": "SEMANTIC_COUNTEREXAMPLE",
+          "actual_exit": 0,
+          "first_difference": {
+            "index": 7,
+            "actual": {
+              "kind": "Reserved",
+              "step": "fail",
+              "worldName": "motion",
+              "label": "q",
+              "handle": {
+                "namespace": 1,
+                "id": 66
+              },
+              "components": {
+                "main": {
+                  "coordinates": {
+                    "a": 0,
+                    "b": 200,
+                    "c": 300,
+                    "d": 40
+                  },
+                  "frame": 7
+                },
+                "aux": null,
+                "flag": null
+              }
+            },
+            "expected": {
+              "kind": "Reserved",
+              "step": "fail",
+              "worldName": "motion",
+              "label": "q",
+              "handle": {
+                "namespace": 1,
+                "id": 66
+              },
+              "components": {
+                "main": {
+                  "coordinates": {
+                    "a": 0,
+                    "b": 200,
+                    "c": 300,
+                    "d": 400
+                  },
+                  "frame": 7
+                },
+                "aux": null,
+                "flag": null
+              }
+            }
+          }
+        },
+        {
+          "schema": "Health",
+          "status": "SEMANTIC_COUNTEREXAMPLE",
+          "actual_exit": 0,
+          "first_difference": {
+            "index": 7,
+            "actual": {
+              "kind": "Reserved",
+              "step": "fail",
+              "worldName": "health",
+              "label": "q",
+              "handle": {
+                "namespace": 1,
+                "id": 66
+              },
+              "components": {
+                "main": {
+                  "levels": {
+                    "a": 0,
+                    "b": 200,
+                    "c": 300,
+                    "d": 40
+                  },
+                  "reserve": 9,
+                  "class": 2
+                },
+                "aux": null,
+                "flag": null
+              }
+            },
+            "expected": {
+              "kind": "Reserved",
+              "step": "fail",
+              "worldName": "health",
+              "label": "q",
+              "handle": {
+                "namespace": 1,
+                "id": 66
+              },
+              "components": {
+                "main": {
+                  "levels": {
+                    "a": 0,
+                    "b": 200,
+                    "c": 300,
+                    "d": 400
+                  },
+                  "reserve": 9,
+                  "class": 2
+                },
+                "aux": null,
+                "flag": null
+              }
+            }
+          }
+        }
+      ],
+      "checker": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\nbend 2.0.35 is available: run bend update\n",
+      "codegen": "PASS",
+      "file": "measurement-failure-callbacks.bend",
+      "original": "case True{}: 400",
+      "replacement": "case True{}: 40",
+      "original_sha256": "55768432050a0fcb86334101b52c194cd5eebe04610d20c15a59e908d3ac8337",
+      "mutant_sha256": "0113cdd1c038b63f9de319c6f98117bb0b82de45c21d3d524f240453b4ed5c52"
+    },
+    {
+      "name": "failed-reader-completion",
+      "controls": [
+        {
+          "schema": "Motion",
+          "status": "SEMANTIC_COUNTEREXAMPLE",
+          "actual_exit": 0,
+          "first_difference": {
+            "index": 14,
+            "actual": {
+              "kind": "FailureRead",
+              "iteration": 0,
+              "system": "B",
+              "count": 3,
+              "messages": [],
+              "lag": false,
+              "tick": 10,
+              "frame": 6
+            },
+            "expected": {
+              "kind": "FailureRead",
+              "iteration": 0,
+              "system": "B",
+              "count": 3,
+              "messages": [
+                {
+                  "code": 0
+                }
+              ],
+              "lag": false,
+              "tick": 10,
+              "frame": 6
+            }
+          }
+        },
+        {
+          "schema": "Health",
+          "status": "SEMANTIC_COUNTEREXAMPLE",
+          "actual_exit": 0,
+          "first_difference": {
+            "index": 14,
+            "actual": {
+              "kind": "FailureRead",
+              "iteration": 0,
+              "system": "B",
+              "count": 3,
+              "messages": [],
+              "lag": false,
+              "tick": 10,
+              "frame": 6
+            },
+            "expected": {
+              "kind": "FailureRead",
+              "iteration": 0,
+              "system": "B",
+              "count": 3,
+              "messages": [
+                {
+                  "code": 0
+                }
+              ],
+              "lag": false,
+              "tick": 10,
+              "frame": 6
+            }
+          }
+        }
+      ],
+      "checker": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\nbend 2.0.35 is available: run bend update\n",
+      "codegen": "PASS",
+      "file": "readers.bend",
+      "original": "case T.Failure{_}: readers",
+      "replacement": "case T.Failure{_}: completed(readers,run)",
+      "original_sha256": "2673082b4ef5cd6c5d8f61c362e22f74b13daeb27196894278cc20b1459c22e9",
+      "mutant_sha256": "30fbc44844ce8c0d864e9b1141fb6ec66ed0daaecec6c820dab36bcae87fec54"
+    }
+  ]
+}
