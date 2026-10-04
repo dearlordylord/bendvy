@@ -96,11 +96,11 @@ def health_b(-Tx:Type,-H:Data,mode:Q.Mode,count:U32,before:Tx -> T.VitalsToken -
 
 # Closed A body: operations are supplied fresh over opaque Tx; selected handle
 # is bound privately by trusted provisioning to the actual A entity.
-def a_logged(-Tx:Type,-H:Data,observations:List<&2,Observation>,owner:Tx) -> IO(BodyResult<Tx,H>):
-  IO.pure(BodyResult<Tx,H>,BodyResult{owner,T.Success{},None{},observations})
+def a_logged(-Tx:Type,-H:Data,handle:H,observations:List<&2,Observation>,owner:Tx) -> IO(BodyResult<Tx,H>):
+  IO.pure(BodyResult<Tx,H>,BodyResult{owner,T.Success{},Some{handle},observations})
 def motion_a_reserved(-Tx:Type,-H:Data,count:U32,+rejected:T.Outcome,observations:List<&2,Observation>,remove:Tx -> Tx,ping:Tx -> T.MotionPing -> Tx,log:Tx -> String -> IO(Tx),result:T.Reservation<Tx,H,T.Position>) -> IO(BodyResult<Tx,H>):
   match result:
-    case T.Reserved{owner,_}: IO.bind(Tx,BodyResult<Tx,H>,log(ping(remove(owner),T.MotionPing{1}),"A:attempt:" ++ U32.show(count)),t => a_logged(Tx,H,observations,t))
+    case T.Reserved{owner,handle}: IO.bind(Tx,BodyResult<Tx,H>,log(ping(remove(owner),T.MotionPing{1}),"A:attempt:" ++ U32.show(count)),t => a_logged(Tx,H,handle,observations,t))
     case T.ReserveRejected{owner,_}: IO.pure(BodyResult<Tx,H>,BodyResult{owner,rejected,None{},observations})
 def motion_a_ledger(-Tx:Type,-H:Data,count:U32,+rejected:T.Outcome,observations:List<&2,Observation>,spawn:Tx -> T.Position -> T.Reservation<Tx,H,T.Position>,remove:Tx -> Tx,ping:Tx -> T.MotionPing -> Tx,log:Tx -> String -> IO(Tx),pair:Tx & Maybe<&2,T.LedgerView>) -> IO(BodyResult<Tx,H>):
   match pair:
@@ -112,7 +112,7 @@ def motion_a(-Tx:Type,-H:Data,count:U32,+rejected:T.Outcome,set_main:Tx -> T.Pos
   motion_a_main(Tx,H,count,rejected,read_ledger,spawn_flagged,remove,ping,log,read_main(set_ledger(set_main(owner,T.PositionToken{},11),T.MotionLedgerToken{},101),T.PositionToken{}))
 def health_a_reserved(-Tx:Type,-H:Data,count:U32,+rejected:T.Outcome,observations:List<&2,Observation>,remove:Tx -> Tx,ping:Tx -> T.HealthPing -> Tx,log:Tx -> String -> IO(Tx),result:T.Reservation<Tx,H,T.Vitals>) -> IO(BodyResult<Tx,H>):
   match result:
-    case T.Reserved{owner,_}: IO.bind(Tx,BodyResult<Tx,H>,log(ping(remove(owner),T.HealthPing{1}),"A:attempt:" ++ U32.show(count)),t => a_logged(Tx,H,observations,t))
+    case T.Reserved{owner,handle}: IO.bind(Tx,BodyResult<Tx,H>,log(ping(remove(owner),T.HealthPing{1}),"A:attempt:" ++ U32.show(count)),t => a_logged(Tx,H,handle,observations,t))
     case T.ReserveRejected{owner,_}: IO.pure(BodyResult<Tx,H>,BodyResult{owner,rejected,None{},observations})
 def health_a_ledger(-Tx:Type,-H:Data,count:U32,+rejected:T.Outcome,observations:List<&2,Observation>,spawn:Tx -> T.Vitals -> T.Reservation<Tx,H,T.Vitals>,remove:Tx -> Tx,ping:Tx -> T.HealthPing -> Tx,log:Tx -> String -> IO(Tx),pair:Tx & Maybe<&2,T.LedgerView>) -> IO(BodyResult<Tx,H>):
   match pair:
