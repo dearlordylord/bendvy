@@ -91,6 +91,7 @@ needed `/workspace/typescript/jev` sources; the original repository remains unto
 
 ## Prerequisite progress
 
+- [Astra-reviewed shared contracts](../design/s-integrate-contracts.md) distinguish exact trace requirements from proposed owner/transaction/publication/reader/provisioning interfaces. They clarify rejected versus staged Type payload ownership and complete preflight; actual Bend signature checks and runtime implementation remain open.
 - [Astra-reviewed execution split](../design/s-integrate-execution.md) records draft module ownership, interface dependencies and staged delivery after #18. It preserves conditional candidate evaluation and incremental controls/mutants; it is planning evidence, not implementation or a new approval gate.
 
 - [Fresh public TS allocation checkpoint](../../experiments/s-integrate-trace/allocation-README.md): actual dispatcher observations establish consumed failed reservation ID3, distinct subsequent ID4, discarded failed spawn, earlier commit/publication retention and explicit barriers. Coordinator and independent Spec/Standards replay pass; scalar one-schema reference scope only.
