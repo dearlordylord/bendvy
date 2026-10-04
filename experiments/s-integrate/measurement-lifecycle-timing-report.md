@@ -55,3 +55,30 @@ record is retained as `measurement-lifecycle-timed-current-interrupted-evidence.
 The runner now records a failed reference prerequisite per case and continues
 independent cases; it never manufactures backend comparison or timing ratios
 when the required reference is unavailable. Runtime limits remain unchanged.
+
+## Root-current replay — `06f88a3`
+
+Every runtime/import hash and the runner hash match the joined checkout. Five
+complete cases pass all 192 full-field boundaries, 64 raw reservations and 6,112
+historical-stale lookups before seven validated timing/memory repetitions on
+each backend. Health1024 retains Native and JS five-second full-output failures;
+TS passes. This case has no timing ratios or memory acceptance. Overall
+exit1/REGRESSION is retained. The main replay detects omitted disposal on both
+backends; its head-only mutation attempt hits the five-second checker limit and
+is not a semantic kill. Separately, the earlier independent focused replay of
+the byte-identical current import closure compiles and detects both mutations
+on both backends, recording exact public differences. These records are distinct.
+The interrupted reference attempt and older runtime measurements remain separate.
+
+| Schema/count | Native/TS median | JS/TS median | Native/JS/TS median peak KiB |
+| --- | ---: | ---: | --- |
+| Motion 64 | 1.49 | 3.16 | 3052/81148/108788 |
+| Motion 256 | 2.74 | 5.01 | 5396/135156/100460 |
+| Motion 1024 | 5.03 | 4.54 | 15208/217344/110108 |
+| Health 64 | 1.11 | 2.94 | 4188/81860/101944 |
+| Health 256 | 3.23 | 5.40 | 6900/136004/99800 |
+
+All these descriptive time ratios exceed1. Physical peak log/command occupancy
+and peak reader lag remain uninstrumented; process RSS does not identify their
+storage. Source changes and variability are retained without assigning a causal
+speedup to a particular fix. Mandatory product performance is not met.

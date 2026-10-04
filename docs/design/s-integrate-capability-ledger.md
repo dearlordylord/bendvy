@@ -52,9 +52,11 @@ Latest bounded additions: [mark filter](../../experiments/s-integrate/host-mark-
   withdrawn. A corrected small-launcher run validates 284/294 fresh children;
   twelve cases have complete memory samples, Readers256 has retained deadlines.
   These are complete-process peaks, not component allocation measurements.
-- Lifecycle full-field diagnostic gates are retained, but checking only the
-  current stale handle did not execute the complete historical-stale workload.
-  The exact registered observer adapter and its timing gate are in progress.
+- Exact Lifecycle now checks all 6,112 historical-stale lookups and 192 full-field
+  boundaries. Root-current five cases have seven validated repetitions on each
+  backend; Health1024 Native/JS retains deadlines. All completed time ratios
+  regress. Two current-closure compiling mutants have exact public witnesses;
+  a separate main replay checker timeout is retained, never counted as a kill.
   Dynamic repeated FailedTxn correctness, retry and timing gates are in progress.
 
 **#19 remains open.** Functional trace parity does not establish production
