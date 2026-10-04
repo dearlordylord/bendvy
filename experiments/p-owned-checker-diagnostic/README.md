@@ -1,0 +1,19 @@
+# Recursive conversion diagnostic — candidate only
+
+The exact `found-neutral.bend` proof fails with stack overflow on installed Bend 2.0.34 and untouched pinned compiler source 2.0.35. The candidate patch makes it, and the general `found-word.bend` composition, pass the checker **and unchanged installed BendTT kernel**. False equality, duplicate affine Array use and nominal-type confusion remain rejected at their intended checks. This is a diagnostic patch, not an adopted compiler/dependency update or completion of the owned-schedule theorem.
+
+Run `python3 experiments/p-owned-checker-diagnostic/verify.py`. Each installed/compiler-plus-kernel invocation has a hard five-second deadline. The runner copies only compiler modules into a temporary directory, applies the diff there and removes its temporary files. It sets `BENDTT` to the already-built installed kernel; it does not build or install a kernel. Evidence records all outputs and hashes. The preliminary Node strip-only harness was unsuitable for `safe.ts` parameter properties; the final runner uses existing Node24's `--experimental-transform-types`. An initial kernel-cache build attempt timed out; final evidence exclusively uses the pre-existing installed kernel.
+
+## Source-backed diagnosis
+
+Pinned `.references/bend2` is a shallow checkout at `a950fd683c0d76f09794078e6174fe98a1492876`, identifying itself as 2.0.35. Installed `/home/node/.bend/bin/bend` identifies as 2.0.34 and is an ARM64 ELF executable. No matching 2.0.34 revision/tag is available locally. Executable strings contain the same top-level `compare_go(mode,RIGID,...) || compare_go(mode,book,...)` shape; strings do not establish full source equivalence.
+
+In pinned `bend2/bend.ts`, `term_compare` (3064) first compares with the empty `RIGID` book. Once a wrapper requires unfolding, recursive full-book `compare_go` calls (3068 onward) invoke `term_wnf` before testing structural subterm equality. The two identical `U32.to_nat(MAX)` subterms therefore expand instead of being compared structurally. The source failure stack names `term_wnf`, `compare_go`, and constructor-field recursion. Changelog 2.0.33 explicitly introduced comparison before unfolding to avoid enormous fixed-width expansion; this patch applies that shortcut at recursive boundaries too.
+
+`recursive-rigid.patch` retries the **complete existing** rigid relation before each full-book normalization. It preserves EQ/LE mode, binder depth, heads, all arguments and quantity checks. `book !== RIGID` prevents retry recursion. It does not accept matching heads alone. Installed `bendtt.lean` `Term.conv` (902 onward) independently tests structural equality at every recursive boundary before weak-head normalization, supporting this optimization shape.
+
+## Provenance and limits
+
+`evidence.json` pins binary, Base, kernel source, actual existing kernel executable and pinned checker source. The kernel is `/home/node/.bend/bendtt/61e0d2d9f4ddd7dd/bendtt`, built from installed 2.0.34 kernel source; the candidate checker is separately pinned 2.0.35 TypeScript source. Neither installed compiler nor references were modified. The candidate's Base is the pinned source copy; imports from project proofs remain unchanged.
+
+The final matrix has two universal positive proofs, each with installed and untouched-source failure controls, and three intended negative controls. These are bounded regression probes, not a complete compiler validation suite. Remaining risks: extra rigid traversal on unequal trees, interaction with shared graph variables, directional LE/quantity corner cases beyond these probes, and actual 2.0.34 source/build alignment. Adoption must address that version mismatch and run wider existing compiler regressions; no authorization is inferred here. Full owner proof closure must still be checked independently after any adopted tool change.
