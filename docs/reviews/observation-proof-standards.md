@@ -486,3 +486,39 @@ open, together with full endpoint controls and integration/performance gates.
 **Heuristic findings: none actionable.** Numerous small dependent helpers express
 Bend's affine/match/proof transport constraints rather than speculative API or
 ordinary duplicated runtime logic. This accepts a partial checkpoint only.
+
+## Contextual owned-safety transport — `620f48d` (2026-10-04)
+
+Reviewed `5b53898...620f48d`. Independently archived the frozen commit into a
+fresh temporary directory and ran its complete runner there: exit 0, twelve
+expected outcomes passed. Root artifacts were untouched.
+
+**Hard finding — provenance claim exceeds enforcement (low).** README says
+original subjects, approval and contextual proofs are frozen. The runner enforces
+the catalogue LAWS, compiler and Base digests, but merely records current digests
+for other subjects, the approval and imported contextual proofs. It would accept
+and relabel changed dependency bytes rather than reject a broken freeze. Add an
+asserted frozen dependency/approval inventory before proof execution, or explicitly
+limit the documentation to recording current provenance. This does not invalidate
+the reviewed frozen-commit proofs.
+
+No other hard violations found. The universal derivation preserves original
+`S.admissible`, `S.step_safe` and every exact independent successor premise while
+transporting to actual model prefixes. Both physical validity premises are
+retained for outside-next absence; Slots alone is not substituted for admissibility.
+Affine Slots evidence is split structurally, without treating it as Data. All four
+operations use checked successor links. Inventory identifies these contextual
+helpers; no additional catalogue endpoint is filled or assumed.
+
+Original toolkit/transport/mixed controls pass checker and kernel. A fresh active
+one-Bump complete ModelSafe witness passes kernel before mutation. Negating the
+local step-safe predicate compiles and rejects unchanged transport at `head_safe`
+and the witness at `original_true`. The independently invalid original premise
+also rejects; these are correctly reported as checker outcomes. Forced false
+BendTT rejects the requested positive kernel gate. All calls retain the existing
+hard five-second wrapper; temporary mutation files are scoped and removed.
+
+**Heuristic findings: none actionable.** Helper decomposition reflects required
+Bend structural/affine transport. This is supporting safety evidence only: actual
+runtime/member-wise Bump correspondence, full owned endpoint, integration and
+performance remain open.
