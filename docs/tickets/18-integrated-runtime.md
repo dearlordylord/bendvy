@@ -121,3 +121,12 @@ for child-memory comparison. Corrected clean-launcher measurements are delivered
 Readers256 memory coverage remains incomplete. #19 is open.
 
 Concrete performance return path: [S-PERF #20](19-integrated-performance-redesign.md), with experimental indexed-adapter implementation/evaluation and separate production adoption.
+
+## Final review checkpoint
+
+[Completion proposal](../reports/s-integrate-completion.md): all five workload
+outcomes are recorded, including explicit failed/unavailable gates. Exact
+current Lifecycle and byte-identical joined FailedTxn closure are audited;
+performance is failed, quiet FailedTxn timing/RSS unavailable, peak occupancy
+unmeasured and #20 retains concrete return conditions. #19 remains open pending
+final Spec/Standards disposition review. No production acceptance is proposed.

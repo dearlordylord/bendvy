@@ -57,11 +57,16 @@ Latest bounded additions: [mark filter](../../experiments/s-integrate/host-mark-
   backend; Health1024 Native/JS retains deadlines. All completed time ratios
   regress. Two current-closure compiling mutants have exact public witnesses;
   a separate main replay checker timeout is retained, never counted as a kill.
-  Dynamic repeated FailedTxn correctness, retry and timing gates are in progress.
+  Dynamic repeated FailedTxn full values pass Native O3 at64/256 and JS64
+  in both schemas; larger cases retain deadlines. Four JS mutations supply eight
+  full-field/cursor witnesses. Its import closure matches current root exactly,
+  while a fresh isolated checker attempt times out. Equivalent quiet timing/RSS
+  is unavailable and remains an explicit #20 return condition.
 
-**#19 remains open.** Functional trace parity does not establish production
+**#19 remains open pending final negative-result disposition review.** Functional trace parity does not establish production
 performance, general capability confinement, arbitrary payload recovery or new
-universal proofs. Complete the remaining exact workloads, review the evidence
-and record concrete redesign follow-ups before reporting bounded research completion.
+universal proofs. The five workload outcomes and concrete #20 return conditions are recorded in
+the [completion proposal](../reports/s-integrate-completion.md); final review
+precedes reporting bounded research completion.
 
 Concrete performance return path: [S-PERF #20](../tickets/19-integrated-performance-redesign.md) implements and evaluates one experimental indexed adapter against the unchanged baseline. It retains full trace/access/mutation gates, all five workloads, corrected memory scope and a separate production-adoption decision.
