@@ -1,0 +1,134 @@
+{
+  "scope": "actual owned storage/factory/commands/query stage E0/E1, foreign divergence and FIFO overwrite",
+  "limits": {
+    "checkerSeconds": 5,
+    "runtimeSeconds": 5,
+    "codegenSeconds": 30,
+    "clangSeconds": 120
+  },
+  "hashes": {
+    "types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+    "payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "storage.bend": "605d073615798f87f3675931475eee6a0668bc63c08559d4beecdb2e73c72986",
+    "identity.bend": "2c88babc9e853d3706f7a6c1f8f0ae48c198949143df2da6562bd774237d7329",
+    "commands.bend": "6dfa56c84b581d65ef75f185f0ffedeaa59e09292e29b5d01100c6617b142f2b",
+    "query.bend": "ebdc270c94a55c6d49cf0580ff9c84a85df93b1358e3da9714bf06a90d49a772",
+    "storage-stage-fixture.bend": "581771140c45189c8b9038a73def804f780b5e64b7ffdecdcb45b966fc21aee7"
+  },
+  "reference": {
+    "freshReferenceSnapshotsCompared": 8,
+    "referenceAdapterSha256": "c70208fe453ca9809bc2a947a0209425100b352554e7d0d5dbab6eacfac65e39",
+    "referenceCommit": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334",
+    "foreignLookup": "TS resolves colliding local entity; Bend MissingEntity checked separately"
+  },
+  "mutants": {
+    "foreign-lookup": {
+      "compiledBothBackends": true,
+      "firstDifferentLine": 68,
+      "outputSha256": "32f2f43cd85838e7c16b1e3b9da63a88297294261f89670a37b21cbe463904b7",
+      "expectedFirstDifference": "MissingEntity",
+      "actualFirstDifference": "Found(1:1{position[10,11,12,13];frame=7;velocity[1,2,3,4];moving=true;selected=8})"
+    },
+    "foreign-command": {
+      "compiledBothBackends": true,
+      "firstDifferentLine": 34,
+      "outputSha256": "6535db69247e760e31794f02e8367c4d134b158e6f8e37d849178915379412a4",
+      "expectedFirstDifference": "Motion/foreign-before-alpha",
+      "actualFirstDifference": "FOREIGN_COMMAND_ACCEPTED"
+    },
+    "reversed-query-order": {
+      "compiledBothBackends": true,
+      "firstDifferentLine": 20,
+      "outputSha256": "fd048a6c34906afb0df8d2a41bda448e157795cf8fd0f6d22d8bc1b9f81ad56f",
+      "expectedFirstDifference": "[1:1{position[10,11,12,13];frame=7;velocity[1,2,3,4];moving=true;selected=8}|1:2{position[20,21,22,23];frame=7;none;none}]",
+      "actualFirstDifference": "[1:2{position[20,21,22,23];frame=7;none;none}|1:1{position[10,11,12,13];frame=7;velocity[1,2,3,4];moving=true;selected=8}]"
+    },
+    "reversed-command-FIFO": {
+      "compiledBothBackends": true,
+      "firstDifferentLine": 71,
+      "outputSha256": "b0dc6f27ed69be1c93c7d6f8cc7b8c8fd3ca3e9b34548b29d1d6bc6d6c229911",
+      "expectedFirstDifference": "ns=1;next=4;rows=[1{position[81,82,83,84];frame=7;velocity[1,2,3,4];moving=true;selected=8;added=1;changed=2}|2{position[20,21,22,23];frame=7;none;none;added=1;changed=1}|3{none;velocity[1,2,3,4];moving=true;selected=8;added=0;changed=0}];pending=[];ledger[100,101,102,103];epoch=4;mode=On",
+      "actualFirstDifference": "ns=1;next=4;rows=[1{position[77,78,79,80];frame=7;velocity[1,2,3,4];moving=true;selected=8;added=1;changed=2}|2{position[20,21,22,23];frame=7;none;none;added=1;changed=1}|3{none;velocity[1,2,3,4];moving=true;selected=8;added=0;changed=0}];pending=[];ledger[100,101,102,103];epoch=4;mode=On"
+    },
+    "constant-namespace": {
+      "compiledBothBackends": true,
+      "firstDifferentLine": 11,
+      "outputSha256": "ba9311955a4d645d772eb975008df4059e0bc08530a89f4a679da76c64ac9ec3",
+      "expectedFirstDifference": "ns=2;next=2;rows=[];pending=[spawn:1{position[90,91,92,93];frame=7;none;selected=8}];ledger[100,101,102,103];epoch=4;mode=On",
+      "actualFirstDifference": "ns=1;next=2;rows=[];pending=[spawn:1{position[90,91,92,93];frame=7;none;selected=8}];ledger[100,101,102,103];epoch=4;mode=On"
+    }
+  },
+  "referenceHeads": {
+    "bevy-ts": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334",
+    "bevy": "ad678262ce53b5d142fe49ee5e08caff6f00ab60",
+    "bend2": "a950fd683c0d76f09794078e6174fe98a1492876"
+  },
+  "compiler": "bend 2.0.34",
+  "baseSha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+  "notEstablished": [
+    "actual dispatcher empty-tick behavior",
+    "transactions/readers integration",
+    "full E0-E11 trace",
+    "universal authority/proof/refinement",
+    "performance acceptance"
+  ],
+  "negativeControls": {
+    "write-through-read": {
+      "expectedExit": 1,
+      "diagnostic": [
+        "expected : T.Position",
+        "observed : P"
+      ],
+      "location": "bad"
+    },
+    "undeclared-aux": {
+      "expectedExit": 1,
+      "diagnostic": [
+        "expected : T.Velocity",
+        "observed : P"
+      ],
+      "location": "bad"
+    },
+    "wrong-token": {
+      "expectedExit": 1,
+      "diagnostic": [
+        "expected : T.PositionToken",
+        "observed : T.VitalsToken"
+      ],
+      "location": "bad"
+    },
+    "reconstruction": {
+      "expectedExit": 1,
+      "diagnostic": [
+        "expected : P",
+        "observed : T.Position"
+      ],
+      "location": "bad"
+    },
+    "missing-owner": {
+      "expectedExit": 1,
+      "diagnostic": [
+        "expected : P",
+        "observed : String"
+      ],
+      "location": "bad"
+    },
+    "consumed-owner": {
+      "expectedExit": 1,
+      "diagnostic": [
+        "consumed more than once"
+      ],
+      "location": "bad"
+    },
+    "cross-schema-handle": {
+      "expectedExit": 1,
+      "diagnostic": [
+        "T.MotionSchema",
+        "T.HealthSchema"
+      ],
+      "location": "bad"
+    }
+  },
+  "originalOutputSha256": "13aac0bcd1c5355b92e76493458ffecccf942c7cbae22c003c8fbfcc31a11cdd",
+  "originalLines": 153
+}
