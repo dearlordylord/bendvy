@@ -1,0 +1,11 @@
+# Source-current validation (#19)
+
+This refresh starts from master `8f36a38`. Historical reports/source closures remain unchanged and available at their recorded Git revisions. It tests the current owned Type command publication and typed compact renderer rather than borrowing old passes.
+
+`taskset -c 8 python3 experiments/s-integrate/host-source-current-run.py --build-dir /tmp/bendvy-host-current` freshly checks and compiles the two schema entrypoints at Native `-O3` and JavaScript, executes all four actual E0–E10 lanes, executes fresh TS per schema, and compares all ten channels. Each checker/codegen/clang/runtime retains its 5/30/120/5-second limit. Frozen sources, tools, compiler/Base and compiled artifacts are recorded in `host-source-current-evidence.json`. All channels match with zero differences. Total separately bounded build/runtime time: 120.304 seconds. No E11, mutation, performance or universal-refinement completion is inferred.
+
+Fresh integrated access controls pass the actual positive provider/client and reject all seven intended boundaries: undeclared token, cross-schema token, write through read, concrete owner reconstruction, invalid owner return, duplicated Audit owner and irreversible concrete destructure. The diagnostics and source-current hashes are in `integrated-access-source-current-evidence.json`.
+
+Fresh Host foreign-command controls pass complete owner-return observations in both backends and kill all three compiling namespace-bypass/runtime-clock-reset/runtime-capture-reset mutants. `structural-host-source-current-evidence.json` preserves the exact results and current source hashes. The first refresh exposed a stale observational encoder missing the new `ForeignLookup` constructor; one exhaustive control-only branch fixes it. Subject code and expected output remain unchanged. Historical evidence is preserved.
+
+Fresh Cleanup/Inserts/Dispose controls pass all 24 complete original observation lines in Native/JavaScript and kill all three compiling wrong-target/insert-order/disposal-preservation mutants. `structural-invoker-source-current-evidence.json` records its exact hashes and differences. The coordinator owns final combined E11/mutation/measurement review and acceptance.

@@ -47,6 +47,7 @@ def kind(v:Q.BodyKind) -> String:
     case Q.SetOff{}: "SetOff"
     case Q.Cleanup{}: "Cleanup"
     case Q.Snapshot{}: "Snapshot"
+    case Q.ForeignLookup{}: "ForeignLookup"
     case Q.Seed{}: "Seed"
     case Q.SeedBeta{}: "SeedBeta"
     case Q.Inserts{}: "Inserts"
