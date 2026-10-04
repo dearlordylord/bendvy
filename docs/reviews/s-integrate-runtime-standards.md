@@ -266,3 +266,28 @@ paths without weakening affine ownership or ordering/access contracts, then repl
 all requested sizes with full-field correctness, equivalent timed operations,
 seven-repeat ratios/variability and explicit memory limits. No causal performance
 proof or production/full-core completion is asserted here.
+
+## 2026-10-04 — current mutation supplement `41acaaf`
+
+**Standards verdict:** the scoped provenance/witness gap above is resolved by
+`host-mutation-source-current-evidence.json`. Independently verified every source
+hash, the exact recursive two-entrypoint import inventory and runner hash against
+this snapshot. All twelve mutations record compiling Native/JS witnesses; originals
+match all ten channels across the four lanes. This reviews source and recorded
+evidence without repeating the costly sweep, and excludes independent approval of
+my renderer implementation.
+
+The split entrypoints retain actual shared Host operations and their imported
+runtime owners. Each compilation/check/execution retains its documented separate
+bounds; each complete schema execution remains limited to five seconds. Native O0
+here establishes finite mutation correctness, not O3 performance acceptance.
+Comparison requires exact four-lane membership and all selected channels. The
+publication control now requires a message-channel difference rather than an
+unrelated rollback discrepancy: both backends record actual E3 Fast messages
+changing from `[]` to `[{"code":9}]`. The original/current and focused historical
+records remain distinct; no timeout is counted as a semantic detection.
+
+No new hard documented-standard violation or actionable heuristic smell identified
+in this supplement. This resolves the current main mutation delivery only. Mandatory
+performance, unfinished workload/timing and RSS-method validation remain open; no
+new law/dependency approval, universal refinement or full-core acceptance follows.
