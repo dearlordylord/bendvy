@@ -95,8 +95,8 @@ def trusted_main(-W: Type,-H: Data,-Main: Type,-O: Data,
   world: W,handle: H,transform: Main -> Main & O) -> W & T.Access<O>:
   with_main(world,handle,transform)
 def trusted_ledger(-W: Type,-Ledger: Type,-O: Data,
-  with_ledger: W -> (Ledger -> Ledger & O) -> W & O,
-  world: W,transform: Ledger -> Ledger & O) -> W & O:
+  with_ledger: W -> (Ledger -> Ledger & O) -> W & Maybe<&2,O>,
+  world: W,transform: Ledger -> Ledger & O) -> W & Maybe<&2,O>:
   with_ledger(world,transform)
 
 # NEGATIVE cross_handle / expected : HealthHandle
@@ -109,4 +109,13 @@ def trusted_ledger(-W: Type,-Ledger: Type,-O: Data,
 #|import ../types.bend as T
 #|def bad(-Tx:Type,read:Tx -> T.MotionLedgerToken -> Tx & T.LedgerView,owner:Tx) -> Tx & T.LedgerView:
 #|  read(owner,T.HealthLedgerToken{})
+# END
+
+# Missing Ledger returns no projection and retains the actual world owner.
+def missing_ledger(-W: Type,-O: Data,world: W) -> W & Maybe<&2,O>:
+  (world,None{})
+# NEGATIVE invented_ledger_projection / expected : O
+#|import Base
+#|def bad(-W:Type,-O:Data,world:W) -> W & O:
+#|  (world,None{})
 # END

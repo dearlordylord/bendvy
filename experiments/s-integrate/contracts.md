@@ -58,7 +58,8 @@ production policy or unapproved catalogue proof is selected by this seam.
 Next checked join shapes: `trusted_main` consumes world, nominal abstract handle
 and affine Main→Main&Data transform, returning world plus `Access<O>` Found/Mismatch/
 Missing; trusted adapter reinserts immediately on Found. `trusted_ledger` consumes
-world and affine Ledger→Ledger&Data transform. Both are signature forwarding here;
+world and affine Ledger→Ledger&Data transform, returning world plus Maybe<Data>.
+Absent Ledger returns None without invoking the transform; it cannot invent Data. Both are signature forwarding here;
 the storage/transaction canaries provide actual instantiation separately. The
 selected H is bound privately into Tx/provider getter/setter context from the actual
 a/b handle by trusted provisioning; a bare token or numeric constant does not identify an entity. Each inverse retains
