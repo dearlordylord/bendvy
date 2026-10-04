@@ -353,3 +353,33 @@ inhabitation, capture and witness-field quantity boundaries. Optional runner
 hardening: assert the recorded `Location: attempt`/`false_conditional` alongside
 diagnostic fragments to guard future unrelated failures; current evidence already
 shows the intended locations, so this is not a present acceptance blocker.
+
+# Delegated approval registry — `8e149fd` (2026-10-04)
+
+**Hard violations: none found.** Reviewed `091ea4a...8e149fd` against the explicitly
+delegated Astra decision. Authorization is restricted to the exact live affine
+owned-world binder amendment and two exact arithmetic support subjects. Decision
+and proposal digests match current files; the original 31-law catalogue and
+historical exact blocks remain frozen. The registry does not imply approval of the
+remaining 22 candidates, production policy, dependencies or performance thresholds.
+
+The gate requires exactly the original seven public IDs and exactly one amendment.
+It verifies original historical blocks before deriving the sole permitted
+`-world` to live `world` replacement, then compares the proposal and active law
+against that exact result. Thus the independent safety premise, all-world domain
+and observation endpoints remain unchanged; quantity-sensitive function types
+are correctly not described as equivalent. Separate support validation requires
+exactly the two approved IDs, unchanged original statements and frozen approval/
+proposal provenance. Canonical source closure and five-second checker/kernel
+wrappers remain enforced.
+
+Current evidence source hashes match every recorded file. Both checker and kernel
+still exit 1; the outstanding owned TODO is not reclassified as success by the
+approval. The decision accurately distinguishes diagnostic feasibility, finite
+arithmetic falsification and authorization from completed universal proofs.
+AGENTS, checkpoint, ticket and current READMEs reflect the new narrow authorization;
+historical proposal wording is explicitly identified as pre-decision evidence.
+
+**Heuristic findings: none actionable.** Explicit validation of both historical
+and amended subjects makes the approval boundary reviewable. This review inspected
+validation logic and recorded evidence; it did not rerun or mutate the root gate.
