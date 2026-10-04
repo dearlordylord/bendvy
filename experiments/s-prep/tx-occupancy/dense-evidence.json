@@ -1,0 +1,1406 @@
+{
+  "scope": "actual Dense/Sparse Tx diagnostic transport; no timing claim",
+  "limits": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "cpu": 8,
+  "cases": [
+    {
+      "schema": "Health",
+      "workload": "dense",
+      "count": 256,
+      "backends": {
+        "Native": {
+          "transactions": 64,
+          "physicalPeaks": {
+            "commands": 0,
+            "events": 0,
+            "inverse": 512,
+            "marks": 256
+          },
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "events": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "inverse": {
+              "transaction": 0,
+              "point": 1024,
+              "phase": "record_ledger",
+              "value": 512
+            },
+            "marks": {
+              "transaction": 0,
+              "point": 1022,
+              "phase": "record_main",
+              "value": 256
+            }
+          },
+          "phases": [
+            "commit",
+            "finish-success",
+            "mark-drain",
+            "read_ledger_finish",
+            "read_main_finish",
+            "record_ledger",
+            "record_main",
+            "tx_begin"
+          ],
+          "status": "PASS",
+          "fullPublicMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullRowsCompared": 256,
+            "selectedRowsCompared": 256,
+            "normalizedFinalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+            "worksum": 8970240,
+            "captures": 64,
+            "tick": 65,
+            "frames": 65
+          },
+          "publicSha256": "3509325845a5b0887ab7536d8bf3256f350cc07f68b8c5296b02cc91ea0c3f92",
+          "rawRecords": "dense-health-256-native.jsonl.gz",
+          "rawSha256": "f022c482dc6fe26bccc61c85c41e105b937f83802b71478a38efcd818d9c5685",
+          "diagnosticPoints": 82176
+        },
+        "JS": {
+          "transactions": 64,
+          "physicalPeaks": {
+            "commands": 0,
+            "events": 0,
+            "inverse": 512,
+            "marks": 256
+          },
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "events": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "inverse": {
+              "transaction": 0,
+              "point": 1024,
+              "phase": "record_ledger",
+              "value": 512
+            },
+            "marks": {
+              "transaction": 0,
+              "point": 1022,
+              "phase": "record_main",
+              "value": 256
+            }
+          },
+          "phases": [
+            "commit",
+            "finish-success",
+            "mark-drain",
+            "read_ledger_finish",
+            "read_main_finish",
+            "record_ledger",
+            "record_main",
+            "tx_begin"
+          ],
+          "status": "PASS",
+          "fullPublicMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullRowsCompared": 256,
+            "selectedRowsCompared": 256,
+            "normalizedFinalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+            "worksum": 8970240,
+            "captures": 64,
+            "tick": 65,
+            "frames": 65
+          },
+          "publicSha256": "3509325845a5b0887ab7536d8bf3256f350cc07f68b8c5296b02cc91ea0c3f92",
+          "rawRecords": "dense-health-256-js.jsonl.gz",
+          "rawSha256": "f022c482dc6fe26bccc61c85c41e105b937f83802b71478a38efcd818d9c5685",
+          "diagnosticPoints": 82176
+        }
+      },
+      "physicalBackendEquality": true
+    },
+    {
+      "schema": "Motion",
+      "workload": "dense",
+      "count": 64,
+      "backends": {
+        "Native": {
+          "transactions": 64,
+          "physicalPeaks": {
+            "commands": 0,
+            "events": 0,
+            "inverse": 128,
+            "marks": 64
+          },
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "events": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "inverse": {
+              "transaction": 0,
+              "point": 256,
+              "phase": "record_ledger",
+              "value": 128
+            },
+            "marks": {
+              "transaction": 0,
+              "point": 254,
+              "phase": "record_main",
+              "value": 64
+            }
+          },
+          "phases": [
+            "commit",
+            "finish-success",
+            "mark-drain",
+            "read_ledger_finish",
+            "read_main_finish",
+            "record_ledger",
+            "record_main",
+            "tx_begin"
+          ],
+          "status": "PASS",
+          "fullPublicMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullRowsCompared": 64,
+            "selectedRowsCompared": 64,
+            "normalizedFinalSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
+            "worksum": 669696,
+            "captures": 64,
+            "tick": 65,
+            "frames": 65
+          },
+          "publicSha256": "7f178df9efb1372a294fc6458c858a49d1f5dca8c0fd0463b6cc6142fc29c8f2",
+          "rawRecords": "dense-motion-64-native.jsonl.gz",
+          "rawSha256": "296da29dd436ba19d18183aa388ec2522a3ddd79c4ef3e21b6098913a102fcd9",
+          "diagnosticPoints": 20736
+        },
+        "JS": {
+          "transactions": 64,
+          "physicalPeaks": {
+            "commands": 0,
+            "events": 0,
+            "inverse": 128,
+            "marks": 64
+          },
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "events": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "inverse": {
+              "transaction": 0,
+              "point": 256,
+              "phase": "record_ledger",
+              "value": 128
+            },
+            "marks": {
+              "transaction": 0,
+              "point": 254,
+              "phase": "record_main",
+              "value": 64
+            }
+          },
+          "phases": [
+            "commit",
+            "finish-success",
+            "mark-drain",
+            "read_ledger_finish",
+            "read_main_finish",
+            "record_ledger",
+            "record_main",
+            "tx_begin"
+          ],
+          "status": "PASS",
+          "fullPublicMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullRowsCompared": 64,
+            "selectedRowsCompared": 64,
+            "normalizedFinalSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
+            "worksum": 669696,
+            "captures": 64,
+            "tick": 65,
+            "frames": 65
+          },
+          "publicSha256": "7f178df9efb1372a294fc6458c858a49d1f5dca8c0fd0463b6cc6142fc29c8f2",
+          "rawRecords": "dense-motion-64-js.jsonl.gz",
+          "rawSha256": "296da29dd436ba19d18183aa388ec2522a3ddd79c4ef3e21b6098913a102fcd9",
+          "diagnosticPoints": 20736
+        }
+      },
+      "physicalBackendEquality": true
+    },
+    {
+      "schema": "Motion",
+      "workload": "dense",
+      "count": 256,
+      "backends": {
+        "Native": {
+          "transactions": 64,
+          "physicalPeaks": {
+            "commands": 0,
+            "events": 0,
+            "inverse": 512,
+            "marks": 256
+          },
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "events": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "inverse": {
+              "transaction": 0,
+              "point": 1024,
+              "phase": "record_ledger",
+              "value": 512
+            },
+            "marks": {
+              "transaction": 0,
+              "point": 1022,
+              "phase": "record_main",
+              "value": 256
+            }
+          },
+          "phases": [
+            "commit",
+            "finish-success",
+            "mark-drain",
+            "read_ledger_finish",
+            "read_main_finish",
+            "record_ledger",
+            "record_main",
+            "tx_begin"
+          ],
+          "status": "PASS",
+          "fullPublicMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullRowsCompared": 256,
+            "selectedRowsCompared": 256,
+            "normalizedFinalSha256": "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+            "worksum": 8970240,
+            "captures": 64,
+            "tick": 65,
+            "frames": 65
+          },
+          "publicSha256": "cc6d141576e9208178d59917ae12e8aa39a39ebb973399fb47dcf8c22fb087a9",
+          "rawRecords": "dense-motion-256-native.jsonl.gz",
+          "rawSha256": "f022c482dc6fe26bccc61c85c41e105b937f83802b71478a38efcd818d9c5685",
+          "diagnosticPoints": 82176
+        },
+        "JS": {
+          "transactions": 64,
+          "physicalPeaks": {
+            "commands": 0,
+            "events": 0,
+            "inverse": 512,
+            "marks": 256
+          },
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "events": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "inverse": {
+              "transaction": 0,
+              "point": 1024,
+              "phase": "record_ledger",
+              "value": 512
+            },
+            "marks": {
+              "transaction": 0,
+              "point": 1022,
+              "phase": "record_main",
+              "value": 256
+            }
+          },
+          "phases": [
+            "commit",
+            "finish-success",
+            "mark-drain",
+            "read_ledger_finish",
+            "read_main_finish",
+            "record_ledger",
+            "record_main",
+            "tx_begin"
+          ],
+          "status": "PASS",
+          "fullPublicMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullRowsCompared": 256,
+            "selectedRowsCompared": 256,
+            "normalizedFinalSha256": "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+            "worksum": 8970240,
+            "captures": 64,
+            "tick": 65,
+            "frames": 65
+          },
+          "publicSha256": "cc6d141576e9208178d59917ae12e8aa39a39ebb973399fb47dcf8c22fb087a9",
+          "rawRecords": "dense-motion-256-js.jsonl.gz",
+          "rawSha256": "f022c482dc6fe26bccc61c85c41e105b937f83802b71478a38efcd818d9c5685",
+          "diagnosticPoints": 82176
+        }
+      },
+      "physicalBackendEquality": true
+    },
+    {
+      "schema": "Motion",
+      "workload": "dense",
+      "count": 1024,
+      "backends": {
+        "Native": {
+          "status": "UNAVAILABLE",
+          "error": "Command '['taskset', '-c', '8', '/tmp/prep22-dense-en9oh202/dense-diagnostic', '--threads', '1', '--gpu', 'off', '0', '0', '1024']' timed out after 5 seconds"
+        },
+        "JS": {
+          "status": "UNAVAILABLE",
+          "error": "Command '['taskset', '-c', '8', 'node', '/tmp/prep22-dense-en9oh202/dense-diagnostic.js', '0', '0', '1024']' timed out after 5 seconds"
+        }
+      }
+    },
+    {
+      "schema": "Motion",
+      "workload": "sparse",
+      "count": 64,
+      "backends": {
+        "Native": {
+          "transactions": 64,
+          "physicalPeaks": {
+            "commands": 0,
+            "events": 0,
+            "inverse": 16,
+            "marks": 8
+          },
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "events": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "inverse": {
+              "transaction": 0,
+              "point": 32,
+              "phase": "record_ledger",
+              "value": 16
+            },
+            "marks": {
+              "transaction": 0,
+              "point": 30,
+              "phase": "record_main",
+              "value": 8
+            }
+          },
+          "phases": [
+            "commit",
+            "finish-success",
+            "mark-drain",
+            "read_ledger_finish",
+            "read_main_finish",
+            "record_ledger",
+            "record_main",
+            "tx_begin"
+          ],
+          "status": "PASS",
+          "fullPublicMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullRowsCompared": 64,
+            "selectedRowsCompared": 8,
+            "normalizedFinalSha256": "e9227bc45800a0209f9360875d7102b1fafbe6d97f0271b76eda1ab9cb3df256",
+            "worksum": 2053472,
+            "captures": 64,
+            "tick": 65,
+            "frames": 65
+          },
+          "publicSha256": "ee101f6e33b53942faacda09108558a60b94fd7877ed1b6f873cc8b4d6167c89",
+          "rawRecords": "sparse-motion-64-native.jsonl.gz",
+          "rawSha256": "8c87a278721413174043aa0adb55e208cb53857ffdfc738ff04da871f3a32ced",
+          "diagnosticPoints": 2816
+        },
+        "JS": {
+          "transactions": 64,
+          "physicalPeaks": {
+            "commands": 0,
+            "events": 0,
+            "inverse": 16,
+            "marks": 8
+          },
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "events": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "inverse": {
+              "transaction": 0,
+              "point": 32,
+              "phase": "record_ledger",
+              "value": 16
+            },
+            "marks": {
+              "transaction": 0,
+              "point": 30,
+              "phase": "record_main",
+              "value": 8
+            }
+          },
+          "phases": [
+            "commit",
+            "finish-success",
+            "mark-drain",
+            "read_ledger_finish",
+            "read_main_finish",
+            "record_ledger",
+            "record_main",
+            "tx_begin"
+          ],
+          "status": "PASS",
+          "fullPublicMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullRowsCompared": 64,
+            "selectedRowsCompared": 8,
+            "normalizedFinalSha256": "e9227bc45800a0209f9360875d7102b1fafbe6d97f0271b76eda1ab9cb3df256",
+            "worksum": 2053472,
+            "captures": 64,
+            "tick": 65,
+            "frames": 65
+          },
+          "publicSha256": "ee101f6e33b53942faacda09108558a60b94fd7877ed1b6f873cc8b4d6167c89",
+          "rawRecords": "sparse-motion-64-js.jsonl.gz",
+          "rawSha256": "8c87a278721413174043aa0adb55e208cb53857ffdfc738ff04da871f3a32ced",
+          "diagnosticPoints": 2816
+        }
+      },
+      "physicalBackendEquality": true
+    },
+    {
+      "schema": "Motion",
+      "workload": "sparse",
+      "count": 256,
+      "backends": {
+        "Native": {
+          "transactions": 64,
+          "physicalPeaks": {
+            "commands": 0,
+            "events": 0,
+            "inverse": 64,
+            "marks": 32
+          },
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "events": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "inverse": {
+              "transaction": 0,
+              "point": 128,
+              "phase": "record_ledger",
+              "value": 64
+            },
+            "marks": {
+              "transaction": 0,
+              "point": 126,
+              "phase": "record_main",
+              "value": 32
+            }
+          },
+          "phases": [
+            "commit",
+            "finish-success",
+            "mark-drain",
+            "read_ledger_finish",
+            "read_main_finish",
+            "record_ledger",
+            "record_main",
+            "tx_begin"
+          ],
+          "status": "PASS",
+          "fullPublicMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullRowsCompared": 256,
+            "selectedRowsCompared": 32,
+            "normalizedFinalSha256": "280a00a79454d62a5ddf678b14915d641dc3d8ff24e93a581cefa71078dfab41",
+            "worksum": 106982496,
+            "captures": 64,
+            "tick": 65,
+            "frames": 65
+          },
+          "publicSha256": "1a63e4cf6477174e7e51a61ed929dace7164fa79b5c9b941614ce0328b32d24d",
+          "rawRecords": "sparse-motion-256-native.jsonl.gz",
+          "rawSha256": "7508425d193582f299eac4afdf887c9145cc0c7907905f36431c320bdbb466cd",
+          "diagnosticPoints": 10496
+        },
+        "JS": {
+          "transactions": 64,
+          "physicalPeaks": {
+            "commands": 0,
+            "events": 0,
+            "inverse": 64,
+            "marks": 32
+          },
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "events": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "inverse": {
+              "transaction": 0,
+              "point": 128,
+              "phase": "record_ledger",
+              "value": 64
+            },
+            "marks": {
+              "transaction": 0,
+              "point": 126,
+              "phase": "record_main",
+              "value": 32
+            }
+          },
+          "phases": [
+            "commit",
+            "finish-success",
+            "mark-drain",
+            "read_ledger_finish",
+            "read_main_finish",
+            "record_ledger",
+            "record_main",
+            "tx_begin"
+          ],
+          "status": "PASS",
+          "fullPublicMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullRowsCompared": 256,
+            "selectedRowsCompared": 32,
+            "normalizedFinalSha256": "280a00a79454d62a5ddf678b14915d641dc3d8ff24e93a581cefa71078dfab41",
+            "worksum": 106982496,
+            "captures": 64,
+            "tick": 65,
+            "frames": 65
+          },
+          "publicSha256": "1a63e4cf6477174e7e51a61ed929dace7164fa79b5c9b941614ce0328b32d24d",
+          "rawRecords": "sparse-motion-256-js.jsonl.gz",
+          "rawSha256": "7508425d193582f299eac4afdf887c9145cc0c7907905f36431c320bdbb466cd",
+          "diagnosticPoints": 10496
+        }
+      },
+      "physicalBackendEquality": true
+    },
+    {
+      "schema": "Motion",
+      "workload": "sparse",
+      "count": 1024,
+      "backends": {
+        "Native": {
+          "transactions": 64,
+          "physicalPeaks": {
+            "commands": 0,
+            "events": 0,
+            "inverse": 256,
+            "marks": 128
+          },
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "events": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "inverse": {
+              "transaction": 0,
+              "point": 512,
+              "phase": "record_ledger",
+              "value": 256
+            },
+            "marks": {
+              "transaction": 0,
+              "point": 510,
+              "phase": "record_main",
+              "value": 128
+            }
+          },
+          "phases": [
+            "commit",
+            "finish-success",
+            "mark-drain",
+            "read_ledger_finish",
+            "read_main_finish",
+            "record_ledger",
+            "record_main",
+            "tx_begin"
+          ],
+          "status": "PASS",
+          "fullPublicMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullRowsCompared": 1024,
+            "selectedRowsCompared": 128,
+            "normalizedFinalSha256": "d7035863b11216182aab47cb1aa3945de42e5992394cef5b6a9061edabf2f630",
+            "worksum": 2187192416,
+            "captures": 64,
+            "tick": 65,
+            "frames": 65
+          },
+          "publicSha256": "6690d165a8ac7c8d34c4e69d17b7b42c64c120c5212e55c3484dcdb6821226fa",
+          "rawRecords": "sparse-motion-1024-native.jsonl.gz",
+          "rawSha256": "dd3121b45a42f1fa63d1d4c991ef1d91f12f65fbd2dda2f888ea68798799f68a",
+          "diagnosticPoints": 41216
+        },
+        "JS": {
+          "transactions": 64,
+          "physicalPeaks": {
+            "commands": 0,
+            "events": 0,
+            "inverse": 256,
+            "marks": 128
+          },
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "events": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "inverse": {
+              "transaction": 0,
+              "point": 512,
+              "phase": "record_ledger",
+              "value": 256
+            },
+            "marks": {
+              "transaction": 0,
+              "point": 510,
+              "phase": "record_main",
+              "value": 128
+            }
+          },
+          "phases": [
+            "commit",
+            "finish-success",
+            "mark-drain",
+            "read_ledger_finish",
+            "read_main_finish",
+            "record_ledger",
+            "record_main",
+            "tx_begin"
+          ],
+          "status": "PASS",
+          "fullPublicMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullRowsCompared": 1024,
+            "selectedRowsCompared": 128,
+            "normalizedFinalSha256": "d7035863b11216182aab47cb1aa3945de42e5992394cef5b6a9061edabf2f630",
+            "worksum": 2187192416,
+            "captures": 64,
+            "tick": 65,
+            "frames": 65
+          },
+          "publicSha256": "6690d165a8ac7c8d34c4e69d17b7b42c64c120c5212e55c3484dcdb6821226fa",
+          "rawRecords": "sparse-motion-1024-js.jsonl.gz",
+          "rawSha256": "dd3121b45a42f1fa63d1d4c991ef1d91f12f65fbd2dda2f888ea68798799f68a",
+          "diagnosticPoints": 41216
+        }
+      },
+      "physicalBackendEquality": true
+    },
+    {
+      "schema": "Health",
+      "workload": "dense",
+      "count": 64,
+      "backends": {
+        "Native": {
+          "transactions": 64,
+          "physicalPeaks": {
+            "commands": 0,
+            "events": 0,
+            "inverse": 128,
+            "marks": 64
+          },
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "events": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "inverse": {
+              "transaction": 0,
+              "point": 256,
+              "phase": "record_ledger",
+              "value": 128
+            },
+            "marks": {
+              "transaction": 0,
+              "point": 254,
+              "phase": "record_main",
+              "value": 64
+            }
+          },
+          "phases": [
+            "commit",
+            "finish-success",
+            "mark-drain",
+            "read_ledger_finish",
+            "read_main_finish",
+            "record_ledger",
+            "record_main",
+            "tx_begin"
+          ],
+          "status": "PASS",
+          "fullPublicMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullRowsCompared": 64,
+            "selectedRowsCompared": 64,
+            "normalizedFinalSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
+            "worksum": 669696,
+            "captures": 64,
+            "tick": 65,
+            "frames": 65
+          },
+          "publicSha256": "ea9628fad5c62b5c24ec63d0cf6f5bd621f60604359e04387674992be456291b",
+          "rawRecords": "dense-health-64-native.jsonl.gz",
+          "rawSha256": "296da29dd436ba19d18183aa388ec2522a3ddd79c4ef3e21b6098913a102fcd9",
+          "diagnosticPoints": 20736
+        },
+        "JS": {
+          "transactions": 64,
+          "physicalPeaks": {
+            "commands": 0,
+            "events": 0,
+            "inverse": 128,
+            "marks": 64
+          },
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "events": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "inverse": {
+              "transaction": 0,
+              "point": 256,
+              "phase": "record_ledger",
+              "value": 128
+            },
+            "marks": {
+              "transaction": 0,
+              "point": 254,
+              "phase": "record_main",
+              "value": 64
+            }
+          },
+          "phases": [
+            "commit",
+            "finish-success",
+            "mark-drain",
+            "read_ledger_finish",
+            "read_main_finish",
+            "record_ledger",
+            "record_main",
+            "tx_begin"
+          ],
+          "status": "PASS",
+          "fullPublicMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullRowsCompared": 64,
+            "selectedRowsCompared": 64,
+            "normalizedFinalSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
+            "worksum": 669696,
+            "captures": 64,
+            "tick": 65,
+            "frames": 65
+          },
+          "publicSha256": "ea9628fad5c62b5c24ec63d0cf6f5bd621f60604359e04387674992be456291b",
+          "rawRecords": "dense-health-64-js.jsonl.gz",
+          "rawSha256": "296da29dd436ba19d18183aa388ec2522a3ddd79c4ef3e21b6098913a102fcd9",
+          "diagnosticPoints": 20736
+        }
+      },
+      "physicalBackendEquality": true
+    },
+    {
+      "schema": "Health",
+      "workload": "dense",
+      "count": 1024,
+      "backends": {
+        "Native": {
+          "status": "UNAVAILABLE",
+          "error": "Command '['taskset', '-c', '8', '/tmp/prep22-dense-en9oh202/dense-diagnostic', '--threads', '1', '--gpu', 'off', '1', '0', '1024']' timed out after 5 seconds"
+        },
+        "JS": {
+          "status": "UNAVAILABLE",
+          "error": "Command '['taskset', '-c', '8', 'node', '/tmp/prep22-dense-en9oh202/dense-diagnostic.js', '1', '0', '1024']' timed out after 5 seconds"
+        }
+      }
+    },
+    {
+      "schema": "Health",
+      "workload": "sparse",
+      "count": 64,
+      "backends": {
+        "Native": {
+          "transactions": 64,
+          "physicalPeaks": {
+            "commands": 0,
+            "events": 0,
+            "inverse": 16,
+            "marks": 8
+          },
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "events": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "inverse": {
+              "transaction": 0,
+              "point": 32,
+              "phase": "record_ledger",
+              "value": 16
+            },
+            "marks": {
+              "transaction": 0,
+              "point": 30,
+              "phase": "record_main",
+              "value": 8
+            }
+          },
+          "phases": [
+            "commit",
+            "finish-success",
+            "mark-drain",
+            "read_ledger_finish",
+            "read_main_finish",
+            "record_ledger",
+            "record_main",
+            "tx_begin"
+          ],
+          "status": "PASS",
+          "fullPublicMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullRowsCompared": 64,
+            "selectedRowsCompared": 8,
+            "normalizedFinalSha256": "c1c1d6cb73ca9e83d03b1149dd5e5a0ab2d723c0c373a2ddcd485c74d65a90ce",
+            "worksum": 2090336,
+            "captures": 64,
+            "tick": 65,
+            "frames": 65
+          },
+          "publicSha256": "309f617e3ebb2d22c6d685bde5af40897f75d284405c558bd4d2a9715a3c190f",
+          "rawRecords": "sparse-health-64-native.jsonl.gz",
+          "rawSha256": "8c87a278721413174043aa0adb55e208cb53857ffdfc738ff04da871f3a32ced",
+          "diagnosticPoints": 2816
+        },
+        "JS": {
+          "transactions": 64,
+          "physicalPeaks": {
+            "commands": 0,
+            "events": 0,
+            "inverse": 16,
+            "marks": 8
+          },
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "events": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "inverse": {
+              "transaction": 0,
+              "point": 32,
+              "phase": "record_ledger",
+              "value": 16
+            },
+            "marks": {
+              "transaction": 0,
+              "point": 30,
+              "phase": "record_main",
+              "value": 8
+            }
+          },
+          "phases": [
+            "commit",
+            "finish-success",
+            "mark-drain",
+            "read_ledger_finish",
+            "read_main_finish",
+            "record_ledger",
+            "record_main",
+            "tx_begin"
+          ],
+          "status": "PASS",
+          "fullPublicMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullRowsCompared": 64,
+            "selectedRowsCompared": 8,
+            "normalizedFinalSha256": "c1c1d6cb73ca9e83d03b1149dd5e5a0ab2d723c0c373a2ddcd485c74d65a90ce",
+            "worksum": 2090336,
+            "captures": 64,
+            "tick": 65,
+            "frames": 65
+          },
+          "publicSha256": "309f617e3ebb2d22c6d685bde5af40897f75d284405c558bd4d2a9715a3c190f",
+          "rawRecords": "sparse-health-64-js.jsonl.gz",
+          "rawSha256": "8c87a278721413174043aa0adb55e208cb53857ffdfc738ff04da871f3a32ced",
+          "diagnosticPoints": 2816
+        }
+      },
+      "physicalBackendEquality": true
+    },
+    {
+      "schema": "Health",
+      "workload": "sparse",
+      "count": 256,
+      "backends": {
+        "Native": {
+          "transactions": 64,
+          "physicalPeaks": {
+            "commands": 0,
+            "events": 0,
+            "inverse": 64,
+            "marks": 32
+          },
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "events": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "inverse": {
+              "transaction": 0,
+              "point": 128,
+              "phase": "record_ledger",
+              "value": 64
+            },
+            "marks": {
+              "transaction": 0,
+              "point": 126,
+              "phase": "record_main",
+              "value": 32
+            }
+          },
+          "phases": [
+            "commit",
+            "finish-success",
+            "mark-drain",
+            "read_ledger_finish",
+            "read_main_finish",
+            "record_ledger",
+            "record_main",
+            "tx_begin"
+          ],
+          "status": "PASS",
+          "fullPublicMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullRowsCompared": 256,
+            "selectedRowsCompared": 32,
+            "normalizedFinalSha256": "66ac722d662ab9f8b89d2c7531242764d28a014bec7bed35aef32fa382bc754c",
+            "worksum": 107511904,
+            "captures": 64,
+            "tick": 65,
+            "frames": 65
+          },
+          "publicSha256": "ad3cdb24dc2d2461742081540f925d4a1dc510e4a034476d2d006c8ba2f03716",
+          "rawRecords": "sparse-health-256-native.jsonl.gz",
+          "rawSha256": "7508425d193582f299eac4afdf887c9145cc0c7907905f36431c320bdbb466cd",
+          "diagnosticPoints": 10496
+        },
+        "JS": {
+          "transactions": 64,
+          "physicalPeaks": {
+            "commands": 0,
+            "events": 0,
+            "inverse": 64,
+            "marks": 32
+          },
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "events": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "inverse": {
+              "transaction": 0,
+              "point": 128,
+              "phase": "record_ledger",
+              "value": 64
+            },
+            "marks": {
+              "transaction": 0,
+              "point": 126,
+              "phase": "record_main",
+              "value": 32
+            }
+          },
+          "phases": [
+            "commit",
+            "finish-success",
+            "mark-drain",
+            "read_ledger_finish",
+            "read_main_finish",
+            "record_ledger",
+            "record_main",
+            "tx_begin"
+          ],
+          "status": "PASS",
+          "fullPublicMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullRowsCompared": 256,
+            "selectedRowsCompared": 32,
+            "normalizedFinalSha256": "66ac722d662ab9f8b89d2c7531242764d28a014bec7bed35aef32fa382bc754c",
+            "worksum": 107511904,
+            "captures": 64,
+            "tick": 65,
+            "frames": 65
+          },
+          "publicSha256": "ad3cdb24dc2d2461742081540f925d4a1dc510e4a034476d2d006c8ba2f03716",
+          "rawRecords": "sparse-health-256-js.jsonl.gz",
+          "rawSha256": "7508425d193582f299eac4afdf887c9145cc0c7907905f36431c320bdbb466cd",
+          "diagnosticPoints": 10496
+        }
+      },
+      "physicalBackendEquality": true
+    },
+    {
+      "schema": "Health",
+      "workload": "sparse",
+      "count": 1024,
+      "backends": {
+        "Native": {
+          "transactions": 64,
+          "physicalPeaks": {
+            "commands": 0,
+            "events": 0,
+            "inverse": 256,
+            "marks": 128
+          },
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "events": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "inverse": {
+              "transaction": 0,
+              "point": 512,
+              "phase": "record_ledger",
+              "value": 256
+            },
+            "marks": {
+              "transaction": 0,
+              "point": 510,
+              "phase": "record_main",
+              "value": 128
+            }
+          },
+          "phases": [
+            "commit",
+            "finish-success",
+            "mark-drain",
+            "read_ledger_finish",
+            "read_main_finish",
+            "record_ledger",
+            "record_main",
+            "tx_begin"
+          ],
+          "status": "PASS",
+          "fullPublicMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullRowsCompared": 1024,
+            "selectedRowsCompared": 128,
+            "normalizedFinalSha256": "b59afb025faffeb35135fd4c95b7ed51ad00544e79dd0762ae6fbc000086fabc",
+            "worksum": 2195426400,
+            "captures": 64,
+            "tick": 65,
+            "frames": 65
+          },
+          "publicSha256": "3eddace2be6589ec7a8d4ac85bd7bbeafc5b1ff52dc42dc7d354e488d8dab2c8",
+          "rawRecords": "sparse-health-1024-native.jsonl.gz",
+          "rawSha256": "dd3121b45a42f1fa63d1d4c991ef1d91f12f65fbd2dda2f888ea68798799f68a",
+          "diagnosticPoints": 41216
+        },
+        "JS": {
+          "transactions": 64,
+          "physicalPeaks": {
+            "commands": 0,
+            "events": 0,
+            "inverse": 256,
+            "marks": 128
+          },
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "events": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "inverse": {
+              "transaction": 0,
+              "point": 512,
+              "phase": "record_ledger",
+              "value": 256
+            },
+            "marks": {
+              "transaction": 0,
+              "point": 510,
+              "phase": "record_main",
+              "value": 128
+            }
+          },
+          "phases": [
+            "commit",
+            "finish-success",
+            "mark-drain",
+            "read_ledger_finish",
+            "read_main_finish",
+            "record_ledger",
+            "record_main",
+            "tx_begin"
+          ],
+          "status": "PASS",
+          "fullPublicMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullRowsCompared": 1024,
+            "selectedRowsCompared": 128,
+            "normalizedFinalSha256": "b59afb025faffeb35135fd4c95b7ed51ad00544e79dd0762ae6fbc000086fabc",
+            "worksum": 2195426400,
+            "captures": 64,
+            "tick": 65,
+            "frames": 65
+          },
+          "publicSha256": "3eddace2be6589ec7a8d4ac85bd7bbeafc5b1ff52dc42dc7d354e488d8dab2c8",
+          "rawRecords": "sparse-health-1024-js.jsonl.gz",
+          "rawSha256": "dd3121b45a42f1fa63d1d4c991ef1d91f12f65fbd2dda2f888ea68798799f68a",
+          "diagnosticPoints": 41216
+        }
+      },
+      "physicalBackendEquality": true
+    }
+  ],
+  "sources": {
+    "dense-diagnostic": {
+      "experiments/s-integrate/measurement-bend.bend": "e07ecb68cb9f736ab0fb6d17610336e19b1f67cad71d7548bf4c0c5916576881",
+      "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+      "experiments/s-integrate/storage.bend": "8440ed1ec21c8d4874072aed8ca0ec4967f4e4e522f88d36f68050685d9e0345",
+      "experiments/s-integrate/identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+      "experiments/s-integrate/commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+      "experiments/s-integrate/query.bend": "5fb8447d34edc2260341341c36dc7970964318fa582cdd078da296c5f9e1a1ce",
+      "experiments/s-integrate/observations.bend": "00442198a7aeb420c5defef1641fa873a8f4fcaddfd896973820fe7b875216c4",
+      "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+      "experiments/s-integrate/transaction.bend": "75833fa41567424db2ede8a73f4f6a6195d66493bcc447cc60e7a399c3052c36",
+      "experiments/s-integrate/transaction-dispatch-adapters.bend": "78369987060853bc45faa8a83990d4efc3d3c367ee399f1db73a4f0be6d08e55",
+      "experiments/s-integrate/systems.bend": "2cfc899215e408cc4c652c8d4c290b18800cdb6e8c96f1061a77853afdac9221",
+      "experiments/s-integrate/schedule.bend": "98c955f7ee5039aed875a3bd93e3c94840d9ea2f48de0e6415bd28d63ee8fb98",
+      "experiments/s-integrate/capture.bend": "44d5f3117a465c216ee93100026aad78e86f24c40c09c678be99935dde076817",
+      "experiments/s-integrate/host.bend": "3f396312e1e534a9d7f47bb8c0700e0dd2bd4dd566e0088c62bfd2738e73a7a6",
+      "experiments/s-integrate/dispatcher.bend": "5d7652d052f9915e9735a81d470026c2f7ba2077f11b09472418a6b5213945e9",
+      "experiments/s-integrate/readers.bend": "2673082b4ef5cd6c5d8f61c362e22f74b13daeb27196894278cc20b1459c22e9",
+      "experiments/s-integrate/reader-host.bend": "50f1251c6d476b07055c36c5a97e3350a4cb46e5d826ff97ced2860d40798a64",
+      "experiments/s-integrate/streams.bend": "1a1c7991d6a1b4ebfb3b47dc62459beb83ed5e38ded56d27cc20b5478fc0d315",
+      "experiments/s-integrate/host-observations.bend": "e6a37f6d160a53f14b08254f35cb317a68f1f2c540c40c9b88e600d0d6198e76",
+      "experiments/s-integrate/audited-invoker.bend": "5baf84e75d5271299646c0eab45b26a5d6266f83f8507fcdb51cff9a378b92b1",
+      "experiments/s-integrate/structural-invoker.bend": "6907a8c5775f77ffed6141123fe5c7033678269ade0f59cd0f24b8680e497932",
+      "experiments/s-integrate/host-render.bend": "1eef120fa604ba633f06d33a8a3910845293926c36dc9c91cd59d4d5c045a28a"
+    },
+    "dense-original": {
+      "experiments/s-integrate/measurement-bend.bend": "c2351825ee3998988aa01440e484db0cd11d3dbac5a70db4a079d841aaaaf31d",
+      "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+      "experiments/s-integrate/storage.bend": "8440ed1ec21c8d4874072aed8ca0ec4967f4e4e522f88d36f68050685d9e0345",
+      "experiments/s-integrate/identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+      "experiments/s-integrate/commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+      "experiments/s-integrate/query.bend": "5fb8447d34edc2260341341c36dc7970964318fa582cdd078da296c5f9e1a1ce",
+      "experiments/s-integrate/observations.bend": "00442198a7aeb420c5defef1641fa873a8f4fcaddfd896973820fe7b875216c4",
+      "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+      "experiments/s-integrate/transaction.bend": "d32f0b26e4a14fc784c3ce30c4d6a1ded0cf0a55ed819f54419a558445e298a4",
+      "experiments/s-integrate/transaction-dispatch-adapters.bend": "eea16d3f539d70bcd88fd8fd314b75d252ccaff2b9c1c8b63e7d96bfdda34142",
+      "experiments/s-integrate/systems.bend": "2cfc899215e408cc4c652c8d4c290b18800cdb6e8c96f1061a77853afdac9221",
+      "experiments/s-integrate/schedule.bend": "98c955f7ee5039aed875a3bd93e3c94840d9ea2f48de0e6415bd28d63ee8fb98",
+      "experiments/s-integrate/capture.bend": "44d5f3117a465c216ee93100026aad78e86f24c40c09c678be99935dde076817",
+      "experiments/s-integrate/host.bend": "cc06d581fbc762ef2fcae5091a21bb11955c6770e43abc4346de9fa884d81d2c",
+      "experiments/s-integrate/dispatcher.bend": "5d7652d052f9915e9735a81d470026c2f7ba2077f11b09472418a6b5213945e9",
+      "experiments/s-integrate/readers.bend": "2673082b4ef5cd6c5d8f61c362e22f74b13daeb27196894278cc20b1459c22e9",
+      "experiments/s-integrate/reader-host.bend": "50f1251c6d476b07055c36c5a97e3350a4cb46e5d826ff97ced2860d40798a64",
+      "experiments/s-integrate/streams.bend": "1a1c7991d6a1b4ebfb3b47dc62459beb83ed5e38ded56d27cc20b5478fc0d315",
+      "experiments/s-integrate/host-observations.bend": "e6a37f6d160a53f14b08254f35cb317a68f1f2c540c40c9b88e600d0d6198e76",
+      "experiments/s-integrate/audited-invoker.bend": "2ed7e484b8a043f0944e0f662a8799f94388c99f757de331fb1a79b1c07c8853",
+      "experiments/s-integrate/structural-invoker.bend": "6907a8c5775f77ffed6141123fe5c7033678269ade0f59cd0f24b8680e497932",
+      "experiments/s-integrate/host-render.bend": "1eef120fa604ba633f06d33a8a3910845293926c36dc9c91cd59d4d5c045a28a"
+    }
+  },
+  "generated": {
+    "dense-diagnostic": {
+      "dense-diagnostic.c": "7847ae4de143e374bca7d3eb48224082be015485af67e45a89fc900be3dbff9d",
+      "dense-diagnostic.js": "f0098bec9d00251392d10c01b5acef8cd5e52ac5460e9a94d496e54b03babc86",
+      "dense-diagnostic": "e80bc420eb9c74360d676a90fdd12b4e49c36726b41110d04c5d471e64a683d9"
+    },
+    "dense-original": {
+      "dense-original.c": "49653e3d2b427237f3aed22bc0affb1ec1eeb8cf590761b0b9cf01a4e3ae7cfc",
+      "dense-original.js": "a154f71ed65e4bd513b0c172505864c94aab8cbbe60852853977f5636a1fb57e",
+      "dense-original": "11597ae119b04fe6d8826e08a36cec3db474f7fb081a914dd10bc0ff5b3b0fd5"
+    }
+  },
+  "status": "BOUNDED_FAILURE",
+  "verifiedDiagnosticPoints": 629760
+}

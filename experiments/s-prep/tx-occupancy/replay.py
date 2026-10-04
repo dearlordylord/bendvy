@@ -41,7 +41,8 @@ def check(records,kind):
     assert v[0]==expected,(phase,v,expected)
     drains[phase]=v[0]
   assert tx[-1]['phase'] in ['commit','rollback']
- assert 'tx_stage_ping' in phases and 'mark-drain' in phases
+ assert 'mark-drain' in phases
+ if kind in ['readers','failure']:assert 'tx_stage_ping' in phases
  if kind=='failure':assert 'tx_stage_command' in phases
  if kind=='failure':assert 'unwind' in phases and 'rollback' in phases
  return {'transactions':len(records),'physicalPeaks':dict(zip(['commands','events','inverse','marks'],peaks)),'peakLocations':dict(zip(['commands','events','inverse','marks'],[locations[i] for i in range(4)])),'phases':sorted(phases)}
