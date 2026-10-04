@@ -1,0 +1,24 @@
+# S-PREP #22 — preparation evidence and remaining gates
+
+Status: **in progress; evaluator/contract not accepted, no Autoresearch session**. Parent #21 and S-LOOP #23 remain open. The user authorized a future 3600-second Autoresearch segment followed by its result; preparation has not spent that segment. This report is an acceptance ledger, not product performance acceptance.
+
+| #22 prerequisite | Actual evidence | Remaining gate / return condition |
+| --- | --- | --- |
+| Retained baseline | `experiments/s-prep/baseline.json`: 556 pinned inputs, three clean reference commits; positive verification and five adversarial freeze controls pass. | Future editable storage/query must be excluded from live unchanged-input enforcement while their retained baseline bytes remain pinned. |
+| Quiet FailedTxn warmup | `warmup/`: actual warmup and distinct measured worlds in one process; 16/18 full-field backend gates pass; four actual semantic mutants detected. | JS1024 whole-child deadlines; warmup tuple is forced/folded but lacks independent full-record warmup validation. No full warmup capability claim. |
+| Resolution protocol | `method/README.md`: all ten resolution-limited rows, proposed common batch, explicit 1% quantization allowance and sizing. | Shared protocol approval and whole-child feasibility. Several historical JS sizing estimates already exceed5s; no replacement samples or timer/timeout change authorized. |
+| Physical transaction occupancy | `tx-occupancy/`: 20 backend cases pass unchanged full public oracle, 31232 points/26624 physical measurements; six public-preserving metric mutants detected and five compiler negatives reject. | FailedTxn1024 deadlines remain. Dense/Sparse/Lifecycle not covered by this initial delivery; focused Dense hook is being implemented. Exact unsupported-metric return conditions are recorded. |
+| Large protocol failures | `method/`: runtime and independent validator phase diagnostics; unsuccessful method attempts retained; lossless semantics preserved. | Readers1024 Native/JS runtime and FailedTxn large validator/runtime capabilities unresolved under unchanged limits. Neither serialization-only nor storage-only causation established. |
+| Bounded affine candidate | `docs/design/s-prep-candidate.md`, `method/expressibility.bend`: 16 Native/JS exact prototype outputs, six compiling mutations detected on both backends and six intended checker negatives. Conditional Astra design review revised before prototype. | Full integrated ECS implementation not started; real token/Flag threading, metadata selectors, reservation/barrier and original main/E11/access/ownership gates required. Every candidate query must pay complete metadata/shape preflight inside measured work. |
+| Focus evaluator | HealthDense256 one-shot full oracle PASS on Native/TS/JS; unchanged artifacts byte-identical to retained #20. Four reference/candidate construction controls PASS. Malformed-cohort comparison controls reject duplicates, omissions, nonfinite/zero intervals and failed samples. | Seven-rotation repeated reference/unchanged candidate noise qualification is future accepted-loop work. No measured speedup or qualified metric from construction controls. |
+| Contract | `docs/design/s-prep-contract.md`: focused objective, paired evaluator, independent checks, scope, comparison/stop proposals; approved3600s budget explicitly recorded. | Complete frozen execution/environment/check manifests, final independent reviews and explicit acceptance. Numerical rules and packet cap remain proposals, not product thresholds. |
+
+## Claim boundaries
+
+All child limits remain checker/runtime5s, codegen30s and clang120s. Source references and Canonical Tower Defense are unchanged. No ECS law/proof approval, Data-only specialization, production layout adoption, full-matrix pass or Native/JS product acceptance is inferred. Raw receipts distinguish runtime/check/validator deadlines from semantic counterexamples; historical failed approaches remain retained.
+
+The proposed hour focuses Health/Dense256 and JavaScript inner elapsed milliseconds, with Native regression and TS drift controls. It cannot complete the five-family/two-schema/three-size parent performance matrix or prove overall parity. Full matrix four-cohort qualification alone requires2520 measured children plus checks/builds, so a focused first segment is proposed explicitly.
+
+## Current return conditions
+
+Finish focused occupancy evidence and independent Standards/Spec review; freeze the actual evaluator/check/environment proposal. If broader runtime/protocol cells remain unresolved, deliver #22 as an explicit blocked handoff under its permitted completion rule. Ask only for acceptance of the concrete focused segment; do not re-request the already supplied one-hour budget. No packets until accepted contract is recorded by Autoresearch.
