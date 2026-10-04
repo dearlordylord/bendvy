@@ -1,6 +1,6 @@
 # S-PREP Standards review
 
-Independent review against `56b72f6`, through `ad7de65` (including `cbc2ba1`/`16753c3`). Live #22, AGENTS.md, SPEC, next checkpoint,
+Independent review against `56b72f6`, through `ad7de65` (including `cbc2ba1`/`16753c3`). Live #22, AGENTS.md, SPEC,
 bend-ldd and #20 final reviews were read. **No hard Standards violations found.** The in-progress ledger is supported;
 evaluator/contract acceptance and final #22 closure remain unresolved.
 
@@ -8,22 +8,19 @@ evaluator/contract acceptance and final #22 closure remain unresolved.
   retained inputs and three clean pinned references. Temporary fixture controls
   reject changed/missing/symlinked input and dirty/moved reference; restored
   positives pass. Nothing modifies reference or Tower Defense sources.
-- Warmup: actual affine owners are consumed before a separately initialized
+- Warmup: affine owners are consumed before a separately initialized
   measured root in the same process. The report distinguishes16/18 complete
   measured-record gates from two1024 JS deadlines, and fold-only warmup forcing
-  from full-record validation. Four intended compiling payload/reader mutant
-  counterexamples remain separate from checker/runtime negatives.
+  from full-record validation. Four payload/reader counterexamples remain separate from checker/runtime negatives.
 - Method repair preserves unbounded-validator, alarm-overrun and pipe-rescan
   failures. Final validators run in bounded child groups; timeout is not a
-  semantic pass. Source/marker observations do not claim exact storage/encoding
-  attribution. Longer batch/1% clock allowance remains proposed and infeasible
+  semantic pass. No exact storage/encoding attribution is claimed. Longer batch/1% clock allowance remains proposed and infeasible
   cases explicitly blocked; no replacement qualification samples are claimed.
 - Structural Type traversal remains a finite expressibility prototype, separate
   from the candidate runtime. Abstract rank-2 owners and runtime Nat shape/count
   checks retain Type payloads; no Data-only restriction, unsafe fork, ECS law or
-  proof is introduced. Independent physical metadata audit preserves live/Flag/ticks and checks cached
-  membership; source/runner pins match. CPU11 checker passes under5s. Full
-  shape/count preflight remains inside proposed measured query work.
+  proof is introduced. Independent metadata/source pins match; CPU11 checker passes under5s. Full
+  shape/count preflight remains inside proposed measured work.
 - Tx diagnostics: raw/source hashes,20 backend cases/31232 points/26624 physical
   records, recomputed peaks and backend equality independently verify. Six
   public-preserving metric mutants and five intended compiler negatives remain
@@ -40,9 +37,13 @@ evaluator/contract acceptance and final #22 closure remain unresolved.
   or production thresholds. Protected checks, editable boundaries and remaining
   full-matrix gates stay explicit; no optimization loop was launched.
 
-Heuristics, not hard violations: warmup `prepare.py` repeats the identity
-replacement `s.replace('../../../failure-quiet-codec.bend', '../../../failure-quiet-codec.bend')`.
-Fowler DuplicatedCode/SpeculativeGenerality suggests removing redundant construction
-steps when the generator is next maintained; current materialized-source pins
-make the actual subject reviewable. No generator refactor is necessary for the
-bounded preparation result.
+Execution-boundary supplement: initial scope/deadline/orphan controls exposed
+implementation gaps; repaired sources independently pass15 synthetic controls
+and comparison negatives. Complete imports/declarations reject multiline/type,
+annotated/new helper/law and foreign-import drift. Accepted-start checks bind
+checkout/environment/manifest/boot identity and finite nonfuture monotonic budget.
+Subreaper plus pidfds kills and reaps owned nested-session orphans; diagnostics
+remain retained. No unresolved hard finding. Final
+manifest regeneration and current paired construction receipt remain prerequisites;
+no accepted session or real seven-cohort execution is inferred. Reviewed boundary
+SHA256 `3dbe5a09598e5471ab7205115e573532277797a123cd8efecf1487db8af9feaa`.
