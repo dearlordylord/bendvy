@@ -4,7 +4,7 @@ import hashlib,importlib.util,json,os,pathlib,statistics,sys,tempfile,shutil
 HERE=pathlib.Path(__file__).resolve().parent
 def module(name,file):
  s=importlib.util.spec_from_file_location(name,HERE/file);m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
-L=module('life','measurement-lifecycle-run.py');F=module('fields','measurement-fields-run.py');C=module('compact','measurement-compact-run.py');R=module('timing','measurement-timing-run.py');B=L.B
+L=module('life','measurement-lifecycle-run.py');F=module('fields','measurement-fields-run.py');C=module('compact','measurement-compact-run.py');R=module('timing','measurement-samples-run.py');B=L.B
 files={};B.closure(HERE/'measurement-lifecycle-timed.bend',files);frozen={n:p.read_bytes() for n,p in files.items()}
 def expected(schema,n,backend):
  live={j+1:{'id':j+1,'main':B.payload(schema,j,0),'aux':B.auxiliary(schema) if j%3==0 else None,'flag':{'group':8} if j%3==1 else None,'added':1,'changed':1} for j in range(n)};stale=[];observations=[];digest=1

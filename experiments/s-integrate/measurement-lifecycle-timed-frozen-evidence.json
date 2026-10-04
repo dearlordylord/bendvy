@@ -1,0 +1,4263 @@
+{
+  "scope": "exact public lifecycle work; full historical stale lookup coverage and complete fields before timing; intentional foreign TS collision/Bend Missing retained",
+  "cpuAffinity": [
+    10
+  ],
+  "limits": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "iterations": 64,
+  "repetitions": 7,
+  "warmup": "one fresh identical world then one fresh measured world, same child",
+  "rss": "clean C exec launcher forks actual backend; launcher wait4 childPeakRssKiB; whole backend including warmup/setup/final output; outer Python peak excluded",
+  "timed": "Select+Reserve,Observe,Deferred,Observe,Dispose+Deferred,Observe; query/Ledger/three lookups/all historical stales; full-field ordered checksum; no JSON or O.world",
+  "compiler": "bend 2.0.34",
+  "node": "v24.20.0",
+  "sourceHashes": {
+    "measurement-lifecycle-timed.bend": "92dfbd97cd797f730e1cba9f0e3621d1eb0a38264dde1b74def440711e85bac1",
+    "measurement-lifecycle.bend": "7f0449909fbd8be645dfabfaed7aaea7b5aa7e29912bdd675a3babd026496708",
+    "measurement-bend.bend": "29c9f05835adb25e6b34c05048bb756cbfb86049b35edab2ff3649e671283d90",
+    "types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+    "storage.bend": "605d073615798f87f3675931475eee6a0668bc63c08559d4beecdb2e73c72986",
+    "identity.bend": "2c88babc9e853d3706f7a6c1f8f0ae48c198949143df2da6562bd774237d7329",
+    "commands.bend": "022ea5ca1f44c952ae77071689d0735e5a38976d7f628203d85fd9cc920a1194",
+    "query.bend": "903af14b5d85d1162df5f872f26f221134a17c772bc82fd17686ce2f4be45759",
+    "observations.bend": "81e6afcd4ae06a396669cff14d1da68a4c597539b6eb64e68648ebbe7b235136",
+    "payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "transaction.bend": "d32f0b26e4a14fc784c3ce30c4d6a1ded0cf0a55ed819f54419a558445e298a4",
+    "transaction-dispatch-adapters.bend": "eea16d3f539d70bcd88fd8fd314b75d252ccaff2b9c1c8b63e7d96bfdda34142",
+    "systems.bend": "2cfc899215e408cc4c652c8d4c290b18800cdb6e8c96f1061a77853afdac9221",
+    "schedule.bend": "e7f73e9c74eca9f8d60b9300805169b0b1a0d24ed0a9540843d1e2209e807040",
+    "capture.bend": "44d5f3117a465c216ee93100026aad78e86f24c40c09c678be99935dde076817",
+    "host.bend": "6670380a68832502c0a9950b08058cd47f490b17497d03cf5c44c745c57f68b7",
+    "dispatcher.bend": "3530c7c20d704ba51a9cdace1f028e507960458b9c0bdcdf0dbc0d546c800b07",
+    "readers.bend": "2673082b4ef5cd6c5d8f61c362e22f74b13daeb27196894278cc20b1459c22e9",
+    "reader-host.bend": "50f1251c6d476b07055c36c5a97e3350a4cb46e5d826ff97ced2860d40798a64",
+    "streams.bend": "1a1c7991d6a1b4ebfb3b47dc62459beb83ed5e38ded56d27cc20b5478fc0d315",
+    "host-observations.bend": "eecfc882c58fc252edca1fa7c86e491ab18d01128126b430f0f995cf4b8b33fe",
+    "audited-invoker.bend": "2ed7e484b8a043f0944e0f662a8799f94388c99f757de331fb1a79b1c07c8853",
+    "host-render.bend": "4dbc392f9e138183e5d90a40fa5eccb7d8bf95b4e72c1f2f5196d3bd855249c2",
+    "measurement-compact.bend": "a711f673226301c50a5366f9eed098989b366ed148adf194344b63d5632197a0",
+    "measurement-fields.bend": "6aa85f634f03448207761401e3cb8fa635a25d494744cf186aae20f34237b157"
+  },
+  "runnerSha256": "9e9ffc1c2c48e192c8bdd40abd516e0baa7f995a2fed3880e7f76ac99e3a74b3",
+  "referenceSha256": "f3fa4073ac04ddf362cf38bc32c9cf7df0d2ad9eb4dcd906517757ea1bef67fe",
+  "originalReferenceSha256": "039edf1ec9905ad39c94bf4fcd9850610615251bd8b72e044b93fb7aa7c90376",
+  "contractSha256": "3a7b0ff38947158d77e286738cb6bc11bbad117a531ab5d3436f85b159114078",
+  "compilerSha256": "d4821d04932218216c9dc906223ed0e23dd86726d4357a567fb76ee6c976db4e",
+  "baseSha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+  "clang": "Debian clang version 14.0.6",
+  "buildHelperSha256": "25ab577d5234a1c30f46318708455377353ec39d4fb0b6bf1b40ad5ea5da8f84",
+  "launcherSha256": "eaef512a2c5e25c571f846fa5ddb5bf2075f2dda71c33ad29cb270639f05f977",
+  "priorWithdrawnEvidenceSha256": "562f9eb83cc9d7a04281b3c1f4531471a6c0f255047cd5201a3f0fdd59fa44b0",
+  "cases": [
+    {
+      "schema": "Motion",
+      "count": 64,
+      "full": {
+        "Native": {
+          "status": "PASS",
+          "wholeProcessSeconds": 0.11187107115983963,
+          "exitCode": 0,
+          "command": [
+            "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+            "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+            "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+            "0",
+            "64",
+            "1",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "backendCommand": [
+            "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+            "0",
+            "64",
+            "1",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "peakRssKiB": 4064,
+          "launcherPeakRssKiB": 111400,
+          "milliseconds": 102,
+          "digest": 318621724,
+          "staleLookups": 6112,
+          "fullBoundaryCount": 192,
+          "rawReservations": 64,
+          "finalSha256": "06b3d207c39a5fcbb674200ee4b4c15aab18be8d2a7814f32b0dfb6ee931f7a7"
+        },
+        "TS": {
+          "status": "PASS",
+          "wholeProcessSeconds": 1.9154081949964166,
+          "exitCode": 0,
+          "command": [
+            "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+            "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+            "node",
+            "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+            "Motion",
+            "64",
+            "1"
+          ],
+          "backendCommand": [
+            "node",
+            "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+            "Motion",
+            "64",
+            "1"
+          ],
+          "peakRssKiB": 103736,
+          "launcherPeakRssKiB": 111400,
+          "milliseconds": 184.45878300000004,
+          "digest": 266848412,
+          "staleLookups": 6112,
+          "fullBoundaryCount": 192,
+          "rawReservations": 64,
+          "finalSha256": "06b3d207c39a5fcbb674200ee4b4c15aab18be8d2a7814f32b0dfb6ee931f7a7"
+        },
+        "JS": {
+          "status": "PASS",
+          "wholeProcessSeconds": 1.1012533199973404,
+          "exitCode": 0,
+          "command": [
+            "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+            "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+            "node",
+            "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+            "0",
+            "64",
+            "1"
+          ],
+          "backendCommand": [
+            "node",
+            "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+            "0",
+            "64",
+            "1"
+          ],
+          "peakRssKiB": 96564,
+          "launcherPeakRssKiB": 111400,
+          "milliseconds": 941,
+          "digest": 318621724,
+          "staleLookups": 6112,
+          "fullBoundaryCount": 192,
+          "rawReservations": 64,
+          "finalSha256": "06b3d207c39a5fcbb674200ee4b4c15aab18be8d2a7814f32b0dfb6ee931f7a7"
+        }
+      },
+      "samples": {
+        "Native": [
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.12516184500418603,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "0",
+              "64",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "backendCommand": [
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "0",
+              "64",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "peakRssKiB": 4064,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 1,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 56,
+            "digest": 318621724,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "06b3d207c39a5fcbb674200ee4b4c15aab18be8d2a7814f32b0dfb6ee931f7a7",
+            "warmupMilliseconds": 51
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.06509077595546842,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "0",
+              "64",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "backendCommand": [
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "0",
+              "64",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "peakRssKiB": 4060,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 2,
+            "order": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 22,
+            "digest": 318621724,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "06b3d207c39a5fcbb674200ee4b4c15aab18be8d2a7814f32b0dfb6ee931f7a7",
+            "warmupMilliseconds": 29
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.21696083806455135,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "0",
+              "64",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "backendCommand": [
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "0",
+              "64",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "peakRssKiB": 4064,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 3,
+            "order": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 40,
+            "digest": 318621724,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "06b3d207c39a5fcbb674200ee4b4c15aab18be8d2a7814f32b0dfb6ee931f7a7",
+            "warmupMilliseconds": 146
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.13197648408822715,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "0",
+              "64",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "backendCommand": [
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "0",
+              "64",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "peakRssKiB": 4056,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 4,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 86,
+            "digest": 318621724,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "06b3d207c39a5fcbb674200ee4b4c15aab18be8d2a7814f32b0dfb6ee931f7a7",
+            "warmupMilliseconds": 36
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.09909451007843018,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "0",
+              "64",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "backendCommand": [
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "0",
+              "64",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "peakRssKiB": 4064,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 5,
+            "order": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 34,
+            "digest": 318621724,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "06b3d207c39a5fcbb674200ee4b4c15aab18be8d2a7814f32b0dfb6ee931f7a7",
+            "warmupMilliseconds": 30
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.16554975509643555,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "0",
+              "64",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "backendCommand": [
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "0",
+              "64",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "peakRssKiB": 4064,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 6,
+            "order": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 57,
+            "digest": 318621724,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "06b3d207c39a5fcbb674200ee4b4c15aab18be8d2a7814f32b0dfb6ee931f7a7",
+            "warmupMilliseconds": 93
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.3013082689139992,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "0",
+              "64",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "backendCommand": [
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "0",
+              "64",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "peakRssKiB": 3996,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 7,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 224,
+            "digest": 318621724,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "06b3d207c39a5fcbb674200ee4b4c15aab18be8d2a7814f32b0dfb6ee931f7a7",
+            "warmupMilliseconds": 64
+          }
+        ],
+        "TS": [
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.6213339008390903,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Motion",
+              "64",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Motion",
+              "64",
+              "0"
+            ],
+            "peakRssKiB": 100328,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 1,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 66.43632900000011,
+            "digest": 266848412,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "06b3d207c39a5fcbb674200ee4b4c15aab18be8d2a7814f32b0dfb6ee931f7a7",
+            "warmupMilliseconds": 97.19003599999996
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.8702531629242003,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Motion",
+              "64",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Motion",
+              "64",
+              "0"
+            ],
+            "peakRssKiB": 108704,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 2,
+            "order": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 23.723066000000017,
+            "digest": 266848412,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "06b3d207c39a5fcbb674200ee4b4c15aab18be8d2a7814f32b0dfb6ee931f7a7",
+            "warmupMilliseconds": 46.76121199999989
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.9404393951408565,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Motion",
+              "64",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Motion",
+              "64",
+              "0"
+            ],
+            "peakRssKiB": 108944,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 3,
+            "order": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 27.83601699999997,
+            "digest": 266848412,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "06b3d207c39a5fcbb674200ee4b4c15aab18be8d2a7814f32b0dfb6ee931f7a7",
+            "warmupMilliseconds": 116.38377400000002
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.5119540139567107,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Motion",
+              "64",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Motion",
+              "64",
+              "0"
+            ],
+            "peakRssKiB": 101048,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 4,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 21.74459200000001,
+            "digest": 266848412,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "06b3d207c39a5fcbb674200ee4b4c15aab18be8d2a7814f32b0dfb6ee931f7a7",
+            "warmupMilliseconds": 45.75532899999996
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.053684351965785,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Motion",
+              "64",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Motion",
+              "64",
+              "0"
+            ],
+            "peakRssKiB": 99720,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 5,
+            "order": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 33.664480000000026,
+            "digest": 266848412,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "06b3d207c39a5fcbb674200ee4b4c15aab18be8d2a7814f32b0dfb6ee931f7a7",
+            "warmupMilliseconds": 154.2367059999999
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.150639469968155,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Motion",
+              "64",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Motion",
+              "64",
+              "0"
+            ],
+            "peakRssKiB": 109100,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 6,
+            "order": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 23.957402000000002,
+            "digest": 266848412,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "06b3d207c39a5fcbb674200ee4b4c15aab18be8d2a7814f32b0dfb6ee931f7a7",
+            "warmupMilliseconds": 36.38854399999991
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.0929322950541973,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Motion",
+              "64",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Motion",
+              "64",
+              "0"
+            ],
+            "peakRssKiB": 100428,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 7,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 30.30716199999995,
+            "digest": 266848412,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "06b3d207c39a5fcbb674200ee4b4c15aab18be8d2a7814f32b0dfb6ee931f7a7",
+            "warmupMilliseconds": 92.59954100000004
+          }
+        ],
+        "JS": [
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.8255049239378422,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "0",
+              "64",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "0",
+              "64",
+              "0"
+            ],
+            "peakRssKiB": 80808,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 1,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 111,
+            "digest": 318621724,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "06b3d207c39a5fcbb674200ee4b4c15aab18be8d2a7814f32b0dfb6ee931f7a7",
+            "warmupMilliseconds": 349
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.6495656268671155,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "0",
+              "64",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "0",
+              "64",
+              "0"
+            ],
+            "peakRssKiB": 78024,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 2,
+            "order": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 94,
+            "digest": 318621724,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "06b3d207c39a5fcbb674200ee4b4c15aab18be8d2a7814f32b0dfb6ee931f7a7",
+            "warmupMilliseconds": 362
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.4359585668426007,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "0",
+              "64",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "0",
+              "64",
+              "0"
+            ],
+            "peakRssKiB": 80512,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 3,
+            "order": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 151,
+            "digest": 318621724,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "06b3d207c39a5fcbb674200ee4b4c15aab18be8d2a7814f32b0dfb6ee931f7a7",
+            "warmupMilliseconds": 158
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.3309630090370774,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "0",
+              "64",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "0",
+              "64",
+              "0"
+            ],
+            "peakRssKiB": 80156,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 4,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 85,
+            "digest": 318621724,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "06b3d207c39a5fcbb674200ee4b4c15aab18be8d2a7814f32b0dfb6ee931f7a7",
+            "warmupMilliseconds": 104
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.47750777704641223,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "0",
+              "64",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "0",
+              "64",
+              "0"
+            ],
+            "peakRssKiB": 85076,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 5,
+            "order": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 72,
+            "digest": 318621724,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "06b3d207c39a5fcbb674200ee4b4c15aab18be8d2a7814f32b0dfb6ee931f7a7",
+            "warmupMilliseconds": 194
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.6654621299821883,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "0",
+              "64",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "0",
+              "64",
+              "0"
+            ],
+            "peakRssKiB": 81016,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 6,
+            "order": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 167,
+            "digest": 318621724,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "06b3d207c39a5fcbb674200ee4b4c15aab18be8d2a7814f32b0dfb6ee931f7a7",
+            "warmupMilliseconds": 205
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.4487617118284106,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "0",
+              "64",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "0",
+              "64",
+              "0"
+            ],
+            "peakRssKiB": 80224,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 7,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 124,
+            "digest": 318621724,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "06b3d207c39a5fcbb674200ee4b4c15aab18be8d2a7814f32b0dfb6ee931f7a7",
+            "warmupMilliseconds": 169
+          }
+        ]
+      },
+      "summary": {
+        "Native": {
+          "milliseconds": {
+            "min": 22,
+            "median": 56,
+            "max": 224,
+            "raw": [
+              56,
+              22,
+              40,
+              86,
+              34,
+              57,
+              224
+            ]
+          },
+          "peakRssKiB": {
+            "min": 3996,
+            "median": 4064,
+            "max": 4064,
+            "raw": [
+              4064,
+              4060,
+              4064,
+              4056,
+              4064,
+              4064,
+              3996
+            ]
+          }
+        },
+        "TS": {
+          "milliseconds": {
+            "min": 21.74459200000001,
+            "median": 27.83601699999997,
+            "max": 66.43632900000011,
+            "raw": [
+              66.43632900000011,
+              23.723066000000017,
+              27.83601699999997,
+              21.74459200000001,
+              33.664480000000026,
+              23.957402000000002,
+              30.30716199999995
+            ]
+          },
+          "peakRssKiB": {
+            "min": 99720,
+            "median": 101048,
+            "max": 109100,
+            "raw": [
+              100328,
+              108704,
+              108944,
+              101048,
+              99720,
+              109100,
+              100428
+            ]
+          }
+        },
+        "JS": {
+          "milliseconds": {
+            "min": 72,
+            "median": 111,
+            "max": 167,
+            "raw": [
+              111,
+              94,
+              151,
+              85,
+              72,
+              167,
+              124
+            ]
+          },
+          "peakRssKiB": {
+            "min": 78024,
+            "median": 80512,
+            "max": 85076,
+            "raw": [
+              80808,
+              78024,
+              80512,
+              80156,
+              85076,
+              81016,
+              80224
+            ]
+          }
+        }
+      },
+      "status": "MEASURED",
+      "ratios": {
+        "Native/TS": 2.0117820735631846,
+        "JS/TS": 3.9876394672413125
+      }
+    },
+    {
+      "schema": "Motion",
+      "count": 256,
+      "full": {
+        "Native": {
+          "status": "PASS",
+          "wholeProcessSeconds": 1.2757350229658186,
+          "exitCode": 0,
+          "command": [
+            "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+            "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+            "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+            "0",
+            "256",
+            "1",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "backendCommand": [
+            "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+            "0",
+            "256",
+            "1",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "peakRssKiB": 6364,
+          "launcherPeakRssKiB": 111400,
+          "milliseconds": 1232,
+          "digest": 1975503297,
+          "staleLookups": 6112,
+          "fullBoundaryCount": 192,
+          "rawReservations": 64,
+          "finalSha256": "421e82df77af955576d7eec89b3967acc359ca8c8e34477ba5905319e8afaa15"
+        },
+        "TS": {
+          "status": "PASS",
+          "wholeProcessSeconds": 1.4580634550657123,
+          "exitCode": 0,
+          "command": [
+            "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+            "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+            "node",
+            "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+            "Motion",
+            "256",
+            "1"
+          ],
+          "backendCommand": [
+            "node",
+            "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+            "Motion",
+            "256",
+            "1"
+          ],
+          "peakRssKiB": 99584,
+          "launcherPeakRssKiB": 111400,
+          "milliseconds": 172.66356299999984,
+          "digest": 1923729985,
+          "staleLookups": 6112,
+          "fullBoundaryCount": 192,
+          "rawReservations": 64,
+          "finalSha256": "421e82df77af955576d7eec89b3967acc359ca8c8e34477ba5905319e8afaa15"
+        },
+        "JS": {
+          "status": "PASS",
+          "wholeProcessSeconds": 2.2195872620213777,
+          "exitCode": 0,
+          "command": [
+            "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+            "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+            "node",
+            "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+            "0",
+            "256",
+            "1"
+          ],
+          "backendCommand": [
+            "node",
+            "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+            "0",
+            "256",
+            "1"
+          ],
+          "peakRssKiB": 213708,
+          "launcherPeakRssKiB": 111400,
+          "milliseconds": 2022,
+          "digest": 1975503297,
+          "staleLookups": 6112,
+          "fullBoundaryCount": 192,
+          "rawReservations": 64,
+          "finalSha256": "421e82df77af955576d7eec89b3967acc359ca8c8e34477ba5905319e8afaa15"
+        }
+      },
+      "samples": {
+        "Native": [
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.5083282319828868,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "0",
+              "256",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "backendCommand": [
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "0",
+              "256",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "peakRssKiB": 6364,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 1,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 154,
+            "digest": 1975503297,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "421e82df77af955576d7eec89b3967acc359ca8c8e34477ba5905319e8afaa15",
+            "warmupMilliseconds": 312
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.6588491690345109,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "0",
+              "256",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "backendCommand": [
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "0",
+              "256",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "peakRssKiB": 6368,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 2,
+            "order": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 284,
+            "digest": 1975503297,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "421e82df77af955576d7eec89b3967acc359ca8c8e34477ba5905319e8afaa15",
+            "warmupMilliseconds": 322
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.5084845670498908,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "0",
+              "256",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "backendCommand": [
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "0",
+              "256",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "peakRssKiB": 6372,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 3,
+            "order": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 190,
+            "digest": 1975503297,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "421e82df77af955576d7eec89b3967acc359ca8c8e34477ba5905319e8afaa15",
+            "warmupMilliseconds": 274
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.31340172491036355,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "0",
+              "256",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "backendCommand": [
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "0",
+              "256",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "peakRssKiB": 6348,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 4,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 122,
+            "digest": 1975503297,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "421e82df77af955576d7eec89b3967acc359ca8c8e34477ba5905319e8afaa15",
+            "warmupMilliseconds": 153
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.43285520002245903,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "0",
+              "256",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "backendCommand": [
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "0",
+              "256",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "peakRssKiB": 6356,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 5,
+            "order": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 208,
+            "digest": 1975503297,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "421e82df77af955576d7eec89b3967acc359ca8c8e34477ba5905319e8afaa15",
+            "warmupMilliseconds": 175
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.3542637669015676,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "0",
+              "256",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "backendCommand": [
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "0",
+              "256",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "peakRssKiB": 6380,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 6,
+            "order": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 176,
+            "digest": 1975503297,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "421e82df77af955576d7eec89b3967acc359ca8c8e34477ba5905319e8afaa15",
+            "warmupMilliseconds": 130
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.5833094278350472,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "0",
+              "256",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "backendCommand": [
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "0",
+              "256",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "peakRssKiB": 6360,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 7,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 222,
+            "digest": 1975503297,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "421e82df77af955576d7eec89b3967acc359ca8c8e34477ba5905319e8afaa15",
+            "warmupMilliseconds": 278
+          }
+        ],
+        "TS": [
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.0042011560872197,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Motion",
+              "256",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Motion",
+              "256",
+              "0"
+            ],
+            "peakRssKiB": 109452,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 1,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 173.47816699999998,
+            "digest": 1923729985,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "421e82df77af955576d7eec89b3967acc359ca8c8e34477ba5905319e8afaa15",
+            "warmupMilliseconds": 89.60439799999995
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.1314865690656006,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Motion",
+              "256",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Motion",
+              "256",
+              "0"
+            ],
+            "peakRssKiB": 108904,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 2,
+            "order": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 112.83288000000005,
+            "digest": 1923729985,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "421e82df77af955576d7eec89b3967acc359ca8c8e34477ba5905319e8afaa15",
+            "warmupMilliseconds": 79.64477499999998
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.4005808068905026,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Motion",
+              "256",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Motion",
+              "256",
+              "0"
+            ],
+            "peakRssKiB": 100508,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 3,
+            "order": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 92.25721199999998,
+            "digest": 1923729985,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "421e82df77af955576d7eec89b3967acc359ca8c8e34477ba5905319e8afaa15",
+            "warmupMilliseconds": 255.275667
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.865550564834848,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Motion",
+              "256",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Motion",
+              "256",
+              "0"
+            ],
+            "peakRssKiB": 107644,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 4,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 62.455510000000004,
+            "digest": 1923729985,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "421e82df77af955576d7eec89b3967acc359ca8c8e34477ba5905319e8afaa15",
+            "warmupMilliseconds": 118.16625599999998
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.6838147859089077,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Motion",
+              "256",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Motion",
+              "256",
+              "0"
+            ],
+            "peakRssKiB": 109452,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 5,
+            "order": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 145.81131500000015,
+            "digest": 1923729985,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "421e82df77af955576d7eec89b3967acc359ca8c8e34477ba5905319e8afaa15",
+            "warmupMilliseconds": 248.6710720000001
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.5854791509918869,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Motion",
+              "256",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Motion",
+              "256",
+              "0"
+            ],
+            "peakRssKiB": 109300,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 6,
+            "order": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 67.25975700000004,
+            "digest": 1923729985,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "421e82df77af955576d7eec89b3967acc359ca8c8e34477ba5905319e8afaa15",
+            "warmupMilliseconds": 133.7245499999999
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.1081815450452268,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Motion",
+              "256",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Motion",
+              "256",
+              "0"
+            ],
+            "peakRssKiB": 107688,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 7,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 48.45468699999992,
+            "digest": 1923729985,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "421e82df77af955576d7eec89b3967acc359ca8c8e34477ba5905319e8afaa15",
+            "warmupMilliseconds": 64.56794300000001
+          }
+        ],
+        "JS": [
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.0456996608991176,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "0",
+              "256",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "0",
+              "256",
+              "0"
+            ],
+            "peakRssKiB": 138784,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 1,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 282,
+            "digest": 1975503297,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "421e82df77af955576d7eec89b3967acc359ca8c8e34477ba5905319e8afaa15",
+            "warmupMilliseconds": 475
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.2998831940349191,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "0",
+              "256",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "0",
+              "256",
+              "0"
+            ],
+            "peakRssKiB": 139116,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 2,
+            "order": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 592,
+            "digest": 1975503297,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "421e82df77af955576d7eec89b3967acc359ca8c8e34477ba5905319e8afaa15",
+            "warmupMilliseconds": 399
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.1214169450104237,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "0",
+              "256",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "0",
+              "256",
+              "0"
+            ],
+            "peakRssKiB": 135968,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 3,
+            "order": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 288,
+            "digest": 1975503297,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "421e82df77af955576d7eec89b3967acc359ca8c8e34477ba5905319e8afaa15",
+            "warmupMilliseconds": 449
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.8081587590277195,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "0",
+              "256",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "0",
+              "256",
+              "0"
+            ],
+            "peakRssKiB": 139156,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 4,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 594,
+            "digest": 1975503297,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "421e82df77af955576d7eec89b3967acc359ca8c8e34477ba5905319e8afaa15",
+            "warmupMilliseconds": 683
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.2030179870780557,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "0",
+              "256",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "0",
+              "256",
+              "0"
+            ],
+            "peakRssKiB": 137444,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 5,
+            "order": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 316,
+            "digest": 1975503297,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "421e82df77af955576d7eec89b3967acc359ca8c8e34477ba5905319e8afaa15",
+            "warmupMilliseconds": 596
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.852413953980431,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "0",
+              "256",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "0",
+              "256",
+              "0"
+            ],
+            "peakRssKiB": 142748,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 6,
+            "order": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 1097,
+            "digest": 1975503297,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "421e82df77af955576d7eec89b3967acc359ca8c8e34477ba5905319e8afaa15",
+            "warmupMilliseconds": 534
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.6657648468390107,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "0",
+              "256",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "0",
+              "256",
+              "0"
+            ],
+            "peakRssKiB": 141348,
+            "launcherPeakRssKiB": 111400,
+            "repetition": 7,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 387,
+            "digest": 1975503297,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "421e82df77af955576d7eec89b3967acc359ca8c8e34477ba5905319e8afaa15",
+            "warmupMilliseconds": 823
+          }
+        ]
+      },
+      "summary": {
+        "Native": {
+          "milliseconds": {
+            "min": 122,
+            "median": 190,
+            "max": 284,
+            "raw": [
+              154,
+              284,
+              190,
+              122,
+              208,
+              176,
+              222
+            ]
+          },
+          "peakRssKiB": {
+            "min": 6348,
+            "median": 6364,
+            "max": 6380,
+            "raw": [
+              6364,
+              6368,
+              6372,
+              6348,
+              6356,
+              6380,
+              6360
+            ]
+          }
+        },
+        "TS": {
+          "milliseconds": {
+            "min": 48.45468699999992,
+            "median": 92.25721199999998,
+            "max": 173.47816699999998,
+            "raw": [
+              173.47816699999998,
+              112.83288000000005,
+              92.25721199999998,
+              62.455510000000004,
+              145.81131500000015,
+              67.25975700000004,
+              48.45468699999992
+            ]
+          },
+          "peakRssKiB": {
+            "min": 100508,
+            "median": 108904,
+            "max": 109452,
+            "raw": [
+              109452,
+              108904,
+              100508,
+              107644,
+              109452,
+              109300,
+              107688
+            ]
+          }
+        },
+        "JS": {
+          "milliseconds": {
+            "min": 282,
+            "median": 387,
+            "max": 1097,
+            "raw": [
+              282,
+              592,
+              288,
+              594,
+              316,
+              1097,
+              387
+            ]
+          },
+          "peakRssKiB": {
+            "min": 135968,
+            "median": 139116,
+            "max": 142748,
+            "raw": [
+              138784,
+              139116,
+              135968,
+              139156,
+              137444,
+              142748,
+              141348
+            ]
+          }
+        }
+      },
+      "status": "MEASURED",
+      "ratios": {
+        "Native/TS": 2.059459589999317,
+        "JS/TS": 4.194794006998608
+      }
+    },
+    {
+      "schema": "Motion",
+      "count": 1024,
+      "full": {
+        "Native": {
+          "status": "FAILED",
+          "error": "five-second process-group deadline",
+          "wholeProcessSeconds": 5.001753411022946,
+          "exitCode": -9,
+          "command": [
+            "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+            "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+            "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+            "0",
+            "1024",
+            "1",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "backendCommand": [
+            "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+            "0",
+            "1024",
+            "1",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ]
+        },
+        "TS": {
+          "status": "PASS",
+          "wholeProcessSeconds": 3.2680612180847675,
+          "exitCode": 0,
+          "command": [
+            "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+            "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+            "node",
+            "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+            "Motion",
+            "1024",
+            "1"
+          ],
+          "backendCommand": [
+            "node",
+            "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+            "Motion",
+            "1024",
+            "1"
+          ],
+          "peakRssKiB": 108436,
+          "launcherPeakRssKiB": 111400,
+          "milliseconds": 2027.034046,
+          "digest": 1483008961,
+          "staleLookups": 6112,
+          "fullBoundaryCount": 192,
+          "rawReservations": 64,
+          "finalSha256": "742ef5917badcc33730a84c55c7cfaec1360548c323a873942d717e27ba76d60"
+        },
+        "JS": {
+          "status": "FAILED",
+          "error": "five-second process-group deadline",
+          "wholeProcessSeconds": 5.001015362795442,
+          "exitCode": -9,
+          "command": [
+            "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+            "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+            "node",
+            "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+            "0",
+            "1024",
+            "1"
+          ],
+          "backendCommand": [
+            "node",
+            "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+            "0",
+            "1024",
+            "1"
+          ]
+        }
+      },
+      "samples": {
+        "Native": [],
+        "TS": [],
+        "JS": []
+      },
+      "summary": {},
+      "status": "UNVERIFIED"
+    },
+    {
+      "schema": "Health",
+      "count": 64,
+      "full": {
+        "Native": {
+          "status": "PASS",
+          "wholeProcessSeconds": 0.7352972929365933,
+          "exitCode": 0,
+          "command": [
+            "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+            "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+            "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+            "1",
+            "64",
+            "1",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "backendCommand": [
+            "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+            "1",
+            "64",
+            "1",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "peakRssKiB": 4184,
+          "launcherPeakRssKiB": 230452,
+          "milliseconds": 677,
+          "digest": 4220957302,
+          "staleLookups": 6112,
+          "fullBoundaryCount": 192,
+          "rawReservations": 64,
+          "finalSha256": "f01413002da2cbc252970514a837b597e5bc5f03f7b2e1c121a9a0786169e9fa"
+        },
+        "TS": {
+          "status": "PASS",
+          "wholeProcessSeconds": 1.1193886790424585,
+          "exitCode": 0,
+          "command": [
+            "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+            "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+            "node",
+            "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+            "Health",
+            "64",
+            "1"
+          ],
+          "backendCommand": [
+            "node",
+            "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+            "Health",
+            "64",
+            "1"
+          ],
+          "peakRssKiB": 100172,
+          "launcherPeakRssKiB": 230452,
+          "milliseconds": 95.49907099999996,
+          "digest": 4169183990,
+          "staleLookups": 6112,
+          "fullBoundaryCount": 192,
+          "rawReservations": 64,
+          "finalSha256": "f01413002da2cbc252970514a837b597e5bc5f03f7b2e1c121a9a0786169e9fa"
+        },
+        "JS": {
+          "status": "PASS",
+          "wholeProcessSeconds": 0.7481218150351197,
+          "exitCode": 0,
+          "command": [
+            "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+            "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+            "node",
+            "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+            "1",
+            "64",
+            "1"
+          ],
+          "backendCommand": [
+            "node",
+            "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+            "1",
+            "64",
+            "1"
+          ],
+          "peakRssKiB": 94960,
+          "launcherPeakRssKiB": 230452,
+          "milliseconds": 649,
+          "digest": 4220957302,
+          "staleLookups": 6112,
+          "fullBoundaryCount": 192,
+          "rawReservations": 64,
+          "finalSha256": "f01413002da2cbc252970514a837b597e5bc5f03f7b2e1c121a9a0786169e9fa"
+        }
+      },
+      "samples": {
+        "Native": [
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.14958405494689941,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "1",
+              "64",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "backendCommand": [
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "1",
+              "64",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "peakRssKiB": 4184,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 1,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 93,
+            "digest": 4220957302,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f01413002da2cbc252970514a837b597e5bc5f03f7b2e1c121a9a0786169e9fa",
+            "warmupMilliseconds": 40
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.31118053989484906,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "1",
+              "64",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "backendCommand": [
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "1",
+              "64",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "peakRssKiB": 4196,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 2,
+            "order": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 173,
+            "digest": 4220957302,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f01413002da2cbc252970514a837b597e5bc5f03f7b2e1c121a9a0786169e9fa",
+            "warmupMilliseconds": 123
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.07983331917785108,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "1",
+              "64",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "backendCommand": [
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "1",
+              "64",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "peakRssKiB": 4180,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 3,
+            "order": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 34,
+            "digest": 4220957302,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f01413002da2cbc252970514a837b597e5bc5f03f7b2e1c121a9a0786169e9fa",
+            "warmupMilliseconds": 36
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.09305413509719074,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "1",
+              "64",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "backendCommand": [
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "1",
+              "64",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "peakRssKiB": 4188,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 4,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 37,
+            "digest": 4220957302,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f01413002da2cbc252970514a837b597e5bc5f03f7b2e1c121a9a0786169e9fa",
+            "warmupMilliseconds": 45
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.11737333284690976,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "1",
+              "64",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "backendCommand": [
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "1",
+              "64",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "peakRssKiB": 4188,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 5,
+            "order": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 43,
+            "digest": 4220957302,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f01413002da2cbc252970514a837b597e5bc5f03f7b2e1c121a9a0786169e9fa",
+            "warmupMilliseconds": 50
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.08234500489197671,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "1",
+              "64",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "backendCommand": [
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "1",
+              "64",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "peakRssKiB": 4196,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 6,
+            "order": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 38,
+            "digest": 4220957302,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f01413002da2cbc252970514a837b597e5bc5f03f7b2e1c121a9a0786169e9fa",
+            "warmupMilliseconds": 29
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.14270179020240903,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "1",
+              "64",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "backendCommand": [
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "1",
+              "64",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "peakRssKiB": 4184,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 7,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 71,
+            "digest": 4220957302,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f01413002da2cbc252970514a837b597e5bc5f03f7b2e1c121a9a0786169e9fa",
+            "warmupMilliseconds": 56
+          }
+        ],
+        "TS": [
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.5757183660753071,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Health",
+              "64",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Health",
+              "64",
+              "0"
+            ],
+            "peakRssKiB": 109156,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 1,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 76.78596100000004,
+            "digest": 4169183990,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f01413002da2cbc252970514a837b597e5bc5f03f7b2e1c121a9a0786169e9fa",
+            "warmupMilliseconds": 41.43612999999999
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.4779321101959795,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Health",
+              "64",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Health",
+              "64",
+              "0"
+            ],
+            "peakRssKiB": 100688,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 2,
+            "order": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 18.517900999999995,
+            "digest": 4169183990,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f01413002da2cbc252970514a837b597e5bc5f03f7b2e1c121a9a0786169e9fa",
+            "warmupMilliseconds": 33.785484
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.7570475121028721,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Health",
+              "64",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Health",
+              "64",
+              "0"
+            ],
+            "peakRssKiB": 100352,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 3,
+            "order": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 106.88395600000001,
+            "digest": 4169183990,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f01413002da2cbc252970514a837b597e5bc5f03f7b2e1c121a9a0786169e9fa",
+            "warmupMilliseconds": 80.67053399999998
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.7047855032142252,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Health",
+              "64",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Health",
+              "64",
+              "0"
+            ],
+            "peakRssKiB": 100200,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 4,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 27.317223000000013,
+            "digest": 4169183990,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f01413002da2cbc252970514a837b597e5bc5f03f7b2e1c121a9a0786169e9fa",
+            "warmupMilliseconds": 42.995142999999985
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.3127470081672072,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Health",
+              "64",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Health",
+              "64",
+              "0"
+            ],
+            "peakRssKiB": 109232,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 5,
+            "order": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 117.45162600000003,
+            "digest": 4169183990,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f01413002da2cbc252970514a837b597e5bc5f03f7b2e1c121a9a0786169e9fa",
+            "warmupMilliseconds": 124.67635100000007
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.6831833680626005,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Health",
+              "64",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Health",
+              "64",
+              "0"
+            ],
+            "peakRssKiB": 100676,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 6,
+            "order": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 29.543282999999974,
+            "digest": 4169183990,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f01413002da2cbc252970514a837b597e5bc5f03f7b2e1c121a9a0786169e9fa",
+            "warmupMilliseconds": 70.21011500000003
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.8017149202059954,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Health",
+              "64",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Health",
+              "64",
+              "0"
+            ],
+            "peakRssKiB": 109136,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 7,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 27.087970999999925,
+            "digest": 4169183990,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f01413002da2cbc252970514a837b597e5bc5f03f7b2e1c121a9a0786169e9fa",
+            "warmupMilliseconds": 44.38832000000002
+          }
+        ],
+        "JS": [
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.5680279289372265,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "1",
+              "64",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "1",
+              "64",
+              "0"
+            ],
+            "peakRssKiB": 82236,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 1,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 72,
+            "digest": 4220957302,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f01413002da2cbc252970514a837b597e5bc5f03f7b2e1c121a9a0786169e9fa",
+            "warmupMilliseconds": 322
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.39873892115429044,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "1",
+              "64",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "1",
+              "64",
+              "0"
+            ],
+            "peakRssKiB": 80228,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 2,
+            "order": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 94,
+            "digest": 4220957302,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f01413002da2cbc252970514a837b597e5bc5f03f7b2e1c121a9a0786169e9fa",
+            "warmupMilliseconds": 127
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.5015418860130012,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "1",
+              "64",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "1",
+              "64",
+              "0"
+            ],
+            "peakRssKiB": 82000,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 3,
+            "order": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 100,
+            "digest": 4220957302,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f01413002da2cbc252970514a837b597e5bc5f03f7b2e1c121a9a0786169e9fa",
+            "warmupMilliseconds": 186
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.6641375459730625,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "1",
+              "64",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "1",
+              "64",
+              "0"
+            ],
+            "peakRssKiB": 80160,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 4,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 213,
+            "digest": 4220957302,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f01413002da2cbc252970514a837b597e5bc5f03f7b2e1c121a9a0786169e9fa",
+            "warmupMilliseconds": 220
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.5988487631548196,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "1",
+              "64",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "1",
+              "64",
+              "0"
+            ],
+            "peakRssKiB": 77960,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 5,
+            "order": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 95,
+            "digest": 4220957302,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f01413002da2cbc252970514a837b597e5bc5f03f7b2e1c121a9a0786169e9fa",
+            "warmupMilliseconds": 303
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.5927630891092122,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "1",
+              "64",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "1",
+              "64",
+              "0"
+            ],
+            "peakRssKiB": 80080,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 6,
+            "order": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 144,
+            "digest": 4220957302,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f01413002da2cbc252970514a837b597e5bc5f03f7b2e1c121a9a0786169e9fa",
+            "warmupMilliseconds": 274
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.6537446700967848,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "1",
+              "64",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "1",
+              "64",
+              "0"
+            ],
+            "peakRssKiB": 85432,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 7,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 94,
+            "digest": 4220957302,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f01413002da2cbc252970514a837b597e5bc5f03f7b2e1c121a9a0786169e9fa",
+            "warmupMilliseconds": 334
+          }
+        ]
+      },
+      "summary": {
+        "Native": {
+          "milliseconds": {
+            "min": 34,
+            "median": 43,
+            "max": 173,
+            "raw": [
+              93,
+              173,
+              34,
+              37,
+              43,
+              38,
+              71
+            ]
+          },
+          "peakRssKiB": {
+            "min": 4180,
+            "median": 4188,
+            "max": 4196,
+            "raw": [
+              4184,
+              4196,
+              4180,
+              4188,
+              4188,
+              4196,
+              4184
+            ]
+          }
+        },
+        "TS": {
+          "milliseconds": {
+            "min": 18.517900999999995,
+            "median": 29.543282999999974,
+            "max": 117.45162600000003,
+            "raw": [
+              76.78596100000004,
+              18.517900999999995,
+              106.88395600000001,
+              27.317223000000013,
+              117.45162600000003,
+              29.543282999999974,
+              27.087970999999925
+            ]
+          },
+          "peakRssKiB": {
+            "min": 100200,
+            "median": 100688,
+            "max": 109232,
+            "raw": [
+              109156,
+              100688,
+              100352,
+              100200,
+              109232,
+              100676,
+              109136
+            ]
+          }
+        },
+        "JS": {
+          "milliseconds": {
+            "min": 72,
+            "median": 95,
+            "max": 213,
+            "raw": [
+              72,
+              94,
+              100,
+              213,
+              95,
+              144,
+              94
+            ]
+          },
+          "peakRssKiB": {
+            "min": 77960,
+            "median": 80228,
+            "max": 85432,
+            "raw": [
+              82236,
+              80228,
+              82000,
+              80160,
+              77960,
+              80080,
+              85432
+            ]
+          }
+        }
+      },
+      "status": "MEASURED",
+      "ratios": {
+        "Native/TS": 1.4554915917773945,
+        "JS/TS": 3.2156209585779645
+      }
+    },
+    {
+      "schema": "Health",
+      "count": 256,
+      "full": {
+        "Native": {
+          "status": "PASS",
+          "wholeProcessSeconds": 0.7605241250712425,
+          "exitCode": 0,
+          "command": [
+            "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+            "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+            "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+            "1",
+            "256",
+            "1",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "backendCommand": [
+            "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+            "1",
+            "256",
+            "1",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "peakRssKiB": 6756,
+          "launcherPeakRssKiB": 230452,
+          "milliseconds": 647,
+          "digest": 335060901,
+          "staleLookups": 6112,
+          "fullBoundaryCount": 192,
+          "rawReservations": 64,
+          "finalSha256": "f45fc1b19975043c826a48e8aa58ba4ab098ec5f051422fe9dd2c37eb40bf415"
+        },
+        "TS": {
+          "status": "PASS",
+          "wholeProcessSeconds": 0.5513933759648353,
+          "exitCode": 0,
+          "command": [
+            "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+            "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+            "node",
+            "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+            "Health",
+            "256",
+            "1"
+          ],
+          "backendCommand": [
+            "node",
+            "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+            "Health",
+            "256",
+            "1"
+          ],
+          "peakRssKiB": 108812,
+          "launcherPeakRssKiB": 230452,
+          "milliseconds": 101.23965900000002,
+          "digest": 283287589,
+          "staleLookups": 6112,
+          "fullBoundaryCount": 192,
+          "rawReservations": 64,
+          "finalSha256": "f45fc1b19975043c826a48e8aa58ba4ab098ec5f051422fe9dd2c37eb40bf415"
+        },
+        "JS": {
+          "status": "PASS",
+          "wholeProcessSeconds": 2.7090005287900567,
+          "exitCode": 0,
+          "command": [
+            "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+            "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+            "node",
+            "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+            "1",
+            "256",
+            "1"
+          ],
+          "backendCommand": [
+            "node",
+            "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+            "1",
+            "256",
+            "1"
+          ],
+          "peakRssKiB": 218148,
+          "launcherPeakRssKiB": 230452,
+          "milliseconds": 2438,
+          "digest": 335060901,
+          "staleLookups": 6112,
+          "fullBoundaryCount": 192,
+          "rawReservations": 64,
+          "finalSha256": "f45fc1b19975043c826a48e8aa58ba4ab098ec5f051422fe9dd2c37eb40bf415"
+        }
+      },
+      "samples": {
+        "Native": [
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.47518871212378144,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "1",
+              "256",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "backendCommand": [
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "1",
+              "256",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "peakRssKiB": 6896,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 1,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 174,
+            "digest": 335060901,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f45fc1b19975043c826a48e8aa58ba4ab098ec5f051422fe9dd2c37eb40bf415",
+            "warmupMilliseconds": 232
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.211493476992473,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "1",
+              "256",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "backendCommand": [
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "1",
+              "256",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "peakRssKiB": 6892,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 2,
+            "order": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 95,
+            "digest": 335060901,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f45fc1b19975043c826a48e8aa58ba4ab098ec5f051422fe9dd2c37eb40bf415",
+            "warmupMilliseconds": 96
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.3344643551390618,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "1",
+              "256",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "backendCommand": [
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "1",
+              "256",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "peakRssKiB": 6868,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 3,
+            "order": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 111,
+            "digest": 335060901,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f45fc1b19975043c826a48e8aa58ba4ab098ec5f051422fe9dd2c37eb40bf415",
+            "warmupMilliseconds": 174
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.34031977714039385,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "1",
+              "256",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "backendCommand": [
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "1",
+              "256",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "peakRssKiB": 6896,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 4,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 195,
+            "digest": 335060901,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f45fc1b19975043c826a48e8aa58ba4ab098ec5f051422fe9dd2c37eb40bf415",
+            "warmupMilliseconds": 115
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.5375548880547285,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "1",
+              "256",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "backendCommand": [
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "1",
+              "256",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "peakRssKiB": 6900,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 5,
+            "order": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 182,
+            "digest": 335060901,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f45fc1b19975043c826a48e8aa58ba4ab098ec5f051422fe9dd2c37eb40bf415",
+            "warmupMilliseconds": 313
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.36966768419370055,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "1",
+              "256",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "backendCommand": [
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "1",
+              "256",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "peakRssKiB": 6896,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 6,
+            "order": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 151,
+            "digest": 335060901,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f45fc1b19975043c826a48e8aa58ba4ab098ec5f051422fe9dd2c37eb40bf415",
+            "warmupMilliseconds": 150
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.38742870395071805,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "1",
+              "256",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "backendCommand": [
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+              "1",
+              "256",
+              "0",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "peakRssKiB": 6896,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 7,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 205,
+            "digest": 335060901,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f45fc1b19975043c826a48e8aa58ba4ab098ec5f051422fe9dd2c37eb40bf415",
+            "warmupMilliseconds": 138
+          }
+        ],
+        "TS": [
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.1203485201112926,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Health",
+              "256",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Health",
+              "256",
+              "0"
+            ],
+            "peakRssKiB": 109488,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 1,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 52.9180980000001,
+            "digest": 283287589,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f45fc1b19975043c826a48e8aa58ba4ab098ec5f051422fe9dd2c37eb40bf415",
+            "warmupMilliseconds": 172.73332700000003
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.6770264019723982,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Health",
+              "256",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Health",
+              "256",
+              "0"
+            ],
+            "peakRssKiB": 100424,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 2,
+            "order": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 49.001525000000015,
+            "digest": 283287589,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f45fc1b19975043c826a48e8aa58ba4ab098ec5f051422fe9dd2c37eb40bf415",
+            "warmupMilliseconds": 108.88230599999997
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.5371086341328919,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Health",
+              "256",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Health",
+              "256",
+              "0"
+            ],
+            "peakRssKiB": 99748,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 3,
+            "order": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 50.022617000000025,
+            "digest": 283287589,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f45fc1b19975043c826a48e8aa58ba4ab098ec5f051422fe9dd2c37eb40bf415",
+            "warmupMilliseconds": 55.03040800000002
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.8053223651368171,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Health",
+              "256",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Health",
+              "256",
+              "0"
+            ],
+            "peakRssKiB": 100392,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 4,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 125.91661099999999,
+            "digest": 283287589,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f45fc1b19975043c826a48e8aa58ba4ab098ec5f051422fe9dd2c37eb40bf415",
+            "warmupMilliseconds": 84.9641519999999
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.939125208184123,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Health",
+              "256",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Health",
+              "256",
+              "0"
+            ],
+            "peakRssKiB": 100472,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 5,
+            "order": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 151.00039900000002,
+            "digest": 283287589,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f45fc1b19975043c826a48e8aa58ba4ab098ec5f051422fe9dd2c37eb40bf415",
+            "warmupMilliseconds": 85.53036399999996
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.6586028342135251,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Health",
+              "256",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Health",
+              "256",
+              "0"
+            ],
+            "peakRssKiB": 100064,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 6,
+            "order": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 59.65707100000009,
+            "digest": 283287589,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f45fc1b19975043c826a48e8aa58ba4ab098ec5f051422fe9dd2c37eb40bf415",
+            "warmupMilliseconds": 99.96614900000003
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.6205391911789775,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Health",
+              "256",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+              "Health",
+              "256",
+              "0"
+            ],
+            "peakRssKiB": 109024,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 7,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 41.22050300000001,
+            "digest": 283287589,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f45fc1b19975043c826a48e8aa58ba4ab098ec5f051422fe9dd2c37eb40bf415",
+            "warmupMilliseconds": 56.42483600000003
+          }
+        ],
+        "JS": [
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.5938391799572855,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "1",
+              "256",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "1",
+              "256",
+              "0"
+            ],
+            "peakRssKiB": 135488,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 1,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 169,
+            "digest": 335060901,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f45fc1b19975043c826a48e8aa58ba4ab098ec5f051422fe9dd2c37eb40bf415",
+            "warmupMilliseconds": 276
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.9578450680710375,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "1",
+              "256",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "1",
+              "256",
+              "0"
+            ],
+            "peakRssKiB": 134300,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 2,
+            "order": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 416,
+            "digest": 335060901,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f45fc1b19975043c826a48e8aa58ba4ab098ec5f051422fe9dd2c37eb40bf415",
+            "warmupMilliseconds": 306
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.6746144241187721,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "1",
+              "256",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "1",
+              "256",
+              "0"
+            ],
+            "peakRssKiB": 135932,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 3,
+            "order": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 201,
+            "digest": 335060901,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f45fc1b19975043c826a48e8aa58ba4ab098ec5f051422fe9dd2c37eb40bf415",
+            "warmupMilliseconds": 263
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.155366055900231,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "1",
+              "256",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "1",
+              "256",
+              "0"
+            ],
+            "peakRssKiB": 139772,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 4,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 309,
+            "digest": 335060901,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f45fc1b19975043c826a48e8aa58ba4ab098ec5f051422fe9dd2c37eb40bf415",
+            "warmupMilliseconds": 470
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 1.2187387819867581,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "1",
+              "256",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "1",
+              "256",
+              "0"
+            ],
+            "peakRssKiB": 134472,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 5,
+            "order": [
+              "TS",
+              "JS",
+              "Native"
+            ],
+            "milliseconds": 305,
+            "digest": 335060901,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f45fc1b19975043c826a48e8aa58ba4ab098ec5f051422fe9dd2c37eb40bf415",
+            "warmupMilliseconds": 454
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.962618149118498,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "1",
+              "256",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "1",
+              "256",
+              "0"
+            ],
+            "peakRssKiB": 137028,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 6,
+            "order": [
+              "JS",
+              "Native",
+              "TS"
+            ],
+            "milliseconds": 267,
+            "digest": 335060901,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f45fc1b19975043c826a48e8aa58ba4ab098ec5f051422fe9dd2c37eb40bf415",
+            "warmupMilliseconds": 424
+          },
+          {
+            "status": "PASS",
+            "wholeProcessSeconds": 0.7794287789147347,
+            "exitCode": 0,
+            "command": [
+              "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+              "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "1",
+              "256",
+              "0"
+            ],
+            "backendCommand": [
+              "node",
+              "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+              "1",
+              "256",
+              "0"
+            ],
+            "peakRssKiB": 138704,
+            "launcherPeakRssKiB": 230452,
+            "repetition": 7,
+            "order": [
+              "Native",
+              "TS",
+              "JS"
+            ],
+            "milliseconds": 257,
+            "digest": 335060901,
+            "staleLookups": 6112,
+            "fullBoundaryCount": 0,
+            "rawReservations": 64,
+            "finalSha256": "f45fc1b19975043c826a48e8aa58ba4ab098ec5f051422fe9dd2c37eb40bf415",
+            "warmupMilliseconds": 329
+          }
+        ]
+      },
+      "summary": {
+        "Native": {
+          "milliseconds": {
+            "min": 95,
+            "median": 174,
+            "max": 205,
+            "raw": [
+              174,
+              95,
+              111,
+              195,
+              182,
+              151,
+              205
+            ]
+          },
+          "peakRssKiB": {
+            "min": 6868,
+            "median": 6896,
+            "max": 6900,
+            "raw": [
+              6896,
+              6892,
+              6868,
+              6896,
+              6900,
+              6896,
+              6896
+            ]
+          }
+        },
+        "TS": {
+          "milliseconds": {
+            "min": 41.22050300000001,
+            "median": 52.9180980000001,
+            "max": 151.00039900000002,
+            "raw": [
+              52.9180980000001,
+              49.001525000000015,
+              50.022617000000025,
+              125.91661099999999,
+              151.00039900000002,
+              59.65707100000009,
+              41.22050300000001
+            ]
+          },
+          "peakRssKiB": {
+            "min": 99748,
+            "median": 100424,
+            "max": 109488,
+            "raw": [
+              109488,
+              100424,
+              99748,
+              100392,
+              100472,
+              100064,
+              109024
+            ]
+          }
+        },
+        "JS": {
+          "milliseconds": {
+            "min": 169,
+            "median": 267,
+            "max": 416,
+            "raw": [
+              169,
+              416,
+              201,
+              309,
+              305,
+              267,
+              257
+            ]
+          },
+          "peakRssKiB": {
+            "min": 134300,
+            "median": 135932,
+            "max": 139772,
+            "raw": [
+              135488,
+              134300,
+              135932,
+              139772,
+              134472,
+              137028,
+              138704
+            ]
+          }
+        }
+      },
+      "status": "MEASURED",
+      "ratios": {
+        "Native/TS": 3.288100037155524,
+        "JS/TS": 5.045532815635201
+      }
+    },
+    {
+      "schema": "Health",
+      "count": 1024,
+      "full": {
+        "Native": {
+          "status": "FAILED",
+          "error": "five-second process-group deadline",
+          "wholeProcessSeconds": 5.0022350589279085,
+          "exitCode": -9,
+          "command": [
+            "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+            "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+            "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+            "1",
+            "1024",
+            "1",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "backendCommand": [
+            "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed-native",
+            "1",
+            "1024",
+            "1",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ]
+        },
+        "TS": {
+          "status": "PASS",
+          "wholeProcessSeconds": 1.4093828650657088,
+          "exitCode": 0,
+          "command": [
+            "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+            "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+            "node",
+            "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+            "Health",
+            "1024",
+            "1"
+          ],
+          "backendCommand": [
+            "node",
+            "/workspace/formal-proofs/bendvy-worktrees/measurement-bend-rest/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+            "Health",
+            "1024",
+            "1"
+          ],
+          "peakRssKiB": 118164,
+          "launcherPeakRssKiB": 230452,
+          "milliseconds": 466.21619,
+          "digest": 3133866405,
+          "staleLookups": 6112,
+          "fullBoundaryCount": 192,
+          "rawReservations": 64,
+          "finalSha256": "6fb1990b3f40d3d9115d52960da409c2f05cfe58285943035ec637fdb7830185"
+        },
+        "JS": {
+          "status": "FAILED",
+          "error": "five-second process-group deadline",
+          "wholeProcessSeconds": 5.008179394993931,
+          "exitCode": -9,
+          "command": [
+            "/tmp/measurement-life-timed-n0rf_kua/rss-launcher",
+            "/tmp/measurement-life-timed-n0rf_kua/rss.json",
+            "node",
+            "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+            "1",
+            "1024",
+            "1"
+          ],
+          "backendCommand": [
+            "node",
+            "/tmp/measurement-life-timed-n0rf_kua/original/measurement-lifecycle-timed.js",
+            "1",
+            "1024",
+            "1"
+          ]
+        }
+      },
+      "samples": {
+        "Native": [],
+        "TS": [],
+        "JS": []
+      },
+      "summary": {},
+      "status": "UNVERIFIED"
+    }
+  ],
+  "mutants": [
+    {
+      "name": "head-only-target",
+      "compiledNativeJs": true,
+      "detectedBoth": true
+    },
+    {
+      "name": "omit-disposal",
+      "compiledNativeJs": true,
+      "detectedBoth": true
+    }
+  ],
+  "status": "REGRESSION"
+}

@@ -32,3 +32,19 @@ All four 64/256-row cases passed full fields and seven samples on each backend. 
 Ratios above 1 mean Bend took longer. Raw min/median/max and every sample are retained in the JSON; notably Motion64 Native ranged from 22 to 224 ms. This variability prevents treating a single ratio as stable performance. Corrected Native peaks are measured from the clean launcher; the initially inherited parent peaks have no memory interpretation.
 
 Final runner exit: **1 / REGRESSION**, deliberately retaining the four 1,024-row backend deadline failures. Both wrong-target and omitted-disposal mutations compiled to Native/JS and were rejected by the unchanged complete-field validator on both backends. These are actual command/selection mutations, not oracle perturbations. No failed build is counted as a semantic rejection.
+
+## Coordinator reproducibility refresh
+
+The author package's exact import closure is retrievable at `c28fe5f`; five
+shared runtime files differ from the joined root. Its record is preserved as
+`measurement-lifecycle-timed-frozen-evidence.json`. The delivered runner also
+imported an unmerged Dense/Sparse timing helper. It now imports the already
+delivered sampling helper with the same deadline/statistics operations and
+explicitly contaminated outer RSS labels; the clean inner launcher remains the
+actual memory collector. A complete root-current replay is in progress.
+
+Independent root-current Motion64 mutation replays retain exact public witnesses
+in `measurement-lifecycle-mutation-witness-evidence.json`: choosing only the
+head changes `observations[5].query[0].handle.id` from 2 to 3; omitting disposal
+changes `observations[2].query` length from 64 to 65. Both are compiling
+Native/JS runtime changes with identical witnesses, not typing or timeout kills.

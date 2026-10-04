@@ -1,0 +1,91 @@
+{
+  "scope": "exact finite Motion64 public lifecycle mutation witnesses; no timing acceptance",
+  "limits": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "sourceHashes": {
+    "measurement-lifecycle-timed.bend": "92dfbd97cd797f730e1cba9f0e3621d1eb0a38264dde1b74def440711e85bac1",
+    "measurement-lifecycle.bend": "7f0449909fbd8be645dfabfaed7aaea7b5aa7e29912bdd675a3babd026496708",
+    "measurement-bend.bend": "29c9f05835adb25e6b34c05048bb756cbfb86049b35edab2ff3649e671283d90",
+    "types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+    "storage.bend": "936ee89484a6e58558ab1684d90c16cbf2285ef5027292901dd3d9bf973754ba",
+    "identity.bend": "2c88babc9e853d3706f7a6c1f8f0ae48c198949143df2da6562bd774237d7329",
+    "commands.bend": "022ea5ca1f44c952ae77071689d0735e5a38976d7f628203d85fd9cc920a1194",
+    "query.bend": "903af14b5d85d1162df5f872f26f221134a17c772bc82fd17686ce2f4be45759",
+    "observations.bend": "81e6afcd4ae06a396669cff14d1da68a4c597539b6eb64e68648ebbe7b235136",
+    "payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "transaction.bend": "d32f0b26e4a14fc784c3ce30c4d6a1ded0cf0a55ed819f54419a558445e298a4",
+    "transaction-dispatch-adapters.bend": "eea16d3f539d70bcd88fd8fd314b75d252ccaff2b9c1c8b63e7d96bfdda34142",
+    "systems.bend": "2cfc899215e408cc4c652c8d4c290b18800cdb6e8c96f1061a77853afdac9221",
+    "schedule.bend": "98c955f7ee5039aed875a3bd93e3c94840d9ea2f48de0e6415bd28d63ee8fb98",
+    "capture.bend": "44d5f3117a465c216ee93100026aad78e86f24c40c09c678be99935dde076817",
+    "host.bend": "b50bc903906cb6a842d0ef88ba84fe0dbf0dd7abdb85c0fa436bccf228b74bb9",
+    "dispatcher.bend": "3530c7c20d704ba51a9cdace1f028e507960458b9c0bdcdf0dbc0d546c800b07",
+    "readers.bend": "2673082b4ef5cd6c5d8f61c362e22f74b13daeb27196894278cc20b1459c22e9",
+    "reader-host.bend": "50f1251c6d476b07055c36c5a97e3350a4cb46e5d826ff97ced2860d40798a64",
+    "streams.bend": "1a1c7991d6a1b4ebfb3b47dc62459beb83ed5e38ded56d27cc20b5478fc0d315",
+    "host-observations.bend": "e6a37f6d160a53f14b08254f35cb317a68f1f2c540c40c9b88e600d0d6198e76",
+    "audited-invoker.bend": "2ed7e484b8a043f0944e0f662a8799f94388c99f757de331fb1a79b1c07c8853",
+    "structural-invoker.bend": "6907a8c5775f77ffed6141123fe5c7033678269ade0f59cd0f24b8680e497932",
+    "host-render.bend": "1eef120fa604ba633f06d33a8a3910845293926c36dc9c91cd59d4d5c045a28a",
+    "measurement-compact.bend": "a711f673226301c50a5366f9eed098989b366ed148adf194344b63d5632197a0",
+    "measurement-fields.bend": "6aa85f634f03448207761401e3cb8fa635a25d494744cf186aae20f34237b157"
+  },
+  "runnerSha256": "4df0fb67e52bb7a95650906b529c1ab6dc87f9d6502e44f162a69a93f8114e4e",
+  "mutants": [
+    {
+      "name": "head-only-target",
+      "observations": [
+        {
+          "backend": "Native",
+          "compiling": true,
+          "outputSha256": "2196ccb36333ec0b9b457d24d6f8b474e5f71e56465414a4d9b2832da13c4b9b",
+          "witness": {
+            "path": "observations[5].query[0].handle.id",
+            "expected": 2,
+            "actual": 3
+          }
+        },
+        {
+          "backend": "JS",
+          "compiling": true,
+          "outputSha256": "e78ecc295879f2c5e6fa6db9ea949c56dd8ce51eb9ff39f3a694f3f0fb3cc99b",
+          "witness": {
+            "path": "observations[5].query[0].handle.id",
+            "expected": 2,
+            "actual": 3
+          }
+        }
+      ]
+    },
+    {
+      "name": "omit-disposal",
+      "observations": [
+        {
+          "backend": "Native",
+          "compiling": true,
+          "outputSha256": "32d911aa8543cbabe5a98143eb0e03661f481237ba8edffa98bd967b542b5b8a",
+          "witness": {
+            "path": "observations[2].query",
+            "expectedLength": 64,
+            "actualLength": 65
+          }
+        },
+        {
+          "backend": "JS",
+          "compiling": true,
+          "outputSha256": "d015119037d85f52c69dfd5658cebcb0e5a0ceb340df0d822c0958b902f6c3a0",
+          "witness": {
+            "path": "observations[2].query",
+            "expectedLength": 64,
+            "actualLength": 65
+          }
+        }
+      ]
+    }
+  ],
+  "status": "PASS"
+}
