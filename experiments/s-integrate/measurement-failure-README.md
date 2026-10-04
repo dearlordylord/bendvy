@@ -37,3 +37,21 @@ Observed bounded matrix (64 iterations throughout):
 O3 compilation passed within the separate120-second build limit. Full row-field validation covers16512 rows per64 case and65664 per256 case, plus all resource, reader, capture, reservation, lookup and own-write observations. Each source reference was freshly run within5 seconds. No backend acceptance is claimed for a timed-out case.
 
 Four compiling JS mutants are checked on both complete64-entity cases: inverse replay order leaves B's first value11 instead of1 after failure; second-write+10 leaves11 instead of31 after retry; the fourth reservation cell40 replaces400 and is detected on actual materialized r; failed reader completion consumes the batch and retry reads[] instead of code0. Original CPU7 JS controls are independently rechecked. Evidence is segmented: initial original NativeO0/JS64 stage; independent largeJS/O3 stage; mutation replay with precise first-difference diagnostics. The original source/core hashes remain identical across these stages. The first mutation run already detected all eight counterexamples; the replay strengthens diagnostics and pins complete original controls. The original report's oracle hash identifies its earlier diagnostic formatter; the replay records the updated formatter, whose comparisons and expectations are unchanged.
+
+## Joined-source coordinator audit
+
+Every actual import hash in the completed `213af35` package matches the joined
+root at `d1a976f`; its earlier base label does not imply different runtime bodies.
+The coordinator independently verified that full closure and all eight actual
+JS semantic witnesses. Native O3 original controls remain separate from these
+JS mutations; the joined main gate already supplies its own twelve Native/JS
+mutants. No Native dynamic-workload mutation sweep is inferred.
+
+A fresh isolated root build is recorded in
+`measurement-failure-source-current-evidence.json`: its byte-identical import
+closure hits the five-second checker limit before backend generation. The
+record is BUILD_BLOCKED, not a semantic mismatch or a passing reproducibility
+gate. Earlier completed checker/build/runtime evidence is preserved at its exact
+revision; no timeout was increased and no failed attempt was replaced. The
+quiet equivalent-work adapter and stable compilation under the current budget
+remain explicit #20 return conditions. Full-core performance remains unmet.
