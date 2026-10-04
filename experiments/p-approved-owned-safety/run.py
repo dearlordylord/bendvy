@@ -5,6 +5,11 @@ ROOT=pathlib.Path(__file__).resolve().parents[2]
 HERE=pathlib.Path(__file__).resolve().parent
 WRAPPER=ROOT/'experiments/t01/bend-check'
 def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
+frozen=json.loads((HERE/'frozen.json').read_text())
+for name,digest in frozen['subjects'].items(): assert sha(ROOT/'experiments/t11-replacement'/name)==digest,(name,'canonical source drift')
+assert sha(ROOT/'docs/reviews/delegated-owned-law-approval.md')==frozen['approval_sha256']
+for name,digest in frozen['proposals'].items(): assert sha(ROOT/name)==digest,(name,'approved proposal drift')
+for name,digest in frozen['contextual_imports'].items(): assert sha(ROOT/name)==digest,(name,'contextual import drift')
 records=[]
 def run(p,verdict=False,failure=None,kernel_negative=False):
     env=dict(os.environ)
