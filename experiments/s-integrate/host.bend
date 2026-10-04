@@ -7,8 +7,13 @@ import ./readers.bend as R
 import ./reader-host.bend as H
 import ./host-observations.bend as E
 import ./observations.bend as O
-import ./payload.bend as P
+import ./payload.bend as PV
 import ./query.bend as Q
+import ./schedule.bend as K
+import ./capture.bend as LC
+import ./transaction-dispatch-adapters.bend as TA
+import ./audited-invoker.bend as IA
+import ./systems.bend as U
 
 type Host<-Schema:Data,-M:Type,-A:Type,-F:Data,-L:Type,-Mode:Data,-P:Data,-V:Data,-AV:Data,-LV:Data> is Type:
   Host{world:W.World<Schema,M,A,F,L,Mode>,logs:H.Logs<Schema,P>,bindings:List<&2,E.Binding<Schema>>,worldName:String,step:String,prior:D.DispatchOutcome,events:List<&2,E.TraceEvent<Schema,V,AV,F,LV,Mode,P>>}
@@ -122,3 +127,55 @@ def snapshot_required(~Schema:Data,~M:Type,~A:Type,~F:Data,~L:Type,~Mode:Data,~P
     case (owner,required): snapshot_plus(Schema,M,A,F,L,Mode,P,V,AV,LV,Tok,main_get,aux_get,client,ledger_get,required,query(Schema,M,A,F,L,Mode,P,V,AV,LV,Tok,main_get,aux_get,client,Q.Present{},owner))
 def snapshot(~Schema:Data,~M:Type,~A:Type,~F:Data,~L:Type,~Mode:Data,~P:Data,~V:Data,~AV:Data,~LV:Data,~Tok:Data,~main_get:M -> M & V,~aux_get:A -> A & AV,~client:@-Owner:Type -> @-Aux:Type -> (Owner -> Tok -> Owner & V) -> (Aux -> Aux & Maybe<&2,AV>) -> W.Handle<Schema> -> Maybe<&2,F> -> Owner -> Aux -> Owner & (Aux & O.QueryRow<Schema,V,AV,F>),~ledger_get:L -> L & LV,owner:Host<Schema,M,A,F,L,Mode,P,V,AV,LV>) -> Host<Schema,M,A,F,L,Mode,P,V,AV,LV>:
   snapshot_required(Schema,M,A,F,L,Mode,P,V,AV,LV,Tok,main_get,aux_get,client,ledger_get,query(Schema,M,A,F,L,Mode,P,V,AV,LV,Tok,main_get,aux_get,client,Q.Required{},owner))
+def MotionHost() -> Type:
+  Host<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode,T.MotionPing,T.PositionView,T.VelocityView,T.LedgerView>
+def motion_snapshot(owner:MotionHost()) -> MotionHost():
+  snapshot(T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode,T.MotionPing,T.PositionView,T.VelocityView,T.LedgerView,T.PositionToken,PV.position_get,PV.velocity_get,O.client(~T.MotionSchema,~T.PositionToken,~T.PositionView,~T.VelocityView,~T.Selected,~T.PositionToken{}),PV.motion_ledger_get,owner)
+def motion_read(system:String,count:U32,owner:MotionHost(),run:R.Run) -> MotionHost() & R.Run:
+  read(T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode,T.MotionPing,T.PositionView,T.VelocityView,T.LedgerView,T.PositionToken,PV.position_get,PV.velocity_get,O.client(~T.MotionSchema,~T.PositionToken,~T.PositionView,~T.VelocityView,~T.Selected,~T.PositionToken{}),PV.motion_ledger_get,system,count,owner,run)
+def HealthHost() -> Type:
+  Host<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode,T.HealthPing,T.VitalsView,T.ArmorView,T.LedgerView>
+def health_snapshot(owner:HealthHost()) -> HealthHost():
+  snapshot(T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode,T.HealthPing,T.VitalsView,T.ArmorView,T.LedgerView,T.VitalsToken,PV.vitals_get,PV.armor_get,O.client(~T.HealthSchema,~T.VitalsToken,~T.VitalsView,~T.ArmorView,~T.Tracked,~T.VitalsToken{}),PV.health_ledger_get,owner)
+def health_read(system:String,count:U32,owner:HealthHost(),run:R.Run) -> HealthHost() & R.Run:
+  read(T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode,T.HealthPing,T.VitalsView,T.ArmorView,T.LedgerView,T.VitalsToken,PV.vitals_get,PV.armor_get,O.client(~T.HealthSchema,~T.VitalsToken,~T.VitalsView,~T.ArmorView,~T.Tracked,~T.VitalsToken{}),PV.health_ledger_get,system,count,owner,run)
+def motion_on(mode:T.MotionMode) -> Bool:
+  match mode:
+    case T.MotionOn{}: True{}
+    case T.MotionOff{}: False{}
+def motion_presence_ledger(ns:U32,next:U32,rows:List<W.Row<T.Position,T.Velocity,T.Selected>>,pending:List<W.Command<T.Position,T.Velocity,T.Selected>>,+mode:T.MotionMode,logs:H.Logs<T.MotionSchema,T.MotionPing>,bindings:List<&2,E.Binding<T.MotionSchema>>,worldName:String,step:String,prior:D.DispatchOutcome,events:List<&2,E.TraceEvent<T.MotionSchema,T.PositionView,T.VelocityView,T.Selected,T.LedgerView,T.MotionMode,T.MotionPing>>,pair:Maybe<T.MotionLedger> & Bool) -> MotionHost() & D.Presence:
+  match pair:
+    case (ledger,available): (Host{W.World{ns,next,rows,pending,ledger,mode},logs,bindings,worldName,step,prior,events},D.Presence{available,motion_on(mode)})
+def motion_presence(owner:MotionHost()) -> MotionHost() & D.Presence:
+  match owner:
+    case Host{W.World{ns,next,rows,pending,ledger,mode},logs,bindings,worldName,step,prior,events}:
+      motion_presence_ledger(ns,next,rows,pending,mode,logs,bindings,worldName,step,prior,events,ledger_presence(T.MotionLedger,ledger))
+def motion_desired(value:Bool) -> T.MotionMode:
+  match value:
+    case True{}: T.MotionOn{}
+    case False{}: T.MotionOff{}
+def motion_transition(owner:MotionHost(),pending:Maybe<&2,Bool>,clock:R.Clock) -> MotionHost() & R.Clock:
+  match owner pending:
+    case world None{}: (world,clock)
+    case Host{W.World{ns,next,rows,commands,ledger,_},logs,bindings,worldName,step,prior,events} Some{value}:
+      (Host{W.World{ns,next,rows,commands,ledger,motion_desired(value)},logs,bindings,worldName,step,prior,events},R.advance(clock))
+def health_on(mode:T.HealthMode) -> Bool:
+  match mode:
+    case T.HealthOn{}: True{}
+    case T.HealthOff{}: False{}
+def health_presence_ledger(ns:U32,next:U32,rows:List<W.Row<T.Vitals,T.Armor,T.Tracked>>,pending:List<W.Command<T.Vitals,T.Armor,T.Tracked>>,+mode:T.HealthMode,logs:H.Logs<T.HealthSchema,T.HealthPing>,bindings:List<&2,E.Binding<T.HealthSchema>>,worldName:String,step:String,prior:D.DispatchOutcome,events:List<&2,E.TraceEvent<T.HealthSchema,T.VitalsView,T.ArmorView,T.Tracked,T.LedgerView,T.HealthMode,T.HealthPing>>,pair:Maybe<T.HealthLedger> & Bool) -> HealthHost() & D.Presence:
+  match pair:
+    case (ledger,available): (Host{W.World{ns,next,rows,pending,ledger,mode},logs,bindings,worldName,step,prior,events},D.Presence{available,health_on(mode)})
+def health_presence(owner:HealthHost()) -> HealthHost() & D.Presence:
+  match owner:
+    case Host{W.World{ns,next,rows,pending,ledger,mode},logs,bindings,worldName,step,prior,events}:
+      health_presence_ledger(ns,next,rows,pending,mode,logs,bindings,worldName,step,prior,events,ledger_presence(T.HealthLedger,ledger))
+def health_desired(value:Bool) -> T.HealthMode:
+  match value:
+    case True{}: T.HealthOn{}
+    case False{}: T.HealthOff{}
+def health_transition(owner:HealthHost(),pending:Maybe<&2,Bool>,clock:R.Clock) -> HealthHost() & R.Clock:
+  match owner pending:
+    case world None{}: (world,clock)
+    case Host{W.World{ns,next,rows,commands,ledger,_},logs,bindings,worldName,step,prior,events} Some{value}:
+      (Host{W.World{ns,next,rows,commands,ledger,health_desired(value)},logs,bindings,worldName,step,prior,events},R.advance(clock))

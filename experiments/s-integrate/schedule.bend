@@ -9,6 +9,13 @@ type BodyKind is Data:
   SetOn{}
   SetOff{}
   Cleanup{}
+  Snapshot{}
+  Seed{}
+  SeedBeta{}
+  Inserts{}
+  Dispose{}
+  SpawnS{}
+  ReadOnlyLate{}
 type System is Data:
   System{base: U32,name: String,kind: BodyKind,ledger: Bool,audit: Bool,gated: Bool,reader: Bool}
 type Mode is Data:
