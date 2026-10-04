@@ -77,3 +77,48 @@ appended Target (which contributes no Spawn count). `reserve_rows_bound`,
 fresh Spawn at the prior frontier; these concern only this contextual successor,
 not the unapproved generic preservation theorem. Final composition uses actual
 query/flush dependencies only after they pass their gates.
+
+## Fixed coverage refinement (inventory before execution)
+
+For full schedule induction, carry `Slots(limit,0,left_rows,right_rows)` instead
+of extending a next-sized relation at every Reserve. The limit is fixed for the
+whole approved schedule; `next <= limit` follows from actual model admissibility.
+The relation still compares observations only and accepts different row order.
+`slots_prefix` restricts coverage for terminal observation. `Covered` adds the
+same metadata equations to this fixed-width interval. `missing_after_bound`
+uses actual independent row bounds to show absent out-of-range keys. Bump
+successor slots split inside/outside `next`: inside uses the now-checked query
+`lookup_inside` and `bump_enumeration`; outside uses query `lookup_above`, actual
+model bounds and `bump_point`. Fixed interval structure supplies the one-slot
+input equality exactly once. The analogous Barrier link belongs to the flush
+worker. No invariant on an unrelated arbitrary oracle world is presumed.
+
+Separate Reserve/Publish/Bump/Barrier contextual branches thread the actual
+independent admissibility witness in the final schedule induction. Do not create
+a filled or renamed generic `admissibility_preserved` theorem. Imported complete
+query/enumeration commits are 8644867 and 53265cb; complete query runner rerun
+passed in this worktree after import.
+
+Final composition inventory, before execution: contextual `frontier_bound`,
+`live_valid`, `queue_valid` project actual independent guard evidence;
+`reserve_success`, `publish_success`, `bump_success` thread it in their individual
+branches, and `final_observation` uses completed `rows_complete` plus the covered
+interval prefix. `barrier_slots` uses completed materialize inside/above lookup,
+mixed FIFO correspondence and actual prefix rows_valid; `barrier_success` clears
+pending while preserving frontier/rows. `Continuation` is the explicit induction
+hypothesis type. Reserve/Publish dispatch case helpers pass actual successors to
+that hypothesis; no evidence argument is assumed or supplied axiomatically.
+`schedule_related` structurally recurses on the exact authored Step list. The
+approved endpoint enters the true guard with reflexive initial slot relation;
+false guard remains the original Unit domain. The induction base uses actual
+model query adequacy and performs no flush.
+
+Own-endpoint mutation inventory: keep the universal schedule induction and its
+initialization inside the dedicated schedule_execution_exact section of PROOF.bend.
+A compiling implicit-final-flush M.tick mutant must fail that unchanged induction
+and falsify a successful Reserve/no-Barrier instance whose original admissibility
+premise remains true. The failure is the endpoint's own induction, not an unrelated
+shared lemma; record its exact location as schedule_related. The final wrapper is
+not separately claimed as the failure site. A proposed nonrecursive observation
+expansion did not convert under an abstract computed world and was discarded;
+no alternate observer or subject change was retained.

@@ -1,4 +1,5 @@
 import Base
+import ../p-observe-queries/helpers.bend as H
 import ../t11-replacement/types.bend as T
 import ../t11-replacement/spec.bend as S
 
@@ -88,3 +89,27 @@ def observe_related(+left: T.World, +right: T.World, related: Related(left,right
       Equal.cong(List<&2,T.Row>,T.Observation,r => T.Observation{id,next,r,pending},
         S.enumerate_rows(next,0n,rows,T.Any{}),S.enumerate_rows(next,0n,other_rows,T.Any{}),
         enumerate_related(next,0n,rows,other_rows,T.Any{},slots))
+
+# Fixed coverage avoids an unproved interval extension at every reservation.
+def Covered(+limit: Nat, left: T.World, right: T.World) -> Type:
+  match left right:
+    case T.World{id,next,rows,pending} T.World{other_id,other_next,other_rows,other_pending}:
+      {id == other_id : Nat} & {next == other_next : Nat}
+        & {pending == other_pending : List<&2,T.Command>} & Slots(limit,0n,rows,other_rows)
+
+def covered_shared(+limit: Nat, +id: Nat, +next: Nat, +left: List<&2,T.Row>, +right: List<&2,T.Row>, +pending: List<&2,T.Command>,
+  related: Slots(limit,0n,left,right))
+  -> Covered(limit,T.World{id,next,left,pending},T.World{id,next,right,pending}):
+  ({==},{==},{==},related)
+
+def slots_prefix(+cover: Nat, +fuel: Nat, +start: Nat, +left: List<&2,T.Row>, +right: List<&2,T.Row>,
+  bound: {True{} == Nat.is_le(fuel,cover) : Bool}, related: Slots(cover,start,left,right))
+  -> Slots(fuel,start,left,right):
+  match cover fuel:
+    case 0n 0n: Unit{}
+    case 0n 1n+rest:
+      Empty.absurd(Slots(1n+rest,start,left,right),H.false_true_absurd(Equal.sym(Bool,True{},False{},bound)))
+    case 1n+remaining 0n: Unit{}
+    case 1n+remaining 1n+rest:
+      (head,tail) = related
+      (head,slots_prefix(remaining,rest,1n+start,left,right,bound,tail))

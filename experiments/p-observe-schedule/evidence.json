@@ -1,5 +1,5 @@
 {
-  "status": "PARTIAL: schedule_execution_exact remains OPEN",
+  "status": "PASS: exact schedule_execution_exact proof, kernel, and own-section mutations",
   "checker_limit_seconds": 5,
   "exact_endpoint_selection": true,
   "checks": [
@@ -10,7 +10,7 @@
         "--check-only"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 0.1003,
+      "elapsed_seconds": 0.1624,
       "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
     },
     {
@@ -20,7 +20,7 @@
         "--verdict"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 0.135,
+      "elapsed_seconds": 0.1669,
       "output": "ALL PROOFS CHECK\n"
     },
     {
@@ -30,7 +30,7 @@
         "--check-only"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 0.1193,
+      "elapsed_seconds": 0.1225,
       "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
     },
     {
@@ -40,7 +40,7 @@
         "--verdict"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 0.1716,
+      "elapsed_seconds": 0.1787,
       "output": "ALL PROOFS CHECK\n"
     },
     {
@@ -50,7 +50,7 @@
         "--check-only"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 0.1096,
+      "elapsed_seconds": 0.1082,
       "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
     },
     {
@@ -60,7 +60,7 @@
         "--verdict"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 0.195,
+      "elapsed_seconds": 0.1439,
       "output": "ALL PROOFS CHECK\n"
     },
     {
@@ -70,7 +70,7 @@
         "--check-only"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 0.1259,
+      "elapsed_seconds": 0.1108,
       "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
     },
     {
@@ -80,7 +80,147 @@
         "--verdict"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 0.1795,
+      "elapsed_seconds": 0.1662,
+      "output": "ALL PROOFS CHECK\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/allocation.bend",
+        "--check-only"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.128,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/allocation.bend",
+        "--verdict"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.1769,
+      "output": "ALL PROOFS CHECK\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/successor.bend",
+        "--check-only"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.1479,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/successor.bend",
+        "--verdict"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.2457,
+      "output": "ALL PROOFS CHECK\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/context.bend",
+        "--check-only"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.1444,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/context.bend",
+        "--verdict"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.2378,
+      "output": "ALL PROOFS CHECK\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/induction.bend",
+        "--check-only"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.142,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/induction.bend",
+        "--verdict"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.2479,
+      "output": "ALL PROOFS CHECK\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/barrier.bend",
+        "--check-only"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.1907,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/barrier.bend",
+        "--verdict"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.3426,
+      "output": "ALL PROOFS CHECK\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/schedule.bend",
+        "--check-only"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.206,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/schedule.bend",
+        "--verdict"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.3666,
+      "output": "ALL PROOFS CHECK\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/PROOF.bend",
+        "--check-only"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.1958,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/PROOF.bend",
+        "--verdict"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.3567,
       "output": "ALL PROOFS CHECK\n"
     },
     {
@@ -90,7 +230,7 @@
         "--check-only"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 0.1346,
+      "elapsed_seconds": 0.1316,
       "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
     },
     {
@@ -100,7 +240,27 @@
         "--verdict"
       ],
       "exit_code": 0,
-      "elapsed_seconds": 0.2068,
+      "elapsed_seconds": 0.2049,
+      "output": "ALL PROOFS CHECK\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/endpoint-controls.bend",
+        "--check-only"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.2021,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/endpoint-controls.bend",
+        "--verdict"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.356,
       "output": "ALL PROOFS CHECK\n"
     }
   ],
@@ -113,31 +273,31 @@
       "copied_positive": {
         "command": [
           "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/schedule-mutant-m4zz57dp/p-observe-schedule/bump.bend",
+          "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/schedule-mutant-6qwpnxti/p-observe-schedule/bump.bend",
           "--verdict"
         ],
         "exit_code": 0,
-        "elapsed_seconds": 0.1923,
+        "elapsed_seconds": 0.1766,
         "output": "ALL PROOFS CHECK\n"
       },
       "compiled_mutant": {
         "command": [
           "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/schedule-mutant-m4zz57dp/t11-replacement/model.bend",
+          "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/schedule-mutant-6qwpnxti/t11-replacement/model.bend",
           "--check-only"
         ],
         "exit_code": 0,
-        "elapsed_seconds": 0.1062,
+        "elapsed_seconds": 0.109,
         "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
       },
       "unchanged_contextual_failure": {
         "command": [
           "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/schedule-mutant-m4zz57dp/p-observe-schedule/bump.bend",
+          "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/schedule-mutant-6qwpnxti/p-observe-schedule/bump.bend",
           "--check-only"
         ],
         "exit_code": 1,
-        "elapsed_seconds": 0.1109,
+        "elapsed_seconds": 0.1123,
         "output": "SOME PROOFS FAIL\nError:\n- expected : {S.pick(Nat.cmp(0n, slot), T.Row{0n, 0n, False{}}, _ => None{}) == S.immediate(Nat.cmp(slot, target), None{}) : Maybe<&2, T.Row>}\n- observed : {None{} == S.immediate(Nat.cmp(slot, target), None{}) : Maybe<&2, T.Row>}\nContext:\n- target : Nat\n- slot   : Nat\nLocation: bump_point\n48 |   match rows:\n49>|     case Nil{}: bump_missing(Nat.cmp(slot,target))\n   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n50 |     case Con{T.Row{+id,+value,+tag},+tail}:\n"
       }
     },
@@ -149,54 +309,229 @@
       "copied_positive": {
         "command": [
           "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/schedule-mutant-ha25s6k0/p-observe-schedule/transitions.bend",
+          "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/schedule-mutant-gin0nu2a/p-observe-schedule/transitions.bend",
           "--verdict"
         ],
         "exit_code": 0,
-        "elapsed_seconds": 0.1506,
+        "elapsed_seconds": 0.1527,
         "output": "ALL PROOFS CHECK\n"
       },
       "compiled_mutant": {
         "command": [
           "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/schedule-mutant-ha25s6k0/t11-replacement/model.bend",
+          "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/schedule-mutant-gin0nu2a/t11-replacement/model.bend",
           "--check-only"
         ],
         "exit_code": 0,
-        "elapsed_seconds": 0.0972,
+        "elapsed_seconds": 0.1031,
         "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
       },
       "unchanged_contextual_failure": {
         "command": [
           "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/schedule-mutant-ha25s6k0/p-observe-schedule/transitions.bend",
+          "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/schedule-mutant-gin0nu2a/p-observe-schedule/transitions.bend",
           "--check-only"
         ],
         "exit_code": 1,
-        "elapsed_seconds": 0.1128,
+        "elapsed_seconds": 0.1171,
         "output": "SOME PROOFS FAIL\nError:\n- expected : Sigma<&1, &1, {id == id : Nat}, _ => Sigma<&1, &1, {next == 1n+next : Nat}, _ => Sigma<&1, &1, {List.append(&2, T.Command, pending, [T.Spawn{next, value}]) == List.append(&2, T.Command, pending, [T.Spawn{next, value}]) : List<&2, T.Command>}, _ => R.Slots(next, 0n, left, right)>>>\n- observed : Sigma<&1, &1, {id == id : Nat}, _ => Sigma<&1, &1, {1n+next == 1n+next : Nat}, _ => Sigma<&1, &1, {List.append(&2, T.Command, pending, [T.Spawn{next, value}]) == List.append(&2, T.Command, pending, [T.Spawn{next, value}]) : List<&2, T.Command>}, _ => Sigma<&1, &1, {S.at(left, 0n) == S.at(right, 0n) : Maybe<&2, T.Row>}, _ => R.Slots(next, 1n, left, right)>>>>\nContext:\n- id       : Nat\n- next     : Nat\n- left     : List<&2, T.Row>\n- right    : List<&2, T.Row>\n- pending  : List<&2, T.Command>\n- value    : Nat\n- old      : R.Slots(next, 0n, left, right)\n- extended : Sigma<&1, &1, {S.at(left, 0n) == S.at(right, 0n) : Maybe<&2, T.Row>}, _ => R.Slots(next, 1n, left, right)>\nLocation: reserve_related_case\n14 |   match order:\n15>|     case LT{}: R.related_shared(id,1n+next,left,right,List.append(&2,T.Command,pending,[T.Spawn{next,value}]),extended)\n   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n16 |     case EQ{}: R.related_shared(id,next,left,right,pending,old)\n"
       }
     }
   ],
-  "open_endpoint": {
+  "standalone_selected_law_before_proof_import": {
     "command": [
       "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
       "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/LAWS.bend",
       "--check-only"
     ],
     "exit_code": 1,
-    "elapsed_seconds": 0.1162,
+    "elapsed_seconds": 0.0921,
     "output": "SOME PROOFS FAIL\nError: 1 TODO found.\nThe code is incomplete, and not a valid proof yet.\n"
   },
   "kernel_negative": {
     "command": [
       "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-      "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/relation.bend",
+      "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/PROOF.bend",
       "--verdict"
     ],
     "exit_code": 1,
-    "elapsed_seconds": 0.134,
+    "elapsed_seconds": 0.3295,
     "output": "SOME PROOFS FAIL\nSorry - this is a mismatch between the TypeScript implementation, and the formalized BendTT kernel. Your proofs may or may not be correct, and we cannot validate them yet. This will be addressed in a future update. Meanwhile, feel free to open an issue to report this bug.\n"
+  },
+  "endpoint_mutants": [
+    {
+      "name": "implicit-final-flush",
+      "old": "def tick(steps: List<&2, T.Step>, +limit: Nat, world: T.World) -> T.World:\n  match steps:\n    case Nil{}: world",
+      "new": "def tick(steps: List<&2, T.Step>, +limit: Nat, world: T.World) -> T.World:\n  match steps:\n    case Nil{}: flush(world)",
+      "law_id": "schedule_execution_exact",
+      "failure_location": "schedule_related",
+      "failure_scope": "Dedicated universal induction in the endpoint section; not the final law wrapper",
+      "unchanged_proof_hashes": {
+        "transitions.bend": "428a2396395f3488803b0045e54f270b3bc0f411e377c32717236de1e472c167",
+        "PROOF.bend": "49b295ee69245531c2208162c9850cd580dc41972c4380683b96aff818166724",
+        "successor.bend": "d6cb87b34fde2e2662891bc52ce27009da1c564a2e1b2d55fdc6a17548a9396b",
+        "LAWS.bend": "7905def67e1735469dd64692e24fcfd418a81cc74ed79d6d4806c481fd1045e6",
+        "barrier.bend": "3d43b6c285ad0803f5c701fe024a46feaf9407bfd9428512e48068e64d96b7cb",
+        "schedule.bend": "bda1247d6e7b5d1878a743b205adafd4e27fc078efd989b3764b11871efc4358",
+        "context.bend": "29be45f46727046d5855cc543905e5938d38fb4ccb21911e563ec088b5cc5ee7",
+        "bump.bend": "072cf6f3a59b9a5101c4025c02850a12123367fdfe31f8eb623a82483608717a",
+        "allocation.bend": "ff29075121eecbe8027f0d534390f342c762922259caafd7adf3bc47dd8fa7fe",
+        "induction.bend": "74c2e5306c5ca50627bbcbad728bf3775e3637ec3dda7f5aa15e8aa5449fee72",
+        "invariants.bend": "6f3c59da2f2c9a8b94ded4f185ee055c4b0be82ab8e91b3db797ac24f2c1a9e2",
+        "controls.bend": "d58923ba0f8d8fdcdd88d17964e41faf28458f0b3b43c63387bbb1043bb6261b",
+        "endpoint-controls.bend": "dbcd7c00d91c6e6c405b80da9468da7a62a7bff51a982accceba8d6ea512347d",
+        "relation.bend": "8f1ae1ec6184791f83f7819afce9837c4a3537768a4855200f3bc8bc5b947947"
+      },
+      "copied_positive": {
+        "command": [
+          "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+          "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/schedule-endpoint-mutant-hm5querz/p-observe-schedule/PROOF.bend",
+          "--verdict"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 0.4485,
+        "output": "ALL PROOFS CHECK\n"
+      },
+      "original_true_premise_instance": {
+        "command": [
+          "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+          "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/schedule-endpoint-mutant-hm5querz/p-observe-schedule/own-witness.bend",
+          "--verdict"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 0.1449,
+        "output": "ALL PROOFS CHECK\n"
+      },
+      "compiled_mutant": {
+        "command": [
+          "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+          "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/schedule-endpoint-mutant-hm5querz/t11-replacement/model.bend",
+          "--check-only"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 0.0992,
+        "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+      },
+      "unchanged_own_section_failure": {
+        "command": [
+          "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+          "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/schedule-endpoint-mutant-hm5querz/p-observe-schedule/PROOF.bend",
+          "--check-only"
+        ],
+        "exit_code": 1,
+        "elapsed_seconds": 0.1539,
+        "output": "SOME PROOFS FAIL\nError:\n- expected : {T.Observation{id, next, M.query_rows(T.Any{}, M.apply_all(pending, left)), []} == T.Observation{id, next, S.enumerate_rows(next, 0n, right, T.Any{}), pending} : T.Observation}\n- observed : {T.Observation{id, next, M.query_rows(T.Any{}, left), pending} == T.Observation{id, next, S.enumerate_rows(next, 0n, right, T.Any{}), pending} : T.Observation}\nContext:\n- limit   : Nat\n- id      : Nat\n- next    : Nat\n- left    : List<&2, T.Row>\n- right   : List<&2, T.Row>\n- pending : List<&2, T.Command>\n- valid   : {True{} == Bool.and(Cmp.is_le(Nat.cmp(next, limit)), Bool.and(S.rows_valid(left, left, next), S.pending_valid(pending, pending, left, next))) : Bool}\n- related : R.Slots(limit, 0n, left, right)\nLocation: schedule_related\n17 |   match steps:\n18>|     case Nil{}: C.final_observation(limit,id,next,left,right,pending,valid,related)\n   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n19 |     case Con{operation,+tail}:\n"
+      },
+      "false_endpoint_instance": {
+        "command": [
+          "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+          "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/schedule-endpoint-mutant-hm5querz/p-observe-schedule/own-witness.bend",
+          "--check-only"
+        ],
+        "exit_code": 1,
+        "elapsed_seconds": 0.0924,
+        "output": "SOME PROOFS FAIL\nError:\n- expected : T.Observation{7n, 3n, [T.Row{2n, 5n, False{}}], []}\n- observed : T.Observation{7n, 3n, [], [T.Spawn{2n, 5n}]}\nLocation: exact_schedule_instance\n5 | def premise() -> {True{} == S.admissible(4n,T.World{7n,2n,[],[]}) : Bool}: {==}\n6>| def exact_schedule_instance() -> S.When(S.admissible(4n,T.World{7n,2n,[],[]}), {M.observe(M.tick([T.Reserve{5n}],4n,T.World{7n,2n,[],[]})) == S.schedule_observation(4n,T.World{7n,2n,[],[]}, [T.Reserve{5n}]) : T.Observation}): {==}\n  |                                                                                                                                                                                                                                   ^^^^\n7 | \n"
+      },
+      "active_premise_on_mutant": {
+        "command": [
+          "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+          "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/schedule-endpoint-mutant-hm5querz/p-observe-schedule/own-premise.bend",
+          "--verdict"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 0.1454,
+        "output": "ALL PROOFS CHECK\n"
+      }
+    },
+    {
+      "name": "schedule-drops-tail",
+      "old": "case Con{step, tail}: tick(tail, limit, M_step(limit, world, step))",
+      "new": "case Con{step, tail}: M_step(limit, world, step)",
+      "law_id": "schedule_execution_exact",
+      "failure_location": "schedule_related",
+      "failure_scope": "Dedicated universal induction in the endpoint section; not the final law wrapper",
+      "unchanged_proof_hashes": {
+        "transitions.bend": "428a2396395f3488803b0045e54f270b3bc0f411e377c32717236de1e472c167",
+        "PROOF.bend": "49b295ee69245531c2208162c9850cd580dc41972c4380683b96aff818166724",
+        "successor.bend": "d6cb87b34fde2e2662891bc52ce27009da1c564a2e1b2d55fdc6a17548a9396b",
+        "LAWS.bend": "7905def67e1735469dd64692e24fcfd418a81cc74ed79d6d4806c481fd1045e6",
+        "barrier.bend": "3d43b6c285ad0803f5c701fe024a46feaf9407bfd9428512e48068e64d96b7cb",
+        "schedule.bend": "bda1247d6e7b5d1878a743b205adafd4e27fc078efd989b3764b11871efc4358",
+        "context.bend": "29be45f46727046d5855cc543905e5938d38fb4ccb21911e563ec088b5cc5ee7",
+        "bump.bend": "072cf6f3a59b9a5101c4025c02850a12123367fdfe31f8eb623a82483608717a",
+        "allocation.bend": "ff29075121eecbe8027f0d534390f342c762922259caafd7adf3bc47dd8fa7fe",
+        "induction.bend": "74c2e5306c5ca50627bbcbad728bf3775e3637ec3dda7f5aa15e8aa5449fee72",
+        "invariants.bend": "6f3c59da2f2c9a8b94ded4f185ee055c4b0be82ab8e91b3db797ac24f2c1a9e2",
+        "controls.bend": "d58923ba0f8d8fdcdd88d17964e41faf28458f0b3b43c63387bbb1043bb6261b",
+        "endpoint-controls.bend": "dbcd7c00d91c6e6c405b80da9468da7a62a7bff51a982accceba8d6ea512347d",
+        "relation.bend": "8f1ae1ec6184791f83f7819afce9837c4a3537768a4855200f3bc8bc5b947947"
+      },
+      "copied_positive": {
+        "command": [
+          "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+          "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/schedule-endpoint-mutant-0dj4188f/p-observe-schedule/PROOF.bend",
+          "--verdict"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 0.3626,
+        "output": "ALL PROOFS CHECK\n"
+      },
+      "original_true_premise_instance": {
+        "command": [
+          "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+          "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/schedule-endpoint-mutant-0dj4188f/p-observe-schedule/own-witness.bend",
+          "--verdict"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 0.1401,
+        "output": "ALL PROOFS CHECK\n"
+      },
+      "compiled_mutant": {
+        "command": [
+          "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+          "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/schedule-endpoint-mutant-0dj4188f/t11-replacement/model.bend",
+          "--check-only"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 0.0953,
+        "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+      },
+      "unchanged_own_section_failure": {
+        "command": [
+          "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+          "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/schedule-endpoint-mutant-0dj4188f/p-observe-schedule/PROOF.bend",
+          "--check-only"
+        ],
+        "exit_code": 1,
+        "elapsed_seconds": 0.1533,
+        "output": "SOME PROOFS FAIL\nError:\n- expected : {M.observe(M.step(limit, T.World{id, next, left, pending}, operation)) == S.observe(S.run(tail, limit, S.step(limit, T.World{id, next, right, pending}, operation))) : T.Observation}\n- observed : {M.observe(M.tick(tail, limit, M.step(limit, T.World{id, next, left, pending}, operation))) == S.observe(S.run(tail, limit, S.step(limit, T.World{id, next, right, pending}, operation))) : T.Observation}\nContext:\n- operation : T.Step\n- tail      : List<&2, T.Step>\n- limit     : Nat\n- id        : Nat\n- next      : Nat\n- left      : List<&2, T.Row>\n- right     : List<&2, T.Row>\n- pending   : List<&2, T.Command>\n- valid     : {True{} == Bool.and(Cmp.is_le(Nat.cmp(next, limit)), Bool.and(S.rows_valid(left, left, next), S.pending_valid(pending, pending, left, next))) : Bool}\n- related   : R.Slots(limit, 0n, left, right)\nLocation: schedule_related\n19 |     case Con{operation,+tail}:\n20>|       D.dispatch(operation,tail,limit,id,next,left,right,pending,valid,related,\n   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n21 |         n => l => r => p => h => slots => schedule_related(tail,limit,id,n,l,r,p,h,slots))\n"
+      },
+      "false_endpoint_instance": {
+        "command": [
+          "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+          "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/schedule-endpoint-mutant-0dj4188f/p-observe-schedule/own-witness.bend",
+          "--check-only"
+        ],
+        "exit_code": 1,
+        "elapsed_seconds": 0.0979,
+        "output": "SOME PROOFS FAIL\nError:\n- expected : T.Observation{7n, 3n, [], [T.Spawn{2n, 5n}]}\n- observed : T.Observation{7n, 3n, [T.Row{2n, 5n, False{}}], []}\nLocation: exact_schedule_instance\n5 | def premise() -> {True{} == S.admissible(4n,T.World{7n,2n,[],[]}) : Bool}: {==}\n6>| def exact_schedule_instance() -> S.When(S.admissible(4n,T.World{7n,2n,[],[]}), {M.observe(M.tick([T.Reserve{5n},T.Barrier{}],4n,T.World{7n,2n,[],[]})) == S.schedule_observation(4n,T.World{7n,2n,[],[]}, [T.Reserve{5n},T.Barrier{}]) : T.Observation}): {==}\n  |                                                                                                                                                                                                                                                           ^^^^\n7 | \n"
+      },
+      "active_premise_on_mutant": {
+        "command": [
+          "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+          "/workspace/formal-proofs/bendvy/experiments/p-observe-schedule/schedule-endpoint-mutant-0dj4188f/p-observe-schedule/own-premise.bend",
+          "--verdict"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 0.1422,
+        "output": "ALL PROOFS CHECK\n"
+      }
+    }
+  ],
+  "reference_commits": {
+    "bevy-ts": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334",
+    "bevy": "ad678262ce53b5d142fe49ee5e08caff6f00ab60",
+    "bend2": "a950fd683c0d76f09794078e6174fe98a1492876"
   },
   "canonical_sources": {
     "experiments/t11-replacement/LAWS.bend": "e0c607d723ad250a189c096d9fa3fd6a36913f4c72efd3a3be6dacd7fadb2cbc",
@@ -206,17 +541,26 @@
   },
   "source_hashes": {
     "experiments/p-observe-schedule/transitions.bend": "428a2396395f3488803b0045e54f270b3bc0f411e377c32717236de1e472c167",
+    "experiments/p-observe-schedule/PROOF.bend": "49b295ee69245531c2208162c9850cd580dc41972c4380683b96aff818166724",
+    "experiments/p-observe-schedule/successor.bend": "d6cb87b34fde2e2662891bc52ce27009da1c564a2e1b2d55fdc6a17548a9396b",
     "experiments/p-observe-schedule/LAWS.bend": "7905def67e1735469dd64692e24fcfd418a81cc74ed79d6d4806c481fd1045e6",
+    "experiments/p-observe-schedule/barrier.bend": "3d43b6c285ad0803f5c701fe024a46feaf9407bfd9428512e48068e64d96b7cb",
+    "experiments/p-observe-schedule/schedule.bend": "bda1247d6e7b5d1878a743b205adafd4e27fc078efd989b3764b11871efc4358",
+    "experiments/p-observe-schedule/context.bend": "29be45f46727046d5855cc543905e5938d38fb4ccb21911e563ec088b5cc5ee7",
     "experiments/p-observe-schedule/bump.bend": "072cf6f3a59b9a5101c4025c02850a12123367fdfe31f8eb623a82483608717a",
+    "experiments/p-observe-schedule/allocation.bend": "ff29075121eecbe8027f0d534390f342c762922259caafd7adf3bc47dd8fa7fe",
+    "experiments/p-observe-schedule/induction.bend": "74c2e5306c5ca50627bbcbad728bf3775e3637ec3dda7f5aa15e8aa5449fee72",
     "experiments/p-observe-schedule/invariants.bend": "6f3c59da2f2c9a8b94ded4f185ee055c4b0be82ab8e91b3db797ac24f2c1a9e2",
     "experiments/p-observe-schedule/controls.bend": "d58923ba0f8d8fdcdd88d17964e41faf28458f0b3b43c63387bbb1043bb6261b",
-    "experiments/p-observe-schedule/relation.bend": "6963e56dd27f2efb1fe88440b4dc699194d227dac3ab8940a739ea056b146f98",
-    "experiments/p-observe-schedule/verify.py": "e3e2d4f1a69a5b70620c6b3cc5d489cf35acac5524f23ebaa03a78a6e20dd5a5",
-    "experiments/p-observe-schedule/PLAN.md": "b280da85abbde529513d64723a13189d8314cd3734c0be5777f5d74fbd3c174e",
+    "experiments/p-observe-schedule/endpoint-controls.bend": "dbcd7c00d91c6e6c405b80da9468da7a62a7bff51a982accceba8d6ea512347d",
+    "experiments/p-observe-schedule/relation.bend": "8f1ae1ec6184791f83f7819afce9837c4a3537768a4855200f3bc8bc5b947947",
+    "experiments/p-observe-schedule/verify.py": "3bb3591a10e985e59c7e5bc345ac6e6d050597ba0554e007e6e7bd8397010421",
+    "experiments/p-observe-schedule/PLAN.md": "facac6a6b844bcc8eecadee1c4dfc65c5beabc3a4d61d40458b21aecdc2f72da",
     "experiments/p-observe-queries/helpers.bend": "d6a4e2ed063042ef275af99dc4aa5afa26537de4a65b44e78b18847514c7ffb0",
     "experiments/p-observe-queries/insertion.bend": "513d4038ce6c0d49b211cbc87e254c0c32a5e0fb20c24fca3afe6a6c982fca09",
     "experiments/p-observe-queries/PROOF.bend": "c19232ce95346de33432e330c259932c814a0fec772a23cac924837742a13394",
-    "experiments/p-observe-queries/order.bend": "31bf888841a0f55af73e11556dfb671c0b65661dbc584214b58953c9af1e8c38",
+    "experiments/p-observe-queries/order.bend": "5ced479fc833f02cd14b7bc9a75ebd8c6b8fe3c9453c56896df723c2f26914d0",
+    "experiments/p-observe-queries/enum-controls.bend": "a2b857bebae197d736c93835a4986675fe8636555536dcaed5fb8618d44682cb",
     "experiments/p-observe-queries/complete.bend": "6251ed244326bcb45ecc0a7bca710b9d0e7ec4dcaac1992fa0760d718b456c25",
     "experiments/p-observe-queries/LAWS.bend": "a158a7b674c9d0de0ff27f68028389910666d0f37c964c51f315ef3306da82dd",
     "experiments/p-observe-queries/attempt.bend": "656b0f1cca7de6cdd6bd982308c58cf3e4ab7184541f82b331ba78e0c641f819",
@@ -224,9 +568,18 @@
     "experiments/p-observe-queries/contextual.bend": "b47db33a06c55da8fa014f6f5dab2c39a194f314f3a2ccd1cfe24c95153cf3a9",
     "experiments/p-observe-queries/invariants.bend": "172b3fa37a00946d299efa107697ac9eb08da11c59731976777a373ccb56eeaf",
     "experiments/p-observe-queries/controls.bend": "ab314daad6b99ffdda49ca680fca8417acc6d5c2bcd192e5e1dadfde78304f55",
+    "experiments/p-observe-queries/enum-lookup.bend": "9746bc7c140857e687b8b3ae23870fd6c55236067ef1fbaed6e3a855e07463bb",
     "experiments/p-observe-lookup/PROOF.bend": "00f6638706a9dafb28039d8631a96b9e8b96aa874df4839202c19cc87b221c01",
     "experiments/p-observe-lookup/LAWS.bend": "95a8c2307f8e8a7eac399dc46e8b0c5a42c5e6f50540f2c6a63df8e9f53c0603",
-    "experiments/p-observe-lookup/controls.bend": "b58a585fb46a75a18c1a7dfb8b2cc710557c2cd64479bd7b5784dea22f4ff1fc"
+    "experiments/p-observe-lookup/controls.bend": "b58a585fb46a75a18c1a7dfb8b2cc710557c2cd64479bd7b5784dea22f4ff1fc",
+    "experiments/p-observe-flush/prefix.bend": "1b430c5346359727bc9567aa55537ab0f64380ab050edaaca7d51e55ad3179e3",
+    "experiments/p-observe-flush/PROOF.bend": "e54df684903a6b6ce693190d7054cdfa03a8a198494b3e831b0c11cb3dbcf091",
+    "experiments/p-observe-flush/LAWS.bend": "67d11552ef01d5cac07b8d30c2b183f13239cbdebf09035b2c0d3c765f8fff0a",
+    "experiments/p-observe-flush/coherence.bend": "ecb79eddd1a0a9001eb6cca34929a20b79b3c4949956fee689eccbec0fd2f887",
+    "experiments/p-observe-flush/materialization.bend": "1610b5035956448bd80e8771fa2fd2f2adb7364fb3cf2e3dc8e11bcee8500e68",
+    "experiments/p-observe-flush/RESIDUAL.bend": "2e2b4a8f79b7ac25c80ec354d6cf689051350f28cb47396dabdfcbda9b8992cc",
+    "experiments/p-observe-flush/controls.bend": "891450823fa4a716c1259ea8d4168a02d673c3e71cb451cbc029cd26d4e8a716",
+    "experiments/p-observe-flush/toolkit.bend": "d370e490bcbcfe0a0135943b3e64e2a2ea02c4e438c466baaff5505cd0899dd8"
   },
   "base_sha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
   "compiler_path": "/home/node/.bend/bin/bend",
