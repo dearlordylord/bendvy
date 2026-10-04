@@ -1,0 +1,428 @@
+{
+  "scope": "actual Lifecycle direct-world owner boundaries; no active Tx fixture substitution",
+  "limits": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "cpu": 8,
+  "cases": [
+    {
+      "schema": "Motion",
+      "count": 64,
+      "backends": {
+        "Native": {
+          "status": "PASS",
+          "fullPublicMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "completeBoundaries": 192,
+            "allFieldComparisons": 12352,
+            "finalNormalizedSha256": "06b3d207c39a5fcbb674200ee4b4c15aab18be8d2a7814f32b0dfb6ee931f7a7",
+            "summary": {
+              "counts": [
+                {
+                  "system": "Dispose",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Reserve",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                }
+              ],
+              "tick": 257,
+              "frames": 193
+            }
+          },
+          "worldPendingPeak": 64,
+          "systemPendingPeak": 2,
+          "actualOwnerKind": "World",
+          "activeTx": "not applicable to observed direct-world operations",
+          "checkpoints": 514,
+          "rawRecords": "lifecycle-motion-64-native.jsonl.gz",
+          "rawSha256": "a593713d6ee032f26a1a1e45601a1ef03a2532d3a0d32d34cb7d2b56feb05083",
+          "publicSha256": "8c1d787cfb1fa2ef891c6bb924e1bbf496c32dc7d979cb1f6b5f366ebd970199"
+        },
+        "JS": {
+          "status": "PASS",
+          "fullPublicMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "completeBoundaries": 192,
+            "allFieldComparisons": 12352,
+            "finalNormalizedSha256": "06b3d207c39a5fcbb674200ee4b4c15aab18be8d2a7814f32b0dfb6ee931f7a7",
+            "summary": {
+              "counts": [
+                {
+                  "system": "Dispose",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Reserve",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                }
+              ],
+              "tick": 257,
+              "frames": 193
+            }
+          },
+          "worldPendingPeak": 64,
+          "systemPendingPeak": 2,
+          "actualOwnerKind": "World",
+          "activeTx": "not applicable to observed direct-world operations",
+          "checkpoints": 514,
+          "rawRecords": "lifecycle-motion-64-js.jsonl.gz",
+          "rawSha256": "a593713d6ee032f26a1a1e45601a1ef03a2532d3a0d32d34cb7d2b56feb05083",
+          "publicSha256": "8c1d787cfb1fa2ef891c6bb924e1bbf496c32dc7d979cb1f6b5f366ebd970199"
+        }
+      }
+    },
+    {
+      "schema": "Motion",
+      "count": 256,
+      "backends": {
+        "Native": {
+          "status": "PASS",
+          "fullPublicMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "completeBoundaries": 192,
+            "allFieldComparisons": 49216,
+            "finalNormalizedSha256": "421e82df77af955576d7eec89b3967acc359ca8c8e34477ba5905319e8afaa15",
+            "summary": {
+              "counts": [
+                {
+                  "system": "Dispose",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Reserve",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                }
+              ],
+              "tick": 257,
+              "frames": 193
+            }
+          },
+          "worldPendingPeak": 256,
+          "systemPendingPeak": 2,
+          "actualOwnerKind": "World",
+          "activeTx": "not applicable to observed direct-world operations",
+          "checkpoints": 514,
+          "rawRecords": "lifecycle-motion-256-native.jsonl.gz",
+          "rawSha256": "63ff2b79c13f19e79a68d51b7cd9d311532cd69edbe1461d6ecf89b5ebc8237d",
+          "publicSha256": "284ddb780aed2d13665dcce773fca984e3616917696602e762641f12818f2fa7"
+        },
+        "JS": {
+          "status": "PASS",
+          "fullPublicMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "completeBoundaries": 192,
+            "allFieldComparisons": 49216,
+            "finalNormalizedSha256": "421e82df77af955576d7eec89b3967acc359ca8c8e34477ba5905319e8afaa15",
+            "summary": {
+              "counts": [
+                {
+                  "system": "Dispose",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Reserve",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                }
+              ],
+              "tick": 257,
+              "frames": 193
+            }
+          },
+          "worldPendingPeak": 256,
+          "systemPendingPeak": 2,
+          "actualOwnerKind": "World",
+          "activeTx": "not applicable to observed direct-world operations",
+          "checkpoints": 514,
+          "rawRecords": "lifecycle-motion-256-js.jsonl.gz",
+          "rawSha256": "63ff2b79c13f19e79a68d51b7cd9d311532cd69edbe1461d6ecf89b5ebc8237d",
+          "publicSha256": "284ddb780aed2d13665dcce773fca984e3616917696602e762641f12818f2fa7"
+        }
+      }
+    },
+    {
+      "schema": "Motion",
+      "count": 1024,
+      "backends": {
+        "Native": {
+          "status": "UNAVAILABLE",
+          "error": "Command '['taskset', '-c', '8', '/tmp/prep22-lifecycle-qhlymnas/lifecycle-diagnostic', '--threads', '1', '--gpu', 'off', '0', '1024']' timed out after 5 seconds"
+        },
+        "JS": {
+          "status": "UNAVAILABLE",
+          "error": "Command '['taskset', '-c', '8', 'node', '/tmp/prep22-lifecycle-qhlymnas/lifecycle-diagnostic.js', '0', '1024']' timed out after 5 seconds"
+        }
+      }
+    },
+    {
+      "schema": "Health",
+      "count": 64,
+      "backends": {
+        "Native": {
+          "status": "PASS",
+          "fullPublicMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "completeBoundaries": 192,
+            "allFieldComparisons": 12352,
+            "finalNormalizedSha256": "f01413002da2cbc252970514a837b597e5bc5f03f7b2e1c121a9a0786169e9fa",
+            "summary": {
+              "counts": [
+                {
+                  "system": "Dispose",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Reserve",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                }
+              ],
+              "tick": 257,
+              "frames": 193
+            }
+          },
+          "worldPendingPeak": 64,
+          "systemPendingPeak": 2,
+          "actualOwnerKind": "World",
+          "activeTx": "not applicable to observed direct-world operations",
+          "checkpoints": 514,
+          "rawRecords": "lifecycle-health-64-native.jsonl.gz",
+          "rawSha256": "77829645f9f590e00d0c8213185056fce36090a805d5b390c1aedac189ec6dbc",
+          "publicSha256": "b3c50dea214ddf1df91566f6fb569468ad5e5fd50c6b6b0c814efed766dd1dd9"
+        },
+        "JS": {
+          "status": "PASS",
+          "fullPublicMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "completeBoundaries": 192,
+            "allFieldComparisons": 12352,
+            "finalNormalizedSha256": "f01413002da2cbc252970514a837b597e5bc5f03f7b2e1c121a9a0786169e9fa",
+            "summary": {
+              "counts": [
+                {
+                  "system": "Dispose",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Reserve",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                }
+              ],
+              "tick": 257,
+              "frames": 193
+            }
+          },
+          "worldPendingPeak": 64,
+          "systemPendingPeak": 2,
+          "actualOwnerKind": "World",
+          "activeTx": "not applicable to observed direct-world operations",
+          "checkpoints": 514,
+          "rawRecords": "lifecycle-health-64-js.jsonl.gz",
+          "rawSha256": "77829645f9f590e00d0c8213185056fce36090a805d5b390c1aedac189ec6dbc",
+          "publicSha256": "b3c50dea214ddf1df91566f6fb569468ad5e5fd50c6b6b0c814efed766dd1dd9"
+        }
+      }
+    },
+    {
+      "schema": "Health",
+      "count": 256,
+      "backends": {
+        "Native": {
+          "status": "PASS",
+          "fullPublicMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "completeBoundaries": 192,
+            "allFieldComparisons": 49216,
+            "finalNormalizedSha256": "f45fc1b19975043c826a48e8aa58ba4ab098ec5f051422fe9dd2c37eb40bf415",
+            "summary": {
+              "counts": [
+                {
+                  "system": "Dispose",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Reserve",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                }
+              ],
+              "tick": 257,
+              "frames": 193
+            }
+          },
+          "worldPendingPeak": 256,
+          "systemPendingPeak": 2,
+          "actualOwnerKind": "World",
+          "activeTx": "not applicable to observed direct-world operations",
+          "checkpoints": 514,
+          "rawRecords": "lifecycle-health-256-native.jsonl.gz",
+          "rawSha256": "b938823791347c2b58e843c12028aaf0490d61f1a567f59106c91b8b7173cabd",
+          "publicSha256": "acba9002ed900d722ecf29c7a39727d1cce29f72e08ac197f03727e3cdc3a5fa"
+        },
+        "JS": {
+          "status": "UNAVAILABLE",
+          "error": "Command '['taskset', '-c', '8', 'node', '/tmp/prep22-lifecycle-qhlymnas/lifecycle-diagnostic.js', '1', '256']' timed out after 5 seconds"
+        }
+      }
+    },
+    {
+      "schema": "Health",
+      "count": 1024,
+      "backends": {
+        "Native": {
+          "status": "UNAVAILABLE",
+          "error": "Command '['taskset', '-c', '8', '/tmp/prep22-lifecycle-qhlymnas/lifecycle-diagnostic', '--threads', '1', '--gpu', 'off', '1', '1024']' timed out after 5 seconds"
+        },
+        "JS": {
+          "status": "UNAVAILABLE",
+          "error": "Command '['taskset', '-c', '8', 'node', '/tmp/prep22-lifecycle-qhlymnas/lifecycle-diagnostic.js', '1', '1024']' timed out after 5 seconds"
+        }
+      }
+    }
+  ],
+  "sources": {
+    "lifecycle-diagnostic": {
+      "experiments/s-integrate/measurement-lifecycle.bend": "655f73c65b6bdafeb3609a822e5da2e3ee189a7d1c987813ba3a236a7fc31fbd",
+      "experiments/s-integrate/occupancy.bend": "13e617f60b66f5d55eef4f3d445dd14eda1684fd61679be8a338bf613655826e",
+      "experiments/s-integrate/storage.bend": "8440ed1ec21c8d4874072aed8ca0ec4967f4e4e522f88d36f68050685d9e0345",
+      "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+      "experiments/s-integrate/streams.bend": "1a1c7991d6a1b4ebfb3b47dc62459beb83ed5e38ded56d27cc20b5478fc0d315",
+      "experiments/s-integrate/readers.bend": "2673082b4ef5cd6c5d8f61c362e22f74b13daeb27196894278cc20b1459c22e9",
+      "experiments/s-integrate/reader-host.bend": "50f1251c6d476b07055c36c5a97e3350a4cb46e5d826ff97ced2860d40798a64",
+      "experiments/s-integrate/transaction.bend": "dd59d470030c06a30cff28abb7e57c99fac64ee3d00b76ccf3c5ae8d99b66b52",
+      "experiments/s-integrate/measurement-bend.bend": "6ffb9993c97ed7852d39a843859d69722b4cd17a8a44de992cfef5f5c814caad",
+      "experiments/s-integrate/identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+      "experiments/s-integrate/commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+      "experiments/s-integrate/query.bend": "5fb8447d34edc2260341341c36dc7970964318fa582cdd078da296c5f9e1a1ce",
+      "experiments/s-integrate/observations.bend": "00442198a7aeb420c5defef1641fa873a8f4fcaddfd896973820fe7b875216c4",
+      "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+      "experiments/s-integrate/transaction-dispatch-adapters.bend": "839772db858b1a04437abcb024a3879d3bca0094e9eab71bafd86bf117e89dc7",
+      "experiments/s-integrate/systems.bend": "2cfc899215e408cc4c652c8d4c290b18800cdb6e8c96f1061a77853afdac9221",
+      "experiments/s-integrate/schedule.bend": "98c955f7ee5039aed875a3bd93e3c94840d9ea2f48de0e6415bd28d63ee8fb98",
+      "experiments/s-integrate/capture.bend": "44d5f3117a465c216ee93100026aad78e86f24c40c09c678be99935dde076817",
+      "experiments/s-integrate/host.bend": "87ff2110a66dd73beefc55815c2433b2c55eec54be9bbc5adeb30d36e2c174f6",
+      "experiments/s-integrate/dispatcher.bend": "5d7652d052f9915e9735a81d470026c2f7ba2077f11b09472418a6b5213945e9",
+      "experiments/s-integrate/host-observations.bend": "e6a37f6d160a53f14b08254f35cb317a68f1f2c540c40c9b88e600d0d6198e76",
+      "experiments/s-integrate/audited-invoker.bend": "923501b9c4167607e056af83f34468db6675adc19624f3f4cb619165324cf191",
+      "experiments/s-integrate/structural-invoker.bend": "6907a8c5775f77ffed6141123fe5c7033678269ade0f59cd0f24b8680e497932",
+      "experiments/s-integrate/host-render.bend": "1eef120fa604ba633f06d33a8a3910845293926c36dc9c91cd59d4d5c045a28a"
+    },
+    "lifecycle-original": {
+      "experiments/s-integrate/measurement-lifecycle.bend": "0b2690c7d56219411dd3a14876dda8fe0c2f757fcf3656cf404fbdf76524296d",
+      "experiments/s-integrate/measurement-bend.bend": "c2351825ee3998988aa01440e484db0cd11d3dbac5a70db4a079d841aaaaf31d",
+      "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+      "experiments/s-integrate/storage.bend": "8440ed1ec21c8d4874072aed8ca0ec4967f4e4e522f88d36f68050685d9e0345",
+      "experiments/s-integrate/identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+      "experiments/s-integrate/commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+      "experiments/s-integrate/query.bend": "5fb8447d34edc2260341341c36dc7970964318fa582cdd078da296c5f9e1a1ce",
+      "experiments/s-integrate/observations.bend": "00442198a7aeb420c5defef1641fa873a8f4fcaddfd896973820fe7b875216c4",
+      "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+      "experiments/s-integrate/transaction.bend": "d32f0b26e4a14fc784c3ce30c4d6a1ded0cf0a55ed819f54419a558445e298a4",
+      "experiments/s-integrate/transaction-dispatch-adapters.bend": "eea16d3f539d70bcd88fd8fd314b75d252ccaff2b9c1c8b63e7d96bfdda34142",
+      "experiments/s-integrate/systems.bend": "2cfc899215e408cc4c652c8d4c290b18800cdb6e8c96f1061a77853afdac9221",
+      "experiments/s-integrate/schedule.bend": "98c955f7ee5039aed875a3bd93e3c94840d9ea2f48de0e6415bd28d63ee8fb98",
+      "experiments/s-integrate/capture.bend": "44d5f3117a465c216ee93100026aad78e86f24c40c09c678be99935dde076817",
+      "experiments/s-integrate/host.bend": "cc06d581fbc762ef2fcae5091a21bb11955c6770e43abc4346de9fa884d81d2c",
+      "experiments/s-integrate/dispatcher.bend": "5d7652d052f9915e9735a81d470026c2f7ba2077f11b09472418a6b5213945e9",
+      "experiments/s-integrate/readers.bend": "2673082b4ef5cd6c5d8f61c362e22f74b13daeb27196894278cc20b1459c22e9",
+      "experiments/s-integrate/reader-host.bend": "50f1251c6d476b07055c36c5a97e3350a4cb46e5d826ff97ced2860d40798a64",
+      "experiments/s-integrate/streams.bend": "1a1c7991d6a1b4ebfb3b47dc62459beb83ed5e38ded56d27cc20b5478fc0d315",
+      "experiments/s-integrate/host-observations.bend": "e6a37f6d160a53f14b08254f35cb317a68f1f2c540c40c9b88e600d0d6198e76",
+      "experiments/s-integrate/audited-invoker.bend": "2ed7e484b8a043f0944e0f662a8799f94388c99f757de331fb1a79b1c07c8853",
+      "experiments/s-integrate/structural-invoker.bend": "6907a8c5775f77ffed6141123fe5c7033678269ade0f59cd0f24b8680e497932",
+      "experiments/s-integrate/host-render.bend": "1eef120fa604ba633f06d33a8a3910845293926c36dc9c91cd59d4d5c045a28a"
+    }
+  },
+  "generated": {
+    "lifecycle-diagnostic": {
+      "lifecycle-diagnostic.c": "036c7dc3d7e1b5e6248858fac9b8e3cedae059c671701ca157af1cdb83c5c6d3",
+      "lifecycle-diagnostic.js": "c2a839db5f93c77662d80fb9154d9d42994c8fb9fb199534010f1718523690c3",
+      "lifecycle-diagnostic": "187dbd0b1d93628b48c0b8acf566ba661ee69b3b02e7ab0c6023d8ede5b91fcf"
+    },
+    "lifecycle-original": {
+      "lifecycle-original.c": "6e1df9bd3c4467511ea0c01865e689b9917cdec87f8bab186c49bbc87e79380e",
+      "lifecycle-original.js": "df9a10e3f3ddd912da46d9375bc85bb7bb8aa67cf2e5bc1bd9f1ddccbe906c01",
+      "lifecycle-original": "b126556aec5474516d1e19edbc33c1104c857ba344cabc63243a6597141c264f"
+    }
+  },
+  "status": "BOUNDED_FAILURE"
+}

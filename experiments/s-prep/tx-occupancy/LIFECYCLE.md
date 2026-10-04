@@ -1,0 +1,11 @@
+# Actual Lifecycle owner boundaries
+
+Lifecycle reserve/dispose callbacks directly stage commands in World; they do not construct active Tx owners. The copied diagnostic hooks inspect and restore the actual affine World before and after each system and barrier. They preserve every original callback signature and field. This is a direct-World measurement, not an inferred zero-Tx workload pass.
+
+The fixed 64-iteration workload has 514 physical checkpoints: the initial barrier plus 128 system and 128 barrier pairs. Setup pending reaches the initial entity count; after-system pending reaches two for remove-main plus despawn. Each record carries physically traversed pending length and actual indexed capacities/high-water/live counts. Complete original public output is compared byte-for-byte and validated by the original fresh TS full-field oracle. Diagnostic output is separate from timing.
+
+`lifecycle-evidence.json` records each actual backend outcome and exact source/generated hashes; passing raw records are retained as compressed JSONL. Seven backend cases pass (Motion64/256 both backends, Health64 both backends, Health256 Native). Health256 JS and both schemas' 1024 diagnostics exceed the unchanged five-second deadline. No peaks are inferred from these incomplete executions. The first two checker failures and the third erroneous checkpoint/setup-peak expectation remain in separate attempt files.
+
+Replay: `python3 experiments/s-prep/tx-occupancy/lifecycle-replay.py`. CPU8 serial, checker/runtime5s, codegen30s, clang120s and read-only pinned references remain. Main candidate/historical sources are unchanged. Lifecycle has no new instrumentation-mutant coverage; the actual active-Tx mutants remain the separate FailedTxn and HealthDense256 subjects.
+
+Return condition for unavailable Lifecycle Health256 JS and all 1024 cases: an owner-preserving physical inspector/transport completing all original observations under five seconds on both backends, followed by fresh full-output/reference validation. Active-Tx quantities remain not applicable to the observed direct-World reserve/dispose paths; exercising a different active-Tx lifecycle workload would require its explicit contract and actual owner hooks. No universal refinement/proof or performance acceptance is claimed.

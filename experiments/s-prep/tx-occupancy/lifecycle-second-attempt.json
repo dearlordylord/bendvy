@@ -1,0 +1,15 @@
+{
+  "scope": "actual Lifecycle direct-world owner boundaries; no active Tx fixture substitution",
+  "limits": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "cpu": 8,
+  "cases": [],
+  "sources": {},
+  "generated": {},
+  "status": "BUILD_FAILURE",
+  "error": "(['taskset', '-c', '8', 'bend', PosixPath('/tmp/prep22-lifecycle-63q02qgf/experiments/s-integrate/measurement-lifecycle.bend'), '--check-only'], 1, '', 'SOME PROOFS FAIL\\nError:\\n- expected : a filled definition (an unfilled law is a dead claim: live code cannot use it)\\n- observed : motion_meter\\nContext:\\n- state : MotionState\\n- clock : R.Clock\\nLocation: motion_meter_barrier_done\\n49 |   match pair:\\n50>|     case (state,clock): IO.bind(MotionState,MotionState & R.Clock,motion_meter(\"after-barrier\",state),s => IO.pure(MotionState & R.Clock,(s,clock)))\\n   |                                                                   ^^^^^^^^^^^^\\n51 | def motion_barrier(state: MotionState,clock: R.Clock) -> IO(MotionState & R.Clock):\\nbend 2.0.35 is available: run bend update\\n')"
+}

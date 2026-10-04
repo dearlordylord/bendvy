@@ -1,0 +1,15 @@
+{
+  "scope": "actual Lifecycle direct-world owner boundaries; no active Tx fixture substitution",
+  "limits": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "cpu": 8,
+  "cases": [],
+  "sources": {},
+  "generated": {},
+  "status": "BUILD_FAILURE",
+  "error": "(['taskset', '-c', '8', 'bend', PosixPath('/tmp/prep22-lifecycle-0p5f9lak/experiments/s-integrate/measurement-lifecycle.bend'), '--check-only'], 1, '', 'SOME PROOFS FAIL\\nError:\\n- expected : a defined name\\n- observed : _\\nContext:\\n- W        : Type\\n- Handle   : Data\\n- C        : Type\\n- world    : W\\n- selected : Handle\\n- undo     : List<&2, X.Inverse<Handle>>\\n- pings    : List<&2, U32>\\n- marks    : List<&2, Handle>\\n- commands : List<&1, C>\\n- count    : U32\\nLocation: tx_done\\n91 |   match result:\\n92>|     case (commands,count): (X.Tx{world,selected,undo,commands,pings,marks,_},TxStats{count,length(U32,pings),length(X.Inverse<Handle>,undo),length(Handle,marks)})\\n   |                                                                           ^\\n93 | def inspect_tx(-W: Type,-Handle: Data,-C: Type,tx: X.Tx<W,Handle,C>) -> X.Tx<W,Handle,C> & TxStats:\\nbend 2.0.35 is available: run bend update\\n')"
+}
