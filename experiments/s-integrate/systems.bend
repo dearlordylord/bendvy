@@ -123,3 +123,21 @@ def health_a_main(-Tx:Type,-H:Data,count:U32,+rejected:T.Outcome,ledger:Tx -> T.
     case (owner,view): health_a_ledger(Tx,H,count,rejected,[MainObserved{health_view(view)}],spawn,remove,ping,log,ledger(owner,T.HealthLedgerToken{}))
 def health_a(-Tx:Type,-H:Data,count:U32,+rejected:T.Outcome,set_main:Tx -> T.VitalsToken -> U32 -> Tx,set_ledger:Tx -> T.HealthLedgerToken -> U32 -> Tx,read_main:Tx -> T.VitalsToken -> Tx & T.Access<T.VitalsView>,read_ledger:Tx -> T.HealthLedgerToken -> Tx & Maybe<&2,T.LedgerView>,spawn_flagged:Tx -> T.Vitals -> T.Reservation<Tx,H,T.Vitals>,remove:Tx -> Tx,ping:Tx -> T.HealthPing -> Tx,log:Tx -> String -> IO(Tx),owner:Tx) -> IO(BodyResult<Tx,H>):
   health_a_main(Tx,H,count,rejected,read_ledger,spawn_flagged,remove,ping,log,read_main(set_ledger(set_main(owner,T.VitalsToken{},11),T.HealthLedgerToken{},101),T.VitalsToken{}))
+
+def WBundleMotion() -> Type:
+  S.Bundle<T.Position,T.Velocity,T.Selected>
+def motion_seed(-Owner:Type,first:Owner -> String -> WBundleMotion() -> Owner,second:Owner -> String -> WBundleMotion() -> Owner,third:Owner -> String -> WBundleMotion() -> Owner,owner:Owner) -> Owner:
+  third(second(first(owner,"a",S.Bundle{Some{T.Position{quad(10,11,12,13),7}},Some{T.Velocity{quad(1,2,3,4),True{}}},Some{T.Selected{8}}}),"b",S.Bundle{Some{T.Position{quad(20,21,22,23),7}},None{},None{}}),"c",S.Bundle{None{},Some{T.Velocity{quad(1,2,3,4),True{}}},Some{T.Selected{8}}})
+def motion_seed_beta(-Owner:Type,reserve:Owner -> String -> WBundleMotion() -> Owner,owner:Owner) -> Owner:
+  reserve(owner,"z",S.Bundle{Some{T.Position{quad(90,91,92,93),7}},None{},Some{T.Selected{8}}})
+def motion_spawn_s(-Owner:Type,reserve:Owner -> String -> WBundleMotion() -> Owner,owner:Owner) -> Owner:
+  reserve(owner,"s",S.Bundle{Some{T.Position{quad(70,71,72,73),7}},None{},None{}})
+
+def WBundleHealth() -> Type:
+  S.Bundle<T.Vitals,T.Armor,T.Tracked>
+def health_seed(-Owner:Type,first:Owner -> String -> WBundleHealth() -> Owner,second:Owner -> String -> WBundleHealth() -> Owner,third:Owner -> String -> WBundleHealth() -> Owner,owner:Owner) -> Owner:
+  third(second(first(owner,"a",S.Bundle{Some{T.Vitals{quad(10,11,12,13),9,2}},Some{T.Armor{quad(1,2,3,4),3}},Some{T.Tracked{8}}}),"b",S.Bundle{Some{T.Vitals{quad(20,21,22,23),9,2}},None{},None{}}),"c",S.Bundle{None{},Some{T.Armor{quad(1,2,3,4),3}},Some{T.Tracked{8}}})
+def health_seed_beta(-Owner:Type,reserve:Owner -> String -> WBundleHealth() -> Owner,owner:Owner) -> Owner:
+  reserve(owner,"z",S.Bundle{Some{T.Vitals{quad(90,91,92,93),9,2}},None{},Some{T.Tracked{8}}})
+def health_spawn_s(-Owner:Type,reserve:Owner -> String -> WBundleHealth() -> Owner,owner:Owner) -> Owner:
+  reserve(owner,"s",S.Bundle{Some{T.Vitals{quad(70,71,72,73),9,2}},None{},None{}})

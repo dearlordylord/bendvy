@@ -173,12 +173,12 @@ def leaf_started(~W:Type,~H:Data,~invoke:Q.System -> Q.Mode -> U32 -> R.Clock ->
   +base:U32,mode:Q.Mode,world:W,registry:Q.Registry,audit:Maybe<Audit>,+style:C.Style,escaped:List<&2,H>,observations:List<&2,U.Observation>,nextMode:Maybe<&2,Bool>,started:R.Started) -> IO(Dispatched<W,H>):
   match registry started:
     case Q.Registry{+next,entries} R.Started{readers,+clock,run}:
-      IO.bind(Visit<W,H>,Dispatched<W,H>,visit(W,H,invoke,32n,base,mode,clock,style,entries,world,audit,Some{run}), v => IO.pure(Dispatched<W,H>,leaf_done(W,H,next,readers,style,escaped,observations,nextMode,v)))
+      IO.bind(Visit<W,H>,Dispatched<W,H>,visit(W,H,invoke,U32.to_nat(next),base,mode,clock,style,entries,world,audit,Some{run}), v => IO.pure(Dispatched<W,H>,leaf_done(W,H,next,readers,style,escaped,observations,nextMode,v)))
 def leaf_unread(~W:Type,~H:Data,~invoke:Q.System -> Q.Mode -> U32 -> R.Clock -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
   +base:U32,mode:Q.Mode,world:W,registry:Q.Registry,readers:R.Readers,+clock:R.Clock,audit:Maybe<Audit>,+style:C.Style,escaped:List<&2,H>,observations:List<&2,U.Observation>,nextMode:Maybe<&2,Bool>) -> IO(Dispatched<W,H>):
   match registry:
     case Q.Registry{+next,entries}:
-      IO.bind(Visit<W,H>,Dispatched<W,H>,visit(W,H,invoke,32n,base,mode,clock,style,entries,world,audit,None{}), v => IO.pure(Dispatched<W,H>,leaf_done(W,H,next,readers,style,escaped,observations,nextMode,v)))
+      IO.bind(Visit<W,H>,Dispatched<W,H>,visit(W,H,invoke,U32.to_nat(next),base,mode,clock,style,entries,world,audit,None{}), v => IO.pure(Dispatched<W,H>,leaf_done(W,H,next,readers,style,escaped,observations,nextMode,v)))
 def leaf_reader(~W:Type,~H:Data,~invoke:Q.System -> Q.Mode -> U32 -> R.Clock -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
   reader:Bool,+base:U32,mode:Q.Mode,runtime:Runtime<W,H>) -> IO(Dispatched<W,H>):
   match reader runtime:
