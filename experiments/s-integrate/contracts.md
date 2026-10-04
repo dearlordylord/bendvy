@@ -53,3 +53,29 @@ capabilities; real reader/publication hooks; actual owner-return full observatio
 precise command rejection/ownership tests. Preserve list/index neutrality, root/
 reuse/general Local/destructive-recovery follow-ups and performance gates. No
 production policy or unapproved catalogue proof is selected by this seam.
+
+
+Next checked join shapes: `trusted_main` consumes world, nominal abstract handle
+and affine Main→Main&Data transform, returning world plus `Access<O>` Found/Mismatch/
+Missing; trusted adapter reinserts immediately on Found. `trusted_ledger` consumes
+world and affine Ledger→Ledger&Data transform. Both are signature forwarding here;
+the storage/transaction canaries provide actual instantiation separately. The
+selected H is bound privately into Tx/provider getter/setter context from the actual
+a/b handle by trusted provisioning; a bare token or numeric constant does not identify an entity. Each inverse retains
+that real handle. Only Found captures a numeric inverse. A missing transform is not invoked; therefore it cannot promise returning
+an arbitrary Type captured inside that unused transform. Rejected owned command
+payloads use CommandResult separately. Public concrete handle constructors, where
+supplied by the trusted adapter, do not prove root authority or confidentiality;
+nominality and namespace checks remain explicit, not constructor privacy claims.
+
+RollbackObservation checks every Main/Ledger field, prior A and complete pending
+queue projection; AllocationObservation rejects reissuing the failed ID and requires
+its missing/discarded observation; PublicationObservation separates success delta
+from failed zero publication. Perturbed wrong inverse, metadata, reservation reuse
+and leaked Ping are rejected. These are faithful E2–E5 observation inputs, not an
+actual runtime/journal execution or exact-law approval. Planned subject bindings:
+transaction.begin/set_main/set_ledger/finish; identity.reserve plus commands.queue;
+commands.flush; readers.begin/complete/skip; dispatcher.tick/try_tick. Names remain
+proposed pending worker/interface review, but each draft has a named subject boundary.
+The failed-prefix predicate does not test journal order directly: the independent
+E2 own-write30/50 inputs and inverse30/20 steps must be bound/executed separately.

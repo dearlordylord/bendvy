@@ -77,3 +77,17 @@ type MotionMode is Data:
 type HealthMode is Data:
   HealthOn{}
   HealthOff{}
+type VelocityToken is Data:
+  VelocityToken{}
+type ArmorToken is Data:
+  ArmorToken{}
+type MainView is Data:
+  MotionMain{position: PositionView}
+  HealthMain{vitals: VitalsView}
+
+# Public observation only. Actual nominal H binds in trusted storage/provisioning;
+# abstract callbacks do not obtain concrete world/Tx constructors.
+type Access<-O: Data> is Data:
+  Found{value: O}
+  Mismatch{}
+  Missing{}

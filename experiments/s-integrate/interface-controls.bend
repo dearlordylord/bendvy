@@ -78,3 +78,35 @@ type SnapshotControl is Data:
 #|def bad(-P:Type,read:P -> T.PositionToken -> P & T.PositionView,p:P) -> P:
 #|  setter(p,T.PositionToken{},1)
 # END
+
+def motion_aux(-Tx: Type,read: Tx -> T.VelocityToken -> Tx & T.VelocityView,owner: Tx) -> Tx & T.VelocityView:
+  read(owner,T.VelocityToken{})
+def health_aux(-Tx: Type,read: Tx -> T.ArmorToken -> Tx & T.ArmorView,owner: Tx) -> Tx & T.ArmorView:
+  read(owner,T.ArmorToken{})
+def motion_resource(-Tx: Type,read: Tx -> T.MotionLedgerToken -> Tx & T.LedgerView,owner: Tx) -> Tx & T.LedgerView:
+  read(owner,T.MotionLedgerToken{})
+def health_resource(-Tx: Type,read: Tx -> T.HealthLedgerToken -> Tx & T.LedgerView,owner: Tx) -> Tx & T.LedgerView:
+  read(owner,T.HealthLedgerToken{})
+def return_handle(-H: Data,handle: H) -> H:
+  handle
+
+def trusted_main(-W: Type,-H: Data,-Main: Type,-O: Data,
+  with_main: W -> H -> (Main -> Main & O) -> W & T.Access<O>,
+  world: W,handle: H,transform: Main -> Main & O) -> W & T.Access<O>:
+  with_main(world,handle,transform)
+def trusted_ledger(-W: Type,-Ledger: Type,-O: Data,
+  with_ledger: W -> (Ledger -> Ledger & O) -> W & O,
+  world: W,transform: Ledger -> Ledger & O) -> W & O:
+  with_ledger(world,transform)
+
+# NEGATIVE cross_handle / expected : HealthHandle
+#|import Base
+#|def bad(-MotionHandle:Data,-HealthHandle:Data,handle:MotionHandle) -> HealthHandle:
+#|  handle
+# END
+# NEGATIVE wrong_ledger / expected : T.MotionLedgerToken
+#|import Base
+#|import ../types.bend as T
+#|def bad(-Tx:Type,read:Tx -> T.MotionLedgerToken -> Tx & T.LedgerView,owner:Tx) -> Tx & T.LedgerView:
+#|  read(owner,T.HealthLedgerToken{})
+# END

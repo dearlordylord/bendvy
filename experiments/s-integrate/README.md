@@ -14,11 +14,11 @@ encodings. This does not pass #19's subject-bound draft/falsification gate or pr
 Type ownership, runtime refinement, rollback or allocator semantics.
 
 Fresh checks: types/positive callbacks/predicates pass the existing five-second
-checker wrapper; all six extracted negatives fail with the intended diagnostics.
+checker wrapper; all eight extracted negatives fail with the intended diagnostics.
 Positive pairs retain an opaque owner, use its declared nominal getter, return
 rejected payload, store only Data views and invoke a closure once. Negative pairs
 try doubling an owner, wrong nominal access, fabricated provider return, Type
-payload as Data, double invocation and undeclared write. These are interface
+payload as Data, double invocation undeclared write, cross-handle substitution and wrong Ledger token. These are interface
 controls, not yet the actual integrated-provider E10 controls. No ECS proofs added.
 
 Reproduce from repository root (Python standard library only):
@@ -41,13 +41,13 @@ for name in ['types.bend','interface-controls.bend','LAWS-DRAFT.bend']:
 check(here/'LAWS-DRAFT.bend',execute=True)
 text=(here/'interface-controls.bend').read_text()
 fixtures=re.findall(r'# NEGATIVE ([^\n]+) / ([^\n]+)\n(.*?)# END',text,re.S)
-assert len(fixtures)==6
+assert len(fixtures)==8
 with tempfile.TemporaryDirectory(dir=here,prefix='negative-') as directory:
     for name,diagnostic,body in fixtures:
         source='\n'.join(line[2:] for line in body.splitlines())+'\n'
         path=pathlib.Path(directory)/(name+'.bend'); path.write_text(source)
         check(path,diagnostic)
-print('PASS: vocabulary, abstract signature controls, finite predicates, six intended negatives')
+print('PASS: vocabulary, abstract signature controls, finite predicates, eight intended negatives')
 PY
 ```
 
