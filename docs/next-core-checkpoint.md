@@ -24,6 +24,15 @@ its old public-law proposal was withdrawn after the [source decision](reviews/la
 A connected transition package must be drafted/falsified before new law approval;
 numerical thresholds remain pending. No general proofs exist.
 
+#12 replacement is being implemented in an isolated worktree. Direct erased-owner
+propositions replace the rejected Boolean certificate encoding; no runtime owner
+clone is assumed. Preliminary Astra review found missing public caller links:
+owned query/lookup results and the reservation-returned handle must be constrained
+beside successor-world observations. Add direct operation correspondences and
+compiling mutants before presenting exact law IDs/revision. Current draft counts
+and earlier run artifacts are not final evidence or approval.
+
+
 ## Execution checklist and tracker ownership
 
 Resume here and in [open T11 / #12](tickets/11-candidate-laws.md). The full-core
