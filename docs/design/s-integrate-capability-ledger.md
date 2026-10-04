@@ -61,3 +61,5 @@ Latest bounded additions: [mark filter](../../experiments/s-integrate/host-mark-
 performance, general capability confinement, arbitrary payload recovery or new
 universal proofs. Complete the remaining exact workloads, review the evidence
 and record concrete redesign follow-ups before reporting bounded research completion.
+
+Concrete performance return path: [S-PERF #20](../tickets/19-integrated-performance-redesign.md) implements and evaluates one experimental indexed adapter against the unchanged baseline. It retains full trace/access/mutation gates, all five workloads, corrected memory scope and a separate production-adoption decision.
