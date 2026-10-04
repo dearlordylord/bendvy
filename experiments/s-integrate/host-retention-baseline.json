@@ -187,5 +187,220 @@
       "node /tmp/bendvy-e11-build/stack.js 0 1 (wrapped by existing command helper5s)"
     ],
     "limits": "One earlier isolated Native despawn run timed out5s; complete baseline replay passed all ten Native cases within5s. No failed timeout counted as acceptance."
+  },
+  "afterPublicationRepair": {
+    "status": "INCOMPLETE",
+    "sourceClosure": {
+      "experiments/s-integrate/host-retention-controls.bend": "408390312f8047a0ae16341ada7295031731fc8da6f919eafcecea9e515cae94",
+      "experiments/s-integrate/host-batch-invoker.bend": "9e074b1e50c2e9797ab049daa4764c8a37377402907a72660cabb0abacce354f",
+      "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+      "experiments/s-integrate/storage.bend": "936ee89484a6e58558ab1684d90c16cbf2285ef5027292901dd3d9bf973754ba",
+      "experiments/s-integrate/identity.bend": "2c88babc9e853d3706f7a6c1f8f0ae48c198949143df2da6562bd774237d7329",
+      "experiments/s-integrate/commands.bend": "022ea5ca1f44c952ae77071689d0735e5a38976d7f628203d85fd9cc920a1194",
+      "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+      "experiments/s-integrate/storage-stage-fixture.bend": "581771140c45189c8b9038a73def804f780b5e64b7ffdecdcb45b966fc21aee7",
+      "experiments/s-integrate/query.bend": "903af14b5d85d1162df5f872f26f221134a17c772bc82fd17686ce2f4be45759",
+      "experiments/s-integrate/host.bend": "b50bc903906cb6a842d0ef88ba84fe0dbf0dd7abdb85c0fa436bccf228b74bb9",
+      "experiments/s-integrate/dispatcher.bend": "3530c7c20d704ba51a9cdace1f028e507960458b9c0bdcdf0dbc0d546c800b07",
+      "experiments/s-integrate/capture.bend": "44d5f3117a465c216ee93100026aad78e86f24c40c09c678be99935dde076817",
+      "experiments/s-integrate/schedule.bend": "98c955f7ee5039aed875a3bd93e3c94840d9ea2f48de0e6415bd28d63ee8fb98",
+      "experiments/s-integrate/systems.bend": "2cfc899215e408cc4c652c8d4c290b18800cdb6e8c96f1061a77853afdac9221",
+      "experiments/s-integrate/readers.bend": "2673082b4ef5cd6c5d8f61c362e22f74b13daeb27196894278cc20b1459c22e9",
+      "experiments/s-integrate/reader-host.bend": "50f1251c6d476b07055c36c5a97e3350a4cb46e5d826ff97ced2860d40798a64",
+      "experiments/s-integrate/streams.bend": "1a1c7991d6a1b4ebfb3b47dc62459beb83ed5e38ded56d27cc20b5478fc0d315",
+      "experiments/s-integrate/host-observations.bend": "895c0fc5ce7827073dd18ec18db643981dc3341272c63ae3914f965b22b73b8e",
+      "experiments/s-integrate/observations.bend": "81e6afcd4ae06a396669cff14d1da68a4c597539b6eb64e68648ebbe7b235136",
+      "experiments/s-integrate/transaction-dispatch-adapters.bend": "eea16d3f539d70bcd88fd8fd314b75d252ccaff2b9c1c8b63e7d96bfdda34142",
+      "experiments/s-integrate/transaction.bend": "d32f0b26e4a14fc784c3ce30c4d6a1ded0cf0a55ed819f54419a558445e298a4",
+      "experiments/s-integrate/audited-invoker.bend": "2ed7e484b8a043f0944e0f662a8799f94388c99f757de331fb1a79b1c07c8853",
+      "experiments/s-integrate/structural-invoker.bend": "6907a8c5775f77ffed6141123fe5c7033678269ade0f59cd0f24b8680e497932",
+      "experiments/s-integrate/host-render.bend": "df75920c773cee32b148182867ea9fd717cdaf2b2bdca08f6ee0ada0247de7b6"
+    },
+    "runnerSha256": "1b31612b427716d9af07de6b9cf0fc48824ff509f68879b94c4495a9e5d6f7a8",
+    "failedCases": [
+      {
+        "schema": "Motion",
+        "lane": "removed",
+        "backend": "JavaScript",
+        "error": "5s limit: node"
+      },
+      {
+        "schema": "Health",
+        "lane": "removed",
+        "backend": "Native",
+        "error": "5s limit: /tmp/e11-joined-ps670n9s/host-retention-controls-native"
+      },
+      {
+        "schema": "Health",
+        "lane": "removed",
+        "backend": "JavaScript",
+        "error": "5s limit: node"
+      }
+    ],
+    "successfulCases": [
+      {
+        "schema": "Motion",
+        "lane": "message",
+        "backend": "Native",
+        "executionSeconds": 0.09394729416817427,
+        "rawBytes": 985797
+      },
+      {
+        "schema": "Motion",
+        "lane": "message",
+        "backend": "JavaScript",
+        "executionSeconds": 0.7786999940872192,
+        "rawBytes": 985797
+      },
+      {
+        "schema": "Motion",
+        "lane": "removed",
+        "backend": "Native",
+        "executionSeconds": 4.385111161973327,
+        "rawBytes": 10251
+      },
+      {
+        "schema": "Motion",
+        "lane": "despawned",
+        "backend": "Native",
+        "executionSeconds": 3.8745629941113293,
+        "rawBytes": 10553
+      },
+      {
+        "schema": "Motion",
+        "lane": "despawned",
+        "backend": "JavaScript",
+        "executionSeconds": 3.9065422189887613,
+        "rawBytes": 10553
+      },
+      {
+        "schema": "Motion",
+        "lane": "unheld",
+        "backend": "Native",
+        "executionSeconds": 0.030124376993626356,
+        "rawBytes": 2651
+      },
+      {
+        "schema": "Motion",
+        "lane": "unheld",
+        "backend": "JavaScript",
+        "executionSeconds": 0.13454766804352403,
+        "rawBytes": 2651
+      },
+      {
+        "schema": "Motion",
+        "lane": "marks",
+        "backend": "Native",
+        "executionSeconds": 0.016163968946784735,
+        "rawBytes": 6011
+      },
+      {
+        "schema": "Motion",
+        "lane": "marks",
+        "backend": "JavaScript",
+        "executionSeconds": 0.12578892917372286,
+        "rawBytes": 6011
+      },
+      {
+        "schema": "Health",
+        "lane": "message",
+        "backend": "Native",
+        "executionSeconds": 0.20376645610667765,
+        "rawBytes": 985857
+      },
+      {
+        "schema": "Health",
+        "lane": "message",
+        "backend": "JavaScript",
+        "executionSeconds": 0.9931003600358963,
+        "rawBytes": 985857
+      },
+      {
+        "schema": "Health",
+        "lane": "despawned",
+        "backend": "Native",
+        "executionSeconds": 2.9440278669353575,
+        "rawBytes": 10577
+      },
+      {
+        "schema": "Health",
+        "lane": "despawned",
+        "backend": "JavaScript",
+        "executionSeconds": 3.848999571055174,
+        "rawBytes": 10577
+      },
+      {
+        "schema": "Health",
+        "lane": "unheld",
+        "backend": "Native",
+        "executionSeconds": 0.002924191066995263,
+        "rawBytes": 2651
+      },
+      {
+        "schema": "Health",
+        "lane": "unheld",
+        "backend": "JavaScript",
+        "executionSeconds": 0.03155988920480013,
+        "rawBytes": 2651
+      },
+      {
+        "schema": "Health",
+        "lane": "marks",
+        "backend": "Native",
+        "executionSeconds": 0.008267276920378208,
+        "rawBytes": 6035
+      },
+      {
+        "schema": "Health",
+        "lane": "marks",
+        "backend": "JavaScript",
+        "executionSeconds": 0.0725650240201503,
+        "rawBytes": 6035
+      }
+    ]
+  },
+  "compactStringDiagnostic": {
+    "status": "DIAGNOSTIC_ONLY",
+    "checker": "PASS within5s after one earlier diagnostic timeout",
+    "sourceChange": "Only temporary IO.print(label) before each real D.tick; actual checked module sources unchanged",
+    "command": "python3 temporary phase probe: generate diagnostic.bend from controls, wrap each motion_frames/health_frames B.tick IO.bind with IO.print(label); existing checker5s/codegen30s; Node subprocess group killed at5s",
+    "observations": [
+      {
+        "schema": "Motion",
+        "lane": "removed",
+        "reservationsPrintedAtSeconds": 1.547,
+        "timeoutAtSeconds": 5,
+        "lastCompletedEvent": "spawn-capacity-plus-one Dispatch; next event first full 65537-row Read"
+      },
+      {
+        "schema": "Motion",
+        "lane": "despawned",
+        "reservationsPrintedAtSeconds": 2.201,
+        "timeoutAtSeconds": 5,
+        "lastCompletedEvent": "spawn-capacity-plus-one Dispatch; next event first full 65537-row Read"
+      }
+    ],
+    "finding": "All actual frames finish before final output. Existing CompactCell aux/flag String projection serializes full optional Aux/Flag per row; candidate direct Data comparison must retain everyfield and be separately executed."
+  },
+  "typedRendererFirstAttempt": {
+    "status": "ABORTED_INCOMPLETE",
+    "rendererCommit": "f0f20af",
+    "command": "python3 experiments/s-integrate/host-retention-run.py --joined-only",
+    "affinity": "default allowed0..11",
+    "toolOutputOnlyPassed": [
+      "Motion/message Native+JavaScript",
+      "Motion/removed Native+JavaScript",
+      "Motion/despawned Native+JavaScript",
+      "Motion/unheld Native+JavaScript",
+      "Motion/marks Native+JavaScript",
+      "Health/message Native+JavaScript",
+      "Health/removed Native"
+    ],
+    "failures": [
+      "Health/removed JavaScript runtime5s",
+      "Fresh TypeScript Health/despawned reference5s; previous runner aborted before saving this attempt"
+    ],
+    "remaining": "Health/despawned actual, Health/unheld and Health/marks not executed in this attempt",
+    "limits": "These passing log lines are historical observations, not a completed gate. Next runner saves every case and records actual affinity. CPU9 coordination does not establish an isolated causal timing claim."
   }
 }

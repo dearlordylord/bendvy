@@ -1,5 +1,5 @@
 {
-  "status": "INCOMPLETE",
+  "status": "JOINED_EXECUTION_PASS_MUTANTS_PENDING",
   "actualJoinedBendExecuted": true,
   "productionAcceptance": false,
   "limits": {
@@ -9,6 +9,9 @@
     "codegenSeconds": 30,
     "nativeCompilationSeconds": 120
   },
+  "cpuAffinity": [
+    9
+  ],
   "versions": {
     "bend": "bend 2.0.34\n",
     "node": "v24.20.0\n"
@@ -17,29 +20,30 @@
     "experiments/s-integrate/host-retention-controls.bend": "408390312f8047a0ae16341ada7295031731fc8da6f919eafcecea9e515cae94",
     "experiments/s-integrate/host-batch-invoker.bend": "9e074b1e50c2e9797ab049daa4764c8a37377402907a72660cabb0abacce354f",
     "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
-    "experiments/s-integrate/storage.bend": "605d073615798f87f3675931475eee6a0668bc63c08559d4beecdb2e73c72986",
+    "experiments/s-integrate/storage.bend": "936ee89484a6e58558ab1684d90c16cbf2285ef5027292901dd3d9bf973754ba",
     "experiments/s-integrate/identity.bend": "2c88babc9e853d3706f7a6c1f8f0ae48c198949143df2da6562bd774237d7329",
     "experiments/s-integrate/commands.bend": "022ea5ca1f44c952ae77071689d0735e5a38976d7f628203d85fd9cc920a1194",
     "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
     "experiments/s-integrate/storage-stage-fixture.bend": "581771140c45189c8b9038a73def804f780b5e64b7ffdecdcb45b966fc21aee7",
     "experiments/s-integrate/query.bend": "903af14b5d85d1162df5f872f26f221134a17c772bc82fd17686ce2f4be45759",
-    "experiments/s-integrate/host.bend": "6670380a68832502c0a9950b08058cd47f490b17497d03cf5c44c745c57f68b7",
+    "experiments/s-integrate/host.bend": "b50bc903906cb6a842d0ef88ba84fe0dbf0dd7abdb85c0fa436bccf228b74bb9",
     "experiments/s-integrate/dispatcher.bend": "3530c7c20d704ba51a9cdace1f028e507960458b9c0bdcdf0dbc0d546c800b07",
     "experiments/s-integrate/capture.bend": "44d5f3117a465c216ee93100026aad78e86f24c40c09c678be99935dde076817",
-    "experiments/s-integrate/schedule.bend": "e7f73e9c74eca9f8d60b9300805169b0b1a0d24ed0a9540843d1e2209e807040",
+    "experiments/s-integrate/schedule.bend": "98c955f7ee5039aed875a3bd93e3c94840d9ea2f48de0e6415bd28d63ee8fb98",
     "experiments/s-integrate/systems.bend": "2cfc899215e408cc4c652c8d4c290b18800cdb6e8c96f1061a77853afdac9221",
     "experiments/s-integrate/readers.bend": "2673082b4ef5cd6c5d8f61c362e22f74b13daeb27196894278cc20b1459c22e9",
     "experiments/s-integrate/reader-host.bend": "50f1251c6d476b07055c36c5a97e3350a4cb46e5d826ff97ced2860d40798a64",
     "experiments/s-integrate/streams.bend": "1a1c7991d6a1b4ebfb3b47dc62459beb83ed5e38ded56d27cc20b5478fc0d315",
-    "experiments/s-integrate/host-observations.bend": "eecfc882c58fc252edca1fa7c86e491ab18d01128126b430f0f995cf4b8b33fe",
+    "experiments/s-integrate/host-observations.bend": "895c0fc5ce7827073dd18ec18db643981dc3341272c63ae3914f965b22b73b8e",
     "experiments/s-integrate/observations.bend": "81e6afcd4ae06a396669cff14d1da68a4c597539b6eb64e68648ebbe7b235136",
     "experiments/s-integrate/transaction-dispatch-adapters.bend": "eea16d3f539d70bcd88fd8fd314b75d252ccaff2b9c1c8b63e7d96bfdda34142",
     "experiments/s-integrate/transaction.bend": "d32f0b26e4a14fc784c3ce30c4d6a1ded0cf0a55ed819f54419a558445e298a4",
     "experiments/s-integrate/audited-invoker.bend": "2ed7e484b8a043f0944e0f662a8799f94388c99f757de331fb1a79b1c07c8853",
-    "experiments/s-integrate/host-render.bend": "4dbc392f9e138183e5d90a40fa5eccb7d8bf95b4e72c1f2f5196d3bd855249c2"
+    "experiments/s-integrate/structural-invoker.bend": "6907a8c5775f77ffed6141123fe5c7033678269ade0f59cd0f24b8680e497932",
+    "experiments/s-integrate/host-render.bend": "5bdf0679a5c0e5225ea436a61627dfa965786987bfdf370cd081bc1177c33035"
   },
   "referenceSha256": "8d0b2788872cf7460da5ebfbf36e9b8b1af15ffd373feb3330043d447349baa9",
-  "runnerSha256": "7c5f5aa8b4efdff0f0c001d2b9a5b9e4370d17d897067dc656450e93cf43b1ae",
+  "runnerSha256": "06bd42efaabc2a31595feb6a19fb9a099cc6e80a641603c49cd3812e60bb0448",
   "publicReference": [
     {
       "schema": "Motion",
@@ -8662,7 +8666,7 @@
         }
       ],
       "backend": "Native",
-      "executionSeconds": 0.06836341903544962
+      "executionSeconds": 0.10180198517628014
     },
     {
       "schema": "Motion",
@@ -9682,14 +9686,14 @@
         }
       ],
       "backend": "JavaScript",
-      "executionSeconds": 0.30118876206688583
+      "executionSeconds": 0.6446567249950022
     },
     {
       "schema": "Motion",
       "lane": "removed",
       "status": "PASS",
-      "rawBytes": 7043446,
-      "rawSha256": "250e5db07089b7e5d88c3da700a6dc0680fc52833dda70e02d1c8a7ee063675a",
+      "rawBytes": 10251,
+      "rawSha256": "912be3bacd5f4729a5fa6856da0e07b312d59e478776f4e63bb695d35381639a",
       "reservations": {
         "kind": "Reservations",
         "namespace": 1,
@@ -10496,14 +10500,828 @@
         }
       ],
       "backend": "Native",
-      "executionSeconds": 2.872269632993266
+      "executionSeconds": 0.4342714920639992
+    },
+    {
+      "schema": "Motion",
+      "lane": "removed",
+      "status": "PASS",
+      "rawBytes": 10251,
+      "rawSha256": "912be3bacd5f4729a5fa6856da0e07b312d59e478776f4e63bb695d35381639a",
+      "reservations": {
+        "kind": "Reservations",
+        "namespace": 1,
+        "first": 1,
+        "last": 65537,
+        "count": 65537
+      },
+      "observations": [
+        {
+          "step": "prime-fast",
+          "system": "Fast",
+          "count": 1,
+          "boundary": {
+            "since": 0,
+            "streamSince": 0,
+            "thisRun": 1
+          },
+          "trace": {
+            "system": "Fast",
+            "frame": 1,
+            "tick": 1,
+            "outcome": "ok",
+            "missed": []
+          },
+          "fullRowsCompared": {
+            "query": 0,
+            "added": 0,
+            "changed": 0
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          }
+        },
+        {
+          "step": "prime-B",
+          "system": "B",
+          "count": 1,
+          "boundary": {
+            "since": 0,
+            "streamSince": 0,
+            "thisRun": 2
+          },
+          "trace": {
+            "system": "B",
+            "frame": 2,
+            "tick": 2,
+            "outcome": "ok",
+            "missed": []
+          },
+          "fullRowsCompared": {
+            "query": 0,
+            "added": 0,
+            "changed": 0
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          }
+        },
+        {
+          "step": "Fast-all-added-full-fields",
+          "system": "Fast",
+          "count": 2,
+          "boundary": {
+            "since": 1,
+            "streamSince": 1,
+            "thisRun": 5
+          },
+          "trace": {
+            "system": "Fast",
+            "frame": 4,
+            "tick": 5,
+            "outcome": "ok",
+            "missed": []
+          },
+          "fullRowsCompared": {
+            "query": 65537,
+            "added": 65537,
+            "changed": 65537
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          }
+        },
+        {
+          "step": "B-all-added-full-fields",
+          "system": "B",
+          "count": 2,
+          "boundary": {
+            "since": 2,
+            "streamSince": 2,
+            "thisRun": 6
+          },
+          "trace": {
+            "system": "B",
+            "frame": 5,
+            "tick": 6,
+            "outcome": "ok",
+            "missed": []
+          },
+          "fullRowsCompared": {
+            "query": 65537,
+            "added": 65537,
+            "changed": 65537
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          }
+        },
+        {
+          "step": "Fast-removals-before-trim",
+          "system": "Fast",
+          "count": 3,
+          "boundary": {
+            "since": 5,
+            "streamSince": 5,
+            "thisRun": 9
+          },
+          "trace": {
+            "system": "Fast",
+            "frame": 6,
+            "tick": 9,
+            "outcome": "ok",
+            "missed": []
+          },
+          "fullRowsCompared": {
+            "query": 0,
+            "added": 0,
+            "changed": 0
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          }
+        },
+        {
+          "step": "late-registration-retained-records-no-historical-lag",
+          "system": "Late",
+          "count": 1,
+          "boundary": {
+            "since": 0,
+            "streamSince": 0,
+            "thisRun": 10
+          },
+          "trace": {
+            "system": "Late",
+            "frame": 8,
+            "tick": 10,
+            "outcome": "ok",
+            "missed": []
+          },
+          "fullRowsCompared": {
+            "query": 0,
+            "added": 0,
+            "changed": 0
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          }
+        },
+        {
+          "step": "B-first-post-drop-fails",
+          "system": "B",
+          "count": 3,
+          "boundary": {
+            "since": 6,
+            "streamSince": 6,
+            "thisRun": 11
+          },
+          "trace": {
+            "system": "B",
+            "frame": 9,
+            "tick": 11,
+            "outcome": "failed",
+            "missed": [
+              {
+                "kind": "removed",
+                "stream": "Position"
+              }
+            ]
+          },
+          "fullRowsCompared": {
+            "query": 0,
+            "added": 0,
+            "changed": 0
+          },
+          "lag": {
+            "removed": true,
+            "despawned": false,
+            "messages": false
+          }
+        },
+        {
+          "step": "B-same-instance-retry",
+          "system": "B",
+          "count": 4,
+          "boundary": {
+            "since": 6,
+            "streamSince": 6,
+            "thisRun": 12
+          },
+          "trace": {
+            "system": "B",
+            "frame": 10,
+            "tick": 12,
+            "outcome": "ok",
+            "missed": [
+              {
+                "kind": "removed",
+                "stream": "Position"
+              }
+            ]
+          },
+          "fullRowsCompared": {
+            "query": 0,
+            "added": 0,
+            "changed": 0
+          },
+          "lag": {
+            "removed": true,
+            "despawned": false,
+            "messages": false
+          }
+        },
+        {
+          "step": "independent-fast-empty-not-lagged",
+          "system": "Fast",
+          "count": 4,
+          "boundary": {
+            "since": 9,
+            "streamSince": 9,
+            "thisRun": 13
+          },
+          "trace": {
+            "system": "Fast",
+            "frame": 11,
+            "tick": 13,
+            "outcome": "ok",
+            "missed": []
+          },
+          "fullRowsCompared": {
+            "query": 0,
+            "added": 0,
+            "changed": 0
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          }
+        }
+      ],
+      "dispatches": [
+        {
+          "kind": "Dispatch",
+          "step": "prime-fast",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 1,
+          "frame": 1,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "prime-B",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 2,
+          "frame": 2,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "spawn-capacity-plus-one",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 4,
+          "frame": 3,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "Fast-all-added-full-fields",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 5,
+          "frame": 4,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "B-all-added-full-fields",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 6,
+          "frame": 5,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "Fast-removals-before-trim",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 9,
+          "frame": 6,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 3,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "capacity-trim",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 9,
+          "frame": 7,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 3,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "late-registration-retained-records-no-historical-lag",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 10,
+          "frame": 8,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 3,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "B-first-post-drop-fails",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "SystemFailure",
+            "system": "B",
+            "code": 7
+          },
+          "clockTick": 11,
+          "frame": 9,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 3,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 3,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "B-same-instance-retry",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 12,
+          "frame": 10,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 4,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 3,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "independent-fast-empty-not-lagged",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 13,
+          "frame": 11,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 4,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 4,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        }
+      ],
+      "backend": "JavaScript",
+      "executionSeconds": 3.140934712952003
     },
     {
       "schema": "Motion",
       "lane": "despawned",
       "status": "PASS",
-      "rawBytes": 14076943,
-      "rawSha256": "dfd46fd42b1490ddb0aa8d3cf8abc8f2eab68417436885b16aa858922f4606d8",
+      "rawBytes": 10553,
+      "rawSha256": "d5248129ace74b6d90e76ca3fd16d1da3859625c6e4830687716811a3e8eb713",
       "reservations": {
         "kind": "Reservations",
         "namespace": 1,
@@ -11318,7 +12136,829 @@
         }
       ],
       "backend": "Native",
-      "executionSeconds": 4.659145327983424
+      "executionSeconds": 0.5167016128543764
+    },
+    {
+      "schema": "Motion",
+      "lane": "despawned",
+      "status": "PASS",
+      "rawBytes": 10553,
+      "rawSha256": "d5248129ace74b6d90e76ca3fd16d1da3859625c6e4830687716811a3e8eb713",
+      "reservations": {
+        "kind": "Reservations",
+        "namespace": 1,
+        "first": 1,
+        "last": 65537,
+        "count": 65537
+      },
+      "observations": [
+        {
+          "step": "prime-fast",
+          "system": "Fast",
+          "count": 1,
+          "boundary": {
+            "since": 0,
+            "streamSince": 0,
+            "thisRun": 1
+          },
+          "trace": {
+            "system": "Fast",
+            "frame": 1,
+            "tick": 1,
+            "outcome": "ok",
+            "missed": []
+          },
+          "fullRowsCompared": {
+            "query": 0,
+            "added": 0,
+            "changed": 0
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          }
+        },
+        {
+          "step": "prime-B",
+          "system": "B",
+          "count": 1,
+          "boundary": {
+            "since": 0,
+            "streamSince": 0,
+            "thisRun": 2
+          },
+          "trace": {
+            "system": "B",
+            "frame": 2,
+            "tick": 2,
+            "outcome": "ok",
+            "missed": []
+          },
+          "fullRowsCompared": {
+            "query": 0,
+            "added": 0,
+            "changed": 0
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          }
+        },
+        {
+          "step": "Fast-all-added-full-fields",
+          "system": "Fast",
+          "count": 2,
+          "boundary": {
+            "since": 1,
+            "streamSince": 1,
+            "thisRun": 5
+          },
+          "trace": {
+            "system": "Fast",
+            "frame": 4,
+            "tick": 5,
+            "outcome": "ok",
+            "missed": []
+          },
+          "fullRowsCompared": {
+            "query": 65537,
+            "added": 65537,
+            "changed": 65537
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          }
+        },
+        {
+          "step": "B-all-added-full-fields",
+          "system": "B",
+          "count": 2,
+          "boundary": {
+            "since": 2,
+            "streamSince": 2,
+            "thisRun": 6
+          },
+          "trace": {
+            "system": "B",
+            "frame": 5,
+            "tick": 6,
+            "outcome": "ok",
+            "missed": []
+          },
+          "fullRowsCompared": {
+            "query": 65537,
+            "added": 65537,
+            "changed": 65537
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          }
+        },
+        {
+          "step": "Fast-removals-before-trim",
+          "system": "Fast",
+          "count": 3,
+          "boundary": {
+            "since": 5,
+            "streamSince": 5,
+            "thisRun": 9
+          },
+          "trace": {
+            "system": "Fast",
+            "frame": 6,
+            "tick": 9,
+            "outcome": "ok",
+            "missed": []
+          },
+          "fullRowsCompared": {
+            "query": 0,
+            "added": 0,
+            "changed": 0
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          }
+        },
+        {
+          "step": "late-registration-retained-records-no-historical-lag",
+          "system": "Late",
+          "count": 1,
+          "boundary": {
+            "since": 0,
+            "streamSince": 0,
+            "thisRun": 10
+          },
+          "trace": {
+            "system": "Late",
+            "frame": 8,
+            "tick": 10,
+            "outcome": "ok",
+            "missed": []
+          },
+          "fullRowsCompared": {
+            "query": 0,
+            "added": 0,
+            "changed": 0
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          }
+        },
+        {
+          "step": "B-first-post-drop-fails",
+          "system": "B",
+          "count": 3,
+          "boundary": {
+            "since": 6,
+            "streamSince": 6,
+            "thisRun": 11
+          },
+          "trace": {
+            "system": "B",
+            "frame": 9,
+            "tick": 11,
+            "outcome": "failed",
+            "missed": [
+              {
+                "kind": "removed",
+                "stream": "Position"
+              },
+              {
+                "kind": "despawned",
+                "stream": "despawned"
+              }
+            ]
+          },
+          "fullRowsCompared": {
+            "query": 0,
+            "added": 0,
+            "changed": 0
+          },
+          "lag": {
+            "removed": true,
+            "despawned": true,
+            "messages": false
+          }
+        },
+        {
+          "step": "B-same-instance-retry",
+          "system": "B",
+          "count": 4,
+          "boundary": {
+            "since": 6,
+            "streamSince": 6,
+            "thisRun": 12
+          },
+          "trace": {
+            "system": "B",
+            "frame": 10,
+            "tick": 12,
+            "outcome": "ok",
+            "missed": [
+              {
+                "kind": "removed",
+                "stream": "Position"
+              },
+              {
+                "kind": "despawned",
+                "stream": "despawned"
+              }
+            ]
+          },
+          "fullRowsCompared": {
+            "query": 0,
+            "added": 0,
+            "changed": 0
+          },
+          "lag": {
+            "removed": true,
+            "despawned": true,
+            "messages": false
+          }
+        },
+        {
+          "step": "independent-fast-empty-not-lagged",
+          "system": "Fast",
+          "count": 4,
+          "boundary": {
+            "since": 9,
+            "streamSince": 9,
+            "thisRun": 13
+          },
+          "trace": {
+            "system": "Fast",
+            "frame": 11,
+            "tick": 13,
+            "outcome": "ok",
+            "missed": []
+          },
+          "fullRowsCompared": {
+            "query": 0,
+            "added": 0,
+            "changed": 0
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          }
+        }
+      ],
+      "dispatches": [
+        {
+          "kind": "Dispatch",
+          "step": "prime-fast",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 1,
+          "frame": 1,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "prime-B",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 2,
+          "frame": 2,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "spawn-capacity-plus-one",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 4,
+          "frame": 3,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "Fast-all-added-full-fields",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 5,
+          "frame": 4,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "B-all-added-full-fields",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 6,
+          "frame": 5,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "Fast-removals-before-trim",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 9,
+          "frame": 6,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 3,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "capacity-trim",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 9,
+          "frame": 7,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 3,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "late-registration-retained-records-no-historical-lag",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 10,
+          "frame": 8,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 3,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "B-first-post-drop-fails",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "SystemFailure",
+            "system": "B",
+            "code": 7
+          },
+          "clockTick": 11,
+          "frame": 9,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 3,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 3,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "B-same-instance-retry",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 12,
+          "frame": 10,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 4,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 3,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "independent-fast-empty-not-lagged",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 13,
+          "frame": 11,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 4,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 4,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        }
+      ],
+      "backend": "JavaScript",
+      "executionSeconds": 2.0831451239064336
     },
     {
       "schema": "Motion",
@@ -11659,7 +13299,7 @@
         }
       ],
       "backend": "Native",
-      "executionSeconds": 0.006377746816724539
+      "executionSeconds": 0.001979640917852521
     },
     {
       "schema": "Motion",
@@ -12000,7 +13640,7 @@
         }
       ],
       "backend": "JavaScript",
-      "executionSeconds": 0.026370411971583962
+      "executionSeconds": 0.07052156678400934
     },
     {
       "schema": "Motion",
@@ -12493,7 +14133,7 @@
         }
       ],
       "backend": "Native",
-      "executionSeconds": 0.0023543890565633774
+      "executionSeconds": 0.014677910134196281
     },
     {
       "schema": "Motion",
@@ -12986,7 +14626,7 @@
         }
       ],
       "backend": "JavaScript",
-      "executionSeconds": 0.04318122286349535
+      "executionSeconds": 0.10804036888293922
     },
     {
       "schema": "Health",
@@ -14006,7 +15646,7 @@
         }
       ],
       "backend": "Native",
-      "executionSeconds": 0.06321834493428469
+      "executionSeconds": 0.10067743505351245
     },
     {
       "schema": "Health",
@@ -15026,14 +16666,14 @@
         }
       ],
       "backend": "JavaScript",
-      "executionSeconds": 0.32205068110488355
+      "executionSeconds": 0.7244928670115769
     },
     {
       "schema": "Health",
       "lane": "removed",
       "status": "PASS",
-      "rawBytes": 7043470,
-      "rawSha256": "063fad62e7c0b5ccb238eaffb5781766f05d7aca9c1f4428093808aab7dbfdf5",
+      "rawBytes": 10275,
+      "rawSha256": "62e180e2cf4bbfdfe30ec35e86a39fc435428947635139a74011cd78e705ab4c",
       "reservations": {
         "kind": "Reservations",
         "namespace": 1,
@@ -15840,14 +17480,828 @@
         }
       ],
       "backend": "Native",
-      "executionSeconds": 3.264761329162866
+      "executionSeconds": 0.5193554679863155
+    },
+    {
+      "schema": "Health",
+      "lane": "removed",
+      "status": "PASS",
+      "rawBytes": 10275,
+      "rawSha256": "62e180e2cf4bbfdfe30ec35e86a39fc435428947635139a74011cd78e705ab4c",
+      "reservations": {
+        "kind": "Reservations",
+        "namespace": 1,
+        "first": 1,
+        "last": 65537,
+        "count": 65537
+      },
+      "observations": [
+        {
+          "step": "prime-fast",
+          "system": "Fast",
+          "count": 1,
+          "boundary": {
+            "since": 0,
+            "streamSince": 0,
+            "thisRun": 1
+          },
+          "trace": {
+            "system": "Fast",
+            "frame": 1,
+            "tick": 1,
+            "outcome": "ok",
+            "missed": []
+          },
+          "fullRowsCompared": {
+            "query": 0,
+            "added": 0,
+            "changed": 0
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          }
+        },
+        {
+          "step": "prime-B",
+          "system": "B",
+          "count": 1,
+          "boundary": {
+            "since": 0,
+            "streamSince": 0,
+            "thisRun": 2
+          },
+          "trace": {
+            "system": "B",
+            "frame": 2,
+            "tick": 2,
+            "outcome": "ok",
+            "missed": []
+          },
+          "fullRowsCompared": {
+            "query": 0,
+            "added": 0,
+            "changed": 0
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          }
+        },
+        {
+          "step": "Fast-all-added-full-fields",
+          "system": "Fast",
+          "count": 2,
+          "boundary": {
+            "since": 1,
+            "streamSince": 1,
+            "thisRun": 5
+          },
+          "trace": {
+            "system": "Fast",
+            "frame": 4,
+            "tick": 5,
+            "outcome": "ok",
+            "missed": []
+          },
+          "fullRowsCompared": {
+            "query": 65537,
+            "added": 65537,
+            "changed": 65537
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          }
+        },
+        {
+          "step": "B-all-added-full-fields",
+          "system": "B",
+          "count": 2,
+          "boundary": {
+            "since": 2,
+            "streamSince": 2,
+            "thisRun": 6
+          },
+          "trace": {
+            "system": "B",
+            "frame": 5,
+            "tick": 6,
+            "outcome": "ok",
+            "missed": []
+          },
+          "fullRowsCompared": {
+            "query": 65537,
+            "added": 65537,
+            "changed": 65537
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          }
+        },
+        {
+          "step": "Fast-removals-before-trim",
+          "system": "Fast",
+          "count": 3,
+          "boundary": {
+            "since": 5,
+            "streamSince": 5,
+            "thisRun": 9
+          },
+          "trace": {
+            "system": "Fast",
+            "frame": 6,
+            "tick": 9,
+            "outcome": "ok",
+            "missed": []
+          },
+          "fullRowsCompared": {
+            "query": 0,
+            "added": 0,
+            "changed": 0
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          }
+        },
+        {
+          "step": "late-registration-retained-records-no-historical-lag",
+          "system": "Late",
+          "count": 1,
+          "boundary": {
+            "since": 0,
+            "streamSince": 0,
+            "thisRun": 10
+          },
+          "trace": {
+            "system": "Late",
+            "frame": 8,
+            "tick": 10,
+            "outcome": "ok",
+            "missed": []
+          },
+          "fullRowsCompared": {
+            "query": 0,
+            "added": 0,
+            "changed": 0
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          }
+        },
+        {
+          "step": "B-first-post-drop-fails",
+          "system": "B",
+          "count": 3,
+          "boundary": {
+            "since": 6,
+            "streamSince": 6,
+            "thisRun": 11
+          },
+          "trace": {
+            "system": "B",
+            "frame": 9,
+            "tick": 11,
+            "outcome": "failed",
+            "missed": [
+              {
+                "kind": "removed",
+                "stream": "Vitals"
+              }
+            ]
+          },
+          "fullRowsCompared": {
+            "query": 0,
+            "added": 0,
+            "changed": 0
+          },
+          "lag": {
+            "removed": true,
+            "despawned": false,
+            "messages": false
+          }
+        },
+        {
+          "step": "B-same-instance-retry",
+          "system": "B",
+          "count": 4,
+          "boundary": {
+            "since": 6,
+            "streamSince": 6,
+            "thisRun": 12
+          },
+          "trace": {
+            "system": "B",
+            "frame": 10,
+            "tick": 12,
+            "outcome": "ok",
+            "missed": [
+              {
+                "kind": "removed",
+                "stream": "Vitals"
+              }
+            ]
+          },
+          "fullRowsCompared": {
+            "query": 0,
+            "added": 0,
+            "changed": 0
+          },
+          "lag": {
+            "removed": true,
+            "despawned": false,
+            "messages": false
+          }
+        },
+        {
+          "step": "independent-fast-empty-not-lagged",
+          "system": "Fast",
+          "count": 4,
+          "boundary": {
+            "since": 9,
+            "streamSince": 9,
+            "thisRun": 13
+          },
+          "trace": {
+            "system": "Fast",
+            "frame": 11,
+            "tick": 13,
+            "outcome": "ok",
+            "missed": []
+          },
+          "fullRowsCompared": {
+            "query": 0,
+            "added": 0,
+            "changed": 0
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          }
+        }
+      ],
+      "dispatches": [
+        {
+          "kind": "Dispatch",
+          "step": "prime-fast",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 1,
+          "frame": 1,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "prime-B",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 2,
+          "frame": 2,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "spawn-capacity-plus-one",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 4,
+          "frame": 3,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "Fast-all-added-full-fields",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 5,
+          "frame": 4,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "B-all-added-full-fields",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 6,
+          "frame": 5,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "Fast-removals-before-trim",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 9,
+          "frame": 6,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 3,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "capacity-trim",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 9,
+          "frame": 7,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 3,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "late-registration-retained-records-no-historical-lag",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 10,
+          "frame": 8,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 3,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "B-first-post-drop-fails",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "SystemFailure",
+            "system": "B",
+            "code": 7
+          },
+          "clockTick": 11,
+          "frame": 9,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 3,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 3,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "B-same-instance-retry",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 12,
+          "frame": 10,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 4,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 3,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "independent-fast-empty-not-lagged",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 13,
+          "frame": 11,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 4,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 4,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        }
+      ],
+      "backend": "JavaScript",
+      "executionSeconds": 1.9663173519074917
     },
     {
       "schema": "Health",
       "lane": "despawned",
       "status": "PASS",
-      "rawBytes": 14076967,
-      "rawSha256": "a142e45070ca37bd5f4b2ebd484dda1b65d4f60438dbb10eb1a2f56b4342896c",
+      "rawBytes": 10577,
+      "rawSha256": "337044be86d71e4e64ae7e6428428aca03acb71858a04e40123c2a769f53efde",
       "reservations": {
         "kind": "Reservations",
         "namespace": 1,
@@ -16662,7 +19116,829 @@
         }
       ],
       "backend": "Native",
-      "executionSeconds": 3.835379656869918
+      "executionSeconds": 0.36655598878860474
+    },
+    {
+      "schema": "Health",
+      "lane": "despawned",
+      "status": "PASS",
+      "rawBytes": 10577,
+      "rawSha256": "337044be86d71e4e64ae7e6428428aca03acb71858a04e40123c2a769f53efde",
+      "reservations": {
+        "kind": "Reservations",
+        "namespace": 1,
+        "first": 1,
+        "last": 65537,
+        "count": 65537
+      },
+      "observations": [
+        {
+          "step": "prime-fast",
+          "system": "Fast",
+          "count": 1,
+          "boundary": {
+            "since": 0,
+            "streamSince": 0,
+            "thisRun": 1
+          },
+          "trace": {
+            "system": "Fast",
+            "frame": 1,
+            "tick": 1,
+            "outcome": "ok",
+            "missed": []
+          },
+          "fullRowsCompared": {
+            "query": 0,
+            "added": 0,
+            "changed": 0
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          }
+        },
+        {
+          "step": "prime-B",
+          "system": "B",
+          "count": 1,
+          "boundary": {
+            "since": 0,
+            "streamSince": 0,
+            "thisRun": 2
+          },
+          "trace": {
+            "system": "B",
+            "frame": 2,
+            "tick": 2,
+            "outcome": "ok",
+            "missed": []
+          },
+          "fullRowsCompared": {
+            "query": 0,
+            "added": 0,
+            "changed": 0
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          }
+        },
+        {
+          "step": "Fast-all-added-full-fields",
+          "system": "Fast",
+          "count": 2,
+          "boundary": {
+            "since": 1,
+            "streamSince": 1,
+            "thisRun": 5
+          },
+          "trace": {
+            "system": "Fast",
+            "frame": 4,
+            "tick": 5,
+            "outcome": "ok",
+            "missed": []
+          },
+          "fullRowsCompared": {
+            "query": 65537,
+            "added": 65537,
+            "changed": 65537
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          }
+        },
+        {
+          "step": "B-all-added-full-fields",
+          "system": "B",
+          "count": 2,
+          "boundary": {
+            "since": 2,
+            "streamSince": 2,
+            "thisRun": 6
+          },
+          "trace": {
+            "system": "B",
+            "frame": 5,
+            "tick": 6,
+            "outcome": "ok",
+            "missed": []
+          },
+          "fullRowsCompared": {
+            "query": 65537,
+            "added": 65537,
+            "changed": 65537
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          }
+        },
+        {
+          "step": "Fast-removals-before-trim",
+          "system": "Fast",
+          "count": 3,
+          "boundary": {
+            "since": 5,
+            "streamSince": 5,
+            "thisRun": 9
+          },
+          "trace": {
+            "system": "Fast",
+            "frame": 6,
+            "tick": 9,
+            "outcome": "ok",
+            "missed": []
+          },
+          "fullRowsCompared": {
+            "query": 0,
+            "added": 0,
+            "changed": 0
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          }
+        },
+        {
+          "step": "late-registration-retained-records-no-historical-lag",
+          "system": "Late",
+          "count": 1,
+          "boundary": {
+            "since": 0,
+            "streamSince": 0,
+            "thisRun": 10
+          },
+          "trace": {
+            "system": "Late",
+            "frame": 8,
+            "tick": 10,
+            "outcome": "ok",
+            "missed": []
+          },
+          "fullRowsCompared": {
+            "query": 0,
+            "added": 0,
+            "changed": 0
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          }
+        },
+        {
+          "step": "B-first-post-drop-fails",
+          "system": "B",
+          "count": 3,
+          "boundary": {
+            "since": 6,
+            "streamSince": 6,
+            "thisRun": 11
+          },
+          "trace": {
+            "system": "B",
+            "frame": 9,
+            "tick": 11,
+            "outcome": "failed",
+            "missed": [
+              {
+                "kind": "removed",
+                "stream": "Vitals"
+              },
+              {
+                "kind": "despawned",
+                "stream": "despawned"
+              }
+            ]
+          },
+          "fullRowsCompared": {
+            "query": 0,
+            "added": 0,
+            "changed": 0
+          },
+          "lag": {
+            "removed": true,
+            "despawned": true,
+            "messages": false
+          }
+        },
+        {
+          "step": "B-same-instance-retry",
+          "system": "B",
+          "count": 4,
+          "boundary": {
+            "since": 6,
+            "streamSince": 6,
+            "thisRun": 12
+          },
+          "trace": {
+            "system": "B",
+            "frame": 10,
+            "tick": 12,
+            "outcome": "ok",
+            "missed": [
+              {
+                "kind": "removed",
+                "stream": "Vitals"
+              },
+              {
+                "kind": "despawned",
+                "stream": "despawned"
+              }
+            ]
+          },
+          "fullRowsCompared": {
+            "query": 0,
+            "added": 0,
+            "changed": 0
+          },
+          "lag": {
+            "removed": true,
+            "despawned": true,
+            "messages": false
+          }
+        },
+        {
+          "step": "independent-fast-empty-not-lagged",
+          "system": "Fast",
+          "count": 4,
+          "boundary": {
+            "since": 9,
+            "streamSince": 9,
+            "thisRun": 13
+          },
+          "trace": {
+            "system": "Fast",
+            "frame": 11,
+            "tick": 13,
+            "outcome": "ok",
+            "missed": []
+          },
+          "fullRowsCompared": {
+            "query": 0,
+            "added": 0,
+            "changed": 0
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          }
+        }
+      ],
+      "dispatches": [
+        {
+          "kind": "Dispatch",
+          "step": "prime-fast",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 1,
+          "frame": 1,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "prime-B",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 2,
+          "frame": 2,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "spawn-capacity-plus-one",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 4,
+          "frame": 3,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "Fast-all-added-full-fields",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 5,
+          "frame": 4,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "B-all-added-full-fields",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 6,
+          "frame": 5,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "Fast-removals-before-trim",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 9,
+          "frame": 6,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 3,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "capacity-trim",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 9,
+          "frame": 7,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 0,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 3,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "late-registration-retained-records-no-historical-lag",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 10,
+          "frame": 8,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 3,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "B-first-post-drop-fails",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "SystemFailure",
+            "system": "B",
+            "code": 7
+          },
+          "clockTick": 11,
+          "frame": 9,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 3,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 3,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "B-same-instance-retry",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 12,
+          "frame": 10,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 4,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 3,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Dispatch",
+          "step": "independent-fast-empty-not-lagged",
+          "worldName": "alpha",
+          "tracked": true,
+          "outcome": {
+            "kind": "Complete"
+          },
+          "clockTick": 13,
+          "frame": 11,
+          "counts": [
+            {
+              "system": "Late",
+              "value": {
+                "a": 1,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "B",
+              "value": {
+                "a": 4,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Fast",
+              "value": {
+                "a": 4,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            },
+            {
+              "system": "Batch",
+              "value": {
+                "a": 2,
+                "b": 0,
+                "c": 0,
+                "d": 0
+              }
+            }
+          ]
+        }
+      ],
+      "backend": "JavaScript",
+      "executionSeconds": 2.299838573904708
     },
     {
       "schema": "Health",
@@ -17003,7 +20279,7 @@
         }
       ],
       "backend": "Native",
-      "executionSeconds": 0.005418282933533192
+      "executionSeconds": 0.004760121926665306
     },
     {
       "schema": "Health",
@@ -17344,7 +20620,7 @@
         }
       ],
       "backend": "JavaScript",
-      "executionSeconds": 0.04075720813125372
+      "executionSeconds": 0.07149415789172053
     },
     {
       "schema": "Health",
@@ -17837,7 +21113,7 @@
         }
       ],
       "backend": "Native",
-      "executionSeconds": 0.004930487833917141
+      "executionSeconds": 0.0034483198542147875
     },
     {
       "schema": "Health",
@@ -18330,35 +21606,40 @@
         }
       ],
       "backend": "JavaScript",
-      "executionSeconds": 0.05081897811032832
+      "executionSeconds": 0.05252846400253475
     }
   ],
-  "failures": [
-    {
-      "schema": "Motion",
-      "lane": "removed",
-      "backend": "JavaScript",
-      "error": "exit 1, expected 0: ['node', PosixPath('/tmp/e11-joined-pqz68a_b/host-retention-controls.js'), '0', '1']\n{\"kind\":\"Lane\",\"schema\":\"Motion\",\"lane\":\"removed\"}\nbend: memory fault (machine stack overflow?)\n"
-    },
-    {
-      "schema": "Motion",
-      "lane": "despawned",
-      "backend": "JavaScript",
-      "error": "exit 1, expected 0: ['node', PosixPath('/tmp/e11-joined-pqz68a_b/host-retention-controls.js'), '0', '2']\n{\"kind\":\"Lane\",\"schema\":\"Motion\",\"lane\":\"despawned\"}\nbend: memory fault (machine stack overflow?)\n"
-    },
-    {
-      "schema": "Health",
-      "lane": "removed",
-      "backend": "JavaScript",
-      "error": "exit 1, expected 0: ['node', PosixPath('/tmp/e11-joined-pqz68a_b/host-retention-controls.js'), '1', '1']\n{\"kind\":\"Lane\",\"schema\":\"Health\",\"lane\":\"removed\"}\nbend: memory fault (machine stack overflow?)\n"
-    },
-    {
-      "schema": "Health",
-      "lane": "despawned",
-      "backend": "JavaScript",
-      "error": "exit 1, expected 0: ['node', PosixPath('/tmp/e11-joined-pqz68a_b/host-retention-controls.js'), '1', '2']\n{\"kind\":\"Lane\",\"schema\":\"Health\",\"lane\":\"despawned\"}\nbend: memory fault (machine stack overflow?)\n"
-    }
-  ],
+  "failures": [],
+  "compactDecoderControls": {
+    "status": "PARSER_CANARIES_ONLY",
+    "validated": "all metadata retained from nonfixture template values, full fields and constant slot0 reconstructed",
+    "negativeControls": [
+      {
+        "name": "inconsistent-count",
+        "rejected": "nonpositive, wrapped or inconsistent compact interval"
+      },
+      {
+        "name": "wrong-first-handle",
+        "rejected": "template is not actual first handle"
+      },
+      {
+        "name": "wrong-first-main",
+        "rejected": "template is not actual first main value"
+      },
+      {
+        "name": "invalid-slot-rule",
+        "rejected": "missing or unexpected compact field"
+      },
+      {
+        "name": "unrepresentable",
+        "rejected": "nonrepresentable query rows"
+      }
+    ]
+  },
+  "semanticMutants": {
+    "status": "PENDING",
+    "reason": "Full original ten-case gate must pass first"
+  },
   "oraclePerturbations": [
     {
       "name": "dropped-last-message",
@@ -18439,36 +21720,5 @@
       "name": "duplicate-lane",
       "rejected": "duplicate lane Motion/message"
     }
-  ],
-  "compactDecoderControls": {
-    "status": "PARSER_CANARIES_ONLY",
-    "validated": "all metadata retained from nonfixture template values, full fields and constant slot0 reconstructed",
-    "negativeControls": [
-      {
-        "name": "inconsistent-count",
-        "rejected": "nonpositive, wrapped or inconsistent compact interval"
-      },
-      {
-        "name": "wrong-first-handle",
-        "rejected": "template is not actual first handle"
-      },
-      {
-        "name": "wrong-first-main",
-        "rejected": "template is not actual first main value"
-      },
-      {
-        "name": "invalid-slot-rule",
-        "rejected": "missing or unexpected compact field"
-      },
-      {
-        "name": "unrepresentable",
-        "rejected": "nonrepresentable query rows"
-      }
-    ]
-  },
-  "semanticMutants": {
-    "status": "PENDING",
-    "reason": "Full original ten-case gate must pass first"
-  },
-  "runnerProvenanceNote": "Runner source loaded at process start; saved-boundary comparison was added during this baseline run and is not claimed by baseline."
+  ]
 }

@@ -274,17 +274,45 @@ def prepare():
     (HERE/'host-retention-evidence.json').write_text(json.dumps(evidence,indent=2)+'\n')
     print('PREPARATION_ONLY: ten source runs and eleven comparator controls; actual joined backend binding pending')
 
+def source_closure():
+    import re
+    seen={}
+    def visit(path):
+        path=path.resolve()
+        if path in seen:return
+        text=path.read_text();seen[path]=sha(path)
+        for dependency in re.findall(r'^import (\.[^\s]+)',text,re.M):visit(path.parent/dependency)
+    visit(HERE/'host-retention-controls.bend')
+    return {str(p.relative_to(HERE.parent.parent)):value for p,value in seen.items()}
+
 def joined():
-    import tempfile,time,re
+    import tempfile,time,os
     source=HERE.parent/'s-integrate-trace'/'reference-retention.mjs'
-    references=[];actual=[];failures=[]
+    frozen=source_closure();runner_sha=sha(HERE/'host-retention-run.py')
+    evidence={'status':'INCOMPLETE','actualJoinedBendExecuted':False,'productionAcceptance':False,
+      'limits':{'checkerSeconds':5,'runtimeSeconds':5,'referenceSeconds':5,'codegenSeconds':30,'nativeCompilationSeconds':120},
+      'cpuAffinity':sorted(os.sched_getaffinity(0)) if hasattr(os,'sched_getaffinity') else None,
+      'versions':{'bend':B.command(['bend','version']),'node':B.command(['node','--version'])},
+      'sourceClosure':frozen,'referenceSha256':sha(source),'runnerSha256':runner_sha,
+      'publicReference':[],'actual':[],'failures':[],
+      'compactDecoderControls':compact_controls(),
+      'semanticMutants':{'status':'PENDING','reason':'Full original ten-case gate must pass first'}}
+    def save():
+        (HERE/'host-retention-evidence.json').write_text(json.dumps(evidence,indent=2)+'\n')
+    save()
     with tempfile.TemporaryDirectory(prefix='e11-joined-') as temporary:
-        programs=B.build(HERE/'host-retention-controls.bend',Path(temporary))
+        try:programs=B.build(HERE/'host-retention-controls.bend',Path(temporary))
+        except Exception as error:
+            evidence['failures'].append({'backend':'Build','error':str(error)[:2000]});save();raise
         for schema_index,schema in enumerate(SCHEMAS):
             for lane_index,lane in enumerate(LANES):
-                reference=json.loads(B.command(['node',source,schema,lane]))
-                assert reference['status']=='PASS',reference
-                references.append(reference)
+                try:
+                    reference=json.loads(B.command(['node',source,schema,lane]))
+                    assert reference['status']=='PASS',reference
+                except Exception as error:
+                    evidence['failures'].append({'schema':schema,'lane':lane,'backend':'TypeScript','error':str(error)[:2000]})
+                    save();print(schema+'/'+lane+' TypeScript: FAIL '+str(error)[:200],flush=True);continue
+                evidence['publicReference'].append(reference);save()
                 outputs=[]
                 for backend,program in zip(('Native','JavaScript'),programs):
                     started=time.monotonic()
@@ -293,35 +321,115 @@ def joined():
                         seconds=time.monotonic()-started
                         result=compare_joined(text,reference)
                         result.update(backend=backend,executionSeconds=seconds)
-                        actual.append(result);outputs.append(text)
+                        evidence['actual'].append(result);outputs.append(text)
+                        evidence['actualJoinedBendExecuted']=True
                         print(schema+'/'+lane+' '+backend+': PASS',flush=True)
                     except Exception as error:
-                        failures.append({'schema':schema,'lane':lane,'backend':backend,'error':str(error)[:2000]})
+                        evidence['failures'].append({'schema':schema,'lane':lane,'backend':backend,'error':str(error)[:2000]})
                         print(schema+'/'+lane+' '+backend+': FAIL '+str(error)[:200],flush=True)
+                    save()
                 if len(outputs)==2:same(outputs[0],outputs[1],'exact Native/JS output')
-    seen={}
-    def closure(path):
-        path=path.resolve()
-        if path in seen:return
-        text=path.read_text();seen[path]=sha(path)
-        for dependency in re.findall(r'^import (\.[^\s]+)',text,re.M):closure(path.parent/dependency)
-    closure(HERE/'host-retention-controls.bend')
-    evidence={'status':'JOINED_EXECUTION_PASS_MUTANTS_PENDING' if not failures else 'INCOMPLETE',
-      'actualJoinedBendExecuted':True,'productionAcceptance':False,
-      'limits':{'checkerSeconds':5,'runtimeSeconds':5,'referenceSeconds':5,'codegenSeconds':30,'nativeCompilationSeconds':120},
-      'versions':{'bend':B.command(['bend','version']),'node':B.command(['node','--version'])},
-      'sourceClosure':{str(p.relative_to(HERE.parent.parent)):value for p,value in seen.items()},
-      'referenceSha256':sha(source),'runnerSha256':sha(HERE/'host-retention-run.py'),
-      'publicReference':references,'actual':actual,'failures':failures,
-      'oraclePerturbations':perturbations(references),'compactDecoderControls':compact_controls(),
-      'semanticMutants':{'status':'PENDING','reason':'Full original ten-case gate must pass first'}}
+    same(source_closure(),frozen,'unchanged executed source closure')
+    same(sha(HERE/'host-retention-run.py'),runner_sha,'unchanged running comparator')
+    if len(evidence['publicReference'])==10:
+        project(evidence['publicReference'])
+        evidence['oraclePerturbations']=perturbations(evidence['publicReference'])
+    if not evidence['failures'] and len(evidence['actual'])==20:
+        evidence['status']='JOINED_EXECUTION_PASS_MUTANTS_PENDING'
+    save();print(evidence['status'],flush=True)
+    return 0 if evidence['status']=='JOINED_EXECUTION_PASS_MUTANTS_PENDING' else 2
+
+def wrapper_types(root):
+    prefix='import Base\nimport '+str(HERE/'host-batch-invoker.bend')+' as B\nimport '+str(HERE/'host.bend')+' as H\nimport '+str(HERE/'dispatcher.bend')+' as D\n'
+    cases=[
+      ('positive','def probe(owner:B.Batch<H.MotionHost()>) -> B.Batch<H.MotionHost()> & D.Presence:\n  B.motion_presence(owner)\n',0),
+      ('schema-negative','def probe(owner:B.Batch<H.HealthHost()>) -> B.Batch<H.MotionHost()> & D.Presence:\n  B.motion_presence(owner)\n',1),
+      ('affine-negative','def probe(owner:B.Batch<H.MotionHost()>) -> (B.Batch<H.MotionHost()> & D.Presence) & (B.Batch<H.MotionHost()> & D.Presence):\n  (B.motion_presence(owner),B.motion_presence(owner))\n',1)]
+    results=[]
+    for name,body,expected in cases:
+        path=root/(name+'.bend');path.write_text(prefix+body)
+        out=B.command([B.CHECK,path,'--check-only'],expected=expected)
+        assert ('ALL PROOFS CHECK' if expected==0 else 'SOME PROOFS FAIL') in out,out
+        if name=='schema-negative':assert 'HealthSchema' in out and 'MotionSchema' in out,out
+        if name=='affine-negative':assert 'consumed more than once' in out,out
+        results.append({'name':name,'body':body,'exit':expected,'diagnostic':out})
+    return results
+
+def mutation_cases():
+    return [
+      ('failure-advances-same-reader','readers.bend','case T.Failure{_}: readers','case T.Failure{_}: completed(readers,run)',1,'message'),
+      ('completion-overwrites-other-readers','readers.bend','replace_case(U32.is_eq(key,id)','replace_case(True{}',1,'message'),
+      ('registration-ignored','streams.bend','maximum(since,registered)','since',2,'message'),
+      ('holders-ignored','streams.bend','minimum(window,head)','window',1,'message'),
+      ('whole-tick-lifecycle-drop','streams.bend','Bool.or(U32.is_le(tick,window),U32.is_gt(size,capacity))','Bool.or(U32.is_le(tick,window),Bool.or(U32.is_gt(size,capacity),U32.is_eq(tick,dropped)))',1,'removed'),
+      ('old-live-marks-erased','host.bend','U32.is_le(tick,thisRun)','U32.is_eq(tick,thisRun)',1,'marks'),
+      ('full-payload-cell-corrupted','host-batch-invoker.bend','T.Position{F.vector(x),7}','T.Position{F.vector(U32.add(x,1)),7}',1,'marks'),
+      ('reader-dispatch-dropped','host-retention-controls.bend','case B.RetRead{who,fails} _: K.Call{actor(who,actors),read_mode(fails)}','case B.RetRead{who,fails} _: K.Nested{[]}',1,'marks'),
+      ('publication-batch-split','streams.bend',None,None,None,'message')]
+
+def mutants():
+    import tempfile,time
+    evidence=json.loads((HERE/'host-retention-evidence.json').read_text())
+    if evidence['status'] not in ('JOINED_EXECUTION_PASS_MUTANTS_PENDING','BOUNDED_JOINED_PASS') or len(evidence['actual'])!=20:
+        raise ValueError('all ten unchanged cases must pass both actual backends first')
+    repository=HERE.parent.parent
+    for name,value in evidence['sourceClosure'].items():same(sha(repository/name),value,'unchanged original closure '+name)
+    results=[]
+    with tempfile.TemporaryDirectory(prefix='e11-mutants-') as temporary:
+        evidence['typeControls']=wrapper_types(Path(temporary))
+        for name,file,old,new,count,lane in mutation_cases():
+            root=Path(temporary)/name
+            for source in evidence['sourceClosure']:
+                target=root/source;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes((repository/source).read_bytes())
+            subject=root/'experiments/s-integrate'/file
+            content=subject.read_text()
+            if old is not None:
+                same(content.count(old),count,name+' mutation occurrence count')
+                changed=content.replace(old,new)
+            else:
+                start=content.index('def append(-P:');end=content.index('def append_units(',start)
+                append=content[start:end].replace('append_buffer(P,buffer,tick,values)','append_units(P,values,tick,buffer)')
+                changed=content[:start]+content[end:];index=changed.index('def append_lifecycle(')
+                changed=changed[:index]+append+changed[index:]
+            subject.write_text(changed)
+            programs=B.build(root/'experiments/s-integrate/host-retention-controls.bend',root)
+            expected=next(r for r in evidence['publicReference'] if r['schema']=='Motion' and r['lane']==lane)
+            runs=[];outputs=[]
+            for backend,program in zip(('Native','JavaScript'),programs):
+                started=time.monotonic();text=B.execute(program,['0',str(LANES.index(lane))]);elapsed=time.monotonic()-started
+                try:compare_joined(text,expected)
+                except (AssertionError,ValueError,KeyError) as error:
+                    runs.append({'backend':backend,'executionSeconds':elapsed,'difference':str(error)[:1200],
+                      'rawSha256':hashlib.sha256(text.encode()).hexdigest(),'rawBytes':len(text.encode())})
+                else:raise AssertionError('compiling semantic mutant survived: '+name+'/'+backend)
+                outputs.append(text)
+            same(outputs[0],outputs[1],name+' Native/JS mutant output')
+            result={'name':name,'subject':file,'originalSha256':hashlib.sha256(content.encode()).hexdigest(),
+              'mutantSha256':sha(subject),'old':old,'new':new,'changedOccurrences':count,
+              'operation':'split actual publication into single-value batches' if old is None else 'exact string replacement',
+              'input':{'schema':'Motion','lane':lane},'checkerAndBothBuilds':'PASS','runs':runs}
+            results.append(result)
+            print('compiling actual joined mutant detected: '+name,flush=True)
+            evidence['semanticMutants']={'status':'RUNNING','results':results}
+            (HERE/'host-retention-evidence.json').write_text(json.dumps(evidence,indent=2)+'\n')
+    evidence['semanticMutants']={'status':'PASS','results':results}
+    evidence['status']='BOUNDED_JOINED_PASS';evidence['mutantRunnerSha256']=sha(HERE/'host-retention-run.py')
     (HERE/'host-retention-evidence.json').write_text(json.dumps(evidence,indent=2)+'\n')
-    print(evidence['status'],flush=True)
-    return 2 if failures else 0
+    return 0
 
 def main():
-    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--prepare',action='store_true')
+    import os
+    if os.environ.get('BENDVY_CPU') and hasattr(os,'sched_setaffinity'):
+        os.sched_setaffinity(0,{int(os.environ['BENDVY_CPU'])})
+    parser=argparse.ArgumentParser(description=__doc__)
+    options=parser.add_mutually_exclusive_group()
+    options.add_argument('--prepare',action='store_true')
+    options.add_argument('--joined-only',action='store_true',help='diagnostic original cases; leaves semantic mutation gate pending')
+    options.add_argument('--mutants',action='store_true',help='resume semantic mutants only against an unchanged passing original closure')
     args=parser.parse_args()
     if args.prepare:prepare();return 0
-    return joined()
+    if args.mutants:return mutants()
+    result=joined()
+    if result or args.joined_only:return result
+    return mutants()
 if __name__=='__main__':raise SystemExit(main())

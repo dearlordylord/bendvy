@@ -42,7 +42,7 @@ universal proofs.
 Required compiling subject mutations once bound: advance B on failure; complete
 all readers; split an event publication batch; group same-tick lifecycle records;
 ignore registration; ignore actual holders; erase old surviving marks; corrupt a
-nonzero payload cell or final row/handle; drop a snapshot dispatch. The comparison
+nonzero payload cell or final row/handle; drop a reader dispatch. The comparison
 preparation also perturbs ordered public evidence, including the last large-range
 element, full payload metadata, lag, failure, and base count. Oracle sensitivity
 alone is not subject mutation acceptance.
@@ -98,9 +98,9 @@ The success-only RetWrite body uses the actual affine setter and commits its
 mark at the actual invocation clock; it is not a generic transaction API.
 
 The executable accepts only two schema selectors and five lane selectors. These
-closed authored plans create one fresh world, reserve at most65537 handles,
-construct four-cell arrays with x at most65546, publish codes at most131073,
-and use at most15 frames, four registered base instances and fewer than128
+closed authored plans create one fresh world, reserve at most 65,537 handles,
+construct four-cell arrays with x at most 65,546, publish codes at most 131,073,
+and use at most 15 frames, four registered base instances and fewer than 128
 clock advances. All additions remain below U32 exhaustion. Rejected selectors
 fail before creation. The reserve-exhaustion branch preserves the returned owner;
 it is unreachable from these fresh bounded plans and would fail the exact
@@ -116,3 +116,29 @@ Native and JavaScript must also emit identical complete JSON lines. Evidence
 retains complete source observations, actual dispatches, actual boundaries,
 per-list compared counts and a hash/length of each full raw output; large raw
 arrays need not be committed after every element has been compared.
+
+## Reproducible acceptance commands
+
+`python3 experiments/s-integrate/host-retention-run.py` first compiles the actual
+entrypoint and compares all ten fresh source cases on Native and JavaScript,
+then checks/builds/runs nine isolated semantic mutants on unchanged complete
+public Motion cases. Each mutant must complete normally on both backends and
+differ from the original source observation; compile failures and timeouts do
+not count as detected semantic mutants. Each isolated clone retains the complete
+source closure and nominal payload/owner types. `--joined-only` is an explicitly
+partial diagnostic mode; `--mutants` resumes only if every original backend case
+passed and all executed source hashes still match. `--prepare` remains source
+and decoder preparation only. The source closure and runner are frozen before
+build and checked again afterward to reject evidence from a moving input.
+
+The nine perturbations alter actual failed completion, cross-reader replacement,
+registration-aware lag, holders, same-tick lifecycle capacity trimming, Ping batch
+partition, persistent marks, full Main array cells and actual reader invocation.
+They remain finite runtime falsification, not approval or proof of ECS laws.
+
+The final coordinated replay uses `BENDVY_CPU=9` (the inherited child-process
+affinity is recorded). This avoids intentional overlap with the other task
+runners; it does not prove that CPU contention caused every earlier timeout or
+turn runtime bounds into performance acceptance. Checker/runtime/reference limits
+remain five seconds in every phase. Historical failed attempts are retained in
+`host-retention-baseline.json`.
