@@ -1,6 +1,7 @@
 # P-OBS — approved bounded public-observation proofs
 
-**Draft for discussion/review; unpublished. No proof execution in this drafting task.**
+**Published: [GitHub #18](https://github.com/dearlordylord/bendvy/issues/18). Stages 0/1/2 ready; later stages retain their dependency gates.**
+[Astra review](../reviews/approved-next-tranche.md). Parent: [#1](https://github.com/dearlordylord/bendvy/issues/1).
 Governing [SPEC](../SPEC.md), [semantic audit](../reviews/laws-semantic-audit.md),
 [exact subjects](../../experiments/t11-replacement/LAWS.bend) and
 [finite evidence](../../experiments/t11-replacement/README.md).

@@ -41,97 +41,97 @@
     {
       "command": [
         "bend",
-        "/workspace/formal-proofs/bendvy-worktrees/proof-feasibility/experiments/p-observe-feasibility/reflexive.bend",
+        "/workspace/formal-proofs/bendvy/experiments/p-observe-feasibility/reflexive.bend",
         "--verdict"
       ],
       "exit_code": 0,
       "stdout": "ALL PROOFS CHECK\n",
       "stderr": "",
-      "elapsed_seconds": 0.223071,
+      "elapsed_seconds": 0.331353,
       "name": "reflexive.bend"
     },
     {
       "command": [
         "bend",
-        "/workspace/formal-proofs/bendvy-worktrees/proof-feasibility/experiments/p-observe-feasibility/erased-match-negative.bend",
+        "/workspace/formal-proofs/bendvy/experiments/p-observe-feasibility/erased-match-negative.bend",
         "--verdict"
       ],
       "exit_code": 1,
       "stdout": "",
       "stderr": "SOME PROOFS FAIL\nError:\n- message  : a live scrutinee (a - scrutinee matches only in a dead region)\nLocation: forbidden\n7 |   match world:\n8>|     case R.World{id,next,rows,pending}: {==}\n  |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n9 | \n",
-      "elapsed_seconds": 0.113256,
+      "elapsed_seconds": 0.192237,
       "name": "erased-match-negative.bend"
     },
     {
       "command": [
         "bend",
-        "/workspace/formal-proofs/bendvy-worktrees/proof-feasibility/experiments/p-observe-feasibility/false-negative.bend",
+        "/workspace/formal-proofs/bendvy/experiments/p-observe-feasibility/false-negative.bend",
         "--verdict"
       ],
       "exit_code": 1,
       "stdout": "",
       "stderr": "SOME PROOFS FAIL\nError:\n- expected : 0n\n- observed : 1n\nLocation: forbidden\n3 | def forbidden() -> {0n == 1n : Nat}:\n4>|   {==}\n  |   ^^^^\n5 | \n",
-      "elapsed_seconds": 0.112939,
+      "elapsed_seconds": 0.411016,
       "name": "false-negative.bend"
     },
     {
       "command": [
         "bend",
-        "/workspace/formal-proofs/bendvy-worktrees/proof-feasibility/experiments/p-observe-feasibility/erased-projection-match-negative.bend",
+        "/workspace/formal-proofs/bendvy/experiments/p-observe-feasibility/erased-projection-match-negative.bend",
         "--verdict"
       ],
       "exit_code": 1,
       "stdout": "",
       "stderr": "SOME PROOFS FAIL\nError:\n- message  : a live scrutinee (a - scrutinee matches only in a dead region)\nLocation: inspect\n7 |   match snapshot:\n8>|     case T.World{id,next,rows,pending}: {==}\n  |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n9 | def forbidden(-world: R.World) -> {O.snapshot(world) == O.snapshot(world) : T.World}:\n",
-      "elapsed_seconds": 0.156978,
+      "elapsed_seconds": 0.187413,
       "name": "erased-projection-match-negative.bend"
     },
     {
       "command": [
         "bend",
-        "/workspace/formal-proofs/bendvy-worktrees/proof-feasibility/experiments/p-observe-feasibility/empty-schedule-attempt.bend",
+        "/workspace/formal-proofs/bendvy/experiments/p-observe-feasibility/empty-schedule-attempt.bend",
         "--verdict"
       ],
       "exit_code": 1,
       "stdout": "",
       "stderr": "SOME PROOFS FAIL\nError:\n- expected : S.When(S.admissible(U32.to_nat(limit), O.snapshot(world)), {M.observe(R.snapshot(R.project(world))) == S.observe(O.snapshot(world)) : T.Observation})\n- observed : non-inferrable term\nContext:\n- limit : U32\n- world : R.World\nLocation: attempt\n 9 | def attempt(+limit: U32, -world: R.World) -> S.When(S.run_safe(O.steps([]),U32.to_nat(limit),O.snapshot(world)), {M.observe(R.snapshot(R.project(R.tick([],limit,world)))) == S.schedule_observation(U32.to_nat(limit),O.snapshot(world),O.steps([])) : T.Observation}):\n10>|   {==}\n   |   ^^^^\n11 | \n",
-      "elapsed_seconds": 0.141716,
+      "elapsed_seconds": 0.215978,
       "name": "empty-schedule-attempt.bend"
     },
     {
       "command": [
         "bend",
-        "/workspace/formal-proofs/bendvy-worktrees/proof-feasibility/experiments/p-observe-feasibility/barrier-schedule-attempt.bend",
+        "/workspace/formal-proofs/bendvy/experiments/p-observe-feasibility/barrier-schedule-attempt.bend",
         "--verdict"
       ],
       "exit_code": 1,
       "stdout": "",
       "stderr": "SOME PROOFS FAIL\nError:\n- expected : S.When(Bool.and(S.admissible(U32.to_nat(limit), O.snapshot(world)), Bool.and(S.step_safe(O.snapshot(world), T.Barrier{}), S.admissible(U32.to_nat(limit), S.flush(O.snapshot(world))))), {M.observe(R.snapshot(R.project(R.flush(world)))) == S.observe(S.flush(O.snapshot(world))) : T.Observation})\n- observed : non-inferrable term\nContext:\n- limit : U32\n- world : R.World\nLocation: attempt\n 9 | def attempt(+limit: U32, -world: R.World) -> S.When(S.run_safe(O.steps([R.Barrier{}]),U32.to_nat(limit),O.snapshot(world)), {M.observe(R.snapshot(R.project(R.tick([R.Barrier{}],limit,world)))) == S.schedule_observation(U32.to_nat(limit),O.snapshot(world),O.steps([R.Barrier{}])) : T.Observation}):\n10>|   {==}\n   |   ^^^^\n11 | \n",
-      "elapsed_seconds": 0.141814,
+      "elapsed_seconds": 0.488834,
       "name": "barrier-schedule-attempt.bend"
     },
     {
       "command": [
         "bend",
-        "/workspace/formal-proofs/bendvy-worktrees/proof-feasibility/experiments/t11-replacement/erasure-control.bend",
+        "/workspace/formal-proofs/bendvy/experiments/t11-replacement/erasure-control.bend",
         "--verdict"
       ],
       "exit_code": 0,
       "stdout": "ALL PROOFS CHECK\n",
       "stderr": "",
-      "elapsed_seconds": 0.182714,
+      "elapsed_seconds": 0.301503,
       "name": "prior-erasure-control.bend"
     },
     {
       "command": [
         "bend",
-        "/workspace/formal-proofs/bendvy-worktrees/proof-feasibility/experiments/t11-replacement/erasure-negative.bend",
+        "/workspace/formal-proofs/bendvy/experiments/t11-replacement/erasure-negative.bend",
         "--verdict"
       ],
       "exit_code": 1,
       "stdout": "",
       "stderr": "SOME PROOFS FAIL\nError:\n- expected : -world\n- observed : world\nLocation: bad\n3 | \n4>| def bad(-world: R.World) -> R.World:\n  |          ^^^^^\n5 |   world\n",
-      "elapsed_seconds": 0.10716,
+      "elapsed_seconds": 0.148996,
       "name": "prior-erasure-negative.bend"
     }
   ],

@@ -46,7 +46,8 @@ an earlier bounded redesign checkpoint, not completion of the next-stage specs.
 - [x] Execute #12: connected laws/runtime caller links, independent domains and observations, reachable controls, compiling mutants and bounded backend comparisons are delivered.
 - [x] Present the exact 31-law revision with rationale, controls, proof sketches, dependencies and explicit limits.
 - [x] Obtain human approval of the seven public IDs at the exact revision; see the approval record. Remaining 24 supporting candidates are unapproved.
-- [ ] Detail and review the approved seven-law proof tranche before publishing its implementation ticket.
+- [x] Detail, Astra-review and publish [P-OBS #18](tickets/17-approved-observation-proofs.md); stages 0/1/2 can proceed independently.
+- [ ] Execute #18; erased-owner feasibility evidence is [recorded](../experiments/p-observe-feasibility/README.md), not a correspondence proof.
 - [x] Detail, review and publish [S-LAYOUT #16](tickets/15-indexed-storage.md) and [S-CAPTURE #17](tickets/16-capture-restoration.md). Both can start alongside #12; publication does not mean capability completion.
 - [x] Execute #17 and review both axes: bounded state/closure/restoration evidence is recorded; general capability gates remain open.
 - [x] Execute and review #16: indexed owned-storage research is complete; dense/JS regressions retain the performance gate.
@@ -75,7 +76,7 @@ gate passed. The completed research criteria live in #12; its seven-law public s
 S-LAYOUT (#16) and S-CAPTURE (#17) completed bounded research and both review
 axes. Production layout/performance, general Local/restoration and integration
 gates remain open.
-S-INTEGRATE and P-ID/P-Q/P-CMD/P-TX/P-READ/P-PROVIDE remain **unpublished drafts**. Law packages depend on their exact
+[S-INTEGRATE detail](tickets/18-integrated-runtime.md) and P-ID/P-Q/P-CMD/P-TX/P-READ/P-PROVIDE remain **unpublished drafts**. S-INTEGRATE requires concrete trace review, including failed-reservation ID consumption versus publication rollback; no allocator rewind is inferred. Law packages depend on their exact
 subjects and approval, not a blanket benchmark gate. Production integration/layout
 adoption waits for their actual capability/performance evidence.
 
