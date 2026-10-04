@@ -13,8 +13,8 @@
   "sha256": {
     "reference-retention.mjs": "8d0b2788872cf7460da5ebfbf36e9b8b1af15ffd373feb3330043d447349baa9",
     "host-retention-controls.bend": "5e0a156ddda636a5fe70c61269aef76feed59d956b2ff4e05db0f2e51ada0565",
-    "host-retention-run.py": "57a8d6e27cdd558330e789ee315387228b5f3898c769c06d3ce24c6e0f3f6cd0",
-    "HOST-RETENTION-LAWS-DRAFT.md": "6b323004ce93993d2cbebe77d1ef474978b7fcc7b7aa057597674ef37e43f5d0",
+    "host-retention-run.py": "d0588951b1428bcf7588abd5b11f6a3b61e612c8dcee9cf8cdf8094dbdd81703",
+    "HOST-RETENTION-LAWS-DRAFT.md": "e95d6599de69454abcf6e25a82682eb27287130ae9c1a6e451c9aedff5848ce0",
     "trace-compare.py": "2cc66b6c15a931f8957b12312794a69fcc3df4fc99ae05cb988f8b8f52b4fb39"
   },
   "inputCheck": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\nbend 2.0.35 is available: run bend update\n",
@@ -7701,5 +7701,31 @@
       "name": "duplicate-lane",
       "rejected": "duplicate lane Motion/message"
     }
-  ]
+  ],
+  "compactDecoderControls": {
+    "status": "PARSER_CANARIES_ONLY",
+    "validated": "all metadata retained from nonfixture template values, full fields and constant slot0 reconstructed",
+    "negativeControls": [
+      {
+        "name": "inconsistent-count",
+        "rejected": "nonpositive, wrapped or inconsistent compact interval"
+      },
+      {
+        "name": "wrong-first-handle",
+        "rejected": "template is not actual first handle"
+      },
+      {
+        "name": "wrong-first-main",
+        "rejected": "template is not actual first main value"
+      },
+      {
+        "name": "invalid-slot-rule",
+        "rejected": "missing or unexpected compact field"
+      },
+      {
+        "name": "unrepresentable",
+        "rejected": "nonrepresentable query rows"
+      }
+    ]
+  }
 }

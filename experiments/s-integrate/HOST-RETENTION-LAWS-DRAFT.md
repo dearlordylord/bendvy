@@ -46,3 +46,33 @@ nonzero payload cell or final row/handle; drop a snapshot dispatch. The comparis
 preparation also perturbs ordered public evidence, including the last large-range
 element, full payload metadata, lag, failure, and base count. Oracle sensitivity
 alone is not subject mutation acceptance.
+
+## Compact actual-Data interchange agreed with renderer owner
+
+This is an optional E11 serializer path, not a runtime replacement. Empty sequences
+are `[]`; an empty row sequence has no observed metadata to invent. A nonempty
+row sequence is `query-row-range` with the **actual first complete QueryRow as
+`template`**, namespace, idFirst/idLast, xFirst/xLast, count, and slot0 rule `x` or
+`constant` carrying the actual first cell. Derive x from actual main cell1 minus1
+only when subtraction is valid. Visit every actual row and validate:
+
+- namespace equals the actual template; IDs and x ascend exactly1 without wrap;
+- main cells1..3 equal x+1,x+2,x+3; cell0 follows the selected actual x/constant rule;
+- all actual schema metadata, optional Aux fields and optional Flag fields equal
+  the complete actual template, including absence/presence and every array cell;
+- count and endpoints are accumulated from traversal, never caller expectations.
+
+The decoder additionally verifies that the template is exactly the first expanded
+row and endpoints/count agree. Metadata is retained from actual input, not schema
+fixture constants. Motion frame and Health reserve/class are always retained.
+Persistent marks `[11,11,12,13]` compress as x10/constant11; a first cell differing
+on any later row is nonrepresentable unless it follows the selected rule.
+
+Actual handle sequences use `handle-range` with derived namespace/first/last/count.
+Nominal Ping sequences use `inclusive-contiguous-range` over actual codes. Every
+member must be checked in original order without wrapping. `Read` scalar fields,
+lag and actual Run boundary and `ReadDone` outcome/frame/tick are unchanged.
+Any violated condition emits explicit `unrepresentable` with reason/index and
+cannot compare successfully. No checksum-only or endpoint-only validation is
+accepted. Decoder/encoder corruption controls remain distinct from actual joined
+E11 executions and compiling runtime semantic mutants.
