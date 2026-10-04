@@ -116,4 +116,6 @@ Seven-repetition Dense/Sparse/Readers measurements retain regressions and
 deadlines; mandatory production performance is not met. Exact historical-stale
 Lifecycle and dynamic repeated FailedTxn workloads remain in progress. Original
 sampling RSS inherited the launching process high-water mark and is invalid
-for child-memory comparison; corrected measurements are pending. #19 is open.
+for child-memory comparison. Corrected clean-launcher measurements are delivered:
+284/294 children validated, twelve complete cases and ten retained deadlines.
+Readers256 memory coverage remains incomplete. #19 is open.

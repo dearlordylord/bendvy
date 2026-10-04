@@ -14,7 +14,7 @@ This is a progress record, not a completion report.
 | Compiler/Base/reference pins, bounded execution | Passed for delivered records | Each record pins its own closure/tools and limits; no new dependencies, ordinary checker/build/runtime failures remain failures |
 | Equivalent integrated measurement | Partial | Dense/Sparse and Readers timing delivered; exact historical-stale Lifecycle and dynamic repeated FailedTxn still in progress |
 | Seven repetitions, ratios and variability | Partial | Completed verified Dense/Sparse/Readers sizes retain raw samples; failed larger prerequisites are excluded with explicit deadline failures |
-| Memory method and limits | Failed original method; corrected gate pending | Parent RSS contamination independently reproduced; old values explicitly withdrawn, small clean launcher controls pass |
+| Memory method and limits | Corrected method delivered; partial coverage | Original inherited RSS withdrawn. Clean-launcher run: 284/294 children validated, ten deadlines; twelve complete cases. Root independently audited counts, medians and source/launcher/runner hashes; Readers256 remains incomplete |
 | Native substantially faster, JS comparable | Failed current evidence | Dense/Sparse regress on both backends; JS Readers regresses; Native Readers faster on completed sizes does not establish overall acceptance |
 | Two-axis review and capability disposition | Partial | Current main/mutation pins reviewed; remaining measurements and final negative-result disposition need review |
 | Useful research-negative alternative | Pending | Reviewed concrete redesign follow-up #20 is published; finish remaining observations or exact bounded failure evidence before reporting completion |

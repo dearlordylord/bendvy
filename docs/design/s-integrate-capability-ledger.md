@@ -48,9 +48,10 @@ Latest bounded additions: [mark filter](../../experiments/s-integrate/host-mark-
   sizes. Dense/Sparse regress on Native and JS; Readers Native is faster on
   completed sizes, but JS regresses. Dense1024 and two-world Readers1024 sampling
   hit the five-second deadline. Performance acceptance is **not met**.
-- The reported peak-RSS method is under investigation for an inherited
-  high-water floor; memory acceptance is pending. Timing evidence remains
-  separate from memory claims.
+- The original peak-RSS method inherited the observer high-water floor and is
+  withdrawn. A corrected small-launcher run validates 284/294 fresh children;
+  twelve cases have complete memory samples, Readers256 has retained deadlines.
+  These are complete-process peaks, not component allocation measurements.
 - Lifecycle full-field diagnostic gates are retained, but checking only the
   current stale handle did not execute the complete historical-stale workload.
   The exact registered observer adapter and its timing gate are in progress.
