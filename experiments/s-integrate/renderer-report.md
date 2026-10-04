@@ -20,7 +20,7 @@ MotionMain/HealthMain tags. Access retains Found/Mismatch/Missing tags; conversi
 to reference-facing terminology is a decoder responsibility. World rows include
 both lifecycle marks; pending commands preserve input FIFO; read records include
 all queries, counts, boundaries, three lag flags, full messages and handle lists.
-ReadDone retains frame/tick/outcome; Snapshot retains worldName/prior; Reserved
+Dispatch retains actual worldName/tracked; ReadDone retains frame/tick/outcome; Snapshot retains worldName/prior; Reserved
 retains worldName, raw handle and complete components. No event constant is used
 to reconstruct observations.
 
@@ -41,4 +41,4 @@ typechecking; those drafts were corrected and do not count as semantic controls.
 This tests renderer encoding only. Constructed Data fixtures do not establish
 actual Host composition, integrated trace parity, access confinement, general
 runtime refinement or performance acceptance. Those remain #19 gates. Source event
-API is frozen at `1b6dde6` (extension of `c9271ab`); its file is owned separately.
+API is frozen at `649b172` (extensions of `1b6dde6`/`c9271ab`); its file is owned separately.

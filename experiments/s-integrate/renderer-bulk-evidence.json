@@ -1,0 +1,164 @@
+{
+  "scope": "E11-only compact actual full-row validation; not integrated Host acceptance",
+  "bounds": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "baseline": {
+    "original_renderer_revision": "7757918",
+    "fixture_sha256": "65b5509f000413c23f31fe08fad06f812907467307c0eb4f4f3c8ff96adf19de",
+    "input": "original nonuniform Main/Aux/metadata fixture 65537 rows repeated query/added/changed",
+    "monolithic": {
+      "Native": "5s timeout",
+      "JS": "machine stack overflow; exit1"
+    },
+    "tail_flattened": {
+      "Native": "5s timeout",
+      "JS": "5s timeout"
+    },
+    "streamed": {
+      "Native": {
+        "exit": 0,
+        "seconds": 1.4983933849725872,
+        "bytes": 41512431
+      },
+      "JS": "5s timeout"
+    },
+    "note": "Baseline probes preceded compact encoding; timeouts/fault are not semantic mutation passes."
+  },
+  "sources": {
+    "host-render.bend": "4dbc392f9e138183e5d90a40fa5eccb7d8bf95b4e72c1f2f5196d3bd855249c2",
+    "renderer-bulk-controls.bend": "ffe514af704c6bf7c2b3946217bf073b18b0d86eb47c400e081b977803a6a9c3",
+    "renderer-bulk-run.py": "afe79799f40a8f5ab8bb8e47be5ef4f43c0f4350be4c9a52aaa8124230822ed4"
+  },
+  "import_closure_sha256": {
+    "experiments/s-integrate/renderer-controls.bend": "89b1c8f9d31b618f790934fdf6a12d165149e36639bfc112ce257af838cf7081",
+    "experiments/s-integrate/host-render.bend": "4dbc392f9e138183e5d90a40fa5eccb7d8bf95b4e72c1f2f5196d3bd855249c2",
+    "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+    "experiments/s-integrate/storage.bend": "605d073615798f87f3675931475eee6a0668bc63c08559d4beecdb2e73c72986",
+    "experiments/s-integrate/observations.bend": "d8c421d619da38b6c13c8a3f3aa5c474b90c977f30fc6a88eae141e157ea5fc4",
+    "experiments/s-integrate/dispatcher.bend": "a0a7c77152b696dde695225d096e2894e7c3e0a7d81fb3f9da8e19fe45cddc52",
+    "experiments/s-integrate/capture.bend": "44d5f3117a465c216ee93100026aad78e86f24c40c09c678be99935dde076817",
+    "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "experiments/s-integrate/schedule.bend": "f0ae62dd2b75faaaa5c45706de35e99c06e4a9764ad8e31fdc45dc9a215f6cb4",
+    "experiments/s-integrate/systems.bend": "0ef2809a62d9a6e832398883d369261dd0a5503e641908b834f20ab515dff263",
+    "experiments/s-integrate/readers.bend": "2673082b4ef5cd6c5d8f61c362e22f74b13daeb27196894278cc20b1459c22e9",
+    "experiments/s-integrate/host-observations.bend": "eecfc882c58fc252edca1fa7c86e491ab18d01128126b430f0f995cf4b8b33fe"
+  },
+  "outcomes": {
+    "original": [
+      {
+        "backend": "Native",
+        "seconds": 1.3787561089266092,
+        "raw": "{\"kind\":\"Read\",\"step\":\"bulk\",\"system\":\"Fast\",\"count\":65537,\"boundary\":{\"since\":10,\"streamSince\":11,\"thisRun\":12},\"query\":{\"encoding\":\"query-row-range\",\"template\":{\"handle\":{\"namespace\":71,\"id\":1},\"main\":{\"coordinates\":{\"a\":1,\"b\":2,\"c\":3,\"d\":4},\"frame\":7},\"aux\":{\"rates\":{\"a\":2,\"b\":3,\"c\":4,\"d\":5},\"moving\":true},\"flag\":{\"group\":8}},\"namespace\":71,\"idFirst\":1,\"idLast\":65537,\"xFirst\":1,\"xLast\":65537,\"count\":65537,\"slot0\":{\"mode\":\"x\"}},\"added\":{\"encoding\":\"query-row-range\",\"template\":{\"handle\":{\"namespace\":71,\"id\":1},\"main\":{\"coordinates\":{\"a\":1,\"b\":2,\"c\":3,\"d\":4},\"frame\":7},\"aux\":{\"rates\":{\"a\":2,\"b\":3,\"c\":4,\"d\":5},\"moving\":true},\"flag\":{\"group\":8}},\"namespace\":71,\"idFirst\":1,\"idLast\":65537,\"xFirst\":1,\"xLast\":65537,\"count\":65537,\"slot0\":{\"mode\":\"x\"}},\"changed\":{\"encoding\":\"query-row-range\",\"template\":{\"handle\":{\"namespace\":71,\"id\":1},\"main\":{\"coordinates\":{\"a\":1,\"b\":2,\"c\":3,\"d\":4},\"frame\":7},\"aux\":{\"rates\":{\"a\":2,\"b\":3,\"c\":4,\"d\":5},\"moving\":true},\"flag\":{\"group\":8}},\"namespace\":71,\"idFirst\":1,\"idLast\":65537,\"xFirst\":1,\"xLast\":65537,\"count\":65537,\"slot0\":{\"mode\":\"x\"}},\"removed\":[],\"despawned\":[],\"messages\":[],\"messageLag\":false,\"removedLag\":false,\"despawnedLag\":false}\n{\"kind\":\"Read\",\"step\":\"bulk-health\",\"system\":\"Slow\",\"count\":65537,\"boundary\":{\"since\":20,\"streamSince\":21,\"thisRun\":22},\"query\":{\"encoding\":\"query-row-range\",\"template\":{\"handle\":{\"namespace\":72,\"id\":1},\"main\":{\"levels\":{\"a\":1,\"b\":2,\"c\":3,\"d\":4},\"reserve\":9,\"class\":2},\"aux\":{\"layers\":{\"a\":2,\"b\":3,\"c\":4,\"d\":5},\"grade\":4},\"flag\":{\"group\":8}},\"namespace\":72,\"idFirst\":1,\"idLast\":65537,\"xFirst\":1,\"xLast\":65537,\"count\":65537,\"slot0\":{\"mode\":\"x\"}},\"added\":[],\"changed\":[],\"removed\":[],\"despawned\":[],\"messages\":[],\"messageLag\":true,\"removedLag\":false,\"despawnedLag\":true}",
+        "status": "PASS",
+        "actual_fields_verified": 262148
+      },
+      {
+        "backend": "JS",
+        "seconds": 2.701891834149137,
+        "raw": "{\"kind\":\"Read\",\"step\":\"bulk\",\"system\":\"Fast\",\"count\":65537,\"boundary\":{\"since\":10,\"streamSince\":11,\"thisRun\":12},\"query\":{\"encoding\":\"query-row-range\",\"template\":{\"handle\":{\"namespace\":71,\"id\":1},\"main\":{\"coordinates\":{\"a\":1,\"b\":2,\"c\":3,\"d\":4},\"frame\":7},\"aux\":{\"rates\":{\"a\":2,\"b\":3,\"c\":4,\"d\":5},\"moving\":true},\"flag\":{\"group\":8}},\"namespace\":71,\"idFirst\":1,\"idLast\":65537,\"xFirst\":1,\"xLast\":65537,\"count\":65537,\"slot0\":{\"mode\":\"x\"}},\"added\":{\"encoding\":\"query-row-range\",\"template\":{\"handle\":{\"namespace\":71,\"id\":1},\"main\":{\"coordinates\":{\"a\":1,\"b\":2,\"c\":3,\"d\":4},\"frame\":7},\"aux\":{\"rates\":{\"a\":2,\"b\":3,\"c\":4,\"d\":5},\"moving\":true},\"flag\":{\"group\":8}},\"namespace\":71,\"idFirst\":1,\"idLast\":65537,\"xFirst\":1,\"xLast\":65537,\"count\":65537,\"slot0\":{\"mode\":\"x\"}},\"changed\":{\"encoding\":\"query-row-range\",\"template\":{\"handle\":{\"namespace\":71,\"id\":1},\"main\":{\"coordinates\":{\"a\":1,\"b\":2,\"c\":3,\"d\":4},\"frame\":7},\"aux\":{\"rates\":{\"a\":2,\"b\":3,\"c\":4,\"d\":5},\"moving\":true},\"flag\":{\"group\":8}},\"namespace\":71,\"idFirst\":1,\"idLast\":65537,\"xFirst\":1,\"xLast\":65537,\"count\":65537,\"slot0\":{\"mode\":\"x\"}},\"removed\":[],\"despawned\":[],\"messages\":[],\"messageLag\":false,\"removedLag\":false,\"despawnedLag\":false}\n{\"kind\":\"Read\",\"step\":\"bulk-health\",\"system\":\"Slow\",\"count\":65537,\"boundary\":{\"since\":20,\"streamSince\":21,\"thisRun\":22},\"query\":{\"encoding\":\"query-row-range\",\"template\":{\"handle\":{\"namespace\":72,\"id\":1},\"main\":{\"levels\":{\"a\":1,\"b\":2,\"c\":3,\"d\":4},\"reserve\":9,\"class\":2},\"aux\":{\"layers\":{\"a\":2,\"b\":3,\"c\":4,\"d\":5},\"grade\":4},\"flag\":{\"group\":8}},\"namespace\":72,\"idFirst\":1,\"idLast\":65537,\"xFirst\":1,\"xLast\":65537,\"count\":65537,\"slot0\":{\"mode\":\"x\"}},\"added\":[],\"changed\":[],\"removed\":[],\"despawned\":[],\"messages\":[],\"messageLag\":true,\"removedLag\":false,\"despawnedLag\":true}",
+        "status": "PASS",
+        "actual_fields_verified": 262148
+      }
+    ],
+    "last-main-c": [
+      {
+        "backend": "Native",
+        "seconds": 2.0818348629400134,
+        "raw": "{\"kind\":\"Read\",\"step\":\"bulk\",\"system\":\"Fast\",\"count\":65537,\"boundary\":{\"since\":10,\"streamSince\":11,\"thisRun\":12},\"query\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"added\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"changed\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"removed\":[],\"despawned\":[],\"messages\":[],\"messageLag\":false,\"removedLag\":false,\"despawnedLag\":false}\n{\"kind\":\"Read\",\"step\":\"bulk-health\",\"system\":\"Slow\",\"count\":65537,\"boundary\":{\"since\":20,\"streamSince\":21,\"thisRun\":22},\"query\":{\"encoding\":\"query-row-range\",\"template\":{\"handle\":{\"namespace\":72,\"id\":1},\"main\":{\"levels\":{\"a\":1,\"b\":2,\"c\":3,\"d\":4},\"reserve\":9,\"class\":2},\"aux\":{\"layers\":{\"a\":2,\"b\":3,\"c\":4,\"d\":5},\"grade\":4},\"flag\":{\"group\":8}},\"namespace\":72,\"idFirst\":1,\"idLast\":65537,\"xFirst\":1,\"xLast\":65537,\"count\":65537,\"slot0\":{\"mode\":\"x\"}},\"added\":[],\"changed\":[],\"removed\":[],\"despawned\":[],\"messages\":[],\"messageLag\":true,\"removedLag\":false,\"despawnedLag\":true}",
+        "status": "rejected unrepresentable actual Data",
+        "actual_fields_verified": 65537
+      },
+      {
+        "backend": "JS",
+        "seconds": 4.419076543068513,
+        "raw": "{\"kind\":\"Read\",\"step\":\"bulk\",\"system\":\"Fast\",\"count\":65537,\"boundary\":{\"since\":10,\"streamSince\":11,\"thisRun\":12},\"query\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"added\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"changed\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"removed\":[],\"despawned\":[],\"messages\":[],\"messageLag\":false,\"removedLag\":false,\"despawnedLag\":false}\n{\"kind\":\"Read\",\"step\":\"bulk-health\",\"system\":\"Slow\",\"count\":65537,\"boundary\":{\"since\":20,\"streamSince\":21,\"thisRun\":22},\"query\":{\"encoding\":\"query-row-range\",\"template\":{\"handle\":{\"namespace\":72,\"id\":1},\"main\":{\"levels\":{\"a\":1,\"b\":2,\"c\":3,\"d\":4},\"reserve\":9,\"class\":2},\"aux\":{\"layers\":{\"a\":2,\"b\":3,\"c\":4,\"d\":5},\"grade\":4},\"flag\":{\"group\":8}},\"namespace\":72,\"idFirst\":1,\"idLast\":65537,\"xFirst\":1,\"xLast\":65537,\"count\":65537,\"slot0\":{\"mode\":\"x\"}},\"added\":[],\"changed\":[],\"removed\":[],\"despawned\":[],\"messages\":[],\"messageLag\":true,\"removedLag\":false,\"despawnedLag\":true}",
+        "status": "rejected unrepresentable actual Data",
+        "actual_fields_verified": 65537
+      }
+    ],
+    "last-aux-c": [
+      {
+        "backend": "Native",
+        "seconds": 2.0119321069214493,
+        "raw": "{\"kind\":\"Read\",\"step\":\"bulk\",\"system\":\"Fast\",\"count\":65537,\"boundary\":{\"since\":10,\"streamSince\":11,\"thisRun\":12},\"query\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"added\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"changed\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"removed\":[],\"despawned\":[],\"messages\":[],\"messageLag\":false,\"removedLag\":false,\"despawnedLag\":false}\n{\"kind\":\"Read\",\"step\":\"bulk-health\",\"system\":\"Slow\",\"count\":65537,\"boundary\":{\"since\":20,\"streamSince\":21,\"thisRun\":22},\"query\":{\"encoding\":\"query-row-range\",\"template\":{\"handle\":{\"namespace\":72,\"id\":1},\"main\":{\"levels\":{\"a\":1,\"b\":2,\"c\":3,\"d\":4},\"reserve\":9,\"class\":2},\"aux\":{\"layers\":{\"a\":2,\"b\":3,\"c\":4,\"d\":5},\"grade\":4},\"flag\":{\"group\":8}},\"namespace\":72,\"idFirst\":1,\"idLast\":65537,\"xFirst\":1,\"xLast\":65537,\"count\":65537,\"slot0\":{\"mode\":\"x\"}},\"added\":[],\"changed\":[],\"removed\":[],\"despawned\":[],\"messages\":[],\"messageLag\":true,\"removedLag\":false,\"despawnedLag\":true}",
+        "status": "rejected unrepresentable actual Data",
+        "actual_fields_verified": 65537
+      },
+      {
+        "backend": "JS",
+        "seconds": 2.3397969100624323,
+        "raw": "{\"kind\":\"Read\",\"step\":\"bulk\",\"system\":\"Fast\",\"count\":65537,\"boundary\":{\"since\":10,\"streamSince\":11,\"thisRun\":12},\"query\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"added\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"changed\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"removed\":[],\"despawned\":[],\"messages\":[],\"messageLag\":false,\"removedLag\":false,\"despawnedLag\":false}\n{\"kind\":\"Read\",\"step\":\"bulk-health\",\"system\":\"Slow\",\"count\":65537,\"boundary\":{\"since\":20,\"streamSince\":21,\"thisRun\":22},\"query\":{\"encoding\":\"query-row-range\",\"template\":{\"handle\":{\"namespace\":72,\"id\":1},\"main\":{\"levels\":{\"a\":1,\"b\":2,\"c\":3,\"d\":4},\"reserve\":9,\"class\":2},\"aux\":{\"layers\":{\"a\":2,\"b\":3,\"c\":4,\"d\":5},\"grade\":4},\"flag\":{\"group\":8}},\"namespace\":72,\"idFirst\":1,\"idLast\":65537,\"xFirst\":1,\"xLast\":65537,\"count\":65537,\"slot0\":{\"mode\":\"x\"}},\"added\":[],\"changed\":[],\"removed\":[],\"despawned\":[],\"messages\":[],\"messageLag\":true,\"removedLag\":false,\"despawnedLag\":true}",
+        "status": "rejected unrepresentable actual Data",
+        "actual_fields_verified": 65537
+      }
+    ],
+    "last-metadata": [
+      {
+        "backend": "Native",
+        "seconds": 1.4829197791405022,
+        "raw": "{\"kind\":\"Read\",\"step\":\"bulk\",\"system\":\"Fast\",\"count\":65537,\"boundary\":{\"since\":10,\"streamSince\":11,\"thisRun\":12},\"query\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"added\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"changed\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"removed\":[],\"despawned\":[],\"messages\":[],\"messageLag\":false,\"removedLag\":false,\"despawnedLag\":false}\n{\"kind\":\"Read\",\"step\":\"bulk-health\",\"system\":\"Slow\",\"count\":65537,\"boundary\":{\"since\":20,\"streamSince\":21,\"thisRun\":22},\"query\":{\"encoding\":\"query-row-range\",\"template\":{\"handle\":{\"namespace\":72,\"id\":1},\"main\":{\"levels\":{\"a\":1,\"b\":2,\"c\":3,\"d\":4},\"reserve\":9,\"class\":2},\"aux\":{\"layers\":{\"a\":2,\"b\":3,\"c\":4,\"d\":5},\"grade\":4},\"flag\":{\"group\":8}},\"namespace\":72,\"idFirst\":1,\"idLast\":65537,\"xFirst\":1,\"xLast\":65537,\"count\":65537,\"slot0\":{\"mode\":\"x\"}},\"added\":[],\"changed\":[],\"removed\":[],\"despawned\":[],\"messages\":[],\"messageLag\":true,\"removedLag\":false,\"despawnedLag\":true}",
+        "status": "rejected unrepresentable actual Data",
+        "actual_fields_verified": 65537
+      },
+      {
+        "backend": "JS",
+        "seconds": 2.9046091239433736,
+        "raw": "{\"kind\":\"Read\",\"step\":\"bulk\",\"system\":\"Fast\",\"count\":65537,\"boundary\":{\"since\":10,\"streamSince\":11,\"thisRun\":12},\"query\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"added\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"changed\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"removed\":[],\"despawned\":[],\"messages\":[],\"messageLag\":false,\"removedLag\":false,\"despawnedLag\":false}\n{\"kind\":\"Read\",\"step\":\"bulk-health\",\"system\":\"Slow\",\"count\":65537,\"boundary\":{\"since\":20,\"streamSince\":21,\"thisRun\":22},\"query\":{\"encoding\":\"query-row-range\",\"template\":{\"handle\":{\"namespace\":72,\"id\":1},\"main\":{\"levels\":{\"a\":1,\"b\":2,\"c\":3,\"d\":4},\"reserve\":9,\"class\":2},\"aux\":{\"layers\":{\"a\":2,\"b\":3,\"c\":4,\"d\":5},\"grade\":4},\"flag\":{\"group\":8}},\"namespace\":72,\"idFirst\":1,\"idLast\":65537,\"xFirst\":1,\"xLast\":65537,\"count\":65537,\"slot0\":{\"mode\":\"x\"}},\"added\":[],\"changed\":[],\"removed\":[],\"despawned\":[],\"messages\":[],\"messageLag\":true,\"removedLag\":false,\"despawnedLag\":true}",
+        "status": "rejected unrepresentable actual Data",
+        "actual_fields_verified": 65537
+      }
+    ],
+    "last-namespace": [
+      {
+        "backend": "Native",
+        "seconds": 1.4586783240083605,
+        "raw": "{\"kind\":\"Read\",\"step\":\"bulk\",\"system\":\"Fast\",\"count\":65537,\"boundary\":{\"since\":10,\"streamSince\":11,\"thisRun\":12},\"query\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"added\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"changed\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"removed\":[],\"despawned\":[],\"messages\":[],\"messageLag\":false,\"removedLag\":false,\"despawnedLag\":false}\n{\"kind\":\"Read\",\"step\":\"bulk-health\",\"system\":\"Slow\",\"count\":65537,\"boundary\":{\"since\":20,\"streamSince\":21,\"thisRun\":22},\"query\":{\"encoding\":\"query-row-range\",\"template\":{\"handle\":{\"namespace\":72,\"id\":1},\"main\":{\"levels\":{\"a\":1,\"b\":2,\"c\":3,\"d\":4},\"reserve\":9,\"class\":2},\"aux\":{\"layers\":{\"a\":2,\"b\":3,\"c\":4,\"d\":5},\"grade\":4},\"flag\":{\"group\":8}},\"namespace\":72,\"idFirst\":1,\"idLast\":65537,\"xFirst\":1,\"xLast\":65537,\"count\":65537,\"slot0\":{\"mode\":\"x\"}},\"added\":[],\"changed\":[],\"removed\":[],\"despawned\":[],\"messages\":[],\"messageLag\":true,\"removedLag\":false,\"despawnedLag\":true}",
+        "status": "rejected unrepresentable actual Data",
+        "actual_fields_verified": 65537
+      },
+      {
+        "backend": "JS",
+        "seconds": 2.3895496209152043,
+        "raw": "{\"kind\":\"Read\",\"step\":\"bulk\",\"system\":\"Fast\",\"count\":65537,\"boundary\":{\"since\":10,\"streamSince\":11,\"thisRun\":12},\"query\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"added\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"changed\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"removed\":[],\"despawned\":[],\"messages\":[],\"messageLag\":false,\"removedLag\":false,\"despawnedLag\":false}\n{\"kind\":\"Read\",\"step\":\"bulk-health\",\"system\":\"Slow\",\"count\":65537,\"boundary\":{\"since\":20,\"streamSince\":21,\"thisRun\":22},\"query\":{\"encoding\":\"query-row-range\",\"template\":{\"handle\":{\"namespace\":72,\"id\":1},\"main\":{\"levels\":{\"a\":1,\"b\":2,\"c\":3,\"d\":4},\"reserve\":9,\"class\":2},\"aux\":{\"layers\":{\"a\":2,\"b\":3,\"c\":4,\"d\":5},\"grade\":4},\"flag\":{\"group\":8}},\"namespace\":72,\"idFirst\":1,\"idLast\":65537,\"xFirst\":1,\"xLast\":65537,\"count\":65537,\"slot0\":{\"mode\":\"x\"}},\"added\":[],\"changed\":[],\"removed\":[],\"despawned\":[],\"messages\":[],\"messageLag\":true,\"removedLag\":false,\"despawnedLag\":true}",
+        "status": "rejected unrepresentable actual Data",
+        "actual_fields_verified": 65537
+      }
+    ],
+    "first-b-zero": [
+      {
+        "backend": "Native",
+        "seconds": 1.1778494180180132,
+        "raw": "{\"kind\":\"Read\",\"step\":\"bulk\",\"system\":\"Fast\",\"count\":65537,\"boundary\":{\"since\":10,\"streamSince\":11,\"thisRun\":12},\"query\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"added\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"changed\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"removed\":[],\"despawned\":[],\"messages\":[],\"messageLag\":false,\"removedLag\":false,\"despawnedLag\":false}\n{\"kind\":\"Read\",\"step\":\"bulk-health\",\"system\":\"Slow\",\"count\":65537,\"boundary\":{\"since\":20,\"streamSince\":21,\"thisRun\":22},\"query\":{\"encoding\":\"query-row-range\",\"template\":{\"handle\":{\"namespace\":72,\"id\":1},\"main\":{\"levels\":{\"a\":1,\"b\":2,\"c\":3,\"d\":4},\"reserve\":9,\"class\":2},\"aux\":{\"layers\":{\"a\":2,\"b\":3,\"c\":4,\"d\":5},\"grade\":4},\"flag\":{\"group\":8}},\"namespace\":72,\"idFirst\":1,\"idLast\":65537,\"xFirst\":1,\"xLast\":65537,\"count\":65537,\"slot0\":{\"mode\":\"x\"}},\"added\":[],\"changed\":[],\"removed\":[],\"despawned\":[],\"messages\":[],\"messageLag\":true,\"removedLag\":false,\"despawnedLag\":true}",
+        "status": "rejected unrepresentable actual Data",
+        "actual_fields_verified": 65537
+      },
+      {
+        "backend": "JS",
+        "seconds": 2.043231287971139,
+        "raw": "{\"kind\":\"Read\",\"step\":\"bulk\",\"system\":\"Fast\",\"count\":65537,\"boundary\":{\"since\":10,\"streamSince\":11,\"thisRun\":12},\"query\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"added\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"changed\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"removed\":[],\"despawned\":[],\"messages\":[],\"messageLag\":false,\"removedLag\":false,\"despawnedLag\":false}\n{\"kind\":\"Read\",\"step\":\"bulk-health\",\"system\":\"Slow\",\"count\":65537,\"boundary\":{\"since\":20,\"streamSince\":21,\"thisRun\":22},\"query\":{\"encoding\":\"query-row-range\",\"template\":{\"handle\":{\"namespace\":72,\"id\":1},\"main\":{\"levels\":{\"a\":1,\"b\":2,\"c\":3,\"d\":4},\"reserve\":9,\"class\":2},\"aux\":{\"layers\":{\"a\":2,\"b\":3,\"c\":4,\"d\":5},\"grade\":4},\"flag\":{\"group\":8}},\"namespace\":72,\"idFirst\":1,\"idLast\":65537,\"xFirst\":1,\"xLast\":65537,\"count\":65537,\"slot0\":{\"mode\":\"x\"}},\"added\":[],\"changed\":[],\"removed\":[],\"despawned\":[],\"messages\":[],\"messageLag\":true,\"removedLag\":false,\"despawnedLag\":true}",
+        "status": "rejected unrepresentable actual Data",
+        "actual_fields_verified": 65537
+      }
+    ],
+    "wrapped-id": [
+      {
+        "backend": "Native",
+        "seconds": 1.1831542120780796,
+        "raw": "{\"kind\":\"Read\",\"step\":\"bulk\",\"system\":\"Fast\",\"count\":65537,\"boundary\":{\"since\":10,\"streamSince\":11,\"thisRun\":12},\"query\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"added\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"changed\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"removed\":[],\"despawned\":[],\"messages\":[],\"messageLag\":false,\"removedLag\":false,\"despawnedLag\":false}\n{\"kind\":\"Read\",\"step\":\"bulk-health\",\"system\":\"Slow\",\"count\":65537,\"boundary\":{\"since\":20,\"streamSince\":21,\"thisRun\":22},\"query\":{\"encoding\":\"query-row-range\",\"template\":{\"handle\":{\"namespace\":72,\"id\":1},\"main\":{\"levels\":{\"a\":1,\"b\":2,\"c\":3,\"d\":4},\"reserve\":9,\"class\":2},\"aux\":{\"layers\":{\"a\":2,\"b\":3,\"c\":4,\"d\":5},\"grade\":4},\"flag\":{\"group\":8}},\"namespace\":72,\"idFirst\":1,\"idLast\":65537,\"xFirst\":1,\"xLast\":65537,\"count\":65537,\"slot0\":{\"mode\":\"x\"}},\"added\":[],\"changed\":[],\"removed\":[],\"despawned\":[],\"messages\":[],\"messageLag\":true,\"removedLag\":false,\"despawnedLag\":true}",
+        "status": "rejected unrepresentable actual Data",
+        "actual_fields_verified": 65537
+      },
+      {
+        "backend": "JS",
+        "seconds": 2.0376356160268188,
+        "raw": "{\"kind\":\"Read\",\"step\":\"bulk\",\"system\":\"Fast\",\"count\":65537,\"boundary\":{\"since\":10,\"streamSince\":11,\"thisRun\":12},\"query\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"added\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"changed\":{\"encoding\":\"unrepresentable\",\"reason\":\"row-fields-or-range\",\"index\":65536},\"removed\":[],\"despawned\":[],\"messages\":[],\"messageLag\":false,\"removedLag\":false,\"despawnedLag\":false}\n{\"kind\":\"Read\",\"step\":\"bulk-health\",\"system\":\"Slow\",\"count\":65537,\"boundary\":{\"since\":20,\"streamSince\":21,\"thisRun\":22},\"query\":{\"encoding\":\"query-row-range\",\"template\":{\"handle\":{\"namespace\":72,\"id\":1},\"main\":{\"levels\":{\"a\":1,\"b\":2,\"c\":3,\"d\":4},\"reserve\":9,\"class\":2},\"aux\":{\"layers\":{\"a\":2,\"b\":3,\"c\":4,\"d\":5},\"grade\":4},\"flag\":{\"group\":8}},\"namespace\":72,\"idFirst\":1,\"idLast\":65537,\"xFirst\":1,\"xLast\":65537,\"count\":65537,\"slot0\":{\"mode\":\"x\"}},\"added\":[],\"changed\":[],\"removed\":[],\"despawned\":[],\"messages\":[],\"messageLag\":true,\"removedLag\":false,\"despawnedLag\":true}",
+        "status": "rejected unrepresentable actual Data",
+        "actual_fields_verified": 65537
+      }
+    ]
+  }
+}

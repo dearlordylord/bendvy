@@ -30,7 +30,7 @@ def main() -> IO(Unit):
     IO.print(R.render_motion(snapshot()))
     IO.print(R.render_motion(H.Read{"read","Fast",26,T.ReadBoundary{27,28,29},[row()],[row()],[row()],[S.Handle{41,17}],[S.Handle{41,18}],[T.MotionPing{30},T.MotionPing{31}],True{},False{},True{}}))
     IO.print(R.render_motion(H.ReadDone{"readDone","Fast",32,33,T.Failure{34},False{},True{},False{}}))
-    IO.print(R.render_motion(H.Dispatch{"dispatch",D.SystemFailure{"B",35},36,37,[H.Count{"A",T.Four{38,39,40,41}}]}))
+    IO.print(R.render_motion(H.Dispatch{"dispatch","motion",True{},D.SystemFailure{"B",35},36,37,[H.Count{"A",T.Four{38,39,40,41}}]}))
     IO.print(R.render_motion(H.OwnWrites{"writes","B",[H.Main{T.Found{T.MotionMain{position()}}},H.Main{T.Missing{}},H.Main{T.Mismatch{}},H.ReservedLookup{T.Missing{}},H.Ledger{Some{T.LedgerView{T.Four{42,43,44,45},46}}},H.Ledger{None{}}]}))
     IO.print(R.render_health(H.Snapshot{"health","health-world",D.SetupRejected{"reason"},O.WorldView{47,48,[O.RowView{49,Some{T.VitalsView{T.Four{50,51,52,53},54,55}},Some{T.ArmorView{T.Four{56,57,58,59},60}},Some{T.Tracked{61}},62,63}],[],None{},T.HealthOff{}},[],[],[],[],[]}))
     IO.print(R.render_health(H.Read{"health-read","Slow",64,T.ReadBoundary{65,66,67},[],[],[],[],[],[T.HealthPing{68}],False{},False{},False{}}))

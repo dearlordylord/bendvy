@@ -27,7 +27,7 @@ expected = [
  tagged('Snapshot',step='snapshot',worldName='world',prior=tagged('Complete'),world=world,query=[row],plus=[row],minus=[],optional=[row],lookups=[dict(label='found',handle=handle(41,17),result=tagged('Found',value=row)),dict(label='foreign',handle=handle(42,17),result=tagged('Mismatch')),dict(label='stale',handle=handle(41,99),result=tagged('Missing'))]),
  tagged('Read',step='read',system='Fast',count=26,boundary=dict(since=27,streamSince=28,thisRun=29),query=[row],added=[row],changed=[row],removed=[handle(41,17)],despawned=[handle(41,18)],messages=[dict(code=30),dict(code=31)],messageLag=True,removedLag=False,despawnedLag=True),
  tagged('ReadDone',step='readDone',system='Fast',frame=32,tick=33,outcome=tagged('Failure',code=34),messageLag=False,removedLag=True,despawnedLag=False),
- tagged('Dispatch',step='dispatch',outcome=tagged('SystemFailure',system='B',code=35),clockTick=36,frame=37,counts=[dict(system='A',value=four(38,39,40,41))]),
+ tagged('Dispatch',step='dispatch',worldName='motion',tracked=True,outcome=tagged('SystemFailure',system='B',code=35),clockTick=36,frame=37,counts=[dict(system='A',value=four(38,39,40,41))]),
  tagged('OwnWrites',step='writes',system='B',views=[tagged('Main',value=tagged('Found',value=tagged('MotionMain',position=pos))),tagged('Main',value=tagged('Missing')),tagged('Main',value=tagged('Mismatch')),tagged('ReservedLookup',value=tagged('Missing')),tagged('Ledger',value=dict(totals=four(42,43,44,45),epoch=46)),tagged('Ledger',value=None)]),
  tagged('Snapshot',step='health',worldName='health-world',prior=tagged('SetupRejected',reason='reason'),world=dict(namespace=47,next=48,rows=[dict(id=49,main=dict(levels=four(50,51,52,53),reserve=54,**{'class':55}),aux=dict(layers=four(56,57,58,59),grade=60),flag=dict(group=61),added=62,changed=63)],pending=[],ledger=None,mode='HealthOff'),query=[],plus=[],minus=[],optional=[],lookups=[]),
  tagged('Read',step='health-read',system='Slow',count=64,boundary=dict(since=65,streamSince=66,thisRun=67),query=[],added=[],changed=[],removed=[],despawned=[],messages=[dict(code=68)],messageLag=False,removedLag=False,despawnedLag=False),
@@ -38,10 +38,10 @@ expected = [
 # import routing to the isolated modified implementation. Every mutant checks
 # and compiles on both backends before differing at its intended JSON field.
 mutations = {
- 'four-slot': ('U32.show(c) ++ ",\\\"d\\\":" ++ U32.show(d)', 'U32.show(d) ++ ",\\\"d\\\":" ++ U32.show(c)'),
- 'namespace': ('U32.show(namespace) ++ ",\\\"id\\\":"', 'U32.show(id) ++ ",\\\"id\\\":"'),
- 'fifo': ('String.join(render_list_items(~A,~render,values),",")', 'String.join(List.reverse(&2,String,render_list_items(~A,~render,values)),",")'),
- 'control-escape': ('"\\\\u00" ++ render_hex((code / 16 : U32)) ++ render_hex((code % 16 : U32))', '"\\\\u00" ++ render_hex((code / 16 : U32)) ++ render_hex(0)'),
+ 'four-slot': ('U32.show(c), ",\\\"d\\\":", U32.show(d)', 'U32.show(d), ",\\\"d\\\":", U32.show(c)'),
+ 'namespace': ('U32.show(namespace), ",\\\"id\\\":",', 'U32.show(id), ",\\\"id\\\":",'),
+ 'fifo': ('case Nil{}: List.reverse(&2,String,acc)', 'case Nil{}: acc'),
+ 'control-escape': ('render_hex((code % 16 : U32))', 'render_hex(0)'),
 }
 
 def imports(text, original, renderer=None):
