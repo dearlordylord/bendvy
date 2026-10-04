@@ -1,0 +1,110 @@
+{
+  "snapshot_manifest_sha256": "78d52c22894758f54c335f1492d7f537f6d6f2897087e71765b63b2d729ff10e",
+  "snapshot_overrides": {
+    "experiments/s-integrate/commands.bend": "/workspace/formal-proofs/bendvy/experiments/s-perf/candidate/commands.bend",
+    "experiments/s-integrate/dispatcher.bend": "/workspace/formal-proofs/bendvy/experiments/s-perf/candidate/dispatcher.bend",
+    "experiments/s-integrate/host.bend": "/workspace/formal-proofs/bendvy/experiments/s-perf/candidate/host.bend",
+    "experiments/s-integrate/identity.bend": "/workspace/formal-proofs/bendvy/experiments/s-perf/candidate/identity.bend",
+    "experiments/s-integrate/measurement-bend.bend": "/workspace/formal-proofs/bendvy/experiments/s-perf/candidate/measurement-bend.bend",
+    "experiments/s-integrate/measurement-failure-host.bend": "/workspace/formal-proofs/bendvy/experiments/s-perf/candidate/measurement-failure-host.bend",
+    "experiments/s-integrate/measurement-lifecycle.bend": "/workspace/formal-proofs/bendvy/experiments/s-perf/candidate/measurement-lifecycle.bend",
+    "experiments/s-integrate/observations.bend": "/workspace/formal-proofs/bendvy/experiments/s-perf/candidate/observations.bend",
+    "experiments/s-integrate/query.bend": "/workspace/formal-proofs/bendvy/experiments/s-perf/candidate/query.bend",
+    "experiments/s-integrate/storage.bend": "/workspace/formal-proofs/bendvy/experiments/s-perf/candidate/storage.bend"
+  },
+  "merges": [
+    {
+      "module": "storage",
+      "status": "COPY",
+      "indexed_sha256": "8440ed1ec21c8d4874072aed8ca0ec4967f4e4e522f88d36f68050685d9e0345",
+      "baseline_sha256": "936ee89484a6e58558ab1684d90c16cbf2285ef5027292901dd3d9bf973754ba",
+      "diagnostic_sha256": "936ee89484a6e58558ab1684d90c16cbf2285ef5027292901dd3d9bf973754ba"
+    },
+    {
+      "module": "identity",
+      "status": "COPY",
+      "indexed_sha256": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+      "baseline_sha256": "2c88babc9e853d3706f7a6c1f8f0ae48c198949143df2da6562bd774237d7329",
+      "diagnostic_sha256": "2c88babc9e853d3706f7a6c1f8f0ae48c198949143df2da6562bd774237d7329"
+    },
+    {
+      "module": "commands",
+      "status": "COPY",
+      "indexed_sha256": "645c07267baefeac4990e7d0d33525b2620038862810a6e05f8a960f93bfe5c3",
+      "baseline_sha256": "022ea5ca1f44c952ae77071689d0735e5a38976d7f628203d85fd9cc920a1194",
+      "diagnostic_sha256": "022ea5ca1f44c952ae77071689d0735e5a38976d7f628203d85fd9cc920a1194"
+    },
+    {
+      "module": "query",
+      "status": "COPY",
+      "indexed_sha256": "5fb8447d34edc2260341341c36dc7970964318fa582cdd078da296c5f9e1a1ce",
+      "baseline_sha256": "903af14b5d85d1162df5f872f26f221134a17c772bc82fd17686ce2f4be45759",
+      "diagnostic_sha256": "903af14b5d85d1162df5f872f26f221134a17c772bc82fd17686ce2f4be45759"
+    },
+    {
+      "module": "observations",
+      "status": "COPY",
+      "indexed_sha256": "00442198a7aeb420c5defef1641fa873a8f4fcaddfd896973820fe7b875216c4",
+      "baseline_sha256": "81e6afcd4ae06a396669cff14d1da68a4c597539b6eb64e68648ebbe7b235136",
+      "diagnostic_sha256": "81e6afcd4ae06a396669cff14d1da68a4c597539b6eb64e68648ebbe7b235136"
+    },
+    {
+      "module": "host",
+      "status": "COPY",
+      "indexed_sha256": "cc06d581fbc762ef2fcae5091a21bb11955c6770e43abc4346de9fa884d81d2c",
+      "baseline_sha256": "b50bc903906cb6a842d0ef88ba84fe0dbf0dd7abdb85c0fa436bccf228b74bb9",
+      "diagnostic_sha256": "b50bc903906cb6a842d0ef88ba84fe0dbf0dd7abdb85c0fa436bccf228b74bb9"
+    },
+    {
+      "module": "dispatcher",
+      "status": "MERGED",
+      "indexed_sha256": "5d7652d052f9915e9735a81d470026c2f7ba2077f11b09472418a6b5213945e9",
+      "baseline_sha256": "3530c7c20d704ba51a9cdace1f028e507960458b9c0bdcdf0dbc0d546c800b07",
+      "diagnostic_sha256": "7b51821ca31408f1d24b0b6e3d70e49235cce37312fbeb0d8608cd3df934d5e9"
+    },
+    {
+      "module": "measurement-failure-host",
+      "status": "MERGED",
+      "indexed_sha256": "754e2f98fe6035959e3d2395f449e0354d1c2f55f1b56370adefa547312e53cb",
+      "baseline_sha256": "d71fb1e7ec9ba8f5c9c2d7687b40b5681f8ebd5a5c34a4ae59aaeda9ca805e2d",
+      "diagnostic_sha256": "9d21ca6cec7de18fcd6b3fc0394ddea6a7400eb3424d48cf9d9f627c6a6a4bcd"
+    }
+  ],
+  "sources": {
+    "experiments/s-integrate/measurement-failure-observe.bend": "28a58ae02d8b8d86cdc82d977eccf58a6ca0c1a14874837a13d956262e5ed8d3",
+    "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "experiments/s-integrate/measurement-failure-callbacks.bend": "55768432050a0fcb86334101b52c194cd5eebe04610d20c15a59e908d3ac8337",
+    "experiments/s-integrate/measurement-bend.bend": "0fc02c9395408f8a291948f56e2836aa8996e5d3955684bf9a84f459179b67f8",
+    "experiments/s-integrate/storage.bend": "8440ed1ec21c8d4874072aed8ca0ec4967f4e4e522f88d36f68050685d9e0345",
+    "experiments/s-integrate/transaction-dispatch-adapters.bend": "eea16d3f539d70bcd88fd8fd314b75d252ccaff2b9c1c8b63e7d96bfdda34142",
+    "experiments/s-integrate/measurement-lifecycle.bend": "dc97835af3a229273488bc50219a36a8249992e324ac9685a39eea03b7246f60",
+    "experiments/s-integrate/systems.bend": "2cfc899215e408cc4c652c8d4c290b18800cdb6e8c96f1061a77853afdac9221",
+    "experiments/s-integrate/identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+    "experiments/s-integrate/schedule.bend": "98c955f7ee5039aed875a3bd93e3c94840d9ea2f48de0e6415bd28d63ee8fb98",
+    "experiments/s-integrate/reader-host.bend": "50f1251c6d476b07055c36c5a97e3350a4cb46e5d826ff97ced2860d40798a64",
+    "experiments/s-integrate/audited-invoker.bend": "2ed7e484b8a043f0944e0f662a8799f94388c99f757de331fb1a79b1c07c8853",
+    "experiments/s-integrate/observations.bend": "00442198a7aeb420c5defef1641fa873a8f4fcaddfd896973820fe7b875216c4",
+    "experiments/s-integrate/host-observations.bend": "cad7ddbc668a24c09ef8d0ebb635e9a910ddcc64f53287ce679a1c9004bada50",
+    "experiments/s-integrate/measurement-failure-fixture.bend": "9c2ce8c29d2f3430dcab4380616e9e2a7a7e8b7dba7d6d9bc12757ca133f8d8d",
+    "experiments/s-integrate/query.bend": "5fb8447d34edc2260341341c36dc7970964318fa582cdd078da296c5f9e1a1ce",
+    "experiments/s-integrate/structural-invoker.bend": "6907a8c5775f77ffed6141123fe5c7033678269ade0f59cd0f24b8680e497932",
+    "experiments/s-integrate/measurement-failure-invoker.bend": "22ae7ae73989b1d0d97820bcbe4c8af46eed815f66584c330b8f3b334928b03e",
+    "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+    "experiments/s-integrate/measurement-failure-driver.bend": "f2f7cdb5c561c65857b66cb9ed4bcaa92899d09623b7ddc880704af6ae0fe604",
+    "experiments/s-integrate/commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+    "experiments/s-integrate/capture.bend": "44d5f3117a465c216ee93100026aad78e86f24c40c09c678be99935dde076817",
+    "experiments/s-integrate/host-render.bend": "aa471388ab39e95c731816c38873fd8f990c7d24cb5892a6725562c5d679be8d",
+    "experiments/s-integrate/readers.bend": "2673082b4ef5cd6c5d8f61c362e22f74b13daeb27196894278cc20b1459c22e9",
+    "experiments/s-integrate/transaction.bend": "d32f0b26e4a14fc784c3ce30c4d6a1ded0cf0a55ed819f54419a558445e298a4",
+    "experiments/s-integrate/dispatcher.bend": "545dcd51e8664ec41d52b59e5ff253944e20a3e04d968f70f655c56cff0a2344",
+    "experiments/s-integrate/streams.bend": "1a1c7991d6a1b4ebfb3b47dc62459beb83ed5e38ded56d27cc20b5478fc0d315",
+    "experiments/s-integrate/host.bend": "cc06d581fbc762ef2fcae5091a21bb11955c6770e43abc4346de9fa884d81d2c",
+    "experiments/s-integrate/measurement-failure-host.bend": "a566877a88e41b25be9ae6a39b1bdae485dd9f23d8feee8f7469d960d8fb8779"
+  },
+  "post_snapshot_override": {
+    "commit": "4963856",
+    "module": "commands",
+    "sha256": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+    "reason": "direct tail-loop preflight, shared exact current candidate"
+  }
+}

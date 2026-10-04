@@ -1,0 +1,1271 @@
+{
+  "cpu": 7,
+  "repetitions": 7,
+  "runtime_limit_seconds": 5,
+  "ratio_acceptance": false,
+  "scope": "Diagnostic inner durations only: extra Bend service/clock forcing and Audit representation remain unmatched; complete value gates required. RSS includes retained full diagnostic journals and final serialization.",
+  "runner_sha256": "6aea472aee87ed122068b1cb5f9eaea856701a04a001458b7dfc7fd1ebf72a8a",
+  "rss_launcher_source_sha256": "eaef512a2c5e25c571f846fa5ddb5bf2075f2dda71c33ad29cb270639f05f977",
+  "rss_launcher_sha256": "9bbaad9a99c600d625499324223994f9d411ce4fa3fb4178d1a3412bc585d66f",
+  "manifest": {
+    "snapshot_manifest_sha256": "78d52c22894758f54c335f1492d7f537f6d6f2897087e71765b63b2d729ff10e",
+    "snapshot_overrides": {
+      "experiments/s-integrate/commands.bend": "/workspace/formal-proofs/bendvy/experiments/s-perf/candidate/commands.bend",
+      "experiments/s-integrate/dispatcher.bend": "/workspace/formal-proofs/bendvy/experiments/s-perf/candidate/dispatcher.bend",
+      "experiments/s-integrate/host.bend": "/workspace/formal-proofs/bendvy/experiments/s-perf/candidate/host.bend",
+      "experiments/s-integrate/identity.bend": "/workspace/formal-proofs/bendvy/experiments/s-perf/candidate/identity.bend",
+      "experiments/s-integrate/measurement-bend.bend": "/workspace/formal-proofs/bendvy/experiments/s-perf/candidate/measurement-bend.bend",
+      "experiments/s-integrate/measurement-failure-host.bend": "/workspace/formal-proofs/bendvy/experiments/s-perf/candidate/measurement-failure-host.bend",
+      "experiments/s-integrate/measurement-lifecycle.bend": "/workspace/formal-proofs/bendvy/experiments/s-perf/candidate/measurement-lifecycle.bend",
+      "experiments/s-integrate/observations.bend": "/workspace/formal-proofs/bendvy/experiments/s-perf/candidate/observations.bend",
+      "experiments/s-integrate/query.bend": "/workspace/formal-proofs/bendvy/experiments/s-perf/candidate/query.bend",
+      "experiments/s-integrate/storage.bend": "/workspace/formal-proofs/bendvy/experiments/s-perf/candidate/storage.bend"
+    },
+    "merges": [
+      {
+        "module": "storage",
+        "status": "COPY",
+        "indexed_sha256": "8440ed1ec21c8d4874072aed8ca0ec4967f4e4e522f88d36f68050685d9e0345",
+        "baseline_sha256": "936ee89484a6e58558ab1684d90c16cbf2285ef5027292901dd3d9bf973754ba",
+        "diagnostic_sha256": "936ee89484a6e58558ab1684d90c16cbf2285ef5027292901dd3d9bf973754ba"
+      },
+      {
+        "module": "identity",
+        "status": "COPY",
+        "indexed_sha256": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+        "baseline_sha256": "2c88babc9e853d3706f7a6c1f8f0ae48c198949143df2da6562bd774237d7329",
+        "diagnostic_sha256": "2c88babc9e853d3706f7a6c1f8f0ae48c198949143df2da6562bd774237d7329"
+      },
+      {
+        "module": "commands",
+        "status": "COPY",
+        "indexed_sha256": "645c07267baefeac4990e7d0d33525b2620038862810a6e05f8a960f93bfe5c3",
+        "baseline_sha256": "022ea5ca1f44c952ae77071689d0735e5a38976d7f628203d85fd9cc920a1194",
+        "diagnostic_sha256": "022ea5ca1f44c952ae77071689d0735e5a38976d7f628203d85fd9cc920a1194"
+      },
+      {
+        "module": "query",
+        "status": "COPY",
+        "indexed_sha256": "5fb8447d34edc2260341341c36dc7970964318fa582cdd078da296c5f9e1a1ce",
+        "baseline_sha256": "903af14b5d85d1162df5f872f26f221134a17c772bc82fd17686ce2f4be45759",
+        "diagnostic_sha256": "903af14b5d85d1162df5f872f26f221134a17c772bc82fd17686ce2f4be45759"
+      },
+      {
+        "module": "observations",
+        "status": "COPY",
+        "indexed_sha256": "00442198a7aeb420c5defef1641fa873a8f4fcaddfd896973820fe7b875216c4",
+        "baseline_sha256": "81e6afcd4ae06a396669cff14d1da68a4c597539b6eb64e68648ebbe7b235136",
+        "diagnostic_sha256": "81e6afcd4ae06a396669cff14d1da68a4c597539b6eb64e68648ebbe7b235136"
+      },
+      {
+        "module": "host",
+        "status": "COPY",
+        "indexed_sha256": "cc06d581fbc762ef2fcae5091a21bb11955c6770e43abc4346de9fa884d81d2c",
+        "baseline_sha256": "b50bc903906cb6a842d0ef88ba84fe0dbf0dd7abdb85c0fa436bccf228b74bb9",
+        "diagnostic_sha256": "b50bc903906cb6a842d0ef88ba84fe0dbf0dd7abdb85c0fa436bccf228b74bb9"
+      },
+      {
+        "module": "dispatcher",
+        "status": "MERGED",
+        "indexed_sha256": "5d7652d052f9915e9735a81d470026c2f7ba2077f11b09472418a6b5213945e9",
+        "baseline_sha256": "3530c7c20d704ba51a9cdace1f028e507960458b9c0bdcdf0dbc0d546c800b07",
+        "diagnostic_sha256": "7b51821ca31408f1d24b0b6e3d70e49235cce37312fbeb0d8608cd3df934d5e9"
+      },
+      {
+        "module": "measurement-failure-host",
+        "status": "MERGED",
+        "indexed_sha256": "754e2f98fe6035959e3d2395f449e0354d1c2f55f1b56370adefa547312e53cb",
+        "baseline_sha256": "d71fb1e7ec9ba8f5c9c2d7687b40b5681f8ebd5a5c34a4ae59aaeda9ca805e2d",
+        "diagnostic_sha256": "9d21ca6cec7de18fcd6b3fc0394ddea6a7400eb3424d48cf9d9f627c6a6a4bcd"
+      }
+    ],
+    "sources": {
+      "experiments/s-integrate/measurement-failure-observe.bend": "28a58ae02d8b8d86cdc82d977eccf58a6ca0c1a14874837a13d956262e5ed8d3",
+      "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+      "experiments/s-integrate/measurement-failure-callbacks.bend": "55768432050a0fcb86334101b52c194cd5eebe04610d20c15a59e908d3ac8337",
+      "experiments/s-integrate/measurement-bend.bend": "0fc02c9395408f8a291948f56e2836aa8996e5d3955684bf9a84f459179b67f8",
+      "experiments/s-integrate/storage.bend": "8440ed1ec21c8d4874072aed8ca0ec4967f4e4e522f88d36f68050685d9e0345",
+      "experiments/s-integrate/transaction-dispatch-adapters.bend": "eea16d3f539d70bcd88fd8fd314b75d252ccaff2b9c1c8b63e7d96bfdda34142",
+      "experiments/s-integrate/measurement-lifecycle.bend": "dc97835af3a229273488bc50219a36a8249992e324ac9685a39eea03b7246f60",
+      "experiments/s-integrate/systems.bend": "2cfc899215e408cc4c652c8d4c290b18800cdb6e8c96f1061a77853afdac9221",
+      "experiments/s-integrate/identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+      "experiments/s-integrate/schedule.bend": "98c955f7ee5039aed875a3bd93e3c94840d9ea2f48de0e6415bd28d63ee8fb98",
+      "experiments/s-integrate/reader-host.bend": "50f1251c6d476b07055c36c5a97e3350a4cb46e5d826ff97ced2860d40798a64",
+      "experiments/s-integrate/audited-invoker.bend": "2ed7e484b8a043f0944e0f662a8799f94388c99f757de331fb1a79b1c07c8853",
+      "experiments/s-integrate/observations.bend": "00442198a7aeb420c5defef1641fa873a8f4fcaddfd896973820fe7b875216c4",
+      "experiments/s-integrate/host-observations.bend": "cad7ddbc668a24c09ef8d0ebb635e9a910ddcc64f53287ce679a1c9004bada50",
+      "experiments/s-integrate/measurement-failure-fixture.bend": "9c2ce8c29d2f3430dcab4380616e9e2a7a7e8b7dba7d6d9bc12757ca133f8d8d",
+      "experiments/s-integrate/query.bend": "5fb8447d34edc2260341341c36dc7970964318fa582cdd078da296c5f9e1a1ce",
+      "experiments/s-integrate/structural-invoker.bend": "6907a8c5775f77ffed6141123fe5c7033678269ade0f59cd0f24b8680e497932",
+      "experiments/s-integrate/measurement-failure-invoker.bend": "22ae7ae73989b1d0d97820bcbe4c8af46eed815f66584c330b8f3b334928b03e",
+      "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+      "experiments/s-integrate/measurement-failure-driver.bend": "f2f7cdb5c561c65857b66cb9ed4bcaa92899d09623b7ddc880704af6ae0fe604",
+      "experiments/s-integrate/commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+      "experiments/s-integrate/capture.bend": "44d5f3117a465c216ee93100026aad78e86f24c40c09c678be99935dde076817",
+      "experiments/s-integrate/host-render.bend": "aa471388ab39e95c731816c38873fd8f990c7d24cb5892a6725562c5d679be8d",
+      "experiments/s-integrate/readers.bend": "2673082b4ef5cd6c5d8f61c362e22f74b13daeb27196894278cc20b1459c22e9",
+      "experiments/s-integrate/transaction.bend": "d32f0b26e4a14fc784c3ce30c4d6a1ded0cf0a55ed819f54419a558445e298a4",
+      "experiments/s-integrate/dispatcher.bend": "545dcd51e8664ec41d52b59e5ff253944e20a3e04d968f70f655c56cff0a2344",
+      "experiments/s-integrate/streams.bend": "1a1c7991d6a1b4ebfb3b47dc62459beb83ed5e38ded56d27cc20b5478fc0d315",
+      "experiments/s-integrate/host.bend": "cc06d581fbc762ef2fcae5091a21bb11955c6770e43abc4346de9fa884d81d2c",
+      "experiments/s-integrate/measurement-failure-host.bend": "a566877a88e41b25be9ae6a39b1bdae485dd9f23d8feee8f7469d960d8fb8779"
+    },
+    "post_snapshot_override": {
+      "commit": "4963856",
+      "module": "commands",
+      "sha256": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+      "reason": "direct tail-loop preflight, shared exact current candidate"
+    }
+  },
+  "cases": [
+    {
+      "schema": "Motion",
+      "count": 64,
+      "samples": {
+        "Native": [
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 0.9852427481673658,
+            "startedAt": "2026-10-04T21:16:53.642084+00:00",
+            "finishedAt": "2026-10-04T21:16:54.627332+00:00",
+            "peakRssKiB": 9564,
+            "launcherInheritedPeakRssKiB": 64588,
+            "innerMilliseconds": 98,
+            "repetition": 1,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 0.6261505100410432,
+            "startedAt": "2026-10-04T21:17:00.643984+00:00",
+            "finishedAt": "2026-10-04T21:17:01.270136+00:00",
+            "peakRssKiB": 9552,
+            "launcherInheritedPeakRssKiB": 64640,
+            "innerMilliseconds": 61,
+            "repetition": 2,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 0.6222219341434538,
+            "startedAt": "2026-10-04T21:17:03.463244+00:00",
+            "finishedAt": "2026-10-04T21:17:04.085467+00:00",
+            "peakRssKiB": 9548,
+            "launcherInheritedPeakRssKiB": 64752,
+            "innerMilliseconds": 63,
+            "repetition": 3,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 0.7247099068481475,
+            "startedAt": "2026-10-04T21:17:05.088260+00:00",
+            "finishedAt": "2026-10-04T21:17:05.812973+00:00",
+            "peakRssKiB": 9556,
+            "launcherInheritedPeakRssKiB": 64752,
+            "innerMilliseconds": 210,
+            "repetition": 4,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 0.7853349740616977,
+            "startedAt": "2026-10-04T21:17:10.791784+00:00",
+            "finishedAt": "2026-10-04T21:17:11.577121+00:00",
+            "peakRssKiB": 9560,
+            "launcherInheritedPeakRssKiB": 64752,
+            "innerMilliseconds": 109,
+            "repetition": 5,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 0.6731566681992263,
+            "startedAt": "2026-10-04T21:17:13.678415+00:00",
+            "finishedAt": "2026-10-04T21:17:14.351573+00:00",
+            "peakRssKiB": 9540,
+            "launcherInheritedPeakRssKiB": 64752,
+            "innerMilliseconds": 90,
+            "repetition": 6,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 0.6733334199525416,
+            "startedAt": "2026-10-04T21:17:15.394147+00:00",
+            "finishedAt": "2026-10-04T21:17:16.067485+00:00",
+            "peakRssKiB": 9536,
+            "launcherInheritedPeakRssKiB": 65216,
+            "innerMilliseconds": 92,
+            "repetition": 7,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ]
+          }
+        ],
+        "TS": [
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 0.9678423469886184,
+            "startedAt": "2026-10-04T21:16:55.281049+00:00",
+            "finishedAt": "2026-10-04T21:16:56.248909+00:00",
+            "peakRssKiB": 118980,
+            "launcherInheritedPeakRssKiB": 64640,
+            "innerMilliseconds": 303.4635880000001,
+            "repetition": 1,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 0.5728131318464875,
+            "startedAt": "2026-10-04T21:16:58.350140+00:00",
+            "finishedAt": "2026-10-04T21:16:58.922956+00:00",
+            "peakRssKiB": 109964,
+            "launcherInheritedPeakRssKiB": 64640,
+            "innerMilliseconds": 124.43178700000004,
+            "repetition": 2,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 0.5795975660439581,
+            "startedAt": "2026-10-04T21:17:04.506730+00:00",
+            "finishedAt": "2026-10-04T21:17:05.086330+00:00",
+            "peakRssKiB": 109652,
+            "launcherInheritedPeakRssKiB": 64752,
+            "innerMilliseconds": 125.76384000000002,
+            "repetition": 3,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 0.4793005289975554,
+            "startedAt": "2026-10-04T21:17:06.114333+00:00",
+            "finishedAt": "2026-10-04T21:17:06.593634+00:00",
+            "peakRssKiB": 109792,
+            "launcherInheritedPeakRssKiB": 64752,
+            "innerMilliseconds": 136.86181200000004,
+            "repetition": 4,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 0.7250157010275871,
+            "startedAt": "2026-10-04T21:17:08.401282+00:00",
+            "finishedAt": "2026-10-04T21:17:09.126300+00:00",
+            "peakRssKiB": 110372,
+            "launcherInheritedPeakRssKiB": 64752,
+            "innerMilliseconds": 198.26259400000004,
+            "repetition": 5,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 0.5776600479148328,
+            "startedAt": "2026-10-04T21:17:14.812778+00:00",
+            "finishedAt": "2026-10-04T21:17:15.390441+00:00",
+            "peakRssKiB": 109124,
+            "launcherInheritedPeakRssKiB": 65216,
+            "innerMilliseconds": 174.437887,
+            "repetition": 6,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 0.5729915490373969,
+            "startedAt": "2026-10-04T21:17:16.500428+00:00",
+            "finishedAt": "2026-10-04T21:17:17.073421+00:00",
+            "peakRssKiB": 109548,
+            "launcherInheritedPeakRssKiB": 65216,
+            "innerMilliseconds": 172.35003600000005,
+            "repetition": 7,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ]
+          }
+        ],
+        "JS": [
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 1.5379472048953176,
+            "startedAt": "2026-10-04T21:16:56.251518+00:00",
+            "finishedAt": "2026-10-04T21:16:57.789470+00:00",
+            "peakRssKiB": 141396,
+            "launcherInheritedPeakRssKiB": 64640,
+            "innerMilliseconds": 411,
+            "repetition": 1,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 1.294842222938314,
+            "startedAt": "2026-10-04T21:16:58.924886+00:00",
+            "finishedAt": "2026-10-04T21:17:00.219770+00:00",
+            "peakRssKiB": 139352,
+            "launcherInheritedPeakRssKiB": 64640,
+            "innerMilliseconds": 353,
+            "repetition": 2,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 1.5178523228969425,
+            "startedAt": "2026-10-04T21:17:01.650502+00:00",
+            "finishedAt": "2026-10-04T21:17:03.168355+00:00",
+            "peakRssKiB": 138916,
+            "launcherInheritedPeakRssKiB": 64752,
+            "innerMilliseconds": 319,
+            "repetition": 3,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 1.335825202986598,
+            "startedAt": "2026-10-04T21:17:06.595839+00:00",
+            "finishedAt": "2026-10-04T21:17:07.931670+00:00",
+            "peakRssKiB": 140880,
+            "launcherInheritedPeakRssKiB": 64752,
+            "innerMilliseconds": 313,
+            "repetition": 4,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 1.3810795119497925,
+            "startedAt": "2026-10-04T21:17:09.131199+00:00",
+            "finishedAt": "2026-10-04T21:17:10.512283+00:00",
+            "peakRssKiB": 138968,
+            "launcherInheritedPeakRssKiB": 64752,
+            "innerMilliseconds": 397,
+            "repetition": 5,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 1.4028273669537157,
+            "startedAt": "2026-10-04T21:17:11.992986+00:00",
+            "finishedAt": "2026-10-04T21:17:13.395816+00:00",
+            "peakRssKiB": 139312,
+            "launcherInheritedPeakRssKiB": 64752,
+            "innerMilliseconds": 360,
+            "repetition": 6,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 1.2794206459075212,
+            "startedAt": "2026-10-04T21:17:17.077022+00:00",
+            "finishedAt": "2026-10-04T21:17:18.356446+00:00",
+            "peakRssKiB": 141720,
+            "launcherInheritedPeakRssKiB": 65216,
+            "innerMilliseconds": 326,
+            "repetition": 7,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ]
+          }
+        ]
+      },
+      "warmup": {
+        "Native": {
+          "status": "PASS",
+          "exitCode": 0,
+          "wholeProcessSeconds": 1.0858784539159387,
+          "startedAt": "2026-10-04T21:16:49.031937+00:00",
+          "finishedAt": "2026-10-04T21:16:50.117814+00:00",
+          "peakRssKiB": 9560,
+          "launcherInheritedPeakRssKiB": 26616,
+          "innerMilliseconds": 85
+        },
+        "JS": {
+          "status": "PASS",
+          "exitCode": 0,
+          "wholeProcessSeconds": 1.8328111357986927,
+          "startedAt": "2026-10-04T21:16:50.804330+00:00",
+          "finishedAt": "2026-10-04T21:16:52.637575+00:00",
+          "peakRssKiB": 140932,
+          "launcherInheritedPeakRssKiB": 61448,
+          "innerMilliseconds": 501
+        },
+        "TS": {
+          "status": "PASS",
+          "exitCode": 0,
+          "wholeProcessSeconds": 0.5800596110057086,
+          "startedAt": "2026-10-04T21:16:53.054956+00:00",
+          "finishedAt": "2026-10-04T21:16:53.635017+00:00",
+          "peakRssKiB": 118836,
+          "launcherInheritedPeakRssKiB": 64588,
+          "innerMilliseconds": 140.75501200000002
+        }
+      },
+      "status": "DIAGNOSTIC_SAMPLES_COMPLETE"
+    },
+    {
+      "schema": "Motion",
+      "count": 256,
+      "samples": {
+        "Native": [],
+        "TS": [],
+        "JS": []
+      },
+      "warmup": {
+        "Native": {
+          "status": "FAIL",
+          "error": "five-second process-group deadline",
+          "startedAt": "2026-10-04T21:17:20.251109+00:00",
+          "finishedAt": "2026-10-04T21:17:25.252756+00:00"
+        },
+        "JS": {
+          "status": "FAIL",
+          "error": "five-second process-group deadline",
+          "startedAt": "2026-10-04T21:17:25.253407+00:00",
+          "finishedAt": "2026-10-04T21:17:30.265096+00:00"
+        },
+        "TS": {
+          "status": "PASS",
+          "exitCode": 0,
+          "wholeProcessSeconds": 1.3127062220592052,
+          "startedAt": "2026-10-04T21:17:30.265430+00:00",
+          "finishedAt": "2026-10-04T21:17:31.578139+00:00",
+          "peakRssKiB": 143476,
+          "launcherInheritedPeakRssKiB": 65216,
+          "innerMilliseconds": 453.37529400000005
+        }
+      },
+      "status": "WARMUP_FAILED"
+    },
+    {
+      "schema": "Motion",
+      "count": 1024,
+      "samples": {
+        "Native": [],
+        "TS": [],
+        "JS": []
+      },
+      "status": "FULL_RUNTIME_GATE_FAILED_NO_SAMPLES"
+    },
+    {
+      "schema": "Health",
+      "count": 64,
+      "samples": {
+        "Native": [
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 1.1288434248417616,
+            "startedAt": "2026-10-04T21:17:35.955829+00:00",
+            "finishedAt": "2026-10-04T21:17:37.084676+00:00",
+            "peakRssKiB": 9664,
+            "launcherInheritedPeakRssKiB": 65896,
+            "innerMilliseconds": 234,
+            "repetition": 1,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 1.0440044410061091,
+            "startedAt": "2026-10-04T21:17:46.094430+00:00",
+            "finishedAt": "2026-10-04T21:17:47.138436+00:00",
+            "peakRssKiB": 9684,
+            "launcherInheritedPeakRssKiB": 65896,
+            "innerMilliseconds": 154,
+            "repetition": 2,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 1.4895997929852456,
+            "startedAt": "2026-10-04T21:17:51.647519+00:00",
+            "finishedAt": "2026-10-04T21:17:53.137084+00:00",
+            "peakRssKiB": 9688,
+            "launcherInheritedPeakRssKiB": 65896,
+            "innerMilliseconds": 214,
+            "repetition": 3,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 1.8091272208839655,
+            "startedAt": "2026-10-04T21:17:54.588570+00:00",
+            "finishedAt": "2026-10-04T21:17:56.397699+00:00",
+            "peakRssKiB": 9680,
+            "launcherInheritedPeakRssKiB": 65912,
+            "innerMilliseconds": 347,
+            "repetition": 4,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 0.9259367948397994,
+            "startedAt": "2026-10-04T21:18:02.409917+00:00",
+            "finishedAt": "2026-10-04T21:18:03.335856+00:00",
+            "peakRssKiB": 9656,
+            "launcherInheritedPeakRssKiB": 65992,
+            "innerMilliseconds": 93,
+            "repetition": 5,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 1.2816139529459178,
+            "startedAt": "2026-10-04T21:18:05.747970+00:00",
+            "finishedAt": "2026-10-04T21:18:07.029587+00:00",
+            "peakRssKiB": 9672,
+            "launcherInheritedPeakRssKiB": 65992,
+            "innerMilliseconds": 126,
+            "repetition": 6,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 0.770662120077759,
+            "startedAt": "2026-10-04T21:18:08.065060+00:00",
+            "finishedAt": "2026-10-04T21:18:08.835726+00:00",
+            "peakRssKiB": 9676,
+            "launcherInheritedPeakRssKiB": 65992,
+            "innerMilliseconds": 81,
+            "repetition": 7,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ]
+          }
+        ],
+        "TS": [
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 0.6809857608750463,
+            "startedAt": "2026-10-04T21:17:38.544227+00:00",
+            "finishedAt": "2026-10-04T21:17:39.225215+00:00",
+            "peakRssKiB": 119324,
+            "launcherInheritedPeakRssKiB": 65896,
+            "innerMilliseconds": 200.46935799999994,
+            "repetition": 1,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 0.7362624469678849,
+            "startedAt": "2026-10-04T21:17:41.899050+00:00",
+            "finishedAt": "2026-10-04T21:17:42.635225+00:00",
+            "peakRssKiB": 110284,
+            "launcherInheritedPeakRssKiB": 65896,
+            "innerMilliseconds": 231.32495800000004,
+            "repetition": 2,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 0.7310075280256569,
+            "startedAt": "2026-10-04T21:17:53.850154+00:00",
+            "finishedAt": "2026-10-04T21:17:54.581165+00:00",
+            "peakRssKiB": 118884,
+            "launcherInheritedPeakRssKiB": 65912,
+            "innerMilliseconds": 193.37404600000008,
+            "repetition": 3,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 0.9163947550114244,
+            "startedAt": "2026-10-04T21:17:56.950037+00:00",
+            "finishedAt": "2026-10-04T21:17:57.866432+00:00",
+            "peakRssKiB": 110020,
+            "launcherInheritedPeakRssKiB": 65928,
+            "innerMilliseconds": 323.89813300000003,
+            "repetition": 4,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 0.6296673601027578,
+            "startedAt": "2026-10-04T21:17:59.876477+00:00",
+            "finishedAt": "2026-10-04T21:18:00.506147+00:00",
+            "peakRssKiB": 118912,
+            "launcherInheritedPeakRssKiB": 65928,
+            "innerMilliseconds": 210.49732000000006,
+            "repetition": 5,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 0.4746422690805048,
+            "startedAt": "2026-10-04T21:18:07.587768+00:00",
+            "finishedAt": "2026-10-04T21:18:08.062412+00:00",
+            "peakRssKiB": 110224,
+            "launcherInheritedPeakRssKiB": 65992,
+            "innerMilliseconds": 137.575856,
+            "repetition": 6,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 0.9743339221458882,
+            "startedAt": "2026-10-04T21:18:09.333463+00:00",
+            "finishedAt": "2026-10-04T21:18:10.307798+00:00",
+            "peakRssKiB": 109492,
+            "launcherInheritedPeakRssKiB": 65992,
+            "innerMilliseconds": 213.287468,
+            "repetition": 7,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ]
+          }
+        ],
+        "JS": [
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 2.208034501876682,
+            "startedAt": "2026-10-04T21:17:39.230322+00:00",
+            "finishedAt": "2026-10-04T21:17:41.438359+00:00",
+            "peakRssKiB": 139412,
+            "launcherInheritedPeakRssKiB": 65896,
+            "innerMilliseconds": 502,
+            "repetition": 1,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 2.934387448010966,
+            "startedAt": "2026-10-04T21:17:42.638297+00:00",
+            "finishedAt": "2026-10-04T21:17:45.572687+00:00",
+            "peakRssKiB": 141000,
+            "launcherInheritedPeakRssKiB": 65896,
+            "innerMilliseconds": 789,
+            "repetition": 2,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 2.981426188023761,
+            "startedAt": "2026-10-04T21:17:47.804648+00:00",
+            "finishedAt": "2026-10-04T21:17:50.786080+00:00",
+            "peakRssKiB": 140316,
+            "launcherInheritedPeakRssKiB": 65896,
+            "innerMilliseconds": 709,
+            "repetition": 3,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 1.5726210521534085,
+            "startedAt": "2026-10-04T21:17:57.868390+00:00",
+            "finishedAt": "2026-10-04T21:17:59.441015+00:00",
+            "peakRssKiB": 140720,
+            "launcherInheritedPeakRssKiB": 65928,
+            "innerMilliseconds": 365,
+            "repetition": 4,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 1.5356076071038842,
+            "startedAt": "2026-10-04T21:18:00.510686+00:00",
+            "finishedAt": "2026-10-04T21:18:02.046297+00:00",
+            "peakRssKiB": 141484,
+            "launcherInheritedPeakRssKiB": 65928,
+            "innerMilliseconds": 367,
+            "repetition": 5,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 1.5936511508189142,
+            "startedAt": "2026-10-04T21:18:03.701943+00:00",
+            "finishedAt": "2026-10-04T21:18:05.295595+00:00",
+            "peakRssKiB": 137204,
+            "launcherInheritedPeakRssKiB": 65992,
+            "innerMilliseconds": 466,
+            "repetition": 6,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 1.236352229025215,
+            "startedAt": "2026-10-04T21:18:10.312744+00:00",
+            "finishedAt": "2026-10-04T21:18:11.549099+00:00",
+            "peakRssKiB": 137740,
+            "launcherInheritedPeakRssKiB": 65992,
+            "innerMilliseconds": 275,
+            "repetition": 7,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ]
+          }
+        ]
+      },
+      "warmup": {
+        "Native": {
+          "status": "PASS",
+          "exitCode": 0,
+          "wholeProcessSeconds": 0.6352351580280811,
+          "startedAt": "2026-10-04T21:17:32.094743+00:00",
+          "finishedAt": "2026-10-04T21:17:32.729980+00:00",
+          "peakRssKiB": 9668,
+          "launcherInheritedPeakRssKiB": 65216,
+          "innerMilliseconds": 84
+        },
+        "JS": {
+          "status": "PASS",
+          "exitCode": 0,
+          "wholeProcessSeconds": 1.5346946408972144,
+          "startedAt": "2026-10-04T21:17:33.119484+00:00",
+          "finishedAt": "2026-10-04T21:17:34.654180+00:00",
+          "peakRssKiB": 138148,
+          "launcherInheritedPeakRssKiB": 65896,
+          "innerMilliseconds": 384
+        },
+        "TS": {
+          "status": "PASS",
+          "exitCode": 0,
+          "wholeProcessSeconds": 0.8695501000620425,
+          "startedAt": "2026-10-04T21:17:35.081909+00:00",
+          "finishedAt": "2026-10-04T21:17:35.951460+00:00",
+          "peakRssKiB": 111024,
+          "launcherInheritedPeakRssKiB": 65896,
+          "innerMilliseconds": 298.88
+        }
+      },
+      "status": "DIAGNOSTIC_SAMPLES_COMPLETE"
+    },
+    {
+      "schema": "Health",
+      "count": 256,
+      "samples": {
+        "Native": [
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 1.934828766155988,
+            "startedAt": "2026-10-04T21:18:22.103378+00:00",
+            "finishedAt": "2026-10-04T21:18:24.038210+00:00",
+            "peakRssKiB": 19796,
+            "launcherInheritedPeakRssKiB": 138736,
+            "innerMilliseconds": 127,
+            "repetition": 1,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ]
+          },
+          {
+            "status": "FAIL",
+            "error": "five-second process-group deadline",
+            "startedAt": "2026-10-04T21:18:38.239264+00:00",
+            "finishedAt": "2026-10-04T21:18:43.251857+00:00",
+            "repetition": 2,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ]
+          },
+          {
+            "status": "FAIL",
+            "error": "five-second process-group deadline",
+            "startedAt": "2026-10-04T21:18:48.295644+00:00",
+            "finishedAt": "2026-10-04T21:18:53.298974+00:00",
+            "repetition": 3,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ]
+          },
+          {
+            "status": "FAIL",
+            "error": "five-second process-group deadline",
+            "startedAt": "2026-10-04T21:18:54.456580+00:00",
+            "finishedAt": "2026-10-04T21:18:59.467801+00:00",
+            "repetition": 4,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ]
+          },
+          {
+            "status": "FAIL",
+            "error": "five-second process-group deadline",
+            "startedAt": "2026-10-04T21:19:15.717815+00:00",
+            "finishedAt": "2026-10-04T21:19:20.725569+00:00",
+            "repetition": 5,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ]
+          },
+          {
+            "status": "FAIL",
+            "error": "five-second process-group deadline",
+            "startedAt": "2026-10-04T21:19:25.754014+00:00",
+            "finishedAt": "2026-10-04T21:19:30.764725+00:00",
+            "repetition": 6,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 3.723104363074526,
+            "startedAt": "2026-10-04T21:19:32.919029+00:00",
+            "finishedAt": "2026-10-04T21:19:36.642153+00:00",
+            "peakRssKiB": 19796,
+            "launcherInheritedPeakRssKiB": 138736,
+            "innerMilliseconds": 264,
+            "repetition": 7,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ]
+          }
+        ],
+        "TS": [
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 0.927768686087802,
+            "startedAt": "2026-10-04T21:18:25.818884+00:00",
+            "finishedAt": "2026-10-04T21:18:26.746652+00:00",
+            "peakRssKiB": 144420,
+            "launcherInheritedPeakRssKiB": 138736,
+            "innerMilliseconds": 502.138882,
+            "repetition": 1,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 1.390195433050394,
+            "startedAt": "2026-10-04T21:18:31.758141+00:00",
+            "finishedAt": "2026-10-04T21:18:33.148340+00:00",
+            "peakRssKiB": 144800,
+            "launcherInheritedPeakRssKiB": 138736,
+            "innerMilliseconds": 624.6844,
+            "repetition": 2,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 1.149011431960389,
+            "startedAt": "2026-10-04T21:18:53.302436+00:00",
+            "finishedAt": "2026-10-04T21:18:54.451453+00:00",
+            "peakRssKiB": 152812,
+            "launcherInheritedPeakRssKiB": 138736,
+            "innerMilliseconds": 631.9067120000001,
+            "repetition": 3,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 4.199713885085657,
+            "startedAt": "2026-10-04T21:18:59.487278+00:00",
+            "finishedAt": "2026-10-04T21:19:03.687494+00:00",
+            "peakRssKiB": 143592,
+            "launcherInheritedPeakRssKiB": 138736,
+            "innerMilliseconds": 2002.5118090000003,
+            "repetition": 4,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 1.978608061093837,
+            "startedAt": "2026-10-04T21:19:08.726531+00:00",
+            "finishedAt": "2026-10-04T21:19:10.705162+00:00",
+            "peakRssKiB": 154468,
+            "launcherInheritedPeakRssKiB": 138736,
+            "innerMilliseconds": 743.3693840000001,
+            "repetition": 5,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 2.140786965144798,
+            "startedAt": "2026-10-04T21:19:30.767008+00:00",
+            "finishedAt": "2026-10-04T21:19:32.907797+00:00",
+            "peakRssKiB": 143480,
+            "launcherInheritedPeakRssKiB": 138736,
+            "innerMilliseconds": 1125.7299600000001,
+            "repetition": 6,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ]
+          },
+          {
+            "status": "PASS",
+            "exitCode": 0,
+            "wholeProcessSeconds": 0.6756341189611703,
+            "startedAt": "2026-10-04T21:19:38.273943+00:00",
+            "finishedAt": "2026-10-04T21:19:38.949580+00:00",
+            "peakRssKiB": 142852,
+            "launcherInheritedPeakRssKiB": 138736,
+            "innerMilliseconds": 338.707463,
+            "repetition": 7,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ]
+          }
+        ],
+        "JS": [
+          {
+            "status": "FAIL",
+            "error": "five-second process-group deadline",
+            "startedAt": "2026-10-04T21:18:26.754498+00:00",
+            "finishedAt": "2026-10-04T21:18:31.756885+00:00",
+            "repetition": 1,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ]
+          },
+          {
+            "status": "FAIL",
+            "error": "five-second process-group deadline",
+            "startedAt": "2026-10-04T21:18:33.154168+00:00",
+            "finishedAt": "2026-10-04T21:18:38.236330+00:00",
+            "repetition": 2,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ]
+          },
+          {
+            "status": "FAIL",
+            "error": "five-second process-group deadline",
+            "startedAt": "2026-10-04T21:18:43.284253+00:00",
+            "finishedAt": "2026-10-04T21:18:48.293134+00:00",
+            "repetition": 3,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ]
+          },
+          {
+            "status": "FAIL",
+            "error": "five-second process-group deadline",
+            "startedAt": "2026-10-04T21:19:03.709059+00:00",
+            "finishedAt": "2026-10-04T21:19:08.710504+00:00",
+            "repetition": 4,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ]
+          },
+          {
+            "status": "FAIL",
+            "error": "five-second process-group deadline",
+            "startedAt": "2026-10-04T21:19:10.710019+00:00",
+            "finishedAt": "2026-10-04T21:19:15.713016+00:00",
+            "repetition": 5,
+            "backendOrder": [
+              "TS",
+              "JS",
+              "Native"
+            ]
+          },
+          {
+            "status": "FAIL",
+            "error": "five-second process-group deadline",
+            "startedAt": "2026-10-04T21:19:20.731238+00:00",
+            "finishedAt": "2026-10-04T21:19:25.743688+00:00",
+            "repetition": 6,
+            "backendOrder": [
+              "JS",
+              "Native",
+              "TS"
+            ]
+          },
+          {
+            "status": "FAIL",
+            "error": "five-second process-group deadline",
+            "startedAt": "2026-10-04T21:19:38.952448+00:00",
+            "finishedAt": "2026-10-04T21:19:43.956036+00:00",
+            "repetition": 7,
+            "backendOrder": [
+              "Native",
+              "TS",
+              "JS"
+            ]
+          }
+        ]
+      },
+      "warmup": {
+        "Native": {
+          "status": "PASS",
+          "exitCode": 0,
+          "wholeProcessSeconds": 2.236138411797583,
+          "startedAt": "2026-10-04T21:18:12.477479+00:00",
+          "finishedAt": "2026-10-04T21:18:14.713621+00:00",
+          "peakRssKiB": 19796,
+          "launcherInheritedPeakRssKiB": 65992,
+          "innerMilliseconds": 172
+        },
+        "JS": {
+          "status": "PASS",
+          "exitCode": 0,
+          "wholeProcessSeconds": 3.443499766057357,
+          "startedAt": "2026-10-04T21:18:16.194704+00:00",
+          "finishedAt": "2026-10-04T21:18:19.638206+00:00",
+          "peakRssKiB": 223692,
+          "launcherInheritedPeakRssKiB": 138736,
+          "innerMilliseconds": 405
+        },
+        "TS": {
+          "status": "PASS",
+          "exitCode": 0,
+          "wholeProcessSeconds": 0.8324638628400862,
+          "startedAt": "2026-10-04T21:18:21.263654+00:00",
+          "finishedAt": "2026-10-04T21:18:22.096119+00:00",
+          "peakRssKiB": 154308,
+          "launcherInheritedPeakRssKiB": 138736,
+          "innerMilliseconds": 321.390445
+        }
+      },
+      "status": "REPETITION_FAILED"
+    },
+    {
+      "schema": "Health",
+      "count": 1024,
+      "samples": {
+        "Native": [],
+        "TS": [],
+        "JS": []
+      },
+      "status": "FULL_RUNTIME_GATE_FAILED_NO_SAMPLES"
+    }
+  ]
+}
