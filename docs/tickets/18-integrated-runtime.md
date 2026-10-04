@@ -82,3 +82,12 @@ Generic schemas/resources, dynamic instance lifetime/conditions/phases/provision
 relations/scopes, state failure ordering, restoration/tooling and parallel compute
 remain later detailed packages. Tower Defense validation uses a separate copy of
 needed `/workspace/typescript/jev` sources; the original repository remains untouched.
+
+## Prerequisite progress
+
+- [Fresh public TS allocation checkpoint](../../experiments/s-integrate-trace/allocation-README.md): actual dispatcher observations establish consumed failed reservation ID3, distinct subsequent ID4, discarded failed spawn, earlier commit/publication retention and explicit barriers. Coordinator and independent Spec/Standards replay pass; scalar one-schema reference scope only.
+- [Concrete source seam inventory](../design/s-integrate-seams.md): provider/identity/transaction/reader/capture interfaces and missing ownership joins are recorded. This is planning evidence, not integrated capability acceptance.
+- Concrete integrated trace and measurement contract are drafts pending review. No integrated Bend runtime, fresh three-backend seam result, integrated access controls, mutations or measurement result is delivered yet.
+
+The active implementation order remains #18 then #19. Its separately permitted
+trace/reference preparation does not close #18 or bypass its pending law decisions.
