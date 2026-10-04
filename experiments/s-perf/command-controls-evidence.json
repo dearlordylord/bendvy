@@ -1,0 +1,40 @@
+{
+  "claim": "finite owned command controls only",
+  "sources": {
+    "storage.bend": "a0b5014d123ad4cbe1b76fe7e02ae3babee41675dae88e9ea672bbdcb45c4323",
+    "identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+    "types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+    "commands.bend": "637cf05aded9f5a536d5397cad7380635d0677ae618a34c51bb6c63b0c5fdb8d",
+    "control.bend": "9a43e34e8ecec2e8397e65a568c6ee2605f2e06b0ba55834213a319346cbb261"
+  },
+  "cases": [
+    {
+      "name": "original",
+      "checker": "PASS",
+      "native": "PASS",
+      "js": "PASS",
+      "sha256": "05755eb82535d906f13d4415eeca3266b3a784c0f4c794b6b8935af561beda4d"
+    },
+    {
+      "name": "fifo-reversed",
+      "checker": "PASS",
+      "native": "KILLED",
+      "js": "KILLED",
+      "sha256": "4a0de52167ac594572815ce09aa6b539c04c3541c9da0c991365cf7b674abf14"
+    },
+    {
+      "name": "lost-main-changed",
+      "checker": "PASS",
+      "native": "KILLED",
+      "js": "KILLED",
+      "sha256": "f460542479fea37511129a83aa4ee74412bd195d89847147853ba1e506111255"
+    },
+    {
+      "name": "skip-despawn",
+      "checker": "PASS",
+      "native": "KILLED",
+      "js": "KILLED",
+      "sha256": "ce0e3c9f48edd34e73a6ea3a28a909feec50c0a6febcc16fc2b5b2acb8c69249"
+    }
+  ]
+}
