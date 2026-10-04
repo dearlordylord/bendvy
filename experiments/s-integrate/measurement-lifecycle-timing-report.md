@@ -12,13 +12,13 @@ The initial run completed six full-field cases and timing repetitions but was in
 
 Run `python3 experiments/s-integrate/measurement-lifecycle-timed-run.py`. CPU 10 is pinned for the harness and descendants. Checker/runtime children retain five-second process-group limits; codegen and clang retain their separate 30/120-second limits. Source closure, compiler/Base, helper, adapter, launcher and contract hashes are recorded. No dependencies or installed/reference files change. Earlier full-JSON/tuple timeouts remain historical failures; this smaller public-observation stream is a separately identified workload adapter, not a relabeling of those failed runs.
 
-Final results and compiling semantic-mutant outcomes are recorded in `measurement-lifecycle-timed-evidence.json`. Numerical thresholds remain unapproved; slower results are regressions to investigate, not acceptance.
+Current replay results are recorded in `measurement-lifecycle-timed-evidence.json`; the original author outcomes are preserved separately in `measurement-lifecycle-timed-frozen-evidence.json`. Numerical thresholds remain unapproved; slower results are regressions to investigate, not acceptance.
 
 The first corrected-launcher attempt stopped while compiling its tiny C helper because the harness accidentally applied the default five-second runtime deadline to clang. No backend ran in that attempt. The corrected invocation uses the existing 120-second clang build limit; runtime/checker limits remain five seconds.
 
 Strict decoder controls on an actual Motion64 boundary rejected shortened Main cell tuples, a string in a U32 cell and reversed query order. These are protocol/oracle controls; the compiling runtime mutations are recorded separately.
 
-## Corrected measured cases
+## Frozen `c28fe5f` measured cases
 
 All four 64/256-row cases passed full fields and seven samples on each backend. Both 1,024-row cases retained Native and JS full-output five-second failures; TS passed. No corrected ratios or memory summaries are published for those unverified cases. The initial pass does not override these current failures.
 
