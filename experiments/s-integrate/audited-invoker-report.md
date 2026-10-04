@@ -24,7 +24,7 @@ between every outcome. Before finish, the actual retained private Type command
 queue is read through owner-return `O.commands` and rebuilt. The actual returned
 escaped handle ID selects its Spawn payload only when its namespace matches the
 actual world namespace. Both schemas retain every Main/Aux/Flag field in nominal
-BundleView, including the payload of failed q before it is discarded. The failed
+BundleView, including the payload of failed q before it is discarded. The A, failed B
 and retry B bodies also perform actual `query.lookup(Required)` on their returned
 transaction world with that actual reserved handle; the real Access result is
 appended as `ReservedObserved`. No payload is reconstructed from input constants

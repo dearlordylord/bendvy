@@ -11,7 +11,7 @@ expected=[]
 for schema in ['motion','health']:
  def main(x):return ('position['+','.join(map(str,range(x,x+4)))+'];frame=7' if schema=='motion' else 'vitals['+','.join(map(str,range(x,x+4)))+'];reserve=9;class=2')
  flag='selected=8' if schema=='motion' else 'tracked=8'
- abody=next(line.split(':body=',1)[1] for line in oldlines if line.startswith(schema+':A-body:'))
+ abody=next(line.split(':body=',1)[1] for line in oldlines if line.startswith(schema+':A-body:'))[:-1]+', reserved(missing)]'
  bbody=next(line.split(':body=',1)[1] for line in oldlines if line.startswith(schema+':B-fail:'))[:-1]+', reserved(missing)]'
  ar='Some(bundle(Some('+main(50)+'),None,Some('+flag+')))'
  br='Some(bundle(Some('+main(60)+'),None,None))'
