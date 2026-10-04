@@ -27,18 +27,16 @@ Word links. Stages may deliver separately with explicit unresolved dependencies.
 complete from literal checks, a proposition-construction canary or a finite trace.
 If inhabitation/checker time or a needed dependency blocks a stage, record the
 minimal reproducible failure and a bounded follow-up without claiming general
-impossibility; never alter the approved
-statement/domain or increase the timeout to obtain a pass.
+impossibility; never alter the approved statement/domain or increase the timeout to obtain a pass.
 
 ## Supporting obligations and approvals
 
 Existing proved library facts may be reused with pinned provenance. Genuinely
 narrower, contextual proof-local arithmetic/structural lemmas needed by an approved
 endpoint may be derived; this does not require approval of every intermediate fact.
-List each
-new proof-local helper and its precise purpose/domain before execution. Ordinary contextual derivations serving an approved endpoint are permitted; they
-must not change its policy/domain. Proof decomposition does not authorize turning any of the
-other 24 catalogue statements into proved contracts under renamed helpers.
+List each new proof-local helper and its precise purpose/domain before execution;
+contextual derivations must not change the endpoint's policy/domain. Proof decomposition does not authorize turning any of the
+other 24 catalogue statements into filled, assumed or renamed-equivalent contracts.
 If a required supporting obligation is equivalent to an unapproved catalogue law,
 or adds a standalone semantic/encoding/arithmetic contract beyond the approved
 endpoint, present its exact statement,
