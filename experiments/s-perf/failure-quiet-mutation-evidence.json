@@ -1,0 +1,215 @@
+{
+  "cpu": 7,
+  "backend": "JS",
+  "limits_seconds": {
+    "checker": 5,
+    "codegen": 30,
+    "runtime": 5,
+    "decoder": 5
+  },
+  "codec_sha256": "8214c7c3b5edf86062e599eeb29f117e73faa7e05f42359a3b4b19e69aa37b46",
+  "mutants": [
+    {
+      "name": "fourth-owned-payload",
+      "file": "measurement-failure-callbacks.bend",
+      "original": "case True{}: 400",
+      "replacement": "case True{}: 40",
+      "controls": [
+        {
+          "schema": "Motion",
+          "count": 64,
+          "iterations": 64,
+          "status": "SEMANTIC_COUNTEREXAMPLE",
+          "actual_exit": 0,
+          "first_difference": {
+            "index": 7,
+            "actual": {
+              "kind": "Reserved",
+              "step": "fail",
+              "worldName": "motion",
+              "label": "q",
+              "handle": {
+                "namespace": 1,
+                "id": 66
+              },
+              "components": {
+                "main": {
+                  "coordinates": {
+                    "a": 0,
+                    "b": 200,
+                    "c": 300,
+                    "d": 40
+                  },
+                  "frame": 7
+                },
+                "aux": null,
+                "flag": null
+              }
+            },
+            "expected": {
+              "kind": "Reserved",
+              "step": "fail",
+              "worldName": "motion",
+              "label": "q",
+              "handle": {
+                "namespace": 1,
+                "id": 66
+              },
+              "components": {
+                "main": {
+                  "coordinates": {
+                    "a": 0,
+                    "b": 200,
+                    "c": 300,
+                    "d": 400
+                  },
+                  "frame": 7
+                },
+                "aux": null,
+                "flag": null
+              }
+            }
+          }
+        },
+        {
+          "schema": "Health",
+          "count": 64,
+          "iterations": 64,
+          "status": "SEMANTIC_COUNTEREXAMPLE",
+          "actual_exit": 0,
+          "first_difference": {
+            "index": 7,
+            "actual": {
+              "kind": "Reserved",
+              "step": "fail",
+              "worldName": "health",
+              "label": "q",
+              "handle": {
+                "namespace": 1,
+                "id": 66
+              },
+              "components": {
+                "main": {
+                  "levels": {
+                    "a": 0,
+                    "b": 200,
+                    "c": 300,
+                    "d": 40
+                  },
+                  "reserve": 9,
+                  "class": 2
+                },
+                "aux": null,
+                "flag": null
+              }
+            },
+            "expected": {
+              "kind": "Reserved",
+              "step": "fail",
+              "worldName": "health",
+              "label": "q",
+              "handle": {
+                "namespace": 1,
+                "id": 66
+              },
+              "components": {
+                "main": {
+                  "levels": {
+                    "a": 0,
+                    "b": 200,
+                    "c": 300,
+                    "d": 400
+                  },
+                  "reserve": 9,
+                  "class": 2
+                },
+                "aux": null,
+                "flag": null
+              }
+            }
+          }
+        }
+      ],
+      "mutant_sha256": "0113cdd1c038b63f9de319c6f98117bb0b82de45c21d3d524f240453b4ed5c52",
+      "checker": "PASS"
+    },
+    {
+      "name": "failed-reader-completion",
+      "file": "readers.bend",
+      "original": "case T.Failure{_}: readers",
+      "replacement": "case T.Failure{_}: completed(readers,run)",
+      "controls": [
+        {
+          "schema": "Motion",
+          "count": 64,
+          "iterations": 64,
+          "status": "SEMANTIC_COUNTEREXAMPLE",
+          "actual_exit": 0,
+          "first_difference": {
+            "index": 14,
+            "actual": {
+              "kind": "FailureRead",
+              "iteration": 0,
+              "system": "B",
+              "count": 3,
+              "messages": [],
+              "lag": false,
+              "tick": 10,
+              "frame": 6
+            },
+            "expected": {
+              "kind": "FailureRead",
+              "iteration": 0,
+              "system": "B",
+              "count": 3,
+              "messages": [
+                {
+                  "code": 0
+                }
+              ],
+              "lag": false,
+              "tick": 10,
+              "frame": 6
+            }
+          }
+        },
+        {
+          "schema": "Health",
+          "count": 64,
+          "iterations": 64,
+          "status": "SEMANTIC_COUNTEREXAMPLE",
+          "actual_exit": 0,
+          "first_difference": {
+            "index": 14,
+            "actual": {
+              "kind": "FailureRead",
+              "iteration": 0,
+              "system": "B",
+              "count": 3,
+              "messages": [],
+              "lag": false,
+              "tick": 10,
+              "frame": 6
+            },
+            "expected": {
+              "kind": "FailureRead",
+              "iteration": 0,
+              "system": "B",
+              "count": 3,
+              "messages": [
+                {
+                  "code": 0
+                }
+              ],
+              "lag": false,
+              "tick": 10,
+              "frame": 6
+            }
+          }
+        }
+      ],
+      "mutant_sha256": "30fbc44844ce8c0d864e9b1141fb6ec66ed0daaecec6c820dab36bcae87fec54",
+      "checker": "PASS"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+# Fair compact FailedTxn lane — implementation draft
+
+New isolated copies only; previous failure-* evidence is immutable. Use current indexed commands4963856 and IO-barrier candidate closure from the pinned indexed manifest. Both nominal schemas,64/256/1024 entities,64iterations; actual D.tick, rank2 callbacks, readers, Audit, transactions, queries/history/reservations and barriers unchanged.
+
+Before timing acceptance: fresh full diagnostic comparisons against unchanged TS and lossless tuple decoding must agree for every field. Five-second checker/runtime limits remain. No checksum-only acceptance.
+
+The common codec is a self-delimiting flat List<U32>. Record/access/option tags and actual list/string lengths preserve structure; schema-specific field widths preserve every cell/metadata field. Fold is ordered modular U32 `state*33+value` and every String character code. Generic nested recursion was rejected by the checker; flat structural traversal passes. The exact same structural order and arithmetic are used in TS (`Math.imul`, `>>>0`). It covers all actually retained FailureResult/FailureRead/FailureObserved/Reserved/OwnWrites records plus every actual Audit String in chronological order. Four cells, metadata, handles, tags, optional fields, full current/history lookup values and batch order are preserved.
+
+The new timed copy removes finite expected-state guard predicates; the old guarded diagnostic gate remains independent. Complete actual tuple projection and fold execute before an actual small `IO.print(checksum)` immediately before end time. TS prints the same small checksum before its end time. Actual compact lossless tuples and effects are emitted after the clock, then independently decoded and compared in full. No expected range or source constant replaces actual reads. Setup/seed/registration/prime remain outside the interval. Seven rotated repetitions and clean child RSS only after the corresponding full gate passes; machine occupancy remains a limitation.
+
+Codec assembly uses tail accumulation and one reverse; generated JS non-tail List.append over the large tuple caused a preserved first-stage memory fault. Unsigned field validation belongs to the full decoder after timing, not a TS-only timed expected-state guard.
