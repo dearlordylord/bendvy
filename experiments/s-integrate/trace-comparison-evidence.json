@@ -1,0 +1,61 @@
+{
+  "scope": "fresh TS target and comparator controls; no joined Bend execution claim",
+  "reference_commit": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334",
+  "reference_adapter_sha256": "c70208fe453ca9809bc2a947a0209425100b352554e7d0d5dbab6eacfac65e39",
+  "reference_output_sha256": "e1b143510343aa8f982c1d52dfc02c64acdd8fec24b78380ace03b1ec3a04f58",
+  "lanes": {
+    "Motion/returned-owner": {
+      "snapshots": 34,
+      "reads": 19,
+      "dispatches": 29
+    },
+    "Motion/regenerated-closure": {
+      "snapshots": 34,
+      "reads": 19,
+      "dispatches": 29
+    },
+    "Health/returned-owner": {
+      "snapshots": 34,
+      "reads": 19,
+      "dispatches": 29
+    },
+    "Health/regenerated-closure": {
+      "snapshots": 34,
+      "reads": 19,
+      "dispatches": 29
+    }
+  },
+  "comparator_sha256": "2cc66b6c15a931f8957b12312794a69fcc3df4fc99ae05cb988f8b8f52b4fb39",
+  "controls": {
+    "scope": "comparator controls only",
+    "status": "PASS",
+    "channel_perturbations": [
+      "rawReservations",
+      "reads",
+      "readerDiagnostics",
+      "ownWrites",
+      "snapshots",
+      "dispatches",
+      "auditEffects",
+      "provisioning",
+      "finalCounts",
+      "tails",
+      "missing_lane",
+      "duplicate_lane",
+      "missing_channel"
+    ],
+    "structural_controls": [
+      "bool_vs_int",
+      "length",
+      "order",
+      "extra_field"
+    ]
+  },
+  "open": [
+    "lossless Host decoding",
+    "full joined Native/JS parity",
+    "approved foreign-handle divergence controls",
+    "E11 retention",
+    "integrated measurement"
+  ]
+}
