@@ -14,23 +14,23 @@ S-PREP must provide frozen full-field evaluators, independent checks, reviewed d
 
 | Contract field | Current state |
 | --- | --- |
-| Repository | `dearlordylord/bendvy`; exact authorized checkout/worktree and commit must be selected at acceptance, with verified delivery on master |
+| Repository | `dearlordylord/bendvy`; isolated `/workspace/formal-proofs/bendvy-worktrees/autoresearch23-focus`; exact source commit/digests in frozen proposed execution manifest, acceptance pending, with verified delivery on master |
 | Goal | Connected ECS performance improvement without semantic/ownership regression |
-| Metric | Proposed per-workload/schema/size Native/TS and JS/TS elapsed-time ratios, dimensionless, lower is better; evaluator/any aggregation and tradeoffs remain unaccepted |
-| Evaluator | Proposed repaired five workloads at64/256/1024 from S-PREP; exact command, execution digest and supported cases pending freeze |
-| Independent checks | Proposed main/E11/access/ownership plus semantic/storage mutants and complete workload field/effect comparison; exact commands/implementation paths pending review |
-| Editable scope | Proposed bounded storage/query candidate paths from reviewed design; exact allowlist pending acceptance |
-| Protected scope | Proposed evaluator, checks, fixtures, codec/parser, references, approved laws/proofs and Canonical TD; exact paths pending freeze |
-| Artifacts | Approved task-owned root outside editable/protected scope pending acceptance |
-| Noise/keep rule | Unknown noise: repeated reference and unchanged candidate qualification required; comparison margin, sample cohorts, acceptable tradeoffs and keep rule unresolved |
-| Stop rule/budget | Packet count and enforceable execution-time/action limit unresolved; do not infer allowance |
+| Metric | First proposed segment: arithmetic mean of two seven-sample HealthDense256 JS cohort medians (ms), lower is better; Native regression/TS drift guards. Full-parent ratios remain separate; acceptance pending |
+| Evaluator | Focused command `python3 experiments/s-prep/segment-run.py benchmark`, source/tool digests frozen in execution-proposal.json. Broader workload/protocol capabilities remain blocked |
+| Independent checks | Protected main/E11/access/ownership and semantic/storage mutants through `python3 experiments/s-prep/segment-run.py checks`, bound to measured candidate digest; full field/effect comparison retained |
+| Editable scope | Exactly storage.bend/query.bend under experiments/s-perf/candidate; existing-layout body edits only, complete imports/declarations/types pinned; acceptance pending |
+| Protected scope | Every other path protected; explicit source/tool hashes in execution-proposal.json plus read-only references/laws/TD |
+| Artifacts | Proposed `/tmp/bendvy-autoresearch23-focus`, per-invocation TMPDIR/diagnostics; root acceptance pending |
+| Noise/keep rule | Four complete seven-rotation cohorts per invocation; within-role noise/TS drift10%, bootstrap/timer-aware JS improvement10%/Native regression5% guards; executable proposal frozen, acceptance pending |
+| Stop rule/budget | User approved3600 seconds then results; cumulative monotonic deadline includes builds/checks/descendants/recovery. Proposed extra cap8packets remains unaccepted |
 | Product acceptance | Separate explicit numerical approval and representative evidence; a local keep never implies adoption |
 
 A discovered command or copied #20 benchmark is a proposal, not authority. Budget, checks, noise and editable scope must not be filled by guesswork. Follow skill `setup`, reviewed segment transition and `state --report`; no packet before it shows an accepted contract. Configure commit paths and protect authoritative check implementations only after reviewing their assertions.
 
 ## Execution after acceptance
 
-Retain all five workloads ×64/256/1024 and complete outcomes for both nominal schemas on Native O3/one worker/GPU off, JS and pinned TS. Every accepted comparative set requires seven rotated fresh samples, full-field/effect validation, raw values/variability and independently reset child peak RSS. Repair and review same-process warmup before warmed claims. Resolution-limited cases require a shared preregistered longer batch and uncertainty below a separately approved comparison margin. Failed cases receive explicit outcomes, never successful-subset ratios. Checker/runtime5s, codegen30s and clang120s remain unchanged.
+Full-parent comparative delivery retains all five workloads ×64/256/1024 and complete outcomes for both nominal schemas on Native O3/one worker/GPU off, JS and pinned TS. Every accepted comparative set requires seven rotated fresh samples, full-field/effect validation, raw values/variability and independently reset child peak RSS. Repair and review same-process warmup before warmed claims. Resolution-limited cases require a shared preregistered longer batch and uncertainty below a separately approved comparison margin. Failed cases receive explicit outcomes, never successful-subset ratios. Checker/runtime5s, codegen30s and clang120s remain unchanged.
 
 One packet per canonical decision; use only accepted evaluator/check execution specifications. Qualifying measurements consume the same budget as candidates. Preserve negative deadlines and method failures; no sentinel metric, favorable-subset ratio or checksum-only oracle. Keep requires full check passes, complete accepted sample cohorts and noise comparison. Metric-with-failing-checks is `checks_failed`; no usable metric is `crash`. Log actual artifacts with `--from-last`, then follow the next decision. Scope/evaluator changes require explicit contract transition.
 

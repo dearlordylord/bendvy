@@ -2,7 +2,7 @@
   "status": "FINITE_CONTROL_PASS",
   "repetitions": 1,
   "baseline": "56b72f6",
-  "runnerSHA256": "009b9c5080050837ffadf7e6605680c7e7544b21f7c674ca7e30a4710b339c1a",
+  "runnerSHA256": "c94af281a86f4c215eb88569236ada019e158a2be5b06537171f1347e5a6d6c3",
   "metric": "JS authored inner milliseconds, lower is better",
   "contractAccepted": false,
   "cohorts": [
@@ -12,9 +12,9 @@
         "/usr/bin/python3",
         "/workspace/formal-proofs/bendvy/experiments/s-prep/focus-run.py",
         "--overlay",
-        "/tmp/bendvy-prep22-final-quantization-control/reference-overlay",
+        "/tmp/bendvy-prep22-paired-decision-control/reference-overlay",
         "--build-dir",
-        "/tmp/bendvy-prep22-final-quantization-control/1-reference",
+        "/tmp/bendvy-prep22-paired-decision-control/1-reference",
         "--schema",
         "Health",
         "--workload",
@@ -27,7 +27,7 @@
         "2"
       ],
       "exitCode": 0,
-      "stdout": "built /tmp/bendvy-prep22-final-quantization-control/reference-overlay/experiments/s-integrate/measurement-samples-bend.bend\n{\n  \"status\": \"FINITE_FULL_FIELD_PASS\",\n  \"schema\": \"Health\",\n  \"workload\": \"dense\",\n  \"count\": 256,\n  \"repetitions\": 1\n}\n",
+      "stdout": "built /tmp/bendvy-prep22-paired-decision-control/reference-overlay/experiments/s-integrate/measurement-samples-bend.bend\n{\n  \"status\": \"FINITE_FULL_FIELD_PASS\",\n  \"schema\": \"Health\",\n  \"workload\": \"dense\",\n  \"count\": 256,\n  \"repetitions\": 1\n}\n",
       "stderr": "",
       "evidence": {
         "status": "FINITE_FULL_FIELD_PASS",
@@ -494,113 +494,113 @@
         "runnerSHA256": "366cc65f321d9526624371e99ea712b3a977d00c3de50192233cc451c4261a0c",
         "protectedRunnerSHA256": "72bdc3faba07130c39c44d6e2381d9ef6f50a5b82681dd4763f8bd8591762d96",
         "validatorSHA256": "64adcb13c45b3b74bb3b9141ca7e61a8584358091d2df21dda60c5befcec0854",
-        "startedAt": "2026-10-04T23:42:41.949052+00:00",
+        "startedAt": "2026-10-04T23:28:53.635930+00:00",
         "verification": {
           "Native": {
             "status": "PASS",
             "exitCode": 0,
-            "wholeProcessSeconds": 0.06811884487979114,
-            "startedAt": "2026-10-04T23:43:04.219032+00:00",
-            "finishedAt": "2026-10-04T23:43:04.287147+00:00",
-            "peakRssKiB": 4188,
-            "launcherInheritedPeakRssKiB": 20680,
-            "milliseconds": 15,
-            "millisecondsPerFreshWorld": 15.0,
-            "warmupMilliseconds": 13,
+            "wholeProcessSeconds": 0.033462633145973086,
+            "startedAt": "2026-10-04T23:29:12.443494+00:00",
+            "finishedAt": "2026-10-04T23:29:12.476958+00:00",
+            "peakRssKiB": 4196,
+            "launcherInheritedPeakRssKiB": 20716,
+            "milliseconds": 14,
+            "millisecondsPerFreshWorld": 14.0,
+            "warmupMilliseconds": 14,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
             "worksumPerWorld": 8970240,
             "backend": "Native",
-            "rawPath": "/tmp/bendvy-prep22-final-quantization-control/1-reference/verify-Native/child-output.txt"
+            "rawPath": "/tmp/bendvy-prep22-paired-decision-control/1-reference/verify-Native/child-output.txt"
           },
           "TS": {
             "status": "PASS",
             "exitCode": 0,
-            "wholeProcessSeconds": 0.27354397904127836,
-            "startedAt": "2026-10-04T23:43:04.292771+00:00",
-            "finishedAt": "2026-10-04T23:43:04.566318+00:00",
-            "peakRssKiB": 108820,
-            "launcherInheritedPeakRssKiB": 20680,
-            "milliseconds": 12.633088999999984,
-            "millisecondsPerFreshWorld": 12.633088999999984,
-            "warmupMilliseconds": 10.013052999999985,
+            "wholeProcessSeconds": 0.27476057689636946,
+            "startedAt": "2026-10-04T23:29:12.482398+00:00",
+            "finishedAt": "2026-10-04T23:29:12.757162+00:00",
+            "peakRssKiB": 100648,
+            "launcherInheritedPeakRssKiB": 20716,
+            "milliseconds": 10.83129199999999,
+            "millisecondsPerFreshWorld": 10.83129199999999,
+            "warmupMilliseconds": 9.260529999999989,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
             "worksumPerWorld": 8970240,
             "backend": "TS",
-            "rawPath": "/tmp/bendvy-prep22-final-quantization-control/1-reference/verify-TS/child-output.txt"
+            "rawPath": "/tmp/bendvy-prep22-paired-decision-control/1-reference/verify-TS/child-output.txt"
           },
           "JS": {
             "status": "PASS",
             "exitCode": 0,
-            "wholeProcessSeconds": 0.266931805992499,
-            "startedAt": "2026-10-04T23:43:04.568193+00:00",
-            "finishedAt": "2026-10-04T23:43:04.835129+00:00",
-            "peakRssKiB": 82540,
-            "launcherInheritedPeakRssKiB": 20680,
-            "milliseconds": 78,
-            "millisecondsPerFreshWorld": 78.0,
-            "warmupMilliseconds": 80,
+            "wholeProcessSeconds": 0.2687187800183892,
+            "startedAt": "2026-10-04T23:29:12.759126+00:00",
+            "finishedAt": "2026-10-04T23:29:13.027850+00:00",
+            "peakRssKiB": 88292,
+            "launcherInheritedPeakRssKiB": 20716,
+            "milliseconds": 77,
+            "millisecondsPerFreshWorld": 77.0,
+            "warmupMilliseconds": 79,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
             "worksumPerWorld": 8970240,
             "backend": "JS",
-            "rawPath": "/tmp/bendvy-prep22-final-quantization-control/1-reference/verify-JS/child-output.txt"
+            "rawPath": "/tmp/bendvy-prep22-paired-decision-control/1-reference/verify-JS/child-output.txt"
           }
         },
         "samples": [
           {
             "status": "PASS",
             "exitCode": 0,
-            "wholeProcessSeconds": 0.03472805698402226,
-            "startedAt": "2026-10-04T23:43:04.840908+00:00",
-            "finishedAt": "2026-10-04T23:43:04.875638+00:00",
-            "peakRssKiB": 4188,
-            "launcherInheritedPeakRssKiB": 20680,
-            "milliseconds": 13,
-            "millisecondsPerFreshWorld": 13.0,
-            "warmupMilliseconds": 13,
+            "wholeProcessSeconds": 0.06612992705777287,
+            "startedAt": "2026-10-04T23:29:13.033910+00:00",
+            "finishedAt": "2026-10-04T23:29:13.100042+00:00",
+            "peakRssKiB": 4184,
+            "launcherInheritedPeakRssKiB": 20716,
+            "milliseconds": 17,
+            "millisecondsPerFreshWorld": 17.0,
+            "warmupMilliseconds": 16,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
             "worksumPerWorld": 8970240,
             "backend": "Native",
-            "rawPath": "/tmp/bendvy-prep22-final-quantization-control/1-reference/rep-1-Native/child-output.txt",
+            "rawPath": "/tmp/bendvy-prep22-paired-decision-control/1-reference/rep-1-Native/child-output.txt",
             "repetition": 1
           },
           {
             "status": "PASS",
             "exitCode": 0,
-            "wholeProcessSeconds": 0.2754041710868478,
-            "startedAt": "2026-10-04T23:43:04.881488+00:00",
-            "finishedAt": "2026-10-04T23:43:05.156895+00:00",
-            "peakRssKiB": 100344,
-            "launcherInheritedPeakRssKiB": 20680,
-            "milliseconds": 12.298958999999996,
-            "millisecondsPerFreshWorld": 12.298958999999996,
-            "warmupMilliseconds": 10.478809999999982,
+            "wholeProcessSeconds": 0.2780567279551178,
+            "startedAt": "2026-10-04T23:29:13.106802+00:00",
+            "finishedAt": "2026-10-04T23:29:13.384861+00:00",
+            "peakRssKiB": 100556,
+            "launcherInheritedPeakRssKiB": 20716,
+            "milliseconds": 12.289219000000003,
+            "millisecondsPerFreshWorld": 12.289219000000003,
+            "warmupMilliseconds": 9.531573000000009,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
             "worksumPerWorld": 8970240,
             "backend": "TS",
-            "rawPath": "/tmp/bendvy-prep22-final-quantization-control/1-reference/rep-1-TS/child-output.txt",
+            "rawPath": "/tmp/bendvy-prep22-paired-decision-control/1-reference/rep-1-TS/child-output.txt",
             "repetition": 1
           },
           {
             "status": "PASS",
             "exitCode": 0,
-            "wholeProcessSeconds": 0.2730486390646547,
-            "startedAt": "2026-10-04T23:43:05.158674+00:00",
-            "finishedAt": "2026-10-04T23:43:05.431727+00:00",
-            "peakRssKiB": 87984,
-            "launcherInheritedPeakRssKiB": 20680,
-            "milliseconds": 74,
-            "millisecondsPerFreshWorld": 74.0,
-            "warmupMilliseconds": 88,
+            "wholeProcessSeconds": 0.27052483591251075,
+            "startedAt": "2026-10-04T23:29:13.386898+00:00",
+            "finishedAt": "2026-10-04T23:29:13.657427+00:00",
+            "peakRssKiB": 91028,
+            "launcherInheritedPeakRssKiB": 20716,
+            "milliseconds": 77,
+            "millisecondsPerFreshWorld": 77.0,
+            "warmupMilliseconds": 95,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
             "worksumPerWorld": 8970240,
             "backend": "JS",
-            "rawPath": "/tmp/bendvy-prep22-final-quantization-control/1-reference/rep-1-JS/child-output.txt",
+            "rawPath": "/tmp/bendvy-prep22-paired-decision-control/1-reference/rep-1-JS/child-output.txt",
             "repetition": 1
           }
         ],
@@ -609,10 +609,10 @@
           "measurement-samples-bend.js": "b671f0fa6160d7a9ae659737315a0d96bd1b682987c3fbb9893b2513588728cb"
         },
         "launcherSourceSHA256": "eaef512a2c5e25c571f846fa5ddb5bf2075f2dda71c33ad29cb270639f05f977",
-        "referenceSHA256": "536eb4e6f5f3272808f05cc4e4ebb709a966797cd1a1128a6f416ba2f7162bc0",
+        "referenceSHA256": "ec6791000e18c2e5bb0444969eeb7685e252186ca2e6f5d81374f51bbef51422",
         "commands": {
           "Native": [
-            "/tmp/bendvy-prep22-final-quantization-control/1-reference/measurement-samples-bend-native",
+            "/tmp/bendvy-prep22-paired-decision-control/1-reference/measurement-samples-bend-native",
             "1",
             "0",
             "256",
@@ -632,7 +632,7 @@
           ],
           "JS": [
             "node",
-            "/tmp/bendvy-prep22-final-quantization-control/1-reference/measurement-samples-bend.js",
+            "/tmp/bendvy-prep22-paired-decision-control/1-reference/measurement-samples-bend.js",
             "1",
             "0",
             "256",
@@ -643,36 +643,36 @@
         "summary": {
           "Native": {
             "raw": [
-              13
+              17
             ],
-            "min": 13,
-            "median": 13,
-            "max": 13
+            "min": 17,
+            "median": 17,
+            "max": 17
           },
           "TS": {
             "raw": [
-              12.298958999999996
+              12.289219000000003
             ],
-            "min": 12.298958999999996,
-            "median": 12.298958999999996,
-            "max": 12.298958999999996
+            "min": 12.289219000000003,
+            "median": 12.289219000000003,
+            "max": 12.289219000000003
           },
           "JS": {
             "raw": [
-              74
+              77
             ],
-            "min": 74,
-            "median": 74,
-            "max": 74
+            "min": 77,
+            "median": 77,
+            "max": 77
           }
         },
         "descriptiveRatios": {
-          "Native/TS": 1.0570000274006934,
-          "JS/TS": 6.016769386742408
+          "Native/TS": 1.383326312274197,
+          "JS/TS": 6.265654473241952
         },
-        "finishedAt": "2026-10-04T23:43:05.441724+00:00"
+        "finishedAt": "2026-10-04T23:29:13.666771+00:00"
       },
-      "evidenceSHA256": "43179ebcf837a5ba1009fc8793e9370c5721b9784eee705b472b4318c9253e64"
+      "evidenceSHA256": "980dd583f4369f7d68fb640d79c2730af946d8f3cc280338a881ccaece5bff66"
     },
     {
       "role": "candidate",
@@ -682,7 +682,7 @@
         "--overlay",
         "/tmp/bendvy-prep22-root-overlay",
         "--build-dir",
-        "/tmp/bendvy-prep22-final-quantization-control/2-candidate",
+        "/tmp/bendvy-prep22-paired-decision-control/2-candidate",
         "--schema",
         "Health",
         "--workload",
@@ -1161,113 +1161,113 @@
         "runnerSHA256": "366cc65f321d9526624371e99ea712b3a977d00c3de50192233cc451c4261a0c",
         "protectedRunnerSHA256": "72bdc3faba07130c39c44d6e2381d9ef6f50a5b82681dd4763f8bd8591762d96",
         "validatorSHA256": "64adcb13c45b3b74bb3b9141ca7e61a8584358091d2df21dda60c5befcec0854",
-        "startedAt": "2026-10-04T23:43:05.508430+00:00",
+        "startedAt": "2026-10-04T23:29:13.731426+00:00",
         "verification": {
           "Native": {
             "status": "PASS",
             "exitCode": 0,
-            "wholeProcessSeconds": 0.065590102924034,
-            "startedAt": "2026-10-04T23:43:27.893258+00:00",
-            "finishedAt": "2026-10-04T23:43:27.958849+00:00",
-            "peakRssKiB": 4196,
-            "launcherInheritedPeakRssKiB": 20640,
+            "wholeProcessSeconds": 0.0684716529212892,
+            "startedAt": "2026-10-04T23:29:34.460902+00:00",
+            "finishedAt": "2026-10-04T23:29:34.529377+00:00",
+            "peakRssKiB": 4188,
+            "launcherInheritedPeakRssKiB": 20616,
             "milliseconds": 15,
             "millisecondsPerFreshWorld": 15.0,
-            "warmupMilliseconds": 13,
+            "warmupMilliseconds": 14,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
             "worksumPerWorld": 8970240,
             "backend": "Native",
-            "rawPath": "/tmp/bendvy-prep22-final-quantization-control/2-candidate/verify-Native/child-output.txt"
+            "rawPath": "/tmp/bendvy-prep22-paired-decision-control/2-candidate/verify-Native/child-output.txt"
           },
           "TS": {
             "status": "PASS",
             "exitCode": 0,
-            "wholeProcessSeconds": 0.31919943494722247,
-            "startedAt": "2026-10-04T23:43:27.964414+00:00",
-            "finishedAt": "2026-10-04T23:43:28.283618+00:00",
-            "peakRssKiB": 108728,
-            "launcherInheritedPeakRssKiB": 20640,
-            "milliseconds": 13.286472000000003,
-            "millisecondsPerFreshWorld": 13.286472000000003,
-            "warmupMilliseconds": 10.224681000000004,
+            "wholeProcessSeconds": 0.3228174061514437,
+            "startedAt": "2026-10-04T23:29:34.536402+00:00",
+            "finishedAt": "2026-10-04T23:29:34.859223+00:00",
+            "peakRssKiB": 100392,
+            "launcherInheritedPeakRssKiB": 20616,
+            "milliseconds": 13.203393000000005,
+            "millisecondsPerFreshWorld": 13.203393000000005,
+            "warmupMilliseconds": 14.872197999999997,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
             "worksumPerWorld": 8970240,
             "backend": "TS",
-            "rawPath": "/tmp/bendvy-prep22-final-quantization-control/2-candidate/verify-TS/child-output.txt"
+            "rawPath": "/tmp/bendvy-prep22-paired-decision-control/2-candidate/verify-TS/child-output.txt"
           },
           "JS": {
             "status": "PASS",
             "exitCode": 0,
-            "wholeProcessSeconds": 0.26950329891406,
-            "startedAt": "2026-10-04T23:43:28.285634+00:00",
-            "finishedAt": "2026-10-04T23:43:28.555142+00:00",
-            "peakRssKiB": 86060,
-            "launcherInheritedPeakRssKiB": 20640,
-            "milliseconds": 78,
-            "millisecondsPerFreshWorld": 78.0,
-            "warmupMilliseconds": 112,
+            "wholeProcessSeconds": 0.3231136999092996,
+            "startedAt": "2026-10-04T23:29:34.862030+00:00",
+            "finishedAt": "2026-10-04T23:29:35.185153+00:00",
+            "peakRssKiB": 88856,
+            "launcherInheritedPeakRssKiB": 20616,
+            "milliseconds": 85,
+            "millisecondsPerFreshWorld": 85.0,
+            "warmupMilliseconds": 113,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
             "worksumPerWorld": 8970240,
             "backend": "JS",
-            "rawPath": "/tmp/bendvy-prep22-final-quantization-control/2-candidate/verify-JS/child-output.txt"
+            "rawPath": "/tmp/bendvy-prep22-paired-decision-control/2-candidate/verify-JS/child-output.txt"
           }
         },
         "samples": [
           {
             "status": "PASS",
             "exitCode": 0,
-            "wholeProcessSeconds": 0.06621952797286212,
-            "startedAt": "2026-10-04T23:43:28.561099+00:00",
-            "finishedAt": "2026-10-04T23:43:28.627321+00:00",
-            "peakRssKiB": 4192,
-            "launcherInheritedPeakRssKiB": 20640,
-            "milliseconds": 13,
-            "millisecondsPerFreshWorld": 13.0,
-            "warmupMilliseconds": 15,
+            "wholeProcessSeconds": 0.06666247197426856,
+            "startedAt": "2026-10-04T23:29:35.192177+00:00",
+            "finishedAt": "2026-10-04T23:29:35.258841+00:00",
+            "peakRssKiB": 4184,
+            "launcherInheritedPeakRssKiB": 20616,
+            "milliseconds": 43,
+            "millisecondsPerFreshWorld": 43.0,
+            "warmupMilliseconds": 14,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
             "worksumPerWorld": 8970240,
             "backend": "Native",
-            "rawPath": "/tmp/bendvy-prep22-final-quantization-control/2-candidate/rep-1-Native/child-output.txt",
+            "rawPath": "/tmp/bendvy-prep22-paired-decision-control/2-candidate/rep-1-Native/child-output.txt",
             "repetition": 1
           },
           {
             "status": "PASS",
             "exitCode": 0,
-            "wholeProcessSeconds": 0.27285042800940573,
-            "startedAt": "2026-10-04T23:43:28.633051+00:00",
-            "finishedAt": "2026-10-04T23:43:28.905905+00:00",
-            "peakRssKiB": 100624,
-            "launcherInheritedPeakRssKiB": 20640,
-            "milliseconds": 12.174165999999985,
-            "millisecondsPerFreshWorld": 12.174165999999985,
-            "warmupMilliseconds": 10.283265999999998,
+            "wholeProcessSeconds": 0.32164639700204134,
+            "startedAt": "2026-10-04T23:29:35.266673+00:00",
+            "finishedAt": "2026-10-04T23:29:35.588321+00:00",
+            "peakRssKiB": 108912,
+            "launcherInheritedPeakRssKiB": 20616,
+            "milliseconds": 11.163961,
+            "millisecondsPerFreshWorld": 11.163961,
+            "warmupMilliseconds": 11.627172999999999,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
             "worksumPerWorld": 8970240,
             "backend": "TS",
-            "rawPath": "/tmp/bendvy-prep22-final-quantization-control/2-candidate/rep-1-TS/child-output.txt",
+            "rawPath": "/tmp/bendvy-prep22-paired-decision-control/2-candidate/rep-1-TS/child-output.txt",
             "repetition": 1
           },
           {
             "status": "PASS",
             "exitCode": 0,
-            "wholeProcessSeconds": 0.26701122312806547,
-            "startedAt": "2026-10-04T23:43:28.907698+00:00",
-            "finishedAt": "2026-10-04T23:43:29.174714+00:00",
-            "peakRssKiB": 85332,
-            "launcherInheritedPeakRssKiB": 20640,
-            "milliseconds": 78,
-            "millisecondsPerFreshWorld": 78.0,
-            "warmupMilliseconds": 92,
+            "wholeProcessSeconds": 0.3205932641867548,
+            "startedAt": "2026-10-04T23:29:35.591643+00:00",
+            "finishedAt": "2026-10-04T23:29:35.912239+00:00",
+            "peakRssKiB": 88192,
+            "launcherInheritedPeakRssKiB": 20616,
+            "milliseconds": 86,
+            "millisecondsPerFreshWorld": 86.0,
+            "warmupMilliseconds": 122,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
             "worksumPerWorld": 8970240,
             "backend": "JS",
-            "rawPath": "/tmp/bendvy-prep22-final-quantization-control/2-candidate/rep-1-JS/child-output.txt",
+            "rawPath": "/tmp/bendvy-prep22-paired-decision-control/2-candidate/rep-1-JS/child-output.txt",
             "repetition": 1
           }
         ],
@@ -1276,10 +1276,10 @@
           "measurement-samples-bend.js": "b671f0fa6160d7a9ae659737315a0d96bd1b682987c3fbb9893b2513588728cb"
         },
         "launcherSourceSHA256": "eaef512a2c5e25c571f846fa5ddb5bf2075f2dda71c33ad29cb270639f05f977",
-        "referenceSHA256": "c20e2b488e6f643379fdea19f900e9f479e95a2eab384c03c87c87a198927a5c",
+        "referenceSHA256": "8a2fe065077c2fb01687f2d1bc795f2b6b9ac692263354e66d56d4a1f51cc758",
         "commands": {
           "Native": [
-            "/tmp/bendvy-prep22-final-quantization-control/2-candidate/measurement-samples-bend-native",
+            "/tmp/bendvy-prep22-paired-decision-control/2-candidate/measurement-samples-bend-native",
             "1",
             "0",
             "256",
@@ -1299,7 +1299,7 @@
           ],
           "JS": [
             "node",
-            "/tmp/bendvy-prep22-final-quantization-control/2-candidate/measurement-samples-bend.js",
+            "/tmp/bendvy-prep22-paired-decision-control/2-candidate/measurement-samples-bend.js",
             "1",
             "0",
             "256",
@@ -1310,36 +1310,36 @@
         "summary": {
           "Native": {
             "raw": [
-              13
+              43
             ],
-            "min": 13,
-            "median": 13,
-            "max": 13
+            "min": 43,
+            "median": 43,
+            "max": 43
           },
           "TS": {
             "raw": [
-              12.174165999999985
+              11.163961
             ],
-            "min": 12.174165999999985,
-            "median": 12.174165999999985,
-            "max": 12.174165999999985
+            "min": 11.163961,
+            "median": 11.163961,
+            "max": 11.163961
           },
           "JS": {
             "raw": [
-              78
+              86
             ],
-            "min": 78,
-            "median": 78,
-            "max": 78
+            "min": 86,
+            "median": 86,
+            "max": 86
           }
         },
         "descriptiveRatios": {
-          "Native/TS": 1.0678349547722625,
-          "JS/TS": 6.407009728633575
+          "Native/TS": 3.851679524856814,
+          "JS/TS": 7.703359049713628
         },
-        "finishedAt": "2026-10-04T23:43:29.187005+00:00"
+        "finishedAt": "2026-10-04T23:29:35.924432+00:00"
       },
-      "evidenceSHA256": "2de0acfd9df177dd86041b14ec83589493d086dea6f8a633af7baa0641f6fd13"
+      "evidenceSHA256": "af7c9d9852a79d510dcd6e4b82fa25aed9f52c083ce89ba2f2384d5991068c81"
     },
     {
       "role": "reference",
@@ -1347,9 +1347,9 @@
         "/usr/bin/python3",
         "/workspace/formal-proofs/bendvy/experiments/s-prep/focus-run.py",
         "--overlay",
-        "/tmp/bendvy-prep22-final-quantization-control/reference-overlay",
+        "/tmp/bendvy-prep22-paired-decision-control/reference-overlay",
         "--build-dir",
-        "/tmp/bendvy-prep22-final-quantization-control/3-reference",
+        "/tmp/bendvy-prep22-paired-decision-control/3-reference",
         "--schema",
         "Health",
         "--workload",
@@ -1362,7 +1362,7 @@
         "2"
       ],
       "exitCode": 0,
-      "stdout": "built /tmp/bendvy-prep22-final-quantization-control/reference-overlay/experiments/s-integrate/measurement-samples-bend.bend\n{\n  \"status\": \"FINITE_FULL_FIELD_PASS\",\n  \"schema\": \"Health\",\n  \"workload\": \"dense\",\n  \"count\": 256,\n  \"repetitions\": 1\n}\n",
+      "stdout": "built /tmp/bendvy-prep22-paired-decision-control/reference-overlay/experiments/s-integrate/measurement-samples-bend.bend\n{\n  \"status\": \"FINITE_FULL_FIELD_PASS\",\n  \"schema\": \"Health\",\n  \"workload\": \"dense\",\n  \"count\": 256,\n  \"repetitions\": 1\n}\n",
       "stderr": "",
       "evidence": {
         "status": "FINITE_FULL_FIELD_PASS",
@@ -1829,113 +1829,113 @@
         "runnerSHA256": "366cc65f321d9526624371e99ea712b3a977d00c3de50192233cc451c4261a0c",
         "protectedRunnerSHA256": "72bdc3faba07130c39c44d6e2381d9ef6f50a5b82681dd4763f8bd8591762d96",
         "validatorSHA256": "64adcb13c45b3b74bb3b9141ca7e61a8584358091d2df21dda60c5befcec0854",
-        "startedAt": "2026-10-04T23:43:29.252812+00:00",
+        "startedAt": "2026-10-04T23:29:35.987465+00:00",
         "verification": {
           "Native": {
             "status": "PASS",
             "exitCode": 0,
-            "wholeProcessSeconds": 0.06686749495565891,
-            "startedAt": "2026-10-04T23:43:50.860103+00:00",
-            "finishedAt": "2026-10-04T23:43:50.926972+00:00",
-            "peakRssKiB": 4180,
-            "launcherInheritedPeakRssKiB": 20740,
-            "milliseconds": 13,
-            "millisecondsPerFreshWorld": 13.0,
-            "warmupMilliseconds": 16,
+            "wholeProcessSeconds": 0.06677151611074805,
+            "startedAt": "2026-10-04T23:29:55.338506+00:00",
+            "finishedAt": "2026-10-04T23:29:55.405281+00:00",
+            "peakRssKiB": 4196,
+            "launcherInheritedPeakRssKiB": 20680,
+            "milliseconds": 17,
+            "millisecondsPerFreshWorld": 17.0,
+            "warmupMilliseconds": 15,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
             "worksumPerWorld": 8970240,
             "backend": "Native",
-            "rawPath": "/tmp/bendvy-prep22-final-quantization-control/3-reference/verify-Native/child-output.txt"
+            "rawPath": "/tmp/bendvy-prep22-paired-decision-control/3-reference/verify-Native/child-output.txt"
           },
           "TS": {
             "status": "PASS",
             "exitCode": 0,
-            "wholeProcessSeconds": 0.27515625092200935,
-            "startedAt": "2026-10-04T23:43:50.932303+00:00",
-            "finishedAt": "2026-10-04T23:43:51.207462+00:00",
-            "peakRssKiB": 109052,
-            "launcherInheritedPeakRssKiB": 20740,
-            "milliseconds": 12.975177000000002,
-            "millisecondsPerFreshWorld": 12.975177000000002,
-            "warmupMilliseconds": 11.28015400000001,
+            "wholeProcessSeconds": 0.27312123286537826,
+            "startedAt": "2026-10-04T23:29:55.410633+00:00",
+            "finishedAt": "2026-10-04T23:29:55.683759+00:00",
+            "peakRssKiB": 100920,
+            "launcherInheritedPeakRssKiB": 20680,
+            "milliseconds": 11.686174000000022,
+            "millisecondsPerFreshWorld": 11.686174000000022,
+            "warmupMilliseconds": 9.217821000000015,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
             "worksumPerWorld": 8970240,
             "backend": "TS",
-            "rawPath": "/tmp/bendvy-prep22-final-quantization-control/3-reference/verify-TS/child-output.txt"
+            "rawPath": "/tmp/bendvy-prep22-paired-decision-control/3-reference/verify-TS/child-output.txt"
           },
           "JS": {
             "status": "PASS",
             "exitCode": 0,
-            "wholeProcessSeconds": 0.2740995700005442,
-            "startedAt": "2026-10-04T23:43:51.209326+00:00",
-            "finishedAt": "2026-10-04T23:43:51.483429+00:00",
-            "peakRssKiB": 89476,
-            "launcherInheritedPeakRssKiB": 20740,
-            "milliseconds": 75,
-            "millisecondsPerFreshWorld": 75.0,
-            "warmupMilliseconds": 91,
+            "wholeProcessSeconds": 0.27462657797150314,
+            "startedAt": "2026-10-04T23:29:55.685645+00:00",
+            "finishedAt": "2026-10-04T23:29:55.960275+00:00",
+            "peakRssKiB": 93208,
+            "launcherInheritedPeakRssKiB": 20680,
+            "milliseconds": 78,
+            "millisecondsPerFreshWorld": 78.0,
+            "warmupMilliseconds": 94,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
             "worksumPerWorld": 8970240,
             "backend": "JS",
-            "rawPath": "/tmp/bendvy-prep22-final-quantization-control/3-reference/verify-JS/child-output.txt"
+            "rawPath": "/tmp/bendvy-prep22-paired-decision-control/3-reference/verify-JS/child-output.txt"
           }
         },
         "samples": [
           {
             "status": "PASS",
             "exitCode": 0,
-            "wholeProcessSeconds": 0.06695057894103229,
-            "startedAt": "2026-10-04T23:43:51.488890+00:00",
-            "finishedAt": "2026-10-04T23:43:51.555843+00:00",
-            "peakRssKiB": 4180,
-            "launcherInheritedPeakRssKiB": 20740,
-            "milliseconds": 16,
-            "millisecondsPerFreshWorld": 16.0,
-            "warmupMilliseconds": 16,
+            "wholeProcessSeconds": 0.03387467795982957,
+            "startedAt": "2026-10-04T23:29:55.966099+00:00",
+            "finishedAt": "2026-10-04T23:29:55.999976+00:00",
+            "peakRssKiB": 4192,
+            "launcherInheritedPeakRssKiB": 20680,
+            "milliseconds": 14,
+            "millisecondsPerFreshWorld": 14.0,
+            "warmupMilliseconds": 13,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
             "worksumPerWorld": 8970240,
             "backend": "Native",
-            "rawPath": "/tmp/bendvy-prep22-final-quantization-control/3-reference/rep-1-Native/child-output.txt",
+            "rawPath": "/tmp/bendvy-prep22-paired-decision-control/3-reference/rep-1-Native/child-output.txt",
             "repetition": 1
           },
           {
             "status": "PASS",
             "exitCode": 0,
-            "wholeProcessSeconds": 0.27621659892611206,
-            "startedAt": "2026-10-04T23:43:51.561372+00:00",
-            "finishedAt": "2026-10-04T23:43:51.837593+00:00",
-            "peakRssKiB": 100408,
-            "launcherInheritedPeakRssKiB": 20740,
-            "milliseconds": 12.13358199999999,
-            "millisecondsPerFreshWorld": 12.13358199999999,
-            "warmupMilliseconds": 9.047331999999983,
+            "wholeProcessSeconds": 0.27531074988655746,
+            "startedAt": "2026-10-04T23:29:56.005628+00:00",
+            "finishedAt": "2026-10-04T23:29:56.280942+00:00",
+            "peakRssKiB": 108792,
+            "launcherInheritedPeakRssKiB": 20680,
+            "milliseconds": 13.077559000000008,
+            "millisecondsPerFreshWorld": 13.077559000000008,
+            "warmupMilliseconds": 9.487615000000005,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
             "worksumPerWorld": 8970240,
             "backend": "TS",
-            "rawPath": "/tmp/bendvy-prep22-final-quantization-control/3-reference/rep-1-TS/child-output.txt",
+            "rawPath": "/tmp/bendvy-prep22-paired-decision-control/3-reference/rep-1-TS/child-output.txt",
             "repetition": 1
           },
           {
             "status": "PASS",
             "exitCode": 0,
-            "wholeProcessSeconds": 0.3219528889749199,
-            "startedAt": "2026-10-04T23:43:51.839541+00:00",
-            "finishedAt": "2026-10-04T23:43:52.161496+00:00",
-            "peakRssKiB": 86252,
-            "launcherInheritedPeakRssKiB": 20740,
-            "milliseconds": 80,
-            "millisecondsPerFreshWorld": 80.0,
-            "warmupMilliseconds": 120,
+            "wholeProcessSeconds": 0.27249589492566884,
+            "startedAt": "2026-10-04T23:29:56.283643+00:00",
+            "finishedAt": "2026-10-04T23:29:56.556144+00:00",
+            "peakRssKiB": 89464,
+            "launcherInheritedPeakRssKiB": 20680,
+            "milliseconds": 69,
+            "millisecondsPerFreshWorld": 69.0,
+            "warmupMilliseconds": 84,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
             "worksumPerWorld": 8970240,
             "backend": "JS",
-            "rawPath": "/tmp/bendvy-prep22-final-quantization-control/3-reference/rep-1-JS/child-output.txt",
+            "rawPath": "/tmp/bendvy-prep22-paired-decision-control/3-reference/rep-1-JS/child-output.txt",
             "repetition": 1
           }
         ],
@@ -1944,10 +1944,10 @@
           "measurement-samples-bend.js": "b671f0fa6160d7a9ae659737315a0d96bd1b682987c3fbb9893b2513588728cb"
         },
         "launcherSourceSHA256": "eaef512a2c5e25c571f846fa5ddb5bf2075f2dda71c33ad29cb270639f05f977",
-        "referenceSHA256": "3478cbdb2be70406f6418cd9af147043e05a9aa654706f0a449876f771aeaef8",
+        "referenceSHA256": "c5edba85722e62939800e4e7aad23a7cffd2c76dfb392392cab6f38bcbaa8b69",
         "commands": {
           "Native": [
-            "/tmp/bendvy-prep22-final-quantization-control/3-reference/measurement-samples-bend-native",
+            "/tmp/bendvy-prep22-paired-decision-control/3-reference/measurement-samples-bend-native",
             "1",
             "0",
             "256",
@@ -1967,7 +1967,7 @@
           ],
           "JS": [
             "node",
-            "/tmp/bendvy-prep22-final-quantization-control/3-reference/measurement-samples-bend.js",
+            "/tmp/bendvy-prep22-paired-decision-control/3-reference/measurement-samples-bend.js",
             "1",
             "0",
             "256",
@@ -1978,36 +1978,36 @@
         "summary": {
           "Native": {
             "raw": [
-              16
+              14
             ],
-            "min": 16,
-            "median": 16,
-            "max": 16
+            "min": 14,
+            "median": 14,
+            "max": 14
           },
           "TS": {
             "raw": [
-              12.13358199999999
+              13.077559000000008
             ],
-            "min": 12.13358199999999,
-            "median": 12.13358199999999,
-            "max": 12.13358199999999
+            "min": 13.077559000000008,
+            "median": 13.077559000000008,
+            "max": 13.077559000000008
           },
           "JS": {
             "raw": [
-              80
+              69
             ],
-            "min": 80,
-            "median": 80,
-            "max": 80
+            "min": 69,
+            "median": 69,
+            "max": 69
           }
         },
         "descriptiveRatios": {
-          "Native/TS": 1.318654293513656,
-          "JS/TS": 6.59327146756828
+          "Native/TS": 1.0705361757496175,
+          "JS/TS": 5.276214009051686
         },
-        "finishedAt": "2026-10-04T23:43:52.174082+00:00"
+        "finishedAt": "2026-10-04T23:29:56.570738+00:00"
       },
-      "evidenceSHA256": "13836f7b2ee3c02edb009bb9a5994e2e612359fbd03c7d332590cf6bfa8b7228"
+      "evidenceSHA256": "198d91955b51ddf63162a8257dc5e4125c184ec3851238420943c2b3826fab1a"
     },
     {
       "role": "candidate",
@@ -2017,7 +2017,7 @@
         "--overlay",
         "/tmp/bendvy-prep22-root-overlay",
         "--build-dir",
-        "/tmp/bendvy-prep22-final-quantization-control/4-candidate",
+        "/tmp/bendvy-prep22-paired-decision-control/4-candidate",
         "--schema",
         "Health",
         "--workload",
@@ -2496,16 +2496,16 @@
         "runnerSHA256": "366cc65f321d9526624371e99ea712b3a977d00c3de50192233cc451c4261a0c",
         "protectedRunnerSHA256": "72bdc3faba07130c39c44d6e2381d9ef6f50a5b82681dd4763f8bd8591762d96",
         "validatorSHA256": "64adcb13c45b3b74bb3b9141ca7e61a8584358091d2df21dda60c5befcec0854",
-        "startedAt": "2026-10-04T23:43:52.241618+00:00",
+        "startedAt": "2026-10-04T23:29:56.644337+00:00",
         "verification": {
           "Native": {
             "status": "PASS",
             "exitCode": 0,
-            "wholeProcessSeconds": 0.034031678922474384,
-            "startedAt": "2026-10-04T23:44:11.929165+00:00",
-            "finishedAt": "2026-10-04T23:44:11.963197+00:00",
-            "peakRssKiB": 4196,
-            "launcherInheritedPeakRssKiB": 20604,
+            "wholeProcessSeconds": 0.03383296984247863,
+            "startedAt": "2026-10-04T23:30:15.862213+00:00",
+            "finishedAt": "2026-10-04T23:30:15.896050+00:00",
+            "peakRssKiB": 4184,
+            "launcherInheritedPeakRssKiB": 20696,
             "milliseconds": 13,
             "millisecondsPerFreshWorld": 13.0,
             "warmupMilliseconds": 13,
@@ -2513,52 +2513,52 @@
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
             "worksumPerWorld": 8970240,
             "backend": "Native",
-            "rawPath": "/tmp/bendvy-prep22-final-quantization-control/4-candidate/verify-Native/child-output.txt"
+            "rawPath": "/tmp/bendvy-prep22-paired-decision-control/4-candidate/verify-Native/child-output.txt"
           },
           "TS": {
             "status": "PASS",
             "exitCode": 0,
-            "wholeProcessSeconds": 0.27538049896247685,
-            "startedAt": "2026-10-04T23:44:11.968462+00:00",
-            "finishedAt": "2026-10-04T23:44:12.243845+00:00",
-            "peakRssKiB": 108712,
-            "launcherInheritedPeakRssKiB": 20604,
-            "milliseconds": 10.105660999999998,
-            "millisecondsPerFreshWorld": 10.105660999999998,
-            "warmupMilliseconds": 8.986361000000016,
+            "wholeProcessSeconds": 0.2721112670842558,
+            "startedAt": "2026-10-04T23:30:15.901536+00:00",
+            "finishedAt": "2026-10-04T23:30:16.173651+00:00",
+            "peakRssKiB": 100716,
+            "launcherInheritedPeakRssKiB": 20696,
+            "milliseconds": 11.727924000000002,
+            "millisecondsPerFreshWorld": 11.727924000000002,
+            "warmupMilliseconds": 11.276544999999999,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
             "worksumPerWorld": 8970240,
             "backend": "TS",
-            "rawPath": "/tmp/bendvy-prep22-final-quantization-control/4-candidate/verify-TS/child-output.txt"
+            "rawPath": "/tmp/bendvy-prep22-paired-decision-control/4-candidate/verify-TS/child-output.txt"
           },
           "JS": {
             "status": "PASS",
             "exitCode": 0,
-            "wholeProcessSeconds": 0.2191472731065005,
-            "startedAt": "2026-10-04T23:44:12.245838+00:00",
-            "finishedAt": "2026-10-04T23:44:12.464987+00:00",
-            "peakRssKiB": 88872,
-            "launcherInheritedPeakRssKiB": 20604,
-            "milliseconds": 70,
-            "millisecondsPerFreshWorld": 70.0,
-            "warmupMilliseconds": 80,
+            "wholeProcessSeconds": 0.27248997800052166,
+            "startedAt": "2026-10-04T23:30:16.177754+00:00",
+            "finishedAt": "2026-10-04T23:30:16.450249+00:00",
+            "peakRssKiB": 83836,
+            "launcherInheritedPeakRssKiB": 20696,
+            "milliseconds": 77,
+            "millisecondsPerFreshWorld": 77.0,
+            "warmupMilliseconds": 88,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
             "worksumPerWorld": 8970240,
             "backend": "JS",
-            "rawPath": "/tmp/bendvy-prep22-final-quantization-control/4-candidate/verify-JS/child-output.txt"
+            "rawPath": "/tmp/bendvy-prep22-paired-decision-control/4-candidate/verify-JS/child-output.txt"
           }
         },
         "samples": [
           {
             "status": "PASS",
             "exitCode": 0,
-            "wholeProcessSeconds": 0.03513472992926836,
-            "startedAt": "2026-10-04T23:44:12.470515+00:00",
-            "finishedAt": "2026-10-04T23:44:12.505651+00:00",
+            "wholeProcessSeconds": 0.034375932067632675,
+            "startedAt": "2026-10-04T23:30:16.456262+00:00",
+            "finishedAt": "2026-10-04T23:30:16.490640+00:00",
             "peakRssKiB": 4196,
-            "launcherInheritedPeakRssKiB": 20604,
+            "launcherInheritedPeakRssKiB": 20696,
             "milliseconds": 13,
             "millisecondsPerFreshWorld": 13.0,
             "warmupMilliseconds": 13,
@@ -2566,43 +2566,43 @@
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
             "worksumPerWorld": 8970240,
             "backend": "Native",
-            "rawPath": "/tmp/bendvy-prep22-final-quantization-control/4-candidate/rep-1-Native/child-output.txt",
+            "rawPath": "/tmp/bendvy-prep22-paired-decision-control/4-candidate/rep-1-Native/child-output.txt",
             "repetition": 1
           },
           {
             "status": "PASS",
             "exitCode": 0,
-            "wholeProcessSeconds": 0.2708764639683068,
-            "startedAt": "2026-10-04T23:44:12.511798+00:00",
-            "finishedAt": "2026-10-04T23:44:12.782679+00:00",
-            "peakRssKiB": 109232,
-            "launcherInheritedPeakRssKiB": 20604,
-            "milliseconds": 12.289386999999977,
-            "millisecondsPerFreshWorld": 12.289386999999977,
-            "warmupMilliseconds": 9.721741999999978,
+            "wholeProcessSeconds": 0.2726282710209489,
+            "startedAt": "2026-10-04T23:30:16.497682+00:00",
+            "finishedAt": "2026-10-04T23:30:16.770313+00:00",
+            "peakRssKiB": 108996,
+            "launcherInheritedPeakRssKiB": 20696,
+            "milliseconds": 13.451937000000015,
+            "millisecondsPerFreshWorld": 13.451937000000015,
+            "warmupMilliseconds": 10.32812100000001,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
             "worksumPerWorld": 8970240,
             "backend": "TS",
-            "rawPath": "/tmp/bendvy-prep22-final-quantization-control/4-candidate/rep-1-TS/child-output.txt",
+            "rawPath": "/tmp/bendvy-prep22-paired-decision-control/4-candidate/rep-1-TS/child-output.txt",
             "repetition": 1
           },
           {
             "status": "PASS",
             "exitCode": 0,
-            "wholeProcessSeconds": 0.27671950892545283,
-            "startedAt": "2026-10-04T23:44:12.784962+00:00",
-            "finishedAt": "2026-10-04T23:44:13.061685+00:00",
-            "peakRssKiB": 90284,
-            "launcherInheritedPeakRssKiB": 20604,
-            "milliseconds": 76,
-            "millisecondsPerFreshWorld": 76.0,
-            "warmupMilliseconds": 93,
+            "wholeProcessSeconds": 0.3193075058516115,
+            "startedAt": "2026-10-04T23:30:16.772241+00:00",
+            "finishedAt": "2026-10-04T23:30:17.091556+00:00",
+            "peakRssKiB": 89336,
+            "launcherInheritedPeakRssKiB": 20696,
+            "milliseconds": 116,
+            "millisecondsPerFreshWorld": 116.0,
+            "warmupMilliseconds": 96,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
             "worksumPerWorld": 8970240,
             "backend": "JS",
-            "rawPath": "/tmp/bendvy-prep22-final-quantization-control/4-candidate/rep-1-JS/child-output.txt",
+            "rawPath": "/tmp/bendvy-prep22-paired-decision-control/4-candidate/rep-1-JS/child-output.txt",
             "repetition": 1
           }
         ],
@@ -2611,10 +2611,10 @@
           "measurement-samples-bend.js": "b671f0fa6160d7a9ae659737315a0d96bd1b682987c3fbb9893b2513588728cb"
         },
         "launcherSourceSHA256": "eaef512a2c5e25c571f846fa5ddb5bf2075f2dda71c33ad29cb270639f05f977",
-        "referenceSHA256": "51dc9e517af7d2b718f62931368c8ad921b04ccc5b05fc39e327bc098dca4cb8",
+        "referenceSHA256": "910ad6bde5c6b4d54422d651fc9985314156de24d1d79474280d406604c93905",
         "commands": {
           "Native": [
-            "/tmp/bendvy-prep22-final-quantization-control/4-candidate/measurement-samples-bend-native",
+            "/tmp/bendvy-prep22-paired-decision-control/4-candidate/measurement-samples-bend-native",
             "1",
             "0",
             "256",
@@ -2634,7 +2634,7 @@
           ],
           "JS": [
             "node",
-            "/tmp/bendvy-prep22-final-quantization-control/4-candidate/measurement-samples-bend.js",
+            "/tmp/bendvy-prep22-paired-decision-control/4-candidate/measurement-samples-bend.js",
             "1",
             "0",
             "256",
@@ -2653,30 +2653,30 @@
           },
           "TS": {
             "raw": [
-              12.289386999999977
+              13.451937000000015
             ],
-            "min": 12.289386999999977,
-            "median": 12.289386999999977,
-            "max": 12.289386999999977
+            "min": 13.451937000000015,
+            "median": 13.451937000000015,
+            "max": 13.451937000000015
           },
           "JS": {
             "raw": [
-              76
+              116
             ],
-            "min": 76,
-            "median": 76,
-            "max": 76
+            "min": 116,
+            "median": 116,
+            "max": 116
           }
         },
         "descriptiveRatios": {
-          "Native/TS": 1.0578233072162204,
-          "JS/TS": 6.184197796033288
+          "Native/TS": 0.9664035744443336,
+          "JS/TS": 8.623293433503285
         },
-        "finishedAt": "2026-10-04T23:44:13.071814+00:00"
+        "finishedAt": "2026-10-04T23:30:17.104608+00:00"
       },
-      "evidenceSHA256": "2c3520fcbc623f69faeda5c2e2ed58851df0231c86d7ff12e9f76ef8d1e9d9fc"
+      "evidenceSHA256": "44cce58289e273674320725779ddf6162617cd173c6d9208747302fb8748caa7"
     }
   ],
   "metricUnavailable": "one-shot/unqualified/failed evidence is not a qualified metric",
-  "wallSeconds": 91.25005718809552
+  "wallSeconds": 83.5787063150201
 }

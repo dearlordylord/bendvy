@@ -57,20 +57,26 @@ def compare(cohorts):
                            or x['milliseconds'] <= 0 for x in samples)):
                 return {'status': 'UNQUALIFIED', 'reason': 'missing full-field sample'}
     contrasts = []
+    conservative = []
     reference = {b: [s['milliseconds'] for c in refs for s in c['evidence']['samples'] if s['backend'] == b] for b in ('Native', 'TS', 'JS')}
     for c in candidates:
         raw = {b: [s['milliseconds'] for s in c['evidence']['samples'] if s['backend'] == b] for b in reference}
         contrasts.append({b: bootstrap(reference[b], raw[b]) for b in raw})
+        # Integer-millisecond endpoints: bound timer uncertainty separately from
+        # bootstrap sampling uncertainty, with the proposed conservative2ms.
+        if any(x <= 2 for b in ('Native', 'JS') for x in reference[b]):
+            return {'status': 'UNQUALIFIED', 'reason': 'timer bound consumes reference duration'}
+        conservative.append({b: bootstrap([x-2 for x in reference[b]], [x+2 for x in raw[b]]) for b in ('Native', 'JS')})
     medians = {role: {b: [statistics.median([s['milliseconds'] for s in c['evidence']['samples'] if s['backend'] == b]) for c in cohorts if c['role'] == role] for b in reference} for role in ('reference', 'candidate')}
     paired_drift = {role: {b: max(values) / min(values) - 1 for b, values in backends.items()} for role, backends in medians.items()}
     ts_drift = [abs(m / statistics.median(reference['TS']) - 1) for m in medians['candidate']['TS']]
     qualified = all(v <= 0.10 for d in paired_drift.values() for v in d.values()) and all(v <= 0.10 for v in ts_drift)
-    bounds = all(c['JS']['percentile95High'] <= -0.10 and c['Native']['percentile95High'] <= 0.05 for c in contrasts)
-    return {'status': 'COMPLETE_COMPARISON' if qualified else 'UNQUALIFIED', 'contrasts': contrasts,
+    bounds = all(c['JS']['percentile95High'] <= -0.10 and c['Native']['percentile95High'] <= 0.05 for c in conservative)
+    return {'status': 'COMPLETE_COMPARISON' if qualified else 'UNQUALIFIED', 'contrasts': contrasts, 'conservativeTimerContrasts': conservative,
             'proposedRuleReceipt': {'rolePairMedianDrift': paired_drift, 'candidateTSDrift': ts_drift,
                 'noiseQualified': qualified, 'bothCandidatePerformanceBounds': bounds,
                 'experimentalKeepEligible': qualified and bounds,
-                'rulesAccepted': False},
+                'integerTimerAllowanceMilliseconds': 2, 'rulesAccepted': False},
             'scope': 'Frozen proposed rules only; independent checks and accepted session decision required for a keep.'}
 
 

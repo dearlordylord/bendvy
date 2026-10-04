@@ -33,6 +33,15 @@ for cohort in improved:
             if sample['backend'] == 'JS': sample['milliseconds'] = 80.0
 assert P.compare(improved)['proposedRuleReceipt']['experimentalKeepEligible']
 receipts.append({'control': 'constant improvement and unchanged Native/TS', 'result': 'proposed bounds pass; no keep authority'})
+quantized = copy.deepcopy(improved)
+for cohort in quantized:
+    if cohort['role'] == 'candidate':
+        for sample in cohort['evidence']['samples']:
+            if sample['backend'] == 'Native': sample['milliseconds'] = 104.0
+quantized_result = P.compare(quantized)
+assert all(c['Native']['percentile95High'] < 0.05 for c in quantized_result['contrasts'])
+assert not quantized_result['proposedRuleReceipt']['experimentalKeepEligible']
+receipts.append({'control': 'sampling passes but timer bound exceeds Native margin', 'result': 'not eligible'})
 for backend, value, label in [('JS', 120.0, 'candidate JS cohort drift'), ('Native', 110.0, 'Native regression'), ('TS', 120.0, 'TS control drift')]:
     changed = copy.deepcopy(improved)
     subjects = [changed[1]] if label == 'candidate JS cohort drift' else [changed[1], changed[3]]
