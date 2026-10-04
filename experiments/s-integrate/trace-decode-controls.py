@@ -77,6 +77,21 @@ def main():
     substituted = copy.deepcopy(lookup)
     substituted["handle"] = beta["handle"]
     rejects(lambda: foreign_lane.event(substituted))
+    provisioned = decoder.Lane("Motion", "returned-owner")
+    missing_outcome = {"kind": "MissingRuntimeRequirements", "requirements": [
+        {"kind": "ResourceRequired", "name": "MotionLedger"}]}
+    event = {"kind": "Provisioning", "missing": "resource", "result": missing_outcome,
+             "invocations": [], "effects": [], "actualE2BaseInstances": True}
+    rejects(lambda: provisioned.event(event))
+    provisioned.preflight_io("PREFLIGHT-BEGIN:motion:resource")
+    rejects(provisioned.finish)
+    provisioned.preflight_io("PREFLIGHT-RESULT:motion:resource:" + json.dumps(missing_outcome))
+    forged = copy.deepcopy(event)
+    forged["invocations"] = ["A"]
+    rejects(lambda: provisioned.event(forged))
+    # A rejected event must not consume the actual IO evidence.
+    provisioned.event(event)
+    assert provisioned.finish()["provisioning"][0]["actualE2BaseInstances"] is True
     print(json.dumps({"status": "PASS", "scope": "decoder fixtures only; no actual Host execution",
         "checked": ["full payload/metadata", "raw ID", "failure code", "handle reissue",
                     "foreign namespace", "unmatched completion", "missing lane", "missing captures"]}))

@@ -41,6 +41,32 @@ class Lane:
         self.bindings = {}
         self.namespaces = {}
         self.raw = []
+        self.preflight_active = None
+        self.preflights = {}
+        self.io = []
+
+    def preflight_io(self, line):
+        self.io.append(line)
+        marker, schema, label, *rest = line.split(":", 3)
+        if schema != self.result["schema"].lower():
+            raise ValueError("preflight IO belongs to another schema")
+        if marker == "PREFLIGHT-BEGIN":
+            if rest or self.preflight_active is not None or label in self.preflights:
+                raise ValueError("duplicate or nested preflight interval")
+            self.preflight_active = {"missing": label, "invocations": [], "effects": []}
+        elif marker == "PREFLIGHT-INVOKE":
+            if self.preflight_active is None or len(rest) != 1:
+                raise ValueError("invocation outside preflight interval")
+            int(rest[0])  # Preserve the actual count marker in actualIOEvents.
+            self.preflight_active["invocations"].append(label)
+        elif marker == "PREFLIGHT-RESULT":
+            if self.preflight_active is None or self.preflight_active["missing"] != label or len(rest) != 1:
+                raise ValueError("unmatched preflight result")
+            self.preflight_active["result"] = outcome(json.loads(rest[0]))
+            self.preflights[label] = self.preflight_active
+            self.preflight_active = None
+        else:
+            raise ValueError("unknown preflight IO marker")
 
     def key(self, handle):
         if set(handle) != {"namespace", "id"}:
@@ -171,6 +197,21 @@ class Lane:
                 "result": outcome(value["outcome"]), "counts": capture, "tails": tails})
             self.result["finalCounts"] = capture
             self.result["tails"] = tails
+        elif kind == "Provisioning":
+            missing = value["missing"]
+            if missing not in self.preflights:
+                raise ValueError("provisioning event lacks a complete observed IO interval")
+            observed = self.preflights[missing]
+            result = outcome(value["result"])
+            if observed != {"missing": missing, "result": result,
+                            "invocations": value["invocations"], "effects": value["effects"]}:
+                raise ValueError("provisioning event disagrees with observed calls or IO effects")
+            if type(value["actualE2BaseInstances"]) is not bool:
+                raise ValueError("base-instance comparison must be Boolean")
+            del self.preflights[missing]
+            self.result.setdefault("provisioning", []).append({
+                "missing": missing, "result": result, "invocations": value["invocations"],
+                "effects": value["effects"], "actualE2BaseInstances": value["actualE2BaseInstances"]})
         elif kind == "ForeignLookup":
             receiver, source = value["receiver"], value["source"]
             handle = value["handle"]
@@ -214,9 +255,11 @@ class Lane:
             raise ValueError(f"unknown event kind: {kind}")
 
     def finish(self):
+        if self.preflight_active is not None or self.preflights:
+            raise ValueError("preflight IO/event observations incomplete")
         if any("traceDiagnostic" not in read for read in self.result["reads"]):
             raise ValueError("reader diagnostics incomplete")
-        return {**self.result, "actualEvents": self.raw}
+        return {**self.result, "actualEvents": self.raw, "actualIOEvents": self.io}
 
 
 def decode(text):
@@ -225,10 +268,19 @@ def decode(text):
     for line in text.splitlines():
         if not line.strip():
             continue
+        if line.startswith("PREFLIGHT-"):
+            if current is None:
+                raise ValueError("preflight IO before lane header")
+            current.preflight_io(line)
+            continue
         if re.fullmatch(r"[AB]:attempt:[0-9]+", line):
             if current is None:
                 raise ValueError("Audit effect outside an actual lane")
-            current.result["auditEffects"].append(line)
+            if current.preflight_active is not None:
+                current.io.append(line)
+                current.preflight_active["effects"].append(line)
+            else:
+                current.result["auditEffects"].append(line)
             continue
         value = json.loads(line)
         if isinstance(value, list):
