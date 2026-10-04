@@ -123,3 +123,58 @@ and trusted32-entry search bounds are disclosed rather than fictional privacy.
 **Heuristic findings: none actionable.** Cursor/frame helpers satisfy concrete
 Bend affine and match constraints. Concrete Host binding, clock/publication mutants,
 full dispatcher/reference traces and performance gates remain open.
+
+## 2026-10-04 — mark zipper and Dense/Sparse measurement
+
+**Standards: no hard violation or actionable smell found in the scoped implementations.**
+Reviewed mark repair `c20b7fb` and measurement delivery `91aa9ca`, with independent
+replay from integrated snapshot `6f5a2c4`. Governing sources remain AGENTS, SPEC,
+#19 and bend-ldd; this review does not approve a new law or performance threshold.
+
+The mark zipper preserves complete Data rows and exact `since < stamp <= thisRun`
+selection while advancing an ascending observation suffix. Its trusted premise is
+ascending query IDs and world rows from the actual provider; it is not an
+unordered/general-authority lookup. Missing IDs retain stamp zero. Tail traversal
+and one final reversal preserve order. Independently built Native/JS canaries pass
+both actual schemas at 17 rows and all six complete sparse/boundary outputs.
+The coordinator's `05fb71d` full replay covers 1/17/65,537, four compiling mutants
+and a current integrated closure; every recorded source digest matches that commit.
+
+The benchmark really calls D.tick, preflight/frame hooks, freshly instantiated
+affine opaque-owner callbacks and one accumulated SystemTx per iteration. Reselect
+preserves the actual world/journal/publications; Type payloads are not reconstructed
+from Data. Sparse Aux filters inspect actual optional values rather than relabeling
+Flag queries. Exact final row/resource/queue/capture/clock comparisons precede the
+fresh TS digest and single diagnostic timing. Wrapped weighted checksums supplement
+those comparisons. Setup/final dump lie outside IO.now, within the complete process
+five-second limit. Independently replayed Motion Dense64 and Health Sparse256
+pass full oracles/fresh TS on both backends; Motion Dense1024 reaches five seconds
+on both. No warmup/repeated-ratio/memory or performance acceptance is inferred.
+
+**Provenance finding resolved/scoped:** original source hashes differ from the
+merge commits, but exactly match retrievable author snapshots `39e5a29` (marks)
+and `6a7d7d8` (measurement). Original mark evidence is preserved and refreshed at
+`05fb71d`; old measurement evidence remains historical. My selected current-source
+replays do not substitute for a complete refreshed measurement matrix. No causal
+claim is made from the source-supported repeated-scan explanation. Nominal/helper
+repetition is required by Bend's typing/head-match structure, not a duplication
+finding.
+
+## 2026-10-04 — affine publication repair `afd8a9a`
+
+**Spec review: the bounded repair meets publication/FIFO/ownership requirements;
+full E11 and performance remain open.** The double tail reversal computes exactly
+`staged ++ pending`: it preserves existing pending work, every affine command owner
+and all other World fields, without application or payload reconstruction. Quantity
+`&1` is retained throughout. No general ECS proof or production authority claim is
+introduced.
+
+The actual command fixture separates issued owned commands into staged and an
+existing nonempty queue, then observes payloads and applies/removes/despawns through
+real operations. Recorded 1/17/65,537 totals and three compiling FIFO/drop/order
+controls have exact source hashes at `afd8a9a`; historical JS stack failures remain
+separate. Independently built both schemas at totals 17 and 65,538 pass Native/JS
+under five seconds. The extra total explicitly exercises 65,537 staged commands
+plus one existing pending command, avoiding ambiguity between total and staged
+counts. Getter canaries verify all declared cells/metadata before Bool projection;
+large uniform fixtures are not nonuniform/general refinement evidence.
