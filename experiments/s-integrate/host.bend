@@ -14,6 +14,7 @@ import ./capture.bend as LC
 import ./transaction-dispatch-adapters.bend as TA
 import ./audited-invoker.bend as IA
 import ./systems.bend as U
+import ./structural-invoker.bend as SI
 
 type Host<-Schema:Data,-M:Type,-A:Type,-F:Data,-L:Type,-Mode:Data,-P:Data,-V:Data,-AV:Data,-LV:Data> is Type:
   Host{world:W.World<Schema,M,A,F,L,Mode>,logs:H.Logs<Schema,P>,bindings:List<&2,E.Binding<Schema>>,worldName:String,step:String,prior:D.DispatchOutcome,events:List<&2,E.TraceEvent<Schema,V,AV,F,LV,Mode,P>>}
@@ -346,8 +347,30 @@ def health_reserve(owner:HealthHost(),label:String,bundle:W.Bundle<T.Vitals,T.Ar
   match owner:
     case Host{world,logs,bindings,worldName,step,prior,events}:
       health_reserve_view(label,world,logs,bindings,worldName,step,prior,events,O.bundle(T.Vitals,T.Armor,T.Tracked,T.VitalsView,T.ArmorView,PV.vitals_get,PV.armor_get,bundle))
+def motion_structural_published(system:String,count:U32,audit:Maybe<D.Audit>,outcome:T.Outcome,run:Maybe<R.Run>,result:MotionHost() & R.Clock) -> IO(D.Invoked<MotionHost(),W.Handle<T.MotionSchema>>):
+  match result:
+    case (owner,clock): IO.pure(D.Invoked<MotionHost(),W.Handle<T.MotionSchema>>,done(T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode,T.MotionPing,T.PositionView,T.VelocityView,T.LedgerView,system,count,clock,audit,outcome,None{},[],owner,run))
+def motion_cleanup_done(system:String,count:U32,clock:R.Clock,logs:H.Logs<T.MotionSchema,T.MotionPing>,bindings:List<&2,E.Binding<T.MotionSchema>>,worldName:String,step:String,prior:D.DispatchOutcome,events:List<&2,E.TraceEvent<T.MotionSchema,T.PositionView,T.VelocityView,T.Selected,T.LedgerView,T.MotionMode,T.MotionPing>>,audit:Maybe<D.Audit>,run:Maybe<R.Run>,result:TA.RunResult<W.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,W.Handle<T.MotionSchema>>) -> IO(D.Invoked<MotionHost(),W.Handle<T.MotionSchema>>):
+  match result:
+    case TA.RunResult{world,outcome,_,_,pings}: motion_structural_published(system,count,audit,outcome,run,publish(T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode,T.MotionPing,T.PositionView,T.VelocityView,T.LedgerView,Host{world,logs,bindings,worldName,step,prior,events},clock,motion_pings(pings)))
+def motion_batch_done(-Payload:Type,system:String,count:U32,clock:R.Clock,logs:H.Logs<T.MotionSchema,T.MotionPing>,bindings:List<&2,E.Binding<T.MotionSchema>>,worldName:String,step:String,prior:D.DispatchOutcome,events:List<&2,E.TraceEvent<T.MotionSchema,T.PositionView,T.VelocityView,T.Selected,T.LedgerView,T.MotionMode,T.MotionPing>>,audit:Maybe<D.Audit>,run:Maybe<R.Run>,result:SI.Batch<W.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,Payload>) -> IO(D.Invoked<MotionHost(),W.Handle<T.MotionSchema>>):
+  match result:
+    case SI.Batch{world,Nil{}}: IO.pure(D.Invoked<MotionHost(),W.Handle<T.MotionSchema>>,done(T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode,T.MotionPing,T.PositionView,T.VelocityView,T.LedgerView,system,count,clock,audit,T.Success{},None{},[],Host{world,logs,bindings,worldName,step,prior,events},run))
+    case SI.Batch{world,Con{_,_}}: IO.pure(D.Invoked<MotionHost(),W.Handle<T.MotionSchema>>,done(T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode,T.MotionPing,T.PositionView,T.VelocityView,T.LedgerView,system,count,clock,audit,T.Failure{7},None{},[],Host{world,logs,bindings,worldName,step,prior,events},run))
+def motion_structural_found(kind:K.BodyKind,system:String,count:U32,+clock:R.Clock,owner:MotionHost(),audit:Maybe<D.Audit>,run:Maybe<R.Run>,ha:Maybe<&2,W.Handle<T.MotionSchema>>,hb:Maybe<&2,W.Handle<T.MotionSchema>>,hc:Maybe<&2,W.Handle<T.MotionSchema>>,hp:Maybe<&2,W.Handle<T.MotionSchema>>,hr:Maybe<&2,W.Handle<T.MotionSchema>>) -> IO(D.Invoked<MotionHost(),W.Handle<T.MotionSchema>>):
+  match kind owner ha hb hc hp hr:
+    case K.Cleanup{} Host{world,logs,bindings,worldName,step,prior,events} Some{a} Some{b} _ Some{p} _: motion_cleanup_done(system,count,clock,logs,bindings,worldName,step,prior,events,audit,run,SI.motion_cleanup(world,p,a,b,D.clock_tick(clock)))
+    case K.Inserts{} Host{world,logs,bindings,worldName,step,prior,events} Some{a} Some{b} Some{c} Some{p} _: motion_batch_done(T.Position,system,count,clock,logs,bindings,worldName,step,prior,events,audit,run,SI.motion_inserts(world,p,a,c,b,T.Position{U.quad(71,72,73,74),7},T.Position{U.quad(80,81,82,83),7},T.Position{U.quad(30,31,32,33),7},T.Position{U.quad(81,82,83,84),7},T.Position{U.quad(90,91,92,93),7}))
+    case K.Dispose{} Host{world,logs,bindings,worldName,step,prior,events} Some{a} _ Some{c} Some{p} Some{r}: motion_batch_done(Unit,system,count,clock,logs,bindings,worldName,step,prior,events,audit,run,SI.motion_dispose(world,c,a,p,r))
+    case _ state _ _ _ _ _: IO.pure(D.Invoked<MotionHost(),W.Handle<T.MotionSchema>>,done(T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode,T.MotionPing,T.PositionView,T.VelocityView,T.LedgerView,system,count,clock,audit,T.Failure{7},None{},[],state,run))
+def motion_structural(kind:K.BodyKind,system:String,count:U32,clock:R.Clock,owner:MotionHost(),audit:Maybe<D.Audit>,run:Maybe<R.Run>) -> IO(D.Invoked<MotionHost(),W.Handle<T.MotionSchema>>):
+  match owner:
+    case Host{world,logs,+bindings,worldName,step,prior,events}: motion_structural_found(kind,system,count,clock,Host{world,logs,bindings,worldName,step,prior,events},audit,run,binding_find(T.MotionSchema,"a",bindings),binding_find(T.MotionSchema,"b",bindings),binding_find(T.MotionSchema,"c",bindings),binding_find(T.MotionSchema,"p",bindings),binding_find(T.MotionSchema,"r",bindings))
 def motion_simple(kind:K.BodyKind,mode:K.Mode,system:String,count:U32,clock:R.Clock,owner:MotionHost(),audit:Maybe<D.Audit>,run:Maybe<R.Run>) -> IO(D.Invoked<MotionHost(),W.Handle<T.MotionSchema>>):
   match kind:
+    case K.Cleanup{}: motion_structural(K.Cleanup{},system,count,clock,owner,audit,run)
+    case K.Inserts{}: motion_structural(K.Inserts{},system,count,clock,owner,audit,run)
+    case K.Dispose{}: motion_structural(K.Dispose{},system,count,clock,owner,audit,run)
     case K.ForeignLookup{}: IO.pure(D.Invoked<MotionHost(),W.Handle<T.MotionSchema>>,done(T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode,T.MotionPing,T.PositionView,T.VelocityView,T.LedgerView,system,count,clock,audit,T.Success{},None{},[],motion_foreign(owner),run))
     case K.Snapshot{}: IO.pure(D.Invoked<MotionHost(),W.Handle<T.MotionSchema>>,done(T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode,T.MotionPing,T.PositionView,T.VelocityView,T.LedgerView,system,count,clock,audit,T.Success{},None{},[],motion_snapshot(owner),run))
     case K.Seed{}: IO.pure(D.Invoked<MotionHost(),W.Handle<T.MotionSchema>>,done(T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode,T.MotionPing,T.PositionView,T.VelocityView,T.LedgerView,system,count,clock,audit,T.Success{},None{},[],U.motion_seed(MotionHost(),motion_reserve,motion_reserve,motion_reserve,owner),run))
@@ -384,8 +407,30 @@ def motion_frame(owner:MotionHost(),readers:R.Readers,boundary:R.Frame) -> Motio
   frame(T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode,T.MotionPing,T.PositionView,T.VelocityView,T.LedgerView,owner,readers,boundary)
 def motion_tick(nodes:List<&2,K.Node>,runtime:D.Runtime<MotionHost(),W.Handle<T.MotionSchema>>) -> IO(D.Dispatched<MotionHost(),W.Handle<T.MotionSchema>>):
   D.tick(~MotionHost(),~W.Handle<T.MotionSchema>,~motion_presence,~motion_invoke,~motion_barrier,~motion_transition,~motion_frame,nodes,"MotionLedger","MotionMode",runtime)
+def health_structural_published(system:String,count:U32,audit:Maybe<D.Audit>,outcome:T.Outcome,run:Maybe<R.Run>,result:HealthHost() & R.Clock) -> IO(D.Invoked<HealthHost(),W.Handle<T.HealthSchema>>):
+  match result:
+    case (owner,clock): IO.pure(D.Invoked<HealthHost(),W.Handle<T.HealthSchema>>,done(T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode,T.HealthPing,T.VitalsView,T.ArmorView,T.LedgerView,system,count,clock,audit,outcome,None{},[],owner,run))
+def health_cleanup_done(system:String,count:U32,clock:R.Clock,logs:H.Logs<T.HealthSchema,T.HealthPing>,bindings:List<&2,E.Binding<T.HealthSchema>>,worldName:String,step:String,prior:D.DispatchOutcome,events:List<&2,E.TraceEvent<T.HealthSchema,T.VitalsView,T.ArmorView,T.Tracked,T.LedgerView,T.HealthMode,T.HealthPing>>,audit:Maybe<D.Audit>,run:Maybe<R.Run>,result:TA.RunResult<W.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,W.Handle<T.HealthSchema>>) -> IO(D.Invoked<HealthHost(),W.Handle<T.HealthSchema>>):
+  match result:
+    case TA.RunResult{world,outcome,_,_,pings}: health_structural_published(system,count,audit,outcome,run,publish(T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode,T.HealthPing,T.VitalsView,T.ArmorView,T.LedgerView,Host{world,logs,bindings,worldName,step,prior,events},clock,health_pings(pings)))
+def health_batch_done(-Payload:Type,system:String,count:U32,clock:R.Clock,logs:H.Logs<T.HealthSchema,T.HealthPing>,bindings:List<&2,E.Binding<T.HealthSchema>>,worldName:String,step:String,prior:D.DispatchOutcome,events:List<&2,E.TraceEvent<T.HealthSchema,T.VitalsView,T.ArmorView,T.Tracked,T.LedgerView,T.HealthMode,T.HealthPing>>,audit:Maybe<D.Audit>,run:Maybe<R.Run>,result:SI.Batch<W.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,Payload>) -> IO(D.Invoked<HealthHost(),W.Handle<T.HealthSchema>>):
+  match result:
+    case SI.Batch{world,Nil{}}: IO.pure(D.Invoked<HealthHost(),W.Handle<T.HealthSchema>>,done(T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode,T.HealthPing,T.VitalsView,T.ArmorView,T.LedgerView,system,count,clock,audit,T.Success{},None{},[],Host{world,logs,bindings,worldName,step,prior,events},run))
+    case SI.Batch{world,Con{_,_}}: IO.pure(D.Invoked<HealthHost(),W.Handle<T.HealthSchema>>,done(T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode,T.HealthPing,T.VitalsView,T.ArmorView,T.LedgerView,system,count,clock,audit,T.Failure{7},None{},[],Host{world,logs,bindings,worldName,step,prior,events},run))
+def health_structural_found(kind:K.BodyKind,system:String,count:U32,+clock:R.Clock,owner:HealthHost(),audit:Maybe<D.Audit>,run:Maybe<R.Run>,ha:Maybe<&2,W.Handle<T.HealthSchema>>,hb:Maybe<&2,W.Handle<T.HealthSchema>>,hc:Maybe<&2,W.Handle<T.HealthSchema>>,hp:Maybe<&2,W.Handle<T.HealthSchema>>,hr:Maybe<&2,W.Handle<T.HealthSchema>>) -> IO(D.Invoked<HealthHost(),W.Handle<T.HealthSchema>>):
+  match kind owner ha hb hc hp hr:
+    case K.Cleanup{} Host{world,logs,bindings,worldName,step,prior,events} Some{a} Some{b} _ Some{p} _: health_cleanup_done(system,count,clock,logs,bindings,worldName,step,prior,events,audit,run,SI.health_cleanup(world,p,a,b,D.clock_tick(clock)))
+    case K.Inserts{} Host{world,logs,bindings,worldName,step,prior,events} Some{a} Some{b} Some{c} Some{p} _: health_batch_done(T.Vitals,system,count,clock,logs,bindings,worldName,step,prior,events,audit,run,SI.health_inserts(world,p,a,c,b,T.Vitals{U.quad(71,72,73,74),9,2},T.Vitals{U.quad(80,81,82,83),9,2},T.Vitals{U.quad(30,31,32,33),9,2},T.Vitals{U.quad(81,82,83,84),9,2},T.Vitals{U.quad(90,91,92,93),9,2}))
+    case K.Dispose{} Host{world,logs,bindings,worldName,step,prior,events} Some{a} _ Some{c} Some{p} Some{r}: health_batch_done(Unit,system,count,clock,logs,bindings,worldName,step,prior,events,audit,run,SI.health_dispose(world,c,a,p,r))
+    case _ state _ _ _ _ _: IO.pure(D.Invoked<HealthHost(),W.Handle<T.HealthSchema>>,done(T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode,T.HealthPing,T.VitalsView,T.ArmorView,T.LedgerView,system,count,clock,audit,T.Failure{7},None{},[],state,run))
+def health_structural(kind:K.BodyKind,system:String,count:U32,clock:R.Clock,owner:HealthHost(),audit:Maybe<D.Audit>,run:Maybe<R.Run>) -> IO(D.Invoked<HealthHost(),W.Handle<T.HealthSchema>>):
+  match owner:
+    case Host{world,logs,+bindings,worldName,step,prior,events}: health_structural_found(kind,system,count,clock,Host{world,logs,bindings,worldName,step,prior,events},audit,run,binding_find(T.HealthSchema,"a",bindings),binding_find(T.HealthSchema,"b",bindings),binding_find(T.HealthSchema,"c",bindings),binding_find(T.HealthSchema,"p",bindings),binding_find(T.HealthSchema,"r",bindings))
 def health_simple(kind:K.BodyKind,mode:K.Mode,system:String,count:U32,clock:R.Clock,owner:HealthHost(),audit:Maybe<D.Audit>,run:Maybe<R.Run>) -> IO(D.Invoked<HealthHost(),W.Handle<T.HealthSchema>>):
   match kind:
+    case K.Cleanup{}: health_structural(K.Cleanup{},system,count,clock,owner,audit,run)
+    case K.Inserts{}: health_structural(K.Inserts{},system,count,clock,owner,audit,run)
+    case K.Dispose{}: health_structural(K.Dispose{},system,count,clock,owner,audit,run)
     case K.ForeignLookup{}: IO.pure(D.Invoked<HealthHost(),W.Handle<T.HealthSchema>>,done(T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode,T.HealthPing,T.VitalsView,T.ArmorView,T.LedgerView,system,count,clock,audit,T.Success{},None{},[],health_foreign(owner),run))
     case K.Snapshot{}: IO.pure(D.Invoked<HealthHost(),W.Handle<T.HealthSchema>>,done(T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode,T.HealthPing,T.VitalsView,T.ArmorView,T.LedgerView,system,count,clock,audit,T.Success{},None{},[],health_snapshot(owner),run))
     case K.Seed{}: IO.pure(D.Invoked<HealthHost(),W.Handle<T.HealthSchema>>,done(T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode,T.HealthPing,T.VitalsView,T.ArmorView,T.LedgerView,system,count,clock,audit,T.Success{},None{},[],U.health_seed(HealthHost(),health_reserve,health_reserve,health_reserve,owner),run))
