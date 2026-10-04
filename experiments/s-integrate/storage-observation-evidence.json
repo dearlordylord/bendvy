@@ -1,0 +1,91 @@
+{
+  "evidenceKind": "independent observation-contract falsification",
+  "integratedRuntimeExecuted": false,
+  "proof": false,
+  "actualTypeOwnerIdentityEstablished": false,
+  "source": "docs/design/s-integrate-trace.md E0/E1/E8/E10",
+  "cases": [
+    {
+      "case": "Motion/E0",
+      "validAccepted": true,
+      "perturbedObservationsRejected": 186,
+      "rejectedPathSha256": "5e60517cc842257bbf3bb4f82a5364e7295b84c8ee365d129b850edb4fa80a09",
+      "additionalSemanticControls": []
+    },
+    {
+      "case": "Motion/E1",
+      "validAccepted": true,
+      "perturbedObservationsRejected": 148,
+      "rejectedPathSha256": "b6e81278bab741bc071d6a65d97bc21dd18ece4bca1396cead1f9ba082ae1981",
+      "additionalSemanticControls": []
+    },
+    {
+      "case": "Motion/E8",
+      "validAccepted": true,
+      "perturbedObservationsRejected": 268,
+      "rejectedPathSha256": "576b2dcd5410d3325879354ceb93e199a69bb99eddaf73c4541d6d155b8e6c50",
+      "additionalSemanticControls": [
+        "reversedFIFO",
+        "physicalQueryOrder",
+        "staleRevival"
+      ]
+    },
+    {
+      "case": "Motion/E10/alpha-to-beta",
+      "validAccepted": true,
+      "perturbedObservationsRejected": 82,
+      "rejectedPathSha256": "29257f322ff222d74621b21b1b222bcddbfd7079409391b8979b69ed767923c0",
+      "additionalSemanticControls": []
+    },
+    {
+      "case": "Motion/E10/beta-to-alpha",
+      "validAccepted": true,
+      "perturbedObservationsRejected": 161,
+      "rejectedPathSha256": "73319113890a93bde61c18a25252c9d77966aa831250312a51f3a1d766e77f7a",
+      "additionalSemanticControls": []
+    },
+    {
+      "case": "Health/E0",
+      "validAccepted": true,
+      "perturbedObservationsRejected": 192,
+      "rejectedPathSha256": "a955162c6fe8e5f011160e85e38286eff8008a3f162916b08ebd00620c0f6e8a",
+      "additionalSemanticControls": []
+    },
+    {
+      "case": "Health/E1",
+      "validAccepted": true,
+      "perturbedObservationsRejected": 158,
+      "rejectedPathSha256": "c7477fec8783c62394433f033eff649542a74631b3f05e0e161bf0a62c1bfadf",
+      "additionalSemanticControls": []
+    },
+    {
+      "case": "Health/E8",
+      "validAccepted": true,
+      "perturbedObservationsRejected": 288,
+      "rejectedPathSha256": "35d63ed34153532bb7523ef52f696564d27f9502c5b06771c78972be2ad531e8",
+      "additionalSemanticControls": [
+        "reversedFIFO",
+        "physicalQueryOrder",
+        "staleRevival"
+      ]
+    },
+    {
+      "case": "Health/E10/alpha-to-beta",
+      "validAccepted": true,
+      "perturbedObservationsRejected": 89,
+      "rejectedPathSha256": "6961bc3fbb777205d2fa3274a58c641353a087408371b3fda0841cdd6b231015",
+      "additionalSemanticControls": []
+    },
+    {
+      "case": "Health/E10/beta-to-alpha",
+      "validAccepted": true,
+      "perturbedObservationsRejected": 173,
+      "rejectedPathSha256": "862410eafbbb392f90445136c16184a92c3d8a717d473483d9c5efd6224030f8",
+      "additionalSemanticControls": []
+    }
+  ],
+  "validCases": 10,
+  "rejectedPerturbedObservations": 1745,
+  "excludedDomainControls": 4,
+  "contractSourceSha256": "1f7e1487ce82a5265166ba446d678dca9bfcc3a8bcaf82abf0356d55b1324ed7"
+}

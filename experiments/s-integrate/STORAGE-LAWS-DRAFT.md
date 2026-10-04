@@ -110,3 +110,36 @@ Paired `storage-contracts-negative.bend` tries to replace arbitrary P with a con
 Position; checker exits1 at `bad`, expected P, observed C.Position (0.54s).
 These checks establish only the stated type shape, not integrated lookup,
 namespace, transactions, full-field query behavior, or a universal theorem.
+
+## Executed independent observation predicates
+
+`python3 experiments/s-integrate/storage-observation-contracts.py` emits the
+recorded `storage-observation-evidence.json`. Its standard-library-only predicates
+use full structured field equality, not hashes. The evidence hashes identify
+source and tested field paths only. Re-run the script to regenerate those paths.
+
+| Executable predicate | Planned subject binding | Finite source-derived cases |
+|---|---|---|
+| `pending_contract` | `commands.reserve`, `query.each`, `query.lookup`; dispatcher empty tick joins later | E0 both schemas, a/b/c pending, full queued Main/Aux/Flag fields and consumed IDs preserved across two empty observations |
+| `barrier_contract` | `commands.apply`, `query.each`, `query.lookup` | E1 Main-bearing a/b and Aux-only c; E8 FIFO overwrite a80→81, c insertion, p overwrite, stale b no-op and a/c/p/r order |
+| `foreign_contract` | `query.lookup`, `commands.insert_main` | E10 real planned colliding-ID shape, both namespace directions in both schemas, nonempty receiver queue and full rejected payload observation |
+
+Each accepted fixture is then altered at every scalar/null/empty-list path;
+every alteration is rejected. Extra E8 controls reverse FIFO, reverse observed
+query order and revive stale b. Four same-namespace inputs deliberately fail the
+foreign premise and are recorded separately. Result: 10 valid cases, 1,745
+rejected altered observations, four excluded-domain controls. These predicates
+accept externally supplied observations and are ready to receive actual API output.
+
+This execution evaluates an independent structural model and planted observation
+results. It does **not** execute `identity.create`, a Bend world, real command
+wrappers, Type-owner return, registered readers, transactions or Native/JS.
+Fixture namespaces/IDs are inputs to this model only; they cannot become runtime
+authority. No passing semantic mutant of an actual runtime is claimed. Actual
+subject mutation, identity creation and full Type transfer controls must follow
+implementation. Factory lineage, lifecycle retention/clock routing, resource/service
+preflight and failed-publication consumption remain their separate joined gates.
+
+The finalized shared hook result is `T.Access<O>` with `Found{value}`, `Mismatch`
+and `Missing`; these map to public Found/QueryMismatch/MissingEntity observations.
+The earlier local signature canary names are not the shared runtime vocabulary.
