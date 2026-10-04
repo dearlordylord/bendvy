@@ -69,9 +69,6 @@ def edit_row(-Schema: Data,-M: Type,-A: Type,-F: Data,+namespace: U32,+tick: U32
 # queue is reconstructed in its original order, including on rejection.
 type Preflight<-M: Type,-A: Type,-F: Data> is Type:
   Preflight{rows: S.Rows<M,A,F>,commands: List<S.Command<M,A,F>>,valid: Bool}
-def preflight_return(-M: Type,-A: Type,-F: Data,command: S.Command<M,A,F>,valid: Bool,result: Preflight<M,A,F>) -> Preflight<M,A,F>:
-  match result:
-    case Preflight{rows,commands,rest}: Preflight{rows,command <> commands,valid && rest}
 def bounded_spawn(-M: Type,-A: Type,-F: Data,id: U32,bundle: S.Bundle<M,A,F>,result: S.Rows<M,A,F> & Bool) -> S.Rows<M,A,F> & (S.Command<M,A,F> & Bool):
   match result:
     case (rows,valid): (rows,(S.Spawn{id,bundle},valid))
@@ -80,13 +77,15 @@ def command_bound(-M: Type,-A: Type,-F: Data,rows: S.Rows<M,A,F>,command: S.Comm
     case S.Spawn{+id,bundle}:
       bounded_spawn(M,A,F,id,bundle,S.rows_can_place(M,A,F,rows,id))
     case other: (rows,(other,True{}))
-def preflight_step(-M: Type,-A: Type,-F: Data,result: S.Rows<M,A,F> & (S.Command<M,A,F> & Bool),recur: S.Rows<M,A,F> -> Preflight<M,A,F>) -> Preflight<M,A,F>:
+def preflight_step(-M: Type,-A: Type,-F: Data,reverse: List<S.Command<M,A,F>>,valid: Bool,result: S.Rows<M,A,F> & (S.Command<M,A,F> & Bool)) -> Preflight<M,A,F>:
   match result:
-    case (rows,(command,valid)): preflight_return(M,A,F,command,valid,recur(rows))
+    case (rows,(command,bounded)): Preflight{rows,command <> reverse,valid && bounded}
+def preflight_go(-M: Type,-A: Type,-F: Data,commands: List<S.Command<M,A,F>>,state: Preflight<M,A,F>) -> Preflight<M,A,F>:
+  match commands state:
+    case Nil{} Preflight{rows,reverse,valid}: Preflight{rows,List.reverse(&1,S.Command<M,A,F>,reverse),valid}
+    case Con{command,tail} Preflight{rows,reverse,valid}: preflight_go(M,A,F,tail,preflight_step(M,A,F,reverse,valid,command_bound(M,A,F,rows,command)))
 def preflight(-M: Type,-A: Type,-F: Data,commands: List<S.Command<M,A,F>>,rows: S.Rows<M,A,F>) -> Preflight<M,A,F>:
-  match commands:
-    case Nil{}: Preflight{rows,[],True{}}
-    case Con{command,tail}: preflight_step(M,A,F,command_bound(M,A,F,rows,command),rows => preflight(M,A,F,tail,rows))
+  preflight_go(M,A,F,commands,Preflight{rows,[],True{}})
 
 type StepResult<-Schema: Data,-M: Type,-A: Type,-F: Data> is Type:
   Stepped{rows: S.Rows<M,A,F>,changes: List<&2,S.Change<Schema>>}

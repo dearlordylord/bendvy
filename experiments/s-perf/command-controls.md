@@ -43,3 +43,11 @@ outputs are retained as full-field text witnesses alongside the exact original
 expectation. Flag edits and despawn still reconstruct a single transient row;
 metadata-only flag updates remain a concrete optimization follow-up, with the
 same full-field controls as the return condition.
+
+The E11 large-queue replay exposed a JavaScript stack overflow in the original
+non-tail preflight reconstruction. The repaired preflight carries rows, a reversed
+affine command prefix and the aggregate domain result through a direct self-tail
+loop, then reverses once. No recursive helper continuation remains. The eleven
+finite controls and all three compiling mutants pass again on Native O3/JS;
+large E11 acceptance remains the independent retention runner's gate. The prior
+Main-only evidence is preserved in `command-controls-main-only-snapshot-evidence.json`.
