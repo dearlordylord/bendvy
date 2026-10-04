@@ -86,7 +86,7 @@ remain unapproved/unpublished; the full core scope is preserved.
 [Fresh Astra medium audit](../reviews/laws-semantic-audit.md) distinguishes seven
 bounded public-observation candidates, twenty internal lemmas and four infrastructure
 facts. The exact proposal no longer presents all 31 as a bulk public approval
-request. Research remains complete; laws remain unapproved. Pending-lookup caller
+request. Research remains complete. On 2026-10-04 the user approved the seven public IDs at the exact SHA256 in the [approval record](../reviews/laws-replacement-package.md); the other 24 remain unapproved. Pending-lookup caller
 shape, representation-neutral read preservation and trace-relation adequacy need
 correction before broader guarantees. Root authority, full payload preservation
 and actual reader transactions remain open; see the audit and follow-ups.

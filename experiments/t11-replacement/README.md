@@ -1,6 +1,6 @@
 # T11 replacement: connected transition laws and owned-runtime witnesses
 
-Issue [#12](https://github.com/dearlordylord/bendvy/issues/12), parent [#1](https://github.com/dearlordylord/bendvy/issues/1), [SPEC](../../docs/SPEC.md), [ticket](../../docs/tickets/11-candidate-laws.md), [source audit](../../docs/reviews/laws-source-research.md), [Astra decision](../../docs/reviews/laws-decision.md). Branch baseline `484fb88`. All thirty-one laws remain **open and unapproved**. No general ECS proof is written. This replaces the *proposal*, not the historical files/evidence in `../t11`.
+Issue [#12](https://github.com/dearlordylord/bendvy/issues/12), parent [#1](https://github.com/dearlordylord/bendvy/issues/1), [SPEC](../../docs/SPEC.md), [ticket](../../docs/tickets/11-candidate-laws.md), [source audit](../../docs/reviews/laws-source-research.md), [Astra decision](../../docs/reviews/laws-decision.md). Branch baseline `484fb88`. All thirty-one laws remain **open**; seven public IDs are approved at the recorded revision and 24 support candidates remain unapproved. No general ECS proof is written. This replaces the *proposal*, not the historical files/evidence in `../t11`.
 
 ## Subjects and independent observations
 
@@ -174,7 +174,7 @@ The coordinator independently reproduced the complete runtime artifact and verif
 
 ## Remaining approval and capability gates
 
-Human approval must name this exact law revision/IDs before proof work. No law, numerical performance threshold, production layout, dependency or rejection/exhaustion policy is approved by this investigation. The full core remains unchanged.
+The user approved the seven public IDs at the exact revision recorded in the approval document on 2026-10-04. The remaining 24 support candidates, numerical performance thresholds, production layout, dependencies and rejection/exhaustion policy remain unapproved. The full core remains unchanged.
 
 Later explicit packages retain: independent-root/factory provenance; generic declared schema access and noncopyable components; transaction rollback of allocation/marks/cursors/captures and earlier commits; real reader slot selection/registration/success/skip/failure/retry/retention/lag; removed/despawn publications and relation/scope cleanup; provisioning/conditions/phases/dynamic composition; states, validation, restoration and tooling. P-ID/P-Q/P-CMD/P-TX/P-READ/P-PROVIDE and S-INTEGRATE remain draft subjects for separately reviewed detailed work. No blanket performance dependency blocks drafting their actual laws, while product capability/performance acceptance remains mandatory.
 
@@ -199,8 +199,8 @@ Later explicit packages retain: independent-root/factory provenance; generic dec
 [Astra medium semantic audit](../../docs/reviews/laws-semantic-audit.md) reviewed
 all 31 statements independently of mutation counts: seven bounded public-observation
 candidates, twenty internal lemmas and four infrastructure facts. The
-[approval proposal](../../docs/reviews/laws-replacement-package.md) now requests
-only the seven public candidates at that layer; supporting facts remain separately
+[approval record](../../docs/reviews/laws-replacement-package.md) records user approval
+of only the seven public candidates at that layer; supporting facts remain separately
 unapproved. Pending lookup's observer can always return Missing; owned read laws
 fix raw physical-row order; element-zero preservation permits loss outside that
 projection; independent roots can collide. The report identifies the necessary
