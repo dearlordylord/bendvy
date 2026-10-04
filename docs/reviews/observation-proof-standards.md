@@ -82,3 +82,22 @@ implementation sorting; consolidation would weaken the reference comparison.
 
 Query section result: 0 hard findings; 0 actionable heuristics. Full query proofs,
 their own endpoint mutants and coordinator integration acceptance remain open.
+
+### Query continuation `afc88b1`
+
+Reviewed newly integrated invariant/count/tail derivations, endpoint decomposition,
+interval attempt and refreshed runner/evidence. Recorded hashes match current
+files. Exact `valid_tail` is derived from whole-list count/bound premises rather
+than assumed tail validity; this is a contextual query obligation, not adoption
+of the unapproved general world-preservation contract. No unsafe/foreign proof
+dependency or altered approved endpoint was found.
+
+The current unresolved body is `insert_interval`; runner assertions check that
+specific residual. Documentation now correctly says both attempted invocations
+fail in the first checker, before kernel acceptance. An additional typechecked
+Present-eligibility mutation rejects its contextual `eligibility` proof. All
+three complete endpoint IDs still remain blocked; contextual passes/mutants do
+not stand in for endpoint proof or mutation acceptance. Five-second checker
+limits and separate copied-positive checks remain intact.
+
+Continuation result: 0 hard findings; 0 actionable heuristics.
