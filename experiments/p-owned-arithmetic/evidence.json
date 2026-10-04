@@ -1,0 +1,62 @@
+{
+  "scope": "contextual structural arithmetic only; no approved ECS endpoint completed",
+  "version": "bend 2.0.34",
+  "base_sha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+  "sources": {
+    "false.bend": "5a6d86b47c779d3f4644604a3eb7f7ec414d9f82f29bae0202b289e8e4919926",
+    "controls.bend": "0ad52774dd402f9f98c184cc49c9cd9954e811cb81d4bda3eac8538d4c93397a",
+    "structural.bend": "39e6edaa38954a53097b04488c36648dc5f1613d23d84a86a9a0bf4f61edc996"
+  },
+  "subjects": {
+    "LAWS.bend": "e0c607d723ad250a189c096d9fa3fd6a36913f4c72efd3a3be6dacd7fadb2cbc",
+    "runtime.bend": "014ed398324f257ced9985f1db29a94dd74f34952dd3aa3c2b11809118502550",
+    "owned-spec.bend": "edca58e81a96e03109e2d575146eee456ee543b20746519bfef202d047a9e50e",
+    "spec.bend": "3b7a96d9131919fe087dac5e024058bbfa916ce5c108dce3a7d72119b7ccd465",
+    "model.bend": "53ac1f776c721a5bea0c063eefe229c1d43b4e09d95a269e283fe900a2934c40",
+    "types.bend": "0261b9381f51b4aecdf61b76bfa61149d10d662b0c02ddc320da2236ec17d287"
+  },
+  "checks": [
+    {
+      "file": "structural.bend",
+      "kernel_requested": false,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "file": "structural.bend",
+      "kernel_requested": true,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\n"
+    },
+    {
+      "file": "controls.bend",
+      "kernel_requested": false,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "file": "controls.bend",
+      "kernel_requested": true,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\n"
+    },
+    {
+      "file": "false.bend",
+      "kernel_requested": false,
+      "exit": 1,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : WCon{False{}, WCon{True{}, WNil{}}}\n- observed : WCon{False{}, WCon{False{}, WNil{}}}\nLocation: bad_carry\n3 | def bad_carry() -> {Word.inc(2n,WCon{True{},WCon{False{},WNil{}}}) == WCon{False{},WCon{False{},WNil{}}} : Word(2n)}:\n4>|   {==}\n  |   ^^^^\n5 | \n"
+    },
+    {
+      "file": "positive.bend",
+      "kernel_requested": true,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\n"
+    },
+    {
+      "file": "mutant.bend",
+      "kernel_requested": false,
+      "exit": 1,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : {WCon{False{}, Word.adc(p, t, Word.zero(p), False{}, False{})} == WCon{True{}, t} : Word.Con<p>}\n- observed : {WCon{True{}, Word.adc(p, t, Word.zero(p), False{}, False{})} == WCon{True{}, t} : Word.Con<p>}\nContext:\n- p : Nat\n- t : Word(p)\nLocation: adc_carry\n20 |         case WCon{False{},t}:\n21>|           Equal.cong(Word(p),Word(1n+p), x => WCon{True{},x},Word.adc(p,t,Word.zero(p),False{},False{}),t,adc_zero(p,t))\n   |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n22 |         case WCon{True{},t}:\n"
+    }
+  ]
+}
