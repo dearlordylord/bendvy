@@ -35,7 +35,7 @@ subset = (HERE / 'LAWS.bend').read_text()
 assert subset[subset.index('law query_any_complete_ordered:'):] == block
 assert subset.count('\nlaw ') == 3
 rows = []
-for name in ['helpers.bend', 'invariants.bend', 'contextual.bend', 'controls.bend']:
+for name in ['helpers.bend', 'invariants.bend', 'intervals.bend', 'contextual.bend', 'controls.bend']:
     for kernel in [False, True]:
         row = check(HERE / name, kernel)
         require(row, 0, 'ALL PROOFS CHECK')
@@ -55,7 +55,7 @@ with tempfile.TemporaryDirectory(prefix='bendvy-query-proof-') as tmp:
     core.mkdir()
     for name in ['types.bend', 'model.bend', 'spec.bend']:
         shutil.copy2(SUBJECTS / name, core / name)
-    for name in ['helpers.bend', 'invariants.bend', 'contextual.bend']:
+    for name in ['helpers.bend', 'invariants.bend', 'intervals.bend', 'contextual.bend']:
         row = check(dest / name, True)
         require(row, 0, 'ALL PROOFS CHECK')
         rows.append(row)
@@ -85,7 +85,7 @@ with tempfile.TemporaryDirectory(prefix='bendvy-query-proof-') as tmp:
         target.write_text(original)
 
 paths = [SUBJECTS / n for n in ['LAWS.bend', 'types.bend', 'model.bend', 'spec.bend']]
-paths += [HERE / n for n in ['LAWS.bend', 'helpers.bend', 'invariants.bend', 'contextual.bend', 'controls.bend', 'attempt.bend', 'run.py']]
+paths += [HERE / n for n in ['LAWS.bend', 'helpers.bend', 'invariants.bend', 'intervals.bend', 'contextual.bend', 'controls.bend', 'attempt.bend', 'run.py']]
 paths += [WRAPPER, pathlib.Path('/home/node/.bend/bend2/base.bend'), pathlib.Path(shutil.which('bend')).resolve()]
 refs = {}
 for name in ['bevy-ts', 'bevy', 'bend2']:

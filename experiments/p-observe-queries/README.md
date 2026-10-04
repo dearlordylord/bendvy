@@ -154,3 +154,34 @@ now expects the precise positive-fuel diagnostic at `insert_interval`; both
 attempt invocations stop in the first checker there, **not** with a kernel
 rejection. The full attempt remains failing research; eight contextual
 checker/kernel runs and three compiling contextual mutants are current.
+
+## Third bounded continuation: helper inventory before execution
+
+Positive-fuel insertion will first use contextual exclusion of a row strictly
+before the current enumeration slot: strict-order monotonicity to successor,
+strict inequality excluding equality, actual independent head-lookup skipping,
+and arbitrary-fuel head exclusion. These facts concern only enumeration for the
+approved query endpoints and do not establish any standalone catalogue law.
+The insertion case at the row's exact slot will combine the existing zero-count
+lookup proof, eligibility agreement and exclusion from later slots.
+
+### Third tranche result
+
+Checker and kernel now also accept `lt_succ_right`, `lt_not_eq`, `skip_pick`,
+`skip_head` and `enumerate_after`. The last theorem universally excludes a
+physical head strictly before the logical interval's starting slot, for arbitrary
+fuel, remaining rows, payloads and selection. The proof uses actual independent
+lookup/enumeration definitions and recursively advances the slot; it assumes no
+validity or ordering of the tail. This resolves future head exclusion after its
+slot. Ten contextual checker/kernel invocations and four mirrored kernel
+controls pass in the runner; the earlier three contextual mutant controls remain
+separate from full endpoint acceptance.
+
+The complete `insert_interval` positive-fuel body remains open with the exact
+goal above. The remaining cases must derive actual emitted-row key ordering
+from `at_key`, prove the exact-slot selected head inserts before all later emitted
+rows, and commute ordered insertion through the before-head current-slot
+`query_at` decision. Bounds must transfer to the recursive interval explicitly.
+No full endpoint, no endpoint mutant gate, no performance gate has passed.
+This checked exclusion toolkit is the bounded third-tranche delivery; it does
+not stand in for those remaining mathematical derivations.

@@ -128,3 +128,20 @@ def le_lt_cycle(+a: Nat, +b: Nat, lo: {True{} == Nat.is_le(a,b) : Bool}, hi: {Tr
     case 0n 1n+q: H.false_true_absurd(Equal.sym(Bool,True{},False{},hi))
     case 1n+p 0n: H.false_true_absurd(Equal.sym(Bool,True{},False{},lo))
     case 1n+p 1n+q: le_lt_cycle(p,q,lo,hi)
+
+# Strictly earlier keys stay earlier when logical enumeration advances one slot.
+def lt_succ_right(+a: Nat, +b: Nat, h: {True{} == Nat.is_lt(a,b) : Bool})
+  -> {True{} == Nat.is_lt(a,1n+b) : Bool}:
+  match a b:
+    case 0n 0n: {==}
+    case 0n 1n+q: {==}
+    case 1n+p 0n: Empty.absurd({True{} == Nat.is_lt(p,0n) : Bool},H.false_true_absurd(Equal.sym(Bool,True{},False{},h)))
+    case 1n+p 1n+q: lt_succ_right(p,q,h)
+
+def lt_not_eq(+a: Nat, +b: Nat, h: {True{} == Nat.is_lt(a,b) : Bool})
+  -> {False{} == Nat.is_eq(a,b) : Bool}:
+  match a b:
+    case 0n 0n: Equal.sym(Bool,True{},False{},h)
+    case 0n 1n+q: {==}
+    case 1n+p 0n: {==}
+    case 1n+p 1n+q: lt_not_eq(p,q,h)
