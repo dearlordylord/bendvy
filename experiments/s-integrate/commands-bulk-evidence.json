@@ -1,0 +1,119 @@
+{
+  "status": "PASS",
+  "scope": "actual command application prerequisite; no E11 reader or production performance acceptance",
+  "runtimeLimitSeconds": 5,
+  "checkerLimitSeconds": 5,
+  "oracleRejectedObservations": 609,
+  "bulk": [
+    {
+      "schema": "Motion",
+      "count": 1,
+      "result": "true",
+      "nativeSeconds": 0.001806,
+      "javascriptSeconds": 0.034753
+    },
+    {
+      "schema": "Motion",
+      "count": 17,
+      "result": "true",
+      "nativeSeconds": 0.002753,
+      "javascriptSeconds": 0.021275
+    },
+    {
+      "schema": "Motion",
+      "count": 65537,
+      "result": "true",
+      "nativeSeconds": 0.033912,
+      "javascriptSeconds": 0.684597
+    },
+    {
+      "schema": "Health",
+      "count": 1,
+      "result": "true",
+      "nativeSeconds": 0.001694,
+      "javascriptSeconds": 0.021162
+    },
+    {
+      "schema": "Health",
+      "count": 17,
+      "result": "true",
+      "nativeSeconds": 0.000901,
+      "javascriptSeconds": 0.021562
+    },
+    {
+      "schema": "Health",
+      "count": 65537,
+      "result": "true",
+      "nativeSeconds": 0.029355,
+      "javascriptSeconds": 0.584605
+    }
+  ],
+  "mutants": [
+    {
+      "name": "skip-lower-target-reset",
+      "compiled": true,
+      "detectedOnBothBackends": true,
+      "nativeSeconds": 0.014981,
+      "javascriptSeconds": 0.203725
+    },
+    {
+      "name": "skip-equal-target",
+      "compiled": true,
+      "detectedOnBothBackends": true,
+      "nativeSeconds": 0.009614,
+      "javascriptSeconds": 0.076348
+    },
+    {
+      "name": "reverse-final-events",
+      "compiled": true,
+      "detectedOnBothBackends": true,
+      "nativeSeconds": 0.004774,
+      "javascriptSeconds": 0.198101
+    },
+    {
+      "name": "discard-aux-on-remove",
+      "compiled": true,
+      "detectedOnBothBackends": true,
+      "nativeSeconds": 0.004905,
+      "javascriptSeconds": 0.035575
+    },
+    {
+      "name": "reverse-spawn-pair",
+      "compiled": true,
+      "detectedOnBothBackends": true,
+      "nativeSeconds": 0.006023,
+      "javascriptSeconds": 0.025097
+    }
+  ],
+  "mixed": {
+    "schemas": [
+      "Motion",
+      "Health"
+    ],
+    "finalRows": [
+      3,
+      4,
+      6,
+      7
+    ],
+    "changesPerSchema": 12,
+    "nativeSeconds": 0.001639,
+    "javascriptSeconds": 0.02463
+  },
+  "mixedOutput": "ns=1;next=8;rows=[3{position[30,31,32,33];frame=7;velocity[1,2,3,4];moving=true;selected=8;added=8;changed=8}|4{position[72,73,74,75];frame=7;none;selected=8;added=8;changed=8}|6{position[60,61,62,63];frame=7;none;none;added=1;changed=1}|7{position[70,71,72,73];frame=7;velocity[1,2,3,4];moving=true;selected=8;added=8;changed=8}];pending=[];ledger[100,101,102,103];epoch=4;mode=On\nChanged:1:4;Changed:1:1;Added:1:3;Changed:1:3;Changed:1:1;Removed:1:4;Added:1:4;Changed:1:4;Removed:1:1;Despawned:1:1;Added:1:7;Changed:1:7;\nns=1;next=8;rows=[3{vitals[30,31,32,33];reserve=9;class=2;armor[1,2,3,4];grade=3;tracked=8;added=8;changed=8}|4{vitals[72,73,74,75];reserve=9;class=2;none;tracked=8;added=8;changed=8}|6{vitals[60,61,62,63];reserve=9;class=2;none;none;added=1;changed=1}|7{vitals[70,71,72,73];reserve=9;class=2;armor[1,2,3,4];grade=3;tracked=8;added=8;changed=8}];pending=[];ledger[100,101,102,103];epoch=4;mode=On\nChanged:1:4;Changed:1:1;Added:1:3;Changed:1:3;Changed:1:1;Removed:1:4;Added:1:4;Changed:1:4;Removed:1:1;Despawned:1:1;Added:1:7;Changed:1:7;",
+  "sources": {
+    "types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+    "payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "storage.bend": "605d073615798f87f3675931475eee6a0668bc63c08559d4beecdb2e73c72986",
+    "identity.bend": "2c88babc9e853d3706f7a6c1f8f0ae48c198949143df2da6562bd774237d7329",
+    "commands.bend": "022ea5ca1f44c952ae77071689d0735e5a38976d7f628203d85fd9cc920a1194",
+    "query.bend": "ebdc270c94a55c6d49cf0580ff9c84a85df93b1358e3da9714bf06a90d49a772",
+    "storage-stage-fixture.bend": "581771140c45189c8b9038a73def804f780b5e64b7ffdecdcb45b966fc21aee7",
+    "commands-bulk-controls.bend": "5161641014e6d0e0222e3f4f4c8890c8daa69bb908d3d71a58593ae2c06e8d4e",
+    "commands-bulk-main.bend": "bba78379d93144cad5acd580f7e925aa234d0b18ff81c03337e9746344a55012",
+    "commands-mixed-controls.bend": "c47697caf6870451d91bd355b125130fcf14595cf2af3d694bf62bf3efaacbcc",
+    "commands-bulk-run.py": "8de55da9f6a2bd1d4d724b68dc64448873eac3401668065b1a575100be5c434e",
+    "commands-bulk-contract.py": "58d2b87df4a7075106b161097c0f88db4d284694b38409f036e1c61729bf21a8",
+    "COMMANDS-BULK-LAWS-DRAFT.md": "c8faa0333311a629a0420f5c46e9acb6479de98c87f2c445546f4a6d4ab557ac"
+  }
+}

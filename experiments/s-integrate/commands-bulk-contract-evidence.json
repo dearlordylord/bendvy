@@ -1,0 +1,30 @@
+{
+  "scope": "preimplementation independent SI-CMD-FIFO mixed-target observation predicates",
+  "runtimeExecuted": false,
+  "proof": false,
+  "cases": [
+    {
+      "case": "Motion/mixed-target-FIFO",
+      "validAccepted": true,
+      "perturbedObservationsRejected": 295,
+      "rejectedPathSha256": "a879aa2d01a061d70e68e6a706177bc91f1e8da5c6176e194e5b9744549bef61",
+      "additionalSemanticControls": [
+        "reversed-log",
+        "physical-order",
+        "reversed-FIFO"
+      ]
+    },
+    {
+      "case": "Health/mixed-target-FIFO",
+      "validAccepted": true,
+      "perturbedObservationsRejected": 314,
+      "rejectedPathSha256": "793e32f3416102562337c6ca6a61ada49a057b2bd5e33900ce9e6373ceb082b4",
+      "additionalSemanticControls": [
+        "reversed-log",
+        "physical-order",
+        "reversed-FIFO"
+      ]
+    }
+  ],
+  "rejectedObservations": 609
+}
