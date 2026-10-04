@@ -1,6 +1,6 @@
 # S-PERF-NEXT — recover the connected performance and measurement gates
 
-Published [GitHub #21](https://github.com/dearlordylord/bendvy/issues/21), follow-up to #20, full-core parent #1. Independent Spec review permits publication as a blocked follow-up; ready state requires the listed design and measurement prerequisites. This is one bounded design/evaluation package; no production layout, numerical threshold, new law or dependency is approved.
+Published [GitHub #21](https://github.com/dearlordylord/bendvy/issues/21), follow-up to #20, full-core parent #1. Independent Spec review permits publication as a blocked follow-up; ready state requires the listed design and measurement prerequisites. This is the parent recovery package, partitioned into direct preparation and a later accepted measured loop; no production layout, numerical threshold, new law or dependency is approved.
 
 ## Problem
 
@@ -18,3 +18,16 @@ The connected direct-ID affine-column candidate passes finite ECS behavior gates
 ## Excluded
 
 Allocator reuse/exhaustion, global root authority, arbitrary destructive Type recovery, general Local/dynamic provisioning and parallel compute remain separately scoped. Never modify Canonical Tower Defense; later integration uses a copy after existing prerequisites. Do not reopen approved laws or expand the full-core scope implicitly.
+
+## Execution breakdown
+
+User-authorized split, [independently reviewed by Astra](../reviews/s-perf-split.md). All six return conditions above remain binding.
+
+| Child | Responsibility | Launch state |
+| --- | --- | --- |
+| [S-PREP #22](21-performance-preparation.md) | Measurement/diagnostic repair, frozen evaluator/check proposals, one reviewed candidate design and complete contract proposal | Direct preparation may proceed; unresolved protocol/margin approvals remain explicit |
+| [S-LOOP #23](22-performance-autoresearch-loop.md) | Repeated measured candidate experiments, qualification, accepted keeps and evidence receipt | Blocked on #22 prerequisites and explicit contract acceptance, including budget |
+
+Parent clauses1/3/4/5 are prepared in #22; clause2 and full comparative clause3 run through #23 after acceptance. Clause6 and the overall adoption decision remain with this parent. Quantization, warmup, deadlines and unavailable metrics must remain visible in every handoff. Neither child completion nor an optimization keep automatically completes #21 or unblocks simulation/application integration.
+
+No Autoresearch session is created by publishing these tickets. Metric aggregation/tradeoffs, keep/noise rules, execution scope and enforceable packet/time allowance are still proposals or unresolved; obtain explicit acceptance before setup or execution.

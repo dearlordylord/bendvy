@@ -125,3 +125,12 @@ workloads after the storage/CPU evidence, not silently removed.
 - The user authorized the first research breakdown; Astra reviewed it and #16/#17
   are published. Review each remaining detailed breakdown before publication; no
   premature ready state for integration, proofs or simulation.
+
+## Current performance execution frontier
+
+[Parent #21](tickets/20-indexed-performance-follow-up.md) retains all recovery/adoption gates. The user authorized a direct-preparation/Autoresearch split, [Astra reviewed](reviews/s-perf-split.md).
+
+- [ ] [S-PREP #22](tickets/21-performance-preparation.md): direct measurement/diagnostic repairs, frozen evaluator/check proposals and reviewed candidate/contract proposal. Ordinary authorized preparation does not require an Autoresearch session.
+- [ ] [S-LOOP #23](tickets/22-performance-autoresearch-loop.md): blocked on #22 capability/method prerequisites and explicit complete-contract acceptance, including metric/keep semantics and enforceable budget. Do not infer allowance or launch packets from the ticket alone.
+
+The full-core scope, unapproved thresholds/laws and simulation/copied-TD prerequisites remain unchanged. One of the user's three newly authorized Astra calls was used for this split review.

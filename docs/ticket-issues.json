@@ -231,7 +231,35 @@
       "evidence_prerequisites": [
         20
       ],
-      "status": "blocked; design/measurement prerequisites pending",
+      "status": "parent; direct preparation #22 available, loop #23 blocked",
+      "native_blocked_by": [],
+      "child_issues": [
+        22,
+        23
+      ]
+    },
+    "S-PREP": {
+      "number": 22,
+      "url": "https://github.com/dearlordylord/bendvy/issues/22",
+      "title": "S-PREP: Repair connected performance evaluation and propose the experiment contract",
+      "local_file": "docs/tickets/21-performance-preparation.md",
+      "parent": 21,
+      "evidence_prerequisites": [
+        20
+      ],
+      "status": "direct preparation authorized; no loop authorization",
+      "native_blocked_by": []
+    },
+    "S-LOOP": {
+      "number": 23,
+      "url": "https://github.com/dearlordylord/bendvy/issues/23",
+      "title": "S-LOOP: Optimize the connected ECS through an accepted Autoresearch contract",
+      "local_file": "docs/tickets/22-performance-autoresearch-loop.md",
+      "parent": 21,
+      "evidence_prerequisites": [
+        22
+      ],
+      "status": "blocked on #22 prerequisites and accepted contract/budget",
       "native_blocked_by": []
     }
   }
