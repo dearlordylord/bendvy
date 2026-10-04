@@ -75,3 +75,10 @@ the accepted trace guarantee reservation success; the callback parameter carries
 an explicit rejection outcome for callers outside that fixture, rather than
 selecting a production error policy here. Checked callbacks alone do not prove
 concrete adapter/runtime observations; that join remains required.
+
+State-transition ordering corrected against pinned Runtime.ts1521–1525:
+`applyStateTransitions` applies deferred commands before machine transitions.
+The dispatcher T hook therefore calls actual barrier before transition; no
+second implicit barrier is introduced after the transition in this bounded
+no-transition-schedule fixture. General exit/transition/enter schedules remain
+full-core follow-ups outside this main fixture.

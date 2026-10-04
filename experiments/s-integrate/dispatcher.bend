@@ -190,7 +190,7 @@ def deferred(~W:Type,~H:Data,~barrier:W -> U32 -> W,runtime:Runtime<W,H>) -> Run
 def state_transition(~W:Type,~H:Data,~barrier:W -> U32 -> W,~transition:W -> Maybe<&2,Bool> -> U32 -> W,runtime:Runtime<W,H>) -> Runtime<W,H>:
   match runtime:
     case Runtime{world,registry,readers,+clock,audit,style,escaped,observations,nextMode}:
-      Runtime{barrier(transition(world,nextMode,clock_tick(clock)),clock_tick(clock)),registry,readers,clock,audit,style,escaped,observations,None{}}
+      Runtime{transition(barrier(world,clock_tick(clock)),nextMode,clock_tick(clock)),registry,readers,clock,audit,style,escaped,observations,None{}}
 
 def run(~W:Type,~H:Data,~presence:W -> W & Presence,
   ~invoke:Q.System -> Q.Mode -> U32 -> U32 -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
