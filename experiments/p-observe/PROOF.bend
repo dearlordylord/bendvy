@@ -7,7 +7,10 @@ import ../p-observe-queries/PROOF.bend as QueryProof
 import ../p-observe-flush/LAWS.bend as F
 import ../p-observe-flush/PROOF.bend as FlushProof
 
-# Both schedules remain open until actual proofs land.
+import ../p-observe-schedule/LAWS.bend as N
+import ../p-observe-schedule/PROOF.bend as ScheduleProof
+
+# Owned runtime remains open until its actual proof lands.
 def L.lookup_full_exact(world,handle,selection):
   K.lookup_full_exact(world,handle,selection)
 
@@ -22,3 +25,6 @@ def L.query_absent_complete_ordered(limit,world):
 
 def L.explicit_flush_independent(limit,world):
   F.explicit_flush_independent(limit,world)
+
+def L.schedule_execution_exact(limit,world,steps):
+  N.schedule_execution_exact(limit,world,steps)

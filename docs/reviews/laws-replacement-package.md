@@ -5,7 +5,7 @@ the withdrawn historical proposal while preserving its exact files and results.
 Governing task: [#12](https://github.com/dearlordylord/bendvy/issues/12).
 
 Exact subject: [LAWS.bend](../../experiments/t11-replacement/LAWS.bend), SHA256
-`e0c607d723ad250a189c096d9fa3fd6a36913f4c72efd3a3be6dacd7fadb2cbc`. The canonical catalogue preserves **31 open laws** as the original proposal. Five separately selected public endpoints (lookup, three queries and flush) now have [checked proofs](../../experiments/p-observe/README.md); both schedule endpoints remain open.
+`e0c607d723ad250a189c096d9fa3fd6a36913f4c72efd3a3be6dacd7fadb2cbc`. The canonical catalogue preserves **31 open laws** as the original proposal. Six separately selected public endpoints (lookup, three queries, flush and pure schedule) now have [checked proofs](../../experiments/p-observe/README.md); owned runtime schedule remains open.
 The [package report](../../experiments/t11-replacement/README.md) supplies each
 law's reason, exact domain, controls, mutant evidence, proof sketch and dependency.
 

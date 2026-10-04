@@ -70,18 +70,18 @@ a blanket benchmark or full-core completion gate.
 | `query_present_complete_ordered` | Complete general proof, kernel and own-endpoint compiling selection-dispatch mutant. |
 | `query_absent_complete_ordered` | Complete general proof, kernel and own-endpoint compiling selection-dispatch mutant. |
 | `explicit_flush_independent` | Complete general proof, kernel, eight fresh controls and own-endpoint compiling queue-discard mutant. |
-| `schedule_execution_exact` | Checked representation-neutral, Bump and Reserve/Publish toolkit; complete endpoint still open. |
+| `schedule_execution_exact` | Complete general proof and kernel; two compiling tick mutants fail the dedicated universal endpoint induction with independently active complete-law witnesses. |
 | `owned_runtime_schedule_correspondence` | Complete endpoint still open. Exact original erased-owner encoding remains unresolved; specific binder amendment and two support facts await separate approval. |
 
 Reports: [lookup](../../experiments/p-observe-lookup/README.md),
 [queries](../../experiments/p-observe-queries/README.md),
 [flush](../../experiments/p-observe-flush/README.md),
-[schedule](../../experiments/p-observe-schedule/README.md). The completed five
+[schedule](../../experiments/p-observe-schedule/README.md). The completed six
 endpoints were independently replayed by Astra and the coordinator and passed
 [Spec](../reviews/observation-proof-spec.md) and
 [Standards](../reviews/observation-proof-standards.md) review. No original law or
-implementation was changed. Lookup's helper inventory chronology deviation is
-retained in its report. Historical partial reports do not override these results.
+implementation was changed. Lookup's helper inventory chronology deviation and schedule's Bump/enumeration inventory-order deviation are
+retained in their reports. Historical partial reports do not override these results.
 
 [Owned construction routes](../../experiments/p-owned-route/README.md) retain
 exact diagnostics and the one-binder proposal, SHA256
@@ -93,12 +93,12 @@ Neither request is approval. No complete owned theorem or universal impossibilit
 claim follows from the diagnostic family or structural Word helpers. All 24
 remaining catalogue candidates are still unapproved.
 
-Current continuation: compose the pure schedule using the actually proved query
-and flush links. Resolve only the owned construction and mathematical approvals
-needed for that remaining theorem, then complete its actual prefix/owner proof.
-The active execution goal remains **#18, then #19**; five completed laws do not
+Current continuation: resolve the owned construction and mathematical approvals
+needed for the remaining theorem, then complete its actual prefix/owner proof.
+The pure schedule uses the checked query and flush links without changing their subjects.
+The active execution goal remains **#18, then #19**; six completed laws do not
 close #18 or authorize a completion claim for #19.
 
 ## Aggregate completion gate
 
-[Seven-endpoint package](../../experiments/p-observe/README.md) mechanically selects all seven exact approved statements and freezes their full canonical import closure. Run `python3 experiments/p-observe/verify.py`: it must eventually pass ordinary checker and kernel, in addition to all per-endpoint mutation/review gates. Current nonzero exit with two TODOs preserves the full task boundary; partial runner passes cannot close #18.
+[Seven-endpoint package](../../experiments/p-observe/README.md) mechanically selects all seven exact approved statements and freezes their full canonical import closure. Run `python3 experiments/p-observe/verify.py`: it must eventually pass ordinary checker and kernel, in addition to all per-endpoint mutation/review gates. Current nonzero exit with one TODO preserves the full task boundary; partial runner passes cannot close #18.

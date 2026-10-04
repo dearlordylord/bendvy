@@ -34,7 +34,7 @@ runner failure are recorded explicitly; no universal proof is inferred.
 limits the public-observation request to seven exact IDs; twenty internal and four
 infrastructure candidates require separate supporting-proof approval. Root authority,
 full-payload preservation and representation-neutral owned-read preservation remain
-open. Numerical thresholds remain pending. The separately selected total lookup theorem is proved; remaining public endpoints and general runtime refinement are open.
+open. Numerical thresholds remain pending. The six selected Nat model endpoints are proved; owned runtime correspondence and general runtime refinement remain open.
 
 ## Execution checklist and tracker ownership
 
@@ -47,7 +47,7 @@ an earlier bounded redesign checkpoint, not completion of the next-stage specs.
 - [x] Present the exact 31-law revision with rationale, controls, proof sketches, dependencies and explicit limits.
 - [x] Obtain human approval of the seven public IDs at the exact revision; see the approval record. Remaining 24 supporting candidates are unapproved.
 - [x] Detail, Astra-review and publish [P-OBS #18](tickets/17-approved-observation-proofs.md); stages 0/1/2 can proceed independently.
-- [ ] Execute #18: total lookup, all three queries and explicit flush are proved, independently verified and reviewed. [Pure schedule](../experiments/p-observe-schedule/README.md) and owned schedule remain open. [Aggregate seven-law gate](../experiments/p-observe/README.md) still fails with two TODOs. Owned binder and two supporting arithmetic proposals await specific approval; do not silently fill remaining support laws. Complete #18 before executing #19 under the user's explicit goal.
+- [ ] Execute #18: total lookup, all three queries, explicit flush and [pure schedule](../experiments/p-observe-schedule/README.md) are proved, independently verified and reviewed. Owned schedule remains open. [Aggregate seven-law gate](../experiments/p-observe/README.md) still fails with one TODO. Owned binder and two supporting arithmetic proposals await specific approval; do not silently fill remaining support laws. Complete #18 before executing #19 under the user's explicit goal.
 - [x] Detail, review and publish [S-LAYOUT #16](tickets/15-indexed-storage.md) and [S-CAPTURE #17](tickets/16-capture-restoration.md). Both can start alongside #12; publication does not mean capability completion.
 - [x] Execute #17 and review both axes: bounded state/closure/restoration evidence is recorded; general capability gates remain open.
 - [x] Execute and review #16: indexed owned-storage research is complete; dense/JS regressions retain the performance gate.

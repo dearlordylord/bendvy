@@ -283,3 +283,39 @@ and their counted invariants remain narrower contextual obligations. No standalo
 unapproved catalogue law is filled or assumed. Schedule report explicitly retains
 the endpoint as open and contextual mutations as contextual evidence. No hard
 Standards violation or actionable heuristic identified in these checkpoints.
+
+## Complete pure schedule — `786f4a0...4be1211`
+
+Reviewed frozen subjects, complete proof/dispatch/induction sources, controls,
+runner, report and current evidence. This supersedes the earlier partial schedule
+status. Canonical and proof/dependency source hashes match recorded values.
+
+**Documented-standard finding: one disclosed process deviation (low severity).**
+The #18 ticket requires each new contextual helper's purpose/domain to be listed
+before execution. PLAN/README disclose that Bump/enumeration factorization was
+checked before its extra inventory paragraph was persisted. Retain this disclosure
+and inventory future additions before checks. This historical ordering breach does
+not invalidate the checked proof or require retroactively claiming compliance.
+
+**No remaining proof/evidence correctness blocker found.** The exact approved
+domain/functions remain unchanged. Universal authored-list induction relates the
+two actual interpreters over a fixed covered interval, threading actual independent
+admissibility evidence, metadata/queue agreement and derived successor lookup
+relations. The base performs no flush; dispatch covers Reserve/Publish/Bump/Barrier.
+No assumed unapproved catalogue contract, unsafe dependency or extra endpoint
+premise was introduced. The original false conditional branch remains Unit.
+
+Evidence records 26 ordinary/kernel checks and two compiling interpreter mutants:
+implicit final flush and dropped schedule tail. Copied-positive universal proof
+and active complete-law instances first pass the kernel; mutation preserves all
+copied proof hashes, falsifies those full instances and keeps independent premises
+true. Failures occur at `schedule_related`, the actual universal induction inside
+the dedicated approved endpoint section, not an unrelated shared lemma. The report
+accurately distinguishes that location from the final `L.schedule_execution_exact`
+wrapper; no wrapper-local failure is claimed. Older contextual mutants remain
+separate. Five-second checker limits and kernel-failure control are maintained.
+
+**Heuristic findings: none actionable.** Detailed helpers reflect real
+representation/guard/successor dependencies and Bend declaration/match constraints.
+This bounded Nat theorem accepts neither owned runtime, backend/host IO nor
+performance. Pending quantity/arithmetic proposals remain unapproved.
