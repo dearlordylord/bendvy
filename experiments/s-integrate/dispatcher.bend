@@ -64,38 +64,83 @@ def preflight(nodes: List<&2,Q.Node>,+ledger: Bool,+audit: Bool,+state: Bool,+le
     case Con{Q.Deferred{},tail}: preflight(tail,ledger,audit,state,ledgerName,stateName)
     case Con{Q.StateTransition{},tail}: preflight(tail,ledger,audit,state,ledgerName,stateName)
 
+# Registry is authoritative; scheduled nodes carry only requested base/mode.
+def registry_join(+system:Q.System,local:C.Local,tail:List<Q.Entry> & List<&2,Q.System>) -> List<Q.Entry> & List<&2,Q.System>:
+  match tail:
+    case (entries,systems): (Q.Entry{system,local} <> entries,system <> systems)
+def registry_entries(entries:List<Q.Entry>) -> List<Q.Entry> & List<&2,Q.System>:
+  match entries:
+    case Nil{}: ([],[])
+    case Con{Q.Entry{+system,local},tail}: registry_join(system,local,registry_entries(tail))
+def registry_return(next:U32,pair:List<Q.Entry> & List<&2,Q.System>) -> Q.Registry & List<&2,Q.System>:
+  match pair:
+    case (entries,systems): (Q.Registry{next,entries},systems)
+def registry_values(registry:Q.Registry) -> Q.Registry & List<&2,Q.System>:
+  match registry:
+    case Q.Registry{next,entries}: registry_return(next,registry_entries(entries))
+def system_hit(equal:Bool,system:Q.System,tail:Maybe<&2,Q.System>) -> Maybe<&2,Q.System>:
+  match equal:
+    case True{}: Some{system}
+    case False{}: tail
+def system_find(+base:U32,systems:List<&2,Q.System>) -> Maybe<&2,Q.System>:
+  match systems:
+    case Nil{}: None{}
+    case Con{Q.System{+key,name,kind,ledger,audit,gated,reader},tail}:
+      system_hit(U32.is_eq(base,key),Q.System{key,name,kind,ledger,audit,gated,reader},system_find(base,tail))
+type Canonical is Data:
+  Accepted{nodes:List<&2,Q.Node>}
+  Unknown{base:U32}
+def canonical_cons(node:Q.Node,tail:Canonical) -> Canonical:
+  match tail:
+    case Accepted{nodes}: Accepted{node <> nodes}
+    case unknown: unknown
+def canonical_call(base:U32,mode:Q.Mode,found:Maybe<&2,Q.System>,tail:Canonical) -> Canonical:
+  match found:
+    case None{}: Unknown{base}
+    case Some{system}: canonical_cons(Q.Call{system,mode},tail)
+def canonical_nested(nested:Canonical,tail:Canonical) -> Canonical:
+  match nested:
+    case Accepted{nodes}: canonical_cons(Q.Nested{nodes},tail)
+    case unknown: unknown
+def canonical(+systems:List<&2,Q.System>,nodes:List<&2,Q.Node>) -> Canonical:
+  match nodes:
+    case Nil{}: Accepted{[]}
+    case Con{Q.Call{Q.System{+base,_,_,_,_,_,_},mode},tail}: canonical_call(base,mode,system_find(base,systems),canonical(systems,tail))
+    case Con{Q.Nested{nested},tail}: canonical_nested(canonical(systems,nested),canonical(systems,tail))
+    case Con{node,tail}: canonical_cons(node,canonical(systems,tail))
+
 # Trusted provisioner returns actual world/service/reader owners, not a user World.
 type Invoked<-W: Type,-H: Data> is Type:
-  Invoked{world: W,audit: Maybe<Audit>,run: Maybe<R.Run>,outcome: T.Outcome,published:Bool,
+  Invoked{world: W,audit: Maybe<Audit>,run: Maybe<R.Run>,outcome: T.Outcome,clock:R.Clock,
     escaped: Maybe<&2,H>,observations: List<&2,U.Observation>}
 type Visit<-W: Type,-H: Data> is Type:
-  Visit{world: W,audit: Maybe<Audit>,run: Maybe<R.Run>,entries: List<Q.Entry>,outcome: DispatchOutcome,published:Bool,
+  Visit{world: W,audit: Maybe<Audit>,run: Maybe<R.Run>,entries: List<Q.Entry>,outcome: DispatchOutcome,clock:R.Clock,
     escaped: Maybe<&2,H>,observations: List<&2,U.Observation>}
 def visit_done(-W:Type,-H:Data,system:Q.System,local:C.Local,tail:List<Q.Entry>,result:Invoked<W,H>) -> Visit<W,H>:
   match system result:
-    case Q.System{base,+name,kind,ledger,service,gated,reader} Invoked{world,audit,run,T.Success{},published,escaped,observations}:
-      Visit{world,audit,run,Q.Entry{Q.System{base,name,kind,ledger,service,gated,reader},local} <> tail,Complete{},published,escaped,observations}
-    case Q.System{base,+name,kind,ledger,service,gated,reader} Invoked{world,audit,run,T.Failure{code},published,escaped,observations}:
-      Visit{world,audit,run,Q.Entry{Q.System{base,name,kind,ledger,service,gated,reader},local} <> tail,SystemFailure{name,code},published,escaped,observations}
-def visit_local(-W:Type,-H:Data,+system:Q.System,+mode:Q.Mode,+tick:U32,tail:List<Q.Entry>,world:W,audit:Maybe<Audit>,run:Maybe<R.Run>,pair:C.Local & U32,
-  invoke: Q.System -> Q.Mode -> U32 -> U32 -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>)) -> IO(Visit<W,H>):
+    case Q.System{base,+name,kind,ledger,service,gated,reader} Invoked{world,audit,run,T.Success{},clock,escaped,observations}:
+      Visit{world,audit,run,Q.Entry{Q.System{base,name,kind,ledger,service,gated,reader},local} <> tail,Complete{},clock,escaped,observations}
+    case Q.System{base,+name,kind,ledger,service,gated,reader} Invoked{world,audit,run,T.Failure{code},clock,escaped,observations}:
+      Visit{world,audit,run,Q.Entry{Q.System{base,name,kind,ledger,service,gated,reader},local} <> tail,SystemFailure{name,code},clock,escaped,observations}
+def visit_local(-W:Type,-H:Data,+system:Q.System,+mode:Q.Mode,+clock:R.Clock,tail:List<Q.Entry>,world:W,audit:Maybe<Audit>,run:Maybe<R.Run>,pair:C.Local & U32,
+  invoke: Q.System -> Q.Mode -> U32 -> R.Clock -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>)) -> IO(Visit<W,H>):
   match pair:
-    case (local,count): IO.bind(Invoked<W,H>,Visit<W,H>,invoke(system,mode,count,tick,world,audit,run),result => IO.pure(Visit<W,H>,visit_done(W,H,system,local,tail,result)))
+    case (local,count): IO.bind(Invoked<W,H>,Visit<W,H>,invoke(system,mode,count,clock,world,audit,run),result => IO.pure(Visit<W,H>,visit_done(W,H,system,local,tail,result)))
 def visit_restore(-W:Type,-H:Data,head:Q.Entry,result:Visit<W,H>) -> Visit<W,H>:
   match result:
-    case Visit{world,audit,run,entries,outcome,published,escaped,observations}: Visit{world,audit,run,head <> entries,outcome,published,escaped,observations}
-def visit_decide(~W:Type,~H:Data,~invoke:Q.System -> Q.Mode -> U32 -> U32 -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
-  ih: List<Q.Entry> -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Visit<W,H>),hit:Bool,+base:U32,+mode:Q.Mode,+tick:U32,+style:C.Style,system:Q.System,local:C.Local,tail:List<Q.Entry>,world:W,audit:Maybe<Audit>,run:Maybe<R.Run>) -> IO(Visit<W,H>):
+    case Visit{world,audit,run,entries,outcome,clock,escaped,observations}: Visit{world,audit,run,head <> entries,outcome,clock,escaped,observations}
+def visit_decide(~W:Type,~H:Data,~invoke:Q.System -> Q.Mode -> U32 -> R.Clock -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
+  ih: List<Q.Entry> -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Visit<W,H>),hit:Bool,+base:U32,+mode:Q.Mode,+clock:R.Clock,+style:C.Style,system:Q.System,local:C.Local,tail:List<Q.Entry>,world:W,audit:Maybe<Audit>,run:Maybe<R.Run>) -> IO(Visit<W,H>):
   match hit:
-    case True{}: visit_local(W,H,system,mode,tick,tail,world,audit,run,C.invoke(style,local),invoke)
+    case True{}: visit_local(W,H,system,mode,clock,tail,world,audit,run,C.invoke(style,local),invoke)
     case False{}: IO.bind(Visit<W,H>,Visit<W,H>,ih(tail,world,audit,run),result => IO.pure(Visit<W,H>,visit_restore(W,H,Q.Entry{system,local},result)))
-def visit(~W:Type,~H:Data,~invoke:Q.System -> Q.Mode -> U32 -> U32 -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
-  fuel:Nat,+base:U32,+mode:Q.Mode,+tick:U32,+style:C.Style,entries:List<Q.Entry>,world:W,audit:Maybe<Audit>,run:Maybe<R.Run>) -> IO(Visit<W,H>):
+def visit(~W:Type,~H:Data,~invoke:Q.System -> Q.Mode -> U32 -> R.Clock -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
+  fuel:Nat,+base:U32,+mode:Q.Mode,+clock:R.Clock,+style:C.Style,entries:List<Q.Entry>,world:W,audit:Maybe<Audit>,run:Maybe<R.Run>) -> IO(Visit<W,H>):
   match fuel entries:
-    case 0n _: IO.pure(Visit<W,H>,Visit{world,audit,run,entries,SetupRejected{"system-search bound"},False{},None{},[]})
-    case 1n+rest Nil{}: IO.pure(Visit<W,H>,Visit{world,audit,run,[],SetupRejected{"unregistered base"},False{},None{},[]})
+    case 0n _: IO.pure(Visit<W,H>,Visit{world,audit,run,entries,SetupRejected{"system-search bound"},clock,None{},[]})
+    case 1n+rest Nil{}: IO.pure(Visit<W,H>,Visit{world,audit,run,[],SetupRejected{"unregistered base"},clock,None{},[]})
     case 1n+rest Con{Q.Entry{Q.System{+key,name,kind,ledger,service,gated,reader},local},tail}:
-      visit_decide(W,H,invoke,es => w => a => r => visit(W,H,invoke,rest,base,mode,tick,style,es,w,a,r),U32.is_eq(base,key),base,mode,tick,style,Q.System{key,name,kind,ledger,service,gated,reader},local,tail,world,audit,run)
+      visit_decide(W,H,invoke,es => w => a => r => visit(W,H,invoke,rest,base,mode,clock,style,es,w,a,r),U32.is_eq(base,key),base,mode,clock,style,Q.System{key,name,kind,ledger,service,gated,reader},local,tail,world,audit,run)
 
 type Presence is Data:
   Presence{ledger: Bool,modeOn: Bool}
@@ -115,38 +160,33 @@ def add_escape(-H:Data,escaped:List<&2,H>,handle:Maybe<&2,H>) -> List<&2,H>:
   match handle:
     case None{}: escaped
     case Some{h}: List.append(&2,H,escaped,[h])
-# True is returned only by actual successful nonempty batch publication.
-def publication_clock(published:Bool,clock:R.Clock) -> R.Clock:
-  match published:
-    case True{}: R.advance(clock)
-    case False{}: clock
-def leaf_done(-W:Type,-H:Data,+next:U32,readers:R.Readers,clock:R.Clock,style:C.Style,escaped:List<&2,H>,observations:List<&2,U.Observation>,nextMode:Maybe<&2,Bool>,visit:Visit<W,H>) -> Dispatched<W,H>:
+def leaf_done(-W:Type,-H:Data,+next:U32,readers:R.Readers,style:C.Style,escaped:List<&2,H>,observations:List<&2,U.Observation>,nextMode:Maybe<&2,Bool>,visit:Visit<W,H>) -> Dispatched<W,H>:
   match visit:
-    case Visit{world,audit,run,entries,+outcome,published,handle,seen}:
-      Dispatched{Runtime{world,Q.Registry{next,entries},reader_finish(readers,run,outcome),publication_clock(published,clock),audit,style,
+    case Visit{world,audit,run,entries,+outcome,clock,handle,seen}:
+      Dispatched{Runtime{world,Q.Registry{next,entries},reader_finish(readers,run,outcome),clock,audit,style,
         add_escape(H,escaped,handle),List.append(&2,U.Observation,observations,seen),nextMode},outcome}
 def clock_tick(clock:R.Clock) -> U32:
   match clock:
     case R.Clock{tick,_,_,_}: tick
 
-def leaf_started(~W:Type,~H:Data,~invoke:Q.System -> Q.Mode -> U32 -> U32 -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
+def leaf_started(~W:Type,~H:Data,~invoke:Q.System -> Q.Mode -> U32 -> R.Clock -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
   +base:U32,mode:Q.Mode,world:W,registry:Q.Registry,audit:Maybe<Audit>,+style:C.Style,escaped:List<&2,H>,observations:List<&2,U.Observation>,nextMode:Maybe<&2,Bool>,started:R.Started) -> IO(Dispatched<W,H>):
   match registry started:
     case Q.Registry{+next,entries} R.Started{readers,+clock,run}:
-      IO.bind(Visit<W,H>,Dispatched<W,H>,visit(W,H,invoke,32n,base,mode,clock_tick(clock),style,entries,world,audit,Some{run}), v => IO.pure(Dispatched<W,H>,leaf_done(W,H,next,readers,clock,style,escaped,observations,nextMode,v)))
-def leaf_unread(~W:Type,~H:Data,~invoke:Q.System -> Q.Mode -> U32 -> U32 -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
+      IO.bind(Visit<W,H>,Dispatched<W,H>,visit(W,H,invoke,32n,base,mode,clock,style,entries,world,audit,Some{run}), v => IO.pure(Dispatched<W,H>,leaf_done(W,H,next,readers,style,escaped,observations,nextMode,v)))
+def leaf_unread(~W:Type,~H:Data,~invoke:Q.System -> Q.Mode -> U32 -> R.Clock -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
   +base:U32,mode:Q.Mode,world:W,registry:Q.Registry,readers:R.Readers,+clock:R.Clock,audit:Maybe<Audit>,+style:C.Style,escaped:List<&2,H>,observations:List<&2,U.Observation>,nextMode:Maybe<&2,Bool>) -> IO(Dispatched<W,H>):
   match registry:
     case Q.Registry{+next,entries}:
-      IO.bind(Visit<W,H>,Dispatched<W,H>,visit(W,H,invoke,32n,base,mode,clock_tick(clock),style,entries,world,audit,None{}), v => IO.pure(Dispatched<W,H>,leaf_done(W,H,next,readers,clock,style,escaped,observations,nextMode,v)))
-def leaf_reader(~W:Type,~H:Data,~invoke:Q.System -> Q.Mode -> U32 -> U32 -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
+      IO.bind(Visit<W,H>,Dispatched<W,H>,visit(W,H,invoke,32n,base,mode,clock,style,entries,world,audit,None{}), v => IO.pure(Dispatched<W,H>,leaf_done(W,H,next,readers,style,escaped,observations,nextMode,v)))
+def leaf_reader(~W:Type,~H:Data,~invoke:Q.System -> Q.Mode -> U32 -> R.Clock -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
   reader:Bool,+base:U32,mode:Q.Mode,runtime:Runtime<W,H>) -> IO(Dispatched<W,H>):
   match reader runtime:
     case True{} Runtime{world,registry,readers,clock,audit,style,escaped,observations,nextMode}:
       leaf_started(W,H,invoke,base,mode,world,registry,audit,style,escaped,observations,nextMode,R.begin(readers,base,R.Interests{True{},[0],True{}},clock))
     case False{} Runtime{world,registry,readers,clock,audit,style,escaped,observations,nextMode}:
       leaf_unread(W,H,invoke,base,mode,world,registry,readers,R.advance(clock),audit,style,escaped,observations,nextMode)
-def leaf_condition(~W:Type,~H:Data,~invoke:Q.System -> Q.Mode -> U32 -> U32 -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
+def leaf_condition(~W:Type,~H:Data,~invoke:Q.System -> Q.Mode -> U32 -> R.Clock -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
   allowed:Bool,system:Q.System,mode:Q.Mode,runtime:Runtime<W,H>) -> IO(Dispatched<W,H>):
   match allowed system runtime:
     case False{} Q.System{base,_,_,_,_,_,_} Runtime{world,registry,readers,+clock,audit,style,escaped,observations,nextMode}:
@@ -159,13 +199,13 @@ def continue_case(-W:Type,-H:Data,continuation:Runtime<W,H> -> IO(Dispatched<W,H
     case other: IO.pure(Dispatched<W,H>,other)
 
 # Trusted mode observer must inspect the actual nominal World.mode, not flags.
-def call_actual(~W:Type,~H:Data,~invoke:Q.System -> Q.Mode -> U32 -> U32 -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
+def call_actual(~W:Type,~H:Data,~invoke:Q.System -> Q.Mode -> U32 -> R.Clock -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
   system:Q.System,mode:Q.Mode,registry:Q.Registry,readers:R.Readers,clock:R.Clock,audit:Maybe<Audit>,style:C.Style,escaped:List<&2,H>,observations:List<&2,U.Observation>,nextMode:Maybe<&2,Bool>,world:W,actual:Presence) -> IO(Dispatched<W,H>):
   match system actual:
     case Q.System{base,name,kind,ledger,service,+gated,reader} Presence{_,on}:
       leaf_condition(W,H,invoke,Bool.or(Bool.not(gated),on),Q.System{base,name,kind,ledger,service,gated,reader},mode,Runtime{world,registry,readers,clock,audit,style,escaped,observations,nextMode})
 
-def call_presence(~W:Type,~H:Data,~invoke:Q.System -> Q.Mode -> U32 -> U32 -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
+def call_presence(~W:Type,~H:Data,~invoke:Q.System -> Q.Mode -> U32 -> R.Clock -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
   system:Q.System,mode:Q.Mode,registry:Q.Registry,readers:R.Readers,clock:R.Clock,audit:Maybe<Audit>,style:C.Style,escaped:List<&2,H>,observations:List<&2,U.Observation>,nextMode:Maybe<&2,Bool>,pair:W & Presence) -> IO(Dispatched<W,H>):
   match pair:
     case (world,actual): call_actual(W,H,invoke,system,mode,registry,readers,clock,audit,style,escaped,observations,nextMode,world,actual)
@@ -181,7 +221,7 @@ def record_mode(-W:Type,-H:Data,system:Q.System,result:Dispatched<W,H>) -> Dispa
       Dispatched{Runtime{world,registry,readers,clock,audit,style,escaped,observations,pending_kind(kind,nextMode)},Complete{}}
     case _ other: other
 def call(~W:Type,~H:Data,~presence:W -> W & Presence,
-  ~invoke:Q.System -> Q.Mode -> U32 -> U32 -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
+  ~invoke:Q.System -> Q.Mode -> U32 -> R.Clock -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
   +system:Q.System,mode:Q.Mode,runtime:Runtime<W,H>) -> IO(Dispatched<W,H>):
   match runtime:
     case Runtime{world,registry,readers,clock,audit,style,escaped,observations,nextMode}:
@@ -203,7 +243,7 @@ def state_transition(~W:Type,~H:Data,~barrier:W -> R.Clock -> W & R.Clock,~trans
       marker_done(W,H,registry,readers,audit,style,escaped,observations,None{},transition_after(W,transition,nextMode,barrier(world,clock)))
 
 def run(~W:Type,~H:Data,~presence:W -> W & Presence,
-  ~invoke:Q.System -> Q.Mode -> U32 -> U32 -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
+  ~invoke:Q.System -> Q.Mode -> U32 -> R.Clock -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
   ~barrier:W -> R.Clock -> W & R.Clock,~transition:W -> Maybe<&2,Bool> -> R.Clock -> W & R.Clock,
   nodes:List<&2,Q.Node>,runtime:Runtime<W,H>) -> IO(Dispatched<W,H>):
   match nodes:
@@ -217,7 +257,7 @@ def run(~W:Type,~H:Data,~presence:W -> W & Presence,
 
 # Trusted frame adapter trims actual logs using real registered holders.
 def tick_frame(~W:Type,~H:Data,~presence:W -> W & Presence,
-  ~invoke:Q.System -> Q.Mode -> U32 -> U32 -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
+  ~invoke:Q.System -> Q.Mode -> U32 -> R.Clock -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
   ~barrier:W -> R.Clock -> W & R.Clock,~transition:W -> Maybe<&2,Bool> -> R.Clock -> W & R.Clock,
   ~frame:W -> R.Readers -> R.Frame -> W & (R.Readers & R.Clock),
   +nodes:List<&2,Q.Node>,registry:Q.Registry,audit:Maybe<Audit>,style:C.Style,escaped:List<&2,H>,observations:List<&2,U.Observation>,nextMode:Maybe<&2,Bool>,owners:W & (R.Readers & R.Clock)) -> IO(Dispatched<W,H>):
@@ -225,7 +265,7 @@ def tick_frame(~W:Type,~H:Data,~presence:W -> W & Presence,
     case (world,(readers,clock)):
       run(W,H,presence,invoke,barrier,transition,nodes,Runtime{world,registry,readers,clock,audit,style,escaped,observations,nextMode})
 def tick_missing(~W:Type,~H:Data,~presence:W -> W & Presence,
-  ~invoke:Q.System -> Q.Mode -> U32 -> U32 -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
+  ~invoke:Q.System -> Q.Mode -> U32 -> R.Clock -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
   ~barrier:W -> R.Clock -> W & R.Clock,~transition:W -> Maybe<&2,Bool> -> R.Clock -> W & R.Clock,
   ~frame:W -> R.Readers -> R.Frame -> W & (R.Readers & R.Clock),
   +nodes:List<&2,Q.Node>,missing:List<&2,Requirement>,runtime:Runtime<W,H>) -> IO(Dispatched<W,H>):
@@ -234,7 +274,7 @@ def tick_missing(~W:Type,~H:Data,~presence:W -> W & Presence,
       tick_frame(W,H,presence,invoke,barrier,transition,frame,nodes,registry,audit,style,escaped,observations,nextMode,frame(world,readers,R.frame(clock)))
     case requirements state: IO.pure(Dispatched<W,H>,Dispatched{state,MissingRuntimeRequirements{requirements}})
 def tick_audit(~W:Type,~H:Data,~presence:W -> W & Presence,
-  ~invoke:Q.System -> Q.Mode -> U32 -> U32 -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
+  ~invoke:Q.System -> Q.Mode -> U32 -> R.Clock -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
   ~barrier:W -> R.Clock -> W & R.Clock,~transition:W -> Maybe<&2,Bool> -> R.Clock -> W & R.Clock,
   ~frame:W -> R.Readers -> R.Frame -> W & (R.Readers & R.Clock),
   +nodes:List<&2,Q.Node>,+ledger:Bool,+ledgerName:String,+stateName:String,world:W,registry:Q.Registry,readers:R.Readers,clock:R.Clock,style:C.Style,escaped:List<&2,H>,observations:List<&2,U.Observation>,nextMode:Maybe<&2,Bool>,service:Maybe<Audit> & Bool) -> IO(Dispatched<W,H>):
@@ -242,18 +282,34 @@ def tick_audit(~W:Type,~H:Data,~presence:W -> W & Presence,
     case (audit,available):
       tick_missing(W,H,presence,invoke,barrier,transition,frame,nodes,preflight(nodes,ledger,available,True{},ledgerName,stateName),Runtime{world,registry,readers,clock,audit,style,escaped,observations,nextMode})
 def tick_presence(~W:Type,~H:Data,~presence:W -> W & Presence,
-  ~invoke:Q.System -> Q.Mode -> U32 -> U32 -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
+  ~invoke:Q.System -> Q.Mode -> U32 -> R.Clock -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
   ~barrier:W -> R.Clock -> W & R.Clock,~transition:W -> Maybe<&2,Bool> -> R.Clock -> W & R.Clock,
   ~frame:W -> R.Readers -> R.Frame -> W & (R.Readers & R.Clock),
   +nodes:List<&2,Q.Node>,+ledgerName:String,+stateName:String,registry:Q.Registry,readers:R.Readers,clock:R.Clock,audit:Maybe<Audit>,style:C.Style,escaped:List<&2,H>,observations:List<&2,U.Observation>,nextMode:Maybe<&2,Bool>,owners:W & Presence) -> IO(Dispatched<W,H>):
   match owners:
     case (world,Presence{ledger,_}):
       tick_audit(W,H,presence,invoke,barrier,transition,frame,nodes,ledger,ledgerName,stateName,world,registry,readers,clock,style,escaped,observations,nextMode,audit_present(audit))
-def tick(~W:Type,~H:Data,~presence:W -> W & Presence,
-  ~invoke:Q.System -> Q.Mode -> U32 -> U32 -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
+def tick_canonical(~W:Type,~H:Data,~presence:W -> W & Presence,
+  ~invoke:Q.System -> Q.Mode -> U32 -> R.Clock -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
   ~barrier:W -> R.Clock -> W & R.Clock,~transition:W -> Maybe<&2,Bool> -> R.Clock -> W & R.Clock,
   ~frame:W -> R.Readers -> R.Frame -> W & (R.Readers & R.Clock),
-  +nodes:List<&2,Q.Node>,+ledgerName:String,+stateName:String,runtime:Runtime<W,H>) -> IO(Dispatched<W,H>):
+  ledgerName:String,stateName:String,checked:Canonical,runtime:Runtime<W,H>) -> IO(Dispatched<W,H>):
+  match checked runtime:
+    case Unknown{base} state: IO.pure(Dispatched<W,H>,Dispatched{state,SetupRejected{"unregistered base:" ++ U32.show(base)}})
+    case Accepted{nodes} Runtime{world,registry,readers,clock,audit,style,escaped,observations,nextMode}:
+      tick_presence(W,H,presence,invoke,barrier,transition,frame,nodes,ledgerName,stateName,registry,readers,clock,audit,style,escaped,observations,nextMode,presence(world))
+def tick_registry(~W:Type,~H:Data,~presence:W -> W & Presence,
+  ~invoke:Q.System -> Q.Mode -> U32 -> R.Clock -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
+  ~barrier:W -> R.Clock -> W & R.Clock,~transition:W -> Maybe<&2,Bool> -> R.Clock -> W & R.Clock,
+  ~frame:W -> R.Readers -> R.Frame -> W & (R.Readers & R.Clock),
+  nodes:List<&2,Q.Node>,ledgerName:String,stateName:String,world:W,readers:R.Readers,clock:R.Clock,audit:Maybe<Audit>,style:C.Style,escaped:List<&2,H>,observations:List<&2,U.Observation>,nextMode:Maybe<&2,Bool>,scan:Q.Registry & List<&2,Q.System>) -> IO(Dispatched<W,H>):
+  match scan:
+    case (registry,systems): tick_canonical(W,H,presence,invoke,barrier,transition,frame,ledgerName,stateName,canonical(systems,nodes),Runtime{world,registry,readers,clock,audit,style,escaped,observations,nextMode})
+def tick(~W:Type,~H:Data,~presence:W -> W & Presence,
+  ~invoke:Q.System -> Q.Mode -> U32 -> R.Clock -> W -> Maybe<Audit> -> Maybe<R.Run> -> IO(Invoked<W,H>),
+  ~barrier:W -> R.Clock -> W & R.Clock,~transition:W -> Maybe<&2,Bool> -> R.Clock -> W & R.Clock,
+  ~frame:W -> R.Readers -> R.Frame -> W & (R.Readers & R.Clock),
+  nodes:List<&2,Q.Node>,ledgerName:String,stateName:String,runtime:Runtime<W,H>) -> IO(Dispatched<W,H>):
   match runtime:
     case Runtime{world,registry,readers,clock,audit,style,escaped,observations,nextMode}:
-      tick_presence(W,H,presence,invoke,barrier,transition,frame,nodes,ledgerName,stateName,registry,readers,clock,audit,style,escaped,observations,nextMode,presence(world))
+      tick_registry(W,H,presence,invoke,barrier,transition,frame,nodes,ledgerName,stateName,world,readers,clock,audit,style,escaped,observations,nextMode,registry_values(registry))

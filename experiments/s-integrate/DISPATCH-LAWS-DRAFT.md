@@ -94,3 +94,24 @@ nonempty staged-message batch publication at thisRun+1 (Runtime.ts1030).
 The dispatcher advances its clock once for that actual publication while
 completing the reader at the unchanged Run.thisRun. Failure/empty commit return
 false. Concrete adapter/trace checks must falsify omitted/extra clock advances.
+
+Authoritative join supersedes published Bool: invoker now consumes actual Clock
+and returns actual Clock in Invoked; Visit/leaf completion forwards that returned
+clock. Host publishes actual nonempty successful Ping batches at the freshly
+advanced returned tick. Original affine Run retains its original thisRun.
+
+Before even actual presence observation, tick extracts registered descriptors
+while returning every registry Local owner and canonicalizes all nested Calls.
+Only requested base and invocation mode come from caller metadata; registered
+name/kind/requirements/gating/reader declaration are authoritative. Unknown base
+returns SetupRejected before frame/callback/capture/reader/service effects.
+Native/JS `dispatcher-controls.bend` now observes from a real registered B owner:
+```
+forged=resource:MotionLedger;service:Audit;state:MotionMode;
+unknown=unknown:999
+```
+The preceding four preflight/capture lines remain identical. A compiling isolated
+mutation replacing canonical Call lookup with caller System metadata produced
+`forged=` and `unknown=` on both backends and was detected. These controls execute
+canonicalization itself; concrete tick-owner unchanged checks remain in Host
+integration, and no full reference comparison is inferred.

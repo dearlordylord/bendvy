@@ -24,5 +24,17 @@ def checks(+nodes:List<&2,Q.Node>) -> String:
   "missing=" ++ names(D.preflight(nodes,False{},False{},True{},"MotionLedger","MotionMode")) ++ "\n" ++
   "returned=" ++ twice(C.Returned{},C.invoke(C.Returned{},C.initial())) ++ "\n" ++
   "regenerated=" ++ twice(C.Regenerated{},C.invoke(C.Regenerated{},C.initial()))
+def canonical_show(result:D.Canonical) -> String:
+  match result:
+    case D.Unknown{base}: "unknown:" ++ U32.show(base)
+    case D.Accepted{nodes}: names(D.preflight(nodes,False{},False{},False{},"MotionLedger","MotionMode"))
+def authority_values(pair:Q.Registry & List<&2,Q.System>) -> String:
+  match pair:
+    case (_, +systems):
+      "forged=" ++ canonical_show(D.canonical(systems,[Q.Nested{[Q.Call{Q.System{1,"Fake",Q.Tail{},False{},False{},False{},False{}},Q.Normal{}}]}])) ++ "\n" ++
+      "unknown=" ++ canonical_show(D.canonical(systems,[Q.Call{Q.System{999,"Fake",Q.Tail{},False{},False{},False{},False{}},Q.Normal{}}]))
+def authority(registration:Q.Registered) -> String:
+  match registration:
+    case Q.Registered{registry,_}: authority_values(D.registry_values(registry))
 def main() -> String:
-  checks([Q.Nested{[Q.Call{Q.System{1,"B",Q.B{},True{},True{},True{},True{}},Q.BFail{}}]},Q.Call{Q.System{2,"Tail",Q.Tail{},False{},False{},False{},False{}},Q.Normal{}}])
+  authority(Q.register(Q.initial(),"B",Q.B{},True{},True{},True{},True{})) ++ "\n" ++ checks([Q.Nested{[Q.Call{Q.System{1,"B",Q.B{},True{},True{},True{},True{}},Q.BFail{}}]},Q.Call{Q.System{2,"Tail",Q.Tail{},False{},False{},False{},False{}},Q.Normal{}}])
