@@ -143,3 +143,65 @@ status explicitly remains PARTIAL with the approved flush endpoint OPEN.
 
 **Heuristic findings: none actionable.** Specialized helpers follow declaration
 order/match constraints and describe their limited command sublanguage.
+
+## Aggregate seven-endpoint gate `0bb26ed`
+
+Reviewed selected laws, aggregate proof, frozen manifest, runner and evidence.
+No checker runner was launched by this reviewer. Current canonical-closure and
+gate-source hashes match their recorded values.
+
+**Hard violations: none found.** Selection checks exact ordered seven IDs,
+byte-identical original law blocks and exact canonical import aliases. The subject
+closure pins the selected functions and their local dependency sources; the
+original 31-law catalogue is checked as a frozen reference rather than imported
+as a set of additional proof obligations. The aggregate proof explicitly imports
+the lookup law and its checked filling proof before delegating that endpoint.
+
+Both ordinary checker and kernel-verdict commands must return zero and contain
+`ALL PROOFS CHECK` for the gate to return zero. Missing proofs, changed subjects,
+bad selection/imports and deadline failures yield nonzero results. The five-second
+wrapper remains the checker deadline; the six-second outer watchdog kills only
+its child process group if the wrapper fails. Recorded current output is correctly
+INCOMPLETE with six TODOs under both invocations; kernel proof acceptance has not
+been reached for the aggregate package.
+
+README/evidence preserve per-endpoint compiling mutants, positive-domain controls,
+independent review and full ticket audit as separate requirements. Partial package
+runner success cannot satisfy this aggregate gate, and a future aggregate pass is
+not represented as #19 runtime integration or performance acceptance. No new
+dependency, unsafe proof or additional law approval was introduced.
+
+**Heuristic findings: none actionable.** The explicit gate/manifest is justified
+by exact-subject and completion coverage; endpoint delegation avoids duplicating
+the completed lookup derivation.
+
+## Completed query lane — full endpoint review
+
+Reviewed integrated completion from worker `8644867`: `PROOF.bend`, complete
+interval/list induction, insertion/order helpers, endpoint mutation runner and
+refreshed evidence. This section supersedes earlier partial query status only.
+
+**Hard violations: none found.** Three selected statements remain exact approved
+blocks. Universal interval insertion now derives comparison/bound transfers,
+zero-count head exclusion and emitted-row ordering, then closes physical-row
+induction against independent bounded enumeration. The true guard extracts the
+original independent row invariant; the false guard returns its original Unit
+branch. No extra premise, assumed catalogue theorem, unsafe proof or subject
+implementation change is introduced.
+
+Each original public endpoint is filled in its own law section. The recorded
+runner requires ordinary checker and kernel acceptance for the complete proof,
+then repeats each isolated endpoint and an original true-premise equality before
+mutation. Three compiling public selection-dispatch mutations preserve the
+independent admissibility premise, falsify that concrete equality and reject the
+unchanged universal proof at the intended `Laws.query_*` endpoint. Shared-helper
+failures and contextual mutants are not substituted for those endpoint kills.
+
+Current frozen source/hash evidence matches inspected files; the accepted import
+closure contains no TODOs. The deliberately failing earlier `attempt.bend` stays
+outside accepted proof imports and is explicitly historical evidence. Five-second
+checker deadlines remain unchanged. The report now identifies only these three
+query IDs as completed and retains other #18/full-runtime/performance obligations.
+
+**Heuristic findings: none actionable.** Contextual mathematical helpers preserve
+independent implementation/oracle reasoning and Bend match/declaration constraints.
