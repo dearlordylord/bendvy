@@ -37,6 +37,7 @@ class Lane:
         self.result = {"schema": schema, "style": style, "lane": schema + "/" + style,
                        "rawReservations": [], "reads": [], "readerDiagnostics": [],
                        "ownWrites": [], "snapshots": [], "dispatches": [], "auditEffects": []}
+        self.result["foreignLookupDivergence"] = []
         self.bindings = {}
         self.namespaces = {}
         self.raw = []
@@ -164,6 +165,18 @@ class Lane:
                 "result": outcome(value["outcome"]), "counts": capture, "tails": tails})
             self.result["finalCounts"] = capture
             self.result["tails"] = tails
+        elif kind == "ForeignLookup":
+            receiver, source = value["receiver"], value["source"]
+            handle = value["handle"]
+            if receiver == source or receiver not in self.namespaces or source not in self.namespaces:
+                raise ValueError("foreign lookup requires two observed distinct worlds")
+            if handle["namespace"] != self.namespaces[source] or self.label(handle, source) != value["label"]:
+                raise ValueError("foreign lookup did not use the observed source handle")
+            if value["result"] != {"kind": "Missing"}:
+                raise ValueError("foreign lookup violates approved MissingEntity policy")
+            self.result["foreignLookupDivergence"].append({
+                "receiver": receiver, "source": source, "label": value["label"],
+                "rawHandle": handle["id"], "result": {"result": "MissingEntity"}})
         elif kind == "OwnWrites":
             if not value["views"]:
                 return

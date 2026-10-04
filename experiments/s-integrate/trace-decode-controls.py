@@ -56,6 +56,27 @@ def main():
     lane.event(untracked)
     assert lane.result["dispatches"] == before
     assert lane.raw[-1] == untracked
+    foreign_lane = decoder.Lane("Motion", "returned-owner")
+    alpha = copy.deepcopy(reserved)
+    alpha["worldName"], alpha["label"] = "alpha", "a"
+    beta = copy.deepcopy(reserved)
+    beta["worldName"], beta["label"] = "beta", "z"
+    beta["handle"]["namespace"] += 1
+    foreign_lane.event(alpha)
+    foreign_lane.event(beta)
+    lookup = {"kind": "ForeignLookup", "step": "E10", "receiver": "beta",
+              "source": "alpha", "label": "a", "handle": alpha["handle"],
+              "result": {"kind": "Missing"}}
+    foreign_lane.event(lookup)
+    assert foreign_lane.result["foreignLookupDivergence"] == [{
+        "receiver": "beta", "source": "alpha", "label": "a", "rawHandle": 17,
+        "result": {"result": "MissingEntity"}}]
+    found = copy.deepcopy(lookup)
+    found["result"] = {"kind": "Found", "value": query}
+    rejects(lambda: foreign_lane.event(found))
+    substituted = copy.deepcopy(lookup)
+    substituted["handle"] = beta["handle"]
+    rejects(lambda: foreign_lane.event(substituted))
     print(json.dumps({"status": "PASS", "scope": "decoder fixtures only; no actual Host execution",
         "checked": ["full payload/metadata", "raw ID", "failure code", "handle reissue",
                     "foreign namespace", "unmatched completion", "missing lane", "missing captures"]}))
