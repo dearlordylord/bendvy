@@ -86,3 +86,9 @@ The internal supplement actually exercises C3 batch overflow, oversized and C0 m
 Neither package establishes Bend affine captures/owners, inverse-order implementation, Type destruction, access negatives, relocation, runtime/backend parity, semantic-mutant gates or performance. Those #19 obligations remain open.
 
 Reviewed SHA256: main adapter `9945ed4348552154e787d9fe456e88f8c30328b7966a41c86e050c09110123df`; main evidence `ddf71856fd6013a813be17f718120f28884c552b84e39fc88fc33223b44850e4`; internal adapter `973069e74c486ddf4e895812917899ca0bdcd085767aac869c46c044206726d3`; internal evidence `48a1087be6d9f6ab73694d3b5ebec4ebb3712098e7f717f47e17a166bbe1edd2`.
+
+### Main lifecycle diagnostic gap resolved — 2026-10-04, `ad54e14`
+
+**The previous main-trace diagnostic coverage finding is resolved.** Reviewed `0f5fe32...ad54e14` (author `3a5e0be`). The runtime now enables public debug observation; each Fast/B system event is associated with its actual callback by step, system name and an as-yet-unassigned diagnostic. Coverage checks require exactly one attached diagnostic per read. All 76 reader invocations across four lanes record deterministic frame/tick, outcome and `missed`; eight actual failed B invocations report `failed`, all others `ok`, and every main-fixture `missed` list is asserted empty. Callback event lag remains separate. No timing fields or private cursor inspection are used.
+
+Independent temporary-copy execution under `timeout 5s` exited0 and matched the coordinator's complete JSON exactly. Reviewed SHA256: adapter `c70208fe453ca9809bc2a947a0209425100b352554e7d0d5dbab6eacfac65e39`; refreshed evidence `53f202b0496bb2187534e2f5026c30a6a0c43f2b834ad78c5413c15cfbd4c3a7`. Root evidence was preserved. No remaining blocker was found for the reviewed public TS main reference coverage; prior findings remain historical. This resolution establishes no Bend ownership/runtime, backend parity, semantic-mutant or performance acceptance.

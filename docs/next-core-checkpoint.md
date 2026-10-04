@@ -52,7 +52,7 @@ an earlier bounded redesign checkpoint, not completion of the next-stage specs.
 - [x] Execute #17 and review both axes: bounded state/closure/restoration evidence is recorded; general capability gates remain open.
 - [x] Execute and review #16: indexed owned-storage research is complete; dense/JS regressions retain the performance gate.
 - [x] Detail, review and publish [S-INTEGRATE #19](tickets/18-integrated-runtime.md) as planned work with the concrete-trace gate retained.
-- [ ] Execute #19: separately permitted preparation now has [fresh TS failed-allocation observations](../experiments/s-integrate-trace/allocation-README.md) and a [source seam inventory](design/s-integrate-seams.md). Review the complete exact trace first; integrate Bend after #18 and satisfy the actual three-backend capability/mutation/measurement gates.
+- [ ] Execute #19: separately permitted preparation now has [fresh TS failed-allocation observations](../experiments/s-integrate-trace/allocation-README.md) and a [source seam inventory](design/s-integrate-seams.md). The [reviewed concrete trace](design/s-integrate-trace.md) has fresh four-lane main TS, ten public retention and five internal supplementary cases; integrated Bend/access/Native/JS/mutation/measurement gates remain open. Integrate Bend after #18 and satisfy those actual gates.
 - [ ] Specify and implement the simple simulation after its actual capability/law gates; agree numerical thresholds before accepting performance.
 - [ ] Specify remaining full-core packages and the isolated Tower Defense copy integration as their prerequisites become ready.
 

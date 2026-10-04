@@ -9,8 +9,9 @@ dependency, production policy, storage layout or numerical performance threshold
 
 ## Evidence boundary and source contracts
 
-All **E** checkpoints below are source-derived expectations for a future fresh
-execution, not newly observed integrated results. **X** is the separately executed
+The **E** tables below were drafted as source-derived expectations. Their newly
+executed TS reference portions are recorded in the ledger below; no integrated
+Bend result is inferred. **X** is the separately executed
 [allocation checkpoint](../../experiments/s-integrate-trace/allocation-README.md)
 and [raw evidence](../../experiments/s-integrate-trace/allocation-evidence.json),
 integrated at `7208946`: seed1, A2, failed B3, subsequent4; A's value11 survives,
@@ -278,3 +279,22 @@ relations/scopes/state failure ordering, restoration/tooling and parallel comput
 remain full-core follow-ups, not removed scope. The console application follows
 verified capabilities; Tower Defense uses a separate source copy, never edits the
 original repository or read-only references.
+
+## Fresh reference execution ledger — 2026-10-04
+
+| Artifact | Executed evidence | Remaining boundary |
+|---|---|---|
+| [Scalar allocation X](../../experiments/s-integrate-trace/allocation-README.md) | Actual public dispatcher reservations 1/2/3/4; failed spawn discarded without counter rewind | One scalar schema, not Type ownership or global allocator policy |
+| [Main public reference](../../experiments/s-integrate-trace/main-README.md) | Four Motion/Health × capture-style lanes; complete E0–E10 public read/write/dispatch portions, 34 full α/β snapshots per lane, 76 selected-reader public diagnostics including eight failed B invocations; exact expected values and empty missed sequences | E10 Bend compiler/recovery controls, foreign-command decision, trusted factory authority and indexed relocation are not TS results |
+| [Public E11 retention](../../experiments/s-integrate-trace/retention-README.md) | Ten Motion/Health case runs; real C65536 message/lifecycle overflow, first failed read and same-instance retry, independent Fast/Late, unheld expiration and surviving marks; every element/full field checked before lossless encoding | No Native/JS retention implementation or arbitrary Type message fan-out |
+| [Internal E11 supplement](../../experiments/s-integrate-trace/internal-retention-README.md) | Five separate C3/C0 source-API diagnostics with exact batches/individual record trim and registration-aware lag | Explicitly internal APIs; not public capacity configuration or dispatcher acceptance |
+
+The coordinator replayed these artifacts; independent Spec/Standards review and
+focused diagnostic-fix review are in the [Spec](../reviews/integrate-trace-spec.md)
+and [Standards](../reviews/integrate-trace-standards.md) reports. Recorded source,
+adapter and trace hashes identify each executed revision; timing fields are
+execution-limit evidence only. Full E0–E11 acceptance still requires the integrated
+Bend owner/provider/transaction/reader/dispatcher, actual negative checker pairs,
+Native/JS equality, compiling mutants and equivalent measurements. #18's owned
+endpoint and its pending exact approvals remain a separate prerequisite to that
+Bend implementation under the active #18 → #19 order.

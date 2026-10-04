@@ -197,3 +197,26 @@ TS result grants production API, universal refinement or performance acceptance.
 **Heuristic findings: none actionable.** Repeated assertions keep complete schema
 and publication boundaries explicit; extraction would not materially improve this
 bounded reference adapter.
+
+## Public main-reader diagnostics correction — `ad54e14` (2026-10-04)
+
+**Hard violations: none found.** Reviewed the three-file change and pinned public
+debug implementation. The passive `alpha.debug.observe` listener associates each
+Fast/B system event with the most recent unmatched actual callback at that step.
+Association checks and final counts require exactly one event per callback; all
+19 invocations per lane are covered, including both failed B attempts. Actual
+frame, tick, outcome and complete `missed` records are preserved. Expected failed/
+successful outcomes and empty missed records are asserted for this non-overflow
+fixture. Timing `ms` is omitted, and neither private cursors nor debug state dumps
+are inspected. Diagnostics remain separate from actual reader values and the
+public event view's lag signal; the listener is removed after completion.
+
+Independently replayed all four lanes together under a five-second subprocess
+limit without writing artifacts: complete JSON exactly matched refreshed evidence.
+Adapter, trace and all thirteen pinned source hashes, including `Debug.ts`, match
+current bytes. README accurately distinguishes public debug provenance from direct
+lifecycle-view APIs and retains the separate E11, Bend ownership/runtime and
+performance gates.
+
+**Heuristic findings: none actionable.** The listener adds bounded observability
+without changing the authored systems, transaction expectations or accepted scope.
