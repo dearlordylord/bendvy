@@ -19,6 +19,13 @@ selection, without an admissibility/reachability premise. Empty, duplicate or
 out-of-counter row lists are included. The total model fixes first-row lookup
 behavior; this does not endorse malformed states as a production API.
 
+The original law/core hashes and exact selection were persisted before the first
+proof check. The contextual helpers were developed in the proof source, with
+checks during development; the explanatory inventory below was written afterward.
+The ticket requested the helper-purpose inventory before execution, so that
+documentation sequence is a recorded deviation rather than a claimed prior gate.
+All helpers are now explicit for independent review.
+
 The proof decomposes into narrowly contextual lemmas:
 
 | Helper | Derivation / dependency |
