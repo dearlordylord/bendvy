@@ -1,5 +1,5 @@
 {
-  "status": "PARTIAL: contextual toolkit proved; explicit_flush_independent remains OPEN",
+  "status": "PASS: exact general explicit_flush_independent proof and own-endpoint mutant gate",
   "checker_limit_seconds": 5,
   "exact_endpoint_selection": true,
   "checks": [
@@ -60,6 +60,42 @@
     {
       "command": [
         "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/materialization.bend",
+        "--check-only"
+      ],
+      "exit_code": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/materialization.bend",
+        "--verdict"
+      ],
+      "exit_code": 0,
+      "output": "ALL PROOFS CHECK\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/PROOF.bend",
+        "--check-only"
+      ],
+      "exit_code": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/PROOF.bend",
+        "--verdict"
+      ],
+      "exit_code": 0,
+      "output": "ALL PROOFS CHECK\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
         "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/controls.bend",
         "--verdict"
       ],
@@ -95,7 +131,7 @@
       "copied_positive": {
         "command": [
           "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/flush-mutant-lnrlzvsl/p-observe-flush/toolkit.bend",
+          "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/flush-mutant-6a2o7nil/p-observe-flush/toolkit.bend",
           "--verdict"
         ],
         "exit_code": 0,
@@ -104,7 +140,7 @@
       "compiling_implementation": {
         "command": [
           "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/flush-mutant-lnrlzvsl/t11-replacement/model.bend",
+          "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/flush-mutant-6a2o7nil/t11-replacement/model.bend",
           "--check-only"
         ],
         "exit_code": 0,
@@ -113,7 +149,7 @@
       "contextual_proof_failure": {
         "command": [
           "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/flush-mutant-lnrlzvsl/p-observe-flush/toolkit.bend",
+          "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/flush-mutant-6a2o7nil/p-observe-flush/toolkit.bend",
           "--check-only"
         ],
         "exit_code": 1,
@@ -129,7 +165,7 @@
       "copied_positive": {
         "command": [
           "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/flush-mutant-n2qkqfn7/p-observe-flush/toolkit.bend",
+          "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/flush-mutant-veox459g/p-observe-flush/toolkit.bend",
           "--verdict"
         ],
         "exit_code": 0,
@@ -138,7 +174,7 @@
       "compiling_implementation": {
         "command": [
           "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/flush-mutant-n2qkqfn7/t11-replacement/model.bend",
+          "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/flush-mutant-veox459g/t11-replacement/model.bend",
           "--check-only"
         ],
         "exit_code": 0,
@@ -147,7 +183,7 @@
       "contextual_proof_failure": {
         "command": [
           "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/flush-mutant-n2qkqfn7/p-observe-flush/toolkit.bend",
+          "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/flush-mutant-veox459g/p-observe-flush/toolkit.bend",
           "--check-only"
         ],
         "exit_code": 1,
@@ -163,7 +199,7 @@
       "copied_positive": {
         "command": [
           "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/flush-command-mutant-577nuoa8/p-observe-flush/coherence.bend",
+          "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/flush-command-mutant-auq5ikzg/p-observe-flush/coherence.bend",
           "--verdict"
         ],
         "exit_code": 0,
@@ -172,7 +208,7 @@
       "compiling_implementation": {
         "command": [
           "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/flush-command-mutant-577nuoa8/t11-replacement/model.bend",
+          "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/flush-command-mutant-auq5ikzg/t11-replacement/model.bend",
           "--check-only"
         ],
         "exit_code": 0,
@@ -181,11 +217,53 @@
       "contextual_proof_failure": {
         "command": [
           "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/flush-command-mutant-577nuoa8/p-observe-flush/coherence.bend",
+          "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/flush-command-mutant-auq5ikzg/p-observe-flush/coherence.bend",
           "--check-only"
         ],
         "exit_code": 1,
         "output": "SOME PROOFS FAIL\nError:\n- expected : {S.at(rows, slot) == S.command_at(Nat.cmp(target, slot), T.Target{target, action}, S.at(rows, slot)) : Maybe<&2, T.Row>}\n- observed : {S.at(M.modify(target, action, rows), slot) == S.command_at(Nat.cmp(target, slot), T.Target{target, action}, S.at(rows, slot)) : Maybe<&2, T.Row>}\nContext:\n- target : Nat\n- action : T.Action\n- rows   : List<&2, T.Row>\n- slot   : Nat\nLocation: command_slot\n91 |     case T.Spawn{+id,+value}: P.spawn_slot(id,value,slot,rows)\n92>|     case T.Target{+target,+action}: target_slot_case(Nat.cmp(target,slot),target,slot,action,rows,{==})\n   |                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n93 | \n"
+      }
+    },
+    {
+      "name": "explicit-flush-caller-noop",
+      "old": "case T.World{id, next, rows, pending}: T.World{id, next, apply_all(pending, rows), []}",
+      "new": "case T.World{id, next, rows, pending}: T.World{id, next, rows, []}",
+      "theorem": "Laws.explicit_flush_independent",
+      "copied_positive": {
+        "command": [
+          "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+          "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/flush-endpoint-mutant-_0q37xwv/p-observe-flush/PROOF.bend",
+          "--verdict"
+        ],
+        "exit_code": 0,
+        "output": "ALL PROOFS CHECK\n"
+      },
+      "compiling_implementation": {
+        "command": [
+          "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+          "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/flush-endpoint-mutant-_0q37xwv/t11-replacement/model.bend",
+          "--check-only"
+        ],
+        "exit_code": 0,
+        "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+      },
+      "own_endpoint_failure": {
+        "command": [
+          "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+          "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/flush-endpoint-mutant-_0q37xwv/p-observe-flush/PROOF.bend",
+          "--check-only"
+        ],
+        "exit_code": 1,
+        "output": "SOME PROOFS FAIL\nError:\n- expected : S.When(Bool.and(Cmp.is_le(Nat.cmp(next, limit)), Bool.and(S.rows_valid(rows, rows, next), S.pending_valid(pending, pending, rows, next))), {T.Observation{id, next, M.query_rows(T.Any{}, rows), []} == T.Observation{id, next, S.enumerate_rows(next, 0n, S.materialize(next, 0n, rows, pending), T.Any{}), []} : T.Observation})\n- observed : S.When(Bool.and(Cmp.is_le(Nat.cmp(next, limit)), Bool.and(S.rows_valid(rows, rows, next), S.pending_valid(pending, pending, rows, next))), {T.Observation{id, next, M.query_rows(T.Any{}, M.apply_all(pending, rows)), []} == T.Observation{id, next, S.enumerate_rows(next, 0n, S.materialize(next, 0n, rows, pending), T.Any{}), []} : T.Observation})\nContext:\n- limit   : Nat\n- id      : Nat\n- next    : Nat\n- rows    : List<&2, T.Row>\n- pending : List<&2, T.Command>\nLocation: Laws.explicit_flush_independent\n29 |     case T.World{+id,+next,+rows,+pending}:\n30>|       guarded(S.admissible(limit,T.World{id,next,rows,pending}),limit,id,next,rows,pending,{==})\n   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n31 | \n"
+      },
+      "valid_original_ground_witness_rejected": {
+        "command": [
+          "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+          "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/flush-endpoint-mutant-_0q37xwv/p-observe-flush/own-witness.bend",
+          "--check-only"
+        ],
+        "exit_code": 1,
+        "output": "SOME PROOFS FAIL\nError:\n- expected : T.Observation{0n, 4n, [T.Row{1n, 7n, False{}}, T.Row{3n, 9n, True{}}], []}\n- observed : T.Observation{0n, 4n, [T.Row{1n, 7n, False{}}, T.Row{2n, 8n, False{}}], []}\nLocation: flush_complete_observation\n5 | def flush_complete_observation() -> {M.observe(M.flush(T.World{0n,4n,[T.Row{3n,9n,True{}},T.Row{1n,7n,False{}}],[T.Spawn{2n,8n},T.Target{1n,T.Insert{}},T.Target{7n,T.Remove{}},T.Target{1n,T.Remove{}},T.Target{3n,T.Despawn{}}]})) == T.Observation{0n,4n,[T.Row{1n,7n,False{}},T.Row{2n,8n,False{}}],[]} : T.Observation}:\n6>|   {==}\n  |   ^^^^\n7 | \n"
       }
     }
   ],
@@ -206,10 +284,12 @@
   },
   "source_hashes": {
     "prefix.bend": "1b430c5346359727bc9567aa55537ab0f64380ab050edaaca7d51e55ad3179e3",
+    "PROOF.bend": "e54df684903a6b6ce693190d7054cdfa03a8a198494b3e831b0c11cb3dbcf091",
     "LAWS.bend": "67d11552ef01d5cac07b8d30c2b183f13239cbdebf09035b2c0d3c765f8fff0a",
     "coherence.bend": "ecb79eddd1a0a9001eb6cca34929a20b79b3c4949956fee689eccbec0fd2f887",
+    "materialization.bend": "1610b5035956448bd80e8771fa2fd2f2adb7364fb3cf2e3dc8e11bcee8500e68",
     "RESIDUAL.bend": "c8e247b49e0da721c4e7e2847577f70079e92356c107ecac09cf95f301cb64ef",
-    "controls.bend": "ca814d341c6b4e530267bfe6fed04baa9c19a64a28203a108d5b732dc8329df3",
+    "controls.bend": "891450823fa4a716c1259ea8d4168a02d673c3e71cb451cbc029cd26d4e8a716",
     "toolkit.bend": "d370e490bcbcfe0a0135943b3e64e2a2ea02c4e438c466baaff5505cd0899dd8"
   },
   "lookup_dependency_hashes": {
@@ -219,8 +299,19 @@
   },
   "query_dependency_hashes": {
     "experiments/p-observe-queries/helpers.bend": "d6a4e2ed063042ef275af99dc4aa5afa26537de4a65b44e78b18847514c7ffb0",
-    "experiments/p-observe-queries/invariants.bend": "172b3fa37a00946d299efa107697ac9eb08da11c59731976777a373ccb56eeaf"
+    "experiments/p-observe-queries/insertion.bend": "513d4038ce6c0d49b211cbc87e254c0c32a5e0fb20c24fca3afe6a6c982fca09",
+    "experiments/p-observe-queries/PROOF.bend": "c19232ce95346de33432e330c259932c814a0fec772a23cac924837742a13394",
+    "experiments/p-observe-queries/order.bend": "5ced479fc833f02cd14b7bc9a75ebd8c6b8fe3c9453c56896df723c2f26914d0",
+    "experiments/p-observe-queries/enum-controls.bend": "a2b857bebae197d736c93835a4986675fe8636555536dcaed5fb8618d44682cb",
+    "experiments/p-observe-queries/complete.bend": "6251ed244326bcb45ecc0a7bca710b9d0e7ec4dcaac1992fa0760d718b456c25",
+    "experiments/p-observe-queries/LAWS.bend": "a158a7b674c9d0de0ff27f68028389910666d0f37c964c51f315ef3306da82dd",
+    "experiments/p-observe-queries/attempt.bend": "656b0f1cca7de6cdd6bd982308c58cf3e4ab7184541f82b331ba78e0c641f819",
+    "experiments/p-observe-queries/intervals.bend": "ecc40a89979abef46b5532a0c6b37c700c2a0f7493392366c4b98883035c6a9d",
+    "experiments/p-observe-queries/contextual.bend": "b47db33a06c55da8fa014f6f5dab2c39a194f314f3a2ccd1cfe24c95153cf3a9",
+    "experiments/p-observe-queries/invariants.bend": "172b3fa37a00946d299efa107697ac9eb08da11c59731976777a373ccb56eeaf",
+    "experiments/p-observe-queries/controls.bend": "ab314daad6b99ffdda49ca680fca8417acc6d5c2bcd192e5e1dadfde78304f55",
+    "experiments/p-observe-queries/enum-lookup.bend": "9746bc7c140857e687b8b3ae23870fd6c55236067ef1fbaed6e3a855e07463bb"
   },
   "base_sha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
-  "runner_sha256": "d4645f2831327a87bf646da7c12b6a3cd96d07f434af276be8c90d2c12801026"
+  "runner_sha256": "2a04078cf1ff7274b862e77263dd764f3d4ee7e18b3fb35d95be149adc50be7a"
 }
