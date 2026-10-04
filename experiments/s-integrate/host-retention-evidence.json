@@ -1,0 +1,7705 @@
+{
+  "status": "PREPARATION_ONLY",
+  "actualJoinedBendExecuted": false,
+  "pending": "Actual parameterized Host invocation and D.tick binding; no E11 runtime gate claimed",
+  "limits": {
+    "checkerSeconds": 5,
+    "referenceExecutionSeconds": 5
+  },
+  "versions": {
+    "bend": "bend 2.0.34\n",
+    "node": "v24.20.0\n"
+  },
+  "sha256": {
+    "reference-retention.mjs": "8d0b2788872cf7460da5ebfbf36e9b8b1af15ffd373feb3330043d447349baa9",
+    "host-retention-controls.bend": "5e0a156ddda636a5fe70c61269aef76feed59d956b2ff4e05db0f2e51ada0565",
+    "host-retention-run.py": "57a8d6e27cdd558330e789ee315387228b5f3898c769c06d3ce24c6e0f3f6cd0",
+    "HOST-RETENTION-LAWS-DRAFT.md": "6b323004ce93993d2cbebe77d1ef474978b7fcc7b7aa057597674ef37e43f5d0",
+    "trace-compare.py": "2cc66b6c15a931f8957b12312794a69fcc3df4fc99ae05cb988f8b8f52b4fb39"
+  },
+  "inputCheck": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\nbend 2.0.35 is available: run bend update\n",
+  "publicReference": [
+    {
+      "schema": "Motion",
+      "lane": "message",
+      "invocations": {
+        "Fast": 4,
+        "B": 4,
+        "Late": 1
+      },
+      "rawReservationIds": {
+        "encoding": "inclusive-contiguous-range",
+        "first": 1,
+        "last": 1,
+        "count": 1
+      },
+      "status": "PASS",
+      "firstDifference": null,
+      "capacity": 65536,
+      "publicOnly": true,
+      "dispatches": [
+        {
+          "name": "seed-payload",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "prime-fast",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "prime-B",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "publish-full",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "fast-full",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "publish-one",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "trim-full",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "B-first-post-drop-fails",
+          "result": {
+            "ok": false,
+            "error": {
+              "kind": "SystemFailure",
+              "system": "B",
+              "error": {
+                "code": 7
+              }
+            }
+          }
+        },
+        {
+          "name": "B-same-instance-retry",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "independent-fast",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "publish-oversized",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "trim-oversized",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "B-oversized-empty-lag",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "Fast-oversized-empty-lag",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "late-registration-no-historical-lag",
+          "result": {
+            "ok": true
+          }
+        }
+      ],
+      "observations": [
+        {
+          "name": "Fast",
+          "label": "prime-fast",
+          "invocation": 1,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "added": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "changed": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "Fast",
+            "frame": 2,
+            "tick": 3,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "B",
+          "label": "prime-B",
+          "invocation": 1,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "added": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "changed": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "B",
+            "frame": 3,
+            "tick": 4,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "Fast",
+          "label": "fast-full",
+          "invocation": 2,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": {
+            "encoding": "inclusive-contiguous-range",
+            "first": 0,
+            "last": 65535,
+            "count": 65536
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "Fast",
+            "frame": 5,
+            "tick": 7,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "B",
+          "label": "B-first-post-drop-fails",
+          "invocation": 2,
+          "attemptFails": true,
+          "q": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": {
+            "encoding": "inclusive-contiguous-range",
+            "first": 65536,
+            "last": 65536,
+            "count": 1
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": true
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": true
+          },
+          "publicDispatcherTrace": {
+            "system": "B",
+            "frame": 8,
+            "tick": 10,
+            "outcome": "failed",
+            "missed": [
+              {
+                "kind": "event",
+                "stream": "MotionPing"
+              }
+            ]
+          }
+        },
+        {
+          "name": "B",
+          "label": "B-same-instance-retry",
+          "invocation": 3,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": {
+            "encoding": "inclusive-contiguous-range",
+            "first": 65536,
+            "last": 65536,
+            "count": 1
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": true
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": true
+          },
+          "publicDispatcherTrace": {
+            "system": "B",
+            "frame": 9,
+            "tick": 11,
+            "outcome": "ok",
+            "missed": [
+              {
+                "kind": "event",
+                "stream": "MotionPing"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Fast",
+          "label": "independent-fast",
+          "invocation": 3,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": {
+            "encoding": "inclusive-contiguous-range",
+            "first": 65536,
+            "last": 65536,
+            "count": 1
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "Fast",
+            "frame": 10,
+            "tick": 12,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "B",
+          "label": "B-oversized-empty-lag",
+          "invocation": 4,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": true
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": true
+          },
+          "publicDispatcherTrace": {
+            "system": "B",
+            "frame": 13,
+            "tick": 15,
+            "outcome": "ok",
+            "missed": [
+              {
+                "kind": "event",
+                "stream": "MotionPing"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Fast",
+          "label": "Fast-oversized-empty-lag",
+          "invocation": 4,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": true
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": true
+          },
+          "publicDispatcherTrace": {
+            "system": "Fast",
+            "frame": 14,
+            "tick": 16,
+            "outcome": "ok",
+            "missed": [
+              {
+                "kind": "event",
+                "stream": "MotionPing"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Late",
+          "label": "late-registration-no-historical-lag",
+          "invocation": 1,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "added": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "changed": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "Late",
+            "frame": 15,
+            "tick": 17,
+            "outcome": "ok",
+            "missed": []
+          }
+        }
+      ],
+      "limits": "TS public reference prerequisite only; no integrated Bend/runtime-refinement claim. Range encoding checks every element before compression."
+    },
+    {
+      "schema": "Motion",
+      "lane": "removed",
+      "invocations": {
+        "Fast": 4,
+        "B": 4,
+        "Late": 1
+      },
+      "rawReservationIds": {
+        "encoding": "inclusive-contiguous-range",
+        "first": 1,
+        "last": 65537,
+        "count": 65537
+      },
+      "status": "PASS",
+      "firstDifference": null,
+      "capacity": 65536,
+      "publicOnly": true,
+      "dispatches": [
+        {
+          "name": "prime-fast",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "prime-B",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "spawn-capacity-plus-one",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "Fast-all-added-full-fields",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "B-all-added-full-fields",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "Fast-removals-before-trim",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "capacity-trim",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "late-registration-retained-records-no-historical-lag",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "B-first-post-drop-fails",
+          "result": {
+            "ok": false,
+            "error": {
+              "kind": "SystemFailure",
+              "system": "B",
+              "error": {
+                "code": 7
+              }
+            }
+          }
+        },
+        {
+          "name": "B-same-instance-retry",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "independent-fast-empty-not-lagged",
+          "result": {
+            "ok": true
+          }
+        }
+      ],
+      "observations": [
+        {
+          "name": "Fast",
+          "label": "prime-fast",
+          "invocation": 1,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "Fast",
+            "frame": 1,
+            "tick": 1,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "B",
+          "label": "prime-B",
+          "invocation": 1,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "B",
+            "frame": 2,
+            "tick": 2,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "Fast",
+          "label": "Fast-all-added-full-fields",
+          "invocation": 2,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 65546,
+              "count": 65537
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 65537,
+              "count": 65537
+            },
+            "allMainAndAuxFieldsCompared": 65537,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "added": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 65546,
+              "count": 65537
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 65537,
+              "count": 65537
+            },
+            "allMainAndAuxFieldsCompared": 65537,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "changed": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 65546,
+              "count": 65537
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 65537,
+              "count": 65537
+            },
+            "allMainAndAuxFieldsCompared": 65537,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "Fast",
+            "frame": 4,
+            "tick": 5,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "B",
+          "label": "B-all-added-full-fields",
+          "invocation": 2,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 65546,
+              "count": 65537
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 65537,
+              "count": 65537
+            },
+            "allMainAndAuxFieldsCompared": 65537,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "added": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 65546,
+              "count": 65537
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 65537,
+              "count": 65537
+            },
+            "allMainAndAuxFieldsCompared": 65537,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "changed": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 65546,
+              "count": 65537
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 65537,
+              "count": 65537
+            },
+            "allMainAndAuxFieldsCompared": 65537,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "B",
+            "frame": 5,
+            "tick": 6,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "Fast",
+          "label": "Fast-removals-before-trim",
+          "invocation": 3,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "removed": {
+            "encoding": "inclusive-contiguous-range",
+            "first": 1,
+            "last": 65537,
+            "count": 65537
+          },
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "Fast",
+            "frame": 6,
+            "tick": 9,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "Late",
+          "label": "late-registration-retained-records-no-historical-lag",
+          "invocation": 1,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "removed": {
+            "encoding": "inclusive-contiguous-range",
+            "first": 2,
+            "last": 65537,
+            "count": 65536
+          },
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "Late",
+            "frame": 8,
+            "tick": 10,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "B",
+          "label": "B-first-post-drop-fails",
+          "invocation": 3,
+          "attemptFails": true,
+          "q": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "removed": {
+            "encoding": "inclusive-contiguous-range",
+            "first": 2,
+            "last": 65537,
+            "count": 65536
+          },
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": true,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": true,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "B",
+            "frame": 9,
+            "tick": 11,
+            "outcome": "failed",
+            "missed": [
+              {
+                "kind": "removed",
+                "stream": "Position"
+              }
+            ]
+          }
+        },
+        {
+          "name": "B",
+          "label": "B-same-instance-retry",
+          "invocation": 4,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "removed": {
+            "encoding": "inclusive-contiguous-range",
+            "first": 2,
+            "last": 65537,
+            "count": 65536
+          },
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": true,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": true,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "B",
+            "frame": 10,
+            "tick": 12,
+            "outcome": "ok",
+            "missed": [
+              {
+                "kind": "removed",
+                "stream": "Position"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Fast",
+          "label": "independent-fast-empty-not-lagged",
+          "invocation": 4,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "Fast",
+            "frame": 11,
+            "tick": 13,
+            "outcome": "ok",
+            "missed": []
+          }
+        }
+      ],
+      "limits": "TS public reference prerequisite only; no integrated Bend/runtime-refinement claim. Range encoding checks every element before compression."
+    },
+    {
+      "schema": "Motion",
+      "lane": "despawned",
+      "invocations": {
+        "Fast": 4,
+        "B": 4,
+        "Late": 1
+      },
+      "rawReservationIds": {
+        "encoding": "inclusive-contiguous-range",
+        "first": 1,
+        "last": 65537,
+        "count": 65537
+      },
+      "status": "PASS",
+      "firstDifference": null,
+      "capacity": 65536,
+      "publicOnly": true,
+      "dispatches": [
+        {
+          "name": "prime-fast",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "prime-B",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "spawn-capacity-plus-one",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "Fast-all-added-full-fields",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "B-all-added-full-fields",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "Fast-removals-before-trim",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "capacity-trim",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "late-registration-retained-records-no-historical-lag",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "B-first-post-drop-fails",
+          "result": {
+            "ok": false,
+            "error": {
+              "kind": "SystemFailure",
+              "system": "B",
+              "error": {
+                "code": 7
+              }
+            }
+          }
+        },
+        {
+          "name": "B-same-instance-retry",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "independent-fast-empty-not-lagged",
+          "result": {
+            "ok": true
+          }
+        }
+      ],
+      "observations": [
+        {
+          "name": "Fast",
+          "label": "prime-fast",
+          "invocation": 1,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "Fast",
+            "frame": 1,
+            "tick": 1,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "B",
+          "label": "prime-B",
+          "invocation": 1,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "B",
+            "frame": 2,
+            "tick": 2,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "Fast",
+          "label": "Fast-all-added-full-fields",
+          "invocation": 2,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 65546,
+              "count": 65537
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 65537,
+              "count": 65537
+            },
+            "allMainAndAuxFieldsCompared": 65537,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "added": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 65546,
+              "count": 65537
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 65537,
+              "count": 65537
+            },
+            "allMainAndAuxFieldsCompared": 65537,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "changed": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 65546,
+              "count": 65537
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 65537,
+              "count": 65537
+            },
+            "allMainAndAuxFieldsCompared": 65537,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "Fast",
+            "frame": 4,
+            "tick": 5,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "B",
+          "label": "B-all-added-full-fields",
+          "invocation": 2,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 65546,
+              "count": 65537
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 65537,
+              "count": 65537
+            },
+            "allMainAndAuxFieldsCompared": 65537,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "added": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 65546,
+              "count": 65537
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 65537,
+              "count": 65537
+            },
+            "allMainAndAuxFieldsCompared": 65537,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "changed": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 65546,
+              "count": 65537
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 65537,
+              "count": 65537
+            },
+            "allMainAndAuxFieldsCompared": 65537,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "B",
+            "frame": 5,
+            "tick": 6,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "Fast",
+          "label": "Fast-removals-before-trim",
+          "invocation": 3,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "removed": {
+            "encoding": "inclusive-contiguous-range",
+            "first": 1,
+            "last": 65537,
+            "count": 65537
+          },
+          "despawned": {
+            "encoding": "inclusive-contiguous-range",
+            "first": 1,
+            "last": 65537,
+            "count": 65537
+          },
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "Fast",
+            "frame": 6,
+            "tick": 9,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "Late",
+          "label": "late-registration-retained-records-no-historical-lag",
+          "invocation": 1,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "removed": {
+            "encoding": "inclusive-contiguous-range",
+            "first": 2,
+            "last": 65537,
+            "count": 65536
+          },
+          "despawned": {
+            "encoding": "inclusive-contiguous-range",
+            "first": 2,
+            "last": 65537,
+            "count": 65536
+          },
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "Late",
+            "frame": 8,
+            "tick": 10,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "B",
+          "label": "B-first-post-drop-fails",
+          "invocation": 3,
+          "attemptFails": true,
+          "q": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "removed": {
+            "encoding": "inclusive-contiguous-range",
+            "first": 2,
+            "last": 65537,
+            "count": 65536
+          },
+          "despawned": {
+            "encoding": "inclusive-contiguous-range",
+            "first": 2,
+            "last": 65537,
+            "count": 65536
+          },
+          "messages": [],
+          "lag": {
+            "removed": true,
+            "despawned": true,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": true,
+            "despawned": true,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "B",
+            "frame": 9,
+            "tick": 11,
+            "outcome": "failed",
+            "missed": [
+              {
+                "kind": "removed",
+                "stream": "Position"
+              },
+              {
+                "kind": "despawned",
+                "stream": "despawned"
+              }
+            ]
+          }
+        },
+        {
+          "name": "B",
+          "label": "B-same-instance-retry",
+          "invocation": 4,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "removed": {
+            "encoding": "inclusive-contiguous-range",
+            "first": 2,
+            "last": 65537,
+            "count": 65536
+          },
+          "despawned": {
+            "encoding": "inclusive-contiguous-range",
+            "first": 2,
+            "last": 65537,
+            "count": 65536
+          },
+          "messages": [],
+          "lag": {
+            "removed": true,
+            "despawned": true,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": true,
+            "despawned": true,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "B",
+            "frame": 10,
+            "tick": 12,
+            "outcome": "ok",
+            "missed": [
+              {
+                "kind": "removed",
+                "stream": "Position"
+              },
+              {
+                "kind": "despawned",
+                "stream": "despawned"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Fast",
+          "label": "independent-fast-empty-not-lagged",
+          "invocation": 4,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "Fast",
+            "frame": 11,
+            "tick": 13,
+            "outcome": "ok",
+            "missed": []
+          }
+        }
+      ],
+      "limits": "TS public reference prerequisite only; no integrated Bend/runtime-refinement claim. Range encoding checks every element before compression."
+    },
+    {
+      "schema": "Motion",
+      "lane": "unheld",
+      "invocations": {
+        "Fast": 1
+      },
+      "rawReservationIds": {
+        "encoding": "inclusive-contiguous-range",
+        "first": 1,
+        "last": 2,
+        "count": 2
+      },
+      "status": "PASS",
+      "firstDifference": null,
+      "capacity": 65536,
+      "publicOnly": true,
+      "dispatches": [
+        {
+          "name": "spawn-unheld",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "delete-unheld",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "empty1",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "empty2",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "empty3",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "first-Fast-no-history-or-lag",
+          "result": {
+            "ok": true
+          }
+        }
+      ],
+      "observations": [
+        {
+          "name": "Fast",
+          "label": "first-Fast-no-history-or-lag",
+          "invocation": 1,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "Fast",
+            "frame": 6,
+            "tick": 5,
+            "outcome": "ok",
+            "missed": []
+          }
+        }
+      ],
+      "limits": "TS public reference prerequisite only; no integrated Bend/runtime-refinement claim. Range encoding checks every element before compression."
+    },
+    {
+      "schema": "Motion",
+      "lane": "marks",
+      "invocations": {
+        "Fast": 2,
+        "B": 1
+      },
+      "rawReservationIds": {
+        "encoding": "inclusive-contiguous-range",
+        "first": 1,
+        "last": 1,
+        "count": 1
+      },
+      "status": "PASS",
+      "firstDifference": null,
+      "capacity": 65536,
+      "publicOnly": true,
+      "dispatches": [
+        {
+          "name": "prime-fast",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "spawn",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "Fast-seed",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "write-slot0",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "empty1",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "empty2",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "empty3",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "first-B-old-surviving-marks",
+          "result": {
+            "ok": true
+          }
+        }
+      ],
+      "observations": [
+        {
+          "name": "Fast",
+          "label": "prime-fast",
+          "invocation": 1,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "Fast",
+            "frame": 1,
+            "tick": 1,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "Fast",
+          "label": "Fast-seed",
+          "invocation": 2,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "added": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "changed": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "Fast",
+            "frame": 3,
+            "tick": 4,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "B",
+          "label": "first-B-old-surviving-marks",
+          "invocation": 1,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": 11,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "added": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": 11,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "changed": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": 11,
+            "payload": {
+              "coordinates": "[x,x+1,x+2,x+3]",
+              "frame": 7
+            },
+            "aux": {
+              "rates": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "moving": true
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "B",
+            "frame": 8,
+            "tick": 6,
+            "outcome": "ok",
+            "missed": []
+          }
+        }
+      ],
+      "limits": "TS public reference prerequisite only; no integrated Bend/runtime-refinement claim. Range encoding checks every element before compression."
+    },
+    {
+      "schema": "Health",
+      "lane": "message",
+      "invocations": {
+        "Fast": 4,
+        "B": 4,
+        "Late": 1
+      },
+      "rawReservationIds": {
+        "encoding": "inclusive-contiguous-range",
+        "first": 1,
+        "last": 1,
+        "count": 1
+      },
+      "status": "PASS",
+      "firstDifference": null,
+      "capacity": 65536,
+      "publicOnly": true,
+      "dispatches": [
+        {
+          "name": "seed-payload",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "prime-fast",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "prime-B",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "publish-full",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "fast-full",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "publish-one",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "trim-full",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "B-first-post-drop-fails",
+          "result": {
+            "ok": false,
+            "error": {
+              "kind": "SystemFailure",
+              "system": "B",
+              "error": {
+                "code": 7
+              }
+            }
+          }
+        },
+        {
+          "name": "B-same-instance-retry",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "independent-fast",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "publish-oversized",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "trim-oversized",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "B-oversized-empty-lag",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "Fast-oversized-empty-lag",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "late-registration-no-historical-lag",
+          "result": {
+            "ok": true
+          }
+        }
+      ],
+      "observations": [
+        {
+          "name": "Fast",
+          "label": "prime-fast",
+          "invocation": 1,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "added": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "changed": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "Fast",
+            "frame": 2,
+            "tick": 3,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "B",
+          "label": "prime-B",
+          "invocation": 1,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "added": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "changed": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "B",
+            "frame": 3,
+            "tick": 4,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "Fast",
+          "label": "fast-full",
+          "invocation": 2,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": {
+            "encoding": "inclusive-contiguous-range",
+            "first": 0,
+            "last": 65535,
+            "count": 65536
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "Fast",
+            "frame": 5,
+            "tick": 7,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "B",
+          "label": "B-first-post-drop-fails",
+          "invocation": 2,
+          "attemptFails": true,
+          "q": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": {
+            "encoding": "inclusive-contiguous-range",
+            "first": 65536,
+            "last": 65536,
+            "count": 1
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": true
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": true
+          },
+          "publicDispatcherTrace": {
+            "system": "B",
+            "frame": 8,
+            "tick": 10,
+            "outcome": "failed",
+            "missed": [
+              {
+                "kind": "event",
+                "stream": "HealthPing"
+              }
+            ]
+          }
+        },
+        {
+          "name": "B",
+          "label": "B-same-instance-retry",
+          "invocation": 3,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": {
+            "encoding": "inclusive-contiguous-range",
+            "first": 65536,
+            "last": 65536,
+            "count": 1
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": true
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": true
+          },
+          "publicDispatcherTrace": {
+            "system": "B",
+            "frame": 9,
+            "tick": 11,
+            "outcome": "ok",
+            "missed": [
+              {
+                "kind": "event",
+                "stream": "HealthPing"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Fast",
+          "label": "independent-fast",
+          "invocation": 3,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": {
+            "encoding": "inclusive-contiguous-range",
+            "first": 65536,
+            "last": 65536,
+            "count": 1
+          },
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "Fast",
+            "frame": 10,
+            "tick": 12,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "B",
+          "label": "B-oversized-empty-lag",
+          "invocation": 4,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": true
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": true
+          },
+          "publicDispatcherTrace": {
+            "system": "B",
+            "frame": 13,
+            "tick": 15,
+            "outcome": "ok",
+            "missed": [
+              {
+                "kind": "event",
+                "stream": "HealthPing"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Fast",
+          "label": "Fast-oversized-empty-lag",
+          "invocation": 4,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": true
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": true
+          },
+          "publicDispatcherTrace": {
+            "system": "Fast",
+            "frame": 14,
+            "tick": 16,
+            "outcome": "ok",
+            "missed": [
+              {
+                "kind": "event",
+                "stream": "HealthPing"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Late",
+          "label": "late-registration-no-historical-lag",
+          "invocation": 1,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "added": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "changed": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "Late",
+            "frame": 15,
+            "tick": 17,
+            "outcome": "ok",
+            "missed": []
+          }
+        }
+      ],
+      "limits": "TS public reference prerequisite only; no integrated Bend/runtime-refinement claim. Range encoding checks every element before compression."
+    },
+    {
+      "schema": "Health",
+      "lane": "removed",
+      "invocations": {
+        "Fast": 4,
+        "B": 4,
+        "Late": 1
+      },
+      "rawReservationIds": {
+        "encoding": "inclusive-contiguous-range",
+        "first": 1,
+        "last": 65537,
+        "count": 65537
+      },
+      "status": "PASS",
+      "firstDifference": null,
+      "capacity": 65536,
+      "publicOnly": true,
+      "dispatches": [
+        {
+          "name": "prime-fast",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "prime-B",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "spawn-capacity-plus-one",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "Fast-all-added-full-fields",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "B-all-added-full-fields",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "Fast-removals-before-trim",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "capacity-trim",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "late-registration-retained-records-no-historical-lag",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "B-first-post-drop-fails",
+          "result": {
+            "ok": false,
+            "error": {
+              "kind": "SystemFailure",
+              "system": "B",
+              "error": {
+                "code": 7
+              }
+            }
+          }
+        },
+        {
+          "name": "B-same-instance-retry",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "independent-fast-empty-not-lagged",
+          "result": {
+            "ok": true
+          }
+        }
+      ],
+      "observations": [
+        {
+          "name": "Fast",
+          "label": "prime-fast",
+          "invocation": 1,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "Fast",
+            "frame": 1,
+            "tick": 1,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "B",
+          "label": "prime-B",
+          "invocation": 1,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "B",
+            "frame": 2,
+            "tick": 2,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "Fast",
+          "label": "Fast-all-added-full-fields",
+          "invocation": 2,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 65546,
+              "count": 65537
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 65537,
+              "count": 65537
+            },
+            "allMainAndAuxFieldsCompared": 65537,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "added": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 65546,
+              "count": 65537
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 65537,
+              "count": 65537
+            },
+            "allMainAndAuxFieldsCompared": 65537,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "changed": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 65546,
+              "count": 65537
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 65537,
+              "count": 65537
+            },
+            "allMainAndAuxFieldsCompared": 65537,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "Fast",
+            "frame": 4,
+            "tick": 5,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "B",
+          "label": "B-all-added-full-fields",
+          "invocation": 2,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 65546,
+              "count": 65537
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 65537,
+              "count": 65537
+            },
+            "allMainAndAuxFieldsCompared": 65537,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "added": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 65546,
+              "count": 65537
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 65537,
+              "count": 65537
+            },
+            "allMainAndAuxFieldsCompared": 65537,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "changed": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 65546,
+              "count": 65537
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 65537,
+              "count": 65537
+            },
+            "allMainAndAuxFieldsCompared": 65537,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "B",
+            "frame": 5,
+            "tick": 6,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "Fast",
+          "label": "Fast-removals-before-trim",
+          "invocation": 3,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "removed": {
+            "encoding": "inclusive-contiguous-range",
+            "first": 1,
+            "last": 65537,
+            "count": 65537
+          },
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "Fast",
+            "frame": 6,
+            "tick": 9,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "Late",
+          "label": "late-registration-retained-records-no-historical-lag",
+          "invocation": 1,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "removed": {
+            "encoding": "inclusive-contiguous-range",
+            "first": 2,
+            "last": 65537,
+            "count": 65536
+          },
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "Late",
+            "frame": 8,
+            "tick": 10,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "B",
+          "label": "B-first-post-drop-fails",
+          "invocation": 3,
+          "attemptFails": true,
+          "q": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "removed": {
+            "encoding": "inclusive-contiguous-range",
+            "first": 2,
+            "last": 65537,
+            "count": 65536
+          },
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": true,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": true,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "B",
+            "frame": 9,
+            "tick": 11,
+            "outcome": "failed",
+            "missed": [
+              {
+                "kind": "removed",
+                "stream": "Vitals"
+              }
+            ]
+          }
+        },
+        {
+          "name": "B",
+          "label": "B-same-instance-retry",
+          "invocation": 4,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "removed": {
+            "encoding": "inclusive-contiguous-range",
+            "first": 2,
+            "last": 65537,
+            "count": 65536
+          },
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": true,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": true,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "B",
+            "frame": 10,
+            "tick": 12,
+            "outcome": "ok",
+            "missed": [
+              {
+                "kind": "removed",
+                "stream": "Vitals"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Fast",
+          "label": "independent-fast-empty-not-lagged",
+          "invocation": 4,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "Fast",
+            "frame": 11,
+            "tick": 13,
+            "outcome": "ok",
+            "missed": []
+          }
+        }
+      ],
+      "limits": "TS public reference prerequisite only; no integrated Bend/runtime-refinement claim. Range encoding checks every element before compression."
+    },
+    {
+      "schema": "Health",
+      "lane": "despawned",
+      "invocations": {
+        "Fast": 4,
+        "B": 4,
+        "Late": 1
+      },
+      "rawReservationIds": {
+        "encoding": "inclusive-contiguous-range",
+        "first": 1,
+        "last": 65537,
+        "count": 65537
+      },
+      "status": "PASS",
+      "firstDifference": null,
+      "capacity": 65536,
+      "publicOnly": true,
+      "dispatches": [
+        {
+          "name": "prime-fast",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "prime-B",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "spawn-capacity-plus-one",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "Fast-all-added-full-fields",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "B-all-added-full-fields",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "Fast-removals-before-trim",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "capacity-trim",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "late-registration-retained-records-no-historical-lag",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "B-first-post-drop-fails",
+          "result": {
+            "ok": false,
+            "error": {
+              "kind": "SystemFailure",
+              "system": "B",
+              "error": {
+                "code": 7
+              }
+            }
+          }
+        },
+        {
+          "name": "B-same-instance-retry",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "independent-fast-empty-not-lagged",
+          "result": {
+            "ok": true
+          }
+        }
+      ],
+      "observations": [
+        {
+          "name": "Fast",
+          "label": "prime-fast",
+          "invocation": 1,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "Fast",
+            "frame": 1,
+            "tick": 1,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "B",
+          "label": "prime-B",
+          "invocation": 1,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "B",
+            "frame": 2,
+            "tick": 2,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "Fast",
+          "label": "Fast-all-added-full-fields",
+          "invocation": 2,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 65546,
+              "count": 65537
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 65537,
+              "count": 65537
+            },
+            "allMainAndAuxFieldsCompared": 65537,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "added": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 65546,
+              "count": 65537
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 65537,
+              "count": 65537
+            },
+            "allMainAndAuxFieldsCompared": 65537,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "changed": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 65546,
+              "count": 65537
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 65537,
+              "count": 65537
+            },
+            "allMainAndAuxFieldsCompared": 65537,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "Fast",
+            "frame": 4,
+            "tick": 5,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "B",
+          "label": "B-all-added-full-fields",
+          "invocation": 2,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 65546,
+              "count": 65537
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 65537,
+              "count": 65537
+            },
+            "allMainAndAuxFieldsCompared": 65537,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "added": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 65546,
+              "count": 65537
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 65537,
+              "count": 65537
+            },
+            "allMainAndAuxFieldsCompared": 65537,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "changed": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 65546,
+              "count": 65537
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 65537,
+              "count": 65537
+            },
+            "allMainAndAuxFieldsCompared": 65537,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "B",
+            "frame": 5,
+            "tick": 6,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "Fast",
+          "label": "Fast-removals-before-trim",
+          "invocation": 3,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "removed": {
+            "encoding": "inclusive-contiguous-range",
+            "first": 1,
+            "last": 65537,
+            "count": 65537
+          },
+          "despawned": {
+            "encoding": "inclusive-contiguous-range",
+            "first": 1,
+            "last": 65537,
+            "count": 65537
+          },
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "Fast",
+            "frame": 6,
+            "tick": 9,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "Late",
+          "label": "late-registration-retained-records-no-historical-lag",
+          "invocation": 1,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "removed": {
+            "encoding": "inclusive-contiguous-range",
+            "first": 2,
+            "last": 65537,
+            "count": 65536
+          },
+          "despawned": {
+            "encoding": "inclusive-contiguous-range",
+            "first": 2,
+            "last": 65537,
+            "count": 65536
+          },
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "Late",
+            "frame": 8,
+            "tick": 10,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "B",
+          "label": "B-first-post-drop-fails",
+          "invocation": 3,
+          "attemptFails": true,
+          "q": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "removed": {
+            "encoding": "inclusive-contiguous-range",
+            "first": 2,
+            "last": 65537,
+            "count": 65536
+          },
+          "despawned": {
+            "encoding": "inclusive-contiguous-range",
+            "first": 2,
+            "last": 65537,
+            "count": 65536
+          },
+          "messages": [],
+          "lag": {
+            "removed": true,
+            "despawned": true,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": true,
+            "despawned": true,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "B",
+            "frame": 9,
+            "tick": 11,
+            "outcome": "failed",
+            "missed": [
+              {
+                "kind": "removed",
+                "stream": "Vitals"
+              },
+              {
+                "kind": "despawned",
+                "stream": "despawned"
+              }
+            ]
+          }
+        },
+        {
+          "name": "B",
+          "label": "B-same-instance-retry",
+          "invocation": 4,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "removed": {
+            "encoding": "inclusive-contiguous-range",
+            "first": 2,
+            "last": 65537,
+            "count": 65536
+          },
+          "despawned": {
+            "encoding": "inclusive-contiguous-range",
+            "first": 2,
+            "last": 65537,
+            "count": 65536
+          },
+          "messages": [],
+          "lag": {
+            "removed": true,
+            "despawned": true,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": true,
+            "despawned": true,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "B",
+            "frame": 10,
+            "tick": 12,
+            "outcome": "ok",
+            "missed": [
+              {
+                "kind": "removed",
+                "stream": "Vitals"
+              },
+              {
+                "kind": "despawned",
+                "stream": "despawned"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Fast",
+          "label": "independent-fast-empty-not-lagged",
+          "invocation": 4,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "Fast",
+            "frame": 11,
+            "tick": 13,
+            "outcome": "ok",
+            "missed": []
+          }
+        }
+      ],
+      "limits": "TS public reference prerequisite only; no integrated Bend/runtime-refinement claim. Range encoding checks every element before compression."
+    },
+    {
+      "schema": "Health",
+      "lane": "unheld",
+      "invocations": {
+        "Fast": 1
+      },
+      "rawReservationIds": {
+        "encoding": "inclusive-contiguous-range",
+        "first": 1,
+        "last": 2,
+        "count": 2
+      },
+      "status": "PASS",
+      "firstDifference": null,
+      "capacity": 65536,
+      "publicOnly": true,
+      "dispatches": [
+        {
+          "name": "spawn-unheld",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "delete-unheld",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "empty1",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "empty2",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "empty3",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "first-Fast-no-history-or-lag",
+          "result": {
+            "ok": true
+          }
+        }
+      ],
+      "observations": [
+        {
+          "name": "Fast",
+          "label": "first-Fast-no-history-or-lag",
+          "invocation": 1,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "Fast",
+            "frame": 6,
+            "tick": 5,
+            "outcome": "ok",
+            "missed": []
+          }
+        }
+      ],
+      "limits": "TS public reference prerequisite only; no integrated Bend/runtime-refinement claim. Range encoding checks every element before compression."
+    },
+    {
+      "schema": "Health",
+      "lane": "marks",
+      "invocations": {
+        "Fast": 2,
+        "B": 1
+      },
+      "rawReservationIds": {
+        "encoding": "inclusive-contiguous-range",
+        "first": 1,
+        "last": 1,
+        "count": 1
+      },
+      "status": "PASS",
+      "firstDifference": null,
+      "capacity": 65536,
+      "publicOnly": true,
+      "dispatches": [
+        {
+          "name": "prime-fast",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "spawn",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "Fast-seed",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "write-slot0",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "empty1",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "empty2",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "empty3",
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "name": "first-B-old-surviving-marks",
+          "result": {
+            "ok": true
+          }
+        }
+      ],
+      "observations": [
+        {
+          "name": "Fast",
+          "label": "prime-fast",
+          "invocation": 1,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "added": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "changed": {
+            "payloadParameterX": [],
+            "flag": {
+              "group": 8
+            },
+            "ids": [],
+            "allMainAndAuxFieldsCompared": 0,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "Fast",
+            "frame": 1,
+            "tick": 1,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "Fast",
+          "label": "Fast-seed",
+          "invocation": 2,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "added": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "changed": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": null,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "Fast",
+            "frame": 3,
+            "tick": 4,
+            "outcome": "ok",
+            "missed": []
+          }
+        },
+        {
+          "name": "B",
+          "label": "first-B-old-surviving-marks",
+          "invocation": 1,
+          "attemptFails": false,
+          "q": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": 11,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "added": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": 11,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "changed": {
+            "payloadParameterX": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 10,
+              "last": 10,
+              "count": 1
+            },
+            "flag": {
+              "group": 8
+            },
+            "ids": {
+              "encoding": "inclusive-contiguous-range",
+              "first": 1,
+              "last": 1,
+              "count": 1
+            },
+            "allMainAndAuxFieldsCompared": 1,
+            "currentSlot0": 11,
+            "payload": {
+              "levels": "[x,x+1,x+2,x+3]",
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            }
+          },
+          "removed": [],
+          "despawned": [],
+          "messages": [],
+          "lag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "expectedLag": {
+            "removed": false,
+            "despawned": false,
+            "messages": false
+          },
+          "publicDispatcherTrace": {
+            "system": "B",
+            "frame": 8,
+            "tick": 6,
+            "outcome": "ok",
+            "missed": []
+          }
+        }
+      ],
+      "limits": "TS public reference prerequisite only; no integrated Bend/runtime-refinement claim. Range encoding checks every element before compression."
+    }
+  ],
+  "oraclePerturbations": [
+    {
+      "name": "dropped-last-message",
+      "firstDifference": {
+        "path": "$.Motion/message.observations[2].messages.last",
+        "expected": 65535,
+        "actual": 65534
+      }
+    },
+    {
+      "name": "wrong-full-payload-field",
+      "firstDifference": {
+        "path": "$.Motion/removed.observations[2].q.payload.frame",
+        "expected": 7,
+        "actual": 999
+      }
+    },
+    {
+      "name": "wrong-last-row",
+      "firstDifference": {
+        "path": "$.Motion/removed.observations[2].q.ids.last",
+        "expected": 65537,
+        "actual": 65536
+      }
+    },
+    {
+      "name": "wrong-compared-row-count",
+      "firstDifference": {
+        "path": "$.Motion/removed.observations[2].q.allMainAndAuxFieldsCompared",
+        "expected": 65537,
+        "actual": 65536
+      }
+    },
+    {
+      "name": "lost-old-surviving-marks",
+      "firstDifference": {
+        "path": "$.Motion/marks.observations[2].changed.allMainAndAuxFieldsCompared",
+        "error": "missing field"
+      }
+    },
+    {
+      "name": "incorrect-lag",
+      "firstDifference": {
+        "path": "$.Motion/message.observations[8].lag.messages",
+        "expected": false,
+        "actual": true
+      }
+    },
+    {
+      "name": "wrong-base-invocation-count",
+      "firstDifference": {
+        "path": "$.Motion/message.invocations.B",
+        "expected": 4,
+        "actual": 3
+      }
+    },
+    {
+      "name": "dropped-reader-dispatch",
+      "firstDifference": {
+        "path": "$.Motion/message.observations",
+        "expected_length": 9,
+        "actual_length": 8
+      }
+    },
+    {
+      "name": "wrong-failure-code",
+      "firstDifference": {
+        "path": "$.Motion/message.dispatches[7].result.error.error.code",
+        "expected": 7,
+        "actual": 999
+      }
+    },
+    {
+      "name": "missing-lane",
+      "rejected": "requires all ten distinct public cases"
+    },
+    {
+      "name": "duplicate-lane",
+      "rejected": "duplicate lane Motion/message"
+    }
+  ]
+}
