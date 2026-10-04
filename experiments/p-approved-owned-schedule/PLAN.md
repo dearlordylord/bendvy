@@ -49,3 +49,12 @@ actual updated owner/old scalar, proves that Array.size has the same count befor
 and after, and that get.go on the same chosen path observes the new scalar.
 Compose with actual size/index masking for public Array.set/get. This proves only
 the selected point required by Bump; no full-array content law is asserted.
+
+Primitive frame inventory before execution: RowsResult/WorldResult retain actual
+owners and tie them to R operations and raw M projections. Command modification
+uses the separately proved U32 equality bridge, preserves payload observations
+under tag changes and removes exactly the selected cells; apply-all induction
+threads each returned owner and projected FIFO sequence. Reserve/Publish use
+actual word decisions, command projection append and increment caller guards.
+These narrower executable links are composed into the approved schedule; no
+independent S-step/projection catalogue theorem is filled.

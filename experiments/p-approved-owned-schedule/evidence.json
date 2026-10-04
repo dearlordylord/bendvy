@@ -1,5 +1,5 @@
 {
-  "status": "PARTIAL: full-domain empty schedule and contextual actual-owner/array point helpers; full nonempty endpoint remains open",
+  "status": "PARTIAL: full-domain empty schedule, actual-owner/array point helpers, Reserve/Publish/FIFO/Barrier and selected safe Bump cell; full nonempty endpoint remains open",
   "baseline": "8e149fd",
   "version": "bend 2.0.34",
   "compiler": "d4821d04932218216c9dc906223ed0e23dd86726d4357a567fb76ee6c976db4e",
@@ -14,18 +14,32 @@
     "experiments/p-owned-route/PROPOSED.bend": "8e400d78b08530ff17295fa32190d0cf93b1f4641816d2710506b64a8ae2940b"
   },
   "closure": {
+    "experiments/p-approved-owned-schedule/allocation.bend": "8af13ac977fe639bc14118fb3178a735dc8a2db984f1e473fed1e978cdc609f7",
     "experiments/p-approved-owned-schedule/arrays.bend": "bf0980b15e1f9fd423ab4dbc6d7990cb3845d055d7a8c2b29e1695898eb0f310",
+    "experiments/p-approved-owned-schedule/barrier.bend": "71213b099eb31173049b166e6817c30d5db15e5fd842105b106cf3378e3a0ce3",
+    "experiments/p-approved-owned-schedule/bump.bend": "e65c3d33e3444e48e3841c71f882bba8dcbd58e8ede4fa46b9b4e8c3c4addc01",
     "experiments/p-approved-owned-schedule/capture.bend": "73cfa48b79b1f73ca06f616fe944a81dc2800be75867901cfa80ddc7bee4be42",
+    "experiments/p-approved-owned-schedule/commands.bend": "55a6bdbd8e0819080c181061ac1a6fe3d066e556d0d1285896d23ceb66b5f481",
     "experiments/p-approved-owned-schedule/controls.bend": "f9301d309e35560bc323a0eb1234d2492af8868271d062e29b433e20f6cac2f4",
     "experiments/p-approved-owned-schedule/empty-witness.bend": "0aa3e9f57fda5428ccefa5295cabc79c750da6ca41a5b596e64a38f2ee4ffad4",
     "experiments/p-approved-owned-schedule/empty.bend": "42385435b2324b7ea97f3b24af288e28a5588c78c0d2b92a23fb78c66e19da0a",
+    "experiments/p-approved-owned-schedule/frames.bend": "edae73d200588541c2989a387b264b4cfda062c68e551b15cc33649e195c0ef6",
     "experiments/p-approved-owned-schedule/point.bend": "62abc8cb2a9766c50687a4d733b6696480daf703185e2baaf50e134074f35e01",
+    "experiments/p-approved-owned-schedule/primitive-controls.bend": "bf59556d2359f1b7f58fef04228711a5c553d1a53f178916eec1fde693587d61",
+    "experiments/p-approved-owned-word-context/helpers.bend": "32103c04f62d5c8b60fe551f7da77d1fa7b75787e071b292e3f679c31f4d8bc7",
+    "experiments/p-approved-u32-comparison/LAWS.bend": "129ea622b5408fdf5b308f129e69377d2fdbdbc822ace512f2e2900497ef89f1",
+    "experiments/p-approved-u32-comparison/PROOF.bend": "073153f8dd097c6b4357a364f86149861db1e15271d59e60c5aceecd0dca225e",
+    "experiments/p-approved-u32-comparison/structural.bend": "042fd0626a45602f7be880046ffc349e674a8be1b61c1db7411a4a6b82aec9eb",
+    "experiments/p-approved-u32-increment/LAWS.bend": "9804c0cf8cba3e330c94e4db6e53dd0c112d0873b446743bd55369b6e71916dd",
+    "experiments/p-approved-u32-increment/PROOF.bend": "13e82a4c268019237134acf0199ef103e6c9f6bdd8470938445738a1e220d593",
     "experiments/p-observe-queries/complete.bend": "6251ed244326bcb45ecc0a7bca710b9d0e7ec4dcaac1992fa0760d718b456c25",
     "experiments/p-observe-queries/helpers.bend": "d6a4e2ed063042ef275af99dc4aa5afa26537de4a65b44e78b18847514c7ffb0",
     "experiments/p-observe-queries/insertion.bend": "513d4038ce6c0d49b211cbc87e254c0c32a5e0fb20c24fca3afe6a6c982fca09",
     "experiments/p-observe-queries/intervals.bend": "ecc40a89979abef46b5532a0c6b37c700c2a0f7493392366c4b98883035c6a9d",
     "experiments/p-observe-queries/invariants.bend": "172b3fa37a00946d299efa107697ac9eb08da11c59731976777a373ccb56eeaf",
     "experiments/p-observe-queries/order.bend": "5ced479fc833f02cd14b7bc9a75ebd8c6b8fe3c9453c56896df723c2f26914d0",
+    "experiments/p-owned-arithmetic/structural.bend": "39e6edaa38954a53097b04488c36648dc5f1613d23d84a86a9a0bf4f61edc996",
+    "experiments/t11-replacement/bridge.bend": "c20d2d4bac15b3bf4bff7a20a28a140f6f74862081ffff23955cdc6326441f80",
     "experiments/t11-replacement/model.bend": "53ac1f776c721a5bea0c063eefe229c1d43b4e09d95a269e283fe900a2934c40",
     "experiments/t11-replacement/owned-spec.bend": "edca58e81a96e03109e2d575146eee456ee543b20746519bfef202d047a9e50e",
     "experiments/t11-replacement/runtime.bend": "014ed398324f257ced9985f1db29a94dd74f34952dd3aa3c2b11809118502550",
@@ -113,6 +127,76 @@
     },
     {
       "file": "empty-witness.bend",
+      "kernel": true,
+      "kernel_negative": false,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "commands.bend",
+      "kernel": false,
+      "kernel_negative": false,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "commands.bend",
+      "kernel": true,
+      "kernel_negative": false,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "allocation.bend",
+      "kernel": false,
+      "kernel_negative": false,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "allocation.bend",
+      "kernel": true,
+      "kernel_negative": false,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "barrier.bend",
+      "kernel": false,
+      "kernel_negative": false,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "barrier.bend",
+      "kernel": true,
+      "kernel_negative": false,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "bump.bend",
+      "kernel": false,
+      "kernel_negative": false,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "bump.bend",
+      "kernel": true,
+      "kernel_negative": false,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "primitive-controls.bend",
+      "kernel": false,
+      "kernel_negative": false,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "primitive-controls.bend",
       "kernel": true,
       "kernel_negative": false,
       "exit": 0,

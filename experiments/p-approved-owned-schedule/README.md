@@ -36,10 +36,18 @@ The empty case now imports only its needed query-completeness dependencies and
 constructs terminal observation directly; the full runner passes unchanged limits.
 Earlier standalone passes are not substituted for this final runner evidence.
 
-Remaining: arithmetic caller guards/equality links (separate worker package),
-runtime Reserve/Publish/Bump/Barrier projection, independent safe-prefix transport
-(separate package), actual owner-threaded schedule induction, full endpoint and
-its own complete-law controls/mutants. Existing arithmetic and pure Nat schedule
+The second checkpoint adds actual returned-owner `RowsResult`/`WorldResult`
+frames for every Reserve/Publish and mixed FIFO/Barrier input, plus a selected
+Bump cell under its exact no-overflow premise. `allocation.bend` uses the actual
+inline comparison/addition and separately proved caller guards; `commands.bend`
+handles tag changes/despawn and new owned payload arrays; `bump.bend` connects the
+actual read/add/set/read point to Nat successor on arbitrary arrays. Small controls
+exercise reservation rejection, foreign publication, noncommuting FIFO actions and
+an unbalanced-array Bump. These helpers also pass checker/kernel in the runner.
+
+Remaining: member-wise Bump guard/row integration, composing the independently
+delivered ModelSafe transport into actual owner-threaded schedule induction, full
+endpoint and its own complete-law controls/mutants. Existing arithmetic and pure Nat schedule
 proofs are dependencies, not evidence that these residuals have been discharged.
 No production owner API, allocator/root policy, full-array preservation, readers,
 transaction rollback, performance or #18 completion is claimed.
