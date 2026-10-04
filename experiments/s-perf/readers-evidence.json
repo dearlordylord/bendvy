@@ -1,0 +1,418 @@
+{
+  "scope": "aligned TS Readers descriptor construction and complete finite observations; no Bend candidate gate or seven-sample ratio claim",
+  "cpuAffinity": [
+    5
+  ],
+  "node": "v24.20.0",
+  "referenceCommit": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334",
+  "sources": {
+    "s-perf/readers-reference.mjs": "e2d2eaeda0462ec79573377b2d50af19154d3cb5d670c0b273e85a4130ee022e",
+    "s-perf/readers-verify.py": "ff4e9a0ed9a2ff55027c139e4534f163e35bc9bcdf269985c38d07a8424a7842",
+    "s-integrate/measurement-reference.mjs": "039edf1ec9905ad39c94bf4fcd9850610615251bd8b72e044b93fb7aa7c90376",
+    "s-integrate/measurement-samples-readers-run.py": "e7dd80369a6fea2ef780e8d01e8f35d9dfb13175ae7f2f48cf839ff81001f58a",
+    "s-integrate/measurement-readers-run.py": "e537acb490d625cdfb67e0bc011778cb36ef4bc65a8508d44afd4b2b08806ca5",
+    "s-integrate/measurement-samples-readers.bend": "525791d08371a62bd5b6c327316c103083e310da7383f5b95652da1c421d6265",
+    "s-integrate/measurement-readers.bend": "319b82558f3ebce5758df7a1ad51fa04c1341b386281a8f32a0b6a717e21f7e1"
+  },
+  "limits": {
+    "syntaxCheck": 5,
+    "runtime": 5
+  },
+  "cases": [
+    {
+      "schema": "Motion",
+      "count": 64,
+      "status": "PASS",
+      "wholeProcessSeconds": 0.6382317659445107,
+      "exitCode": 0,
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy-worktrees/perf-readers/experiments/s-perf/readers-reference.mjs",
+        "Motion",
+        "64"
+      ],
+      "validation": {
+        "milliseconds": 116.54813999999999,
+        "warmupMilliseconds": 41.887989000000005,
+        "freshMeasuredWorlds": 1,
+        "fullReadObservationsPerWorld": 84,
+        "finalSha256": "839e0b8f36c180e70c69a772e372f5fcdea2acb0544b220fe6973890edde63c0",
+        "fullRowsCompared": 11744,
+        "descriptorAudit": [
+          {
+            "name": "Seed",
+            "timed": false
+          },
+          {
+            "name": "Spawn",
+            "timed": false
+          },
+          {
+            "name": "Update",
+            "timed": false
+          },
+          {
+            "name": "Dispose",
+            "timed": false
+          },
+          {
+            "name": "Fast",
+            "timed": false
+          },
+          {
+            "name": "Slow",
+            "timed": false
+          },
+          {
+            "name": "Dump",
+            "timed": false
+          }
+        ],
+        "auditSha256": "bbf23320922d5e6eaef013aadbe6cca1d4240fdd066f1ebb4b04a47f31e9892f"
+      }
+    },
+    {
+      "schema": "Motion",
+      "count": 256,
+      "status": "PASS",
+      "wholeProcessSeconds": 0.36225294694304466,
+      "exitCode": 0,
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy-worktrees/perf-readers/experiments/s-perf/readers-reference.mjs",
+        "Motion",
+        "256"
+      ],
+      "validation": {
+        "milliseconds": 40.456019000000026,
+        "warmupMilliseconds": 22.903366000000034,
+        "freshMeasuredWorlds": 1,
+        "fullReadObservationsPerWorld": 84,
+        "finalSha256": "0922da52ffba8522e4233ebae43269c5408fa9ea96d9375ca60c7c015e5d6378",
+        "fullRowsCompared": 45536,
+        "descriptorAudit": [
+          {
+            "name": "Seed",
+            "timed": false
+          },
+          {
+            "name": "Spawn",
+            "timed": false
+          },
+          {
+            "name": "Update",
+            "timed": false
+          },
+          {
+            "name": "Dispose",
+            "timed": false
+          },
+          {
+            "name": "Fast",
+            "timed": false
+          },
+          {
+            "name": "Slow",
+            "timed": false
+          },
+          {
+            "name": "Dump",
+            "timed": false
+          }
+        ],
+        "auditSha256": "cb702abba31335a55174b77e9be60a56938a5fdaa5edd86b2f9163bbb3249209"
+      }
+    },
+    {
+      "schema": "Motion",
+      "count": 1024,
+      "status": "PASS",
+      "wholeProcessSeconds": 0.6407049959525466,
+      "exitCode": 0,
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy-worktrees/perf-readers/experiments/s-perf/readers-reference.mjs",
+        "Motion",
+        "1024"
+      ],
+      "validation": {
+        "milliseconds": 81.69633700000003,
+        "warmupMilliseconds": 100.52324999999996,
+        "freshMeasuredWorlds": 1,
+        "fullReadObservationsPerWorld": 84,
+        "finalSha256": "8f3b742910c4f884f6b7e01bffc0986f601fdbd8f085d9404d2b0dd0cf56a924",
+        "fullRowsCompared": 180704,
+        "descriptorAudit": [
+          {
+            "name": "Seed",
+            "timed": false
+          },
+          {
+            "name": "Spawn",
+            "timed": false
+          },
+          {
+            "name": "Update",
+            "timed": false
+          },
+          {
+            "name": "Dispose",
+            "timed": false
+          },
+          {
+            "name": "Fast",
+            "timed": false
+          },
+          {
+            "name": "Slow",
+            "timed": false
+          },
+          {
+            "name": "Dump",
+            "timed": false
+          }
+        ],
+        "auditSha256": "02619a770eb85f00aa18635fbe2551f497c7c24c99ea26cef634bbf14959cdb6"
+      }
+    },
+    {
+      "schema": "Health",
+      "count": 64,
+      "status": "PASS",
+      "wholeProcessSeconds": 0.2911322850268334,
+      "exitCode": 0,
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy-worktrees/perf-readers/experiments/s-perf/readers-reference.mjs",
+        "Health",
+        "64"
+      ],
+      "validation": {
+        "milliseconds": 12.713735000000014,
+        "warmupMilliseconds": 16.268017000000015,
+        "freshMeasuredWorlds": 1,
+        "fullReadObservationsPerWorld": 84,
+        "finalSha256": "5a826a03c3771034950077a2fb4b9311fbbc00b9dc109414f5c32fc04962ec12",
+        "fullRowsCompared": 11744,
+        "descriptorAudit": [
+          {
+            "name": "Seed",
+            "timed": false
+          },
+          {
+            "name": "Spawn",
+            "timed": false
+          },
+          {
+            "name": "Update",
+            "timed": false
+          },
+          {
+            "name": "Dispose",
+            "timed": false
+          },
+          {
+            "name": "Fast",
+            "timed": false
+          },
+          {
+            "name": "Slow",
+            "timed": false
+          },
+          {
+            "name": "Dump",
+            "timed": false
+          }
+        ],
+        "auditSha256": "76e535d80c9704729bf8c28dff552a8d1788171e729a6181c741ff745488f03f"
+      }
+    },
+    {
+      "schema": "Health",
+      "count": 256,
+      "status": "PASS",
+      "wholeProcessSeconds": 0.5288265638519078,
+      "exitCode": 0,
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy-worktrees/perf-readers/experiments/s-perf/readers-reference.mjs",
+        "Health",
+        "256"
+      ],
+      "validation": {
+        "milliseconds": 35.075680000000034,
+        "warmupMilliseconds": 27.098319000000004,
+        "freshMeasuredWorlds": 1,
+        "fullReadObservationsPerWorld": 84,
+        "finalSha256": "cbef56b5f69ef86c4727ec3a9053c72de71e520f65625529284dd66f66e61183",
+        "fullRowsCompared": 45536,
+        "descriptorAudit": [
+          {
+            "name": "Seed",
+            "timed": false
+          },
+          {
+            "name": "Spawn",
+            "timed": false
+          },
+          {
+            "name": "Update",
+            "timed": false
+          },
+          {
+            "name": "Dispose",
+            "timed": false
+          },
+          {
+            "name": "Fast",
+            "timed": false
+          },
+          {
+            "name": "Slow",
+            "timed": false
+          },
+          {
+            "name": "Dump",
+            "timed": false
+          }
+        ],
+        "auditSha256": "2d3f1c91d18556a14839ffd5fcdbcba0048fced182c14a1dab9bd83e9fd31fbe"
+      }
+    },
+    {
+      "schema": "Health",
+      "count": 1024,
+      "status": "PASS",
+      "wholeProcessSeconds": 0.5700092560146004,
+      "exitCode": 0,
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy-worktrees/perf-readers/experiments/s-perf/readers-reference.mjs",
+        "Health",
+        "1024"
+      ],
+      "validation": {
+        "milliseconds": 80.004322,
+        "warmupMilliseconds": 64.84256399999998,
+        "freshMeasuredWorlds": 1,
+        "fullReadObservationsPerWorld": 84,
+        "finalSha256": "6f4e3a1f2bcbae6d9f4fa09294e8ea7dbd12a38ea060d506398dde94f5606526",
+        "fullRowsCompared": 180704,
+        "descriptorAudit": [
+          {
+            "name": "Seed",
+            "timed": false
+          },
+          {
+            "name": "Spawn",
+            "timed": false
+          },
+          {
+            "name": "Update",
+            "timed": false
+          },
+          {
+            "name": "Dispose",
+            "timed": false
+          },
+          {
+            "name": "Fast",
+            "timed": false
+          },
+          {
+            "name": "Slow",
+            "timed": false
+          },
+          {
+            "name": "Dump",
+            "timed": false
+          }
+        ],
+        "auditSha256": "bb0912874f9e395a9059a686942eee0a75cb1d6d072b5868d321fb1cd2725b9e"
+      }
+    }
+  ],
+  "controls": [
+    {
+      "name": "recreate-update-in-loop",
+      "schema": "Motion",
+      "syntaxChecked": true,
+      "sourceSha256": "e7d9bc2a12c328eaa9bc51e9592a38e039863f74acad3b754b2c2b209be93b21",
+      "rejected": true,
+      "reason": "descriptor identity/construction count changed"
+    },
+    {
+      "name": "recreate-update-in-loop",
+      "schema": "Health",
+      "syntaxChecked": true,
+      "sourceSha256": "e7d9bc2a12c328eaa9bc51e9592a38e039863f74acad3b754b2c2b209be93b21",
+      "rejected": true,
+      "reason": "descriptor identity/construction count changed"
+    },
+    {
+      "name": "wrong-main-slot3",
+      "schema": "Motion",
+      "syntaxChecked": true,
+      "sourceSha256": "9f85b7504e67cda46a211aa420350559c202eca48062a05b7c6005ab4db60042",
+      "rejected": true,
+      "reason": "('full TS reader observation', 'Fast', 0)"
+    },
+    {
+      "name": "wrong-main-slot3",
+      "schema": "Health",
+      "syntaxChecked": true,
+      "sourceSha256": "9f85b7504e67cda46a211aa420350559c202eca48062a05b7c6005ab4db60042",
+      "rejected": true,
+      "reason": "('full TS reader observation', 'Fast', 0)"
+    },
+    {
+      "name": "wrong-ping",
+      "schema": "Motion",
+      "syntaxChecked": true,
+      "sourceSha256": "f657e99a0ea0b4f955b10614b457432134f79348e214721afb1c7f4e51659cb1",
+      "rejected": true,
+      "reason": "('full TS reader observation', 'Fast', 0)"
+    },
+    {
+      "name": "wrong-ping",
+      "schema": "Health",
+      "syntaxChecked": true,
+      "sourceSha256": "f657e99a0ea0b4f955b10614b457432134f79348e214721afb1c7f4e51659cb1",
+      "rejected": true,
+      "reason": "('full TS reader observation', 'Fast', 0)"
+    },
+    {
+      "name": "slow-every-iteration",
+      "schema": "Motion",
+      "syntaxChecked": true,
+      "sourceSha256": "6e899dd3663491f4c8dfe0a8e5ba6d6704f987f14ee9e7649e6f2517a9b8ef17",
+      "rejected": true,
+      "reason": "node:internal/modules/run_main:107\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n132 !== 84\n\n    at readers (file:///workspace/formal-proofs/bendvy-worktrees/perf-readers/experiments/s-perf/readers-mutant-1ak4_fc1.mjs:63:10)\n    at file:///workspace/formal-proofs/bendvy-worktrees/perf-readers/experiments/s-perf/readers-mutant-1ak4_fc1.mjs:71:14\n    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)\n    at async node:internal/modules/esm/loader:647:26\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: 132,\n  expected: 84,\n  operator: 'strictEqual',\n  diff: 'simple'\n}\n\nNode.js v24.20.0\n"
+    },
+    {
+      "name": "slow-every-iteration",
+      "schema": "Health",
+      "syntaxChecked": true,
+      "sourceSha256": "6e899dd3663491f4c8dfe0a8e5ba6d6704f987f14ee9e7649e6f2517a9b8ef17",
+      "rejected": true,
+      "reason": "node:internal/modules/run_main:107\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n132 !== 84\n\n    at readers (file:///workspace/formal-proofs/bendvy-worktrees/perf-readers/experiments/s-perf/readers-mutant-1ak4_fc1.mjs:63:10)\n    at file:///workspace/formal-proofs/bendvy-worktrees/perf-readers/experiments/s-perf/readers-mutant-1ak4_fc1.mjs:71:14\n    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)\n    at async node:internal/modules/esm/loader:647:26\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: 132,\n  expected: 84,\n  operator: 'strictEqual',\n  diff: 'simple'\n}\n\nNode.js v24.20.0\n"
+    },
+    {
+      "name": "drop-slow-diagnostic",
+      "schema": "Motion",
+      "syntaxChecked": true,
+      "sourceSha256": "b7bda9b844d837c53e811de280d7864d0971813cf57c2408ec51b00e978ff929",
+      "rejected": true,
+      "reason": "node:internal/modules/run_main:107\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n66 !== 84\n\n    at readers (file:///workspace/formal-proofs/bendvy-worktrees/perf-readers/experiments/s-perf/readers-mutant-k2xz8z20.mjs:63:40)\n    at file:///workspace/formal-proofs/bendvy-worktrees/perf-readers/experiments/s-perf/readers-mutant-k2xz8z20.mjs:71:14\n    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)\n    at async node:internal/modules/esm/loader:647:26\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: 66,\n  expected: 84,\n  operator: 'strictEqual',\n  diff: 'simple'\n}\n\nNode.js v24.20.0\n"
+    },
+    {
+      "name": "drop-slow-diagnostic",
+      "schema": "Health",
+      "syntaxChecked": true,
+      "sourceSha256": "b7bda9b844d837c53e811de280d7864d0971813cf57c2408ec51b00e978ff929",
+      "rejected": true,
+      "reason": "node:internal/modules/run_main:107\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n66 !== 84\n\n    at readers (file:///workspace/formal-proofs/bendvy-worktrees/perf-readers/experiments/s-perf/readers-mutant-k2xz8z20.mjs:63:40)\n    at file:///workspace/formal-proofs/bendvy-worktrees/perf-readers/experiments/s-perf/readers-mutant-k2xz8z20.mjs:71:14\n    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)\n    at async node:internal/modules/esm/loader:647:26\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: 66,\n  expected: 84,\n  operator: 'strictEqual',\n  diff: 'simple'\n}\n\nNode.js v24.20.0\n"
+    }
+  ],
+  "status": "PASS"
+}
