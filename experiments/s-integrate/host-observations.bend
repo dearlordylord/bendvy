@@ -5,7 +5,7 @@ import ./observations.bend as O
 import ./dispatcher.bend as D
 
 type TraceEvent<-Schema:Data,-V:Data,-AV:Data,-F:Data,-LV:Data,-Mode:Data,-P:Data> is Data:
-  Reserved{step:String,worldName:String,label:String,handle:S.Handle<Schema>}
+  Reserved{step:String,worldName:String,label:String,handle:S.Handle<Schema>,components:O.BundleView<V,AV,F>} 
   Read{step:String,system:String,count:U32,boundary:T.ReadBoundary,
     query:List<&2,O.QueryRow<Schema,V,AV,F>>,added:List<&2,O.QueryRow<Schema,V,AV,F>>,changed:List<&2,O.QueryRow<Schema,V,AV,F>>,
     removed:List<&2,S.Handle<Schema>>,despawned:List<&2,S.Handle<Schema>>,messages:List<&2,P>,messageLag:Bool,removedLag:Bool,despawnedLag:Bool}
@@ -22,5 +22,6 @@ type Count is Data:
 type OwnView is Data:
   Main{value:T.Access<T.MainView>}
   Ledger{value:Maybe<&2,T.LedgerView>}
+  ReservedLookup{value:T.Access<T.MainView>}
 type Binding<-Schema:Data> is Data:
   Binding{label:String,handle:S.Handle<Schema>}

@@ -10,6 +10,7 @@ def HealthWorld() -> Type:
 type Observation is Data:
   MainObserved{view: T.Access<T.MainView>}
   LedgerObserved{view: Maybe<&2,T.LedgerView>}
+  ReservedObserved{view:T.Access<T.MainView>}
 type BodyResult<-Tx: Type,-H: Data> is Type:
   BodyResult{transaction: Tx,outcome: T.Outcome,escaped: Maybe<&2,H>,observations: List<&2,Observation>}
 def failed(mode: Q.Mode) -> T.Outcome:
