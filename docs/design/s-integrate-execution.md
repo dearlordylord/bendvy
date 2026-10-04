@@ -1,7 +1,8 @@
 # S-INTEGRATE execution split — draft
 
 Draft guideline for discussion and review; it selects no production layout,
-foreign-command policy, performance threshold or new law. Implement after #18.
+performance threshold or new law. It retains separately approved observable
+policies. Implement after #18.
 Governing [ticket #19](../tickets/18-integrated-runtime.md),
 [reviewed trace](s-integrate-trace.md), [seams](s-integrate-seams.md) and
 [measurement draft](s-integrate-measurement.md) retain their full requirements.
@@ -44,7 +45,8 @@ worktrees. Integration follows dependencies, not simultaneous edits to interface
 6. Complete compiling semantic-mutant coverage, then equivalent integrated
    measurement workloads. Run each seam's controls and mutants when it first exists.
 
-Foreign-command observable result remains a dependent decision. Root authority,
+Foreign commands return `MissingEntity` without changing the receiver queue,
+explicitly selected by the user on 2026-10-04. Root authority,
 reuse/exhaustion, general Local/destructive recovery, production layout and numeric
 performance acceptance retain their separately recorded gates. Existing TS results
 are reference inputs, never fresh Bend acceptance. Original Tower Defense stays

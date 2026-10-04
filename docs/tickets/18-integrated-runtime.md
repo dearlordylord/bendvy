@@ -69,9 +69,15 @@ Unresolved observable policy choices gate only their dependent implementation.
 
 ## Decisions and retained follow-ups
 
+The user explicitly selected the foreign-command result on 2026-10-04:
+`MissingEntity`, with the receiver queue unchanged. E10 must exercise actual
+same-schema foreign handles with colliding IDs and preserve receiver observations.
+This approves that dependent behavior, not a new general proof, TS parity or
+implicit exception/transaction-abort policy. The frozen #18 runtime remains its
+separate bounded subject.
+
 Before production acceptance: establish root/handle confinement beyond trusted
-single-lineage fixtures; resolve failed-allocation consumption versus any requested rewind/divergence, decide allocator reuse/exhaustion and foreign-command
-observable result; select a representation from integrated evidence; approve
+single-lineage fixtures; resolve failed-allocation consumption versus any requested rewind/divergence, decide allocator reuse/exhaustion; select a representation from integrated evidence; approve
 numerical performance thresholds; define recoverable destructive Type mutation
 and general Local lifetime/rollback; approve any new exact laws/dependencies.
 None is silently chosen by this draft or the seven bounded theorem approvals.
@@ -89,7 +95,7 @@ needed `/workspace/typescript/jev` sources; the original repository remains unto
 
 - [Fresh public TS allocation checkpoint](../../experiments/s-integrate-trace/allocation-README.md): actual dispatcher observations establish consumed failed reservation ID3, distinct subsequent ID4, discarded failed spawn, earlier commit/publication retention and explicit barriers. Coordinator and independent Spec/Standards replay pass; scalar one-schema reference scope only.
 - [Concrete source seam inventory](../design/s-integrate-seams.md): provider/identity/transaction/reader/capture interfaces and missing ownership joins are recorded. This is planning evidence, not integrated capability acceptance.
-- [Concrete E0–E11 trace](../design/s-integrate-trace.md) is a reviewed source-derived plan with exact schema/payload inputs, rollback/reader/capture/barrier checkpoints, controls and public capacity boundaries. Its [execution ledger](../design/s-integrate-trace.md#fresh-reference-execution-ledger--2026-10-04) now separates four fresh main public TS lanes, ten public E11 cases, five internal C3/C0 supplements and scalar X. Coordinator and independent reviews pass; E10 Bend controls/foreign-command policy and all integrated Native/JS results remain open.
+- [Concrete E0–E11 trace](../design/s-integrate-trace.md) is a reviewed source-derived plan with exact schema/payload inputs, rollback/reader/capture/barrier checkpoints, controls and public capacity boundaries. Its [execution ledger](../design/s-integrate-trace.md#fresh-reference-execution-ledger--2026-10-04) now separates four fresh main public TS lanes, ten public E11 cases, five internal C3/C0 supplements and scalar X. Coordinator and independent reviews pass; E10 Bend controls (including the now approved foreign-command result/queue rule) and all integrated Native/JS results remain open.
 - [Measurement draft](../design/s-integrate-measurement.md) records equivalent workloads, per-schema inputs, timing/memory limits and retained threshold gates. Its executable Bend setup/capacity/clock freeze depends on the integrated subject and parity trace. No integrated Bend runtime, three-backend seam result, integrated access controls, mutations or measurement result is delivered yet.
 
 The active implementation order remains #18 then #19. Its separately permitted

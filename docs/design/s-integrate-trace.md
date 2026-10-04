@@ -177,10 +177,12 @@ arbitrary irreversible callback can be rolled back.
   collision separately (source/prior T05 expects local z); never normalize it to
   parity. Test the reverse direction. Cross-schema Motion→Health misuse belongs
   to a compiler negative, not this runtime namespace check.
-- Foreign structural commands must not mutate the receiver. Their observable
-  rejection/result is still an open decision: record the input and unchanged
-  receiver requirement, but do not implement an invented error/silent-drop policy.
-  Distinguish this gate from the already approved foreign-lookup divergence.
+- Foreign structural commands return `MissingEntity` and leave the receiver
+  queue unchanged, including when the numeric entity ID collides with a local ID.
+  The user explicitly selected this result on 2026-10-04. Test both namespace
+  directions and unchanged rows/metadata as well as pending commands. This is
+  an approved Bend-specific comparison lane, not assumed TS parity; it adds no
+  implicit exception, transaction abort or allocator policy.
 - At the actual integrated provider, pair valid controls with undeclared getter,
   write-through-read, wrong nominal schema, reconstruction from observed fields,
   detached fabricated cell/world return, foreign concrete substitution and missing
@@ -270,7 +272,7 @@ from isolated kernel wins or hide Native/JS regressions. Threshold approval rema
 pending. Capability ledger and two-axis review must distinguish passed, failed
 and unresolved for every lane above; none is passed merely by this specification.
 
-Open dependent decisions remain: foreign-command result; production root authority,
+Open dependent decisions remain: production root authority,
 allocation reuse/exhaustion and any divergence from observed consumption; general
 Local lifecycle/rollback; arbitrary destructive Type recovery/noncopyable message
 fan-out; storage choice and performance thresholds; new exact laws/dependencies.
@@ -285,7 +287,7 @@ original repository or read-only references.
 | Artifact | Executed evidence | Remaining boundary |
 |---|---|---|
 | [Scalar allocation X](../../experiments/s-integrate-trace/allocation-README.md) | Actual public dispatcher reservations 1/2/3/4; failed spawn discarded without counter rewind | One scalar schema, not Type ownership or global allocator policy |
-| [Main public reference](../../experiments/s-integrate-trace/main-README.md) | Four Motion/Health × capture-style lanes; complete E0–E10 public read/write/dispatch portions, 34 full α/β snapshots per lane, 76 selected-reader public diagnostics including eight failed B invocations; exact expected values and empty missed sequences | E10 Bend compiler/recovery controls, foreign-command decision, trusted factory authority and indexed relocation are not TS results |
+| [Main public reference](../../experiments/s-integrate-trace/main-README.md) | Four Motion/Health × capture-style lanes; complete E0–E10 public read/write/dispatch portions, 34 full α/β snapshots per lane, 76 selected-reader public diagnostics including eight failed B invocations; exact expected values and empty missed sequences | E10 Bend compiler/recovery controls, foreign-command Bend result/queue controls, trusted factory authority and indexed relocation are not TS results |
 | [Public E11 retention](../../experiments/s-integrate-trace/retention-README.md) | Ten Motion/Health case runs; real C65536 message/lifecycle overflow, first failed read and same-instance retry, independent Fast/Late, unheld expiration and surviving marks; every element/full field checked before lossless encoding | No Native/JS retention implementation or arbitrary Type message fan-out |
 | [Internal E11 supplement](../../experiments/s-integrate-trace/internal-retention-README.md) | Five separate C3/C0 source-API diagnostics with exact batches/individual record trim and registration-aware lag | Explicitly internal APIs; not public capacity configuration or dispatcher acceptance |
 
