@@ -72,3 +72,7 @@ The [query lane](../../experiments/p-observe-queries/README.md) has independentl
 The [flush lane](../../experiments/p-observe-flush/README.md) has checked general FIFO-prefix, Spawn-slot and own-target/same-slot links. Coordinator rerun passed the partial runner, including two compiling contextual mutants; **the complete flush endpoint remains open** at mixed-slot coherence, command-prefix invariants and the observation bridge.
 
 Current continuation: finish query interval insertion/order and compose the three query endpoints with their own-endpoint mutations. Mixed-slot flush and command-prefix work can proceed in parallel; only the final flush observation bridge needs the actual enumeration/order toolkit. Compose flush, then pure schedule. Owned schedule retains its separate conditional/erasure feasibility and Word obligations. No additional supporting catalogue law is approved.
+
+## Aggregate completion gate
+
+[Seven-endpoint package](../../experiments/p-observe/README.md) mechanically selects all seven exact approved statements and freezes their full canonical import closure. Run `python3 experiments/p-observe/verify.py`: it must eventually pass ordinary checker and kernel, in addition to all per-endpoint mutation/review gates. Current nonzero exit with six TODOs preserves the full task boundary; partial runner passes cannot close #18.

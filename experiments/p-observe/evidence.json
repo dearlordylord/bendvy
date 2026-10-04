@@ -1,0 +1,46 @@
+{
+  "status": "INCOMPLETE: full seven-endpoint proof gate failed",
+  "issue": 18,
+  "approved_ids": [
+    "query_any_complete_ordered",
+    "query_present_complete_ordered",
+    "query_absent_complete_ordered",
+    "lookup_full_exact",
+    "explicit_flush_independent",
+    "schedule_execution_exact",
+    "owned_runtime_schedule_correspondence"
+  ],
+  "approved_source_sha256": "e0c607d723ad250a189c096d9fa3fd6a36913f4c72efd3a3be6dacd7fadb2cbc",
+  "canonical_closure_verified": true,
+  "exact_selection_verified": true,
+  "checks": [
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-observe/PROOF.bend",
+        "--check-only"
+      ],
+      "exit_code": 1,
+      "output": "SOME PROOFS FAIL\nError: 6 TODOs found.\nThe code is incomplete, and not a valid proof yet.\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-observe/PROOF.bend",
+        "--verdict"
+      ],
+      "exit_code": 1,
+      "output": "SOME PROOFS FAIL\nError: 6 TODOs found.\nThe code is incomplete, and not a valid proof yet.\n"
+    }
+  ],
+  "checker_limit_seconds": 5,
+  "source_hashes": {
+    "PROOF.bend": "db5a9c18e305e07ea9c2071191fde755879f6fb500d075a069cfa72476ea74c7",
+    "LAWS.bend": "666281671ce33f754afb06a65f6f904c187cb97f82640486aec15d239168d39c",
+    "subjects.json": "b21faddc370295a6a17f811b25e62d924ddf5b460fb4c5835c99ae0d02e295a9",
+    "verify.py": "6858e763132411011a40ca4048cfba12d5a848131542a70030187c0adaf6e1aa"
+  },
+  "base_sha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+  "compiler_sha256": "d4821d04932218216c9dc906223ed0e23dd86726d4357a567fb76ee6c976db4e",
+  "limits": "This gate checks exact statements and proof verdicts. Per-endpoint compiling semantic mutants, controls, independent review and ticket acceptance remain separate required gates."
+}
