@@ -1,0 +1,214 @@
+[
+  {
+    "name": "foreign-world-comparison",
+    "law": "lookup_full_exact",
+    "mutation": [
+      "model.bend",
+      "lookup_if(Nat.is_eq(id, namespace),",
+      "lookup_if(True{},"
+    ],
+    "typechecked": true,
+    "own_statement_rejected": true,
+    "true_original_domain": true,
+    "witness": {
+      "world": "T.World{0n,4n,[T.Row{3n,3n,False{}},T.Row{2n,2n,False{}},T.Row{1n,1n,False{}}],[]}",
+      "handle": "T.Handle{1n,1n}",
+      "selection": "T.Any{}"
+    },
+    "diagnostic": "\nError:\n- expected : T.Found{T.Row{1n, 1n, False{}}}\n- observed : T.Missing{}\nLocation: literal_lookup_full_exact\n5 | def literal_lookup_full_exact() -> {M.lookup((T.World{0n,4n,[T.Row{3n,3n,False{}},T.Row{2n,2n,False{}},T.Row{1n,1n,False{}}],[]}), (T.Handle{1n,1n}), (T.Any{})) == S.lookup((T.World{0n,4n,[T.Row{3n,3n,False{}},T.Row{2n,2n,False{}},T.Row{1n,1n,False{}}],[]}), (T.Handle{1n,1n}), (T.Any{})) : T.Lookup}:\n6>|   {==}\n  |   ^^^^\n7 | \n"
+  },
+  {
+    "name": "command-wrong-target",
+    "law": "publication_authorized_target",
+    "mutation": [
+      "model.bend",
+      "[T.Target{slot, action}]",
+      "[T.Target{0n, action}]"
+    ],
+    "typechecked": true,
+    "own_statement_rejected": true,
+    "true_original_domain": true,
+    "witness": {
+      "world": "T.World{0n,1n,[],[]}",
+      "handle": "T.Handle{0n,1n}",
+      "action": "T.Insert{}"
+    },
+    "diagnostic": "\nError:\n- expected : T.World{0n, 1n, [], [T.Target{0n, T.Insert{}}]}\n- observed : T.World{0n, 1n, [], [T.Target{1n, T.Insert{}}]}\nLocation: literal_publication_authorized_target\n5 | def literal_publication_authorized_target() -> {M.publish((T.World{0n,1n,[],[]}), (T.Handle{0n,1n}), (T.Insert{})) == S.publish((T.World{0n,1n,[],[]}), (T.Handle{0n,1n}), (T.Insert{})) : T.World}:\n6>|   {==}\n  |   ^^^^\n7 | \n"
+  },
+  {
+    "name": "logical-fifo",
+    "law": "explicit_flush_independent",
+    "mutation": [
+      "model.bend",
+      "apply_all(pending, rows), []",
+      "apply_all(List.reverse(&2,T.Command,pending), rows), []"
+    ],
+    "typechecked": true,
+    "own_statement_rejected": true,
+    "true_original_domain": true,
+    "witness": {
+      "limit": "8n",
+      "world": "T.World{0n,4n,[T.Row{3n,3n,False{}},T.Row{2n,2n,True{}},T.Row{1n,1n,False{}}],[T.Target{1n,T.Insert{}},T.Target{1n,T.Remove{}}]}"
+    },
+    "diagnostic": "\nError:\n- expected : T.Observation{0n, 4n, [T.Row{1n, 1n, True{}}, T.Row{2n, 2n, True{}}, T.Row{3n, 3n, False{}}], []}\n- observed : T.Observation{0n, 4n, [T.Row{1n, 1n, False{}}, T.Row{2n, 2n, True{}}, T.Row{3n, 3n, False{}}], []}\nLocation: literal_explicit_flush_independent\n5 | def literal_explicit_flush_independent() -> S.When(S.admissible((8n), (T.World{0n,4n,[T.Row{3n,3n,False{}},T.Row{2n,2n,True{}},T.Row{1n,1n,False{}}],[T.Target{1n,T.Insert{}},T.Target{1n,T.Remove{}}]})), {M.observe(M.flush((T.World{0n,4n,[T.Row{3n,3n,False{}},T.Row{2n,2n,True{}},T.Row{1n,1n,False{}}],[T.Target{1n,T.Insert{}},T.Target{1n,T.Remove{}}]}))) == S.flush_observation((T.World{0n,4n,[T.Row{3n,3n,False{}},T.Row{2n,2n,True{}},T.Row{1n,1n,False{}}],[T.Target{1n,T.Insert{}},T.Target{1n,T.Remove{}}]})) : T.Observation}):\n6>|   {==}\n  |   ^^^^\n7 | \n"
+  },
+  {
+    "name": "remove-is-insert",
+    "law": "explicit_flush_independent",
+    "mutation": [
+      "model.bend",
+      "case True{} T.Remove{} T.Row{slot, value, _}: T.Row{slot, value, False{}}",
+      "case True{} T.Remove{} T.Row{slot, value, _}: T.Row{slot, value, True{}}"
+    ],
+    "typechecked": true,
+    "own_statement_rejected": true,
+    "true_original_domain": true,
+    "witness": {
+      "limit": "8n",
+      "world": "T.World{0n,4n,[T.Row{3n,3n,False{}},T.Row{2n,2n,True{}},T.Row{1n,1n,False{}}],[T.Target{1n,T.Insert{}},T.Target{1n,T.Remove{}}]}"
+    },
+    "diagnostic": "\nError:\n- expected : T.Observation{0n, 4n, [T.Row{1n, 1n, True{}}, T.Row{2n, 2n, True{}}, T.Row{3n, 3n, False{}}], []}\n- observed : T.Observation{0n, 4n, [T.Row{1n, 1n, False{}}, T.Row{2n, 2n, True{}}, T.Row{3n, 3n, False{}}], []}\nLocation: literal_explicit_flush_independent\n5 | def literal_explicit_flush_independent() -> S.When(S.admissible((8n), (T.World{0n,4n,[T.Row{3n,3n,False{}},T.Row{2n,2n,True{}},T.Row{1n,1n,False{}}],[T.Target{1n,T.Insert{}},T.Target{1n,T.Remove{}}]})), {M.observe(M.flush((T.World{0n,4n,[T.Row{3n,3n,False{}},T.Row{2n,2n,True{}},T.Row{1n,1n,False{}}],[T.Target{1n,T.Insert{}},T.Target{1n,T.Remove{}}]}))) == S.flush_observation((T.World{0n,4n,[T.Row{3n,3n,False{}},T.Row{2n,2n,True{}},T.Row{1n,1n,False{}}],[T.Target{1n,T.Insert{}},T.Target{1n,T.Remove{}}]})) : T.Observation}):\n6>|   {==}\n  |   ^^^^\n7 | \n"
+  },
+  {
+    "name": "despawn-noop",
+    "law": "explicit_flush_independent",
+    "mutation": [
+      "model.bend",
+      "case True{} T.Despawn{} _: tail",
+      "case True{} T.Despawn{} r: r <> tail"
+    ],
+    "typechecked": true,
+    "own_statement_rejected": true,
+    "true_original_domain": true,
+    "witness": {
+      "limit": "8n",
+      "world": "T.World{0n,4n,[T.Row{3n,3n,False{}},T.Row{2n,2n,True{}},T.Row{1n,1n,False{}}],[T.Target{1n,T.Despawn{}}]}"
+    },
+    "diagnostic": "\nError:\n- expected : T.Observation{0n, 4n, [T.Row{1n, 1n, False{}}, T.Row{2n, 2n, True{}}, T.Row{3n, 3n, False{}}], []}\n- observed : T.Observation{0n, 4n, [T.Row{2n, 2n, True{}}, T.Row{3n, 3n, False{}}], []}\nLocation: literal_explicit_flush_independent\n5 | def literal_explicit_flush_independent() -> S.When(S.admissible((8n), (T.World{0n,4n,[T.Row{3n,3n,False{}},T.Row{2n,2n,True{}},T.Row{1n,1n,False{}}],[T.Target{1n,T.Despawn{}}]})), {M.observe(M.flush((T.World{0n,4n,[T.Row{3n,3n,False{}},T.Row{2n,2n,True{}},T.Row{1n,1n,False{}}],[T.Target{1n,T.Despawn{}}]}))) == S.flush_observation((T.World{0n,4n,[T.Row{3n,3n,False{}},T.Row{2n,2n,True{}},T.Row{1n,1n,False{}}],[T.Target{1n,T.Despawn{}}]})) : T.Observation}):\n6>|   {==}\n  |   ^^^^\n7 | \n"
+  },
+  {
+    "name": "flush-does-not-clear",
+    "law": "explicit_flush_independent",
+    "mutation": [
+      "model.bend",
+      "case T.World{id, next, rows, pending}: T.World{id, next, apply_all(pending, rows), []}",
+      "case T.World{id, next, rows, +pending}: T.World{id, next, apply_all(pending, rows), pending}"
+    ],
+    "typechecked": true,
+    "own_statement_rejected": true,
+    "true_original_domain": true,
+    "witness": {
+      "limit": "2n",
+      "world": "T.World{0n,2n,[],[T.Spawn{1n,7n}]}"
+    },
+    "diagnostic": "\nError:\n- expected : T.Observation{0n, 2n, [T.Row{1n, 7n, False{}}], [T.Spawn{1n, 7n}]}\n- observed : T.Observation{0n, 2n, [T.Row{1n, 7n, False{}}], []}\nLocation: literal_explicit_flush_independent\n5 | def literal_explicit_flush_independent() -> S.When(S.admissible((2n), (T.World{0n,2n,[],[T.Spawn{1n,7n}]})), {M.observe(M.flush((T.World{0n,2n,[],[T.Spawn{1n,7n}]}))) == S.flush_observation((T.World{0n,2n,[],[T.Spawn{1n,7n}]})) : T.Observation}):\n6>|   {==}\n  |   ^^^^\n7 | \n"
+  },
+  {
+    "name": "schedule-frozen-immediate-write",
+    "law": "schedule_execution_exact",
+    "mutation": [
+      "model.bend",
+      "case True{} T.Row{slot, value, tag}: T.Row{slot, 1n+value, tag}",
+      "case True{} T.Row{slot, value, tag}: T.Row{slot, value, tag}"
+    ],
+    "typechecked": true,
+    "own_statement_rejected": true,
+    "true_original_domain": true,
+    "witness": {
+      "limit": "8n",
+      "world": "T.World{0n,4n,[],[T.Spawn{1n,1n},T.Spawn{2n,2n},T.Spawn{3n,3n}]}",
+      "steps": "[T.Reserve{4n},T.Barrier{},T.Bump{4n}]"
+    },
+    "diagnostic": "\nError:\n- expected : T.Observation{0n, 5n, [T.Row{1n, 1n, False{}}, T.Row{2n, 2n, False{}}, T.Row{3n, 3n, False{}}, T.Row{4n, 4n, False{}}], []}\n- observed : T.Observation{0n, 5n, [T.Row{1n, 1n, False{}}, T.Row{2n, 2n, False{}}, T.Row{3n, 3n, False{}}, T.Row{4n, 5n, False{}}], []}\nLocation: literal_schedule_execution_exact\n5 | def literal_schedule_execution_exact() -> S.When(S.admissible((8n), (T.World{0n,4n,[],[T.Spawn{1n,1n},T.Spawn{2n,2n},T.Spawn{3n,3n}]})), {M.observe(M.tick(([T.Reserve{4n},T.Barrier{},T.Bump{4n}]), (8n), (T.World{0n,4n,[],[T.Spawn{1n,1n},T.Spawn{2n,2n},T.Spawn{3n,3n}]}))) == S.schedule_observation((8n), (T.World{0n,4n,[],[T.Spawn{1n,1n},T.Spawn{2n,2n},T.Spawn{3n,3n}]}), ([T.Reserve{4n},T.Barrier{},T.Bump{4n}])) : T.Observation}):\n6>|   {==}\n  |   ^^^^\n7 | \n"
+  },
+  {
+    "name": "owned-frozen-bump",
+    "law": "owned_runtime_step_correspondence",
+    "mutation": [
+      "runtime.bend",
+      "values[0] <- (value + 1 : U32)",
+      "values[0] <- value"
+    ],
+    "typechecked": true,
+    "own_statement_rejected": true,
+    "true_original_domain": true,
+    "witness": {
+      "limit": "255",
+      "world": "R.World{0,4,[R.Cell{3,[3 : U32^0n],False{}},R.Cell{2,[2 : U32^0n],False{}},R.Cell{1,[1 : U32^0n],False{}}],[]}",
+      "step": "R.Bump{1}"
+    },
+    "diagnostic": "\nError:\n- expected : T.Observation{0n, 4n, [T.Row{1n, 1n, False{}}, T.Row{2n, 2n, False{}}, T.Row{3n, 3n, False{}}], []}\n- observed : T.Observation{0n, 4n, [T.Row{1n, 2n, False{}}, T.Row{2n, 2n, False{}}, T.Row{3n, 3n, False{}}], []}\nLocation: literal_owned_runtime_step_correspondence\n7 | def literal_owned_runtime_step_correspondence() -> S.When(Bool.and(S.admissible(U32.to_nat((255)), O.snapshot((R.World{0,4,[R.Cell{3,[3 : U32^0n],False{}},R.Cell{2,[2 : U32^0n],False{}},R.Cell{1,[1 : U32^0n],False{}}],[]}))), S.step_safe(O.snapshot((R.World{0,4,[R.Cell{3,[3 : U32^0n],False{}},R.Cell{2,[2 : U32^0n],False{}},R.Cell{1,[1 : U32^0n],False{}}],[]})), O.step((R.Bump{1})))), {M.observe(R.snapshot(R.project(R.step((255), (R.World{0,4,[R.Cell{3,[3 : U32^0n],False{}},R.Cell{2,[2 : U32^0n],False{}},R.Cell{1,[1 : U32^0n],False{}}],[]}), (R.Bump{1}))))) == S.observe(S.step(U32.to_nat((255)), O.snapshot((R.World{0,4,[R.Cell{3,[3 : U32^0n],False{}},R.Cell{2,[2 : U32^0n],False{}},R.Cell{1,[1 : U32^0n],False{}}],[]})), O.step((R.Bump{1})))) : T.Observation}):\n8>|   {==}\n  |   ^^^^\n9 | \n"
+  },
+  {
+    "name": "owned-barrier-bypass",
+    "law": "owned_runtime_step_correspondence",
+    "mutation": [
+      "runtime.bend",
+      "case Barrier{}: flush(world)",
+      "case Barrier{}: world"
+    ],
+    "typechecked": true,
+    "own_statement_rejected": true,
+    "true_original_domain": true,
+    "witness": {
+      "limit": "255",
+      "world": "R.World{0,4,[],[R.Spawn{1,1},R.Spawn{2,2},R.Spawn{3,3}]}",
+      "step": "R.Barrier{}"
+    },
+    "diagnostic": "\nError:\n- expected : T.Observation{0n, 4n, [], [T.Spawn{1n, 1n}, T.Spawn{2n, 2n}, T.Spawn{3n, 3n}]}\n- observed : T.Observation{0n, 4n, [T.Row{1n, 1n, False{}}, T.Row{2n, 2n, False{}}, T.Row{3n, 3n, False{}}], []}\nLocation: literal_owned_runtime_step_correspondence\n7 | def literal_owned_runtime_step_correspondence() -> S.When(Bool.and(S.admissible(U32.to_nat((255)), O.snapshot((R.World{0,4,[],[R.Spawn{1,1},R.Spawn{2,2},R.Spawn{3,3}]}))), S.step_safe(O.snapshot((R.World{0,4,[],[R.Spawn{1,1},R.Spawn{2,2},R.Spawn{3,3}]})), O.step((R.Barrier{})))), {M.observe(R.snapshot(R.project(R.step((255), (R.World{0,4,[],[R.Spawn{1,1},R.Spawn{2,2},R.Spawn{3,3}]}), (R.Barrier{}))))) == S.observe(S.step(U32.to_nat((255)), O.snapshot((R.World{0,4,[],[R.Spawn{1,1},R.Spawn{2,2},R.Spawn{3,3}]})), O.step((R.Barrier{})))) : T.Observation}):\n8>|   {==}\n  |   ^^^^\n9 | \n"
+  },
+  {
+    "name": "owned-reserved-handle-wrong-slot",
+    "law": "owned_runtime_reservation_result_and_owner",
+    "mutation": [
+      "runtime.bend",
+      "Some{Handle{id,next}}",
+      "Some{Handle{id,(next + 1 : U32)}}"
+    ],
+    "typechecked": true,
+    "own_statement_rejected": true,
+    "true_original_domain": true,
+    "witness": {
+      "limit": "2",
+      "world": "R.World{0,1,[],[]}",
+      "value": "0"
+    },
+    "diagnostic": "\nError:\n- expected : T.Reserved{T.World{0n, 2n, [], [T.Spawn{1n, 0n}]}, T.Handle{0n, 2n}}\n- observed : T.Reserved{T.World{0n, 2n, [], [T.Spawn{1n, 0n}]}, T.Handle{0n, 1n}}\nLocation: literal_owned_runtime_reservation_result_and_owner\n6 | def literal_owned_runtime_reservation_result_and_owner() -> {O.reservation(R.reserve((2),(R.World{0,1,[],[]}),(0))) == S.reserve(U32.to_nat((2)),O.snapshot((R.World{0,1,[],[]})),U32.to_nat((0))) : T.Reservation}:\n7>|   {==}\n  |   ^^^^\n8 | \n"
+  },
+  {
+    "name": "owned-schedule-ignores-steps",
+    "law": "owned_runtime_schedule_correspondence",
+    "mutation": [
+      "runtime.bend",
+      "case Con{s,tail}: tick(tail,limit,step(limit,world,s))",
+      "case Con{s,tail}: tick(tail,limit,world)"
+    ],
+    "typechecked": true,
+    "own_statement_rejected": true,
+    "true_original_domain": true,
+    "witness": {
+      "limit": "1",
+      "world": "R.World{0,1,[],[]}",
+      "steps": "[R.Bump{1},R.Publish{R.Handle{0,1},T.Insert{}}]"
+    },
+    "diagnostic": "\nError:\n- expected : T.Observation{0n, 1n, [], []}\n- observed : T.Observation{0n, 1n, [], [T.Target{1n, T.Insert{}}]}\nLocation: literal_owned_runtime_schedule_correspondence\n7 | def literal_owned_runtime_schedule_correspondence() -> S.When(S.run_safe(O.steps(([R.Bump{1},R.Publish{R.Handle{0,1},T.Insert{}}])),U32.to_nat((1)),O.snapshot((R.World{0,1,[],[]}))), {M.observe(R.snapshot(R.project(R.tick(([R.Bump{1},R.Publish{R.Handle{0,1},T.Insert{}}]),(1),(R.World{0,1,[],[]}))))) == S.schedule_observation(U32.to_nat((1)),O.snapshot((R.World{0,1,[],[]})),O.steps(([R.Bump{1},R.Publish{R.Handle{0,1},T.Insert{}}]))) : T.Observation}):\n8>|   {==}\n  |   ^^^^\n9 | \n"
+  },
+  {
+    "name": "observation-drops-pending",
+    "law": "owned_runtime_step_correspondence",
+    "mutation": [
+      "model.bend",
+      "T.Observation{id, next, query_rows(T.Any{}, rows), pending}",
+      "T.Observation{id, next, query_rows(T.Any{}, rows), []}"
+    ],
+    "typechecked": true,
+    "own_statement_rejected": true,
+    "true_original_domain": true,
+    "witness": {
+      "limit": "1",
+      "world": "R.World{0,1,[],[]}",
+      "step": "R.Publish{R.Handle{0,1},T.Insert{}}"
+    },
+    "diagnostic": "\nError:\n- expected : T.Observation{0n, 1n, [], []}\n- observed : T.Observation{0n, 1n, [], [T.Target{1n, T.Insert{}}]}\nLocation: literal_owned_runtime_step_correspondence\n7 | def literal_owned_runtime_step_correspondence() -> S.When(Bool.and(S.admissible(U32.to_nat((1)), O.snapshot((R.World{0,1,[],[]}))), S.step_safe(O.snapshot((R.World{0,1,[],[]})), O.step((R.Publish{R.Handle{0,1},T.Insert{}})))), {M.observe(R.snapshot(R.project(R.step((1), (R.World{0,1,[],[]}), (R.Publish{R.Handle{0,1},T.Insert{}}))))) == S.observe(S.step(U32.to_nat((1)), O.snapshot((R.World{0,1,[],[]})), O.step((R.Publish{R.Handle{0,1},T.Insert{}})))) : T.Observation}):\n8>|   {==}\n  |   ^^^^\n9 | \n"
+  }
+]
