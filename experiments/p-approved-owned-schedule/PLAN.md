@@ -58,3 +58,25 @@ threads each returned owner and projected FIFO sequence. Reserve/Publish use
 actual word decisions, command projection append and increment caller guards.
 These narrower executable links are composed into the approved schedule; no
 independent S-step/projection catalogue theorem is filled.
+
+Bump-row composition inventory: use delivered member-safety.BumpSafe under the
+exact projected step guard and row validity. Branch on actual projected key Cmp,
+link it to the runtime U32 equality, read the selected array once, transport the
+head safety proof to its observed U32, and extract tail safety with erased-tail
+Boolean conjunction eliminators. No scan/duplication of the remaining live owner
+is used to decide a proof guard. RowsResult ties the resulting owner to R.bump_rows.
+
+Final composition context inventory: `tick-context` transports the already
+captured independent world through one exact returned-owner primitive frame,
+and joins the recursive returned-owner tick frame by actual `R.tick` congruence.
+Its cached Data world supplies `ModelSafe` head admissibility, exact step guard,
+and successor safety without a second live affine observation. These are
+contextual derivations for the approved endpoint, not new catalogue claims.
+Final observation inventory: consume the returned owner through `capture_world`,
+link its actual `R.project` result to its independent snapshot, then use the
+already proved complete model schedule equality. The source world remains an
+erased index in this terminal helper; its actual owner was consumed by tick.
+Bump world lifting inventory: extract row validity and the exact independent
+Bump guard from the cached Data world, derive the reviewed member-wise guard,
+transport only that guard through the captured snapshot equality, and lift the
+returned row frame into the actual world's unchanged metadata and pending queue.

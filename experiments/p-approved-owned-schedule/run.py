@@ -23,7 +23,7 @@ def check(path, kernel=False, failure=None, reject_kernel=False):
     records.append({"file":path.name,"kernel":kernel,"kernel_negative":reject_kernel,"exit":p.returncode,"output":out})
 
 positive = ["arrays.bend","point.bend","capture.bend","empty.bend","controls.bend","empty-witness.bend",
-    "commands.bend","allocation.bend","barrier.bend","bump.bend","primitive-controls.bend"]
+    "commands.bend","allocation.bend","barrier.bend","bump.bend","primitive-controls.bend","tick-context.bend","bump-world.bend","final-observation.bend"]
 for name in positive:
     check(HERE/name)
     check(HERE/name, kernel=True)
@@ -58,7 +58,7 @@ compiler = pathlib.Path(shutil.which("bend"))
 base = pathlib.Path.home()/".bend/bend2/base.bend"
 assert sha(compiler) == "d4821d04932218216c9dc906223ed0e23dd86726d4357a567fb76ee6c976db4e"
 assert sha(base) == "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661"
-evidence = {"status":"PARTIAL: full-domain empty schedule, actual-owner/array point helpers, Reserve/Publish/FIFO/Barrier and selected safe Bump cell; full nonempty endpoint remains open",
+evidence = {"status":"PARTIAL: full-domain empty schedule, actual-owner/array point helpers, Reserve/Publish/FIFO/Barrier selected safe Bump cell, cached prefix/frame composition and actual final observation; full nonempty endpoint remains open",
     "baseline":"8e149fd","version":subprocess.check_output(["bend","version"],text=True).strip(),
     "compiler":sha(compiler),"Base":sha(base),"frozen":frozen,
     "closure":{str(p.relative_to(ROOT)):digest for p,digest in sorted(closure.items())},

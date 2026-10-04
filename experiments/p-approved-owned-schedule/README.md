@@ -51,3 +51,14 @@ endpoint and its own complete-law controls/mutants. Existing arithmetic and pure
 proofs are dependencies, not evidence that these residuals have been discharged.
 No production owner API, allocator/root policy, full-array preservation, readers,
 transaction rollback, performance or #18 completion is claimed.
+
+The third checkpoint adds `tick-context.bend` (cached Data prefix safety extraction
+and returned-owner recursive-frame congruence), `bump-world.bend` (exact cached
+snapshot to member safety and world-frame lifting), and
+`final-observation.bend` (consume the actual returned owner through `R.project`,
+then connect that projection with the complete pure schedule theorem). All three
+are universally checker/kernel checked. Their frame premises still require the
+actual recursive and primitive proofs: they do not establish the full endpoint.
+The selected-row Overflow-to-Word guard specialization is under investigation;
+naive normalization expands the large Nat bound and fails the checker. No failed
+diagnostic is included among passing runner subjects or treated as impossibility.
