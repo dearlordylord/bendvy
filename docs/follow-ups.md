@@ -115,3 +115,15 @@ falsification and correspondence obligations; no general ECS proofs are approved
 prerequisites. Earlier F07/F11 blocked entries describe the historical checkpoint;
 provider probes now pass bounded gates, while general authority/refinement,
 production layout, performance acceptance and simulation readiness remain open.
+
+
+## T11 source-audit correction
+
+[Luna research](reviews/laws-source-research.md) and [Astra decision](reviews/laws-decision.md)
+adjudicate all fourteen candidates. Withdraw the old public ECS-law approval request;
+retain d4a8510 equations and finite controls as historical/internal evidence. The
+replacement must cover complete transitions, computed world/availability guards,
+positive membership/lookup/reservation behavior, independent command semantics,
+U32/admissibility and ownership-preserving runtime correspondence. Cursor helpers
+remain distinct from transactional reader wrappers. Rust Bevy's order/deferred/
+read-time cursor differences do not silently replace the agreed TS target.

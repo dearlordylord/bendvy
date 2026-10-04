@@ -4,7 +4,8 @@ import ./spec.bend as S
 import ../t08/core.bend as C
 import ../t07/streams.bend as E
 
-# Draft model laws. No paired proof defs until specific approval.
+# Historical candidates: withdrawn as public ECS-law proposal after source audit.
+# See ../../docs/reviews/laws-decision.md. No approval or paired proof defs.
 law query_any_exact:
   for +rows: List<&2, M.Row>
   {M.query(M.Any{}, rows) == rows : List<&2, M.Row>}

@@ -81,7 +81,7 @@ API/storage or publishing further implementation/proof packages.
 | Changes/removals | T08 independent marks/positions; retained deletion records; individual capacity | General Type marks, sparse indexes, identity/provider/schedule integration and refinement |
 | Schedule/provisioning | T09 closed nested callbacks with typed failure | Captured Local, conditions/phases/features/requirement unions and lifecycle |
 | Performance | T10 reproducible finite prototype comparison; storage redesign required | Native substantial speedup and JS comparability on approved representative workloads/thresholds |
-| Laws/refinement | T11 draft 14 laws, literal falsification and mutation controls | Exact approval, general proofs, helper completion and runtime correspondence |
+| Laws/refinement | T11 historical 14-law helper/model controls; public proposal withdrawn after source audit | Connected transition/admissibility package, meaningful falsification, exact approval, general proofs and runtime correspondence |
 | Relations/scopes | Retained core, no executable gate completed | Identity/transaction/reader integration, inverse/cleanup/cycle/order scenarios |
 | States/transitions | Retained core; only state skip used in TS adapters | Explicit exit/transition/enter failure boundaries and queue/publication laws |
 | Validation/snapshots/inspectors/debug | Retained core, no executable gate completed | Payload/identity restoration boundary, validation-before-mutation and observation noninterference |

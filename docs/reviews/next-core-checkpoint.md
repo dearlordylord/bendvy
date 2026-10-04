@@ -19,3 +19,13 @@ must precede published ready-for-agent implementation/proof tickets.
 The revised T10 run and its own-path no-op controls passed; both material
 findings are resolved within the explicitly bounded measurement report. User review/approval of exact laws, thresholds and next-stage
 breakdown remains pending. Astra did not rerun the full benchmark/falsifier.
+
+
+## Subsequent per-law source adjudication
+
+This earlier review checked reporting/proof-layer boundaries; it did not establish
+native-Bevy conformity of each statement. The subsequent [Luna source audit](laws-source-research.md)
+and [Astra-medium decision](laws-decision.md) withdraw the old public fourteen-law
+approval proposal and require a connected transition/admissibility/refinement
+package. Its historical finite evidence is unchanged; do not interpret the earlier
+"suitable for discussion" verdict as law approval or readiness for runtime proofs.

@@ -2,10 +2,20 @@
 
 [Issue #12](https://github.com/dearlordylord/bendvy/issues/12), [SPEC](../../docs/SPEC.md).
 
-**Draft, unapproved, unproved.** This package proposes 14 general laws in
-[LAWS.bend](LAWS.bend); no PROOF.bend is written. Eleven concern the separate pure
-identity/query/command model; three concern actual Data cursor functions from
-T07/T08. Neither model laws nor cursor-function laws prove the owned ECS runtime.
+**Withdrawn as a public ECS-law approval proposal; unapproved and unproved.**
+The user requested a per-law source audit by Luna (gpt-6-luna, max) and adjudication
+by Astra (gpt-6-astra, medium). [Research](../../docs/reviews/laws-source-research.md)
+and [decision](../../docs/reviews/laws-decision.md) cover every candidate. The old
+request to approve all fourteen statements is withdrawn. The equations/code and
+revision-d4a8510 falsification remain historical experimental evidence, not
+validation of a corrected public-law package.
+
+The fourteen statements consist of eleven separate identity/query/command model
+laws and three executable Data cursor helper laws. Useful internal lemmas may be
+retained at their actual layer. A replacement must constrain complete transitions,
+computed guards, positive behavior, admissible state, U32 bounds and runtime/model
+correspondence before a fresh specific approval request. No PROOF.bend exists.
+See the decision table for the required change to every candidate below.
 
 ## Exact subjects, rationale and proof sketches
 

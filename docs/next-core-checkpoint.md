@@ -12,13 +12,16 @@ T06 actual inverse rollback/publication; T07 independent message readers;
 T08 independent change/removal positions; T09 closed nested provisioning.
 These are executable probes, not one integrated production runtime.
 [T10](../experiments/t10/README.md) rejects adopting the current ordered-list layout
-on performance. [T11](../experiments/t11/README.md) proposes exact law/proof subjects;
-all laws and numerical thresholds await specific approval. No general proofs exist.
+on performance. [T11](../experiments/t11/README.md) retains historical helper/model evidence;
+its old public-law proposal was withdrawn after the [source decision](reviews/laws-decision.md).
+A connected transition package must be drafted/falsified before new law approval;
+numerical thresholds remain pending. No general proofs exist.
 
 ## Detail now
 
-1. Review T11's 14 draft laws and runtime/model mapping; approve exact IDs/revision
-   before any general proof. Keep helper/model proofs separate from provider
+1. Replace the withdrawn T11 bundle with connected transition/observation laws,
+   admissibility and computed-guard/runtime correspondence controls. Review and
+   approve exact replacement IDs/revision before any general proof. Keep helper/model proofs separate from provider
    confinement, owned runtime refinement and backend/host IO.
 2. Compare owned indexed columns/slot map with stable ordered membership against
    current dense/sparse/update/churn/read/rollback workloads. Preserve Type payloads,
@@ -65,8 +68,9 @@ workloads after the storage/CPU evidence, not silently removed.
 
 ## Decisions for review
 
-- Which exact laws/revision are approved? Current proposal: T11's 14 laws with
-  explicitly unproved runtime correspondence; no blanket runtime-proof approval.
+- Review the replacement law package after connected transition statements and
+  meaningful falsification exist. The old fourteen-law approval request is withdrawn;
+  no runtime-proof approval is inferred.
 - Numerical proposal: native >=2x per representative workload/size; JS <=1.10x
   time with uncertainty below that margin. Both unapproved; current layout fails.
 - Is the ordering above suitable for the next detailed ticket breakdown? Publish
