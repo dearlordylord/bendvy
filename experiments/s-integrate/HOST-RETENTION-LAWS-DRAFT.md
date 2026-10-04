@@ -1,11 +1,11 @@
 # E11 joined retention operation drafts
 
-Status: exact public input matrix and comparison preparation. The Host's real
-parameterized bulk invocation is still a dependency. No E11 Bend execution or
-acceptance is claimed by this draft, input declarations, or an oracle self-test.
-No new dispatcher BodyKind is declared here.
+Status: executable actual Host/D.tick fixture and strict comparison runner.
+The evidence file records each executed backend separately; any failed case keeps
+the E11 gate incomplete. Compiling pipeline mutations are still required before
+acceptance. No new dispatcher BodyKind or universal proof is declared here.
 
-Subject to be bound: factory-created affine Motion/Health worlds, actual reserve
+Bound subject: factory-created affine Motion/Health worlds, actual reserve
 and command application, `Host` + `D.tick`, stable registered Fast/B/Late bases,
 actual reader Run completion, actual frame holders, nominal Ping logs and actual
 Handle lifecycle logs. Capacity is the source's public 65536. Trusted setup bounds
@@ -76,3 +76,43 @@ Any violated condition emits explicit `unrepresentable` with reason/index and
 cannot compare successfully. No checksum-only or endpoint-only validation is
 accepted. Decoder/encoder corruption controls remain distinct from actual joined
 E11 executions and compiling runtime semantic mutants.
+
+## Executable fixture seam and limits
+
+`host-batch-invoker.bend` privately wraps the unchanged actual Host with one
+authored RetOp. The existing registered Seed role performs the batch; Fast, B
+and Late delegate the actual Host invoker and retain their registered base keys.
+`host-retention-controls.bend` calls actual D.tick once per listed frame and
+records actual dispatch outcomes. Read failures continue only at the next
+authored frame. No expected state or expected cursor is stored in the adapter.
+
+Bulk spawn threads `I.reserve_id`, uses only its actual returned handle, stages
+affine width-four bundles in reverse once, and publishes that actual command
+batch. It saves the actual handles as Host bindings. Unlike the main E0–E9
+channel, public E11 exposes reservation IDs only, so this private fixture does
+not append a full Reserved event per entity. Final bindings are traversed to
+validate/encode the actual reservation range. Every later query still observes
+and compares full current Main/Aux/Flag data. Remove/despawn use the actual saved
+handles and public structural command functions; explicit barriers apply them.
+The success-only RetWrite body uses the actual affine setter and commits its
+mark at the actual invocation clock; it is not a generic transaction API.
+
+The executable accepts only two schema selectors and five lane selectors. These
+closed authored plans create one fresh world, reserve at most65537 handles,
+construct four-cell arrays with x at most65546, publish codes at most131073,
+and use at most15 frames, four registered base instances and fewer than128
+clock advances. All additions remain below U32 exhaustion. Rejected selectors
+fail before creation. The reserve-exhaustion branch preserves the returned owner;
+it is unreachable from these fresh bounded plans and would fail the exact
+reservation/query comparison if unexpectedly reached. No arbitrary request,
+production capacity/counter policy or global factory authority is approved.
+
+The runner compares every expanded row against the independently executed
+source's full payload/aux/flag description and ordered IDs. It compares actual
+read diagnostics and source frame/tick/outcome, and derives the expected saved
+Run boundaries from prior successful source dispatches of the same base. It
+never substitutes expected lag or expected cursor for actual observations.
+Native and JavaScript must also emit identical complete JSON lines. Evidence
+retains complete source observations, actual dispatches, actual boundaries,
+per-list compared counts and a hash/length of each full raw output; large raw
+arrays need not be committed after every element has been compared.

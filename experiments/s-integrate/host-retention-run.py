@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
-"""Strict E11 public oracle preparation; actual Host binding is still pending.
---prepare refreshes ten public TS executions and oracle perturbations only.
-Default deliberately returns INCOMPLETE until a real joined backend runner exists.
+"""Actual E11 D.tick retention comparison against ten fresh public TS runs.
+--prepare runs source/decoder preparation only; default builds both actual backends.
 """
 import argparse, copy, hashlib, importlib.util, json
 from pathlib import Path
@@ -171,6 +170,89 @@ def perturbations(reference):
         else:raise AssertionError(name)
     return tests
 
+# Strict joined comparison: every decoded row and ordered element is checked.
+DEC=module('e11_representation',HERE/'trace-decode.py')
+
+def seq(value):
+    if isinstance(value,list):return value
+    exact(value,('encoding','first','last','count'))
+    if value['encoding']!='inclusive-contiguous-range':raise ValueError('unknown source sequence')
+    return list(interval(value['first'],value['last'],value['count']))
+
+def same(actual,expected,label):
+    if actual!=expected:
+        raise AssertionError(label+': '+str(CMP.difference(expected,actual)[:1]))
+
+def source_rows(schema,description):
+    ids=seq(description['ids']);xs=seq(description['payloadParameterX'])
+    same(len(ids),len(xs),'source row parameters')
+    same(len(ids),description['allMainAndAuxFieldsCompared'],'source compared count')
+    field='coordinates' if schema=='Motion' else 'levels'
+    for entity,x in zip(ids,xs):
+        main=copy.deepcopy(description['payload'])
+        same(main[field],'[x,x+1,x+2,x+3]','source row formula')
+        main[field]=[x if description['currentSlot0'] is None else description['currentSlot0'],x+1,x+2,x+3]
+        yield {'id':entity,'main':main,'aux':description['aux'],'flag':description['flag']}
+
+def compare_joined(text,reference):
+    events=[json.loads(line) for line in text.splitlines()]
+    schema=reference['schema'];lane=reference['lane']
+    same(events[0],{'kind':'Lane','schema':schema,'lane':lane},'lane identity')
+    reservation=events[1];exact(reservation,('kind','namespace','first','last','count'))
+    same(reservation['kind'],'Reservations','actual reservation event')
+    ns=word(reservation['namespace'])
+    ids=[] if reservation['count']==0 else list(interval(reservation['first'],reservation['last'],reservation['count']))
+    same(ids,seq(reference['rawReservationIds']),'actual factory reservation sequence')
+    def local(h):
+        exact(h,('namespace','id'));same(h['namespace'],ns,'local nominal handle namespace')
+        value=word(h['id'])
+        if not ids or not ids[0]<=value<=ids[-1]:raise ValueError('handle was not actually reserved')
+        return value
+    reads=[e for e in events[2:] if e['kind']=='Read'];done=[e for e in events[2:] if e['kind']=='ReadDone']
+    dispatch=[e for e in events[2:] if e['kind']=='Dispatch']
+    if any(e['kind'] not in ('Read','ReadDone','Dispatch') for e in events[2:]):raise ValueError('unexpected E11 event')
+    same(len(reads),len(reference['observations']),'complete reader invocation count')
+    same(len(done),len(reads),'complete reader result count')
+    summaries=[];completed={}
+    for read,end,expected in zip(reads,done,reference['observations']):
+        key=(read['step'],read['system']);same(key,(expected['label'],expected['name']),'reader identity')
+        same((end['step'],end['system']),key,'actual completion identity')
+        same(read['count'],expected['invocation'],'persistent actual base capture')
+        for actual_name,source_name in [('query','q'),('added','added'),('changed','changed')]:
+            rows=expand_rows(schema,read[actual_name]);want=expected[source_name]
+            same(len(rows),want['allMainAndAuxFieldsCompared'],key[0]+'/'+actual_name+' count')
+            for index,(row,wanted) in enumerate(zip(rows,source_rows(schema,want))):
+                actual=DEC.representation(row);actual['id']=local(actual.pop('handle'))
+                same(actual,wanted,key[0]+'/'+actual_name+'/'+str(index))
+        for field in ('removed','despawned'):
+            same([local(h) for h in expand_handles(read[field])],seq(expected[field]),key[0]+'/'+field)
+        same([p['code'] for p in expand_messages(read['messages'])],seq(expected['messages']),key[0]+'/messages')
+        lag={key:read[value] for key,value in [('removed','removedLag'),('despawned','despawnedLag'),('messages','messageLag')]}
+        same(lag,expected['lag'],'actual reader lag')
+        same(lag,{key:end[value] for key,value in [('removed','removedLag'),('despawned','despawnedLag'),('messages','messageLag')]},'read completion lag')
+        missed=[]
+        if lag['messages']:missed.append({'kind':'event','stream':schema+'Ping'})
+        if lag['removed']:missed.append({'kind':'removed','stream':'Position' if schema=='Motion' else 'Vitals'})
+        if lag['despawned']:missed.append({'kind':'despawned','stream':'despawned'})
+        failed=end['outcome']['kind']=='Failure'
+        same(end['outcome'],{'kind':'Failure','code':7} if expected['attemptFails'] else {'kind':'Success'},'actual completion result')
+        trace={'system':end['system'],'frame':end['frame'],'tick':end['tick'],'outcome':'failed' if failed else 'ok','missed':missed}
+        same(trace,expected['publicDispatcherTrace'],'public dispatcher diagnostic')
+        same(read['boundary'],{'since':completed.get(key[1],0),'streamSince':completed.get(key[1],0),'thisRun':end['tick']},'actual Run boundaries from prior successful source dispatch')
+        if not failed:completed[key[1]]=end['tick']
+        summaries.append({'step':key[0],'system':key[1],'count':read['count'],'boundary':read['boundary'],'trace':trace,'fullRowsCompared':{k:expected[v]['allMainAndAuxFieldsCompared'] for k,v in [('query','q'),('added','added'),('changed','changed')]},'lag':lag})
+    same([{'name':d['step'],'result':DEC.outcome(d['outcome'])} for d in dispatch],reference['dispatches'],'all dispatch results')
+    counts={entry['system']:four(entry['value'])[0] for entry in dispatch[-1]['counts'] if entry['system']!='Batch' and four(entry['value'])[0]!=0}
+    same(counts,reference['invocations'],'final actual base captures')
+    # Event sequence retains success/failure and the single emitted diagnostic before each dispatch.
+    cursor=2
+    for d in dispatch:
+        expected_kinds=['Read','ReadDone','Dispatch'] if any(o['label']==d['step'] for o in reference['observations']) else ['Dispatch']
+        same([e['kind'] for e in events[cursor:cursor+len(expected_kinds)]],expected_kinds,'ordered actual dispatch events')
+        cursor+=len(expected_kinds)
+    same(cursor,len(events),'no trailing events')
+    return {'schema':schema,'lane':lane,'status':'PASS','rawBytes':len(text.encode()),'rawSha256':hashlib.sha256(text.encode()).hexdigest(),'reservations':reservation,'observations':summaries,'dispatches':dispatch}
+
 def prepare():
     source=HERE.parent/'s-integrate-trace'/'reference-retention.mjs'
     checked=B.command([B.CHECK,HERE/'host-retention-controls.bend','--check-only'])
@@ -192,9 +274,54 @@ def prepare():
     (HERE/'host-retention-evidence.json').write_text(json.dumps(evidence,indent=2)+'\n')
     print('PREPARATION_ONLY: ten source runs and eleven comparator controls; actual joined backend binding pending')
 
+def joined():
+    import tempfile,time,re
+    source=HERE.parent/'s-integrate-trace'/'reference-retention.mjs'
+    references=[];actual=[];failures=[]
+    with tempfile.TemporaryDirectory(prefix='e11-joined-') as temporary:
+        programs=B.build(HERE/'host-retention-controls.bend',Path(temporary))
+        for schema_index,schema in enumerate(SCHEMAS):
+            for lane_index,lane in enumerate(LANES):
+                reference=json.loads(B.command(['node',source,schema,lane]))
+                assert reference['status']=='PASS',reference
+                references.append(reference)
+                outputs=[]
+                for backend,program in zip(('Native','JavaScript'),programs):
+                    started=time.monotonic()
+                    try:
+                        text=B.execute(program,[str(schema_index),str(lane_index)])
+                        seconds=time.monotonic()-started
+                        result=compare_joined(text,reference)
+                        result.update(backend=backend,executionSeconds=seconds)
+                        actual.append(result);outputs.append(text)
+                        print(schema+'/'+lane+' '+backend+': PASS',flush=True)
+                    except Exception as error:
+                        failures.append({'schema':schema,'lane':lane,'backend':backend,'error':str(error)[:2000]})
+                        print(schema+'/'+lane+' '+backend+': FAIL '+str(error)[:200],flush=True)
+                if len(outputs)==2:same(outputs[0],outputs[1],'exact Native/JS output')
+    seen={}
+    def closure(path):
+        path=path.resolve()
+        if path in seen:return
+        text=path.read_text();seen[path]=sha(path)
+        for dependency in re.findall(r'^import (\.[^\s]+)',text,re.M):closure(path.parent/dependency)
+    closure(HERE/'host-retention-controls.bend')
+    evidence={'status':'JOINED_EXECUTION_PASS_MUTANTS_PENDING' if not failures else 'INCOMPLETE',
+      'actualJoinedBendExecuted':True,'productionAcceptance':False,
+      'limits':{'checkerSeconds':5,'runtimeSeconds':5,'referenceSeconds':5,'codegenSeconds':30,'nativeCompilationSeconds':120},
+      'versions':{'bend':B.command(['bend','version']),'node':B.command(['node','--version'])},
+      'sourceClosure':{str(p.relative_to(HERE.parent.parent)):value for p,value in seen.items()},
+      'referenceSha256':sha(source),'runnerSha256':sha(HERE/'host-retention-run.py'),
+      'publicReference':references,'actual':actual,'failures':failures,
+      'oraclePerturbations':perturbations(references),'compactDecoderControls':compact_controls(),
+      'semanticMutants':{'status':'PENDING','reason':'Full original ten-case gate must pass first'}}
+    (HERE/'host-retention-evidence.json').write_text(json.dumps(evidence,indent=2)+'\n')
+    print(evidence['status'],flush=True)
+    return 2 if failures else 0
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--prepare',action='store_true')
     args=parser.parse_args()
     if args.prepare:prepare();return 0
-    print(json.dumps({'status':'INCOMPLETE','reason':'Real parameterized Host + D.tick binding not delivered; --prepare is oracle preparation only'}));return 2
+    return joined()
 if __name__=='__main__':raise SystemExit(main())

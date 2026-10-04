@@ -1,0 +1,191 @@
+{
+  "status": "BASELINE_FAILURE",
+  "versions": {
+    "bend": "bend 2.0.34\n",
+    "node": "v24.20.0\n"
+  },
+  "limits": {
+    "checkerSeconds": 5,
+    "runtimeSeconds": 5,
+    "referenceSeconds": 5,
+    "codegenSeconds": 30,
+    "nativeCompilationSeconds": 120
+  },
+  "sourceClosure": {
+    "experiments/s-integrate/host-retention-controls.bend": "408390312f8047a0ae16341ada7295031731fc8da6f919eafcecea9e515cae94",
+    "experiments/s-integrate/host-batch-invoker.bend": "9e074b1e50c2e9797ab049daa4764c8a37377402907a72660cabb0abacce354f",
+    "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+    "experiments/s-integrate/storage.bend": "605d073615798f87f3675931475eee6a0668bc63c08559d4beecdb2e73c72986",
+    "experiments/s-integrate/identity.bend": "2c88babc9e853d3706f7a6c1f8f0ae48c198949143df2da6562bd774237d7329",
+    "experiments/s-integrate/commands.bend": "022ea5ca1f44c952ae77071689d0735e5a38976d7f628203d85fd9cc920a1194",
+    "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "experiments/s-integrate/storage-stage-fixture.bend": "581771140c45189c8b9038a73def804f780b5e64b7ffdecdcb45b966fc21aee7",
+    "experiments/s-integrate/query.bend": "903af14b5d85d1162df5f872f26f221134a17c772bc82fd17686ce2f4be45759",
+    "experiments/s-integrate/host.bend": "6670380a68832502c0a9950b08058cd47f490b17497d03cf5c44c745c57f68b7",
+    "experiments/s-integrate/dispatcher.bend": "3530c7c20d704ba51a9cdace1f028e507960458b9c0bdcdf0dbc0d546c800b07",
+    "experiments/s-integrate/capture.bend": "44d5f3117a465c216ee93100026aad78e86f24c40c09c678be99935dde076817",
+    "experiments/s-integrate/schedule.bend": "e7f73e9c74eca9f8d60b9300805169b0b1a0d24ed0a9540843d1e2209e807040",
+    "experiments/s-integrate/systems.bend": "2cfc899215e408cc4c652c8d4c290b18800cdb6e8c96f1061a77853afdac9221",
+    "experiments/s-integrate/readers.bend": "2673082b4ef5cd6c5d8f61c362e22f74b13daeb27196894278cc20b1459c22e9",
+    "experiments/s-integrate/reader-host.bend": "50f1251c6d476b07055c36c5a97e3350a4cb46e5d826ff97ced2860d40798a64",
+    "experiments/s-integrate/streams.bend": "1a1c7991d6a1b4ebfb3b47dc62459beb83ed5e38ded56d27cc20b5478fc0d315",
+    "experiments/s-integrate/host-observations.bend": "eecfc882c58fc252edca1fa7c86e491ab18d01128126b430f0f995cf4b8b33fe",
+    "experiments/s-integrate/observations.bend": "81e6afcd4ae06a396669cff14d1da68a4c597539b6eb64e68648ebbe7b235136",
+    "experiments/s-integrate/transaction-dispatch-adapters.bend": "eea16d3f539d70bcd88fd8fd314b75d252ccaff2b9c1c8b63e7d96bfdda34142",
+    "experiments/s-integrate/transaction.bend": "d32f0b26e4a14fc784c3ce30c4d6a1ded0cf0a55ed819f54419a558445e298a4",
+    "experiments/s-integrate/audited-invoker.bend": "2ed7e484b8a043f0944e0f662a8799f94388c99f757de331fb1a79b1c07c8853",
+    "experiments/s-integrate/host-render.bend": "4dbc392f9e138183e5d90a40fa5eccb7d8bf95b4e72c1f2f5196d3bd855249c2"
+  },
+  "runnerSha256": "7c5f5aa8b4efdff0f0c001d2b9a5b9e4370d17d897067dc656450e93cf43b1ae",
+  "runnerProvenanceNote": "Runner source loaded at process start; saved-boundary comparison was added during this baseline run and is not claimed by baseline.",
+  "failedCases": [
+    {
+      "schema": "Motion",
+      "lane": "removed",
+      "backend": "JavaScript",
+      "error": "exit 1, expected 0: ['node', PosixPath('/tmp/e11-joined-pqz68a_b/host-retention-controls.js'), '0', '1']\n{\"kind\":\"Lane\",\"schema\":\"Motion\",\"lane\":\"removed\"}\nbend: memory fault (machine stack overflow?)\n"
+    },
+    {
+      "schema": "Motion",
+      "lane": "despawned",
+      "backend": "JavaScript",
+      "error": "exit 1, expected 0: ['node', PosixPath('/tmp/e11-joined-pqz68a_b/host-retention-controls.js'), '0', '2']\n{\"kind\":\"Lane\",\"schema\":\"Motion\",\"lane\":\"despawned\"}\nbend: memory fault (machine stack overflow?)\n"
+    },
+    {
+      "schema": "Health",
+      "lane": "removed",
+      "backend": "JavaScript",
+      "error": "exit 1, expected 0: ['node', PosixPath('/tmp/e11-joined-pqz68a_b/host-retention-controls.js'), '1', '1']\n{\"kind\":\"Lane\",\"schema\":\"Health\",\"lane\":\"removed\"}\nbend: memory fault (machine stack overflow?)\n"
+    },
+    {
+      "schema": "Health",
+      "lane": "despawned",
+      "backend": "JavaScript",
+      "error": "exit 1, expected 0: ['node', PosixPath('/tmp/e11-joined-pqz68a_b/host-retention-controls.js'), '1', '2']\n{\"kind\":\"Lane\",\"schema\":\"Health\",\"lane\":\"despawned\"}\nbend: memory fault (machine stack overflow?)\n"
+    }
+  ],
+  "successfulCases": [
+    {
+      "schema": "Motion",
+      "lane": "message",
+      "backend": "Native",
+      "executionSeconds": 0.06836341903544962,
+      "rawSha256": "26057301f27f58f1dd69b41c32089cf1732a14f73fe5a3f50e7a74fda4d0d05a"
+    },
+    {
+      "schema": "Motion",
+      "lane": "message",
+      "backend": "JavaScript",
+      "executionSeconds": 0.30118876206688583,
+      "rawSha256": "26057301f27f58f1dd69b41c32089cf1732a14f73fe5a3f50e7a74fda4d0d05a"
+    },
+    {
+      "schema": "Motion",
+      "lane": "removed",
+      "backend": "Native",
+      "executionSeconds": 2.872269632993266,
+      "rawSha256": "250e5db07089b7e5d88c3da700a6dc0680fc52833dda70e02d1c8a7ee063675a"
+    },
+    {
+      "schema": "Motion",
+      "lane": "despawned",
+      "backend": "Native",
+      "executionSeconds": 4.659145327983424,
+      "rawSha256": "dfd46fd42b1490ddb0aa8d3cf8abc8f2eab68417436885b16aa858922f4606d8"
+    },
+    {
+      "schema": "Motion",
+      "lane": "unheld",
+      "backend": "Native",
+      "executionSeconds": 0.006377746816724539,
+      "rawSha256": "746fa0bc93c6112168c1184f7fb1369896d581e0ffe896c32f9e73311107f14f"
+    },
+    {
+      "schema": "Motion",
+      "lane": "unheld",
+      "backend": "JavaScript",
+      "executionSeconds": 0.026370411971583962,
+      "rawSha256": "746fa0bc93c6112168c1184f7fb1369896d581e0ffe896c32f9e73311107f14f"
+    },
+    {
+      "schema": "Motion",
+      "lane": "marks",
+      "backend": "Native",
+      "executionSeconds": 0.0023543890565633774,
+      "rawSha256": "00bd44e880a4c8eac6541cde1d8cd68166f469355f4b6e74066730ceabda83a8"
+    },
+    {
+      "schema": "Motion",
+      "lane": "marks",
+      "backend": "JavaScript",
+      "executionSeconds": 0.04318122286349535,
+      "rawSha256": "00bd44e880a4c8eac6541cde1d8cd68166f469355f4b6e74066730ceabda83a8"
+    },
+    {
+      "schema": "Health",
+      "lane": "message",
+      "backend": "Native",
+      "executionSeconds": 0.06321834493428469,
+      "rawSha256": "f46488229c2856cd842300e1169d12e313dd10548567db78108c2db32e4a7731"
+    },
+    {
+      "schema": "Health",
+      "lane": "message",
+      "backend": "JavaScript",
+      "executionSeconds": 0.32205068110488355,
+      "rawSha256": "f46488229c2856cd842300e1169d12e313dd10548567db78108c2db32e4a7731"
+    },
+    {
+      "schema": "Health",
+      "lane": "removed",
+      "backend": "Native",
+      "executionSeconds": 3.264761329162866,
+      "rawSha256": "063fad62e7c0b5ccb238eaffb5781766f05d7aca9c1f4428093808aab7dbfdf5"
+    },
+    {
+      "schema": "Health",
+      "lane": "despawned",
+      "backend": "Native",
+      "executionSeconds": 3.835379656869918,
+      "rawSha256": "a142e45070ca37bd5f4b2ebd484dda1b65d4f60438dbb10eb1a2f56b4342896c"
+    },
+    {
+      "schema": "Health",
+      "lane": "unheld",
+      "backend": "Native",
+      "executionSeconds": 0.005418282933533192,
+      "rawSha256": "b2b0e18d026ed613444e8d3de715f6049b1b9c0819564874be3eb39c6b93a9d9"
+    },
+    {
+      "schema": "Health",
+      "lane": "unheld",
+      "backend": "JavaScript",
+      "executionSeconds": 0.04075720813125372,
+      "rawSha256": "b2b0e18d026ed613444e8d3de715f6049b1b9c0819564874be3eb39c6b93a9d9"
+    },
+    {
+      "schema": "Health",
+      "lane": "marks",
+      "backend": "Native",
+      "executionSeconds": 0.004930487833917141,
+      "rawSha256": "ebf85b108da41a9050c89c7b658a2bedb9702a0244ad5dfa04bb9fdc4ec8d43e"
+    },
+    {
+      "schema": "Health",
+      "lane": "marks",
+      "backend": "JavaScript",
+      "executionSeconds": 0.05081897811032832,
+      "rawSha256": "ebf85b108da41a9050c89c7b658a2bedb9702a0244ad5dfa04bb9fdc4ec8d43e"
+    }
+  ],
+  "isolatedCause": {
+    "phase": "spawn-capacity-plus-one; before actual reads or serialization",
+    "diagnostic": "Generated JS diagnostic catch reported repeated Base List.append stack frames; storage.publish appends a65537-element staged command list recursively. A temporary IO.print(label) around real D.tick localized the same failure. Neither diagnostic modified checked runtime sources.",
+    "commands": [
+      "python3 experiments/s-integrate/host-retention-run.py",
+      "python3 /tmp/e11_diag.py",
+      "node /tmp/bendvy-e11-build/stack.js 0 1 (wrapped by existing command helper5s)"
+    ],
+    "limits": "One earlier isolated Native despawn run timed out5s; complete baseline replay passed all ten Native cases within5s. No failed timeout counted as acceptance."
+  }
+}
