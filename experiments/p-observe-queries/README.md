@@ -83,3 +83,40 @@ helper inventory and concrete blockers that the completed proof resolved.
 No proof of arbitrary Type payload preservation, owned runtime correspondence,
 root confinement, transaction/readers, host IO or native/JS performance follows.
 Other #18 stages and the full core remain gated. Canonical Defense stays untouched.
+
+## Next approved contextual integration inventory
+
+For the schedule/flush public observation obligations, derive generic Any-query
+enumeration lookup adequacy in the same package: actual emitted-row lookup under
+a distinct target; missing lookup below the interval; exact-slot lookup and
+bounded inside-interval lookup; missing lookup at/above the upper interval
+boundary; and pointwise/observation enumeration stability. These obligations
+use the actual `S.enumerate_rows`/`S.at`, arbitrary raw row lists and pinned
+emitted-key proofs. They are contextual links needed by approved endpoints,
+not a proof of an additional catalogue contract, runtime authority or full-core
+performance. Materialize-specific and Bump-specific facts remain other lanes.
+
+### Contextual integration result
+
+`enum-lookup.bend` passes checker and kernel and supplies:
+
+- `lookup_inside(fuel,start,rows,target,lo,hi)`: original `S.at` equals lookup in
+  Any materialization for exact inside bounds.
+- `lookup_below` and `lookup_above`: materialized lookup is Missing outside the
+  interval; the upper boundary is excluded.
+- `enumerated_slots` and `related_enumerations`: a structural interval lookup
+  relation and its independent enumeration congruence, without copying an affine
+  proof callback.
+- `enumeration_stable(fuel,start,rows,selection)`: same-interval selection before
+  Any materialization equals selection afterwards.
+- `observation_stable(id,next,rows,pending)`: the independent public observation
+  remains equal after `[0,next)` Any materialization.
+
+These are universal for arbitrary raw row lists, including physical disorder,
+duplicate keys and out-of-range rows; they add no product policy for malformed
+worlds. `enum-controls.bend` additionally checks the first duplicate result,
+below/at-upper/above interval boundaries, zero fuel, arbitrary selections and
+unchanged namespace/frontier/pending observation. The current runner rechecks
+these helpers, the three full query endpoints and all prior own-endpoint mutant
+gates. Flush/schedule lanes may import this exact committed package; their
+materialize/Bump/transition premises and endpoint gates remain their own work.

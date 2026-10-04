@@ -35,7 +35,7 @@ subset = (HERE / 'LAWS.bend').read_text()
 assert subset[subset.index('law query_any_complete_ordered:'):] == block
 assert subset.count('\nlaw ') == 3
 rows = []
-for name in ['helpers.bend', 'invariants.bend', 'intervals.bend', 'order.bend', 'insertion.bend', 'complete.bend', 'contextual.bend', 'controls.bend', 'PROOF.bend']:
+for name in ['helpers.bend', 'invariants.bend', 'intervals.bend', 'order.bend', 'insertion.bend', 'complete.bend', 'enum-lookup.bend', 'enum-controls.bend', 'contextual.bend', 'controls.bend', 'PROOF.bend']:
     for kernel in [False, True]:
         row = check(HERE / name, kernel)
         require(row, 0, 'ALL PROOFS CHECK')
@@ -56,7 +56,7 @@ with tempfile.TemporaryDirectory(prefix='bendvy-query-proof-') as tmp:
     core.mkdir()
     for name in ['types.bend', 'model.bend', 'spec.bend']:
         shutil.copy2(SUBJECTS / name, core / name)
-    for name in ['helpers.bend', 'invariants.bend', 'intervals.bend', 'contextual.bend']:
+    for name in ['helpers.bend', 'invariants.bend', 'intervals.bend', 'enum-lookup.bend', 'contextual.bend']:
         row = check(dest / name, True)
         require(row, 0, 'ALL PROOFS CHECK')
         rows.append(row)
@@ -143,7 +143,7 @@ with tempfile.TemporaryDirectory(prefix='bendvy-query-endpoints-') as tmp:
         (core / 'model.bend').write_text(original_model)
 
 paths = [SUBJECTS / n for n in ['LAWS.bend', 'types.bend', 'model.bend', 'spec.bend']]
-paths += [HERE / n for n in ['LAWS.bend', 'helpers.bend', 'invariants.bend', 'intervals.bend', 'order.bend', 'insertion.bend', 'complete.bend', 'PROOF.bend', 'contextual.bend', 'controls.bend', 'attempt.bend', 'run.py']]
+paths += [HERE / n for n in ['LAWS.bend', 'helpers.bend', 'invariants.bend', 'intervals.bend', 'order.bend', 'insertion.bend', 'complete.bend', 'enum-lookup.bend', 'enum-controls.bend', 'PROOF.bend', 'contextual.bend', 'controls.bend', 'attempt.bend', 'run.py']]
 paths += [WRAPPER, pathlib.Path('/home/node/.bend/bend2/base.bend'), pathlib.Path(shutil.which('bend')).resolve()]
 refs = {}
 for name in ['bevy-ts', 'bevy', 'bend2']:
@@ -160,6 +160,7 @@ evidence = {'status': 'all three exact approved query endpoints proved and own-e
             'checks': rows, 'contextual_mutants': mutants, 'endpoint_mutants': endpoint_mutants,
             'completed_endpoint_ids': [row[0] for row in ids],
             'blocked_endpoint_ids': [],
+            'integration_contextual_helpers': ['lookup_inside','lookup_below','lookup_above','enumeration_stable','observation_stable'],
             'limit_seconds': 5}
 (HERE / 'evidence.json').write_text(json.dumps(evidence, indent=2) + '\n')
 print('All 3 exact query endpoint proofs/kernel checks and compiling own-section mutants passed.')

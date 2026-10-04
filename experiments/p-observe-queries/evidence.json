@@ -21,14 +21,16 @@
     "/workspace/formal-proofs/bendvy/experiments/p-observe-queries/helpers.bend": "d6a4e2ed063042ef275af99dc4aa5afa26537de4a65b44e78b18847514c7ffb0",
     "/workspace/formal-proofs/bendvy/experiments/p-observe-queries/invariants.bend": "172b3fa37a00946d299efa107697ac9eb08da11c59731976777a373ccb56eeaf",
     "/workspace/formal-proofs/bendvy/experiments/p-observe-queries/intervals.bend": "ecc40a89979abef46b5532a0c6b37c700c2a0f7493392366c4b98883035c6a9d",
-    "/workspace/formal-proofs/bendvy/experiments/p-observe-queries/order.bend": "31bf888841a0f55af73e11556dfb671c0b65661dbc584214b58953c9af1e8c38",
+    "/workspace/formal-proofs/bendvy/experiments/p-observe-queries/order.bend": "5ced479fc833f02cd14b7bc9a75ebd8c6b8fe3c9453c56896df723c2f26914d0",
     "/workspace/formal-proofs/bendvy/experiments/p-observe-queries/insertion.bend": "513d4038ce6c0d49b211cbc87e254c0c32a5e0fb20c24fca3afe6a6c982fca09",
     "/workspace/formal-proofs/bendvy/experiments/p-observe-queries/complete.bend": "6251ed244326bcb45ecc0a7bca710b9d0e7ec4dcaac1992fa0760d718b456c25",
+    "/workspace/formal-proofs/bendvy/experiments/p-observe-queries/enum-lookup.bend": "9746bc7c140857e687b8b3ae23870fd6c55236067ef1fbaed6e3a855e07463bb",
+    "/workspace/formal-proofs/bendvy/experiments/p-observe-queries/enum-controls.bend": "a2b857bebae197d736c93835a4986675fe8636555536dcaed5fb8618d44682cb",
     "/workspace/formal-proofs/bendvy/experiments/p-observe-queries/PROOF.bend": "c19232ce95346de33432e330c259932c814a0fec772a23cac924837742a13394",
     "/workspace/formal-proofs/bendvy/experiments/p-observe-queries/contextual.bend": "b47db33a06c55da8fa014f6f5dab2c39a194f314f3a2ccd1cfe24c95153cf3a9",
     "/workspace/formal-proofs/bendvy/experiments/p-observe-queries/controls.bend": "ab314daad6b99ffdda49ca680fca8417acc6d5c2bcd192e5e1dadfde78304f55",
     "/workspace/formal-proofs/bendvy/experiments/p-observe-queries/attempt.bend": "656b0f1cca7de6cdd6bd982308c58cf3e4ab7184541f82b331ba78e0c641f819",
-    "/workspace/formal-proofs/bendvy/experiments/p-observe-queries/run.py": "0e99d16a91fbb0804cfb8657f3cee1669ce2242207c27d5e6949f038950fabd6",
+    "/workspace/formal-proofs/bendvy/experiments/p-observe-queries/run.py": "577048c514277804b413e391468f9b46e286d2f60a1c1e658e61f48ab398ed5a",
     "/workspace/formal-proofs/bendvy/experiments/t01/bend-check": "7c2e4afd996beae6749c650fe508f76d49633267665a96a44938af08ad0ce6a5",
     "/home/node/.bend/bend2/base.bend": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
     "/home/node/.bend/bin/bend": "d4821d04932218216c9dc906223ed0e23dd86726d4357a567fb76ee6c976db4e"
@@ -139,6 +141,40 @@
     {
       "command": [
         "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-observe-queries/enum-lookup.bend"
+      ],
+      "exit_code": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-observe-queries/enum-lookup.bend",
+        "--verdict"
+      ],
+      "exit_code": 0,
+      "output": "ALL PROOFS CHECK\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-observe-queries/enum-controls.bend"
+      ],
+      "exit_code": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/p-observe-queries/enum-controls.bend",
+        "--verdict"
+      ],
+      "exit_code": 0,
+      "output": "ALL PROOFS CHECK\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
         "/workspace/formal-proofs/bendvy/experiments/p-observe-queries/contextual.bend"
       ],
       "exit_code": 0,
@@ -207,7 +243,7 @@
     {
       "command": [
         "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-        "/tmp/bendvy-query-proof-n4v25kls/experiments/p-observe-queries/helpers.bend",
+        "/tmp/bendvy-query-proof-_84s1a6o/experiments/p-observe-queries/helpers.bend",
         "--verdict"
       ],
       "exit_code": 0,
@@ -216,7 +252,7 @@
     {
       "command": [
         "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-        "/tmp/bendvy-query-proof-n4v25kls/experiments/p-observe-queries/invariants.bend",
+        "/tmp/bendvy-query-proof-_84s1a6o/experiments/p-observe-queries/invariants.bend",
         "--verdict"
       ],
       "exit_code": 0,
@@ -225,7 +261,7 @@
     {
       "command": [
         "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-        "/tmp/bendvy-query-proof-n4v25kls/experiments/p-observe-queries/intervals.bend",
+        "/tmp/bendvy-query-proof-_84s1a6o/experiments/p-observe-queries/intervals.bend",
         "--verdict"
       ],
       "exit_code": 0,
@@ -234,7 +270,16 @@
     {
       "command": [
         "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-        "/tmp/bendvy-query-proof-n4v25kls/experiments/p-observe-queries/contextual.bend",
+        "/tmp/bendvy-query-proof-_84s1a6o/experiments/p-observe-queries/enum-lookup.bend",
+        "--verdict"
+      ],
+      "exit_code": 0,
+      "output": "ALL PROOFS CHECK\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
+        "/tmp/bendvy-query-proof-_84s1a6o/experiments/p-observe-queries/contextual.bend",
         "--verdict"
       ],
       "exit_code": 0,
@@ -248,7 +293,7 @@
       "compilation": {
         "command": [
           "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/tmp/bendvy-query-proof-n4v25kls/experiments/t11-replacement/spec.bend"
+          "/tmp/bendvy-query-proof-_84s1a6o/experiments/t11-replacement/spec.bend"
         ],
         "exit_code": 0,
         "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
@@ -256,7 +301,7 @@
       "unchanged_proof": {
         "command": [
           "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/tmp/bendvy-query-proof-n4v25kls/experiments/p-observe-queries/helpers.bend"
+          "/tmp/bendvy-query-proof-_84s1a6o/experiments/p-observe-queries/helpers.bend"
         ],
         "exit_code": 1,
         "output": "SOME PROOFS FAIL\nError:\n- expected : {None{} == Some{row} : Maybe<&2, T.Row>}\n- observed : {None{} == S.at(tail, slot) : Maybe<&2, T.Row>}\nContext:\n- row  : T.Row\n- tail : List<&2, T.Row>\n- slot : Nat\n- h    : {0n == S.count(tail, slot) : Nat}\n- ih   : @_:{0n == S.count(tail, slot) : Nat} -> {None{} == S.at(tail, slot) : Maybe<&2, T.Row>}\nLocation: at_zero_head\n64 |     case EQ{}: Empty.absurd({None{} == Some{row} : Maybe<&2,T.Row>},zero_succ_absurd(S.count(tail,slot),h))\n65>|     case LT{}: ih(h)\n   |                ^^^^^\n66 |     case GT{}: ih(h)\n"
@@ -268,7 +313,7 @@
       "compilation": {
         "command": [
           "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/tmp/bendvy-query-proof-n4v25kls/experiments/t11-replacement/spec.bend"
+          "/tmp/bendvy-query-proof-_84s1a6o/experiments/t11-replacement/spec.bend"
         ],
         "exit_code": 0,
         "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
@@ -276,7 +321,7 @@
       "unchanged_proof": {
         "command": [
           "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/tmp/bendvy-query-proof-n4v25kls/experiments/p-observe-queries/invariants.bend"
+          "/tmp/bendvy-query-proof-_84s1a6o/experiments/p-observe-queries/invariants.bend"
         ],
         "exit_code": 1,
         "output": "SOME PROOFS FAIL\nError:\n- expected : False{}\n- observed : True{}\nLocation: eligibility\n29 |     case T.Any{} True{}: {==}\n30>|     case T.Present{} False{}: {==}\n   |                               ^^^^\n31 |     case T.Present{} True{}: {==}\n"
@@ -288,7 +333,7 @@
       "compilation": {
         "command": [
           "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/tmp/bendvy-query-proof-n4v25kls/experiments/t11-replacement/model.bend"
+          "/tmp/bendvy-query-proof-_84s1a6o/experiments/t11-replacement/model.bend"
         ],
         "exit_code": 0,
         "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
@@ -296,7 +341,7 @@
       "unchanged_proof": {
         "command": [
           "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/tmp/bendvy-query-proof-n4v25kls/experiments/p-observe-queries/contextual.bend"
+          "/tmp/bendvy-query-proof-_84s1a6o/experiments/p-observe-queries/contextual.bend"
         ],
         "exit_code": 1,
         "output": "SOME PROOFS FAIL\nError:\n- expected : {[T.Row{0n, 0n, False{}}] == S.enumerate_rows(next, 0n, [], selection) : List<&2, T.Row>}\n- observed : {[] == S.enumerate_rows(next, 0n, [], selection) : List<&2, T.Row>}\nContext:\n- limit     : Nat\n- id        : Nat\n- next      : Nat\n- pending   : List<&2, T.Command>\n- selection : T.Selection\nLocation: empty_world\n27 |     {M.query(T.World{id,next,[],pending},selection) == S.query(T.World{id,next,[],pending},selection) : List<&2,T.Row>},\n28>|     H.enumerate_empty(next,0n,selection))\n   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n29 | \n"
@@ -312,7 +357,7 @@
         {
           "command": [
             "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-            "/tmp/bendvy-query-endpoints-81flxaxi/experiments/p-observe-queries/PROOF.bend"
+            "/tmp/bendvy-query-endpoints-2w3jdlnq/experiments/p-observe-queries/PROOF.bend"
           ],
           "exit_code": 0,
           "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
@@ -320,7 +365,7 @@
         {
           "command": [
             "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-            "/tmp/bendvy-query-endpoints-81flxaxi/experiments/p-observe-queries/PROOF.bend",
+            "/tmp/bendvy-query-endpoints-2w3jdlnq/experiments/p-observe-queries/PROOF.bend",
             "--verdict"
           ],
           "exit_code": 0,
@@ -329,7 +374,7 @@
         {
           "command": [
             "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-            "/tmp/bendvy-query-endpoints-81flxaxi/experiments/p-observe-queries/premise.bend",
+            "/tmp/bendvy-query-endpoints-2w3jdlnq/experiments/p-observe-queries/premise.bend",
             "--verdict"
           ],
           "exit_code": 0,
@@ -338,7 +383,7 @@
         {
           "command": [
             "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-            "/tmp/bendvy-query-endpoints-81flxaxi/experiments/p-observe-queries/witness.bend",
+            "/tmp/bendvy-query-endpoints-2w3jdlnq/experiments/p-observe-queries/witness.bend",
             "--verdict"
           ],
           "exit_code": 0,
@@ -348,7 +393,7 @@
       "compiling_mutant": {
         "command": [
           "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/tmp/bendvy-query-endpoints-81flxaxi/experiments/t11-replacement/model.bend"
+          "/tmp/bendvy-query-endpoints-2w3jdlnq/experiments/t11-replacement/model.bend"
         ],
         "exit_code": 0,
         "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
@@ -356,7 +401,7 @@
       "active_premise_on_mutant": {
         "command": [
           "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/tmp/bendvy-query-endpoints-81flxaxi/experiments/p-observe-queries/premise.bend",
+          "/tmp/bendvy-query-endpoints-2w3jdlnq/experiments/p-observe-queries/premise.bend",
           "--verdict"
         ],
         "exit_code": 0,
@@ -365,7 +410,7 @@
       "false_instance": {
         "command": [
           "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/tmp/bendvy-query-endpoints-81flxaxi/experiments/p-observe-queries/witness.bend"
+          "/tmp/bendvy-query-endpoints-2w3jdlnq/experiments/p-observe-queries/witness.bend"
         ],
         "exit_code": 1,
         "output": "SOME PROOFS FAIL\nError:\n- expected : [T.Row{1n, 10n, True{}}]\n- observed : [T.Row{0n, 5n, False{}}, T.Row{1n, 10n, True{}}, T.Row{3n, 30n, False{}}]\nLocation: true_instance\n 8 | def true_instance() -> {M.query(T.World{7n,4n,[T.Row{3n,30n,False{}},T.Row{1n,10n,True{}},T.Row{0n,5n,False{}}],[]},T.Any{}) == S.query(T.World{7n,4n,[T.Row{3n,30n,False{}},T.Row{1n,10n,True{}},T.Row{0n,5n,False{}}],[]},T.Any{}) : List<&2,T.Row>}:\n 9>|   {==}\n   |   ^^^^\n10 | \n"
@@ -373,7 +418,7 @@
       "unchanged_own_endpoint_proof": {
         "command": [
           "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/tmp/bendvy-query-endpoints-81flxaxi/experiments/p-observe-queries/PROOF.bend"
+          "/tmp/bendvy-query-endpoints-2w3jdlnq/experiments/p-observe-queries/PROOF.bend"
         ],
         "exit_code": 1,
         "output": "SOME PROOFS FAIL\nError:\n- expected : S.When(Bool.and(Cmp.is_le(Nat.cmp(next, limit)), Bool.and(S.rows_valid(rows, rows, next), S.pending_valid(pending, pending, rows, next))), {../t11-replacement/model.query_rows(T.Present{}, rows) == S.enumerate_rows(next, 0n, rows, T.Any{}) : List<&2, T.Row>})\n- observed : S.When(Bool.and(Cmp.is_le(Nat.cmp(next, limit)), Bool.and(S.rows_valid(rows, rows, next), S.pending_valid(pending, pending, rows, next))), {../t11-replacement/model.query_rows(T.Any{}, rows) == S.enumerate_rows(next, 0n, rows, T.Any{}) : List<&2, T.Row>})\nContext:\n- limit   : Nat\n- id      : Nat\n- next    : Nat\n- rows    : List<&2, T.Row>\n- pending : List<&2, T.Command>\nLocation: Laws.query_any_complete_ordered\n10 |     case T.World{+id,+next,+rows,+pending}:\n11>|       C.guarded(S.admissible(limit,T.World{id,next,rows,pending}),limit,id,next,rows,pending,T.Any{},{==})\n   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n12 | \n"
@@ -387,7 +432,7 @@
         {
           "command": [
             "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-            "/tmp/bendvy-query-endpoints-81flxaxi/experiments/p-observe-queries/PROOF.bend"
+            "/tmp/bendvy-query-endpoints-2w3jdlnq/experiments/p-observe-queries/PROOF.bend"
           ],
           "exit_code": 0,
           "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
@@ -395,7 +440,7 @@
         {
           "command": [
             "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-            "/tmp/bendvy-query-endpoints-81flxaxi/experiments/p-observe-queries/PROOF.bend",
+            "/tmp/bendvy-query-endpoints-2w3jdlnq/experiments/p-observe-queries/PROOF.bend",
             "--verdict"
           ],
           "exit_code": 0,
@@ -404,7 +449,7 @@
         {
           "command": [
             "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-            "/tmp/bendvy-query-endpoints-81flxaxi/experiments/p-observe-queries/premise.bend",
+            "/tmp/bendvy-query-endpoints-2w3jdlnq/experiments/p-observe-queries/premise.bend",
             "--verdict"
           ],
           "exit_code": 0,
@@ -413,7 +458,7 @@
         {
           "command": [
             "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-            "/tmp/bendvy-query-endpoints-81flxaxi/experiments/p-observe-queries/witness.bend",
+            "/tmp/bendvy-query-endpoints-2w3jdlnq/experiments/p-observe-queries/witness.bend",
             "--verdict"
           ],
           "exit_code": 0,
@@ -423,7 +468,7 @@
       "compiling_mutant": {
         "command": [
           "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/tmp/bendvy-query-endpoints-81flxaxi/experiments/t11-replacement/model.bend"
+          "/tmp/bendvy-query-endpoints-2w3jdlnq/experiments/t11-replacement/model.bend"
         ],
         "exit_code": 0,
         "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
@@ -431,7 +476,7 @@
       "active_premise_on_mutant": {
         "command": [
           "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/tmp/bendvy-query-endpoints-81flxaxi/experiments/p-observe-queries/premise.bend",
+          "/tmp/bendvy-query-endpoints-2w3jdlnq/experiments/p-observe-queries/premise.bend",
           "--verdict"
         ],
         "exit_code": 0,
@@ -440,7 +485,7 @@
       "false_instance": {
         "command": [
           "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/tmp/bendvy-query-endpoints-81flxaxi/experiments/p-observe-queries/witness.bend"
+          "/tmp/bendvy-query-endpoints-2w3jdlnq/experiments/p-observe-queries/witness.bend"
         ],
         "exit_code": 1,
         "output": "SOME PROOFS FAIL\nError:\n- expected : [T.Row{0n, 5n, False{}}, T.Row{3n, 30n, False{}}]\n- observed : [T.Row{1n, 10n, True{}}]\nLocation: true_instance\n 8 | def true_instance() -> {M.query(T.World{7n,4n,[T.Row{3n,30n,False{}},T.Row{1n,10n,True{}},T.Row{0n,5n,False{}}],[]},T.Present{}) == S.query(T.World{7n,4n,[T.Row{3n,30n,False{}},T.Row{1n,10n,True{}},T.Row{0n,5n,False{}}],[]},T.Present{}) : List<&2,T.Row>}:\n 9>|   {==}\n   |   ^^^^\n10 | \n"
@@ -448,7 +493,7 @@
       "unchanged_own_endpoint_proof": {
         "command": [
           "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/tmp/bendvy-query-endpoints-81flxaxi/experiments/p-observe-queries/PROOF.bend"
+          "/tmp/bendvy-query-endpoints-2w3jdlnq/experiments/p-observe-queries/PROOF.bend"
         ],
         "exit_code": 1,
         "output": "SOME PROOFS FAIL\nError:\n- expected : S.When(Bool.and(Cmp.is_le(Nat.cmp(next, limit)), Bool.and(S.rows_valid(rows, rows, next), S.pending_valid(pending, pending, rows, next))), {../t11-replacement/model.query_rows(T.Absent{}, rows) == S.enumerate_rows(next, 0n, rows, T.Present{}) : List<&2, T.Row>})\n- observed : S.When(Bool.and(Cmp.is_le(Nat.cmp(next, limit)), Bool.and(S.rows_valid(rows, rows, next), S.pending_valid(pending, pending, rows, next))), {../t11-replacement/model.query_rows(T.Present{}, rows) == S.enumerate_rows(next, 0n, rows, T.Present{}) : List<&2, T.Row>})\nContext:\n- limit   : Nat\n- id      : Nat\n- next    : Nat\n- rows    : List<&2, T.Row>\n- pending : List<&2, T.Command>\nLocation: Laws.query_present_complete_ordered\n10 |     case T.World{+id,+next,+rows,+pending}:\n11>|       C.guarded(S.admissible(limit,T.World{id,next,rows,pending}),limit,id,next,rows,pending,T.Present{},{==})\n   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n12 | \n"
@@ -462,7 +507,7 @@
         {
           "command": [
             "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-            "/tmp/bendvy-query-endpoints-81flxaxi/experiments/p-observe-queries/PROOF.bend"
+            "/tmp/bendvy-query-endpoints-2w3jdlnq/experiments/p-observe-queries/PROOF.bend"
           ],
           "exit_code": 0,
           "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
@@ -470,7 +515,7 @@
         {
           "command": [
             "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-            "/tmp/bendvy-query-endpoints-81flxaxi/experiments/p-observe-queries/PROOF.bend",
+            "/tmp/bendvy-query-endpoints-2w3jdlnq/experiments/p-observe-queries/PROOF.bend",
             "--verdict"
           ],
           "exit_code": 0,
@@ -479,7 +524,7 @@
         {
           "command": [
             "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-            "/tmp/bendvy-query-endpoints-81flxaxi/experiments/p-observe-queries/premise.bend",
+            "/tmp/bendvy-query-endpoints-2w3jdlnq/experiments/p-observe-queries/premise.bend",
             "--verdict"
           ],
           "exit_code": 0,
@@ -488,7 +533,7 @@
         {
           "command": [
             "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-            "/tmp/bendvy-query-endpoints-81flxaxi/experiments/p-observe-queries/witness.bend",
+            "/tmp/bendvy-query-endpoints-2w3jdlnq/experiments/p-observe-queries/witness.bend",
             "--verdict"
           ],
           "exit_code": 0,
@@ -498,7 +543,7 @@
       "compiling_mutant": {
         "command": [
           "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/tmp/bendvy-query-endpoints-81flxaxi/experiments/t11-replacement/model.bend"
+          "/tmp/bendvy-query-endpoints-2w3jdlnq/experiments/t11-replacement/model.bend"
         ],
         "exit_code": 0,
         "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
@@ -506,7 +551,7 @@
       "active_premise_on_mutant": {
         "command": [
           "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/tmp/bendvy-query-endpoints-81flxaxi/experiments/p-observe-queries/premise.bend",
+          "/tmp/bendvy-query-endpoints-2w3jdlnq/experiments/p-observe-queries/premise.bend",
           "--verdict"
         ],
         "exit_code": 0,
@@ -515,7 +560,7 @@
       "false_instance": {
         "command": [
           "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/tmp/bendvy-query-endpoints-81flxaxi/experiments/p-observe-queries/witness.bend"
+          "/tmp/bendvy-query-endpoints-2w3jdlnq/experiments/p-observe-queries/witness.bend"
         ],
         "exit_code": 1,
         "output": "SOME PROOFS FAIL\nError:\n- expected : [T.Row{0n, 5n, False{}}, T.Row{1n, 10n, True{}}, T.Row{3n, 30n, False{}}]\n- observed : [T.Row{0n, 5n, False{}}, T.Row{3n, 30n, False{}}]\nLocation: true_instance\n 8 | def true_instance() -> {M.query(T.World{7n,4n,[T.Row{3n,30n,False{}},T.Row{1n,10n,True{}},T.Row{0n,5n,False{}}],[]},T.Absent{}) == S.query(T.World{7n,4n,[T.Row{3n,30n,False{}},T.Row{1n,10n,True{}},T.Row{0n,5n,False{}}],[]},T.Absent{}) : List<&2,T.Row>}:\n 9>|   {==}\n   |   ^^^^\n10 | \n"
@@ -523,7 +568,7 @@
       "unchanged_own_endpoint_proof": {
         "command": [
           "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/tmp/bendvy-query-endpoints-81flxaxi/experiments/p-observe-queries/PROOF.bend"
+          "/tmp/bendvy-query-endpoints-2w3jdlnq/experiments/p-observe-queries/PROOF.bend"
         ],
         "exit_code": 1,
         "output": "SOME PROOFS FAIL\nError:\n- expected : S.When(Bool.and(Cmp.is_le(Nat.cmp(next, limit)), Bool.and(S.rows_valid(rows, rows, next), S.pending_valid(pending, pending, rows, next))), {../t11-replacement/model.query_rows(T.Any{}, rows) == S.enumerate_rows(next, 0n, rows, T.Absent{}) : List<&2, T.Row>})\n- observed : S.When(Bool.and(Cmp.is_le(Nat.cmp(next, limit)), Bool.and(S.rows_valid(rows, rows, next), S.pending_valid(pending, pending, rows, next))), {../t11-replacement/model.query_rows(T.Absent{}, rows) == S.enumerate_rows(next, 0n, rows, T.Absent{}) : List<&2, T.Row>})\nContext:\n- limit   : Nat\n- id      : Nat\n- next    : Nat\n- rows    : List<&2, T.Row>\n- pending : List<&2, T.Command>\nLocation: Laws.query_absent_complete_ordered\n10 |     case T.World{+id,+next,+rows,+pending}:\n11>|       C.guarded(S.admissible(limit,T.World{id,next,rows,pending}),limit,id,next,rows,pending,T.Absent{},{==})\n   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n12 | \n"
@@ -536,5 +581,12 @@
     "query_absent_complete_ordered"
   ],
   "blocked_endpoint_ids": [],
+  "integration_contextual_helpers": [
+    "lookup_inside",
+    "lookup_below",
+    "lookup_above",
+    "enumeration_stable",
+    "observation_stable"
+  ],
   "limit_seconds": 5
 }
