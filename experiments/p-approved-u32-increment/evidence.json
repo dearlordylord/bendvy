@@ -1,0 +1,133 @@
+{
+  "issue": 18,
+  "status": "PASS: exact universal approved increment theorem, checker/kernel, complete true-domain witness, compiling +2 mutant rejected in its own endpoint",
+  "scope": "exact approved universal u32_increment_no_wrap; no other catalogue law",
+  "exact_selection": true,
+  "checker_limit_seconds": 5,
+  "frozen": {
+    "approved_subject_sha256": "7d4ea7b7c94592c473271cffb8bcd3ec1cb1ff7390f6e1aa5cde9918ad9ce937",
+    "canonical_sources": {
+      "experiments/p-observe/ARITHMETIC-PROPOSED.bend": "7d4ea7b7c94592c473271cffb8bcd3ec1cb1ff7390f6e1aa5cde9918ad9ce937",
+      "docs/reviews/delegated-owned-law-approval.md": "f4bcbb952c558093aa572c6499ac6763cf85c0faf9ef6a33485b2160eae0b220",
+      "experiments/t11-replacement/LAWS.bend": "e0c607d723ad250a189c096d9fa3fd6a36913f4c72efd3a3be6dacd7fadb2cbc",
+      "experiments/t11-replacement/bridge.bend": "c20d2d4bac15b3bf4bff7a20a28a140f6f74862081ffff23955cdc6326441f80",
+      "experiments/t11-replacement/spec.bend": "3b7a96d9131919fe087dac5e024058bbfa916ce5c108dce3a7d72119b7ccd465",
+      "experiments/p-owned-arithmetic/structural.bend": "39e6edaa38954a53097b04488c36648dc5f1613d23d84a86a9a0bf4f61edc996"
+    },
+    "compiler_sha256": "d4821d04932218216c9dc906223ed0e23dd86726d4357a567fb76ee6c976db4e",
+    "base_sha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661"
+  },
+  "checks": [
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/approved-u32-increment/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/approved-u32-increment/experiments/p-approved-u32-increment/PROOF.bend",
+        "--check-only"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.4379208569880575,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/approved-u32-increment/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/approved-u32-increment/experiments/p-approved-u32-increment/PROOF.bend",
+        "--verdict"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.44234054116532207,
+      "output": "ALL PROOFS CHECK\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/approved-u32-increment/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/approved-u32-increment/experiments/p-approved-u32-increment/controls.bend",
+        "--verdict"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.4048636450897902,
+      "output": "ALL PROOFS CHECK\nbend 2.0.35 is available: run bend update\n"
+    }
+  ],
+  "kernel_negative": {
+    "command": [
+      "/workspace/formal-proofs/bendvy-worktrees/approved-u32-increment/experiments/t01/bend-check",
+      "/workspace/formal-proofs/bendvy-worktrees/approved-u32-increment/experiments/p-approved-u32-increment/PROOF.bend",
+      "--verdict"
+    ],
+    "exit_code": 1,
+    "wall_seconds": 0.3962356960400939,
+    "output": "SOME PROOFS FAIL\nSorry - this is a mismatch between the TypeScript implementation, and the formalized BendTT kernel. Your proofs may or may not be correct, and we cannot validate them yet. This will be addressed in a future update. Meanwhile, feel free to open an issue to report this bug.\nbend 2.0.35 is available: run bend update\n"
+  },
+  "copied_original": {
+    "command": [
+      "/workspace/formal-proofs/bendvy-worktrees/approved-u32-increment/experiments/t01/bend-check",
+      "/workspace/formal-proofs/bendvy-worktrees/approved-u32-increment/experiments/p-approved-u32-increment/increment-mutant-oegcph62/p-approved-u32-increment/PROOF.bend",
+      "--verdict"
+    ],
+    "exit_code": 0,
+    "wall_seconds": 0.6131428249645978,
+    "output": "ALL PROOFS CHECK\nbend 2.0.35 is available: run bend update\n"
+  },
+  "original_complete_true_domain_witness": {
+    "command": [
+      "/workspace/formal-proofs/bendvy-worktrees/approved-u32-increment/experiments/t01/bend-check",
+      "/workspace/formal-proofs/bendvy-worktrees/approved-u32-increment/experiments/p-approved-u32-increment/increment-mutant-oegcph62/p-approved-u32-increment/witness.bend",
+      "--verdict"
+    ],
+    "exit_code": 0,
+    "wall_seconds": 0.722658789018169,
+    "output": "ALL PROOFS CHECK\nbend 2.0.35 is available: run bend update\n"
+  },
+  "mutant": {
+    "old": "(value + 1 : U32)",
+    "new": "(value + 2 : U32)",
+    "compiles": {
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/approved-u32-increment/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/approved-u32-increment/experiments/p-approved-u32-increment/increment-mutant-oegcph62/t11-replacement/bridge.bend",
+        "--check-only"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.3873527040705085,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\nbend 2.0.35 is available: run bend update\n"
+    },
+    "true_domain_after_mutation": {
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/approved-u32-increment/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/approved-u32-increment/experiments/p-approved-u32-increment/increment-mutant-oegcph62/p-approved-u32-increment/domain.bend",
+        "--verdict"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.2916560838930309,
+      "output": "ALL PROOFS CHECK\nbend 2.0.35 is available: run bend update\n"
+    },
+    "unchanged_exact_endpoint_failure": {
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/approved-u32-increment/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/approved-u32-increment/experiments/p-approved-u32-increment/increment-mutant-oegcph62/p-approved-u32-increment/PROOF.bend",
+        "--check-only"
+      ],
+      "exit_code": 1,
+      "wall_seconds": 0.33385207992978394,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : {U32{Word.adc(32n, w, WCon{False{}, WCon{True{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WNil{}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}, False{}, False{})} == U32{Word.inc(32n, w)} : U32}\n- observed : {U32{Word.adc(32n, w, WCon{True{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WCon{False{}, WNil{}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}, False{}, False{})} == U32{Word.inc(32n, w)} : U32}\nContext:\n- w : Word.Con<31n>\nLocation: L.u32_increment_no_wrap\n35 |     case U32{+w}:\n36>|       %Equal.sym(U32,B.increment(U32{w}),U32.inc(U32{w}),A.runtime_add_one(U32{w})) : S.When(U32.is_lt(U32{w},4294967295),{U32.to_nat(_) == 1n+U32.to_nat(U32{w}) : Nat})\n   |                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^\n37 |       guarded_word(32n,w)\nbend 2.0.35 is available: run bend update\n"
+    },
+    "complete_exact_instance_failure": {
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/approved-u32-increment/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/approved-u32-increment/experiments/p-approved-u32-increment/increment-mutant-oegcph62/p-approved-u32-increment/witness.bend",
+        "--check-only"
+      ],
+      "exit_code": 1,
+      "wall_seconds": 0.31774997618049383,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : 257n\n- observed : 256n\nLocation: exact_true_instance\n5 | def domain() -> {U32.is_lt(255,4294967295) == True{} : Bool}: {==}\n6>| def exact_true_instance() -> S.When(U32.is_lt(255,4294967295),{U32.to_nat(B.increment(255)) == 1n+U32.to_nat(255) : Nat}): {==}\n  |                                                                                                                            ^^^^\n7 | \nbend 2.0.35 is available: run bend update\n"
+    }
+  },
+  "source_hashes": {
+    "PROOF.bend": "13e82a4c268019237134acf0199ef103e6c9f6bdd8470938445738a1e220d593",
+    "LAWS.bend": "9804c0cf8cba3e330c94e4db6e53dd0c112d0873b446743bd55369b6e71916dd",
+    "controls.bend": "facf3d159f3d696b168e09b06e19b42e25724d0e1be3bc76b7a997de0fb549ca"
+  },
+  "runner_sha256": "4c127b497b21ff30deb428e336cc640e226d10f3e83a94a8a2cc040d2b5cd41b",
+  "version": "bend 2.0.34"
+}
