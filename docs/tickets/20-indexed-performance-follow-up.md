@@ -1,6 +1,6 @@
 # S-PERF-NEXT — recover the connected performance and measurement gates
 
-Draft follow-up to #20, full-core parent #1. Independent Spec review permits publication as a blocked follow-up; ready state requires the listed design and measurement prerequisites. This is one bounded design/evaluation package; no production layout, numerical threshold, new law or dependency is approved.
+Published [GitHub #21](https://github.com/dearlordylord/bendvy/issues/21), follow-up to #20, full-core parent #1. Independent Spec review permits publication as a blocked follow-up; ready state requires the listed design and measurement prerequisites. This is one bounded design/evaluation package; no production layout, numerical threshold, new law or dependency is approved.
 
 ## Problem
 
