@@ -1,0 +1,284 @@
+{
+  "scope": "actual dispatched lifecycle workload, full streamed correctness observations; no comparative timing",
+  "limits": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "sources": {
+    "measurement-lifecycle.bend": "7f0449909fbd8be645dfabfaed7aaea7b5aa7e29912bdd675a3babd026496708",
+    "measurement-bend.bend": "29c9f05835adb25e6b34c05048bb756cbfb86049b35edab2ff3649e671283d90",
+    "types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+    "storage.bend": "605d073615798f87f3675931475eee6a0668bc63c08559d4beecdb2e73c72986",
+    "identity.bend": "2c88babc9e853d3706f7a6c1f8f0ae48c198949143df2da6562bd774237d7329",
+    "commands.bend": "022ea5ca1f44c952ae77071689d0735e5a38976d7f628203d85fd9cc920a1194",
+    "query.bend": "903af14b5d85d1162df5f872f26f221134a17c772bc82fd17686ce2f4be45759",
+    "observations.bend": "81e6afcd4ae06a396669cff14d1da68a4c597539b6eb64e68648ebbe7b235136",
+    "payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "transaction.bend": "d32f0b26e4a14fc784c3ce30c4d6a1ded0cf0a55ed819f54419a558445e298a4",
+    "transaction-dispatch-adapters.bend": "eea16d3f539d70bcd88fd8fd314b75d252ccaff2b9c1c8b63e7d96bfdda34142",
+    "systems.bend": "2cfc899215e408cc4c652c8d4c290b18800cdb6e8c96f1061a77853afdac9221",
+    "schedule.bend": "e7f73e9c74eca9f8d60b9300805169b0b1a0d24ed0a9540843d1e2209e807040",
+    "capture.bend": "44d5f3117a465c216ee93100026aad78e86f24c40c09c678be99935dde076817",
+    "host.bend": "6670380a68832502c0a9950b08058cd47f490b17497d03cf5c44c745c57f68b7",
+    "dispatcher.bend": "3530c7c20d704ba51a9cdace1f028e507960458b9c0bdcdf0dbc0d546c800b07",
+    "readers.bend": "2673082b4ef5cd6c5d8f61c362e22f74b13daeb27196894278cc20b1459c22e9",
+    "reader-host.bend": "50f1251c6d476b07055c36c5a97e3350a4cb46e5d826ff97ced2860d40798a64",
+    "streams.bend": "1a1c7991d6a1b4ebfb3b47dc62459beb83ed5e38ded56d27cc20b5478fc0d315",
+    "host-observations.bend": "eecfc882c58fc252edca1fa7c86e491ab18d01128126b430f0f995cf4b8b33fe",
+    "audited-invoker.bend": "2ed7e484b8a043f0944e0f662a8799f94388c99f757de331fb1a79b1c07c8853",
+    "host-render.bend": "4dbc392f9e138183e5d90a40fa5eccb7d8bf95b4e72c1f2f5196d3bd855249c2"
+  },
+  "runnerSha256": "dacb0bfa0630e2e416479c9612881bb442111d8d4e11af620288880a9537874c",
+  "cpuAffinity": [
+    10
+  ],
+  "compiler": "bend 2.0.34",
+  "node": "v24.20.0",
+  "compilerSha256": "d4821d04932218216c9dc906223ed0e23dd86726d4357a567fb76ee6c976db4e",
+  "baseSha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+  "referenceAdapterSha256": "039edf1ec9905ad39c94bf4fcd9850610615251bd8b72e044b93fb7aa7c90376",
+  "measurementContractSha256": "f3c063636602e5fadb742c3aefb70e5770350fad6351827e6c471155eca5ab7a",
+  "cases": [
+    {
+      "schema": "Motion",
+      "count": 64,
+      "freshReference": "PASS",
+      "backends": {
+        "Native": {
+          "status": "PASS",
+          "completeBoundaries": 192,
+          "allFieldComparisons": 12352,
+          "finalNormalizedSha256": "06b3d207c39a5fcbb674200ee4b4c15aab18be8d2a7814f32b0dfb6ee931f7a7",
+          "summary": {
+            "counts": [
+              {
+                "system": "Dispose",
+                "value": {
+                  "a": 64,
+                  "b": 0,
+                  "c": 0,
+                  "d": 0
+                }
+              },
+              {
+                "system": "Reserve",
+                "value": {
+                  "a": 64,
+                  "b": 0,
+                  "c": 0,
+                  "d": 0
+                }
+              }
+            ],
+            "tick": 257,
+            "frames": 193
+          }
+        },
+        "JS": {
+          "status": "PASS",
+          "completeBoundaries": 192,
+          "allFieldComparisons": 12352,
+          "finalNormalizedSha256": "06b3d207c39a5fcbb674200ee4b4c15aab18be8d2a7814f32b0dfb6ee931f7a7",
+          "summary": {
+            "counts": [
+              {
+                "system": "Dispose",
+                "value": {
+                  "a": 64,
+                  "b": 0,
+                  "c": 0,
+                  "d": 0
+                }
+              },
+              {
+                "system": "Reserve",
+                "value": {
+                  "a": 64,
+                  "b": 0,
+                  "c": 0,
+                  "d": 0
+                }
+              }
+            ],
+            "tick": 257,
+            "frames": 193
+          }
+        }
+      }
+    },
+    {
+      "schema": "Motion",
+      "count": 256,
+      "freshReference": "PASS",
+      "backends": {
+        "Native": {
+          "status": "FAILED",
+          "error": "5s limit: /tmp/measurement-life-kkt8aevc/original/measurement-lifecycle-native"
+        },
+        "JS": {
+          "status": "FAILED",
+          "error": "5s limit: node"
+        }
+      }
+    },
+    {
+      "schema": "Motion",
+      "count": 1024,
+      "freshReference": "PASS",
+      "backends": {
+        "Native": {
+          "status": "FAILED",
+          "error": "5s limit: /tmp/measurement-life-kkt8aevc/original/measurement-lifecycle-native"
+        },
+        "JS": {
+          "status": "FAILED",
+          "error": "5s limit: node"
+        }
+      }
+    },
+    {
+      "schema": "Health",
+      "count": 64,
+      "freshReference": "PASS",
+      "backends": {
+        "Native": {
+          "status": "PASS",
+          "completeBoundaries": 192,
+          "allFieldComparisons": 12352,
+          "finalNormalizedSha256": "f01413002da2cbc252970514a837b597e5bc5f03f7b2e1c121a9a0786169e9fa",
+          "summary": {
+            "counts": [
+              {
+                "system": "Dispose",
+                "value": {
+                  "a": 64,
+                  "b": 0,
+                  "c": 0,
+                  "d": 0
+                }
+              },
+              {
+                "system": "Reserve",
+                "value": {
+                  "a": 64,
+                  "b": 0,
+                  "c": 0,
+                  "d": 0
+                }
+              }
+            ],
+            "tick": 257,
+            "frames": 193
+          }
+        },
+        "JS": {
+          "status": "PASS",
+          "completeBoundaries": 192,
+          "allFieldComparisons": 12352,
+          "finalNormalizedSha256": "f01413002da2cbc252970514a837b597e5bc5f03f7b2e1c121a9a0786169e9fa",
+          "summary": {
+            "counts": [
+              {
+                "system": "Dispose",
+                "value": {
+                  "a": 64,
+                  "b": 0,
+                  "c": 0,
+                  "d": 0
+                }
+              },
+              {
+                "system": "Reserve",
+                "value": {
+                  "a": 64,
+                  "b": 0,
+                  "c": 0,
+                  "d": 0
+                }
+              }
+            ],
+            "tick": 257,
+            "frames": 193
+          }
+        }
+      }
+    },
+    {
+      "schema": "Health",
+      "count": 256,
+      "freshReference": "PASS",
+      "backends": {
+        "Native": {
+          "status": "FAILED",
+          "error": "5s limit: /tmp/measurement-life-kkt8aevc/original/measurement-lifecycle-native"
+        },
+        "JS": {
+          "status": "PASS",
+          "completeBoundaries": 192,
+          "allFieldComparisons": 49216,
+          "finalNormalizedSha256": "f45fc1b19975043c826a48e8aa58ba4ab098ec5f051422fe9dd2c37eb40bf415",
+          "summary": {
+            "counts": [
+              {
+                "system": "Dispose",
+                "value": {
+                  "a": 64,
+                  "b": 0,
+                  "c": 0,
+                  "d": 0
+                }
+              },
+              {
+                "system": "Reserve",
+                "value": {
+                  "a": 64,
+                  "b": 0,
+                  "c": 0,
+                  "d": 0
+                }
+              }
+            ],
+            "tick": 257,
+            "frames": 193
+          }
+        }
+      }
+    },
+    {
+      "schema": "Health",
+      "count": 1024,
+      "freshReference": "PASS",
+      "backends": {
+        "Native": {
+          "status": "FAILED",
+          "error": "5s limit: /tmp/measurement-life-kkt8aevc/original/measurement-lifecycle-native"
+        },
+        "JS": {
+          "status": "FAILED",
+          "error": "5s limit: node"
+        }
+      }
+    }
+  ],
+  "mutants": [
+    {
+      "name": "head-only-target",
+      "compiledNativeJs": true,
+      "detectedBoth": true
+    },
+    {
+      "name": "omit-disposal",
+      "compiledNativeJs": true,
+      "detectedBoth": true
+    }
+  ],
+  "caseEvidence": {
+    "file": "measurement-lifecycle-query-first-evidence.json",
+    "sha256": "d81a52e89452f21b64019d4e532088008f21db6bf015d584dfb8445cb0d6db55",
+    "runnerSha256": "fa9be572d5a6b0d4b59227a90ff87e2a724e7b616f1db1a696170b872893ee66",
+    "note": "unchanged source cases retained; only mutation gates replayed without overlapping CPU10 work"
+  },
+  "status": "REGRESSION"
+}

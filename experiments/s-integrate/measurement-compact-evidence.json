@@ -1,0 +1,157 @@
+{
+  "scope": "encoding-cost diagnostic; same lifecycle dispatcher/query/lookup/O.world operations; checksums collide and cannot replace full-field validation",
+  "cpuAffinity": [
+    10
+  ],
+  "runtimeLimit": 5,
+  "sourceHashes": {
+    "measurement-lifecycle.bend": "7f0449909fbd8be645dfabfaed7aaea7b5aa7e29912bdd675a3babd026496708",
+    "measurement-bend.bend": "29c9f05835adb25e6b34c05048bb756cbfb86049b35edab2ff3649e671283d90",
+    "types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+    "storage.bend": "605d073615798f87f3675931475eee6a0668bc63c08559d4beecdb2e73c72986",
+    "identity.bend": "2c88babc9e853d3706f7a6c1f8f0ae48c198949143df2da6562bd774237d7329",
+    "commands.bend": "022ea5ca1f44c952ae77071689d0735e5a38976d7f628203d85fd9cc920a1194",
+    "query.bend": "903af14b5d85d1162df5f872f26f221134a17c772bc82fd17686ce2f4be45759",
+    "observations.bend": "81e6afcd4ae06a396669cff14d1da68a4c597539b6eb64e68648ebbe7b235136",
+    "payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "transaction.bend": "d32f0b26e4a14fc784c3ce30c4d6a1ded0cf0a55ed819f54419a558445e298a4",
+    "transaction-dispatch-adapters.bend": "eea16d3f539d70bcd88fd8fd314b75d252ccaff2b9c1c8b63e7d96bfdda34142",
+    "systems.bend": "2cfc899215e408cc4c652c8d4c290b18800cdb6e8c96f1061a77853afdac9221",
+    "schedule.bend": "e7f73e9c74eca9f8d60b9300805169b0b1a0d24ed0a9540843d1e2209e807040",
+    "capture.bend": "44d5f3117a465c216ee93100026aad78e86f24c40c09c678be99935dde076817",
+    "host.bend": "6670380a68832502c0a9950b08058cd47f490b17497d03cf5c44c745c57f68b7",
+    "dispatcher.bend": "3530c7c20d704ba51a9cdace1f028e507960458b9c0bdcdf0dbc0d546c800b07",
+    "readers.bend": "2673082b4ef5cd6c5d8f61c362e22f74b13daeb27196894278cc20b1459c22e9",
+    "reader-host.bend": "50f1251c6d476b07055c36c5a97e3350a4cb46e5d826ff97ced2860d40798a64",
+    "streams.bend": "1a1c7991d6a1b4ebfb3b47dc62459beb83ed5e38ded56d27cc20b5478fc0d315",
+    "host-observations.bend": "eecfc882c58fc252edca1fa7c86e491ab18d01128126b430f0f995cf4b8b33fe",
+    "audited-invoker.bend": "2ed7e484b8a043f0944e0f662a8799f94388c99f757de331fb1a79b1c07c8853",
+    "host-render.bend": "4dbc392f9e138183e5d90a40fa5eccb7d8bf95b4e72c1f2f5196d3bd855249c2",
+    "measurement-compact.bend": "a711f673226301c50a5366f9eed098989b366ed148adf194344b63d5632197a0"
+  },
+  "runnerSha256": "614c68a5298f3d175fe9b61a1162502f9f052d506e00139d7a9000ff22e3d6e3",
+  "cases": [
+    {
+      "schema": "Motion",
+      "count": 64,
+      "backends": {
+        "Native": {
+          "status": "PASS",
+          "compactBoundaries": 192,
+          "outputBytes": 43171,
+          "claim": "supplementary finite full-field checksum only; no full-trace or performance acceptance",
+          "wholeProcessSeconds": 0.017402224941179156
+        },
+        "JS": {
+          "status": "PASS",
+          "compactBoundaries": 192,
+          "outputBytes": 43171,
+          "claim": "supplementary finite full-field checksum only; no full-trace or performance acceptance",
+          "wholeProcessSeconds": 0.2597553678788245
+        }
+      }
+    },
+    {
+      "schema": "Motion",
+      "count": 256,
+      "backends": {
+        "Native": {
+          "status": "PASS",
+          "compactBoundaries": 192,
+          "outputBytes": 43400,
+          "claim": "supplementary finite full-field checksum only; no full-trace or performance acceptance",
+          "wholeProcessSeconds": 0.026568822097033262
+        },
+        "JS": {
+          "status": "PASS",
+          "compactBoundaries": 192,
+          "outputBytes": 43400,
+          "claim": "supplementary finite full-field checksum only; no full-trace or performance acceptance",
+          "wholeProcessSeconds": 0.1841906108893454
+        }
+      }
+    },
+    {
+      "schema": "Motion",
+      "count": 1024,
+      "backends": {
+        "Native": {
+          "status": "PASS",
+          "compactBoundaries": 192,
+          "outputBytes": 43627,
+          "claim": "supplementary finite full-field checksum only; no full-trace or performance acceptance",
+          "wholeProcessSeconds": 0.09169888496398926
+        },
+        "JS": {
+          "status": "PASS",
+          "compactBoundaries": 192,
+          "outputBytes": 43627,
+          "claim": "supplementary finite full-field checksum only; no full-trace or performance acceptance",
+          "wholeProcessSeconds": 0.43372908094897866
+        }
+      }
+    },
+    {
+      "schema": "Health",
+      "count": 64,
+      "backends": {
+        "Native": {
+          "status": "PASS",
+          "compactBoundaries": 192,
+          "outputBytes": 43164,
+          "claim": "supplementary finite full-field checksum only; no full-trace or performance acceptance",
+          "wholeProcessSeconds": 0.01265734201297164
+        },
+        "JS": {
+          "status": "PASS",
+          "compactBoundaries": 192,
+          "outputBytes": 43164,
+          "claim": "supplementary finite full-field checksum only; no full-trace or performance acceptance",
+          "wholeProcessSeconds": 0.11257772985845804
+        }
+      }
+    },
+    {
+      "schema": "Health",
+      "count": 256,
+      "backends": {
+        "Native": {
+          "status": "PASS",
+          "compactBoundaries": 192,
+          "outputBytes": 43392,
+          "claim": "supplementary finite full-field checksum only; no full-trace or performance acceptance",
+          "wholeProcessSeconds": 0.031379373045638204
+        },
+        "JS": {
+          "status": "PASS",
+          "compactBoundaries": 192,
+          "outputBytes": 43392,
+          "claim": "supplementary finite full-field checksum only; no full-trace or performance acceptance",
+          "wholeProcessSeconds": 0.2034820660483092
+        }
+      }
+    },
+    {
+      "schema": "Health",
+      "count": 1024,
+      "backends": {
+        "Native": {
+          "status": "PASS",
+          "compactBoundaries": 192,
+          "outputBytes": 43645,
+          "claim": "supplementary finite full-field checksum only; no full-trace or performance acceptance",
+          "wholeProcessSeconds": 0.09986305492930114
+        },
+        "JS": {
+          "status": "PASS",
+          "compactBoundaries": 192,
+          "outputBytes": 43645,
+          "claim": "supplementary finite full-field checksum only; no full-trace or performance acceptance",
+          "wholeProcessSeconds": 0.5312750269658864
+        }
+      }
+    }
+  ],
+  "diagnosticEntrySha256": "3243891969c7effe42282b1a1a20d1be0d216e1430832b51c924cbb5d509ba5b",
+  "status": "PASS"
+}
