@@ -1,13 +1,13 @@
 # S-PREP Standards review
 
-Independent review against `56b72f6`, through `ad7de65` (including `cbc2ba1`/`16753c3`). Live #22, AGENTS.md, SPEC,
+Independent review against `56b72f6`, through `542079e`; proposal frozen at `c63ed81`. Live #22, AGENTS.md, SPEC,
 bend-ldd and #20 final reviews were read. **No hard Standards violations found.** The in-progress ledger is supported;
 evaluator/contract acceptance and final #22 closure remain unresolved.
 
 - Historical input preservation: independent `freeze.py --verify` passes556
-  retained inputs and three clean pinned references. Temporary fixture controls
+  retained inputs and three clean pinned references. Fixture controls
   reject changed/missing/symlinked input and dirty/moved reference; restored
-  positives pass. Nothing modifies reference or Tower Defense sources.
+  positives pass. Reference/Tower Defense sources remain unchanged.
 - Warmup: affine owners are consumed before a separately initialized
   measured root in the same process. The report distinguishes16/18 complete
   measured-record gates from two1024 JS deadlines, and fold-only warmup forcing
@@ -22,16 +22,17 @@ evaluator/contract acceptance and final #22 closure remain unresolved.
   proof is introduced. Independent metadata/source pins match; CPU11 checker passes under5s. Full
   shape/count preflight remains inside proposed measured work.
 - Tx diagnostics: raw/source hashes,20 backend cases/31232 points/26624 physical
-  records, recomputed peaks and backend equality independently verify. Six
+  records, peaks/backend equality independently verify. Six
   public-preserving metric mutants and five intended compiler negatives remain
-  separate; FailedTxn1024 deadlines and Dense/Sparse/Lifecycle untested cells
-  receive explicit return conditions. No fixture peak substitutes for workload
+  separate; FailedTxn1024 deadlines remain. Dense/Sparse adds20 passing backend cases,
+ 629760 independently checked points/backend equality and actual HealthDense256
+ peaks0/0/512/256. Dense1024 deadlines/Lifecycle pending remain explicit. No fixture peak substitutes for workload
   evidence.
 - Paired comparison: independent synthetic controls reject duplicate/missing
-  repetitions, failures and nonfinite/zero durations. Construction receipts
-  predate current runner hardening; they remain historical, not current-source
-  execution qualification. Freeze execution/environment/check manifests before
-  acceptance.
+  repetitions, failures and nonfinite/zero durations. Current four-cohort one-shot
+  receipt matches its runner hash; no qualified performance metric is inferred.
+  Isolated `c63ed81` verifies1156 protected files/eight tools. Master-only diagnostic
+  extensions do not alter that frozen proposal.
 - Contract proposes Health/Dense256 only. The approved3600-second future budget
   does not accept session/packet execution, noise/keep margins, artifact location
   or production thresholds. Protected checks, editable boundaries and remaining
@@ -43,7 +44,5 @@ and comparison negatives. Complete imports/declarations reject multiline/type,
 annotated/new helper/law and foreign-import drift. Accepted-start checks bind
 checkout/environment/manifest/boot identity and finite nonfuture monotonic budget.
 Subreaper plus pidfds kills and reaps owned nested-session orphans; diagnostics
-remain retained. No unresolved hard finding. Final
-manifest regeneration and current paired construction receipt remain prerequisites;
-no accepted session or real seven-cohort execution is inferred. Reviewed boundary
-SHA256 `3dbe5a09598e5471ab7205115e573532277797a123cd8efecf1487db8af9feaa`.
+remain retained. Frozen boundary
+SHA256 `df4dfd9138252423f474f910408f8dfdd7520d4b62ff5c47bc019579391f7758`.
