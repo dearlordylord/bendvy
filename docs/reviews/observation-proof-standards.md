@@ -751,3 +751,39 @@ or empty-specialization evidence.
 by Bend ownership/proof transport. Candidate acceptance is explicitly distinct from
 installed compiler success, local tool adoption, root aggregate acceptance and
 production/runtime/performance completion; those coordinator decisions remain open.
+
+## Seven-endpoint aggregate and scoped checker use — `177c304` (2026-10-04)
+
+**Hard violations: none found.** Reviewed aggregate proof imports, verifier,
+checker manifest, evidence and scoped technical decision. Independently archived
+the frozen commit into a temporary root: `verify.py --source-checker` exited0
+with checker and unchanged independent kernel success for all seven endpoints.
+A separate default invocation exited1 with the expected installed machine-stack
+failure in both phases. Root PASS evidence was preserved.
+
+Aggregate wrappers delegate each exact subject to its reviewed general proof:
+lookup, all three queries, flush, pure schedule and approved affine owned schedule.
+Canonical source closure, original catalogue revision, historical blocks, sole
+binder amendment, exact support selection and import identities remain enforced.
+There is no TODO, weakened statement, unchecked proof alias or finite witness
+substituted for a universal endpoint.
+
+Explicit source mode enforces hashes of the reviewed checker runner, complete
+pins manifest and scoped decision. That runner checks source/patch/safe/Base/kernel
+provenance, requires actual kernel success and rejects non-Base unsafe/foreign
+closures. Actual checker-plus-kernel groups retain the hard five-second bound;
+the eight-second outer supervision covers setup/reporting only. Evidence records
+Node version, separately identified source2.0.35 and installed2.0.34 provenance,
+byte-identical Base and unchanged installed kernel. Default installed mode remains
+visible and cannot silently become the repaired path or report a false pass.
+
+The scoped decision is a reversible task-local repair under the existing execution
+instruction, using installed Node and copied read-only source. It changes no
+approval, law/domain, quantity, runtime source, dependency, global installation or
+production compiler policy. The decision appropriately retains broader compiler
+validation, endpoint mutation/review and ticket acceptance obligations; aggregate
+success alone is not full-core/runtime/performance acceptance.
+
+**Heuristic findings: none actionable.** Small aggregate delegates make proof
+selection explicit. Per-endpoint mutation evidence and final acceptance audit
+remain separate records rather than being manufactured by this gate.

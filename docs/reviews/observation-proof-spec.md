@@ -250,3 +250,16 @@ Tool provenance is explicit: pinned2.0.35 source plus the reviewed recursive-rig
 Reviewed SHA256: `LAWS.bend` = `59f5bc3e3a15f3c460da158e93f94c7b84c41bf02174d81e73d0f2a00bffa2ed`; `PROOF.bend` = `230b2c2ce627deb6b6627a3f2eb5e1c570204342b079f62481b11a3227f8ea2a`; `schedule.bend` = `aacbea7943e8bad2e804cba1159e15ebdf1fe8f4af90a4dc9e250d9238c92a41`; `endpoint.bend` = `d88c948f9c103db574b2ce34748ce6fcf04c1b85067c83b0062dbb5aaac98854`; `advance.bend` = `2ed88ff3e24ac6ab7c547c3d492531b85fec1f05772fea9ed0c980e108659a78`; `bump-rows.bend` = `434b8c2e209c98f472305ec44d322e5470ed0be3c91476fd141ef3c1196c4600`; `candidate-run.py` = `db255820840a31496794ef117660830803a95df6a555f92a62b92b962c0b050f`.
 
 No remaining Spec blocker was found for this exact theorem and scoped toolchain. Aggregate #18 delivery and #19 runtime/performance gates remain separate.
+
+
+## Seven-endpoint aggregate and local tool decision — 2026-10-04, `177c304`
+
+**PASS for the complete selected #18 proof aggregate.** Independently reviewed `ed3b79c...177c304` and replayed `python3 experiments/p-observe/verify.py --source-checker` from a temporary archive: exit0, CHECK PASS and unchanged-kernel KERNEL PASS. Root evidence was preserved.
+
+The gate checks exactly the seven approved IDs, all historical law blocks against frozen31-law SHA `e0c607d723ad250a189c096d9fa3fd6a36913f4c72efd3a3be6dacd7fadb2cbc`, the complete listed canonical subject closure and exact canonical imports. It permits only the explicitly approved owned binder amendment, checks its exact proposal and immutable delegated decision hashes, and separately checks the two unchanged approved arithmetic support statements. The root owned definition delegates to the imported, actually filled owned endpoint; no TODO, alternate predicate or additional approved catalogue entry replaces it.
+
+The aggregate pins the callable checker runner, toolchain manifest and coordinator's scoped-use decision. That decision correctly records a reversible local repair using existing Node/read-only source, not a new law approval, installation or production compiler choice. Source2.0.35 plus the exact patch remains distinct from installed2.0.34; identical Base and the unchanged installed kernel remain explicit verification authorities. The prior independent endpoint/control/mutant reviews still supply those separate acceptance gates; the aggregate does not pretend to rerun them.
+
+Reviewed SHA256: root `PROOF.bend` = `518c2122d0cac57d248017ec1dfed79c0ec8f9dea41270444211b371762f86b8`; root `LAWS.bend` = `9c6b173af004e3cfe04508e214bd8f9237f4852a7aca96a7188ce8e0e3095266`; `verify.py` = `3c6e16f5a6fae51c2fc6f86428094d5080546c18f4cb24f77223e30cd693676b`; `subjects.json` = `a6d37683805d4b0c93766170dd6d70291cad75104ace1df7798d4f89cb9390b2`; local-use decision = `f2653432ccd5da50465e909eaabd192fe8b072f8605315e090ef0df6f9f0e530`.
+
+No remaining Spec blocker was found for this seven-law aggregate. Issue acceptance/document delivery remains the coordinator's step; #19 full Type integration, actual backends, authority/readers and performance requirements are not discharged by these bounded proofs.
