@@ -10,6 +10,7 @@ import ./host.bend as H
 import ./host-observations.bend as E
 import ./host-render.bend as J
 import ./systems.bend as U
+import ./host-preflight.bend as PF
 
 type Definition is Data:
   Definition{name:String,kind:K.BodyKind,ledger:Bool,audit:Bool,gated:Bool,reader:Bool}
@@ -147,13 +148,59 @@ def motion_created_alpha(style:C.Style,result:T.Creation<W.Factory,W.World<T.Mot
     case T.Created{factory,alpha}: motion_created_beta(alpha,style,I.create(~T.MotionSchema,~T.Position,~T.Velocity,~T.Selected,~T.MotionLedger,~T.MotionMode,~motion_ledger,factory,T.MotionOn{}))
 def motion_initial(style:C.Style) -> Maybe<MotionLane>:
   motion_created_alpha(style,I.create(~T.MotionSchema,~T.Position,~T.Velocity,~T.Selected,~T.MotionLedger,~T.MotionMode,~motion_ledger,I.factory(),T.MotionOn{}))
+type Seen is Type:
+  Seen{registry:K.Registry,systems:List<&2,K.System>,counts:List<&2,E.Count>}
+def seen_counts(systems:List<&2,K.System>,result:K.Registry & List<&2,E.Count>) -> Seen:
+  match result:
+    case (registry,counts): Seen{registry,systems,counts}
+def seen_values(result:K.Registry & List<&2,K.System>) -> Seen:
+  match result:
+    case (registry,systems): seen_counts(systems,H.count_registry(registry))
+def seen(registry:K.Registry) -> Seen: seen_values(D.registry_values(registry))
+def same_four(left:T.Four,right:T.Four) -> Bool:
+  match left right:
+    case T.Four{a,b,c,d} T.Four{w,x,y,z}: Bool.and(Bool.and(U32.is_eq(a,w),U32.is_eq(b,x)),Bool.and(U32.is_eq(c,y),U32.is_eq(d,z)))
+def same_counts(left:List<&2,E.Count>,right:List<&2,E.Count>) -> Bool:
+  match left right:
+    case Nil{} Nil{}: True{}
+    case Con{E.Count{a,x},at} Con{E.Count{b,y},bt}: Bool.and(Bool.and(String.eq(a,b),same_four(x,y)),same_counts(at,bt))
+    case _ _: False{}
+def same_bases(left:List<&2,K.System>,right:List<&2,K.System>) -> Bool:
+  match left right:
+    case Nil{} Nil{}: True{}
+    case Con{K.System{a,an,_,_,_,_,_},at} Con{K.System{b,bn,_,_,_,_,_},bt}: Bool.and(Bool.and(U32.is_eq(a,b),String.eq(an,bn)),same_bases(at,bt))
+    case _ _: False{}
+def preflight_operations() -> List<&2,Operation>:
+  [Call{"A",K.Normal{}},Call{"Fast",K.Observe{}},Nested{[Call{"B",K.BFail{}},Call{"TailInner",K.Normal{}}]},Call{"TailOuter",K.Normal{}}]
+def motion_e10_record(missing:String,oldSystems:List<&2,K.System>,oldCounts:List<&2,E.Count>,outcome:D.DispatchOutcome,owner:H.MotionHost(),readers:R.Readers,clock:R.Clock,audit:Maybe<D.Audit>,style:C.Style,escaped:List<&2,W.Handle<T.MotionSchema>>,observations:List<&2,U.Observation>,nextMode:Maybe<&2,Bool>,beta:D.Runtime<H.MotionHost(),W.Handle<T.MotionSchema>>,systems:List<&2,K.System>,events:List<&2,E.TraceEvent<T.MotionSchema,T.PositionView,T.VelocityView,T.Selected,T.LedgerView,T.MotionMode,T.MotionPing>>,result:Seen) -> MotionLane:
+  match result:
+    case Seen{registry,newSystems,newCounts}: MotionLane{D.Runtime{owner,registry,readers,clock,audit,style,escaped,observations,nextMode},beta,systems,List.append(&2,E.TraceEvent<T.MotionSchema,T.PositionView,T.VelocityView,T.Selected,T.LedgerView,T.MotionMode,T.MotionPing>,events,[E.Provisioning{missing,outcome,[],[],Bool.and(same_bases(oldSystems,newSystems),same_counts(oldCounts,newCounts))}])}
+def motion_e10_return(missing:String,oldSystems:List<&2,K.System>,oldCounts:List<&2,E.Count>,beta:D.Runtime<H.MotionHost(),W.Handle<T.MotionSchema>>,systems:List<&2,K.System>,events:List<&2,E.TraceEvent<T.MotionSchema,T.PositionView,T.VelocityView,T.Selected,T.LedgerView,T.MotionMode,T.MotionPing>>,result:D.Runtime<H.MotionHost(),W.Handle<T.MotionSchema>> & D.Dispatched<H.MotionHost(),W.Handle<T.MotionSchema>>) -> MotionLane:
+  match result:
+    case (D.Runtime{owner,registry,readers,clock,audit,style,escaped,observations,nextMode},D.Dispatched{_,outcome}): motion_e10_record(missing,oldSystems,oldCounts,outcome,owner,readers,clock,audit,style,escaped,observations,nextMode,beta,systems,events,seen(registry))
+def motion_fresh_remove(isResource:Bool,runtime:D.Runtime<H.MotionHost(),W.Handle<T.MotionSchema>>) -> D.Runtime<H.MotionHost(),W.Handle<T.MotionSchema>>:
+  match isResource:
+    case True{}: PF.motion_without_ledger(runtime)
+    case False{}: PF.motion_without_audit(runtime)
+def motion_e10_exchange(+missing:String,fresh:D.Runtime<H.MotionHost(),W.Handle<T.MotionSchema>>,owner:H.MotionHost(),readers:R.Readers,clock:R.Clock,audit:Maybe<D.Audit>,style:C.Style,escaped:List<&2,W.Handle<T.MotionSchema>>,observations:List<&2,U.Observation>,nextMode:Maybe<&2,Bool>,beta:D.Runtime<H.MotionHost(),W.Handle<T.MotionSchema>>,+systems:List<&2,K.System>,events:List<&2,E.TraceEvent<T.MotionSchema,T.PositionView,T.VelocityView,T.Selected,T.LedgerView,T.MotionMode,T.MotionPing>>,result:Seen) -> IO(MotionLane):
+  match result:
+    case Seen{registry,oldSystems,oldCounts}: IO.bind(D.Runtime<H.MotionHost(),W.Handle<T.MotionSchema>> & D.Dispatched<H.MotionHost(),W.Handle<T.MotionSchema>>,MotionLane,PF.motion_exchange(missing,nodes(systems,preflight_operations()),D.Runtime{owner,registry,readers,clock,audit,style,escaped,observations,nextMode},fresh),result => IO.pure(MotionLane,motion_e10_return(missing,oldSystems,oldCounts,beta,systems,events,result)))
+def motion_e10_fresh(+missing:String,lane:MotionLane,fresh:Maybe<MotionLane>) -> IO(MotionLane):
+  match lane fresh:
+    case MotionLane{D.Runtime{owner,registry,readers,clock,audit,style,escaped,observations,nextMode},beta,systems,events} Some{MotionLane{fresh,_,_,_}}: motion_e10_exchange(missing,motion_fresh_remove(String.eq(missing,"resource"),fresh),owner,readers,clock,audit,style,escaped,observations,nextMode,beta,systems,events,seen(registry))
+    case state None{}: IO.bind(Unit,MotionLane,IO.print("SETUP-REJECTED:E10"),_ => IO.pure(MotionLane,state))
+def motion_e10(missing:String,lane:MotionLane) -> IO(MotionLane):
+  match lane:
+    case MotionLane{D.Runtime{owner,registry,readers,clock,audit,+style,escaped,observations,nextMode},beta,systems,events}: motion_e10_fresh(missing,MotionLane{D.Runtime{owner,registry,readers,clock,audit,style,escaped,observations,nextMode},beta,systems,events},motion_initial(style))
 def motion_emit(lane:MotionLane) -> IO(Unit):
   match lane:
     case MotionLane{_,_,_,events}: IO.print(J.render_list(~E.TraceEvent<T.MotionSchema,T.PositionView,T.VelocityView,T.Selected,T.LedgerView,T.MotionMode,T.MotionPing>,~J.render_motion,events))
+def motion_finish_main(lane:MotionLane) -> IO(Unit):
+  IO.bind(MotionLane,Unit,motion_e10("resource",lane),next => IO.bind(MotionLane,Unit,motion_e10("service",next),motion_emit))
 def motion_execute(style:C.Style,maybe:Maybe<MotionLane>) -> IO(Unit):
   match maybe:
     case None{}: IO.print("SETUP-REJECTED")
-    case Some{lane}: IO.bind(MotionLane,Unit,motion_run(frames(),lane),motion_emit)
+    case Some{lane}: IO.bind(MotionLane,Unit,motion_run(frames(),lane),motion_finish_main)
 type HealthLane is Type:
   HealthLane{alpha:D.Runtime<H.HealthHost(),W.Handle<T.HealthSchema>>,beta:D.Runtime<H.HealthHost(),W.Handle<T.HealthSchema>>,systems:List<&2,K.System>,events:List<&2,E.TraceEvent<T.HealthSchema,T.VitalsView,T.ArmorView,T.Tracked,T.LedgerView,T.HealthMode,T.HealthPing>>}
 def health_collected(beta:Bool,other:D.Runtime<H.HealthHost(),W.Handle<T.HealthSchema>>,systems:List<&2,K.System>,events:List<&2,E.TraceEvent<T.HealthSchema,T.VitalsView,T.ArmorView,T.Tracked,T.LedgerView,T.HealthMode,T.HealthPing>>,runtime:D.Runtime<H.HealthHost(),W.Handle<T.HealthSchema>>) -> HealthLane:
@@ -209,13 +256,35 @@ def health_created_alpha(style:C.Style,result:T.Creation<W.Factory,W.World<T.Hea
     case T.Created{factory,alpha}: health_created_beta(alpha,style,I.create(~T.HealthSchema,~T.Vitals,~T.Armor,~T.Tracked,~T.HealthLedger,~T.HealthMode,~health_ledger,factory,T.HealthOn{}))
 def health_initial(style:C.Style) -> Maybe<HealthLane>:
   health_created_alpha(style,I.create(~T.HealthSchema,~T.Vitals,~T.Armor,~T.Tracked,~T.HealthLedger,~T.HealthMode,~health_ledger,I.factory(),T.HealthOn{}))
+def health_e10_record(missing:String,oldSystems:List<&2,K.System>,oldCounts:List<&2,E.Count>,outcome:D.DispatchOutcome,owner:H.HealthHost(),readers:R.Readers,clock:R.Clock,audit:Maybe<D.Audit>,style:C.Style,escaped:List<&2,W.Handle<T.HealthSchema>>,observations:List<&2,U.Observation>,nextMode:Maybe<&2,Bool>,beta:D.Runtime<H.HealthHost(),W.Handle<T.HealthSchema>>,systems:List<&2,K.System>,events:List<&2,E.TraceEvent<T.HealthSchema,T.VitalsView,T.ArmorView,T.Tracked,T.LedgerView,T.HealthMode,T.HealthPing>>,result:Seen) -> HealthLane:
+  match result:
+    case Seen{registry,newSystems,newCounts}: HealthLane{D.Runtime{owner,registry,readers,clock,audit,style,escaped,observations,nextMode},beta,systems,List.append(&2,E.TraceEvent<T.HealthSchema,T.VitalsView,T.ArmorView,T.Tracked,T.LedgerView,T.HealthMode,T.HealthPing>,events,[E.Provisioning{missing,outcome,[],[],Bool.and(same_bases(oldSystems,newSystems),same_counts(oldCounts,newCounts))}])}
+def health_e10_return(missing:String,oldSystems:List<&2,K.System>,oldCounts:List<&2,E.Count>,beta:D.Runtime<H.HealthHost(),W.Handle<T.HealthSchema>>,systems:List<&2,K.System>,events:List<&2,E.TraceEvent<T.HealthSchema,T.VitalsView,T.ArmorView,T.Tracked,T.LedgerView,T.HealthMode,T.HealthPing>>,result:D.Runtime<H.HealthHost(),W.Handle<T.HealthSchema>> & D.Dispatched<H.HealthHost(),W.Handle<T.HealthSchema>>) -> HealthLane:
+  match result:
+    case (D.Runtime{owner,registry,readers,clock,audit,style,escaped,observations,nextMode},D.Dispatched{_,outcome}): health_e10_record(missing,oldSystems,oldCounts,outcome,owner,readers,clock,audit,style,escaped,observations,nextMode,beta,systems,events,seen(registry))
+def health_fresh_remove(isResource:Bool,runtime:D.Runtime<H.HealthHost(),W.Handle<T.HealthSchema>>) -> D.Runtime<H.HealthHost(),W.Handle<T.HealthSchema>>:
+  match isResource:
+    case True{}: PF.health_without_ledger(runtime)
+    case False{}: PF.health_without_audit(runtime)
+def health_e10_exchange(+missing:String,fresh:D.Runtime<H.HealthHost(),W.Handle<T.HealthSchema>>,owner:H.HealthHost(),readers:R.Readers,clock:R.Clock,audit:Maybe<D.Audit>,style:C.Style,escaped:List<&2,W.Handle<T.HealthSchema>>,observations:List<&2,U.Observation>,nextMode:Maybe<&2,Bool>,beta:D.Runtime<H.HealthHost(),W.Handle<T.HealthSchema>>,+systems:List<&2,K.System>,events:List<&2,E.TraceEvent<T.HealthSchema,T.VitalsView,T.ArmorView,T.Tracked,T.LedgerView,T.HealthMode,T.HealthPing>>,result:Seen) -> IO(HealthLane):
+  match result:
+    case Seen{registry,oldSystems,oldCounts}: IO.bind(D.Runtime<H.HealthHost(),W.Handle<T.HealthSchema>> & D.Dispatched<H.HealthHost(),W.Handle<T.HealthSchema>>,HealthLane,PF.health_exchange(missing,nodes(systems,preflight_operations()),D.Runtime{owner,registry,readers,clock,audit,style,escaped,observations,nextMode},fresh),result => IO.pure(HealthLane,health_e10_return(missing,oldSystems,oldCounts,beta,systems,events,result)))
+def health_e10_fresh(+missing:String,lane:HealthLane,fresh:Maybe<HealthLane>) -> IO(HealthLane):
+  match lane fresh:
+    case HealthLane{D.Runtime{owner,registry,readers,clock,audit,style,escaped,observations,nextMode},beta,systems,events} Some{HealthLane{fresh,_,_,_}}: health_e10_exchange(missing,health_fresh_remove(String.eq(missing,"resource"),fresh),owner,readers,clock,audit,style,escaped,observations,nextMode,beta,systems,events,seen(registry))
+    case state None{}: IO.bind(Unit,HealthLane,IO.print("SETUP-REJECTED:E10"),_ => IO.pure(HealthLane,state))
+def health_e10(missing:String,lane:HealthLane) -> IO(HealthLane):
+  match lane:
+    case HealthLane{D.Runtime{owner,registry,readers,clock,audit,+style,escaped,observations,nextMode},beta,systems,events}: health_e10_fresh(missing,HealthLane{D.Runtime{owner,registry,readers,clock,audit,style,escaped,observations,nextMode},beta,systems,events},health_initial(style))
 def health_emit(lane:HealthLane) -> IO(Unit):
   match lane:
     case HealthLane{_,_,_,events}: IO.print(J.render_list(~E.TraceEvent<T.HealthSchema,T.VitalsView,T.ArmorView,T.Tracked,T.LedgerView,T.HealthMode,T.HealthPing>,~J.render_health,events))
+def health_finish_main(lane:HealthLane) -> IO(Unit):
+  IO.bind(HealthLane,Unit,health_e10("resource",lane),next => IO.bind(HealthLane,Unit,health_e10("service",next),health_emit))
 def health_execute(style:C.Style,maybe:Maybe<HealthLane>) -> IO(Unit):
   match maybe:
     case None{}: IO.print("SETUP-REJECTED")
-    case Some{lane}: IO.bind(HealthLane,Unit,health_run(frames(),lane),health_emit)
+    case Some{lane}: IO.bind(HealthLane,Unit,health_run(frames(),lane),health_finish_main)
 def main() -> IO(Unit):
   do IO<Unit>:
     IO.print("{\"kind\":\"Lane\",\"schema\":\"Motion\",\"style\":\"returned-owner\"}")
