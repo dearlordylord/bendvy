@@ -32,6 +32,7 @@ def access(value:T.Access<T.MainView>) -> String:
 def body_observation(value:U.Observation) -> String:
   match value:
     case U.MainObserved{v}: access(v)
+    case U.ReservedObserved{v}: "reserved(" ++ access(v) ++ ")"
     case U.LedgerObserved{v}: Maybe.show(&2,T.LedgerView,F.ledger_show,v)
 
 def motion_main(value:U32) -> T.Position:
