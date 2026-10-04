@@ -68,3 +68,7 @@ a blanket benchmark or full-core completion gate.
 [Erased-owner feasibility](../../experiments/p-observe-feasibility/README.md) records eight expected outcomes and no correspondence theorem: faithful empty/barrier reflexivity attempts fail at unresolved conditional obligations, without an impossibility claim.
 
 The [query lane](../../experiments/p-observe-queries/README.md) has independently rerun contextual checker/kernel proofs and two contextual mutation controls. **Zero complete query endpoints are proved.** The exact nonempty sorting/enumeration residual and reviewed continuation inventory are preserved; this is progress, not endpoint acceptance.
+
+The [flush lane](../../experiments/p-observe-flush/README.md) has checked general FIFO-prefix, Spawn-slot and own-target/same-slot links. Coordinator rerun passed the partial runner, including two compiling contextual mutants; **the complete flush endpoint remains open** at mixed-slot coherence, command-prefix invariants and the observation bridge.
+
+Current continuation: finish query interval insertion/order and compose the three query endpoints with their own-endpoint mutations. Mixed-slot flush and command-prefix work can proceed in parallel; only the final flush observation bridge needs the actual enumeration/order toolkit. Compose flush, then pure schedule. Owned schedule retains its separate conditional/erasure feasibility and Word obligations. No additional supporting catalogue law is approved.

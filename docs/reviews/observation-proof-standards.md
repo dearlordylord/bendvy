@@ -101,3 +101,45 @@ not stand in for endpoint proof or mutation acceptance. Five-second checker
 limits and separate copied-positive checks remain intact.
 
 Continuation result: 0 hard findings; 0 actionable heuristics.
+
+### Final bounded query checkpoint `3948d29`
+
+Reviewed integrated worker revision `06da6da` at `3948d29`: strict-order helper
+derivations and arbitrary-fuel `enumerate_after` prove contextual exclusion of a
+physical head below the enumeration interval. Premises are explicit and actual
+independent lookup/enumeration functions remain the subject. No validity assumption
+or completed insertion bridge is smuggled into the theorem. Current evidence hashes
+match; checker/kernel contextual passes and three contextual mutants remain
+separate from the zero completed endpoint IDs. Documentation preserves the exact
+positive-fuel insertion residual and required ordering/bound transfers.
+
+Result: 0 hard findings; 0 actionable heuristics.
+
+## Flush contextual package — isolated worktree inspection
+
+Read-only inspection of `proof-flush/experiments/p-observe-flush`: contextual
+inventory, toolkit, exact law selection, controls, residuals, runner and evidence.
+Report/integration synchronization remains coordinator work.
+
+**Hard violations: none identified.** Canonical law/types/model/spec hashes are
+checked before execution. The selected approved flush endpoint stays unfilled;
+three residual command/mixed-FIFO/observation links remain TODOs. Proved toolkit
+facts concern command-prefix folds, spawn-at-slot correspondence, target-at-its-own-
+slot and FIFO over same-slot Target commands. These narrower derivations do not
+claim general mixed-command replay or full flush observation correspondence.
+
+Recorded ordinary/kernel checks and elementary controls pass. Deliberate kernel
+failure verifies that kernel acceptance is required. Mutants typecheck their
+implementation first, then fail unchanged contextual sections `spawn_slot` and
+`target_fifo`. The FIFO harness explicitly removes the earlier independent prefix
+lemma to expose the target theorem failure and verifies that focused copied
+positive before mutation; no different theorem is counted as full endpoint
+acceptance. Existing five-second checker deadlines remain inside a six-second
+wrapper-cleanup watchdog. No unsafe proof, new dependency or policy change found.
+
+Current Bend/runner hashes match recorded evidence. Imports reuse the independently
+proved lookup comparison helper, with dependency hashes recorded. The evidence
+status explicitly remains PARTIAL with the approved flush endpoint OPEN.
+
+**Heuristic findings: none actionable.** Specialized helpers follow declaration
+order/match constraints and describe their limited command sublanguage.
