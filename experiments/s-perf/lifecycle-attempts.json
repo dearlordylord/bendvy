@@ -1,0 +1,556 @@
+{
+  "artifact": "/workspace/formal-proofs/bendvy/.artifacts/indexed-lifecycle-20261004.tar.gz",
+  "artifactSHA256": "0acb2b806e6d811c86b015a8a32fc6d5e36b20f88be5d6822c6dc3b698c6c1ca",
+  "attempts": [
+    {
+      "attempt": "final2",
+      "evidenceSHA256": "4d3d8a00efc444e7fc8fab9a1267e50e57a001b11a9707c95efeb4ff9c319a87",
+      "status": "FAIL",
+      "error": "exit 1, expected 0: [PosixPath('/workspace/formal-proofs/bendvy/experiments/t01/bend-check'), PosixPath('/tmp/bendvy-indexed-final2/experiments/s-integrate/measurement-lifecycle-timed.bend'), '--check-only']\nSOME PROOFS FAIL\nError:\n- expected : Sigma<&1, &1, L.MotionState, _ => R.Clock>\n- observed : @-R:Type -> @k:(@_:Sigma<&1, &1, L.MotionState, _ => R.Clock> -> IO.OP<R>) -> IO.OP<R>\nContext:\n- state : L.MotionState\n- stale : List<&2, S.Handle<T.MotionSchema>>\n- total : U32\n- full  : Bool\n- clock : R.Clock\nLocation: motion_barrier\n45 |   match owner:\n46>|     case Bench{state,stale,total,full}: lift(L.MotionState,S.Handle<T.MotionSchema>,R.Clock,stale,total,full,L.motion_barrier(state,clock))\n   |                                                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n47 | def motion_transition(owner:Bench<L.MotionState,S.Handle<T.MotionSchema>>,pending:Maybe<&2,Bool>,clock:R.Clock) -> Bench<L.MotionState,S.Handle<T.MotionSchema>> & R.Clock:\nbend 2.0.35 is available: run bend update\n",
+      "interruptionReason": null,
+      "build": {
+        "status": "FAIL",
+        "entry": "/tmp/bendvy-indexed-final2/experiments/s-integrate/measurement-lifecycle-timed.bend",
+        "startedAt": "2026-10-04T21:06:36.900251+00:00",
+        "error": "exit 1, expected 0: [PosixPath('/workspace/formal-proofs/bendvy/experiments/t01/bend-check'), PosixPath('/tmp/bendvy-indexed-final2/experiments/s-integrate/measurement-lifecycle-timed.bend'), '--check-only']\nSOME PROOFS FAIL\nError:\n- expected : Sigma<&1, &1, L.MotionState, _ => R.Clock>\n- observed : @-R:Type -> @k:(@_:Sigma<&1, &1, L.MotionState, _ => R.Clock> -> IO.OP<R>) -> IO.OP<R>\nContext:\n- state : L.MotionState\n- stale : List<&2, S.Handle<T.MotionSchema>>\n- total : U32\n- full  : Bool\n- clock : R.Clock\nLocation: motion_barrier\n45 |   match owner:\n46>|     case Bench{state,stale,total,full}: lift(L.MotionState,S.Handle<T.MotionSchema>,R.Clock,stale,total,full,L.motion_barrier(state,clock))\n   |                                                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n47 | def motion_transition(owner:Bench<L.MotionState,S.Handle<T.MotionSchema>>,pending:Maybe<&2,Bool>,clock:R.Clock) -> Bench<L.MotionState,S.Handle<T.MotionSchema>> & R.Clock:\nbend 2.0.35 is available: run bend update\n",
+        "finishedAt": "2026-10-04T21:06:37.924896+00:00"
+      },
+      "cases": [
+        {
+          "schema": "Motion",
+          "count": 64,
+          "status": "BUILD_BLOCKED",
+          "verification": {},
+          "ratios": null
+        },
+        {
+          "schema": "Motion",
+          "count": 256,
+          "status": "BUILD_BLOCKED",
+          "verification": {},
+          "ratios": null
+        },
+        {
+          "schema": "Motion",
+          "count": 1024,
+          "status": "BUILD_BLOCKED",
+          "verification": {},
+          "ratios": null
+        },
+        {
+          "schema": "Health",
+          "count": 64,
+          "status": "BUILD_BLOCKED",
+          "verification": {},
+          "ratios": null
+        },
+        {
+          "schema": "Health",
+          "count": 256,
+          "status": "BUILD_BLOCKED",
+          "verification": {},
+          "ratios": null
+        },
+        {
+          "schema": "Health",
+          "count": 1024,
+          "status": "BUILD_BLOCKED",
+          "verification": {},
+          "ratios": null
+        }
+      ]
+    },
+    {
+      "attempt": "v3",
+      "evidenceSHA256": "621f2dbfd3225cc2409199a54ac824b9aee40d77bb483db9a0e196775b92b241",
+      "status": "FAIL",
+      "error": "exit 1, expected 0: [PosixPath('/workspace/formal-proofs/bendvy/experiments/t01/bend-check'), PosixPath('/tmp/bendvy-indexed-lifecycle-v3/experiments/s-integrate/measurement-lifecycle-timed.bend'), '--check-only']\nSOME PROOFS FAIL\nError:\n- expected : a defined name\n- observed : CMD.apply\nContext:\n- count   : U32\n- world   : S.World<T.MotionSchema, T.Position, T.Velocity, T.Selected, T.MotionLedger, T.MotionMode>\n- beta    : S.World<T.MotionSchema, T.Position, T.Velocity, T.Selected, T.MotionLedger, T.MotionMode>\n- foreign : S.Handle<T.MotionSchema>\nLocation: motion_foreign_reserved\n288 |   match result:\n289>|     case T.Reserved{beta,foreign}: motion_foreign_applied(count,world,foreign,CMD.apply(T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode,beta,1))\n    |                                                                               ^^^^^^^^^\n290 |     case _: IO.die(D.Runtime<L.MotionState,S.Handle<T.MotionSchema>> & (K.System & K.System),4,\"foreign reservation failed\")\nbend 2.0.35 is available: run bend update\n",
+      "interruptionReason": null,
+      "build": {
+        "status": "FAIL",
+        "entry": "/tmp/bendvy-indexed-lifecycle-v3/experiments/s-integrate/measurement-lifecycle-timed.bend",
+        "startedAt": "2026-10-04T21:07:51.347350+00:00",
+        "error": "exit 1, expected 0: [PosixPath('/workspace/formal-proofs/bendvy/experiments/t01/bend-check'), PosixPath('/tmp/bendvy-indexed-lifecycle-v3/experiments/s-integrate/measurement-lifecycle-timed.bend'), '--check-only']\nSOME PROOFS FAIL\nError:\n- expected : a defined name\n- observed : CMD.apply\nContext:\n- count   : U32\n- world   : S.World<T.MotionSchema, T.Position, T.Velocity, T.Selected, T.MotionLedger, T.MotionMode>\n- beta    : S.World<T.MotionSchema, T.Position, T.Velocity, T.Selected, T.MotionLedger, T.MotionMode>\n- foreign : S.Handle<T.MotionSchema>\nLocation: motion_foreign_reserved\n288 |   match result:\n289>|     case T.Reserved{beta,foreign}: motion_foreign_applied(count,world,foreign,CMD.apply(T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode,beta,1))\n    |                                                                               ^^^^^^^^^\n290 |     case _: IO.die(D.Runtime<L.MotionState,S.Handle<T.MotionSchema>> & (K.System & K.System),4,\"foreign reservation failed\")\nbend 2.0.35 is available: run bend update\n",
+        "finishedAt": "2026-10-04T21:07:52.459913+00:00"
+      },
+      "cases": [
+        {
+          "schema": "Motion",
+          "count": 64,
+          "status": "BUILD_BLOCKED",
+          "verification": {},
+          "ratios": null
+        },
+        {
+          "schema": "Motion",
+          "count": 256,
+          "status": "BUILD_BLOCKED",
+          "verification": {},
+          "ratios": null
+        },
+        {
+          "schema": "Motion",
+          "count": 1024,
+          "status": "BUILD_BLOCKED",
+          "verification": {},
+          "ratios": null
+        },
+        {
+          "schema": "Health",
+          "count": 64,
+          "status": "BUILD_BLOCKED",
+          "verification": {},
+          "ratios": null
+        },
+        {
+          "schema": "Health",
+          "count": 256,
+          "status": "BUILD_BLOCKED",
+          "verification": {},
+          "ratios": null
+        },
+        {
+          "schema": "Health",
+          "count": 1024,
+          "status": "BUILD_BLOCKED",
+          "verification": {},
+          "ratios": null
+        }
+      ]
+    },
+    {
+      "attempt": "v4",
+      "evidenceSHA256": "f25963618320114e7986b9eddd8bb61bbd0d09789f885565295e2ffce7e2ab46",
+      "status": "INTERRUPTED_SUPERSEDED",
+      "error": null,
+      "interruptionReason": "Commands preflight source changed to direct self-tail recursion after E11 JS overflow; stop obsolete comparisons and rerun final source. This attempt also overlapped task-owned CPU10 command-control builds.",
+      "build": {
+        "status": "PASS",
+        "entry": "/tmp/bendvy-indexed-lifecycle-v4/experiments/s-integrate/measurement-lifecycle-timed.bend",
+        "startedAt": "2026-10-04T21:08:31.774850+00:00",
+        "finishedAt": "2026-10-04T21:09:46.322003+00:00",
+        "artifacts": {
+          "measurement-lifecycle-timed-native": "c4e5802c048ea354dd995525eda134c4d1b1b03b981a462742cc883bd21e1907",
+          "measurement-lifecycle-timed.js": "5544b608c554472d5f03037fac033444da57539dd43919a5f2497005815f055c"
+        }
+      },
+      "cases": [
+        {
+          "schema": "Motion",
+          "count": 64,
+          "status": "MEASURED",
+          "verification": {
+            "Native": {
+              "status": "PASS",
+              "exitCode": 0,
+              "wholeProcessSeconds": 0.06495398189872503,
+              "startedAt": "2026-10-04T21:09:46.719087+00:00",
+              "finishedAt": "2026-10-04T21:09:46.784044+00:00",
+              "peakRssKiB": 4192,
+              "launcherInheritedPeakRssKiB": 113688,
+              "command": [
+                "/tmp/bendvy-indexed-lifecycle-v4-results/measurement-lifecycle-timed-native",
+                "0",
+                "64",
+                "1",
+                "--threads",
+                "1",
+                "--gpu",
+                "off"
+              ],
+              "rawPath": "raw/Motion-64/full/Native",
+              "milliseconds": 59,
+              "digest": 318621724,
+              "staleLookups": 6112,
+              "fullBoundaryCount": 192,
+              "rawReservations": 64,
+              "finalSha256": "06b3d207c39a5fcbb674200ee4b4c15aab18be8d2a7814f32b0dfb6ee931f7a7",
+              "stdoutSHA256": "414e355c24d65272c5df7b9873b49c41537ddd7587b7dd4df399f2dfcf97e591"
+            },
+            "TS": {
+              "status": "PASS",
+              "exitCode": 0,
+              "wholeProcessSeconds": 0.32295077200978994,
+              "startedAt": "2026-10-04T21:09:46.904126+00:00",
+              "finishedAt": "2026-10-04T21:09:47.227080+00:00",
+              "peakRssKiB": 105472,
+              "launcherInheritedPeakRssKiB": 113688,
+              "command": [
+                "node",
+                "/workspace/formal-proofs/bendvy-worktrees/perf-lifecycle/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+                "Motion",
+                "64",
+                "1"
+              ],
+              "rawPath": "raw/Motion-64/full/TS",
+              "milliseconds": 34.462568999999974,
+              "digest": 266848412,
+              "staleLookups": 6112,
+              "fullBoundaryCount": 192,
+              "rawReservations": 64,
+              "finalSha256": "06b3d207c39a5fcbb674200ee4b4c15aab18be8d2a7814f32b0dfb6ee931f7a7",
+              "stdoutSHA256": "b9c199a7b23eaec4956d24871b5b5e4e690511b55ab361f31f749ea6544dae88"
+            },
+            "JS": {
+              "status": "PASS",
+              "exitCode": 0,
+              "wholeProcessSeconds": 0.3237508190795779,
+              "startedAt": "2026-10-04T21:09:47.345846+00:00",
+              "finishedAt": "2026-10-04T21:09:47.669601+00:00",
+              "peakRssKiB": 94676,
+              "launcherInheritedPeakRssKiB": 113688,
+              "command": [
+                "node",
+                "/tmp/bendvy-indexed-lifecycle-v4-results/measurement-lifecycle-timed.js",
+                "0",
+                "64",
+                "1"
+              ],
+              "rawPath": "raw/Motion-64/full/JS",
+              "milliseconds": 238,
+              "digest": 318621724,
+              "staleLookups": 6112,
+              "fullBoundaryCount": 192,
+              "rawReservations": 64,
+              "finalSha256": "06b3d207c39a5fcbb674200ee4b4c15aab18be8d2a7814f32b0dfb6ee931f7a7",
+              "stdoutSHA256": "5a3d2579363152e5139d1fdf1c08791e453ebf8f9a401eb9a9df9ff0e5f4f808"
+            }
+          },
+          "ratios": {
+            "Native/TS": 0.44955245928796717,
+            "JS/TS": 2.641120698316807
+          }
+        },
+        {
+          "schema": "Motion",
+          "count": 256,
+          "status": "MEASURED",
+          "verification": {
+            "Native": {
+              "status": "PASS",
+              "exitCode": 0,
+              "wholeProcessSeconds": 0.41757345106452703,
+              "startedAt": "2026-10-04T21:09:54.446400+00:00",
+              "finishedAt": "2026-10-04T21:09:54.863975+00:00",
+              "peakRssKiB": 6616,
+              "launcherInheritedPeakRssKiB": 113688,
+              "command": [
+                "/tmp/bendvy-indexed-lifecycle-v4-results/measurement-lifecycle-timed-native",
+                "0",
+                "256",
+                "1",
+                "--threads",
+                "1",
+                "--gpu",
+                "off"
+              ],
+              "rawPath": "raw/Motion-256/full/Native",
+              "milliseconds": 377,
+              "digest": 1975503297,
+              "staleLookups": 6112,
+              "fullBoundaryCount": 192,
+              "rawReservations": 64,
+              "finalSha256": "421e82df77af955576d7eec89b3967acc359ca8c8e34477ba5905319e8afaa15",
+              "stdoutSHA256": "48550bbf4cccd80586a8c514bec45334f6eae1ca7b6551b9ce733478530757b4"
+            },
+            "TS": {
+              "status": "PASS",
+              "exitCode": 0,
+              "wholeProcessSeconds": 0.4247898010071367,
+              "startedAt": "2026-10-04T21:09:55.484179+00:00",
+              "finishedAt": "2026-10-04T21:09:55.908970+00:00",
+              "peakRssKiB": 108632,
+              "launcherInheritedPeakRssKiB": 113688,
+              "command": [
+                "node",
+                "/workspace/formal-proofs/bendvy-worktrees/perf-lifecycle/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+                "Motion",
+                "256",
+                "1"
+              ],
+              "rawPath": "raw/Motion-256/full/TS",
+              "milliseconds": 75.77398699999998,
+              "digest": 1923729985,
+              "staleLookups": 6112,
+              "fullBoundaryCount": 192,
+              "rawReservations": 64,
+              "finalSha256": "421e82df77af955576d7eec89b3967acc359ca8c8e34477ba5905319e8afaa15",
+              "stdoutSHA256": "aacd259037a73a0710fa27ac2c788611b00c37d68782e2e239fbe13bb020ef6d"
+            },
+            "JS": {
+              "status": "PASS",
+              "exitCode": 0,
+              "wholeProcessSeconds": 0.7202889758627862,
+              "startedAt": "2026-10-04T21:09:56.487603+00:00",
+              "finishedAt": "2026-10-04T21:09:57.207893+00:00",
+              "peakRssKiB": 131852,
+              "launcherInheritedPeakRssKiB": 113688,
+              "command": [
+                "node",
+                "/tmp/bendvy-indexed-lifecycle-v4-results/measurement-lifecycle-timed.js",
+                "0",
+                "256",
+                "1"
+              ],
+              "rawPath": "raw/Motion-256/full/JS",
+              "milliseconds": 626,
+              "digest": 1975503297,
+              "staleLookups": 6112,
+              "fullBoundaryCount": 192,
+              "rawReservations": 64,
+              "finalSha256": "421e82df77af955576d7eec89b3967acc359ca8c8e34477ba5905319e8afaa15",
+              "stdoutSHA256": "aa9ab5bca263783ddacb42d4720bf91d540b7a4ecdb760db5155734c0bca0e53"
+            }
+          },
+          "ratios": {
+            "Native/TS": 0.7433029334821919,
+            "JS/TS": 2.6015602671876716
+          }
+        },
+        {
+          "schema": "Motion",
+          "count": 1024,
+          "status": "PREREQUISITE_FAILED",
+          "verification": {
+            "Native": {
+              "status": "FAIL",
+              "error": "five-second process-group deadline",
+              "startedAt": "2026-10-04T21:10:11.177683+00:00",
+              "finishedAt": "2026-10-04T21:10:16.178949+00:00",
+              "command": [
+                "/tmp/bendvy-indexed-lifecycle-v4-results/measurement-lifecycle-timed-native",
+                "0",
+                "1024",
+                "1",
+                "--threads",
+                "1",
+                "--gpu",
+                "off"
+              ],
+              "rawPath": "raw/Motion-1024/full/Native"
+            },
+            "TS": {
+              "status": "PASS",
+              "exitCode": 0,
+              "wholeProcessSeconds": 0.6776144651230425,
+              "startedAt": "2026-10-04T21:10:16.181046+00:00",
+              "finishedAt": "2026-10-04T21:10:16.858666+00:00",
+              "peakRssKiB": 109528,
+              "launcherInheritedPeakRssKiB": 113688,
+              "command": [
+                "node",
+                "/workspace/formal-proofs/bendvy-worktrees/perf-lifecycle/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+                "Motion",
+                "1024",
+                "1"
+              ],
+              "rawPath": "raw/Motion-1024/full/TS",
+              "milliseconds": 269.980636,
+              "digest": 1483008961,
+              "staleLookups": 6112,
+              "fullBoundaryCount": 192,
+              "rawReservations": 64,
+              "finalSha256": "742ef5917badcc33730a84c55c7cfaec1360548c323a873942d717e27ba76d60",
+              "stdoutSHA256": "f9b6963e701c2e859b60faace651e0161ac6adcd6398b4ac23a42e5dd30e362e"
+            },
+            "JS": {
+              "status": "FAIL",
+              "error": "five-second process-group deadline",
+              "startedAt": "2026-10-04T21:10:23.439734+00:00",
+              "finishedAt": "2026-10-04T21:10:28.440266+00:00",
+              "command": [
+                "node",
+                "/tmp/bendvy-indexed-lifecycle-v4-results/measurement-lifecycle-timed.js",
+                "0",
+                "1024",
+                "1"
+              ],
+              "rawPath": "raw/Motion-1024/full/JS"
+            }
+          },
+          "ratios": null
+        },
+        {
+          "schema": "Health",
+          "count": 64,
+          "status": "MEASURED",
+          "verification": {
+            "Native": {
+              "status": "PASS",
+              "exitCode": 0,
+              "wholeProcessSeconds": 0.16964816022664309,
+              "startedAt": "2026-10-04T21:10:28.942438+00:00",
+              "finishedAt": "2026-10-04T21:10:29.112087+00:00",
+              "peakRssKiB": 4320,
+              "launcherInheritedPeakRssKiB": 232588,
+              "command": [
+                "/tmp/bendvy-indexed-lifecycle-v4-results/measurement-lifecycle-timed-native",
+                "1",
+                "64",
+                "1",
+                "--threads",
+                "1",
+                "--gpu",
+                "off"
+              ],
+              "rawPath": "raw/Health-64/full/Native",
+              "milliseconds": 126,
+              "digest": 4220957302,
+              "staleLookups": 6112,
+              "fullBoundaryCount": 192,
+              "rawReservations": 64,
+              "finalSha256": "f01413002da2cbc252970514a837b597e5bc5f03f7b2e1c121a9a0786169e9fa",
+              "stdoutSHA256": "290cca3929f64b8360dcdf283a2cfb804865eef71f49a5bda5b689c4f73f1429"
+            },
+            "TS": {
+              "status": "PASS",
+              "exitCode": 0,
+              "wholeProcessSeconds": 0.5306046959012747,
+              "startedAt": "2026-10-04T21:10:29.329018+00:00",
+              "finishedAt": "2026-10-04T21:10:29.859624+00:00",
+              "peakRssKiB": 106608,
+              "launcherInheritedPeakRssKiB": 232588,
+              "command": [
+                "node",
+                "/workspace/formal-proofs/bendvy-worktrees/perf-lifecycle/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+                "Health",
+                "64",
+                "1"
+              ],
+              "rawPath": "raw/Health-64/full/TS",
+              "milliseconds": 53.304929999999956,
+              "digest": 4169183990,
+              "staleLookups": 6112,
+              "fullBoundaryCount": 192,
+              "rawReservations": 64,
+              "finalSha256": "f01413002da2cbc252970514a837b597e5bc5f03f7b2e1c121a9a0786169e9fa",
+              "stdoutSHA256": "e89a868e2c63ecf57e2de42ed64fee633d4aff9c9ca519c3c5f43c9972194549"
+            },
+            "JS": {
+              "status": "PASS",
+              "exitCode": 0,
+              "wholeProcessSeconds": 0.6310990059282631,
+              "startedAt": "2026-10-04T21:10:30.148976+00:00",
+              "finishedAt": "2026-10-04T21:10:30.780078+00:00",
+              "peakRssKiB": 98408,
+              "launcherInheritedPeakRssKiB": 232588,
+              "command": [
+                "node",
+                "/tmp/bendvy-indexed-lifecycle-v4-results/measurement-lifecycle-timed.js",
+                "1",
+                "64",
+                "1"
+              ],
+              "rawPath": "raw/Health-64/full/JS",
+              "milliseconds": 439,
+              "digest": 4220957302,
+              "staleLookups": 6112,
+              "fullBoundaryCount": 192,
+              "rawReservations": 64,
+              "finalSha256": "f01413002da2cbc252970514a837b597e5bc5f03f7b2e1c121a9a0786169e9fa",
+              "stdoutSHA256": "95909a94df831e2bf7ecd76f257759c133ae55495f0a9cc3c8a7312af6ae678b"
+            }
+          },
+          "ratios": {
+            "Native/TS": 0.4656330911934548,
+            "JS/TS": 1.542409614578319
+          }
+        },
+        {
+          "schema": "Health",
+          "count": 256,
+          "status": "MEASURED",
+          "verification": {
+            "Native": {
+              "status": "PASS",
+              "exitCode": 0,
+              "wholeProcessSeconds": 0.47754157008603215,
+              "startedAt": "2026-10-04T21:10:41.048222+00:00",
+              "finishedAt": "2026-10-04T21:10:41.525763+00:00",
+              "peakRssKiB": 6740,
+              "launcherInheritedPeakRssKiB": 232588,
+              "command": [
+                "/tmp/bendvy-indexed-lifecycle-v4-results/measurement-lifecycle-timed-native",
+                "1",
+                "256",
+                "1",
+                "--threads",
+                "1",
+                "--gpu",
+                "off"
+              ],
+              "rawPath": "raw/Health-256/full/Native",
+              "milliseconds": 440,
+              "digest": 335060901,
+              "staleLookups": 6112,
+              "fullBoundaryCount": 192,
+              "rawReservations": 64,
+              "finalSha256": "f45fc1b19975043c826a48e8aa58ba4ab098ec5f051422fe9dd2c37eb40bf415",
+              "stdoutSHA256": "ca9207613cd93f4e49640bb4ce7147fd1ff2de90c6ceb56c93b4929f2a9787cc"
+            },
+            "TS": {
+              "status": "PASS",
+              "exitCode": 0,
+              "wholeProcessSeconds": 0.5321175870485604,
+              "startedAt": "2026-10-04T21:10:42.220856+00:00",
+              "finishedAt": "2026-10-04T21:10:42.752998+00:00",
+              "peakRssKiB": 108584,
+              "launcherInheritedPeakRssKiB": 232588,
+              "command": [
+                "node",
+                "/workspace/formal-proofs/bendvy-worktrees/perf-lifecycle/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs",
+                "Health",
+                "256",
+                "1"
+              ],
+              "rawPath": "raw/Health-256/full/TS",
+              "milliseconds": 85.37103400000001,
+              "digest": 283287589,
+              "staleLookups": 6112,
+              "fullBoundaryCount": 192,
+              "rawReservations": 64,
+              "finalSha256": "f45fc1b19975043c826a48e8aa58ba4ab098ec5f051422fe9dd2c37eb40bf415",
+              "stdoutSHA256": "fe7c09b43978e3df1625bd84f4ba543af3b4e6c18124c06065b5c01b6dd09b82"
+            },
+            "JS": {
+              "status": "PASS",
+              "exitCode": 0,
+              "wholeProcessSeconds": 1.2802313838619739,
+              "startedAt": "2026-10-04T21:10:43.565867+00:00",
+              "finishedAt": "2026-10-04T21:10:44.846100+00:00",
+              "peakRssKiB": 131552,
+              "launcherInheritedPeakRssKiB": 232588,
+              "command": [
+                "node",
+                "/tmp/bendvy-indexed-lifecycle-v4-results/measurement-lifecycle-timed.js",
+                "1",
+                "256",
+                "1"
+              ],
+              "rawPath": "raw/Health-256/full/JS",
+              "milliseconds": 1154,
+              "digest": 335060901,
+              "staleLookups": 6112,
+              "fullBoundaryCount": 192,
+              "rawReservations": 64,
+              "finalSha256": "f45fc1b19975043c826a48e8aa58ba4ab098ec5f051422fe9dd2c37eb40bf415",
+              "stdoutSHA256": "117c5636f37a322f4b1dfa60efc0e6501ab03ba5c111d311e8f3bcce03d96c8a"
+            }
+          },
+          "ratios": {
+            "Native/TS": 0.5974119754775133,
+            "JS/TS": 2.509130297005556
+          }
+        },
+        {
+          "schema": "Health",
+          "count": 1024,
+          "status": "NOT_RUN",
+          "verification": {},
+          "ratios": null
+        }
+      ]
+    }
+  ],
+  "finalEvidenceSHA256": "4b39813cf112617b6a7d2e13945556696c0d6dd1998b3063852da728d8e9294d"
+}
