@@ -28,4 +28,35 @@ Root authority, reuse/exhaustion, arbitrary destructive restoration, general Loc
 production layout, broader compiler adoption and numerical performance thresholds
 retain their separate follow-ups. No unapproved general integration proof was written.
 
-Latest bounded additions: [mark filter](../../experiments/s-integrate/host-mark-README.md), [foreign-command Host](../../experiments/s-integrate/structural-host-report.md), [large rendering](../../experiments/s-integrate/renderer-bulk-report.md), and [Dense/Sparse regression](../../experiments/s-integrate/measurement-bend-report.md). Full E0–E11 dispatch parity is still open; later source additions require their own replay/review.
+Latest bounded additions: [mark filter](../../experiments/s-integrate/host-mark-README.md), [foreign-command Host](../../experiments/s-integrate/structural-host-report.md), [large rendering](../../experiments/s-integrate/renderer-bulk-report.md), and [Dense/Sparse regression](../../experiments/s-integrate/measurement-bend-report.md). The records below supersede the historical slice-level pending gates above; later source additions still require their own replay/review.
+
+## Joined runtime checkpoint — 2026-10-04
+
+- Complete E0–E10: all ten public channels in four schema/capture lanes match
+  fresh pinned TS on Native O3 and JS. See
+  [current-source verification](../../experiments/s-integrate/host-source-current-evidence.json).
+- Actual dispatched provider controls, foreign command rejection, structural
+  lifecycle and namespace/capture controls pass their source-current gates.
+- Actual E11 retention: all twenty original cases match TS on both backends;
+  ten compiling pipeline mutations are detected. Current original source pins
+  and the frozen mutation source pins remain distinct evidence records.
+- The refreshed joined mutation sweep matches all ten channels before detecting
+  all twelve compiling mutations on Native O0 and JS. Failed publication is
+  witnessed by an actual unexpected E3 Fast Ping, not an unrelated row count.
+  See [current mutations](../../experiments/s-integrate/host-mutation-source-current-evidence.json).
+- Dense/Sparse and Readers have seven rotated timing repetitions on verified
+  sizes. Dense/Sparse regress on Native and JS; Readers Native is faster on
+  completed sizes, but JS regresses. Dense1024 and two-world Readers1024 sampling
+  hit the five-second deadline. Performance acceptance is **not met**.
+- The reported peak-RSS method is under investigation for an inherited
+  high-water floor; memory acceptance is pending. Timing evidence remains
+  separate from memory claims.
+- Lifecycle full-field diagnostic gates are retained, but checking only the
+  current stale handle did not execute the complete historical-stale workload.
+  The exact registered observer adapter and its timing gate are in progress.
+  Dynamic repeated FailedTxn correctness, retry and timing gates are in progress.
+
+**#19 remains open.** Functional trace parity does not establish production
+performance, general capability confinement, arbitrary payload recovery or new
+universal proofs. Complete the remaining exact workloads, review the evidence
+and record concrete redesign follow-ups before reporting bounded research completion.

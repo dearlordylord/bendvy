@@ -1,6 +1,6 @@
 # S-INTEGRATE — bounded two-schema runtime seam
 
-**[GitHub #19](https://github.com/dearlordylord/bendvy/issues/19). Active: #18 is complete; the reference trace is reviewed. Checked runtime joins are the current implementation gate.**
+**[GitHub #19](https://github.com/dearlordylord/bendvy/issues/19). Active: #18 is complete; the reference trace is reviewed. Joined functional gates pass; exact remaining workloads, measurement provenance and final research review are the current gates. Production performance is unmet.**
 Parent: [#1](https://github.com/dearlordylord/bendvy/issues/1).
 [Astra assessment](../reviews/approved-next-tranche.md).
 Governing [SPEC](../SPEC.md), [checkpoint](../next-core-checkpoint.md),
