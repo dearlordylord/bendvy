@@ -20,14 +20,17 @@ with tempfile.TemporaryDirectory(prefix='prep22-expressibility-') as tmp:
   assert run(['clang','-O3',c,'-pthread','-lm','-o',native],120)[0]==0
   nc,no=run([native,'--threads','1','--gpu','off']);jc,jo=run(['node',js]);assert nc==jc==0 and no==jo
   return no
- original=build(source,'original');expected='[1, 10]:True\n[1, 222, 4, 882]:True\n[1, 222, 4, 882]:True\n[]:True\n[]:False\n[1, 10]:True\n[]:False\n[]:False\n[]:False\n[]:False\n';assert original==expected
+ original=build(source,'original');expected='[1, 10]:True\n[1, 222, 4, 882]:True\n[1, 222, 4, 882]:True\n[]:True\n[]:False\n[1, 10]:True\n[]:False\n[]:False\n[]:False\n[]:False\n';expected+='[1, 222, 4, 882]:True\nMETA:((True:11:101:201,False:12:102:202),(True:none:103:203,True:14:104:204))\n[]:False\nMETA:((True:11:101:201,False:12:102:202),(True:none:103:203,True:14:104:204))\n[]:False\nMETA:(False:none:0:0,False:none:0:0)\n';assert original==expected
  text=source.read_text()
- changes={'reversed':('List.append(&2,U32,lv,rv)','List.append(&2,U32,rv,lv)'), 'wrong-leaf':('walk(~M,~A,~mg,~ag,~use,rest,id,lm,la,lo)','walk(~M,~A,~mg,~ag,~use,rest,id,rm,ra,lo)'), 'stale-count':('Node{3,Node{1','Node{2,Node{1'), 'early-reservation':('Node{3,Node{1,Leaf{True{}},Leaf{False{}}}','Node{4,Node{2,Leaf{True{}},Leaf{True{}}}')}
+ changes={'reversed':('List.append(&2,U32,lv,rv)','List.append(&2,U32,rv,lv)'), 'wrong-leaf':('walk(~M,~A,~mg,~ag,~use,rest,id,lm,la,lo)','walk(~M,~A,~mg,~ag,~use,rest,id,rm,ra,lo)'), 'stale-count':('Node{3,Node{1','Node{2,Node{1'), 'early-reservation':('Node{3,Node{1,Leaf{True{}},Leaf{False{}}}','Node{4,Node{2,Leaf{True{}},Leaf{True{}}}'), 'wrong-occupancy-leaf':('physical_audit(depth,metadata,occupied))','physical_audit(depth,metadata,Node{2,Node{0,Leaf{False{}},Leaf{False{}}},Node{2,Leaf{True{}},Leaf{True{}}}}))'), 'wrong-inner-count':('Node{3,Node{1','Node{3,Node{0')}
  # Wrong leaf must preserve both affine owners, so swap sibling ownership in the other call too.
  for name,(old,new) in changes.items():
   changed=text.replace(old,new);assert changed!=text
   if name=='wrong-leaf':changed=changed.replace('offset(rest)),rm,ra,ro)','offset(rest)),lm,la,ro)')
   p=tmp/(name+'.bend');p.write_text(changed);out=build(p,name);assert out!=original
+  if name=='wrong-occupancy-leaf':
+   assert out.splitlines()[:10]==original.splitlines()[:10] and out.splitlines()[10]=='[]:False'
+   assert out.splitlines()[11::2]==original.splitlines()[11::2], 'metadata owners/fields changed'
   report['controls'].append({'name':name,'sourceSHA256':sha(p),'status':'COMPILING_MUTANT_DETECTED','firstDifference':next(({'line':i+1,'original':a,'mutant':b} for i,(a,b) in enumerate(zip(original.splitlines(),out.splitlines())) if a!=b),None)})
  for name,bad in {'duplicate':'(p,(p,0))','raw-access':'main_get(p)','reconstruct':'(Main{0,0},(u,0))','write-through-read':'(main_set(p),(u,0))','cross-owner':'(u,(p,0))'}.items():
   p=tmp/(name+'.bend');p.write_text(text+'\ndef bad(~P: Type,~U: Type,p: P,u: U) -> P & (U & U32):\n  '+bad+'\n')

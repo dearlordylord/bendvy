@@ -14,6 +14,13 @@ type Occupied is Data:
   Node{count: U32, left: Occupied, right: Occupied}
 type ProbeResult<-M: Type,-A: Type> is Type:
   ProbeResult{main: Array<Maybe<M>>, aux: Array<Maybe<A>>, values: List<&2,U32>, valid: Bool}
+# Same field shape as candidate/storage.bend Metadata<U32>, independently authored.
+type PhysicalMetadata is Data:
+  PhysicalMetadata{live: Bool, flag: Maybe<&2,U32>, added: U32, changed: U32}
+type MetadataAudit is Type:
+  MetadataAudit{metadata: Array<PhysicalMetadata>, count: U32, valid: Bool}
+type Complete is Type:
+  Complete{result: ProbeResult<Main,Aux>, metadata: Array<PhysicalMetadata>}
 def main_get(owner: Main) -> Main & U32:
   match owner:
     case Main{+a,+b}: (Main{a,b},U32.add(a,b))
@@ -112,6 +119,49 @@ def grow_main() -> Array<Maybe<Main>>:
   expand(Main,expand(Main,ALeaf{Some{Main{1,2}}},0n),1n)
 def grow_aux() -> Array<Maybe<Aux>>:
   expand(Aux,expand(Aux,ALeaf{Some{Aux{3,4}}},0n),1n)
+def bit(live: Bool) -> U32:
+  match live:
+    case True{}: 1
+    case False{}: 0
+def audit_leaf(metadata: PhysicalMetadata,occupied: Bool) -> MetadataAudit:
+  match metadata:
+    case PhysicalMetadata{+live,flag,added,changed}: MetadataAudit{ALeaf{PhysicalMetadata{live,flag,added,changed}},bit(live),U32.is_eq(bit(live),bit(occupied))}
+def audit_join(cached: U32,left: MetadataAudit,right: MetadataAudit) -> MetadataAudit:
+  match left right:
+    case MetadataAudit{lm,+lc,lv} MetadataAudit{rm,+rc,rv}: MetadataAudit{ANode{lm,rm},U32.add(lc,rc),Bool.and(U32.is_eq(cached,U32.add(lc,rc)),Bool.and(lv,rv))}
+def physical_audit(depth: Nat,metadata: Array<PhysicalMetadata>,occupied: Occupied) -> MetadataAudit:
+  match depth metadata occupied:
+    case 0n ALeaf{m} Leaf{live}: audit_leaf(m,live)
+    case 1n++rest ANode{lm,rm} Node{cached,lo,ro}: audit_join(cached,physical_audit(rest,lm,lo),physical_audit(rest,rm,ro))
+    case _ m _: MetadataAudit{m,0,False{}}
+def physical_ready(depth: Nat,main: Array<Maybe<Main>>,aux: Array<Maybe<Aux>>,occupied: Occupied,audit: MetadataAudit) -> Complete:
+  match audit:
+    case MetadataAudit{metadata,_,False{}}: Complete{ProbeResult{main,aux,[],False{}},metadata}
+    case MetadataAudit{metadata,_,True{}}: Complete{check(~Main,~Aux,~main_get,~aux_get,~client,depth,1,main,aux,occupied),metadata}
+def physical_check(+depth: Nat,main: Array<Maybe<Main>>,aux: Array<Maybe<Aux>>,metadata: Array<PhysicalMetadata>,+occupied: Occupied) -> Complete:
+  physical_ready(depth,main,aux,occupied,physical_audit(depth,metadata,occupied))
+def metadata() -> Array<PhysicalMetadata>:
+  ANode{ANode{ALeaf{PhysicalMetadata{True{},Some{11},101,201}},ALeaf{PhysicalMetadata{False{},Some{12},102,202}}},ANode{ALeaf{PhysicalMetadata{True{},None{},103,203}},ALeaf{PhysicalMetadata{True{},Some{14},104,204}}}}
+def flag_text(flag: Maybe<&2,U32>) -> String:
+  match flag:
+    case None{}: "none"
+    case Some{n}: U32.show(n)
+def dump_join(pair: (Array<PhysicalMetadata> & String) & (Array<PhysicalMetadata> & String)) -> Array<PhysicalMetadata> & String:
+  match pair:
+    case ((lm,lt),(rm,rt)): (ANode{lm,rm},"(" ++ lt ++ "," ++ rt ++ ")")
+def dump(metadata: Array<PhysicalMetadata>) -> Array<PhysicalMetadata> & String:
+  match metadata:
+    case ALeaf{PhysicalMetadata{+live,+flag,+added,+changed}}: (ALeaf{PhysicalMetadata{live,flag,added,changed}},Bool.show(live) ++ ":" ++ flag_text(flag) ++ ":" ++ U32.show(added) ++ ":" ++ U32.show(changed))
+    case ANode{left,right}: dump_join((dump(left),dump(right)))
+def metadata_print(pair: Array<PhysicalMetadata> & String) -> IO(Unit):
+  match pair:
+    case (_,text): IO.print("META:" ++ text)
+def complete_emit(owner: Complete) -> IO(Unit):
+  match owner:
+    case Complete{result,metadata}:
+      do IO<Unit>:
+        emit(result)
+        metadata_print(dump(metadata))
 def main() -> IO(Unit):
   do IO<Unit>:
     emit(check(~Main,~Aux,~main_get,~aux_get,~client,0n,1,ALeaf{Some{Main{1,2}}},ALeaf{Some{Aux{3,4}}},Leaf{True{}}))
@@ -124,3 +174,6 @@ def main() -> IO(Unit):
     emit(bounds(Bool.and(U32.is_eq(7,8),(0 < 1 : U32)),tree(),auxiliaries()))
     emit(bounds(Bool.and((0 < 0 : U32),(0 <= 4 : U32)),tree(),auxiliaries()))
     emit(bounds(Bool.and((0 < 5 : U32),(5 <= 4 : U32)),tree(),auxiliaries()))
+    complete_emit(physical_check(2n,tree(),auxiliaries(),metadata(),occupancy()))
+    complete_emit(physical_check(2n,tree(),auxiliaries(),metadata(),Node{2,Node{0,Leaf{False{}},Leaf{False{}}},Node{2,Leaf{True{}},Leaf{True{}}}}))
+    complete_emit(physical_check(2n,tree(),auxiliaries(),ANode{ALeaf{PhysicalMetadata{False{},None{},0,0}},ALeaf{PhysicalMetadata{False{},None{},0,0}}},Node{0,Node{0,Leaf{False{}},Leaf{False{}}},Node{0,Leaf{False{}},Leaf{False{}}}}))

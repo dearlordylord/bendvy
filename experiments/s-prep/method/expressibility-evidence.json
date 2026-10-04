@@ -43,7 +43,7 @@
         "bend",
         "/workspace/formal-proofs/bendvy-worktrees/prep22-method-design/experiments/s-prep/method/expressibility.bend",
         "-o",
-        "/tmp/prep22-expressibility-c6zo05uu/original.js"
+        "/tmp/prep22-expressibility-5o7p9bro/original.js"
       ],
       "limit": 30,
       "exit": 0,
@@ -54,7 +54,7 @@
         "bend",
         "/workspace/formal-proofs/bendvy-worktrees/prep22-method-design/experiments/s-prep/method/expressibility.bend",
         "-o",
-        "/tmp/prep22-expressibility-c6zo05uu/original.c"
+        "/tmp/prep22-expressibility-5o7p9bro/original.c"
       ],
       "limit": 30,
       "exit": 0,
@@ -64,11 +64,11 @@
       "args": [
         "clang",
         "-O3",
-        "/tmp/prep22-expressibility-c6zo05uu/original.c",
+        "/tmp/prep22-expressibility-5o7p9bro/original.c",
         "-pthread",
         "-lm",
         "-o",
-        "/tmp/prep22-expressibility-c6zo05uu/original"
+        "/tmp/prep22-expressibility-5o7p9bro/original"
       ],
       "limit": 120,
       "exit": 0,
@@ -76,7 +76,7 @@
     },
     {
       "args": [
-        "/tmp/prep22-expressibility-c6zo05uu/original",
+        "/tmp/prep22-expressibility-5o7p9bro/original",
         "--threads",
         "1",
         "--gpu",
@@ -84,21 +84,21 @@
       ],
       "limit": 5,
       "exit": 0,
-      "output": "[1, 10]:True\n[1, 222, 4, 882]:True\n[1, 222, 4, 882]:True\n[]:True\n[]:False\n[1, 10]:True\n[]:False\n[]:False\n[]:False\n[]:False\n"
+      "output": "[1, 10]:True\n[1, 222, 4, 882]:True\n[1, 222, 4, 882]:True\n[]:True\n[]:False\n[1, 10]:True\n[]:False\n[]:False\n[]:False\n[]:False\n[1, 222, 4, 882]:True\nMETA:((True:11:101:201,False:12:102:202),(True:none:103:203,True:14:104:204))\n[]:False\nMETA:((True:11:101:201,False:12:102:202),(True:none:103:203,True:14:104:204))\n[]:False\nMETA:(False:none:0:0,False:none:0:0)\n"
     },
     {
       "args": [
         "node",
-        "/tmp/prep22-expressibility-c6zo05uu/original.js"
+        "/tmp/prep22-expressibility-5o7p9bro/original.js"
       ],
       "limit": 5,
       "exit": 0,
-      "output": "[1, 10]:True\n[1, 222, 4, 882]:True\n[1, 222, 4, 882]:True\n[]:True\n[]:False\n[1, 10]:True\n[]:False\n[]:False\n[]:False\n[]:False\n"
+      "output": "[1, 10]:True\n[1, 222, 4, 882]:True\n[1, 222, 4, 882]:True\n[]:True\n[]:False\n[1, 10]:True\n[]:False\n[]:False\n[]:False\n[]:False\n[1, 222, 4, 882]:True\nMETA:((True:11:101:201,False:12:102:202),(True:none:103:203,True:14:104:204))\n[]:False\nMETA:((True:11:101:201,False:12:102:202),(True:none:103:203,True:14:104:204))\n[]:False\nMETA:(False:none:0:0,False:none:0:0)\n"
     },
     {
       "args": [
         "bend",
-        "/tmp/prep22-expressibility-c6zo05uu/reversed.bend",
+        "/tmp/prep22-expressibility-5o7p9bro/reversed.bend",
         "--check-only"
       ],
       "limit": 5,
@@ -108,9 +108,9 @@
     {
       "args": [
         "bend",
-        "/tmp/prep22-expressibility-c6zo05uu/reversed.bend",
+        "/tmp/prep22-expressibility-5o7p9bro/reversed.bend",
         "-o",
-        "/tmp/prep22-expressibility-c6zo05uu/reversed.js"
+        "/tmp/prep22-expressibility-5o7p9bro/reversed.js"
       ],
       "limit": 30,
       "exit": 0,
@@ -119,9 +119,9 @@
     {
       "args": [
         "bend",
-        "/tmp/prep22-expressibility-c6zo05uu/reversed.bend",
+        "/tmp/prep22-expressibility-5o7p9bro/reversed.bend",
         "-o",
-        "/tmp/prep22-expressibility-c6zo05uu/reversed.c"
+        "/tmp/prep22-expressibility-5o7p9bro/reversed.c"
       ],
       "limit": 30,
       "exit": 0,
@@ -131,11 +131,11 @@
       "args": [
         "clang",
         "-O3",
-        "/tmp/prep22-expressibility-c6zo05uu/reversed.c",
+        "/tmp/prep22-expressibility-5o7p9bro/reversed.c",
         "-pthread",
         "-lm",
         "-o",
-        "/tmp/prep22-expressibility-c6zo05uu/reversed"
+        "/tmp/prep22-expressibility-5o7p9bro/reversed"
       ],
       "limit": 120,
       "exit": 0,
@@ -143,7 +143,7 @@
     },
     {
       "args": [
-        "/tmp/prep22-expressibility-c6zo05uu/reversed",
+        "/tmp/prep22-expressibility-5o7p9bro/reversed",
         "--threads",
         "1",
         "--gpu",
@@ -151,21 +151,21 @@
       ],
       "limit": 5,
       "exit": 0,
-      "output": "[1, 10]:True\n[4, 882, 1, 222]:True\n[4, 882, 1, 222]:True\n[]:True\n[]:False\n[1, 10]:True\n[]:False\n[]:False\n[]:False\n[]:False\n"
+      "output": "[1, 10]:True\n[4, 882, 1, 222]:True\n[4, 882, 1, 222]:True\n[]:True\n[]:False\n[1, 10]:True\n[]:False\n[]:False\n[]:False\n[]:False\n[4, 882, 1, 222]:True\nMETA:((True:11:101:201,False:12:102:202),(True:none:103:203,True:14:104:204))\n[]:False\nMETA:((True:11:101:201,False:12:102:202),(True:none:103:203,True:14:104:204))\n[]:False\nMETA:(False:none:0:0,False:none:0:0)\n"
     },
     {
       "args": [
         "node",
-        "/tmp/prep22-expressibility-c6zo05uu/reversed.js"
+        "/tmp/prep22-expressibility-5o7p9bro/reversed.js"
       ],
       "limit": 5,
       "exit": 0,
-      "output": "[1, 10]:True\n[4, 882, 1, 222]:True\n[4, 882, 1, 222]:True\n[]:True\n[]:False\n[1, 10]:True\n[]:False\n[]:False\n[]:False\n[]:False\n"
+      "output": "[1, 10]:True\n[4, 882, 1, 222]:True\n[4, 882, 1, 222]:True\n[]:True\n[]:False\n[1, 10]:True\n[]:False\n[]:False\n[]:False\n[]:False\n[4, 882, 1, 222]:True\nMETA:((True:11:101:201,False:12:102:202),(True:none:103:203,True:14:104:204))\n[]:False\nMETA:((True:11:101:201,False:12:102:202),(True:none:103:203,True:14:104:204))\n[]:False\nMETA:(False:none:0:0,False:none:0:0)\n"
     },
     {
       "args": [
         "bend",
-        "/tmp/prep22-expressibility-c6zo05uu/wrong-leaf.bend",
+        "/tmp/prep22-expressibility-5o7p9bro/wrong-leaf.bend",
         "--check-only"
       ],
       "limit": 5,
@@ -175,9 +175,9 @@
     {
       "args": [
         "bend",
-        "/tmp/prep22-expressibility-c6zo05uu/wrong-leaf.bend",
+        "/tmp/prep22-expressibility-5o7p9bro/wrong-leaf.bend",
         "-o",
-        "/tmp/prep22-expressibility-c6zo05uu/wrong-leaf.js"
+        "/tmp/prep22-expressibility-5o7p9bro/wrong-leaf.js"
       ],
       "limit": 30,
       "exit": 0,
@@ -186,9 +186,9 @@
     {
       "args": [
         "bend",
-        "/tmp/prep22-expressibility-c6zo05uu/wrong-leaf.bend",
+        "/tmp/prep22-expressibility-5o7p9bro/wrong-leaf.bend",
         "-o",
-        "/tmp/prep22-expressibility-c6zo05uu/wrong-leaf.c"
+        "/tmp/prep22-expressibility-5o7p9bro/wrong-leaf.c"
       ],
       "limit": 30,
       "exit": 0,
@@ -198,11 +198,11 @@
       "args": [
         "clang",
         "-O3",
-        "/tmp/prep22-expressibility-c6zo05uu/wrong-leaf.c",
+        "/tmp/prep22-expressibility-5o7p9bro/wrong-leaf.c",
         "-pthread",
         "-lm",
         "-o",
-        "/tmp/prep22-expressibility-c6zo05uu/wrong-leaf"
+        "/tmp/prep22-expressibility-5o7p9bro/wrong-leaf"
       ],
       "limit": 120,
       "exit": 0,
@@ -210,7 +210,7 @@
     },
     {
       "args": [
-        "/tmp/prep22-expressibility-c6zo05uu/wrong-leaf",
+        "/tmp/prep22-expressibility-5o7p9bro/wrong-leaf",
         "--threads",
         "1",
         "--gpu",
@@ -218,21 +218,21 @@
       ],
       "limit": 5,
       "exit": 0,
-      "output": "[1, 10]:True\n[1, 882, 3, 442, 4, 222]:True\n[1, 222, 4, 882]:True\n[]:True\n[]:False\n[]:True\n[]:False\n[]:False\n[]:False\n[]:False\n"
+      "output": "[1, 10]:True\n[1, 882, 3, 442, 4, 222]:True\n[1, 222, 4, 882]:True\n[]:True\n[]:False\n[]:True\n[]:False\n[]:False\n[]:False\n[]:False\n[1, 882, 3, 442, 4, 222]:True\nMETA:((True:11:101:201,False:12:102:202),(True:none:103:203,True:14:104:204))\n[]:False\nMETA:((True:11:101:201,False:12:102:202),(True:none:103:203,True:14:104:204))\n[]:False\nMETA:(False:none:0:0,False:none:0:0)\n"
     },
     {
       "args": [
         "node",
-        "/tmp/prep22-expressibility-c6zo05uu/wrong-leaf.js"
+        "/tmp/prep22-expressibility-5o7p9bro/wrong-leaf.js"
       ],
       "limit": 5,
       "exit": 0,
-      "output": "[1, 10]:True\n[1, 882, 3, 442, 4, 222]:True\n[1, 222, 4, 882]:True\n[]:True\n[]:False\n[]:True\n[]:False\n[]:False\n[]:False\n[]:False\n"
+      "output": "[1, 10]:True\n[1, 882, 3, 442, 4, 222]:True\n[1, 222, 4, 882]:True\n[]:True\n[]:False\n[]:True\n[]:False\n[]:False\n[]:False\n[]:False\n[1, 882, 3, 442, 4, 222]:True\nMETA:((True:11:101:201,False:12:102:202),(True:none:103:203,True:14:104:204))\n[]:False\nMETA:((True:11:101:201,False:12:102:202),(True:none:103:203,True:14:104:204))\n[]:False\nMETA:(False:none:0:0,False:none:0:0)\n"
     },
     {
       "args": [
         "bend",
-        "/tmp/prep22-expressibility-c6zo05uu/stale-count.bend",
+        "/tmp/prep22-expressibility-5o7p9bro/stale-count.bend",
         "--check-only"
       ],
       "limit": 5,
@@ -242,9 +242,9 @@
     {
       "args": [
         "bend",
-        "/tmp/prep22-expressibility-c6zo05uu/stale-count.bend",
+        "/tmp/prep22-expressibility-5o7p9bro/stale-count.bend",
         "-o",
-        "/tmp/prep22-expressibility-c6zo05uu/stale-count.js"
+        "/tmp/prep22-expressibility-5o7p9bro/stale-count.js"
       ],
       "limit": 30,
       "exit": 0,
@@ -253,9 +253,9 @@
     {
       "args": [
         "bend",
-        "/tmp/prep22-expressibility-c6zo05uu/stale-count.bend",
+        "/tmp/prep22-expressibility-5o7p9bro/stale-count.bend",
         "-o",
-        "/tmp/prep22-expressibility-c6zo05uu/stale-count.c"
+        "/tmp/prep22-expressibility-5o7p9bro/stale-count.c"
       ],
       "limit": 30,
       "exit": 0,
@@ -265,11 +265,11 @@
       "args": [
         "clang",
         "-O3",
-        "/tmp/prep22-expressibility-c6zo05uu/stale-count.c",
+        "/tmp/prep22-expressibility-5o7p9bro/stale-count.c",
         "-pthread",
         "-lm",
         "-o",
-        "/tmp/prep22-expressibility-c6zo05uu/stale-count"
+        "/tmp/prep22-expressibility-5o7p9bro/stale-count"
       ],
       "limit": 120,
       "exit": 0,
@@ -277,7 +277,7 @@
     },
     {
       "args": [
-        "/tmp/prep22-expressibility-c6zo05uu/stale-count",
+        "/tmp/prep22-expressibility-5o7p9bro/stale-count",
         "--threads",
         "1",
         "--gpu",
@@ -285,21 +285,21 @@
       ],
       "limit": 5,
       "exit": 0,
-      "output": "[1, 10]:True\n[]:False\n[]:False\n[]:True\n[]:False\n[1, 10]:True\n[]:False\n[]:False\n[]:False\n[]:False\n"
+      "output": "[1, 10]:True\n[]:False\n[]:False\n[]:True\n[]:False\n[1, 10]:True\n[]:False\n[]:False\n[]:False\n[]:False\n[]:False\nMETA:((True:11:101:201,False:12:102:202),(True:none:103:203,True:14:104:204))\n[]:False\nMETA:((True:11:101:201,False:12:102:202),(True:none:103:203,True:14:104:204))\n[]:False\nMETA:(False:none:0:0,False:none:0:0)\n"
     },
     {
       "args": [
         "node",
-        "/tmp/prep22-expressibility-c6zo05uu/stale-count.js"
+        "/tmp/prep22-expressibility-5o7p9bro/stale-count.js"
       ],
       "limit": 5,
       "exit": 0,
-      "output": "[1, 10]:True\n[]:False\n[]:False\n[]:True\n[]:False\n[1, 10]:True\n[]:False\n[]:False\n[]:False\n[]:False\n"
+      "output": "[1, 10]:True\n[]:False\n[]:False\n[]:True\n[]:False\n[1, 10]:True\n[]:False\n[]:False\n[]:False\n[]:False\n[]:False\nMETA:((True:11:101:201,False:12:102:202),(True:none:103:203,True:14:104:204))\n[]:False\nMETA:((True:11:101:201,False:12:102:202),(True:none:103:203,True:14:104:204))\n[]:False\nMETA:(False:none:0:0,False:none:0:0)\n"
     },
     {
       "args": [
         "bend",
-        "/tmp/prep22-expressibility-c6zo05uu/early-reservation.bend",
+        "/tmp/prep22-expressibility-5o7p9bro/early-reservation.bend",
         "--check-only"
       ],
       "limit": 5,
@@ -309,9 +309,9 @@
     {
       "args": [
         "bend",
-        "/tmp/prep22-expressibility-c6zo05uu/early-reservation.bend",
+        "/tmp/prep22-expressibility-5o7p9bro/early-reservation.bend",
         "-o",
-        "/tmp/prep22-expressibility-c6zo05uu/early-reservation.js"
+        "/tmp/prep22-expressibility-5o7p9bro/early-reservation.js"
       ],
       "limit": 30,
       "exit": 0,
@@ -320,9 +320,9 @@
     {
       "args": [
         "bend",
-        "/tmp/prep22-expressibility-c6zo05uu/early-reservation.bend",
+        "/tmp/prep22-expressibility-5o7p9bro/early-reservation.bend",
         "-o",
-        "/tmp/prep22-expressibility-c6zo05uu/early-reservation.c"
+        "/tmp/prep22-expressibility-5o7p9bro/early-reservation.c"
       ],
       "limit": 30,
       "exit": 0,
@@ -332,11 +332,11 @@
       "args": [
         "clang",
         "-O3",
-        "/tmp/prep22-expressibility-c6zo05uu/early-reservation.c",
+        "/tmp/prep22-expressibility-5o7p9bro/early-reservation.c",
         "-pthread",
         "-lm",
         "-o",
-        "/tmp/prep22-expressibility-c6zo05uu/early-reservation"
+        "/tmp/prep22-expressibility-5o7p9bro/early-reservation"
       ],
       "limit": 120,
       "exit": 0,
@@ -344,7 +344,7 @@
     },
     {
       "args": [
-        "/tmp/prep22-expressibility-c6zo05uu/early-reservation",
+        "/tmp/prep22-expressibility-5o7p9bro/early-reservation",
         "--threads",
         "1",
         "--gpu",
@@ -352,82 +352,216 @@
       ],
       "limit": 5,
       "exit": 0,
-      "output": "[1, 10]:True\n[1, 222, 2, 442, 4, 882]:True\n[1, 222, 2, 442, 4, 882]:True\n[]:True\n[]:False\n[1, 10]:True\n[]:False\n[]:False\n[]:False\n[]:False\n"
+      "output": "[1, 10]:True\n[1, 222, 2, 442, 4, 882]:True\n[1, 222, 2, 442, 4, 882]:True\n[]:True\n[]:False\n[1, 10]:True\n[]:False\n[]:False\n[]:False\n[]:False\n[]:False\nMETA:((True:11:101:201,False:12:102:202),(True:none:103:203,True:14:104:204))\n[]:False\nMETA:((True:11:101:201,False:12:102:202),(True:none:103:203,True:14:104:204))\n[]:False\nMETA:(False:none:0:0,False:none:0:0)\n"
     },
     {
       "args": [
         "node",
-        "/tmp/prep22-expressibility-c6zo05uu/early-reservation.js"
+        "/tmp/prep22-expressibility-5o7p9bro/early-reservation.js"
       ],
       "limit": 5,
       "exit": 0,
-      "output": "[1, 10]:True\n[1, 222, 2, 442, 4, 882]:True\n[1, 222, 2, 442, 4, 882]:True\n[]:True\n[]:False\n[1, 10]:True\n[]:False\n[]:False\n[]:False\n[]:False\n"
+      "output": "[1, 10]:True\n[1, 222, 2, 442, 4, 882]:True\n[1, 222, 2, 442, 4, 882]:True\n[]:True\n[]:False\n[1, 10]:True\n[]:False\n[]:False\n[]:False\n[]:False\n[]:False\nMETA:((True:11:101:201,False:12:102:202),(True:none:103:203,True:14:104:204))\n[]:False\nMETA:((True:11:101:201,False:12:102:202),(True:none:103:203,True:14:104:204))\n[]:False\nMETA:(False:none:0:0,False:none:0:0)\n"
     },
     {
       "args": [
         "bend",
-        "/tmp/prep22-expressibility-c6zo05uu/duplicate.bend",
+        "/tmp/prep22-expressibility-5o7p9bro/wrong-occupancy-leaf.bend",
         "--check-only"
       ],
       "limit": 5,
-      "exit": 1,
-      "output": "SOME PROOFS FAIL\nError:\n- expected : bad~U\n- observed : bad~P\nContext:\n- p : bad~P\n- u : bad~U\nLocation: bad\n128 | def bad(~P: Type,~U: Type,p: P,u: U) -> P & (U & U32):\n129>|   (p,(p,0))\n    |       ^\n130 | \nbend 2.0.35 is available: run bend update\n"
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\nbend 2.0.35 is available: run bend update\n"
     },
     {
       "args": [
         "bend",
-        "/tmp/prep22-expressibility-c6zo05uu/raw-access.bend",
-        "--check-only"
+        "/tmp/prep22-expressibility-5o7p9bro/wrong-occupancy-leaf.bend",
+        "-o",
+        "/tmp/prep22-expressibility-5o7p9bro/wrong-occupancy-leaf.js"
       ],
-      "limit": 5,
-      "exit": 1,
-      "output": "SOME PROOFS FAIL\nError:\n- expected : Main\n- observed : bad~P\nContext:\n- p : bad~P\n- u : bad~U\nLocation: bad\n128 | def bad(~P: Type,~U: Type,p: P,u: U) -> P & (U & U32):\n129>|   main_get(p)\n    |            ^\n130 | \nbend 2.0.35 is available: run bend update\n"
+      "limit": 30,
+      "exit": 0,
+      "output": "bend 2.0.35 is available: run bend update\n"
     },
     {
       "args": [
         "bend",
-        "/tmp/prep22-expressibility-c6zo05uu/reconstruct.bend",
-        "--check-only"
+        "/tmp/prep22-expressibility-5o7p9bro/wrong-occupancy-leaf.bend",
+        "-o",
+        "/tmp/prep22-expressibility-5o7p9bro/wrong-occupancy-leaf.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "output": "bend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "args": [
+        "clang",
+        "-O3",
+        "/tmp/prep22-expressibility-5o7p9bro/wrong-occupancy-leaf.c",
+        "-pthread",
+        "-lm",
+        "-o",
+        "/tmp/prep22-expressibility-5o7p9bro/wrong-occupancy-leaf"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "args": [
+        "/tmp/prep22-expressibility-5o7p9bro/wrong-occupancy-leaf",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
       ],
       "limit": 5,
-      "exit": 1,
-      "output": "SOME PROOFS FAIL\nError:\n- expected : bad~P\n- observed : Main\nContext:\n- p : bad~P\n- u : bad~U\nLocation: bad\n128 | def bad(~P: Type,~U: Type,p: P,u: U) -> P & (U & U32):\n129>|   (Main{0,0},(u,0))\n    |    ^^^^^^^^^\n130 | \nbend 2.0.35 is available: run bend update\n"
+      "exit": 0,
+      "output": "[1, 10]:True\n[1, 222, 4, 882]:True\n[1, 222, 4, 882]:True\n[]:True\n[]:False\n[1, 10]:True\n[]:False\n[]:False\n[]:False\n[]:False\n[]:False\nMETA:((True:11:101:201,False:12:102:202),(True:none:103:203,True:14:104:204))\n[]:False\nMETA:((True:11:101:201,False:12:102:202),(True:none:103:203,True:14:104:204))\n[]:False\nMETA:(False:none:0:0,False:none:0:0)\n"
+    },
+    {
+      "args": [
+        "node",
+        "/tmp/prep22-expressibility-5o7p9bro/wrong-occupancy-leaf.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": "[1, 10]:True\n[1, 222, 4, 882]:True\n[1, 222, 4, 882]:True\n[]:True\n[]:False\n[1, 10]:True\n[]:False\n[]:False\n[]:False\n[]:False\n[]:False\nMETA:((True:11:101:201,False:12:102:202),(True:none:103:203,True:14:104:204))\n[]:False\nMETA:((True:11:101:201,False:12:102:202),(True:none:103:203,True:14:104:204))\n[]:False\nMETA:(False:none:0:0,False:none:0:0)\n"
     },
     {
       "args": [
         "bend",
-        "/tmp/prep22-expressibility-c6zo05uu/write-through-read.bend",
+        "/tmp/prep22-expressibility-5o7p9bro/wrong-inner-count.bend",
         "--check-only"
       ],
       "limit": 5,
-      "exit": 1,
-      "output": "SOME PROOFS FAIL\nError:\n- expected : Main\n- observed : bad~P\nContext:\n- p : bad~P\n- u : bad~U\nLocation: bad\n128 | def bad(~P: Type,~U: Type,p: P,u: U) -> P & (U & U32):\n129>|   (main_set(p),(u,0))\n    |             ^\n130 | \nbend 2.0.35 is available: run bend update\n"
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\nbend 2.0.35 is available: run bend update\n"
     },
     {
       "args": [
         "bend",
-        "/tmp/prep22-expressibility-c6zo05uu/cross-owner.bend",
-        "--check-only"
+        "/tmp/prep22-expressibility-5o7p9bro/wrong-inner-count.bend",
+        "-o",
+        "/tmp/prep22-expressibility-5o7p9bro/wrong-inner-count.js"
       ],
-      "limit": 5,
-      "exit": 1,
-      "output": "SOME PROOFS FAIL\nError:\n- expected : bad~P\n- observed : bad~U\nContext:\n- p : bad~P\n- u : bad~U\nLocation: bad\n128 | def bad(~P: Type,~U: Type,p: P,u: U) -> P & (U & U32):\n129>|   (u,(p,0))\n    |    ^\n130 | \nbend 2.0.35 is available: run bend update\n"
+      "limit": 30,
+      "exit": 0,
+      "output": "bend 2.0.35 is available: run bend update\n"
     },
     {
       "args": [
         "bend",
-        "/tmp/prep22-expressibility-c6zo05uu/cross-schema.bend",
+        "/tmp/prep22-expressibility-5o7p9bro/wrong-inner-count.bend",
+        "-o",
+        "/tmp/prep22-expressibility-5o7p9bro/wrong-inner-count.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "output": "bend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "args": [
+        "clang",
+        "-O3",
+        "/tmp/prep22-expressibility-5o7p9bro/wrong-inner-count.c",
+        "-pthread",
+        "-lm",
+        "-o",
+        "/tmp/prep22-expressibility-5o7p9bro/wrong-inner-count"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "args": [
+        "/tmp/prep22-expressibility-5o7p9bro/wrong-inner-count",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": "[1, 10]:True\n[]:False\n[]:False\n[]:True\n[]:False\n[1, 10]:True\n[]:False\n[]:False\n[]:False\n[]:False\n[]:False\nMETA:((True:11:101:201,False:12:102:202),(True:none:103:203,True:14:104:204))\n[]:False\nMETA:((True:11:101:201,False:12:102:202),(True:none:103:203,True:14:104:204))\n[]:False\nMETA:(False:none:0:0,False:none:0:0)\n"
+    },
+    {
+      "args": [
+        "node",
+        "/tmp/prep22-expressibility-5o7p9bro/wrong-inner-count.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": "[1, 10]:True\n[]:False\n[]:False\n[]:True\n[]:False\n[1, 10]:True\n[]:False\n[]:False\n[]:False\n[]:False\n[]:False\nMETA:((True:11:101:201,False:12:102:202),(True:none:103:203,True:14:104:204))\n[]:False\nMETA:((True:11:101:201,False:12:102:202),(True:none:103:203,True:14:104:204))\n[]:False\nMETA:(False:none:0:0,False:none:0:0)\n"
+    },
+    {
+      "args": [
+        "bend",
+        "/tmp/prep22-expressibility-5o7p9bro/duplicate.bend",
         "--check-only"
       ],
       "limit": 5,
       "exit": 1,
-      "output": "SOME PROOFS FAIL\nError:\n- expected : Handle<Unit>\n- observed : Handle<Schema>\nContext:\n- p : Handle<Schema>\nLocation: bad\n128 | def bad(p: Handle<Schema>) -> Handle<Unit>:\n129>|   p\n    |   ^\n130 | \nbend 2.0.35 is available: run bend update\n"
+      "output": "SOME PROOFS FAIL\nError:\n- expected : bad~U\n- observed : bad~P\nContext:\n- p : bad~P\n- u : bad~U\nLocation: bad\n181 | def bad(~P: Type,~U: Type,p: P,u: U) -> P & (U & U32):\n182>|   (p,(p,0))\n    |       ^\n183 | \nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "args": [
+        "bend",
+        "/tmp/prep22-expressibility-5o7p9bro/raw-access.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 1,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : Main\n- observed : bad~P\nContext:\n- p : bad~P\n- u : bad~U\nLocation: bad\n181 | def bad(~P: Type,~U: Type,p: P,u: U) -> P & (U & U32):\n182>|   main_get(p)\n    |            ^\n183 | \nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "args": [
+        "bend",
+        "/tmp/prep22-expressibility-5o7p9bro/reconstruct.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 1,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : bad~P\n- observed : Main\nContext:\n- p : bad~P\n- u : bad~U\nLocation: bad\n181 | def bad(~P: Type,~U: Type,p: P,u: U) -> P & (U & U32):\n182>|   (Main{0,0},(u,0))\n    |    ^^^^^^^^^\n183 | \nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "args": [
+        "bend",
+        "/tmp/prep22-expressibility-5o7p9bro/write-through-read.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 1,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : Main\n- observed : bad~P\nContext:\n- p : bad~P\n- u : bad~U\nLocation: bad\n181 | def bad(~P: Type,~U: Type,p: P,u: U) -> P & (U & U32):\n182>|   (main_set(p),(u,0))\n    |             ^\n183 | \nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "args": [
+        "bend",
+        "/tmp/prep22-expressibility-5o7p9bro/cross-owner.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 1,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : bad~P\n- observed : bad~U\nContext:\n- p : bad~P\n- u : bad~U\nLocation: bad\n181 | def bad(~P: Type,~U: Type,p: P,u: U) -> P & (U & U32):\n182>|   (u,(p,0))\n    |    ^\n183 | \nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "args": [
+        "bend",
+        "/tmp/prep22-expressibility-5o7p9bro/cross-schema.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 1,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : Handle<Unit>\n- observed : Handle<Schema>\nContext:\n- p : Handle<Schema>\nLocation: bad\n181 | def bad(p: Handle<Schema>) -> Handle<Unit>:\n182>|   p\n    |   ^\n183 | \nbend 2.0.35 is available: run bend update\n"
     }
   ],
   "controls": [
     {
       "name": "reversed",
-      "sourceSHA256": "459ea245ddc47cad954c28c3e1d9ce8a6282fac40833158b5526405ecf44bdce",
+      "sourceSHA256": "4a4411a7a899036817a6b970950cd965ddd54604e1a9f0ac9d7b13e91d203503",
       "status": "COMPILING_MUTANT_DETECTED",
       "firstDifference": {
         "line": 2,
@@ -437,7 +571,7 @@
     },
     {
       "name": "wrong-leaf",
-      "sourceSHA256": "8e6bb2a12b8e2c2ddd8a6af0bdcc66347da007885187d741f21f0b6f3d55374d",
+      "sourceSHA256": "9d44e41879b8cf47af85bbae198647e4fe7d5a65a78f8055c22504eeff51c3c0",
       "status": "COMPILING_MUTANT_DETECTED",
       "firstDifference": {
         "line": 2,
@@ -447,7 +581,7 @@
     },
     {
       "name": "stale-count",
-      "sourceSHA256": "94fdfc9b9b93799fb26ce4b766e7294e0dede0ce4dd10a3823a1cc8bc23a76f4",
+      "sourceSHA256": "8d5e7f92769318ca386e1ff5f458b9e846e32b362a7ca774ca3941d330978980",
       "status": "COMPILING_MUTANT_DETECTED",
       "firstDifference": {
         "line": 2,
@@ -457,7 +591,7 @@
     },
     {
       "name": "early-reservation",
-      "sourceSHA256": "9b29c1987ce4717fb646e494681db5677fd4c4df1a9b4f64b80c27620db0f0e4",
+      "sourceSHA256": "61213cc42620db0b69eb84297563b2c3db628356a7263bedbdea188d4a459a74",
       "status": "COMPILING_MUTANT_DETECTED",
       "firstDifference": {
         "line": 2,
@@ -466,43 +600,63 @@
       }
     },
     {
+      "name": "wrong-occupancy-leaf",
+      "sourceSHA256": "6e863a7afba9658ee976139664ca53db8b273510fa646fbcdaac378125c752f6",
+      "status": "COMPILING_MUTANT_DETECTED",
+      "firstDifference": {
+        "line": 11,
+        "original": "[1, 222, 4, 882]:True",
+        "mutant": "[]:False"
+      }
+    },
+    {
+      "name": "wrong-inner-count",
+      "sourceSHA256": "461d4da246c3930e96c077de8f8dac07ee7ac6c0d16d48fc60c8109a7cb9d409",
+      "status": "COMPILING_MUTANT_DETECTED",
+      "firstDifference": {
+        "line": 2,
+        "original": "[1, 222, 4, 882]:True",
+        "mutant": "[]:False"
+      }
+    },
+    {
       "name": "duplicate",
-      "sourceSHA256": "4c444a3bcc15cbf5c9e5ebbd769002abc40e4681a721e2f9ecc435fc97837eac",
+      "sourceSHA256": "f56adff6a26b327cac9e24c87a4c83c3ac8890cfd7d03c39361398661a7cee8c",
       "status": "INTENDED_TYPE_REJECTION",
-      "diagnostic": "SOME PROOFS FAIL\nError:\n- expected : bad~U\n- observed : bad~P\nContext:\n- p : bad~P\n- u : bad~U\nLocation: bad\n128 | def bad(~P: Type,~U: Type,p: P,u: U) -> P & (U & U32):\n129>|   (p,(p,0))\n    |       ^\n130 | \nbend 2.0.35 is available: run bend update\n"
+      "diagnostic": "SOME PROOFS FAIL\nError:\n- expected : bad~U\n- observed : bad~P\nContext:\n- p : bad~P\n- u : bad~U\nLocation: bad\n181 | def bad(~P: Type,~U: Type,p: P,u: U) -> P & (U & U32):\n182>|   (p,(p,0))\n    |       ^\n183 | \nbend 2.0.35 is available: run bend update\n"
     },
     {
       "name": "raw-access",
-      "sourceSHA256": "2a6dcf640ca7d1e5d04f72da76e6d4d7e0d7b89c2625f6aac9dded06353ad2bb",
+      "sourceSHA256": "8d03371a0b241a5e57ad64999ec078729fb79b74bbbc0b12d1a74540a1f76301",
       "status": "INTENDED_TYPE_REJECTION",
-      "diagnostic": "SOME PROOFS FAIL\nError:\n- expected : Main\n- observed : bad~P\nContext:\n- p : bad~P\n- u : bad~U\nLocation: bad\n128 | def bad(~P: Type,~U: Type,p: P,u: U) -> P & (U & U32):\n129>|   main_get(p)\n    |            ^\n130 | \nbend 2.0.35 is available: run bend update\n"
+      "diagnostic": "SOME PROOFS FAIL\nError:\n- expected : Main\n- observed : bad~P\nContext:\n- p : bad~P\n- u : bad~U\nLocation: bad\n181 | def bad(~P: Type,~U: Type,p: P,u: U) -> P & (U & U32):\n182>|   main_get(p)\n    |            ^\n183 | \nbend 2.0.35 is available: run bend update\n"
     },
     {
       "name": "reconstruct",
-      "sourceSHA256": "e53c0582414921e69a50e2aaa14a055425b5032b0a462a723a77585620359ed7",
+      "sourceSHA256": "1b9cdaaa878d664db74a7b98da85c0b29a03c4a9b541cc13511f4a9c0a89cee7",
       "status": "INTENDED_TYPE_REJECTION",
-      "diagnostic": "SOME PROOFS FAIL\nError:\n- expected : bad~P\n- observed : Main\nContext:\n- p : bad~P\n- u : bad~U\nLocation: bad\n128 | def bad(~P: Type,~U: Type,p: P,u: U) -> P & (U & U32):\n129>|   (Main{0,0},(u,0))\n    |    ^^^^^^^^^\n130 | \nbend 2.0.35 is available: run bend update\n"
+      "diagnostic": "SOME PROOFS FAIL\nError:\n- expected : bad~P\n- observed : Main\nContext:\n- p : bad~P\n- u : bad~U\nLocation: bad\n181 | def bad(~P: Type,~U: Type,p: P,u: U) -> P & (U & U32):\n182>|   (Main{0,0},(u,0))\n    |    ^^^^^^^^^\n183 | \nbend 2.0.35 is available: run bend update\n"
     },
     {
       "name": "write-through-read",
-      "sourceSHA256": "14f17d8c09d4009d8d64fe9cc7f28c9488c16f85ce93c5325955c27a7c7b1f81",
+      "sourceSHA256": "654bf6f47681100f5a713f5a9f33ada9c09ca8a55382100751a278764c0173b8",
       "status": "INTENDED_TYPE_REJECTION",
-      "diagnostic": "SOME PROOFS FAIL\nError:\n- expected : Main\n- observed : bad~P\nContext:\n- p : bad~P\n- u : bad~U\nLocation: bad\n128 | def bad(~P: Type,~U: Type,p: P,u: U) -> P & (U & U32):\n129>|   (main_set(p),(u,0))\n    |             ^\n130 | \nbend 2.0.35 is available: run bend update\n"
+      "diagnostic": "SOME PROOFS FAIL\nError:\n- expected : Main\n- observed : bad~P\nContext:\n- p : bad~P\n- u : bad~U\nLocation: bad\n181 | def bad(~P: Type,~U: Type,p: P,u: U) -> P & (U & U32):\n182>|   (main_set(p),(u,0))\n    |             ^\n183 | \nbend 2.0.35 is available: run bend update\n"
     },
     {
       "name": "cross-owner",
-      "sourceSHA256": "4735a67ff3b991b129a8a9ae8b74adcae6bd70a2668ac7b7d641cc8a99249bee",
+      "sourceSHA256": "82e78389369b7ce1c9b5d52298cfdee197204986eecbe73407eb32039144f8df",
       "status": "INTENDED_TYPE_REJECTION",
-      "diagnostic": "SOME PROOFS FAIL\nError:\n- expected : bad~P\n- observed : bad~U\nContext:\n- p : bad~P\n- u : bad~U\nLocation: bad\n128 | def bad(~P: Type,~U: Type,p: P,u: U) -> P & (U & U32):\n129>|   (u,(p,0))\n    |    ^\n130 | \nbend 2.0.35 is available: run bend update\n"
+      "diagnostic": "SOME PROOFS FAIL\nError:\n- expected : bad~P\n- observed : bad~U\nContext:\n- p : bad~P\n- u : bad~U\nLocation: bad\n181 | def bad(~P: Type,~U: Type,p: P,u: U) -> P & (U & U32):\n182>|   (u,(p,0))\n    |    ^\n183 | \nbend 2.0.35 is available: run bend update\n"
     },
     {
       "name": "cross-schema",
-      "sourceSHA256": "b2960069c536931b0ce47ea6826dd2346c81032405811aa3dea99e5c0c200b21",
+      "sourceSHA256": "28caaca26831517f1624acae12a4cc3d3136c15ba744dc4b7a4e0b51ebd33dde",
       "status": "INTENDED_TYPE_REJECTION",
-      "diagnostic": "SOME PROOFS FAIL\nError:\n- expected : Handle<Unit>\n- observed : Handle<Schema>\nContext:\n- p : Handle<Schema>\nLocation: bad\n128 | def bad(p: Handle<Schema>) -> Handle<Unit>:\n129>|   p\n    |   ^\n130 | \nbend 2.0.35 is available: run bend update\n"
+      "diagnostic": "SOME PROOFS FAIL\nError:\n- expected : Handle<Unit>\n- observed : Handle<Schema>\nContext:\n- p : Handle<Schema>\nLocation: bad\n181 | def bad(p: Handle<Schema>) -> Handle<Unit>:\n182>|   p\n    |   ^\n183 | \nbend 2.0.35 is available: run bend update\n"
     }
   ],
-  "sourceSHA256": "c9d0673814599b117f26bc80ce07261a4224f15697e0d074278760a37fe56e5b",
+  "sourceSHA256": "51c982270f9530df009ba9b3e8d81e141dd5d9536cb1dfe6266e9e68cea175ac",
   "status": "PASS_FINITE_PROTOTYPE",
-  "runnerSHA256": "9efe68ac1161df36aaa24d20246a0ac6e508176b1e1f3b2b5e89c37257d392c7"
+  "runnerSHA256": "489ccc406306a36c8ea1d0e8dd616e952730f9b0ebf9641aa8d204c6372fdae7"
 }
