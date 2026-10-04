@@ -17,12 +17,12 @@ This is a progress record, not a completion report.
 | Memory method and limits | Failed original method; corrected gate pending | Parent RSS contamination independently reproduced; old values explicitly withdrawn, small clean launcher controls pass |
 | Native substantially faster, JS comparable | Failed current evidence | Dense/Sparse regress on both backends; JS Readers regresses; Native Readers faster on completed sizes does not establish overall acceptance |
 | Two-axis review and capability disposition | Partial | Current main/mutation pins reviewed; remaining measurements and final negative-result disposition need review |
-| Useful research-negative alternative | Pending | Reviewed concrete redesign follow-up draft exists; finish remaining observations or exact bounded failure evidence before reporting completion |
+| Useful research-negative alternative | Pending | Reviewed concrete redesign follow-up #20 is published; finish remaining observations or exact bounded failure evidence before reporting completion |
 
 Primary files are under `experiments/s-integrate/`;
 [execution ledger](../design/s-integrate-capability-ledger.md),
 [Spec review](../reviews/s-integrate-final-spec.md),
 [Standards review](../reviews/s-integrate-runtime-standards.md) and
-[performance follow-up draft](../tickets/19-integrated-performance-redesign.md)
+[performance follow-up #20](../tickets/19-integrated-performance-redesign.md)
 retain the exact scope. No universal runtime refinement, new law approval or
 production layout adoption is inferred. Full-core tracker #1 remains open.
