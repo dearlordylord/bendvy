@@ -154,8 +154,9 @@ runtime/actual-reference invocation has a **five-second** limit; code generation
 30s and clang120s are distinct build stages. Native uses one worker/GPU off,
 clang `-std=c11 -O3 -lpthread -lm`; JS uses existing Node. Temporary build and
 mutant directories are deleted. Only the task's child processes are controlled.
-Recorded affinity is CPU9, while unrelated parallel investigations run elsewhere;
-this is correctness evidence, no timings/performance claim.
+The executor ran on CPU9; the coordinator reran the complete integrated suite
+on CPU10, recorded in results.json. Unrelated parallel investigations run
+elsewhere; this is correctness evidence, no timings/performance claim.
 
 Every positive control must exit0 with `ALL PROOFS CHECK`; every negative must
 exit1 with `SOME PROOFS FAIL`, exact expected/observed and `Location: bad`:
