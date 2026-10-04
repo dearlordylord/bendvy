@@ -21,3 +21,12 @@ remain unresolved after bounded attempts, persist exact residual statements/goal
 and a dependency graph. Neither finite witnesses nor proved partial links complete
 the endpoint. No new policy/domain, unapproved catalogue law alias, dependency,
 production layout or performance acceptance.
+
+## Resumed complete-goal tranche
+
+Before resumed checks: prove Nat comparison equality reflection/no-confusion and
+cross-target observation preservation; compose these with own-target and Spawn
+links to fill `command_slot`, then induct arbitrary mixed commands for
+`mixed_fifo_slot`. Derive counted uniqueness/bounds/freshness at actual FIFO
+prefixes, without importing a blanket step law. Final sorted/materialized bridge
+awaits only its actual query dependencies; do not defer command work for it.
