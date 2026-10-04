@@ -1,6 +1,6 @@
 # Next core checkpoint — draft for discussion
 
-This is a **draft guideline for discussion and review**, not approved proof laws,
+This is a **draft guideline for discussion and review**, not blanket approval of proof laws,
 performance thresholds or a selected production layout. The first two research
 tickets are now published after user authorization and [Astra review](reviews/next-research-tickets.md).
 The complete [core map](reference/core-map.md) and [SPEC](SPEC.md) remain the goal.
@@ -30,8 +30,7 @@ and both review axes cover the bounded package. Segmented execution and its old
 runner failure are recorded explicitly; no universal proof is inferred.
 
 [Exact proposal](reviews/laws-replacement-package.md), law SHA256
-`e0c607d723ad250a189c096d9fa3fd6a36913f4c72efd3a3be6dacd7fadb2cbc`, awaits human
-approval before proof. Fresh [Astra semantic audit](reviews/laws-semantic-audit.md)
+`e0c607d723ad250a189c096d9fa3fd6a36913f4c72efd3a3be6dacd7fadb2cbc`: the user approved the seven public IDs on 2026-10-04 (“нормально фигач”). Fresh [Astra semantic audit](reviews/laws-semantic-audit.md)
 limits the public-observation request to seven exact IDs; twenty internal and four
 infrastructure candidates require separate supporting-proof approval. Root authority,
 full-payload preservation and representation-neutral owned-read preservation remain
@@ -46,7 +45,8 @@ an earlier bounded redesign checkpoint, not completion of the next-stage specs.
 - [x] Preserve the source audit and Astra decision; withdraw the old law proposal.
 - [x] Execute #12: connected laws/runtime caller links, independent domains and observations, reachable controls, compiling mutants and bounded backend comparisons are delivered.
 - [x] Present the exact 31-law revision with rationale, controls, proof sketches, dependencies and explicit limits.
-- [ ] Obtain human approval of the exact IDs/revision before preparing or executing their proof work.
+- [x] Obtain human approval of the seven public IDs at the exact revision; see the approval record. Remaining 24 supporting candidates are unapproved.
+- [ ] Detail and review the approved seven-law proof tranche before publishing its implementation ticket.
 - [x] Detail, review and publish [S-LAYOUT #16](tickets/15-indexed-storage.md) and [S-CAPTURE #17](tickets/16-capture-restoration.md). Both can start alongside #12; publication does not mean capability completion.
 - [x] Execute #17 and review both axes: bounded state/closure/restoration evidence is recorded; general capability gates remain open.
 - [x] Execute and review #16: indexed owned-storage research is complete; dense/JS regressions retain the performance gate.
@@ -56,12 +56,11 @@ an earlier bounded redesign checkpoint, not completion of the next-stage specs.
 
 Keep this checklist and the active ticket synchronized when evidence or decisions
 change. A checked research item does not imply a capability, law or performance
-gate passed. The completed research criteria live in #12; its specific-law approval remains open.
+gate passed. The completed research criteria live in #12; its seven-law public subset is approved; supporting-law approval remains open.
 
 ## Detail now
 
-1. Obtain approval of the delivered replacement law IDs/revision before any
-   general proof, then detail its actual proof subjects/dependencies. Keep helper/model proofs separate from provider
+1. Detail the approved seven-law proof subjects/dependencies. Obtain separate approval before proving any of the remaining 24 catalogue laws. Keep helper/model proofs separate from provider
    confinement, owned runtime refinement and backend/host IO.
 2. Compare owned indexed columns/slot map with stable ordered membership against
    current dense/sparse/update/churn/read/rollback workloads. Preserve Type payloads,

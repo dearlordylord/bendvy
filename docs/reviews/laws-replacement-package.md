@@ -1,6 +1,6 @@
 # Replacement ECS law package — draft for human review
 
-This is a specific **unapproved candidate**, not approval or a proof. It replaces
+This catalogue contains **seven approved public candidates and 24 unapproved support candidates**, not proofs. It replaces
 the withdrawn historical proposal while preserving its exact files and results.
 Governing task: [#12](https://github.com/dearlordylord/bendvy/issues/12).
 
@@ -16,7 +16,7 @@ as **7 bounded public-observation contracts, 20 internal lemmas and 4 infrastruc
 facts**. Do not approve the entire catalogue as public ECS contracts. No false
 equation was found by inspection; this is not a proof of truth or sufficiency.
 
-Current bounded public-observation approval request:
+Approved bounded public-observation IDs (user: “нормально фигач”, 2026-10-04):
 
 - `query_any_complete_ordered`
 - `query_present_complete_ordered`
@@ -39,7 +39,7 @@ lookup preservation; distinguish structural snapshots from sorted observations
 in trace refinement and discharge creation/admissibility/observation links.
 Root collisions, unobserved array loss and incorrect reader wrappers remain
 compatible with the full catalogue. The audit records exact IDs and countermodels.
-No law source was changed, and no proof or approval is inferred.
+No law source was changed. Approval covers only the seven listed IDs at the exact SHA256 above; no proof is inferred.
 
 ## Complete candidate catalogue (not a bulk public approval request)
 
