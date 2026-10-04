@@ -287,32 +287,69 @@ def write_health(value: H.TraceEvent<T.HealthSchema,T.VitalsView,T.ArmorView,T.T
 # EVERY row has consecutive id/x (no wrap), all Four slots, metadata/aux/flag,
 # same namespace. Slot0 follows x or one actual constant. Emit no success on
 # mismatch. Empty -> []. All original Read scalar/boundary/lag fields retained.
+type CompactAux is Data:
+  NoAux{}
+  FullAux{cells:T.Four,boolean:Bool,scalar:U32}
+def compact_four_eq(a:T.Four,b:T.Four) -> Bool:
+  match a b:
+    case T.Four{a,b,c,d} T.Four{e,f,g,h}: U32.is_eq(a,e) && U32.is_eq(b,f) && U32.is_eq(c,g) && U32.is_eq(d,h)
+def compact_bool_eq(a:Bool,b:Bool) -> Bool:
+  match a b:
+    case True{} True{}: True{}
+    case False{} False{}: True{}
+    case _ _: False{}
+def compact_aux_eq(a:CompactAux,b:CompactAux) -> Bool:
+  match a b:
+    case NoAux{} NoAux{}: True{}
+    case FullAux{cells,boolean,scalar} FullAux{cells2,boolean2,scalar2}: compact_four_eq(cells,cells2) && compact_bool_eq(boolean,boolean2) && U32.is_eq(scalar,scalar2)
+    case _ _: False{}
+def compact_flag_eq(a:Maybe<&2,U32>,b:Maybe<&2,U32>) -> Bool:
+  match a b:
+    case None{} None{}: True{}
+    case Some{a} Some{b}: U32.is_eq(a,b)
+    case _ _: False{}
+def compact_motion_aux(value:Maybe<&2,T.VelocityView>) -> CompactAux:
+  match value:
+    case None{}: NoAux{}
+    case Some{T.VelocityView{rates,moving}}: FullAux{rates,moving,0}
+def compact_health_aux(value:Maybe<&2,T.ArmorView>) -> CompactAux:
+  match value:
+    case None{}: NoAux{}
+    case Some{T.ArmorView{layers,grade}}: FullAux{layers,True{},grade}
+def compact_motion_flag(value:Maybe<&2,T.Selected>) -> Maybe<&2,U32>:
+  match value:
+    case None{}: None{}
+    case Some{T.Selected{group}}: Some{group}
+def compact_health_flag(value:Maybe<&2,T.Tracked>) -> Maybe<&2,U32>:
+  match value:
+    case None{}: None{}
+    case Some{T.Tracked{group}}: Some{group}
 type CompactCell is Data:
-  CompactCell{namespace:U32,id:U32,a:U32,b:U32,c:U32,d:U32,meta1:U32,meta2:U32,aux:String,flag:String}
+  CompactCell{namespace:U32,id:U32,a:U32,b:U32,c:U32,d:U32,meta1:U32,meta2:U32,aux:CompactAux,flag:Maybe<&2,U32>}
 type CompactCheck is Data:
   CompactGood{count:U32,idLast:U32,xLast:U32}
   CompactBad{index:U32}
-def compact_cell_four(namespace:U32,id:U32,meta1:U32,meta2:U32,aux:String,flag:String,value:T.Four) -> CompactCell:
+def compact_cell_four(namespace:U32,id:U32,meta1:U32,meta2:U32,aux:CompactAux,flag:Maybe<&2,U32>,value:T.Four) -> CompactCell:
   match value:
     case T.Four{a,b,c,d}: CompactCell{namespace,id,a,b,c,d,meta1,meta2,aux,flag}
-def compact_motion_main(namespace:U32,id:U32,aux:String,flag:String,value:T.PositionView) -> CompactCell:
+def compact_motion_main(namespace:U32,id:U32,aux:CompactAux,flag:Maybe<&2,U32>,value:T.PositionView) -> CompactCell:
   match value:
     case T.PositionView{coordinates,frame}: compact_cell_four(namespace,id,frame,0,aux,flag,coordinates)
-def compact_health_main(namespace:U32,id:U32,aux:String,flag:String,value:T.VitalsView) -> CompactCell:
+def compact_health_main(namespace:U32,id:U32,aux:CompactAux,flag:Maybe<&2,U32>,value:T.VitalsView) -> CompactCell:
   match value:
     case T.VitalsView{levels,reserve,class}: compact_cell_four(namespace,id,reserve,class,aux,flag,levels)
-def compact_handle(~V:Data,~get:U32 -> U32 -> String -> String -> V -> CompactCell,main:V,aux:String,flag:String,handle:S.Handle<T.MotionSchema>) -> CompactCell:
+def compact_handle(~V:Data,~get:U32 -> U32 -> CompactAux -> Maybe<&2,U32> -> V -> CompactCell,main:V,aux:CompactAux,flag:Maybe<&2,U32>,handle:S.Handle<T.MotionSchema>) -> CompactCell:
   match handle:
     case S.Handle{namespace,id}: get(namespace,id,aux,flag,main)
 def compact_motion(value:O.QueryRow<T.MotionSchema,T.PositionView,T.VelocityView,T.Selected>) -> CompactCell:
   match value:
-    case O.QueryRow{handle,main,aux,flag}: compact_handle(~T.PositionView,~compact_motion_main,main,render_optional(~T.VelocityView,~render_velocity,aux),render_optional(~T.Selected,~render_selected,flag),handle)
-def compact_health_handle(main:T.VitalsView,aux:String,flag:String,handle:S.Handle<T.HealthSchema>) -> CompactCell:
+    case O.QueryRow{handle,main,aux,flag}: compact_handle(~T.PositionView,~compact_motion_main,main,compact_motion_aux(aux),compact_motion_flag(flag),handle)
+def compact_health_handle(main:T.VitalsView,aux:CompactAux,flag:Maybe<&2,U32>,handle:S.Handle<T.HealthSchema>) -> CompactCell:
   match handle:
     case S.Handle{namespace,id}: compact_health_main(namespace,id,aux,flag,main)
 def compact_health(value:O.QueryRow<T.HealthSchema,T.VitalsView,T.ArmorView,T.Tracked>) -> CompactCell:
   match value:
-    case O.QueryRow{handle,main,aux,flag}: compact_health_handle(main,render_optional(~T.ArmorView,~render_armor,aux),render_optional(~T.Tracked,~render_tracked,flag),handle)
+    case O.QueryRow{handle,main,aux,flag}: compact_health_handle(main,compact_health_aux(aux),compact_health_flag(flag),handle)
 def compact_slot(+follows:Bool,+constant:U32,+x:U32) -> U32:
   match follows:
     case True{}: x
@@ -320,7 +357,7 @@ def compact_slot(+follows:Bool,+constant:U32,+x:U32) -> U32:
 def compact_same(+id:U32,+x:U32,follows:Bool,constant:U32,first:CompactCell,current:CompactCell) -> Bool:
   match first current:
     case CompactCell{ns,_,_,_,_,_,m1,m2,aux,flag} CompactCell{ns2,id2,a,b,c,d,n1,n2,aux2,flag2}:
-      U32.is_eq(ns,ns2) && U32.is_eq(id,id2) && U32.is_eq(a,compact_slot(follows,constant,x)) && U32.is_eq(b,(x + 1 : U32)) && U32.is_eq(c,(x + 2 : U32)) && U32.is_eq(d,(x + 3 : U32)) && U32.is_eq(m1,n1) && U32.is_eq(m2,n2) && String.eq(aux,aux2) && String.eq(flag,flag2)
+      U32.is_eq(ns,ns2) && U32.is_eq(id,id2) && U32.is_eq(a,compact_slot(follows,constant,x)) && U32.is_eq(b,(x + 1 : U32)) && U32.is_eq(c,(x + 2 : U32)) && U32.is_eq(d,(x + 3 : U32)) && U32.is_eq(m1,n1) && U32.is_eq(m2,n2) && compact_aux_eq(aux,aux2) && compact_flag_eq(flag,flag2)
 def compact_bad_index(index:U32,previous:U32,good:Bool) -> U32:
   match good:
     case True{}: previous
