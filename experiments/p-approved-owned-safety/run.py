@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Contextual prefix-safety gate; every Bend invocation is capped at five seconds."""
-import hashlib,json,os,pathlib,shutil,subprocess,tempfile
+import hashlib,json,os,pathlib,re,shutil,subprocess,tempfile
 ROOT=pathlib.Path(__file__).resolve().parents[2]
 HERE=pathlib.Path(__file__).resolve().parent
 WRAPPER=ROOT/'experiments/t01/bend-check'
@@ -10,6 +10,17 @@ for name,digest in frozen['subjects'].items(): assert sha(ROOT/'experiments/t11-
 assert sha(ROOT/'docs/reviews/delegated-owned-law-approval.md')==frozen['approval_sha256']
 for name,digest in frozen['proposals'].items(): assert sha(ROOT/name)==digest,(name,'approved proposal drift')
 for name,digest in frozen['contextual_imports'].items(): assert sha(ROOT/name)==digest,(name,'contextual import drift')
+closure=set()
+def imported(file):
+    if file in closure: return
+    closure.add(file)
+    for name in re.findall(r'^import (\S+)',file.read_text(),re.M):
+        if name!='Base': imported((file.parent/name).resolve())
+for name in ['safety.bend','transport.bend','controls.bend']: imported(HERE/name)
+for file in closure:
+    if file.parent!=HERE:
+        name=str(file.relative_to(ROOT))
+        assert name in frozen['contextual_imports'],(name,'unfrozen transitive import')
 records=[]
 def run(p,verdict=False,failure=None,kernel_negative=False):
     env=dict(os.environ)
@@ -44,7 +55,7 @@ with tempfile.TemporaryDirectory(prefix='owned-safety-') as td:
     run(package/'invalid-premise.bend',failure='invalid')
 subjects={p.name:sha(p) for p in (ROOT/'experiments/t11-replacement').glob('*.bend')}
 assert subjects['LAWS.bend']=='e0c607d723ad250a189c096d9fa3fd6a36913f4c72efd3a3be6dacd7fadb2cbc'
-evidence={'scope':'contextual safety transport for approved owned endpoint; not owned endpoint completion','baseline':'bb2be06742ba387fc42bd69cf50bedf4ac37a7c1','version':subprocess.check_output(['bend','version'],text=True).strip(),'sources':{p.name:sha(p) for p in HERE.glob('*.bend')},'subjects':subjects,'approval_sha256':sha(ROOT/'docs/reviews/delegated-owned-law-approval.md'),'compiler_sha256':sha(pathlib.Path(shutil.which('bend'))),'Base_sha256':sha(pathlib.Path.home()/'.bend/bend2/base.bend'),'contextual_imports':{str(p.relative_to(ROOT)):sha(p) for name in ['p-observe-schedule','p-observe-queries','p-observe-flush'] for p in (ROOT/'experiments'/name).glob('*.bend')},'checks':records}
+evidence={'scope':'contextual safety transport for approved owned endpoint; not owned endpoint completion','baseline':'bb2be06742ba387fc42bd69cf50bedf4ac37a7c1','version':subprocess.check_output(['bend','version'],text=True).strip(),'sources':{p.name:sha(p) for p in HERE.glob('*.bend')},'subjects':subjects,'approval_sha256':sha(ROOT/'docs/reviews/delegated-owned-law-approval.md'),'compiler_sha256':sha(pathlib.Path(shutil.which('bend'))),'Base_sha256':sha(pathlib.Path.home()/'.bend/bend2/base.bend'),'contextual_imports':{name:sha(ROOT/name) for name in frozen['contextual_imports']},'checks':records}
 assert evidence['compiler_sha256']=='d4821d04932218216c9dc906223ed0e23dd86726d4357a567fb76ee6c976db4e'
 assert evidence['Base_sha256']=='c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661'
 (HERE/'evidence.json').write_text(json.dumps(evidence,indent=2)+'\n')
