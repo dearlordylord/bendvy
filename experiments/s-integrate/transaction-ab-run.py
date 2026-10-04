@@ -33,7 +33,7 @@ def mutate(folder,label):
 '''
    s=s[:pos]+helper+s[pos:];s=s.replace(n+'_finish_failure(owner)',n+'_rewind_failed('+n+'_finish_failure(owner))')
  p.write_text(s)
-r={'scope':'actual A commit, closed opaque B failure/retry and explicit barrier; no nested/capture/reader acceptance','hashes':{n:hashlib.sha256((HERE/n).read_bytes()).hexdigest() for n in names},'oracle_sha256':hashlib.sha256((HERE/'transaction-ab-oracle.py').read_bytes()).hexdigest(),'expected_sha256':hashlib.sha256(expected.encode()).hexdigest(),'original':None,'mutants':{}}
+r={'scope':'actual closed opaque A commit, closed opaque B failure/retry and explicit barrier; no nested/capture/reader acceptance','hashes':{n:hashlib.sha256((HERE/n).read_bytes()).hexdigest() for n in names},'oracle_sha256':hashlib.sha256((HERE/'transaction-ab-oracle.py').read_bytes()).hexdigest(),'expected_sha256':hashlib.sha256(expected.encode()).hexdigest(),'original':None,'mutants':{}}
 with tempfile.TemporaryDirectory(prefix='transaction-ab-') as d:
  for label in ['original','earlier_A_ledger_reverted','failure_publications_leak','failed_counter_rewound']:
   folder=pathlib.Path(d)/label;folder.mkdir()

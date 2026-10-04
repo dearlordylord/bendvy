@@ -97,8 +97,14 @@ def motion_a_spawned(selected:S.Handle<T.MotionSchema>,result:T.Reservation<X.Tx
   match result:
     case T.Reserved{owner,escaped}: IO.bind(Unit,Unit,IO.print("audit:motion:A:attempt:1"), _ => motion_a_committed(selected,X.storage_commit(T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode,X.tx_finish_success(S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<T.Position,T.Velocity,T.Selected>,A.motion_emit(A.motion_remove_flag(owner),T.MotionPing{1})),2)))
     case T.ReserveRejected{_,_}: IO.print("motion:A-SPAWN-FAILED")
+def motion_a_run_done(selected:S.Handle<T.MotionSchema>,result:A.RunResult<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>>) -> IO(Unit):
+  match result:
+    case A.RunResult{world,T.Success{},escaped,observations,pings}: IO.bind(Unit,Unit,IO.print("motion:A-body:success:escaped=" ++ handle_id(T.MotionSchema,escaped) ++ ":body=" ++ List.show(&2,U.Observation,body_observation,observations)), _ => motion_a_committed(selected,(world,pings)))
+    case A.RunResult{world,T.Failure{code},escaped,observations,pings}: IO.print("A-callback-failed:" ++ U32.show(code))
+def motion_a_body_done(selected:S.Handle<T.MotionSchema>,result:U.BodyResult<X.Tx<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<T.Position,T.Velocity,T.Selected>>,S.Handle<T.MotionSchema>>) -> IO(Unit):
+  motion_a_run_done(selected,A.motion_finished(result,2))
 def motion_a_started(+selected:S.Handle<T.MotionSchema>,world:S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,a:S.Handle<T.MotionSchema>) -> IO(Unit):
-  motion_a_spawned(selected,A.motion_spawn_flagged(A.motion_set_ledger0(A.motion_set_main0(X.tx_begin(S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<T.Position,T.Velocity,T.Selected>,world,a),T.PositionToken{},11),T.MotionLedgerToken{},101),motion_main(50)))
+  IO.bind(U.BodyResult<X.Tx<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<T.Position,T.Velocity,T.Selected>>,S.Handle<T.MotionSchema>>,Unit,A.motion_invoke_a(U.motion_a,1,T.Failure{99},motion_audit,world,a), r => motion_a_body_done(selected,r))
 def motion_seed_applied(selected:S.Handle<T.MotionSchema>,a:S.Handle<T.MotionSchema>,result:S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode> & List<&2,S.Change<T.MotionSchema>>) -> IO(Unit):
   match result:
     case (world,_): motion_a_started(selected,world,a)
@@ -184,8 +190,14 @@ def health_a_spawned(selected:S.Handle<T.HealthSchema>,result:T.Reservation<X.Tx
   match result:
     case T.Reserved{owner,escaped}: IO.bind(Unit,Unit,IO.print("audit:health:A:attempt:1"), _ => health_a_committed(selected,X.storage_commit(T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode,X.tx_finish_success(S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<T.Vitals,T.Armor,T.Tracked>,A.health_emit(A.health_remove_flag(owner),T.HealthPing{1})),2)))
     case T.ReserveRejected{_,_}: IO.print("health:A-SPAWN-FAILED")
+def health_a_run_done(selected:S.Handle<T.HealthSchema>,result:A.RunResult<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>>) -> IO(Unit):
+  match result:
+    case A.RunResult{world,T.Success{},escaped,observations,pings}: IO.bind(Unit,Unit,IO.print("health:A-body:success:escaped=" ++ handle_id(T.HealthSchema,escaped) ++ ":body=" ++ List.show(&2,U.Observation,body_observation,observations)), _ => health_a_committed(selected,(world,pings)))
+    case A.RunResult{world,T.Failure{code},escaped,observations,pings}: IO.print("A-callback-failed:" ++ U32.show(code))
+def health_a_body_done(selected:S.Handle<T.HealthSchema>,result:U.BodyResult<X.Tx<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<T.Vitals,T.Armor,T.Tracked>>,S.Handle<T.HealthSchema>>) -> IO(Unit):
+  health_a_run_done(selected,A.health_finished(result,2))
 def health_a_started(+selected:S.Handle<T.HealthSchema>,world:S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,a:S.Handle<T.HealthSchema>) -> IO(Unit):
-  health_a_spawned(selected,A.health_spawn_flagged(A.health_set_ledger0(A.health_set_main0(X.tx_begin(S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<T.Vitals,T.Armor,T.Tracked>,world,a),T.VitalsToken{},11),T.HealthLedgerToken{},101),health_main(50)))
+  IO.bind(U.BodyResult<X.Tx<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<T.Vitals,T.Armor,T.Tracked>>,S.Handle<T.HealthSchema>>,Unit,A.health_invoke_a(U.health_a,1,T.Failure{99},health_audit,world,a), r => health_a_body_done(selected,r))
 def health_seed_applied(selected:S.Handle<T.HealthSchema>,a:S.Handle<T.HealthSchema>,result:S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode> & List<&2,S.Change<T.HealthSchema>>) -> IO(Unit):
   match result:
     case (world,_): health_a_started(selected,world,a)

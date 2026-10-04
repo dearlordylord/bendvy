@@ -17,7 +17,7 @@ def expected():
   def baseline(next,rs,ps,l):return 'ns=1;next='+str(next)+';rows=['+'|'.join(map(baseline_row,rs))+'];pending=['+'|'.join(p[1] for p in ps)+'];'+ledger(l)+';mode=On'
   rows=[row(1,main([11,11,12,13]),aux,flag,1,2),row(2,main(vector(20)),None,None,1,1),row(3,None,aux,flag,0,0)]
   pending=[spawn(4,50,flag),('remove-flag(1)','removeFlag:1')]
-  lines+=['audit:'+schema+':A:attempt:1',schema+':A-pings=[1]',schema+':A='+world(5,rows,pending,101),schema+':A-baseline='+baseline(5,rows,pending,101)]
+  lines+=['audit:'+schema+':A:attempt:1',schema+':A-body:success:escaped=1:4:body=['+main([11,11,12,13])+', '+some(ledger(101))+']',schema+':A-pings=[1]',schema+':A='+world(5,rows,pending,101),schema+':A-baseline='+baseline(5,rows,pending,101)]
   body='['+', '.join([main([20,21,22,23]),main([30,21,22,23]),main([50,21,22,23]),some(ledger(201))])+']'
   lines+=['audit:'+schema+':B:attempt:2',schema+':B-fail:failure:7:escaped=1:5:pings=[]:body='+body,schema+':FAIL='+world(6,rows,pending,101),schema+':FAIL-baseline='+baseline(6,rows,pending,101)]
   rows[1]=row(2,main([50,21,22,23]),None,None,1,4)

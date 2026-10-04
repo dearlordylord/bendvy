@@ -8,7 +8,9 @@ remain separately bounded by the existing t05 helper. No dependency/install chan
 For each nominal schema, one actual factory creates a world; real reserve/spawn and
 apply create a,b,c and their genuine Main/Aux owners. Actual A writes a11 and
 Ledger101, reserves/stages p4, stages removal of a.Flag, emits1 and commits. Its
-stdout Audit fixture effect runs after writes/staging and before commit. B is the
+stdout Audit fixture effect runs after writes/staging and before commit. Both A
+and B execute closed rank-2 bodies with fresh operations over opaque Tx/H; A
+returns its actual p handle for later caller use. B is the
 committed closed rank-2 body from systems11b8542, supplied fresh opaque Tx/H
 operations by transaction-dispatch-adapters. It writes b30 then50, Ledger201,
 reserves q5, stages spawn/flag/Ping9, calls the actual supplied IO Audit and fails7.
@@ -18,7 +20,7 @@ b50/Ledger201/Ping2 and preserves pending FIFO. Explicit apply makes p4/r6 live
 and applies flags; q5 never appears. Both schemas use their full four-cell Type
 arrays and every nominal metadata field, with no seeded poststate substitute.
 
-Every one of28 output lines is compared to independently written operation-input
+Every one of30 output lines is compared to independently written operation-input
 expectations in transaction-ab-oracle.py. Full owner-return WorldViews include all
 rows, Main/Aux/Flag, marks, typed pending payloads, Ledger, Mode, namespace and next.
 The retained world is separately read through the existing validated storage-stage
@@ -39,3 +41,10 @@ exercised, and returned Ping batches are not yet published through clock/log
 integration. Full nested dispatcher, lexical captures, reader completion/failure,
 Fast visibility, missing requirements, public E11 and measurements remain separate
 #19 gates. No fresh TS full-trace comparison is claimed by this standalone tranche.
+
+The added A-body result checkpoint initially detected an actual missing caller
+result: the first closed A body discarded its reserved p and returned None. The
+independent oracle required Some(p4), matching the reference external handle
+binding needed by later cleanup/lookup. The systems owner corrected that body;
+the original expected result was retained. Earlier 28-line evidence had not
+observed this result field and is not sufficient for this refreshed gate.
