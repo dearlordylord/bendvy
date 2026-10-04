@@ -1,7 +1,7 @@
 # S-PREP Standards review
 
-Independent review against `56b72f6`, through `dcc16bc`; the execution proposal
-remains separately frozen at `c63ed81`. Standards: live #22, AGENTS.md, SPEC,
+Independent review against `56b72f6`, through `dcc16bc`; the earlier proposal
+freeze `c63ed81` is historical pending the final timer-aware refreeze. Standards: live #22, AGENTS.md, SPEC,
 bend-ldd and #20 final reviews. **No hard Standards violations found.** Evidence
 supports the explicit blocked handoff; evaluator/session acceptance and product
 performance remain separate gates.
@@ -40,3 +40,9 @@ escape; subreaper/pidfds clean owned nested-session orphans. Comparison negative
 reject malformed/nonfinite samples. No real seven-cohort qualification was run.
 Frozen boundary SHA256:
 `df4dfd9138252423f474f910408f8dfdd7520d4b62ff5c47bc019579391f7758`.
+
+Timer supplement: comparison controls independently pass. Proposed acceptance
+bootstrap now uses reference minus2ms and candidate plus2ms for Native/JS,
+retaining raw contrasts. The104/100 Native control passes raw5% but correctly
+fails the conservative bound. Rules remain unaccepted; final refreeze precedes
+any user acceptance gate.
