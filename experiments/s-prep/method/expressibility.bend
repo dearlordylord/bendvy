@@ -124,4 +124,3 @@ def main() -> IO(Unit):
     emit(bounds(Bool.and(U32.is_eq(7,8),(0 < 1 : U32)),tree(),auxiliaries()))
     emit(bounds(Bool.and((0 < 0 : U32),(0 <= 4 : U32)),tree(),auxiliaries()))
     emit(bounds(Bool.and((0 < 5 : U32),(5 <= 4 : U32)),tree(),auxiliaries()))
-

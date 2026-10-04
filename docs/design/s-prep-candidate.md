@@ -26,7 +26,7 @@ Growth doubles all aligned trees by attaching old left owners and fresh empty ri
 | Restore Main into Aux/wrong leaf/drop fourth cell | Full Main/Aux payload oracle differs; unrelated owners are checked |
 | Forget occupancy rollback | Retry, earlier commit and failed publication trace differ |
 | Accept foreign/zero/tombstone ID | MissingEntity/unchanged queue gate fails |
-| Leak or duplicate zipper/Type owner | Intended undeclared-access, cross-schema, write-through-read, reconstruction and affine duplication controls reject |
+| Leak or duplicate reconstruction/Type owner | Intended undeclared-access, cross-schema, write-through-read, reconstruction and affine duplication controls reject |
 
 Both Motion/Health schemas and explicit-owner/regenerated capture styles must repeat complete main E0–E10, actual E11, access, ownership, FIFO and lifecycle/reader/effect oracles. Compiling semantic mutants must produce the named field counterexample; timeout/checker/build failure is not a kill. General destructive Type recovery, root authority, parallel compute and universal refinement stay open. Follow-up implementation should first check expressibility under checker5s, then compare finite query visitation counts on dense/live, mostly-dead high-water and clustered/dispersed holes. Only separately measured connected workloads can attribute performance benefit. Independent review must explicitly accept the recursive ownership and occupancy mutation boundary before code is written.
 
