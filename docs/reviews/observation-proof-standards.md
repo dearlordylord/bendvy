@@ -567,3 +567,19 @@ proof digests, resolving their prior record-only treatment. Proof source is unch
 They are transitively imported by the contextual query/schedule closure. Add these
 two digests to make the claimed complete contextual freeze accurate. This is a
 provenance-enforcement gap, not a failure of the independently reviewed proof.
+
+### Safety recursive provenance resolution — `787877b` (2026-10-04)
+
+**Prior low provenance finding resolved.** Both lookup LAWS/PROOF files and
+transitive canonical dependencies now have enforced digests. Before any checker
+call, recursive traversal from all positive entry points rejects every external
+non-Base import absent from the frozen inventory; listed dependency bytes are
+also checked. Base remains separately pinned. The evidence records that same
+inventory, and proof sources/subjects are unchanged.
+
+Independently replayed the frozen commit in a temporary archive: all twelve
+expected outcomes passed within unchanged per-invocation limits. A separate
+isolated provenance control appended only a comment to copied lookup PROOF;
+the runner exited 1 at `contextual import drift` before proof checks. Root files
+and evidence were untouched. No new hard violations or actionable smells found;
+this resolution accepts contextual safety transport, not the full owned endpoint.

@@ -100,9 +100,9 @@ The exact universal [U32 comparison](../../experiments/p-approved-u32-comparison
 
 A [partial owned checkpoint](../../experiments/p-approved-owned-schedule/README.md) proves the exact empty-schedule specialization for every affine world and arbitrary Array tree, with actual returned-owner capture and same-point set/get evidence. Coordinator and independent Spec/Standards replays pass its specialization mutant and controls. This does not establish nonempty correspondence.
 
-The [contextual Word caller package](../../experiments/p-approved-owned-word-context/README.md) now proves actual equality conversion, the arbitrary-limit Reserve no-wrap bound and the exact Bump guard/increment link, with coordinator and independent Spec/Standards acceptance. The [model-prefix safety transport](../../experiments/p-approved-owned-safety/README.md) proof and controls pass; its provenance closure correction is still under review. Neither replaces actual runtime primitive correspondence.
+The [contextual Word caller package](../../experiments/p-approved-owned-word-context/README.md) now proves actual equality conversion, the arbitrary-limit Reserve no-wrap bound and the exact Bump guard/increment link, with coordinator and independent Spec/Standards acceptance. The [model-prefix safety transport](../../experiments/p-approved-owned-safety/README.md) proof, controls and enforced recursive provenance closure pass coordinator and independent reviews; the historical closure finding and its verified correction remain recorded. Neither replaces actual runtime primitive correspondence.
 
-Current continuation: complete safety closure enforcement and prove the exact revised owned theorem, including actual runtime primitive links and safe-prefix/owner induction.
+Current continuation: prove the exact revised owned theorem, including actual runtime primitive links and safe-prefix/owner induction.
 The pure schedule uses the checked query and flush links without changing their subjects.
 The active execution goal remains **#18, then #19**; six completed laws do not
 close #18 or authorize a completion claim for #19.
