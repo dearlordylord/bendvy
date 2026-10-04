@@ -26,3 +26,15 @@ available. A partial hook is reported open, never counted as complete E2–E10.
 General proof needs exact-law approval; compiling semantic mutants and fresh
 Native/JS trace checks follow actual subjects. No new dependency or production
 root/reuse/Local/destructive policy is selected.
+
+Checked glue checkpoint: `dispatcher.bend` threads the actual affine registry,
+reader invocation owner and Audit owner through nested schedules. `run` aborts
+both tails on failure, obtains failure identity from the registered entry, applies
+explicit barriers, and records successful SetOn/SetOff for the explicit transition.
+Reader begin/complete/skip use the committed reader module. Trusted adapters must
+supply actual world presence, command application and opaque callback invocation.
+The closed fixture permits at most32 registered entries; dispatcher searches use
+that explicit fuel. Declared reader interests currently correspond to the main
+trace's Ping/Main ordinal0/despawn declarations. There is no public tick setup or
+frame-retention join yet. Checker success is signature/body feasibility only;
+full dispatcher Native/JS execution and semantic mutants remain open.
