@@ -1,0 +1,37 @@
+[
+  {
+    "name": "duplicate-affine-list",
+    "status": "REJECTED",
+    "source": "import Base\ndef duplicate(-C: Type,values: List<C>) -> List<C> & List<C>:\n  (values,values)\n",
+    "sourceSha256": "9dd041972cdbf6dac4c9182ac92d09ae8a7884d7ad8a725cda41300593106122",
+    "checker": "SOME PROOFS FAIL\nError:\n- expected : values\n- observed : values (consumed more than once)\nContext:\n- C : Type\nLocation: duplicate\n1 | \n2>| def duplicate(-C: Type,values: List<C>) -> List<C> & List<C>:\n  |                        ^^^^^^\n3 |   (values,values)\nbend 2.0.35 is available: run bend update\n"
+  },
+  {
+    "name": "undeclared-ledger-token",
+    "status": "REJECTED",
+    "source": "import Base\nimport ./types.bend as T\ndef forbidden(-Owner: Type,get: Owner -> T.PositionToken -> Owner & T.Access<T.PositionView>,owner: Owner) -> Owner & T.Access<T.PositionView>:\n  get(owner,T.MotionLedgerToken{})\n",
+    "sourceSha256": "0fb74aba87fbc601c480205f74613cda5c55d2529e51f4d00765f72176f04ab5",
+    "checker": "SOME PROOFS FAIL\nError:\n- expected : T.PositionToken\n- observed : T.MotionLedgerToken\nContext:\n- Owner : Type\n- get   : @_:Owner -> @_:T.PositionToken -> Sigma<&1, &1, Owner, _ => T.Access<T.PositionView>>\n- owner : Owner\nLocation: forbidden\n3 | def forbidden(-Owner: Type,get: Owner -> T.PositionToken -> Owner & T.Access<T.PositionView>,owner: Owner) -> Owner & T.Access<T.PositionView>:\n4>|   get(owner,T.MotionLedgerToken{})\n  |             ^^^^^^^^^^^^^^^^^^^^^\n5 | \nbend 2.0.35 is available: run bend update\n"
+  },
+  {
+    "name": "write-through-read-function",
+    "status": "REJECTED",
+    "source": "import Base\nimport ./types.bend as T\ndef write(-Owner: Type,set: Owner -> T.PositionToken -> U32 -> Owner,owner: Owner) -> Owner:\n  set(owner,T.PositionToken{},9)\ndef forbidden(-Owner: Type,get: Owner -> T.PositionToken -> Owner & T.Access<T.PositionView>,owner: Owner) -> Owner:\n  write(Owner,get,owner)\n",
+    "sourceSha256": "a74902c4d16652ef9563a6592de2b9129f65ae5687325b8b23588593cef3bd6b",
+    "checker": "SOME PROOFS FAIL\nError:\n- expected : @_:Owner -> @_:T.PositionToken -> @_:U32 -> Owner\n- observed : @_:Owner -> @_:T.PositionToken -> Sigma<&1, &1, Owner, _ => T.Access<T.PositionView>>\nContext:\n- Owner : Type\n- get   : @_:Owner -> @_:T.PositionToken -> Sigma<&1, &1, Owner, _ => T.Access<T.PositionView>>\n- owner : Owner\nLocation: forbidden\n5 | def forbidden(-Owner: Type,get: Owner -> T.PositionToken -> Owner & T.Access<T.PositionView>,owner: Owner) -> Owner:\n6>|   write(Owner,get,owner)\n  |               ^^^\n7 | \nbend 2.0.35 is available: run bend update\n"
+  },
+  {
+    "name": "cross-schema-tx",
+    "status": "REJECTED",
+    "source": "import Base\nimport ./types.bend as T\nimport ./storage.bend as S\nimport ./transaction.bend as X\nimport ./transaction-dispatch-adapters.bend as A\ndef wrong(owner: X.Tx<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<T.Position,T.Velocity,T.Selected>>) -> X.Tx<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<T.Position,T.Velocity,T.Selected>> & T.Access<T.VitalsView>:\n  A.health_read_main(owner,T.VitalsToken{})\n",
+    "sourceSha256": "9663c108d1c75c6230f31f47697059fc95355e055f6d9007bbe77c4ea219270b",
+    "checker": "SOME PROOFS FAIL\nError:\n- expected : X.Tx<S.World<T.HealthSchema, T.Vitals, T.Armor, T.Tracked, T.HealthLedger, T.HealthMode>, S.Handle<T.HealthSchema>, S.Command<T.Vitals, T.Armor, T.Tracked>>\n- observed : X.Tx<S.World<T.MotionSchema, T.Position, T.Velocity, T.Selected, T.MotionLedger, T.MotionMode>, S.Handle<T.MotionSchema>, S.Command<T.Position, T.Velocity, T.Selected>>\nContext:\n- owner : X.Tx<S.World<T.MotionSchema, T.Position, T.Velocity, T.Selected, T.MotionLedger, T.MotionMode>, S.Handle<T.MotionSchema>, S.Command<T.Position, T.Velocity, T.Selected>>\nLocation: wrong\n6 | def wrong(owner: X.Tx<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<T.Position,T.Velocity,T.Selected>>) -> X.Tx<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<T.Position,T.Velocity,T.Selected>> & T.Access<T.VitalsView>:\n7>|   A.health_read_main(owner,T.VitalsToken{})\n  |                      ^^^^^\n8 | \nbend 2.0.35 is available: run bend update\n"
+  },
+  {
+    "name": "opaque-meter-reconstruction",
+    "status": "REJECTED",
+    "source": "import Base\nimport ./transaction.bend as X\ndef steal(-Owner: Type,owner: Owner) -> String:\n  match owner:\n    case X.Tx{_,_,_,_,_,_,meter}: meter\n",
+    "sourceSha256": "e810a948a133afdefb125fb934e55bbe293e011c4ba3d9543ae00c9d77e22036",
+    "checker": "SOME PROOFS FAIL\nError:\n- expected : a datatype\n- observed : Owner\nContext:\n- Owner : Type\nLocation: steal\n4 |   match owner:\n5>|     case X.Tx{_,_,_,_,_,_,meter}: meter\n  |          ^^^^^^^^^^^^^^^^^^^^^^^\n6 | \nbend 2.0.35 is available: run bend update\n"
+  }
+]

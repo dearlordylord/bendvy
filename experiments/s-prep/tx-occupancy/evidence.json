@@ -1,0 +1,2217 @@
+{
+  "environment": {
+    "compiler": "bend 2.0.34",
+    "node": "v24.20.0",
+    "clang": "Debian clang version 14.0.6",
+    "Base": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661"
+  },
+  "sourceCommit": "56b72f618227a1b9d03eb3ea234781f2953fc73c",
+  "limits": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "cpu": 8,
+  "cases": [
+    {
+      "workload": "readers",
+      "schema": "Motion",
+      "count": 64,
+      "backends": {
+        "Native": {
+          "transactions": 64,
+          "physicalPeaks": {
+            "commands": 0,
+            "events": 1,
+            "inverse": 1,
+            "marks": 1
+          },
+          "phases": [
+            "commit",
+            "finish-success",
+            "mark-drain",
+            "read_main_finish",
+            "record_main",
+            "tx_begin",
+            "tx_stage_ping"
+          ],
+          "status": "PASS",
+          "publicTraceMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullReadObservations": 84,
+            "actualReaderDiagnostics": 84,
+            "fullRowsCompared": 5872,
+            "actualReservations": 64,
+            "clockNormalization": "Bend tick = TS tick - 1; seed performed before dispatcher; every callback checked",
+            "finalSha256": "839e0b8f36c180e70c69a772e372f5fcdea2acb0544b220fe6973890edde63c0",
+            "summary": {
+              "counts": [
+                {
+                  "system": "Slow",
+                  "value": {
+                    "a": 18,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Fast",
+                  "value": {
+                    "a": 66,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Update",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Dispose",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Reserve",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                }
+              ],
+              "tick": 469,
+              "frames": 195
+            }
+          },
+          "publicSha256": "c54d43bc72af7972d4d87f12270defc2cc917db486956f628d7ded91354a1ec4",
+          "rawRecords": "readers-motion-64-native.jsonl.gz",
+          "rawSha256": "49f270c84ecf1679c34bbdc30357cdd3ad1ef87182d61cbbddec8fe6e8d11847",
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "events": {
+              "transaction": 0,
+              "point": 3,
+              "phase": "tx_stage_ping",
+              "value": 1
+            },
+            "inverse": {
+              "transaction": 0,
+              "point": 2,
+              "phase": "record_main",
+              "value": 1
+            },
+            "marks": {
+              "transaction": 0,
+              "point": 2,
+              "phase": "record_main",
+              "value": 1
+            }
+          },
+          "verifiedPhysicalRecords": 384,
+          "verifiedDiagnosticPoints": 512
+        },
+        "JS": {
+          "transactions": 64,
+          "physicalPeaks": {
+            "commands": 0,
+            "events": 1,
+            "inverse": 1,
+            "marks": 1
+          },
+          "phases": [
+            "commit",
+            "finish-success",
+            "mark-drain",
+            "read_main_finish",
+            "record_main",
+            "tx_begin",
+            "tx_stage_ping"
+          ],
+          "status": "PASS",
+          "publicTraceMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullReadObservations": 84,
+            "actualReaderDiagnostics": 84,
+            "fullRowsCompared": 5872,
+            "actualReservations": 64,
+            "clockNormalization": "Bend tick = TS tick - 1; seed performed before dispatcher; every callback checked",
+            "finalSha256": "839e0b8f36c180e70c69a772e372f5fcdea2acb0544b220fe6973890edde63c0",
+            "summary": {
+              "counts": [
+                {
+                  "system": "Slow",
+                  "value": {
+                    "a": 18,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Fast",
+                  "value": {
+                    "a": 66,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Update",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Dispose",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Reserve",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                }
+              ],
+              "tick": 469,
+              "frames": 195
+            }
+          },
+          "publicSha256": "c54d43bc72af7972d4d87f12270defc2cc917db486956f628d7ded91354a1ec4",
+          "rawRecords": "readers-motion-64-js.jsonl.gz",
+          "rawSha256": "49f270c84ecf1679c34bbdc30357cdd3ad1ef87182d61cbbddec8fe6e8d11847",
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "events": {
+              "transaction": 0,
+              "point": 3,
+              "phase": "tx_stage_ping",
+              "value": 1
+            },
+            "inverse": {
+              "transaction": 0,
+              "point": 2,
+              "phase": "record_main",
+              "value": 1
+            },
+            "marks": {
+              "transaction": 0,
+              "point": 2,
+              "phase": "record_main",
+              "value": 1
+            }
+          },
+          "verifiedPhysicalRecords": 384,
+          "verifiedDiagnosticPoints": 512
+        }
+      },
+      "physicalBackendEquality": true
+    },
+    {
+      "workload": "readers",
+      "schema": "Motion",
+      "count": 256,
+      "backends": {
+        "Native": {
+          "transactions": 64,
+          "physicalPeaks": {
+            "commands": 0,
+            "events": 1,
+            "inverse": 1,
+            "marks": 1
+          },
+          "phases": [
+            "commit",
+            "finish-success",
+            "mark-drain",
+            "read_main_finish",
+            "record_main",
+            "tx_begin",
+            "tx_stage_ping"
+          ],
+          "status": "PASS",
+          "publicTraceMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullReadObservations": 84,
+            "actualReaderDiagnostics": 84,
+            "fullRowsCompared": 22768,
+            "actualReservations": 64,
+            "clockNormalization": "Bend tick = TS tick - 1; seed performed before dispatcher; every callback checked",
+            "finalSha256": "0922da52ffba8522e4233ebae43269c5408fa9ea96d9375ca60c7c015e5d6378",
+            "summary": {
+              "counts": [
+                {
+                  "system": "Slow",
+                  "value": {
+                    "a": 18,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Fast",
+                  "value": {
+                    "a": 66,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Update",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Dispose",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Reserve",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                }
+              ],
+              "tick": 469,
+              "frames": 195
+            }
+          },
+          "publicSha256": "ce76fad80c93a75bdbca934f6a25921ea0a7efed7923125a5b1ea4def0b9c0de",
+          "rawRecords": "readers-motion-256-native.jsonl.gz",
+          "rawSha256": "49f270c84ecf1679c34bbdc30357cdd3ad1ef87182d61cbbddec8fe6e8d11847",
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "events": {
+              "transaction": 0,
+              "point": 3,
+              "phase": "tx_stage_ping",
+              "value": 1
+            },
+            "inverse": {
+              "transaction": 0,
+              "point": 2,
+              "phase": "record_main",
+              "value": 1
+            },
+            "marks": {
+              "transaction": 0,
+              "point": 2,
+              "phase": "record_main",
+              "value": 1
+            }
+          },
+          "verifiedPhysicalRecords": 384,
+          "verifiedDiagnosticPoints": 512
+        },
+        "JS": {
+          "transactions": 64,
+          "physicalPeaks": {
+            "commands": 0,
+            "events": 1,
+            "inverse": 1,
+            "marks": 1
+          },
+          "phases": [
+            "commit",
+            "finish-success",
+            "mark-drain",
+            "read_main_finish",
+            "record_main",
+            "tx_begin",
+            "tx_stage_ping"
+          ],
+          "status": "PASS",
+          "publicTraceMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullReadObservations": 84,
+            "actualReaderDiagnostics": 84,
+            "fullRowsCompared": 22768,
+            "actualReservations": 64,
+            "clockNormalization": "Bend tick = TS tick - 1; seed performed before dispatcher; every callback checked",
+            "finalSha256": "0922da52ffba8522e4233ebae43269c5408fa9ea96d9375ca60c7c015e5d6378",
+            "summary": {
+              "counts": [
+                {
+                  "system": "Slow",
+                  "value": {
+                    "a": 18,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Fast",
+                  "value": {
+                    "a": 66,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Update",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Dispose",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Reserve",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                }
+              ],
+              "tick": 469,
+              "frames": 195
+            }
+          },
+          "publicSha256": "ce76fad80c93a75bdbca934f6a25921ea0a7efed7923125a5b1ea4def0b9c0de",
+          "rawRecords": "readers-motion-256-js.jsonl.gz",
+          "rawSha256": "49f270c84ecf1679c34bbdc30357cdd3ad1ef87182d61cbbddec8fe6e8d11847",
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "events": {
+              "transaction": 0,
+              "point": 3,
+              "phase": "tx_stage_ping",
+              "value": 1
+            },
+            "inverse": {
+              "transaction": 0,
+              "point": 2,
+              "phase": "record_main",
+              "value": 1
+            },
+            "marks": {
+              "transaction": 0,
+              "point": 2,
+              "phase": "record_main",
+              "value": 1
+            }
+          },
+          "verifiedPhysicalRecords": 384,
+          "verifiedDiagnosticPoints": 512
+        }
+      },
+      "physicalBackendEquality": true
+    },
+    {
+      "workload": "readers",
+      "schema": "Motion",
+      "count": 1024,
+      "backends": {
+        "Native": {
+          "transactions": 64,
+          "physicalPeaks": {
+            "commands": 0,
+            "events": 1,
+            "inverse": 1,
+            "marks": 1
+          },
+          "phases": [
+            "commit",
+            "finish-success",
+            "mark-drain",
+            "read_main_finish",
+            "record_main",
+            "tx_begin",
+            "tx_stage_ping"
+          ],
+          "status": "PASS",
+          "publicTraceMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullReadObservations": 84,
+            "actualReaderDiagnostics": 84,
+            "fullRowsCompared": 90352,
+            "actualReservations": 64,
+            "clockNormalization": "Bend tick = TS tick - 1; seed performed before dispatcher; every callback checked",
+            "finalSha256": "8f3b742910c4f884f6b7e01bffc0986f601fdbd8f085d9404d2b0dd0cf56a924",
+            "summary": {
+              "counts": [
+                {
+                  "system": "Slow",
+                  "value": {
+                    "a": 18,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Fast",
+                  "value": {
+                    "a": 66,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Update",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Dispose",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Reserve",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                }
+              ],
+              "tick": 469,
+              "frames": 195
+            }
+          },
+          "publicSha256": "ee8d312f999d6f6cb8606dd72ed1dbd401c59f52d87abc3f8e9724eaab4fd180",
+          "rawRecords": "readers-motion-1024-native.jsonl.gz",
+          "rawSha256": "49f270c84ecf1679c34bbdc30357cdd3ad1ef87182d61cbbddec8fe6e8d11847",
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "events": {
+              "transaction": 0,
+              "point": 3,
+              "phase": "tx_stage_ping",
+              "value": 1
+            },
+            "inverse": {
+              "transaction": 0,
+              "point": 2,
+              "phase": "record_main",
+              "value": 1
+            },
+            "marks": {
+              "transaction": 0,
+              "point": 2,
+              "phase": "record_main",
+              "value": 1
+            }
+          },
+          "verifiedPhysicalRecords": 384,
+          "verifiedDiagnosticPoints": 512
+        },
+        "JS": {
+          "transactions": 64,
+          "physicalPeaks": {
+            "commands": 0,
+            "events": 1,
+            "inverse": 1,
+            "marks": 1
+          },
+          "phases": [
+            "commit",
+            "finish-success",
+            "mark-drain",
+            "read_main_finish",
+            "record_main",
+            "tx_begin",
+            "tx_stage_ping"
+          ],
+          "status": "PASS",
+          "publicTraceMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullReadObservations": 84,
+            "actualReaderDiagnostics": 84,
+            "fullRowsCompared": 90352,
+            "actualReservations": 64,
+            "clockNormalization": "Bend tick = TS tick - 1; seed performed before dispatcher; every callback checked",
+            "finalSha256": "8f3b742910c4f884f6b7e01bffc0986f601fdbd8f085d9404d2b0dd0cf56a924",
+            "summary": {
+              "counts": [
+                {
+                  "system": "Slow",
+                  "value": {
+                    "a": 18,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Fast",
+                  "value": {
+                    "a": 66,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Update",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Dispose",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Reserve",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                }
+              ],
+              "tick": 469,
+              "frames": 195
+            }
+          },
+          "publicSha256": "ee8d312f999d6f6cb8606dd72ed1dbd401c59f52d87abc3f8e9724eaab4fd180",
+          "rawRecords": "readers-motion-1024-js.jsonl.gz",
+          "rawSha256": "49f270c84ecf1679c34bbdc30357cdd3ad1ef87182d61cbbddec8fe6e8d11847",
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "events": {
+              "transaction": 0,
+              "point": 3,
+              "phase": "tx_stage_ping",
+              "value": 1
+            },
+            "inverse": {
+              "transaction": 0,
+              "point": 2,
+              "phase": "record_main",
+              "value": 1
+            },
+            "marks": {
+              "transaction": 0,
+              "point": 2,
+              "phase": "record_main",
+              "value": 1
+            }
+          },
+          "verifiedPhysicalRecords": 384,
+          "verifiedDiagnosticPoints": 512
+        }
+      },
+      "physicalBackendEquality": true
+    },
+    {
+      "workload": "readers",
+      "schema": "Health",
+      "count": 64,
+      "backends": {
+        "Native": {
+          "transactions": 64,
+          "physicalPeaks": {
+            "commands": 0,
+            "events": 1,
+            "inverse": 1,
+            "marks": 1
+          },
+          "phases": [
+            "commit",
+            "finish-success",
+            "mark-drain",
+            "read_main_finish",
+            "record_main",
+            "tx_begin",
+            "tx_stage_ping"
+          ],
+          "status": "PASS",
+          "publicTraceMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullReadObservations": 84,
+            "actualReaderDiagnostics": 84,
+            "fullRowsCompared": 5872,
+            "actualReservations": 64,
+            "clockNormalization": "Bend tick = TS tick - 1; seed performed before dispatcher; every callback checked",
+            "finalSha256": "5a826a03c3771034950077a2fb4b9311fbbc00b9dc109414f5c32fc04962ec12",
+            "summary": {
+              "counts": [
+                {
+                  "system": "Slow",
+                  "value": {
+                    "a": 18,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Fast",
+                  "value": {
+                    "a": 66,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Update",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Dispose",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Reserve",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                }
+              ],
+              "tick": 469,
+              "frames": 195
+            }
+          },
+          "publicSha256": "558e38038e296b7d14d5b31c55e6670a359d9938252825dc79c8db6917e0f238",
+          "rawRecords": "readers-health-64-native.jsonl.gz",
+          "rawSha256": "49f270c84ecf1679c34bbdc30357cdd3ad1ef87182d61cbbddec8fe6e8d11847",
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "events": {
+              "transaction": 0,
+              "point": 3,
+              "phase": "tx_stage_ping",
+              "value": 1
+            },
+            "inverse": {
+              "transaction": 0,
+              "point": 2,
+              "phase": "record_main",
+              "value": 1
+            },
+            "marks": {
+              "transaction": 0,
+              "point": 2,
+              "phase": "record_main",
+              "value": 1
+            }
+          },
+          "verifiedPhysicalRecords": 384,
+          "verifiedDiagnosticPoints": 512
+        },
+        "JS": {
+          "transactions": 64,
+          "physicalPeaks": {
+            "commands": 0,
+            "events": 1,
+            "inverse": 1,
+            "marks": 1
+          },
+          "phases": [
+            "commit",
+            "finish-success",
+            "mark-drain",
+            "read_main_finish",
+            "record_main",
+            "tx_begin",
+            "tx_stage_ping"
+          ],
+          "status": "PASS",
+          "publicTraceMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullReadObservations": 84,
+            "actualReaderDiagnostics": 84,
+            "fullRowsCompared": 5872,
+            "actualReservations": 64,
+            "clockNormalization": "Bend tick = TS tick - 1; seed performed before dispatcher; every callback checked",
+            "finalSha256": "5a826a03c3771034950077a2fb4b9311fbbc00b9dc109414f5c32fc04962ec12",
+            "summary": {
+              "counts": [
+                {
+                  "system": "Slow",
+                  "value": {
+                    "a": 18,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Fast",
+                  "value": {
+                    "a": 66,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Update",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Dispose",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Reserve",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                }
+              ],
+              "tick": 469,
+              "frames": 195
+            }
+          },
+          "publicSha256": "558e38038e296b7d14d5b31c55e6670a359d9938252825dc79c8db6917e0f238",
+          "rawRecords": "readers-health-64-js.jsonl.gz",
+          "rawSha256": "49f270c84ecf1679c34bbdc30357cdd3ad1ef87182d61cbbddec8fe6e8d11847",
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "events": {
+              "transaction": 0,
+              "point": 3,
+              "phase": "tx_stage_ping",
+              "value": 1
+            },
+            "inverse": {
+              "transaction": 0,
+              "point": 2,
+              "phase": "record_main",
+              "value": 1
+            },
+            "marks": {
+              "transaction": 0,
+              "point": 2,
+              "phase": "record_main",
+              "value": 1
+            }
+          },
+          "verifiedPhysicalRecords": 384,
+          "verifiedDiagnosticPoints": 512
+        }
+      },
+      "physicalBackendEquality": true
+    },
+    {
+      "workload": "readers",
+      "schema": "Health",
+      "count": 256,
+      "backends": {
+        "Native": {
+          "transactions": 64,
+          "physicalPeaks": {
+            "commands": 0,
+            "events": 1,
+            "inverse": 1,
+            "marks": 1
+          },
+          "phases": [
+            "commit",
+            "finish-success",
+            "mark-drain",
+            "read_main_finish",
+            "record_main",
+            "tx_begin",
+            "tx_stage_ping"
+          ],
+          "status": "PASS",
+          "publicTraceMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullReadObservations": 84,
+            "actualReaderDiagnostics": 84,
+            "fullRowsCompared": 22768,
+            "actualReservations": 64,
+            "clockNormalization": "Bend tick = TS tick - 1; seed performed before dispatcher; every callback checked",
+            "finalSha256": "cbef56b5f69ef86c4727ec3a9053c72de71e520f65625529284dd66f66e61183",
+            "summary": {
+              "counts": [
+                {
+                  "system": "Slow",
+                  "value": {
+                    "a": 18,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Fast",
+                  "value": {
+                    "a": 66,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Update",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Dispose",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Reserve",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                }
+              ],
+              "tick": 469,
+              "frames": 195
+            }
+          },
+          "publicSha256": "a9b5370d85a3a8c05e7ec6cd5e5a2a64a9b20141220f4ab49a0e9e50b5a8ef1e",
+          "rawRecords": "readers-health-256-native.jsonl.gz",
+          "rawSha256": "49f270c84ecf1679c34bbdc30357cdd3ad1ef87182d61cbbddec8fe6e8d11847",
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "events": {
+              "transaction": 0,
+              "point": 3,
+              "phase": "tx_stage_ping",
+              "value": 1
+            },
+            "inverse": {
+              "transaction": 0,
+              "point": 2,
+              "phase": "record_main",
+              "value": 1
+            },
+            "marks": {
+              "transaction": 0,
+              "point": 2,
+              "phase": "record_main",
+              "value": 1
+            }
+          },
+          "verifiedPhysicalRecords": 384,
+          "verifiedDiagnosticPoints": 512
+        },
+        "JS": {
+          "transactions": 64,
+          "physicalPeaks": {
+            "commands": 0,
+            "events": 1,
+            "inverse": 1,
+            "marks": 1
+          },
+          "phases": [
+            "commit",
+            "finish-success",
+            "mark-drain",
+            "read_main_finish",
+            "record_main",
+            "tx_begin",
+            "tx_stage_ping"
+          ],
+          "status": "PASS",
+          "publicTraceMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullReadObservations": 84,
+            "actualReaderDiagnostics": 84,
+            "fullRowsCompared": 22768,
+            "actualReservations": 64,
+            "clockNormalization": "Bend tick = TS tick - 1; seed performed before dispatcher; every callback checked",
+            "finalSha256": "cbef56b5f69ef86c4727ec3a9053c72de71e520f65625529284dd66f66e61183",
+            "summary": {
+              "counts": [
+                {
+                  "system": "Slow",
+                  "value": {
+                    "a": 18,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Fast",
+                  "value": {
+                    "a": 66,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Update",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Dispose",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Reserve",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                }
+              ],
+              "tick": 469,
+              "frames": 195
+            }
+          },
+          "publicSha256": "a9b5370d85a3a8c05e7ec6cd5e5a2a64a9b20141220f4ab49a0e9e50b5a8ef1e",
+          "rawRecords": "readers-health-256-js.jsonl.gz",
+          "rawSha256": "49f270c84ecf1679c34bbdc30357cdd3ad1ef87182d61cbbddec8fe6e8d11847",
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "events": {
+              "transaction": 0,
+              "point": 3,
+              "phase": "tx_stage_ping",
+              "value": 1
+            },
+            "inverse": {
+              "transaction": 0,
+              "point": 2,
+              "phase": "record_main",
+              "value": 1
+            },
+            "marks": {
+              "transaction": 0,
+              "point": 2,
+              "phase": "record_main",
+              "value": 1
+            }
+          },
+          "verifiedPhysicalRecords": 384,
+          "verifiedDiagnosticPoints": 512
+        }
+      },
+      "physicalBackendEquality": true
+    },
+    {
+      "workload": "readers",
+      "schema": "Health",
+      "count": 1024,
+      "backends": {
+        "Native": {
+          "transactions": 64,
+          "physicalPeaks": {
+            "commands": 0,
+            "events": 1,
+            "inverse": 1,
+            "marks": 1
+          },
+          "phases": [
+            "commit",
+            "finish-success",
+            "mark-drain",
+            "read_main_finish",
+            "record_main",
+            "tx_begin",
+            "tx_stage_ping"
+          ],
+          "status": "PASS",
+          "publicTraceMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullReadObservations": 84,
+            "actualReaderDiagnostics": 84,
+            "fullRowsCompared": 90352,
+            "actualReservations": 64,
+            "clockNormalization": "Bend tick = TS tick - 1; seed performed before dispatcher; every callback checked",
+            "finalSha256": "6f4e3a1f2bcbae6d9f4fa09294e8ea7dbd12a38ea060d506398dde94f5606526",
+            "summary": {
+              "counts": [
+                {
+                  "system": "Slow",
+                  "value": {
+                    "a": 18,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Fast",
+                  "value": {
+                    "a": 66,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Update",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Dispose",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Reserve",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                }
+              ],
+              "tick": 469,
+              "frames": 195
+            }
+          },
+          "publicSha256": "c8ba35c33f2b132c0988c3a7b9561d06166a43c068b2d5066dca4b17418e497f",
+          "rawRecords": "readers-health-1024-native.jsonl.gz",
+          "rawSha256": "49f270c84ecf1679c34bbdc30357cdd3ad1ef87182d61cbbddec8fe6e8d11847",
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "events": {
+              "transaction": 0,
+              "point": 3,
+              "phase": "tx_stage_ping",
+              "value": 1
+            },
+            "inverse": {
+              "transaction": 0,
+              "point": 2,
+              "phase": "record_main",
+              "value": 1
+            },
+            "marks": {
+              "transaction": 0,
+              "point": 2,
+              "phase": "record_main",
+              "value": 1
+            }
+          },
+          "verifiedPhysicalRecords": 384,
+          "verifiedDiagnosticPoints": 512
+        },
+        "JS": {
+          "transactions": 64,
+          "physicalPeaks": {
+            "commands": 0,
+            "events": 1,
+            "inverse": 1,
+            "marks": 1
+          },
+          "phases": [
+            "commit",
+            "finish-success",
+            "mark-drain",
+            "read_main_finish",
+            "record_main",
+            "tx_begin",
+            "tx_stage_ping"
+          ],
+          "status": "PASS",
+          "publicTraceMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullReadObservations": 84,
+            "actualReaderDiagnostics": 84,
+            "fullRowsCompared": 90352,
+            "actualReservations": 64,
+            "clockNormalization": "Bend tick = TS tick - 1; seed performed before dispatcher; every callback checked",
+            "finalSha256": "6f4e3a1f2bcbae6d9f4fa09294e8ea7dbd12a38ea060d506398dde94f5606526",
+            "summary": {
+              "counts": [
+                {
+                  "system": "Slow",
+                  "value": {
+                    "a": 18,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Fast",
+                  "value": {
+                    "a": 66,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Update",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Dispose",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Reserve",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                }
+              ],
+              "tick": 469,
+              "frames": 195
+            }
+          },
+          "publicSha256": "c8ba35c33f2b132c0988c3a7b9561d06166a43c068b2d5066dca4b17418e497f",
+          "rawRecords": "readers-health-1024-js.jsonl.gz",
+          "rawSha256": "49f270c84ecf1679c34bbdc30357cdd3ad1ef87182d61cbbddec8fe6e8d11847",
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 0,
+              "phase": "tx_begin",
+              "value": 0
+            },
+            "events": {
+              "transaction": 0,
+              "point": 3,
+              "phase": "tx_stage_ping",
+              "value": 1
+            },
+            "inverse": {
+              "transaction": 0,
+              "point": 2,
+              "phase": "record_main",
+              "value": 1
+            },
+            "marks": {
+              "transaction": 0,
+              "point": 2,
+              "phase": "record_main",
+              "value": 1
+            }
+          },
+          "verifiedPhysicalRecords": 384,
+          "verifiedDiagnosticPoints": 512
+        }
+      },
+      "physicalBackendEquality": true
+    },
+    {
+      "workload": "failure",
+      "schema": "Motion",
+      "count": 64,
+      "backends": {
+        "Native": {
+          "transactions": 192,
+          "physicalPeaks": {
+            "commands": 1,
+            "events": 1,
+            "inverse": 3,
+            "marks": 2
+          },
+          "phases": [
+            "commit",
+            "finish-failure",
+            "finish-success",
+            "mark-drain",
+            "read_ledger_finish",
+            "read_main_finish",
+            "record_ledger",
+            "record_main",
+            "reserve_finish",
+            "rollback",
+            "tx_begin",
+            "tx_stage_command",
+            "tx_stage_ping",
+            "unwind"
+          ],
+          "status": "PASS",
+          "publicTraceMatch": true,
+          "freshTSValidation": {
+            "status": "FULL_VALUES_EQUAL",
+            "schema": "Motion",
+            "count": 64,
+            "iterations": 64,
+            "full_row_fields_checked": 16512,
+            "historical_and_current_lookups_checked": 9024,
+            "captures": {
+              "A": 64,
+              "B": 129
+            },
+            "actual_output_sha256": "036f5c59ff23a120e980c0b6956ca0962460f63d0a707fed62ede573d3db3d5a",
+            "actual_output_bytes": 3093192,
+            "lossless_encoding": "Rows exactly the pinned TS source formula; all actual complete rows/lookup results/payloads/own reads verified before encoding. Raw reservation IDs preserved.",
+            "completeValidationFile": "failure-validation-motion-64-native.json.gz",
+            "completeValidationSha256": "08cec58fe8493626f99d2a95fca301a3c4bba26fbc0be614e4f7cc23d4e17eda"
+          },
+          "publicSha256": "310cb0bde44a0f78f22a5368df813a1883bb847a52e142f8fa4d67290d24274d",
+          "rawRecords": "failure-motion-64-native.jsonl.gz",
+          "rawSha256": "22cdd2b3339754d05c41660c02ebd8d7c5fa722b7a03dd5d81835ff7cce31ae6",
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 8,
+              "phase": "tx_stage_command",
+              "value": 1
+            },
+            "events": {
+              "transaction": 0,
+              "point": 9,
+              "phase": "tx_stage_ping",
+              "value": 1
+            },
+            "inverse": {
+              "transaction": 1,
+              "point": 7,
+              "phase": "record_ledger",
+              "value": 3
+            },
+            "marks": {
+              "transaction": 1,
+              "point": 4,
+              "phase": "record_main",
+              "value": 2
+            }
+          },
+          "verifiedPhysicalRecords": 2752,
+          "verifiedDiagnosticPoints": 3136
+        },
+        "JS": {
+          "transactions": 192,
+          "physicalPeaks": {
+            "commands": 1,
+            "events": 1,
+            "inverse": 3,
+            "marks": 2
+          },
+          "phases": [
+            "commit",
+            "finish-failure",
+            "finish-success",
+            "mark-drain",
+            "read_ledger_finish",
+            "read_main_finish",
+            "record_ledger",
+            "record_main",
+            "reserve_finish",
+            "rollback",
+            "tx_begin",
+            "tx_stage_command",
+            "tx_stage_ping",
+            "unwind"
+          ],
+          "status": "PASS",
+          "publicTraceMatch": true,
+          "freshTSValidation": {
+            "status": "FULL_VALUES_EQUAL",
+            "schema": "Motion",
+            "count": 64,
+            "iterations": 64,
+            "full_row_fields_checked": 16512,
+            "historical_and_current_lookups_checked": 9024,
+            "captures": {
+              "A": 64,
+              "B": 129
+            },
+            "actual_output_sha256": "036f5c59ff23a120e980c0b6956ca0962460f63d0a707fed62ede573d3db3d5a",
+            "actual_output_bytes": 3093192,
+            "lossless_encoding": "Rows exactly the pinned TS source formula; all actual complete rows/lookup results/payloads/own reads verified before encoding. Raw reservation IDs preserved.",
+            "completeValidationFile": "failure-validation-motion-64-js.json.gz",
+            "completeValidationSha256": "08cec58fe8493626f99d2a95fca301a3c4bba26fbc0be614e4f7cc23d4e17eda"
+          },
+          "publicSha256": "310cb0bde44a0f78f22a5368df813a1883bb847a52e142f8fa4d67290d24274d",
+          "rawRecords": "failure-motion-64-js.jsonl.gz",
+          "rawSha256": "22cdd2b3339754d05c41660c02ebd8d7c5fa722b7a03dd5d81835ff7cce31ae6",
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 8,
+              "phase": "tx_stage_command",
+              "value": 1
+            },
+            "events": {
+              "transaction": 0,
+              "point": 9,
+              "phase": "tx_stage_ping",
+              "value": 1
+            },
+            "inverse": {
+              "transaction": 1,
+              "point": 7,
+              "phase": "record_ledger",
+              "value": 3
+            },
+            "marks": {
+              "transaction": 1,
+              "point": 4,
+              "phase": "record_main",
+              "value": 2
+            }
+          },
+          "verifiedPhysicalRecords": 2752,
+          "verifiedDiagnosticPoints": 3136
+        }
+      },
+      "physicalBackendEquality": true
+    },
+    {
+      "workload": "failure",
+      "schema": "Motion",
+      "count": 256,
+      "backends": {
+        "Native": {
+          "transactions": 192,
+          "physicalPeaks": {
+            "commands": 1,
+            "events": 1,
+            "inverse": 3,
+            "marks": 2
+          },
+          "phases": [
+            "commit",
+            "finish-failure",
+            "finish-success",
+            "mark-drain",
+            "read_ledger_finish",
+            "read_main_finish",
+            "record_ledger",
+            "record_main",
+            "reserve_finish",
+            "rollback",
+            "tx_begin",
+            "tx_stage_command",
+            "tx_stage_ping",
+            "unwind"
+          ],
+          "status": "PASS",
+          "publicTraceMatch": true,
+          "freshTSValidation": {
+            "status": "FULL_VALUES_EQUAL",
+            "schema": "Motion",
+            "count": 256,
+            "iterations": 64,
+            "full_row_fields_checked": 65664,
+            "historical_and_current_lookups_checked": 9024,
+            "captures": {
+              "A": 64,
+              "B": 129
+            },
+            "actual_output_sha256": "1441c081a7d5ed4278b7a0bb8e7cb8b72aff782b00dd5ea484b0892efb8f470e",
+            "actual_output_bytes": 10097042,
+            "lossless_encoding": "Rows exactly the pinned TS source formula; all actual complete rows/lookup results/payloads/own reads verified before encoding. Raw reservation IDs preserved.",
+            "completeValidationFile": "failure-validation-motion-256-native.json.gz",
+            "completeValidationSha256": "3bbd91695eacf4bd124cc65e9c38c6b267e790ccb6caafd5cec119f74f882731"
+          },
+          "publicSha256": "ecdeef482fda7226e0db1b99821b08822a979f5f2007cf8f59271aabc6ca8bb5",
+          "rawRecords": "failure-motion-256-native.jsonl.gz",
+          "rawSha256": "22cdd2b3339754d05c41660c02ebd8d7c5fa722b7a03dd5d81835ff7cce31ae6",
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 8,
+              "phase": "tx_stage_command",
+              "value": 1
+            },
+            "events": {
+              "transaction": 0,
+              "point": 9,
+              "phase": "tx_stage_ping",
+              "value": 1
+            },
+            "inverse": {
+              "transaction": 1,
+              "point": 7,
+              "phase": "record_ledger",
+              "value": 3
+            },
+            "marks": {
+              "transaction": 1,
+              "point": 4,
+              "phase": "record_main",
+              "value": 2
+            }
+          },
+          "verifiedPhysicalRecords": 2752,
+          "verifiedDiagnosticPoints": 3136
+        },
+        "JS": {
+          "transactions": 192,
+          "physicalPeaks": {
+            "commands": 1,
+            "events": 1,
+            "inverse": 3,
+            "marks": 2
+          },
+          "phases": [
+            "commit",
+            "finish-failure",
+            "finish-success",
+            "mark-drain",
+            "read_ledger_finish",
+            "read_main_finish",
+            "record_ledger",
+            "record_main",
+            "reserve_finish",
+            "rollback",
+            "tx_begin",
+            "tx_stage_command",
+            "tx_stage_ping",
+            "unwind"
+          ],
+          "status": "PASS",
+          "publicTraceMatch": true,
+          "freshTSValidation": {
+            "status": "FULL_VALUES_EQUAL",
+            "schema": "Motion",
+            "count": 256,
+            "iterations": 64,
+            "full_row_fields_checked": 65664,
+            "historical_and_current_lookups_checked": 9024,
+            "captures": {
+              "A": 64,
+              "B": 129
+            },
+            "actual_output_sha256": "1441c081a7d5ed4278b7a0bb8e7cb8b72aff782b00dd5ea484b0892efb8f470e",
+            "actual_output_bytes": 10097042,
+            "lossless_encoding": "Rows exactly the pinned TS source formula; all actual complete rows/lookup results/payloads/own reads verified before encoding. Raw reservation IDs preserved.",
+            "completeValidationFile": "failure-validation-motion-256-js.json.gz",
+            "completeValidationSha256": "3bbd91695eacf4bd124cc65e9c38c6b267e790ccb6caafd5cec119f74f882731"
+          },
+          "publicSha256": "ecdeef482fda7226e0db1b99821b08822a979f5f2007cf8f59271aabc6ca8bb5",
+          "rawRecords": "failure-motion-256-js.jsonl.gz",
+          "rawSha256": "22cdd2b3339754d05c41660c02ebd8d7c5fa722b7a03dd5d81835ff7cce31ae6",
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 8,
+              "phase": "tx_stage_command",
+              "value": 1
+            },
+            "events": {
+              "transaction": 0,
+              "point": 9,
+              "phase": "tx_stage_ping",
+              "value": 1
+            },
+            "inverse": {
+              "transaction": 1,
+              "point": 7,
+              "phase": "record_ledger",
+              "value": 3
+            },
+            "marks": {
+              "transaction": 1,
+              "point": 4,
+              "phase": "record_main",
+              "value": 2
+            }
+          },
+          "verifiedPhysicalRecords": 2752,
+          "verifiedDiagnosticPoints": 3136
+        }
+      },
+      "physicalBackendEquality": true
+    },
+    {
+      "workload": "failure",
+      "schema": "Motion",
+      "count": 1024,
+      "backends": {
+        "Native": {
+          "status": "FAILED",
+          "error": "Command '['taskset', '-c', '8', '/tmp/prep22-tx-sc6g0bza/failure-diagnostic', '--threads', '1', '--gpu', 'off', '0', '1024', '64']' timed out after 5 seconds"
+        },
+        "JS": {
+          "status": "FAILED",
+          "error": "Command '['taskset', '-c', '8', 'node', '/tmp/prep22-tx-sc6g0bza/failure-diagnostic.js', '0', '1024', '64']' timed out after 5 seconds"
+        }
+      }
+    },
+    {
+      "workload": "failure",
+      "schema": "Health",
+      "count": 64,
+      "backends": {
+        "Native": {
+          "transactions": 192,
+          "physicalPeaks": {
+            "commands": 1,
+            "events": 1,
+            "inverse": 3,
+            "marks": 2
+          },
+          "phases": [
+            "commit",
+            "finish-failure",
+            "finish-success",
+            "mark-drain",
+            "read_ledger_finish",
+            "read_main_finish",
+            "record_ledger",
+            "record_main",
+            "reserve_finish",
+            "rollback",
+            "tx_begin",
+            "tx_stage_command",
+            "tx_stage_ping",
+            "unwind"
+          ],
+          "status": "PASS",
+          "publicTraceMatch": true,
+          "freshTSValidation": {
+            "status": "FULL_VALUES_EQUAL",
+            "schema": "Health",
+            "count": 64,
+            "iterations": 64,
+            "full_row_fields_checked": 16512,
+            "historical_and_current_lookups_checked": 9024,
+            "captures": {
+              "A": 64,
+              "B": 129
+            },
+            "actual_output_sha256": "b64aa6bb0b5e934394105be1c88b985bcb79d6bc6469613550d75dee2224dde5",
+            "actual_output_bytes": 3195720,
+            "lossless_encoding": "Rows exactly the pinned TS source formula; all actual complete rows/lookup results/payloads/own reads verified before encoding. Raw reservation IDs preserved.",
+            "completeValidationFile": "failure-validation-health-64-native.json.gz",
+            "completeValidationSha256": "816eb734269130d8df2e9354afb9f3e478b87ad2c7cba26dd796140b5b99165d"
+          },
+          "publicSha256": "9db111ee525c64c8b57ad880558adb4c73e1c8a86d458dc645bc3417679cf1a4",
+          "rawRecords": "failure-health-64-native.jsonl.gz",
+          "rawSha256": "22cdd2b3339754d05c41660c02ebd8d7c5fa722b7a03dd5d81835ff7cce31ae6",
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 8,
+              "phase": "tx_stage_command",
+              "value": 1
+            },
+            "events": {
+              "transaction": 0,
+              "point": 9,
+              "phase": "tx_stage_ping",
+              "value": 1
+            },
+            "inverse": {
+              "transaction": 1,
+              "point": 7,
+              "phase": "record_ledger",
+              "value": 3
+            },
+            "marks": {
+              "transaction": 1,
+              "point": 4,
+              "phase": "record_main",
+              "value": 2
+            }
+          },
+          "verifiedPhysicalRecords": 2752,
+          "verifiedDiagnosticPoints": 3136
+        },
+        "JS": {
+          "transactions": 192,
+          "physicalPeaks": {
+            "commands": 1,
+            "events": 1,
+            "inverse": 3,
+            "marks": 2
+          },
+          "phases": [
+            "commit",
+            "finish-failure",
+            "finish-success",
+            "mark-drain",
+            "read_ledger_finish",
+            "read_main_finish",
+            "record_ledger",
+            "record_main",
+            "reserve_finish",
+            "rollback",
+            "tx_begin",
+            "tx_stage_command",
+            "tx_stage_ping",
+            "unwind"
+          ],
+          "status": "PASS",
+          "publicTraceMatch": true,
+          "freshTSValidation": {
+            "status": "FULL_VALUES_EQUAL",
+            "schema": "Health",
+            "count": 64,
+            "iterations": 64,
+            "full_row_fields_checked": 16512,
+            "historical_and_current_lookups_checked": 9024,
+            "captures": {
+              "A": 64,
+              "B": 129
+            },
+            "actual_output_sha256": "b64aa6bb0b5e934394105be1c88b985bcb79d6bc6469613550d75dee2224dde5",
+            "actual_output_bytes": 3195720,
+            "lossless_encoding": "Rows exactly the pinned TS source formula; all actual complete rows/lookup results/payloads/own reads verified before encoding. Raw reservation IDs preserved.",
+            "completeValidationFile": "failure-validation-health-64-js.json.gz",
+            "completeValidationSha256": "816eb734269130d8df2e9354afb9f3e478b87ad2c7cba26dd796140b5b99165d"
+          },
+          "publicSha256": "9db111ee525c64c8b57ad880558adb4c73e1c8a86d458dc645bc3417679cf1a4",
+          "rawRecords": "failure-health-64-js.jsonl.gz",
+          "rawSha256": "22cdd2b3339754d05c41660c02ebd8d7c5fa722b7a03dd5d81835ff7cce31ae6",
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 8,
+              "phase": "tx_stage_command",
+              "value": 1
+            },
+            "events": {
+              "transaction": 0,
+              "point": 9,
+              "phase": "tx_stage_ping",
+              "value": 1
+            },
+            "inverse": {
+              "transaction": 1,
+              "point": 7,
+              "phase": "record_ledger",
+              "value": 3
+            },
+            "marks": {
+              "transaction": 1,
+              "point": 4,
+              "phase": "record_main",
+              "value": 2
+            }
+          },
+          "verifiedPhysicalRecords": 2752,
+          "verifiedDiagnosticPoints": 3136
+        }
+      },
+      "physicalBackendEquality": true
+    },
+    {
+      "workload": "failure",
+      "schema": "Health",
+      "count": 256,
+      "backends": {
+        "Native": {
+          "transactions": 192,
+          "physicalPeaks": {
+            "commands": 1,
+            "events": 1,
+            "inverse": 3,
+            "marks": 2
+          },
+          "phases": [
+            "commit",
+            "finish-failure",
+            "finish-success",
+            "mark-drain",
+            "read_ledger_finish",
+            "read_main_finish",
+            "record_ledger",
+            "record_main",
+            "reserve_finish",
+            "rollback",
+            "tx_begin",
+            "tx_stage_command",
+            "tx_stage_ping",
+            "unwind"
+          ],
+          "status": "PASS",
+          "publicTraceMatch": true,
+          "freshTSValidation": {
+            "status": "FULL_VALUES_EQUAL",
+            "schema": "Health",
+            "count": 256,
+            "iterations": 64,
+            "full_row_fields_checked": 65664,
+            "historical_and_current_lookups_checked": 9024,
+            "captures": {
+              "A": 64,
+              "B": 129
+            },
+            "actual_output_sha256": "7b16e1aff129efa42d3ebd6310aa46cbd1ac25c1f8c2fd4b427fc9bff2505ae8",
+            "actual_output_bytes": 10494482,
+            "lossless_encoding": "Rows exactly the pinned TS source formula; all actual complete rows/lookup results/payloads/own reads verified before encoding. Raw reservation IDs preserved.",
+            "completeValidationFile": "failure-validation-health-256-native.json.gz",
+            "completeValidationSha256": "0a5b766426b978c1edea3da3236e43aedf7466c899f93985366cdd28a5f1ffc8"
+          },
+          "publicSha256": "b65ce6ebdba143698b26ed755d79270cfef41876746679cfb46ceeaff9f809cf",
+          "rawRecords": "failure-health-256-native.jsonl.gz",
+          "rawSha256": "22cdd2b3339754d05c41660c02ebd8d7c5fa722b7a03dd5d81835ff7cce31ae6",
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 8,
+              "phase": "tx_stage_command",
+              "value": 1
+            },
+            "events": {
+              "transaction": 0,
+              "point": 9,
+              "phase": "tx_stage_ping",
+              "value": 1
+            },
+            "inverse": {
+              "transaction": 1,
+              "point": 7,
+              "phase": "record_ledger",
+              "value": 3
+            },
+            "marks": {
+              "transaction": 1,
+              "point": 4,
+              "phase": "record_main",
+              "value": 2
+            }
+          },
+          "verifiedPhysicalRecords": 2752,
+          "verifiedDiagnosticPoints": 3136
+        },
+        "JS": {
+          "transactions": 192,
+          "physicalPeaks": {
+            "commands": 1,
+            "events": 1,
+            "inverse": 3,
+            "marks": 2
+          },
+          "phases": [
+            "commit",
+            "finish-failure",
+            "finish-success",
+            "mark-drain",
+            "read_ledger_finish",
+            "read_main_finish",
+            "record_ledger",
+            "record_main",
+            "reserve_finish",
+            "rollback",
+            "tx_begin",
+            "tx_stage_command",
+            "tx_stage_ping",
+            "unwind"
+          ],
+          "status": "PASS",
+          "publicTraceMatch": true,
+          "freshTSValidation": {
+            "status": "FULL_VALUES_EQUAL",
+            "schema": "Health",
+            "count": 256,
+            "iterations": 64,
+            "full_row_fields_checked": 65664,
+            "historical_and_current_lookups_checked": 9024,
+            "captures": {
+              "A": 64,
+              "B": 129
+            },
+            "actual_output_sha256": "7b16e1aff129efa42d3ebd6310aa46cbd1ac25c1f8c2fd4b427fc9bff2505ae8",
+            "actual_output_bytes": 10494482,
+            "lossless_encoding": "Rows exactly the pinned TS source formula; all actual complete rows/lookup results/payloads/own reads verified before encoding. Raw reservation IDs preserved.",
+            "completeValidationFile": "failure-validation-health-256-js.json.gz",
+            "completeValidationSha256": "0a5b766426b978c1edea3da3236e43aedf7466c899f93985366cdd28a5f1ffc8"
+          },
+          "publicSha256": "b65ce6ebdba143698b26ed755d79270cfef41876746679cfb46ceeaff9f809cf",
+          "rawRecords": "failure-health-256-js.jsonl.gz",
+          "rawSha256": "22cdd2b3339754d05c41660c02ebd8d7c5fa722b7a03dd5d81835ff7cce31ae6",
+          "peakLocations": {
+            "commands": {
+              "transaction": 0,
+              "point": 8,
+              "phase": "tx_stage_command",
+              "value": 1
+            },
+            "events": {
+              "transaction": 0,
+              "point": 9,
+              "phase": "tx_stage_ping",
+              "value": 1
+            },
+            "inverse": {
+              "transaction": 1,
+              "point": 7,
+              "phase": "record_ledger",
+              "value": 3
+            },
+            "marks": {
+              "transaction": 1,
+              "point": 4,
+              "phase": "record_main",
+              "value": 2
+            }
+          },
+          "verifiedPhysicalRecords": 2752,
+          "verifiedDiagnosticPoints": 3136
+        }
+      },
+      "physicalBackendEquality": true
+    },
+    {
+      "workload": "failure",
+      "schema": "Health",
+      "count": 1024,
+      "backends": {
+        "Native": {
+          "status": "FAILED",
+          "error": "Command '['taskset', '-c', '8', '/tmp/prep22-tx-sc6g0bza/failure-diagnostic', '--threads', '1', '--gpu', 'off', '1', '1024', '64']' timed out after 5 seconds"
+        },
+        "JS": {
+          "status": "FAILED",
+          "error": "Command '['taskset', '-c', '8', 'node', '/tmp/prep22-tx-sc6g0bza/failure-diagnostic.js', '1', '1024', '64']' timed out after 5 seconds"
+        }
+      }
+    }
+  ],
+  "sources": {
+    "readers-diagnostic": {
+      "experiments/s-integrate/measurement-readers.bend": "731dbceda351fc52a77ecf699c39db8002449e6f81e055789152d1181ef8105b",
+      "experiments/s-integrate/measurement-lifecycle.bend": "0b2690c7d56219411dd3a14876dda8fe0c2f757fcf3656cf404fbdf76524296d",
+      "experiments/s-integrate/measurement-bend.bend": "6ffb9993c97ed7852d39a843859d69722b4cd17a8a44de992cfef5f5c814caad",
+      "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+      "experiments/s-integrate/storage.bend": "8440ed1ec21c8d4874072aed8ca0ec4967f4e4e522f88d36f68050685d9e0345",
+      "experiments/s-integrate/identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+      "experiments/s-integrate/commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+      "experiments/s-integrate/query.bend": "5fb8447d34edc2260341341c36dc7970964318fa582cdd078da296c5f9e1a1ce",
+      "experiments/s-integrate/observations.bend": "00442198a7aeb420c5defef1641fa873a8f4fcaddfd896973820fe7b875216c4",
+      "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+      "experiments/s-integrate/transaction.bend": "dd59d470030c06a30cff28abb7e57c99fac64ee3d00b76ccf3c5ae8d99b66b52",
+      "experiments/s-integrate/transaction-dispatch-adapters.bend": "839772db858b1a04437abcb024a3879d3bca0094e9eab71bafd86bf117e89dc7",
+      "experiments/s-integrate/systems.bend": "2cfc899215e408cc4c652c8d4c290b18800cdb6e8c96f1061a77853afdac9221",
+      "experiments/s-integrate/schedule.bend": "98c955f7ee5039aed875a3bd93e3c94840d9ea2f48de0e6415bd28d63ee8fb98",
+      "experiments/s-integrate/capture.bend": "44d5f3117a465c216ee93100026aad78e86f24c40c09c678be99935dde076817",
+      "experiments/s-integrate/host.bend": "87ff2110a66dd73beefc55815c2433b2c55eec54be9bbc5adeb30d36e2c174f6",
+      "experiments/s-integrate/dispatcher.bend": "5d7652d052f9915e9735a81d470026c2f7ba2077f11b09472418a6b5213945e9",
+      "experiments/s-integrate/readers.bend": "2673082b4ef5cd6c5d8f61c362e22f74b13daeb27196894278cc20b1459c22e9",
+      "experiments/s-integrate/reader-host.bend": "50f1251c6d476b07055c36c5a97e3350a4cb46e5d826ff97ced2860d40798a64",
+      "experiments/s-integrate/streams.bend": "1a1c7991d6a1b4ebfb3b47dc62459beb83ed5e38ded56d27cc20b5478fc0d315",
+      "experiments/s-integrate/host-observations.bend": "e6a37f6d160a53f14b08254f35cb317a68f1f2c540c40c9b88e600d0d6198e76",
+      "experiments/s-integrate/audited-invoker.bend": "923501b9c4167607e056af83f34468db6675adc19624f3f4cb619165324cf191",
+      "experiments/s-integrate/structural-invoker.bend": "6907a8c5775f77ffed6141123fe5c7033678269ade0f59cd0f24b8680e497932",
+      "experiments/s-integrate/host-render.bend": "1eef120fa604ba633f06d33a8a3910845293926c36dc9c91cd59d4d5c045a28a"
+    },
+    "readers-original": {
+      "experiments/s-integrate/measurement-readers.bend": "319b82558f3ebce5758df7a1ad51fa04c1341b386281a8f32a0b6a717e21f7e1",
+      "experiments/s-integrate/measurement-lifecycle.bend": "0b2690c7d56219411dd3a14876dda8fe0c2f757fcf3656cf404fbdf76524296d",
+      "experiments/s-integrate/measurement-bend.bend": "c2351825ee3998988aa01440e484db0cd11d3dbac5a70db4a079d841aaaaf31d",
+      "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+      "experiments/s-integrate/storage.bend": "8440ed1ec21c8d4874072aed8ca0ec4967f4e4e522f88d36f68050685d9e0345",
+      "experiments/s-integrate/identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+      "experiments/s-integrate/commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+      "experiments/s-integrate/query.bend": "5fb8447d34edc2260341341c36dc7970964318fa582cdd078da296c5f9e1a1ce",
+      "experiments/s-integrate/observations.bend": "00442198a7aeb420c5defef1641fa873a8f4fcaddfd896973820fe7b875216c4",
+      "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+      "experiments/s-integrate/transaction.bend": "d32f0b26e4a14fc784c3ce30c4d6a1ded0cf0a55ed819f54419a558445e298a4",
+      "experiments/s-integrate/transaction-dispatch-adapters.bend": "eea16d3f539d70bcd88fd8fd314b75d252ccaff2b9c1c8b63e7d96bfdda34142",
+      "experiments/s-integrate/systems.bend": "2cfc899215e408cc4c652c8d4c290b18800cdb6e8c96f1061a77853afdac9221",
+      "experiments/s-integrate/schedule.bend": "98c955f7ee5039aed875a3bd93e3c94840d9ea2f48de0e6415bd28d63ee8fb98",
+      "experiments/s-integrate/capture.bend": "44d5f3117a465c216ee93100026aad78e86f24c40c09c678be99935dde076817",
+      "experiments/s-integrate/host.bend": "cc06d581fbc762ef2fcae5091a21bb11955c6770e43abc4346de9fa884d81d2c",
+      "experiments/s-integrate/dispatcher.bend": "5d7652d052f9915e9735a81d470026c2f7ba2077f11b09472418a6b5213945e9",
+      "experiments/s-integrate/readers.bend": "2673082b4ef5cd6c5d8f61c362e22f74b13daeb27196894278cc20b1459c22e9",
+      "experiments/s-integrate/reader-host.bend": "50f1251c6d476b07055c36c5a97e3350a4cb46e5d826ff97ced2860d40798a64",
+      "experiments/s-integrate/streams.bend": "1a1c7991d6a1b4ebfb3b47dc62459beb83ed5e38ded56d27cc20b5478fc0d315",
+      "experiments/s-integrate/host-observations.bend": "e6a37f6d160a53f14b08254f35cb317a68f1f2c540c40c9b88e600d0d6198e76",
+      "experiments/s-integrate/audited-invoker.bend": "2ed7e484b8a043f0944e0f662a8799f94388c99f757de331fb1a79b1c07c8853",
+      "experiments/s-integrate/structural-invoker.bend": "6907a8c5775f77ffed6141123fe5c7033678269ade0f59cd0f24b8680e497932",
+      "experiments/s-integrate/host-render.bend": "1eef120fa604ba633f06d33a8a3910845293926c36dc9c91cd59d4d5c045a28a"
+    },
+    "failure-diagnostic": {
+      "experiments/s-integrate/measurement-failure-driver.bend": "5e0507f5fc7fefe00baab2b212b219b87da64637ee4310115a2601100e727a12",
+      "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+      "experiments/s-integrate/readers.bend": "2673082b4ef5cd6c5d8f61c362e22f74b13daeb27196894278cc20b1459c22e9",
+      "experiments/s-integrate/host-observations.bend": "e6a37f6d160a53f14b08254f35cb317a68f1f2c540c40c9b88e600d0d6198e76",
+      "experiments/s-integrate/storage.bend": "8440ed1ec21c8d4874072aed8ca0ec4967f4e4e522f88d36f68050685d9e0345",
+      "experiments/s-integrate/observations.bend": "00442198a7aeb420c5defef1641fa873a8f4fcaddfd896973820fe7b875216c4",
+      "experiments/s-integrate/dispatcher.bend": "5d7652d052f9915e9735a81d470026c2f7ba2077f11b09472418a6b5213945e9",
+      "experiments/s-integrate/capture.bend": "44d5f3117a465c216ee93100026aad78e86f24c40c09c678be99935dde076817",
+      "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+      "experiments/s-integrate/schedule.bend": "98c955f7ee5039aed875a3bd93e3c94840d9ea2f48de0e6415bd28d63ee8fb98",
+      "experiments/s-integrate/systems.bend": "2cfc899215e408cc4c652c8d4c290b18800cdb6e8c96f1061a77853afdac9221",
+      "experiments/s-integrate/host.bend": "87ff2110a66dd73beefc55815c2433b2c55eec54be9bbc5adeb30d36e2c174f6",
+      "experiments/s-integrate/commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+      "experiments/s-integrate/identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+      "experiments/s-integrate/reader-host.bend": "50f1251c6d476b07055c36c5a97e3350a4cb46e5d826ff97ced2860d40798a64",
+      "experiments/s-integrate/streams.bend": "1a1c7991d6a1b4ebfb3b47dc62459beb83ed5e38ded56d27cc20b5478fc0d315",
+      "experiments/s-integrate/query.bend": "5fb8447d34edc2260341341c36dc7970964318fa582cdd078da296c5f9e1a1ce",
+      "experiments/s-integrate/transaction-dispatch-adapters.bend": "839772db858b1a04437abcb024a3879d3bca0094e9eab71bafd86bf117e89dc7",
+      "experiments/s-integrate/transaction.bend": "dd59d470030c06a30cff28abb7e57c99fac64ee3d00b76ccf3c5ae8d99b66b52",
+      "experiments/s-integrate/audited-invoker.bend": "923501b9c4167607e056af83f34468db6675adc19624f3f4cb619165324cf191",
+      "experiments/s-integrate/structural-invoker.bend": "6907a8c5775f77ffed6141123fe5c7033678269ade0f59cd0f24b8680e497932",
+      "experiments/s-integrate/host-render.bend": "1eef120fa604ba633f06d33a8a3910845293926c36dc9c91cd59d4d5c045a28a",
+      "experiments/s-integrate/measurement-lifecycle.bend": "0b2690c7d56219411dd3a14876dda8fe0c2f757fcf3656cf404fbdf76524296d",
+      "experiments/s-integrate/measurement-bend.bend": "6ffb9993c97ed7852d39a843859d69722b4cd17a8a44de992cfef5f5c814caad",
+      "experiments/s-integrate/measurement-failure-host.bend": "754e2f98fe6035959e3d2395f449e0354d1c2f55f1b56370adefa547312e53cb",
+      "experiments/s-integrate/measurement-failure-invoker.bend": "22ae7ae73989b1d0d97820bcbe4c8af46eed815f66584c330b8f3b334928b03e",
+      "experiments/s-integrate/measurement-failure-callbacks.bend": "55768432050a0fcb86334101b52c194cd5eebe04610d20c15a59e908d3ac8337",
+      "experiments/s-integrate/measurement-failure-fixture.bend": "854adca9ec4cf56792065962f7fe055d6fbeeba5058b8ad38bda133705b74419",
+      "experiments/s-integrate/measurement-failure-observe.bend": "63f4861a42f8188d99911609bfb66d4c7f5b4830fa40595cdd9d0300c6028893"
+    },
+    "failure-original": {
+      "experiments/s-integrate/measurement-failure-driver.bend": "5e0507f5fc7fefe00baab2b212b219b87da64637ee4310115a2601100e727a12",
+      "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+      "experiments/s-integrate/readers.bend": "2673082b4ef5cd6c5d8f61c362e22f74b13daeb27196894278cc20b1459c22e9",
+      "experiments/s-integrate/host-observations.bend": "e6a37f6d160a53f14b08254f35cb317a68f1f2c540c40c9b88e600d0d6198e76",
+      "experiments/s-integrate/storage.bend": "8440ed1ec21c8d4874072aed8ca0ec4967f4e4e522f88d36f68050685d9e0345",
+      "experiments/s-integrate/observations.bend": "00442198a7aeb420c5defef1641fa873a8f4fcaddfd896973820fe7b875216c4",
+      "experiments/s-integrate/dispatcher.bend": "5d7652d052f9915e9735a81d470026c2f7ba2077f11b09472418a6b5213945e9",
+      "experiments/s-integrate/capture.bend": "44d5f3117a465c216ee93100026aad78e86f24c40c09c678be99935dde076817",
+      "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+      "experiments/s-integrate/schedule.bend": "98c955f7ee5039aed875a3bd93e3c94840d9ea2f48de0e6415bd28d63ee8fb98",
+      "experiments/s-integrate/systems.bend": "2cfc899215e408cc4c652c8d4c290b18800cdb6e8c96f1061a77853afdac9221",
+      "experiments/s-integrate/host.bend": "cc06d581fbc762ef2fcae5091a21bb11955c6770e43abc4346de9fa884d81d2c",
+      "experiments/s-integrate/commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+      "experiments/s-integrate/identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+      "experiments/s-integrate/reader-host.bend": "50f1251c6d476b07055c36c5a97e3350a4cb46e5d826ff97ced2860d40798a64",
+      "experiments/s-integrate/streams.bend": "1a1c7991d6a1b4ebfb3b47dc62459beb83ed5e38ded56d27cc20b5478fc0d315",
+      "experiments/s-integrate/query.bend": "5fb8447d34edc2260341341c36dc7970964318fa582cdd078da296c5f9e1a1ce",
+      "experiments/s-integrate/transaction-dispatch-adapters.bend": "eea16d3f539d70bcd88fd8fd314b75d252ccaff2b9c1c8b63e7d96bfdda34142",
+      "experiments/s-integrate/transaction.bend": "d32f0b26e4a14fc784c3ce30c4d6a1ded0cf0a55ed819f54419a558445e298a4",
+      "experiments/s-integrate/audited-invoker.bend": "2ed7e484b8a043f0944e0f662a8799f94388c99f757de331fb1a79b1c07c8853",
+      "experiments/s-integrate/structural-invoker.bend": "6907a8c5775f77ffed6141123fe5c7033678269ade0f59cd0f24b8680e497932",
+      "experiments/s-integrate/host-render.bend": "1eef120fa604ba633f06d33a8a3910845293926c36dc9c91cd59d4d5c045a28a",
+      "experiments/s-integrate/measurement-lifecycle.bend": "0b2690c7d56219411dd3a14876dda8fe0c2f757fcf3656cf404fbdf76524296d",
+      "experiments/s-integrate/measurement-bend.bend": "c2351825ee3998988aa01440e484db0cd11d3dbac5a70db4a079d841aaaaf31d",
+      "experiments/s-integrate/measurement-failure-host.bend": "754e2f98fe6035959e3d2395f449e0354d1c2f55f1b56370adefa547312e53cb",
+      "experiments/s-integrate/measurement-failure-invoker.bend": "22ae7ae73989b1d0d97820bcbe4c8af46eed815f66584c330b8f3b334928b03e",
+      "experiments/s-integrate/measurement-failure-callbacks.bend": "55768432050a0fcb86334101b52c194cd5eebe04610d20c15a59e908d3ac8337",
+      "experiments/s-integrate/measurement-failure-fixture.bend": "854adca9ec4cf56792065962f7fe055d6fbeeba5058b8ad38bda133705b74419",
+      "experiments/s-integrate/measurement-failure-observe.bend": "63f4861a42f8188d99911609bfb66d4c7f5b4830fa40595cdd9d0300c6028893"
+    }
+  },
+  "generated": {
+    "readers-diagnostic": {
+      "readers-diagnostic.c": "faad865ffd7fb46c8698430ce5567502c0e2e883ea350d3e98767d9e3f512c18",
+      "readers-diagnostic.js": "eecb677b375d515ac7263480e23914d6cbf2d7bc1a71cba9eb511b556d16704b",
+      "readers-diagnostic": "1ee868729f3208ba32fbdf6192b5cadb871eed9dcd61ce1efb6d38210717ef4a"
+    },
+    "readers-original": {
+      "readers-original.c": "b08b7a93970b3ac2d9a125459c77497306f34cbc404a6de6e6d15605d159ee39",
+      "readers-original.js": "e6cf90bb057d53911f0864bd89a537ccdce07b2da5062cd8b775f2a34400abeb",
+      "readers-original": "29a17d76c16ee59d85dfc477e02abdb3d81842d7aa37510f1519c2d0520b6772"
+    },
+    "failure-diagnostic": {
+      "failure-diagnostic.c": "b31235249c232f12388dfd4aeaa3f8e652cc2ed037abe49cc70bbe7ab54a3b7e",
+      "failure-diagnostic.js": "4d28f93b3b995fd35b4fd565976e8077cd34b1d849a8474c747b930d21292507",
+      "failure-diagnostic": "9c3991b5ef1855f3f2eeab90659fac38b8ca97a487ca5b779f3c7f66501651d0"
+    },
+    "failure-original": {
+      "failure-original.c": "f5c16ed74d05ad6e0d8a04218c41b1c147b896f9cb5f060d9b5f729167f9ee64",
+      "failure-original.js": "043a77bce5ee35c069c539233968ccd3ae7066bd598326505c6e58bb518c3f0e",
+      "failure-original": "35b85b97a14f7424d6926935277fd7e52c7e8aff2033a40221ceee00efc1fe62"
+    }
+  },
+  "attempts": [],
+  "modifiedSources": {
+    "audited-invoker.bend": "923501b9c4167607e056af83f34468db6675adc19624f3f4cb619165324cf191",
+    "host.bend": "87ff2110a66dd73beefc55815c2433b2c55eec54be9bbc5adeb30d36e2c174f6",
+    "measurement-bend.bend": "6ffb9993c97ed7852d39a843859d69722b4cd17a8a44de992cfef5f5c814caad",
+    "measurement-readers.bend": "731dbceda351fc52a77ecf699c39db8002449e6f81e055789152d1181ef8105b",
+    "transaction-dispatch-adapters.bend": "839772db858b1a04437abcb024a3879d3bca0094e9eab71bafd86bf117e89dc7",
+    "transaction.bend": "dd59d470030c06a30cff28abb7e57c99fac64ee3d00b76ccf3c5ae8d99b66b52"
+  },
+  "status": "BOUNDED_FAILURE",
+  "verifiedPhysicalRecords": 26624,
+  "verifiedBackendCases": 20,
+  "unavailable": {
+    "FailedTxn1024": "Both schemas, both backends: diagnostic full-public replay and independently attempted uninstrumented verbose baseline exceed the unchanged 5s deadline. No validated peak is inferred from partial execution. See deadline-classification.json and quiet attempts.",
+    "DenseSparseLifecycle": "Actual workload metric transport untested. Dense/Sparse require the copied measurement-bend IO completion to transport the existing generic meter through diag_strip, followed by unchanged full workload validators on all schemas/sizes/backends. Lifecycle requires actual world-command owner hooks at its direct deferred-command staging/barrier path; no Tx fixture is substituted.",
+    "cachedTxSizes": "The actual Tx representation has ordinary List fields and no cached size fields. Physical traversals are checked against independent append/drain transition counts; no cached size measurement is invented.",
+    "afterOwnerRetirement": "Commit transfers command/event owners and failure discards staging. Terminal records identify retirement without claiming an inspected empty active Tx owner. Post-transfer world/log occupancy remains a distinct inspection gate."
+  },
+  "verifiedDiagnosticPoints": 31232
+}
