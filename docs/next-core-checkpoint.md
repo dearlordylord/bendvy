@@ -1,7 +1,8 @@
 # Next core checkpoint — draft for discussion
 
 This is a **draft guideline for discussion and review**, not approved proof laws,
-performance thresholds, a selected production layout or published next-stage tickets.
+performance thresholds or a selected production layout. The first two research
+tickets are now published after user authorization and [Astra review](reviews/next-research-tickets.md).
 The complete [core map](reference/core-map.md) and [SPEC](SPEC.md) remain the goal.
 
 ## Current evidence
@@ -26,7 +27,8 @@ an earlier bounded redesign checkpoint, not completion of the next-stage specs.
 - [x] Preserve the source audit and Astra decision; withdraw the old law proposal.
 - [ ] **Next: #12** — draft connected laws and runtime links, then falsify them with positive/boundary cases and meaningful mutants. Implement the audit corrections in this replacement; they are not implemented merely because the audit exists.
 - [ ] Present exact law IDs/revision for approval; only then prepare and execute the corresponding proof work.
-- [ ] Detail and review S-LAYOUT, S-INTEGRATE and S-CAPTURE, then publish their tickets. Compare indexed owned storage, integrate two-schema seams and establish capture/restoration capabilities. These have their own evidence dependencies and need not wait for unrelated proofs.
+- [x] Detail, review and publish [S-LAYOUT #16](tickets/15-indexed-storage.md) and [S-CAPTURE #17](tickets/16-capture-restoration.md). Both can start alongside #12; publication does not mean capability completion.
+- [ ] Execute #16 (indexed owned storage) and #17 (capture/restoration); use their concrete results to detail and review S-INTEGRATE before publication. These have their own evidence dependencies and need not wait for unrelated proofs.
 - [ ] Specify and implement the simple simulation after its actual capability/law gates; agree numerical thresholds before accepting performance.
 - [ ] Specify remaining full-core packages and the isolated Tower Defense copy integration as their prerequisites become ready.
 
@@ -50,8 +52,8 @@ gate passed. The detailed acceptance criteria for the immediate work live in #12
 4. Investigate captured Local/closures and noncopyable payload restoration before
    generalizing System. A failure triggers a bounded explicit contract decision.
 
-Proposed local packages S-LAYOUT, S-INTEGRATE, S-CAPTURE and P-ID/P-Q/P-CMD/
-P-TX/P-READ/P-PROVIDE are **unpublished drafts**. Law packages depend on their exact
+S-LAYOUT (#16) and S-CAPTURE (#17) are published bounded research tasks.
+S-INTEGRATE and P-ID/P-Q/P-CMD/P-TX/P-READ/P-PROVIDE remain **unpublished drafts**. Law packages depend on their exact
 subjects and approval, not a blanket benchmark gate. Production integration/layout
 adoption waits for their actual capability/performance evidence.
 
@@ -90,5 +92,6 @@ workloads after the storage/CPU evidence, not silently removed.
   no runtime-proof approval is inferred.
 - Numerical proposal: native >=2x per representative workload/size; JS <=1.10x
   time with uncertainty below that margin. Both unapproved; current layout fails.
-- Is the ordering above suitable for the next detailed ticket breakdown? Publish
-  new packages only after this checkpoint's human review; no premature ready state.
+- The user authorized the first research breakdown; Astra reviewed it and #16/#17
+  are published. Review each remaining detailed breakdown before publication; no
+  premature ready state for integration, proofs or simulation.
