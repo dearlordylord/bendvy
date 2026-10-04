@@ -291,3 +291,42 @@ No new hard documented-standard violation or actionable heuristic smell identifi
 in this supplement. This resolves the current main mutation delivery only. Mandatory
 performance, unfinished workload/timing and RSS-method validation remain open; no
 new law/dependency approval, universal refinement or full-core acceptance follows.
+
+## 2026-10-04 — bounded measurement delivery `71fd6f7`
+
+**Standards verdict:** no new hard documented-standard violation or actionable
+baseline smell found in the inspected measurement/collector delivery. This does
+not approve the renderer or close #19. No costly resampling was performed.
+
+Reviewed the small C collector: exec removes the Python address space, then fork
+creates the measured child from the small launcher; inner `wait4` records Linux
+KiB separately from the launcher's inherited peak. Exit/signal status propagates.
+The outer observer creates a session and kills its complete process group at five
+seconds, covering both launcher and workload. Independent temporary controls with
+192 MiB retained Python memory returned inner 1,240 KiB for a tiny child despite
+launcher peak 207,884 KiB; exit codes 0 and 7 propagated correctly. This corroborates
+the environment-specific floor repair, not an allocation or steady-state claim.
+Old contaminated RSS comparisons remain withdrawn and timing values unchanged.
+
+Independently checked corrected memory evidence: exact runner/launcher hashes and
+both current workload closure inventories; 294 records comprise 284 fully validated
+passes and ten deadlines, with twelve complete case sets. Every recorded summary
+median/min/max recomputes exactly. Failure samples are retained, not replaced.
+Validation occurs before measured values are accepted; collection includes startup,
+warmup/setup, actual operations, retained observations and serialization. Occupancy
+and peak lag are explicitly unavailable; drained logical output cannot establish
+physical peak retention. CPU placement does not establish exclusive execution.
+
+Lifecycle's authored timing closure is retained as a retrievable historical
+snapshot, explicitly differing in five runtime files from the joined root. Its
+ratios do not certify current bytes. The missing helper import is corrected;
+current complete replay remains pending. Current compiling mutation witnesses
+identify actual public query handle/order and disposal visibility differences,
+without treating checker failures or deadlines as semantic detections. Authoritative
+TS failure must remain a failed case, not a reference silently replaced by an oracle.
+
+Mandatory performance acceptance remains unsatisfied by visible regressions and
+failed requested sizes. Experimental indexed-adapter #20 is a documented follow-up,
+not production approval or a passed performance gate. Dynamic failed-transaction
+workload and final current lifecycle evidence still require review; no new law,
+dependency, universal refinement or full-core completion follows.
