@@ -4,7 +4,7 @@ Independent review of `a976667...d95f83c`, including the subsequent clean-checko
 `owned-storage-run.py` repair (SHA256
 `02d50b146f3b50d61b013bfc1db1f3875d7e22b4127f7b418c8542aae3e676ba`).
 Standards: AGENTS.md, issue-tracker.md, SPEC.md, indexed-storage/API/design review,
-and bend-ldd. Live #20 was read. Final delivery artifacts require the closing
+and bend-ldd. Live #20 was read. Delivery artifacts require the closing
 review supplement below.
 
 **Hard standards violations: none found in the reviewed implementation.**
@@ -40,3 +40,15 @@ an absolute repository path. Fowler MysteriousName suggests naming this as a
 historical construction helper. Clean replay should use committed frozen overlays
 and documented build/validation commands; recreating that vanished snapshot is
 not a prerequisite for inspecting or executing those packages.
+
+## Delivery supplement
+
+Reviewed `c838719` and `eb1c066`: no additional hard violations. The TS physical
+diagnostic adapter copies pinned reference sources, records actual state and
+checks unchanged full callback observations; first failed attempts remain
+retained. The clean owned replay now documents its three semantic mutants.
+The README supplies fresh-overlay commands. The provisional completion report
+explicitly marks evaluation incomplete, rejects production adoption and records
+missing workload/diagnostic gates and concrete return conditions. Final quiet
+FailedTxn, actual Bend Readers diagnostics and the final closure decision remain
+outside this supplement; they require their own source/evidence review.
