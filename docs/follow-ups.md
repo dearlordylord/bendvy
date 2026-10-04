@@ -161,3 +161,24 @@ performance acceptance only with integrated equivalent workloads, uncertainty
 measurements and approved numerical thresholds; retain mandatory native
 substantial improvement and JS comparability. No general law/refinement proof
 or simulation readiness follows from these finite controls.
+
+
+## Replacement-law return conditions
+
+[#12](../experiments/t11-replacement/README.md) delivers the exact open
+[31-law proposal](reviews/laws-replacement-package.md) and finite falsification,
+including direct owned query/lookup/reserve/tick result links. Approve exact IDs
+and law revision before proof work. Separate model/helper proofs, owned runtime
+refinement, provider confinement and compiler/backend/host IO obligations.
+
+Return to P-ID for independent-root authority and explicit allocator/public
+foreign-command policies; to P-Q/P-PROVIDE for general schemas, declared access
+and broader Type payloads; to P-CMD/P-READ for actual lifecycle publications,
+reader selection/registration/success/skip/failure/retry/retention/lag and cleanup;
+to P-TX/S-INTEGRATE for allocation/marks/cursors/captures, failed publications and
+earlier-commit restoration across composed schedules. The element-zero runtime
+relation preserves declared observations, not arbitrary array contents or
+physical owner identity. Resolve the arithmetic high-bound normalization/tooling
+gaps for any proof that uses those bridges. These remain draft packages requiring
+detail/review before publication; storage benchmark results do not blanket-block
+independent law drafting or waive mandatory product performance.

@@ -1,6 +1,6 @@
 # Independent replacement-law verification
 
-Independent bounded validation is complete; integration and final reviews are pending.
+Independent bounded validation is complete; the package is integrated and both final review axes pass.
 Exact law SHA256: `e0c607d723ad250a189c096d9fa3fd6a36913f4c72efd3a3be6dacd7fadb2cbc`.
 [Recorded IDs, counts, witnesses and hashes](laws-independent-verification.json).
 
@@ -23,5 +23,5 @@ clang and runtime used their separate bounded limits. Tools/pins are those in th
 runtime report: Bend 2.0.34, Node 24 and clang 14; no dependency was added.
 
 These finite checks approve no general laws or proofs, production API, payload
-restriction or performance threshold. Final publication still requires synchronized
-primary artifacts, both review axes and presentation of the exact proposal.
+restriction or performance threshold. The primary artifacts and both review axes are synchronized. The exact proposal
+remains unapproved; law approval and all general capability gates stay open.

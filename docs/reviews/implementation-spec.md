@@ -83,4 +83,49 @@ evidence; this does not pass product performance or integration gates.
 
 This reviewer inspected code, adapters, controls and stored 59 semantic
 checkpoints; no new runtime/measurement run is claimed. Coordinator verification
-was running during review. #12 is not yet reviewed in this report.
+was running during review.
+
+## #12 Replacement laws
+
+Reviewed `484fb88...9fd904b`, focusing on `e875d0d...9fd904b` and the independent
+verification committed at `e875d0d`. Authority: live
+[#12](https://github.com/dearlordylord/bendvy/issues/12),
+[ticket](../tickets/11-candidate-laws.md), SPEC and source-law decision.
+
+**Bounded research passes Spec review; no remaining implementation blocker or
+scope creep identified.** Delivery still requires coordinator checklist/tracker
+synchronization. Specific laws remain unapproved; this is not proof acceptance.
+
+- Historical withdrawal/mapping and interfaces: all fourteen historical decisions
+  map to stronger subjects, retained helpers or explicit later packages. Pure Nat
+  admissibility is an explicit overapproximation; fixed reachable witnesses and
+  malformed-state controls do not masquerade as reachability induction. Independent
+  entity-wise replay and enumeration constrain complete ordered observations.
+- Guards/commands/positive controls: full functions compute namespace/capacity
+  checks, derive command targets from handles and retain explicit barriers.
+  FIFO, survivors, unknown targets, queue clearing, local successes and foreign
+  collisions have concrete witnesses. Root provenance and public exhaustion/
+  foreign-command result policy remain explicit decisions.
+- “State runtime/model relation, initial correspondence, operation correspondence
+  and admissibility preservation”: direct erased-owner propositions constrain
+  creation, projection, returned observations and actual step/query/lookup/reserve/
+  tick callers. The preliminary missing-caller findings are fixed. Schedule safety
+  checks every independent-spec prefix; conditional encoder branches are pinned.
+  Element-zero observation is distinguished from arbitrary-array or physical-owner
+  preservation. Live erased-owner leakage is separately rejected.
+- Falsification and approval presentation: verified all 31 exact IDs and law SHA256
+  `e0c607d723ad250a189c096d9fa3fd6a36913f4c72efd3a3be6dacd7fadb2cbc`;
+  1,411 active equalities, 635 excluded Unit controls, 31 compiling own-statement
+  mutants and twelve refreshed extras. Source/dependency/runner hashes and
+  independent count/witness mappings match. Runtime evidence records 72 actual
+  TS/Native/JS observations, twelve backend mutants, four authority pairs, the
+  erasure pair and five U32 boundaries. Exact IDs, rationale, sketches and limits
+  are presented; no ECS proof is supplied.
+
+Inspected propositions, executable subjects, independent interpretations, fixtures,
+runners and artifacts; this reviewer launched no verification runs. Provenance is
+accurately segmented: primary grids completed before obsolete extra-stage exit1;
+refreshed extras/runtime exited0. Independent 25+6+12 stages cover unchanged
+subjects; no clean whole-command PASS is claimed. External-falsifier/high-bound
+normalization gaps and later transactional-reader/provider/full-core obligations
+remain recorded, satisfying the follow-up requirement without accepting those gates.

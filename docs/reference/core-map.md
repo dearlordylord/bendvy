@@ -74,14 +74,14 @@ API/storage or publishing further implementation/proof packages.
 | Core seam | Current bounded evidence | Remaining full-core gate |
 | --- | --- | --- |
 | Schema/query/capabilities | R-A and R-C1 abstract providers, two schemas and negative controls | General captured systems, schema composition, authority/refinement and integrated scalable storage |
-| Data/Type payload | T04 owned array; T06 reversible owned U32 fields | Generic affine restoration, captured/IO payloads and scalable cost |
-| Identity/deferred commands | T05; approved foreign-world MissingEntity divergence | Runtime-owned namespace, generation/exhaustion/restore, general bundles and indexed bounds |
+| Data/Type payload | T04/T06; #16 indexed owned Type cells and #17 bounded inverse restoration | Generic affine restoration, captured/IO payloads and scalable cost |
+| Identity/deferred commands | T05 and #12 bounded owned factory/reservation/commands; approved foreign-world MissingEntity divergence | Independent-root namespace authority, generation/exhaustion/restore, general bundles and integrated indexed bounds |
 | Transactions/publication | T06 prior commits, inverse rollback and staged events/commands | Allocation/mark/local/cursor rollback in an integrated provider/schedule runtime |
 | Messages | T07 independent readers, skip/failure, retention/capacity/lag | Generic affine fan-out, reader authority/lifecycle, epochs and scalable layout |
 | Changes/removals | T08 independent marks/positions; retained deletion records; individual capacity | General Type marks, sparse indexes, identity/provider/schedule integration and refinement |
-| Schedule/provisioning | T09 closed nested callbacks with typed failure | Captured Local, conditions/phases/features/requirement unions and lifecycle |
-| Performance | T10 reproducible finite prototype comparison; storage redesign required | Native substantial speedup and JS comparability on approved representative workloads/thresholds |
-| Laws/refinement | T11 historical 14-law helper/model controls; public proposal withdrawn after source audit | Connected transition/admissibility package, meaningful falsification, exact approval, general proofs and runtime correspondence |
+| Schedule/provisioning | T09; #17 repeatable explicit-owner/regenerated-closure state and typed failure | General Local policy/captures, conditions/phases/features/requirement unions and lifecycle |
+| Performance | T10 and #16 indexed/owned comparisons; dense and some JS paths still regress | Native substantial speedup and JS comparability on approved representative workloads/thresholds |
+| Laws/refinement | Historical T11 proposal withdrawn; #12 delivers 31 open connected laws, finite controls, compiling mutants and owned-runtime observations | Exact replacement approval, general model/helper proofs, owned runtime refinement, broader payload/wrapper and backend obligations |
 | Relations/scopes | Retained core, no executable gate completed | Identity/transaction/reader integration, inverse/cleanup/cycle/order scenarios |
 | States/transitions | Retained core; only state skip used in TS adapters | Explicit exit/transition/enter failure boundaries and queue/publication laws |
 | Validation/snapshots/inspectors/debug | Retained core, no executable gate completed | Payload/identity restoration boundary, validation-before-mutation and observation noninterference |

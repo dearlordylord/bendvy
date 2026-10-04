@@ -21,29 +21,28 @@ production adoption and performance acceptance remain open.
 [T10](../experiments/t10/README.md) rejects adopting the current ordered-list layout
 on performance. [T11](../experiments/t11/README.md) retains historical helper/model evidence;
 its old public-law proposal was withdrawn after the [source decision](reviews/laws-decision.md).
-A connected transition package must be drafted/falsified before new law approval;
-numerical thresholds remain pending. No general proofs exist.
+[Replacement #12](../experiments/t11-replacement/README.md) now provides 31
+connected, open transition/observation laws with exact independent premises and
+actual owned-runtime caller links. All 31 primary mutants and twelve refreshed
+extra mutants are detected; 1411 active equalities and 635 excluded-domain controls
+are separate. [Independent verification](reviews/laws-independent-verification.md)
+and both review axes cover the bounded package. Segmented execution and its old
+runner failure are recorded explicitly; no universal proof is inferred.
 
-#12 replacement is being implemented in an isolated worktree. Direct erased-owner
-propositions replace the rejected Boolean certificate encoding; no runtime owner
-clone is assumed. Preliminary Astra review found missing public caller links:
-owned query/lookup results, the reservation-returned handle and actual runtime
-schedule execution must be constrained beside successor-world observations.
-Runtime schedule correspondence needs prefix-safe increments and must reject
-ignored steps or an implicit final flush. Add direct operation correspondences and
-compiling mutants before presenting exact law IDs/revision. Current draft counts
-and earlier run artifacts are not final evidence or approval.
-
+[Exact proposal](reviews/laws-replacement-package.md), law SHA256
+`e0c607d723ad250a189c096d9fa3fd6a36913f4c72efd3a3be6dacd7fadb2cbc`, awaits human
+approval before proof. Numerical thresholds remain pending. No general proofs exist.
 
 ## Execution checklist and tracker ownership
 
-Resume here and in [open T11 / #12](tickets/11-candidate-laws.md). The full-core
+Resume here and in the [delivered T11 / #12 proposal](tickets/11-candidate-laws.md). The full-core
 tracker is [#1](https://github.com/dearlordylord/bendvy/issues/1); closed #13 records
 an earlier bounded redesign checkpoint, not completion of the next-stage specs.
 
 - [x] Preserve the source audit and Astra decision; withdraw the old law proposal.
-- [ ] **Next: #12** — draft connected laws and runtime links, then falsify them with positive/boundary cases and meaningful mutants. Implement the audit corrections in this replacement; they are not implemented merely because the audit exists.
-- [ ] Present exact law IDs/revision for approval; only then prepare and execute the corresponding proof work.
+- [x] Execute #12: connected laws/runtime caller links, independent domains and observations, reachable controls, compiling mutants and bounded backend comparisons are delivered.
+- [x] Present the exact 31-law revision with rationale, controls, proof sketches, dependencies and explicit limits.
+- [ ] Obtain human approval of the exact IDs/revision before preparing or executing their proof work.
 - [x] Detail, review and publish [S-LAYOUT #16](tickets/15-indexed-storage.md) and [S-CAPTURE #17](tickets/16-capture-restoration.md). Both can start alongside #12; publication does not mean capability completion.
 - [x] Execute #17 and review both axes: bounded state/closure/restoration evidence is recorded; general capability gates remain open.
 - [x] Execute and review #16: indexed owned-storage research is complete; dense/JS regressions retain the performance gate.
@@ -53,13 +52,12 @@ an earlier bounded redesign checkpoint, not completion of the next-stage specs.
 
 Keep this checklist and the active ticket synchronized when evidence or decisions
 change. A checked research item does not imply a capability, law or performance
-gate passed. The detailed acceptance criteria for the immediate work live in #12.
+gate passed. The completed research criteria live in #12; its specific-law approval remains open.
 
 ## Detail now
 
-1. Replace the withdrawn T11 bundle with connected transition/observation laws,
-   admissibility and computed-guard/runtime correspondence controls. Review and
-   approve exact replacement IDs/revision before any general proof. Keep helper/model proofs separate from provider
+1. Obtain approval of the delivered replacement law IDs/revision before any
+   general proof, then detail its actual proof subjects/dependencies. Keep helper/model proofs separate from provider
    confinement, owned runtime refinement and backend/host IO.
 2. Compare owned indexed columns/slot map with stable ordered membership against
    current dense/sparse/update/churn/read/rollback workloads. Preserve Type payloads,
@@ -108,8 +106,8 @@ workloads after the storage/CPU evidence, not silently removed.
 
 ## Decisions for review
 
-- Review the replacement law package after connected transition statements and
-  meaningful falsification exist. The old fourteen-law approval request is withdrawn;
+- The replacement 31-law package passed both review axes and awaits human
+  approval of its exact IDs/revision. The old fourteen-law request is withdrawn;
   no runtime-proof approval is inferred.
 - Numerical proposal: native >=2x per representative workload/size; JS <=1.10x
   time with uncertainty below that margin. Both unapproved; current layout fails.

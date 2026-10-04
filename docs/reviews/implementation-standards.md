@@ -75,5 +75,46 @@ follow Bend ownership/DAG constraints. Owned linked-list measurements deliberate
 share Cell operations while independent TS remains separate; this is evidence
 design rather than speculative abstraction.
 
-Summary for #16: 0 hard findings; 0 actionable heuristic findings. #12 remains
-unreviewed until its integrated commit is available.
+Summary for #16: 0 hard findings; 0 actionable heuristic findings.
+
+## #12 — replacement laws
+
+Reviewed `git diff 484fb88...9fd904b`, focusing on `e875d0d...9fd904b` and
+independent verification report `e875d0d`. Both refs resolve and the diff is
+nonempty. Inspected model/spec/runtime/bridge, exact laws, runners, controls,
+primary/extra/runtime artifacts and independent provenance.
+
+**Hard violations: none found.** All 31 laws remain unfilled and explicitly
+unapproved; no general ECS proof or new dependency was added. Filled literal
+equations are finite falsification controls, distinguished from quantified proof.
+Exact law SHA256 is `e0c607d723ad250a189c096d9fa3fd6a36913f4c72efd3a3be6dacd7fadb2cbc`.
+The review proposal lists the matching 31 IDs and approval scope.
+
+Affine arrays/worlds/factories thread through executable callers. Erased owners
+occur only in propositions; a positive encoding control and intended live-leak
+negative test this boundary. Separate direct equations pin query/lookup/reserve
+results and returned observations, actual schedule execution and the conditional
+Type encoder. Owner preservation is explicitly limited to the declared element-
+zero projection, not physical identity or all payload contents.
+
+The falsifier fixes original reachable literals before mutation, separates
+1,411 active equalities from 635 excluded Unit controls, checks mutant modules,
+and requires a failing instance in the law's own literal section with an original
+true-domain witness. Primary 31 and refreshed extra 12 mutants are recorded;
+runtime independently detects twelve compiling backend defects. Existing
+five-second checker/runtime wrappers and separate emission/clang bounds remain.
+All inspected frozen Bend source hashes match both final primary artifacts.
+
+Execution provenance is honest: the old full command exited 1 after completing
+its primary stage; refreshed extras exited 0. Independent validation covers 25+6
+grids, refreshed extras and the matching complete runtime artifact, rather than
+claiming a clean one-shot run. Reports retain high-bound normalization, external-
+tool compatibility, root provenance, generic payload and wrapper/refinement gaps.
+Research completion does not approve laws, policies or performance thresholds.
+
+**Heuristic smells: none requiring action.** Independent model/oracle/owned
+interpretations intentionally avoid shared decision logic. Small owner-return and
+single-head-match helpers satisfy Bend constraints.
+
+Summary for #12: 0 hard findings; 0 actionable heuristic findings. Across reviewed
+#12/#16/#17: 0 hard findings; 0 actionable heuristic findings.
