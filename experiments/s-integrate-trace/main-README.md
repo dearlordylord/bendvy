@@ -70,8 +70,18 @@ claimed from TS construction.
 
 Event lag is read through the public event view's `lagged()`. Removed/despawned
 views expose no direct public `lagged()` method here and are explicitly marked
-`unavailable-public-api`; public debug `system.missed` provenance, if later used,
-must remain separate from the actual lifecycle read values. E11 capacity/overflow
+`unavailable-public-api`. The runtime is now actually made with `debug:true` and
+its public `runtime.debug.observe` listener captures every Fast/B `system` event:
+raw frame/tick, outcome and `missed`. Each event is associated with its actual
+callback's step, reader and invocation count, including both failed B attempts.
+All 19 reader invocations per lane have a matching diagnostic; `missed=[]` is
+asserted for every one in this non-overflow fixture. Failed B events report
+`failed`; all successful reader events report `ok`. This is passive public
+lifecycle/event lag provenance, kept separate in `traceDiagnostic` and
+`readerDiagnostics` from actual removal/despawn/message values and callback
+`events.input.lagged()`. No cursor/state introspection is used. Nondeterministic
+`ms` is excluded; raw deterministic frame/tick values are preserved. Fresh full
+four-lane and repeat runs pass with exact diagnostic/evidence/hash equality. E11 capacity/overflow
 is separately assigned and is not implemented or passed by this package.
 
 Native/JS Bend parity, ownership/access/reconstruction/destructive-recovery

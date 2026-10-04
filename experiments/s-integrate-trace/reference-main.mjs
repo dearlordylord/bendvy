@@ -31,10 +31,10 @@ function execute(schema,style){
   const Added=G.Query({selection:{main:G.Query.read(Main)},filters:[G.Query.added(Main)]});
   const Changed=G.Query({selection:{main:G.Query.read(Main)},filters:[G.Query.changed(Main)]});
   const Write=G.Query({selection:{main:G.Query.write(Main)}});
-  const effects=[], reservations=[], invocations=[], reads=[], ownWrites=[], snapshots=[], dispatches=[];
+  const effects=[], reservations=[], invocations=[], reads=[], readerDiagnostics=[], ownWrites=[], snapshots=[], dispatches=[];
   const makeRuntime=(resource=true,service=true,serviceEffects=effects)=>G.Runtime.make({resources:resource?{[Ledger.name]:ledger(100)}:{},
     services:service?G.Runtime.services(G.Runtime.service(Audit,{log:text=>serviceEffects.push(text)})):G.Runtime.services(),
-    machines:G.Runtime.machines(G.Runtime.machine(Mode,'On'))});
+    machines:G.Runtime.machines(G.Runtime.machine(Mode,'On')),debug:true});
   const alpha=makeRuntime(),beta=makeRuntime();
   const ids={alpha:new Map(),beta:new Map()}, handles={alpha:new Map(),beta:new Map()};
   const names={alpha:new Map(),beta:new Map()};
@@ -52,6 +52,17 @@ function execute(schema,style){
   function auxiliary(world,match){return {label:label(world,match.entity.id),rawId:match.entity.id.value,aux:clone(match.data.aux.get()),
     main:match.data.main.present?clone(match.data.main.get()):null,flag:match.data.flag.present?clone(match.data.flag.get()):null};}
   let step='E0',mode='observe',betaApplied=false;let auxLive=[],flagLive=[],alive=new Set();
+  const stopReaderDiagnostics=alpha.debug.observe(event=>{
+    if(event.type!=='system'||(event.system!=='Fast'&&event.system!=='B'))return;
+    const invocation=reads.findLast(read=>read.step===step&&read.who===event.system&&!read.traceDiagnostic);
+    assert.notEqual(invocation,undefined,'Public system event must follow its actual reader callback');
+    const diagnostic={frame:event.frame,tick:event.tick,outcome:event.outcome,missed:clone(event.missed)};
+    invocation.traceDiagnostic=diagnostic;
+    readerDiagnostics.push({step,who:event.system,count:invocation.count,...diagnostic});
+    check(lane,step+'.'+event.system+'.public-debug-missed',event.missed,[]);
+    check(lane,step+'.'+event.system+'.public-debug-outcome',event.outcome,
+      event.system==='B'&&(step==='E2'||step==='E7-fail')?'failed':'ok');
+  });
   function snapshot(world,name,prior){let data;const Observe=G.System('Snapshot:'+world+':'+name,{queries:{q:Q,plus:Plus,minus:Minus,optional:Optional,aux:AuxRows},resources:{ledger:G.System.readResource(Ledger)}},({queries,resources,lookup})=>{
     const lookups={};for(const [name,handle] of handles[world]){const found=lookup.getHandle(handle,Q);lookups[name]=found.ok?{result:'Found',...row(world,found.value)}:{result:found.error._tag,rawHandle:handle.value};}
     data={world,name,q:queries.q.each().map(x=>row(world,x)),plus:queries.plus.each().map(x=>row(world,x)),minus:queries.minus.each().map(x=>row(world,x)),optional:queries.optional.each().map(x=>row(world,x,true)),aux:queries.aux.each().map(x=>auxiliary(world,x)),ledger:clone(resources.ledger.get()),lookups,
@@ -175,7 +186,10 @@ function execute(schema,style){
     check(lane,'E10.missing-'+kind+'.tails',tails,beforeTails);check(lane,'E10.missing-'+kind+'.earlier-audit',effects,beforeAudit);
     provisioning.push({missing:kind,result:clone(result),invocations:preflightCalls,effects:preflightEffects,actualE2BaseInstances:true});
   }
-  return {lane,schema,style,rawReservations:reservations,reads,ownWrites,snapshots,dispatches,auditEffects:effects,foreignLookupDivergence:foreign,provisioning,
+  check(lane,'public-reader-diagnostic-count',readerDiagnostics.length,reads.length);
+  check(lane,'every-reader-invocation-associated',reads.every(read=>read.traceDiagnostic!==undefined),true);
+  stopReaderDiagnostics();
+  return {lane,schema,style,rawReservations:reservations,reads,readerDiagnostics,ownWrites,snapshots,dispatches,auditEffects:effects,foreignLookupDivergence:foreign,provisioning,
     finalCounts:Object.fromEntries(Object.entries(locals).map(([name,owner])=>[name,owner.get()])),tails,
     scope:{TS:'public reference execution',BendOwnershipAndNegativeControls:'not executed; future integrated Bend gate',foreignCommandResult:'open; not invented',relocation:'no public TS relocation; future adapter lane'}};
 }
@@ -183,7 +197,7 @@ const requested=process.argv.includes('--schema')?process.argv[process.argv.inde
 assert.ok(requested===null||requested==='Motion'||requested==='Health');
 let defect=null;
 try{for(const schema of requested?[requested]:['Motion','Health'])for(const style of ['returned-owner','regenerated-closure'])results.push(execute(schema,style));}catch(error){defect={name:error.name,message:error.message,stack:error.stack};}
-const sourceFiles=['index.ts','Descriptor.ts','Schema.ts','Entity.ts','Command.ts','Query.ts','System.ts','Runtime.ts','Schedule.ts','Fx.ts','internal/world.ts','internal/streams.ts'];
+const sourceFiles=['index.ts','Descriptor.ts','Schema.ts','Entity.ts','Command.ts','Query.ts','System.ts','Runtime.ts','Schedule.ts','Fx.ts','internal/world.ts','internal/streams.ts','Debug.ts'];
 const sha=path=>createHash('sha256').update(readFileSync(path)).digest('hex');
 console.log(JSON.stringify({status:defect||differences.length?'FAIL: exact expected trace differs or execution defective':'PASS: fresh E0-E10 public TS main traces',
   node:process.version,reference:{commit,path:REFERENCE,hashes:Object.fromEntries(sourceFiles.map(name=>[name,sha(REFERENCE+'/packages/core/src/'+name)]))},
