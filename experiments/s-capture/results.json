@@ -1,0 +1,141 @@
+{
+  "environment": {
+    "bend": "bend 2.0.34",
+    "node": "v24.20.0",
+    "clang": "Debian clang version 14.0.6",
+    "bend_sha256": "d4821d04932218216c9dc906223ed0e23dd86726d4357a567fb76ee6c976db4e",
+    "base_sha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+    "affinity": [
+      9
+    ],
+    "references": {
+      "bevy-ts": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334",
+      "bevy": "ad678262ce53b5d142fe49ee5e08caff6f00ab60",
+      "bend2": "a950fd683c0d76f09794078e6174fe98a1492876"
+    },
+    "checker_seconds": 5,
+    "runtime_seconds": 5,
+    "codegen_seconds": 30,
+    "clang_seconds": 120
+  },
+  "trace_lines": 39,
+  "controls": {
+    "undeclared": {
+      "positive_exit": 0,
+      "negative_exit": 1,
+      "expected": "C.Tx",
+      "observed": "T",
+      "location": "bad"
+    },
+    "schema": {
+      "positive_exit": 0,
+      "negative_exit": 1,
+      "expected": "C.Motion",
+      "observed": "C.Other",
+      "location": "bad"
+    },
+    "read": {
+      "positive_exit": 0,
+      "negative_exit": 1,
+      "expected": "C.Tx",
+      "observed": "T",
+      "location": "bad"
+    },
+    "consume": {
+      "positive_exit": 0,
+      "negative_exit": 1,
+      "expected": "f",
+      "observed": "f (consumed more than once)",
+      "location": "bad"
+    },
+    "snapshot": {
+      "positive_exit": 0,
+      "negative_exit": 1,
+      "expected": "Data",
+      "observed": "Type",
+      "location": "bad"
+    },
+    "destructive": {
+      "positive_exit": 0,
+      "negative_exit": 1,
+      "expected": "payload",
+      "observed": "payload (consumed more than once)",
+      "location": "bad"
+    }
+  },
+  "mutants": {
+    "lose-persistence": {
+      "checker": "PASS",
+      "native_js_agree": true,
+      "first_difference": {
+        "line": 10,
+        "normal": "invoke:B:local=2:seen=1,",
+        "mutant": "invoke:B:local=1:seen=1,"
+      }
+    },
+    "share-state": {
+      "checker": "PASS",
+      "native_js_agree": true,
+      "first_difference": {
+        "line": 4,
+        "normal": "empty:result=Success:payload=10,20,30,40:commands=:local=0,1:B-unread=0:tail=1",
+        "mutant": "empty:result=Success:payload=10,20,30,40:commands=:local=1,0:B-unread=0:tail=1"
+      }
+    },
+    "omit-restoration": {
+      "checker": "PASS",
+      "native_js_agree": true,
+      "first_difference": {
+        "line": 13,
+        "normal": "failed:result=B:7:payload=11,20,30,40:commands=remove:A,:local=1,2:B-unread=1:tail=2",
+        "mutant": "failed:result=B:7:payload=31,20,30,40:commands=remove:A,:local=1,2:B-unread=1:tail=2"
+      }
+    },
+    "reverse-undo": {
+      "checker": "PASS",
+      "native_js_agree": true,
+      "first_difference": {
+        "line": 13,
+        "normal": "failed:result=B:7:payload=11,20,30,40:commands=remove:A,:local=1,2:B-unread=1:tail=2",
+        "mutant": "failed:result=B:7:payload=21,20,30,40:commands=remove:A,:local=1,2:B-unread=1:tail=2"
+      }
+    },
+    "advance-failed-reader": {
+      "checker": "PASS",
+      "native_js_agree": true,
+      "first_difference": {
+        "line": 13,
+        "normal": "failed:result=B:7:payload=11,20,30,40:commands=remove:A,:local=1,2:B-unread=1:tail=2",
+        "mutant": "failed:result=B:7:payload=11,20,30,40:commands=remove:A,:local=1,2:B-unread=0:tail=2"
+      }
+    }
+  },
+  "regenerated_closure_trace_lines": 39,
+  "local-control": "2,1",
+  "closure": "2,1",
+  "source_sha256": {
+    "closure.bend": "5cad2a749c9ea77109f83f76fdd21521848e87a58d0189918b525dfce1a2214c",
+    "consume-control.bend": "5f4ad33d43412f05280ccbd1d8dee08e7f18d4c496e78d273b04baf6fd3c6ecf",
+    "consume-negative.bend": "e57bed3d99bde2704249f8b427dabd3b77edf38208bba7a1dee9643ddb558b8c",
+    "core.bend": "78cd6912382034ef1971e7dd406db82f4c2036ace34f4bd9c3a4095ea263b74d",
+    "destructive-control.bend": "2bce17a6bfeda077d4203e5893a093e7984c5bb73c4285a11a4101da807c3c2e",
+    "destructive-negative.bend": "67d849ebfe85bd6c2c5bb9f404be12e55b12558b7306d9a8ae2e4244e2a81cdc",
+    "local-control.bend": "d90863d63261eb31ce0f4abab4208318747c32511a1b8a9e7e91a5854c090648",
+    "local.bend": "0eaab9b7cd4ff74efac49a3d20fefac85775e8d6a465286031042eccb2e831d7",
+    "main.bend": "5bb13d6d4ccc34a89f4985978ff1ec833d6fb51227f8992c2b3dac5c4236b6a3",
+    "payload.bend": "5fc46fe8eb00a60097f9f9e670786add7faf79be9dcb797d5082c291f43fdf9f",
+    "read-control.bend": "1d8586726152cda722fe177f8163e9838b3ee362a26f2f6edab39535d44dbf98",
+    "read-negative.bend": "abb170e92ab2a5b4ce417ffb83e7ed87d3dbc3b3b681e3a51ad77055a74f70b6",
+    "schedule.bend": "3e2c217d65e6ff7dbf8122b2eebc9d625ab43007dec175f1a32bb91aaaf17349",
+    "schema-control.bend": "1d8cb28ea27a19696941e3f4d33532045273c115002f5962a293dc019b657b64",
+    "schema-negative.bend": "f33536e18b00a217b53741b9fd4a4547781c3d8feb6751e6c8dcd31a3bfb4205",
+    "snapshot-control.bend": "b0b80253d8881a7b134b6c9cb643e8c987e9204b7b8c98d255f65fe6588a9fcd",
+    "snapshot-negative.bend": "83b4ffa3b6f91745d8fc126599923a9ff349c3163c116f987b0b2d639e02d11e",
+    "system.bend": "3cd098e9f493967bb99596ebc7d4661da6402ade1770cca064cce5561dae7565",
+    "undeclared-control.bend": "1d8cb28ea27a19696941e3f4d33532045273c115002f5962a293dc019b657b64",
+    "undeclared-negative.bend": "a432da6d4437ff97fe054b091bf7ef67e41d26802332423eb8bd43aab850bebe",
+    "reference.mjs": "4b022199b725b734cd75cd186a95811c28476d448dcaaadbd056187a294fcdcf",
+    "run.py": "5f283cb037a69aed7386c072fee8a37f2931bc1e8eb747a6fd8b77dd4c4ca005",
+    "expected.txt": "420788b38b2d893b9d70b8dcfe175eac9e38bc1e850f904764f29dd3d6ec1dd0"
+  }
+}
