@@ -1,0 +1,514 @@
+{
+  "scope": "complete",
+  "fullTaskAcceptance": false,
+  "checkerLimitSeconds": 5,
+  "runtimeLimitSeconds": 5,
+  "referenceSHA256": "e1b143510343aa8f982c1d52dfc02c64acdd8fec24b78380ace03b1ec3a04f58",
+  "nativeOptimization": "O0",
+  "cpuAffinity": [
+    2
+  ],
+  "decoderSHA256": "c93810aae8a63a36e0fe10d20ff5d7fc179632cfd89cc9f98d4e9ab574738496",
+  "comparatorSHA256": "2cc66b6c15a931f8957b12312794a69fcc3df4fc99ae05cb988f8b8f52b4fb39",
+  "sources": {
+    "audited-invoker.bend": "2ed7e484b8a043f0944e0f662a8799f94388c99f757de331fb1a79b1c07c8853",
+    "capture.bend": "44d5f3117a465c216ee93100026aad78e86f24c40c09c678be99935dde076817",
+    "commands.bend": "022ea5ca1f44c952ae77071689d0735e5a38976d7f628203d85fd9cc920a1194",
+    "dispatcher.bend": "3530c7c20d704ba51a9cdace1f028e507960458b9c0bdcdf0dbc0d546c800b07",
+    "host-fixture.bend": "8fb0b1dd16543f8ce6f7c39be14cb1871c10d8bd90e6f3559402abd1483329cb",
+    "host-observations.bend": "e6a37f6d160a53f14b08254f35cb317a68f1f2c540c40c9b88e600d0d6198e76",
+    "host-preflight.bend": "c1d5ea812dc980ae54c6af678b28c2fe31201ec21329c3468b83025898575e94",
+    "host-render.bend": "1eef120fa604ba633f06d33a8a3910845293926c36dc9c91cd59d4d5c045a28a",
+    "host.bend": "b50bc903906cb6a842d0ef88ba84fe0dbf0dd7abdb85c0fa436bccf228b74bb9",
+    "identity.bend": "2c88babc9e853d3706f7a6c1f8f0ae48c198949143df2da6562bd774237d7329",
+    "observations.bend": "81e6afcd4ae06a396669cff14d1da68a4c597539b6eb64e68648ebbe7b235136",
+    "payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "query.bend": "903af14b5d85d1162df5f872f26f221134a17c772bc82fd17686ce2f4be45759",
+    "reader-host.bend": "50f1251c6d476b07055c36c5a97e3350a4cb46e5d826ff97ced2860d40798a64",
+    "readers.bend": "2673082b4ef5cd6c5d8f61c362e22f74b13daeb27196894278cc20b1459c22e9",
+    "schedule.bend": "98c955f7ee5039aed875a3bd93e3c94840d9ea2f48de0e6415bd28d63ee8fb98",
+    "storage.bend": "936ee89484a6e58558ab1684d90c16cbf2285ef5027292901dd3d9bf973754ba",
+    "streams.bend": "1a1c7991d6a1b4ebfb3b47dc62459beb83ed5e38ded56d27cc20b5478fc0d315",
+    "structural-invoker.bend": "6907a8c5775f77ffed6141123fe5c7033678269ade0f59cd0f24b8680e497932",
+    "systems.bend": "2cfc899215e408cc4c652c8d4c290b18800cdb6e8c96f1061a77853afdac9221",
+    "transaction-dispatch-adapters.bend": "eea16d3f539d70bcd88fd8fd314b75d252ccaff2b9c1c8b63e7d96bfdda34142",
+    "transaction.bend": "d32f0b26e4a14fc784c3ce30c4d6a1ded0cf0a55ed819f54419a558445e298a4",
+    "types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56"
+  },
+  "channels": [
+    "rawReservations",
+    "reads",
+    "readerDiagnostics",
+    "ownWrites",
+    "snapshots",
+    "dispatches",
+    "auditEffects",
+    "provisioning",
+    "finalCounts",
+    "tails"
+  ],
+  "original": [
+    {
+      "backend": "native",
+      "fullSelectedChannelsEqual": true,
+      "outputSHA256": "c61da07f534c7cb1934a92dd7313688d54a9e8d04f85d6c1574da9f42adb6407"
+    },
+    {
+      "backend": "javascript",
+      "fullSelectedChannelsEqual": true,
+      "outputSHA256": "c61da07f534c7cb1934a92dd7313688d54a9e8d04f85d6c1574da9f42adb6407"
+    }
+  ],
+  "mutants": [
+    {
+      "name": "query-order",
+      "observations": [
+        {
+          "backend": "native",
+          "compiling": true,
+          "outputSHA256": "9da02881d523f7e8d71f394f6e6ad58396966f6f4ccef006161a15d5a9867f49",
+          "differenceCount": 3568,
+          "witness": {
+            "path": "Health/regenerated-closure.snapshots[4].optional[0].aux",
+            "expected": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            },
+            "actual": null
+          }
+        },
+        {
+          "backend": "javascript",
+          "compiling": true,
+          "outputSHA256": "9da02881d523f7e8d71f394f6e6ad58396966f6f4ccef006161a15d5a9867f49",
+          "differenceCount": 3568,
+          "witness": {
+            "path": "Health/regenerated-closure.snapshots[4].optional[0].aux",
+            "expected": {
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "grade": 3
+            },
+            "actual": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "suppressed-setter",
+      "observations": [
+        {
+          "backend": "native",
+          "compiling": true,
+          "outputSHA256": "842b4638b78fdf53a3868d2fc15800b6359457049f1db2a22657ac677d962c0b",
+          "differenceCount": 194,
+          "witness": {
+            "path": "Motion/regenerated-closure.ownWrites[0].main.coordinates[0]",
+            "expected": 11,
+            "actual": 10
+          }
+        },
+        {
+          "backend": "javascript",
+          "compiling": true,
+          "outputSHA256": "842b4638b78fdf53a3868d2fc15800b6359457049f1db2a22657ac677d962c0b",
+          "differenceCount": 194,
+          "witness": {
+            "path": "Motion/regenerated-closure.ownWrites[0].main.coordinates[0]",
+            "expected": 11,
+            "actual": 10
+          }
+        }
+      ]
+    },
+    {
+      "name": "inverse-order",
+      "observations": [
+        {
+          "backend": "native",
+          "compiling": true,
+          "outputSHA256": "90b6d96e231be7fedc1bd38271cacfbf981075300d214236a0631b59894da0e2",
+          "differenceCount": 48,
+          "witness": {
+            "path": "Health/regenerated-closure.snapshots[6].lookups.b.main.levels[0]",
+            "expected": 20,
+            "actual": 30
+          }
+        },
+        {
+          "backend": "javascript",
+          "compiling": true,
+          "outputSHA256": "90b6d96e231be7fedc1bd38271cacfbf981075300d214236a0631b59894da0e2",
+          "differenceCount": 48,
+          "witness": {
+            "path": "Health/regenerated-closure.snapshots[6].lookups.b.main.levels[0]",
+            "expected": 20,
+            "actual": 30
+          }
+        }
+      ]
+    },
+    {
+      "name": "failed-cursor",
+      "observations": [
+        {
+          "backend": "native",
+          "compiling": true,
+          "outputSHA256": "0cedd0aead387d069904e594fd51cef231f17ffef429e4d65ceed08d01d375e2",
+          "differenceCount": 24,
+          "witness": {
+            "path": "Health/regenerated-closure.reads[6].added",
+            "expected_length": 2,
+            "actual_length": 0
+          }
+        },
+        {
+          "backend": "javascript",
+          "compiling": true,
+          "outputSHA256": "0cedd0aead387d069904e594fd51cef231f17ffef429e4d65ceed08d01d375e2",
+          "differenceCount": 24,
+          "witness": {
+            "path": "Health/regenerated-closure.reads[6].added",
+            "expected_length": 2,
+            "actual_length": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "other-reader-routing",
+      "observations": [
+        {
+          "backend": "native",
+          "compiling": true,
+          "outputSHA256": "963daf178c2dcd0d1e7201963d2856c9692c9f6c1e9192955ebda62860047c15",
+          "differenceCount": 308,
+          "witness": {
+            "path": "Health/regenerated-closure.reads[6].messages",
+            "expected_length": 1,
+            "actual_length": 0
+          }
+        },
+        {
+          "backend": "javascript",
+          "compiling": true,
+          "outputSHA256": "963daf178c2dcd0d1e7201963d2856c9692c9f6c1e9192955ebda62860047c15",
+          "differenceCount": 308,
+          "witness": {
+            "path": "Health/regenerated-closure.reads[6].messages",
+            "expected_length": 1,
+            "actual_length": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "skip-change-cursor",
+      "observations": [
+        {
+          "backend": "native",
+          "compiling": true,
+          "outputSHA256": "d8eef6e1c42ce4f6ee6b7b2742325ee3cac97addd14675db0c588ca23ceaa78c",
+          "differenceCount": 24,
+          "witness": {
+            "path": "Health/regenerated-closure.reads[12].changed",
+            "expected_length": 1,
+            "actual_length": 0
+          }
+        },
+        {
+          "backend": "javascript",
+          "compiling": true,
+          "outputSHA256": "d8eef6e1c42ce4f6ee6b7b2742325ee3cac97addd14675db0c588ca23ceaa78c",
+          "differenceCount": 24,
+          "witness": {
+            "path": "Health/regenerated-closure.reads[12].changed",
+            "expected_length": 1,
+            "actual_length": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "reset-capture",
+      "observations": [
+        {
+          "backend": "native",
+          "compiling": true,
+          "outputSHA256": "04b998c755698248a98fd5a2302a87a2fbfa0fa66647201e9595966074cbd183",
+          "differenceCount": 652,
+          "witness": {
+            "path": "Health/regenerated-closure.dispatches[1].counts.B[0]",
+            "expected": 1,
+            "actual": 0
+          }
+        },
+        {
+          "backend": "javascript",
+          "compiling": true,
+          "outputSHA256": "04b998c755698248a98fd5a2302a87a2fbfa0fa66647201e9595966074cbd183",
+          "differenceCount": 652,
+          "witness": {
+            "path": "Health/regenerated-closure.dispatches[1].counts.B[0]",
+            "expected": 1,
+            "actual": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "reversed-command-FIFO",
+      "observations": [
+        {
+          "backend": "native",
+          "compiling": true,
+          "outputSHA256": "b56e6ad971bb3ca12f00ff9ebe8a0c896390d60917bd120facf3b35743d186f6",
+          "differenceCount": 400,
+          "witness": {
+            "path": "Health/regenerated-closure.snapshots[24].aux[0].main.levels[0]",
+            "expected": 81,
+            "actual": 80
+          }
+        },
+        {
+          "backend": "javascript",
+          "compiling": true,
+          "outputSHA256": "b56e6ad971bb3ca12f00ff9ebe8a0c896390d60917bd120facf3b35743d186f6",
+          "differenceCount": 400,
+          "witness": {
+            "path": "Health/regenerated-closure.snapshots[24].aux[0].main.levels[0]",
+            "expected": 81,
+            "actual": 80
+          }
+        }
+      ]
+    },
+    {
+      "name": "implicit-flush",
+      "observations": [
+        {
+          "backend": "native",
+          "compiling": true,
+          "outputSHA256": "b88432c01b3c121c93b1ffb3d619afd18a2601bab246848cf9ea0cff5d14ab60",
+          "differenceCount": 1576,
+          "witness": {
+            "path": "Health/regenerated-closure.snapshots[0].aux",
+            "expected_length": 0,
+            "actual_length": 2
+          }
+        },
+        {
+          "backend": "javascript",
+          "compiling": true,
+          "outputSHA256": "b88432c01b3c121c93b1ffb3d619afd18a2601bab246848cf9ea0cff5d14ab60",
+          "differenceCount": 1576,
+          "witness": {
+            "path": "Health/regenerated-closure.snapshots[0].aux",
+            "expected_length": 0,
+            "actual_length": 2
+          }
+        }
+      ]
+    },
+    {
+      "name": "failed-publication-leak",
+      "observations": [
+        {
+          "backend": "native",
+          "compiling": true,
+          "outputSHA256": "c725623d7e28cd61c93a1e3589dfe6cfc89d5c7b43caa9fdbde002109047dee8",
+          "differenceCount": 876,
+          "witness": {
+            "path": "Health/regenerated-closure.reads[5].changed",
+            "expected_length": 0,
+            "actual_length": 1
+          }
+        },
+        {
+          "backend": "javascript",
+          "compiling": true,
+          "outputSHA256": "c725623d7e28cd61c93a1e3589dfe6cfc89d5c7b43caa9fdbde002109047dee8",
+          "differenceCount": 876,
+          "witness": {
+            "path": "Health/regenerated-closure.reads[5].changed",
+            "expected_length": 0,
+            "actual_length": 1
+          }
+        }
+      ]
+    },
+    {
+      "name": "failed-change-stamp",
+      "observations": [
+        {
+          "backend": "native",
+          "compiling": true,
+          "outputSHA256": "52ff3b967198513830de12aea303c0c026045d249e870896ab10473553ed6ec3",
+          "differenceCount": 4,
+          "witness": {
+            "path": "Health/regenerated-closure.reads[5].changed",
+            "expected_length": 0,
+            "actual_length": 1
+          }
+        },
+        {
+          "backend": "javascript",
+          "compiling": true,
+          "outputSHA256": "52ff3b967198513830de12aea303c0c026045d249e870896ab10473553ed6ec3",
+          "differenceCount": 4,
+          "witness": {
+            "path": "Health/regenerated-closure.reads[5].changed",
+            "expected_length": 0,
+            "actual_length": 1
+          }
+        }
+      ]
+    },
+    {
+      "name": "reissued-failed-reservation",
+      "observations": [
+        {
+          "backend": "native",
+          "compiling": true,
+          "outputSHA256": "0d5a3d6fbe43a300fd3488b5149019411f35abd379f29fbf48f5b86872e394a1",
+          "witness": {
+            "path": "Motion/returned-owner.rawReservations",
+            "error": "reserved handle reissued",
+            "actual": {
+              "lane": "Motion/returned-owner",
+              "earlier": {
+                "kind": "Reserved",
+                "step": "E2",
+                "worldName": "alpha",
+                "label": "q",
+                "handle": {
+                  "namespace": 1,
+                  "id": 5
+                },
+                "components": {
+                  "main": {
+                    "coordinates": {
+                      "a": 60,
+                      "b": 61,
+                      "c": 62,
+                      "d": 63
+                    },
+                    "frame": 7
+                  },
+                  "aux": null,
+                  "flag": null
+                }
+              },
+              "reissued": {
+                "kind": "Reserved",
+                "step": "E4-retry",
+                "worldName": "alpha",
+                "label": "r",
+                "handle": {
+                  "namespace": 1,
+                  "id": 5
+                },
+                "components": {
+                  "main": {
+                    "coordinates": {
+                      "a": 60,
+                      "b": 61,
+                      "c": 62,
+                      "d": 63
+                    },
+                    "frame": 7
+                  },
+                  "aux": null,
+                  "flag": null
+                }
+              }
+            }
+          }
+        },
+        {
+          "backend": "javascript",
+          "compiling": true,
+          "outputSHA256": "0d5a3d6fbe43a300fd3488b5149019411f35abd379f29fbf48f5b86872e394a1",
+          "witness": {
+            "path": "Motion/returned-owner.rawReservations",
+            "error": "reserved handle reissued",
+            "actual": {
+              "lane": "Motion/returned-owner",
+              "earlier": {
+                "kind": "Reserved",
+                "step": "E2",
+                "worldName": "alpha",
+                "label": "q",
+                "handle": {
+                  "namespace": 1,
+                  "id": 5
+                },
+                "components": {
+                  "main": {
+                    "coordinates": {
+                      "a": 60,
+                      "b": 61,
+                      "c": 62,
+                      "d": 63
+                    },
+                    "frame": 7
+                  },
+                  "aux": null,
+                  "flag": null
+                }
+              },
+              "reissued": {
+                "kind": "Reserved",
+                "step": "E4-retry",
+                "worldName": "alpha",
+                "label": "r",
+                "handle": {
+                  "namespace": 1,
+                  "id": 5
+                },
+                "components": {
+                  "main": {
+                    "coordinates": {
+                      "a": 60,
+                      "b": 61,
+                      "c": 62,
+                      "d": 63
+                    },
+                    "frame": 7
+                  },
+                  "aux": null,
+                  "flag": null
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "sourceCommit": "de73116",
+  "status": "BOUNDED_JOINED_MUTANTS_PASS",
+  "mutantCount": 12,
+  "runnerSHA256": "ce492a87474c7f96bcd8b1fa23928c00153624de940ed2133eec452698070692",
+  "limits": {
+    "checker": 5,
+    "codegen": 30,
+    "clang": 120,
+    "runtime": 5
+  },
+  "buildFlags": [
+    "-std=c11",
+    "-O0",
+    "-lpthread",
+    "-lm"
+  ]
+}
