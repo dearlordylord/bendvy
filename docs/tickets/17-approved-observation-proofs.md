@@ -12,7 +12,7 @@ The other twenty internal and four infrastructure candidates remain unapproved.
 
 | Stage | Approved subjects | Required reasoning / limits |
 |---|---|---|
-| 0: feasibility and dependency inventory | All seven, unchanged | Pin compiler/Base/source hashes; inspect existing Base/mathlib facts without adding dependencies. Inventory missing sorting/enumeration, command replay, invariant, observation and word-conversion links. Check proof inhabitation of the erased-owner/conditional proposition shape in an elementary canary, including the checker and kernel, each <=5 seconds. The old erasure canary only constructs a proposition Type; it does not establish this proof capability. |
+| 0: feasibility and dependency inventory | All seven, unchanged | Pin compiler/Base/source hashes; inspect existing Base/mathlib facts without adding dependencies. Inventory missing sorting/enumeration, command replay, invariant, observation and word-conversion links. Check both an elementary canary and a faithful empty-schedule specialization with an actual proof inhabitant of the erased-owner/conditional proposition shape, including checker and kernel, each <=5 seconds. The old erasure canary only constructs a proposition Type; it does not establish this proof capability. |
 | 1: model lookup | `lookup_full_exact` | Prove total scoped lookup with selection, including malformed physical row lists and success/mismatch/missing/foreign cases. This exact equation does not establish unforgeable root authority. |
 | 2: model queries (parallel with stage 1) | `query_any_complete_ordered`, `query_present_complete_ordered`, `query_absent_complete_ordered` | Prove complete/unique/ascending results under the exact independent admissibility premise. Connect sorting physical rows to independent `[0,next)` enumeration; do not prove only soundness or reversal invariance. |
 | 3: model flush | `explicit_flush_independent` | Prove per-entity FIFO replay against whole-row mutation, including noncommuting actions, survivors, unknown targets and cleared pending commands. Establish the command-prefix invariants needed by the comparison. |
@@ -20,20 +20,28 @@ The other twenty internal and four infrastructure candidates remain unapproved.
 | 5: owned runtime (contingent on early feasibility) | `owned_runtime_schedule_correspondence` | Relate actual returned owner observation to independent schedule at every prefix under exact `S.run_safe`. Establish actual inline U32 comparison/increment connections using structural Word reasoning, primitive operation correspondence and observation adequacy. Element-zero payload observation is the theorem's scope; physical identity/full-array preservation is not implied. |
 
 Stages 1–4 are six Nat model theorems; stage 5 is a separate owned-runtime theorem.
-Stages may deliver separately with explicit unresolved dependencies. No stage is
+The owned-owner feasibility lane runs alongside the Nat lane; it is never a blanket
+blocker for lookup/queries. Flush and model schedule depend only on their actual
+replay/invariant links; the owned theorem additionally needs its own encoding and
+Word links. Stages may deliver separately with explicit unresolved dependencies. No stage is
 complete from literal checks, a proposition-construction canary or a finite trace.
 If inhabitation/checker time or a needed dependency blocks a stage, record the
-minimal reproducible failure and a bounded follow-up; never alter the approved
+minimal reproducible failure and a bounded follow-up without claiming general
+impossibility; never alter the approved
 statement/domain or increase the timeout to obtain a pass.
 
 ## Supporting obligations and approvals
 
-Existing proved library facts may be reused with pinned provenance. List each
+Existing proved library facts may be reused with pinned provenance. Genuinely
+narrower, contextual proof-local arithmetic/structural lemmas needed by an approved
+endpoint may be derived; this does not require approval of every intermediate fact.
+List each
 new proof-local helper and its precise purpose/domain before execution. Ordinary contextual derivations serving an approved endpoint are permitted; they
 must not change its policy/domain. Proof decomposition does not authorize turning any of the
 other 24 catalogue statements into proved contracts under renamed helpers.
 If a required supporting obligation is equivalent to an unapproved catalogue law,
-or adds a new semantic/encoding/arithmetic contract, present its exact statement,
+or adds a standalone semantic/encoding/arithmetic contract beyond the approved
+endpoint, present its exact statement,
 rationale and falsification for separate approval before proving it. In particular
 model preservation, owned-step/projection links, conditional encoder equations and
 Nat/U32 bridges are **dependencies to resolve**, not approvals inherited here.
