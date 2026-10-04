@@ -5,8 +5,8 @@
   "checks": [
     {
       "command": [
-        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-        "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/toolkit.bend",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/p-observe-flush/toolkit.bend",
         "--check-only"
       ],
       "exit_code": 0,
@@ -14,8 +14,8 @@
     },
     {
       "command": [
-        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-        "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/toolkit.bend",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/p-observe-flush/toolkit.bend",
         "--verdict"
       ],
       "exit_code": 0,
@@ -23,8 +23,17 @@
     },
     {
       "command": [
-        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-        "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/controls.bend",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/p-observe-flush/coherence.bend",
+        "--check-only"
+      ],
+      "exit_code": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/p-observe-flush/coherence.bend",
         "--verdict"
       ],
       "exit_code": 0,
@@ -32,8 +41,35 @@
     },
     {
       "command": [
-        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-        "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/LAWS.bend",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/p-observe-flush/prefix.bend",
+        "--check-only"
+      ],
+      "exit_code": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/p-observe-flush/prefix.bend",
+        "--verdict"
+      ],
+      "exit_code": 0,
+      "output": "ALL PROOFS CHECK\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/p-observe-flush/controls.bend",
+        "--verdict"
+      ],
+      "exit_code": 0,
+      "output": "ALL PROOFS CHECK\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/p-observe-flush/LAWS.bend",
         "--check-only"
       ],
       "exit_code": 1,
@@ -41,12 +77,12 @@
     },
     {
       "command": [
-        "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-        "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/RESIDUAL.bend",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/p-observe-flush/RESIDUAL.bend",
         "--check-only"
       ],
       "exit_code": 1,
-      "output": "SOME PROOFS FAIL\nError: 3 TODOs found.\nThe code is incomplete, and not a valid proof yet.\n"
+      "output": "SOME PROOFS FAIL\nError: 1 TODO found.\nThe code is incomplete, and not a valid proof yet.\n"
     }
   ],
   "mutants": [
@@ -58,8 +94,8 @@
       "focus_excludes_application_prefix": false,
       "copied_positive": {
         "command": [
-          "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/flush-mutant-eskjrqdv/p-observe-flush/toolkit.bend",
+          "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/t01/bend-check",
+          "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/p-observe-flush/flush-mutant-k_94x8ju/p-observe-flush/toolkit.bend",
           "--verdict"
         ],
         "exit_code": 0,
@@ -67,8 +103,8 @@
       },
       "compiling_implementation": {
         "command": [
-          "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/flush-mutant-eskjrqdv/t11-replacement/model.bend",
+          "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/t01/bend-check",
+          "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/p-observe-flush/flush-mutant-k_94x8ju/t11-replacement/model.bend",
           "--check-only"
         ],
         "exit_code": 0,
@@ -76,8 +112,8 @@
       },
       "contextual_proof_failure": {
         "command": [
-          "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/flush-mutant-eskjrqdv/p-observe-flush/toolkit.bend",
+          "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/t01/bend-check",
+          "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/p-observe-flush/flush-mutant-k_94x8ju/p-observe-flush/toolkit.bend",
           "--check-only"
         ],
         "exit_code": 1,
@@ -92,8 +128,8 @@
       "focus_excludes_application_prefix": true,
       "copied_positive": {
         "command": [
-          "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/flush-mutant-kuhghb46/p-observe-flush/toolkit.bend",
+          "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/t01/bend-check",
+          "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/p-observe-flush/flush-mutant-x8f5x72u/p-observe-flush/toolkit.bend",
           "--verdict"
         ],
         "exit_code": 0,
@@ -101,8 +137,8 @@
       },
       "compiling_implementation": {
         "command": [
-          "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/flush-mutant-kuhghb46/t11-replacement/model.bend",
+          "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/t01/bend-check",
+          "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/p-observe-flush/flush-mutant-x8f5x72u/t11-replacement/model.bend",
           "--check-only"
         ],
         "exit_code": 0,
@@ -110,19 +146,53 @@
       },
       "contextual_proof_failure": {
         "command": [
-          "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-          "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/flush-mutant-kuhghb46/p-observe-flush/toolkit.bend",
+          "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/t01/bend-check",
+          "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/p-observe-flush/flush-mutant-x8f5x72u/p-observe-flush/toolkit.bend",
           "--check-only"
         ],
         "exit_code": 1,
         "output": "SOME PROOFS FAIL\nError:\n- expected : {S.at(M.modify(slot, action, M.apply_all(same_slot_commands(tail, slot), rows)), slot) == S.replay(same_slot_commands(tail, slot), slot, S.command_at(Nat.cmp(slot, slot), T.Target{slot, action}, S.at(rows, slot))) : Maybe<&2, T.Row>}\n- observed : {S.at(M.apply_all(same_slot_commands(tail, slot), M.modify(slot, action, rows)), slot) == S.replay(same_slot_commands(tail, slot), slot, S.command_at(Nat.cmp(slot, slot), T.Target{slot, action}, S.at(rows, slot))) : Maybe<&2, T.Row>}\nContext:\n- action : T.Action\n- tail   : List<&2, T.Action>\n- slot   : Nat\n- rows   : List<&2, T.Row>\nLocation: target_fifo\n75 |     case Con{+action,+tail}:\n76>|       %Equal.sym(Cmp,Nat.cmp(slot,slot),EQ{},comparison_self(slot)) : {S.at(M.apply_all(same_slot_commands(tail,slot),M.modify(slot,action,rows)),slot) == S.replay(same_slot_commands(tail,slot),slot,S.command_at(_,T.Target{slot,action},S.at(rows,slot))) : Maybe<&2,T.Row>}\n   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n77 |       %target_own_slot(rows,slot,action) : {S.at(M.apply_all(same_slot_commands(tail,slot),M.modify(slot,action,rows)),slot) == S.replay(same_slot_commands(tail,slot),slot,_) : Maybe<&2,T.Row>}\n"
       }
+    },
+    {
+      "name": "target-application-noop",
+      "old": "case T.Target{slot, action}: modify(slot, action, rows)",
+      "new": "case T.Target{slot, action}: rows",
+      "theorem": "command_slot",
+      "focus_excludes_target_fifo": true,
+      "copied_positive": {
+        "command": [
+          "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/t01/bend-check",
+          "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/p-observe-flush/flush-command-mutant-8tk7swen/p-observe-flush/coherence.bend",
+          "--verdict"
+        ],
+        "exit_code": 0,
+        "output": "ALL PROOFS CHECK\n"
+      },
+      "compiling_implementation": {
+        "command": [
+          "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/t01/bend-check",
+          "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/p-observe-flush/flush-command-mutant-8tk7swen/t11-replacement/model.bend",
+          "--check-only"
+        ],
+        "exit_code": 0,
+        "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+      },
+      "contextual_proof_failure": {
+        "command": [
+          "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/t01/bend-check",
+          "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/p-observe-flush/flush-command-mutant-8tk7swen/p-observe-flush/coherence.bend",
+          "--check-only"
+        ],
+        "exit_code": 1,
+        "output": "SOME PROOFS FAIL\nError:\n- expected : {S.at(rows, slot) == S.command_at(Nat.cmp(target, slot), T.Target{target, action}, S.at(rows, slot)) : Maybe<&2, T.Row>}\n- observed : {S.at(M.modify(target, action, rows), slot) == S.command_at(Nat.cmp(target, slot), T.Target{target, action}, S.at(rows, slot)) : Maybe<&2, T.Row>}\nContext:\n- target : Nat\n- action : T.Action\n- rows   : List<&2, T.Row>\n- slot   : Nat\nLocation: command_slot\n91 |     case T.Spawn{+id,+value}: P.spawn_slot(id,value,slot,rows)\n92>|     case T.Target{+target,+action}: target_slot_case(Nat.cmp(target,slot),target,slot,action,rows,{==})\n   |                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n93 | \n"
+      }
     }
   ],
   "kernel_negative": {
     "command": [
-      "/workspace/formal-proofs/bendvy/experiments/t01/bend-check",
-      "/workspace/formal-proofs/bendvy/experiments/p-observe-flush/toolkit.bend",
+      "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/t01/bend-check",
+      "/workspace/formal-proofs/bendvy-worktrees/proof-flush/experiments/p-observe-flush/toolkit.bend",
       "--verdict"
     ],
     "exit_code": 1,
@@ -135,8 +205,10 @@
     "experiments/t11-replacement/spec.bend": "3b7a96d9131919fe087dac5e024058bbfa916ce5c108dce3a7d72119b7ccd465"
   },
   "source_hashes": {
+    "prefix.bend": "1b430c5346359727bc9567aa55537ab0f64380ab050edaaca7d51e55ad3179e3",
     "LAWS.bend": "67d11552ef01d5cac07b8d30c2b183f13239cbdebf09035b2c0d3c765f8fff0a",
-    "RESIDUAL.bend": "92f96975ea665017a35854afe3e584bcd0a9cf9746b5c1ef1d3d38a5e4bff543",
+    "coherence.bend": "ecb79eddd1a0a9001eb6cca34929a20b79b3c4949956fee689eccbec0fd2f887",
+    "RESIDUAL.bend": "c8e247b49e0da721c4e7e2847577f70079e92356c107ecac09cf95f301cb64ef",
     "controls.bend": "ca814d341c6b4e530267bfe6fed04baa9c19a64a28203a108d5b732dc8329df3",
     "toolkit.bend": "d370e490bcbcfe0a0135943b3e64e2a2ea02c4e438c466baaff5505cd0899dd8"
   },
@@ -145,6 +217,10 @@
     "experiments/p-observe-lookup/LAWS.bend": "95a8c2307f8e8a7eac399dc46e8b0c5a42c5e6f50540f2c6a63df8e9f53c0603",
     "experiments/p-observe-lookup/controls.bend": "b58a585fb46a75a18c1a7dfb8b2cc710557c2cd64479bd7b5784dea22f4ff1fc"
   },
+  "query_dependency_hashes": {
+    "experiments/p-observe-queries/helpers.bend": "d6a4e2ed063042ef275af99dc4aa5afa26537de4a65b44e78b18847514c7ffb0",
+    "experiments/p-observe-queries/invariants.bend": "172b3fa37a00946d299efa107697ac9eb08da11c59731976777a373ccb56eeaf"
+  },
   "base_sha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
-  "runner_sha256": "dc392ea7e96a0fea795c9d88446f4d35db43158a46b20058a9d48e35d9bbbbdd"
+  "runner_sha256": "d4645f2831327a87bf646da7c12b6a3cd96d07f434af276be8c90d2c12801026"
 }

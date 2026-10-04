@@ -18,9 +18,9 @@ def main():
  block=re.search(r'(?m)^law explicit_flush_independent:\n(?:(?!^law ).*\n)*',(ROOT/'experiments/t11-replacement/LAWS.bend').read_text()).group().rstrip()
  assert block==frozen['original_block']==(HERE/'LAWS.bend').read_text().split('\n\n',1)[1].rstrip()
  evidence={'status':'PARTIAL: contextual toolkit proved; explicit_flush_independent remains OPEN','checker_limit_seconds':5,'exact_endpoint_selection':True,'checks':[],'mutants':[]}
- for name,flag in [('toolkit.bend','--check-only'),('toolkit.bend','--verdict'),('controls.bend','--verdict')]:
+ for name,flag in [('toolkit.bend','--check-only'),('toolkit.bend','--verdict'),('coherence.bend','--check-only'),('coherence.bend','--verdict'),('prefix.bend','--check-only'),('prefix.bend','--verdict'),('controls.bend','--verdict')]:
   r=run([CHECK,HERE/name,flag]);assert 'ALL PROOFS CHECK' in r['output'];evidence['checks'].append(r)
- for name,n in [('LAWS.bend',1),('RESIDUAL.bend',3)]:
+ for name,n in [('LAWS.bend',1),('RESIDUAL.bend',1)]:
   r=run([CHECK,HERE/name,'--check-only'],1);assert f'{n} TODO'+('' if n==1 else 's')+' found' in r['output'];evidence['checks'].append(r)
  env=dict(os.environ);env['BENDTT']='/usr/bin/false'
  r=run([CHECK,HERE/'toolkit.bend','--verdict'],1,env);assert 'mismatch' in r['output'];evidence['kernel_negative']=r
@@ -28,7 +28,7 @@ def main():
  for label,old,new,location,focused in mutants:
   with tempfile.TemporaryDirectory(prefix='flush-mutant-',dir=HERE) as tmp:
    base=Path(tmp)
-   for d in ['t11-replacement','p-observe-lookup']:shutil.copytree(ROOT/'experiments'/d,base/d,ignore=shutil.ignore_patterns('__pycache__'))
+   for d in ['t11-replacement','p-observe-lookup','p-observe-queries']:shutil.copytree(ROOT/'experiments'/d,base/d,ignore=shutil.ignore_patterns('__pycache__'))
    package=base/'p-observe-flush';package.mkdir()
    text=(HERE/'toolkit.bend').read_text()
    if focused:
@@ -41,9 +41,25 @@ def main():
    typed=run([CHECK,model,'--check-only']);assert 'ALL PROOFS CHECK' in typed['output']
    rejected=run([CHECK,package/'toolkit.bend','--check-only'],1);assert f'Location: {location}' in rejected['output'],rejected
    evidence['mutants'].append({'name':label,'old':old,'new':new,'theorem':location,'focus_excludes_application_prefix':focused,'copied_positive':positive,'compiling_implementation':typed,'contextual_proof_failure':rejected})
+ # Actual Target publication/application caller linkage, isolated from the
+ # older same-slot theorem so its own general command endpoint is observed.
+ with tempfile.TemporaryDirectory(prefix='flush-command-mutant-',dir=HERE) as tmp:
+  base=Path(tmp)
+  for d in ['t11-replacement','p-observe-lookup','p-observe-queries']:shutil.copytree(ROOT/'experiments'/d,base/d,ignore=shutil.ignore_patterns('__pycache__'))
+  package=base/'p-observe-flush';package.mkdir()
+  text=(HERE/'toolkit.bend').read_text();text=text[:text.index('def target_fifo(')]
+  (package/'toolkit.bend').write_text(text);shutil.copyfile(HERE/'coherence.bend',package/'coherence.bend')
+  positive=run([CHECK,package/'coherence.bend','--verdict']);assert 'ALL PROOFS CHECK' in positive['output']
+  model=base/'t11-replacement/model.bend';text=model.read_text()
+  old='case T.Target{slot, action}: modify(slot, action, rows)';new='case T.Target{slot, action}: rows'
+  assert text.count(old)==1;model.write_text(text.replace(old,new))
+  typed=run([CHECK,model,'--check-only']);assert 'ALL PROOFS CHECK' in typed['output']
+  rejected=run([CHECK,package/'coherence.bend','--check-only'],1);assert 'Location: command_slot' in rejected['output'],rejected
+  evidence['mutants'].append({'name':'target-application-noop','old':old,'new':new,'theorem':'command_slot','focus_excludes_target_fifo':True,'copied_positive':positive,'compiling_implementation':typed,'contextual_proof_failure':rejected})
  evidence['canonical_sources']=frozen['canonical_sources']
  evidence['source_hashes']={p.name:sha(p) for p in HERE.glob('*.bend')}
  evidence['lookup_dependency_hashes']={str(p.relative_to(ROOT)):sha(p) for p in (ROOT/'experiments/p-observe-lookup').glob('*.bend')}
+ evidence['query_dependency_hashes']={str(p.relative_to(ROOT)):sha(p) for p in [ROOT/'experiments/p-observe-queries/helpers.bend',ROOT/'experiments/p-observe-queries/invariants.bend']}
  evidence['base_sha256']=sha(Path.home()/'.bend/bend2/base.bend');evidence['runner_sha256']=sha(HERE/'verify.py')
  (HERE/'evidence.json').write_text(json.dumps(evidence,indent=2)+'\n');print(evidence['status'])
 if __name__=='__main__':main()

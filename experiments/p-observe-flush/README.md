@@ -35,7 +35,8 @@ contextual links for the approved flush goal, not new production policies.
 
 ## Exact residual and dependencies
 
-[RESIDUAL.bend](RESIDUAL.bend) persists three **unfilled** contextual goals:
+[RESIDUAL.bend](RESIDUAL.bend) originally persisted these three contextual goals;
+the resumed progress below discharges the first two and retains the last:
 
 1. `command_slot`: for every command/rows/observed slot, `S.at(M.apply(command,rows),slot)` equals `S.one(command,slot,S.at(rows,slot))`. Spawn and own-target cases are proved; different target/observed IDs still need comparison coherence and row-search transport.
 2. `mixed_fifo_slot`: for every command sequence/rows/slot, `S.at(M.apply_all(commands,rows),slot)` equals `S.replay(commands,slot,S.at(rows,slot))`. Command-prefix induction needs the complete single-command link for every intermediate raw row list. Only the same-slot Target sublanguage is proved so far.
@@ -47,7 +48,7 @@ initial `S.admissible(limit,T.World{id,next,rows,pending}) == True` implies
 `applied = M.apply_all(prefix,rows)`; suffix spawn IDs must remain bounded,
 unique and disjoint from those applied live rows. These need real derivations
 from counted initial admissibility, not the unapproved blanket step-preservation
-law. No general prefix invariant proof is claimed here.
+law. That was the initial partial checkpoint; the resumed counted-prefix proof is recorded below.
 
 Once those links hold, the exact approved endpoint additionally needs metadata
 and cleared-queue constructor reasoning and the original conditional proposition
@@ -67,7 +68,7 @@ watchdog detects a failed wrapper rather than permitting a longer checker.
 
 - Full toolkit checker/kernel and six fresh concrete controls pass. Controls include spawn at own/other slot, duplicate despawn, an untouched survivor, Insert→Remove FIFO and missing target. These ground examples are separate from universal contextual proofs.
 - Forced `/usr/bin/false` kernel yields the expected verdict failure.
-- Exact selected endpoint reports **1 TODO**; residual package reports **3 TODOs**. Expected open-law results are explicitly verified, not counted as proofs.
+- Exact selected endpoint reports **1 TODO**; residual package now reports **1 TODO** (originally three). Expected open-law results are explicitly verified, not counted as proofs.
 - Wrong spawn-tag mutant still typechecks and rejects unchanged `spawn_slot` at its own definition.
 - Reverse actual whole-list FIFO mutant still typechecks and rejects unchanged `target_fifo` at its own definition. A focused copy excludes the earlier independent `application_prefix` theorem to expose this result; all retained definitions are unchanged, and that same copied positive passes the kernel first.
 
@@ -86,3 +87,29 @@ those links when the actual query interval toolkit is ready. This tranche does
 not complete stage 3/#18, owned-runtime refinement, root provenance, full payload
 restoration, reader transactions, backend/host IO proofs or performance. It adopts
 no allocator policy, Data-only restriction, production layout or dependency.
+
+## Resumed universal command and counted-prefix progress
+
+The resumed inventory was appended before new checks. [coherence.bend](coherence.bend)
+now proves **command_slot for every command/raw row list/observed slot** and
+**mixed_fifo_slot for every mixed command list**, including cross-target observations.
+Nat equality reflection and comparison coherence prove distinct-target preservation;
+no valid-state restriction hides duplicate or malformed rows.
+
+[prefix.bend](prefix.bend) now proves independent counted row validity of the actual
+full `M.apply_all` result from independent row/pending validity. At every recursive
+command prefix it constructs actual intermediate-row validity and remaining-spawn
+freshness: Target tag/despawn preserves zero counts of future reservations; Spawn
+moves its unique bounded fresh ID from pending into live while preserving the
+remaining guards. The proof uses committed read-only query count/conjunction
+helpers; all imported helper hashes are recorded. No blanket step-preservation
+catalogue statement is filled or assumed.
+
+The earlier residual items 1 and 2 are now discharged by those general typed proof
+definitions. RESIDUAL.bend retains only the final observation bridge. Both it and
+the exact approved endpoint report one open TODO each. The runner now additionally
+checks coherence/prefix with ordinary checker and kernel, and a compiling Target
+application no-op mutant fails unchanged `command_slot` in a focused positive
+copy excluding the older `target_fifo` section. Fresh completed verification is
+recorded in evidence.json. The universal flush endpoint is still pending the
+actual sorting/enumeration/materialization bridge; work continues toward it.
