@@ -179,3 +179,29 @@ Independent isolated-package `python3 experiments/p-approved-owned-word-context/
 Reviewed SHA256: `helpers.bend` = `32103c04f62d5c8b60fe551f7da77d1fa7b75787e071b292e3f679c31f4d8bc7`; `verify.py` = `7143dca45c469881028100dcc6ff83cd27b3bbc9a77ed311e456d501bfe8139a`; `subjects.json` = `d79ef9b49702a96972bae5594f25348d287def6335172b0982fdce4bcb0ef1e9`.
 
 No semantic blocker was found for these exact contextual interfaces. Actual primitive-owner correspondence, per-member Bump safety and full schedule composition/mutation gates remain separate; no allocator, root, full-payload, backend or performance acceptance follows.
+
+## Owned primitive checkpoint — 2026-10-04, `b24a343`
+
+**PASS as contextual primitive progress only.** Reviewed `f1d1c57...b24a343`. Result frames return actual affine Cell/list/World owners with equalities tying them to the actual R operation and their independent O projection to the corresponding M operation. Reserve uses actual unsigned comparison and approved bounded increment, covers rejection, and returns only the schedule-relevant world result; it does not fill the unapproved complete reservation/handle contract. Publish checks actual namespace equality and derives the queued target from the actual handle. Its foreign no-op behavior refines this already selected runtime subject, not a newly approved production foreign-command policy.
+
+Command induction covers arbitrary mixed FIFO inputs, actual fresh owned Spawn arrays, tag changes and Despawn. Each recursive call consumes the returned intermediate owner, and Barrier wraps the final row result with the actual cleared queue and unchanged metadata. This R-to-M physical projection equality is appropriate here; it is not the false M-to-materialized-S raw-row equality.
+
+Selected Bump reads the actual array point, transports the supplied exact no-overflow predicate to that observed scalar, performs actual +1/set, and derives the updated point observation on arbitrary Array trees. It does not yet derive each selected member's premise from the world's first-match lookup or implement the full row/schedule induction. No Data replacement owner, erased-owner duplication, new domain restriction or remaining catalogue alias was found.
+
+Independent temporary-copy `run.py` exited0 for all original/added checker/kernel modules and controls under five-second invocation limits. Controls exercise accepted/rejected Reserve, foreign Publish, noncommuting FIFO and an unbalanced-array Bump. The retained implicit-flush mutation gate remains the empty-specialization gate; there are no claimed full primitive/schedule semantic-mutant gates at this checkpoint. Root evidence and approval were unchanged.
+
+Reviewed SHA256: `frames.bend` = `edae73d200588541c2989a387b264b4cfda062c68e551b15cc33649e195c0ef6`; `commands.bend` = `55a6bdbd8e0819080c181061ac1a6fe3d066e556d0d1285896d23ceb66b5f481`; `allocation.bend` = `8af13ac977fe639bc14118fb3178a735dc8a2db984f1e473fed1e978cdc609f7`; `barrier.bend` = `71213b099eb31173049b166e6817c30d5db15e5fd842105b106cf3378e3a0ce3`; `bump.bend` = `e65c3d33e3444e48e3841c71f882bba8dcbd58e8ede4fa46b9b4e8c3c4addc01`; `run.py` = `1253f7154cbf903fb3fdeeb9a80f7df4f68ae7f5fdfda08d280747f1017b327b`.
+
+No semantic blocker was found for these partial interfaces. Full member safety, owner/list induction and exact owned-endpoint acceptance remain open.
+
+## Member-wise Bump safety — 2026-10-04, `0683e12`
+
+**PASS as contextual support.** Reviewed `787877b...0683e12`. `from_step` consumes the exact independent `S.step_safe` Bump predicate and physical row validity, then proves the safety predicate for every matching row. A matching head's unique counted occurrence establishes target absence in the tail; nonmatching heads derive the tail's own validity and retain its actual first-hit lookup premise. Arbitrary targets, including outside the frontier, remain admitted. No first-match-to-all-matches inference is made without uniqueness.
+
+The reusable `Bound` is a Data descriptor, not a function or proof incorrectly marked reusable. Its `Overflow{}` branch calls the actual independent `S.no_overflow_lookup(S.describe(Any,Some(row)))`; `oracle_guard` ties this branch back to the exact step predicate. Delaying that application avoids premature MAX normalization without changing its meaning or excluding high values. `Below{5n}` is only a small diagnostic instance demonstrating that a safe first duplicate need not make every duplicate safe; it does not replace the endpoint's Overflow branch.
+
+Independent temporary-copy `run.py` completed all twenty expected outcomes with exit0, including general checker/kernel proofs, actual-member/outside-target controls, original prefix-safety gates and the added contextual mutation. Removing the matching-row conjunct compiles as an isolated predicate, rejects the unchanged `head_case` proof and falsifies the unchanged complete duplicate-is-unsafe predicate witness. This is accurately contextual predicate evidence, not an actual runtime/full-endpoint semantic mutant. The frozen manifest now checks all transitive non-Base imports and approved source hashes. Root evidence and approval were preserved.
+
+Reviewed SHA256: `member-safety.bend` = `486944795bfa1af9efc4c95d387db258cbe0e846166e27c8e6483d5767123bb6`; `member-controls.bend` = `b5bbdafb669643d5a77784735a35e84df2ad9c6a5ed9ddefd9e62c582a9c032a`; `run.py` = `78192b6e90160e4386f58c4669b355e66eb7f9e871758b803ad63cc79d2a5d38`; `frozen.json` = `a9d8f752ee8e95f0e54299bfc2062e1e6fc6aff58a4bb7a598e6328846c73b16`.
+
+No semantic blocker was found. This supplies the previously missing per-member guard bridge, not actual runtime row mutation or the complete owner-threaded schedule theorem. No additional catalogue contract or domain weakening is introduced.

@@ -583,3 +583,66 @@ isolated provenance control appended only a comment to copied lookup PROOF;
 the runner exited 1 at `contextual import drift` before proof checks. Root files
 and evidence were untouched. No new hard violations or actionable smells found;
 this resolution accepts contextual safety transport, not the full owned endpoint.
+
+## Partial actual-owned primitive links — `b24a343` (2026-10-04)
+
+**Hard violations: none found.** Reviewed `f1d1c57...b24a343` and independently
+replayed its complete runner from a frozen temporary archive: exit 0, twenty-seven
+expected outcomes passed. Root artifacts were untouched. Original source/proposal
+pins remain enforced; compiler/Base pins and the recursively discovered imported
+proof closure are recorded. The closure is copied exactly for mutation checks;
+it is not represented as a separately enforced external dependency registry.
+All checker/kernel calls retain the hard five-second wrapper.
+
+Dependent Type result frames retain actual owned cells/rows/worlds, tying returned
+owners to runtime operations and Data projections. Reserve uses actual inline
+comparison/addition and approved guards; rejected allocation preserves the world.
+Publish uses actual namespace equality, including foreign rejection. Command
+replay threads each owner through ordered actions, tag changes, despawn and newly
+allocated scalar arrays; Barrier relates actual flushed owners and cleared queues
+to model replay. Selected-cell Bump connects actual array read/add/set/read under
+its exact no-overflow premise on arbitrary trees. No Type cloning, Data world
+substitution, new original-law alias or general payload-preservation claim appears.
+
+Pre-execution inventory records the new frames and executable primitive links.
+All eleven positive files pass checker/kernel, including rejection/foreign/FIFO/
+unbalanced-array controls. Existing false and kernel-negative controls still
+reject; the compiling implicit-empty-flush mutant still rejects the unchanged
+active witness and empty specialization. These are accurately not advertised as
+full primitive or nonempty-endpoint mutation acceptance.
+
+**Heuristic findings: none actionable.** Small transport helpers express Bend
+quantity/match constraints. Member-wise Bump row integration, ModelSafe composition,
+actual owner-threaded nonempty induction and full endpoint controls remain open;
+integration and performance are not accepted by this partial checkpoint.
+
+## Contextual member-wise Bump safety — `0683e12` (2026-10-04)
+
+**Hard violations: none found.** Reviewed the safety-package extension and
+independently replayed the frozen commit in a temporary archive: exit 0, twenty
+expected outcomes passed. Root evidence was untouched. Recursive external import
+coverage and frozen source/proposal/approval digests remain asserted before checks.
+All new positive files pass checker/kernel within the existing five-second bound.
+
+`from_step` retains exact physical row validity and original independent step-safe
+premise. The induction derives a guard for every matching row: uniqueness removes
+later matching targets after an equal head, while distinct heads transfer the
+first-hit premise to valid tails. It adds no target-bound or balanced-array
+assumption. Generic Data Bound descriptors delay MAX specialization; Overflow
+uses the exact original predicate, while Below supplies a small distinct negative
+control without substituting a weaker production guard. Inventory records this
+construction before execution; no catalogue law is newly filled.
+
+Actual-member and outside-target controls pass kernel. Removing the matching-row
+predicate still compiles as an isolated predicate; unchanged universal helper
+rejects at `head_case`. A separate unchanged complete duplicate-is-unsafe witness,
+without imported proof helpers, rejects at its own section. Its original small
+predicate witness passes kernel; this isolates the meaningful mutation rather
+than counting only imported helper failure. Existing prefix-safety, invalid-premise
+and kernel-negative controls also remain active. Reports accurately identify
+these as contextual helper/predicate gates, not the full owned endpoint gate.
+
+**Heuristic findings: none actionable.** The Bound abstraction directly resolves
+bounded checker normalization and supports mutation isolation. Actual runtime
+array mutation/ownership and full schedule induction remain separate obligations;
+integration and performance are not promoted by this helper proof.
