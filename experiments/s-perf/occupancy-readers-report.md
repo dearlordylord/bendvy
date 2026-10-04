@@ -1,0 +1,19 @@
+# Actual Readers occupancy replay
+
+This bounded diagnostic replay inspects the actual indexed runtime for Motion and Health at 64, 256 and 1024 entities. All six cases pass on Native O3 and JavaScript. Each backend produces 1196 physical checkpoints and 84 running-reader delivery cross-checks. The 234 public trace lines per case are byte-identical to a separately executed uninstrumented candidate; the existing full Readers validator also passes against a freshly executed pinned bevy-ts reference. This is finite diagnostic evidence, not a proof or performance acceptance.
+
+Run from the repository root:
+
+```sh
+python3 experiments/s-perf/occupancy-readers-run.py --candidate /workspace/formal-proofs/bendvy/experiments/s-perf/candidate
+```
+
+The runner freezes a baseline and the supplied actual candidate into temporary overlays, then modifies only the copied Readers workload. The diagnostic replay preserves the original 64-operation sequence and public callback signatures. It samples before/after actual ticks, system invocations and barriers, including Update publication before the next frame trim, pending commands before barrier application, and lifecycle publication after application. It neither adds a reader operation nor drains or trims for measurement. Registry/holder owners are inspected at tick boundaries; an actual running ReadBoundary owner is inspected immediately before the original callback. Invocation/barrier hooks cannot inspect stored registry owners and report that cell unavailable.
+
+The inspector traverses both buffer lists and actual batch lists; counts cached size independently; preserves duplicate holder positions; and records actual reader interests, optional stored bases, registration positions, unread delivery and registration-aware lag. Actual indexed live metadata, column sizes and pending Type command owners are inspected. Null stored bases remain distinct from zero registration. The earlier finite inspector controls and compiling instrumentation mutants are recorded separately in occupancy-control-report.md; their counts are not substituted for workload observations.
+
+Observed checkpoint maxima are identical across schemas and sizes except live entities, whose maximum is count + 1. Pending command owners peak at 2. Ping, removed and despawned values and batches each peak at 4. Each stream has 2 holder positions. Running unread counts peak at 4; sampled stored message unread peaks at 3, separately recorded from running delivery. The final checkpoint retains one removed and one despawned value while all stored unread counts are zero. Empty unread delivery therefore does not imply empty physical retention.
+
+The evidence JSON pins the compiler, Node, clang, Base, all three source references, the frozen reachable Bend source closure, and generated diagnostic/uninstrumented C, JavaScript and native artifacts. It records exact checkpoint locations for each maximum and raw-record hashes. The twelve gzip JSONL files contain all 14352 records; corresponding Native/JavaScript records are identical. Checker and execution limits are five seconds, code generation thirty seconds and clang 120 seconds, on CPU 8. No dependency or compiler/kernel modification is introduced.
+
+Unavailable cells are explicit: active transaction staging/inverse/mark peaks, setup append peaks before the first checkpoint, and RSS. The active Tx owner never reaches these hooks, so finite Tx fixture counts are not claimed as workload peaks. The follow-up return condition is a separately frozen Tx/Finished diagnostic overlay carrying a Data meter through actual append, finish and discard points, retaining opaque public signatures, with unchanged full FailedTxn/public traces and controls before reporting active workload maxima. RSS requires a separate clean-launcher replay. This commit does not broaden into either implementation.

@@ -1,0 +1,5111 @@
+{
+  "environment": {
+    "compiler": "bend 2.0.34",
+    "node": "v24.20.0",
+    "clang": "Debian clang version 14.0.6",
+    "baseSha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+    "referencePins": {
+      "bevy-ts": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334",
+      "bevy": "ad678262ce53b5d142fe49ee5e08caff6f00ab60",
+      "bend2": "a950fd683c0d76f09794078e6174fe98a1492876"
+    }
+  },
+  "scope": "Actual unchanged Readers64 operation sequence, separately instrumented diagnostic replay; no timing acceptance",
+  "cases": [
+    {
+      "schema": "Motion",
+      "count": 64,
+      "backends": {
+        "Native": {
+          "status": "PASS",
+          "physicalCheckpoints": 1196,
+          "runningDeliveryCrossChecks": 84,
+          "observedCheckpointMaxima": {
+            "live": {
+              "value": 65,
+              "checkpoint": {
+                "record": 10,
+                "iteration": 0,
+                "phase": "after-barrier",
+                "tick": 5,
+                "frame": 3
+              }
+            },
+            "pending": {
+              "value": 2,
+              "checkpoint": {
+                "record": 20,
+                "iteration": 0,
+                "phase": "after-system=Dispose",
+                "tick": 9,
+                "frame": 5
+              }
+            },
+            "pingValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 68,
+                "iteration": 3,
+                "phase": "after-system=Update",
+                "tick": 28,
+                "frame": 13
+              }
+            },
+            "pingBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 68,
+                "iteration": 3,
+                "phase": "after-system=Update",
+                "tick": 28,
+                "frame": 13
+              }
+            },
+            "removedValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "removedBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "despawnedValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "despawnedBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "messagesHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "removedHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "despawnedHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "runningUnreadMessages": {
+              "value": 4,
+              "checkpoint": {
+                "record": 71,
+                "iteration": 3,
+                "phase": "before-system=Slow",
+                "tick": 30,
+                "frame": 13
+              }
+            },
+            "unreadMessages": {
+              "value": 4,
+              "checkpoint": {
+                "record": 71,
+                "iteration": 3,
+                "phase": "before-system=Slow",
+                "tick": 30,
+                "frame": 13
+              }
+            },
+            "runningUnreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 145,
+                "iteration": 7,
+                "phase": "before-system=Slow",
+                "tick": 59,
+                "frame": 25
+              }
+            },
+            "unreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "runningUnreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 145,
+                "iteration": 7,
+                "phase": "before-system=Slow",
+                "tick": 59,
+                "frame": 25
+              }
+            },
+            "unreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "storedUnreadMessages": {
+              "value": 3,
+              "checkpoint": {
+                "record": 53,
+                "iteration": 2,
+                "phase": "after-tick-before-next-frame",
+                "tick": 22,
+                "frame": 10
+              }
+            },
+            "storedUnreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "storedUnreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            }
+          },
+          "final": {
+            "schema": "Motion",
+            "count": 64,
+            "iteration": 64,
+            "phase": "after-tick-before-next-frame",
+            "tick": 469,
+            "frame": 195,
+            "world": {
+              "namespace": 1,
+              "next": 129,
+              "live": 64,
+              "pending": 0,
+              "highWater": 128,
+              "capacity": 128,
+              "mainCapacity": 128,
+              "auxCapacity": 128,
+              "metadataCapacity": 128
+            },
+            "logs": {
+              "ping": {
+                "capacity": 65536,
+                "cachedSize": 0,
+                "droppedThrough": 463,
+                "frontBatches": 0,
+                "rearBatches": 0,
+                "physicalValues": 0,
+                "declaredValues": 0,
+                "consistentSize": true,
+                "consistentBatches": true
+              },
+              "removed": {
+                "capacity": 65536,
+                "cachedSize": 1,
+                "droppedThrough": 459,
+                "frontBatches": 1,
+                "rearBatches": 0,
+                "physicalValues": 1,
+                "declaredValues": 1,
+                "consistentSize": true,
+                "consistentBatches": true
+              },
+              "despawned": {
+                "capacity": 65536,
+                "cachedSize": 1,
+                "droppedThrough": 459,
+                "frontBatches": 1,
+                "rearBatches": 0,
+                "physicalValues": 1,
+                "declaredValues": 1,
+                "consistentSize": true,
+                "consistentBatches": true
+              }
+            },
+            "readers": [
+              {
+                "key": 5,
+                "registeredAt": 2,
+                "lastRun": 469,
+                "streamLastRun": 469,
+                "messageHolder": true,
+                "removedHolder": true,
+                "despawnHolder": true,
+                "unreadMessages": 0,
+                "unreadRemoved": 0,
+                "unreadDespawned": 0,
+                "messageLag": false,
+                "removedLag": false,
+                "despawnedLag": false
+              },
+              {
+                "key": 4,
+                "registeredAt": 1,
+                "lastRun": 468,
+                "streamLastRun": 468,
+                "messageHolder": true,
+                "removedHolder": true,
+                "despawnHolder": true,
+                "unreadMessages": 0,
+                "unreadRemoved": 0,
+                "unreadDespawned": 0,
+                "messageLag": false,
+                "removedLag": false,
+                "despawnedLag": false
+              }
+            ],
+            "holders": {
+              "messages": [
+                469,
+                468
+              ],
+              "removed": [
+                469,
+                468
+              ],
+              "despawned": [
+                469,
+                468
+              ]
+            },
+            "registeredReaderBases": [
+              {
+                "name": "Slow",
+                "key": 5,
+                "state": {
+                  "key": 5,
+                  "registeredAt": 2,
+                  "lastRun": 469,
+                  "streamLastRun": 469,
+                  "messageHolder": true,
+                  "removedHolder": true,
+                  "despawnHolder": true,
+                  "unreadMessages": 0,
+                  "unreadRemoved": 0,
+                  "unreadDespawned": 0,
+                  "messageLag": false,
+                  "removedLag": false,
+                  "despawnedLag": false
+                }
+              },
+              {
+                "name": "Fast",
+                "key": 4,
+                "state": {
+                  "key": 4,
+                  "registeredAt": 1,
+                  "lastRun": 468,
+                  "streamLastRun": 468,
+                  "messageHolder": true,
+                  "removedHolder": true,
+                  "despawnHolder": true,
+                  "unreadMessages": 0,
+                  "unreadRemoved": 0,
+                  "unreadDespawned": 0,
+                  "messageLag": false,
+                  "removedLag": false,
+                  "despawnedLag": false
+                }
+              }
+            ]
+          },
+          "unavailable": {
+            "activeTransactionStaging": "No active Tx owner reaches these runtime/state hooks; no workload staging/inverse/mark peak inferred from finite fixtures.",
+            "stateHookStoredReaders": "Available at tick hooks, unavailable inside invocation/barrier owner-only hooks.",
+            "setupAppendPeaks": "Bulk setup append peaks before the first diagnostic checkpoint are not inspected.",
+            "RSS": "Separate clean-launcher replay required."
+          },
+          "publicTraceMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullReadObservations": 84,
+            "actualReaderDiagnostics": 84,
+            "fullRowsCompared": 5872,
+            "actualReservations": 64,
+            "clockNormalization": "Bend tick = TS tick - 1; seed performed before dispatcher; every callback checked",
+            "finalSha256": "839e0b8f36c180e70c69a772e372f5fcdea2acb0544b220fe6973890edde63c0",
+            "summary": {
+              "counts": [
+                {
+                  "system": "Slow",
+                  "value": {
+                    "a": 18,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Fast",
+                  "value": {
+                    "a": 66,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Update",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Dispose",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Reserve",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                }
+              ],
+              "tick": 469,
+              "frames": 195
+            }
+          },
+          "publicSha256": "b899bcba82e5a3650a5d2884fd7fb85e8f79328942248219c0cd903d716eacb4",
+          "rawRecords": "occupancy-readers-motion-64-native.jsonl.gz",
+          "rawRecordsSha256": "294f7953988aed89a09f8aeb386c67e2acf443fb411d0dccbc0d4aca7b2688cf"
+        },
+        "JS": {
+          "status": "PASS",
+          "physicalCheckpoints": 1196,
+          "runningDeliveryCrossChecks": 84,
+          "observedCheckpointMaxima": {
+            "live": {
+              "value": 65,
+              "checkpoint": {
+                "record": 10,
+                "iteration": 0,
+                "phase": "after-barrier",
+                "tick": 5,
+                "frame": 3
+              }
+            },
+            "pending": {
+              "value": 2,
+              "checkpoint": {
+                "record": 20,
+                "iteration": 0,
+                "phase": "after-system=Dispose",
+                "tick": 9,
+                "frame": 5
+              }
+            },
+            "pingValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 68,
+                "iteration": 3,
+                "phase": "after-system=Update",
+                "tick": 28,
+                "frame": 13
+              }
+            },
+            "pingBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 68,
+                "iteration": 3,
+                "phase": "after-system=Update",
+                "tick": 28,
+                "frame": 13
+              }
+            },
+            "removedValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "removedBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "despawnedValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "despawnedBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "messagesHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "removedHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "despawnedHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "runningUnreadMessages": {
+              "value": 4,
+              "checkpoint": {
+                "record": 71,
+                "iteration": 3,
+                "phase": "before-system=Slow",
+                "tick": 30,
+                "frame": 13
+              }
+            },
+            "unreadMessages": {
+              "value": 4,
+              "checkpoint": {
+                "record": 71,
+                "iteration": 3,
+                "phase": "before-system=Slow",
+                "tick": 30,
+                "frame": 13
+              }
+            },
+            "runningUnreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 145,
+                "iteration": 7,
+                "phase": "before-system=Slow",
+                "tick": 59,
+                "frame": 25
+              }
+            },
+            "unreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "runningUnreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 145,
+                "iteration": 7,
+                "phase": "before-system=Slow",
+                "tick": 59,
+                "frame": 25
+              }
+            },
+            "unreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "storedUnreadMessages": {
+              "value": 3,
+              "checkpoint": {
+                "record": 53,
+                "iteration": 2,
+                "phase": "after-tick-before-next-frame",
+                "tick": 22,
+                "frame": 10
+              }
+            },
+            "storedUnreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "storedUnreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            }
+          },
+          "final": {
+            "schema": "Motion",
+            "count": 64,
+            "iteration": 64,
+            "phase": "after-tick-before-next-frame",
+            "tick": 469,
+            "frame": 195,
+            "world": {
+              "namespace": 1,
+              "next": 129,
+              "live": 64,
+              "pending": 0,
+              "highWater": 128,
+              "capacity": 128,
+              "mainCapacity": 128,
+              "auxCapacity": 128,
+              "metadataCapacity": 128
+            },
+            "logs": {
+              "ping": {
+                "capacity": 65536,
+                "cachedSize": 0,
+                "droppedThrough": 463,
+                "frontBatches": 0,
+                "rearBatches": 0,
+                "physicalValues": 0,
+                "declaredValues": 0,
+                "consistentSize": true,
+                "consistentBatches": true
+              },
+              "removed": {
+                "capacity": 65536,
+                "cachedSize": 1,
+                "droppedThrough": 459,
+                "frontBatches": 1,
+                "rearBatches": 0,
+                "physicalValues": 1,
+                "declaredValues": 1,
+                "consistentSize": true,
+                "consistentBatches": true
+              },
+              "despawned": {
+                "capacity": 65536,
+                "cachedSize": 1,
+                "droppedThrough": 459,
+                "frontBatches": 1,
+                "rearBatches": 0,
+                "physicalValues": 1,
+                "declaredValues": 1,
+                "consistentSize": true,
+                "consistentBatches": true
+              }
+            },
+            "readers": [
+              {
+                "key": 5,
+                "registeredAt": 2,
+                "lastRun": 469,
+                "streamLastRun": 469,
+                "messageHolder": true,
+                "removedHolder": true,
+                "despawnHolder": true,
+                "unreadMessages": 0,
+                "unreadRemoved": 0,
+                "unreadDespawned": 0,
+                "messageLag": false,
+                "removedLag": false,
+                "despawnedLag": false
+              },
+              {
+                "key": 4,
+                "registeredAt": 1,
+                "lastRun": 468,
+                "streamLastRun": 468,
+                "messageHolder": true,
+                "removedHolder": true,
+                "despawnHolder": true,
+                "unreadMessages": 0,
+                "unreadRemoved": 0,
+                "unreadDespawned": 0,
+                "messageLag": false,
+                "removedLag": false,
+                "despawnedLag": false
+              }
+            ],
+            "holders": {
+              "messages": [
+                469,
+                468
+              ],
+              "removed": [
+                469,
+                468
+              ],
+              "despawned": [
+                469,
+                468
+              ]
+            },
+            "registeredReaderBases": [
+              {
+                "name": "Slow",
+                "key": 5,
+                "state": {
+                  "key": 5,
+                  "registeredAt": 2,
+                  "lastRun": 469,
+                  "streamLastRun": 469,
+                  "messageHolder": true,
+                  "removedHolder": true,
+                  "despawnHolder": true,
+                  "unreadMessages": 0,
+                  "unreadRemoved": 0,
+                  "unreadDespawned": 0,
+                  "messageLag": false,
+                  "removedLag": false,
+                  "despawnedLag": false
+                }
+              },
+              {
+                "name": "Fast",
+                "key": 4,
+                "state": {
+                  "key": 4,
+                  "registeredAt": 1,
+                  "lastRun": 468,
+                  "streamLastRun": 468,
+                  "messageHolder": true,
+                  "removedHolder": true,
+                  "despawnHolder": true,
+                  "unreadMessages": 0,
+                  "unreadRemoved": 0,
+                  "unreadDespawned": 0,
+                  "messageLag": false,
+                  "removedLag": false,
+                  "despawnedLag": false
+                }
+              }
+            ]
+          },
+          "unavailable": {
+            "activeTransactionStaging": "No active Tx owner reaches these runtime/state hooks; no workload staging/inverse/mark peak inferred from finite fixtures.",
+            "stateHookStoredReaders": "Available at tick hooks, unavailable inside invocation/barrier owner-only hooks.",
+            "setupAppendPeaks": "Bulk setup append peaks before the first diagnostic checkpoint are not inspected.",
+            "RSS": "Separate clean-launcher replay required."
+          },
+          "publicTraceMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullReadObservations": 84,
+            "actualReaderDiagnostics": 84,
+            "fullRowsCompared": 5872,
+            "actualReservations": 64,
+            "clockNormalization": "Bend tick = TS tick - 1; seed performed before dispatcher; every callback checked",
+            "finalSha256": "839e0b8f36c180e70c69a772e372f5fcdea2acb0544b220fe6973890edde63c0",
+            "summary": {
+              "counts": [
+                {
+                  "system": "Slow",
+                  "value": {
+                    "a": 18,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Fast",
+                  "value": {
+                    "a": 66,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Update",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Dispose",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Reserve",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                }
+              ],
+              "tick": 469,
+              "frames": 195
+            }
+          },
+          "publicSha256": "b899bcba82e5a3650a5d2884fd7fb85e8f79328942248219c0cd903d716eacb4",
+          "rawRecords": "occupancy-readers-motion-64-js.jsonl.gz",
+          "rawRecordsSha256": "294f7953988aed89a09f8aeb386c67e2acf443fb411d0dccbc0d4aca7b2688cf"
+        }
+      },
+      "freshTS": "PASS"
+    },
+    {
+      "schema": "Motion",
+      "count": 256,
+      "backends": {
+        "Native": {
+          "status": "PASS",
+          "physicalCheckpoints": 1196,
+          "runningDeliveryCrossChecks": 84,
+          "observedCheckpointMaxima": {
+            "live": {
+              "value": 257,
+              "checkpoint": {
+                "record": 10,
+                "iteration": 0,
+                "phase": "after-barrier",
+                "tick": 5,
+                "frame": 3
+              }
+            },
+            "pending": {
+              "value": 2,
+              "checkpoint": {
+                "record": 20,
+                "iteration": 0,
+                "phase": "after-system=Dispose",
+                "tick": 9,
+                "frame": 5
+              }
+            },
+            "pingValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 68,
+                "iteration": 3,
+                "phase": "after-system=Update",
+                "tick": 28,
+                "frame": 13
+              }
+            },
+            "pingBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 68,
+                "iteration": 3,
+                "phase": "after-system=Update",
+                "tick": 28,
+                "frame": 13
+              }
+            },
+            "removedValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "removedBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "despawnedValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "despawnedBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "messagesHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "removedHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "despawnedHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "runningUnreadMessages": {
+              "value": 4,
+              "checkpoint": {
+                "record": 71,
+                "iteration": 3,
+                "phase": "before-system=Slow",
+                "tick": 30,
+                "frame": 13
+              }
+            },
+            "unreadMessages": {
+              "value": 4,
+              "checkpoint": {
+                "record": 71,
+                "iteration": 3,
+                "phase": "before-system=Slow",
+                "tick": 30,
+                "frame": 13
+              }
+            },
+            "runningUnreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 145,
+                "iteration": 7,
+                "phase": "before-system=Slow",
+                "tick": 59,
+                "frame": 25
+              }
+            },
+            "unreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "runningUnreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 145,
+                "iteration": 7,
+                "phase": "before-system=Slow",
+                "tick": 59,
+                "frame": 25
+              }
+            },
+            "unreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "storedUnreadMessages": {
+              "value": 3,
+              "checkpoint": {
+                "record": 53,
+                "iteration": 2,
+                "phase": "after-tick-before-next-frame",
+                "tick": 22,
+                "frame": 10
+              }
+            },
+            "storedUnreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "storedUnreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            }
+          },
+          "final": {
+            "schema": "Motion",
+            "count": 256,
+            "iteration": 64,
+            "phase": "after-tick-before-next-frame",
+            "tick": 469,
+            "frame": 195,
+            "world": {
+              "namespace": 1,
+              "next": 321,
+              "live": 256,
+              "pending": 0,
+              "highWater": 320,
+              "capacity": 512,
+              "mainCapacity": 512,
+              "auxCapacity": 512,
+              "metadataCapacity": 512
+            },
+            "logs": {
+              "ping": {
+                "capacity": 65536,
+                "cachedSize": 0,
+                "droppedThrough": 463,
+                "frontBatches": 0,
+                "rearBatches": 0,
+                "physicalValues": 0,
+                "declaredValues": 0,
+                "consistentSize": true,
+                "consistentBatches": true
+              },
+              "removed": {
+                "capacity": 65536,
+                "cachedSize": 1,
+                "droppedThrough": 459,
+                "frontBatches": 1,
+                "rearBatches": 0,
+                "physicalValues": 1,
+                "declaredValues": 1,
+                "consistentSize": true,
+                "consistentBatches": true
+              },
+              "despawned": {
+                "capacity": 65536,
+                "cachedSize": 1,
+                "droppedThrough": 459,
+                "frontBatches": 1,
+                "rearBatches": 0,
+                "physicalValues": 1,
+                "declaredValues": 1,
+                "consistentSize": true,
+                "consistentBatches": true
+              }
+            },
+            "readers": [
+              {
+                "key": 5,
+                "registeredAt": 2,
+                "lastRun": 469,
+                "streamLastRun": 469,
+                "messageHolder": true,
+                "removedHolder": true,
+                "despawnHolder": true,
+                "unreadMessages": 0,
+                "unreadRemoved": 0,
+                "unreadDespawned": 0,
+                "messageLag": false,
+                "removedLag": false,
+                "despawnedLag": false
+              },
+              {
+                "key": 4,
+                "registeredAt": 1,
+                "lastRun": 468,
+                "streamLastRun": 468,
+                "messageHolder": true,
+                "removedHolder": true,
+                "despawnHolder": true,
+                "unreadMessages": 0,
+                "unreadRemoved": 0,
+                "unreadDespawned": 0,
+                "messageLag": false,
+                "removedLag": false,
+                "despawnedLag": false
+              }
+            ],
+            "holders": {
+              "messages": [
+                469,
+                468
+              ],
+              "removed": [
+                469,
+                468
+              ],
+              "despawned": [
+                469,
+                468
+              ]
+            },
+            "registeredReaderBases": [
+              {
+                "name": "Slow",
+                "key": 5,
+                "state": {
+                  "key": 5,
+                  "registeredAt": 2,
+                  "lastRun": 469,
+                  "streamLastRun": 469,
+                  "messageHolder": true,
+                  "removedHolder": true,
+                  "despawnHolder": true,
+                  "unreadMessages": 0,
+                  "unreadRemoved": 0,
+                  "unreadDespawned": 0,
+                  "messageLag": false,
+                  "removedLag": false,
+                  "despawnedLag": false
+                }
+              },
+              {
+                "name": "Fast",
+                "key": 4,
+                "state": {
+                  "key": 4,
+                  "registeredAt": 1,
+                  "lastRun": 468,
+                  "streamLastRun": 468,
+                  "messageHolder": true,
+                  "removedHolder": true,
+                  "despawnHolder": true,
+                  "unreadMessages": 0,
+                  "unreadRemoved": 0,
+                  "unreadDespawned": 0,
+                  "messageLag": false,
+                  "removedLag": false,
+                  "despawnedLag": false
+                }
+              }
+            ]
+          },
+          "unavailable": {
+            "activeTransactionStaging": "No active Tx owner reaches these runtime/state hooks; no workload staging/inverse/mark peak inferred from finite fixtures.",
+            "stateHookStoredReaders": "Available at tick hooks, unavailable inside invocation/barrier owner-only hooks.",
+            "setupAppendPeaks": "Bulk setup append peaks before the first diagnostic checkpoint are not inspected.",
+            "RSS": "Separate clean-launcher replay required."
+          },
+          "publicTraceMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullReadObservations": 84,
+            "actualReaderDiagnostics": 84,
+            "fullRowsCompared": 22768,
+            "actualReservations": 64,
+            "clockNormalization": "Bend tick = TS tick - 1; seed performed before dispatcher; every callback checked",
+            "finalSha256": "0922da52ffba8522e4233ebae43269c5408fa9ea96d9375ca60c7c015e5d6378",
+            "summary": {
+              "counts": [
+                {
+                  "system": "Slow",
+                  "value": {
+                    "a": 18,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Fast",
+                  "value": {
+                    "a": 66,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Update",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Dispose",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Reserve",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                }
+              ],
+              "tick": 469,
+              "frames": 195
+            }
+          },
+          "publicSha256": "10e397aac1afea9e58cc2280e2a930fd6d20fe7e0969a38a3230789fd6b8a999",
+          "rawRecords": "occupancy-readers-motion-256-native.jsonl.gz",
+          "rawRecordsSha256": "0602aa39d4ed8c5d45c45c2bd58b88e442dbf485b1fde91b8e512f073f32fb50"
+        },
+        "JS": {
+          "status": "PASS",
+          "physicalCheckpoints": 1196,
+          "runningDeliveryCrossChecks": 84,
+          "observedCheckpointMaxima": {
+            "live": {
+              "value": 257,
+              "checkpoint": {
+                "record": 10,
+                "iteration": 0,
+                "phase": "after-barrier",
+                "tick": 5,
+                "frame": 3
+              }
+            },
+            "pending": {
+              "value": 2,
+              "checkpoint": {
+                "record": 20,
+                "iteration": 0,
+                "phase": "after-system=Dispose",
+                "tick": 9,
+                "frame": 5
+              }
+            },
+            "pingValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 68,
+                "iteration": 3,
+                "phase": "after-system=Update",
+                "tick": 28,
+                "frame": 13
+              }
+            },
+            "pingBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 68,
+                "iteration": 3,
+                "phase": "after-system=Update",
+                "tick": 28,
+                "frame": 13
+              }
+            },
+            "removedValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "removedBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "despawnedValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "despawnedBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "messagesHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "removedHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "despawnedHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "runningUnreadMessages": {
+              "value": 4,
+              "checkpoint": {
+                "record": 71,
+                "iteration": 3,
+                "phase": "before-system=Slow",
+                "tick": 30,
+                "frame": 13
+              }
+            },
+            "unreadMessages": {
+              "value": 4,
+              "checkpoint": {
+                "record": 71,
+                "iteration": 3,
+                "phase": "before-system=Slow",
+                "tick": 30,
+                "frame": 13
+              }
+            },
+            "runningUnreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 145,
+                "iteration": 7,
+                "phase": "before-system=Slow",
+                "tick": 59,
+                "frame": 25
+              }
+            },
+            "unreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "runningUnreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 145,
+                "iteration": 7,
+                "phase": "before-system=Slow",
+                "tick": 59,
+                "frame": 25
+              }
+            },
+            "unreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "storedUnreadMessages": {
+              "value": 3,
+              "checkpoint": {
+                "record": 53,
+                "iteration": 2,
+                "phase": "after-tick-before-next-frame",
+                "tick": 22,
+                "frame": 10
+              }
+            },
+            "storedUnreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "storedUnreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            }
+          },
+          "final": {
+            "schema": "Motion",
+            "count": 256,
+            "iteration": 64,
+            "phase": "after-tick-before-next-frame",
+            "tick": 469,
+            "frame": 195,
+            "world": {
+              "namespace": 1,
+              "next": 321,
+              "live": 256,
+              "pending": 0,
+              "highWater": 320,
+              "capacity": 512,
+              "mainCapacity": 512,
+              "auxCapacity": 512,
+              "metadataCapacity": 512
+            },
+            "logs": {
+              "ping": {
+                "capacity": 65536,
+                "cachedSize": 0,
+                "droppedThrough": 463,
+                "frontBatches": 0,
+                "rearBatches": 0,
+                "physicalValues": 0,
+                "declaredValues": 0,
+                "consistentSize": true,
+                "consistentBatches": true
+              },
+              "removed": {
+                "capacity": 65536,
+                "cachedSize": 1,
+                "droppedThrough": 459,
+                "frontBatches": 1,
+                "rearBatches": 0,
+                "physicalValues": 1,
+                "declaredValues": 1,
+                "consistentSize": true,
+                "consistentBatches": true
+              },
+              "despawned": {
+                "capacity": 65536,
+                "cachedSize": 1,
+                "droppedThrough": 459,
+                "frontBatches": 1,
+                "rearBatches": 0,
+                "physicalValues": 1,
+                "declaredValues": 1,
+                "consistentSize": true,
+                "consistentBatches": true
+              }
+            },
+            "readers": [
+              {
+                "key": 5,
+                "registeredAt": 2,
+                "lastRun": 469,
+                "streamLastRun": 469,
+                "messageHolder": true,
+                "removedHolder": true,
+                "despawnHolder": true,
+                "unreadMessages": 0,
+                "unreadRemoved": 0,
+                "unreadDespawned": 0,
+                "messageLag": false,
+                "removedLag": false,
+                "despawnedLag": false
+              },
+              {
+                "key": 4,
+                "registeredAt": 1,
+                "lastRun": 468,
+                "streamLastRun": 468,
+                "messageHolder": true,
+                "removedHolder": true,
+                "despawnHolder": true,
+                "unreadMessages": 0,
+                "unreadRemoved": 0,
+                "unreadDespawned": 0,
+                "messageLag": false,
+                "removedLag": false,
+                "despawnedLag": false
+              }
+            ],
+            "holders": {
+              "messages": [
+                469,
+                468
+              ],
+              "removed": [
+                469,
+                468
+              ],
+              "despawned": [
+                469,
+                468
+              ]
+            },
+            "registeredReaderBases": [
+              {
+                "name": "Slow",
+                "key": 5,
+                "state": {
+                  "key": 5,
+                  "registeredAt": 2,
+                  "lastRun": 469,
+                  "streamLastRun": 469,
+                  "messageHolder": true,
+                  "removedHolder": true,
+                  "despawnHolder": true,
+                  "unreadMessages": 0,
+                  "unreadRemoved": 0,
+                  "unreadDespawned": 0,
+                  "messageLag": false,
+                  "removedLag": false,
+                  "despawnedLag": false
+                }
+              },
+              {
+                "name": "Fast",
+                "key": 4,
+                "state": {
+                  "key": 4,
+                  "registeredAt": 1,
+                  "lastRun": 468,
+                  "streamLastRun": 468,
+                  "messageHolder": true,
+                  "removedHolder": true,
+                  "despawnHolder": true,
+                  "unreadMessages": 0,
+                  "unreadRemoved": 0,
+                  "unreadDespawned": 0,
+                  "messageLag": false,
+                  "removedLag": false,
+                  "despawnedLag": false
+                }
+              }
+            ]
+          },
+          "unavailable": {
+            "activeTransactionStaging": "No active Tx owner reaches these runtime/state hooks; no workload staging/inverse/mark peak inferred from finite fixtures.",
+            "stateHookStoredReaders": "Available at tick hooks, unavailable inside invocation/barrier owner-only hooks.",
+            "setupAppendPeaks": "Bulk setup append peaks before the first diagnostic checkpoint are not inspected.",
+            "RSS": "Separate clean-launcher replay required."
+          },
+          "publicTraceMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullReadObservations": 84,
+            "actualReaderDiagnostics": 84,
+            "fullRowsCompared": 22768,
+            "actualReservations": 64,
+            "clockNormalization": "Bend tick = TS tick - 1; seed performed before dispatcher; every callback checked",
+            "finalSha256": "0922da52ffba8522e4233ebae43269c5408fa9ea96d9375ca60c7c015e5d6378",
+            "summary": {
+              "counts": [
+                {
+                  "system": "Slow",
+                  "value": {
+                    "a": 18,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Fast",
+                  "value": {
+                    "a": 66,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Update",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Dispose",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Reserve",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                }
+              ],
+              "tick": 469,
+              "frames": 195
+            }
+          },
+          "publicSha256": "10e397aac1afea9e58cc2280e2a930fd6d20fe7e0969a38a3230789fd6b8a999",
+          "rawRecords": "occupancy-readers-motion-256-js.jsonl.gz",
+          "rawRecordsSha256": "0602aa39d4ed8c5d45c45c2bd58b88e442dbf485b1fde91b8e512f073f32fb50"
+        }
+      },
+      "freshTS": "PASS"
+    },
+    {
+      "schema": "Motion",
+      "count": 1024,
+      "backends": {
+        "Native": {
+          "status": "PASS",
+          "physicalCheckpoints": 1196,
+          "runningDeliveryCrossChecks": 84,
+          "observedCheckpointMaxima": {
+            "live": {
+              "value": 1025,
+              "checkpoint": {
+                "record": 10,
+                "iteration": 0,
+                "phase": "after-barrier",
+                "tick": 5,
+                "frame": 3
+              }
+            },
+            "pending": {
+              "value": 2,
+              "checkpoint": {
+                "record": 20,
+                "iteration": 0,
+                "phase": "after-system=Dispose",
+                "tick": 9,
+                "frame": 5
+              }
+            },
+            "pingValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 68,
+                "iteration": 3,
+                "phase": "after-system=Update",
+                "tick": 28,
+                "frame": 13
+              }
+            },
+            "pingBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 68,
+                "iteration": 3,
+                "phase": "after-system=Update",
+                "tick": 28,
+                "frame": 13
+              }
+            },
+            "removedValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "removedBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "despawnedValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "despawnedBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "messagesHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "removedHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "despawnedHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "runningUnreadMessages": {
+              "value": 4,
+              "checkpoint": {
+                "record": 71,
+                "iteration": 3,
+                "phase": "before-system=Slow",
+                "tick": 30,
+                "frame": 13
+              }
+            },
+            "unreadMessages": {
+              "value": 4,
+              "checkpoint": {
+                "record": 71,
+                "iteration": 3,
+                "phase": "before-system=Slow",
+                "tick": 30,
+                "frame": 13
+              }
+            },
+            "runningUnreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 145,
+                "iteration": 7,
+                "phase": "before-system=Slow",
+                "tick": 59,
+                "frame": 25
+              }
+            },
+            "unreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "runningUnreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 145,
+                "iteration": 7,
+                "phase": "before-system=Slow",
+                "tick": 59,
+                "frame": 25
+              }
+            },
+            "unreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "storedUnreadMessages": {
+              "value": 3,
+              "checkpoint": {
+                "record": 53,
+                "iteration": 2,
+                "phase": "after-tick-before-next-frame",
+                "tick": 22,
+                "frame": 10
+              }
+            },
+            "storedUnreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "storedUnreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            }
+          },
+          "final": {
+            "schema": "Motion",
+            "count": 1024,
+            "iteration": 64,
+            "phase": "after-tick-before-next-frame",
+            "tick": 469,
+            "frame": 195,
+            "world": {
+              "namespace": 1,
+              "next": 1089,
+              "live": 1024,
+              "pending": 0,
+              "highWater": 1088,
+              "capacity": 2048,
+              "mainCapacity": 2048,
+              "auxCapacity": 2048,
+              "metadataCapacity": 2048
+            },
+            "logs": {
+              "ping": {
+                "capacity": 65536,
+                "cachedSize": 0,
+                "droppedThrough": 463,
+                "frontBatches": 0,
+                "rearBatches": 0,
+                "physicalValues": 0,
+                "declaredValues": 0,
+                "consistentSize": true,
+                "consistentBatches": true
+              },
+              "removed": {
+                "capacity": 65536,
+                "cachedSize": 1,
+                "droppedThrough": 459,
+                "frontBatches": 1,
+                "rearBatches": 0,
+                "physicalValues": 1,
+                "declaredValues": 1,
+                "consistentSize": true,
+                "consistentBatches": true
+              },
+              "despawned": {
+                "capacity": 65536,
+                "cachedSize": 1,
+                "droppedThrough": 459,
+                "frontBatches": 1,
+                "rearBatches": 0,
+                "physicalValues": 1,
+                "declaredValues": 1,
+                "consistentSize": true,
+                "consistentBatches": true
+              }
+            },
+            "readers": [
+              {
+                "key": 5,
+                "registeredAt": 2,
+                "lastRun": 469,
+                "streamLastRun": 469,
+                "messageHolder": true,
+                "removedHolder": true,
+                "despawnHolder": true,
+                "unreadMessages": 0,
+                "unreadRemoved": 0,
+                "unreadDespawned": 0,
+                "messageLag": false,
+                "removedLag": false,
+                "despawnedLag": false
+              },
+              {
+                "key": 4,
+                "registeredAt": 1,
+                "lastRun": 468,
+                "streamLastRun": 468,
+                "messageHolder": true,
+                "removedHolder": true,
+                "despawnHolder": true,
+                "unreadMessages": 0,
+                "unreadRemoved": 0,
+                "unreadDespawned": 0,
+                "messageLag": false,
+                "removedLag": false,
+                "despawnedLag": false
+              }
+            ],
+            "holders": {
+              "messages": [
+                469,
+                468
+              ],
+              "removed": [
+                469,
+                468
+              ],
+              "despawned": [
+                469,
+                468
+              ]
+            },
+            "registeredReaderBases": [
+              {
+                "name": "Slow",
+                "key": 5,
+                "state": {
+                  "key": 5,
+                  "registeredAt": 2,
+                  "lastRun": 469,
+                  "streamLastRun": 469,
+                  "messageHolder": true,
+                  "removedHolder": true,
+                  "despawnHolder": true,
+                  "unreadMessages": 0,
+                  "unreadRemoved": 0,
+                  "unreadDespawned": 0,
+                  "messageLag": false,
+                  "removedLag": false,
+                  "despawnedLag": false
+                }
+              },
+              {
+                "name": "Fast",
+                "key": 4,
+                "state": {
+                  "key": 4,
+                  "registeredAt": 1,
+                  "lastRun": 468,
+                  "streamLastRun": 468,
+                  "messageHolder": true,
+                  "removedHolder": true,
+                  "despawnHolder": true,
+                  "unreadMessages": 0,
+                  "unreadRemoved": 0,
+                  "unreadDespawned": 0,
+                  "messageLag": false,
+                  "removedLag": false,
+                  "despawnedLag": false
+                }
+              }
+            ]
+          },
+          "unavailable": {
+            "activeTransactionStaging": "No active Tx owner reaches these runtime/state hooks; no workload staging/inverse/mark peak inferred from finite fixtures.",
+            "stateHookStoredReaders": "Available at tick hooks, unavailable inside invocation/barrier owner-only hooks.",
+            "setupAppendPeaks": "Bulk setup append peaks before the first diagnostic checkpoint are not inspected.",
+            "RSS": "Separate clean-launcher replay required."
+          },
+          "publicTraceMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullReadObservations": 84,
+            "actualReaderDiagnostics": 84,
+            "fullRowsCompared": 90352,
+            "actualReservations": 64,
+            "clockNormalization": "Bend tick = TS tick - 1; seed performed before dispatcher; every callback checked",
+            "finalSha256": "8f3b742910c4f884f6b7e01bffc0986f601fdbd8f085d9404d2b0dd0cf56a924",
+            "summary": {
+              "counts": [
+                {
+                  "system": "Slow",
+                  "value": {
+                    "a": 18,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Fast",
+                  "value": {
+                    "a": 66,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Update",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Dispose",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Reserve",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                }
+              ],
+              "tick": 469,
+              "frames": 195
+            }
+          },
+          "publicSha256": "102b4ad6540f224a198fd4258e888f4283f8222bf7a4a2e68283630268ec5c3c",
+          "rawRecords": "occupancy-readers-motion-1024-native.jsonl.gz",
+          "rawRecordsSha256": "5bcee4231cac0c6f58c6a5e6595db353fd6efe864180d1a1aa1525f43060ec0c"
+        },
+        "JS": {
+          "status": "PASS",
+          "physicalCheckpoints": 1196,
+          "runningDeliveryCrossChecks": 84,
+          "observedCheckpointMaxima": {
+            "live": {
+              "value": 1025,
+              "checkpoint": {
+                "record": 10,
+                "iteration": 0,
+                "phase": "after-barrier",
+                "tick": 5,
+                "frame": 3
+              }
+            },
+            "pending": {
+              "value": 2,
+              "checkpoint": {
+                "record": 20,
+                "iteration": 0,
+                "phase": "after-system=Dispose",
+                "tick": 9,
+                "frame": 5
+              }
+            },
+            "pingValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 68,
+                "iteration": 3,
+                "phase": "after-system=Update",
+                "tick": 28,
+                "frame": 13
+              }
+            },
+            "pingBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 68,
+                "iteration": 3,
+                "phase": "after-system=Update",
+                "tick": 28,
+                "frame": 13
+              }
+            },
+            "removedValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "removedBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "despawnedValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "despawnedBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "messagesHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "removedHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "despawnedHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "runningUnreadMessages": {
+              "value": 4,
+              "checkpoint": {
+                "record": 71,
+                "iteration": 3,
+                "phase": "before-system=Slow",
+                "tick": 30,
+                "frame": 13
+              }
+            },
+            "unreadMessages": {
+              "value": 4,
+              "checkpoint": {
+                "record": 71,
+                "iteration": 3,
+                "phase": "before-system=Slow",
+                "tick": 30,
+                "frame": 13
+              }
+            },
+            "runningUnreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 145,
+                "iteration": 7,
+                "phase": "before-system=Slow",
+                "tick": 59,
+                "frame": 25
+              }
+            },
+            "unreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "runningUnreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 145,
+                "iteration": 7,
+                "phase": "before-system=Slow",
+                "tick": 59,
+                "frame": 25
+              }
+            },
+            "unreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "storedUnreadMessages": {
+              "value": 3,
+              "checkpoint": {
+                "record": 53,
+                "iteration": 2,
+                "phase": "after-tick-before-next-frame",
+                "tick": 22,
+                "frame": 10
+              }
+            },
+            "storedUnreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "storedUnreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            }
+          },
+          "final": {
+            "schema": "Motion",
+            "count": 1024,
+            "iteration": 64,
+            "phase": "after-tick-before-next-frame",
+            "tick": 469,
+            "frame": 195,
+            "world": {
+              "namespace": 1,
+              "next": 1089,
+              "live": 1024,
+              "pending": 0,
+              "highWater": 1088,
+              "capacity": 2048,
+              "mainCapacity": 2048,
+              "auxCapacity": 2048,
+              "metadataCapacity": 2048
+            },
+            "logs": {
+              "ping": {
+                "capacity": 65536,
+                "cachedSize": 0,
+                "droppedThrough": 463,
+                "frontBatches": 0,
+                "rearBatches": 0,
+                "physicalValues": 0,
+                "declaredValues": 0,
+                "consistentSize": true,
+                "consistentBatches": true
+              },
+              "removed": {
+                "capacity": 65536,
+                "cachedSize": 1,
+                "droppedThrough": 459,
+                "frontBatches": 1,
+                "rearBatches": 0,
+                "physicalValues": 1,
+                "declaredValues": 1,
+                "consistentSize": true,
+                "consistentBatches": true
+              },
+              "despawned": {
+                "capacity": 65536,
+                "cachedSize": 1,
+                "droppedThrough": 459,
+                "frontBatches": 1,
+                "rearBatches": 0,
+                "physicalValues": 1,
+                "declaredValues": 1,
+                "consistentSize": true,
+                "consistentBatches": true
+              }
+            },
+            "readers": [
+              {
+                "key": 5,
+                "registeredAt": 2,
+                "lastRun": 469,
+                "streamLastRun": 469,
+                "messageHolder": true,
+                "removedHolder": true,
+                "despawnHolder": true,
+                "unreadMessages": 0,
+                "unreadRemoved": 0,
+                "unreadDespawned": 0,
+                "messageLag": false,
+                "removedLag": false,
+                "despawnedLag": false
+              },
+              {
+                "key": 4,
+                "registeredAt": 1,
+                "lastRun": 468,
+                "streamLastRun": 468,
+                "messageHolder": true,
+                "removedHolder": true,
+                "despawnHolder": true,
+                "unreadMessages": 0,
+                "unreadRemoved": 0,
+                "unreadDespawned": 0,
+                "messageLag": false,
+                "removedLag": false,
+                "despawnedLag": false
+              }
+            ],
+            "holders": {
+              "messages": [
+                469,
+                468
+              ],
+              "removed": [
+                469,
+                468
+              ],
+              "despawned": [
+                469,
+                468
+              ]
+            },
+            "registeredReaderBases": [
+              {
+                "name": "Slow",
+                "key": 5,
+                "state": {
+                  "key": 5,
+                  "registeredAt": 2,
+                  "lastRun": 469,
+                  "streamLastRun": 469,
+                  "messageHolder": true,
+                  "removedHolder": true,
+                  "despawnHolder": true,
+                  "unreadMessages": 0,
+                  "unreadRemoved": 0,
+                  "unreadDespawned": 0,
+                  "messageLag": false,
+                  "removedLag": false,
+                  "despawnedLag": false
+                }
+              },
+              {
+                "name": "Fast",
+                "key": 4,
+                "state": {
+                  "key": 4,
+                  "registeredAt": 1,
+                  "lastRun": 468,
+                  "streamLastRun": 468,
+                  "messageHolder": true,
+                  "removedHolder": true,
+                  "despawnHolder": true,
+                  "unreadMessages": 0,
+                  "unreadRemoved": 0,
+                  "unreadDespawned": 0,
+                  "messageLag": false,
+                  "removedLag": false,
+                  "despawnedLag": false
+                }
+              }
+            ]
+          },
+          "unavailable": {
+            "activeTransactionStaging": "No active Tx owner reaches these runtime/state hooks; no workload staging/inverse/mark peak inferred from finite fixtures.",
+            "stateHookStoredReaders": "Available at tick hooks, unavailable inside invocation/barrier owner-only hooks.",
+            "setupAppendPeaks": "Bulk setup append peaks before the first diagnostic checkpoint are not inspected.",
+            "RSS": "Separate clean-launcher replay required."
+          },
+          "publicTraceMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullReadObservations": 84,
+            "actualReaderDiagnostics": 84,
+            "fullRowsCompared": 90352,
+            "actualReservations": 64,
+            "clockNormalization": "Bend tick = TS tick - 1; seed performed before dispatcher; every callback checked",
+            "finalSha256": "8f3b742910c4f884f6b7e01bffc0986f601fdbd8f085d9404d2b0dd0cf56a924",
+            "summary": {
+              "counts": [
+                {
+                  "system": "Slow",
+                  "value": {
+                    "a": 18,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Fast",
+                  "value": {
+                    "a": 66,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Update",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Dispose",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Reserve",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                }
+              ],
+              "tick": 469,
+              "frames": 195
+            }
+          },
+          "publicSha256": "102b4ad6540f224a198fd4258e888f4283f8222bf7a4a2e68283630268ec5c3c",
+          "rawRecords": "occupancy-readers-motion-1024-js.jsonl.gz",
+          "rawRecordsSha256": "5bcee4231cac0c6f58c6a5e6595db353fd6efe864180d1a1aa1525f43060ec0c"
+        }
+      },
+      "freshTS": "PASS"
+    },
+    {
+      "schema": "Health",
+      "count": 64,
+      "backends": {
+        "Native": {
+          "status": "PASS",
+          "physicalCheckpoints": 1196,
+          "runningDeliveryCrossChecks": 84,
+          "observedCheckpointMaxima": {
+            "live": {
+              "value": 65,
+              "checkpoint": {
+                "record": 10,
+                "iteration": 0,
+                "phase": "after-barrier",
+                "tick": 5,
+                "frame": 3
+              }
+            },
+            "pending": {
+              "value": 2,
+              "checkpoint": {
+                "record": 20,
+                "iteration": 0,
+                "phase": "after-system=Dispose",
+                "tick": 9,
+                "frame": 5
+              }
+            },
+            "pingValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 68,
+                "iteration": 3,
+                "phase": "after-system=Update",
+                "tick": 28,
+                "frame": 13
+              }
+            },
+            "pingBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 68,
+                "iteration": 3,
+                "phase": "after-system=Update",
+                "tick": 28,
+                "frame": 13
+              }
+            },
+            "removedValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "removedBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "despawnedValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "despawnedBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "messagesHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "removedHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "despawnedHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "runningUnreadMessages": {
+              "value": 4,
+              "checkpoint": {
+                "record": 71,
+                "iteration": 3,
+                "phase": "before-system=Slow",
+                "tick": 30,
+                "frame": 13
+              }
+            },
+            "unreadMessages": {
+              "value": 4,
+              "checkpoint": {
+                "record": 71,
+                "iteration": 3,
+                "phase": "before-system=Slow",
+                "tick": 30,
+                "frame": 13
+              }
+            },
+            "runningUnreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 145,
+                "iteration": 7,
+                "phase": "before-system=Slow",
+                "tick": 59,
+                "frame": 25
+              }
+            },
+            "unreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "runningUnreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 145,
+                "iteration": 7,
+                "phase": "before-system=Slow",
+                "tick": 59,
+                "frame": 25
+              }
+            },
+            "unreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "storedUnreadMessages": {
+              "value": 3,
+              "checkpoint": {
+                "record": 53,
+                "iteration": 2,
+                "phase": "after-tick-before-next-frame",
+                "tick": 22,
+                "frame": 10
+              }
+            },
+            "storedUnreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "storedUnreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            }
+          },
+          "final": {
+            "schema": "Health",
+            "count": 64,
+            "iteration": 64,
+            "phase": "after-tick-before-next-frame",
+            "tick": 469,
+            "frame": 195,
+            "world": {
+              "namespace": 1,
+              "next": 129,
+              "live": 64,
+              "pending": 0,
+              "highWater": 128,
+              "capacity": 128,
+              "mainCapacity": 128,
+              "auxCapacity": 128,
+              "metadataCapacity": 128
+            },
+            "logs": {
+              "ping": {
+                "capacity": 65536,
+                "cachedSize": 0,
+                "droppedThrough": 463,
+                "frontBatches": 0,
+                "rearBatches": 0,
+                "physicalValues": 0,
+                "declaredValues": 0,
+                "consistentSize": true,
+                "consistentBatches": true
+              },
+              "removed": {
+                "capacity": 65536,
+                "cachedSize": 1,
+                "droppedThrough": 459,
+                "frontBatches": 1,
+                "rearBatches": 0,
+                "physicalValues": 1,
+                "declaredValues": 1,
+                "consistentSize": true,
+                "consistentBatches": true
+              },
+              "despawned": {
+                "capacity": 65536,
+                "cachedSize": 1,
+                "droppedThrough": 459,
+                "frontBatches": 1,
+                "rearBatches": 0,
+                "physicalValues": 1,
+                "declaredValues": 1,
+                "consistentSize": true,
+                "consistentBatches": true
+              }
+            },
+            "readers": [
+              {
+                "key": 5,
+                "registeredAt": 2,
+                "lastRun": 469,
+                "streamLastRun": 469,
+                "messageHolder": true,
+                "removedHolder": true,
+                "despawnHolder": true,
+                "unreadMessages": 0,
+                "unreadRemoved": 0,
+                "unreadDespawned": 0,
+                "messageLag": false,
+                "removedLag": false,
+                "despawnedLag": false
+              },
+              {
+                "key": 4,
+                "registeredAt": 1,
+                "lastRun": 468,
+                "streamLastRun": 468,
+                "messageHolder": true,
+                "removedHolder": true,
+                "despawnHolder": true,
+                "unreadMessages": 0,
+                "unreadRemoved": 0,
+                "unreadDespawned": 0,
+                "messageLag": false,
+                "removedLag": false,
+                "despawnedLag": false
+              }
+            ],
+            "holders": {
+              "messages": [
+                469,
+                468
+              ],
+              "removed": [
+                469,
+                468
+              ],
+              "despawned": [
+                469,
+                468
+              ]
+            },
+            "registeredReaderBases": [
+              {
+                "name": "Slow",
+                "key": 5,
+                "state": {
+                  "key": 5,
+                  "registeredAt": 2,
+                  "lastRun": 469,
+                  "streamLastRun": 469,
+                  "messageHolder": true,
+                  "removedHolder": true,
+                  "despawnHolder": true,
+                  "unreadMessages": 0,
+                  "unreadRemoved": 0,
+                  "unreadDespawned": 0,
+                  "messageLag": false,
+                  "removedLag": false,
+                  "despawnedLag": false
+                }
+              },
+              {
+                "name": "Fast",
+                "key": 4,
+                "state": {
+                  "key": 4,
+                  "registeredAt": 1,
+                  "lastRun": 468,
+                  "streamLastRun": 468,
+                  "messageHolder": true,
+                  "removedHolder": true,
+                  "despawnHolder": true,
+                  "unreadMessages": 0,
+                  "unreadRemoved": 0,
+                  "unreadDespawned": 0,
+                  "messageLag": false,
+                  "removedLag": false,
+                  "despawnedLag": false
+                }
+              }
+            ]
+          },
+          "unavailable": {
+            "activeTransactionStaging": "No active Tx owner reaches these runtime/state hooks; no workload staging/inverse/mark peak inferred from finite fixtures.",
+            "stateHookStoredReaders": "Available at tick hooks, unavailable inside invocation/barrier owner-only hooks.",
+            "setupAppendPeaks": "Bulk setup append peaks before the first diagnostic checkpoint are not inspected.",
+            "RSS": "Separate clean-launcher replay required."
+          },
+          "publicTraceMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullReadObservations": 84,
+            "actualReaderDiagnostics": 84,
+            "fullRowsCompared": 5872,
+            "actualReservations": 64,
+            "clockNormalization": "Bend tick = TS tick - 1; seed performed before dispatcher; every callback checked",
+            "finalSha256": "5a826a03c3771034950077a2fb4b9311fbbc00b9dc109414f5c32fc04962ec12",
+            "summary": {
+              "counts": [
+                {
+                  "system": "Slow",
+                  "value": {
+                    "a": 18,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Fast",
+                  "value": {
+                    "a": 66,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Update",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Dispose",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Reserve",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                }
+              ],
+              "tick": 469,
+              "frames": 195
+            }
+          },
+          "publicSha256": "f125ebe73932e52a2ce0cbd6cddfbf0667c2f0ae6a52c3848685c66b431e989a",
+          "rawRecords": "occupancy-readers-health-64-native.jsonl.gz",
+          "rawRecordsSha256": "8f0a325a95a770d1814aed85191fc3ebe160fb7d737aedc23c8b3a2fdd390a06"
+        },
+        "JS": {
+          "status": "PASS",
+          "physicalCheckpoints": 1196,
+          "runningDeliveryCrossChecks": 84,
+          "observedCheckpointMaxima": {
+            "live": {
+              "value": 65,
+              "checkpoint": {
+                "record": 10,
+                "iteration": 0,
+                "phase": "after-barrier",
+                "tick": 5,
+                "frame": 3
+              }
+            },
+            "pending": {
+              "value": 2,
+              "checkpoint": {
+                "record": 20,
+                "iteration": 0,
+                "phase": "after-system=Dispose",
+                "tick": 9,
+                "frame": 5
+              }
+            },
+            "pingValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 68,
+                "iteration": 3,
+                "phase": "after-system=Update",
+                "tick": 28,
+                "frame": 13
+              }
+            },
+            "pingBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 68,
+                "iteration": 3,
+                "phase": "after-system=Update",
+                "tick": 28,
+                "frame": 13
+              }
+            },
+            "removedValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "removedBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "despawnedValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "despawnedBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "messagesHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "removedHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "despawnedHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "runningUnreadMessages": {
+              "value": 4,
+              "checkpoint": {
+                "record": 71,
+                "iteration": 3,
+                "phase": "before-system=Slow",
+                "tick": 30,
+                "frame": 13
+              }
+            },
+            "unreadMessages": {
+              "value": 4,
+              "checkpoint": {
+                "record": 71,
+                "iteration": 3,
+                "phase": "before-system=Slow",
+                "tick": 30,
+                "frame": 13
+              }
+            },
+            "runningUnreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 145,
+                "iteration": 7,
+                "phase": "before-system=Slow",
+                "tick": 59,
+                "frame": 25
+              }
+            },
+            "unreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "runningUnreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 145,
+                "iteration": 7,
+                "phase": "before-system=Slow",
+                "tick": 59,
+                "frame": 25
+              }
+            },
+            "unreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "storedUnreadMessages": {
+              "value": 3,
+              "checkpoint": {
+                "record": 53,
+                "iteration": 2,
+                "phase": "after-tick-before-next-frame",
+                "tick": 22,
+                "frame": 10
+              }
+            },
+            "storedUnreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "storedUnreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            }
+          },
+          "final": {
+            "schema": "Health",
+            "count": 64,
+            "iteration": 64,
+            "phase": "after-tick-before-next-frame",
+            "tick": 469,
+            "frame": 195,
+            "world": {
+              "namespace": 1,
+              "next": 129,
+              "live": 64,
+              "pending": 0,
+              "highWater": 128,
+              "capacity": 128,
+              "mainCapacity": 128,
+              "auxCapacity": 128,
+              "metadataCapacity": 128
+            },
+            "logs": {
+              "ping": {
+                "capacity": 65536,
+                "cachedSize": 0,
+                "droppedThrough": 463,
+                "frontBatches": 0,
+                "rearBatches": 0,
+                "physicalValues": 0,
+                "declaredValues": 0,
+                "consistentSize": true,
+                "consistentBatches": true
+              },
+              "removed": {
+                "capacity": 65536,
+                "cachedSize": 1,
+                "droppedThrough": 459,
+                "frontBatches": 1,
+                "rearBatches": 0,
+                "physicalValues": 1,
+                "declaredValues": 1,
+                "consistentSize": true,
+                "consistentBatches": true
+              },
+              "despawned": {
+                "capacity": 65536,
+                "cachedSize": 1,
+                "droppedThrough": 459,
+                "frontBatches": 1,
+                "rearBatches": 0,
+                "physicalValues": 1,
+                "declaredValues": 1,
+                "consistentSize": true,
+                "consistentBatches": true
+              }
+            },
+            "readers": [
+              {
+                "key": 5,
+                "registeredAt": 2,
+                "lastRun": 469,
+                "streamLastRun": 469,
+                "messageHolder": true,
+                "removedHolder": true,
+                "despawnHolder": true,
+                "unreadMessages": 0,
+                "unreadRemoved": 0,
+                "unreadDespawned": 0,
+                "messageLag": false,
+                "removedLag": false,
+                "despawnedLag": false
+              },
+              {
+                "key": 4,
+                "registeredAt": 1,
+                "lastRun": 468,
+                "streamLastRun": 468,
+                "messageHolder": true,
+                "removedHolder": true,
+                "despawnHolder": true,
+                "unreadMessages": 0,
+                "unreadRemoved": 0,
+                "unreadDespawned": 0,
+                "messageLag": false,
+                "removedLag": false,
+                "despawnedLag": false
+              }
+            ],
+            "holders": {
+              "messages": [
+                469,
+                468
+              ],
+              "removed": [
+                469,
+                468
+              ],
+              "despawned": [
+                469,
+                468
+              ]
+            },
+            "registeredReaderBases": [
+              {
+                "name": "Slow",
+                "key": 5,
+                "state": {
+                  "key": 5,
+                  "registeredAt": 2,
+                  "lastRun": 469,
+                  "streamLastRun": 469,
+                  "messageHolder": true,
+                  "removedHolder": true,
+                  "despawnHolder": true,
+                  "unreadMessages": 0,
+                  "unreadRemoved": 0,
+                  "unreadDespawned": 0,
+                  "messageLag": false,
+                  "removedLag": false,
+                  "despawnedLag": false
+                }
+              },
+              {
+                "name": "Fast",
+                "key": 4,
+                "state": {
+                  "key": 4,
+                  "registeredAt": 1,
+                  "lastRun": 468,
+                  "streamLastRun": 468,
+                  "messageHolder": true,
+                  "removedHolder": true,
+                  "despawnHolder": true,
+                  "unreadMessages": 0,
+                  "unreadRemoved": 0,
+                  "unreadDespawned": 0,
+                  "messageLag": false,
+                  "removedLag": false,
+                  "despawnedLag": false
+                }
+              }
+            ]
+          },
+          "unavailable": {
+            "activeTransactionStaging": "No active Tx owner reaches these runtime/state hooks; no workload staging/inverse/mark peak inferred from finite fixtures.",
+            "stateHookStoredReaders": "Available at tick hooks, unavailable inside invocation/barrier owner-only hooks.",
+            "setupAppendPeaks": "Bulk setup append peaks before the first diagnostic checkpoint are not inspected.",
+            "RSS": "Separate clean-launcher replay required."
+          },
+          "publicTraceMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullReadObservations": 84,
+            "actualReaderDiagnostics": 84,
+            "fullRowsCompared": 5872,
+            "actualReservations": 64,
+            "clockNormalization": "Bend tick = TS tick - 1; seed performed before dispatcher; every callback checked",
+            "finalSha256": "5a826a03c3771034950077a2fb4b9311fbbc00b9dc109414f5c32fc04962ec12",
+            "summary": {
+              "counts": [
+                {
+                  "system": "Slow",
+                  "value": {
+                    "a": 18,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Fast",
+                  "value": {
+                    "a": 66,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Update",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Dispose",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Reserve",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                }
+              ],
+              "tick": 469,
+              "frames": 195
+            }
+          },
+          "publicSha256": "f125ebe73932e52a2ce0cbd6cddfbf0667c2f0ae6a52c3848685c66b431e989a",
+          "rawRecords": "occupancy-readers-health-64-js.jsonl.gz",
+          "rawRecordsSha256": "8f0a325a95a770d1814aed85191fc3ebe160fb7d737aedc23c8b3a2fdd390a06"
+        }
+      },
+      "freshTS": "PASS"
+    },
+    {
+      "schema": "Health",
+      "count": 256,
+      "backends": {
+        "Native": {
+          "status": "PASS",
+          "physicalCheckpoints": 1196,
+          "runningDeliveryCrossChecks": 84,
+          "observedCheckpointMaxima": {
+            "live": {
+              "value": 257,
+              "checkpoint": {
+                "record": 10,
+                "iteration": 0,
+                "phase": "after-barrier",
+                "tick": 5,
+                "frame": 3
+              }
+            },
+            "pending": {
+              "value": 2,
+              "checkpoint": {
+                "record": 20,
+                "iteration": 0,
+                "phase": "after-system=Dispose",
+                "tick": 9,
+                "frame": 5
+              }
+            },
+            "pingValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 68,
+                "iteration": 3,
+                "phase": "after-system=Update",
+                "tick": 28,
+                "frame": 13
+              }
+            },
+            "pingBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 68,
+                "iteration": 3,
+                "phase": "after-system=Update",
+                "tick": 28,
+                "frame": 13
+              }
+            },
+            "removedValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "removedBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "despawnedValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "despawnedBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "messagesHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "removedHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "despawnedHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "runningUnreadMessages": {
+              "value": 4,
+              "checkpoint": {
+                "record": 71,
+                "iteration": 3,
+                "phase": "before-system=Slow",
+                "tick": 30,
+                "frame": 13
+              }
+            },
+            "unreadMessages": {
+              "value": 4,
+              "checkpoint": {
+                "record": 71,
+                "iteration": 3,
+                "phase": "before-system=Slow",
+                "tick": 30,
+                "frame": 13
+              }
+            },
+            "runningUnreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 145,
+                "iteration": 7,
+                "phase": "before-system=Slow",
+                "tick": 59,
+                "frame": 25
+              }
+            },
+            "unreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "runningUnreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 145,
+                "iteration": 7,
+                "phase": "before-system=Slow",
+                "tick": 59,
+                "frame": 25
+              }
+            },
+            "unreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "storedUnreadMessages": {
+              "value": 3,
+              "checkpoint": {
+                "record": 53,
+                "iteration": 2,
+                "phase": "after-tick-before-next-frame",
+                "tick": 22,
+                "frame": 10
+              }
+            },
+            "storedUnreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "storedUnreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            }
+          },
+          "final": {
+            "schema": "Health",
+            "count": 256,
+            "iteration": 64,
+            "phase": "after-tick-before-next-frame",
+            "tick": 469,
+            "frame": 195,
+            "world": {
+              "namespace": 1,
+              "next": 321,
+              "live": 256,
+              "pending": 0,
+              "highWater": 320,
+              "capacity": 512,
+              "mainCapacity": 512,
+              "auxCapacity": 512,
+              "metadataCapacity": 512
+            },
+            "logs": {
+              "ping": {
+                "capacity": 65536,
+                "cachedSize": 0,
+                "droppedThrough": 463,
+                "frontBatches": 0,
+                "rearBatches": 0,
+                "physicalValues": 0,
+                "declaredValues": 0,
+                "consistentSize": true,
+                "consistentBatches": true
+              },
+              "removed": {
+                "capacity": 65536,
+                "cachedSize": 1,
+                "droppedThrough": 459,
+                "frontBatches": 1,
+                "rearBatches": 0,
+                "physicalValues": 1,
+                "declaredValues": 1,
+                "consistentSize": true,
+                "consistentBatches": true
+              },
+              "despawned": {
+                "capacity": 65536,
+                "cachedSize": 1,
+                "droppedThrough": 459,
+                "frontBatches": 1,
+                "rearBatches": 0,
+                "physicalValues": 1,
+                "declaredValues": 1,
+                "consistentSize": true,
+                "consistentBatches": true
+              }
+            },
+            "readers": [
+              {
+                "key": 5,
+                "registeredAt": 2,
+                "lastRun": 469,
+                "streamLastRun": 469,
+                "messageHolder": true,
+                "removedHolder": true,
+                "despawnHolder": true,
+                "unreadMessages": 0,
+                "unreadRemoved": 0,
+                "unreadDespawned": 0,
+                "messageLag": false,
+                "removedLag": false,
+                "despawnedLag": false
+              },
+              {
+                "key": 4,
+                "registeredAt": 1,
+                "lastRun": 468,
+                "streamLastRun": 468,
+                "messageHolder": true,
+                "removedHolder": true,
+                "despawnHolder": true,
+                "unreadMessages": 0,
+                "unreadRemoved": 0,
+                "unreadDespawned": 0,
+                "messageLag": false,
+                "removedLag": false,
+                "despawnedLag": false
+              }
+            ],
+            "holders": {
+              "messages": [
+                469,
+                468
+              ],
+              "removed": [
+                469,
+                468
+              ],
+              "despawned": [
+                469,
+                468
+              ]
+            },
+            "registeredReaderBases": [
+              {
+                "name": "Slow",
+                "key": 5,
+                "state": {
+                  "key": 5,
+                  "registeredAt": 2,
+                  "lastRun": 469,
+                  "streamLastRun": 469,
+                  "messageHolder": true,
+                  "removedHolder": true,
+                  "despawnHolder": true,
+                  "unreadMessages": 0,
+                  "unreadRemoved": 0,
+                  "unreadDespawned": 0,
+                  "messageLag": false,
+                  "removedLag": false,
+                  "despawnedLag": false
+                }
+              },
+              {
+                "name": "Fast",
+                "key": 4,
+                "state": {
+                  "key": 4,
+                  "registeredAt": 1,
+                  "lastRun": 468,
+                  "streamLastRun": 468,
+                  "messageHolder": true,
+                  "removedHolder": true,
+                  "despawnHolder": true,
+                  "unreadMessages": 0,
+                  "unreadRemoved": 0,
+                  "unreadDespawned": 0,
+                  "messageLag": false,
+                  "removedLag": false,
+                  "despawnedLag": false
+                }
+              }
+            ]
+          },
+          "unavailable": {
+            "activeTransactionStaging": "No active Tx owner reaches these runtime/state hooks; no workload staging/inverse/mark peak inferred from finite fixtures.",
+            "stateHookStoredReaders": "Available at tick hooks, unavailable inside invocation/barrier owner-only hooks.",
+            "setupAppendPeaks": "Bulk setup append peaks before the first diagnostic checkpoint are not inspected.",
+            "RSS": "Separate clean-launcher replay required."
+          },
+          "publicTraceMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullReadObservations": 84,
+            "actualReaderDiagnostics": 84,
+            "fullRowsCompared": 22768,
+            "actualReservations": 64,
+            "clockNormalization": "Bend tick = TS tick - 1; seed performed before dispatcher; every callback checked",
+            "finalSha256": "cbef56b5f69ef86c4727ec3a9053c72de71e520f65625529284dd66f66e61183",
+            "summary": {
+              "counts": [
+                {
+                  "system": "Slow",
+                  "value": {
+                    "a": 18,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Fast",
+                  "value": {
+                    "a": 66,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Update",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Dispose",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Reserve",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                }
+              ],
+              "tick": 469,
+              "frames": 195
+            }
+          },
+          "publicSha256": "866533b17d551edcfd5813466881ba28c468e3da10d657df80e2fcd1103be8c1",
+          "rawRecords": "occupancy-readers-health-256-native.jsonl.gz",
+          "rawRecordsSha256": "f1920f4b389868d86ec02ea2754e3464b7ef35b46ad3bcdfd24dbf9fca10111d"
+        },
+        "JS": {
+          "status": "PASS",
+          "physicalCheckpoints": 1196,
+          "runningDeliveryCrossChecks": 84,
+          "observedCheckpointMaxima": {
+            "live": {
+              "value": 257,
+              "checkpoint": {
+                "record": 10,
+                "iteration": 0,
+                "phase": "after-barrier",
+                "tick": 5,
+                "frame": 3
+              }
+            },
+            "pending": {
+              "value": 2,
+              "checkpoint": {
+                "record": 20,
+                "iteration": 0,
+                "phase": "after-system=Dispose",
+                "tick": 9,
+                "frame": 5
+              }
+            },
+            "pingValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 68,
+                "iteration": 3,
+                "phase": "after-system=Update",
+                "tick": 28,
+                "frame": 13
+              }
+            },
+            "pingBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 68,
+                "iteration": 3,
+                "phase": "after-system=Update",
+                "tick": 28,
+                "frame": 13
+              }
+            },
+            "removedValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "removedBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "despawnedValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "despawnedBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "messagesHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "removedHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "despawnedHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "runningUnreadMessages": {
+              "value": 4,
+              "checkpoint": {
+                "record": 71,
+                "iteration": 3,
+                "phase": "before-system=Slow",
+                "tick": 30,
+                "frame": 13
+              }
+            },
+            "unreadMessages": {
+              "value": 4,
+              "checkpoint": {
+                "record": 71,
+                "iteration": 3,
+                "phase": "before-system=Slow",
+                "tick": 30,
+                "frame": 13
+              }
+            },
+            "runningUnreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 145,
+                "iteration": 7,
+                "phase": "before-system=Slow",
+                "tick": 59,
+                "frame": 25
+              }
+            },
+            "unreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "runningUnreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 145,
+                "iteration": 7,
+                "phase": "before-system=Slow",
+                "tick": 59,
+                "frame": 25
+              }
+            },
+            "unreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "storedUnreadMessages": {
+              "value": 3,
+              "checkpoint": {
+                "record": 53,
+                "iteration": 2,
+                "phase": "after-tick-before-next-frame",
+                "tick": 22,
+                "frame": 10
+              }
+            },
+            "storedUnreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "storedUnreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            }
+          },
+          "final": {
+            "schema": "Health",
+            "count": 256,
+            "iteration": 64,
+            "phase": "after-tick-before-next-frame",
+            "tick": 469,
+            "frame": 195,
+            "world": {
+              "namespace": 1,
+              "next": 321,
+              "live": 256,
+              "pending": 0,
+              "highWater": 320,
+              "capacity": 512,
+              "mainCapacity": 512,
+              "auxCapacity": 512,
+              "metadataCapacity": 512
+            },
+            "logs": {
+              "ping": {
+                "capacity": 65536,
+                "cachedSize": 0,
+                "droppedThrough": 463,
+                "frontBatches": 0,
+                "rearBatches": 0,
+                "physicalValues": 0,
+                "declaredValues": 0,
+                "consistentSize": true,
+                "consistentBatches": true
+              },
+              "removed": {
+                "capacity": 65536,
+                "cachedSize": 1,
+                "droppedThrough": 459,
+                "frontBatches": 1,
+                "rearBatches": 0,
+                "physicalValues": 1,
+                "declaredValues": 1,
+                "consistentSize": true,
+                "consistentBatches": true
+              },
+              "despawned": {
+                "capacity": 65536,
+                "cachedSize": 1,
+                "droppedThrough": 459,
+                "frontBatches": 1,
+                "rearBatches": 0,
+                "physicalValues": 1,
+                "declaredValues": 1,
+                "consistentSize": true,
+                "consistentBatches": true
+              }
+            },
+            "readers": [
+              {
+                "key": 5,
+                "registeredAt": 2,
+                "lastRun": 469,
+                "streamLastRun": 469,
+                "messageHolder": true,
+                "removedHolder": true,
+                "despawnHolder": true,
+                "unreadMessages": 0,
+                "unreadRemoved": 0,
+                "unreadDespawned": 0,
+                "messageLag": false,
+                "removedLag": false,
+                "despawnedLag": false
+              },
+              {
+                "key": 4,
+                "registeredAt": 1,
+                "lastRun": 468,
+                "streamLastRun": 468,
+                "messageHolder": true,
+                "removedHolder": true,
+                "despawnHolder": true,
+                "unreadMessages": 0,
+                "unreadRemoved": 0,
+                "unreadDespawned": 0,
+                "messageLag": false,
+                "removedLag": false,
+                "despawnedLag": false
+              }
+            ],
+            "holders": {
+              "messages": [
+                469,
+                468
+              ],
+              "removed": [
+                469,
+                468
+              ],
+              "despawned": [
+                469,
+                468
+              ]
+            },
+            "registeredReaderBases": [
+              {
+                "name": "Slow",
+                "key": 5,
+                "state": {
+                  "key": 5,
+                  "registeredAt": 2,
+                  "lastRun": 469,
+                  "streamLastRun": 469,
+                  "messageHolder": true,
+                  "removedHolder": true,
+                  "despawnHolder": true,
+                  "unreadMessages": 0,
+                  "unreadRemoved": 0,
+                  "unreadDespawned": 0,
+                  "messageLag": false,
+                  "removedLag": false,
+                  "despawnedLag": false
+                }
+              },
+              {
+                "name": "Fast",
+                "key": 4,
+                "state": {
+                  "key": 4,
+                  "registeredAt": 1,
+                  "lastRun": 468,
+                  "streamLastRun": 468,
+                  "messageHolder": true,
+                  "removedHolder": true,
+                  "despawnHolder": true,
+                  "unreadMessages": 0,
+                  "unreadRemoved": 0,
+                  "unreadDespawned": 0,
+                  "messageLag": false,
+                  "removedLag": false,
+                  "despawnedLag": false
+                }
+              }
+            ]
+          },
+          "unavailable": {
+            "activeTransactionStaging": "No active Tx owner reaches these runtime/state hooks; no workload staging/inverse/mark peak inferred from finite fixtures.",
+            "stateHookStoredReaders": "Available at tick hooks, unavailable inside invocation/barrier owner-only hooks.",
+            "setupAppendPeaks": "Bulk setup append peaks before the first diagnostic checkpoint are not inspected.",
+            "RSS": "Separate clean-launcher replay required."
+          },
+          "publicTraceMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullReadObservations": 84,
+            "actualReaderDiagnostics": 84,
+            "fullRowsCompared": 22768,
+            "actualReservations": 64,
+            "clockNormalization": "Bend tick = TS tick - 1; seed performed before dispatcher; every callback checked",
+            "finalSha256": "cbef56b5f69ef86c4727ec3a9053c72de71e520f65625529284dd66f66e61183",
+            "summary": {
+              "counts": [
+                {
+                  "system": "Slow",
+                  "value": {
+                    "a": 18,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Fast",
+                  "value": {
+                    "a": 66,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Update",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Dispose",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Reserve",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                }
+              ],
+              "tick": 469,
+              "frames": 195
+            }
+          },
+          "publicSha256": "866533b17d551edcfd5813466881ba28c468e3da10d657df80e2fcd1103be8c1",
+          "rawRecords": "occupancy-readers-health-256-js.jsonl.gz",
+          "rawRecordsSha256": "f1920f4b389868d86ec02ea2754e3464b7ef35b46ad3bcdfd24dbf9fca10111d"
+        }
+      },
+      "freshTS": "PASS"
+    },
+    {
+      "schema": "Health",
+      "count": 1024,
+      "backends": {
+        "Native": {
+          "status": "PASS",
+          "physicalCheckpoints": 1196,
+          "runningDeliveryCrossChecks": 84,
+          "observedCheckpointMaxima": {
+            "live": {
+              "value": 1025,
+              "checkpoint": {
+                "record": 10,
+                "iteration": 0,
+                "phase": "after-barrier",
+                "tick": 5,
+                "frame": 3
+              }
+            },
+            "pending": {
+              "value": 2,
+              "checkpoint": {
+                "record": 20,
+                "iteration": 0,
+                "phase": "after-system=Dispose",
+                "tick": 9,
+                "frame": 5
+              }
+            },
+            "pingValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 68,
+                "iteration": 3,
+                "phase": "after-system=Update",
+                "tick": 28,
+                "frame": 13
+              }
+            },
+            "pingBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 68,
+                "iteration": 3,
+                "phase": "after-system=Update",
+                "tick": 28,
+                "frame": 13
+              }
+            },
+            "removedValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "removedBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "despawnedValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "despawnedBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "messagesHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "removedHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "despawnedHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "runningUnreadMessages": {
+              "value": 4,
+              "checkpoint": {
+                "record": 71,
+                "iteration": 3,
+                "phase": "before-system=Slow",
+                "tick": 30,
+                "frame": 13
+              }
+            },
+            "unreadMessages": {
+              "value": 4,
+              "checkpoint": {
+                "record": 71,
+                "iteration": 3,
+                "phase": "before-system=Slow",
+                "tick": 30,
+                "frame": 13
+              }
+            },
+            "runningUnreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 145,
+                "iteration": 7,
+                "phase": "before-system=Slow",
+                "tick": 59,
+                "frame": 25
+              }
+            },
+            "unreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "runningUnreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 145,
+                "iteration": 7,
+                "phase": "before-system=Slow",
+                "tick": 59,
+                "frame": 25
+              }
+            },
+            "unreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "storedUnreadMessages": {
+              "value": 3,
+              "checkpoint": {
+                "record": 53,
+                "iteration": 2,
+                "phase": "after-tick-before-next-frame",
+                "tick": 22,
+                "frame": 10
+              }
+            },
+            "storedUnreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "storedUnreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            }
+          },
+          "final": {
+            "schema": "Health",
+            "count": 1024,
+            "iteration": 64,
+            "phase": "after-tick-before-next-frame",
+            "tick": 469,
+            "frame": 195,
+            "world": {
+              "namespace": 1,
+              "next": 1089,
+              "live": 1024,
+              "pending": 0,
+              "highWater": 1088,
+              "capacity": 2048,
+              "mainCapacity": 2048,
+              "auxCapacity": 2048,
+              "metadataCapacity": 2048
+            },
+            "logs": {
+              "ping": {
+                "capacity": 65536,
+                "cachedSize": 0,
+                "droppedThrough": 463,
+                "frontBatches": 0,
+                "rearBatches": 0,
+                "physicalValues": 0,
+                "declaredValues": 0,
+                "consistentSize": true,
+                "consistentBatches": true
+              },
+              "removed": {
+                "capacity": 65536,
+                "cachedSize": 1,
+                "droppedThrough": 459,
+                "frontBatches": 1,
+                "rearBatches": 0,
+                "physicalValues": 1,
+                "declaredValues": 1,
+                "consistentSize": true,
+                "consistentBatches": true
+              },
+              "despawned": {
+                "capacity": 65536,
+                "cachedSize": 1,
+                "droppedThrough": 459,
+                "frontBatches": 1,
+                "rearBatches": 0,
+                "physicalValues": 1,
+                "declaredValues": 1,
+                "consistentSize": true,
+                "consistentBatches": true
+              }
+            },
+            "readers": [
+              {
+                "key": 5,
+                "registeredAt": 2,
+                "lastRun": 469,
+                "streamLastRun": 469,
+                "messageHolder": true,
+                "removedHolder": true,
+                "despawnHolder": true,
+                "unreadMessages": 0,
+                "unreadRemoved": 0,
+                "unreadDespawned": 0,
+                "messageLag": false,
+                "removedLag": false,
+                "despawnedLag": false
+              },
+              {
+                "key": 4,
+                "registeredAt": 1,
+                "lastRun": 468,
+                "streamLastRun": 468,
+                "messageHolder": true,
+                "removedHolder": true,
+                "despawnHolder": true,
+                "unreadMessages": 0,
+                "unreadRemoved": 0,
+                "unreadDespawned": 0,
+                "messageLag": false,
+                "removedLag": false,
+                "despawnedLag": false
+              }
+            ],
+            "holders": {
+              "messages": [
+                469,
+                468
+              ],
+              "removed": [
+                469,
+                468
+              ],
+              "despawned": [
+                469,
+                468
+              ]
+            },
+            "registeredReaderBases": [
+              {
+                "name": "Slow",
+                "key": 5,
+                "state": {
+                  "key": 5,
+                  "registeredAt": 2,
+                  "lastRun": 469,
+                  "streamLastRun": 469,
+                  "messageHolder": true,
+                  "removedHolder": true,
+                  "despawnHolder": true,
+                  "unreadMessages": 0,
+                  "unreadRemoved": 0,
+                  "unreadDespawned": 0,
+                  "messageLag": false,
+                  "removedLag": false,
+                  "despawnedLag": false
+                }
+              },
+              {
+                "name": "Fast",
+                "key": 4,
+                "state": {
+                  "key": 4,
+                  "registeredAt": 1,
+                  "lastRun": 468,
+                  "streamLastRun": 468,
+                  "messageHolder": true,
+                  "removedHolder": true,
+                  "despawnHolder": true,
+                  "unreadMessages": 0,
+                  "unreadRemoved": 0,
+                  "unreadDespawned": 0,
+                  "messageLag": false,
+                  "removedLag": false,
+                  "despawnedLag": false
+                }
+              }
+            ]
+          },
+          "unavailable": {
+            "activeTransactionStaging": "No active Tx owner reaches these runtime/state hooks; no workload staging/inverse/mark peak inferred from finite fixtures.",
+            "stateHookStoredReaders": "Available at tick hooks, unavailable inside invocation/barrier owner-only hooks.",
+            "setupAppendPeaks": "Bulk setup append peaks before the first diagnostic checkpoint are not inspected.",
+            "RSS": "Separate clean-launcher replay required."
+          },
+          "publicTraceMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullReadObservations": 84,
+            "actualReaderDiagnostics": 84,
+            "fullRowsCompared": 90352,
+            "actualReservations": 64,
+            "clockNormalization": "Bend tick = TS tick - 1; seed performed before dispatcher; every callback checked",
+            "finalSha256": "6f4e3a1f2bcbae6d9f4fa09294e8ea7dbd12a38ea060d506398dde94f5606526",
+            "summary": {
+              "counts": [
+                {
+                  "system": "Slow",
+                  "value": {
+                    "a": 18,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Fast",
+                  "value": {
+                    "a": 66,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Update",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Dispose",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Reserve",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                }
+              ],
+              "tick": 469,
+              "frames": 195
+            }
+          },
+          "publicSha256": "b46986edf3a0b74ed769fe68bc29c6fb1ba909c0712f004a4d35c7cca6746a3a",
+          "rawRecords": "occupancy-readers-health-1024-native.jsonl.gz",
+          "rawRecordsSha256": "4b674412c1f07dad8f82632ee71625841abe1cc30d50e7b11eb01276c32078de"
+        },
+        "JS": {
+          "status": "PASS",
+          "physicalCheckpoints": 1196,
+          "runningDeliveryCrossChecks": 84,
+          "observedCheckpointMaxima": {
+            "live": {
+              "value": 1025,
+              "checkpoint": {
+                "record": 10,
+                "iteration": 0,
+                "phase": "after-barrier",
+                "tick": 5,
+                "frame": 3
+              }
+            },
+            "pending": {
+              "value": 2,
+              "checkpoint": {
+                "record": 20,
+                "iteration": 0,
+                "phase": "after-system=Dispose",
+                "tick": 9,
+                "frame": 5
+              }
+            },
+            "pingValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 68,
+                "iteration": 3,
+                "phase": "after-system=Update",
+                "tick": 28,
+                "frame": 13
+              }
+            },
+            "pingBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 68,
+                "iteration": 3,
+                "phase": "after-system=Update",
+                "tick": 28,
+                "frame": 13
+              }
+            },
+            "removedValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "removedBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "despawnedValues": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "despawnedBatches": {
+              "value": 4,
+              "checkpoint": {
+                "record": 132,
+                "iteration": 6,
+                "phase": "after-barrier",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "messagesHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "removedHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "despawnedHolders": {
+              "value": 2,
+              "checkpoint": {
+                "record": 5,
+                "iteration": 0,
+                "phase": "after-tick-before-next-frame",
+                "tick": 3,
+                "frame": 2
+              }
+            },
+            "runningUnreadMessages": {
+              "value": 4,
+              "checkpoint": {
+                "record": 71,
+                "iteration": 3,
+                "phase": "before-system=Slow",
+                "tick": 30,
+                "frame": 13
+              }
+            },
+            "unreadMessages": {
+              "value": 4,
+              "checkpoint": {
+                "record": 71,
+                "iteration": 3,
+                "phase": "before-system=Slow",
+                "tick": 30,
+                "frame": 13
+              }
+            },
+            "runningUnreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 145,
+                "iteration": 7,
+                "phase": "before-system=Slow",
+                "tick": 59,
+                "frame": 25
+              }
+            },
+            "unreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "runningUnreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 145,
+                "iteration": 7,
+                "phase": "before-system=Slow",
+                "tick": 59,
+                "frame": 25
+              }
+            },
+            "unreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "storedUnreadMessages": {
+              "value": 3,
+              "checkpoint": {
+                "record": 53,
+                "iteration": 2,
+                "phase": "after-tick-before-next-frame",
+                "tick": 22,
+                "frame": 10
+              }
+            },
+            "storedUnreadRemoved": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            },
+            "storedUnreadDespawned": {
+              "value": 4,
+              "checkpoint": {
+                "record": 133,
+                "iteration": 6,
+                "phase": "after-tick-before-next-frame",
+                "tick": 53,
+                "frame": 23
+              }
+            }
+          },
+          "final": {
+            "schema": "Health",
+            "count": 1024,
+            "iteration": 64,
+            "phase": "after-tick-before-next-frame",
+            "tick": 469,
+            "frame": 195,
+            "world": {
+              "namespace": 1,
+              "next": 1089,
+              "live": 1024,
+              "pending": 0,
+              "highWater": 1088,
+              "capacity": 2048,
+              "mainCapacity": 2048,
+              "auxCapacity": 2048,
+              "metadataCapacity": 2048
+            },
+            "logs": {
+              "ping": {
+                "capacity": 65536,
+                "cachedSize": 0,
+                "droppedThrough": 463,
+                "frontBatches": 0,
+                "rearBatches": 0,
+                "physicalValues": 0,
+                "declaredValues": 0,
+                "consistentSize": true,
+                "consistentBatches": true
+              },
+              "removed": {
+                "capacity": 65536,
+                "cachedSize": 1,
+                "droppedThrough": 459,
+                "frontBatches": 1,
+                "rearBatches": 0,
+                "physicalValues": 1,
+                "declaredValues": 1,
+                "consistentSize": true,
+                "consistentBatches": true
+              },
+              "despawned": {
+                "capacity": 65536,
+                "cachedSize": 1,
+                "droppedThrough": 459,
+                "frontBatches": 1,
+                "rearBatches": 0,
+                "physicalValues": 1,
+                "declaredValues": 1,
+                "consistentSize": true,
+                "consistentBatches": true
+              }
+            },
+            "readers": [
+              {
+                "key": 5,
+                "registeredAt": 2,
+                "lastRun": 469,
+                "streamLastRun": 469,
+                "messageHolder": true,
+                "removedHolder": true,
+                "despawnHolder": true,
+                "unreadMessages": 0,
+                "unreadRemoved": 0,
+                "unreadDespawned": 0,
+                "messageLag": false,
+                "removedLag": false,
+                "despawnedLag": false
+              },
+              {
+                "key": 4,
+                "registeredAt": 1,
+                "lastRun": 468,
+                "streamLastRun": 468,
+                "messageHolder": true,
+                "removedHolder": true,
+                "despawnHolder": true,
+                "unreadMessages": 0,
+                "unreadRemoved": 0,
+                "unreadDespawned": 0,
+                "messageLag": false,
+                "removedLag": false,
+                "despawnedLag": false
+              }
+            ],
+            "holders": {
+              "messages": [
+                469,
+                468
+              ],
+              "removed": [
+                469,
+                468
+              ],
+              "despawned": [
+                469,
+                468
+              ]
+            },
+            "registeredReaderBases": [
+              {
+                "name": "Slow",
+                "key": 5,
+                "state": {
+                  "key": 5,
+                  "registeredAt": 2,
+                  "lastRun": 469,
+                  "streamLastRun": 469,
+                  "messageHolder": true,
+                  "removedHolder": true,
+                  "despawnHolder": true,
+                  "unreadMessages": 0,
+                  "unreadRemoved": 0,
+                  "unreadDespawned": 0,
+                  "messageLag": false,
+                  "removedLag": false,
+                  "despawnedLag": false
+                }
+              },
+              {
+                "name": "Fast",
+                "key": 4,
+                "state": {
+                  "key": 4,
+                  "registeredAt": 1,
+                  "lastRun": 468,
+                  "streamLastRun": 468,
+                  "messageHolder": true,
+                  "removedHolder": true,
+                  "despawnHolder": true,
+                  "unreadMessages": 0,
+                  "unreadRemoved": 0,
+                  "unreadDespawned": 0,
+                  "messageLag": false,
+                  "removedLag": false,
+                  "despawnedLag": false
+                }
+              }
+            ]
+          },
+          "unavailable": {
+            "activeTransactionStaging": "No active Tx owner reaches these runtime/state hooks; no workload staging/inverse/mark peak inferred from finite fixtures.",
+            "stateHookStoredReaders": "Available at tick hooks, unavailable inside invocation/barrier owner-only hooks.",
+            "setupAppendPeaks": "Bulk setup append peaks before the first diagnostic checkpoint are not inspected.",
+            "RSS": "Separate clean-launcher replay required."
+          },
+          "publicTraceMatch": true,
+          "freshTSValidation": {
+            "status": "PASS",
+            "fullReadObservations": 84,
+            "actualReaderDiagnostics": 84,
+            "fullRowsCompared": 90352,
+            "actualReservations": 64,
+            "clockNormalization": "Bend tick = TS tick - 1; seed performed before dispatcher; every callback checked",
+            "finalSha256": "6f4e3a1f2bcbae6d9f4fa09294e8ea7dbd12a38ea060d506398dde94f5606526",
+            "summary": {
+              "counts": [
+                {
+                  "system": "Slow",
+                  "value": {
+                    "a": 18,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Fast",
+                  "value": {
+                    "a": 66,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Update",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Dispose",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                },
+                {
+                  "system": "Reserve",
+                  "value": {
+                    "a": 64,
+                    "b": 0,
+                    "c": 0,
+                    "d": 0
+                  }
+                }
+              ],
+              "tick": 469,
+              "frames": 195
+            }
+          },
+          "publicSha256": "b46986edf3a0b74ed769fe68bc29c6fb1ba909c0712f004a4d35c7cca6746a3a",
+          "rawRecords": "occupancy-readers-health-1024-js.jsonl.gz",
+          "rawRecordsSha256": "4b674412c1f07dad8f82632ee71625841abe1cc30d50e7b11eb01276c32078de"
+        }
+      },
+      "freshTS": "PASS"
+    }
+  ],
+  "limits": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "cpu": 8,
+  "candidate": "/workspace/formal-proofs/bendvy/experiments/s-perf/candidate",
+  "sources": {
+    "experiments/s-integrate/measurement-readers.bend": "ef27b4af2c98840c4af1cfe8e91c00f94368c33c759d14c4203939c4394bf03b",
+    "experiments/s-integrate/occupancy-runtime.bend": "8fc5be9f78ed4536ea07cf4362fbfa35c6163e46d85a50a46f469f20160bbd06",
+    "experiments/s-integrate/occupancy.bend": "c820f11896438f2b418a0dd1034cba8cd41da3193f0ec9456fc9ba7fcefa3fbc",
+    "experiments/s-integrate/storage.bend": "8440ed1ec21c8d4874072aed8ca0ec4967f4e4e522f88d36f68050685d9e0345",
+    "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+    "experiments/s-integrate/streams.bend": "1a1c7991d6a1b4ebfb3b47dc62459beb83ed5e38ded56d27cc20b5478fc0d315",
+    "experiments/s-integrate/readers.bend": "2673082b4ef5cd6c5d8f61c362e22f74b13daeb27196894278cc20b1459c22e9",
+    "experiments/s-integrate/reader-host.bend": "50f1251c6d476b07055c36c5a97e3350a4cb46e5d826ff97ced2860d40798a64",
+    "experiments/s-integrate/transaction.bend": "d32f0b26e4a14fc784c3ce30c4d6a1ded0cf0a55ed819f54419a558445e298a4",
+    "experiments/s-integrate/host.bend": "cc06d581fbc762ef2fcae5091a21bb11955c6770e43abc4346de9fa884d81d2c",
+    "experiments/s-integrate/commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+    "experiments/s-integrate/identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+    "experiments/s-integrate/dispatcher.bend": "5d7652d052f9915e9735a81d470026c2f7ba2077f11b09472418a6b5213945e9",
+    "experiments/s-integrate/capture.bend": "44d5f3117a465c216ee93100026aad78e86f24c40c09c678be99935dde076817",
+    "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "experiments/s-integrate/schedule.bend": "98c955f7ee5039aed875a3bd93e3c94840d9ea2f48de0e6415bd28d63ee8fb98",
+    "experiments/s-integrate/systems.bend": "2cfc899215e408cc4c652c8d4c290b18800cdb6e8c96f1061a77853afdac9221",
+    "experiments/s-integrate/host-observations.bend": "e6a37f6d160a53f14b08254f35cb317a68f1f2c540c40c9b88e600d0d6198e76",
+    "experiments/s-integrate/observations.bend": "00442198a7aeb420c5defef1641fa873a8f4fcaddfd896973820fe7b875216c4",
+    "experiments/s-integrate/query.bend": "5fb8447d34edc2260341341c36dc7970964318fa582cdd078da296c5f9e1a1ce",
+    "experiments/s-integrate/transaction-dispatch-adapters.bend": "eea16d3f539d70bcd88fd8fd314b75d252ccaff2b9c1c8b63e7d96bfdda34142",
+    "experiments/s-integrate/audited-invoker.bend": "2ed7e484b8a043f0944e0f662a8799f94388c99f757de331fb1a79b1c07c8853",
+    "experiments/s-integrate/structural-invoker.bend": "6907a8c5775f77ffed6141123fe5c7033678269ade0f59cd0f24b8680e497932",
+    "experiments/s-integrate/measurement-lifecycle.bend": "0b2690c7d56219411dd3a14876dda8fe0c2f757fcf3656cf404fbdf76524296d",
+    "experiments/s-integrate/measurement-bend.bend": "c2351825ee3998988aa01440e484db0cd11d3dbac5a70db4a079d841aaaaf31d",
+    "experiments/s-integrate/host-render.bend": "1eef120fa604ba633f06d33a8a3910845293926c36dc9c91cd59d4d5c045a28a"
+  },
+  "generated": {
+    "diagnostic": {
+      "diagnostic.c": "102eee32786c5c1d83c68b0a60fd7c38acf52359a400dcc0a6a205bc72bd586f",
+      "diagnostic.js": "4759ce47850c02bee14d78b9d9236526d050ec3e32e512280a074762e55748bc",
+      "diagnostic": "48984d74fe20f432c67c8367f74d790a40f120b3621b0ffae55a260b343beaf6"
+    },
+    "uninstrumented": {
+      "uninstrumented.c": "b08b7a93970b3ac2d9a125459c77497306f34cbc404a6de6e6d15605d159ee39",
+      "uninstrumented.js": "e6cf90bb057d53911f0864bd89a537ccdce07b2da5062cd8b775f2a34400abeb",
+      "uninstrumented": "084453e0ff69ffe88ed1295a58ec12326673783cf45a3fc3c9df5f699370b6ae"
+    }
+  },
+  "status": "PASS"
+}
