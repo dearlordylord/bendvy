@@ -123,6 +123,15 @@ def lookups(~Schema:Data,~M:Type,~A:Type,~F:Data,~L:Type,~Mode:Data,~P:Data,~V:D
   match bindings:
     case Nil{}: (world,[])
     case Con{E.Binding{label,handle},tail}: lookup_join(Schema,M,A,F,L,Mode,P,V,AV,LV,Tok,main_get,aux_get,client,label,handle,lookups(Schema,M,A,F,L,Mode,P,V,AV,LV,Tok,main_get,aux_get,client,tail,world))
+def foreign_source_case(isAlpha:Bool) -> String:
+  match isAlpha:
+    case True{}: "beta"
+    case False{}: "alpha"
+def foreign_source(receiver:String) -> String: foreign_source_case(String.eq(receiver,"alpha"))
+def foreign_result(~Schema:Data,~M:Type,~A:Type,~F:Data,~L:Type,~Mode:Data,~P:Data,~V:Data,~AV:Data,~LV:Data,logs:H.Logs<Schema,P>,bindings:List<&2,E.Binding<Schema>>,+worldName:String,+step:String,prior:D.DispatchOutcome,events:List<&2,E.TraceEvent<Schema,V,AV,F,LV,Mode,P>>,result:W.World<Schema,M,A,F,L,Mode> & List<&2,E.Lookup<Schema,V,AV,F>>) -> Host<Schema,M,A,F,L,Mode,P,V,AV,LV>:
+  match result:
+    case (world,Con{E.Lookup{label,handle,value},_}): Host{world,logs,bindings,worldName,step,prior,List.append(&2,E.TraceEvent<Schema,V,AV,F,LV,Mode,P>,events,[E.ForeignLookup{step,worldName,foreign_source(worldName),label,handle,value}])}
+    case (world,Nil{}): Host{world,logs,bindings,worldName,step,prior,events}
 def snapshot_end(~Schema:Data,~M:Type,~A:Type,~F:Data,~L:Type,~Mode:Data,~P:Data,~V:Data,~AV:Data,~LV:Data,logs:H.Logs<Schema,P>,bindings:List<&2,E.Binding<Schema>>,+worldName:String,+step:String,+prior:D.DispatchOutcome,events:List<&2,E.TraceEvent<Schema,V,AV,F,LV,Mode,P>>,view:O.WorldView<V,AV,F,LV,Mode>,query:List<&2,O.QueryRow<Schema,V,AV,F>>,plus:List<&2,O.QueryRow<Schema,V,AV,F>>,minus:List<&2,O.QueryRow<Schema,V,AV,F>>,optional:List<&2,O.QueryRow<Schema,V,AV,F>>,result:W.World<Schema,M,A,F,L,Mode> & List<&2,E.Lookup<Schema,V,AV,F>>) -> Host<Schema,M,A,F,L,Mode,P,V,AV,LV>:
   match result:
     case (world,values): Host{world,logs,bindings,worldName,step,prior,List.append(&2,E.TraceEvent<Schema,V,AV,F,LV,Mode,P>,events,[E.Snapshot{step,worldName,prior,view,query,plus,minus,optional,values}])}
@@ -155,6 +164,14 @@ def health_snapshot(owner:HealthHost()) -> HealthHost():
   snapshot(T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode,T.HealthPing,T.VitalsView,T.ArmorView,T.LedgerView,T.VitalsToken,PV.vitals_get,PV.armor_get,O.client(~T.HealthSchema,~T.VitalsToken,~T.VitalsView,~T.ArmorView,~T.Tracked,~T.VitalsToken{}),PV.health_ledger_get,owner)
 def health_read(system:String,count:U32,owner:HealthHost(),run:R.Run) -> HealthHost() & R.Run:
   read(T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode,T.HealthPing,T.VitalsView,T.ArmorView,T.LedgerView,T.VitalsToken,PV.vitals_get,PV.armor_get,O.client(~T.HealthSchema,~T.VitalsToken,~T.VitalsView,~T.ArmorView,~T.Tracked,~T.VitalsToken{}),PV.health_ledger_get,system,count,owner,run)
+def motion_foreign(owner:MotionHost()) -> MotionHost():
+  match owner:
+    case Host{world,logs,Con{binding,tail},worldName,step,prior,events}: foreign_result(T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode,T.MotionPing,T.PositionView,T.VelocityView,T.LedgerView,logs,tail,worldName,step,prior,events,lookups(T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode,T.MotionPing,T.PositionView,T.VelocityView,T.LedgerView,T.PositionToken,PV.position_get,PV.velocity_get,O.client(~T.MotionSchema,~T.PositionToken,~T.PositionView,~T.VelocityView,~T.Selected,~T.PositionToken{}),[binding],world))
+    case Host{world,logs,Nil{},worldName,step,prior,events}: Host{world,logs,[],worldName,step,prior,events}
+def health_foreign(owner:HealthHost()) -> HealthHost():
+  match owner:
+    case Host{world,logs,Con{binding,tail},worldName,step,prior,events}: foreign_result(T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode,T.HealthPing,T.VitalsView,T.ArmorView,T.LedgerView,logs,tail,worldName,step,prior,events,lookups(T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode,T.HealthPing,T.VitalsView,T.ArmorView,T.LedgerView,T.VitalsToken,PV.vitals_get,PV.armor_get,O.client(~T.HealthSchema,~T.VitalsToken,~T.VitalsView,~T.ArmorView,~T.Tracked,~T.VitalsToken{}),[binding],world))
+    case Host{world,logs,Nil{},worldName,step,prior,events}: Host{world,logs,[],worldName,step,prior,events}
 def motion_on(mode:T.MotionMode) -> Bool:
   match mode:
     case T.MotionOn{}: True{}
@@ -331,6 +348,7 @@ def health_reserve(owner:HealthHost(),label:String,bundle:W.Bundle<T.Vitals,T.Ar
       health_reserve_view(label,world,logs,bindings,worldName,step,prior,events,O.bundle(T.Vitals,T.Armor,T.Tracked,T.VitalsView,T.ArmorView,PV.vitals_get,PV.armor_get,bundle))
 def motion_simple(kind:K.BodyKind,mode:K.Mode,system:String,count:U32,clock:R.Clock,owner:MotionHost(),audit:Maybe<D.Audit>,run:Maybe<R.Run>) -> IO(D.Invoked<MotionHost(),W.Handle<T.MotionSchema>>):
   match kind:
+    case K.ForeignLookup{}: IO.pure(D.Invoked<MotionHost(),W.Handle<T.MotionSchema>>,done(T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode,T.MotionPing,T.PositionView,T.VelocityView,T.LedgerView,system,count,clock,audit,T.Success{},None{},[],motion_foreign(owner),run))
     case K.Snapshot{}: IO.pure(D.Invoked<MotionHost(),W.Handle<T.MotionSchema>>,done(T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode,T.MotionPing,T.PositionView,T.VelocityView,T.LedgerView,system,count,clock,audit,T.Success{},None{},[],motion_snapshot(owner),run))
     case K.Seed{}: IO.pure(D.Invoked<MotionHost(),W.Handle<T.MotionSchema>>,done(T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode,T.MotionPing,T.PositionView,T.VelocityView,T.LedgerView,system,count,clock,audit,T.Success{},None{},[],U.motion_seed(MotionHost(),motion_reserve,motion_reserve,motion_reserve,owner),run))
     case K.SeedBeta{}: IO.pure(D.Invoked<MotionHost(),W.Handle<T.MotionSchema>>,done(T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode,T.MotionPing,T.PositionView,T.VelocityView,T.LedgerView,system,count,clock,audit,T.Success{},None{},[],U.motion_seed_beta(MotionHost(),motion_reserve,owner),run))
@@ -368,6 +386,7 @@ def motion_tick(nodes:List<&2,K.Node>,runtime:D.Runtime<MotionHost(),W.Handle<T.
   D.tick(~MotionHost(),~W.Handle<T.MotionSchema>,~motion_presence,~motion_invoke,~motion_barrier,~motion_transition,~motion_frame,nodes,"MotionLedger","MotionMode",runtime)
 def health_simple(kind:K.BodyKind,mode:K.Mode,system:String,count:U32,clock:R.Clock,owner:HealthHost(),audit:Maybe<D.Audit>,run:Maybe<R.Run>) -> IO(D.Invoked<HealthHost(),W.Handle<T.HealthSchema>>):
   match kind:
+    case K.ForeignLookup{}: IO.pure(D.Invoked<HealthHost(),W.Handle<T.HealthSchema>>,done(T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode,T.HealthPing,T.VitalsView,T.ArmorView,T.LedgerView,system,count,clock,audit,T.Success{},None{},[],health_foreign(owner),run))
     case K.Snapshot{}: IO.pure(D.Invoked<HealthHost(),W.Handle<T.HealthSchema>>,done(T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode,T.HealthPing,T.VitalsView,T.ArmorView,T.LedgerView,system,count,clock,audit,T.Success{},None{},[],health_snapshot(owner),run))
     case K.Seed{}: IO.pure(D.Invoked<HealthHost(),W.Handle<T.HealthSchema>>,done(T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode,T.HealthPing,T.VitalsView,T.ArmorView,T.LedgerView,system,count,clock,audit,T.Success{},None{},[],U.health_seed(HealthHost(),health_reserve,health_reserve,health_reserve,owner),run))
     case K.SeedBeta{}: IO.pure(D.Invoked<HealthHost(),W.Handle<T.HealthSchema>>,done(T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode,T.HealthPing,T.VitalsView,T.ArmorView,T.LedgerView,system,count,clock,audit,T.Success{},None{},[],U.health_seed_beta(HealthHost(),health_reserve,owner),run))

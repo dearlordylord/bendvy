@@ -10,6 +10,7 @@ type BodyKind is Data:
   SetOff{}
   Cleanup{}
   Snapshot{}
+  ForeignLookup{}
   Seed{}
   SeedBeta{}
   Inserts{}

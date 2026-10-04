@@ -14,6 +14,7 @@ type TraceEvent<-Schema:Data,-V:Data,-AV:Data,-F:Data,-LV:Data,-Mode:Data,-P:Dat
     lookups:List<&2,Lookup<Schema,V,AV,F>>}
   Dispatch{step:String,worldName:String,tracked:Bool,outcome:D.DispatchOutcome,clockTick:U32,frame:U32,counts:List<&2,Count>}
   ReadDone{step:String,system:String,frame:U32,tick:U32,outcome:T.Outcome,messageLag:Bool,removedLag:Bool,despawnedLag:Bool}
+  ForeignLookup{step:String,receiver:String,source:String,label:String,handle:S.Handle<Schema>,result:T.Access<O.QueryRow<Schema,V,AV,F>>}
   OwnWrites{step:String,system:String,views:List<&2,OwnView>}
 type Lookup<-Schema:Data,-V:Data,-AV:Data,-F:Data> is Data:
   Lookup{label:String,handle:S.Handle<Schema>,result:T.Access<O.QueryRow<Schema,V,AV,F>>}
