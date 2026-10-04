@@ -35,15 +35,15 @@ subset = (HERE / 'LAWS.bend').read_text()
 assert subset[subset.index('law query_any_complete_ordered:'):] == block
 assert subset.count('\nlaw ') == 3
 rows = []
-for name in ['helpers.bend', 'contextual.bend', 'controls.bend']:
+for name in ['helpers.bend', 'invariants.bend', 'contextual.bend', 'controls.bend']:
     for kernel in [False, True]:
         row = check(HERE / name, kernel)
         require(row, 0, 'ALL PROOFS CHECK')
         rows.append(row)
 for kernel in [False, True]:
     row = check(HERE / 'attempt.bend', kernel)
-    require(row, 1, 'SOME PROOFS FAIL', 'rows_complete')
-    assert '?nonempty_sort_enumeration_bridge' in row['output']
+    require(row, 1, 'SOME PROOFS FAIL', 'insert_interval')
+    assert '?interval_ordered_insertion' in row['output']
     rows.append(row)
 
 mutants = []
@@ -55,7 +55,7 @@ with tempfile.TemporaryDirectory(prefix='bendvy-query-proof-') as tmp:
     core.mkdir()
     for name in ['types.bend', 'model.bend', 'spec.bend']:
         shutil.copy2(SUBJECTS / name, core / name)
-    for name in ['helpers.bend', 'contextual.bend']:
+    for name in ['helpers.bend', 'invariants.bend', 'contextual.bend']:
         row = check(dest / name, True)
         require(row, 0, 'ALL PROOFS CHECK')
         rows.append(row)
@@ -63,6 +63,9 @@ with tempfile.TemporaryDirectory(prefix='bendvy-query-proof-') as tmp:
         ('zero-count-lookup-emits-row', 'spec.bend',
          'case _: recur(Unit{})', 'case _: Some{row}',
          'helpers.bend', 'at_zero_head'),
+        ('eligibility-rejects-present-tag', 'spec.bend',
+         'case T.Present{} False{}: False{}', 'case T.Present{} False{}: True{}',
+         'invariants.bend', 'eligibility'),
         ('empty-query-emits-ghost', 'model.bend',
          'def query_rows(+selection: T.Selection, rows: List<&2, T.Row>) -> List<&2, T.Row>:\n  match rows:\n    case Nil{}: []',
          'def query_rows(+selection: T.Selection, rows: List<&2, T.Row>) -> List<&2, T.Row>:\n  match rows:\n    case Nil{}: [T.Row{0n,0n,False{}}]',
@@ -82,7 +85,7 @@ with tempfile.TemporaryDirectory(prefix='bendvy-query-proof-') as tmp:
         target.write_text(original)
 
 paths = [SUBJECTS / n for n in ['LAWS.bend', 'types.bend', 'model.bend', 'spec.bend']]
-paths += [HERE / n for n in ['LAWS.bend', 'helpers.bend', 'contextual.bend', 'controls.bend', 'attempt.bend', 'run.py']]
+paths += [HERE / n for n in ['LAWS.bend', 'helpers.bend', 'invariants.bend', 'contextual.bend', 'controls.bend', 'attempt.bend', 'run.py']]
 paths += [WRAPPER, pathlib.Path('/home/node/.bend/bend2/base.bend'), pathlib.Path(shutil.which('bend')).resolve()]
 refs = {}
 for name in ['bevy-ts', 'bevy', 'bend2']:

@@ -26,3 +26,13 @@ def empty_world(+limit: Nat, +id: Nat, +next: Nat, +pending: List<&2,T.Command>,
   H.when_known(S.admissible(limit,T.World{id,next,[],pending}),
     {M.query(T.World{id,next,[],pending},selection) == S.query(T.World{id,next,[],pending},selection) : List<&2,T.Row>},
     H.enumerate_empty(next,0n,selection))
+
+# Checked final cons composition: the insertion proof remains required input.
+def rows_cons_from_insert(+id: Nat, +value: Nat, +tag: Bool, +tail: List<&2,T.Row>, +next: Nat, +selection: T.Selection,
+  ht: {M.query_rows(selection,tail) == S.enumerate_rows(next,0n,tail,selection) : List<&2,T.Row>},
+  hi: {M.include(M.accepts(selection,tag),T.Row{id,value,tag},S.enumerate_rows(next,0n,tail,selection))
+    == S.enumerate_rows(next,0n,T.Row{id,value,tag} <> tail,selection) : List<&2,T.Row>})
+  -> {M.query_rows(selection,T.Row{id,value,tag} <> tail) == S.enumerate_rows(next,0n,T.Row{id,value,tag} <> tail,selection) : List<&2,T.Row>}:
+  %Equal.sym(List<&2,T.Row>,M.query_rows(selection,tail),S.enumerate_rows(next,0n,tail,selection),ht) :
+    {M.include(M.accepts(selection,tag),T.Row{id,value,tag},_) == S.enumerate_rows(next,0n,T.Row{id,value,tag} <> tail,selection) : List<&2,T.Row>}
+  hi

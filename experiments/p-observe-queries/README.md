@@ -52,9 +52,9 @@ neither fills nor assumes any of the other 24 catalogue contracts:
 `helpers.bend`, `contextual.bend` and `controls.bend` pass both checker and
 kernel, under the existing five-second wrapper. The controls explicitly check
 an active admissibility premise and Any/Present/Absent empty-world instances.
-Two compiling decision-path mutants fail unchanged contextual proofs:
+Three compiling decision-path mutants fail unchanged contextual proofs:
 nonmatching independent lookup emitting a row (`at_zero_head`) and empty model
-query emitting a ghost (`empty_world`). These validate contextual dependencies;
+query emitting a ghost (`empty_world`), and incorrect Present eligibility (`eligibility`). These validate contextual dependencies;
 **they do not pass the mutation gate for any complete endpoint**.
 
 ## Remaining exact bridge
@@ -81,7 +81,7 @@ validity predicates over the **original whole row list**. The remaining proof
 must connect these premises to insertion order, bounded independent enumeration
 and tail validity; it cannot reuse tail validity as though the `all` argument
 had already changed. The attempt preserves the endpoint guard and original
-functions. Both checker and kernel invocations exit 1 at `rows_complete`; no
+functions. Both invocations exit 1 in the first checker before the kernel can accept the complete attempt; no
 five-second timeout was hit. This is a missing mathematical derivation in this
 bounded attempt, not a compiler limitation or a finding that the theorem is
 false/impossible. No proof-completion or native/JS performance claim follows.
@@ -114,3 +114,43 @@ reference/hash controls, expected blocked diagnostics and contextual mutant
 controls all match. Its exit 0 means **partial-progress report verified**,
 not `P-OBS #18` or a complete query theorem accepted. The second command is
 expected to exit 1. No original Canonical Defense source was touched.
+
+## Second bounded continuation: helper inventory (declared before execution)
+
+The next attempt derives these contextual obligations, only for the approved
+query proof: Nat Boolean equality reflection (including count-one); Nat equality
+symmetry for key comparisons; zero-count head/tail extraction; removal of a
+count contribution for a distinct key; Any/Present/Absent eligibility agreement;
+tail validity when removing a unique head from the `all` list; and the remaining
+interval ordering/bounds plus enumeration-insertion bridge. Each accepted helper
+will be recorded separately; an unfilled bridge will remain failed research.
+
+### Second tranche result
+
+`invariants.bend` now passes checker **and** kernel: Boolean Nat equality
+reflection, key symmetry/eligibility, zero-count decomposition, distinct-key
+count removal, recursive absent-head removal and exact `valid_tail` are proved.
+Universal `at_key` supplies key adequacy for rows emitted by independent lookup.
+`zero_le`, `add_zero` and `le_lt_cycle` discharge the zero-fuel interval
+contradiction. `rows_cons_from_insert` checks the final list-induction composition
+from its explicit tail-equality and insertion-equality arguments. The nonempty,
+physically unsorted tail control also passes. No new law is assumed.
+
+The attempt now derives the tail premise and carries the original list
+induction; its only open body is `insert_interval`, generalized to arbitrary
+`slot`/`fuel`, inserted key in `[slot,slot+fuel)` and zero occurrences in tail.
+The zero-fuel branch is discharged. Positive fuel leaves:
+
+```text
+include(accepts(selection,tag), head,
+        query_at(selection, at(tail,slot), enumerate(rest,slot+1,tail)))
+  == query_at(selection, pick(cmp(head.key,slot),head,at(tail,slot)),
+              enumerate(rest,slot+1,head::tail))
+```
+
+This remaining bridge needs comparison cases, head exclusion after its slot,
+and ordering of rows actually emitted by the independent enumerator. The runner
+now expects the precise positive-fuel diagnostic at `insert_interval`; both
+attempt invocations stop in the first checker there, **not** with a kernel
+rejection. The full attempt remains failing research; eight contextual
+checker/kernel runs and three compiling contextual mutants are current.
