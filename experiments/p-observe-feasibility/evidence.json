@@ -1,0 +1,141 @@
+{
+  "version": "bend 2.0.34",
+  "binary_sha256": "d4821d04932218216c9dc906223ed0e23dd86726d4357a567fb76ee6c976db4e",
+  "base_sha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+  "references": {
+    "bevy-ts": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334",
+    "bevy": "ad678262ce53b5d142fe49ee5e08caff6f00ab60",
+    "bend2": "a950fd683c0d76f09794078e6174fe98a1492876"
+  },
+  "source_sha256": {
+    "experiments/p-observe-feasibility/barrier-schedule-attempt.bend": "3ae09fd751a6f8980f14f354163dad5549b47b1ffd7c0f6b3e7da984f4bcf17c",
+    "experiments/p-observe-feasibility/empty-schedule-attempt.bend": "9915ea2ad585e05e5c8d6fa5bd07788eff9dc27fb0f70d718286956732f6d2e0",
+    "experiments/p-observe-feasibility/erased-match-negative.bend": "cc4af128fc65ef3a42a70c98d703e6f4a0b3f37c18f24a2298eae9a58d0e9cea",
+    "experiments/p-observe-feasibility/erased-projection-match-negative.bend": "c6af00974f832b928de59252c2fe7a18256ecec1db6b18e52df116c6d6d5f98d",
+    "experiments/p-observe-feasibility/false-negative.bend": "6529f2687ceabbd5525ca43caae16e347f619ab53fd5e647864fce455c1f5934",
+    "experiments/p-observe-feasibility/reflexive.bend": "f01670124c25478f264e36d97de5b279384c9e22663e265b02bcab195b6ba12f",
+    "experiments/p-observe-feasibility/run.py": "772842e4e2126b06b07863376f3af9bf0245da695cf18d69e803874ef6b28d2e",
+    "experiments/t11-replacement/LAWS.bend": "e0c607d723ad250a189c096d9fa3fd6a36913f4c72efd3a3be6dacd7fadb2cbc",
+    "experiments/t11-replacement/access-control.bend": "a0cd9bbea877ef77b653308026ad8e7f4f6eb2a6982c101719809a40c91dc086",
+    "experiments/t11-replacement/authority-main.bend": "85c5ad4b8875973d43670d5fc8aeca114eb3299eae95a1add077980e1cfb894b",
+    "experiments/t11-replacement/authority.bend": "2aced84b2b4a917d903b91175977399f801fb74419e756613a66858f39a066d5",
+    "experiments/t11-replacement/boundary.bend": "55fd10f053e6b0a1f6b45246826e361edce19c5f7c04ddbd6caa87924b717f7b",
+    "experiments/t11-replacement/bridge.bend": "c20d2d4bac15b3bf4bff7a20a28a140f6f74862081ffff23955cdc6326441f80",
+    "experiments/t11-replacement/erasure-control.bend": "7a436cd9d184be2ffd1db4da13b9751173f7d9e5b7f793398a3ecda9c60741ad",
+    "experiments/t11-replacement/erasure-negative.bend": "52026577f77dad6058e39e11181431d8f878b39fc69651f75c9fd97cce334cd3",
+    "experiments/t11-replacement/fixtures.bend": "2cec5af29fe5d29cf9c1a7628cc8d66377552b27311d540d1c4a71a4c2d50151",
+    "experiments/t11-replacement/model-fixtures.bend": "d34bfe30508d179d4adc0b76fb80d26cb654c4dc768170a64d778d838d4fa9f2",
+    "experiments/t11-replacement/model.bend": "53ac1f776c721a5bea0c063eefe229c1d43b4e09d95a269e283fe900a2934c40",
+    "experiments/t11-replacement/owned-spec.bend": "edca58e81a96e03109e2d575146eee456ee543b20746519bfef202d047a9e50e",
+    "experiments/t11-replacement/read-write-negative.bend": "5df4feeafbe51fa1043283813b45675475c35a86f001f95ff482cc1eef1b0f27",
+    "experiments/t11-replacement/reconstruct-negative.bend": "db9f51ebbeb47332bcaf6425bff84085fb56f46b93d93b2cfc41635a13fdf69e",
+    "experiments/t11-replacement/runtime-fixtures.bend": "d63f8ad286ca91ccf10a17e303a1bc8ed30f4946201d7deacdfdd2c8eda6fca3",
+    "experiments/t11-replacement/runtime.bend": "014ed398324f257ced9985f1db29a94dd74f34952dd3aa3c2b11809118502550",
+    "experiments/t11-replacement/schema-negative.bend": "bc1d3e1a368e2ea8fe586e43dee56c88d2406ad53a5de972f376b16aa0d0426c",
+    "experiments/t11-replacement/spec.bend": "3b7a96d9131919fe087dac5e024058bbfa916ce5c108dce3a7d72119b7ccd465",
+    "experiments/t11-replacement/trace.bend": "967dad1890df998fee919ec3726cfc716321aa935eff1ead6ef515bfd30c9003",
+    "experiments/t11-replacement/types.bend": "0261b9381f51b4aecdf61b76bfa61149d10d662b0c02ddc320da2236ec17d287",
+    "experiments/t11-replacement/undeclared-negative.bend": "d2d81d2aba416aa60312230367aae9a0457f99ebb259314c09c0fd73a084ebe5"
+  },
+  "cases": [
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-feasibility/experiments/p-observe-feasibility/reflexive.bend",
+        "--verdict"
+      ],
+      "exit_code": 0,
+      "stdout": "ALL PROOFS CHECK\n",
+      "stderr": "",
+      "elapsed_seconds": 0.223071,
+      "name": "reflexive.bend"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-feasibility/experiments/p-observe-feasibility/erased-match-negative.bend",
+        "--verdict"
+      ],
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "SOME PROOFS FAIL\nError:\n- message  : a live scrutinee (a - scrutinee matches only in a dead region)\nLocation: forbidden\n7 |   match world:\n8>|     case R.World{id,next,rows,pending}: {==}\n  |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n9 | \n",
+      "elapsed_seconds": 0.113256,
+      "name": "erased-match-negative.bend"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-feasibility/experiments/p-observe-feasibility/false-negative.bend",
+        "--verdict"
+      ],
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "SOME PROOFS FAIL\nError:\n- expected : 0n\n- observed : 1n\nLocation: forbidden\n3 | def forbidden() -> {0n == 1n : Nat}:\n4>|   {==}\n  |   ^^^^\n5 | \n",
+      "elapsed_seconds": 0.112939,
+      "name": "false-negative.bend"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-feasibility/experiments/p-observe-feasibility/erased-projection-match-negative.bend",
+        "--verdict"
+      ],
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "SOME PROOFS FAIL\nError:\n- message  : a live scrutinee (a - scrutinee matches only in a dead region)\nLocation: inspect\n7 |   match snapshot:\n8>|     case T.World{id,next,rows,pending}: {==}\n  |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n9 | def forbidden(-world: R.World) -> {O.snapshot(world) == O.snapshot(world) : T.World}:\n",
+      "elapsed_seconds": 0.156978,
+      "name": "erased-projection-match-negative.bend"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-feasibility/experiments/p-observe-feasibility/empty-schedule-attempt.bend",
+        "--verdict"
+      ],
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "SOME PROOFS FAIL\nError:\n- expected : S.When(S.admissible(U32.to_nat(limit), O.snapshot(world)), {M.observe(R.snapshot(R.project(world))) == S.observe(O.snapshot(world)) : T.Observation})\n- observed : non-inferrable term\nContext:\n- limit : U32\n- world : R.World\nLocation: attempt\n 9 | def attempt(+limit: U32, -world: R.World) -> S.When(S.run_safe(O.steps([]),U32.to_nat(limit),O.snapshot(world)), {M.observe(R.snapshot(R.project(R.tick([],limit,world)))) == S.schedule_observation(U32.to_nat(limit),O.snapshot(world),O.steps([])) : T.Observation}):\n10>|   {==}\n   |   ^^^^\n11 | \n",
+      "elapsed_seconds": 0.141716,
+      "name": "empty-schedule-attempt.bend"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-feasibility/experiments/p-observe-feasibility/barrier-schedule-attempt.bend",
+        "--verdict"
+      ],
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "SOME PROOFS FAIL\nError:\n- expected : S.When(Bool.and(S.admissible(U32.to_nat(limit), O.snapshot(world)), Bool.and(S.step_safe(O.snapshot(world), T.Barrier{}), S.admissible(U32.to_nat(limit), S.flush(O.snapshot(world))))), {M.observe(R.snapshot(R.project(R.flush(world)))) == S.observe(S.flush(O.snapshot(world))) : T.Observation})\n- observed : non-inferrable term\nContext:\n- limit : U32\n- world : R.World\nLocation: attempt\n 9 | def attempt(+limit: U32, -world: R.World) -> S.When(S.run_safe(O.steps([R.Barrier{}]),U32.to_nat(limit),O.snapshot(world)), {M.observe(R.snapshot(R.project(R.tick([R.Barrier{}],limit,world)))) == S.schedule_observation(U32.to_nat(limit),O.snapshot(world),O.steps([R.Barrier{}])) : T.Observation}):\n10>|   {==}\n   |   ^^^^\n11 | \n",
+      "elapsed_seconds": 0.141814,
+      "name": "barrier-schedule-attempt.bend"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-feasibility/experiments/t11-replacement/erasure-control.bend",
+        "--verdict"
+      ],
+      "exit_code": 0,
+      "stdout": "ALL PROOFS CHECK\n",
+      "stderr": "",
+      "elapsed_seconds": 0.182714,
+      "name": "prior-erasure-control.bend"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-feasibility/experiments/t11-replacement/erasure-negative.bend",
+        "--verdict"
+      ],
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "SOME PROOFS FAIL\nError:\n- expected : -world\n- observed : world\nLocation: bad\n3 | \n4>| def bad(-world: R.World) -> R.World:\n  |          ^^^^^\n5 |   world\n",
+      "elapsed_seconds": 0.10716,
+      "name": "prior-erasure-negative.bend"
+    }
+  ],
+  "all_expected_results_observed": true,
+  "ecs_theorems_proved": 0,
+  "limits": "Each subprocess has a five-second timeout. No dependency added. Failure of these attempts is not a proof of impossibility."
+}
