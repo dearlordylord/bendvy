@@ -91,6 +91,8 @@ needed `/workspace/typescript/jev` sources; the original repository remains unto
 
 ## Prerequisite progress
 
+- [Current execution ledger](../design/s-integrate-capability-ledger.md) records delivered actual payload/storage/transaction/reader modules separately from open full-dispatch trace, confinement, retention and measurement gates. #19 remains open.
+
 - [Checked shared vocabulary](../../experiments/s-integrate/README.md) now supplies nominal full Type payload/view records, opaque owner-return forwarding controls and six intended checker negatives. Coordinator replay passes. These are preparation controls: actual storage/transaction/readers, encoder bindings and subject-bound law falsification remain pending. [Astra interface research](../reviews/s-integrate-interface-research.md) and [reader implementation contract](../design/s-integrate-reader-implementation.md) specify the next joins.
 
 - [Astra-reviewed shared contracts](../design/s-integrate-contracts.md) distinguish exact trace requirements from proposed owner/transaction/publication/reader/provisioning interfaces. They clarify rejected versus staged Type payload ownership and complete preflight; actual Bend signature checks and runtime implementation remain open.
