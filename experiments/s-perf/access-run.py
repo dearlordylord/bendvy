@@ -32,8 +32,11 @@ def mutate(folder,label):
  file=folder/ENTRY;s=file.read_text();location='motion_read'
  if label in ['undeclared_token','cross_schema']:
   file=folder/'systems.bend';s=file.read_text();start=s.index('def motion_a(');end=s.index('\ndef ',start+1);old=s[start:end];token='T.VelocityToken{}' if label=='undeclared_token' else 'T.VitalsToken{}';assert 'T.PositionToken{},11' in old;s=s[:start]+old.replace('T.PositionToken{},11',token+',11')+s[end:];location='motion_a'
- elif label=='audit_copy':
-  file=folder/'audited-invoker.bend';s=file.read_text();assert 'D.audit_log(audit,text)' in s;s=s.replace('D.audit_log(audit,text)','IO.bind(D.Audit,D.Audit,D.audit_log(audit,text), _ => D.audit_log(audit,text))');location='log'
+ elif label in ['audit_copy','audit_copy_text_historical']:
+  file=folder/'audited-invoker.bend';s=file.read_text();assert 'D.audit_log(audit,text)' in s;
+  if label=='audit_copy':
+   assert 'owner:Wrapped<Tx>,text:String' in s;s=s.replace('owner:Wrapped<Tx>,text:String','owner:Wrapped<Tx>,+text:String')
+  s=s.replace('D.audit_log(audit,text)','IO.bind(D.Audit,D.Audit,D.audit_log(audit,text), _ => D.audit_log(audit,text))');location='log'
  else:
   start=s.index('def motion_read(');end=s.index('\ndef motion_query',start);old=s[start:end];line=old.splitlines()[-1];prefix=old[:old.index(line)]
   if label=='write_through_read':body='  O.client(T.MotionSchema,T.PositionToken,T.PositionView,T.VelocityView,T.Selected,T.PositionToken{},Owner,Aux,get,aux_get,handle,flag,P.position_swap(owner,30),aux)'
@@ -47,7 +50,7 @@ tool_paths={'compiler':pathlib.Path(shutil.which('bend')).resolve(),'Base':pathl
 toolchain={n:{'path':str(p),'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for n,p in tool_paths.items()}
 r={'scope':'indexed candidate actual audited closed A/B + Host.query rank-2 providers; static controls only', 'overlay':str(OVERLAY),'overlay_manifest_sha256':hashlib.sha256(manifest_path.read_bytes()).hexdigest(),'overlay_baseline':manifest['baseline'],'candidate_overrides':{n:hashlib.sha256((OVERLAY/n).read_bytes()).hexdigest() for n in manifest['overrides']},'checker_limit_seconds':5,'cpu_affinity':[9],'source_revision':subprocess.check_output(['git','rev-parse','HEAD'],cwd=HERE,text=True).strip(),'compiler':subprocess.check_output(['bend','version'],text=True).strip(),'toolchain':toolchain,'runner_sha256':hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest(),'hashes':{n:hashlib.sha256(p.read_bytes()).hexdigest() for n,p in files.items()},'cases':{}}
 with tempfile.TemporaryDirectory(prefix='integrated-access-') as d:
- for label in ['positive','undeclared_token','cross_schema','write_through_read','reconstruct_owner','invalid_owner_return','audit_copy','irrecoverable_destructure']:
+ for label in ['positive','undeclared_token','cross_schema','write_through_read','reconstruct_owner','invalid_owner_return','audit_copy_text_historical','audit_copy','irrecoverable_destructure']:
   folder=pathlib.Path(d)/label;folder.mkdir()
   for n,p in files.items():(folder/n).write_bytes(p.read_bytes())
   location=None if label=='positive' else mutate(folder,label)
@@ -57,11 +60,12 @@ with tempfile.TemporaryDirectory(prefix='integrated-access-') as d:
    assert result['exit']==1 and 'SOME PROOFS FAIL' in result['output'],result
    assert 'Location: '+location in result['output'],result
    # Pin intended actual boundary; no parser/import/TODO/timeouts accepted.
-   patterns={'undeclared_token':['expected : T.PositionToken','T.VelocityToken{}'],'cross_schema':['expected : T.PositionToken','T.VitalsToken{}'],'write_through_read':['expected : T.Position','observed : Owner'],'reconstruct_owner':['expected : Owner','observed : T.Position','T.Position{'],'invalid_owner_return':['expected : Owner','observed : Aux'],'audit_copy':['consumed more than once'],'irrecoverable_destructure':['expected : a datatype','observed : Owner','T.Position{']}
+   patterns={'undeclared_token':['expected : T.PositionToken','T.VelocityToken{}'],'cross_schema':['expected : T.PositionToken','T.VitalsToken{}'],'write_through_read':['expected : T.Position','observed : Owner'],'reconstruct_owner':['expected : Owner','observed : T.Position','T.Position{'],'invalid_owner_return':['expected : Owner','observed : Aux'],'audit_copy_text_historical':['expected : text','observed : text (consumed more than once)'],'audit_copy':['expected : audit','observed : audit (consumed more than once)'],'irrecoverable_destructure':['expected : a datatype','observed : Owner','T.Position{']}
    for pattern in patterns[label]:assert pattern in result['output'],result
    result['intended_diagnostics']=patterns[label]
-   result['mutation_file']=('systems.bend' if label in ['undeclared_token','cross_schema'] else 'audited-invoker.bend' if label=='audit_copy' else ENTRY)
+   result['mutation_file']=('systems.bend' if label in ['undeclared_token','cross_schema'] else 'audited-invoker.bend' if label in ['audit_copy','audit_copy_text_historical'] else ENTRY)
    result['mutated_source_sha256']=hashlib.sha256((folder/result['mutation_file']).read_bytes()).hexdigest()
+  result['classification']='historical non-owner String duplication witness' if label=='audit_copy_text_historical' else 'intended actual affine Audit owner duplication' if label=='audit_copy' else 'original actual provider boundary control'
   r['cases'][label]=result
 args.evidence.write_text(json.dumps(r,indent=2)+'\n')
 print('INDEXED ACCESS STATIC CONTROLS PASS')

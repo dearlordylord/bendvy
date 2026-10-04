@@ -16,7 +16,7 @@
   "cpu_affinity": [
     9
   ],
-  "source_revision": "6b3869a2c46dc2d1700f5bc48d5f926c9cda6a8a",
+  "source_revision": "36ac4888e6520dbb61ac1f57b51aa1b39b7d2ba7",
   "compiler": "bend 2.0.34",
   "toolchain": {
     "compiler": {
@@ -28,7 +28,7 @@
       "sha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661"
     }
   },
-  "runner_sha256": "df5610d44ebfa76b64b16fc5799ad4b48f9e6fc1f4717f912823b400da418490",
+  "runner_sha256": "be7b25f73a53e52d7a9c9c19539f4a34675a14e50d0471b0f9c6afa649a8bc7a",
   "hashes": {
     "integrated-access-positive.bend": "db7b72f1a4dde2379e10e9fd492f82212e49840cd51d761aa70a85c032b04136",
     "readers.bend": "2673082b4ef5cd6c5d8f61c362e22f74b13daeb27196894278cc20b1459c22e9",
@@ -55,45 +55,49 @@
   "cases": {
     "positive": {
       "exit": 0,
-      "seconds": 1.0727921628858894,
-      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\nbend 2.0.35 is available: run bend update\n"
+      "seconds": 1.1181961419060826,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\nbend 2.0.35 is available: run bend update\n",
+      "classification": "original actual provider boundary control"
     },
     "undeclared_token": {
       "exit": 1,
-      "seconds": 0.6892076190561056,
+      "seconds": 0.5183120078872889,
       "output": "SOME PROOFS FAIL\nError:\n- expected : T.PositionToken\n- observed : T.VelocityToken\nContext:\n- Tx            : Type\n- H             : Data\n- count         : U32\n- rejected      : T.Outcome\n- set_main      : @_:Tx -> @_:T.PositionToken -> @_:U32 -> Tx\n- set_ledger    : @_:Tx -> @_:T.MotionLedgerToken -> @_:U32 -> Tx\n- read_main     : @_:Tx -> @_:T.PositionToken -> Sigma<&1, &1, Tx, _ => T.Access<T.PositionView>>\n- read_ledger   : @_:Tx -> @_:T.MotionLedgerToken -> Sigma<&1, &1, Tx, _ => Maybe<&2, T.LedgerView>>\n- spawn_flagged : @_:Tx -> @_:T.Position -> T.Reservation<Tx, H, T.Position>\n- remove        : @_:Tx -> Tx\n- ping          : @_:Tx -> @_:T.MotionPing -> Tx\n- log           : @_:Tx -> @_:String -> @-R:Type -> @k:(@_:Tx -> IO.OP<R>) -> IO.OP<R>\n- owner         : Tx\nLocation: motion_a\n112 | def motion_a(-Tx:Type,-H:Data,count:U32,+rejected:T.Outcome,set_main:Tx -> T.PositionToken -> U32 -> Tx,set_ledger:Tx -> T.MotionLedgerToken -> U32 -> Tx,read_main:Tx -> T.PositionToken -> Tx & T.Access<T.PositionView>,read_ledger:Tx -> T.MotionLedgerToken -> Tx & Maybe<&2,T.LedgerView>,spawn_flagged:Tx -> T.Position -> T.Reservation<Tx,H,T.Position>,remove:Tx -> Tx,ping:Tx -> T.MotionPing -> Tx,log:Tx -> String -> IO(Tx),owner:Tx) -> IO(BodyResult<Tx,H>):\n113>|   motion_a_main(Tx,H,count,rejected,read_ledger,spawn_flagged,remove,ping,log,read_main(set_ledger(set_main(owner,T.VelocityToken{},11),T.MotionLedgerToken{},101),T.PositionToken{}))\n    |                                                                                                                   ^^^^^^^^^^^^^^^^^\n114 | def health_a_reserved(-Tx:Type,-H:Data,count:U32,+rejected:T.Outcome,observations:List<&2,Observation>,remove:Tx -> Tx,ping:Tx -> T.HealthPing -> Tx,log:Tx -> String -> IO(Tx),result:T.Reservation<Tx,H,T.Vitals>) -> IO(BodyResult<Tx,H>):\nbend 2.0.35 is available: run bend update\n",
       "intended_diagnostics": [
         "expected : T.PositionToken",
         "T.VelocityToken{}"
       ],
       "mutation_file": "systems.bend",
-      "mutated_source_sha256": "5d716923e094522817533f8f9cbfffca8069b202ddf0c93ac6e239791805b43c"
+      "mutated_source_sha256": "5d716923e094522817533f8f9cbfffca8069b202ddf0c93ac6e239791805b43c",
+      "classification": "original actual provider boundary control"
     },
     "cross_schema": {
       "exit": 1,
-      "seconds": 0.6936886159237474,
+      "seconds": 0.5473928439896554,
       "output": "SOME PROOFS FAIL\nError:\n- expected : T.PositionToken\n- observed : T.VitalsToken\nContext:\n- Tx            : Type\n- H             : Data\n- count         : U32\n- rejected      : T.Outcome\n- set_main      : @_:Tx -> @_:T.PositionToken -> @_:U32 -> Tx\n- set_ledger    : @_:Tx -> @_:T.MotionLedgerToken -> @_:U32 -> Tx\n- read_main     : @_:Tx -> @_:T.PositionToken -> Sigma<&1, &1, Tx, _ => T.Access<T.PositionView>>\n- read_ledger   : @_:Tx -> @_:T.MotionLedgerToken -> Sigma<&1, &1, Tx, _ => Maybe<&2, T.LedgerView>>\n- spawn_flagged : @_:Tx -> @_:T.Position -> T.Reservation<Tx, H, T.Position>\n- remove        : @_:Tx -> Tx\n- ping          : @_:Tx -> @_:T.MotionPing -> Tx\n- log           : @_:Tx -> @_:String -> @-R:Type -> @k:(@_:Tx -> IO.OP<R>) -> IO.OP<R>\n- owner         : Tx\nLocation: motion_a\n112 | def motion_a(-Tx:Type,-H:Data,count:U32,+rejected:T.Outcome,set_main:Tx -> T.PositionToken -> U32 -> Tx,set_ledger:Tx -> T.MotionLedgerToken -> U32 -> Tx,read_main:Tx -> T.PositionToken -> Tx & T.Access<T.PositionView>,read_ledger:Tx -> T.MotionLedgerToken -> Tx & Maybe<&2,T.LedgerView>,spawn_flagged:Tx -> T.Position -> T.Reservation<Tx,H,T.Position>,remove:Tx -> Tx,ping:Tx -> T.MotionPing -> Tx,log:Tx -> String -> IO(Tx),owner:Tx) -> IO(BodyResult<Tx,H>):\n113>|   motion_a_main(Tx,H,count,rejected,read_ledger,spawn_flagged,remove,ping,log,read_main(set_ledger(set_main(owner,T.VitalsToken{},11),T.MotionLedgerToken{},101),T.PositionToken{}))\n    |                                                                                                                   ^^^^^^^^^^^^^^^\n114 | def health_a_reserved(-Tx:Type,-H:Data,count:U32,+rejected:T.Outcome,observations:List<&2,Observation>,remove:Tx -> Tx,ping:Tx -> T.HealthPing -> Tx,log:Tx -> String -> IO(Tx),result:T.Reservation<Tx,H,T.Vitals>) -> IO(BodyResult<Tx,H>):\nbend 2.0.35 is available: run bend update\n",
       "intended_diagnostics": [
         "expected : T.PositionToken",
         "T.VitalsToken{}"
       ],
       "mutation_file": "systems.bend",
-      "mutated_source_sha256": "8b7d567bf638f0456b06a55ab756f648bb2cedc7f62b4a8ef80bb15d87247a7d"
+      "mutated_source_sha256": "8b7d567bf638f0456b06a55ab756f648bb2cedc7f62b4a8ef80bb15d87247a7d",
+      "classification": "original actual provider boundary control"
     },
     "write_through_read": {
       "exit": 1,
-      "seconds": 1.0774909958709031,
+      "seconds": 0.6410288249608129,
       "output": "SOME PROOFS FAIL\nError:\n- expected : T.Position\n- observed : Owner\nContext:\n- Owner   : Type\n- Aux     : Type\n- get     : @_:Owner -> @_:T.PositionToken -> Sigma<&1, &1, Owner, _ => T.PositionView>\n- aux_get : @_:Aux -> Sigma<&1, &1, Aux, _ => Maybe<&2, T.VelocityView>>\n- handle  : S.Handle<T.MotionSchema>\n- flag    : Maybe<&2, T.Selected>\n- owner   : Owner\n- aux     : Aux\nLocation: motion_read\n12 | def motion_read(-Owner:Type,-Aux:Type,get:Owner -> T.PositionToken -> Owner & T.PositionView,aux_get:Aux -> Aux & Maybe<&2,T.VelocityView>,handle:S.Handle<T.MotionSchema>,flag:Maybe<&2,T.Selected>,owner:Owner,aux:Aux) -> Owner & (Aux & O.QueryRow<T.MotionSchema,T.PositionView,T.VelocityView,T.Selected>):\n13>|   O.client(T.MotionSchema,T.PositionToken,T.PositionView,T.VelocityView,T.Selected,T.PositionToken{},Owner,Aux,get,aux_get,handle,flag,P.position_swap(owner,30),aux)\n   |                                                                                                                                                        ^^^^^\n14 | \nbend 2.0.35 is available: run bend update\n",
       "intended_diagnostics": [
         "expected : T.Position",
         "observed : Owner"
       ],
       "mutation_file": "integrated-access-positive.bend",
-      "mutated_source_sha256": "0e389ee185794590ae0c7e7edd112ae8e0ef409b15bec21330fcd3a779d8ffaf"
+      "mutated_source_sha256": "0e389ee185794590ae0c7e7edd112ae8e0ef409b15bec21330fcd3a779d8ffaf",
+      "classification": "original actual provider boundary control"
     },
     "reconstruct_owner": {
       "exit": 1,
-      "seconds": 1.0224089338444173,
+      "seconds": 0.7327704560011625,
       "output": "SOME PROOFS FAIL\nError:\n- expected : Owner\n- observed : T.Position\nContext:\n- Owner   : Type\n- Aux     : Type\n- get     : @_:Owner -> @_:T.PositionToken -> Sigma<&1, &1, Owner, _ => T.PositionView>\n- aux_get : @_:Aux -> Sigma<&1, &1, Aux, _ => Maybe<&2, T.VelocityView>>\n- handle  : S.Handle<T.MotionSchema>\n- flag    : Maybe<&2, T.Selected>\n- owner   : Owner\n- aux     : Aux\nLocation: motion_read\n12 | def motion_read(-Owner:Type,-Aux:Type,get:Owner -> T.PositionToken -> Owner & T.PositionView,aux_get:Aux -> Aux & Maybe<&2,T.VelocityView>,handle:S.Handle<T.MotionSchema>,flag:Maybe<&2,T.Selected>,owner:Owner,aux:Aux) -> Owner & (Aux & O.QueryRow<T.MotionSchema,T.PositionView,T.VelocityView,T.Selected>):\n13>|   O.client(T.MotionSchema,T.PositionToken,T.PositionView,T.VelocityView,T.Selected,T.PositionToken{},Owner,Aux,get,aux_get,handle,flag,T.Position{[30:U32^2n],7},aux)\n   |                                                                                                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^\n14 | \nbend 2.0.35 is available: run bend update\n",
       "intended_diagnostics": [
         "expected : Owner",
@@ -101,32 +105,48 @@
         "T.Position{"
       ],
       "mutation_file": "integrated-access-positive.bend",
-      "mutated_source_sha256": "ade81236f5c185228f22f69f9f81a42a665ab48b08110901621515e16f00aaf5"
+      "mutated_source_sha256": "ade81236f5c185228f22f69f9f81a42a665ab48b08110901621515e16f00aaf5",
+      "classification": "original actual provider boundary control"
     },
     "invalid_owner_return": {
       "exit": 1,
-      "seconds": 0.9571994079742581,
+      "seconds": 0.6715142570901662,
       "output": "SOME PROOFS FAIL\nError:\n- expected : Owner\n- observed : Aux\nContext:\n- Owner   : Type\n- Aux     : Type\n- get     : @_:Owner -> @_:T.PositionToken -> Sigma<&1, &1, Owner, _ => T.PositionView>\n- aux_get : @_:Aux -> Sigma<&1, &1, Aux, _ => Maybe<&2, T.VelocityView>>\n- handle  : S.Handle<T.MotionSchema>\n- flag    : Maybe<&2, T.Selected>\n- owner   : Owner\n- aux     : Aux\nLocation: motion_read\n12 | def motion_read(-Owner:Type,-Aux:Type,get:Owner -> T.PositionToken -> Owner & T.PositionView,aux_get:Aux -> Aux & Maybe<&2,T.VelocityView>,handle:S.Handle<T.MotionSchema>,flag:Maybe<&2,T.Selected>,owner:Owner,aux:Aux) -> Owner & (Aux & O.QueryRow<T.MotionSchema,T.PositionView,T.VelocityView,T.Selected>):\n13>|   O.client(T.MotionSchema,T.PositionToken,T.PositionView,T.VelocityView,T.Selected,T.PositionToken{},Owner,Aux,get,aux_get,handle,flag,aux,owner)\n   |                                                                                                                                        ^^^\n14 | \nbend 2.0.35 is available: run bend update\n",
       "intended_diagnostics": [
         "expected : Owner",
         "observed : Aux"
       ],
       "mutation_file": "integrated-access-positive.bend",
-      "mutated_source_sha256": "8b44111ef900f7bad277c1780840e2835e182b025ffadcd7b567f04884bb915c"
+      "mutated_source_sha256": "8b44111ef900f7bad277c1780840e2835e182b025ffadcd7b567f04884bb915c",
+      "classification": "original actual provider boundary control"
+    },
+    "audit_copy_text_historical": {
+      "exit": 1,
+      "seconds": 0.505362895084545,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : text\n- observed : text (consumed more than once)\nContext:\n- Tx          : Type\n- transaction : Tx\n- audit       : D.Audit\nLocation: log\n20 |     case (transaction,audit): Wrapped{transaction,audit}\n21>| def log(-Tx:Type,owner:Wrapped<Tx>,text:String) -> IO(Wrapped<Tx>):\n   |                                    ^^^^\n22 |   match owner:\nbend 2.0.35 is available: run bend update\n",
+      "intended_diagnostics": [
+        "expected : text",
+        "observed : text (consumed more than once)"
+      ],
+      "mutation_file": "audited-invoker.bend",
+      "mutated_source_sha256": "47f6bb079fcda5b859aba471e205956c85109934e5648b946a17462a6ac27b8f",
+      "classification": "historical non-owner String duplication witness"
     },
     "audit_copy": {
       "exit": 1,
-      "seconds": 0.6414652869571,
-      "output": "SOME PROOFS FAIL\nError:\n- expected : text\n- observed : text (consumed more than once)\nContext:\n- Tx          : Type\n- transaction : Tx\n- audit       : D.Audit\nLocation: log\n20 |     case (transaction,audit): Wrapped{transaction,audit}\n21>| def log(-Tx:Type,owner:Wrapped<Tx>,text:String) -> IO(Wrapped<Tx>):\n   |                                    ^^^^\n22 |   match owner:\nbend 2.0.35 is available: run bend update\n",
+      "seconds": 0.4926636181771755,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : audit\n- observed : audit (consumed more than once)\nContext:\n- Tx          : Type\n- transaction : Tx\nLocation: log\n22 |   match owner:\n23>|     case Wrapped{transaction,audit}: IO.bind(D.Audit,Wrapped<Tx>,IO.bind(D.Audit,D.Audit,D.audit_log(audit,text), _ => D.audit_log(audit,text)), a => IO.pure(Wrapped<Tx>,Wrapped{transaction,a}))\n   |                              ^^^^^\n24 | def motion_read_main_pair(audit:D.Audit,pair:X.Tx<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<T.Position,T.Velocity,T.Selected>> & T.Access<T.PositionView>) -> Wrapped<X.Tx<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<T.Position,T.Velocity,T.Selected>>> & T.Access<T.PositionView>:\nbend 2.0.35 is available: run bend update\n",
       "intended_diagnostics": [
-        "consumed more than once"
+        "expected : audit",
+        "observed : audit (consumed more than once)"
       ],
       "mutation_file": "audited-invoker.bend",
-      "mutated_source_sha256": "47f6bb079fcda5b859aba471e205956c85109934e5648b946a17462a6ac27b8f"
+      "mutated_source_sha256": "fb8a5d185a596fe1b91c8215f1f62cccb7845037e769947b51302d3013c244d0",
+      "classification": "intended actual affine Audit owner duplication"
     },
     "irrecoverable_destructure": {
       "exit": 1,
-      "seconds": 0.7275898698717356,
+      "seconds": 0.6878188569098711,
       "output": "SOME PROOFS FAIL\nError:\n- expected : a datatype\n- observed : Owner\nContext:\n- Owner   : Type\n- Aux     : Type\n- get     : @_:Owner -> @_:T.PositionToken -> Sigma<&1, &1, Owner, _ => T.PositionView>\n- aux_get : @_:Aux -> Sigma<&1, &1, Aux, _ => Maybe<&2, T.VelocityView>>\n- handle  : S.Handle<T.MotionSchema>\n- flag    : Maybe<&2, T.Selected>\nLocation: motion_read\n13 |   match owner:\n14>|     case T.Position{values,frame}: (T.Position{[30:U32^2n],frame},(aux,O.QueryRow{handle,T.PositionView{T.Four{30,30,30,30},frame},None{},flag}))\n   |          ^^^^^^^^^^^^^^^^^^^^^^^^\n15 | \nbend 2.0.35 is available: run bend update\n",
       "intended_diagnostics": [
         "expected : a datatype",
@@ -134,7 +154,8 @@
         "T.Position{"
       ],
       "mutation_file": "integrated-access-positive.bend",
-      "mutated_source_sha256": "e8bbf1c0642c72f61fac610400b522bc5e3f47891b16c8016ea8eb1a387aef22"
+      "mutated_source_sha256": "e8bbf1c0642c72f61fac610400b522bc5e3f47891b16c8016ea8eb1a387aef22",
+      "classification": "original actual provider boundary control"
     }
   }
 }
