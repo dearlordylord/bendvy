@@ -330,3 +330,45 @@ failed requested sizes. Experimental indexed-adapter #20 is a documented follow-
 not production approval or a passed performance gate. Dynamic failed-transaction
 workload and final current lifecycle evidence still require review; no new law,
 dependency, universal refinement or full-core completion follows.
+
+## 2026-10-04 — final bounded-research disposition `79bb10f`
+
+**Standards verdict:** the proposed bounded-negative disposition is consistent
+with ticket #19's explicit research alternative. No hard documented-standard
+violation or actionable baseline smell identified in the inspected final records,
+callbacks and completion proposal. This approves their evidence/status reporting,
+not production integration, performance acceptance or independent approval of my
+renderer. Spec review remains a separate axis.
+
+Independently checked every recorded import hash in current lifecycle timing,
+completed FailedTxn bounded evidence and current FailedTxn build attempt: all match
+this checkout. Lifecycle records five measured cases with complete boundaries,
+reservations and historical-stale lookups; Health1024 Native/JS full-output failures
+remain failures. The main head-target mutation checker deadline is not a semantic
+kill; the separately compiled focused witnesses retain their distinct provenance.
+No unverified case receives ratios or memory acceptance.
+
+FailedTxn callbacks retain abstract affine Tx/payload owners and fresh nominal
+operations, without World/journal/rewind authority. Evidence distinguishes Native
+O0 history, Native O3 complete 64/256 cases, JS64 originals and eight JS semantic
+witnesses across four mutations from larger runtime deadlines. Native dynamic-
+workload mutation coverage is not inferred. The fresh byte-identical root checker
+attempt remains `BUILD_BLOCKED`, with no generated backend or fabricated pass.
+Its missing reproducibility capability is an explicit return gate, not erased by
+prior successful checking.
+
+The completion proposal correctly withholds equivalent FailedTxn timing/RSS:
+full Bend diagnostics and compact TS summaries are unequal serialization work.
+Its quiet-adapter return condition retains original operations and complete-field
+validation against both diagnostics before measurement. Corrected process RSS is
+limited to its actual protocol; physical peak occupancy/lag remains unavailable.
+Visible regressions, descriptor-construction asymmetry, deadlines and clock
+resolution cannot become performance acceptance by closing research.
+
+The reviewed #20 experimental indexed adapter preserves current functional/access/
+mutation baselines and requests equivalent workloads, stable existing build limits,
+corrected memory and occupancy evidence. Broader confinement/recovery/schema and
+parallelism follow-ups retain the full-core goal. No law/dependency approval,
+external-reference/Canonical modification or universal refinement is introduced.
+After separate Spec disposition, #19 may close as bounded negative research with
+these missing capabilities retained; mandatory product performance remains unmet.
