@@ -679,3 +679,37 @@ impossibility. Full endpoint mutation acceptance remains open.
 Bend's affine and match constraints and have concrete immediate consumers. This
 accepts another partial supporting checkpoint, without advancing production,
 full-payload/runtime refinement, integration, performance or #18 completion gates.
+
+## Overflow wrapper probe and complete-law witness preparation — `531efe0`, `a3c70f5` (2026-10-04)
+
+**Hard violations: none found.** Independently archived `a3c70f5` to a temporary
+root and replayed both complete runners: overflow probe seven expected outcomes,
+owned package thirty-eight expected outcomes, both exit 0. Root sources/evidence
+were untouched. Probe asserts its listed source/approval/compiler/Base pins and
+records local source/runner hashes; owned runner retains canonical/proposal pins
+and records its actual recursive import closure. All invocations retain hard
+five-second checker/kernel limits and task-owned temporary cleanup.
+
+Probe universal neutral wrapper facts preserve the exact source predicate and
+observer through checked equality/congruence. They touch Data rows and introduce
+no runtime-owner clone, scalar-safety assumption or catalogue fill. Zero controls
+pass kernel, wrong Missing result rejects at its intended section, and the false
+kernel backend rejects. The exact row-to-Word declaration produces one TODO:
+formation is explicitly distinguished from inhabitance. The smaller reflexivity
+attempt actually reports machine-stack overflow as the expected negative result;
+it is neither a proven statement nor a mathematical counterexample/impossibility.
+The README identifies unrecorded exploratory routes separately from reproducible
+runner evidence and leaves the scalar-wrapper residual open.
+
+The new complete-law witnesses use the original exact observation equation and
+separately establish true independent safety premises for pending Reserve and
+Reserve–Barrier–Bump. Both pass checker/kernel on the original core. Actual tick
+implicit-final-flush and dropped-tail mutations compile, then reject the unchanged
+respective equations at `pending_equation` and `tail_equation`. This is finite
+preparatory witness evidence; the absent universal nonempty proof is not inferred
+from those controls. Updated tick-context explicitly exposes the expanded
+recursive target, leaving the authored Cons linkage to actual induction.
+
+**Heuristic findings: none actionable.** Wrapper decomposition resolves concrete
+proof-shape diagnostics without granting a weaker domain. Both reports preserve
+the full owned endpoint/mutation acceptance, integration and performance gates.
