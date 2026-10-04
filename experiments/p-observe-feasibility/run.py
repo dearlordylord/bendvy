@@ -21,6 +21,13 @@ for name,positive in [('erasure-control.bend',True),('erasure-negative.bend',Fal
     item=invoke(['bend',str(ROOT/'experiments/t11-replacement'/name),'--verdict'])
     item['name']='prior-'+name
     assert (item['exit_code']==0)==positive,item
+    output=item['stdout']+item['stderr']
+    if positive:
+        assert 'ALL PROOFS CHECK' in output,item
+    else:
+        assert 'SOME PROOFS FAIL' in output,item
+        assert 'expected : -world' in output and 'observed : world' in output,item
+        assert 'Location: bad' in output,item
     rows.append(item)
 manifest=json.loads((REFERENCE_ROOT/'sources.json').read_text())
 references={}
