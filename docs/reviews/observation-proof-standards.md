@@ -48,3 +48,37 @@ report/manifest synchronization and coordinator verification remain parent work.
 
 **Heuristic findings: none actionable.** Search helpers reflect Bend's affine,
 single-head-match and declaration-order constraints.
+
+## Query contextual package — partial progress
+
+Reviewed merged commit `c489ae4`, including source, runner, contextual proofs,
+failed attempt and current evidence. No runner was launched by this reviewer.
+
+**Hard violations: none found.** The extracted three-law block is byte-matched
+against the approved source; original model/spec subjects are unchanged. The
+runner records compiler/Base/wrapper/subject/package hashes, all matching current
+files at inspection. Contextual helpers, decomposition and finite controls pass
+ordinary checking and kernel verification. Helpers require actual premise/bridge
+inhabitants; no axiom, unsafe dependency or unapproved catalogue theorem is used.
+
+The general nonempty sorting/enumeration bridge remains an explicit failing
+`rows_complete` attempt. The runner checks its exact expected diagnostic under
+both checker/kernel commands. Evidence lists zero completed endpoint IDs and
+all three blocked IDs; README makes exit 0 mean verification of partial progress,
+not complete query theorem acceptance or #18 completion.
+
+Both mutants first typecheck their actual subject modules, then reject unchanged
+contextual proofs at `at_zero_head` and `empty_world`. These are meaningful
+contextual dependency checks and are explicitly excluded from the full endpoint
+mutation gate. Exact copied-positive checks precede mutation. The existing
+five-second checker wrapper remains the limit; the outer seven-second subprocess
+watchdog does not raise that internal checker deadline. No dependency or
+performance claim was introduced.
+
+**Heuristic findings: none actionable.** Specialized comparison/count/invariant
+helpers support the approved endpoint's mathematical decomposition and Bend's
+single-head-match constraints. Independent enumeration remains distinct from
+implementation sorting; consolidation would weaken the reference comparison.
+
+Query section result: 0 hard findings; 0 actionable heuristics. Full query proofs,
+their own endpoint mutants and coordinator integration acceptance remain open.
