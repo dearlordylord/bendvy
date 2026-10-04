@@ -1,0 +1,11 @@
+{
+  "status": "ORIGINAL_CONTROL_FAILED",
+  "schema": "Motion",
+  "count": 64,
+  "iterations": 64,
+  "command": "taskset -c 7 timeout --signal=KILL 5 node /tmp/bendvy-perf-failure/driver.js 0 64 64",
+  "exit": 24,
+  "diagnostic": "quiet service own-write/reservation/ping full-field guard",
+  "cause": "Adapter predicate own_a used post-B Ledger101*(i+1); actual A-only own write is i*101+1. Source/core/TS unchanged; correct finite input predicate to ledger(i,False).",
+  "wrong_helper_sha256": "d07ea7af3d844a00b0daa73645e49b999386c0c8d0c41b3f819fa424c9b4468c"
+}
