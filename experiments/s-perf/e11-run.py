@@ -33,6 +33,7 @@ def main():
     parser.add_argument('overlay', type=Path)
     parser.add_argument('--evidence', type=Path, default=HERE / 'e11-evidence.json')
     parser.add_argument('--joined-only', action='store_true')
+    parser.add_argument('--resume-mutants', action='store_true', help='Resume only against exact passing original closure')
     parser.add_argument('--prior', type=Path, help='Preserve superseded original failures in replacement evidence')
     args = parser.parse_args()
     overlay = args.overlay.resolve()
@@ -91,6 +92,49 @@ def main():
             evidence.write_text(json.dumps(report, indent=2) + '\n')
             args.evidence.write_text(evidence.read_text())
 
+        if args.resume_mutants:
+            prior = json.loads(args.evidence.read_text())
+            assert len(prior['actual']) == 20 and len(prior['publicReference']) == 10
+            assert all(f['backend'] == 'Mutation' for f in prior['failures'])
+            assert prior['sourceClosure'] == report['sourceClosure']
+            assert prior['referenceSha256'] == report['referenceSha256']
+            assert prior['comparisonSha256'] == report['comparisonSha256']
+            report = prior
+            report.setdefault('supersededMutationFailures', []).extend(report['failures'])
+            report['failures'] = []
+            report['status'] = 'JOINED_EXECUTION_PASS_MUTANTS_PENDING'
+            report['mutationAdapterSha256'] = sha(__file__)
+            original_command = runner.B.command
+            def instrumented_command(command, expected=0, timeout=5):
+                started = time.monotonic()
+                phase = {'command':[str(a) for a in command], 'limitSeconds':timeout}
+                try:
+                    output = original_command(command, expected, timeout)
+                    phase['status'] = 'PASS'
+                    return output
+                except Exception as error:
+                    phase.update(status='FAILED',error=str(error)[:3000])
+                    raise
+                finally:
+                    phase['seconds'] = time.monotonic()-started
+                    report.setdefault('resumedCommandPhases', []).append(phase)
+                    # The original mutation executor owns its current evidence writes.
+            runner.B.command = instrumented_command
+            save()
+            try:
+                result = runner.mutants()
+                current = json.loads(evidence.read_text())
+                current['resumedCommandPhases'] = report.get('resumedCommandPhases', [])
+                evidence.write_text(json.dumps(current,indent=2)+'\n')
+                return result
+            except Exception as error:
+                current = json.loads(evidence.read_text())
+                current.update(status='MUTATION_BLOCKED',resumedCommandPhases=report.get('resumedCommandPhases', []))
+                current['failures'].append({'backend':'Mutation','error':str(error)[:3000]})
+                evidence.write_text(json.dumps(current,indent=2)+'\n')
+                return 2
+            finally:
+                args.evidence.write_text(evidence.read_text())
         save()
         # All ten fresh TS lanes run even if the candidate build is blocked.
         for schema in runner.SCHEMAS:
