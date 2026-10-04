@@ -1,0 +1,65 @@
+{
+  "scope": "actual mark filter baseline before zipper repair",
+  "sourceHashes": {
+    "host-mark-controls.bend": "d74fe2121ff83d1f7919604797ee12482a4b4b988050d1c842b85587e7d7bf78",
+    "host.bend": "0240865532fcccacfad5e8d4b7a7d2e9e04c18fc041ef763f4659563d116769b"
+  },
+  "cases": [
+    {
+      "schema": 0,
+      "count": 17,
+      "backend": "native",
+      "value": "true",
+      "passed": true
+    },
+    {
+      "schema": 0,
+      "count": 17,
+      "backend": "js",
+      "value": "true",
+      "passed": true
+    },
+    {
+      "schema": 0,
+      "count": 65537,
+      "backend": "native",
+      "passed": false,
+      "error": "5s limit: /workspace/formal-proofs/bendvy-worktrees/host-marks/.artifacts/host-mark-baseline/host-mark-controls-native"
+    },
+    {
+      "schema": 0,
+      "count": 65537,
+      "backend": "js",
+      "passed": false,
+      "error": "exit 1, expected 0: ['node', PosixPath('/workspace/formal-proofs/bendvy-worktrees/host-marks/.artifacts/host-mark-baseline/host-mark-controls.js'), '0', '65537']\nbend: memory fault (machine stack overflow?)\n"
+    },
+    {
+      "schema": 1,
+      "count": 17,
+      "backend": "native",
+      "value": "true",
+      "passed": true
+    },
+    {
+      "schema": 1,
+      "count": 17,
+      "backend": "js",
+      "value": "true",
+      "passed": true
+    },
+    {
+      "schema": 1,
+      "count": 65537,
+      "backend": "native",
+      "passed": false,
+      "error": "5s limit: /workspace/formal-proofs/bendvy-worktrees/host-marks/.artifacts/host-mark-baseline/host-mark-controls-native"
+    },
+    {
+      "schema": 1,
+      "count": 65537,
+      "backend": "js",
+      "passed": false,
+      "error": "exit 1, expected 0: ['node', PosixPath('/workspace/formal-proofs/bendvy-worktrees/host-marks/.artifacts/host-mark-baseline/host-mark-controls.js'), '1', '65537']\nbend: memory fault (machine stack overflow?)\n"
+    }
+  ]
+}

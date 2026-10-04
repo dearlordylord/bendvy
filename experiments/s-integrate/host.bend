@@ -65,12 +65,28 @@ def filter_mark_case(-Schema:Data,-V:Data,-AV:Data,-F:Data,included:Bool,value:O
   match included:
     case True{}: value <> tail
     case False{}: tail
-def filter_mark(-Schema:Data,-V:Data,-AV:Data,-F:Data,+rows:List<&2,O.RowView<V,AV,F>>,+changed:Bool,+since:U32,+thisRun:U32,values:List<&2,O.QueryRow<Schema,V,AV,F>>) -> List<&2,O.QueryRow<Schema,V,AV,F>>:
+def mark_seek_decide(-V:Data,-AV:Data,-F:Data,ih:Unit -> List<&2,O.RowView<V,AV,F>> & U32,lower:Bool,equal:Bool,changed:Bool,added:U32,last:U32,row:O.RowView<V,AV,F>,tail:List<&2,O.RowView<V,AV,F>>) -> List<&2,O.RowView<V,AV,F>> & U32:
+  match lower:
+    case True{}: ih(Unit{})
+    case False{}: (row <> tail,marked_case(equal,changed,added,last,0))
+def mark_seek(-V:Data,-AV:Data,-F:Data,+target:U32,+changed:Bool,rows:List<&2,O.RowView<V,AV,F>>) -> List<&2,O.RowView<V,AV,F>> & U32:
+  match rows:
+    case Nil{}: ([],0)
+    case Con{O.RowView{+key,main,aux,flag,+added,+last},+tail}:
+      mark_seek_decide(V,AV,F,unit => mark_seek(V,AV,F,target,changed,tail),U32.is_lt(key,target),U32.is_eq(key,target),changed,added,last,O.RowView{key,main,aux,flag,added,last},tail)
+def filter_mark_resume(-Schema:Data,-V:Data,-AV:Data,-F:Data,ih:List<&2,O.RowView<V,AV,F>> -> List<&2,O.QueryRow<Schema,V,AV,F>> -> List<&2,O.QueryRow<Schema,V,AV,F>>,since:U32,thisRun:U32,value:O.QueryRow<Schema,V,AV,F>,reverse:List<&2,O.QueryRow<Schema,V,AV,F>>,result:List<&2,O.RowView<V,AV,F>> & U32) -> List<&2,O.QueryRow<Schema,V,AV,F>>:
+  match result:
+    case (rows,+tick): ih(rows,filter_mark_case(Schema,V,AV,F,Bool.and(U32.is_gt(tick,since),U32.is_le(tick,thisRun)),value,reverse))
+def filter_mark_head(-Schema:Data,-V:Data,-AV:Data,-F:Data,ih:List<&2,O.RowView<V,AV,F>> -> List<&2,O.QueryRow<Schema,V,AV,F>> -> List<&2,O.QueryRow<Schema,V,AV,F>>,changed:Bool,since:U32,thisRun:U32,rows:List<&2,O.RowView<V,AV,F>>,reverse:List<&2,O.QueryRow<Schema,V,AV,F>>,value:O.QueryRow<Schema,V,AV,F>) -> List<&2,O.QueryRow<Schema,V,AV,F>>:
+  match value:
+    case O.QueryRow{W.Handle{ns,+id},main,aux,flag}:
+      filter_mark_resume(Schema,V,AV,F,ih,since,thisRun,O.QueryRow{W.Handle{ns,id},main,aux,flag},reverse,mark_seek(V,AV,F,id,changed,rows))
+def filter_mark_go(-Schema:Data,-V:Data,-AV:Data,-F:Data,values:List<&2,O.QueryRow<Schema,V,AV,F>>,rows:List<&2,O.RowView<V,AV,F>>,+changed:Bool,+since:U32,+thisRun:U32,reverse:List<&2,O.QueryRow<Schema,V,AV,F>>) -> List<&2,O.QueryRow<Schema,V,AV,F>>:
   match values:
-    case Nil{}: []
-    case Con{O.QueryRow{W.Handle{+ns,+id},main,aux,flag},tail}:
-      +tick = {marked(V,AV,F,id,changed,rows):U32}
-      filter_mark_case(Schema,V,AV,F,Bool.and(U32.is_gt(tick,since),U32.is_le(tick,thisRun)),O.QueryRow{W.Handle{ns,id},main,aux,flag},filter_mark(Schema,V,AV,F,rows,changed,since,thisRun,tail))
+    case Nil{}: List.reverse(&2,O.QueryRow<Schema,V,AV,F>,reverse)
+    case Con{value,tail}: filter_mark_head(Schema,V,AV,F,rs => acc => filter_mark_go(Schema,V,AV,F,tail,rs,changed,since,thisRun,acc),changed,since,thisRun,rows,reverse,value)
+def filter_mark(-Schema:Data,-V:Data,-AV:Data,-F:Data,rows:List<&2,O.RowView<V,AV,F>>,changed:Bool,since:U32,thisRun:U32,values:List<&2,O.QueryRow<Schema,V,AV,F>>) -> List<&2,O.QueryRow<Schema,V,AV,F>>:
+  filter_mark_go(Schema,V,AV,F,values,rows,changed,since,thisRun,[])
 def query_return(-Schema:Data,-M:Type,-A:Type,-F:Data,-L:Type,-Mode:Data,-P:Data,-V:Data,-AV:Data,-LV:Data,logs:H.Logs<Schema,P>,bindings:List<&2,E.Binding<Schema>>,worldName:String,step:String,prior:D.DispatchOutcome,events:List<&2,E.TraceEvent<Schema,V,AV,F,LV,Mode,P>>,result:W.World<Schema,M,A,F,L,Mode> & List<&2,O.QueryRow<Schema,V,AV,F>>) -> Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & List<&2,O.QueryRow<Schema,V,AV,F>>:
   match result:
     case (world,values): (Host{world,logs,bindings,worldName,step,prior,events},values)
