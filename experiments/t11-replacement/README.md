@@ -192,3 +192,18 @@ Later explicit packages retain: independent-root/factory provenance; generic dec
 | Falsification and actual references | New exact literal instances and compiling own-law decision-path mutations; actual pinned TS/Native/JS checkpoints, five-second checker gate and external-tool/high-bound gaps. Final JSON artifacts provide exact results/hashes. |
 | Approval-ready proposal without proof | Exact 31 IDs and law hash, per-law rationale/sketch/dependencies, human-review document. Every candidate remains TODO; no general ECS proof or PROOF.bend. |
 | Checkpoint and follow-ups | Remaining packages/gates above are supplied for coordinator checkpoint integration. This isolated worker does not edit the shared tracker or publish detailed follow-up tickets. |
+
+
+## Fresh semantic approval audit
+
+[Astra medium semantic audit](../../docs/reviews/laws-semantic-audit.md) reviewed
+all 31 statements independently of mutation counts: seven bounded public-observation
+candidates, twenty internal lemmas and four infrastructure facts. The
+[approval proposal](../../docs/reviews/laws-replacement-package.md) now requests
+only the seven public candidates at that layer; supporting facts remain separately
+unapproved. Pending lookup's observer can always return Missing; owned read laws
+fix raw physical-row order; element-zero preservation permits loss outside that
+projection; independent roots can collide. The report identifies the necessary
+subject/representation/refinement corrections before broader claims. No false
+equation was identified by inspection, no general proof was written and no Bend
+subject or recorded finite evidence changed.

@@ -31,7 +31,11 @@ runner failure are recorded explicitly; no universal proof is inferred.
 
 [Exact proposal](reviews/laws-replacement-package.md), law SHA256
 `e0c607d723ad250a189c096d9fa3fd6a36913f4c72efd3a3be6dacd7fadb2cbc`, awaits human
-approval before proof. Numerical thresholds remain pending. No general proofs exist.
+approval before proof. Fresh [Astra semantic audit](reviews/laws-semantic-audit.md)
+limits the public-observation request to seven exact IDs; twenty internal and four
+infrastructure candidates require separate supporting-proof approval. Root authority,
+full-payload preservation and representation-neutral owned-read preservation remain
+open. Numerical thresholds remain pending. No general proofs exist.
 
 ## Execution checklist and tracker ownership
 
@@ -106,8 +110,9 @@ workloads after the storage/CPU evidence, not silently removed.
 
 ## Decisions for review
 
-- The replacement 31-law package passed both review axes and awaits human
-  approval of its exact IDs/revision. The old fourteen-law request is withdrawn;
+- The replacement passed both delivery review axes; fresh Astra semantic review
+  recommends seven bounded public-observation IDs and separate internal/infrastructure
+  approval. The old fourteen-law request is withdrawn;
   no runtime-proof approval is inferred.
 - Numerical proposal: native >=2x per representative workload/size; JS <=1.10x
   time with uncertainty below that margin. Both unapproved; current layout fails.

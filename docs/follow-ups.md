@@ -182,3 +182,18 @@ physical owner identity. Resolve the arithmetic high-bound normalization/tooling
 gaps for any proof that uses those bridges. These remain draft packages requiring
 detail/review before publication; storage benchmark results do not blanket-block
 independent law drafting or waive mandatory product performance.
+
+
+## Semantic approval corrections
+
+[Fresh Astra medium audit](reviews/laws-semantic-audit.md) keeps seven bounded
+public-observation candidates and classifies twenty internal/four infrastructure
+facts separately. Before promoting pending reservation, state actual successful
+reservation and direct lookup rather than an independently replaceable Missing
+observer. Before public owned-read preservation, replace raw physical-row equality
+with an explicit representation-neutral relation. For trace refinement, distinguish
+raw `O.snapshot` from sorted `M.observe` and establish creation admissibility,
+observation adequacy and successor invariant links. Keep independent-root authority,
+complete affine payload preservation and actual transactional reader laws open.
+These are corrections to approval/proof subjects, not scope reduction; no source
+law or prior finite artifact was modified by this semantic review.

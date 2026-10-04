@@ -9,7 +9,40 @@ Exact subject: [LAWS.bend](../../experiments/t11-replacement/LAWS.bend), SHA256
 The [package report](../../experiments/t11-replacement/README.md) supplies each
 law's reason, exact domain, controls, mutant evidence, proof sketch and dependency.
 
-Proposed IDs:
+## Current approval boundary after fresh semantic review
+
+[Astra medium semantic audit](laws-semantic-audit.md) classifies the 31 candidates
+as **7 bounded public-observation contracts, 20 internal lemmas and 4 infrastructure
+facts**. Do not approve the entire catalogue as public ECS contracts. No false
+equation was found by inspection; this is not a proof of truth or sufficiency.
+
+Current bounded public-observation approval request:
+
+- `query_any_complete_ordered`
+- `query_present_complete_ordered`
+- `query_absent_complete_ordered`
+- `lookup_full_exact`
+- `explicit_flush_independent`
+- `schedule_execution_exact`
+- `owned_runtime_schedule_correspondence`
+
+These retain the fixed value/tag composition, admissibility/prefix safety,
+single trusted factory lineage, element-zero observation and primitive-step
+schedule scope. They do not approve global authority, generic Type preservation,
+reader transactions or a production allocator/error policy. Internal and
+infrastructure IDs require separately labeled supporting-proof approval.
+
+Concrete changes required before broader public claims: replace the independent
+Missing observer in `reservation_pending_lookup` with a direct successful-reserve
+lookup statement; use a representation-neutral owner relation for actual query/
+lookup preservation; distinguish structural snapshots from sorted observations
+in trace refinement and discharge creation/admissibility/observation links.
+Root collisions, unobserved array loss and incorrect reader wrappers remain
+compatible with the full catalogue. The audit records exact IDs and countermodels.
+No law source was changed, and no proof or approval is inferred.
+
+## Complete candidate catalogue (not a bulk public approval request)
+
 
 - `admissibility_independent`
 - `namespace_creation_exact`
@@ -70,7 +103,7 @@ Review decisions and limits remain explicit:
   trusted lineage. Independent-root global provenance is still open.
 - Bounded rejection/exhaustion is an experiment parameter, not an approved product
   allocator/reuse/error policy. Public foreign-command rejection results remain
-  unresolved. Foreign authority preserves the owner; the approved lookup result
+  unresolved. A numerically foreign handle leaves the declared world observation unchanged; the approved lookup result
   is MissingEntity, including colliding local IDs.
 - Arrays are nonempty; index zero is defined. The arbitrary erased owner quantifier
   observes element zero of each array. Preservation is at that declared projection,
@@ -85,6 +118,7 @@ Review decisions and limits remain explicit:
 - External lawcheck/bend-falsify compatibility remains unverified; no dependency
   was adopted. No general model/helper/owned-refinement/backend proof exists.
 
-Approval must name these exact IDs/revision (or an explicit subset) before proof
-work. Approving the investigation does not approve unresolved product policies,
+Approval must name exact IDs/revision and their layer before proof work. Approval
+of the seven public candidates does not approve the remaining 24 support facts.
+Approving the investigation does not approve unresolved product policies,
 dependencies, performance margins or this replacement automatically.

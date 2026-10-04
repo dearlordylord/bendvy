@@ -79,3 +79,14 @@ and allocator policies, arithmetic high-bound normalization, compiler/backend an
 host IO remain explicit [follow-ups](../follow-ups.md). The historical proposal
 remains withdrawn. Numerical performance thresholds and later detailed tickets
 remain unapproved/unpublished; the full core scope is preserved.
+
+
+## Subsequent semantic approval review
+
+[Fresh Astra medium audit](../reviews/laws-semantic-audit.md) distinguishes seven
+bounded public-observation candidates, twenty internal lemmas and four infrastructure
+facts. The exact proposal no longer presents all 31 as a bulk public approval
+request. Research remains complete; laws remain unapproved. Pending-lookup caller
+shape, representation-neutral read preservation and trace-relation adequacy need
+correction before broader guarantees. Root authority, full payload preservation
+and actual reader transactions remain open; see the audit and follow-ups.
