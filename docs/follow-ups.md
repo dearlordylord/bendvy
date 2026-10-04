@@ -127,3 +127,16 @@ positive membership/lookup/reservation behavior, independent command semantics,
 U32/admissibility and ownership-preserving runtime correspondence. Cursor helpers
 remain distinct from transactional reader wrappers. Rust Bevy's order/deferred/
 read-time cursor differences do not silently replace the agreed TS target.
+
+## S-CAPTURE return conditions
+
+[#17](../experiments/s-capture/README.md) establishes explicit affine per-instance
+state and regenerated once-only closures over the same 39 actual reference
+checkpoints, with inverse restoration and compiling mutants. Before production
+System adoption, define Local lifetime/identity/rollback separately from lexical
+captures; test dynamic registration/disposal, captured Type/IO resources and
+resource/service provisioning. General destructive mutations require recoverable
+inverses or retained owners and an explicit interface decision. S-INTEGRATE must
+still establish actual command application/authority, allocation/marks/cursor
+rollback, general clocks/retention and two-schema composition. Diagnostic host
+strings and a saved event index are not host-IO or universal reader proofs.

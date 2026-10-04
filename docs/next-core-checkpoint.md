@@ -11,6 +11,9 @@ R-A/R-C1 establish bounded abstract providers/two-schema queries. T04 exercises
 an affine owned-array payload. T05 establishes bounded identity/deferred commands;
 T06 actual inverse rollback/publication; T07 independent message readers;
 T08 independent change/removal positions; T09 closed nested provisioning.
+[S-CAPTURE #17](../experiments/s-capture/README.md) establishes bounded repeatable
+explicit-owner/regenerated-closure state and inverse restoration, with fresh
+TS/Native/JS traces. General Local policy and destructive restoration remain open.
 These are executable probes, not one integrated production runtime.
 [T10](../experiments/t10/README.md) rejects adopting the current ordered-list layout
 on performance. [T11](../experiments/t11/README.md) retains historical helper/model evidence;
@@ -28,7 +31,8 @@ an earlier bounded redesign checkpoint, not completion of the next-stage specs.
 - [ ] **Next: #12** — draft connected laws and runtime links, then falsify them with positive/boundary cases and meaningful mutants. Implement the audit corrections in this replacement; they are not implemented merely because the audit exists.
 - [ ] Present exact law IDs/revision for approval; only then prepare and execute the corresponding proof work.
 - [x] Detail, review and publish [S-LAYOUT #16](tickets/15-indexed-storage.md) and [S-CAPTURE #17](tickets/16-capture-restoration.md). Both can start alongside #12; publication does not mean capability completion.
-- [ ] Execute #16 (indexed owned storage) and #17 (capture/restoration); use their concrete results to detail and review S-INTEGRATE before publication. These have their own evidence dependencies and need not wait for unrelated proofs.
+- [x] Execute #17 and review both axes: bounded state/closure/restoration evidence is recorded; general capability gates remain open.
+- [ ] Execute #16 (indexed owned storage); use its measurements and #17's restoration seam to detail and review S-INTEGRATE before publication. These have their own evidence dependencies and need not wait for unrelated proofs.
 - [ ] Specify and implement the simple simulation after its actual capability/law gates; agree numerical thresholds before accepting performance.
 - [ ] Specify remaining full-core packages and the isolated Tower Defense copy integration as their prerequisites become ready.
 
@@ -52,7 +56,8 @@ gate passed. The detailed acceptance criteria for the immediate work live in #12
 4. Investigate captured Local/closures and noncopyable payload restoration before
    generalizing System. A failure triggers a bounded explicit contract decision.
 
-S-LAYOUT (#16) and S-CAPTURE (#17) are published bounded research tasks.
+S-LAYOUT (#16) is in progress; S-CAPTURE (#17) completed its bounded research
+and review. Its general Local/restoration gates remain open.
 S-INTEGRATE and P-ID/P-Q/P-CMD/P-TX/P-READ/P-PROVIDE remain **unpublished drafts**. Law packages depend on their exact
 subjects and approval, not a blanket benchmark gate. Production integration/layout
 adoption waits for their actual capability/performance evidence.
