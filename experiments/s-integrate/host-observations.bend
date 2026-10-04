@@ -12,7 +12,7 @@ type TraceEvent<-Schema:Data,-V:Data,-AV:Data,-F:Data,-LV:Data,-Mode:Data,-P:Dat
   Snapshot{step:String,worldName:String,prior:D.DispatchOutcome,world:O.WorldView<V,AV,F,LV,Mode>,query:List<&2,O.QueryRow<Schema,V,AV,F>>,
     plus:List<&2,O.QueryRow<Schema,V,AV,F>>,minus:List<&2,O.QueryRow<Schema,V,AV,F>>,optional:List<&2,O.QueryRow<Schema,V,AV,F>>,
     lookups:List<&2,Lookup<Schema,V,AV,F>>}
-  Dispatch{step:String,outcome:D.DispatchOutcome,clockTick:U32,frame:U32,counts:List<&2,Count>}
+  Dispatch{step:String,worldName:String,tracked:Bool,outcome:D.DispatchOutcome,clockTick:U32,frame:U32,counts:List<&2,Count>}
   ReadDone{step:String,system:String,frame:U32,tick:U32,outcome:T.Outcome,messageLag:Bool,removedLag:Bool,despawnedLag:Bool}
   OwnWrites{step:String,system:String,views:List<&2,OwnView>}
 type Lookup<-Schema:Data,-V:Data,-AV:Data,-F:Data> is Data:
