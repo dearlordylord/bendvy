@@ -33,3 +33,16 @@ Reviewed SHA256: `commands.bend` = `6dfa56c84b581d65ef75f185f0ffedeaa59e09292e29
 
 
 Independent replay result: **PASS for both bounded packages.** Both frozen runners exited0 from a temporary archive of `0267ae4`, using read-only reference links and preserving root evidence. Storage produced the153-line original transcript, seven intended access negatives, five compiling Native/JS mutants and eight fresh TS snapshot comparisons. Reader/log replay passed104 checkpoints per backend, all12 compiling mutants, nominal/affine controls, rejected setup and all ten fresh public TS cases. No acceptance of the unreviewed observation body or full dispatcher trace is inferred.
+
+
+## Dispatcher descriptor/registry mismatch — 2026-10-04, `6f9f31c`
+
+**Actionable Spec defect before dispatcher acceptance.** Source inspection identifies two inconsistent authorities for one Call. `dispatcher.bend:55,59` preflight trusts the caller's System requirement flags; `:137,157,173` trusts its reader/gating/kind metadata. `:92` instead finds the registered entry by base and invokes that entry's actual body/name. Since System/Call constructors are public, a same-base descriptor with altered ledger/audit/gated/reader flags can suppress declared preflight or select the wrong execution path while retaining the registered body. Altering kind to SetOff can also record a pending mode transition after a different registered body succeeds. This is a source-derived counterexample shape, not a freshly executed exploit transcript.
+
+This violates the existing #19 declared preflight and consistent-system execution boundary; treating all caller metadata as canonical without a validated boundary would narrow that requirement. It is not the separately deferred global-root question, and constructor privacy cannot justify it.
+
+Resolve every nested Call against the actual registry before preflight or frame/reader/capture/body effects, and use the resolved descriptor consistently thereafter. Unknown base should use the existing SetupRejected result with owners retained and no invocation/effects. A validated closed resolved-node representation is also acceptable, provided the public dispatcher validates rather than trusts its construction. Add wrong-requirement, wrong-gate/reader, wrong-kind and unknown-base controls through actual dispatch, including unchanged owners/captures/Audit for rejected/preflight paths. This is an authorized implementation correction, not a new law or product-policy decision.
+
+Pinned TS Schedule.ts:316–321 copies the same body/spec/requirements, adds conditions and their requirements, and retains base identity; Runtime.ts:1367,1388 shares base state while executing the copied system's own conditions/spec. It does not support an unrelated body chosen by base paired with independently forged requirements. For future additional gated copies, preserve validated added conditions rather than blindly erase them; wholly canonicalizing the registered gated flag is suitable for the present bounded trace.
+
+Reviewed SHA256: `dispatcher.bend` = `42665a2e3b7123f911f9e088e9eeb7131d734bdba5dadb5e226406ddd489427f`; `schedule.bend` = `f0ae62dd2b75faaaa5c45706de35e99c06e4a9764ad8e31fdc45dc9a215f6cb4`.
