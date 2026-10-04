@@ -1,0 +1,940 @@
+{
+  "status": "PASS",
+  "scope": "Fresh Dense/Sparse correctness checkpoint only; execution durations diagnostic, not accepted performance samples",
+  "openWorkloads": [
+    "lifecycle/churn",
+    "readers",
+    "failed transaction"
+  ],
+  "node": "v24.20.0",
+  "reference": {
+    "commit": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334",
+    "files": {
+      "Runtime.ts": "c744aa5c52845bd3323358c5085161b40a452c6802a1653e3851bfd34c69f5b4",
+      "System.ts": "ae53852dbd815ad441446cbcfc663d25aed6c2bd0afcfacbc3c20e0c40dc2ba7",
+      "Query.ts": "45e2fe513f66e336f97d40b41b3c866363a1af17ecbc90087086e00c08b28414",
+      "Command.ts": "de5db2093401e24ce54fae8166e7f686c153852094b6446dc0ee22cfa28cef28",
+      "internal/world.ts": "e71b4b060fec85fae690957104c14051e4bea0d857bacd648993ea69a6fe27d7",
+      "internal/streams.ts": "3e817555dddf937c51b51014ceb6422f068aeca4a40328281dbb774b8880168e"
+    }
+  },
+  "adapterSha256": "36f456d084ce22a4a700731f2c8a0e305c1bcd0394dd79f69de54bc86dc17914",
+  "measurementContractSha256": "f3c063636602e5fadb742c3aefb70e5770350fad6351827e6c471155eca5ab7a",
+  "traceSha256": "7063413226264f21a209fc1731183262401faf1a8be9029c69fa5df753f5ff68",
+  "command": "node experiments/s-integrate/measurement-reference.mjs --all",
+  "perChildLimitSeconds": 5,
+  "results": [
+    {
+      "schema": "Motion",
+      "workload": "dense",
+      "count": 64,
+      "iterations": 64,
+      "status": "PASS",
+      "selectedCount": 64,
+      "rawReservationRange": [
+        1,
+        64
+      ],
+      "fullFieldsCompared": 64,
+      "finalSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
+      "oracleSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
+      "auditSha256": "2cda512acf748b4c285a0b5f666070c55ca58f11f834809a2dbc50da8c163f5f",
+      "ledger": {
+        "totals": [
+          4096,
+          101,
+          102,
+          103
+        ],
+        "epoch": 4
+      },
+      "samples": {
+        "first": {
+          "rawId": 1,
+          "main": {
+            "coordinates": [
+              64,
+              1,
+              2,
+              3
+            ],
+            "frame": 7
+          },
+          "aux": {
+            "rates": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "moving": true
+          },
+          "flag": null
+        },
+        "last": {
+          "rawId": 64,
+          "main": {
+            "coordinates": [
+              127,
+              64,
+              65,
+              66
+            ],
+            "frame": 7
+          },
+          "aux": {
+            "rates": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "moving": true
+          },
+          "flag": null
+        }
+      },
+      "setupMilliseconds": 3.5990010000000012,
+      "executionMilliseconds": 4.5274280000000005,
+      "observationAndValidationMilliseconds": 2.4253619999999927,
+      "peakRssKiB": 100716,
+      "memoryScope": "whole child process including imports, setup, validation; not component allocation",
+      "commandOccupancyAfterSeed": 0,
+      "readerOccupancy": "not used by dense/sparse",
+      "retainedLiveCount": 64
+    },
+    {
+      "schema": "Motion",
+      "workload": "dense",
+      "count": 256,
+      "iterations": 64,
+      "status": "PASS",
+      "selectedCount": 256,
+      "rawReservationRange": [
+        1,
+        256
+      ],
+      "fullFieldsCompared": 256,
+      "finalSha256": "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+      "oracleSha256": "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+      "auditSha256": "abe0ad50645dd0d5f79537508a96f6899bf29350cd285d33bcfd2894ba69080d",
+      "ledger": {
+        "totals": [
+          16384,
+          101,
+          102,
+          103
+        ],
+        "epoch": 4
+      },
+      "samples": {
+        "first": {
+          "rawId": 1,
+          "main": {
+            "coordinates": [
+              64,
+              1,
+              2,
+              3
+            ],
+            "frame": 7
+          },
+          "aux": {
+            "rates": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "moving": true
+          },
+          "flag": null
+        },
+        "last": {
+          "rawId": 256,
+          "main": {
+            "coordinates": [
+              319,
+              256,
+              257,
+              258
+            ],
+            "frame": 7
+          },
+          "aux": {
+            "rates": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "moving": true
+          },
+          "flag": null
+        }
+      },
+      "setupMilliseconds": 3.3380810000000025,
+      "executionMilliseconds": 8.36455699999999,
+      "observationAndValidationMilliseconds": 4.245674999999991,
+      "peakRssKiB": 99700,
+      "memoryScope": "whole child process including imports, setup, validation; not component allocation",
+      "commandOccupancyAfterSeed": 0,
+      "readerOccupancy": "not used by dense/sparse",
+      "retainedLiveCount": 256
+    },
+    {
+      "schema": "Motion",
+      "workload": "dense",
+      "count": 1024,
+      "iterations": 64,
+      "status": "PASS",
+      "selectedCount": 1024,
+      "rawReservationRange": [
+        1,
+        1024
+      ],
+      "fullFieldsCompared": 1024,
+      "finalSha256": "065db41ffce4708a0e89b9ce3eb11f455454c02b2c83575df179e8bdacd4689a",
+      "oracleSha256": "065db41ffce4708a0e89b9ce3eb11f455454c02b2c83575df179e8bdacd4689a",
+      "auditSha256": "9dc9338b477d69d534138dfc9a8d511201d9e804e65488984ffa37ff3cc75ecb",
+      "ledger": {
+        "totals": [
+          65536,
+          101,
+          102,
+          103
+        ],
+        "epoch": 4
+      },
+      "samples": {
+        "first": {
+          "rawId": 1,
+          "main": {
+            "coordinates": [
+              64,
+              1,
+              2,
+              3
+            ],
+            "frame": 7
+          },
+          "aux": {
+            "rates": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "moving": true
+          },
+          "flag": null
+        },
+        "last": {
+          "rawId": 1024,
+          "main": {
+            "coordinates": [
+              1087,
+              1024,
+              1025,
+              1026
+            ],
+            "frame": 7
+          },
+          "aux": {
+            "rates": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "moving": true
+          },
+          "flag": null
+        }
+      },
+      "setupMilliseconds": 6.582160999999999,
+      "executionMilliseconds": 21.977717999999996,
+      "observationAndValidationMilliseconds": 10.480041,
+      "peakRssKiB": 108956,
+      "memoryScope": "whole child process including imports, setup, validation; not component allocation",
+      "commandOccupancyAfterSeed": 0,
+      "readerOccupancy": "not used by dense/sparse",
+      "retainedLiveCount": 1024
+    },
+    {
+      "schema": "Motion",
+      "workload": "sparse",
+      "count": 64,
+      "iterations": 64,
+      "status": "PASS",
+      "selectedCount": 8,
+      "rawReservationRange": [
+        1,
+        64
+      ],
+      "fullFieldsCompared": 8,
+      "finalSha256": "e9227bc45800a0209f9360875d7102b1fafbe6d97f0271b76eda1ab9cb3df256",
+      "oracleSha256": "e9227bc45800a0209f9360875d7102b1fafbe6d97f0271b76eda1ab9cb3df256",
+      "auditSha256": "34333c1298a6f398a85b9ff60f4056567474210075abe3591b04af8ff938c42e",
+      "ledger": {
+        "totals": [
+          512,
+          101,
+          102,
+          103
+        ],
+        "epoch": 4
+      },
+      "samples": {
+        "first": {
+          "rawId": 1,
+          "main": {
+            "coordinates": [
+              64,
+              1,
+              2,
+              3
+            ],
+            "frame": 7
+          },
+          "aux": {
+            "rates": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "moving": true
+          },
+          "flag": null
+        },
+        "last": {
+          "rawId": 57,
+          "main": {
+            "coordinates": [
+              120,
+              57,
+              58,
+              59
+            ],
+            "frame": 7
+          },
+          "aux": null,
+          "flag": null
+        }
+      },
+      "setupMilliseconds": 2.972869000000003,
+      "executionMilliseconds": 8.363348000000002,
+      "observationAndValidationMilliseconds": 4.51555399999998,
+      "peakRssKiB": 103732,
+      "memoryScope": "whole child process including imports, setup, validation; not component allocation",
+      "commandOccupancyAfterSeed": 0,
+      "readerOccupancy": "not used by dense/sparse",
+      "retainedLiveCount": 64
+    },
+    {
+      "schema": "Motion",
+      "workload": "sparse",
+      "count": 256,
+      "iterations": 64,
+      "status": "PASS",
+      "selectedCount": 32,
+      "rawReservationRange": [
+        1,
+        256
+      ],
+      "fullFieldsCompared": 32,
+      "finalSha256": "280a00a79454d62a5ddf678b14915d641dc3d8ff24e93a581cefa71078dfab41",
+      "oracleSha256": "280a00a79454d62a5ddf678b14915d641dc3d8ff24e93a581cefa71078dfab41",
+      "auditSha256": "fdca6ff1eb01a4204ce6602a8876c34ab05144b5bfd821873be7c57ba16c5f13",
+      "ledger": {
+        "totals": [
+          2048,
+          101,
+          102,
+          103
+        ],
+        "epoch": 4
+      },
+      "samples": {
+        "first": {
+          "rawId": 1,
+          "main": {
+            "coordinates": [
+              64,
+              1,
+              2,
+              3
+            ],
+            "frame": 7
+          },
+          "aux": {
+            "rates": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "moving": true
+          },
+          "flag": null
+        },
+        "last": {
+          "rawId": 249,
+          "main": {
+            "coordinates": [
+              312,
+              249,
+              250,
+              251
+            ],
+            "frame": 7
+          },
+          "aux": null,
+          "flag": null
+        }
+      },
+      "setupMilliseconds": 3.043744000000004,
+      "executionMilliseconds": 18.89718099999999,
+      "observationAndValidationMilliseconds": 7.194127000000009,
+      "peakRssKiB": 106056,
+      "memoryScope": "whole child process including imports, setup, validation; not component allocation",
+      "commandOccupancyAfterSeed": 0,
+      "readerOccupancy": "not used by dense/sparse",
+      "retainedLiveCount": 256
+    },
+    {
+      "schema": "Motion",
+      "workload": "sparse",
+      "count": 1024,
+      "iterations": 64,
+      "status": "PASS",
+      "selectedCount": 128,
+      "rawReservationRange": [
+        1,
+        1024
+      ],
+      "fullFieldsCompared": 128,
+      "finalSha256": "d7035863b11216182aab47cb1aa3945de42e5992394cef5b6a9061edabf2f630",
+      "oracleSha256": "d7035863b11216182aab47cb1aa3945de42e5992394cef5b6a9061edabf2f630",
+      "auditSha256": "f2e79740d908a479df4c13b7cb32d1f9ba371a7b482c020eef74affee2b59b49",
+      "ledger": {
+        "totals": [
+          8192,
+          101,
+          102,
+          103
+        ],
+        "epoch": 4
+      },
+      "samples": {
+        "first": {
+          "rawId": 1,
+          "main": {
+            "coordinates": [
+              64,
+              1,
+              2,
+              3
+            ],
+            "frame": 7
+          },
+          "aux": {
+            "rates": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "moving": true
+          },
+          "flag": null
+        },
+        "last": {
+          "rawId": 1017,
+          "main": {
+            "coordinates": [
+              1080,
+              1017,
+              1018,
+              1019
+            ],
+            "frame": 7
+          },
+          "aux": null,
+          "flag": null
+        }
+      },
+      "setupMilliseconds": 9.197441999999995,
+      "executionMilliseconds": 49.896839,
+      "observationAndValidationMilliseconds": 17.137951999999984,
+      "peakRssKiB": 99732,
+      "memoryScope": "whole child process including imports, setup, validation; not component allocation",
+      "commandOccupancyAfterSeed": 0,
+      "readerOccupancy": "not used by dense/sparse",
+      "retainedLiveCount": 1024
+    },
+    {
+      "schema": "Health",
+      "workload": "dense",
+      "count": 64,
+      "iterations": 64,
+      "status": "PASS",
+      "selectedCount": 64,
+      "rawReservationRange": [
+        1,
+        64
+      ],
+      "fullFieldsCompared": 64,
+      "finalSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
+      "oracleSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
+      "auditSha256": "2cda512acf748b4c285a0b5f666070c55ca58f11f834809a2dbc50da8c163f5f",
+      "ledger": {
+        "totals": [
+          4096,
+          101,
+          102,
+          103
+        ],
+        "epoch": 4
+      },
+      "samples": {
+        "first": {
+          "rawId": 1,
+          "main": {
+            "levels": [
+              64,
+              1,
+              2,
+              3
+            ],
+            "reserve": 9,
+            "class": 2
+          },
+          "aux": {
+            "layers": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "grade": 3
+          },
+          "flag": null
+        },
+        "last": {
+          "rawId": 64,
+          "main": {
+            "levels": [
+              127,
+              64,
+              65,
+              66
+            ],
+            "reserve": 9,
+            "class": 2
+          },
+          "aux": {
+            "layers": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "grade": 3
+          },
+          "flag": null
+        }
+      },
+      "setupMilliseconds": 4.905141999999998,
+      "executionMilliseconds": 4.568011999999996,
+      "observationAndValidationMilliseconds": 2.1402750000000026,
+      "peakRssKiB": 103984,
+      "memoryScope": "whole child process including imports, setup, validation; not component allocation",
+      "commandOccupancyAfterSeed": 0,
+      "readerOccupancy": "not used by dense/sparse",
+      "retainedLiveCount": 64
+    },
+    {
+      "schema": "Health",
+      "workload": "dense",
+      "count": 256,
+      "iterations": 64,
+      "status": "PASS",
+      "selectedCount": 256,
+      "rawReservationRange": [
+        1,
+        256
+      ],
+      "fullFieldsCompared": 256,
+      "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+      "oracleSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+      "auditSha256": "abe0ad50645dd0d5f79537508a96f6899bf29350cd285d33bcfd2894ba69080d",
+      "ledger": {
+        "totals": [
+          16384,
+          101,
+          102,
+          103
+        ],
+        "epoch": 4
+      },
+      "samples": {
+        "first": {
+          "rawId": 1,
+          "main": {
+            "levels": [
+              64,
+              1,
+              2,
+              3
+            ],
+            "reserve": 9,
+            "class": 2
+          },
+          "aux": {
+            "layers": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "grade": 3
+          },
+          "flag": null
+        },
+        "last": {
+          "rawId": 256,
+          "main": {
+            "levels": [
+              319,
+              256,
+              257,
+              258
+            ],
+            "reserve": 9,
+            "class": 2
+          },
+          "aux": {
+            "layers": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "grade": 3
+          },
+          "flag": null
+        }
+      },
+      "setupMilliseconds": 4.520636999999994,
+      "executionMilliseconds": 8.864688000000001,
+      "observationAndValidationMilliseconds": 3.879837000000009,
+      "peakRssKiB": 100196,
+      "memoryScope": "whole child process including imports, setup, validation; not component allocation",
+      "commandOccupancyAfterSeed": 0,
+      "readerOccupancy": "not used by dense/sparse",
+      "retainedLiveCount": 256
+    },
+    {
+      "schema": "Health",
+      "workload": "dense",
+      "count": 1024,
+      "iterations": 64,
+      "status": "PASS",
+      "selectedCount": 1024,
+      "rawReservationRange": [
+        1,
+        1024
+      ],
+      "fullFieldsCompared": 1024,
+      "finalSha256": "81bacc878c1166490c0e9c8ad5f644da326c0d57b82a1e6ca328335bcc1924a7",
+      "oracleSha256": "81bacc878c1166490c0e9c8ad5f644da326c0d57b82a1e6ca328335bcc1924a7",
+      "auditSha256": "9dc9338b477d69d534138dfc9a8d511201d9e804e65488984ffa37ff3cc75ecb",
+      "ledger": {
+        "totals": [
+          65536,
+          101,
+          102,
+          103
+        ],
+        "epoch": 4
+      },
+      "samples": {
+        "first": {
+          "rawId": 1,
+          "main": {
+            "levels": [
+              64,
+              1,
+              2,
+              3
+            ],
+            "reserve": 9,
+            "class": 2
+          },
+          "aux": {
+            "layers": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "grade": 3
+          },
+          "flag": null
+        },
+        "last": {
+          "rawId": 1024,
+          "main": {
+            "levels": [
+              1087,
+              1024,
+              1025,
+              1026
+            ],
+            "reserve": 9,
+            "class": 2
+          },
+          "aux": {
+            "layers": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "grade": 3
+          },
+          "flag": null
+        }
+      },
+      "setupMilliseconds": 5.11776900000001,
+      "executionMilliseconds": 19.880400999999992,
+      "observationAndValidationMilliseconds": 14.053415999999999,
+      "peakRssKiB": 100536,
+      "memoryScope": "whole child process including imports, setup, validation; not component allocation",
+      "commandOccupancyAfterSeed": 0,
+      "readerOccupancy": "not used by dense/sparse",
+      "retainedLiveCount": 1024
+    },
+    {
+      "schema": "Health",
+      "workload": "sparse",
+      "count": 64,
+      "iterations": 64,
+      "status": "PASS",
+      "selectedCount": 8,
+      "rawReservationRange": [
+        1,
+        64
+      ],
+      "fullFieldsCompared": 8,
+      "finalSha256": "c1c1d6cb73ca9e83d03b1149dd5e5a0ab2d723c0c373a2ddcd485c74d65a90ce",
+      "oracleSha256": "c1c1d6cb73ca9e83d03b1149dd5e5a0ab2d723c0c373a2ddcd485c74d65a90ce",
+      "auditSha256": "1193a436a1efda80d51e2ab2b5097514cb3fd8696a0b5c84983d3c0ed5518eb3",
+      "ledger": {
+        "totals": [
+          512,
+          101,
+          102,
+          103
+        ],
+        "epoch": 4
+      },
+      "samples": {
+        "first": {
+          "rawId": 1,
+          "main": {
+            "levels": [
+              64,
+              1,
+              2,
+              3
+            ],
+            "reserve": 9,
+            "class": 2
+          },
+          "aux": {
+            "layers": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "grade": 3
+          },
+          "flag": null
+        },
+        "last": {
+          "rawId": 57,
+          "main": {
+            "levels": [
+              120,
+              57,
+              58,
+              59
+            ],
+            "reserve": 9,
+            "class": 2
+          },
+          "aux": null,
+          "flag": null
+        }
+      },
+      "setupMilliseconds": 4.64522199999999,
+      "executionMilliseconds": 7.683716000000004,
+      "observationAndValidationMilliseconds": 4.930683999999985,
+      "peakRssKiB": 100236,
+      "memoryScope": "whole child process including imports, setup, validation; not component allocation",
+      "commandOccupancyAfterSeed": 0,
+      "readerOccupancy": "not used by dense/sparse",
+      "retainedLiveCount": 64
+    },
+    {
+      "schema": "Health",
+      "workload": "sparse",
+      "count": 256,
+      "iterations": 64,
+      "status": "PASS",
+      "selectedCount": 32,
+      "rawReservationRange": [
+        1,
+        256
+      ],
+      "fullFieldsCompared": 32,
+      "finalSha256": "66ac722d662ab9f8b89d2c7531242764d28a014bec7bed35aef32fa382bc754c",
+      "oracleSha256": "66ac722d662ab9f8b89d2c7531242764d28a014bec7bed35aef32fa382bc754c",
+      "auditSha256": "7f465dec4dbd5bdfe76b6679dee3c4b9b2aa7a3c23916e2696be8063be34aee1",
+      "ledger": {
+        "totals": [
+          2048,
+          101,
+          102,
+          103
+        ],
+        "epoch": 4
+      },
+      "samples": {
+        "first": {
+          "rawId": 1,
+          "main": {
+            "levels": [
+              64,
+              1,
+              2,
+              3
+            ],
+            "reserve": 9,
+            "class": 2
+          },
+          "aux": {
+            "layers": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "grade": 3
+          },
+          "flag": null
+        },
+        "last": {
+          "rawId": 249,
+          "main": {
+            "levels": [
+              312,
+              249,
+              250,
+              251
+            ],
+            "reserve": 9,
+            "class": 2
+          },
+          "aux": null,
+          "flag": null
+        }
+      },
+      "setupMilliseconds": 3.764210999999989,
+      "executionMilliseconds": 25.797263000000015,
+      "observationAndValidationMilliseconds": 5.379147000000017,
+      "peakRssKiB": 100072,
+      "memoryScope": "whole child process including imports, setup, validation; not component allocation",
+      "commandOccupancyAfterSeed": 0,
+      "readerOccupancy": "not used by dense/sparse",
+      "retainedLiveCount": 256
+    },
+    {
+      "schema": "Health",
+      "workload": "sparse",
+      "count": 1024,
+      "iterations": 64,
+      "status": "PASS",
+      "selectedCount": 128,
+      "rawReservationRange": [
+        1,
+        1024
+      ],
+      "fullFieldsCompared": 128,
+      "finalSha256": "b59afb025faffeb35135fd4c95b7ed51ad00544e79dd0762ae6fbc000086fabc",
+      "oracleSha256": "b59afb025faffeb35135fd4c95b7ed51ad00544e79dd0762ae6fbc000086fabc",
+      "auditSha256": "26a1f25d323dcb3f47f387e305698c23e5ec15c1880f4fed787f9ebcbfba26a4",
+      "ledger": {
+        "totals": [
+          8192,
+          101,
+          102,
+          103
+        ],
+        "epoch": 4
+      },
+      "samples": {
+        "first": {
+          "rawId": 1,
+          "main": {
+            "levels": [
+              64,
+              1,
+              2,
+              3
+            ],
+            "reserve": 9,
+            "class": 2
+          },
+          "aux": {
+            "layers": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "grade": 3
+          },
+          "flag": null
+        },
+        "last": {
+          "rawId": 1017,
+          "main": {
+            "levels": [
+              1080,
+              1017,
+              1018,
+              1019
+            ],
+            "reserve": 9,
+            "class": 2
+          },
+          "aux": null,
+          "flag": null
+        }
+      },
+      "setupMilliseconds": 9.025813999999997,
+      "executionMilliseconds": 63.138536000000016,
+      "observationAndValidationMilliseconds": 15.375765000000001,
+      "peakRssKiB": 99448,
+      "memoryScope": "whole child process including imports, setup, validation; not component allocation",
+      "commandOccupancyAfterSeed": 0,
+      "readerOccupancy": "not used by dense/sparse",
+      "retainedLiveCount": 1024
+    }
+  ]
+}
