@@ -41,3 +41,44 @@ rerun here. Payload runtime runner changes outside the frozen commit were exclud
 **Heuristic findings: none actionable.** Small helpers reflect Bend affine/match
 constraints. Actual command/query/Tx/factory joins, authority/access negatives,
 full traces, readers/captures and performance remain open.
+
+## Actual storage/reader hook controls — `0267ae4`, `efab963`, `8c3d0b4` (2026-10-04)
+
+**Hard violations: none found in these bounded stages.** Reviewed actual source,
+runner/evidence and fresh TS comparisons. Independently built/replayed the original
+reader fixture in a detached worktree: Native/JS outputs matched all108 lines,
+including104 actual PASS observations. Root evidence was untouched. The parallel
+Spec replay covers the full suites; this review does not claim independently
+rerunning every mutant or TS case. Recorded storage/reader/Tx source hashes match
+current reviewed bytes.
+
+Storage evidence compares153 complete ordered output rows with independently
+modeled expectations, plus eight fresh TS E0/E1 snapshots. Actual threaded factory
+lineage, pending/live distinction, optional Main/Aux/Flag, full resource/payload
+fields and both foreign collision directions execute. Seven negatives instantiate
+the actual query boundary and require intended locations/types. Five compiling
+runtime mutants exercise namespace, foreign lookup/command, query order and FIFO.
+Removal/disposal/E6–E9, empty dispatcher ticks and joined readers/transactions are
+accurately retained as missing stage coverage, not inferred from this slice.
+
+Reader/log bodies thread affine Run/log owners; registration, failure retry,
+independent completion, skip boundaries, holders, lag and frame trimming are
+calculated by actual hooks. Message batches drop atomically; lifecycle values are
+unit batches and retain ordered same-tick suffixes. Cached counts avoid repeated
+remaining-list length. Four schema/capacity lanes compare every returned value;
+C65537 rejects before setup mutation. The bounds concern this synthetic driver,
+not an implemented general caller exhaustion check. Lifecycle U32 values are
+explicitly not actual factory-issued Handle authority or public dispatcher identity.
+Twelve compiling mutants and ten freshly run public TS lanes are recorded with
+that distinction. No Type message fan-out or production capacity policy is claimed.
+
+Prior queue-orientation join gate is fulfilled by `storage_commit` reversing
+chronological Tx commands once into reverse pending order. Actual same-Tx80→81
+publication/barrier checks preserve full fields in both schemas; separate staging
+and omitted-commit-reverse mutants expose each wrong orientation.
+
+Checker/runtime limits remain five seconds; separate code-generation/clang bounds
+are disclosed. No proof, dependency or production/performance adoption follows.
+**Heuristic findings: none actionable.** Remaining actual dispatcher/base-key,
+clock-bound setup, reader/transaction/storage joins and full E0–E11 trace are
+explicit integration gates.
