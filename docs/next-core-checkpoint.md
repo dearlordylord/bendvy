@@ -54,6 +54,10 @@ an earlier bounded redesign checkpoint, not completion of the next-stage specs.
 - [x] Detail, review and publish [S-INTEGRATE #19](tickets/18-integrated-runtime.md) as planned work with the concrete-trace gate retained.
 - [x] Execute #19 as bounded research with negative results: joined functional trace/access/retention/mutation gates pass; five workload outcomes, failed larger cases, unavailable equivalent FailedTxn timing and corrected memory are recorded. Final Spec/Standards reviews support the issue’s explicit negative-result alternative. Mandatory product performance remains failed; [completion report](reports/s-integrate-completion.md) and [#20 return conditions](tickets/19-integrated-performance-redesign.md) preserve the missing capabilities.
 - [ ] Execute [S-PERF #20](tickets/19-integrated-performance-redesign.md) after freezing the relevant #19 outcomes: experimental indexed adapter, identical capability/mutation gates and all five workloads. Production adoption remains separate.
+  Active implementation: affine Main/Aux columns, direct ID slots, balanced growth
+  and checked whole-queue preflight are delivered under `experiments/s-perf/candidate`.
+  Main E0-E10, actual E11 and ownership/access gates pass. Five-workload evaluation,
+  occupancy replay and final reviews remain in progress; JS parity is not met.
 - [ ] Specify and implement the simple simulation after its actual capability/law gates; agree numerical thresholds before accepting performance.
 - [ ] Specify remaining full-core packages and the isolated Tower Defense copy integration as their prerequisites become ready.
 

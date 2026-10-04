@@ -33,6 +33,21 @@ def materialize(destination, candidate=None):
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_bytes(data)
         sources[name] = hashlib.sha256(data).hexdigest()
+    # New candidate-only helpers live beside the overridden adapter modules.
+    for replacement in sorted(candidate.glob('*.bend')):
+        # Ownership controls are standalone fixtures with a different relative
+        # import root, not runtime overrides or runtime dependencies.
+        if replacement.name.startswith('owned-storage-'):
+            continue
+        name = 'experiments/s-integrate/' + replacement.name
+        if name in sources:
+            continue
+        target = destination / name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        data = replacement.read_bytes()
+        target.write_bytes(data)
+        sources[name] = hashlib.sha256(data).hexdigest()
+        overrides[name] = str(replacement)
     # Prove every relative Bend import stays within this immutable copy.
     for name in sources:
         path = destination / name
