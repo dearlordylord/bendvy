@@ -1,0 +1,98 @@
+{
+  "issue": 18,
+  "selected_law": "lookup_full_exact",
+  "exact_selection": true,
+  "checker_limit_seconds": 5,
+  "canonical_sources": {
+    "experiments/t11-replacement/LAWS.bend": "e0c607d723ad250a189c096d9fa3fd6a36913f4c72efd3a3be6dacd7fadb2cbc",
+    "experiments/t11-replacement/types.bend": "0261b9381f51b4aecdf61b76bfa61149d10d662b0c02ddc320da2236ec17d287",
+    "experiments/t11-replacement/model.bend": "53ac1f776c721a5bea0c063eefe229c1d43b4e09d95a269e283fe900a2934c40",
+    "experiments/t11-replacement/spec.bend": "3b7a96d9131919fe087dac5e024058bbfa916ce5c108dce3a7d72119b7ccd465"
+  },
+  "checks": [
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-lookup/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-lookup/experiments/p-observe-lookup/PROOF.bend",
+        "--check-only"
+      ],
+      "exit_code": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-lookup/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-lookup/experiments/p-observe-lookup/PROOF.bend",
+        "--verdict"
+      ],
+      "exit_code": 0,
+      "output": "ALL PROOFS CHECK\n"
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-lookup/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-lookup/experiments/p-observe-lookup/controls.bend",
+        "--verdict"
+      ],
+      "exit_code": 0,
+      "output": "ALL PROOFS CHECK\n"
+    }
+  ],
+  "kernel_negative_control": {
+    "command": [
+      "/workspace/formal-proofs/bendvy-worktrees/proof-lookup/experiments/t01/bend-check",
+      "/workspace/formal-proofs/bendvy-worktrees/proof-lookup/experiments/p-observe-lookup/PROOF.bend",
+      "--verdict"
+    ],
+    "exit_code": 1,
+    "output": "SOME PROOFS FAIL\nSorry - this is a mismatch between the TypeScript implementation, and the formalized BendTT kernel. Your proofs may or may not be correct, and we cannot validate them yet. This will be addressed in a future update. Meanwhile, feel free to open an issue to report this bug.\n"
+  },
+  "copied_positive": {
+    "command": [
+      "/workspace/formal-proofs/bendvy-worktrees/proof-lookup/experiments/t01/bend-check",
+      "/workspace/formal-proofs/bendvy-worktrees/proof-lookup/experiments/p-observe-lookup/lookup-mutant-1tuqgdf0/p-observe-lookup/PROOF.bend",
+      "--verdict"
+    ],
+    "exit_code": 0,
+    "output": "ALL PROOFS CHECK\n"
+  },
+  "mutant": {
+    "old": "lookup_if(Nat.is_eq(id, namespace), slot, selection, rows)",
+    "new": "lookup_if(False{}, slot, selection, rows)",
+    "compiles": {
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-lookup/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-lookup/experiments/p-observe-lookup/lookup-mutant-1tuqgdf0/t11-replacement/model.bend",
+        "--check-only"
+      ],
+      "exit_code": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    "own_proof_failure": {
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-lookup/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-lookup/experiments/p-observe-lookup/lookup-mutant-1tuqgdf0/p-observe-lookup/PROOF.bend",
+        "--check-only"
+      ],
+      "exit_code": 1,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : {T.Missing{} == S.lookup_namespace(Nat.cmp(id, namespace), rows, slot, selection) : T.Lookup}\n- observed : {M.lookup_if(Cmp.is_eq(Nat.cmp(id, namespace)), slot, selection, rows) == S.lookup_namespace(Nat.cmp(id, namespace), rows, slot, selection) : T.Lookup}\nContext:\n- id        : Nat\n- _         : Nat\n- rows      : List<&2, T.Row>\n- _         : List<&2, T.Command>\n- namespace : Nat\n- slot      : Nat\n- selection : T.Selection\nLocation: L.lookup_full_exact\n51 |     case T.World{id,_,rows,_} T.Handle{namespace,slot}:\n52>|       namespace_correspond(Nat.cmp(id,namespace),rows,slot,selection)\n   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n53 | \n"
+    },
+    "local_true_original_false_mutant": {
+      "command": [
+        "/workspace/formal-proofs/bendvy-worktrees/proof-lookup/experiments/t01/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/proof-lookup/experiments/p-observe-lookup/lookup-mutant-1tuqgdf0/p-observe-lookup/mutant-witness.bend",
+        "--check-only"
+      ],
+      "exit_code": 1,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : T.Missing{}\n- observed : T.Found{T.Row{1n, 7n, True{}}}\nLocation: local_found\n5 | def local_found() -> {M.lookup(T.World{0n,2n,[T.Row{1n,7n,True{}}],[]},T.Handle{0n,1n},T.Any{}) == T.Found{T.Row{1n,7n,True{}}} : T.Lookup}:\n6>|   {==}\n  |   ^^^^\n7 | \n"
+    }
+  },
+  "source_hashes": {
+    "PROOF.bend": "00f6638706a9dafb28039d8631a96b9e8b96aa874df4839202c19cc87b221c01",
+    "LAWS.bend": "95a8c2307f8e8a7eac399dc46e8b0c5a42c5e6f50540f2c6a63df8e9f53c0603",
+    "controls.bend": "b58a585fb46a75a18c1a7dfb8b2cc710557c2cd64479bd7b5784dea22f4ff1fc"
+  },
+  "runner_sha256": "596d4bf19747f928d7dce86537a6fb0d8ec087c936c70a2063e02d6aa84f18cc",
+  "base_sha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+  "status": "PASS: general exact lookup theorem checked by checker and kernel; compiling semantic mutant rejected at its own endpoint"
+}
