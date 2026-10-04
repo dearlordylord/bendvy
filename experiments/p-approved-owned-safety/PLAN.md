@@ -11,3 +11,14 @@ alone are insufficient: physical uniqueness and outside-interval lookups matter.
 No remaining catalogue law is assumed or proved. Five-second checker/kernel gates.
 Base, guide/version (2.0.34), checkpoint, ticket and SPEC inspected; no installed
 mathlib lock/dependency added. Original subject hashes and controls will be frozen.
+
+## Next member-wise Bump bridge (inventory before execution)
+
+Owned runtime visits every cell. BumpSafe must guard every row matching target,
+not merely the first lookup. Use exact rows_valid uniqueness, count=1 reflection,
+unique_head_tail_zero and absent-target tail recursion. For a matching head extract
+the original no-overflow guard; its tail has zero count for that target. For a
+distinct head transfer first-hit lookup safety to the valid tail and recurse.
+No new public/catalogue law or changed run_safe premise.
+
+The proof uses a Data Bound descriptor (Overflow or Below(Nat)) to keep the row predicate opaque during generic induction. Overflow applies the exact S.no_overflow_lookup/S.describe path; matching head/tail uniqueness is proved before specializing. This avoids eager unary MAX normalization; no timeout or source changes.

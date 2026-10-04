@@ -1,10 +1,12 @@
 {
-  "scope": "contextual safety transport for approved owned endpoint; not owned endpoint completion",
+  "scope": "contextual exact prefix safety transport and member-wise Bump safety for approved owned endpoint; not owned endpoint completion",
   "baseline": "bb2be06742ba387fc42bd69cf50bedf4ac37a7c1",
   "version": "bend 2.0.34",
   "sources": {
     "transport.bend": "5cf6615d32906bf39650afab13c15e8e811d6aacafa3cd5c847266036590e019",
+    "member-safety.bend": "486944795bfa1af9efc4c95d387db258cbe0e846166e27c8e6483d5767123bb6",
     "safety.bend": "1314af37783dfdab0007721ab9d134fcfbf69ec11f297749aa7696b2857764bf",
+    "member-controls.bend": "b5bbdafb669643d5a77784735a35e84df2ad9c6a5ed9ddefd9e62c582a9c032a",
     "controls.bend": "63eb00afe5a0b7eceba2ef31c52c751166c9ae60d8e4c3be6b4d0f0a2fc5c1b2"
   },
   "subjects": {
@@ -119,6 +121,34 @@
       "output": "ALL PROOFS CHECK\nbend 2.0.35 is available: run bend update\n"
     },
     {
+      "file": "member-safety.bend",
+      "kernel_requested": false,
+      "kernel_negative": false,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "member-safety.bend",
+      "kernel_requested": true,
+      "kernel_negative": false,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "member-controls.bend",
+      "kernel_requested": false,
+      "kernel_negative": false,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "member-controls.bend",
+      "kernel_requested": true,
+      "kernel_negative": false,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
       "file": "transport.bend",
       "kernel_requested": true,
       "kernel_negative": true,
@@ -152,6 +182,34 @@
       "kernel_negative": false,
       "exit": 1,
       "output": "SOME PROOFS FAIL\nError:\n- expected : True{}\n- observed : False{}\nLocation: original_true\n4 | def original_true() -> {True{} == V.ModelSafe([T.Bump{0n}],1n,T.World{7n,1n,[T.Row{0n,2n,False{}}],[]}) : Bool}:\n5>|   {==}\n  |   ^^^^\n6 | \nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "member-safety.bend",
+      "kernel_requested": false,
+      "kernel_negative": false,
+      "exit": 1,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : {True{} == BumpSafe(bound, tail, target) : Bool}\n- observed : {True{} == Bool.and(apply(bound, T.Row{id, value, tag}), BumpSafe(bound, tail, target)) : Bool}\nContext:\n- bound  : Bound\n- id     : Nat\n- value  : Nat\n- tag    : Bool\n- tail   : List<&2, T.Row>\n- target : Nat\n- next   : Nat\n- e      : {EQ{} == Nat.cmp(id, target) : Cmp}\n- valid  : {True{} == Bool.and(Cmp.is_eq(Nat.cmp(S.add_if(Cmp.is_eq(Nat.cmp(id, id)), S.count(tail, id)), 1n)), Bool.and(Cmp.is_lt(Nat.cmp(id, next)), S.rows_valid(tail, T.Row{id, value, tag} <> tail, next))) : Bool}\n- safe   : {True{} == apply(bound, T.Row{id, value, tag}) : Bool}\n- ih     : @_:{True{} == S.rows_valid(tail, tail, next) : Bool} -> @_:{True{} == lookup_safe(bound, S.at(tail, target)) : Bool} -> {True{} == BumpSafe(bound, tail, target) : Bool}\nLocation: head_case\n59 |     case EQ{}:\n60>|       %Q.eq_reflect(id,target,Equal.cong(Cmp,Bool,o => Cmp.is_eq(o),EQ{},Nat.cmp(id,target),e)) : {True{} == Bool.and(row_safe(bound,T.Row{id,value,tag}),BumpSafe(bound,tail,_)) : Bool}\n   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n61 |       Q.and_intro(row_safe(bound,T.Row{id,value,tag}),BumpSafe(bound,tail,id),safe,\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "member-controls.bend",
+      "kernel_requested": false,
+      "kernel_negative": false,
+      "exit": 1,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : {True{} == BumpSafe(bound, tail, target) : Bool}\n- observed : {True{} == Bool.and(apply(bound, T.Row{id, value, tag}), BumpSafe(bound, tail, target)) : Bool}\nContext:\n- bound  : Bound\n- id     : Nat\n- value  : Nat\n- tag    : Bool\n- tail   : List<&2, T.Row>\n- target : Nat\n- next   : Nat\n- e      : {EQ{} == Nat.cmp(id, target) : Cmp}\n- valid  : {True{} == Bool.and(Cmp.is_eq(Nat.cmp(S.add_if(Cmp.is_eq(Nat.cmp(id, id)), S.count(tail, id)), 1n)), Bool.and(Cmp.is_lt(Nat.cmp(id, next)), S.rows_valid(tail, T.Row{id, value, tag} <> tail, next))) : Bool}\n- safe   : {True{} == apply(bound, T.Row{id, value, tag}) : Bool}\n- ih     : @_:{True{} == S.rows_valid(tail, tail, next) : Bool} -> @_:{True{} == lookup_safe(bound, S.at(tail, target)) : Bool} -> {True{} == BumpSafe(bound, tail, target) : Bool}\nLocation: head_case\n59 |     case EQ{}:\n60>|       %Q.eq_reflect(id,target,Equal.cong(Cmp,Bool,o => Cmp.is_eq(o),EQ{},Nat.cmp(id,target),e)) : {True{} == Bool.and(row_safe(bound,T.Row{id,value,tag}),BumpSafe(bound,tail,_)) : Bool}\n   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n61 |       Q.and_intro(row_safe(bound,T.Row{id,value,tag}),BumpSafe(bound,tail,id),safe,\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "member-predicate.bend",
+      "kernel_requested": false,
+      "kernel_negative": false,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\nbend 2.0.35 is available: run bend update\n"
+    },
+    {
+      "file": "member-mutant-witness.bend",
+      "kernel_requested": false,
+      "kernel_negative": false,
+      "exit": 1,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : False{}\n- observed : True{}\nLocation: duplicate_is_unsafe\n4 | def duplicate_is_unsafe() -> {False{} == P.BumpSafe(P.Below{5n},[T.Row{0n,2n,False{}},T.Row{0n,9n,True{}}],0n) : Bool}:\n5>|   {==}\n  |   ^^^^\n6 | \nbend 2.0.35 is available: run bend update\n"
     },
     {
       "file": "invalid-premise.bend",
