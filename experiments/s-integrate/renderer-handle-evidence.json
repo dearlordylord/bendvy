@@ -1,0 +1,44 @@
+{
+  "scope": "renderer-only handle Data; actual ECS issuance/refinement is separate",
+  "limits": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "sources": {
+    "host-render.bend": "1eef120fa604ba633f06d33a8a3910845293926c36dc9c91cd59d4d5c045a28a",
+    "renderer-handle-controls.bend": "bd3e208e7e0daa59f69256bba1bd23a3b21ec9b5777b09c6700200157fd5925f",
+    "renderer-handle-run.py": "3b704726fb89eecb31be121995f012e86aca2b4c9450dfedf9aee59c5b220719"
+  },
+  "combined_fixture_failure": {
+    "source_sha256": "51a96322e7520bc5f90785b5b96cf8ccffcfae502c10395b6c618c40118a41a7",
+    "status": "JS five-second timeout in last-main-c; artificial264krows+four65537handles aggregate, not actual E11 acceptance"
+  },
+  "outcomes": [
+    {
+      "backend": "Native",
+      "status": "PASS",
+      "seconds": 0.006534634856507182,
+      "raw": "{\"encoding\":\"handle-range\",\"namespace\":77,\"first\":1,\"last\":65537,\"count\":65537}\n{\"encoding\":\"unrepresentable\",\"reason\":\"handle-namespace-or-range\",\"index\":65536}\n{\"encoding\":\"unrepresentable\",\"reason\":\"handle-namespace-or-range\",\"index\":65536}\n{\"encoding\":\"unrepresentable\",\"reason\":\"handle-namespace-or-range\",\"index\":65536}",
+      "all_handles_validated": 65537,
+      "negative_last_handles": [
+        "foreign namespace",
+        "duplicate id",
+        "wrapped id"
+      ]
+    },
+    {
+      "backend": "JS",
+      "status": "PASS",
+      "seconds": 0.4419980109669268,
+      "raw": "{\"encoding\":\"handle-range\",\"namespace\":77,\"first\":1,\"last\":65537,\"count\":65537}\n{\"encoding\":\"unrepresentable\",\"reason\":\"handle-namespace-or-range\",\"index\":65536}\n{\"encoding\":\"unrepresentable\",\"reason\":\"handle-namespace-or-range\",\"index\":65536}\n{\"encoding\":\"unrepresentable\",\"reason\":\"handle-namespace-or-range\",\"index\":65536}",
+      "all_handles_validated": 65537,
+      "negative_last_handles": [
+        "foreign namespace",
+        "duplicate id",
+        "wrapped id"
+      ]
+    }
+  ]
+}

@@ -27,12 +27,15 @@ expected five-second failure in that separate diagnostic.
 Before implementation, the retention integrator reviewed the draft: empty lists
 emit []; nonempty query/added/changed lists derive the first actual complete row
 as template. Every original row's namespace/ID, four main cells, schema metadata,
-full optional Aux and Flag are checked. IDs and x (derived from actual cell1−1)
+full optional Aux and Flag are checked directly as exact typed Data (Four,
+Boolean/scalar and optional group). Per-row JSON construction/String equality has
+been removed; only the actual first complete template is rendered. IDs and x (derived from actual cell1−1)
 must increase consecutively without wrap. Slot0 follows x or is one actual first
 cell constant. Output contains actual template, namespace, idFirst/idLast,
 xFirst/xLast/count, and slot0 mode. All other Read scalars, boundary and lag flags
-remain actual input values. Handles/messages still render as ordered full arrays;
-no compact range capability is claimed for those fields.
+remain actual input values. Removed/despawned now use validated handle-range encoding: every actual namespace
+and ordered ID is checked before deriving first/last/count. Messages retain full
+ordered arrays. No message range capability is claimed.
 
 Any inconsistency emits `encoding:unrepresentable`, a reason and actual failing
 index; no success encoding is returned. The index may identify the last mismatch.
@@ -54,3 +57,23 @@ wrap. Each becomes unrepresentable; the independent Health lane stays valid.
 Checker/runtime hard five-second bounds and task-owned cleanup are unchanged;
 codegen/clang retain distinct 30/120-second bounds. Evidence pins source bytes and
 records complete compact outputs/timings. No proof or limit increase is added.
+
+## Additional failures and lifecycle-only isolation
+
+The artificial combined stress program `renderer-bulk-combined-failed.bend` added
+four 65,537-handle lists to the 264k-row workload and reached the five-second JS
+deadline in a corruption lane. A later separated row-suite rerun also reached five
+seconds in its last-metadata JS lane while other jobs were active. These are real
+failures; no causal conclusion about scheduling is inferred. Final row diagnostics
+record inherited CPU affinity and any deadline remains FAILED, never a detected
+mutant. Five seconds is unchanged. Typed validation replaces per-row JSON work,
+with fresh evidence at that exact source. They are bounded encoding diagnostics,
+not numerical performance acceptance or a blanket scaling guarantee.
+
+`python3 experiments/s-integrate/renderer-handle-run.py` isolates actual nominal
+Data handles without asserting issued world authority. Every original handle in a
+65,537-element input is checked, then the range expansion is checked independently.
+Three last-handle changes (namespace, duplicate ID, wrapped ID) are rejected on
+both backends. This isolates the codec from actual E11 dispatch. The reader worker
+also identified a real W.publish stack fault before any renderer; its source repair
+and full actual E11 replay are separate evidence, not results borrowed here.

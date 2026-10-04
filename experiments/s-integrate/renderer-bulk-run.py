@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """E11-only all-field compact validation, hard five-second execution."""
-import importlib.util,json,hashlib,re,time,tempfile
+import importlib.util,json,hashlib,re,time,tempfile,os,sys
 from pathlib import Path
 HERE=Path(__file__).resolve().parent
 s=importlib.util.spec_from_file_location('renderer',HERE/'renderer-run.py');r=importlib.util.module_from_spec(s);s.loader.exec_module(r)
@@ -37,7 +37,7 @@ def expand_and_verify(schema,encoded):
   row['main']['coordinates' if schema=='Motion' else 'levels']=r.four(i,i+1,i+2,i+3)
   verify_row(schema,row,i,i)
 def main():
- evidence={'scope':'E11-only compact actual full-row validation; not integrated Host acceptance','bounds':{'checker':5,'runtime':5,'codegen':30,'clang':120},'baseline':{'original_renderer_revision':'7757918','fixture_sha256':hashlib.sha256((HERE/'renderer-bulk-baseline.bend').read_bytes()).hexdigest(),'input':'original nonuniform Main/Aux/metadata fixture 65537 rows repeated query/added/changed','monolithic':{'Native':'5s timeout','JS':'machine stack overflow; exit1'},'tail_flattened':{'Native':'5s timeout','JS':'5s timeout'},'streamed':{'Native':{'exit':0,'seconds':1.4983933849725872,'bytes':41512431},'JS':'5s timeout'},'note':'Baseline probes preceded compact encoding; timeouts/fault are not semantic mutation passes.'},'sources':{p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in [HERE/'host-render.bend',HERE/'renderer-bulk-controls.bend',Path(__file__)]},'import_closure_sha256':r.source_closure(),'outcomes':{}}
+ evidence={'cpuAffinity':sorted(os.sched_getaffinity(0)),'scope':'E11-only compact actual full-row validation; not integrated Host acceptance','bounds':{'checker':5,'runtime':5,'codegen':30,'clang':120},'baseline':{'original_renderer_revision':'7757918','fixture_sha256':hashlib.sha256((HERE/'renderer-bulk-baseline.bend').read_bytes()).hexdigest(),'input':'original nonuniform Main/Aux/metadata fixture 65537 rows repeated query/added/changed','monolithic':{'Native':'5s timeout','JS':'machine stack overflow; exit1'},'tail_flattened':{'Native':'5s timeout','JS':'5s timeout'},'streamed':{'Native':{'exit':0,'seconds':1.4983933849725872,'bytes':41512431},'JS':'5s timeout'},'note':'Baseline probes preceded compact encoding; timeouts/fault are not semantic mutation passes.'},'sources':{p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in [HERE/'host-render.bend',HERE/'renderer-bulk-controls.bend',Path(__file__)]},'import_closure_sha256':r.source_closure(),'outcomes':{}}
  with tempfile.TemporaryDirectory(prefix='bendvy-renderer-bulk-') as tmp:
   for name,control in [('original',None),*controls.items()]:
    folder=Path(tmp)/name;folder.mkdir()
@@ -54,7 +54,11 @@ def main():
    binaries=r.runner.build(fixture,folder)
    outcomes=[]
    for binary in binaries:
-    started=time.monotonic();raw=r.runner.execute(binary);elapsed=time.monotonic()-started
+    started=time.monotonic()
+    try: raw=r.runner.execute(binary)
+    except RuntimeError as error:
+     outcomes.append({'backend':'JS' if binary.suffix=='.js' else 'Native','status':'FAILED','error':str(error),'seconds':time.monotonic()-started});continue
+    elapsed=time.monotonic()-started
     actual=[json.loads(line) for line in raw.splitlines()];assert len(actual)==2
     health=actual[1];assert health['kind']=='Read' and health['step']=='bulk-health' and health['count']==N and health['boundary']==dict(since=20,streamSince=21,thisRun=22) and health['messageLag'] is True and health['removedLag'] is False and health['despawnedLag'] is True
     expand_and_verify('Health',health['query']);assert all(health[k]==[] for k in ['added','changed','removed','despawned','messages'])
@@ -66,5 +70,7 @@ def main():
     outcomes.append({'backend':'JS' if binary.suffix=='.js' else 'Native','seconds':elapsed,'raw':raw,'status':'rejected unrepresentable actual Data' if control else 'PASS','actual_fields_verified':N*(1 if control else 4)})
    evidence['outcomes'][name]=outcomes
  (HERE/'renderer-bulk-evidence.json').write_text(json.dumps(evidence,indent=2)+'\n')
- print('PASS: all full fields/order in 65537 Motion x3 + Health rows; six actual Data corruptions rejected; Native/JS <=5s')
-if __name__=='__main__':main()
+ passed=all(v['status']!='FAILED' for values in evidence['outcomes'].values() for v in values)
+ print(('PASS' if passed else 'REGRESSION')+': full-field bounded renderer controls; deadline failures are not detected mutants')
+ return 0 if passed else 1
+if __name__=='__main__':sys.exit(main())

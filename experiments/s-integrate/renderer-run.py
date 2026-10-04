@@ -32,7 +32,7 @@ expected = [
  tagged('Snapshot',step='health',worldName='health-world',prior=tagged('SetupRejected',reason='reason'),world=dict(namespace=47,next=48,rows=[dict(id=49,main=dict(levels=four(50,51,52,53),reserve=54,**{'class':55}),aux=dict(layers=four(56,57,58,59),grade=60),flag=dict(group=61),added=62,changed=63)],pending=[],ledger=None,mode='HealthOff'),query=[],plus=[],minus=[],optional=[],lookups=[]),
  tagged('Read',step='health-read',system='Slow',count=64,boundary=dict(since=65,streamSince=66,thisRun=67),query=[],added=[],changed=[],removed=[],despawned=[],messages=[dict(code=68)],messageLag=False,removedLag=False,despawnedLag=False),
  tagged('MissingRuntimeRequirements',requirements=[tagged('ResourceRequired',name='resource'),tagged('ServiceRequired',name='service'),tagged('StateRequired',name='state')]),
- tagged('Success'),'MotionOff','HealthOn',tagged('HealthMain',vitals=dict(levels=four(69,70,71,72),reserve=73,**{'class':74}))]
+ tagged('Success'),'MotionOff','HealthOn',tagged('HealthMain',vitals=dict(levels=four(69,70,71,72),reserve=73,**{'class':74})),tagged('ForeignLookup',step='foreign',receiver='motion',source='other-motion',label='collision',handle=handle(42,17),result=tagged('Missing')),tagged('Provisioning',missing='Ledger',result=tagged('MissingRuntimeRequirements',requirements=[tagged('ResourceRequired',name='MotionLedger')]),invocations=['A','B'],effects=['effect1','effect2'],actualE2BaseInstances=True)]
 
 # Only renderer changes; actual fixture source is retained byte-for-byte except
 # import routing to the isolated modified implementation. Every mutant checks
@@ -90,5 +90,5 @@ def main():
     rows.append({'backend':'JS' if binary.suffix=='.js' else 'Native','raw':raw,'parsed':actual,'status':'detected' if change else 'PASS'})
    evidence['outcomes'][name]=rows
  (HERE/'renderer-evidence.json').write_text(json.dumps(evidence,indent=2,ensure_ascii=False)+'\n')
- print('PASS: 14 complete JSON values x Native/JS; four compiling perturbations x Native/JS')
+ print('PASS: 16 complete JSON values x Native/JS; four compiling perturbations x Native/JS')
 if __name__=='__main__':main()

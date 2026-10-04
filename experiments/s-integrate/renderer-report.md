@@ -32,7 +32,7 @@ installed compiler/Base and wrapper/build helper; records every raw JSON line an
 parsed value. Expected values are independently written complete fixture inputs,
 compared as entire objects rather than hashes/selected-field summaries.
 
-Fourteen complete values pass on Native and JS. Four mutations compile on both
+Sixteen complete values pass on Native and JS. Four mutations compile on both
 backends and differ at their intended checkpoints: Four c/d swap, handle namespace
 replaced by its actual ID, ordered-list reversal, and low control-escape nibble
 loss. Early mutation drafts duplicated an affine-bound Data variable and failed
@@ -41,4 +41,9 @@ typechecking; those drafts were corrected and do not count as semantic controls.
 This tests renderer encoding only. Constructed Data fixtures do not establish
 actual Host composition, integrated trace parity, access confinement, general
 runtime refinement or performance acceptance. Those remain #19 gates. Source event
-API is frozen at `649b172` (extensions of `1b6dde6`/`c9271ab`); its file is owned separately.
+API is frozen at `00432a0` (including ForeignLookup `e884a46` and Dispatch `649b172`); its file is owned separately.
+
+ForeignLookup retains step/receiver/source/label/raw handle/full query Access.
+Provisioning retains missing/result/ordered invocations/ordered effects and
+actualE2BaseInstances from the input. Constructed renderer fixtures do not establish
+actual foreign lookup or provisioning execution; those remain Host gates.

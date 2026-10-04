@@ -39,3 +39,5 @@ def main() -> IO(Unit):
     IO.print(R.render_motion_mode(T.MotionOff{}))
     IO.print(R.render_health_mode(T.HealthOn{}))
     IO.print(R.render_main_view(T.HealthMain{T.VitalsView{T.Four{69,70,71,72},73,74}}))
+    IO.print(R.render_motion(H.ForeignLookup{"foreign","motion","other-motion","collision",S.Handle{42,17},T.Missing{}}))
+    IO.print(R.render_motion(H.Provisioning{"Ledger",D.MissingRuntimeRequirements{[D.ResourceRequired{"MotionLedger"}]},["A","B"],["effect1","effect2"],True{}}))
