@@ -48,3 +48,10 @@ in `measurement-lifecycle-mutation-witness-evidence.json`: choosing only the
 head changes `observations[5].query[0].handle.id` from 2 to 3; omitting disposal
 changes `observations[2].query` length from 64 to 65. Both are compiling
 Native/JS runtime changes with identical witnesses, not typing or timeout kills.
+
+The first root-current refresh passed Motion64/256 then stopped when its fresh
+authoritative Motion1024 TS prerequisite exceeded five seconds. The interrupted
+record is retained as `measurement-lifecycle-timed-current-interrupted-evidence.json`.
+The runner now records a failed reference prerequisite per case and continues
+independent cases; it never manufactures backend comparison or timing ratios
+when the required reference is unavailable. Runtime limits remain unchanged.

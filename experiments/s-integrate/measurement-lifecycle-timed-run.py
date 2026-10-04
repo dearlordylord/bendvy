@@ -85,7 +85,15 @@ def main():
   root=pathlib.Path(tmp);L.command(['clang','-O2',HERE/'measurement-lifecycle-rss-launcher.c','-o',root/'rss-launcher'],timeout=120);entry=copied(root/'original');bins=L.build(entry,entry.parent)
   for schema,num in [('Motion',0),('Health',1)]:
    for n in [64,256,1024]:
-    legacy=json.loads(L.command(['node',HERE/'measurement-reference.mjs',schema,'lifecycle',str(n)]));c={'schema':schema,'count':n,'full':{},'samples':{b:[] for b in ['Native','TS','JS']},'summary':{}};e['cases'].append(c)
+    c={'schema':schema,'count':n,'full':{},'samples':{b:[] for b in ['Native','TS','JS']},'summary':{}};e['cases'].append(c)
+    reference_command=['node',HERE/'measurement-reference.mjs',schema,'lifecycle',str(n)]
+    try:
+     legacy=json.loads(L.command(reference_command))
+     c['reference']={'status':'PASS','command':[str(a) for a in reference_command]}
+    except (RuntimeError,json.JSONDecodeError) as error:
+     c['reference']={'status':'FAILED','error':str(error),'command':[str(a) for a in reference_command]}
+     c['status']='REFERENCE_FAILED';c['reason']='Fresh authoritative reference prerequisite failed; backend comparison and timing not attempted'
+     save();print(schema,n,'REFERENCE_FAILED',flush=True);continue
     def args(backend,full):
      if backend=='TS':return ['node',HERE/'measurement-lifecycle-timing-reference.mjs',schema,str(n),str(int(full))]
      if backend=='JS':return ['node',bins[1],str(num),str(n),str(int(full))]
