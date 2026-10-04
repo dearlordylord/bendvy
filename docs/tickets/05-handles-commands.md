@@ -15,10 +15,14 @@ Reserve an entity through the experimental API, make it live only at an explicit
 - [ ] Cover pending spawn, live, stale and foreign handles; check storage bounds before array access.
 - [ ] Schedule completion does not flush pending commands; a subsequent schedule can apply them through an explicit marker.
 - [ ] Insert/remove/despawn and query order preserve expected observations; justify any chosen reuse/exhaustion policy explicitly.
-- [ ] Native/JavaScript traces match the normalized TypeScript reference; reservation is not evidence of liveness.
+- [ ] Native/JavaScript traces match the normalized TypeScript reference except for the explicitly approved foreign-world rejection below; reservation is not evidence of liveness.
 - [ ] Present candidate identity, membership and command laws with plain-language explanations; do not write proofs yet.
 
-## Blocked by
+## Approved identity decision (2026-10-03)
+
+A handle from another runtime world returns `MissingEntity`, including same-schema worlds whose local entity IDs collide. The pinned TypeScript reference can resolve such a collision to a local entity; record that reference observation and the intentional difference rather than normalizing it away or claiming parity. World identity originates from world creation, not caller-selected fixture constants. Schema typing alone does not distinguish two instances of the same world schema. ID reuse, generation/exhaustion policy and production representation remain to be justified. This decision neither passes the T05 lifecycle gate nor approves candidate laws or proofs.
+
+## Dependencies
 
 - T03: Repeatable type-safe queries on two worlds
 
