@@ -7,7 +7,7 @@
   "warmup": "one fresh identical world per child before measured fresh worlds",
   "batch": "one fresh measured world per child for all counts",
   "clock": "Bend IO.now integer milliseconds, TS performance.now; sum only inner execution intervals",
-  "rssMethod": "POSIX posix_spawn + wait4.ru_maxrss; KiB; entire child including startup/warmup/setup/dumps and child-owned validation, not component allocations",
+  "rssMethod": "WITHDRAWN: direct posix_spawn/wait4 inherits observer RSS floor; raw values are contaminated diagnostics, not child peak RSS",
   "limits": {
     "checker": 5,
     "runtime": 5,
@@ -62,7 +62,6 @@
         "Native": {
           "status": "PASS",
           "wholeProcessSeconds": 0.08478298503905535,
-          "peakRssKiB": 108952,
           "exitCode": 0,
           "command": [
             "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -80,12 +79,12 @@
           "warmupMilliseconds": 45,
           "freshMeasuredWorlds": 1,
           "finalSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
-          "worksumPerWorld": 669696
+          "worksumPerWorld": 669696,
+          "contaminatedWait4RssKiB": 108952
         },
         "JS": {
           "status": "PASS",
           "wholeProcessSeconds": 0.23897328902967274,
-          "peakRssKiB": 108952,
           "exitCode": 0,
           "command": [
             "node",
@@ -100,12 +99,12 @@
           "warmupMilliseconds": 120,
           "freshMeasuredWorlds": 1,
           "finalSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
-          "worksumPerWorld": 669696
+          "worksumPerWorld": 669696,
+          "contaminatedWait4RssKiB": 108952
         },
         "TS": {
           "status": "PASS",
           "wholeProcessSeconds": 0.3411032499279827,
-          "peakRssKiB": 108952,
           "exitCode": 0,
           "command": [
             "node",
@@ -120,7 +119,8 @@
           "warmupMilliseconds": 8.15648299999998,
           "freshMeasuredWorlds": 1,
           "finalSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
-          "worksumPerWorld": 669696
+          "worksumPerWorld": 669696,
+          "contaminatedWait4RssKiB": 108952
         }
       },
       "samples": {
@@ -128,7 +128,6 @@
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.06885327119380236,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -152,12 +151,12 @@
             "warmupMilliseconds": 29,
             "freshMeasuredWorlds": 1,
             "finalSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.0785877681337297,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -181,12 +180,12 @@
             "warmupMilliseconds": 35,
             "freshMeasuredWorlds": 1,
             "finalSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.12832513405010104,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -210,12 +209,12 @@
             "warmupMilliseconds": 36,
             "freshMeasuredWorlds": 1,
             "finalSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.06041920301504433,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -239,12 +238,12 @@
             "warmupMilliseconds": 24,
             "freshMeasuredWorlds": 1,
             "finalSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.07012682408094406,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -268,12 +267,12 @@
             "warmupMilliseconds": 34,
             "freshMeasuredWorlds": 1,
             "finalSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.057391885900869966,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -297,12 +296,12 @@
             "warmupMilliseconds": 27,
             "freshMeasuredWorlds": 1,
             "finalSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.05792272393591702,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -326,14 +325,14 @@
             "warmupMilliseconds": 28,
             "freshMeasuredWorlds": 1,
             "finalSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           }
         ],
         "JS": [
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.18094756384380162,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -354,12 +353,12 @@
             "warmupMilliseconds": 73,
             "freshMeasuredWorlds": 1,
             "finalSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.2515928498469293,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -380,12 +379,12 @@
             "warmupMilliseconds": 96,
             "freshMeasuredWorlds": 1,
             "finalSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.32384431594982743,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -406,12 +405,12 @@
             "warmupMilliseconds": 163,
             "freshMeasuredWorlds": 1,
             "finalSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.16890775715000927,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -432,12 +431,12 @@
             "warmupMilliseconds": 69,
             "freshMeasuredWorlds": 1,
             "finalSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.17628202494233847,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -458,12 +457,12 @@
             "warmupMilliseconds": 72,
             "freshMeasuredWorlds": 1,
             "finalSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.15345542202703655,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -484,12 +483,12 @@
             "warmupMilliseconds": 67,
             "freshMeasuredWorlds": 1,
             "finalSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.19348974898457527,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -510,14 +509,14 @@
             "warmupMilliseconds": 93,
             "freshMeasuredWorlds": 1,
             "finalSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           }
         ],
         "TS": [
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.31299143587239087,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -538,12 +537,12 @@
             "warmupMilliseconds": 6.498636999999974,
             "freshMeasuredWorlds": 1,
             "finalSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.5362775549292564,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -564,12 +563,12 @@
             "warmupMilliseconds": 24.86866200000003,
             "freshMeasuredWorlds": 1,
             "finalSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.35627054003998637,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -590,12 +589,12 @@
             "warmupMilliseconds": 8.228275999999994,
             "freshMeasuredWorlds": 1,
             "finalSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.2995884930714965,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -616,12 +615,12 @@
             "warmupMilliseconds": 5.293585000000007,
             "freshMeasuredWorlds": 1,
             "finalSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.3452576999552548,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -642,12 +641,12 @@
             "warmupMilliseconds": 12.558353000000011,
             "freshMeasuredWorlds": 1,
             "finalSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.45580522902309895,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -668,12 +667,12 @@
             "warmupMilliseconds": 6.646929,
             "freshMeasuredWorlds": 1,
             "finalSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.5939571098424494,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -694,7 +693,8 @@
             "warmupMilliseconds": 28.68886000000009,
             "freshMeasuredWorlds": 1,
             "finalSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           }
         ]
       },
@@ -714,7 +714,7 @@
               22
             ]
           },
-          "peakRssKiB": {
+          "withdrawnWait4RssSummaryKiB": {
             "min": 108952,
             "median": 108952,
             "max": 108952,
@@ -744,7 +744,7 @@
               47
             ]
           },
-          "peakRssKiB": {
+          "withdrawnWait4RssSummaryKiB": {
             "min": 108952,
             "median": 108952,
             "max": 108952,
@@ -774,7 +774,7 @@
               6.092632999999978
             ]
           },
-          "peakRssKiB": {
+          "withdrawnWait4RssSummaryKiB": {
             "min": 108952,
             "median": 108952,
             "max": 108952,
@@ -811,7 +811,6 @@
         "Native": {
           "status": "PASS",
           "wholeProcessSeconds": 0.7920214389450848,
-          "peakRssKiB": 108952,
           "exitCode": 0,
           "command": [
             "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -829,12 +828,12 @@
           "warmupMilliseconds": 374,
           "freshMeasuredWorlds": 1,
           "finalSha256": "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
-          "worksumPerWorld": 8970240
+          "worksumPerWorld": 8970240,
+          "contaminatedWait4RssKiB": 108952
         },
         "JS": {
           "status": "PASS",
           "wholeProcessSeconds": 2.0649941470474005,
-          "peakRssKiB": 204232,
           "exitCode": 0,
           "command": [
             "node",
@@ -849,12 +848,12 @@
           "warmupMilliseconds": 1044,
           "freshMeasuredWorlds": 1,
           "finalSha256": "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
-          "worksumPerWorld": 8970240
+          "worksumPerWorld": 8970240,
+          "contaminatedWait4RssKiB": 204232
         },
         "TS": {
           "status": "PASS",
           "wholeProcessSeconds": 0.4606359349563718,
-          "peakRssKiB": 108952,
           "exitCode": 0,
           "command": [
             "node",
@@ -869,7 +868,8 @@
           "warmupMilliseconds": 25.136330999999984,
           "freshMeasuredWorlds": 1,
           "finalSha256": "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
-          "worksumPerWorld": 8970240
+          "worksumPerWorld": 8970240,
+          "contaminatedWait4RssKiB": 108952
         }
       },
       "samples": {
@@ -877,7 +877,6 @@
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.9963917781133205,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -901,12 +900,12 @@
             "warmupMilliseconds": 490,
             "freshMeasuredWorlds": 1,
             "finalSha256": "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.8017140601295978,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -930,12 +929,12 @@
             "warmupMilliseconds": 377,
             "freshMeasuredWorlds": 1,
             "finalSha256": "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.7563759800978005,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -959,12 +958,12 @@
             "warmupMilliseconds": 359,
             "freshMeasuredWorlds": 1,
             "finalSha256": "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.7804086771793664,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -988,12 +987,12 @@
             "warmupMilliseconds": 391,
             "freshMeasuredWorlds": 1,
             "finalSha256": "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.8717248409520835,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -1017,12 +1016,12 @@
             "warmupMilliseconds": 434,
             "freshMeasuredWorlds": 1,
             "finalSha256": "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.7656547229271382,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -1046,12 +1045,12 @@
             "warmupMilliseconds": 342,
             "freshMeasuredWorlds": 1,
             "finalSha256": "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.7417358609382063,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -1075,14 +1074,14 @@
             "warmupMilliseconds": 330,
             "freshMeasuredWorlds": 1,
             "finalSha256": "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 108952
           }
         ],
         "JS": [
           {
             "status": "PASS",
             "wholeProcessSeconds": 1.6886468580923975,
-            "peakRssKiB": 205176,
             "exitCode": 0,
             "command": [
               "node",
@@ -1103,12 +1102,12 @@
             "warmupMilliseconds": 968,
             "freshMeasuredWorlds": 1,
             "finalSha256": "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 205176
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 1.2393130988348275,
-            "peakRssKiB": 146024,
             "exitCode": 0,
             "command": [
               "node",
@@ -1129,12 +1128,12 @@
             "warmupMilliseconds": 588,
             "freshMeasuredWorlds": 1,
             "finalSha256": "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 146024
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 1.3637886168435216,
-            "peakRssKiB": 142412,
             "exitCode": 0,
             "command": [
               "node",
@@ -1155,12 +1154,12 @@
             "warmupMilliseconds": 719,
             "freshMeasuredWorlds": 1,
             "finalSha256": "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 142412
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 1.1242982000112534,
-            "peakRssKiB": 205156,
             "exitCode": 0,
             "command": [
               "node",
@@ -1181,12 +1180,12 @@
             "warmupMilliseconds": 538,
             "freshMeasuredWorlds": 1,
             "finalSha256": "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 205156
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 1.2235729699023068,
-            "peakRssKiB": 206576,
             "exitCode": 0,
             "command": [
               "node",
@@ -1207,12 +1206,12 @@
             "warmupMilliseconds": 543,
             "freshMeasuredWorlds": 1,
             "finalSha256": "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 206576
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 1.189121063100174,
-            "peakRssKiB": 204368,
             "exitCode": 0,
             "command": [
               "node",
@@ -1233,12 +1232,12 @@
             "warmupMilliseconds": 605,
             "freshMeasuredWorlds": 1,
             "finalSha256": "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 204368
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 1.277589452918619,
-            "peakRssKiB": 204644,
             "exitCode": 0,
             "command": [
               "node",
@@ -1259,14 +1258,14 @@
             "warmupMilliseconds": 608,
             "freshMeasuredWorlds": 1,
             "finalSha256": "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 204644
           }
         ],
         "TS": [
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.449880305910483,
-            "peakRssKiB": 108984,
             "exitCode": 0,
             "command": [
               "node",
@@ -1287,12 +1286,12 @@
             "warmupMilliseconds": 28.43135799999999,
             "freshMeasuredWorlds": 1,
             "finalSha256": "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 108984
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.3390161490533501,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -1313,12 +1312,12 @@
             "warmupMilliseconds": 21.46375900000004,
             "freshMeasuredWorlds": 1,
             "finalSha256": "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.48369233310222626,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -1339,12 +1338,12 @@
             "warmupMilliseconds": 18.863695999999948,
             "freshMeasuredWorlds": 1,
             "finalSha256": "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.3171538030728698,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -1365,12 +1364,12 @@
             "warmupMilliseconds": 17.065515000000033,
             "freshMeasuredWorlds": 1,
             "finalSha256": "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.3700194018892944,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -1391,12 +1390,12 @@
             "warmupMilliseconds": 18.624111000000028,
             "freshMeasuredWorlds": 1,
             "finalSha256": "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.4000999410636723,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -1417,12 +1416,12 @@
             "warmupMilliseconds": 12.043348999999978,
             "freshMeasuredWorlds": 1,
             "finalSha256": "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.42759258206933737,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -1443,7 +1442,8 @@
             "warmupMilliseconds": 51.52837999999997,
             "freshMeasuredWorlds": 1,
             "finalSha256": "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 108952
           }
         ]
       },
@@ -1463,7 +1463,7 @@
               398
             ]
           },
-          "peakRssKiB": {
+          "withdrawnWait4RssSummaryKiB": {
             "min": 108952,
             "median": 108952,
             "max": 108952,
@@ -1493,7 +1493,7 @@
               603
             ]
           },
-          "peakRssKiB": {
+          "withdrawnWait4RssSummaryKiB": {
             "min": 142412,
             "median": 204644,
             "max": 206576,
@@ -1523,7 +1523,7 @@
               21.34259099999997
             ]
           },
-          "peakRssKiB": {
+          "withdrawnWait4RssSummaryKiB": {
             "min": 108952,
             "median": 108952,
             "max": 108984,
@@ -1561,7 +1561,6 @@
           "status": "FAILED",
           "error": "five-second process-group deadline",
           "wholeProcessSeconds": 5.000853750854731,
-          "peakRssKiB": 108952,
           "exitCode": -9,
           "command": [
             "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -1573,13 +1572,13 @@
             "1",
             "--gpu",
             "off"
-          ]
+          ],
+          "contaminatedWait4RssKiB": 108952
         },
         "JS": {
           "status": "FAILED",
           "error": "five-second process-group deadline",
           "wholeProcessSeconds": 5.0063155048992485,
-          "peakRssKiB": 231264,
           "exitCode": -9,
           "command": [
             "node",
@@ -1588,12 +1587,12 @@
             "0",
             "1024",
             "1"
-          ]
+          ],
+          "contaminatedWait4RssKiB": 231264
         },
         "TS": {
           "status": "PASS",
           "wholeProcessSeconds": 0.3622002131305635,
-          "peakRssKiB": 119492,
           "exitCode": 0,
           "command": [
             "node",
@@ -1608,7 +1607,8 @@
           "warmupMilliseconds": 34.322779999999995,
           "freshMeasuredWorlds": 1,
           "finalSha256": "065db41ffce4708a0e89b9ce3eb11f455454c02b2c83575df179e8bdacd4689a",
-          "worksumPerWorld": 136544256
+          "worksumPerWorld": 136544256,
+          "contaminatedWait4RssKiB": 119492
         }
       },
       "samples": {
@@ -1633,7 +1633,6 @@
         "Native": {
           "status": "PASS",
           "wholeProcessSeconds": 0.014142781961709261,
-          "peakRssKiB": 108952,
           "exitCode": 0,
           "command": [
             "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -1651,12 +1650,12 @@
           "warmupMilliseconds": 3,
           "freshMeasuredWorlds": 1,
           "finalSha256": "e9227bc45800a0209f9360875d7102b1fafbe6d97f0271b76eda1ab9cb3df256",
-          "worksumPerWorld": 2053472
+          "worksumPerWorld": 2053472,
+          "contaminatedWait4RssKiB": 108952
         },
         "JS": {
           "status": "PASS",
           "wholeProcessSeconds": 0.07791072083637118,
-          "peakRssKiB": 108952,
           "exitCode": 0,
           "command": [
             "node",
@@ -1671,12 +1670,12 @@
           "warmupMilliseconds": 34,
           "freshMeasuredWorlds": 1,
           "finalSha256": "e9227bc45800a0209f9360875d7102b1fafbe6d97f0271b76eda1ab9cb3df256",
-          "worksumPerWorld": 2053472
+          "worksumPerWorld": 2053472,
+          "contaminatedWait4RssKiB": 108952
         },
         "TS": {
           "status": "PASS",
           "wholeProcessSeconds": 0.28147109504789114,
-          "peakRssKiB": 108952,
           "exitCode": 0,
           "command": [
             "node",
@@ -1691,7 +1690,8 @@
           "warmupMilliseconds": 8.258026000000001,
           "freshMeasuredWorlds": 1,
           "finalSha256": "e9227bc45800a0209f9360875d7102b1fafbe6d97f0271b76eda1ab9cb3df256",
-          "worksumPerWorld": 2053472
+          "worksumPerWorld": 2053472,
+          "contaminatedWait4RssKiB": 108952
         }
       },
       "samples": {
@@ -1699,7 +1699,6 @@
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.014859038172289729,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -1723,12 +1722,12 @@
             "warmupMilliseconds": 4,
             "freshMeasuredWorlds": 1,
             "finalSha256": "e9227bc45800a0209f9360875d7102b1fafbe6d97f0271b76eda1ab9cb3df256",
-            "worksumPerWorld": 2053472
+            "worksumPerWorld": 2053472,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.014121281914412975,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -1752,12 +1751,12 @@
             "warmupMilliseconds": 4,
             "freshMeasuredWorlds": 1,
             "finalSha256": "e9227bc45800a0209f9360875d7102b1fafbe6d97f0271b76eda1ab9cb3df256",
-            "worksumPerWorld": 2053472
+            "worksumPerWorld": 2053472,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.011683512944728136,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -1781,12 +1780,12 @@
             "warmupMilliseconds": 4,
             "freshMeasuredWorlds": 1,
             "finalSha256": "e9227bc45800a0209f9360875d7102b1fafbe6d97f0271b76eda1ab9cb3df256",
-            "worksumPerWorld": 2053472
+            "worksumPerWorld": 2053472,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.01002712408080697,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -1810,12 +1809,12 @@
             "warmupMilliseconds": 3,
             "freshMeasuredWorlds": 1,
             "finalSha256": "e9227bc45800a0209f9360875d7102b1fafbe6d97f0271b76eda1ab9cb3df256",
-            "worksumPerWorld": 2053472
+            "worksumPerWorld": 2053472,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.013383693061769009,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -1839,12 +1838,12 @@
             "warmupMilliseconds": 4,
             "freshMeasuredWorlds": 1,
             "finalSha256": "e9227bc45800a0209f9360875d7102b1fafbe6d97f0271b76eda1ab9cb3df256",
-            "worksumPerWorld": 2053472
+            "worksumPerWorld": 2053472,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.01485399715602398,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -1868,12 +1867,12 @@
             "warmupMilliseconds": 4,
             "freshMeasuredWorlds": 1,
             "finalSha256": "e9227bc45800a0209f9360875d7102b1fafbe6d97f0271b76eda1ab9cb3df256",
-            "worksumPerWorld": 2053472
+            "worksumPerWorld": 2053472,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.01290010497905314,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -1897,14 +1896,14 @@
             "warmupMilliseconds": 4,
             "freshMeasuredWorlds": 1,
             "finalSha256": "e9227bc45800a0209f9360875d7102b1fafbe6d97f0271b76eda1ab9cb3df256",
-            "worksumPerWorld": 2053472
+            "worksumPerWorld": 2053472,
+            "contaminatedWait4RssKiB": 108952
           }
         ],
         "JS": [
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.10745762893930078,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -1925,12 +1924,12 @@
             "warmupMilliseconds": 48,
             "freshMeasuredWorlds": 1,
             "finalSha256": "e9227bc45800a0209f9360875d7102b1fafbe6d97f0271b76eda1ab9cb3df256",
-            "worksumPerWorld": 2053472
+            "worksumPerWorld": 2053472,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.08578545204363763,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -1951,12 +1950,12 @@
             "warmupMilliseconds": 37,
             "freshMeasuredWorlds": 1,
             "finalSha256": "e9227bc45800a0209f9360875d7102b1fafbe6d97f0271b76eda1ab9cb3df256",
-            "worksumPerWorld": 2053472
+            "worksumPerWorld": 2053472,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.12686470500193536,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -1977,12 +1976,12 @@
             "warmupMilliseconds": 40,
             "freshMeasuredWorlds": 1,
             "finalSha256": "e9227bc45800a0209f9360875d7102b1fafbe6d97f0271b76eda1ab9cb3df256",
-            "worksumPerWorld": 2053472
+            "worksumPerWorld": 2053472,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.09344076504930854,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -2003,12 +2002,12 @@
             "warmupMilliseconds": 43,
             "freshMeasuredWorlds": 1,
             "finalSha256": "e9227bc45800a0209f9360875d7102b1fafbe6d97f0271b76eda1ab9cb3df256",
-            "worksumPerWorld": 2053472
+            "worksumPerWorld": 2053472,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.09231792204082012,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -2029,12 +2028,12 @@
             "warmupMilliseconds": 42,
             "freshMeasuredWorlds": 1,
             "finalSha256": "e9227bc45800a0209f9360875d7102b1fafbe6d97f0271b76eda1ab9cb3df256",
-            "worksumPerWorld": 2053472
+            "worksumPerWorld": 2053472,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.08562770113348961,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -2055,12 +2054,12 @@
             "warmupMilliseconds": 37,
             "freshMeasuredWorlds": 1,
             "finalSha256": "e9227bc45800a0209f9360875d7102b1fafbe6d97f0271b76eda1ab9cb3df256",
-            "worksumPerWorld": 2053472
+            "worksumPerWorld": 2053472,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.07823943183757365,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -2081,14 +2080,14 @@
             "warmupMilliseconds": 36,
             "freshMeasuredWorlds": 1,
             "finalSha256": "e9227bc45800a0209f9360875d7102b1fafbe6d97f0271b76eda1ab9cb3df256",
-            "worksumPerWorld": 2053472
+            "worksumPerWorld": 2053472,
+            "contaminatedWait4RssKiB": 108952
           }
         ],
         "TS": [
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.35802397108636796,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -2109,12 +2108,12 @@
             "warmupMilliseconds": 9.495870000000025,
             "freshMeasuredWorlds": 1,
             "finalSha256": "e9227bc45800a0209f9360875d7102b1fafbe6d97f0271b76eda1ab9cb3df256",
-            "worksumPerWorld": 2053472
+            "worksumPerWorld": 2053472,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.4102532740216702,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -2135,12 +2134,12 @@
             "warmupMilliseconds": 5.280460000000005,
             "freshMeasuredWorlds": 1,
             "finalSha256": "e9227bc45800a0209f9360875d7102b1fafbe6d97f0271b76eda1ab9cb3df256",
-            "worksumPerWorld": 2053472
+            "worksumPerWorld": 2053472,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.27698343293741345,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -2161,12 +2160,12 @@
             "warmupMilliseconds": 5.549087000000014,
             "freshMeasuredWorlds": 1,
             "finalSha256": "e9227bc45800a0209f9360875d7102b1fafbe6d97f0271b76eda1ab9cb3df256",
-            "worksumPerWorld": 2053472
+            "worksumPerWorld": 2053472,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.31216205400414765,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -2187,12 +2186,12 @@
             "warmupMilliseconds": 5.099666000000013,
             "freshMeasuredWorlds": 1,
             "finalSha256": "e9227bc45800a0209f9360875d7102b1fafbe6d97f0271b76eda1ab9cb3df256",
-            "worksumPerWorld": 2053472
+            "worksumPerWorld": 2053472,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.28561533708125353,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -2213,12 +2212,12 @@
             "warmupMilliseconds": 6.175258999999983,
             "freshMeasuredWorlds": 1,
             "finalSha256": "e9227bc45800a0209f9360875d7102b1fafbe6d97f0271b76eda1ab9cb3df256",
-            "worksumPerWorld": 2053472
+            "worksumPerWorld": 2053472,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.28280160506255925,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -2239,12 +2238,12 @@
             "warmupMilliseconds": 5.754839000000004,
             "freshMeasuredWorlds": 1,
             "finalSha256": "e9227bc45800a0209f9360875d7102b1fafbe6d97f0271b76eda1ab9cb3df256",
-            "worksumPerWorld": 2053472
+            "worksumPerWorld": 2053472,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.26274635805748403,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -2265,7 +2264,8 @@
             "warmupMilliseconds": 5.638712999999996,
             "freshMeasuredWorlds": 1,
             "finalSha256": "e9227bc45800a0209f9360875d7102b1fafbe6d97f0271b76eda1ab9cb3df256",
-            "worksumPerWorld": 2053472
+            "worksumPerWorld": 2053472,
+            "contaminatedWait4RssKiB": 108952
           }
         ]
       },
@@ -2285,7 +2285,7 @@
               4
             ]
           },
-          "peakRssKiB": {
+          "withdrawnWait4RssSummaryKiB": {
             "min": 108952,
             "median": 108952,
             "max": 108952,
@@ -2315,7 +2315,7 @@
               14
             ]
           },
-          "peakRssKiB": {
+          "withdrawnWait4RssSummaryKiB": {
             "min": 108952,
             "median": 108952,
             "max": 108952,
@@ -2345,7 +2345,7 @@
               3.613238000000024
             ]
           },
-          "peakRssKiB": {
+          "withdrawnWait4RssSummaryKiB": {
             "min": 108952,
             "median": 108952,
             "max": 108952,
@@ -2382,7 +2382,6 @@
         "Native": {
           "status": "PASS",
           "wholeProcessSeconds": 0.09321880480274558,
-          "peakRssKiB": 108952,
           "exitCode": 0,
           "command": [
             "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -2400,12 +2399,12 @@
           "warmupMilliseconds": 45,
           "freshMeasuredWorlds": 1,
           "finalSha256": "280a00a79454d62a5ddf678b14915d641dc3d8ff24e93a581cefa71078dfab41",
-          "worksumPerWorld": 106982496
+          "worksumPerWorld": 106982496,
+          "contaminatedWait4RssKiB": 108952
         },
         "JS": {
           "status": "PASS",
           "wholeProcessSeconds": 0.2657362997997552,
-          "peakRssKiB": 108952,
           "exitCode": 0,
           "command": [
             "node",
@@ -2420,12 +2419,12 @@
           "warmupMilliseconds": 138,
           "freshMeasuredWorlds": 1,
           "finalSha256": "280a00a79454d62a5ddf678b14915d641dc3d8ff24e93a581cefa71078dfab41",
-          "worksumPerWorld": 106982496
+          "worksumPerWorld": 106982496,
+          "contaminatedWait4RssKiB": 108952
         },
         "TS": {
           "status": "PASS",
           "wholeProcessSeconds": 0.2684931131079793,
-          "peakRssKiB": 108952,
           "exitCode": 0,
           "command": [
             "node",
@@ -2440,7 +2439,8 @@
           "warmupMilliseconds": 8.829529999999977,
           "freshMeasuredWorlds": 1,
           "finalSha256": "280a00a79454d62a5ddf678b14915d641dc3d8ff24e93a581cefa71078dfab41",
-          "worksumPerWorld": 106982496
+          "worksumPerWorld": 106982496,
+          "contaminatedWait4RssKiB": 108952
         }
       },
       "samples": {
@@ -2448,7 +2448,6 @@
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.10625387006439269,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -2472,12 +2471,12 @@
             "warmupMilliseconds": 50,
             "freshMeasuredWorlds": 1,
             "finalSha256": "280a00a79454d62a5ddf678b14915d641dc3d8ff24e93a581cefa71078dfab41",
-            "worksumPerWorld": 106982496
+            "worksumPerWorld": 106982496,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.10104974289424717,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -2501,12 +2500,12 @@
             "warmupMilliseconds": 48,
             "freshMeasuredWorlds": 1,
             "finalSha256": "280a00a79454d62a5ddf678b14915d641dc3d8ff24e93a581cefa71078dfab41",
-            "worksumPerWorld": 106982496
+            "worksumPerWorld": 106982496,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.10046277986839414,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -2530,12 +2529,12 @@
             "warmupMilliseconds": 45,
             "freshMeasuredWorlds": 1,
             "finalSha256": "280a00a79454d62a5ddf678b14915d641dc3d8ff24e93a581cefa71078dfab41",
-            "worksumPerWorld": 106982496
+            "worksumPerWorld": 106982496,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.09561915695667267,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -2559,12 +2558,12 @@
             "warmupMilliseconds": 42,
             "freshMeasuredWorlds": 1,
             "finalSha256": "280a00a79454d62a5ddf678b14915d641dc3d8ff24e93a581cefa71078dfab41",
-            "worksumPerWorld": 106982496
+            "worksumPerWorld": 106982496,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.10030632116831839,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -2588,12 +2587,12 @@
             "warmupMilliseconds": 46,
             "freshMeasuredWorlds": 1,
             "finalSha256": "280a00a79454d62a5ddf678b14915d641dc3d8ff24e93a581cefa71078dfab41",
-            "worksumPerWorld": 106982496
+            "worksumPerWorld": 106982496,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.09371655806899071,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -2617,12 +2616,12 @@
             "warmupMilliseconds": 42,
             "freshMeasuredWorlds": 1,
             "finalSha256": "280a00a79454d62a5ddf678b14915d641dc3d8ff24e93a581cefa71078dfab41",
-            "worksumPerWorld": 106982496
+            "worksumPerWorld": 106982496,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.09363801591098309,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -2646,14 +2645,14 @@
             "warmupMilliseconds": 44,
             "freshMeasuredWorlds": 1,
             "finalSha256": "280a00a79454d62a5ddf678b14915d641dc3d8ff24e93a581cefa71078dfab41",
-            "worksumPerWorld": 106982496
+            "worksumPerWorld": 106982496,
+            "contaminatedWait4RssKiB": 108952
           }
         ],
         "JS": [
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.27593184099532664,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -2674,12 +2673,12 @@
             "warmupMilliseconds": 130,
             "freshMeasuredWorlds": 1,
             "finalSha256": "280a00a79454d62a5ddf678b14915d641dc3d8ff24e93a581cefa71078dfab41",
-            "worksumPerWorld": 106982496
+            "worksumPerWorld": 106982496,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.3147588251158595,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -2700,12 +2699,12 @@
             "warmupMilliseconds": 157,
             "freshMeasuredWorlds": 1,
             "finalSha256": "280a00a79454d62a5ddf678b14915d641dc3d8ff24e93a581cefa71078dfab41",
-            "worksumPerWorld": 106982496
+            "worksumPerWorld": 106982496,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.25577921816147864,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -2726,12 +2725,12 @@
             "warmupMilliseconds": 114,
             "freshMeasuredWorlds": 1,
             "finalSha256": "280a00a79454d62a5ddf678b14915d641dc3d8ff24e93a581cefa71078dfab41",
-            "worksumPerWorld": 106982496
+            "worksumPerWorld": 106982496,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.23855491005815566,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -2752,12 +2751,12 @@
             "warmupMilliseconds": 108,
             "freshMeasuredWorlds": 1,
             "finalSha256": "280a00a79454d62a5ddf678b14915d641dc3d8ff24e93a581cefa71078dfab41",
-            "worksumPerWorld": 106982496
+            "worksumPerWorld": 106982496,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.2539857439696789,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -2778,12 +2777,12 @@
             "warmupMilliseconds": 117,
             "freshMeasuredWorlds": 1,
             "finalSha256": "280a00a79454d62a5ddf678b14915d641dc3d8ff24e93a581cefa71078dfab41",
-            "worksumPerWorld": 106982496
+            "worksumPerWorld": 106982496,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.25296702794730663,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -2804,12 +2803,12 @@
             "warmupMilliseconds": 128,
             "freshMeasuredWorlds": 1,
             "finalSha256": "280a00a79454d62a5ddf678b14915d641dc3d8ff24e93a581cefa71078dfab41",
-            "worksumPerWorld": 106982496
+            "worksumPerWorld": 106982496,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.24388845381326973,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -2830,14 +2829,14 @@
             "warmupMilliseconds": 115,
             "freshMeasuredWorlds": 1,
             "finalSha256": "280a00a79454d62a5ddf678b14915d641dc3d8ff24e93a581cefa71078dfab41",
-            "worksumPerWorld": 106982496
+            "worksumPerWorld": 106982496,
+            "contaminatedWait4RssKiB": 108952
           }
         ],
         "TS": [
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.28684051311574876,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -2858,12 +2857,12 @@
             "warmupMilliseconds": 9.012198000000012,
             "freshMeasuredWorlds": 1,
             "finalSha256": "280a00a79454d62a5ddf678b14915d641dc3d8ff24e93a581cefa71078dfab41",
-            "worksumPerWorld": 106982496
+            "worksumPerWorld": 106982496,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.5803454979322851,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -2884,12 +2883,12 @@
             "warmupMilliseconds": 17.40818399999995,
             "freshMeasuredWorlds": 1,
             "finalSha256": "280a00a79454d62a5ddf678b14915d641dc3d8ff24e93a581cefa71078dfab41",
-            "worksumPerWorld": 106982496
+            "worksumPerWorld": 106982496,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.26202430995181203,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -2910,12 +2909,12 @@
             "warmupMilliseconds": 10.185625000000016,
             "freshMeasuredWorlds": 1,
             "finalSha256": "280a00a79454d62a5ddf678b14915d641dc3d8ff24e93a581cefa71078dfab41",
-            "worksumPerWorld": 106982496
+            "worksumPerWorld": 106982496,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.26272164890542626,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -2936,12 +2935,12 @@
             "warmupMilliseconds": 7.397518999999988,
             "freshMeasuredWorlds": 1,
             "finalSha256": "280a00a79454d62a5ddf678b14915d641dc3d8ff24e93a581cefa71078dfab41",
-            "worksumPerWorld": 106982496
+            "worksumPerWorld": 106982496,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.28062104620039463,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -2962,12 +2961,12 @@
             "warmupMilliseconds": 9.417993999999993,
             "freshMeasuredWorlds": 1,
             "finalSha256": "280a00a79454d62a5ddf678b14915d641dc3d8ff24e93a581cefa71078dfab41",
-            "worksumPerWorld": 106982496
+            "worksumPerWorld": 106982496,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.2523281059693545,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -2988,12 +2987,12 @@
             "warmupMilliseconds": 8.351110000000006,
             "freshMeasuredWorlds": 1,
             "finalSha256": "280a00a79454d62a5ddf678b14915d641dc3d8ff24e93a581cefa71078dfab41",
-            "worksumPerWorld": 106982496
+            "worksumPerWorld": 106982496,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.2583572808653116,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -3014,7 +3013,8 @@
             "warmupMilliseconds": 9.005616000000003,
             "freshMeasuredWorlds": 1,
             "finalSha256": "280a00a79454d62a5ddf678b14915d641dc3d8ff24e93a581cefa71078dfab41",
-            "worksumPerWorld": 106982496
+            "worksumPerWorld": 106982496,
+            "contaminatedWait4RssKiB": 108952
           }
         ]
       },
@@ -3034,7 +3034,7 @@
               41
             ]
           },
-          "peakRssKiB": {
+          "withdrawnWait4RssSummaryKiB": {
             "min": 108952,
             "median": 108952,
             "max": 108952,
@@ -3064,7 +3064,7 @@
               81
             ]
           },
-          "peakRssKiB": {
+          "withdrawnWait4RssSummaryKiB": {
             "min": 108952,
             "median": 108952,
             "max": 108952,
@@ -3094,7 +3094,7 @@
               5.813256000000024
             ]
           },
-          "peakRssKiB": {
+          "withdrawnWait4RssSummaryKiB": {
             "min": 108952,
             "median": 108952,
             "max": 108952,
@@ -3131,7 +3131,6 @@
         "Native": {
           "status": "PASS",
           "wholeProcessSeconds": 1.7397645690944046,
-          "peakRssKiB": 108952,
           "exitCode": 0,
           "command": [
             "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -3149,12 +3148,12 @@
           "warmupMilliseconds": 798,
           "freshMeasuredWorlds": 1,
           "finalSha256": "d7035863b11216182aab47cb1aa3945de42e5992394cef5b6a9061edabf2f630",
-          "worksumPerWorld": 2187192416
+          "worksumPerWorld": 2187192416,
+          "contaminatedWait4RssKiB": 108952
         },
         "JS": {
           "status": "PASS",
           "wholeProcessSeconds": 1.9890306501183659,
-          "peakRssKiB": 229476,
           "exitCode": 0,
           "command": [
             "node",
@@ -3169,12 +3168,12 @@
           "warmupMilliseconds": 982,
           "freshMeasuredWorlds": 1,
           "finalSha256": "d7035863b11216182aab47cb1aa3945de42e5992394cef5b6a9061edabf2f630",
-          "worksumPerWorld": 2187192416
+          "worksumPerWorld": 2187192416,
+          "contaminatedWait4RssKiB": 229476
         },
         "TS": {
           "status": "PASS",
           "wholeProcessSeconds": 0.29798098001629114,
-          "peakRssKiB": 108952,
           "exitCode": 0,
           "command": [
             "node",
@@ -3189,7 +3188,8 @@
           "warmupMilliseconds": 22.83726999999999,
           "freshMeasuredWorlds": 1,
           "finalSha256": "d7035863b11216182aab47cb1aa3945de42e5992394cef5b6a9061edabf2f630",
-          "worksumPerWorld": 2187192416
+          "worksumPerWorld": 2187192416,
+          "contaminatedWait4RssKiB": 108952
         }
       },
       "samples": {
@@ -3197,7 +3197,6 @@
           {
             "status": "PASS",
             "wholeProcessSeconds": 1.9246417889371514,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -3221,12 +3220,12 @@
             "warmupMilliseconds": 776,
             "freshMeasuredWorlds": 1,
             "finalSha256": "d7035863b11216182aab47cb1aa3945de42e5992394cef5b6a9061edabf2f630",
-            "worksumPerWorld": 2187192416
+            "worksumPerWorld": 2187192416,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 2.0108152439352125,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -3250,12 +3249,12 @@
             "warmupMilliseconds": 1032,
             "freshMeasuredWorlds": 1,
             "finalSha256": "d7035863b11216182aab47cb1aa3945de42e5992394cef5b6a9061edabf2f630",
-            "worksumPerWorld": 2187192416
+            "worksumPerWorld": 2187192416,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 1.580152679933235,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -3279,12 +3278,12 @@
             "warmupMilliseconds": 741,
             "freshMeasuredWorlds": 1,
             "finalSha256": "d7035863b11216182aab47cb1aa3945de42e5992394cef5b6a9061edabf2f630",
-            "worksumPerWorld": 2187192416
+            "worksumPerWorld": 2187192416,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 1.5220845369622111,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -3308,12 +3307,12 @@
             "warmupMilliseconds": 757,
             "freshMeasuredWorlds": 1,
             "finalSha256": "d7035863b11216182aab47cb1aa3945de42e5992394cef5b6a9061edabf2f630",
-            "worksumPerWorld": 2187192416
+            "worksumPerWorld": 2187192416,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 1.69817064399831,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -3337,12 +3336,12 @@
             "warmupMilliseconds": 746,
             "freshMeasuredWorlds": 1,
             "finalSha256": "d7035863b11216182aab47cb1aa3945de42e5992394cef5b6a9061edabf2f630",
-            "worksumPerWorld": 2187192416
+            "worksumPerWorld": 2187192416,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 1.5383875868283212,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -3366,12 +3365,12 @@
             "warmupMilliseconds": 744,
             "freshMeasuredWorlds": 1,
             "finalSha256": "d7035863b11216182aab47cb1aa3945de42e5992394cef5b6a9061edabf2f630",
-            "worksumPerWorld": 2187192416
+            "worksumPerWorld": 2187192416,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 1.706295461859554,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -3395,14 +3394,14 @@
             "warmupMilliseconds": 877,
             "freshMeasuredWorlds": 1,
             "finalSha256": "d7035863b11216182aab47cb1aa3945de42e5992394cef5b6a9061edabf2f630",
-            "worksumPerWorld": 2187192416
+            "worksumPerWorld": 2187192416,
+            "contaminatedWait4RssKiB": 108952
           }
         ],
         "JS": [
           {
             "status": "PASS",
             "wholeProcessSeconds": 1.9859918330330402,
-            "peakRssKiB": 233912,
             "exitCode": 0,
             "command": [
               "node",
@@ -3423,12 +3422,12 @@
             "warmupMilliseconds": 954,
             "freshMeasuredWorlds": 1,
             "finalSha256": "d7035863b11216182aab47cb1aa3945de42e5992394cef5b6a9061edabf2f630",
-            "worksumPerWorld": 2187192416
+            "worksumPerWorld": 2187192416,
+            "contaminatedWait4RssKiB": 233912
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 2.382474784972146,
-            "peakRssKiB": 229592,
             "exitCode": 0,
             "command": [
               "node",
@@ -3449,12 +3448,12 @@
             "warmupMilliseconds": 954,
             "freshMeasuredWorlds": 1,
             "finalSha256": "d7035863b11216182aab47cb1aa3945de42e5992394cef5b6a9061edabf2f630",
-            "worksumPerWorld": 2187192416
+            "worksumPerWorld": 2187192416,
+            "contaminatedWait4RssKiB": 229592
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 2.390764561947435,
-            "peakRssKiB": 232436,
             "exitCode": 0,
             "command": [
               "node",
@@ -3475,12 +3474,12 @@
             "warmupMilliseconds": 1248,
             "freshMeasuredWorlds": 1,
             "finalSha256": "d7035863b11216182aab47cb1aa3945de42e5992394cef5b6a9061edabf2f630",
-            "worksumPerWorld": 2187192416
+            "worksumPerWorld": 2187192416,
+            "contaminatedWait4RssKiB": 232436
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 1.932349103037268,
-            "peakRssKiB": 231844,
             "exitCode": 0,
             "command": [
               "node",
@@ -3501,12 +3500,12 @@
             "warmupMilliseconds": 980,
             "freshMeasuredWorlds": 1,
             "finalSha256": "d7035863b11216182aab47cb1aa3945de42e5992394cef5b6a9061edabf2f630",
-            "worksumPerWorld": 2187192416
+            "worksumPerWorld": 2187192416,
+            "contaminatedWait4RssKiB": 231844
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 2.0988572160713375,
-            "peakRssKiB": 229180,
             "exitCode": 0,
             "command": [
               "node",
@@ -3527,12 +3526,12 @@
             "warmupMilliseconds": 999,
             "freshMeasuredWorlds": 1,
             "finalSha256": "d7035863b11216182aab47cb1aa3945de42e5992394cef5b6a9061edabf2f630",
-            "worksumPerWorld": 2187192416
+            "worksumPerWorld": 2187192416,
+            "contaminatedWait4RssKiB": 229180
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 2.3609449849464,
-            "peakRssKiB": 227748,
             "exitCode": 0,
             "command": [
               "node",
@@ -3553,12 +3552,12 @@
             "warmupMilliseconds": 1251,
             "freshMeasuredWorlds": 1,
             "finalSha256": "d7035863b11216182aab47cb1aa3945de42e5992394cef5b6a9061edabf2f630",
-            "worksumPerWorld": 2187192416
+            "worksumPerWorld": 2187192416,
+            "contaminatedWait4RssKiB": 227748
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 2.089181344024837,
-            "peakRssKiB": 232748,
             "exitCode": 0,
             "command": [
               "node",
@@ -3579,14 +3578,14 @@
             "warmupMilliseconds": 1063,
             "freshMeasuredWorlds": 1,
             "finalSha256": "d7035863b11216182aab47cb1aa3945de42e5992394cef5b6a9061edabf2f630",
-            "worksumPerWorld": 2187192416
+            "worksumPerWorld": 2187192416,
+            "contaminatedWait4RssKiB": 232748
           }
         ],
         "TS": [
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.3044404489919543,
-            "peakRssKiB": 109700,
             "exitCode": 0,
             "command": [
               "node",
@@ -3607,12 +3606,12 @@
             "warmupMilliseconds": 17.597852000000017,
             "freshMeasuredWorlds": 1,
             "finalSha256": "d7035863b11216182aab47cb1aa3945de42e5992394cef5b6a9061edabf2f630",
-            "worksumPerWorld": 2187192416
+            "worksumPerWorld": 2187192416,
+            "contaminatedWait4RssKiB": 109700
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.30448645004071295,
-            "peakRssKiB": 109904,
             "exitCode": 0,
             "command": [
               "node",
@@ -3633,12 +3632,12 @@
             "warmupMilliseconds": 18.566193999999996,
             "freshMeasuredWorlds": 1,
             "finalSha256": "d7035863b11216182aab47cb1aa3945de42e5992394cef5b6a9061edabf2f630",
-            "worksumPerWorld": 2187192416
+            "worksumPerWorld": 2187192416,
+            "contaminatedWait4RssKiB": 109904
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.28184772306121886,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -3659,12 +3658,12 @@
             "warmupMilliseconds": 21.35046600000001,
             "freshMeasuredWorlds": 1,
             "finalSha256": "d7035863b11216182aab47cb1aa3945de42e5992394cef5b6a9061edabf2f630",
-            "worksumPerWorld": 2187192416
+            "worksumPerWorld": 2187192416,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.29255680995993316,
-            "peakRssKiB": 110060,
             "exitCode": 0,
             "command": [
               "node",
@@ -3685,12 +3684,12 @@
             "warmupMilliseconds": 21.395175999999992,
             "freshMeasuredWorlds": 1,
             "finalSha256": "d7035863b11216182aab47cb1aa3945de42e5992394cef5b6a9061edabf2f630",
-            "worksumPerWorld": 2187192416
+            "worksumPerWorld": 2187192416,
+            "contaminatedWait4RssKiB": 110060
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.2994024909567088,
-            "peakRssKiB": 109956,
             "exitCode": 0,
             "command": [
               "node",
@@ -3711,12 +3710,12 @@
             "warmupMilliseconds": 17.863270999999997,
             "freshMeasuredWorlds": 1,
             "finalSha256": "d7035863b11216182aab47cb1aa3945de42e5992394cef5b6a9061edabf2f630",
-            "worksumPerWorld": 2187192416
+            "worksumPerWorld": 2187192416,
+            "contaminatedWait4RssKiB": 109956
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.4032251739408821,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -3737,12 +3736,12 @@
             "warmupMilliseconds": 19.556619000000012,
             "freshMeasuredWorlds": 1,
             "finalSha256": "d7035863b11216182aab47cb1aa3945de42e5992394cef5b6a9061edabf2f630",
-            "worksumPerWorld": 2187192416
+            "worksumPerWorld": 2187192416,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.33455240400508046,
-            "peakRssKiB": 109680,
             "exitCode": 0,
             "command": [
               "node",
@@ -3763,7 +3762,8 @@
             "warmupMilliseconds": 19.035988999999972,
             "freshMeasuredWorlds": 1,
             "finalSha256": "d7035863b11216182aab47cb1aa3945de42e5992394cef5b6a9061edabf2f630",
-            "worksumPerWorld": 2187192416
+            "worksumPerWorld": 2187192416,
+            "contaminatedWait4RssKiB": 109680
           }
         ]
       },
@@ -3783,7 +3783,7 @@
               804
             ]
           },
-          "peakRssKiB": {
+          "withdrawnWait4RssSummaryKiB": {
             "min": 108952,
             "median": 108952,
             "max": 108952,
@@ -3813,7 +3813,7 @@
               920
             ]
           },
-          "peakRssKiB": {
+          "withdrawnWait4RssSummaryKiB": {
             "min": 227748,
             "median": 231844,
             "max": 233912,
@@ -3843,7 +3843,7 @@
               12.97481399999998
             ]
           },
-          "peakRssKiB": {
+          "withdrawnWait4RssSummaryKiB": {
             "min": 108952,
             "median": 109700,
             "max": 110060,
@@ -3880,7 +3880,6 @@
         "Native": {
           "status": "PASS",
           "wholeProcessSeconds": 0.052768972935155034,
-          "peakRssKiB": 108952,
           "exitCode": 0,
           "command": [
             "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -3898,12 +3897,12 @@
           "warmupMilliseconds": 22,
           "freshMeasuredWorlds": 1,
           "finalSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
-          "worksumPerWorld": 669696
+          "worksumPerWorld": 669696,
+          "contaminatedWait4RssKiB": 108952
         },
         "JS": {
           "status": "PASS",
           "wholeProcessSeconds": 0.14838900603353977,
-          "peakRssKiB": 108952,
           "exitCode": 0,
           "command": [
             "node",
@@ -3918,12 +3917,12 @@
           "warmupMilliseconds": 67,
           "freshMeasuredWorlds": 1,
           "finalSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
-          "worksumPerWorld": 669696
+          "worksumPerWorld": 669696,
+          "contaminatedWait4RssKiB": 108952
         },
         "TS": {
           "status": "PASS",
           "wholeProcessSeconds": 0.2945866610389203,
-          "peakRssKiB": 108952,
           "exitCode": 0,
           "command": [
             "node",
@@ -3938,7 +3937,8 @@
           "warmupMilliseconds": 9.294201000000015,
           "freshMeasuredWorlds": 1,
           "finalSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
-          "worksumPerWorld": 669696
+          "worksumPerWorld": 669696,
+          "contaminatedWait4RssKiB": 108952
         }
       },
       "samples": {
@@ -3946,7 +3946,6 @@
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.05532128596678376,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -3970,12 +3969,12 @@
             "warmupMilliseconds": 22,
             "freshMeasuredWorlds": 1,
             "finalSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.05484428210183978,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -3999,12 +3998,12 @@
             "warmupMilliseconds": 23,
             "freshMeasuredWorlds": 1,
             "finalSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.05102900112979114,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -4028,12 +4027,12 @@
             "warmupMilliseconds": 22,
             "freshMeasuredWorlds": 1,
             "finalSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.05340635310858488,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -4057,12 +4056,12 @@
             "warmupMilliseconds": 23,
             "freshMeasuredWorlds": 1,
             "finalSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.05242051207460463,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -4086,12 +4085,12 @@
             "warmupMilliseconds": 22,
             "freshMeasuredWorlds": 1,
             "finalSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.06315664108842611,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -4115,12 +4114,12 @@
             "warmupMilliseconds": 33,
             "freshMeasuredWorlds": 1,
             "finalSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.048368061892688274,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -4144,14 +4143,14 @@
             "warmupMilliseconds": 22,
             "freshMeasuredWorlds": 1,
             "finalSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           }
         ],
         "JS": [
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.14124498912133276,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -4172,12 +4171,12 @@
             "warmupMilliseconds": 61,
             "freshMeasuredWorlds": 1,
             "finalSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.1391701390966773,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -4198,12 +4197,12 @@
             "warmupMilliseconds": 56,
             "freshMeasuredWorlds": 1,
             "finalSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.12838030001148582,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -4224,12 +4223,12 @@
             "warmupMilliseconds": 54,
             "freshMeasuredWorlds": 1,
             "finalSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.1638379239011556,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -4250,12 +4249,12 @@
             "warmupMilliseconds": 75,
             "freshMeasuredWorlds": 1,
             "finalSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.15320821199566126,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -4276,12 +4275,12 @@
             "warmupMilliseconds": 58,
             "freshMeasuredWorlds": 1,
             "finalSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.1482677129097283,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -4302,12 +4301,12 @@
             "warmupMilliseconds": 56,
             "freshMeasuredWorlds": 1,
             "finalSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.13840396492742002,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -4328,14 +4327,14 @@
             "warmupMilliseconds": 58,
             "freshMeasuredWorlds": 1,
             "finalSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           }
         ],
         "TS": [
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.35347709991037846,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -4356,12 +4355,12 @@
             "warmupMilliseconds": 6.247509999999977,
             "freshMeasuredWorlds": 1,
             "finalSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.2820616830140352,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -4382,12 +4381,12 @@
             "warmupMilliseconds": 10.030083000000019,
             "freshMeasuredWorlds": 1,
             "finalSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.2645419149193913,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -4408,12 +4407,12 @@
             "warmupMilliseconds": 7.262600999999989,
             "freshMeasuredWorlds": 1,
             "finalSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.2661503031849861,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -4434,12 +4433,12 @@
             "warmupMilliseconds": 5.829881,
             "freshMeasuredWorlds": 1,
             "finalSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.2669018500018865,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -4460,12 +4459,12 @@
             "warmupMilliseconds": 6.760721999999987,
             "freshMeasuredWorlds": 1,
             "finalSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.26044092304073274,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -4486,12 +4485,12 @@
             "warmupMilliseconds": 5.035583000000003,
             "freshMeasuredWorlds": 1,
             "finalSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.2781291089486331,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -4512,7 +4511,8 @@
             "warmupMilliseconds": 5.253002000000009,
             "freshMeasuredWorlds": 1,
             "finalSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
-            "worksumPerWorld": 669696
+            "worksumPerWorld": 669696,
+            "contaminatedWait4RssKiB": 108952
           }
         ]
       },
@@ -4532,7 +4532,7 @@
               24
             ]
           },
-          "peakRssKiB": {
+          "withdrawnWait4RssSummaryKiB": {
             "min": 108952,
             "median": 108952,
             "max": 108952,
@@ -4562,7 +4562,7 @@
               45
             ]
           },
-          "peakRssKiB": {
+          "withdrawnWait4RssSummaryKiB": {
             "min": 108952,
             "median": 108952,
             "max": 108952,
@@ -4592,7 +4592,7 @@
               3.601112999999998
             ]
           },
-          "peakRssKiB": {
+          "withdrawnWait4RssSummaryKiB": {
             "min": 108952,
             "median": 108952,
             "max": 108952,
@@ -4629,7 +4629,6 @@
         "Native": {
           "status": "PASS",
           "wholeProcessSeconds": 0.6604870709124953,
-          "peakRssKiB": 108952,
           "exitCode": 0,
           "command": [
             "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -4647,12 +4646,12 @@
           "warmupMilliseconds": 330,
           "freshMeasuredWorlds": 1,
           "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
-          "worksumPerWorld": 8970240
+          "worksumPerWorld": 8970240,
+          "contaminatedWait4RssKiB": 108952
         },
         "JS": {
           "status": "PASS",
           "wholeProcessSeconds": 1.0871481038630009,
-          "peakRssKiB": 202952,
           "exitCode": 0,
           "command": [
             "node",
@@ -4667,12 +4666,12 @@
           "warmupMilliseconds": 569,
           "freshMeasuredWorlds": 1,
           "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
-          "worksumPerWorld": 8970240
+          "worksumPerWorld": 8970240,
+          "contaminatedWait4RssKiB": 202952
         },
         "TS": {
           "status": "PASS",
           "wholeProcessSeconds": 0.2741954519879073,
-          "peakRssKiB": 108952,
           "exitCode": 0,
           "command": [
             "node",
@@ -4687,7 +4686,8 @@
           "warmupMilliseconds": 10.046831999999995,
           "freshMeasuredWorlds": 1,
           "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
-          "worksumPerWorld": 8970240
+          "worksumPerWorld": 8970240,
+          "contaminatedWait4RssKiB": 108952
         }
       },
       "samples": {
@@ -4695,7 +4695,6 @@
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.7278027888387442,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -4719,12 +4718,12 @@
             "warmupMilliseconds": 327,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.635420615086332,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -4748,12 +4747,12 @@
             "warmupMilliseconds": 313,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.732973039150238,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -4777,12 +4776,12 @@
             "warmupMilliseconds": 333,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.7760313909966499,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -4806,12 +4805,12 @@
             "warmupMilliseconds": 337,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.6560102009680122,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -4835,12 +4834,12 @@
             "warmupMilliseconds": 321,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.6524703381583095,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -4864,12 +4863,12 @@
             "warmupMilliseconds": 319,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.8098777518607676,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -4893,14 +4892,14 @@
             "warmupMilliseconds": 418,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 108952
           }
         ],
         "JS": [
           {
             "status": "PASS",
             "wholeProcessSeconds": 1.3794637040700763,
-            "peakRssKiB": 209148,
             "exitCode": 0,
             "command": [
               "node",
@@ -4921,12 +4920,12 @@
             "warmupMilliseconds": 660,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 209148
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 1.1074618948623538,
-            "peakRssKiB": 203940,
             "exitCode": 0,
             "command": [
               "node",
@@ -4947,12 +4946,12 @@
             "warmupMilliseconds": 561,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 203940
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 1.0520212319679558,
-            "peakRssKiB": 204280,
             "exitCode": 0,
             "command": [
               "node",
@@ -4973,12 +4972,12 @@
             "warmupMilliseconds": 506,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 204280
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 1.1094505779910833,
-            "peakRssKiB": 205112,
             "exitCode": 0,
             "command": [
               "node",
@@ -4999,12 +4998,12 @@
             "warmupMilliseconds": 512,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 205112
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 1.037302530137822,
-            "peakRssKiB": 205004,
             "exitCode": 0,
             "command": [
               "node",
@@ -5025,12 +5024,12 @@
             "warmupMilliseconds": 506,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 205004
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.9957351058255881,
-            "peakRssKiB": 143704,
             "exitCode": 0,
             "command": [
               "node",
@@ -5051,12 +5050,12 @@
             "warmupMilliseconds": 499,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 143704
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 1.1112068840302527,
-            "peakRssKiB": 147856,
             "exitCode": 0,
             "command": [
               "node",
@@ -5077,14 +5076,14 @@
             "warmupMilliseconds": 521,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 147856
           }
         ],
         "TS": [
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.38966331304982305,
-            "peakRssKiB": 109032,
             "exitCode": 0,
             "command": [
               "node",
@@ -5105,12 +5104,12 @@
             "warmupMilliseconds": 27.397181999999987,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 109032
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.3201374530326575,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -5131,12 +5130,12 @@
             "warmupMilliseconds": 14.483784999999955,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.3223064700141549,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -5157,12 +5156,12 @@
             "warmupMilliseconds": 11.413760000000025,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.29056296101771295,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -5183,12 +5182,12 @@
             "warmupMilliseconds": 10.125708000000003,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.27451503789052367,
-            "peakRssKiB": 109084,
             "exitCode": 0,
             "command": [
               "node",
@@ -5209,12 +5208,12 @@
             "warmupMilliseconds": 11.127507999999978,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 109084
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.26031200494617224,
-            "peakRssKiB": 109116,
             "exitCode": 0,
             "command": [
               "node",
@@ -5235,12 +5234,12 @@
             "warmupMilliseconds": 10.229624999999999,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 109116
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.2808757140301168,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -5261,7 +5260,8 @@
             "warmupMilliseconds": 9.838997000000006,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
-            "worksumPerWorld": 8970240
+            "worksumPerWorld": 8970240,
+            "contaminatedWait4RssKiB": 108952
           }
         ]
       },
@@ -5281,7 +5281,7 @@
               381
             ]
           },
-          "peakRssKiB": {
+          "withdrawnWait4RssSummaryKiB": {
             "min": 108952,
             "median": 108952,
             "max": 108952,
@@ -5311,7 +5311,7 @@
               527
             ]
           },
-          "peakRssKiB": {
+          "withdrawnWait4RssSummaryKiB": {
             "min": 143704,
             "median": 204280,
             "max": 209148,
@@ -5341,7 +5341,7 @@
               13.905487999999991
             ]
           },
-          "peakRssKiB": {
+          "withdrawnWait4RssSummaryKiB": {
             "min": 108952,
             "median": 108952,
             "max": 109116,
@@ -5379,7 +5379,6 @@
           "status": "FAILED",
           "error": "five-second process-group deadline",
           "wholeProcessSeconds": 5.000732333865017,
-          "peakRssKiB": 108952,
           "exitCode": -9,
           "command": [
             "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -5391,13 +5390,13 @@
             "1",
             "--gpu",
             "off"
-          ]
+          ],
+          "contaminatedWait4RssKiB": 108952
         },
         "JS": {
           "status": "FAILED",
           "error": "five-second process-group deadline",
           "wholeProcessSeconds": 5.0328161381185055,
-          "peakRssKiB": 214580,
           "exitCode": -9,
           "command": [
             "node",
@@ -5406,12 +5405,12 @@
             "0",
             "1024",
             "1"
-          ]
+          ],
+          "contaminatedWait4RssKiB": 214580
         },
         "TS": {
           "status": "PASS",
           "wholeProcessSeconds": 0.9038101870100945,
-          "peakRssKiB": 109080,
           "exitCode": 0,
           "command": [
             "node",
@@ -5426,7 +5425,8 @@
           "warmupMilliseconds": 108.48372100000006,
           "freshMeasuredWorlds": 1,
           "finalSha256": "81bacc878c1166490c0e9c8ad5f644da326c0d57b82a1e6ca328335bcc1924a7",
-          "worksumPerWorld": 136544256
+          "worksumPerWorld": 136544256,
+          "contaminatedWait4RssKiB": 109080
         }
       },
       "samples": {
@@ -5451,7 +5451,6 @@
         "Native": {
           "status": "PASS",
           "wholeProcessSeconds": 0.022304265992715955,
-          "peakRssKiB": 108952,
           "exitCode": 0,
           "command": [
             "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -5469,12 +5468,12 @@
           "warmupMilliseconds": 7,
           "freshMeasuredWorlds": 1,
           "finalSha256": "c1c1d6cb73ca9e83d03b1149dd5e5a0ab2d723c0c373a2ddcd485c74d65a90ce",
-          "worksumPerWorld": 2090336
+          "worksumPerWorld": 2090336,
+          "contaminatedWait4RssKiB": 108952
         },
         "JS": {
           "status": "PASS",
           "wholeProcessSeconds": 0.15299396007321775,
-          "peakRssKiB": 108952,
           "exitCode": 0,
           "command": [
             "node",
@@ -5489,12 +5488,12 @@
           "warmupMilliseconds": 57,
           "freshMeasuredWorlds": 1,
           "finalSha256": "c1c1d6cb73ca9e83d03b1149dd5e5a0ab2d723c0c373a2ddcd485c74d65a90ce",
-          "worksumPerWorld": 2090336
+          "worksumPerWorld": 2090336,
+          "contaminatedWait4RssKiB": 108952
         },
         "TS": {
           "status": "PASS",
           "wholeProcessSeconds": 0.49948721192777157,
-          "peakRssKiB": 108952,
           "exitCode": 0,
           "command": [
             "node",
@@ -5509,7 +5508,8 @@
           "warmupMilliseconds": 12.458309999999983,
           "freshMeasuredWorlds": 1,
           "finalSha256": "c1c1d6cb73ca9e83d03b1149dd5e5a0ab2d723c0c373a2ddcd485c74d65a90ce",
-          "worksumPerWorld": 2090336
+          "worksumPerWorld": 2090336,
+          "contaminatedWait4RssKiB": 108952
         }
       },
       "samples": {
@@ -5517,7 +5517,6 @@
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.015671004075556993,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -5541,12 +5540,12 @@
             "warmupMilliseconds": 7,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c1c1d6cb73ca9e83d03b1149dd5e5a0ab2d723c0c373a2ddcd485c74d65a90ce",
-            "worksumPerWorld": 2090336
+            "worksumPerWorld": 2090336,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.04407552699558437,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -5570,12 +5569,12 @@
             "warmupMilliseconds": 15,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c1c1d6cb73ca9e83d03b1149dd5e5a0ab2d723c0c373a2ddcd485c74d65a90ce",
-            "worksumPerWorld": 2090336
+            "worksumPerWorld": 2090336,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.017419683979824185,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -5599,12 +5598,12 @@
             "warmupMilliseconds": 8,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c1c1d6cb73ca9e83d03b1149dd5e5a0ab2d723c0c373a2ddcd485c74d65a90ce",
-            "worksumPerWorld": 2090336
+            "worksumPerWorld": 2090336,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.023897737031802535,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -5628,12 +5627,12 @@
             "warmupMilliseconds": 4,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c1c1d6cb73ca9e83d03b1149dd5e5a0ab2d723c0c373a2ddcd485c74d65a90ce",
-            "worksumPerWorld": 2090336
+            "worksumPerWorld": 2090336,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.04036612203344703,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -5657,12 +5656,12 @@
             "warmupMilliseconds": 21,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c1c1d6cb73ca9e83d03b1149dd5e5a0ab2d723c0c373a2ddcd485c74d65a90ce",
-            "worksumPerWorld": 2090336
+            "worksumPerWorld": 2090336,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.021528383949771523,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -5686,12 +5685,12 @@
             "warmupMilliseconds": 12,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c1c1d6cb73ca9e83d03b1149dd5e5a0ab2d723c0c373a2ddcd485c74d65a90ce",
-            "worksumPerWorld": 2090336
+            "worksumPerWorld": 2090336,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.025268915109336376,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -5715,14 +5714,14 @@
             "warmupMilliseconds": 12,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c1c1d6cb73ca9e83d03b1149dd5e5a0ab2d723c0c373a2ddcd485c74d65a90ce",
-            "worksumPerWorld": 2090336
+            "worksumPerWorld": 2090336,
+            "contaminatedWait4RssKiB": 108952
           }
         ],
         "JS": [
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.1937565440312028,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -5743,12 +5742,12 @@
             "warmupMilliseconds": 84,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c1c1d6cb73ca9e83d03b1149dd5e5a0ab2d723c0c373a2ddcd485c74d65a90ce",
-            "worksumPerWorld": 2090336
+            "worksumPerWorld": 2090336,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.13927180599421263,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -5769,12 +5768,12 @@
             "warmupMilliseconds": 61,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c1c1d6cb73ca9e83d03b1149dd5e5a0ab2d723c0c373a2ddcd485c74d65a90ce",
-            "worksumPerWorld": 2090336
+            "worksumPerWorld": 2090336,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.1721694499719888,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -5795,12 +5794,12 @@
             "warmupMilliseconds": 67,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c1c1d6cb73ca9e83d03b1149dd5e5a0ab2d723c0c373a2ddcd485c74d65a90ce",
-            "worksumPerWorld": 2090336
+            "worksumPerWorld": 2090336,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.28204743284732103,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -5821,12 +5820,12 @@
             "warmupMilliseconds": 93,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c1c1d6cb73ca9e83d03b1149dd5e5a0ab2d723c0c373a2ddcd485c74d65a90ce",
-            "worksumPerWorld": 2090336
+            "worksumPerWorld": 2090336,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.24208585591986775,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -5847,12 +5846,12 @@
             "warmupMilliseconds": 88,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c1c1d6cb73ca9e83d03b1149dd5e5a0ab2d723c0c373a2ddcd485c74d65a90ce",
-            "worksumPerWorld": 2090336
+            "worksumPerWorld": 2090336,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.2132554529234767,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -5873,12 +5872,12 @@
             "warmupMilliseconds": 90,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c1c1d6cb73ca9e83d03b1149dd5e5a0ab2d723c0c373a2ddcd485c74d65a90ce",
-            "worksumPerWorld": 2090336
+            "worksumPerWorld": 2090336,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.13534060795791447,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -5899,14 +5898,14 @@
             "warmupMilliseconds": 59,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c1c1d6cb73ca9e83d03b1149dd5e5a0ab2d723c0c373a2ddcd485c74d65a90ce",
-            "worksumPerWorld": 2090336
+            "worksumPerWorld": 2090336,
+            "contaminatedWait4RssKiB": 108952
           }
         ],
         "TS": [
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.5246543760877103,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -5927,12 +5926,12 @@
             "warmupMilliseconds": 10.067123999999978,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c1c1d6cb73ca9e83d03b1149dd5e5a0ab2d723c0c373a2ddcd485c74d65a90ce",
-            "worksumPerWorld": 2090336
+            "worksumPerWorld": 2090336,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.387763547943905,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -5953,12 +5952,12 @@
             "warmupMilliseconds": 4.580037000000004,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c1c1d6cb73ca9e83d03b1149dd5e5a0ab2d723c0c373a2ddcd485c74d65a90ce",
-            "worksumPerWorld": 2090336
+            "worksumPerWorld": 2090336,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.4174918329808861,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -5979,12 +5978,12 @@
             "warmupMilliseconds": 6.707305000000019,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c1c1d6cb73ca9e83d03b1149dd5e5a0ab2d723c0c373a2ddcd485c74d65a90ce",
-            "worksumPerWorld": 2090336
+            "worksumPerWorld": 2090336,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.5838782349601388,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -6005,12 +6004,12 @@
             "warmupMilliseconds": 17.990688999999975,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c1c1d6cb73ca9e83d03b1149dd5e5a0ab2d723c0c373a2ddcd485c74d65a90ce",
-            "worksumPerWorld": 2090336
+            "worksumPerWorld": 2090336,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.5103835929185152,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -6031,12 +6030,12 @@
             "warmupMilliseconds": 6.974557000000004,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c1c1d6cb73ca9e83d03b1149dd5e5a0ab2d723c0c373a2ddcd485c74d65a90ce",
-            "worksumPerWorld": 2090336
+            "worksumPerWorld": 2090336,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.3360517080873251,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -6057,12 +6056,12 @@
             "warmupMilliseconds": 9.221159,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c1c1d6cb73ca9e83d03b1149dd5e5a0ab2d723c0c373a2ddcd485c74d65a90ce",
-            "worksumPerWorld": 2090336
+            "worksumPerWorld": 2090336,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.45526305795647204,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -6083,7 +6082,8 @@
             "warmupMilliseconds": 11.16542499999997,
             "freshMeasuredWorlds": 1,
             "finalSha256": "c1c1d6cb73ca9e83d03b1149dd5e5a0ab2d723c0c373a2ddcd485c74d65a90ce",
-            "worksumPerWorld": 2090336
+            "worksumPerWorld": 2090336,
+            "contaminatedWait4RssKiB": 108952
           }
         ]
       },
@@ -6103,7 +6103,7 @@
               6
             ]
           },
-          "peakRssKiB": {
+          "withdrawnWait4RssSummaryKiB": {
             "min": 108952,
             "median": 108952,
             "max": 108952,
@@ -6133,7 +6133,7 @@
               21
             ]
           },
-          "peakRssKiB": {
+          "withdrawnWait4RssSummaryKiB": {
             "min": 108952,
             "median": 108952,
             "max": 108952,
@@ -6163,7 +6163,7 @@
               2.755271999999991
             ]
           },
-          "peakRssKiB": {
+          "withdrawnWait4RssSummaryKiB": {
             "min": 108952,
             "median": 108952,
             "max": 108952,
@@ -6200,7 +6200,6 @@
         "Native": {
           "status": "PASS",
           "wholeProcessSeconds": 0.1551250189077109,
-          "peakRssKiB": 108952,
           "exitCode": 0,
           "command": [
             "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -6218,12 +6217,12 @@
           "warmupMilliseconds": 57,
           "freshMeasuredWorlds": 1,
           "finalSha256": "66ac722d662ab9f8b89d2c7531242764d28a014bec7bed35aef32fa382bc754c",
-          "worksumPerWorld": 107511904
+          "worksumPerWorld": 107511904,
+          "contaminatedWait4RssKiB": 108952
         },
         "JS": {
           "status": "PASS",
           "wholeProcessSeconds": 0.45934734190814197,
-          "peakRssKiB": 108952,
           "exitCode": 0,
           "command": [
             "node",
@@ -6238,12 +6237,12 @@
           "warmupMilliseconds": 263,
           "freshMeasuredWorlds": 1,
           "finalSha256": "66ac722d662ab9f8b89d2c7531242764d28a014bec7bed35aef32fa382bc754c",
-          "worksumPerWorld": 107511904
+          "worksumPerWorld": 107511904,
+          "contaminatedWait4RssKiB": 108952
         },
         "TS": {
           "status": "PASS",
           "wholeProcessSeconds": 0.8495218679308891,
-          "peakRssKiB": 108952,
           "exitCode": 0,
           "command": [
             "node",
@@ -6258,7 +6257,8 @@
           "warmupMilliseconds": 38.07218599999999,
           "freshMeasuredWorlds": 1,
           "finalSha256": "66ac722d662ab9f8b89d2c7531242764d28a014bec7bed35aef32fa382bc754c",
-          "worksumPerWorld": 107511904
+          "worksumPerWorld": 107511904,
+          "contaminatedWait4RssKiB": 108952
         }
       },
       "samples": {
@@ -6266,7 +6266,6 @@
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.5451511270366609,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -6290,12 +6289,12 @@
             "warmupMilliseconds": 254,
             "freshMeasuredWorlds": 1,
             "finalSha256": "66ac722d662ab9f8b89d2c7531242764d28a014bec7bed35aef32fa382bc754c",
-            "worksumPerWorld": 107511904
+            "worksumPerWorld": 107511904,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.2766558469738811,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -6319,12 +6318,12 @@
             "warmupMilliseconds": 102,
             "freshMeasuredWorlds": 1,
             "finalSha256": "66ac722d662ab9f8b89d2c7531242764d28a014bec7bed35aef32fa382bc754c",
-            "worksumPerWorld": 107511904
+            "worksumPerWorld": 107511904,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.22673723008483648,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -6348,12 +6347,12 @@
             "warmupMilliseconds": 128,
             "freshMeasuredWorlds": 1,
             "finalSha256": "66ac722d662ab9f8b89d2c7531242764d28a014bec7bed35aef32fa382bc754c",
-            "worksumPerWorld": 107511904
+            "worksumPerWorld": 107511904,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.10161820612847805,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -6377,12 +6376,12 @@
             "warmupMilliseconds": 47,
             "freshMeasuredWorlds": 1,
             "finalSha256": "66ac722d662ab9f8b89d2c7531242764d28a014bec7bed35aef32fa382bc754c",
-            "worksumPerWorld": 107511904
+            "worksumPerWorld": 107511904,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.09140237304382026,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -6406,12 +6405,12 @@
             "warmupMilliseconds": 42,
             "freshMeasuredWorlds": 1,
             "finalSha256": "66ac722d662ab9f8b89d2c7531242764d28a014bec7bed35aef32fa382bc754c",
-            "worksumPerWorld": 107511904
+            "worksumPerWorld": 107511904,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.12293250602670014,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -6435,12 +6434,12 @@
             "warmupMilliseconds": 63,
             "freshMeasuredWorlds": 1,
             "finalSha256": "66ac722d662ab9f8b89d2c7531242764d28a014bec7bed35aef32fa382bc754c",
-            "worksumPerWorld": 107511904
+            "worksumPerWorld": 107511904,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.2028230761643499,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -6464,14 +6463,14 @@
             "warmupMilliseconds": 50,
             "freshMeasuredWorlds": 1,
             "finalSha256": "66ac722d662ab9f8b89d2c7531242764d28a014bec7bed35aef32fa382bc754c",
-            "worksumPerWorld": 107511904
+            "worksumPerWorld": 107511904,
+            "contaminatedWait4RssKiB": 108952
           }
         ],
         "JS": [
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.7481635799631476,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -6492,12 +6491,12 @@
             "warmupMilliseconds": 443,
             "freshMeasuredWorlds": 1,
             "finalSha256": "66ac722d662ab9f8b89d2c7531242764d28a014bec7bed35aef32fa382bc754c",
-            "worksumPerWorld": 107511904
+            "worksumPerWorld": 107511904,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.626911296043545,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -6518,12 +6517,12 @@
             "warmupMilliseconds": 352,
             "freshMeasuredWorlds": 1,
             "finalSha256": "66ac722d662ab9f8b89d2c7531242764d28a014bec7bed35aef32fa382bc754c",
-            "worksumPerWorld": 107511904
+            "worksumPerWorld": 107511904,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.6423691310919821,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -6544,12 +6543,12 @@
             "warmupMilliseconds": 248,
             "freshMeasuredWorlds": 1,
             "finalSha256": "66ac722d662ab9f8b89d2c7531242764d28a014bec7bed35aef32fa382bc754c",
-            "worksumPerWorld": 107511904
+            "worksumPerWorld": 107511904,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.6065196301788092,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -6570,12 +6569,12 @@
             "warmupMilliseconds": 345,
             "freshMeasuredWorlds": 1,
             "finalSha256": "66ac722d662ab9f8b89d2c7531242764d28a014bec7bed35aef32fa382bc754c",
-            "worksumPerWorld": 107511904
+            "worksumPerWorld": 107511904,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.44921863405033946,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -6596,12 +6595,12 @@
             "warmupMilliseconds": 211,
             "freshMeasuredWorlds": 1,
             "finalSha256": "66ac722d662ab9f8b89d2c7531242764d28a014bec7bed35aef32fa382bc754c",
-            "worksumPerWorld": 107511904
+            "worksumPerWorld": 107511904,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.2917612628079951,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -6622,12 +6621,12 @@
             "warmupMilliseconds": 165,
             "freshMeasuredWorlds": 1,
             "finalSha256": "66ac722d662ab9f8b89d2c7531242764d28a014bec7bed35aef32fa382bc754c",
-            "worksumPerWorld": 107511904
+            "worksumPerWorld": 107511904,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.25547925592400134,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -6648,14 +6647,14 @@
             "warmupMilliseconds": 131,
             "freshMeasuredWorlds": 1,
             "finalSha256": "66ac722d662ab9f8b89d2c7531242764d28a014bec7bed35aef32fa382bc754c",
-            "worksumPerWorld": 107511904
+            "worksumPerWorld": 107511904,
+            "contaminatedWait4RssKiB": 108952
           }
         ],
         "TS": [
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.7060188180767,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -6676,12 +6675,12 @@
             "warmupMilliseconds": 44.43498899999997,
             "freshMeasuredWorlds": 1,
             "finalSha256": "66ac722d662ab9f8b89d2c7531242764d28a014bec7bed35aef32fa382bc754c",
-            "worksumPerWorld": 107511904
+            "worksumPerWorld": 107511904,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.5259171780198812,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -6702,12 +6701,12 @@
             "warmupMilliseconds": 7.363392999999974,
             "freshMeasuredWorlds": 1,
             "finalSha256": "66ac722d662ab9f8b89d2c7531242764d28a014bec7bed35aef32fa382bc754c",
-            "worksumPerWorld": 107511904
+            "worksumPerWorld": 107511904,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.33947377698495984,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -6728,12 +6727,12 @@
             "warmupMilliseconds": 16.61863599999998,
             "freshMeasuredWorlds": 1,
             "finalSha256": "66ac722d662ab9f8b89d2c7531242764d28a014bec7bed35aef32fa382bc754c",
-            "worksumPerWorld": 107511904
+            "worksumPerWorld": 107511904,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.3897738978266716,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -6754,12 +6753,12 @@
             "warmupMilliseconds": 11.702304000000026,
             "freshMeasuredWorlds": 1,
             "finalSha256": "66ac722d662ab9f8b89d2c7531242764d28a014bec7bed35aef32fa382bc754c",
-            "worksumPerWorld": 107511904
+            "worksumPerWorld": 107511904,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.5909826271235943,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -6780,12 +6779,12 @@
             "warmupMilliseconds": 10.884796999999935,
             "freshMeasuredWorlds": 1,
             "finalSha256": "66ac722d662ab9f8b89d2c7531242764d28a014bec7bed35aef32fa382bc754c",
-            "worksumPerWorld": 107511904
+            "worksumPerWorld": 107511904,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.3243926130235195,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -6806,12 +6805,12 @@
             "warmupMilliseconds": 8.59982100000002,
             "freshMeasuredWorlds": 1,
             "finalSha256": "66ac722d662ab9f8b89d2c7531242764d28a014bec7bed35aef32fa382bc754c",
-            "worksumPerWorld": 107511904
+            "worksumPerWorld": 107511904,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.44470076402649283,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -6832,7 +6831,8 @@
             "warmupMilliseconds": 9.035616000000005,
             "freshMeasuredWorlds": 1,
             "finalSha256": "66ac722d662ab9f8b89d2c7531242764d28a014bec7bed35aef32fa382bc754c",
-            "worksumPerWorld": 107511904
+            "worksumPerWorld": 107511904,
+            "contaminatedWait4RssKiB": 108952
           }
         ]
       },
@@ -6852,7 +6852,7 @@
               139
             ]
           },
-          "peakRssKiB": {
+          "withdrawnWait4RssSummaryKiB": {
             "min": 108952,
             "median": 108952,
             "max": 108952,
@@ -6882,7 +6882,7 @@
               67
             ]
           },
-          "peakRssKiB": {
+          "withdrawnWait4RssSummaryKiB": {
             "min": 108952,
             "median": 108952,
             "max": 108952,
@@ -6912,7 +6912,7 @@
               11.892596999999967
             ]
           },
-          "peakRssKiB": {
+          "withdrawnWait4RssSummaryKiB": {
             "min": 108952,
             "median": 108952,
             "max": 108952,
@@ -6949,7 +6949,6 @@
         "Native": {
           "status": "PASS",
           "wholeProcessSeconds": 1.742258420912549,
-          "peakRssKiB": 108952,
           "exitCode": 0,
           "command": [
             "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -6967,12 +6966,12 @@
           "warmupMilliseconds": 763,
           "freshMeasuredWorlds": 1,
           "finalSha256": "b59afb025faffeb35135fd4c95b7ed51ad00544e79dd0762ae6fbc000086fabc",
-          "worksumPerWorld": 2195426400
+          "worksumPerWorld": 2195426400,
+          "contaminatedWait4RssKiB": 108952
         },
         "JS": {
           "status": "PASS",
           "wholeProcessSeconds": 2.268602143973112,
-          "peakRssKiB": 235480,
           "exitCode": 0,
           "command": [
             "node",
@@ -6987,12 +6986,12 @@
           "warmupMilliseconds": 1185,
           "freshMeasuredWorlds": 1,
           "finalSha256": "b59afb025faffeb35135fd4c95b7ed51ad00544e79dd0762ae6fbc000086fabc",
-          "worksumPerWorld": 2195426400
+          "worksumPerWorld": 2195426400,
+          "contaminatedWait4RssKiB": 235480
         },
         "TS": {
           "status": "PASS",
           "wholeProcessSeconds": 0.2898992879781872,
-          "peakRssKiB": 109568,
           "exitCode": 0,
           "command": [
             "node",
@@ -7007,7 +7006,8 @@
           "warmupMilliseconds": 15.796796,
           "freshMeasuredWorlds": 1,
           "finalSha256": "b59afb025faffeb35135fd4c95b7ed51ad00544e79dd0762ae6fbc000086fabc",
-          "worksumPerWorld": 2195426400
+          "worksumPerWorld": 2195426400,
+          "contaminatedWait4RssKiB": 109568
         }
       },
       "samples": {
@@ -7015,7 +7015,6 @@
           {
             "status": "PASS",
             "wholeProcessSeconds": 1.5815665652044117,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -7039,12 +7038,12 @@
             "warmupMilliseconds": 762,
             "freshMeasuredWorlds": 1,
             "finalSha256": "b59afb025faffeb35135fd4c95b7ed51ad00544e79dd0762ae6fbc000086fabc",
-            "worksumPerWorld": 2195426400
+            "worksumPerWorld": 2195426400,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 1.5972539021167904,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -7068,12 +7067,12 @@
             "warmupMilliseconds": 782,
             "freshMeasuredWorlds": 1,
             "finalSha256": "b59afb025faffeb35135fd4c95b7ed51ad00544e79dd0762ae6fbc000086fabc",
-            "worksumPerWorld": 2195426400
+            "worksumPerWorld": 2195426400,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 1.6829137278255075,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -7097,12 +7096,12 @@
             "warmupMilliseconds": 807,
             "freshMeasuredWorlds": 1,
             "finalSha256": "b59afb025faffeb35135fd4c95b7ed51ad00544e79dd0762ae6fbc000086fabc",
-            "worksumPerWorld": 2195426400
+            "worksumPerWorld": 2195426400,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 1.551868572132662,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -7126,12 +7125,12 @@
             "warmupMilliseconds": 742,
             "freshMeasuredWorlds": 1,
             "finalSha256": "b59afb025faffeb35135fd4c95b7ed51ad00544e79dd0762ae6fbc000086fabc",
-            "worksumPerWorld": 2195426400
+            "worksumPerWorld": 2195426400,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 1.5271884109824896,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -7155,12 +7154,12 @@
             "warmupMilliseconds": 742,
             "freshMeasuredWorlds": 1,
             "finalSha256": "b59afb025faffeb35135fd4c95b7ed51ad00544e79dd0762ae6fbc000086fabc",
-            "worksumPerWorld": 2195426400
+            "worksumPerWorld": 2195426400,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 1.5780514110811055,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -7184,12 +7183,12 @@
             "warmupMilliseconds": 764,
             "freshMeasuredWorlds": 1,
             "finalSha256": "b59afb025faffeb35135fd4c95b7ed51ad00544e79dd0762ae6fbc000086fabc",
-            "worksumPerWorld": 2195426400
+            "worksumPerWorld": 2195426400,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 1.5191508869174868,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "/tmp/measurement-samples-fjyjif05/measurement-samples-bend-native",
@@ -7213,14 +7212,14 @@
             "warmupMilliseconds": 736,
             "freshMeasuredWorlds": 1,
             "finalSha256": "b59afb025faffeb35135fd4c95b7ed51ad00544e79dd0762ae6fbc000086fabc",
-            "worksumPerWorld": 2195426400
+            "worksumPerWorld": 2195426400,
+            "contaminatedWait4RssKiB": 108952
           }
         ],
         "JS": [
           {
             "status": "PASS",
             "wholeProcessSeconds": 1.9732467280700803,
-            "peakRssKiB": 232688,
             "exitCode": 0,
             "command": [
               "node",
@@ -7241,12 +7240,12 @@
             "warmupMilliseconds": 967,
             "freshMeasuredWorlds": 1,
             "finalSha256": "b59afb025faffeb35135fd4c95b7ed51ad00544e79dd0762ae6fbc000086fabc",
-            "worksumPerWorld": 2195426400
+            "worksumPerWorld": 2195426400,
+            "contaminatedWait4RssKiB": 232688
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 1.9426711860578507,
-            "peakRssKiB": 231684,
             "exitCode": 0,
             "command": [
               "node",
@@ -7267,12 +7266,12 @@
             "warmupMilliseconds": 966,
             "freshMeasuredWorlds": 1,
             "finalSha256": "b59afb025faffeb35135fd4c95b7ed51ad00544e79dd0762ae6fbc000086fabc",
-            "worksumPerWorld": 2195426400
+            "worksumPerWorld": 2195426400,
+            "contaminatedWait4RssKiB": 231684
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 1.985691538080573,
-            "peakRssKiB": 230016,
             "exitCode": 0,
             "command": [
               "node",
@@ -7293,12 +7292,12 @@
             "warmupMilliseconds": 1015,
             "freshMeasuredWorlds": 1,
             "finalSha256": "b59afb025faffeb35135fd4c95b7ed51ad00544e79dd0762ae6fbc000086fabc",
-            "worksumPerWorld": 2195426400
+            "worksumPerWorld": 2195426400,
+            "contaminatedWait4RssKiB": 230016
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 1.9892096919938922,
-            "peakRssKiB": 233236,
             "exitCode": 0,
             "command": [
               "node",
@@ -7319,12 +7318,12 @@
             "warmupMilliseconds": 990,
             "freshMeasuredWorlds": 1,
             "finalSha256": "b59afb025faffeb35135fd4c95b7ed51ad00544e79dd0762ae6fbc000086fabc",
-            "worksumPerWorld": 2195426400
+            "worksumPerWorld": 2195426400,
+            "contaminatedWait4RssKiB": 233236
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 1.9557480430230498,
-            "peakRssKiB": 234844,
             "exitCode": 0,
             "command": [
               "node",
@@ -7345,12 +7344,12 @@
             "warmupMilliseconds": 967,
             "freshMeasuredWorlds": 1,
             "finalSha256": "b59afb025faffeb35135fd4c95b7ed51ad00544e79dd0762ae6fbc000086fabc",
-            "worksumPerWorld": 2195426400
+            "worksumPerWorld": 2195426400,
+            "contaminatedWait4RssKiB": 234844
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 1.9511326719075441,
-            "peakRssKiB": 227628,
             "exitCode": 0,
             "command": [
               "node",
@@ -7371,12 +7370,12 @@
             "warmupMilliseconds": 964,
             "freshMeasuredWorlds": 1,
             "finalSha256": "b59afb025faffeb35135fd4c95b7ed51ad00544e79dd0762ae6fbc000086fabc",
-            "worksumPerWorld": 2195426400
+            "worksumPerWorld": 2195426400,
+            "contaminatedWait4RssKiB": 227628
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 2.3355151498690248,
-            "peakRssKiB": 235764,
             "exitCode": 0,
             "command": [
               "node",
@@ -7397,14 +7396,14 @@
             "warmupMilliseconds": 1086,
             "freshMeasuredWorlds": 1,
             "finalSha256": "b59afb025faffeb35135fd4c95b7ed51ad00544e79dd0762ae6fbc000086fabc",
-            "worksumPerWorld": 2195426400
+            "worksumPerWorld": 2195426400,
+            "contaminatedWait4RssKiB": 235764
           }
         ],
         "TS": [
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.30884340195916593,
-            "peakRssKiB": 109840,
             "exitCode": 0,
             "command": [
               "node",
@@ -7425,12 +7424,12 @@
             "warmupMilliseconds": 29.33236499999998,
             "freshMeasuredWorlds": 1,
             "finalSha256": "b59afb025faffeb35135fd4c95b7ed51ad00544e79dd0762ae6fbc000086fabc",
-            "worksumPerWorld": 2195426400
+            "worksumPerWorld": 2195426400,
+            "contaminatedWait4RssKiB": 109840
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.3228846830315888,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -7451,12 +7450,12 @@
             "warmupMilliseconds": 18.783487000000008,
             "freshMeasuredWorlds": 1,
             "finalSha256": "b59afb025faffeb35135fd4c95b7ed51ad00544e79dd0762ae6fbc000086fabc",
-            "worksumPerWorld": 2195426400
+            "worksumPerWorld": 2195426400,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.2861372570041567,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -7477,12 +7476,12 @@
             "warmupMilliseconds": 15.583710999999994,
             "freshMeasuredWorlds": 1,
             "finalSha256": "b59afb025faffeb35135fd4c95b7ed51ad00544e79dd0762ae6fbc000086fabc",
-            "worksumPerWorld": 2195426400
+            "worksumPerWorld": 2195426400,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.30767843406647444,
-            "peakRssKiB": 109532,
             "exitCode": 0,
             "command": [
               "node",
@@ -7503,12 +7502,12 @@
             "warmupMilliseconds": 23.65790099999998,
             "freshMeasuredWorlds": 1,
             "finalSha256": "b59afb025faffeb35135fd4c95b7ed51ad00544e79dd0762ae6fbc000086fabc",
-            "worksumPerWorld": 2195426400
+            "worksumPerWorld": 2195426400,
+            "contaminatedWait4RssKiB": 109532
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.30169734288938344,
-            "peakRssKiB": 108952,
             "exitCode": 0,
             "command": [
               "node",
@@ -7529,12 +7528,12 @@
             "warmupMilliseconds": 14.597411000000022,
             "freshMeasuredWorlds": 1,
             "finalSha256": "b59afb025faffeb35135fd4c95b7ed51ad00544e79dd0762ae6fbc000086fabc",
-            "worksumPerWorld": 2195426400
+            "worksumPerWorld": 2195426400,
+            "contaminatedWait4RssKiB": 108952
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.2928121460136026,
-            "peakRssKiB": 109472,
             "exitCode": 0,
             "command": [
               "node",
@@ -7555,12 +7554,12 @@
             "warmupMilliseconds": 17.437767999999977,
             "freshMeasuredWorlds": 1,
             "finalSha256": "b59afb025faffeb35135fd4c95b7ed51ad00544e79dd0762ae6fbc000086fabc",
-            "worksumPerWorld": 2195426400
+            "worksumPerWorld": 2195426400,
+            "contaminatedWait4RssKiB": 109472
           },
           {
             "status": "PASS",
             "wholeProcessSeconds": 0.28336769388988614,
-            "peakRssKiB": 109556,
             "exitCode": 0,
             "command": [
               "node",
@@ -7581,7 +7580,8 @@
             "warmupMilliseconds": 18.139898999999986,
             "freshMeasuredWorlds": 1,
             "finalSha256": "b59afb025faffeb35135fd4c95b7ed51ad00544e79dd0762ae6fbc000086fabc",
-            "worksumPerWorld": 2195426400
+            "worksumPerWorld": 2195426400,
+            "contaminatedWait4RssKiB": 109556
           }
         ]
       },
@@ -7601,7 +7601,7 @@
               766
             ]
           },
-          "peakRssKiB": {
+          "withdrawnWait4RssSummaryKiB": {
             "min": 108952,
             "median": 108952,
             "max": 108952,
@@ -7631,7 +7631,7 @@
               1129
             ]
           },
-          "peakRssKiB": {
+          "withdrawnWait4RssSummaryKiB": {
             "min": 227628,
             "median": 232688,
             "max": 235764,
@@ -7661,7 +7661,7 @@
               16.045714000000004
             ]
           },
-          "peakRssKiB": {
+          "withdrawnWait4RssSummaryKiB": {
             "min": 108952,
             "median": 109472,
             "max": 109840,
@@ -7686,5 +7686,13 @@
       "acceptance": "none: thresholds unapproved"
     }
   ],
-  "status": "PARTIAL_MEASURED"
+  "status": "PARTIAL_MEASURED",
+  "rssWithdrawal": {
+    "reason": "Fresh elementary controls demonstrate observer-dependent floor. Timing intervals, sample validation, ratios and deadlines are unchanged.",
+    "originalRunCommit": "374d9f7",
+    "originalRunnerSha256": "6ba0bb4c584e1d5b0dfb9330c1e176575324bf95e9863bee3ada1a2aaa9bbf20",
+    "currentRunnerRssHandlingSha256": "64adcb13c45b3b74bb3b9141ca7e61a8584358091d2df21dda60c5befcec0854",
+    "diagnosticEvidence": "measurement-samples-rss-probe-evidence.json",
+    "correctedEcsMemoryMeasurements": "not collected"
+  }
 }

@@ -7,7 +7,7 @@ spec=importlib.util.spec_from_file_location('readers',HERE/'measurement-readers-
 files={};B.closure(HERE/'measurement-samples-readers.bend',files);frozen={n:p.read_bytes() for n,p in files.items()}
 def digest(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def child(args,folder):
- # posix_spawn avoids a Python pre-exec heap contributing to the native RSS.
+ # Diagnostic only: wait4 RSS inherits a parent floor here; never report it as child peak RSS.
  output=folder/'child-output';fd=os.open(output,os.O_WRONLY|os.O_CREAT|os.O_TRUNC,0o600)
  actions=[(os.POSIX_SPAWN_DUP2,fd,1),(os.POSIX_SPAWN_DUP2,fd,2),(os.POSIX_SPAWN_CLOSE,fd)]
  started=time.monotonic();pid=os.posix_spawnp(str(args[0]),[str(x) for x in args],os.environ.copy(),file_actions=actions,setsid=True);os.close(fd)
@@ -19,7 +19,7 @@ def child(args,folder):
    expired=True;os.killpg(pid,signal.SIGKILL);_,status,usage=os.wait4(pid,0);break
   time.sleep(.002)
  elapsed=time.monotonic()-started;value=output.read_text()
- meta={'wholeProcessSeconds':elapsed,'peakRssKiB':usage.ru_maxrss,'exitCode':os.waitstatus_to_exitcode(status),'command':[str(x) for x in args]}
+ meta={'wholeProcessSeconds':elapsed,'contaminatedWait4RssKiB':usage.ru_maxrss,'exitCode':os.waitstatus_to_exitcode(status),'command':[str(x) for x in args]}
  if expired:return {'status':'FAILED','error':'five-second process-group deadline',**meta},None
  if meta['exitCode']!=0:return {'status':'FAILED','error':value[-2000:],**meta},None
  return {'status':'PASS',**meta},value
@@ -50,7 +50,7 @@ def checked(backend,text,schema,n,ref):
 def stats(values):return {'min':min(values),'median':statistics.median(values),'max':max(values),'raw':values}
 def main():
  os.sched_setaffinity(0,{5})
- result={'scope':'Readers actual dispatcher/affine updates; 64 iterations and retained full event batches; seven repetitions; no acceptance','cpuAffinity':sorted(os.sched_getaffinity(0)),'iterationsPerWorld':64,'warmup':'one fresh identical world per child before measured fresh worlds','batch':'one fresh measured world per child for all counts','clock':'Bend IO.now integer milliseconds, TS performance.now; sum only inner execution intervals','rssMethod':'POSIX posix_spawn + wait4.ru_maxrss; KiB; entire child including startup/warmup/setup/dumps and child-owned validation, not component allocations','limits':{'checker':5,'runtime':5,'codegen':30,'clang':120},'compiler':B.command(['bend','version']).strip(),'clang':B.command(['clang','--version']).splitlines()[0],'node':B.command(['node','--version']).strip(),'compilerSha256':digest(pathlib.Path(shutil.which('bend')).resolve()),'baseSha256':digest(pathlib.Path.home()/'.bend/bend2/base.bend'),'sources':{n:hashlib.sha256(v).hexdigest() for n,v in frozen.items()},'runnerSha256':digest(pathlib.Path(__file__)),'referenceSha256':digest(HERE/'measurement-reference.mjs'),'timingReferenceSha256':digest(HERE/'measurement-samples-readers-reference.mjs'),'contractSha256':digest(HERE/'measurement-samples-plan.md'),'cases':[]}
+ result={'scope':'Readers actual dispatcher/affine updates; 64 iterations and retained full event batches; seven repetitions; no acceptance','cpuAffinity':sorted(os.sched_getaffinity(0)),'iterationsPerWorld':64,'warmup':'one fresh identical world per child before measured fresh worlds','batch':'one fresh measured world per child for all counts','clock':'Bend IO.now integer milliseconds, TS performance.now; sum only inner execution intervals','rssMethod':'WITHDRAWN: direct posix_spawn/wait4 inherits observer RSS floor; contaminated raw values retained only for diagnosis','limits':{'checker':5,'runtime':5,'codegen':30,'clang':120},'compiler':B.command(['bend','version']).strip(),'clang':B.command(['clang','--version']).splitlines()[0],'node':B.command(['node','--version']).strip(),'compilerSha256':digest(pathlib.Path(shutil.which('bend')).resolve()),'baseSha256':digest(pathlib.Path.home()/'.bend/bend2/base.bend'),'sources':{n:hashlib.sha256(v).hexdigest() for n,v in frozen.items()},'runnerSha256':digest(pathlib.Path(__file__)),'referenceSha256':digest(HERE/'measurement-reference.mjs'),'timingReferenceSha256':digest(HERE/'measurement-samples-readers-reference.mjs'),'contractSha256':digest(HERE/'measurement-samples-plan.md'),'cases':[]}
  def save():(HERE/'measurement-samples-readers-evidence.json').write_text(json.dumps(result,indent=2)+'\n')
  with tempfile.TemporaryDirectory(prefix='measurement-samples-') as tmp:
   root=pathlib.Path(tmp)
@@ -82,7 +82,7 @@ def main():
        case['samples'][backend].append(meta);save()
      complete=all(len(v)==7 and all(s['status']=='PASS' for s in v) for v in case['samples'].values());case['status']='MEASURED' if complete else 'REGRESSION'
      for backend,samples in case['samples'].items():
-      if all(v['status']=='PASS' for v in samples):case['summary'][backend]={'milliseconds':stats([v['milliseconds'] for v in samples]),'peakRssKiB':stats([v['peakRssKiB'] for v in samples])}
+      if all(v['status']=='PASS' for v in samples):case['summary'][backend]={'milliseconds':stats([v['milliseconds'] for v in samples])}
      if complete:
       med={b:case['summary'][b]['milliseconds']['median'] for b in base};case['ratios']={'Native/TS':med['Native']/med['TS'],'JS/TS':med['JS']/med['TS']}
       case['resolutionLimited']=any(v['milliseconds']<10 for v in case['samples']['Native']);case['acceptance']='none: thresholds unapproved; sub-10ms native samples are resolution-limited' if case['resolutionLimited'] else 'none: thresholds unapproved'

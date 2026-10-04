@@ -10,15 +10,15 @@ The new TS adapter retains the source's actual queries and `.get`, added/changed
 
 Every Bend world passes the unchanged234-line validator:84 complete Read records,84 actual ReadDone diagnostics,64 complete reservation records, the complete final world/query and reader call counts. The new TS comparator independently checks every actual row field/order, added/changed membership, lifecycle/message delivery, lag, diagnostics and final objects. Seven finite comparator perturbations are rejected (Main slot3, Aux slot3, Flag, lifecycle ID, Ping payload, lag and clock); they are comparator controls, not runtime mutations or ECS proofs. `python3 experiments/s-integrate/measurement-samples-validation-controls.py` runs those controls on fresh actual TS output on CPU6, outside timing sampling.
 
-All sampling uses CPU5, the same Node binary for JS/TS, NativeO3 single worker GPUoff, rotated backend order, five-second process groups and checker5s/codegen30s/clang120s. Each sample's raw clock/RSS, command and source/tool hashes are preserved. `wait4.ru_maxrss` covers the whole child including imports, warmup, both setups, retained snapshots and JSON output; it does not isolate steady storage. Memory retention added for post-timer validation is part of that peak and can affect GC. A1024 timeout therefore does not alone locate the cost in the timed body. Failed prerequisites are not retried seven times. Native64 samples below10ms are resolution-limited and cannot support stable acceptance ratios.
+All sampling uses CPU5, the same Node binary for JS/TS, NativeO3 single worker GPUoff, rotated backend order, five-second process groups and checker5s/codegen30s/clang120s. Each sample's raw clock, contaminated wait4 reading, command and source/tool hashes are preserved. **RSS comparisons are withdrawn:** direct `posix_spawn`/`wait4` readings inherit an observer-dependent floor. They cannot be interpreted as backend peak memory. Historical raw values and summaries are retained as explicitly contaminated/withdrawn diagnostics; no corrected ECS memory samples exist. See `measurement-samples-rss-report.md`. Retention added for post-timer validation can still affect GC and process completion. A1024 timeout therefore does not alone locate the cost in the timed body. Failed prerequisites are not retried seven times. Native64 samples below10ms are resolution-limited and cannot support stable acceptance ratios.
 
-| Schema/count | Native ms median [min,max] | JS ms median [min,max] | TS ms median [min,max] | Native/TS | JS/TS | RSS KiB median Native/JS/TS |
-|---|---:|---:|---:|---:|---:|---:|
-| Motion 64 * | 8.000 [5.000,13.000] | 30.000 [20.000,31.000] | 16.264 [14.499,30.278] | 0.49 | 1.84 | 110080/110080/112104 |
-| Motion 256 | 20.000 [18.000,26.000] | 98.000 [79.000,275.000] | 34.750 [28.125,84.861] | 0.58 | 2.82 | 110080/224232/127196 |
-| Motion 1024 | deadline | deadline | prerequisite passed | — | — | no samples |
-| Health 64 * | 6.000 [6.000,7.000] | 28.000 [19.000,39.000] | 17.527 [14.244,28.415] | 0.34 | 1.60 | 208960/208960/208960 |
-| Health 256 | 21.000 [19.000,25.000] | 81.000 [73.000,104.000] | 29.875 [23.376,38.878] | 0.70 | 2.71 | 208960/221636/208960 |
-| Health 1024 | deadline | deadline | prerequisite passed | — | — | no samples |
+| Schema/count | Native ms median [min,max] | JS ms median [min,max] | TS ms median [min,max] | Native/TS | JS/TS |
+|---|---:|---:|---:|---:|---:|
+| Motion 64 * | 8.000 [5.000,13.000] | 30.000 [20.000,31.000] | 16.264 [14.499,30.278] | 0.49 | 1.84 |
+| Motion 256 | 20.000 [18.000,26.000] | 98.000 [79.000,275.000] | 34.750 [28.125,84.861] | 0.58 | 2.82 |
+| Motion 1024 | deadline | deadline | prerequisite passed | — | — |
+| Health 64 * | 6.000 [6.000,7.000] | 28.000 [19.000,39.000] | 17.527 [14.244,28.415] | 0.34 | 1.60 |
+| Health 256 | 21.000 [19.000,25.000] | 81.000 [73.000,104.000] | 29.875 [23.376,38.878] | 0.70 | 2.71 |
+| Health 1024 | deadline | deadline | prerequisite passed | — | — |
 
 * Resolution-limited. Native is faster on these completed Readers samples; JS is1.60–2.82× TS. These partial results do not repair the adverse Dense/Sparse results, approve a threshold or close #19.

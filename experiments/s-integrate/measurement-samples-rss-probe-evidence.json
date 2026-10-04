@@ -1,0 +1,178 @@
+{
+  "scope": "RSS collection-method diagnostic, not allocation or ECS workload measurements",
+  "cpuAffinity": [
+    5
+  ],
+  "externalTimeAvailable": false,
+  "python": "Python 3.11.2",
+  "node": "v24.20.0",
+  "launcherSha256": "eaef512a2c5e25c571f846fa5ddb5bf2075f2dda71c33ad29cb270639f05f977",
+  "probeSha256": "e35c113a3ada950ba67bafefc152d7a79404e29107db907828133d02428c583a",
+  "rows": [
+    {
+      "parentMode": "small-parent",
+      "parentPeakRssKiB": 1962540,
+      "child": "true",
+      "direct": {
+        "command": [
+          "/bin/true"
+        ],
+        "wait4PeakRssKiB": 15260,
+        "seconds": 0.03692784393206239
+      },
+      "viaSmallLauncher": {
+        "command": [
+          "/tmp/rss-method-ce_0r_va/launcher",
+          "/tmp/rss-method-ce_0r_va/stats.json",
+          "/bin/true"
+        ],
+        "wait4PeakRssKiB": 15260,
+        "seconds": 0.010050206910818815
+      },
+      "launcherResult": {
+        "launcherPeakRssKiB": 15260,
+        "childPeakRssKiB": 728,
+        "exitCode": 0
+      }
+    },
+    {
+      "parentMode": "small-parent",
+      "parentPeakRssKiB": 1962540,
+      "child": "node-empty",
+      "direct": {
+        "command": [
+          "node",
+          "-e",
+          ""
+        ],
+        "wait4PeakRssKiB": 41444,
+        "seconds": 0.40467185294255614
+      },
+      "viaSmallLauncher": {
+        "command": [
+          "/tmp/rss-method-ce_0r_va/launcher",
+          "/tmp/rss-method-ce_0r_va/stats.json",
+          "node",
+          "-e",
+          ""
+        ],
+        "wait4PeakRssKiB": 40960,
+        "seconds": 0.16891171503812075
+      },
+      "launcherResult": {
+        "launcherPeakRssKiB": 15260,
+        "childPeakRssKiB": 40960,
+        "exitCode": 0
+      }
+    },
+    {
+      "parentMode": "small-parent",
+      "parentPeakRssKiB": 1962540,
+      "child": "touched32MiB",
+      "direct": {
+        "command": [
+          "/tmp/rss-method-ce_0r_va/payload"
+        ],
+        "wait4PeakRssKiB": 33576,
+        "seconds": 0.08385968580842018
+      },
+      "viaSmallLauncher": {
+        "command": [
+          "/tmp/rss-method-ce_0r_va/launcher",
+          "/tmp/rss-method-ce_0r_va/stats.json",
+          "/tmp/rss-method-ce_0r_va/payload"
+        ],
+        "wait4PeakRssKiB": 33580,
+        "seconds": 0.059300735127180815
+      },
+      "launcherResult": {
+        "launcherPeakRssKiB": 15260,
+        "childPeakRssKiB": 33580,
+        "exitCode": 0
+      }
+    },
+    {
+      "parentMode": "retained-192MiB-parent",
+      "parentPeakRssKiB": 1962540,
+      "child": "true",
+      "direct": {
+        "command": [
+          "/bin/true"
+        ],
+        "wait4PeakRssKiB": 211880,
+        "seconds": 0.005047000013291836
+      },
+      "viaSmallLauncher": {
+        "command": [
+          "/tmp/rss-method-ce_0r_va/launcher",
+          "/tmp/rss-method-ce_0r_va/stats.json",
+          "/bin/true"
+        ],
+        "wait4PeakRssKiB": 211880,
+        "seconds": 0.01575312903150916
+      },
+      "launcherResult": {
+        "launcherPeakRssKiB": 211880,
+        "childPeakRssKiB": 728,
+        "exitCode": 0
+      }
+    },
+    {
+      "parentMode": "retained-192MiB-parent",
+      "parentPeakRssKiB": 1962540,
+      "child": "node-empty",
+      "direct": {
+        "command": [
+          "node",
+          "-e",
+          ""
+        ],
+        "wait4PeakRssKiB": 211880,
+        "seconds": 0.03315623011440039
+      },
+      "viaSmallLauncher": {
+        "command": [
+          "/tmp/rss-method-ce_0r_va/launcher",
+          "/tmp/rss-method-ce_0r_va/stats.json",
+          "node",
+          "-e",
+          ""
+        ],
+        "wait4PeakRssKiB": 211880,
+        "seconds": 0.19364762608893216
+      },
+      "launcherResult": {
+        "launcherPeakRssKiB": 211880,
+        "childPeakRssKiB": 40972,
+        "exitCode": 0
+      }
+    },
+    {
+      "parentMode": "retained-192MiB-parent",
+      "parentPeakRssKiB": 1962540,
+      "child": "touched32MiB",
+      "direct": {
+        "command": [
+          "/tmp/rss-method-ce_0r_va/payload"
+        ],
+        "wait4PeakRssKiB": 211880,
+        "seconds": 0.04035274707712233
+      },
+      "viaSmallLauncher": {
+        "command": [
+          "/tmp/rss-method-ce_0r_va/launcher",
+          "/tmp/rss-method-ce_0r_va/stats.json",
+          "/tmp/rss-method-ce_0r_va/payload"
+        ],
+        "wait4PeakRssKiB": 211880,
+        "seconds": 0.08845568192191422
+      },
+      "launcherResult": {
+        "launcherPeakRssKiB": 211880,
+        "childPeakRssKiB": 33480,
+        "exitCode": 0
+      }
+    }
+  ],
+  "finding": "Direct posix_spawn/wait4 RSS must be assessed against retained-parent floor; low-address-space launcher isolates a freshly forked child."
+}
