@@ -17,6 +17,23 @@ its old public-law proposal was withdrawn after the [source decision](reviews/la
 A connected transition package must be drafted/falsified before new law approval;
 numerical thresholds remain pending. No general proofs exist.
 
+## Execution checklist and tracker ownership
+
+Resume here and in [open T11 / #12](tickets/11-candidate-laws.md). The full-core
+tracker is [#1](https://github.com/dearlordylord/bendvy/issues/1); closed #13 records
+an earlier bounded redesign checkpoint, not completion of the next-stage specs.
+
+- [x] Preserve the source audit and Astra decision; withdraw the old law proposal.
+- [ ] **Next: #12** — draft connected laws and runtime links, then falsify them with positive/boundary cases and meaningful mutants. Implement the audit corrections in this replacement; they are not implemented merely because the audit exists.
+- [ ] Present exact law IDs/revision for approval; only then prepare and execute the corresponding proof work.
+- [ ] Detail and review S-LAYOUT, S-INTEGRATE and S-CAPTURE, then publish their tickets. Compare indexed owned storage, integrate two-schema seams and establish capture/restoration capabilities. These have their own evidence dependencies and need not wait for unrelated proofs.
+- [ ] Specify and implement the simple simulation after its actual capability/law gates; agree numerical thresholds before accepting performance.
+- [ ] Specify remaining full-core packages and the isolated Tower Defense copy integration as their prerequisites become ready.
+
+Keep this checklist and the active ticket synchronized when evidence or decisions
+change. A checked research item does not imply a capability, law or performance
+gate passed. The detailed acceptance criteria for the immediate work live in #12.
+
 ## Detail now
 
 1. Replace the withdrawn T11 bundle with connected transition/observation laws,
