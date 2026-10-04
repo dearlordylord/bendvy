@@ -71,6 +71,12 @@ class Lane:
         return {"result": "QueryMismatch" if kind == "Mismatch" else "MissingEntity",
                 "rawHandle": value["handle"]["id"]}
 
+    def main_row(self, value):
+        # The pinned Added/Changed public queries declare only Main, unlike Q.
+        # Complete Host rows (including Aux/Flag) remain in actualEvents.
+        return {"label": self.label(value["handle"]), "rawId": value["handle"]["id"],
+                "main": value["main"]}
+
     def event(self, raw):
         self.raw.append(raw)
         value = representation(raw)
@@ -99,8 +105,8 @@ class Lane:
                         for handle in value[field]]
             self.result["reads"].append({"step": value["step"], "who": value["system"],
                 "count": value["count"], "q": [self.row(row) for row in value["query"]],
-                "added": [self.row(row) for row in value["added"]],
-                "changed": [self.row(row) for row in value["changed"]],
+                "added": [self.main_row(row) for row in value["added"]],
+                "changed": [self.main_row(row) for row in value["changed"]],
                 "removed": handles("removed"), "despawned": handles("despawned"),
                 "messages": value["messages"], "lag": {"messages": value["messageLag"],
                 "removed": "unavailable-public-api", "despawned": "unavailable-public-api"}})
