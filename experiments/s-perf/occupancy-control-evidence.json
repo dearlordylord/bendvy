@@ -1,0 +1,92 @@
+{
+  "scope": "finite diagnostic control replay, actual indexed owner inspection; no workload occupancy acceptance",
+  "limits": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "cpu": 8,
+  "controls": {
+    "streams": {
+      "checkpoints": 32,
+      "publicReads": 5,
+      "physicalFinal": {
+        "ping": 3,
+        "removed": 2,
+        "despawned": 1,
+        "holders": 3
+      },
+      "emptyUnreadReader": 1,
+      "uninstrumentedTraceMatch": true
+    },
+    "tx": {
+      "checkpoints": 17,
+      "pendingBeforeFailure": 1,
+      "pendingAfterFailure": 1,
+      "pendingAfterSuccess": 2,
+      "stagedCommandPeak": 2,
+      "stagedPingPeak": 3,
+      "inversePeak": 3,
+      "markPeak": 2,
+      "uninstrumentedTraceMatch": true
+    }
+  },
+  "mutants": [
+    {
+      "name": "omit-rear",
+      "compiledNativeJs": true,
+      "publicTraceUnchanged": true,
+      "detectedBoth": true
+    },
+    {
+      "name": "stale-size",
+      "compiledNativeJs": true,
+      "publicTraceUnchanged": true,
+      "detectedBoth": true
+    },
+    {
+      "name": "lost-holder",
+      "compiledNativeJs": true,
+      "publicTraceUnchanged": true,
+      "detectedBoth": true
+    },
+    {
+      "name": "cursor-kind",
+      "compiledNativeJs": true,
+      "publicTraceUnchanged": true,
+      "detectedBoth": true
+    },
+    {
+      "name": "ignore-registration",
+      "compiledNativeJs": true,
+      "publicTraceUnchanged": true,
+      "detectedBoth": true
+    },
+    {
+      "name": "hardcoded-final-zero",
+      "compiledNativeJs": true,
+      "publicTraceUnchanged": true,
+      "detectedBoth": true
+    },
+    {
+      "name": "staged-as-pending",
+      "compiledNativeJs": true,
+      "publicTraceUnchanged": true,
+      "detectedBoth": true
+    }
+  ],
+  "sources": {
+    "experiments/s-integrate/occupancy-control.bend": "d9e5ff395420891f120be2de35ff8c1a68751e71640df958b5edd79aaf10dd87",
+    "experiments/s-integrate/occupancy.bend": "c820f11896438f2b418a0dd1034cba8cd41da3193f0ec9456fc9ba7fcefa3fbc",
+    "experiments/s-integrate/storage.bend": "8440ed1ec21c8d4874072aed8ca0ec4967f4e4e522f88d36f68050685d9e0345",
+    "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+    "experiments/s-integrate/streams.bend": "1a1c7991d6a1b4ebfb3b47dc62459beb83ed5e38ded56d27cc20b5478fc0d315",
+    "experiments/s-integrate/readers.bend": "2673082b4ef5cd6c5d8f61c362e22f74b13daeb27196894278cc20b1459c22e9",
+    "experiments/s-integrate/reader-host.bend": "50f1251c6d476b07055c36c5a97e3350a4cb46e5d826ff97ced2860d40798a64",
+    "experiments/s-integrate/transaction.bend": "d32f0b26e4a14fc784c3ce30c4d6a1ded0cf0a55ed819f54419a558445e298a4",
+    "experiments/s-integrate/occupancy-tx-control.bend": "7b4d3c0ae233e158a11d0254f8bb7ce988bdda3aeeca6844dba6c75d9f621f65",
+    "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572"
+  },
+  "status": "PASS"
+}

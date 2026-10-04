@@ -1,0 +1,10 @@
+{
+  "attempt": "staged-as-pending, initial",
+  "status": "INVALID_MUTANT_CHECKER_REJECTION",
+  "checker_limit_seconds": 5,
+  "function": "tx_world_done",
+  "expected": "ws",
+  "observed": "ws (consumed more than once)",
+  "correction": "Mark only the mutant's Data WorldStats binding +ws before using it in two observations.",
+  "delivered_mutant": "Checks, compiles Native/JS, preserves original public trace, fails the independent finite occupancy validator."
+}

@@ -1,0 +1,17 @@
+metric:initial:world=7:2:1:1:1:1:1:1:1
+metric:begin:world=7:2:1:1:1:1:1:1:1|tx=0:0:0:0
+metric:write1:world=7:2:1:1:1:1:1:1:1|tx=0:0:1:1
+metric:write2:world=7:2:1:1:1:1:1:1:1|tx=0:0:2:2
+metric:ledger:world=7:2:1:1:1:1:1:1:1|tx=0:0:3:2
+metric:command1:world=7:2:1:1:1:1:1:1:1|tx=1:0:3:2
+metric:command2:world=7:2:1:1:1:1:1:1:1|tx=2:0:3:2
+metric:ping1:world=7:2:1:1:1:1:1:1:1|tx=2:1:3:2
+metric:ping2:world=7:2:1:1:1:1:1:1:1|tx=2:2:3:2
+metric:before-failure:world=7:2:1:1:1:1:1:1:1|tx=2:3:3:2
+trace:failure:pings=0
+metric:after-failure:world=7:2:1:1:1:1:1:1:1
+trace:restored:10,10,10,10:7
+metric:before-success:world=7:2:1:1:1:1:1:1:1|tx=1:1:0:0
+trace:success:pings=1
+metric:published:world=7:2:1:2:1:1:1:1:1
+trace:before-barrier:10,10,10,10:7
