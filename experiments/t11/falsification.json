@@ -1,0 +1,2401 @@
+{
+  "method": "literal instantiation of exact draft statements; finite checker controls, not proofs",
+  "seed": 20261003,
+  "checker_limit_seconds": 5,
+  "external_lawcheck_or_bend_falsify": "not installed/adopted; compatibility unverified",
+  "laws": [
+    {
+      "law": "query_any_exact",
+      "instances": 5,
+      "binders": [
+        [
+          "rows",
+          "List<&2, M.Row>"
+        ]
+      ],
+      "typechecked_mutant": [
+        "model.bend",
+        "case Any{}: True{}",
+        "case Any{}: False{}"
+      ],
+      "rejection": "SOME PROOFS FAIL\nError:\n- expected : []\n- observed : [M.Row{0n, 1n, False{}}]\nLocation: probe_query_any_exact_1\n10 | def probe_query_any_exact_1() -> {M.query(M.Any{}, ([M.Row{0n, 1n, False{}}])) == ([M.Row{0n, 1n, False{}}]) : List<&2, M.Row>}:\n11>|   {==}\n   |   ^^^^\n12 |",
+      "samples": [
+        {
+          "rows": "[]"
+        },
+        {
+          "rows": "[M.Row{0n, 1n, False{}}]"
+        },
+        {
+          "rows": "[M.Row{0n, 1n, True{}}]"
+        },
+        {
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]"
+        },
+        {
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]"
+        }
+      ]
+    },
+    {
+      "law": "query_present_exact",
+      "instances": 5,
+      "binders": [
+        [
+          "rows",
+          "List<&2, M.Row>"
+        ]
+      ],
+      "typechecked_mutant": [
+        "model.bend",
+        "case Present{}: tagged",
+        "case Present{}: True{}"
+      ],
+      "rejection": "SOME PROOFS FAIL\nError:\n- expected : [M.Row{0n, 1n, False{}}]\n- observed : []\nLocation: probe_query_present_exact_1\n10 | def probe_query_present_exact_1() -> {M.query(M.Present{}, ([M.Row{0n, 1n, False{}}])) == S.present(([M.Row{0n, 1n, False{}}])) : List<&2, M.Row>}:\n11>|   {==}\n   |   ^^^^\n12 |",
+      "samples": [
+        {
+          "rows": "[]"
+        },
+        {
+          "rows": "[M.Row{0n, 1n, False{}}]"
+        },
+        {
+          "rows": "[M.Row{0n, 1n, True{}}]"
+        },
+        {
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]"
+        },
+        {
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]"
+        }
+      ]
+    },
+    {
+      "law": "query_absent_exact",
+      "instances": 5,
+      "binders": [
+        [
+          "rows",
+          "List<&2, M.Row>"
+        ]
+      ],
+      "typechecked_mutant": [
+        "model.bend",
+        "case Absent{}: Bool.not(tagged)",
+        "case Absent{}: tagged"
+      ],
+      "rejection": "SOME PROOFS FAIL\nError:\n- expected : []\n- observed : [M.Row{0n, 1n, False{}}]\nLocation: probe_query_absent_exact_1\n10 | def probe_query_absent_exact_1() -> {M.query(M.Absent{}, ([M.Row{0n, 1n, False{}}])) == S.absent(([M.Row{0n, 1n, False{}}])) : List<&2, M.Row>}:\n11>|   {==}\n   |   ^^^^\n12 |",
+      "samples": [
+        {
+          "rows": "[]"
+        },
+        {
+          "rows": "[M.Row{0n, 1n, False{}}]"
+        },
+        {
+          "rows": "[M.Row{0n, 1n, True{}}]"
+        },
+        {
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]"
+        },
+        {
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]"
+        }
+      ]
+    },
+    {
+      "law": "foreign_lookup_guard",
+      "instances": 34,
+      "binders": [
+        [
+          "slot",
+          "Nat"
+        ],
+        [
+          "selection",
+          "M.Selection"
+        ],
+        [
+          "rows",
+          "List<&2, M.Row>"
+        ]
+      ],
+      "typechecked_mutant": [
+        "model.bend",
+        "case False{}: Missing{}",
+        "case False{}: lookup_rows(slot, selection, rows)"
+      ],
+      "rejection": "SOME PROOFS FAIL\nError:\n- expected : M.Found{M.Row{0n, 1n, False{}}}\n- observed : M.Missing{}\nLocation: probe_foreign_lookup_guard_1\n10 | def probe_foreign_lookup_guard_1() -> {M.lookup_guard(False{}, (0n), (M.Any{}), ([M.Row{0n, 1n, False{}}])) == M.Missing{} : M.Lookup}:\n11>|   {==}\n   |   ^^^^\n12 |",
+      "samples": [
+        {
+          "slot": "0n",
+          "selection": "M.Any{}",
+          "rows": "[]"
+        },
+        {
+          "slot": "0n",
+          "selection": "M.Any{}",
+          "rows": "[M.Row{0n, 1n, False{}}]"
+        },
+        {
+          "slot": "0n",
+          "selection": "M.Any{}",
+          "rows": "[M.Row{0n, 1n, True{}}]"
+        },
+        {
+          "slot": "0n",
+          "selection": "M.Any{}",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]"
+        },
+        {
+          "slot": "0n",
+          "selection": "M.Any{}",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]"
+        },
+        {
+          "slot": "0n",
+          "selection": "M.Present{}",
+          "rows": "[]"
+        },
+        {
+          "slot": "0n",
+          "selection": "M.Present{}",
+          "rows": "[M.Row{0n, 1n, False{}}]"
+        },
+        {
+          "slot": "0n",
+          "selection": "M.Present{}",
+          "rows": "[M.Row{0n, 1n, True{}}]"
+        },
+        {
+          "slot": "0n",
+          "selection": "M.Present{}",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]"
+        },
+        {
+          "slot": "0n",
+          "selection": "M.Absent{}",
+          "rows": "[]"
+        },
+        {
+          "slot": "0n",
+          "selection": "M.Absent{}",
+          "rows": "[M.Row{0n, 1n, True{}}]"
+        },
+        {
+          "slot": "1n",
+          "selection": "M.Any{}",
+          "rows": "[]"
+        },
+        {
+          "slot": "1n",
+          "selection": "M.Any{}",
+          "rows": "[M.Row{0n, 1n, False{}}]"
+        },
+        {
+          "slot": "1n",
+          "selection": "M.Any{}",
+          "rows": "[M.Row{0n, 1n, True{}}]"
+        },
+        {
+          "slot": "1n",
+          "selection": "M.Any{}",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]"
+        },
+        {
+          "slot": "1n",
+          "selection": "M.Any{}",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]"
+        },
+        {
+          "slot": "1n",
+          "selection": "M.Present{}",
+          "rows": "[]"
+        },
+        {
+          "slot": "1n",
+          "selection": "M.Present{}",
+          "rows": "[M.Row{0n, 1n, False{}}]"
+        },
+        {
+          "slot": "1n",
+          "selection": "M.Present{}",
+          "rows": "[M.Row{0n, 1n, True{}}]"
+        },
+        {
+          "slot": "1n",
+          "selection": "M.Present{}",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]"
+        },
+        {
+          "slot": "1n",
+          "selection": "M.Present{}",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]"
+        },
+        {
+          "slot": "1n",
+          "selection": "M.Absent{}",
+          "rows": "[]"
+        },
+        {
+          "slot": "1n",
+          "selection": "M.Absent{}",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]"
+        },
+        {
+          "slot": "2n",
+          "selection": "M.Any{}",
+          "rows": "[]"
+        },
+        {
+          "slot": "2n",
+          "selection": "M.Any{}",
+          "rows": "[M.Row{0n, 1n, False{}}]"
+        },
+        {
+          "slot": "2n",
+          "selection": "M.Any{}",
+          "rows": "[M.Row{0n, 1n, True{}}]"
+        },
+        {
+          "slot": "2n",
+          "selection": "M.Any{}",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]"
+        },
+        {
+          "slot": "2n",
+          "selection": "M.Any{}",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]"
+        },
+        {
+          "slot": "2n",
+          "selection": "M.Present{}",
+          "rows": "[]"
+        },
+        {
+          "slot": "2n",
+          "selection": "M.Present{}",
+          "rows": "[M.Row{0n, 1n, True{}}]"
+        },
+        {
+          "slot": "2n",
+          "selection": "M.Present{}",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]"
+        },
+        {
+          "slot": "2n",
+          "selection": "M.Absent{}",
+          "rows": "[M.Row{0n, 1n, False{}}]"
+        },
+        {
+          "slot": "2n",
+          "selection": "M.Absent{}",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]"
+        },
+        {
+          "slot": "2n",
+          "selection": "M.Absent{}",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]"
+        }
+      ]
+    },
+    {
+      "law": "foreign_command_guard",
+      "instances": 43,
+      "binders": [
+        [
+          "id",
+          "Nat"
+        ],
+        [
+          "next",
+          "Nat"
+        ],
+        [
+          "rows",
+          "List<&2, M.Row>"
+        ],
+        [
+          "pending",
+          "List<&2, M.Command>"
+        ],
+        [
+          "command",
+          "M.Command"
+        ]
+      ],
+      "typechecked_mutant": [
+        "model.bend",
+        "case False{}: World{id, next, rows, pending}",
+        "case False{}: World{id, next, rows, command <> pending}"
+      ],
+      "rejection": "SOME PROOFS FAIL\nError:\n- expected : M.World{0n, 0n, [], [M.Tag{0n, True{}}]}\n- observed : M.World{0n, 0n, [], []}\nLocation: probe_foreign_command_guard_0\n7 | def probe_foreign_command_guard_0() -> {M.enqueue_guard(False{}, (0n), (0n), ([]), ([]), (M.Tag{0n, True{}})) == M.World{(0n), (0n), ([]), ([])} : M.World}:\n8>|   {==}\n  |   ^^^^\n9 |",
+      "samples": [
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[]",
+          "pending": "[]",
+          "command": "M.Tag{0n, True{}}"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[]",
+          "pending": "[]",
+          "command": "M.Despawn{1n}"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[]",
+          "pending": "[M.Spawn{0n, 1n}]",
+          "command": "M.Tag{0n, True{}}"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]",
+          "command": "M.Tag{0n, True{}}"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "command": "M.Tag{0n, True{}}"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}]",
+          "pending": "[]",
+          "command": "M.Tag{0n, True{}}"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}]",
+          "pending": "[]",
+          "command": "M.Despawn{1n}"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "command": "M.Tag{0n, True{}}"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, True{}}]",
+          "pending": "[]",
+          "command": "M.Tag{0n, True{}}"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[]",
+          "command": "M.Tag{0n, True{}}"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[M.Spawn{0n, 1n}]",
+          "command": "M.Tag{0n, True{}}"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]",
+          "command": "M.Despawn{1n}"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[]",
+          "command": "M.Tag{0n, True{}}"
+        },
+        {
+          "id": "0n",
+          "next": "1n",
+          "rows": "[]",
+          "pending": "[]",
+          "command": "M.Tag{0n, True{}}"
+        },
+        {
+          "id": "0n",
+          "next": "1n",
+          "rows": "[M.Row{0n, 1n, False{}}]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "command": "M.Tag{0n, True{}}"
+        },
+        {
+          "id": "0n",
+          "next": "1n",
+          "rows": "[M.Row{0n, 1n, True{}}]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "command": "M.Despawn{1n}"
+        },
+        {
+          "id": "0n",
+          "next": "1n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[]",
+          "command": "M.Despawn{1n}"
+        },
+        {
+          "id": "0n",
+          "next": "1n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[]",
+          "command": "M.Despawn{1n}"
+        },
+        {
+          "id": "0n",
+          "next": "2n",
+          "rows": "[]",
+          "pending": "[]",
+          "command": "M.Tag{0n, True{}}"
+        },
+        {
+          "id": "0n",
+          "next": "2n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[M.Spawn{0n, 1n}]",
+          "command": "M.Despawn{1n}"
+        },
+        {
+          "id": "0n",
+          "next": "2n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "command": "M.Tag{0n, True{}}"
+        },
+        {
+          "id": "1n",
+          "next": "0n",
+          "rows": "[]",
+          "pending": "[]",
+          "command": "M.Tag{0n, True{}}"
+        },
+        {
+          "id": "1n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[M.Spawn{0n, 1n}]",
+          "command": "M.Despawn{1n}"
+        },
+        {
+          "id": "1n",
+          "next": "0n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[]",
+          "command": "M.Tag{0n, True{}}"
+        },
+        {
+          "id": "1n",
+          "next": "0n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[M.Spawn{0n, 1n}]",
+          "command": "M.Despawn{1n}"
+        },
+        {
+          "id": "1n",
+          "next": "1n",
+          "rows": "[M.Row{0n, 1n, False{}}]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]",
+          "command": "M.Despawn{1n}"
+        },
+        {
+          "id": "1n",
+          "next": "1n",
+          "rows": "[M.Row{0n, 1n, False{}}]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "command": "M.Tag{0n, True{}}"
+        },
+        {
+          "id": "1n",
+          "next": "1n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[]",
+          "command": "M.Tag{0n, True{}}"
+        },
+        {
+          "id": "1n",
+          "next": "1n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "command": "M.Tag{0n, True{}}"
+        },
+        {
+          "id": "2n",
+          "next": "0n",
+          "rows": "[]",
+          "pending": "[]",
+          "command": "M.Tag{0n, True{}}"
+        },
+        {
+          "id": "2n",
+          "next": "0n",
+          "rows": "[]",
+          "pending": "[M.Spawn{0n, 1n}]",
+          "command": "M.Despawn{1n}"
+        },
+        {
+          "id": "2n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}]",
+          "pending": "[M.Spawn{0n, 1n}]",
+          "command": "M.Despawn{1n}"
+        },
+        {
+          "id": "2n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "command": "M.Tag{0n, True{}}"
+        },
+        {
+          "id": "2n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, True{}}]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]",
+          "command": "M.Despawn{1n}"
+        },
+        {
+          "id": "2n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[]",
+          "command": "M.Tag{0n, True{}}"
+        },
+        {
+          "id": "2n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]",
+          "command": "M.Tag{0n, True{}}"
+        },
+        {
+          "id": "2n",
+          "next": "1n",
+          "rows": "[]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "command": "M.Despawn{1n}"
+        },
+        {
+          "id": "2n",
+          "next": "1n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[]",
+          "command": "M.Tag{0n, True{}}"
+        },
+        {
+          "id": "2n",
+          "next": "1n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]",
+          "command": "M.Despawn{1n}"
+        },
+        {
+          "id": "2n",
+          "next": "2n",
+          "rows": "[]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]",
+          "command": "M.Tag{0n, True{}}"
+        },
+        {
+          "id": "2n",
+          "next": "2n",
+          "rows": "[M.Row{0n, 1n, True{}}]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]",
+          "command": "M.Tag{0n, True{}}"
+        },
+        {
+          "id": "2n",
+          "next": "2n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[]",
+          "command": "M.Despawn{1n}"
+        },
+        {
+          "id": "2n",
+          "next": "2n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "command": "M.Despawn{1n}"
+        }
+      ]
+    },
+    {
+      "law": "reserve_projection",
+      "instances": 44,
+      "binders": [
+        [
+          "id",
+          "Nat"
+        ],
+        [
+          "next",
+          "Nat"
+        ],
+        [
+          "rows",
+          "List<&2, M.Row>"
+        ],
+        [
+          "pending",
+          "List<&2, M.Command>"
+        ],
+        [
+          "value",
+          "Nat"
+        ]
+      ],
+      "typechecked_mutant": [
+        "model.bend",
+        "Handle{id, next}}",
+        "Handle{id, 1n+next}}"
+      ],
+      "rejection": "SOME PROOFS FAIL\nError:\n- expected : M.Reserved{M.World{0n, 1n, [], [M.Spawn{0n, 0n}]}, M.Handle{0n, 1n}}\n- observed : M.Reserved{M.World{0n, 1n, [], [M.Spawn{0n, 0n}]}, M.Handle{0n, 0n}}\nLocation: probe_reserve_projection_0\n7 | def probe_reserve_projection_0() -> {M.reserve_available(True{}, (0n), (0n), ([]), ([]), (0n)) == M.Reserved{M.World{(0n), 1n+(0n), ([]), M.Spawn{(0n), (0n)} <> ([])}, M.Handle{(0n), (0n)}} : M.Reservation}:\n8>|   {==}\n  |   ^^^^\n9 |",
+      "samples": [
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[]",
+          "pending": "[]",
+          "value": "1n"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[]",
+          "pending": "[]",
+          "value": "2n"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[]",
+          "pending": "[M.Spawn{0n, 1n}]",
+          "value": "0n"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[]",
+          "pending": "[M.Spawn{0n, 1n}]",
+          "value": "2n"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]",
+          "value": "0n"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "value": "0n"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]",
+          "value": "0n"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, True{}}]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, True{}}]",
+          "pending": "[M.Spawn{0n, 1n}]",
+          "value": "1n"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[M.Spawn{0n, 1n}]",
+          "value": "1n"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "value": "1n"
+        },
+        {
+          "id": "0n",
+          "next": "1n",
+          "rows": "[]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "id": "0n",
+          "next": "1n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[]",
+          "value": "1n"
+        },
+        {
+          "id": "0n",
+          "next": "2n",
+          "rows": "[]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "id": "0n",
+          "next": "2n",
+          "rows": "[]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]",
+          "value": "1n"
+        },
+        {
+          "id": "0n",
+          "next": "2n",
+          "rows": "[]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "value": "1n"
+        },
+        {
+          "id": "0n",
+          "next": "2n",
+          "rows": "[M.Row{0n, 1n, True{}}]",
+          "pending": "[]",
+          "value": "2n"
+        },
+        {
+          "id": "0n",
+          "next": "2n",
+          "rows": "[M.Row{0n, 1n, True{}}]",
+          "pending": "[M.Spawn{0n, 1n}]",
+          "value": "0n"
+        },
+        {
+          "id": "1n",
+          "next": "0n",
+          "rows": "[]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "id": "1n",
+          "next": "0n",
+          "rows": "[]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]",
+          "value": "2n"
+        },
+        {
+          "id": "1n",
+          "next": "0n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[]",
+          "value": "2n"
+        },
+        {
+          "id": "1n",
+          "next": "0n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]",
+          "value": "2n"
+        },
+        {
+          "id": "1n",
+          "next": "1n",
+          "rows": "[M.Row{0n, 1n, False{}}]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]",
+          "value": "0n"
+        },
+        {
+          "id": "1n",
+          "next": "1n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]",
+          "value": "1n"
+        },
+        {
+          "id": "1n",
+          "next": "2n",
+          "rows": "[]",
+          "pending": "[M.Spawn{0n, 1n}]",
+          "value": "2n"
+        },
+        {
+          "id": "1n",
+          "next": "2n",
+          "rows": "[]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "value": "2n"
+        },
+        {
+          "id": "1n",
+          "next": "2n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[M.Spawn{0n, 1n}]",
+          "value": "1n"
+        },
+        {
+          "id": "1n",
+          "next": "2n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "value": "1n"
+        },
+        {
+          "id": "1n",
+          "next": "2n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "id": "2n",
+          "next": "0n",
+          "rows": "[]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "id": "2n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, True{}}]",
+          "pending": "[]",
+          "value": "1n"
+        },
+        {
+          "id": "2n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "id": "2n",
+          "next": "2n",
+          "rows": "[]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]",
+          "value": "1n"
+        },
+        {
+          "id": "2n",
+          "next": "2n",
+          "rows": "[M.Row{0n, 1n, False{}}]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "value": "1n"
+        },
+        {
+          "id": "2n",
+          "next": "2n",
+          "rows": "[M.Row{0n, 1n, True{}}]",
+          "pending": "[M.Spawn{0n, 1n}]",
+          "value": "2n"
+        },
+        {
+          "id": "2n",
+          "next": "2n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[M.Spawn{0n, 1n}]",
+          "value": "2n"
+        },
+        {
+          "id": "2n",
+          "next": "2n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]",
+          "value": "1n"
+        },
+        {
+          "id": "2n",
+          "next": "2n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "id": "2n",
+          "next": "2n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "value": "0n"
+        },
+        {
+          "id": "2n",
+          "next": "2n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "value": "2n"
+        }
+      ]
+    },
+    {
+      "law": "reserve_rejection",
+      "instances": 44,
+      "binders": [
+        [
+          "id",
+          "Nat"
+        ],
+        [
+          "next",
+          "Nat"
+        ],
+        [
+          "rows",
+          "List<&2, M.Row>"
+        ],
+        [
+          "pending",
+          "List<&2, M.Command>"
+        ],
+        [
+          "value",
+          "Nat"
+        ]
+      ],
+      "typechecked_mutant": [
+        "model.bend",
+        "Rejected{World{id, next, rows, pending}}",
+        "Rejected{World{id, 1n+next, rows, pending}}"
+      ],
+      "rejection": "SOME PROOFS FAIL\nError:\n- expected : M.Rejected{M.World{0n, 1n, [], []}}\n- observed : M.Rejected{M.World{0n, 0n, [], []}}\nLocation: probe_reserve_rejection_0\n7 | def probe_reserve_rejection_0() -> {M.reserve_available(False{}, (0n), (0n), ([]), ([]), (0n)) == M.Rejected{M.World{(0n), (0n), ([]), ([])}} : M.Reservation}:\n8>|   {==}\n  |   ^^^^\n9 |",
+      "samples": [
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[]",
+          "pending": "[]",
+          "value": "1n"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[]",
+          "pending": "[]",
+          "value": "2n"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[]",
+          "pending": "[M.Spawn{0n, 1n}]",
+          "value": "0n"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[]",
+          "pending": "[M.Spawn{0n, 1n}]",
+          "value": "2n"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]",
+          "value": "0n"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "value": "0n"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]",
+          "value": "0n"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, True{}}]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, True{}}]",
+          "pending": "[M.Spawn{0n, 1n}]",
+          "value": "1n"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[M.Spawn{0n, 1n}]",
+          "value": "1n"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "value": "1n"
+        },
+        {
+          "id": "0n",
+          "next": "1n",
+          "rows": "[]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "id": "0n",
+          "next": "1n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[]",
+          "value": "1n"
+        },
+        {
+          "id": "0n",
+          "next": "2n",
+          "rows": "[]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "id": "0n",
+          "next": "2n",
+          "rows": "[]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]",
+          "value": "1n"
+        },
+        {
+          "id": "0n",
+          "next": "2n",
+          "rows": "[]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "value": "1n"
+        },
+        {
+          "id": "0n",
+          "next": "2n",
+          "rows": "[M.Row{0n, 1n, True{}}]",
+          "pending": "[]",
+          "value": "2n"
+        },
+        {
+          "id": "0n",
+          "next": "2n",
+          "rows": "[M.Row{0n, 1n, True{}}]",
+          "pending": "[M.Spawn{0n, 1n}]",
+          "value": "0n"
+        },
+        {
+          "id": "1n",
+          "next": "0n",
+          "rows": "[]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "id": "1n",
+          "next": "0n",
+          "rows": "[]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]",
+          "value": "2n"
+        },
+        {
+          "id": "1n",
+          "next": "0n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[]",
+          "value": "2n"
+        },
+        {
+          "id": "1n",
+          "next": "0n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]",
+          "value": "2n"
+        },
+        {
+          "id": "1n",
+          "next": "1n",
+          "rows": "[M.Row{0n, 1n, False{}}]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]",
+          "value": "0n"
+        },
+        {
+          "id": "1n",
+          "next": "1n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]",
+          "value": "1n"
+        },
+        {
+          "id": "1n",
+          "next": "2n",
+          "rows": "[]",
+          "pending": "[M.Spawn{0n, 1n}]",
+          "value": "2n"
+        },
+        {
+          "id": "1n",
+          "next": "2n",
+          "rows": "[]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "value": "2n"
+        },
+        {
+          "id": "1n",
+          "next": "2n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[M.Spawn{0n, 1n}]",
+          "value": "1n"
+        },
+        {
+          "id": "1n",
+          "next": "2n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "value": "1n"
+        },
+        {
+          "id": "1n",
+          "next": "2n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "id": "2n",
+          "next": "0n",
+          "rows": "[]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "id": "2n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, True{}}]",
+          "pending": "[]",
+          "value": "1n"
+        },
+        {
+          "id": "2n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "id": "2n",
+          "next": "2n",
+          "rows": "[]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]",
+          "value": "1n"
+        },
+        {
+          "id": "2n",
+          "next": "2n",
+          "rows": "[M.Row{0n, 1n, False{}}]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "value": "1n"
+        },
+        {
+          "id": "2n",
+          "next": "2n",
+          "rows": "[M.Row{0n, 1n, True{}}]",
+          "pending": "[M.Spawn{0n, 1n}]",
+          "value": "2n"
+        },
+        {
+          "id": "2n",
+          "next": "2n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[M.Spawn{0n, 1n}]",
+          "value": "2n"
+        },
+        {
+          "id": "2n",
+          "next": "2n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]",
+          "value": "1n"
+        },
+        {
+          "id": "2n",
+          "next": "2n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "id": "2n",
+          "next": "2n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "value": "0n"
+        },
+        {
+          "id": "2n",
+          "next": "2n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "value": "2n"
+        }
+      ]
+    },
+    {
+      "law": "bounded_reservation",
+      "instances": 47,
+      "binders": [
+        [
+          "limit",
+          "Nat"
+        ],
+        [
+          "next",
+          "Nat"
+        ],
+        [
+          "id",
+          "Nat"
+        ],
+        [
+          "rows",
+          "List<&2, M.Row>"
+        ],
+        [
+          "pending",
+          "List<&2, M.Command>"
+        ],
+        [
+          "value",
+          "Nat"
+        ]
+      ],
+      "typechecked_mutant": [
+        "model.bend",
+        "World{id, 1n+next, rows, Spawn{next, value} <> pending}",
+        "World{id, 1n+1n+next, rows, Spawn{next, value} <> pending}"
+      ],
+      "rejection": "SOME PROOFS FAIL\nError:\n- expected : False{}\n- observed : True{}\nLocation: probe_bounded_reservation_25\n82 | def probe_bounded_reservation_25() -> {Bool.or(Bool.not(Nat.is_le((0n), (1n))), M.within((1n), M.reserve_until((1n), M.World{(0n), (0n), ([]), ([])}, (0n)))) == True{} : Bool}:\n83>|   {==}\n   |   ^^^^\n84 |",
+      "samples": [
+        {
+          "limit": "0n",
+          "next": "0n",
+          "id": "0n",
+          "rows": "[]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "limit": "0n",
+          "next": "0n",
+          "id": "0n",
+          "rows": "[]",
+          "pending": "[]",
+          "value": "1n"
+        },
+        {
+          "limit": "0n",
+          "next": "0n",
+          "id": "0n",
+          "rows": "[]",
+          "pending": "[]",
+          "value": "2n"
+        },
+        {
+          "limit": "0n",
+          "next": "0n",
+          "id": "0n",
+          "rows": "[]",
+          "pending": "[M.Spawn{0n, 1n}]",
+          "value": "0n"
+        },
+        {
+          "limit": "0n",
+          "next": "0n",
+          "id": "0n",
+          "rows": "[]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]",
+          "value": "0n"
+        },
+        {
+          "limit": "0n",
+          "next": "0n",
+          "id": "0n",
+          "rows": "[]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "value": "0n"
+        },
+        {
+          "limit": "0n",
+          "next": "0n",
+          "id": "0n",
+          "rows": "[]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "value": "1n"
+        },
+        {
+          "limit": "0n",
+          "next": "0n",
+          "id": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "limit": "0n",
+          "next": "0n",
+          "id": "0n",
+          "rows": "[M.Row{0n, 1n, True{}}]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "limit": "0n",
+          "next": "0n",
+          "id": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "limit": "0n",
+          "next": "0n",
+          "id": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[]",
+          "value": "1n"
+        },
+        {
+          "limit": "0n",
+          "next": "0n",
+          "id": "0n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "limit": "0n",
+          "next": "0n",
+          "id": "0n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "value": "0n"
+        },
+        {
+          "limit": "0n",
+          "next": "0n",
+          "id": "1n",
+          "rows": "[]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "limit": "0n",
+          "next": "0n",
+          "id": "1n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]",
+          "value": "2n"
+        },
+        {
+          "limit": "0n",
+          "next": "0n",
+          "id": "1n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]",
+          "value": "2n"
+        },
+        {
+          "limit": "0n",
+          "next": "0n",
+          "id": "2n",
+          "rows": "[]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "limit": "0n",
+          "next": "1n",
+          "id": "0n",
+          "rows": "[]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "limit": "0n",
+          "next": "1n",
+          "id": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[]",
+          "value": "2n"
+        },
+        {
+          "limit": "0n",
+          "next": "1n",
+          "id": "1n",
+          "rows": "[M.Row{0n, 1n, False{}}]",
+          "pending": "[]",
+          "value": "2n"
+        },
+        {
+          "limit": "0n",
+          "next": "1n",
+          "id": "1n",
+          "rows": "[M.Row{0n, 1n, False{}}]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]",
+          "value": "2n"
+        },
+        {
+          "limit": "0n",
+          "next": "1n",
+          "id": "1n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[M.Spawn{0n, 1n}]",
+          "value": "2n"
+        },
+        {
+          "limit": "0n",
+          "next": "1n",
+          "id": "1n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]",
+          "value": "0n"
+        },
+        {
+          "limit": "0n",
+          "next": "2n",
+          "id": "0n",
+          "rows": "[]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "limit": "0n",
+          "next": "2n",
+          "id": "1n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[M.Spawn{0n, 1n}]",
+          "value": "2n"
+        },
+        {
+          "limit": "1n",
+          "next": "0n",
+          "id": "0n",
+          "rows": "[]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "limit": "1n",
+          "next": "0n",
+          "id": "0n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[]",
+          "value": "2n"
+        },
+        {
+          "limit": "1n",
+          "next": "0n",
+          "id": "1n",
+          "rows": "[]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "value": "1n"
+        },
+        {
+          "limit": "1n",
+          "next": "0n",
+          "id": "2n",
+          "rows": "[M.Row{0n, 1n, True{}}]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "value": "0n"
+        },
+        {
+          "limit": "1n",
+          "next": "1n",
+          "id": "0n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[M.Spawn{0n, 1n}]",
+          "value": "0n"
+        },
+        {
+          "limit": "1n",
+          "next": "1n",
+          "id": "1n",
+          "rows": "[M.Row{0n, 1n, False{}}]",
+          "pending": "[]",
+          "value": "1n"
+        },
+        {
+          "limit": "1n",
+          "next": "2n",
+          "id": "1n",
+          "rows": "[M.Row{0n, 1n, False{}}]",
+          "pending": "[M.Spawn{0n, 1n}]",
+          "value": "0n"
+        },
+        {
+          "limit": "1n",
+          "next": "2n",
+          "id": "1n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "value": "0n"
+        },
+        {
+          "limit": "1n",
+          "next": "2n",
+          "id": "1n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "value": "2n"
+        },
+        {
+          "limit": "1n",
+          "next": "2n",
+          "id": "2n",
+          "rows": "[M.Row{0n, 1n, True{}}]",
+          "pending": "[M.Spawn{0n, 1n}]",
+          "value": "0n"
+        },
+        {
+          "limit": "1n",
+          "next": "2n",
+          "id": "2n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "limit": "1n",
+          "next": "2n",
+          "id": "2n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]",
+          "value": "0n"
+        },
+        {
+          "limit": "2n",
+          "next": "0n",
+          "id": "0n",
+          "rows": "[]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "limit": "2n",
+          "next": "0n",
+          "id": "1n",
+          "rows": "[]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "value": "0n"
+        },
+        {
+          "limit": "2n",
+          "next": "0n",
+          "id": "2n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[]",
+          "value": "0n"
+        },
+        {
+          "limit": "2n",
+          "next": "1n",
+          "id": "0n",
+          "rows": "[]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "value": "0n"
+        },
+        {
+          "limit": "2n",
+          "next": "1n",
+          "id": "0n",
+          "rows": "[]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "value": "1n"
+        },
+        {
+          "limit": "2n",
+          "next": "1n",
+          "id": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[]",
+          "value": "2n"
+        },
+        {
+          "limit": "2n",
+          "next": "1n",
+          "id": "1n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[M.Spawn{0n, 1n}]",
+          "value": "1n"
+        },
+        {
+          "limit": "2n",
+          "next": "1n",
+          "id": "2n",
+          "rows": "[]",
+          "pending": "[]",
+          "value": "2n"
+        },
+        {
+          "limit": "2n",
+          "next": "2n",
+          "id": "1n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[]",
+          "value": "1n"
+        },
+        {
+          "limit": "2n",
+          "next": "2n",
+          "id": "2n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]",
+          "value": "2n"
+        }
+      ]
+    },
+    {
+      "law": "flush_fifo_projection",
+      "instances": 41,
+      "binders": [
+        [
+          "id",
+          "Nat"
+        ],
+        [
+          "next",
+          "Nat"
+        ],
+        [
+          "rows",
+          "List<&2, M.Row>"
+        ],
+        [
+          "pending",
+          "List<&2, M.Command>"
+        ]
+      ],
+      "typechecked_mutant": [
+        "model.bend",
+        "apply_all(List.reverse(&2, Command, pending), rows)",
+        "apply_all(pending, rows)"
+      ],
+      "rejection": "SOME PROOFS FAIL\nError:\n- expected : M.World{0n, 0n, [M.Row{0n, 1n, False{}}], []}\n- observed : M.World{0n, 0n, [M.Row{0n, 1n, True{}}], []}\nLocation: probe_flush_fifo_projection_2\n13 | def probe_flush_fifo_projection_2() -> {M.flush(M.World{(0n), (0n), ([]), ([M.Tag{0n, True{}}, M.Spawn{0n, 1n}])}) == M.World{(0n), (0n), M.apply_all(List.reverse(&2, M.Command, ([M.Tag{0n, True{}}, M.Spawn{0n, 1n}])), ([])), []} : M.World}:\n14>|   {==}\n   |   ^^^^\n15 |",
+      "samples": [
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[]",
+          "pending": "[]"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[]",
+          "pending": "[M.Spawn{0n, 1n}]"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}]",
+          "pending": "[]"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, True{}}]",
+          "pending": "[]"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[]"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[M.Spawn{0n, 1n}]"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]"
+        },
+        {
+          "id": "0n",
+          "next": "0n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[]"
+        },
+        {
+          "id": "0n",
+          "next": "1n",
+          "rows": "[]",
+          "pending": "[]"
+        },
+        {
+          "id": "0n",
+          "next": "1n",
+          "rows": "[M.Row{0n, 1n, False{}}]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]"
+        },
+        {
+          "id": "0n",
+          "next": "1n",
+          "rows": "[M.Row{0n, 1n, True{}}]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]"
+        },
+        {
+          "id": "0n",
+          "next": "1n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[]"
+        },
+        {
+          "id": "0n",
+          "next": "1n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[]"
+        },
+        {
+          "id": "0n",
+          "next": "2n",
+          "rows": "[]",
+          "pending": "[]"
+        },
+        {
+          "id": "0n",
+          "next": "2n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[M.Spawn{0n, 1n}]"
+        },
+        {
+          "id": "0n",
+          "next": "2n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]"
+        },
+        {
+          "id": "1n",
+          "next": "0n",
+          "rows": "[]",
+          "pending": "[]"
+        },
+        {
+          "id": "1n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[M.Spawn{0n, 1n}]"
+        },
+        {
+          "id": "1n",
+          "next": "0n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[]"
+        },
+        {
+          "id": "1n",
+          "next": "0n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[M.Spawn{0n, 1n}]"
+        },
+        {
+          "id": "1n",
+          "next": "1n",
+          "rows": "[M.Row{0n, 1n, False{}}]",
+          "pending": "[M.Spawn{0n, 1n}]"
+        },
+        {
+          "id": "1n",
+          "next": "1n",
+          "rows": "[M.Row{0n, 1n, False{}}]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]"
+        },
+        {
+          "id": "1n",
+          "next": "1n",
+          "rows": "[M.Row{0n, 1n, False{}}]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]"
+        },
+        {
+          "id": "1n",
+          "next": "1n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[]"
+        },
+        {
+          "id": "1n",
+          "next": "1n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]"
+        },
+        {
+          "id": "2n",
+          "next": "0n",
+          "rows": "[]",
+          "pending": "[]"
+        },
+        {
+          "id": "2n",
+          "next": "0n",
+          "rows": "[]",
+          "pending": "[M.Spawn{0n, 1n}]"
+        },
+        {
+          "id": "2n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}]",
+          "pending": "[M.Spawn{0n, 1n}]"
+        },
+        {
+          "id": "2n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]"
+        },
+        {
+          "id": "2n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, True{}}]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]"
+        },
+        {
+          "id": "2n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[]"
+        },
+        {
+          "id": "2n",
+          "next": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]"
+        },
+        {
+          "id": "2n",
+          "next": "1n",
+          "rows": "[]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]"
+        },
+        {
+          "id": "2n",
+          "next": "1n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[]"
+        },
+        {
+          "id": "2n",
+          "next": "1n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]"
+        },
+        {
+          "id": "2n",
+          "next": "2n",
+          "rows": "[M.Row{0n, 1n, True{}}]",
+          "pending": "[M.Tag{0n, True{}}, M.Spawn{0n, 1n}]"
+        },
+        {
+          "id": "2n",
+          "next": "2n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]"
+        },
+        {
+          "id": "2n",
+          "next": "2n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]",
+          "pending": "[M.Despawn{0n}, M.Tag{0n, True{}}]"
+        }
+      ]
+    },
+    {
+      "law": "tick_preserves_pending",
+      "instances": 2,
+      "binders": [
+        [
+          "w",
+          "M.World"
+        ]
+      ],
+      "typechecked_mutant": [
+        "model.bend",
+        "def tick(w: World) -> World:\n  w",
+        "def tick(w: World) -> World:\n  flush(w)"
+      ],
+      "rejection": "SOME PROOFS FAIL\nError:\n- expected : M.World{1n, 2n, [M.Row{0n, 1n, True{}}, M.Row{1n, 2n, True{}}, M.Row{0n, 1n, True{}}], []}\n- observed : M.World{1n, 2n, [M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}], [M.Tag{0n, True{}}, M.Spawn{0n, 1n}]}\nLocation: probe_tick_preserves_pending_1\n10 | def probe_tick_preserves_pending_1() -> {M.tick((M.World{1n, 2n, [M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}], [M.Tag{0n, True{}}, M.Spawn{0n, 1n}]})) == (M.World{1n, 2n, [M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}], [M.Tag{0n, True{}}, M.Spawn{0n, 1n}]}) : M.World}:\n11>|   {==}\n   |   ^^^^\n12 |",
+      "samples": [
+        {
+          "w": "M.World{0n, 0n, [], []}"
+        },
+        {
+          "w": "M.World{1n, 2n, [M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}], [M.Tag{0n, True{}}, M.Spawn{0n, 1n}]}"
+        }
+      ]
+    },
+    {
+      "law": "despawn_exact",
+      "instances": 15,
+      "binders": [
+        [
+          "slot",
+          "Nat"
+        ],
+        [
+          "rows",
+          "List<&2, M.Row>"
+        ]
+      ],
+      "typechecked_mutant": [
+        "model.bend",
+        "case Despawn{slot}: modify(slot, True{}, False{}, rows)",
+        "case Despawn{slot}: modify(slot, False{}, False{}, rows)"
+      ],
+      "rejection": "SOME PROOFS FAIL\nError:\n- expected : [M.Row{0n, 1n, False{}}]\n- observed : []\nLocation: probe_despawn_exact_1\n10 | def probe_despawn_exact_1() -> {M.apply(M.Despawn{(0n)}, ([M.Row{0n, 1n, False{}}])) == S.erase((0n), ([M.Row{0n, 1n, False{}}])) : List<&2, M.Row>}:\n11>|   {==}\n   |   ^^^^\n12 |",
+      "samples": [
+        {
+          "slot": "0n",
+          "rows": "[]"
+        },
+        {
+          "slot": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}]"
+        },
+        {
+          "slot": "0n",
+          "rows": "[M.Row{0n, 1n, True{}}]"
+        },
+        {
+          "slot": "0n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]"
+        },
+        {
+          "slot": "0n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]"
+        },
+        {
+          "slot": "1n",
+          "rows": "[]"
+        },
+        {
+          "slot": "1n",
+          "rows": "[M.Row{0n, 1n, False{}}]"
+        },
+        {
+          "slot": "1n",
+          "rows": "[M.Row{0n, 1n, True{}}]"
+        },
+        {
+          "slot": "1n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]"
+        },
+        {
+          "slot": "1n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]"
+        },
+        {
+          "slot": "2n",
+          "rows": "[]"
+        },
+        {
+          "slot": "2n",
+          "rows": "[M.Row{0n, 1n, False{}}]"
+        },
+        {
+          "slot": "2n",
+          "rows": "[M.Row{0n, 1n, True{}}]"
+        },
+        {
+          "slot": "2n",
+          "rows": "[M.Row{0n, 1n, False{}}, M.Row{1n, 2n, True{}}]"
+        },
+        {
+          "slot": "2n",
+          "rows": "[M.Row{1n, 3n, True{}}, M.Row{0n, 2n, False{}}]"
+        }
+      ]
+    },
+    {
+      "law": "message_failure_position",
+      "instances": 9,
+      "binders": [
+        [
+          "c",
+          "E.Cursor"
+        ],
+        [
+          "started",
+          "U32"
+        ]
+      ],
+      "typechecked_mutant": [
+        "events.bend",
+        "case False{}: cursor",
+        "case False{}: complete_success(cursor, started)"
+      ],
+      "rejection": "SOME PROOFS FAIL\nError:\n- expected : E.Cursor{1, 0}\n- observed : E.Cursor{0, 0}\nLocation: probe_message_failure_position_1\n10 | def probe_message_failure_position_1() -> {E.complete(False{}, (E.Cursor{0, 0}), (1)) == (E.Cursor{0, 0}) : E.Cursor}:\n11>|   {==}\n   |   ^^^^\n12 |",
+      "samples": [
+        {
+          "c": "E.Cursor{0, 0}",
+          "started": "0"
+        },
+        {
+          "c": "E.Cursor{0, 0}",
+          "started": "1"
+        },
+        {
+          "c": "E.Cursor{0, 0}",
+          "started": "4294967295"
+        },
+        {
+          "c": "E.Cursor{1, 0}",
+          "started": "0"
+        },
+        {
+          "c": "E.Cursor{1, 0}",
+          "started": "1"
+        },
+        {
+          "c": "E.Cursor{1, 0}",
+          "started": "4294967295"
+        },
+        {
+          "c": "E.Cursor{0, 4294967295}",
+          "started": "0"
+        },
+        {
+          "c": "E.Cursor{0, 4294967295}",
+          "started": "1"
+        },
+        {
+          "c": "E.Cursor{0, 4294967295}",
+          "started": "4294967295"
+        }
+      ]
+    },
+    {
+      "law": "message_skip_position",
+      "instances": 27,
+      "binders": [
+        [
+          "old",
+          "U32"
+        ],
+        [
+          "registered",
+          "U32"
+        ],
+        [
+          "current",
+          "U32"
+        ]
+      ],
+      "typechecked_mutant": [
+        "events.bend",
+        "def skip(cursor: Cursor, current: U32) -> Cursor:\n  complete_success(cursor, current)",
+        "def skip(cursor: Cursor, current: U32) -> Cursor:\n  cursor"
+      ],
+      "rejection": "SOME PROOFS FAIL\nError:\n- expected : E.Cursor{0, 0}\n- observed : E.Cursor{1, 0}\nLocation: probe_message_skip_position_1\n10 | def probe_message_skip_position_1() -> {E.skip(E.Cursor{(0), (0)}, (1)) == E.Cursor{(1), (0)} : E.Cursor}:\n11>|   {==}\n   |   ^^^^\n12 |",
+      "samples": [
+        {
+          "old": "0",
+          "registered": "0",
+          "current": "0"
+        },
+        {
+          "old": "0",
+          "registered": "0",
+          "current": "1"
+        },
+        {
+          "old": "0",
+          "registered": "0",
+          "current": "4294967295"
+        },
+        {
+          "old": "0",
+          "registered": "1",
+          "current": "0"
+        },
+        {
+          "old": "0",
+          "registered": "1",
+          "current": "1"
+        },
+        {
+          "old": "0",
+          "registered": "1",
+          "current": "4294967295"
+        },
+        {
+          "old": "0",
+          "registered": "4294967295",
+          "current": "0"
+        },
+        {
+          "old": "0",
+          "registered": "4294967295",
+          "current": "1"
+        },
+        {
+          "old": "0",
+          "registered": "4294967295",
+          "current": "4294967295"
+        },
+        {
+          "old": "1",
+          "registered": "0",
+          "current": "0"
+        },
+        {
+          "old": "1",
+          "registered": "0",
+          "current": "1"
+        },
+        {
+          "old": "1",
+          "registered": "0",
+          "current": "4294967295"
+        },
+        {
+          "old": "1",
+          "registered": "1",
+          "current": "0"
+        },
+        {
+          "old": "1",
+          "registered": "1",
+          "current": "1"
+        },
+        {
+          "old": "1",
+          "registered": "1",
+          "current": "4294967295"
+        },
+        {
+          "old": "1",
+          "registered": "4294967295",
+          "current": "0"
+        },
+        {
+          "old": "1",
+          "registered": "4294967295",
+          "current": "1"
+        },
+        {
+          "old": "1",
+          "registered": "4294967295",
+          "current": "4294967295"
+        },
+        {
+          "old": "4294967295",
+          "registered": "0",
+          "current": "0"
+        },
+        {
+          "old": "4294967295",
+          "registered": "0",
+          "current": "1"
+        },
+        {
+          "old": "4294967295",
+          "registered": "0",
+          "current": "4294967295"
+        },
+        {
+          "old": "4294967295",
+          "registered": "1",
+          "current": "0"
+        },
+        {
+          "old": "4294967295",
+          "registered": "1",
+          "current": "1"
+        },
+        {
+          "old": "4294967295",
+          "registered": "1",
+          "current": "4294967295"
+        },
+        {
+          "old": "4294967295",
+          "registered": "4294967295",
+          "current": "0"
+        },
+        {
+          "old": "4294967295",
+          "registered": "4294967295",
+          "current": "1"
+        },
+        {
+          "old": "4294967295",
+          "registered": "4294967295",
+          "current": "4294967295"
+        }
+      ]
+    },
+    {
+      "law": "lifecycle_failure_position",
+      "instances": 9,
+      "binders": [
+        [
+          "c",
+          "C.Reader"
+        ],
+        [
+          "started",
+          "U32"
+        ]
+      ],
+      "typechecked_mutant": [
+        "lifecycle.bend",
+        "case False{} old: old",
+        "case False{} Reader{_, _, registered}: Reader{tick, tick, registered}"
+      ],
+      "rejection": "SOME PROOFS FAIL\nError:\n- expected : C.Reader{1, 1, 0}\n- observed : C.Reader{0, 0, 0}\nLocation: probe_lifecycle_failure_position_1\n10 | def probe_lifecycle_failure_position_1() -> {C.complete(False{}, (C.Reader{0, 0, 0}), (1)) == (C.Reader{0, 0, 0}) : C.Reader}:\n11>|   {==}\n   |   ^^^^\n12 |",
+      "samples": [
+        {
+          "c": "C.Reader{0, 0, 0}",
+          "started": "0"
+        },
+        {
+          "c": "C.Reader{0, 0, 0}",
+          "started": "1"
+        },
+        {
+          "c": "C.Reader{0, 0, 0}",
+          "started": "4294967295"
+        },
+        {
+          "c": "C.Reader{1, 2, 0}",
+          "started": "0"
+        },
+        {
+          "c": "C.Reader{1, 2, 0}",
+          "started": "1"
+        },
+        {
+          "c": "C.Reader{1, 2, 0}",
+          "started": "4294967295"
+        },
+        {
+          "c": "C.Reader{0, 1, 4294967295}",
+          "started": "0"
+        },
+        {
+          "c": "C.Reader{0, 1, 4294967295}",
+          "started": "1"
+        },
+        {
+          "c": "C.Reader{0, 1, 4294967295}",
+          "started": "4294967295"
+        }
+      ]
+    }
+  ],
+  "compiled_model_control": {
+    "subject": "foreign_lookup_guard",
+    "native_js_original": "0 (Missing)",
+    "native_js_mutant": "2 (Found)",
+    "scope": "one finite model runtime instance; no owned runtime refinement"
+  }
+}

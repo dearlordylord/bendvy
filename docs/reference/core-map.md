@@ -63,3 +63,26 @@ capabilities и #10/#11/#12; next action — локальный R-A provider pro
 Relations/scopes, states, validation/restore/tooling и copied canonical-defense
 сохраняют return conditions выше, дополненные [F07–F11](../follow-ups.md).
 Runtime refinement и mandatory final native/JS performance остаются отдельными gates.
+
+## Current executable evidence checkpoint
+
+The catalogue above records T02's original source-only status. Current bounded
+reports are linked below; passing a probe does not mark its full core row complete.
+See [next checkpoint draft](../next-core-checkpoint.md) before selecting a production
+API/storage or publishing further implementation/proof packages.
+
+| Core seam | Current bounded evidence | Remaining full-core gate |
+| --- | --- | --- |
+| Schema/query/capabilities | R-A and R-C1 abstract providers, two schemas and negative controls | General captured systems, schema composition, authority/refinement and integrated scalable storage |
+| Data/Type payload | T04 owned array; T06 reversible owned U32 fields | Generic affine restoration, captured/IO payloads and scalable cost |
+| Identity/deferred commands | T05; approved foreign-world MissingEntity divergence | Runtime-owned namespace, generation/exhaustion/restore, general bundles and indexed bounds |
+| Transactions/publication | T06 prior commits, inverse rollback and staged events/commands | Allocation/mark/local/cursor rollback in an integrated provider/schedule runtime |
+| Messages | T07 independent readers, skip/failure, retention/capacity/lag | Generic affine fan-out, reader authority/lifecycle, epochs and scalable layout |
+| Changes/removals | T08 independent marks/positions; retained deletion records; individual capacity | General Type marks, sparse indexes, identity/provider/schedule integration and refinement |
+| Schedule/provisioning | T09 closed nested callbacks with typed failure | Captured Local, conditions/phases/features/requirement unions and lifecycle |
+| Performance | T10 reproducible finite prototype comparison; storage redesign required | Native substantial speedup and JS comparability on approved representative workloads/thresholds |
+| Laws/refinement | T11 draft 14 laws, literal falsification and mutation controls | Exact approval, general proofs, helper completion and runtime correspondence |
+| Relations/scopes | Retained core, no executable gate completed | Identity/transaction/reader integration, inverse/cleanup/cycle/order scenarios |
+| States/transitions | Retained core; only state skip used in TS adapters | Explicit exit/transition/enter failure boundaries and queue/publication laws |
+| Validation/snapshots/inspectors/debug | Retained core, no executable gate completed | Payload/identity restoration boundary, validation-before-mutation and observation noninterference |
+| Copied Canonical Defense | Not started; original jev untouched | Integrated simulation plus the remaining core contracts actually used by the copied application |

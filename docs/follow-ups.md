@@ -104,3 +104,14 @@ sparse storage, allocation/tick rollback, nonwrapping epoch policy and refinemen
 The Data row projection and trusted fixed-command driver do not approve Data-only
 components or replace T04/T06 ownership evidence. T10 may now measure these
 experimental paths; performance thresholds and exact laws still require approval.
+
+## Current proof/performance checkpoint
+
+[T10](../experiments/t10/README.md) keeps the mandatory performance target open:
+current sparse/churn paths regress and require a bounded indexed/ordered storage
+comparison. [T11](../experiments/t11/README.md) provides exact draft subjects,
+falsification and correspondence obligations; no general ECS proofs are approved.
+[Next checkpoint](next-core-checkpoint.md) retains full core and copied-integration
+prerequisites. Earlier F07/F11 blocked entries describe the historical checkpoint;
+provider probes now pass bounded gates, while general authority/refinement,
+production layout, performance acceptance and simulation readiness remain open.

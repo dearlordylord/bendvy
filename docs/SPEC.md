@@ -2,7 +2,7 @@
 
 We need a Bend-native entity-component-system runtime that retains the useful behavior of the current bevy-ts core without inheriting TypeScript's representation or ownership assumptions. Starting with a small ECS must not silently discard events, relations, states, transactions, composition or tooling from the eventual scope.
 
-The runtime must exploit Bend's type system and execution model correctly and offer measurable performance: low-level native builds must substantially outperform bevy-ts, while JavaScript builds must be at least comparable on equivalent workloads. No implementation or performance evidence currently exists.
+The runtime must exploit Bend's type system and execution model correctly and offer measurable performance: low-level native builds must substantially outperform bevy-ts, while JavaScript builds must be at least comparable on equivalent workloads. At specification creation, no implementation or performance evidence existed. Current bounded experimental evidence and remaining production gates are recorded in [the next checkpoint draft](next-core-checkpoint.md); the full runtime and final performance acceptance remain incomplete.
 
 ## Solution
 
@@ -94,7 +94,7 @@ The immediate agent-ready work is preparation and technical probes through candi
 
 ## Testing Decisions
 
-- Prefer one highest-level runtime seam: operation traces submitted through the public ECS API, with normalized observable results. Reuse it for equivalence, regression scenarios and performance workloads. There is no existing Bendvy implementation seam yet.
+- Prefer one highest-level runtime seam: operation traces submitted through the public ECS API, with normalized observable results. Reuse it for equivalence, regression scenarios and performance workloads. At specification creation there was no Bendvy implementation seam; current probes remain separate until their integration gate passes.
 - Compare TS and Bend results for identical logical inputs and equivalent work. Exclude physical storage, allocation addresses and incidental ID encodings from observations; preserve liveness, membership, specified order, publications, state and failures.
 - Add compile-time fixtures as a distinct necessary boundary for schema identity and read/write capabilities. Require rejection for the intended reason rather than an unrelated parse/type error.
 - Good tests assert external behavior. Do not mirror storage algorithms or assert caches, journals, ordinals or particular layouts merely because the implementation uses them.

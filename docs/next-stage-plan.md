@@ -48,3 +48,11 @@ checked-action альтернатива с отдельным specification deci
 specification ждёт required capability reports и #10/#11/#12; implementation и
 proof gates не открываются наличием этого документа. [F07–F11](follow-ups.md)
 сохраняют зависимости позднего core и copied integration.
+
+## Current review draft
+
+[Next core checkpoint](next-core-checkpoint.md) supersedes the obsolete order of
+the early redesign branch for future planning. R-A/R-C1 and T04–T09 have bounded
+executable evidence; the ordered-list storage remains a performance redesign
+candidate. T11 laws and numerical thresholds await explicit review; no new proof
+or simulation implementation package is automatically ready.
