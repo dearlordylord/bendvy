@@ -1,11 +1,13 @@
 # S-INTEGRATE — bounded two-schema runtime seam
 
-**Draft for discussion/review; unpublished. No implementation authorized by this draft alone.**
+**[GitHub #19](https://github.com/dearlordylord/bendvy/issues/19). Planned task: concrete trace preparation and review first; runtime implementation follows that gate.**
+Parent: [#1](https://github.com/dearlordylord/bendvy/issues/1).
+[Astra assessment](../reviews/approved-next-tranche.md).
 Governing [SPEC](../SPEC.md), [checkpoint](../next-core-checkpoint.md),
 [R-A](../../experiments/ra-provider/README.md), [R-C1](../../experiments/rc1-query/README.md),
 [#16 storage evidence](../../experiments/s-layout/README.md),
 [#17 capture/restoration evidence](../../experiments/s-capture/README.md),
-[law audit](../reviews/laws-semantic-audit.md) and [proof draft](17-approved-observation-proofs.md).
+[law audit](../reviews/laws-semantic-audit.md) and [P-OBS #18](17-approved-observation-proofs.md).
 Build one operation-trace seam joining previously separate capabilities; do not
 count their old passing reports as this task's acceptance.
 
@@ -34,6 +36,19 @@ if indexing/relocation is used. Compare normalized public results, not physical
 row order or exact allocator numbers. The prototype's trusted one-factory lineage,
 bounded capacity/no-reuse and word guards are explicit parameters, not production
 exhaustion/reuse policy or global unforgeable-root authority.
+
+## First executable step and dependencies
+
+Prepare a small trace specification with exact inputs, schemas, operation order,
+barriers, failure/retry, reader positions and expected public observations. Execute
+the pinned TS failed-reservation/subsequent-reservation checkpoint to distinguish
+consumed IDs from discarded structural publications. Review this trace against
+the existing evidence before implementing the integrated Bend subject.
+
+#18 is related proof work, not a blanket start blocker: trace preparation and
+source/reference investigation can proceed now. Reuse a proved endpoint only when
+its actual subject/domain applies; integration needs fresh capability evidence.
+Unresolved observable policy choices gate only their dependent implementation.
 
 ## Staged work
 

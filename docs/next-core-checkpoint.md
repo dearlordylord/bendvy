@@ -34,7 +34,7 @@ runner failure are recorded explicitly; no universal proof is inferred.
 limits the public-observation request to seven exact IDs; twenty internal and four
 infrastructure candidates require separate supporting-proof approval. Root authority,
 full-payload preservation and representation-neutral owned-read preservation remain
-open. Numerical thresholds remain pending. No general proofs exist.
+open. Numerical thresholds remain pending. The separately selected total lookup theorem is proved; remaining public endpoints and general runtime refinement are open.
 
 ## Execution checklist and tracker ownership
 
@@ -51,7 +51,8 @@ an earlier bounded redesign checkpoint, not completion of the next-stage specs.
 - [x] Detail, review and publish [S-LAYOUT #16](tickets/15-indexed-storage.md) and [S-CAPTURE #17](tickets/16-capture-restoration.md). Both can start alongside #12; publication does not mean capability completion.
 - [x] Execute #17 and review both axes: bounded state/closure/restoration evidence is recorded; general capability gates remain open.
 - [x] Execute and review #16: indexed owned-storage research is complete; dense/JS regressions retain the performance gate.
-- [ ] Use #16 measurements and #17 restoration evidence to detail and review S-INTEGRATE before publication; satisfy the capabilities it actually uses.
+- [x] Detail, review and publish [S-INTEGRATE #19](tickets/18-integrated-runtime.md) as planned work with the concrete-trace gate retained.
+- [ ] Execute #19: prepare and review exact traces first, then implement the integrated seam and satisfy its actual capability gates.
 - [ ] Specify and implement the simple simulation after its actual capability/law gates; agree numerical thresholds before accepting performance.
 - [ ] Specify remaining full-core packages and the isolated Tower Defense copy integration as their prerequisites become ready.
 
@@ -76,7 +77,7 @@ gate passed. The completed research criteria live in #12; its seven-law public s
 S-LAYOUT (#16) and S-CAPTURE (#17) completed bounded research and both review
 axes. Production layout/performance, general Local/restoration and integration
 gates remain open.
-[S-INTEGRATE detail](tickets/18-integrated-runtime.md) and P-ID/P-Q/P-CMD/P-TX/P-READ/P-PROVIDE remain **unpublished drafts**. S-INTEGRATE requires concrete trace review, including failed-reservation ID consumption versus publication rollback; no allocator rewind is inferred. Law packages depend on their exact
+[S-INTEGRATE #19](tickets/18-integrated-runtime.md) is published as planned work. P-ID/P-Q/P-CMD/P-TX/P-READ/P-PROVIDE remain **unpublished drafts**. S-INTEGRATE requires concrete trace review before runtime implementation, including failed-reservation ID consumption versus publication rollback; no allocator rewind is inferred. Law packages depend on their exact
 subjects and approval, not a blanket benchmark gate. Production integration/layout
 adoption waits for their actual capability/performance evidence.
 
