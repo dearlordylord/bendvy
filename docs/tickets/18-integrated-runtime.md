@@ -85,6 +85,8 @@ needed `/workspace/typescript/jev` sources; the original repository remains unto
 
 ## Prerequisite progress
 
+- [Astra-reviewed execution split](../design/s-integrate-execution.md) records draft module ownership, interface dependencies and staged delivery after #18. It preserves conditional candidate evaluation and incremental controls/mutants; it is planning evidence, not implementation or a new approval gate.
+
 - [Fresh public TS allocation checkpoint](../../experiments/s-integrate-trace/allocation-README.md): actual dispatcher observations establish consumed failed reservation ID3, distinct subsequent ID4, discarded failed spawn, earlier commit/publication retention and explicit barriers. Coordinator and independent Spec/Standards replay pass; scalar one-schema reference scope only.
 - [Concrete source seam inventory](../design/s-integrate-seams.md): provider/identity/transaction/reader/capture interfaces and missing ownership joins are recorded. This is planning evidence, not integrated capability acceptance.
 - [Concrete E0–E11 trace](../design/s-integrate-trace.md) is a reviewed source-derived plan with exact schema/payload inputs, rollback/reader/capture/barrier checkpoints, controls and public capacity boundaries. Its [execution ledger](../design/s-integrate-trace.md#fresh-reference-execution-ledger--2026-10-04) now separates four fresh main public TS lanes, ten public E11 cases, five internal C3/C0 supplements and scalar X. Coordinator and independent reviews pass; E10 Bend controls/foreign-command policy and all integrated Native/JS results remain open.
