@@ -1,0 +1,103 @@
+{
+  "status": "PASS_LIVE_NOOP_TRUEOLD_JOURNAL_MARK_FULLFIELDS_BOTH",
+  "scope": "LIVE fused suppression; original CP.uncached returns affine Raw owner plus original fullview; preserve cached fullview, trueRawold0 inverse and eachMainmark",
+  "cpu": 8,
+  "limits": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "cases": [
+    {
+      "getter": "cached",
+      "backend": "Native",
+      "compiling": true,
+      "exactNoopFullfieldsEffects": true,
+      "records": 144,
+      "outputSHA256": "82327fe23ec780486cc4cb39af1ee2711bf65389dbe70c35cf4fdf8126233fb8",
+      "programSHA256": "9c94ca811684430f9715d17fc93896a9044d69546feec0cd5d17ec53106accd4",
+      "trueOldJournalExample": "L:100;M7/1:10;L:77;",
+      "marksExample": [
+        {
+          "namespace": 7,
+          "id": 1
+        },
+        {
+          "namespace": 7,
+          "id": 2
+        }
+      ]
+    },
+    {
+      "getter": "cached",
+      "backend": "JS",
+      "compiling": true,
+      "exactNoopFullfieldsEffects": true,
+      "records": 144,
+      "outputSHA256": "82327fe23ec780486cc4cb39af1ee2711bf65389dbe70c35cf4fdf8126233fb8",
+      "programSHA256": "c2149f73ed2f2e600ffa3cee9f8771218d52a9705bbd50a317e1d236ecc1f31c",
+      "trueOldJournalExample": "L:100;M7/1:10;L:77;",
+      "marksExample": [
+        {
+          "namespace": 7,
+          "id": 1
+        },
+        {
+          "namespace": 7,
+          "id": 2
+        }
+      ]
+    },
+    {
+      "getter": "raw",
+      "backend": "Native",
+      "compiling": true,
+      "exactNoopFullfieldsEffects": true,
+      "records": 144,
+      "outputSHA256": "82327fe23ec780486cc4cb39af1ee2711bf65389dbe70c35cf4fdf8126233fb8",
+      "programSHA256": "afef4c3e80660cc355959aa2b8abcc4d8626340ff033bfa76132f779e5a56dd3",
+      "trueOldJournalExample": "L:100;M7/1:10;L:77;",
+      "marksExample": [
+        {
+          "namespace": 7,
+          "id": 1
+        },
+        {
+          "namespace": 7,
+          "id": 2
+        }
+      ]
+    },
+    {
+      "getter": "raw",
+      "backend": "JS",
+      "compiling": true,
+      "exactNoopFullfieldsEffects": true,
+      "records": 144,
+      "outputSHA256": "82327fe23ec780486cc4cb39af1ee2711bf65389dbe70c35cf4fdf8126233fb8",
+      "programSHA256": "84b9a4b24e7629aecb9e84535ebc61f9256ab5baad34a4f0d841218864e4b01c",
+      "trueOldJournalExample": "L:100;M7/1:10;L:77;",
+      "marksExample": [
+        {
+          "namespace": 7,
+          "id": 1
+        },
+        {
+          "namespace": 7,
+          "id": 2
+        }
+      ]
+    }
+  ],
+  "expectedChanges": "Only held fastpath Mainhead, scenarios0/8: pre and successful commit; original point/fallback/failure restored fields/effects unchanged",
+  "rawObserverPins": {
+    "raw": {
+      "CP": "f32887a50329432573eda1fe484443fc51e2a459e4496b98e707cc196003d3b2",
+      "protectedRaw": "03c861d32a6a4194a27e7d9acf89eac369f6dafef46fc56d423cc80985872db6",
+      "HA": "868178b2366946ef0842adaaa8c2b3d3e1c65dce9b31393f871535934ff8f9f2",
+      "callbacks": "8ca9af6b288124b6334cb18f7889502b1b9cd93efb3b38114979ee78ea09df50"
+    }
+  },
+  "records": 144
+}
