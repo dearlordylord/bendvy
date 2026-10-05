@@ -1,0 +1,34 @@
+{
+  "affine-held-negative.bend": {
+    "command": [
+      "taskset",
+      "-c",
+      "8",
+      "bend",
+      "/tmp/bendvy-threehour-native-analysis/candidate/experiments/s-integrate/affine-held-negative.bend",
+      "--check-only"
+    ],
+    "limit": 5,
+    "status": "REJECTED",
+    "source": "import Base\nimport ./types.bend as T\nimport ./storage.bend as S\nimport ./cache.bend as CC\nimport ./held.bend as H\nimport ./held-adapter.bend as HA\ndef clone(owner:H.Held<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,CC.Cache<T.Position,T.PositionView>,CC.Cache<T.MotionLedger,T.LedgerView>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>>) -> H.Held<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,CC.Cache<T.Position,T.PositionView>,CC.Cache<T.MotionLedger,T.LedgerView>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>> & H.Held<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,CC.Cache<T.Position,T.PositionView>,CC.Cache<T.MotionLedger,T.LedgerView>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>>:\n  (owner,owner)\n",
+    "sha256": "78bbb768c510ced252c67b9eece4b92b1e4ccc314c7d764382693152be8d158d",
+    "stdout": "",
+    "stderr": "SOME PROOFS FAIL\nError:\n- expected : owner\n- observed : owner (consumed more than once)\nLocation: clone\n6 | \n7>| def clone(owner:H.Held<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,CC.Cache<T.Position,T.PositionView>,CC.Cache<T.MotionLedger,T.LedgerView>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>>) -> H.Held<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,CC.Cache<T.Position,T.PositionView>,CC.Cache<T.MotionLedger,T.LedgerView>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>> & H.Held<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,CC.Cache<T.Position,T.PositionView>,CC.Cache<T.MotionLedger,T.LedgerView>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>>:\n  |           ^^^^^\n8 |   (owner,owner)\n"
+  },
+  "cross-schema-getter-negative.bend": {
+    "command": [
+      "taskset",
+      "-c",
+      "8",
+      "bend",
+      "/tmp/bendvy-threehour-native-analysis/candidate/experiments/s-integrate/cross-schema-getter-negative.bend",
+      "--check-only"
+    ],
+    "limit": 5,
+    "status": "REJECTED",
+    "source": "import Base\nimport ./types.bend as T\nimport ./storage.bend as S\nimport ./cache.bend as CC\nimport ./held.bend as H\nimport ./held-adapter.bend as HA\ndef cross(owner:H.Held<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,CC.Cache<T.Position,T.PositionView>,CC.Cache<T.MotionLedger,T.LedgerView>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>>) -> H.Held<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,CC.Cache<T.Position,T.PositionView>,CC.Cache<T.MotionLedger,T.LedgerView>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>> & T.Access<T.PositionView>:\n  HA.motion_get(owner,T.VitalsToken{})\n",
+    "sha256": "c3173807194a9ba5739be19f3f3f3079cfc432655031fac83d95018ed64499b9",
+    "stdout": "",
+    "stderr": "SOME PROOFS FAIL\nError:\n- expected : T.PositionToken\n- observed : T.VitalsToken\nContext:\n- owner : H.Held<S.World<T.MotionSchema, CC.Cache<T.Position, T.PositionView>, T.Velocity, T.Selected, CC.Cache<T.MotionLedger, T.LedgerView>, T.MotionMode>, CC.Cache<T.Position, T.PositionView>, CC.Cache<T.MotionLedger, T.LedgerView>, S.Handle<T.MotionSchema>, S.Command<CC.Cache<T.Position, T.PositionView>, T.Velocity, T.Selected>>\nLocation: cross\n7 | def cross(owner:H.Held<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,CC.Cache<T.Position,T.PositionView>,CC.Cache<T.MotionLedger,T.LedgerView>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>>) -> H.Held<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,CC.Cache<T.Position,T.PositionView>,CC.Cache<T.MotionLedger,T.LedgerView>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>> & T.Access<T.PositionView>:\n8>|   HA.motion_get(owner,T.VitalsToken{})\n  |                       ^^^^^^^^^^^^^^^\n9 | \n"
+  }
+}

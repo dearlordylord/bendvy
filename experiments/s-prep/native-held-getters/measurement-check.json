@@ -1,0 +1,34 @@
+{
+  "cpu": 8,
+  "commands": [
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "8",
+        "bend",
+        "/tmp/bendvy-threehour-native-analysis/candidate/experiments/s-integrate/measurement-bend.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "status": "PASS",
+      "stdout": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "8",
+        "bend",
+        "/tmp/bendvy-threehour-native-analysis/candidate/experiments/s-integrate/measurement-bend.bend",
+        "-o",
+        "/tmp/bendvy-threehour-native-analysis/measurement-native.c"
+      ],
+      "limit": 30,
+      "status": "PASS",
+      "stdout": "",
+      "stderr": ""
+    }
+  ]
+}
