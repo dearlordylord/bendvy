@@ -142,3 +142,16 @@ The user rejected the incremental10% JS /5% Native-regression proposal. Success 
 
 
 Latest bounded implementation evidence is retained in [the two-hour report](reports/twohour-performance-preparation.md): selected-owner Dense integration, actual affine Raw/view cache capability and separate Native cached-capacity operations. These are semantic prototypes, not accepted performance keeps. The combined Main/indexed-query candidate remains isolated on `s-loop23/fusion-review`; the production core is unchanged. Persistent cache integration, remaining matrix/Host gates and full protocol acceptance stay open under #21/#23.
+
+
+### Retained follow-ups after the two-hour preparation
+
+Keep these under the existing open #21/#23 until separately specified and checked:
+
+1. Complete the private persistent-cache World boundaries: generic factory, raw Bundle/Command conversion with rejected-owner return, optional components/Ledger, growth/structural edits, arbitrary transforms/invalidation, readers and applyDeferred. Current two-tick rollback/full-field capability evidence is in `experiments/s-prep/persistent-cache-world/`; its laws remain draft/unapproved.
+2. Join the reviewed selected-owner callback adapter, persistent cache policy and separately pinned Native/JS column operations at one chosen source closure. Repeat the actual full Host/access/mutation gates and remaining workload/size matrix. The Main/indexed-query candidate remains isolated; no production adoption is implied.
+3. Accept a complete replacement comparison contract: current compiler pin, exact Native minimum, uncertainty-aware JS parity, evaluator/check/source scope, noise/keep/stop rules and enforceable budget. The old 10%/5% contract is withdrawn. Current evaluator remains dry-run-only; no packet/session exists.
+4. Resolve current timer quantization through an explicitly versioned equivalent-work protocol; existing batch sums do not reduce per-world endpoint uncertainty. Archive every TS full record. Only then qualify fresh candidate/reference cohorts and judge the actual TS-relative goal.
+5. Full core, headless simulation and copied Tower Defense follow their existing prerequisite gates. Never modify `/workspace/typescript/jev`; prototypes and focused observations cannot close these packages.
+
+See [persistent cache plan](design/persistent-owned-cache-plan.md), [resolution proposal](design/parity-resolution-protocol.md), [bounded review](reviews/twohour-owner-cache-review.md) and [current report](reports/twohour-performance-preparation.md).
