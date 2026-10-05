@@ -1,0 +1,706 @@
+{
+  "status": "FINITE_QUERY_COMMAND_LIFECYCLE_AND_TWO_COMPILING_MUTANTS_PASS",
+  "scope": "Finite actual Q.each/Q.lookup and public C queue/apply lifecycle; not full22 gates, authority proof or performance acceptance",
+  "commands": [
+    {
+      "argv": [
+        "bend",
+        "version"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "bend",
+        "guide"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "bend",
+        "/tmp/primitive-query-4s2j0kp1/JS-one/query-lifecycle.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "bend",
+        "/tmp/primitive-query-4s2j0kp1/JS-one/query-lifecycle.bend",
+        "-o",
+        "/tmp/primitive-query-4s2j0kp1/JS-one/original.js"
+      ],
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "node",
+        "/tmp/primitive-query-4s2j0kp1/JS-one/original.js"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "bend",
+        "/tmp/primitive-query-4s2j0kp1/JS-one/query-lifecycle.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "bend",
+        "/tmp/primitive-query-4s2j0kp1/JS-one/query-lifecycle.bend",
+        "-o",
+        "/tmp/primitive-query-4s2j0kp1/JS-one/query-order.js"
+      ],
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "node",
+        "/tmp/primitive-query-4s2j0kp1/JS-one/query-order.js"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "bend",
+        "/tmp/primitive-query-4s2j0kp1/JS-one/query-lifecycle.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "bend",
+        "/tmp/primitive-query-4s2j0kp1/JS-one/query-lifecycle.bend",
+        "-o",
+        "/tmp/primitive-query-4s2j0kp1/JS-one/flag-membership.js"
+      ],
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "node",
+        "/tmp/primitive-query-4s2j0kp1/JS-one/flag-membership.js"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "bend",
+        "/tmp/primitive-query-4s2j0kp1/JS-two/query-lifecycle.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "bend",
+        "/tmp/primitive-query-4s2j0kp1/JS-two/query-lifecycle.bend",
+        "-o",
+        "/tmp/primitive-query-4s2j0kp1/JS-two/original.js"
+      ],
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "node",
+        "/tmp/primitive-query-4s2j0kp1/JS-two/original.js"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "bend",
+        "/tmp/primitive-query-4s2j0kp1/JS-two/query-lifecycle.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "bend",
+        "/tmp/primitive-query-4s2j0kp1/JS-two/query-lifecycle.bend",
+        "-o",
+        "/tmp/primitive-query-4s2j0kp1/JS-two/query-order.js"
+      ],
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "node",
+        "/tmp/primitive-query-4s2j0kp1/JS-two/query-order.js"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "bend",
+        "/tmp/primitive-query-4s2j0kp1/JS-two/query-lifecycle.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "bend",
+        "/tmp/primitive-query-4s2j0kp1/JS-two/query-lifecycle.bend",
+        "-o",
+        "/tmp/primitive-query-4s2j0kp1/JS-two/flag-membership.js"
+      ],
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "node",
+        "/tmp/primitive-query-4s2j0kp1/JS-two/flag-membership.js"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "bend",
+        "/tmp/primitive-query-4s2j0kp1/Native-one/query-lifecycle.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "bend",
+        "/tmp/primitive-query-4s2j0kp1/Native-one/query-lifecycle.bend",
+        "-o",
+        "/tmp/primitive-query-4s2j0kp1/Native-one/original.c"
+      ],
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "clang",
+        "-O3",
+        "/tmp/primitive-query-4s2j0kp1/Native-one/original.c",
+        "-o",
+        "/tmp/primitive-query-4s2j0kp1/Native-one/original",
+        "-lm",
+        "-pthread"
+      ],
+      "limitSeconds": 120
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "/tmp/primitive-query-4s2j0kp1/Native-one/original",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "bend",
+        "/tmp/primitive-query-4s2j0kp1/Native-one/query-lifecycle.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "bend",
+        "/tmp/primitive-query-4s2j0kp1/Native-one/query-lifecycle.bend",
+        "-o",
+        "/tmp/primitive-query-4s2j0kp1/Native-one/query-order.c"
+      ],
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "clang",
+        "-O3",
+        "/tmp/primitive-query-4s2j0kp1/Native-one/query-order.c",
+        "-o",
+        "/tmp/primitive-query-4s2j0kp1/Native-one/query-order",
+        "-lm",
+        "-pthread"
+      ],
+      "limitSeconds": 120
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "/tmp/primitive-query-4s2j0kp1/Native-one/query-order",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "bend",
+        "/tmp/primitive-query-4s2j0kp1/Native-one/query-lifecycle.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "bend",
+        "/tmp/primitive-query-4s2j0kp1/Native-one/query-lifecycle.bend",
+        "-o",
+        "/tmp/primitive-query-4s2j0kp1/Native-one/flag-membership.c"
+      ],
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "clang",
+        "-O3",
+        "/tmp/primitive-query-4s2j0kp1/Native-one/flag-membership.c",
+        "-o",
+        "/tmp/primitive-query-4s2j0kp1/Native-one/flag-membership",
+        "-lm",
+        "-pthread"
+      ],
+      "limitSeconds": 120
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "/tmp/primitive-query-4s2j0kp1/Native-one/flag-membership",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "bend",
+        "/tmp/primitive-query-4s2j0kp1/Native-two/query-lifecycle.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "bend",
+        "/tmp/primitive-query-4s2j0kp1/Native-two/query-lifecycle.bend",
+        "-o",
+        "/tmp/primitive-query-4s2j0kp1/Native-two/original.c"
+      ],
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "clang",
+        "-O3",
+        "/tmp/primitive-query-4s2j0kp1/Native-two/original.c",
+        "-o",
+        "/tmp/primitive-query-4s2j0kp1/Native-two/original",
+        "-lm",
+        "-pthread"
+      ],
+      "limitSeconds": 120
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "/tmp/primitive-query-4s2j0kp1/Native-two/original",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "bend",
+        "/tmp/primitive-query-4s2j0kp1/Native-two/query-lifecycle.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "bend",
+        "/tmp/primitive-query-4s2j0kp1/Native-two/query-lifecycle.bend",
+        "-o",
+        "/tmp/primitive-query-4s2j0kp1/Native-two/query-order.c"
+      ],
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "clang",
+        "-O3",
+        "/tmp/primitive-query-4s2j0kp1/Native-two/query-order.c",
+        "-o",
+        "/tmp/primitive-query-4s2j0kp1/Native-two/query-order",
+        "-lm",
+        "-pthread"
+      ],
+      "limitSeconds": 120
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "/tmp/primitive-query-4s2j0kp1/Native-two/query-order",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "bend",
+        "/tmp/primitive-query-4s2j0kp1/Native-two/query-lifecycle.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "bend",
+        "/tmp/primitive-query-4s2j0kp1/Native-two/query-lifecycle.bend",
+        "-o",
+        "/tmp/primitive-query-4s2j0kp1/Native-two/flag-membership.c"
+      ],
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "clang",
+        "-O3",
+        "/tmp/primitive-query-4s2j0kp1/Native-two/flag-membership.c",
+        "-o",
+        "/tmp/primitive-query-4s2j0kp1/Native-two/flag-membership",
+        "-lm",
+        "-pthread"
+      ],
+      "limitSeconds": 120
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "/tmp/primitive-query-4s2j0kp1/Native-two/flag-membership",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limitSeconds": 5
+    }
+  ],
+  "subjects": {
+    "JS-one": {
+      "status": "PASS",
+      "fixtureSHA256": "2e8c017bacf0d54150cba96d32c6d96598345ba94f9be5d80a20c9150aa3855f",
+      "expectedSHA256": "dd6d4e4e0f0099b40f4b6402d99d42d9739fb0e6c78767a464c619a42e8a4a57",
+      "literalObservations": 40,
+      "originalSHA256": "dd6d4e4e0f0099b40f4b6402d99d42d9739fb0e6c78767a464c619a42e8a4a57",
+      "mutants": [
+        "query-order",
+        "flag-membership"
+      ]
+    },
+    "JS-two": {
+      "status": "PASS",
+      "fixtureSHA256": "9de73093ae4c1f78609b3fa765666790f4a643b7a3018daca367ac72b7b3c6ea",
+      "expectedSHA256": "a82db494f1dfb9fe95dadfad126a97bc8d4ac4c73f49aadb8fca2c0666417e7d",
+      "literalObservations": 40,
+      "originalSHA256": "a82db494f1dfb9fe95dadfad126a97bc8d4ac4c73f49aadb8fca2c0666417e7d",
+      "mutants": [
+        "query-order",
+        "flag-membership"
+      ]
+    },
+    "Native-one": {
+      "status": "PASS",
+      "fixtureSHA256": "2e8c017bacf0d54150cba96d32c6d96598345ba94f9be5d80a20c9150aa3855f",
+      "expectedSHA256": "dd6d4e4e0f0099b40f4b6402d99d42d9739fb0e6c78767a464c619a42e8a4a57",
+      "literalObservations": 40,
+      "originalSHA256": "dd6d4e4e0f0099b40f4b6402d99d42d9739fb0e6c78767a464c619a42e8a4a57",
+      "mutants": [
+        "query-order",
+        "flag-membership"
+      ]
+    },
+    "Native-two": {
+      "status": "PASS",
+      "fixtureSHA256": "9de73093ae4c1f78609b3fa765666790f4a643b7a3018daca367ac72b7b3c6ea",
+      "expectedSHA256": "a82db494f1dfb9fe95dadfad126a97bc8d4ac4c73f49aadb8fca2c0666417e7d",
+      "literalObservations": 40,
+      "originalSHA256": "a82db494f1dfb9fe95dadfad126a97bc8d4ac4c73f49aadb8fca2c0666417e7d",
+      "mutants": [
+        "query-order",
+        "flag-membership"
+      ]
+    }
+  },
+  "sourceSHA256": {
+    "JS": {
+      "uncached-payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+      "prototype-static-client.bend": "1a9d22180604433d91e6572679761f660b89b093ed5dbe2ad783859fb05d7a51",
+      "payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+      "measurement-bend.bend": "86f2e4fd5a8dbf9f4e4d29a5ffedf80f00a01868ccb783da1ad08204d4a11e40",
+      "held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+      "storage.bend": "e158a18b616434ec19d64696bb29f7e4c29a58163fe0aee4fd176e72d9df4ad8",
+      "transaction-dispatch-adapters.bend": "f2276c1c16ad3694ab8a253f97da892df3a1db81b621cd80018b1376d79d490d",
+      "cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+      "systems.bend": "32e11a5a89b01e8db00f0b58a9fd1e2da87f4882189725b0012933421b6b1716",
+      "identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+      "held-adapter.bend": "74099f8799a449d55a863ed0fb1f6e775b979d21a7660066ef28b95664d861b8",
+      "schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+      "reader-host.bend": "26eb687a8fb1893b55e4a0c7c8a629b688e37466e169cb3c95dd5273a553db6d",
+      "audited-invoker.bend": "8f4cc0acd27b49d7425e43419dc0f6d2be7eeed1cb36962c33d0b97aaf2ef5b3",
+      "cached-payload.bend": "0133f2ab73bb5cbec778a8bdbaaa14c8ac60f353d89f8805016643a0be9e5953",
+      "observations.bend": "e81cb63b3ab6da947a2455c3cc1b388abb1aa71dea593671d1c18f00da07a778",
+      "host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+      "query.bend": "119617a784586efec9bcc51deb4448b916f54ce9f33810567a746514caa75c77",
+      "structural-invoker.bend": "8e1269193d719b1f0ea68b040c62e8966160bacb898ac51caa2f6494f4621e0a",
+      "types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+      "commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+      "capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+      "host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+      "readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+      "transaction.bend": "10666618cc37f9cd2a5f4f5c13570727b0a0ece96bbbada2e06816ccd3b0e0de",
+      "dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+      "raw-boundaries.bend": "77dbad2365e0499ae4e9e6a5ae7dd67b5a2ebcc5be163de56d0e836781f70a2f",
+      "streams.bend": "291d9a46ad58bdc481a5710976e01b762f6e11be3aeba07076c46c69f236d2c0",
+      "host.bend": "912a679e54098d5c4e395fc75e993092c3cb735968ce2fc96edba709b778bb04"
+    },
+    "Native": {
+      "uncached-payload.bend": "03c861d32a6a4194a27e7d9acf89eac369f6dafef46fc56d423cc80985872db6",
+      "prototype-static-client.bend": "1a9d22180604433d91e6572679761f660b89b093ed5dbe2ad783859fb05d7a51",
+      "payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+      "measurement-bend.bend": "86f2e4fd5a8dbf9f4e4d29a5ffedf80f00a01868ccb783da1ad08204d4a11e40",
+      "held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+      "storage.bend": "e158a18b616434ec19d64696bb29f7e4c29a58163fe0aee4fd176e72d9df4ad8",
+      "transaction-dispatch-adapters.bend": "f2276c1c16ad3694ab8a253f97da892df3a1db81b621cd80018b1376d79d490d",
+      "cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+      "systems.bend": "32e11a5a89b01e8db00f0b58a9fd1e2da87f4882189725b0012933421b6b1716",
+      "identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+      "held-adapter.bend": "74099f8799a449d55a863ed0fb1f6e775b979d21a7660066ef28b95664d861b8",
+      "schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+      "reader-host.bend": "26eb687a8fb1893b55e4a0c7c8a629b688e37466e169cb3c95dd5273a553db6d",
+      "audited-invoker.bend": "8f4cc0acd27b49d7425e43419dc0f6d2be7eeed1cb36962c33d0b97aaf2ef5b3",
+      "cached-payload.bend": "354bb1ddb9dbd90a64138aa0e0ea4dd499a1a9345b3e94940c183dc16390db82",
+      "observations.bend": "e81cb63b3ab6da947a2455c3cc1b388abb1aa71dea593671d1c18f00da07a778",
+      "host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+      "query.bend": "119617a784586efec9bcc51deb4448b916f54ce9f33810567a746514caa75c77",
+      "structural-invoker.bend": "8e1269193d719b1f0ea68b040c62e8966160bacb898ac51caa2f6494f4621e0a",
+      "types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+      "commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+      "capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+      "host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+      "readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+      "transaction.bend": "10666618cc37f9cd2a5f4f5c13570727b0a0ece96bbbada2e06816ccd3b0e0de",
+      "dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+      "raw-boundaries.bend": "77dbad2365e0499ae4e9e6a5ae7dd67b5a2ebcc5be163de56d0e836781f70a2f",
+      "streams.bend": "291d9a46ad58bdc481a5710976e01b762f6e11be3aeba07076c46c69f236d2c0",
+      "host.bend": "912a679e54098d5c4e395fc75e993092c3cb735968ce2fc96edba709b778bb04"
+    }
+  },
+  "fixtureOwnersSHA256": "5ad53b8f5e68fb53670d5e243850180522c02c7dfcb62eac7067c2a939d64bff",
+  "previousBoundedAttempts": [
+    {
+      "status": "INCOMPLETE",
+      "subjects": {
+        "JS-one": {
+          "status": "PASS",
+          "fixtureSHA256": "14fe7a0912bae072cb07c71e24be82beac9bccbb61a61b706fdb66ab4a68ee0c",
+          "expectedSHA256": "dd6d4e4e0f0099b40f4b6402d99d42d9739fb0e6c78767a464c619a42e8a4a57",
+          "literalObservations": 40,
+          "originalSHA256": "dd6d4e4e0f0099b40f4b6402d99d42d9739fb0e6c78767a464c619a42e8a4a57",
+          "mutants": [
+            "query-order",
+            "flag-membership"
+          ]
+        },
+        "JS-two": {
+          "status": "PASS",
+          "fixtureSHA256": "c2a7367e665a67b1d6227ad4165142e50f231f02022141b867b31bebdba9559e",
+          "expectedSHA256": "a82db494f1dfb9fe95dadfad126a97bc8d4ac4c73f49aadb8fca2c0666417e7d",
+          "literalObservations": 40,
+          "originalSHA256": "a82db494f1dfb9fe95dadfad126a97bc8d4ac4c73f49aadb8fca2c0666417e7d",
+          "mutants": [
+            "query-order",
+            "flag-membership"
+          ]
+        },
+        "Native-one": {
+          "status": "INCOMPLETE",
+          "fixtureSHA256": "14fe7a0912bae072cb07c71e24be82beac9bccbb61a61b706fdb66ab4a68ee0c",
+          "expectedSHA256": "dd6d4e4e0f0099b40f4b6402d99d42d9739fb0e6c78767a464c619a42e8a4a57"
+        }
+      },
+      "failure": {
+        "argv": [
+          "taskset",
+          "-c",
+          "4",
+          "bend",
+          "/tmp/primitive-query-nvbb1jc2/Native-one/query-lifecycle.bend",
+          "--check-only"
+        ],
+        "limitSeconds": 5,
+        "status": "TIMEOUT"
+      },
+      "explanation": "Large fixture-only import closure exceeded unchanged5s check; no candidate source edit or runtime observation removed"
+    },
+    {
+      "status": "INCOMPLETE",
+      "subjects": {
+        "JS-one": {
+          "status": "INCOMPLETE",
+          "fixtureSHA256": "2e8c017bacf0d54150cba96d32c6d96598345ba94f9be5d80a20c9150aa3855f",
+          "expectedSHA256": "dd6d4e4e0f0099b40f4b6402d99d42d9739fb0e6c78767a464c619a42e8a4a57"
+        }
+      },
+      "failure": {
+        "argv": [
+          "taskset",
+          "-c",
+          "4",
+          "bend",
+          "/tmp/primitive-query-2fna41ra/JS-one/query-lifecycle.bend",
+          "--check-only"
+        ],
+        "limitSeconds": 5,
+        "status": "TIMEOUT"
+      },
+      "explanation": "Large fixture-only import closure exceeded unchanged5s check; no candidate source edit or runtime observation removed"
+    }
+  ],
+  "sourceClosureRecheckedAgainstCurrentRoot": true
+}

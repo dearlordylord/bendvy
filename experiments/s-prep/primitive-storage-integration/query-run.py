@@ -1,0 +1,59 @@
+#!/usr/bin/env python3
+"""Finite actual query/command lifecycle; never a benchmark or full Host gate."""
+import argparse,atexit,hashlib,json,os,pathlib,signal,subprocess,tempfile
+HERE=pathlib.Path(__file__).resolve().parent
+p=argparse.ArgumentParser();p.add_argument('--candidate-root',type=pathlib.Path,default=pathlib.Path('/workspace/formal-proofs/bendvy/experiments/fivehour-candidate'));p.add_argument('--output',type=pathlib.Path,default=HERE/'query-evidence.json');a=p.parse_args()
+CPU=os.environ.get('BENDVY_CPU','4')
+receipt={'status':'INCOMPLETE','scope':'Finite actual Q.each/Q.lookup and public C queue/apply lifecycle; not full22 gates, authority proof or performance acceptance','commands':[],'subjects':{},'sourceSHA256':{}}
+atexit.register(lambda:a.output.write_text(json.dumps(receipt,indent=2)+'\n'))
+def run(args,limit=5):
+ receipt['commands'].append({'argv':list(map(str,args)),'limitSeconds':limit})
+ child=subprocess.Popen(list(map(str,args)),stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True,start_new_session=True)
+ try:out,err=child.communicate(timeout=limit)
+ except subprocess.TimeoutExpired:
+  os.killpg(child.pid,signal.SIGKILL);child.communicate();receipt['failure']={'argv':list(map(str,args)),'limitSeconds':limit,'status':'TIMEOUT'};raise
+ if child.returncode:
+  receipt['failure']={'argv':list(map(str,args)),'exit':child.returncode,'out':out,'err':err};raise RuntimeError(receipt['failure'])
+ return out+err
+assert 'bend 2.0.35' in run(['bend','version']);run(['bend','guide'])
+fixture=(HERE/'query-lifecycle.bend').read_text();literal=(HERE/'query-expected.txt').read_text()
+with tempfile.TemporaryDirectory(prefix='primitive-query-') as directory:
+ tmp=pathlib.Path(directory)
+ for backend in ['JS','Native']:
+  frozen={f.name:f.read_bytes() for f in (a.candidate_root/backend/'experiments/s-integrate').glob('*.bend')}
+  receipt['sourceSHA256'][backend]={n:hashlib.sha256(v).hexdigest() for n,v in frozen.items()}
+  for schema in ['one','two']:
+   stage=tmp/(backend+'-'+schema);stage.mkdir()
+   for n,v in frozen.items():(stage/n).write_bytes(v)
+   owners=(HERE/'owners.bend').read_text()
+   owners='import Base\n\n'+owners[owners.index('type Motion is Type:'):owners.index('def snap_leaf(')]
+   (stage/'owners.bend').write_text(owners)
+   receipt['fixtureOwnersSHA256']=hashlib.sha256(owners.encode()).hexdigest()
+   source=fixture;expected=literal
+   if schema=='two':
+    source=source.replace('QuerySchemaOne','QuerySchemaTwo').replace('A.Motion','A.TEMP').replace('A.Health','A.Motion').replace('A.TEMP','A.Health')
+    source=source.replace('motion_','TEMP_').replace('health_','motion_').replace('TEMP_','health_')
+    source=source.replace('make_motion','make_TEMP').replace('make_health','make_motion').replace('make_TEMP','make_health')
+    source=source.replace('S.World{7,','S.World{9,').replace('S.Handle{7,','S.Handle{9,').replace('S.Handle{8,','S.Handle{10,')
+    expected=expected.replace('7:','9:')
+   subject=backend+'-'+schema;(stage/'query-lifecycle.bend').write_text(source)
+   receipt['subjects'][subject]={'status':'INCOMPLETE','fixtureSHA256':hashlib.sha256(source.encode()).hexdigest(),'expectedSHA256':hashlib.sha256(expected.encode()).hexdigest()}
+   def command(args,limit=5):return run(['taskset','-c',CPU,*args],limit)
+   def build(label):
+    f=stage/'query-lifecycle.bend';assert 'ALL PROOFS CHECK' in command(['bend',f,'--check-only'])
+    if backend=='JS':
+     js=stage/(label+'.js');command(['bend',f,'-o',js],30);return command(['node',js])
+    c=stage/(label+'.c');binary=stage/label
+    command(['bend',f,'-o',c],30);command(['clang','-O3',c,'-o',binary,'-lm','-pthread'],120);return command([binary,'--threads','1','--gpu','off'])
+   original=build('original');assert original==expected,(subject,original,expected)
+   query=(stage/'query.bend').read_text()
+   needle='List.reverse(&2,O,values)';assert query.count(needle)==2
+   mutations={'query-order':query.replace(needle,'values'), 'flag-membership':query.replace('case Present{} None{}: False{}','case Present{} None{}: True{}')}
+   assert query.count('case Present{} None{}: False{}')==1
+   for name,changed in mutations.items():
+    (stage/'query.bend').write_text(changed)
+    observed=build(name);assert observed!=expected,(subject,name,'mutant survived literal oracle')
+   (stage/'query.bend').write_text(query)
+   receipt['subjects'][subject].update({'status':'PASS','literalObservations':len(expected.splitlines()),'originalSHA256':hashlib.sha256(original.encode()).hexdigest(),'mutants':['query-order','flag-membership']})
+receipt['status']='FINITE_QUERY_COMMAND_LIFECYCLE_AND_TWO_COMPILING_MUTANTS_PASS'
+print(receipt['status'])
