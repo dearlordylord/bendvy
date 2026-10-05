@@ -48,10 +48,12 @@ def decide(cohorts, *, native_factor):
         values = {}
         for backend in medians:
             items = [s for s in samples if isinstance(s, dict) and s.get('backend') == backend]
-            if len(items) != 7 or {s.get('repetition') for s in items} != set(range(1, 8)) or any(s.get('status') != 'PASS' or isinstance(s.get('milliseconds'), bool) or not isinstance(s.get('milliseconds'), (int, float)) or not math.isfinite(s['milliseconds']) or s['milliseconds'] <= 0 for s in items):
+            if len(items) != 7 or any(type(s.get('repetition')) is not int for s in items) or {s.get('repetition') for s in items} != set(range(1, 8)) or any(s.get('status') != 'PASS' or isinstance(s.get('milliseconds'), bool) or not isinstance(s.get('milliseconds'), (int, float)) or not math.isfinite(s['milliseconds']) or s['milliseconds'] <= 0 for s in items):
                 reasons.append('missing/nonfinite/nonpositive/full-field-failed sample');break
             values[backend] = [s['milliseconds'] for s in items]
         if len(values) != 3:continue
+        if any(not math.isfinite(a/b) for times in values.values() for a in times for b in values['TS']):
+            reasons.append('nonfinite derived ratio');continue
         record = {'id': cohort.get('id'), 'raw': {}, 'conservative': {}, 'relativeMAD': {}}
         for backend, times in values.items():
             median = statistics.median(times);medians[backend].append(median)
