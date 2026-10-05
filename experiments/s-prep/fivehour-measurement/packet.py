@@ -14,6 +14,18 @@ def child(args,limit,log):
     if p.returncode:raise ValueError('child exit failure '+str(args[0]))
     return o
 
+def canonical_parent(m):
+    """The evaluator must descend from the exact canonical next process."""
+    pid=os.getppid()
+    for _ in range(32):
+        try:
+            proc=pathlib.Path('/proc')/str(pid);argv=proc.joinpath('cmdline').read_bytes().split(b'\0');exe=proc.joinpath('exe').resolve()
+            if exe==pathlib.Path(m['tools']['node']) and len(argv)>2 and pathlib.Path(argv[1].decode()).resolve()==pathlib.Path(m['canonicalCLI']).resolve() and argv[2]==b'next':return
+            fields=proc.joinpath('stat').read_text().rsplit(')',1)[1].split();pid=int(fields[1])
+            if pid<=1:break
+        except (OSError,ValueError,UnicodeDecodeError):break
+    raise ValueError('direct evaluator invocation forbidden; canonical next ancestor absent')
+
 def main():
     a=argparse.ArgumentParser();a.add_argument('--manifest',type=pathlib.Path,required=True);a.add_argument('--sha256',required=True);a.add_argument('--baseline-manifest',type=pathlib.Path,required=True);a.add_argument('--baseline-sha256',required=True);a.add_argument('--output',type=pathlib.Path,required=True);a.add_argument('--acceptance',type=pathlib.Path);a.add_argument('--acceptance-sha256');a.add_argument('--preflight-only',action='store_true');a.add_argument('--cpu',type=int,default=11);args=a.parse_args()
     if args.cpu!=11:raise ValueError('fixed CPU11 required')
@@ -24,13 +36,14 @@ def main():
     if args.preflight_only:print('PACKET_PREFLIGHT_ONLY_NO_EXECUTION');return
     if not args.acceptance or not args.acceptance_sha256:raise ValueError('accepted contract binding required; no child executed')
     if guard.sha(args.acceptance)!=args.acceptance_sha256:raise ValueError('acceptance file digest changed')
+    canonical_parent(m)
     contract=json.loads(args.acceptance.read_text())
     required={'accepted':True,'manifestSHA256':args.sha256,'baselineManifestSHA256':args.baseline_sha256,'protocolVersion':'fresh16-one-bracket-v1','packetCap':8,'noiseLimit':0.10,'bootstrapSeed':23,'bootstrapResamples':10000,'orchestrationPolicy':'backend-natural-owner-retention','deadlineUTC':guard.DEADLINE.isoformat()}
     if any(contract.get(k)!=v for k,v in required.items()):raise ValueError('incomplete/different accepted contract; no child executed')
     # Historical receipts cannot authorize the current candidate snapshot.
     live=contract.get('liveChecks')
     if not isinstance(live,dict) or set(live)!={'script','sha256','receipt','requiredGateIDs','wholeCommandLimit'}:raise ValueError('live authoritative check contract absent')
-    if live['wholeCommandLimit']!=900:raise ValueError('proposed full-check wrapper cap differs')
+    if live['wholeCommandLimit']!=1800:raise ValueError('proposed full-check wrapper cap differs')
     checkscript=pathlib.Path(live['script'])
     if m['files'].get(str(checkscript))!=live['sha256'] or guard.sha(checkscript)!=live['sha256']:raise ValueError('live check implementation is not protected')
     allowed=pathlib.Path('/tmp/bendvy-fivehour-packets');allowed.mkdir(exist_ok=True)

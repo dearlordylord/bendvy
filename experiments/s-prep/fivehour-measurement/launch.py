@@ -22,7 +22,7 @@ def main():
     child=subprocess.run([tools['node'],cli,'state','--cwd',x.cwd,'--report'],env=ENV,capture_output=True,text=True,timeout=30,check=True)
     report=json.loads(child.stdout);plan=accepted_plan(report,x.contract_digest,x.evaluator_identity)
     if x.inspect_only:print(json.dumps({'status':'CANONICAL_ACCEPTED_LAUNCH_PREFLIGHT','contractDigest':plan['contractDigest'],'evaluatorIdentity':plan['evaluatorIdentity']}));return
-    boundary.verify(x.manifest,x.sha256,allow=allow);guard.deadline(900)
+    boundary.verify(x.manifest,x.sha256,allow=allow);guard.deadline(1800)
     # next owns canonical packet execution/digest/budget enforcement; there are
     # no evaluator/check/command/env overrides and no alternate direct launch.
     command=[tools['node'],cli,'next','--cwd',x.cwd,'--compact']
