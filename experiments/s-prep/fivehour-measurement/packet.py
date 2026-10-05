@@ -51,8 +51,8 @@ def main():
     if any(contract.get(k)!=v for k,v in required.items()):raise ValueError('incomplete/different accepted contract; no child executed')
     # Historical receipts cannot authorize the current candidate snapshot.
     live=contract.get('liveChecks')
-    if not isinstance(live,dict) or set(live)!={'script','sha256','receipt','requiredGateIDs','wholeCommandLimit','initialReuseReceipt'}:raise ValueError('live authoritative check contract absent')
-    if live['wholeCommandLimit']!=3600:raise ValueError('proposed full-check wrapper cap differs')
+    if not isinstance(live,dict) or set(live)!={'script','sha256','receipt','requiredGateIDs','wholeCommandLimit','initialReuseReceipt','cleanupReserveSeconds'}:raise ValueError('live authoritative check contract absent')
+    if live['wholeCommandLimit']!=3600 or live['cleanupReserveSeconds']!=5:raise ValueError('proposed full-check wrapper cap differs')
     checkscript=pathlib.Path(live['script'])
     if m['files'].get(str(checkscript))!=live['sha256'] or guard.sha(checkscript)!=live['sha256']:raise ValueError('live check implementation is not protected')
     allowed=pathlib.Path('/tmp/bendvy-fivehour-packets');allowed.mkdir(exist_ok=True)
@@ -72,7 +72,11 @@ def main():
             if prior.get('status')!='FRESH_TWO_ROLE_CONNECTED_GATES_PASS':raise ValueError('initial receipt incomplete')
             reuse_selected=all(prior['roles'][backend]['binding']['runtimeSources']==json.loads((args.output/'candidate-snapshot'/backend/'cache-specialization.json').read_text())['runtimeClosure'] for backend in ('JS','Native'))
             if reuse_selected:checkcommand += ['--reuse-receipt',priorpath,'--reuse-receipt-sha256',reuse['sha256']]
-        child(checkcommand,live['wholeCommandLimit'],logs)
+        remaining=(guard.DEADLINE-datetime.datetime.now(datetime.timezone.utc)).total_seconds()
+        check_limit=min(live['wholeCommandLimit'],remaining-live['cleanupReserveSeconds'])
+        if check_limit<=0:raise ValueError('no remaining gate execution/cleanup allowance')
+        r['effectiveCheckLimitSeconds']=check_limit;r['checkCleanupReserveSeconds']=5
+        child(checkcommand,check_limit,logs)
         checkreceipt=checkoutput/live['receipt'];checks=json.loads(checkreceipt.read_text())
         required_ids={'materialize-controls','host12','access','e11','owned-storage','staging','tx-baseline','tx-stale-head','tx-torn-tail','tx-lost-mark','tx-inverse-order'}
         if set(live['requiredGateIDs'])!=required_ids or checks.get('status')!=('EXACT_UNCHANGED_TWO_ROLE_GATES_REUSED' if reuse_selected else 'FRESH_TWO_ROLE_CONNECTED_GATES_PASS') or checks.get('schemaVersion')!=1 or set(checks.get('roles',{}))!={'JS','Native'}:raise ValueError('current snapshot authoritative gates incomplete')
