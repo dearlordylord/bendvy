@@ -1,0 +1,46 @@
+{
+  "status": "ORPHAN_FORK_RACE_AND_UNRELATED_PROCESS_CONTROLS_PASS",
+  "cases": [
+    {
+      "name": "orphaned-setsid-retains-pipe",
+      "timeoutRejected": true,
+      "ownedChildrenRemaining": 0,
+      "unrelatedChildPreserved": true,
+      "log": [
+        {
+          "args": [
+            "/usr/bin/python3",
+            "-c",
+            "import subprocess,sys;subprocess.Popen([sys.executable,'-c','import time;time.sleep(10)'],start_new_session=True)"
+          ],
+          "limit": 0.15,
+          "status": "TIMEOUT",
+          "stdout": "",
+          "stderr": "",
+          "cleanupError": null
+        }
+      ]
+    },
+    {
+      "name": "forking-during-timeout",
+      "timeoutRejected": true,
+      "ownedChildrenRemaining": 0,
+      "unrelatedChildPreserved": true,
+      "log": [
+        {
+          "args": [
+            "/usr/bin/python3",
+            "-c",
+            "import subprocess,sys,time\nwhile True:\n subprocess.Popen([sys.executable,'-c','import time;time.sleep(10)'],start_new_session=True)\n time.sleep(.02)"
+          ],
+          "limit": 0.15,
+          "status": "TIMEOUT",
+          "stdout": "",
+          "stderr": "",
+          "cleanupError": null
+        }
+      ]
+    }
+  ],
+  "noCompilerNodeOrPacketExecuted": true
+}

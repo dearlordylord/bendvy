@@ -38,24 +38,53 @@ def bend_closure(entry, roots):
             visit(p.parent/imp)
     visit(entry);return found
 
+def child_pids(pid):
+    result=set();tasks=pathlib.Path('/proc')/str(pid)/'task'
+    if tasks.exists():
+        for task in tasks.iterdir():
+            try:result.update(int(x) for x in (task/'children').read_text().split())
+            except FileNotFoundError:pass
+    return result
+
+def enable_subreaper():
+    import ctypes
+    if ctypes.CDLL(None,use_errno=True).prctl(36,1,0,0,0)!=0:raise OSError('cannot establish owned child subreaper')
+
 def kill_descendants(pid):
-    """Kill only the launched process and observed descendants, including setsid."""
-    import os,signal
-    graph={}
-    for p in pathlib.Path('/proc').glob('[0-9]*/stat'):
+    """Stop each parent before enumerating children; pin process identities."""
+    import os,signal,time
+    pending=[pid];owned=[];seen=set();end=time.monotonic()+1
+    while pending and time.monotonic()<end:
+        current=pending.pop()
+        if current in seen:continue
+        seen.add(current)
         try:
-            fields=p.read_text().rsplit(')',1)[1].split();graph[int(p.parent.name)]=(int(fields[1]),fields[19])
-        except (OSError,ValueError,IndexError):pass
-    selected={pid}
-    while True:
-        nextset=selected|{child for child,(parent,start) in graph.items() if parent in selected}
-        if nextset==selected:break
-        selected=nextset
-    for child in sorted(selected,reverse=True):
-        try:
-            fd=os.pidfd_open(child)
-            try:
-                current=(pathlib.Path('/proc')/str(child)/'stat').read_text().rsplit(')',1)[1].split()[19]
-                if child in graph and current==graph[child][1]:signal.pidfd_send_signal(fd,signal.SIGKILL)
-            finally:os.close(fd)
-        except (ProcessLookupError,OSError):pass
+            descriptor=os.pidfd_open(current);signal.pidfd_send_signal(descriptor,signal.SIGSTOP)
+        except ProcessLookupError:continue
+        owned.append(descriptor)
+        # Confirm the parent stopped before reading its child set.
+        while time.monotonic()<end:
+            try:state=(pathlib.Path('/proc')/str(current)/'stat').read_text().rsplit(')',1)[1].split()[0]
+            except FileNotFoundError:break
+            if state in ('T','t','Z','X'):break
+            time.sleep(.001)
+        pending.extend(child_pids(current))
+    for descriptor in reversed(owned):
+        try:signal.pidfd_send_signal(descriptor,signal.SIGKILL)
+        except ProcessLookupError:pass
+        finally:os.close(descriptor)
+
+def cleanup_owned(pid,prior=()):
+    """Subreaper-owned orphans are included; unrelated prior children spared."""
+    import os,time
+    if pid in child_pids(os.getpid())-set(prior):kill_descendants(pid)
+    end=time.monotonic()+1
+    while time.monotonic()<end:
+        owned=child_pids(os.getpid())-set(prior)
+        if not owned:return
+        for child in owned:kill_descendants(child)
+        for child in owned:
+            try:os.waitpid(child,os.WNOHANG)
+            except ChildProcessError:pass
+        time.sleep(.001)
+    if child_pids(os.getpid())-set(prior):raise TimeoutError('owned descendants did not terminate within finite cleanup')

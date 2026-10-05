@@ -6,10 +6,18 @@ H=pathlib.Path(__file__).resolve().parent
 ENV={'HOME':'/home/node','PATH':'/home/node/.bend/bin:/usr/local/bin:/usr/bin:/bin','LANG':'C.UTF-8','LC_ALL':'C.UTF-8'}
 
 def child(args,limit,log):
-    guard.deadline(limit);p=subprocess.Popen(list(map(str,args)),stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True,start_new_session=True,env=ENV)
+    guard.deadline(limit);guard.enable_subreaper();prior=guard.child_pids(os.getpid());p=subprocess.Popen(list(map(str,args)),stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True,start_new_session=True,env=ENV)
     try:o,e=p.communicate(timeout=limit)
     except subprocess.TimeoutExpired:
-        guard.kill_descendants(p.pid);o,e=p.communicate();log.append({'args':list(map(str,args)),'limit':limit,'status':'TIMEOUT','stdout':o,'stderr':e});raise ValueError('child deadline failure')
+        cleanup_error=None
+        try:guard.cleanup_owned(p.pid,prior)
+        except Exception as failure:cleanup_error=repr(failure)
+        try:o,e=p.communicate(timeout=1)
+        except subprocess.TimeoutExpired:o,e='', 'finite cleanup did not close child pipes'
+        log.append({'args':list(map(str,args)),'limit':limit,'status':'TIMEOUT','stdout':o,'stderr':e,'cleanupError':cleanup_error});raise ValueError('child deadline failure')
+    survivors=guard.child_pids(os.getpid())-prior
+    if survivors:
+        guard.cleanup_owned(p.pid,prior);raise ValueError('child left owned descendants; no passing result')
     log.append({'args':list(map(str,args)),'limit':limit,'exit':p.returncode,'stderr':e})
     if p.returncode:raise ValueError('child exit failure '+str(args[0]))
     return o
