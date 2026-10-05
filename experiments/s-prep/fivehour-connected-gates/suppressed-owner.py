@@ -2,6 +2,7 @@
 import copy,hashlib,importlib.util,json,os,re
 from pathlib import Path
 import shutil
+import provider_controls as PC
 HERE=Path(__file__).resolve().parent;ROOT=HERE.parents[2]
 STATUS='PASS_LIVE_NOOP_TRUEOLD_JOURNAL_MARK_FULLFIELDS_BOTH'
 def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
@@ -40,7 +41,7 @@ def run(overlay,baseline_root,baseline_records,output,cpu,split_schemas=False):
         runtime_sources[name]=sha(source)
         for dependency in re.findall(r'^import\s+(\S+)',source.read_text(),re.M):
             if dependency.startswith('.'):visit(source.parent/dependency)
-    visit(core_input/'measurement-bend.bend');assert len(runtime_sources)==28
+    visit(core_input/'measurement-bend.bend');assert runtime_sources==PC.runtime_sources(overlay),'Suppression runtime membership differs'
     runtime_digest=hashlib.sha256(json.dumps(runtime_sources,sort_keys=True,separators=(',',':')).encode()).hexdigest()
     expected=expected_noop(baseline_records);observed=[]
     source_files=[overlay/'overlay.json',core_input/'held-adapter.bend',core_input/'cached-payload.bend',core_input/'payload.bend',original,HERE/'tx-controls.bend',HERE/'original-raw-observer.bend',Path(__file__),HERE/'fused-adaptation.py']

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Candidate-overlay actual-call-site controls; no universal confinement claim."""
 import pathlib,re,json,hashlib,tempfile,subprocess,os,signal,time,shutil,argparse
+import static_provider_boundary as SPB
 HERE=pathlib.Path(__file__).resolve().parent
 parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('overlay',type=pathlib.Path,help='Materialized indexed overlay root')
@@ -68,5 +69,14 @@ with tempfile.TemporaryDirectory(prefix='integrated-access-') as d:
    result['mutated_source_sha256']=hashlib.sha256((folder/result['mutation_file']).read_bytes()).hexdigest()
   result['classification']='historical non-owner String duplication witness' if label=='audit_copy_text_historical' else 'intended actual affine Audit owner duplication' if label=='audit_copy' else 'original actual provider boundary control'
   r['cases'][label]=result
+r['staticProviderBoundary']=SPB.run(SOURCE,check)
+if r['staticProviderBoundary'] is not None:
+ import supervisor
+ world_output=args.evidence.parent/'static-world'
+ code,output=supervisor.execute([shutil.which('python3'),str(HERE/'static-world-run.py'),'--overlay',str(OVERLAY),'--output',str(world_output),'--cpu',str(args.cpu)],300)
+ assert code==0,output
+ world_receipt=world_output/'evidence.json';world=json.loads(world_receipt.read_text())
+ assert world['status']=='FINITE_ACTUAL_STATIC_FOREIGN_WORLD_FIELDS_PASS' and len(world['cases'])==16,world
+ r['staticWorldBoundary']={'status':world['status'],'receipt':str(world_receipt),'receiptSHA256':hashlib.sha256(world_receipt.read_bytes()).hexdigest()}
 args.evidence.write_text(json.dumps(r,indent=2)+'\n')
 print('INDEXED ACCESS STATIC CONTROLS PASS')

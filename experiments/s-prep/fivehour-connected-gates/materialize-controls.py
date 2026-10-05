@@ -2,6 +2,7 @@
 """Specialize only previously-unvisited actual control closures, exact Type map."""
 import argparse,hashlib,json,re,shutil,subprocess
 from pathlib import Path
+import provider_controls as PC
 KINDS={'Position':('PositionView','position'),'Vitals':('VitalsView','vitals'),'MotionLedger':('LedgerView','motion_ledger'),'HealthLedger':('LedgerView','health_ledger')}
 def specialize(text):
  saved=[]
@@ -65,7 +66,7 @@ def slice_control_imports(core,entry,protected):
 
 def main():
  p=argparse.ArgumentParser();p.add_argument('--overlay',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--raw-snapshots',action='store_true');p.add_argument('--slice-host-fixtures',action='store_true');a=p.parse_args();h=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
- manifest=json.loads((a.overlay/'overlay.json').read_text());assert all(h(a.overlay/n)==v for n,v in manifest['sources'].items());shutil.copytree(a.overlay,a.output);core=a.output/'experiments/s-integrate';runtime=set();
+ manifest=json.loads((a.overlay/'overlay.json').read_text());assert all(h(a.overlay/n)==v for n,v in manifest['sources'].items());runtime=set(PC.runtime_sources(a.overlay));shutil.copytree(a.overlay,a.output);core=a.output/'experiments/s-integrate';
  def runtime_visit(path):
   relative=str(path.relative_to(a.output))
   if relative in runtime:return

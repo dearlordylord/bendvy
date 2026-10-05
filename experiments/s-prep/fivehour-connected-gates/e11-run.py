@@ -31,6 +31,7 @@ def load(path):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('overlay', type=Path)
+    parser.add_argument('--cpu',type=int,default=9)
     parser.add_argument('--evidence', type=Path, default=HERE / 'e11-evidence.json')
     parser.add_argument('--reuse-ts-oracle',type=Path,help='Exact unchanged reference outputs from this task; never a fresh TS claim')
     parser.add_argument('--reuse-ts-oracle-sha256')
@@ -43,13 +44,13 @@ def main():
     required = {'storage.bend', 'identity.bend', 'commands.bend', 'host.bend',
                 'dispatcher.bend', 'query.bend', 'observations.bend', 'host-batch-invoker.bend'}
     assert required.issubset({Path(n).name for n in manifest['overrides']})
-    os.sched_setaffinity(0, {9})
+    os.sched_setaffinity(0, {args.cpu})
     report = {'status': 'INCOMPLETE', 'actualJoinedBendExecuted': False,
               'productionAcceptance': False,
               'limits': {'checkerSeconds': 5, 'runtimeSeconds': 5,
                          'referenceSeconds': 5, 'codegenSeconds': 30,
                          'nativeCompilationSeconds': 120},
-              'cpuAffinity': [9], 'adapterSha256': sha(__file__),
+              'cpuAffinity': [args.cpu], 'adapterSha256': sha(__file__),
               'inputOverlay': str(overlay), 'overlayManifestSha256': sha(overlay / 'overlay.json'),
               'overlayBaseline': manifest['baseline'], 'publicReference': [],
               'actual': [], 'failures': [], 'semanticMutants': {'status': 'PENDING'}}

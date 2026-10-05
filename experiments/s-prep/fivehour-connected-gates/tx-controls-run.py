@@ -2,6 +2,7 @@
 """Actual original Tx/cache getter coherence, finite controls, not timing."""
 import argparse,hashlib,importlib.util,json,os,re,shutil
 from pathlib import Path
+import provider_controls as PC
 ROOT=Path(__file__).resolve().parents[3];HERE=Path(__file__).resolve().parent
 sp=importlib.util.spec_from_file_location('build',ROOT/'experiments/t05/run.py');B=importlib.util.module_from_spec(sp);sp.loader.exec_module(B)
 sp=importlib.util.spec_from_file_location('independent',ROOT/'experiments/s-prep/owned-write-query-integration/controls-run.py');I=importlib.util.module_from_spec(sp);sp.loader.exec_module(I)
@@ -14,7 +15,7 @@ def main():
   records=[]
   for mode in ('cached','raw'):
    folder=a.output/mode;folder.mkdir();core=folder/'core';shutil.copytree(a.overlay/'experiments/s-integrate',core);source=core/'cache-tx-controls.bend'
-   full=(core/'measurement-bend.bend').read_text();definitions={match.group(1):match.group(0) for match in re.finditer(r'^def ([\w.]+)\([^\n]*\n(?:(?!^(?:def |type |import |#)).*\n)*',full,re.M)};pins=json.loads((ROOT/'experiments/s-prep/owned-write-query-integration/prepare-evidence.json').read_text())['callbackFunctionSHA256'];assert all(hashlib.sha256(definitions[n].encode()).hexdigest()==v for n,v in pins.items()),'Original callback bytes changed';(core/'gate-callbacks.bend').write_text('import Base\nimport ./types.bend as T\n'+''.join(definitions[n] for n in ['first','sum','motion_body_ledger','motion_body_read','motion_body','health_body_ledger','health_body_read','health_body']));result['callbackDefinitionPins']=pins
+   callback=PC.extract_callbacks(core);result['callbackDefinitionPins']=callback['originalCallbackDefinitionPins'];result['actualCallbackBinding']=callback;static_client=callback['mode']=='ACTUAL_ERASED_PROVIDER_CLIENT'
    if a.mutation:
     mutations={'stale-head':('cached-payload.bend','T.Four{value,b,c,d},frame','T.Four{U32.add(value,1),b,c,d},frame'),'torn-tail':('cached-payload.bend','T.Four{value,b,c,d},frame','T.Four{value,b,c,U32.add(d,1)},frame'),'lost-mark':('held.bend','handle <> marks','marks'),'inverse-order':('held.bend','X.MainInverse{handle,old} <> undo','List.append(&2,X.Inverse<H>,undo,[X.MainInverse{handle,old}])')}
     if fused and a.mutation in ('lost-mark','inverse-order'):
@@ -22,6 +23,7 @@ def main():
     else:
      file,before,after=mutations[a.mutation];target=core/file;original=target.read_text();assert original.count(before)==1,(a.mutation,original.count(before));target.write_text(original.replace(before,after))
    text=(HERE/'tx-controls.bend').read_text().replace('import ./measurement-bend.bend as M','import ./gate-callbacks.bend as M')
+   text=PC.adapt_tx_fixture(text,static_client)
    if mode=='raw':
     # Only observation getters change; authored callback providers remain untouched.
     original=ROOT/'experiments/s-integrate/payload.bend';assert h(core/'payload.bend')==h(original),'Independent raw observer payload changed'

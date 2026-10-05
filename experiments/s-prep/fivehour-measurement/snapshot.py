@@ -3,10 +3,17 @@
 import hashlib,json,pathlib,shutil,subprocess,sys,re
 import boundary,guard
 H=pathlib.Path(__file__).resolve().parent
-EDITABLE={'storage.bend','query.bend','cache.bend','cached-payload.bend','held.bend','held-adapter.bend'}
+EDITABLE=boundary.EDITABLE
 
 def editable(m):
-    return {str(pathlib.Path(root)/name) for backend,root in m['backendRoots'].items() for name in EDITABLE|({'uncached-payload.bend'} if backend=='Native' else set()) if (pathlib.Path(root)/name).exists()}
+    allowed=boundary.editable_sources(m['backendRoots'])
+    declared=set(m['editableHeaders'])
+    if not declared <= allowed or any(name not in m['files'] for name in declared):
+        raise ValueError('editable catalogue escapes bound runtime source scope')
+    for key in ('editableTypeBlocks','editableSignaturePins','editableImportHeaders'):
+        if set(m.get(key,{})) != declared:
+            raise ValueError('exact editable source catalogue missing or inconsistent: '+key)
+    return declared
 
 def capture(path,digest,output):
     # Verify immutable ledger digest before deriving the exact editable paths.
@@ -15,6 +22,8 @@ def capture(path,digest,output):
     for name in allow:
         lines='\n'.join(line for line in pathlib.Path(name).read_text().splitlines() if line.startswith(('def ','type ')))
         text=pathlib.Path(name).read_text()
+        if [line for line in text.splitlines() if line.startswith('import ')] != original['editableImportHeaders'][name]:
+            raise ValueError('declared import headers changed')
         code='\n'.join(line.split('#',1)[0] for line in text.splitlines())
         if re.search(r'\bunsafe\b|\bforeign\s+(?:def|type)\b',code):raise ValueError('unsafe/foreign source forbidden')
         for block in original['editableTypeBlocks'][name]:

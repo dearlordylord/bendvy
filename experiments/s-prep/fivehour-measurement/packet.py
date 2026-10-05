@@ -66,7 +66,7 @@ def main():
         initial_same=all(json.loads((args.output/'candidate-snapshot'/backend/'cache-specialization.json').read_text())['runtimeClosure']==json.loads((pathlib.Path(baseline['backendRoots'][backend]).parents[1]/'cache-specialization.json').read_text())['runtimeClosure'] for backend in ('JS','Native'))
         r['initialSourceQualificationOnly']=initial_same;r['packetKind']='initial-source-qualification-only' if initial_same else 'changed-candidate-comparison'
         checkoutput=args.output/'fresh-checks'
-        checkcommand=[m['tools']['python'],checkscript,'--js-overlay',args.output/'candidate-snapshot/JS','--native-overlay',args.output/'candidate-snapshot/Native','--output',checkoutput,'--cpu','9']
+        checkcommand=[m['tools']['python'],checkscript,'--js-overlay',args.output/'candidate-snapshot/JS','--native-overlay',args.output/'candidate-snapshot/Native','--output',checkoutput,'--cpu','4']
         reuse=live['initialReuseReceipt'];reuse_selected=False
         if reuse is not None:
             if not isinstance(reuse,dict) or set(reuse)!={'path','sha256'}:raise ValueError('initial receipt must have exact accepted path/digest')

@@ -1,5 +1,6 @@
 import Base
 import ./held-adapter.bend as HA
+import ./prototype-static-client.bend as SC
 import ./raw-boundaries.bend as RB
 import ./cache.bend as CC
 import ./cached-payload.bend as CP
@@ -55,7 +56,7 @@ def motion_rows_next(result:X.Tx<S.World<T.MotionSchema,CC.Cache<T.Position,T.Po
 def motion_rows(handles:List<&2,S.Handle<T.MotionSchema>>,state:MotionRows) -> MotionRows:
   match handles state:
     case Nil{} result: result
-    case Con{handle,tail} MotionRows{owner,total}: motion_rows(tail,motion_rows_next(HA.motion_row(~motion_body,motion_select(owner,handle)),total))
+    case Con{handle,tail} MotionRows{owner,total}: motion_rows(tail,motion_rows_next(HA.motion_row(~SC.motion_body,motion_select(owner,handle)),total))
 def motion_handles(world:S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>) -> S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode> & List<&2,S.Handle<T.MotionSchema>>:
   Q.each(T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,Unit,Unit,Unit,S.Handle<T.MotionSchema>,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,keep(~CC.Cache<T.Position,T.PositionView>),keep(~T.Velocity),handle_client(~T.MotionSchema,~T.Selected),Q.Required{},world)
 
@@ -81,7 +82,7 @@ def health_rows_next(result:X.Tx<S.World<T.HealthSchema,CC.Cache<T.Vitals,T.Vita
 def health_rows(handles:List<&2,S.Handle<T.HealthSchema>>,state:HealthRows) -> HealthRows:
   match handles state:
     case Nil{} result: result
-    case Con{handle,tail} HealthRows{owner,total}: health_rows(tail,health_rows_next(HA.health_row(~health_body,health_select(owner,handle)),total))
+    case Con{handle,tail} HealthRows{owner,total}: health_rows(tail,health_rows_next(HA.health_row(~SC.health_body,health_select(owner,handle)),total))
 def health_handles(world:S.World<T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>) -> S.World<T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode> & List<&2,S.Handle<T.HealthSchema>>:
   Q.each(T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,Unit,Unit,Unit,S.Handle<T.HealthSchema>,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,keep(~CC.Cache<T.Vitals,T.VitalsView>),keep(~T.Armor),handle_client(~T.HealthSchema,~T.Tracked),Q.Required{},world)
 

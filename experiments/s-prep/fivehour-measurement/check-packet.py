@@ -87,6 +87,8 @@ def main():
     for backend,role in c['roles'].items():
         baseline_gate=next(g for g in role['gates'] if g['name']=='tx-baseline')
         module.validate_suppressed_owner(baseline_gate['receipt'],captured.parent/backend)
+        access_gate=next(g for g in role['gates'] if g['name']=='access')
+        module.validate_static_access(access_gate['receipt'],captured.parent/backend,role['controlSources'])
     boundary.verify(captured,digest);boundary.verify(a.baseline_manifest,a.baseline_sha256)
     if guard.sha(path)!=pointer['sha256'] or guard.sha(checks)!=r['freshCheckReceiptSHA256']:raise ValueError('receipt drift during independent check')
     print('INDEPENDENT_PACKET_RAW_ORACLES_AND_RECEIPTS_PASS')

@@ -204,3 +204,8 @@ Draft follow-up [#24](https://github.com/dearlordylord/bendvy/issues/24) records
 ## File scope authorization — 2026-10-05
 
 The user explicitly authorized “да любые файлы меняй”: remove the project-file edit whitelist, including the old protected callback-signature restriction. This authorizes the proposed erased-provider signature changes and necessary project runtime/supporting-source edits. Freeze and review exact changed sources and control coverage before measured execution; permission to edit checks does not permit weakening them. All22 gates, affine Type payloads, JS/TS<=1 and Native/TS<=0.5 targets, five-second checker limit and global15/20 attempt history remain binding. Read-only references, Canonical Tower Defense and external repositories remain protected; this is not approval for new laws, dependencies or compiler/kernel changes. The existing deadline remains2026-10-05T18:55:07Z; this instruction grants no new time window. Full-entry checking and execution recovery remain unresolved.
+
+
+## Two-hour dispatch continuation — 2026-10-05
+
+The user granted two further hours at2026-10-05T18:54:31Z; cumulative continuation deadline2026-10-05T20:54:31Z includes preparation, recovery, checks, measurements and delivery. Project-file edit scope is unrestricted under the recorded authorization. Preserve global15/20 consumed attempts, existing targets and all22 gates. Recover the five-second full-entry checker and adapt actual-consumer controls before measured execution; no prior finite receipt is a fresh full-gate pass.
