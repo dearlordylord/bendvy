@@ -44,3 +44,36 @@ TS closure provenance, retain full raw outputs, and label every required gate as
 PASS/FAIL/BLOCKED. Checker/runtime 5s, codegen30s, clang120s. No new law/proof,
 unsafe function, dependency, protected-source edit or benchmark loop. Universal
 cache coherence and generic raw transformations are not proved by finite controls.
+
+## Delivered finite actual controls
+
+`staging-evidence.json` binds the first actual persistent cached Host overlay.
+Both cached Main positives compile through original generic X.tx_stage_command;
+raw Main negatives report the exact expected Cache<Raw,View>/observed Raw type
+mismatch. Source/import closure is confined and unchanged.
+
+`construction-evidence.json` records one actual original64tick Dense64 connected
+Host construction, both schemas NativeO3/JS against fresh pinned TS with original
+full-field validator. It predates held integration and cannot accept the later
+combined source. Six original callback definitions are byte-pinned.
+
+`tx-controls.bend` exercises the actual later cached/held source: original point
+providers versus actual HA.row(~original callback). Nine scenarios ×two schemas
+×success/failure yield144 pre/post records/backend. Cached observation getters and
+raw-owner observation getters are built independently, must agree in all fields,
+and pass independent exact inverse/mark/command/ping/tick/scalar assertions. This
+is actual Tx/cache rollback evidence, not arbitrary callback/cache authority.
+The forward-definition development failure and initial noncompiling tail mutant
+are retained, neither counts as a runtime kill. The revised tail-field corruption
+compiled Native/JS and the raw/cache full-field discrepancy was detected.
+
+```sh
+python3 experiments/s-prep/fivehour-connected-gates/staging-controls.py --overlay /tmp/actual-overlay --output /tmp/staging-gates --cpu 9
+python3 experiments/s-prep/fivehour-connected-gates/construction-run.py --overlay /tmp/actual-overlay --build-dir /tmp/construction-gates --cpu 9
+python3 experiments/s-prep/fivehour-connected-gates/tx-controls-run.py --overlay /tmp/actual-held-overlay --output /tmp/tx-gates --cpu 9
+python3 experiments/s-prep/fivehour-connected-gates/tx-controls-run.py --overlay /tmp/actual-held-overlay --output /tmp/tail-mutant --mutation torn-tail --cpu 9
+```
+
+Required factory/raw rejected-owner preservation, membership/Flag/hole/growth,
+actual Host capture path mutations and whole performance matrix remain pending.
+No passing cache audit boundary set has been produced by observe-cache.py yet.

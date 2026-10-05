@@ -1,0 +1,197 @@
+{
+  "status": "DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE",
+  "scope": "Actual cached World point-Tx original callback success/failure; finite held/cache fields, no general API/performance acceptance",
+  "cases": [
+    {
+      "getter": "cached",
+      "backend": "Native",
+      "status": "COMPILED_RUNTIME_OBSERVED",
+      "programSHA256": "0bf98226923cb34359f879395680f591594752361d2e6e2628eeb3d0f7d8ecf8",
+      "rawSHA256": "14eb69ca8791fa59fd2a930276e935d8c1b7506457cf72d9bd664457300cb612",
+      "records": 144
+    },
+    {
+      "getter": "cached",
+      "backend": "JS",
+      "status": "COMPILED_RUNTIME_OBSERVED",
+      "programSHA256": "cf02e7a1afdaa6a0e90fc27b5f4ff78a62932466aced14418b389b5daa3ab407",
+      "rawSHA256": "14eb69ca8791fa59fd2a930276e935d8c1b7506457cf72d9bd664457300cb612",
+      "records": 144
+    },
+    {
+      "getter": "raw",
+      "backend": "Native",
+      "status": "COMPILED_RUNTIME_OBSERVED",
+      "programSHA256": "0b41c5b306c9ea861f56610affc7cf13c131328d4d75474b3e052b46f745ca44",
+      "rawSHA256": "86470371004f767f76a13c0103f2b83d8a70b64ecc1b2eb80535c8782e21c3c4",
+      "records": 144
+    },
+    {
+      "getter": "raw",
+      "backend": "JS",
+      "status": "COMPILED_RUNTIME_OBSERVED",
+      "programSHA256": "7d7c028a9fad2e8d0217ce5e9033d453e3f11b959f1f1b9dd4f1fa5cef02d1ab",
+      "rawSHA256": "86470371004f767f76a13c0103f2b83d8a70b64ecc1b2eb80535c8782e21c3c4",
+      "records": 144
+    }
+  ],
+  "overlaySHA256": "67bb6d48de6578c881e1200bb50ebb91107e84cb6597721c3faa32c55bfc3873",
+  "fixtureSHA256": "9f298cc3913124c898d672ef65bcf5e1f0e103f61ef007612b5547d05e97a3ae",
+  "mutation": "torn-tail",
+  "witness": {
+    "record": 0,
+    "cached": {
+      "phase": "pre",
+      "value": 46,
+      "selected": {
+        "namespace": 7,
+        "id": 1
+      },
+      "undo": "L:100;M7/1:10;L:77;",
+      "commands": [
+        {
+          "kind": "RemoveFlagView",
+          "id": 1
+        },
+        {
+          "kind": "DespawnView",
+          "id": 2
+        }
+      ],
+      "pings": [
+        12,
+        11
+      ],
+      "marks": [
+        {
+          "namespace": 7,
+          "id": 1
+        },
+        {
+          "namespace": 7,
+          "id": 2
+        }
+      ],
+      "world": {
+        "namespace": 7,
+        "next": 3,
+        "rows": [
+          {
+            "id": 1,
+            "main": {
+              "coordinates": {
+                "a": 11,
+                "b": 11,
+                "c": 12,
+                "d": 14
+              },
+              "frame": 7
+            },
+            "aux": {
+              "rates": {
+                "a": 110,
+                "b": 111,
+                "c": 112,
+                "d": 113
+              },
+              "moving": true
+            },
+            "flag": {
+              "group": 8
+            },
+            "added": 3,
+            "changed": 4
+          }
+        ],
+        "pending": [],
+        "ledger": {
+          "totals": {
+            "a": 101,
+            "b": 101,
+            "c": 102,
+            "d": 103
+          },
+          "epoch": 4
+        },
+        "mode": "MotionOn"
+      }
+    },
+    "raw": {
+      "phase": "pre",
+      "value": 46,
+      "selected": {
+        "namespace": 7,
+        "id": 1
+      },
+      "undo": "L:100;M7/1:10;L:77;",
+      "commands": [
+        {
+          "kind": "RemoveFlagView",
+          "id": 1
+        },
+        {
+          "kind": "DespawnView",
+          "id": 2
+        }
+      ],
+      "pings": [
+        12,
+        11
+      ],
+      "marks": [
+        {
+          "namespace": 7,
+          "id": 1
+        },
+        {
+          "namespace": 7,
+          "id": 2
+        }
+      ],
+      "world": {
+        "namespace": 7,
+        "next": 3,
+        "rows": [
+          {
+            "id": 1,
+            "main": {
+              "coordinates": {
+                "a": 11,
+                "b": 11,
+                "c": 12,
+                "d": 13
+              },
+              "frame": 7
+            },
+            "aux": {
+              "rates": {
+                "a": 110,
+                "b": 111,
+                "c": 112,
+                "d": 113
+              },
+              "moving": true
+            },
+            "flag": {
+              "group": 8
+            },
+            "added": 3,
+            "changed": 4
+          }
+        ],
+        "pending": [],
+        "ledger": {
+          "totals": {
+            "a": 101,
+            "b": 101,
+            "c": 102,
+            "d": 103
+          },
+          "epoch": 4
+        },
+        "mode": "MotionOn"
+      }
+    }
+  },
+  "receiptStatusClarification": "Mutation case labels corrected from observation-only source runner; raw runtime and compiled artifact hashes unchanged"
+}

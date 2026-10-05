@@ -1,0 +1,8 @@
+{
+  "status": "FAIL",
+  "scope": "Actual cached World point-Tx original callback success/failure; no held/cache combined acceptance",
+  "cases": [],
+  "overlaySHA256": "1781df41f434a01e4e8a21d076dddaf12691b5e4c6f4bed935b91f30cefc98c1",
+  "fixtureSHA256": "040fca17221c8f8e46681877be660da0fccfe2fb270cd98cff03db4e69be487a",
+  "error": "RuntimeError(\"exit 1, expected 0: [PosixPath('/workspace/formal-proofs/bendvy-worktrees/twohour-indexed-query/experiments/t01/bend-check'), PosixPath('/tmp/bendvy-fivehour-cache-tx-controls/cached/core/cache-tx-controls.bend'), '--check-only']\\nSOME PROOFS FAIL\\nError:\\n- expected : a filled definition (an unfilled law is a dead claim: live code cannot use it)\\n- observed : motion_body\\nContext:\\n- scenario : U32\\n- fail     : Bool\\nLocation: motion_pair\\n85 |   do IO<Unit>:\\n86>|     original : X.Tx<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>> <- motion_pre(motion_body(motion_owner(scenario)))\\n   |                                                                                                                                                                                                                                                                       ^^^^^^^^^^^\\n87 |     motion_finish(fail,original)\\n\")"
+}

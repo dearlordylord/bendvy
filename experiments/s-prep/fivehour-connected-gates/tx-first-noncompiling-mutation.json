@@ -1,0 +1,8 @@
+{
+  "status": "FAIL",
+  "scope": "Actual cached World point-Tx original callback success/failure; finite held/cache fields, no general API/performance acceptance",
+  "cases": [],
+  "overlaySHA256": "67bb6d48de6578c881e1200bb50ebb91107e84cb6597721c3faa32c55bfc3873",
+  "fixtureSHA256": "9f298cc3913124c898d672ef65bcf5e1f0e103f61ef007612b5547d05e97a3ae",
+  "error": "RuntimeError(\"exit 1, expected 0: [PosixPath('/workspace/formal-proofs/bendvy-worktrees/twohour-indexed-query/experiments/t01/bend-check'), PosixPath('/tmp/bendvy-fivehour-cache-held-torn-tail/cached/core/cache-tx-controls.bend'), '--check-only']\\nSOME PROOFS FAIL\\nError:\\n- expected : b\\n- observed : b (consumed more than once)\\nContext:\\n- _ : U32\\nLocation: position_patch\\n13 |   match view:\\n14>|     case T.PositionView{T.Four{_,b,c,d},frame}: T.PositionView{T.Four{value,b,c,b},frame}\\n   |                                  ^\\n15 | def position_new(raw:T.Position) -> C.Cache<T.Position,T.PositionView>:\\n\")"
+}
