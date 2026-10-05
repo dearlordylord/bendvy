@@ -1,0 +1,28 @@
+{
+  "status": "CHECK_AND_JS_CODEGEN_PASS",
+  "cpu": 10,
+  "commands": [
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-direct-raw-swap-build/batch.bend",
+        "--check-only"
+      ],
+      "cap": 15,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-direct-raw-swap-build/batch.bend",
+        "-o",
+        "/tmp/bendvy-direct-raw-swap-build/batch.js"
+      ],
+      "cap": 30,
+      "exit": 0,
+      "output": ""
+    }
+  ],
+  "generatedSHA256": "1daadc2d3a40ffb155e3f07744e85916b2cfdc13f030357e0c7fa43bd904529e"
+}

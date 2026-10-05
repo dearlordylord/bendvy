@@ -1,0 +1,83 @@
+{
+  "status": "PROFILE_AND_NINE_FULL_WORLDS_PASS",
+  "scope": "CPU/GC diagnosis with equal eight fresh worlds; no timing acceptance",
+  "batch": 8,
+  "ticks": 64,
+  "entities": 256,
+  "cpu": 10,
+  "gcTracing": false,
+  "generatedOriginalSHA256": "1daadc2d3a40ffb155e3f07744e85916b2cfdc13f030357e0c7fa43bd904529e",
+  "commands": [
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-measurement/prepare-ts.py",
+        "--source",
+        "/workspace/formal-proofs/bendvy/experiments/s-integrate/measurement-samples-reference.mjs",
+        "--output",
+        "/tmp/bendvy-direct-raw-swap-profile/reference.mjs",
+        "--schema",
+        "Motion",
+        "--batch",
+        "8"
+      ],
+      "limit": 5,
+      "exit": 0
+    },
+    {
+      "argv": [
+        "node",
+        "--cpu-prof",
+        "--cpu-prof-interval=100",
+        "--cpu-prof-dir=/tmp/bendvy-direct-raw-swap-profile",
+        "--cpu-prof-name=TS.cpuprofile",
+        "/tmp/bendvy-direct-raw-swap-profile/reference.mjs"
+      ],
+      "limit": 5,
+      "exit": 0
+    },
+    {
+      "argv": [
+        "node",
+        "--cpu-prof",
+        "--cpu-prof-interval=100",
+        "--cpu-prof-dir=/tmp/bendvy-direct-raw-swap-profile",
+        "--cpu-prof-name=JS.cpuprofile",
+        "/tmp/bendvy-direct-raw-swap-profile/bend.js"
+      ],
+      "limit": 5,
+      "exit": 0
+    }
+  ],
+  "derivedPins": {
+    "bend.js": "2f4cc4e3b456548840a7a643a90bee2b37e1875f0345a721482a7852a414de00",
+    "reference.mjs": "2fa0d4e2601ab5416a006ae3343741071846edec772b150daf3fed6006474a9e"
+  },
+  "marks": {
+    "TS": [
+      {
+        "phase": "start",
+        "micro": 1729371646794,
+        "uptimeMS": 658.4750240000001
+      },
+      {
+        "phase": "end",
+        "micro": 1729371777036,
+        "uptimeMS": 788.718399
+      }
+    ],
+    "JS": [
+      {
+        "phase": "start",
+        "micro": 1729372272464,
+        "uptimeMS": 400.293127
+      },
+      {
+        "phase": "end",
+        "micro": 1729372560502,
+        "uptimeMS": 688.322582
+      }
+    ]
+  },
+  "allFullFieldsEqual": true
+}

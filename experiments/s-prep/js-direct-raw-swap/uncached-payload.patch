@@ -1,0 +1,34 @@
+--- a/experiments/s-integrate/uncached-payload.bend
++++ b/experiments/s-integrate/uncached-payload.bend
+@@ -27,0 +28,4 @@
++# Private direct scalar update: Array.get returns the true old cell before Array.set.
++def prototype_direct_position_swap(frame: U32,value: U32,result: Array<U32> & U32) -> T.Position & U32:
++  match result:
++    case (array,old): (T.Position{Array.set(U32,array,0,value),frame},old)
+@@ -30 +34 @@
+-    case T.Position{array,frame}: position_swapped(frame,Array.swap(U32,array,0,value))
++    case T.Position{array,frame}: prototype_direct_position_swap(frame,value,Array.get(U32,array,0))
+@@ -40,0 +45,4 @@
++# Private direct scalar update: Array.get returns the true old cell before Array.set.
++def prototype_direct_vitals_swap(reserve: U32,class: U32,value: U32,result: Array<U32> & U32) -> T.Vitals & U32:
++  match result:
++    case (array,old): (T.Vitals{Array.set(U32,array,0,value),reserve,class},old)
+@@ -43 +51 @@
+-    case T.Vitals{array,reserve,class}: vitals_swapped(reserve,class,Array.swap(U32,array,0,value))
++    case T.Vitals{array,reserve,class}: prototype_direct_vitals_swap(reserve,class,value,Array.get(U32,array,0))
+@@ -67,0 +76,4 @@
++# Private direct scalar update: Array.get returns the true old cell before Array.set.
++def prototype_direct_motion_ledger_swap(epoch: U32,value: U32,result: Array<U32> & U32) -> T.MotionLedger & U32:
++  match result:
++    case (array,old): (T.MotionLedger{Array.set(U32,array,0,value),epoch},old)
+@@ -70 +82 @@
+-    case T.MotionLedger{array,epoch}: motion_ledger_swapped(epoch,Array.swap(U32,array,0,value))
++    case T.MotionLedger{array,epoch}: prototype_direct_motion_ledger_swap(epoch,value,Array.get(U32,array,0))
+@@ -80,0 +93,4 @@
++# Private direct scalar update: Array.get returns the true old cell before Array.set.
++def prototype_direct_health_ledger_swap(epoch: U32,value: U32,result: Array<U32> & U32) -> T.HealthLedger & U32:
++  match result:
++    case (array,old): (T.HealthLedger{Array.set(U32,array,0,value),epoch},old)
+@@ -83 +99 @@
+-    case T.HealthLedger{array,epoch}: health_ledger_swapped(epoch,Array.swap(U32,array,0,value))
++    case T.HealthLedger{array,epoch}: prototype_direct_health_ledger_swap(epoch,value,Array.get(U32,array,0))
