@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Fresh authoritative semantic gates for the exact immutable two-role snapshot."""
-import argparse,datetime,hashlib,json,os,re,signal,subprocess,sys,shutil,time
+import argparse,datetime,hashlib,importlib.util,json,os,re,signal,subprocess,sys,shutil,time
 from pathlib import Path
 import supervisor
 HERE=Path(__file__).resolve().parent;ROOT=HERE.parents[2]
@@ -13,6 +13,49 @@ def validate_gates(gates):
  assert [g['name'] for g in gates]==list(EXPECTED_GATES),'Missing, duplicate or unexpected gate IDs'
  assert all(g['exit']==0 and g['status']==EXPECTED_GATES[g['name']] for g in gates),'Wrong gate status or exit'
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def validate_suppressed_owner(baseline_receipt,overlay):
+ """Revalidate the mandatory live fused setter witness, including consumed bytes."""
+ spec=importlib.util.spec_from_file_location('gate_fused_adaptation',HERE/'fused-adaptation.py')
+ adapter=importlib.util.module_from_spec(spec);spec.loader.exec_module(adapter)
+ core=Path(overlay)/'experiments/s-integrate';fused=adapter.fused_presence((core/'held-adapter.bend').read_text(),(core/'cached-payload.bend').read_text())
+ baseline=json.loads(Path(baseline_receipt).read_text());sub=baseline.get('suppressedOwner')
+ if not fused:
+  assert sub is None,'Unexpected fused suppression receipt for generic source'
+  return
+ status='PASS_LIVE_NOOP_TRUEOLD_JOURNAL_MARK_FULLFIELDS_BOTH'
+ assert isinstance(sub,dict) and sub.get('status')==status,'Missing or incomplete mandatory fused suppressedOwner receipt'
+ receipt=Path(sub['receipt']);assert receipt.absolute()==receipt.resolve() and sha(receipt)==sub['receiptSHA256'],'Suppressed owner receipt changed/escaped'
+ evidence=json.loads(receipt.read_text());assert evidence.get('status')==status and evidence.get('records')==144,'Suppressed owner status/record mismatch'
+ assert evidence.get('liveMutationSites')==['motion_set_fused_done','health_set_fused_done'],'Missing live fused setter sites'
+ pins=evidence['sourcePins'];assert set(pins)=={'overlaySHA256','heldAdapterSHA256','cachedPayloadSHA256','fixtureSHA256','protectedRawSHA256','adapterSHA256','fusedAdapterSHA256'},'Suppression source pin set mismatch'
+ assert pins['overlaySHA256']==sub['overlaySHA256'],'Suppression original overlay provenance differs'
+ binding=source_binding(Path(overlay));assert evidence['runtimeSources']==binding['runtimeSources'] and evidence['runtimeClosureSHA256']==binding['runtimeClosureSHA256'],'Suppression full runtime differs'
+ assert pins['heldAdapterSHA256']==sha(core/'held-adapter.bend') and pins['cachedPayloadSHA256']==sha(core/'cached-payload.bend'),'Suppression runtime differs'
+ for field in ('sourceFiles','rawObserverFiles'):
+  mapping=evidence[field];assert isinstance(mapping,dict) and mapping,'Missing consumed suppression source map'
+  for name,digest in mapping.items():
+   path=Path(name);assert path.absolute()==path.resolve() and sha(path)==digest,'Suppression source/raw observer drift'
+ assert pins['fixtureSHA256']==sha(HERE/'tx-controls.bend') and pins['adapterSHA256']==sha(HERE/'suppressed-owner.py') and pins['fusedAdapterSHA256']==sha(HERE/'fused-adaptation.py'),'Suppression protected adapter/fixture differs'
+ assert pins['protectedRawSHA256']==sha(ROOT/'experiments/s-integrate/payload.bend'),'Suppression original raw payload differs'
+ assert set(evidence['rawObserverPins'])=={'cached','raw'},'Suppression observer modes differ'
+ for observer in evidence['rawObserverPins'].values():
+  assert set(observer)=={'CP','protectedRaw','HA','callbacks'} and set(observer.values()).issubset(set(evidence['rawObserverFiles'].values())),'Observer pin lacks consumed file'
+ assert set(pins.values()).issubset(set(evidence['sourceFiles'].values())),'Source pin lacks consumed file'
+ cases=evidence['cases'];assert len(cases)==4 and {(x['getter'],x['backend']) for x in cases}=={(mode,backend) for mode in ('cached','raw') for backend in ('Native','JS')},'Suppression case coverage differs'
+ for case in cases:
+  assert case['records']==144 and all(case.get(key) is True for key in ('compiling','exactNoopFullfieldsEffects','trueOldJournalPreserved','journalPreserved','marksPreserved')),'Suppression semantic checks incomplete'
+  for field,pin in (('outputPath','outputSHA256'),):
+   path=Path(case[field]);assert path.absolute()==path.resolve() and path.resolve().is_relative_to(receipt.parent) and sha(path)==case[pin],'Suppression output/program drift/escape'
+  programs=case['programs'];assert len(programs) in (1,2) and sum(x['records'] for x in programs)==144,'Suppression program coverage differs'
+  assert ([x['schema'] for x in programs]==['both'] if len(programs)==1 else {x['schema'] for x in programs}=={'motion','health'}),'Suppression schema coverage differs'
+  for program in programs:
+   assert program['records']==(144 if len(programs)==1 else 72),'Suppression per-program record count differs'
+   for field,pin in (('programPath','programSHA256'),('sourcePath','sourceSHA256')):
+    path=Path(program[field]);assert path.absolute()==path.resolve() and path.resolve().is_relative_to(receipt.parent) and sha(path)==program[pin],'Suppression program/source drift/escape'
+  records=[json.loads(line) for line in Path(case['outputPath']).read_text().splitlines() if line.strip()];assert len(records)==144,'Suppression raw record count differs'
+  assert hashlib.sha256(json.dumps(records,sort_keys=True,separators=(',',':')).encode()).hexdigest()==evidence['expectedRecordsSHA256'],'Suppression complete raw fields differ'
+ assert sha(receipt)==sub['receiptSHA256'],'Suppressed receipt drift during verification'
+
 def source_binding(overlay):
  assert not overlay.is_symlink();overlay=overlay.resolve();manifest=json.loads((overlay/'overlay.json').read_text())
  for name,digest in manifest['sources'].items():
@@ -78,6 +121,7 @@ def main():
     derived=json.loads((controls/'overlay.json').read_text())['sources'];assert derived==old['controlSources'],'Derived actual gate source changed; run full gates'
     for gate in old['gates']:
      if 'receipt' in gate:assert sha(Path(gate['receipt']))==gate['receiptSHA256'],'Dependency receipt drift'
+     if gate['name']=='tx-baseline':validate_suppressed_owner(gate['receipt'],overlay)
     result['roles'][role]={'status':'REUSED','binding':binding,'controlSources':derived,'gates':old['gates']}
    assert dependency_binding()==result['dependencyBinding'],'Dependencies changed during reuse'
    result.update(status='EXACT_UNCHANGED_TWO_ROLE_GATES_REUSED',reused=True,sourceReceiptSHA256=sha(a.reuse_receipt))
@@ -107,6 +151,7 @@ def main():
    stage=folder/'staging';run('staging',[HERE/'staging-controls.py','--overlay',overlay,'--output',stage,'--cpu',a.cpu],stage/'evidence.json',{'PASS_BOUNDED_STAGING_TYPE_BOUNDARY'})
    for variant in [None,'stale-head','torn-tail','lost-mark','inverse-order']:
     target=folder/('tx-'+(variant or 'baseline'));args=[HERE/'tx-controls-run.py','--overlay',overlay,'--output',target,'--cpu',a.cpu]+(['--mutation',variant] if variant else [])+(['--split-schemas'] if role=='Native' else []);run(target.name,args,target/'evidence.json',{'DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE'} if variant else {'FINITE_ACTUAL_TX_CACHE_FIELDS_PASS'})
+   validate_suppressed_owner(folder/'tx-baseline/evidence.json',overlay)
    assert source_binding(overlay)==binding,'Snapshot changed during checks';validate_gates(entry['gates']);entry['status']='PASS'
   assert dependency_binding()==result['dependencyBinding'],'Dependencies changed during fresh checks'
   result['status']='FRESH_TWO_ROLE_CONNECTED_GATES_PASS'

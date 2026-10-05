@@ -3,7 +3,7 @@
 
 This does not claim a second fresh compilation of the connected gate suite.
 """
-import argparse,json,pathlib
+import argparse,importlib.util,json,pathlib,sys
 import boundary,decision,guard,packet,snapshot
 
 def main():
@@ -51,6 +51,12 @@ def main():
         for g in role['gates']:
             if g['exit']!=0 or g['status']!=statuses[g['name']]:raise ValueError('failed connected gate')
             if 'receipt' in g and guard.sha(pathlib.Path(g['receipt']))!=g['receiptSHA256']:raise ValueError('child gate receipt changed')
+            if g['name']=='tx-baseline':
+                helper=pathlib.Path(m['checkDirectory'])/'checks.py'
+                if m['files'].get(str(helper))!=guard.sha(helper):raise ValueError('nested check implementation not protected')
+                sys.path.insert(0,str(helper.parent))
+                spec=importlib.util.spec_from_file_location('connected_nested_check',helper);module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+                module.validate_suppressed_owner(g['receipt'],overlay)
     for name,pin in r['artifactPins'].items():
         if guard.sha(pathlib.Path(name))!=pin:raise ValueError('compiled artifact changed')
     values={role:{key:[] for key in decision.KEYS} for role in ('candidate','reference')}
@@ -78,6 +84,9 @@ def main():
     if candidate!=r['decision'] or baseline!=r['baselineDecision'] or candidate['status']!='QUALIFIED_PROPOSAL' or baseline['status']!='QUALIFIED_PROPOSAL' or (not initial_same and decision.keep(candidate,baseline))!=r['keepProposed']:
         raise ValueError('recomputed qualified decision mismatch')
     if not initial_same and candidate['metric']<baseline['metric'] and not r['keepProposed']:raise ValueError('scalar improvement has a forbidden initial-baseline cell regression')
+    for backend,role in c['roles'].items():
+        baseline_gate=next(g for g in role['gates'] if g['name']=='tx-baseline')
+        module.validate_suppressed_owner(baseline_gate['receipt'],captured.parent/backend)
     boundary.verify(captured,digest);boundary.verify(a.baseline_manifest,a.baseline_sha256)
     if guard.sha(path)!=pointer['sha256'] or guard.sha(checks)!=r['freshCheckReceiptSHA256']:raise ValueError('receipt drift during independent check')
     print('INDEPENDENT_PACKET_RAW_ORACLES_AND_RECEIPTS_PASS')

@@ -1,0 +1,42 @@
+{
+  "status": "SOURCE_ONLY_NESTED_ENFORCEMENT_CONTROLS_PASS",
+  "scope": "Synthetic receipt-validator controls, no executable semantic or timing claim",
+  "cases": [
+    {
+      "case": "synthetic-valid-receipt",
+      "result": "PASS"
+    },
+    {
+      "case": "missing-nested",
+      "result": "REJECTED"
+    },
+    {
+      "case": "missing-case",
+      "result": "REJECTED"
+    },
+    {
+      "case": "false-journal",
+      "result": "REJECTED"
+    },
+    {
+      "case": "runtime-repin",
+      "result": "REJECTED"
+    },
+    {
+      "case": "wrong-fields-hash",
+      "result": "REJECTED"
+    },
+    {
+      "case": "tampered-nested-bytes",
+      "result": "REJECTED"
+    },
+    {
+      "case": "tampered-raw-output",
+      "result": "REJECTED"
+    },
+    {
+      "case": "absent-subreceipt",
+      "result": "REJECTED"
+    }
+  ]
+}
