@@ -5,8 +5,11 @@ import boundary,guard,snapshot,packet
 ENV={'HOME':'/home/node','PATH':'/home/node/.bend/bin:/usr/local/bin:/usr/bin:/bin','LANG':'C.UTF-8','LC_ALL':'C.UTF-8'}
 
 def accepted_plan(report,contract_digest,evaluator_identity):
-    plan=report.get('decisionPlan',{})
-    if plan.get('kind')!='decision-plan' or plan.get('contractDigest')!=contract_digest or not contract_digest or plan.get('evaluatorIdentity')!=evaluator_identity or not evaluator_identity:
+    plan=report.get('decisionPlan')
+    if plan is None:
+        plan=report.get('report',{}).get('json',{}).get('decisionPlanProjection',{})
+    valid_kind=plan.get('kind')=='decision-plan' or (plan.get('kind')=='decision-plan-projection' and plan.get('projection')=='compact')
+    if not valid_kind or plan.get('contractDigest')!=contract_digest or not contract_digest or plan.get('evaluatorIdentity')!=evaluator_identity or not evaluator_identity:
         raise ValueError('canonical accepted contract/evaluator identity differs')
     if plan.get('capabilities',{}).get('run-packet')!='allowed' or plan.get('loopDisposition',{}).get('canRunPacket') is not True:
         raise ValueError('canonical state does not authorize a packet')
