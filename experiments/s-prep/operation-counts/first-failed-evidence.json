@@ -1,0 +1,36 @@
+{
+  "status": "FAIL",
+  "scope": "Entry counts only; not timing attribution or performance evidence",
+  "artifact": "/tmp/bendvy-prep22-paired-control/1-reference/measurement-samples-bend.js",
+  "artifactSHA256": "b671f0fa6160d7a9ae659737315a0d96bd1b682987c3fbb9893b2513588728cb",
+  "instrumentedSHA256": "26abefce73511c8845adbc8fd023ba21286eaa9d58f2c6308d4d3222d8a656bf",
+  "runnerSHA256": "d3c9d9276c0b144e36164d256aab99aaead27e2fb253173d40bcb07a523bad31",
+  "command": [
+    "node",
+    "/tmp/bendvy-twohour-counts/instrumented.js",
+    "1",
+    "0",
+    "256",
+    "1"
+  ],
+  "runtimeLimitSeconds": 5,
+  "hooks": [
+    "$storage$rows_extract$",
+    "$storage$rows_restore$",
+    "$storage$take_rows$",
+    "$storage$put_rows$",
+    "$storage$hook_return$",
+    "$storage$mark_main$",
+    "$storage$mark_meta$",
+    "$payload$health_ledger_get$",
+    "$payload$health_ledger_swap$",
+    "$transaction$record_main$",
+    "$transaction$record_ledger$"
+  ],
+  "fullFieldValidation": {
+    "freshMeasuredWorlds": 1,
+    "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+    "worksumPerWorld": 8970240
+  },
+  "error": "list index out of range"
+}

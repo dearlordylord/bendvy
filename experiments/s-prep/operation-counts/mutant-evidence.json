@@ -1,0 +1,74 @@
+{
+  "status": "FAIL",
+  "scope": "Entry counts only; not timing attribution or performance evidence",
+  "artifact": "/tmp/bendvy-prep22-paired-control/1-reference/measurement-samples-bend.js",
+  "artifactSHA256": "b671f0fa6160d7a9ae659737315a0d96bd1b682987c3fbb9893b2513588728cb",
+  "instrumentedSHA256": "22482d243c3214ba01edf8dbb14944e16a55316bfc43a5322fdd493c52efb622",
+  "runnerSHA256": "99c07cc675563e89bafbf264ed33de75f0725109cf242f5d3b8b0b7310167343",
+  "command": [
+    "node",
+    "/tmp/bendvy-twohour-counts-mutant/instrumented.js",
+    "1",
+    "0",
+    "256",
+    "1"
+  ],
+  "runtimeLimitSeconds": 5,
+  "mutant": true,
+  "hooks": [
+    "$storage$rows_extract$",
+    "$storage$rows_restore$",
+    "$storage$take_rows$",
+    "$storage$put_rows$",
+    "$storage$hook_return$",
+    "$storage$mark_main$",
+    "$storage$mark_meta$",
+    "$payload$health_ledger_get$",
+    "$payload$health_ledger_swap$",
+    "$transaction$record_main$",
+    "$transaction$record_ledger$"
+  ],
+  "fullFieldValidation": {
+    "freshMeasuredWorlds": 1,
+    "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+    "worksumPerWorld": 8970240
+  },
+  "counts": {
+    "phase": "outside",
+    "world": 2,
+    "counts": {
+      "loop1": {
+        "$storage$rows_extract$": 16384,
+        "$storage$rows_restore$": 16384,
+        "$storage$take_rows$": 32768,
+        "$storage$hook_return$": 32768,
+        "$storage$put_rows$": 32768,
+        "$transaction$record_main$": 32768,
+        "$payload$health_ledger_get$": 16384,
+        "$payload$health_ledger_swap$": 16384,
+        "$transaction$record_ledger$": 16384,
+        "$storage$mark_main$": 16384,
+        "$storage$mark_meta$": 16384
+      },
+      "outside": {
+        "$storage$rows_extract$": 512,
+        "$storage$rows_restore$": 512,
+        "$payload$health_ledger_get$": 2
+      },
+      "loop2": {
+        "$storage$rows_extract$": 16384,
+        "$storage$rows_restore$": 16384,
+        "$storage$take_rows$": 32768,
+        "$storage$hook_return$": 32768,
+        "$storage$put_rows$": 32768,
+        "$transaction$record_main$": 32768,
+        "$payload$health_ledger_get$": 16384,
+        "$payload$health_ledger_swap$": 16384,
+        "$transaction$record_ledger$": 16384,
+        "$storage$mark_main$": 16384,
+        "$storage$mark_meta$": 16384
+      }
+    }
+  },
+  "error": ""
+}
