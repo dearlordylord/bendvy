@@ -1,0 +1,15 @@
+{
+  "status": "INTENDED_REJECTION",
+  "command": [
+    "timeout",
+    "5s",
+    "bend",
+    "experiments/s-prep/fivehour-provider-hoist/negative-data-providers.bend",
+    "--check-only"
+  ],
+  "sourceSHA256": "9d824fe695b8c5854160044634181643146c64f4b204a9b3c051bd7e6430e76f",
+  "exitCode": 1,
+  "diagnostic": "SOME PROOFS FAIL\nError:\n- expected : Data\n- observed : Type\nLocation: Providers\n7 | type Providers is Data:\n8>|   Providers{get:Owner -> Token -> Owner & U32,set:Owner -> Token -> U32 -> Owner}\n  |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n9 | def get_done(result:Array<U32> & U32) -> Owner & U32:\n",
+  "benchmarkExecuted": false,
+  "limitsSeconds": 5
+}
