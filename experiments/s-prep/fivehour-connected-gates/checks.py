@@ -27,6 +27,18 @@ def source_binding(overlay):
    visit(source.parent/name)
  visit(overlay/'experiments/s-integrate/measurement-bend.bend')
  return {'manifestSources':dict(sorted(manifest['sources'].items())),'overlayManifestSHA256':sha(overlay/'overlay.json'),'runtimeSources':dict(sorted(seen.items())),'runtimeClosureSHA256':hashlib.sha256(json.dumps(dict(sorted(seen.items())),separators=(',',':')).encode()).hexdigest()}
+def clang_runtime_binding():
+ root=Path('/home/node/.local/opt/dnd-clang14/usr');actual=(root/'lib/llvm-14/bin/clang').resolve();assert actual.is_file()
+ resource=Path(subprocess.check_output(['clang','-print-resource-dir'],text=True,timeout=5).strip()).resolve();assert resource.is_relative_to(root.resolve()),'Unreviewed clang resource root'
+ linker_name=subprocess.check_output(['clang','-print-prog-name=ld'],text=True,timeout=5).strip();linker=Path(linker_name if '/' in linker_name else shutil.which(linker_name)).resolve();assert linker.is_file()
+ environment=dict(os.environ);environment['LD_LIBRARY_PATH']=str(root/'lib/aarch64-linux-gnu')+':'+str(root/'lib/llvm-14/lib')+(':'+environment['LD_LIBRARY_PATH'] if environment.get('LD_LIBRARY_PATH') else '')
+ libraries={}
+ for binary in (actual,linker):
+  output=subprocess.check_output(['ldd',str(binary)],text=True,env=environment,timeout=5);assert 'not found' not in output,'Missing consumed dynamic library'
+  for raw in re.findall(r'(?<!\S)(/[^\s()]+)',output):
+   path=Path(raw).resolve();assert path.is_file();libraries[str(path)]=sha(path)
+ local={str(path.resolve()):sha(path.resolve()) for path in root.rglob('*') if path.is_file()}
+ return {'actualClang':{'path':str(actual),'sha256':sha(actual)},'resourceDirectory':str(resource),'localResourceAndLibrarySources':dict(sorted(local.items())),'resolvedDynamicLibraries':dict(sorted(libraries.items())),'linker':{'path':str(linker),'sha256':sha(linker)}}
 def dependency_binding():
  tracked=subprocess.check_output(['git','ls-files'],cwd=ROOT,text=True).splitlines()
  prefixes=('experiments/s-integrate/','experiments/s-integrate-trace/','experiments/s-perf/candidate/','experiments/s-prep/fivehour-connected-gates/')
@@ -46,7 +58,7 @@ def dependency_binding():
   pinned=subprocess.check_output(['git','show','HEAD:'+n],cwd=reference)
   assert hashlib.sha256(pinned).hexdigest()==refs[n],'Reference tracked source drift'
  installed=Path.home()/'.bend/bend2';installed_sources={str(q.resolve()):sha(q) for q in [*installed.glob('*'),*(installed/'effs').glob('*')] if q.is_file()}
- return {'installedBendRuntime':installed_sources,'gateAndProtectedSources':dict(sorted(sources.items())),'tools':tools,'referenceHEAD':subprocess.check_output(['git','rev-parse','HEAD'],cwd=reference,text=True).strip(),'referenceCoreSources':refs,'limits':{'checker':5,'runtime':5,'codegen':30,'clang':120},'cpu':9,'executionEnvironment':{name:os.environ.get(name) for name in ('NODE_OPTIONS','BEND_HOME','BEND_PATH','BEND_LIB','PYTHONPATH','LD_PRELOAD','LD_LIBRARY_PATH','HOME')}}
+ return {'clangRuntime':clang_runtime_binding(),'installedBendRuntime':installed_sources,'gateAndProtectedSources':dict(sorted(sources.items())),'tools':tools,'referenceHEAD':subprocess.check_output(['git','rev-parse','HEAD'],cwd=reference,text=True).strip(),'referenceCoreSources':refs,'limits':{'checker':5,'runtime':5,'codegen':30,'clang':120},'cpu':9,'executionEnvironment':{name:os.environ.get(name) for name in ('NODE_OPTIONS','BEND_HOME','BEND_PATH','BEND_LIB','PYTHONPATH','LD_PRELOAD','LD_LIBRARY_PATH','HOME')}}
 def main():
  p=argparse.ArgumentParser();p.add_argument('--js-overlay',type=Path,required=True);p.add_argument('--native-overlay',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--cpu',type=int,default=9);p.add_argument('--reuse-receipt',type=Path);p.add_argument('--reuse-receipt-sha256');a=p.parse_args();a.output.mkdir(exist_ok=False)
  result={'status':'INCOMPLETE','schemaVersion':1,'scope':'Fresh exact candidate semantic/capability gates; no metric or product acceptance','roles':{},'gateSources':{f.name:sha(f) for f in HERE.glob('*.py')}}
