@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : rows
+- observed : rows (consumed more than once)
+Context:
+- M : Type
+- A : Type
+- F : Data
+Location: duplicate
+2 | 
+3>| def duplicate(-M: Type,-A: Type,-F: Data,rows: T.Columns<M,A,F>) -> T.Columns<M,A,F> & T.Columns<M,A,F>:
+  |                                          ^^^^
+4 |   (rows,rows)

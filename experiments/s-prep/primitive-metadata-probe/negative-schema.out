@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : S.ReadPermit<S.Motion>
+- observed : S.ReadPermit<S.Health>
+Context:
+- p    : S.ReadPermit<S.Health>
+- rows : S.Scoped<S.Motion, U32, U32, U32>
+Location: cross
+4 | def cross(p: S.ReadPermit<S.Health>,rows: S.Scoped<S.Motion,U32,U32,U32>) -> S.ReadPermit<S.Motion> & (S.Scoped<S.Motion,U32,U32,U32> & Maybe<&2,T.Metadata<U32>>):
+5>|   S.read(S.Motion,U32,U32,U32,p,rows,1)
+  |                               ^
+6 | 

@@ -1,0 +1,44 @@
+{
+  "status": "FINITE_TRANSPORT_MATCH",
+  "scope": "two Type payload placements; 14 complete field comparisons per backend against independent columns and destructive conversion; no integration/proof/performance acceptance",
+  "cases": [
+    "one/1",
+    "one/2",
+    "one/0",
+    "one/3",
+    "one/4294967295",
+    "two/1",
+    "two/2",
+    "two/0",
+    "two/3",
+    "two/4294967295",
+    "one-highzero/1",
+    "one-highone/2",
+    "two-highzero/1",
+    "two-highone/2"
+  ],
+  "limits_seconds": {
+    "check": 5,
+    "codegen": 30,
+    "clang": 120,
+    "runtime": 5
+  },
+  "compiler": "bend 2.0.35",
+  "node": "v24.20.0",
+  "clang": "Debian clang version 14.0.6",
+  "sources": {
+    "fixture.bend": "999717ff9a12fb74050d99dc82f16abbbbe13a0ee57d95ea933441b063753602",
+    "negative-duplicate.bend": "ae70c528f164780228ce763bf788b25ba81f3ed667114b7fbb8121d139d7a794",
+    "negative-schema.bend": "5df72b7917477564c24bbde3896a59629f22297e8465c79ae84cc31563137afb",
+    "negative-undeclared.bend": "69291ab63b013b14326d5108df42295c3279dff7bd6bd5c671c9a1b3f4d70b4e",
+    "schema-positive.bend": "1a796242b5170ddd3a8cf74c6d2476716302d95abdba56b8c5fe44c749150cb8",
+    "schema.bend": "ad1d037ef280b3b1843fb1981b1d56a136a79d9a450ad37e1e69c5623517a381",
+    "transport.bend": "c4924fa4d62c770300f6397bdaf420ff507ea9e9e511fd717065a31b360cab82"
+  },
+  "negative_controls": {
+    "negative-duplicate": "consumed more than once",
+    "negative-schema": "observed : S.ReadPermit<S.Health>",
+    "negative-undeclared": "observed : S.Scoped<S.Motion"
+  },
+  "output_sha256": "4bac8b627fc205c5e11b6993a354746e4ca25d056ba073e33f2d00c31b6554e8"
+}

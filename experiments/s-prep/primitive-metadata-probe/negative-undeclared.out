@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- expected : S.ReadPermit<S.Motion>
+- observed : S.Scoped<S.Motion, U32, U32, U32>
+Context:
+- rows : S.Scoped<S.Motion, U32, U32, U32>
+Location: undeclared
+4 | def undeclared(rows: S.Scoped<S.Motion,U32,U32,U32>) -> S.ReadPermit<S.Motion> & (S.Scoped<S.Motion,U32,U32,U32> & Maybe<&2,T.Metadata<U32>>):
+5>|   S.read(S.Motion,U32,U32,U32,rows,1)
+  |                               ^^^^
+6 | 

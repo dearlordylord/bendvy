@@ -217,3 +217,9 @@ Global16/20 physical attempts are consumed, including the prior unlogged deadlin
 ## Active joined static/mark packet
 
 Before physical attempt19,18/20 attempts are consumed. `packet-jh57nfny` now runs exact static-provider plus private mark transport source (master ada7486), fullfresh22 controlsCPU8 and timingCPU11, with original5/30/120 Bend limits and separate180s canonical-state read bound. At20:07:25Z execution access was restored after a bwrap environment interruption; the existing owned process tree survived and was not restarted. Full gates/timing remain pending. Deadline20:54:31Z, targets and fullcore gates unchanged. See [current report](reports/two-hour-dispatch-continuation.md).
+
+## Measured allowance exhausted
+
+Physical attempts19/20 failed before timing: failed-change-stamp Motion checker5s and original Health Host Ccodegen30s, respectively. Both are logged as crash/no metric; no complete22 gate or selected keep. Global20/20 allowance is consumed (18 canonical logs + two interruptions), and currentsegment16 packet-budget2 enforces no further measured execution. Source/negative receipts are retained in [dispatch results](../experiments/s-prep/dispatch-results/README.md). Any later measured run requires a new explicit allowance; no budget reset from source readiness. The deadline remains20:54:31Z for direct source preparation/delivery.
+
+Direct next-layout witness: [primitive metadata transport](../experiments/s-prep/primitive-metadata-probe/README.md) is delivered separately.14 full-field JS/Native cases, three intended negatives and high-guard omission detection pass. Generic Main/Aux Type owners remain; no Data-only restriction. This is read/mark/destructive-conversion readiness, not integrated allocator/query/rollback/provider/refinement/performance acceptance. Actual candidate remains the joined static/mark source; next integration needs full22 gates and a new explicit measured allowance.
