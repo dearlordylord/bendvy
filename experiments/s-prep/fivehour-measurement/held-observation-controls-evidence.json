@@ -1,0 +1,30 @@
+{
+  "scope": "No benchmarks or qualification; exact raw-field/census corruption controls",
+  "controls": [
+    {
+      "name": "lost-world",
+      "status": "INTENDED_FULL_FIELD_OR_RECORD_COUNT_REJECTION",
+      "exitCode": 1,
+      "diagnostic": "Traceback (most recent call last):\n  File \"/workspace/formal-proofs/bendvy-worktrees/twohour-profile/experiments/s-prep/fivehour-measurement/semantic-check.py\", line 9, in <module>\n    records=[x for x in lines if not x.startswith('BATCH-MILLISECONDS:')];assert len(records)==a.batch+1\n                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    },
+    {
+      "name": "drop-cell",
+      "status": "INTENDED_FULL_FIELD_OR_RECORD_COUNT_REJECTION",
+      "exitCode": 1,
+      "diagnostic": "Traceback (most recent call last):\n  File \"/workspace/formal-proofs/bendvy-worktrees/twohour-profile/experiments/s-prep/fivehour-measurement/semantic-check.py\", line 12, in <module>\n    checked=V.validate(line,a.schema,False,256,world);actual=json.loads(line);normalized=V.normalized(actual,a.schema);assert normalized==world['final'];hashes.append(checked['normalizedFinalSha256'])\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/formal-proofs/bendvy/experiments/s-integrate/measurement-bend-run.py\", line 45, in validate\n    actual=json.loads(value);ms=actual.pop('milliseconds');assert actual==expected(schema,sparse,n),(schema,sparse,n,'full world/checksum/dispatch difference')\n                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: ('Health', False, 256, 'full world/checksum/dispatch difference')\n"
+    },
+    {
+      "name": "tampered-reference",
+      "status": "INTENDED_FULL_FIELD_OR_RECORD_COUNT_REJECTION",
+      "exitCode": 1,
+      "diagnostic": "Traceback (most recent call last):\n  File \"/workspace/formal-proofs/bendvy-worktrees/twohour-profile/experiments/s-prep/fivehour-measurement/semantic-check.py\", line 12, in <module>\n    checked=V.validate(line,a.schema,False,256,world);actual=json.loads(line);normalized=V.normalized(actual,a.schema);assert normalized==world['final'];hashes.append(checked['normalizedFinalSha256'])\n                                                                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    },
+    {
+      "name": "wrong-output-batch",
+      "status": "INTENDED_FULL_FIELD_OR_RECORD_COUNT_REJECTION",
+      "exitCode": 1,
+      "diagnostic": "Traceback (most recent call last):\n  File \"/workspace/formal-proofs/bendvy-worktrees/twohour-profile/experiments/s-prep/fivehour-measurement/semantic-check.py\", line 7, in <module>\n    ts=json.load(open(a.ts_output));assert ts['batch']==a.batch and len(ts['samples'])==a.batch\n                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    }
+  ],
+  "status": "OBSERVATION_INTEGRITY_NEGATIVES_PASS"
+}

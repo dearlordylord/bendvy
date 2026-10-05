@@ -1,0 +1,464 @@
+{
+  "scope": "Finite same-work semantic method construction, not accepted loop",
+  "commands": [
+    {
+      "args": [
+        "python3",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-profile/experiments/s-prep/fivehour-measurement/prepare-bend.py",
+        "--core",
+        "/tmp/bendvy-fivehour-cache-held/experiments/s-integrate",
+        "--output",
+        "/tmp/bendvy-fivehour-held-method-construction/Health",
+        "--schema",
+        "Health",
+        "--batch",
+        "16"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": null
+    },
+    {
+      "args": [
+        "python3",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-profile/experiments/s-prep/fivehour-measurement/prepare-ts.py",
+        "--source",
+        "/workspace/formal-proofs/bendvy/experiments/s-integrate/measurement-samples-reference.mjs",
+        "--output",
+        "/tmp/bendvy-fivehour-held-method-construction/Health/reference.mjs",
+        "--schema",
+        "Health",
+        "--batch",
+        "16"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": null
+    },
+    {
+      "args": [
+        "node",
+        "/tmp/bendvy-fivehour-held-method-construction/Health/reference.mjs"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": null
+    },
+    {
+      "args": [
+        "bend",
+        "/tmp/bendvy-fivehour-held-method-construction/Health/batch.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": null
+    },
+    {
+      "args": [
+        "bend",
+        "/tmp/bendvy-fivehour-held-method-construction/Health/batch.bend",
+        "-o",
+        "/tmp/bendvy-fivehour-held-method-construction/Health/batch.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "output": null
+    },
+    {
+      "args": [
+        "bend",
+        "/tmp/bendvy-fivehour-held-method-construction/Health/batch.bend",
+        "-o",
+        "/tmp/bendvy-fivehour-held-method-construction/Health/batch.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "output": null
+    },
+    {
+      "args": [
+        "clang",
+        "-O3",
+        "/tmp/bendvy-fivehour-held-method-construction/Health/batch.c",
+        "-pthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-fivehour-held-method-construction/Health/batch-native"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "output": null
+    },
+    {
+      "args": [
+        "node",
+        "/tmp/bendvy-fivehour-held-method-construction/Health/batch.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": null
+    },
+    {
+      "args": [
+        "python3",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-profile/experiments/s-prep/fivehour-measurement/semantic-check.py",
+        "--bend-output",
+        "/tmp/bendvy-fivehour-held-method-construction/Health/JS.txt",
+        "--ts-output",
+        "/tmp/bendvy-fivehour-held-method-construction/Health/reference.json",
+        "--schema",
+        "Health",
+        "--batch",
+        "16",
+        "--evidence",
+        "/tmp/bendvy-fivehour-held-method-construction/Health/JS-semantic.json"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": null
+    },
+    {
+      "args": [
+        "/tmp/bendvy-fivehour-held-method-construction/Health/batch-native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": null
+    },
+    {
+      "args": [
+        "python3",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-profile/experiments/s-prep/fivehour-measurement/semantic-check.py",
+        "--bend-output",
+        "/tmp/bendvy-fivehour-held-method-construction/Health/Native.txt",
+        "--ts-output",
+        "/tmp/bendvy-fivehour-held-method-construction/Health/reference.json",
+        "--schema",
+        "Health",
+        "--batch",
+        "16",
+        "--evidence",
+        "/tmp/bendvy-fivehour-held-method-construction/Health/Native-semantic.json"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": null
+    },
+    {
+      "args": [
+        "python3",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-profile/experiments/s-prep/fivehour-measurement/prepare-bend.py",
+        "--core",
+        "/tmp/bendvy-fivehour-cache-held/experiments/s-integrate",
+        "--output",
+        "/tmp/bendvy-fivehour-held-method-construction/Motion",
+        "--schema",
+        "Motion",
+        "--batch",
+        "16"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": null
+    },
+    {
+      "args": [
+        "python3",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-profile/experiments/s-prep/fivehour-measurement/prepare-ts.py",
+        "--source",
+        "/workspace/formal-proofs/bendvy/experiments/s-integrate/measurement-samples-reference.mjs",
+        "--output",
+        "/tmp/bendvy-fivehour-held-method-construction/Motion/reference.mjs",
+        "--schema",
+        "Motion",
+        "--batch",
+        "16"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": null
+    },
+    {
+      "args": [
+        "node",
+        "/tmp/bendvy-fivehour-held-method-construction/Motion/reference.mjs"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": null
+    },
+    {
+      "args": [
+        "bend",
+        "/tmp/bendvy-fivehour-held-method-construction/Motion/batch.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": null
+    },
+    {
+      "args": [
+        "bend",
+        "/tmp/bendvy-fivehour-held-method-construction/Motion/batch.bend",
+        "-o",
+        "/tmp/bendvy-fivehour-held-method-construction/Motion/batch.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "output": null
+    },
+    {
+      "args": [
+        "bend",
+        "/tmp/bendvy-fivehour-held-method-construction/Motion/batch.bend",
+        "-o",
+        "/tmp/bendvy-fivehour-held-method-construction/Motion/batch.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "output": null
+    },
+    {
+      "args": [
+        "clang",
+        "-O3",
+        "/tmp/bendvy-fivehour-held-method-construction/Motion/batch.c",
+        "-pthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-fivehour-held-method-construction/Motion/batch-native"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "output": null
+    },
+    {
+      "args": [
+        "node",
+        "/tmp/bendvy-fivehour-held-method-construction/Motion/batch.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": null
+    },
+    {
+      "args": [
+        "python3",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-profile/experiments/s-prep/fivehour-measurement/semantic-check.py",
+        "--bend-output",
+        "/tmp/bendvy-fivehour-held-method-construction/Motion/JS.txt",
+        "--ts-output",
+        "/tmp/bendvy-fivehour-held-method-construction/Motion/reference.json",
+        "--schema",
+        "Motion",
+        "--batch",
+        "16",
+        "--evidence",
+        "/tmp/bendvy-fivehour-held-method-construction/Motion/JS-semantic.json"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": null
+    },
+    {
+      "args": [
+        "/tmp/bendvy-fivehour-held-method-construction/Motion/batch-native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": null
+    },
+    {
+      "args": [
+        "python3",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-profile/experiments/s-prep/fivehour-measurement/semantic-check.py",
+        "--bend-output",
+        "/tmp/bendvy-fivehour-held-method-construction/Motion/Native.txt",
+        "--ts-output",
+        "/tmp/bendvy-fivehour-held-method-construction/Motion/reference.json",
+        "--schema",
+        "Motion",
+        "--batch",
+        "16",
+        "--evidence",
+        "/tmp/bendvy-fivehour-held-method-construction/Motion/Native-semantic.json"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": null
+    }
+  ],
+  "cases": [
+    {
+      "schema": "Health",
+      "backend": "JS",
+      "status": "ALL_17_FULL_RECORDS_PASS",
+      "artifactSHA256": "d9a2983aefdad8ef8d0887c61a6ef2f1c64658a6de07f0f1d217712bf6874446",
+      "receipt": {
+        "status": "EVERY_FULL_RECORD_WARMUP_AND_BATCH_PASS",
+        "batch": 16,
+        "schema": "Health",
+        "fullFieldsComparedPerWorld": 256,
+        "records": 17,
+        "scope": "Semantic construction only; raw clocks not selected as performance metric",
+        "worldHashes": [
+          "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+          "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+          "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+          "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+          "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+          "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+          "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+          "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+          "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+          "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+          "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+          "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+          "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+          "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+          "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+          "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+          "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de"
+        ],
+        "rawInputs": {
+          "/tmp/bendvy-fivehour-held-method-construction/Health/JS.txt": "3962d04a2cea32b743c685d1983b0eb70707b06d97bc69048798e069327a023e",
+          "/tmp/bendvy-fivehour-held-method-construction/Health/reference.json": "5e984dcb807581e0d7a01b831cedd97fdab95ca8ca20e87669365c335908d414"
+        },
+        "validatorSHA256": "25ab577d5234a1c30f46318708455377353ec39d4fb0b6bf1b40ad5ea5da8f84"
+      }
+    },
+    {
+      "schema": "Health",
+      "backend": "Native",
+      "status": "ALL_17_FULL_RECORDS_PASS",
+      "artifactSHA256": "d07883deffb1508b7fe28cc143d78fcbf535ef3c864e70ad3e472b7bd4f02b6a",
+      "receipt": {
+        "status": "EVERY_FULL_RECORD_WARMUP_AND_BATCH_PASS",
+        "batch": 16,
+        "schema": "Health",
+        "fullFieldsComparedPerWorld": 256,
+        "records": 17,
+        "scope": "Semantic construction only; raw clocks not selected as performance metric",
+        "worldHashes": [
+          "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+          "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+          "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+          "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+          "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+          "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+          "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+          "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+          "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+          "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+          "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+          "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+          "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+          "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+          "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+          "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+          "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de"
+        ],
+        "rawInputs": {
+          "/tmp/bendvy-fivehour-held-method-construction/Health/Native.txt": "ce2cac823bea7b8837bd76ef51adc72927b5cd93346977732f75d791c2d6bc22",
+          "/tmp/bendvy-fivehour-held-method-construction/Health/reference.json": "5e984dcb807581e0d7a01b831cedd97fdab95ca8ca20e87669365c335908d414"
+        },
+        "validatorSHA256": "25ab577d5234a1c30f46318708455377353ec39d4fb0b6bf1b40ad5ea5da8f84"
+      }
+    },
+    {
+      "schema": "Motion",
+      "backend": "JS",
+      "status": "ALL_17_FULL_RECORDS_PASS",
+      "artifactSHA256": "911131960ccbf2a7961affd5e3e2895fe2b945e36ff78949c882bdd2836a0aa7",
+      "receipt": {
+        "status": "EVERY_FULL_RECORD_WARMUP_AND_BATCH_PASS",
+        "batch": 16,
+        "schema": "Motion",
+        "fullFieldsComparedPerWorld": 256,
+        "records": 17,
+        "scope": "Semantic construction only; raw clocks not selected as performance metric",
+        "worldHashes": [
+          "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+          "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+          "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+          "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+          "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+          "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+          "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+          "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+          "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+          "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+          "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+          "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+          "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+          "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+          "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+          "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+          "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a"
+        ],
+        "rawInputs": {
+          "/tmp/bendvy-fivehour-held-method-construction/Motion/JS.txt": "9433f7d4ad6a54b82654ebba84762d3718481a4cf2f17bf27af17e482b8fef49",
+          "/tmp/bendvy-fivehour-held-method-construction/Motion/reference.json": "fb5ebabf7fa3c14b6d5d942c5ab71884f9bab58089d807c60e50735e267dfef1"
+        },
+        "validatorSHA256": "25ab577d5234a1c30f46318708455377353ec39d4fb0b6bf1b40ad5ea5da8f84"
+      }
+    },
+    {
+      "schema": "Motion",
+      "backend": "Native",
+      "status": "ALL_17_FULL_RECORDS_PASS",
+      "artifactSHA256": "ce3b4cfecad7757657ad5db0b08d5c30684b08dd5602a7ff4d8c74b222a5c308",
+      "receipt": {
+        "status": "EVERY_FULL_RECORD_WARMUP_AND_BATCH_PASS",
+        "batch": 16,
+        "schema": "Motion",
+        "fullFieldsComparedPerWorld": 256,
+        "records": 17,
+        "scope": "Semantic construction only; raw clocks not selected as performance metric",
+        "worldHashes": [
+          "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+          "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+          "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+          "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+          "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+          "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+          "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+          "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+          "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+          "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+          "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+          "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+          "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+          "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+          "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+          "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+          "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a"
+        ],
+        "rawInputs": {
+          "/tmp/bendvy-fivehour-held-method-construction/Motion/Native.txt": "622b45065e39e2aafbb3eb15542a9733623ad0c59c71070922a89efb09321a7e",
+          "/tmp/bendvy-fivehour-held-method-construction/Motion/reference.json": "fb5ebabf7fa3c14b6d5d942c5ab71884f9bab58089d807c60e50735e267dfef1"
+        },
+        "validatorSHA256": "25ab577d5234a1c30f46318708455377353ec39d4fb0b6bf1b40ad5ea5da8f84"
+      }
+    }
+  ],
+  "limits": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "batch": 16,
+  "status": "BOTH_SCHEMA_NATIVE_JS_FULL_BATCH_PASS",
+  "runnerSHA256": "590bbcee5666fd737a3349be153c74e95f1808cecadb6c6dce4105d85e10f23f"
+}
