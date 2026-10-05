@@ -1,0 +1,117 @@
+{
+  "scope": "actual nominal Type payloads; finite correctness only",
+  "limits": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "cpu": 8,
+  "environment": {
+    "bend": "bend 2.0.35",
+    "node": "v24.20.0",
+    "clang": "Debian clang version 14.0.6",
+    "Base": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661"
+  },
+  "sourceHashes": {
+    "original-payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+    "native-payload.bend": "2938897514720ed50abc100d99bbc7effd730a8b5c155ad8d9ac98d1bf5143b4",
+    "fixture.bend": "c1773af0cf599acfa458790c5d93004533bfe82f3e884a545c7735d88d395a05"
+  },
+  "cases": {
+    "Native": {
+      "baseline": {
+        "status": "PASS",
+        "sourceSha256": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+        "generatedSha256": "ab647ee46ce14abc6a327520f43a6fbbb2b45c2d42b4ad89a4587b052126f8e9",
+        "artifactSha256": "c5f4de46402df8ec7679e25bef83b3401e8f805a072653dae12c6bba3f2b9be6",
+        "output": "position:initial:5,17,29,43:71:old:5:written:211,17,29,43:71:replaced:211:restored:5,17,29,43:71:repeat:5,17,29,43:71:owner:5,17,29,43,:frame:71\nvelocity:initial:7,19,31,47:True:restored:7,19,31,47:True:repeat:7,19,31,47:True\nvitals:initial:11,23,37,53:73:79:old:11:written:211,23,37,53:73:79:replaced:211:restored:11,23,37,53:73:79:repeat:11,23,37,53:73:79\narmor:initial:13,27,41,59:83:restored:13,27,41,59:83:repeat:13,27,41,59:83\nmotion_ledger:initial:61,67,89,97:101:old:61:written:211,67,89,97:101:replaced:211:restored:61,67,89,97:101:repeat:61,67,89,97:101\nhealth_ledger:initial:103,107,109,113:127:old:103:written:211,107,109,113:127:replaced:211:restored:103,107,109,113:127:repeat:103,107,109,113:127\nfallback:137,137,137,137:owner:137,\nfallback:139,149,139,149:owner:139,149,\nfallback:151,157,163,167:owner:151,157,163,167,173,179,181,191,\nposition:initial:137,137,137,137:131:old:137:written:211,211,211,211:131:replaced:211:restored:137,137,137,137:131:repeat:137,137,137,137:131:owner:137,:frame:131\nposition:initial:139,149,139,149:133:old:139:written:211,149,211,149:133:replaced:211:restored:139,149,139,149:133:repeat:139,149,139,149:133:owner:139,149,:frame:133\nposition:initial:151,157,163,167:135:old:151:written:211,157,163,167:135:replaced:211:restored:151,157,163,167:135:repeat:151,157,163,167:135:owner:151,157,163,167,173,179,181,191,:frame:135\n",
+        "outputSha256": "82b8593493cb61016e90747cd40c037dc500dc5580a35786e6f27bd895b11599"
+      },
+      "subject": {
+        "status": "PASS",
+        "sourceSha256": "2938897514720ed50abc100d99bbc7effd730a8b5c155ad8d9ac98d1bf5143b4",
+        "generatedSha256": "04c8d0a967e4c25daf5af9ed7cf31e48a8c7f3b51ee3ba8f3f15b3bc160fdebd",
+        "artifactSha256": "0bb6ef34e056cd814d4f9b39179490b6fe4ef4b6a10650b864f29a8f5647c04f",
+        "output": "position:initial:5,17,29,43:71:old:5:written:211,17,29,43:71:replaced:211:restored:5,17,29,43:71:repeat:5,17,29,43:71:owner:5,17,29,43,:frame:71\nvelocity:initial:7,19,31,47:True:restored:7,19,31,47:True:repeat:7,19,31,47:True\nvitals:initial:11,23,37,53:73:79:old:11:written:211,23,37,53:73:79:replaced:211:restored:11,23,37,53:73:79:repeat:11,23,37,53:73:79\narmor:initial:13,27,41,59:83:restored:13,27,41,59:83:repeat:13,27,41,59:83\nmotion_ledger:initial:61,67,89,97:101:old:61:written:211,67,89,97:101:replaced:211:restored:61,67,89,97:101:repeat:61,67,89,97:101\nhealth_ledger:initial:103,107,109,113:127:old:103:written:211,107,109,113:127:replaced:211:restored:103,107,109,113:127:repeat:103,107,109,113:127\nfallback:137,137,137,137:owner:137,\nfallback:139,149,139,149:owner:139,149,\nfallback:151,157,163,167:owner:151,157,163,167,173,179,181,191,\nposition:initial:137,137,137,137:131:old:137:written:211,211,211,211:131:replaced:211:restored:137,137,137,137:131:repeat:137,137,137,137:131:owner:137,:frame:131\nposition:initial:139,149,139,149:133:old:139:written:211,149,211,149:133:replaced:211:restored:139,149,139,149:133:repeat:139,149,139,149:133:owner:139,149,:frame:133\nposition:initial:151,157,163,167:135:old:151:written:211,157,163,167:135:replaced:211:restored:151,157,163,167:135:repeat:151,157,163,167:135:owner:151,157,163,167,173,179,181,191,:frame:135\n",
+        "outputSha256": "82b8593493cb61016e90747cd40c037dc500dc5580a35786e6f27bd895b11599"
+      },
+      "fullOutputEqual": true,
+      "binding": "native structural payload"
+    },
+    "JS": {
+      "baseline": {
+        "status": "PASS",
+        "sourceSha256": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+        "generatedSha256": "71c94add8d283c8f214e221e8655afb032830bc8644fa98dc4beb48b46a56585",
+        "artifactSha256": "71c94add8d283c8f214e221e8655afb032830bc8644fa98dc4beb48b46a56585",
+        "output": "position:initial:5,17,29,43:71:old:5:written:211,17,29,43:71:replaced:211:restored:5,17,29,43:71:repeat:5,17,29,43:71:owner:5,17,29,43,:frame:71\nvelocity:initial:7,19,31,47:True:restored:7,19,31,47:True:repeat:7,19,31,47:True\nvitals:initial:11,23,37,53:73:79:old:11:written:211,23,37,53:73:79:replaced:211:restored:11,23,37,53:73:79:repeat:11,23,37,53:73:79\narmor:initial:13,27,41,59:83:restored:13,27,41,59:83:repeat:13,27,41,59:83\nmotion_ledger:initial:61,67,89,97:101:old:61:written:211,67,89,97:101:replaced:211:restored:61,67,89,97:101:repeat:61,67,89,97:101\nhealth_ledger:initial:103,107,109,113:127:old:103:written:211,107,109,113:127:replaced:211:restored:103,107,109,113:127:repeat:103,107,109,113:127\nfallback:137,137,137,137:owner:137,\nfallback:139,149,139,149:owner:139,149,\nfallback:151,157,163,167:owner:151,157,163,167,173,179,181,191,\nposition:initial:137,137,137,137:131:old:137:written:211,211,211,211:131:replaced:211:restored:137,137,137,137:131:repeat:137,137,137,137:131:owner:137,:frame:131\nposition:initial:139,149,139,149:133:old:139:written:211,149,211,149:133:replaced:211:restored:139,149,139,149:133:repeat:139,149,139,149:133:owner:139,149,:frame:133\nposition:initial:151,157,163,167:135:old:151:written:211,157,163,167:135:replaced:211:restored:151,157,163,167:135:repeat:151,157,163,167:135:owner:151,157,163,167,173,179,181,191,:frame:135\n",
+        "outputSha256": "82b8593493cb61016e90747cd40c037dc500dc5580a35786e6f27bd895b11599"
+      },
+      "subject": {
+        "status": "PASS",
+        "sourceSha256": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+        "generatedSha256": "71c94add8d283c8f214e221e8655afb032830bc8644fa98dc4beb48b46a56585",
+        "artifactSha256": "71c94add8d283c8f214e221e8655afb032830bc8644fa98dc4beb48b46a56585",
+        "output": "position:initial:5,17,29,43:71:old:5:written:211,17,29,43:71:replaced:211:restored:5,17,29,43:71:repeat:5,17,29,43:71:owner:5,17,29,43,:frame:71\nvelocity:initial:7,19,31,47:True:restored:7,19,31,47:True:repeat:7,19,31,47:True\nvitals:initial:11,23,37,53:73:79:old:11:written:211,23,37,53:73:79:replaced:211:restored:11,23,37,53:73:79:repeat:11,23,37,53:73:79\narmor:initial:13,27,41,59:83:restored:13,27,41,59:83:repeat:13,27,41,59:83\nmotion_ledger:initial:61,67,89,97:101:old:61:written:211,67,89,97:101:replaced:211:restored:61,67,89,97:101:repeat:61,67,89,97:101\nhealth_ledger:initial:103,107,109,113:127:old:103:written:211,107,109,113:127:replaced:211:restored:103,107,109,113:127:repeat:103,107,109,113:127\nfallback:137,137,137,137:owner:137,\nfallback:139,149,139,149:owner:139,149,\nfallback:151,157,163,167:owner:151,157,163,167,173,179,181,191,\nposition:initial:137,137,137,137:131:old:137:written:211,211,211,211:131:replaced:211:restored:137,137,137,137:131:repeat:137,137,137,137:131:owner:137,:frame:131\nposition:initial:139,149,139,149:133:old:139:written:211,149,211,149:133:replaced:211:restored:139,149,139,149:133:repeat:139,149,139,149:133:owner:139,149,:frame:133\nposition:initial:151,157,163,167:135:old:151:written:211,157,163,167:135:replaced:211:restored:151,157,163,167:135:repeat:151,157,163,167:135:owner:151,157,163,167,173,179,181,191,:frame:135\n",
+        "outputSha256": "82b8593493cb61016e90747cd40c037dc500dc5580a35786e6f27bd895b11599"
+      },
+      "fullOutputEqual": true,
+      "binding": "original flat Array intrinsic payload"
+    }
+  },
+  "mutants": {
+    "wrong-cell-Native": {
+      "status": "DETECTED",
+      "sourceSha256": "c42bfa292bc09e1c5697d76bd5774136ca0b76c3a021594530630c99b129654c",
+      "generatedSha256": "8305cdccedfd78af50eb85f438045e40946151d1c7924509b3cc9ae9db98ebea",
+      "artifactSha256": "3e163ee71dfb75edfb3840b90b0d45f220da6a04c9773fdf89ae6e3cca27204e",
+      "output": "position:initial:5,17,29,43:71:old:17:written:5,211,29,43:71:replaced:211:restored:5,17,29,43:71:repeat:5,17,29,43:71:owner:5,17,29,43,:frame:71\nvelocity:initial:7,19,31,47:True:restored:7,19,31,47:True:repeat:7,19,31,47:True\nvitals:initial:11,23,37,53:73:79:old:23:written:11,211,37,53:73:79:replaced:211:restored:11,23,37,53:73:79:repeat:11,23,37,53:73:79\narmor:initial:13,27,41,59:83:restored:13,27,41,59:83:repeat:13,27,41,59:83\nmotion_ledger:initial:61,67,89,97:101:old:67:written:61,211,89,97:101:replaced:211:restored:61,67,89,97:101:repeat:61,67,89,97:101\nhealth_ledger:initial:103,107,109,113:127:old:107:written:103,211,109,113:127:replaced:211:restored:103,107,109,113:127:repeat:103,107,109,113:127\nfallback:137,137,137,137:owner:137,\nfallback:139,149,139,149:owner:139,149,\nfallback:151,157,163,167:owner:151,157,163,167,173,179,181,191,\nposition:initial:137,137,137,137:131:old:137:written:211,211,211,211:131:replaced:211:restored:137,137,137,137:131:repeat:137,137,137,137:131:owner:137,:frame:131\nposition:initial:139,149,139,149:133:old:149:written:139,211,139,211:133:replaced:211:restored:139,149,139,149:133:repeat:139,149,139,149:133:owner:139,149,:frame:133\nposition:initial:151,157,163,167:135:old:157:written:151,211,163,167:135:replaced:211:restored:151,157,163,167:135:repeat:151,157,163,167:135:owner:151,157,163,167,173,179,181,191,:frame:135\n",
+      "outputSha256": "72a8248c390a6d6fc5615fea60e2a992a6a3ef19a994fad6e06a093f532193ba"
+    },
+    "owner-cell-loss-Native": {
+      "status": "DETECTED",
+      "sourceSha256": "21f1aab5610f40e63961db1373fe9537193874b42d8c79f0f0249ce7a75f2cf4",
+      "generatedSha256": "f31fbe44bd42256628266d35b2e6121da63345797b0694d45979aa7ecde39d39",
+      "artifactSha256": "1500c1c807848550ed6c39a9ef9a6a1519affaaea31ebed2bc88050aa8a6c47c",
+      "output": "position:initial:5,17,29,43:71:old:5:written:211,0,29,43:71:replaced:211:restored:5,0,29,43:71:repeat:5,0,29,43:71:owner:5,0,29,43,:frame:71\nvelocity:initial:7,19,31,47:True:restored:7,19,31,47:True:repeat:7,19,31,47:True\nvitals:initial:11,23,37,53:73:79:old:11:written:211,23,37,53:73:79:replaced:211:restored:11,23,37,53:73:79:repeat:11,23,37,53:73:79\narmor:initial:13,27,41,59:83:restored:13,27,41,59:83:repeat:13,27,41,59:83\nmotion_ledger:initial:61,67,89,97:101:old:61:written:211,67,89,97:101:replaced:211:restored:61,67,89,97:101:repeat:61,67,89,97:101\nhealth_ledger:initial:103,107,109,113:127:old:103:written:211,107,109,113:127:replaced:211:restored:103,107,109,113:127:repeat:103,107,109,113:127\nfallback:137,137,137,137:owner:137,\nfallback:139,149,139,149:owner:139,149,\nfallback:151,157,163,167:owner:151,157,163,167,173,179,181,191,\nposition:initial:137,137,137,137:131:old:137:written:0,0,0,0:131:replaced:0:restored:0,0,0,0:131:repeat:0,0,0,0:131:owner:0,:frame:131\nposition:initial:139,149,139,149:133:old:139:written:211,0,211,0:133:replaced:211:restored:139,0,139,0:133:repeat:139,0,139,0:133:owner:139,0,:frame:133\nposition:initial:151,157,163,167:135:old:151:written:211,0,163,167:135:replaced:211:restored:151,0,163,167:135:repeat:151,0,163,167:135:owner:151,0,163,167,173,179,181,191,:frame:135\n",
+      "outputSha256": "34837484204ad0e736337cf5223f3e17d50725d6ec744d6748f6bce22d2e8740"
+    },
+    "wrong-cell-JS": {
+      "status": "DETECTED",
+      "sourceSha256": "9036abbdf5d0ba03c6c3585c6e319172a377eb0d3ecd6a1dcce49d988eea1dcf",
+      "generatedSha256": "dc1a55484cfa483fde766ef9410773eb75d8fcd03c255a99d20f40daeadf1889",
+      "artifactSha256": "dc1a55484cfa483fde766ef9410773eb75d8fcd03c255a99d20f40daeadf1889",
+      "output": "position:initial:5,17,29,43:71:old:17:written:5,211,29,43:71:replaced:211:restored:5,17,29,43:71:repeat:5,17,29,43:71:owner:5,17,29,43,:frame:71\nvelocity:initial:7,19,31,47:True:restored:7,19,31,47:True:repeat:7,19,31,47:True\nvitals:initial:11,23,37,53:73:79:old:23:written:11,211,37,53:73:79:replaced:211:restored:11,23,37,53:73:79:repeat:11,23,37,53:73:79\narmor:initial:13,27,41,59:83:restored:13,27,41,59:83:repeat:13,27,41,59:83\nmotion_ledger:initial:61,67,89,97:101:old:67:written:61,211,89,97:101:replaced:211:restored:61,67,89,97:101:repeat:61,67,89,97:101\nhealth_ledger:initial:103,107,109,113:127:old:107:written:103,211,109,113:127:replaced:211:restored:103,107,109,113:127:repeat:103,107,109,113:127\nfallback:137,137,137,137:owner:137,\nfallback:139,149,139,149:owner:139,149,\nfallback:151,157,163,167:owner:151,157,163,167,173,179,181,191,\nposition:initial:137,137,137,137:131:old:137:written:211,211,211,211:131:replaced:211:restored:137,137,137,137:131:repeat:137,137,137,137:131:owner:137,:frame:131\nposition:initial:139,149,139,149:133:old:149:written:139,211,139,211:133:replaced:211:restored:139,149,139,149:133:repeat:139,149,139,149:133:owner:139,149,:frame:133\nposition:initial:151,157,163,167:135:old:157:written:151,211,163,167:135:replaced:211:restored:151,157,163,167:135:repeat:151,157,163,167:135:owner:151,157,163,167,173,179,181,191,:frame:135\n",
+      "outputSha256": "72a8248c390a6d6fc5615fea60e2a992a6a3ef19a994fad6e06a093f532193ba"
+    },
+    "owner-cell-loss-JS": {
+      "status": "DETECTED",
+      "sourceSha256": "01ff8d0d3523708944c297e4b524a7a3c7ff0469ee1c8a72ae56d2111e175994",
+      "generatedSha256": "015e71bdec64a4943edf071a7ac11ca084a74bdea1d574cf14494234eb5c4ae9",
+      "artifactSha256": "015e71bdec64a4943edf071a7ac11ca084a74bdea1d574cf14494234eb5c4ae9",
+      "output": "position:initial:5,17,29,43:71:old:5:written:211,0,29,43:71:replaced:211:restored:5,0,29,43:71:repeat:5,0,29,43:71:owner:5,0,29,43,:frame:71\nvelocity:initial:7,19,31,47:True:restored:7,19,31,47:True:repeat:7,19,31,47:True\nvitals:initial:11,23,37,53:73:79:old:11:written:211,23,37,53:73:79:replaced:211:restored:11,23,37,53:73:79:repeat:11,23,37,53:73:79\narmor:initial:13,27,41,59:83:restored:13,27,41,59:83:repeat:13,27,41,59:83\nmotion_ledger:initial:61,67,89,97:101:old:61:written:211,67,89,97:101:replaced:211:restored:61,67,89,97:101:repeat:61,67,89,97:101\nhealth_ledger:initial:103,107,109,113:127:old:103:written:211,107,109,113:127:replaced:211:restored:103,107,109,113:127:repeat:103,107,109,113:127\nfallback:137,137,137,137:owner:137,\nfallback:139,149,139,149:owner:139,149,\nfallback:151,157,163,167:owner:151,157,163,167,173,179,181,191,\nposition:initial:137,137,137,137:131:old:137:written:0,0,0,0:131:replaced:0:restored:0,0,0,0:131:repeat:0,0,0,0:131:owner:0,:frame:131\nposition:initial:139,149,139,149:133:old:139:written:211,0,211,0:133:replaced:211:restored:139,0,139,0:133:repeat:139,0,139,0:133:owner:139,0,:frame:133\nposition:initial:151,157,163,167:135:old:151:written:211,0,163,167:135:replaced:211:restored:151,0,163,167:135:repeat:151,0,163,167:135:owner:151,0,163,167,173,179,181,191,:frame:135\n",
+      "outputSha256": "34837484204ad0e736337cf5223f3e17d50725d6ec744d6748f6bce22d2e8740"
+    }
+  },
+  "negative": {
+    "affine-clone": {
+      "status": "REJECTED",
+      "source": "import Base\nimport ./types.bend as T\ndef clone(owner: T.Position) -> T.Position & T.Position:\n  (owner,owner)\n",
+      "output": "SOME PROOFS FAIL\nError:\n- expected : owner\n- observed : owner (consumed more than once)\nLocation: clone\n2 | \n3>| def clone(owner: T.Position) -> T.Position & T.Position:\n  |           ^^^^^\n4 |   (owner,owner)\n"
+    }
+  },
+  "status": "FINITE_CONTROLS_PASS",
+  "originalPublicHeadersPreserved": true,
+  "explicitOracleSha256": "82b8593493cb61016e90747cd40c037dc500dc5580a35786e6f27bd895b11599",
+  "inputPayloadPath": "experiments/s-integrate/payload.bend",
+  "inputPayloadSha256": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+  "worktreeInputCommit": "8fc39842e40725369996a78f2bb90266b58e3fa4",
+  "readOnlyReferenceCommits": {
+    "bevy-ts": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334",
+    "bevy": "ad678262ce53b5d142fe49ee5e08caff6f00ab60",
+    "bend2": "a950fd683c0d76f09794078e6174fe98a1492876"
+  },
+  "claimLimits": "Finite original nominal Type payload correctness and owner return gate only; no opaque-provider/ECS universal refinement, performance, or loop acceptance. JS binding remains original Array intrinsics."
+}

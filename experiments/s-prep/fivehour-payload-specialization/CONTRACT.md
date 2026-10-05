@@ -1,0 +1,7 @@
+# Finite original-payload specialization contract
+
+Before implementation: compare complete observations and returned nominal Type owners for Position/Velocity/MotionLedger and Vitals/Armor/HealthLedger; scalar-zero write returns original cell zero, changes only zero, read-after-write observes replacement, inverse restore returns every cell/metadata unchanged. Two successive observations preserve the owner. All public payload function headers remain exact. No Data-only owner, cloning or unsafe annotation.
+
+Native uses a safe exact balanced four-leaf structural fast path and reconstructs the full original Array before the original four-get fallback on every other shape. Scalar-zero structurally descends the left subtree and restores untouched right owners. Valid Base balanced arrays are the domain; malformed unequal-depth manually constructed nodes are excluded as in Base array invariants. JS uses the original public payload implementation and existing flat Array intrinsics; no foreign binding or compiler edit.
+
+Finite fixtures must include all six nominal payloads, nonuniform four cells, scalar-zero old value, write/read/restore, repeated reads, all metadata, and balanced one/two/eight-cell fallback. Wrong-cell and owner-loss compiling mutants must be rejected by actual full-output oracle on both backends; affine cloning must reject under the five-second checker. These are finite controls, not approved laws/proofs or timing/performance acceptance. Main runtime and callback providers remain unchanged.
