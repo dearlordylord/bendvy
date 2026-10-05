@@ -1,0 +1,33 @@
+{
+  "status": "RETAINED_FAILURES_NOT_ACCEPTANCE",
+  "attempts": [
+    {
+      "artifact": "/tmp/bendvy-fivehour-final-js-host-mutants",
+      "status": "FAIL",
+      "error": "exit 1, expected 0: [PosixPath('/workspace/formal-proofs/bendvy-worktrees/twohour-indexed-query/experiments/t01/bend-check'), PosixPath('/tmp/bendvy-fivehour-final-js-host-mutants/work/suppressed-setter/host-motion-fixture.bend'), '--check-only']\nSOME PROOFS FAIL\nError:\n- expected : @_:CC.Cache<T.Position, T.PositionView> -> @_:U32 -> Sigma<&1, &1, CC.Cache<T.Position, T.PositionView>, _ => U32>\n- observed : @owner:CC.Cache<T.Position, T.PositionView> -> @+value:U32 -> Sigma<&1, &1, CC.Cache<T.Position, T.PositionView>, _ => U32>\nLocation: motion_world_write\n14 | def motion_world_write(world:S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,handle:S.Handle<T.MotionSchema>,value:U32) -> S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode> & T.Access<U32>:\n15>|   X.storage_set_main0(T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,CP.position_swap,world,handle,value)\n   |                                                                                                                                                   ^^^^^^^^^^^^^^^^\n16 | def motion_world_ledger_read(world:S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>) -> S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode> & Maybe<&2,T.LedgerView>:\n",
+      "protocolSHA256": "b7bd4da3094cdce41c9770fad36a4dc9c3e9c1bbcc06531ac0989be9035e78ab",
+      "passingCommandCount": 25
+    },
+    {
+      "artifact": "/tmp/bendvy-fivehour-final-js-host-mutants-retry",
+      "status": "FAIL",
+      "error": "5s limit: /workspace/formal-proofs/bendvy-worktrees/twohour-indexed-query/experiments/t01/bend-check",
+      "protocolSHA256": "aab038f78b843665d2cec970c45d87b44810457e2f07299fece80aca4dcfb336",
+      "passingCommandCount": 1
+    },
+    {
+      "artifact": "/tmp/bendvy-fivehour-final-js-host-mutants-current",
+      "status": "FAIL",
+      "error": "5s limit: /workspace/formal-proofs/bendvy-worktrees/twohour-indexed-query/experiments/t01/bend-check",
+      "protocolSHA256": "cadd6e01b495814bbdc95b45e2bf191d10aada8c967b8f7a2bdcfd0a8e5aef9e",
+      "passingCommandCount": 1
+    },
+    {
+      "artifact": "/tmp/bendvy-fivehour-final-js-host-sliced",
+      "status": "FAIL",
+      "error": "5s limit: /workspace/formal-proofs/bendvy-worktrees/twohour-indexed-query/experiments/t01/bend-check",
+      "protocolSHA256": "9c1ae06f109ea250543f05c913a81f610e792bb831d03da74e62323518ed657d",
+      "passingCommandCount": 1
+    }
+  ]
+}

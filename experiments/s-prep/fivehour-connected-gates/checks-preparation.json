@@ -1,0 +1,29 @@
+{
+  "status": "PREPARED_NOT_FULL_PASS",
+  "interface": "checks.py --js-overlay SNAPSHOT/JS --native-overlay SNAPSHOT/Native --output FRESH --cpu9",
+  "finalStatusRequired": "FRESH_TWO_ROLE_CONNECTED_GATES_PASS",
+  "runtimeBinding": "actual measurement-bend.bend import closure source map and digest per role; never replace supplied runtime source",
+  "sourcesSHA256": {
+    "owned-storage-run.py": "37e0be7514128d07a8c1c2855bd6ee67d1b585d3e7cbfbdccb9106fd9b6e5a0c",
+    "materialize-controls.py": "b5ddfd27c4bec0dc6c2f65bdcda08f32f44aacae3ff20f09ee1af033033f30a2",
+    "construction-run.py": "aef54e2f5e236cdd323cac404ab7183c4705845028394955499cc38d77aba8a3",
+    "e11-run.py": "6fe08acb71b6ad7322e39820bd45ee294b20c1c6ce06cc0b8887dcabc5f6c6fc",
+    "checks.py": "37e3612bc3cf364b145918de3a1f93cecc82a04c5e00982dd9a76615d3032254",
+    "tx-controls-run.py": "5a177fb57865b93e2f08e4d07ffb656f497949f4da63e88c4fae86613667a543",
+    "observe-cache.py": "bb8dbaf27ffe9cea3fa9b7842a820982ee6500165a074453c7b91d0ff2252042",
+    "host-mutations-run.py": "5b200eda7f0bb8778abeab9daf720c86537d0f35541ccb45ad618bfc244300fc",
+    "access-run.py": "27a8f79ab916e7074ab036d73651659e9e0850281be22f895583cf4f7f07d094",
+    "staging-controls.py": "1d745cb889efba1e6608829478f5ce672578f652b372acce03454db4d9267d5d"
+  },
+  "pending": [
+    "FullHost12 final-JS in progress",
+    "Final Native own gates",
+    "E11/access/owned actual gates"
+  ],
+  "limitsSeconds": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  }
+}
