@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Source-bound semantic Host12 Native-provider replay; no timing comparisons."""
-import pathlib,subprocess,os,signal,json,hashlib,ast,importlib.util,sys,argparse
+import pathlib,subprocess,os,signal,json,hashlib,ast,importlib.util,sys,argparse,re
 HERE=pathlib.Path(__file__).resolve().parent;ROOT=HERE.parents[3];CPU='10';e={'status':'INCOMPLETE','cases':[],'limits':{'checker':5,'runtime':5,'codegen':30,'clang':120},'cpu':10,'claim':'finite complete Host semantic mutation gate only; no performance claim'}
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 parser=argparse.ArgumentParser();parser.add_argument('--gate-root',type=pathlib.Path,required=True);parser.add_argument('--overlay',type=pathlib.Path,required=True);parser.add_argument('--artifact',type=pathlib.Path,required=True);a=parser.parse_args();ART=a.artifact.resolve();ART.mkdir(exist_ok=False);gate=a.gate_root.resolve();SRC=gate/'experiments/s-prep/fivehour-connected-gates'
