@@ -199,3 +199,8 @@ Direct follow-up produced a typed erased-provider callback registration probe: t
 [Discussion draft](design/static-provider-dispatch-plan.md):17 runtime edit paths, same targets and full gates. This is a proposed next scope, not an approved replacement contract or renewed clock. Preserve five remaining global attempts. No new ECS laws, proofs, Data-only restriction, dependencies or compiler/kernel changes are approved. #21/#23 and full core remain incomplete.
 
 Draft follow-up [#24](https://github.com/dearlordylord/bendvy/issues/24) records the17-path erased-provider callback proposal. It is not ready-for-agent measured execution or a renewed allowance. Parent #23 remains open.
+
+
+## File scope authorization — 2026-10-05
+
+The user explicitly authorized “да любые файлы меняй”: remove the project-file edit whitelist, including the old protected callback-signature restriction. This authorizes the proposed erased-provider signature changes and necessary project runtime/supporting-source edits. Freeze and review exact changed sources and control coverage before measured execution; permission to edit checks does not permit weakening them. All22 gates, affine Type payloads, JS/TS<=1 and Native/TS<=0.5 targets, five-second checker limit and global15/20 attempt history remain binding. Read-only references, Canonical Tower Defense and external repositories remain protected; this is not approval for new laws, dependencies or compiler/kernel changes. The existing deadline remains2026-10-05T18:55:07Z; this instruction grants no new time window. Full-entry checking and execution recovery remain unresolved.

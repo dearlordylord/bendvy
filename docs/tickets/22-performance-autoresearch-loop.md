@@ -69,3 +69,8 @@ The user rejected10% improvement against old Bend-JS and5% Native regression as 
 ## Latest joined writer comparison
 
 Attempt10 completed168 child timings and112 passing full-record comparisons; candidate and fixed baseline noise failed. Descriptive JS/TS2.842–4.098, Native/TS4.062–4.814. No metric, keep, target or product acceptance. Global10/20 attempts consumed. See [comparison report](../reports/three-hour-joined-comparison.md). Original22 gates remain valid; inventory projection is not new execution. Further full measurement requires sufficient remaining authorized time.
+
+
+## File scope authorization — 2026-10-05
+
+The user explicitly authorized “да любые файлы меняй”: remove the project-file edit whitelist, including the old protected callback-signature restriction. This authorizes the proposed erased-provider signature changes and necessary project runtime/supporting-source edits. Freeze and review exact changed sources and control coverage before measured execution; permission to edit checks does not permit weakening them. All22 gates, affine Type payloads, JS/TS<=1 and Native/TS<=0.5 targets, five-second checker limit and global15/20 attempt history remain binding. Read-only references, Canonical Tower Defense and external repositories remain protected; this is not approval for new laws, dependencies or compiler/kernel changes. The existing deadline remains2026-10-05T18:55:07Z; this instruction grants no new time window. Full-entry checking and execution recovery remain unresolved.
