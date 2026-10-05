@@ -1,0 +1,28 @@
+{
+  "status": "CHECK_AND_JS_CODEGEN_PASS",
+  "cpu": 10,
+  "commands": [
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-boxed-point-js-build/batch.bend",
+        "--check-only"
+      ],
+      "limit": 15,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-boxed-point-js-build/batch.bend",
+        "-o",
+        "/tmp/bendvy-boxed-point-js-build/batch.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "output": ""
+    }
+  ],
+  "generatedSHA256": "cbb9da514a84ae6f5b97b0d9bbc13449cec8ee5ee2269ebe06c276878abdd2db"
+}

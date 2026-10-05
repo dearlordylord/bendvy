@@ -38,7 +38,8 @@ Native argument transport, balanced against box allocation and indirection costs
 
 Follow-up: inspect source-generated Native helper signatures before profiling;
 connected correctness/cache/full-field/access/ownership gates and retargeted live
-mutants remain required. No codegen/runtime/profiler/timing ran in this worker.
+mutants remain required. No codegen/runtime/profiler/timing ran during the source-only checkpoint;
+later diagnostic executions are recorded below.
 Canonical failed-cap evidence and checker limits are not reset by executable
 module diagnostics (authorized15s; runtime5/codegen30). Finite traces are not
 universal refinement. Parent coordinates any additional bounded attempt.
@@ -70,3 +71,71 @@ Final standalone diagnostic checker exited0, ALL PROOFS CHECK under15s CPU10.
 This checks generic executable source; no proof or connected gate is inferred.
 Output adapter SHA256:
 ea9bce769439500a28ec9a266a23d3966e9ba5c44faeb108351d9aa2704a2c96.
+
+## JS diagnostic execution
+
+Fresh Motion256 batch source checked under15s and generated JS under30s on CPU10.
+The existing root js-profile/run.py now exposes --cpu10; its SHA is recorded rather
+than modifying the runner. Uninstrumented and counted diagnostics both validated
+all nine complete worlds (warmup + eight fresh worlds,64ticks each) against freshly
+executed pinned TS, with each full process under5s. GC tracing was disabled.
+Counted source constructor executions:10,349,120 (78.95751953125/callback), versus
+batched baseline10,218,048. Difference131,072 is exactly one extra Root construction
+per callback, entirely held-adapter; all other module counts are identical.
+Instrumentation counts expressions, not materialized heap allocations or bytes;
+CPU profiles perturb execution and give no qualified speedup/canonical metric.
+
+Reproduce after deriving the Motion64 JS batch:
+
+```sh
+python3 /workspace/formal-proofs/bendvy/experiments/s-prep/js-profile/run.py \
+  --cpu 10 --no-gc --generated-js /tmp/bendvy-boxed-point-js-build/batch.js \
+  --output /tmp/fresh-boxed-profile
+node --expose-internals experiments/s-prep/js-allocation-map/instrument.cjs \
+  /tmp/bendvy-boxed-point-js-build/batch.js /tmp/fresh-boxed-count.js
+python3 /workspace/formal-proofs/bendvy/experiments/s-prep/js-profile/run.py \
+  --cpu 10 --no-gc --generated-js /tmp/fresh-boxed-count.js \
+  --output /tmp/fresh-boxed-counted
+```
+
+Evidence includes build, source/tool pins, validator receipts, full counted outputs,
+profiles, generated JS and baseline/current count maps with deterministic gzip.
+This is Motion JS diagnostic coverage, not Native/Health/full22 capability acceptance.
+
+## Native ABI and execution diagnostic
+
+Batched marks materialized onto the separate complete combined Native overlay, then
+this tagged-box recipe materialized onto that result, retaining coherent all29 pins.
+The first attempted static recipe path was unavailable in the detached checkout;
+shell execution continued with an unstatic driver. That driver checked under15s but
+Cemit exceeded30s. This negative preparation/deadline receipt is retained. Corrected
+preparation uses root's absolute static-schema-driver recipe, selecting Motion at
+main without changing callback/runtime/workload fields. Static driver checker15s,
+Cemit30s and clangO3/120s all pass on CPU10. Native one worker/GPUoff and freshly
+executed pinned TS each finish under5s; all65 full-world observations match.
+Raw phase clocks are1012ms Native and1168.375218ms TS, diagnostic samples only;
+no cohort, performance ratio qualification, canonical metric or adoption follows.
+
+Mechanical C inspection counts spin75 parameters as63 baseline (47 values,14
+location q parameters, Env/out), versus36 boxed (27 values,7 q, Env/out). The named
+Motion row case statically reaches subject spin75 through spin98 -> spin85. Its
+body processes an Access pair and four-cell sum, so no exact getter label is claimed.
+Numeric helper identity alone cannot establish source identity. The complete sorted
+helper arity distributions, headers, named caller routes and C hashes are archived.
+This establishes narrower transport on a reachable Motion point helper, while exact
+motion_get/ledger ABI mapping and phase-profile attribution remain open.
+
+```sh
+python3 /workspace/formal-proofs/bendvy/experiments/s-prep/static-schema-driver/materialize.py \
+  --driver /tmp/bendvy-boxed-native-build/batch.bend --schema Motion
+python3 experiments/s-prep/boxed-point-context/analyze-c-abi.py \
+  --subject /tmp/bendvy-boxed-native-build/batch.c \
+  --baseline /tmp/bendvy-static-native-motion/batch.c \
+  --output /tmp/fresh-boxed-native-abi.json
+```
+
+Native evidence archives complete generated C, derived driver/measurement, full
+Native/TS output, complete source/cache book, static recipe and bounded build/run
+receipts. Remaining connected access/ownership/rollback/mutation gates, Health,
+full22 and qualified measurement remain root responsibilities; these diagnostics
+approve no laws/proofs or universal refinement.

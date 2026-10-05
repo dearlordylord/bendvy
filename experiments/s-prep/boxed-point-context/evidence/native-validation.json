@@ -1,0 +1,46 @@
+{
+  "status": "NATIVE_AND_TS_FULL65_WORLDS_PASS",
+  "cpu": 10,
+  "scope": "Raw Native Motion256 warmup+64worlds x64ticks full-field validation; no elapsed qualification",
+  "commands": [
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "/workspace/formal-proofs/bendvy-worktrees/js-metadata-fusion/experiments/s-prep/fivehour-measurement/prepare-ts.py",
+        "--source",
+        "/workspace/formal-proofs/bendvy-worktrees/js-metadata-fusion/experiments/s-integrate/measurement-samples-reference.mjs",
+        "--output",
+        "/tmp/bendvy-boxed-native-build/reference.mjs",
+        "--schema",
+        "Motion",
+        "--batch",
+        "64"
+      ],
+      "limit": 5,
+      "exit": 0
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-boxed-native-build/reference.mjs"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "rawSHA256": "7bab88b4cebb364dd3e598317f8a8528b3754be5c6c779da8907a6535f56fe47"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-boxed-native-build/batch-native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "rawSHA256": "d5721c698bda90d42317d3da39cb2da8abfc26c4a1d71063b1782e7492ae1d54"
+    }
+  ],
+  "allFullFieldsEqual": true,
+  "qualifiedTiming": false
+}

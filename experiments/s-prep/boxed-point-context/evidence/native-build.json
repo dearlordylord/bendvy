@@ -1,0 +1,29 @@
+{
+  "status": "CHECK_AND_C_CODEGEN_PASS",
+  "cpu": 10,
+  "staticSchemaDriver": true,
+  "commands": [
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-boxed-native-build/batch.bend",
+        "--check-only"
+      ],
+      "limit": 15,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-boxed-native-build/batch.bend",
+        "-o",
+        "/tmp/bendvy-boxed-native-build/batch.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "output": ""
+    }
+  ],
+  "generatedCSHA256": "67d7bc4241134166264be327e335c0b0a919d706f2c683106d7190dbf1099278"
+}

@@ -1,0 +1,28 @@
+{
+  "status": "FAILED",
+  "cpu": 10,
+  "commands": [
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-boxed-native-build/batch.bend",
+        "--check-only"
+      ],
+      "limit": 15,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    }
+  ],
+  "error": "TimeoutError('child deadline; cleanup=None; output=')",
+  "preparationFailure": "Relative static-schema-driver script was unavailable in detached base; shell continued with dynamic choose driver",
+  "failedCodegenCommand": {
+    "argv": [
+      "bend",
+      "/tmp/bendvy-boxed-native-build/batch.bend",
+      "-o",
+      "/tmp/bendvy-boxed-native-build/batch.c"
+    ],
+    "limit": 30,
+    "outcome": "DEADLINE"
+  }
+}

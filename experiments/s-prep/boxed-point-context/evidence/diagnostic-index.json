@@ -1,0 +1,95 @@
+{
+  "status": "JS_DIAGNOSTIC_NINE_FULL_WORLDS_AND_COUNTS_PASS",
+  "cpu": 10,
+  "limits": {
+    "checker": 15,
+    "codegen": 30,
+    "runtime": 5
+  },
+  "scope": "Motion256, warmup plus8 fresh worlds,64ticks; profile/count diagnostic only",
+  "countedConstructorExecutions": 10349120,
+  "baselineConstructorExecutions": 10218048,
+  "delta": 131072,
+  "perCallbackDelta": 1,
+  "changedModule": "held-adapter",
+  "allOtherModuleCountsEqual": true,
+  "tools": {
+    "/workspace/formal-proofs/bendvy/experiments/s-prep/js-profile/run.py": "51d6b5889b3358bdb6fb997d45b8dbfd221e2207f9de20bc65c60194efa172fd",
+    "/workspace/formal-proofs/bendvy-worktrees/js-metadata-fusion/experiments/s-prep/js-allocation-map/instrument.cjs": "f1cd98bc664efc39e43197cbe324b055d5e651d5b7a70dc28bbb97057177e251",
+    "/workspace/formal-proofs/bendvy-worktrees/js-metadata-fusion/experiments/s-prep/js-allocation-map/summarize.py": "189e18082fa922739ec19c843f15907740f21023336c0e6287f404328cfd5ac9",
+    "/workspace/formal-proofs/bendvy-worktrees/js-metadata-fusion/experiments/s-prep/fivehour-measurement/prepare-bend.py": "e02102cd7c50796d6a1c39fb7cc11086329e029039408f699d3c1ca5f0ecbcbf",
+    "/workspace/formal-proofs/bendvy/experiments/s-integrate/measurement-bend-run.py": "25ab577d5234a1c30f46318708455377353ec39d4fb0b6bf1b40ad5ea5da8f84"
+  },
+  "sourceClosure": {
+    "experiments/s-integrate/uncached-payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "experiments/s-integrate/prototype-static-client.bend": "1a9d22180604433d91e6572679761f660b89b093ed5dbe2ad783859fb05d7a51",
+    "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "experiments/s-integrate/measurement-bend.bend": "86f2e4fd5a8dbf9f4e4d29a5ffedf80f00a01868ccb783da1ad08204d4a11e40",
+    "experiments/s-integrate/held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+    "experiments/s-integrate/transaction-dispatch-adapters.bend": "f2276c1c16ad3694ab8a253f97da892df3a1db81b621cd80018b1376d79d490d",
+    "experiments/s-integrate/cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+    "experiments/s-integrate/systems.bend": "32e11a5a89b01e8db00f0b58a9fd1e2da87f4882189725b0012933421b6b1716",
+    "experiments/s-integrate/identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+    "experiments/s-integrate/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+    "experiments/s-integrate/reader-host.bend": "26eb687a8fb1893b55e4a0c7c8a629b688e37466e169cb3c95dd5273a553db6d",
+    "experiments/s-integrate/audited-invoker.bend": "8f4cc0acd27b49d7425e43419dc0f6d2be7eeed1cb36962c33d0b97aaf2ef5b3",
+    "experiments/s-integrate/cached-payload.bend": "0133f2ab73bb5cbec778a8bdbaaa14c8ac60f353d89f8805016643a0be9e5953",
+    "experiments/s-integrate/observations.bend": "e81cb63b3ab6da947a2455c3cc1b388abb1aa71dea593671d1c18f00da07a778",
+    "experiments/s-integrate/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+    "experiments/s-integrate/query.bend": "e216008a9e31faab2c25d48629f2fdf7b73f84ccc50d710976bb0d10e5ae8f14",
+    "experiments/s-integrate/structural-invoker.bend": "8e1269193d719b1f0ea68b040c62e8966160bacb898ac51caa2f6494f4621e0a",
+    "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+    "experiments/s-integrate/commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+    "experiments/s-integrate/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+    "experiments/s-integrate/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+    "experiments/s-integrate/readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+    "experiments/s-integrate/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+    "experiments/s-integrate/raw-boundaries.bend": "77dbad2365e0499ae4e9e6a5ae7dd67b5a2ebcc5be163de56d0e836781f70a2f",
+    "experiments/s-integrate/streams.bend": "291d9a46ad58bdc481a5710976e01b762f6e11be3aeba07076c46c69f236d2c0",
+    "experiments/s-integrate/host.bend": "912a679e54098d5c4e395fc75e993092c3cb735968ce2fc96edba709b778bb04",
+    "experiments/s-integrate/storage.bend": "185c5fe6c6d81608b0e3dae4416d32bcbc6f74a50dbb5b28120cc5d1d9400c7a",
+    "experiments/s-integrate/transaction.bend": "67f0e0dc4dee21381dab33bc242e6c9c67f64705ef8faea3e02b641270fa3519",
+    "experiments/s-integrate/held-adapter.bend": "ea9bce769439500a28ec9a266a23d3966e9ba5c44faeb108351d9aa2704a2c96"
+  },
+  "archives": {
+    "generated-batch.js.gz": {
+      "sourceSHA256": "cbb9da514a84ae6f5b97b0d9bbc13449cec8ee5ee2269ebe06c276878abdd2db",
+      "archiveSHA256": "767eb2bdfd4ebc8ae042569735126e0b2af6a75ee7e828c83a954c46ca10c22e"
+    },
+    "batch.bend.gz": {
+      "sourceSHA256": "e60ca03f3f5f92c7eb51cea110ad7644d32aeb7ae2db50a02a0777c9d88891f7",
+      "archiveSHA256": "704bed2c98c5431ee74a371bcf5a7f57d6fb37026048bc013351024e1706731e"
+    },
+    "allocation-summary.json.gz": {
+      "sourceSHA256": "dfc86aa1ec90e2408c0b575b8aacd6b3e6ee28579e74705084b6694f133e9b70",
+      "archiveSHA256": "bfd4c7d5ef24203f2e06a45225e509d356a7050762c26befc5d86524c7adcd97"
+    },
+    "counted-JS.raw.txt.gz": {
+      "sourceSHA256": "24cc3e8dc064aba444978257d8211cbbdef5e3073877a90e7f31a0354ea210bb",
+      "archiveSHA256": "fa592fa8bcdfc1f55d5422318803a41403d2be3e9b9f66fde8cf1c17a9745906"
+    },
+    "counted-TS.observed.txt.gz": {
+      "sourceSHA256": "b2258f0c49cf75420c0fa54c0882feccca918a1fbea1abf199c364b25bea5f89",
+      "archiveSHA256": "94bf9a77358e0d4f09386e78f623213df611b5ee0fad0c11fd00221215148d3d"
+    },
+    "profile-JS.cpuprofile.gz": {
+      "sourceSHA256": "3e2adf0ec618a0119929d8ba7146c5fddf00f5bff4d60a653b44c4229f75b5fa",
+      "archiveSHA256": "685f508e1df7b64d4f51308d66aa62d62292ef863bb63fc099428d6ef0c8a88e"
+    },
+    "profile-TS.cpuprofile.gz": {
+      "sourceSHA256": "2655e0bfd4bffc52ca0c4de58735698aad295501ffb64ee7a74804a99dfb6350",
+      "archiveSHA256": "8b74b731c33294442c6396fe21f0fd6d22e85173513aa795e9a9ff1a3a9c6ec3"
+    },
+    "baseline-allocation-summary.json.gz": {
+      "sourceSHA256": "0fdbc3a001e425a1e62c3b241e97f9c6a9404c22054bf76f26ee2c21fe337748",
+      "archiveSHA256": "b8ee2ff398d0c8249b161878a80cedd84b6f73a6680aaea9a2efbf8327964086"
+    },
+    "baseline-counted-evidence.json.gz": {
+      "sourceSHA256": "21caa09f0b4559a629ba694b95004cddfca9ff94e3b0ffd9df60173b1083abaf",
+      "archiveSHA256": "b2ab215f2a30e5067bf7a1be0753e4af6bc35c627967cc2adc8947b40c1b0716"
+    }
+  },
+  "nativeABIObserved": false,
+  "canonicalMetric": false,
+  "productionAdoption": false
+}
