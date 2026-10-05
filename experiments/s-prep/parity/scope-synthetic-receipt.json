@@ -1,0 +1,45 @@
+{
+  "syntheticOnly": true,
+  "accepted": false,
+  "benchmarkExecuted": false,
+  "controls": {
+    "positive": {
+      "status": "PROPOSED_SCOPE_PASS",
+      "candidateSha256": "7e512cbdfedccbc007e7fdc3d9b0d649389be968693fd74eb41c1efc193e8986",
+      "baselineSha256": "fcb146ec6c0cef8af96e91f9dac776ac3f74b2d08be49b1489ca9963b05bb029"
+    },
+    "public-header-change": {
+      "status": "REJECTED",
+      "reason": "baseline definitions changed"
+    },
+    "new-helper-unlisted": {
+      "status": "REJECTED",
+      "reason": "added definitions differs from exact allowlist"
+    },
+    "unsafe": {
+      "status": "REJECTED",
+      "reason": "unsafe annotation outside first segment scope"
+    },
+    "public-type-change": {
+      "status": "REJECTED",
+      "reason": "baseline types changed"
+    },
+    "top-level-control": {
+      "status": "REJECTED",
+      "reason": "unsupported top-level declaration/annotation"
+    },
+    "private-signature-change": {
+      "status": "REJECTED",
+      "reason": "added definitions differs from exact allowlist"
+    },
+    "symlink": {
+      "status": "REJECTED",
+      "reason": "symlink/traversal/nonabsolute path rejected"
+    },
+    "traversal": {
+      "status": "REJECTED",
+      "reason": "symlink/traversal/nonabsolute path rejected"
+    }
+  },
+  "limitations": "Read-only proposed scope audit, not manifest acceptance or Bend checking.\n\nCLI requires --repo, --proposal and both --candidate logical/path bindings.\nProposal JSON: {\"files\": {logical: {\"helpers\": [exact def headers],\n\"types\": [exact full private type declarations]}}}. No prefixes/wildcards.\nOnly exact supplied reviewed additions are allowed; public declarations/imports\nremain baseline56b72f6. This structural guard is not a parser/kernel proof or\nproof that a named helper is private; independent review remains mandatory.\n"
+}
