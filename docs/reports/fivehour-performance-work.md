@@ -22,7 +22,7 @@ Two separate private candidates now remove first-class trusted-provider calls at
 
 The execution checkout is `bendvy-worktrees/fivehour-loop`, branch `s-loop23/fivehour-loop`; its candidate projections retain exactly 28 runtime modules per backend. Initial source closure identities remain `3b22b6cd…` (JS) and `bd9660f1…` (Native). The initial copied scaffold's whitespace check reports two historical trailing-space lines in byte-pinned host-observations copies; no original source was reformatted or passing whitespace claim made. No session/packet or measured keep exists. Final original Host/checker fixture repair and bounded process cleanup review are still in progress; the deadline remains unchanged.
 
-## Connected controls checkpoint at 04:00 UTC
+## Connected controls checkpoint at 03:56 UTC
 
 Both initial backend recipes now pass the actual Host12 comparison: Motion/Health, two capture modes, full selected channels against fresh pinned TS; all twelve compiling mutants are detected on Native and JS. The Native observer reads original protected raw payloads rather than trusting its optimized getter. Original checker/codegen failures and control-only reachability repairs remain recorded; application callbacks and measured runtime are unchanged. See `fivehour-cache-integration/native-host-controls/` and `fivehour-connected-gates/`.
 
