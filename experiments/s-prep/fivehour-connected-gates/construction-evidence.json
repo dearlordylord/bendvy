@@ -1,0 +1,165 @@
+{
+  "status": "FINITE_DENSE_CONSTRUCTION_FULL_FIELDS_PASS",
+  "acceptedBenchmarkCandidate": false,
+  "scope": "Actual connected cached64tick full-field construction only; no timing/qualification/keep",
+  "count": 64,
+  "authoredTicksPerWorld": 64,
+  "batch": 1,
+  "repetitions": 0,
+  "toolchainVersion": "bend 2.0.35",
+  "cpuAffinity": [
+    9
+  ],
+  "overlayManifestSHA256": "c5f5f4d203890fe53dcb87b0ce47f214e9ddbccb149624a9eae0cfff9855e8c7",
+  "limitsSeconds": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "cases": [
+    {
+      "schema": "Motion",
+      "workload": "dense",
+      "referenceCommand": [
+        "node",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-indexed-query/experiments/s-integrate/measurement-reference.mjs",
+        "Motion",
+        "dense",
+        "64"
+      ],
+      "referenceSHA256": "059f29e73677cdedbaba45ed8e727b94b671c1d4447e4c5fdbde18c1dca753a0",
+      "backends": [
+        {
+          "backend": "Native",
+          "status": "FULL_FIELD_PASS",
+          "command": [
+            "/tmp/bendvy-fivehour-connected-construction/measurement-samples-bend-native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off",
+            "0",
+            "0",
+            "64",
+            "1"
+          ],
+          "outputSHA256": "939a59ef8c326fad8f1924557041384142fc9815c6829487efc14c98d50407bc",
+          "finalSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
+          "worksumPerWorld": 669696,
+          "freshMeasuredWorlds": 1
+        },
+        {
+          "backend": "JS",
+          "status": "FULL_FIELD_PASS",
+          "command": [
+            "node",
+            "/tmp/bendvy-fivehour-connected-construction/measurement-samples-bend.js",
+            "0",
+            "0",
+            "64",
+            "1"
+          ],
+          "outputSHA256": "ed673552d496af8f51729f46668a2301dd8b4f0ebdaa3cacadb04a4f7094a1d4",
+          "finalSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
+          "worksumPerWorld": 669696,
+          "freshMeasuredWorlds": 1
+        }
+      ]
+    },
+    {
+      "schema": "Health",
+      "workload": "dense",
+      "referenceCommand": [
+        "node",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-indexed-query/experiments/s-integrate/measurement-reference.mjs",
+        "Health",
+        "dense",
+        "64"
+      ],
+      "referenceSHA256": "5fb038197da4dc18b946a858dd2c913b2ff946aff4fc18b7eb263c395ca8e9e0",
+      "backends": [
+        {
+          "backend": "Native",
+          "status": "FULL_FIELD_PASS",
+          "command": [
+            "/tmp/bendvy-fivehour-connected-construction/measurement-samples-bend-native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off",
+            "1",
+            "0",
+            "64",
+            "1"
+          ],
+          "outputSHA256": "140b4ab06cf2ffc653e4a8d44f790f20c1758a587f0ec9b8f8576f2c86d2b0e3",
+          "finalSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
+          "worksumPerWorld": 669696,
+          "freshMeasuredWorlds": 1
+        },
+        {
+          "backend": "JS",
+          "status": "FULL_FIELD_PASS",
+          "command": [
+            "node",
+            "/tmp/bendvy-fivehour-connected-construction/measurement-samples-bend.js",
+            "1",
+            "0",
+            "64",
+            "1"
+          ],
+          "outputSHA256": "7f637897be9024267d31ef3292d888ce65a672d4639632068027eaa5e4a6c890",
+          "finalSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
+          "worksumPerWorld": 669696,
+          "freshMeasuredWorlds": 1
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "referenceCommit": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334",
+    "referenceClosureSHA256": {
+      "packages/core/src/Brand.ts": "85090ad2253694526dda4e2e54802158cf229d98477169bc25e77396bdc963b9",
+      "packages/core/src/Command.ts": "de5db2093401e24ce54fae8166e7f686c153852094b6446dc0ee22cfa28cef28",
+      "packages/core/src/Condition.ts": "1b4c8c906cab11745535ffe84f169a48767c88c26336f3b46f45cf7d59f08083",
+      "packages/core/src/Debug.ts": "942fc7e3bdf1b15f31708bad0ab02c0789a037b707a566e2cb860b43f9b5c3ff",
+      "packages/core/src/Decode.ts": "a8e8e91e5dffc15718ba8d3ecbea1007b386117af12764df4238356600bd82df",
+      "packages/core/src/Definition.ts": "96054da50280f6dca44fd97dbd126e597f1492c9737e34329adf3f1cda1b325f",
+      "packages/core/src/Descriptor.ts": "03e7339516d9f6bd455763a8dcdf7244d0c11f7165e493aa895aaa64225acab7",
+      "packages/core/src/Entity.ts": "05d724f241b2d662a7a03ce82da5f133c4b587df92e5e22fdfdb7484edbca68e",
+      "packages/core/src/EntityScope.ts": "3241a13ed0c337434e193e80a790498a9130ea31d4aca1f73294a5af2c50b04a",
+      "packages/core/src/Feature.ts": "bf3be7437c63c1f12d8b0ff0f1a4965408331fad7a279669ef7c9b2cb29140a8",
+      "packages/core/src/Fx.ts": "75242b8513225601589f4658d59c86100351557fef39cc8d17506c958dd2c5b3",
+      "packages/core/src/Inspector.ts": "21757eb340c0ae192a36726538d0a87aefbd455859d196dab36aa3515c1addb3",
+      "packages/core/src/Machine.ts": "a0007e841e07afb10a40ab8f3056691a3555cd6815b4564f5f1326e0e956ceb3",
+      "packages/core/src/Query.ts": "45e2fe513f66e336f97d40b41b3c866363a1af17ecbc90087086e00c08b28414",
+      "packages/core/src/Relation.ts": "7c2cbe93d90c6ca4f173932c9bb7e4536323d6b5bf17dc64c1c8fda83c3a7aa4",
+      "packages/core/src/Requirement.ts": "0397bbf69285e1f50edafdceab81b48208c0127fe53ff0305e52d6a1b4766783",
+      "packages/core/src/Result.ts": "96b098025e5e84b26bc97355ed1c463fe17f652954d2f83a83058e9817f7766c",
+      "packages/core/src/Runtime.ts": "c744aa5c52845bd3323358c5085161b40a452c6802a1653e3851bfd34c69f5b4",
+      "packages/core/src/Schedule.ts": "ab1610c356bfbcedf6ac85758e04c7032cda1f2458ff13c8a483c53d94b55c2a",
+      "packages/core/src/Schema.ts": "26e7c140a6f3c2a98ea4e43c1f067a18e47c03ff6f56939c8139f1535ae1a0ec",
+      "packages/core/src/Snapshot.ts": "249f57c429d97e57088ebb1e959b6258dd97ca71c9cc66a0a4ed6ac35ad04a3b",
+      "packages/core/src/System.ts": "ae53852dbd815ad441446cbcfc663d25aed6c2bd0afcfacbc3c20e0c40dc2ba7",
+      "packages/core/src/index.ts": "a74d79748f5eff6e9f732b54ed6efc0a42826e4cf8ffc7ab9504d11257e6d61f",
+      "packages/core/src/internal/brand.ts": "7b888113edd48ea9777880fa85fc159428b78ac82587ca43eda8f1bbec4cc1b0",
+      "packages/core/src/internal/cells.ts": "adbf5e99cb1d40e284aee9ce3b1ddeefdcb10e0e1420be5bda91f58a96afe41e",
+      "packages/core/src/internal/debug.ts": "944a9858586dcf8ad58e66efd92b05c437c0be23afe517fabe00642d7bf4e338",
+      "packages/core/src/internal/definition.ts": "543dee934661802fb57cb75a8faec653112433a566ce31231fca33ffa8d36f92",
+      "packages/core/src/internal/fragments.ts": "4220e09fcc78e50cecd05ec373f57a278a5c33fbd51c53cbb2f7d57c6593ba68",
+      "packages/core/src/internal/game.ts": "b1584dbe4c579783e4b2fae802a25e6af95384972e15ffccd2b868d6ba879773",
+      "packages/core/src/internal/queries.ts": "382ce3b334df1bb7f4d0c4c19c17827b2343cae8a68ba7f562e9e732b6a5a4ab",
+      "packages/core/src/internal/result.ts": "87570330858b0b41bed22be9661bd9e3b04f67e7004998082e6a83cbb1ce1c89",
+      "packages/core/src/internal/streams.ts": "3e817555dddf937c51b51014ceb6422f068aeca4a40328281dbb774b8880168e",
+      "packages/core/src/internal/world.ts": "e71b4b060fec85fae690957104c14051e4bea0d857bacd648993ea69a6fe27d7"
+    },
+    "actualOverlaySHA256": "c5f5f4d203890fe53dcb87b0ce47f214e9ddbccb149624a9eae0cfff9855e8c7",
+    "protectedSourcePinsSHA256": "405c0667ef57d89c452432d62cefd251acd5c133fc9c2fe64c7f469e363c3833"
+  },
+  "artifacts": {
+    "measurement-samples-bend-native": "b1a56b7e66912710eed4bef9d4fec97ad1ece13410b3709f481489097cad34be",
+    "measurement-samples-bend.js": "70dfb56532344b854f38dd544d80e360d8f2457bcb2a04b0cc9ecbb20eaf8a8c"
+  },
+  "validatorSHA256": "25ab577d5234a1c30f46318708455377353ec39d4fb0b6bf1b40ad5ea5da8f84"
+}
