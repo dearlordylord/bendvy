@@ -1,0 +1,454 @@
+{
+  "scope": "Concrete disjoint-storage finite prototype; generic callback equivalence explicitly falsified",
+  "limits": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "commands": [
+    {
+      "args": [
+        "bend",
+        "version"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdout": "bend 2.0.35\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "git",
+        "-C",
+        "/workspace/formal-proofs/bendvy/.references/bevy-ts",
+        "rev-parse",
+        "HEAD"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdout": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "node",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-ledger-journal/experiments/s-prep/ledger-journal/reference.mjs"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdout": "{\"status\":\"FINITE_FRESH_TS_PASS\",\"results\":[{\"failed\":false,\"trace\":[101,303],\"observed\":{\"main\":[[44,3,4],[22,3,4]],\"ledger\":[303,6,7,8]}},{\"failed\":true,\"trace\":[101,303],\"observed\":{\"main\":[[1,3,4],[2,3,4]],\"ledger\":[5,6,7,8]}}]}\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-ledger-journal/experiments/s-prep/ledger-journal/fixture.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdout": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-ledger-journal/experiments/s-prep/ledger-journal/fixture.bend",
+        "-o",
+        "/tmp/bendvy-ledger-journal-rpdlgckh/original.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-ledger-journal/experiments/s-prep/ledger-journal/fixture.bend",
+        "-o",
+        "/tmp/bendvy-ledger-journal-rpdlgckh/original.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "clang",
+        "-O3",
+        "/tmp/bendvy-ledger-journal-rpdlgckh/original.c",
+        "-pthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-ledger-journal-rpdlgckh/original"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "/tmp/bendvy-ledger-journal-rpdlgckh/original",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdout": "101,303:[44, 22, 3, 4]:[303, 6, 7, 8]:[0, 1, 0]:[9]:[7]\n101,303:[44, 22, 3, 4]:[303, 6, 7, 8]:[0, 1, 0]:[9]:[7]\n101,303:[1, 2, 3, 4]:[5, 6, 7, 8]:[]:[]:[]\n101,303:[1, 2, 3, 4]:[5, 6, 7, 8]:[]:[]:[]\nnone,none:[44, 22, 3, 4]:none:[0, 1, 0]:[9]:[7]\nnone,none:[44, 22, 3, 4]:none:[0, 1, 0]:[9]:[7]\nnone,none:[1, 2, 3, 4]:none:[]:[]:[]\nnone,none:[1, 2, 3, 4]:none:[]:[]:[]\n101,303:[6, 204, 3, 4]:[5, 6, 7, 8]:[]:[]:[]\n101,303:[6, 305, 3, 4]:[5, 6, 7, 8]:[]:[]:[]\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "node",
+        "/tmp/bendvy-ledger-journal-rpdlgckh/original.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdout": "101,303:[44, 22, 3, 4]:[303, 6, 7, 8]:[0, 1, 0]:[9]:[7]\n101,303:[44, 22, 3, 4]:[303, 6, 7, 8]:[0, 1, 0]:[9]:[7]\n101,303:[1, 2, 3, 4]:[5, 6, 7, 8]:[]:[]:[]\n101,303:[1, 2, 3, 4]:[5, 6, 7, 8]:[]:[]:[]\nnone,none:[44, 22, 3, 4]:none:[0, 1, 0]:[9]:[7]\nnone,none:[44, 22, 3, 4]:none:[0, 1, 0]:[9]:[7]\nnone,none:[1, 2, 3, 4]:none:[]:[]:[]\nnone,none:[1, 2, 3, 4]:none:[]:[]:[]\n101,303:[6, 204, 3, 4]:[5, 6, 7, 8]:[]:[]:[]\n101,303:[6, 305, 3, 4]:[5, 6, 7, 8]:[]:[]:[]\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-ledger-journal/experiments/s-prep/ledger-journal/mutants-jcup_llg/fixture.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdout": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-ledger-journal/experiments/s-prep/ledger-journal/mutants-jcup_llg/fixture.bend",
+        "-o",
+        "/tmp/bendvy-ledger-journal-rpdlgckh/initial-old-wrong.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-ledger-journal/experiments/s-prep/ledger-journal/mutants-jcup_llg/fixture.bend",
+        "-o",
+        "/tmp/bendvy-ledger-journal-rpdlgckh/initial-old-wrong.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "clang",
+        "-O3",
+        "/tmp/bendvy-ledger-journal-rpdlgckh/initial-old-wrong.c",
+        "-pthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-ledger-journal-rpdlgckh/initial-old-wrong"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "/tmp/bendvy-ledger-journal-rpdlgckh/initial-old-wrong",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdout": "101,303:[44, 22, 3, 4]:[303, 6, 7, 8]:[0, 1, 0]:[9]:[7]\n101,303:[44, 22, 3, 4]:[303, 6, 7, 8]:[0, 1, 0]:[9]:[7]\n101,303:[1, 2, 3, 4]:[5, 6, 7, 8]:[]:[]:[]\n101,303:[1, 2, 3, 4]:[6, 6, 7, 8]:[]:[]:[]\nnone,none:[44, 22, 3, 4]:none:[0, 1, 0]:[9]:[7]\nnone,none:[44, 22, 3, 4]:none:[0, 1, 0]:[9]:[7]\nnone,none:[1, 2, 3, 4]:none:[]:[]:[]\nnone,none:[1, 2, 3, 4]:none:[]:[]:[]\n101,303:[6, 204, 3, 4]:[5, 6, 7, 8]:[]:[]:[]\n101,303:[7, 305, 3, 4]:[6, 6, 7, 8]:[]:[]:[]\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "node",
+        "/tmp/bendvy-ledger-journal-rpdlgckh/initial-old-wrong.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdout": "101,303:[44, 22, 3, 4]:[303, 6, 7, 8]:[0, 1, 0]:[9]:[7]\n101,303:[44, 22, 3, 4]:[303, 6, 7, 8]:[0, 1, 0]:[9]:[7]\n101,303:[1, 2, 3, 4]:[5, 6, 7, 8]:[]:[]:[]\n101,303:[1, 2, 3, 4]:[6, 6, 7, 8]:[]:[]:[]\nnone,none:[44, 22, 3, 4]:none:[0, 1, 0]:[9]:[7]\nnone,none:[44, 22, 3, 4]:none:[0, 1, 0]:[9]:[7]\nnone,none:[1, 2, 3, 4]:none:[]:[]:[]\nnone,none:[1, 2, 3, 4]:none:[]:[]:[]\n101,303:[6, 204, 3, 4]:[5, 6, 7, 8]:[]:[]:[]\n101,303:[7, 305, 3, 4]:[6, 6, 7, 8]:[]:[]:[]\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-ledger-journal/experiments/s-prep/ledger-journal/mutants-jcup_llg/fixture.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdout": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-ledger-journal/experiments/s-prep/ledger-journal/mutants-jcup_llg/fixture.bend",
+        "-o",
+        "/tmp/bendvy-ledger-journal-rpdlgckh/drop-inverse.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-ledger-journal/experiments/s-prep/ledger-journal/mutants-jcup_llg/fixture.bend",
+        "-o",
+        "/tmp/bendvy-ledger-journal-rpdlgckh/drop-inverse.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "clang",
+        "-O3",
+        "/tmp/bendvy-ledger-journal-rpdlgckh/drop-inverse.c",
+        "-pthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-ledger-journal-rpdlgckh/drop-inverse"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "/tmp/bendvy-ledger-journal-rpdlgckh/drop-inverse",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdout": "101,303:[44, 22, 3, 4]:[303, 6, 7, 8]:[0, 1, 0]:[9]:[7]\n101,303:[44, 22, 3, 4]:[303, 6, 7, 8]:[0, 1, 0]:[9]:[7]\n101,303:[1, 2, 3, 4]:[5, 6, 7, 8]:[]:[]:[]\n101,303:[1, 2, 3, 4]:[303, 6, 7, 8]:[]:[]:[]\nnone,none:[44, 22, 3, 4]:none:[0, 1, 0]:[9]:[7]\nnone,none:[44, 22, 3, 4]:none:[0, 1, 0]:[9]:[7]\nnone,none:[1, 2, 3, 4]:none:[]:[]:[]\nnone,none:[1, 2, 3, 4]:none:[]:[]:[]\n101,303:[6, 204, 3, 4]:[5, 6, 7, 8]:[]:[]:[]\n101,303:[304, 305, 3, 4]:[303, 6, 7, 8]:[]:[]:[]\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "node",
+        "/tmp/bendvy-ledger-journal-rpdlgckh/drop-inverse.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdout": "101,303:[44, 22, 3, 4]:[303, 6, 7, 8]:[0, 1, 0]:[9]:[7]\n101,303:[44, 22, 3, 4]:[303, 6, 7, 8]:[0, 1, 0]:[9]:[7]\n101,303:[1, 2, 3, 4]:[5, 6, 7, 8]:[]:[]:[]\n101,303:[1, 2, 3, 4]:[303, 6, 7, 8]:[]:[]:[]\nnone,none:[44, 22, 3, 4]:none:[0, 1, 0]:[9]:[7]\nnone,none:[44, 22, 3, 4]:none:[0, 1, 0]:[9]:[7]\nnone,none:[1, 2, 3, 4]:none:[]:[]:[]\nnone,none:[1, 2, 3, 4]:none:[]:[]:[]\n101,303:[6, 204, 3, 4]:[5, 6, 7, 8]:[]:[]:[]\n101,303:[304, 305, 3, 4]:[303, 6, 7, 8]:[]:[]:[]\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-ledger-journal/experiments/s-prep/ledger-journal/mutants-jcup_llg/fixture.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdout": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-ledger-journal/experiments/s-prep/ledger-journal/mutants-jcup_llg/fixture.bend",
+        "-o",
+        "/tmp/bendvy-ledger-journal-rpdlgckh/skip-restore.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-ledger-journal/experiments/s-prep/ledger-journal/mutants-jcup_llg/fixture.bend",
+        "-o",
+        "/tmp/bendvy-ledger-journal-rpdlgckh/skip-restore.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "clang",
+        "-O3",
+        "/tmp/bendvy-ledger-journal-rpdlgckh/skip-restore.c",
+        "-pthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-ledger-journal-rpdlgckh/skip-restore"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "/tmp/bendvy-ledger-journal-rpdlgckh/skip-restore",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdout": "101,303:[44, 22, 3, 4]:[303, 6, 7, 8]:[0, 1, 0]:[9]:[7]\n101,303:[44, 22, 3, 4]:[303, 6, 7, 8]:[0, 1, 0]:[9]:[7]\n101,303:[1, 2, 3, 4]:[5, 6, 7, 8]:[]:[]:[]\n101,303:[1, 2, 3, 4]:[303, 6, 7, 8]:[]:[]:[]\nnone,none:[44, 22, 3, 4]:none:[0, 1, 0]:[9]:[7]\nnone,none:[44, 22, 3, 4]:none:[0, 1, 0]:[9]:[7]\nnone,none:[1, 2, 3, 4]:none:[]:[]:[]\nnone,none:[1, 2, 3, 4]:none:[]:[]:[]\n101,303:[6, 204, 3, 4]:[5, 6, 7, 8]:[]:[]:[]\n101,303:[304, 305, 3, 4]:[303, 6, 7, 8]:[]:[]:[]\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "node",
+        "/tmp/bendvy-ledger-journal-rpdlgckh/skip-restore.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdout": "101,303:[44, 22, 3, 4]:[303, 6, 7, 8]:[0, 1, 0]:[9]:[7]\n101,303:[44, 22, 3, 4]:[303, 6, 7, 8]:[0, 1, 0]:[9]:[7]\n101,303:[1, 2, 3, 4]:[5, 6, 7, 8]:[]:[]:[]\n101,303:[1, 2, 3, 4]:[303, 6, 7, 8]:[]:[]:[]\nnone,none:[44, 22, 3, 4]:none:[0, 1, 0]:[9]:[7]\nnone,none:[44, 22, 3, 4]:none:[0, 1, 0]:[9]:[7]\nnone,none:[1, 2, 3, 4]:none:[]:[]:[]\nnone,none:[1, 2, 3, 4]:none:[]:[]:[]\n101,303:[6, 204, 3, 4]:[5, 6, 7, 8]:[]:[]:[]\n101,303:[304, 305, 3, 4]:[303, 6, 7, 8]:[]:[]:[]\n",
+      "stderr": ""
+    }
+  ],
+  "mutants": [
+    {
+      "name": "initial-old-wrong",
+      "status": "COMPILING_NATIVE_JS_MUTANT_DETECTED",
+      "journalSHA256": "b4cd44632708f7d4d8bf84c4c1ae0d17986d08dc5782196747b236253a9389e4",
+      "output": "101,303:[44, 22, 3, 4]:[303, 6, 7, 8]:[0, 1, 0]:[9]:[7]\n101,303:[44, 22, 3, 4]:[303, 6, 7, 8]:[0, 1, 0]:[9]:[7]\n101,303:[1, 2, 3, 4]:[5, 6, 7, 8]:[]:[]:[]\n101,303:[1, 2, 3, 4]:[6, 6, 7, 8]:[]:[]:[]\nnone,none:[44, 22, 3, 4]:none:[0, 1, 0]:[9]:[7]\nnone,none:[44, 22, 3, 4]:none:[0, 1, 0]:[9]:[7]\nnone,none:[1, 2, 3, 4]:none:[]:[]:[]\nnone,none:[1, 2, 3, 4]:none:[]:[]:[]\n101,303:[6, 204, 3, 4]:[5, 6, 7, 8]:[]:[]:[]\n101,303:[7, 305, 3, 4]:[6, 6, 7, 8]:[]:[]:[]\n",
+      "artifacts": {
+        "initial-old-wrong.js": "f353ca6e86ea8b9caf88ff804b966f47e1c2ec2ce17fcca8aa52f9d2b0299cde",
+        "initial-old-wrong.c": "c47386edb4e24e4d4c9d3fdf9432a84f5f5c1f8c0ce0fa4b9fad5de14cec32e4",
+        "initial-old-wrong": "42036d1f48c8ad2805c3c0d017e9fc837b605331ca4c7337ae0c5a3d281f218d"
+      }
+    },
+    {
+      "name": "drop-inverse",
+      "status": "COMPILING_NATIVE_JS_MUTANT_DETECTED",
+      "journalSHA256": "1b0dd5364b56d9ee394d7c015f38483cca53dc094b711179cc87d898c6800de0",
+      "output": "101,303:[44, 22, 3, 4]:[303, 6, 7, 8]:[0, 1, 0]:[9]:[7]\n101,303:[44, 22, 3, 4]:[303, 6, 7, 8]:[0, 1, 0]:[9]:[7]\n101,303:[1, 2, 3, 4]:[5, 6, 7, 8]:[]:[]:[]\n101,303:[1, 2, 3, 4]:[303, 6, 7, 8]:[]:[]:[]\nnone,none:[44, 22, 3, 4]:none:[0, 1, 0]:[9]:[7]\nnone,none:[44, 22, 3, 4]:none:[0, 1, 0]:[9]:[7]\nnone,none:[1, 2, 3, 4]:none:[]:[]:[]\nnone,none:[1, 2, 3, 4]:none:[]:[]:[]\n101,303:[6, 204, 3, 4]:[5, 6, 7, 8]:[]:[]:[]\n101,303:[304, 305, 3, 4]:[303, 6, 7, 8]:[]:[]:[]\n",
+      "artifacts": {
+        "drop-inverse.js": "590074e5ed6cb1b83cb56d7555629cd5df8a7ccecd0013e66a544b0f1a6debe0",
+        "drop-inverse.c": "3b2d43c3d5450cbd1e6a407adb45bfcfea9ae2050b31df8c0672f34334aa1a8e",
+        "drop-inverse": "1d15d99a34772df2cc94905e6dd4544f03e3f6bb3fb2805879a11d44e9e305d4"
+      }
+    },
+    {
+      "name": "skip-restore",
+      "status": "COMPILING_NATIVE_JS_MUTANT_DETECTED",
+      "journalSHA256": "ace9e5dba7e4010c73d9cda036b8d9f10588a0d6ad9a2dcb094cbdf706093a71",
+      "output": "101,303:[44, 22, 3, 4]:[303, 6, 7, 8]:[0, 1, 0]:[9]:[7]\n101,303:[44, 22, 3, 4]:[303, 6, 7, 8]:[0, 1, 0]:[9]:[7]\n101,303:[1, 2, 3, 4]:[5, 6, 7, 8]:[]:[]:[]\n101,303:[1, 2, 3, 4]:[303, 6, 7, 8]:[]:[]:[]\nnone,none:[44, 22, 3, 4]:none:[0, 1, 0]:[9]:[7]\nnone,none:[44, 22, 3, 4]:none:[0, 1, 0]:[9]:[7]\nnone,none:[1, 2, 3, 4]:none:[]:[]:[]\nnone,none:[1, 2, 3, 4]:none:[]:[]:[]\n101,303:[6, 204, 3, 4]:[5, 6, 7, 8]:[]:[]:[]\n101,303:[304, 305, 3, 4]:[303, 6, 7, 8]:[]:[]:[]\n",
+      "artifacts": {
+        "skip-restore.js": "9e2353e9a0f6f714dff0ee31de7c4f9a88d4a28769ad4fd14175def1a937efde",
+        "skip-restore.c": "8ff934aa05c75c1a5c20e448c5353df6b6c4642d3a32322b61ae6d279c00aa10",
+        "skip-restore": "3fed27c3d52d28ba5a34eb802995b77d425a2d1e379ce10491dff5530c947ad7"
+      }
+    }
+  ],
+  "compiler": "bend 2.0.35",
+  "sources": {
+    "journal.bend": "c02ecbd1d26f53f4895016e2e7292cdf54d8745097e15e3550d6245756ab23c6",
+    "original.bend": "15c4d9889b5cf3c0621130f663bb9eb628e63a47a06a96d1c7ba0986bdbe9f34",
+    "fixture.bend": "703750c71bb6ef607f3f9a7186207ce74d1edf67acb379758fc15036fa395b42",
+    "reference.mjs": "b003d3ae57dff4fa39acfa2d72c7eac63ac19a1b0fb44cd6bd102339982dc7aa"
+  },
+  "freshTS": {
+    "status": "FINITE_FRESH_TS_PASS",
+    "results": [
+      {
+        "failed": false,
+        "trace": [
+          101,
+          303
+        ],
+        "observed": {
+          "main": [
+            [
+              44,
+              3,
+              4
+            ],
+            [
+              22,
+              3,
+              4
+            ]
+          ],
+          "ledger": [
+            303,
+            6,
+            7,
+            8
+          ]
+        }
+      },
+      {
+        "failed": true,
+        "trace": [
+          101,
+          303
+        ],
+        "observed": {
+          "main": [
+            [
+              1,
+              3,
+              4
+            ],
+            [
+              2,
+              3,
+              4
+            ]
+          ],
+          "ledger": [
+            5,
+            6,
+            7,
+            8
+          ]
+        }
+      }
+    ]
+  },
+  "artifactRoot": "/tmp/bendvy-ledger-journal-rpdlgckh",
+  "positive": {
+    "status": "FINITE_NATIVE_JS_PASS",
+    "output": "101,303:[44, 22, 3, 4]:[303, 6, 7, 8]:[0, 1, 0]:[9]:[7]\n101,303:[44, 22, 3, 4]:[303, 6, 7, 8]:[0, 1, 0]:[9]:[7]\n101,303:[1, 2, 3, 4]:[5, 6, 7, 8]:[]:[]:[]\n101,303:[1, 2, 3, 4]:[5, 6, 7, 8]:[]:[]:[]\nnone,none:[44, 22, 3, 4]:none:[0, 1, 0]:[9]:[7]\nnone,none:[44, 22, 3, 4]:none:[0, 1, 0]:[9]:[7]\nnone,none:[1, 2, 3, 4]:none:[]:[]:[]\nnone,none:[1, 2, 3, 4]:none:[]:[]:[]\n101,303:[6, 204, 3, 4]:[5, 6, 7, 8]:[]:[]:[]\n101,303:[6, 305, 3, 4]:[5, 6, 7, 8]:[]:[]:[]\n",
+    "artifacts": {
+      "original.js": "2e3ae3a0ded15b4f632ac7da46794ac7dd42a569dd55d253ce2cbc43ce2f5431",
+      "original.c": "8659578ec6c7f6439bccff108b02b793e6d315db809d67fe1aead7d0553c27b2",
+      "original": "c8a86607c9eaf699d09d2e9c4cca78af411d9c60bc9862b39f8f90945b0a223e"
+    },
+    "originalNewPairsEqual": 4,
+    "genericCrossDependentRestoreCounterexample": {
+      "original": "101,303:[6, 204, 3, 4]:[5, 6, 7, 8]:[]:[]:[]",
+      "coalesced": "101,303:[6, 305, 3, 4]:[5, 6, 7, 8]:[]:[]:[]"
+    }
+  },
+  "status": "FINITE_PROTOTYPE_PASS_GENERIC_EQUIVALENCE_REJECTED",
+  "runnerSHA256": "bcd9561c757a775164dbb2949531769b22e7373d5c8cca2b3ce6bf276422ce3a"
+}
