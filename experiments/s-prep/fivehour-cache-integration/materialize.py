@@ -17,7 +17,7 @@ def specialize(text):
  for i,raw in enumerate(saved):text=text.replace('__RAWCONSTRUCTOR_'+str(i)+'__',raw)
  return text
 
-def materialize(destination):
+def materialize(destination,native_payload=False):
  destination=pathlib.Path(destination);spec=importlib.util.spec_from_file_location('overlay',ROOT/'experiments/s-perf/overlay.py');overlay=importlib.util.module_from_spec(spec);spec.loader.exec_module(overlay);manifest=overlay.materialize(destination);pkg=destination/'experiments/s-integrate'
  # The protected workload and raw payload remain byte-for-byte pinned inputs.
  for name,pin,path in [('measurement-bend.bend','56b72f6',ROOT/'experiments/s-perf/candidate/measurement-bend.bend'),('payload.bend','56b72f6',ROOT/'experiments/s-integrate/payload.bend')]:
@@ -57,6 +57,8 @@ def materialize(destination):
  derived=derived.replace('import Base\n','import Base\nimport ./raw-boundaries.bend as RB\n',1);measurement.write_text(derived);after[str(measurement.relative_to(destination))]=digest(derived.encode())
  source=ROOT/'experiments/s-prep/persistent-cache-world'
  (pkg/'cache.bend').write_bytes((source/'cache.bend').read_bytes());(pkg/'uncached-payload.bend').write_bytes((pkg/'payload.bend').read_bytes())
+ if native_payload:
+  data=(HERE/'native-payload.bend').read_bytes();assert digest(data)=='2938897514720ed50abc100d99bbc7effd730a8b5c155ad8d9ac98d1bf5143b4';(pkg/'uncached-payload.bend').write_bytes(data)
  cp=(source/'persistent-payload.bend').read_text()
  # Aux columns stay raw, observed through the actual original getter.
  cp+='\ndef velocity_get(owner:T.Velocity) -> T.Velocity & T.VelocityView:\n  P.velocity_get(owner)\ndef armor_get(owner:T.Armor) -> T.Armor & T.ArmorView:\n  P.armor_get(owner)\n'
@@ -75,8 +77,8 @@ def materialize(destination):
   def extract(s):
    m=re.search(r'^def '+name+r'\(',s,re.M);end=min(x for x in [s.find('\ndef ',m.start()+1),s.find('\ntype ',m.start()+1),len(s)] if x>=0);return s[m.start():end].rstrip()+'\n'
   a=extract(original);assert a==extract(derived);pins[name]=digest(a.encode())
- receipt={'sourceCommit':subprocess.check_output(['git','-C',str(ROOT),'rev-parse','HEAD'],text=True).strip(),'recipeSHA256':digest(pathlib.Path(__file__).read_bytes()),'originalClosure':before,'specializedClosure':after,'callbackPins':pins,'cacheSourceSHA256':digest((pkg/'cache.bend').read_bytes()),'cachedPayloadSHA256':digest(cp.encode()),'rawPayloadSHA256':digest((pkg/'payload.bend').read_bytes()),'scope':'private wrapped Type World; original generic dispatcher/transaction/storage/commands; trusted original-getter initialization'}
+ receipt={'sourceCommit':subprocess.check_output(['git','-C',str(ROOT),'rev-parse','HEAD'],text=True).strip(),'recipeSHA256':digest(pathlib.Path(__file__).read_bytes()),'originalClosure':before,'specializedClosure':after,'callbackPins':pins,'cacheSourceSHA256':digest((pkg/'cache.bend').read_bytes()),'cachedPayloadSHA256':digest(cp.encode()),'rawPayloadSHA256':digest((pkg/'payload.bend').read_bytes()),'rawProviderVariant':'native-four-cell-structural' if native_payload else 'original-array-provider','rawProviderSHA256':digest((pkg/'uncached-payload.bend').read_bytes()),'scope':'private wrapped Type World; original generic dispatcher/transaction/storage/commands; trusted original-getter initialization'}
  manifest['sources']={str(p.relative_to(destination)):digest(p.read_bytes()) for p in destination.rglob('*.bend')};manifest['cacheSpecialization']=receipt
  (destination/'overlay.json').write_text(json.dumps(manifest,indent=2)+'\n')
  (destination/'cache-specialization.json').write_text(json.dumps(receipt,indent=2)+'\n');return pkg
-if __name__=='__main__':print(materialize(sys.argv[1]))
+if __name__=='__main__':print(materialize(sys.argv[1],native_payload='--native-payload' in sys.argv[2:]))
