@@ -7,3 +7,7 @@ No actionable semantic blocker found in `cached-array-backends`, `cached-owned-v
 Limits remain material: trusted balanced array shape/capacity, four index0 payload writers, and closed callbacks/providers that cannot alter the held binding or remaining World. Exported constructors do not enforce those invariants. General World access, forged Held values, universal runtime refinement, production adoption and performance acceptance are not established.
 
 Replay provenance of the derived integration is being strengthened separately. This review does not approve an experiment contract, numerical target or measured keep.
+
+## Derived replay provenance follow-up
+
+Targeted independent read-only review at `dda676c` found no actionable blocker. The guard checks actual TS HEAD and recursively matches imported `.ts` files to pinned Git blobs before evaluator import/Node, binds protected checkout sources, recipes, exact overlay mapping, prepare receipt and diff, and repeats checks around execution. Pre-guard effects are limited to affinity selection and creating the artifact directory. Root separately ran the recorded finite construction and tampering controls; the reviewer did not rerun them. No general provenance/refinement or performance qualification is inferred.
