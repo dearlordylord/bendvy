@@ -27,7 +27,9 @@ def main():
         raise ValueError('packet identity/status mismatch')
     captured=pathlib.Path(r['candidateSnapshotManifest']);digest=r['candidateSnapshotManifestSHA256']
     captured_m=boundary.verify(captured,digest)
-    boundary.verify(a.baseline_manifest,a.baseline_sha256)
+    baseline_m=boundary.verify(a.baseline_manifest,a.baseline_sha256)
+    initial_same=all(json.loads((captured.parent/backend/'cache-specialization.json').read_text())['runtimeClosure']==json.loads((pathlib.Path(baseline_m['backendRoots'][backend]).parents[1]/'cache-specialization.json').read_text())['runtimeClosure'] for backend in ('JS','Native'))
+    if r.get('initialSourceQualificationOnly') is not initial_same or r.get('packetKind')!=('initial-source-qualification-only' if initial_same else 'changed-candidate-comparison'):raise ValueError('qualification source identity mismatch')
     for name,pin in captured_m['capturedCandidateBytes'].items():
         if guard.sha(pathlib.Path(name))!=pin:raise ValueError('current candidate differs from measured snapshot')
     checks=pathlib.Path(r['completeCheckReceipt'])
@@ -72,9 +74,9 @@ def main():
             if value!=raw['batchMilliseconds'] or ts!=raw['TSBatchMilliseconds']:raise ValueError('raw clock disagrees with score input')
             values[role][backend+'/'+schema].append(value);tsvalues[role][backend+'/'+schema].append(ts)
     candidate=decision.score(values['candidate'],tsvalues['candidate']);baseline=decision.score(values['reference'],tsvalues['reference'])
-    if candidate!=r['decision'] or baseline!=r['baselineDecision'] or candidate['status']!='QUALIFIED_PROPOSAL' or baseline['status']!='QUALIFIED_PROPOSAL' or decision.keep(candidate,baseline)!=r['keepProposed']:
+    if candidate!=r['decision'] or baseline!=r['baselineDecision'] or candidate['status']!='QUALIFIED_PROPOSAL' or baseline['status']!='QUALIFIED_PROPOSAL' or (not initial_same and decision.keep(candidate,baseline))!=r['keepProposed']:
         raise ValueError('recomputed qualified decision mismatch')
-    if candidate['metric']<baseline['metric'] and not r['keepProposed']:raise ValueError('scalar improvement has a forbidden initial-baseline cell regression')
+    if not initial_same and candidate['metric']<baseline['metric'] and not r['keepProposed']:raise ValueError('scalar improvement has a forbidden initial-baseline cell regression')
     boundary.verify(captured,digest);boundary.verify(a.baseline_manifest,a.baseline_sha256)
     if guard.sha(path)!=pointer['sha256'] or guard.sha(checks)!=r['freshCheckReceiptSHA256']:raise ValueError('receipt drift during independent check')
     print('INDEPENDENT_PACKET_RAW_ORACLES_AND_RECEIPTS_PASS')
