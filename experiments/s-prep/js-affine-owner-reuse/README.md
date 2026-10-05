@@ -1,0 +1,24 @@
+# Generated affine owner reuse causal probe
+
+This diagnostic changes emitted JavaScript only. No Bend source, compiler, dependency, law or proof changes, adoption, full-22 acceptance, universal alias proof or speed claim.
+
+Input `/tmp/bendvy-direct-raw-swap-build/batch.js`; output `/tmp/bendvy-affine-owner-reuse-final.js`. Run:
+
+```
+node --expose-internals experiments/s-prep/js-affine-owner-reuse/rewrite.cjs INPUT OUTPUT [motion|health]
+python3 /workspace/formal-proofs/bendvy/experiments/s-prep/js-profile/run.py --cpu 9 --no-gc --generated-js OUTPUT --output FRESH_PROFILE
+```
+
+The bundled Acorn parser checks unique selected helper definitions, exact ordered Held/Cache fields and tags, public parameter arities, ten-argument direct done calls, cache patch call form, and a unique done caller. Output must be absent. All checks complete before writing output. An explicit schema selects the corresponding four helpers in the one-schema transaction builds; the batch defaults to both schemas. This is a bounded catalog transformation, not a global optimizer.
+
+Four reads retain the original affine owner in the original Tuple, preserving the original Found/Some Data expression. Four setters pass the original owner as an additional done argument. Done helpers evaluate every original property expression in its original order before mutation, retaining raw swap results, true-old inverse nodes, Data patches, marks, queues and all fields. Only Held and its selected existing Cache container receive assignments. Data views, inverse/list nodes and generic Tuples are not mutated. Affine ownership motivates the experiment but does not establish a universal runtime alias guarantee.
+
+CPU9 runtime cap5: uninstrumented and counted batch builds each passed all nine full Motion worlds against a fresh TS adapter. Constructor executions fell from 9,955,904 to 8,907,328, exactly 1,048,576 fewer (-8 per callback): two objects per read and two per setter. The emitted counted build preserves all full output fields. No Bend checker or codegen was invoked.
+
+Both cached transaction controllers were transformed independently from `/tmp/bendvy-direct-raw-tx-baseline/cached/{motion,health}/cache-tx-*-controls.js`. Runtime cap5 outputs matched each stored original `.js.jsonl` byte for byte. The suppressed-owner Motion controller was refused because its setter did not have the required direct done-call shape. Its mutation witness is therefore **unexecuted for this probe**, not passed. No fallback transformation was applied.
+
+The root heap recipe initially refused the profile runner's existing `__allocation_phase` reference. The local archived copy narrows that duplicate-install assertion to an existing function declaration, leaving sampling behavior unchanged. CPU9 runtime cap5 actual phase sampling (32KiB interval, includes collected objects) produced aggregate selfSize 354,681,792 bytes versus the existing direct-raw sample 406,382,408 bytes, about 12.72% lower. All nine heap-run outputs equal the validated normal outputs after dropping milliseconds only. Single-run sampled bytes are not exact allocation accounting, retained heap, stable speed evidence or qualification. This supports investigating affine container reuse at the runtime/compiler boundary; it does not prove source boxing futile or propose an approved compiler change.
+
+Initial recipe preparation failures were incorrect getter arity (actual owner+token), insufficient path qualification finding an unrelated ledger helper, and the one-schema controllers lacking the other schema. They produced no rewritten outputs; the corrected recipe qualifies held-adapter definitions and accepts an explicit schema. Tag spelling is checked as either the standalone exact `held.Held`/`cache.Cache` or its absolute-path suffix. The first profile invocation before a successful rewrite failed missing input. The heap duplicate assertion failure and suppressed-owner refusal are infrastructure/scope failures, not source correctness failures.
+
+Evidence includes pinned recipes, runner hash, constructor receipt, full observed outputs, generated JS and actual heap sample. Gzip archives use deterministic headers; `evidence/archive.json` records uncompressed hashes. Broader alias controls, additional transaction mutations, Health batch performance, Native lowering and canonical acceptance remain follow-ups.
