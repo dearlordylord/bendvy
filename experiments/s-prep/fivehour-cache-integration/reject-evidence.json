@@ -1,0 +1,97 @@
+{
+  "status": "PASS_BOUNDED",
+  "cases": [
+    {
+      "label": "exhausted factory reserve and foreign insert returned full raw owners and unchanged worlds",
+      "schemas": 2,
+      "backends": [
+        "NativeO3",
+        "JS"
+      ],
+      "status": "PASS"
+    }
+  ],
+  "limits": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "sourceCommit": "015de602a4b7979032e0bef478feea919ad6ac6b",
+  "sources": {
+    "experiments/s-prep/fivehour-cache-integration/check.py": "fabcab663b4e82b50110b9ddb2e7de4af857aa5916f54f7ef68c613dda308855",
+    "experiments/s-prep/fivehour-cache-integration/materialize.py": "e9ad3bb6245340aae145d131d37956bc24b4dabf381c0007e733a3f2a3a2f485",
+    "experiments/s-prep/fivehour-cache-integration/reject-run.py": "df05ab0bde1d427c934ab51d58a848f81b23833d2eff30fec45ea6df661e1724",
+    "experiments/s-prep/fivehour-cache-integration/held.bend": "5994b97265f9c1d507edb178e9914f1efc462f517e7d02426f8d9a52c0e513fe",
+    "experiments/s-prep/fivehour-cache-integration/held-adapter.bend": "f08c574189546c6848f1dcedcda5a17d8e24300056f8c72decd47cb988d6665c",
+    "experiments/s-prep/fivehour-cache-integration/native-payload.bend": "2938897514720ed50abc100d99bbc7effd730a8b5c155ad8d9ac98d1bf5143b4",
+    "experiments/s-prep/fivehour-cache-integration/raw-reject-controls.bend": "fe7f9b3885aab6ba83c6a174a1d82e9e5393c8261138a954cf97b9799fe5f4df",
+    "experiments/s-prep/fivehour-cache-integration/raw-boundaries.bend": "77dbad2365e0499ae4e9e6a5ae7dd67b5a2ebcc5be163de56d0e836781f70a2f",
+    "experiments/s-prep/owned-write-query/run.py": "6a7daf1e5498b438643d77331a1d36b06ec523b9b9076c8fb23711c41cafba8f"
+  },
+  "runnerSHA256": "df05ab0bde1d427c934ab51d58a848f81b23833d2eff30fec45ea6df661e1724",
+  "version": "bend 2.0.35\n",
+  "outputSHA256": "fc1d1bbce3dc5ad778ac833cfcac62ac3c4fdcf4eea2cd7d9eb3500be27cd6ea",
+  "specialization": {
+    "sourceCommit": "015de602a4b7979032e0bef478feea919ad6ac6b",
+    "recipeSHA256": "e9ad3bb6245340aae145d131d37956bc24b4dabf381c0007e733a3f2a3a2f485",
+    "originalClosure": {
+      "experiments/s-integrate/audited-invoker.bend": "2ed7e484b8a043f0944e0f662a8799f94388c99f757de331fb1a79b1c07c8853",
+      "experiments/s-integrate/capture.bend": "44d5f3117a465c216ee93100026aad78e86f24c40c09c678be99935dde076817",
+      "experiments/s-integrate/commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+      "experiments/s-integrate/dispatcher.bend": "5d7652d052f9915e9735a81d470026c2f7ba2077f11b09472418a6b5213945e9",
+      "experiments/s-integrate/host-observations.bend": "e6a37f6d160a53f14b08254f35cb317a68f1f2c540c40c9b88e600d0d6198e76",
+      "experiments/s-integrate/host-render.bend": "1eef120fa604ba633f06d33a8a3910845293926c36dc9c91cd59d4d5c045a28a",
+      "experiments/s-integrate/host.bend": "cc06d581fbc762ef2fcae5091a21bb11955c6770e43abc4346de9fa884d81d2c",
+      "experiments/s-integrate/identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+      "experiments/s-integrate/measurement-bend.bend": "c2351825ee3998988aa01440e484db0cd11d3dbac5a70db4a079d841aaaaf31d",
+      "experiments/s-integrate/observations.bend": "00442198a7aeb420c5defef1641fa873a8f4fcaddfd896973820fe7b875216c4",
+      "experiments/s-integrate/query.bend": "5fb8447d34edc2260341341c36dc7970964318fa582cdd078da296c5f9e1a1ce",
+      "experiments/s-integrate/reader-host.bend": "50f1251c6d476b07055c36c5a97e3350a4cb46e5d826ff97ced2860d40798a64",
+      "experiments/s-integrate/readers.bend": "2673082b4ef5cd6c5d8f61c362e22f74b13daeb27196894278cc20b1459c22e9",
+      "experiments/s-integrate/schedule.bend": "98c955f7ee5039aed875a3bd93e3c94840d9ea2f48de0e6415bd28d63ee8fb98",
+      "experiments/s-integrate/storage.bend": "27f6b8aa69966eb6e349e7337b0947e50179dbc26cdcc363c1e857bb79cc4130",
+      "experiments/s-integrate/streams.bend": "1a1c7991d6a1b4ebfb3b47dc62459beb83ed5e38ded56d27cc20b5478fc0d315",
+      "experiments/s-integrate/structural-invoker.bend": "6907a8c5775f77ffed6141123fe5c7033678269ade0f59cd0f24b8680e497932",
+      "experiments/s-integrate/systems.bend": "2cfc899215e408cc4c652c8d4c290b18800cdb6e8c96f1061a77853afdac9221",
+      "experiments/s-integrate/transaction-dispatch-adapters.bend": "eea16d3f539d70bcd88fd8fd314b75d252ccaff2b9c1c8b63e7d96bfdda34142",
+      "experiments/s-integrate/transaction.bend": "d32f0b26e4a14fc784c3ce30c4d6a1ded0cf0a55ed819f54419a558445e298a4"
+    },
+    "specializedClosure": {
+      "experiments/s-integrate/audited-invoker.bend": "8f4cc0acd27b49d7425e43419dc0f6d2be7eeed1cb36962c33d0b97aaf2ef5b3",
+      "experiments/s-integrate/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+      "experiments/s-integrate/commands.bend": "5cdbaeb590d0542db6d956ff421f7ab7f35c1b71be70091f87ce4fd58271ecc0",
+      "experiments/s-integrate/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+      "experiments/s-integrate/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+      "experiments/s-integrate/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+      "experiments/s-integrate/host.bend": "912a679e54098d5c4e395fc75e993092c3cb735968ce2fc96edba709b778bb04",
+      "experiments/s-integrate/identity.bend": "6cff678171c10d5124b234cb0e2e3d55cd56aec95871508c595f259c484de4f8",
+      "experiments/s-integrate/measurement-bend.bend": "4701561c2436f92bd5209f5a5d6b553620b653f21366da9f1c4e246972267ff2",
+      "experiments/s-integrate/observations.bend": "e81cb63b3ab6da947a2455c3cc1b388abb1aa71dea593671d1c18f00da07a778",
+      "experiments/s-integrate/query.bend": "5cec4ef489c906804f0df6d4627d97fe2b012a3c75656adc6a96509b01ebb5fa",
+      "experiments/s-integrate/reader-host.bend": "26eb687a8fb1893b55e4a0c7c8a629b688e37466e169cb3c95dd5273a553db6d",
+      "experiments/s-integrate/readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+      "experiments/s-integrate/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+      "experiments/s-integrate/storage.bend": "3bddf3a25dc6fbaa18c34f2d4e17d45664b3a53b791e20144ec853fb78908d09",
+      "experiments/s-integrate/streams.bend": "291d9a46ad58bdc481a5710976e01b762f6e11be3aeba07076c46c69f236d2c0",
+      "experiments/s-integrate/structural-invoker.bend": "8e1269193d719b1f0ea68b040c62e8966160bacb898ac51caa2f6494f4621e0a",
+      "experiments/s-integrate/systems.bend": "32e11a5a89b01e8db00f0b58a9fd1e2da87f4882189725b0012933421b6b1716",
+      "experiments/s-integrate/transaction-dispatch-adapters.bend": "f2276c1c16ad3694ab8a253f97da892df3a1db81b621cd80018b1376d79d490d",
+      "experiments/s-integrate/transaction.bend": "10666618cc37f9cd2a5f4f5c13570727b0a0ece96bbbada2e06816ccd3b0e0de"
+    },
+    "callbackPins": {
+      "motion_body_ledger": "b1ea1bd7ae671fae18ea7c5d26b04ca4c0c03b8bd2d36d709a01c76379ba5201",
+      "motion_body_read": "e6967abd8b26c4028dfc0651703f1f90c663583613a7e4efa68028a056553741",
+      "motion_body": "38e9d8bb471ed25341c59fc82801493483229a351168a64ad802ecc3dbd625b0",
+      "health_body_ledger": "782d031b2dfa09a2f9bbcff228ff705816fc3bb40b64b5cad9bbaaae0ec691f0",
+      "health_body_read": "09d94bef9502a59eff8b0f050842e8dfbcf369fd9736a352b03fa6e9c4931269",
+      "health_body": "9f289b79eececfab754bca0fbb412896e96dbe8639231090bef251961cf879b0"
+    },
+    "cacheSourceSHA256": "c979f39e22a442e2442c87d03c69f16b7cb2264bbc0bff5edbb9f54dac59a223",
+    "cachedPayloadSHA256": "c4f08daeadfc20217b9778fc33a57271376a3831ae27c4ceb64fd2a962b9095f",
+    "rawPayloadSHA256": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "rawProviderVariant": "original-array-provider",
+    "rawProviderSHA256": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "scope": "private wrapped Type World; original generic dispatcher/transaction/storage/commands; trusted original-getter initialization"
+  }
+}
