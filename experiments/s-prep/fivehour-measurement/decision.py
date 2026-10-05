@@ -19,6 +19,7 @@ def finite(value):
 def describe(v):
     median = finite(statistics.median(v))
     mad = statistics.median([abs(x-median) for x in v])
+    if not math.isfinite(mad): raise ValueError('nonfinite MAD')
     return {'median': median, 'MAD': mad, 'relativeMAD': mad/median}
 
 def score(candidates, references, seed=23):
