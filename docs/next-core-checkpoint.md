@@ -185,3 +185,7 @@ Issue #23 packet `packet-nzg08ps6`: all 22 fresh gates and 112 full-record compa
 ## Latest joined writer comparison
 
 Attempt10 completed168 child timings and112 passing full-record comparisons; candidate and fixed baseline noise failed. Descriptive JS/TS2.842–4.098, Native/TS4.062–4.814. No metric, keep, target or product acceptance. Global10/20 attempts consumed. See [comparison report](reports/three-hour-joined-comparison.md). Original22 gates remain valid; inventory projection is not new execution. Further full measurement requires sufficient remaining authorized time.
+
+## Product optimization research
+
+User-requested source research is recorded in [Bend optimization transfer](research/bend-performance-transfer.md), with separate Bendcraft and product source notes. Prioritize exact generated-call attribution, affine owner transport and static provider-boundary probes before another broad fusion. These are hypotheses and scoped follow-ups, not API/law/contract approval or accepted performance improvements. Existing JS≤bevy-ts/native≤0.5 targets and full observation gates remain unchanged.
