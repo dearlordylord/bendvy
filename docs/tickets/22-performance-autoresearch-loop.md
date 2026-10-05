@@ -1,6 +1,6 @@
 # S-LOOP — measured optimization of the connected ECS candidate
 
-Current status: the latest user-authorized two-hour inspiration window is **2026-10-05T16:55:07Z–18:55:07Z**, cumulative including recovery/delivery. Global15/20 attempts consumed; attempts11–15 produced no usable timing metric. Two repeated host12 checker failures stopped the old measured loop. [Report](../reports/two-hour-bendcraft-optimization.md). A direct erased-provider callback registration prototype has bounded type/finite execution evidence; [17-path scope draft](../design/static-provider-dispatch-plan.md) is for discussion, not approved execution. Full22 gates, five-second entry checking, targets and full product remain open. Historical windows below are retained as evidence and grant no fresh allowance.
+Current status: the active continuation ends **2026-10-05T20:54:31Z**, including recovery/checks/measurement/delivery. Global16/20 physical attempts are consumed (15 canonical log rows plus one prior deadline-interrupted attempt). Attempt16 passed original Host channels and three mutants, then failed the unchanged30-second failed-cursor Health C-codegen limit before timing. Exact source succeeds onCPU11; explicit full-fresh control-affinity transition is in progress. [Current report](../reports/two-hour-dispatch-continuation.md). Project-file edit scope is user-authorized and unrestricted; all22 gates, affine Type owners, JS/TS<=1 and Native/TS<=0.5 remain binding. Historical windows below grant no fresh allowance.
 
 ## Accepted protocol and seven-hour extension
 

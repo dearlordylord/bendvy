@@ -209,3 +209,7 @@ The user explicitly authorized “да любые файлы меняй”: remo
 ## Two-hour dispatch continuation — 2026-10-05
 
 The user granted two further hours at2026-10-05T18:54:31Z; cumulative continuation deadline2026-10-05T20:54:31Z includes preparation, recovery, checks, measurements and delivery. Project-file edit scope is unrestricted under the recorded authorization. Preserve global15/20 consumed attempts, existing targets and all22 gates. Recover the five-second full-entry checker and adapt actual-consumer controls before measured execution; no prior finite receipt is a fresh full-gate pass.
+
+## Current dispatch execution recovery
+
+Global16/20 physical attempts are consumed, including the prior unlogged deadline interruption. Attempt16 has no timing/metric: Host originals and first three mutants passed, then Health failed-cursor C codegen exceeded30s. Identical source recovered onCPU11; fullfresh controls now useCPU11 with unchanged limits and comparator. Current continuation deadline remains20:54:31Z. [Live report](reports/two-hour-dispatch-continuation.md); no complete22 gate, measured keep or performance acceptance.
