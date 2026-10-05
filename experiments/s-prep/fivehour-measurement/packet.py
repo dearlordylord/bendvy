@@ -59,7 +59,7 @@ def main():
         for backend,role in checks['roles'].items():
             overlay=args.output/'candidate-snapshot'/backend
             expected=json.loads((overlay/'cache-specialization.json').read_text())['runtimeClosureSHA256']
-            if role.get('status')!='PASS' or role['binding']['runtimeClosureSHA256']!=expected or role['binding']['overlayManifestSHA256']!=guard.sha(overlay/'overlay.json') or set(g['name'] for g in role['gates'])!=required_ids:raise ValueError('check applicability does not match snapshot')
+            if role.get('status')!='PASS' or role['binding']['runtimeClosureSHA256']!=expected or role['binding']['runtimeSources']!=json.loads((overlay/'cache-specialization.json').read_text())['runtimeClosure'] or role['binding']['overlayManifestSHA256']!=guard.sha(overlay/'overlay.json') or set(g['name'] for g in role['gates'])!=required_ids:raise ValueError('check applicability does not match snapshot')
             for gate in role['gates']:
                 if gate['exit']!=0:raise ValueError('failed authoritative gate')
                 if 'receipt' in gate and guard.sha(pathlib.Path(gate['receipt']))!=gate['receiptSHA256']:raise ValueError('gate receipt changed')
@@ -100,11 +100,11 @@ def main():
                             r['raw'][f'{cohort}/{role}/{sample}/{schema}/{backend}']={'batchMilliseconds':value,'TSBatchMilliseconds':tsvalue,'rawPath':str(outputs[backend]),'rawSHA256':guard.sha(outputs[backend]),'TSRawPath':str(outputs['TS']),'TSRawSHA256':guard.sha(outputs['TS']),'receiptSHA256':guard.sha(receipt)}
         boundary.verify(captured,captured_digest);boundary.verify(args.baseline_manifest,args.baseline_sha256)
         if guard.sha(checkreceipt)!=r['freshCheckReceiptSHA256']:raise ValueError('check receipt changed after execution')
-        r['decision']=decision.score(cands['candidate'],refs['candidate']);r['baselineDecision']=decision.score(cands['reference'],refs['reference']);r['keepProposed']=decision.keep(r['decision'],r['baselineDecision']);r['status']='PACKET_COMPLETE' if r['decision']['status']=='QUALIFIED_PROPOSAL' and r['baselineDecision']['status']=='QUALIFIED_PROPOSAL' else 'INCONCLUSIVE_NO_METRIC'
+        r['decision']=decision.score(cands['candidate'],refs['candidate']);r['baselineDecision']=decision.score(cands['reference'],refs['reference']);r['baselinePolicy']='fixed-initial-freshly-rerun';r['canonicalPriorBestScoreComparisonRequired']=True;r['canonicalKeepAuthorized']=False;r['keepProposed']=decision.keep(r['decision'],r['baselineDecision']);r['status']='PACKET_COMPLETE' if r['decision']['status']=='QUALIFIED_PROPOSAL' and r['baselineDecision']['status']=='QUALIFIED_PROPOSAL' else 'INCONCLUSIVE_NO_METRIC'
     except Exception as e:r.update(status='FAILED_NO_METRIC',error=repr(e))
     finally:(args.output/'packet.json').write_text(json.dumps(r,indent=2)+'\n')
     if r['status']=='PACKET_COMPLETE':
-        print('REPORT '+json.dumps({'candidate':r['decision'],'retainedBest':r['baselineDecision'],'keepProposed':r['keepProposed'],'focusedGoalMet':r['decision']['focusedGoalMet'],'productAcceptance':False},sort_keys=True))
+        print('REPORT '+json.dumps({'candidate':r['decision'],'fixedInitialBaseline':r['baselineDecision'],'canonicalPriorBestScoreComparisonRequired':True,'canonicalKeepAuthorized':False,'keepProposed':r['keepProposed'],'focusedGoalMet':r['decision']['focusedGoalMet'],'productAcceptance':False},sort_keys=True))
         print('METRIC focused_score='+format(r['decision']['metric'],'.17g'))
     print(json.dumps({'status':r['status'],'metric':r.get('decision',{}).get('metric') if r['status']=='PACKET_COMPLETE' else None,'keepProposed':r.get('keepProposed',False) if r['status']=='PACKET_COMPLETE' else False,'receipt':str(args.output/'packet.json')},sort_keys=True))
     if r['status']!='PACKET_COMPLETE':raise SystemExit(1)
