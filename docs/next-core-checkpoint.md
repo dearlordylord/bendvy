@@ -181,3 +181,7 @@ The13:22:50Z deadline interrupted the changed candidate during Native E11 mutant
 ### 2026-10-05 single comparison checkpoint
 
 Issue #23 packet `packet-nzg08ps6`: all 22 fresh gates and 112 full-record comparisons passed; candidate and initial baseline noise qualification failed, so no metric or keep. Exact current run logged as crash/no usable metric; canonical state captured once. See [report](reports/single-comparison-resume.md) and current [three-hour authorization](reports/three-hour-optimization-continuation.md). Full performance goal remains open.
+
+## Latest joined writer comparison
+
+Attempt10 completed168 child timings and112 passing full-record comparisons; candidate and fixed baseline noise failed. Descriptive JS/TS2.842–4.098, Native/TS4.062–4.814. No metric, keep, target or product acceptance. Global10/20 attempts consumed. See [comparison report](reports/three-hour-joined-comparison.md). Original22 gates remain valid; inventory projection is not new execution. Further full measurement requires sufficient remaining authorized time.

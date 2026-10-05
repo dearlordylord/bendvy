@@ -65,3 +65,7 @@ The user approved3600 seconds followed by results. [Concrete focused proposal](.
 ## User correction of success criterion
 
 The user rejected10% improvement against old Bend-JS and5% Native regression as experiment success. The proposed contract/rules are withdrawn. Success must compare with pinned bevy-ts: JS parity or better, Native substantially faster, equivalent complete work. Native numerical minimum is now explicitly approved: speedup >=2×, or elapsed Native/TS <=0.50. Intermediate progress is evidence only; report stopped-unmet at the latest cumulative deadline if the actual target is not reached. Replace comparator/decision code and re-freeze/review the contract before setup; no old acceptance request authorizes execution.
+
+## Latest joined writer comparison
+
+Attempt10 completed168 child timings and112 passing full-record comparisons; candidate and fixed baseline noise failed. Descriptive JS/TS2.842–4.098, Native/TS4.062–4.814. No metric, keep, target or product acceptance. Global10/20 attempts consumed. See [comparison report](../reports/three-hour-joined-comparison.md). Original22 gates remain valid; inventory projection is not new execution. Further full measurement requires sufficient remaining authorized time.
