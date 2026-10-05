@@ -10,7 +10,7 @@ Parallel ordinary engineering is underway in existing isolated worktrees:
 
 No accepted Autoresearch session exists. Current target approval and five-hour allowance do not approve unspecified evaluator/scope/noise rules. Existing unapproved laws, references, protected originals, original Tower Defense and unrelated processes remain untouched. Actual Native/JS/reference closures, full observations, five-second checker/runtime, thirty-second codegen and120secondclang limits stay explicit.
 
-## Preparation checkpoint at 02:57 UTC
+## Preparation checkpoint at 02:53 UTC
 
 Verified engineering commits are pushed to master through `fb72d67`. Persistent Raw Type caches and retained Main/Ledger owners now connect to the original 64-tick dispatcher with all six callback bodies unchanged. Finite Native O3/JS batch construction preserves all 17 complete worlds for both schemas. Actual factory exhaustion and foreign command rejection return complete original raw payloads and preserve the existing queue. Independent transaction controls observe complete cached/raw fields, inverse order, marks, rollback and prior publication; compiling cache corruption is rejected. These are semantic observations, not performance keeps.
 
