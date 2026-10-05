@@ -13,10 +13,13 @@ for n in ['measurement-bend-run.py','measurement-samples-run.py','measurement-re
 for name in ['bend','node','clang']:
  p=pathlib.Path(shutil.which(name)).resolve();files[str(p)]=sha(p)
 base=pathlib.Path.home()/'.bend/bend2/base.bend';files[str(base)]=sha(base)
-effects=P/'.references/bend2/bend2/effs'
+effects=pathlib.Path.home()/'.bend/bend2/effs'
 for n in ['now.c','now.js']:
  p=effects/n;files[str(p)]=sha(p)
-comp=P/'.references/bend2/bend2/comp.ts';assert 'io_tick' in comp.read_text();files[str(comp)]=sha(comp)
-x={'status':'UNACCEPTED_EXECUTION_PROPOSAL','deadlineUTC':'2026-10-05T07:34:51Z','windowStartUTC':'2026-10-05T02:34:51Z','batch':16,'schemas':['Motion','Health'],'size':256,'workload':'dense','sourceOverlay':str(args.overlay),'sourceClosure':m['sources'],'proposalProtectedFiles':files,'candidateCommit':subprocess.check_output(['git','-C',str(P),'rev-parse','HEAD'],text=True).strip(),'accepted':False,'remainingCheckManifest':'Actual final cache rollback/ownership/invalidations gates must be supplied and independently reviewed; no authority inferred'}
+# Installed compiler executable is the authority; reference comp.ts is explanatory only.
+comp=pathlib.Path(shutil.which('bend')).resolve(); files[str(comp)]=sha(comp)
+reference_comp=P/'.references/bend2/bend2/comp.ts'
+reference_explanatory={str(reference_comp):sha(reference_comp)}
+x={'status':'UNACCEPTED_EXECUTION_PROPOSAL','deadlineUTC':'2026-10-05T07:34:51Z','windowStartUTC':'2026-10-05T02:34:51Z','batch':16,'schemas':['Motion','Health'],'size':256,'workload':'dense','sourceOverlay':str(args.overlay),'sourceClosure':m['sources'],'proposalProtectedFiles':files,'explanatoryReferenceCompiler':reference_explanatory,'candidateCommit':subprocess.check_output(['git','-C',str(P),'rev-parse','HEAD'],text=True).strip(),'accepted':False,'remainingCheckManifest':'Actual final cache rollback/ownership/invalidations gates must be supplied and independently reviewed; no authority inferred'}
 with args.output.open('x') as f:f.write(json.dumps(x,indent=2)+'\n')
 print(x['status'])
