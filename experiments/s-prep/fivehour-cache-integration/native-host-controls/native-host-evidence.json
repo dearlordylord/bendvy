@@ -1,0 +1,100 @@
+{
+  "status": "PASS_BOUNDED",
+  "cases": [
+    {
+      "label": "original Motion/Health two captures fullchannels NativeO0 and JS",
+      "status": "PASS"
+    },
+    {
+      "label": "actual12 compiling Host mutants NativeO0 and JS",
+      "status": "DETECTED_ALL"
+    }
+  ],
+  "limits": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "cpu": 10,
+  "claim": "finite complete Host semantic mutation gate only; no performance claim",
+  "sourceCommit": "54bd24265ce7930a4cc65218c6b29d1b890db077",
+  "gateCommit": "d40345911406bf83f1ea43d137da50c9ed655438",
+  "sources": {
+    "/workspace/formal-proofs/bendvy-worktrees/twohour-main-fusion/experiments/s-prep/fivehour-cache-integration/native-host-controls/run.py": "984932cb0ebee351dfbb27d46def6566f5147d71af745ed0fd04d2649c9a67b8",
+    "/workspace/formal-proofs/bendvy-worktrees/twohour-main-fusion/experiments/s-prep/fivehour-cache-integration/native-host-controls/original-raw-observer.bend": "10ee1b2c5a3ca0baa1f6b9f2c4e3206006f1d22d6c46ce7a62aaaa8056f19509",
+    "/workspace/formal-proofs/bendvy-worktrees/twohour-main-fusion/experiments/s-prep/owned-write-query/run.py": "6a7daf1e5498b438643d77331a1d36b06ec523b9b9076c8fb23711c41cafba8f",
+    "/workspace/formal-proofs/bendvy-worktrees/twohour-indexed-query/experiments/s-prep/fivehour-connected-gates/materialize-controls.py": "b5ddfd27c4bec0dc6c2f65bdcda08f32f44aacae3ff20f09ee1af033033f30a2",
+    "/workspace/formal-proofs/bendvy-worktrees/twohour-indexed-query/experiments/s-prep/fivehour-connected-gates/host-mutations-run.py": "5b200eda7f0bb8778abeab9daf720c86537d0f35541ccb45ad618bfc244300fc",
+    "/workspace/formal-proofs/bendvy-worktrees/twohour-indexed-query/experiments/s-integrate/host-mutations.py": "23c3c28d54fcafd9f4660df377a7a45babdd8620e6b7052f27f263fddae2c748",
+    "/workspace/formal-proofs/bendvy-worktrees/twohour-indexed-query/experiments/s-integrate/trace-decode.py": "c93810aae8a63a36e0fe10d20ff5d7fc179632cfd89cc9f98d4e9ab574738496",
+    "/workspace/formal-proofs/bendvy-worktrees/twohour-indexed-query/experiments/s-integrate/trace-compare.py": "2cc66b6c15a931f8957b12312794a69fcc3df4fc99ae05cb988f8b8f52b4fb39",
+    "/workspace/formal-proofs/bendvy-worktrees/twohour-indexed-query/experiments/s-integrate-trace/reference-main.mjs": "c70208fe453ca9809bc2a947a0209425100b352554e7d0d5dbab6eacfac65e39",
+    "/workspace/formal-proofs/bendvy-worktrees/twohour-indexed-query/experiments/t05/run.py": "3767d4b66b63f6492aa260213de17b33de9f772fbe2250a91aa579f856c85b19"
+  },
+  "referenceCommit": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334",
+  "referenceClosureSHA256": {
+    "packages/core/src/Brand.ts": "85090ad2253694526dda4e2e54802158cf229d98477169bc25e77396bdc963b9",
+    "packages/core/src/Command.ts": "de5db2093401e24ce54fae8166e7f686c153852094b6446dc0ee22cfa28cef28",
+    "packages/core/src/Condition.ts": "1b4c8c906cab11745535ffe84f169a48767c88c26336f3b46f45cf7d59f08083",
+    "packages/core/src/Debug.ts": "942fc7e3bdf1b15f31708bad0ab02c0789a037b707a566e2cb860b43f9b5c3ff",
+    "packages/core/src/Decode.ts": "a8e8e91e5dffc15718ba8d3ecbea1007b386117af12764df4238356600bd82df",
+    "packages/core/src/Definition.ts": "96054da50280f6dca44fd97dbd126e597f1492c9737e34329adf3f1cda1b325f",
+    "packages/core/src/Descriptor.ts": "03e7339516d9f6bd455763a8dcdf7244d0c11f7165e493aa895aaa64225acab7",
+    "packages/core/src/Entity.ts": "05d724f241b2d662a7a03ce82da5f133c4b587df92e5e22fdfdb7484edbca68e",
+    "packages/core/src/EntityScope.ts": "3241a13ed0c337434e193e80a790498a9130ea31d4aca1f73294a5af2c50b04a",
+    "packages/core/src/Feature.ts": "bf3be7437c63c1f12d8b0ff0f1a4965408331fad7a279669ef7c9b2cb29140a8",
+    "packages/core/src/Fx.ts": "75242b8513225601589f4658d59c86100351557fef39cc8d17506c958dd2c5b3",
+    "packages/core/src/Inspector.ts": "21757eb340c0ae192a36726538d0a87aefbd455859d196dab36aa3515c1addb3",
+    "packages/core/src/Machine.ts": "a0007e841e07afb10a40ab8f3056691a3555cd6815b4564f5f1326e0e956ceb3",
+    "packages/core/src/Query.ts": "45e2fe513f66e336f97d40b41b3c866363a1af17ecbc90087086e00c08b28414",
+    "packages/core/src/Relation.ts": "7c2cbe93d90c6ca4f173932c9bb7e4536323d6b5bf17dc64c1c8fda83c3a7aa4",
+    "packages/core/src/Requirement.ts": "0397bbf69285e1f50edafdceab81b48208c0127fe53ff0305e52d6a1b4766783",
+    "packages/core/src/Result.ts": "96b098025e5e84b26bc97355ed1c463fe17f652954d2f83a83058e9817f7766c",
+    "packages/core/src/Runtime.ts": "c744aa5c52845bd3323358c5085161b40a452c6802a1653e3851bfd34c69f5b4",
+    "packages/core/src/Schedule.ts": "ab1610c356bfbcedf6ac85758e04c7032cda1f2458ff13c8a483c53d94b55c2a",
+    "packages/core/src/Schema.ts": "26e7c140a6f3c2a98ea4e43c1f067a18e47c03ff6f56939c8139f1535ae1a0ec",
+    "packages/core/src/Snapshot.ts": "249f57c429d97e57088ebb1e959b6258dd97ca71c9cc66a0a4ed6ac35ad04a3b",
+    "packages/core/src/System.ts": "ae53852dbd815ad441446cbcfc663d25aed6c2bd0afcfacbc3c20e0c40dc2ba7",
+    "packages/core/src/index.ts": "a74d79748f5eff6e9f732b54ed6efc0a42826e4cf8ffc7ab9504d11257e6d61f",
+    "packages/core/src/internal/brand.ts": "7b888113edd48ea9777880fa85fc159428b78ac82587ca43eda8f1bbec4cc1b0",
+    "packages/core/src/internal/cells.ts": "adbf5e99cb1d40e284aee9ce3b1ddeefdcb10e0e1420be5bda91f58a96afe41e",
+    "packages/core/src/internal/debug.ts": "944a9858586dcf8ad58e66efd92b05c437c0be23afe517fabe00642d7bf4e338",
+    "packages/core/src/internal/definition.ts": "543dee934661802fb57cb75a8faec653112433a566ce31231fca33ffa8d36f92",
+    "packages/core/src/internal/fragments.ts": "4220e09fcc78e50cecd05ec373f57a278a5c33fbd51c53cbb2f7d57c6593ba68",
+    "packages/core/src/internal/game.ts": "b1584dbe4c579783e4b2fae802a25e6af95384972e15ffccd2b868d6ba879773",
+    "packages/core/src/internal/queries.ts": "382ce3b334df1bb7f4d0c4c19c17827b2343cae8a68ba7f562e9e732b6a5a4ab",
+    "packages/core/src/internal/result.ts": "87570330858b0b41bed22be9661bd9e3b04f67e7004998082e6a83cbb1ce1c89",
+    "packages/core/src/internal/streams.ts": "3e817555dddf937c51b51014ceb6422f068aeca4a40328281dbb774b8880168e",
+    "packages/core/src/internal/world.ts": "e71b4b060fec85fae690957104c14051e4bea0d857bacd648993ea69a6fe27d7"
+  },
+  "referenceEntry": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/index.ts",
+  "referenceNegativeControl": {
+    "status": "PASS",
+    "scope": "Actual source guard with fake wrong HEAD; rejects before adapter execution or source reads",
+    "calls": [
+      [
+        "git",
+        "-C",
+        "/nonexistent-read-only-reference-control",
+        "rev-parse",
+        "HEAD"
+      ]
+    ],
+    "adapterExecuted": false
+  },
+  "version": "bend 2.0.35\n",
+  "compilerSHA256": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a",
+  "baseSHA256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+  "measurementClosureSHA256": "bd9660f1c27e0531eeefef3af1fac3e0b3fd1f3e8f19e902e2952254ed6a7ea4",
+  "controlManifestSHA256": "d55f9bf4ca9b416575fc28d1cb7d2ecde381a60f45a7dd80286c281a7567ddca",
+  "controlObserver": {
+    "hostBefore": "decf18c049a002b4454ccb4708e92a154d18ff5d4323928fc145a49b25c47d47",
+    "hostAfter": "223e6ac3c9449999ea87fa7ccc7a4c406461baf2d156068000cebfa564fdb8b8",
+    "observerSHA256": "10ee1b2c5a3ca0baa1f6b9f2c4e3206006f1d22d6c46ce7a62aaaa8056f19509",
+    "rawGetterSourceSHA256": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "scope": "Control-only fullworld observer uses protected original Raw getters, rewrapping each affine owner; measured provider/runtime closure unchanged"
+  },
+  "semanticEvidenceSHA256": "a1f6aeb2ab3da8412f93652a31dce7c1020576177713a4dd3fc7b051bf226c59",
+  "protocolSHA256": "7c6c7a50703649ac5d16ca04f6e8f7594ecf4fe5e88fc2d1c2b6f7958efeca97"
+}
