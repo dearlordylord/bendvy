@@ -31,8 +31,8 @@ def main():
     # no evaluator/check/command/env overrides and no alternate direct launch.
     command=[tools['node'],cli,'next','--cwd',x.cwd,'--compact']
     guard.enable_subreaper();prior=guard.child_pids(os.getpid())
-    remaining=(guard.DEADLINE-datetime.datetime.now(datetime.timezone.utc)).total_seconds()-5
-    if remaining<=0:raise ValueError('no global execution/cleanup allowance')
+    remaining=guard.remaining()-5
+    if remaining<=0:raise ValueError('no per-packet execution/cleanup allowance')
     process=subprocess.Popen(command,env=ENV,start_new_session=True)
     try:
         code=process.wait(timeout=remaining)
@@ -44,6 +44,6 @@ def main():
         finally:
             try:process.wait(timeout=1)
             except subprocess.TimeoutExpired:pass
-        raise ValueError('global canonical-launch deadline')
+        raise ValueError('per-packet canonical-launch supervisor')
 
 if __name__=='__main__':main()

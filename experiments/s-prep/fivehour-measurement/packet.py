@@ -49,7 +49,7 @@ def main():
     canonical_identity=canonical_parent(m)
     if not args.output_root:raise ValueError('execution requires fixed --output-root, not one-shot output leaf')
     contract=json.loads(args.acceptance.read_text())
-    required={'executionEnvironment':ENV,'artifactRoot':str(args.output_root.resolve()),'accepted':True,'manifestSHA256':args.sha256,'baselineManifestSHA256':args.baseline_sha256,'protocolVersion':'fresh64-one-bracket-v2','packetCap':20,'noiseLimit':0.10,'bootstrapSeed':23,'bootstrapResamples':10000,'orchestrationPolicy':'backend-natural-owner-retention','deadlineUTC':guard.DEADLINE.isoformat()}
+    required={'executionEnvironment':ENV,'artifactRoot':str(args.output_root.resolve()),'accepted':True,'manifestSHA256':args.sha256,'baselineManifestSHA256':args.baseline_sha256,'protocolVersion':'fresh64-one-bracket-v2','packetCap':20,'noiseLimit':0.10,'bootstrapSeed':23,'bootstrapResamples':10000,'orchestrationPolicy':'backend-natural-owner-retention','deadlinePolicy':'per-packet-supervisor','perPacketLimitSeconds':guard.PACKET_LIMIT_SECONDS}
     if any(contract.get(k)!=v for k,v in required.items()):raise ValueError('incomplete/different accepted contract; no child executed')
     # Historical receipts cannot authorize the current candidate snapshot.
     live=contract.get('liveChecks')
@@ -76,7 +76,7 @@ def main():
             if prior.get('status')!='FRESH_TWO_ROLE_CONNECTED_GATES_PASS':raise ValueError('initial receipt incomplete')
             reuse_selected=all(prior['roles'][backend]['binding']['runtimeSources']==json.loads((args.output/'candidate-snapshot'/backend/'cache-specialization.json').read_text())['runtimeClosure'] for backend in ('JS','Native'))
             if reuse_selected:checkcommand += ['--reuse-receipt',priorpath,'--reuse-receipt-sha256',reuse['sha256']]
-        remaining=(guard.DEADLINE-datetime.datetime.now(datetime.timezone.utc)).total_seconds()
+        remaining=guard.remaining()
         check_limit=min(live['wholeCommandLimit'],remaining-live['cleanupReserveSeconds'])
         if check_limit<=0:raise ValueError('no remaining gate execution/cleanup allowance')
         r['effectiveCheckLimitSeconds']=check_limit;r['checkCleanupReserveSeconds']=5

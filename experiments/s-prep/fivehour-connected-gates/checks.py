@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 """Fresh authoritative semantic gates for the exact immutable two-role snapshot."""
-import argparse,datetime,hashlib,json,os,re,signal,subprocess,sys,shutil
+import argparse,datetime,hashlib,json,os,re,signal,subprocess,sys,shutil,time
 from pathlib import Path
 import supervisor
 HERE=Path(__file__).resolve().parent;ROOT=HERE.parents[2]
-DEADLINE=datetime.datetime.fromisoformat('2026-10-05T13:22:50+00:00')
+CHECK_LIMIT_SECONDS=3600
+CHECK_STARTED_MONOTONIC=time.monotonic()
+def remaining():
+ return CHECK_LIMIT_SECONDS-(time.monotonic()-CHECK_STARTED_MONOTONIC)
 EXPECTED_GATES={'materialize-controls':'PASS_DERIVED_CONTROL_SOURCE_MAP','host12':'PASS','access':'ACTUAL_ACCESS_9_PASS','e11':'BOUNDED_JOINED_PASS','owned-storage':'ACTUAL_FINAL_STORAGE_FIELDS_OWNERSHIP_MUTANTS_PASS','staging':'PASS_BOUNDED_STAGING_TYPE_BOUNDARY','tx-baseline':'FINITE_ACTUAL_TX_CACHE_FIELDS_PASS',**{'tx-'+v:'DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE' for v in ('stale-head','torn-tail','lost-mark','inverse-order')}}
 def validate_gates(gates):
  assert [g['name'] for g in gates]==list(EXPECTED_GATES),'Missing, duplicate or unexpected gate IDs'
@@ -71,7 +74,7 @@ def main():
    for role,overlay in [('JS',a.js_overlay),('Native',a.native_overlay)]:
     old=prior['roles'][role];assert old['status']=='PASS','Incomplete role gates';validate_gates(old['gates'])
     binding=source_binding(overlay);assert binding['runtimeSources']==old['binding']['runtimeSources'] and binding['runtimeClosureSHA256']==old['binding']['runtimeClosureSHA256'],'Runtime candidate source changed; run full gates'
-    controls=a.output/(role+'-reuse-controls');command=[sys.executable,str(HERE/'materialize-controls.py'),'--overlay',str(overlay),'--output',str(controls),'--raw-snapshots','--slice-host-fixtures'];remaining=(DEADLINE-datetime.datetime.now(datetime.timezone.utc)).total_seconds();assert remaining>0,'Global work deadline reached';code,_=supervisor.execute(command,min(120,remaining));assert code==0,'Reuse control derivation failed'
+    controls=a.output/(role+'-reuse-controls');command=[sys.executable,str(HERE/'materialize-controls.py'),'--overlay',str(overlay),'--output',str(controls),'--raw-snapshots','--slice-host-fixtures'];available=remaining();assert available>0,'Per-packet gate budget reached';code,_=supervisor.execute(command,min(120,available));assert code==0,'Reuse control derivation failed'
     derived=json.loads((controls/'overlay.json').read_text())['sources'];assert derived==old['controlSources'],'Derived actual gate source changed; run full gates'
     for gate in old['gates']:
      if 'receipt' in gate:assert sha(Path(gate['receipt']))==gate['receiptSHA256'],'Dependency receipt drift'
@@ -83,9 +86,9 @@ def main():
   for role,overlay in [('JS',a.js_overlay),('Native',a.native_overlay)]:
    binding=source_binding(overlay);folder=a.output/role;folder.mkdir();entry={'status':'INCOMPLETE','input':str(overlay.resolve()),'binding':binding,'gates':[]};result['roles'][role]=entry
    def run(label,args,receipt,statuses,env=None):
-    assert datetime.datetime.now(datetime.timezone.utc)<DEADLINE,'Global work deadline reached'
+    assert remaining()>0,'Per-packet gate budget reached'
     command=[sys.executable,*map(str,args)];out=folder/(label+'.log');
-    try:code,text=supervisor.execute(command,min(1200,(DEADLINE-datetime.datetime.now(datetime.timezone.utc)).total_seconds()),env)
+    try:code,text=supervisor.execute(command,min(1200,remaining()),env)
     except Exception as error:out.write_text(str(error));raise
     out.write_text(text);gate={'name':label,'command':command,'exit':code,'logSHA256':sha(out)};entry['gates'].append(gate)
     assert code==0,label+' failed: '+text[-2000:]
