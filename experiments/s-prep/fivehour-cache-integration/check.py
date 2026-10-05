@@ -6,7 +6,7 @@ try:
  e['sourceCommit']=run(['git','-C',ROOT,'rev-parse','HEAD']).strip();e['sources']={}
  for p in [*HERE.glob('*.py'),*HERE.glob('*.bend'),guards]:
   assert p.read_bytes()==subprocess.check_output(['git','-C',str(ROOT),'show','HEAD:'+p.relative_to(ROOT).as_posix()],timeout=5);e['sources'][p.relative_to(ROOT).as_posix()]=hashlib.sha256(p.read_bytes()).hexdigest()
- e['runnerSHA256']=hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest();e['version']=run(['bend','version']);run(['bend','guide']);overlay=ART/'overlay';run(['python3',HERE/'materialize.py',overlay]);pkg=overlay/'experiments/s-integrate'
+ e['runnerSHA256']=hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest();e['version']=run(['bend','version']);run(['bend','guide']);overlay=ART/'overlay';run(['python3',HERE/'materialize.py',overlay]+(['--native-payload'] if os.environ.get('BENDVY_CACHE_NATIVE_PAYLOAD')=='1' else []));pkg=overlay/'experiments/s-integrate'
  for name in ['measurement-bend.bend','raw-boundaries.bend']:
   output=run(['taskset','-c',CPU,'bend',pkg/name,'--check-only']);assert 'ALL PROOFS CHECK' in output;e['cases'].append({'entry':name,'status':'PASS','output':output})
  e['specialization']=json.loads((overlay/'cache-specialization.json').read_text());e['status']='PASS_SOURCE_ONLY'
