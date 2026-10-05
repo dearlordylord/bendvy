@@ -6,7 +6,7 @@ ROOT=Path(__file__).resolve().parents[3];HERE=Path(__file__).resolve().parent
 sp=importlib.util.spec_from_file_location('build',ROOT/'experiments/t05/run.py');B=importlib.util.module_from_spec(sp);sp.loader.exec_module(B)
 sp=importlib.util.spec_from_file_location('independent',ROOT/'experiments/s-prep/owned-write-query-integration/controls-run.py');I=importlib.util.module_from_spec(sp);sp.loader.exec_module(I)
 def main():
- p=argparse.ArgumentParser();p.add_argument('--overlay',required=True,type=Path);p.add_argument('--output',required=True,type=Path);p.add_argument('--mutation',choices=['stale-head','torn-tail','lost-mark','inverse-order']);p.add_argument('--cpu',type=int,default=9);a=p.parse_args();a.output.mkdir(exist_ok=False);os.sched_setaffinity(0,{a.cpu});h=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();result={'status':'INCOMPLETE','scope':'Actual cached World point-Tx original callback success/failure; finite held/cache fields, no general API/performance acceptance','cases':[]}
+ p=argparse.ArgumentParser();p.add_argument('--overlay',required=True,type=Path);p.add_argument('--output',required=True,type=Path);p.add_argument('--mutation',choices=['stale-head','torn-tail','lost-mark','inverse-order']);p.add_argument('--cpu',type=int,default=9);p.add_argument('--split-schemas',action='store_true');a=p.parse_args();a.output.mkdir(exist_ok=False);os.sched_setaffinity(0,{a.cpu});h=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();result={'status':'INCOMPLETE','scope':'Actual cached World point-Tx original callback success/failure; finite held/cache fields, no general API/performance acceptance','cases':[]}
  try:
   manifest=json.loads((a.overlay/'overlay.json').read_text())['sources'];assert all(h(a.overlay/n)==v for n,v in manifest.items());result['overlaySHA256']=h(a.overlay/'overlay.json');result['fixtureSHA256']=h(HERE/'tx-controls.bend')
   records=[]
@@ -29,13 +29,32 @@ def main():
      result['originalRawObserverSHA256']=h(HERE/'original-raw-observer.bend');result['originalRawObserverMode']='Cache unwrap, original raw payload getter, unchanged cache rewrap'
     result['originalPayloadSHA256']=h(original)
    source.write_text(text);outputs=[]
-   for program in B.build(source,folder):
-    raw=B.execute(program);out=folder/(program.name+'.jsonl');out.write_text(raw+'\n');lines=[json.loads(line) for line in raw.splitlines()];assert len(lines)==144,len(lines);outputs.append(lines)
+   schema_outputs={}
+   schemas=('motion','health') if a.split_schemas else ('both',)
+   for schema in schemas:
+    compiled_source=source;compiled_folder=folder
+    if schema!='both':
+     compiled_folder=folder/schema;compiled_folder.mkdir();compiled_source=core/('cache-tx-'+schema+'-controls.bend')
+     other='health' if schema=='motion' else 'motion';derived=text.replace('        '+other+'_pair(scenario,False{})\n','').replace('        '+other+'_pair(scenario,True{})\n','')
+     sp=importlib.util.spec_from_file_location('fixture_slice',HERE/'materialize-controls.py');mapping=importlib.util.module_from_spec(sp);sp.loader.exec_module(mapping)
+     derived,retained,removed=mapping.reachable_fixture(derived,'main');compiled_source.write_text(derived)
+     result.setdefault('schemaFixtureSlices',[]).append({'getter':mode,'schema':schema,'originalSHA256':hashlib.sha256(text.encode()).hexdigest(),'derivedSHA256':h(compiled_source),'retainedDefinitions':retained,'removedUnreachableDefinitions':removed,'records':72,'callbackDefinitionsByteIdentical':True})
+    lane_outputs=[]
+    for program in B.build(compiled_source,compiled_folder):
+     raw=B.execute(program);out=compiled_folder/(program.name+'.jsonl');out.write_text(raw+'\n');lines=[json.loads(line) for line in raw.splitlines()];assert len(lines)==(144 if schema=='both' else 72),len(lines);lane_outputs.append(lines)
+     result['cases'].append({'getter':mode,'schema':schema,'backend':'JS' if program.suffix=='.js' else 'Native','status':'COMPILED_RUNTIME_OBSERVED' if a.mutation else 'FULL_TX_FIELDS_PASS','programSHA256':h(program),'rawSHA256':h(out),'records':len(lines)})
+    assert lane_outputs[0]==lane_outputs[1];schema_outputs[schema]=lane_outputs
+   for backend_index in range(2):
+    if a.split_schemas:
+     lines=[]
+     for scenario in range(9):
+      for schema in ('motion','health'):lines.extend(schema_outputs[schema][backend_index][scenario*8:scenario*8+8])
+    else:lines=schema_outputs['both'][backend_index]
+    assert len(lines)==144
     if not a.mutation:
-     I.independent(lines)
-     assert not I.differences(lines),'Original point Tx versus held Tx mismatch'
+     I.independent(lines);assert not I.differences(lines),'Original point Tx versus held Tx mismatch'
      for block in range(36):assert lines[block*4]['value']==(46 if block//4==0 else 3606 if block//4==8 else 4294967295)
-    result['cases'].append({'getter':mode,'backend':'JS' if program.suffix=='.js' else 'Native','status':'COMPILED_RUNTIME_OBSERVED' if a.mutation else 'FULL_TX_FIELDS_PASS','programSHA256':h(program),'rawSHA256':h(out),'records':144})
+    outputs.append(lines)
    assert outputs[0]==outputs[1];records.append(outputs[0])
   if a.mutation:
    detected=records[0]!=records[1] or bool(I.differences(records[0]))

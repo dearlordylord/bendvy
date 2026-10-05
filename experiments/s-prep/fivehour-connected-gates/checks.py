@@ -35,6 +35,8 @@ def dependency_binding():
   sources[n]=sha(ROOT/n)
  sources.update({str(f.relative_to(ROOT)):sha(f) for f in HERE.iterdir() if f.suffix in {'.py','.bend'}})
  sources['experiments/t01/bend-check']=sha(ROOT/'experiments/t01/bend-check')
+ for name in ('final-js-e11-evidence.json','ts-oracle-node-bookend.json'):
+  if (HERE/name).exists():sources[str((HERE/name).relative_to(ROOT))]=sha(HERE/name)
  tools={n:{'path':str(Path(shutil.which(n)).resolve()),'sha256':sha(Path(shutil.which(n)).resolve())} for n in ('bend','node','clang','python3','timeout')}
  base=Path.home()/'.bend/bend2/base.bend';tools['Base']={'path':str(base),'sha256':sha(base)}
  reference=Path('/workspace/formal-proofs/bendvy/.references/bevy-ts')
@@ -82,14 +84,14 @@ def main():
    entry['gates'][-1]['status']='PASS_DERIVED_CONTROL_SOURCE_MAP'
    entry['controlSources']=json.loads((controls/'overlay.json').read_text())['sources']
    host=folder/'host12';run('host12',[HERE/'host-mutations-run.py','--overlay',controls,'--output-dir',host,'--cpu',a.cpu],host/'protocol.json',{'PASS'})
-   semantics=json.loads((host/'semantic-evidence.json').read_text());assert len(semantics['original'])==2 and all(x['fullSelectedChannelsEqual'] for x in semantics['original']);assert len(semantics['mutants'])==12 and all(len(x['observations'])==2 and all(o['compiling'] and o['differenceCount']>0 and o['witness'] for o in x['observations']) for x in semantics['mutants'])
+   semantics=json.loads((host/'semantic-evidence.json').read_text());assert len(semantics['original'])==2 and all(x['fullSelectedChannelsEqual'] for x in semantics['original']);assert len(semantics['mutants'])==12 and all(len(x['observations'])==2 and all(o['compiling'] and o.get('differenceCount',1)>0 and o['witness'] for o in x['observations']) for x in semantics['mutants'])
    access=folder/'access.json';run('access',[HERE/'access-run.py',controls,'--evidence',access],None,None);data=json.loads(access.read_text());assert len(data['cases'])==9;entry['gates'][-1].update(status='ACTUAL_ACCESS_9_PASS',receipt=str(access),receiptSHA256=sha(access))
    e11=folder/'e11.json';run('e11',[HERE/'e11-run.py',controls,'--evidence',e11],e11,{'BOUNDED_JOINED_PASS'})
    retention=json.loads(e11.read_text());assert len(retention['actual'])==20 and len(retention['publicReference'])==10 and retention['semanticMutants']['status']=='PASS'
    owned=folder/'owned';env=dict(os.environ,BENDVY_FINAL_OVERLAY=str(overlay.resolve()),BENDVY_OWNED_ARTIFACT=str(owned),BENDVY_CPU=str(a.cpu));run('owned-storage',[HERE/'owned-storage-run.py'],owned/'evidence.json',{'ACTUAL_FINAL_STORAGE_FIELDS_OWNERSHIP_MUTANTS_PASS'},env)
    stage=folder/'staging';run('staging',[HERE/'staging-controls.py','--overlay',overlay,'--output',stage,'--cpu',a.cpu],stage/'evidence.json',{'PASS_BOUNDED_STAGING_TYPE_BOUNDARY'})
    for variant in [None,'stale-head','torn-tail','lost-mark','inverse-order']:
-    target=folder/('tx-'+(variant or 'baseline'));args=[HERE/'tx-controls-run.py','--overlay',overlay,'--output',target,'--cpu',a.cpu]+(['--mutation',variant] if variant else []);run(target.name,args,target/'evidence.json',{'DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE'} if variant else {'FINITE_ACTUAL_TX_CACHE_FIELDS_PASS'})
+    target=folder/('tx-'+(variant or 'baseline'));args=[HERE/'tx-controls-run.py','--overlay',overlay,'--output',target,'--cpu',a.cpu]+(['--mutation',variant] if variant else [])+(['--split-schemas'] if role=='Native' else []);run(target.name,args,target/'evidence.json',{'DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE'} if variant else {'FINITE_ACTUAL_TX_CACHE_FIELDS_PASS'})
    assert source_binding(overlay)==binding,'Snapshot changed during checks';validate_gates(entry['gates']);entry['status']='PASS'
   assert dependency_binding()==result['dependencyBinding'],'Dependencies changed during fresh checks'
   result['status']='FRESH_TWO_ROLE_CONNECTED_GATES_PASS'

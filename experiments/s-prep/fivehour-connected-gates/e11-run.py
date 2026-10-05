@@ -32,6 +32,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('overlay', type=Path)
     parser.add_argument('--evidence', type=Path, default=HERE / 'e11-evidence.json')
+    parser.add_argument('--reuse-ts-oracle',type=Path,help='Exact unchanged reference outputs from this task; never a fresh TS claim')
+    parser.add_argument('--reuse-ts-oracle-sha256')
     parser.add_argument('--joined-only', action='store_true')
     parser.add_argument('--resume-mutants', action='store_true', help='Resume only against exact passing original closure')
     parser.add_argument('--prior', type=Path, help='Preserve superseded original failures in replacement evidence')
@@ -162,46 +164,59 @@ def main():
             finally:
                 args.evidence.write_text(evidence.read_text())
         save()
-        # All ten fresh TS lanes run even if the candidate build is blocked.
-        for schema in runner.SCHEMAS:
-            for lane in runner.LANES:
-                try:
-                    result = json.loads(runner.B.command(['node', reference, schema, lane]))
-                    assert result['status'] == 'PASS'
-                    report['publicReference'].append(result)
-                except Exception as error:
-                    report['failures'].append({'schema': schema, 'lane': lane,
-                                               'backend': 'TypeScript', 'error': str(error)[:2000]})
-                save()
-        try:
-            programs = runner.B.build(target / 'host-retention-controls.bend', Path(temporary))
-        except Exception as error:
-            report['status'] = 'BUILD_BLOCKED'
-            report['failures'].append({'backend': 'Build', 'error': str(error)[:2000]})
-            save()
-            return 2
-        for schema_index, schema in enumerate(runner.SCHEMAS):
-            for lane_index, lane in enumerate(runner.LANES):
-                reference_case = next((r for r in report['publicReference']
-                                       if r['schema'] == schema and r['lane'] == lane), None)
-                if reference_case is None:
-                    continue
-                outputs = []
-                for backend, program in zip(('Native', 'JavaScript'), programs):
-                    started = time.monotonic()
+        # Reference behavior is independent of the Bend provider variant.
+        oracle_binding=None
+        def bind_oracle():
+            root=Path('/workspace/formal-proofs/bendvy/.references/bevy-ts');head=subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip();names=subprocess.check_output(['git','ls-files','packages/core/src'],cwd=root,text=True).splitlines();sources={n:sha(root/n) for n in names}
+            assert head=='3040a3b2a3f28fa8554d856f9ccb6bf5433fa334'
+            assert all(hashlib.sha256(subprocess.check_output(['git','show','HEAD:'+n],cwd=root)).hexdigest()==v for n,v in sources.items())
+            node=Path(shutil.which('node')).resolve()
+            return {'referenceHEAD':head,'referenceCoreSources':sources,'adapterSHA256':sha(reference),'Node':{'path':str(node),'sha256':sha(node),'version':runner.B.command(['node','--version'])},'environment':{n:os.environ.get(n) for n in ('NODE_OPTIONS','HOME','PATH','LD_PRELOAD','LD_LIBRARY_PATH')}}
+        if args.reuse_ts_oracle:
+            assert args.reuse_ts_oracle_sha256 and sha(args.reuse_ts_oracle)==args.reuse_ts_oracle_sha256,'Reviewed oracle receipt digest differs'
+            prior=json.loads(args.reuse_ts_oracle.read_text());assert prior['status']=='BOUNDED_JOINED_PASS' and not prior['failures']
+            assert prior['referenceSha256']==sha(reference) and prior['comparisonSha256']==runner.comparison_fingerprint()
+            oracle_binding=bind_oracle();assert prior['versions']['node']==oracle_binding['Node']['version']
+            reference_cases=prior['publicReference'];assert len(reference_cases)==10 and {(r['schema'],r['lane']) for r in reference_cases}=={(schema,lane) for schema in runner.SCHEMAS for lane in runner.LANES};assert all(r['status']=='PASS' and r['capacity']==65536 and r['publicOnly'] for r in reference_cases)
+            report['publicReference']=reference_cases;report['referenceReplay']={'status':'EXACT_UNCHANGED_THIS_TASK_TS_ORACLE_REUSED','freshTypeScriptExecution':False,'sourceReceiptSHA256':sha(args.reuse_ts_oracle),'outputSHA256':hashlib.sha256(json.dumps(reference_cases,sort_keys=True,separators=(',',':')).encode()).hexdigest(),'dependencyBindingBefore':oracle_binding,'historicalNodeVersion':prior['versions']['node'],'historicalNodeBinaryPinRecordedInPrior':False,'scope':'Prior observed complete TypeScript outputs; current adapter/reference/Node bytes guarded before and after; no timing or historical binary-hash claim'};save()
+        else:
+            assert not args.reuse_ts_oracle_sha256
+            for schema in runner.SCHEMAS:
+                for lane in runner.LANES:
                     try:
-                        text = runner.B.execute(program, [str(schema_index), str(lane_index)])
-                        result = runner.compare_joined(text, reference_case)
-                        result.update(backend=backend, executionSeconds=time.monotonic() - started)
-                        report['actual'].append(result)
-                        outputs.append(text)
-                        report['actualJoinedBendExecuted'] = True
-                    except Exception as error:
-                        report['failures'].append({'schema': schema, 'lane': lane,
-                                                   'backend': backend, 'error': str(error)[:2000]})
+                        result=json.loads(runner.B.command(['node',reference,schema,lane]));assert result['status']=='PASS';report['publicReference'].append(result)
+                    except Exception as error:report['failures'].append({'schema':schema,'lane':lane,'backend':'TypeScript','error':str(error)[:2000]})
                     save()
-                if len(outputs) == 2:
-                    runner.same(outputs[0], outputs[1], 'exact Native/JS output')
+        split_subjects=sha(target/'uncached-payload.bend')!=sha(target/'payload.bend')
+        programs=None
+        if not split_subjects:
+            try:programs=runner.B.build(target/'host-retention-controls.bend',Path(temporary))
+            except Exception as error:report['status']='BUILD_BLOCKED';report['failures'].append({'backend':'Build','error':str(error)[:2000]});save();return 2
+        for schema_index,schema in enumerate(runner.SCHEMAS):
+            for lane_index,lane in enumerate(runner.LANES):
+                if split_subjects:
+                    folder=Path(temporary)/('subject-'+schema+'-'+lane);core=folder/'experiments/s-integrate';shutil.copytree(target,core);source=core/'host-retention-controls.bend';text=source.read_text();start=text.index('def main() -> IO(Unit):');constructors=dict(zip(runner.LANES,('RetMessage','RetRemoved','RetDespawned','RetUnheld','RetMarks')));source.write_text(text[:start]+'def main() -> IO(Unit):\n  '+schema.lower()+'('+constructors[lane]+'{})\n')
+                    runtime=set()
+                    def visit(path):
+                        name=str(path.relative_to(target.parent.parent))
+                        if name in runtime:return
+                        runtime.add(name)
+                        for imported in re.findall(r'^import (\./\S+\.bend)',path.read_text(),re.M):visit((path.parent/imported).resolve())
+                    visit(target/'measurement-bend.bend');slices=mapping.slice_control_imports(core,source,runtime);report.setdefault('originalSubjectControlSlices',{})[schema+'/'+lane]=slices;save()
+                    try:programs=original_build(source,folder)
+                    except Exception as error:report['status']='BUILD_BLOCKED';report['failures'].append({'backend':'Build','schema':schema,'lane':lane,'error':str(error)[:2000]});save();return 2
+                reference_case=next((r for r in report['publicReference'] if r['schema']==schema and r['lane']==lane),None)
+                if reference_case is None:continue
+                outputs=[]
+                for backend,program in zip(('Native','JavaScript'),programs):
+                    started=time.monotonic()
+                    try:
+                        text=runner.B.execute(program,[str(schema_index),str(lane_index)]);result=runner.compare_joined(text,reference_case);result.update(backend=backend,executionSeconds=time.monotonic()-started);report['actual'].append(result);outputs.append(text);report['actualJoinedBendExecuted']=True
+                    except Exception as error:report['failures'].append({'schema':schema,'lane':lane,'backend':backend,'error':str(error)[:2000]})
+                    save()
+                if len(outputs)==2:runner.same(outputs[0],outputs[1],'exact Native/JS output')
+        if oracle_binding is not None:
+            assert bind_oracle()==oracle_binding and sha(args.reuse_ts_oracle)==args.reuse_ts_oracle_sha256,'Reused oracle dependencies drifted';report['referenceReplay']['dependencyBindingAfter']=oracle_binding;save()
         runner.same(runner.source_closure(), report['sourceClosure'], 'unchanged candidate closure')
         if len(report['publicReference']) == 10:
             runner.project(report['publicReference'])
