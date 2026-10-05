@@ -74,6 +74,7 @@ def main():
     candidate=decision.score(values['candidate'],tsvalues['candidate']);baseline=decision.score(values['reference'],tsvalues['reference'])
     if candidate!=r['decision'] or baseline!=r['baselineDecision'] or candidate['status']!='QUALIFIED_PROPOSAL' or baseline['status']!='QUALIFIED_PROPOSAL' or decision.keep(candidate,baseline)!=r['keepProposed']:
         raise ValueError('recomputed qualified decision mismatch')
+    if candidate['metric']<baseline['metric'] and not r['keepProposed']:raise ValueError('scalar improvement has a forbidden initial-baseline cell regression')
     boundary.verify(captured,digest);boundary.verify(a.baseline_manifest,a.baseline_sha256)
     if guard.sha(path)!=pointer['sha256'] or guard.sha(checks)!=r['freshCheckReceiptSHA256']:raise ValueError('receipt drift during independent check')
     print('INDEPENDENT_PACKET_RAW_ORACLES_AND_RECEIPTS_PASS')
