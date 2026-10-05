@@ -1,0 +1,30 @@
+{
+  "originalBaselineHeadersTypesImportsExact": true,
+  "compiled": "/tmp/bendvy-sevenhour-raw-intrinsic-tx02/cached/motion/cache-tx-motion-controls.c",
+  "sha256": "2a6c539b62c31138a7e42eb437905c959f05104f873697ebacf28776b1d2682a",
+  "blkHalfOccurrences": [
+    1482
+  ],
+  "blkHalfExplanation": "Only runtime function definition; no call site in fresh full Tx Motion translation unit.",
+  "scalarSwapSnippetLines": [
+    5388,
+    5410
+  ],
+  "scalarSwapSnippet": "INLINE Term spin_50(Env e, THR Term* o, Term r0, u64 q0, u32 r1) {\n  u32 wpoll = 0;\n  Term h0 = r0;\n  Term _v_4 = 0;\n  u32 _v_5 = 0;\n  Term _array_0 = r0;\n  u32 _value_1 = r1;\n  WL_SPIN\n    Term _at_0 = _array_0 == h0 ? q0 : blk_loc(e.mem, _array_0);\n    Term _at_1 = blk_at(_array_0, 0ull, 0);\n    u32 _c_0 = blk_read(e.mem, 0, _at_0, _at_1 + 0);\n    blk_write(e.mem, 0, _at_0, _at_1 + 0, _value_1);\n    _v_4 = _array_0;\n    _v_5 = _c_0;\n  break;\n  }\n  o[0] = _v_4;\n  o[1] = _v_5;\n  return 1;\n}\n\nINLINE Term spin_51(Env e, THR Term* o, u32 r0, Term r1, u64 q1, u32 r2) {\n  u32 wpoll = 0;",
+  "fourGetterSnippetLines": [
+    1797,
+    1817
+  ],
+  "fourGetterSnippet": "INLINE Term spin_7(Env e, THR Term* o, Term r0, u64 q0) {\n  u32 wpoll = 0;\n  Term h0 = r0;\n  Term _v_82 = 0;\n  u32 _v_83 = 0;\n  u32 _v_84 = 0;\n  u32 _v_85 = 0;\n  u32 _v_86 = 0;\n  Term _array_1 = r0;\n  WL_SPIN\n    Term _at_0 = _array_1 == h0 ? q0 : blk_loc(e.mem, _array_1);\n    Term _at_1 = blk_at(_array_1, 0ull, 0);\n    u32 _c_0 = blk_read(e.mem, 0, _at_0, _at_1 + 0);\n    Term _v_87 = 0;\n    u32 _v_88 = 0;\n    u32 _v_89 = 0;\n    u32 _v_90 = 0;\n    u32 _v_91 = 0;\n    Term _o_3[5];\n    if (spin_8(e, _o_3, _array_1, _array_1 == h0 ? q0 : blk_loc(e.mem, _array_1), _c_0) == 0) {\n      return 0;",
+  "claim": "Fresh semantic/codegen evidence only, no dynamic cost or performance claim.",
+  "fullMeasurement": {
+    "path": "/tmp/bendvy-sevenhour-raw-intrinsic01/measurement-native.c",
+    "sha256": "50bf83b4f83d92543926cf7910911afb0a30f23d42dca01a9ffedf14c26b6499",
+    "blkHalfOccurrences": [
+      {
+        "line": 2246,
+        "text": "INLINE Term blk_half(Env e, Term a, u32 hi) {"
+      }
+    ]
+  }
+}

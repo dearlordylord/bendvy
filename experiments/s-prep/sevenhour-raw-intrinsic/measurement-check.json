@@ -1,0 +1,49 @@
+{
+  "limits": {
+    "checker": 5,
+    "codegen": 30
+  },
+  "cpu": 8,
+  "commands": [
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "8",
+        "bend",
+        "/tmp/bendvy-sevenhour-raw-intrinsic01/experiments/s-integrate/measurement-bend.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5,
+      "stdout": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n",
+      "stderr": "",
+      "status": "PASS"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "8",
+        "bend",
+        "/tmp/bendvy-sevenhour-raw-intrinsic01/experiments/s-integrate/measurement-bend.bend",
+        "-o",
+        "/tmp/bendvy-sevenhour-raw-intrinsic01/measurement-native.c"
+      ],
+      "limitSeconds": 30,
+      "stdout": "",
+      "stderr": "",
+      "status": "PASS"
+    }
+  ],
+  "failures": [
+    {
+      "stage": "tx-initial-manifest",
+      "error": "Copied original overlay sources mismatch derived uncached-payload; rejected before compile. Refreshed derived source binding."
+    },
+    {
+      "stage": "tx-second-launch",
+      "error": "Output path existed from rejected launch; used fresh tx02, preserved tx01."
+    }
+  ],
+  "generatedSha256": "50bf83b4f83d92543926cf7910911afb0a30f23d42dca01a9ffedf14c26b6499"
+}
