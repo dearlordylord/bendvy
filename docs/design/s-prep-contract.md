@@ -8,8 +8,8 @@ The user rejected the proposed10% improvement over old Bend-JS and5% Native regr
 
 - Success comparator: pinned **bevy-ts**, on equivalent complete ECS work.
 - JavaScript success: Bend-JS elapsed time **<= bevy-ts elapsed time**, supported by repeated full-field-valid measurements and uncertainty.
-- Native success: Bend-Native must be **substantially faster than bevy-ts**. Exact numerical minimum remains unresolved; the earlier2x product proposal is not approval.
-- Intermediate candidates/measurements may inform the search; an improvement over the old Bend implementation cannot be reported as successful completion. Report stopped-unmet if the approved3600-second budget expires before the target.
+- Native success: the user now explicitly approves **at least 2× faster than pinned bevy-ts**: Native elapsed / TS elapsed **<= 0.50** on equivalent complete work. This resolves the earlier numerical question; it does not accept the withdrawn contract or a new budget.
+- Intermediate candidates/measurements may inform the search; an improvement over the old Bend implementation cannot be reported as successful completion. The later cumulative two-hour window has expired stopped-unmet; a new measured segment requires a fresh explicit budget.
 - Old Bend reference remains useful for attribution and regression diagnosis, not the success denominator. Noise/drift safeguards are separate from target performance.
 - Replace the evaluator's comparison/decision code and re-freeze its manifest before setup. Reassess the body-only scope: the reviewed occupancy-tree design may be needed, with integrated controls before representation adoption. No incremental-only goal or body-only scope is inferred from this correction.
 

@@ -73,3 +73,7 @@ The TS-relative performance goal remains **unachieved/unqualified**. All deliver
 Delivered experiment sources, root replay evidence, independent reviews and concrete follow-ups are committed/pushed on master. The combined Main/query candidate remains separately pushed on `s-loop23/fusion-review`. All subagents completed and their owned builds/processes ended before the window deadline. #21/#23 remain open; original references and `/workspace/typescript/jev` were not modified.
 
 Next required numerical decision: choose the minimum Native speedup against the same pinned bevy-ts (2× or 5×). AGENTS.md requires numerical approval; no value was invented. A complete replacement comparison contract—including source/check scope, current tool pin, resolution/noise/keep rules and a fresh enforceable budget—must then be accepted before any Autoresearch packet. General cache integration and full matrix/core/application gates remain recorded in the checkpoint; preparation does not close them.
+
+## Post-window numerical approval
+
+The user subsequently explicitly approved JS parity or better and Native at least 2× faster than the same pinned bevy-ts. Authoritative duration thresholds are JS/TS <=1.00 and Native/TS <=0.50, both required. The earlier unanswered-factor notes above describe the historical window, not the current decision. This approves numerical targets only; it neither qualifies any historical measurement nor renews the expired two-hour budget/accepts a complete replacement experiment contract.

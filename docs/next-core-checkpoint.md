@@ -122,7 +122,7 @@ workloads after the storage/CPU evidence, not silently removed.
   no runtime-proof approval is inferred.
 - Historical numerical proposal (withdrawn): native >=2x; JS <=1.10x.
   Current required goal is JS parity or better against bevy-ts, and Native
-  substantially faster. Exact Native factor and uncertainty rules remain unapproved.
+  at least 2× faster (now explicitly approved). Uncertainty rules remain unapproved.
 - The user authorized the first research breakdown; Astra reviewed it and #16/#17
   are published. Review each remaining detailed breakdown before publication; no
   premature ready state for integration, proofs or simulation.
@@ -138,7 +138,7 @@ The full-core scope, unapproved thresholds/laws and simulation/copied-TD prerequ
 
 ### Latest performance target correction
 
-The user rejected the incremental10% JS /5% Native-regression proposal. Success compares with bevy-ts: JS parity or better, Native substantially faster; exact Native minimum unresolved. Old contract/question withdrawn, no session started. Comparator/decision/manifest and implementation scope must be revised before launch. The latest two-hour cumulative work budget supersedes3600 seconds. Stop early only on qualified target achievement; the Native numerical threshold remains an unanswered question.
+The user rejected the incremental10% JS /5% Native-regression proposal. Success compares with bevy-ts: JS parity or better, Native at least 2× faster (explicitly approved after the window). Old contract/question withdrawn, no session started. Comparator/decision/manifest and implementation scope must be revised before launch. The latest two-hour cumulative work budget supersedes3600 seconds. Stop early only on qualified target achievement; the Native numerical question is now resolved: Native/TS elapsed <=0.50; JS/TS elapsed <=1.00. The expired window is not a renewed budget.
 
 
 Latest bounded implementation evidence is retained in [the two-hour report](reports/twohour-performance-preparation.md): selected-owner Dense integration, actual affine Raw/view cache capability and separate Native cached-capacity operations. These are semantic prototypes, not accepted performance keeps. The combined Main/indexed-query candidate remains isolated on `s-loop23/fusion-review`; the production core is unchanged. Persistent cache integration, remaining matrix/Host gates and full protocol acceptance stay open under #21/#23.
@@ -150,8 +150,11 @@ Keep these under the existing open #21/#23 until separately specified and checke
 
 1. Complete the private persistent-cache World boundaries: generic factory, raw Bundle/Command conversion with rejected-owner return, all optional combinations, arbitrary transforms/invalidation, readers and full command coverage. Finite growth/replacement/removal/applyDeferred gates now pass on both schemas/backends (see `persistent-cache-world/GROWTH.md`), without a general raw staging adapter or universal claim. Current two-tick rollback/full-field capability evidence is in `experiments/s-prep/persistent-cache-world/`; its laws remain draft/unapproved.
 2. Join the reviewed selected-owner callback adapter, persistent cache policy and separately pinned Native/JS column operations at one chosen source closure. Repeat the actual full Host/access/mutation gates and remaining workload/size matrix. The Main/indexed-query candidate remains isolated; no production adoption is implied.
-3. Accept a complete replacement comparison contract: current compiler pin, exact Native minimum, uncertainty-aware JS parity, evaluator/check/source scope, noise/keep/stop rules and enforceable budget. The old 10%/5% contract is withdrawn. Current evaluator remains dry-run-only; no packet/session exists.
+3. Accept a complete replacement comparison contract: current compiler pin, the approved Native/TS <=0.50 and JS/TS <=1.00 targets, uncertainty treatment, evaluator/check/source scope, noise/keep/stop rules and enforceable budget. The old 10%/5% contract is withdrawn. Current evaluator remains dry-run-only; no packet/session exists.
 4. Resolve current timer quantization through an explicitly versioned equivalent-work protocol; existing batch sums do not reduce per-world endpoint uncertainty. Archive every TS full record. Only then qualify fresh candidate/reference cohorts and judge the actual TS-relative goal.
 5. Full core, headless simulation and copied Tower Defense follow their existing prerequisite gates. Never modify `/workspace/typescript/jev`; prototypes and focused observations cannot close these packages.
 
 See [persistent cache plan](design/persistent-owned-cache-plan.md), [resolution proposal](design/parity-resolution-protocol.md), [bounded review](reviews/twohour-owner-cache-review.md) and [current report](reports/twohour-performance-preparation.md).
+
+
+Post-window explicit user approval: **JS elapsed / bevy-ts elapsed <=1.00; Native elapsed / bevy-ts elapsed <=0.50 (speedup >=2×)** on equivalent work. Both conditions must hold; a relative improvement over old Bend does not complete the goal. This resolves the numerical threshold question, not the remaining method/scope/noise/full-matrix gates or a fresh experiment allowance.
