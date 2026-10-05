@@ -1,0 +1,32 @@
+{
+  "scope": "fresh Native actual64-step Dense/Sparse dispatcher/Host/query/Held/Tx work with original protected raw observer; semantic only",
+  "limitsSeconds": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "cpu": 8,
+  "iterations": 64,
+  "cases": {},
+  "mutants": {},
+  "originalProtectedRawBytesExact": true,
+  "originalCallbackDefinitionsExact": true,
+  "rawObserverSha256": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+  "driverSha256": "14dcc4d54f9afd5f9f1e1a8b4b153c868a869b8f1e6d622ab113f9a77876622a",
+  "referenceAdapterSha256": "039edf1ec9905ad39c94bf4fcd9850610615251bd8b72e044b93fb7aa7c90376",
+  "fullFieldValidatorSha256": "25ab577d5234a1c30f46318708455377353ec39d4fb0b6bf1b40ad5ea5da8f84",
+  "environment": {
+    "bend": "bend 2.0.35",
+    "Node": "v24.20.0",
+    "BaseSha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661"
+  },
+  "attempts": [
+    {
+      "stage": "initial driver checker",
+      "result": "REJECTED undefined JSON.render_motionmode; corrected to existing JSON.render_motion_mode without changing observations"
+    }
+  ],
+  "status": "BOUNDED_FAILURE",
+  "error": "Command '['taskset', '-c', '8', 'bend', '/tmp/native-columns-query-runtime-igu56q2u/core/query-workload.bend', '--check-only']' timed out after 5 seconds"
+}

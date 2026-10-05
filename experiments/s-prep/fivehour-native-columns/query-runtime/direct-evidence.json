@@ -1,0 +1,1293 @@
+{
+  "scope": "direct finite complete nominal Main/Aux/Ledger raw-observer query/owner controls; distinct from passed actual workload matrix",
+  "cpu": 11,
+  "limitsSeconds": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "cases": {
+    "Native": {
+      "checker": "PASS5",
+      "generatedSha256": "04d0655b2c32bc438bf5f9ddf7dff34b27c51b42d06929b6da195236ecc07655",
+      "artifactSha256": "c32175ea63d4683b3bf2ff76540b48e53134387dbb36a512b44d5cb0d3c9aac8",
+      "outputSha256": "b35057997ba066d413fbdcf1a28177a29b02b4e5f8b7f90b61cda5da1c207800",
+      "closure": {
+        "/tmp/native-columns-direct-query-fphmsrr_/core/direct-query.bend": "f1fcea68009bf28e5e61c435cb0d6f648c59b74c50ee5a1568caa38d6a9819e6",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/cache.bend": "c979f39e22a442e2442c87d03c69f16b7cb2264bbc0bff5edbb9f54dac59a223",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/cached-payload.bend": "c4f08daeadfc20217b9778fc33a57271376a3831ae27c4ceb64fd2a962b9095f",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/uncached-payload.bend": "2938897514720ed50abc100d99bbc7effd730a8b5c155ad8d9ac98d1bf5143b4",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/storage.bend": "cc33de4db37a732af8322442be2fb615f35ed8465a0d9470616e1bbfe2d25e3a",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/query.bend": "2d9dd65d57919371506a26b30a96b7919da4b018d6380d7f59a901685b1bc0cf",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/observations.bend": "e81cb63b3ab6da947a2455c3cc1b388abb1aa71dea593671d1c18f00da07a778",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/systems.bend": "32e11a5a89b01e8db00f0b58a9fd1e2da87f4882189725b0012933421b6b1716",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/original-raw-observer.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572"
+      },
+      "status": "BOTH_SCHEMA_COMPLETE_QUERY_OWNER_PASS"
+    }
+  },
+  "mutants": {
+    "wrong-restoration-slot": {
+      "checker": "PASS5",
+      "generatedSha256": "3c1887de5d687a2214d1f4d904f05588e318ddcfeaff201d4f1d5ff49ec2c880",
+      "artifactSha256": "41f98b53ad174d7bc8e6d76d88307885fb0b0aae7d2fc564f8dcc13c56c705c0",
+      "outputSha256": "66fc0b8d2652c920f74884183bf5e8363e28b9e6db2297d159643e2c0359366b",
+      "closure": {
+        "/tmp/native-columns-direct-query-fphmsrr_/core/direct-query.bend": "f1fcea68009bf28e5e61c435cb0d6f648c59b74c50ee5a1568caa38d6a9819e6",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/cache.bend": "c979f39e22a442e2442c87d03c69f16b7cb2264bbc0bff5edbb9f54dac59a223",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/cached-payload.bend": "c4f08daeadfc20217b9778fc33a57271376a3831ae27c4ceb64fd2a962b9095f",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/uncached-payload.bend": "2938897514720ed50abc100d99bbc7effd730a8b5c155ad8d9ac98d1bf5143b4",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/storage.bend": "cc33de4db37a732af8322442be2fb615f35ed8465a0d9470616e1bbfe2d25e3a",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/query.bend": "395c8098b4d0151ec1d1c6950e9784eb3c28b16bb5c91724f29f047215e4a9d4",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/observations.bend": "e81cb63b3ab6da947a2455c3cc1b388abb1aa71dea593671d1c18f00da07a778",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/systems.bend": "32e11a5a89b01e8db00f0b58a9fd1e2da87f4882189725b0012933421b6b1716",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/original-raw-observer.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572"
+      },
+      "status": "COMPILING_COMPLETE_RAW_QUERY_OWNER_MUTANT_DETECTED",
+      "witness": {
+        "actual": {
+          "schema": "Health",
+          "old0": [
+            10,
+            900
+          ],
+          "world": {
+            "namespace": 7,
+            "next": 3,
+            "rows": [
+              {
+                "id": 1,
+                "main": {
+                  "levels": {
+                    "a": 17,
+                    "b": 11,
+                    "c": 12,
+                    "d": 13
+                  },
+                  "reserve": 9,
+                  "class": 2
+                },
+                "aux": {
+                  "layers": {
+                    "a": 110,
+                    "b": 111,
+                    "c": 112,
+                    "d": 113
+                  },
+                  "grade": 3
+                },
+                "flag": {
+                  "group": 8
+                },
+                "added": 3,
+                "changed": 4
+              },
+              {
+                "id": 2,
+                "main": {
+                  "levels": {
+                    "a": 901,
+                    "b": 901,
+                    "c": 902,
+                    "d": 903
+                  },
+                  "reserve": 9,
+                  "class": 2
+                },
+                "aux": {
+                  "layers": {
+                    "a": 190,
+                    "b": 191,
+                    "c": 192,
+                    "d": 193
+                  },
+                  "grade": 3
+                },
+                "flag": null,
+                "added": 5,
+                "changed": 6
+              }
+            ],
+            "pending": [],
+            "ledger": {
+              "totals": {
+                "a": 100,
+                "b": 101,
+                "c": 102,
+                "d": 103
+              },
+              "epoch": 4
+            },
+            "mode": "HealthOn"
+          },
+          "query": [
+            {
+              "handle": {
+                "namespace": 7,
+                "id": 1
+              },
+              "main": {
+                "levels": {
+                  "a": 17,
+                  "b": 11,
+                  "c": 12,
+                  "d": 13
+                },
+                "reserve": 9,
+                "class": 2
+              },
+              "aux": {
+                "layers": {
+                  "a": 110,
+                  "b": 111,
+                  "c": 112,
+                  "d": 113
+                },
+                "grade": 3
+              },
+              "flag": {
+                "group": 8
+              }
+            },
+            {
+              "handle": {
+                "namespace": 7,
+                "id": 2
+              },
+              "main": {
+                "levels": {
+                  "a": 901,
+                  "b": 901,
+                  "c": 902,
+                  "d": 903
+                },
+                "reserve": 9,
+                "class": 2
+              },
+              "aux": {
+                "layers": {
+                  "a": 190,
+                  "b": 191,
+                  "c": 192,
+                  "d": 193
+                },
+                "grade": 3
+              },
+              "flag": null
+            }
+          ],
+          "afterQuery": {
+            "namespace": 7,
+            "next": 3,
+            "rows": [
+              {
+                "id": 1,
+                "main": {
+                  "levels": {
+                    "a": 901,
+                    "b": 901,
+                    "c": 902,
+                    "d": 903
+                  },
+                  "reserve": 9,
+                  "class": 2
+                },
+                "aux": {
+                  "layers": {
+                    "a": 110,
+                    "b": 111,
+                    "c": 112,
+                    "d": 113
+                  },
+                  "grade": 3
+                },
+                "flag": {
+                  "group": 8
+                },
+                "added": 3,
+                "changed": 4
+              },
+              {
+                "id": 2,
+                "main": null,
+                "aux": {
+                  "layers": {
+                    "a": 190,
+                    "b": 191,
+                    "c": 192,
+                    "d": 193
+                  },
+                  "grade": 3
+                },
+                "flag": null,
+                "added": 5,
+                "changed": 6
+              }
+            ],
+            "pending": [],
+            "ledger": {
+              "totals": {
+                "a": 100,
+                "b": 101,
+                "c": 102,
+                "d": 103
+              },
+              "epoch": 4
+            },
+            "mode": "HealthOn"
+          }
+        },
+        "expected": {
+          "schema": "Health",
+          "old0": [
+            10,
+            900
+          ],
+          "world": {
+            "namespace": 7,
+            "next": 3,
+            "rows": [
+              {
+                "id": 1,
+                "main": {
+                  "levels": {
+                    "a": 17,
+                    "b": 11,
+                    "c": 12,
+                    "d": 13
+                  },
+                  "reserve": 9,
+                  "class": 2
+                },
+                "aux": {
+                  "layers": {
+                    "a": 110,
+                    "b": 111,
+                    "c": 112,
+                    "d": 113
+                  },
+                  "grade": 3
+                },
+                "flag": {
+                  "group": 8
+                },
+                "added": 3,
+                "changed": 4
+              },
+              {
+                "id": 2,
+                "main": {
+                  "levels": {
+                    "a": 901,
+                    "b": 901,
+                    "c": 902,
+                    "d": 903
+                  },
+                  "reserve": 9,
+                  "class": 2
+                },
+                "aux": {
+                  "layers": {
+                    "a": 190,
+                    "b": 191,
+                    "c": 192,
+                    "d": 193
+                  },
+                  "grade": 3
+                },
+                "flag": null,
+                "added": 5,
+                "changed": 6
+              }
+            ],
+            "pending": [],
+            "ledger": {
+              "totals": {
+                "a": 100,
+                "b": 101,
+                "c": 102,
+                "d": 103
+              },
+              "epoch": 4
+            },
+            "mode": "HealthOn"
+          },
+          "query": [
+            {
+              "handle": {
+                "namespace": 7,
+                "id": 1
+              },
+              "main": {
+                "levels": {
+                  "a": 17,
+                  "b": 11,
+                  "c": 12,
+                  "d": 13
+                },
+                "reserve": 9,
+                "class": 2
+              },
+              "aux": {
+                "layers": {
+                  "a": 110,
+                  "b": 111,
+                  "c": 112,
+                  "d": 113
+                },
+                "grade": 3
+              },
+              "flag": {
+                "group": 8
+              }
+            },
+            {
+              "handle": {
+                "namespace": 7,
+                "id": 2
+              },
+              "main": {
+                "levels": {
+                  "a": 901,
+                  "b": 901,
+                  "c": 902,
+                  "d": 903
+                },
+                "reserve": 9,
+                "class": 2
+              },
+              "aux": {
+                "layers": {
+                  "a": 190,
+                  "b": 191,
+                  "c": 192,
+                  "d": 193
+                },
+                "grade": 3
+              },
+              "flag": null
+            }
+          ],
+          "afterQuery": {
+            "namespace": 7,
+            "next": 3,
+            "rows": [
+              {
+                "id": 1,
+                "main": {
+                  "levels": {
+                    "a": 17,
+                    "b": 11,
+                    "c": 12,
+                    "d": 13
+                  },
+                  "reserve": 9,
+                  "class": 2
+                },
+                "aux": {
+                  "layers": {
+                    "a": 110,
+                    "b": 111,
+                    "c": 112,
+                    "d": 113
+                  },
+                  "grade": 3
+                },
+                "flag": {
+                  "group": 8
+                },
+                "added": 3,
+                "changed": 4
+              },
+              {
+                "id": 2,
+                "main": {
+                  "levels": {
+                    "a": 901,
+                    "b": 901,
+                    "c": 902,
+                    "d": 903
+                  },
+                  "reserve": 9,
+                  "class": 2
+                },
+                "aux": {
+                  "layers": {
+                    "a": 190,
+                    "b": 191,
+                    "c": 192,
+                    "d": 193
+                  },
+                  "grade": 3
+                },
+                "flag": null,
+                "added": 5,
+                "changed": 6
+              }
+            ],
+            "pending": [],
+            "ledger": {
+              "totals": {
+                "a": 100,
+                "b": 101,
+                "c": 102,
+                "d": 103
+              },
+              "epoch": 4
+            },
+            "mode": "HealthOn"
+          }
+        }
+      }
+    },
+    "raw-tail-corruption": {
+      "checker": "PASS5",
+      "generatedSha256": "69f2d2270caa9800c883996146185e76b013860de8471ce7c48859b358767e95",
+      "artifactSha256": "2c2f341cc35d8420e542e2a644b918c2d8e19bb1f97a23ea5eba882eef8a7aea",
+      "outputSha256": "702369fc16f80d7be570fc7a1541f0156f54b780957068515e669f15ce76d424",
+      "closure": {
+        "/tmp/native-columns-direct-query-fphmsrr_/core/direct-query.bend": "f1fcea68009bf28e5e61c435cb0d6f648c59b74c50ee5a1568caa38d6a9819e6",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/cache.bend": "c979f39e22a442e2442c87d03c69f16b7cb2264bbc0bff5edbb9f54dac59a223",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/cached-payload.bend": "c4f08daeadfc20217b9778fc33a57271376a3831ae27c4ceb64fd2a962b9095f",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/uncached-payload.bend": "e9691d5ee43af5aefbe7ba75851eccb398c3d6fe39cf5f9d0cf8927c5eaa2da8",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/storage.bend": "cc33de4db37a732af8322442be2fb615f35ed8465a0d9470616e1bbfe2d25e3a",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/query.bend": "2d9dd65d57919371506a26b30a96b7919da4b018d6380d7f59a901685b1bc0cf",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/observations.bend": "e81cb63b3ab6da947a2455c3cc1b388abb1aa71dea593671d1c18f00da07a778",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/systems.bend": "32e11a5a89b01e8db00f0b58a9fd1e2da87f4882189725b0012933421b6b1716",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+        "/tmp/native-columns-direct-query-fphmsrr_/core/original-raw-observer.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572"
+      },
+      "status": "COMPILING_COMPLETE_RAW_QUERY_OWNER_MUTANT_DETECTED",
+      "witness": {
+        "actual": {
+          "schema": "Health",
+          "old0": [
+            10,
+            900
+          ],
+          "world": {
+            "namespace": 7,
+            "next": 3,
+            "rows": [
+              {
+                "id": 1,
+                "main": {
+                  "levels": {
+                    "a": 17,
+                    "b": 11,
+                    "c": 12,
+                    "d": 0
+                  },
+                  "reserve": 9,
+                  "class": 2
+                },
+                "aux": {
+                  "layers": {
+                    "a": 110,
+                    "b": 111,
+                    "c": 112,
+                    "d": 113
+                  },
+                  "grade": 3
+                },
+                "flag": {
+                  "group": 8
+                },
+                "added": 3,
+                "changed": 4
+              },
+              {
+                "id": 2,
+                "main": {
+                  "levels": {
+                    "a": 901,
+                    "b": 901,
+                    "c": 902,
+                    "d": 0
+                  },
+                  "reserve": 9,
+                  "class": 2
+                },
+                "aux": {
+                  "layers": {
+                    "a": 190,
+                    "b": 191,
+                    "c": 192,
+                    "d": 193
+                  },
+                  "grade": 3
+                },
+                "flag": null,
+                "added": 5,
+                "changed": 6
+              }
+            ],
+            "pending": [],
+            "ledger": {
+              "totals": {
+                "a": 100,
+                "b": 101,
+                "c": 102,
+                "d": 103
+              },
+              "epoch": 4
+            },
+            "mode": "HealthOn"
+          },
+          "query": [
+            {
+              "handle": {
+                "namespace": 7,
+                "id": 1
+              },
+              "main": {
+                "levels": {
+                  "a": 17,
+                  "b": 11,
+                  "c": 12,
+                  "d": 0
+                },
+                "reserve": 9,
+                "class": 2
+              },
+              "aux": {
+                "layers": {
+                  "a": 110,
+                  "b": 111,
+                  "c": 112,
+                  "d": 113
+                },
+                "grade": 3
+              },
+              "flag": {
+                "group": 8
+              }
+            },
+            {
+              "handle": {
+                "namespace": 7,
+                "id": 2
+              },
+              "main": {
+                "levels": {
+                  "a": 901,
+                  "b": 901,
+                  "c": 902,
+                  "d": 0
+                },
+                "reserve": 9,
+                "class": 2
+              },
+              "aux": {
+                "layers": {
+                  "a": 190,
+                  "b": 191,
+                  "c": 192,
+                  "d": 193
+                },
+                "grade": 3
+              },
+              "flag": null
+            }
+          ],
+          "afterQuery": {
+            "namespace": 7,
+            "next": 3,
+            "rows": [
+              {
+                "id": 1,
+                "main": {
+                  "levels": {
+                    "a": 17,
+                    "b": 11,
+                    "c": 12,
+                    "d": 0
+                  },
+                  "reserve": 9,
+                  "class": 2
+                },
+                "aux": {
+                  "layers": {
+                    "a": 110,
+                    "b": 111,
+                    "c": 112,
+                    "d": 113
+                  },
+                  "grade": 3
+                },
+                "flag": {
+                  "group": 8
+                },
+                "added": 3,
+                "changed": 4
+              },
+              {
+                "id": 2,
+                "main": {
+                  "levels": {
+                    "a": 901,
+                    "b": 901,
+                    "c": 902,
+                    "d": 0
+                  },
+                  "reserve": 9,
+                  "class": 2
+                },
+                "aux": {
+                  "layers": {
+                    "a": 190,
+                    "b": 191,
+                    "c": 192,
+                    "d": 193
+                  },
+                  "grade": 3
+                },
+                "flag": null,
+                "added": 5,
+                "changed": 6
+              }
+            ],
+            "pending": [],
+            "ledger": {
+              "totals": {
+                "a": 100,
+                "b": 101,
+                "c": 102,
+                "d": 103
+              },
+              "epoch": 4
+            },
+            "mode": "HealthOn"
+          }
+        },
+        "expected": {
+          "schema": "Health",
+          "old0": [
+            10,
+            900
+          ],
+          "world": {
+            "namespace": 7,
+            "next": 3,
+            "rows": [
+              {
+                "id": 1,
+                "main": {
+                  "levels": {
+                    "a": 17,
+                    "b": 11,
+                    "c": 12,
+                    "d": 13
+                  },
+                  "reserve": 9,
+                  "class": 2
+                },
+                "aux": {
+                  "layers": {
+                    "a": 110,
+                    "b": 111,
+                    "c": 112,
+                    "d": 113
+                  },
+                  "grade": 3
+                },
+                "flag": {
+                  "group": 8
+                },
+                "added": 3,
+                "changed": 4
+              },
+              {
+                "id": 2,
+                "main": {
+                  "levels": {
+                    "a": 901,
+                    "b": 901,
+                    "c": 902,
+                    "d": 903
+                  },
+                  "reserve": 9,
+                  "class": 2
+                },
+                "aux": {
+                  "layers": {
+                    "a": 190,
+                    "b": 191,
+                    "c": 192,
+                    "d": 193
+                  },
+                  "grade": 3
+                },
+                "flag": null,
+                "added": 5,
+                "changed": 6
+              }
+            ],
+            "pending": [],
+            "ledger": {
+              "totals": {
+                "a": 100,
+                "b": 101,
+                "c": 102,
+                "d": 103
+              },
+              "epoch": 4
+            },
+            "mode": "HealthOn"
+          },
+          "query": [
+            {
+              "handle": {
+                "namespace": 7,
+                "id": 1
+              },
+              "main": {
+                "levels": {
+                  "a": 17,
+                  "b": 11,
+                  "c": 12,
+                  "d": 13
+                },
+                "reserve": 9,
+                "class": 2
+              },
+              "aux": {
+                "layers": {
+                  "a": 110,
+                  "b": 111,
+                  "c": 112,
+                  "d": 113
+                },
+                "grade": 3
+              },
+              "flag": {
+                "group": 8
+              }
+            },
+            {
+              "handle": {
+                "namespace": 7,
+                "id": 2
+              },
+              "main": {
+                "levels": {
+                  "a": 901,
+                  "b": 901,
+                  "c": 902,
+                  "d": 903
+                },
+                "reserve": 9,
+                "class": 2
+              },
+              "aux": {
+                "layers": {
+                  "a": 190,
+                  "b": 191,
+                  "c": 192,
+                  "d": 193
+                },
+                "grade": 3
+              },
+              "flag": null
+            }
+          ],
+          "afterQuery": {
+            "namespace": 7,
+            "next": 3,
+            "rows": [
+              {
+                "id": 1,
+                "main": {
+                  "levels": {
+                    "a": 17,
+                    "b": 11,
+                    "c": 12,
+                    "d": 13
+                  },
+                  "reserve": 9,
+                  "class": 2
+                },
+                "aux": {
+                  "layers": {
+                    "a": 110,
+                    "b": 111,
+                    "c": 112,
+                    "d": 113
+                  },
+                  "grade": 3
+                },
+                "flag": {
+                  "group": 8
+                },
+                "added": 3,
+                "changed": 4
+              },
+              {
+                "id": 2,
+                "main": {
+                  "levels": {
+                    "a": 901,
+                    "b": 901,
+                    "c": 902,
+                    "d": 903
+                  },
+                  "reserve": 9,
+                  "class": 2
+                },
+                "aux": {
+                  "layers": {
+                    "a": 190,
+                    "b": 191,
+                    "c": 192,
+                    "d": 193
+                  },
+                  "grade": 3
+                },
+                "flag": null,
+                "added": 5,
+                "changed": 6
+              }
+            ],
+            "pending": [],
+            "ledger": {
+              "totals": {
+                "a": 100,
+                "b": 101,
+                "c": 102,
+                "d": 103
+              },
+              "epoch": 4
+            },
+            "mode": "HealthOn"
+          }
+        }
+      }
+    }
+  },
+  "expected": [
+    {
+      "schema": "Motion",
+      "old0": [
+        10,
+        900
+      ],
+      "world": {
+        "namespace": 7,
+        "next": 3,
+        "rows": [
+          {
+            "id": 1,
+            "main": {
+              "coordinates": {
+                "a": 17,
+                "b": 11,
+                "c": 12,
+                "d": 13
+              },
+              "frame": 7
+            },
+            "aux": {
+              "rates": {
+                "a": 110,
+                "b": 111,
+                "c": 112,
+                "d": 113
+              },
+              "moving": true
+            },
+            "flag": {
+              "group": 8
+            },
+            "added": 3,
+            "changed": 4
+          },
+          {
+            "id": 2,
+            "main": {
+              "coordinates": {
+                "a": 901,
+                "b": 901,
+                "c": 902,
+                "d": 903
+              },
+              "frame": 7
+            },
+            "aux": {
+              "rates": {
+                "a": 190,
+                "b": 191,
+                "c": 192,
+                "d": 193
+              },
+              "moving": true
+            },
+            "flag": null,
+            "added": 5,
+            "changed": 6
+          }
+        ],
+        "pending": [],
+        "ledger": {
+          "totals": {
+            "a": 100,
+            "b": 101,
+            "c": 102,
+            "d": 103
+          },
+          "epoch": 4
+        },
+        "mode": "MotionOn"
+      },
+      "query": [
+        {
+          "handle": {
+            "namespace": 7,
+            "id": 1
+          },
+          "main": {
+            "coordinates": {
+              "a": 17,
+              "b": 11,
+              "c": 12,
+              "d": 13
+            },
+            "frame": 7
+          },
+          "aux": {
+            "rates": {
+              "a": 110,
+              "b": 111,
+              "c": 112,
+              "d": 113
+            },
+            "moving": true
+          },
+          "flag": {
+            "group": 8
+          }
+        },
+        {
+          "handle": {
+            "namespace": 7,
+            "id": 2
+          },
+          "main": {
+            "coordinates": {
+              "a": 901,
+              "b": 901,
+              "c": 902,
+              "d": 903
+            },
+            "frame": 7
+          },
+          "aux": {
+            "rates": {
+              "a": 190,
+              "b": 191,
+              "c": 192,
+              "d": 193
+            },
+            "moving": true
+          },
+          "flag": null
+        }
+      ],
+      "afterQuery": {
+        "namespace": 7,
+        "next": 3,
+        "rows": [
+          {
+            "id": 1,
+            "main": {
+              "coordinates": {
+                "a": 17,
+                "b": 11,
+                "c": 12,
+                "d": 13
+              },
+              "frame": 7
+            },
+            "aux": {
+              "rates": {
+                "a": 110,
+                "b": 111,
+                "c": 112,
+                "d": 113
+              },
+              "moving": true
+            },
+            "flag": {
+              "group": 8
+            },
+            "added": 3,
+            "changed": 4
+          },
+          {
+            "id": 2,
+            "main": {
+              "coordinates": {
+                "a": 901,
+                "b": 901,
+                "c": 902,
+                "d": 903
+              },
+              "frame": 7
+            },
+            "aux": {
+              "rates": {
+                "a": 190,
+                "b": 191,
+                "c": 192,
+                "d": 193
+              },
+              "moving": true
+            },
+            "flag": null,
+            "added": 5,
+            "changed": 6
+          }
+        ],
+        "pending": [],
+        "ledger": {
+          "totals": {
+            "a": 100,
+            "b": 101,
+            "c": 102,
+            "d": 103
+          },
+          "epoch": 4
+        },
+        "mode": "MotionOn"
+      }
+    },
+    {
+      "schema": "Health",
+      "old0": [
+        10,
+        900
+      ],
+      "world": {
+        "namespace": 7,
+        "next": 3,
+        "rows": [
+          {
+            "id": 1,
+            "main": {
+              "levels": {
+                "a": 17,
+                "b": 11,
+                "c": 12,
+                "d": 13
+              },
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": {
+                "a": 110,
+                "b": 111,
+                "c": 112,
+                "d": 113
+              },
+              "grade": 3
+            },
+            "flag": {
+              "group": 8
+            },
+            "added": 3,
+            "changed": 4
+          },
+          {
+            "id": 2,
+            "main": {
+              "levels": {
+                "a": 901,
+                "b": 901,
+                "c": 902,
+                "d": 903
+              },
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": {
+                "a": 190,
+                "b": 191,
+                "c": 192,
+                "d": 193
+              },
+              "grade": 3
+            },
+            "flag": null,
+            "added": 5,
+            "changed": 6
+          }
+        ],
+        "pending": [],
+        "ledger": {
+          "totals": {
+            "a": 100,
+            "b": 101,
+            "c": 102,
+            "d": 103
+          },
+          "epoch": 4
+        },
+        "mode": "HealthOn"
+      },
+      "query": [
+        {
+          "handle": {
+            "namespace": 7,
+            "id": 1
+          },
+          "main": {
+            "levels": {
+              "a": 17,
+              "b": 11,
+              "c": 12,
+              "d": 13
+            },
+            "reserve": 9,
+            "class": 2
+          },
+          "aux": {
+            "layers": {
+              "a": 110,
+              "b": 111,
+              "c": 112,
+              "d": 113
+            },
+            "grade": 3
+          },
+          "flag": {
+            "group": 8
+          }
+        },
+        {
+          "handle": {
+            "namespace": 7,
+            "id": 2
+          },
+          "main": {
+            "levels": {
+              "a": 901,
+              "b": 901,
+              "c": 902,
+              "d": 903
+            },
+            "reserve": 9,
+            "class": 2
+          },
+          "aux": {
+            "layers": {
+              "a": 190,
+              "b": 191,
+              "c": 192,
+              "d": 193
+            },
+            "grade": 3
+          },
+          "flag": null
+        }
+      ],
+      "afterQuery": {
+        "namespace": 7,
+        "next": 3,
+        "rows": [
+          {
+            "id": 1,
+            "main": {
+              "levels": {
+                "a": 17,
+                "b": 11,
+                "c": 12,
+                "d": 13
+              },
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": {
+                "a": 110,
+                "b": 111,
+                "c": 112,
+                "d": 113
+              },
+              "grade": 3
+            },
+            "flag": {
+              "group": 8
+            },
+            "added": 3,
+            "changed": 4
+          },
+          {
+            "id": 2,
+            "main": {
+              "levels": {
+                "a": 901,
+                "b": 901,
+                "c": 902,
+                "d": 903
+              },
+              "reserve": 9,
+              "class": 2
+            },
+            "aux": {
+              "layers": {
+                "a": 190,
+                "b": 191,
+                "c": 192,
+                "d": 193
+              },
+              "grade": 3
+            },
+            "flag": null,
+            "added": 5,
+            "changed": 6
+          }
+        ],
+        "pending": [],
+        "ledger": {
+          "totals": {
+            "a": 100,
+            "b": 101,
+            "c": 102,
+            "d": 103
+          },
+          "epoch": 4
+        },
+        "mode": "HealthOn"
+      }
+    }
+  ],
+  "driverSha256": "f1fcea68009bf28e5e61c435cb0d6f648c59b74c50ee5a1568caa38d6a9819e6",
+  "rawObserverSha256": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+  "initialAttempt": "tuple multi-scrutinee pattern rejected; changed to single pair-of-pairs; no field or observation removed",
+  "status": "DIRECT_FULL_QUERY_OWNER_MUTANTS_PASS"
+}

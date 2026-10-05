@@ -1,0 +1,50 @@
+{
+  "status": "FINITE_NATIVE_QUERY_RUNTIME_AND_OWNER_CONTROLS_READY_FOR_REVIEW",
+  "actualWorkloadMatrix": {
+    "status": "PASS12",
+    "receiptSha256": "5c5093423bcd8c63157006a68f4ec8dc961279cc67ea115e839714f5e19ffe89",
+    "immutableFirstMatrixSha256": "0cc0b347ce8df183a23691270f27c9f79daf16cbab477143db7d22c55f0d5e7d",
+    "schemas": [
+      "Motion",
+      "Health"
+    ],
+    "workloads": [
+      "Dense",
+      "Sparse"
+    ],
+    "counts": [
+      64,
+      256,
+      1024
+    ],
+    "cpu": 11,
+    "freshActualTSPerCase": true,
+    "fullOriginalRawFieldsAndOrdering": true,
+    "worldBeforeAfterQueryExact": true
+  },
+  "mutations": {
+    "actualWorkloadReverseOrder": "COMPILED_DETECTED",
+    "directNominalRestorationSlot": "COMPILED_DETECTED",
+    "directNominalRawTail": "COMPILED_DETECTED",
+    "directReceiptSha256": "6addb4455aa1d3283b29f4d86a686bd9965f8493bb511ed9e03b892be24b94b3"
+  },
+  "unsupportedCells": [
+    "full-workload wrong-restoration-slot mutant checker exceeds5s onCPU11 and CPU0",
+    "full-workload raw-tail-corruption mutant checker exceeds5s onCPU11 and CPU0"
+  ],
+  "limitsSeconds": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "measurement": "none; no timing values collected in driver or reported",
+  "toolBinarySha256AtDelivery": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a",
+  "sourcePins": {
+    "storage.bend": "cc33de4db37a732af8322442be2fb615f35ed8465a0d9470616e1bbfe2d25e3a",
+    "query.bend": "2d9dd65d57919371506a26b30a96b7919da4b018d6380d7f59a901685b1bc0cf",
+    "held-adapter.bend": "f1dc68b726bad16930dfcf919bbdfeccb82779cc746799e65be9414c58efabd4"
+  },
+  "originalLibraryTypesAndBlocksReceiptSha256": "5add4f4cf25eb80d5cc3b1032cfe9b4ad4d53a720854d714f545d3cb040690e9",
+  "noCanonicalSourceChanged": true
+}
