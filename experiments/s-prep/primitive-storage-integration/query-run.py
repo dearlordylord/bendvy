@@ -8,6 +8,8 @@ CPU=os.environ.get('BENDVY_CPU','4')
 receipt={'status':'INCOMPLETE','scope':'Finite actual Q.each/Q.lookup and public C queue/apply lifecycle; not full22 gates, authority proof or performance acceptance','commands':[],'subjects':{},'sourceSHA256':{}}
 atexit.register(lambda:a.output.write_text(json.dumps(receipt,indent=2)+'\n'))
 def run(args,limit=5):
+ if "--check-only" in list(map(str,args)):
+  limit=int(os.environ.get("BENDVY_CHECKER_SECONDS","5"));assert limit in (5,15)
  receipt['commands'].append({'argv':list(map(str,args)),'limitSeconds':limit})
  child=subprocess.Popen(list(map(str,args)),stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True,start_new_session=True)
  try:out,err=child.communicate(timeout=limit)

@@ -6,6 +6,8 @@ ROOT=HERE.parents[2]
 p=argparse.ArgumentParser();p.add_argument('--candidate-root',type=pathlib.Path,default=ROOT/'experiments/fivehour-candidate');p.add_argument('--output',type=pathlib.Path,default=HERE/'evidence.json');a=p.parse_args()
 CPU=os.environ.get('BENDVY_CPU','8')
 def run(args,limit=5,ok=0):
+ if "--check-only" in list(map(str,args)):
+  limit=int(os.environ.get("BENDVY_CHECKER_SECONDS","5"));assert limit in (5,15)
  child=subprocess.Popen(list(map(str,args)),stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True,start_new_session=True)
  try:out,err=child.communicate(timeout=limit)
  except subprocess.TimeoutExpired:
@@ -24,12 +26,13 @@ with tempfile.TemporaryDirectory(prefix='primitive-lifecycle-') as directory:
   for f in ['lifecycle.bend','owners.bend','negative-clone.bend','negative-duplicate.bend','negative-cross.bend']:(stage/f).write_bytes((HERE/f).read_bytes())
   receipt['sourceSHA256'][backend]={f.name:hashlib.sha256(f.read_bytes()).hexdigest() for f in stage.glob('*.bend')}
   def command(args,limit=5):
+   if "--check-only" in list(map(str,args)):limit=int(os.environ.get("BENDVY_CHECKER_SECONDS","5"))
    receipt['commands'].append({'backend':backend,'argv':list(map(str,args)),'limitSeconds':limit})
    return run(['taskset','-c',CPU,*args],limit)
   negatives=[]
   for name,want,got in [('clone','Data','Type'),('duplicate','rows','rows (consumed more than once)'),('cross','S.Row<A.Health, A.Motion, Unit>','S.Row<A.Motion, A.Health, Unit>')]:
    args=['taskset','-c',CPU,'bend',stage/f'negative-{name}.bend','--check-only']
-   receipt['commands'].append({'backend':backend,'argv':list(map(str,args)),'limitSeconds':5,'expectedExit':1})
+   receipt['commands'].append({'backend':backend,'argv':list(map(str,args)),'limitSeconds':int(os.environ.get('BENDVY_CHECKER_SECONDS','5')),'expectedExit':1})
    output=run(args,5,1)
    for line in ['SOME PROOFS FAIL','Location: bad',f'- expected : {want}',f'- observed : {got}']:assert line in output,(name,line,output)
    negatives.append(name)

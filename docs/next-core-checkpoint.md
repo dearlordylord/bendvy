@@ -5,6 +5,10 @@ performance thresholds or a selected production layout. The first two research
 tickets are now published after user authorization and [Astra review](reviews/next-research-tickets.md).
 The complete [core map](reference/core-map.md) and [SPEC](SPEC.md) remain the goal.
 
+## Current performance diagnostic follow-up
+
+[Profile-directed source fusion](../experiments/s-prep/js-query-columns/README.md) retains all 29 modules and arbitrary affine Type components. Combined point/metadata/query transport reduces executed construction expressions from 11,656,768 to 10,478,144 in the bounded Motion diagnostic. Two-schema JS/Native query traces and two compiling mutants pass. Quiet sequential JS/Native lifecycle passes 52 observations per backend, clone/duplicate/cross-schema negatives and the mark mutant after an initial negative-clone diagnostic15 timeout; both receipts remain. The unprofiled Motion cohort is partial, with no qualified comparative metric. Full22 and JS parity / native >=2× gates remain open; the historical canonical attempt cap is unchanged. Next inspect callback read/ledger and query advance from their generated JS/CPU profile, complete source-bound gates before any adoption or new authorized cohort.
+
 ## Current evidence
 
 R-A/R-C1 establish bounded abstract providers/two-schema queries. T04 exercises

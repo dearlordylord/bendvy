@@ -1,0 +1,32 @@
+{
+  "commands": [
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "11",
+        "bend",
+        "/tmp/bendvy-profile-combined-batch/batch.bend",
+        "--check-only"
+      ],
+      "limit": 15,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "11",
+        "bend",
+        "/tmp/bendvy-profile-combined-batch/batch.bend",
+        "-o",
+        "/tmp/bendvy-profile-combined-batch/batch.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "output": ""
+    }
+  ],
+  "status": "CHECKED_AND_JS_GENERATED"
+}

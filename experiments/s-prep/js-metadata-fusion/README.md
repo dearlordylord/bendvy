@@ -59,3 +59,5 @@ Local diagnostic: taskset -c 11 timeout 15s bend
 /tmp/bendvy-metadata-fusion-worker/experiments/s-integrate/storage.bend --check-only
 exited 0 with ALL PROOFS CHECK. This checks the generic affine source module; no
 mathematical proof was added and no canonical aggregate cap result is replaced.
+
+Coordinator follow-through: the combined point/metadata/query source candidate has emitted-code counters, CPU/GC diagnosis and finite two-schema JS/Native query mutation controls in [../js-query-columns/README.md](../js-query-columns/README.md). The standalone prediction is not a standalone timing result. Arbitrary affine lifecycle passed a quiet sequential JS/Native run after the first negative checker timed out; both receipts are retained. Full connected and comparative performance gates remain open.

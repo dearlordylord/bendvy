@@ -1,0 +1,23 @@
+{
+  "scope": "Exact imported source closure diagnostic; not aggregate lifecycle gate",
+  "argv": [
+    "taskset",
+    "-c",
+    "11",
+    "bend",
+    "/tmp/bendvy-profile-fused-clone-import-closure/negative-clone.bend",
+    "--check-only"
+  ],
+  "limitSeconds": 15,
+  "sourceSHA256": {
+    "storage.bend": "185c5fe6c6d81608b0e3dae4416d32bcbc6f74a50dbb5b28120cc5d1d9400c7a",
+    "types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+    "owners.bend": "e7202667b7efce24407b8b9ae15c40a2d2e9f5d65c9f85ac020bfc4f179196e3",
+    "negative-clone.bend": "9dec3d9772f4f85e690342437dc2d8563ad5d8a8ab3886b57821a3bce8bcebd1"
+  },
+  "status": "COMPLETED",
+  "exit": 1,
+  "stdout": "",
+  "stderr": "SOME PROOFS FAIL\nError:\n- expected : Data\n- observed : Type\nContext:\n- main : Array<Maybe<&1, A.Motion>>\nLocation: bad\n4 | def bad(main: Array<Maybe<A.Motion>>) -> Array<Maybe<A.Motion>> & Array<Maybe<A.Motion>>:\n5>|   Array.clone(Maybe<A.Motion>,main)\n  |               ^^^^^^^^^^^^^^\n6 | \n",
+  "elapsedSeconds": 2.696461907122284
+}
