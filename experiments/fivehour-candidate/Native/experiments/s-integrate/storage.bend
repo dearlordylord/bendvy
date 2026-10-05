@@ -1,6 +1,4 @@
 import Base
-import ./cache.bend as CC
-import ./cached-payload.bend as CP
 import ./types.bend as T
 
 # Concrete records are trusted adapter state, not callback capabilities.

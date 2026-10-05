@@ -2,7 +2,8 @@
 """Finite actual query/command lifecycle; never a benchmark or full Host gate."""
 import argparse,atexit,hashlib,json,os,pathlib,signal,subprocess,tempfile
 HERE=pathlib.Path(__file__).resolve().parent
-p=argparse.ArgumentParser();p.add_argument('--candidate-root',type=pathlib.Path,default=pathlib.Path('/workspace/formal-proofs/bendvy/experiments/fivehour-candidate'));p.add_argument('--output',type=pathlib.Path,default=HERE/'query-evidence.json');a=p.parse_args()
+ROOT=HERE.parents[2]
+p=argparse.ArgumentParser();p.add_argument('--candidate-root',type=pathlib.Path,default=ROOT/'experiments/fivehour-candidate');p.add_argument('--output',type=pathlib.Path,default=HERE/'query-evidence.json');a=p.parse_args()
 CPU=os.environ.get('BENDVY_CPU','4')
 receipt={'status':'INCOMPLETE','scope':'Finite actual Q.each/Q.lookup and public C queue/apply lifecycle; not full22 gates, authority proof or performance acceptance','commands':[],'subjects':{},'sourceSHA256':{}}
 atexit.register(lambda:a.output.write_text(json.dumps(receipt,indent=2)+'\n'))
@@ -50,10 +51,20 @@ with tempfile.TemporaryDirectory(prefix='primitive-query-') as directory:
    needle='List.reverse(&2,O,values)';assert query.count(needle)==2
    mutations={'query-order':query.replace(needle,'values'), 'flag-membership':query.replace('case Present{} None{}: False{}','case Present{} None{}: True{}')}
    assert query.count('case Present{} None{}: False{}')==1
+   witnesses={}
    for name,changed in mutations.items():
     (stage/'query.bend').write_text(changed)
     observed=build(name);assert observed!=expected,(subject,name,'mutant survived literal oracle')
+    actual_lines=observed.splitlines();expected_lines=expected.splitlines()
+    assert len(actual_lines)==len(expected_lines)==40,'Mutation dropped checkpoints'
+    assert [x.split(':',1)[0] for x in actual_lines]==[x.split(':',1)[0] for x in expected_lines],'Mutation reordered checkpoint labels'
+    label='initial-required' if name=='query-order' else 'initial-present'
+    at=next(i for i,x in enumerate(expected_lines) if x.startswith(label+':'))
+    namespace='7' if schema=='one' else '9'
+    if name=='query-order':assert actual_lines[at].startswith(label+':'+namespace+':3|'),actual_lines[at]
+    else:assert namespace+':3|30:30,31,32,33|none|absent;' in actual_lines[at],actual_lines[at]
+    witnesses[name]={'checkpoint':label,'expected':expected_lines[at],'actual':actual_lines[at],'outputSHA256':hashlib.sha256(observed.encode()).hexdigest()}
    (stage/'query.bend').write_text(query)
-   receipt['subjects'][subject].update({'status':'PASS','literalObservations':len(expected.splitlines()),'originalSHA256':hashlib.sha256(original.encode()).hexdigest(),'mutants':['query-order','flag-membership']})
+   receipt['subjects'][subject].update({'status':'PASS','literalObservations':len(expected.splitlines()),'originalSHA256':hashlib.sha256(original.encode()).hexdigest(),'mutants':['query-order','flag-membership'],'witnesses':witnesses})
 receipt['status']='FINITE_QUERY_COMMAND_LIFECYCLE_AND_TWO_COMPILING_MUTANTS_PASS'
 print(receipt['status'])

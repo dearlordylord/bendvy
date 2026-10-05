@@ -1,6 +1,4 @@
 import Base
-import ./cache.bend as CC
-import ./cached-payload.bend as CP
 import ./types.bend as T
 import ./storage.bend as S
 import ./identity.bend as I

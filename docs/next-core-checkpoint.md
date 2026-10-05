@@ -227,3 +227,7 @@ Direct next-layout witness: [primitive metadata transport](../experiments/s-prep
 ## Active primitive-column integration (user continuation)
 
 The user authorized the next implementation seam after the exhausted20-attempt window. Direct correctness work proceeds under #21/#23/#24; no measured allowance is renewed. Actual JS/Native storage now carries aligned live/flag/added/changed columns, preserving affine Main/Aux Type owners and six-field Rows. Indexed query uses the new metadata accessor. All lifecycle paths are implemented; new exact-source lifecycle, access and full connected checks are in progress. No production adoption, speedup, proof or complete-gate claim follows yet. Public detached misaligned column constructors remain an explicit validation/API follow-up; rows_empty/grow preserve alignment for the supported lifecycle domain.
+
+## Primitive-column integration checkpoint
+
+Current v4 source preserves arbitrary affine Type components. Fresh bounded controls pass 52 lifecycle checkpoints/backend and 40 actual query/command observations for four backend/schema subjects, including intended compiling mutant witnesses. Full Host checking still exceeds the unchanged five-second limit; full22 and JS/Native performance acceptance remain open. No measured budget was renewed. See [integration report](reports/primitive-columns-integration.md) for source-pinned receipts, historical failures and production constructor-alignment follow-up. Next: recover exact-source connected checking and complete all existing gates before comparative measurement.
