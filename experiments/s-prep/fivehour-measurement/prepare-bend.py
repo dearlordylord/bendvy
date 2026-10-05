@@ -7,9 +7,12 @@ source=a.core/'measurement-bend.bend';text=source.read_text()
 # Expose setup through an added wrapper using actual creation/registration.
 extra='\n'
 for lane,sc,main,aux,flag,ledger,mode in [('motion','Motion','Position','Velocity','Selected','MotionLedger','MotionMode'),('health','Health','Vitals','Armor','Tracked','HealthLedger','HealthMode')]:
- world=f'S.World<T.{sc}Schema,T.{main},T.{aux},T.{flag},T.{ledger},T.{mode}>';runtime=f'D.Runtime<{sc}Bench,S.Handle<T.{sc}Schema>>';pair=runtime+f' & K.System'
+ created=re.search(r'^def '+lane+r'_created\([^\n]+\) -> IO\(([^\n]+)\):$',text,re.M);assert created
+ pair=created[1]
+ call=re.search(r'^def '+lane+r'_start\([^\n]*\n  IO.bind\([^\n]*?,'+lane+r'_created\(([^\n]+)\),'+lane+r'_measured\)',text,re.M);assert call
+ actual_creation=call[1].replace('sparse','False{}')
  extra+=f'''def {lane}_fresh(count:U32) -> IO({pair}):
-  {lane}_created(count,False{{}},I.create(T.{sc}Schema,T.{main},T.{aux},T.{flag},T.{ledger},T.{mode},{lane}_ledger,I.factory(),T.{sc}On{{}}))
+  {lane}_created({actual_creation})
 '''
 (a.output/'measurement-bend.bend').write_text(text+extra)
 # Imports point at the exact copied core except self module.

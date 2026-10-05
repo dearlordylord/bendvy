@@ -35,3 +35,9 @@ Proposed stop: global deadline or demonstrated focused targets with all accepted
 ## Acceptance blockers
 
 Final cached alias/adapter hook, executable benchmark/check wrappers, protected source/tool/effect manifests, both-schema semantic/deadline evidence, orchestrator fairness decision, reviewed noise/ratio formula, exact editable paths, artifact root, packet cap and complete explicit contract acceptance. Budget and product ratios are already approved and need no repeat question. No measured loop or keep starts until these fields are concrete and accepted.
+
+### Concrete proposal refinement
+
+`decision.py` proposes deterministic paired-bootstrap score max(JS upper ratio, 2×Native upper ratio), separately for Motion/Health. Each cell uses 14 candidate samples and 14 same-protocol TS samples, 10000 resamples seed23, median ratio `(candidate+2)/(TS-2)`, upper sorted index9749. Every cell must pass; failure/incomplete/≤2ms samples provide no metric. Synthetic controls reject one failed JS schema, regression and unchanged score. Intermediate keep proposal strictly improves the qualified maximum score and regresses none of the four timer-aware cell bounds; it does not require arbitrary 10% improvement. A focused goal stops only this segment; the remaining global window continues parent representative/full-family work. These are proposed rules awaiting acceptance.
+
+`freeze.py --overlay <actual-final-overlay> --output <new-execution-proposal.json>` creates an unaccepted recipe/tool/effect source manifest. The current construction runner proves method semantics only; this manifest is not itself an accepted evaluator. Gate owner reports current ready cache specialization lacks held integration, with actual rollback/cache-boundary coverage still being constructed. Those blockers must be resolved before a complete executable check command is frozen or acceptance requested.
