@@ -5,6 +5,7 @@ HERE=pathlib.Path(__file__).resolve().parent
 parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('overlay',type=pathlib.Path,help='Materialized indexed overlay root')
 parser.add_argument('--evidence',type=pathlib.Path,default=HERE/'access-evidence.json')
+parser.add_argument('--cpu',type=int,default=9)
 args=parser.parse_args()
 OVERLAY=args.overlay.resolve()
 SOURCE=OVERLAY/'experiments/s-integrate'
@@ -23,7 +24,7 @@ def closure(p,seen):
 files={};closure(SOURCE/ENTRY,files)
 assert required.issubset(files),'Candidate modules absent from checked closure'
 def check(path):
- start=time.monotonic();p=subprocess.Popen(['taskset','-c','9','bend',str(path),'--check-only'],stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,start_new_session=True)
+ start=time.monotonic();p=subprocess.Popen(['taskset','-c',str(args.cpu),'bend',str(path),'--check-only'],stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,start_new_session=True)
  try:out,_=p.communicate(timeout=5)
  except subprocess.TimeoutExpired:
   os.killpg(p.pid,signal.SIGKILL);out,_=p.communicate();raise AssertionError('five-second checker limit: '+out)
@@ -48,7 +49,7 @@ def mutate(folder,label):
  file.write_text(s);return location
 tool_paths={'compiler':pathlib.Path(shutil.which('bend')).resolve(),'Base':pathlib.Path.home()/'.bend/bend2/base.bend'}
 toolchain={n:{'path':str(p),'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for n,p in tool_paths.items()}
-r={'scope':'indexed candidate actual audited closed A/B + Host.query rank-2 providers; static controls only', 'overlay':str(OVERLAY),'overlay_manifest_sha256':hashlib.sha256(manifest_path.read_bytes()).hexdigest(),'overlay_baseline':manifest['baseline'],'candidate_overrides':{n:hashlib.sha256((OVERLAY/n).read_bytes()).hexdigest() for n in manifest['overrides']},'checker_limit_seconds':5,'cpu_affinity':[9],'source_revision':subprocess.check_output(['git','rev-parse','HEAD'],cwd=HERE,text=True).strip(),'compiler':subprocess.check_output(['bend','version'],text=True).strip(),'toolchain':toolchain,'runner_sha256':hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest(),'hashes':{n:hashlib.sha256(p.read_bytes()).hexdigest() for n,p in files.items()},'cases':{}}
+r={'scope':'indexed candidate actual audited closed A/B + Host.query rank-2 providers; static controls only', 'overlay':str(OVERLAY),'overlay_manifest_sha256':hashlib.sha256(manifest_path.read_bytes()).hexdigest(),'overlay_baseline':manifest['baseline'],'candidate_overrides':{n:hashlib.sha256((OVERLAY/n).read_bytes()).hexdigest() for n in manifest['overrides']},'checker_limit_seconds':5,'cpu_affinity':[args.cpu],'source_revision':subprocess.check_output(['git','rev-parse','HEAD'],cwd=HERE,text=True).strip(),'compiler':subprocess.check_output(['bend','version'],text=True).strip(),'toolchain':toolchain,'runner_sha256':hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest(),'hashes':{n:hashlib.sha256(p.read_bytes()).hexdigest() for n,p in files.items()},'cases':{}}
 with tempfile.TemporaryDirectory(prefix='integrated-access-') as d:
  for label in ['positive','undeclared_token','cross_schema','write_through_read','reconstruct_owner','invalid_owner_return','audit_copy_text_historical','audit_copy','irrecoverable_destructure']:
   folder=pathlib.Path(d)/label;folder.mkdir()

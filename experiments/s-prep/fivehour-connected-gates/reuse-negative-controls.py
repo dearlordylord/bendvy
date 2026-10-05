@@ -8,7 +8,7 @@ def main():
  import argparse
  p=argparse.ArgumentParser();p.add_argument('--js-overlay',type=Path,required=True);p.add_argument('--native-overlay',type=Path,required=True);p.add_argument('--evidence',type=Path,required=True);a=p.parse_args();result={'status':'INCOMPLETE','scope':'Synthetic negative receipt guards; no actual gate acceptance','cases':[]}
  try:
-  binding=C.dependency_binding();roles={role:{'status':'PASS','binding':C.source_binding(overlay),'gates':[{}]*11,'controlSources':{}} for role,overlay in [('JS',a.js_overlay),('Native',a.native_overlay)]}
+  binding=C.dependency_binding();roles={role:{'status':'PASS','binding':C.source_binding(overlay),'gates':[{'name':n,'status':v,'exit':0} for n,v in C.EXPECTED_GATES.items()],'controlSources':{}} for role,overlay in [('JS',a.js_overlay),('Native',a.native_overlay)]}
   for case in ['incomplete','canonical-digest','dependencies','runtime-source']:
    prior={'status':'FRESH_TWO_ROLE_CONNECTED_GATES_PASS','dependencyBinding':binding,'roles':roles};prior=json.loads(json.dumps(prior))
    if case=='incomplete':prior['status']='INCOMPLETE'

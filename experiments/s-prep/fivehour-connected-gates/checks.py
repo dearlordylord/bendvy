@@ -2,8 +2,13 @@
 """Fresh authoritative semantic gates for the exact immutable two-role snapshot."""
 import argparse,datetime,hashlib,json,os,re,signal,subprocess,sys,shutil
 from pathlib import Path
+import supervisor
 HERE=Path(__file__).resolve().parent;ROOT=HERE.parents[2]
 DEADLINE=datetime.datetime.fromisoformat('2026-10-05T07:34:51+00:00')
+EXPECTED_GATES={'materialize-controls':'PASS_DERIVED_CONTROL_SOURCE_MAP','host12':'PASS','access':'ACTUAL_ACCESS_9_PASS','e11':'BOUNDED_JOINED_PASS','owned-storage':'ACTUAL_FINAL_STORAGE_FIELDS_OWNERSHIP_MUTANTS_PASS','staging':'PASS_BOUNDED_STAGING_TYPE_BOUNDARY','tx-baseline':'FINITE_ACTUAL_TX_CACHE_FIELDS_PASS',**{'tx-'+v:'DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE' for v in ('stale-head','torn-tail','lost-mark','inverse-order')}}
+def validate_gates(gates):
+ assert [g['name'] for g in gates]==list(EXPECTED_GATES),'Missing, duplicate or unexpected gate IDs'
+ assert all(g['exit']==0 and g['status']==EXPECTED_GATES[g['name']] for g in gates),'Wrong gate status or exit'
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def source_binding(overlay):
  assert not overlay.is_symlink();overlay=overlay.resolve();manifest=json.loads((overlay/'overlay.json').read_text())
@@ -16,7 +21,10 @@ def source_binding(overlay):
   if relative in seen:return
   assert relative in manifest['sources'],'Actual import missing manifest'
   seen[relative]=sha(source)
-  for name in re.findall(r'^import (\./\S+\.bend)',source.read_text(),re.M):visit(source.parent/name)
+  for name in re.findall(r'^import (\S+)',source.read_text(),re.M):
+   if name=='Base':continue
+   assert name.startswith('./') and name.endswith('.bend'),'Unsupported or unconfined actual import'
+   visit(source.parent/name)
  visit(overlay/'experiments/s-integrate/measurement-bend.bend')
  return {'manifestSources':dict(sorted(manifest['sources'].items())),'overlayManifestSHA256':sha(overlay/'overlay.json'),'runtimeSources':dict(sorted(seen.items())),'runtimeClosureSHA256':hashlib.sha256(json.dumps(dict(sorted(seen.items())),separators=(',',':')).encode()).hexdigest()}
 def dependency_binding():
@@ -35,7 +43,8 @@ def dependency_binding():
  for n in refnames:
   pinned=subprocess.check_output(['git','show','HEAD:'+n],cwd=reference)
   assert hashlib.sha256(pinned).hexdigest()==refs[n],'Reference tracked source drift'
- return {'gateAndProtectedSources':dict(sorted(sources.items())),'tools':tools,'referenceHEAD':subprocess.check_output(['git','rev-parse','HEAD'],cwd=reference,text=True).strip(),'referenceCoreSources':refs,'limits':{'checker':5,'runtime':5,'codegen':30,'clang':120},'cpu':9}
+ installed=Path.home()/'.bend/bend2';installed_sources={str(q.resolve()):sha(q) for q in [*installed.glob('*'),*(installed/'effs').glob('*')] if q.is_file()}
+ return {'installedBendRuntime':installed_sources,'gateAndProtectedSources':dict(sorted(sources.items())),'tools':tools,'referenceHEAD':subprocess.check_output(['git','rev-parse','HEAD'],cwd=reference,text=True).strip(),'referenceCoreSources':refs,'limits':{'checker':5,'runtime':5,'codegen':30,'clang':120},'cpu':9,'executionEnvironment':{name:os.environ.get(name) for name in ('NODE_OPTIONS','BEND_HOME','BEND_PATH','BEND_LIB','PYTHONPATH','LD_PRELOAD','LD_LIBRARY_PATH','HOME')}}
 def main():
  p=argparse.ArgumentParser();p.add_argument('--js-overlay',type=Path,required=True);p.add_argument('--native-overlay',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--cpu',type=int,default=9);p.add_argument('--reuse-receipt',type=Path);p.add_argument('--reuse-receipt-sha256');a=p.parse_args();a.output.mkdir(exist_ok=False)
  result={'status':'INCOMPLETE','schemaVersion':1,'scope':'Fresh exact candidate semantic/capability gates; no metric or product acceptance','roles':{},'gateSources':{f.name:sha(f) for f in HERE.glob('*.py')}}
@@ -46,13 +55,14 @@ def main():
    prior=json.loads(a.reuse_receipt.read_text());assert prior['status']=='FRESH_TWO_ROLE_CONNECTED_GATES_PASS','Only complete fresh receipt can authorize reuse'
    assert prior['dependencyBinding']==result['dependencyBinding'],'Gate/tool/reference dependencies changed'
    for role,overlay in [('JS',a.js_overlay),('Native',a.native_overlay)]:
-    old=prior['roles'][role];assert old['status']=='PASS' and len(old['gates'])==11,'Incomplete role gates'
+    old=prior['roles'][role];assert old['status']=='PASS','Incomplete role gates';validate_gates(old['gates'])
     binding=source_binding(overlay);assert binding['runtimeSources']==old['binding']['runtimeSources'] and binding['runtimeClosureSHA256']==old['binding']['runtimeClosureSHA256'],'Runtime candidate source changed; run full gates'
-    controls=a.output/(role+'-reuse-controls');command=[sys.executable,str(HERE/'materialize-controls.py'),'--overlay',str(overlay),'--output',str(controls),'--raw-snapshots','--slice-host-fixtures'];subprocess.run(command,stdout=subprocess.DEVNULL,check=True,timeout=120)
+    controls=a.output/(role+'-reuse-controls');command=[sys.executable,str(HERE/'materialize-controls.py'),'--overlay',str(overlay),'--output',str(controls),'--raw-snapshots','--slice-host-fixtures'];remaining=(DEADLINE-datetime.datetime.now(datetime.timezone.utc)).total_seconds();assert remaining>0,'Global work deadline reached';code,_=supervisor.execute(command,min(120,remaining));assert code==0,'Reuse control derivation failed'
     derived=json.loads((controls/'overlay.json').read_text())['sources'];assert derived==old['controlSources'],'Derived actual gate source changed; run full gates'
     for gate in old['gates']:
      if 'receipt' in gate:assert sha(Path(gate['receipt']))==gate['receiptSHA256'],'Dependency receipt drift'
     result['roles'][role]={'status':'REUSED','binding':binding,'controlSources':derived,'gates':old['gates']}
+   assert dependency_binding()==result['dependencyBinding'],'Dependencies changed during reuse'
    result.update(status='EXACT_UNCHANGED_TWO_ROLE_GATES_REUSED',reused=True,sourceReceiptSHA256=sha(a.reuse_receipt))
    return
   assert not a.reuse_receipt_sha256,'Digest requires reuse receipt'
@@ -60,18 +70,19 @@ def main():
    binding=source_binding(overlay);folder=a.output/role;folder.mkdir();entry={'status':'INCOMPLETE','input':str(overlay.resolve()),'binding':binding,'gates':[]};result['roles'][role]=entry
    def run(label,args,receipt,statuses,env=None):
     assert datetime.datetime.now(datetime.timezone.utc)<DEADLINE,'Global work deadline reached'
-    command=[sys.executable,*map(str,args)];out=folder/(label+'.log');process=subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,start_new_session=True,env=env)
-    try:text,_=process.communicate(timeout=min(1200,(DEADLINE-datetime.datetime.now(datetime.timezone.utc)).total_seconds()))
-    except subprocess.TimeoutExpired:os.killpg(process.pid,signal.SIGKILL);text,_=process.communicate();out.write_text(text);raise RuntimeError(label+' gate deadline')
-    out.write_text(text);gate={'name':label,'command':command,'exit':process.returncode,'logSHA256':sha(out)};entry['gates'].append(gate)
-    assert process.returncode==0,label+' failed: '+text[-2000:]
+    command=[sys.executable,*map(str,args)];out=folder/(label+'.log');
+    try:code,text=supervisor.execute(command,min(1200,(DEADLINE-datetime.datetime.now(datetime.timezone.utc)).total_seconds()),env)
+    except Exception as error:out.write_text(str(error));raise
+    out.write_text(text);gate={'name':label,'command':command,'exit':code,'logSHA256':sha(out)};entry['gates'].append(gate)
+    assert code==0,label+' failed: '+text[-2000:]
     if receipt:
      evidence=json.loads(receipt.read_text());assert evidence['status'] in statuses,label+' receipt not passing';gate.update(status=evidence['status'],receipt=str(receipt),receiptSHA256=sha(receipt))
    controls=folder/'control-overlay'
    run('materialize-controls',[HERE/'materialize-controls.py','--overlay',overlay,'--output',controls,'--raw-snapshots','--slice-host-fixtures'],None,None)
+   entry['gates'][-1]['status']='PASS_DERIVED_CONTROL_SOURCE_MAP'
    entry['controlSources']=json.loads((controls/'overlay.json').read_text())['sources']
    host=folder/'host12';run('host12',[HERE/'host-mutations-run.py','--overlay',controls,'--output-dir',host,'--cpu',a.cpu],host/'protocol.json',{'PASS'})
-   semantics=json.loads((host/'semantic-evidence.json').read_text());assert len(semantics['original'])==2 and all(x['fullSelectedChannelsEqual'] for x in semantics['original']);assert len(semantics['mutants'])==12 and all(len(x['observations'])==2 and all(o['compiling'] for o in x['observations']) for x in semantics['mutants'])
+   semantics=json.loads((host/'semantic-evidence.json').read_text());assert len(semantics['original'])==2 and all(x['fullSelectedChannelsEqual'] for x in semantics['original']);assert len(semantics['mutants'])==12 and all(len(x['observations'])==2 and all(o['compiling'] and o['differenceCount']>0 and o['witness'] for o in x['observations']) for x in semantics['mutants'])
    access=folder/'access.json';run('access',[HERE/'access-run.py',controls,'--evidence',access],None,None);data=json.loads(access.read_text());assert len(data['cases'])==9;entry['gates'][-1].update(status='ACTUAL_ACCESS_9_PASS',receipt=str(access),receiptSHA256=sha(access))
    e11=folder/'e11.json';run('e11',[HERE/'e11-run.py',controls,'--evidence',e11],e11,{'BOUNDED_JOINED_PASS'})
    retention=json.loads(e11.read_text());assert len(retention['actual'])==20 and len(retention['publicReference'])==10 and retention['semanticMutants']['status']=='PASS'
@@ -79,7 +90,8 @@ def main():
    stage=folder/'staging';run('staging',[HERE/'staging-controls.py','--overlay',overlay,'--output',stage,'--cpu',a.cpu],stage/'evidence.json',{'PASS_BOUNDED_STAGING_TYPE_BOUNDARY'})
    for variant in [None,'stale-head','torn-tail','lost-mark','inverse-order']:
     target=folder/('tx-'+(variant or 'baseline'));args=[HERE/'tx-controls-run.py','--overlay',overlay,'--output',target,'--cpu',a.cpu]+(['--mutation',variant] if variant else []);run(target.name,args,target/'evidence.json',{'DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE'} if variant else {'FINITE_ACTUAL_TX_CACHE_FIELDS_PASS'})
-   assert source_binding(overlay)==binding,'Snapshot changed during checks';entry['status']='PASS'
+   assert source_binding(overlay)==binding,'Snapshot changed during checks';validate_gates(entry['gates']);entry['status']='PASS'
+  assert dependency_binding()==result['dependencyBinding'],'Dependencies changed during fresh checks'
   result['status']='FRESH_TWO_ROLE_CONNECTED_GATES_PASS'
  except Exception as error:result.update(status='FAIL',error=repr(error));raise
  finally:(a.output/'evidence.json').write_text(json.dumps(result,indent=2)+'\n')
