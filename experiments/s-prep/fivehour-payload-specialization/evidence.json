@@ -102,16 +102,16 @@
       "output": "SOME PROOFS FAIL\nError:\n- expected : owner\n- observed : owner (consumed more than once)\nLocation: clone\n2 | \n3>| def clone(owner: T.Position) -> T.Position & T.Position:\n  |           ^^^^^\n4 |   (owner,owner)\n"
     }
   },
-  "status": "FINITE_CONTROLS_PASS",
   "originalPublicHeadersPreserved": true,
   "explicitOracleSha256": "82b8593493cb61016e90747cd40c037dc500dc5580a35786e6f27bd895b11599",
   "inputPayloadPath": "experiments/s-integrate/payload.bend",
   "inputPayloadSha256": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
-  "worktreeInputCommit": "8fc39842e40725369996a78f2bb90266b58e3fa4",
+  "worktreeInputCommit": "46eac2c837affc5f7c67c1cedd160382aaff8107",
   "readOnlyReferenceCommits": {
     "bevy-ts": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334",
     "bevy": "ad678262ce53b5d142fe49ee5e08caff6f00ab60",
     "bend2": "a950fd683c0d76f09794078e6174fe98a1492876"
   },
-  "claimLimits": "Finite original nominal Type payload correctness and owner return gate only; no opaque-provider/ECS universal refinement, performance, or loop acceptance. JS binding remains original Array intrinsics."
+  "claimLimits": "Finite original nominal Type payload correctness and owner return gate only; no opaque-provider/ECS universal refinement, performance, or loop acceptance. JS binding remains original Array intrinsics.",
+  "status": "FINITE_CONTROLS_PASS"
 }

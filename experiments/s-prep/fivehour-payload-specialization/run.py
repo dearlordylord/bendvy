@@ -30,5 +30,10 @@ def main():
     result=build_run(label+'-'+backend,text,backend);assert result['output']!=expected;result['status']='DETECTED';e['mutants'][label+'-'+backend]=result;print(label,backend,'DETECTED',flush=True)
   (root/'clone-negative.bend').write_text('import Base\nimport ./types.bend as T\ndef clone(owner: T.Position) -> T.Position & T.Position:\n  (owner,owner)\n');out=''.join(R.run(['taskset','-c','8','bend',root/'clone-negative.bend','--check-only'],ok=1));assert 'SOME PROOFS FAIL' in out and ('more than once' in out or 'consumed' in out);e['negative']={'affine-clone':{'status':'REJECTED','source':(root/'clone-negative.bend').read_text(),'output':out}}
  expected_manual=(HERE/'expected-oracle.txt').read_text();assert expected==expected_manual,'independent explicit full-output oracle differs'
+ segment_spec=importlib.util.spec_from_file_location('payload_signatures',ROOT/'experiments/s-prep/segment-run.py');segment=importlib.util.module_from_spec(segment_spec);segment_spec.loader.exec_module(segment)
+ before=segment.signatures(original);after=segment.signatures(native);assert before['imports']==after['imports'] and before['types']==after['types'] and all(h in after['definitions'] for h in before['definitions'])
+ e['originalPublicHeadersPreserved']=True;e['explicitOracleSha256']=sha(HERE/'expected-oracle.txt');e['inputPayloadPath']='experiments/s-integrate/payload.bend';e['inputPayloadSha256']=sha(ROOT/e['inputPayloadPath']);e['worktreeInputCommit']=R.run(['git','-C',ROOT,'rev-parse','HEAD'])[0].strip()
+ e['readOnlyReferenceCommits']={name:R.run(['git','-C','/workspace/formal-proofs/bendvy/.references/'+name,'rev-parse','HEAD'])[0].strip() for name in ['bevy-ts','bevy','bend2']}
+ e['claimLimits']='Finite original nominal Type payload correctness and owner return gate only; no opaque-provider/ECS universal refinement, performance, or loop acceptance. JS binding remains original Array intrinsics.'
  e['status']='FINITE_CONTROLS_PASS';(HERE/'evidence.json').write_text(json.dumps(e,indent=2)+'\n');print(e['status'])
 if __name__=='__main__':main()
