@@ -1,0 +1,8 @@
+import Base
+# Explicit backend source variant; cached capacity trusts exact shape.
+def get(~P: Data,array: Array<P>,+capacity: U32,+index: U32) -> Array<P> & P:
+  Array.get.go(P,array,capacity,index,U32.is_lt(index,U32.shr(capacity)))
+def swap(~P: Type,array: Array<P>,+capacity: U32,+index: U32,value: P) -> Array<P> & P:
+  Array.swap.go(P,array,capacity,index,value,U32.is_lt(index,U32.shr(capacity)))
+def set(~P: Type,array: Array<P>,+capacity: U32,+index: U32,value: P) -> Array<P>:
+  Array.set.fin(P,Array.swap.go(P,array,capacity,index,value,U32.is_lt(index,U32.shr(capacity))))

@@ -1,0 +1,483 @@
+{
+  "scope": "Finite equal-shape trusted-capacity domain; no production or proof approval",
+  "limits": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "commands": [
+    {
+      "args": [
+        "bend",
+        "version"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": "bend 2.0.35\n"
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-profile/experiments/s-prep/cached-array-backends/native.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-profile/experiments/s-prep/cached-array-backends/native.bend",
+        "-o",
+        "/tmp/bendvy-cached-backends-_psmty_k/original-native.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "args": [
+        "clang",
+        "-O3",
+        "/tmp/bendvy-cached-backends-_psmty_k/original-native.c",
+        "-pthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-cached-backends-_psmty_k/original-native"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "args": [
+        "/tmp/bendvy-cached-backends-_psmty_k/original-native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": "[[90, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[10, 2, 3, 4]:7:True\n[[10, 2, 3, 4]:7, [20, 2, 3, 4]:7, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=none:True\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[1, 2, 99, 4]:99\n"
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-profile/experiments/s-prep/cached-array-backends/javascript.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-profile/experiments/s-prep/cached-array-backends/javascript.bend",
+        "-o",
+        "/tmp/bendvy-cached-backends-_psmty_k/original-javascript.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "args": [
+        "node",
+        "/tmp/bendvy-cached-backends-_psmty_k/original-javascript.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": "[[90, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[10, 2, 3, 4]:7:True\n[[10, 2, 3, 4]:7, [20, 2, 3, 4]:7, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=none:True\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[1, 2, 99, 4]:99\n"
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-profile/experiments/s-prep/cached-array-backends/controls-3p9ju_wj/native.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-profile/experiments/s-prep/cached-array-backends/controls-3p9ju_wj/native.bend",
+        "-o",
+        "/tmp/bendvy-cached-backends-_psmty_k/wrong-leaf-native.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "args": [
+        "clang",
+        "-O3",
+        "/tmp/bendvy-cached-backends-_psmty_k/wrong-leaf-native.c",
+        "-pthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-cached-backends-_psmty_k/wrong-leaf-native"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "args": [
+        "/tmp/bendvy-cached-backends-_psmty_k/wrong-leaf-native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": "[[10, 2, 3, 4]:7, [90, 2, 3, 4]:7, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=none:True\n[[10, 2, 3, 4]:7, none, [20, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[30, 2, 3, 4]:7:True\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[1, 2, 99, 4]:99\n"
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-profile/experiments/s-prep/cached-array-backends/controls-3p9ju_wj/javascript.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-profile/experiments/s-prep/cached-array-backends/controls-3p9ju_wj/javascript.bend",
+        "-o",
+        "/tmp/bendvy-cached-backends-_psmty_k/wrong-leaf-javascript.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "args": [
+        "node",
+        "/tmp/bendvy-cached-backends-_psmty_k/wrong-leaf-javascript.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": "[[10, 2, 3, 4]:7, [90, 2, 3, 4]:7, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=none:True\n[[10, 2, 3, 4]:7, none, [20, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[30, 2, 3, 4]:7:True\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[1, 2, 99, 4]:99\n"
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-profile/experiments/s-prep/cached-array-backends/controls-3p9ju_wj/native.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-profile/experiments/s-prep/cached-array-backends/controls-3p9ju_wj/native.bend",
+        "-o",
+        "/tmp/bendvy-cached-backends-_psmty_k/drop-returned-owner-native.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "args": [
+        "clang",
+        "-O3",
+        "/tmp/bendvy-cached-backends-_psmty_k/drop-returned-owner-native.c",
+        "-pthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-cached-backends-_psmty_k/drop-returned-owner-native"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "args": [
+        "/tmp/bendvy-cached-backends-_psmty_k/drop-returned-owner-native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": "[[90, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=none:True\n[[10, 2, 3, 4]:7, [20, 2, 3, 4]:7, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=none:True\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[1, 2, 99, 4]:99\n"
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-profile/experiments/s-prep/cached-array-backends/controls-3p9ju_wj/javascript.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-profile/experiments/s-prep/cached-array-backends/controls-3p9ju_wj/javascript.bend",
+        "-o",
+        "/tmp/bendvy-cached-backends-_psmty_k/drop-returned-owner-javascript.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "args": [
+        "node",
+        "/tmp/bendvy-cached-backends-_psmty_k/drop-returned-owner-javascript.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": "[[90, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=none:True\n[[10, 2, 3, 4]:7, [20, 2, 3, 4]:7, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=none:True\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[1, 2, 99, 4]:99\n"
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-profile/experiments/s-prep/cached-array-backends/controls-3p9ju_wj/native.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-profile/experiments/s-prep/cached-array-backends/controls-3p9ju_wj/native.bend",
+        "-o",
+        "/tmp/bendvy-cached-backends-_psmty_k/wrong-capacity-native.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "args": [
+        "clang",
+        "-O3",
+        "/tmp/bendvy-cached-backends-_psmty_k/wrong-capacity-native.c",
+        "-pthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-cached-backends-_psmty_k/wrong-capacity-native"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "args": [
+        "/tmp/bendvy-cached-backends-_psmty_k/wrong-capacity-native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": "[[90, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[10, 2, 3, 4]:7:True\n[[20, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[10, 2, 3, 4]:7:True\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[1, 2, 3, 99]:3\n"
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-profile/experiments/s-prep/cached-array-backends/controls-3p9ju_wj/negative.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 1,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : owner\n- observed : owner (consumed more than once)\nLocation: bad\n2 | \n3>| def bad(owner: F.Main) -> F.Main & F.Main:\n  |         ^^^^^\n4 |   (owner,owner)\n"
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-profile/experiments/s-prep/cached-array-backends/controls-3p9ju_wj/direct.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 1,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : an annotated term (cannot infer)\n- observed : \\{True: (array => capacity => index => Array.get.go(get~P, array, capacity, index, Cmp.is_lt(U32.cmp(index, U32.shr(capacity))))); False: (array => capacity => index => Array.get.at(get~P, index, Array.size(get~P, array)))}\nLocation: get\n6 |   match native:\n7>|     case True{}: Array.get.go(P,array,capacity,index,U32.is_lt(index,U32.shr(capacity)))\n  |          ^^^^^^\n8 |     case False{}: Array.get(P,array,index)\n"
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-profile/experiments/s-prep/cached-array-backends/controls-3p9ju_wj/wrapper-entry.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-profile/experiments/s-prep/cached-array-backends/controls-3p9ju_wj/wrapper-entry.bend",
+        "-o",
+        "/tmp/bendvy-cached-backends-_psmty_k/failed-wrapper.js"
+      ],
+      "limit": 30,
+      "exit": 1,
+      "output": "Error: an open Array element type\n"
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-profile/experiments/s-prep/cached-array-backends/controls-3p9ju_wj/native.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-profile/experiments/s-prep/cached-array-backends/controls-3p9ju_wj/native.bend",
+        "-o",
+        "/tmp/bendvy-cached-backends-_psmty_k/failed-base.c"
+      ],
+      "limit": 30,
+      "exit": 1,
+      "output": "Error: an open Array element type\n"
+    }
+  ],
+  "mutants": [
+    {
+      "name": "wrong-leaf",
+      "applicableBackends": [
+        "native",
+        "javascript"
+      ],
+      "sourceSHA256": "32f1f52049ace0fe044d91a19d565407b697fd2f927831dbfd6b219acea481ce",
+      "results": {
+        "native": {
+          "status": "COMPILING_MUTANT_DETECTED",
+          "output": "[[10, 2, 3, 4]:7, [90, 2, 3, 4]:7, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=none:True\n[[10, 2, 3, 4]:7, none, [20, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[30, 2, 3, 4]:7:True\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[1, 2, 99, 4]:99\n",
+          "artifactSHA256": "86e0e2c34835a2bda3474bd02bdaa63234e95df4cec8a23214887412c4cad551"
+        },
+        "javascript": {
+          "status": "COMPILING_MUTANT_DETECTED",
+          "output": "[[10, 2, 3, 4]:7, [90, 2, 3, 4]:7, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=none:True\n[[10, 2, 3, 4]:7, none, [20, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[30, 2, 3, 4]:7:True\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[1, 2, 99, 4]:99\n",
+          "artifactSHA256": "31a6acac207f4c74f00bdaae919e4f94cf6ce80b94bc88961b75356eac2c3e84"
+        }
+      }
+    },
+    {
+      "name": "drop-returned-owner",
+      "applicableBackends": [
+        "native",
+        "javascript"
+      ],
+      "sourceSHA256": "b350db17702b14eea4bbdf0c765a7fb9e693b5054f539bad4ed8fd23d0fe5379",
+      "results": {
+        "native": {
+          "status": "COMPILING_MUTANT_DETECTED",
+          "output": "[[90, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=none:True\n[[10, 2, 3, 4]:7, [20, 2, 3, 4]:7, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=none:True\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[1, 2, 99, 4]:99\n",
+          "artifactSHA256": "c6a6650b90989220b3a80cc5b1c1bcaa9c4ed728db190f3ffecc19e964fe8142"
+        },
+        "javascript": {
+          "status": "COMPILING_MUTANT_DETECTED",
+          "output": "[[90, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=none:True\n[[10, 2, 3, 4]:7, [20, 2, 3, 4]:7, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=none:True\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[1, 2, 99, 4]:99\n",
+          "artifactSHA256": "b68edd2e46618aa6625b223edc005c2e44734a59756416185f49202f604e72a9"
+        }
+      }
+    },
+    {
+      "name": "wrong-capacity",
+      "applicableBackends": [
+        "native"
+      ],
+      "sourceSHA256": "5a73b724cafc9404467a19aee19c1bed33eeda02234d5d9597a6f84190e9a6b0",
+      "results": {
+        "native": {
+          "status": "COMPILING_MUTANT_DETECTED",
+          "output": "[[90, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[10, 2, 3, 4]:7:True\n[[20, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[10, 2, 3, 4]:7:True\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[1, 2, 3, 99]:3\n",
+          "artifactSHA256": "c75bcf3859479859c5ec98f68bf34e249929193f490a61cde01a26e1e706d10b"
+        }
+      },
+      "javascript": "INAPPLICABLE: intrinsic path does not consume cached size for tree descent"
+    }
+  ],
+  "compiler": "bend 2.0.35",
+  "baseSHA256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+  "backendSourceClosures": {
+    "native": {
+      "fixture.bend": "d8788b25e9ffba25ec4dd62fd52da3d1d777b2116b4ffcc22093d870f06b15c2",
+      "native-helpers.bend": "1611ca889bfae8682b271056042f089af3a8554643af7cf918f137c1c31ad166",
+      "native.bend": "668160ce32f4fd14b7fd21ec4de6d2c9f16641b2b0a2abc5ab6c0e8ac85a5ea3"
+    },
+    "javascript": {
+      "fixture.bend": "d8788b25e9ffba25ec4dd62fd52da3d1d777b2116b4ffcc22093d870f06b15c2",
+      "javascript-helpers.bend": "211d1fc2913e259627d531966f6128383e8c7649bc21632c5bc9584f9eb35ab3",
+      "javascript.bend": "6ef10ce7301b45cf122167f7b9cf7040d67e0ff1e30877d5876f06f804525f3f"
+    }
+  },
+  "artifactRoot": "/tmp/bendvy-cached-backends-_psmty_k",
+  "positive": {
+    "native": {
+      "status": "FINITE_FULL_FIELD_PASS",
+      "artifactSHA256": "fe9b3b59e81467b403ee9a6a2da28e7420de6168286305f5d1ada680c650e78b",
+      "output": "[[90, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[10, 2, 3, 4]:7:True\n[[10, 2, 3, 4]:7, [20, 2, 3, 4]:7, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=none:True\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[1, 2, 99, 4]:99\n"
+    },
+    "javascript": {
+      "status": "FINITE_FULL_FIELD_PASS",
+      "artifactSHA256": "fe2a85beab4707bad5027c9326084c7ba4df2a3433292371c9be4e49147ab756",
+      "output": "[[90, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[10, 2, 3, 4]:7:True\n[[10, 2, 3, 4]:7, [20, 2, 3, 4]:7, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=none:True\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[[10, 2, 3, 4]:7, none, [30, 2, 3, 4]:7, [40, 2, 3, 4]:7]:old=[90, 2, 3, 4]:7:False\n[1, 2, 99, 4]:99\n"
+    }
+  },
+  "javascriptLowering": {
+    "status": "FLAT_INTRINSICS_NATIVE_BRANCH_ABSENT",
+    "helpers": [
+      {
+        "signature": "$javascript$045helpers$058get$1260$(_array_0, _capacity_0, _index_0)",
+        "body": "  return {$: \"Tuple\", fst: _array_0, snd: _array_0[_index_0 % _array_0.length]};"
+      },
+      {
+        "signature": "$javascript$045helpers$058set$1260$(_array_0, _capacity_0, _index_0, _value_0)",
+        "body": "  return (_array_0[_index_0 % _array_0.length] = _value_0, _array_0);"
+      },
+      {
+        "signature": "$javascript$045helpers$058swap$1260$(_array_0, _capacity_0, _index_0, _value_0)",
+        "body": "  return array_rmw(_array_0, _index_0, () => _value_0);"
+      }
+    ]
+  },
+  "affineNegative": {
+    "status": "INTENDED_OWNER_DUPLICATION_REJECTION",
+    "output": "SOME PROOFS FAIL\nError:\n- expected : owner\n- observed : owner (consumed more than once)\nLocation: bad\n2 | \n3>| def bad(owner: F.Main) -> F.Main & F.Main:\n  |         ^^^^^\n4 |   (owner,owner)\n"
+  },
+  "directFrozenBool": {
+    "status": "CHECKER_REJECTED",
+    "sourceSHA256": "28f6202e44fdeb112545950e557720ff86d68bd46f09863fff52abd47190c846",
+    "output": "SOME PROOFS FAIL\nError:\n- expected : an annotated term (cannot infer)\n- observed : \\{True: (array => capacity => index => Array.get.go(get~P, array, capacity, index, Cmp.is_lt(U32.cmp(index, U32.shr(capacity))))); False: (array => capacity => index => Array.get.at(get~P, index, Array.size(get~P, array)))}\nLocation: get\n6 |   match native:\n7>|     case True{}: Array.get.go(P,array,capacity,index,U32.is_lt(index,U32.shr(capacity)))\n  |          ^^^^^^\n8 |     case False{}: Array.get(P,array,index)\n"
+  },
+  "wrapperFrozenBool": {
+    "status": "CHECK_PASS_CODEGEN_REJECTED",
+    "sourceSHA256": "bc70c8f986ca1cfa17e249ed683996b1b8f569ce6a899c61d629c7bf4731cbd2",
+    "entrySource": "import Base\nimport ./wrapper.bend as C\ndef show(result: Array<U32> & U32) -> String:\n  match result:\n    case (_,value): U32.show(value)\ndef main() -> IO(Unit):\n  IO.print(show(C.get(U32,False{},ALeaf{1},1,0)))\n",
+    "output": "Error: an open Array element type\n"
+  },
+  "directBaseGo": {
+    "status": "CHECK_PASS_CODEGEN_REJECTED",
+    "sourceSHA256": "8ba6e04c67c7a6f5da38db133c73c50815a78f1c8956940f43149c72c7bb1612",
+    "output": "Error: an open Array element type\n"
+  },
+  "status": "FINITE_EXPLICIT_OPERATION_TEMPLATE_PASS_BOOL_BASE_GO_BLOCKED",
+  "runnerSHA256": "81bd49bb7aa947f6cb3ca1743814499e08dc0819c81031bc11e8874aa45cbad5"
+}

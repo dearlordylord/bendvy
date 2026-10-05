@@ -1,0 +1,19 @@
+import Base
+
+# Capacity is trusted shape metadata: exact nonzero power-of-two leaf count.
+# Callers guard indices; these private helpers do not certify arbitrary arrays.
+def get(~P: Data,~native: Bool,array: Array<P>,+capacity: U32,+index: U32) -> Array<P> & P:
+  match native:
+    case True{}: Array.get.go(P,array,capacity,index,U32.is_lt(index,U32.shr(capacity)))
+    case False{}: Array.get(P,array,index)
+def swap(~P: Type,~native: Bool,array: Array<P>,+capacity: U32,+index: U32,value: P) -> Array<P> & P:
+  match native:
+    case True{}: Array.swap.go(P,array,capacity,index,value,U32.is_lt(index,U32.shr(capacity)))
+    case False{}: Array.swap(P,array,index,value)
+def set_done(-P: Type,result: Array<P> & P) -> Array<P>:
+  match result:
+    case (array,_): array
+def set(~P: Type,~native: Bool,array: Array<P>,+capacity: U32,+index: U32,value: P) -> Array<P>:
+  match native:
+    case True{}: set_done(P,Array.swap.go(P,array,capacity,index,value,U32.is_lt(index,U32.shr(capacity))))
+    case False{}: Array.set(P,array,index,value)
