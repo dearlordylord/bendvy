@@ -13,10 +13,14 @@ CPU=os.environ.get('BENDVY_CPU','8')
 # checkout must obtain that exact dependency itself, before checking fixtures.
 input_root=ART/'input';input_root.mkdir()
 input_candidate=input_root/'candidate';input_candidate.mkdir()
+# Final cached specialization adds imports even to generic storage. Preserve the
+# entire actual supplied core closure; no module thinning or fixture Type erasure.
+for source in (OVERLAY/'experiments/s-integrate').glob('*.bend'):
+ (input_candidate/source.name).write_bytes(source.read_bytes())
 for source in FIXTURES.glob('*.bend'):
  if source.name.startswith('owned-storage-') or source.name in ('storage.bend','identity.bend'):
   (input_candidate/source.name).write_bytes(((OVERLAY/'experiments/s-integrate'/source.name) if source.name in ('storage.bend','identity.bend') else source).read_bytes())
-(input_candidate/'types.bend').write_bytes(subprocess.check_output(['git','show','a976667:experiments/s-integrate/types.bend'],cwd=ROOT))
+assert (input_candidate/'types.bend').read_bytes()==subprocess.check_output(['git','show','a976667:experiments/s-integrate/types.bend'],cwd=ROOT),'Actual Type fixture definitions changed'
 (input_root/'owned-index-core.bend').write_bytes((FIXTURES.parent/'owned-index-core.bend').read_bytes())
 HERE=input_candidate
 def run(args,limit=5,ok=0):
@@ -44,7 +48,7 @@ expected=['insert1:placed','insert2:placed','insert4:placed','insert8:placed','i
  'retained-first:'+row(10,110,'present',1,2),'retained-last:'+row(90,190,'present',9,10),'main-add:added','main-added:'+row(20,120,'absent',50,50),'main-change:changed','main-changed:'+row(21,120,'absent',50,51),'main-remove:removed','main-removed:'+row(0,120,'absent',0,0),'main-again:unchanged','main-unchanged:'+row(0,120,'absent',0,0),'main-stale:missing','removed:'+row(40,140,'absent',5,77),'tombstone:missing','repeat-remove:missing','reinstall:placed','reinstalled:'+row(400,410,'present',81,82),'shape:131072:17:65537']
 if True:
  tmp=ART/'work';tmp.mkdir();candidate=tmp/'candidate';candidate.mkdir()
- for source in ['storage.bend','identity.bend','types.bend','owned-storage-control.bend']:(candidate/source).write_bytes((HERE/source).read_bytes())
+ for source in HERE.glob('*.bend'):(candidate/source.name).write_bytes(source.read_bytes())
  (tmp/'owned-index-core.bend').write_bytes((FIXTURES.parent/'owned-index-core.bend').read_bytes())
  def build(name):
   source=candidate/'owned-storage-control.bend';c=tmp/(name+'.c');js=tmp/(name+'.js');binary=tmp/name

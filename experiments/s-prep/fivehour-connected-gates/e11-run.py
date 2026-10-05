@@ -88,6 +88,30 @@ def main():
                  'buildHelper': ROOT / 'experiments/t05/run.py',
                  'checkerWrapper': runner.B.CHECK}
         report['toolchain'] = {n: {'path': str(p), 'sha256': sha(p)} for n, p in tools.items()}
+        # Every semantic mutant's authoritative input is Motion and one lane.
+        # Remove only unreachable control scaffolding; keep runtime modules whole.
+        original_build = runner.B.build
+        def mutation_build(source, folder):
+            cases = {n: lane for n, _file, _old, _new, _count, lane in runner.mutation_cases()}
+            name = Path(folder).name
+            if name in cases:
+                lane = cases[name]
+                constructors = dict(zip(runner.LANES, ('RetMessage','RetRemoved','RetDespawned','RetUnheld','RetMarks')))
+                text = source.read_text()
+                main_start = text.index('def main() -> IO(Unit):')
+                source.write_text(text[:main_start] + 'def main() -> IO(Unit):\n  motion(' + constructors[lane] + '{})\n')
+                runtime = set()
+                core = source.parent
+                def visit(path):
+                    relative = str(path.relative_to(target.parent.parent))
+                    if relative in runtime: return
+                    runtime.add(relative)
+                    for imported in re.findall(r'^import (\./\S+\.bend)',path.read_text(),re.M):
+                        visit((path.parent/imported).resolve())
+                visit(target/'measurement-bend.bend')
+                mapping.slice_control_imports(core, source, runtime)
+            return original_build(source, folder)
+        runner.B.build = mutation_build
         evidence = target / 'host-retention-evidence.json'
 
         def save():

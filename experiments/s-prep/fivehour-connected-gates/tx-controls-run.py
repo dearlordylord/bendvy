@@ -19,7 +19,8 @@ def main():
    text=(HERE/'tx-controls.bend').read_text().replace('import ./measurement-bend.bend as M','import ./gate-callbacks.bend as M')
    if mode=='raw':
     # Only observation getters change; authored callback providers remain untouched.
-    for name in ('position','vitals','motion_ledger','health_ledger'):text=text.replace('P.'+name+'_get','P.'+name+'_uncached')
+    original=ROOT/'experiments/s-integrate/payload.bend';assert h(core/'payload.bend')==h(original),'Independent raw observer payload changed'
+    shutil.copy2(HERE/'original-raw-observer.bend',core/'original-raw-observer.bend');text=text.replace('import ./cached-payload.bend as P','import ./original-raw-observer.bend as P');result['originalRawObserverSHA256']=h(HERE/'original-raw-observer.bend');result['originalPayloadSHA256']=h(original)
    source.write_text(text);outputs=[]
    for program in B.build(source,folder):
     raw=B.execute(program);out=folder/(program.name+'.jsonl');out.write_text(raw+'\n');lines=[json.loads(line) for line in raw.splitlines()];assert len(lines)==144,len(lines);outputs.append(lines)

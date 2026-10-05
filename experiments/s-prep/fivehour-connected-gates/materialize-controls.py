@@ -97,9 +97,9 @@ def main():
   changed=changed.replace('import Base\n','import Base\nimport ./cache.bend as CC\nimport ./cached-payload.bend as CP\n',1)
   if changed!=text:path.write_text(changed);changes[relative]={'before':hashlib.sha256(text.encode()).hexdigest(),'after':h(path)}
  if a.raw_snapshots:
-  host=core/'host.bend';text=host.read_text()
+  host=core/'host.bend';text=host.read_text();observer=Path(__file__).resolve().parent/'original-raw-observer.bend';original=Path(__file__).resolve().parents[3]/'experiments/s-integrate/payload.bend';assert h(core/'payload.bend')==h(original),'Original raw observer payload drift';(core/'original-raw-observer.bend').write_bytes(observer.read_bytes());text=text.replace('import Base\n','import Base\nimport ./original-raw-observer.bend as ORG\n',1)
   for schema,main,ledger in [('motion','position','motion_ledger'),('health','vitals','health_ledger')]:
-   match=re.search(r'^def '+schema+r'_snapshot\(',text,re.M);end=text.find('\ndef ',match.start()+1);end=len(text) if end<0 else end;before=text[match.start():end];after=before.replace('CP.'+main+'_get','CP.'+main+'_uncached').replace('CP.'+ledger+'_get','CP.'+ledger+'_uncached');assert before!=after;text=text[:match.start()]+after+text[end:]
+   match=re.search(r'^def '+schema+r'_snapshot\(',text,re.M);end=text.find('\ndef ',match.start()+1);end=len(text) if end<0 else end;before=text[match.start():end];after=before.replace('CP.'+main+'_get','ORG.'+main+'_get').replace('CP.'+ledger+'_get','ORG.'+ledger+'_get');assert before!=after;text=text[:match.start()]+after+text[end:]
   relative=str(host.relative_to(a.output));changes[relative]={'before':h(host),'after':hashlib.sha256(text.encode()).hexdigest(),'scope':'Raw-owner snapshot observation only; actual callback providers unchanged; getters return affine owner'};host.write_text(text)
  if a.slice_host_fixtures:
   original=core/'host-fixture.bend';text=original.read_text()

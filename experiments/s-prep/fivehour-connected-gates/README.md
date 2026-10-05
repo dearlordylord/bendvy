@@ -77,3 +77,9 @@ python3 experiments/s-prep/fivehour-connected-gates/tx-controls-run.py --overlay
 Required factory/raw rejected-owner preservation, membership/Flag/hole/growth,
 actual Host capture path mutations and whole performance matrix remain pending.
 No passing cache audit boundary set has been produced by observe-cache.py yet.
+
+Current final JS E11 evidence (`final-js-e11-evidence.json`) retains all ten fresh TypeScript lanes, twenty actual backend lanes, and ten compiling semantic mutants. Each mutation is compiled using a control-only reachable slice of its original Motion/designated-lane input; runtime modules remain whole. The first 30-second codegen block and first repair-path negative remain in the evidence history. This is finite capability evidence, not a proof or performance acceptance.
+
+The proposed exact-source reuse interface accepts `--reuse-receipt` plus an externally reviewed `--reuse-receipt-sha256`. It requires a complete fresh two-role receipt, byte-identical runtime modules, freshly derived complete control source maps, unchanged gate/protected fixture/tool/reference dependencies, and unchanged child receipts. Whole overlay metadata is retained as provenance. A reused receipt explicitly reports `EXACT_UNCHANGED_TWO_ROLE_GATES_REUSED`; changed sources require the full gate set. Four synthetic negative receipt controls pass; no complete two-role receipt has been frozen or reused yet.
+
+Both observation harnesses now use `original-raw-observer.bend`: unwrap the Cache owner, call the protected original raw payload getter, and rewrap the unchanged cached view. This avoids validating an optimized native getter against itself. Actual callback/provider bodies are untouched. Final Native gates remain pending.

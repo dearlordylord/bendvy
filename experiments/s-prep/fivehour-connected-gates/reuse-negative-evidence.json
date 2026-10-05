@@ -1,0 +1,30 @@
+{
+  "status": "NEGATIVE_RECEIPT_GUARDS_PASS",
+  "scope": "Synthetic negative receipt guards; no actual gate acceptance",
+  "cases": [
+    {
+      "name": "incomplete",
+      "exit": 1,
+      "status": "FAIL",
+      "error": "AssertionError('Only complete fresh receipt can authorize reuse')"
+    },
+    {
+      "name": "canonical-digest",
+      "exit": 1,
+      "status": "FAIL",
+      "error": "AssertionError('Canonical receipt digest missing or mismatched')"
+    },
+    {
+      "name": "dependencies",
+      "exit": 1,
+      "status": "FAIL",
+      "error": "AssertionError('Gate/tool/reference dependencies changed')"
+    },
+    {
+      "name": "runtime-source",
+      "exit": 1,
+      "status": "FAIL",
+      "error": "AssertionError('Runtime candidate source changed; run full gates')"
+    }
+  ]
+}
