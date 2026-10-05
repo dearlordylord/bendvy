@@ -127,6 +127,10 @@ def main():
                             r['raw'][f'{cohort}/{role}/{sample}/{schema}/{backend}']={'batchMilliseconds':value,'TSBatchMilliseconds':tsvalue,'rawPath':str(outputs[backend]),'rawSHA256':guard.sha(outputs[backend]),'TSRawPath':str(outputs['TS']),'TSRawSHA256':guard.sha(outputs['TS']),'receiptPath':str(receipt),'receiptSHA256':guard.sha(receipt)}
         boundary.verify(captured,captured_digest);boundary.verify(args.baseline_manifest,args.baseline_sha256)
         if guard.sha(checkreceipt)!=r['freshCheckReceiptSHA256']:raise ValueError('check receipt changed after execution')
+        if reuse_selected and guard.sha(pathlib.Path(reuse['path']))!=reuse['sha256']:raise ValueError('initial reuse receipt changed after execution')
+        for role in checks['roles'].values():
+            for gate in role['gates']:
+                if 'receipt' in gate and guard.sha(pathlib.Path(gate['receipt']))!=gate['receiptSHA256']:raise ValueError('child gate receipt changed after execution')
         r['decision']=decision.score(cands['candidate'],refs['candidate']);r['baselineDecision']=decision.score(cands['reference'],refs['reference']);r['baselinePolicy']='fixed-initial-freshly-rerun';r['canonicalPriorBestScoreComparisonRequired']=True;r['canonicalKeepAuthorized']=False;r['keepProposed']=not initial_same and decision.keep(r['decision'],r['baselineDecision']);r['status']='PACKET_COMPLETE' if r['decision']['status']=='QUALIFIED_PROPOSAL' and r['baselineDecision']['status']=='QUALIFIED_PROPOSAL' else 'INCONCLUSIVE_NO_METRIC'
     except Exception as e:r.update(status='FAILED_NO_METRIC',error=repr(e))
     finally:(args.output/'packet.json').write_text(json.dumps(r,indent=2)+'\n')
