@@ -1,0 +1,253 @@
+{
+  "status": "PASS_BOUNDED",
+  "cases": [
+    {
+      "label": "actual raw factory reserve insert positive publication and rejected complete owners",
+      "schemas": 2,
+      "backends": [
+        "NativeO3",
+        "JS"
+      ],
+      "status": "PASS"
+    }
+  ],
+  "limits": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "sourceCommit": "ac0105b74fe2a60db1c28c6d4c960948da65fe2d",
+  "sources": {
+    "experiments/s-prep/fivehour-cache-integration/check.py": "1ab387635c6be5994a4cdb2eb7c3c26ac91de46610e76a5e022ccb28a7b967f0",
+    "experiments/s-prep/fivehour-cache-integration/materialize.py": "18655a4f0a348deabf3b4668dd6083670fd040ad81339c1800ef13446cf96dc1",
+    "experiments/s-prep/fivehour-cache-integration/input-overlay-fast.py": "e9e53d8067b9155764f745a894f0cc4aeccae6c05a74ca3d738d4fa95aafa334",
+    "experiments/s-prep/fivehour-cache-integration/reject-run.py": "b95b0c8337732cd4ff9a4d371d69166d10d91449a5f4d2a30735e1773d6ec966",
+    "experiments/s-prep/fivehour-cache-integration/input-overlay.py": "6d0457b55697d7913c072614710a6f54cd0267b5deafa09788a6468a41c09f24",
+    "experiments/s-prep/fivehour-cache-integration/input-persistent-payload.bend": "77685ac0390a8536fe5e845192f4bc1890cc0b355cdd02a4e00bd4948bb08fd8",
+    "experiments/s-prep/fivehour-cache-integration/held.bend": "5994b97265f9c1d507edb178e9914f1efc462f517e7d02426f8d9a52c0e513fe",
+    "experiments/s-prep/fivehour-cache-integration/held-adapter.bend": "f08c574189546c6848f1dcedcda5a17d8e24300056f8c72decd47cb988d6665c",
+    "experiments/s-prep/fivehour-cache-integration/input-cache.bend": "c979f39e22a442e2442c87d03c69f16b7cb2264bbc0bff5edbb9f54dac59a223",
+    "experiments/s-prep/fivehour-cache-integration/native-payload.bend": "2938897514720ed50abc100d99bbc7effd730a8b5c155ad8d9ac98d1bf5143b4",
+    "experiments/s-prep/fivehour-cache-integration/raw-reject-controls.bend": "bda9f4cc1a254e9fc74665e4399907fe47606ae4ee556ecf02c7ca896db34ecd",
+    "experiments/s-prep/fivehour-cache-integration/raw-boundaries.bend": "77dbad2365e0499ae4e9e6a5ae7dd67b5a2ebcc5be163de56d0e836781f70a2f",
+    "experiments/s-prep/fivehour-cache-integration/candidate-inputs/measurement-bend.bend": "c2351825ee3998988aa01440e484db0cd11d3dbac5a70db4a079d841aaaaf31d",
+    "experiments/s-prep/fivehour-cache-integration/candidate-inputs/storage.bend": "27f6b8aa69966eb6e349e7337b0947e50179dbc26cdcc363c1e857bb79cc4130",
+    "experiments/s-prep/fivehour-cache-integration/candidate-inputs/measurement-lifecycle.bend": "0b2690c7d56219411dd3a14876dda8fe0c2f757fcf3656cf404fbdf76524296d",
+    "experiments/s-prep/fivehour-cache-integration/candidate-inputs/identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+    "experiments/s-prep/fivehour-cache-integration/candidate-inputs/host-batch-invoker.bend": "c271eb5bd6979e1cd8607a2b1e8fe0fb8164de0b2d907418989bb8a1c8f47d04",
+    "experiments/s-prep/fivehour-cache-integration/candidate-inputs/observations.bend": "00442198a7aeb420c5defef1641fa873a8f4fcaddfd896973820fe7b875216c4",
+    "experiments/s-prep/fivehour-cache-integration/candidate-inputs/query.bend": "c54c276843ac606d96a560b5324a9d4c2c04c8ba3782c1a8fea3d98c9929d775",
+    "experiments/s-prep/fivehour-cache-integration/candidate-inputs/commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+    "experiments/s-prep/fivehour-cache-integration/candidate-inputs/measurement-lifecycle-timed.bend": "a184121050b0a2a29224337916e42068cf77bf2ad8811b7db0632f108656c19b",
+    "experiments/s-prep/fivehour-cache-integration/candidate-inputs/dispatcher.bend": "5d7652d052f9915e9735a81d470026c2f7ba2077f11b09472418a6b5213945e9",
+    "experiments/s-prep/fivehour-cache-integration/candidate-inputs/storage-stage-fixture.bend": "1dac0e305cd26e7853fefa7ec2dceee09e1a737291a451a901149dbc91dc68fb",
+    "experiments/s-prep/fivehour-cache-integration/candidate-inputs/host.bend": "cc06d581fbc762ef2fcae5091a21bb11955c6770e43abc4346de9fa884d81d2c",
+    "experiments/s-prep/fivehour-cache-integration/candidate-inputs/measurement-failure-host.bend": "754e2f98fe6035959e3d2395f449e0354d1c2f55f1b56370adefa547312e53cb",
+    "experiments/s-prep/fivehour-cache-integration/source-inputs.json": "e03ac1fc31daf9aa240aecbaf6738fcbc4b59bf1e56971a821fbf56b31257875",
+    "experiments/s-prep/owned-write-query/run.py": "6a7daf1e5498b438643d77331a1d36b06ec523b9b9076c8fb23711c41cafba8f"
+  },
+  "runnerSHA256": "b95b0c8337732cd4ff9a4d371d69166d10d91449a5f4d2a30735e1773d6ec966",
+  "version": "bend 2.0.35\n",
+  "outputSHA256": "d69bbc8dcc05f8b0292d8ec3ea13a89c1dde6e41d5f0d9cb92f9a5405ead24bd",
+  "specialization": {
+    "sourceCommit": "ac0105b74fe2a60db1c28c6d4c960948da65fe2d",
+    "recipeSHA256": "18655a4f0a348deabf3b4668dd6083670fd040ad81339c1800ef13446cf96dc1",
+    "originalClosure": {
+      "experiments/s-integrate/audited-invoker.bend": "2ed7e484b8a043f0944e0f662a8799f94388c99f757de331fb1a79b1c07c8853",
+      "experiments/s-integrate/capture.bend": "44d5f3117a465c216ee93100026aad78e86f24c40c09c678be99935dde076817",
+      "experiments/s-integrate/commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+      "experiments/s-integrate/dispatcher.bend": "5d7652d052f9915e9735a81d470026c2f7ba2077f11b09472418a6b5213945e9",
+      "experiments/s-integrate/host-observations.bend": "e6a37f6d160a53f14b08254f35cb317a68f1f2c540c40c9b88e600d0d6198e76",
+      "experiments/s-integrate/host-render.bend": "1eef120fa604ba633f06d33a8a3910845293926c36dc9c91cd59d4d5c045a28a",
+      "experiments/s-integrate/host.bend": "cc06d581fbc762ef2fcae5091a21bb11955c6770e43abc4346de9fa884d81d2c",
+      "experiments/s-integrate/identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+      "experiments/s-integrate/measurement-bend.bend": "c2351825ee3998988aa01440e484db0cd11d3dbac5a70db4a079d841aaaaf31d",
+      "experiments/s-integrate/observations.bend": "00442198a7aeb420c5defef1641fa873a8f4fcaddfd896973820fe7b875216c4",
+      "experiments/s-integrate/query.bend": "c54c276843ac606d96a560b5324a9d4c2c04c8ba3782c1a8fea3d98c9929d775",
+      "experiments/s-integrate/reader-host.bend": "50f1251c6d476b07055c36c5a97e3350a4cb46e5d826ff97ced2860d40798a64",
+      "experiments/s-integrate/readers.bend": "2673082b4ef5cd6c5d8f61c362e22f74b13daeb27196894278cc20b1459c22e9",
+      "experiments/s-integrate/schedule.bend": "98c955f7ee5039aed875a3bd93e3c94840d9ea2f48de0e6415bd28d63ee8fb98",
+      "experiments/s-integrate/storage.bend": "27f6b8aa69966eb6e349e7337b0947e50179dbc26cdcc363c1e857bb79cc4130",
+      "experiments/s-integrate/streams.bend": "1a1c7991d6a1b4ebfb3b47dc62459beb83ed5e38ded56d27cc20b5478fc0d315",
+      "experiments/s-integrate/structural-invoker.bend": "6907a8c5775f77ffed6141123fe5c7033678269ade0f59cd0f24b8680e497932",
+      "experiments/s-integrate/systems.bend": "2cfc899215e408cc4c652c8d4c290b18800cdb6e8c96f1061a77853afdac9221",
+      "experiments/s-integrate/transaction-dispatch-adapters.bend": "eea16d3f539d70bcd88fd8fd314b75d252ccaff2b9c1c8b63e7d96bfdda34142",
+      "experiments/s-integrate/transaction.bend": "d32f0b26e4a14fc784c3ce30c4d6a1ded0cf0a55ed819f54419a558445e298a4"
+    },
+    "specializedClosure": {
+      "experiments/s-integrate/audited-invoker.bend": "8f4cc0acd27b49d7425e43419dc0f6d2be7eeed1cb36962c33d0b97aaf2ef5b3",
+      "experiments/s-integrate/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+      "experiments/s-integrate/commands.bend": "5cdbaeb590d0542db6d956ff421f7ab7f35c1b71be70091f87ce4fd58271ecc0",
+      "experiments/s-integrate/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+      "experiments/s-integrate/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+      "experiments/s-integrate/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+      "experiments/s-integrate/host.bend": "912a679e54098d5c4e395fc75e993092c3cb735968ce2fc96edba709b778bb04",
+      "experiments/s-integrate/identity.bend": "6cff678171c10d5124b234cb0e2e3d55cd56aec95871508c595f259c484de4f8",
+      "experiments/s-integrate/measurement-bend.bend": "4701561c2436f92bd5209f5a5d6b553620b653f21366da9f1c4e246972267ff2",
+      "experiments/s-integrate/observations.bend": "e81cb63b3ab6da947a2455c3cc1b388abb1aa71dea593671d1c18f00da07a778",
+      "experiments/s-integrate/query.bend": "1f7620a8063bdcc95aa7407870ffd4f189ac2c945330e359fee8d0b617b8cc42",
+      "experiments/s-integrate/reader-host.bend": "26eb687a8fb1893b55e4a0c7c8a629b688e37466e169cb3c95dd5273a553db6d",
+      "experiments/s-integrate/readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+      "experiments/s-integrate/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+      "experiments/s-integrate/storage.bend": "3bddf3a25dc6fbaa18c34f2d4e17d45664b3a53b791e20144ec853fb78908d09",
+      "experiments/s-integrate/streams.bend": "291d9a46ad58bdc481a5710976e01b762f6e11be3aeba07076c46c69f236d2c0",
+      "experiments/s-integrate/structural-invoker.bend": "8e1269193d719b1f0ea68b040c62e8966160bacb898ac51caa2f6494f4621e0a",
+      "experiments/s-integrate/systems.bend": "32e11a5a89b01e8db00f0b58a9fd1e2da87f4882189725b0012933421b6b1716",
+      "experiments/s-integrate/transaction-dispatch-adapters.bend": "f2276c1c16ad3694ab8a253f97da892df3a1db81b621cd80018b1376d79d490d",
+      "experiments/s-integrate/transaction.bend": "10666618cc37f9cd2a5f4f5c13570727b0a0ece96bbbada2e06816ccd3b0e0de"
+    },
+    "callbackPins": {
+      "motion_body_ledger": "b1ea1bd7ae671fae18ea7c5d26b04ca4c0c03b8bd2d36d709a01c76379ba5201",
+      "motion_body_read": "e6967abd8b26c4028dfc0651703f1f90c663583613a7e4efa68028a056553741",
+      "motion_body": "38e9d8bb471ed25341c59fc82801493483229a351168a64ad802ecc3dbd625b0",
+      "health_body_ledger": "782d031b2dfa09a2f9bbcff228ff705816fc3bb40b64b5cad9bbaaae0ec691f0",
+      "health_body_read": "09d94bef9502a59eff8b0f050842e8dfbcf369fd9736a352b03fa6e9c4931269",
+      "health_body": "9f289b79eececfab754bca0fbb412896e96dbe8639231090bef251961cf879b0"
+    },
+    "cacheSourceSHA256": "c979f39e22a442e2442c87d03c69f16b7cb2264bbc0bff5edbb9f54dac59a223",
+    "cachedPayloadSHA256": "c4f08daeadfc20217b9778fc33a57271376a3831ae27c4ceb64fd2a962b9095f",
+    "rawPayloadSHA256": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "rawProviderVariant": "native-four-cell-structural",
+    "rawProviderSHA256": "2938897514720ed50abc100d99bbc7effd730a8b5c155ad8d9ac98d1bf5143b4",
+    "scope": "private wrapped Type World; original generic dispatcher/transaction/storage/commands; trusted original-getter initialization",
+    "pinnedSourceInputs": {
+      "candidateSnapshot": "22e5df56a7ac3de7d24ba69a726cd12ca0f2dbec",
+      "baseline": "a976667",
+      "inputs": {
+        "candidate-inputs/commands.bend": {
+          "originalPath": "experiments/s-perf/candidate/commands.bend",
+          "commit": "22e5df56a7ac3de7d24ba69a726cd12ca0f2dbec",
+          "blob": "7566b9c34683fb223b34fe66df239b69c683f879",
+          "sha256": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b"
+        },
+        "candidate-inputs/dispatcher.bend": {
+          "originalPath": "experiments/s-perf/candidate/dispatcher.bend",
+          "commit": "22e5df56a7ac3de7d24ba69a726cd12ca0f2dbec",
+          "blob": "fb0ce4684b970b9186b31babd3a4032e6dd9c01c",
+          "sha256": "5d7652d052f9915e9735a81d470026c2f7ba2077f11b09472418a6b5213945e9"
+        },
+        "candidate-inputs/host-batch-invoker.bend": {
+          "originalPath": "experiments/s-perf/candidate/host-batch-invoker.bend",
+          "commit": "22e5df56a7ac3de7d24ba69a726cd12ca0f2dbec",
+          "blob": "4402420bc232944fb552d9f11bd6d2ff7cba9102",
+          "sha256": "c271eb5bd6979e1cd8607a2b1e8fe0fb8164de0b2d907418989bb8a1c8f47d04"
+        },
+        "candidate-inputs/host.bend": {
+          "originalPath": "experiments/s-perf/candidate/host.bend",
+          "commit": "22e5df56a7ac3de7d24ba69a726cd12ca0f2dbec",
+          "blob": "43bb035d9fc9d8b46ebb0f8fba0eb484b872d03c",
+          "sha256": "cc06d581fbc762ef2fcae5091a21bb11955c6770e43abc4346de9fa884d81d2c"
+        },
+        "candidate-inputs/identity.bend": {
+          "originalPath": "experiments/s-perf/candidate/identity.bend",
+          "commit": "22e5df56a7ac3de7d24ba69a726cd12ca0f2dbec",
+          "blob": "34186d0b14b051e8d82bb07fe64f7a0e6dd492ae",
+          "sha256": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44"
+        },
+        "candidate-inputs/measurement-bend.bend": {
+          "originalPath": "experiments/s-perf/candidate/measurement-bend.bend",
+          "commit": "22e5df56a7ac3de7d24ba69a726cd12ca0f2dbec",
+          "blob": "515621bbd97edc720e0db41ad386f51cb404e1c7",
+          "sha256": "c2351825ee3998988aa01440e484db0cd11d3dbac5a70db4a079d841aaaaf31d"
+        },
+        "candidate-inputs/measurement-failure-host.bend": {
+          "originalPath": "experiments/s-perf/candidate/measurement-failure-host.bend",
+          "commit": "22e5df56a7ac3de7d24ba69a726cd12ca0f2dbec",
+          "blob": "f1ec071e0c2e469a0251fa21cfc94ae315b7319d",
+          "sha256": "754e2f98fe6035959e3d2395f449e0354d1c2f55f1b56370adefa547312e53cb"
+        },
+        "candidate-inputs/measurement-lifecycle-timed.bend": {
+          "originalPath": "experiments/s-perf/candidate/measurement-lifecycle-timed.bend",
+          "commit": "22e5df56a7ac3de7d24ba69a726cd12ca0f2dbec",
+          "blob": "2015bbed282ee5724d255d7a29b05d37106ea934",
+          "sha256": "a184121050b0a2a29224337916e42068cf77bf2ad8811b7db0632f108656c19b"
+        },
+        "candidate-inputs/measurement-lifecycle.bend": {
+          "originalPath": "experiments/s-perf/candidate/measurement-lifecycle.bend",
+          "commit": "22e5df56a7ac3de7d24ba69a726cd12ca0f2dbec",
+          "blob": "18dbd0e087ee023d8fd8ef97ab5ad07109d031ed",
+          "sha256": "0b2690c7d56219411dd3a14876dda8fe0c2f757fcf3656cf404fbdf76524296d"
+        },
+        "candidate-inputs/observations.bend": {
+          "originalPath": "experiments/s-perf/candidate/observations.bend",
+          "commit": "22e5df56a7ac3de7d24ba69a726cd12ca0f2dbec",
+          "blob": "2ecd3453ffed3030f4dd5f2ec7da24a8ba42f05b",
+          "sha256": "00442198a7aeb420c5defef1641fa873a8f4fcaddfd896973820fe7b875216c4"
+        },
+        "candidate-inputs/query.bend": {
+          "originalPath": "experiments/s-perf/candidate/query.bend",
+          "commit": "631976e275b8f67fdcde93c86234b1eaca7c663c",
+          "blob": "042e0c70cb9eaa161604ab8d949dc1c30ec220c8",
+          "sha256": "c54c276843ac606d96a560b5324a9d4c2c04c8ba3782c1a8fea3d98c9929d775"
+        },
+        "candidate-inputs/storage-stage-fixture.bend": {
+          "originalPath": "experiments/s-perf/candidate/storage-stage-fixture.bend",
+          "commit": "22e5df56a7ac3de7d24ba69a726cd12ca0f2dbec",
+          "blob": "0f1161e981050f4af2af0ea5f7506409006d99c5",
+          "sha256": "1dac0e305cd26e7853fefa7ec2dceee09e1a737291a451a901149dbc91dc68fb"
+        },
+        "candidate-inputs/storage.bend": {
+          "originalPath": "experiments/s-perf/candidate/storage.bend",
+          "commit": "93b93ca5825a506a9a038d569386eb38028261a7",
+          "blob": "493c935ad5dd0e05e67c7416a98067c1b6656c1d",
+          "sha256": "27f6b8aa69966eb6e349e7337b0947e50179dbc26cdcc363c1e857bb79cc4130"
+        },
+        "input-cache.bend": {
+          "originalPath": "experiments/s-prep/persistent-cache-world/cache.bend",
+          "commit": "22e5df56a7ac3de7d24ba69a726cd12ca0f2dbec",
+          "blob": "3460117b5d3ad7a94c74e40e58519d69994c3cb4",
+          "sha256": "c979f39e22a442e2442c87d03c69f16b7cb2264bbc0bff5edbb9f54dac59a223"
+        },
+        "input-persistent-payload.bend": {
+          "originalPath": "experiments/s-prep/persistent-cache-world/persistent-payload.bend",
+          "commit": "22e5df56a7ac3de7d24ba69a726cd12ca0f2dbec",
+          "blob": "9e1cd36a1d2c7b0ca58e056a69126748f0e04a74",
+          "sha256": "77685ac0390a8536fe5e845192f4bc1890cc0b355cdd02a4e00bd4948bb08fd8"
+        },
+        "input-overlay.py": {
+          "originalPath": "experiments/s-perf/overlay.py",
+          "commit": "22e5df56a7ac3de7d24ba69a726cd12ca0f2dbec",
+          "blob": "462513a22dd0f51bc2bdbf6387b7f7f83b6d0f44",
+          "sha256": "6d0457b55697d7913c072614710a6f54cd0267b5deafa09788a6468a41c09f24"
+        }
+      },
+      "canonicalCombinedCommit": "7d5521961313210e3d35399e7faade8134080166",
+      "canonicalCombinedBlobs": {
+        "storage.bend": "493c935ad5dd0e05e67c7416a98067c1b6656c1d",
+        "query.bend": "042e0c70cb9eaa161604ab8d949dc1c30ec220c8"
+      }
+    },
+    "runtimeClosure": {
+      "experiments/s-integrate/audited-invoker.bend": "8f4cc0acd27b49d7425e43419dc0f6d2be7eeed1cb36962c33d0b97aaf2ef5b3",
+      "experiments/s-integrate/cache.bend": "c979f39e22a442e2442c87d03c69f16b7cb2264bbc0bff5edbb9f54dac59a223",
+      "experiments/s-integrate/cached-payload.bend": "c4f08daeadfc20217b9778fc33a57271376a3831ae27c4ceb64fd2a962b9095f",
+      "experiments/s-integrate/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+      "experiments/s-integrate/commands.bend": "5cdbaeb590d0542db6d956ff421f7ab7f35c1b71be70091f87ce4fd58271ecc0",
+      "experiments/s-integrate/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+      "experiments/s-integrate/held-adapter.bend": "f08c574189546c6848f1dcedcda5a17d8e24300056f8c72decd47cb988d6665c",
+      "experiments/s-integrate/held.bend": "5994b97265f9c1d507edb178e9914f1efc462f517e7d02426f8d9a52c0e513fe",
+      "experiments/s-integrate/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+      "experiments/s-integrate/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+      "experiments/s-integrate/host.bend": "912a679e54098d5c4e395fc75e993092c3cb735968ce2fc96edba709b778bb04",
+      "experiments/s-integrate/identity.bend": "6cff678171c10d5124b234cb0e2e3d55cd56aec95871508c595f259c484de4f8",
+      "experiments/s-integrate/measurement-bend.bend": "4701561c2436f92bd5209f5a5d6b553620b653f21366da9f1c4e246972267ff2",
+      "experiments/s-integrate/observations.bend": "e81cb63b3ab6da947a2455c3cc1b388abb1aa71dea593671d1c18f00da07a778",
+      "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+      "experiments/s-integrate/query.bend": "1f7620a8063bdcc95aa7407870ffd4f189ac2c945330e359fee8d0b617b8cc42",
+      "experiments/s-integrate/raw-boundaries.bend": "77dbad2365e0499ae4e9e6a5ae7dd67b5a2ebcc5be163de56d0e836781f70a2f",
+      "experiments/s-integrate/reader-host.bend": "26eb687a8fb1893b55e4a0c7c8a629b688e37466e169cb3c95dd5273a553db6d",
+      "experiments/s-integrate/readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+      "experiments/s-integrate/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+      "experiments/s-integrate/storage.bend": "3bddf3a25dc6fbaa18c34f2d4e17d45664b3a53b791e20144ec853fb78908d09",
+      "experiments/s-integrate/streams.bend": "291d9a46ad58bdc481a5710976e01b762f6e11be3aeba07076c46c69f236d2c0",
+      "experiments/s-integrate/structural-invoker.bend": "8e1269193d719b1f0ea68b040c62e8966160bacb898ac51caa2f6494f4621e0a",
+      "experiments/s-integrate/systems.bend": "32e11a5a89b01e8db00f0b58a9fd1e2da87f4882189725b0012933421b6b1716",
+      "experiments/s-integrate/transaction-dispatch-adapters.bend": "f2276c1c16ad3694ab8a253f97da892df3a1db81b621cd80018b1376d79d490d",
+      "experiments/s-integrate/transaction.bend": "10666618cc37f9cd2a5f4f5c13570727b0a0ece96bbbada2e06816ccd3b0e0de",
+      "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+      "experiments/s-integrate/uncached-payload.bend": "2938897514720ed50abc100d99bbc7effd730a8b5c155ad8d9ac98d1bf5143b4"
+    },
+    "runtimeClosureSHA256": "bd9660f1c27e0531eeefef3af1fac3e0b3fd1f3e8f19e902e2952254ed6a7ea4"
+  }
+}
