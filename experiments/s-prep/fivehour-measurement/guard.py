@@ -37,3 +37,25 @@ def bend_closure(entry, roots):
             if not imp.endswith('.bend'): raise ValueError('unsupported import '+imp)
             visit(p.parent/imp)
     visit(entry);return found
+
+def kill_descendants(pid):
+    """Kill only the launched process and observed descendants, including setsid."""
+    import os,signal
+    graph={}
+    for p in pathlib.Path('/proc').glob('[0-9]*/stat'):
+        try:
+            fields=p.read_text().rsplit(')',1)[1].split();graph[int(p.parent.name)]=(int(fields[1]),fields[19])
+        except (OSError,ValueError,IndexError):pass
+    selected={pid}
+    while True:
+        nextset=selected|{child for child,(parent,start) in graph.items() if parent in selected}
+        if nextset==selected:break
+        selected=nextset
+    for child in sorted(selected,reverse=True):
+        try:
+            fd=os.pidfd_open(child)
+            try:
+                current=(pathlib.Path('/proc')/str(child)/'stat').read_text().rsplit(')',1)[1].split()[19]
+                if child in graph and current==graph[child][1]:signal.pidfd_send_signal(fd,signal.SIGKILL)
+            finally:os.close(fd)
+        except (ProcessLookupError,OSError):pass

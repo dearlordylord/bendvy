@@ -9,7 +9,7 @@ def child(args,limit,log):
     guard.deadline(limit);p=subprocess.Popen(list(map(str,args)),stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True,start_new_session=True,env=ENV)
     try:o,e=p.communicate(timeout=limit)
     except subprocess.TimeoutExpired:
-        os.killpg(p.pid,signal.SIGKILL);o,e=p.communicate();log.append({'args':list(map(str,args)),'limit':limit,'status':'TIMEOUT','stdout':o,'stderr':e});raise ValueError('child deadline failure')
+        guard.kill_descendants(p.pid);o,e=p.communicate();log.append({'args':list(map(str,args)),'limit':limit,'status':'TIMEOUT','stdout':o,'stderr':e});raise ValueError('child deadline failure')
     log.append({'args':list(map(str,args)),'limit':limit,'exit':p.returncode,'stderr':e})
     if p.returncode:raise ValueError('child exit failure '+str(args[0]))
     return o
@@ -35,7 +35,7 @@ def main():
     if m['files'].get(str(checkscript))!=live['sha256'] or guard.sha(checkscript)!=live['sha256']:raise ValueError('live check implementation is not protected')
     allowed=pathlib.Path('/tmp/bendvy-fivehour-packets');allowed.mkdir(exist_ok=True)
     if args.output.absolute()!=args.output.resolve() or not args.output.resolve().is_relative_to(allowed) or args.output.resolve()==allowed:raise ValueError('output must be a new nonsymlink directory below /tmp/bendvy-fivehour-packets')
-    args.output.mkdir(exist_ok=False);os.sched_setaffinity(0,{args.cpu});logs=[];r={'sourceAndTools':m['files'],'artifactPins':{},'status':'INCOMPLETE','manifestSHA256':args.sha256,'acceptanceSHA256':args.acceptance_sha256,'raw':{},'commands':logs,'productAcceptance':False}
+    args.output.mkdir(exist_ok=False);os.sched_setaffinity(0,{args.cpu});logs=[];r={'environment':ENV,'cpu':11,'nativePolicy':{'threads':1,'gpu':'off','clang':'-O3'},'sourceAndTools':m['files'],'artifactPins':{},'status':'INCOMPLETE','manifestSHA256':args.sha256,'acceptanceSHA256':args.acceptance_sha256,'raw':{},'commands':logs,'productAcceptance':False}
     try:
         captured,captured_digest=snapshot.capture(args.manifest,args.sha256,args.output/'candidate-snapshot');m=boundary.verify(captured,captured_digest);r['candidateSnapshotManifestSHA256']=captured_digest;r['candidateSnapshotFiles']=m['files']
         checkoutput=args.output/'fresh-checks'
@@ -90,6 +90,9 @@ def main():
         r['decision']=decision.score(cands['candidate'],refs['candidate']);r['baselineDecision']=decision.score(cands['reference'],refs['reference']);r['keepProposed']=decision.keep(r['decision'],r['baselineDecision']);r['status']='PACKET_COMPLETE' if r['decision']['status']=='QUALIFIED_PROPOSAL' and r['baselineDecision']['status']=='QUALIFIED_PROPOSAL' else 'INCONCLUSIVE_NO_METRIC'
     except Exception as e:r.update(status='FAILED_NO_METRIC',error=repr(e))
     finally:(args.output/'packet.json').write_text(json.dumps(r,indent=2)+'\n')
+    if r['status']=='PACKET_COMPLETE':
+        print('REPORT '+json.dumps({'candidate':r['decision'],'retainedBest':r['baselineDecision'],'keepProposed':r['keepProposed'],'focusedGoalMet':r['decision']['focusedGoalMet'],'productAcceptance':False},sort_keys=True))
+        print('METRIC focused_score='+format(r['decision']['metric'],'.17g'))
     print(json.dumps({'status':r['status'],'metric':r.get('decision',{}).get('metric') if r['status']=='PACKET_COMPLETE' else None,'keepProposed':r.get('keepProposed',False) if r['status']=='PACKET_COMPLETE' else False,'receipt':str(args.output/'packet.json')},sort_keys=True))
     if r['status']!='PACKET_COMPLETE':raise SystemExit(1)
 
