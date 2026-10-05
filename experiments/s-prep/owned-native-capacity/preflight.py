@@ -1,5 +1,5 @@
 """Bind authoritative base plus separately frozen derived capacity recipe."""
-import hashlib,importlib.util,json
+import hashlib,importlib.util,json,subprocess
 from pathlib import Path
 H=Path(__file__).resolve().parent
 PROJECT=Path('/workspace/formal-proofs/bendvy')
@@ -26,3 +26,13 @@ def prepared(root):
 def evaluator_root(root):
  assert root.resolve()==PROJECT.resolve(),'Evaluator import root differs from guarded PROJECT'
  return str(PROJECT)
+
+def control_sources():
+ pins={'experiments/s-prep/owned-write-query-integration/controls-run.py':'f012ec4248a86e5ae997ad2811313203b839d7236d324c39123343f52751dbeb','experiments/s-prep/owned-write-query-integration/controls.bend':'edd39c0b345b6b60ada54f9fdc50ecebddf89574dba2f386103e0f88414c037d'}
+ for relative,digest in pins.items():
+  source=PROJECT/relative
+  assert not source.is_symlink() and source.resolve().is_relative_to(PROJECT.resolve()),'Control source path mismatch: '+relative
+  assert sha(source)==digest,'Frozen control source mismatch: '+relative
+  tracked=subprocess.check_output(['git','-C',str(PROJECT),'show','HEAD:'+relative],timeout=5)
+  assert source.read_bytes()==tracked,'Control source differs from tracked HEAD: '+relative
+ return pins

@@ -36,3 +36,5 @@ The preflight negative uses an independently created temporary directory as the 
 ```sh
 python3 experiments/s-prep/owned-native-capacity/preflight-controls.py --evidence /tmp/new-capacity-preflight-receipt.json
 ```
+
+The actual PROJECT `controls-run.py` and `controls.bend` now have independent exact SHA256 and tracked-HEAD guards before evaluator/control imports and before each fixture copy, with a final post-execution check. Preflight-only simulated hash tampering of either source is rejected before import/copy. This closes the separate control-source gap; existing semantic receipts remain unchanged and no semantic child was rerun.

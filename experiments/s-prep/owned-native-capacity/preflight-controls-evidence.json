@@ -10,9 +10,23 @@
       "name": "repinned-source-ledger",
       "status": "REJECTED_BEFORE_RECIPE_READ",
       "diagnostic": "Frozen source bindings mismatch"
+    },
+    {
+      "name": "altered-controls-run.py",
+      "status": "REJECTED_BEFORE_IMPORT_OR_COPY",
+      "diagnostic": "Frozen control source mismatch: experiments/s-prep/owned-write-query-integration/controls-run.py"
+    },
+    {
+      "name": "altered-controls.bend",
+      "status": "REJECTED_BEFORE_IMPORT_OR_COPY",
+      "diagnostic": "Frozen control source mismatch: experiments/s-prep/owned-write-query-integration/controls.bend"
     }
   ],
   "positive": {
+    "controlSources": {
+      "experiments/s-prep/owned-write-query-integration/controls-run.py": "f012ec4248a86e5ae997ad2811313203b839d7236d324c39123343f52751dbeb",
+      "experiments/s-prep/owned-write-query-integration/controls.bend": "edd39c0b345b6b60ada54f9fdc50ecebddf89574dba2f386103e0f88414c037d"
+    },
     "base": {
       "baseGuardSHA256": "d560f0834d0f4373936402eb3e266e75ab6deebd30335059602768da2e25a215",
       "protectedSources": 139,
@@ -32,5 +46,5 @@
     "evaluatorRoot": "/workspace/formal-proofs/bendvy"
   },
   "status": "PREFLIGHT_POSITIVE_AND_NEGATIVES_PASS",
-  "runnerSHA256": "6355b3d6582bcbff25ff9c1ed20d30aac59274985933e5db504a34c512323c1f"
+  "runnerSHA256": "0b3755c2411066ee3286fae2a682e5a6efd1d85fef8be5f7c30eef9758f00784"
 }

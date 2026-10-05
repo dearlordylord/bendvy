@@ -6,7 +6,7 @@ import preflight
 H=Path(__file__).resolve().parent
 p=argparse.ArgumentParser();p.add_argument('--evidence',type=Path,required=True);a=p.parse_args()
 r={'scope':'Preflight-only: no artifact build, Node, construction or timing rerun','controls':[]}
-r['positive']={'base':preflight.base(Path('/tmp/bendvy-held-integrated-overlay-v2')),'prepared':preflight.prepared(Path('/tmp/bendvy-owned-native-capacity-v2')),'evaluatorRoot':preflight.evaluator_root(preflight.PROJECT)}
+r['positive']={'controlSources':preflight.control_sources(),'base':preflight.base(Path('/tmp/bendvy-held-integrated-overlay-v2')),'prepared':preflight.prepared(Path('/tmp/bendvy-owned-native-capacity-v2')),'evaluatorRoot':preflight.evaluator_root(preflight.PROJECT)}
 with tempfile.TemporaryDirectory(prefix='capacity-wrong-root-') as wrongroot:
  try:preflight.evaluator_root(Path(wrongroot));raise RuntimeError('Mismatched import root accepted')
  except AssertionError as e:r['controls'].append({'name':'mismatched-evaluator-root','status':'REJECTED_BEFORE_IMPORT','diagnostic':str(e)})
@@ -19,6 +19,14 @@ with tempfile.TemporaryDirectory(prefix='capacity-repin-control-') as tmp:
   preflight.prepared(tmp/'nonexistent-derived-input');raise RuntimeError('Repinned ledger accepted')
  except AssertionError as e:r['controls'].append({'name':'repinned-source-ledger','status':'REJECTED_BEFORE_RECIPE_READ','diagnostic':str(e)})
  finally:preflight.H=originalH
+originalsha=preflight.sha
+for relative in preflight.control_sources():
+ target=preflight.PROJECT/relative
+ preflight.sha=lambda path,target=target: '0'*64 if path==target else originalsha(path)
+ try:
+  preflight.control_sources();raise RuntimeError('Altered control hash accepted')
+ except AssertionError as e:r['controls'].append({'name':'altered-'+Path(relative).name,'status':'REJECTED_BEFORE_IMPORT_OR_COPY','diagnostic':str(e)})
+ finally:preflight.sha=originalsha
 r['status']='PREFLIGHT_POSITIVE_AND_NEGATIVES_PASS'
 r['runnerSHA256']=hashlib.sha256(Path(__file__).read_bytes()).hexdigest();
 with a.evidence.open('x') as output:output.write(json.dumps(r,indent=2)+'\n')
