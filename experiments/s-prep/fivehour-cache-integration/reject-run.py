@@ -29,7 +29,7 @@ try:
  for sch in ['motion','health']:
   main={'coordinates':four(10),'frame':7} if sch=='motion' else {'levels':four(10),'reserve':9,'class':2};replacement={'coordinates':four(100),'frame':7} if sch=='motion' else {'levels':four(100),'reserve':9,'class':2};aux={'rates':four(20),'moving':True} if sch=='motion' else {'layers':four(20),'grade':3}
   assert records[sch,'positive-factory']=='2' and records[sch,'positive-handle']=='1:1'
-  base={'namespace':1,'next':1,'rows':[],'pending':[],'ledger':{'values':four(30),'epoch':4},'mode':sch.title()+'On'}
+  base={'namespace':1,'next':1,'rows':[],'pending':[],'ledger':{'totals':four(30),'epoch':4},'mode':sch.title()+'On'}
   for step in ['positive-factory-world','positive-reserve-staged','positive-reserve-applied','positive-insert-staged','positive-insert-applied']:
    expected=json.loads(json.dumps(base))
    if step!='positive-factory-world':expected['next']=2
