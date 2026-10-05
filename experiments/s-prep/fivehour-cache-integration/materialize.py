@@ -20,7 +20,7 @@ def specialize(text):
 def materialize(destination,native_payload=False):
  destination=pathlib.Path(destination);input_pins=json.loads((HERE/'source-inputs.json').read_text())
  for name,pin in input_pins['inputs'].items():assert digest((HERE/name).read_bytes())==pin['sha256'],'Pinned source input differs: '+name
- spec=importlib.util.spec_from_file_location('overlay',HERE/'input-overlay.py');overlay=importlib.util.module_from_spec(spec);spec.loader.exec_module(overlay);overlay.ROOT=ROOT;manifest=overlay.materialize(destination,candidate=HERE/'candidate-inputs');pkg=destination/'experiments/s-integrate'
+ spec=importlib.util.spec_from_file_location('overlay',HERE/'input-overlay-fast.py');overlay=importlib.util.module_from_spec(spec);spec.loader.exec_module(overlay);manifest=overlay.materialize(ROOT,destination,candidate=HERE/'candidate-inputs');pkg=destination/'experiments/s-integrate'
  # The protected workload and raw payload remain byte-for-byte pinned inputs.
  for name,pin,path in [('measurement-bend.bend','56b72f6',ROOT/'experiments/s-perf/candidate/measurement-bend.bend'),('payload.bend','56b72f6',ROOT/'experiments/s-integrate/payload.bend')]:
   frozen=subprocess.check_output(['git','-C',str(ROOT),'show',pin+':'+path.relative_to(ROOT).as_posix()]);assert path.read_bytes()==frozen;assert (pkg/name).read_bytes()==frozen
