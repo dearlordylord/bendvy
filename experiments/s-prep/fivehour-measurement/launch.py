@@ -22,8 +22,9 @@ def main():
     declared=json.loads(x.manifest.read_text());allow=snapshot.editable(declared)
     m=boundary.verify(x.manifest,x.sha256,allow=allow);ENV=m['executionEnvironment'];packet.ENV=ENV;cli=pathlib.Path(m['canonicalCLI']);tools=m['tools']
     # This read is meaningful only after user acceptance/setup/new-segment.
-    guard.deadline(30)
-    text=packet.child([tools['node'],cli,'state','--cwd',x.cwd,'--report'],30,[])
+    # Canonical state fingerprints the full protected toolchain; this is not Bend codegen.
+    guard.deadline(180)
+    text=packet.child([tools['node'],cli,'state','--cwd',x.cwd,'--report'],180,[])
     report=json.loads(text);plan=accepted_plan(report,x.contract_digest,x.evaluator_identity)
     if x.inspect_only:print(json.dumps({'status':'CANONICAL_ACCEPTED_LAUNCH_PREFLIGHT','contractDigest':plan['contractDigest'],'evaluatorIdentity':plan['evaluatorIdentity']}));return
     boundary.verify(x.manifest,x.sha256,allow=allow);guard.deadline(5)
