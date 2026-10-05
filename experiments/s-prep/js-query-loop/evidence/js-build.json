@@ -1,0 +1,28 @@
+{
+  "status": "CHECK_AND_JS_CODEGEN_PASS",
+  "cpu": 9,
+  "commands": [
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-query-loop-build/batch.bend",
+        "--check-only"
+      ],
+      "cap": 15,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-query-loop-build/batch.bend",
+        "-o",
+        "/tmp/bendvy-query-loop-build/batch.js"
+      ],
+      "cap": 30,
+      "exit": 0,
+      "output": ""
+    }
+  ],
+  "generatedSHA256": "d252766567ed1f9d1a99c88bee97f44e653e676b5f05ce66f21316900f360e3d"
+}

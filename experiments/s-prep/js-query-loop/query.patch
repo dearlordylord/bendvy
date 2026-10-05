@@ -1,0 +1,42 @@
+--- a/experiments/s-integrate/query.bend
++++ b/experiments/s-integrate/query.bend
+@@ -109,0 +110,36 @@
++# Private CPS experiment: owned columns stay open across per-ID callbacks.
++def prototype_loop_struct_idx_return(-M: Type,-A: Type,-F: Data,-O: Data,+index: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,live: Array<Bool>,flags: Array<Maybe<&2,F>>,added: Array<U32>,changed: Array<U32>,values: List<&2,O>,resume: Array<Maybe<M>> -> Array<Maybe<A>> -> Array<Bool> -> Array<Maybe<&2,F>> -> Array<U32> -> Array<U32> -> List<&2,O> -> S.Rows<M,A,F> & List<&2,O>,result: M & (Maybe<A> & O)) -> S.Rows<M,A,F> & List<&2,O>:
++  match result:
++    case (m,(a,value)): resume(Array.set(Maybe<M>,main,index,Some{m}),Array.set(Maybe<A>,aux,index,a),live,flags,added,changed,value <> values)
++
++def prototype_loop_struct_idx_aux(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),+id: U32,namespace: U32,main: Array<Maybe<M>>,owner: M,live: Array<Bool>,flags: Array<Maybe<&2,F>>,added: Array<U32>,changed: Array<U32>,values: List<&2,O>,flag: Maybe<&2,F>,resume: Array<Maybe<M>> -> Array<Maybe<A>> -> Array<Bool> -> Array<Maybe<&2,F>> -> Array<U32> -> Array<U32> -> List<&2,O> -> S.Rows<M,A,F> & List<&2,O>,result: Array<Maybe<A>> & Maybe<A>) -> S.Rows<M,A,F> & List<&2,O>:
++  match result:
++    case (aux,a): prototype_loop_struct_idx_return(M,A,F,O,U32.sub(id,1),main,aux,live,flags,added,changed,values,resume,client(M,Maybe<A>,main_read(~M,~Tok,~V,~main_get),aux_read(~A,~AV,~aux_get),S.Handle{namespace,id},flag,owner,a))
++
++def prototype_loop_struct_idx_main(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),+id: U32,namespace: U32,aux: Array<Maybe<A>>,live: Array<Bool>,flags: Array<Maybe<&2,F>>,added: Array<U32>,changed: Array<U32>,values: List<&2,O>,flag: Maybe<&2,F>,resume: Array<Maybe<M>> -> Array<Maybe<A>> -> Array<Bool> -> Array<Maybe<&2,F>> -> Array<U32> -> Array<U32> -> List<&2,O> -> S.Rows<M,A,F> & List<&2,O>,result: Array<Maybe<M>> & Maybe<M>) -> S.Rows<M,A,F> & List<&2,O>:
++  match result:
++    case (main,None{}): resume(main,aux,live,flags,added,changed,values)
++    case (main,Some{owner}): prototype_loop_struct_idx_aux(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,id,namespace,main,owner,live,flags,added,changed,values,flag,resume,Array.swap(Maybe<A>,aux,U32.sub(id,1),None{}))
++
++def prototype_loop_struct_idx_selected(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),include: Bool,+id: U32,namespace: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,live: Array<Bool>,flags: Array<Maybe<&2,F>>,added: Array<U32>,changed: Array<U32>,values: List<&2,O>,flag: Maybe<&2,F>,resume: Array<Maybe<M>> -> Array<Maybe<A>> -> Array<Bool> -> Array<Maybe<&2,F>> -> Array<U32> -> Array<U32> -> List<&2,O> -> S.Rows<M,A,F> & List<&2,O>) -> S.Rows<M,A,F> & List<&2,O>:
++  match include:
++    case False{}: resume(main,aux,live,flags,added,changed,values)
++    case True{}: prototype_loop_struct_idx_main(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,id,namespace,aux,live,flags,added,changed,values,flag,resume,Array.swap(Maybe<M>,main,U32.sub(id,1),None{}))
++
++def prototype_loop_struct_idx_metadata(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),id: U32,namespace: U32,selection: Selection,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,values: List<&2,O>,live: Array<Bool>,added: Array<U32>,changed: Array<U32>,value: Bool,resume: Array<Maybe<M>> -> Array<Maybe<A>> -> Array<Bool> -> Array<Maybe<&2,F>> -> Array<U32> -> Array<U32> -> List<&2,O> -> S.Rows<M,A,F> & List<&2,O>,result: Array<Maybe<&2,F>> & Maybe<&2,F>) -> S.Rows<M,A,F> & List<&2,O>:
++  match value result:
++    case False{} Tuple{flags,_}: resume(main,aux,live,flags,added,changed,values)
++    case True{} Tuple{flags,+flag}: prototype_loop_struct_idx_selected(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,selected(F,selection,flag),id,namespace,main,aux,live,flags,added,changed,values,flag,resume)
++
++def prototype_loop_struct_cols_live(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),+id: U32,namespace: U32,selection: Selection,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,values: List<&2,O>,flags: Array<Maybe<&2,F>>,added: Array<U32>,changed: Array<U32>,resume: Array<Maybe<M>> -> Array<Maybe<A>> -> Array<Bool> -> Array<Maybe<&2,F>> -> Array<U32> -> Array<U32> -> List<&2,O> -> S.Rows<M,A,F> & List<&2,O>,result: Array<Bool> & Bool) -> S.Rows<M,A,F> & List<&2,O>:
++  match result:
++    case (live,value): prototype_loop_struct_idx_metadata(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,id,namespace,selection,main,aux,values,live,added,changed,value,resume,Array.get(Maybe<&2,F>,flags,U32.sub(id,1)))
++
++def prototype_loop_checked(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),valid: Bool,+id: U32,namespace: U32,selection: Selection,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,live: Array<Bool>,flags: Array<Maybe<&2,F>>,added: Array<U32>,changed: Array<U32>,values: List<&2,O>,resume: Array<Maybe<M>> -> Array<Maybe<A>> -> Array<Bool> -> Array<Maybe<&2,F>> -> Array<U32> -> Array<U32> -> List<&2,O> -> S.Rows<M,A,F> & List<&2,O>) -> S.Rows<M,A,F> & List<&2,O>:
++  match valid:
++    case False{}: resume(main,aux,live,flags,added,changed,values)
++    case True{}: prototype_loop_struct_cols_live(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,id,namespace,selection,main,aux,values,flags,added,changed,resume,Array.get(Bool,live,U32.sub(id,1)))
++def prototype_loop_go(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),remaining: Nat,+id: U32,+capacity: U32,+depth: Nat,+high: U32,+selection: Selection,+namespace: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,live: Array<Bool>,flags: Array<Maybe<&2,F>>,added: Array<U32>,changed: Array<U32>,values: List<&2,O>) -> S.Rows<M,A,F> & List<&2,O>:
++  match remaining:
++    case 0n: (S.Rows{main,aux,S.MetadataColumns{live,flags,added,changed},capacity,depth,high},List.reverse(&2,O,values))
++    case 1n++rest: prototype_loop_checked(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,Bool.and((0 < id : U32),(id <= capacity : U32)),id,namespace,selection,main,aux,live,flags,added,changed,values,(main => aux => live => flags => added => changed => values => prototype_loop_go(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,rest,U32.add(id,1),capacity,depth,high,selection,namespace,main,aux,live,flags,added,changed,values)))
+@@ -113 +149 @@
+-      struct_idx_go(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,U32.to_nat(high),1,capacity,depth,high,selection,namespace,StructColsState{main,aux,live,flags,added,changed,[]})
++      prototype_loop_go(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,U32.to_nat(high),1,capacity,depth,high,selection,namespace,main,aux,live,flags,added,changed,[])
