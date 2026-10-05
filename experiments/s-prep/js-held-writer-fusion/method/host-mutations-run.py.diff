@@ -1,0 +1,55 @@
+--- host-mutations-run.py.original
++++ host-mutations-run.py
+@@ -11,7 +11,7 @@
+ import sys
+ import types
+ 
+-ROOT = Path(__file__).resolve().parents[3]
++ROOT = Path('/workspace/formal-proofs/bendvy')
+ BASE = ROOT/'experiments/s-integrate'
+ 
+ def sha(path):
+@@ -50,6 +50,7 @@
+     parser=argparse.ArgumentParser(description=__doc__)
+     parser.add_argument('--overlay',type=Path,required=True)
+     parser.add_argument('--output-dir',type=Path,required=True)
++    parser.add_argument('--only',action='append',choices=['suppressed-setter'])
+     parser.add_argument('--cpu',type=int,default=10)
+     args=parser.parse_args()
+     os.sched_setaffinity(0,{args.cpu})
+@@ -78,6 +79,12 @@
+         elif label=='suppressed-setter':
+             cached=scratch/'cached-payload.bend'
+             if cached.exists():
++                # Actual original Host point path still calls CP.position_swap.
++                # Explicit fused detection records separate selected-owner gate obligation.
++                import importlib.util as _iu
++                _sp=_iu.spec_from_file_location('fused_adapter',Path(__file__).parent/'fused-adaptation.py');_fa=_iu.module_from_spec(_sp);_sp.loader.exec_module(_fa)
++                _held=scratch/'held-adapter.bend'
++                _is_fused=_held.exists() and _fa.fused_presence(_held.read_text())
+                 file='cached-payload.bend'
+                 before,after,setter_variant=suppressed_setter_mutation(cached.read_text())
+             else:
+@@ -98,6 +105,8 @@
+               'runnerSHA256':sha(Path(__file__)),'originalRunnerSHA256':sha(BASE/'host-mutations.py'),
+               'decoderSHA256':sha(BASE/'trace-decode.py'),'comparatorSHA256':sha(BASE/'trace-compare.py'),
+               'adaptedMutations':mutations,'suppressedSetterVariant':setter_variant,'suppressedSetterReplacementCount':1,'commands':[],
++              'fusedSelectedOwnerPresent':locals().get('_is_fused',False),
++              'suppressionTargetRole':'Actual original Host point CP setter; selected-owner fused suppression is a separately executed owner control, never inferred from Host',
+               'mechanicalPathSeam':'Relocated wrapper ROOT uses parents[3] instead of parents[2]',
+               'queryOrderSeam':'Full indexed-finalization tuple targets actual struct_idx_finish, not retained unused read_rows_finish'}
+     original_command=M.command
+@@ -123,10 +132,12 @@
+     semantic=args.output_dir/'semantic-evidence.json'
+     oldargv=sys.argv
+     sys.argv=['host-mutations.py','--stage','complete','--optimization','O0','--cpu',str(args.cpu),'--output',str(semantic)]
++    if args.only:
++        for label in args.only: sys.argv.extend(['--only',label])
+     try:
+         M.main()
+         result=json.loads(semantic.read_text())
+-        assert len(result['mutants'])==12
++        assert len(result['mutants'])==(len(args.only) if args.only else 12)
+         assert len(result['original'])==2 and all(x['fullSelectedChannelsEqual'] for x in result['original'])
+         assert all(len(m['observations'])==2 and all(x['compiling'] for x in m['observations']) for m in result['mutants'])
+         assert all(sha(args.overlay/path)==value for path,value in manifest['sources'].items()),'overlay drift'

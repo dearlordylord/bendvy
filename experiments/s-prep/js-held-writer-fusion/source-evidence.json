@@ -1,0 +1,63 @@
+{
+  "status": "UNSELECTED_UNACCEPTED_HELPER_PROTOTYPE",
+  "baselineClosureSHA256": "c9fd2616bad748f794b6e6822e166fcff09d3d26601533b56d77e52f92b55ecb",
+  "candidateClosureSHA256": "873bf74beab38be64ca57d9fc8181224da0f65b0672f413ed0aedc1ac1a12ff4",
+  "changedModules": [
+    "experiments/s-integrate/cached-payload.bend",
+    "experiments/s-integrate/held-adapter.bend"
+  ],
+  "newPrivateHelpers": [
+    {
+      "module": "experiments/s-integrate/cached-payload.bend",
+      "header": "def prototype_position_raw_swap(owner:T.Position,value:U32) -> T.Position & U32:",
+      "acceptedByCurrentLiteralHeaderManifest": false
+    },
+    {
+      "module": "experiments/s-integrate/cached-payload.bend",
+      "header": "def prototype_vitals_raw_swap(owner:T.Vitals,value:U32) -> T.Vitals & U32:",
+      "acceptedByCurrentLiteralHeaderManifest": false
+    },
+    {
+      "module": "experiments/s-integrate/cached-payload.bend",
+      "header": "def prototype_motion_ledger_raw_swap(owner:T.MotionLedger,value:U32) -> T.MotionLedger & U32:",
+      "acceptedByCurrentLiteralHeaderManifest": false
+    },
+    {
+      "module": "experiments/s-integrate/cached-payload.bend",
+      "header": "def prototype_health_ledger_raw_swap(owner:T.HealthLedger,value:U32) -> T.HealthLedger & U32:",
+      "acceptedByCurrentLiteralHeaderManifest": false
+    },
+    {
+      "module": "experiments/s-integrate/held-adapter.bend",
+      "header": "def motion_set_fused_done(world:S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,ledger:CC.Cache<T.MotionLedger,T.LedgerView>,+handle:S.Handle<T.MotionSchema>,undo:List<&2,X.Inverse<S.Handle<T.MotionSchema>>>,commands:List<S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>>,pings:List<&2,U32>,marks:List<&2,S.Handle<T.MotionSchema>>,cached:T.PositionView,value:U32,result:T.Position & U32) -> H.Held<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,CC.Cache<T.Position,T.PositionView>,CC.Cache<T.MotionLedger,T.LedgerView>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>>:",
+      "acceptedByCurrentLiteralHeaderManifest": false
+    },
+    {
+      "module": "experiments/s-integrate/held-adapter.bend",
+      "header": "def motion_setledger_fused_done(world:S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,main:CC.Cache<T.Position,T.PositionView>,+handle:S.Handle<T.MotionSchema>,undo:List<&2,X.Inverse<S.Handle<T.MotionSchema>>>,commands:List<S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>>,pings:List<&2,U32>,marks:List<&2,S.Handle<T.MotionSchema>>,cached:T.LedgerView,value:U32,result:T.MotionLedger & U32) -> H.Held<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,CC.Cache<T.Position,T.PositionView>,CC.Cache<T.MotionLedger,T.LedgerView>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>>:",
+      "acceptedByCurrentLiteralHeaderManifest": false
+    },
+    {
+      "module": "experiments/s-integrate/held-adapter.bend",
+      "header": "def health_set_fused_done(world:S.World<T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,ledger:CC.Cache<T.HealthLedger,T.LedgerView>,+handle:S.Handle<T.HealthSchema>,undo:List<&2,X.Inverse<S.Handle<T.HealthSchema>>>,commands:List<S.Command<CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked>>,pings:List<&2,U32>,marks:List<&2,S.Handle<T.HealthSchema>>,cached:T.VitalsView,value:U32,result:T.Vitals & U32) -> H.Held<S.World<T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,CC.Cache<T.Vitals,T.VitalsView>,CC.Cache<T.HealthLedger,T.LedgerView>,S.Handle<T.HealthSchema>,S.Command<CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked>>:",
+      "acceptedByCurrentLiteralHeaderManifest": false
+    },
+    {
+      "module": "experiments/s-integrate/held-adapter.bend",
+      "header": "def health_setledger_fused_done(world:S.World<T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,main:CC.Cache<T.Vitals,T.VitalsView>,+handle:S.Handle<T.HealthSchema>,undo:List<&2,X.Inverse<S.Handle<T.HealthSchema>>>,commands:List<S.Command<CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked>>,pings:List<&2,U32>,marks:List<&2,S.Handle<T.HealthSchema>>,cached:T.LedgerView,value:U32,result:T.HealthLedger & U32) -> H.Held<S.World<T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,CC.Cache<T.Vitals,T.VitalsView>,CC.Cache<T.HealthLedger,T.LedgerView>,S.Handle<T.HealthSchema>,S.Command<CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked>>:",
+      "acceptedByCurrentLiteralHeaderManifest": false
+    }
+  ],
+  "originalHeaderImportTypeChecks": {
+    "experiments/s-integrate/cached-payload.bend": "EXACT",
+    "experiments/s-integrate/held-adapter.bend": "EXACT"
+  },
+  "nominalTypesCallbackPinsUnchanged": true,
+  "rawProviderUnchanged": true,
+  "check": "actualmeasurement5sPASS",
+  "codegen": "actualmeasurementJS30sPASS",
+  "baselineFiniteTx": "FINITE_ACTUAL_TX_CACHE_FIELDS_PASS",
+  "failedPreparation": "Attempted original e705 pin on getter-only c9 input rejected before source mutation; corrected explicit c9 pin",
+  "generatedJSSHA256": "ba5283ed630ec6018f65bd5204914f805016427c5187fcb2a2a07647449556c8",
+  "directHeldWriterDoneSnippet": "function $held$045adapter$058motion_set_fused_done$(_world_0, _ledger_0, _handle_0, _undo_0, _commands_0, _pings_0, _marks_0, _cached_0, _value_0, _result_0) {\n  const _raw_0 = _result_0[\"fst\"];\n  const _old_0 = _result_0[\"snd\"];\n  return {$: \"held.Held\", \"world\": _world_0, \"main\": {$: \"cache.Cache\", \"raw\": _raw_0, \"cached\": ($cached$045payload$058position_patch$(_cached_0, _value_0))}, \"ledger\": _ledger_0, \"handle\": _handle_0, \"undo\": {$: \"Con\", \"head\": {$: \"transaction.MainInverse\", \"handle\": _handle_0, \"old\": _old_0}, \"tail\": _undo_0}, \"commands\": _commands_0, \"pings\": _pings_0, \"marks\": {$: \"Con\", \"head\": _handle_0, \"tail\": _marks_0}};\n}"
+}

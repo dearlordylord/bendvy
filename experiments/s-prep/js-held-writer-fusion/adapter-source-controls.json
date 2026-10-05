@@ -1,0 +1,27 @@
+{
+  "status": "PASS_SOURCE_ONLY_DETECTION",
+  "cases": [
+    {
+      "variant": "generic-static-JS",
+      "detectedFused": false
+    },
+    {
+      "variant": "generic-static-Native",
+      "detectedFused": false
+    },
+    {
+      "variant": "fused",
+      "detectedFused": true
+    },
+    {
+      "variant": "partial-fused",
+      "result": "REJECTED_BEFORE_MUTATION_NO_FALLBACK"
+    }
+  ],
+  "sha256": {
+    "fused-adaptation.py": "2a96941cce058572190e3d4d12450ad7f831aabcb9bcd3e907991767843ad849",
+    "host-mutations-run.py": "87baaf83ef450c887fc745a1118f51556b7075ea6cee46de6ca4a74dec48ec15",
+    "tx-controls-run.py": "a81753b444a79d2a1246a347870f67cc49b26d2482d32df5560f6d094c3d0f19",
+    "suppressed-owner.py": "6d9fe88622e519115c29d0585091331efdad031ab8ebde9f39fe47c907c259df"
+  }
+}
