@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import pathlib,subprocess,os,signal,json,hashlib,shutil,re,tempfile
+import pathlib,subprocess,os,signal,json,hashlib,shutil,re,tempfile,types
 HERE=pathlib.Path(__file__).resolve().parent;ROOT=HERE.parents[2];ART=pathlib.Path(os.environ.get('BENDVY_HELD_ARTIFACT','/tmp/bendvy-held-replay'));ART.mkdir(exist_ok=False);CPU=os.environ.get('BENDVY_CPU','5');e={'status':'INCOMPLETE','cases':[],'limits':{'checker':5,'runtime':5,'codegen':30,'clang':120},'sources':{}}
 def run(args,limit=5,expected=0):
  p=subprocess.Popen(list(map(str,args)),stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,start_new_session=True)
@@ -8,11 +8,64 @@ def run(args,limit=5,expected=0):
   os.killpg(p.pid,signal.SIGKILL);out,_=p.communicate();e['cases'].append({'command':list(map(str,args)),'timeout':limit,'output':out});raise
  assert p.returncode==expected,(args,p.returncode,out)
  return out
+def reference_provenance(reference_root,pin):
+ """Reject moved HEAD or changed import-closure bytes before Node execution."""
+ head=run(['git','-C',reference_root,'rev-parse','HEAD']).strip()
+ assert head==pin,'bevy-ts HEAD does not match tracked reference pin'
+ entry=reference_root/'packages/core/src/index.ts';pending=[entry];seen={}
+ while pending:
+  source=pending.pop()
+  assert not source.is_symlink(),'Reference import symlink is not accepted'
+  resolved=source.resolve();assert resolved.is_relative_to(reference_root.resolve()),'Reference import escapes pinned checkout'
+  relative=resolved.relative_to(reference_root.resolve()).as_posix()
+  if relative in seen:continue
+  data=resolved.read_bytes()
+  pinned=subprocess.check_output(['git','-C',str(reference_root),'show',pin+':'+relative],timeout=5)
+  assert data==pinned,'bevy-ts source differs from pinned blob: '+relative
+  seen[relative]=hashlib.sha256(data).hexdigest()
+  imports=re.findall(r"(?:\bfrom\s*|\bimport\s*\(\s*|^\s*import\s*)[\"']([^\"']+)[\"']",data.decode(),re.M)
+  for specifier in imports:
+   assert specifier.startswith('.'),'Unexpected external reference import: '+specifier
+   dependency=resolved.parent/specifier;assert dependency.suffix=='.ts','Unexpected reference import kind: '+specifier
+   pending.append(dependency)
+ return {'referenceCommit':head,'referenceClosureSHA256':dict(sorted(seen.items())),'referenceEntry':str(entry)}
+def wrong_reference_commit_control(pin):
+ calls=[];executed=False
+ def fake_run(args,limit=5,expected=0):
+  calls.append(list(map(str,args)));assert args[-2:]==['rev-parse','HEAD']
+  return ('0'*40 if pin!='0'*40 else '1'*40)+'\n'
+ guard=types.FunctionType(reference_provenance.__code__,{**globals(),'run':fake_run})
+ try:
+  guard(pathlib.Path('/nonexistent-read-only-reference-control'),pin)
+  executed=True
+ except AssertionError as error:
+  assert str(error)=='bevy-ts HEAD does not match tracked reference pin'
+ else:raise AssertionError('Moved reference HEAD was accepted')
+ assert not executed and len(calls)==1
+ return {'status':'PASS','scope':'Actual source guard with fake wrong HEAD; rejects before adapter execution or source reads','calls':calls,'adapterExecuted':executed}
 try:
+ manifest_path=ROOT/'.references/sources.json'
+ tracked_manifest=subprocess.check_output(['git','-C',str(ROOT),'show','HEAD:.references/sources.json'],timeout=5)
+ assert manifest_path.read_bytes()==tracked_manifest,'Reference manifest is not the tracked revision'
+ reference_root=pathlib.Path('/workspace/formal-proofs/bendvy/.references/bevy-ts')
+ e['referenceNegativeControl']=wrong_reference_commit_control(json.loads(tracked_manifest)['sources']['bevy-ts']['commit'])
+ e.update(reference_provenance(reference_root,json.loads(tracked_manifest)['sources']['bevy-ts']['commit']))
+ adapter=HERE/'reference.mjs'
+ pinned_adapter=subprocess.check_output(['git','-C',str(ROOT),'show','HEAD:'+adapter.relative_to(ROOT).as_posix()],timeout=5)
+ assert adapter.read_bytes()==pinned_adapter,'Reference adapter differs from tracked revision'
+ assert str(reference_root/'packages/core/src/index.ts') in adapter.read_text(),'Adapter does not name the pinned public reference entry'
+ e['referenceManifestSHA256']=hashlib.sha256(tracked_manifest).hexdigest()
+ e['referenceAdapterSHA256']=hashlib.sha256(pinned_adapter).hexdigest()
+ e['runnerSHA256']=hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest()
+ e['rawRoot']=str(ART.resolve())
  run(['bend','version']);run(['bend','guide'])
  overlay=ART/'overlay';run(['python3',ROOT/'experiments/s-perf/overlay.py',overlay]);pkg=overlay/'experiments/s-integrate'
  for p in HERE.glob('*.bend'):shutil.copy2(p,pkg/p.name)
- src=(ROOT/'experiments/s-perf/candidate/measurement-bend.bend').read_text();copy=(HERE/'callbacks.bend').read_text();pins=json.loads((HERE/'callback-pins.json').read_text())
+ callback_source=ROOT/'experiments/s-perf/candidate/measurement-bend.bend'
+ protected_callback_source=subprocess.check_output(['git','-C',str(ROOT),'show','56b72f6:'+callback_source.relative_to(ROOT).as_posix()],timeout=5)
+ assert callback_source.read_bytes()==protected_callback_source,'Original callback source differs from frozen source'
+ e['originalCallbackSourceSHA256']=hashlib.sha256(protected_callback_source).hexdigest()
+ src=protected_callback_source.decode();copy=(HERE/'callbacks.bend').read_text();pins=json.loads((HERE/'callback-pins.json').read_text())
  for n,pin in pins.items():
   m=re.search(r'^def '+n+r'\(',src,re.M);end=min(x for x in [src.find('\ndef ',m.start()+1),src.find('\ntype ',m.start()+1),len(src)] if x>=0);part=src[m.start():end].rstrip()+'\n';assert part in copy and hashlib.sha256(part.encode()).hexdigest()==pin
  for p in [*HERE.glob('*.bend'),ROOT/'experiments/s-perf/candidate/storage.bend',pathlib.Path('/home/node/.bend/bin/bend'),pathlib.Path('/home/node/.bend/bend2/base.bend')]:e['sources'][str(p)]=hashlib.sha256(p.read_bytes()).hexdigest()
@@ -22,7 +75,11 @@ try:
   run(['taskset','-c',CPU,'bend',entry,'-o',c],30);run(['taskset','-c',CPU,'bend',entry,'-o',js],30);run(['taskset','-c',CPU,'clang','-O3',c,'-o',binary,'-lm','-pthread'],120)
   native=run(['taskset','-c',CPU,binary,'--threads','1','--gpu','off']);javascript=run(['taskset','-c',CPU,'node',js]);assert native==javascript
   (ART/(label+'.txt')).write_text(native);return native
- original=build('original');reference=json.loads(run(['node',HERE/'reference.mjs']));lines=original.splitlines();assert len(lines)==28
+ original=build('original');e['nativeAndJavascriptOriginalSHA256']=hashlib.sha256(original.encode()).hexdigest()
+ # Recheck the complete reference closure immediately before executing Node.
+ assert reference_provenance(reference_root,e['referenceCommit'])['referenceClosureSHA256']==e['referenceClosureSHA256']
+ reference_output=run(['node',adapter]);(ART/'reference-observed.json').write_text(reference_output)
+ e['referenceOutputSHA256']=hashlib.sha256(reference_output.encode()).hexdigest();reference=json.loads(reference_output);lines=original.splitlines();assert len(lines)==28
  def vals(o):
   if isinstance(o,dict):
    if set(o)=={'a','b','c','d'}:return [o[x] for x in ['a','b','c','d']]
