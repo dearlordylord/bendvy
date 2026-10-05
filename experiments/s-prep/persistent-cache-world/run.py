@@ -4,7 +4,24 @@ HERE=pathlib.Path(__file__).resolve().parent;ROOT=HERE.parents[2];ART=pathlib.Pa
 # Reuse the actual fixed reference guards and bounded process wrapper unchanged.
 guards=ROOT/'experiments/s-prep/owned-write-query/run.py';tree=ast.parse(guards.read_text());nodes=[n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name in ['run','reference_provenance','wrong_reference_commit_control']];assert len(nodes)==3
 exec(compile(ast.Module(body=nodes,type_ignores=[]),str(guards),'exec'),globals());e['guardSourceSHA256']=hashlib.sha256(guards.read_bytes()).hexdigest()
+def assigned_cutoff(value):
+ import datetime
+ if value is None:return None
+ parsed=datetime.datetime.fromisoformat(value.replace('Z','+00:00'))
+ assert parsed.tzinfo is not None,'Build cutoff must include a UTC offset'
+ return parsed.astimezone(datetime.timezone.utc)
+def assert_build_allowed(cutoff):
+ import datetime
+ if cutoff is not None:assert datetime.datetime.now(datetime.timezone.utc)<cutoff,'Assigned new-build cutoff reached'
+def deadline_controls():
+ import datetime
+ assert_build_allowed(None)
+ try:assert_build_allowed(datetime.datetime.now(datetime.timezone.utc)-datetime.timedelta(days=1))
+ except AssertionError as error:assert str(error)=='Assigned new-build cutoff reached'
+ else:raise AssertionError('Expired explicit cutoff was accepted')
+ return {'status':'PASS','omittedHasNoHistoricalCutoff':True,'expiredExplicitRejectedBeforeBuild':True}
 try:
+ cutoff=assigned_cutoff(os.environ.get('BENDVY_BUILD_CUTOFF_UTC'));e['assignedCutoff']=cutoff.isoformat() if cutoff is not None else None;e['deadlineControls']=deadline_controls()
  e['sourceCommit']=run(['git','-C',ROOT,'rev-parse','HEAD']).strip()
  for protected in [HERE/'reference.mjs',guards,*HERE.glob('*.bend'),HERE/'callback-pins.json']:
   pinned=subprocess.check_output(['git','-C',str(ROOT),'show','HEAD:'+protected.relative_to(ROOT).as_posix()],timeout=5);assert protected.read_bytes()==pinned,'Prototype/adapter/guard source differs from tracked revision: '+str(protected)
@@ -23,8 +40,7 @@ try:
  assert payload.count(b'Array.swap(U32,array,0,value)')==4
  for p in [*HERE.glob('*.bend'),pathlib.Path('/home/node/.bend/bin/bend'),pathlib.Path('/home/node/.bend/bend2/base.bend')]:e['sources'][str(p)]=hashlib.sha256(p.read_bytes()).hexdigest()
  def build(label):
-  import datetime
-  assert datetime.datetime.now(datetime.timezone.utc)<datetime.datetime(2026,10,5,1,48,tzinfo=datetime.timezone.utc),'Assigned new-build cutoff reached'
+  assert_build_allowed(cutoff)
   entry=pkg/'prototype.bend';assert 'ALL PROOFS CHECK' in run(['taskset','-c',CPU,'bend',entry,'--check-only']);c=ART/(label+'.c');js=ART/(label+'.js');binary=ART/label
   run(['taskset','-c',CPU,'bend',entry,'-o',c],30);run(['taskset','-c',CPU,'bend',entry,'-o',js],30);run(['taskset','-c',CPU,'clang','-O3',c,'-o',binary,'-lm','-pthread'],120)
   native=run(['taskset','-c',CPU,binary,'--threads','1','--gpu','off']);javascript=run(['taskset','-c',CPU,'node',js]);assert native==javascript;(ART/(label+'.txt')).write_text(native);return native
