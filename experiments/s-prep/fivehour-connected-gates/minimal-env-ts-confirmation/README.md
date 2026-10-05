@@ -1,0 +1,3 @@
+# Fresh minimal-environment TS confirmation
+
+All ten E11 reference subjects ran anew under the proposed minimal environment, pinned Node24.20.0, CPU11 and a five-second child limit. Complete parsed JSON records equal this task's earlier ten observations. Full raw records are compressed here. This confirms finite reference behavior under the intended environment; no comparative timings or performance acceptance are claimed. Historical E11 receipts and their missing environment provenance remain unchanged. Node/adapter bookends and post-run tracked33 reference-source checks are recorded separately, without claiming an unrecorded pre-run source check.
