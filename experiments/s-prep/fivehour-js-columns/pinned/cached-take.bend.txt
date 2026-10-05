@@ -1,0 +1,18 @@
+def cached_taken(~M:Type,~A:Type,~F:Data,aux:Array<Maybe<A>>,metadata:Array<S.Metadata<F>>,capacity:U32,depth:Nat,high:U32,result:Array<Maybe<M>> & Maybe<M>) -> S.Rows<M,A,F> & S.Taken<M>:
+  match result:
+    case (main,None{}): (S.Rows{main,aux,metadata,capacity,depth,high},S.NoMain{})
+    case (main,Some{owner}): (S.Rows{main,aux,metadata,capacity,depth,high},S.Taken{owner})
+def cached_meta(~M:Type,~A:Type,~F:Data,main:Array<Maybe<M>>,aux:Array<Maybe<A>>,metadata:Array<S.Metadata<F>>,+capacity:U32,depth:Nat,high:U32,index:U32,meta:S.Metadata<F>) -> S.Rows<M,A,F> & S.Taken<M>:
+  match meta:
+    case S.Metadata{False{},_,_,_}: (S.Rows{main,aux,metadata,capacity,depth,high},S.NoEntity{})
+    case S.Metadata{True{},_,_,_}: cached_taken(~M,~A,~F,aux,metadata,capacity,depth,high,NC.swap(Maybe<M>,main,capacity,index,None{}))
+def cached_meta_done(~M:Type,~A:Type,~F:Data,main:Array<Maybe<M>>,aux:Array<Maybe<A>>,capacity:U32,depth:Nat,high:U32,index:U32,result:Array<S.Metadata<F>> & S.Metadata<F>) -> S.Rows<M,A,F> & S.Taken<M>:
+  match result:
+    case (metadata,meta): cached_meta(~M,~A,~F,main,aux,metadata,capacity,depth,high,index,meta)
+def cached_checked(~M:Type,~A:Type,~F:Data,valid:Bool,rows:S.Rows<M,A,F>,+index:U32) -> S.Rows<M,A,F> & S.Taken<M>:
+  match valid rows:
+    case False{} rows: (rows,S.NoEntity{})
+    case True{} S.Rows{main,aux,metadata,+capacity,depth,high}: cached_meta_done(~M,~A,~F,main,aux,capacity,depth,high,index,NC.get(S.Metadata<F>,metadata,capacity,index))
+def cached_take_rows(~M:Type,~A:Type,~F:Data,rows:S.Rows<M,A,F>,+id:U32) -> S.Rows<M,A,F> & S.Taken<M>:
+  match rows:
+    case S.Rows{main,aux,metadata,+capacity,depth,+high}: cached_checked(~M,~A,~F,Bool.and((0 < id : U32),Bool.and((id <= capacity : U32),(id <= high : U32))),S.Rows{main,aux,metadata,capacity,depth,high},U32.sub(id,1))

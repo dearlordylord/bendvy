@@ -1,0 +1,43 @@
+{
+  "status": "CHECKER_BLOCKED_UNMEASURED_SOURCE",
+  "limits": {
+    "checker": 5,
+    "codegen": 30
+  },
+  "cpu": 10,
+  "attempts": [
+    "Native structural prototype materialized only; discarded before source execution due JS slice/reconstruction risk",
+    "Flat first draft referenced js clones but declared native names; source parse error retained",
+    "Fixed flat measurement checker5s timeout; JS codegen30s succeeded",
+    "Original full144 Tx fixture5s checker timeout; no runtime fields observed"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "10",
+        "timeout",
+        "30",
+        "bend",
+        "/tmp/bendvy-fivehour-js-columns-flat-final/experiments/s-integrate/measurement-bend.bend",
+        "-o",
+        "/tmp/bendvy-fivehour-js-columns-final.js"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "generatedGetSnippet": "function $storage$058js_column_get$1260$(_array_0, _capacity_0, _index_0) {\n  return {$: \"Tuple\", fst: _array_0, snd: _array_0[_index_0 % _array_0.length]};\n}",
+  "generatedJSSHA256": "669f21500577fc92a99603c1f8ad22ebd291c811beb24bbc98acbab4f93ed17a",
+  "runtimeClosureSHA256": "25460337707e5a1ad0445ac6d17570e5f70d412db9c48a732b8171d7b562f24d",
+  "rawProviderSHA256": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+  "recipeSources": {
+    "pinned/column-native.bend": "211d1fc2913e259627d531966f6128383e8c7649bc21632c5bc9584f9eb35ab3",
+    "pinned/source-bindings.json": "93288422b6b1581fab66be826278588d0def7f940c33dec6086de25b403321e4",
+    "pinned/cached-take.bend.txt": "3defb6d17ebc2f8a3cad93b8a2672498b475718143bd84371068aad0f57ff4b7",
+    "pinned/prepare.py": "99a83abb8c556cb755eaee3be099e630e230fb9424daecfa1285a343054128d4"
+  },
+  "claim": "Source experiment/codegen only; checker/full-field/query/access/affine/mutation gates unmet. No timing or gain claim."
+}
