@@ -64,7 +64,7 @@ def main():
         checkoutput=args.output/'fresh-checks'
         child([m['tools']['python'],checkscript,'--js-overlay',args.output/'candidate-snapshot/JS','--native-overlay',args.output/'candidate-snapshot/Native','--output',checkoutput,'--cpu','9'],live['wholeCommandLimit'],logs)
         checkreceipt=checkoutput/live['receipt'];checks=json.loads(checkreceipt.read_text())
-        required_ids={'materialize-controls','host12','access','e11','owned-storage','staging','tx-baseline','tx-torn-tail','tx-lost-mark','tx-inverse-order'}
+        required_ids={'materialize-controls','host12','access','e11','owned-storage','staging','tx-baseline','tx-stale-head','tx-torn-tail','tx-lost-mark','tx-inverse-order'}
         if set(live['requiredGateIDs'])!=required_ids or checks.get('status')!='FRESH_TWO_ROLE_CONNECTED_GATES_PASS' or checks.get('schemaVersion')!=1 or set(checks.get('roles',{}))!={'JS','Native'}:raise ValueError('current snapshot authoritative gates incomplete')
         for backend,role in checks['roles'].items():
             overlay=args.output/'candidate-snapshot'/backend
