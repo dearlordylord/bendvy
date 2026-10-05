@@ -1,6 +1,6 @@
 # Static provider dispatch — draft
 
-**Draft for discussion. No production API or replacement measured contract is approved.** Parent: [#23](https://github.com/dearlordylord/bendvy/issues/23). Evidence: [prototype](../research/static-provider-dispatch/README.md).
+**Draft for discussion. No production API or replacement measured contract is approved.** Parent: [#23](https://github.com/dearlordylord/bendvy/issues/23). Follow-up discussion ticket: [#24](https://github.com/dearlordylord/bendvy/issues/24). Evidence: [prototype](../research/static-provider-dispatch/README.md).
 
 The prototype replaces per-row curried providers with closed template arguments while keeping an abstract affine `Owner: Type`. Its tested live callback chain contains no provider `run_clo` constructions; the old chain constructs ten. This is code-generation evidence, not measured speedup.
 
