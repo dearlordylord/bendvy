@@ -64,3 +64,32 @@ Final standalone diagnostic: taskset -c 10 timeout 15s bend
 --check-only exited 0, ALL PROOFS CHECK. This is generic executable module checking,
 not new proof or connected acceptance. Output transaction SHA256:
 67f0e0dc4dee21381dab33bc242e6c9c67f64705ef8faea3e02b641270fa3519.
+
+## Bounded actual batch controls
+
+`controls.py --overlay /tmp/bendvy-batched-marks-reproduced` freezes all29 exact
+runtime modules and derives the existing affine lifecycle fixture by replacing
+its single mark with repeated ID4 plus foreign, zero, hole, above-high,
+above-capacity and U32.max handles. All52 original literal checkpoints remain
+unchanged. Twelve appended checkpoints observe nonmonotonic `[8,4,1,4]`, empty
+marks, untouched hole/high metadata, and a deleted row marked again. Main/Aux
+scalar and four owned array values, flags, added/changed ticks are printed for
+all selected live rows. Flags/added remain unchanged; only intended live changed
+stamps move. The literal oracle is fixed independently of candidate execution.
+
+The compiling omission mutant changes only the live True branch of
+`prototype_storage_mark_live`; it must produce the exact old `marked` stamp6,
+not77, while retaining all64 checkpoint labels/order. This tests the actual
+public batch path rather than its unused recursive reference or old mark helper.
+Commands and source/adaptation/output pins, plus failures, are retained under
+`controls-evidence`. Native uses clang O3, one worker/GPUoff; CPU9 only;
+checker15/codegen30/clang120/runtime5. This is bounded executable evidence,
+not a law/proof, full22 acceptance, adoption or a speed measurement. No callback,
+compiler/kernel, dependency, type quantity or source overlay is changed.
+
+Recorded result: JS and Native each pass64 full literal checkpoints and reject
+one compiling live omission mutant at the intended marked stamp. Both original
+outputs match byte-for-byte across backends; both mutant outputs also match.
+The original52 fixture checkpoints include affine payload and storage lifecycle
+checks. These controls do not observe nonempty pending queues, ledgers or mode
+payloads in this fixture, or establish universal invariants for malformed arrays.
