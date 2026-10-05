@@ -17,6 +17,23 @@ BASE = ROOT/'experiments/s-integrate'
 def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
+def suppressed_setter_mutation(source):
+    """Suppress the actual cached setter, preserving its old-value return/owner."""
+    header='def position_swap(owner:C.Cache<T.Position,T.PositionView>,value:U32) -> C.Cache<T.Position,T.PositionView> & U32:'
+    alternatives={
+        'generic-cache':'  C.swap(T.Position,T.PositionView,P.position_swap,position_patch,owner,value)',
+        'static-cache':'  C.static_swap(~T.Position,~T.PositionView,~P.position_swap,~position_patch,owner,value)',
+    }
+    assert source.count(header)==1,'suppressed-setter requires exactly one public position_swap'
+    matches=[(kind,header+'\n'+body) for kind,body in alternatives.items() if source.count(header+'\n'+body)==1]
+    assert len(matches)==1,'suppressed-setter live body absent or ambiguous'
+    kind,before=matches[0]
+    after='def position_suppressed(result:C.Cache<T.Position,T.PositionView> & T.PositionView) -> C.Cache<T.Position,T.PositionView> & U32:\n  match result:\n    case (owner,T.PositionView{T.Four{old,_,_,_},_}): (owner,old)\ndef position_swap(owner:C.Cache<T.Position,T.PositionView>,value:U32) -> C.Cache<T.Position,T.PositionView> & U32:\n  position_suppressed(C.get(T.Position,T.PositionView,owner))'
+    assert 'def position_suppressed(' not in source,'suppressed-setter helper already present'
+    mutated=source.replace(before,after,1)
+    assert mutated!=source and mutated.count(after)==1 and before not in mutated,'suppressed-setter replacement failed'
+    return before,after,kind
+
 def stamp():
     return datetime.datetime.now(datetime.timezone.utc).isoformat()
 
@@ -59,9 +76,16 @@ def main():
             before='run(W,H,presence,invoke,barrier,transition,nodes,Runtime{world,registry,readers,clock,audit,style,escaped,observations,nextMode})'
             after='IO.bind(Runtime<W,H>,Dispatched<W,H>,deferred(W,H,barrier,Runtime{world,registry,readers,clock,audit,style,escaped,observations,nextMode}),state => run(W,H,presence,invoke,barrier,transition,nodes,state))'
         elif label=='suppressed-setter':
-            file='cached-payload.bend'
-            before='def position_swap(owner:C.Cache<T.Position,T.PositionView>,value:U32) -> C.Cache<T.Position,T.PositionView> & U32:\n  C.swap(T.Position,T.PositionView,P.position_swap,position_patch,owner,value)'
-            after='def position_suppressed(result:C.Cache<T.Position,T.PositionView> & T.PositionView) -> C.Cache<T.Position,T.PositionView> & U32:\n  match result:\n    case (owner,T.PositionView{T.Four{old,_,_,_},_}): (owner,old)\ndef position_swap(owner:C.Cache<T.Position,T.PositionView>,value:U32) -> C.Cache<T.Position,T.PositionView> & U32:\n  position_suppressed(C.get(T.Position,T.PositionView,owner))'
+            cached=scratch/'cached-payload.bend'
+            if cached.exists():
+                file='cached-payload.bend'
+                before,after,setter_variant=suppressed_setter_mutation(cached.read_text())
+            else:
+                # Retain the original raw-provider mutation when no cache module exists.
+                source=(scratch/file).read_text()
+                assert source.count(before)==1,'original suppressed-setter live body absent or ambiguous'
+                assert source.replace(before,after,1)!=source,'original suppressed-setter replacement failed'
+                setter_variant='original-raw-provider'
         elif label=='query-order':
             before='(S.Rows{main,aux,metadata,capacity,depth,high},List.reverse(&2,O,values))'
             after='(S.Rows{main,aux,metadata,capacity,depth,high},values)'
@@ -73,7 +97,7 @@ def main():
               'limitsSeconds':{'checker':5,'runtime':5,'codegen':30,'clang':120},
               'runnerSHA256':sha(Path(__file__)),'originalRunnerSHA256':sha(BASE/'host-mutations.py'),
               'decoderSHA256':sha(BASE/'trace-decode.py'),'comparatorSHA256':sha(BASE/'trace-compare.py'),
-              'adaptedMutations':mutations,'commands':[],
+              'adaptedMutations':mutations,'suppressedSetterVariant':setter_variant,'suppressedSetterReplacementCount':1,'commands':[],
               'mechanicalPathSeam':'Relocated wrapper ROOT uses parents[3] instead of parents[2]',
               'queryOrderSeam':'Full indexed-finalization tuple targets actual struct_idx_finish, not retained unused read_rows_finish'}
     original_command=M.command

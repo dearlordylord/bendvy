@@ -1,0 +1,55 @@
+{
+  "status": "LIVE_SETTER_SOURCE_ADAPTATION_AND_COMPILE_PASS",
+  "cpu": 8,
+  "timingsOrMetrics": false,
+  "full12MutationChannelsPreserved": true,
+  "cases": [
+    {
+      "name": "staticJS",
+      "status": "EXACT_ONE_LIVE_BODY_REPLACEMENT_PASS",
+      "variant": "static-cache",
+      "source": "/tmp/bendvy-fivehour-packets/focused-dense256/packet-vc9_gpp3/candidate-snapshot/JS/experiments/s-integrate/cached-payload.bend",
+      "sourceSHA256": "03b01d1fc4e313c149302778753749e363527584d3e5b500f018c43a595dd05f",
+      "mutatedSHA256": "e00b2197258eeff636c92915fb7caa185a3e37ae00fdb65ad978d89101a5ebb1"
+    },
+    {
+      "name": "staticNative",
+      "status": "EXACT_ONE_LIVE_BODY_REPLACEMENT_PASS",
+      "variant": "static-cache",
+      "source": "/tmp/bendvy-fivehour-packets/focused-dense256/packet-vc9_gpp3/candidate-snapshot/Native/experiments/s-integrate/cached-payload.bend",
+      "sourceSHA256": "15c12b055c143decdfc483e2adba628846d74e3755239dc7735351b33aa61cbe",
+      "mutatedSHA256": "9119740b180b5ef5a96199824d3a0014c98840111e65eb7718c14d7ae86b78a3"
+    },
+    {
+      "name": "genericInitial",
+      "status": "EXACT_ONE_LIVE_BODY_REPLACEMENT_PASS",
+      "variant": "generic-cache",
+      "source": "/tmp/bendvy-fivehour-fixed-initial-source/JS/experiments/s-integrate/cached-payload.bend",
+      "sourceSHA256": "c4f08daeadfc20217b9778fc33a57271376a3831ae27c4ceb64fd2a962b9095f",
+      "mutatedSHA256": "7f278a705cb043a5ffee64f2cbceec3b4d4cd34170a0c4789626b588335b22ec"
+    },
+    {
+      "name": "missingBody",
+      "status": "INTENDED_FAIL_CLOSED",
+      "diagnostic": "suppressed-setter live body absent or ambiguous"
+    },
+    {
+      "name": "duplicatePublicSetter",
+      "status": "INTENDED_FAIL_CLOSED",
+      "diagnostic": "suppressed-setter requires exactly one public position_swap"
+    },
+    {
+      "name": "preexistingHelper",
+      "status": "INTENDED_FAIL_CLOSED",
+      "diagnostic": "suppressed-setter helper already present"
+    }
+  ],
+  "checker": {
+    "entry": "/tmp/bendvy-host-setter-adaptation/static-live-control/host-motion-fixture.bend",
+    "limit": 5,
+    "exit": 0,
+    "outputSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+    "scope": "Actual static CP suppression compiles; full12 runtime rejection remains required by canonical gate"
+  },
+  "runnerSHA256": "e0b9e0c72d0b8847d4f69366d0a289e704cb5dec509e9874a84a9676678bc2b8"
+}
