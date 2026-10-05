@@ -1,0 +1,29 @@
+--- a/experiments/s-integrate/transaction.bend
++++ b/experiments/s-integrate/transaction.bend
+@@ -88 +88 @@
+-def storage_mark_all(-Schema: Data,-M: Type,-A: Type,-F: Data,-L: Type,-Mode: Data,
++def prototype_storage_mark_all_reference(-Schema: Data,-M: Type,-A: Type,-F: Data,-L: Type,-Mode: Data,
+@@ -92 +92,22 @@
+-    case Con{handle,rest}: storage_mark_all(Schema,M,A,F,L,Mode,rest,S.mark_main(Schema,M,A,F,L,Mode,world,handle,tick),tick)
++    case Con{handle,rest}: prototype_storage_mark_all_reference(Schema,M,A,F,L,Mode,rest,S.mark_main(Schema,M,A,F,L,Mode,world,handle,tick),tick)
++# Perhandle transport is one pair, not reconstructed World/Rows/Columns.
++def prototype_storage_mark_live(changed: Array<U32>,index: U32,tick: U32,result: Array<Bool> & Bool) -> Array<Bool> & Array<U32>:
++  match result:
++    case (live,False{}): (live,changed)
++    case (live,True{}): (live,Array.set(U32,changed,index,tick))
++def prototype_storage_mark_guard(valid: Bool,live: Array<Bool>,changed: Array<U32>,+id: U32,tick: U32) -> Array<Bool> & Array<U32>:
++  match valid:
++    case False{}: (live,changed)
++    case True{}: prototype_storage_mark_live(changed,U32.sub(id,1),tick,Array.get(Bool,live,U32.sub(id,1)))
++# Structurally decreasing marks; every handle retains the original guards.
++def prototype_storage_mark_loop(-Schema: Data,-M: Type,-A: Type,-F: Data,-L: Type,-Mode: Data,marks: List<&2,S.Handle<Schema>>,+namespace: U32,next: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,flags: Array<Maybe<&2,F>>,added: Array<U32>,transport: Array<Bool> & Array<U32>,+capacity: U32,depth: Nat,+high: U32,pending: List<S.Command<M,A,F>>,ledger: Maybe<L>,mode: Mode,+tick: U32) -> S.World<Schema,M,A,F,L,Mode>:
++  match marks transport:
++    case Nil{} Tuple{live,changed}: S.World{namespace,next,S.Rows{main,aux,S.MetadataColumns{live,flags,added,changed},capacity,depth,high},pending,ledger,mode}
++    case Con{S.Handle{foreign,+id},rest} Tuple{live,changed}:
++      prototype_storage_mark_loop(Schema,M,A,F,L,Mode,rest,namespace,next,main,aux,flags,added,prototype_storage_mark_guard(Bool.and(U32.is_eq(namespace,foreign),Bool.and((0 < id : U32),Bool.and((id <= capacity : U32),(id <= high : U32)))),live,changed,id,tick),capacity,depth,high,pending,ledger,mode,tick)
++def storage_mark_all(-Schema: Data,-M: Type,-A: Type,-F: Data,-L: Type,-Mode: Data,
++  marks: List<&2,S.Handle<Schema>>,world: S.World<Schema,M,A,F,L,Mode>,+tick: U32) -> S.World<Schema,M,A,F,L,Mode>:
++  match marks world:
++    case Nil{} world: world
++    case marks S.World{namespace,next,S.Rows{main,aux,S.MetadataColumns{live,flags,added,changed},capacity,depth,high},pending,ledger,mode}:
++      prototype_storage_mark_loop(Schema,M,A,F,L,Mode,marks,namespace,next,main,aux,flags,added,(live,changed),capacity,depth,high,pending,ledger,mode,tick)
