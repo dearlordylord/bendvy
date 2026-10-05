@@ -11,3 +11,7 @@ Replay provenance of the derived integration is being strengthened separately. T
 ## Derived replay provenance follow-up
 
 Targeted independent read-only review at `dda676c` found no actionable blocker. The guard checks actual TS HEAD and recursively matches imported `.ts` files to pinned Git blobs before evaluator import/Node, binds protected checkout sources, recipes, exact overlay mapping, prepare receipt and diff, and repeats checks around execution. Pre-guard effects are limited to affinity selection and creating the artifact directory. Root separately ran the recorded finite construction and tampering controls; the reviewer did not rerun them. No general provenance/refinement or performance qualification is inferred.
+
+## Native cached-capacity semantics
+
+Independent read-only review at `833fa6e` found no actionable semantic blocker. Native traversal preserves actual Type owners under the documented balanced-shape/capacity invariant; namespace, bounds, high-water, live metadata and optional-owner fallback remain intact. Backend source hashes and raw receipt binding match; both schemas/backends retain full-field construction and 144-record controls. The surviving first mutant stays a failed gate; only the corrected Native full-record mutation is detected. The later replay-preflight code was excluded from this review and receives separate targeted checks. No compiler or benchmark execution by the reviewer.
