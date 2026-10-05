@@ -1,0 +1,31 @@
+--- /workspace/formal-proofs/bendvy/experiments/fivehour-candidate/Native/experiments/s-integrate/storage.bend	2026-10-05 12:26:26.977180415 -0400
++++ /tmp/bendvy-dispatch-next-mark/Native/experiments/s-integrate/storage.bend	2026-10-05 15:35:33.886106755 -0400
+@@ -231,11 +231,26 @@
+   match valid world:
+     case False{} w: w
+     case True{} World{namespace,next,rows,pending,ledger,mode}: World{namespace,next,mark_rows(M,A,F,rows,target,tick),pending,ledger,mode}
++# Private transport-only publication path: every mark retains the original guards.
++def prototype_mark_world_meta(-Schema: Data,-M: Type,-A: Type,-F: Data,-L: Type,-Mode: Data,
++  namespace: U32,next: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,metadata: Array<Metadata<F>>,capacity: U32,depth: Nat,high: U32,pending: List<Command<M,A,F>>,ledger: Maybe<L>,mode: Mode,id: U32,tick: U32,meta: Metadata<F>) -> World<Schema,M,A,F,L,Mode>:
++  match meta:
++    case Metadata{False{},_,_,_}: World{namespace,next,Rows{main,aux,metadata,capacity,depth,high},pending,ledger,mode}
++    case Metadata{True{},flag,added,_}: World{namespace,next,Rows{main,aux,Array.set(Metadata<F>,metadata,U32.sub(id,1),Metadata{True{},flag,added,tick}),capacity,depth,high},pending,ledger,mode}
++def prototype_mark_world_result(-Schema: Data,-M: Type,-A: Type,-F: Data,-L: Type,-Mode: Data,
++  namespace: U32,next: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,capacity: U32,depth: Nat,high: U32,pending: List<Command<M,A,F>>,ledger: Maybe<L>,mode: Mode,id: U32,tick: U32,result: Array<Metadata<F>> & Metadata<F>) -> World<Schema,M,A,F,L,Mode>:
++  match result:
++    case (metadata,meta): prototype_mark_world_meta(Schema,M,A,F,L,Mode,namespace,next,main,aux,metadata,capacity,depth,high,pending,ledger,mode,id,tick,meta)
++def prototype_mark_world_checked(-Schema: Data,-M: Type,-A: Type,-F: Data,-L: Type,-Mode: Data,
++  valid: Bool,namespace: U32,next: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,metadata: Array<Metadata<F>>,capacity: U32,depth: Nat,high: U32,pending: List<Command<M,A,F>>,ledger: Maybe<L>,mode: Mode,+id: U32,tick: U32) -> World<Schema,M,A,F,L,Mode>:
++  match valid:
++    case False{}: World{namespace,next,Rows{main,aux,metadata,capacity,depth,high},pending,ledger,mode}
++    case True{}: prototype_mark_world_result(Schema,M,A,F,L,Mode,namespace,next,main,aux,capacity,depth,high,pending,ledger,mode,id,tick,Array.get(Metadata<F>,metadata,U32.sub(id,1)))
+ def mark_main(-S: Data,-M: Type,-A: Type,-F: Data,-L: Type,-Mode: Data,
+   world: World<S,M,A,F,L,Mode>,handle: Handle<S>,tick: U32) -> World<S,M,A,F,L,Mode>:
+   match world handle:
+-    case World{+namespace,next,rows,pending,ledger,mode} Handle{foreign,target}:
+-      mark_checked(S,M,A,F,L,Mode,U32.is_eq(namespace,foreign),World{namespace,next,rows,pending,ledger,mode},target,tick)
++    case World{+namespace,next,Rows{main,aux,metadata,+capacity,depth,+high},pending,ledger,mode} Handle{foreign,+target}:
++      prototype_mark_world_checked(S,M,A,F,L,Mode,Bool.and(U32.is_eq(namespace,foreign),Bool.and((0 < target : U32),Bool.and((target <= capacity : U32),(target <= high : U32)))),namespace,next,main,aux,metadata,capacity,depth,high,pending,ledger,mode,target,tick)
+ # Structural Main edits use only Main+metadata; stale applied payloads are dropped
+ # exactly as in the baseline command semantics. No Aux extraction is performed.
+ type MainEffect is Data:
