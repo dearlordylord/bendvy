@@ -13,10 +13,11 @@ def accepted_plan(report,contract_digest,evaluator_identity):
     return plan
 
 def main():
+    global ENV
     a=argparse.ArgumentParser();a.add_argument('--manifest',type=pathlib.Path,required=True);a.add_argument('--sha256',required=True);a.add_argument('--cwd',type=pathlib.Path,required=True);a.add_argument('--contract-digest',required=True);a.add_argument('--evaluator-identity',required=True);a.add_argument('--inspect-only',action='store_true');x=a.parse_args()
     if guard.sha(x.manifest)!=x.sha256:raise ValueError('reviewed manifest digest changed')
     declared=json.loads(x.manifest.read_text());allow=snapshot.editable(declared)
-    m=boundary.verify(x.manifest,x.sha256,allow=allow);cli=pathlib.Path(m['canonicalCLI']);tools=m['tools']
+    m=boundary.verify(x.manifest,x.sha256,allow=allow);ENV=m['executionEnvironment'];packet.ENV=ENV;cli=pathlib.Path(m['canonicalCLI']);tools=m['tools']
     # This read is meaningful only after user acceptance/setup/new-segment.
     guard.deadline(30)
     text=packet.child([tools['node'],cli,'state','--cwd',x.cwd,'--report'],30,[])

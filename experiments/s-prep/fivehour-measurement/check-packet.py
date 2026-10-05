@@ -13,6 +13,7 @@ def main():
     p.add_argument('--sha256',required=True);p.add_argument('--baseline-sha256',required=True)
     a=p.parse_args();original=json.loads(a.manifest.read_text()) if guard.sha(a.manifest)==a.sha256 else {}
     m=boundary.verify(a.manifest,a.sha256,allow=snapshot.editable(original))
+    packet.ENV=m['executionEnvironment']
     identity=packet.canonical_parent(m)
     root=a.output_root
     if root.absolute()!=root.resolve() or not root.resolve().is_relative_to(pathlib.Path('/tmp/bendvy-fivehour-packets')):

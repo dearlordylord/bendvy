@@ -35,11 +35,13 @@ def canonical_parent(m):
     raise ValueError('direct evaluator invocation forbidden; canonical next ancestor absent')
 
 def main():
+    global ENV
     a=argparse.ArgumentParser();a.add_argument('--manifest',type=pathlib.Path,required=True);a.add_argument('--sha256',required=True);a.add_argument('--baseline-manifest',type=pathlib.Path,required=True);a.add_argument('--baseline-sha256',required=True);outputs=a.add_mutually_exclusive_group(required=True);outputs.add_argument('--output',type=pathlib.Path);outputs.add_argument('--output-root',type=pathlib.Path);a.add_argument('--acceptance',type=pathlib.Path);a.add_argument('--acceptance-sha256');a.add_argument('--preflight-only',action='store_true');a.add_argument('--cpu',type=int,default=11);args=a.parse_args()
     if args.cpu!=11:raise ValueError('fixed CPU11 required')
     original=json.loads(args.manifest.read_text()) if guard.sha(args.manifest)==args.sha256 else {}
     allow=snapshot.editable(original) if original else set()
     m=boundary.verify(args.manifest,args.sha256,allow=allow);baseline=boundary.verify(args.baseline_manifest,args.baseline_sha256)
+    ENV=m['executionEnvironment']
     if args.manifest.resolve()==args.baseline_manifest.resolve():raise ValueError('baseline must have distinct frozen manifest path')
     if args.preflight_only:print('PACKET_PREFLIGHT_ONLY_NO_EXECUTION');return
     if not args.acceptance or not args.acceptance_sha256:raise ValueError('accepted contract binding required; no child executed')
@@ -47,7 +49,7 @@ def main():
     canonical_identity=canonical_parent(m)
     if not args.output_root:raise ValueError('execution requires fixed --output-root, not one-shot output leaf')
     contract=json.loads(args.acceptance.read_text())
-    required={'artifactRoot':str(args.output_root.resolve()),'accepted':True,'manifestSHA256':args.sha256,'baselineManifestSHA256':args.baseline_sha256,'protocolVersion':'fresh16-one-bracket-v1','packetCap':8,'noiseLimit':0.10,'bootstrapSeed':23,'bootstrapResamples':10000,'orchestrationPolicy':'backend-natural-owner-retention','deadlineUTC':guard.DEADLINE.isoformat()}
+    required={'executionEnvironment':ENV,'artifactRoot':str(args.output_root.resolve()),'accepted':True,'manifestSHA256':args.sha256,'baselineManifestSHA256':args.baseline_sha256,'protocolVersion':'fresh16-one-bracket-v1','packetCap':8,'noiseLimit':0.10,'bootstrapSeed':23,'bootstrapResamples':10000,'orchestrationPolicy':'backend-natural-owner-retention','deadlineUTC':guard.DEADLINE.isoformat()}
     if any(contract.get(k)!=v for k,v in required.items()):raise ValueError('incomplete/different accepted contract; no child executed')
     # Historical receipts cannot authorize the current candidate snapshot.
     live=contract.get('liveChecks')
