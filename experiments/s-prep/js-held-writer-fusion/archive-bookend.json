@@ -308,10 +308,17 @@
     "method/tx-controls-run.py": "a81753b444a79d2a1246a347870f67cc49b26d2482d32df5560f6d094c3d0f19",
     "method/tx-controls-run.py.original": "40e8faaf6ad947428bc4e64354d81269810a1fefd8cecf04169462fd792df91f",
     "method/host-mutations-run.py": "87baaf83ef450c887fc745a1118f51556b7075ea6cee46de6ca4a74dec48ec15",
-    "method/tx-controls-run.py.diff": "5d1d6a1545d284d8c3adfa1f9415ddfb530bc6b7151927d7fad9e1d39fd9a04f",
-    "method/host-mutations-run.py.diff": "2638ef57fce871120b34df108e8ccd09c66b8c6e345ea8bca4a6659f1754bcac",
+    "method/tx-controls-run.py.diff": "cc942b80c2157035b9b5fc7d257013749ad9d9b51dea102d8a707097b401a09e",
+    "method/host-mutations-run.py.diff": "ab036a003977397c2e3eeb1a90c6d43e4735886953b85cd2e97e12c2ca945792",
     "method/suppressed-owner.py": "6d9fe88622e519115c29d0585091331efdad031ab8ebde9f39fe47c907c259df",
     "method/host-mutations-run.py.original": "e0b9e0c72d0b8847d4f69366d0a289e704cb5dec509e9874a84a9676678bc2b8"
   },
-  "prepareRecipeCorrection": "prepare.py.original retains actually executed historical recipe; prepare.py refreshes duplicated CP/current source pins, matching explicit post-execution metadata repair. Bend source transformations unchanged; full fresh method/run required before acceptance."
+  "prepareRecipeCorrection": "prepare.py.original retains actually executed historical recipe; prepare.py refreshes duplicated CP/current source pins, matching explicit post-execution metadata repair. Bend source transformations unchanged; full fresh method/run required before acceptance.",
+  "archiveFormatCorrection": {
+    "files": [
+      "method/tx-controls-run.py.diff",
+      "method/host-mutations-run.py.diff"
+    ],
+    "reason": "Zero-context unified diffs avoid trailing whitespace; apply using git apply --unidiff-zero. Historical executed source and compressed receipts are unchanged."
+  }
 }
