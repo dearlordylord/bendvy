@@ -26,6 +26,14 @@ def main():
    text=text.replace('import ./measurement-bend.bend as M','import ./control-callbacks.bend as M');result['controlCallbackPins']=callbackPins
    if mode=='raw':
     # Only observation getters change; authored callback providers remain untouched.
+    provider=core/'cached-payload.bend';provider_text=provider.read_text()
+    provider_text=provider_text.replace('import Base\n','import Base\nimport ./payload.bend as ORIGINAL\n',1)
+    original_bindings={}
+    for name in ('position','vitals','motion_ledger','health_ledger'):
+     match=re.search(r'^def '+name+r'_uncached\(',provider_text,re.M);end=provider_text.find('\ndef ',match.start()+1);end=end if end>=0 else len(provider_text);chunk=provider_text[match.start():end]
+     assert chunk.count('P.'+name+'_get')==1
+     changed=chunk.replace('P.'+name+'_get','ORIGINAL.'+name+'_get');provider_text=provider_text[:match.start()]+changed+provider_text[end:];original_bindings[name]=h_bytes(changed.encode())
+    provider.write_text(provider_text);result['originalRawObservation']={'payloadSHA256':h(core/'payload.bend'),'bindings':original_bindings,'scope':'Control-only observers preserve cached view and return affine raw owner; Native optimized getter is not the oracle'}
     for name in ('position','vitals','motion_ledger','health_ledger'):text=text.replace('P.'+name+'_get','P.'+name+'_uncached')
    source.write_text(text);outputs=[]
    for program in B.build(source,folder):

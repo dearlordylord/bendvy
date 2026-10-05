@@ -1,0 +1,499 @@
+{
+  "baseline": {
+    "status": "FINITE_ACTUAL_TX_CACHE_FIELDS_PASS",
+    "scope": "Actual cached World point-Tx original callback success/failure; finite held/cache fields, no general API/performance acceptance",
+    "cases": [
+      {
+        "getter": "cached",
+        "backend": "Native",
+        "status": "FULL_TX_FIELDS_PASS",
+        "programSHA256": "ed67ba1e0b8669482ae750048e4bce55c5b5600af2531aa792e67f7bb712998a",
+        "rawSHA256": "86470371004f767f76a13c0103f2b83d8a70b64ecc1b2eb80535c8782e21c3c4",
+        "records": 144
+      },
+      {
+        "getter": "cached",
+        "backend": "JS",
+        "status": "FULL_TX_FIELDS_PASS",
+        "programSHA256": "87ed01ee17c7dabd2139404eeb9e768316908cd4c1a18cd6a1cb0fc021c06290",
+        "rawSHA256": "86470371004f767f76a13c0103f2b83d8a70b64ecc1b2eb80535c8782e21c3c4",
+        "records": 144
+      },
+      {
+        "getter": "raw",
+        "backend": "Native",
+        "status": "FULL_TX_FIELDS_PASS",
+        "programSHA256": "aeca0801c42683572bb28474650ac232280e06c98a2dad9c552120b78c51b5b1",
+        "rawSHA256": "86470371004f767f76a13c0103f2b83d8a70b64ecc1b2eb80535c8782e21c3c4",
+        "records": 144
+      },
+      {
+        "getter": "raw",
+        "backend": "JS",
+        "status": "FULL_TX_FIELDS_PASS",
+        "programSHA256": "0d71a9013a9070423313d507ba58d8826cc30969b25514798a4804834ce38090",
+        "rawSHA256": "86470371004f767f76a13c0103f2b83d8a70b64ecc1b2eb80535c8782e21c3c4",
+        "records": 144
+      }
+    ],
+    "overlaySHA256": "2b36c2745f457f830b27b42aff3bda21cb5dd10fc222e07c19ac1cd701883374",
+    "fixtureSHA256": "9f298cc3913124c898d672ef65bcf5e1f0e103f61ef007612b5547d05e97a3ae",
+    "controlCallbackPins": {
+      "first": "4d29d3791c93930288979f24c4a1096ecfa34e1f83932232e0d999b6c5465ee9",
+      "sum": "aa774b7165a39a855ff3ba25a93049875691ab6014686cd02c31847fc6c3c7c6",
+      "motion_body_ledger": "b1ea1bd7ae671fae18ea7c5d26b04ca4c0c03b8bd2d36d709a01c76379ba5201",
+      "motion_body_read": "e6967abd8b26c4028dfc0651703f1f90c663583613a7e4efa68028a056553741",
+      "motion_body": "38e9d8bb471ed25341c59fc82801493483229a351168a64ad802ecc3dbd625b0",
+      "health_body_ledger": "782d031b2dfa09a2f9bbcff228ff705816fc3bb40b64b5cad9bbaaae0ec691f0",
+      "health_body_read": "09d94bef9502a59eff8b0f050842e8dfbcf369fd9736a352b03fa6e9c4931269",
+      "health_body": "9f289b79eececfab754bca0fbb412896e96dbe8639231090bef251961cf879b0"
+    },
+    "originalRawObservation": {
+      "payloadSHA256": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+      "bindings": {
+        "position": "c7c99f80029231255906144008dc218ed0becdaecfa3f784bd4ad712a9f04efd",
+        "vitals": "2a14105af7480712fcfcde9b7681e807d8c2417289dc4b6a43414ae19b8117da",
+        "motion_ledger": "2eecfd06b87432f24bd8c27c7618c84aa7771e25b7d0da266673bc7c99b49d00",
+        "health_ledger": "97224379ff3fbf07c4e133b3ef3c5e75322c978699b53f6b2a08b46076d256f4"
+      },
+      "scope": "Control-only observers preserve cached view and return affine raw owner; Native optimized getter is not the oracle"
+    },
+    "runnerSHA256": "1e43bd08222c788b4f8acd7a73949c2dfd8785c5a35ace4d4c44b82f84924755"
+  },
+  "lost-mark": {
+    "status": "DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE",
+    "scope": "Actual cached World point-Tx original callback success/failure; finite held/cache fields, no general API/performance acceptance",
+    "cases": [
+      {
+        "getter": "cached",
+        "backend": "Native",
+        "status": "COMPILED_RUNTIME_OBSERVED",
+        "programSHA256": "de132a9965547cfbe06d63f368236e958611d37caed43f694194ecc50837c1c6",
+        "rawSHA256": "fe0d97040cefd2faaf434e6e92e420a8a5a5134497211f54f683644759c02689",
+        "records": 144
+      },
+      {
+        "getter": "cached",
+        "backend": "JS",
+        "status": "COMPILED_RUNTIME_OBSERVED",
+        "programSHA256": "0ae43931f320c2a230c952d733a1c79fd11b85caf55475bfae265c54362af406",
+        "rawSHA256": "fe0d97040cefd2faaf434e6e92e420a8a5a5134497211f54f683644759c02689",
+        "records": 144
+      },
+      {
+        "getter": "raw",
+        "backend": "Native",
+        "status": "COMPILED_RUNTIME_OBSERVED",
+        "programSHA256": "9cd307bba36e8da0d8b8ea4a43e4b3e1bb255248fe31b368e57dfa23c37b8292",
+        "rawSHA256": "fe0d97040cefd2faaf434e6e92e420a8a5a5134497211f54f683644759c02689",
+        "records": 144
+      },
+      {
+        "getter": "raw",
+        "backend": "JS",
+        "status": "COMPILED_RUNTIME_OBSERVED",
+        "programSHA256": "6bcac0f58b00d945d9cffd6087cd9f1bf8cb6920b49f1006d89852b7c8b9c81e",
+        "rawSHA256": "fe0d97040cefd2faaf434e6e92e420a8a5a5134497211f54f683644759c02689",
+        "records": 144
+      }
+    ],
+    "overlaySHA256": "2b36c2745f457f830b27b42aff3bda21cb5dd10fc222e07c19ac1cd701883374",
+    "fixtureSHA256": "9f298cc3913124c898d672ef65bcf5e1f0e103f61ef007612b5547d05e97a3ae",
+    "controlCallbackPins": {
+      "first": "4d29d3791c93930288979f24c4a1096ecfa34e1f83932232e0d999b6c5465ee9",
+      "sum": "aa774b7165a39a855ff3ba25a93049875691ab6014686cd02c31847fc6c3c7c6",
+      "motion_body_ledger": "b1ea1bd7ae671fae18ea7c5d26b04ca4c0c03b8bd2d36d709a01c76379ba5201",
+      "motion_body_read": "e6967abd8b26c4028dfc0651703f1f90c663583613a7e4efa68028a056553741",
+      "motion_body": "38e9d8bb471ed25341c59fc82801493483229a351168a64ad802ecc3dbd625b0",
+      "health_body_ledger": "782d031b2dfa09a2f9bbcff228ff705816fc3bb40b64b5cad9bbaaae0ec691f0",
+      "health_body_read": "09d94bef9502a59eff8b0f050842e8dfbcf369fd9736a352b03fa6e9c4931269",
+      "health_body": "9f289b79eececfab754bca0fbb412896e96dbe8639231090bef251961cf879b0"
+    },
+    "originalRawObservation": {
+      "payloadSHA256": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+      "bindings": {
+        "position": "c7c99f80029231255906144008dc218ed0becdaecfa3f784bd4ad712a9f04efd",
+        "vitals": "2a14105af7480712fcfcde9b7681e807d8c2417289dc4b6a43414ae19b8117da",
+        "motion_ledger": "2eecfd06b87432f24bd8c27c7618c84aa7771e25b7d0da266673bc7c99b49d00",
+        "health_ledger": "97224379ff3fbf07c4e133b3ef3c5e75322c978699b53f6b2a08b46076d256f4"
+      },
+      "scope": "Control-only observers preserve cached view and return affine raw owner; Native optimized getter is not the oracle"
+    },
+    "mutation": "lost-mark",
+    "witness": [
+      {
+        "block": 0,
+        "scenario": 0,
+        "schema": "Motion",
+        "failure": false,
+        "phase": "pre",
+        "expected": {
+          "phase": "pre",
+          "value": 46,
+          "selected": {
+            "namespace": 7,
+            "id": 1
+          },
+          "undo": "L:100;M7/1:10;L:77;",
+          "commands": [
+            {
+              "kind": "RemoveFlagView",
+              "id": 1
+            },
+            {
+              "kind": "DespawnView",
+              "id": 2
+            }
+          ],
+          "pings": [
+            12,
+            11
+          ],
+          "marks": [
+            {
+              "namespace": 7,
+              "id": 1
+            },
+            {
+              "namespace": 7,
+              "id": 2
+            }
+          ],
+          "world": {
+            "namespace": 7,
+            "next": 3,
+            "rows": [
+              {
+                "id": 1,
+                "main": {
+                  "coordinates": {
+                    "a": 11,
+                    "b": 11,
+                    "c": 12,
+                    "d": 13
+                  },
+                  "frame": 7
+                },
+                "aux": {
+                  "rates": {
+                    "a": 110,
+                    "b": 111,
+                    "c": 112,
+                    "d": 113
+                  },
+                  "moving": true
+                },
+                "flag": {
+                  "group": 8
+                },
+                "added": 3,
+                "changed": 4
+              }
+            ],
+            "pending": [],
+            "ledger": {
+              "totals": {
+                "a": 101,
+                "b": 101,
+                "c": 102,
+                "d": 103
+              },
+              "epoch": 4
+            },
+            "mode": "MotionOn"
+          }
+        },
+        "actual": {
+          "phase": "pre",
+          "value": 46,
+          "selected": {
+            "namespace": 7,
+            "id": 1
+          },
+          "undo": "L:100;M7/1:10;L:77;",
+          "commands": [
+            {
+              "kind": "RemoveFlagView",
+              "id": 1
+            },
+            {
+              "kind": "DespawnView",
+              "id": 2
+            }
+          ],
+          "pings": [
+            12,
+            11
+          ],
+          "marks": [
+            {
+              "namespace": 7,
+              "id": 2
+            }
+          ],
+          "world": {
+            "namespace": 7,
+            "next": 3,
+            "rows": [
+              {
+                "id": 1,
+                "main": {
+                  "coordinates": {
+                    "a": 11,
+                    "b": 11,
+                    "c": 12,
+                    "d": 13
+                  },
+                  "frame": 7
+                },
+                "aux": {
+                  "rates": {
+                    "a": 110,
+                    "b": 111,
+                    "c": 112,
+                    "d": 113
+                  },
+                  "moving": true
+                },
+                "flag": {
+                  "group": 8
+                },
+                "added": 3,
+                "changed": 4
+              }
+            ],
+            "pending": [],
+            "ledger": {
+              "totals": {
+                "a": 101,
+                "b": 101,
+                "c": 102,
+                "d": 103
+              },
+              "epoch": 4
+            },
+            "mode": "MotionOn"
+          }
+        }
+      }
+    ],
+    "runnerSHA256": "1e43bd08222c788b4f8acd7a73949c2dfd8785c5a35ace4d4c44b82f84924755"
+  },
+  "torn-tail": {
+    "status": "DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE",
+    "scope": "Actual cached World point-Tx original callback success/failure; finite held/cache fields, no general API/performance acceptance",
+    "cases": [
+      {
+        "getter": "cached",
+        "backend": "Native",
+        "status": "COMPILED_RUNTIME_OBSERVED",
+        "programSHA256": "d90a6c30a3d39a618933aabcd6e8377cec740a2d08ba159d5eb7307f236ba270",
+        "rawSHA256": "14eb69ca8791fa59fd2a930276e935d8c1b7506457cf72d9bd664457300cb612",
+        "records": 144
+      },
+      {
+        "getter": "cached",
+        "backend": "JS",
+        "status": "COMPILED_RUNTIME_OBSERVED",
+        "programSHA256": "3744ed0b6c3b134c902134c0c52df2a6e78a3d2bbf1772ce2211e2a443b6930b",
+        "rawSHA256": "14eb69ca8791fa59fd2a930276e935d8c1b7506457cf72d9bd664457300cb612",
+        "records": 144
+      },
+      {
+        "getter": "raw",
+        "backend": "Native",
+        "status": "COMPILED_RUNTIME_OBSERVED",
+        "programSHA256": "75b1bf5dd1ce3e43d67fa47f1ff226dfa6742e3d5a3bbc8cefcf371f31244bcc",
+        "rawSHA256": "86470371004f767f76a13c0103f2b83d8a70b64ecc1b2eb80535c8782e21c3c4",
+        "records": 144
+      },
+      {
+        "getter": "raw",
+        "backend": "JS",
+        "status": "COMPILED_RUNTIME_OBSERVED",
+        "programSHA256": "190502949d8b1a0d8098af5921b3ff23807e530dcb655a6807377e24f09d9011",
+        "rawSHA256": "86470371004f767f76a13c0103f2b83d8a70b64ecc1b2eb80535c8782e21c3c4",
+        "records": 144
+      }
+    ],
+    "overlaySHA256": "2b36c2745f457f830b27b42aff3bda21cb5dd10fc222e07c19ac1cd701883374",
+    "fixtureSHA256": "9f298cc3913124c898d672ef65bcf5e1f0e103f61ef007612b5547d05e97a3ae",
+    "controlCallbackPins": {
+      "first": "4d29d3791c93930288979f24c4a1096ecfa34e1f83932232e0d999b6c5465ee9",
+      "sum": "aa774b7165a39a855ff3ba25a93049875691ab6014686cd02c31847fc6c3c7c6",
+      "motion_body_ledger": "b1ea1bd7ae671fae18ea7c5d26b04ca4c0c03b8bd2d36d709a01c76379ba5201",
+      "motion_body_read": "e6967abd8b26c4028dfc0651703f1f90c663583613a7e4efa68028a056553741",
+      "motion_body": "38e9d8bb471ed25341c59fc82801493483229a351168a64ad802ecc3dbd625b0",
+      "health_body_ledger": "782d031b2dfa09a2f9bbcff228ff705816fc3bb40b64b5cad9bbaaae0ec691f0",
+      "health_body_read": "09d94bef9502a59eff8b0f050842e8dfbcf369fd9736a352b03fa6e9c4931269",
+      "health_body": "9f289b79eececfab754bca0fbb412896e96dbe8639231090bef251961cf879b0"
+    },
+    "originalRawObservation": {
+      "payloadSHA256": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+      "bindings": {
+        "position": "c7c99f80029231255906144008dc218ed0becdaecfa3f784bd4ad712a9f04efd",
+        "vitals": "2a14105af7480712fcfcde9b7681e807d8c2417289dc4b6a43414ae19b8117da",
+        "motion_ledger": "2eecfd06b87432f24bd8c27c7618c84aa7771e25b7d0da266673bc7c99b49d00",
+        "health_ledger": "97224379ff3fbf07c4e133b3ef3c5e75322c978699b53f6b2a08b46076d256f4"
+      },
+      "scope": "Control-only observers preserve cached view and return affine raw owner; Native optimized getter is not the oracle"
+    },
+    "mutation": "torn-tail",
+    "witness": {
+      "record": 0,
+      "cached": {
+        "phase": "pre",
+        "value": 46,
+        "selected": {
+          "namespace": 7,
+          "id": 1
+        },
+        "undo": "L:100;M7/1:10;L:77;",
+        "commands": [
+          {
+            "kind": "RemoveFlagView",
+            "id": 1
+          },
+          {
+            "kind": "DespawnView",
+            "id": 2
+          }
+        ],
+        "pings": [
+          12,
+          11
+        ],
+        "marks": [
+          {
+            "namespace": 7,
+            "id": 1
+          },
+          {
+            "namespace": 7,
+            "id": 2
+          }
+        ],
+        "world": {
+          "namespace": 7,
+          "next": 3,
+          "rows": [
+            {
+              "id": 1,
+              "main": {
+                "coordinates": {
+                  "a": 11,
+                  "b": 11,
+                  "c": 12,
+                  "d": 14
+                },
+                "frame": 7
+              },
+              "aux": {
+                "rates": {
+                  "a": 110,
+                  "b": 111,
+                  "c": 112,
+                  "d": 113
+                },
+                "moving": true
+              },
+              "flag": {
+                "group": 8
+              },
+              "added": 3,
+              "changed": 4
+            }
+          ],
+          "pending": [],
+          "ledger": {
+            "totals": {
+              "a": 101,
+              "b": 101,
+              "c": 102,
+              "d": 103
+            },
+            "epoch": 4
+          },
+          "mode": "MotionOn"
+        }
+      },
+      "raw": {
+        "phase": "pre",
+        "value": 46,
+        "selected": {
+          "namespace": 7,
+          "id": 1
+        },
+        "undo": "L:100;M7/1:10;L:77;",
+        "commands": [
+          {
+            "kind": "RemoveFlagView",
+            "id": 1
+          },
+          {
+            "kind": "DespawnView",
+            "id": 2
+          }
+        ],
+        "pings": [
+          12,
+          11
+        ],
+        "marks": [
+          {
+            "namespace": 7,
+            "id": 1
+          },
+          {
+            "namespace": 7,
+            "id": 2
+          }
+        ],
+        "world": {
+          "namespace": 7,
+          "next": 3,
+          "rows": [
+            {
+              "id": 1,
+              "main": {
+                "coordinates": {
+                  "a": 11,
+                  "b": 11,
+                  "c": 12,
+                  "d": 13
+                },
+                "frame": 7
+              },
+              "aux": {
+                "rates": {
+                  "a": 110,
+                  "b": 111,
+                  "c": 112,
+                  "d": 113
+                },
+                "moving": true
+              },
+              "flag": {
+                "group": 8
+              },
+              "added": 3,
+              "changed": 4
+            }
+          ],
+          "pending": [],
+          "ledger": {
+            "totals": {
+              "a": 101,
+              "b": 101,
+              "c": 102,
+              "d": 103
+            },
+            "epoch": 4
+          },
+          "mode": "MotionOn"
+        }
+      }
+    },
+    "runnerSHA256": "1e43bd08222c788b4f8acd7a73949c2dfd8785c5a35ace4d4c44b82f84924755"
+  }
+}
