@@ -22,13 +22,14 @@ def main():
     text=packet.child([tools['node'],cli,'state','--cwd',x.cwd,'--report'],30,[])
     report=json.loads(text);plan=accepted_plan(report,x.contract_digest,x.evaluator_identity)
     if x.inspect_only:print(json.dumps({'status':'CANONICAL_ACCEPTED_LAUNCH_PREFLIGHT','contractDigest':plan['contractDigest'],'evaluatorIdentity':plan['evaluatorIdentity']}));return
-    boundary.verify(x.manifest,x.sha256,allow=allow);guard.deadline(3600)
+    boundary.verify(x.manifest,x.sha256,allow=allow);guard.deadline(5)
     # next owns canonical packet execution/digest/budget enforcement; there are
     # no evaluator/check/command/env overrides and no alternate direct launch.
     command=[tools['node'],cli,'next','--cwd',x.cwd,'--compact']
     guard.enable_subreaper();prior=guard.child_pids(os.getpid())
+    remaining=(guard.DEADLINE-datetime.datetime.now(datetime.timezone.utc)).total_seconds()-5
+    if remaining<=0:raise ValueError('no global execution/cleanup allowance')
     process=subprocess.Popen(command,env=ENV,start_new_session=True)
-    remaining=(guard.DEADLINE-datetime.datetime.now(datetime.timezone.utc)).total_seconds()
     try:
         code=process.wait(timeout=remaining)
         if guard.child_pids(os.getpid())-prior:
