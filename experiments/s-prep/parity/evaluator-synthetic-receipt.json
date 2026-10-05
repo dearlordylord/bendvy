@@ -1,0 +1,339 @@
+{
+  "syntheticOnly": true,
+  "benchmarkExecuted": false,
+  "accepted": false,
+  "controls": {
+    "qualified-success": {
+      "qualifiedMetric": 0.8,
+      "metric": "mean of two same-cohort candidateJS/actualTS median ratios; lower is better",
+      "targetMet": true,
+      "decision": {
+        "status": "PROPOSED_TARGET_MET",
+        "qualifiedSuccess": true,
+        "rawTargetMet": true,
+        "cohorts": [
+          {
+            "id": "0",
+            "raw": {
+              "JS": {
+                "medianRatio": 0.8,
+                "bootstrapUpperRatio": 0.8,
+                "bootstrapLowerRatio": 0.8
+              },
+              "Native": {
+                "medianRatio": 0.3,
+                "bootstrapUpperRatio": 0.3,
+                "bootstrapLowerRatio": 0.3
+              }
+            },
+            "conservative": {
+              "JS": {
+                "medianRatio": 0.8367346938775511,
+                "bootstrapUpperRatio": 0.8367346938775511,
+                "bootstrapLowerRatio": 0.8367346938775511
+              },
+              "Native": {
+                "medianRatio": 0.32653061224489793,
+                "bootstrapUpperRatio": 0.32653061224489793,
+                "bootstrapLowerRatio": 0.32653061224489793
+              }
+            },
+            "relativeMAD": {
+              "TS": 0.0,
+              "JS": 0.0,
+              "Native": 0.0
+            }
+          },
+          {
+            "id": "1",
+            "raw": {
+              "JS": {
+                "medianRatio": 0.8,
+                "bootstrapUpperRatio": 0.8,
+                "bootstrapLowerRatio": 0.8
+              },
+              "Native": {
+                "medianRatio": 0.3,
+                "bootstrapUpperRatio": 0.3,
+                "bootstrapLowerRatio": 0.3
+              }
+            },
+            "conservative": {
+              "JS": {
+                "medianRatio": 0.8367346938775511,
+                "bootstrapUpperRatio": 0.8367346938775511,
+                "bootstrapLowerRatio": 0.8367346938775511
+              },
+              "Native": {
+                "medianRatio": 0.32653061224489793,
+                "bootstrapUpperRatio": 0.32653061224489793,
+                "bootstrapLowerRatio": 0.32653061224489793
+              }
+            },
+            "relativeMAD": {
+              "TS": 0.0,
+              "JS": 0.0,
+              "Native": 0.0
+            }
+          }
+        ],
+        "nativeFactor": 2,
+        "rulesAccepted": false,
+        "proposedTimerAllowanceMilliseconds": 2,
+        "proposedNoiseLimit": 0.1,
+        "provenanceVerified": false,
+        "provenanceLimit": "IDs are labels only; independent freshness and source/tool closure require external validation",
+        "cohortMedianDrift": {
+          "TS": 0.0,
+          "JS": 0.0,
+          "Native": 0.0
+        }
+      },
+      "accepted": false,
+      "provenanceVerified": false,
+      "scope": "numeric proposal only; protected provenance/check gates remain external"
+    },
+    "qualified-target-missed": {
+      "qualifiedMetric": 1.1,
+      "metric": "mean of two same-cohort candidateJS/actualTS median ratios; lower is better",
+      "targetMet": false,
+      "decision": {
+        "status": "PROPOSED_TARGET_MISSED",
+        "qualifiedSuccess": false,
+        "rawTargetMet": false,
+        "cohorts": [
+          {
+            "id": "0",
+            "raw": {
+              "JS": {
+                "medianRatio": 1.1,
+                "bootstrapUpperRatio": 1.1,
+                "bootstrapLowerRatio": 1.1
+              },
+              "Native": {
+                "medianRatio": 0.3,
+                "bootstrapUpperRatio": 0.3,
+                "bootstrapLowerRatio": 0.3
+              }
+            },
+            "conservative": {
+              "JS": {
+                "medianRatio": 1.1428571428571428,
+                "bootstrapUpperRatio": 1.1428571428571428,
+                "bootstrapLowerRatio": 1.1428571428571428
+              },
+              "Native": {
+                "medianRatio": 0.32653061224489793,
+                "bootstrapUpperRatio": 0.32653061224489793,
+                "bootstrapLowerRatio": 0.32653061224489793
+              }
+            },
+            "relativeMAD": {
+              "TS": 0.0,
+              "JS": 0.0,
+              "Native": 0.0
+            }
+          },
+          {
+            "id": "1",
+            "raw": {
+              "JS": {
+                "medianRatio": 1.1,
+                "bootstrapUpperRatio": 1.1,
+                "bootstrapLowerRatio": 1.1
+              },
+              "Native": {
+                "medianRatio": 0.3,
+                "bootstrapUpperRatio": 0.3,
+                "bootstrapLowerRatio": 0.3
+              }
+            },
+            "conservative": {
+              "JS": {
+                "medianRatio": 1.1428571428571428,
+                "bootstrapUpperRatio": 1.1428571428571428,
+                "bootstrapLowerRatio": 1.1428571428571428
+              },
+              "Native": {
+                "medianRatio": 0.32653061224489793,
+                "bootstrapUpperRatio": 0.32653061224489793,
+                "bootstrapLowerRatio": 0.32653061224489793
+              }
+            },
+            "relativeMAD": {
+              "TS": 0.0,
+              "JS": 0.0,
+              "Native": 0.0
+            }
+          }
+        ],
+        "nativeFactor": 2,
+        "rulesAccepted": false,
+        "proposedTimerAllowanceMilliseconds": 2,
+        "proposedNoiseLimit": 0.1,
+        "provenanceVerified": false,
+        "provenanceLimit": "IDs are labels only; independent freshness and source/tool closure require external validation",
+        "cohortMedianDrift": {
+          "TS": 0.0,
+          "JS": 0.0,
+          "Native": 0.0
+        }
+      },
+      "accepted": false,
+      "provenanceVerified": false,
+      "scope": "numeric proposal only; protected provenance/check gates remain external"
+    },
+    "missing-sample": {
+      "qualifiedMetric": null,
+      "metric": "mean of two same-cohort candidateJS/actualTS median ratios; lower is better",
+      "targetMet": false,
+      "decision": {
+        "status": "INCONCLUSIVE",
+        "qualifiedSuccess": false,
+        "rawTargetMet": null,
+        "cohorts": [
+          {
+            "id": "0",
+            "raw": {
+              "JS": {
+                "medianRatio": 0.8,
+                "bootstrapUpperRatio": 0.8,
+                "bootstrapLowerRatio": 0.8
+              },
+              "Native": {
+                "medianRatio": 0.3,
+                "bootstrapUpperRatio": 0.3,
+                "bootstrapLowerRatio": 0.3
+              }
+            },
+            "conservative": {
+              "JS": {
+                "medianRatio": 0.8367346938775511,
+                "bootstrapUpperRatio": 0.8367346938775511,
+                "bootstrapLowerRatio": 0.8367346938775511
+              },
+              "Native": {
+                "medianRatio": 0.32653061224489793,
+                "bootstrapUpperRatio": 0.32653061224489793,
+                "bootstrapLowerRatio": 0.32653061224489793
+              }
+            },
+            "relativeMAD": {
+              "TS": 0.0,
+              "JS": 0.0,
+              "Native": 0.0
+            }
+          }
+        ],
+        "nativeFactor": 2,
+        "rulesAccepted": false,
+        "proposedTimerAllowanceMilliseconds": 2,
+        "proposedNoiseLimit": 0.1,
+        "provenanceVerified": false,
+        "provenanceLimit": "IDs are labels only; independent freshness and source/tool closure require external validation",
+        "reasons": [
+          "missing/nonfinite/nonpositive/full-field-failed sample"
+        ]
+      },
+      "accepted": false,
+      "provenanceVerified": false,
+      "scope": "numeric proposal only; protected provenance/check gates remain external"
+    },
+    "noise": {
+      "qualifiedMetric": null,
+      "metric": "mean of two same-cohort candidateJS/actualTS median ratios; lower is better",
+      "targetMet": false,
+      "decision": {
+        "status": "INCONCLUSIVE",
+        "qualifiedSuccess": false,
+        "rawTargetMet": true,
+        "cohorts": [
+          {
+            "id": "0",
+            "raw": {
+              "JS": {
+                "medianRatio": 0.8,
+                "bootstrapUpperRatio": 0.8,
+                "bootstrapLowerRatio": 0.8
+              },
+              "Native": {
+                "medianRatio": 0.3,
+                "bootstrapUpperRatio": 0.3,
+                "bootstrapLowerRatio": 0.3
+              }
+            },
+            "conservative": {
+              "JS": {
+                "medianRatio": 0.8367346938775511,
+                "bootstrapUpperRatio": 0.8367346938775511,
+                "bootstrapLowerRatio": 0.8367346938775511
+              },
+              "Native": {
+                "medianRatio": 0.32653061224489793,
+                "bootstrapUpperRatio": 0.32653061224489793,
+                "bootstrapLowerRatio": 0.32653061224489793
+              }
+            },
+            "relativeMAD": {
+              "TS": 0.0,
+              "JS": 0.0,
+              "Native": 0.0
+            }
+          },
+          {
+            "id": "1",
+            "raw": {
+              "JS": {
+                "medianRatio": 0.8,
+                "bootstrapUpperRatio": 0.8,
+                "bootstrapLowerRatio": 0.8
+              },
+              "Native": {
+                "medianRatio": 0.3,
+                "bootstrapUpperRatio": 0.3,
+                "bootstrapLowerRatio": 0.3
+              }
+            },
+            "conservative": {
+              "JS": {
+                "medianRatio": 0.8243243243243243,
+                "bootstrapUpperRatio": 0.8243243243243243,
+                "bootstrapLowerRatio": 0.8243243243243243
+              },
+              "Native": {
+                "medianRatio": 0.31756756756756754,
+                "bootstrapUpperRatio": 0.31756756756756754,
+                "bootstrapLowerRatio": 0.31756756756756754
+              }
+            },
+            "relativeMAD": {
+              "TS": 0.0,
+              "JS": 0.0,
+              "Native": 0.0
+            }
+          }
+        ],
+        "nativeFactor": 2,
+        "rulesAccepted": false,
+        "proposedTimerAllowanceMilliseconds": 2,
+        "proposedNoiseLimit": 0.1,
+        "provenanceVerified": false,
+        "provenanceLimit": "IDs are labels only; independent freshness and source/tool closure require external validation",
+        "cohortMedianDrift": {
+          "TS": 0.5,
+          "JS": 0.5,
+          "Native": 0.5
+        },
+        "reasons": [
+          "fresh TS drift or backend cohort noise"
+        ]
+      },
+      "accepted": false,
+      "provenanceVerified": false,
+      "scope": "numeric proposal only; protected provenance/check gates remain external"
+    },
+    "symlink": "REJECTED",
+    "execute": "UNCONDITIONALLY_BLOCKED"
+  },
+  "limitations": "Dry-run-only evaluator proposal; no subprocess/compiler/benchmark execution.\n\nExecution is unconditionally blocked. A user JSON receipt is not authority.\nCanonical Autoresearch accepted state, independently reviewed execution digest,\ncomplete frozen protected manifest and cumulative descendant deadline enforcement\nmust be implemented/reviewed before a separately authorized execution path.\n"
+}
