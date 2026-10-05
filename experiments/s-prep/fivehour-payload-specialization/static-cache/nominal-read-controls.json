@@ -1,0 +1,19 @@
+{
+  "scope": "new fresh private static helper type controls; no new authority law",
+  "limitSeconds": 5,
+  "cpu": 8,
+  "controls": {
+    "cross-schema": {
+      "status": "REJECTED",
+      "source": "import Base\nimport ./types.bend as T\nimport ./cache.bend as C\nimport ./cached-payload.bend as P\nimport ./uncached-payload.bend as U\ndef bad(owner:C.Cache<T.Position,T.PositionView>) -> C.Cache<T.Vitals,T.VitalsView> & T.VitalsView:\n  P.vitals_get(owner)\n",
+      "sourceSha256": "871d59d3b56df0ddaf15b1d26bc7b057efe6cf075387a90b6f0951ba620a1b29",
+      "output": "SOME PROOFS FAIL\nError:\n- expected : C.Cache<T.Vitals, T.VitalsView>\n- observed : C.Cache<T.Position, T.PositionView>\nContext:\n- owner : C.Cache<T.Position, T.PositionView>\nLocation: bad\n6 | def bad(owner:C.Cache<T.Position,T.PositionView>) -> C.Cache<T.Vitals,T.VitalsView> & T.VitalsView:\n7>|   P.vitals_get(owner)\n  |                ^^^^^\n8 | \n"
+    },
+    "read-as-write": {
+      "status": "REJECTED",
+      "source": "import Base\nimport ./types.bend as T\nimport ./cache.bend as C\nimport ./cached-payload.bend as P\nimport ./uncached-payload.bend as U\ndef bad(owner:C.Cache<T.Vitals,T.VitalsView>,value:U32) -> C.Cache<T.Vitals,T.VitalsView> & U32:\n  C.static_swap(~T.Vitals,~T.VitalsView,~U.vitals_get,~P.vitals_patch,owner,value)\n",
+      "sourceSha256": "62032d1d525085b8c59e91378d1c439992f2e49589655a6d9999419dea7bc68b",
+      "output": "SOME PROOFS FAIL\nError:\n- expected : @_:T.Vitals -> @_:U32 -> Sigma<&1, &1, T.Vitals, _ => U32>\n- observed : @owner:T.Vitals -> Sigma<&1, &1, T.Vitals, _ => T.VitalsView>\nLocation: bad\n6 | def bad(owner:C.Cache<T.Vitals,T.VitalsView>,value:U32) -> C.Cache<T.Vitals,T.VitalsView> & U32:\n7>|   C.static_swap(~T.Vitals,~T.VitalsView,~U.vitals_get,~P.vitals_patch,owner,value)\n  |                                          ^^^^^^^^^^^^\n8 | \n"
+    }
+  }
+}
