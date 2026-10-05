@@ -1,0 +1,44 @@
+{
+  "status": "BEND_RUNTIME_COMPARISON_BLOCKED",
+  "limitsSeconds": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "cpu": 10,
+  "failedAttempts": [
+    {
+      "entry": "original combined driver",
+      "checker": "scoped local t01/bend-check",
+      "result": "5s timeout before runtime"
+    },
+    {
+      "entry": "v2 small protected-original observer",
+      "checker": "scoped local t01/bend-check",
+      "result": "exit137 at5s before runtime"
+    },
+    {
+      "entry": "v2 small observer",
+      "checker": "installed bend --check-only",
+      "result": "exit124 at5s before runtime"
+    },
+    {
+      "entry": "raw Tx bridge first draft",
+      "result": "unknown unqualified Wrapped; no runtime"
+    }
+  ],
+  "bridge": {
+    "sourceSHA256": "eaffd3a1a0241673ebfe4a6e7f1a268a2e822f46b960864e3c0bfa10bfd080df",
+    "checker": "installed bend --check-only",
+    "exit": 0,
+    "output": "ALL PROOFS CHECK",
+    "claim": "Typed trusted raw spawn adapter only; no callback/full workload execution or rejected-owner runtime gate"
+  },
+  "freshTS": "Eight Motion/Health Dense/Sparse64/256 actual64-tick full-field observations PASS; unpaired reference evidence only",
+  "artifactRoots": [
+    "/tmp/bendvy-fivehour-matrix-runtime-native",
+    "/tmp/bendvy-fivehour-matrix-runtime-native-v2",
+    "/tmp/bendvy-fivehour-matrix-fresh-ts"
+  ]
+}

@@ -1,7 +1,7 @@
 import Base
 import ./measurement-bend.bend as M
 import ./raw-boundaries.bend as B
-import ./raw-reject-controls.bend as Audit
+import ./matrix-original-observer.bend as Audit
 import ./types.bend as T
 import ./storage.bend as S
 import ./cache.bend as C
@@ -26,7 +26,7 @@ def motion_dump(state:D.Runtime<M.MotionBench,S.Handle<T.MotionSchema>>) -> IO(U
       do IO<Unit>:
         IO.print("SEMANTIC-ONLY:motion:counts:" ++ U32.show(total) ++ ":" ++ U32.show(calls) ++ ":" ++ U32.show(D.clock_tick(clock)) ++ ":" ++ U32.show(M.clock_frame(clock)))
         cached : S.World<T.MotionSchema,C.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,C.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode> <- motion_snapshot("cached",O.world(T.MotionSchema,C.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,C.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,T.PositionView,T.VelocityView,T.LedgerView,P.position_get,Raw.velocity_get,P.motion_ledger_get,world))
-        observed : S.World<T.MotionSchema,C.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,C.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode> <- motion_snapshot("raw",O.world(T.MotionSchema,C.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,C.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,T.PositionView,T.VelocityView,T.LedgerView,Audit.motion_main_audit,Raw.velocity_get,Audit.motion_ledger_audit,cached))
+        observed : S.World<T.MotionSchema,C.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,C.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode> <- motion_snapshot("raw",O.world(T.MotionSchema,C.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,C.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,T.PositionView,T.VelocityView,T.LedgerView,Audit.position_get,Raw.velocity_get,Audit.motion_ledger_get,cached))
         return Unit{}
 def motion_run(pair:D.Runtime<M.MotionBench,S.Handle<T.MotionSchema>> & K.System) -> IO(Unit):
   match pair:
@@ -46,7 +46,7 @@ def health_dump(state:D.Runtime<M.HealthBench,S.Handle<T.HealthSchema>>) -> IO(U
       do IO<Unit>:
         IO.print("SEMANTIC-ONLY:health:counts:" ++ U32.show(total) ++ ":" ++ U32.show(calls) ++ ":" ++ U32.show(D.clock_tick(clock)) ++ ":" ++ U32.show(M.clock_frame(clock)))
         cached : S.World<T.HealthSchema,C.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,C.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode> <- health_snapshot("cached",O.world(T.HealthSchema,C.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,C.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,T.VitalsView,T.ArmorView,T.LedgerView,P.vitals_get,Raw.armor_get,P.health_ledger_get,world))
-        observed : S.World<T.HealthSchema,C.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,C.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode> <- health_snapshot("raw",O.world(T.HealthSchema,C.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,C.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,T.VitalsView,T.ArmorView,T.LedgerView,Audit.health_main_audit,Raw.armor_get,Audit.health_ledger_audit,cached))
+        observed : S.World<T.HealthSchema,C.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,C.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode> <- health_snapshot("raw",O.world(T.HealthSchema,C.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,C.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,T.VitalsView,T.ArmorView,T.LedgerView,Audit.vitals_get,Raw.armor_get,Audit.health_ledger_get,cached))
         return Unit{}
 def health_run(pair:D.Runtime<M.HealthBench,S.Handle<T.HealthSchema>> & K.System) -> IO(Unit):
   match pair:

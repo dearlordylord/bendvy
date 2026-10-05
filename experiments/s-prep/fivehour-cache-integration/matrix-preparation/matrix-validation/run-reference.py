@@ -1,0 +1,12 @@
+#!/usr/bin/env python3
+"""Fresh full-field TS observations only; Bend comparison remains blocked."""
+import argparse,json,hashlib,subprocess,os
+from pathlib import Path
+HERE=Path(__file__).resolve().parent;ROOT=HERE.parents[4];h=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+p=argparse.ArgumentParser();p.add_argument('--artifact',required=True,type=Path);a=p.parse_args();a.artifact.mkdir(exist_ok=False);os.sched_setaffinity(0,{10});source=ROOT/'experiments/s-integrate/measurement-reference.mjs';pin=json.loads((ROOT/'experiments/s-prep/fivehour-cache-integration/native-host-controls/native-host-evidence.json').read_text());ref=Path('/workspace/formal-proofs/bendvy/.references/bevy-ts');assert subprocess.check_output(['git','-C',str(ref),'rev-parse','HEAD'],text=True).strip()==pin['referenceCommit'];assert all(h(ref/n)==v for n,v in pin['referenceClosureSHA256'].items());assert source.read_bytes()==subprocess.check_output(['git','-C',str(ROOT),'show','HEAD:'+str(source.relative_to(ROOT))])
+text=source.read_text();old="new URL('../../.references/sources.json',import.meta.url)";assert text.count(old)==1;text=text.replace(old,repr('/workspace/formal-proofs/bendvy/.references/sources.json'));old="return {schema,workload,count,iterations,status:'PASS',selectedCount:";assert text.count(old)==1;text=text.replace(old,"return {final,audit,schema,workload,count,iterations,status:'PASS',selectedCount:");adapter=a.artifact/'reference-fields.mjs';adapter.write_text(text);e={'status':'FRESH_TS_ONLY_BEND_BLOCKED','referenceCommit':pin['referenceCommit'],'referenceClosureSHA256':pin['referenceClosureSHA256'],'sourceSHA256':h(source),'adapterSHA256':h(adapter),'change':'Add final/audit output only; unchanged callback bodies. Relocate tracked manifest path. Ignore diagnostic timing fields.','limitSeconds':5,'cases':[]}
+for schema in ['Motion','Health']:
+ for workload in ['dense','sparse']:
+  for count in [64,256]:
+   result=subprocess.run(['node',str(adapter),schema,workload,str(count)],capture_output=True,text=True,timeout=5);assert result.returncode==0,result.stderr;raw=a.artifact/f'{schema}-{workload}-{count}.json';raw.write_text(result.stdout);d=json.loads(result.stdout);assert len(d['audit'])==64;e['cases'].append({'schema':schema,'workload':workload,'count':count,'status':d['status'],'rows':len(d['final']['rows']),'auditTicks':len(d['audit']),'rawSHA256':h(raw)})
+(a.artifact/'reference-evidence.json').write_text(json.dumps(e,indent=2)+'\n')
