@@ -1,0 +1,60 @@
+{
+  "status": "FINITE_ACTUAL_TX_CACHE_FIELDS_PASS",
+  "scope": "Actual cached World point-Tx original callback success/failure; finite held/cache fields, no general API/performance acceptance",
+  "cases": [
+    {
+      "getter": "cached",
+      "backend": "Native",
+      "status": "FULL_TX_FIELDS_PASS",
+      "programSHA256": "0413f4e6890c56f9624c4083bef7c96b0127091cc8a7bb00733a6f80f1c93476",
+      "rawSHA256": "86470371004f767f76a13c0103f2b83d8a70b64ecc1b2eb80535c8782e21c3c4",
+      "records": 144
+    },
+    {
+      "getter": "cached",
+      "backend": "JS",
+      "status": "FULL_TX_FIELDS_PASS",
+      "programSHA256": "7f06729e3f408f3aab7f6a5fb9b6bddff133ecb2c0bd5c23c28d561daa4aabc6",
+      "rawSHA256": "86470371004f767f76a13c0103f2b83d8a70b64ecc1b2eb80535c8782e21c3c4",
+      "records": 144
+    },
+    {
+      "getter": "raw",
+      "backend": "Native",
+      "status": "FULL_TX_FIELDS_PASS",
+      "programSHA256": "42600f91c0b4758fc9e70a460db9dd664c0fe8fe1f2856961bc2763e2ecc1bd6",
+      "rawSHA256": "86470371004f767f76a13c0103f2b83d8a70b64ecc1b2eb80535c8782e21c3c4",
+      "records": 144
+    },
+    {
+      "getter": "raw",
+      "backend": "JS",
+      "status": "FULL_TX_FIELDS_PASS",
+      "programSHA256": "7d2b95510818b15012cc7057bfd08f5b04587fe2f7b56ba3c0f5c1ddd2bf3b59",
+      "rawSHA256": "86470371004f767f76a13c0103f2b83d8a70b64ecc1b2eb80535c8782e21c3c4",
+      "records": 144
+    }
+  ],
+  "overlaySHA256": "9adc648f51d0aac60066607f16f26b4ca8f2385d072deace6fc2397d444eed6b",
+  "fixtureSHA256": "9f298cc3913124c898d672ef65bcf5e1f0e103f61ef007612b5547d05e97a3ae",
+  "controlCallbackPins": {
+    "first": "4d29d3791c93930288979f24c4a1096ecfa34e1f83932232e0d999b6c5465ee9",
+    "sum": "aa774b7165a39a855ff3ba25a93049875691ab6014686cd02c31847fc6c3c7c6",
+    "motion_body_ledger": "b1ea1bd7ae671fae18ea7c5d26b04ca4c0c03b8bd2d36d709a01c76379ba5201",
+    "motion_body_read": "e6967abd8b26c4028dfc0651703f1f90c663583613a7e4efa68028a056553741",
+    "motion_body": "38e9d8bb471ed25341c59fc82801493483229a351168a64ad802ecc3dbd625b0",
+    "health_body_ledger": "782d031b2dfa09a2f9bbcff228ff705816fc3bb40b64b5cad9bbaaae0ec691f0",
+    "health_body_read": "09d94bef9502a59eff8b0f050842e8dfbcf369fd9736a352b03fa6e9c4931269",
+    "health_body": "9f289b79eececfab754bca0fbb412896e96dbe8639231090bef251961cf879b0"
+  },
+  "originalRawObservation": {
+    "payloadSHA256": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "bindings": {
+      "position": "c7c99f80029231255906144008dc218ed0becdaecfa3f784bd4ad712a9f04efd",
+      "vitals": "2a14105af7480712fcfcde9b7681e807d8c2417289dc4b6a43414ae19b8117da",
+      "motion_ledger": "2eecfd06b87432f24bd8c27c7618c84aa7771e25b7d0da266673bc7c99b49d00",
+      "health_ledger": "97224379ff3fbf07c4e133b3ef3c5e75322c978699b53f6b2a08b46076d256f4"
+    },
+    "scope": "Control-only observers preserve cached view and return affine raw owner; Native optimized getter is not the oracle"
+  }
+}

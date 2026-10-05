@@ -1,0 +1,83 @@
+{
+  "status": "SOURCE_CHECKS",
+  "failedPreparationCommands": [
+    "bend check FILE: invalid CLI",
+    "bend gen FILE --target js: invalid CLI"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-main-fusion/experiments/t01/bend-check",
+        "/tmp/bendvy-fivehour-static-combined-js/experiments/s-integrate/measurement-bend.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "stdout": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-fivehour-static-combined-js/experiments/s-integrate/measurement-bend.bend",
+        "-o",
+        "/tmp/bendvy-fivehour-static-combined-js.js"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-main-fusion/experiments/t01/bend-check",
+        "/tmp/bendvy-fivehour-static-combined-native/experiments/s-integrate/measurement-bend.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "stdout": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-fivehour-static-combined-native/experiments/s-integrate/measurement-bend.bend",
+        "-o",
+        "/tmp/bendvy-fivehour-static-combined-native.js"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "js": {
+    "status": "UNMEASURED_COMBINED_SOURCE",
+    "helperSHA256": "36593377973e581b404b72e47a5786fd02b7d76edf63bccaab60352afc2b3413",
+    "helperCommit": "00b864e0dc0ae421f1c096d654f9e940a0fbf77b",
+    "staticCacheSources": {
+      "cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+      "cached-payload.bend": "03b01d1fc4e313c149302778753749e363527584d3e5b500f018c43a595dd05f"
+    },
+    "staticHeldClosureSHA256": "091d6d322bdf0ad1efb4af99efd716e25690e33d7a8ff3fff88750c0b9b101c2",
+    "runtimeClosureSHA256": "e7054bd1cf14a84b8db55ca63492f61f6b7190c4943c59783b697db19132d1d5",
+    "runtimeModules": 28,
+    "nativePayload": false,
+    "frozenCallback": false
+  },
+  "native": {
+    "status": "UNMEASURED_COMBINED_SOURCE",
+    "helperSHA256": "36593377973e581b404b72e47a5786fd02b7d76edf63bccaab60352afc2b3413",
+    "helperCommit": "00b864e0dc0ae421f1c096d654f9e940a0fbf77b",
+    "staticCacheSources": {
+      "cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+      "cached-payload.bend": "03b01d1fc4e313c149302778753749e363527584d3e5b500f018c43a595dd05f"
+    },
+    "staticHeldClosureSHA256": "bea82ff62d0bdbb3b6c46cef828d8553cf4c538a124ac05f5aabd4c04c85177f",
+    "runtimeClosureSHA256": "11f6f97ff2cefe674fe3177a6e8858cab523573e89cfe6367c5a218b1e96f8e9",
+    "runtimeModules": 28,
+    "nativePayload": true,
+    "frozenCallback": false
+  }
+}
