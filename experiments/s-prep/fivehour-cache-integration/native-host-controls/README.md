@@ -1,0 +1,13 @@
+# Native-provider actual Host12 — semantic controls
+
+This package owns only Native-provider complete Host evidence; the independent gate package owns the other gates. The selected measured-source identity is bd9660f1c27e0531eeefef3af1fac3e0b3fd1f3e8f19e902e2952254ed6a7ea4 (28 imported final measurement modules). Source controls use a separate copied closure with Motion/Health fixtures and both capture styles; measured source stays unchanged.
+
+Replay (fresh artifact directory required):
+```
+python3 run.py --gate-root /path/to/bendvy-with-fivehour-connected-gates --overlay /path/to/final-native-overlay --artifact /tmp/fresh-native-host12
+```
+The wrapper verifies tracked runner/materializer/decoder/comparator/reference sources, the complete selected overlay source map, the exact pinned bevy-ts commit and all33 tracked index.ts import-closure sources BEFORE reference execution. A wrong-commit negative rejects before execution. The shared actual Host12 runner is read-only and retargets the12 original semantic mutants to current actual indexed/cache paths. Native O0, one worker, GPU off and JS run serially on CPU10; checker/runtime5s, codegen30s, clang120s. This is semantic evidence, never comparative timing or Native O3 performance evidence.
+
+Control-only independent snapshots use original-raw-observer.bend: unwrap actual Cache Raw owners, call the protected ORIGINAL payload.bend getters, then rewrap the unchanged cached observer alongside the returned Raw owner. This avoids observing Native mutations through the same specialized Native Raw getter. All four cells and metadata reach the original full Host snapshot channels. Actual callback providers remain unchanged. Local fixture/helper schema slices remove only unreachable control definitions; whole measurement runtime modules remain retained.
+
+The run is source-bound and its original/12-mutant result is recorded separately after completion. Preliminary provenance-wrapper dependency errors occurred before TS/Host execution and are retained; no duplicate Native Host12 run was launched.
