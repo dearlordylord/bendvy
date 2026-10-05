@@ -1,0 +1,83 @@
+{
+  "status": "PASS_SOURCE_ONLY",
+  "cases": [
+    {
+      "variant": "js",
+      "status": "PASS_SOURCE_ONLY",
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n",
+      "materialization": {
+        "scope": "semantic-only original64tick Dense/Sparse; no clock/ratio",
+        "parentRuntimeClosureSHA256": "3b22b6cddb29f1076552ce8e23460a7d7eea1dbb9b28b8aed03ec7dbb197d3ce",
+        "sourceSHA256": "8f1e3c95155c86985bbd82e4710ffc97713cbfb4c081a6599387c0b62d78badf",
+        "recipeSHA256": "3a09f7d08c22664c9944722b4dec251fd1f3be1194f6806c058c2f2cea18f76a",
+        "sizes": [
+          64,
+          256,
+          1024
+        ],
+        "schemas": [
+          "Motion",
+          "Health"
+        ],
+        "observations": "final counts plus cached and independent original fullworld; runtime/reference gates pending"
+      }
+    },
+    {
+      "variant": "native",
+      "status": "PASS_SOURCE_ONLY",
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n",
+      "materialization": {
+        "scope": "semantic-only original64tick Dense/Sparse; no clock/ratio",
+        "parentRuntimeClosureSHA256": "bd9660f1c27e0531eeefef3af1fac3e0b3fd1f3e8f19e902e2952254ed6a7ea4",
+        "sourceSHA256": "8f1e3c95155c86985bbd82e4710ffc97713cbfb4c081a6599387c0b62d78badf",
+        "recipeSHA256": "3a09f7d08c22664c9944722b4dec251fd1f3be1194f6806c058c2f2cea18f76a",
+        "sizes": [
+          64,
+          256,
+          1024
+        ],
+        "schemas": [
+          "Motion",
+          "Health"
+        ],
+        "observations": "final counts plus cached and independent original fullworld; runtime/reference gates pending"
+      }
+    }
+  ],
+  "limitSeconds": 5,
+  "claim": "source/checker only, no runtime/reference/performance observation",
+  "sourceCommit": "b908eb46f98ca238e5a5992dfd6d36ddaa25f2d9",
+  "sourceHashes": {
+    "experiments/s-prep/fivehour-cache-integration/matrix-preparation/check.py": "c0d7f976f67f7c6120be3b0060775d3cd1beb924dcae183f4171a01cc4d462b6",
+    "experiments/s-prep/fivehour-cache-integration/matrix-preparation/materialize.py": "3a09f7d08c22664c9944722b4dec251fd1f3be1194f6806c058c2f2cea18f76a",
+    "experiments/s-prep/fivehour-cache-integration/matrix-preparation/dense-sparse-semantic.bend": "8f1e3c95155c86985bbd82e4710ffc97713cbfb4c081a6599387c0b62d78badf",
+    "experiments/s-prep/fivehour-cache-integration/check.py": "1ab387635c6be5994a4cdb2eb7c3c26ac91de46610e76a5e022ccb28a7b967f0",
+    "experiments/s-prep/fivehour-cache-integration/materialize.py": "18655a4f0a348deabf3b4668dd6083670fd040ad81339c1800ef13446cf96dc1",
+    "experiments/s-prep/fivehour-cache-integration/input-overlay-fast.py": "e9e53d8067b9155764f745a894f0cc4aeccae6c05a74ca3d738d4fa95aafa334",
+    "experiments/s-prep/fivehour-cache-integration/reject-run.py": "b95b0c8337732cd4ff9a4d371d69166d10d91449a5f4d2a30735e1773d6ec966",
+    "experiments/s-prep/fivehour-cache-integration/input-overlay.py": "6d0457b55697d7913c072614710a6f54cd0267b5deafa09788a6468a41c09f24",
+    "experiments/s-prep/fivehour-cache-integration/input-persistent-payload.bend": "77685ac0390a8536fe5e845192f4bc1890cc0b355cdd02a4e00bd4948bb08fd8",
+    "experiments/s-prep/fivehour-cache-integration/held.bend": "5994b97265f9c1d507edb178e9914f1efc462f517e7d02426f8d9a52c0e513fe",
+    "experiments/s-prep/fivehour-cache-integration/held-adapter.bend": "f08c574189546c6848f1dcedcda5a17d8e24300056f8c72decd47cb988d6665c",
+    "experiments/s-prep/fivehour-cache-integration/input-cache.bend": "c979f39e22a442e2442c87d03c69f16b7cb2264bbc0bff5edbb9f54dac59a223",
+    "experiments/s-prep/fivehour-cache-integration/native-payload.bend": "2938897514720ed50abc100d99bbc7effd730a8b5c155ad8d9ac98d1bf5143b4",
+    "experiments/s-prep/fivehour-cache-integration/raw-reject-controls.bend": "bda9f4cc1a254e9fc74665e4399907fe47606ae4ee556ecf02c7ca896db34ecd",
+    "experiments/s-prep/fivehour-cache-integration/raw-boundaries.bend": "77dbad2365e0499ae4e9e6a5ae7dd67b5a2ebcc5be163de56d0e836781f70a2f",
+    "experiments/s-prep/fivehour-cache-integration/candidate-inputs/measurement-bend.bend": "c2351825ee3998988aa01440e484db0cd11d3dbac5a70db4a079d841aaaaf31d",
+    "experiments/s-prep/fivehour-cache-integration/candidate-inputs/storage.bend": "27f6b8aa69966eb6e349e7337b0947e50179dbc26cdcc363c1e857bb79cc4130",
+    "experiments/s-prep/fivehour-cache-integration/candidate-inputs/measurement-lifecycle.bend": "0b2690c7d56219411dd3a14876dda8fe0c2f757fcf3656cf404fbdf76524296d",
+    "experiments/s-prep/fivehour-cache-integration/candidate-inputs/identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+    "experiments/s-prep/fivehour-cache-integration/candidate-inputs/host-batch-invoker.bend": "c271eb5bd6979e1cd8607a2b1e8fe0fb8164de0b2d907418989bb8a1c8f47d04",
+    "experiments/s-prep/fivehour-cache-integration/candidate-inputs/observations.bend": "00442198a7aeb420c5defef1641fa873a8f4fcaddfd896973820fe7b875216c4",
+    "experiments/s-prep/fivehour-cache-integration/candidate-inputs/query.bend": "c54c276843ac606d96a560b5324a9d4c2c04c8ba3782c1a8fea3d98c9929d775",
+    "experiments/s-prep/fivehour-cache-integration/candidate-inputs/commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+    "experiments/s-prep/fivehour-cache-integration/candidate-inputs/measurement-lifecycle-timed.bend": "a184121050b0a2a29224337916e42068cf77bf2ad8811b7db0632f108656c19b",
+    "experiments/s-prep/fivehour-cache-integration/candidate-inputs/dispatcher.bend": "5d7652d052f9915e9735a81d470026c2f7ba2077f11b09472418a6b5213945e9",
+    "experiments/s-prep/fivehour-cache-integration/candidate-inputs/storage-stage-fixture.bend": "1dac0e305cd26e7853fefa7ec2dceee09e1a737291a451a901149dbc91dc68fb",
+    "experiments/s-prep/fivehour-cache-integration/candidate-inputs/host.bend": "cc06d581fbc762ef2fcae5091a21bb11955c6770e43abc4346de9fa884d81d2c",
+    "experiments/s-prep/fivehour-cache-integration/candidate-inputs/measurement-failure-host.bend": "754e2f98fe6035959e3d2395f449e0354d1c2f55f1b56370adefa547312e53cb",
+    "experiments/s-prep/fivehour-cache-integration/source-inputs.json": "e03ac1fc31daf9aa240aecbaf6738fcbc4b59bf1e56971a821fbf56b31257875",
+    "experiments/s-prep/owned-write-query/run.py": "6a7daf1e5498b438643d77331a1d36b06ec523b9b9076c8fb23711c41cafba8f"
+  },
+  "version": "bend 2.0.35\n"
+}
