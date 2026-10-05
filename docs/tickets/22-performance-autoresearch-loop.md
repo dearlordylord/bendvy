@@ -1,5 +1,12 @@
 # S-LOOP — measured optimization of the connected ECS candidate
 
+## Current five-hour execution window
+
+The current user-authorized cumulative window is **2026-10-05T02:34:51Z to 2026-10-05T07:34:51Z**, including preparation, repairs, checks, measurements and delivery. Success is JavaScript/TS elapsed <=1.00 and Native/TS elapsed <=0.50 on equivalent complete work. These numerical targets are approved. Earlier one-/two-hour proposals, 10% improvement rules and unresolved Native threshold wording below are historical and superseded.
+
+The current concrete method proposal is [five-hour comparison contract](../design/fivehour-comparison-contract.md); progress and claim limits are in [five-hour report](../reports/fivehour-performance-work.md). The focused first segment covers both schemas at Dense256; it cannot close the full parent matrix or production acceptance. Final source-bound preflight and explicit complete-contract acceptance remain required before any Autoresearch setup/packet. No accepted session or selected comparative result exists as of 04:58 UTC.
+
+
 Published [GitHub #23](https://github.com/dearlordylord/bendvy/issues/23). Child of S-PERF-NEXT #21. **Blocked on [S-PREP #22](21-performance-preparation.md) and an explicitly accepted Autoresearch contract.** This is a future execution ticket, not permission to launch packets now.
 
 All six scope/return conditions and exclusions of parent #21 remain binding. These children partition the work without replacing or weakening those gates.
