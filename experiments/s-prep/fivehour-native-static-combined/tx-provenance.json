@@ -1,0 +1,288 @@
+{
+  "scope": "fresh shared split-schema gate actual144 full fields/journal original-vs-held, original raw-vs-cache; no timing",
+  "runtimeClosureSHA256": "6d6bf449e8695c064334a06d89507de215aa6c467b416c9de1c2ab124a734722",
+  "overlaySha256": "6193beae12ce3847eac603927a686cec3c7aad6d943d031255a20905782563cc",
+  "sharedEvidenceSha256": "27faa6176f2306962ce4c3c518c8dc2175b41fade125d4e1adcf60ce18a4a464",
+  "cpu": 11,
+  "limitsSeconds": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "subjects": {
+    "cached-Native": {
+      "status": "ACTUAL_FULL144_RAW_FIELDS_JOURNAL_PASS",
+      "records": 144,
+      "outputSha256": "86470371004f767f76a13c0103f2b83d8a70b64ecc1b2eb80535c8782e21c3c4",
+      "slices": [
+        {
+          "schema": "motion",
+          "compiledEntrySha256": "6ce0a7a717ee9c563acaab8bb7d0aa3b31d9682b5f6ff353525c627ebada3333",
+          "programSha256": "8e075226475846189fa3f47a8b26501393d5af9647172364a06335a91be0b5d2",
+          "outputSha256": "e54652e6ce571e2eed4d6488b5450a69492399ae0d074a888d98f27def1a0d2e",
+          "closure": {
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/cache-tx-motion-controls.bend": "6ce0a7a717ee9c563acaab8bb7d0aa3b31d9682b5f6ff353525c627ebada3333",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/storage.bend": "cc33de4db37a732af8322442be2fb615f35ed8465a0d9470616e1bbfe2d25e3a",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/cached-payload.bend": "03b01d1fc4e313c149302778753749e363527584d3e5b500f018c43a595dd05f",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/uncached-payload.bend": "2938897514720ed50abc100d99bbc7effd730a8b5c155ad8d9ac98d1bf5143b4",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/transaction.bend": "10666618cc37f9cd2a5f4f5c13570727b0a0ece96bbbada2e06816ccd3b0e0de",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/transaction-dispatch-adapters.bend": "f2276c1c16ad3694ab8a253f97da892df3a1db81b621cd80018b1376d79d490d",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/identity.bend": "6cff678171c10d5124b234cb0e2e3d55cd56aec95871508c595f259c484de4f8",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/systems.bend": "32e11a5a89b01e8db00f0b58a9fd1e2da87f4882189725b0012933421b6b1716",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/gate-callbacks.bend": "3dd4f8aa459cabcdf33b187a17b42b3c83feb7d3c01d951a327a00014925be68",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/held-adapter.bend": "6b579c6629cd0016cdc25277c10e09b1e2ecb79b1518756f0ce022383f3ab8ae",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/observations.bend": "e81cb63b3ab6da947a2455c3cc1b388abb1aa71dea593671d1c18f00da07a778",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2"
+          }
+        },
+        {
+          "schema": "health",
+          "compiledEntrySha256": "246df51947da7a6cdde46f12e084e6f0f5f4e8d90356c566f3f5b6762eae2759",
+          "programSha256": "97922e759e24ac3cbd922cfff8ae86559d2d63f845e59aae8c4145e67e873258",
+          "outputSha256": "ace2b0cb2eaca3476572aae4e73e656fc825763b54c0aa452178a7bb14e602b9",
+          "closure": {
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/cache-tx-health-controls.bend": "246df51947da7a6cdde46f12e084e6f0f5f4e8d90356c566f3f5b6762eae2759",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/storage.bend": "cc33de4db37a732af8322442be2fb615f35ed8465a0d9470616e1bbfe2d25e3a",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/cached-payload.bend": "03b01d1fc4e313c149302778753749e363527584d3e5b500f018c43a595dd05f",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/uncached-payload.bend": "2938897514720ed50abc100d99bbc7effd730a8b5c155ad8d9ac98d1bf5143b4",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/transaction.bend": "10666618cc37f9cd2a5f4f5c13570727b0a0ece96bbbada2e06816ccd3b0e0de",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/transaction-dispatch-adapters.bend": "f2276c1c16ad3694ab8a253f97da892df3a1db81b621cd80018b1376d79d490d",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/identity.bend": "6cff678171c10d5124b234cb0e2e3d55cd56aec95871508c595f259c484de4f8",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/systems.bend": "32e11a5a89b01e8db00f0b58a9fd1e2da87f4882189725b0012933421b6b1716",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/gate-callbacks.bend": "3dd4f8aa459cabcdf33b187a17b42b3c83feb7d3c01d951a327a00014925be68",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/held-adapter.bend": "6b579c6629cd0016cdc25277c10e09b1e2ecb79b1518756f0ce022383f3ab8ae",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/observations.bend": "e81cb63b3ab6da947a2455c3cc1b388abb1aa71dea593671d1c18f00da07a778",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2"
+          }
+        }
+      ]
+    },
+    "cached-JS": {
+      "status": "ACTUAL_FULL144_RAW_FIELDS_JOURNAL_PASS",
+      "records": 144,
+      "outputSha256": "86470371004f767f76a13c0103f2b83d8a70b64ecc1b2eb80535c8782e21c3c4",
+      "slices": [
+        {
+          "schema": "motion",
+          "compiledEntrySha256": "6ce0a7a717ee9c563acaab8bb7d0aa3b31d9682b5f6ff353525c627ebada3333",
+          "programSha256": "85e5ac2363110c83fbf060b9fb588f99b8c49f82cd0472140cd7589265dbc6ed",
+          "outputSha256": "e54652e6ce571e2eed4d6488b5450a69492399ae0d074a888d98f27def1a0d2e",
+          "closure": {
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/cache-tx-motion-controls.bend": "6ce0a7a717ee9c563acaab8bb7d0aa3b31d9682b5f6ff353525c627ebada3333",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/storage.bend": "cc33de4db37a732af8322442be2fb615f35ed8465a0d9470616e1bbfe2d25e3a",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/cached-payload.bend": "03b01d1fc4e313c149302778753749e363527584d3e5b500f018c43a595dd05f",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/uncached-payload.bend": "2938897514720ed50abc100d99bbc7effd730a8b5c155ad8d9ac98d1bf5143b4",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/transaction.bend": "10666618cc37f9cd2a5f4f5c13570727b0a0ece96bbbada2e06816ccd3b0e0de",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/transaction-dispatch-adapters.bend": "f2276c1c16ad3694ab8a253f97da892df3a1db81b621cd80018b1376d79d490d",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/identity.bend": "6cff678171c10d5124b234cb0e2e3d55cd56aec95871508c595f259c484de4f8",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/systems.bend": "32e11a5a89b01e8db00f0b58a9fd1e2da87f4882189725b0012933421b6b1716",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/gate-callbacks.bend": "3dd4f8aa459cabcdf33b187a17b42b3c83feb7d3c01d951a327a00014925be68",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/held-adapter.bend": "6b579c6629cd0016cdc25277c10e09b1e2ecb79b1518756f0ce022383f3ab8ae",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/observations.bend": "e81cb63b3ab6da947a2455c3cc1b388abb1aa71dea593671d1c18f00da07a778",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2"
+          }
+        },
+        {
+          "schema": "health",
+          "compiledEntrySha256": "246df51947da7a6cdde46f12e084e6f0f5f4e8d90356c566f3f5b6762eae2759",
+          "programSha256": "e0df05d05b9071e50d4e4dd6440cdfa24ea5ebeaf65c3a81ecb47372663fc7ea",
+          "outputSha256": "ace2b0cb2eaca3476572aae4e73e656fc825763b54c0aa452178a7bb14e602b9",
+          "closure": {
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/cache-tx-health-controls.bend": "246df51947da7a6cdde46f12e084e6f0f5f4e8d90356c566f3f5b6762eae2759",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/storage.bend": "cc33de4db37a732af8322442be2fb615f35ed8465a0d9470616e1bbfe2d25e3a",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/cached-payload.bend": "03b01d1fc4e313c149302778753749e363527584d3e5b500f018c43a595dd05f",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/uncached-payload.bend": "2938897514720ed50abc100d99bbc7effd730a8b5c155ad8d9ac98d1bf5143b4",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/transaction.bend": "10666618cc37f9cd2a5f4f5c13570727b0a0ece96bbbada2e06816ccd3b0e0de",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/transaction-dispatch-adapters.bend": "f2276c1c16ad3694ab8a253f97da892df3a1db81b621cd80018b1376d79d490d",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/identity.bend": "6cff678171c10d5124b234cb0e2e3d55cd56aec95871508c595f259c484de4f8",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/systems.bend": "32e11a5a89b01e8db00f0b58a9fd1e2da87f4882189725b0012933421b6b1716",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/gate-callbacks.bend": "3dd4f8aa459cabcdf33b187a17b42b3c83feb7d3c01d951a327a00014925be68",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/held-adapter.bend": "6b579c6629cd0016cdc25277c10e09b1e2ecb79b1518756f0ce022383f3ab8ae",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/observations.bend": "e81cb63b3ab6da947a2455c3cc1b388abb1aa71dea593671d1c18f00da07a778",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/cached/core/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2"
+          }
+        }
+      ]
+    },
+    "raw-Native": {
+      "status": "ACTUAL_FULL144_RAW_FIELDS_JOURNAL_PASS",
+      "records": 144,
+      "outputSha256": "86470371004f767f76a13c0103f2b83d8a70b64ecc1b2eb80535c8782e21c3c4",
+      "slices": [
+        {
+          "schema": "motion",
+          "compiledEntrySha256": "edc60dd65c228705af489b408fc4195067bd8340fe52cbd503279dfc4fa73136",
+          "programSha256": "2e50761ef02b1d138c07c72d26f1537b04016e7087f5e1932a6c85ac379e2182",
+          "outputSha256": "e54652e6ce571e2eed4d6488b5450a69492399ae0d074a888d98f27def1a0d2e",
+          "closure": {
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/cache-tx-motion-controls.bend": "edc60dd65c228705af489b408fc4195067bd8340fe52cbd503279dfc4fa73136",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/original-raw-observer.bend": "10ee1b2c5a3ca0baa1f6b9f2c4e3206006f1d22d6c46ce7a62aaaa8056f19509",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/storage.bend": "cc33de4db37a732af8322442be2fb615f35ed8465a0d9470616e1bbfe2d25e3a",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/cached-payload.bend": "03b01d1fc4e313c149302778753749e363527584d3e5b500f018c43a595dd05f",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/uncached-payload.bend": "2938897514720ed50abc100d99bbc7effd730a8b5c155ad8d9ac98d1bf5143b4",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/transaction.bend": "10666618cc37f9cd2a5f4f5c13570727b0a0ece96bbbada2e06816ccd3b0e0de",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/transaction-dispatch-adapters.bend": "f2276c1c16ad3694ab8a253f97da892df3a1db81b621cd80018b1376d79d490d",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/identity.bend": "6cff678171c10d5124b234cb0e2e3d55cd56aec95871508c595f259c484de4f8",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/systems.bend": "32e11a5a89b01e8db00f0b58a9fd1e2da87f4882189725b0012933421b6b1716",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/gate-callbacks.bend": "3dd4f8aa459cabcdf33b187a17b42b3c83feb7d3c01d951a327a00014925be68",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/held-adapter.bend": "6b579c6629cd0016cdc25277c10e09b1e2ecb79b1518756f0ce022383f3ab8ae",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/observations.bend": "e81cb63b3ab6da947a2455c3cc1b388abb1aa71dea593671d1c18f00da07a778",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2"
+          }
+        },
+        {
+          "schema": "health",
+          "compiledEntrySha256": "67d7c11356ebdbf25ecd1ad11df28385193f21f0117b7ea8d132b9ce509a3d83",
+          "programSha256": "dc6595770b78fdb0ac5dc4651f9cdce31ed772e4f54d85713e98eec05deeaff3",
+          "outputSha256": "ace2b0cb2eaca3476572aae4e73e656fc825763b54c0aa452178a7bb14e602b9",
+          "closure": {
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/cache-tx-health-controls.bend": "67d7c11356ebdbf25ecd1ad11df28385193f21f0117b7ea8d132b9ce509a3d83",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/original-raw-observer.bend": "10ee1b2c5a3ca0baa1f6b9f2c4e3206006f1d22d6c46ce7a62aaaa8056f19509",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/storage.bend": "cc33de4db37a732af8322442be2fb615f35ed8465a0d9470616e1bbfe2d25e3a",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/cached-payload.bend": "03b01d1fc4e313c149302778753749e363527584d3e5b500f018c43a595dd05f",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/uncached-payload.bend": "2938897514720ed50abc100d99bbc7effd730a8b5c155ad8d9ac98d1bf5143b4",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/transaction.bend": "10666618cc37f9cd2a5f4f5c13570727b0a0ece96bbbada2e06816ccd3b0e0de",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/transaction-dispatch-adapters.bend": "f2276c1c16ad3694ab8a253f97da892df3a1db81b621cd80018b1376d79d490d",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/identity.bend": "6cff678171c10d5124b234cb0e2e3d55cd56aec95871508c595f259c484de4f8",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/systems.bend": "32e11a5a89b01e8db00f0b58a9fd1e2da87f4882189725b0012933421b6b1716",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/gate-callbacks.bend": "3dd4f8aa459cabcdf33b187a17b42b3c83feb7d3c01d951a327a00014925be68",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/held-adapter.bend": "6b579c6629cd0016cdc25277c10e09b1e2ecb79b1518756f0ce022383f3ab8ae",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/observations.bend": "e81cb63b3ab6da947a2455c3cc1b388abb1aa71dea593671d1c18f00da07a778",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2"
+          }
+        }
+      ]
+    },
+    "raw-JS": {
+      "status": "ACTUAL_FULL144_RAW_FIELDS_JOURNAL_PASS",
+      "records": 144,
+      "outputSha256": "86470371004f767f76a13c0103f2b83d8a70b64ecc1b2eb80535c8782e21c3c4",
+      "slices": [
+        {
+          "schema": "motion",
+          "compiledEntrySha256": "edc60dd65c228705af489b408fc4195067bd8340fe52cbd503279dfc4fa73136",
+          "programSha256": "15a4ec48761b4c3903e370daa87f89061add8f5aaf517110f66d764ea5d9030a",
+          "outputSha256": "e54652e6ce571e2eed4d6488b5450a69492399ae0d074a888d98f27def1a0d2e",
+          "closure": {
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/cache-tx-motion-controls.bend": "edc60dd65c228705af489b408fc4195067bd8340fe52cbd503279dfc4fa73136",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/original-raw-observer.bend": "10ee1b2c5a3ca0baa1f6b9f2c4e3206006f1d22d6c46ce7a62aaaa8056f19509",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/storage.bend": "cc33de4db37a732af8322442be2fb615f35ed8465a0d9470616e1bbfe2d25e3a",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/cached-payload.bend": "03b01d1fc4e313c149302778753749e363527584d3e5b500f018c43a595dd05f",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/uncached-payload.bend": "2938897514720ed50abc100d99bbc7effd730a8b5c155ad8d9ac98d1bf5143b4",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/transaction.bend": "10666618cc37f9cd2a5f4f5c13570727b0a0ece96bbbada2e06816ccd3b0e0de",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/transaction-dispatch-adapters.bend": "f2276c1c16ad3694ab8a253f97da892df3a1db81b621cd80018b1376d79d490d",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/identity.bend": "6cff678171c10d5124b234cb0e2e3d55cd56aec95871508c595f259c484de4f8",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/systems.bend": "32e11a5a89b01e8db00f0b58a9fd1e2da87f4882189725b0012933421b6b1716",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/gate-callbacks.bend": "3dd4f8aa459cabcdf33b187a17b42b3c83feb7d3c01d951a327a00014925be68",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/held-adapter.bend": "6b579c6629cd0016cdc25277c10e09b1e2ecb79b1518756f0ce022383f3ab8ae",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/observations.bend": "e81cb63b3ab6da947a2455c3cc1b388abb1aa71dea593671d1c18f00da07a778",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2"
+          }
+        },
+        {
+          "schema": "health",
+          "compiledEntrySha256": "67d7c11356ebdbf25ecd1ad11df28385193f21f0117b7ea8d132b9ce509a3d83",
+          "programSha256": "7929d5381dabd6a0954f7ad8560d4e434e0bf8299625b0f1abb2ebf424988a1d",
+          "outputSha256": "ace2b0cb2eaca3476572aae4e73e656fc825763b54c0aa452178a7bb14e602b9",
+          "closure": {
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/cache-tx-health-controls.bend": "67d7c11356ebdbf25ecd1ad11df28385193f21f0117b7ea8d132b9ce509a3d83",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/original-raw-observer.bend": "10ee1b2c5a3ca0baa1f6b9f2c4e3206006f1d22d6c46ce7a62aaaa8056f19509",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/storage.bend": "cc33de4db37a732af8322442be2fb615f35ed8465a0d9470616e1bbfe2d25e3a",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/cached-payload.bend": "03b01d1fc4e313c149302778753749e363527584d3e5b500f018c43a595dd05f",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/uncached-payload.bend": "2938897514720ed50abc100d99bbc7effd730a8b5c155ad8d9ac98d1bf5143b4",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/transaction.bend": "10666618cc37f9cd2a5f4f5c13570727b0a0ece96bbbada2e06816ccd3b0e0de",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/transaction-dispatch-adapters.bend": "f2276c1c16ad3694ab8a253f97da892df3a1db81b621cd80018b1376d79d490d",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/identity.bend": "6cff678171c10d5124b234cb0e2e3d55cd56aec95871508c595f259c484de4f8",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/systems.bend": "32e11a5a89b01e8db00f0b58a9fd1e2da87f4882189725b0012933421b6b1716",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/gate-callbacks.bend": "3dd4f8aa459cabcdf33b187a17b42b3c83feb7d3c01d951a327a00014925be68",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/held-adapter.bend": "6b579c6629cd0016cdc25277c10e09b1e2ecb79b1518756f0ce022383f3ab8ae",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/observations.bend": "e81cb63b3ab6da947a2455c3cc1b388abb1aa71dea593671d1c18f00da07a778",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+            "/tmp/bendvy-fivehour-native-static-combined-tx01/raw/core/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2"
+          }
+        }
+      ]
+    }
+  },
+  "sharedInputsSha256AtCollection": {
+    "tx-controls-run.py": "40e8faaf6ad947428bc4e64354d81269810a1fefd8cecf04169462fd792df91f",
+    "tx-controls.bend": "9f298cc3913124c898d672ef65bcf5e1f0e103f61ef007612b5547d05e97a3ae",
+    "materialize-controls.py": "ce3a871b0691460edfcad5ee9ed8f25058aae029cce1d6f755d535c3f33d73f7",
+    "original-raw-observer.bend": "10ee1b2c5a3ca0baa1f6b9f2c4e3206006f1d22d6c46ce7a62aaaa8056f19509"
+  },
+  "buildHelperSha256AtCollection": "3767d4b66b63f6492aa260213de17b33de9f772fbe2250a91aa579f856c85b19",
+  "expectedSha256": "86470371004f767f76a13c0103f2b83d8a70b64ecc1b2eb80535c8782e21c3c4",
+  "status": "FRESH_COMBINED_TX144_CACHED_ORIGINAL_RAW_PASS"
+}

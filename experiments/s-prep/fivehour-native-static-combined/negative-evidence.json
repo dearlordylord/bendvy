@@ -1,0 +1,39 @@
+{
+  "runtimeClosureSHA256": "6d6bf449e8695c064334a06d89507de215aa6c467b416c9de1c2ab124a734722",
+  "cpu": 11,
+  "checkerLimitSeconds": 5,
+  "controls": {
+    "read-positive": {
+      "source": "import Base\nimport ./types.bend as T\ndef use(~Owner:Type,get:Owner -> T.PositionToken -> Owner & T.Access<T.PositionView>,owner:Owner) -> Owner & T.Access<T.PositionView>:\n  get(owner,T.PositionToken{})\n",
+      "sourceSha256": "cc9043cc5f8040d65ed194be0dd21749bc0b9f88fc3a70e8c23e9ef62e034ad4",
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    "cross-schema": {
+      "source": "import Base\nimport ./types.bend as T\ndef bad(~Owner:Type,get:Owner -> T.PositionToken -> Owner & T.Access<T.PositionView>,owner:Owner) -> Owner & T.Access<T.PositionView>:\n  get(owner,T.VitalsToken{})\n",
+      "sourceSha256": "3b55449540b091d28976231c6ce300b09248643ac3defeb84689275bcb649ce9",
+      "exit": 1,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : T.PositionToken\n- observed : T.VitalsToken\nContext:\n- get   : @_:bad~Owner -> @_:T.PositionToken -> Sigma<&1, &1, bad~Owner, _ => T.Access<T.PositionView>>\n- owner : bad~Owner\nLocation: bad\n3 | def bad(~Owner:Type,get:Owner -> T.PositionToken -> Owner & T.Access<T.PositionView>,owner:Owner) -> Owner & T.Access<T.PositionView>:\n4>|   get(owner,T.VitalsToken{})\n  |             ^^^^^^^^^^^^^^^\n5 | \n"
+    },
+    "read-write": {
+      "source": "import Base\nimport ./types.bend as T\nimport ./held-adapter.bend as HA\ndef bad(~Owner:Type,get:Owner -> T.PositionToken -> Owner & T.Access<T.PositionView>,owner:Owner) -> Owner:\n  HA.motion_set_main0(owner,T.PositionToken{},0)\n",
+      "sourceSha256": "bb8244682c374ed2bf90e228727346a1803a1ce850da254aec0aa778eef063fe",
+      "exit": 1,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : a defined name\n- observed : HA.motion_set_main0\nContext:\n- get   : @_:bad~Owner -> @_:T.PositionToken -> Sigma<&1, &1, bad~Owner, _ => T.Access<T.PositionView>>\n- owner : bad~Owner\nLocation: bad\n4 | def bad(~Owner:Type,get:Owner -> T.PositionToken -> Owner & T.Access<T.PositionView>,owner:Owner) -> Owner:\n5>|   HA.motion_set_main0(owner,T.PositionToken{},0)\n  |   ^^^^^^^^^^^^^^^^^^^\n6 | \n"
+    },
+    "duplicate": {
+      "source": "import Base\nimport ./types.bend as T\nimport ./cache.bend as C\ndef bad(owner:C.Cache<T.Vitals,T.VitalsView>) -> C.Cache<T.Vitals,T.VitalsView> & C.Cache<T.Vitals,T.VitalsView>:\n  (owner,owner)\n",
+      "sourceSha256": "79b3a27533f818a4c8a7be89eb5551b7548647e3b37e8728ade50feed5914266",
+      "exit": 1,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : owner\n- observed : owner (consumed more than once)\nLocation: bad\n3 | \n4>| def bad(owner:C.Cache<T.Vitals,T.VitalsView>) -> C.Cache<T.Vitals,T.VitalsView> & C.Cache<T.Vitals,T.VitalsView>:\n  |         ^^^^^\n5 |   (owner,owner)\n"
+    },
+    "reconstruct": {
+      "source": "import Base\nimport ./types.bend as T\ndef bad(~Owner:Type,owner:Owner) -> Owner:\n  T.Position{[0:U32^2n],0}\n",
+      "sourceSha256": "e78c4b6b09e24fd273307994a1723967fc99183da078e6ebf172a59135b90a28",
+      "exit": 1,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : bad~Owner\n- observed : T.Position\nContext:\n- owner : bad~Owner\nLocation: bad\n3 | def bad(~Owner:Type,owner:Owner) -> Owner:\n4>|   T.Position{[0:U32^2n],0}\n  |   ^^^^^^^^^^^^^^^^^^^^^^^^\n5 | \n"
+    }
+  },
+  "scope": "finite opaque-provider and affine negative controls; no universal authority proof",
+  "status": "FINITE_NEGATIVES_PASS"
+}
