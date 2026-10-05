@@ -39,7 +39,7 @@ def proposed_metric(cohorts, *, native_factor):
 
 
 def plan(repo, overlay, artifact_root, *, native_factor):
-    if isinstance(native_factor,bool) or not isinstance(native_factor,(int,float)) or not math.isfinite(native_factor) or native_factor<=1:raise ValueError('explicit finite native_factor >1 required')
+    if isinstance(native_factor,bool) or not isinstance(native_factor,(int,float)) or not math.isfinite(native_factor) or native_factor<2:raise ValueError('finite native_factor >= user-approved minimum 2 required')
     repo=path_without_links(repo);overlay=path_without_links(overlay);artifacts=path_without_links(artifact_root)
     if artifacts==overlay or artifacts.is_relative_to(overlay) or overlay.is_relative_to(artifacts):raise ValueError('artifact and source roots must be separate')
     focus=repo/'experiments/s-prep/focus-run.py'

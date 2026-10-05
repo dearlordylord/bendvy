@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Pure, unapproved parity proposal; --synthetic writes only a synthetic receipt.
+"""Pure parity decision with approved targets and unapproved comparison rules; --synthetic writes only a synthetic receipt.
 
 README / limitations: compare candidate Native/JS only with fresh actual TS in
 that SAME cohort. Require two independently identified seven-sample cohorts.
-Native factor must be supplied (>1); no numerical product minimum is inferred.
+The user approves Native speedup >=2 and JS/TS time <=1. Native factor defaults
+to 2; a stricter factor may be requested, but the approved minimum cannot be lowered.
 The 10% median/MAD noise guard and +/-2ms integer-timer endpoint allowance are
 proposals, not approved rules. Bootstrap intervals describe sampling uncertainty,
 not causal guarantees. A qualified success is a synthetic/proposed decision,
@@ -34,14 +35,15 @@ def bootstrap_ratios(reference, candidate):
     return result
 
 
-def decide(cohorts, *, native_factor):
+def decide(cohorts, *, native_factor=2):
     """Return raw contrasts separately from uncertainty-qualified proposed success."""
     result = {'status': 'INCONCLUSIVE', 'qualifiedSuccess': False, 'rawTargetMet': None,
               'cohorts': [], 'nativeFactor': native_factor, 'rulesAccepted': False,
               'proposedTimerAllowanceMilliseconds': 2, 'proposedNoiseLimit': 0.10,
+              'userApprovedNativeMinimumFactor': 2, 'userApprovedJsTimeRatioLimit': 1.0,
               'provenanceVerified': False, 'provenanceLimit': 'IDs are labels only; independent freshness and source/tool closure require external validation'}
-    if isinstance(native_factor, bool) or not isinstance(native_factor, (int, float)) or not math.isfinite(native_factor) or native_factor <= 1:
-        return dict(result, reason='explicit finite native_factor > 1 required')
+    if isinstance(native_factor, bool) or not isinstance(native_factor, (int, float)) or not math.isfinite(native_factor) or native_factor < 2:
+        return dict(result, reason='finite native_factor >= user-approved minimum 2 required')
     native_limit = 1/native_factor
     if not math.isfinite(native_limit) or native_limit <= 0:
         return dict(result, reason='Native inverse-factor underflow/nonfinite bound')
@@ -111,6 +113,10 @@ def synthetic():
     assert tiny['status'] == 'PROPOSED_TARGET_MISSED' and not tiny['qualifiedSuccess']
     assert 0 < tiny['cohorts'][0]['raw']['Native']['medianRatio'] < 1e-307
     assert tiny['cohorts'][0]['conservative']['Native']['bootstrapUpperRatio'] > 1e-308
+    results['weakened-native-target'] = decide(cohorts(native=60), native_factor=1.5)
+    assert results['weakened-native-target']['status'] == 'INCONCLUSIVE'
+    assert not results['weakened-native-target']['qualifiedSuccess']
+    assert decide(cohorts())['nativeFactor'] == 2
     results['derived-underflow'] = decide(cohorts(js=1e-308,native=1e-308,ts=1e308), native_factor=2)
     assert results['derived-underflow']['status'] == 'INCONCLUSIVE'
     assert results['success']['qualifiedSuccess']
@@ -118,7 +124,7 @@ def synthetic():
     assert results['raw-only-parity']['rawTargetMet'] and not results['raw-only-parity']['qualifiedSuccess']
     assert all(results[n]['status']=='INCONCLUSIVE' for n in ('noise','invalid','missing','timer-resolution'))
     assert decide(cohorts(),native_factor=None)['status']=='INCONCLUSIVE'
-    return {'syntheticOnly': True, 'benchmarkExecuted': False, 'contractAccepted': False, 'factor2SyntheticFixtureOnly': True, 'controls': results, 'limitations': __doc__}
+    return {'syntheticOnly': True, 'benchmarkExecuted': False, 'contractAccepted': False, 'userApprovedTargets': {'JS/TS': 1.0, 'Native/TS': 0.5}, 'controls': results, 'limitations': __doc__}
 
 
 if __name__ == '__main__':

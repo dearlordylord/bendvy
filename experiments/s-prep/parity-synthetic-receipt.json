@@ -2,7 +2,10 @@
   "syntheticOnly": true,
   "benchmarkExecuted": false,
   "contractAccepted": false,
-  "factor2SyntheticFixtureOnly": true,
+  "userApprovedTargets": {
+    "JS/TS": 1.0,
+    "Native/TS": 0.5
+  },
   "controls": {
     "success": {
       "status": "PROPOSED_TARGET_MET",
@@ -78,6 +81,8 @@
       "rulesAccepted": false,
       "proposedTimerAllowanceMilliseconds": 2,
       "proposedNoiseLimit": 0.1,
+      "userApprovedNativeMinimumFactor": 2,
+      "userApprovedJsTimeRatioLimit": 1.0,
       "provenanceVerified": false,
       "provenanceLimit": "IDs are labels only; independent freshness and source/tool closure require external validation",
       "cohortMedianDrift": {
@@ -160,6 +165,8 @@
       "rulesAccepted": false,
       "proposedTimerAllowanceMilliseconds": 2,
       "proposedNoiseLimit": 0.1,
+      "userApprovedNativeMinimumFactor": 2,
+      "userApprovedJsTimeRatioLimit": 1.0,
       "provenanceVerified": false,
       "provenanceLimit": "IDs are labels only; independent freshness and source/tool closure require external validation",
       "cohortMedianDrift": {
@@ -242,6 +249,8 @@
       "rulesAccepted": false,
       "proposedTimerAllowanceMilliseconds": 2,
       "proposedNoiseLimit": 0.1,
+      "userApprovedNativeMinimumFactor": 2,
+      "userApprovedJsTimeRatioLimit": 1.0,
       "provenanceVerified": false,
       "provenanceLimit": "IDs are labels only; independent freshness and source/tool closure require external validation",
       "cohortMedianDrift": {
@@ -302,6 +311,8 @@
       "rulesAccepted": false,
       "proposedTimerAllowanceMilliseconds": 2,
       "proposedNoiseLimit": 0.1,
+      "userApprovedNativeMinimumFactor": 2,
+      "userApprovedJsTimeRatioLimit": 1.0,
       "provenanceVerified": false,
       "provenanceLimit": "IDs are labels only; independent freshness and source/tool closure require external validation",
       "cohortMedianDrift": {
@@ -387,6 +398,8 @@
       "rulesAccepted": false,
       "proposedTimerAllowanceMilliseconds": 2,
       "proposedNoiseLimit": 0.1,
+      "userApprovedNativeMinimumFactor": 2,
+      "userApprovedJsTimeRatioLimit": 1.0,
       "provenanceVerified": false,
       "provenanceLimit": "IDs are labels only; independent freshness and source/tool closure require external validation",
       "cohortMedianDrift": {
@@ -469,6 +482,8 @@
       "rulesAccepted": false,
       "proposedTimerAllowanceMilliseconds": 2,
       "proposedNoiseLimit": 0.1,
+      "userApprovedNativeMinimumFactor": 2,
+      "userApprovedJsTimeRatioLimit": 1.0,
       "provenanceVerified": false,
       "provenanceLimit": "IDs are labels only; independent freshness and source/tool closure require external validation",
       "cohortMedianDrift": {
@@ -522,6 +537,8 @@
       "rulesAccepted": false,
       "proposedTimerAllowanceMilliseconds": 2,
       "proposedNoiseLimit": 0.1,
+      "userApprovedNativeMinimumFactor": 2,
+      "userApprovedJsTimeRatioLimit": 1.0,
       "provenanceVerified": false,
       "provenanceLimit": "IDs are labels only; independent freshness and source/tool closure require external validation",
       "reasons": [
@@ -570,6 +587,8 @@
       "rulesAccepted": false,
       "proposedTimerAllowanceMilliseconds": 2,
       "proposedNoiseLimit": 0.1,
+      "userApprovedNativeMinimumFactor": 2,
+      "userApprovedJsTimeRatioLimit": 1.0,
       "provenanceVerified": false,
       "provenanceLimit": "IDs are labels only; independent freshness and source/tool closure require external validation",
       "reasons": [
@@ -650,6 +669,8 @@
       "rulesAccepted": false,
       "proposedTimerAllowanceMilliseconds": 2,
       "proposedNoiseLimit": 0.1,
+      "userApprovedNativeMinimumFactor": 2,
+      "userApprovedJsTimeRatioLimit": 1.0,
       "provenanceVerified": false,
       "provenanceLimit": "IDs are labels only; independent freshness and source/tool closure require external validation",
       "cohortMedianDrift": {
@@ -657,6 +678,21 @@
         "JS": 0.0,
         "Native": 0.0
       }
+    },
+    "weakened-native-target": {
+      "status": "INCONCLUSIVE",
+      "qualifiedSuccess": false,
+      "rawTargetMet": null,
+      "cohorts": [],
+      "nativeFactor": 1.5,
+      "rulesAccepted": false,
+      "proposedTimerAllowanceMilliseconds": 2,
+      "proposedNoiseLimit": 0.1,
+      "userApprovedNativeMinimumFactor": 2,
+      "userApprovedJsTimeRatioLimit": 1.0,
+      "provenanceVerified": false,
+      "provenanceLimit": "IDs are labels only; independent freshness and source/tool closure require external validation",
+      "reason": "finite native_factor >= user-approved minimum 2 required"
     },
     "derived-underflow": {
       "status": "INCONCLUSIVE",
@@ -667,6 +703,8 @@
       "rulesAccepted": false,
       "proposedTimerAllowanceMilliseconds": 2,
       "proposedNoiseLimit": 0.1,
+      "userApprovedNativeMinimumFactor": 2,
+      "userApprovedJsTimeRatioLimit": 1.0,
       "provenanceVerified": false,
       "provenanceLimit": "IDs are labels only; independent freshness and source/tool closure require external validation",
       "reasons": [
@@ -674,5 +712,5 @@
       ]
     }
   },
-  "limitations": "Pure, unapproved parity proposal; --synthetic writes only a synthetic receipt.\n\nREADME / limitations: compare candidate Native/JS only with fresh actual TS in\nthat SAME cohort. Require two independently identified seven-sample cohorts.\nNative factor must be supplied (>1); no numerical product minimum is inferred.\nThe 10% median/MAD noise guard and +/-2ms integer-timer endpoint allowance are\nproposals, not approved rules. Bootstrap intervals describe sampling uncertainty,\nnot causal guarantees. A qualified success is a synthetic/proposed decision,\nnever product adoption, contract acceptance, or permission to run a session.\nIDs are labels, not proof of independent freshness or source/tool provenance.\nNo benchmark execution, core edits, imports with side effects, or dependencies.\n"
+  "limitations": "Pure parity decision with approved targets and unapproved comparison rules; --synthetic writes only a synthetic receipt.\n\nREADME / limitations: compare candidate Native/JS only with fresh actual TS in\nthat SAME cohort. Require two independently identified seven-sample cohorts.\nThe user approves Native speedup >=2 and JS/TS time <=1. Native factor defaults\nto 2; a stricter factor may be requested, but the approved minimum cannot be lowered.\nThe 10% median/MAD noise guard and +/-2ms integer-timer endpoint allowance are\nproposals, not approved rules. Bootstrap intervals describe sampling uncertainty,\nnot causal guarantees. A qualified success is a synthetic/proposed decision,\nnever product adoption, contract acceptance, or permission to run a session.\nIDs are labels, not proof of independent freshness or source/tool provenance.\nNo benchmark execution, core edits, imports with side effects, or dependencies.\n"
 }
