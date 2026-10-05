@@ -64,7 +64,7 @@ def materialize(destination,native_payload=False):
  cp+='\ndef velocity_get(owner:T.Velocity) -> T.Velocity & T.VelocityView:\n  P.velocity_get(owner)\ndef armor_get(owner:T.Armor) -> T.Armor & T.ArmorView:\n  P.armor_get(owner)\n'
  (pkg/'cached-payload.bend').write_text(cp)
  
- for name in ['raw-boundaries.bend','held.bend','held-adapter.bend']:(pkg/name).write_bytes((HERE/name).read_bytes())
+ for name in ['raw-boundaries.bend','held.bend','held-adapter.bend','raw-reject-controls.bend']:(pkg/name).write_bytes((HERE/name).read_bytes())
  text=(pkg/'measurement-bend.bend').read_text()
  for prefix in ['motion','health']:
   pattern=r'('+prefix+'_body\()X\.Tx<.*?,A\.'+prefix+r'_read_main,A\.'+prefix+r'_set_main0,A\.'+prefix+r'_read_ledger,A\.'+prefix+r'_set_ledger0,'
