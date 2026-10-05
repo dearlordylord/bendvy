@@ -1,0 +1,21 @@
+{
+  "status": "PENDING_ACTUAL_INTEGRATED_SOURCE",
+  "schemas": ["Motion", "Health"],
+  "captureStyles": ["explicit-owner", "regenerated-closure"],
+  "mandatoryGates": {
+    "raw-staging-type-rejection": "Raw Main cannot inhabit cached command; positive wrapped Main stages through actual generic Tx API",
+    "raw-ledger-type-rejection": "Raw Ledger cannot replace cached Ledger without trusted full-owner refresh",
+    "foreign-same-ID": "Lookup/write/command ingress MissingEntity; receiver queue and payloads unchanged",
+    "optional-Main": "MainNone retains missing behavior; no fabricated owner/view",
+    "optional-Ledger-rollback": "Actual Main write occurs before absent Ledger; inverse and mark restore at original failed Tx boundary",
+    "prior-commit-survives": "Earlier complete commit persists after later failure; failed command/ping publication removed",
+    "full-field-coherence": "All four Main/Aux/Ledger fields plus frame/reserve/class/epoch and metadata match fresh TS",
+    "scalar-write-refresh": "Repeated actual callback writes update cache and raw owner each tick",
+    "undo-refresh": "Actual inverse scalar restoration refreshes cached view",
+    "spawn-insert-refresh": "Actual deferred Spawn/InsertMain barrier yields fresh wrapped payload",
+    "membership-invalidation": "Despawn/RemoveMain/InsertMain/Flag toggle/hole/growth alter actual ordered query",
+    "providers-and-captures": "Actual Host/dispatcher call sites preserve abstract Owner/Aux, tokens and both capture styles",
+    "ownership-negative": "Wrong token/read-write/reconstruction/duplication rejected against integrated providers"
+  },
+  "acceptance": "All actual invoked source gates required; no inherited prototype PASS"
+}
