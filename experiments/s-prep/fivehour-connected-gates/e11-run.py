@@ -94,7 +94,7 @@ def main():
         def mutation_build(source, folder):
             cases = {n: lane for n, _file, _old, _new, _count, lane in runner.mutation_cases()}
             name = Path(folder).name
-            if name in cases:
+            if name in cases and name in {case[0] for case in runner.mutation_cases()[5:]}:
                 lane = cases[name]
                 constructors = dict(zip(runner.LANES, ('RetMessage','RetRemoved','RetDespawned','RetUnheld','RetMarks')))
                 text = source.read_text()

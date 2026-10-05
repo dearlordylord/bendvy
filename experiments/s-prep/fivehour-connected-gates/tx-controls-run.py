@@ -20,7 +20,14 @@ def main():
    if mode=='raw':
     # Only observation getters change; authored callback providers remain untouched.
     original=ROOT/'experiments/s-integrate/payload.bend';assert h(core/'payload.bend')==h(original),'Independent raw observer payload changed'
-    shutil.copy2(HERE/'original-raw-observer.bend',core/'original-raw-observer.bend');text=text.replace('import ./cached-payload.bend as P','import ./original-raw-observer.bend as P');result['originalRawObserverSHA256']=h(HERE/'original-raw-observer.bend');result['originalPayloadSHA256']=h(original)
+    if h(core/'uncached-payload.bend')==h(original):
+     for name in ('position','vitals','motion_ledger','health_ledger'):text=text.replace('P.'+name+'_get','P.'+name+'_uncached')
+     result['originalRawObserverMode']='Exact original raw module through existing uncached getter'
+    else:
+     shutil.copy2(HERE/'original-raw-observer.bend',core/'original-raw-observer.bend');text=text.replace('import Base\n','import Base\nimport ./original-raw-observer.bend as ORG\n',1)
+     for name in ('position','vitals','motion_ledger','health_ledger'):text=text.replace('P.'+name+'_get','ORG.'+name+'_get')
+     result['originalRawObserverSHA256']=h(HERE/'original-raw-observer.bend');result['originalRawObserverMode']='Cache unwrap, original raw payload getter, unchanged cache rewrap'
+    result['originalPayloadSHA256']=h(original)
    source.write_text(text);outputs=[]
    for program in B.build(source,folder):
     raw=B.execute(program);out=folder/(program.name+'.jsonl');out.write_text(raw+'\n');lines=[json.loads(line) for line in raw.splitlines()];assert len(lines)==144,len(lines);outputs.append(lines)
