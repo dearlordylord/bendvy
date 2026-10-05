@@ -1,0 +1,80 @@
+{
+  "status": "FINITE_FULL_FIELD_PASS",
+  "schema": "Health",
+  "workload": "dense",
+  "count": 256,
+  "repetitions": 1,
+  "cpu": 2,
+  "scope": "Finite full-field evaluation; no contract acceptance, improvement or keep claim",
+  "iterations": 64,
+  "batch": 1,
+  "startedAt": "2026-10-05T00:16:32.897025+00:00",
+  "finishedAt": "2026-10-05T00:16:52.296898+00:00",
+  "summary": {
+    "Native": {
+      "raw": [
+        13
+      ],
+      "min": 13,
+      "median": 13,
+      "max": 13
+    },
+    "TS": {
+      "raw": [
+        11.381218000000018
+      ],
+      "min": 11.381218000000018,
+      "median": 11.381218000000018,
+      "max": 11.381218000000018
+    },
+    "JS": {
+      "raw": [
+        76
+      ],
+      "min": 76,
+      "median": 76,
+      "max": 76
+    }
+  },
+  "descriptiveRatios": {
+    "Native/TS": 1.1422327557560166,
+    "JS/TS": 6.6776684182659425
+  },
+  "artifacts": {
+    "measurement-samples-bend-native": "76637b2c1e2354fecbbaed175b19f5565c182a03d66f1f196719ce0c432bc41c",
+    "measurement-samples-bend.js": "17cf7d64e37a6cf86c5660ccd23004130bcadeaf0b32ca2fb47cf16be2d4c8a8"
+  },
+  "commands": {
+    "Native": [
+      "/tmp/bendvy-twohour-fusion-control/measurement-samples-bend-native",
+      "1",
+      "0",
+      "256",
+      "1",
+      "--threads",
+      "1",
+      "--gpu",
+      "off"
+    ],
+    "TS": [
+      "node",
+      "/workspace/formal-proofs/bendvy-worktrees/twohour-fusion-review/experiments/s-integrate/measurement-samples-reference.mjs",
+      "Health",
+      "dense",
+      "256",
+      "1"
+    ],
+    "JS": [
+      "node",
+      "/tmp/bendvy-twohour-fusion-control/measurement-samples-bend.js",
+      "1",
+      "0",
+      "256",
+      "1"
+    ]
+  },
+  "fullEvidencePath": "/tmp/bendvy-twohour-fusion-control/evidence.json",
+  "fullEvidenceSHA256": "f97006d15df31a2d68956ebb823fc1ee863b8e8883941f9bc5ce968d73944697",
+  "candidateStorageSHA256": "27f6b8aa69966eb6e349e7337b0947e50179dbc26cdcc363c1e857bb79cc4130",
+  "interpretation": "One finite full-field construction control; no qualification, keep, causal speedup or product acceptance. Compiler2.0.35; compare only current-tool artifacts."
+}
