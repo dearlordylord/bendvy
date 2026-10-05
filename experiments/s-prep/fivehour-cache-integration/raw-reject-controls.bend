@@ -5,9 +5,16 @@ import ./raw-boundaries.bend as B
 import ./cached-payload.bend as C
 import ./cache.bend as K
 import ./payload.bend as P
+import ./commands.bend as Q
 import ./observations.bend as O
 import ./host-render.bend as J
 
+def audit_done(-Raw:Type,-View:Data,cached:View,result:Raw & View) -> K.Cache<Raw,View> & View:
+  match result:
+    case (raw,view): (K.Cache{raw,cached},view)
+def audit(-Raw:Type,-View:Data,get:Raw -> Raw & View,owner:K.Cache<Raw,View>) -> K.Cache<Raw,View> & View:
+  match owner:
+    case K.Cache{raw,cached}: audit_done(Raw,View,cached,get(raw))
 def quad(+n:U32) -> Array<U32>:
   Array.set(U32,Array.set(U32,Array.set(U32,[n:U32^2n],1,U32.add(n,1)),2,U32.add(n,2)),3,U32.add(n,3))
 
@@ -99,7 +106,85 @@ def health_probe() -> IO(Unit):
     world : S.World<T.HealthSchema,K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,K.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode> <- health_world("health:before",S.World{7,4294967295,S.rows_empty(K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked),[S.InsertFlag{1,T.Tracked{8}}],None{},T.HealthOn{}})
     health_reserve_return(B.health_reserve(world,S.Bundle{Some{T.Vitals{quad(10),9,2}},Some{T.Armor{quad(20),3}},Some{T.Tracked{9}}}))
 
+def motion_main_audit(owner:K.Cache<T.Position,T.PositionView>) -> K.Cache<T.Position,T.PositionView> & T.PositionView: audit(T.Position,T.PositionView,P.position_get,owner)
+def motion_ledger_audit(owner:K.Cache<T.MotionLedger,T.LedgerView>) -> K.Cache<T.MotionLedger,T.LedgerView> & T.LedgerView: audit(T.MotionLedger,T.LedgerView,P.motion_ledger_get,owner)
+def motion_full(+label:String,world:S.World<T.MotionSchema,K.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,K.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>) -> IO(S.World<T.MotionSchema,K.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,K.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>):
+  do IO<S.World<T.MotionSchema,K.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,K.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>>:
+    cached : S.World<T.MotionSchema,K.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,K.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode> <- motion_world(label ++ ":cached",world)
+    motion_world_done(label ++ ":raw",O.world(T.MotionSchema,K.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,K.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,T.PositionView,T.VelocityView,T.LedgerView,motion_main_audit,P.velocity_get,motion_ledger_audit,cached))
+def motion_applied(label:String,result:Q.CheckedApply<T.MotionSchema,K.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,K.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>) -> IO(S.World<T.MotionSchema,K.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,K.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>):
+  match result:
+    case Q.Applied{world,_}: motion_full(label,world)
+    case _: IO.die(S.World<T.MotionSchema,K.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,K.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,1,"positive apply rejected")
+def motion_positive_insert(result:T.CommandResult<S.World<T.MotionSchema,K.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,K.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,T.Position>) -> IO(Unit):
+  match result:
+    case T.CommandQueued{world}:
+      do IO<Unit>:
+        staged : S.World<T.MotionSchema,K.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,K.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode> <- motion_full("motion:positive-insert-staged",world)
+        published : S.World<T.MotionSchema,K.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,K.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode> <- motion_applied("motion:positive-insert-applied",Q.apply_checked(T.MotionSchema,K.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,K.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,S.publish(T.MotionSchema,K.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,K.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,staged),2))
+        return Unit{}
+    case _: IO.print("motion:positive-insert:unexpected")
+def motion_positive_reserved(result:T.Reservation<S.World<T.MotionSchema,K.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,K.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Handle<T.MotionSchema>,S.Bundle<T.Position,T.Velocity,T.Selected>>) -> IO(Unit):
+  match result:
+    case T.Reserved{world,S.Handle{+ns,+id}}:
+      do IO<Unit>:
+        IO.print("motion:positive-handle:" ++ U32.show(ns) ++ ":" ++ U32.show(id))
+        staged : S.World<T.MotionSchema,K.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,K.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode> <- motion_full("motion:positive-reserve-staged",world)
+        published : S.World<T.MotionSchema,K.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,K.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode> <- motion_applied("motion:positive-reserve-applied",Q.apply_checked(T.MotionSchema,K.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,K.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,S.publish(T.MotionSchema,K.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,K.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,staged),1))
+        motion_positive_insert(B.motion_insert(published,S.Handle{ns,id},T.Position{quad(100),7}))
+    case _: IO.print("motion:positive-reserve:unexpected")
+def motion_positive_created(result:T.Creation<S.Factory,S.World<T.MotionSchema,K.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,K.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>>) -> IO(Unit):
+  match result:
+    case T.Created{S.Factory{next},world}:
+      do IO<Unit>:
+        IO.print("motion:positive-factory:" ++ U32.show(next))
+        initialized : S.World<T.MotionSchema,K.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,K.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode> <- motion_full("motion:positive-factory-world",world)
+        motion_positive_reserved(B.motion_reserve(initialized,S.Bundle{Some{T.Position{quad(10),7}},Some{T.Velocity{quad(20),True{}}},Some{T.Selected{9}}}))
+    case _: IO.print("motion:positive-create:unexpected")
+def motion_positive() -> IO(Unit):
+  motion_positive_created(B.motion_create(motion_initial,S.Factory{1},T.MotionOn{}))
+
+def health_main_audit(owner:K.Cache<T.Vitals,T.VitalsView>) -> K.Cache<T.Vitals,T.VitalsView> & T.VitalsView: audit(T.Vitals,T.VitalsView,P.vitals_get,owner)
+def health_ledger_audit(owner:K.Cache<T.HealthLedger,T.LedgerView>) -> K.Cache<T.HealthLedger,T.LedgerView> & T.LedgerView: audit(T.HealthLedger,T.LedgerView,P.health_ledger_get,owner)
+def health_full(+label:String,world:S.World<T.HealthSchema,K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,K.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>) -> IO(S.World<T.HealthSchema,K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,K.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>):
+  do IO<S.World<T.HealthSchema,K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,K.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>>:
+    cached : S.World<T.HealthSchema,K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,K.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode> <- health_world(label ++ ":cached",world)
+    health_world_done(label ++ ":raw",O.world(T.HealthSchema,K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,K.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,T.VitalsView,T.ArmorView,T.LedgerView,health_main_audit,P.armor_get,health_ledger_audit,cached))
+def health_applied(label:String,result:Q.CheckedApply<T.HealthSchema,K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,K.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>) -> IO(S.World<T.HealthSchema,K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,K.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>):
+  match result:
+    case Q.Applied{world,_}: health_full(label,world)
+    case _: IO.die(S.World<T.HealthSchema,K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,K.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,1,"positive apply rejected")
+def health_positive_insert(result:T.CommandResult<S.World<T.HealthSchema,K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,K.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,T.Vitals>) -> IO(Unit):
+  match result:
+    case T.CommandQueued{world}:
+      do IO<Unit>:
+        staged : S.World<T.HealthSchema,K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,K.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode> <- health_full("health:positive-insert-staged",world)
+        published : S.World<T.HealthSchema,K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,K.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode> <- health_applied("health:positive-insert-applied",Q.apply_checked(T.HealthSchema,K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,K.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,S.publish(T.HealthSchema,K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,K.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,staged),2))
+        return Unit{}
+    case _: IO.print("health:positive-insert:unexpected")
+def health_positive_reserved(result:T.Reservation<S.World<T.HealthSchema,K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,K.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Handle<T.HealthSchema>,S.Bundle<T.Vitals,T.Armor,T.Tracked>>) -> IO(Unit):
+  match result:
+    case T.Reserved{world,S.Handle{+ns,+id}}:
+      do IO<Unit>:
+        IO.print("health:positive-handle:" ++ U32.show(ns) ++ ":" ++ U32.show(id))
+        staged : S.World<T.HealthSchema,K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,K.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode> <- health_full("health:positive-reserve-staged",world)
+        published : S.World<T.HealthSchema,K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,K.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode> <- health_applied("health:positive-reserve-applied",Q.apply_checked(T.HealthSchema,K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,K.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,S.publish(T.HealthSchema,K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,K.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,staged),1))
+        health_positive_insert(B.health_insert(published,S.Handle{ns,id},T.Vitals{quad(100),9,2}))
+    case _: IO.print("health:positive-reserve:unexpected")
+def health_positive_created(result:T.Creation<S.Factory,S.World<T.HealthSchema,K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,K.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>>) -> IO(Unit):
+  match result:
+    case T.Created{S.Factory{next},world}:
+      do IO<Unit>:
+        IO.print("health:positive-factory:" ++ U32.show(next))
+        initialized : S.World<T.HealthSchema,K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,K.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode> <- health_full("health:positive-factory-world",world)
+        health_positive_reserved(B.health_reserve(initialized,S.Bundle{Some{T.Vitals{quad(10),9,2}},Some{T.Armor{quad(20),3}},Some{T.Tracked{9}}}))
+    case _: IO.print("health:positive-create:unexpected")
+def health_positive() -> IO(Unit):
+  health_positive_created(B.health_create(health_initial,S.Factory{1},T.HealthOn{}))
+
 def main() -> IO(Unit):
   do IO<Unit>:
     motion_probe()
     health_probe()
+    motion_positive()
+    health_positive()
