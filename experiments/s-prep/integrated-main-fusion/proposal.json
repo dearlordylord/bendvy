@@ -1,0 +1,10 @@
+{
+  "task": "S-LOOP #23 bounded pre-loop implementation proposal",
+  "algorithm": "Fuse checked Main access and replacement without second metadata read",
+  "editableSource": "experiments/s-perf/candidate/storage.bend",
+  "scope": "hook_checked internal path and five fuse_* helpers; original signatures/types/imports preserved",
+  "preconditions": ["same namespace", "nonzero ID", "ID within capacity", "ID within high-water", "live metadata", "Main present"],
+  "effects": "Exactly one original transform call; returned affine owner set into same slot; Aux and all metadata retained; upstream transaction behavior unchanged",
+  "performanceClaim": null,
+  "approval": "Proposal for coordinator review, no measured keep"
+}

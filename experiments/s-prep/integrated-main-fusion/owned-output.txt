@@ -1,0 +1,18 @@
+negative:clone:pass
+Traceback (most recent call last):
+  File "/workspace/formal-proofs/bendvy-worktrees/twohour-main-fusion/experiments/s-prep/integrated-main-fusion/owned-replay.py", line 9, in <module>
+    exec(compile(text,str(source),'exec'),{'__file__':str(source),'__name__':'__main__'})
+  File "/workspace/formal-proofs/bendvy-worktrees/twohour-main-fusion/experiments/s-perf/candidate/owned-storage-run.py", line 31, in <module>
+    out=''.join(run(['taskset','-c',CPU,'bend',HERE/f'owned-storage-negative-{name}.bend','--check-only'],ok=1))
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/formal-proofs/bendvy-worktrees/twohour-main-fusion/experiments/s-perf/candidate/owned-storage-run.py", line 20, in run
+    try:out,err=p.communicate(timeout=limit)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/subprocess.py", line 1207, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/subprocess.py", line 2060, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+  File "/usr/lib/python3.11/subprocess.py", line 1251, in _check_timeout
+    raise TimeoutExpired(
+subprocess.TimeoutExpired: Command '['taskset', '-c', '6', 'bend', '/tmp/owned-storage-input-6rgteswc/candidate/owned-storage-negative-duplicate.bend', '--check-only']' timed out after 5 seconds

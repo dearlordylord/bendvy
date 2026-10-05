@@ -1,0 +1,62 @@
+built /tmp/bendvy-main-fusion-overlay/experiments/s-integrate/host-motion-fixture.bend
+built /tmp/bendvy-main-fusion-overlay/experiments/s-integrate/host-health-fixture.bend
+{
+  "status": "FINITE_FRESH_REFERENCE_MATCH",
+  "cases": [
+    {
+      "schema": "motion",
+      "backend": 0,
+      "artifactSHA256": "5453406ce4a10d76c6633fba0790faecdc04428319376b1c995a5ec92f6317f4",
+      "status": "PASS"
+    },
+    {
+      "schema": "motion",
+      "backend": 1,
+      "artifactSHA256": "3ac9383d0144bf210c071e81860522a7b61a5b34ad87cf3b3074ebea5757405b",
+      "status": "PASS"
+    },
+    {
+      "schema": "health",
+      "backend": 0,
+      "artifactSHA256": "769fb154f737846211116dfa10348763871ea18cb0dbd0728f7964b84cb09ea5",
+      "status": "PASS"
+    },
+    {
+      "schema": "health",
+      "backend": 1,
+      "artifactSHA256": "1cd82ce7fc5194401773ec14c98888d006b38ee0a0f639d8b7c02f79ecdf980b",
+      "status": "PASS"
+    }
+  ],
+  "limitsSeconds": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "comparison": {
+    "status": "MATCH",
+    "channels": [
+      "rawReservations",
+      "reads",
+      "readerDiagnostics",
+      "ownWrites",
+      "snapshots",
+      "dispatches",
+      "auditEffects",
+      "provisioning",
+      "finalCounts",
+      "tails"
+    ],
+    "lanes": [
+      "Health/regenerated-closure",
+      "Health/returned-owner",
+      "Motion/regenerated-closure",
+      "Motion/returned-owner"
+    ],
+    "differences": []
+  },
+  "outputSHA256": "0eb77b7656ad88ca6ca271a5d5de221307ab4545302733e8db1872259c3bdc32",
+  "referenceSHA256": "bec2f49da92aaceea1bd0857c6f759b816164ea841327fce9dfb51fedad31ac5",
+  "elapsedSeconds": 88.276
+}

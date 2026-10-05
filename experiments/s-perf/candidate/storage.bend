@@ -162,12 +162,32 @@ def hook_taken(-S: Data,-M: Type,-A: Type,-F: Data,-L: Type,-Mode: Data,-O: Data
     case (rows,NoEntity{}): (World{namespace,next,rows,pending,ledger,mode},T.Missing{})
     case (rows,NoMain{}): (World{namespace,next,rows,pending,ledger,mode},T.Mismatch{})
     case (rows,Taken{main}): hook_return(S,M,A,F,L,Mode,O,namespace,next,rows,pending,ledger,mode,target,transform(main))
+# Fused trusted point hook: one bounds/liveness check, no Aux extraction.
+def fuse_return(-S: Data,-M: Type,-A: Type,-F: Data,-L: Type,-Mode: Data,-O: Data,namespace: U32,next: U32,aux: Array<Maybe<A>>,metadata: Array<Metadata<F>>,capacity: U32,depth: Nat,high: U32,pending: List<Command<M,A,F>>,ledger: Maybe<L>,mode: Mode,main: Array<Maybe<M>>,index: U32,result: M & O) -> World<S,M,A,F,L,Mode> & T.Access<O>:
+  match result:
+    case (value,observation): (World{namespace,next,Rows{Array.set(Maybe<M>,main,index,Some{value}),aux,metadata,capacity,depth,high},pending,ledger,mode},T.Found{observation})
+def fuse_taken(-S: Data,-M: Type,-A: Type,-F: Data,-L: Type,-Mode: Data,-O: Data,namespace: U32,next: U32,aux: Array<Maybe<A>>,metadata: Array<Metadata<F>>,capacity: U32,depth: Nat,high: U32,pending: List<Command<M,A,F>>,ledger: Maybe<L>,mode: Mode,index: U32,transform: M -> M & O,result: Array<Maybe<M>> & Maybe<M>) -> World<S,M,A,F,L,Mode> & T.Access<O>:
+  match result:
+    case (main,None{}): (World{namespace,next,Rows{main,aux,metadata,capacity,depth,high},pending,ledger,mode},T.Mismatch{})
+    case (main,Some{value}): fuse_return(S,M,A,F,L,Mode,O,namespace,next,aux,metadata,capacity,depth,high,pending,ledger,mode,main,index,transform(value))
+def fuse_live(-S: Data,-M: Type,-A: Type,-F: Data,-L: Type,-Mode: Data,-O: Data,namespace: U32,next: U32,aux: Array<Maybe<A>>,metadata: Array<Metadata<F>>,capacity: U32,depth: Nat,high: U32,pending: List<Command<M,A,F>>,ledger: Maybe<L>,mode: Mode,main: Array<Maybe<M>>,+index: U32,transform: M -> M & O,meta: Metadata<F>) -> World<S,M,A,F,L,Mode> & T.Access<O>:
+  match meta:
+    case Metadata{False{},_,_,_}: (World{namespace,next,Rows{main,aux,metadata,capacity,depth,high},pending,ledger,mode},T.Missing{})
+    case Metadata{True{},_,_,_}: fuse_taken(S,M,A,F,L,Mode,O,namespace,next,aux,metadata,capacity,depth,high,pending,ledger,mode,index,transform,Array.swap(Maybe<M>,main,index,None{}))
+def fuse_meta(-S: Data,-M: Type,-A: Type,-F: Data,-L: Type,-Mode: Data,-O: Data,namespace: U32,next: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,capacity: U32,depth: Nat,high: U32,pending: List<Command<M,A,F>>,ledger: Maybe<L>,mode: Mode,index: U32,transform: M -> M & O,result: Array<Metadata<F>> & Metadata<F>) -> World<S,M,A,F,L,Mode> & T.Access<O>:
+  match result:
+    case (metadata,meta): fuse_live(S,M,A,F,L,Mode,O,namespace,next,aux,metadata,capacity,depth,high,pending,ledger,mode,main,index,transform,meta)
+def fuse_bounds(-S: Data,-M: Type,-A: Type,-F: Data,-L: Type,-Mode: Data,-O: Data,valid: Bool,world: World<S,M,A,F,L,Mode>,+target: U32,transform: M -> M & O) -> World<S,M,A,F,L,Mode> & T.Access<O>:
+  match valid world:
+    case False{} world: (world,T.Missing{})
+    case True{} World{namespace,next,Rows{main,aux,metadata,capacity,depth,high},pending,ledger,mode}:
+      fuse_meta(S,M,A,F,L,Mode,O,namespace,next,main,aux,capacity,depth,high,pending,ledger,mode,U32.sub(target,1),transform,Array.get(Metadata<F>,metadata,U32.sub(target,1)))
 def hook_checked(-S: Data,-M: Type,-A: Type,-F: Data,-L: Type,-Mode: Data,-O: Data,
   valid: Bool,world: World<S,M,A,F,L,Mode>,+target: U32,transform: M -> M & O) -> World<S,M,A,F,L,Mode> & T.Access<O>:
   match valid world:
     case False{} w: (w,T.Missing{})
-    case True{} World{namespace,next,rows,pending,ledger,mode}:
-      hook_taken(S,M,A,F,L,Mode,O,namespace,next,pending,ledger,mode,target,transform,take_rows(M,A,F,rows,target))
+    case True{} World{namespace,next,Rows{main,aux,metadata,+capacity,depth,+high},pending,ledger,mode}:
+      fuse_bounds(S,M,A,F,L,Mode,O,Bool.and((0 < target : U32),Bool.and((target <= capacity : U32),(target <= high : U32))),World{namespace,next,Rows{main,aux,metadata,capacity,depth,high},pending,ledger,mode},target,transform)
 def with_main(-S: Data,-M: Type,-A: Type,-F: Data,-L: Type,-Mode: Data,-O: Data,
   world: World<S,M,A,F,L,Mode>,handle: Handle<S>,transform: M -> M & O) -> World<S,M,A,F,L,Mode> & T.Access<O>:
   match world handle:
