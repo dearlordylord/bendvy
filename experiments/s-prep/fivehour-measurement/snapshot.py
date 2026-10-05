@@ -32,6 +32,9 @@ def capture(path,digest,output):
             relative=old.relative_to(root);target=dest/relative;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(old.read_bytes());current[str(old)]=guard.sha(old)
         m['backendRoots'][backend]=str(dest.resolve())
         source_root=root.parents[1];overlay=json.loads((source_root/'overlay.json').read_text());cache=json.loads((source_root/'cache-specialization.json').read_text());runtime=guard.bend_closure(dest/'measurement-bend.bend',[dest]);relative={str(pathlib.Path(name).relative_to((output/backend).resolve())):pin for name,pin in runtime.items()}
+        cache['initialRecipeReceiptSHA256']=guard.sha(source_root/'cache-specialization.json')
+        for key,filename in [('cacheSourceSHA256','cache.bend'),('cachedPayloadSHA256','cached-payload.bend'),('rawProviderSHA256','uncached-payload.bend')]:
+            cache[key]=guard.sha(dest/filename)
         cache['runtimeClosure']=relative;cache['runtimeClosureSHA256']=hashlib.sha256(json.dumps(relative,sort_keys=True,separators=(',',':')).encode()).hexdigest();cache['capturedParentManifestSHA256']=digest
         overlay['sources']=relative;overlay['cacheSpecialization']=cache
         (output/backend/'overlay.json').write_text(json.dumps(overlay,indent=2)+'\n');(output/backend/'cache-specialization.json').write_text(json.dumps(cache,indent=2)+'\n')
