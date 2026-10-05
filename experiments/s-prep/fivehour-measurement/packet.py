@@ -134,7 +134,7 @@ def main():
     if r['status']=='PACKET_COMPLETE':
         print('REPORT '+json.dumps({'candidate':r['decision'],'fixedInitialBaseline':r['baselineDecision'],'canonicalPriorBestScoreComparisonRequired':True,'canonicalKeepAuthorized':False,'keepProposed':r['keepProposed'],'packetKind':r['packetKind'],'initialSourceQualificationOnly':r['initialSourceQualificationOnly'],'focusedGoalMet':r['decision']['focusedGoalMet'],'productAcceptance':False},sort_keys=True))
         print('METRIC focused_score='+format(r['decision']['metric'],'.17g'))
-    print(json.dumps({'status':r['status'],'metric':r.get('decision',{}).get('metric') if r['status']=='PACKET_COMPLETE' else None,'keepProposed':r.get('keepProposed',False) if r['status']=='PACKET_COMPLETE' else False,'receipt':str(args.output/'packet.json'),'packetReceiptSHA256':guard.sha(args.output/'packet.json'),'completeCheckReceipt':str(checkreceipt) if 'checkreceipt' in locals() else None,'completeCheckReceiptSHA256':r.get('freshCheckReceiptSHA256')},sort_keys=True))
+    print(json.dumps({'status':r['status'],'packetKind':r.get('packetKind'),'initialSourceQualificationOnly':r.get('initialSourceQualificationOnly'),'metric':r.get('decision',{}).get('metric') if r['status']=='PACKET_COMPLETE' else None,'keepProposed':r.get('keepProposed',False) if r['status']=='PACKET_COMPLETE' else False,'receipt':str(args.output/'packet.json'),'packetReceiptSHA256':guard.sha(args.output/'packet.json'),'completeCheckReceipt':str(checkreceipt) if 'checkreceipt' in locals() else None,'completeCheckReceiptSHA256':r.get('freshCheckReceiptSHA256')},sort_keys=True))
     if r['status']!='PACKET_COMPLETE':raise SystemExit(1)
 
 if __name__=='__main__':main()
