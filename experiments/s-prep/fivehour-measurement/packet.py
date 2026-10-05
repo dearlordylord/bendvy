@@ -40,11 +40,17 @@ def main():
         captured,captured_digest=snapshot.capture(args.manifest,args.sha256,args.output/'candidate-snapshot');m=boundary.verify(captured,captured_digest);r['candidateSnapshotManifestSHA256']=captured_digest;r['candidateSnapshotFiles']=m['files']
         checkoutput=args.output/'fresh-checks'
         child([sys.executable,checkscript,'--js-overlay',args.output/'candidate-snapshot/JS','--native-overlay',args.output/'candidate-snapshot/Native','--output',checkoutput,'--cpu','9'],live['wholeCommandLimit'],logs)
-        receipt=checkoutput/live['receipt'];checks=json.loads(receipt.read_text())
-        if checks.get('status')!='PASS' or set(checks.get('passedGateIDs',[]))!=set(live['requiredGateIDs']):raise ValueError('current snapshot authoritative gates incomplete')
-        expected={backend:json.loads((args.output/'candidate-snapshot'/backend/'cache-specialization.json').read_text())['runtimeClosureSHA256'] for backend in ('JS','Native')}
-        if checks.get('runtimeClosureSHA256')!=expected or checks.get('schemas')!=['Health','Motion'] or set(checks.get('backends',[]))!={'Native','JS'}:raise ValueError('check applicability does not match measured snapshot')
-        r['freshCheckReceiptSHA256']=guard.sha(receipt)
+        checkreceipt=checkoutput/live['receipt'];checks=json.loads(checkreceipt.read_text())
+        required_ids={'materialize-controls','host12','access','e11','owned-storage','staging','tx-baseline','tx-torn-tail','tx-lost-mark','tx-inverse-order'}
+        if set(live['requiredGateIDs'])!=required_ids or checks.get('status')!='FRESH_TWO_ROLE_CONNECTED_GATES_PASS' or checks.get('schemaVersion')!=1 or set(checks.get('roles',{}))!={'JS','Native'}:raise ValueError('current snapshot authoritative gates incomplete')
+        for backend,role in checks['roles'].items():
+            overlay=args.output/'candidate-snapshot'/backend
+            expected=json.loads((overlay/'cache-specialization.json').read_text())['runtimeClosureSHA256']
+            if role.get('status')!='PASS' or role['binding']['runtimeClosureSHA256']!=expected or role['binding']['overlayManifestSHA256']!=guard.sha(overlay/'overlay.json') or set(g['name'] for g in role['gates'])!=required_ids:raise ValueError('check applicability does not match snapshot')
+            for gate in role['gates']:
+                if gate['exit']!=0:raise ValueError('failed authoritative gate')
+                if 'receipt' in gate and guard.sha(pathlib.Path(gate['receipt']))!=gate['receiptSHA256']:raise ValueError('gate receipt changed')
+        r['freshCheckReceiptSHA256']=guard.sha(checkreceipt)
         artifacts={}
         for role,source,manifest,digest in [('reference',baseline,args.baseline_manifest,args.baseline_sha256),('candidate',m,captured,captured_digest)]:
           artifacts[role]={}
@@ -79,7 +85,9 @@ def main():
                             key=backend+'/'+schema
                             cands[role][key].append(value);refs[role][key].append(tsvalue)
                             r['raw'][f'{cohort}/{role}/{sample}/{schema}/{backend}']={'batchMilliseconds':value,'TSBatchMilliseconds':tsvalue,'rawPath':str(outputs[backend]),'rawSHA256':guard.sha(outputs[backend]),'TSRawPath':str(outputs['TS']),'TSRawSHA256':guard.sha(outputs['TS']),'receiptSHA256':guard.sha(receipt)}
-        boundary.verify(captured,captured_digest);boundary.verify(args.baseline_manifest,args.baseline_sha256);r['decision']=decision.score(cands['candidate'],refs['candidate']);r['baselineDecision']=decision.score(cands['reference'],refs['reference']);r['keepProposed']=decision.keep(r['decision'],r['baselineDecision']);r['status']='PACKET_COMPLETE' if r['decision']['status']=='QUALIFIED_PROPOSAL' and r['baselineDecision']['status']=='QUALIFIED_PROPOSAL' else 'INCONCLUSIVE_NO_METRIC'
+        boundary.verify(captured,captured_digest);boundary.verify(args.baseline_manifest,args.baseline_sha256)
+        if guard.sha(checkreceipt)!=r['freshCheckReceiptSHA256']:raise ValueError('check receipt changed after execution')
+        r['decision']=decision.score(cands['candidate'],refs['candidate']);r['baselineDecision']=decision.score(cands['reference'],refs['reference']);r['keepProposed']=decision.keep(r['decision'],r['baselineDecision']);r['status']='PACKET_COMPLETE' if r['decision']['status']=='QUALIFIED_PROPOSAL' and r['baselineDecision']['status']=='QUALIFIED_PROPOSAL' else 'INCONCLUSIVE_NO_METRIC'
     except Exception as e:r.update(status='FAILED_NO_METRIC',error=repr(e))
     finally:(args.output/'packet.json').write_text(json.dumps(r,indent=2)+'\n')
     print(json.dumps({'status':r['status'],'metric':r.get('decision',{}).get('metric') if r['status']=='PACKET_COMPLETE' else None,'keepProposed':r.get('keepProposed',False) if r['status']=='PACKET_COMPLETE' else False,'receipt':str(args.output/'packet.json')},sort_keys=True))

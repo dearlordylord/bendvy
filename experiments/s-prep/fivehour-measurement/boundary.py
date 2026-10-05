@@ -35,6 +35,15 @@ def prepare(js_core,native_core,output):
         closures[str(reference.resolve())]=guard.sha(reference);drivers[schema]['TS']=str(reference.resolve())
     closures.update(protected)
     for name in guard.PINS:closures[str(guard.PROJECT/name)]=guard.PINS[name]
+    checks=guard.PROJECT/'experiments/s-prep/fivehour-connected-gates'
+    if checks.exists():
+        for q in checks.rglob('*'):
+            if q.is_file() and '__pycache__' not in q.parts:closures[str(q.resolve())]=guard.sha(q)
+    # Conservatively protect actual project imports used by the checks, including
+    # dynamically imported helpers and Bend fixtures outside the gate directory.
+    for name in subprocess.check_output(['git','-C',str(guard.PROJECT),'ls-files'],text=True).splitlines():
+        q=guard.PROJECT/name
+        if q.suffix in ('.py','.mjs','.bend') or q.name=='bend-check':closures[str(q.resolve())]=guard.sha(q)
     for p in H.glob('*.py'):closures[str(p.resolve())]=guard.sha(p)
     for name in ('bend','node','clang'):
         p=pathlib.Path(shutil.which(name)).resolve();closures[str(p)]=guard.sha(p);tools[name]=str(p)
