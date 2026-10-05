@@ -5,17 +5,22 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[3];HERE=Path(__file__).resolve().parent
 sp=importlib.util.spec_from_file_location('build',ROOT/'experiments/t05/run.py');B=importlib.util.module_from_spec(sp);sp.loader.exec_module(B)
 sp=importlib.util.spec_from_file_location('independent',ROOT/'experiments/s-prep/owned-write-query-integration/controls-run.py');I=importlib.util.module_from_spec(sp);sp.loader.exec_module(I)
+faSpec=importlib.util.spec_from_file_location('fused_adapter',HERE/'fused-adaptation.py');FA=importlib.util.module_from_spec(faSpec);faSpec.loader.exec_module(FA)
 def main():
  p=argparse.ArgumentParser();p.add_argument('--overlay',required=True,type=Path);p.add_argument('--output',required=True,type=Path);p.add_argument('--mutation',choices=['stale-head','torn-tail','lost-mark','inverse-order']);p.add_argument('--cpu',type=int,default=9);p.add_argument('--split-schemas',action='store_true');a=p.parse_args();a.output.mkdir(exist_ok=False);os.sched_setaffinity(0,{a.cpu});h=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();result={'status':'INCOMPLETE','scope':'Actual cached World point-Tx original callback success/failure; finite held/cache fields, no general API/performance acceptance','cases':[]}
  try:
   manifest=json.loads((a.overlay/'overlay.json').read_text())['sources'];assert all(h(a.overlay/n)==v for n,v in manifest.items());result['overlaySHA256']=h(a.overlay/'overlay.json');result['fixtureSHA256']=h(HERE/'tx-controls.bend')
+  coreInput=a.overlay/'experiments/s-integrate';fused=FA.fused_presence((coreInput/'held-adapter.bend').read_text(),(coreInput/'cached-payload.bend').read_text());result['fusedWriter']=fused
   records=[]
   for mode in ('cached','raw'):
    folder=a.output/mode;folder.mkdir();core=folder/'core';shutil.copytree(a.overlay/'experiments/s-integrate',core);source=core/'cache-tx-controls.bend'
    full=(core/'measurement-bend.bend').read_text();definitions={match.group(1):match.group(0) for match in re.finditer(r'^def ([\w.]+)\([^\n]*\n(?:(?!^(?:def |type |import |#)).*\n)*',full,re.M)};pins=json.loads((ROOT/'experiments/s-prep/owned-write-query-integration/prepare-evidence.json').read_text())['callbackFunctionSHA256'];assert all(hashlib.sha256(definitions[n].encode()).hexdigest()==v for n,v in pins.items()),'Original callback bytes changed';(core/'gate-callbacks.bend').write_text('import Base\nimport ./types.bend as T\n'+''.join(definitions[n] for n in ['first','sum','motion_body_ledger','motion_body_read','motion_body','health_body_ledger','health_body_read','health_body']));result['callbackDefinitionPins']=pins
    if a.mutation:
     mutations={'stale-head':('cached-payload.bend','T.Four{value,b,c,d},frame','T.Four{U32.add(value,1),b,c,d},frame'),'torn-tail':('cached-payload.bend','T.Four{value,b,c,d},frame','T.Four{value,b,c,U32.add(d,1)},frame'),'lost-mark':('held.bend','handle <> marks','marks'),'inverse-order':('held.bend','X.MainInverse{handle,old} <> undo','List.append(&2,X.Inverse<H>,undo,[X.MainInverse{handle,old}])')}
-    file,before,after=mutations[a.mutation];target=core/file;original=target.read_text();assert original.count(before)==1,(a.mutation,original.count(before));target.write_text(original.replace(before,after))
+    if fused and a.mutation in ('lost-mark','inverse-order'):
+     target=core/'held-adapter.bend';changed,sites=FA.mutation(target.read_text(),a.mutation);assert sites==['motion_set_fused_done','health_set_fused_done'];target.write_text(changed);result['liveMutationSites']=sites;result['mutationTarget']='held-adapter.bend fused Main completion'
+    else:
+     file,before,after=mutations[a.mutation];target=core/file;original=target.read_text();assert original.count(before)==1,(a.mutation,original.count(before));target.write_text(original.replace(before,after))
    text=(HERE/'tx-controls.bend').read_text().replace('import ./measurement-bend.bend as M','import ./gate-callbacks.bend as M')
    if mode=='raw':
     # Only observation getters change; authored callback providers remain untouched.
@@ -67,6 +72,9 @@ def main():
    return
   assert records[0]==records[1],'Raw owner differs from cached observation after actual Tx boundary'
   assert all(h(a.overlay/n)==v for n,v in manifest.items())
+  if fused:
+   sp=importlib.util.spec_from_file_location('suppressed_owner',HERE/'suppressed-owner.py');suppressed=importlib.util.module_from_spec(sp);sp.loader.exec_module(suppressed)
+   result['suppressedOwner']=suppressed.run(a.overlay,a.output,records[0],a.output/'suppressed-owner',a.cpu,a.split_schemas)
   result['status']='FINITE_ACTUAL_TX_CACHE_FIELDS_PASS'
  except Exception as error:result.update(status='FAIL',error=repr(error));raise
  finally:(a.output/'evidence.json').write_text(json.dumps(result,indent=2)+'\n')
