@@ -1,0 +1,82 @@
+{
+  "scope": "Finite source-distinct Native/JS selected-owner construction and boundary controls; no clock metric selected",
+  "limitsSeconds": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "preparedReceiptSHA256": "eca0f3e71c74ec5b4a4720bbb18a3f82c3bc7e0d3787783e826e81aacdd76e52",
+  "cases": [
+    {
+      "backend": "native",
+      "schema": "Motion",
+      "status": "FULL_FIELD_PASS",
+      "artifactSHA256": "91b43962284721f7f87d7dbcd6d7b6a1812ba5d413809ebcca7806d531b42eb2",
+      "outputSHA256": "58790c56eefa572919a1d4645542e76182478ab1821e16190b19aaccfc10f799",
+      "fields": {
+        "freshMeasuredWorlds": 1,
+        "finalSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
+        "worksumPerWorld": 669696
+      }
+    },
+    {
+      "backend": "native",
+      "schema": "Health",
+      "status": "FULL_FIELD_PASS",
+      "artifactSHA256": "91b43962284721f7f87d7dbcd6d7b6a1812ba5d413809ebcca7806d531b42eb2",
+      "outputSHA256": "a97859872742826abdee732d6c820565e3b6d1900e32ecd8a8ba8f10293f99f5",
+      "fields": {
+        "freshMeasuredWorlds": 1,
+        "finalSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
+        "worksumPerWorld": 669696
+      }
+    },
+    {
+      "backend": "javascript",
+      "schema": "Motion",
+      "status": "FULL_FIELD_PASS",
+      "artifactSHA256": "a5d0d71fec40f547893dfb97ad424bd9ea95ece3d707bb130cc183dec5c8170f",
+      "outputSHA256": "526ccb0f8c1c3eb53b36e8c10dbb3f2931a4f7488141aa0ffebdaa2bea067c0c",
+      "fields": {
+        "freshMeasuredWorlds": 1,
+        "finalSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
+        "worksumPerWorld": 669696
+      }
+    },
+    {
+      "backend": "javascript",
+      "schema": "Health",
+      "status": "FULL_FIELD_PASS",
+      "artifactSHA256": "a5d0d71fec40f547893dfb97ad424bd9ea95ece3d707bb130cc183dec5c8170f",
+      "outputSHA256": "44259381fcbaa6052bca4c3397c6f1fb35a002dadfbefc31e81555e0e70d8f41",
+      "fields": {
+        "freshMeasuredWorlds": 1,
+        "finalSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
+        "worksumPerWorld": 669696
+      }
+    }
+  ],
+  "controls": [
+    {
+      "backend": "native",
+      "status": "144_FULL_RECORD_BOUNDARY_CONTROLS_PASS",
+      "artifactSHA256": "5f3338534d3298d39f23d477540e0dcac9cc447628c33a25133e5c91e1b30c9b",
+      "controlSourceSHA256": "edd39c0b345b6b60ada54f9fdc50ecebddf89574dba2f386103e0f88414c037d",
+      "outputSHA256": "a856aef6be5d64f455ea1b1c535f66b13a87bbe3a575eddd9381126bae7f1ca1"
+    },
+    {
+      "backend": "javascript",
+      "status": "144_FULL_RECORD_BOUNDARY_CONTROLS_PASS",
+      "artifactSHA256": "d27f9c7a7c37cb8fae3cfe5bb6f89d0de3ad415dc0f5ebaacc4218062414af47",
+      "controlSourceSHA256": "edd39c0b345b6b60ada54f9fdc50ecebddf89574dba2f386103e0f88414c037d",
+      "outputSHA256": "a856aef6be5d64f455ea1b1c535f66b13a87bbe3a575eddd9381126bae7f1ca1"
+    }
+  ],
+  "mutants": [],
+  "compiler": "bend 2.0.35",
+  "status": "FAIL",
+  "error": "AssertionError()",
+  "runnerSHA256": "140efe719085882ad1c2c0f9f0916d2ec7704a5bda7f4cddbb6f80c1fc878ce7",
+  "controlValidatorSHA256": "f012ec4248a86e5ae997ad2811313203b839d7236d324c39123343f52751dbeb"
+}

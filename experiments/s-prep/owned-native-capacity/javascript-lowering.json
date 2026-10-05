@@ -1,0 +1,30 @@
+{
+  "artifactSHA256": "a5d0d71fec40f547893dfb97ad424bd9ea95ece3d707bb130cc183dec5c8170f",
+  "status": "DIRECT_INDEX_RMW_ASSIGNMENT_NO_NATIVE_CACHE_RECURSION",
+  "functions": [
+    {
+      "signature": "$held$045adapter$058cached_checked$1260$(_valid_0, _rows_0, _index_0)",
+      "body": "  if (!_valid_0) {\n    return {$: \"Tuple\", \"fst\": _rows_0, \"snd\": {$: \"storage.NoEntity\"}};\n  } else {\n    const _main_0 = _rows_0[\"main\"];\n    const _aux_0 = _rows_0[\"aux\"];\n    const _metadata_0 = _rows_0[\"metadata\"];\n    const _capacity_0 = _rows_0[\"capacity\"];\n    const _depth_0 = _rows_0[\"depth\"];\n    const _high_0 = _rows_0[\"high_water\"];\n    return $held$045adapter$058cached_meta_done$1260$(_main_0, _aux_0, _capacity_0, _depth_0, _high_0, _index_0, ($native$045columns$058get$1260$(_metadata_0, _capacity_0, _index_0)));\n  }"
+    },
+    {
+      "signature": "$held$045adapter$058cached_checked$1261$(_valid_0, _rows_0, _index_0)",
+      "body": "  if (!_valid_0) {\n    return {$: \"Tuple\", \"fst\": _rows_0, \"snd\": {$: \"storage.NoEntity\"}};\n  } else {\n    const _main_0 = _rows_0[\"main\"];\n    const _aux_0 = _rows_0[\"aux\"];\n    const _metadata_0 = _rows_0[\"metadata\"];\n    const _capacity_0 = _rows_0[\"capacity\"];\n    const _depth_0 = _rows_0[\"depth\"];\n    const _high_0 = _rows_0[\"high_water\"];\n    return $held$045adapter$058cached_meta_done$1261$(_main_0, _aux_0, _capacity_0, _depth_0, _high_0, _index_0, ($native$045columns$058get$1261$(_metadata_0, _capacity_0, _index_0)));\n  }"
+    },
+    {
+      "signature": "$held$045adapter$058motion_restore$(_world_0, _handle_0, _main_0, _ledger_0)",
+      "body": "  const _namespace_0 = _world_0[\"namespace\"];\n  const _next_0 = _world_0[\"next\"];\n  const _t_0 = _world_0[\"rows\"];\n  const _m_0 = _t_0[\"main\"];\n  const _a_0 = _t_0[\"aux\"];\n  const _f_0 = _t_0[\"metadata\"];\n  const _capacity_0 = _t_0[\"capacity\"];\n  const _depth_0 = _t_0[\"depth\"];\n  const _high_0 = _t_0[\"high_water\"];\n  const _pending_0 = _world_0[\"pending\"];\n  const _mode_0 = _world_0[\"mode\"];\n  const _id_0 = _handle_0[\"id\"];\n  return {$: \"storage.World\", \"namespace\": _namespace_0, \"next\": _next_0, \"rows\": {$: \"storage.Rows\", \"main\": ($native$045columns$058set$1260$(_m_0, _capacity_0, ((_id_0 - 1) >>> 0), {$: \"Some\", \"value\": _main_0})), \"aux\": _a_0, \"metadata\": _f_0, \"capacity\": _capacity_0, \"depth\": _depth_0, \"high_water\": _high_0}, \"pending\": _pending_0, \"ledger\": _ledger_0, \"mode\": _mode_0};"
+    },
+    {
+      "signature": "$held$045adapter$058health_restore$(_world_0, _handle_0, _main_0, _ledger_0)",
+      "body": "  const _namespace_0 = _world_0[\"namespace\"];\n  const _next_0 = _world_0[\"next\"];\n  const _t_0 = _world_0[\"rows\"];\n  const _m_0 = _t_0[\"main\"];\n  const _a_0 = _t_0[\"aux\"];\n  const _f_0 = _t_0[\"metadata\"];\n  const _capacity_0 = _t_0[\"capacity\"];\n  const _depth_0 = _t_0[\"depth\"];\n  const _high_0 = _t_0[\"high_water\"];\n  const _pending_0 = _world_0[\"pending\"];\n  const _mode_0 = _world_0[\"mode\"];\n  const _id_0 = _handle_0[\"id\"];\n  return {$: \"storage.World\", \"namespace\": _namespace_0, \"next\": _next_0, \"rows\": {$: \"storage.Rows\", \"main\": ($native$045columns$058set$1261$(_m_0, _capacity_0, ((_id_0 - 1) >>> 0), {$: \"Some\", \"value\": _main_0})), \"aux\": _a_0, \"metadata\": _f_0, \"capacity\": _capacity_0, \"depth\": _depth_0, \"high_water\": _high_0}, \"pending\": _pending_0, \"ledger\": _ledger_0, \"mode\": _mode_0};"
+    },
+    {
+      "signature": "$held$045adapter$058cached_meta$1260$(_main_0, _aux_0, _metadata_0, _capacity_0, _depth_0, _high_0, _index_0, _meta_0)",
+      "body": "  const _t_0 = _meta_0[\"live\"];\n  if (!_t_0) {\n    return {$: \"Tuple\", \"fst\": {$: \"storage.Rows\", \"main\": _main_0, \"aux\": _aux_0, \"metadata\": _metadata_0, \"capacity\": _capacity_0, \"depth\": _depth_0, \"high_water\": _high_0}, \"snd\": {$: \"storage.NoEntity\"}};\n  } else {\n    return $held$045adapter$058cached_taken$1260$(_aux_0, _metadata_0, _capacity_0, _depth_0, _high_0, ($native$045columns$058swap$1260$(_main_0, _capacity_0, _index_0, {$: \"None\"})));\n  }"
+    },
+    {
+      "signature": "$held$045adapter$058cached_meta$1261$(_main_0, _aux_0, _metadata_0, _capacity_0, _depth_0, _high_0, _index_0, _meta_0)",
+      "body": "  const _t_0 = _meta_0[\"live\"];\n  if (!_t_0) {\n    return {$: \"Tuple\", \"fst\": {$: \"storage.Rows\", \"main\": _main_0, \"aux\": _aux_0, \"metadata\": _metadata_0, \"capacity\": _capacity_0, \"depth\": _depth_0, \"high_water\": _high_0}, \"snd\": {$: \"storage.NoEntity\"}};\n  } else {\n    return $held$045adapter$058cached_taken$1261$(_aux_0, _metadata_0, _capacity_0, _depth_0, _high_0, ($native$045columns$058swap$1261$(_main_0, _capacity_0, _index_0, {$: \"None\"})));\n  }"
+    }
+  ]
+}
