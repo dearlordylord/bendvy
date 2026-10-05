@@ -1,5 +1,7 @@
 # S-LOOP — measured optimization of the connected ECS candidate
 
+Current status: the user directs new actual runs after the closed eight-hour window. Latest source/evidence and authorization are in [the active report](../reports/fivehour-performance-work.md) and [checkpoint](../next-core-checkpoint.md). Existing globalcap20 retains7consumed/13remaining; no new cumulative hours are inferred. B64/full65 records and current exact candidate supersede historical proposal tables below. Targets/noise/full-gate rules remain unchanged.
+
 ## Accepted protocol and seven-hour extension
 
 The user explicitly accepted the concrete focused protocol on 2026-10-05 and granted seven further hours. Execution window starts **2026-10-05T05:22:50Z** and ends **2026-10-05T12:22:50Z**, including deadline amendment, checks, measurements, recovery and delivery. This supersedes the earlier deadline only. Dense256/both schemas, B16/full17 records, all exact gates, 13-module scope, unknown-noise qualification2, maximum8 packets, strict keep rules and JS/TS<=1 / Native/TS<=0.5 remain unchanged. The former manifests are retained as history; deadline-bound source/tool manifests and dependency bookkeeping are regenerated without claiming fresh historical gate execution. No additional law, scope, dependency or threshold is approved.
