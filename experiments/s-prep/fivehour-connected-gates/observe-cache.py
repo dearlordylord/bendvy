@@ -10,6 +10,11 @@ def validate(records):
   assert record['capture'] in ('explicit-owner','regenerated-closure')
   assert record['component'] in ('Main','Ledger')
   assert record['raw']==record['cached'],'Stale cached payload: '+json.dumps(record)
+  assert isinstance(record['present'],bool)
+  assert record['present']==(record['raw'] is not None),'Presence/cache disagreement'
+  if not record['present']:
+   seen.add((record['schema'],record['capture'],record['boundary'],record['component']))
+   continue
   # Independent schema shape prevents an equal-but-truncated audit from passing.
   fields=({'coordinates','frame'} if record['schema']=='Motion' else {'levels','reserve','class'}) if record['component']=='Main' else {'totals','epoch'}
   assert set(record['raw'])==fields,'Incomplete component audit'
