@@ -1,0 +1,68 @@
+{
+  "status": "FINITE_FRESH_REFERENCE_MATCH",
+  "cases": [
+    {
+      "schema": "motion",
+      "backend": 0,
+      "artifactSHA256": "59540f2f2e2c66ffc2396f80bde527b583328086d562b77766d30c9808ff78aa",
+      "status": "PASS"
+    },
+    {
+      "schema": "motion",
+      "backend": 1,
+      "artifactSHA256": "c37faa2d48903f937d7574005e576d8072eb862d1607ebe95ad8d8a248461d58",
+      "status": "PASS"
+    },
+    {
+      "schema": "health",
+      "backend": 0,
+      "artifactSHA256": "56ee3de3909a5a3c98473feb8d0298b146b6362618a1a808d64e5df572e3d085",
+      "status": "PASS"
+    },
+    {
+      "schema": "health",
+      "backend": 1,
+      "artifactSHA256": "bceb629b1f10c5ad7773ab881a5e4d8d31379f383f5b9b5777a8ac69df4c3222",
+      "status": "PASS"
+    }
+  ],
+  "limitsSeconds": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "comparison": {
+    "status": "MATCH",
+    "channels": [
+      "rawReservations",
+      "reads",
+      "readerDiagnostics",
+      "ownWrites",
+      "snapshots",
+      "dispatches",
+      "auditEffects",
+      "provisioning",
+      "finalCounts",
+      "tails"
+    ],
+    "lanes": [
+      "Health/regenerated-closure",
+      "Health/returned-owner",
+      "Motion/regenerated-closure",
+      "Motion/returned-owner"
+    ],
+    "differences": []
+  },
+  "outputSHA256": "0eb77b7656ad88ca6ca271a5d5de221307ab4545302733e8db1872259c3bdc32",
+  "referenceSHA256": "bec2f49da92aaceea1bd0857c6f759b816164ea841327fce9dfb51fedad31ac5",
+  "elapsedSeconds": 91.131,
+  "rawEvidencePath": "/tmp/bendvy-twohour-indexed-main/evidence.json",
+  "rawEvidenceSHA256": "4acc268cf665c5656cd2ef07fc3a7d9bf3f3d9d117af19801dd7c428dea254de",
+  "overlayManifestSHA256": "2c749809839be8bafb81d589ce687e139e6655caddf005b072b19a3d97881218",
+  "candidateQuerySHA256": "c54c276843ac606d96a560b5324a9d4c2c04c8ba3782c1a8fea3d98c9929d775",
+  "candidateStorageSHA256": "8440ed1ec21c8d4874072aed8ca0ec4967f4e4e522f88d36f68050685d9e0345",
+  "sourceCount": 430,
+  "sourceRevision": "8919d52",
+  "toolchainVersion": "bend 2.0.35"
+}

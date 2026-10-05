@@ -1,0 +1,19 @@
+{
+  "candidateQuerySHA256": "c54c276843ac606d96a560b5324a9d4c2c04c8ba3782c1a8fea3d98c9929d775",
+  "status": "ACTUAL_INDEXED_STATE_AFFINE_REJECTION_PASS",
+  "checkerLimitSeconds": 5,
+  "controls": [
+    {
+      "name": "positive",
+      "sourceSHA256": "bfb9d6129ed57acf8b000c4efd0dbfddbad0648f94d30ef87df93fbb188b196a",
+      "expectedExit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "name": "negative",
+      "sourceSHA256": "a69e649082afb6efcbea2b91fec012193d8dcaa0cbcce7f4b3f85c57ddb7d999",
+      "expectedExit": 1,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : state\n- observed : state (consumed more than once)\nLocation: duplicate\n2 | \n3>| def duplicate(state: Q.StructIdxState<U32,U32,U32,U32>) -> Q.StructIdxState<U32,U32,U32,U32> & Q.StructIdxState<U32,U32,U32,U32>:\n  |               ^^^^^\n4 |   (state,state)\n"
+    }
+  ]
+}

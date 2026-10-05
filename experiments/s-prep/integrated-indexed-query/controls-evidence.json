@@ -1,0 +1,121 @@
+{
+  "fixtureSHA256": "2387171653b4dd7d582efafcceb396b4654e1cc9776b0612ad1a3d5638ddee81",
+  "status": "FINITE_CONNECTED_QUERY_CONTROLS_PASS",
+  "controls": [
+    {
+      "name": "baseline",
+      "status": "PASS",
+      "output": "[100229, 400882]\n[100229, 400882]\n[100229]\n[400882]\n[]:143:2004",
+      "artifacts": [
+        {
+          "backend": "native",
+          "SHA256": "40df47f0127f33e315fd06d02ec5887d5ec6c7f580c76ff136574c1614bb6cad",
+          "outputSHA256": "0d3cd3a83c96c56104981da5e7fe8c408b0c0918e506f1d7a88efe4c022ce8c0"
+        },
+        {
+          "backend": "javascript",
+          "SHA256": "94c6fc095c1fa8225a5374fc149f2a9dbf5ea5e442b179ea90aa310d65587306",
+          "outputSHA256": "0d3cd3a83c96c56104981da5e7fe8c408b0c0918e506f1d7a88efe4c022ce8c0"
+        }
+      ],
+      "mutatedQuerySHA256": "c54c276843ac606d96a560b5324a9d4c2c04c8ba3782c1a8fea3d98c9929d775"
+    },
+    {
+      "name": "reverse-order",
+      "status": "DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE",
+      "output": "[400882, 100229]\n[400882, 100229]\n[100229]\n[400882]\n[]:143:2004",
+      "artifacts": [
+        {
+          "backend": "native",
+          "SHA256": "3a2400f8036d69c8d017370829c422883f15da2018ccc05275b3fe9215d8bf96",
+          "outputSHA256": "76d38f0e2efb1cb74cb1cfacdcaa93809154258e51a192f4f5b7e07dfb624ccd"
+        },
+        {
+          "backend": "javascript",
+          "SHA256": "5397ce881927452854e064e655d3f86b68580d34beafa309baee5426c7afcde9",
+          "outputSHA256": "76d38f0e2efb1cb74cb1cfacdcaa93809154258e51a192f4f5b7e07dfb624ccd"
+        }
+      ],
+      "mutatedQuerySHA256": "58852e93b7998740b6ffc80850f94747b5bb140789cdcec7e35b4b50e286a0f0"
+    },
+    {
+      "name": "wrong-slot",
+      "status": "DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE",
+      "output": "[100229, 300631]\n[]\n[100229, 300631]\n[400822]\n[]:143:2004",
+      "artifacts": [
+        {
+          "backend": "native",
+          "SHA256": "ee0ab1501933fefd03674c96576643e58db739dad647393f938329728f06a0e7",
+          "outputSHA256": "776fb58860412755303a6e6093a87276225486f0ff423158ef4200bb8ca2cae0"
+        },
+        {
+          "backend": "javascript",
+          "SHA256": "b9b44ca2d308c11127e4f510ec5802ce75cec54499f5906da9905634ad1bea4d",
+          "outputSHA256": "776fb58860412755303a6e6093a87276225486f0ff423158ef4200bb8ca2cae0"
+        }
+      ],
+      "mutatedQuerySHA256": "c0710562277faeb5600523cff89f35765962d9b000d6dcb42a24138aa9af29aa"
+    },
+    {
+      "name": "early-membership",
+      "status": "DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE",
+      "output": "[100229, 200442, 400882]\n[100229, 200442, 400882]\n[100229]\n[200442, 400882]\n[100222, 200442, 400882]:143:2004",
+      "artifacts": [
+        {
+          "backend": "native",
+          "SHA256": "f2ea41bfc30a1cac4dbc1eef76e6b0a68a682694f43870b550ed5993b1d1446d",
+          "outputSHA256": "4e9574e01d2de0326e2e0e0bd6ae693de030179a3e583b1f7d1d3f87f556c286"
+        },
+        {
+          "backend": "javascript",
+          "SHA256": "a64fa5e79d8ea69357155457455baca8c9cfb7ecc9b8b000edb6da3ee00981db",
+          "outputSHA256": "4e9574e01d2de0326e2e0e0bd6ae693de030179a3e583b1f7d1d3f87f556c286"
+        }
+      ],
+      "mutatedQuerySHA256": "8f95ebf4b19187de99a9e182a21196fb73ef4e096753d7358b8803506f0dbaf2"
+    },
+    {
+      "name": "lost-main-owner",
+      "status": "DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE",
+      "output": "[100229, 400882]\n[]\n[100229]\n[400882]\n[]:143:2004",
+      "artifacts": [
+        {
+          "backend": "native",
+          "SHA256": "77dccfc14cd8c57539a4d1312ae57c857b79502405f637f0925a9cc8b3b80884",
+          "outputSHA256": "fa91d63623adfcd3a1edb9b0753a5ea26598bcfb67b61c72435e5aae29a7d2ce"
+        },
+        {
+          "backend": "javascript",
+          "SHA256": "82ba7d7012ce91f87b5f8331b5816089b9dbbaab76ded18e71f52c0a76147e15",
+          "outputSHA256": "fa91d63623adfcd3a1edb9b0753a5ea26598bcfb67b61c72435e5aae29a7d2ce"
+        }
+      ],
+      "mutatedQuerySHA256": "3cc97613a33205c23b29aa7c495a876c24a06da34392e5b297ac8406092b511a"
+    },
+    {
+      "name": "drop-flag",
+      "status": "DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE",
+      "output": "[100222, 400882]\n[100222, 400882]\n[100222]\n[400882]\n[]:143:2004",
+      "artifacts": [
+        {
+          "backend": "native",
+          "SHA256": "d95fe9bc515bf64f2cda666d31fbb56eb918ae3dbe11cc7477edea37a53696a6",
+          "outputSHA256": "6b64826798b24c1f145dce6333631a4a75f3f4028132171a401841597fe5af47"
+        },
+        {
+          "backend": "javascript",
+          "SHA256": "f8f3731f2c59fb0fdfa9e73ebec0bfbccbaf6cc8752d59e4e25c1374719094d8",
+          "outputSHA256": "6b64826798b24c1f145dce6333631a4a75f3f4028132171a401841597fe5af47"
+        }
+      ],
+      "mutatedQuerySHA256": "1499fb556668eaaa61b310ac47862fc5e42ccf5ca11676927b0f6d2b9eb8616e"
+    }
+  ],
+  "limitsSeconds": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "candidateSHA256": "c54c276843ac606d96a560b5324a9d4c2c04c8ba3782c1a8fea3d98c9929d775"
+}

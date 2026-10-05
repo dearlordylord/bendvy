@@ -1,0 +1,32 @@
+{
+  "fixtureSHA256": "2387171653b4dd7d582efafcceb396b4654e1cc9776b0612ad1a3d5638ddee81",
+  "status": "FAIL",
+  "controls": [
+    {
+      "name": "baseline",
+      "status": "PASS",
+      "output": "[100229, 400882]\n[100229, 400882]\n[100229]\n[400882]\n[]:143:2004",
+      "artifacts": [
+        {
+          "backend": "native",
+          "SHA256": "40df47f0127f33e315fd06d02ec5887d5ec6c7f580c76ff136574c1614bb6cad",
+          "outputSHA256": "0d3cd3a83c96c56104981da5e7fe8c408b0c0918e506f1d7a88efe4c022ce8c0"
+        },
+        {
+          "backend": "javascript",
+          "SHA256": "94c6fc095c1fa8225a5374fc149f2a9dbf5ea5e442b179ea90aa310d65587306",
+          "outputSHA256": "0d3cd3a83c96c56104981da5e7fe8c408b0c0918e506f1d7a88efe4c022ce8c0"
+        }
+      ],
+      "mutatedQuerySHA256": "c54c276843ac606d96a560b5324a9d4c2c04c8ba3782c1a8fea3d98c9929d775"
+    }
+  ],
+  "limitsSeconds": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "candidateSHA256": "c54c276843ac606d96a560b5324a9d4c2c04c8ba3782c1a8fea3d98c9929d775",
+  "error": "('reverse-order', 2)"
+}
