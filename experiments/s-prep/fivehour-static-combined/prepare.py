@@ -21,6 +21,9 @@ def prepare(root,destination,native=False):
   (core/name).write_bytes(source.read_bytes())
  pins={str(p.relative_to(destination)):sha(p) for p in destination.rglob('*.bend')};cache=before['cacheSpecialization'];cache['runtimeClosure']={name:pins[name] for name in cache['runtimeClosure']};cache['runtimeClosureSHA256']=hashlib.sha256(json.dumps(cache['runtimeClosure'],sort_keys=True,separators=(',',':')).encode()).hexdigest()
  for name in replacements:cache['specializedClosure']['experiments/s-integrate/'+name]=pins['experiments/s-integrate/'+name]
+ for field,name in [('cacheSourceSHA256','cache.bend'),('cachedPayloadSHA256','cached-payload.bend')]:
+  cache['baseline'+field[0].upper()+field[1:]]=cache[field]
+  cache[field]=pins['experiments/s-integrate/'+name]
  cache['derivedPrivateVariant']='combined-static-held-cache-v1';before['sources']=pins
  (destination/'overlay.json').write_text(json.dumps(before,indent=2)+'\n');(destination/'cache-specialization.json').write_text(json.dumps(cache,indent=2)+'\n')
  receipt={'status':'UNMEASURED_COMBINED_SOURCE','recipeSHA256':sha(root/'experiments/s-prep/fivehour-cache-integration/materialize.py'),'helperSHA256':sha(helper),'helperCommit':subprocess.check_output(['git','-C',str(root),'rev-parse','HEAD'],text=True).strip(),'staticCacheSources':replacements,'staticHeldClosureSHA256':baseline,'runtimeClosureSHA256':cache['runtimeClosureSHA256'],'runtimeModules':len(cache['runtimeClosure']),'nativePayload':native,'frozenCallback':False}
