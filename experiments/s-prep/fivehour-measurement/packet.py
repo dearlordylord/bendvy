@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Executable packet boundary, blocked unless exact reviewed contract accepted."""
-import argparse, datetime, json, os, pathlib, signal, subprocess, sys
+import argparse, datetime, json, os, pathlib, signal, subprocess, sys, tempfile
 import boundary, guard, decision, snapshot
 H=pathlib.Path(__file__).resolve().parent
 ENV={'HOME':'/home/node','PATH':'/home/node/.bend/bin:/usr/local/bin:/usr/bin:/bin','LANG':'C.UTF-8','LC_ALL':'C.UTF-8'}
@@ -35,7 +35,7 @@ def canonical_parent(m):
     raise ValueError('direct evaluator invocation forbidden; canonical next ancestor absent')
 
 def main():
-    a=argparse.ArgumentParser();a.add_argument('--manifest',type=pathlib.Path,required=True);a.add_argument('--sha256',required=True);a.add_argument('--baseline-manifest',type=pathlib.Path,required=True);a.add_argument('--baseline-sha256',required=True);a.add_argument('--output',type=pathlib.Path,required=True);a.add_argument('--acceptance',type=pathlib.Path);a.add_argument('--acceptance-sha256');a.add_argument('--preflight-only',action='store_true');a.add_argument('--cpu',type=int,default=11);args=a.parse_args()
+    a=argparse.ArgumentParser();a.add_argument('--manifest',type=pathlib.Path,required=True);a.add_argument('--sha256',required=True);a.add_argument('--baseline-manifest',type=pathlib.Path,required=True);a.add_argument('--baseline-sha256',required=True);outputs=a.add_mutually_exclusive_group(required=True);outputs.add_argument('--output',type=pathlib.Path);outputs.add_argument('--output-root',type=pathlib.Path);a.add_argument('--acceptance',type=pathlib.Path);a.add_argument('--acceptance-sha256');a.add_argument('--preflight-only',action='store_true');a.add_argument('--cpu',type=int,default=11);args=a.parse_args()
     if args.cpu!=11:raise ValueError('fixed CPU11 required')
     original=json.loads(args.manifest.read_text()) if guard.sha(args.manifest)==args.sha256 else {}
     allow=snapshot.editable(original) if original else set()
@@ -45,8 +45,9 @@ def main():
     if not args.acceptance or not args.acceptance_sha256:raise ValueError('accepted contract binding required; no child executed')
     if guard.sha(args.acceptance)!=args.acceptance_sha256:raise ValueError('acceptance file digest changed')
     canonical_parent(m)
+    if not args.output_root:raise ValueError('execution requires fixed --output-root, not one-shot output leaf')
     contract=json.loads(args.acceptance.read_text())
-    required={'accepted':True,'manifestSHA256':args.sha256,'baselineManifestSHA256':args.baseline_sha256,'protocolVersion':'fresh16-one-bracket-v1','packetCap':8,'noiseLimit':0.10,'bootstrapSeed':23,'bootstrapResamples':10000,'orchestrationPolicy':'backend-natural-owner-retention','deadlineUTC':guard.DEADLINE.isoformat()}
+    required={'artifactRoot':str(args.output_root.resolve()),'accepted':True,'manifestSHA256':args.sha256,'baselineManifestSHA256':args.baseline_sha256,'protocolVersion':'fresh16-one-bracket-v1','packetCap':8,'noiseLimit':0.10,'bootstrapSeed':23,'bootstrapResamples':10000,'orchestrationPolicy':'backend-natural-owner-retention','deadlineUTC':guard.DEADLINE.isoformat()}
     if any(contract.get(k)!=v for k,v in required.items()):raise ValueError('incomplete/different accepted contract; no child executed')
     # Historical receipts cannot authorize the current candidate snapshot.
     live=contract.get('liveChecks')
@@ -55,8 +56,9 @@ def main():
     checkscript=pathlib.Path(live['script'])
     if m['files'].get(str(checkscript))!=live['sha256'] or guard.sha(checkscript)!=live['sha256']:raise ValueError('live check implementation is not protected')
     allowed=pathlib.Path('/tmp/bendvy-fivehour-packets');allowed.mkdir(exist_ok=True)
-    if args.output.absolute()!=args.output.resolve() or not args.output.resolve().is_relative_to(allowed) or args.output.resolve()==allowed:raise ValueError('output must be a new nonsymlink directory below /tmp/bendvy-fivehour-packets')
-    args.output.mkdir(exist_ok=False);os.sched_setaffinity(0,{args.cpu});logs=[];r={'environment':ENV,'cpu':11,'nativePolicy':{'threads':1,'gpu':'off','clang':'-O3'},'sourceAndTools':m['files'],'artifactPins':{},'status':'INCOMPLETE','manifestSHA256':args.sha256,'acceptanceSHA256':args.acceptance_sha256,'raw':{},'commands':logs,'productAcceptance':False}
+    root=args.output_root
+    if root.absolute()!=root.resolve() or not root.resolve().is_relative_to(allowed) or root.resolve()==allowed:raise ValueError('artifact root must be a nonsymlink directory below /tmp/bendvy-fivehour-packets')
+    root.mkdir(parents=True,exist_ok=True);args.output=pathlib.Path(tempfile.mkdtemp(prefix='packet-',dir=root));os.sched_setaffinity(0,{args.cpu});logs=[];r={'environment':ENV,'cpu':11,'nativePolicy':{'threads':1,'gpu':'off','clang':'-O3'},'sourceAndTools':m['files'],'artifactPins':{},'status':'INCOMPLETE','manifestSHA256':args.sha256,'acceptanceSHA256':args.acceptance_sha256,'raw':{},'commands':logs,'productAcceptance':False}
     try:
         captured,captured_digest=snapshot.capture(args.manifest,args.sha256,args.output/'candidate-snapshot');m=boundary.verify(captured,captured_digest);r['candidateSnapshotManifestSHA256']=captured_digest;r['candidateSnapshotFiles']=m['files']
         checkoutput=args.output/'fresh-checks'
@@ -114,7 +116,7 @@ def main():
     if r['status']=='PACKET_COMPLETE':
         print('REPORT '+json.dumps({'candidate':r['decision'],'fixedInitialBaseline':r['baselineDecision'],'canonicalPriorBestScoreComparisonRequired':True,'canonicalKeepAuthorized':False,'keepProposed':r['keepProposed'],'focusedGoalMet':r['decision']['focusedGoalMet'],'productAcceptance':False},sort_keys=True))
         print('METRIC focused_score='+format(r['decision']['metric'],'.17g'))
-    print(json.dumps({'status':r['status'],'metric':r.get('decision',{}).get('metric') if r['status']=='PACKET_COMPLETE' else None,'keepProposed':r.get('keepProposed',False) if r['status']=='PACKET_COMPLETE' else False,'receipt':str(args.output/'packet.json')},sort_keys=True))
+    print(json.dumps({'status':r['status'],'metric':r.get('decision',{}).get('metric') if r['status']=='PACKET_COMPLETE' else None,'keepProposed':r.get('keepProposed',False) if r['status']=='PACKET_COMPLETE' else False,'receipt':str(args.output/'packet.json'),'packetReceiptSHA256':guard.sha(args.output/'packet.json'),'completeCheckReceipt':str(checkreceipt) if 'checkreceipt' in locals() else None,'completeCheckReceiptSHA256':r.get('freshCheckReceiptSHA256')},sort_keys=True))
     if r['status']!='PACKET_COMPLETE':raise SystemExit(1)
 
 if __name__=='__main__':main()
