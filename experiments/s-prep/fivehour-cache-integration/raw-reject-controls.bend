@@ -121,7 +121,7 @@ def motion_positive_insert(result:T.CommandResult<S.World<T.MotionSchema,K.Cache
     case T.CommandQueued{world}:
       do IO<Unit>:
         staged : S.World<T.MotionSchema,K.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,K.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode> <- motion_full("motion:positive-insert-staged",world)
-        published : S.World<T.MotionSchema,K.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,K.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode> <- motion_applied("motion:positive-insert-applied",Q.apply_checked(T.MotionSchema,K.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,K.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,S.publish(T.MotionSchema,K.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,K.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,staged),2))
+        published : S.World<T.MotionSchema,K.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,K.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode> <- motion_applied("motion:positive-insert-applied",Q.apply_checked(T.MotionSchema,K.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,K.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,staged,2))
         return Unit{}
     case _: IO.print("motion:positive-insert:unexpected")
 def motion_positive_reserved(result:T.Reservation<S.World<T.MotionSchema,K.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,K.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Handle<T.MotionSchema>,S.Bundle<T.Position,T.Velocity,T.Selected>>) -> IO(Unit):
@@ -130,7 +130,7 @@ def motion_positive_reserved(result:T.Reservation<S.World<T.MotionSchema,K.Cache
       do IO<Unit>:
         IO.print("motion:positive-handle:" ++ U32.show(ns) ++ ":" ++ U32.show(id))
         staged : S.World<T.MotionSchema,K.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,K.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode> <- motion_full("motion:positive-reserve-staged",world)
-        published : S.World<T.MotionSchema,K.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,K.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode> <- motion_applied("motion:positive-reserve-applied",Q.apply_checked(T.MotionSchema,K.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,K.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,S.publish(T.MotionSchema,K.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,K.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,staged),1))
+        published : S.World<T.MotionSchema,K.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,K.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode> <- motion_applied("motion:positive-reserve-applied",Q.apply_checked(T.MotionSchema,K.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,K.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,staged,1))
         motion_positive_insert(B.motion_insert(published,S.Handle{ns,id},T.Position{quad(100),7}))
     case _: IO.print("motion:positive-reserve:unexpected")
 def motion_positive_created(result:T.Creation<S.Factory,S.World<T.MotionSchema,K.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,K.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>>) -> IO(Unit):
@@ -159,7 +159,7 @@ def health_positive_insert(result:T.CommandResult<S.World<T.HealthSchema,K.Cache
     case T.CommandQueued{world}:
       do IO<Unit>:
         staged : S.World<T.HealthSchema,K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,K.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode> <- health_full("health:positive-insert-staged",world)
-        published : S.World<T.HealthSchema,K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,K.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode> <- health_applied("health:positive-insert-applied",Q.apply_checked(T.HealthSchema,K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,K.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,S.publish(T.HealthSchema,K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,K.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,staged),2))
+        published : S.World<T.HealthSchema,K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,K.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode> <- health_applied("health:positive-insert-applied",Q.apply_checked(T.HealthSchema,K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,K.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,staged,2))
         return Unit{}
     case _: IO.print("health:positive-insert:unexpected")
 def health_positive_reserved(result:T.Reservation<S.World<T.HealthSchema,K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,K.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Handle<T.HealthSchema>,S.Bundle<T.Vitals,T.Armor,T.Tracked>>) -> IO(Unit):
@@ -168,7 +168,7 @@ def health_positive_reserved(result:T.Reservation<S.World<T.HealthSchema,K.Cache
       do IO<Unit>:
         IO.print("health:positive-handle:" ++ U32.show(ns) ++ ":" ++ U32.show(id))
         staged : S.World<T.HealthSchema,K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,K.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode> <- health_full("health:positive-reserve-staged",world)
-        published : S.World<T.HealthSchema,K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,K.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode> <- health_applied("health:positive-reserve-applied",Q.apply_checked(T.HealthSchema,K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,K.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,S.publish(T.HealthSchema,K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,K.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,staged),1))
+        published : S.World<T.HealthSchema,K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,K.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode> <- health_applied("health:positive-reserve-applied",Q.apply_checked(T.HealthSchema,K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,K.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,staged,1))
         health_positive_insert(B.health_insert(published,S.Handle{ns,id},T.Vitals{quad(100),9,2}))
     case _: IO.print("health:positive-reserve:unexpected")
 def health_positive_created(result:T.Creation<S.Factory,S.World<T.HealthSchema,K.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,K.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>>) -> IO(Unit):
