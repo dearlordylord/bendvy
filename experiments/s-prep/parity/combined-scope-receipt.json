@@ -1,0 +1,44 @@
+{
+  "baseline": "56b72f6",
+  "proposalSha256": "43e4dc4049a7f28f9b23b98397514f764b0324bf9c2a669740d3a96f9e4d20f3",
+  "auditSha256": "8e476ec28b8d60f67b34b2eb43eecfb70fd3038435f667c3c9ccacbc6b1de261",
+  "signatureImplementationSha256": "df4dfd9138252423f474f910408f8dfdd7520d4b62ff5c47bc019579391f7758",
+  "accepted": false,
+  "files": {
+    "experiments/s-perf/candidate/storage.bend": {
+      "status": "PROPOSED_SCOPE_PASS",
+      "candidateSha256": "27f6b8aa69966eb6e349e7337b0947e50179dbc26cdcc363c1e857bb79cc4130",
+      "baselineSha256": "8440ed1ec21c8d4874072aed8ca0ec4967f4e4e522f88d36f68050685d9e0345",
+      "sourcePath": "/workspace/formal-proofs/bendvy-worktrees/twohour-fusion-review/experiments/s-perf/candidate/storage.bend"
+    },
+    "experiments/s-perf/candidate/query.bend": {
+      "status": "PROPOSED_SCOPE_PASS",
+      "candidateSha256": "c54c276843ac606d96a560b5324a9d4c2c04c8ba3782c1a8fea3d98c9929d775",
+      "baselineSha256": "5fb8447d34edc2260341341c36dc7970964318fa582cdd078da296c5f9e1a1ce",
+      "sourcePath": "/workspace/formal-proofs/bendvy-worktrees/twohour-fusion-review/experiments/s-perf/candidate/query.bend"
+    }
+  },
+  "status": "PROPOSED_SCOPE_PASS",
+  "candidateCommit": "a65021a392b1c693914e61515ff529473699cad7",
+  "pureReadOnly": true,
+  "compilerExecuted": false,
+  "budgetOrNativeThresholdApproved": false,
+  "controls": {
+    "public-signature": {
+      "status": "REJECTED",
+      "reason": "baseline definitions changed",
+      "mutation": "one baseline header U32 parameter changed to U64; syntactically terminated header",
+      "temporaryCandidateSha256": "86cf1813bbbb99c236443932fb1e63cd2c7b9255a3d24c1eae7314d2e71a3630"
+    },
+    "unlisted-private-helper": {
+      "status": "REJECTED",
+      "reason": "added definitions differs from exact allowlist",
+      "temporaryCandidateSha256": "f6c0dac8b6872dae39ac664dd49f17916b854ebf727c7e46b6c8fe17bd108a4a"
+    },
+    "outside-declared-repo": {
+      "status": "REJECTED",
+      "reason": "candidate path must match declared repository/logical binding"
+    }
+  },
+  "limitations": "Literal private additions are proposed review input, not accepted manifest or proof of privacy/semantics. Scope uses current segment signatures only, without Bend/compiler/runtime; tool and performance approvals remain external."
+}

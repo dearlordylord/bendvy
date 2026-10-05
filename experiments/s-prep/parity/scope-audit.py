@@ -68,7 +68,9 @@ def audit(repo, proposal_path, candidates):
     if not isinstance(proposal,dict) or set(proposal)!={'files'} or set(proposal['files'])!=set(FILES) or set(candidates)!=set(FILES):raise ValueError('exact two candidate/proposal bindings required')
     result={'baseline':BASELINE,'proposalSha256':sha(raw),'auditSha256':sha(Path(__file__).read_bytes()),'signatureImplementationSha256':sha((HERE.parent/'segment-run.py').read_bytes()),'accepted':False,'files':{}}
     for logical in FILES:
-        path=confined(candidates[logical]);candidate=path.read_text();original=subprocess.check_output(['git','show',BASELINE+':'+logical],cwd=repo,timeout=5).decode()
+        path=confined(candidates[logical])
+        if path != repo/logical:raise ValueError('candidate path must match declared repository/logical binding')
+        candidate=path.read_text();original=subprocess.check_output(['git','show',BASELINE+':'+logical],cwd=repo,timeout=5).decode()
         result['files'][logical]=dict(audit_text(original,candidate,proposal['files'][logical]),sourcePath=str(path))
     result['status']='PROPOSED_SCOPE_PASS';return result
 
