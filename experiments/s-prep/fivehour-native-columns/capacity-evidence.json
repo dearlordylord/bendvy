@@ -1,0 +1,58 @@
+{
+  "scope": "finite physical Main/Aux/metadata equal capacities and guarded actual Type-owner opening/reinsertion; no universal law",
+  "cases": {
+    "Native": {
+      "generatedSha256": "8c76c085f129a20b6b01457c5355ca63cd398046712ba15ecc34951e2b7ba260",
+      "artifactSha256": "396c7e64308a28eed19ac4fa3739aba754b037ca5d26cd68362480184c3e2902",
+      "outputSha256": "71ea0946cbd443a1ae194851fa659929ba0b234b5b28c4241d5b60e62b50bb54",
+      "closure": {
+        "/tmp/fivehour-native-columns-capacity-q72amegv/core/fixture.bend": "180bb4f2b0941210bd334ce371876d9ab95dce56cbb866caca5069472999a9c7",
+        "/tmp/fivehour-native-columns-capacity-q72amegv/core/storage.bend": "cc33de4db37a732af8322442be2fb615f35ed8465a0d9470616e1bbfe2d25e3a",
+        "/tmp/fivehour-native-columns-capacity-q72amegv/core/cache.bend": "c979f39e22a442e2442c87d03c69f16b7cb2264bbc0bff5edbb9f54dac59a223",
+        "/tmp/fivehour-native-columns-capacity-q72amegv/core/cached-payload.bend": "c4f08daeadfc20217b9778fc33a57271376a3831ae27c4ceb64fd2a962b9095f",
+        "/tmp/fivehour-native-columns-capacity-q72amegv/core/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+        "/tmp/fivehour-native-columns-capacity-q72amegv/core/uncached-payload.bend": "2938897514720ed50abc100d99bbc7effd730a8b5c155ad8d9ac98d1bf5143b4"
+      },
+      "status": "PHYSICAL_CAPACITY_OWNER_BOUNDS_PASS18"
+    }
+  },
+  "mutants": {
+    "growth": {
+      "generatedSha256": "d04fde4a5022a5408ab8a01430cb38d3c69232430abb1a2fc9249967b0291bb6",
+      "artifactSha256": "04f28965402cdef250753621f70d6b378489e8d51af44ac2fb223ef662887c88",
+      "outputSha256": "141ab0cab40568625dca52f22f15bea43496a1565c4fb77a36da8a37a2c5d543",
+      "closure": {
+        "/tmp/fivehour-native-columns-capacity-q72amegv/core/fixture.bend": "180bb4f2b0941210bd334ce371876d9ab95dce56cbb866caca5069472999a9c7",
+        "/tmp/fivehour-native-columns-capacity-q72amegv/core/storage.bend": "b74200d5f9acb8b7464ee2cad73b7b1fdcfe2bf5ac407dffe70956dbb5df2fb5",
+        "/tmp/fivehour-native-columns-capacity-q72amegv/core/cache.bend": "c979f39e22a442e2442c87d03c69f16b7cb2264bbc0bff5edbb9f54dac59a223",
+        "/tmp/fivehour-native-columns-capacity-q72amegv/core/cached-payload.bend": "c4f08daeadfc20217b9778fc33a57271376a3831ae27c4ceb64fd2a962b9095f",
+        "/tmp/fivehour-native-columns-capacity-q72amegv/core/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+        "/tmp/fivehour-native-columns-capacity-q72amegv/core/uncached-payload.bend": "2938897514720ed50abc100d99bbc7effd730a8b5c155ad8d9ac98d1bf5143b4"
+      },
+      "status": "COMPILED_ACTUAL_COUNTER_ORACLE_DETECTED"
+    },
+    "bounds": {
+      "generatedSha256": "485b2d8706ec2d6f08e2227f41fc007d6dd9f7e810b343aa4cf7fe360494b989",
+      "artifactSha256": "3f02e639dc1cb56d14e25e6d6bf447110e69f96200e9f4265b60f9f3fbb96fbc",
+      "outputSha256": "50139c4c7da9fc4ecedd735fe090a412f1288b334cbc1a14249461a527c8db95",
+      "closure": {
+        "/tmp/fivehour-native-columns-capacity-q72amegv/core/fixture.bend": "180bb4f2b0941210bd334ce371876d9ab95dce56cbb866caca5069472999a9c7",
+        "/tmp/fivehour-native-columns-capacity-q72amegv/core/storage.bend": "a0dee4a683c319e9bd4d4ab06155bf97f18b2460908c3efcd783177a89f4fc51",
+        "/tmp/fivehour-native-columns-capacity-q72amegv/core/cache.bend": "c979f39e22a442e2442c87d03c69f16b7cb2264bbc0bff5edbb9f54dac59a223",
+        "/tmp/fivehour-native-columns-capacity-q72amegv/core/cached-payload.bend": "c4f08daeadfc20217b9778fc33a57271376a3831ae27c4ceb64fd2a962b9095f",
+        "/tmp/fivehour-native-columns-capacity-q72amegv/core/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+        "/tmp/fivehour-native-columns-capacity-q72amegv/core/uncached-payload.bend": "2938897514720ed50abc100d99bbc7effd730a8b5c155ad8d9ac98d1bf5143b4"
+      },
+      "status": "COMPILED_ACTUAL_COUNTER_ORACLE_DETECTED"
+    }
+  },
+  "limitsSeconds": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "cpu": 8,
+  "expected": "1:1:1:1:1:E:E:37\n2:2:2:2:2:E:E:37\n4:4:4:4:4:E:E:37\n8:8:8:8:8:E:E:37\n16:16:16:16:16:E:E:37\n32:32:32:32:32:E:E:37\n64:64:64:64:64:E:E:37\n128:128:128:128:128:E:E:37\n256:256:256:256:256:E:E:37\n512:512:512:512:512:E:E:37\n1024:1024:1024:1024:1024:E:E:37\n2048:2048:2048:2048:2048:E:E:37\n4096:4096:4096:4096:4096:E:E:37\n8192:8192:8192:8192:8192:E:E:37\n16384:16384:16384:16384:16384:E:E:37\n32768:32768:32768:32768:32768:E:E:37\n65536:65536:65536:65536:65536:E:E:37\n65537:131072:131072:131072:131072:E:E:37\n",
+  "status": "FINITE_NATIVE_COLUMNS_PHYSICAL_PASS"
+}
