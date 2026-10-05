@@ -39,7 +39,7 @@ def main():
     try:
         captured,captured_digest=snapshot.capture(args.manifest,args.sha256,args.output/'candidate-snapshot');m=boundary.verify(captured,captured_digest);r['candidateSnapshotManifestSHA256']=captured_digest;r['candidateSnapshotFiles']=m['files']
         checkoutput=args.output/'fresh-checks'
-        child([sys.executable,checkscript,'--js-overlay',args.output/'candidate-snapshot/JS','--native-overlay',args.output/'candidate-snapshot/Native','--output',checkoutput,'--cpu','9'],live['wholeCommandLimit'],logs)
+        child([m['tools']['python'],checkscript,'--js-overlay',args.output/'candidate-snapshot/JS','--native-overlay',args.output/'candidate-snapshot/Native','--output',checkoutput,'--cpu','9'],live['wholeCommandLimit'],logs)
         checkreceipt=checkoutput/live['receipt'];checks=json.loads(checkreceipt.read_text())
         required_ids={'materialize-controls','host12','access','e11','owned-storage','staging','tx-baseline','tx-torn-tail','tx-lost-mark','tx-inverse-order'}
         if set(live['requiredGateIDs'])!=required_ids or checks.get('status')!='FRESH_TWO_ROLE_CONNECTED_GATES_PASS' or checks.get('schemaVersion')!=1 or set(checks.get('roles',{}))!={'JS','Native'}:raise ValueError('current snapshot authoritative gates incomplete')
@@ -79,7 +79,7 @@ def main():
                             text=child(command,5,logs);raw=args.output/f'{cohort}-{role}-{sample}-{schema}-{backend}.txt';raw.write_text(text);outputs[backend]=raw
                         for backend in ('Native','JS'):
                             receipt=args.output/f'{cohort}-{role}-{sample}-{schema}-{backend}-check.json'
-                            child([sys.executable,H/'semantic-check.py','--bend-output',outputs[backend],'--ts-output',outputs['TS'],'--schema',schema,'--batch','16','--evidence',receipt],5,logs)
+                            child([m['tools']['python'],H/'semantic-check.py','--bend-output',outputs[backend],'--ts-output',outputs['TS'],'--schema',schema,'--batch','16','--evidence',receipt],5,logs)
                             value=float(next(x.split(':',1)[1] for x in outputs[backend].read_text().splitlines() if x.startswith('BATCH-MILLISECONDS:')))
                             ts=json.loads(outputs['TS'].read_text());tsvalue=ts['batchMilliseconds']
                             key=backend+'/'+schema
