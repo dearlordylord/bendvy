@@ -94,7 +94,7 @@ def main():
     metadata={'status':'INCOMPLETE','startedAt':stamp(),'overlayManifestSHA256':sha(args.overlay/'overlay.json'),
               'overlay':manifest,'nativeOptimization':'O0','nativeWorkers':1,'gpu':'off','cpuAffinity':[args.cpu],
               'isolation':'affinity only; machine is not exclusively reserved','purpose':'semantic mutation evidence; not comparative timing',
-              'limitsSeconds':{'checker':5,'runtime':5,'codegen':30,'clang':120},
+              'limitsSeconds':{'checker':int(os.environ.get('BENDVY_CHECKER_SECONDS','5')),'runtime':5,'codegen':30,'clang':120},
               'runnerSHA256':sha(Path(__file__)),'originalRunnerSHA256':sha(BASE/'host-mutations.py'),
               'decoderSHA256':sha(BASE/'trace-decode.py'),'comparatorSHA256':sha(BASE/'trace-compare.py'),
               'adaptedMutations':mutations,'suppressedSetterVariant':setter_variant,'suppressedSetterReplacementCount':1,'commands':[],
@@ -102,6 +102,7 @@ def main():
               'queryOrderSeam':'Full indexed-finalization tuple targets actual struct_idx_finish, not retained unused read_rows_finish'}
     original_command=M.command
     def logged_command(command,expected=0,timeout=5):
+        if "--check-only" in list(map(str,command)):timeout=int(os.environ.get("BENDVY_CHECKER_SECONDS","5"))
         number=len(metadata['commands'])+1
         log=args.output_dir/f'command-{number:03d}.txt'
         entry={'command':list(map(str,command)),'expectedExit':expected,'limitSeconds':timeout,

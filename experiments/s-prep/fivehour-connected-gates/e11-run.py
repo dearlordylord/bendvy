@@ -135,6 +135,7 @@ def main():
             report['mutationAdapterSha256'] = sha(__file__)
             original_command = runner.B.command
             def instrumented_command(command, expected=0, timeout=5):
+                if "--check-only" in list(map(str,command)):timeout=int(os.environ.get("BENDVY_CHECKER_SECONDS","5"))
                 started = time.monotonic()
                 phase = {'command':[str(a) for a in command], 'limitSeconds':timeout}
                 try:

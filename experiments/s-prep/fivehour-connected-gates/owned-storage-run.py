@@ -24,6 +24,7 @@ assert (input_candidate/'types.bend').read_bytes()==subprocess.check_output(['gi
 (input_root/'owned-index-core.bend').write_bytes((FIXTURES.parent/'owned-index-core.bend').read_bytes())
 HERE=input_candidate
 def run(args,limit=5,ok=0):
+ if "--check-only" in list(map(str,args)):limit=int(os.environ.get("BENDVY_CHECKER_SECONDS","5"))
  p=subprocess.Popen(list(map(str,args)),stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True,start_new_session=True)
  try:out,err=p.communicate(timeout=limit)
  except subprocess.TimeoutExpired:os.killpg(p.pid,signal.SIGKILL);p.communicate();raise

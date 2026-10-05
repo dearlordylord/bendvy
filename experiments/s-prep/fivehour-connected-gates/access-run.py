@@ -26,9 +26,9 @@ files={};closure(SOURCE/ENTRY,files)
 assert required.issubset(files),'Candidate modules absent from checked closure'
 def check(path):
  start=time.monotonic();p=subprocess.Popen(['taskset','-c',str(args.cpu),'bend',str(path),'--check-only'],stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,start_new_session=True)
- try:out,_=p.communicate(timeout=5)
+ try:out,_=p.communicate(timeout=int(os.environ.get("BENDVY_CHECKER_SECONDS", "5")))
  except subprocess.TimeoutExpired:
-  os.killpg(p.pid,signal.SIGKILL);out,_=p.communicate();raise AssertionError('five-second checker limit: '+out)
+  os.killpg(p.pid,signal.SIGKILL);out,_=p.communicate();raise AssertionError('checker deadline: '+out)
  return {'exit':p.returncode,'seconds':time.monotonic()-start,'output':out}
 def mutate(folder,label):
  file=folder/ENTRY;s=file.read_text();location='motion_read'

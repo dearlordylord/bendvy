@@ -231,3 +231,9 @@ The user authorized the next implementation seam after the exhausted20-attempt w
 ## Primitive-column integration checkpoint
 
 Current v4 source preserves arbitrary affine Type components. Fresh bounded controls pass 52 lifecycle checkpoints/backend and 40 actual query/command observations for four backend/schema subjects, including intended compiling mutant witnesses. Full Host checking still exceeds the unchanged five-second limit; full22 and JS/Native performance acceptance remain open. No measured budget was renewed. See [integration report](reports/primitive-columns-integration.md) for source-pinned receipts, historical failures and production constructor-alignment follow-up. Next: recover exact-source connected checking and complete all existing gates before comparative measurement.
+
+## Authorized 15-second diagnostic checker allowance
+
+On 2026-10-05 the user explicitly authorized a 15-second checker limit to obtain the current JS/Native speed comparison. This applies to this executable diagnostic validation/comparison, not ECS proof approval or a renewed optimization loop. `BENDVY_CHECKER_SECONDS=15` opts connected executable checks into that allowance; default remains five seconds. Runtime/codegen/clang limits remain 5/30/120 seconds. The prior canonical 20-attempt loop is untouched; altered protected runner bytes require explicit contract/pin reconciliation before canonical reuse.
+
+15-second diagnostic result: Host and batch checker passed, then C codegen exceeded30s. One exact Motion JS/TS sample was 1966/902.517064 ms (2.178352× elapsed), with full65-world fields matched; next runtime exceeded5s. No qualified ratio, Native/Health result or full22 acceptance. [Receipts/reproducer](../experiments/s-prep/primitive-speed-check/README.md).

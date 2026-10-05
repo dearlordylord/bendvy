@@ -5,6 +5,7 @@ from pathlib import Path
 import supervisor
 import provider_controls as PC
 HERE=Path(__file__).resolve().parent;ROOT=HERE.parents[2]
+assert int(os.environ.get("BENDVY_CHECKER_SECONDS","5")) in (5,15), "Unreviewed checker limit"
 CHECK_LIMIT_SECONDS=3600
 CHECK_STARTED_MONOTONIC=time.monotonic()
 def remaining():
@@ -69,7 +70,7 @@ def validate_static_access(receipt,overlay,control_sources):
  assert len(boundary['cases'])==8 and {c['name'] for c in boundary['cases']}==set(CASES)
  for case in boundary['cases']:
   contract=CASES[case['name']];assert case['exit']==contract['exit'] and case['archiveSHA256']==contract['sourceSHA256']
-  assert case['seconds']<=5 and all(d in case['output'] for d in contract['diagnostics'])
+  assert case['seconds']<=int(os.environ.get('BENDVY_CHECKER_SECONDS','5')) and all(d in case['output'] for d in contract['diagnostics'])
  world=data['staticWorldBoundary'];path=Path(world['receipt']);assert sha(path)==world['receiptSHA256']
  actual=json.loads(path.read_text());assert world['status']==actual['status']=='FINITE_ACTUAL_STATIC_FOREIGN_WORLD_FIELDS_PASS'
  assert actual['sourcePins']==control_sources and actual['fixtureSHA256']==sha(HERE/'static-world-controls.bend')
@@ -134,7 +135,7 @@ def dependency_binding(cpu=9):
   pinned=subprocess.check_output(['git','show','HEAD:'+n],cwd=reference)
   assert hashlib.sha256(pinned).hexdigest()==refs[n],'Reference tracked source drift'
  installed=Path.home()/'.bend/bend2';installed_sources={str(q.resolve()):sha(q) for q in [*installed.glob('*'),*(installed/'effs').glob('*')] if q.is_file()}
- return {'clangRuntime':clang_runtime_binding(),'installedBendRuntime':installed_sources,'gateAndProtectedSources':dict(sorted(sources.items())),'tools':tools,'referenceHEAD':subprocess.check_output(['git','rev-parse','HEAD'],cwd=reference,text=True).strip(),'referenceCoreSources':refs,'limits':{'checker':5,'runtime':5,'codegen':30,'clang':120},'cpu':cpu,'executionEnvironment':{name:os.environ.get(name) for name in ('NODE_OPTIONS','BEND_HOME','BEND_PATH','BEND_LIB','PYTHONPATH','LD_PRELOAD','LD_LIBRARY_PATH','HOME')}}
+ return {'clangRuntime':clang_runtime_binding(),'installedBendRuntime':installed_sources,'gateAndProtectedSources':dict(sorted(sources.items())),'tools':tools,'referenceHEAD':subprocess.check_output(['git','rev-parse','HEAD'],cwd=reference,text=True).strip(),'referenceCoreSources':refs,'limits':{'checker':int(os.environ.get('BENDVY_CHECKER_SECONDS','5')),'runtime':5,'codegen':30,'clang':120},'cpu':cpu,'executionEnvironment':{name:os.environ.get(name) for name in ('NODE_OPTIONS','BEND_HOME','BEND_PATH','BEND_LIB','PYTHONPATH','LD_PRELOAD','LD_LIBRARY_PATH','HOME')}}
 def main():
  p=argparse.ArgumentParser();p.add_argument('--js-overlay',type=Path,required=True);p.add_argument('--native-overlay',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--cpu',type=int,default=9);p.add_argument('--reuse-receipt',type=Path);p.add_argument('--reuse-receipt-sha256');a=p.parse_args();a.output.mkdir(exist_ok=False)
  result={'status':'INCOMPLETE','schemaVersion':1,'scope':'Fresh exact candidate semantic/capability gates; no metric or product acceptance','roles':{},'gateSources':{f.name:sha(f) for f in HERE.glob('*.py')}}

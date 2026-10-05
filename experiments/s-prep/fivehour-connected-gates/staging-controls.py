@@ -7,9 +7,9 @@ HERE=Path(__file__).resolve().parent
 def check(source,cpu):
  command=['taskset','-c',str(cpu),'bend',str(source),'--check-only']
  process=subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,start_new_session=True)
- try:output,_=process.communicate(timeout=5)
+ try:output,_=process.communicate(timeout=int(os.environ.get("BENDVY_CHECKER_SECONDS", "5")))
  except subprocess.TimeoutExpired:
-  os.killpg(process.pid,signal.SIGKILL);process.communicate();raise RuntimeError('Five-second checker deadline: '+str(source))
+  os.killpg(process.pid,signal.SIGKILL);process.communicate();raise RuntimeError('Checker deadline: '+str(source))
  return process.returncode,output
 
 def main():
