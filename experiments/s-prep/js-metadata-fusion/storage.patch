@@ -1,0 +1,65 @@
+--- a/experiments/s-integrate/storage.bend
++++ b/experiments/s-integrate/storage.bend
+@@ -175,10 +175,18 @@
+ def take_meta_done(-M: Type,-A: Type,-F: Data,id: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,capacity: U32,depth: Nat,high: U32,result: MetadataColumns<F> & Bool) -> Rows<M,A,F> & Taken<M>:
+   match result:
+     case (metadata,meta): take_meta(M,A,F,id,main,aux,metadata,capacity,depth,high,meta)
++# Private metadata transport: keep columns open across liveness selection.
++# Main/Aux remain arbitrary affine Type payloads; no payload is copied.
++def prototype_take_live(-M: Type,-A: Type,-F: Data,id: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,flags: Array<Maybe<&2,F>>,added: Array<U32>,changed: Array<U32>,capacity: U32,depth: Nat,high: U32,result: Array<Bool> & Bool) -> Rows<M,A,F> & Taken<M>:
++  match result:
++    case (live,value): take_meta(M,A,F,id,main,aux,MetadataColumns{live,flags,added,changed},capacity,depth,high,value)
++def prototype_take_columns(-M: Type,-A: Type,-F: Data,+id: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,metadata: MetadataColumns<F>,capacity: U32,depth: Nat,high: U32) -> Rows<M,A,F> & Taken<M>:
++  match metadata:
++    case MetadataColumns{live,flags,added,changed}: prototype_take_live(M,A,F,id,main,aux,flags,added,changed,capacity,depth,high,Array.get(Bool,live,U32.sub(id,1)))
+ def take_checked(-M: Type,-A: Type,-F: Data,valid: Bool,+id: U32,rows: Rows<M,A,F>) -> Rows<M,A,F> & Taken<M>:
+   match valid rows:
+     case False{} rows: (rows,NoEntity{})
+-    case True{} Rows{main,aux,metadata,capacity,depth,high}: take_meta_done(M,A,F,id,main,aux,capacity,depth,high,metadata_live(F,metadata,U32.sub(id,1)))
++    case True{} Rows{main,aux,metadata,capacity,depth,high}: prototype_take_columns(M,A,F,id,main,aux,metadata,capacity,depth,high)
+ def take_rows(-M: Type,-A: Type,-F: Data,rows: Rows<M,A,F>,+target: U32) -> Rows<M,A,F> & Taken<M>:
+   match rows:
+     case Rows{main,aux,metadata,+capacity,depth,+high}: take_checked(M,A,F,Bool.and((0 < target : U32),Bool.and((target <= capacity : U32),(target <= high : U32))),target,Rows{main,aux,metadata,capacity,depth,high})
+@@ -226,11 +234,18 @@
+ def fuse_meta(-S: Data,-M: Type,-A: Type,-F: Data,-L: Type,-Mode: Data,-O: Data,namespace: U32,next: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,capacity: U32,depth: Nat,high: U32,pending: List<Command<M,A,F>>,ledger: Maybe<L>,mode: Mode,index: U32,transform: M -> M & O,result: MetadataColumns<F> & Bool) -> World<S,M,A,F,L,Mode> & T.Access<O>:
+   match result:
+     case (metadata,meta): fuse_live(S,M,A,F,L,Mode,O,namespace,next,aux,metadata,capacity,depth,high,pending,ledger,mode,main,index,transform,meta)
++# Preserve the Array.get transport pair, but do not wrap it in a second pair.
++def prototype_fuse_live_result(-S: Data,-M: Type,-A: Type,-F: Data,-L: Type,-Mode: Data,-O: Data,namespace: U32,next: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,flags: Array<Maybe<&2,F>>,added: Array<U32>,changed: Array<U32>,capacity: U32,depth: Nat,high: U32,pending: List<Command<M,A,F>>,ledger: Maybe<L>,mode: Mode,index: U32,transform: M -> M & O,result: Array<Bool> & Bool) -> World<S,M,A,F,L,Mode> & T.Access<O>:
++  match result:
++    case (live,value): fuse_live(S,M,A,F,L,Mode,O,namespace,next,aux,MetadataColumns{live,flags,added,changed},capacity,depth,high,pending,ledger,mode,main,index,transform,value)
++def prototype_fuse_columns(-S: Data,-M: Type,-A: Type,-F: Data,-L: Type,-Mode: Data,-O: Data,namespace: U32,next: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,metadata: MetadataColumns<F>,capacity: U32,depth: Nat,high: U32,pending: List<Command<M,A,F>>,ledger: Maybe<L>,mode: Mode,+index: U32,transform: M -> M & O) -> World<S,M,A,F,L,Mode> & T.Access<O>:
++  match metadata:
++    case MetadataColumns{live,flags,added,changed}: prototype_fuse_live_result(S,M,A,F,L,Mode,O,namespace,next,main,aux,flags,added,changed,capacity,depth,high,pending,ledger,mode,index,transform,Array.get(Bool,live,index))
+ def fuse_bounds(-S: Data,-M: Type,-A: Type,-F: Data,-L: Type,-Mode: Data,-O: Data,valid: Bool,world: World<S,M,A,F,L,Mode>,+target: U32,transform: M -> M & O) -> World<S,M,A,F,L,Mode> & T.Access<O>:
+   match valid world:
+     case False{} world: (world,T.Missing{})
+     case True{} World{namespace,next,Rows{main,aux,metadata,capacity,depth,high},pending,ledger,mode}:
+-      fuse_meta(S,M,A,F,L,Mode,O,namespace,next,main,aux,capacity,depth,high,pending,ledger,mode,U32.sub(target,1),transform,metadata_live(F,metadata,U32.sub(target,1)))
++      prototype_fuse_columns(S,M,A,F,L,Mode,O,namespace,next,main,aux,metadata,capacity,depth,high,pending,ledger,mode,U32.sub(target,1),transform)
+ def hook_checked(-S: Data,-M: Type,-A: Type,-F: Data,-L: Type,-Mode: Data,-O: Data,
+   valid: Bool,world: World<S,M,A,F,L,Mode>,+target: U32,transform: M -> M & O) -> World<S,M,A,F,L,Mode> & T.Access<O>:
+   match valid world:
+@@ -288,11 +303,21 @@
+   namespace: U32,next: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,capacity: U32,depth: Nat,high: U32,pending: List<Command<M,A,F>>,ledger: Maybe<L>,mode: Mode,id: U32,tick: U32,result: MetadataColumns<F> & Bool) -> World<Schema,M,A,F,L,Mode>:
+   match result:
+     case (metadata,meta): prototype_mark_world_meta(Schema,M,A,F,L,Mode,namespace,next,main,aux,metadata,capacity,depth,high,pending,ledger,mode,id,tick,meta)
++# Only the live branch writes changed; flags and added are transported untouched.
++def prototype_mark_open_live(-Schema: Data,-M: Type,-A: Type,-F: Data,-L: Type,-Mode: Data,
++  namespace: U32,next: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,flags: Array<Maybe<&2,F>>,added: Array<U32>,changed: Array<U32>,capacity: U32,depth: Nat,high: U32,pending: List<Command<M,A,F>>,ledger: Maybe<L>,mode: Mode,index: U32,tick: U32,result: Array<Bool> & Bool) -> World<Schema,M,A,F,L,Mode>:
++  match result:
++    case (live,False{}): World{namespace,next,Rows{main,aux,MetadataColumns{live,flags,added,changed},capacity,depth,high},pending,ledger,mode}
++    case (live,True{}): World{namespace,next,Rows{main,aux,MetadataColumns{live,flags,added,Array.set(U32,changed,index,tick)},capacity,depth,high},pending,ledger,mode}
++def prototype_mark_open_columns(-Schema: Data,-M: Type,-A: Type,-F: Data,-L: Type,-Mode: Data,
++  namespace: U32,next: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,metadata: MetadataColumns<F>,capacity: U32,depth: Nat,high: U32,pending: List<Command<M,A,F>>,ledger: Maybe<L>,mode: Mode,+index: U32,tick: U32) -> World<Schema,M,A,F,L,Mode>:
++  match metadata:
++    case MetadataColumns{live,flags,added,changed}: prototype_mark_open_live(Schema,M,A,F,L,Mode,namespace,next,main,aux,flags,added,changed,capacity,depth,high,pending,ledger,mode,index,tick,Array.get(Bool,live,index))
+ def prototype_mark_world_checked(-Schema: Data,-M: Type,-A: Type,-F: Data,-L: Type,-Mode: Data,
+   valid: Bool,namespace: U32,next: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,metadata: MetadataColumns<F>,capacity: U32,depth: Nat,high: U32,pending: List<Command<M,A,F>>,ledger: Maybe<L>,mode: Mode,+id: U32,tick: U32) -> World<Schema,M,A,F,L,Mode>:
+   match valid:
+     case False{}: World{namespace,next,Rows{main,aux,metadata,capacity,depth,high},pending,ledger,mode}
+-    case True{}: prototype_mark_world_result(Schema,M,A,F,L,Mode,namespace,next,main,aux,capacity,depth,high,pending,ledger,mode,id,tick,metadata_live(F,metadata,U32.sub(id,1)))
++    case True{}: prototype_mark_open_columns(Schema,M,A,F,L,Mode,namespace,next,main,aux,metadata,capacity,depth,high,pending,ledger,mode,U32.sub(id,1),tick)
+ def mark_main(-S: Data,-M: Type,-A: Type,-F: Data,-L: Type,-Mode: Data,
+   world: World<S,M,A,F,L,Mode>,handle: Handle<S>,tick: U32) -> World<S,M,A,F,L,Mode>:
+   match world handle:
