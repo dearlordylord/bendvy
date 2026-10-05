@@ -177,3 +177,7 @@ The active changed-source packet is `packet-x63170ar`: JS static Cache/Held with
 ## Window closed by deadline; performance remains open
 
 The13:22:50Z deadline interrupted the changed candidate during Native E11 mutants. Seven global attempts are consumed; the old allowance is exhausted and must not be renewed silently. There is no qualified baseline, candidate timing, keep, final two-role gate aggregate or performance acceptance. No owned execution remains. Exact nine-module source and retained evidence: [eight-hour result](../experiments/s-prep/eight-hour-results/README.md). Resume issue23 by completing the exact Native gates and complete equivalent-work/noise-qualified measurements under an explicitly established next allowance; retain the consumed-attempt ledger. JS's completed sequence and Native's partial results do not close the full gate or the product/core.
+
+### 2026-10-05 single comparison checkpoint
+
+Issue #23 packet `packet-nzg08ps6`: all 22 fresh gates and 112 full-record comparisons passed; candidate and initial baseline noise qualification failed, so no metric or keep. Exact current run logged as crash/no usable metric; canonical state captured once. See [report](reports/single-comparison-resume.md) and current [three-hour authorization](reports/three-hour-optimization-continuation.md). Full performance goal remains open.

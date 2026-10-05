@@ -1,0 +1,350 @@
+{
+  "packet": "packet-nzg08ps6",
+  "globalAttempt": 8,
+  "globalCap": 20,
+  "status": "INCONCLUSIVE_NO_METRIC",
+  "metric": null,
+  "loggedStatus": "crash",
+  "canonicalLogCompleted": true,
+  "freshGateStatus": "FRESH_TWO_ROLE_CONNECTED_GATES_PASS",
+  "freshGateCount": 22,
+  "executionChildren": 168,
+  "fullRecordComparisons": 112,
+  "worldRecordsPerComparison": 65,
+  "candidateDecision": {
+    "status": "INCONCLUSIVE",
+    "reasons": [
+      "JS/Health/cohort2: relative MAD exceeds proposed 10% noise limit",
+      "JS/Health: candidate cohort median drift exceeds proposed 10% limit",
+      "JS/Motion/cohort2: relative MAD exceeds proposed 10% noise limit"
+    ],
+    "cells": {
+      "JS/Health": {
+        "cohorts": [
+          {
+            "candidate": {
+              "median": 667.0,
+              "MAD": 15.0,
+              "relativeMAD": 0.022488755622188907
+            },
+            "TS": {
+              "median": 209.64502200000004,
+              "MAD": 6.100877000000025,
+              "relativeMAD": 0.029100986714580918
+            },
+            "upper95TimerAwareRatio": 3.5650911949283715,
+            "weightedScore": 3.5650911949283715
+          },
+          {
+            "candidate": {
+              "median": 744.0,
+              "MAD": 99.0,
+              "relativeMAD": 0.13306451612903225
+            },
+            "TS": {
+              "median": 224.75284900000003,
+              "MAD": 16.495088000000067,
+              "relativeMAD": 0.07339211971457618
+            },
+            "upper95TimerAwareRatio": 4.305221790233359,
+            "weightedScore": 4.305221790233359
+          }
+        ],
+        "drift": {
+          "candidate": 0.11544227886056979,
+          "TS": 0.07206384800303045
+        }
+      },
+      "JS/Motion": {
+        "cohorts": [
+          {
+            "candidate": {
+              "median": 693.0,
+              "MAD": 52.0,
+              "relativeMAD": 0.07503607503607504
+            },
+            "TS": {
+              "median": 204.452071,
+              "MAD": 16.944976999999994,
+              "relativeMAD": 0.08287994793655083
+            },
+            "upper95TimerAwareRatio": 4.026165279334917,
+            "weightedScore": 4.026165279334917
+          },
+          {
+            "candidate": {
+              "median": 729.0,
+              "MAD": 97.0,
+              "relativeMAD": 0.13305898491083676
+            },
+            "TS": {
+              "median": 200.81682699999993,
+              "MAD": 7.865727999999933,
+              "relativeMAD": 0.03916866986450262
+            },
+            "upper95TimerAwareRatio": 4.756724835417583,
+            "weightedScore": 4.756724835417583
+          }
+        ],
+        "drift": {
+          "candidate": 0.051948051948051965,
+          "TS": 0.01810228781276413
+        }
+      },
+      "Native/Health": {
+        "cohorts": [
+          {
+            "candidate": {
+              "median": 1070.0,
+              "MAD": 17.0,
+              "relativeMAD": 0.01588785046728972
+            },
+            "TS": {
+              "median": 209.64502200000004,
+              "MAD": 6.100877000000025,
+              "relativeMAD": 0.029100986714580918
+            },
+            "upper95TimerAwareRatio": 5.9490688752084555,
+            "weightedScore": 11.898137750416911
+          },
+          {
+            "candidate": {
+              "median": 1150.0,
+              "MAD": 84.0,
+              "relativeMAD": 0.07304347826086957
+            },
+            "TS": {
+              "median": 224.75284900000003,
+              "MAD": 16.495088000000067,
+              "relativeMAD": 0.07339211971457618
+            },
+            "upper95TimerAwareRatio": 6.0974837249340315,
+            "weightedScore": 12.194967449868063
+          }
+        ],
+        "drift": {
+          "candidate": 0.07476635514018692,
+          "TS": 0.07206384800303045
+        }
+      },
+      "Native/Motion": {
+        "cohorts": [
+          {
+            "candidate": {
+              "median": 1073.0,
+              "MAD": 26.0,
+              "relativeMAD": 0.024231127679403542
+            },
+            "TS": {
+              "median": 204.452071,
+              "MAD": 16.944976999999994,
+              "relativeMAD": 0.08287994793655083
+            },
+            "upper95TimerAwareRatio": 6.220786359792796,
+            "weightedScore": 12.441572719585592
+          },
+          {
+            "candidate": {
+              "median": 1161.0,
+              "MAD": 45.0,
+              "relativeMAD": 0.03875968992248062
+            },
+            "TS": {
+              "median": 200.81682699999993,
+              "MAD": 7.865727999999933,
+              "relativeMAD": 0.03916866986450262
+            },
+            "upper95TimerAwareRatio": 6.314421539763121,
+            "weightedScore": 12.628843079526241
+          }
+        ],
+        "drift": {
+          "candidate": 0.08201304753028893,
+          "TS": 0.01810228781276413
+        }
+      }
+    },
+    "metric": null,
+    "focusedGoalMet": false,
+    "productAcceptance": false
+  },
+  "baselineDecision": {
+    "status": "INCONCLUSIVE",
+    "reasons": [
+      "JS/Health/cohort2: relative MAD exceeds proposed 10% noise limit",
+      "JS/Health: candidate cohort median drift exceeds proposed 10% limit",
+      "JS/Health: TS cohort median drift exceeds proposed 10% limit",
+      "JS/Motion/cohort1: relative MAD exceeds proposed 10% noise limit",
+      "JS/Motion/cohort2: relative MAD exceeds proposed 10% noise limit",
+      "JS/Motion: candidate cohort median drift exceeds proposed 10% limit",
+      "JS/Motion: TS cohort median drift exceeds proposed 10% limit",
+      "Native/Health/cohort2: relative MAD exceeds proposed 10% noise limit",
+      "Native/Health: candidate cohort median drift exceeds proposed 10% limit",
+      "Native/Health: TS cohort median drift exceeds proposed 10% limit",
+      "Native/Motion/cohort1: relative MAD exceeds proposed 10% noise limit",
+      "Native/Motion/cohort2: relative MAD exceeds proposed 10% noise limit",
+      "Native/Motion: TS cohort median drift exceeds proposed 10% limit"
+    ],
+    "cells": {
+      "JS/Health": {
+        "cohorts": [
+          {
+            "candidate": {
+              "median": 1135.0,
+              "MAD": 54.0,
+              "relativeMAD": 0.04757709251101322
+            },
+            "TS": {
+              "median": 222.837068,
+              "MAD": 14.614434000000017,
+              "relativeMAD": 0.06558349618924271
+            },
+            "upper95TimerAwareRatio": 5.844498396792838,
+            "weightedScore": 5.844498396792838
+          },
+          {
+            "candidate": {
+              "median": 1691.0,
+              "MAD": 309.0,
+              "relativeMAD": 0.18273211117681845
+            },
+            "TS": {
+              "median": 278.594262,
+              "MAD": 18.486961000000008,
+              "relativeMAD": 0.06635801063268132
+            },
+            "upper95TimerAwareRatio": 8.25191813947934,
+            "weightedScore": 8.25191813947934
+          }
+        ],
+        "drift": {
+          "candidate": 0.48986784140969153,
+          "TS": 0.2502150764252562
+        }
+      },
+      "JS/Motion": {
+        "cohorts": [
+          {
+            "candidate": {
+              "median": 1224.0,
+              "MAD": 69.0,
+              "relativeMAD": 0.056372549019607844
+            },
+            "TS": {
+              "median": 310.25442400000003,
+              "MAD": 101.86707900000005,
+              "relativeMAD": 0.32833400950956315
+            },
+            "upper95TimerAwareRatio": 6.231002196379822,
+            "weightedScore": 6.231002196379822
+          },
+          {
+            "candidate": {
+              "median": 1500.0,
+              "MAD": 255.0,
+              "relativeMAD": 0.17
+            },
+            "TS": {
+              "median": 279.238893,
+              "MAD": 37.456467999999916,
+              "relativeMAD": 0.13413771841589386
+            },
+            "upper95TimerAwareRatio": 7.201057532890593,
+            "weightedScore": 7.201057532890593
+          }
+        ],
+        "drift": {
+          "candidate": 0.22549019607843146,
+          "TS": 0.11107167295638876
+        }
+      },
+      "Native/Health": {
+        "cohorts": [
+          {
+            "candidate": {
+              "median": 1372.0,
+              "MAD": 110.0,
+              "relativeMAD": 0.08017492711370262
+            },
+            "TS": {
+              "median": 222.837068,
+              "MAD": 14.614434000000017,
+              "relativeMAD": 0.06558349618924271
+            },
+            "upper95TimerAwareRatio": 7.574878271476482,
+            "weightedScore": 15.149756542952964
+          },
+          {
+            "candidate": {
+              "median": 1843.0,
+              "MAD": 295.0,
+              "relativeMAD": 0.16006511123168746
+            },
+            "TS": {
+              "median": 278.594262,
+              "MAD": 18.486961000000008,
+              "relativeMAD": 0.06635801063268132
+            },
+            "upper95TimerAwareRatio": 9.725974743252925,
+            "weightedScore": 19.45194948650585
+          }
+        ],
+        "drift": {
+          "candidate": 0.34329446064139946,
+          "TS": 0.2502150764252562
+        }
+      },
+      "Native/Motion": {
+        "cohorts": [
+          {
+            "candidate": {
+              "median": 1393.0,
+              "MAD": 63.0,
+              "relativeMAD": 0.04522613065326633
+            },
+            "TS": {
+              "median": 310.25442400000003,
+              "MAD": 101.86707900000005,
+              "relativeMAD": 0.32833400950956315
+            },
+            "upper95TimerAwareRatio": 6.9093383608379675,
+            "weightedScore": 13.818676721675935
+          },
+          {
+            "candidate": {
+              "median": 1465.0,
+              "MAD": 109.0,
+              "relativeMAD": 0.07440273037542662
+            },
+            "TS": {
+              "median": 279.238893,
+              "MAD": 37.456467999999916,
+              "relativeMAD": 0.13413771841589386
+            },
+            "upper95TimerAwareRatio": 6.8198738199872935,
+            "weightedScore": 13.639747639974587
+          }
+        ],
+        "drift": {
+          "candidate": 0.05168700646087587,
+          "TS": 0.11107167295638876
+        }
+      }
+    },
+    "metric": null,
+    "focusedGoalMet": false,
+    "productAcceptance": false
+  },
+  "keep": false,
+  "productAcceptance": false,
+  "artifactSHA256": {
+    "packet.json": "220eece495f206cc7a7198ff604132e8668212e0a91dfce63a11341b350c31f6",
+    "fresh-checks.json": "f6810b7ca7b29703d3835398dfb849fe489dbcc05eb2d18a8261490a1d868913",
+    "canonical-next.json": "5ae22b539d06b32f897a3a79dd4f77d8d03fbf46ca540542c2d52543f96b4989",
+    "canonical-log.json": "b330a5af40c3670b46ba5c5500d3a8de04560f5ced02240f34c5bc5ddd7507cf",
+    "canonical-state.json": "fc995e49d3dea6e5d2b2c2eb609a785e3af42a42f88a927b68ff989eee97c7fc"
+  },
+  "source9Archive": "experiments/s-prep/eight-hour-results",
+  "latestAuthorization": "docs/reports/three-hour-optimization-continuation.md",
+  "independentMetricChecks": "Not invoked by canonical CLI because no metric was emitted; evaluator full-record and source guards completed."
+}

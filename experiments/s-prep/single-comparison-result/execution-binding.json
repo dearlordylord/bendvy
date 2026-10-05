@@ -1,0 +1,42 @@
+{
+  "status": "INCONCLUSIVE_NO_METRIC",
+  "packet": "packet-nzg08ps6",
+  "acceptedContract": "16899759508b1997cce2992aa619a77c338870bbc0f4e4381669d3bdeb026139",
+  "evaluatorIdentity": "primary@ae3a9c1ac4d8182665b2d1f0c5b9b5ca77f517fbd2c7a53a8f5e78676f61de20",
+  "globalAttemptNumber": 8,
+  "priorAttempts": 7,
+  "globalMaximum": 20,
+  "singleComparisonOnly": true,
+  "bundle": "/tmp/bendvy-single-comparison-per-packet",
+  "bundleFiles": {
+    "/tmp/bendvy-single-comparison-per-packet/protocol.accepted.json": "40cf0441237292bfe8ae341191f364d5e3e7f95591d37394c6a15e98c48bae8e",
+    "/tmp/bendvy-single-comparison-per-packet/candidate/manifest.json": "b28d91d6f3e2659980b76eed49eb85e2d8a93ed8c51b6f73cef5fd89c9808f31",
+    "/tmp/bendvy-single-comparison-per-packet/baseline/manifest.json": "c94375183fef10706a99937cc07676c7b6bcf332085b7b9e50d713c5f8fcbde7"
+  },
+  "thresholds": {
+    "NativeRatioMax": 0.5,
+    "JSRatioMax": 1,
+    "schemas": [
+      "Motion",
+      "Health"
+    ],
+    "size": 256,
+    "workload": "Dense",
+    "parentProductGoalRemainsOpen": true
+  },
+  "method": "fresh64-one-bracket-v2",
+  "perPacketSeconds": 5400,
+  "independentChecksSeconds": 600,
+  "freshGateSeconds": 3600,
+  "childSeconds": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "staleMarkerRecovery": {
+    "receiptSHA256": "c5c97b7971a1801cdd01482ca391bbd6cfef546f564accd5996525976de74fb8",
+    "scope": "Exact dead interrupted marker quarantined after owned launcher cleanup; no ledger or performance evidence fabricated."
+  },
+  "result": "result.json"
+}
