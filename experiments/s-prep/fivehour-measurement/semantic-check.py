@@ -5,7 +5,7 @@ from pathlib import Path
 import guard
 guard.deadline(5);guard.protected()
 R=guard.PROJECT;s=importlib.util.spec_from_file_location('v',R/'experiments/s-integrate/measurement-bend-run.py');V=importlib.util.module_from_spec(s);s.loader.exec_module(V)
-p=argparse.ArgumentParser();p.add_argument('--bend-output',type=Path,required=True);p.add_argument('--ts-output',type=Path,required=True);p.add_argument('--schema',default='Health');p.add_argument('--batch',type=int,default=16);p.add_argument('--evidence',type=Path,required=True);a=p.parse_args()
+p=argparse.ArgumentParser();p.add_argument('--bend-output',type=Path,required=True);p.add_argument('--ts-output',type=Path,required=True);p.add_argument('--schema',default='Health');p.add_argument('--batch',type=int,default=64);p.add_argument('--evidence',type=Path,required=True);a=p.parse_args()
 ts=json.load(open(a.ts_output));assert ts['batch']==a.batch and len(ts['samples'])==a.batch
 lines=a.bend_output.read_text().splitlines();clock=[x for x in lines if x.startswith('BATCH-MILLISECONDS:')];assert len(clock)==1
 records=[x for x in lines if not x.startswith('BATCH-MILLISECONDS:')];assert len(records)==a.batch+1

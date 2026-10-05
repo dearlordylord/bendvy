@@ -1,0 +1,154 @@
+{
+  "status": "TIMER_FREE_BOTH_SCHEMA_BOTH_BACKEND_FULL_RECORDS_PASS",
+  "clockFree": true,
+  "batch": 64,
+  "recordsPerChild": 65,
+  "limits": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "cpu": 11,
+  "cases": [
+    {
+      "schema": "Health",
+      "backend": "JS",
+      "receipt": "/tmp/bendvy-batch64-timer-free-feasibility/Health-JS/full-records.json",
+      "receiptSHA256": "453b0501f66d7d4964c1e46355f0f34a7793efbfafaa212bcf960b8049627293",
+      "artifactSHA256": "84580a250ca78182812dc681af1233530c31f70f0277b953855144fa848a2105",
+      "records": 65,
+      "status": "EVERY_FULL_RECORD_PASS"
+    },
+    {
+      "schema": "Health",
+      "backend": "Native",
+      "receipt": "/tmp/bendvy-batch64-timer-free-feasibility/Health-Native/full-records.json",
+      "receiptSHA256": "ecc9a4e4a8c0e13ab19c125f8f326e908ae0fa3e3b52ec7a3b0805feb16f5e08",
+      "artifactSHA256": "33b41e9c207828e267709d9606c43e8819ee5d83c0d09e5b33e0885524b15f8b",
+      "records": 65,
+      "status": "EVERY_FULL_RECORD_PASS"
+    },
+    {
+      "schema": "Motion",
+      "backend": "JS",
+      "receipt": "/tmp/bendvy-batch64-timer-free-feasibility/Motion-JS/full-records.json",
+      "receiptSHA256": "57960fe2af662c77647364d39436a79def9cd3a2efc00b27d62747885fd999a3",
+      "artifactSHA256": "56c68a5b0dfb02e93dc3f659902575b629410b8ad7481a6cd6240070036a5572",
+      "records": 65,
+      "status": "EVERY_FULL_RECORD_PASS"
+    },
+    {
+      "schema": "Motion",
+      "backend": "Native",
+      "receipt": "/tmp/bendvy-batch64-timer-free-feasibility/Motion-Native/full-records.json",
+      "receiptSHA256": "bf8ffbf2e040d434c5947621fec1c62a102d5c79d4f43c4f368040973e3590cf",
+      "artifactSHA256": "f0027b880f7bac52257a46cd246edf782ded443ac807c7a2a46cb5c11694dfe7",
+      "records": 65,
+      "status": "EVERY_FULL_RECORD_PASS"
+    }
+  ],
+  "sourceArtifactPins": {
+    "/workspace/formal-proofs/bendvy-worktrees/batch64-proposal/experiments/s-prep/batch64-amendment/run.py": "9f70498dc3d8df38c4f6f922f8b70868fb9a1a28c3bd5dba5e6216b6644cd3de",
+    "/workspace/formal-proofs/bendvy-worktrees/batch64-proposal/experiments/s-prep/fivehour-measurement/prepare-bend.py": "a317b6fbb7ca52faec01205844bc6788cc1aeab03964ed220ca890b0b2aaa045",
+    "/workspace/formal-proofs/bendvy-worktrees/batch64-proposal/experiments/s-prep/fivehour-measurement/prepare-ts.py": "2915cdce6408f8cf5ca0f688bcada03d229c4915903b861be50d6159bfcf280b",
+    "/workspace/formal-proofs/bendvy-worktrees/batch64-proposal/experiments/s-prep/fivehour-measurement/semantic-check.py": "cffbf63e025a7e92a8c8a4fb4d925fb9d37c0cff95429320e843b102462707f8",
+    "/tmp/bendvy-batch64-timer-free-feasibility/Health-reference.mjs": "ec70a2d75dea4154093cefa5b12c1c351097ac3a456381cd623b270dcfb6cc38",
+    "/tmp/bendvy-batch64-timer-free-feasibility/Health-JS/measurement-bend.bend": "9ac2241ddbe3df0d9cd659ba47031ec2294efd9bc660c21a7150139878fc7e38",
+    "/tmp/bendvy-batch64-timer-free-feasibility/Health-JS/batch.bend": "25997012094a1056a586add6f355996f5743ad8977794fd6968eb00f3c183301",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/JS/experiments/s-integrate/held-adapter.bend": "f08c574189546c6848f1dcedcda5a17d8e24300056f8c72decd47cb988d6665c",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/JS/experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/JS/experiments/s-integrate/storage.bend": "3bddf3a25dc6fbaa18c34f2d4e17d45664b3a53b791e20144ec853fb78908d09",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/JS/experiments/s-integrate/cache.bend": "c979f39e22a442e2442c87d03c69f16b7cb2264bbc0bff5edbb9f54dac59a223",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/JS/experiments/s-integrate/cached-payload.bend": "c4f08daeadfc20217b9778fc33a57271376a3831ae27c4ceb64fd2a962b9095f",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/JS/experiments/s-integrate/uncached-payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/JS/experiments/s-integrate/transaction.bend": "10666618cc37f9cd2a5f4f5c13570727b0a0ece96bbbada2e06816ccd3b0e0de",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/JS/experiments/s-integrate/transaction-dispatch-adapters.bend": "f2276c1c16ad3694ab8a253f97da892df3a1db81b621cd80018b1376d79d490d",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/JS/experiments/s-integrate/identity.bend": "6cff678171c10d5124b234cb0e2e3d55cd56aec95871508c595f259c484de4f8",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/JS/experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/JS/experiments/s-integrate/systems.bend": "32e11a5a89b01e8db00f0b58a9fd1e2da87f4882189725b0012933421b6b1716",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/JS/experiments/s-integrate/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/JS/experiments/s-integrate/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/JS/experiments/s-integrate/held.bend": "5994b97265f9c1d507edb178e9914f1efc462f517e7d02426f8d9a52c0e513fe",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/JS/experiments/s-integrate/raw-boundaries.bend": "77dbad2365e0499ae4e9e6a5ae7dd67b5a2ebcc5be163de56d0e836781f70a2f",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/JS/experiments/s-integrate/commands.bend": "5cdbaeb590d0542db6d956ff421f7ab7f35c1b71be70091f87ce4fd58271ecc0",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/JS/experiments/s-integrate/query.bend": "1f7620a8063bdcc95aa7407870ffd4f189ac2c945330e359fee8d0b617b8cc42",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/JS/experiments/s-integrate/observations.bend": "e81cb63b3ab6da947a2455c3cc1b388abb1aa71dea593671d1c18f00da07a778",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/JS/experiments/s-integrate/host.bend": "912a679e54098d5c4e395fc75e993092c3cb735968ce2fc96edba709b778bb04",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/JS/experiments/s-integrate/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/JS/experiments/s-integrate/readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/JS/experiments/s-integrate/reader-host.bend": "26eb687a8fb1893b55e4a0c7c8a629b688e37466e169cb3c95dd5273a553db6d",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/JS/experiments/s-integrate/streams.bend": "291d9a46ad58bdc481a5710976e01b762f6e11be3aeba07076c46c69f236d2c0",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/JS/experiments/s-integrate/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/JS/experiments/s-integrate/audited-invoker.bend": "8f4cc0acd27b49d7425e43419dc0f6d2be7eeed1cb36962c33d0b97aaf2ef5b3",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/JS/experiments/s-integrate/structural-invoker.bend": "8e1269193d719b1f0ea68b040c62e8966160bacb898ac51caa2f6494f4621e0a",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/JS/experiments/s-integrate/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+    "/tmp/bendvy-batch64-timer-free-feasibility/Health-Native/measurement-bend.bend": "675584361c7af5a79d5f75efdbd95b78c86084cab77a42810788bfb7cf5b3334",
+    "/tmp/bendvy-batch64-timer-free-feasibility/Health-Native/batch.bend": "0748f129ecd552e0dac2799763e4202ca692774a7c4ebe327309b6b06ebca23f",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/Native/experiments/s-integrate/held-adapter.bend": "f08c574189546c6848f1dcedcda5a17d8e24300056f8c72decd47cb988d6665c",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/Native/experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/Native/experiments/s-integrate/storage.bend": "3bddf3a25dc6fbaa18c34f2d4e17d45664b3a53b791e20144ec853fb78908d09",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/Native/experiments/s-integrate/cache.bend": "c979f39e22a442e2442c87d03c69f16b7cb2264bbc0bff5edbb9f54dac59a223",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/Native/experiments/s-integrate/cached-payload.bend": "c4f08daeadfc20217b9778fc33a57271376a3831ae27c4ceb64fd2a962b9095f",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/Native/experiments/s-integrate/uncached-payload.bend": "2938897514720ed50abc100d99bbc7effd730a8b5c155ad8d9ac98d1bf5143b4",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/Native/experiments/s-integrate/transaction.bend": "10666618cc37f9cd2a5f4f5c13570727b0a0ece96bbbada2e06816ccd3b0e0de",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/Native/experiments/s-integrate/transaction-dispatch-adapters.bend": "f2276c1c16ad3694ab8a253f97da892df3a1db81b621cd80018b1376d79d490d",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/Native/experiments/s-integrate/identity.bend": "6cff678171c10d5124b234cb0e2e3d55cd56aec95871508c595f259c484de4f8",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/Native/experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/Native/experiments/s-integrate/systems.bend": "32e11a5a89b01e8db00f0b58a9fd1e2da87f4882189725b0012933421b6b1716",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/Native/experiments/s-integrate/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/Native/experiments/s-integrate/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/Native/experiments/s-integrate/held.bend": "5994b97265f9c1d507edb178e9914f1efc462f517e7d02426f8d9a52c0e513fe",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/Native/experiments/s-integrate/raw-boundaries.bend": "77dbad2365e0499ae4e9e6a5ae7dd67b5a2ebcc5be163de56d0e836781f70a2f",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/Native/experiments/s-integrate/commands.bend": "5cdbaeb590d0542db6d956ff421f7ab7f35c1b71be70091f87ce4fd58271ecc0",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/Native/experiments/s-integrate/query.bend": "1f7620a8063bdcc95aa7407870ffd4f189ac2c945330e359fee8d0b617b8cc42",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/Native/experiments/s-integrate/observations.bend": "e81cb63b3ab6da947a2455c3cc1b388abb1aa71dea593671d1c18f00da07a778",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/Native/experiments/s-integrate/host.bend": "912a679e54098d5c4e395fc75e993092c3cb735968ce2fc96edba709b778bb04",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/Native/experiments/s-integrate/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/Native/experiments/s-integrate/readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/Native/experiments/s-integrate/reader-host.bend": "26eb687a8fb1893b55e4a0c7c8a629b688e37466e169cb3c95dd5273a553db6d",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/Native/experiments/s-integrate/streams.bend": "291d9a46ad58bdc481a5710976e01b762f6e11be3aeba07076c46c69f236d2c0",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/Native/experiments/s-integrate/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/Native/experiments/s-integrate/audited-invoker.bend": "8f4cc0acd27b49d7425e43419dc0f6d2be7eeed1cb36962c33d0b97aaf2ef5b3",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/Native/experiments/s-integrate/structural-invoker.bend": "8e1269193d719b1f0ea68b040c62e8966160bacb898ac51caa2f6494f4621e0a",
+    "/workspace/formal-proofs/bendvy-worktrees/fivehour-loop/experiments/fivehour-candidate/Native/experiments/s-integrate/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+    "/tmp/bendvy-batch64-timer-free-feasibility/Motion-reference.mjs": "a1886648a95495d212121db213fbc684fcc8b5573684e751f465d1ab13c2ee03",
+    "/tmp/bendvy-batch64-timer-free-feasibility/Motion-JS/measurement-bend.bend": "9ac2241ddbe3df0d9cd659ba47031ec2294efd9bc660c21a7150139878fc7e38",
+    "/tmp/bendvy-batch64-timer-free-feasibility/Motion-JS/batch.bend": "5348b06563307eda31f10a6682fc9aeb817f546c0591b0ea38cdad43d669e5db",
+    "/tmp/bendvy-batch64-timer-free-feasibility/Motion-Native/measurement-bend.bend": "675584361c7af5a79d5f75efdbd95b78c86084cab77a42810788bfb7cf5b3334",
+    "/tmp/bendvy-batch64-timer-free-feasibility/Motion-Native/batch.bend": "570e226e5aa4c56881ea51032d58ae6cdc2381c66a0b47e0a0843810ba4dbe76"
+  },
+  "retainedEvidence": {
+    "path": "/tmp/bendvy-batch64-timer-free-feasibility/evidence.json",
+    "sha256": "661db0d540e388cef6b32870f51acb3cb3f3c8a987dbb16e68a5c0f418184992"
+  },
+  "negativeControls": {
+    "path": "/tmp/bendvy-batch64-timer-free-feasibility/negative-controls.json",
+    "sha256": "f4b70ef1652541c9bb21ce8171162e179f8c399e8dd41f32154e0fae2b18432d",
+    "status": "OBSERVATION_INTEGRITY_NEGATIVES_PASS",
+    "cases": [
+      {
+        "name": "lost-world",
+        "exitCode": 1,
+        "status": "INTENDED_FULL_FIELD_OR_RECORD_COUNT_REJECTION"
+      },
+      {
+        "name": "drop-cell",
+        "exitCode": 1,
+        "status": "INTENDED_FULL_FIELD_OR_RECORD_COUNT_REJECTION"
+      },
+      {
+        "name": "tampered-reference",
+        "exitCode": 1,
+        "status": "INTENDED_FULL_FIELD_OR_RECORD_COUNT_REJECTION"
+      },
+      {
+        "name": "wrong-output-batch",
+        "exitCode": 1,
+        "status": "INTENDED_FULL_FIELD_OR_RECORD_COUNT_REJECTION"
+      }
+    ]
+  },
+  "helperDefaultsAmendment": "Generators and validator explicit --batch64 was used; proposed helper default changed16\u219264 during preparation. Compiled derived sources and all imported core bytes are individually pinned in retained receipt; no statement of unchanged full helper directory across whole fixture.",
+  "performanceAcceptance": false
+}

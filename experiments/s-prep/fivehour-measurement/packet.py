@@ -49,7 +49,7 @@ def main():
     canonical_identity=canonical_parent(m)
     if not args.output_root:raise ValueError('execution requires fixed --output-root, not one-shot output leaf')
     contract=json.loads(args.acceptance.read_text())
-    required={'executionEnvironment':ENV,'artifactRoot':str(args.output_root.resolve()),'accepted':True,'manifestSHA256':args.sha256,'baselineManifestSHA256':args.baseline_sha256,'protocolVersion':'fresh16-one-bracket-v1','packetCap':8,'noiseLimit':0.10,'bootstrapSeed':23,'bootstrapResamples':10000,'orchestrationPolicy':'backend-natural-owner-retention','deadlineUTC':guard.DEADLINE.isoformat()}
+    required={'executionEnvironment':ENV,'artifactRoot':str(args.output_root.resolve()),'accepted':True,'manifestSHA256':args.sha256,'baselineManifestSHA256':args.baseline_sha256,'protocolVersion':'fresh64-one-bracket-v2','packetCap':20,'noiseLimit':0.10,'bootstrapSeed':23,'bootstrapResamples':10000,'orchestrationPolicy':'backend-natural-owner-retention','deadlineUTC':guard.DEADLINE.isoformat()}
     if any(contract.get(k)!=v for k,v in required.items()):raise ValueError('incomplete/different accepted contract; no child executed')
     # Historical receipts cannot authorize the current candidate snapshot.
     live=contract.get('liveChecks')
@@ -121,7 +121,7 @@ def main():
                             text=child(command,5,logs);raw=args.output/f'{cohort}-{role}-{sample}-{schema}-{backend}.txt';raw.write_text(text);outputs[backend]=raw
                         for backend in ('Native','JS'):
                             receipt=args.output/f'{cohort}-{role}-{sample}-{schema}-{backend}-check.json'
-                            child([m['tools']['python'],H/'semantic-check.py','--bend-output',outputs[backend],'--ts-output',outputs['TS'],'--schema',schema,'--batch','16','--evidence',receipt],5,logs)
+                            child([m['tools']['python'],H/'semantic-check.py','--bend-output',outputs[backend],'--ts-output',outputs['TS'],'--schema',schema,'--batch','64','--evidence',receipt],5,logs)
                             value=float(next(x.split(':',1)[1] for x in outputs[backend].read_text().splitlines() if x.startswith('BATCH-MILLISECONDS:')))
                             ts=json.loads(outputs['TS'].read_text());tsvalue=ts['batchMilliseconds']
                             key=backend+'/'+schema

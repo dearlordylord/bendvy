@@ -40,7 +40,7 @@ def capture(path,digest,output):
         (output/backend/'overlay.json').write_text(json.dumps(overlay,indent=2)+'\n');(output/backend/'cache-specialization.json').write_text(json.dumps(cache,indent=2)+'\n')
         for schema in original['schemas']:
             folder=output/'drivers'/backend/schema;folder.parent.mkdir(parents=True,exist_ok=True)
-            subprocess.run([sys.executable,H/'prepare-bend.py','--core',dest,'--output',folder,'--schema',schema,'--batch','16'],check=True,timeout=5)
+            subprocess.run([sys.executable,H/'prepare-bend.py','--core',dest,'--output',folder,'--schema',schema,'--batch','64'],check=True,timeout=5)
             m['drivers'].setdefault(schema,{})[backend]=str((folder/'batch.bend').resolve());m['files'].update(guard.bend_closure(folder/'batch.bend',[folder,dest]))
     for schema in original['schemas']:
         old=pathlib.Path(original['drivers'][schema]['TS']);dest=output/(schema+'-reference.mjs');dest.write_bytes(old.read_bytes());m['drivers'][schema]['TS']=str(dest.resolve());m['files'][str(dest.resolve())]=guard.sha(dest)

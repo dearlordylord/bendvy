@@ -67,7 +67,7 @@ def main():
             for field,pin in [('rawPath','rawSHA256'),('TSRawPath','TSRawSHA256'),('receiptPath','receiptSHA256')]:
                 source=pathlib.Path(raw[field])
                 if source.absolute()!=source.resolve() or not source.resolve().is_relative_to(leaf) or guard.sha(source)!=raw[pin]:raise ValueError('raw input/oracle receipt escaped or changed')
-            packet.child([m['tools']['python'],packet.H/'semantic-check.py','--bend-output',raw['rawPath'],'--ts-output',raw['TSRawPath'],'--schema',schema,'--batch','16','--evidence',verify_dir/(key.replace('/','-')+'.json')],5,log)
+            packet.child([m['tools']['python'],packet.H/'semantic-check.py','--bend-output',raw['rawPath'],'--ts-output',raw['TSRawPath'],'--schema',schema,'--batch','64','--evidence',verify_dir/(key.replace('/','-')+'.json')],5,log)
             lines=pathlib.Path(raw['rawPath']).read_text().splitlines()
             clocks=[x.split(':',1)[1] for x in lines if x.startswith('BATCH-MILLISECONDS:')]
             if len(clocks)!=1:raise ValueError('clock marker count')

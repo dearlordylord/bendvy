@@ -2,7 +2,7 @@
 """Generate one-bracket batch driver without editing actual callback bodies."""
 import argparse,hashlib,json,re
 from pathlib import Path
-p=argparse.ArgumentParser();p.add_argument('--core',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--batch',type=int,default=16);p.add_argument('--schema',choices=['Motion','Health'],default='Health');a=p.parse_args();a.output.mkdir(exist_ok=False)
+p=argparse.ArgumentParser();p.add_argument('--core',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--batch',type=int,default=64);p.add_argument('--schema',choices=['Motion','Health'],default='Health');a=p.parse_args();a.output.mkdir(exist_ok=False)
 source=a.core/'measurement-bend.bend';text=source.read_text()
 # Expose setup through an added wrapper using actual creation/registration.
 extra='\n'

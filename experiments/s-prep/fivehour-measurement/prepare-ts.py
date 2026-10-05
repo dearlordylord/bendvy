@@ -2,7 +2,7 @@
 """Derive fresh-world batch reference preserving original update/oracle bodies."""
 import argparse,hashlib,json
 from pathlib import Path
-p=argparse.ArgumentParser();p.add_argument('--source',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--batch',type=int,default=16);p.add_argument('--schema',choices=['Motion','Health'],default='Health');a=p.parse_args()
+p=argparse.ArgumentParser();p.add_argument('--source',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--batch',type=int,default=64);p.add_argument('--schema',choices=['Motion','Health'],default='Health');a=p.parse_args()
 s=a.source.read_text().replace("new URL('../../.references/sources.json',import.meta.url)","'/workspace/formal-proofs/bendvy/.references/sources.json'");anchor='  const start=performance.now();for(let i=0;i<iterations;i++)tick(Update);const executionMilliseconds=performance.now()-start;'
 assert s.count(anchor)==1
 s=s.replace(anchor,'''  return {run(){for(let i=0;i<iterations;i++)tick(Update);},observe(executionMilliseconds){''')
