@@ -2,7 +2,7 @@
 
 Research date: 2026-10-05. Read-only source inspection; no installs, compilation or benchmark execution. This is evidence for choosing experiments, not Bendvy performance acceptance.
 
-Pins inspected: `aivv73/bend-voxel` **fade41f9b47e21d56f09e0edbfde714fad0395df**, `Dicklesworthstone/toon_bend` **b74a789a8cbd73c54da82e129337240d63dc5a29**. Disposable sources: `/tmp/bendvy-research-voxel`, `/tmp/bendvy-research-toon`. The voxel pin is a historical all-Bend renderer: the current public repository advertises a native Vulkan renderer and a different `src/` layout. Do not describe the old pin as current-product performance.
+Pins inspected: `aivv73/bend-voxel` **fade41f9b47e21d56f09e0edbfde714fad0395df**, `Dicklesworthstone/toon_bend` **b74a789a8cbd73c54da82e129337240d63dc5a29**. Disposable sources: `/tmp/bendvy-research-voxel`, `/tmp/bendvy-research-toon`. A fresh `git ls-remote origin HEAD refs/heads/main` returned the inspected voxel pin for both refs; its commit date is 2026-10-05. Its rendering code is Bend. The unpinned web page returned a conflicting Vulkan description, so that page is not evidence of the current implementation; the commit-pinned README agrees with the checkout.
 
 ## What the programs actually do
 
@@ -25,7 +25,7 @@ This supports a hypothesis about ownership/copy overhead, not a conclusion about
 
 Voxel's historical daylight benchmark includes native presentation and four edit/reset cache rebuilds: 48 measured frames, eight warmups, two repetitions, reversed order. GPU tile/fork depth **5/5 → 6/6: 174.281 → 90.229 ms/frame**; depth7 gives91.042. CPU one-worker **127.688 → 113.854**; six workers62.604→59.479; twelve54.042→51.302. All sixteen image exports at tested depths4–6 remain byte-identical. These are author-reported renderer results, not ECS throughput or JS/native comparison; native display refresh can cap earlier frame results. [Results and limits](https://github.com/aivv73/bend-voxel/blob/fade41f9b47e21d56f09e0edbfde714fad0395df/docs/verification.md#L124-L173).
 
-FFI is not the demonstrated TOON speed lever: its one custom effect imports matching C/JS implementations to open the actual stdin descriptor correctly. [Boundary](https://github.com/Dicklesworthstone/toon_bend/blob/b74a789a8cbd73c54da82e129337240d63dc5a29/port/main.bend#L95-L114). The inspected voxel pin's rendering decomposition is Bend source, unlike its current Vulkan product. Neither pin demonstrates our required affine-Type ECS JS parity and native2× target.
+FFI is not the demonstrated TOON speed lever: its one custom effect imports matching C/JS implementations to open the actual stdin descriptor correctly. [Boundary](https://github.com/Dicklesworthstone/toon_bend/blob/b74a789a8cbd73c54da82e129337240d63dc5a29/port/main.bend#L95-L114). The inspected current voxel pin's rendering decomposition is Bend source. Neither pin demonstrates our required affine-Type ECS JS parity and native2× target.
 
 ## Negative evidence worth retaining
 
