@@ -1,0 +1,67 @@
+{
+  "status": "SOURCE_LOWERING_HYPOTHESIS_REFUTED_RUNTIME_FIELDS_PASS",
+  "hypothesis": "Frozen partial application removes callback provider closure construction without changing callback bytes",
+  "observation": "Both emitted invoke_static bodies still construct run_clo providers and call the original body",
+  "emittedSHA256": "a9516fb0e8f25a455b6782da104fe0d5e4baa1b4085c32cddb05a603b4407cb1",
+  "emittedBodies": {
+    "motion": "function $held$045adapter$058motion_invoke_static$1260$(_owner_0) {\n  return $motion_body$(run_clo((_x_0) => {\n  return run_clo((_x_1) => {\n  return $held$045adapter$058motion_get$(_x_0, _x_1);\n});\n}), run_clo((_x_2) => {\n  return run_clo((_x_3) => {\n  return run_clo((_x_4) => {\n  return $held$045adapter$058motion_set$(_x_2, _x_3, _x_4);\n});\n});\n}), run_clo((_x_5) => {\n  return run_clo((_x_6) => {\n  return $held$045adapter$058motion_ledger$(_x_5, _x_6);\n});\n}), run_clo((_x_7) => {\n  return run_clo((_x_8) => {\n  return run_clo((_x_9) => {\n  return $held$045adapter$058motion_setledger$(_x_7, _x_8, _x_9);\n});\n});\n}), _owner_0);\n}\n",
+    "health": "function $held$045adapter$058health_invoke_static$1260$(_owner_0) {\n  return $health_body$(run_clo((_x_0) => {\n  return run_clo((_x_1) => {\n  return $held$045adapter$058health_get$(_x_0, _x_1);\n});\n}), run_clo((_x_2) => {\n  return run_clo((_x_3) => {\n  return run_clo((_x_4) => {\n  return $held$045adapter$058health_set$(_x_2, _x_3, _x_4);\n});\n});\n}), run_clo((_x_5) => {\n  return run_clo((_x_6) => {\n  return $held$045adapter$058health_ledger$(_x_5, _x_6);\n});\n}), run_clo((_x_7) => {\n  return run_clo((_x_8) => {\n  return run_clo((_x_9) => {\n  return $held$045adapter$058health_setledger$(_x_7, _x_8, _x_9);\n});\n});\n}), _owner_0);\n}\n"
+  },
+  "runtime": {
+    "status": "FINITE_ACTUAL_TX_CACHE_FIELDS_PASS",
+    "scope": "Actual cached World point-Tx original callback success/failure; finite held/cache fields, no general API/performance acceptance",
+    "cases": [
+      {
+        "getter": "cached",
+        "backend": "Native",
+        "status": "FULL_TX_FIELDS_PASS",
+        "programSHA256": "d06e371d27cbaf0b7bb889c3906a7a3c8b8152e9a1dd956015628d8705234b77",
+        "rawSHA256": "86470371004f767f76a13c0103f2b83d8a70b64ecc1b2eb80535c8782e21c3c4",
+        "records": 144
+      },
+      {
+        "getter": "cached",
+        "backend": "JS",
+        "status": "FULL_TX_FIELDS_PASS",
+        "programSHA256": "e6ebf7f9a00401197c9831def520f200056e16907020e1860ab32eb8eddfccc2",
+        "rawSHA256": "86470371004f767f76a13c0103f2b83d8a70b64ecc1b2eb80535c8782e21c3c4",
+        "records": 144
+      },
+      {
+        "getter": "raw",
+        "backend": "Native",
+        "status": "FULL_TX_FIELDS_PASS",
+        "programSHA256": "0601e90eb1be36f282e4e6169a77593b9021dd6848d711f27c90a014aa07168d",
+        "rawSHA256": "86470371004f767f76a13c0103f2b83d8a70b64ecc1b2eb80535c8782e21c3c4",
+        "records": 144
+      },
+      {
+        "getter": "raw",
+        "backend": "JS",
+        "status": "FULL_TX_FIELDS_PASS",
+        "programSHA256": "2d10099e1c930eca32846aee4e642ce4a958e28df3f0b7d8aefd899643f5055e",
+        "rawSHA256": "86470371004f767f76a13c0103f2b83d8a70b64ecc1b2eb80535c8782e21c3c4",
+        "records": 144
+      }
+    ],
+    "overlaySHA256": "2dcc782c4559221cf862658b2565ff6d41a00b0e5191714c29b7e1a3f8622c32",
+    "fixtureSHA256": "9f298cc3913124c898d672ef65bcf5e1f0e103f61ef007612b5547d05e97a3ae",
+    "controlCallbackPins": {
+      "first": "4d29d3791c93930288979f24c4a1096ecfa34e1f83932232e0d999b6c5465ee9",
+      "sum": "aa774b7165a39a855ff3ba25a93049875691ab6014686cd02c31847fc6c3c7c6",
+      "motion_body_ledger": "b1ea1bd7ae671fae18ea7c5d26b04ca4c0c03b8bd2d36d709a01c76379ba5201",
+      "motion_body_read": "e6967abd8b26c4028dfc0651703f1f90c663583613a7e4efa68028a056553741",
+      "motion_body": "38e9d8bb471ed25341c59fc82801493483229a351168a64ad802ecc3dbd625b0",
+      "health_body_ledger": "782d031b2dfa09a2f9bbcff228ff705816fc3bb40b64b5cad9bbaaae0ec691f0",
+      "health_body_read": "09d94bef9502a59eff8b0f050842e8dfbcf369fd9736a352b03fa6e9c4931269",
+      "health_body": "9f289b79eececfab754bca0fbb412896e96dbe8639231090bef251961cf879b0"
+    }
+  },
+  "sourceChecker": {
+    "limitSeconds": 5,
+    "exit": 0,
+    "marker": "ALL PROOFS CHECK",
+    "scope": "Source/type checking, no new law/proof"
+  },
+  "claim": "Do not select as an elimination candidate. No measured performance comparison."
+}

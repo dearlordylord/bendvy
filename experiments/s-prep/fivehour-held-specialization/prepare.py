@@ -20,7 +20,7 @@ def arguments(text):
     result.append(text[start:])
     return result
 
-def prepare(destination, native=False, provider_only=False):
+def prepare(destination, native=False, provider_only=False, freeze_callback=False):
     spec = importlib.util.spec_from_file_location('held_recipe', RECIPE)
     recipe = importlib.util.module_from_spec(spec); spec.loader.exec_module(recipe)
     core = recipe.materialize(destination, native_payload=native)
@@ -49,9 +49,21 @@ def prepare(destination, native=False, provider_only=False):
         replacement = 'H.' + match[1] + '_static(' + ','.join('~' + arg if (n == static-1 if provider_only else n < static) else arg for n, arg in enumerate(args)) + ')'
         text = text[:begin] + replacement + text[i:]; offset = begin + len(replacement); count += 1
     assert count == 8
+    if freeze_callback:
+        # Freeze a partial application of the unchanged opaque callback.
+        # No runtime owner is captured in the static term.
+        for prefix in ('motion', 'health'):
+            match = re.search(r'^def ' + prefix + r'_invoke\(.*?,owner:(H\.Held<.*>)\) -> (H\.Held<.*> & U32):\n  (.*)\n', text, re.M)
+            assert match
+            owner_type, result_type, body = match[1], match[2], match[3]
+            assert body.endswith(',owner)')
+            partial = body[:-len(',owner)')] + ')'
+            helper = 'def ' + prefix + '_invoke_static(~run:' + owner_type + ' -> ' + result_type + ',owner:' + owner_type + ') -> ' + result_type + ':\n  run(owner)\n\n'
+            changed = match[0].replace('  ' + body, '  ' + prefix + '_invoke_static(~' + partial + ',owner)')
+            text = text[:match.start()] + helper + changed + text[match.end():]
     adapter.write_text(text)
     pins = {str(p.relative_to(destination)): hashlib.sha256(p.read_bytes()).hexdigest() for p in pathlib.Path(destination).rglob('*.bend')}
-    receipt = {'status': 'UNMEASURED_PRIVATE_TEMPLATE_CANDIDATE', 'sources': pins, 'originalHeldSHA256': hashlib.sha256(original.encode()).hexdigest(), 'providerCallSites': count, 'nativePayload': native, 'providerOnlyFrozen': provider_only}
+    receipt = {'status': 'UNMEASURED_PRIVATE_TEMPLATE_CANDIDATE', 'sources': pins, 'originalHeldSHA256': hashlib.sha256(original.encode()).hexdigest(), 'providerCallSites': count, 'nativePayload': native, 'providerOnlyFrozen': provider_only, 'frozenCallbackPartialApplication': freeze_callback}
     manifest_path = pathlib.Path(destination) / 'overlay.json'
     manifest = json.loads(manifest_path.read_text()); cache = manifest['cacheSpecialization']
     receipt['baselineRuntimeClosureSHA256'] = cache['runtimeClosureSHA256']
@@ -62,6 +74,8 @@ def prepare(destination, native=False, provider_only=False):
         key = 'experiments/s-integrate/' + name
         cache['specializedClosure'][key] = pins[key]
     cache['derivedPrivateVariant'] = 'held-static-provider-only-v1' if provider_only else 'held-static-trusted-provider-v1'
+    if freeze_callback:
+        cache['derivedPrivateVariant'] += '-frozen-callback'
     manifest['sources'] = pins
     manifest_path.write_text(json.dumps(manifest, indent=2) + '\n')
     (pathlib.Path(destination) / 'cache-specialization.json').write_text(json.dumps(cache, indent=2) + '\n')
@@ -69,5 +83,5 @@ def prepare(destination, native=False, provider_only=False):
     return core
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(); parser.add_argument('destination', type=pathlib.Path); parser.add_argument('--native-payload', action='store_true'); parser.add_argument('--provider-only', action='store_true'); args = parser.parse_args()
-    print(prepare(args.destination, args.native_payload, args.provider_only))
+    parser = argparse.ArgumentParser(); parser.add_argument('destination', type=pathlib.Path); parser.add_argument('--native-payload', action='store_true'); parser.add_argument('--provider-only', action='store_true'); parser.add_argument('--frozen-callback', action='store_true'); args = parser.parse_args()
+    print(prepare(args.destination, args.native_payload, args.provider_only, args.frozen_callback))
