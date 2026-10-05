@@ -1,5 +1,6 @@
 # B64 / global-cap20 method amendment — proposal for approval
 
+Current status: activated under the integrator’s interpretation of the latest explicit autonomous-work direction; this is not a claim of literal B64 approval. The cumulative deadline is13:22:50 UTC. Historical proposal wording below is retained. See [execution evidence](../reports/fivehour-performance-work.md); targets and noise limits remain unchanged.
 Two complete B16 packets passed all full-record semantics but failed the existing10% Health TS MAD/drift gates, once on the candidate and once on the fixed reference. Neither emitted a usable metric. Four of the approved eight global packets have been consumed, including two earlier crashes.
 
 Propose only these changes:
