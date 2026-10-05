@@ -40,12 +40,28 @@ def materialize(destination):
     for alias in re.findall(r'^import ./payload\.bend as (\w+)',text,re.M):changed=changed.replace(alias+'.'+stem+'_'+operation,'CP.'+stem+'_'+operation)
   changed=changed.replace('import Base\n','import Base\nimport ./cache.bend as CC\nimport ./cached-payload.bend as CP\n',1)
   path.write_text(changed);after[str(path.relative_to(destination))]=digest(changed.encode())
+ # Actual original seed/factory inputs enter the trusted raw boundary, not a cached-only bypass.
+ measurement=pkg/'measurement-bend.bend';derived=measurement.read_text();original=(ROOT/'experiments/s-perf/candidate/measurement-bend.bend').read_text()
+ for prefix,main,view,aux,flag,ledger,mode in [('motion','Position','PositionView','Velocity','Selected','MotionLedger','MotionMode'),('health','Vitals','VitalsView','Armor','Tracked','HealthLedger','HealthMode')]:
+  for suffix in ['main','bundle','ledger']:
+   name=prefix+'_'+suffix
+   def chunk(s):
+    m=re.search(r'^def '+name+r'\(',s,re.M);end=min(x for x in [s.find('\ndef ',m.start()+1),s.find('\ntype ',m.start()+1),len(s)] if x>=0);return s[m.start():end]
+   derived=derived.replace(chunk(derived),chunk(original))
+  args='T.'+prefix.title()+'Schema,CC.Cache<T.'+main+',T.'+view+'>,T.'+aux+',T.'+flag+',CC.Cache<T.'+ledger+',T.LedgerView>,T.'+mode
+  derived=derived.replace('CMD.reserve('+args+',world,','RB.'+prefix+'_reserve(world,')
+  derived=derived.replace('I.create('+args+','+prefix+'_ledger,I.factory(),','RB.'+prefix+'_create('+prefix+'_ledger,I.factory(),')
+  # Reservation rejection returns the original raw Bundle owner.
+  start=derived.index('def '+prefix+'_reserved(');end=derived.index('\ndef ',start+1)
+  piece=derived[start:end].replace('S.Bundle<CC.Cache<T.'+main+',T.'+view+'>,T.'+aux+',T.'+flag+'>','S.Bundle<T.'+main+',T.'+aux+',T.'+flag+'>');derived=derived[:start]+piece+derived[end:]
+ derived=derived.replace('import Base\n','import Base\nimport ./raw-boundaries.bend as RB\n',1);measurement.write_text(derived);after[str(measurement.relative_to(destination))]=digest(derived.encode())
  source=ROOT/'experiments/s-prep/persistent-cache-world'
  (pkg/'cache.bend').write_bytes((source/'cache.bend').read_bytes());(pkg/'uncached-payload.bend').write_bytes((pkg/'payload.bend').read_bytes())
  cp=(source/'persistent-payload.bend').read_text()
  # Aux columns stay raw, observed through the actual original getter.
  cp+='\ndef velocity_get(owner:T.Velocity) -> T.Velocity & T.VelocityView:\n  P.velocity_get(owner)\ndef armor_get(owner:T.Armor) -> T.Armor & T.ArmorView:\n  P.armor_get(owner)\n'
  (pkg/'cached-payload.bend').write_text(cp)
+ (pkg/'raw-boundaries.bend').write_bytes((HERE/'raw-boundaries.bend').read_bytes())
  # Protected callbacks have no concrete owner occurrence, so specialization must preserve bytes.
  original=(ROOT/'experiments/s-perf/candidate/measurement-bend.bend').read_text();derived=(pkg/'measurement-bend.bend').read_text();pins={}
  for name in ['motion_body_ledger','motion_body_read','motion_body','health_body_ledger','health_body_read','health_body']:
