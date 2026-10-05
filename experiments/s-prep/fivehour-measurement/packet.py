@@ -51,7 +51,7 @@ def main():
     # Historical receipts cannot authorize the current candidate snapshot.
     live=contract.get('liveChecks')
     if not isinstance(live,dict) or set(live)!={'script','sha256','receipt','requiredGateIDs','wholeCommandLimit'}:raise ValueError('live authoritative check contract absent')
-    if live['wholeCommandLimit']!=1800:raise ValueError('proposed full-check wrapper cap differs')
+    if live['wholeCommandLimit']!=3600:raise ValueError('proposed full-check wrapper cap differs')
     checkscript=pathlib.Path(live['script'])
     if m['files'].get(str(checkscript))!=live['sha256'] or guard.sha(checkscript)!=live['sha256']:raise ValueError('live check implementation is not protected')
     allowed=pathlib.Path('/tmp/bendvy-fivehour-packets');allowed.mkdir(exist_ok=True)
