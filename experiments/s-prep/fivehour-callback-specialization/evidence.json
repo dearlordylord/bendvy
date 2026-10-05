@@ -1,0 +1,50 @@
+{
+  "status": "SOURCE_CODEGEN_OBSERVED",
+  "failedPreparation": "First record declaration missed is Type; rejected before codegen. Corrected.",
+  "commands": [
+    {
+      "argv": [
+        "bend",
+        "version"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdout": "bend 2.0.35\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-main-fusion/experiments/s-prep/fivehour-callback-specialization/canary.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdout": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-main-fusion/experiments/s-prep/fivehour-callback-specialization/canary.bend",
+        "-o",
+        "/tmp/bendvy-fivehour-callback-canary.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "invokeSnippet": "function $invoke$1260$(_owner_0) {\n  return $callback$(run_clo((_x_0) => {\n  return $read$(_x_0);\n}), run_clo((_x_1) => {\n  return run_clo((_x_2) => {\n  return $write$(_x_1, _x_2);\n});\n}), _owner_0);\n}",
+  "canarySHA256": "5ba57495fda0390f09e92f01d06d135b08f540591969c56a04228f675a037726",
+  "generatedSHA256": "5f812500dc16d5affff526c5128fdc45673c36096e8cd5b0a3f983bb74e5f136",
+  "providerClosureConstructionCount": 3,
+  "referenceSourceCommit": "a950fd683c0d76f09794078e6174fe98a1492876",
+  "referenceSourceSHA256": {
+    "bend2/bend.ts": "1d133151652b597a1a035c77c172475e6de096da37f3b9e3adc23c2f75bdfe49",
+    "bend2/comp.ts": "32fb66e09f608ce9e4b173384bcfeec453db8c5bc96650e26ad861bef815a8d9"
+  },
+  "installedCompilerSHA256": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a",
+  "guideSHA256": "9001a4ac112e92dc0c069c8b9d5812e114c2557427d9f962cddeef1ef6c292b6"
+}
