@@ -1,0 +1,14 @@
+{
+  "status": "COMPILING_JS_WRONG_ITERATION_MUTANT_DETECTED",
+  "scope": "63 instead of64 actualticks in17worlddriver; originalwarmupstill64, no timingclaim",
+  "checkerExit": 0,
+  "codegenExit": 0,
+  "runtimeExit": 0,
+  "validationExit": 1,
+  "diagnostic": "Traceback (most recent call last):\n  File \"/workspace/formal-proofs/bendvy-worktrees/twohour-profile/experiments/s-prep/fivehour-measurement/semantic-check.py\", line 12, in <module>\n    checked=V.validate(line,a.schema,False,256,world);actual=json.loads(line);normalized=V.normalized(actual,a.schema);assert normalized==world['final'];hashes.append(checked['normalizedFinalSha256'])\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/formal-proofs/bendvy/experiments/s-integrate/measurement-bend-run.py\", line 45, in validate\n    actual=json.loads(value);ms=actual.pop('milliseconds');assert actual==expected(schema,sparse,n),(schema,sparse,n,'full world/checksum/dispatch difference')\n                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: ('Health', False, 256, 'full world/checksum/dispatch difference')\n",
+  "hashes": {
+    "/tmp/bendvy-fivehour-held-method-construction/Health/wrong-iteration.bend": "471edc44002a494619dd4ea01324c646ecc1ffde1027f0afa74d7518626b30ae",
+    "/tmp/bendvy-fivehour-held-method-construction/Health/wrong-iteration.js": "ac47cfae8c128b2e04a324ca46241ee5f82b6e70788081e528b312d1e5f9a820",
+    "/tmp/bendvy-fivehour-held-method-construction/Health/wrong-iteration.txt": "d7c4916b1e52e634c502bf27f55508bd988214bc8424358843a995cc9c9221a5"
+  }
+}
