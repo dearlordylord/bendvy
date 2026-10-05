@@ -1,0 +1,158 @@
+{
+  "scope": "direct nominal Type Cache field/owner gate only; actual Tx integration separately run",
+  "limits": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "cpu": 8,
+  "sources": {
+    "payload-fixture.bend": "5ca9cdb6ebe3d8dec65b27f446a328f8ed8356ce5971a5dd45089c0f970108ba",
+    "uncached-payload.bend": "03c861d32a6a4194a27e7d9acf89eac369f6dafef46fc56d423cc80985872db6",
+    "baseline-cached-payload.bend": "03b01d1fc4e313c149302778753749e363527584d3e5b500f018c43a595dd05f",
+    "cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+    "cached-payload.bend": "15c12b055c143decdfc483e2adba628846d74e3755239dc7735351b33aa61cbe",
+    "types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+    "baseline-cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b"
+  },
+  "cases": {
+    "Native": {
+      "status": "ALL_RAW_CACHE_FIELDS_OWNER_RESTORE_PASS",
+      "baseline": {
+        "closure": {
+          "fixture.bend": "5ca9cdb6ebe3d8dec65b27f446a328f8ed8356ce5971a5dd45089c0f970108ba",
+          "types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+          "cached-payload.bend": "03b01d1fc4e313c149302778753749e363527584d3e5b500f018c43a595dd05f",
+          "uncached-payload.bend": "03c861d32a6a4194a27e7d9acf89eac369f6dafef46fc56d423cc80985872db6",
+          "cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b"
+        },
+        "generatedSha256": "db06ab126cbf28f169622af79bde8dceb35150acfed9cb5108a2a66b65c6879f",
+        "artifactSha256": "a8a02971c1ab3ab22b765eaab8720fcf558a9eaa7ad1b8cf2e957a9058c25860",
+        "outputSha256": "63e9fe350b71c9118ee230ec7921a7b1b8c17a443be5ce20fd4bedcf8fb9c700",
+        "output": "position:initial:5,17,29,43:71:old:5:written:211,17,29,43:71:replaced:211:restored:5,17,29,43:71:repeat:5,17,29,43:71:cache:5,17,29,43:71:owner:5,17,29,43,:frame:71\nvelocity:initial:7,19,31,47:True:restored:7,19,31,47:True:repeat:7,19,31,47:True:owner:7,19,31,47,:meta:True\nvitals:initial:11,23,37,53:73:79:old:11:written:211,23,37,53:73:79:replaced:211:restored:11,23,37,53:73:79:repeat:11,23,37,53:73:79:cache:11,23,37,53:73:79:owner:11,23,37,53,:meta:73,79\narmor:initial:13,27,41,59:83:restored:13,27,41,59:83:repeat:13,27,41,59:83:owner:13,27,41,59,:meta:83\nmotion_ledger:initial:61,67,89,97:101:old:61:written:211,67,89,97:101:replaced:211:restored:61,67,89,97:101:repeat:61,67,89,97:101:cache:61,67,89,97:101:owner:61,67,89,97,:meta:101\nhealth_ledger:initial:103,107,109,113:127:old:103:written:211,107,109,113:127:replaced:211:restored:103,107,109,113:127:repeat:103,107,109,113:127:cache:103,107,109,113:127:owner:103,107,109,113,:meta:127\n"
+      },
+      "subject": {
+        "closure": {
+          "fixture.bend": "5ca9cdb6ebe3d8dec65b27f446a328f8ed8356ce5971a5dd45089c0f970108ba",
+          "types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+          "cached-payload.bend": "15c12b055c143decdfc483e2adba628846d74e3755239dc7735351b33aa61cbe",
+          "uncached-payload.bend": "03c861d32a6a4194a27e7d9acf89eac369f6dafef46fc56d423cc80985872db6",
+          "cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b"
+        },
+        "generatedSha256": "1ff90cfda90c862157d26068a525d35240eecc8108cbe3282d05d17db4877aad",
+        "artifactSha256": "fa692b2e7223359b331963bed146ef222072ab42bbea07d5f34af1be72208058",
+        "outputSha256": "63e9fe350b71c9118ee230ec7921a7b1b8c17a443be5ce20fd4bedcf8fb9c700",
+        "output": "position:initial:5,17,29,43:71:old:5:written:211,17,29,43:71:replaced:211:restored:5,17,29,43:71:repeat:5,17,29,43:71:cache:5,17,29,43:71:owner:5,17,29,43,:frame:71\nvelocity:initial:7,19,31,47:True:restored:7,19,31,47:True:repeat:7,19,31,47:True:owner:7,19,31,47,:meta:True\nvitals:initial:11,23,37,53:73:79:old:11:written:211,23,37,53:73:79:replaced:211:restored:11,23,37,53:73:79:repeat:11,23,37,53:73:79:cache:11,23,37,53:73:79:owner:11,23,37,53,:meta:73,79\narmor:initial:13,27,41,59:83:restored:13,27,41,59:83:repeat:13,27,41,59:83:owner:13,27,41,59,:meta:83\nmotion_ledger:initial:61,67,89,97:101:old:61:written:211,67,89,97:101:replaced:211:restored:61,67,89,97:101:repeat:61,67,89,97:101:cache:61,67,89,97:101:owner:61,67,89,97,:meta:101\nhealth_ledger:initial:103,107,109,113:127:old:103:written:211,107,109,113:127:replaced:211:restored:103,107,109,113:127:repeat:103,107,109,113:127:cache:103,107,109,113:127:owner:103,107,109,113,:meta:127\n"
+      }
+    },
+    "JS": {
+      "status": "ALL_RAW_CACHE_FIELDS_OWNER_RESTORE_PASS",
+      "baseline": {
+        "closure": {
+          "fixture.bend": "5ca9cdb6ebe3d8dec65b27f446a328f8ed8356ce5971a5dd45089c0f970108ba",
+          "types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+          "cached-payload.bend": "03b01d1fc4e313c149302778753749e363527584d3e5b500f018c43a595dd05f",
+          "uncached-payload.bend": "03c861d32a6a4194a27e7d9acf89eac369f6dafef46fc56d423cc80985872db6",
+          "cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b"
+        },
+        "generatedSha256": "911658356d0da17c1fb9d769e9382090d528d060d189006f990d8f2ce2abdb75",
+        "artifactSha256": "911658356d0da17c1fb9d769e9382090d528d060d189006f990d8f2ce2abdb75",
+        "outputSha256": "63e9fe350b71c9118ee230ec7921a7b1b8c17a443be5ce20fd4bedcf8fb9c700",
+        "output": "position:initial:5,17,29,43:71:old:5:written:211,17,29,43:71:replaced:211:restored:5,17,29,43:71:repeat:5,17,29,43:71:cache:5,17,29,43:71:owner:5,17,29,43,:frame:71\nvelocity:initial:7,19,31,47:True:restored:7,19,31,47:True:repeat:7,19,31,47:True:owner:7,19,31,47,:meta:True\nvitals:initial:11,23,37,53:73:79:old:11:written:211,23,37,53:73:79:replaced:211:restored:11,23,37,53:73:79:repeat:11,23,37,53:73:79:cache:11,23,37,53:73:79:owner:11,23,37,53,:meta:73,79\narmor:initial:13,27,41,59:83:restored:13,27,41,59:83:repeat:13,27,41,59:83:owner:13,27,41,59,:meta:83\nmotion_ledger:initial:61,67,89,97:101:old:61:written:211,67,89,97:101:replaced:211:restored:61,67,89,97:101:repeat:61,67,89,97:101:cache:61,67,89,97:101:owner:61,67,89,97,:meta:101\nhealth_ledger:initial:103,107,109,113:127:old:103:written:211,107,109,113:127:replaced:211:restored:103,107,109,113:127:repeat:103,107,109,113:127:cache:103,107,109,113:127:owner:103,107,109,113,:meta:127\n"
+      },
+      "subject": {
+        "closure": {
+          "fixture.bend": "5ca9cdb6ebe3d8dec65b27f446a328f8ed8356ce5971a5dd45089c0f970108ba",
+          "types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+          "cached-payload.bend": "15c12b055c143decdfc483e2adba628846d74e3755239dc7735351b33aa61cbe",
+          "uncached-payload.bend": "03c861d32a6a4194a27e7d9acf89eac369f6dafef46fc56d423cc80985872db6",
+          "cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b"
+        },
+        "generatedSha256": "a20726772cceccff7d02ca3b29c030205fad55e0e37229d894682884950440a6",
+        "artifactSha256": "a20726772cceccff7d02ca3b29c030205fad55e0e37229d894682884950440a6",
+        "outputSha256": "63e9fe350b71c9118ee230ec7921a7b1b8c17a443be5ce20fd4bedcf8fb9c700",
+        "output": "position:initial:5,17,29,43:71:old:5:written:211,17,29,43:71:replaced:211:restored:5,17,29,43:71:repeat:5,17,29,43:71:cache:5,17,29,43:71:owner:5,17,29,43,:frame:71\nvelocity:initial:7,19,31,47:True:restored:7,19,31,47:True:repeat:7,19,31,47:True:owner:7,19,31,47,:meta:True\nvitals:initial:11,23,37,53:73:79:old:11:written:211,23,37,53:73:79:replaced:211:restored:11,23,37,53:73:79:repeat:11,23,37,53:73:79:cache:11,23,37,53:73:79:owner:11,23,37,53,:meta:73,79\narmor:initial:13,27,41,59:83:restored:13,27,41,59:83:repeat:13,27,41,59:83:owner:13,27,41,59,:meta:83\nmotion_ledger:initial:61,67,89,97:101:old:61:written:211,67,89,97:101:replaced:211:restored:61,67,89,97:101:repeat:61,67,89,97:101:cache:61,67,89,97:101:owner:61,67,89,97,:meta:101\nhealth_ledger:initial:103,107,109,113:127:old:103:written:211,107,109,113:127:replaced:211:restored:103,107,109,113:127:repeat:103,107,109,113:127:cache:103,107,109,113:127:owner:103,107,109,113,:meta:127\n"
+      }
+    }
+  },
+  "mutants": {
+    "wrong-cache-cell-Native": {
+      "closure": {
+        "fixture.bend": "5ca9cdb6ebe3d8dec65b27f446a328f8ed8356ce5971a5dd45089c0f970108ba",
+        "types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+        "cached-payload.bend": "3cda6f7eb5edc4ae6f5697b703260890cbe7435ca38a780a69f944268f5dcab9",
+        "uncached-payload.bend": "03c861d32a6a4194a27e7d9acf89eac369f6dafef46fc56d423cc80985872db6",
+        "cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b"
+      },
+      "generatedSha256": "3d1130661d426ec7bdf9bd04e482fd55c6c6ca6a5ebcff6440266f6310176de1",
+      "artifactSha256": "be5f243c07f3c11efbc01e495e57314197aac9cab4a29e39a024f95c2f0d7083",
+      "outputSha256": "064d3153799c0b5c5519c298d56f2c736d741c30962860e87fdd6e2233e65eeb",
+      "output": "position:initial:5,17,29,43:71:old:5:written:211,17,29,43:71:replaced:211:restored:5,17,29,43:71:repeat:5,17,29,43:71:cache:5,17,29,43:71:owner:5,17,29,43,:frame:71\nvelocity:initial:7,19,31,47:True:restored:7,19,31,47:True:repeat:7,19,31,47:True:owner:7,19,31,47,:meta:True\nvitals:initial:11,23,37,53:73:79:old:11:written:211,23,0,53:73:79:replaced:211:restored:11,23,0,53:73:79:repeat:11,23,0,53:73:79:cache:11,23,0,53:73:79:owner:11,23,37,53,:meta:73,79\narmor:initial:13,27,41,59:83:restored:13,27,41,59:83:repeat:13,27,41,59:83:owner:13,27,41,59,:meta:83\nmotion_ledger:initial:61,67,89,97:101:old:61:written:211,67,89,97:101:replaced:211:restored:61,67,89,97:101:repeat:61,67,89,97:101:cache:61,67,89,97:101:owner:61,67,89,97,:meta:101\nhealth_ledger:initial:103,107,109,113:127:old:103:written:211,107,109,113:127:replaced:211:restored:103,107,109,113:127:repeat:103,107,109,113:127:cache:103,107,109,113:127:owner:103,107,109,113,:meta:127\n",
+      "status": "DETECTED"
+    },
+    "raw-tail-corruption-Native": {
+      "closure": {
+        "fixture.bend": "5ca9cdb6ebe3d8dec65b27f446a328f8ed8356ce5971a5dd45089c0f970108ba",
+        "types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+        "cached-payload.bend": "15c12b055c143decdfc483e2adba628846d74e3755239dc7735351b33aa61cbe",
+        "uncached-payload.bend": "0dc178532c0d944d150866a95601ce09ec6947b5866f9dc2773d3005c9098350",
+        "cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b"
+      },
+      "generatedSha256": "36f4c57273b621add1a148008900a97e06c06d5731ce4e5e6a5915b20180cf9c",
+      "artifactSha256": "a8a28c00b47b143210ba8984e87411f3595122fceb2b08b0e1b4efef20f8e2a0",
+      "outputSha256": "9b6ec76115a28ca10898810cdfe123a99e0a29c8c2e7b47164dece3b3a10ff4b",
+      "output": "position:initial:5,17,29,43:71:old:5:written:211,17,29,43:71:replaced:211:restored:5,17,29,43:71:repeat:5,17,29,43:71:cache:5,17,29,43:71:owner:5,17,29,43,:frame:71\nvelocity:initial:7,19,31,47:True:restored:7,19,31,47:True:repeat:7,19,31,47:True:owner:7,19,31,47,:meta:True\nvitals:initial:11,23,37,53:73:79:old:11:written:211,23,37,53:73:79:replaced:211:restored:11,23,37,53:73:79:repeat:11,23,37,53:73:79:cache:11,23,37,53:73:79:owner:11,23,37,0,:meta:73,79\narmor:initial:13,27,41,59:83:restored:13,27,41,59:83:repeat:13,27,41,59:83:owner:13,27,41,59,:meta:83\nmotion_ledger:initial:61,67,89,97:101:old:61:written:211,67,89,97:101:replaced:211:restored:61,67,89,97:101:repeat:61,67,89,97:101:cache:61,67,89,97:101:owner:61,67,89,97,:meta:101\nhealth_ledger:initial:103,107,109,113:127:old:103:written:211,107,109,113:127:replaced:211:restored:103,107,109,113:127:repeat:103,107,109,113:127:cache:103,107,109,113:127:owner:103,107,109,113,:meta:127\n",
+      "status": "DETECTED"
+    },
+    "wrong-cache-cell-JS": {
+      "closure": {
+        "fixture.bend": "5ca9cdb6ebe3d8dec65b27f446a328f8ed8356ce5971a5dd45089c0f970108ba",
+        "types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+        "cached-payload.bend": "3cda6f7eb5edc4ae6f5697b703260890cbe7435ca38a780a69f944268f5dcab9",
+        "uncached-payload.bend": "03c861d32a6a4194a27e7d9acf89eac369f6dafef46fc56d423cc80985872db6",
+        "cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b"
+      },
+      "generatedSha256": "d9d574f714c71d2f74e9c5f121847d7c6f2a0366937cea505331f02a8bec91f7",
+      "artifactSha256": "d9d574f714c71d2f74e9c5f121847d7c6f2a0366937cea505331f02a8bec91f7",
+      "outputSha256": "064d3153799c0b5c5519c298d56f2c736d741c30962860e87fdd6e2233e65eeb",
+      "output": "position:initial:5,17,29,43:71:old:5:written:211,17,29,43:71:replaced:211:restored:5,17,29,43:71:repeat:5,17,29,43:71:cache:5,17,29,43:71:owner:5,17,29,43,:frame:71\nvelocity:initial:7,19,31,47:True:restored:7,19,31,47:True:repeat:7,19,31,47:True:owner:7,19,31,47,:meta:True\nvitals:initial:11,23,37,53:73:79:old:11:written:211,23,0,53:73:79:replaced:211:restored:11,23,0,53:73:79:repeat:11,23,0,53:73:79:cache:11,23,0,53:73:79:owner:11,23,37,53,:meta:73,79\narmor:initial:13,27,41,59:83:restored:13,27,41,59:83:repeat:13,27,41,59:83:owner:13,27,41,59,:meta:83\nmotion_ledger:initial:61,67,89,97:101:old:61:written:211,67,89,97:101:replaced:211:restored:61,67,89,97:101:repeat:61,67,89,97:101:cache:61,67,89,97:101:owner:61,67,89,97,:meta:101\nhealth_ledger:initial:103,107,109,113:127:old:103:written:211,107,109,113:127:replaced:211:restored:103,107,109,113:127:repeat:103,107,109,113:127:cache:103,107,109,113:127:owner:103,107,109,113,:meta:127\n",
+      "status": "DETECTED"
+    },
+    "raw-tail-corruption-JS": {
+      "closure": {
+        "fixture.bend": "5ca9cdb6ebe3d8dec65b27f446a328f8ed8356ce5971a5dd45089c0f970108ba",
+        "types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+        "cached-payload.bend": "15c12b055c143decdfc483e2adba628846d74e3755239dc7735351b33aa61cbe",
+        "uncached-payload.bend": "0dc178532c0d944d150866a95601ce09ec6947b5866f9dc2773d3005c9098350",
+        "cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b"
+      },
+      "generatedSha256": "32d78740df9a21d4c51a23f9354d70d178d9dcd2a42ddc651fcbb332fc9d22ae",
+      "artifactSha256": "32d78740df9a21d4c51a23f9354d70d178d9dcd2a42ddc651fcbb332fc9d22ae",
+      "outputSha256": "9b6ec76115a28ca10898810cdfe123a99e0a29c8c2e7b47164dece3b3a10ff4b",
+      "output": "position:initial:5,17,29,43:71:old:5:written:211,17,29,43:71:replaced:211:restored:5,17,29,43:71:repeat:5,17,29,43:71:cache:5,17,29,43:71:owner:5,17,29,43,:frame:71\nvelocity:initial:7,19,31,47:True:restored:7,19,31,47:True:repeat:7,19,31,47:True:owner:7,19,31,47,:meta:True\nvitals:initial:11,23,37,53:73:79:old:11:written:211,23,37,53:73:79:replaced:211:restored:11,23,37,53:73:79:repeat:11,23,37,53:73:79:cache:11,23,37,53:73:79:owner:11,23,37,0,:meta:73,79\narmor:initial:13,27,41,59:83:restored:13,27,41,59:83:repeat:13,27,41,59:83:owner:13,27,41,59,:meta:83\nmotion_ledger:initial:61,67,89,97:101:old:61:written:211,67,89,97:101:replaced:211:restored:61,67,89,97:101:repeat:61,67,89,97:101:cache:61,67,89,97:101:owner:61,67,89,97,:meta:101\nhealth_ledger:initial:103,107,109,113:127:old:103:written:211,107,109,113:127:replaced:211:restored:103,107,109,113:127:repeat:103,107,109,113:127:cache:103,107,109,113:127:owner:103,107,109,113,:meta:127\n",
+      "status": "DETECTED"
+    }
+  },
+  "codegen": {
+    "Native": {
+      "baselineSha256": "db06ab126cbf28f169622af79bde8dceb35150acfed9cb5108a2a66b65c6879f",
+      "subjectSha256": "1ff90cfda90c862157d26068a525d35240eecc8108cbe3282d05d17db4877aad"
+    },
+    "JS": {
+      "baselineSha256": "911658356d0da17c1fb9d769e9382090d528d060d189006f990d8f2ce2abdb75",
+      "subjectSha256": "a20726772cceccff7d02ca3b29c030205fad55e0e37229d894682884950440a6"
+    }
+  },
+  "environment": {
+    "Bend": "bend 2.0.35",
+    "Base": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661"
+  },
+  "affineNegative": {
+    "source": "import Base\nimport ./types.bend as T\nimport ./cache.bend as C\ndef clone(owner:C.Cache<T.Vitals,T.VitalsView>) -> C.Cache<T.Vitals,T.VitalsView> & C.Cache<T.Vitals,T.VitalsView>:\n  (owner,owner)\n",
+    "output": "SOME PROOFS FAIL\nError:\n- expected : owner\n- observed : owner (consumed more than once)\nLocation: clone\n3 | \n4>| def clone(owner:C.Cache<T.Vitals,T.VitalsView>) -> C.Cache<T.Vitals,T.VitalsView> & C.Cache<T.Vitals,T.VitalsView>:\n  |           ^^^^^\n5 |   (owner,owner)\n",
+    "status": "REJECTED"
+  },
+  "status": "FINITE_DIRECT_GETTER_OWNER_PASS",
+  "actualTxJournalStatus": "Separate run-tx.py must freshly execute full144field/journal gate; current completed result retained in tx-evidence.json, historical deadlines not erased"
+}
