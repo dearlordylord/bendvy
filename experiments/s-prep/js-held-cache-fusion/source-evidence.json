@@ -1,0 +1,43 @@
+{
+  "status": "PASS_BOUNDED_GETTER_SOURCE_SCOPE",
+  "baselineRuntimeClosureSHA256": "e7054bd1cf14a84b8db55ca63492f61f6b7190c4943c59783b697db19132d1d5",
+  "candidateRuntimeClosureSHA256": "c9fd2616bad748f794b6e6822e166fcff09d3d26601533b56d77e52f92b55ecb",
+  "runtimeModules": 28,
+  "changedModules": [
+    "experiments/s-integrate/held-adapter.bend"
+  ],
+  "changedDefinitions": [
+    "motion_get",
+    "motion_ledger",
+    "health_get",
+    "health_ledger"
+  ],
+  "allOriginalHeadersRetained": true,
+  "nominalTypesUnchanged": true,
+  "originalOpaqueCallbackPins": {
+    "motion_body_ledger": "b1ea1bd7ae671fae18ea7c5d26b04ca4c0c03b8bd2d36d709a01c76379ba5201",
+    "motion_body_read": "e6967abd8b26c4028dfc0651703f1f90c663583613a7e4efa68028a056553741",
+    "motion_body": "38e9d8bb471ed25341c59fc82801493483229a351168a64ad802ecc3dbd625b0",
+    "health_body_ledger": "782d031b2dfa09a2f9bbcff228ff705816fc3bb40b64b5cad9bbaaae0ec691f0",
+    "health_body_read": "09d94bef9502a59eff8b0f050842e8dfbcf369fd9736a352b03fa6e9c4931269",
+    "health_body": "9f289b79eececfab754bca0fbb412896e96dbe8639231090bef251961cf879b0"
+  },
+  "allWriteSwapMarkInverseDefinitionsUnchanged": true,
+  "rawProviderUnchanged": true,
+  "manifestSHA256": "3e92d572153237f99fbb22ddb64e303cb45dbd5b1061d285c0d75fd63286fe72",
+  "prepareSHA256": "1807b84ee280e3af4538ece5fcaed8c3cb8d220d346ab2d1a2e554e70b2ac06f",
+  "failedPreparations": [
+    "Computed raw swap match rejected, own done helper introduced",
+    "Second write prototype value affine duplicate rejected, explicit Data copy added"
+  ],
+  "archivedFullWriteVariant": {
+    "path": "/tmp/bendvy-js-held-cache-fusion-v3",
+    "closure": "a96d2a8158fc4cd8aad63b61da31d560e4ac675d49f1febbbe06bfcc82503157",
+    "selection": false,
+    "blocker": "Live suppressed setter/lostmark mutation mapping not delivered; finiteTx does not meet fullgate."
+  },
+  "checker": "actual measurement installed bend --check-only5s PASS",
+  "codegen": "actual measurement JS30s PASS",
+  "generatedSHA256": "61021f5ddce2065eeeccc675d84c77372681f90f303a7af36f9bd88af519b872",
+  "getterSnippet": "function $held$045adapter$058motion_get$(_owner_0, _token_0) {\n  const _world_0 = _owner_0[\"world\"];\n  const _t_0 = _owner_0[\"main\"];\n  const _raw_0 = _t_0[\"raw\"];\n  const _cached_0 = _t_0[\"cached\"];\n  const _ledger_0 = _owner_0[\"ledger\"];\n  const _handle_0 = _owner_0[\"handle\"];\n  const _undo_0 = _owner_0[\"undo\"];\n  const _commands_0 = _owner_0[\"commands\"];\n  const _pings_0 = _owner_0[\"pings\"];\n  const _marks_0 = _owner_0[\"marks\"];\n  return {$: \"Tuple\", \"fst\": {$: \"held.Held\", \"world\": _world_0, \"main\": {$: \"cache.Cache\", \"raw\": _raw_0, \"cached\": _cached_0}, \"ledger\": _ledger_0, \"handle\": _handle_0, \"undo\": _undo_0, \"commands\": _commands_0, \"pings\": _pings_0, \"marks\": _marks_0}, \"snd\": {$: \"types.Found\", \"value\": _cached_0}};\n}"
+}
