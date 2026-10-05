@@ -2,10 +2,10 @@
 """Selected-owner column specialization finite construction, not a benchmark."""
 import argparse,hashlib,importlib.util,json,os,shutil
 from pathlib import Path
-ROOT=Path(__file__).resolve().parents[3];H=Path(__file__).resolve().parent;project=Path('/workspace/formal-proofs/bendvy');sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+H=Path(__file__).resolve().parent;project=Path('/workspace/formal-proofs/bendvy');ROOT=project;sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
 p=argparse.ArgumentParser();p.add_argument('--prepared',type=Path,required=True);p.add_argument('--base-overlay',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--previous-evidence',type=Path);a=p.parse_args();os.sched_setaffinity(0,{11});a.output.mkdir(exist_ok=False)
 import preflight
-preflight_result={'base':preflight.base(a.base_overlay),'derived':preflight.prepared(a.prepared)}
+preflight_result={'evaluatorRoot':preflight.evaluator_root(ROOT),'base':preflight.base(a.base_overlay),'derived':preflight.prepared(a.prepared)}
 sp=importlib.util.spec_from_file_location('M',ROOT/'experiments/s-perf/measure-run.py');M=importlib.util.module_from_spec(sp);sp.loader.exec_module(M)
 cp=project/'experiments/s-prep/owned-write-query-integration/controls-run.py';sp=importlib.util.spec_from_file_location('C',cp);C=importlib.util.module_from_spec(sp);sp.loader.exec_module(C)
 r={'scope':'Finite source-distinct Native/JS selected-owner construction and boundary controls; no clock metric selected','limitsSeconds':{'checker':5,'runtime':5,'codegen':30,'clang':120},'preparedReceiptSHA256':sha(a.prepared/'receipt.json'),'preflight':preflight_result,'cases':[],'controls':[],'mutants':[],'compiler':M.D.B.command(['bend','version']).strip()}

@@ -1,0 +1,36 @@
+{
+  "scope": "Preflight-only: no artifact build, Node, construction or timing rerun",
+  "controls": [
+    {
+      "name": "mismatched-evaluator-root",
+      "status": "REJECTED_BEFORE_IMPORT",
+      "diagnostic": "Evaluator import root differs from guarded PROJECT"
+    },
+    {
+      "name": "repinned-source-ledger",
+      "status": "REJECTED_BEFORE_RECIPE_READ",
+      "diagnostic": "Frozen source bindings mismatch"
+    }
+  ],
+  "positive": {
+    "base": {
+      "baseGuardSHA256": "d560f0834d0f4373936402eb3e266e75ab6deebd30335059602768da2e25a215",
+      "protectedSources": 139,
+      "baseDerivedSources": 432,
+      "referenceCommit": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334",
+      "referenceClosureDigest": "f3dc6b2fc3914640226291412007960816c8db2fd3efa1ec666a4041d797681f",
+      "basePinsSHA256": "405c0667ef57d89c452432d62cefd251acd5c133fc9c2fe64c7f469e363c3833"
+    },
+    "prepared": {
+      "recipeSHA256": "eca0f3e71c74ec5b4a4720bbb18a3f82c3bc7e0d3787783e826e81aacdd76e52",
+      "sourceBindingsSHA256": "b645d29e0078f81741b93d5ff6869e78569cc3ada7f9a8f239a5488642d0f6b0",
+      "backendSources": {
+        "native": 433,
+        "javascript": 433
+      }
+    },
+    "evaluatorRoot": "/workspace/formal-proofs/bendvy"
+  },
+  "status": "PREFLIGHT_POSITIVE_AND_NEGATIVES_PASS",
+  "runnerSHA256": "dae8d328ed68df506411772a8483d3442940691bc2ff4c1ae71579c9db6cf5db"
+}
