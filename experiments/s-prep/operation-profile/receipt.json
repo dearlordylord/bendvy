@@ -1,0 +1,354 @@
+{
+  "scope": "ONE whole-process sampling diagnostic, not inner measurement or keep evidence",
+  "cpu": 11,
+  "runtimeLimitSeconds": 5,
+  "profileIntervalMicroseconds": 100,
+  "command": [
+    "node",
+    "--cpu-prof",
+    "--cpu-prof-interval=100",
+    "--cpu-prof-dir=/tmp/bendvy-twohour-cpu-profile-dr_0e6vg",
+    "/tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+    "1",
+    "0",
+    "256",
+    "1"
+  ],
+  "artifactSHA256": "93f6bceb0b8c738e566400cffc8905e74c6b4e326256678c69414f8d7f81238a",
+  "rawDirectory": "/tmp/bendvy-twohour-cpu-profile-dr_0e6vg",
+  "nodeVersion": "v24.20.0",
+  "inputReceiptSHA256": "dce2acdff3428b51878f583759822ecc37e570c5deb5acaac704fc54a668eb61",
+  "exitCode": 0,
+  "fullFieldValidation": {
+    "freshMeasuredWorlds": 1,
+    "finalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+    "worksumPerWorld": 8970240
+  },
+  "validatorSHA256": "64adcb13c45b3b74bb3b9141ca7e61a8584358091d2df21dda60c5befcec0854",
+  "referenceSHA256": "e500dab0554d2336161d568c80e894370d5456408923df3abf2413126bb25d69",
+  "profilePath": "/tmp/bendvy-twohour-cpu-profile-dr_0e6vg/CPU.20261004.203936.2195302.0.001.cpuprofile",
+  "profileSHA256": "fd7e8b136276412aa7683a2b3fc34a224d45b12069303cd21cedaec65db6e2e1",
+  "stdoutSHA256": "fd219357c58eb6f8b566dbd6f72ac3ea9dfe2c5d7f6fe0ca3586ed18dc55b8d4",
+  "totalSamples": 701,
+  "timeDeltaSumMicroseconds": 261665,
+  "exclusiveSamples": [
+    {
+      "function": "(garbage collector)",
+      "url": "",
+      "line": 0,
+      "samples": 129,
+      "share": 0.1840228245363766
+    },
+    {
+      "function": "f",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 130,
+      "samples": 20,
+      "share": 0.028530670470756064
+    },
+    {
+      "function": "wrapSafe",
+      "url": "node:internal/modules/cjs/loader",
+      "line": 1819,
+      "samples": 18,
+      "share": 0.025677603423680456
+    },
+    {
+      "function": "$transaction$058record_ledger$",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 5185,
+      "samples": 17,
+      "share": 0.024251069900142655
+    },
+    {
+      "function": "",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 5274,
+      "samples": 15,
+      "share": 0.021398002853067047
+    },
+    {
+      "function": "$host$045render$058render_push$",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 1798,
+      "samples": 15,
+      "share": 0.021398002853067047
+    },
+    {
+      "function": "$measurement$045bend$058health_rows$",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 4531,
+      "samples": 14,
+      "share": 0.019971469329529243
+    },
+    {
+      "function": "$host$045render$058render_push$",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 1798,
+      "samples": 12,
+      "share": 0.017118402282453638
+    },
+    {
+      "function": "$measurement$045bend$058health_body_read$",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 5016,
+      "samples": 11,
+      "share": 0.015691868758915834
+    },
+    {
+      "function": "$query$058struct_idx_selected$1263$",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 5669,
+      "samples": 11,
+      "share": 0.015691868758915834
+    },
+    {
+      "function": "$host$045render$058render_push$",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 1798,
+      "samples": 11,
+      "share": 0.015691868758915834
+    },
+    {
+      "function": "$host$045render$058render_row$1261$",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 1951,
+      "samples": 10,
+      "share": 0.014265335235378032
+    },
+    {
+      "function": "$query$058struct_idx_main$1263$",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 5823,
+      "samples": 9,
+      "share": 0.012838801711840228
+    },
+    {
+      "function": "",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 4784,
+      "samples": 9,
+      "share": 0.012838801711840228
+    },
+    {
+      "function": "$String$reverse$go$",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 2091,
+      "samples": 9,
+      "share": 0.012838801711840228
+    },
+    {
+      "function": "",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 4555,
+      "samples": 8,
+      "share": 0.011412268188302425
+    },
+    {
+      "function": "",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 4778,
+      "samples": 8,
+      "share": 0.011412268188302425
+    },
+    {
+      "function": "$storage$058with_main$",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 5134,
+      "samples": 8,
+      "share": 0.011412268188302425
+    },
+    {
+      "function": "$String$reverse$",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 1794,
+      "samples": 8,
+      "share": 0.011412268188302425
+    },
+    {
+      "function": "$storage$058with_main$",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 5134,
+      "samples": 7,
+      "share": 0.009985734664764621
+    },
+    {
+      "function": "$storage$058mark_main$",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 5088,
+      "samples": 7,
+      "share": 0.009985734664764621
+    },
+    {
+      "function": "$query$058struct_idx_aux$1263$",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 5961,
+      "samples": 6,
+      "share": 0.008559201141226819
+    },
+    {
+      "function": "$measurement$045bend$058health_updated$",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 4525,
+      "samples": 6,
+      "share": 0.008559201141226819
+    },
+    {
+      "function": "f",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 130,
+      "samples": 6,
+      "share": 0.008559201141226819
+    },
+    {
+      "function": "$storage$058with_ledger$",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 5169,
+      "samples": 6,
+      "share": 0.008559201141226819
+    }
+  ],
+  "status": "FINITE_FULL_FIELD_PROFILE_PASS",
+  "exclusiveFunctionsAggregatedAcrossCallContexts": [
+    {
+      "function": "(garbage collector)",
+      "url": "",
+      "line": 0,
+      "samples": 129,
+      "share": 0.1840228245363766
+    },
+    {
+      "function": "$host$045render$058render_push$",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 1798,
+      "samples": 46,
+      "share": 0.06562054208273894
+    },
+    {
+      "function": "f",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 130,
+      "samples": 40,
+      "share": 0.05706134094151213
+    },
+    {
+      "function": "$String$reverse$go$",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 2091,
+      "samples": 21,
+      "share": 0.029957203994293864
+    },
+    {
+      "function": "wrapSafe",
+      "url": "node:internal/modules/cjs/loader",
+      "line": 1819,
+      "samples": 18,
+      "share": 0.025677603423680456
+    },
+    {
+      "function": "$String$reverse$",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 1794,
+      "samples": 18,
+      "share": 0.025677603423680456
+    },
+    {
+      "function": "$transaction$058record_ledger$",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 5185,
+      "samples": 17,
+      "share": 0.024251069900142655
+    },
+    {
+      "function": "$storage$058with_main$",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 5134,
+      "samples": 15,
+      "share": 0.021398002853067047
+    },
+    {
+      "function": "",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 5274,
+      "samples": 15,
+      "share": 0.021398002853067047
+    },
+    {
+      "function": "$measurement$045bend$058health_rows$",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 4531,
+      "samples": 14,
+      "share": 0.019971469329529243
+    },
+    {
+      "function": "$measurement$045bend$058health_body_read$",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 5016,
+      "samples": 11,
+      "share": 0.015691868758915834
+    },
+    {
+      "function": "$query$058struct_idx_selected$1263$",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 5669,
+      "samples": 11,
+      "share": 0.015691868758915834
+    },
+    {
+      "function": "$storage$058with_ledger$",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 5169,
+      "samples": 10,
+      "share": 0.014265335235378032
+    },
+    {
+      "function": "$storage$058fuse_taken$",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 6006,
+      "samples": 10,
+      "share": 0.014265335235378032
+    },
+    {
+      "function": "",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 4778,
+      "samples": 10,
+      "share": 0.014265335235378032
+    },
+    {
+      "function": "$host$045render$058render_chunks$",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 1475,
+      "samples": 10,
+      "share": 0.014265335235378032
+    },
+    {
+      "function": "$host$045render$058render_row$1261$",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 1951,
+      "samples": 10,
+      "share": 0.014265335235378032
+    },
+    {
+      "function": "$query$058struct_idx_main$1263$",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 5823,
+      "samples": 9,
+      "share": 0.012838801711840228
+    },
+    {
+      "function": "",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 4784,
+      "samples": 9,
+      "share": 0.012838801711840228
+    },
+    {
+      "function": "",
+      "url": "file:///tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "line": 4555,
+      "samples": 8,
+      "share": 0.011412268188302425
+    }
+  ]
+}
