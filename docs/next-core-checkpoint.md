@@ -163,3 +163,7 @@ Post-window explicit user approval: **JS elapsed / bevy-ts elapsed <=1.00; Nativ
 ## Active five-hour optimization authorization
 
 The user authorizes optimization through **2026-10-05T07:34:51Z**, starting02:34:51Z (five cumulative hours including preparation/recovery). Approved goals: JS/TS <=1.00 and Native/TS <=0.50, both on equivalent work. Parallel isolated integration, measurement preparation and independent gates are underway; see [active report](reports/fivehour-performance-work.md). No complete replacement Autoresearch contract or new ECS law is yet accepted. Preserve earlier evidence and do not reset this window.
+
+## Accepted protocol and seven-hour extension
+
+The user explicitly accepted the concrete focused protocol on 2026-10-05 and granted seven further hours. Execution window starts **2026-10-05T05:22:50Z** and ends **2026-10-05T12:22:50Z**, including deadline amendment, checks, measurements, recovery and delivery. This supersedes the earlier deadline only. Dense256/both schemas, B16/full17 records, all exact gates, 13-module scope, unknown-noise qualification2, maximum8 packets, strict keep rules and JS/TS<=1 / Native/TS<=0.5 remain unchanged. The former manifests are retained as history; deadline-bound source/tool manifests and dependency bookkeeping are regenerated without claiming fresh historical gate execution. No additional law, scope, dependency or threshold is approved.
