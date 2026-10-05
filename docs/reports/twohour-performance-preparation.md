@@ -16,3 +16,13 @@ Experimental candidates are committed separately:
 These commits are experimental semantic work, not measured keeps or product acceptance. Missing, failing or partial gates remain explicit in their individual reports. Candidate benchmarking requires a single agreed compiler pin, protected full-field evaluator, complete comparison/check scope, and accepted stop/keep rules.
 
 Operation diagnostic `50d3df3` independently validates the old retained JS artifact against freshly executed bevy-ts. Each HealthDense256 world performs 16,384 extract/restores and 32,768 Main take/hook/put entries; warmup and measured worlds match. Counts are not timing attribution. JS already lowers Array get/set/swap to direct mutable native-array operations, so structural traversal alone does not establish a source-supported 6× JS gain. See `experiments/s-prep/operation-counts/README.md` for exact evidence, negative counter control and replay.
+
+## Current implementation frontier
+
+The reviewed fused indexed query (`8b3e81e`) replaces the copying structural variant as the preferred semantic candidate. Combined with Main fusion on isolated `s-loop23/fusion-review`, fresh Main traces match all fields/effects on both schemas/capture styles, and current-tool owned-storage controls pass. Combined E11 and actual-host mutation replay remain in progress. Equivalence is bounded to trusted equal-shaped Worlds; malformed Flag-filtered/Main-absent columns can change failure behavior. No universal refinement/adoption is inferred.
+
+One combined HealthDense256 construction control is full-field PASS: Native13ms, TS12.951976ms, JS70ms, descriptive Native/TS1.004 and JS/TS5.405. It is unqualified and cannot establish causal improvement or target achievement. Exact evidence is retained on the candidate branch under integrated-indexed-query/combined-focus-control-evidence.json.
+
+Pure parity/scope/evaluator proposals now compare candidate with actual TS, include tiny-positive ratio numeric rejection, exact private declaration allowlists and repository-bound paths. The evaluator is dry-run-only; execution is blocked until canonical acceptance and protected source/tool/check/deadline bindings exist. No accepted session or benchmark packet has been created.
+
+The isolated Ledger journal prototype (`3014093`) passes concrete disjoint-storage fixtures but rejects generic Tx equivalence through a cross-dependent restoration counterexample. The direct owned write-query proposal and capability prototype preserve every inverse/mark, retaining selected Main/Ledger across callbacks. Production transaction/provider integration, full matrix, numerical acceptance, simulation and copied-TD validation remain open.
