@@ -15,3 +15,9 @@ Targeted independent read-only review at `dda676c` found no actionable blocker. 
 ## Native cached-capacity semantics
 
 Independent read-only review at `833fa6e` found no actionable semantic blocker. Native traversal preserves actual Type owners under the documented balanced-shape/capacity invariant; namespace, bounds, high-water, live metadata and optional-owner fallback remain intact. Backend source hashes and raw receipt binding match; both schemas/backends retain full-field construction and 144-record controls. The surviving first mutant stays a failed gate; only the corrected Native full-record mutation is detected. The later replay-preflight code was excluded from this review and receives separate targeted checks. No compiler or benchmark execution by the reviewer.
+
+## Final replay and structural follow-up
+
+Independent read-only review at `51618bb` finds no remaining actionable blocker. The expired default deadline is removed; task-supplied deadlines remain optional and current supervision is unchanged. Native preflight now pins the actual imported control validator and copied fixture before consumption. Root separately passes the final preflight/tampering controls (`owned-native-capacity/root-final-preflight-evidence.json`).
+
+The growth probe retains eight complete cached/raw/independent-Python checkpoints across both schemas. Actual generic growth, replacement/removal, deferred FIFO application and rejected handles are exercised; the association mutant compiles on both backends, and source/output hashes match. No fresh TS growth equivalence is claimed. Earlier two-tick semantics, unapproved laws and bounded-domain restrictions remain unchanged. No build or repeated check was run by the reviewer.
