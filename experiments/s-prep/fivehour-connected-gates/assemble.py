@@ -4,14 +4,35 @@ import argparse,hashlib,json
 from pathlib import Path
 import checks as C
 HERE=Path(__file__).resolve().parent
+def projected_controls(current,historical):
+ manifest=json.loads((current/'overlay.json').read_text())['sources'];sources={n:v for n,v in manifest.items() if n.endswith('.bend')};ledger={}
+ assert sources and all(n in historical and historical[n]==v and C.sha(current/n)==v for n,v in sources.items()),'Current control sources differ from recorded source bytes'
+ for name in sources:
+  path=(current/name).resolve();assert path.is_relative_to(current.resolve()) and not (current/name).is_symlink()
+  seen={}
+  def visit(source):
+   key=str(source.relative_to(current.resolve()));assert key in sources and C.sha(source)==sources[key],'Projected import absent or changed'
+   if key in seen:return
+   seen[key]=sources[key]
+   for imported in __import__('re').findall(r'^import (\S+)',source.read_text(),__import__('re').M):
+    if imported=='Base':continue
+    assert imported.startswith('./') and imported.endswith('.bend'),'Unsupported projected import'
+    dependency=(source.parent/imported).resolve();assert dependency.is_relative_to(current.resolve());visit(dependency)
+  visit(path);ledger[name]=seen
+ entries=['host-motion-fixture.bend','host-health-fixture.bend','integrated-access-positive.bend','host-retention-controls.bend','measurement-bend.bend','storage.bend','transaction.bend','types.bend','cache.bend','held-adapter.bend','cached-payload.bend','payload.bend']
+ for name in entries:assert 'experiments/s-integrate/'+name in sources,'Required gate import subject missing'
+ return sources,{'status':'CURRENT_FROZEN_CHECK_INVOCATION_INPUTS','historicalControlSources':historical,'historicalSourceMapSHA256':hashlib.sha256(json.dumps(historical,sort_keys=True,separators=(',',':')).encode()).hexdigest(),'allCurrentFilesByteEqualHistorical':True,'omittedHistoricalFiles':sorted(set(historical)-set(sources)),'everyCurrentModuleImportClosure':ledger,'entryLedger':{'host12':['host-motion-fixture.bend','host-health-fixture.bend'],'access':['integrated-access-positive.bend'],'e11':['host-retention-controls.bend'],'owned-storage':['storage.bend','types.bend'],'staging':['types.bend','storage.bend','transaction.bend','cache.bend'],'tx-baseline-and-four-mutants':['measurement-bend.bend','transaction.bend','held-adapter.bend','cached-payload.bend','payload.bend']},'generatedControlFixtures':'Protected dependencyBinding gateAndProtectedSources pins owned/staging/Tx fixture recipes and original callbacks; generated fixtures add only imports into the complete current module closures. No gate ID, case or authored callback removed.'}
 def main():
- p=argparse.ArgumentParser();p.add_argument('--js-overlay',type=Path,required=True);p.add_argument('--native-overlay',type=Path,required=True);p.add_argument('--js-controls',type=Path,required=True);p.add_argument('--native-controls',type=Path,required=True);p.add_argument('--js-host',type=Path,required=True);p.add_argument('--native-host',type=Path,required=True);p.add_argument('--native-e11',type=Path,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args();a.output.mkdir(exist_ok=False)
+ p=argparse.ArgumentParser();p.add_argument('--js-overlay',type=Path,required=True);p.add_argument('--native-overlay',type=Path,required=True);p.add_argument('--js-controls',type=Path,required=True);p.add_argument('--native-controls',type=Path,required=True);p.add_argument('--js-host',type=Path,required=True);p.add_argument('--native-host',type=Path,required=True);p.add_argument('--native-e11',type=Path,required=True);p.add_argument('--js-current-controls',type=Path);p.add_argument('--native-current-controls',type=Path);p.add_argument('--output',type=Path,required=True);a=p.parse_args();a.output.mkdir(exist_ok=False)
  result={'status':'INCOMPLETE','schemaVersion':1,'executionMode':'ASSEMBLED_THIS_TASK_RECORDED_COMMANDS','freshCheckSetExecution':False,'scope':'Complete finite capability/correctness evidence from this task; not a new execution, proof, measurement or product acceptance','roles':{},'referenceReuse':{}}
  try:
   result['dependencyBinding']=C.dependency_binding();result['gateSources']={f.name:C.sha(f) for f in HERE.glob('*.py')}
   for role,overlay,controls,host in [('JS',a.js_overlay,a.js_controls,a.js_host),('Native',a.native_overlay,a.native_controls,a.native_host)]:
    binding=C.source_binding(overlay);control_manifest=json.loads((controls/'overlay.json').read_text());control_sources={n:v for n,v in control_manifest['sources'].items() if n.endswith('.bend')};assert all(C.sha(controls/n)==v for n,v in control_sources.items())
+   projection=None;current=a.js_current_controls if role=='JS' else a.native_current_controls
+   if current:control_sources,projection=projected_controls(current,control_sources)
    entry={'status':'INCOMPLETE','input':str(overlay.resolve()),'binding':binding,'controlSources':control_sources,'gates':[]};result['roles'][role]=entry
+   if projection:entry['controlProjection']=projection
    def add(name,path,status,cpu=None):
     data=json.loads(path.read_text());gate={'name':name,'exit':0,'status':status,'receipt':str(path.resolve()),'receiptSHA256':C.sha(path),'execution':'RECORDED_THIS_TASK_COMMAND','cpuAffinity':cpu};entry['gates'].append(gate);return data
    entry['gates'].append({'name':'materialize-controls','exit':0,'status':'PASS_DERIVED_CONTROL_SOURCE_MAP','execution':'RECORDED_THIS_TASK_SOURCE_EQUALITY','sourceMapSHA256':hashlib.sha256(json.dumps(control_sources,sort_keys=True,separators=(',',':')).encode()).hexdigest()})
