@@ -1,0 +1,17 @@
+{
+  "status": "RETAINED_HARNESS_NEGATIVES",
+  "records": [
+    {
+      "log": "/tmp/bendvy-fivehour-final-js-owned.log",
+      "sha256": "a9d21932a01cac3f3dadc743d7dad88ce8d0fe02d597c38a372fbc93972c76cc",
+      "diagnostic": "Traceback (most recent call last):\n  File \"/workspace/formal-proofs/bendvy-worktrees/twohour-indexed-query/experiments/s-prep/fivehour-connected-gates/owned-storage-run.py\", line 33, in <module>\n    assert 'ALL PROOFS CHECK' in ''.join(run(['taskset','-c',CPU,'bend',HERE/source,'--check-only']))\n                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/formal-proofs/bendvy-worktrees/twohour-indexed-query/experiments/s-prep/fivehour-connected-gates/owned-storage-run.py\", line 26, in run\n    assert p.returncode==ok,(args,p.returncode,out,err)\n           ^^^^^^^^^^^^^^^^\nAssertionError: (['taskset', '-c', '9', 'bend', PosixPath('/tmp/bendvy-fivehour-final-js-owned/input/candidate/storage.bend'), '--check-only'], 1, '', 'SOME PROOFS FAIL\\nError:\\n- message  : no such file: /tmp/bendvy-fivehour-final-js-owned/input/candidate/cache.bend\\nLocation:\\n1 | import Base\\n2>| import ./cache.bend as CC\\n  |        ^\\n3 | import ./cached-payload.bend as CP\\n')\n",
+      "classification": "Harness omitted actual imported cache modules; source core not modified; fixed full closure copy in both stages"
+    },
+    {
+      "log": "/tmp/bendvy-fivehour-final-js-owned02.log",
+      "sha256": "66330f404b27600574cc36cd033177c28a461ca78aa10a497c72fa598d7d788d",
+      "diagnostic": "negative:clone:pass\nnegative:duplicate:pass\nnegative:cross:pass\nTraceback (most recent call last):\n  File \"/workspace/formal-proofs/bendvy-worktrees/twohour-indexed-query/experiments/s-prep/fivehour-connected-gates/owned-storage-run.py\", line 61, in <module>\n    original=build('original');assert original.splitlines()==expected,(original,expected)\n             ^^^^^^^^^^^^^^^^^\n  File \"/workspace/formal-proofs/bendvy-worktrees/twohour-indexed-query/experiments/s-prep/fivehour-connected-gates/owned-storage-run.py\", line 55, in build\n    run(['taskset','-c',CPU,'bend',source,'-o',c],30);run(['taskset','-c',CPU,'bend',source,'-o',js],30)\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/formal-proofs/bendvy-worktrees/twohour-indexed-query/experiments/s-prep/fivehour-connected-gates/owned-storage-run.py\", line 30, in run\n    assert p.returncode==ok,(args,p.returncode,out,err)\n           ^^^^^^^^^^^^^^^^\nAssertionError: (['taskset', '-c', '9', 'bend', PosixPath('/tmp/bendvy-fivehour-final-js-owned02/work/candidate/owned-storage-control.bend'), '-o', PosixPath('/tmp/bendvy-fivehour-final-js-owned02/work/original.c')], 1, '', 'SOME PROOFS FAIL\\nError:\\n- message  : no such file: /tmp/bendvy-fivehour-final-js-owned02/work/candidate/cache.bend\\nLocation:\\n1 | import Base\\n2>| import ./cache.bend as CC\\n  |        ^\\n3 | import ./cached-payload.bend as CP\\n')\n",
+      "classification": "Harness omitted actual imported cache modules; source core not modified; fixed full closure copy in both stages"
+    }
+  ]
+}
