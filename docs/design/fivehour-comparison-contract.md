@@ -82,3 +82,7 @@ Direct evaluator invocation is refused unless its Linux process ancestry contain
 ### Fixed initial baseline comparator
 
 This first segment uses a fixed initial Bend implementation, freshly rerun in every packet with its own TS children. It does not freshly measure the evolving canonical best implementation. Proposed keep requires both: strict qualified score improvement against that fresh initial baseline without any cohort/cell bound regression, and strict score improvement against the canonical prior best score. The canonical engine must enforce the latter when authorizing/logging a keep; evaluator `keepProposed` represents only the fresh-initial comparator and never authorizes a keep itself. Baseline source-selection changes require a later explicitly accepted segment. Focused success remains all candidate cohort/schema/backend weighted bounds ≤1, independently of any keep proposal.
+
+### Canonical noise qualification
+
+The canonical noise model is **unknown**, with `qualificationRepeats: 2`. Four internal wrapper cohorts produce one canonical metric packet; they do not substitute for the canonical unchanged-candidate/reference qualification repeats. Initial measure packets and unchanged-candidate repeats each consume the proposed eight-packet maximum and the same global clock. No deterministic/bounded-noise setting is used to skip qualification. This wrapper's focused segment goal is weighted score ≤1 for both Dense256 schemas/backends; its success does not close the parent full-family product goal.
