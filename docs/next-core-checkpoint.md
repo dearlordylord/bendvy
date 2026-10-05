@@ -189,3 +189,11 @@ Attempt10 completed168 child timings and112 passing full-record comparisons; can
 ## Product optimization research
 
 User-requested source research is recorded in [Bend optimization transfer](research/bend-performance-transfer.md), with separate Bendcraft and product source notes. Prioritize exact generated-call attribution, affine owner transport and static provider-boundary probes before another broad fusion. These are hypotheses and scoped follow-ups, not API/law/contract approval or accepted performance improvements. Existing JS≤bevy-ts/native≤0.5 targets and full observation gates remain unchanged.
+
+## Latest two-hour inspiration run
+
+The user granted2026-10-05T16:55:07Z–18:55:07Z for Bendcraft-inspired optimization. Global15/20 attempts are now consumed. Attempts11–15 produced no timed samples or qualified metric; the changed mark candidate hit two matching five-second host12 checker failures, so repeated evaluation stopped. [Report](reports/two-hour-bendcraft-optimization.md).
+
+Direct follow-up produced a typed erased-provider callback registration probe: two independently selected miniature callbacks, captured-provider rejection, four complete Motion/Health JS/native records matching actual TS, and the retained named-route missing-ID fallback evidence. [Sources and bounds](research/static-provider-dispatch/README.md). The corrected29-module route retains adapter bodies and original callback blocks; eight callback type headers change. Complete22 gates, full-entry five-second checking, noise-qualified performance and production API remain open.
+
+[Discussion draft](design/static-provider-dispatch-plan.md):17 runtime edit paths, same targets and full gates. This is a proposed next scope, not an approved replacement contract or renewed clock. Preserve five remaining global attempts. No new ECS laws, proofs, Data-only restriction, dependencies or compiler/kernel changes are approved. #21/#23 and full core remain incomplete.

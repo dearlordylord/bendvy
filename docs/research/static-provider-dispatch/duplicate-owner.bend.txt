@@ -1,0 +1,22 @@
+import Base
+
+type Counter is Type:
+  Counter { value: U32 }
+
+def get(owner: Counter) -> Counter & U32:
+  match owner:
+    case Counter{+value}: (Counter{value}, value)
+def set(owner: Counter, value: U32) -> Counter:
+  match owner:
+    case Counter{_}: Counter{value}
+def result(~Owner: Type, ~set_value: Owner -> U32 -> Owner, value: Owner & U32) -> Owner:
+  match value:
+    case (owner, value): set_value(owner, (value + 1 : U32))
+def client(~Owner: Type, ~get_value: Owner -> Owner & U32, ~set_value: Owner -> U32 -> Owner, owner: Owner) -> Owner:
+  result(~Owner, ~set_value, get_value(owner))
+def observe(owner: Counter) -> U32:
+  match owner:
+    case Counter{value}: value
+def duplicate(+owner: Counter) -> Counter & Counter: (owner, owner)
+def main() -> U32:
+  observe(client(~Counter, ~get, ~set, Counter{41}))

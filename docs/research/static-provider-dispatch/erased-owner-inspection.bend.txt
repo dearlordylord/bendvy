@@ -1,0 +1,9 @@
+import Base
+
+type Counter is Type:
+  Counter { value: U32 }
+
+def inspect(-Owner: Type, owner: Owner) -> U32:
+  match owner:
+    case Counter{value}: value
+def main() -> U32: inspect(Counter, Counter{42})

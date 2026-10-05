@@ -1,0 +1,11 @@
+import Base
+import ../JS/experiments/s-integrate/types.bend as T
+import ../JS/experiments/s-integrate/storage.bend as S
+import ../JS/experiments/s-integrate/transaction.bend as X
+import ../JS/experiments/s-integrate/held.bend as H
+import ../JS/experiments/s-integrate/cache.bend as CC
+import ../JS/experiments/s-integrate/held-adapter.bend as HA
+import ../JS/experiments/s-integrate/prototype-static-client.bend as SC
+
+def invoke(owner:H.Held<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,CC.Cache<T.Position,T.PositionView>,CC.Cache<T.MotionLedger,T.LedgerView>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>>) -> H.Held<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,CC.Cache<T.Position,T.PositionView>,CC.Cache<T.MotionLedger,T.LedgerView>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>> & U32:
+  SC.motion_body(~H.Held<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,CC.Cache<T.Position,T.PositionView>,CC.Cache<T.MotionLedger,T.LedgerView>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>>,~HA.motion_get,~HA.health_set,~HA.motion_ledger,~HA.motion_setledger,owner)

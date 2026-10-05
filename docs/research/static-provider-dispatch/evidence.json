@@ -1,0 +1,357 @@
+{
+  "schemaVersion": 1,
+  "status": "INCOMPLETE_DIRECT_ARCHITECTURE_EVIDENCE_NOT_PERFORMANCE_ACCEPTANCE",
+  "governingIssue": 23,
+  "toolVersions": {
+    "bend": "bend 2.0.35",
+    "node": "v24.20.0",
+    "clang": "Debian clang version 14.0.6\nTarget: aarch64-unknown-linux-gnu\nThread model: posix\nInstalledDir: /home/node/.local/opt/dnd-clang14/usr/lib/llvm-14/bin",
+    "python": "Python 3.11.2"
+  },
+  "bounds": {
+    "checkerSeconds": 5,
+    "runtimeSeconds": 5,
+    "codegenSeconds": 30,
+    "clangSeconds": 120
+  },
+  "parentRootCommit": "903e98e",
+  "runtimeSourceManifest": {
+    "status": "DIRECT_ARCHITECTURE_PROBE_NOT_ACCEPTED_LOOP_INPUT",
+    "missingId0": false,
+    "records": {
+      "JS": {
+        "parentRuntimeClosureSHA256": "873bf74beab38be64ca57d9fc8181224da0f65b0672f413ed0aedc1ac1a12ff4",
+        "runtimeSources": {
+          "experiments/s-integrate/audited-invoker.bend": "8f4cc0acd27b49d7425e43419dc0f6d2be7eeed1cb36962c33d0b97aaf2ef5b3",
+          "experiments/s-integrate/cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+          "experiments/s-integrate/cached-payload.bend": "0133f2ab73bb5cbec778a8bdbaaa14c8ac60f353d89f8805016643a0be9e5953",
+          "experiments/s-integrate/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+          "experiments/s-integrate/commands.bend": "5cdbaeb590d0542db6d956ff421f7ab7f35c1b71be70091f87ce4fd58271ecc0",
+          "experiments/s-integrate/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+          "experiments/s-integrate/held-adapter.bend": "2e987b8b75c9bb0efec19204ed8973ee4d0abd55d665e009458ed244d2976eb8",
+          "experiments/s-integrate/held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+          "experiments/s-integrate/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+          "experiments/s-integrate/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+          "experiments/s-integrate/host.bend": "912a679e54098d5c4e395fc75e993092c3cb735968ce2fc96edba709b778bb04",
+          "experiments/s-integrate/identity.bend": "6cff678171c10d5124b234cb0e2e3d55cd56aec95871508c595f259c484de4f8",
+          "experiments/s-integrate/measurement-bend.bend": "c41adb795883930d8bef84aee902e58e1a68162e86b38b181c1091741082f784",
+          "experiments/s-integrate/observations.bend": "e81cb63b3ab6da947a2455c3cc1b388abb1aa71dea593671d1c18f00da07a778",
+          "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+          "experiments/s-integrate/prototype-static-client.bend": "8f94cbbfe75ea595b38f4873d996444bd76eb1a8ba1ad1d0a9bf94fc3e96e493",
+          "experiments/s-integrate/prototype-static-row.bend": "9e59648bc52c88bf1a1af075e4461a01e4977d7a8f4b7f2550bad9eea6b233ed",
+          "experiments/s-integrate/query.bend": "1f7620a8063bdcc95aa7407870ffd4f189ac2c945330e359fee8d0b617b8cc42",
+          "experiments/s-integrate/raw-boundaries.bend": "77dbad2365e0499ae4e9e6a5ae7dd67b5a2ebcc5be163de56d0e836781f70a2f",
+          "experiments/s-integrate/reader-host.bend": "26eb687a8fb1893b55e4a0c7c8a629b688e37466e169cb3c95dd5273a553db6d",
+          "experiments/s-integrate/readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+          "experiments/s-integrate/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+          "experiments/s-integrate/storage.bend": "3bddf3a25dc6fbaa18c34f2d4e17d45664b3a53b791e20144ec853fb78908d09",
+          "experiments/s-integrate/streams.bend": "291d9a46ad58bdc481a5710976e01b762f6e11be3aeba07076c46c69f236d2c0",
+          "experiments/s-integrate/structural-invoker.bend": "8e1269193d719b1f0ea68b040c62e8966160bacb898ac51caa2f6494f4621e0a",
+          "experiments/s-integrate/systems.bend": "32e11a5a89b01e8db00f0b58a9fd1e2da87f4882189725b0012933421b6b1716",
+          "experiments/s-integrate/transaction-dispatch-adapters.bend": "f2276c1c16ad3694ab8a253f97da892df3a1db81b621cd80018b1376d79d490d",
+          "experiments/s-integrate/transaction.bend": "10666618cc37f9cd2a5f4f5c13570727b0a0ece96bbbada2e06816ccd3b0e0de",
+          "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+          "experiments/s-integrate/uncached-payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572"
+        },
+        "originalOpaqueCallbacksRetained": true
+      },
+      "Native": {
+        "parentRuntimeClosureSHA256": "41ebf1e9be1020994ef70a4286e2cd8d279d409cc5db91d5d991ea917d7cea2d",
+        "runtimeSources": {
+          "experiments/s-integrate/audited-invoker.bend": "8f4cc0acd27b49d7425e43419dc0f6d2be7eeed1cb36962c33d0b97aaf2ef5b3",
+          "experiments/s-integrate/cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+          "experiments/s-integrate/cached-payload.bend": "354bb1ddb9dbd90a64138aa0e0ea4dd499a1a9345b3e94940c183dc16390db82",
+          "experiments/s-integrate/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+          "experiments/s-integrate/commands.bend": "5cdbaeb590d0542db6d956ff421f7ab7f35c1b71be70091f87ce4fd58271ecc0",
+          "experiments/s-integrate/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+          "experiments/s-integrate/held-adapter.bend": "2e987b8b75c9bb0efec19204ed8973ee4d0abd55d665e009458ed244d2976eb8",
+          "experiments/s-integrate/held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+          "experiments/s-integrate/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+          "experiments/s-integrate/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+          "experiments/s-integrate/host.bend": "912a679e54098d5c4e395fc75e993092c3cb735968ce2fc96edba709b778bb04",
+          "experiments/s-integrate/identity.bend": "6cff678171c10d5124b234cb0e2e3d55cd56aec95871508c595f259c484de4f8",
+          "experiments/s-integrate/measurement-bend.bend": "c41adb795883930d8bef84aee902e58e1a68162e86b38b181c1091741082f784",
+          "experiments/s-integrate/observations.bend": "e81cb63b3ab6da947a2455c3cc1b388abb1aa71dea593671d1c18f00da07a778",
+          "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+          "experiments/s-integrate/prototype-static-client.bend": "8f94cbbfe75ea595b38f4873d996444bd76eb1a8ba1ad1d0a9bf94fc3e96e493",
+          "experiments/s-integrate/prototype-static-row.bend": "9e59648bc52c88bf1a1af075e4461a01e4977d7a8f4b7f2550bad9eea6b233ed",
+          "experiments/s-integrate/query.bend": "1f7620a8063bdcc95aa7407870ffd4f189ac2c945330e359fee8d0b617b8cc42",
+          "experiments/s-integrate/raw-boundaries.bend": "77dbad2365e0499ae4e9e6a5ae7dd67b5a2ebcc5be163de56d0e836781f70a2f",
+          "experiments/s-integrate/reader-host.bend": "26eb687a8fb1893b55e4a0c7c8a629b688e37466e169cb3c95dd5273a553db6d",
+          "experiments/s-integrate/readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+          "experiments/s-integrate/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+          "experiments/s-integrate/storage.bend": "3bddf3a25dc6fbaa18c34f2d4e17d45664b3a53b791e20144ec853fb78908d09",
+          "experiments/s-integrate/streams.bend": "291d9a46ad58bdc481a5710976e01b762f6e11be3aeba07076c46c69f236d2c0",
+          "experiments/s-integrate/structural-invoker.bend": "8e1269193d719b1f0ea68b040c62e8966160bacb898ac51caa2f6494f4621e0a",
+          "experiments/s-integrate/systems.bend": "32e11a5a89b01e8db00f0b58a9fd1e2da87f4882189725b0012933421b6b1716",
+          "experiments/s-integrate/transaction-dispatch-adapters.bend": "f2276c1c16ad3694ab8a253f97da892df3a1db81b621cd80018b1376d79d490d",
+          "experiments/s-integrate/transaction.bend": "10666618cc37f9cd2a5f4f5c13570727b0a0ece96bbbada2e06816ccd3b0e0de",
+          "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+          "experiments/s-integrate/uncached-payload.bend": "03c861d32a6a4194a27e7d9acf89eac369f6dafef46fc56d423cc80985872db6"
+        },
+        "originalOpaqueCallbacksRetained": true
+      }
+    }
+  },
+  "portableControls": {
+    "status": "POSITIVE_AND_FIVE_SPECIFIC_NEGATIVE_TYPE_CONTROLS_PASS",
+    "scope": "Reproduced source; no full22 gates or universal authority theorem",
+    "controls": [
+      {
+        "name": "cross-schema-setter",
+        "exit": 1,
+        "expectedExit": 1,
+        "sourceSHA256": "c7aa39a8f799b79d7c9def96f48ab055e7dcccf064571e53fc387614b03a2808",
+        "outputSHA256": "d18e49a4900b48bb1e8a98ada12bf037ab17e4a385c2f13105c8a0b37fa2f24e",
+        "command": [
+          "timeout",
+          "-k",
+          "1s",
+          "5s",
+          "/home/node/.bend/bin/bend",
+          "/tmp/bendvy-inspiration-static-portable/controls/cross-schema-setter.bend",
+          "--check-only"
+        ],
+        "output": "SOME PROOFS FAIL\nError:\n- expected : @_:H.Held<S.World<T.MotionSchema, CC.Cache<T.Position, T.PositionView>, T.Velocity, T.Selected, CC.Cache<T.MotionLedger, T.LedgerView>, T.MotionMode>, CC.Cache<T.Position, T.PositionView>, CC.Cache<T.MotionLedger, T.LedgerView>, S.Handle<T.MotionSchema>, S.Command<CC.Cache<T.Position, T.PositionView>, T.Velocity, T.Selected>> -> @_:T.PositionToken -> @_:U32 -> H.Held<S.World<T.MotionSchema, CC.Cache<T.Position, T.PositionView>, T.Velocity, T.Selected, CC.Cache<T.MotionLedger, T.LedgerView>, T.MotionMode>, CC.Cache<T.Position, T.PositionView>, CC.Cache<T.MotionLedger, T.LedgerView>, S.Handle<T.MotionSchema>, S.Command<CC.Cache<T.Position, T.PositionView>, T.Velocity, T.Selected>>\n- observed : @owner:H.Held<S.World<T.HealthSchema, CC.Cache<T.Vitals, T.VitalsView>, T.Armor, T.Tracked, CC.Cache<T.HealthLedger, T.LedgerView>, T.HealthMode>, CC.Cache<T.Vitals, T.VitalsView>, CC.Cache<T.HealthLedger, T.LedgerView>, S.Handle<T.HealthSchema>, S.Command<CC.Cache<T.Vitals, T.VitalsView>, T.Armor, T.Tracked>> -> @token:T.VitalsToken -> @value:U32 -> H.Held<S.World<T.HealthSchema, CC.Cache<T.Vitals, T.VitalsView>, T.Armor, T.Tracked, CC.Cache<T.HealthLedger, T.LedgerView>, T.HealthMode>, CC.Cache<T.Vitals, T.VitalsView>, CC.Cache<T.HealthLedger, T.LedgerView>, S.Handle<T.HealthSchema>, S.Command<CC.Cache<T.Vitals, T.VitalsView>, T.Armor, T.Tracked>>\nLocation: invoke\n10 | def invoke(owner:H.Held<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,CC.Cache<T.Position,T.PositionView>,CC.Cache<T.MotionLedger,T.LedgerView>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>>) -> H.Held<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,CC.Cache<T.Position,T.PositionView>,CC.Cache<T.MotionLedger,T.LedgerView>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>> & U32:\n11>|   SC.motion_body(~H.Held<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,CC.Cache<T.Position,T.PositionView>,CC.Cache<T.MotionLedger,T.LedgerView>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>>,~HA.motion_get,~HA.health_set,~HA.motion_ledger,~HA.motion_setledger,owner)\n   |                                                                                                                                                                                                                                                                                                                                                        ^^^^^^^^^^^^^\n12 | \n",
+        "archivedSource": "controls/cross-schema-setter.bend.txt",
+        "archivedSourceSHA256": "c7aa39a8f799b79d7c9def96f48ab055e7dcccf064571e53fc387614b03a2808"
+      },
+      {
+        "name": "owner-inspection",
+        "exit": 1,
+        "expectedExit": 1,
+        "sourceSHA256": "0ab86a0622f50050572a8b50751c31d59a175fe17237bc014b229089ee22ae91",
+        "outputSHA256": "a9bed68a645451a48eaa4f3d2c32f16d08e1919d24c325853dbeb18b0f773de4",
+        "command": [
+          "timeout",
+          "-k",
+          "1s",
+          "5s",
+          "/home/node/.bend/bin/bend",
+          "/tmp/bendvy-inspiration-static-portable/controls/owner-inspection.bend",
+          "--check-only"
+        ],
+        "output": "SOME PROOFS FAIL\nError:\n- expected : a datatype\n- observed : inspect~Owner\nLocation: inspect\n11 |   match owner:\n12>|     case H.Held{world,main,ledger,handle,undo,commands,pings,marks}: H.Held{world,main,ledger,handle,undo,commands,pings,marks}\n   |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n13 | \n",
+        "archivedSource": "controls/owner-inspection.bend.txt",
+        "archivedSourceSHA256": "0ab86a0622f50050572a8b50751c31d59a175fe17237bc014b229089ee22ae91"
+      },
+      {
+        "name": "positive",
+        "exit": 0,
+        "expectedExit": 0,
+        "sourceSHA256": "61aad8ef55dcf05cba49438326d39d047e8142df05ca80e570656d442a4f4d7e",
+        "outputSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+        "command": [
+          "timeout",
+          "-k",
+          "1s",
+          "5s",
+          "/home/node/.bend/bin/bend",
+          "/tmp/bendvy-inspiration-static-portable/controls/positive.bend",
+          "--check-only"
+        ],
+        "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n",
+        "archivedSource": "controls/positive.bend.txt",
+        "archivedSourceSHA256": "61aad8ef55dcf05cba49438326d39d047e8142df05ca80e570656d442a4f4d7e"
+      },
+      {
+        "name": "public-setter-on-abstract-owner",
+        "exit": 1,
+        "expectedExit": 1,
+        "sourceSHA256": "c0936a5f5bbbd0962454de7b7ca9eeda43f42fa1260380ee1e35156e583bc4c7",
+        "outputSHA256": "25ddcdd584e88d5b31a58f7a8f705df196407d64ce6d119212b79b07662b7756",
+        "command": [
+          "timeout",
+          "-k",
+          "1s",
+          "5s",
+          "/home/node/.bend/bin/bend",
+          "/tmp/bendvy-inspiration-static-portable/controls/public-setter-on-abstract-owner.bend",
+          "--check-only"
+        ],
+        "output": "SOME PROOFS FAIL\nError:\n- expected : H.Held<S.World<T.MotionSchema, CC.Cache<T.Position, T.PositionView>, T.Velocity, T.Selected, CC.Cache<T.MotionLedger, T.LedgerView>, T.MotionMode>, CC.Cache<T.Position, T.PositionView>, CC.Cache<T.MotionLedger, T.LedgerView>, S.Handle<T.MotionSchema>, S.Command<CC.Cache<T.Position, T.PositionView>, T.Velocity, T.Selected>>\n- observed : forbidden~Owner\nContext:\n- owner : forbidden~Owner\nLocation: forbidden\n10 | def forbidden(~Owner: Type, owner: Owner) -> Owner:\n11>|   HA.motion_set(owner, T.PositionToken{}, 0)\n   |                 ^^^^^\n12 | \n",
+        "archivedSource": "controls/public-setter-on-abstract-owner.bend.txt",
+        "archivedSourceSHA256": "c0936a5f5bbbd0962454de7b7ca9eeda43f42fa1260380ee1e35156e583bc4c7"
+      },
+      {
+        "name": "undeclared-ledger-authority",
+        "exit": 1,
+        "expectedExit": 1,
+        "sourceSHA256": "525233a40e6fe16ab89797b39df1a4fd4d24e777c074e0927c3279aaf9c5616f",
+        "outputSHA256": "f5795e4696b42e5a81f9445166b367c37688c2af7b047db0e2e21f1e4799af0f",
+        "command": [
+          "timeout",
+          "-k",
+          "1s",
+          "5s",
+          "/home/node/.bend/bin/bend",
+          "/tmp/bendvy-inspiration-static-portable/controls/undeclared-ledger-authority.bend",
+          "--check-only"
+        ],
+        "output": "SOME PROOFS FAIL\nError:\n- expected : @_:H.Held<S.World<T.MotionSchema, CC.Cache<T.Position, T.PositionView>, T.Velocity, T.Selected, CC.Cache<T.MotionLedger, T.LedgerView>, T.MotionMode>, CC.Cache<T.Position, T.PositionView>, CC.Cache<T.MotionLedger, T.LedgerView>, S.Handle<T.MotionSchema>, S.Command<CC.Cache<T.Position, T.PositionView>, T.Velocity, T.Selected>> -> @_:T.MotionLedgerToken -> Sigma<&1, &1, H.Held<S.World<T.MotionSchema, CC.Cache<T.Position, T.PositionView>, T.Velocity, T.Selected, CC.Cache<T.MotionLedger, T.LedgerView>, T.MotionMode>, CC.Cache<T.Position, T.PositionView>, CC.Cache<T.MotionLedger, T.LedgerView>, S.Handle<T.MotionSchema>, S.Command<CC.Cache<T.Position, T.PositionView>, T.Velocity, T.Selected>>, _ => Maybe<&2, T.LedgerView>>\n- observed : @owner:H.Held<S.World<T.MotionSchema, CC.Cache<T.Position, T.PositionView>, T.Velocity, T.Selected, CC.Cache<T.MotionLedger, T.LedgerView>, T.MotionMode>, CC.Cache<T.Position, T.PositionView>, CC.Cache<T.MotionLedger, T.LedgerView>, S.Handle<T.MotionSchema>, S.Command<CC.Cache<T.Position, T.PositionView>, T.Velocity, T.Selected>> -> @token:T.PositionToken -> Sigma<&1, &1, H.Held<S.World<T.MotionSchema, CC.Cache<T.Position, T.PositionView>, T.Velocity, T.Selected, CC.Cache<T.MotionLedger, T.LedgerView>, T.MotionMode>, CC.Cache<T.Position, T.PositionView>, CC.Cache<T.MotionLedger, T.LedgerView>, S.Handle<T.MotionSchema>, S.Command<CC.Cache<T.Position, T.PositionView>, T.Velocity, T.Selected>>, _ => T.Access<T.PositionView>>\nLocation: invoke\n10 | def invoke(owner:H.Held<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,CC.Cache<T.Position,T.PositionView>,CC.Cache<T.MotionLedger,T.LedgerView>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>>) -> H.Held<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,CC.Cache<T.Position,T.PositionView>,CC.Cache<T.MotionLedger,T.LedgerView>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>> & U32:\n11>|   SC.motion_body(~H.Held<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,CC.Cache<T.Position,T.PositionView>,CC.Cache<T.MotionLedger,T.LedgerView>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>>,~HA.motion_get,~HA.motion_set,~HA.motion_get,~HA.motion_setledger,owner)\n   |                                                                                                                                                                                                                                                                                                                                                                       ^^^^^^^^^^^^^\n12 | \n",
+        "archivedSource": "controls/undeclared-ledger-authority.bend.txt",
+        "archivedSourceSHA256": "525233a40e6fe16ab89797b39df1a4fd4d24e777c074e0927c3279aaf9c5616f"
+      },
+      {
+        "name": "write-through-read",
+        "exit": 1,
+        "expectedExit": 1,
+        "sourceSHA256": "fde6ea84c576e7f4b96e4e4ec01d1b742c4016ed2317a0f96bb223160ff1c965",
+        "outputSHA256": "090436e3076ae60654b350e16e6aa3a2524b13a3ec2a699faa37bc25b587cef8",
+        "command": [
+          "timeout",
+          "-k",
+          "1s",
+          "5s",
+          "/home/node/.bend/bin/bend",
+          "/tmp/bendvy-inspiration-static-portable/controls/write-through-read.bend",
+          "--check-only"
+        ],
+        "output": "SOME PROOFS FAIL\nError:\n- expected : @_:H.Held<S.World<T.MotionSchema, CC.Cache<T.Position, T.PositionView>, T.Velocity, T.Selected, CC.Cache<T.MotionLedger, T.LedgerView>, T.MotionMode>, CC.Cache<T.Position, T.PositionView>, CC.Cache<T.MotionLedger, T.LedgerView>, S.Handle<T.MotionSchema>, S.Command<CC.Cache<T.Position, T.PositionView>, T.Velocity, T.Selected>> -> @_:T.PositionToken -> @_:U32 -> H.Held<S.World<T.MotionSchema, CC.Cache<T.Position, T.PositionView>, T.Velocity, T.Selected, CC.Cache<T.MotionLedger, T.LedgerView>, T.MotionMode>, CC.Cache<T.Position, T.PositionView>, CC.Cache<T.MotionLedger, T.LedgerView>, S.Handle<T.MotionSchema>, S.Command<CC.Cache<T.Position, T.PositionView>, T.Velocity, T.Selected>>\n- observed : @owner:H.Held<S.World<T.MotionSchema, CC.Cache<T.Position, T.PositionView>, T.Velocity, T.Selected, CC.Cache<T.MotionLedger, T.LedgerView>, T.MotionMode>, CC.Cache<T.Position, T.PositionView>, CC.Cache<T.MotionLedger, T.LedgerView>, S.Handle<T.MotionSchema>, S.Command<CC.Cache<T.Position, T.PositionView>, T.Velocity, T.Selected>> -> @token:T.PositionToken -> Sigma<&1, &1, H.Held<S.World<T.MotionSchema, CC.Cache<T.Position, T.PositionView>, T.Velocity, T.Selected, CC.Cache<T.MotionLedger, T.LedgerView>, T.MotionMode>, CC.Cache<T.Position, T.PositionView>, CC.Cache<T.MotionLedger, T.LedgerView>, S.Handle<T.MotionSchema>, S.Command<CC.Cache<T.Position, T.PositionView>, T.Velocity, T.Selected>>, _ => T.Access<T.PositionView>>\nLocation: invoke\n10 | def invoke(owner:H.Held<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,CC.Cache<T.Position,T.PositionView>,CC.Cache<T.MotionLedger,T.LedgerView>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>>) -> H.Held<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,CC.Cache<T.Position,T.PositionView>,CC.Cache<T.MotionLedger,T.LedgerView>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>> & U32:\n11>|   SC.motion_body(~H.Held<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,CC.Cache<T.Position,T.PositionView>,CC.Cache<T.MotionLedger,T.LedgerView>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>>,~HA.motion_get,~HA.motion_get,~HA.motion_ledger,~HA.motion_setledger,owner)\n   |                                                                                                                                                                                                                                                                                                                                                        ^^^^^^^^^^^^^\n12 | \n",
+        "archivedSource": "controls/write-through-read.bend.txt",
+        "archivedSourceSHA256": "fde6ea84c576e7f4b96e4e4ec01d1b742c4016ed2317a0f96bb223160ff1c965"
+      }
+    ]
+  },
+  "languageCanaries": {
+    "closed-reuse": {
+      "output": "SOME PROOFS FAIL\nError:\n- expected : f\n- observed : f (consumed more than once)\nLocation: main\n3 | def main() -> U32:\n4>|   f = U32.add(1)\n  |   ^\n5 |   f(f(40))\n",
+      "outputSHA256": "3ddd96f864fcf7f6d1d5e4952af131c936190f8e8f5bcf793bafb46955317ced",
+      "sourceSHA256": "313472bd1cd80dc5ac07c36130282cf89cdef8d4a26bef4ad5f2e3a37c0d1675"
+    },
+    "duplicate-owner": {
+      "output": "SOME PROOFS FAIL\nError:\n- expected : Data\n- observed : Type\nLocation: duplicate\n19 |     case Counter{value}: value\n20>| def duplicate(+owner: Counter) -> Counter & Counter: (owner, owner)\n   |                       ^^^^^^^\n21 | def main() -> U32:\nNote: +owner can be used many times, so its type must be Data.\n",
+      "outputSHA256": "21ab77e4c52dca658b564e3113066a6db464a08d8bc354c1481b0663fafb8d68",
+      "sourceSHA256": "dab74e7e827022fb78db3cd229c5b57b000d40a2461e3aa16249b4e1fb334a7a"
+    },
+    "captured-template": {
+      "output": "SOME PROOFS FAIL\nError:\n- expected : a template applied to closed ~ arguments (captured is a variable here, not comptime: pass it at run time)\n- observed : client\nContext:\n- captured : Counter\nLocation: main\n21 |   captured: Counter = Counter{41}\n22>|   observe(client(~Counter, ~get, ~(owner => value => captured), Counter{0}))\n   |           ^^^^^^\n23 | \n",
+      "outputSHA256": "98e11b8dde3598814ba1fd04ef2faad4ee8f50b62650954d76757e29ecea85d9",
+      "sourceSHA256": "3f2da6c905939541939adda2ef70a9e212102c9abcca162f24fbc63a6c226a35"
+    },
+    "template-owner-inspection": {
+      "output": "SOME PROOFS FAIL\nError:\n- expected : a datatype\n- observed : inspect~Owner\nLocation: inspect\n7 |   match owner:\n8>|     case Counter{value}: value\n  |          ^^^^^^^^^^^^^^\n9 | def main() -> U32: inspect(~Counter, Counter{42})\n",
+      "outputSHA256": "eba3c94518cbc6a8d4632d6f38c21033ee71618579a8e344fca3f1c0cf8c2359",
+      "sourceSHA256": "40ecd2a053d1bf8bc6ea46842f94e483b5b37c4d6ac55bf2cd527c4a140d24d9"
+    },
+    "erased-owner-inspection": {
+      "output": "SOME PROOFS FAIL\nError:\n- expected : a datatype\n- observed : Owner\nContext:\n- Owner : Type\nLocation: inspect\n7 |   match owner:\n8>|     case Counter{value}: value\n  |          ^^^^^^^^^^^^^^\n9 | def main() -> U32: inspect(Counter, Counter{42})\n",
+      "outputSHA256": "27de380409bfe4f5fedbfc9588053518e4f959fabfb05a76d18b3bf7f98a07e4",
+      "sourceSHA256": "eda36fe20aa8961d071a1872be6cdf5150c1b842c50b7d026bf6796e0ce464c8"
+    },
+    "template-higher-order": {
+      "output": "SOME PROOFS FAIL\nError:\n- expected : a term\n- observed : '~'\nLocation:\n17 | def invoke(~client_fn: @-Owner: Type -> (Owner -> Owner & U32) -> (Owner -> U32 -> Owner) -> Owner -> Owner, owner: Counter) -> Counter:\n18>|   client_fn(~Counter, ~get, ~set, owner)\n   |             ^\n19 | def observe(owner: Counter) -> U32:\n",
+      "outputSHA256": "d4c49ac1dfa3a6df7ce0f81c35c5a626b3b4de2d0b157a334902ee9354cd7172",
+      "sourceSHA256": "4901c91bf1d24cfb487905cc04c1d6a5d6e37537ac1bd0c00fa52f0f6e9c1401"
+    }
+  },
+  "denseJS": {
+    "status": "TWO_SCHEMA_JS_FINITE_COMPARISON_PASS",
+    "scope": "One world per schema; original validator; no full22 gate, noisequalification, performanceacceptance or universalrefinement",
+    "comparisons": {
+      "Motion": {
+        "status": "FINITE_FULL_RECORD_PASS",
+        "fields": 256,
+        "iterations": 64,
+        "checked": {
+          "status": "PASS",
+          "milliseconds": 312,
+          "fullRowsCompared": 256,
+          "selectedRowsCompared": 256,
+          "normalizedFinalSha256": "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+          "worksum": 8970240,
+          "captures": 64,
+          "tick": 65,
+          "frames": 65
+        },
+        "inputs": {
+          "/tmp/bendvy-inspiration-static-dispatch/motion-js-full.json": "3eb17a463fc3af7644dbb0b77be5ea1233487b06df507e796b1a09c44e3a8736",
+          "/tmp/bendvy-inspiration-static-dispatch/motion-ts-full.json": "1fb0f4c5dd6226db266970f77195c707dd8e55c68061faf2478a8dd6c7c2b22d"
+        }
+      },
+      "Health": {
+        "status": "FINITE_FULL_RECORD_PASS",
+        "fields": 256,
+        "iterations": 64,
+        "checked": {
+          "status": "PASS",
+          "milliseconds": 884,
+          "fullRowsCompared": 256,
+          "selectedRowsCompared": 256,
+          "normalizedFinalSha256": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+          "worksum": 8970240,
+          "captures": 64,
+          "tick": 65,
+          "frames": 65
+        },
+        "inputs": {
+          "/tmp/bendvy-inspiration-static-dispatch/health-js-full.json": "091dd25a11e9d5b53a24716bc328a7353049771c7b876aa45aad73e50f9bb70f",
+          "/tmp/bendvy-inspiration-static-dispatch/health-ts-full.json": "0a9beaf4cbec669b2aa30ed4266160993cd2eba7a2372aa3425590f130d95b81"
+        }
+      }
+    }
+  },
+  "nativeOneWorkerAndMissingFallback": {
+    "status": "FINITE_NATIVE_DENSE_AND_MISSING_FALLBACK_PASS",
+    "scope": "Dense one world/schema/native vsTS; ID0 fallback one world/schema/backend vs original dynamic Bend. No foreign-world identity observation, universalrefinement, full22 gates or performance qualification. All raw time fields excluded from comparison.",
+    "comparisons": {
+      "Motion": {
+        "denseNative": "FINITE_FULL_RECORD_PASS",
+        "nativeWorkers": 1,
+        "gpu": "off",
+        "missingId0": "DYNAMIC_JS_STATIC_JS_STATIC_NATIVE_FULL_RECORD_EQUAL",
+        "missingInvocationsPerWorld": 16384,
+        "denseWorldSha": "10367736f0a8e22a2d51b10d714ca18eca20c087a9bed468cd5c99de2c2c054a",
+        "inputPins": {
+          "/tmp/bendvy-inspiration-static-dispatch/dense-motion-native-one-worker.json": "4ef810c119d49a68ef01ac3be9f1372904899aa9461e8781aa091820a88d6245",
+          "/tmp/bendvy-inspiration-static-dispatch/missing-handle/dynamic-motion.json": "31e899a10a6bf83189d451492af30411dceeabcdb7597fac4d227b04ebe5b9eb",
+          "/tmp/bendvy-inspiration-static-dispatch/missing-handle/static-motion.json": "115ff3e90dc6f8375b5765755be3bc4e2ce87d4d4d47138262f01fbf8145985c",
+          "/tmp/bendvy-inspiration-static-dispatch/missing-motion-native-one-worker.json": "83812116b7703006088337950274188a6bd867cb0d8a80c8dfac106c7cc1e7da"
+        }
+      },
+      "Health": {
+        "denseNative": "FINITE_FULL_RECORD_PASS",
+        "nativeWorkers": 1,
+        "gpu": "off",
+        "missingId0": "DYNAMIC_JS_STATIC_JS_STATIC_NATIVE_FULL_RECORD_EQUAL",
+        "missingInvocationsPerWorld": 16384,
+        "denseWorldSha": "c82986e7a4eccbfd7fe8a55d5d11af17cbe619e4f34d468e60b5b9f4f83ac7de",
+        "inputPins": {
+          "/tmp/bendvy-inspiration-static-dispatch/dense-health-native-one-worker.json": "b2398aaed42f62ae827d182d25d2f075c66e6a6453ddb425ddeb063ca8cb58c7",
+          "/tmp/bendvy-inspiration-static-dispatch/missing-handle/dynamic-health.json": "16c171294389c05bdc03f133a7c37e29c952c74de9492cc2d28e7b461e106ce2",
+          "/tmp/bendvy-inspiration-static-dispatch/missing-handle/static-health.json": "6d8b61d1744703cd801ce53bf299b3716f9065131ccf5b082edad6370bfbeab1",
+          "/tmp/bendvy-inspiration-static-dispatch/missing-health-native-one-worker.json": "ec060816ef9b45b3a4163d11481ccca273c67654a95890f6096d68adba170a01"
+        }
+      }
+    }
+  },
+  "reproduction": {
+    "JS": {
+      "status": "ALL30_SOURCE_MODULES_EXACT_BYTES_EQUAL",
+      "files": 30
+    },
+    "Native": {
+      "status": "ALL30_SOURCE_MODULES_EXACT_BYTES_EQUAL",
+      "files": 30
+    }
+  },
+  "executionLimits": {
+    "fullJSMeasurementCheckFirstExit": 124,
+    "fullJSMeasurementCheckRetryExit": 124,
+    "fullNativeMeasurementCheckExit": 124,
+    "full22StaticRoute": "UNTESTED",
+    "qualifiedPerformanceMetric": null,
+    "productionAPIAcceptance": false,
+    "universalRuntimeRefinement": false
+  },
+  "newModulePins": {
+    "prototype-static-client.bend.txt": "8f94cbbfe75ea595b38f4873d996444bd76eb1a8ba1ad1d0a9bf94fc3e96e493",
+    "prototype-static-row.bend.txt": "9e59648bc52c88bf1a1af075e4461a01e4977d7a8f4b7f2550bad9eea6b233ed"
+  },
+  "generatedSourcePins": {
+    "/tmp/bendvy-inspiration-static-dispatch/measurement-static.js": "8ff2f5bcf463c12b76c040d0c552e28fcc6e39dd35a053bda87b93597e813dbc",
+    "/tmp/bendvy-inspiration-static-dispatch/measurement-static.c": "b57ec6eb83aa49b122bda9843a6122a4cddcbecf9209539e32a3e6656e9db449"
+  },
+  "initialPreparerHistoricalSHA256": "970d5aa64ac17d0f1df332e9768773fc38943055e09c524e7e640aea2ff7fc6b",
+  "historicalPreparerNote": "Initial30-module probe used earlier preparer version. Currentprepare.py.txt --named-route reproduces its core; primary default is later29-module erased-provider registration. See registration-evidence.json for current preparer pin."
+}

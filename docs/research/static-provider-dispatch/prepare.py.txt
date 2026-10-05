@@ -1,0 +1,124 @@
+#!/usr/bin/env python3
+"""Reproduce the direct architecture probe; never authorize a measured keep."""
+import argparse
+import hashlib
+import json
+from pathlib import Path
+import re
+import shutil
+
+EXPECTED = {
+    "JS": "873bf74beab38be64ca57d9fc8181224da0f65b0672f413ed0aedc1ac1a12ff4",
+    "Native": "41ebf1e9be1020994ef70a4286e2cd8d279d409cc5db91d5d991ea917d7cea2d",
+}
+
+def sha(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+def callback(text, name):
+    match = re.search(r"^def " + name + r"\(", text, re.M)
+    if not match:
+        raise ValueError("Missing callback " + name)
+    end = re.search(r"^(?:def |type |# )", text[match.end():], re.M)
+    return text[match.start():match.end() + end.start()] if end else text[match.start():]
+
+def prepare(repo, sources, output, missing, named_route=False):
+    parents = repo / "experiments/fivehour-candidate"
+    records = {}
+    # Validate both parents before producing any output.
+    for backend, expected in EXPECTED.items():
+        info = json.loads((parents / backend / "cache-specialization.json").read_text())
+        closure = info["runtimeClosure"]
+        digest = hashlib.sha256(json.dumps(closure, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+        if digest != expected or info["runtimeClosureSHA256"] != expected or len(closure) != 28:
+            raise ValueError("Different parent runtime: " + backend)
+        for name, pin in closure.items():
+            if sha(parents / backend / name) != pin:
+                raise ValueError("Parent source drift: " + name)
+        records[backend] = {"parentRuntimeClosureSHA256": expected, "parent": closure}
+    output.mkdir(exist_ok=False)
+    for backend, record in records.items():
+        target = output / backend
+        for name in record["parent"]:
+            dest = target / name
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(parents / backend / name, dest)
+        core = target / "experiments/s-integrate"
+        additions = ["prototype-static-client.bend"] + (["prototype-static-row.bend"] if named_route else [])
+        for name in additions:
+            shutil.copyfile(sources / (name + ".txt"), core / name)
+        if not named_route:
+            adapter = core / "held-adapter.bend"
+            lines = []
+            changes = 0
+            for line in adapter.read_text().splitlines():
+                if line.startswith("def ") and "(~client:" in line:
+                    start = line.index("@-Owner:Type -> ") + len("@-Owner:Type -> ")
+                    end = line.index(" -> Owner & U32,", start)
+                    token = "Position" if line.startswith("def motion_") else "Vitals"
+                    ledger = "Motion" if token == "Position" else "Health"
+                    domains = [f"(Owner -> T.{token}Token -> Owner & T.Access<T.{token}View>)",
+                               f"(Owner -> T.{token}Token -> U32 -> Owner)",
+                               f"(Owner -> T.{ledger}LedgerToken -> Owner & Maybe<&2,T.LedgerView>)",
+                               f"(Owner -> T.{ledger}LedgerToken -> U32 -> Owner)"]
+                    if line[start:end] != " -> ".join(domains + ["Owner"]):
+                        raise ValueError("Different callback signature")
+                    replacement = " -> ".join(["@-" + name + ":" + domain for name, domain in zip(("get", "set", "ledger", "setledger"), domains)] + ["Owner"])
+                    line = line[:start] + replacement + line[end:]
+                    changes += 1
+                lines.append(line)
+            if changes != 8:
+                raise ValueError("Expected eight callback type amendments")
+            adapter.write_text("\n".join(lines) + "\n")
+        entry = core / "measurement-bend.bend"
+        before = entry.read_text()
+        addition = "import ./prototype-static-row.bend as SR" if named_route else "import ./prototype-static-client.bend as SC"
+        after = before.replace("import ./held-adapter.bend as HA", "import ./held-adapter.bend as HA\n" + addition)
+        for lane in ("motion", "health"):
+            old = "HA." + lane + "_row(~" + lane + "_body,"
+            if after.count(old) != 1:
+                raise ValueError("Different measured row route: " + lane)
+            replacement = "SR.prototype_" + lane + "_row(" if named_route else "HA." + lane + "_row(~SC." + lane + "_body,"
+            after = after.replace(old, replacement)
+        if missing:
+            helper = "def prototype_missing_handle(-Schema:Data,handle:S.Handle<Schema>) -> S.Handle<Schema>:\n  match handle:\n    case S.Handle{namespace,_}: S.Handle{namespace,0}\n\n"
+            after = after.replace("def quad(", helper + "def quad(", 1)
+            for lane, schema in (("motion", "Motion"), ("health", "Health")):
+                start = after.index("def " + lane + "_select(")
+                end = after.index("\ndef ", start + 1)
+                section = after[start:end]
+                old = "X.Tx{world,handle,undo,commands,pings,marks}"
+                if section.count(old) != 1:
+                    raise ValueError("Different selection fixture")
+                section = section.replace(old, "X.Tx{world,prototype_missing_handle(T." + schema + "Schema,handle),undo,commands,pings,marks}")
+                after = after[:start] + section + after[end:]
+        for lane in ("motion", "health"):
+            for suffix in ("body_ledger", "body_read", "body"):
+                name = lane + "_" + suffix
+                if callback(before, name) != callback(after, name):
+                    raise ValueError("Original opaque callback changed: " + name)
+        entry.write_text(after)
+        record.pop("parent")
+        record["runtimeSources"] = {p.relative_to(target).as_posix(): sha(p) for p in sorted(core.glob("*.bend"))}
+        record["originalOpaqueCallbacksRetained"] = True
+    controls = output / "controls"
+    controls.mkdir()
+    for source in sorted((sources / "controls").glob("*.bend.txt")):
+        shutil.copyfile(source, controls / source.name.removesuffix(".txt"))
+    (output / "prototype-source-manifest.json").write_text(json.dumps({
+        "status": "DIRECT_ARCHITECTURE_PROBE_NOT_ACCEPTED_LOOP_INPUT",
+        "missingId0": missing,
+        "route": "NAMED_STATIC_ROW" if named_route else "ERASED_PROVIDER_CALLBACK_TYPE",
+        "records": records,
+    }, indent=2) + "\n")
+    return records
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--repo", type=Path, required=True)
+    parser.add_argument("--sources", type=Path, required=True)
+    parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--missing-id-zero", action="store_true")
+    parser.add_argument("--named-route", action="store_true", help="Reproduce the superseded thirty-module named-route probe")
+    args = parser.parse_args()
+    prepare(args.repo.resolve(), args.sources.resolve(), args.output.resolve(), args.missing_id_zero, args.named_route)

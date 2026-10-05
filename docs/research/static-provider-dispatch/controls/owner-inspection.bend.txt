@@ -1,0 +1,12 @@
+import Base
+import ../JS/experiments/s-integrate/types.bend as T
+import ../JS/experiments/s-integrate/storage.bend as S
+import ../JS/experiments/s-integrate/transaction.bend as X
+import ../JS/experiments/s-integrate/held.bend as H
+import ../JS/experiments/s-integrate/cache.bend as CC
+import ../JS/experiments/s-integrate/held-adapter.bend as HA
+import ../JS/experiments/s-integrate/prototype-static-client.bend as SC
+
+def inspect(~Owner: Type, owner: Owner) -> Owner:
+  match owner:
+    case H.Held{world,main,ledger,handle,undo,commands,pings,marks}: H.Held{world,main,ledger,handle,undo,commands,pings,marks}

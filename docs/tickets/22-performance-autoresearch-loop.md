@@ -1,6 +1,6 @@
 # S-LOOP — measured optimization of the connected ECS candidate
 
-Current status: explicit three-hour optimization continuation **2026-10-05T13:30:46Z–16:30:46Z**, including checks, execution, recovery and delivery; see [authorization and plan](../reports/three-hour-optimization-continuation.md). Packet `packet-nzg08ps6` is terminal: all22 fresh gates and112 full-record comparisons passed, but noise qualification failed. Eight actual attempts are consumed from globalcap20; twelve remain. The next candidate fuses Held getters/writers on both backends while preserving affine owners and complete observations. B64/full65 records and current exact candidate supersede historical proposal tables below. Targets/noise/full-gate rules remain unchanged; no qualified performance acceptance exists.
+Current status: the latest user-authorized two-hour inspiration window is **2026-10-05T16:55:07Z–18:55:07Z**, cumulative including recovery/delivery. Global15/20 attempts consumed; attempts11–15 produced no usable timing metric. Two repeated host12 checker failures stopped the old measured loop. [Report](../reports/two-hour-bendcraft-optimization.md). A direct erased-provider callback registration prototype has bounded type/finite execution evidence; [17-path scope draft](../design/static-provider-dispatch-plan.md) is for discussion, not approved execution. Full22 gates, five-second entry checking, targets and full product remain open. Historical windows below are retained as evidence and grant no fresh allowance.
 
 ## Accepted protocol and seven-hour extension
 

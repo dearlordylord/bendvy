@@ -1,0 +1,28 @@
+import Base
+
+type Counter is Type:
+  Counter { value: U32 }
+
+def get(owner: Counter) -> Counter & U32:
+  match owner:
+    case Counter{+value}: (Counter{value}, value)
+def set(owner: Counter, value: U32) -> Counter:
+  match owner:
+    case Counter{_}: Counter{value}
+def result(~Owner: Type, ~set_value: Owner -> U32 -> Owner, value: Owner & U32) -> Owner:
+  match value:
+    case (owner, value): set_value(owner, (value + 1 : U32))
+def client(~Owner: Type, ~get_value: Owner -> Owner & U32, ~set_value: Owner -> U32 -> Owner, owner: Owner) -> Owner:
+  result(~Owner, ~set_value, get_value(owner))
+def result_two(~Owner: Type, ~set_value: Owner -> U32 -> Owner, value: Owner & U32) -> Owner:
+  match value:
+    case (owner, value): set_value(owner, (value + 2 : U32))
+def client_two(~Owner: Type, ~get_value: Owner -> Owner & U32, ~set_value: Owner -> U32 -> Owner, owner: Owner) -> Owner:
+  result_two(~Owner, ~set_value, get_value(owner))
+def invoke(~client_fn: @-Owner: Type -> @-get_value: (Owner -> Owner & U32) -> @-set_value: (Owner -> U32 -> Owner) -> Owner -> Owner, owner: Counter) -> Counter:
+  client_fn(Counter, get, set, owner)
+def observe(owner: Counter) -> U32:
+  match owner:
+    case Counter{value}: value
+def main() -> U32:
+  U32.add(observe(invoke(~client, Counter{41})), observe(invoke(~client_two, Counter{41})))

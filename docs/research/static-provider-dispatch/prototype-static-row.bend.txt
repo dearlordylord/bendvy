@@ -1,0 +1,47 @@
+import Base
+import ./types.bend as T
+import ./storage.bend as S
+import ./transaction.bend as X
+import ./transaction-dispatch-adapters.bend as A
+import ./cached-payload.bend as P
+import ./held.bend as H
+import ./cache.bend as CC
+import ./held-adapter.bend as HA
+import ./prototype-static-client.bend as SC
+
+def prototype_motion_invoke(owner:H.Held<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,CC.Cache<T.Position,T.PositionView>,CC.Cache<T.MotionLedger,T.LedgerView>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>>) -> H.Held<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,CC.Cache<T.Position,T.PositionView>,CC.Cache<T.MotionLedger,T.LedgerView>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>> & U32:
+  SC.motion_body(~H.Held<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,CC.Cache<T.Position,T.PositionView>,CC.Cache<T.MotionLedger,T.LedgerView>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>>,~HA.motion_get,~HA.motion_set,~HA.motion_ledger,~HA.motion_setledger,owner)
+
+
+def prototype_motion_taken(ns:U32,next:U32,pending:List<S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>>,ledger:CC.Cache<T.MotionLedger,T.LedgerView>,mode:T.MotionMode,+handle:S.Handle<T.MotionSchema>,undo:List<&2,X.Inverse<S.Handle<T.MotionSchema>>>,commands:List<S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>>,pings:List<&2,U32>,marks:List<&2,S.Handle<T.MotionSchema>>,pair:S.Rows<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected> & S.Taken<CC.Cache<T.Position,T.PositionView>>) -> X.Tx<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>> & U32:
+  match pair:
+    case (rows,S.Taken{main}): HA.motion_return(prototype_motion_invoke(H.Held{S.World{ns,next,rows,pending,None{},mode},main,ledger,handle,undo,commands,pings,marks}))
+    case (rows,_): SC.motion_body(~X.Tx<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>>,~A.motion_read_main,~A.motion_set_main0,~A.motion_read_ledger,~A.motion_set_ledger0,X.Tx{S.World{ns,next,rows,pending,Some{ledger},mode},handle,undo,commands,pings,marks})
+
+def prototype_motion_checked(valid:Bool,owner:X.Tx<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>>) -> X.Tx<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>> & U32:
+  match valid owner:
+    case True{} X.Tx{S.World{ns,next,rows,pending,Some{ledger},mode},S.Handle{+space,+id},undo,commands,pings,marks}: prototype_motion_taken(ns,next,pending,ledger,mode,S.Handle{space,id},undo,commands,pings,marks,S.take_rows(CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,rows,id))
+    case _ owner: SC.motion_body(~X.Tx<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>>,~A.motion_read_main,~A.motion_set_main0,~A.motion_read_ledger,~A.motion_set_ledger0,owner)
+
+def prototype_motion_row(owner:X.Tx<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>>) -> X.Tx<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>> & U32:
+  match owner:
+    case X.Tx{S.World{+ns,next,rows,pending,ledger,mode},S.Handle{+space,id},undo,commands,pings,marks}: prototype_motion_checked(U32.is_eq(ns,space),X.Tx{S.World{ns,next,rows,pending,ledger,mode},S.Handle{space,id},undo,commands,pings,marks})
+
+def prototype_health_invoke(owner:H.Held<S.World<T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,CC.Cache<T.Vitals,T.VitalsView>,CC.Cache<T.HealthLedger,T.LedgerView>,S.Handle<T.HealthSchema>,S.Command<CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked>>) -> H.Held<S.World<T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,CC.Cache<T.Vitals,T.VitalsView>,CC.Cache<T.HealthLedger,T.LedgerView>,S.Handle<T.HealthSchema>,S.Command<CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked>> & U32:
+  SC.health_body(~H.Held<S.World<T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,CC.Cache<T.Vitals,T.VitalsView>,CC.Cache<T.HealthLedger,T.LedgerView>,S.Handle<T.HealthSchema>,S.Command<CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked>>,~HA.health_get,~HA.health_set,~HA.health_ledger,~HA.health_setledger,owner)
+
+
+def prototype_health_taken(ns:U32,next:U32,pending:List<S.Command<CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked>>,ledger:CC.Cache<T.HealthLedger,T.LedgerView>,mode:T.HealthMode,+handle:S.Handle<T.HealthSchema>,undo:List<&2,X.Inverse<S.Handle<T.HealthSchema>>>,commands:List<S.Command<CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked>>,pings:List<&2,U32>,marks:List<&2,S.Handle<T.HealthSchema>>,pair:S.Rows<CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked> & S.Taken<CC.Cache<T.Vitals,T.VitalsView>>) -> X.Tx<S.World<T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked>> & U32:
+  match pair:
+    case (rows,S.Taken{main}): HA.health_return(prototype_health_invoke(H.Held{S.World{ns,next,rows,pending,None{},mode},main,ledger,handle,undo,commands,pings,marks}))
+    case (rows,_): SC.health_body(~X.Tx<S.World<T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked>>,~A.health_read_main,~A.health_set_main0,~A.health_read_ledger,~A.health_set_ledger0,X.Tx{S.World{ns,next,rows,pending,Some{ledger},mode},handle,undo,commands,pings,marks})
+
+def prototype_health_checked(valid:Bool,owner:X.Tx<S.World<T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked>>) -> X.Tx<S.World<T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked>> & U32:
+  match valid owner:
+    case True{} X.Tx{S.World{ns,next,rows,pending,Some{ledger},mode},S.Handle{+space,+id},undo,commands,pings,marks}: prototype_health_taken(ns,next,pending,ledger,mode,S.Handle{space,id},undo,commands,pings,marks,S.take_rows(CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,rows,id))
+    case _ owner: SC.health_body(~X.Tx<S.World<T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked>>,~A.health_read_main,~A.health_set_main0,~A.health_read_ledger,~A.health_set_ledger0,owner)
+
+def prototype_health_row(owner:X.Tx<S.World<T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked>>) -> X.Tx<S.World<T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked>> & U32:
+  match owner:
+    case X.Tx{S.World{+ns,next,rows,pending,ledger,mode},S.Handle{+space,id},undo,commands,pings,marks}: prototype_health_checked(U32.is_eq(ns,space),X.Tx{S.World{ns,next,rows,pending,ledger,mode},S.Handle{space,id},undo,commands,pings,marks})
+
