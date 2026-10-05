@@ -158,3 +158,8 @@ See [persistent cache plan](design/persistent-owned-cache-plan.md), [resolution 
 
 
 Post-window explicit user approval: **JS elapsed / bevy-ts elapsed <=1.00; Native elapsed / bevy-ts elapsed <=0.50 (speedup >=2×)** on equivalent work. Both conditions must hold; a relative improvement over old Bend does not complete the goal. This resolves the numerical threshold question, not the remaining method/scope/noise/full-matrix gates or a fresh experiment allowance.
+
+
+## Active five-hour optimization authorization
+
+The user authorizes optimization through **2026-10-05T07:34:51Z**, starting02:34:51Z (five cumulative hours including preparation/recovery). Approved goals: JS/TS <=1.00 and Native/TS <=0.50, both on equivalent work. Parallel isolated integration, measurement preparation and independent gates are underway; see [active report](reports/fivehour-performance-work.md). No complete replacement Autoresearch contract or new ECS law is yet accepted. Preserve earlier evidence and do not reset this window.
