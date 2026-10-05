@@ -213,3 +213,7 @@ The user granted two further hours at2026-10-05T18:54:31Z; cumulative continuati
 ## Current dispatch execution recovery
 
 Global16/20 physical attempts are consumed, including the prior unlogged deadline interruption. Attempt16 has no timing/metric: Host originals and first three mutants passed, then Health failed-cursor C codegen exceeded30s. Identical source recovered onCPU11; fullfresh controls now useCPU11 with unchanged limits and comparator. Current continuation deadline remains20:54:31Z. [Live report](reports/two-hour-dispatch-continuation.md); no complete22 gate, measured keep or performance acceptance.
+
+## Active joined static/mark packet
+
+Before physical attempt19,18/20 attempts are consumed. `packet-jh57nfny` now runs exact static-provider plus private mark transport source (master ada7486), fullfresh22 controlsCPU8 and timingCPU11, with original5/30/120 Bend limits and separate180s canonical-state read bound. At20:07:25Z execution access was restored after a bwrap environment interruption; the existing owned process tree survived and was not restarted. Full gates/timing remain pending. Deadline20:54:31Z, targets and fullcore gates unchanged. See [current report](reports/two-hour-dispatch-continuation.md).
