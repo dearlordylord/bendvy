@@ -1,0 +1,8 @@
+{
+  "status": "EXPECTED_CHECKER_REJECTION",
+  "command": "timeout 5s taskset -c 6 bend /tmp/bendvy-fivehour-held-provider-only01/experiments/s-integrate/measurement-bend.bend --check-only",
+  "exit": 1,
+  "expected": "a plain binder (only leading binders take ~)",
+  "observed": "~",
+  "scope": "Syntax/design control, not ECS ownership or performance acceptance"
+}
