@@ -120,8 +120,9 @@ workloads after the storage/CPU evidence, not silently removed.
   recommends seven bounded public-observation IDs and separate internal/infrastructure
   approval. The old fourteen-law request is withdrawn;
   no runtime-proof approval is inferred.
-- Numerical proposal: native >=2x per representative workload/size; JS <=1.10x
-  time with uncertainty below that margin. Both unapproved; current layout fails.
+- Historical numerical proposal (withdrawn): native >=2x; JS <=1.10x.
+  Current required goal is JS parity or better against bevy-ts, and Native
+  substantially faster. Exact Native factor and uncertainty rules remain unapproved.
 - The user authorized the first research breakdown; Astra reviewed it and #16/#17
   are published. Review each remaining detailed breakdown before publication; no
   premature ready state for integration, proofs or simulation.
@@ -138,3 +139,6 @@ The full-core scope, unapproved thresholds/laws and simulation/copied-TD prerequ
 ### Latest performance target correction
 
 The user rejected the incremental10% JS /5% Native-regression proposal. Success compares with bevy-ts: JS parity or better, Native substantially faster; exact Native minimum unresolved. Old contract/question withdrawn, no session started. Comparator/decision/manifest and implementation scope must be revised before launch. The latest two-hour cumulative work budget supersedes3600 seconds. Stop early only on qualified target achievement; the Native numerical threshold remains an unanswered question.
+
+
+Latest bounded implementation evidence is retained in [the two-hour report](reports/twohour-performance-preparation.md): selected-owner Dense integration, actual affine Raw/view cache capability and separate Native cached-capacity operations. These are semantic prototypes, not accepted performance keeps. The combined Main/indexed-query candidate remains isolated on `s-loop23/fusion-review`; the production core is unchanged. Persistent cache integration, remaining matrix/Host gates and full protocol acceptance stay open under #21/#23.
