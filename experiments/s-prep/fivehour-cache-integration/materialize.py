@@ -61,7 +61,14 @@ def materialize(destination):
  # Aux columns stay raw, observed through the actual original getter.
  cp+='\ndef velocity_get(owner:T.Velocity) -> T.Velocity & T.VelocityView:\n  P.velocity_get(owner)\ndef armor_get(owner:T.Armor) -> T.Armor & T.ArmorView:\n  P.armor_get(owner)\n'
  (pkg/'cached-payload.bend').write_text(cp)
- (pkg/'raw-boundaries.bend').write_bytes((HERE/'raw-boundaries.bend').read_bytes())
+ 
+ for name in ['raw-boundaries.bend','held.bend','held-adapter.bend']:(pkg/name).write_bytes((HERE/name).read_bytes())
+ text=(pkg/'measurement-bend.bend').read_text()
+ for prefix in ['motion','health']:
+  pattern=r'('+prefix+'_body\()X\.Tx<.*?,A\.'+prefix+r'_read_main,A\.'+prefix+r'_set_main0,A\.'+prefix+r'_read_ledger,A\.'+prefix+r'_set_ledger0,'
+  text,n=re.subn(pattern,'HA.'+prefix+'_row(~'+prefix+'_body,',text);assert n==1
+ text=text.replace('import Base\n','import Base\nimport ./held-adapter.bend as HA\n',1);(pkg/'measurement-bend.bend').write_text(text)
+ after[str((pkg/'measurement-bend.bend').relative_to(destination))]=digest(text.encode())
  # Protected callbacks have no concrete owner occurrence, so specialization must preserve bytes.
  original=(ROOT/'experiments/s-perf/candidate/measurement-bend.bend').read_text();derived=(pkg/'measurement-bend.bend').read_text();pins={}
  for name in ['motion_body_ledger','motion_body_read','motion_body','health_body_ledger','health_body_read','health_body']:
