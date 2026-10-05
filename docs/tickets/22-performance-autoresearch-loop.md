@@ -1,6 +1,6 @@
 # S-LOOP — measured optimization of the connected ECS candidate
 
-Current status: the user directs new actual runs after the closed eight-hour window. Latest source/evidence and authorization are in [the active report](../reports/fivehour-performance-work.md) and [checkpoint](../next-core-checkpoint.md). Existing globalcap20 retains7consumed/13remaining; no new cumulative hours are inferred. B64/full65 records and current exact candidate supersede historical proposal tables below. Targets/noise/full-gate rules remain unchanged.
+Current status: explicit three-hour optimization continuation **2026-10-05T13:30:46Z–16:30:46Z**, including checks, execution, recovery and delivery; see [authorization and plan](../reports/three-hour-optimization-continuation.md). Packet `packet-nzg08ps6` is live with fresh exact candidate gates. Existing globalcap20 retains7previous consumed attempts; the current actual eighth attempt must be reconciled at terminal logging. B64/full65 records and current exact candidate supersede historical proposal tables below. Targets/noise/full-gate rules remain unchanged; no qualified performance acceptance exists.
 
 ## Accepted protocol and seven-hour extension
 
