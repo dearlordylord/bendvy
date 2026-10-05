@@ -1,0 +1,83 @@
+{
+  "status": "FINITE_FULL_FIELD_PASS",
+  "schema": "Health",
+  "workload": "dense",
+  "count": 256,
+  "repetitions": 1,
+  "cpu": 2,
+  "scope": "Finite full-field evaluation; no contract acceptance, improvement or keep claim",
+  "iterations": 64,
+  "batch": 1,
+  "startedAt": "2026-10-05T00:27:53.405911+00:00",
+  "finishedAt": "2026-10-05T00:28:18.633951+00:00",
+  "summary": {
+    "Native": {
+      "raw": [
+        13
+      ],
+      "min": 13,
+      "median": 13,
+      "max": 13
+    },
+    "TS": {
+      "raw": [
+        12.951976000000002
+      ],
+      "min": 12.951976000000002,
+      "median": 12.951976000000002,
+      "max": 12.951976000000002
+    },
+    "JS": {
+      "raw": [
+        70
+      ],
+      "min": 70,
+      "median": 70,
+      "max": 70
+    }
+  },
+  "descriptiveRatios": {
+    "Native/TS": 1.0037078512189954,
+    "JS/TS": 5.404580737333052
+  },
+  "artifacts": {
+    "measurement-samples-bend-native": "7b7e26af4cc8d2fa2aaf51ab2301a692e1c0b3100fe10437102489405e0286cf",
+    "measurement-samples-bend.js": "93f6bceb0b8c738e566400cffc8905e74c6b4e326256678c69414f8d7f81238a"
+  },
+  "commands": {
+    "Native": [
+      "/tmp/bendvy-twohour-combined-control/measurement-samples-bend-native",
+      "1",
+      "0",
+      "256",
+      "1",
+      "--threads",
+      "1",
+      "--gpu",
+      "off"
+    ],
+    "TS": [
+      "node",
+      "/workspace/formal-proofs/bendvy-worktrees/twohour-fusion-review/experiments/s-integrate/measurement-samples-reference.mjs",
+      "Health",
+      "dense",
+      "256",
+      "1"
+    ],
+    "JS": [
+      "node",
+      "/tmp/bendvy-twohour-combined-control/measurement-samples-bend.js",
+      "1",
+      "0",
+      "256",
+      "1"
+    ]
+  },
+  "fullEvidencePath": "/tmp/bendvy-twohour-combined-control/evidence.json",
+  "fullEvidenceSHA256": "dce2acdff3428b51878f583759822ecc37e570c5deb5acaac704fc54a668eb61",
+  "candidateSHA256": {
+    "storage": "27f6b8aa69966eb6e349e7337b0947e50179dbc26cdcc363c1e857bb79cc4130",
+    "query": "c54c276843ac606d96a560b5324a9d4c2c04c8ba3782c1a8fea3d98c9929d775"
+  },
+  "interpretation": "Single finite construction control on Bend2.0.35; no qualified metric, keep, causal speedup, Native-factor approval or product acceptance."
+}
