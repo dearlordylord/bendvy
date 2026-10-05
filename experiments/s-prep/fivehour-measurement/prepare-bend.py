@@ -2,7 +2,7 @@
 """Generate one-bracket batch driver without editing actual callback bodies."""
 import argparse,hashlib,json,re
 from pathlib import Path
-p=argparse.ArgumentParser();p.add_argument('--core',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--batch',type=int,default=16);a=p.parse_args();a.output.mkdir(exist_ok=False)
+p=argparse.ArgumentParser();p.add_argument('--core',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--batch',type=int,default=16);p.add_argument('--schema',choices=['Motion','Health'],default='Health');a=p.parse_args();a.output.mkdir(exist_ok=False)
 source=a.core/'measurement-bend.bend';text=source.read_text()
 # Expose setup through an added wrapper using actual creation/registration.
 extra='\n'
@@ -60,6 +60,6 @@ driver+='''def choose(schema:U32,count:U32,batch:U32) -> IO(Unit):
 def main() -> IO(Unit):
   choose(1,256,BATCH_VALUE)
 '''
-driver=driver.replace('BATCH_VALUE',str(a.batch))
+driver=driver.replace('BATCH_VALUE',str(a.batch)).replace('choose(1,256,','choose('+str(int(a.schema=='Health'))+',256,')
 (a.output/'batch.bend').write_text(driver)
-(a.output/'recipe.json').write_text(json.dumps({'batch':a.batch,'count':256,'sourceSHA256':hashlib.sha256(source.read_bytes()).hexdigest(),'derivedSHA256':hashlib.sha256(module.read_bytes()).hexdigest(),'driverSHA256':hashlib.sha256(driver.encode()).hexdigest(),'scope':'One clock around execution of pre-created distinct affine worlds; setup/output excluded'},indent=2)+'\n')
+(a.output/'recipe.json').write_text(json.dumps({'batch':a.batch,'schema':a.schema,'count':256,'sourceSHA256':hashlib.sha256(source.read_bytes()).hexdigest(),'derivedSHA256':hashlib.sha256(module.read_bytes()).hexdigest(),'driverSHA256':hashlib.sha256(driver.encode()).hexdigest(),'scope':'One clock around execution of pre-created distinct affine worlds; setup/output excluded'},indent=2)+'\n')
