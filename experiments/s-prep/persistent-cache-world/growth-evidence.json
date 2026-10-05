@@ -1,0 +1,48 @@
+{
+  "status": "PASS_BOUNDED",
+  "cases": [
+    {
+      "label": "generic growth replacement removal deferred FIFO bounds foreign",
+      "status": "PASS",
+      "schemas": 2,
+      "fullWorldCheckpoints": 8,
+      "backends": [
+        "NativeO3",
+        "JS"
+      ]
+    },
+    {
+      "label": "growth-wrong-association",
+      "status": "DETECTED",
+      "compilingBothBackends": true
+    }
+  ],
+  "limits": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "assignedCutoff": "2026-10-05T01:48:00+00:00",
+  "deadlineControls": {
+    "status": "PASS",
+    "omittedHasNoHistoricalCutoff": true,
+    "expiredExplicitRejectedBeforeBuild": true
+  },
+  "sourceCommit": "f3eb7a95efd101530fc6782c8510a68b2021173d",
+  "runnerSHA256": "ef3605c025117afdde9c7ea2b37c8590c85a789a005139312901c0906cfadb4b",
+  "rawRoot": "/tmp/bendvy-persistent-cache-growth",
+  "sourceHashes": {
+    "experiments/s-prep/persistent-cache-world/prototype.bend": "80b6bc7359870ae12fef2befccd728665f737354566303ed69d06ceb1bab8a8c",
+    "experiments/s-prep/persistent-cache-world/callbacks.bend": "8ca9af6b288124b6334cb18f7889502b1b9cd93efb3b38114979ee78ea09df50",
+    "experiments/s-prep/persistent-cache-world/cache.bend": "c979f39e22a442e2442c87d03c69f16b7cb2264bbc0bff5edbb9f54dac59a223",
+    "experiments/s-prep/persistent-cache-world/persistent-payload.bend": "77685ac0390a8536fe5e845192f4bc1890cc0b355cdd02a4e00bd4948bb08fd8",
+    "experiments/s-prep/persistent-cache-world/growth.bend": "b1c6e7f1502e168f81a485e95075b9080d1190cc81e7bbb5f92cadd26b1d02e0",
+    "experiments/s-prep/persistent-cache-world/run.py": "78f9ee5bed772cfd5288f575aa18f56edd0d96f796dd1fbbf7777b09468803da",
+    "experiments/s-prep/persistent-cache-world/growth-run.py": "ef3605c025117afdde9c7ea2b37c8590c85a789a005139312901c0906cfadb4b",
+    "experiments/s-prep/owned-write-query/run.py": "6a7daf1e5498b438643d77331a1d36b06ec523b9b9076c8fb23711c41cafba8f",
+    "/home/node/.bend/bin/bend": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a",
+    "/home/node/.bend/bend2/base.bend": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661"
+  },
+  "originalOutputSHA256": "ff60dc780aebcc10198af228967b6b90b31e0331c564277ee4ca79284e8d48e1"
+}
