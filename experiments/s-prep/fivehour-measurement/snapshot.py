@@ -20,6 +20,8 @@ def capture(path,digest,output):
         for block in original['editableTypeBlocks'][name]:
             if text.count(block)!=1:raise ValueError('nominal type constructors changed')
         actual=lines.splitlines()
+        if actual != original['editableHeaders'][name] or hashlib.sha256(lines.encode()).hexdigest() != original['editableSignaturePins'][name]:
+            raise ValueError('undeclared helper or definition/type signature changed')
         for header in original['editableHeaders'][name]:
             if actual.count(header)!=1:raise ValueError('existing definition/type signature changed')
     boundary.verify(path,digest,allow=allow);output.mkdir(exist_ok=False)
