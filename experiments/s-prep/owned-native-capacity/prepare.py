@@ -2,8 +2,10 @@
 """Copy checked selected-owner overlay; specialize column operations per backend."""
 import argparse,hashlib,json,shutil,difflib
 from pathlib import Path
+import preflight
 H=Path(__file__).resolve().parent;sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
 p=argparse.ArgumentParser();p.add_argument('--base-overlay',type=Path,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
+base_guard=preflight.base(a.base_overlay)
 m=json.load(open(a.base_overlay/'overlay.json'));assert all(sha(a.base_overlay/n)==v for n,v in m['sources'].items())
 a.output.mkdir(exist_ok=False);receipt={'scope':'Isolated ordinary finite construction, not accepted candidate','baseManifestSHA256':sha(a.base_overlay/'overlay.json'),'backends':{}}
 for backend in ['native','javascript']:
@@ -16,4 +18,5 @@ for backend in ['native','javascript']:
  changed=[n for n,h in m['sources'].items() if sources[n]!=h];assert changed==['experiments/s-integrate/held-adapter.bend'];(target/'overlay.json').write_text(json.dumps(dict(m,sources=sources),indent=2)+'\n')
  (target/'column-adapter.diff').write_text(''.join(difflib.unified_diff(old.splitlines(True),new.splitlines(True))))
  receipt['backends'][backend]={'sourceClosure':sources,'changedOnlyTemporary':changed,'columnSHA256':sha(core/'native-columns.bend'),'adapterSHA256':sha(adapter),'diffSHA256':sha(target/'column-adapter.diff')}
+(a.output/'base-provenance.json').write_text(json.dumps(base_guard,indent=2)+'\n')
 (a.output/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n');print('PREPARED_DISTINCT_BACKEND_CLOSURES')

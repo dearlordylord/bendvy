@@ -22,7 +22,9 @@ Limits stay checker/runtime 5 seconds, codegen 30 seconds, clang 120 seconds; Na
 
 ```sh
 python3 experiments/s-prep/owned-native-capacity/prepare.py --base-overlay /tmp/bendvy-held-integrated-overlay-v2 --output /tmp/fresh-owned-capacity
-python3 experiments/s-prep/owned-native-capacity/run.py --prepared /tmp/fresh-owned-capacity --output /tmp/fresh-owned-capacity-evidence
+python3 experiments/s-prep/owned-native-capacity/run.py --base-overlay /tmp/bendvy-held-integrated-overlay-v2 --prepared /tmp/fresh-owned-capacity --output /tmp/fresh-owned-capacity-evidence
 ```
 
 The original integration negative runner can be run separately at both prepared bindings; its receipt records exact sources/diagnostics. Full candidate access/mutation gates, larger sizes, all families, malformed-shape policy and any accepted fair comparison remain required. This finite result supplies no speedup or completion of performance targets. No canonical Tower Defense integration follows.
+
+The root `dda676c` authoritative base guard independently verified 139 protected checkout sources, the 432-source selected-owner base recipe and all 33 pinned TS source dependencies after construction. Both 433-source derived backend closures were then verified exactly; `provenance-evidence.json` labels this as post-construction verification rather than claiming it ran before the original children. The updated prepare/runner perform base and derived preflight before evaluator imports/Node. This explicit recipe deviation remains unaccepted for benchmark use. Final runner edits add preflight only; semantic output receipts pin their actually executed earlier runner versions.
