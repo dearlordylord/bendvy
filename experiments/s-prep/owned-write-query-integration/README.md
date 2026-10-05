@@ -97,3 +97,26 @@ owners are held, arbitrary callback staging, reader registries/stamps, general
 capture/provider integration and universal guarded reintegration remain separate
 work. No canonical Tower Defense integration or production adoption follows from
 this bounded result.
+
+## Provenance replay guard
+
+`run.py` checks provenance before importing the evaluator. The frozen ledger binds
+139 protected tracked checkout sources (including validators, TS adapter and
+original candidate callback module), the complete derived 432-source manifest,
+recipe helpers, prepare receipt and exact adapter diff. The tracked reference
+manifest determines the actual bevy-ts HEAD; every local import closure blob is
+compared to that commit, rejecting symlinks, escapes and external imports. The
+closure and protected inputs are checked again before each Node execution and at
+completion. Pins themselves have a fixed digest in the guard.
+
+Nine targeted guard controls reject moved HEAD, altered import blob, validator,
+callback, reference adapter, recipe, repinned ledger/manifest and changed derived
+adapter before evaluator import. Guarded finite Dense64 replay passes both schemas
+and backends; its first attempt reached the unchanged five-second checker deadline
+and is retained separately, without counting as semantic evidence. The subsequent
+ledger digest check was tested separately against the same verified pins; it changes
+no evaluator or program bytes. No performance claim is made.
+
+```sh
+python3 experiments/s-prep/owned-write-query-integration/provenance-controls.py --overlay /tmp/held-overlay --evidence /tmp/held-provenance-controls.json
+```

@@ -6,7 +6,7 @@
   "storageSHA256": "27f6b8aa69966eb6e349e7337b0947e50179dbc26cdcc363c1e857bb79cc4130",
   "querySHA256": "c54c276843ac606d96a560b5324a9d4c2c04c8ba3782c1a8fea3d98c9929d775",
   "sourcesAndEvidenceSHA256": {
-    "README.md": "4a7ccad22623b283d9d47212074c2e640e920d965b3fb1c53b88af9be20d1280",
+    "README.md": "c73c190e82bd6ac544d862e43104bd0db8f19b75aa87ed99576ba314c9e26123",
     "adapter.bend": "3a769263f2c7808a6f902463bae0524c856c5f2b8777a2ee74707f12380b3d0c",
     "construction-evidence.json": "a50efb7560c764950b751d9c88e87a6c9c7c8e88cb9b79cb4e92924d8f39be57",
     "controls-evidence.json": "9ce424317ec2ec450bdfd1013d7fdf9053b85f3c1faeeb673edf307ac335a178",
@@ -24,7 +24,13 @@
     "positive-read.bend": "30359924885ab24de2cccf5163be031694cd736989f252c2e62d9f737bb8f405",
     "prepare-evidence.json": "9058ed9a8c47ea8ef5769b84593b4675987eab3660bfcf99b66b365b478562cf",
     "prepare.py": "dc1c5269bc9bd81eb292dcf619b3d351f05830e4edf6597376d96f319d83697f",
-    "run.py": "104f312dbd5021cdd0954a68b51156dfeb805118f4f67149fb9bd04df7da1317"
+    "provenance-construction-evidence.json": "e5c356c65cf962e50f72b148985f3fe6fc0ae4142d0e679a0f3e474ee37e4faf",
+    "provenance-controls-evidence.json": "6a3c6979e5a7511826209cb16fcbe99b2f1be236b39ad46adf35be42ce4502d9",
+    "provenance-controls.py": "73422135ef23edd1162b8cd88774e13c753c3b4f107103eee374e878b239a552",
+    "provenance-first-deadline.json": "17bc0c353b4f717ec958e7964a20f6971fac58151a851ef9733be206404ce88b",
+    "provenance-pins.json": "405c0667ef57d89c452432d62cefd251acd5c133fc9c2fe64c7f469e363c3833",
+    "provenance.py": "d560f0834d0f4373936402eb3e266e75ab6deebd30335059602768da2e25a215",
+    "run.py": "ff97c28ddd44d96e4b5005bab4ef64cc3300d100801becef51340f6a1be825d3"
   },
   "limitsSeconds": {
     "checker": 5,
@@ -40,5 +46,15 @@
   "validation": "One finite actual Dense64 full-field construction per schema/backend against fresh TS; 144 original/held Tx pre/post records per backend; four compiling runtime mutants detected; four paired negative capability controls. No repeated comparative measurement or eligibility claim.",
   "checkoutProtectedMeasurementSHA256": "29c9f05835adb25e6b34c05048bb756cbfb86049b35edab2ff3649e671283d90",
   "checkoutProtectedMeasurementUnchangedFromHEAD": true,
-  "derivedManifestSourcesReverified": true
+  "derivedManifestSourcesReverified": true,
+  "provenanceFollowup": {
+    "status": "GUARDED_FINITE_REPLAY_PASS",
+    "guardControls": 9,
+    "protectedTrackedSources": 139,
+    "derivedSources": 432,
+    "firstAttempt": "unchanged five-second checker deadline; retained separately",
+    "finalArtifacts": "/tmp/bendvy-held-provenance-construction-final",
+    "guardArtifacts": "/tmp/bendvy-held-provenance-controls-bound.json",
+    "scope": "No measurement contract, eligibility or performance acceptance"
+  }
 }
