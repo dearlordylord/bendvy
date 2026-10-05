@@ -1,0 +1,19 @@
+{
+  "status": "INCOMPLETE",
+  "cases": [],
+  "limits": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "sources": {
+    "/workspace/formal-proofs/bendvy-worktrees/twohour-main-fusion/experiments/s-prep/owned-write-query/prototype.bend": "83beb8f2b784d94fefa7275a74a628b521ba2f8257b53857f92d303843caec5a",
+    "/workspace/formal-proofs/bendvy-worktrees/twohour-main-fusion/experiments/s-prep/owned-write-query/held.bend": "5994b97265f9c1d507edb178e9914f1efc462f517e7d02426f8d9a52c0e513fe",
+    "/workspace/formal-proofs/bendvy-worktrees/twohour-main-fusion/experiments/s-prep/owned-write-query/callbacks.bend": "8ca9af6b288124b6334cb18f7889502b1b9cd93efb3b38114979ee78ea09df50",
+    "/workspace/formal-proofs/bendvy-worktrees/twohour-main-fusion/experiments/s-perf/candidate/storage.bend": "27f6b8aa69966eb6e349e7337b0947e50179dbc26cdcc363c1e857bb79cc4130",
+    "/home/node/.bend/bin/bend": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a",
+    "/home/node/.bend/bend2/base.bend": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661"
+  },
+  "error": "AssertionError((['taskset', '-c', '5', 'bend', PosixPath('/tmp/bendvy-held-replay3/overlay/experiments/s-integrate/prototype.bend'), '--check-only'], 1, \"SOME PROOFS FAIL\\nError:\\n- expected : 2 patterns (one per scrutinee)\\n- observed : 'MotionSnapshot{main,ledger,handle,undo,commands,pings,marks,mv,lv} (world,O.WorldView{namespace,next,rows,pending,_,mode})'\\nLocation:\\n88 |   match state result:\\n89>|     case MotionSnapshot{main,ledger,handle,undo,commands,pings,marks,mv,lv} (world,O.WorldView{namespace,next,rows,pending,_,mode}): (H.Held{world,main,ledger,handle,undo,commands,pings,marks},O.WorldView{namespace,next,snapshot_rows(T.PositionView,T.VelocityView,T.Selected,mv,rows),pending,Some{lv},mode})\\n   |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n90 | def motion_snapshot_ledger(world:S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,main:T.Position,handle:S.Handle<T.MotionSchema>,undo:List<&2,X.Inverse<S.Handle<T.MotionSchema>>>,commands:List<S.Command<T.Position,T.Velocity,T.Selected>>,pings:List<&2,U32>,marks:List<&2,S.Handle<T.MotionSchema>>,mv:T.PositionView,result:T.MotionLedger & T.LedgerView) -> H.Held<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,T.Position,T.MotionLedger,S.Handle<T.MotionSchema>,S.Command<T.Position,T.Velocity,T.Selected>> & O.WorldView<T.PositionView,T.VelocityView,T.Selected,T.LedgerView,T.MotionMode>:\\n\"))"
+}

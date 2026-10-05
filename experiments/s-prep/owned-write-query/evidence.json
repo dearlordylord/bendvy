@@ -1,0 +1,70 @@
+{
+  "status": "PASS_BOUNDED",
+  "cases": [
+    {
+      "label": "fullfields NativeO3 JS freshbevy-ts",
+      "status": "PASS",
+      "lines": 28,
+      "oracleLimits": "Bend identity/mode/tick metadata checked independently; TS payload/flags/aux/ledger/fullinverse values observed"
+    },
+    {
+      "label": "undeclared",
+      "status": "PASS",
+      "output": "SOME PROOFS FAIL\nError:\n- expected : T.VitalsToken\n- observed : T.PositionToken\nContext:\n- Owner : Type\n- set   : @_:Owner -> @_:T.VitalsToken -> @_:U32 -> Owner\n- owner : Owner\nLocation: bad\n4 | def bad(-Owner:Type,set:Owner -> T.VitalsToken -> U32 -> Owner,owner:Owner) -> Owner:\n5>|   set(owner,T.PositionToken{},1)\n  |             ^^^^^^^^^^^^^^^^^\n6 | \n"
+    },
+    {
+      "label": "reconstruct",
+      "status": "PASS",
+      "output": "SOME PROOFS FAIL\nError:\n- expected : Owner\n- observed : T.Vitals\nContext:\n- Owner : Type\n- owner : Owner\nLocation: bad\n4 | def bad(-Owner:Type,owner:Owner) -> Owner:\n5>|   T.Vitals{[1:U32^2n],9,2}\n  |   ^^^^^^^^^^^^^^^^^^^^^^^^\n6 | \n"
+    },
+    {
+      "label": "duplicate",
+      "status": "PASS",
+      "output": "SOME PROOFS FAIL\nError:\n- expected : owner\n- observed : owner (consumed more than once)\nContext:\n- Owner : Type\nLocation: bad\n3 | \n4>| def bad(-Owner:Type,owner:Owner) -> Owner & Owner:\n  |                     ^^^^^\n5 |   (owner,owner)\n"
+    },
+    {
+      "label": "write-through-read",
+      "status": "PASS",
+      "output": "SOME PROOFS FAIL\nError:\n- expected : T.Vitals\n- observed : Owner\nContext:\n- Owner : Type\n- owner : Owner\nLocation: bad\n4 | def bad(-Owner:Type,owner:Owner) -> Owner:\n5>|   P.vitals_swap(owner,1)\n  |                 ^^^^^\n6 | \n"
+    },
+    {
+      "label": "wrong-slot",
+      "status": "DETECTED",
+      "compilingBothBackends": true
+    },
+    {
+      "label": "lost-owner",
+      "status": "DETECTED",
+      "compilingBothBackends": true
+    },
+    {
+      "label": "foreign-lookup",
+      "status": "DETECTED",
+      "compilingBothBackends": true
+    },
+    {
+      "label": "inverse-order",
+      "status": "DETECTED",
+      "compilingBothBackends": true
+    }
+  ],
+  "limits": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "sources": {
+    "/workspace/formal-proofs/bendvy-worktrees/twohour-main-fusion/experiments/s-prep/owned-write-query/prototype.bend": "4122807d48aa1488ac0d7265421fa78e9e6c50edf88361cda0c60ff19b9e4058",
+    "/workspace/formal-proofs/bendvy-worktrees/twohour-main-fusion/experiments/s-prep/owned-write-query/held.bend": "5994b97265f9c1d507edb178e9914f1efc462f517e7d02426f8d9a52c0e513fe",
+    "/workspace/formal-proofs/bendvy-worktrees/twohour-main-fusion/experiments/s-prep/owned-write-query/callbacks.bend": "8ca9af6b288124b6334cb18f7889502b1b9cd93efb3b38114979ee78ea09df50",
+    "/workspace/formal-proofs/bendvy-worktrees/twohour-main-fusion/experiments/s-perf/candidate/storage.bend": "27f6b8aa69966eb6e349e7337b0947e50179dbc26cdcc363c1e857bb79cc4130",
+    "/home/node/.bend/bin/bend": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a",
+    "/home/node/.bend/bend2/base.bend": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661"
+  },
+  "runnerSHA256": "20889e34448f30d1c05e6b5ba88f5a406aa4a65221ced3b13eb64527d06a9a38",
+  "referenceAdapterSHA256": "d907eb0d38add9f6f15c101491a91e964b9df1d8d3d3dfe839a2ce2294316e5f",
+  "referenceCommit": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334",
+  "rawRoot": "/tmp/bendvy-held-replay6",
+  "nativeAndJavascriptOriginalSHA256": "e0fdf00c5bbd4e4b654d8eac81e8ca011c3d2c26698adf473a9abfff97a9bd82"
+}

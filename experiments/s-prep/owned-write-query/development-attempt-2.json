@@ -1,0 +1,19 @@
+{
+  "status": "INCOMPLETE",
+  "cases": [],
+  "limits": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "sources": {
+    "/workspace/formal-proofs/bendvy-worktrees/twohour-main-fusion/experiments/s-prep/owned-write-query/prototype.bend": "886b47a70e42dc1166efbc1456cfde64b963f7a50053a557eb733d5be4e044fc",
+    "/workspace/formal-proofs/bendvy-worktrees/twohour-main-fusion/experiments/s-prep/owned-write-query/held.bend": "5994b97265f9c1d507edb178e9914f1efc462f517e7d02426f8d9a52c0e513fe",
+    "/workspace/formal-proofs/bendvy-worktrees/twohour-main-fusion/experiments/s-prep/owned-write-query/callbacks.bend": "8ca9af6b288124b6334cb18f7889502b1b9cd93efb3b38114979ee78ea09df50",
+    "/workspace/formal-proofs/bendvy-worktrees/twohour-main-fusion/experiments/s-perf/candidate/storage.bend": "27f6b8aa69966eb6e349e7337b0947e50179dbc26cdcc363c1e857bb79cc4130",
+    "/home/node/.bend/bin/bend": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a",
+    "/home/node/.bend/bend2/base.bend": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661"
+  },
+  "error": "AssertionError((['taskset', '-c', '5', 'clang', '-O3', PosixPath('/tmp/bendvy-held-replay2/original.c'), '-o', PosixPath('/tmp/bendvy-held-replay2/original'), '-lm', '-pthread'], 70, 'fatal error: error in backend: Error while trying to spill X10 from class GPR64: Cannot scavenge register without an emergency spill slot!\\nclang: error: clang frontend command failed with exit code 70 (use -v to see invocation)\\nDebian clang version 14.0.6\\nTarget: aarch64-unknown-linux-gnu\\nThread model: posix\\nInstalledDir: /home/node/.local/opt/dnd-clang14/usr/lib/llvm-14/bin\\nclang: note: diagnostic msg: \\n********************\\n\\nPLEASE ATTACH THE FOLLOWING FILES TO THE BUG REPORT:\\nPreprocessed source(s) and associated run script(s) are located at:\\nclang: note: diagnostic msg: /tmp/original-4e3da7.c\\nclang: note: diagnostic msg: /tmp/original-4e3da7.sh\\nclang: note: diagnostic msg: \\n\\n********************\\n'))"
+}
