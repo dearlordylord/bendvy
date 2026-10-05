@@ -1,0 +1,170 @@
+{
+  "scope": "indexed candidate actual audited closed A/B + Host.query rank-2 providers; static controls only",
+  "overlay": "/tmp/bendvy-fivehour-final-js-closed-control-clones",
+  "overlay_manifest_sha256": "e9fd0c0cdbaeb22ca61b26f5e2facfaf6c74e1f88f11e9b7343df18d81d86590",
+  "overlay_baseline": "a976667",
+  "candidate_overrides": {
+    "experiments/s-integrate/commands.bend": "5cdbaeb590d0542db6d956ff421f7ab7f35c1b71be70091f87ce4fd58271ecc0",
+    "experiments/s-integrate/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+    "experiments/s-integrate/host-batch-invoker.bend": "05605815592e2fb015c6dbe15cac10fa6bbec9f32f1babdf18d8090df30185de",
+    "experiments/s-integrate/host.bend": "decf18c049a002b4454ccb4708e92a154d18ff5d4323928fc145a49b25c47d47",
+    "experiments/s-integrate/identity.bend": "6cff678171c10d5124b234cb0e2e3d55cd56aec95871508c595f259c484de4f8",
+    "experiments/s-integrate/measurement-bend.bend": "4701561c2436f92bd5209f5a5d6b553620b653f21366da9f1c4e246972267ff2",
+    "experiments/s-integrate/measurement-failure-host.bend": "754e2f98fe6035959e3d2395f449e0354d1c2f55f1b56370adefa547312e53cb",
+    "experiments/s-integrate/measurement-lifecycle-timed.bend": "a184121050b0a2a29224337916e42068cf77bf2ad8811b7db0632f108656c19b",
+    "experiments/s-integrate/measurement-lifecycle.bend": "0b2690c7d56219411dd3a14876dda8fe0c2f757fcf3656cf404fbdf76524296d",
+    "experiments/s-integrate/observations.bend": "e81cb63b3ab6da947a2455c3cc1b388abb1aa71dea593671d1c18f00da07a778",
+    "experiments/s-integrate/query.bend": "1f7620a8063bdcc95aa7407870ffd4f189ac2c945330e359fee8d0b617b8cc42",
+    "experiments/s-integrate/storage-stage-fixture.bend": "e74473e6f80eb2f0b0424dc82065366463453db9ae37d8fc3dc7a3c33fde80a6",
+    "experiments/s-integrate/storage.bend": "3bddf3a25dc6fbaa18c34f2d4e17d45664b3a53b791e20144ec853fb78908d09"
+  },
+  "checker_limit_seconds": 5,
+  "cpu_affinity": [
+    9
+  ],
+  "source_revision": "62c2a3c2d1f80b397aab1485adeafb55dffdd7de",
+  "compiler": "bend 2.0.35",
+  "toolchain": {
+    "compiler": {
+      "path": "/home/node/.bend/bin/bend",
+      "sha256": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a"
+    },
+    "Base": {
+      "path": "/home/node/.bend/bend2/base.bend",
+      "sha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661"
+    }
+  },
+  "runner_sha256": "27a8f79ab916e7074ab036d73651659e9e0850281be22f895583cf4f7f07d094",
+  "hashes": {
+    "integrated-access-positive.bend": "a0938c6bcff6af86c47eef4f943a36d9c6a38b69869bbf1d3b626ac9589705b7",
+    "cache.bend": "c979f39e22a442e2442c87d03c69f16b7cb2264bbc0bff5edbb9f54dac59a223",
+    "cached-payload.bend": "c4f08daeadfc20217b9778fc33a57271376a3831ae27c4ceb64fd2a962b9095f",
+    "types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+    "uncached-payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+    "storage.bend": "3bddf3a25dc6fbaa18c34f2d4e17d45664b3a53b791e20144ec853fb78908d09",
+    "payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "query.bend": "1f7620a8063bdcc95aa7407870ffd4f189ac2c945330e359fee8d0b617b8cc42",
+    "schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+    "capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+    "observations.bend": "e81cb63b3ab6da947a2455c3cc1b388abb1aa71dea593671d1c18f00da07a778",
+    "host.bend": "decf18c049a002b4454ccb4708e92a154d18ff5d4323928fc145a49b25c47d47",
+    "commands.bend": "5cdbaeb590d0542db6d956ff421f7ab7f35c1b71be70091f87ce4fd58271ecc0",
+    "identity.bend": "6cff678171c10d5124b234cb0e2e3d55cd56aec95871508c595f259c484de4f8",
+    "dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+    "systems.bend": "32e11a5a89b01e8db00f0b58a9fd1e2da87f4882189725b0012933421b6b1716",
+    "reader-host.bend": "26eb687a8fb1893b55e4a0c7c8a629b688e37466e169cb3c95dd5273a553db6d",
+    "streams.bend": "291d9a46ad58bdc481a5710976e01b762f6e11be3aeba07076c46c69f236d2c0",
+    "host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+    "transaction-dispatch-adapters.bend": "f2276c1c16ad3694ab8a253f97da892df3a1db81b621cd80018b1376d79d490d",
+    "transaction.bend": "10666618cc37f9cd2a5f4f5c13570727b0a0ece96bbbada2e06816ccd3b0e0de",
+    "audited-invoker.bend": "8f4cc0acd27b49d7425e43419dc0f6d2be7eeed1cb36962c33d0b97aaf2ef5b3",
+    "structural-invoker.bend": "8e1269193d719b1f0ea68b040c62e8966160bacb898ac51caa2f6494f4621e0a"
+  },
+  "cases": {
+    "positive": {
+      "exit": 0,
+      "seconds": 1.227767574135214,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n",
+      "classification": "original actual provider boundary control"
+    },
+    "undeclared_token": {
+      "exit": 1,
+      "seconds": 0.5598076079040766,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : T.PositionToken\n- observed : T.VelocityToken\nContext:\n- Tx            : Type\n- H             : Data\n- count         : U32\n- rejected      : T.Outcome\n- set_main      : @_:Tx -> @_:T.PositionToken -> @_:U32 -> Tx\n- set_ledger    : @_:Tx -> @_:T.MotionLedgerToken -> @_:U32 -> Tx\n- read_main     : @_:Tx -> @_:T.PositionToken -> Sigma<&1, &1, Tx, _ => T.Access<T.PositionView>>\n- read_ledger   : @_:Tx -> @_:T.MotionLedgerToken -> Sigma<&1, &1, Tx, _ => Maybe<&2, T.LedgerView>>\n- spawn_flagged : @_:Tx -> @_:CC.Cache<T.Position, T.PositionView> -> T.Reservation<Tx, H, CC.Cache<T.Position, T.PositionView>>\n- remove        : @_:Tx -> Tx\n- ping          : @_:Tx -> @_:T.MotionPing -> Tx\n- log           : @_:Tx -> @_:String -> @-R:Type -> @k:(@_:Tx -> IO.OP<R>) -> IO.OP<R>\n- owner         : Tx\nLocation: motion_a\n114 | def motion_a(-Tx:Type,-H:Data,count:U32,+rejected:T.Outcome,set_main:Tx -> T.PositionToken -> U32 -> Tx,set_ledger:Tx -> T.MotionLedgerToken -> U32 -> Tx,read_main:Tx -> T.PositionToken -> Tx & T.Access<T.PositionView>,read_ledger:Tx -> T.MotionLedgerToken -> Tx & Maybe<&2,T.LedgerView>,spawn_flagged:Tx -> CC.Cache<T.Position,T.PositionView> -> T.Reservation<Tx,H,CC.Cache<T.Position,T.PositionView>>,remove:Tx -> Tx,ping:Tx -> T.MotionPing -> Tx,log:Tx -> String -> IO(Tx),owner:Tx) -> IO(BodyResult<Tx,H>):\n115>|   motion_a_main(Tx,H,count,rejected,read_ledger,spawn_flagged,remove,ping,log,read_main(set_ledger(set_main(owner,T.VelocityToken{},11),T.MotionLedgerToken{},101),T.PositionToken{}))\n    |                                                                                                                   ^^^^^^^^^^^^^^^^^\n116 | def health_a_reserved(-Tx:Type,-H:Data,count:U32,+rejected:T.Outcome,observations:List<&2,Observation>,remove:Tx -> Tx,ping:Tx -> T.HealthPing -> Tx,log:Tx -> String -> IO(Tx),result:T.Reservation<Tx,H,CC.Cache<T.Vitals,T.VitalsView>>) -> IO(BodyResult<Tx,H>):\n",
+      "intended_diagnostics": [
+        "expected : T.PositionToken",
+        "T.VelocityToken{}"
+      ],
+      "mutation_file": "systems.bend",
+      "mutated_source_sha256": "a583d30261d5e95b445f574ee1f3c3675b3fecfa5b3c8674bea1ddbc9054145d",
+      "classification": "original actual provider boundary control"
+    },
+    "cross_schema": {
+      "exit": 1,
+      "seconds": 0.5892384659964591,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : T.PositionToken\n- observed : T.VitalsToken\nContext:\n- Tx            : Type\n- H             : Data\n- count         : U32\n- rejected      : T.Outcome\n- set_main      : @_:Tx -> @_:T.PositionToken -> @_:U32 -> Tx\n- set_ledger    : @_:Tx -> @_:T.MotionLedgerToken -> @_:U32 -> Tx\n- read_main     : @_:Tx -> @_:T.PositionToken -> Sigma<&1, &1, Tx, _ => T.Access<T.PositionView>>\n- read_ledger   : @_:Tx -> @_:T.MotionLedgerToken -> Sigma<&1, &1, Tx, _ => Maybe<&2, T.LedgerView>>\n- spawn_flagged : @_:Tx -> @_:CC.Cache<T.Position, T.PositionView> -> T.Reservation<Tx, H, CC.Cache<T.Position, T.PositionView>>\n- remove        : @_:Tx -> Tx\n- ping          : @_:Tx -> @_:T.MotionPing -> Tx\n- log           : @_:Tx -> @_:String -> @-R:Type -> @k:(@_:Tx -> IO.OP<R>) -> IO.OP<R>\n- owner         : Tx\nLocation: motion_a\n114 | def motion_a(-Tx:Type,-H:Data,count:U32,+rejected:T.Outcome,set_main:Tx -> T.PositionToken -> U32 -> Tx,set_ledger:Tx -> T.MotionLedgerToken -> U32 -> Tx,read_main:Tx -> T.PositionToken -> Tx & T.Access<T.PositionView>,read_ledger:Tx -> T.MotionLedgerToken -> Tx & Maybe<&2,T.LedgerView>,spawn_flagged:Tx -> CC.Cache<T.Position,T.PositionView> -> T.Reservation<Tx,H,CC.Cache<T.Position,T.PositionView>>,remove:Tx -> Tx,ping:Tx -> T.MotionPing -> Tx,log:Tx -> String -> IO(Tx),owner:Tx) -> IO(BodyResult<Tx,H>):\n115>|   motion_a_main(Tx,H,count,rejected,read_ledger,spawn_flagged,remove,ping,log,read_main(set_ledger(set_main(owner,T.VitalsToken{},11),T.MotionLedgerToken{},101),T.PositionToken{}))\n    |                                                                                                                   ^^^^^^^^^^^^^^^\n116 | def health_a_reserved(-Tx:Type,-H:Data,count:U32,+rejected:T.Outcome,observations:List<&2,Observation>,remove:Tx -> Tx,ping:Tx -> T.HealthPing -> Tx,log:Tx -> String -> IO(Tx),result:T.Reservation<Tx,H,CC.Cache<T.Vitals,T.VitalsView>>) -> IO(BodyResult<Tx,H>):\n",
+      "intended_diagnostics": [
+        "expected : T.PositionToken",
+        "T.VitalsToken{}"
+      ],
+      "mutation_file": "systems.bend",
+      "mutated_source_sha256": "262d7a83b92a4b245481f6fc2f662f49f00c81b378081da07a720ac101ab4549",
+      "classification": "original actual provider boundary control"
+    },
+    "write_through_read": {
+      "exit": 1,
+      "seconds": 0.7559180799871683,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : CC.Cache<T.Position, T.PositionView>\n- observed : Owner\nContext:\n- Owner   : Type\n- Aux     : Type\n- get     : @_:Owner -> @_:T.PositionToken -> Sigma<&1, &1, Owner, _ => T.PositionView>\n- aux_get : @_:Aux -> Sigma<&1, &1, Aux, _ => Maybe<&2, T.VelocityView>>\n- handle  : S.Handle<T.MotionSchema>\n- flag    : Maybe<&2, T.Selected>\n- owner   : Owner\n- aux     : Aux\nLocation: motion_read\n14 | def motion_read(-Owner:Type,-Aux:Type,get:Owner -> T.PositionToken -> Owner & T.PositionView,aux_get:Aux -> Aux & Maybe<&2,T.VelocityView>,handle:S.Handle<T.MotionSchema>,flag:Maybe<&2,T.Selected>,owner:Owner,aux:Aux) -> Owner & (Aux & O.QueryRow<T.MotionSchema,T.PositionView,T.VelocityView,T.Selected>):\n15>|   O.client(T.MotionSchema,T.PositionToken,T.PositionView,T.VelocityView,T.Selected,T.PositionToken{},Owner,Aux,get,aux_get,handle,flag,CP.position_swap(owner,30),aux)\n   |                                                                                                                                                         ^^^^^\n16 | \n",
+      "intended_diagnostics": [
+        "expected : CC.Cache<T.Position, T.PositionView>",
+        "observed : Owner"
+      ],
+      "mutation_file": "integrated-access-positive.bend",
+      "mutated_source_sha256": "a7fab2d3a644ad760aff02673a323d641f31713d3b807aca1e1ef7f372f0b266",
+      "classification": "original actual provider boundary control"
+    },
+    "reconstruct_owner": {
+      "exit": 1,
+      "seconds": 0.6983503729570657,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : Owner\n- observed : CC.Cache<T.Position, T.PositionView>\nContext:\n- Owner   : Type\n- Aux     : Type\n- get     : @_:Owner -> @_:T.PositionToken -> Sigma<&1, &1, Owner, _ => T.PositionView>\n- aux_get : @_:Aux -> Sigma<&1, &1, Aux, _ => Maybe<&2, T.VelocityView>>\n- handle  : S.Handle<T.MotionSchema>\n- flag    : Maybe<&2, T.Selected>\n- owner   : Owner\n- aux     : Aux\nLocation: motion_read\n14 | def motion_read(-Owner:Type,-Aux:Type,get:Owner -> T.PositionToken -> Owner & T.PositionView,aux_get:Aux -> Aux & Maybe<&2,T.VelocityView>,handle:S.Handle<T.MotionSchema>,flag:Maybe<&2,T.Selected>,owner:Owner,aux:Aux) -> Owner & (Aux & O.QueryRow<T.MotionSchema,T.PositionView,T.VelocityView,T.Selected>):\n15>|   O.client(T.MotionSchema,T.PositionToken,T.PositionView,T.VelocityView,T.Selected,T.PositionToken{},Owner,Aux,get,aux_get,handle,flag,CP.position_new(T.Position{[30:U32^2n],7}),aux)\n   |                                                                                                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n16 | \n",
+      "intended_diagnostics": [
+        "expected : Owner",
+        "observed : CC.Cache<T.Position, T.PositionView>",
+        "CP.position_new(T.Position{"
+      ],
+      "mutation_file": "integrated-access-positive.bend",
+      "mutated_source_sha256": "796305e8296442c45daaeaf626597a36601f2c8a4e394e89a35dd364e62aefe2",
+      "classification": "original actual provider boundary control"
+    },
+    "invalid_owner_return": {
+      "exit": 1,
+      "seconds": 0.8129566579591483,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : Owner\n- observed : Aux\nContext:\n- Owner   : Type\n- Aux     : Type\n- get     : @_:Owner -> @_:T.PositionToken -> Sigma<&1, &1, Owner, _ => T.PositionView>\n- aux_get : @_:Aux -> Sigma<&1, &1, Aux, _ => Maybe<&2, T.VelocityView>>\n- handle  : S.Handle<T.MotionSchema>\n- flag    : Maybe<&2, T.Selected>\n- owner   : Owner\n- aux     : Aux\nLocation: motion_read\n14 | def motion_read(-Owner:Type,-Aux:Type,get:Owner -> T.PositionToken -> Owner & T.PositionView,aux_get:Aux -> Aux & Maybe<&2,T.VelocityView>,handle:S.Handle<T.MotionSchema>,flag:Maybe<&2,T.Selected>,owner:Owner,aux:Aux) -> Owner & (Aux & O.QueryRow<T.MotionSchema,T.PositionView,T.VelocityView,T.Selected>):\n15>|   O.client(T.MotionSchema,T.PositionToken,T.PositionView,T.VelocityView,T.Selected,T.PositionToken{},Owner,Aux,get,aux_get,handle,flag,aux,owner)\n   |                                                                                                                                        ^^^\n16 | \n",
+      "intended_diagnostics": [
+        "expected : Owner",
+        "observed : Aux"
+      ],
+      "mutation_file": "integrated-access-positive.bend",
+      "mutated_source_sha256": "de1a2b02761151051af2b2011a49c5c060e3de88aa88921cbc791ef9187513e6",
+      "classification": "original actual provider boundary control"
+    },
+    "audit_copy_text_historical": {
+      "exit": 1,
+      "seconds": 0.6103688841685653,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : text\n- observed : text (consumed more than once)\nContext:\n- Tx          : Type\n- transaction : Tx\n- audit       : D.Audit\nLocation: log\n22 |     case (transaction,audit): Wrapped{transaction,audit}\n23>| def log(-Tx:Type,owner:Wrapped<Tx>,text:String) -> IO(Wrapped<Tx>):\n   |                                    ^^^^\n24 |   match owner:\n",
+      "intended_diagnostics": [
+        "expected : text",
+        "observed : text (consumed more than once)"
+      ],
+      "mutation_file": "audited-invoker.bend",
+      "mutated_source_sha256": "bd34b8984cb6611460afaecc75fe387b278cffd01d873eebc7d1dc393185e12d",
+      "classification": "historical non-owner String duplication witness"
+    },
+    "audit_copy": {
+      "exit": 1,
+      "seconds": 0.6544473168905824,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : audit\n- observed : audit (consumed more than once)\nContext:\n- Tx          : Type\n- transaction : Tx\nLocation: log\n24 |   match owner:\n25>|     case Wrapped{transaction,audit}: IO.bind(D.Audit,Wrapped<Tx>,IO.bind(D.Audit,D.Audit,D.audit_log(audit,text), _ => D.audit_log(audit,text)), a => IO.pure(Wrapped<Tx>,Wrapped{transaction,a}))\n   |                              ^^^^^\n26 | def motion_read_main_pair(audit:D.Audit,pair:X.Tx<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>> & T.Access<T.PositionView>) -> Wrapped<X.Tx<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>>> & T.Access<T.PositionView>:\n",
+      "intended_diagnostics": [
+        "expected : audit",
+        "observed : audit (consumed more than once)"
+      ],
+      "mutation_file": "audited-invoker.bend",
+      "mutated_source_sha256": "c133f737f3497a97846e7db7a384a35533efbd66f858b0462add5f980a4b8609",
+      "classification": "intended actual affine Audit owner duplication"
+    },
+    "irrecoverable_destructure": {
+      "exit": 1,
+      "seconds": 0.7498223239090294,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : a datatype\n- observed : Owner\nContext:\n- Owner   : Type\n- Aux     : Type\n- get     : @_:Owner -> @_:T.PositionToken -> Sigma<&1, &1, Owner, _ => T.PositionView>\n- aux_get : @_:Aux -> Sigma<&1, &1, Aux, _ => Maybe<&2, T.VelocityView>>\n- handle  : S.Handle<T.MotionSchema>\n- flag    : Maybe<&2, T.Selected>\nLocation: motion_read\n15 |   match owner:\n16>|     case T.Position{values,frame}: (T.Position{[30:U32^2n],frame},(aux,O.QueryRow{handle,T.PositionView{T.Four{30,30,30,30},frame},None{},flag}))\n   |          ^^^^^^^^^^^^^^^^^^^^^^^^\n17 | \n",
+      "intended_diagnostics": [
+        "expected : a datatype",
+        "observed : Owner",
+        "T.Position{"
+      ],
+      "mutation_file": "integrated-access-positive.bend",
+      "mutated_source_sha256": "86ca66ac38b42824da7d768ed5015fc1a655415f1e0e2109d7755c43c448bca3",
+      "classification": "original actual provider boundary control"
+    }
+  }
+}
