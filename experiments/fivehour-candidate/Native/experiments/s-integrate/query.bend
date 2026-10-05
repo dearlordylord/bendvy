@@ -65,32 +65,33 @@ def read_rows_start(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data
   match result:
     case (owners,high): read_rows_go(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,U32.to_nat(high),1,selection,namespace,(owners,[]))
 # Fused indexed traversal: physical metadata remains unchanged by read callbacks.
-# Original per-ID capacity guards remain; no new trusted-shape restriction.
+# Original per-ID capacity guards remain. Metadata columns must have aligned depths;
+# rows_empty/grow preserve this invariant. Public malformed constructors are not validated.
 type StructIdxState<-M: Type,-A: Type,-F: Data,-O: Data> is Type:
-  StructIdxState{main: Array<Maybe<M>>,aux: Array<Maybe<A>>,metadata: Array<S.Metadata<F>>,values: List<&2,O>}
-def struct_idx_return(-M: Type,-A: Type,-F: Data,-O: Data,+index: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,metadata: Array<S.Metadata<F>>,values: List<&2,O>,result: M & (Maybe<A> & O)) -> StructIdxState<M,A,F,O>:
+  StructIdxState{main: Array<Maybe<M>>,aux: Array<Maybe<A>>,metadata: S.MetadataColumns<F>,values: List<&2,O>}
+def struct_idx_return(-M: Type,-A: Type,-F: Data,-O: Data,+index: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,metadata: S.MetadataColumns<F>,values: List<&2,O>,result: M & (Maybe<A> & O)) -> StructIdxState<M,A,F,O>:
   match result:
     case (m,(a,value)): StructIdxState{Array.set(Maybe<M>,main,index,Some{m}),Array.set(Maybe<A>,aux,index,a),metadata,value <> values}
-def struct_idx_aux(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),+id: U32,namespace: U32,main: Array<Maybe<M>>,owner: M,metadata: Array<S.Metadata<F>>,values: List<&2,O>,flag: Maybe<&2,F>,result: Array<Maybe<A>> & Maybe<A>) -> StructIdxState<M,A,F,O>:
+def struct_idx_aux(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),+id: U32,namespace: U32,main: Array<Maybe<M>>,owner: M,metadata: S.MetadataColumns<F>,values: List<&2,O>,flag: Maybe<&2,F>,result: Array<Maybe<A>> & Maybe<A>) -> StructIdxState<M,A,F,O>:
   match result:
     case (aux,a): struct_idx_return(M,A,F,O,U32.sub(id,1),main,aux,metadata,values,client(M,Maybe<A>,main_read(~M,~Tok,~V,~main_get),aux_read(~A,~AV,~aux_get),S.Handle{namespace,id},flag,owner,a))
-def struct_idx_main(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),+id: U32,namespace: U32,aux: Array<Maybe<A>>,metadata: Array<S.Metadata<F>>,values: List<&2,O>,flag: Maybe<&2,F>,result: Array<Maybe<M>> & Maybe<M>) -> StructIdxState<M,A,F,O>:
+def struct_idx_main(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),+id: U32,namespace: U32,aux: Array<Maybe<A>>,metadata: S.MetadataColumns<F>,values: List<&2,O>,flag: Maybe<&2,F>,result: Array<Maybe<M>> & Maybe<M>) -> StructIdxState<M,A,F,O>:
   match result:
     case (main,None{}): StructIdxState{main,aux,metadata,values}
     case (main,Some{owner}): struct_idx_aux(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,id,namespace,main,owner,metadata,values,flag,Array.swap(Maybe<A>,aux,U32.sub(id,1),None{}))
-def struct_idx_selected(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),include: Bool,+id: U32,namespace: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,metadata: Array<S.Metadata<F>>,values: List<&2,O>,flag: Maybe<&2,F>) -> StructIdxState<M,A,F,O>:
+def struct_idx_selected(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),include: Bool,+id: U32,namespace: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,metadata: S.MetadataColumns<F>,values: List<&2,O>,flag: Maybe<&2,F>) -> StructIdxState<M,A,F,O>:
   match include:
     case False{}: StructIdxState{main,aux,metadata,values}
     case True{}: struct_idx_main(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,id,namespace,aux,metadata,values,flag,Array.swap(Maybe<M>,main,U32.sub(id,1),None{}))
-def struct_idx_metadata(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),id: U32,namespace: U32,selection: Selection,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,values: List<&2,O>,result: Array<S.Metadata<F>> & S.Metadata<F>) -> StructIdxState<M,A,F,O>:
+def struct_idx_metadata(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),id: U32,namespace: U32,selection: Selection,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,values: List<&2,O>,result: S.MetadataColumns<F> & S.Membership<F>) -> StructIdxState<M,A,F,O>:
   match result:
-    case (metadata,S.Metadata{False{},_,_,_}): StructIdxState{main,aux,metadata,values}
-    case (metadata,S.Metadata{True{},+flag,_,_}): struct_idx_selected(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,selected(F,selection,flag),id,namespace,main,aux,metadata,values,flag)
+    case (metadata,S.Membership{False{},_}): StructIdxState{main,aux,metadata,values}
+    case (metadata,S.Membership{True{},+flag}): struct_idx_selected(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,selected(F,selection,flag),id,namespace,main,aux,metadata,values,flag)
 def struct_idx_advance(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),valid: Bool,+id: U32,namespace: U32,selection: Selection,state: StructIdxState<M,A,F,O>) -> StructIdxState<M,A,F,O>:
   match valid state:
     case False{} state: state
     case True{} StructIdxState{main,aux,metadata,values}:
-      struct_idx_metadata(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,id,namespace,selection,main,aux,values,Array.get(S.Metadata<F>,metadata,U32.sub(id,1)))
+      struct_idx_metadata(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,id,namespace,selection,main,aux,values,S.metadata_membership(F,metadata,U32.sub(id,1)))
 def struct_idx_finish(-M: Type,-A: Type,-F: Data,-O: Data,capacity: U32,depth: Nat,high: U32,state: StructIdxState<M,A,F,O>) -> S.Rows<M,A,F> & List<&2,O>:
   match state:
     case StructIdxState{main,aux,metadata,values}: (S.Rows{main,aux,metadata,capacity,depth,high},List.reverse(&2,O,values))

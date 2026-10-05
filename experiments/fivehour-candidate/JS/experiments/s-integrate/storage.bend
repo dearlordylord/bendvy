@@ -28,6 +28,8 @@ type Change<-S: Data> is Data:
 type Metadata<-F: Data> is Data:
   Metadata{live: Bool, flag: Maybe<&2,F>, added: U32, changed: U32}
 # Affine metadata transport: primitive leaves remain inline in each aligned array.
+# Trusted lifecycle helpers preserve equal depths. Public detached constructors
+# can violate alignment; arbitrary malformed shapes are outside this probe.
 type MetadataColumns<-F: Data> is Type:
   MetadataColumns{live: Array<Bool>, flags: Array<Maybe<&2,F>>, added: Array<U32>, changed: Array<U32>}
 def metadata_empty(-F: Data,+depth: Nat) -> MetadataColumns<F>:
@@ -50,6 +52,18 @@ def metadata_get_live(-F: Data,flags: Array<Maybe<&2,F>>,added: Array<U32>,chang
 def metadata_get(-F: Data,columns: MetadataColumns<F>,+index: U32) -> MetadataColumns<F> & Metadata<F>:
   match columns:
     case MetadataColumns{live,flags,added,changed}: metadata_get_live(F,flags,added,changed,index,Array.get(Bool,live,index))
+# Query selection observes membership/flag only; stamps remain owned and untouched.
+type Membership<-F: Data> is Data:
+  Membership{live: Bool, flag: Maybe<&2,F>}
+def metadata_membership_flags(-F: Data,live: Array<Bool>,added: Array<U32>,changed: Array<U32>,value: Bool,result: Array<Maybe<&2,F>> & Maybe<&2,F>) -> MetadataColumns<F> & Membership<F>:
+  match result:
+    case (flags,flag): (MetadataColumns{live,flags,added,changed},Membership{value,flag})
+def metadata_membership_live(-F: Data,flags: Array<Maybe<&2,F>>,added: Array<U32>,changed: Array<U32>,index: U32,result: Array<Bool> & Bool) -> MetadataColumns<F> & Membership<F>:
+  match result:
+    case (live,value): metadata_membership_flags(F,live,added,changed,value,Array.get(Maybe<&2,F>,flags,index))
+def metadata_membership(-F: Data,columns: MetadataColumns<F>,+index: U32) -> MetadataColumns<F> & Membership<F>:
+  match columns:
+    case MetadataColumns{live,flags,added,changed}: metadata_membership_live(F,flags,added,changed,index,Array.get(Bool,live,index))
 def metadata_live_done(-F: Data,flags: Array<Maybe<&2,F>>,added: Array<U32>,changed: Array<U32>,result: Array<Bool> & Bool) -> MetadataColumns<F> & Bool:
   match result:
     case (live,value): (MetadataColumns{live,flags,added,changed},value)

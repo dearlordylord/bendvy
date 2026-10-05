@@ -23,6 +23,8 @@ def main():
     else:
      file,before,after=mutations[a.mutation];target=core/file;original=target.read_text();assert original.count(before)==1,(a.mutation,original.count(before));target.write_text(original.replace(before,after))
    text=(HERE/'tx-controls.bend').read_text().replace('import ./measurement-bend.bend as M','import ./gate-callbacks.bend as M')
+   text,metadata_adapter=PC.adapt_metadata_fixture(text,core)
+   result['metadataFixtureAdaptation']=metadata_adapter
    text=PC.adapt_tx_fixture(text,static_client)
    if mode=='raw':
     # Only observation getters change; authored callback providers remain untouched.

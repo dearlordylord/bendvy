@@ -76,6 +76,20 @@ def extract_callbacks(core):
     (core/'gate-callbacks.bend').write_text(text)
     return {'mode':'ACTUAL_ERASED_PROVIDER_CLIENT' if is_static else 'ORIGINAL_DYNAMIC_CLIENT','originalCallbackDefinitionPins':pins,'consumedCallbackSHA256':hashlib.sha256(text.encode()).hexdigest(),'sourceCallbackModule':STATIC_MODULE if is_static else 'measurement-bend.bend'}
 
+def adapt_metadata_fixture(text,core):
+    """Translate only the two original constructed rows, preserving every field."""
+    primitive='type MetadataColumns<-F: Data> is Type:' in (Path(core)/'storage.bend').read_text()
+    if not primitive:return text,None
+    changes=[]
+    for flag in ('Selected','Tracked'):
+        before='ANode{ALeaf{S.Metadata{True{},Some{T.'+flag+'{8}},3,4}},ALeaf{S.Metadata{second_live(scenario),None{},5,6}}}'
+        after='S.MetadataColumns{ANode{ALeaf{True{}},ALeaf{second_live(scenario)}},ANode{ALeaf{Some{T.'+flag+'{8}}},ALeaf{None{}}},ANode{ALeaf{3},ALeaf{5}},ANode{ALeaf{4},ALeaf{6}}}'
+        assert text.count(before)==1,'Original metadata construction missing/ambiguous: '+flag
+        text=text.replace(before,after)
+        changes.append({'flag':flag,'before':before,'after':after})
+    assert 'S.Metadata{' not in text,'Unadapted metadata construction'
+    return text,{'scope':'Constructed fixture representation only; original live/flag/tick values and scenario functions unchanged','changes':changes,'adapterSHA256':sha(Path(__file__))}
+
 def adapt_tx_fixture(text,is_static):
     if not is_static:return text
     for lane in ('motion','health'):
