@@ -1,0 +1,162 @@
+import Base
+import ./types.bend as T
+import ./storage.bend as S
+import ./payload.bend as P
+import ./transaction.bend as X
+import ./transaction-dispatch-adapters.bend as A
+import ./measurement-bend.bend as M
+import ./observations.bend as O
+import ./host-render.bend as R
+
+def quad(+n:U32) -> Array<U32>:
+  Array.set(U32,Array.set(U32,Array.set(U32,[n:U32^2n],1,U32.add(n,1)),2,U32.add(n,2)),3,U32.add(n,3))
+def undo_text(~Z:Data,~handle:Z -> String,values:List<&2,X.Inverse<Z>>) -> String:
+  match values:
+    case Nil{}: ""
+    case Con{X.MainInverse{h,old},rest}: "M" ++ handle(h) ++ ":" ++ U32.show(old) ++ ";" ++ undo_text(Z,handle,rest)
+    case Con{X.LedgerInverse{old},rest}: "L:" ++ U32.show(old) ++ ";" ++ undo_text(Z,handle,rest)
+def case_high(scenario:U32) -> U32:
+  match scenario:
+    case 7: 1
+    case _: 2
+def second_live(scenario:U32) -> Bool:
+  match scenario:
+    case 7: True{}
+    case 8: True{}
+    case _: False{}
+
+def motion_handle(handle:S.Handle<T.MotionSchema>) -> String:
+  match handle:
+    case S.Handle{namespace,id}: U32.show(namespace) ++ "/" ++ U32.show(id)
+def motion_selected(scenario:U32) -> S.Handle<T.MotionSchema>:
+  match scenario:
+    case 1: S.Handle{8,1}
+    case 2: S.Handle{7,0}
+    case 3: S.Handle{7,3}
+    case 6: S.Handle{7,2}
+    case 7: S.Handle{7,2}
+    case 8: S.Handle{7,2}
+    case _: S.Handle{7,1}
+def motion_main(scenario:U32) -> Maybe<T.Position>:
+  match scenario:
+    case 4: None{}
+    case _: Some{T.Position{quad(10),7}}
+def motion_ledger(scenario:U32) -> Maybe<T.MotionLedger>:
+  match scenario:
+    case 5: None{}
+    case _: Some{T.MotionLedger{quad(100),4}}
+def motion_owner(+scenario:U32) -> X.Tx<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<T.Position,T.Velocity,T.Selected>>:
+  X.Tx{S.World{7,3,S.Rows{ANode{ALeaf{motion_main(scenario)},ALeaf{Some{T.Position{quad(900),7}}}},ANode{ALeaf{Some{T.Velocity{quad(110),True{}}}},ALeaf{Some{T.Velocity{quad(190),True{}}}}},ANode{ALeaf{S.Metadata{True{},Some{T.Selected{8}},3,4}},ALeaf{S.Metadata{second_live(scenario),None{},5,6}}},2,1n,case_high(scenario)},[],motion_ledger(scenario),T.MotionOn{}},motion_selected(scenario),[X.LedgerInverse{77}],[S.RemoveFlag{1},S.Despawn{2}],[12,11],[S.Handle{7,2}]}
+type MotionCarry is Type:
+  MotionCarry{world:S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,selected:S.Handle<T.MotionSchema>,undo:List<&2,X.Inverse<S.Handle<T.MotionSchema>>>,pings:List<&2,U32>,marks:List<&2,S.Handle<T.MotionSchema>>,value:U32}
+type MotionInspect is Type:
+  MotionInspect{selected:S.Handle<T.MotionSchema>,undo:List<&2,X.Inverse<S.Handle<T.MotionSchema>>>,commands:List<S.Command<T.Position,T.Velocity,T.Selected>>,pings:List<&2,U32>,marks:List<&2,S.Handle<T.MotionSchema>>,value:U32,views:List<&2,O.PendingView<T.PositionView,T.VelocityView,T.Selected>>}
+def motion_view_context(world:S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,view:O.WorldView<T.PositionView,T.VelocityView,T.Selected,T.LedgerView,T.MotionMode>,context:MotionInspect) -> IO(X.Tx<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<T.Position,T.Velocity,T.Selected>>):
+  match context:
+    case MotionInspect{+selected,+undo,commands,+pings,+marks,value,views}:
+      do IO<X.Tx<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<T.Position,T.Velocity,T.Selected>>>:
+        IO.print("{\"phase\":\"pre\",\"value\":" ++ U32.show(value) ++ ",\"selected\":" ++ R.render_handle(T.MotionSchema,selected) ++ ",\"undo\":" ++ R.render_string(undo_text(S.Handle<T.MotionSchema>,motion_handle,undo)) ++ ",\"commands\":" ++ R.render_list(O.PendingView<T.PositionView,T.VelocityView,T.Selected>,R.render_pending(~T.PositionView,~T.VelocityView,~T.Selected,~R.render_position,~R.render_velocity,~R.render_selected),views) ++ ",\"pings\":" ++ R.render_list(U32,U32.show,pings) ++ ",\"marks\":" ++ R.render_list(S.Handle<T.MotionSchema>,R.render_handle(T.MotionSchema),marks) ++ ",\"world\":" ++ R.render_world(T.PositionView,T.VelocityView,T.Selected,R.render_position,R.render_velocity,R.render_selected,T.LedgerView,T.MotionMode,R.render_ledger,R.render_motion_mode,view) ++ "}")
+        return X.Tx{world,selected,undo,commands,pings,marks}
+def motion_view_done(context:MotionInspect,result:S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode> & O.WorldView<T.PositionView,T.VelocityView,T.Selected,T.LedgerView,T.MotionMode>) -> IO(X.Tx<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<T.Position,T.Velocity,T.Selected>>):
+  match result:
+    case (world,view): motion_view_context(world,view,context)
+def motion_commands_context(commands:List<S.Command<T.Position,T.Velocity,T.Selected>>,views:List<&2,O.PendingView<T.PositionView,T.VelocityView,T.Selected>>,carry:MotionCarry) -> IO(X.Tx<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<T.Position,T.Velocity,T.Selected>>):
+  match carry:
+    case MotionCarry{world,selected,undo,pings,marks,value}:
+      motion_view_done(MotionInspect{selected,undo,commands,pings,marks,value,views},O.world(T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode,T.PositionView,T.VelocityView,T.LedgerView,P.position_get,P.velocity_get,P.motion_ledger_get,world))
+def motion_commands_done(carry:MotionCarry,result:List<S.Command<T.Position,T.Velocity,T.Selected>> & List<&2,O.PendingView<T.PositionView,T.VelocityView,T.Selected>>) -> IO(X.Tx<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<T.Position,T.Velocity,T.Selected>>):
+  match result:
+    case (commands,views): motion_commands_context(commands,views,carry)
+def motion_pre(result:X.Tx<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<T.Position,T.Velocity,T.Selected>> & U32) -> IO(X.Tx<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<T.Position,T.Velocity,T.Selected>>):
+  match result:
+    case (X.Tx{world,selected,undo,commands,pings,marks},value): motion_commands_done(MotionCarry{world,selected,undo,pings,marks,value},O.commands(T.Position,T.Velocity,T.Selected,T.PositionView,T.VelocityView,P.position_get,P.velocity_get,commands))
+def motion_post_view(pings:List<&2,U32>,result:S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode> & O.WorldView<T.PositionView,T.VelocityView,T.Selected,T.LedgerView,T.MotionMode>) -> IO(Unit):
+  match result:
+    case (_,view): IO.print("{\"phase\":\"post\",\"pings\":" ++ R.render_list(U32,U32.show,pings) ++ ",\"world\":" ++ R.render_world(T.PositionView,T.VelocityView,T.Selected,R.render_position,R.render_velocity,R.render_selected,T.LedgerView,T.MotionMode,R.render_ledger,R.render_motion_mode,view) ++ "}")
+def motion_post(result:S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode> & List<&2,U32>) -> IO(Unit):
+  match result:
+    case (world,pings): motion_post_view(pings,O.world(T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode,T.PositionView,T.VelocityView,T.LedgerView,P.position_get,P.velocity_get,P.motion_ledger_get,world))
+def motion_finish(fail:Bool,owner:X.Tx<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<T.Position,T.Velocity,T.Selected>>) -> IO(Unit):
+  match fail:
+    case False{}: motion_post(X.storage_commit(T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode,X.tx_finish_success(S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<T.Position,T.Velocity,T.Selected>,owner),9))
+    case True{}: motion_post(X.storage_commit(T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode,A.motion_finish_failure(owner),9))
+def motion_pair(+scenario:U32,+fail:Bool) -> IO(Unit):
+  do IO<Unit>:
+    original : X.Tx<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<T.Position,T.Velocity,T.Selected>> <- motion_pre(M.motion_original_body(motion_owner(scenario)))
+    motion_finish(fail,original)
+    integrated : X.Tx<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<T.Position,T.Velocity,T.Selected>> <- motion_pre(M.motion_held_apply(motion_owner(scenario)))
+    motion_finish(fail,integrated)
+
+def health_handle(handle:S.Handle<T.HealthSchema>) -> String:
+  match handle:
+    case S.Handle{namespace,id}: U32.show(namespace) ++ "/" ++ U32.show(id)
+def health_selected(scenario:U32) -> S.Handle<T.HealthSchema>:
+  match scenario:
+    case 1: S.Handle{8,1}
+    case 2: S.Handle{7,0}
+    case 3: S.Handle{7,3}
+    case 6: S.Handle{7,2}
+    case 7: S.Handle{7,2}
+    case 8: S.Handle{7,2}
+    case _: S.Handle{7,1}
+def health_main(scenario:U32) -> Maybe<T.Vitals>:
+  match scenario:
+    case 4: None{}
+    case _: Some{T.Vitals{quad(10),9,2}}
+def health_ledger(scenario:U32) -> Maybe<T.HealthLedger>:
+  match scenario:
+    case 5: None{}
+    case _: Some{T.HealthLedger{quad(100),4}}
+def health_owner(+scenario:U32) -> X.Tx<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<T.Vitals,T.Armor,T.Tracked>>:
+  X.Tx{S.World{7,3,S.Rows{ANode{ALeaf{health_main(scenario)},ALeaf{Some{T.Vitals{quad(900),9,2}}}},ANode{ALeaf{Some{T.Armor{quad(110),3}}},ALeaf{Some{T.Armor{quad(190),3}}}},ANode{ALeaf{S.Metadata{True{},Some{T.Tracked{8}},3,4}},ALeaf{S.Metadata{second_live(scenario),None{},5,6}}},2,1n,case_high(scenario)},[],health_ledger(scenario),T.HealthOn{}},health_selected(scenario),[X.LedgerInverse{77}],[S.RemoveFlag{1},S.Despawn{2}],[12,11],[S.Handle{7,2}]}
+type HealthCarry is Type:
+  HealthCarry{world:S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,selected:S.Handle<T.HealthSchema>,undo:List<&2,X.Inverse<S.Handle<T.HealthSchema>>>,pings:List<&2,U32>,marks:List<&2,S.Handle<T.HealthSchema>>,value:U32}
+type HealthInspect is Type:
+  HealthInspect{selected:S.Handle<T.HealthSchema>,undo:List<&2,X.Inverse<S.Handle<T.HealthSchema>>>,commands:List<S.Command<T.Vitals,T.Armor,T.Tracked>>,pings:List<&2,U32>,marks:List<&2,S.Handle<T.HealthSchema>>,value:U32,views:List<&2,O.PendingView<T.VitalsView,T.ArmorView,T.Tracked>>}
+def health_view_context(world:S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,view:O.WorldView<T.VitalsView,T.ArmorView,T.Tracked,T.LedgerView,T.HealthMode>,context:HealthInspect) -> IO(X.Tx<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<T.Vitals,T.Armor,T.Tracked>>):
+  match context:
+    case HealthInspect{+selected,+undo,commands,+pings,+marks,value,views}:
+      do IO<X.Tx<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<T.Vitals,T.Armor,T.Tracked>>>:
+        IO.print("{\"phase\":\"pre\",\"value\":" ++ U32.show(value) ++ ",\"selected\":" ++ R.render_handle(T.HealthSchema,selected) ++ ",\"undo\":" ++ R.render_string(undo_text(S.Handle<T.HealthSchema>,health_handle,undo)) ++ ",\"commands\":" ++ R.render_list(O.PendingView<T.VitalsView,T.ArmorView,T.Tracked>,R.render_pending(~T.VitalsView,~T.ArmorView,~T.Tracked,~R.render_vitals,~R.render_armor,~R.render_tracked),views) ++ ",\"pings\":" ++ R.render_list(U32,U32.show,pings) ++ ",\"marks\":" ++ R.render_list(S.Handle<T.HealthSchema>,R.render_handle(T.HealthSchema),marks) ++ ",\"world\":" ++ R.render_world(T.VitalsView,T.ArmorView,T.Tracked,R.render_vitals,R.render_armor,R.render_tracked,T.LedgerView,T.HealthMode,R.render_ledger,R.render_health_mode,view) ++ "}")
+        return X.Tx{world,selected,undo,commands,pings,marks}
+def health_view_done(context:HealthInspect,result:S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode> & O.WorldView<T.VitalsView,T.ArmorView,T.Tracked,T.LedgerView,T.HealthMode>) -> IO(X.Tx<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<T.Vitals,T.Armor,T.Tracked>>):
+  match result:
+    case (world,view): health_view_context(world,view,context)
+def health_commands_context(commands:List<S.Command<T.Vitals,T.Armor,T.Tracked>>,views:List<&2,O.PendingView<T.VitalsView,T.ArmorView,T.Tracked>>,carry:HealthCarry) -> IO(X.Tx<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<T.Vitals,T.Armor,T.Tracked>>):
+  match carry:
+    case HealthCarry{world,selected,undo,pings,marks,value}:
+      health_view_done(HealthInspect{selected,undo,commands,pings,marks,value,views},O.world(T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode,T.VitalsView,T.ArmorView,T.LedgerView,P.vitals_get,P.armor_get,P.health_ledger_get,world))
+def health_commands_done(carry:HealthCarry,result:List<S.Command<T.Vitals,T.Armor,T.Tracked>> & List<&2,O.PendingView<T.VitalsView,T.ArmorView,T.Tracked>>) -> IO(X.Tx<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<T.Vitals,T.Armor,T.Tracked>>):
+  match result:
+    case (commands,views): health_commands_context(commands,views,carry)
+def health_pre(result:X.Tx<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<T.Vitals,T.Armor,T.Tracked>> & U32) -> IO(X.Tx<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<T.Vitals,T.Armor,T.Tracked>>):
+  match result:
+    case (X.Tx{world,selected,undo,commands,pings,marks},value): health_commands_done(HealthCarry{world,selected,undo,pings,marks,value},O.commands(T.Vitals,T.Armor,T.Tracked,T.VitalsView,T.ArmorView,P.vitals_get,P.armor_get,commands))
+def health_post_view(pings:List<&2,U32>,result:S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode> & O.WorldView<T.VitalsView,T.ArmorView,T.Tracked,T.LedgerView,T.HealthMode>) -> IO(Unit):
+  match result:
+    case (_,view): IO.print("{\"phase\":\"post\",\"pings\":" ++ R.render_list(U32,U32.show,pings) ++ ",\"world\":" ++ R.render_world(T.VitalsView,T.ArmorView,T.Tracked,R.render_vitals,R.render_armor,R.render_tracked,T.LedgerView,T.HealthMode,R.render_ledger,R.render_health_mode,view) ++ "}")
+def health_post(result:S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode> & List<&2,U32>) -> IO(Unit):
+  match result:
+    case (world,pings): health_post_view(pings,O.world(T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode,T.VitalsView,T.ArmorView,T.LedgerView,P.vitals_get,P.armor_get,P.health_ledger_get,world))
+def health_finish(fail:Bool,owner:X.Tx<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<T.Vitals,T.Armor,T.Tracked>>) -> IO(Unit):
+  match fail:
+    case False{}: health_post(X.storage_commit(T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode,X.tx_finish_success(S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<T.Vitals,T.Armor,T.Tracked>,owner),9))
+    case True{}: health_post(X.storage_commit(T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode,A.health_finish_failure(owner),9))
+def health_pair(+scenario:U32,+fail:Bool) -> IO(Unit):
+  do IO<Unit>:
+    original : X.Tx<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<T.Vitals,T.Armor,T.Tracked>> <- health_pre(M.health_original_body(health_owner(scenario)))
+    health_finish(fail,original)
+    integrated : X.Tx<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<T.Vitals,T.Armor,T.Tracked>> <- health_pre(M.health_held_apply(health_owner(scenario)))
+    health_finish(fail,integrated)
+def cases(remaining:Nat,+scenario:U32) -> IO(Unit):
+  match remaining:
+    case 0n: IO.pure(Unit,Unit{})
+    case 1n++rest:
+      do IO<Unit>:
+        motion_pair(scenario,False{})
+        motion_pair(scenario,True{})
+        health_pair(scenario,False{})
+        health_pair(scenario,True{})
+        cases(rest,U32.add(scenario,1))
+def main() -> IO(Unit):
+  cases(9n,0)

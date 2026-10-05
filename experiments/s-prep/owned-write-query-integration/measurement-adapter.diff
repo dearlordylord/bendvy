@@ -1,0 +1,55 @@
+--- protected/measurement-bend.bend
++++ derived/measurement-bend.bend
+@@ -15,6 +15,8 @@
+ import ./readers.bend as R
+ import ./schedule.bend as K
+ import ./capture.bend as C
++import ./held.bend as HG
++import ./held-adapter.bend as HA
+ import ./host-render.bend as JSON
+ 
+ def quad(a:U32,b:U32,c:U32,d:U32) -> Array<U32>:
+@@ -43,6 +45,12 @@
+     case (owner,_): (owner,4294967295)
+ def motion_body(-Owner:Type,get:Owner -> T.PositionToken -> Owner & T.Access<T.PositionView>,set:Owner -> T.PositionToken -> U32 -> Owner,ledger:Owner -> T.MotionLedgerToken -> Owner & Maybe<&2,T.LedgerView>,setledger:Owner -> T.MotionLedgerToken -> U32 -> Owner,owner:Owner) -> Owner & U32:
+   motion_body_read(Owner,set,ledger,setledger,get(owner,T.PositionToken{}))
++def motion_held_body(owner:HG.Held<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,T.Position,T.MotionLedger,S.Handle<T.MotionSchema>,S.Command<T.Position,T.Velocity,T.Selected>>) -> HG.Held<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,T.Position,T.MotionLedger,S.Handle<T.MotionSchema>,S.Command<T.Position,T.Velocity,T.Selected>> & U32:
++  motion_body(HG.Held<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,T.Position,T.MotionLedger,S.Handle<T.MotionSchema>,S.Command<T.Position,T.Velocity,T.Selected>>,HA.motion_read_main,HA.motion_set_main0,HA.motion_read_ledger,HA.motion_set_ledger0,owner)
++def motion_original_body(owner:X.Tx<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<T.Position,T.Velocity,T.Selected>>) -> X.Tx<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<T.Position,T.Velocity,T.Selected>> & U32:
++  motion_body(X.Tx<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<T.Position,T.Velocity,T.Selected>>,A.motion_read_main,A.motion_set_main0,A.motion_read_ledger,A.motion_set_ledger0,owner)
++def motion_held_apply(owner:X.Tx<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<T.Position,T.Velocity,T.Selected>>) -> X.Tx<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<T.Position,T.Velocity,T.Selected>> & U32:
++  HA.motion_run(~motion_held_body,~motion_original_body,owner)
+ type MotionRows is Type:
+   MotionRows{owner:X.Tx<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<T.Position,T.Velocity,T.Selected>>,total:U32}
+ def motion_rows_next(result:X.Tx<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<T.Position,T.Velocity,T.Selected>> & U32,total:U32) -> MotionRows:
+@@ -51,7 +59,7 @@
+ def motion_rows(handles:List<&2,S.Handle<T.MotionSchema>>,state:MotionRows) -> MotionRows:
+   match handles state:
+     case Nil{} result: result
+-    case Con{handle,tail} MotionRows{owner,total}: motion_rows(tail,motion_rows_next(motion_body(X.Tx<S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<T.Position,T.Velocity,T.Selected>>,A.motion_read_main,A.motion_set_main0,A.motion_read_ledger,A.motion_set_ledger0,motion_select(owner,handle)),total))
++    case Con{handle,tail} MotionRows{owner,total}: motion_rows(tail,motion_rows_next(motion_held_apply(motion_select(owner,handle)),total))
+ def motion_handles(world:S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode>) -> S.World<T.MotionSchema,T.Position,T.Velocity,T.Selected,T.MotionLedger,T.MotionMode> & List<&2,S.Handle<T.MotionSchema>>:
+   Q.each(T.MotionSchema,T.Position,T.Velocity,T.Selected,Unit,Unit,Unit,S.Handle<T.MotionSchema>,T.MotionLedger,T.MotionMode,keep(~T.Position),keep(~T.Velocity),handle_client(~T.MotionSchema,~T.Selected),Q.Required{},world)
+ 
+@@ -69,6 +77,12 @@
+     case (owner,_): (owner,4294967295)
+ def health_body(-Owner:Type,get:Owner -> T.VitalsToken -> Owner & T.Access<T.VitalsView>,set:Owner -> T.VitalsToken -> U32 -> Owner,ledger:Owner -> T.HealthLedgerToken -> Owner & Maybe<&2,T.LedgerView>,setledger:Owner -> T.HealthLedgerToken -> U32 -> Owner,owner:Owner) -> Owner & U32:
+   health_body_read(Owner,set,ledger,setledger,get(owner,T.VitalsToken{}))
++def health_held_body(owner:HG.Held<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,T.Vitals,T.HealthLedger,S.Handle<T.HealthSchema>,S.Command<T.Vitals,T.Armor,T.Tracked>>) -> HG.Held<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,T.Vitals,T.HealthLedger,S.Handle<T.HealthSchema>,S.Command<T.Vitals,T.Armor,T.Tracked>> & U32:
++  health_body(HG.Held<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,T.Vitals,T.HealthLedger,S.Handle<T.HealthSchema>,S.Command<T.Vitals,T.Armor,T.Tracked>>,HA.health_read_main,HA.health_set_main0,HA.health_read_ledger,HA.health_set_ledger0,owner)
++def health_original_body(owner:X.Tx<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<T.Vitals,T.Armor,T.Tracked>>) -> X.Tx<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<T.Vitals,T.Armor,T.Tracked>> & U32:
++  health_body(X.Tx<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<T.Vitals,T.Armor,T.Tracked>>,A.health_read_main,A.health_set_main0,A.health_read_ledger,A.health_set_ledger0,owner)
++def health_held_apply(owner:X.Tx<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<T.Vitals,T.Armor,T.Tracked>>) -> X.Tx<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<T.Vitals,T.Armor,T.Tracked>> & U32:
++  HA.health_run(~health_held_body,~health_original_body,owner)
+ type HealthRows is Type:
+   HealthRows{owner:X.Tx<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<T.Vitals,T.Armor,T.Tracked>>,total:U32}
+ def health_rows_next(result:X.Tx<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<T.Vitals,T.Armor,T.Tracked>> & U32,total:U32) -> HealthRows:
+@@ -77,7 +91,7 @@
+ def health_rows(handles:List<&2,S.Handle<T.HealthSchema>>,state:HealthRows) -> HealthRows:
+   match handles state:
+     case Nil{} result: result
+-    case Con{handle,tail} HealthRows{owner,total}: health_rows(tail,health_rows_next(health_body(X.Tx<S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<T.Vitals,T.Armor,T.Tracked>>,A.health_read_main,A.health_set_main0,A.health_read_ledger,A.health_set_ledger0,health_select(owner,handle)),total))
++    case Con{handle,tail} HealthRows{owner,total}: health_rows(tail,health_rows_next(health_held_apply(health_select(owner,handle)),total))
+ def health_handles(world:S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode>) -> S.World<T.HealthSchema,T.Vitals,T.Armor,T.Tracked,T.HealthLedger,T.HealthMode> & List<&2,S.Handle<T.HealthSchema>>:
+   Q.each(T.HealthSchema,T.Vitals,T.Armor,T.Tracked,Unit,Unit,Unit,S.Handle<T.HealthSchema>,T.HealthLedger,T.HealthMode,keep(~T.Vitals),keep(~T.Armor),handle_client(~T.HealthSchema,~T.Tracked),Q.Required{},world)
+ 

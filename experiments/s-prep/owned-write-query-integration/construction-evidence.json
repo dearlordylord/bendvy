@@ -1,0 +1,126 @@
+{
+  "status": "FINITE_DENSE_CONSTRUCTION_FULL_FIELDS_PASS",
+  "acceptedBenchmarkCandidate": false,
+  "scope": "Finite construction only; no comparative timing/qualification/keep",
+  "count": 64,
+  "authoredTicksPerWorld": 64,
+  "batch": 1,
+  "repetitions": 0,
+  "toolchainVersion": "bend 2.0.35",
+  "cpuAffinity": [
+    8
+  ],
+  "overlayManifestSHA256": "f790f9042106fa2a2c5abe3ae8ab83af3b619db5f8ca67f5bdfb84c63c2121ba",
+  "integrationPrepareSHA256": "9058ed9a8c47ea8ef5769b84593b4675987eab3660bfcf99b66b365b478562cf",
+  "limitsSeconds": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "cases": [
+    {
+      "schema": "Motion",
+      "workload": "dense",
+      "referenceCommand": [
+        "node",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-indexed-query/experiments/s-integrate/measurement-reference.mjs",
+        "Motion",
+        "dense",
+        "64"
+      ],
+      "referenceSHA256": "d52856e7e7647d9c58ec87a9e2f5c2e9b0b3ef2e8ef82f2c7b99d1f85855ecae",
+      "backends": [
+        {
+          "backend": "Native",
+          "status": "FULL_FIELD_PASS",
+          "command": [
+            "/tmp/bendvy-held-integrated-construction/measurement-samples-bend-native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off",
+            "0",
+            "0",
+            "64",
+            "1"
+          ],
+          "outputSHA256": "ff07fe640e45907d3b41fdedf58c4337f9eafa70ea8e04768137690ec8243852",
+          "finalSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
+          "worksumPerWorld": 669696,
+          "freshMeasuredWorlds": 1
+        },
+        {
+          "backend": "JS",
+          "status": "FULL_FIELD_PASS",
+          "command": [
+            "node",
+            "/tmp/bendvy-held-integrated-construction/measurement-samples-bend.js",
+            "0",
+            "0",
+            "64",
+            "1"
+          ],
+          "outputSHA256": "b2c960f51e984a0bb991ea8526b1288fb98373877d34d1102103df724249e723",
+          "finalSha256": "4e6ba95d94945fdbb54a7f08905f505fc146865e257bb0e2a75dbc2bc158780d",
+          "worksumPerWorld": 669696,
+          "freshMeasuredWorlds": 1
+        }
+      ]
+    },
+    {
+      "schema": "Health",
+      "workload": "dense",
+      "referenceCommand": [
+        "node",
+        "/workspace/formal-proofs/bendvy-worktrees/twohour-indexed-query/experiments/s-integrate/measurement-reference.mjs",
+        "Health",
+        "dense",
+        "64"
+      ],
+      "referenceSHA256": "0b92eb352291c0c617986db44e2b362b4845d375db9e880f48ef56686ff800fa",
+      "backends": [
+        {
+          "backend": "Native",
+          "status": "FULL_FIELD_PASS",
+          "command": [
+            "/tmp/bendvy-held-integrated-construction/measurement-samples-bend-native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off",
+            "1",
+            "0",
+            "64",
+            "1"
+          ],
+          "outputSHA256": "23c518ed119e89269f15617c005b91c9ad9b8fe2f85ef475750ad0540f59363e",
+          "finalSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
+          "worksumPerWorld": 669696,
+          "freshMeasuredWorlds": 1
+        },
+        {
+          "backend": "JS",
+          "status": "FULL_FIELD_PASS",
+          "command": [
+            "node",
+            "/tmp/bendvy-held-integrated-construction/measurement-samples-bend.js",
+            "1",
+            "0",
+            "64",
+            "1"
+          ],
+          "outputSHA256": "09463be3b03e4b11db9d93c122fea7f640a8ba6b66e5516694bda945b0d7fb89",
+          "finalSha256": "a0cd7d3a69381d98b6c21b7554ee36b94e768c3d4f6f23aa48517c9416a88db0",
+          "worksumPerWorld": 669696,
+          "freshMeasuredWorlds": 1
+        }
+      ]
+    }
+  ],
+  "artifacts": {
+    "measurement-samples-bend-native": "c407736bceb51efbe0380ae11d3e29750428d82247a758624083d27040a694b8",
+    "measurement-samples-bend.js": "48e6dd89fd48c0789af11be27701352fe7e6d5621c97347b8c68126acc05200b"
+  },
+  "validatorSHA256": "25ab577d5234a1c30f46318708455377353ec39d4fb0b6bf1b40ad5ea5da8f84"
+}

@@ -1,0 +1,20 @@
+{
+  "status": "FAIL",
+  "checkerLimitSeconds": 5,
+  "scope": "Finite closed polymorphic provider controls; not universal authority/refinement",
+  "controls": [
+    {
+      "name": "positive-read",
+      "expectedExit": 0,
+      "sourceSHA256": "30359924885ab24de2cccf5163be031694cd736989f252c2e62d9f737bb8f405",
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "name": "negative-schema",
+      "expectedExit": 1,
+      "sourceSHA256": "3b55449540b091d28976231c6ce300b09248643ac3defeb84689275bcb649ce9",
+      "output": "SOME PROOFS FAIL\nError:\n- expected : T.PositionToken\n- observed : T.VitalsToken\nContext:\n- get   : @_:bad~Owner -> @_:T.PositionToken -> Sigma<&1, &1, bad~Owner, _ => T.Access<T.PositionView>>\n- owner : bad~Owner\nLocation: bad\n3 | def bad(~Owner:Type,get:Owner -> T.PositionToken -> Owner & T.Access<T.PositionView>,owner:Owner) -> Owner & T.Access<T.PositionView>:\n4>|   get(owner,T.VitalsToken{})\n  |             ^^^^^^^^^^^^^^^\n5 | \n"
+    }
+  ],
+  "error": "('negative-read-write', 'SOME PROOFS FAIL\\nError:\\n- expected : held.Held<storage.World<T.MotionSchema, T.Position, T.Velocity, T.Selected, T.MotionLedger, T.MotionMode>, T.Position, T.MotionLedger, storage.Handle<T.MotionSchema>, storage.Command<T.Position, T.Velocity, T.Selected>>\\n- observed : bad~Owner\\nContext:\\n- get   : @_:bad~Owner -> @_:T.PositionToken -> Sigma<&1, &1, bad~Owner, _ => T.Access<T.PositionView>>\\n- owner : bad~Owner\\nLocation: bad\\n4 | def bad(~Owner:Type,get:Owner -> T.PositionToken -> Owner & T.Access<T.PositionView>,owner:Owner) -> Owner:\\n5>|   HA.motion_set_main0(owner,T.PositionToken{},0)\\n  |                       ^^^^^\\n6 | \\n')"
+}

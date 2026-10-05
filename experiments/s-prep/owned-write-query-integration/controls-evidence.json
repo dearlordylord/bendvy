@@ -1,0 +1,886 @@
+{
+  "status": "FINITE_CHECKED_HELD_TX_CONTROLS_PASS",
+  "scope": "Finite checked binding/fallback/rejoin and actual Tx success/failure; no performance/API acceptance",
+  "limitsSeconds": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "controlSourceSHA256": "edd39c0b345b6b60ada54f9fdc50ecebddf89574dba2f386103e0f88414c037d",
+  "cases": [
+    {
+      "scenario": 0,
+      "schemas": [
+        "Motion",
+        "Health"
+      ],
+      "boundaries": [
+        "success",
+        "failure"
+      ],
+      "sameOriginalTxObservation": true
+    },
+    {
+      "scenario": 1,
+      "schemas": [
+        "Motion",
+        "Health"
+      ],
+      "boundaries": [
+        "success",
+        "failure"
+      ],
+      "sameOriginalTxObservation": true
+    },
+    {
+      "scenario": 2,
+      "schemas": [
+        "Motion",
+        "Health"
+      ],
+      "boundaries": [
+        "success",
+        "failure"
+      ],
+      "sameOriginalTxObservation": true
+    },
+    {
+      "scenario": 3,
+      "schemas": [
+        "Motion",
+        "Health"
+      ],
+      "boundaries": [
+        "success",
+        "failure"
+      ],
+      "sameOriginalTxObservation": true
+    },
+    {
+      "scenario": 4,
+      "schemas": [
+        "Motion",
+        "Health"
+      ],
+      "boundaries": [
+        "success",
+        "failure"
+      ],
+      "sameOriginalTxObservation": true
+    },
+    {
+      "scenario": 5,
+      "schemas": [
+        "Motion",
+        "Health"
+      ],
+      "boundaries": [
+        "success",
+        "failure"
+      ],
+      "sameOriginalTxObservation": true
+    },
+    {
+      "scenario": 6,
+      "schemas": [
+        "Motion",
+        "Health"
+      ],
+      "boundaries": [
+        "success",
+        "failure"
+      ],
+      "sameOriginalTxObservation": true
+    },
+    {
+      "scenario": 7,
+      "schemas": [
+        "Motion",
+        "Health"
+      ],
+      "boundaries": [
+        "success",
+        "failure"
+      ],
+      "sameOriginalTxObservation": true
+    },
+    {
+      "scenario": 8,
+      "schemas": [
+        "Motion",
+        "Health"
+      ],
+      "boundaries": [
+        "success",
+        "failure"
+      ],
+      "sameOriginalTxObservation": true
+    }
+  ],
+  "mutants": [
+    {
+      "name": "wrong-restoration-slot",
+      "artifacts": [
+        {
+          "backend": "Native",
+          "SHA256": "768dbbb93d82501302aa25dc7d6ee8ec02c677134f635659f04246ac301ee4ff",
+          "outputSHA256": "0683ccbc4cf5b8a3cb92f1b670f4655973d998c6e753b77a5bdd8209969dd3ad"
+        },
+        {
+          "backend": "JS",
+          "SHA256": "6b8c1216444c4e4254ecbd9a4137af76d51683d70dd0f4e5e6f8fd8be1523aee",
+          "outputSHA256": "0683ccbc4cf5b8a3cb92f1b670f4655973d998c6e753b77a5bdd8209969dd3ad"
+        }
+      ],
+      "differences": 4,
+      "status": "DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE",
+      "witness": {
+        "block": 32,
+        "scenario": 8,
+        "schema": "Motion",
+        "failure": false,
+        "phase": "pre",
+        "expected": {
+          "phase": "pre",
+          "value": 3606,
+          "selected": {
+            "namespace": 7,
+            "id": 2
+          },
+          "undo": "L:100;M7/2:900;L:77;",
+          "commands": [
+            {
+              "kind": "RemoveFlagView",
+              "id": 1
+            },
+            {
+              "kind": "DespawnView",
+              "id": 2
+            }
+          ],
+          "pings": [
+            12,
+            11
+          ],
+          "marks": [
+            {
+              "namespace": 7,
+              "id": 2
+            },
+            {
+              "namespace": 7,
+              "id": 2
+            }
+          ],
+          "world": {
+            "namespace": 7,
+            "next": 3,
+            "rows": [
+              {
+                "id": 1,
+                "main": {
+                  "coordinates": {
+                    "a": 10,
+                    "b": 11,
+                    "c": 12,
+                    "d": 13
+                  },
+                  "frame": 7
+                },
+                "aux": {
+                  "rates": {
+                    "a": 110,
+                    "b": 111,
+                    "c": 112,
+                    "d": 113
+                  },
+                  "moving": true
+                },
+                "flag": {
+                  "group": 8
+                },
+                "added": 3,
+                "changed": 4
+              },
+              {
+                "id": 2,
+                "main": {
+                  "coordinates": {
+                    "a": 901,
+                    "b": 901,
+                    "c": 902,
+                    "d": 903
+                  },
+                  "frame": 7
+                },
+                "aux": {
+                  "rates": {
+                    "a": 190,
+                    "b": 191,
+                    "c": 192,
+                    "d": 193
+                  },
+                  "moving": true
+                },
+                "flag": null,
+                "added": 5,
+                "changed": 6
+              }
+            ],
+            "pending": [],
+            "ledger": {
+              "totals": {
+                "a": 101,
+                "b": 101,
+                "c": 102,
+                "d": 103
+              },
+              "epoch": 4
+            },
+            "mode": "MotionOn"
+          }
+        },
+        "actual": {
+          "phase": "pre",
+          "value": 3606,
+          "selected": {
+            "namespace": 7,
+            "id": 2
+          },
+          "undo": "L:100;M7/2:900;L:77;",
+          "commands": [
+            {
+              "kind": "RemoveFlagView",
+              "id": 1
+            },
+            {
+              "kind": "DespawnView",
+              "id": 2
+            }
+          ],
+          "pings": [
+            12,
+            11
+          ],
+          "marks": [
+            {
+              "namespace": 7,
+              "id": 2
+            },
+            {
+              "namespace": 7,
+              "id": 2
+            }
+          ],
+          "world": {
+            "namespace": 7,
+            "next": 3,
+            "rows": [
+              {
+                "id": 1,
+                "main": {
+                  "coordinates": {
+                    "a": 901,
+                    "b": 901,
+                    "c": 902,
+                    "d": 903
+                  },
+                  "frame": 7
+                },
+                "aux": {
+                  "rates": {
+                    "a": 110,
+                    "b": 111,
+                    "c": 112,
+                    "d": 113
+                  },
+                  "moving": true
+                },
+                "flag": {
+                  "group": 8
+                },
+                "added": 3,
+                "changed": 4
+              },
+              {
+                "id": 2,
+                "main": null,
+                "aux": {
+                  "rates": {
+                    "a": 190,
+                    "b": 191,
+                    "c": 192,
+                    "d": 193
+                  },
+                  "moving": true
+                },
+                "flag": null,
+                "added": 5,
+                "changed": 6
+              }
+            ],
+            "pending": [],
+            "ledger": {
+              "totals": {
+                "a": 101,
+                "b": 101,
+                "c": 102,
+                "d": 103
+              },
+              "epoch": 4
+            },
+            "mode": "MotionOn"
+          }
+        }
+      }
+    },
+    {
+      "name": "foreign-bypass",
+      "artifacts": [
+        {
+          "backend": "Native",
+          "SHA256": "fcd03511c2c9816a997b7e80b7bdeee80a88c7db57f4b722aeb9280e3ed356ac",
+          "outputSHA256": "e0f9acdd12216c28fbe8cdcfdd6cb84c9c7cb3f5b45a43d2e243cffde5a86a3d"
+        },
+        {
+          "backend": "JS",
+          "SHA256": "43190234f5bf08c14a43f34c2796eb21f2f1d0d9bf5b582f5d3c935478831f9d",
+          "outputSHA256": "e0f9acdd12216c28fbe8cdcfdd6cb84c9c7cb3f5b45a43d2e243cffde5a86a3d"
+        }
+      ],
+      "differences": 4,
+      "status": "DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE",
+      "witness": {
+        "block": 4,
+        "scenario": 1,
+        "schema": "Motion",
+        "failure": false,
+        "phase": "pre",
+        "expected": {
+          "phase": "pre",
+          "value": 4294967295,
+          "selected": {
+            "namespace": 8,
+            "id": 1
+          },
+          "undo": "L:77;",
+          "commands": [
+            {
+              "kind": "RemoveFlagView",
+              "id": 1
+            },
+            {
+              "kind": "DespawnView",
+              "id": 2
+            }
+          ],
+          "pings": [
+            12,
+            11
+          ],
+          "marks": [
+            {
+              "namespace": 7,
+              "id": 2
+            }
+          ],
+          "world": {
+            "namespace": 7,
+            "next": 3,
+            "rows": [
+              {
+                "id": 1,
+                "main": {
+                  "coordinates": {
+                    "a": 10,
+                    "b": 11,
+                    "c": 12,
+                    "d": 13
+                  },
+                  "frame": 7
+                },
+                "aux": {
+                  "rates": {
+                    "a": 110,
+                    "b": 111,
+                    "c": 112,
+                    "d": 113
+                  },
+                  "moving": true
+                },
+                "flag": {
+                  "group": 8
+                },
+                "added": 3,
+                "changed": 4
+              }
+            ],
+            "pending": [],
+            "ledger": {
+              "totals": {
+                "a": 100,
+                "b": 101,
+                "c": 102,
+                "d": 103
+              },
+              "epoch": 4
+            },
+            "mode": "MotionOn"
+          }
+        },
+        "actual": {
+          "phase": "pre",
+          "value": 46,
+          "selected": {
+            "namespace": 8,
+            "id": 1
+          },
+          "undo": "L:100;M8/1:10;L:77;",
+          "commands": [
+            {
+              "kind": "RemoveFlagView",
+              "id": 1
+            },
+            {
+              "kind": "DespawnView",
+              "id": 2
+            }
+          ],
+          "pings": [
+            12,
+            11
+          ],
+          "marks": [
+            {
+              "namespace": 8,
+              "id": 1
+            },
+            {
+              "namespace": 7,
+              "id": 2
+            }
+          ],
+          "world": {
+            "namespace": 7,
+            "next": 3,
+            "rows": [
+              {
+                "id": 1,
+                "main": {
+                  "coordinates": {
+                    "a": 11,
+                    "b": 11,
+                    "c": 12,
+                    "d": 13
+                  },
+                  "frame": 7
+                },
+                "aux": {
+                  "rates": {
+                    "a": 110,
+                    "b": 111,
+                    "c": 112,
+                    "d": 113
+                  },
+                  "moving": true
+                },
+                "flag": {
+                  "group": 8
+                },
+                "added": 3,
+                "changed": 4
+              }
+            ],
+            "pending": [],
+            "ledger": {
+              "totals": {
+                "a": 101,
+                "b": 101,
+                "c": 102,
+                "d": 103
+              },
+              "epoch": 4
+            },
+            "mode": "MotionOn"
+          }
+        }
+      }
+    },
+    {
+      "name": "lost-write-mark",
+      "artifacts": [
+        {
+          "backend": "Native",
+          "SHA256": "5e8834e2aaf7a0e55c1700071f1aaae33d02210c2420b6c110854d0d7d14bfef",
+          "outputSHA256": "fe0d97040cefd2faaf434e6e92e420a8a5a5134497211f54f683644759c02689"
+        },
+        {
+          "backend": "JS",
+          "SHA256": "d634db2051dff8a89bc6efb96e0b2da364ef39157b251b076bfd27b542a98bfd",
+          "outputSHA256": "fe0d97040cefd2faaf434e6e92e420a8a5a5134497211f54f683644759c02689"
+        }
+      ],
+      "differences": 10,
+      "status": "DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE",
+      "witness": {
+        "block": 0,
+        "scenario": 0,
+        "schema": "Motion",
+        "failure": false,
+        "phase": "pre",
+        "expected": {
+          "phase": "pre",
+          "value": 46,
+          "selected": {
+            "namespace": 7,
+            "id": 1
+          },
+          "undo": "L:100;M7/1:10;L:77;",
+          "commands": [
+            {
+              "kind": "RemoveFlagView",
+              "id": 1
+            },
+            {
+              "kind": "DespawnView",
+              "id": 2
+            }
+          ],
+          "pings": [
+            12,
+            11
+          ],
+          "marks": [
+            {
+              "namespace": 7,
+              "id": 1
+            },
+            {
+              "namespace": 7,
+              "id": 2
+            }
+          ],
+          "world": {
+            "namespace": 7,
+            "next": 3,
+            "rows": [
+              {
+                "id": 1,
+                "main": {
+                  "coordinates": {
+                    "a": 11,
+                    "b": 11,
+                    "c": 12,
+                    "d": 13
+                  },
+                  "frame": 7
+                },
+                "aux": {
+                  "rates": {
+                    "a": 110,
+                    "b": 111,
+                    "c": 112,
+                    "d": 113
+                  },
+                  "moving": true
+                },
+                "flag": {
+                  "group": 8
+                },
+                "added": 3,
+                "changed": 4
+              }
+            ],
+            "pending": [],
+            "ledger": {
+              "totals": {
+                "a": 101,
+                "b": 101,
+                "c": 102,
+                "d": 103
+              },
+              "epoch": 4
+            },
+            "mode": "MotionOn"
+          }
+        },
+        "actual": {
+          "phase": "pre",
+          "value": 46,
+          "selected": {
+            "namespace": 7,
+            "id": 1
+          },
+          "undo": "L:100;M7/1:10;L:77;",
+          "commands": [
+            {
+              "kind": "RemoveFlagView",
+              "id": 1
+            },
+            {
+              "kind": "DespawnView",
+              "id": 2
+            }
+          ],
+          "pings": [
+            12,
+            11
+          ],
+          "marks": [
+            {
+              "namespace": 7,
+              "id": 2
+            }
+          ],
+          "world": {
+            "namespace": 7,
+            "next": 3,
+            "rows": [
+              {
+                "id": 1,
+                "main": {
+                  "coordinates": {
+                    "a": 11,
+                    "b": 11,
+                    "c": 12,
+                    "d": 13
+                  },
+                  "frame": 7
+                },
+                "aux": {
+                  "rates": {
+                    "a": 110,
+                    "b": 111,
+                    "c": 112,
+                    "d": 113
+                  },
+                  "moving": true
+                },
+                "flag": {
+                  "group": 8
+                },
+                "added": 3,
+                "changed": 4
+              }
+            ],
+            "pending": [],
+            "ledger": {
+              "totals": {
+                "a": 101,
+                "b": 101,
+                "c": 102,
+                "d": 103
+              },
+              "epoch": 4
+            },
+            "mode": "MotionOn"
+          }
+        }
+      }
+    },
+    {
+      "name": "inverse-order",
+      "artifacts": [
+        {
+          "backend": "Native",
+          "SHA256": "bda468a2b6dd76bf1d7a780f468ab5eb6bc8dc349b8f0b1c9767d00ab1098ec7",
+          "outputSHA256": "308a7725e34256df004c83130a3fbda31341b3fff1eb26273f66ccea45fd2a97"
+        },
+        {
+          "backend": "JS",
+          "SHA256": "f4893dd25165b8a4e6d45049f99784ec15ed0f2a0fe472d140040aba818948ca",
+          "outputSHA256": "308a7725e34256df004c83130a3fbda31341b3fff1eb26273f66ccea45fd2a97"
+        }
+      ],
+      "differences": 8,
+      "status": "DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE",
+      "witness": {
+        "block": 0,
+        "scenario": 0,
+        "schema": "Motion",
+        "failure": false,
+        "phase": "pre",
+        "expected": {
+          "phase": "pre",
+          "value": 46,
+          "selected": {
+            "namespace": 7,
+            "id": 1
+          },
+          "undo": "L:100;M7/1:10;L:77;",
+          "commands": [
+            {
+              "kind": "RemoveFlagView",
+              "id": 1
+            },
+            {
+              "kind": "DespawnView",
+              "id": 2
+            }
+          ],
+          "pings": [
+            12,
+            11
+          ],
+          "marks": [
+            {
+              "namespace": 7,
+              "id": 1
+            },
+            {
+              "namespace": 7,
+              "id": 2
+            }
+          ],
+          "world": {
+            "namespace": 7,
+            "next": 3,
+            "rows": [
+              {
+                "id": 1,
+                "main": {
+                  "coordinates": {
+                    "a": 11,
+                    "b": 11,
+                    "c": 12,
+                    "d": 13
+                  },
+                  "frame": 7
+                },
+                "aux": {
+                  "rates": {
+                    "a": 110,
+                    "b": 111,
+                    "c": 112,
+                    "d": 113
+                  },
+                  "moving": true
+                },
+                "flag": {
+                  "group": 8
+                },
+                "added": 3,
+                "changed": 4
+              }
+            ],
+            "pending": [],
+            "ledger": {
+              "totals": {
+                "a": 101,
+                "b": 101,
+                "c": 102,
+                "d": 103
+              },
+              "epoch": 4
+            },
+            "mode": "MotionOn"
+          }
+        },
+        "actual": {
+          "phase": "pre",
+          "value": 46,
+          "selected": {
+            "namespace": 7,
+            "id": 1
+          },
+          "undo": "L:100;L:77;M7/1:10;",
+          "commands": [
+            {
+              "kind": "RemoveFlagView",
+              "id": 1
+            },
+            {
+              "kind": "DespawnView",
+              "id": 2
+            }
+          ],
+          "pings": [
+            12,
+            11
+          ],
+          "marks": [
+            {
+              "namespace": 7,
+              "id": 1
+            },
+            {
+              "namespace": 7,
+              "id": 2
+            }
+          ],
+          "world": {
+            "namespace": 7,
+            "next": 3,
+            "rows": [
+              {
+                "id": 1,
+                "main": {
+                  "coordinates": {
+                    "a": 11,
+                    "b": 11,
+                    "c": 12,
+                    "d": 13
+                  },
+                  "frame": 7
+                },
+                "aux": {
+                  "rates": {
+                    "a": 110,
+                    "b": 111,
+                    "c": 112,
+                    "d": 113
+                  },
+                  "moving": true
+                },
+                "flag": {
+                  "group": 8
+                },
+                "added": 3,
+                "changed": 4
+              }
+            ],
+            "pending": [],
+            "ledger": {
+              "totals": {
+                "a": 101,
+                "b": 101,
+                "c": 102,
+                "d": 103
+              },
+              "epoch": 4
+            },
+            "mode": "MotionOn"
+          }
+        }
+      }
+    }
+  ],
+  "rawDirectory": "/tmp/bendvy-held-integrated-controls",
+  "baseline": {
+    "status": "FINITE_ORIGINAL_TX_MATCH",
+    "artifacts": [
+      {
+        "backend": "Native",
+        "SHA256": "d7ce19fbdcedba93b08a76ea075f7d8834fa681f76fa0ed9572129155550fcfb",
+        "outputSHA256": "86470371004f767f76a13c0103f2b83d8a70b64ecc1b2eb80535c8782e21c3c4"
+      },
+      {
+        "backend": "JS",
+        "SHA256": "9332c93ede2b5abe5ba44c7a76ce1b281c81917c2acef0fdb5c8b63c2a4a3720",
+        "outputSHA256": "86470371004f767f76a13c0103f2b83d8a70b64ecc1b2eb80535c8782e21c3c4"
+      }
+    ],
+    "differences": 0,
+    "independentExactAssertions": [
+      "old-scalar inverse order",
+      "immediate marks",
+      "reverse staged command/ping order",
+      "FIFO pending publication",
+      "rollback retains no failed publication",
+      "first-field results and metadata ticks"
+    ]
+  },
+  "adapterSHA256": "3a769263f2c7808a6f902463bae0524c856c5f2b8777a2ee74707f12380b3d0c",
+  "heldSHA256": "5994b97265f9c1d507edb178e9914f1efc462f517e7d02426f8d9a52c0e513fe"
+}

@@ -1,0 +1,44 @@
+{
+  "status": "ISOLATED_DENSE_SELECTED_OWNER_INTEGRATION_PASS",
+  "acceptedBenchmarkCandidate": false,
+  "performanceClaim": null,
+  "version": "2.0.35",
+  "storageSHA256": "27f6b8aa69966eb6e349e7337b0947e50179dbc26cdcc363c1e857bb79cc4130",
+  "querySHA256": "c54c276843ac606d96a560b5324a9d4c2c04c8ba3782c1a8fea3d98c9929d775",
+  "sourcesAndEvidenceSHA256": {
+    "README.md": "4a7ccad22623b283d9d47212074c2e640e920d965b3fb1c53b88af9be20d1280",
+    "adapter.bend": "3a769263f2c7808a6f902463bae0524c856c5f2b8777a2ee74707f12380b3d0c",
+    "construction-evidence.json": "a50efb7560c764950b751d9c88e87a6c9c7c8e88cb9b79cb4e92924d8f39be57",
+    "controls-evidence.json": "9ce424317ec2ec450bdfd1013d7fdf9053b85f3c1faeeb673edf307ac335a178",
+    "controls-run.py": "f012ec4248a86e5ae997ad2811313203b839d7236d324c39123343f52751dbeb",
+    "controls.bend": "edd39c0b345b6b60ada54f9fdc50ecebddf89574dba2f386103e0f88414c037d",
+    "first-negative-diagnostic-format.json": "0543782592bafc1223ca59cec84347ba02a3ab70482430d34b0aa38ba076f221",
+    "held.bend": "5994b97265f9c1d507edb178e9914f1efc462f517e7d02426f8d9a52c0e513fe",
+    "measurement-adapter.diff": "ce71c2b717ce501b40dc882b26fe504c80dce62789c0c9e6f8303ec059168361",
+    "negative-duplicate.bend": "924fdb09f5deb1d3ff628a7d7712f21e5c658f7c38790d6b76ad607ea12fe09a",
+    "negative-evidence.json": "62e17be1867bbfde1ac90d630b39ccd620af35ff4da607b1dc00d3cca2d3c781",
+    "negative-read-write.bend": "bb8244682c374ed2bf90e228727346a1803a1ce850da254aec0aa778eef063fe",
+    "negative-reconstruct.bend": "e78c4b6b09e24fd273307994a1723967fc99183da078e6ebf172a59135b90a28",
+    "negative-run.py": "8bfbf2bb2193224b3b9ddd5ca26f9999f3dc63b4127afe3630e6b21b2f80737f",
+    "negative-schema.bend": "3b55449540b091d28976231c6ce300b09248643ac3defeb84689275bcb649ce9",
+    "positive-read.bend": "30359924885ab24de2cccf5163be031694cd736989f252c2e62d9f737bb8f405",
+    "prepare-evidence.json": "9058ed9a8c47ea8ef5769b84593b4675987eab3660bfcf99b66b365b478562cf",
+    "prepare.py": "dc1c5269bc9bd81eb292dcf619b3d351f05830e4edf6597376d96f319d83697f",
+    "run.py": "104f312dbd5021cdd0954a68b51156dfeb805118f4f67149fb9bd04df7da1317"
+  },
+  "limitsSeconds": {
+    "checker": 5,
+    "runtime": 5,
+    "codegen": 30,
+    "clang": 120
+  },
+  "actualArtifacts": [
+    "/tmp/bendvy-held-integrated-construction",
+    "/tmp/bendvy-held-integrated-controls",
+    "/tmp/bendvy-held-integrated-inverse-control"
+  ],
+  "validation": "One finite actual Dense64 full-field construction per schema/backend against fresh TS; 144 original/held Tx pre/post records per backend; four compiling runtime mutants detected; four paired negative capability controls. No repeated comparative measurement or eligibility claim.",
+  "checkoutProtectedMeasurementSHA256": "29c9f05835adb25e6b34c05048bb756cbfb86049b35edab2ff3649e671283d90",
+  "checkoutProtectedMeasurementUnchangedFromHEAD": true,
+  "derivedManifestSourcesReverified": true
+}
