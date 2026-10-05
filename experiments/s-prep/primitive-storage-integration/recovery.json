@@ -1,0 +1,37 @@
+{
+  "latestStorageSHA256": {
+    "JS": "b6de863a7a9704eeec5f21d3fd1b47de33bee9884c4c52f6a287abebb01f205f",
+    "Native": "b6de863a7a9704eeec5f21d3fd1b47de33bee9884c4c52f6a287abebb01f205f"
+  },
+  "observations": [
+    {
+      "source": "latest frozen closure",
+      "cpu": 8,
+      "status": "CHECKER_5S_TIMEOUT",
+      "backend": "JS",
+      "command": [
+        "taskset",
+        "-c",
+        "8",
+        "bend",
+        "/tmp/primitive-lifecycle-e74uczb4/JS/lifecycle.bend",
+        "--check-only"
+      ],
+      "completion": false
+    },
+    {
+      "source": "latest frozen closure",
+      "cpu": 11,
+      "status": "OWNED_RUN_INTERRUPTED_TO_AVOID_SHARED_CPU_WITH_COORDINATOR",
+      "completion": false
+    },
+    {
+      "source": "latest frozen closure",
+      "cpu": 4,
+      "status": "SEE_FINAL_EVIDENCE",
+      "limitsUnchanged": true
+    }
+  ],
+  "priorReceipt": "prior-layout-evidence.json",
+  "noMeasurementOrKeep": true
+}

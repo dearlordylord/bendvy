@@ -1,0 +1,324 @@
+{
+  "scope": "Finite actual candidate storage lifecycle; no provider authority, universal refinement or performance acceptance",
+  "commands": [
+    {
+      "backend": "JS",
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "bend",
+        "/tmp/primitive-lifecycle-elwoc5wu/JS/negative-clone.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5,
+      "expectedExit": 1
+    },
+    {
+      "backend": "JS",
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "bend",
+        "/tmp/primitive-lifecycle-elwoc5wu/JS/negative-duplicate.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5,
+      "expectedExit": 1
+    },
+    {
+      "backend": "JS",
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "bend",
+        "/tmp/primitive-lifecycle-elwoc5wu/JS/negative-cross.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5,
+      "expectedExit": 1
+    },
+    {
+      "backend": "JS",
+      "argv": [
+        "bend",
+        "/tmp/primitive-lifecycle-elwoc5wu/JS/lifecycle.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "backend": "JS",
+      "argv": [
+        "bend",
+        "/tmp/primitive-lifecycle-elwoc5wu/JS/lifecycle.bend",
+        "-o",
+        "/tmp/primitive-lifecycle-elwoc5wu/JS/original.js"
+      ],
+      "limitSeconds": 30
+    },
+    {
+      "backend": "JS",
+      "argv": [
+        "node",
+        "/tmp/primitive-lifecycle-elwoc5wu/JS/original.js"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "backend": "JS",
+      "argv": [
+        "bend",
+        "/tmp/primitive-lifecycle-elwoc5wu/JS/lifecycle.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "backend": "JS",
+      "argv": [
+        "bend",
+        "/tmp/primitive-lifecycle-elwoc5wu/JS/lifecycle.bend",
+        "-o",
+        "/tmp/primitive-lifecycle-elwoc5wu/JS/omitted-mark.js"
+      ],
+      "limitSeconds": 30
+    },
+    {
+      "backend": "JS",
+      "argv": [
+        "node",
+        "/tmp/primitive-lifecycle-elwoc5wu/JS/omitted-mark.js"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "backend": "Native",
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "bend",
+        "/tmp/primitive-lifecycle-elwoc5wu/Native/negative-clone.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5,
+      "expectedExit": 1
+    },
+    {
+      "backend": "Native",
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "bend",
+        "/tmp/primitive-lifecycle-elwoc5wu/Native/negative-duplicate.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5,
+      "expectedExit": 1
+    },
+    {
+      "backend": "Native",
+      "argv": [
+        "taskset",
+        "-c",
+        "4",
+        "bend",
+        "/tmp/primitive-lifecycle-elwoc5wu/Native/negative-cross.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5,
+      "expectedExit": 1
+    },
+    {
+      "backend": "Native",
+      "argv": [
+        "bend",
+        "/tmp/primitive-lifecycle-elwoc5wu/Native/lifecycle.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "backend": "Native",
+      "argv": [
+        "bend",
+        "/tmp/primitive-lifecycle-elwoc5wu/Native/lifecycle.bend",
+        "-o",
+        "/tmp/primitive-lifecycle-elwoc5wu/Native/original.c"
+      ],
+      "limitSeconds": 30
+    },
+    {
+      "backend": "Native",
+      "argv": [
+        "clang",
+        "-O3",
+        "/tmp/primitive-lifecycle-elwoc5wu/Native/original.c",
+        "-o",
+        "/tmp/primitive-lifecycle-elwoc5wu/Native/original",
+        "-lm",
+        "-pthread"
+      ],
+      "limitSeconds": 120
+    },
+    {
+      "backend": "Native",
+      "argv": [
+        "/tmp/primitive-lifecycle-elwoc5wu/Native/original",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "backend": "Native",
+      "argv": [
+        "bend",
+        "/tmp/primitive-lifecycle-elwoc5wu/Native/lifecycle.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "backend": "Native",
+      "argv": [
+        "bend",
+        "/tmp/primitive-lifecycle-elwoc5wu/Native/lifecycle.bend",
+        "-o",
+        "/tmp/primitive-lifecycle-elwoc5wu/Native/omitted-mark.c"
+      ],
+      "limitSeconds": 30
+    },
+    {
+      "backend": "Native",
+      "argv": [
+        "clang",
+        "-O3",
+        "/tmp/primitive-lifecycle-elwoc5wu/Native/omitted-mark.c",
+        "-o",
+        "/tmp/primitive-lifecycle-elwoc5wu/Native/omitted-mark",
+        "-lm",
+        "-pthread"
+      ],
+      "limitSeconds": 120
+    },
+    {
+      "backend": "Native",
+      "argv": [
+        "/tmp/primitive-lifecycle-elwoc5wu/Native/omitted-mark",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limitSeconds": 5
+    }
+  ],
+  "sourceSHA256": {
+    "JS": {
+      "uncached-payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+      "prototype-static-client.bend": "1a9d22180604433d91e6572679761f660b89b093ed5dbe2ad783859fb05d7a51",
+      "payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+      "measurement-bend.bend": "86f2e4fd5a8dbf9f4e4d29a5ffedf80f00a01868ccb783da1ad08204d4a11e40",
+      "held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+      "storage.bend": "b6de863a7a9704eeec5f21d3fd1b47de33bee9884c4c52f6a287abebb01f205f",
+      "transaction-dispatch-adapters.bend": "f2276c1c16ad3694ab8a253f97da892df3a1db81b621cd80018b1376d79d490d",
+      "cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+      "systems.bend": "32e11a5a89b01e8db00f0b58a9fd1e2da87f4882189725b0012933421b6b1716",
+      "identity.bend": "6cff678171c10d5124b234cb0e2e3d55cd56aec95871508c595f259c484de4f8",
+      "held-adapter.bend": "74099f8799a449d55a863ed0fb1f6e775b979d21a7660066ef28b95664d861b8",
+      "schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+      "reader-host.bend": "26eb687a8fb1893b55e4a0c7c8a629b688e37466e169cb3c95dd5273a553db6d",
+      "audited-invoker.bend": "8f4cc0acd27b49d7425e43419dc0f6d2be7eeed1cb36962c33d0b97aaf2ef5b3",
+      "cached-payload.bend": "0133f2ab73bb5cbec778a8bdbaaa14c8ac60f353d89f8805016643a0be9e5953",
+      "observations.bend": "e81cb63b3ab6da947a2455c3cc1b388abb1aa71dea593671d1c18f00da07a778",
+      "host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+      "query.bend": "a3053fae0248566bcaf05388ed43b9f3b5ed532f8991a7e90c8378add96c1b3d",
+      "structural-invoker.bend": "8e1269193d719b1f0ea68b040c62e8966160bacb898ac51caa2f6494f4621e0a",
+      "types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+      "commands.bend": "5cdbaeb590d0542db6d956ff421f7ab7f35c1b71be70091f87ce4fd58271ecc0",
+      "capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+      "host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+      "readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+      "transaction.bend": "10666618cc37f9cd2a5f4f5c13570727b0a0ece96bbbada2e06816ccd3b0e0de",
+      "dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+      "raw-boundaries.bend": "77dbad2365e0499ae4e9e6a5ae7dd67b5a2ebcc5be163de56d0e836781f70a2f",
+      "streams.bend": "291d9a46ad58bdc481a5710976e01b762f6e11be3aeba07076c46c69f236d2c0",
+      "host.bend": "912a679e54098d5c4e395fc75e993092c3cb735968ce2fc96edba709b778bb04",
+      "lifecycle.bend": "cff981fcd43b8a6dd3671f82270e98ed1c4111566e36c76c72a7629fe02c3214",
+      "owners.bend": "e7202667b7efce24407b8b9ae15c40a2d2e9f5d65c9f85ac020bfc4f179196e3",
+      "negative-clone.bend": "9dec3d9772f4f85e690342437dc2d8563ad5d8a8ab3886b57821a3bce8bcebd1",
+      "negative-duplicate.bend": "b4915cb3ae5908133bf6ae5438c64a896cd343a7c9da7d95bd608519bb49ddfd",
+      "negative-cross.bend": "e777a777c6f331a52030f86dc1b2f71e56a9f68a9bc2081893c2e84980a17d4e"
+    },
+    "Native": {
+      "uncached-payload.bend": "03c861d32a6a4194a27e7d9acf89eac369f6dafef46fc56d423cc80985872db6",
+      "prototype-static-client.bend": "1a9d22180604433d91e6572679761f660b89b093ed5dbe2ad783859fb05d7a51",
+      "payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+      "measurement-bend.bend": "86f2e4fd5a8dbf9f4e4d29a5ffedf80f00a01868ccb783da1ad08204d4a11e40",
+      "held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+      "storage.bend": "b6de863a7a9704eeec5f21d3fd1b47de33bee9884c4c52f6a287abebb01f205f",
+      "transaction-dispatch-adapters.bend": "f2276c1c16ad3694ab8a253f97da892df3a1db81b621cd80018b1376d79d490d",
+      "cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+      "systems.bend": "32e11a5a89b01e8db00f0b58a9fd1e2da87f4882189725b0012933421b6b1716",
+      "identity.bend": "6cff678171c10d5124b234cb0e2e3d55cd56aec95871508c595f259c484de4f8",
+      "held-adapter.bend": "74099f8799a449d55a863ed0fb1f6e775b979d21a7660066ef28b95664d861b8",
+      "schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+      "reader-host.bend": "26eb687a8fb1893b55e4a0c7c8a629b688e37466e169cb3c95dd5273a553db6d",
+      "audited-invoker.bend": "8f4cc0acd27b49d7425e43419dc0f6d2be7eeed1cb36962c33d0b97aaf2ef5b3",
+      "cached-payload.bend": "354bb1ddb9dbd90a64138aa0e0ea4dd499a1a9345b3e94940c183dc16390db82",
+      "observations.bend": "e81cb63b3ab6da947a2455c3cc1b388abb1aa71dea593671d1c18f00da07a778",
+      "host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+      "query.bend": "a3053fae0248566bcaf05388ed43b9f3b5ed532f8991a7e90c8378add96c1b3d",
+      "structural-invoker.bend": "8e1269193d719b1f0ea68b040c62e8966160bacb898ac51caa2f6494f4621e0a",
+      "types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+      "commands.bend": "5cdbaeb590d0542db6d956ff421f7ab7f35c1b71be70091f87ce4fd58271ecc0",
+      "capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+      "host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+      "readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+      "transaction.bend": "10666618cc37f9cd2a5f4f5c13570727b0a0ece96bbbada2e06816ccd3b0e0de",
+      "dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+      "raw-boundaries.bend": "77dbad2365e0499ae4e9e6a5ae7dd67b5a2ebcc5be163de56d0e836781f70a2f",
+      "streams.bend": "291d9a46ad58bdc481a5710976e01b762f6e11be3aeba07076c46c69f236d2c0",
+      "host.bend": "912a679e54098d5c4e395fc75e993092c3cb735968ce2fc96edba709b778bb04",
+      "lifecycle.bend": "cff981fcd43b8a6dd3671f82270e98ed1c4111566e36c76c72a7629fe02c3214",
+      "owners.bend": "e7202667b7efce24407b8b9ae15c40a2d2e9f5d65c9f85ac020bfc4f179196e3",
+      "negative-clone.bend": "9dec3d9772f4f85e690342437dc2d8563ad5d8a8ab3886b57821a3bce8bcebd1",
+      "negative-duplicate.bend": "b4915cb3ae5908133bf6ae5438c64a896cd343a7c9da7d95bd608519bb49ddfd",
+      "negative-cross.bend": "e777a777c6f331a52030f86dc1b2f71e56a9f68a9bc2081893c2e84980a17d4e"
+    }
+  },
+  "backends": {
+    "JS": {
+      "observations": 52,
+      "original": "PASS",
+      "intendedTypeNegatives": [
+        "clone",
+        "duplicate",
+        "cross"
+      ],
+      "compilingOmittedMark": "REJECTED_BY_LITERAL_ORACLE",
+      "originalSHA256": "5bca6eaaee3795cc3f7f6d01778f597314352dc867c87ff5417c451f60c1ef21",
+      "mutantSHA256": "4ea28bfafaebfa922afed4a9584811889a1fe83a0665f7b1a886b58d5df31b4e"
+    },
+    "Native": {
+      "observations": 52,
+      "original": "PASS",
+      "intendedTypeNegatives": [
+        "clone",
+        "duplicate",
+        "cross"
+      ],
+      "compilingOmittedMark": "REJECTED_BY_LITERAL_ORACLE",
+      "originalSHA256": "5bca6eaaee3795cc3f7f6d01778f597314352dc867c87ff5417c451f60c1ef21",
+      "mutantSHA256": "4ea28bfafaebfa922afed4a9584811889a1fe83a0665f7b1a886b58d5df31b4e"
+    }
+  },
+  "status": "FINITE_LIFECYCLE_AND_COMPILING_MARK_MUTATION_PASS"
+}
