@@ -64,3 +64,5 @@ Full actual E11, integrated command/effect/payload/capture mutation gates and th
 chosen combined candidate's workload/time qualification remain required before
 keep/adoption. Universal owned runtime refinement, root authority, general
 capture recovery, simulation and copied Tower Defense integration remain open.
+
+Reviewed domain limit: finite equivalence covers equal-shaped columns maintained by trusted World construction. Public Rows/read_rows types do not enforce that invariant. For malformed columns, Flag-filtered or live Main-absent slots can now skip an Aux access that the old path attempted, changing failure behavior. Dead slots already skipped payload access before this change. No universal malformed-World refinement or production authority is claimed; a production boundary must establish shape/authority or specify checked rejection.
