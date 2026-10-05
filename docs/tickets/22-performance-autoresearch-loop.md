@@ -4,6 +4,10 @@ Published [GitHub #23](https://github.com/dearlordylord/bendvy/issues/23). Child
 
 All six scope/return conditions and exclusions of parent #21 remain binding. These children partition the work without replacing or weakening those gates.
 
+## Latest two-hour work authorization
+
+The user grants two hours, superseding the earlier3600-second allowance. Cumulative window:2026-10-04T23:58:17Z to2026-10-05T01:58:17Z, including preparation and recovery. Stop early only when the real target is demonstrated. The former contract table below is historical and withdrawn; it cannot authorize an old-rule packet. Current success compares candidate JS and Native with pinned bevy-ts on equivalent full work: JS no slower; Native substantially faster, exactfactor still unresolved. No accepted Autoresearch session exists. Ordinary implementation and semantic preparation proceed in isolated worktrees while the replacement evaluator/check/source manifest is prepared. See [current report](../reports/twohour-performance-preparation.md).
+
 ## Goal and preserved requirements
 
 Run bounded repeated experiments on one reviewed candidate design. Improve connected Native/JS performance while preserving all authored ECS observations and genuinely affine Type components. Native substantially faster than bevy-ts and JS at least comparable remain product requirements; no numeric product threshold or scalar aggregation is currently approved. Parent #21 owns the overall recovery/adoption decision.
@@ -46,4 +50,4 @@ The user approved3600 seconds followed by results. [Concrete focused proposal](.
 
 ## User correction of success criterion
 
-The user rejected10% improvement against old Bend-JS and5% Native regression as experiment success. The proposed contract/rules are withdrawn. Success must compare with pinned bevy-ts: JS parity or better, Native substantially faster, equivalent complete work. Native numerical minimum remains unresolved (earlier2x proposal unapproved). Intermediate progress is evidence only; report stopped-unmet after3600seconds if the actual target is not reached. Replace comparator/decision code and re-freeze/review the contract before setup; no old acceptance request authorizes execution.
+The user rejected10% improvement against old Bend-JS and5% Native regression as experiment success. The proposed contract/rules are withdrawn. Success must compare with pinned bevy-ts: JS parity or better, Native substantially faster, equivalent complete work. Native numerical minimum remains unresolved (earlier2x proposal unapproved). Intermediate progress is evidence only; report stopped-unmet at the latest cumulative deadline if the actual target is not reached. Replace comparator/decision code and re-freeze/review the contract before setup; no old acceptance request authorizes execution.
