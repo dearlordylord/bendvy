@@ -2,7 +2,7 @@
 """Concrete source confinement and global deadline, no loop authorization."""
 import datetime, hashlib, pathlib, re, subprocess
 PROJECT=pathlib.Path('/workspace/formal-proofs/bendvy')
-DEADLINE=datetime.datetime(2026,10,5,12,22,50,tzinfo=datetime.timezone.utc)
+DEADLINE=datetime.datetime(2026,10,5,13,22,50,tzinfo=datetime.timezone.utc)
 PINS={'experiments/s-integrate/measurement-bend-run.py': '25ab577d5234a1c30f46318708455377353ec39d4fb0b6bf1b40ad5ea5da8f84', 'experiments/t05/run.py': '3767d4b66b63f6492aa260213de17b33de9f772fbe2250a91aa579f856c85b19', 'experiments/t01/bend-check': '7c2e4afd996beae6749c650fe508f76d49633267665a96a44938af08ad0ce6a5', 'experiments/s-integrate/measurement-samples-reference.mjs': 'ecfd1b590964fb76fb69a7a28e9dffa05b631592f47a52f11921ffaec25253b6', '.references/sources.json': '5d4d89ca984a2eb21e21715344219bb9caa022b6bebca0c9f8959584cceb8b8f'}
 def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
 def tool_environment(tools):

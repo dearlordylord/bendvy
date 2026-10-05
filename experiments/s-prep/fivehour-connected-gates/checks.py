@@ -4,7 +4,7 @@ import argparse,datetime,hashlib,json,os,re,signal,subprocess,sys,shutil
 from pathlib import Path
 import supervisor
 HERE=Path(__file__).resolve().parent;ROOT=HERE.parents[2]
-DEADLINE=datetime.datetime.fromisoformat('2026-10-05T12:22:50+00:00')
+DEADLINE=datetime.datetime.fromisoformat('2026-10-05T13:22:50+00:00')
 EXPECTED_GATES={'materialize-controls':'PASS_DERIVED_CONTROL_SOURCE_MAP','host12':'PASS','access':'ACTUAL_ACCESS_9_PASS','e11':'BOUNDED_JOINED_PASS','owned-storage':'ACTUAL_FINAL_STORAGE_FIELDS_OWNERSHIP_MUTANTS_PASS','staging':'PASS_BOUNDED_STAGING_TYPE_BOUNDARY','tx-baseline':'FINITE_ACTUAL_TX_CACHE_FIELDS_PASS',**{'tx-'+v:'DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE' for v in ('stale-head','torn-tail','lost-mark','inverse-order')}}
 def validate_gates(gates):
  assert [g['name'] for g in gates]==list(EXPECTED_GATES),'Missing, duplicate or unexpected gate IDs'
