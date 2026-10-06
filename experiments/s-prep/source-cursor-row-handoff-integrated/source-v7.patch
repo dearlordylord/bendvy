@@ -1,0 +1,170 @@
+--- a/experiments/s-integrate/query.bend
++++ b/experiments/s-integrate/query.bend
+@@ -335,3 +335,66 @@
+ def prototype_cursor_each(~Schema:Data,~M:Type,~A:Type,~F:Data,~L:Type,~Mode:Data,selection:Selection,world:S.World<Schema,M,A,F,L,Mode>) -> S.World<Schema,M,A,F,L,Mode> & PrototypeIdCursor<Schema>:
+   match world:
+     case S.World{+namespace,next,rows,pending,ledger,mode}: prototype_cursor_return(Schema,M,A,F,L,Mode,namespace,prototype_cursor_ids(~Schema,~M,~A,~F,~L,~Mode,selection,S.World{namespace,next,rows,pending,ledger,mode}))
++
++
++# Private two-phase affine ownership handoff; original query APIs remain unchanged.
++type PrototypeHandoffRow<-Schema:Data,-M:Type> is Type:
++  PrototypeHandoffRow{id:U32,owner:M}
++type PrototypeHandoffState<-Schema:Data,-M:Type,-A:Type,-F:Data> is Type:
++  PrototypeHandoffState{main:Array<Maybe<M>>,aux:Array<Maybe<A>>,live:Array<Bool>,flags:Array<Maybe<&2,F>>,added:Array<U32>,changed:Array<U32>,values:List<&1,PrototypeHandoffRow<Schema,M>>}
++type PrototypeHandoffBatch<-Schema:Data,-M:Type,-A:Type,-F:Data,-L:Type,-Mode:Data> is Type:
++  PrototypeHandoffBatch{world:S.World<Schema,M,A,F,L,Mode>,rows:List<&1,PrototypeHandoffRow<Schema,M>>}
++def prototype_handoff_restore_state(-Schema:Data,-M:Type,-A:Type,-F:Data,+id:U32,+namespace:U32,aux:Array<Maybe<A>>,live:Array<Bool>,flags:Array<Maybe<&2,F>>,added:Array<U32>,changed:Array<U32>,values:List<&1,PrototypeHandoffRow<Schema,M>>,result:Array<Maybe<M>> & Maybe<M>) -> PrototypeHandoffState<Schema,M,A,F>:
++  match result:
++    case Tuple{main,None{}}: PrototypeHandoffState{main,aux,live,flags,added,changed,values}
++    case Tuple{main,Some{owner}}: PrototypeHandoffState{main,aux,live,flags,added,changed,PrototypeHandoffRow{id,owner} <> values}
++def prototype_handoff_inspect_state(-Schema:Data,-M:Type,-A:Type,-F:Data,+id:U32,+namespace:U32,main:Array<Maybe<M>>,aux:Array<Maybe<A>>,live:Array<Bool>,flags:Array<Maybe<&2,F>>,added:Array<U32>,changed:Array<U32>,values:List<&1,PrototypeHandoffRow<Schema,M>>) -> PrototypeHandoffState<Schema,M,A,F>:
++  prototype_handoff_restore_state(Schema,M,A,F,id,namespace,aux,live,flags,added,changed,values,Array.swap(Maybe<M>,main,U32.sub(id,1),None{}))
++
++def prototype_handoff_struct_idx_selected(~Schema: Data,~M: Type,~A: Type,~F: Data,include: Bool,+id: U32,namespace: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,live: Array<Bool>,flags: Array<Maybe<&2,F>>,added: Array<U32>,changed: Array<U32>,values: List<&1,PrototypeHandoffRow<Schema,M>>,flag: Maybe<&2,F>) -> PrototypeHandoffState<Schema,M,A,F>:
++  match include:
++    case False{}: PrototypeHandoffState{main,aux,live,flags,added,changed,values}
++    case True{}: prototype_handoff_inspect_state(Schema,M,A,F,id,namespace,main,aux,live,flags,added,changed,values)
++
++def prototype_handoff_struct_idx_metadata(~Schema: Data,~M: Type,~A: Type,~F: Data,id: U32,namespace: U32,selection: Selection,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,values: List<&1,PrototypeHandoffRow<Schema,M>>,live: Array<Bool>,added: Array<U32>,changed: Array<U32>,value: Bool,result: Array<Maybe<&2,F>> & Maybe<&2,F>) -> PrototypeHandoffState<Schema,M,A,F>:
++  match value result:
++    case False{} Tuple{flags,_}: PrototypeHandoffState{main,aux,live,flags,added,changed,values}
++    case True{} Tuple{flags,+flag}: prototype_handoff_struct_idx_selected(~Schema,~M,~A,~F,selected(F,selection,flag),id,namespace,main,aux,live,flags,added,changed,values,flag)
++
++def prototype_handoff_struct_cols_live(~Schema: Data,~M: Type,~A: Type,~F: Data,+id: U32,namespace: U32,selection: Selection,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,values: List<&1,PrototypeHandoffRow<Schema,M>>,flags: Array<Maybe<&2,F>>,added: Array<U32>,changed: Array<U32>,result: Array<Bool> & Bool) -> PrototypeHandoffState<Schema,M,A,F>:
++  match result:
++    case Tuple{live,False{}}: PrototypeHandoffState{main,aux,live,flags,added,changed,values}
++    case Tuple{live,True{}}: prototype_handoff_struct_idx_metadata(~Schema,~M,~A,~F,id,namespace,selection,main,aux,values,live,added,changed,True{},Array.get(Maybe<&2,F>,flags,U32.sub(id,1)))
++
++def prototype_handoff_struct_idx_advance(~Schema: Data,~M: Type,~A: Type,~F: Data,valid: Bool,+id: U32,namespace: U32,selection: Selection,state: PrototypeHandoffState<Schema,M,A,F>) -> PrototypeHandoffState<Schema,M,A,F>:
++  match valid state:
++    case False{} state: state
++    case True{} PrototypeHandoffState{main,aux,live,flags,added,changed,values}:
++      prototype_handoff_struct_cols_live(~Schema,~M,~A,~F,id,namespace,selection,main,aux,values,flags,added,changed,Array.get(Bool,live,U32.sub(id,1)))
++
++def prototype_handoff_finish_forward(-Schema:Data,-M:Type,-A:Type,-F:Data,capacity:U32,depth:Nat,high:U32,state:PrototypeHandoffState<Schema,M,A,F>) -> S.Rows<M,A,F> & List<&1,PrototypeHandoffRow<Schema,M>>:
++  match state:
++    case PrototypeHandoffState{main,aux,live,flags,added,changed,values}: (S.Rows{main,aux,S.MetadataColumns{live,flags,added,changed},capacity,depth,high},values)
++def prototype_handoff_struct_idx_go(~Schema: Data,~M: Type,~A: Type,~F: Data,remaining: Nat,+id: U32,+capacity: U32,+depth: Nat,+high: U32,+selection: Selection,+namespace: U32,state: PrototypeHandoffState<Schema,M,A,F>) -> S.Rows<M,A,F> & List<&1,PrototypeHandoffRow<Schema,M>>:
++  match remaining:
++    case 0n: prototype_handoff_finish_forward(Schema,M,A,F,capacity,depth,high,state)
++    case 1n++rest: prototype_handoff_struct_idx_go(~Schema,~M,~A,~F,rest,U32.sub(id,1),capacity,depth,high,selection,namespace,prototype_handoff_struct_idx_advance(~Schema,~M,~A,~F,Bool.and((0 < id : U32),(id <= capacity : U32)),id,namespace,selection,state))
++
++def prototype_handoff_read_rows(~Schema: Data,~M: Type,~A: Type,~F: Data,rows: S.Rows<M,A,F>,selection: Selection,namespace: U32) -> S.Rows<M,A,F> & List<&1,PrototypeHandoffRow<Schema,M>>:
++  match rows:
++    case S.Rows{main,aux,S.MetadataColumns{live,flags,added,changed},capacity,depth,+high}:
++      prototype_handoff_struct_idx_go(~Schema,~M,~A,~F,U32.to_nat(high),high,capacity,depth,high,selection,namespace,PrototypeHandoffState{main,aux,live,flags,added,changed,[]})
++
++
++def prototype_handoff_world_return(-Schema:Data,-M:Type,-A:Type,-F:Data,-L:Type,-Mode:Data,namespace:U32,next:U32,pending:List<S.Command<M,A,F>>,ledger:Maybe<L>,mode:Mode,result:S.Rows<M,A,F> & List<&1,PrototypeHandoffRow<Schema,M>>) -> PrototypeHandoffBatch<Schema,M,A,F,L,Mode>:
++  match result:
++    case (rows,values): PrototypeHandoffBatch{S.World{namespace,next,rows,pending,ledger,mode},values}
++def prototype_handoff_each(~Schema:Data,~M:Type,~A:Type,~F:Data,~L:Type,~Mode:Data,selection:Selection,world:S.World<Schema,M,A,F,L,Mode>) -> PrototypeHandoffBatch<Schema,M,A,F,L,Mode>:
++  match world:
++    case S.World{+namespace,next,rows,pending,ledger,mode}: prototype_handoff_world_return(Schema,M,A,F,L,Mode,namespace,next,pending,ledger,mode,prototype_handoff_read_rows(~Schema,~M,~A,~F,rows,selection,namespace))
++def prototype_handoff_recover_go(-Schema:Data,-M:Type,rows:List<&1,PrototypeHandoffRow<Schema,M>>,columns:Array<Maybe<M>>,ids:List<&2,U32>) -> Array<Maybe<M>> & List<&2,U32>:
++  match rows:
++    case Nil{}: (columns,List.reverse(&2,U32,ids))
++    case Con{PrototypeHandoffRow{+id,owner},rest}: prototype_handoff_recover_go(Schema,M,rest,Array.set(Maybe<M>,columns,U32.sub(id,1),Some{owner}),id <> ids)
++def prototype_handoff_recover(-Schema:Data,-M:Type,rows:List<&1,PrototypeHandoffRow<Schema,M>>,columns:Array<Maybe<M>>) -> Array<Maybe<M>> & List<&2,U32>:
++  prototype_handoff_recover_go(Schema,M,rows,columns,[])
+--- a/experiments/s-integrate/held-adapter.bend
++++ b/experiments/s-integrate/held-adapter.bend
+@@ -809,3 +809,66 @@
+   match cursor:
+     case Q.PrototypeIdCursor{namespace,handles}: prototype_packed_prototype_journalledger_health_finish(prototype_cursor_flatfold_health_loop(~client,namespace,handles,prototype_packed_prototype_journalledger_health_pack(owner,total)))
+ 
++
++
++# Private motion producer/drain owns all evacuated columns and future affine rows.
++def prototype_handoff_motion_recovered(~client:@-Owner:Type -> @-get:(Owner -> T.PositionToken -> Owner & T.Access<T.PositionView>) -> @-set:(Owner -> T.PositionToken -> U32 -> Owner) -> @-ledger:(Owner -> T.MotionLedgerToken -> Owner & Maybe<&2,T.LedgerView>) -> @-setledger:(Owner -> T.MotionLedgerToken -> U32 -> Owner) -> Owner -> Owner & U32,+ns:U32,next:U32,aux:Array<Maybe<T.Velocity>>,metadata:S.MetadataColumns<T.Selected>,capacity:U32,depth:Nat,high:U32,pending:List<S.Command<P.PrototypeMotionMainSlot,T.Velocity,T.Selected>>,ledger:Maybe<CC.Cache<T.MotionLedger,T.LedgerView>>,mode:T.MotionMode,selected:S.Handle<T.MotionSchema>,undo:X.PrototypeFlatInverse<T.MotionSchema>,commands:List<S.Command<P.PrototypeMotionMainSlot,T.Velocity,T.Selected>>,pings:List<&2,U32>,marks:X.PrototypeFlatMark<T.MotionSchema>,total:U32,result:Array<Maybe<P.PrototypeMotionMainSlot>> & List<&2,U32>) -> PrototypeFlatFold<T.MotionSchema,P.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>:
++  match result:
++    case (columns,ids): prototype_cursor_flatfold_motion_loop(~client,ns,ids,PrototypeFlatFold{ns,next,columns,aux,metadata,capacity,depth,high,pending,ledger,mode,selected,undo,commands,pings,marks,total})
++def prototype_handoff_motion_drain(~client:@-Owner:Type -> @-get:(Owner -> T.PositionToken -> Owner & T.Access<T.PositionView>) -> @-set:(Owner -> T.PositionToken -> U32 -> Owner) -> @-ledger:(Owner -> T.MotionLedgerToken -> Owner & Maybe<&2,T.LedgerView>) -> @-setledger:(Owner -> T.MotionLedgerToken -> U32 -> Owner) -> Owner -> Owner & U32,rows:List<&1,Q.PrototypeHandoffRow<T.MotionSchema,P.PrototypeMotionMainSlot>>,state:PrototypeFlatFold<T.MotionSchema,P.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>) -> PrototypeFlatFold<T.MotionSchema,P.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>:
++  match rows state:
++    case Nil{} state: state
++    case Con{Q.PrototypeHandoffRow{id,owner},rest} PrototypeFlatFold{+ns,next,columns,aux,metadata,capacity,depth,high,pending,Some{ledger},mode,_,undo,commands,pings,marks,total}:
++      prototype_handoff_motion_drain(~client,rest,prototype_packed_prototype_flatfold_motion_taken(~client,(columns,Some{owner}),ledger,ns,next,aux,metadata,capacity,depth,high,pending,mode,S.Handle{ns,id},undo,commands,pings,marks,total))
++    case Con{row,rest} PrototypeFlatFold{ns,next,columns,aux,metadata,capacity,depth,high,pending,None{},mode,selected,undo,commands,pings,marks,total}:
++      prototype_handoff_motion_recovered(~client,ns,next,aux,metadata,capacity,depth,high,pending,None{},mode,selected,undo,commands,pings,marks,total,Q.prototype_handoff_recover(T.MotionSchema,P.PrototypeMotionMainSlot,Con{row,rest},columns))
++def prototype_handoff_motion_ready(~client:@-Owner:Type -> @-get:(Owner -> T.PositionToken -> Owner & T.Access<T.PositionView>) -> @-set:(Owner -> T.PositionToken -> U32 -> Owner) -> @-ledger:(Owner -> T.MotionLedgerToken -> Owner & Maybe<&2,T.LedgerView>) -> @-setledger:(Owner -> T.MotionLedgerToken -> U32 -> Owner) -> Owner -> Owner & U32,selected:S.Handle<T.MotionSchema>,undo:X.PrototypeFlatInverse<T.MotionSchema>,commands:List<S.Command<P.PrototypeMotionMainSlot,T.Velocity,T.Selected>>,pings:List<&2,U32>,marks:X.PrototypeFlatMark<T.MotionSchema>,total:U32,batch:Q.PrototypeHandoffBatch<T.MotionSchema,P.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>) -> X.PrototypeFlatTx<T.MotionSchema,S.World<T.MotionSchema,P.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Command<P.PrototypeMotionMainSlot,T.Velocity,T.Selected>> & U32:
++  match batch:
++    case Q.PrototypeHandoffBatch{world,rows}: prototype_packed_prototype_flatfold_motion_finish(prototype_handoff_motion_drain(~client,rows,prototype_packed_prototype_flatfold_motion_pack(X.PrototypeFlatTx{world,selected,undo,commands,pings,marks},total)))
++def prototype_handoff_motion_original(~client:@-Owner:Type -> @-get:(Owner -> T.PositionToken -> Owner & T.Access<T.PositionView>) -> @-set:(Owner -> T.PositionToken -> U32 -> Owner) -> @-ledger:(Owner -> T.MotionLedgerToken -> Owner & Maybe<&2,T.LedgerView>) -> @-setledger:(Owner -> T.MotionLedgerToken -> U32 -> Owner) -> Owner -> Owner & U32,selected:S.Handle<T.MotionSchema>,undo:X.PrototypeFlatInverse<T.MotionSchema>,commands:List<S.Command<P.PrototypeMotionMainSlot,T.Velocity,T.Selected>>,pings:List<&2,U32>,marks:X.PrototypeFlatMark<T.MotionSchema>,total:U32,result:S.World<T.MotionSchema,P.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode> & Q.PrototypeIdCursor<T.MotionSchema>) -> X.PrototypeFlatTx<T.MotionSchema,S.World<T.MotionSchema,P.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Command<P.PrototypeMotionMainSlot,T.Velocity,T.Selected>> & U32:
++  match result:
++    case (world,cursor): prototype_cursor_flatfold_motion(~client,cursor,X.PrototypeFlatTx{world,selected,undo,commands,pings,marks},total)
++def prototype_handoff_motion_shape_chosen(~client:@-Owner:Type -> @-get:(Owner -> T.PositionToken -> Owner & T.Access<T.PositionView>) -> @-set:(Owner -> T.PositionToken -> U32 -> Owner) -> @-ledger:(Owner -> T.MotionLedgerToken -> Owner & Maybe<&2,T.LedgerView>) -> @-setledger:(Owner -> T.MotionLedgerToken -> U32 -> Owner) -> Owner -> Owner & U32,selection:Q.Selection,selected:S.Handle<T.MotionSchema>,undo:X.PrototypeFlatInverse<T.MotionSchema>,commands:List<S.Command<P.PrototypeMotionMainSlot,T.Velocity,T.Selected>>,pings:List<&2,U32>,marks:X.PrototypeFlatMark<T.MotionSchema>,total:U32,valid:Bool,world:S.World<T.MotionSchema,P.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>) -> X.PrototypeFlatTx<T.MotionSchema,S.World<T.MotionSchema,P.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Command<P.PrototypeMotionMainSlot,T.Velocity,T.Selected>> & U32:
++  match valid:
++    case False{}: prototype_handoff_motion_original(~client,selected,undo,commands,pings,marks,total,Q.prototype_cursor_each(T.MotionSchema,P.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,selection,world))
++    case True{}: prototype_handoff_motion_ready(~client,selected,undo,commands,pings,marks,total,Q.prototype_handoff_each(T.MotionSchema,P.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,selection,world))
++def prototype_handoff_motion_shape(~client:@-Owner:Type -> @-get:(Owner -> T.PositionToken -> Owner & T.Access<T.PositionView>) -> @-set:(Owner -> T.PositionToken -> U32 -> Owner) -> @-ledger:(Owner -> T.MotionLedgerToken -> Owner & Maybe<&2,T.LedgerView>) -> @-setledger:(Owner -> T.MotionLedgerToken -> U32 -> Owner) -> Owner -> Owner & U32,selection:Q.Selection,ns:U32,next:U32,aux:Array<Maybe<T.Velocity>>,metadata:S.MetadataColumns<T.Selected>,+capacity:U32,depth:Nat,high:U32,pending:List<S.Command<P.PrototypeMotionMainSlot,T.Velocity,T.Selected>>,ledger:CC.Cache<T.MotionLedger,T.LedgerView>,mode:T.MotionMode,selected:S.Handle<T.MotionSchema>,undo:X.PrototypeFlatInverse<T.MotionSchema>,commands:List<S.Command<P.PrototypeMotionMainSlot,T.Velocity,T.Selected>>,pings:List<&2,U32>,marks:X.PrototypeFlatMark<T.MotionSchema>,total:U32,result:Array<Maybe<P.PrototypeMotionMainSlot>> & U32) -> X.PrototypeFlatTx<T.MotionSchema,S.World<T.MotionSchema,P.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Command<P.PrototypeMotionMainSlot,T.Velocity,T.Selected>> & U32:
++  match result:
++    case (columns,size): prototype_handoff_motion_shape_chosen(~client,selection,selected,undo,commands,pings,marks,total,(capacity <= size : U32),S.World{ns,next,S.Rows{columns,aux,metadata,capacity,depth,high},pending,Some{ledger},mode})
++def prototype_handoff_flatfold_motion(~client:@-Owner:Type -> @-get:(Owner -> T.PositionToken -> Owner & T.Access<T.PositionView>) -> @-set:(Owner -> T.PositionToken -> U32 -> Owner) -> @-ledger:(Owner -> T.MotionLedgerToken -> Owner & Maybe<&2,T.LedgerView>) -> @-setledger:(Owner -> T.MotionLedgerToken -> U32 -> Owner) -> Owner -> Owner & U32,selection:Q.Selection,owner:X.PrototypeFlatTx<T.MotionSchema,S.World<T.MotionSchema,P.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Command<P.PrototypeMotionMainSlot,T.Velocity,T.Selected>>,total:U32) -> X.PrototypeFlatTx<T.MotionSchema,S.World<T.MotionSchema,P.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Command<P.PrototypeMotionMainSlot,T.Velocity,T.Selected>> & U32:
++  match owner:
++    case X.PrototypeFlatTx{S.World{ns,next,rows,pending,None{},mode},selected,undo,commands,pings,marks}:
++      prototype_handoff_motion_original(~client,selected,undo,commands,pings,marks,total,Q.prototype_cursor_each(T.MotionSchema,P.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,selection,S.World{ns,next,rows,pending,None{},mode}))
++    case X.PrototypeFlatTx{S.World{ns,next,S.Rows{columns,aux,metadata,capacity,depth,high},pending,Some{ledger},mode},selected,undo,commands,pings,marks}:
++      prototype_handoff_motion_shape(~client,selection,ns,next,aux,metadata,capacity,depth,high,pending,ledger,mode,selected,undo,commands,pings,marks,total,Array.size(Maybe<P.PrototypeMotionMainSlot>,columns))
++
++# Private health producer/drain owns all evacuated columns and future affine rows.
++def prototype_handoff_health_recovered(~client:@-Owner:Type -> @-get:(Owner -> T.VitalsToken -> Owner & T.Access<T.VitalsView>) -> @-set:(Owner -> T.VitalsToken -> U32 -> Owner) -> @-ledger:(Owner -> T.HealthLedgerToken -> Owner & Maybe<&2,T.LedgerView>) -> @-setledger:(Owner -> T.HealthLedgerToken -> U32 -> Owner) -> Owner -> Owner & U32,+ns:U32,next:U32,aux:Array<Maybe<T.Armor>>,metadata:S.MetadataColumns<T.Tracked>,capacity:U32,depth:Nat,high:U32,pending:List<S.Command<P.PrototypeHealthMainSlot,T.Armor,T.Tracked>>,ledger:Maybe<PrototypeJournalLedger<T.LedgerView>>,mode:T.HealthMode,selected:S.Handle<T.HealthSchema>,undo:X.PrototypeFlatInverse<T.HealthSchema>,commands:List<S.Command<P.PrototypeHealthMainSlot,T.Armor,T.Tracked>>,pings:List<&2,U32>,marks:X.PrototypeFlatMark<T.HealthSchema>,total:U32,result:Array<Maybe<P.PrototypeHealthMainSlot>> & List<&2,U32>) -> PrototypeFlatFold<T.HealthSchema,P.PrototypeHealthMainSlot,T.Armor,T.Tracked,PrototypeJournalLedger<T.LedgerView>,T.HealthMode>:
++  match result:
++    case (columns,ids): prototype_cursor_flatfold_health_loop(~client,ns,ids,PrototypeFlatFold{ns,next,columns,aux,metadata,capacity,depth,high,pending,ledger,mode,selected,undo,commands,pings,marks,total})
++def prototype_handoff_health_drain(~client:@-Owner:Type -> @-get:(Owner -> T.VitalsToken -> Owner & T.Access<T.VitalsView>) -> @-set:(Owner -> T.VitalsToken -> U32 -> Owner) -> @-ledger:(Owner -> T.HealthLedgerToken -> Owner & Maybe<&2,T.LedgerView>) -> @-setledger:(Owner -> T.HealthLedgerToken -> U32 -> Owner) -> Owner -> Owner & U32,rows:List<&1,Q.PrototypeHandoffRow<T.HealthSchema,P.PrototypeHealthMainSlot>>,state:PrototypeFlatFold<T.HealthSchema,P.PrototypeHealthMainSlot,T.Armor,T.Tracked,PrototypeJournalLedger<T.LedgerView>,T.HealthMode>) -> PrototypeFlatFold<T.HealthSchema,P.PrototypeHealthMainSlot,T.Armor,T.Tracked,PrototypeJournalLedger<T.LedgerView>,T.HealthMode>:
++  match rows state:
++    case Nil{} state: state
++    case Con{Q.PrototypeHandoffRow{id,owner},rest} PrototypeFlatFold{+ns,next,columns,aux,metadata,capacity,depth,high,pending,Some{ledger},mode,_,undo,commands,pings,marks,total}:
++      prototype_handoff_health_drain(~client,rest,prototype_packed_prototype_journalledger_health_taken(~client,(columns,Some{owner}),ledger,ns,next,aux,metadata,capacity,depth,high,pending,mode,S.Handle{ns,id},undo,commands,pings,marks,total))
++    case Con{row,rest} PrototypeFlatFold{ns,next,columns,aux,metadata,capacity,depth,high,pending,None{},mode,selected,undo,commands,pings,marks,total}:
++      prototype_handoff_health_recovered(~client,ns,next,aux,metadata,capacity,depth,high,pending,None{},mode,selected,undo,commands,pings,marks,total,Q.prototype_handoff_recover(T.HealthSchema,P.PrototypeHealthMainSlot,Con{row,rest},columns))
++def prototype_handoff_health_ready(~client:@-Owner:Type -> @-get:(Owner -> T.VitalsToken -> Owner & T.Access<T.VitalsView>) -> @-set:(Owner -> T.VitalsToken -> U32 -> Owner) -> @-ledger:(Owner -> T.HealthLedgerToken -> Owner & Maybe<&2,T.LedgerView>) -> @-setledger:(Owner -> T.HealthLedgerToken -> U32 -> Owner) -> Owner -> Owner & U32,selected:S.Handle<T.HealthSchema>,undo:X.PrototypeFlatInverse<T.HealthSchema>,commands:List<S.Command<P.PrototypeHealthMainSlot,T.Armor,T.Tracked>>,pings:List<&2,U32>,marks:X.PrototypeFlatMark<T.HealthSchema>,total:U32,batch:Q.PrototypeHandoffBatch<T.HealthSchema,P.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>) -> X.PrototypeFlatTx<T.HealthSchema,S.World<T.HealthSchema,P.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Command<P.PrototypeHealthMainSlot,T.Armor,T.Tracked>> & U32:
++  match batch:
++    case Q.PrototypeHandoffBatch{world,rows}: prototype_packed_prototype_journalledger_health_finish(prototype_handoff_health_drain(~client,rows,prototype_packed_prototype_journalledger_health_pack(X.PrototypeFlatTx{world,selected,undo,commands,pings,marks},total)))
++def prototype_handoff_health_original(~client:@-Owner:Type -> @-get:(Owner -> T.VitalsToken -> Owner & T.Access<T.VitalsView>) -> @-set:(Owner -> T.VitalsToken -> U32 -> Owner) -> @-ledger:(Owner -> T.HealthLedgerToken -> Owner & Maybe<&2,T.LedgerView>) -> @-setledger:(Owner -> T.HealthLedgerToken -> U32 -> Owner) -> Owner -> Owner & U32,selected:S.Handle<T.HealthSchema>,undo:X.PrototypeFlatInverse<T.HealthSchema>,commands:List<S.Command<P.PrototypeHealthMainSlot,T.Armor,T.Tracked>>,pings:List<&2,U32>,marks:X.PrototypeFlatMark<T.HealthSchema>,total:U32,result:S.World<T.HealthSchema,P.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode> & Q.PrototypeIdCursor<T.HealthSchema>) -> X.PrototypeFlatTx<T.HealthSchema,S.World<T.HealthSchema,P.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Command<P.PrototypeHealthMainSlot,T.Armor,T.Tracked>> & U32:
++  match result:
++    case (world,cursor): prototype_cursor_flatfold_health(~client,cursor,X.PrototypeFlatTx{world,selected,undo,commands,pings,marks},total)
++def prototype_handoff_health_shape_chosen(~client:@-Owner:Type -> @-get:(Owner -> T.VitalsToken -> Owner & T.Access<T.VitalsView>) -> @-set:(Owner -> T.VitalsToken -> U32 -> Owner) -> @-ledger:(Owner -> T.HealthLedgerToken -> Owner & Maybe<&2,T.LedgerView>) -> @-setledger:(Owner -> T.HealthLedgerToken -> U32 -> Owner) -> Owner -> Owner & U32,selection:Q.Selection,selected:S.Handle<T.HealthSchema>,undo:X.PrototypeFlatInverse<T.HealthSchema>,commands:List<S.Command<P.PrototypeHealthMainSlot,T.Armor,T.Tracked>>,pings:List<&2,U32>,marks:X.PrototypeFlatMark<T.HealthSchema>,total:U32,valid:Bool,world:S.World<T.HealthSchema,P.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>) -> X.PrototypeFlatTx<T.HealthSchema,S.World<T.HealthSchema,P.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Command<P.PrototypeHealthMainSlot,T.Armor,T.Tracked>> & U32:
++  match valid:
++    case False{}: prototype_handoff_health_original(~client,selected,undo,commands,pings,marks,total,Q.prototype_cursor_each(T.HealthSchema,P.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,selection,world))
++    case True{}: prototype_handoff_health_ready(~client,selected,undo,commands,pings,marks,total,Q.prototype_handoff_each(T.HealthSchema,P.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,selection,world))
++def prototype_handoff_health_shape(~client:@-Owner:Type -> @-get:(Owner -> T.VitalsToken -> Owner & T.Access<T.VitalsView>) -> @-set:(Owner -> T.VitalsToken -> U32 -> Owner) -> @-ledger:(Owner -> T.HealthLedgerToken -> Owner & Maybe<&2,T.LedgerView>) -> @-setledger:(Owner -> T.HealthLedgerToken -> U32 -> Owner) -> Owner -> Owner & U32,selection:Q.Selection,ns:U32,next:U32,aux:Array<Maybe<T.Armor>>,metadata:S.MetadataColumns<T.Tracked>,+capacity:U32,depth:Nat,high:U32,pending:List<S.Command<P.PrototypeHealthMainSlot,T.Armor,T.Tracked>>,ledger:CC.Cache<T.HealthLedger,T.LedgerView>,mode:T.HealthMode,selected:S.Handle<T.HealthSchema>,undo:X.PrototypeFlatInverse<T.HealthSchema>,commands:List<S.Command<P.PrototypeHealthMainSlot,T.Armor,T.Tracked>>,pings:List<&2,U32>,marks:X.PrototypeFlatMark<T.HealthSchema>,total:U32,result:Array<Maybe<P.PrototypeHealthMainSlot>> & U32) -> X.PrototypeFlatTx<T.HealthSchema,S.World<T.HealthSchema,P.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Command<P.PrototypeHealthMainSlot,T.Armor,T.Tracked>> & U32:
++  match result:
++    case (columns,size): prototype_handoff_health_shape_chosen(~client,selection,selected,undo,commands,pings,marks,total,(capacity <= size : U32),S.World{ns,next,S.Rows{columns,aux,metadata,capacity,depth,high},pending,Some{ledger},mode})
++def prototype_handoff_flatfold_health(~client:@-Owner:Type -> @-get:(Owner -> T.VitalsToken -> Owner & T.Access<T.VitalsView>) -> @-set:(Owner -> T.VitalsToken -> U32 -> Owner) -> @-ledger:(Owner -> T.HealthLedgerToken -> Owner & Maybe<&2,T.LedgerView>) -> @-setledger:(Owner -> T.HealthLedgerToken -> U32 -> Owner) -> Owner -> Owner & U32,selection:Q.Selection,owner:X.PrototypeFlatTx<T.HealthSchema,S.World<T.HealthSchema,P.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Command<P.PrototypeHealthMainSlot,T.Armor,T.Tracked>>,total:U32) -> X.PrototypeFlatTx<T.HealthSchema,S.World<T.HealthSchema,P.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Command<P.PrototypeHealthMainSlot,T.Armor,T.Tracked>> & U32:
++  match owner:
++    case X.PrototypeFlatTx{S.World{ns,next,rows,pending,None{},mode},selected,undo,commands,pings,marks}:
++      prototype_handoff_health_original(~client,selected,undo,commands,pings,marks,total,Q.prototype_cursor_each(T.HealthSchema,P.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,selection,S.World{ns,next,rows,pending,None{},mode}))
++    case X.PrototypeFlatTx{S.World{ns,next,S.Rows{columns,aux,metadata,capacity,depth,high},pending,Some{ledger},mode},selected,undo,commands,pings,marks}:
++      prototype_handoff_health_shape(~client,selection,ns,next,aux,metadata,capacity,depth,high,pending,ledger,mode,selected,undo,commands,pings,marks,total,Array.size(Maybe<P.PrototypeHealthMainSlot>,columns))
+--- a/experiments/s-integrate/measurement-bend.bend
++++ b/experiments/s-integrate/measurement-bend.bend
+@@ -552,8 +552,13 @@
+   match owner:
+     case prototype_packed_MotionBench{H.Host{world,logs,bindings,name,step,prior,events},sparse,total,_}:
+       prototype_packed_prototype_flat_motion_queried(sparse,total,count,logs,bindings,name,step,prior,events,audit,run,clock,prototype_packed_motion_handles(world))
++def prototype_handoff_motion_invoke(system:K.System,mode:K.Mode,count:U32,clock:R.Clock,owner:prototype_packed_MotionBench,audit:Maybe<D.Audit>,run:Maybe<R.Run>) -> IO(D.Invoked<prototype_packed_MotionBench,S.Handle<T.MotionSchema>>):
++  match owner:
++    case prototype_packed_MotionBench{H.Host{world,logs,bindings,name,step,prior,events},sparse,total,_}:
++      prototype_packed_prototype_flat_motion_updated(sparse,count,logs,bindings,name,step,prior,events,audit,run,clock,prototype_packed_prototype_flat_motion_rows_next(HA.prototype_handoff_flatfold_motion(~SC.motion_body,Q.Required{},X.prototype_flat_pack(~T.MotionSchema,~S.World<T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,~S.Command<CP.PrototypeMotionMainSlot,T.Velocity,T.Selected>,X.tx_begin(S.World<T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<CP.PrototypeMotionMainSlot,T.Velocity,T.Selected>,world,S.Handle{0,0})),total),0))
++
+ def prototype_packed_motion_tick(nodes:List<&2,K.Node>,runtime:D.Runtime<prototype_packed_MotionBench,S.Handle<T.MotionSchema>>) -> IO(D.Dispatched<prototype_packed_MotionBench,S.Handle<T.MotionSchema>>):
+-  D.tick(prototype_packed_MotionBench,S.Handle<T.MotionSchema>,prototype_packed_motion_presence,prototype_packed_motion_invoke,prototype_packed_motion_barrier,prototype_packed_motion_transition,prototype_packed_motion_frame,nodes,"MotionLedger","Mode",runtime)
++  D.tick(prototype_packed_MotionBench,S.Handle<T.MotionSchema>,prototype_packed_motion_presence,prototype_handoff_motion_invoke,prototype_packed_motion_barrier,prototype_packed_motion_transition,prototype_packed_motion_frame,nodes,"MotionLedger","Mode",runtime)
+ def prototype_packed_motion_continue(next:D.Runtime<prototype_packed_MotionBench,S.Handle<T.MotionSchema>> -> IO(D.Runtime<prototype_packed_MotionBench,S.Handle<T.MotionSchema>>),result:D.Dispatched<prototype_packed_MotionBench,S.Handle<T.MotionSchema>>) -> IO(D.Runtime<prototype_packed_MotionBench,S.Handle<T.MotionSchema>>):
+   match result:
+     case D.Dispatched{runtime,D.Complete{}}: next(runtime)
+@@ -718,8 +723,13 @@
+   match owner:
+     case prototype_packed_HealthBench{H.Host{world,logs,bindings,name,step,prior,events},sparse,total,_}:
+       prototype_packed_prototype_flat_health_queried(sparse,total,count,logs,bindings,name,step,prior,events,audit,run,clock,prototype_packed_health_handles(world))
++def prototype_handoff_health_invoke(system:K.System,mode:K.Mode,count:U32,clock:R.Clock,owner:prototype_packed_HealthBench,audit:Maybe<D.Audit>,run:Maybe<R.Run>) -> IO(D.Invoked<prototype_packed_HealthBench,S.Handle<T.HealthSchema>>):
++  match owner:
++    case prototype_packed_HealthBench{H.Host{world,logs,bindings,name,step,prior,events},sparse,total,_}:
++      prototype_packed_prototype_flat_health_updated(sparse,count,logs,bindings,name,step,prior,events,audit,run,clock,prototype_packed_prototype_flat_health_rows_next(HA.prototype_handoff_flatfold_health(~SC.health_body,Q.Required{},X.prototype_flat_pack(~T.HealthSchema,~S.World<T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,~S.Command<CP.PrototypeHealthMainSlot,T.Armor,T.Tracked>,X.tx_begin(S.World<T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<CP.PrototypeHealthMainSlot,T.Armor,T.Tracked>,world,S.Handle{0,0})),total),0))
++
+ def prototype_packed_health_tick(nodes:List<&2,K.Node>,runtime:D.Runtime<prototype_packed_HealthBench,S.Handle<T.HealthSchema>>) -> IO(D.Dispatched<prototype_packed_HealthBench,S.Handle<T.HealthSchema>>):
+-  D.tick(prototype_packed_HealthBench,S.Handle<T.HealthSchema>,prototype_packed_health_presence,prototype_packed_health_invoke,prototype_packed_health_barrier,prototype_packed_health_transition,prototype_packed_health_frame,nodes,"HealthLedger","Mode",runtime)
++  D.tick(prototype_packed_HealthBench,S.Handle<T.HealthSchema>,prototype_packed_health_presence,prototype_handoff_health_invoke,prototype_packed_health_barrier,prototype_packed_health_transition,prototype_packed_health_frame,nodes,"HealthLedger","Mode",runtime)
+ def prototype_packed_health_continue(next:D.Runtime<prototype_packed_HealthBench,S.Handle<T.HealthSchema>> -> IO(D.Runtime<prototype_packed_HealthBench,S.Handle<T.HealthSchema>>),result:D.Dispatched<prototype_packed_HealthBench,S.Handle<T.HealthSchema>>) -> IO(D.Runtime<prototype_packed_HealthBench,S.Handle<T.HealthSchema>>):
+   match result:
+     case D.Dispatched{runtime,D.Complete{}}: next(runtime)
