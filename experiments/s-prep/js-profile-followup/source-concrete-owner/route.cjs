@@ -1,0 +1,13 @@
+// Diagnostic ingress counters only. No timing or shipped-program rewrite.
+const fs=require('node:fs'),a=require('internal/deps/acorn/acorn/dist/acorn'),crypto=require('node:crypto');
+const[input,output,schema]=process.argv.slice(2),sha=s=>crypto.createHash('sha256').update(s).digest('hex');
+if(!['motion','health'].includes(schema)||fs.existsSync(output))throw Error('fresh diagnostic output/schema');
+const s=fs.readFileSync(input,'utf8'),ast=a.parse(s,{ecmaVersion:'latest'}),defs=ast.body.filter(n=>n.type==='FunctionDeclaration'),tuple=JSON.parse(fs.readFileSync(input+'.recipe.json'));
+if(tuple.outputSHA256!==sha(s))throw Error('actual candidate receipt');
+const roles={},prefix=schema==='motion'?'prototype_packed_row_':'prototype_packed_prototype_journalledger_health_';
+for(const role of ['drain','ready','flatfold']){const part=role==='flatfold'?'prototype_handoff_flatfold_'+schema:'prototype_handoff_'+schema+'_'+role;const ns=defs.filter(n=>n.id.name.includes('$058'+part+'$'));if(ns.length!==1)throw Error('unique actual handoff '+role);roles[role]=[ns[0].id.name];}
+for(const op of ['get','ledger','set','setledger','invoke']){const ns=defs.filter(n=>n.id.name.includes('$058'+prefix+op+'$'));if(ns.length!==1)throw Error('unique actual provider '+op);roles[op]=[ns[0].id.name];}
+for(const op of ['taken','returned']){const p=schema==='motion'?'prototype_packed_prototype_flatfold_motion_':'prototype_packed_prototype_journalledger_health_';const ns=defs.filter(n=>n.id.name.includes('$058'+p+op+'$'));if(ns.length!==1)throw Error('unique '+op);roles[op]=[ns[0].id.name,...tuple.clones.filter(c=>c.originalReceiver===ns[0].id.name).map(c=>c.clone)];}
+const edits=[];for(const[role,names]of Object.entries(roles))for(const name of names){const ns=defs.filter(n=>n.id.name===name);if(ns.length!==1)throw Error('unique counted function');edits.push([ns[0].body.start+1,'\n__handoff_route['+JSON.stringify(role)+']++;\n']);}
+let out=s;for(const[p,t]of edits.sort((x,y)=>y[0]-x[0]))out=out.slice(0,p)+t+out.slice(p);out='const __handoff_route='+JSON.stringify(Object.fromEntries(Object.keys(roles).map(k=>[k,0])))+';\nprocess.on("exit",()=>console.log("BENDVY_HANDOFF_ROUTE "+JSON.stringify(__handoff_route)));\n'+out;
+a.parse(out,{ecmaVersion:'latest'});fs.writeFileSync(output,out);fs.writeFileSync(output+'.route.json',JSON.stringify({inputSHA256:sha(s),outputSHA256:sha(out),recipeSHA256:sha(fs.readFileSync(__filename)),roles,scope:'Actual new handoff/provider/taken/returned diagnostic counters; original callback computations retained; no elapsed claim'},null,2)+'\n');

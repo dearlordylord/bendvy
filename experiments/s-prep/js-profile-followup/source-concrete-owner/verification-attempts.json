@@ -1,0 +1,6 @@
+{
+  "status": "RETAINED_OWN_VERIFIER_ASSERTION_FAILURE",
+  "scriptSHA256": "c6ef9443fe1f5f64310f2007cca73c969a0000c4543044a014b7609f3beb2aa8",
+  "reason": "First added count guard compared imported driver bytes without the explicitly required four source-root import rewrites. It rejected before normal join completion. This is an infrastructure verification error, not source or candidate failure.",
+  "correction": "Require exactly four old source-root import occurrences, rewrite them to exact new source root, then require singleton count change and exact body-frame hash."
+}

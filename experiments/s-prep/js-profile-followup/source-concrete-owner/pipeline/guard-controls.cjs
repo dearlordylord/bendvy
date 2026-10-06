@@ -1,0 +1,17 @@
+const assert=require('node:assert/strict'),vm=require('node:vm'),fs=require('node:fs');
+const {derive}=require('./rewrite.cjs'),{scan}=require('./analyze.cjs');
+const checks=[];function run(source){const logs=[];vm.runInNewContext(source,{record:x=>logs.push(JSON.stringify(x))});return logs;}
+function equivalent(name,source){const r=derive(source);assert.deepEqual(run(source),run(r.output));checks.push({name,status:'EQUAL',sites:r.eligible.length});}
+const tuple="{$:'Tuple',fst:step('fst'),snd:step('snd')}";
+equivalent('once-ordered-fields-and-adjacent-arguments',`let order=[];function step(x){order.push(x);return x;}function recv(a,p,b){record([a,p.fst,p.snd,b,order]);}recv(step('before'),${tuple},step('after'));`);
+for(const fault of ['before','fst','snd','after'])equivalent('exception-order-'+fault,`let order=[];function step(x){order.push(x);if(x==='${fault}')throw Error(x);return x;}function recv(a,p,b){record([a,p.fst,p.snd,b]);}try{recv(step('before'),${tuple},step('after'));}catch(e){record([e.message,order]);}`);
+equivalent('retained-affine-array-and-data-snapshot-references',`const raw=[1,2,3,4,5,6,7,8],view={values:[7,8],stamp:9};function recv(p){const a=p.fst,b=p.snd;a[7]=99;record([a===raw,b===view,raw,view]);}recv({$:'Tuple',fst:raw,snd:view});record([raw,view]);`);
+const bodies={whole:'return p;',tag:'return p.$;',write:'p.fst=1;',update:'p.fst++;',delete:'delete p.snd;',method:'return p.fst();',alias:'const q=p;return q.fst;',capture:'return ()=>p.fst;',arguments:'return arguments[0].fst;',this:'return this.x+p.fst;',shadow:'{let p=1;}return p.fst;'};
+for(const [name,body]of Object.entries(bodies)){const x=scan(`function recv(p){${body}}recv({$:'Tuple',fst:1,snd:2});`);assert.equal(x.eligible.length,0,name);checks.push({name,status:'REFUSED',reasons:x.rejected.map(r=>r.reason)});}
+for(const [name,source]of Object.entries({eval:`eval('0');`,proxy:`const x=Proxy;`,reflect:`const x=Reflect;`,caller:`const x=recv.caller;`,callee:`const x=recv['callee'];`,duplicate:`function recv(p){return p.fst;}function recv(p){return p.snd;}`,reassigned:`recv=x;`,shadowreceiver:`function outer(recv){return 1;}`,defaultparam:`function recv(p=1){return p.fst;}`,rest:`function recv(...p){return p.fst;}`,unknownpairfield:`function recv(p){return p.other;}`})){
+ let src=name==='duplicate'||name==='defaultparam'||name==='rest'||name==='unknownpairfield'?source:`function recv(p){return p.fst;}\n${source}`;src+=`\nrecv({$:'Tuple',fst:1,snd:2});`;const x=scan(src);assert.equal(x.eligible.length,0,name);checks.push({name,status:'REFUSED'});
+}
+assert.equal(scan(`function recv(p){return p.fst;}recv({$:'Tuple',fst:1,snd:2},...[]);`).eligible.length,0);checks.push({name:'spread-on-target-call',status:'REFUSED'});
+for(const malformed of [`{fst:1,$:'Tuple',snd:2}`,`{$:'Tuple',fst:1,snd:2,extra:3}`,`{$:'Tuple',get fst(){return 1},snd:2}`,`{$:'Tuple',['fst']:1,snd:2}`]){assert.equal(scan(`function recv(p){return p.fst+p.snd;}recv(${malformed});`).eligible.length,0);checks.push({name:'malformed-'+malformed,status:'REFUSED'});}
+assert.throws(()=>derive(`function recv(p,q){return p.fst+q.snd;}recv({$:'Tuple',fst:1,snd:2},{$:'Tuple',fst:3,snd:4});`),/multiple eligible/);checks.push({name:'multiple-pair-call',status:'REFUSED'});
+const out={status:'STRUCTURAL_ORDER_RETAINED_CONTROLS_PASS',scope:'Finite causal rewrite controls only, not universal Type ownership or optimizer proof',checks};fs.writeFileSync(process.argv[2],JSON.stringify(out,null,2)+'\n');console.log(JSON.stringify({status:out.status,checks:checks.length}));
