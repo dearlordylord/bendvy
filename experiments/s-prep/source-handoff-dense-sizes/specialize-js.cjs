@@ -1,0 +1,24 @@
+// Downstream count-only specialization of an already frozen derived program.
+const fs=require('node:fs'),crypto=require('node:crypto');
+const acorn=require('internal/deps/acorn/acorn/dist/acorn');
+const [input,output,schema,text]=process.argv.slice(2),count=Number(text);
+const sha=s=>crypto.createHash('sha256').update(s).digest('hex');
+if(!['motion','health'].includes(schema)||![64,1024].includes(count)||fs.existsSync(output))throw Error('fresh approved specialization only');
+const before=fs.readFileSync(input,'utf8'),parent=JSON.parse(fs.readFileSync(input+'.recipe.json'));
+if(parent.outputSHA256!==sha(before)||parent.schema!==schema)throw Error('parent derivation mismatch');
+const ast=acorn.parse(before,{ecmaVersion:'latest'});
+const mains=ast.body.filter(n=>n.type==='FunctionDeclaration'&&n.id.name==='$main$');
+if(mains.length!==1)throw Error('unique main');
+const body=mains[0].body.body;
+if(body.length!==1||body[0].type!=='ReturnStatement'||body[0].argument.type!=='CallExpression')throw Error('exact main call');
+const call=body[0].argument;
+const callee='$'+schema+'_batch$';
+const values=[256,64];
+if(call.callee.type!=='Identifier'||call.callee.name!==callee||call.arguments.length!==values.length||call.arguments.some((n,i)=>n.type!=='Literal'||n.value!==values[i]))throw Error('original size256/batch64 entry');
+const literal=call.arguments[0];
+const frame=before.slice(0,literal.start)+'<ENTITY_COUNT>'+before.slice(literal.end);
+const after=before.slice(0,literal.start)+count+before.slice(literal.end);
+acorn.parse(after,{ecmaVersion:'latest'});
+if(after.slice(0,literal.start)+'<ENTITY_COUNT>'+after.slice(literal.start+String(count).length)!==frame)throw Error('whole-program frame drift');
+fs.writeFileSync(output,after);
+fs.writeFileSync(output+'.specialization.json',JSON.stringify({status:'EXACT_MAIN_ENTITY_LITERAL_SPECIALIZATION',schema,count,batch:64,ticks:64,parentPath:input,parentSHA256:sha(before),parentReceiptSHA256:sha(fs.readFileSync(input+'.recipe.json')),outputSHA256:sha(after),recipeSHA256:sha(fs.readFileSync(__filename)),frameSHA256:sha(frame),callee,literal:{start:literal.start,end:literal.end,from:256,to:count},scope:'Entry-only downstream diagnostic artifact; original guarded recipe is not re-admitted to unknown input; all other bytes preserved'},null,2)+'\n');

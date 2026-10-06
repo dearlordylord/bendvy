@@ -5,6 +5,36 @@ performance thresholds or a selected production layout. The first two research
 tickets are now published after user authorization and [Astra review](reviews/next-research-tickets.md).
 The complete [core map](reference/core-map.md) and [SPEC](SPEC.md) remain the goal.
 
+## Active two-hour cursor owner handoff
+
+The user authorized **2026-10-06 16:19:04–18:19:04 UTC**, including verification
+and delivery. Start from frozen Slot Host closure
+`4baad4960575cda216576e8b90593fbd7ed7dcd44cfa86836b8d87dd5af71f5c`.
+Investigate a closed private two-phase cursor-to-row owner batch: descending
+selection, ascending unchanged rank2 callbacks, complete owner recovery before
+ordinary World fallback. LedgerNone must take the original route before any
+evacuation. Independently review the concrete design before implementing it;
+require fresh two-schema ownership/access, complete observations and rollback
+controls for any new source closure. The previous miniature is b0-bound and
+cannot pass those gates for the new source.
+
+Targets remain JS/TS <=1 and Native/TS <=0.5. The canonical20/20 budget remains
+exhausted; direct source work and raw diagnostics do not authorize a keep,
+production adoption or full-matrix acceptance. Diagnostic checker15/default
+proof5/codegen30/Clang120/runtime5 limits remain; no new laws, dependencies,
+compiler/kernel/reference changes or edits to canonical-defense are authorized.
+
+Delivered [window report](reports/twohour-owner-handoff.md): exact v8 fused affine
+rows pass fresh scoped source/access/query/lifecycle/retained/mutation gates.
+Raw Dense JS medians match or beat TS across64/256/1024; Native speedups are
+2.83–2.91x/2.22–2.26x/1.61–1.71x respectively, so Native2x fails1024 and the
+overall goal remains unmet. Whole-child RSS is recorded separately from Native
+request counters and approximate GC allocation intervals. Prioritize Native1024
+opaque-owner/Array transport attribution; retain the reviewed deferred hot-only
+JS Fold reuse and its exact field/exception gates. All22/full5-family matrix,
+common timed whole-World forcing, workload occupancy, qualification and production
+confinement remain open. No canonical budget reset or accepted keep.
+
 ## Active four-hour profile-guided continuation
 
 The user authorized four further hours on 2026-10-06, starting **05:51:16 UTC**
