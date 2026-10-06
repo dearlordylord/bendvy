@@ -1,0 +1,17 @@
+# Fused affine handoff rows: bounded design review
+
+Decision: permit a private source probe replacing `List<&1,PrototypeHandoffRow<Schema,M>>` with nominal recursive `PrototypeHandoffRows<Schema:Data,M:Type>` having distinct empty and node constructors, node fields `id:U32, owner:M, rest:PrototypeHandoffRows<Schema,M>`. Keep the datatype Type and consume each owner/tail exactly once. This changes representation of the same detached owners, not callback capabilities or query meaning. Distinct constructor names avoid accidental matching of the ordinary Data ID list.
+
+Exact required mapping against frozen v7:
+
+- Query state, batch, restore/inspect/selected/metadata/live/advance/finish/go/read/world-return/each and recovery headers all use the new owned rows type. Initial rows become its empty constructor. The sole successful take creates one node `{id,owner,values}` after the unchanged Array.swap; missing leaves values unchanged.
+- Descending scan and prepend are retained, so nodes are consumed ascending. No reverse is added to normal drain. Bounds, live/flag selection, capacity/size preflight and all metadata/aux fields remain identical.
+- Both concrete drains match empty→unchanged complete state; node→same original taken call with Some owner and reconstructed namespace/id Handle, then recurse on rest using the returned state. No authored client/provider/returned/finish body changes.
+- Mid-drain LedgerNone must reconstruct/pass the FULL current node `{id,owner,rest}` to recovery, not only rest. Recovery restores each current owner with Array.set, accumulates its ID, and reverses the ordinary Data ID list exactly once at empty. Only after all owners are restored may the original cursor loop run. Initial LedgerNone still selects the old query/fold before evacuation.
+- Generic/nonidentity fallback carries the complete returned owner/context; never reattach stale detached rows afterward. Original public definitions/imports and measurement tick invocation mappings remain unchanged beyond the private rows representation.
+
+The existing public hole-bearing batch confinement limitation remains: nominal affine nodes do not themselves prevent an independently fabricated batch or mismatched world/rows. This design is confined to the exact private producer/drain callgraph, supported compiled Array invariant and size preflight. It provides no universal authority/refinement proof or foreign-array interoperability claim.
+
+Before readiness, check/emit both schemas and fresh full65 fields, then actual Native constructor/RFC attribution. Fresh finite controls must execute empty/single/multiple ascending nodes, all selections/missing/bounds, capacity failure old route, initial and mid-drain LedgerNone complete recovery, nonidentity fallback complete returned context, immutable retained Data, arbitrary affine owned payloads and clone/schema negatives. Reuse original protected algorithms/oracles, not prior version pass receipts. Compiling mutants should drop current recovery owner, reverse normal drain or recovery IDs, omit a tail, and discard returned context. Source/version/build/recipe/cache joins must be exact.
+
+Expected mechanism is only removal of the separate Row constructor and its sealing into List Cons; the generic opaque Main owner and recursive tail can still seal. No additive allocation prediction, elapsed gain or adoption follows from this design review. No implementation or new proof/law was written here.
