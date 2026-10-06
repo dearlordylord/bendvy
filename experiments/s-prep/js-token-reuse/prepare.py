@@ -5,6 +5,11 @@ from pathlib import Path
 p=argparse.ArgumentParser();p.add_argument('--baseline',type=Path,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args();a.output.mkdir(parents=True,exist_ok=False)
 sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
 m=json.loads((a.baseline/'overlay.json').read_text());assert len(m['sources'])==29
+cache=json.loads((a.baseline/'cache-specialization.json').read_text())
+assert cache==m['cacheSpecialization'],'Embedded/standalone baseline cache receipt mismatch'
+assert cache['runtimeClosure']==m['sources'],'Baseline runtime closure differs from actual source pins'
+assert cache['specializedClosure']==m['sources'],'Baseline specialized closure differs from actual source pins'
+assert cache['runtimeClosureSHA256']==hashlib.sha256(json.dumps(m['sources'],sort_keys=True,separators=(',',':')).encode()).hexdigest(),'Baseline runtime closure digest mismatch'
 for name,digest in m['sources'].items():
  assert sha(a.baseline/name)==digest,name
  target=a.output/name;target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(a.baseline/name,target)
@@ -30,6 +35,11 @@ oldheaders=[line for line in original.splitlines() if line.startswith(('def ','t
 newheaders=[line for line in text.splitlines() if line.startswith(('def ','type '))]
 assert all(line in newheaders for line in oldheaders)
 m['sources']={n:sha(a.output/n) for n in m['sources']}
+cache['runtimeClosure']=dict(m['sources'])
+cache['specializedClosure']=dict(m['sources'])
+cache['runtimeClosureSHA256']=hashlib.sha256(json.dumps(m['sources'],sort_keys=True,separators=(',',':')).encode()).hexdigest()
+m['cacheSpecialization']=cache
+(a.output/'cache-specialization.json').write_text(json.dumps(cache,indent=2)+'\n')
 m['tokenReuse']={'baselineManifestSHA256':sha(a.baseline/'overlay.json'),'baselineSources':json.loads((a.baseline/'overlay.json').read_text())['sources'],'changedModules':[name],'originalSHA256':hashlib.sha256(original.encode()).hexdigest(),'candidateSHA256':sha(target),'originalHeadersRetained':True,'scope':'Four private tokens helpers; public motion/health body routing changed. Callback bodies are new source, not original callback pin acceptance. Full owner/get/set/access function types unchanged.'}
 (a.output/'overlay.json').write_text(json.dumps(m,indent=2)+'\n')
 Path(__file__).with_name('candidate-client.bend').write_text(text)
