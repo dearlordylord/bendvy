@@ -1,0 +1,15 @@
+--- experiments/s-integrate/storage.bend
++++ experiments/s-integrate/storage.bend
+@@ -276,0 +277,7 @@
++def prototype_closed_publish(~M: Type,~A: Type,~F: Data,-S: Data,-L: Type,-Mode: Data,
++  world: World<S,M,A,F,L,Mode>,staged: List<Command<M,A,F>>) -> World<S,M,A,F,L,Mode>:
++  match world:
++    case World{namespace,next,rows,pending,ledger,mode}:
++      World{namespace,next,rows,List.reverse.go(&1,Command<M,A,F>,List.reverse(&1,Command<M,A,F>,staged),pending),ledger,mode}
++
++
+--- experiments/s-integrate/transaction.bend
++++ experiments/s-integrate/transaction.bend
+@@ -140 +140 @@
+-    case Committed{world,commands,pings,marks}: (S.publish(Schema,M,A,F,L,Mode,prototype_closed_L_mark_all(~L,Schema,M,A,F,Mode,marks,world,tick),List.reverse(&1,S.Command<M,A,F>,commands)),pings)
++    case Committed{world,commands,pings,marks}: (S.prototype_closed_publish(~M,~A,~F,Schema,L,Mode,prototype_closed_L_mark_all(~L,Schema,M,A,F,Mode,marks,world,tick),List.reverse(&1,S.Command<M,A,F>,commands)),pings)

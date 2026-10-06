@@ -1,0 +1,55 @@
+[
+  {
+    "argv": [
+      "taskset",
+      "-c",
+      "9",
+      "bend",
+      "/tmp/bendvy-threehour-journal-handle/experiments/s-prep/source-closed-metadata/closed-publish-control.bend",
+      "--check-only"
+    ],
+    "capSeconds": 5,
+    "exit": 0,
+    "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+  },
+  {
+    "argv": [
+      "taskset",
+      "-c",
+      "9",
+      "bend",
+      "/tmp/bendvy-threehour-journal-handle/experiments/s-prep/source-closed-metadata/closed-publish-control.bend",
+      "-o",
+      "/tmp/bendvy-closed-publish-control.js"
+    ],
+    "capSeconds": 30,
+    "exit": 0,
+    "output": ""
+  },
+  {
+    "argv": [
+      "taskset",
+      "-c",
+      "9",
+      "node",
+      "/tmp/bendvy-closed-publish-control.js"
+    ],
+    "capSeconds": 5,
+    "exit": 0,
+    "output": "(7, 3, 9, 71, 99, [3, 4])\n"
+  },
+  {
+    "status": "PASS_FINITE_COMMAND_ORDER_RAW_LEDGER_PINGS_FOREIGN_MARK",
+    "expected": [
+      7,
+      3,
+      9,
+      71,
+      99,
+      [
+        3,
+        4
+      ]
+    ]
+  }
+]
