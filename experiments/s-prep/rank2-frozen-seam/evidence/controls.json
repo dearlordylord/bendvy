@@ -1,0 +1,133 @@
+{
+  "scope": "Language/checker feasibility only; no core rewrite or production authority approval",
+  "cases": {
+    "current-seam": {
+      "sourceSHA256": "f431476184cb853a252774163241340f4f76d28067965aef71ae90b654606cf9",
+      "commands": [
+        {
+          "argv": [
+            "bend",
+            "/tmp/bendvy-rank2-frozen-seam-v2/current-seam.bend",
+            "--check-only"
+          ],
+          "limitSeconds": 15,
+          "exit": 0,
+          "timeout": false,
+          "elapsedSeconds": 0.32697987789288163,
+          "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+        },
+        {
+          "argv": [
+            "bend",
+            "/tmp/bendvy-rank2-frozen-seam-v2/current-seam.bend",
+            "-o",
+            "/tmp/bendvy-rank2-frozen-seam-v2/current-seam.c"
+          ],
+          "limitSeconds": 30,
+          "exit": 0,
+          "timeout": false,
+          "elapsedSeconds": 0.265376711031422,
+          "output": ""
+        },
+        {
+          "argv": [
+            "clang",
+            "-O3",
+            "/tmp/bendvy-rank2-frozen-seam-v2/current-seam.c",
+            "-o",
+            "/tmp/bendvy-rank2-frozen-seam-v2/current-seam.bin",
+            "-lm",
+            "-pthread"
+          ],
+          "limitSeconds": 120,
+          "exit": 0,
+          "timeout": false,
+          "elapsedSeconds": 0.4215745849069208,
+          "output": ""
+        },
+        {
+          "argv": [
+            "/tmp/bendvy-rank2-frozen-seam-v2/current-seam.bin",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "limitSeconds": 5,
+          "exit": 0,
+          "timeout": false,
+          "elapsedSeconds": 0.003363071009516716,
+          "output": "42\n"
+        }
+      ],
+      "pass": true
+    },
+    "rank2-frozen-binder": {
+      "sourceSHA256": "37f43c0ba71c2244cb6a940c632114da431569c70144c73339c781358b1b2adb",
+      "commands": [
+        {
+          "argv": [
+            "bend",
+            "/tmp/bendvy-rank2-frozen-seam-v2/rank2-frozen-binder.bend",
+            "--check-only"
+          ],
+          "limitSeconds": 15,
+          "exit": 1,
+          "timeout": false,
+          "elapsedSeconds": 0.12474114005453885,
+          "output": "SOME PROOFS FAIL\nError:\n- expected : a name\n- observed : '~'\nLocation:\n5 |   get(owner)\n6>| def invoke(~client:@~Owner:Type -> @-get:(Owner -> U32) -> Owner -> U32,owner:U32) -> U32:\n  |                     ^\n7 |   client(U32,getter,owner)\n"
+        }
+      ],
+      "intendedDiagnostics": [
+        "- expected : a name",
+        "- observed : '~'"
+      ],
+      "rejected": true
+    },
+    "frozen-variable-call": {
+      "sourceSHA256": "7b504f3b43ecb4882d9844d806283aade52bbdde7b184825bc6638ff4c205738",
+      "commands": [
+        {
+          "argv": [
+            "bend",
+            "/tmp/bendvy-rank2-frozen-seam-v2/frozen-variable-call.bend",
+            "--check-only"
+          ],
+          "limitSeconds": 15,
+          "exit": 1,
+          "timeout": false,
+          "elapsedSeconds": 0.13421434699557722,
+          "output": "SOME PROOFS FAIL\nError:\n- expected : a term\n- observed : '~'\nLocation:\n6 | def invoke(~client:@-Owner:Type -> @-get:(Owner -> U32) -> Owner -> U32,owner:U32) -> U32:\n7>|   client(~U32,~getter,owner)\n  |          ^\n8 | def main() -> IO(Unit):\n"
+        }
+      ],
+      "intendedDiagnostics": [
+        "- expected : a term",
+        "- observed : '~'"
+      ],
+      "rejected": true
+    },
+    "abstract-owner-inspection": {
+      "sourceSHA256": "7b582a7b0d224dcd1a394abce31ebfa3c5c5fbdf53e64e44e32630b5ea248992",
+      "commands": [
+        {
+          "argv": [
+            "bend",
+            "/tmp/bendvy-rank2-frozen-seam-v2/abstract-owner-inspection.bend",
+            "--check-only"
+          ],
+          "limitSeconds": 15,
+          "exit": 1,
+          "timeout": false,
+          "elapsedSeconds": 0.2486742720939219,
+          "output": "SOME PROOFS FAIL\nError:\n- expected : U32\n- observed : body~Owner\nContext:\n- owner : body~Owner\nLocation: body\n4 | def body(~Owner:Type,~get:Owner -> U32,owner:Owner) -> U32:\n5>|   U32.add(owner,1)\n  |           ^^^^^\n6 | def invoke(~client:@-Owner:Type -> @-get:(Owner -> U32) -> Owner -> U32,owner:U32) -> U32:\n"
+        }
+      ],
+      "intendedDiagnostics": [
+        "- expected : U32",
+        "- observed : body~Owner",
+        "Location: body"
+      ],
+      "rejected": true
+    }
+  }
+}
