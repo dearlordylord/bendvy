@@ -1,0 +1,41 @@
+[
+  {
+    "argv": [
+      "timeout",
+      "15s",
+      "taskset",
+      "-c",
+      "6",
+      "bend",
+      "/tmp/bendvy-slot-host-motion-id-buffer-direct-v1/experiments/s-integrate/query.bend",
+      "--check-only"
+    ],
+    "exit": 0
+  },
+  {
+    "argv": [
+      "timeout",
+      "15s",
+      "taskset",
+      "-c",
+      "6",
+      "bend",
+      "/tmp/bendvy-slot-host-motion-id-buffer-direct-v1/experiments/s-integrate/held-adapter.bend",
+      "--check-only"
+    ],
+    "exit": 0
+  },
+  {
+    "argv": [
+      "timeout",
+      "15s",
+      "taskset",
+      "-c",
+      "6",
+      "bend",
+      "/tmp/bendvy-slot-host-motion-id-buffer-direct-v1/experiments/s-integrate/measurement-bend.bend",
+      "--check-only"
+    ],
+    "exit": 0
+  }
+]

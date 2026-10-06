@@ -30,8 +30,8 @@ fields and one recursive tail. Actual scalar ID read/write and selected-count
 increment remain in the reached C; ID buffer setup and guards remain workload
 work. There is no allocation or speed claim from this layout observation.
 
-Native build, runtime/oracle comparisons, fresh semantic/mutation gates and
-allocation/timing await root decision. No v3 acceptance transfers. The private
+Historical v10 status: Native build, runtime/oracle comparisons, fresh semantic/mutation gates and
+allocation/timing awaited root decision. No v3 acceptance transfers. The private
 producer invariant aligns owner-list length, selected count and initialized ID
 prefix; arbitrary exported malformed detached Bundles cannot be universally
 recovered. Preflight size controls belong before evacuation.
@@ -50,8 +50,8 @@ evidence, not runtime admission; complete build receipt is retained. Repaired
 v12 evaluates Main physical-size/capacity and capacity<=2^31 before allocation.
 Zero/one capacity allocates depth0; otherwise depth=log2(capacity-1)+1. Invalid
 preflight resumes original execution; metadata depth is never an allocation
-input. The actual ID size guard remains before evacuation. v12 passes all three
-module checks; fresh build/runtime gates await reviewer acknowledgment.
+input. The actual ID size guard remains before evacuation. Historical pre-admission v12 status: v12 passed all three
+module checks; fresh build/runtime gates awaited reviewer acknowledgment.
 
 Current admitted source: `/tmp/bendvy-slot-host-motion-id-buffer-v12`, closure
 `599b1c2fb2389fc71fdcf289243b0e388caab33a338625623cbf6f38bfbd9a63`.
@@ -65,3 +65,10 @@ The complete build/runtime archive decodes to verified hashes; Native binary
 hashes are retained. No elapsed qualification or allocation gain is claimed.
 Fresh arbitrary-Type/access and actual split-route lifecycle/mutation evidence
 remain separate gates.
+
+V12 full runtime gates passed, but independent word attribution is negative:
+101 million requests /37 million RFC /561 million words versus concrete-v3
+29 million /12 million /169 million. These rounded totals are the independent
+worker report, not this producer rerun. V12 has no admitted comparative timing.
+Root authorized the separate direct-drain source probe to remove added resume
+closures and temporary Fold/context boxing; see direct-drain/.
