@@ -26,8 +26,8 @@ def hook(loader,module):
 importlib.machinery.SourceFileLoader.exec_module=hook;sys.path.insert(0,str(BASE))
 path=BASE/({'tx':'tx-controls-run.py','access':'access-run.py','static':'static-world-run.py'}[a.gate]);r['runnerSHA256']=sha(path);r['sharedRecognizerSHA256']=sha(FAFILE)
 try:
- sys.argv=[str(path),'--overlay',str(a.overlay),'--output',str(a.output/'actual'),'--cpu','10']
- if a.gate=='access':sys.argv=[str(path),str(a.overlay),'--evidence',str(a.output/'actual.json'),'--cpu','10']
+ sys.argv=[str(path),'--overlay',str(a.overlay),'--output',str(a.output/'actual'),'--cpu','8']
+ if a.gate=='access':sys.argv=[str(path),str(a.overlay),'--evidence',str(a.output/'actual.json'),'--cpu','8']
  if a.gate=='tx':sys.argv+=['--split-schemas']+(['--mutation',a.mutation] if a.mutation else [])
  path=(HERE/'static-world-run.py') if a.gate=='static' else path
  r['actualRunnerPath']=str(path);r['actualRunnerSHA256']=sha(path)

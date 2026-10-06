@@ -38,7 +38,7 @@ try:
   unpack=f'X.prototype_flat_pair_unpack(~T.{cap}Schema,~{w},~{c},'
   text+=f'''
 def fixture_body(~Owner:Type,~get:Owner -> T.{main}Token -> Owner & T.Access<T.{view}>,~set:Owner -> T.{main}Token -> U32 -> Owner,~ledger:Owner -> T.{cap}LedgerToken -> Owner & Maybe<&2,T.LedgerView>,~setledger:Owner -> T.{cap}LedgerToken -> U32 -> Owner,owner:Owner) -> Owner & U32:
-  (setledger(setledger(set(owner,T.{main}Token{{}},30),T.{cap}LedgerToken{{}},200),T.{cap}LedgerToken{{}},300),55)
+  (setledger(setledger(set(set(owner,T.{main}Token{{}},20),T.{main}Token{{}},30),T.{cap}LedgerToken{{}},200),T.{cap}LedgerToken{{}},300),55)
 def selected(handle:S.Handle<T.{cap}Schema>,owner:{tx}) -> {tx}:
   match owner:
     case X.Tx{{world,_,undo,commands,pings,marks}}: X.Tx{{world,handle,undo,commands,pings,marks}}
@@ -102,8 +102,8 @@ def main() -> IO(Unit):
     assert oldpre['selected']==({'namespace':8,'id':1} if kind==0 else {'namespace':7,'id':2})
     assert oldpre['pings']==([12,11] if kind==0 else [66,55])
     assert oldpre['commands']==([{'kind':'RemoveFlagView','id':1},{'kind':'DespawnView','id':2}] if kind==0 else [{'kind':'DespawnView','id':1},{'kind':'RemoveFlagView','id':2}])
-    assert oldpre['marks']==([{'namespace':7,'id':1},{'namespace':7,'id':2}] if kind==0 else [{'namespace':8,'id':1},{'namespace':7,'id':1},{'namespace':7,'id':2},{'namespace':7,'id':1}])
-    assert oldpre['undo']==('L:200;L:300;L:200;L:100;M7/1:10;L:77;' if kind==0 else 'M7/1:10;L:100;L:77;'),oldpre
+    assert oldpre['marks']==([{'namespace':7,'id':1},{'namespace':7,'id':1},{'namespace':7,'id':2}] if kind==0 else [{'namespace':8,'id':1},{'namespace':7,'id':1},{'namespace':7,'id':2},{'namespace':7,'id':1}])
+    assert oldpre['undo']==('L:200;L:300;L:200;L:100;M7/1:20;M7/1:10;L:77;' if kind==0 else 'M7/1:10;L:100;L:77;'),oldpre
     coords='coordinates' if lane=='motion' else 'levels';assert oldpre['world']['rows'][0]['main'][coords]['a']==(30 if kind==0 else 40)
     assert oldpre['world']['ledger']['totals']['a']==(300 if kind==0 else 400)
     assert oldpost['world']['rows'][0]['main'][coords]['a']==(10 if fail else 30 if kind==0 else 40)
@@ -114,6 +114,6 @@ def main() -> IO(Unit):
    if a.mutation:assert len(mismatches)==4,mismatches
    else:assert not mismatches,mismatches
    r['cases'].append({'schema':lane,'backend':'JS' if program.suffix=='.js' else 'Native','status':'DETECTED_COMPILING_COUNTEREXAMPLE' if a.mutation else 'PASS','records':16,'sourceSHA256':sha(src),'programSHA256':sha(program),'mismatches':mismatches})
- r['status']='COMPILING_RETURNED_OWNER_STATE_MUTANT_DETECTED_BOTH' if a.mutation else 'ACTUAL_NONIDENTITY_GENERIC_FALLBACK_AND_CONCRETE_TRANSPORT_FINISH_BOTH_PASS'
+ r['status']='COMPILING_RETURNED_OWNER_STATE_MUTANT_DETECTED_BOTH' if a.mutation else 'ACTUAL_REPEATED_MAIN_RANK2_FALLBACK_FINISH_LITERAL_BOTH_PASS'
 except Exception as e:r.update(status='FAIL',error=repr(e));raise
 finally:save()
