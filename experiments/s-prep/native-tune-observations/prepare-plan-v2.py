@@ -40,7 +40,7 @@ for catalog_path in a.catalog:
  baseline=feature['baselineFeatures'];candidate=feature['candidateFeatures']
  allowed=['+zcm','+zcz'];assert all(x not in baseline and candidate.count(x)==1 for x in allowed)
  assert [x for x in candidate if x not in allowed]==baseline
- assert feature['baselineCPU']==feature['candidateCPU']=='generic'
+ assert feature['baselineTargetCPU']==feature['candidateTargetCPU']=='generic'
  assert feature['tripleIdentical'] and feature['abiIdentical']
  assert str(Path(c['isaFeatureReceipt']).resolve()) in pins
  assert all(str(Path(c[k]).resolve()) in pins for k in ['defaultBuild','tuneBuild','hardwareReceipt','jsFreeze','admission','jsProgram','defaultNative','tuneNative','defaultC','tuneC'])
