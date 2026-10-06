@@ -38,7 +38,7 @@ schema full64 builds and four Native/JS fresh65 full-world comparisons pass.
 Initial Tx executor observes all cached/raw fields then fails the old suppressed
 writer recognizer; this is retained as failure. Scoped local recognizer adaptation
 routes the actual new private provider/finish/unwind and preserves the independent
-oracle. v4 complete Tx/mutations and final source-specific full65 remain in progress.
+oracle. v4 complete Tx/mutations and final source-specific full65 subsequently pass below.
 No passing receipt is transferred from v3 to v4.
 
 Frozen v4 closure: `bdba8a91c1b56f4961217454139b79dc5c1614ab2301f4dae766a0cd70934bb3`.
