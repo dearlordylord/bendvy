@@ -1,0 +1,61 @@
+{
+  "status": "BOTH_ACTUAL_DENSE1024_C_EMISSION_PASS",
+  "commands": [
+    {
+      "argv": [
+        "timeout",
+        "30s",
+        "taskset",
+        "-c",
+        "6",
+        "bend",
+        "/tmp/bendvy-concrete-owner-layout-v3/motion/batch.bend",
+        "-o",
+        "/tmp/bendvy-concrete-owner-layout-v3/motion/batch.c"
+      ],
+      "exit": 0
+    },
+    {
+      "argv": [
+        "timeout",
+        "30s",
+        "taskset",
+        "-c",
+        "6",
+        "bend",
+        "/tmp/bendvy-concrete-owner-layout-v3/health/batch.bend",
+        "-o",
+        "/tmp/bendvy-concrete-owner-layout-v3/health/batch.c"
+      ],
+      "exit": 0
+    }
+  ],
+  "builds": {
+    "motion": {
+      "batch.bend": {
+        "originalSHA256": "cba149cd35ef9d350cf63860f207b7ee968dd2abb3154a2ec27dbcd59819c776",
+        "outputSHA256": "621136b24b1b119a2debf37d31f72d854c8abaf13340ac85534e95a48b34e9e9",
+        "pathOnlyRewrite": true
+      },
+      "measurement-bend.bend": {
+        "originalSHA256": "4dbe19d6944751aeffa7e9ed5246dd6aa293e153de0979d2da28ef238874ea17",
+        "outputSHA256": "a09c1349ae3dbf698ff54e46dd0835c023a1c31ebe36d6d7719fba3c7664134e",
+        "pathOnlyRewrite": true
+      },
+      "cSHA256": "8985487e65dbb924b7380bb5bd8aa6ba0392fd528654988ff1e1498c0daffc63"
+    },
+    "health": {
+      "batch.bend": {
+        "originalSHA256": "f7801b87eebd3804c3a69c39b597a11744b26dfa0aa179bfeb448d2c8c96139e",
+        "outputSHA256": "011e611608cb17e7a552e12abed43c5e62b880806c178a99be0f66ab5a7a5e06",
+        "pathOnlyRewrite": true
+      },
+      "measurement-bend.bend": {
+        "originalSHA256": "30f520fac59aeb1b92803e9e0f28a7c6bdc4bb47385403c54f403b0213ec5f3f",
+        "outputSHA256": "d04feaadb5ee0d6745391f619bbda07b6736a13127038b62ac39981a21d7f865",
+        "pathOnlyRewrite": true
+      },
+      "cSHA256": "8ad141db784695d350ec70b4b874ba565d18db0dfaa4e8c396308d86015aef1a"
+    }
+  }
+}

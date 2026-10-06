@@ -1,0 +1,16 @@
+SOME PROOFS FAIL
+Error:
+- expected : a constructor of query.PrototypeConcreteMotionHandoffBatch (missing, or already matched)
+- observed : \{Q.PrototypeHandoffBatch: (world => rows => prototype_packed_prototype_flatfold_motion_finish(prototype_handoff_motion_drain(prototype_handoff_motion_ready~client, rows, prototype_packed_prototype_flatfold_motion_pack(X.PrototypeFlatTx{world, selected, undo, commands, pings, marks}, total))))}
+Context:
+- selected : S.Handle<T.MotionSchema>
+- undo     : X.PrototypeFlatInverse<T.MotionSchema>
+- commands : List<&1, S.Command<P.PrototypeMotionMainSlot, T.Velocity, T.Selected>>
+- pings    : List<&2, U32>
+- marks    : X.PrototypeFlatMark<T.MotionSchema>
+- total    : U32
+Location: prototype_handoff_motion_ready
+826 |   match batch:
+827>|     case Q.PrototypeHandoffBatch{world,rows}: prototype_packed_prototype_flatfold_motion_finish(prototype_handoff_motion_drain(~client,rows,prototype_packed_prototype_flatfold_motion_pack(X.PrototypeFlatTx{world,selected,undo,commands,pings,marks},total)))
+    |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+828 | def prototype_handoff_motion_original(~client:@-Owner:Type -> @-get:(Owner -> T.PositionToken -> Owner & T.Access<T.PositionView>) -> @-set:(Owner -> T.PositionToken -> U32 -> Owner) -> @-ledger:(Owner -> T.MotionLedgerToken -> Owner & Maybe<&2,T.LedgerView>) -> @-setledger:(Owner -> T.MotionLedgerToken -> U32 -> Owner) -> Owner -> Owner & U32,selected:S.Handle<T.MotionSchema>,undo:X.PrototypeFlatInverse<T.MotionSchema>,commands:List<S.Command<P.PrototypeMotionMainSlot,T.Velocity,T.Selected>>,pings:List<&2,U32>,marks:X.PrototypeFlatMark<T.MotionSchema>,total:U32,result:S.World<T.MotionSchema,P.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode> & Q.PrototypeIdCursor<T.MotionSchema>) -> X.PrototypeFlatTx<T.MotionSchema,S.World<T.MotionSchema,P.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Command<P.PrototypeMotionMainSlot,T.Velocity,T.Selected>> & U32:
