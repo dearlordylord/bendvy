@@ -1,0 +1,84 @@
+[
+  {
+    "argv": [
+      "python3",
+      "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-measurement/prepare-bend.py",
+      "--core",
+      "/tmp/bendvy-query-paired-journal-v1/experiments/s-integrate",
+      "--output",
+      "/tmp/bendvy-query-paired-health-v1",
+      "--schema",
+      "Health",
+      "--batch",
+      "64"
+    ],
+    "exit": 0,
+    "output": "",
+    "capSeconds": 5,
+    "cpu": 7
+  },
+  {
+    "argv": [
+      "python3",
+      "/workspace/formal-proofs/bendvy/experiments/s-prep/static-schema-driver/materialize.py",
+      "--driver",
+      "/tmp/bendvy-query-paired-health-v1/batch.bend",
+      "--schema",
+      "Health"
+    ],
+    "exit": 0,
+    "output": "{\"scope\": \"Only known schema at main entry selected statically; all runtime modules/callbacks/work/clock/outputs unchanged; not canonical evaluator approval\", \"schema\": \"Health\", \"originalSHA256\": \"66af9e5d89d93b9943dbe575e47a6c9747e6ab3282ac9a205cbd3b71fa5d5fb1\", \"derivedSHA256\": \"21dfe93bf66fb65943bd6bff7b1f4c2daf2960793a4ad13acee2f98c13813e1c\", \"originalMain\": \"choose(1,256,64)\", \"derivedMain\": \"health_batch(256,64)\", \"recipeSHA256\": \"32e5af1cbb3e5996253d1f29f531de23d2ebb47f9e6ce9ac19c4ec6ac0fae6f7\"}\n",
+    "capSeconds": 5,
+    "cpu": 7
+  },
+  {
+    "argv": [
+      "bend",
+      "/tmp/bendvy-query-paired-health-v1/batch.bend",
+      "--check-only"
+    ],
+    "exit": 0,
+    "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n",
+    "capSeconds": 15,
+    "cpu": 7
+  },
+  {
+    "argv": [
+      "bend",
+      "/tmp/bendvy-query-paired-health-v1/batch.bend",
+      "-o",
+      "/tmp/bendvy-query-paired-health-v1/batch.js"
+    ],
+    "exit": 0,
+    "output": "",
+    "capSeconds": 30,
+    "cpu": 7
+  },
+  {
+    "argv": [
+      "bend",
+      "/tmp/bendvy-query-paired-health-v1/batch.bend",
+      "-o",
+      "/tmp/bendvy-query-paired-health-v1/batch.c"
+    ],
+    "exit": 0,
+    "output": "",
+    "capSeconds": 30,
+    "cpu": 7
+  },
+  {
+    "argv": [
+      "/tmp/bendvy-clang19-diagnostic/clang19",
+      "-O3",
+      "/tmp/bendvy-query-paired-health-v1/batch.c",
+      "-pthread",
+      "-lm",
+      "-o",
+      "/tmp/bendvy-query-paired-health-v1/batch.native"
+    ],
+    "exit": 0,
+    "output": "",
+    "capSeconds": 120,
+    "cpu": 7
+  }
+]

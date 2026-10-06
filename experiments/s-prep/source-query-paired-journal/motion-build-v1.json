@@ -1,0 +1,84 @@
+[
+  {
+    "argv": [
+      "python3",
+      "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-measurement/prepare-bend.py",
+      "--core",
+      "/tmp/bendvy-query-paired-journal-v1/experiments/s-integrate",
+      "--output",
+      "/tmp/bendvy-query-paired-motion-v1",
+      "--schema",
+      "Motion",
+      "--batch",
+      "64"
+    ],
+    "exit": 0,
+    "output": "",
+    "capSeconds": 5,
+    "cpu": 7
+  },
+  {
+    "argv": [
+      "python3",
+      "/workspace/formal-proofs/bendvy/experiments/s-prep/static-schema-driver/materialize.py",
+      "--driver",
+      "/tmp/bendvy-query-paired-motion-v1/batch.bend",
+      "--schema",
+      "Motion"
+    ],
+    "exit": 0,
+    "output": "{\"scope\": \"Only known schema at main entry selected statically; all runtime modules/callbacks/work/clock/outputs unchanged; not canonical evaluator approval\", \"schema\": \"Motion\", \"originalSHA256\": \"bafafec3f20a342bce531e1d51f96dafdd5a09f2a6ee29d2e6492777f574edbb\", \"derivedSHA256\": \"677959fda11845ad2d66eaf9361d4a11a036b911327148d4c03757e51398b273\", \"originalMain\": \"choose(0,256,64)\", \"derivedMain\": \"motion_batch(256,64)\", \"recipeSHA256\": \"32e5af1cbb3e5996253d1f29f531de23d2ebb47f9e6ce9ac19c4ec6ac0fae6f7\"}\n",
+    "capSeconds": 5,
+    "cpu": 7
+  },
+  {
+    "argv": [
+      "bend",
+      "/tmp/bendvy-query-paired-motion-v1/batch.bend",
+      "--check-only"
+    ],
+    "exit": 0,
+    "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n",
+    "capSeconds": 15,
+    "cpu": 7
+  },
+  {
+    "argv": [
+      "bend",
+      "/tmp/bendvy-query-paired-motion-v1/batch.bend",
+      "-o",
+      "/tmp/bendvy-query-paired-motion-v1/batch.js"
+    ],
+    "exit": 0,
+    "output": "",
+    "capSeconds": 30,
+    "cpu": 7
+  },
+  {
+    "argv": [
+      "bend",
+      "/tmp/bendvy-query-paired-motion-v1/batch.bend",
+      "-o",
+      "/tmp/bendvy-query-paired-motion-v1/batch.c"
+    ],
+    "exit": 0,
+    "output": "",
+    "capSeconds": 30,
+    "cpu": 7
+  },
+  {
+    "argv": [
+      "/tmp/bendvy-clang19-diagnostic/clang19",
+      "-O3",
+      "/tmp/bendvy-query-paired-motion-v1/batch.c",
+      "-pthread",
+      "-lm",
+      "-o",
+      "/tmp/bendvy-query-paired-motion-v1/batch.native"
+    ],
+    "exit": 0,
+    "output": "",
+    "capSeconds": 120,
+    "cpu": 7
+  }
+]
