@@ -1,0 +1,19 @@
+# Actual handoff lifecycle controls — v7
+
+Frozen candidate closure `a9a2fa20913658b9561056e660803e3afd74870f321ff3a30c839e62fa44a56b`; original Slot reference closure `4baad4960575cda216576e8b90593fbd7ed7dcd44cfa86836b8d87dd5af71f5c`. This is finite diagnostic evidence, not full22 acceptance, a production API, a proof, or performance approval.
+
+`run.py` executes original query enumeration plus original cursor fold and the actual new handoff entry independently. It consumes/restores each returned transaction to observe **actual** pre-finish selected handle, inverse order, marks, commands, pings and total, then executes success publication or rollback. Original/candidate equality is supplemented by literal expectations. The pre-observer preserves the original private inverse chain, including Pair constructors.
+
+The fresh v7 cohort contains 19 positive subjects × two schemas × JS/Native, eight logical records per role (608 records). It covers one/two rows, cached/raw observers, populated dead neighbor, missing Main, Required/Present/Absent/Optional selection, retained immutable Main/Ledger views, incoming inverses/marks/FIFO commands/pings, LedgerNone before evacuation, capacity alias fallback and explicit recovery after evacuation. Five actual compiling omissions are detected in both schemas/backends: detached owner, ascending order, Pair unwind, pending Main flush and recovered owner. These 20 mutation roles contribute 160 counterexample records, not ordinary passing execution records.
+
+Forced recovery is a concrete adapter intervention: it changes the evacuated Batch's ledger to None before calling the actual consumer. It establishes context recovery and returned-world transport, not permission for an opaque rank-2 callback to remove its ledger.
+
+`physical.py` adds three distinct one/two/recovery subjects × schemas/backends, 20 records each (240 records). A consuming renderer observes every physical **Main** Slot leaf, full component raw array and cache metadata before enumeration, before finish and after finish. The populated dead neighbor survives and rollback restores true-old values. Auxiliary columns and metadata are threaded, but this renderer does not physically inspect every Aux/stamp tombstone; the logical observer only renders live rows. Generic Q physical-owner evidence belongs to `source-handoff-query-controls` and is not transferred here.
+
+Historical failures remain archived: v1 affine checker rejection; v2 actual size-one/capacity-two alias divergence; unsupported ragged-array failstop before query; v5 open-element codegen rejection; v6 separate diagnostics; the initial retained fixture parser mistake, a contaminated original-reference mutation and an incorrect Health metadata oracle. Corrected v7 receipts are separate. No historical passing result establishes a v7 gate.
+
+`evidence-index.json` maps original receipt/input/output paths to content-addressed decoded SHA objects in `evidence.tar.gz`. Frozen baseline/candidate modules, fixture templates, generated Bend subjects, executed recipe snapshots, command receipts and runtime outputs are included. Generated C/JS/binaries are not bundled; their exact hashes and build commands remain in receipts. Run `python3 verify.py` to check archive integrity and the finite cohort. This does not rerun subjects or validate canonical gates.
+
+Execution limits: diagnostic check 15 s, emission 30 s, private approved Clang19 120 s, runtime 5 s, CPU8, Native one worker/GPU off. No compiler/kernel/reference changes or new dependencies. Original authored system callbacks remain unchanged; test fixture callbacks intentionally perform nonidentity updates.
+
+Follow-ups remain explicit: production confinement of exported hole-bearing Batch/World, universal runtime refinement, broader physical consumer observation, canonical gate enrollment and equivalent-work performance acceptance. This package does not claim these are completed.
