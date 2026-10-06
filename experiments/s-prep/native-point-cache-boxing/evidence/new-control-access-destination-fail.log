@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-connected-gates/access-run.py", line 77, in <module>
+    assert code==0,output
+           ^^^^^^^
+AssertionError: Traceback (most recent call last):
+  File "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-connected-gates/static-world-run.py", line 48, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-connected-gates/static-world-run.py", line 18, in main
+    p=argparse.ArgumentParser();p.add_argument('--overlay',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--cpu',type=int,default=9);a=p.parse_args();a.output.mkdir(parents=True,exist_ok=False);os.sched_setaffinity(0,{a.cpu});r={'status':'INCOMPLETE','scope':'Finite actual factory lineage, two live local-id-1 worlds, static SC/HA foreign and same-world callback full fields; no universal refinement or performance acceptance','limitsSeconds':{'checker':int(os.environ.get('BENDVY_CHECKER_SECONDS','5')),'runtime':5,'codegen':30,'clang':120},'backendPolicy':{'Native':{'clang':'-O3','threads':1,'gpu':'off'},'JS':{'runtime':'Node'}},'observationModes':['cached','raw-uncached-affine-owner'],'fixtureSHA256':sha(HERE/'static-world-controls.bend'),'cases':[]}
+                                                                                                                                                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/pathlib.py", line 1117, in mkdir
+    os.mkdir(self, mode)
+FileExistsError: [Errno 17] File exists: '/tmp/static-world'

@@ -1,0 +1,53 @@
+{
+  "scope": "Finite actual private Native point-cache owner controls; no full connected acceptance, new law/proof, universal refinement, performance acceptance or adoption",
+  "cpu": 10,
+  "limits": {
+    "executableCheckerOptIn": 15,
+    "proofDefault": 5,
+    "codegen": 30,
+    "clang": 120,
+    "runtime": 5
+  },
+  "controlCommands": [
+    "BENDVY_CHECKER_SECONDS=15 python3 /workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-connected-gates/tx-controls-run.py --overlay /tmp/bendvy-native-point-cache-boxing-reproduced-v2 --output /tmp/bendvy-native-point-cache-boxing-tx-exact29 --cpu 10 --split-schemas",
+    "BENDVY_CHECKER_SECONDS=15 python3 /workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-connected-gates/tx-controls-run.py --overlay /tmp/bendvy-native-point-cache-boxing-reproduced-v2 --output /tmp/bendvy-native-point-cache-boxing-tx-lost-mark --mutation lost-mark --cpu 10 --split-schemas",
+    "BENDVY_CHECKER_SECONDS=15 python3 /workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-connected-gates/tx-controls-run.py --overlay /tmp/bendvy-native-point-cache-boxing-reproduced-v2 --output /tmp/bendvy-native-point-cache-boxing-tx-inverse-order --mutation inverse-order --cpu 10 --split-schemas",
+    "BENDVY_CHECKER_SECONDS=15 python3 /workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-connected-gates/access-run.py /tmp/bendvy-native-point-cache-boxing-connected-controls --evidence /tmp/bendvy-native-point-cache-boxing-access-fresh/evidence.json --cpu 10"
+  ],
+  "results": {
+    "original": {
+      "status": "FINITE_ACTUAL_TX_CACHE_FIELDS_PASS",
+      "observedLanes": 8,
+      "recordsPerLane": 72,
+      "receiptSHA256": "cdc13e031dea7a46454ebe980fcc7b6cf3eaea53064739195d24c7209c6afa67"
+    },
+    "lost-mark": {
+      "status": "DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE",
+      "observedLanes": 8,
+      "recordsPerLane": 72,
+      "receiptSHA256": "c4c135f30734ce3b3ad7ca7b6be30b6ff2b3cf9f6877a1d0b9ef7013819b41d4"
+    },
+    "inverse-order": {
+      "status": "DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE",
+      "observedLanes": 8,
+      "recordsPerLane": 72,
+      "receiptSHA256": "96326b85906d609a87ef9e5d0afd6d643ae2270d911eee814851c1a70f3542d6"
+    },
+    "access": {
+      "accessCases": 9,
+      "providerCases": 8,
+      "providerPositiveCases": 2,
+      "providerNegativeCases": 6,
+      "actualFactoryCases": 16,
+      "status": "INDEXED ACCESS STATIC CONTROLS PASS"
+    },
+    "suppressed-owner": {
+      "status": "PASS_LIVE_NOOP_TRUEOLD_JOURNAL_MARK_FULLFIELDS_BOTH"
+    }
+  },
+  "retainedFailures": [
+    "Expanded raw-snapshot control measurement closure has30 reachable modules, while suppression requires exact29; rerun uses exact29 recipe overlay.",
+    "Initial access evidence parent collided with pre-existing /tmp/static-world; rerun uses a fresh unique parent."
+  ],
+  "terminalCompilerBlocker": false
+}

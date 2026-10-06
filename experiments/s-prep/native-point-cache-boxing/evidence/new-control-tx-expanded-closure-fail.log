@@ -1,0 +1,18 @@
+built /tmp/bendvy-native-point-cache-boxing-tx-original/cached/core/cache-tx-motion-controls.bend
+built /tmp/bendvy-native-point-cache-boxing-tx-original/cached/core/cache-tx-health-controls.bend
+built /tmp/bendvy-native-point-cache-boxing-tx-original/raw/core/cache-tx-motion-controls.bend
+built /tmp/bendvy-native-point-cache-boxing-tx-original/raw/core/cache-tx-health-controls.bend
+Traceback (most recent call last):
+  File "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-connected-gates/tx-controls-run.py", line 85, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-connected-gates/tx-controls-run.py", line 81, in main
+    result['suppressedOwner']=suppressed.run(a.overlay,a.output,records[0],a.output/'suppressed-owner',a.cpu,a.split_schemas)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-connected-gates/suppressed-owner.py", line 44, in run
+    visit(core_input/'measurement-bend.bend');assert runtime_sources==PC.runtime_sources(overlay),'Suppression runtime membership differs'
+                                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-connected-gates/provider_controls.py", line 63, in runtime_sources
+    assert set(seen)==expected,'Exact checked runtime closure membership differs'
+           ^^^^^^^^^^^^^^^^^^^
+AssertionError: Exact checked runtime closure membership differs
