@@ -12,7 +12,7 @@ The earlier v10 source was rejected because public depth could drive ID-buffer a
 
 Source `/tmp/bendvy-slot-host-motion-id-buffer-direct-v1` has exact29 closure `84b808cee2c1a657569888229241dd95ae59f314025512c20159d951f4a1db2c`. Its completed build is `/tmp/bendvy-motion-id-buffer-direct-dense1024-build-v1/build.json`. `verify-normal.py` checks coherent maps, current tool/include/build/driver bytes, and all three layer joins. Safety rewriters are unchanged; only exact admission catalogs and Motion-only orchestration are new.
 
-`freeze.json` binds 70 consumed normal files and current receipts. Final candidate `/tmp/bendvy-motion-id-buffer-direct-generated-v1/motion-tuple.js` has SHA-256 `51c8ab43ad7a92ab6c5362363b4a52738858aaa51efc423a7e786f783d92695a`.
+`freeze.json` binds 92 consumed normal and control-producer files and current receipts. Final candidate `/tmp/bendvy-motion-id-buffer-direct-generated-v1/motion-tuple.js` has SHA-256 `51c8ab43ad7a92ab6c5362363b4a52738858aaa51efc423a7e786f783d92695a`.
 
 Fresh Motion full65 and diagnostic-route full65 pass. The actual new direct drain, entry and ready execute 4,160 times, and direct step plus get/ledger/set/setledger/invoke/taken/returned execute 4,259,840 times each; counters include actual direct-Tuple clones. Four newly compiled cached/raw one/two-row retained controllers pass 32 literal records, with source-specific scoped entry/provider counters. Three live derived-receiver mutants (Main cache, Ledger cache, true-old Main) are killed. Eight helper records cover complete owning arrays of lengths1/2/4/8 and retained immutable Data/true-old/pending pairs. Twelve row-scope and 34 Tuple/order refusal controls pass.
 
