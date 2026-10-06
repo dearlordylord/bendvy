@@ -52,3 +52,35 @@ Closed private storage/commands/host specialization preserves original public ge
 ## Unprofiled source observations (03:45 UTC)
 
 After safe owned-worker boundaries, one exact full65 adjacent comparison/schema passes all fields. Motion TS294.443517ms, frozen19 Native381/row276, frozen JS465/row387. Health TS319.907692ms, Native342/303, JS742/842. Candidate elapsed/TS Motion JS1.3143/Native0.9374; Health JS2.6320/Native0.9471. Both goals remain unmet and Health JS adverse result is retained. These are individual diagnostics, not unknown-noise qualification or measured-improvement acceptance. Workers resume source investigations; actual Health JS receives a separate phase profile.
+
+## Fresh source frontier (04:09 UTC)
+
+The [row/query join](../../experiments/s-prep/source-row-query-join/README.md)
+now passes fresh full65 worlds on both schemas/backends, original/suppressed Tx576
+records/backend, retained generic-Type/full-Data controls, both live mutation
+families and scoped authority/query negatives. These are joined-source executions,
+not transferred independent receipts. Full22, broader production confinement and
+all performance acceptance remain open.
+
+Actual Health row-source profiling attributes sampled heap to row return,
+Main/Ledger getters and query metadata; inline attribution and profiling effects
+limit interpretation. The subsequent source write-fold matches both full65
+schemas/backends and actual Tx/suppression. Ordinary JS construction counts fall
+8,907,328→7,861,824/nine worlds. Independent fresh Native operation and constructor
+totals exactly equal row split; static ARM64 fold transport has larger spill/reload
+footprint. No additional Native allocation saving or elapsed gain is claimed.
+
+A separate exact closed no-get query-client source probe retains the original
+client and full Handle values, forwarding the unused affine Aux column instead
+of swapping/restoring it. Fresh65 fields pass; independent Motion Native counts
+remove352,256 Velocity constructions and704,512 requested words versus its own
+frozen/continuation base, with RFC unchanged. That is a different overlay from
+row split, so savings are not added without a fresh composed-source execution.
+Root is checking the fail-closed three-way fold/no-Aux composition independently.
+
+Closed source helper specialization has removed successive observed metadata,
+storage, append, frame and observation seeds. Each byte-identical generated-C
+receipt retains the next exact boundary; global conservative hotness still
+persists at query.struct_idx_finish. This does not resolve global sharing or
+authorize compiler/kernel changes. The current five/15/30/120/5 limits and all
+unmet targets remain unchanged.
