@@ -17,8 +17,8 @@ assert review['catalogPins']=={str(x.resolve()):sha(x) for x in a.catalog}
 pin(a.review)
 for path in [__file__,HERE/'observe.py',HERE/'summarize.py',HERE/'cohort.py']:pin(path)
 schemas={}
-for path in a.catalog:
- pin(path);c=json.loads(path.read_text());schema=c['schema'];assert schema in ['Motion','Health'] and schema not in schemas
+for catalog_path in a.catalog:
+ pin(catalog_path);c=json.loads(catalog_path.read_text());schema=c['schema'];assert schema in ['Motion','Health'] and schema not in schemas
  # Caller supplies the actual fresh verified enrollment; every referenced byte is checked now and after execution.
  assert c['scope']=='SAME_C_LSE_DENSE1024_ENROLLMENT'
  assert c['count']==1024 and c['batch']==64 and c['iterations']==64
@@ -27,6 +27,13 @@ for path in a.catalog:
  for path,h in c['pins'].items():pin(path,h)
  for key in ['sourceRoot','sourceClosure','defaultBuild','lseBuild','hardwareReceipt','jsFreeze','admission','jsProgram','defaultNative','lseNative','defaultC','lseC']:
   assert key in c
+ ad=json.loads(Path(c['admission']).read_text());assert ad['sourceClosure']==c['sourceClosure']
+ if schema=='Motion':assert ad['scope']=='FRESH_MOTION_SPLIT_ID_RAW_ADMISSION' and ad['status']=='PASS_SCOPED_FINITE_GATES'
+ else:assert ad['scope']=='FRESH_CONCRETE_OWNER_V3_RAW_ADMISSION'
+ assert ad['groups']
+ for group in ad['groups'].values():
+  assert group
+  for name in group:pin(name)
  assert sha(c['defaultC'])==sha(c['lseC'])==c['cSHA256']
  assert c['defaultNative']!=c['lseNative']
  assert all(str(Path(c[k]).resolve()) in pins for k in ['defaultBuild','lseBuild','hardwareReceipt','jsFreeze','admission','jsProgram','defaultNative','lseNative','defaultC','lseC'])
@@ -45,8 +52,7 @@ for path in a.catalog:
  expected=[compiler,'-O3','-march=armv8-a+lse',c['defaultC'],'-o',c['lseNative'],'-lm','-pthread']
  assert sum(x['argv']==expected and x['exit']==0 for x in l['commands'])==1
  default=[x['argv'] for x in b['commands'] if '-O3' in x['argv'] and c['defaultC'] in x['argv']]
- assert len(default)==1 and '-march=armv8-a+lse' not in default[0]
- assert not any(x.startswith('-march') or x in ['-O2','-Os','-Ofast'] for x in default[0])
+ assert default==[[compiler,'-O3',c['defaultC'],'-o',c['defaultNative'],'-lm','-pthread']]
  
  for rel,h in b['sourcePins'].items():pin(Path(c['sourceRoot'])/rel,h)
  manifest=json.loads((Path(c['sourceRoot'])/'overlay.json').read_text());cache=json.loads((Path(c['sourceRoot'])/'cache-specialization.json').read_text());assert manifest['cacheSpecialization']==cache
@@ -71,7 +77,7 @@ for path in a.catalog:
   assert c[key]
   for name,h in c[key].items():pin(name,h)
  roles=[{'name':'baseline-JS','argv':['node',c['jsProgram']]},{'name':'baseline-Native','argv':[c['defaultNative'],'--threads','1','--gpu','off']},{'name':'handoff-JS','argv':['node',c['jsProgram']]},{'name':'lse-Native','argv':[c['lseNative'],'--threads','1','--gpu','off']}]
- schemas[schema]={'roles':roles,'sourceClosure':c['sourceClosure'],'catalog':str(path.resolve()),'sameJSMeaning':'Both JS roles intentionally execute the identical current guarded program; only Native compiler flags differ.'}
+ schemas[schema]={'roles':roles,'sourceClosure':c['sourceClosure'],'catalog':str(catalog_path.resolve()),'sameJSMeaning':'Both JS roles intentionally execute the identical current guarded program; only Native compiler flags differ.'}
 assert set(schemas)=={'Motion','Health'}
 plan={'scope':'RAW_SAME_C_LSE_DENSE1024_DIAGNOSTIC','count':1024,'batch':64,'iterations':64,'observerSHA256':sha(HERE/'observe.py'),'schemas':schemas,'pins':dict(sorted(pins.items())),'reviewAdmission':{'status':review['status'],'path':str(a.review.resolve()),'sha256':sha(a.review)},'order':'ten fixed rotations: five shifts then five reversed shifts','claimLimit':'Raw diagnostic only; no canonical allowance/reset/keep, qualification, full22 or product acceptance'}
 a.output.write_text(json.dumps(plan,indent=2)+'\n');print('PROSPECTIVE_SAME_C_LSE_PLAN_PREPARED',sha(a.output))

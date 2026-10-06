@@ -13,12 +13,19 @@ a = p.parse_args()
 assert not a.output.exists()
 result = {'scope': 'Raw same-C LSE Dense1024/64ticks/64fresh-worlds diagnosis only; no qualification, keep or full-matrix acceptance',
           'cohorts': {}, 'receiptPins': {}}
+index_path=Path(a.prefix+'-index.json')
+index=json.loads(index_path.read_text());result['receiptPins'][str(index_path)]=hashlib.sha256(index_path.read_bytes()).hexdigest()
+assert len(index['rows'])==20
 for schema in ['Motion', 'Health']:
     records = []
     for rotation in range(10):
         path = Path(a.prefix + '-' + schema.lower() + '-r' + str(rotation)) / 'evidence.json'
+        row=next(x for x in index['rows'] if x['schema']==schema and x['rotation']==rotation)
+        if not path.exists():
+            records.append({'schema':schema,'rotation':rotation,'status':row['status'],'planSHA256':index['planSHA256']});continue
         data = path.read_bytes()
         result['receiptPins'][str(path)] = hashlib.sha256(data).hexdigest()
+        assert result['receiptPins'][str(path)]==row['receiptSHA256']
         record = json.loads(data)
         assert record['schema'] == schema and record['rotation'] == rotation
         records.append(record)
