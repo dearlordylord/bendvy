@@ -99,10 +99,10 @@ def movement_get(~H: Type,~set: H -> S.Position -> H,~aux: H -> H & C.Access<S.V
   match observed:
     case (ctx,C.Found{+position}): movement_aux(~H,~set,~resource_get,position,aux(ctx))
     case (ctx,_): (ctx,T.Failure{UnsupportedFixture{}})
-def movement_body(~H: Type,~get: H -> H & C.Access<S.PositionView>,~set: H -> S.Position -> H,~aux: H -> H & C.Access<S.VelocityView>,~resource_get: H -> H & F32,~resource_set: H -> F32 -> H,~emit: H -> S.SimEvent -> H,~despawn: H -> H,~spawn: H -> S.Bundle -> H & W.Reservation<S.Schema>,args: Unit,handle: W.Handle<S.Schema>,ctx: H) -> H & T.Outcome<UserError>:
+def movement_body(~H: Type,~get: H -> H & C.Access<S.PositionView>,~set: H -> S.Position -> H,~aux: H -> H & C.Access<S.VelocityView>,~resource_get: H -> H & F32,args: Unit,handle: W.Handle<S.Schema>,ctx: H) -> H & T.Outcome<UserError>:
   movement_get(~H,~set,~aux,~resource_get,get(ctx))
 def movement(world: W.World<S.Schema,S.Store,F32,S.SimEvent>) -> T.Returned<W.World<S.Schema,S.Store,F32,S.SimEvent>,Pv.Error<UserError>>:
-  Q.each_rw_read(~S.Schema,~S.Store,~F32,~S.SimEvent,~S.PositionRest,~S.Position,~S.PositionView,~S.PositionToken,~S.take_positions,~S.put_positions,~S.project_position,~S.VelocityRest,~S.Velocity,~S.VelocityView,~S.VelocityToken,~S.take_velocities,~S.put_velocities,~S.project_velocity,~F32,~resource_view,~S.Bundle,~S.populate,~S.clear,~Unit,~UserError,~movement_body,S.position(),S.velocity(),Q.Required{},world,Unit{})
+  Q.each_rw_read_resource(~S.Schema,~S.Store,~F32,~S.SimEvent,~S.PositionRest,~S.Position,~S.PositionView,~S.PositionToken,~S.take_positions,~S.put_positions,~S.project_position,~S.VelocityRest,~S.Velocity,~S.VelocityView,~S.VelocityToken,~S.take_velocities,~S.put_velocities,~S.project_velocity,~F32,~resource_view,~S.Bundle,~S.populate,~S.clear,~Unit,~UserError,~movement_body,S.position(),S.velocity(),Q.Required{},world,Unit{})
 def damage_publish(~H: Type,~emit: H -> S.SimEvent -> H,~despawn: H -> H,+id: U32,+amount: F32,+hp: F32,dead: Bool,ctx: H) -> H & T.Outcome<UserError>:
   match dead:
     case False{}: (emit(ctx,S.Hit{id,amount,hp}),T.Success{})
