@@ -55,6 +55,33 @@ def despawn_join(~S: Data,~C: Type,~R: Type,~E: Data,checked: W.World<S,C,R,E> &
   (world,allowed) = checked
   despawn_checked(~S,~C,~R,~E,allowed,world,undo,commands,events,handle)
 
+# Low-level liveness-only operation retains component storage. Gameplay uses tx_despawn_with.
 def tx_despawn(~S: Data,~C: Type,~R: Type,~E: Data,tx: T.Tx<W.World<S,C,R,E>,E>,+handle: W.Handle<S>) -> T.Tx<W.World<S,C,R,E>,E> & W.Status:
   match tx:
     case T.Tx{world,undo,commands,events}: despawn_join(~S,~C,~R,~E,W.valid(~S,~C,~R,~E,world,handle),undo,commands,events,handle)
+
+# Schema-owned clear releases every component family after accepted deactivation.
+def clear_join(~S: Data,~C: Type,~R: Type,~E: Data,cleared: W.World<S,C,R,E> & Unit) -> W.World<S,C,R,E>:
+  (world,unit) = cleared
+  world
+
+def clear_accepted(~S: Data,~C: Type,~R: Type,~E: Data,~clear: C -> W.Handle<S> -> C,activated: W.World<S,C,R,E> & W.Status,handle: W.Handle<S>) -> W.World<S,C,R,E>:
+  match activated:
+    case (world,W.Rejected{_}): world
+    case (world,W.Accepted{}): clear_join(~S,~C,~R,~E,W.with_store(~S,~C,~R,~E,~Unit,(store => (clear(store,handle),Unit{})),world))
+
+def despawn_apply_with(~S: Data,~C: Type,~R: Type,~E: Data,~clear: C -> W.Handle<S> -> C,world: W.World<S,C,R,E>,+handle: W.Handle<S>) -> W.World<S,C,R,E>:
+  clear_accepted(~S,~C,~R,~E,~clear,W.deactivate(~S,~C,~R,~E,world,handle),handle)
+
+def despawn_checked_with(~S: Data,~C: Type,~R: Type,~E: Data,~clear: C -> W.Handle<S> -> C,allowed: Bool,world: W.World<S,C,R,E>,undo: List<(W.World<S,C,R,E> -> W.World<S,C,R,E>)>,commands: List<(W.World<S,C,R,E> -> W.World<S,C,R,E>)>,events: List<&2,E>,handle: W.Handle<S>) -> T.Tx<W.World<S,C,R,E>,E> & W.Status:
+  match allowed:
+    case False{}: (T.Tx{world,undo,commands,events},W.Rejected{W.MissingEntity{}})
+    case True{}: (T.Tx{world,undo,(w => despawn_apply_with(~S,~C,~R,~E,~clear,w,handle)) <> commands,events},W.Accepted{})
+
+def despawn_join_with(~S: Data,~C: Type,~R: Type,~E: Data,~clear: C -> W.Handle<S> -> C,checked: W.World<S,C,R,E> & Bool,undo: List<(W.World<S,C,R,E> -> W.World<S,C,R,E>)>,commands: List<(W.World<S,C,R,E> -> W.World<S,C,R,E>)>,events: List<&2,E>,handle: W.Handle<S>) -> T.Tx<W.World<S,C,R,E>,E> & W.Status:
+  (world,allowed) = checked
+  despawn_checked_with(~S,~C,~R,~E,~clear,allowed,world,undo,commands,events,handle)
+
+def tx_despawn_with(~S: Data,~C: Type,~R: Type,~E: Data,~clear: C -> W.Handle<S> -> C,tx: T.Tx<W.World<S,C,R,E>,E>,+handle: W.Handle<S>) -> T.Tx<W.World<S,C,R,E>,E> & W.Status:
+  match tx:
+    case T.Tx{world,undo,commands,events}: despawn_join_with(~S,~C,~R,~E,~clear,W.valid(~S,~C,~R,~E,world,handle),undo,commands,events,handle)
