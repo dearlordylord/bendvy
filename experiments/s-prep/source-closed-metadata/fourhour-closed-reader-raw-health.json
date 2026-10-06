@@ -1,0 +1,79 @@
+[
+  {
+    "argv": [
+      "bend",
+      "/tmp/bendvy-threehour-journal-handle/experiments/s-prep/source-closed-metadata/closed-reader-raw-health-control.bend",
+      "--check-only"
+    ],
+    "cpu": 7,
+    "capSeconds": 5,
+    "exit": 0,
+    "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+  },
+  {
+    "argv": [
+      "bend",
+      "/tmp/bendvy-threehour-journal-handle/experiments/s-prep/source-closed-metadata/closed-reader-raw-health-control.bend",
+      "-o",
+      "/tmp/bendvy-fourhour-closed-reader-raw-health/control.js"
+    ],
+    "cpu": 7,
+    "capSeconds": 30,
+    "exit": 0,
+    "output": ""
+  },
+  {
+    "argv": [
+      "node",
+      "/tmp/bendvy-fourhour-closed-reader-raw-health/control.js"
+    ],
+    "cpu": 7,
+    "capSeconds": 5,
+    "exit": 0,
+    "output": "(Report{1, [41, 42, 43, 44], [101, 102, 103, 104], [201, 202, 203, 204]}, Report{2, [41, 42, 43, 44], [101, 102, 103, 104], [201, 202, 203, 204]}, Report{3, [41, 42, 43, 44], [], [201, 202, 203, 204]})\n"
+  },
+  {
+    "argv": [
+      "bend",
+      "/tmp/bendvy-threehour-journal-handle/experiments/s-prep/source-closed-metadata/closed-reader-raw-health-control.bend",
+      "-o",
+      "/tmp/bendvy-fourhour-closed-reader-raw-health/control.c"
+    ],
+    "cpu": 7,
+    "capSeconds": 30,
+    "exit": 0,
+    "output": ""
+  },
+  {
+    "argv": [
+      "/tmp/bendvy-clang19-diagnostic/clang19",
+      "-O3",
+      "/tmp/bendvy-fourhour-closed-reader-raw-health/control.c",
+      "-pthread",
+      "-lm",
+      "-o",
+      "/tmp/bendvy-fourhour-closed-reader-raw-health/control.native"
+    ],
+    "cpu": 7,
+    "capSeconds": 120,
+    "exit": 0,
+    "output": ""
+  },
+  {
+    "argv": [
+      "/tmp/bendvy-fourhour-closed-reader-raw-health/control.native",
+      "--threads",
+      "1",
+      "--gpu",
+      "off"
+    ],
+    "cpu": 7,
+    "capSeconds": 5,
+    "exit": 0,
+    "output": "(Report{1, [41, 42, 43, 44], [101, 102, 103, 104], [201, 202, 203, 204]}, Report{2, [41, 42, 43, 44], [101, 102, 103, 104], [201, 202, 203, 204]}, Report{3, [41, 42, 43, 44], [], [201, 202, 203, 204]})\n"
+  },
+  {
+    "status": "PASS_FINITE_FULL_RAW_CELLS_ORDER_SATURATION_FOREIGN",
+    "expected": "(Report{1, [41, 42, 43, 44], [101, 102, 103, 104], [201, 202, 203, 204]}, Report{2, [41, 42, 43, 44], [101, 102, 103, 104], [201, 202, 203, 204]}, Report{3, [41, 42, 43, 44], [], [201, 202, 203, 204]})"
+  }
+]

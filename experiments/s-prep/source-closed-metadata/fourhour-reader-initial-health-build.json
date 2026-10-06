@@ -1,0 +1,57 @@
+[
+  {
+    "argv": [
+      "python3",
+      "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-measurement/prepare-bend.py",
+      "--core",
+      "/tmp/bendvy-fourhour-closed-reader-initial-probe/experiments/s-integrate",
+      "--output",
+      "/tmp/bendvy-fourhour-closed-reader-initial-health-build",
+      "--schema",
+      "Health",
+      "--batch",
+      "64"
+    ],
+    "capSeconds": 5,
+    "cpu": 7,
+    "exit": 0,
+    "output": ""
+  },
+  {
+    "argv": [
+      "python3",
+      "/workspace/formal-proofs/bendvy/experiments/s-prep/static-schema-driver/materialize.py",
+      "--driver",
+      "/tmp/bendvy-fourhour-closed-reader-initial-health-build/batch.bend",
+      "--schema",
+      "Health"
+    ],
+    "capSeconds": 5,
+    "cpu": 7,
+    "exit": 0,
+    "output": "{\"scope\": \"Only known schema at main entry selected statically; all runtime modules/callbacks/work/clock/outputs unchanged; not canonical evaluator approval\", \"schema\": \"Health\", \"originalSHA256\": \"154b6ddb7bef3398bfdcca61a494a1fd766270b4aca3a8676e2478cdb89b9e16\", \"derivedSHA256\": \"89e64d9c74c55029b1711cfefed1c5306067e629153721cb836536270e030630\", \"originalMain\": \"choose(1,256,64)\", \"derivedMain\": \"health_batch(256,64)\", \"recipeSHA256\": \"32e5af1cbb3e5996253d1f29f531de23d2ebb47f9e6ce9ac19c4ec6ac0fae6f7\"}\n"
+  },
+  {
+    "argv": [
+      "bend",
+      "/tmp/bendvy-fourhour-closed-reader-initial-health-build/batch.bend",
+      "--check-only"
+    ],
+    "capSeconds": 15,
+    "cpu": 7,
+    "exit": 0,
+    "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+  },
+  {
+    "argv": [
+      "bend",
+      "/tmp/bendvy-fourhour-closed-reader-initial-health-build/batch.bend",
+      "-o",
+      "/tmp/bendvy-fourhour-closed-reader-initial-health-build/batch.c"
+    ],
+    "capSeconds": 30,
+    "cpu": 7,
+    "exit": 0,
+    "output": ""
+  }
+]

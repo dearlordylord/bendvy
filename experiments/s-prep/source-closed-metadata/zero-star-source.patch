@@ -1,0 +1,609 @@
+--- a/experiments/s-integrate/commands.bend
++++ b/experiments/s-integrate/commands.bend
+@@ -13,0 +14,11 @@
++
++def prototype_closed_reserved(~M: Type,~A: Type,~F: Data,-Schema: Data,-L: Type,-Mode: Data,
++  bundle: S.Bundle<M,A,F>,result: S.World<Schema,M,A,F,L,Mode> & Maybe<&2,S.Handle<Schema>>) -> T.Reservation<S.World<Schema,M,A,F,L,Mode>,S.Handle<Schema>,S.Bundle<M,A,F>>:
++  match result:
++    case (world,None{}): T.ReserveRejected{world,bundle}
++    case (world,Some{S.Handle{namespace,+id}}): T.Reserved{S.prototype_closed_publish(~M,~A,~F,Schema,L,Mode,world,[S.Spawn{id,bundle}]),S.Handle{namespace,id}}
++
++def prototype_closed_reserve(~M: Type,~A: Type,~F: Data,~L: Type,~Mode: Data,-Schema: Data,
++  world: S.World<Schema,M,A,F,L,Mode>,bundle: S.Bundle<M,A,F>) -> T.Reservation<S.World<Schema,M,A,F,L,Mode>,S.Handle<Schema>,S.Bundle<M,A,F>>:
++  prototype_closed_reserved(~M,~A,~F,Schema,L,Mode,bundle,I.prototype_closed_L_reserve_id(~L,~Mode,Schema,M,A,F,world))
++
+@@ -172,0 +184,126 @@
++
++# Bounded closed private lifecycle hypothesis; originals retained.
++def prototype_closed_edit_row(~Schema: Data,~M: Type,~A: Type,~F: Data,+namespace: U32,+tick: U32,command: S.Command<M,A,F>,row: S.Row<M,A,F>) -> RowEdit<Schema,M,A,F>:
++  match command row:
++    case S.InsertFlag{_,flag} S.Row{id,main,aux,_,added,changed}:
++      RowEdit{Some{S.Row{id,main,aux,Some{flag},added,changed}},[]}
++    case S.RemoveFlag{_} S.Row{id,main,aux,_,added,changed}:
++      RowEdit{Some{S.Row{id,main,aux,None{},added,changed}},[]}
++    case S.InsertMain{_,_} r: RowEdit{Some{r},[]}
++    case S.RemoveMain{_} r: RowEdit{Some{r},[]}
++    case S.Despawn{_} S.Row{+id,Some{_},_,_,_,_}:
++      RowEdit{None{},[S.MainRemoved{S.Handle{namespace,id}},S.Despawned{S.Handle{namespace,id}}]}
++    case S.Despawn{_} S.Row{id,None{},_,_,_,_}:
++      RowEdit{None{},[S.Despawned{S.Handle{namespace,id}}]}
++    case S.Spawn{_,_} r: RowEdit{Some{r},[]}
++
++# Entire queue is preflighted before the first payload is installed. The affine
++# queue is reconstructed in its original order, including on rejection.
++
++def prototype_closed_bounded_spawn(~M: Type,~A: Type,~F: Data,id: U32,bundle: S.Bundle<M,A,F>,result: S.Rows<M,A,F> & Bool) -> S.Rows<M,A,F> & (S.Command<M,A,F> & Bool):
++  match result:
++    case (rows,valid): (rows,(S.Spawn{id,bundle},valid))
++
++def prototype_closed_command_bound(~M: Type,~A: Type,~F: Data,rows: S.Rows<M,A,F>,command: S.Command<M,A,F>) -> S.Rows<M,A,F> & (S.Command<M,A,F> & Bool):
++  match command:
++    case S.Spawn{+id,bundle}:
++      prototype_closed_bounded_spawn(~M,~A,~F,id,bundle,S.prototype_closed_rows_can_place(~M,~A,~F,rows,id))
++    case other: (rows,(other,True{}))
++
++def prototype_closed_preflight_step(~M: Type,~A: Type,~F: Data,reverse: List<S.Command<M,A,F>>,valid: Bool,result: S.Rows<M,A,F> & (S.Command<M,A,F> & Bool)) -> Preflight<M,A,F>:
++  match result:
++    case (rows,(command,bounded)): Preflight{rows,command <> reverse,valid && bounded}
++
++def prototype_closed_preflight_go(~M: Type,~A: Type,~F: Data,commands: List<S.Command<M,A,F>>,state: Preflight<M,A,F>) -> Preflight<M,A,F>:
++  match commands state:
++    case Nil{} Preflight{rows,reverse,valid}: Preflight{rows,List.reverse(&1,S.Command<M,A,F>,reverse),valid}
++    case Con{command,tail} Preflight{rows,reverse,valid}: prototype_closed_preflight_go(~M,~A,~F,tail,prototype_closed_preflight_step(~M,~A,~F,reverse,valid,prototype_closed_command_bound(~M,~A,~F,rows,command)))
++
++def prototype_closed_preflight(~M: Type,~A: Type,~F: Data,commands: List<S.Command<M,A,F>>,rows: S.Rows<M,A,F>) -> Preflight<M,A,F>:
++  prototype_closed_preflight_go(~M,~A,~F,commands,Preflight{rows,[],True{}})
++
++def prototype_closed_removed(~Schema: Data,~M: Type,~A: Type,~F: Data,changes: List<&2,S.Change<Schema>>,result: S.Rows<M,A,F> & Maybe<S.Row<M,A,F>>) -> StepResult<Schema,M,A,F>:
++  match result:
++    case (rows,_): Stepped{rows,changes}
++
++def prototype_closed_edited(~Schema: Data,~M: Type,~A: Type,~F: Data,rows: S.Rows<M,A,F>,id: U32,result: RowEdit<Schema,M,A,F>) -> StepResult<Schema,M,A,F>:
++  match result:
++    case RowEdit{Some{row},changes}: Stepped{S.prototype_closed_rows_restore(~M,~A,~F,rows,row),changes}
++    case RowEdit{None{},changes}: prototype_closed_removed(~Schema,~M,~A,~F,changes,S.prototype_closed_rows_remove(~M,~A,~F,rows,id))
++
++def prototype_closed_extracted(~Schema: Data,~M: Type,~A: Type,~F: Data,namespace: U32,tick: U32,id: U32,command: S.Command<M,A,F>,result: S.Rows<M,A,F> & Maybe<S.Row<M,A,F>>) -> StepResult<Schema,M,A,F>:
++  match result:
++    case (rows,None{}): Stepped{rows,[]}
++    case (rows,Some{row}): prototype_closed_edited(~Schema,~M,~A,~F,rows,id,prototype_closed_edit_row(~Schema,~M,~A,~F,namespace,tick,command,row))
++
++def prototype_closed_placed(~Schema: Data,~M: Type,~A: Type,~F: Data,changes: List<&2,S.Change<Schema>>,result: S.Placement<M,A,F>) -> StepResult<Schema,M,A,F>:
++  match result:
++    case S.Placed{rows}: Stepped{rows,changes}
++    case S.Rejected{rows,row}: PlacementFault{rows,row}
++
++def prototype_closed_spawn(~Schema: Data,~M: Type,~A: Type,~F: Data,+namespace: U32,+tick: U32,+id: U32,rows: S.Rows<M,A,F>,bundle: S.Bundle<M,A,F>) -> StepResult<Schema,M,A,F>:
++  match bundle:
++    case S.Bundle{None{},aux,flag}: prototype_closed_placed(~Schema,~M,~A,~F,[],S.prototype_closed_rows_place(~M,~A,~F,rows,S.Row{id,None{},aux,flag,0,0}))
++    case S.Bundle{Some{main},aux,flag}: prototype_closed_placed(~Schema,~M,~A,~F,[S.MainAdded{S.Handle{namespace,id}},S.MainChanged{S.Handle{namespace,id}}],S.prototype_closed_rows_place(~M,~A,~F,rows,S.Row{id,Some{main},aux,flag,tick,tick}))
++
++def prototype_closed_targeted(~M: Type,~A: Type,~F: Data,command: S.Command<M,A,F>) -> S.Command<M,A,F> & U32:
++  match command:
++    case S.Spawn{+id,bundle}: (S.Spawn{id,bundle},id)
++    case S.InsertMain{+id,main}: (S.InsertMain{id,main},id)
++    case S.InsertFlag{+id,flag}: (S.InsertFlag{id,flag},id)
++    case S.RemoveMain{+id}: (S.RemoveMain{id},id)
++    case S.RemoveFlag{+id}: (S.RemoveFlag{id},id)
++    case S.Despawn{+id}: (S.Despawn{id},id)
++
++def prototype_closed_edit_target(~Schema: Data,~M: Type,~A: Type,~F: Data,namespace: U32,tick: U32,rows: S.Rows<M,A,F>,result: S.Command<M,A,F> & U32) -> StepResult<Schema,M,A,F>:
++  match result:
++    case (command,+id): prototype_closed_extracted(~Schema,~M,~A,~F,namespace,tick,id,command,S.prototype_closed_rows_extract(~M,~A,~F,rows,id))
++
++def prototype_closed_main_effect(~Schema: Data,~M: Type,~A: Type,~F: Data,+namespace: U32,+id: U32,result: S.Rows<M,A,F> & S.MainEffect) -> StepResult<Schema,M,A,F>:
++  match result:
++    case (rows,S.AddedMain{}): Stepped{rows,[S.MainAdded{S.Handle{namespace,id}},S.MainChanged{S.Handle{namespace,id}}]}
++    case (rows,S.ChangedMain{}): Stepped{rows,[S.MainChanged{S.Handle{namespace,id}}]}
++    case (rows,S.RemovedMain{}): Stepped{rows,[S.MainRemoved{S.Handle{namespace,id}}]}
++    case (rows,S.MissingMainTarget{}): Stepped{rows,[]}
++    case (rows,S.NoMainChange{}): Stepped{rows,[]}
++
++def prototype_closed_step(~Schema: Data,~M: Type,~A: Type,~F: Data,namespace: U32,tick: U32,rows: S.Rows<M,A,F>,command: S.Command<M,A,F>) -> StepResult<Schema,M,A,F>:
++  match command:
++    case S.Spawn{id,bundle}: prototype_closed_spawn(~Schema,~M,~A,~F,namespace,tick,id,rows,bundle)
++    case S.InsertMain{+id,main}: prototype_closed_main_effect(~Schema,~M,~A,~F,namespace,id,S.prototype_closed_rows_replace_main(~M,~A,~F,rows,id,Some{main},tick))
++    case S.RemoveMain{+id}: prototype_closed_main_effect(~Schema,~M,~A,~F,namespace,id,S.prototype_closed_rows_replace_main(~M,~A,~F,rows,id,None{},tick))
++    case other: prototype_closed_edit_target(~Schema,~M,~A,~F,namespace,tick,rows,prototype_closed_targeted(~M,~A,~F,other))
++
++def prototype_closed_state_step(~Schema: Data,~M: Type,~A: Type,~F: Data,reverseChanges: List<&2,S.Change<Schema>>,result: StepResult<Schema,M,A,F>) -> BatchState<Schema,M,A,F>:
++  match result:
++    case Stepped{rows,changes}: Running{rows,List.reverse.go(&2,S.Change<Schema>,changes,reverseChanges)}
++    case PlacementFault{rows,row}: Faulted{rows,row,[],List.reverse(&2,S.Change<Schema>,reverseChanges)}
++
++def prototype_closed_state_command(~Schema: Data,~M: Type,~A: Type,~F: Data,namespace: U32,tick: U32,command: S.Command<M,A,F>,state: BatchState<Schema,M,A,F>) -> BatchState<Schema,M,A,F>:
++  match state:
++    case Running{rows,changes}: prototype_closed_state_step(~Schema,~M,~A,~F,changes,prototype_closed_step(~Schema,~M,~A,~F,namespace,tick,rows,command))
++    case Faulted{rows,row,remaining,changes}: Faulted{rows,row,command <> remaining,changes}
++
++def prototype_closed_state_finish(~Schema: Data,~M: Type,~A: Type,~F: Data,state: BatchState<Schema,M,A,F>) -> BatchResult<Schema,M,A,F>:
++  match state:
++    case Running{rows,changes}: Completed{rows,List.reverse(&2,S.Change<Schema>,changes)}
++    case Faulted{rows,row,remaining,changes}: BatchFault{rows,row,List.reverse(&1,S.Command<M,A,F>,remaining),changes}
++
++def prototype_closed_batch(~Schema: Data,~M: Type,~A: Type,~F: Data,commands: List<S.Command<M,A,F>>,+namespace: U32,+tick: U32,state: BatchState<Schema,M,A,F>) -> BatchResult<Schema,M,A,F>:
++  match commands:
++    case Nil{}: prototype_closed_state_finish(~Schema,~M,~A,~F,state)
++    case Con{command,tail}: prototype_closed_batch(~Schema,~M,~A,~F,tail,namespace,tick,prototype_closed_state_command(~Schema,~M,~A,~F,namespace,tick,command,state))
++
++def prototype_closed_batch_world(~Schema: Data,~M: Type,~A: Type,~F: Data,~L: Type,~Mode: Data,namespace: U32,next: U32,ledger: Maybe<L>,mode: Mode,result: BatchResult<Schema,M,A,F>) -> CheckedApply<Schema,M,A,F,L,Mode>:
++  match result:
++    case Completed{rows,changes}: Applied{S.World{namespace,next,rows,[],ledger,mode},changes}
++    case BatchFault{rows,row,remaining,changes}: InvariantFault{S.World{namespace,next,rows,List.reverse(&1,S.Command<M,A,F>,remaining),ledger,mode},row,changes}
++
++def prototype_closed_preflight_world(~Schema: Data,~M: Type,~A: Type,~F: Data,~L: Type,~Mode: Data,+namespace: U32,next: U32,ledger: Maybe<L>,mode: Mode,tick: U32,result: Preflight<M,A,F>) -> CheckedApply<Schema,M,A,F,L,Mode>:
++  match result:
++    case Preflight{rows,pending,False{}}: CapacityRejected{S.World{namespace,next,rows,pending,ledger,mode}}
++    case Preflight{rows,pending,True{}}: prototype_closed_batch_world(~Schema,~M,~A,~F,~L,~Mode,namespace,next,ledger,mode,prototype_closed_batch(~Schema,~M,~A,~F,List.reverse(&1,S.Command<M,A,F>,pending),namespace,tick,Running{rows,[]}))
++
++def prototype_closed_apply_checked(~Schema: Data,~M: Type,~A: Type,~F: Data,~L: Type,~Mode: Data,world: S.World<Schema,M,A,F,L,Mode>,tick: U32) -> CheckedApply<Schema,M,A,F,L,Mode>:
++  match world:
++    case S.World{namespace,next,rows,pending,ledger,mode}: prototype_closed_preflight_world(~Schema,~M,~A,~F,~L,~Mode,namespace,next,ledger,mode,tick,prototype_closed_preflight(~M,~A,~F,pending,rows))
+--- a/experiments/s-integrate/host.bend
++++ b/experiments/s-integrate/host.bend
+@@ -407,0 +408,14 @@
++
++# Bounded closed private lifecycle hypothesis; originals retained.
++def prototype_closed_barrier_applied(~Schema: Data,~M: Type,~A: Type,~F: Data,~L: Type,~Mode: Data,~P: Data,~V: Data,~AV: Data,~LV: Data,logs:H.Logs<Schema,P>,bindings:List<&2,E.Binding<Schema>>,worldName:String,step:String,prior:D.DispatchOutcome,events:List<&2,E.TraceEvent<Schema,V,AV,F,LV,Mode,P>>,+clock:R.Clock,result:C.CheckedApply<Schema,M,A,F,L,Mode>) -> IO(Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & R.Clock):
++  match result:
++    case C.Applied{world,changes}: IO.pure(Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & R.Clock,(Host{world,H.prototype_closed_stream_append_changes(~Schema,~P,logs,D.clock_tick(clock),changes),bindings,worldName,step,prior,events},clock))
++    case C.CapacityRejected{_}: IO.die(Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & R.Clock,20,"indexed capacity capability rejected")
++    case C.InvariantFault{_,_,_}: IO.die(Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & R.Clock,21,"indexed placement invariant failed")
++
++def prototype_closed_barrier(~Schema: Data,~M: Type,~A: Type,~F: Data,~L: Type,~Mode: Data,~P: Data,~V: Data,~AV: Data,~LV: Data,owner:Host<Schema,M,A,F,L,Mode,P,V,AV,LV>,clock:R.Clock) -> IO(Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & R.Clock):
++  match owner:
++    case Host{world,logs,bindings,worldName,step,prior,events}:
++      +next = {R.advance(clock):R.Clock}
++      prototype_closed_barrier_applied(~Schema,~M,~A,~F,~L,~Mode,~P,~V,~AV,~LV,logs,bindings,worldName,step,prior,events,next,C.prototype_closed_apply_checked(~Schema,~M,~A,~F,~L,~Mode,world,D.clock_tick(next)))
++
+@@ -409 +423,11 @@
+-  barrier(T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,T.MotionPing,T.PositionView,T.VelocityView,T.LedgerView,owner,clock)
++  prototype_closed_barrier(~T.MotionSchema,~CC.Cache<T.Position,T.PositionView>,~T.Velocity,~T.Selected,~CC.Cache<T.MotionLedger,T.LedgerView>,~T.MotionMode,~T.MotionPing,~T.PositionView,~T.VelocityView,~T.LedgerView,owner,clock)
++
++# Closed frame trim frontier; all public generic bodies retained.
++def prototype_closed_frame_frame_return(~Schema: Data,~M: Type,~A: Type,~F: Data,~L: Type,~Mode: Data,~P: Data,~V: Data,~AV: Data,~LV: Data,world:W.World<Schema,M,A,F,L,Mode>,bindings:List<&2,E.Binding<Schema>>,worldName:String,step:String,prior:D.DispatchOutcome,events:List<&2,E.TraceEvent<Schema,V,AV,F,LV,Mode,P>>,result:H.Framed<Schema,P>) -> Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & (R.Readers & R.Clock):
++  match result:
++    case H.Framed{logs,readers,clock}: (Host{world,logs,bindings,worldName,step,prior,events},(readers,clock))
++
++def prototype_closed_frame_frame(~Schema: Data,~M: Type,~A: Type,~F: Data,~L: Type,~Mode: Data,~P: Data,~V: Data,~AV: Data,~LV: Data,owner:Host<Schema,M,A,F,L,Mode,P,V,AV,LV>,readers:R.Readers,boundary:R.Frame) -> Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & (R.Readers & R.Clock):
++  match owner:
++    case Host{world,logs,bindings,worldName,step,prior,events}: prototype_closed_frame_frame_return(~Schema,~M,~A,~F,~L,~Mode,~P,~V,~AV,~LV,world,bindings,worldName,step,prior,events,H.prototype_closed_frame_frame(~Schema,~P,logs,readers,boundary))
++
+@@ -411 +435 @@
+-  frame(T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,T.MotionPing,T.PositionView,T.VelocityView,T.LedgerView,owner,readers,boundary)
++  prototype_closed_frame_frame(~T.MotionSchema,~CC.Cache<T.Position,T.PositionView>,~T.Velocity,~T.Selected,~CC.Cache<T.MotionLedger,T.LedgerView>,~T.MotionMode,~T.MotionPing,~T.PositionView,~T.VelocityView,~T.LedgerView,owner,readers,boundary)
+@@ -469 +493 @@
+-  barrier(T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,T.HealthPing,T.VitalsView,T.ArmorView,T.LedgerView,owner,clock)
++  prototype_closed_barrier(~T.HealthSchema,~CC.Cache<T.Vitals,T.VitalsView>,~T.Armor,~T.Tracked,~CC.Cache<T.HealthLedger,T.LedgerView>,~T.HealthMode,~T.HealthPing,~T.VitalsView,~T.ArmorView,~T.LedgerView,owner,clock)
+@@ -471 +495 @@
+-  frame(T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,T.HealthPing,T.VitalsView,T.ArmorView,T.LedgerView,owner,readers,boundary)
++  prototype_closed_frame_frame(~T.HealthSchema,~CC.Cache<T.Vitals,T.VitalsView>,~T.Armor,~T.Tracked,~CC.Cache<T.HealthLedger,T.LedgerView>,~T.HealthMode,~T.HealthPing,~T.VitalsView,~T.ArmorView,~T.LedgerView,owner,readers,boundary)
+@@ -511,0 +536,3 @@
++
++def prototype_closed_initial(~Schema:Data,~P:Data,-M:Type,-A:Type,-F:Data,-L:Type,-Mode:Data,-V:Data,-AV:Data,-LV:Data,worldName:String,world:W.World<Schema,M,A,F,L,Mode>,capacity:U32) -> Host<Schema,M,A,F,L,Mode,P,V,AV,LV>:
++  Host{world,H.prototype_closed_initial(~Schema,~P,capacity),[],worldName,"",D.Complete{},[]}
+--- a/experiments/s-integrate/identity.bend
++++ b/experiments/s-integrate/identity.bend
+@@ -13 +13 @@
+-    case True{}: T.Created{S.Factory{(namespace + 1 : U32)},S.World{namespace,1,S.rows_empty(M,A,F),[],Some{initial_ledger(Unit{})},mode}}
++    case True{}: T.Created{S.Factory{(namespace + 1 : U32)},S.World{namespace,1,S.prototype_closed_rows_empty(~M,~A,~F),[],Some{initial_ledger(Unit{})},mode}}
+@@ -30,0 +31,14 @@
++
++def prototype_closed_L_reserve_checked(~L: Type,~Mode: Data,-Schema: Data,-M: Type,-A: Type,-F: Data,
++  available: Bool,+namespace: U32,+next: U32,rows: S.Rows<M,A,F>,pending: List<S.Command<M,A,F>>,ledger: Maybe<L>,mode: Mode) -> S.World<Schema,M,A,F,L,Mode> & Maybe<&2,S.Handle<Schema>>:
++  match available:
++    case False{}: (S.World{namespace,next,rows,pending,ledger,mode},None{})
++    case True{}: (S.World{namespace,(next + 1 : U32),rows,pending,ledger,mode},Some{S.Handle{namespace,next}})
++# Reservation is deliberately independent of publication, enabling failed Tx
++# publication to disappear without rewinding or reissuing its escaped handle.
++
++def prototype_closed_L_reserve_id(~L: Type,~Mode: Data,-Schema: Data,-M: Type,-A: Type,-F: Data,
++  world: S.World<Schema,M,A,F,L,Mode>) -> S.World<Schema,M,A,F,L,Mode> & Maybe<&2,S.Handle<Schema>>:
++  match world:
++    case S.World{+namespace,+next,rows,pending,ledger,mode}:
++      prototype_closed_L_reserve_checked(~L,~Mode,Schema,M,A,F,U32.is_lt(next,4294967295),namespace,next,rows,pending,ledger,mode)
+--- a/experiments/s-integrate/measurement-bend.bend
++++ b/experiments/s-integrate/measurement-bend.bend
+@@ -106 +106 @@
+-    case MotionBench{host,sparse,total,calls}: motion_frame_return(sparse,total,calls,H.frame(T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,T.MotionPing,T.PositionView,T.VelocityView,T.LedgerView,host,readers,boundary))
++    case MotionBench{host,sparse,total,calls}: motion_frame_return(sparse,total,calls,H.prototype_closed_frame_frame(~T.MotionSchema,~CC.Cache<T.Position,T.PositionView>,~T.Velocity,~T.Selected,~CC.Cache<T.MotionLedger,T.LedgerView>,~T.MotionMode,~T.MotionPing,~T.PositionView,~T.VelocityView,~T.LedgerView,host,readers,boundary))
+@@ -112 +112 @@
+-    case MotionBench{host,sparse,total,calls}: IO.bind(H.MotionHost() & R.Clock,MotionBench & R.Clock,H.barrier(T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,T.MotionPing,T.PositionView,T.VelocityView,T.LedgerView,host,clock),pair => IO.pure(MotionBench & R.Clock,motion_clock_return(sparse,total,calls,pair)))
++    case MotionBench{host,sparse,total,calls}: IO.bind(H.MotionHost() & R.Clock,MotionBench & R.Clock,H.prototype_closed_barrier(~T.MotionSchema,~CC.Cache<T.Position,T.PositionView>,~T.Velocity,~T.Selected,~CC.Cache<T.MotionLedger,T.LedgerView>,~T.MotionMode,~T.MotionPing,~T.PositionView,~T.VelocityView,~T.LedgerView,host,clock),pair => IO.pure(MotionBench & R.Clock,motion_clock_return(sparse,total,calls,pair)))
+@@ -175 +175 @@
+-    case MotionRows{owner,total}: motion_committed(sparse,total,count,logs,bindings,name,step,prior,events,audit,run,clock,motion_committed_queries(sparse,X.storage_commit(T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,X.tx_finish_success(S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>,owner),D.clock_tick(clock))))
++    case MotionRows{owner,total}: motion_committed(sparse,total,count,logs,bindings,name,step,prior,events,audit,run,clock,motion_committed_queries(sparse,X.prototype_closed_storage_commit(~CC.Cache<T.Position,T.PositionView>,~T.Velocity,~T.Selected,~CC.Cache<T.MotionLedger,T.LedgerView>,~T.MotionMode,T.MotionSchema,X.prototype_closed_tx_finish_success(~S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>,S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Handle<T.MotionSchema>,owner),D.clock_tick(clock))))
+@@ -218 +218 @@
+-    case K.Registered{registry,+system}: IO.bind(D.Dispatched<MotionBench,S.Handle<T.MotionSchema>>,D.Runtime<MotionBench,S.Handle<T.MotionSchema>> & K.System,motion_tick([K.Deferred{}],D.Runtime{MotionBench{H.initial(T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,T.MotionPing,T.PositionView,T.VelocityView,T.LedgerView,"motion",motion_seed(U32.to_nat(count),0,sparse,world),65536),sparse,0,0},registry,R.initial(),R.clock(),None{},C.Returned{},[],[],None{}}),result => IO.bind(D.Runtime<MotionBench,S.Handle<T.MotionSchema>>,D.Runtime<MotionBench,S.Handle<T.MotionSchema>> & K.System,motion_continue(state => IO.pure(D.Runtime<MotionBench,S.Handle<T.MotionSchema>>,state),result),state => IO.pure(D.Runtime<MotionBench,S.Handle<T.MotionSchema>> & K.System,(state,system))))
++    case K.Registered{registry,+system}: IO.bind(D.Dispatched<MotionBench,S.Handle<T.MotionSchema>>,D.Runtime<MotionBench,S.Handle<T.MotionSchema>> & K.System,motion_tick([K.Deferred{}],D.Runtime{MotionBench{H.prototype_closed_initial(~T.MotionSchema,~T.MotionPing,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,T.PositionView,T.VelocityView,T.LedgerView,"motion",motion_seed(U32.to_nat(count),0,sparse,world),65536),sparse,0,0},registry,R.initial(),R.clock(),None{},C.Returned{},[],[],None{}}),result => IO.bind(D.Runtime<MotionBench,S.Handle<T.MotionSchema>>,D.Runtime<MotionBench,S.Handle<T.MotionSchema>> & K.System,motion_continue(state => IO.pure(D.Runtime<MotionBench,S.Handle<T.MotionSchema>>,state),result),state => IO.pure(D.Runtime<MotionBench,S.Handle<T.MotionSchema>> & K.System,(state,system))))
+@@ -237 +237 @@
+-    case HealthBench{host,sparse,total,calls}: health_frame_return(sparse,total,calls,H.frame(T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,T.HealthPing,T.VitalsView,T.ArmorView,T.LedgerView,host,readers,boundary))
++    case HealthBench{host,sparse,total,calls}: health_frame_return(sparse,total,calls,H.prototype_closed_frame_frame(~T.HealthSchema,~CC.Cache<T.Vitals,T.VitalsView>,~T.Armor,~T.Tracked,~CC.Cache<T.HealthLedger,T.LedgerView>,~T.HealthMode,~T.HealthPing,~T.VitalsView,~T.ArmorView,~T.LedgerView,host,readers,boundary))
+@@ -243 +243 @@
+-    case HealthBench{host,sparse,total,calls}: IO.bind(H.HealthHost() & R.Clock,HealthBench & R.Clock,H.barrier(T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,T.HealthPing,T.VitalsView,T.ArmorView,T.LedgerView,host,clock),pair => IO.pure(HealthBench & R.Clock,health_clock_return(sparse,total,calls,pair)))
++    case HealthBench{host,sparse,total,calls}: IO.bind(H.HealthHost() & R.Clock,HealthBench & R.Clock,H.prototype_closed_barrier(~T.HealthSchema,~CC.Cache<T.Vitals,T.VitalsView>,~T.Armor,~T.Tracked,~CC.Cache<T.HealthLedger,T.LedgerView>,~T.HealthMode,~T.HealthPing,~T.VitalsView,~T.ArmorView,~T.LedgerView,host,clock),pair => IO.pure(HealthBench & R.Clock,health_clock_return(sparse,total,calls,pair)))
+@@ -306 +306 @@
+-    case HealthRows{owner,total}: health_committed(sparse,total,count,logs,bindings,name,step,prior,events,audit,run,clock,health_committed_queries(sparse,X.storage_commit(T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,X.tx_finish_success(S.World<T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked>,owner),D.clock_tick(clock))))
++    case HealthRows{owner,total}: health_committed(sparse,total,count,logs,bindings,name,step,prior,events,audit,run,clock,health_committed_queries(sparse,X.prototype_closed_storage_commit(~CC.Cache<T.Vitals,T.VitalsView>,~T.Armor,~T.Tracked,~CC.Cache<T.HealthLedger,T.LedgerView>,~T.HealthMode,T.HealthSchema,X.prototype_closed_tx_finish_success(~S.Command<CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked>,S.World<T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Handle<T.HealthSchema>,owner),D.clock_tick(clock))))
+@@ -349 +349 @@
+-    case K.Registered{registry,+system}: IO.bind(D.Dispatched<HealthBench,S.Handle<T.HealthSchema>>,D.Runtime<HealthBench,S.Handle<T.HealthSchema>> & K.System,health_tick([K.Deferred{}],D.Runtime{HealthBench{H.initial(T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,T.HealthPing,T.VitalsView,T.ArmorView,T.LedgerView,"health",health_seed(U32.to_nat(count),0,sparse,world),65536),sparse,0,0},registry,R.initial(),R.clock(),None{},C.Returned{},[],[],None{}}),result => IO.bind(D.Runtime<HealthBench,S.Handle<T.HealthSchema>>,D.Runtime<HealthBench,S.Handle<T.HealthSchema>> & K.System,health_continue(state => IO.pure(D.Runtime<HealthBench,S.Handle<T.HealthSchema>>,state),result),state => IO.pure(D.Runtime<HealthBench,S.Handle<T.HealthSchema>> & K.System,(state,system))))
++    case K.Registered{registry,+system}: IO.bind(D.Dispatched<HealthBench,S.Handle<T.HealthSchema>>,D.Runtime<HealthBench,S.Handle<T.HealthSchema>> & K.System,health_tick([K.Deferred{}],D.Runtime{HealthBench{H.prototype_closed_initial(~T.HealthSchema,~T.HealthPing,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,T.VitalsView,T.ArmorView,T.LedgerView,"health",health_seed(U32.to_nat(count),0,sparse,world),65536),sparse,0,0},registry,R.initial(),R.clock(),None{},C.Returned{},[],[],None{}}),result => IO.bind(D.Runtime<HealthBench,S.Handle<T.HealthSchema>>,D.Runtime<HealthBench,S.Handle<T.HealthSchema>> & K.System,health_continue(state => IO.pure(D.Runtime<HealthBench,S.Handle<T.HealthSchema>>,state),result),state => IO.pure(D.Runtime<HealthBench,S.Handle<T.HealthSchema>> & K.System,(state,system))))
+--- a/experiments/s-integrate/observations.bend
++++ b/experiments/s-integrate/observations.bend
+@@ -69,0 +70,4 @@
++def prototype_closed_observation_rows_finish(~M: Type,~A: Type,~F: Data,~V: Data,~AV: Data,state: S.Rows<M,A,F> & List<&2,RowView<V,AV,F>>) -> S.Rows<M,A,F> & List<&2,RowView<V,AV,F>>:
++  match state:
++    case (owners,values): (owners,List.reverse(&2,RowView<V,AV,F>,values))
++
+@@ -72 +76 @@
+-    case (owners,values): rows_slot(~M,~A,~F,~V,~AV,~main_get,~aux_get,values,S.rows_extract(M,A,F,owners,id))
++    case (owners,values): rows_slot(~M,~A,~F,~V,~AV,~main_get,~aux_get,values,S.prototype_closed_rows_extract(~M,~A,~F,owners,id))
+@@ -75 +79 @@
+-    case 0n: rows_finish(M,A,F,V,AV,state)
++    case 0n: prototype_closed_observation_rows_finish(~M,~A,~F,~V,~AV,state)
+@@ -126,0 +131,7 @@
++def prototype_closed_observation_world_ledger(~Schema: Data,~M: Type,~A: Type,~F: Data,~L: Type,~Mode: Data,~V: Data,~AV: Data,~LV: Data,
++  +namespace: U32,+next: U32,rows: S.Rows<M,A,F>,rowViews: List<&2,RowView<V,AV,F>>,
++  pending: List<S.Command<M,A,F>>,pendingViews: List<&2,PendingView<V,AV,F>>,+mode: Mode,
++  result: Maybe<L> & Maybe<&2,LV>) -> S.World<Schema,M,A,F,L,Mode> & WorldView<V,AV,F,LV,Mode>:
++  match result:
++    case (ledger,value): (S.World{namespace,next,rows,pending,ledger,mode},WorldView{namespace,next,rowViews,List.reverse(&2,PendingView<V,AV,F>,pendingViews),value,mode})
++
+@@ -131 +142 @@
+-    case (pending,values): world_ledger(Schema,M,A,F,L,Mode,V,AV,LV,namespace,next,rows,rowViews,pending,values,mode,maybe_get(~L,~LV,~ledger_get,ledger))
++    case (pending,values): prototype_closed_observation_world_ledger(~Schema,~M,~A,~F,~L,~Mode,~V,~AV,~LV,namespace,next,rows,rowViews,pending,values,mode,maybe_get(~L,~LV,~ledger_get,ledger))
+--- a/experiments/s-integrate/query.bend
++++ b/experiments/s-integrate/query.bend
+@@ -57 +57 @@
+-    case (owners,values): read_rows_slot(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,selection,namespace,S.rows_extract(M,A,F,owners,id),values)
++    case (owners,values): read_rows_slot(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,selection,namespace,S.prototype_closed_rows_extract(~M,~A,~F,owners,id),values)
+@@ -106,0 +107,8 @@
++def prototype_closed_query_idx_finish(~M: Type,~A: Type,~F: Data,~O: Data,capacity: U32,depth: Nat,high: U32,state: StructIdxState<M,A,F,O>) -> S.Rows<M,A,F> & List<&2,O>:
++  match state:
++    case StructIdxState{main,aux,metadata,values}: (S.Rows{main,aux,metadata,capacity,depth,high},List.reverse(&2,O,values))
++
++def prototype_closed_query_cols_finish(~M: Type,~A: Type,~F: Data,~O: Data,capacity: U32,depth: Nat,high: U32,state: StructColsState<M,A,F,O>) -> S.Rows<M,A,F> & List<&2,O>:
++  match state:
++    case StructColsState{main,aux,live,flags,added,changed,values}: prototype_closed_query_idx_finish(~M,~A,~F,~O,capacity,depth,high,StructIdxState{main,aux,S.MetadataColumns{live,flags,added,changed},values})
++
+@@ -109 +117 @@
+-    case 0n: struct_cols_finish(M,A,F,O,capacity,depth,high,state)
++    case 0n: prototype_closed_query_cols_finish(~M,~A,~F,~O,capacity,depth,high,state)
+@@ -133 +141 @@
+-  lookup_slot(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,selection,namespace,S.rows_extract(M,A,F,rows,target))
++  lookup_slot(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,selection,namespace,S.prototype_closed_rows_extract(~M,~A,~F,rows,target))
+--- a/experiments/s-integrate/raw-boundaries.bend
++++ b/experiments/s-integrate/raw-boundaries.bend
+@@ -28 +28 @@
+-  motion_reserve_return(Q.reserve(T.MotionSchema,C.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,C.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,world,motion_bundle(raw)))
++  motion_reserve_return(Q.prototype_closed_reserve(~C.Cache<T.Position,T.PositionView>,~T.Velocity,~T.Selected,~C.Cache<T.MotionLedger,T.LedgerView>,~T.MotionMode,T.MotionSchema,world,motion_bundle(raw)))
+@@ -59 +59 @@
+-  health_reserve_return(Q.reserve(T.HealthSchema,C.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,C.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,world,health_bundle(raw)))
++  health_reserve_return(Q.prototype_closed_reserve(~C.Cache<T.Vitals,T.VitalsView>,~T.Armor,~T.Tracked,~C.Cache<T.HealthLedger,T.LedgerView>,~T.HealthMode,T.HealthSchema,world,health_bundle(raw)))
+--- a/experiments/s-integrate/reader-host.bend
++++ b/experiments/s-integrate/reader-host.bend
+@@ -83,0 +84,43 @@
++
++# Closed lifecycle append route; public generic functions retained.
++def prototype_closed_stream_append_change(~Schema: Data,~P: Data,logs: Logs<Schema,P>,tick: U32,change: W.Change<Schema>) -> Logs<Schema,P>:
++  match logs change:
++    case Logs{ping,removed,despawned} W.MainRemoved{handle}: Logs{ping,S.prototype_closed_stream_append_lifecycle(W.Handle<Schema>,removed,tick,[handle]),despawned}
++    case Logs{ping,removed,despawned} W.Despawned{handle}: Logs{ping,removed,S.prototype_closed_stream_append_lifecycle(W.Handle<Schema>,despawned,tick,[handle])}
++    case saved _: saved
++
++def prototype_closed_stream_append_all(~Schema: Data,~P: Data,changes: List<&2,W.Change<Schema>>,+tick: U32,logs: Logs<Schema,P>) -> Logs<Schema,P>:
++  match changes:
++    case Nil{}: logs
++    case Con{head,tail}: prototype_closed_stream_append_all(~Schema,~P,tail,tick,prototype_closed_stream_append_change(~Schema,~P,logs,tick,head))
++
++def prototype_closed_stream_append_changes(~Schema: Data,~P: Data,logs: Logs<Schema,P>,tick: U32,changes: List<&2,W.Change<Schema>>) -> Logs<Schema,P>:
++  prototype_closed_stream_append_all(~Schema,~P,changes,tick,logs)
++
++# Closed frame trim frontier; all public generic bodies retained.
++def prototype_closed_frame_life_trim(~Schema: Data,log: S.LifeLog<W.Handle<Schema>>,window: Maybe<&2,U32>,holds: List<&2,U32>) -> S.LifeLog<W.Handle<Schema>>:
++  match window:
++    case None{}: log
++    case Some{tick}: S.prototype_closed_frame_trim_lifecycle(W.Handle<Schema>,log,tick,holds)
++
++def prototype_closed_frame_frame_despawned(~Schema: Data,~P: Data,ping: S.PingLog<P>,removed: S.LifeLog<W.Handle<Schema>>,despawned: S.LifeLog<W.Handle<Schema>>,
++  clock: R.Clock,window: Maybe<&2,U32>,result: R.Readers & List<&2,U32>) -> Framed<Schema,P>:
++  match result:
++    case (readers,holds): Framed{Logs{ping,removed,prototype_closed_frame_life_trim(~Schema,despawned,window,holds)},readers,clock}
++
++def prototype_closed_frame_frame_removed(~Schema: Data,~P: Data,ping: S.PingLog<P>,removed: S.LifeLog<W.Handle<Schema>>,despawned: S.LifeLog<W.Handle<Schema>>,
++  clock: R.Clock,+window: Maybe<&2,U32>,result: R.Readers & List<&2,U32>) -> Framed<Schema,P>:
++  match result:
++    case (readers,holds): prototype_closed_frame_frame_despawned(~Schema,~P,ping,prototype_closed_frame_life_trim(~Schema,removed,window,holds),despawned,clock,window,R.holders(readers,R.Despawned{}))
++
++def prototype_closed_frame_frame_ping(~Schema: Data,~P: Data,ping: S.PingLog<P>,removed: S.LifeLog<W.Handle<Schema>>,despawned: S.LifeLog<W.Handle<Schema>>,
++  clock: R.Clock,window: Maybe<&2,U32>,messageWindow: U32,result: R.Readers & List<&2,U32>) -> Framed<Schema,P>:
++  match result:
++    case (readers,holds): prototype_closed_frame_frame_removed(~Schema,~P,S.prototype_closed_frame_trim(~P,ping,messageWindow,holds),removed,despawned,clock,window,R.holders(readers,R.Removed{0}))
++
++def prototype_closed_frame_frame(~Schema: Data,~P: Data,logs: Logs<Schema,P>,readers: R.Readers,frame: R.Frame) -> Framed<Schema,P>:
++  match logs frame:
++    case Logs{ping,removed,despawned} R.Frame{clock,window,messageWindow}: prototype_closed_frame_frame_ping(~Schema,~P,ping,removed,despawned,clock,window,messageWindow,R.holders(readers,R.Messages{}))
++
++def prototype_closed_initial(~Schema: Data,~P: Data,+capacity: U32) -> Logs<Schema,P>:
++  Logs{S.initial(P,capacity),S.life_initial(W.Handle<Schema>,capacity),S.life_initial(W.Handle<Schema>,capacity)}
+--- a/experiments/s-integrate/storage.bend
++++ b/experiments/s-integrate/storage.bend
+@@ -276,0 +277,7 @@
++def prototype_closed_publish(~M: Type,~A: Type,~F: Data,-S: Data,-L: Type,-Mode: Data,
++  world: World<S,M,A,F,L,Mode>,staged: List<Command<M,A,F>>) -> World<S,M,A,F,L,Mode>:
++  match world:
++    case World{namespace,next,rows,pending,ledger,mode}:
++      World{namespace,next,rows,List.reverse.go(&1,Command<M,A,F>,List.reverse(&1,Command<M,A,F>,staged),pending),ledger,mode}
++
++
+@@ -360,0 +368,168 @@
++
++# Bounded closed private lifecycle hypothesis; originals retained.
++def prototype_closed_metadata_empty(~F: Data,+depth: Nat) -> MetadataColumns<F>:
++  MetadataColumns{[False{} : Bool^depth],[None{} : Maybe<&2,F>^depth],[0 : U32^depth],[0 : U32^depth]}
++
++def prototype_closed_metadata_grow(~F: Data,columns: MetadataColumns<F>,+depth: Nat) -> MetadataColumns<F>:
++  match columns:
++    case MetadataColumns{live,flags,added,changed}: MetadataColumns{ANode{live,[False{} : Bool^depth]},ANode{flags,[None{} : Maybe<&2,F>^depth]},ANode{added,[0 : U32^depth]},ANode{changed,[0 : U32^depth]}}
++
++def prototype_closed_metadata_get_changed(~F: Data,live: Array<Bool>,flags: Array<Maybe<&2,F>>,added: Array<U32>,l: Bool,f: Maybe<&2,F>,a: U32,result: Array<U32> & U32) -> MetadataColumns<F> & Metadata<F>:
++  match result:
++    case (changed,c): (MetadataColumns{live,flags,added,changed},Metadata{l,f,a,c})
++
++def prototype_closed_metadata_get_added(~F: Data,live: Array<Bool>,flags: Array<Maybe<&2,F>>,changed: Array<U32>,index: U32,l: Bool,f: Maybe<&2,F>,result: Array<U32> & U32) -> MetadataColumns<F> & Metadata<F>:
++  match result:
++    case (added,a): prototype_closed_metadata_get_changed(~F,live,flags,added,l,f,a,Array.get(U32,changed,index))
++
++def prototype_closed_metadata_get_flags(~F: Data,live: Array<Bool>,added: Array<U32>,changed: Array<U32>,+index: U32,l: Bool,result: Array<Maybe<&2,F>> & Maybe<&2,F>) -> MetadataColumns<F> & Metadata<F>:
++  match result:
++    case (flags,f): prototype_closed_metadata_get_added(~F,live,flags,changed,index,l,f,Array.get(U32,added,index))
++
++def prototype_closed_metadata_get_live(~F: Data,flags: Array<Maybe<&2,F>>,added: Array<U32>,changed: Array<U32>,+index: U32,result: Array<Bool> & Bool) -> MetadataColumns<F> & Metadata<F>:
++  match result:
++    case (live,l): prototype_closed_metadata_get_flags(~F,live,added,changed,index,l,Array.get(Maybe<&2,F>,flags,index))
++
++def prototype_closed_metadata_get(~F: Data,columns: MetadataColumns<F>,+index: U32) -> MetadataColumns<F> & Metadata<F>:
++  match columns:
++    case MetadataColumns{live,flags,added,changed}: prototype_closed_metadata_get_live(~F,flags,added,changed,index,Array.get(Bool,live,index))
++# Query selection observes membership/flag only; stamps remain owned and untouched.
++
++def prototype_closed_metadata_live_done(~F: Data,flags: Array<Maybe<&2,F>>,added: Array<U32>,changed: Array<U32>,result: Array<Bool> & Bool) -> MetadataColumns<F> & Bool:
++  match result:
++    case (live,value): (MetadataColumns{live,flags,added,changed},value)
++
++def prototype_closed_metadata_live(~F: Data,columns: MetadataColumns<F>,index: U32) -> MetadataColumns<F> & Bool:
++  match columns:
++    case MetadataColumns{live,flags,added,changed}: prototype_closed_metadata_live_done(~F,flags,added,changed,Array.get(Bool,live,index))
++
++def prototype_closed_metadata_set(~F: Data,columns: MetadataColumns<F>,+index: U32,meta: Metadata<F>) -> MetadataColumns<F>:
++  match columns meta:
++    case MetadataColumns{live,flags,added,changed} Metadata{l,f,a,c}: MetadataColumns{Array.set(Bool,live,index,l),Array.set(Maybe<&2,F>,flags,index,f),Array.set(U32,added,index,a),Array.set(U32,changed,index,c)}
++
++def prototype_closed_slots_empty(~P: Type,+depth: Nat) -> Array<Maybe<P>>:
++  match depth:
++    case 0n: ALeaf{None{}}
++    case 1n+d: ANode{prototype_closed_slots_empty(~P,d),prototype_closed_slots_empty(~P,d)}
++
++def prototype_closed_rows_empty(~M: Type,~A: Type,~F: Data) -> Rows<M,A,F>:
++  Rows{ALeaf{None{}},ALeaf{None{}},prototype_closed_metadata_empty(~F,0n),1,0n,0}
++
++def prototype_closed_rows_can_place(~M: Type,~A: Type,~F: Data,rows: Rows<M,A,F>,+id: U32) -> Rows<M,A,F> & Bool:
++  (rows,Bool.and((0 < id : U32),(id <= 131072 : U32)))
++
++def prototype_closed_grow_decide(~M: Type,~A: Type,~F: Data,needed: Bool,rows: Rows<M,A,F>,recurse: Rows<M,A,F> -> Rows<M,A,F>) -> Rows<M,A,F>:
++  match needed rows:
++    case False{} rows: rows
++    case True{} Rows{m,a,f,+c,+d,h}:
++      recurse(Rows{ANode{m,slots_empty(M,d)},ANode{a,slots_empty(A,d)},prototype_closed_metadata_grow(~F,f,d),U32.add(c,c),1n+d,h})
++
++def prototype_closed_grow(~M: Type,~A: Type,~F: Data,fuel: Nat,+id: U32,rows: Rows<M,A,F>) -> Rows<M,A,F>:
++  match fuel rows:
++    case 0n rows: rows
++    case 1n+n Rows{m,a,f,+c,d,h}: prototype_closed_grow_decide(~M,~A,~F,Bool.and((c < id : U32),(c <= 65536 : U32)),Rows{m,a,f,c,d,h},(grown => prototype_closed_grow(~M,~A,~F,n,id,grown)))
++
++def prototype_closed_extract_row(~M: Type,~A: Type,~F: Data,id: U32,main: Array<Maybe<M>>,value: Maybe<M>,aux: Array<Maybe<A>>,av: Maybe<A>,metadata: MetadataColumns<F>,capacity: U32,depth: Nat,high: U32,meta: Metadata<F>) -> Rows<M,A,F> & Maybe<Row<M,A,F>>:
++  match meta:
++    case Metadata{_,flag,added,changed}: (Rows{main,aux,metadata,capacity,depth,high},Some{Row{id,value,av,flag,added,changed}})
++
++def prototype_closed_extract_aux(~M: Type,~A: Type,~F: Data,id: U32,main: Array<Maybe<M>>,value: Maybe<M>,metadata: MetadataColumns<F>,capacity: U32,depth: Nat,high: U32,meta: Metadata<F>,result: Array<Maybe<A>> & Maybe<A>) -> Rows<M,A,F> & Maybe<Row<M,A,F>>:
++  match result:
++    case (aux,av): prototype_closed_extract_row(~M,~A,~F,id,main,value,aux,av,metadata,capacity,depth,high,meta)
++
++def prototype_closed_extract_main(~M: Type,~A: Type,~F: Data,+id: U32,aux: Array<Maybe<A>>,metadata: MetadataColumns<F>,capacity: U32,depth: Nat,high: U32,meta: Metadata<F>,result: Array<Maybe<M>> & Maybe<M>) -> Rows<M,A,F> & Maybe<Row<M,A,F>>:
++  match result:
++    case (main,mv): prototype_closed_extract_aux(~M,~A,~F,id,main,mv,metadata,capacity,depth,high,meta,Array.swap(Maybe<A>,aux,U32.sub(id,1),None{}))
++
++def prototype_closed_extract_meta(~M: Type,~A: Type,~F: Data,+id: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,capacity: U32,depth: Nat,high: U32,result: MetadataColumns<F> & Metadata<F>) -> Rows<M,A,F> & Maybe<Row<M,A,F>>:
++  match result:
++    case (metadata,Metadata{False{},flag,added,changed}): (Rows{main,aux,metadata,capacity,depth,high},None{})
++    case (metadata,Metadata{True{},flag,added,changed}): prototype_closed_extract_main(~M,~A,~F,id,aux,metadata,capacity,depth,high,Metadata{True{},flag,added,changed},Array.swap(Maybe<M>,main,U32.sub(id,1),None{}))
++
++def prototype_closed_extract_checked(~M: Type,~A: Type,~F: Data,valid: Bool,+id: U32,rows: Rows<M,A,F>) -> Rows<M,A,F> & Maybe<Row<M,A,F>>:
++  match valid rows:
++    case False{} rows: (rows,None{})
++    case True{} Rows{main,aux,metadata,capacity,depth,high}: prototype_closed_extract_meta(~M,~A,~F,id,main,aux,capacity,depth,high,prototype_closed_metadata_get(~F,metadata,U32.sub(id,1)))
++
++def prototype_closed_rows_extract(~M: Type,~A: Type,~F: Data,rows: Rows<M,A,F>,+id: U32) -> Rows<M,A,F> & Maybe<Row<M,A,F>>:
++  match rows:
++    case Rows{main,aux,metadata,+capacity,depth,+high}: prototype_closed_extract_checked(~M,~A,~F,Bool.and((0 < id : U32),Bool.and((id <= capacity : U32),(id <= high : U32))),id,Rows{main,aux,metadata,capacity,depth,high})
++
++def prototype_closed_rows_restore(~M: Type,~A: Type,~F: Data,rows: Rows<M,A,F>,row: Row<M,A,F>) -> Rows<M,A,F>:
++  match rows row:
++    case Rows{main,aux,metadata,capacity,depth,high} Row{+id,m,a,f,added,changed}:
++      Rows{Array.set(Maybe<M>,main,U32.sub(id,1),m),Array.set(Maybe<A>,aux,U32.sub(id,1),a),prototype_closed_metadata_set(~F,metadata,U32.sub(id,1),Metadata{True{},f,added,changed}),capacity,depth,high}
++
++def prototype_closed_remove_done(~M: Type,~A: Type,~F: Data,+id: U32,result: Rows<M,A,F> & Maybe<Row<M,A,F>>) -> Rows<M,A,F> & Maybe<Row<M,A,F>>:
++  match result:
++    case (rows,None{}): (rows,None{})
++    case (Rows{m,a,f,c,d,h},Some{row}): (Rows{m,a,prototype_closed_metadata_set(~F,f,U32.sub(id,1),Metadata{False{},None{},0,0}),c,d,h},Some{row})
++
++def prototype_closed_rows_remove(~M: Type,~A: Type,~F: Data,rows: Rows<M,A,F>,+id: U32) -> Rows<M,A,F> & Maybe<Row<M,A,F>>:
++  prototype_closed_remove_done(~M,~A,~F,id,prototype_closed_rows_extract(~M,~A,~F,rows,id))
++
++def prototype_closed_place_status(~M: Type,~A: Type,~F: Data,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,metadata: MetadataColumns<F>,capacity: U32,depth: Nat,+high: U32,live: Bool,row: Row<M,A,F>) -> Placement<M,A,F>:
++  match live row:
++    case True{} row: Rejected{Rows{main,aux,metadata,capacity,depth,high},row}
++    case False{} Row{+id,m,a,f,added,changed}: Placed{Rows{Array.set(Maybe<M>,main,U32.sub(id,1),m),Array.set(Maybe<A>,aux,U32.sub(id,1),a),prototype_closed_metadata_set(~F,metadata,U32.sub(id,1),Metadata{True{},f,added,changed}),capacity,depth,U32.max(high,id)}}
++
++def prototype_closed_place_metadata(~M: Type,~A: Type,~F: Data,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,metadata: MetadataColumns<F>,capacity: U32,depth: Nat,high: U32,row: Row<M,A,F>,meta: Bool) -> Placement<M,A,F>:
++  match meta:
++    case live: prototype_closed_place_status(~M,~A,~F,main,aux,metadata,capacity,depth,high,live,row)
++
++def prototype_closed_place_meta(~M: Type,~A: Type,~F: Data,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,capacity: U32,depth: Nat,high: U32,row: Row<M,A,F>,result: MetadataColumns<F> & Bool) -> Placement<M,A,F>:
++  match result:
++    case (metadata,meta): prototype_closed_place_metadata(~M,~A,~F,main,aux,metadata,capacity,depth,high,row,meta)
++
++def prototype_closed_place_capacity(~M: Type,~A: Type,~F: Data,valid: Bool,rows: Rows<M,A,F>,row: Row<M,A,F>) -> Placement<M,A,F>:
++  match valid rows row:
++    case False{} rows row: Rejected{rows,row}
++    case True{} Rows{m,a,f,c,d,h} Row{+id,main,aux,flag,added,changed}: prototype_closed_place_meta(~M,~A,~F,m,a,c,d,h,Row{id,main,aux,flag,added,changed},prototype_closed_metadata_live(~F,f,U32.sub(id,1)))
++
++def prototype_closed_place_grown(~M: Type,~A: Type,~F: Data,rows: Rows<M,A,F>,row: Row<M,A,F>) -> Placement<M,A,F>:
++  match rows row:
++    case Rows{m,a,f,+c,d,h} Row{+id,main,aux,flag,added,changed}: prototype_closed_place_capacity(~M,~A,~F,Bool.and((0 < id : U32),(id <= c : U32)),Rows{m,a,f,c,d,h},Row{id,main,aux,flag,added,changed})
++
++def prototype_closed_place_checked(~M: Type,~A: Type,~F: Data,valid: Bool,rows: Rows<M,A,F>,row: Row<M,A,F>) -> Placement<M,A,F>:
++  match valid row:
++    case False{} row: Rejected{rows,row}
++    case True{} Row{+id,m,a,f,added,changed}: prototype_closed_place_grown(~M,~A,~F,prototype_closed_grow(~M,~A,~F,17n,id,rows),Row{id,m,a,f,added,changed})
++
++def prototype_closed_rows_place(~M: Type,~A: Type,~F: Data,rows: Rows<M,A,F>,row: Row<M,A,F>) -> Placement<M,A,F>:
++  match row:
++    case Row{+id,m,a,f,added,changed}: prototype_closed_place_checked(~M,~A,~F,Bool.and((0 < id : U32),(id <= 131072 : U32)),rows,Row{id,m,a,f,added,changed})
++# Main-only point access never extracts Aux or constructs a Row.
++
++def prototype_closed_replace_main_effect(~M: Type,~A: Type,~F: Data,id: U32,+tick: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,metadata: MetadataColumns<F>,capacity: U32,depth: Nat,high: U32,flag: Maybe<&2,F>,added: U32,changed: U32,insert: Bool,old: Maybe<M>) -> Rows<M,A,F> & MainEffect:
++  match insert old:
++    case False{} None{}: (Rows{main,aux,metadata,capacity,depth,high},NoMainChange{})
++    case False{} Some{_}: (Rows{main,aux,prototype_closed_metadata_set(~F,metadata,U32.sub(id,1),Metadata{True{},flag,0,0}),capacity,depth,high},RemovedMain{})
++    case True{} None{}: (Rows{main,aux,prototype_closed_metadata_set(~F,metadata,U32.sub(id,1),Metadata{True{},flag,tick,tick}),capacity,depth,high},AddedMain{})
++    case True{} Some{_}: (Rows{main,aux,prototype_closed_metadata_set(~F,metadata,U32.sub(id,1),Metadata{True{},flag,added,tick}),capacity,depth,high},ChangedMain{})
++
++def prototype_closed_replace_main_done(~M: Type,~A: Type,~F: Data,id: U32,tick: U32,aux: Array<Maybe<A>>,metadata: MetadataColumns<F>,capacity: U32,depth: Nat,high: U32,flag: Maybe<&2,F>,added: U32,changed: U32,insert: Bool,result: Array<Maybe<M>> & Maybe<M>) -> Rows<M,A,F> & MainEffect:
++  match result:
++    case (main,old): prototype_closed_replace_main_effect(~M,~A,~F,id,tick,main,aux,metadata,capacity,depth,high,flag,added,changed,insert,old)
++
++def prototype_closed_replace_main_slot(~M: Type,~A: Type,~F: Data,+id: U32,tick: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,metadata: MetadataColumns<F>,capacity: U32,depth: Nat,high: U32,flag: Maybe<&2,F>,added: U32,changed: U32,replacement: Maybe<M>) -> Rows<M,A,F> & MainEffect:
++  match replacement:
++    case None{}: prototype_closed_replace_main_done(~M,~A,~F,id,tick,aux,metadata,capacity,depth,high,flag,added,changed,False{},Array.swap(Maybe<M>,main,U32.sub(id,1),None{}))
++    case Some{value}: prototype_closed_replace_main_done(~M,~A,~F,id,tick,aux,metadata,capacity,depth,high,flag,added,changed,True{},Array.swap(Maybe<M>,main,U32.sub(id,1),Some{value}))
++
++def prototype_closed_replace_main_meta(~M: Type,~A: Type,~F: Data,id: U32,tick: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,metadata: MetadataColumns<F>,capacity: U32,depth: Nat,high: U32,replacement: Maybe<M>,meta: Metadata<F>) -> Rows<M,A,F> & MainEffect:
++  match meta:
++    case Metadata{False{},_,_,_}: (Rows{main,aux,metadata,capacity,depth,high},MissingMainTarget{})
++    case Metadata{True{},flag,added,changed}: prototype_closed_replace_main_slot(~M,~A,~F,id,tick,main,aux,metadata,capacity,depth,high,flag,added,changed,replacement)
++
++def prototype_closed_replace_main_meta_done(~M: Type,~A: Type,~F: Data,id: U32,tick: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,capacity: U32,depth: Nat,high: U32,replacement: Maybe<M>,result: MetadataColumns<F> & Metadata<F>) -> Rows<M,A,F> & MainEffect:
++  match result:
++    case (metadata,meta): prototype_closed_replace_main_meta(~M,~A,~F,id,tick,main,aux,metadata,capacity,depth,high,replacement,meta)
++
++def prototype_closed_replace_main_checked(~M: Type,~A: Type,~F: Data,valid: Bool,+id: U32,tick: U32,rows: Rows<M,A,F>,replacement: Maybe<M>) -> Rows<M,A,F> & MainEffect:
++  match valid rows:
++    case False{} rows: (rows,MissingMainTarget{})
++    case True{} Rows{m,a,f,c,d,h}: prototype_closed_replace_main_meta_done(~M,~A,~F,id,tick,m,a,c,d,h,replacement,prototype_closed_metadata_get(~F,f,U32.sub(id,1)))
++
++def prototype_closed_rows_replace_main(~M: Type,~A: Type,~F: Data,rows: Rows<M,A,F>,+id: U32,replacement: Maybe<M>,tick: U32) -> Rows<M,A,F> & MainEffect:
++  match rows:
++    case Rows{m,a,f,+c,d,+h}: prototype_closed_replace_main_checked(~M,~A,~F,Bool.and((0 < id : U32),Bool.and((id <= c : U32),(id <= h : U32))),id,tick,Rows{m,a,f,c,d,h},replacement)
+--- a/experiments/s-integrate/streams.bend
++++ b/experiments/s-integrate/streams.bend
+@@ -132,0 +133,59 @@
++
++# Closed lifecycle append route; public generic functions retained.
++def prototype_closed_stream_count(~V: Data,values: List<&2,V>,acc: U32) -> U32:
++  match values:
++    case Nil{}: acc
++    case Con{_,tail}: prototype_closed_stream_count(~V,tail,U32.add(acc,1))
++
++def prototype_closed_stream_append_buffer(~V: Data,buffer: Buffer<V>,tick: U32,values: List<&2,V>) -> Buffer<V>:
++  match buffer values:
++    case Buffer{capacity,size,dropped,front,rear} Nil{}: Buffer{capacity,size,dropped,front,rear}
++    case Buffer{capacity,size,dropped,front,rear} Con{+v,+vs}:
++      +n = prototype_closed_stream_count(~V,v <> vs,0)
++      Buffer{capacity,U32.add(size,n),dropped,front,Batch{tick,n,v <> vs} <> rear}
++
++def prototype_closed_stream_append_units(~H: Data,values: List<&2,H>,+tick: U32,buffer: Buffer<H>) -> Buffer<H>:
++  match values:
++    case Nil{}: buffer
++    case Con{value,tail}: prototype_closed_stream_append_units(~H,tail,tick,append_buffer(H,buffer,tick,[value]))
++
++def prototype_closed_stream_append_lifecycle(~H: Data,log: LifeLog<H>,tick: U32,handles: List<&2,H>) -> LifeLog<H>:
++  match log:
++    case LifeLog{buffer}: LifeLog{prototype_closed_stream_append_units(~H,handles,tick,buffer)}
++
++# Closed frame trim frontier; all public generic bodies retained.
++def prototype_closed_frame_trim_decision(~V: Data,drop: Bool,+head: Batch<V>,tail: List<&2,Batch<V>>,+size: U32,+dropped: U32,
++  ih: U32 -> U32 -> Cut<V>) -> Cut<V>:
++  match drop head:
++    case False{} kept: Cut{kept <> tail,size,dropped}
++    case True{} Batch{tick,n,_}: ih(U32.sub(size,n),maximum(dropped,tick))
++
++def prototype_closed_frame_trim_front(~V: Data,front: List<&2,Batch<V>>,+capacity: U32,+window: U32,+size: U32,+dropped: U32) -> Cut<V>:
++  match front:
++    case Nil{}: Cut{[],size,dropped}
++    case Con{Batch{+tick,+n,+values},+tail}:
++      prototype_closed_frame_trim_decision(~V,Bool.or(U32.is_le(tick,window),U32.is_gt(size,capacity)),Batch{tick,n,values},tail,size,dropped,
++        remaining => lost => prototype_closed_frame_trim_front(~V,tail,capacity,window,remaining,lost))
++
++def prototype_closed_frame_finish_cut(~V: Data,capacity: U32,cut: Cut<V>) -> Buffer<V>:
++  match cut:
++    case Cut{front,size,dropped}: Buffer{capacity,size,dropped,front,[]}
++
++def prototype_closed_frame_trim_second(~V: Data,+capacity: U32,+window: U32,rear: List<&2,Batch<V>>,cut: Cut<V>) -> Buffer<V>:
++  match cut:
++    case Cut{Nil{},size,dropped}: prototype_closed_frame_finish_cut(~V,capacity,prototype_closed_frame_trim_front(~V,List.reverse(&2,Batch<V>,rear),capacity,window,size,dropped))
++    case Cut{Con{head,tail},size,dropped}: Buffer{capacity,size,dropped,head <> tail,rear}
++
++def prototype_closed_frame_trim_buffer(~V: Data,buffer: Buffer<V>,window: U32,holders: List<&2,U32>) -> Buffer<V>:
++  match buffer:
++    case Buffer{+capacity,size,dropped,front,rear}:
++      +oldest = boundary(holders,window)
++      prototype_closed_frame_trim_second(~V,capacity,oldest,rear,prototype_closed_frame_trim_front(~V,front,capacity,oldest,size,dropped))
++
++def prototype_closed_frame_trim(~P: Data,log: PingLog<P>,window: U32,holders: List<&2,U32>) -> PingLog<P>:
++  match log:
++    case PingLog{buffer}: PingLog{prototype_closed_frame_trim_buffer(~P,buffer,window,holders)}
++
++def prototype_closed_frame_trim_lifecycle(~H: Data,log: LifeLog<H>,window: U32,holders: List<&2,U32>) -> LifeLog<H>:
++  match log:
++    case LifeLog{buffer}: LifeLog{prototype_closed_frame_trim_buffer(~H,buffer,window,holders)}
+--- a/experiments/s-integrate/transaction-dispatch-adapters.bend
++++ b/experiments/s-integrate/transaction-dispatch-adapters.bend
+@@ -126,2 +126,2 @@
+-    case U.BodyResult{owner,T.Success{},escaped,observations}: returned_run(S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Handle<T.MotionSchema>,T.Success{},escaped,observations,X.storage_commit(T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,X.tx_finish_success(S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>,owner),tick))
+-    case U.BodyResult{owner,T.Failure{code},escaped,observations}: returned_run(S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Handle<T.MotionSchema>,T.Failure{code},escaped,observations,X.storage_commit(T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,motion_finish_failure(owner),tick))
++    case U.BodyResult{owner,T.Success{},escaped,observations}: returned_run(S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Handle<T.MotionSchema>,T.Success{},escaped,observations,X.prototype_closed_storage_commit(~CC.Cache<T.Position,T.PositionView>,~T.Velocity,~T.Selected,~CC.Cache<T.MotionLedger,T.LedgerView>,~T.MotionMode,T.MotionSchema,X.prototype_closed_tx_finish_success(~S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>,S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Handle<T.MotionSchema>,owner),tick))
++    case U.BodyResult{owner,T.Failure{code},escaped,observations}: returned_run(S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Handle<T.MotionSchema>,T.Failure{code},escaped,observations,X.prototype_closed_storage_commit(~CC.Cache<T.Position,T.PositionView>,~T.Velocity,~T.Selected,~CC.Cache<T.MotionLedger,T.LedgerView>,~T.MotionMode,T.MotionSchema,motion_finish_failure(owner),tick))
+@@ -132,2 +132,2 @@
+-    case U.BodyResult{owner,T.Success{},escaped,observations}: returned_run(S.World<T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Handle<T.HealthSchema>,T.Success{},escaped,observations,X.storage_commit(T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,X.tx_finish_success(S.World<T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked>,owner),tick))
+-    case U.BodyResult{owner,T.Failure{code},escaped,observations}: returned_run(S.World<T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Handle<T.HealthSchema>,T.Failure{code},escaped,observations,X.storage_commit(T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,health_finish_failure(owner),tick))
++    case U.BodyResult{owner,T.Success{},escaped,observations}: returned_run(S.World<T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Handle<T.HealthSchema>,T.Success{},escaped,observations,X.prototype_closed_storage_commit(~CC.Cache<T.Vitals,T.VitalsView>,~T.Armor,~T.Tracked,~CC.Cache<T.HealthLedger,T.LedgerView>,~T.HealthMode,T.HealthSchema,X.prototype_closed_tx_finish_success(~S.Command<CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked>,S.World<T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Handle<T.HealthSchema>,owner),tick))
++    case U.BodyResult{owner,T.Failure{code},escaped,observations}: returned_run(S.World<T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Handle<T.HealthSchema>,T.Failure{code},escaped,observations,X.prototype_closed_storage_commit(~CC.Cache<T.Vitals,T.VitalsView>,~T.Armor,~T.Tracked,~CC.Cache<T.HealthLedger,T.LedgerView>,~T.HealthMode,T.HealthSchema,health_finish_failure(owner),tick))
+--- a/experiments/s-integrate/transaction.bend
++++ b/experiments/s-integrate/transaction.bend
+@@ -41,0 +42,4 @@
++def prototype_closed_tx_finish_success(~C: Type,-W: Type,-H: Data,t: Tx<W,H,C>) -> Finished<W,C,H>:
++  match t:
++    case Tx{world,_,_,commands,pings,marks}: Committed{world,List.reverse(&1,C,commands),List.reverse(&2,U32,pings),marks}
++
+@@ -119,0 +124,20 @@
++def prototype_closed_L_mark_loop(~L: Type,~Mode: Data,-Schema: Data,-M: Type,-A: Type,-F: Data,marks: List<&2,S.Handle<Schema>>,+namespace: U32,next: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,flags: Array<Maybe<&2,F>>,added: Array<U32>,transport: Array<Bool> & Array<U32>,+capacity: U32,depth: Nat,+high: U32,pending: List<S.Command<M,A,F>>,ledger: Maybe<L>,mode: Mode,+tick: U32) -> S.World<Schema,M,A,F,L,Mode>:
++  match marks transport:
++    case Nil{} Tuple{live,changed}: S.World{namespace,next,S.Rows{main,aux,S.MetadataColumns{live,flags,added,changed},capacity,depth,high},pending,ledger,mode}
++    case Con{S.Handle{foreign,+id},rest} Tuple{live,changed}:
++      prototype_closed_L_mark_loop(~L,~Mode,Schema,M,A,F,rest,namespace,next,main,aux,flags,added,prototype_storage_mark_guard(Bool.and(U32.is_eq(namespace,foreign),Bool.and((0 < id : U32),Bool.and((id <= capacity : U32),(id <= high : U32)))),live,changed,id,tick),capacity,depth,high,pending,ledger,mode,tick)
++
++def prototype_closed_L_mark_all(~L: Type,~Mode: Data,-Schema: Data,-M: Type,-A: Type,-F: Data,
++  marks: List<&2,S.Handle<Schema>>,world: S.World<Schema,M,A,F,L,Mode>,+tick: U32) -> S.World<Schema,M,A,F,L,Mode>:
++  match marks world:
++    case Nil{} world: world
++    case marks S.World{namespace,next,S.Rows{main,aux,S.MetadataColumns{live,flags,added,changed},capacity,depth,high},pending,ledger,mode}:
++      prototype_closed_L_mark_loop(~L,~Mode,Schema,M,A,F,marks,namespace,next,main,aux,flags,added,(live,changed),capacity,depth,high,pending,ledger,mode,tick)
++
++def prototype_closed_storage_commit(~M: Type,~A: Type,~F: Data,~L: Type,~Mode: Data,-Schema: Data,
++  result: Finished<S.World<Schema,M,A,F,L,Mode>,S.Command<M,A,F>,S.Handle<Schema>>,tick: U32) -> S.World<Schema,M,A,F,L,Mode> & List<&2,U32>:
++  match result:
++    case Committed{world,commands,pings,marks}: (S.prototype_closed_publish(~M,~A,~F,Schema,L,Mode,prototype_closed_L_mark_all(~L,~Mode,Schema,M,A,F,marks,world,tick),List.reverse(&1,S.Command<M,A,F>,commands)),pings)
++    case Reverted{world}: (world,[])
++
++

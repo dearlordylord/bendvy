@@ -1,0 +1,44 @@
+[
+  {
+    "argv": [
+      "taskset",
+      "-c",
+      "7",
+      "bend",
+      "/tmp/bendvy-threehour-journal-handle/experiments/s-prep/source-closed-metadata/closed-reader-affine-negative.bend",
+      "--check-only"
+    ],
+    "capSeconds": 5,
+    "exit": 1,
+    "output": "SOME PROOFS FAIL\nError:\n- expected : owner\n- observed : owner (consumed more than once)\nLocation: bad\n4 |   Raw{payload:Array<U32>}\n5>| def bad(owner:S.Bundle<Raw,Raw,U32>) -> S.Bundle<Raw,Raw,U32> & S.Bundle<Raw,Raw,U32>:\n  |         ^^^^^\n6 |   (owner,owner)\n",
+    "expectedWitness": "consumed more than once"
+  },
+  {
+    "argv": [
+      "taskset",
+      "-c",
+      "7",
+      "bend",
+      "/tmp/bendvy-threehour-journal-handle/experiments/s-prep/source-closed-metadata/closed-reader-schema-negative.bend",
+      "--check-only"
+    ],
+    "capSeconds": 5,
+    "exit": 1,
+    "output": "SOME PROOFS FAIL\nError:\n- expected : a term (../../../../bendvy-fourhour-closed-reader-initial-probe/experiments/s-integrate/commands.prototype_closed_reserved takes 3 ~)\n- observed : '~'\nLocation:\n7 | def bad(world:S.World<T.MotionSchema,Raw,Raw,U32,Raw,U32>,handle:S.Handle<T.HealthSchema>,bundle:S.Bundle<Raw,Raw,U32>) -> T.Reservation<S.World<T.MotionSchema,Raw,Raw,U32,Raw,U32>,S.Handle<T.MotionSchema>,S.Bundle<Raw,Raw,U32>>:\n8>|   C.prototype_closed_reserved(~Raw,~Raw,~U32,~Raw,~U32,T.MotionSchema,bundle,(world,Some{handle}))\n  |                                              ^\n9 | def main() -> U32: 0\n",
+    "expectedWitness": "HealthSchema"
+  },
+  {
+    "argv": [
+      "taskset",
+      "-c",
+      "7",
+      "bend",
+      "/tmp/bendvy-threehour-journal-handle/experiments/s-prep/source-closed-metadata/closed-reader-opaque-negative.bend",
+      "--check-only"
+    ],
+    "capSeconds": 5,
+    "exit": 1,
+    "output": "SOME PROOFS FAIL\nError:\n- expected : S.World<bad~Schema, bad~M, bad~A, bad~F, bad~L, bad~Mode>\n- observed : P\nContext:\n- P      : Type\n- owner  : P\n- bundle : S.Bundle<bad~M, bad~A, bad~F>\nLocation: bad\n5 | def bad(~Schema:Data,~M:Type,~A:Type,~F:Data,~L:Type,~Mode:Data,-P:Type,owner:P,bundle:S.Bundle<M,A,F>) -> T.Reservation<S.World<Schema,M,A,F,L,Mode>,S.Handle<Schema>,S.Bundle<M,A,F>>:\n6>|   C.prototype_closed_reserve(~M,~A,~F,~L,~Mode,Schema,owner,bundle)\n  |                                                       ^^^^^\n7 | def main() -> U32: 0\n",
+    "expectedWitness": "observed: P"
+  }
+]

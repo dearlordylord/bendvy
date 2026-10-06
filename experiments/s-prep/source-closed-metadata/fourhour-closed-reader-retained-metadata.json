@@ -1,0 +1,79 @@
+[
+  {
+    "argv": [
+      "bend",
+      "/tmp/bendvy-threehour-journal-handle/experiments/s-prep/source-closed-metadata/closed-reader-retained-metadata.bend",
+      "--check-only"
+    ],
+    "capSeconds": 5,
+    "cpu": 7,
+    "exit": 0,
+    "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+  },
+  {
+    "argv": [
+      "bend",
+      "/tmp/bendvy-threehour-journal-handle/experiments/s-prep/source-closed-metadata/closed-reader-retained-metadata.bend",
+      "-o",
+      "/tmp/bendvy-fourhour-closed-reader-retained-metadata/control.js"
+    ],
+    "capSeconds": 30,
+    "cpu": 7,
+    "exit": 0,
+    "output": ""
+  },
+  {
+    "argv": [
+      "node",
+      "/tmp/bendvy-fourhour-closed-reader-retained-metadata/control.js"
+    ],
+    "capSeconds": 5,
+    "cpu": 7,
+    "exit": 0,
+    "output": "(4, 9)\n"
+  },
+  {
+    "argv": [
+      "bend",
+      "/tmp/bendvy-threehour-journal-handle/experiments/s-prep/source-closed-metadata/closed-reader-retained-metadata.bend",
+      "-o",
+      "/tmp/bendvy-fourhour-closed-reader-retained-metadata/control.c"
+    ],
+    "capSeconds": 30,
+    "cpu": 7,
+    "exit": 0,
+    "output": ""
+  },
+  {
+    "argv": [
+      "/tmp/bendvy-clang19-diagnostic/clang19",
+      "-O3",
+      "/tmp/bendvy-fourhour-closed-reader-retained-metadata/control.c",
+      "-pthread",
+      "-lm",
+      "-o",
+      "/tmp/bendvy-fourhour-closed-reader-retained-metadata/control.native"
+    ],
+    "capSeconds": 120,
+    "cpu": 7,
+    "exit": 0,
+    "output": ""
+  },
+  {
+    "argv": [
+      "/tmp/bendvy-fourhour-closed-reader-retained-metadata/control.native",
+      "--threads",
+      "1",
+      "--gpu",
+      "off"
+    ],
+    "capSeconds": 5,
+    "cpu": 7,
+    "exit": 0,
+    "output": "(4, 9)\n"
+  },
+  {
+    "status": "PASS_FINITE_RETAINED_OLD_METADATA",
+    "expected": "(4, 9)"
+  }
+]

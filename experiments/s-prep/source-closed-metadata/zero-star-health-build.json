@@ -1,0 +1,137 @@
+{
+  "status": "BUILD_PASS",
+  "schema": "Health",
+  "cpu": 7,
+  "sourceRoot": "/tmp/bendvy-fourhour-closed-reader-initial-probe",
+  "sourcePins": {
+    "experiments/s-integrate/prototype-static-client.bend": "1a9d22180604433d91e6572679761f660b89b093ed5dbe2ad783859fb05d7a51",
+    "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "experiments/s-integrate/measurement-bend.bend": "2b4f9342efbabc48019dd62aea416f90c3917fd384db92076af79b78909fd1c6",
+    "experiments/s-integrate/held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+    "experiments/s-integrate/transaction-dispatch-adapters.bend": "66238215dbd1b61043254bc6f3d9f9d5d00e330da13fc3b8ac95b41c290304d9",
+    "experiments/s-integrate/cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+    "experiments/s-integrate/systems.bend": "32e11a5a89b01e8db00f0b58a9fd1e2da87f4882189725b0012933421b6b1716",
+    "experiments/s-integrate/identity.bend": "72969e6ea6139811228e4bdcf5f77abf99c7fd2fa8b414d21abf4e85f55bc29e",
+    "experiments/s-integrate/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+    "experiments/s-integrate/reader-host.bend": "0bb44d1244be07408d69a4c3f78cca2b2f3e30433315ce4228cb0ab843e00093",
+    "experiments/s-integrate/audited-invoker.bend": "6ad63360f72ab8358441f2ca0c2281d729899bb3933c26234af2ff7c7fe5bb7c",
+    "experiments/s-integrate/cached-payload.bend": "354bb1ddb9dbd90a64138aa0e0ea4dd499a1a9345b3e94940c183dc16390db82",
+    "experiments/s-integrate/observations.bend": "316ff23a793bee35947f05337d47bca2330587f963e63c42cd04eecc7b7b5795",
+    "experiments/s-integrate/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+    "experiments/s-integrate/structural-invoker.bend": "8e1269193d719b1f0ea68b040c62e8966160bacb898ac51caa2f6494f4621e0a",
+    "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+    "experiments/s-integrate/commands.bend": "6aaf04a6d947e3935db3709a4e3b9f5eafa7325261913cfca70cb34d623ad4f3",
+    "experiments/s-integrate/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+    "experiments/s-integrate/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+    "experiments/s-integrate/readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+    "experiments/s-integrate/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+    "experiments/s-integrate/raw-boundaries.bend": "2cc3f9af17c913a03ec70e866f974c1eeafc0141fa6697e2a09ae2466e65c4d9",
+    "experiments/s-integrate/streams.bend": "00ace1c3753a9c08cd9eb64c7ddd1c443e279ab427605172c0c1109f4aa21820",
+    "experiments/s-integrate/host.bend": "f796e59a4cbcbb23b28742ff3c2e5128a14f97f455c39830f73fdf0fa96b0c65",
+    "experiments/s-integrate/storage.bend": "7d1bb62742237e9527a2d40a55e729bfc707cb1621d9fa76e4333f1408eb0639",
+    "experiments/s-integrate/transaction.bend": "813de10639f4e881dcc7616dd862dcf1341d3e1c343065ae50ffb2bba74ba37d",
+    "experiments/s-integrate/held-adapter.bend": "ea9bce769439500a28ec9a266a23d3966e9ba5c44faeb108351d9aa2704a2c96",
+    "experiments/s-integrate/uncached-payload.bend": "a35ae64d1c1fd6c50082c0f75bca22a5e84d700493d1b3949fbb1c2e17b8cb55",
+    "experiments/s-integrate/query.bend": "a8c4a6f121b4281b6b132909ed8137cb9d58f08ae1914074f67bf29971b51308"
+  },
+  "artifacts": {
+    "batch.bend": "89e64d9c74c55029b1711cfefed1c5306067e629153721cb836536270e030630",
+    "batch.c": "d8028075ffae8e0144c7217aa62e4af01a2589ec1f608dcf47f5dd9b1efc29de",
+    "batch-native": "ab92d8f56ed1bc95a24d425c2b1110c3274d3c8740f542afbc8baa61c707f3b7",
+    "batch.js": "2e3095186bc5f99611897c1c1e5f3bb7ed971824eaca2f58bd36a5ac82ede9ff"
+  },
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-measurement/prepare-bend.py",
+        "--core",
+        "/tmp/bendvy-fourhour-closed-reader-initial-probe/experiments/s-integrate",
+        "--output",
+        "/tmp/bendvy-fourhour-closed-reader-initial-health-build",
+        "--schema",
+        "Health",
+        "--batch",
+        "64"
+      ],
+      "capSeconds": 5,
+      "cpu": 7,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "argv": [
+        "python3",
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/static-schema-driver/materialize.py",
+        "--driver",
+        "/tmp/bendvy-fourhour-closed-reader-initial-health-build/batch.bend",
+        "--schema",
+        "Health"
+      ],
+      "capSeconds": 5,
+      "cpu": 7,
+      "exit": 0,
+      "output": "{\"scope\": \"Only known schema at main entry selected statically; all runtime modules/callbacks/work/clock/outputs unchanged; not canonical evaluator approval\", \"schema\": \"Health\", \"originalSHA256\": \"154b6ddb7bef3398bfdcca61a494a1fd766270b4aca3a8676e2478cdb89b9e16\", \"derivedSHA256\": \"89e64d9c74c55029b1711cfefed1c5306067e629153721cb836536270e030630\", \"originalMain\": \"choose(1,256,64)\", \"derivedMain\": \"health_batch(256,64)\", \"recipeSHA256\": \"32e5af1cbb3e5996253d1f29f531de23d2ebb47f9e6ce9ac19c4ec6ac0fae6f7\"}\n"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-fourhour-closed-reader-initial-health-build/batch.bend",
+        "--check-only"
+      ],
+      "capSeconds": 15,
+      "cpu": 7,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-fourhour-closed-reader-initial-health-build/batch.bend",
+        "-o",
+        "/tmp/bendvy-fourhour-closed-reader-initial-health-build/batch.c"
+      ],
+      "capSeconds": 30,
+      "cpu": 7,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/bendvy-fourhour-closed-reader-initial-health-build/batch.c",
+        "-pthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-fourhour-closed-reader-initial-health-build/batch.native"
+      ],
+      "capSeconds": 120,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "7",
+        "bend",
+        "/tmp/bendvy-fourhour-closed-reader-initial-health-build/batch.bend",
+        "-o",
+        "/tmp/bendvy-fourhour-closed-reader-initial-health-build/batch.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "output": ""
+    }
+  ],
+  "defaultProofSeconds": 5,
+  "executableDiagnosticCheckerSeconds": 15,
+  "emitterSeconds": 30,
+  "clangSeconds": 120,
+  "scope": "Verified closed static64 executable diagnostic only; no law/proof/performance acceptance",
+  "sourceManifestSHA256": "4b496f268d874535095f0ccd3ee52ffa29629a90efade3470e752674c0a00be0"
+}

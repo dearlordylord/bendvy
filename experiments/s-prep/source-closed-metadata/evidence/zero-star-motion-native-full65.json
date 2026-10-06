@@ -1,0 +1,55 @@
+{
+  "status": "PASS_FULL65",
+  "scope": "Finite full65 schema fields only; no elapsed qualification or universal refinement",
+  "schema": "Motion",
+  "cpu": 7,
+  "commands": [
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-measurement/prepare-ts.py",
+        "--source",
+        "/workspace/formal-proofs/bendvy/experiments/s-integrate/measurement-samples-reference.mjs",
+        "--output",
+        "/tmp/bendvy-fourhour-reader-initial-motion-fields/reference.mjs",
+        "--schema",
+        "Motion",
+        "--batch",
+        "64"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "7202e7c0172b81b817b1079ac6bebc07271467a20d40626571348b68bb35ce93"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-fourhour-reader-initial-motion-fields/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "760c91dc3c943fb65ebe87e976b13277a468d2ffc94a0d32b4d4e365c141e6c4"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-fourhour-closed-reader-initial-motion-build/batch.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "cf22f9a3fc1fbbab571997d54fc91ca803a2b924de71a0d56d49a74a9a94d8ae"
+    }
+  ],
+  "programSHA256": "baa787082fa5509a424a7ec041473d3a26a6aac678068c5ad146eae3055e7b63",
+  "kind": "native",
+  "runnerSHA256": "1c3d548f303e8edc6349636f461b71f33e99087640304ebd6ec190ae0b21d438",
+  "publishEdges": null,
+  "allFullFieldsEqual": true,
+  "worlds": 65,
+  "referenceSourceSHA256": "ecfd1b590964fb76fb69a7a28e9dffa05b631592f47a52f11921ffaec25253b6",
+  "referenceSHA256": "644022682476c10f8232681349baecdb7d860d37a218aaec38c3633beaf024fe",
+  "validatorSHA256": "25ab577d5234a1c30f46318708455377353ec39d4fb0b6bf1b40ad5ea5da8f84"
+}
