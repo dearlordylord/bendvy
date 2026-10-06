@@ -125,10 +125,10 @@ def damage_get(~H: Type,~set: H -> S.Health -> H,~aux: H -> H & C.Access<S.Armor
   match observed:
     case (ctx,C.Found{+health}): damage_aux(~H,~set,~emit,~despawn,id,health,aux(ctx))
     case (ctx,_): (ctx,T.Failure{UnsupportedFixture{}})
-def damage_body(~H: Type,~get: H -> H & C.Access<S.HealthView>,~set: H -> S.Health -> H,~aux: H -> H & C.Access<S.Armor>,~resource_get: H -> H & F32,~resource_set: H -> F32 -> H,~emit: H -> S.SimEvent -> H,~despawn: H -> H,~spawn: H -> S.Bundle -> H & W.Reservation<S.Schema>,args: Unit,handle: W.Handle<S.Schema>,ctx: H) -> H & T.Outcome<UserError>:
+def damage_body(~H: Type,~get: H -> H & C.Access<S.HealthView>,~set: H -> S.Health -> H,~aux: H -> H & C.Access<S.Armor>,~emit: H -> S.SimEvent -> H,~despawn: H -> H,args: Unit,handle: W.Handle<S.Schema>,ctx: H) -> H & T.Outcome<UserError>:
   damage_get(~H,~set,~aux,~emit,~despawn,handle_id(handle),get(ctx))
 def damage(world: W.World<S.Schema,S.Store,F32,S.SimEvent>) -> T.Returned<W.World<S.Schema,S.Store,F32,S.SimEvent>,Pv.Error<UserError>>:
-  Q.each_rw_read(~S.Schema,~S.Store,~F32,~S.SimEvent,~S.HealthRest,~S.Health,~S.HealthView,~S.HealthToken,~S.take_healths,~S.put_healths,~S.project_health,~S.ArmorRest,~S.Armor,~S.Armor,~S.ArmorToken,~S.take_armors,~S.put_armors,~S.project_armor,~F32,~resource_view,~S.Bundle,~S.populate,~S.clear,~Unit,~UserError,~damage_body,S.health(),S.armor(),Q.Optional{},world,Unit{})
+  Q.each_rw_read_events(~S.Schema,~S.Store,~F32,~S.SimEvent,~S.HealthRest,~S.Health,~S.HealthView,~S.HealthToken,~S.take_healths,~S.put_healths,~S.project_health,~S.ArmorRest,~S.Armor,~S.Armor,~S.ArmorToken,~S.take_armors,~S.put_armors,~S.project_armor,~F32,~resource_view,~S.Bundle,~S.populate,~S.clear,~Unit,~UserError,~damage_body,S.health(),S.armor(),Q.Optional{},world,Unit{})
 def retry_spawned(~H: Type,observed: H & W.Reservation<S.Schema>) -> H & T.Outcome<UserError>:
   (ctx,_) = observed
   (ctx,T.Failure{Rejected{}})
