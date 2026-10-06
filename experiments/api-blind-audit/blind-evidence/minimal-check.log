@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : -get
+- observed : get
+Context:
+- P : Type
+- U : Type
+Location: observer
+34 |     case (owner,x): (owner,(aux,x))
+35>| def observer(-P: Type,-U: Type,-get: P -> Token -> P & U32,-ag: U -> U & Maybe<&2,U32>,handle: S.Handle<Game>,flag: Maybe<&2,Tag>,owner: P,aux: U) -> P & (U & U32):
+   |                                 ^^^
+36 |   observed(P,U,aux,get(owner,Token{}))

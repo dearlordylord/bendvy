@@ -1,0 +1,17 @@
+timeout 5s bend consumer/import-query.bend	exit=0
+timeout 5s bend consumer/structural.bend	exit=0
+timeout 5s bend consumer/lifecycle.bend	exit=0
+timeout 5s bend consumer/query-constant-control.bend	exit=0
+timeout 5s bend consumer/read-control.bend	exit=0
+timeout 5s bend consumer/owner-control.bend	exit=0
+timeout 5s bend consumer/schema-control.bend	exit=0
+timeout 5s bend consumer/system-control.bend	exit=0
+timeout 5s bend consumer/attempt-unerased-query.bend	exit=1
+timeout 5s bend consumer/minimal.bend	exit=1
+timeout 5s bend consumer/undeclared-access.bend	exit=1
+timeout 5s bend consumer/write-through-read.bend	exit=1
+timeout 5s bend consumer/duplicate-owner.bend	exit=1
+timeout 5s bend consumer/cross-schema.bend	exit=1
+timeout 5s bend consumer/system-registration.bend	exit=1
+timeout 30s bend consumer/lifecycle.bend -o consumer/lifecycle.mjs	exit=0
+timeout 5s node consumer/run-lifecycle.mjs	exit=0

@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : @-P:Type -> @-U:Type -> @-get:(@_:P -> @_:Token -> Sigma<&1, &1, P, _ => U32>) -> @-ag:(@_:U -> Sigma<&1, &1, U, _ => Maybe<&2, U32>>) -> @_:S.Handle<Game> -> @_:Maybe<&2, Tag> -> @_:P -> @_:U -> Sigma<&1, &1, P, _ => Sigma<&1, &1, U, _ => U32>>
+- observed : @-P:Type -> @-U:Type -> @get:(@_:P -> @_:Token -> Sigma<&1, &1, P, _ => U32>) -> @ag:(@_:U -> Sigma<&1, &1, U, _ => Maybe<&2, U32>>) -> @handle:S.Handle<Game> -> @flag:Maybe<&2, Tag> -> @owner:P -> @aux:U -> Sigma<&1, &1, P, _ => Sigma<&1, &1, U, _ => U32>>
+Location: query
+40 | def query(world: World()) -> List<&2,U32>:
+41>|   observations(Q.each(~Game,~Position,~Velocity,~Tag,~Token,~U32,~U32,~U32,~Stats,~Playing,~position,~velocity,~observer,Q.Optional{},world))
+   |                                                                                                                 ^^^^^^^^
+42 | def barrier(result: C.CheckedApply<Game,Position,Velocity,Tag,Stats,Playing>) -> List<&2,U32>:

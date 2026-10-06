@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : T.Position
+- observed : observer~P
+Context:
+- handle : S.Handle<Game>
+- flag   : Maybe<&2, Tag>
+- owner  : observer~P
+- aux    : observer~U
+Location: observer
+36 | def observer(~P: Type,~U: Type,~get: P -> Token -> P & U32,~ag: U -> U & Maybe<&2,U32>,handle: S.Handle<Game>,flag: Maybe<&2,Tag>,owner: P,aux: U) -> P & (U & U32):
+37>|   observed(P,U,aux,Raw.position_swap(owner,9))
+   |                                      ^^^^^
+38 | def observations(result: World() & List<&2,U32>) -> List<&2,U32>:

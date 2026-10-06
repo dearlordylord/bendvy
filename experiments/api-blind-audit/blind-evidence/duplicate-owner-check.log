@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : owner
+- observed : owner (consumed more than once)
+Location: duplicate
+24 |   Stats{0}
+25>| def duplicate(owner: World()) -> World() & World():
+   |               ^^^^^
+26 |   (owner,owner)

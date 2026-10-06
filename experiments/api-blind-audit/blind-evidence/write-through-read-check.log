@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : a function type
+- observed : Sigma<&1, &1, P, _ => U32>
+Context:
+- P     : Type
+- get   : @_:P -> @_:PositionToken -> Sigma<&1, &1, P, _ => U32>
+- owner : P
+Location: read
+7 | def read(-P: Type,get: P -> PositionToken -> P & U32,owner: P) -> P & U32:
+8>|   get(owner,PositionToken{},5)
+  |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+9 | 

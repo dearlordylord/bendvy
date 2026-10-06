@@ -1,0 +1,6 @@
+timeout 5s bend consumer/template-query.bend	exit=0
+timeout 5s bend consumer/template-array-query.bend	exit=0
+timeout 5s bend consumer/public-setter-control.bend	exit=0
+timeout 5s bend consumer/template-public-setter-negative.bend	exit=1
+timeout 30s bend consumer/template-query.bend -o consumer/template-query.mjs	exit=0
+timeout 5s node consumer/run-template-query.mjs	exit=0

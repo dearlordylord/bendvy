@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : S.Handle<Game>
+- observed : S.Handle<Other>
+Context:
+- world  : S.World<Game, Position, Velocity, Tag, Stats, Playing>
+- handle : S.Handle<Other>
+Location: remove
+27 | def remove(world: World(),handle: S.Handle<Other>) -> T.CommandResult<World(),Unit>:
+28>|   C.remove_main(Game,Position,Velocity,Tag,Stats,Playing,world,handle)
+   |                                                                ^^^^^^
+29 | 

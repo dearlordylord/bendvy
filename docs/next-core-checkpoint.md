@@ -5,6 +5,22 @@ performance thresholds or a selected production layout. The first two research
 tickets are now published after user authorization and [Astra review](reviews/next-research-tickets.md).
 The complete [core map](reference/core-map.md) and [SPEC](SPEC.md) remain the goal.
 
+## Completed blind API audit; next interface gate
+
+User-authorized [S-API-AUDIT #25](tickets/23-blind-ecs-api-audit.md). Pause
+optimization and evaluate the current29-module source as an independent ECS
+consumer, with a fresh agent and no project history/benchmarks/design hints.
+Allow primary pinned Bevy/bevy-ts/Bend source and installed guide/Base. Preserve
+first impressions, unsupported capabilities, failed attempts and intended
+negative diagnostics; root independently replays the result. [Delivered audit](reports/blind-ecs-api-audit.md) passes26 independent replay
+commands. Generic queries work after correcting a client template-binder mistake;
+the immutable initial report and assisted correction remain separate. Actual
+public setter on an abstract read owner rejects. Full authored gameplay remains
+blocked on the registrar/component-family seams. Continue [S-USER-API #26](tickets/24-user-system-api.md):
+review the explicit typed interface design before implementation. No new
+production API or proof approval follows. Simple simulation is a consumer probe
+here, not completion of broader integrated capability/performance gates.
+
 ## Active two-hour Native1024 continuation
 
 User authorized **2026-10-06 18:25:54–20:25:54 UTC**, including delivery.
