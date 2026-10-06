@@ -1,0 +1,26 @@
+--- types.bend
++++ types.bend
+@@ -11,17 +11,17 @@
+ type VitalsToken is Data:
+   VitalsToken{}
+ type Position is Type:
+-  Position{coordinates: Array<U32>, frame: U32}
++  Position{a:U32,b:U32,c:U32,d:U32, frame: U32}
+ type Velocity is Type:
+-  Velocity{rates: Array<U32>, moving: Bool}
++  Velocity{a:U32,b:U32,c:U32,d:U32, moving: Bool}
+ type Vitals is Type:
+-  Vitals{levels: Array<U32>, reserve: U32, class: U32}
++  Vitals{a:U32,b:U32,c:U32,d:U32, reserve: U32, class: U32}
+ type Armor is Type:
+-  Armor{layers: Array<U32>, grade: U32}
++  Armor{a:U32,b:U32,c:U32,d:U32, grade: U32}
+ type MotionLedger is Type:
+-  MotionLedger{totals: Array<U32>, epoch: U32}
++  MotionLedger{a:U32,b:U32,c:U32,d:U32, epoch: U32}
+ type HealthLedger is Type:
+-  HealthLedger{totals: Array<U32>, epoch: U32}
++  HealthLedger{a:U32,b:U32,c:U32,d:U32, epoch: U32}
+ type Selected is Data:
+   Selected{group: U32}
+ type Tracked is Data:

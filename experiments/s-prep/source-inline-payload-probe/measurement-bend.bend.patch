@@ -1,0 +1,48 @@
+--- measurement-bend.bend
++++ measurement-bend.bend
+@@ -195,11 +195,11 @@
+ def motion_main(+j:U32,present:Bool) -> Maybe<T.Position>:
+   match present:
+     case False{}: None{}
+-    case True{}: Some{T.Position{quad(j,U32.add(j,1),U32.add(j,2),U32.add(j,3)),7}}
++    case True{}: Some{T.Position{j,U32.add(j,1),U32.add(j,2),U32.add(j,3),7}}
+ def motion_aux(present:Bool) -> Maybe<T.Velocity>:
+   match present:
+     case False{}: None{}
+-    case True{}: Some{T.Velocity{quad(1,2,3,4),True{}}}
++    case True{}: Some{T.Velocity{1,2,3,4,True{}}}
+ def motion_flag(present:Bool) -> Maybe<&2,T.Selected>:
+   match present:
+     case False{}: None{}
+@@ -214,7 +214,7 @@
+   match fuel:
+     case 0n: world
+     case 1n+rest: motion_seed(rest,U32.add(j,1),sparse,motion_reserved(RB.motion_reserve(world,motion_bundle(j,sparse))))
+-def motion_ledger(unit:Unit) -> T.MotionLedger: T.MotionLedger{quad(0,101,102,103),4}
++def motion_ledger(unit:Unit) -> T.MotionLedger: T.MotionLedger{0,101,102,103,4}
+ def motion_registered(count:U32,+sparse:Bool,world:S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,registered:K.Registered) -> IO(D.Runtime<MotionBench,S.Handle<T.MotionSchema>> & K.System):
+   match registered:
+     case K.Registered{registry,+system}: IO.bind(D.Dispatched<MotionBench,S.Handle<T.MotionSchema>>,D.Runtime<MotionBench,S.Handle<T.MotionSchema>> & K.System,motion_tick([K.Deferred{}],D.Runtime{MotionBench{H.initial(T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,T.MotionPing,T.PositionView,T.VelocityView,T.LedgerView,"motion",motion_seed(U32.to_nat(count),0,sparse,world),65536),sparse,0,0},registry,R.initial(),R.clock(),None{},C.Returned{},[],[],None{}}),result => IO.bind(D.Runtime<MotionBench,S.Handle<T.MotionSchema>>,D.Runtime<MotionBench,S.Handle<T.MotionSchema>> & K.System,motion_continue(state => IO.pure(D.Runtime<MotionBench,S.Handle<T.MotionSchema>>,state),result),state => IO.pure(D.Runtime<MotionBench,S.Handle<T.MotionSchema>> & K.System,(state,system))))
+@@ -326,11 +326,11 @@
+ def health_main(+j:U32,present:Bool) -> Maybe<T.Vitals>:
+   match present:
+     case False{}: None{}
+-    case True{}: Some{T.Vitals{quad(j,U32.add(j,1),U32.add(j,2),U32.add(j,3)),9,2}}
++    case True{}: Some{T.Vitals{j,U32.add(j,1),U32.add(j,2),U32.add(j,3),9,2}}
+ def health_aux(present:Bool) -> Maybe<T.Armor>:
+   match present:
+     case False{}: None{}
+-    case True{}: Some{T.Armor{quad(1,2,3,4),3}}
++    case True{}: Some{T.Armor{1,2,3,4,3}}
+ def health_flag(present:Bool) -> Maybe<&2,T.Tracked>:
+   match present:
+     case False{}: None{}
+@@ -345,7 +345,7 @@
+   match fuel:
+     case 0n: world
+     case 1n+rest: health_seed(rest,U32.add(j,1),sparse,health_reserved(RB.health_reserve(world,health_bundle(j,sparse))))
+-def health_ledger(unit:Unit) -> T.HealthLedger: T.HealthLedger{quad(0,101,102,103),4}
++def health_ledger(unit:Unit) -> T.HealthLedger: T.HealthLedger{0,101,102,103,4}
+ def health_registered(count:U32,+sparse:Bool,world:S.World<T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,registered:K.Registered) -> IO(D.Runtime<HealthBench,S.Handle<T.HealthSchema>> & K.System):
+   match registered:
+     case K.Registered{registry,+system}: IO.bind(D.Dispatched<HealthBench,S.Handle<T.HealthSchema>>,D.Runtime<HealthBench,S.Handle<T.HealthSchema>> & K.System,health_tick([K.Deferred{}],D.Runtime{HealthBench{H.initial(T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,T.HealthPing,T.VitalsView,T.ArmorView,T.LedgerView,"health",health_seed(U32.to_nat(count),0,sparse,world),65536),sparse,0,0},registry,R.initial(),R.clock(),None{},C.Returned{},[],[],None{}}),result => IO.bind(D.Runtime<HealthBench,S.Handle<T.HealthSchema>>,D.Runtime<HealthBench,S.Handle<T.HealthSchema>> & K.System,health_continue(state => IO.pure(D.Runtime<HealthBench,S.Handle<T.HealthSchema>>,state),result),state => IO.pure(D.Runtime<HealthBench,S.Handle<T.HealthSchema>> & K.System,(state,system))))

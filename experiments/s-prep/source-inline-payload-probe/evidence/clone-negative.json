@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "taskset",
+    "-c",
+    "10",
+    "bend",
+    "/tmp/bendvy-inline-payload-final-reproduced/clone-negative.bend",
+    "--check-only"
+  ],
+  "limitSeconds": 15,
+  "exit": 1,
+  "seconds": 0.24035623100007797,
+  "output": "SOME PROOFS FAIL\nError:\n- expected : Data\n- observed : Type\nLocation: clone\n2 | \n3>| def clone(+owner:T.Position) -> U32:\n  |                  ^^^^^^^^^^\n4 |   match owner:\nNote: +owner can be used many times, so its type must be Data.\n",
+  "status": "NOMINAL_TYPE_DATA_CLONE_REJECTED",
+  "sourceSHA256": "55877fadb1592215dcee0d88f05096bb2ca66e68422ca57fb1d52929e9fb822b",
+  "rehydration": "Copy exact archived source into command path relative to final reproduced overlay"
+}

@@ -1,0 +1,81 @@
+{
+  "status": "SOURCE_FEASIBILITY_BOTH_FULL65_BACKENDS_SCHEMAS_PASS",
+  "closure": "eea97aa18475ee8e61160353b2de1dca769d0e34ac94b655ebbefea3ff752a28",
+  "runtimeModules": 29,
+  "full22": false,
+  "adoption": false,
+  "performanceAcceptance": false,
+  "recipeSHA256": "19a327dfca30d399cc4a0c94eb4dc086dc02daa35dcb085a8b403cdd7002b651",
+  "receipts": {
+    "/tmp/bendvy-inline-payload-motion-build/build.json": {
+      "status": "FAIL",
+      "sha256": "d421bad051fbe968187763029f9d4c1d0e37796dc65efae25f8d1410e5616632"
+    },
+    "/tmp/bendvy-inline-payload-motion-build-v3/build.json": {
+      "status": "FAIL",
+      "sha256": "5d36823b537ea0fc428b29de51cf9465ac04ca67c75ce1f70b93352a6eeaec2d"
+    },
+    "/tmp/bendvy-inline-payload-motion-build-v4/build.json": {
+      "status": "BUILD_PASS",
+      "sha256": "c270f5cd5201dcb62f36e8ea04155957327ae79f76d9e9cdf7224505572765e0"
+    },
+    "/tmp/bendvy-inline-payload-motion-build-v5/build.json": {
+      "status": "BUILD_PASS",
+      "sha256": "bfd2b2d421680ab413ad722783d088e45b184f716981ec0cac278b8b986d4775"
+    },
+    "/tmp/bendvy-inline-payload-health-build-v5/build.json": {
+      "status": "BUILD_PASS",
+      "sha256": "d9be4978ec09ae6d2536c37b4bfe2bdb6df81506b9923797e8ded7a10127b435"
+    },
+    "/tmp/bendvy-inline-payload-motion-full65/evidence.json": {
+      "status": "ONE_ADJACENT_ALL_FULL65_WORLDS_PASS",
+      "sha256": "ff8864ae6337d95648c36d17d48896c59145adbcff2fc04e2bc05e30ad9b02e4"
+    },
+    "/tmp/bendvy-inline-payload-health-full65/evidence.json": {
+      "status": "ONE_ADJACENT_ALL_FULL65_WORLDS_PASS",
+      "sha256": "53bf6c830dca76463b8865b94dbd2153fda564cbf6d3b7a0a337a70748de4e4e"
+    }
+  },
+  "limits": [
+    "Specific benchmark payload constructor arities/domain changed; generic ECS Type/Array capabilities unchanged",
+    "Protected raw fixture Tx/access/authority/retained/mutants require fresh reconciliation; none transferred",
+    "No qualified speed or physical allocation count"
+  ],
+  "sourceChecks": {
+    "finalReproductionAll29Identical": true,
+    "unchangedModules": [
+      "experiments/s-integrate/prototype-static-client.bend",
+      "experiments/s-integrate/held.bend",
+      "experiments/s-integrate/storage.bend",
+      "experiments/s-integrate/transaction-dispatch-adapters.bend",
+      "experiments/s-integrate/cache.bend",
+      "experiments/s-integrate/identity.bend",
+      "experiments/s-integrate/held-adapter.bend",
+      "experiments/s-integrate/schedule.bend",
+      "experiments/s-integrate/reader-host.bend",
+      "experiments/s-integrate/audited-invoker.bend",
+      "experiments/s-integrate/cached-payload.bend",
+      "experiments/s-integrate/observations.bend",
+      "experiments/s-integrate/host-observations.bend",
+      "experiments/s-integrate/query.bend",
+      "experiments/s-integrate/structural-invoker.bend",
+      "experiments/s-integrate/commands.bend",
+      "experiments/s-integrate/capture.bend",
+      "experiments/s-integrate/host-render.bend",
+      "experiments/s-integrate/readers.bend",
+      "experiments/s-integrate/transaction.bend",
+      "experiments/s-integrate/dispatcher.bend",
+      "experiments/s-integrate/raw-boundaries.bend",
+      "experiments/s-integrate/streams.bend"
+    ],
+    "changedModules": [
+      "experiments/s-integrate/uncached-payload.bend",
+      "experiments/s-integrate/payload.bend",
+      "experiments/s-integrate/measurement-bend.bend",
+      "experiments/s-integrate/systems.bend",
+      "experiments/s-integrate/types.bend",
+      "experiments/s-integrate/host.bend"
+    ]
+  },
+  "nominalTypeCloneNegativeSHA256": "1a26291c379243edc28be277475132a0d65b308251a47b44eef3f4bd0c3413d1"
+}
