@@ -1,0 +1,8 @@
+{
+  "status": "MUTATION_TARGET_NOT_REACHED",
+  "receipt": "/tmp/bendvy-slot-host-tx-mutants-v2/evidence.json",
+  "receiptSHA256": "8461ff924778c0aa77d14751970c15e94145fd2769b4aeb889b452ad2e121986",
+  "failedRecipeSHA256": "100c60fb500f1d81da1adc16b20bedf92917c35ab0f1137b6e2aa1a72ccd28a2",
+  "observation": "Generic tx_finish_failure mutation is absent from emitted original subject; actual protected fixture uses prototype_flat_finish_failure/flat_unwind. Both paired comparator and independent oracle accept the unreached mutation.",
+  "correction": "Target exact emitted flat failure path; bind full records to unmodified independent-validated baseline, retain paired and independent results separately. Reuse only unchanged digest-verified compiled observations for first three variants."
+}

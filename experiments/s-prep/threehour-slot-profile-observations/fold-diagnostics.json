@@ -1,0 +1,122 @@
+{
+  "scope": "Six raw rotated same-source comparisons, not a qualified metric/keep; mixed results retained",
+  "sourceClosure": "b0fdd6c41be12b34efc79e45edc98225c1b0158a51976b432a1646bfcae9e8f0",
+  "CPU": 11,
+  "native": "approved private Clang19 O3, one worker GPUoff",
+  "selection": "NOT_SELECTED_FULL_WRITE_FOLD_VARIANT",
+  "rows": [
+    {
+      "schema": "motion",
+      "rotation": 0,
+      "receiptSHA256": "d894066d654f7d95dad3ee4b3e8ccd4fe45b8b699f53c9886f9d3b404fed4719",
+      "phaseMS": {
+        "TS": 185.408928,
+        "Native": 89.0,
+        "parent-JS": 215.0,
+        "candidate-JS": 236.0
+      },
+      "status": "SOURCE_BOUND_PARENT_CANDIDATE_FULL65_RAW_DIAGNOSTIC_PASS",
+      "executionOrder": [
+        "TS",
+        "Native",
+        "parent-JS",
+        "candidate-JS"
+      ]
+    },
+    {
+      "schema": "motion",
+      "rotation": 2,
+      "receiptSHA256": "039dd8e6cd24d456513c8d9830ac1b5755fe1015df613ea9ba7c3113fb00ca6c",
+      "phaseMS": {
+        "TS": 192.780755,
+        "parent-JS": 210.0,
+        "candidate-JS": 277.0,
+        "Native": 78.0
+      },
+      "status": "SOURCE_BOUND_PARENT_CANDIDATE_FULL65_RAW_DIAGNOSTIC_PASS",
+      "executionOrder": [
+        "parent-JS",
+        "candidate-JS",
+        "TS",
+        "Native"
+      ]
+    },
+    {
+      "schema": "motion",
+      "rotation": 4,
+      "receiptSHA256": "52f270543988a3f76c1f9df2a727b04231f84736555bbee87a90162bba96836c",
+      "phaseMS": {
+        "TS": 252.831204,
+        "Native": 96.0,
+        "parent-JS": 259.0,
+        "candidate-JS": 247.0
+      },
+      "status": "SOURCE_BOUND_PARENT_CANDIDATE_FULL65_RAW_DIAGNOSTIC_PASS",
+      "executionOrder": [
+        "TS",
+        "Native",
+        "parent-JS",
+        "candidate-JS"
+      ]
+    },
+    {
+      "schema": "health",
+      "rotation": 1,
+      "receiptSHA256": "81aaf391703a6af9612ca78f86a89a36d3c7f6df671eb2d52786129269b3e03c",
+      "phaseMS": {
+        "TS": 198.811125,
+        "candidate-JS": 229.0,
+        "parent-JS": 250.0,
+        "Native": 87.0
+      },
+      "status": "SOURCE_BOUND_PARENT_CANDIDATE_FULL65_RAW_DIAGNOSTIC_PASS",
+      "executionOrder": [
+        "TS",
+        "candidate-JS",
+        "parent-JS",
+        "Native"
+      ]
+    },
+    {
+      "schema": "health",
+      "rotation": 3,
+      "receiptSHA256": "c797b88013d9657282c8c3fa3baf52a8faac6dd87c0c47ca4815f0324ff77542",
+      "phaseMS": {
+        "TS": 206.24528499999997,
+        "parent-JS": 208.0,
+        "Native": 82.0,
+        "candidate-JS": 221.0
+      },
+      "status": "SOURCE_BOUND_PARENT_CANDIDATE_FULL65_RAW_DIAGNOSTIC_PASS",
+      "executionOrder": [
+        "parent-JS",
+        "Native",
+        "TS",
+        "candidate-JS"
+      ]
+    },
+    {
+      "schema": "health",
+      "rotation": 5,
+      "receiptSHA256": "05f212c45f524ad764124545c5f19cdfa5f1ce1edcd5f28a4dfdeef43e755cdf",
+      "phaseMS": {
+        "TS": 214.82294399999995,
+        "candidate-JS": 220.0,
+        "parent-JS": 253.0,
+        "Native": 90.0
+      },
+      "status": "SOURCE_BOUND_PARENT_CANDIDATE_FULL65_RAW_DIAGNOSTIC_PASS",
+      "executionOrder": [
+        "TS",
+        "candidate-JS",
+        "parent-JS",
+        "Native"
+      ]
+    }
+  ],
+  "cgroupObservation": {
+    "cpu.max": "max 100000",
+    "nr_throttled": 0,
+    "scope": "One read-only observation; no causal attribution of timing variance"
+  }
+}

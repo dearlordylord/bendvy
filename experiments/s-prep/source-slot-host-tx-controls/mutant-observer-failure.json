@@ -1,0 +1,8 @@
+{
+  "status": "OVERSTRONG_MUTANT_OBSERVER_ASSERTION_FAILED",
+  "receipt": "/tmp/bendvy-slot-host-tx-mutants-v1/evidence.json",
+  "receiptSHA256": "8623670de6c1c3b883a75aa5114c4783bf39b19a7d236302eebfdd774d2caf09",
+  "originalRecipeSHA256": "daebcbf914215a702644342f86555613429488a6683d7b68bcccc26a412f40b0",
+  "observation": "Cached stale-head corruption detected; original raw-only observer does not expose cached-only corruption",
+  "correction": "Retain all raw outputs/counts including zero detection; require cached/schema detection and require raw detection only for reached raw effects (marks/rollback order). Do not claim full22 or detection in unobserved raw cache fields."
+}

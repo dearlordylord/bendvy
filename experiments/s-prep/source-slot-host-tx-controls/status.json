@@ -1,0 +1,357 @@
+{
+  "sourceClosure": "4baad4960575cda216576e8b90593fbd7ed7dcd44cfa86836b8d87dd5af71f5c",
+  "baselineStatus": "FRESH_ACTUAL_TYPED_CURSOR_TX_AND_SUPPRESSED_576_PER_BACKEND_PASS",
+  "programs": 8,
+  "recordsPerBackend": 576,
+  "mutantStatus": "FOUR_REACHED_SLOT_TX_MUTANTS_DETECTED_IN_REQUIRED_OBSERVER_ROUTES_BOTH_BACKENDS",
+  "cases": 16,
+  "variants": [
+    {
+      "variant": "stale-head",
+      "status": "DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE",
+      "witnesses": [
+        {
+          "getter": "cached",
+          "recordsPerBackend": 144,
+          "differenceCount": 12,
+          "detectedInThisObserverRoute": true,
+          "pairedComparisonDifferenceCount": 12,
+          "independentOracleFailure": null,
+          "witness": [
+            {
+              "path": "stale-head.cached[2].world.rows[0].main.coordinates.a",
+              "expected": 11,
+              "actual": 10
+            },
+            {
+              "path": "stale-head.cached[3].world.rows[0].main.coordinates.a",
+              "expected": 11,
+              "actual": 10
+            },
+            {
+              "path": "stale-head.cached[6].world.rows[0].main.coordinates.a",
+              "expected": 11,
+              "actual": 10
+            },
+            {
+              "path": "stale-head.cached[10].world.rows[0].main.levels.a",
+              "expected": 11,
+              "actual": 10
+            },
+            {
+              "path": "stale-head.cached[11].world.rows[0].main.levels.a",
+              "expected": 11,
+              "actual": 10
+            },
+            {
+              "path": "stale-head.cached[14].world.rows[0].main.levels.a",
+              "expected": 11,
+              "actual": 10
+            },
+            {
+              "path": "stale-head.cached[130].world.rows[1].main.coordinates.a",
+              "expected": 901,
+              "actual": 900
+            },
+            {
+              "path": "stale-head.cached[131].world.rows[1].main.coordinates.a",
+              "expected": 901,
+              "actual": 900
+            }
+          ]
+        },
+        {
+          "getter": "raw",
+          "recordsPerBackend": 144,
+          "differenceCount": 0,
+          "detectedInThisObserverRoute": false,
+          "pairedComparisonDifferenceCount": 0,
+          "independentOracleFailure": null,
+          "witness": []
+        }
+      ],
+      "rawObserverLimit": "Raw getter does not expose cached-only corruption; no raw-route detection is inferred when differenceCount=0"
+    },
+    {
+      "variant": "torn-tail",
+      "status": "DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE",
+      "witnesses": [
+        {
+          "getter": "cached",
+          "recordsPerBackend": 144,
+          "differenceCount": 16,
+          "detectedInThisObserverRoute": true,
+          "pairedComparisonDifferenceCount": 16,
+          "independentOracleFailure": null,
+          "witness": [
+            {
+              "path": "torn-tail.cached[2].world.rows[0].main.coordinates.b",
+              "expected": 11,
+              "actual": 12
+            },
+            {
+              "path": "torn-tail.cached[3].world.rows[0].main.coordinates.b",
+              "expected": 11,
+              "actual": 12
+            },
+            {
+              "path": "torn-tail.cached[6].world.rows[0].main.coordinates.b",
+              "expected": 11,
+              "actual": 12
+            },
+            {
+              "path": "torn-tail.cached[7].world.rows[0].main.coordinates.b",
+              "expected": 11,
+              "actual": 12
+            },
+            {
+              "path": "torn-tail.cached[10].world.rows[0].main.levels.b",
+              "expected": 11,
+              "actual": 12
+            },
+            {
+              "path": "torn-tail.cached[11].world.rows[0].main.levels.b",
+              "expected": 11,
+              "actual": 12
+            },
+            {
+              "path": "torn-tail.cached[14].world.rows[0].main.levels.b",
+              "expected": 11,
+              "actual": 12
+            },
+            {
+              "path": "torn-tail.cached[15].world.rows[0].main.levels.b",
+              "expected": 11,
+              "actual": 12
+            }
+          ]
+        },
+        {
+          "getter": "raw",
+          "recordsPerBackend": 144,
+          "differenceCount": 0,
+          "detectedInThisObserverRoute": false,
+          "pairedComparisonDifferenceCount": 0,
+          "independentOracleFailure": null,
+          "witness": []
+        }
+      ],
+      "rawObserverLimit": "Raw getter does not expose cached-only corruption; no raw-route detection is inferred when differenceCount=0"
+    },
+    {
+      "variant": "lost-mark",
+      "status": "DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE",
+      "witnesses": [
+        {
+          "getter": "cached",
+          "recordsPerBackend": 144,
+          "differenceCount": 14,
+          "detectedInThisObserverRoute": true,
+          "pairedComparisonDifferenceCount": 10,
+          "independentOracleFailure": null,
+          "witness": [
+            {
+              "path": "lost-mark.cached[2].marks",
+              "expected_length": 2,
+              "actual_length": 1
+            },
+            {
+              "path": "lost-mark.cached[2].marks[0].id",
+              "expected": 1,
+              "actual": 2
+            },
+            {
+              "path": "lost-mark.cached[3].world.rows[0].changed",
+              "expected": 9,
+              "actual": 4
+            },
+            {
+              "path": "lost-mark.cached[6].marks",
+              "expected_length": 2,
+              "actual_length": 1
+            },
+            {
+              "path": "lost-mark.cached[6].marks[0].id",
+              "expected": 1,
+              "actual": 2
+            },
+            {
+              "path": "lost-mark.cached[10].marks",
+              "expected_length": 2,
+              "actual_length": 1
+            },
+            {
+              "path": "lost-mark.cached[10].marks[0].id",
+              "expected": 1,
+              "actual": 2
+            },
+            {
+              "path": "lost-mark.cached[11].world.rows[0].changed",
+              "expected": 9,
+              "actual": 4
+            }
+          ]
+        },
+        {
+          "getter": "raw",
+          "recordsPerBackend": 144,
+          "differenceCount": 14,
+          "detectedInThisObserverRoute": true,
+          "pairedComparisonDifferenceCount": 10,
+          "independentOracleFailure": null,
+          "witness": [
+            {
+              "path": "lost-mark.raw[2].marks",
+              "expected_length": 2,
+              "actual_length": 1
+            },
+            {
+              "path": "lost-mark.raw[2].marks[0].id",
+              "expected": 1,
+              "actual": 2
+            },
+            {
+              "path": "lost-mark.raw[3].world.rows[0].changed",
+              "expected": 9,
+              "actual": 4
+            },
+            {
+              "path": "lost-mark.raw[6].marks",
+              "expected_length": 2,
+              "actual_length": 1
+            },
+            {
+              "path": "lost-mark.raw[6].marks[0].id",
+              "expected": 1,
+              "actual": 2
+            },
+            {
+              "path": "lost-mark.raw[10].marks",
+              "expected_length": 2,
+              "actual_length": 1
+            },
+            {
+              "path": "lost-mark.raw[10].marks[0].id",
+              "expected": 1,
+              "actual": 2
+            },
+            {
+              "path": "lost-mark.raw[11].world.rows[0].changed",
+              "expected": 9,
+              "actual": 4
+            }
+          ]
+        }
+      ],
+      "rawObserverLimit": "Raw getter does not expose cached-only corruption; no raw-route detection is inferred when differenceCount=0"
+    },
+    {
+      "variant": "inverse-order",
+      "status": "DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE",
+      "witnesses": [
+        {
+          "getter": "cached",
+          "recordsPerBackend": 144,
+          "differenceCount": 8,
+          "detectedInThisObserverRoute": true,
+          "pairedComparisonDifferenceCount": 0,
+          "independentOracleFailure": "AssertionError()",
+          "witness": [
+            {
+              "path": "inverse-order.cached[5].world.ledger.totals.a",
+              "expected": 77,
+              "actual": 100
+            },
+            {
+              "path": "inverse-order.cached[7].world.ledger.totals.a",
+              "expected": 77,
+              "actual": 100
+            },
+            {
+              "path": "inverse-order.cached[13].world.ledger.totals.a",
+              "expected": 77,
+              "actual": 100
+            },
+            {
+              "path": "inverse-order.cached[15].world.ledger.totals.a",
+              "expected": 77,
+              "actual": 100
+            },
+            {
+              "path": "inverse-order.cached[133].world.ledger.totals.a",
+              "expected": 77,
+              "actual": 100
+            },
+            {
+              "path": "inverse-order.cached[135].world.ledger.totals.a",
+              "expected": 77,
+              "actual": 100
+            },
+            {
+              "path": "inverse-order.cached[141].world.ledger.totals.a",
+              "expected": 77,
+              "actual": 100
+            },
+            {
+              "path": "inverse-order.cached[143].world.ledger.totals.a",
+              "expected": 77,
+              "actual": 100
+            }
+          ]
+        },
+        {
+          "getter": "raw",
+          "recordsPerBackend": 144,
+          "differenceCount": 8,
+          "detectedInThisObserverRoute": true,
+          "pairedComparisonDifferenceCount": 0,
+          "independentOracleFailure": "AssertionError()",
+          "witness": [
+            {
+              "path": "inverse-order.raw[5].world.ledger.totals.a",
+              "expected": 77,
+              "actual": 100
+            },
+            {
+              "path": "inverse-order.raw[7].world.ledger.totals.a",
+              "expected": 77,
+              "actual": 100
+            },
+            {
+              "path": "inverse-order.raw[13].world.ledger.totals.a",
+              "expected": 77,
+              "actual": 100
+            },
+            {
+              "path": "inverse-order.raw[15].world.ledger.totals.a",
+              "expected": 77,
+              "actual": 100
+            },
+            {
+              "path": "inverse-order.raw[133].world.ledger.totals.a",
+              "expected": 77,
+              "actual": 100
+            },
+            {
+              "path": "inverse-order.raw[135].world.ledger.totals.a",
+              "expected": 77,
+              "actual": 100
+            },
+            {
+              "path": "inverse-order.raw[141].world.ledger.totals.a",
+              "expected": 77,
+              "actual": 100
+            },
+            {
+              "path": "inverse-order.raw[143].world.ledger.totals.a",
+              "expected": 77,
+              "actual": 100
+            }
+          ]
+        }
+      ],
+      "rawObserverLimit": "Raw getter does not expose cached-only corruption; no raw-route detection is inferred when differenceCount=0"
+    }
+  ],
+  "scope": "Finite reached Slot/cursor cached/raw Tx corruption controls; actual flat failure/unwind route, not universal refinement or full22"
+}

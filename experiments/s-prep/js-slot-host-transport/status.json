@@ -1,0 +1,88 @@
+{
+  "sourceClosure": "4baad4960575cda216576e8b90593fbd7ed7dcd44cfa86836b8d87dd5af71f5c",
+  "scope": "Fresh first-stage guarded JS transport on Slot Host source29; finite diagnostic, not optimizer proof or performance acceptance",
+  "full65": {
+    "motion/raw-js": {
+      "receiptSHA256": "fd3a85d65542af1eb824c8afab3f23f9f1e9c17fd6327d8f2b7914602d9ed8ae",
+      "programSHA256": "7182eb37b7b3fc893e4c257cf2a9d468363ffbb117313e219b0241418c5a2f7f",
+      "status": "PASS_FULL65"
+    },
+    "motion/raw-native": {
+      "receiptSHA256": "45ce2ab469454c61d8d1769caecddcd2497653fd2c428dedd6fe3ac003f65bb6",
+      "programSHA256": "ff8d00a1212d5432b203ee1cc358ea434e92897435bed2b024e1ef17d532709f",
+      "status": "PASS_FULL65"
+    },
+    "motion/firststage-js": {
+      "receiptSHA256": "2a5ea192e54700cd40f92ac22548a2a097534043895f1ba5cdd0e0bfc5346e53",
+      "programSHA256": "0f03f6690f78cce4f950a7fb380d17095f9c294d200556a2f575a475885356f6",
+      "status": "PASS_FULL65"
+    },
+    "health/raw-js": {
+      "receiptSHA256": "25185c8107f5990433bd6657a5dfb58914a38bcbfb200eeb31005b6c7662c73d",
+      "programSHA256": "02a1add22945d39136f80ad7071a53b9a41d32f0e4f210448f43b82f37892754",
+      "status": "PASS_FULL65"
+    },
+    "health/raw-native": {
+      "receiptSHA256": "0f9a92adb34b6f385e183433f54f9670ea606286e45b63a71e34b29f0faa61ad",
+      "programSHA256": "07a7f75d7339c85a60ca38000af83d8c34faa827acd17bf99777cca870304cb6",
+      "status": "PASS_FULL65"
+    },
+    "health/firststage-js": {
+      "receiptSHA256": "4a0d4c4a52fe197b07fa92252430641e19634b96ee2bed4b417dfc741abe4546",
+      "programSHA256": "dc0dd75e21be64ae526498aab51e452d6efdc7f7217aab4996325f42692ffca8",
+      "status": "PASS_FULL65"
+    }
+  },
+  "nineWorldConstructionCounts": {
+    "motion": {
+      "before": 6946368,
+      "after": 5241920
+    },
+    "health": {
+      "before": 6686784,
+      "after": 4982336
+    }
+  },
+  "actualControllerRecords": 576,
+  "freshGuardChecks": [
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "5",
+        "timeout",
+        "5s",
+        "node",
+        "--expose-internals",
+        "experiments/s-prep/js-slot-host-transport/row-guard-controls.cjs",
+        "/tmp/bendvy-slot-host-generated-v1/row-guard-controls.json"
+      ],
+      "exit": 0,
+      "limitSeconds": 5,
+      "recipeSHA256": "e59ee89133d126c5cc2041f39b7c46d2c9a0a8b7d163deb508c8261ec0606e37",
+      "outputSHA256": "4775716c6aa57e19682fbff31db253ad56198038e172dc7203b305065c793d08",
+      "checks": 24,
+      "status": "EXACT_PACKED_ROW_SHAPE_SCOPE_REFUSALS_PASS"
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "5",
+        "timeout",
+        "5s",
+        "node",
+        "--expose-internals",
+        "experiments/s-prep/js-slot-host-transport/guard-controls.cjs",
+        "/tmp/bendvy-slot-host-generated-v1/tuple-guard-controls.json"
+      ],
+      "exit": 0,
+      "limitSeconds": 5,
+      "recipeSHA256": "4cd632188ad8f4dc314f61cf7edbc9e1d736ffe96b313bec4bc31a2ede157858",
+      "outputSHA256": "cfcb364ba80d8285a2bb3c12b388f40b57a84effac4f6333bd5bdb3b93f89a4a",
+      "checks": 34,
+      "status": "STRUCTURAL_ORDER_RETAINED_CONTROLS_PASS"
+    }
+  ],
+  "retainedViewStatus": "BOTH_SCHEMAS_FROZEN_VIEWS_FULL_ARRAYS_TRUEOLD_PENDING_PAIRS_EQUAL"
+}

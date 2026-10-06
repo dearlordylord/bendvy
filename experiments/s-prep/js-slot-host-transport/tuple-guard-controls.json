@@ -1,0 +1,181 @@
+{
+  "status": "STRUCTURAL_ORDER_RETAINED_CONTROLS_PASS",
+  "scope": "Finite causal rewrite controls only, not universal Type ownership or optimizer proof",
+  "checks": [
+    {
+      "name": "once-ordered-fields-and-adjacent-arguments",
+      "status": "EQUAL",
+      "sites": 1
+    },
+    {
+      "name": "exception-order-before",
+      "status": "EQUAL",
+      "sites": 1
+    },
+    {
+      "name": "exception-order-fst",
+      "status": "EQUAL",
+      "sites": 1
+    },
+    {
+      "name": "exception-order-snd",
+      "status": "EQUAL",
+      "sites": 1
+    },
+    {
+      "name": "exception-order-after",
+      "status": "EQUAL",
+      "sites": 1
+    },
+    {
+      "name": "retained-affine-array-and-data-snapshot-references",
+      "status": "EQUAL",
+      "sites": 1
+    },
+    {
+      "name": "whole",
+      "status": "REFUSED",
+      "reasons": [
+        "whole-pair escape/tag/unknown use"
+      ]
+    },
+    {
+      "name": "tag",
+      "status": "REFUSED",
+      "reasons": [
+        "whole-pair escape/tag/unknown use"
+      ]
+    },
+    {
+      "name": "write",
+      "status": "REFUSED",
+      "reasons": [
+        "pair write or method receiver"
+      ]
+    },
+    {
+      "name": "update",
+      "status": "REFUSED",
+      "reasons": [
+        "pair write or method receiver"
+      ]
+    },
+    {
+      "name": "delete",
+      "status": "REFUSED",
+      "reasons": [
+        "pair write or method receiver"
+      ]
+    },
+    {
+      "name": "method",
+      "status": "REFUSED",
+      "reasons": [
+        "pair write or method receiver"
+      ]
+    },
+    {
+      "name": "alias",
+      "status": "REFUSED",
+      "reasons": [
+        "whole-pair escape/tag/unknown use"
+      ]
+    },
+    {
+      "name": "capture",
+      "status": "REFUSED",
+      "reasons": [
+        "captured pair reference"
+      ]
+    },
+    {
+      "name": "arguments",
+      "status": "REFUSED",
+      "reasons": [
+        "arguments reflection"
+      ]
+    },
+    {
+      "name": "this",
+      "status": "REFUSED",
+      "reasons": [
+        "receiver context reflection"
+      ]
+    },
+    {
+      "name": "shadow",
+      "status": "REFUSED",
+      "reasons": [
+        "duplicate or shadowed pair binding"
+      ]
+    },
+    {
+      "name": "eval",
+      "status": "REFUSED"
+    },
+    {
+      "name": "proxy",
+      "status": "REFUSED"
+    },
+    {
+      "name": "reflect",
+      "status": "REFUSED"
+    },
+    {
+      "name": "caller",
+      "status": "REFUSED"
+    },
+    {
+      "name": "callee",
+      "status": "REFUSED"
+    },
+    {
+      "name": "duplicate",
+      "status": "REFUSED"
+    },
+    {
+      "name": "reassigned",
+      "status": "REFUSED"
+    },
+    {
+      "name": "shadowreceiver",
+      "status": "REFUSED"
+    },
+    {
+      "name": "defaultparam",
+      "status": "REFUSED"
+    },
+    {
+      "name": "rest",
+      "status": "REFUSED"
+    },
+    {
+      "name": "unknownpairfield",
+      "status": "REFUSED"
+    },
+    {
+      "name": "spread-on-target-call",
+      "status": "REFUSED"
+    },
+    {
+      "name": "malformed-{fst:1,$:'Tuple',snd:2}",
+      "status": "REFUSED"
+    },
+    {
+      "name": "malformed-{$:'Tuple',fst:1,snd:2,extra:3}",
+      "status": "REFUSED"
+    },
+    {
+      "name": "malformed-{$:'Tuple',get fst(){return 1},snd:2}",
+      "status": "REFUSED"
+    },
+    {
+      "name": "malformed-{$:'Tuple',['fst']:1,snd:2}",
+      "status": "REFUSED"
+    },
+    {
+      "name": "multiple-pair-call",
+      "status": "REFUSED"
+    }
+  ]
+}

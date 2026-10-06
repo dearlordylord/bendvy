@@ -371,3 +371,7 @@ exhausted, default/proofs5s and executable diagnostic15s remain distinct.
 [Outcome and full acceptance ledger](reports/fourhour-profile-outcome.md);
 [exact full22 map](../experiments/s-prep/source-private-id-query-remaining-gates/README.md);
 [Host interface evidence](../experiments/s-prep/source-private-id-query-host-gates/README.md).
+
+## Three-hour Slot Host/profile continuation — 2026-10-06
+
+User authorized12:56:58–15:56:58UTC for implementing persistent Slot Host interfaces, independent original Host/control integration and profile-guided JS optimization. Same fullcore/performance targets, source/ownership/work preservation and15s executable/5s default-proof limits apply. Canonical20 is unchanged and exhausted; no qualified keep/adoption follows from diagnostics. [Active report](reports/threehour-slot-host-profile.md).
