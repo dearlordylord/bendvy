@@ -50,5 +50,6 @@ for prefix,cap,owner,invoke in [('prototype_flatfold_motion','Motion','Prototype
 h.write_text(s)
 # Reconcile standalone and embedded source maps without changing unrelated metadata.
 for f in m['sources']:m['sources'][f]=hashlib.sha256((a.output/f).read_bytes()).hexdigest()
-(a.output/'overlay.json').write_text(json.dumps(m,indent=2)+'\n');cache=json.load(open(base/'cache-specialization.json'));cache['runtimeSources']=m['sources'];(a.output/'cache-specialization.json').write_text(json.dumps(cache,indent=2)+'\n')
+cache=json.load(open(base/'cache-specialization.json'));cache['runtimeClosure']=m['sources'];cache['specializedClosure']={f:m['sources'][f] for f in cache['specializedClosure']};cache['runtimeClosureSHA256']=hashlib.sha256(json.dumps(m['sources'],sort_keys=True,separators=(',',':')).encode()).hexdigest();m['cacheSpecialization']=cache
+(a.output/'overlay.json').write_text(json.dumps(m,indent=2)+'\n');(a.output/'cache-specialization.json').write_text(json.dumps(cache,indent=2)+'\n')
 print(a.output)
