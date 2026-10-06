@@ -1,0 +1,696 @@
+{
+  "status": "ELIGIBLE_EXECUTED_HEALTH_NINE_FULL_FIELDS_PASS",
+  "commands": [
+    {
+      "argv": [
+        "node",
+        "--expose-internals",
+        "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-direct-tuple-fusion/analyze.cjs",
+        "/tmp/bendvy-direct-tuple-health-base-profile/bend.js",
+        "/tmp/bendvy-direct-tuple-health-eligible-count-v2/analysis.json"
+      ],
+      "exit": 0,
+      "capSeconds": 5
+    },
+    {
+      "argv": [
+        "node",
+        "--expose-internals",
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/js-allocation-map/instrument.cjs",
+        "/tmp/bendvy-direct-tuple-health-base-profile/bend.js",
+        "/tmp/bendvy-direct-tuple-health-eligible-count-v2/counted.js"
+      ],
+      "exit": 0,
+      "capSeconds": 5
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-direct-tuple-health-eligible-count-v2/counted.js"
+      ],
+      "exit": 0,
+      "capSeconds": 5
+    }
+  ],
+  "ordinaryConstructors": 5768768,
+  "eligibleExecuted": 786944,
+  "activeEligibleSites": 7,
+  "sites": [
+    {
+      "receiver": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047uncached$045payload$058four_a$",
+      "pairIndex": 0,
+      "tupleStart": 92922,
+      "tupleEnd": 92985,
+      "callStart": 92804,
+      "callEnd": 92986,
+      "line": 1662,
+      "literalOrdinal": 393,
+      "caller": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047uncached$045payload$058original_four$",
+      "pairParameter": "_result_0",
+      "projections": 2,
+      "projectionRanges": [
+        {
+          "start": 101181,
+          "end": 101197,
+          "field": "fst"
+        },
+        {
+          "start": 101214,
+          "end": 101230,
+          "field": "snd"
+        }
+      ],
+      "receiverStart": 101022,
+      "receiverEnd": 101432,
+      "executions": 0
+    },
+    {
+      "receiver": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047uncached$045payload$058four_b$",
+      "pairIndex": 1,
+      "tupleStart": 101365,
+      "tupleEnd": 101428,
+      "callStart": 101241,
+      "callEnd": 101429,
+      "line": 1776,
+      "literalOrdinal": 417,
+      "caller": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047uncached$045payload$058four_a$",
+      "pairParameter": "_result_0",
+      "projections": 2,
+      "projectionRanges": [
+        {
+          "start": 111450,
+          "end": 111466,
+          "field": "fst"
+        },
+        {
+          "start": 111483,
+          "end": 111499,
+          "field": "snd"
+        }
+      ],
+      "receiverStart": 111285,
+      "receiverEnd": 111707,
+      "executions": 0
+    },
+    {
+      "receiver": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047storage$058metadata_get_live$",
+      "pairIndex": 4,
+      "tupleStart": 105307,
+      "tupleEnd": 105374,
+      "callStart": 105148,
+      "callEnd": 105375,
+      "line": 1830,
+      "literalOrdinal": 426,
+      "caller": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047storage$058metadata_get$",
+      "pairParameter": "_result_0",
+      "projections": 2,
+      "projectionRanges": [
+        {
+          "start": 114804,
+          "end": 114820,
+          "field": "fst"
+        },
+        {
+          "start": 114837,
+          "end": 114853,
+          "field": "snd"
+        }
+      ],
+      "receiverStart": 114605,
+      "receiverEnd": 115103,
+      "executions": 0
+    },
+    {
+      "receiver": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047uncached$045payload$058four_c$",
+      "pairIndex": 2,
+      "tupleStart": 111640,
+      "tupleEnd": 111703,
+      "callStart": 111510,
+      "callEnd": 111704,
+      "line": 1937,
+      "literalOrdinal": 452,
+      "caller": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047uncached$045payload$058four_b$",
+      "pairParameter": "_result_0",
+      "projections": 2,
+      "projectionRanges": [
+        {
+          "start": 121412,
+          "end": 121428,
+          "field": "fst"
+        },
+        {
+          "start": 121445,
+          "end": 121461,
+          "field": "snd"
+        }
+      ],
+      "receiverStart": 121241,
+      "receiverEnd": 121678,
+      "executions": 0
+    },
+    {
+      "receiver": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047payload$058four_a$",
+      "pairIndex": 0,
+      "tupleStart": 112451,
+      "tupleEnd": 112514,
+      "callStart": 112345,
+      "callEnd": 112515,
+      "line": 1947,
+      "literalOrdinal": 456,
+      "caller": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047payload$058four$",
+      "pairParameter": "_result_0",
+      "projections": 2,
+      "projectionRanges": [
+        {
+          "start": 121827,
+          "end": 121843,
+          "field": "fst"
+        },
+        {
+          "start": 121860,
+          "end": 121876,
+          "field": "snd"
+        }
+      ],
+      "receiverStart": 121680,
+      "receiverEnd": 122066,
+      "executions": 0
+    },
+    {
+      "receiver": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047storage$058metadata_get_flags$",
+      "pairIndex": 5,
+      "tupleStart": 115029,
+      "tupleEnd": 115099,
+      "callStart": 114864,
+      "callEnd": 115100,
+      "line": 1979,
+      "literalOrdinal": 463,
+      "caller": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047storage$058metadata_get_live$",
+      "pairParameter": "_result_0",
+      "projections": 2,
+      "projectionRanges": [
+        {
+          "start": 122775,
+          "end": 122791,
+          "field": "fst"
+        },
+        {
+          "start": 122808,
+          "end": 122824,
+          "field": "snd"
+        }
+      ],
+      "receiverStart": 122569,
+      "receiverEnd": 123080,
+      "executions": 0
+    },
+    {
+      "receiver": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047uncached$045payload$058four_done$",
+      "pairIndex": 3,
+      "tupleStart": 121611,
+      "tupleEnd": 121674,
+      "callStart": 121472,
+      "callEnd": 121675,
+      "line": 2091,
+      "literalOrdinal": 482,
+      "caller": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047uncached$045payload$058four_c$",
+      "pairParameter": "_result_0",
+      "projections": 2,
+      "projectionRanges": [
+        {
+          "start": 129835,
+          "end": 129851,
+          "field": "fst"
+        },
+        {
+          "start": 129868,
+          "end": 129884,
+          "field": "snd"
+        }
+      ],
+      "receiverStart": 129655,
+      "receiverEnd": 130056,
+      "executions": 0
+    },
+    {
+      "receiver": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047payload$058four_b$",
+      "pairIndex": 1,
+      "tupleStart": 121999,
+      "tupleEnd": 122062,
+      "callStart": 121887,
+      "callEnd": 122063,
+      "line": 2097,
+      "literalOrdinal": 483,
+      "caller": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047payload$058four_a$",
+      "pairParameter": "_result_0",
+      "projections": 2,
+      "projectionRanges": [
+        {
+          "start": 130211,
+          "end": 130227,
+          "field": "fst"
+        },
+        {
+          "start": 130244,
+          "end": 130260,
+          "field": "snd"
+        }
+      ],
+      "receiverStart": 130058,
+      "receiverEnd": 130456,
+      "executions": 0
+    },
+    {
+      "receiver": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047storage$058metadata_get_added$",
+      "pairIndex": 6,
+      "tupleStart": 123006,
+      "tupleEnd": 123076,
+      "callStart": 122835,
+      "callEnd": 123077,
+      "line": 2109,
+      "literalOrdinal": 484,
+      "caller": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047storage$058metadata_get_flags$",
+      "pairParameter": "_result_0",
+      "projections": 2,
+      "projectionRanges": [
+        {
+          "start": 131449,
+          "end": 131465,
+          "field": "fst"
+        },
+        {
+          "start": 131482,
+          "end": 131498,
+          "field": "snd"
+        }
+      ],
+      "receiverStart": 131237,
+      "receiverEnd": 131756,
+      "executions": 0
+    },
+    {
+      "receiver": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047payload$058four_c$",
+      "pairIndex": 2,
+      "tupleStart": 130389,
+      "tupleEnd": 130452,
+      "callStart": 130271,
+      "callEnd": 130453,
+      "line": 2222,
+      "literalOrdinal": 500,
+      "caller": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047payload$058four_b$",
+      "pairParameter": "_result_0",
+      "projections": 2,
+      "projectionRanges": [
+        {
+          "start": 137697,
+          "end": 137713,
+          "field": "fst"
+        },
+        {
+          "start": 137730,
+          "end": 137746,
+          "field": "snd"
+        }
+      ],
+      "receiverStart": 137538,
+      "receiverEnd": 137951,
+      "executions": 0
+    },
+    {
+      "receiver": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047storage$058metadata_get_changed$",
+      "pairIndex": 6,
+      "tupleStart": 131676,
+      "tupleEnd": 131752,
+      "callStart": 131509,
+      "callEnd": 131753,
+      "line": 2235,
+      "literalOrdinal": 505,
+      "caller": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047storage$058metadata_get_added$",
+      "pairParameter": "_result_0",
+      "projections": 2,
+      "projectionRanges": [
+        {
+          "start": 138163,
+          "end": 138179,
+          "field": "fst"
+        },
+        {
+          "start": 138196,
+          "end": 138212,
+          "field": "snd"
+        }
+      ],
+      "receiverStart": 137953,
+      "receiverEnd": 138565,
+      "executions": 0
+    },
+    {
+      "receiver": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047payload$058four_done$",
+      "pairIndex": 3,
+      "tupleStart": 137884,
+      "tupleEnd": 137947,
+      "callStart": 137757,
+      "callEnd": 137948,
+      "line": 2317,
+      "literalOrdinal": 515,
+      "caller": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047payload$058four_c$",
+      "pairParameter": "_result_0",
+      "projections": 2,
+      "projectionRanges": [
+        {
+          "start": 148389,
+          "end": 148405,
+          "field": "fst"
+        },
+        {
+          "start": 148422,
+          "end": 148438,
+          "field": "snd"
+        }
+      ],
+      "receiverStart": 148221,
+      "receiverEnd": 148610,
+      "executions": 0
+    },
+    {
+      "receiver": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047capture$058incremented$",
+      "pairIndex": 0,
+      "tupleStart": 202698,
+      "tupleEnd": 202761,
+      "callStart": 202587,
+      "callEnd": 202762,
+      "line": 3276,
+      "literalOrdinal": 743,
+      "caller": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047capture$058increment$",
+      "pairParameter": "_result_0",
+      "projections": 2,
+      "projectionRanges": [
+        {
+          "start": 209785,
+          "end": 209801,
+          "field": "fst"
+        },
+        {
+          "start": 209822,
+          "end": 209838,
+          "field": "snd"
+        }
+      ],
+      "receiverStart": 209633,
+      "receiverEnd": 210081,
+      "executions": 512
+    },
+    {
+      "receiver": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047query$058prototype_identity_struct_cols_live$1261$",
+      "pairIndex": 9,
+      "tupleStart": 249919,
+      "tupleEnd": 249982,
+      "callStart": 249686,
+      "callEnd": 249983,
+      "line": 3963,
+      "literalOrdinal": 881,
+      "caller": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047query$058prototype_identity_struct_idx_advance$1261$",
+      "pairParameter": "_result_0",
+      "projections": 2,
+      "projectionRanges": [
+        {
+          "start": 257330,
+          "end": 257346,
+          "field": "fst"
+        },
+        {
+          "start": 257363,
+          "end": 257379,
+          "field": "snd"
+        }
+      ],
+      "receiverStart": 257057,
+      "receiverEnd": 258002,
+      "executions": 131072
+    },
+    {
+      "receiver": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047storage$058metadata_live_done$",
+      "pairIndex": 3,
+      "tupleStart": 250930,
+      "tupleEnd": 250997,
+      "callStart": 250780,
+      "callEnd": 250998,
+      "line": 3978,
+      "literalOrdinal": 882,
+      "caller": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047storage$058metadata_live$",
+      "pairParameter": "_result_0",
+      "projections": 2,
+      "projectionRanges": [
+        {
+          "start": 258602,
+          "end": 258618,
+          "field": "fst"
+        },
+        {
+          "start": 258639,
+          "end": 258655,
+          "field": "snd"
+        }
+      ],
+      "receiverStart": 258412,
+      "receiverEnd": 258874,
+      "executions": 131072
+    },
+    {
+      "receiver": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047transaction$058prototype_storage_mark_live$",
+      "pairIndex": 3,
+      "tupleStart": 254935,
+      "tupleEnd": 254998,
+      "callStart": 254762,
+      "callEnd": 254999,
+      "line": 4042,
+      "literalOrdinal": 890,
+      "caller": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047transaction$058prototype_storage_mark_guard$",
+      "pairParameter": "_result_0",
+      "projections": 2,
+      "projectionRanges": [
+        {
+          "start": 263952,
+          "end": 263968,
+          "field": "fst"
+        },
+        {
+          "start": 263985,
+          "end": 264001,
+          "field": "snd"
+        }
+      ],
+      "receiverStart": 263750,
+      "receiverEnd": 264208,
+      "executions": 131072
+    },
+    {
+      "receiver": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047query$058prototype_identity_struct_idx_metadata$1261$",
+      "pairIndex": 10,
+      "tupleStart": 257928,
+      "tupleEnd": 257994,
+      "callStart": 257687,
+      "callEnd": 257995,
+      "line": 4083,
+      "literalOrdinal": 895,
+      "caller": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047query$058prototype_identity_struct_cols_live$1261$",
+      "pairParameter": "_result_0",
+      "projections": 3,
+      "projectionRanges": [
+        {
+          "start": 266707,
+          "end": 266723,
+          "field": "fst"
+        },
+        {
+          "start": 266988,
+          "end": 267004,
+          "field": "fst"
+        },
+        {
+          "start": 267026,
+          "end": 267042,
+          "field": "snd"
+        }
+      ],
+      "receiverStart": 266400,
+      "receiverEnd": 267433,
+      "executions": 131072
+    },
+    {
+      "receiver": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047query$058struct_cols_live$1261$",
+      "pairIndex": 9,
+      "tupleStart": 276002,
+      "tupleEnd": 276065,
+      "callStart": 275788,
+      "callEnd": 276066,
+      "line": 4358,
+      "literalOrdinal": 933,
+      "caller": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047query$058struct_idx_advance$1261$",
+      "pairParameter": "_result_0",
+      "projections": 2,
+      "projectionRanges": [
+        {
+          "start": 280204,
+          "end": 280220,
+          "field": "fst"
+        },
+        {
+          "start": 280237,
+          "end": 280253,
+          "field": "snd"
+        }
+      ],
+      "receiverStart": 279950,
+      "receiverEnd": 280857,
+      "executions": 0
+    },
+    {
+      "receiver": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047query$058struct_idx_metadata$1261$",
+      "pairIndex": 10,
+      "tupleStart": 280783,
+      "tupleEnd": 280849,
+      "callStart": 280561,
+      "callEnd": 280850,
+      "line": 4415,
+      "literalOrdinal": 940,
+      "caller": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047query$058struct_cols_live$1261$",
+      "pairParameter": "_result_0",
+      "projections": 3,
+      "projectionRanges": [
+        {
+          "start": 288654,
+          "end": 288670,
+          "field": "fst"
+        },
+        {
+          "start": 288935,
+          "end": 288951,
+          "field": "fst"
+        },
+        {
+          "start": 288973,
+          "end": 288989,
+          "field": "snd"
+        }
+      ],
+      "receiverStart": 288366,
+      "receiverEnd": 289361,
+      "executions": 0
+    },
+    {
+      "receiver": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047held$045adapter$058prototype_journalledger_health_setledger_done$",
+      "pairIndex": 8,
+      "tupleStart": 308989,
+      "tupleEnd": 309055,
+      "callStart": 308746,
+      "callEnd": 309066,
+      "line": 4795,
+      "literalOrdinal": 999,
+      "caller": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047held$045adapter$058prototype_journalledger_health_setledger$",
+      "pairParameter": "_result_0",
+      "projections": 2,
+      "projectionRanges": [
+        {
+          "start": 317867,
+          "end": 317883,
+          "field": "fst"
+        },
+        {
+          "start": 317902,
+          "end": 317918,
+          "field": "snd"
+        }
+      ],
+      "receiverStart": 317563,
+      "receiverEnd": 318748,
+      "executions": 131072
+    },
+    {
+      "receiver": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047uncached$045payload$058prototype_direct_vitals_swap$",
+      "pairIndex": 3,
+      "tupleStart": 319820,
+      "tupleEnd": 319883,
+      "callStart": 319648,
+      "callEnd": 319884,
+      "line": 4940,
+      "literalOrdinal": 1025,
+      "caller": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047uncached$045payload$058vitals_swap$",
+      "pairParameter": "_result_0",
+      "projections": 2,
+      "projectionRanges": [
+        {
+          "start": 324832,
+          "end": 324848,
+          "field": "fst"
+        },
+        {
+          "start": 324867,
+          "end": 324883,
+          "field": "snd"
+        }
+      ],
+      "receiverStart": 324619,
+      "receiverEnd": 325117,
+      "executions": 131072
+    },
+    {
+      "receiver": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047storage$058prototype_fuse_live_result$",
+      "pairIndex": 15,
+      "tupleStart": 326676,
+      "tupleEnd": 326743,
+      "callStart": 326390,
+      "callEnd": 326744,
+      "line": 5030,
+      "literalOrdinal": 1041,
+      "caller": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047storage$058prototype_fuse_columns$",
+      "pairParameter": "_result_0",
+      "projections": 2,
+      "projectionRanges": [
+        {
+          "start": 329151,
+          "end": 329167,
+          "field": "fst"
+        },
+        {
+          "start": 329188,
+          "end": 329204,
+          "field": "snd"
+        }
+      ],
+      "receiverStart": 328825,
+      "receiverEnd": 329633,
+      "executions": 0
+    },
+    {
+      "receiver": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047uncached$045payload$058prototype_direct_health_ledger_swap$",
+      "pairIndex": 2,
+      "tupleStart": 330894,
+      "tupleEnd": 330957,
+      "callStart": 330727,
+      "callEnd": 330958,
+      "line": 5081,
+      "literalOrdinal": 1056,
+      "caller": "$$$$047bendvy$045identity$045handle$045query$045v3$047experiments$047s$045integrate$047uncached$045payload$058health_ledger_swap$",
+      "pairParameter": "_result_0",
+      "projections": 2,
+      "projectionRanges": [
+        {
+          "start": 332321,
+          "end": 332337,
+          "field": "fst"
+        },
+        {
+          "start": 332356,
+          "end": 332372,
+          "field": "snd"
+        }
+      ],
+      "receiverStart": 332113,
+      "receiverEnd": 332589,
+      "executions": 0
+    }
+  ],
+  "sourceSHA256": "de12941c1c9729d39b64046c9280fc0e7b682fff2fd44fd085bca5304f0f288b",
+  "countsSHA256": "b0357c5c921d51a81a785be44b80b151a24185d48275078ee9dee98e94f5b10a"
+}

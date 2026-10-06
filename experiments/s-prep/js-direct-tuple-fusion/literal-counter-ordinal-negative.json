@@ -1,0 +1,36 @@
+{
+  "status": "FAILED",
+  "commands": [
+    {
+      "argv": [
+        "node",
+        "--expose-internals",
+        "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-direct-tuple-fusion/analyze.cjs",
+        "/tmp/bendvy-direct-tuple-health-base-profile/bend.js",
+        "/tmp/bendvy-direct-tuple-health-eligible-count/analysis.json"
+      ],
+      "exit": 0,
+      "capSeconds": 5
+    },
+    {
+      "argv": [
+        "node",
+        "--expose-internals",
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/js-allocation-map/instrument.cjs",
+        "/tmp/bendvy-direct-tuple-health-base-profile/bend.js",
+        "/tmp/bendvy-direct-tuple-health-eligible-count/counted.js"
+      ],
+      "exit": 0,
+      "capSeconds": 5
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-direct-tuple-health-eligible-count/counted.js"
+      ],
+      "exit": 0,
+      "capSeconds": 5
+    }
+  ],
+  "error": "AssertionError()"
+}
