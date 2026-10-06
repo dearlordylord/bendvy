@@ -1,6 +1,6 @@
 # Clang 19 diagnostic toolchain approval proposal
 
-Approve extracting and using the four pinned Debian ARM64 archives below in a new private `/tmp/bendvy-clang19-diagnostic/root`, with an explicit process-local wrapper and the pinned existing Z3 library. Purpose: test the existing Bend generated-C calling-convention path without changing Bend, generated C, kernels, source APIs or default Clang. This proposal does not approve a global package installation, new project dependency graph, product adoption, numerical threshold, canonical cap reset or performance acceptance.
+The user approved extracting and using the four pinned Debian ARM64 archives below in a new private `/tmp/bendvy-clang19-diagnostic/root`, with an explicit process-local wrapper and the pinned existing Z3 library. Purpose: test the existing Bend generated-C calling-convention path without changing Bend, generated C, kernels, source APIs or default Clang. This proposal does not approve a global package installation, new project dependency graph, product adoption, numerical threshold, canonical cap reset or performance acceptance.
 
 **Status: explicit user approval received on2026-10-06 during the profiling window:**
 “Да, установить отдельно и проверить.” The exact four-package private extraction/use
@@ -28,7 +28,7 @@ This host is Debian12/bookworm ARM64. Current Clang14.0.6 under `/home/node/.loc
 | libllvm19 |23,183,452|[Debian archive](https://deb.debian.org/debian/pool/main/l/llvm-toolchain-19/libllvm19_19.1.7-3~deb12u1_arm64.deb)|`8da27fd815c3feceb5aed709b66e0daf9ef6ea98600778f7fd6b569a9ae1f109`|
 | libclang-common-19-dev |739,736|[Debian archive](https://deb.debian.org/debian/pool/main/l/llvm-toolchain-19/libclang-common-19-dev_19.1.7-3~deb12u1_arm64.deb)|`ba6f837294395f6aec7f2177c8e578e1c45cf6a3733b469b659fb08824a35f6e`|
 
-Total: **35,935,452 bytes (35.94MB /34.27MiB)**; Debian declared extracted size198,672KiB (~194.02MiB), before filesystem overhead. Plan space for both archives and payload (~230MB minimum; reserve300MB). Only archives are currently staged in `/tmp/bendvy-clang19-download-staging`; no payload directory exists.
+Total: **35,935,452 bytes (35.94MB /34.27MiB)**; Debian declared extracted size198,672KiB (~194.02MiB), before filesystem overhead. Plan space for both archives and payload (~230MB minimum; reserve300MB). At proposal time only archives were staged in `/tmp/bendvy-clang19-download-staging`. After explicit approval they were extracted into the private payload root; the verified execution report supersedes this proposal-time inventory.
 
 This is a minimal **candidate private plain-C payload**, not a complete apt installation transaction or experimentally verified ELF dependency closure. Official package dependencies also name libclang1-19, llvm-19-linker-tools and Objective-C development support. For plain C without LTO/Objective-C those are not proposed initially; sufficiency remains an explicit post-approval ELF/resource/link check. If needed, stop and present a concrete expanded request. [Optional metadata](../../experiments/s-prep/clang19-plan/metadata/packages.json) pins libclang1-19 (6,821,592bytes), llvm-19-linker-tools (1,091,184bytes) and libz3-4 (6,281,640bytes); none was downloaded or enabled by this proposal.
 

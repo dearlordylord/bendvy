@@ -1,6 +1,8 @@
-# Proposed commands after explicit approval
+# Reviewed commands for approved private diagnostic
 
-Not executed. Approval request covers extraction/use of exactly the four pinned Clang19 archives into a new private root, reuse of the pinned existing Z3 library, and fresh bounded diagnostic builds. No apt/dpkg installation, maintainer scripts, alternatives, shell-profile, default compiler, dependency graph or project source changes.
+This recipe was prospective when published. The user subsequently explicitly approved
+its private extraction/use; actual command and output receipts live in the separate
+Clang19 diagnostic package. The approval covers extraction/use of exactly the four pinned Clang19 archives into a new private root, reuse of the pinned existing Z3 library, and fresh bounded diagnostic builds. No apt/dpkg installation, maintainer scripts, alternatives, shell-profile, default compiler, dependency graph or project source changes.
 
 1. Verify every archive's byte length/SHA256 against `metadata/packages.json`, and the existing Z3 SHA256 against `metadata/existing-z3.json` again. Refuse mismatches. Select fresh `/tmp/bendvy-clang19-diagnostic/root`; archive staging is `/tmp/bendvy-clang19-download-staging`.
 2. After approval only, create that fresh root and run `dpkg-deb --extract ARCHIVE PRIVATE_ROOT` for those four archives. This unpacks data without running maintainer scripts. Do not follow package suggestions or install additional packages.

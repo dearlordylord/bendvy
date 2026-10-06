@@ -3,7 +3,22 @@
 Status: **incomplete** under #21/#24. JS parity and Native>=2x are not achieved or
 qualified. Work follows generated JS, CPU/GC profiles and actual V8 allocation
 sampling. These are bounded source probes; no production adoption, new proof/law,
-compiler/kernel change, dependency installation or canonical allowance reset.
+compiler/kernel change or canonical allowance reset. The separately approved private
+Clang19 diagnostic is the only dependency exception.
+
+## Renewed window and integration verification
+
+The user renewed two hours:2026-10-06 00:43:20Z→02:43:20Z. This is direct
+profiling/source preparation with bounded diagnostic observations; the historical
+20 physical canonical attempts remain exhausted. Runtime5, diagnostic checker15,
+codegen30 and clang120 limits remain. Original/failed/adverse receipts are retained.
+Master independently reproduced the frozen mark package from committed recipes:
+`python3 experiments/s-prep/frozen-mark-js-join/materialize.py --output NEW_PATH`
+returned `FROZEN_SOURCE_BOTH_MARK_JOIN_GUARDS_PASS`. Root archive verification
+checked234 adjacent and16 frozen-profile archive/original SHA pairs, in addition
+to earlier final/failure/profile/counter archives. Syntax checks and diff checks
+pass for changed diagnostics. These integration checks do not close semantic or
+performance acceptance.
 
 ## Source results
 
