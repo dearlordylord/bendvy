@@ -1,0 +1,129 @@
+{
+  "format": 1,
+  "limit_seconds": 5,
+  "version": "bend 2.0.35",
+  "runner_sha256": "a9ea2493fd7b37b4505461f0696c5a7c0de783dea0564f7cb5391e0ff99d9da3",
+  "library": {
+    "src/ecs/capabilities.bend": "91c0cdc01e9143d10dc0156ef4f6c39beff97d8088ed0bbb056ffff2ffabf964",
+    "src/ecs/column.bend": "092313358ad23c466b44192b27946a05c7b86dc2c560c5942c5817d848614a21",
+    "src/ecs/commands.bend": "b41ec45ad17513351fd68436cefbaec0058ac4556d1d722f2c0ce5a7d4a9f9d1",
+    "src/ecs/component.bend": "d36e068152c07c410425e5114b5ca2d3e853d615025481b9b4a5fbade38d04f6",
+    "src/ecs/compose.bend": "49c3f5158f57b30b3b24471de79505159d909f11698c2449d12145556936d23f",
+    "src/ecs/events.bend": "3d89fbbb40fefab4be349bfbe0d1f99c870c25c725130ccb1823910c1ace7c53",
+    "src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "src/ecs/provider.bend": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72",
+    "src/ecs/query.bend": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9",
+    "src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+    "src/ecs/structural.bend": "f813a10058914cdf85f94e879b2dc68b9cb3e878b5c683dae60152f40001fcae",
+    "src/ecs/system.bend": "b603976da337b72586cf731fc1cf886238dbcbe9c53e1e192552aa6244408fde",
+    "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "src/ecs/world.bend": "5b0fb4826e4a27449d2832bbe6fc3f6d7d9c927620fe8dbfa40b5e9aa73af33f"
+  },
+  "cases_sha256": "e0c88118ac15b699fc022c4a232ecf84903dd8c06acd840d1ec5bc4e7f152991",
+  "results": [
+    {
+      "name": "positive-five-alias-runtime",
+      "command": [
+        "timeout",
+        "5",
+        "bend",
+        "experiments/query-composition/public-controls/positive-alias-runtime.bend"
+      ],
+      "source_sha256": "6aac020cd0a9783cd8cf7bc45fd125b75eb2b19300e9f60f2091581acd8832fa",
+      "exit": 0,
+      "passed": true,
+      "log": "positive-five-alias-runtime.log"
+    },
+    {
+      "name": "positive-selection",
+      "command": [
+        "timeout",
+        "5",
+        "bend",
+        "experiments/query-composition/public-controls/positive-selection.bend"
+      ],
+      "source_sha256": "b500c5c4e93e3c80061db3db8dea380907ee9295bc272d997f8a148de3607aa7",
+      "exit": 0,
+      "passed": true,
+      "log": "positive-selection.log"
+    },
+    {
+      "name": "positive-family",
+      "command": [
+        "timeout",
+        "5",
+        "bend",
+        "experiments/query-composition/public-controls/positive-family.bend"
+      ],
+      "source_sha256": "9508eb317bb49e39ae2e54148a6cb0e1f3f916d37a0579a658f6284ae3d7baa3",
+      "exit": 0,
+      "passed": true,
+      "log": "positive-family.log"
+    },
+    {
+      "name": "writes-through-read",
+      "command": [
+        "timeout",
+        "5",
+        "bend",
+        "experiments/query-composition/public-controls/negative-read-set.bend"
+      ],
+      "source_sha256": "5f7360a6399186c0160902178554d43b07381609be2cf2c24f3dc3f8a4e213ef",
+      "exit": 1,
+      "passed": true,
+      "log": "writes-through-read.log"
+    },
+    {
+      "name": "duplicate-context",
+      "command": [
+        "timeout",
+        "5",
+        "bend",
+        "experiments/query-composition/public-controls/negative-duplicate-context.bend"
+      ],
+      "source_sha256": "64cb26680a6edbe6e53655c77c5e45e42bc23c952f89e0e476ab284a1d0855e7",
+      "exit": 1,
+      "passed": true,
+      "log": "duplicate-context.log"
+    },
+    {
+      "name": "undeclared-operation",
+      "command": [
+        "timeout",
+        "5",
+        "bend",
+        "experiments/query-composition/public-controls/negative-undeclared.bend"
+      ],
+      "source_sha256": "ebe70e155468fefb2ae3670ae6ea09558c0df9e8b62445ffd2dade468bc4682c",
+      "exit": 1,
+      "passed": true,
+      "log": "undeclared-operation.log"
+    },
+    {
+      "name": "opaque-reconstruction",
+      "command": [
+        "timeout",
+        "5",
+        "bend",
+        "experiments/query-composition/public-controls/negative-reconstruct-context.bend"
+      ],
+      "source_sha256": "7c2584cecf5b964ca9cbb65ab0ed80c94607f345289f829b4a6b49effc70f8ca",
+      "exit": 1,
+      "passed": true,
+      "log": "opaque-reconstruction.log"
+    },
+    {
+      "name": "cross-schema-family",
+      "command": [
+        "timeout",
+        "5",
+        "bend",
+        "experiments/query-composition/public-controls/negative-cross-schema.bend"
+      ],
+      "source_sha256": "04b32a47877edc329d4d62379c5706cbbb07885767290cba6b809285cca8f60a",
+      "exit": 1,
+      "passed": true,
+      "log": "cross-schema-family.log"
+    }
+  ]
+}

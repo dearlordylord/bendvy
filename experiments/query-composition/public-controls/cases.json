@@ -1,0 +1,63 @@
+[
+  {
+    "name": "positive-five-alias-runtime",
+    "file": "positive-alias-runtime.bend",
+    "expected": "[70, 71, 71, 72, 73]"
+  },
+  {
+    "name": "positive-selection",
+    "file": "positive-selection.bend",
+    "expected": "[True{}, False{}, True{}, True{}, False{}]"
+  },
+  {
+    "name": "positive-family",
+    "file": "positive-family.bend",
+    "expected": "0"
+  },
+  {
+    "name": "writes-through-read",
+    "file": "negative-read-set.bend",
+    "reject": [
+      "Cap.Write<bad~H, Payload, U32>",
+      "Cap.Read<bad~H, U32>",
+      "Location: bad"
+    ]
+  },
+  {
+    "name": "duplicate-context",
+    "file": "negative-duplicate-context.bend",
+    "reject": [
+      "consumed more than once",
+      "Location: bad"
+    ]
+  },
+  {
+    "name": "undeclared-operation",
+    "file": "negative-undeclared.bend",
+    "reject": [
+      "Q.Frame<Unit, Unit, Unit, U32>",
+      "bad~H",
+      "Q.resource_set",
+      "Location: bad"
+    ]
+  },
+  {
+    "name": "opaque-reconstruction",
+    "file": "negative-reconstruct-context.bend",
+    "reject": [
+      "expected : bad~H",
+      "observed : Q.Frame",
+      "Location: bad"
+    ]
+  },
+  {
+    "name": "cross-schema-family",
+    "file": "negative-cross-schema.bend",
+    "reject": [
+      "Col.Column<bad~S1, bad~C>",
+      "Col.Column<bad~S2, bad~C>",
+      "Q.read_family",
+      "Location: bad"
+    ]
+  }
+]
