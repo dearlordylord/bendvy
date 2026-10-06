@@ -1,0 +1,32 @@
+{
+  "status": "BUILD_FAIL",
+  "commands": [
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-mark-scalar-static-v2/batch.bend",
+        "--check-only"
+      ],
+      "cpu": 10,
+      "limitSeconds": 15,
+      "exit": 1,
+      "timeout": false,
+      "elapsedSeconds": 0.5586223078425974,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : a filled definition (an unfilled law is a dead claim: live code cannot use it)\n- observed : prototype_storage_mark_loop\nContext:\n- Schema    : Data\n- M         : Type\n- A         : Type\n- F         : Data\n- L         : Type\n- Mode      : Data\n- id        : U32\n- rest      : List<&2, S.Handle<Schema>>\n- namespace : U32\n- next      : U32\n- main      : Array<Maybe<&1, M>>\n- aux       : Array<Maybe<&1, A>>\n- flags     : Array<Maybe<&2, F>>\n- added     : Array<U32>\n- changed   : Array<U32>\n- live      : Array<Bool>\n- capacity  : U32\n- depth     : Nat\n- high      : U32\n- pending   : List<&1, S.Command<M, A, F>>\n- ledger    : Maybe<&1, L>\n- mode      : Mode\n- tick      : U32\nLocation: prototype_storage_mark_scalar_live\n104 |   match result:\n105>|     case Tuple{live,False{}}: prototype_storage_mark_loop(Schema,M,A,F,L,Mode,rest,namespace,next,main,aux,flags,added,live,changed,capacity,depth,high,pending,ledger,mode,tick)\n    |                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n106 |     case Tuple{live,True{}}: prototype_storage_mark_loop(Schema,M,A,F,L,Mode,rest,namespace,next,main,aux,flags,added,live,Array.set(U32,changed,U32.sub(id,1),tick),capacity,depth,high,pending,ledger,mode,tick)\n"
+    }
+  ],
+  "inputs": {
+    "batch.bend": {
+      "baselineSHA256": "5ef8b2903e4b93229d14b786ed1f65aa508fa349fbc5108a6b741454e06f8dac",
+      "candidateSHA256": "412f9b8a229ab035939fed0a9c3e58765027a7b3a0e65124472a431eade9071a",
+      "adaptation": "Only exact absolute runtime-overlay prefix replacement"
+    },
+    "measurement-bend.bend": {
+      "baselineSHA256": "51c84dcdea96874d8e9e39d717de935fe02399b6f0f712eac68d03aea45bfc62",
+      "candidateSHA256": "6d9c8eb9de98be89e405cdbfa840adbb3147d54ff0ed73fc7cecac37cdd5c65d",
+      "adaptation": "Only exact absolute runtime-overlay prefix replacement"
+    }
+  },
+  "productionAdoption": false,
+  "performanceAcceptance": false
+}

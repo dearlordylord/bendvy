@@ -1,0 +1,72 @@
+import Base
+import ./measurement-bend.bend as M
+import /tmp/bendvy-mark-scalar-native-v2/experiments/s-integrate/types.bend as T
+import /tmp/bendvy-mark-scalar-native-v2/experiments/s-integrate/storage.bend as S
+import /tmp/bendvy-mark-scalar-native-v2/experiments/s-integrate/dispatcher.bend as D
+import /tmp/bendvy-mark-scalar-native-v2/experiments/s-integrate/schedule.bend as K
+
+def motion_prepared(fuel:Nat,+count:U32,owners:List<(D.Runtime<M.MotionBench,S.Handle<T.MotionSchema>> & K.System)>) -> IO(List<(D.Runtime<M.MotionBench,S.Handle<T.MotionSchema>> & K.System)>):
+  match fuel:
+    case 0n: IO.pure(List<(D.Runtime<M.MotionBench,S.Handle<T.MotionSchema>> & K.System)>,List.reverse(&1,(D.Runtime<M.MotionBench,S.Handle<T.MotionSchema>> & K.System),owners))
+    case 1n+rest: IO.bind((D.Runtime<M.MotionBench,S.Handle<T.MotionSchema>> & K.System),List<(D.Runtime<M.MotionBench,S.Handle<T.MotionSchema>> & K.System)>,M.motion_fresh(count),owner => motion_prepared(rest,count,owner <> owners))
+def motion_returned(next:List<D.Runtime<M.MotionBench,S.Handle<T.MotionSchema>>> -> IO(List<D.Runtime<M.MotionBench,S.Handle<T.MotionSchema>>>),done:List<D.Runtime<M.MotionBench,S.Handle<T.MotionSchema>>>,owner:D.Runtime<M.MotionBench,S.Handle<T.MotionSchema>>) -> IO(List<D.Runtime<M.MotionBench,S.Handle<T.MotionSchema>>>):
+  next(owner <> done)
+def motion_execute(owners:List<(D.Runtime<M.MotionBench,S.Handle<T.MotionSchema>> & K.System)>,done:List<D.Runtime<M.MotionBench,S.Handle<T.MotionSchema>>>) -> IO(List<D.Runtime<M.MotionBench,S.Handle<T.MotionSchema>>>):
+  match owners:
+    case Nil{}: IO.pure(List<D.Runtime<M.MotionBench,S.Handle<T.MotionSchema>>>,List.reverse(&1,D.Runtime<M.MotionBench,S.Handle<T.MotionSchema>>,done))
+    case Con{Tuple{owner,system},rest}: IO.bind(D.Runtime<M.MotionBench,S.Handle<T.MotionSchema>>,List<D.Runtime<M.MotionBench,S.Handle<T.MotionSchema>>>,M.motion_loops(64n,system,owner),value => motion_returned(values => motion_execute(rest,values),done,value))
+def motion_dump(owners:List<D.Runtime<M.MotionBench,S.Handle<T.MotionSchema>>>) -> IO(Unit):
+  match owners:
+    case Nil{}: IO.pure(Unit,Unit{})
+    case Con{owner,rest}:
+      do IO<Unit>:
+        M.motion_dump(0n,owner)
+        motion_dump(rest)
+def motion_timed(owners:List<(D.Runtime<M.MotionBench,S.Handle<T.MotionSchema>> & K.System)>) -> IO(Unit):
+  do IO<Unit>:
+    start:Nat <- IO.now()
+    returned:List<D.Runtime<M.MotionBench,S.Handle<T.MotionSchema>>> <- motion_execute(owners,[])
+    end:Nat <- IO.now()
+    IO.print("BATCH-MILLISECONDS:" ++ Nat.show(Nat.sub(end,start)))
+    motion_dump(returned)
+def motion_batch(+count:U32,batch:U32) -> IO(Unit):
+  do IO<Unit>:
+    M.motion_start(count,False{})
+    prepared:List<(D.Runtime<M.MotionBench,S.Handle<T.MotionSchema>> & K.System)> <- motion_prepared(U32.to_nat(batch),count,[])
+    motion_timed(prepared)
+
+def health_prepared(fuel:Nat,+count:U32,owners:List<(D.Runtime<M.HealthBench,S.Handle<T.HealthSchema>> & K.System)>) -> IO(List<(D.Runtime<M.HealthBench,S.Handle<T.HealthSchema>> & K.System)>):
+  match fuel:
+    case 0n: IO.pure(List<(D.Runtime<M.HealthBench,S.Handle<T.HealthSchema>> & K.System)>,List.reverse(&1,(D.Runtime<M.HealthBench,S.Handle<T.HealthSchema>> & K.System),owners))
+    case 1n+rest: IO.bind((D.Runtime<M.HealthBench,S.Handle<T.HealthSchema>> & K.System),List<(D.Runtime<M.HealthBench,S.Handle<T.HealthSchema>> & K.System)>,M.health_fresh(count),owner => health_prepared(rest,count,owner <> owners))
+def health_returned(next:List<D.Runtime<M.HealthBench,S.Handle<T.HealthSchema>>> -> IO(List<D.Runtime<M.HealthBench,S.Handle<T.HealthSchema>>>),done:List<D.Runtime<M.HealthBench,S.Handle<T.HealthSchema>>>,owner:D.Runtime<M.HealthBench,S.Handle<T.HealthSchema>>) -> IO(List<D.Runtime<M.HealthBench,S.Handle<T.HealthSchema>>>):
+  next(owner <> done)
+def health_execute(owners:List<(D.Runtime<M.HealthBench,S.Handle<T.HealthSchema>> & K.System)>,done:List<D.Runtime<M.HealthBench,S.Handle<T.HealthSchema>>>) -> IO(List<D.Runtime<M.HealthBench,S.Handle<T.HealthSchema>>>):
+  match owners:
+    case Nil{}: IO.pure(List<D.Runtime<M.HealthBench,S.Handle<T.HealthSchema>>>,List.reverse(&1,D.Runtime<M.HealthBench,S.Handle<T.HealthSchema>>,done))
+    case Con{Tuple{owner,system},rest}: IO.bind(D.Runtime<M.HealthBench,S.Handle<T.HealthSchema>>,List<D.Runtime<M.HealthBench,S.Handle<T.HealthSchema>>>,M.health_loops(64n,system,owner),value => health_returned(values => health_execute(rest,values),done,value))
+def health_dump(owners:List<D.Runtime<M.HealthBench,S.Handle<T.HealthSchema>>>) -> IO(Unit):
+  match owners:
+    case Nil{}: IO.pure(Unit,Unit{})
+    case Con{owner,rest}:
+      do IO<Unit>:
+        M.health_dump(0n,owner)
+        health_dump(rest)
+def health_timed(owners:List<(D.Runtime<M.HealthBench,S.Handle<T.HealthSchema>> & K.System)>) -> IO(Unit):
+  do IO<Unit>:
+    start:Nat <- IO.now()
+    returned:List<D.Runtime<M.HealthBench,S.Handle<T.HealthSchema>>> <- health_execute(owners,[])
+    end:Nat <- IO.now()
+    IO.print("BATCH-MILLISECONDS:" ++ Nat.show(Nat.sub(end,start)))
+    health_dump(returned)
+def health_batch(+count:U32,batch:U32) -> IO(Unit):
+  do IO<Unit>:
+    M.health_start(count,False{})
+    prepared:List<(D.Runtime<M.HealthBench,S.Handle<T.HealthSchema>> & K.System)> <- health_prepared(U32.to_nat(batch),count,[])
+    health_timed(prepared)
+def choose(schema:U32,count:U32,batch:U32) -> IO(Unit):
+  match schema:
+    case 0: motion_batch(count,batch)
+    case _: health_batch(count,batch)
+def main() -> IO(Unit):
+  motion_batch(256,64)

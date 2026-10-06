@@ -1,0 +1,11 @@
+import Base
+
+def advance(~next: Nat -> U32 -> U32,rest: Nat,result: U32 & U32) -> U32:
+  match result:
+    case Tuple{a,b}: next(rest,U32.add(a,b))
+def loop(fuel: Nat,value: U32) -> U32:
+  match fuel:
+    case 0n: value
+    case 1n+rest: advance(~loop,rest,(value,1))
+def main() -> U32:
+  loop(4n,0)

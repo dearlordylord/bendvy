@@ -1,0 +1,32 @@
+{
+  "status": "BUILD_FAIL",
+  "commands": [
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-mark-scalar-static/batch.bend",
+        "--check-only"
+      ],
+      "cpu": 10,
+      "limitSeconds": 15,
+      "exit": 1,
+      "timeout": false,
+      "elapsedSeconds": 0.19735612999647856,
+      "output": "SOME PROOFS FAIL\nError:\n- message  : a parameter or field scrutinee (a match cannot scrutinize a computed value: give it its own def)\nLocation:\n106 |     case Con{S.Handle{foreign,+id},rest}:\n107>|       match Bool.and(U32.is_eq(namespace,foreign),Bool.and((0 < id : U32),Bool.and((id <= capacity : U32),(id <= high : U32)))):\n    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n108 |         case False{}: prototype_storage_mark_loop(Schema,M,A,F,L,Mode,rest,namespace,next,main,aux,flags,added,live,changed,capacity,depth,high,pending,ledger,mode,tick)\n"
+    }
+  ],
+  "inputs": {
+    "batch.bend": {
+      "baselineSHA256": "5ef8b2903e4b93229d14b786ed1f65aa508fa349fbc5108a6b741454e06f8dac",
+      "candidateSHA256": "13248a8218169a3a7237111b74e10112646c4cec74325da83ee41a890392c940",
+      "adaptation": "Only exact absolute runtime-overlay prefix replacement"
+    },
+    "measurement-bend.bend": {
+      "baselineSHA256": "51c84dcdea96874d8e9e39d717de935fe02399b6f0f712eac68d03aea45bfc62",
+      "candidateSHA256": "1a24ca6c96d7f9f41b07d04dc7767bc9ce51133f5f555c0771acd845000a3308",
+      "adaptation": "Only exact absolute runtime-overlay prefix replacement"
+    }
+  },
+  "productionAdoption": false,
+  "performanceAcceptance": false
+}

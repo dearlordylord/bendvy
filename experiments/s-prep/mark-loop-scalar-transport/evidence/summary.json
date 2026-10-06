@@ -1,0 +1,45 @@
+{
+  "status": "SOURCE_FEASIBILITY_BLOCKED",
+  "scope": "No successful executable candidate; no controls/counts/performance acceptance",
+  "CPU": 10,
+  "limits": {
+    "checkerDiagnostic": 15,
+    "codegen": 30,
+    "clang": 120,
+    "runtime": 5,
+    "defaultProof": 5
+  },
+  "failures": [
+    {
+      "version": "v1",
+      "reason": "Computed match scrutinee forbidden; exact nested validity expression",
+      "exit": 1,
+      "timeout": false
+    },
+    {
+      "version": "v2",
+      "reason": "Live mutually forward-referenced loop is unfilled; dedicated guard/live defs cannot close recursion cycle",
+      "exit": 1,
+      "timeout": false
+    },
+    {
+      "version": "elementary frozen-next",
+      "reason": "Frozen recursive continuation still observes unfilled loop during helper instantiation",
+      "exit": null,
+      "timeout": false,
+      "exitCaptureLimit": "Child exit was not separately captured by the shell diagnostic; exact SOME PROOFS FAIL/unfilled-loop output retained. Combined shell call returned0 after printing the output."
+    }
+  ],
+  "changes": "Isolated overlays only, exactly transaction.bend among 29 sources",
+  "unexecuted": [
+    "C/JS emission",
+    "Native build/runtime",
+    "Motion/Health Tx",
+    "suppressed owner",
+    "actual mutants",
+    "negative access",
+    "normal-nine allocation construction"
+  ],
+  "coreOrSharedRunnerChanges": false,
+  "nextAction": "Do not force closures, new runtime state-machine stages or weakened ownership; consider emitted backend edge elision separately."
+}
