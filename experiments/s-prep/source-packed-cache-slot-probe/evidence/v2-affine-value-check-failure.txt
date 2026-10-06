@@ -1,0 +1,22 @@
+SOME PROOFS FAIL
+Error:
+- expected : value
+- observed : value (consumed more than once)
+Context:
+- coordinates : Array<U32>
+- rawframe    : U32
+- a           : U32
+- b           : U32
+- c           : U32
+- d           : U32
+- cachedframe : U32
+- ledger_raw  : T.MotionLedger
+- cached      : T.LedgerView
+- handle      : S.Handle<T.MotionSchema>
+- undo        : X.PrototypeFlatInverse<T.MotionSchema>
+- marks       : X.PrototypeFlatMark<T.MotionSchema>
+Location: prototype_packed_row_setledger
+618 |     case (raw,old): PrototypePackedMotionRowOwner{coordinates,rawframe,a,b,c,d,cachedframe,raw,P.motion_ledger_patch(cached,value),handle,X.PrototypeFlatLedger{old,undo},marks}
+619>| def prototype_packed_row_setledger(owner:PrototypePackedMotionRowOwner,token:T.MotionLedgerToken,value:U32) -> PrototypePackedMotionRowOwner:
+    |                                                                                                  ^^^^^
+620 |   match owner token:

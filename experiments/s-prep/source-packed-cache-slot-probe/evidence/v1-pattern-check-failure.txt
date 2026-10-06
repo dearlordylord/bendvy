@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : 2 patterns (one per scrutinee)
+- observed : 'S.Handle{+space,+id} (coordinates,old)'
+Location:
+611 |   match handle result:
+612>|     case S.Handle{+space,+id} (coordinates,old): PrototypePackedMotionRowOwner{Array.set(U32,coordinates,0,value),rawframe,value,b,c,d,cachedframe,ledger_raw,ledger_cached,S.Handle{space,id},X.PrototypeFlatMain{space,id,old,undo},X.PrototypeFlatMark{space,id,marks}}
+    |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+613 | def prototype_packed_row_set(owner:PrototypePackedMotionRowOwner,token:T.PositionToken,value:U32) -> PrototypePackedMotionRowOwner:
