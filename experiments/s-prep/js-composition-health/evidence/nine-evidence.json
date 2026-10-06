@@ -1,0 +1,52 @@
+{
+  "status": "NINE_FULL_HEALTH_WORLDS_PASS",
+  "schema": "Health",
+  "cpu": 9,
+  "runtimeLimitSeconds": 5,
+  "inputSHA256": "17d1023bb169117737ae346a87dc8d33d302af3aa9b6dd5dd6973dd10e1f5746",
+  "commands": [
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-measurement/prepare-ts.py",
+        "--source",
+        "/workspace/formal-proofs/bendvy/experiments/s-integrate/measurement-samples-reference.mjs",
+        "--output",
+        "/tmp/bendvy-js-composition-health-nine/reference.mjs",
+        "--schema",
+        "Health",
+        "--batch",
+        "8"
+      ],
+      "exit": 0,
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-js-composition-health-nine/reference.mjs"
+      ],
+      "exit": 0,
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-js-composition-health-nine/candidate.js"
+      ],
+      "exit": 0,
+      "limitSeconds": 5
+    }
+  ],
+  "allFullFieldsEqual": true,
+  "derivedPins": {
+    "candidate.js": "a134bb3ec915d8271370489bd65a19bcb71698613bb31ce1d8cac667f2b97ed8",
+    "reference.mjs": "f8fb8618771fc575da76fd1c076279eebf30170e4a9ecde470471320d571011d"
+  },
+  "runnerPins": {
+    "/workspace/formal-proofs/bendvy-worktrees/native-view-boxing/experiments/s-prep/js-composition-health/validate-nine.py": "126e2c6f67e56b86b0ea74b5cfd442deee045eaa9f7205a811447e6aeec107d3",
+    "/workspace/formal-proofs/bendvy/experiments/s-integrate/measurement-bend-run.py": "25ab577d5234a1c30f46318708455377353ec39d4fb0b6bf1b40ad5ea5da8f84",
+    "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-measurement/prepare-ts.py": "26beac63259b8c2059e70d4c3ee2a9bc9337a9aba76116d3d7815b0b87c5d805",
+    "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-connected-gates/supervisor.py": "83c8c87fb0cb5fc3b5646e89bb68113702c163be9189bc0872bbf5aa61c2122a"
+  }
+}

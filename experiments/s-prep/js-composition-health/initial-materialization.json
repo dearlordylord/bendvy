@@ -1,0 +1,72 @@
+[
+  {
+    "stage": "world",
+    "argv": [
+      "node",
+      "--expose-internals",
+      "/workspace/formal-proofs/bendvy-worktrees/native-view-boxing/experiments/s-prep/js-composition-health/world/rewrite.cjs",
+      "/tmp/bendvy-token-reuse-health-js/baseline.js",
+      "/tmp/bendvy-js-composition-health/world.js",
+      "health"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "inputSHA256": "7c3e72f6cc93445ba7be7298d0d2b26dc1df4bf304d20ac98e8f6faaac9fe378",
+    "recipeSHA256": "913536fe72b187e3ca071ec4126e5bf2b446dbcf062a15c8f49112b075065da2",
+    "originRecipeSHA256": "913536fe72b187e3ca071ec4126e5bf2b446dbcf062a15c8f49112b075065da2",
+    "outputSHA256": "cb773cb601c5e5c5bd73cf1305a6ddda033c3052411cf3d913add57f592eab90"
+  },
+  {
+    "stage": "boxed",
+    "argv": [
+      "node",
+      "--expose-internals",
+      "/workspace/formal-proofs/bendvy-worktrees/native-view-boxing/experiments/s-prep/js-composition-health/boxed/rewrite.cjs",
+      "/tmp/bendvy-js-composition-health/world.js",
+      "/tmp/bendvy-js-composition-health/boxed.js",
+      "health"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "inputSHA256": "cb773cb601c5e5c5bd73cf1305a6ddda033c3052411cf3d913add57f592eab90",
+    "recipeSHA256": "ec8b2d6838f080c05e6c9508ab3c8392ec4eb0b5d8d89e0200226acb14e479ab",
+    "originRecipeSHA256": "ec8b2d6838f080c05e6c9508ab3c8392ec4eb0b5d8d89e0200226acb14e479ab",
+    "outputSHA256": "aa5003dd795ce93a310c13652b76fdf322a743f38e419c5d3219beaa21669721"
+  },
+  {
+    "stage": "product",
+    "argv": [
+      "node",
+      "--expose-internals",
+      "/workspace/formal-proofs/bendvy-worktrees/native-view-boxing/experiments/s-prep/js-composition-health/product/rewrite.cjs",
+      "/tmp/bendvy-js-composition-health/boxed.js",
+      "/tmp/bendvy-js-composition-health/product.js"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "inputSHA256": "aa5003dd795ce93a310c13652b76fdf322a743f38e419c5d3219beaa21669721",
+    "recipeSHA256": "fe8eea63dfb22893ea9027aadb56769565dcd5efb02d23dc1330b1fadbdbf1d5",
+    "originRecipeSHA256": "fe8eea63dfb22893ea9027aadb56769565dcd5efb02d23dc1330b1fadbdbf1d5",
+    "outputSHA256": "55fa4f0260f5ee99e402d1ff35f238c790d4774f20a47d259929095560f13729"
+  },
+  {
+    "stage": "pool",
+    "argv": [
+      "node",
+      "--expose-internals",
+      "/workspace/formal-proofs/bendvy-worktrees/native-view-boxing/experiments/s-prep/js-composition-health/pool/rewrite.cjs",
+      "/tmp/bendvy-js-composition-health/product.js",
+      "/tmp/bendvy-js-composition-health/pool.js"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "inputSHA256": "55fa4f0260f5ee99e402d1ff35f238c790d4774f20a47d259929095560f13729",
+    "recipeSHA256": "d38b96ab3c938ae92eebb87717547d82e498c82ba0e2b020872c50d37c8d54cd",
+    "originRecipeSHA256": "d38b96ab3c938ae92eebb87717547d82e498c82ba0e2b020872c50d37c8d54cd",
+    "outputSHA256": "17d1023bb169117737ae346a87dc8d33d302af3aa9b6dd5dd6973dd10e1f5746"
+  }
+]
