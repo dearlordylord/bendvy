@@ -1,0 +1,55 @@
+{
+  "status": "INDEPENDENT_PASS_NONZERO_WRAPPER_CONTROLS_PASS",
+  "scope": "Two direct wrapper finite controls; outer timeout/descendant control separately required",
+  "preexecutionHistory": "First review harness text had Python conditional syntax error; no wrapper executed until corrected",
+  "records": [
+    {
+      "subject": "pass",
+      "exit": 0,
+      "stdout": "OK\n",
+      "receipt": {
+        "status": "CHILD_PEAK_RSS_PASS",
+        "argv": [
+          "/usr/bin/python3",
+          "-c",
+          "print(\"OK\")"
+        ],
+        "environment": {
+          "PATH": "/usr/local/bin:/usr/bin:/bin",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8"
+        },
+        "exit": 0,
+        "timeout": false,
+        "childLimitSeconds": 5,
+        "peakRSSKiB": 11500,
+        "wrapperWallSeconds": 0.0051424270059214905,
+        "scope": "Fresh Linux RUSAGE_CHILDREN for exactly one direct child; whole-process peak, not aggregate process-tree or active-Tx memory"
+      }
+    },
+    {
+      "subject": "nonzero",
+      "exit": 7,
+      "stdout": "BAD\n",
+      "receipt": {
+        "status": "CHILD_FAILED",
+        "argv": [
+          "/usr/bin/python3",
+          "-c",
+          "import sys;print(\"BAD\");sys.exit(7)"
+        ],
+        "environment": {
+          "PATH": "/usr/local/bin:/usr/bin:/bin",
+          "LANG": "C.UTF-8",
+          "LC_ALL": "C.UTF-8"
+        },
+        "exit": 7,
+        "timeout": false,
+        "childLimitSeconds": 5,
+        "peakRSSKiB": 11496,
+        "wrapperWallSeconds": 0.006200938005349599,
+        "scope": "Fresh Linux RUSAGE_CHILDREN for exactly one direct child; whole-process peak, not aggregate process-tree or active-Tx memory"
+      }
+    }
+  ]
+}
