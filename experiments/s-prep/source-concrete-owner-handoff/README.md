@@ -20,8 +20,8 @@ The owner has no opaque MainSlot seal or new separate constructor box at this
 edge. Tail sealing remains. Both nodes round to 16 words. This is a positive
 layout mechanism only; allocation and speed improvement are unmeasured.
 
-Native compilation, runtime correctness, fresh semantic controls, allocation
-attribution and timing await root's next decision. No acceptance transfers from
+At the initial layout checkpoint, Native compilation, runtime correctness, fresh
+semantic controls, allocation attribution and timing awaited the next decision. No acceptance transfers from
 v8. The original exposed Batch confinement limit remains.
 
 Failure history: v1 attempted an appended import rejected by the parser; v2
