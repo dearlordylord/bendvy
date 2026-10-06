@@ -93,7 +93,14 @@ a packaging correction, not a provenance waiver. Current recipes set both digest
 Fresh both-v3 builds are `/tmp/bendvy-packed-main-slot-both-{motion,health}-build-v3`.
 First Health v2 Native/JS full65 fields passed; the current manifest-bound four-lane
 full65 receipts all PASS on both-v3 (four fresh schema/backend runs), archived with67
-independently SHA-verified members (~1.91 MB). Independent Health Native allocation result
-is pending. This extension does not execute new authority, generic returned-owner,
+independently SHA-verified members (~1.91 MB). Independent Health Native attribution passes fresh65: requests12,977,095
+(−4,194,304), RFC6,381,886 (−2,097,152); requested words43,605,007 are
+exactly equal to its parent. Motion word savings do not transfer. See the independently
+produced receipt pinned in evidence/health-native-counter-followup.json. This extension does not execute new authority, generic returned-owner,
 stale-cache/all-cell, rollback, factory/provider or Tx/suppression gates, and makes no
 speed/adoption claim. Motion capability controls are independently owned by storage.
+
+Health build-v3 initially carried a Motion-only success label while its commands and
+source were Health. The root observer refused it. Original build.json is retained;
+separate build-health-receipt-v4.json corrects only status/schema and pins the rejected
+receipt hash, with no generated-byte or executed-command changes. Archive retains both.

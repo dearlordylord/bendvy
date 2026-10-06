@@ -8,12 +8,12 @@ root=Path('/tmp/bendvy-packed-main-slot-both-v3');m=json.loads((root/'overlay.js
 for n in [*m['sources'],'overlay.json','cache-specialization.json']:add(root/n,'source/'+n)
 for lane in ['motion','health']:
  build=Path('/tmp/bendvy-packed-main-slot-both-'+lane+'-build-v3')
- for n in ['build.json','batch.bend','measurement-bend.bend','batch.c','batch.js']:add(build/n,'build/'+lane+'/'+n)
+ for n in ['build.json','build-health-receipt-v4.json','batch.bend','measurement-bend.bend','batch.c','batch.js']:add(build/n,'build/'+lane+'/'+n)
  for kind in ['native','js']:
   folder=Path('/tmp/bendvy-packed-main-slot-both-'+lane+'-'+kind+'-full65-v3')
   assert json.loads((folder/'evidence.json').read_text())['status']=='PASS_FULL65'
   for p in folder.iterdir():add(p,'full65/'+lane+'/'+kind+'/'+p.name)
-for n in ['build.json','batch.bend']:add(Path('/tmp/bendvy-packed-main-slot-health-build-v1')/n,'retained-rejection/health-v1/'+n)
+for n in ['build.json','build-health-receipt-v4.json','batch.bend']:add(Path('/tmp/bendvy-packed-main-slot-health-build-v1')/n,'retained-rejection/health-v1/'+n)
 for label,path in [('motion-v4','/tmp/bendvy-packed-main-slot-motion-v4'),('both-v2','/tmp/bendvy-packed-main-slot-both-v2')]:
  for n in ['overlay.json','cache-specialization.json']:add(Path(path)/n,'retained-metadata/'+label+'/'+n)
 with tarfile.open(out,'w:gz') as t:
