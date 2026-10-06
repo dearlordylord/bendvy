@@ -1,0 +1,2769 @@
+{
+  "status": "FRESH_ACTUAL_SLOT_HOST12_ORIGINALS_AND_12_MUTANTS_BOTH_BACKENDS_PASS",
+  "scope": "Finite original fourlane equality plus twelve reached compiling semantic mutants; no full22/adoption",
+  "generatedArtifactPolicy": "Mutant C/JS/native are locally SHA verified against executed receipts; portable archive retains exact generation inputs, commands, generated hashes and complete outputs; original C/JS retained separately",
+  "sourcePins": {
+    "experiments/s-integrate/audited-invoker.bend": "2c4a2fa6c271a4c2c38b518bd5f2cf62d15676ff65e6e9bf672119aad3a7a6b6",
+    "experiments/s-integrate/cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+    "experiments/s-integrate/cached-payload.bend": "977f91e225af0f3238829895109c47bd25ad5f1b5475e75435c4bd94b31c287f",
+    "experiments/s-integrate/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+    "experiments/s-integrate/commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+    "experiments/s-integrate/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+    "experiments/s-integrate/held-adapter.bend": "51f2fc1d9de8bfb778054128ad14ce06c4737fa9df6f1eb2d651d9e2a9fb80a8",
+    "experiments/s-integrate/held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+    "experiments/s-integrate/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+    "experiments/s-integrate/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+    "experiments/s-integrate/host.bend": "290b8ec33a3e2053ab7379aefff5978324050520dd9c0d419001dc8edf5f82ec",
+    "experiments/s-integrate/identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+    "experiments/s-integrate/measurement-bend.bend": "eedb90563721f0c1f97caffde83b7a93a691cdcaa59bd61141315472b98153f6",
+    "experiments/s-integrate/observations.bend": "35b2c98a7bd8fb390919dac80f9cec245dddad62da6aebfea2540cdcc84873b1",
+    "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "experiments/s-integrate/prototype-static-client.bend": "1a9d22180604433d91e6572679761f660b89b093ed5dbe2ad783859fb05d7a51",
+    "experiments/s-integrate/query.bend": "4a3af56012ea543274738b5d7891a787fbde643ec7f6c088a63a213a6dbf8982",
+    "experiments/s-integrate/raw-boundaries.bend": "9438dfe1ea17b9edae02518652663923807f85a037cfc4551ca63f289e2c18a6",
+    "experiments/s-integrate/reader-host.bend": "26eb687a8fb1893b55e4a0c7c8a629b688e37466e169cb3c95dd5273a553db6d",
+    "experiments/s-integrate/readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+    "experiments/s-integrate/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+    "experiments/s-integrate/storage.bend": "185c5fe6c6d81608b0e3dae4416d32bcbc6f74a50dbb5b28120cc5d1d9400c7a",
+    "experiments/s-integrate/streams.bend": "291d9a46ad58bdc481a5710976e01b762f6e11be3aeba07076c46c69f236d2c0",
+    "experiments/s-integrate/structural-invoker.bend": "790a73373e007f5f285f9656a880a8407aa78b73700cca829365ca5fcab61834",
+    "experiments/s-integrate/systems.bend": "5d3fd2c7afb3d51385ebe12b90bd6b1c4368f6e7fcb6027f144e97395e0cfa10",
+    "experiments/s-integrate/transaction-dispatch-adapters.bend": "928eb4ef837bec11636fc761fa7fdbaa803251f2e68fd597b936187ead040112",
+    "experiments/s-integrate/transaction.bend": "b2dcd35e95830766b8e1a51b7c8356e270b007c7066590d7caf999589218b51b",
+    "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+    "experiments/s-integrate/uncached-payload.bend": "a35ae64d1c1fd6c50082c0f75bca22a5e84d700493d1b3949fbb1c2e17b8cb55"
+  },
+  "originalReceiptPins": {
+    "motion": "e64edd3b9032be4a60d3d6219f369c24639b4e742add886519079dbe0fae360c",
+    "health": "bec64e1d6152dade5923cf392d4212c48ef49251c59792ae90af5db40fc632d5"
+  },
+  "selectedMutants": [
+    {
+      "label": "query-order",
+      "receipt": "/tmp/bendvy-slot-host-mutants-v1/evidence.json",
+      "receiptSHA256": "69bd25698f81c7c0172ecf29caf1da29753c17e9b047cd96e05623fb312907f8",
+      "case": {
+        "label": "query-order",
+        "target": "query.bend:struct_idx_finish",
+        "intendedChannel": "snapshots",
+        "status": "DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE",
+        "commands": [
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/query-order/core/host-motion-fixture.bend",
+              "--check-only"
+            ],
+            "limitSeconds": 15,
+            "exit": 0,
+            "outputSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/query-order/core/host-motion-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/query-order/motion.js"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/query-order/core/host-motion-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/query-order/motion.c"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-clang19-diagnostic/clang19",
+              "-O3",
+              "/tmp/bendvy-slot-host-mutants-v1/query-order/motion.c",
+              "-pthread",
+              "-lm",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/query-order/motion.native"
+            ],
+            "limitSeconds": 120,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/query-order/core/host-health-fixture.bend",
+              "--check-only"
+            ],
+            "limitSeconds": 15,
+            "exit": 0,
+            "outputSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/query-order/core/host-health-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/query-order/health.js"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/query-order/core/host-health-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/query-order/health.c"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-clang19-diagnostic/clang19",
+              "-O3",
+              "/tmp/bendvy-slot-host-mutants-v1/query-order/health.c",
+              "-pthread",
+              "-lm",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/query-order/health.native"
+            ],
+            "limitSeconds": 120,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "node",
+              "/tmp/bendvy-slot-host-mutants-v1/query-order/motion.js"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "e11bd8bda3984af669929ead77f0fc69a0a128125fe98d6ff26c30254eb31476"
+          },
+          {
+            "command": [
+              "node",
+              "/tmp/bendvy-slot-host-mutants-v1/query-order/health.js"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "ef1fd4b664f14661dd20117c4c2f66fbdad569327fd00506f3740e20ec1ee284"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-slot-host-mutants-v1/query-order/motion.native",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "e11bd8bda3984af669929ead77f0fc69a0a128125fe98d6ff26c30254eb31476"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-slot-host-mutants-v1/query-order/health.native",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "ef1fd4b664f14661dd20117c4c2f66fbdad569327fd00506f3740e20ec1ee284"
+          }
+        ],
+        "originalDefinitionSHA256": "e714646ad8352120526c6bf0266816d712d020cb6038ebb215dff892f5954cfa",
+        "mutatedDefinitionSHA256": "49087fc660d05375f8bb3d7fa3113d485d5139da1d0746686d7746456f0fa569",
+        "mutantSourcePins": {
+          "experiments/s-integrate/audited-invoker.bend": "2c4a2fa6c271a4c2c38b518bd5f2cf62d15676ff65e6e9bf672119aad3a7a6b6",
+          "experiments/s-integrate/cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+          "experiments/s-integrate/cached-payload.bend": "977f91e225af0f3238829895109c47bd25ad5f1b5475e75435c4bd94b31c287f",
+          "experiments/s-integrate/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+          "experiments/s-integrate/commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+          "experiments/s-integrate/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+          "experiments/s-integrate/held-adapter.bend": "51f2fc1d9de8bfb778054128ad14ce06c4737fa9df6f1eb2d651d9e2a9fb80a8",
+          "experiments/s-integrate/held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+          "experiments/s-integrate/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+          "experiments/s-integrate/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+          "experiments/s-integrate/host.bend": "290b8ec33a3e2053ab7379aefff5978324050520dd9c0d419001dc8edf5f82ec",
+          "experiments/s-integrate/identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+          "experiments/s-integrate/measurement-bend.bend": "eedb90563721f0c1f97caffde83b7a93a691cdcaa59bd61141315472b98153f6",
+          "experiments/s-integrate/observations.bend": "35b2c98a7bd8fb390919dac80f9cec245dddad62da6aebfea2540cdcc84873b1",
+          "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+          "experiments/s-integrate/prototype-static-client.bend": "1a9d22180604433d91e6572679761f660b89b093ed5dbe2ad783859fb05d7a51",
+          "experiments/s-integrate/query.bend": "3f1f509e66b0a63fc467d7a9233d4500fad1e4d66e5a4fea7d03175b2af8ff3d",
+          "experiments/s-integrate/raw-boundaries.bend": "9438dfe1ea17b9edae02518652663923807f85a037cfc4551ca63f289e2c18a6",
+          "experiments/s-integrate/reader-host.bend": "26eb687a8fb1893b55e4a0c7c8a629b688e37466e169cb3c95dd5273a553db6d",
+          "experiments/s-integrate/readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+          "experiments/s-integrate/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+          "experiments/s-integrate/storage.bend": "185c5fe6c6d81608b0e3dae4416d32bcbc6f74a50dbb5b28120cc5d1d9400c7a",
+          "experiments/s-integrate/streams.bend": "291d9a46ad58bdc481a5710976e01b762f6e11be3aeba07076c46c69f236d2c0",
+          "experiments/s-integrate/structural-invoker.bend": "790a73373e007f5f285f9656a880a8407aa78b73700cca829365ca5fcab61834",
+          "experiments/s-integrate/systems.bend": "5d3fd2c7afb3d51385ebe12b90bd6b1c4368f6e7fcb6027f144e97395e0cfa10",
+          "experiments/s-integrate/transaction-dispatch-adapters.bend": "928eb4ef837bec11636fc761fa7fdbaa803251f2e68fd597b936187ead040112",
+          "experiments/s-integrate/transaction.bend": "b2dcd35e95830766b8e1a51b7c8356e270b007c7066590d7caf999589218b51b",
+          "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+          "experiments/s-integrate/uncached-payload.bend": "a35ae64d1c1fd6c50082c0f75bca22a5e84d700493d1b3949fbb1c2e17b8cb55"
+        },
+        "fixturePins": {
+          "host-fixture.bend": "a8f1abffe3abd4c73c2dd34e312e325d22cdcb4d44f94e6d100eb95a0883654e",
+          "host-preflight.bend": "40e26a9f1fcd4735d8407bcb0ece70bb63723a28255198059a46af3dc8c3224d",
+          "host-motion-body.bend": "21dd73b16a7db5748cc999fa88b97e091c3204593b645421780fcbe0c5b57cac",
+          "host-motion-fixture.bend": "72188f4dd732eb72111136226e16fc29819c5a56bb5df350ea0f5e15331b8654"
+        },
+        "observations": [
+          {
+            "backend": "js",
+            "compiling": true,
+            "differenceCount": 3568,
+            "intendedDifferenceCount": 2272,
+            "witness": {
+              "path": "Health/regenerated-closure.snapshots[4].optional[0].aux",
+              "expected": {
+                "layers": [
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "grade": 3
+              },
+              "actual": null
+            }
+          },
+          {
+            "backend": "native",
+            "compiling": true,
+            "differenceCount": 3568,
+            "intendedDifferenceCount": 2272,
+            "witness": {
+              "path": "Health/regenerated-closure.snapshots[4].optional[0].aux",
+              "expected": {
+                "layers": [
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "grade": 3
+              },
+              "actual": null
+            }
+          }
+        ],
+        "generatedPins": {
+          "motion.js": "5841d8ada09ed363791cb26065a1b56de32fdac1e50d8e12a920c5efa85a70db",
+          "motion.c": "4a543a3d58b52e827d46f037f405be35cc77712e61f0d5bc18606866fe92c729",
+          "motion.native": "923b1980311b1e9e6b56a86e3cd71fa26fe3b82c4551f5dd5e4248cc3eaf72ea",
+          "health.js": "57466dcf2c8ec6e6731255ac616049b5b5f003c5a9358c59064f564b3db453e0",
+          "health.c": "e2eba7b50d20f6405b026ee964983d4fd638a99ba9d72e5de114f3061c288803",
+          "health.native": "9e0585055002424df6617923fd950e59214632fb407305f443478531db538a7e"
+        }
+      }
+    },
+    {
+      "label": "suppressed-setter",
+      "receipt": "/tmp/bendvy-slot-host-suppressed-setter-repair-v2/evidence.json",
+      "receiptSHA256": "d20c3a5b36615dc4c128a4c9d4eb347707ef3ab4fa325405b45f546b39b32284",
+      "case": {
+        "label": "suppressed-setter",
+        "target": "cached-payload.bend:prototype_slot_position_swap_done",
+        "intendedChannel": "ownWrites",
+        "status": "DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE",
+        "commands": [
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-suppressed-setter-repair-v2/suppressed-setter/core/host-motion-fixture.bend",
+              "--check-only"
+            ],
+            "limitSeconds": 15,
+            "exit": 0,
+            "outputSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-suppressed-setter-repair-v2/suppressed-setter/core/host-motion-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-suppressed-setter-repair-v2/suppressed-setter/motion.js"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-suppressed-setter-repair-v2/suppressed-setter/core/host-motion-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-suppressed-setter-repair-v2/suppressed-setter/motion.c"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-clang19-diagnostic/clang19",
+              "-O3",
+              "/tmp/bendvy-slot-host-suppressed-setter-repair-v2/suppressed-setter/motion.c",
+              "-pthread",
+              "-lm",
+              "-o",
+              "/tmp/bendvy-slot-host-suppressed-setter-repair-v2/suppressed-setter/motion.native"
+            ],
+            "limitSeconds": 120,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-suppressed-setter-repair-v2/suppressed-setter/core/host-health-fixture.bend",
+              "--check-only"
+            ],
+            "limitSeconds": 15,
+            "exit": 0,
+            "outputSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-suppressed-setter-repair-v2/suppressed-setter/core/host-health-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-suppressed-setter-repair-v2/suppressed-setter/health.js"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-suppressed-setter-repair-v2/suppressed-setter/core/host-health-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-suppressed-setter-repair-v2/suppressed-setter/health.c"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-clang19-diagnostic/clang19",
+              "-O3",
+              "/tmp/bendvy-slot-host-suppressed-setter-repair-v2/suppressed-setter/health.c",
+              "-pthread",
+              "-lm",
+              "-o",
+              "/tmp/bendvy-slot-host-suppressed-setter-repair-v2/suppressed-setter/health.native"
+            ],
+            "limitSeconds": 120,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "node",
+              "/tmp/bendvy-slot-host-suppressed-setter-repair-v2/suppressed-setter/motion.js"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "374fc548a1bee6b012065cf7b7482b035c5220218b2d131f8cdaac5612619577"
+          },
+          {
+            "command": [
+              "node",
+              "/tmp/bendvy-slot-host-suppressed-setter-repair-v2/suppressed-setter/health.js"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "3bccb39f2df6c9d7647fd42349ed1f8ac1ac425400165a055e5e09c6afcf50db"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-slot-host-suppressed-setter-repair-v2/suppressed-setter/motion.native",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "374fc548a1bee6b012065cf7b7482b035c5220218b2d131f8cdaac5612619577"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-slot-host-suppressed-setter-repair-v2/suppressed-setter/health.native",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "3bccb39f2df6c9d7647fd42349ed1f8ac1ac425400165a055e5e09c6afcf50db"
+          }
+        ],
+        "originalDefinitionSHA256": "89c5b7ce0f5b0ce6a5e00ec4a726587307d05c6ca5153fcb39b21d45eb01ea2d",
+        "mutatedDefinitionSHA256": "2c898072aabcae79e2157b76e58927d1514926d8662bfaa6454259fdc0eed3b5",
+        "mutantSourcePins": {
+          "experiments/s-integrate/audited-invoker.bend": "2c4a2fa6c271a4c2c38b518bd5f2cf62d15676ff65e6e9bf672119aad3a7a6b6",
+          "experiments/s-integrate/cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+          "experiments/s-integrate/cached-payload.bend": "a4b51413eef68d4cce0e5aff2891e4752a6d42296d987f5ffb8690e51d1f60f9",
+          "experiments/s-integrate/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+          "experiments/s-integrate/commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+          "experiments/s-integrate/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+          "experiments/s-integrate/held-adapter.bend": "51f2fc1d9de8bfb778054128ad14ce06c4737fa9df6f1eb2d651d9e2a9fb80a8",
+          "experiments/s-integrate/held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+          "experiments/s-integrate/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+          "experiments/s-integrate/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+          "experiments/s-integrate/host.bend": "290b8ec33a3e2053ab7379aefff5978324050520dd9c0d419001dc8edf5f82ec",
+          "experiments/s-integrate/identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+          "experiments/s-integrate/measurement-bend.bend": "eedb90563721f0c1f97caffde83b7a93a691cdcaa59bd61141315472b98153f6",
+          "experiments/s-integrate/observations.bend": "35b2c98a7bd8fb390919dac80f9cec245dddad62da6aebfea2540cdcc84873b1",
+          "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+          "experiments/s-integrate/prototype-static-client.bend": "1a9d22180604433d91e6572679761f660b89b093ed5dbe2ad783859fb05d7a51",
+          "experiments/s-integrate/query.bend": "4a3af56012ea543274738b5d7891a787fbde643ec7f6c088a63a213a6dbf8982",
+          "experiments/s-integrate/raw-boundaries.bend": "9438dfe1ea17b9edae02518652663923807f85a037cfc4551ca63f289e2c18a6",
+          "experiments/s-integrate/reader-host.bend": "26eb687a8fb1893b55e4a0c7c8a629b688e37466e169cb3c95dd5273a553db6d",
+          "experiments/s-integrate/readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+          "experiments/s-integrate/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+          "experiments/s-integrate/storage.bend": "185c5fe6c6d81608b0e3dae4416d32bcbc6f74a50dbb5b28120cc5d1d9400c7a",
+          "experiments/s-integrate/streams.bend": "291d9a46ad58bdc481a5710976e01b762f6e11be3aeba07076c46c69f236d2c0",
+          "experiments/s-integrate/structural-invoker.bend": "790a73373e007f5f285f9656a880a8407aa78b73700cca829365ca5fcab61834",
+          "experiments/s-integrate/systems.bend": "5d3fd2c7afb3d51385ebe12b90bd6b1c4368f6e7fcb6027f144e97395e0cfa10",
+          "experiments/s-integrate/transaction-dispatch-adapters.bend": "928eb4ef837bec11636fc761fa7fdbaa803251f2e68fd597b936187ead040112",
+          "experiments/s-integrate/transaction.bend": "b2dcd35e95830766b8e1a51b7c8356e270b007c7066590d7caf999589218b51b",
+          "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+          "experiments/s-integrate/uncached-payload.bend": "a35ae64d1c1fd6c50082c0f75bca22a5e84d700493d1b3949fbb1c2e17b8cb55"
+        },
+        "fixturePins": {
+          "host-fixture.bend": "a8f1abffe3abd4c73c2dd34e312e325d22cdcb4d44f94e6d100eb95a0883654e",
+          "host-preflight.bend": "40e26a9f1fcd4735d8407bcb0ece70bb63723a28255198059a46af3dc8c3224d",
+          "host-motion-body.bend": "21dd73b16a7db5748cc999fa88b97e091c3204593b645421780fcbe0c5b57cac",
+          "host-motion-fixture.bend": "72188f4dd732eb72111136226e16fc29819c5a56bb5df350ea0f5e15331b8654"
+        },
+        "observations": [
+          {
+            "backend": "js",
+            "compiling": true,
+            "differenceCount": 194,
+            "intendedDifferenceCount": 10,
+            "witness": {
+              "path": "Motion/regenerated-closure.ownWrites[0].main.coordinates[0]",
+              "expected": 11,
+              "actual": 10
+            }
+          },
+          {
+            "backend": "native",
+            "compiling": true,
+            "differenceCount": 194,
+            "intendedDifferenceCount": 10,
+            "witness": {
+              "path": "Motion/regenerated-closure.ownWrites[0].main.coordinates[0]",
+              "expected": 11,
+              "actual": 10
+            }
+          }
+        ],
+        "generatedPins": {
+          "motion.js": "87bd863d276d832716f2e399d6b29afc58ca7dadee13ff541c1d21ee8774051e",
+          "motion.c": "fbebaf5e1b5728b2b0508e2d43ef81af1779fcb5e1ea8c117b5aca67a404b4ee",
+          "motion.native": "3fd48ec475ff86c712e98f7d8bdbb4e3a17be439f0176fc2d0e9eea356de71be",
+          "health.js": "7d9369f4a7c1f3bcf6b9df465c2cffc6868d7e6be3dd0f166d531331d99af6fb",
+          "health.c": "6f3cd39f908e6cb8e5555e198f91029a13de0efde64e7b5feed86df3a7fca556",
+          "health.native": "b78ba236a3c8290ae01e516d882756a8b88b36f41ecb75ced4e59ac750fb6a02"
+        }
+      }
+    },
+    {
+      "label": "inverse-order",
+      "receipt": "/tmp/bendvy-slot-host-mutants-v1/evidence.json",
+      "receiptSHA256": "69bd25698f81c7c0172ecf29caf1da29753c17e9b047cd96e05623fb312907f8",
+      "case": {
+        "label": "inverse-order",
+        "target": "transaction.bend:tx_finish_failure",
+        "intendedChannel": "snapshots",
+        "status": "DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE",
+        "commands": [
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/inverse-order/core/host-motion-fixture.bend",
+              "--check-only"
+            ],
+            "limitSeconds": 15,
+            "exit": 0,
+            "outputSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/inverse-order/core/host-motion-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/inverse-order/motion.js"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/inverse-order/core/host-motion-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/inverse-order/motion.c"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-clang19-diagnostic/clang19",
+              "-O3",
+              "/tmp/bendvy-slot-host-mutants-v1/inverse-order/motion.c",
+              "-pthread",
+              "-lm",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/inverse-order/motion.native"
+            ],
+            "limitSeconds": 120,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/inverse-order/core/host-health-fixture.bend",
+              "--check-only"
+            ],
+            "limitSeconds": 15,
+            "exit": 0,
+            "outputSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/inverse-order/core/host-health-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/inverse-order/health.js"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/inverse-order/core/host-health-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/inverse-order/health.c"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-clang19-diagnostic/clang19",
+              "-O3",
+              "/tmp/bendvy-slot-host-mutants-v1/inverse-order/health.c",
+              "-pthread",
+              "-lm",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/inverse-order/health.native"
+            ],
+            "limitSeconds": 120,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "node",
+              "/tmp/bendvy-slot-host-mutants-v1/inverse-order/motion.js"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "5f95325af0a855a1261c3a641c916b5bd267930fd29c4f0f611825dc4330a66b"
+          },
+          {
+            "command": [
+              "node",
+              "/tmp/bendvy-slot-host-mutants-v1/inverse-order/health.js"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "0cb9ae52c4c338483b10684129605dff04d7e8f3f3b9a0a5ae447a1580943112"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-slot-host-mutants-v1/inverse-order/motion.native",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "5f95325af0a855a1261c3a641c916b5bd267930fd29c4f0f611825dc4330a66b"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-slot-host-mutants-v1/inverse-order/health.native",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "0cb9ae52c4c338483b10684129605dff04d7e8f3f3b9a0a5ae447a1580943112"
+          }
+        ],
+        "originalDefinitionSHA256": "24d957d2be9daa5cb29b741a782487984d9da94aa16105e5c9822208aee05bd6",
+        "mutatedDefinitionSHA256": "a788d1236f710c60d78fbd7fd84174809aa3a14c965e0d46373aee57d5a0c879",
+        "mutantSourcePins": {
+          "experiments/s-integrate/audited-invoker.bend": "2c4a2fa6c271a4c2c38b518bd5f2cf62d15676ff65e6e9bf672119aad3a7a6b6",
+          "experiments/s-integrate/cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+          "experiments/s-integrate/cached-payload.bend": "977f91e225af0f3238829895109c47bd25ad5f1b5475e75435c4bd94b31c287f",
+          "experiments/s-integrate/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+          "experiments/s-integrate/commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+          "experiments/s-integrate/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+          "experiments/s-integrate/held-adapter.bend": "51f2fc1d9de8bfb778054128ad14ce06c4737fa9df6f1eb2d651d9e2a9fb80a8",
+          "experiments/s-integrate/held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+          "experiments/s-integrate/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+          "experiments/s-integrate/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+          "experiments/s-integrate/host.bend": "290b8ec33a3e2053ab7379aefff5978324050520dd9c0d419001dc8edf5f82ec",
+          "experiments/s-integrate/identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+          "experiments/s-integrate/measurement-bend.bend": "eedb90563721f0c1f97caffde83b7a93a691cdcaa59bd61141315472b98153f6",
+          "experiments/s-integrate/observations.bend": "35b2c98a7bd8fb390919dac80f9cec245dddad62da6aebfea2540cdcc84873b1",
+          "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+          "experiments/s-integrate/prototype-static-client.bend": "1a9d22180604433d91e6572679761f660b89b093ed5dbe2ad783859fb05d7a51",
+          "experiments/s-integrate/query.bend": "4a3af56012ea543274738b5d7891a787fbde643ec7f6c088a63a213a6dbf8982",
+          "experiments/s-integrate/raw-boundaries.bend": "9438dfe1ea17b9edae02518652663923807f85a037cfc4551ca63f289e2c18a6",
+          "experiments/s-integrate/reader-host.bend": "26eb687a8fb1893b55e4a0c7c8a629b688e37466e169cb3c95dd5273a553db6d",
+          "experiments/s-integrate/readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+          "experiments/s-integrate/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+          "experiments/s-integrate/storage.bend": "185c5fe6c6d81608b0e3dae4416d32bcbc6f74a50dbb5b28120cc5d1d9400c7a",
+          "experiments/s-integrate/streams.bend": "291d9a46ad58bdc481a5710976e01b762f6e11be3aeba07076c46c69f236d2c0",
+          "experiments/s-integrate/structural-invoker.bend": "790a73373e007f5f285f9656a880a8407aa78b73700cca829365ca5fcab61834",
+          "experiments/s-integrate/systems.bend": "5d3fd2c7afb3d51385ebe12b90bd6b1c4368f6e7fcb6027f144e97395e0cfa10",
+          "experiments/s-integrate/transaction-dispatch-adapters.bend": "928eb4ef837bec11636fc761fa7fdbaa803251f2e68fd597b936187ead040112",
+          "experiments/s-integrate/transaction.bend": "6e89b23f97b8b200ea829d33e1b654e6e1d2fecf56e6fe8c60c5dd564eb92109",
+          "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+          "experiments/s-integrate/uncached-payload.bend": "a35ae64d1c1fd6c50082c0f75bca22a5e84d700493d1b3949fbb1c2e17b8cb55"
+        },
+        "fixturePins": {
+          "host-fixture.bend": "a8f1abffe3abd4c73c2dd34e312e325d22cdcb4d44f94e6d100eb95a0883654e",
+          "host-preflight.bend": "40e26a9f1fcd4735d8407bcb0ece70bb63723a28255198059a46af3dc8c3224d",
+          "host-motion-body.bend": "21dd73b16a7db5748cc999fa88b97e091c3204593b645421780fcbe0c5b57cac",
+          "host-motion-fixture.bend": "72188f4dd732eb72111136226e16fc29819c5a56bb5df350ea0f5e15331b8654"
+        },
+        "observations": [
+          {
+            "backend": "js",
+            "compiling": true,
+            "differenceCount": 48,
+            "intendedDifferenceCount": 32,
+            "witness": {
+              "path": "Health/regenerated-closure.snapshots[6].lookups.b.main.levels[0]",
+              "expected": 20,
+              "actual": 30
+            }
+          },
+          {
+            "backend": "native",
+            "compiling": true,
+            "differenceCount": 48,
+            "intendedDifferenceCount": 32,
+            "witness": {
+              "path": "Health/regenerated-closure.snapshots[6].lookups.b.main.levels[0]",
+              "expected": 20,
+              "actual": 30
+            }
+          }
+        ],
+        "generatedPins": {
+          "motion.js": "ec7f8965a9ab375d61f448881a0d2fa8834ba9f1ae1229da7fbcdddfc4ec6eef",
+          "motion.c": "8c41eff62195ce346487aa1ad711a07e7be35e5ee22a01e957d63dd5aa79aa4c",
+          "motion.native": "3f93db7e434ddcadabaa949a49aef8b43ba98054d838824f85288cd06b01d515",
+          "health.js": "3c24d91f18aca8160caa0d0a6ca90150ed9c6f56a8f88b751f12a14acbe46bd5",
+          "health.c": "687bf1fda26b6e056fa34a10f5498c087cc9ec9c5d61047727fc4c8b6d42bd8f",
+          "health.native": "36918311bbe1d9c0e3ad8f5d53506b103bf4043245b218ba6ae73c0bd7590132"
+        }
+      }
+    },
+    {
+      "label": "failed-cursor",
+      "receipt": "/tmp/bendvy-slot-host-mutants-v1/evidence.json",
+      "receiptSHA256": "69bd25698f81c7c0172ecf29caf1da29753c17e9b047cd96e05623fb312907f8",
+      "case": {
+        "label": "failed-cursor",
+        "target": "readers.bend:complete",
+        "intendedChannel": "reads",
+        "status": "DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE",
+        "commands": [
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-cursor/core/host-motion-fixture.bend",
+              "--check-only"
+            ],
+            "limitSeconds": 15,
+            "exit": 0,
+            "outputSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-cursor/core/host-motion-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-cursor/motion.js"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-cursor/core/host-motion-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-cursor/motion.c"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-clang19-diagnostic/clang19",
+              "-O3",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-cursor/motion.c",
+              "-pthread",
+              "-lm",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-cursor/motion.native"
+            ],
+            "limitSeconds": 120,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-cursor/core/host-health-fixture.bend",
+              "--check-only"
+            ],
+            "limitSeconds": 15,
+            "exit": 0,
+            "outputSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-cursor/core/host-health-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-cursor/health.js"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-cursor/core/host-health-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-cursor/health.c"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-clang19-diagnostic/clang19",
+              "-O3",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-cursor/health.c",
+              "-pthread",
+              "-lm",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-cursor/health.native"
+            ],
+            "limitSeconds": 120,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "node",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-cursor/motion.js"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "f9c145e35597a32a0036f5b82e472d53fdc1af46e5c2bbaa5b44eaa9ca98b438"
+          },
+          {
+            "command": [
+              "node",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-cursor/health.js"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "ff2b93538328fb32223fdfa7e39d288c1d0e151b79286307e390baa2f6ef4127"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-slot-host-mutants-v1/failed-cursor/motion.native",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "f9c145e35597a32a0036f5b82e472d53fdc1af46e5c2bbaa5b44eaa9ca98b438"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-slot-host-mutants-v1/failed-cursor/health.native",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "ff2b93538328fb32223fdfa7e39d288c1d0e151b79286307e390baa2f6ef4127"
+          }
+        ],
+        "originalDefinitionSHA256": "baa1c757d6942ab6baac98adefc121bf7168c3073e062875b55bcb898528ccf1",
+        "mutatedDefinitionSHA256": "230ec90770214f2ca359709047aff9345a61892d7fc470278861474baeac779b",
+        "mutantSourcePins": {
+          "experiments/s-integrate/audited-invoker.bend": "2c4a2fa6c271a4c2c38b518bd5f2cf62d15676ff65e6e9bf672119aad3a7a6b6",
+          "experiments/s-integrate/cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+          "experiments/s-integrate/cached-payload.bend": "977f91e225af0f3238829895109c47bd25ad5f1b5475e75435c4bd94b31c287f",
+          "experiments/s-integrate/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+          "experiments/s-integrate/commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+          "experiments/s-integrate/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+          "experiments/s-integrate/held-adapter.bend": "51f2fc1d9de8bfb778054128ad14ce06c4737fa9df6f1eb2d651d9e2a9fb80a8",
+          "experiments/s-integrate/held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+          "experiments/s-integrate/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+          "experiments/s-integrate/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+          "experiments/s-integrate/host.bend": "290b8ec33a3e2053ab7379aefff5978324050520dd9c0d419001dc8edf5f82ec",
+          "experiments/s-integrate/identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+          "experiments/s-integrate/measurement-bend.bend": "eedb90563721f0c1f97caffde83b7a93a691cdcaa59bd61141315472b98153f6",
+          "experiments/s-integrate/observations.bend": "35b2c98a7bd8fb390919dac80f9cec245dddad62da6aebfea2540cdcc84873b1",
+          "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+          "experiments/s-integrate/prototype-static-client.bend": "1a9d22180604433d91e6572679761f660b89b093ed5dbe2ad783859fb05d7a51",
+          "experiments/s-integrate/query.bend": "4a3af56012ea543274738b5d7891a787fbde643ec7f6c088a63a213a6dbf8982",
+          "experiments/s-integrate/raw-boundaries.bend": "9438dfe1ea17b9edae02518652663923807f85a037cfc4551ca63f289e2c18a6",
+          "experiments/s-integrate/reader-host.bend": "26eb687a8fb1893b55e4a0c7c8a629b688e37466e169cb3c95dd5273a553db6d",
+          "experiments/s-integrate/readers.bend": "b29aaf24629f8f4dd8d42a59e0a003ac261bd367a07bc4273522c48bfd8a4201",
+          "experiments/s-integrate/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+          "experiments/s-integrate/storage.bend": "185c5fe6c6d81608b0e3dae4416d32bcbc6f74a50dbb5b28120cc5d1d9400c7a",
+          "experiments/s-integrate/streams.bend": "291d9a46ad58bdc481a5710976e01b762f6e11be3aeba07076c46c69f236d2c0",
+          "experiments/s-integrate/structural-invoker.bend": "790a73373e007f5f285f9656a880a8407aa78b73700cca829365ca5fcab61834",
+          "experiments/s-integrate/systems.bend": "5d3fd2c7afb3d51385ebe12b90bd6b1c4368f6e7fcb6027f144e97395e0cfa10",
+          "experiments/s-integrate/transaction-dispatch-adapters.bend": "928eb4ef837bec11636fc761fa7fdbaa803251f2e68fd597b936187ead040112",
+          "experiments/s-integrate/transaction.bend": "b2dcd35e95830766b8e1a51b7c8356e270b007c7066590d7caf999589218b51b",
+          "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+          "experiments/s-integrate/uncached-payload.bend": "a35ae64d1c1fd6c50082c0f75bca22a5e84d700493d1b3949fbb1c2e17b8cb55"
+        },
+        "fixturePins": {
+          "host-fixture.bend": "a8f1abffe3abd4c73c2dd34e312e325d22cdcb4d44f94e6d100eb95a0883654e",
+          "host-preflight.bend": "40e26a9f1fcd4735d8407bcb0ece70bb63723a28255198059a46af3dc8c3224d",
+          "host-motion-body.bend": "21dd73b16a7db5748cc999fa88b97e091c3204593b645421780fcbe0c5b57cac",
+          "host-motion-fixture.bend": "72188f4dd732eb72111136226e16fc29819c5a56bb5df350ea0f5e15331b8654"
+        },
+        "observations": [
+          {
+            "backend": "js",
+            "compiling": true,
+            "differenceCount": 24,
+            "intendedDifferenceCount": 24,
+            "witness": {
+              "path": "Health/regenerated-closure.reads[6].added",
+              "expected_length": 2,
+              "actual_length": 0
+            }
+          },
+          {
+            "backend": "native",
+            "compiling": true,
+            "differenceCount": 24,
+            "intendedDifferenceCount": 24,
+            "witness": {
+              "path": "Health/regenerated-closure.reads[6].added",
+              "expected_length": 2,
+              "actual_length": 0
+            }
+          }
+        ],
+        "generatedPins": {
+          "motion.js": "98a57dd096a9b9ebe76eabde4fc650134ea8c20dcc9b9c789ed5595f7b9d0c1b",
+          "motion.c": "e832fe7b809524611a090426a532b1c593375fb4e89e9093b811a66d179d81f7",
+          "motion.native": "06c8d8253c4556a3aa47a21e8e899a453aa22b81015b6df9822d352a6168364b",
+          "health.js": "a54d720b57945684194d5256c1e85ee80a4dbad5484be72bcbd35ab129ed452f",
+          "health.c": "59ee5a9d785a0473b37359e3482e0a507cff1fe7dec730c652aaf1ec0d172615",
+          "health.native": "18638bdf3229fcafab5c05877cff3d998899bf10a7ef4a67cd5cb0e93fa18351"
+        }
+      }
+    },
+    {
+      "label": "other-reader-routing",
+      "receipt": "/tmp/bendvy-slot-host-mutants-v1/evidence.json",
+      "receiptSHA256": "69bd25698f81c7c0172ecf29caf1da29753c17e9b047cd96e05623fb312907f8",
+      "case": {
+        "label": "other-reader-routing",
+        "target": "readers.bend:replace_case",
+        "intendedChannel": "reads",
+        "status": "DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE",
+        "commands": [
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/other-reader-routing/core/host-motion-fixture.bend",
+              "--check-only"
+            ],
+            "limitSeconds": 15,
+            "exit": 0,
+            "outputSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/other-reader-routing/core/host-motion-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/other-reader-routing/motion.js"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/other-reader-routing/core/host-motion-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/other-reader-routing/motion.c"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-clang19-diagnostic/clang19",
+              "-O3",
+              "/tmp/bendvy-slot-host-mutants-v1/other-reader-routing/motion.c",
+              "-pthread",
+              "-lm",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/other-reader-routing/motion.native"
+            ],
+            "limitSeconds": 120,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/other-reader-routing/core/host-health-fixture.bend",
+              "--check-only"
+            ],
+            "limitSeconds": 15,
+            "exit": 0,
+            "outputSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/other-reader-routing/core/host-health-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/other-reader-routing/health.js"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/other-reader-routing/core/host-health-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/other-reader-routing/health.c"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-clang19-diagnostic/clang19",
+              "-O3",
+              "/tmp/bendvy-slot-host-mutants-v1/other-reader-routing/health.c",
+              "-pthread",
+              "-lm",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/other-reader-routing/health.native"
+            ],
+            "limitSeconds": 120,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "node",
+              "/tmp/bendvy-slot-host-mutants-v1/other-reader-routing/motion.js"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "e1740378d7b5102743cbf47c874db1c617cd3a57a941a90ccddeaca7499d38a3"
+          },
+          {
+            "command": [
+              "node",
+              "/tmp/bendvy-slot-host-mutants-v1/other-reader-routing/health.js"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "04323ee8e23c0ca3dbccec3c4366964fe4cd1c6e4bc98cb18e53a377981c02e0"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-slot-host-mutants-v1/other-reader-routing/motion.native",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "e1740378d7b5102743cbf47c874db1c617cd3a57a941a90ccddeaca7499d38a3"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-slot-host-mutants-v1/other-reader-routing/health.native",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "04323ee8e23c0ca3dbccec3c4366964fe4cd1c6e4bc98cb18e53a377981c02e0"
+          }
+        ],
+        "originalDefinitionSHA256": "6e69731bb1e877bd75886d2c1578a1aceadbe0ad9badc904eba7ab06f6c9c941",
+        "mutatedDefinitionSHA256": "930720ed0aed5b1de7eb812d9e01d8528e069889d1c7f7155c8ed7af3443506a",
+        "mutantSourcePins": {
+          "experiments/s-integrate/audited-invoker.bend": "2c4a2fa6c271a4c2c38b518bd5f2cf62d15676ff65e6e9bf672119aad3a7a6b6",
+          "experiments/s-integrate/cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+          "experiments/s-integrate/cached-payload.bend": "977f91e225af0f3238829895109c47bd25ad5f1b5475e75435c4bd94b31c287f",
+          "experiments/s-integrate/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+          "experiments/s-integrate/commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+          "experiments/s-integrate/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+          "experiments/s-integrate/held-adapter.bend": "51f2fc1d9de8bfb778054128ad14ce06c4737fa9df6f1eb2d651d9e2a9fb80a8",
+          "experiments/s-integrate/held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+          "experiments/s-integrate/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+          "experiments/s-integrate/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+          "experiments/s-integrate/host.bend": "290b8ec33a3e2053ab7379aefff5978324050520dd9c0d419001dc8edf5f82ec",
+          "experiments/s-integrate/identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+          "experiments/s-integrate/measurement-bend.bend": "eedb90563721f0c1f97caffde83b7a93a691cdcaa59bd61141315472b98153f6",
+          "experiments/s-integrate/observations.bend": "35b2c98a7bd8fb390919dac80f9cec245dddad62da6aebfea2540cdcc84873b1",
+          "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+          "experiments/s-integrate/prototype-static-client.bend": "1a9d22180604433d91e6572679761f660b89b093ed5dbe2ad783859fb05d7a51",
+          "experiments/s-integrate/query.bend": "4a3af56012ea543274738b5d7891a787fbde643ec7f6c088a63a213a6dbf8982",
+          "experiments/s-integrate/raw-boundaries.bend": "9438dfe1ea17b9edae02518652663923807f85a037cfc4551ca63f289e2c18a6",
+          "experiments/s-integrate/reader-host.bend": "26eb687a8fb1893b55e4a0c7c8a629b688e37466e169cb3c95dd5273a553db6d",
+          "experiments/s-integrate/readers.bend": "67283972e7c64f5242dca8f8250498018a4fe27e8f1a7a06526e7a2506ed966b",
+          "experiments/s-integrate/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+          "experiments/s-integrate/storage.bend": "185c5fe6c6d81608b0e3dae4416d32bcbc6f74a50dbb5b28120cc5d1d9400c7a",
+          "experiments/s-integrate/streams.bend": "291d9a46ad58bdc481a5710976e01b762f6e11be3aeba07076c46c69f236d2c0",
+          "experiments/s-integrate/structural-invoker.bend": "790a73373e007f5f285f9656a880a8407aa78b73700cca829365ca5fcab61834",
+          "experiments/s-integrate/systems.bend": "5d3fd2c7afb3d51385ebe12b90bd6b1c4368f6e7fcb6027f144e97395e0cfa10",
+          "experiments/s-integrate/transaction-dispatch-adapters.bend": "928eb4ef837bec11636fc761fa7fdbaa803251f2e68fd597b936187ead040112",
+          "experiments/s-integrate/transaction.bend": "b2dcd35e95830766b8e1a51b7c8356e270b007c7066590d7caf999589218b51b",
+          "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+          "experiments/s-integrate/uncached-payload.bend": "a35ae64d1c1fd6c50082c0f75bca22a5e84d700493d1b3949fbb1c2e17b8cb55"
+        },
+        "fixturePins": {
+          "host-fixture.bend": "a8f1abffe3abd4c73c2dd34e312e325d22cdcb4d44f94e6d100eb95a0883654e",
+          "host-preflight.bend": "40e26a9f1fcd4735d8407bcb0ece70bb63723a28255198059a46af3dc8c3224d",
+          "host-motion-body.bend": "21dd73b16a7db5748cc999fa88b97e091c3204593b645421780fcbe0c5b57cac",
+          "host-motion-fixture.bend": "72188f4dd732eb72111136226e16fc29819c5a56bb5df350ea0f5e15331b8654"
+        },
+        "observations": [
+          {
+            "backend": "js",
+            "compiling": true,
+            "differenceCount": 308,
+            "intendedDifferenceCount": 308,
+            "witness": {
+              "path": "Health/regenerated-closure.reads[6].messages",
+              "expected_length": 1,
+              "actual_length": 0
+            }
+          },
+          {
+            "backend": "native",
+            "compiling": true,
+            "differenceCount": 308,
+            "intendedDifferenceCount": 308,
+            "witness": {
+              "path": "Health/regenerated-closure.reads[6].messages",
+              "expected_length": 1,
+              "actual_length": 0
+            }
+          }
+        ],
+        "generatedPins": {
+          "motion.js": "a01da85139bddfc5b7f057f5fd521e5f8089cb6d677d6f5db00254bf0fb44656",
+          "motion.c": "885ba6a074a8cf3c6a5dc678bb1f11e7a944884949c8b557a84dbd374122f8ee",
+          "motion.native": "2f1250b9e59f4ba8dc84a847c3cdf20c137f748433a5d4ead13b0421024f7cf7",
+          "health.js": "e85a961a5c40077a7833f5242331379e65007fdd340640c2979cbfe47f216c0d",
+          "health.c": "ef9f9bab671aa3ce3f4c9d5a3e9b1eac42c03c6cfded338a2c8d38fd45428795",
+          "health.native": "92fb8b6f20ff14f6fed8e966de0efc8e36b480accc4c35e0fa3560325f04215d"
+        }
+      }
+    },
+    {
+      "label": "skip-change-cursor",
+      "receipt": "/tmp/bendvy-slot-host-mutants-v1/evidence.json",
+      "receiptSHA256": "69bd25698f81c7c0172ecf29caf1da29753c17e9b047cd96e05623fb312907f8",
+      "case": {
+        "label": "skip-change-cursor",
+        "target": "readers.bend:skip_found",
+        "intendedChannel": "reads",
+        "status": "DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE",
+        "commands": [
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/skip-change-cursor/core/host-motion-fixture.bend",
+              "--check-only"
+            ],
+            "limitSeconds": 15,
+            "exit": 0,
+            "outputSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/skip-change-cursor/core/host-motion-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/skip-change-cursor/motion.js"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/skip-change-cursor/core/host-motion-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/skip-change-cursor/motion.c"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-clang19-diagnostic/clang19",
+              "-O3",
+              "/tmp/bendvy-slot-host-mutants-v1/skip-change-cursor/motion.c",
+              "-pthread",
+              "-lm",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/skip-change-cursor/motion.native"
+            ],
+            "limitSeconds": 120,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/skip-change-cursor/core/host-health-fixture.bend",
+              "--check-only"
+            ],
+            "limitSeconds": 15,
+            "exit": 0,
+            "outputSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/skip-change-cursor/core/host-health-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/skip-change-cursor/health.js"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/skip-change-cursor/core/host-health-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/skip-change-cursor/health.c"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-clang19-diagnostic/clang19",
+              "-O3",
+              "/tmp/bendvy-slot-host-mutants-v1/skip-change-cursor/health.c",
+              "-pthread",
+              "-lm",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/skip-change-cursor/health.native"
+            ],
+            "limitSeconds": 120,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "node",
+              "/tmp/bendvy-slot-host-mutants-v1/skip-change-cursor/motion.js"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "afcb75c9b908179396e6ad1b53bf7dcb71a0e1dcaf053dfa0d2c8762a14a8132"
+          },
+          {
+            "command": [
+              "node",
+              "/tmp/bendvy-slot-host-mutants-v1/skip-change-cursor/health.js"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "128b6a0dac1f7c643b55083fe5767d212260f6c1947a6f61d3390e22f141b787"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-slot-host-mutants-v1/skip-change-cursor/motion.native",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "afcb75c9b908179396e6ad1b53bf7dcb71a0e1dcaf053dfa0d2c8762a14a8132"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-slot-host-mutants-v1/skip-change-cursor/health.native",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "128b6a0dac1f7c643b55083fe5767d212260f6c1947a6f61d3390e22f141b787"
+          }
+        ],
+        "originalDefinitionSHA256": "ef163b11357b5cd770ec19ede39364ec704aae1c4e53f5bdf75782d61b8f655d",
+        "mutatedDefinitionSHA256": "23dd94c5c428f328d3e30268c76499338ebfe80692586699e138a42256006096",
+        "mutantSourcePins": {
+          "experiments/s-integrate/audited-invoker.bend": "2c4a2fa6c271a4c2c38b518bd5f2cf62d15676ff65e6e9bf672119aad3a7a6b6",
+          "experiments/s-integrate/cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+          "experiments/s-integrate/cached-payload.bend": "977f91e225af0f3238829895109c47bd25ad5f1b5475e75435c4bd94b31c287f",
+          "experiments/s-integrate/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+          "experiments/s-integrate/commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+          "experiments/s-integrate/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+          "experiments/s-integrate/held-adapter.bend": "51f2fc1d9de8bfb778054128ad14ce06c4737fa9df6f1eb2d651d9e2a9fb80a8",
+          "experiments/s-integrate/held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+          "experiments/s-integrate/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+          "experiments/s-integrate/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+          "experiments/s-integrate/host.bend": "290b8ec33a3e2053ab7379aefff5978324050520dd9c0d419001dc8edf5f82ec",
+          "experiments/s-integrate/identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+          "experiments/s-integrate/measurement-bend.bend": "eedb90563721f0c1f97caffde83b7a93a691cdcaa59bd61141315472b98153f6",
+          "experiments/s-integrate/observations.bend": "35b2c98a7bd8fb390919dac80f9cec245dddad62da6aebfea2540cdcc84873b1",
+          "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+          "experiments/s-integrate/prototype-static-client.bend": "1a9d22180604433d91e6572679761f660b89b093ed5dbe2ad783859fb05d7a51",
+          "experiments/s-integrate/query.bend": "4a3af56012ea543274738b5d7891a787fbde643ec7f6c088a63a213a6dbf8982",
+          "experiments/s-integrate/raw-boundaries.bend": "9438dfe1ea17b9edae02518652663923807f85a037cfc4551ca63f289e2c18a6",
+          "experiments/s-integrate/reader-host.bend": "26eb687a8fb1893b55e4a0c7c8a629b688e37466e169cb3c95dd5273a553db6d",
+          "experiments/s-integrate/readers.bend": "43d0489741017218e1f9b60da2b4a998886a1e39ca5f7221ebf605df2e5ae133",
+          "experiments/s-integrate/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+          "experiments/s-integrate/storage.bend": "185c5fe6c6d81608b0e3dae4416d32bcbc6f74a50dbb5b28120cc5d1d9400c7a",
+          "experiments/s-integrate/streams.bend": "291d9a46ad58bdc481a5710976e01b762f6e11be3aeba07076c46c69f236d2c0",
+          "experiments/s-integrate/structural-invoker.bend": "790a73373e007f5f285f9656a880a8407aa78b73700cca829365ca5fcab61834",
+          "experiments/s-integrate/systems.bend": "5d3fd2c7afb3d51385ebe12b90bd6b1c4368f6e7fcb6027f144e97395e0cfa10",
+          "experiments/s-integrate/transaction-dispatch-adapters.bend": "928eb4ef837bec11636fc761fa7fdbaa803251f2e68fd597b936187ead040112",
+          "experiments/s-integrate/transaction.bend": "b2dcd35e95830766b8e1a51b7c8356e270b007c7066590d7caf999589218b51b",
+          "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+          "experiments/s-integrate/uncached-payload.bend": "a35ae64d1c1fd6c50082c0f75bca22a5e84d700493d1b3949fbb1c2e17b8cb55"
+        },
+        "fixturePins": {
+          "host-fixture.bend": "a8f1abffe3abd4c73c2dd34e312e325d22cdcb4d44f94e6d100eb95a0883654e",
+          "host-preflight.bend": "40e26a9f1fcd4735d8407bcb0ece70bb63723a28255198059a46af3dc8c3224d",
+          "host-motion-body.bend": "21dd73b16a7db5748cc999fa88b97e091c3204593b645421780fcbe0c5b57cac",
+          "host-motion-fixture.bend": "72188f4dd732eb72111136226e16fc29819c5a56bb5df350ea0f5e15331b8654"
+        },
+        "observations": [
+          {
+            "backend": "js",
+            "compiling": true,
+            "differenceCount": 24,
+            "intendedDifferenceCount": 24,
+            "witness": {
+              "path": "Health/regenerated-closure.reads[12].changed",
+              "expected_length": 1,
+              "actual_length": 0
+            }
+          },
+          {
+            "backend": "native",
+            "compiling": true,
+            "differenceCount": 24,
+            "intendedDifferenceCount": 24,
+            "witness": {
+              "path": "Health/regenerated-closure.reads[12].changed",
+              "expected_length": 1,
+              "actual_length": 0
+            }
+          }
+        ],
+        "generatedPins": {
+          "motion.js": "b82b7b72cd5ea6dbfc5caa45d307c7694298c65700e2c07fca3333ca9efe110d",
+          "motion.c": "1f6a9f68d4feecb8a49524f843b3365d0efa836eaf74a54afb4c5cf8172bf574",
+          "motion.native": "1a2edbffb041521689295183bf8a65494c992d66efdeb511181acbaedc84a9d2",
+          "health.js": "fafccfb1c20d3bc9f92791454c44a164bb5fd2c550e30da86689f08b69f54944",
+          "health.c": "352ca5e1c3e891b1bd1ef33e198da4e50609c0f8994829ce85bdfaf9590d7015",
+          "health.native": "ec50010d2f1aa81b2434ec984afe87993149dc74aacccea8155396b1cbd302eb"
+        }
+      }
+    },
+    {
+      "label": "reset-capture",
+      "receipt": "/tmp/bendvy-slot-host-mutants-v1/evidence.json",
+      "receiptSHA256": "69bd25698f81c7c0172ecf29caf1da29753c17e9b047cd96e05623fb312907f8",
+      "case": {
+        "label": "reset-capture",
+        "target": "capture.bend:incremented",
+        "intendedChannel": "dispatches",
+        "status": "DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE",
+        "commands": [
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/reset-capture/core/host-motion-fixture.bend",
+              "--check-only"
+            ],
+            "limitSeconds": 15,
+            "exit": 0,
+            "outputSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/reset-capture/core/host-motion-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/reset-capture/motion.js"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/reset-capture/core/host-motion-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/reset-capture/motion.c"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-clang19-diagnostic/clang19",
+              "-O3",
+              "/tmp/bendvy-slot-host-mutants-v1/reset-capture/motion.c",
+              "-pthread",
+              "-lm",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/reset-capture/motion.native"
+            ],
+            "limitSeconds": 120,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/reset-capture/core/host-health-fixture.bend",
+              "--check-only"
+            ],
+            "limitSeconds": 15,
+            "exit": 0,
+            "outputSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/reset-capture/core/host-health-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/reset-capture/health.js"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/reset-capture/core/host-health-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/reset-capture/health.c"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-clang19-diagnostic/clang19",
+              "-O3",
+              "/tmp/bendvy-slot-host-mutants-v1/reset-capture/health.c",
+              "-pthread",
+              "-lm",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/reset-capture/health.native"
+            ],
+            "limitSeconds": 120,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "node",
+              "/tmp/bendvy-slot-host-mutants-v1/reset-capture/motion.js"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "f6e9eded2e71a878ae9e09b31bd4eb765dd901face62b54a374140629c78227f"
+          },
+          {
+            "command": [
+              "node",
+              "/tmp/bendvy-slot-host-mutants-v1/reset-capture/health.js"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "b76a68fb01ce9697c74b638e6efc9a3983a92916be26f6942f59937ee50e3936"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-slot-host-mutants-v1/reset-capture/motion.native",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "f6e9eded2e71a878ae9e09b31bd4eb765dd901face62b54a374140629c78227f"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-slot-host-mutants-v1/reset-capture/health.native",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "b76a68fb01ce9697c74b638e6efc9a3983a92916be26f6942f59937ee50e3936"
+          }
+        ],
+        "originalDefinitionSHA256": "9f1f9d7c4a21ad9ed3ea8f1fe1d00499536a3da3e541b52341bc8c7d6001e8ac",
+        "mutatedDefinitionSHA256": "65be4c9e221bb02f4863f2437d3689ea760fdf4370cb38ce8d7e9fa6131ddcc2",
+        "mutantSourcePins": {
+          "experiments/s-integrate/audited-invoker.bend": "2c4a2fa6c271a4c2c38b518bd5f2cf62d15676ff65e6e9bf672119aad3a7a6b6",
+          "experiments/s-integrate/cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+          "experiments/s-integrate/cached-payload.bend": "977f91e225af0f3238829895109c47bd25ad5f1b5475e75435c4bd94b31c287f",
+          "experiments/s-integrate/capture.bend": "45b903ed3b4bf279137569c72bfc87167b59d0a14c60097dd06d844fcb63f435",
+          "experiments/s-integrate/commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+          "experiments/s-integrate/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+          "experiments/s-integrate/held-adapter.bend": "51f2fc1d9de8bfb778054128ad14ce06c4737fa9df6f1eb2d651d9e2a9fb80a8",
+          "experiments/s-integrate/held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+          "experiments/s-integrate/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+          "experiments/s-integrate/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+          "experiments/s-integrate/host.bend": "290b8ec33a3e2053ab7379aefff5978324050520dd9c0d419001dc8edf5f82ec",
+          "experiments/s-integrate/identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+          "experiments/s-integrate/measurement-bend.bend": "eedb90563721f0c1f97caffde83b7a93a691cdcaa59bd61141315472b98153f6",
+          "experiments/s-integrate/observations.bend": "35b2c98a7bd8fb390919dac80f9cec245dddad62da6aebfea2540cdcc84873b1",
+          "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+          "experiments/s-integrate/prototype-static-client.bend": "1a9d22180604433d91e6572679761f660b89b093ed5dbe2ad783859fb05d7a51",
+          "experiments/s-integrate/query.bend": "4a3af56012ea543274738b5d7891a787fbde643ec7f6c088a63a213a6dbf8982",
+          "experiments/s-integrate/raw-boundaries.bend": "9438dfe1ea17b9edae02518652663923807f85a037cfc4551ca63f289e2c18a6",
+          "experiments/s-integrate/reader-host.bend": "26eb687a8fb1893b55e4a0c7c8a629b688e37466e169cb3c95dd5273a553db6d",
+          "experiments/s-integrate/readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+          "experiments/s-integrate/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+          "experiments/s-integrate/storage.bend": "185c5fe6c6d81608b0e3dae4416d32bcbc6f74a50dbb5b28120cc5d1d9400c7a",
+          "experiments/s-integrate/streams.bend": "291d9a46ad58bdc481a5710976e01b762f6e11be3aeba07076c46c69f236d2c0",
+          "experiments/s-integrate/structural-invoker.bend": "790a73373e007f5f285f9656a880a8407aa78b73700cca829365ca5fcab61834",
+          "experiments/s-integrate/systems.bend": "5d3fd2c7afb3d51385ebe12b90bd6b1c4368f6e7fcb6027f144e97395e0cfa10",
+          "experiments/s-integrate/transaction-dispatch-adapters.bend": "928eb4ef837bec11636fc761fa7fdbaa803251f2e68fd597b936187ead040112",
+          "experiments/s-integrate/transaction.bend": "b2dcd35e95830766b8e1a51b7c8356e270b007c7066590d7caf999589218b51b",
+          "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+          "experiments/s-integrate/uncached-payload.bend": "a35ae64d1c1fd6c50082c0f75bca22a5e84d700493d1b3949fbb1c2e17b8cb55"
+        },
+        "fixturePins": {
+          "host-fixture.bend": "a8f1abffe3abd4c73c2dd34e312e325d22cdcb4d44f94e6d100eb95a0883654e",
+          "host-preflight.bend": "40e26a9f1fcd4735d8407bcb0ece70bb63723a28255198059a46af3dc8c3224d",
+          "host-motion-body.bend": "21dd73b16a7db5748cc999fa88b97e091c3204593b645421780fcbe0c5b57cac",
+          "host-motion-fixture.bend": "72188f4dd732eb72111136226e16fc29819c5a56bb5df350ea0f5e15331b8654"
+        },
+        "observations": [
+          {
+            "backend": "js",
+            "compiling": true,
+            "differenceCount": 652,
+            "intendedDifferenceCount": 488,
+            "witness": {
+              "path": "Health/regenerated-closure.dispatches[1].counts.B[0]",
+              "expected": 1,
+              "actual": 0
+            }
+          },
+          {
+            "backend": "native",
+            "compiling": true,
+            "differenceCount": 652,
+            "intendedDifferenceCount": 488,
+            "witness": {
+              "path": "Health/regenerated-closure.dispatches[1].counts.B[0]",
+              "expected": 1,
+              "actual": 0
+            }
+          }
+        ],
+        "generatedPins": {
+          "motion.js": "1a9ef691c72932e59d58446179dc04dfee0f4ad55d5e1f97ad8a7abcf63502ca",
+          "motion.c": "7685e8ff836bd288bae669ebc05329855b1f6e5cd19d9c1850eff49de8add1d7",
+          "motion.native": "78f173b640eeda4fc6fca3243500bf7375f86cb55ab07c5cc20561bce6b78f40",
+          "health.js": "2d22f005703e1470a53552d7d40c2577ce419a942c88f2cc36e8f81c6bc96672",
+          "health.c": "716042ac0b074e37d7d6dfc6a583461b024f9e9dd27329afda3c9d0f1d1dbc79",
+          "health.native": "3febf4b5e212db0fbdd81dec8e00e4ae095f9cd9e57c6d7fb75df79a6ad95d30"
+        }
+      }
+    },
+    {
+      "label": "reversed-command-FIFO",
+      "receipt": "/tmp/bendvy-slot-host-mutants-v1/evidence.json",
+      "receiptSHA256": "69bd25698f81c7c0172ecf29caf1da29753c17e9b047cd96e05623fb312907f8",
+      "case": {
+        "label": "reversed-command-FIFO",
+        "target": "commands.bend:preflight_world",
+        "intendedChannel": "snapshots",
+        "status": "DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE",
+        "commands": [
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/reversed-command-FIFO/core/host-motion-fixture.bend",
+              "--check-only"
+            ],
+            "limitSeconds": 15,
+            "exit": 0,
+            "outputSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/reversed-command-FIFO/core/host-motion-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/reversed-command-FIFO/motion.js"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/reversed-command-FIFO/core/host-motion-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/reversed-command-FIFO/motion.c"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-clang19-diagnostic/clang19",
+              "-O3",
+              "/tmp/bendvy-slot-host-mutants-v1/reversed-command-FIFO/motion.c",
+              "-pthread",
+              "-lm",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/reversed-command-FIFO/motion.native"
+            ],
+            "limitSeconds": 120,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/reversed-command-FIFO/core/host-health-fixture.bend",
+              "--check-only"
+            ],
+            "limitSeconds": 15,
+            "exit": 0,
+            "outputSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/reversed-command-FIFO/core/host-health-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/reversed-command-FIFO/health.js"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/reversed-command-FIFO/core/host-health-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/reversed-command-FIFO/health.c"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-clang19-diagnostic/clang19",
+              "-O3",
+              "/tmp/bendvy-slot-host-mutants-v1/reversed-command-FIFO/health.c",
+              "-pthread",
+              "-lm",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/reversed-command-FIFO/health.native"
+            ],
+            "limitSeconds": 120,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "node",
+              "/tmp/bendvy-slot-host-mutants-v1/reversed-command-FIFO/motion.js"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "de36c7cb3c1b60a5a139ed98258160c7bce973339ab18b39860495b49f23ef44"
+          },
+          {
+            "command": [
+              "node",
+              "/tmp/bendvy-slot-host-mutants-v1/reversed-command-FIFO/health.js"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "2fb8c92c00e253a8102c81d6c0046e8ad79a106ea806f6c865fbc8b84b87fd23"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-slot-host-mutants-v1/reversed-command-FIFO/motion.native",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "de36c7cb3c1b60a5a139ed98258160c7bce973339ab18b39860495b49f23ef44"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-slot-host-mutants-v1/reversed-command-FIFO/health.native",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "2fb8c92c00e253a8102c81d6c0046e8ad79a106ea806f6c865fbc8b84b87fd23"
+          }
+        ],
+        "originalDefinitionSHA256": "60488ad64d63fc1a078f3471ed00d630781ff62fb8f7691fde0bf7e51e665c71",
+        "mutatedDefinitionSHA256": "3dd8b65f688d9eed6d4b5b4441c63b1331b2168692ce99819e7df377af28f127",
+        "mutantSourcePins": {
+          "experiments/s-integrate/audited-invoker.bend": "2c4a2fa6c271a4c2c38b518bd5f2cf62d15676ff65e6e9bf672119aad3a7a6b6",
+          "experiments/s-integrate/cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+          "experiments/s-integrate/cached-payload.bend": "977f91e225af0f3238829895109c47bd25ad5f1b5475e75435c4bd94b31c287f",
+          "experiments/s-integrate/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+          "experiments/s-integrate/commands.bend": "bf6694ea10289d9b237945315a53ad7d6daaff5298c43398d4661e3641509023",
+          "experiments/s-integrate/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+          "experiments/s-integrate/held-adapter.bend": "51f2fc1d9de8bfb778054128ad14ce06c4737fa9df6f1eb2d651d9e2a9fb80a8",
+          "experiments/s-integrate/held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+          "experiments/s-integrate/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+          "experiments/s-integrate/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+          "experiments/s-integrate/host.bend": "290b8ec33a3e2053ab7379aefff5978324050520dd9c0d419001dc8edf5f82ec",
+          "experiments/s-integrate/identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+          "experiments/s-integrate/measurement-bend.bend": "eedb90563721f0c1f97caffde83b7a93a691cdcaa59bd61141315472b98153f6",
+          "experiments/s-integrate/observations.bend": "35b2c98a7bd8fb390919dac80f9cec245dddad62da6aebfea2540cdcc84873b1",
+          "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+          "experiments/s-integrate/prototype-static-client.bend": "1a9d22180604433d91e6572679761f660b89b093ed5dbe2ad783859fb05d7a51",
+          "experiments/s-integrate/query.bend": "4a3af56012ea543274738b5d7891a787fbde643ec7f6c088a63a213a6dbf8982",
+          "experiments/s-integrate/raw-boundaries.bend": "9438dfe1ea17b9edae02518652663923807f85a037cfc4551ca63f289e2c18a6",
+          "experiments/s-integrate/reader-host.bend": "26eb687a8fb1893b55e4a0c7c8a629b688e37466e169cb3c95dd5273a553db6d",
+          "experiments/s-integrate/readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+          "experiments/s-integrate/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+          "experiments/s-integrate/storage.bend": "185c5fe6c6d81608b0e3dae4416d32bcbc6f74a50dbb5b28120cc5d1d9400c7a",
+          "experiments/s-integrate/streams.bend": "291d9a46ad58bdc481a5710976e01b762f6e11be3aeba07076c46c69f236d2c0",
+          "experiments/s-integrate/structural-invoker.bend": "790a73373e007f5f285f9656a880a8407aa78b73700cca829365ca5fcab61834",
+          "experiments/s-integrate/systems.bend": "5d3fd2c7afb3d51385ebe12b90bd6b1c4368f6e7fcb6027f144e97395e0cfa10",
+          "experiments/s-integrate/transaction-dispatch-adapters.bend": "928eb4ef837bec11636fc761fa7fdbaa803251f2e68fd597b936187ead040112",
+          "experiments/s-integrate/transaction.bend": "b2dcd35e95830766b8e1a51b7c8356e270b007c7066590d7caf999589218b51b",
+          "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+          "experiments/s-integrate/uncached-payload.bend": "a35ae64d1c1fd6c50082c0f75bca22a5e84d700493d1b3949fbb1c2e17b8cb55"
+        },
+        "fixturePins": {
+          "host-fixture.bend": "a8f1abffe3abd4c73c2dd34e312e325d22cdcb4d44f94e6d100eb95a0883654e",
+          "host-preflight.bend": "40e26a9f1fcd4735d8407bcb0ece70bb63723a28255198059a46af3dc8c3224d",
+          "host-motion-body.bend": "21dd73b16a7db5748cc999fa88b97e091c3204593b645421780fcbe0c5b57cac",
+          "host-motion-fixture.bend": "72188f4dd732eb72111136226e16fc29819c5a56bb5df350ea0f5e15331b8654"
+        },
+        "observations": [
+          {
+            "backend": "js",
+            "compiling": true,
+            "differenceCount": 400,
+            "intendedDifferenceCount": 160,
+            "witness": {
+              "path": "Health/regenerated-closure.snapshots[24].aux[0].main.levels[0]",
+              "expected": 81,
+              "actual": 80
+            }
+          },
+          {
+            "backend": "native",
+            "compiling": true,
+            "differenceCount": 400,
+            "intendedDifferenceCount": 160,
+            "witness": {
+              "path": "Health/regenerated-closure.snapshots[24].aux[0].main.levels[0]",
+              "expected": 81,
+              "actual": 80
+            }
+          }
+        ],
+        "generatedPins": {
+          "motion.js": "777bf8567a00f5f2773fad01ed6ddb9b97c1e70eccfe5710d7d2564b62980632",
+          "motion.c": "749ad0b9d8d2d39b5788fda8b31b1f096f988667548fa0db9231feb69d4209ca",
+          "motion.native": "99e0048367828700c618155a586368e74117384bb13c992361f53ae24ae7206b",
+          "health.js": "72e02c14abc2b0e738d1620190c30305a6d11bd011110d6908a42ac4ff6065b3",
+          "health.c": "e4118bebae4f262610302dc7b5bee4aa7a29b5dc640f4a85c6c42e910ad1ef99",
+          "health.native": "9b736ede9afe9a24174ff9e07a39d31081e66d1d90fe81ed0cc8394cbada5b54"
+        }
+      }
+    },
+    {
+      "label": "implicit-flush",
+      "receipt": "/tmp/bendvy-slot-host-mutants-v1/evidence.json",
+      "receiptSHA256": "69bd25698f81c7c0172ecf29caf1da29753c17e9b047cd96e05623fb312907f8",
+      "case": {
+        "label": "implicit-flush",
+        "target": "dispatcher.bend:tick_frame",
+        "intendedChannel": "snapshots",
+        "status": "DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE",
+        "commands": [
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/implicit-flush/core/host-motion-fixture.bend",
+              "--check-only"
+            ],
+            "limitSeconds": 15,
+            "exit": 0,
+            "outputSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/implicit-flush/core/host-motion-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/implicit-flush/motion.js"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/implicit-flush/core/host-motion-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/implicit-flush/motion.c"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-clang19-diagnostic/clang19",
+              "-O3",
+              "/tmp/bendvy-slot-host-mutants-v1/implicit-flush/motion.c",
+              "-pthread",
+              "-lm",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/implicit-flush/motion.native"
+            ],
+            "limitSeconds": 120,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/implicit-flush/core/host-health-fixture.bend",
+              "--check-only"
+            ],
+            "limitSeconds": 15,
+            "exit": 0,
+            "outputSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/implicit-flush/core/host-health-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/implicit-flush/health.js"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/implicit-flush/core/host-health-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/implicit-flush/health.c"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-clang19-diagnostic/clang19",
+              "-O3",
+              "/tmp/bendvy-slot-host-mutants-v1/implicit-flush/health.c",
+              "-pthread",
+              "-lm",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/implicit-flush/health.native"
+            ],
+            "limitSeconds": 120,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "node",
+              "/tmp/bendvy-slot-host-mutants-v1/implicit-flush/motion.js"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "5b24ff8ea1327fddbb718a8502b1fba8629b6ca91af3b07b20454f4f381ae63a"
+          },
+          {
+            "command": [
+              "node",
+              "/tmp/bendvy-slot-host-mutants-v1/implicit-flush/health.js"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "382a361a97a4c513f98fdb66bf0c2715846b2efd16111f91aca90e74d05192b0"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-slot-host-mutants-v1/implicit-flush/motion.native",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "5b24ff8ea1327fddbb718a8502b1fba8629b6ca91af3b07b20454f4f381ae63a"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-slot-host-mutants-v1/implicit-flush/health.native",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "382a361a97a4c513f98fdb66bf0c2715846b2efd16111f91aca90e74d05192b0"
+          }
+        ],
+        "originalDefinitionSHA256": "7a8cb377c75ab6818e677dcf33e6ac8486f8bacf04f23af1c3e89e13d8a00cb4",
+        "mutatedDefinitionSHA256": "bd3df827ed9a20a38747f48047f16bc3a15c6fa664dd25f58de85c315e2446e0",
+        "mutantSourcePins": {
+          "experiments/s-integrate/audited-invoker.bend": "2c4a2fa6c271a4c2c38b518bd5f2cf62d15676ff65e6e9bf672119aad3a7a6b6",
+          "experiments/s-integrate/cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+          "experiments/s-integrate/cached-payload.bend": "977f91e225af0f3238829895109c47bd25ad5f1b5475e75435c4bd94b31c287f",
+          "experiments/s-integrate/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+          "experiments/s-integrate/commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+          "experiments/s-integrate/dispatcher.bend": "84cfe4bd03ea01e44c9aea11e2b82d6ff915214a613d4fa432c3cac603f47c1b",
+          "experiments/s-integrate/held-adapter.bend": "51f2fc1d9de8bfb778054128ad14ce06c4737fa9df6f1eb2d651d9e2a9fb80a8",
+          "experiments/s-integrate/held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+          "experiments/s-integrate/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+          "experiments/s-integrate/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+          "experiments/s-integrate/host.bend": "290b8ec33a3e2053ab7379aefff5978324050520dd9c0d419001dc8edf5f82ec",
+          "experiments/s-integrate/identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+          "experiments/s-integrate/measurement-bend.bend": "eedb90563721f0c1f97caffde83b7a93a691cdcaa59bd61141315472b98153f6",
+          "experiments/s-integrate/observations.bend": "35b2c98a7bd8fb390919dac80f9cec245dddad62da6aebfea2540cdcc84873b1",
+          "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+          "experiments/s-integrate/prototype-static-client.bend": "1a9d22180604433d91e6572679761f660b89b093ed5dbe2ad783859fb05d7a51",
+          "experiments/s-integrate/query.bend": "4a3af56012ea543274738b5d7891a787fbde643ec7f6c088a63a213a6dbf8982",
+          "experiments/s-integrate/raw-boundaries.bend": "9438dfe1ea17b9edae02518652663923807f85a037cfc4551ca63f289e2c18a6",
+          "experiments/s-integrate/reader-host.bend": "26eb687a8fb1893b55e4a0c7c8a629b688e37466e169cb3c95dd5273a553db6d",
+          "experiments/s-integrate/readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+          "experiments/s-integrate/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+          "experiments/s-integrate/storage.bend": "185c5fe6c6d81608b0e3dae4416d32bcbc6f74a50dbb5b28120cc5d1d9400c7a",
+          "experiments/s-integrate/streams.bend": "291d9a46ad58bdc481a5710976e01b762f6e11be3aeba07076c46c69f236d2c0",
+          "experiments/s-integrate/structural-invoker.bend": "790a73373e007f5f285f9656a880a8407aa78b73700cca829365ca5fcab61834",
+          "experiments/s-integrate/systems.bend": "5d3fd2c7afb3d51385ebe12b90bd6b1c4368f6e7fcb6027f144e97395e0cfa10",
+          "experiments/s-integrate/transaction-dispatch-adapters.bend": "928eb4ef837bec11636fc761fa7fdbaa803251f2e68fd597b936187ead040112",
+          "experiments/s-integrate/transaction.bend": "b2dcd35e95830766b8e1a51b7c8356e270b007c7066590d7caf999589218b51b",
+          "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+          "experiments/s-integrate/uncached-payload.bend": "a35ae64d1c1fd6c50082c0f75bca22a5e84d700493d1b3949fbb1c2e17b8cb55"
+        },
+        "fixturePins": {
+          "host-fixture.bend": "a8f1abffe3abd4c73c2dd34e312e325d22cdcb4d44f94e6d100eb95a0883654e",
+          "host-preflight.bend": "40e26a9f1fcd4735d8407bcb0ece70bb63723a28255198059a46af3dc8c3224d",
+          "host-motion-body.bend": "21dd73b16a7db5748cc999fa88b97e091c3204593b645421780fcbe0c5b57cac",
+          "host-motion-fixture.bend": "72188f4dd732eb72111136226e16fc29819c5a56bb5df350ea0f5e15331b8654"
+        },
+        "observations": [
+          {
+            "backend": "js",
+            "compiling": true,
+            "differenceCount": 1576,
+            "intendedDifferenceCount": 1336,
+            "witness": {
+              "path": "Health/regenerated-closure.snapshots[0].aux",
+              "expected_length": 0,
+              "actual_length": 2
+            }
+          },
+          {
+            "backend": "native",
+            "compiling": true,
+            "differenceCount": 1576,
+            "intendedDifferenceCount": 1336,
+            "witness": {
+              "path": "Health/regenerated-closure.snapshots[0].aux",
+              "expected_length": 0,
+              "actual_length": 2
+            }
+          }
+        ],
+        "generatedPins": {
+          "motion.js": "42773ab9f43efea92f7e66622aa64083467b3250d81f0f42fdce4d2921d5ce9b",
+          "motion.c": "285da168b2170248bc386e73b721cbc8b75dc032e955f98dba85984e4d863a2d",
+          "motion.native": "a908ede7c8920b81b745ef79b9272122b64c53571ee5b4d9755026d5c7405e4a",
+          "health.js": "d4e7811a98ff4dea2e9b51e4d3ff4361ebb609b16ef30c350d0ac1786eb74ce2",
+          "health.c": "934ef08df35c38ec3f588ff81a2db60580b43ec67f1dedcb1dcb7440cba9a7be",
+          "health.native": "08c513adcaf00e5df418e1b743f5d8801a927e39129cbf0cfe8632200f82818d"
+        }
+      }
+    },
+    {
+      "label": "failed-publication-leak",
+      "receipt": "/tmp/bendvy-slot-host-mutants-v1/evidence.json",
+      "receiptSHA256": "69bd25698f81c7c0172ecf29caf1da29753c17e9b047cd96e05623fb312907f8",
+      "case": {
+        "label": "failed-publication-leak",
+        "target": "transaction.bend:tx_finish_failure",
+        "intendedChannel": "reads",
+        "status": "DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE",
+        "commands": [
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-publication-leak/core/host-motion-fixture.bend",
+              "--check-only"
+            ],
+            "limitSeconds": 15,
+            "exit": 0,
+            "outputSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-publication-leak/core/host-motion-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-publication-leak/motion.js"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-publication-leak/core/host-motion-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-publication-leak/motion.c"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-clang19-diagnostic/clang19",
+              "-O3",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-publication-leak/motion.c",
+              "-pthread",
+              "-lm",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-publication-leak/motion.native"
+            ],
+            "limitSeconds": 120,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-publication-leak/core/host-health-fixture.bend",
+              "--check-only"
+            ],
+            "limitSeconds": 15,
+            "exit": 0,
+            "outputSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-publication-leak/core/host-health-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-publication-leak/health.js"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-publication-leak/core/host-health-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-publication-leak/health.c"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-clang19-diagnostic/clang19",
+              "-O3",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-publication-leak/health.c",
+              "-pthread",
+              "-lm",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-publication-leak/health.native"
+            ],
+            "limitSeconds": 120,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "node",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-publication-leak/motion.js"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "3867b13bfdc1940f93bcef97b643e48ef90b4a56aa121d93dcbfb2d008b1e75a"
+          },
+          {
+            "command": [
+              "node",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-publication-leak/health.js"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "ab988a58772170687e56def39306cd11099d52639682e9462b867fcd5ff40e40"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-slot-host-mutants-v1/failed-publication-leak/motion.native",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "3867b13bfdc1940f93bcef97b643e48ef90b4a56aa121d93dcbfb2d008b1e75a"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-slot-host-mutants-v1/failed-publication-leak/health.native",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "ab988a58772170687e56def39306cd11099d52639682e9462b867fcd5ff40e40"
+          }
+        ],
+        "originalDefinitionSHA256": "24d957d2be9daa5cb29b741a782487984d9da94aa16105e5c9822208aee05bd6",
+        "mutatedDefinitionSHA256": "d3768e814b359f9fa78f2353cc1d65b28d466b9508fb034a43c7bbbd4cc57a39",
+        "mutantSourcePins": {
+          "experiments/s-integrate/audited-invoker.bend": "2c4a2fa6c271a4c2c38b518bd5f2cf62d15676ff65e6e9bf672119aad3a7a6b6",
+          "experiments/s-integrate/cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+          "experiments/s-integrate/cached-payload.bend": "977f91e225af0f3238829895109c47bd25ad5f1b5475e75435c4bd94b31c287f",
+          "experiments/s-integrate/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+          "experiments/s-integrate/commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+          "experiments/s-integrate/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+          "experiments/s-integrate/held-adapter.bend": "51f2fc1d9de8bfb778054128ad14ce06c4737fa9df6f1eb2d651d9e2a9fb80a8",
+          "experiments/s-integrate/held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+          "experiments/s-integrate/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+          "experiments/s-integrate/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+          "experiments/s-integrate/host.bend": "290b8ec33a3e2053ab7379aefff5978324050520dd9c0d419001dc8edf5f82ec",
+          "experiments/s-integrate/identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+          "experiments/s-integrate/measurement-bend.bend": "eedb90563721f0c1f97caffde83b7a93a691cdcaa59bd61141315472b98153f6",
+          "experiments/s-integrate/observations.bend": "35b2c98a7bd8fb390919dac80f9cec245dddad62da6aebfea2540cdcc84873b1",
+          "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+          "experiments/s-integrate/prototype-static-client.bend": "1a9d22180604433d91e6572679761f660b89b093ed5dbe2ad783859fb05d7a51",
+          "experiments/s-integrate/query.bend": "4a3af56012ea543274738b5d7891a787fbde643ec7f6c088a63a213a6dbf8982",
+          "experiments/s-integrate/raw-boundaries.bend": "9438dfe1ea17b9edae02518652663923807f85a037cfc4551ca63f289e2c18a6",
+          "experiments/s-integrate/reader-host.bend": "26eb687a8fb1893b55e4a0c7c8a629b688e37466e169cb3c95dd5273a553db6d",
+          "experiments/s-integrate/readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+          "experiments/s-integrate/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+          "experiments/s-integrate/storage.bend": "185c5fe6c6d81608b0e3dae4416d32bcbc6f74a50dbb5b28120cc5d1d9400c7a",
+          "experiments/s-integrate/streams.bend": "291d9a46ad58bdc481a5710976e01b762f6e11be3aeba07076c46c69f236d2c0",
+          "experiments/s-integrate/structural-invoker.bend": "790a73373e007f5f285f9656a880a8407aa78b73700cca829365ca5fcab61834",
+          "experiments/s-integrate/systems.bend": "5d3fd2c7afb3d51385ebe12b90bd6b1c4368f6e7fcb6027f144e97395e0cfa10",
+          "experiments/s-integrate/transaction-dispatch-adapters.bend": "928eb4ef837bec11636fc761fa7fdbaa803251f2e68fd597b936187ead040112",
+          "experiments/s-integrate/transaction.bend": "0d63f822a051e55a15d50cba1283bb04e5dad15060bcc8d0e171447de32a2955",
+          "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+          "experiments/s-integrate/uncached-payload.bend": "a35ae64d1c1fd6c50082c0f75bca22a5e84d700493d1b3949fbb1c2e17b8cb55"
+        },
+        "fixturePins": {
+          "host-fixture.bend": "a8f1abffe3abd4c73c2dd34e312e325d22cdcb4d44f94e6d100eb95a0883654e",
+          "host-preflight.bend": "40e26a9f1fcd4735d8407bcb0ece70bb63723a28255198059a46af3dc8c3224d",
+          "host-motion-body.bend": "21dd73b16a7db5748cc999fa88b97e091c3204593b645421780fcbe0c5b57cac",
+          "host-motion-fixture.bend": "72188f4dd732eb72111136226e16fc29819c5a56bb5df350ea0f5e15331b8654"
+        },
+        "observations": [
+          {
+            "backend": "js",
+            "compiling": true,
+            "differenceCount": 876,
+            "intendedDifferenceCount": 8,
+            "witness": {
+              "path": "Health/regenerated-closure.reads[5].messages",
+              "expected_length": 0,
+              "actual_length": 1
+            }
+          },
+          {
+            "backend": "native",
+            "compiling": true,
+            "differenceCount": 876,
+            "intendedDifferenceCount": 8,
+            "witness": {
+              "path": "Health/regenerated-closure.reads[5].messages",
+              "expected_length": 0,
+              "actual_length": 1
+            }
+          }
+        ],
+        "generatedPins": {
+          "motion.js": "0b148538c20eb496357ee9e9782a204a65051ce1bb0b814b1f0c40adad1f0f12",
+          "motion.c": "cc0ab4f394f18c3842dca7b502e49fd5d362ac1d50db78b8cad5f4081661bbef",
+          "motion.native": "576b3eebf5d4140c56fcc1c7e34719f0d188f495477c9bb8e99d5a7bdfa64bbb",
+          "health.js": "0562a14aa82ee16b2b1960fd779fd1f2aa9357b295a933806640f73c91e25ba2",
+          "health.c": "6d0ea32a62bfc6ecdac3af224c8aaab04e2698d43bbfec207f00fb42c2f9e186",
+          "health.native": "ba9ededcf7de3f7f7d9add42658cd31dca6d20096c9b93b9add4aba16ce471d0"
+        }
+      }
+    },
+    {
+      "label": "failed-change-stamp",
+      "receipt": "/tmp/bendvy-slot-host-mutants-v1/evidence.json",
+      "receiptSHA256": "69bd25698f81c7c0172ecf29caf1da29753c17e9b047cd96e05623fb312907f8",
+      "case": {
+        "label": "failed-change-stamp",
+        "target": "transaction.bend:tx_finish_failure",
+        "intendedChannel": "reads",
+        "status": "DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE",
+        "commands": [
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-change-stamp/core/host-motion-fixture.bend",
+              "--check-only"
+            ],
+            "limitSeconds": 15,
+            "exit": 0,
+            "outputSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-change-stamp/core/host-motion-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-change-stamp/motion.js"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-change-stamp/core/host-motion-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-change-stamp/motion.c"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-clang19-diagnostic/clang19",
+              "-O3",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-change-stamp/motion.c",
+              "-pthread",
+              "-lm",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-change-stamp/motion.native"
+            ],
+            "limitSeconds": 120,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-change-stamp/core/host-health-fixture.bend",
+              "--check-only"
+            ],
+            "limitSeconds": 15,
+            "exit": 0,
+            "outputSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-change-stamp/core/host-health-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-change-stamp/health.js"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-change-stamp/core/host-health-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-change-stamp/health.c"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-clang19-diagnostic/clang19",
+              "-O3",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-change-stamp/health.c",
+              "-pthread",
+              "-lm",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-change-stamp/health.native"
+            ],
+            "limitSeconds": 120,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "node",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-change-stamp/motion.js"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "289c7cddc1036b192b059a4b734d2c963a9fb035f256fc42a419ec0e7354e2b8"
+          },
+          {
+            "command": [
+              "node",
+              "/tmp/bendvy-slot-host-mutants-v1/failed-change-stamp/health.js"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "de754c62160f4e76940617feb3d6a53760abecf03da9204333e373075da8badc"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-slot-host-mutants-v1/failed-change-stamp/motion.native",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "289c7cddc1036b192b059a4b734d2c963a9fb035f256fc42a419ec0e7354e2b8"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-slot-host-mutants-v1/failed-change-stamp/health.native",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "de754c62160f4e76940617feb3d6a53760abecf03da9204333e373075da8badc"
+          }
+        ],
+        "originalDefinitionSHA256": "24d957d2be9daa5cb29b741a782487984d9da94aa16105e5c9822208aee05bd6",
+        "mutatedDefinitionSHA256": "1b969b7bf42d81357057656342e59bcfed5d41cd6ed626c920f7f2a3888be6f1",
+        "mutantSourcePins": {
+          "experiments/s-integrate/audited-invoker.bend": "2c4a2fa6c271a4c2c38b518bd5f2cf62d15676ff65e6e9bf672119aad3a7a6b6",
+          "experiments/s-integrate/cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+          "experiments/s-integrate/cached-payload.bend": "977f91e225af0f3238829895109c47bd25ad5f1b5475e75435c4bd94b31c287f",
+          "experiments/s-integrate/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+          "experiments/s-integrate/commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+          "experiments/s-integrate/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+          "experiments/s-integrate/held-adapter.bend": "51f2fc1d9de8bfb778054128ad14ce06c4737fa9df6f1eb2d651d9e2a9fb80a8",
+          "experiments/s-integrate/held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+          "experiments/s-integrate/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+          "experiments/s-integrate/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+          "experiments/s-integrate/host.bend": "290b8ec33a3e2053ab7379aefff5978324050520dd9c0d419001dc8edf5f82ec",
+          "experiments/s-integrate/identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+          "experiments/s-integrate/measurement-bend.bend": "eedb90563721f0c1f97caffde83b7a93a691cdcaa59bd61141315472b98153f6",
+          "experiments/s-integrate/observations.bend": "35b2c98a7bd8fb390919dac80f9cec245dddad62da6aebfea2540cdcc84873b1",
+          "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+          "experiments/s-integrate/prototype-static-client.bend": "1a9d22180604433d91e6572679761f660b89b093ed5dbe2ad783859fb05d7a51",
+          "experiments/s-integrate/query.bend": "4a3af56012ea543274738b5d7891a787fbde643ec7f6c088a63a213a6dbf8982",
+          "experiments/s-integrate/raw-boundaries.bend": "9438dfe1ea17b9edae02518652663923807f85a037cfc4551ca63f289e2c18a6",
+          "experiments/s-integrate/reader-host.bend": "26eb687a8fb1893b55e4a0c7c8a629b688e37466e169cb3c95dd5273a553db6d",
+          "experiments/s-integrate/readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+          "experiments/s-integrate/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+          "experiments/s-integrate/storage.bend": "185c5fe6c6d81608b0e3dae4416d32bcbc6f74a50dbb5b28120cc5d1d9400c7a",
+          "experiments/s-integrate/streams.bend": "291d9a46ad58bdc481a5710976e01b762f6e11be3aeba07076c46c69f236d2c0",
+          "experiments/s-integrate/structural-invoker.bend": "790a73373e007f5f285f9656a880a8407aa78b73700cca829365ca5fcab61834",
+          "experiments/s-integrate/systems.bend": "5d3fd2c7afb3d51385ebe12b90bd6b1c4368f6e7fcb6027f144e97395e0cfa10",
+          "experiments/s-integrate/transaction-dispatch-adapters.bend": "928eb4ef837bec11636fc761fa7fdbaa803251f2e68fd597b936187ead040112",
+          "experiments/s-integrate/transaction.bend": "79b7bdd4d44ddce9c22c29bfa55d2400901851eff420e344f6ae32387c6c9ad8",
+          "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+          "experiments/s-integrate/uncached-payload.bend": "a35ae64d1c1fd6c50082c0f75bca22a5e84d700493d1b3949fbb1c2e17b8cb55"
+        },
+        "fixturePins": {
+          "host-fixture.bend": "a8f1abffe3abd4c73c2dd34e312e325d22cdcb4d44f94e6d100eb95a0883654e",
+          "host-preflight.bend": "40e26a9f1fcd4735d8407bcb0ece70bb63723a28255198059a46af3dc8c3224d",
+          "host-motion-body.bend": "21dd73b16a7db5748cc999fa88b97e091c3204593b645421780fcbe0c5b57cac",
+          "host-motion-fixture.bend": "72188f4dd732eb72111136226e16fc29819c5a56bb5df350ea0f5e15331b8654"
+        },
+        "observations": [
+          {
+            "backend": "js",
+            "compiling": true,
+            "differenceCount": 4,
+            "intendedDifferenceCount": 4,
+            "witness": {
+              "path": "Health/regenerated-closure.reads[5].changed",
+              "expected_length": 0,
+              "actual_length": 1
+            }
+          },
+          {
+            "backend": "native",
+            "compiling": true,
+            "differenceCount": 4,
+            "intendedDifferenceCount": 4,
+            "witness": {
+              "path": "Health/regenerated-closure.reads[5].changed",
+              "expected_length": 0,
+              "actual_length": 1
+            }
+          }
+        ],
+        "generatedPins": {
+          "motion.js": "9cee39d04043e1e241e05bc759536850b5762070a948066d6609e9668ceda7a8",
+          "motion.c": "8347ae4721d018332e7eab91a1ec7fd310df0d872e7e37e5af165fe4d7f24521",
+          "motion.native": "8e4c053ac0fe358f307ad4f460be5fab41429667be1704c0ae4c98528b069a64",
+          "health.js": "554817d19667d424964624ed39eed497314c8a533ea04a700e0d0e60cdb3b099",
+          "health.c": "36adf99a60c8a2815d54bf6593526ec05230cb7315fdbb7a5f2c8482bc7c2d45",
+          "health.native": "e51933b51a5403949c6ce2c8596329ef8dcdf5a4654c78199da322d0938df87d"
+        }
+      }
+    },
+    {
+      "label": "reissued-failed-reservation",
+      "receipt": "/tmp/bendvy-slot-host-mutants-v1/evidence.json",
+      "receiptSHA256": "69bd25698f81c7c0172ecf29caf1da29753c17e9b047cd96e05623fb312907f8",
+      "case": {
+        "label": "reissued-failed-reservation",
+        "target": "transaction.bend:storage_commit",
+        "intendedChannel": "rawReservations",
+        "status": "DETECTED_COMPILING_RUNTIME_COUNTEREXAMPLE",
+        "commands": [
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/reissued-failed-reservation/core/host-motion-fixture.bend",
+              "--check-only"
+            ],
+            "limitSeconds": 15,
+            "exit": 0,
+            "outputSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/reissued-failed-reservation/core/host-motion-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/reissued-failed-reservation/motion.js"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/reissued-failed-reservation/core/host-motion-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/reissued-failed-reservation/motion.c"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-clang19-diagnostic/clang19",
+              "-O3",
+              "/tmp/bendvy-slot-host-mutants-v1/reissued-failed-reservation/motion.c",
+              "-pthread",
+              "-lm",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/reissued-failed-reservation/motion.native"
+            ],
+            "limitSeconds": 120,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/reissued-failed-reservation/core/host-health-fixture.bend",
+              "--check-only"
+            ],
+            "limitSeconds": 15,
+            "exit": 0,
+            "outputSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/reissued-failed-reservation/core/host-health-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/reissued-failed-reservation/health.js"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "bend",
+              "/tmp/bendvy-slot-host-mutants-v1/reissued-failed-reservation/core/host-health-fixture.bend",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/reissued-failed-reservation/health.c"
+            ],
+            "limitSeconds": 30,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-clang19-diagnostic/clang19",
+              "-O3",
+              "/tmp/bendvy-slot-host-mutants-v1/reissued-failed-reservation/health.c",
+              "-pthread",
+              "-lm",
+              "-o",
+              "/tmp/bendvy-slot-host-mutants-v1/reissued-failed-reservation/health.native"
+            ],
+            "limitSeconds": 120,
+            "exit": 0,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "command": [
+              "node",
+              "/tmp/bendvy-slot-host-mutants-v1/reissued-failed-reservation/motion.js"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "ac8ee39b82e73f3b208f8fe667d852c046fae3afccd59f7d4950eca564013fd4"
+          },
+          {
+            "command": [
+              "node",
+              "/tmp/bendvy-slot-host-mutants-v1/reissued-failed-reservation/health.js"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "2bcde92fcc40c7d55ca7cf4d421198cd0fd6ab5392faa91a9cecffa5e8acf367"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-slot-host-mutants-v1/reissued-failed-reservation/motion.native",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "ac8ee39b82e73f3b208f8fe667d852c046fae3afccd59f7d4950eca564013fd4"
+          },
+          {
+            "command": [
+              "/tmp/bendvy-slot-host-mutants-v1/reissued-failed-reservation/health.native",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "limitSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "2bcde92fcc40c7d55ca7cf4d421198cd0fd6ab5392faa91a9cecffa5e8acf367"
+          }
+        ],
+        "originalDefinitionSHA256": "a68e349a0718b3f93c6338def34fe3f670f8574e35bc6ae6703faa3f8d0761ee",
+        "mutatedDefinitionSHA256": "4e8bfab7208ca16f18225b80eeb0aaf6dc8e3bb086151ef051ad55248138aed9",
+        "mutantSourcePins": {
+          "experiments/s-integrate/audited-invoker.bend": "2c4a2fa6c271a4c2c38b518bd5f2cf62d15676ff65e6e9bf672119aad3a7a6b6",
+          "experiments/s-integrate/cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+          "experiments/s-integrate/cached-payload.bend": "977f91e225af0f3238829895109c47bd25ad5f1b5475e75435c4bd94b31c287f",
+          "experiments/s-integrate/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+          "experiments/s-integrate/commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+          "experiments/s-integrate/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+          "experiments/s-integrate/held-adapter.bend": "51f2fc1d9de8bfb778054128ad14ce06c4737fa9df6f1eb2d651d9e2a9fb80a8",
+          "experiments/s-integrate/held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+          "experiments/s-integrate/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+          "experiments/s-integrate/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+          "experiments/s-integrate/host.bend": "290b8ec33a3e2053ab7379aefff5978324050520dd9c0d419001dc8edf5f82ec",
+          "experiments/s-integrate/identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+          "experiments/s-integrate/measurement-bend.bend": "eedb90563721f0c1f97caffde83b7a93a691cdcaa59bd61141315472b98153f6",
+          "experiments/s-integrate/observations.bend": "35b2c98a7bd8fb390919dac80f9cec245dddad62da6aebfea2540cdcc84873b1",
+          "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+          "experiments/s-integrate/prototype-static-client.bend": "1a9d22180604433d91e6572679761f660b89b093ed5dbe2ad783859fb05d7a51",
+          "experiments/s-integrate/query.bend": "4a3af56012ea543274738b5d7891a787fbde643ec7f6c088a63a213a6dbf8982",
+          "experiments/s-integrate/raw-boundaries.bend": "9438dfe1ea17b9edae02518652663923807f85a037cfc4551ca63f289e2c18a6",
+          "experiments/s-integrate/reader-host.bend": "26eb687a8fb1893b55e4a0c7c8a629b688e37466e169cb3c95dd5273a553db6d",
+          "experiments/s-integrate/readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+          "experiments/s-integrate/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+          "experiments/s-integrate/storage.bend": "185c5fe6c6d81608b0e3dae4416d32bcbc6f74a50dbb5b28120cc5d1d9400c7a",
+          "experiments/s-integrate/streams.bend": "291d9a46ad58bdc481a5710976e01b762f6e11be3aeba07076c46c69f236d2c0",
+          "experiments/s-integrate/structural-invoker.bend": "790a73373e007f5f285f9656a880a8407aa78b73700cca829365ca5fcab61834",
+          "experiments/s-integrate/systems.bend": "5d3fd2c7afb3d51385ebe12b90bd6b1c4368f6e7fcb6027f144e97395e0cfa10",
+          "experiments/s-integrate/transaction-dispatch-adapters.bend": "928eb4ef837bec11636fc761fa7fdbaa803251f2e68fd597b936187ead040112",
+          "experiments/s-integrate/transaction.bend": "ed8f77aafa2e1dbd3b4b718f16a54a9d43ffe97fd14eed34ee4ef70a86c8bef7",
+          "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+          "experiments/s-integrate/uncached-payload.bend": "a35ae64d1c1fd6c50082c0f75bca22a5e84d700493d1b3949fbb1c2e17b8cb55"
+        },
+        "fixturePins": {
+          "host-fixture.bend": "a8f1abffe3abd4c73c2dd34e312e325d22cdcb4d44f94e6d100eb95a0883654e",
+          "host-preflight.bend": "40e26a9f1fcd4735d8407bcb0ece70bb63723a28255198059a46af3dc8c3224d",
+          "host-motion-body.bend": "21dd73b16a7db5748cc999fa88b97e091c3204593b645421780fcbe0c5b57cac",
+          "host-motion-fixture.bend": "72188f4dd732eb72111136226e16fc29819c5a56bb5df350ea0f5e15331b8654"
+        },
+        "observations": [
+          {
+            "backend": "js",
+            "compiling": true,
+            "witness": {
+              "lane": "Motion/returned-owner",
+              "earlier": {
+                "kind": "Reserved",
+                "step": "E2",
+                "worldName": "alpha",
+                "label": "q",
+                "handle": {
+                  "namespace": 1,
+                  "id": 5
+                },
+                "components": {
+                  "main": {
+                    "coordinates": {
+                      "a": 60,
+                      "b": 61,
+                      "c": 62,
+                      "d": 63
+                    },
+                    "frame": 7
+                  },
+                  "aux": null,
+                  "flag": null
+                }
+              },
+              "reissued": {
+                "kind": "Reserved",
+                "step": "E4-retry",
+                "worldName": "alpha",
+                "label": "r",
+                "handle": {
+                  "namespace": 1,
+                  "id": 5
+                },
+                "components": {
+                  "main": {
+                    "coordinates": {
+                      "a": 60,
+                      "b": 61,
+                      "c": 62,
+                      "d": 63
+                    },
+                    "frame": 7
+                  },
+                  "aux": null,
+                  "flag": null
+                }
+              }
+            },
+            "decoderError": "reserved handle reissued",
+            "repeatedReservationLanes": 4
+          },
+          {
+            "backend": "native",
+            "compiling": true,
+            "witness": {
+              "lane": "Motion/returned-owner",
+              "earlier": {
+                "kind": "Reserved",
+                "step": "E2",
+                "worldName": "alpha",
+                "label": "q",
+                "handle": {
+                  "namespace": 1,
+                  "id": 5
+                },
+                "components": {
+                  "main": {
+                    "coordinates": {
+                      "a": 60,
+                      "b": 61,
+                      "c": 62,
+                      "d": 63
+                    },
+                    "frame": 7
+                  },
+                  "aux": null,
+                  "flag": null
+                }
+              },
+              "reissued": {
+                "kind": "Reserved",
+                "step": "E4-retry",
+                "worldName": "alpha",
+                "label": "r",
+                "handle": {
+                  "namespace": 1,
+                  "id": 5
+                },
+                "components": {
+                  "main": {
+                    "coordinates": {
+                      "a": 60,
+                      "b": 61,
+                      "c": 62,
+                      "d": 63
+                    },
+                    "frame": 7
+                  },
+                  "aux": null,
+                  "flag": null
+                }
+              }
+            },
+            "decoderError": "reserved handle reissued",
+            "repeatedReservationLanes": 4
+          }
+        ],
+        "generatedPins": {
+          "motion.js": "33c1fe4c0f651eefbcbf8e923f1e92bd7839c15e9bf053d920513d631871fba2",
+          "motion.c": "89208baf4ac7003e3d8dc7a6ea20f05973a9bc3c43173c4253870aaa32b85739",
+          "motion.native": "14d22977b0b5ea87b92c431fcfb8355937db7134abdb01684ccd9dfe973073c3",
+          "health.js": "cf79c92c29679926d253385d494fd7dc7e58b8fdfa5e0540280690d3fb49d91f",
+          "health.c": "1f82bdc51fc7ec97584c3062c8bc368b90e317fb40c8cebaddb92ee3a61f2428",
+          "health.native": "7b6a20949e8dea541237418c42dff0f4cc42ae537d7bd8b5c95039a67eef7725"
+        }
+      }
+    }
+  ],
+  "retainedFailure": {
+    "receipt": "/tmp/bendvy-slot-host-mutants-v1/evidence.json",
+    "case": "suppressed-setter",
+    "classification": "Initial U32 quantity annotation rejection, not compiling runtime kill"
+  },
+  "initialRecipeSHA256": "4ac92bd706a2d2d13d5c074d0d4f1b9157368b1c0db1ccf7a9088f418fe30984",
+  "repairRecipeSHA256": "b73e537197f8e5bcd7282035d5b885aac18e45b9f3bfc82987fad12b2b506288"
+}
