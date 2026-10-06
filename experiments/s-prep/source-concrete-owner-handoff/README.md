@@ -33,3 +33,12 @@ Source/cache maps and exact producer SHA are in source-recipe.json. The complete
 29-file source archive decodes to the recorded hashes. Emission inputs, complete
 C files and receipts are archived separately. No compiler/kernel/dependency,
 law/proof, reference or external repository change was made.
+
+Both exact Clang19 Native and JS builds now pass with prospective tool/header
+pins stable before and after. Fresh actual TS and candidate full65 Dense1024
+observations pass for both schemas/backends (260 worlds total). The task-local
+TS preparer changes only the fixed count256 literal to1024. Authored workload,
+same-process warmup, full-field validator and 64-sample batch remain unchanged.
+Complete diagnostic outputs and build inputs/C/JS are archived and decoded
+hashes verified; Native binary hashes are retained. No comparative timings are
+reported. Fresh HA semantic/mutation and allocation gates remain independent.
