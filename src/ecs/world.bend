@@ -165,3 +165,36 @@ def handles_finish(~S: Data,~C: Type,~R: Type,~E: Data,scanned: HandleScan<S>,+n
 def handles(~S: Data,~C: Type,~R: Type,~E: Data,world: World<S,C,R,E>) -> World<S,C,R,E> & List<&2,Handle<S>>:
   match world:
     case World{+namespace,+nextId,+highWater,live,+capacity,+depth,store,resource,+events,pending,+registrations,+nextSystemId}: handles_finish(~S,~C,~R,~E,collect_live(~S,U32.to_nat(highWater),namespace,live),namespace,nextId,highWater,capacity,depth,store,resource,events,pending,registrations,nextSystemId)
+
+# Exact ordered declaration comparison; no normalization grants capabilities.
+def access_equal(xs: List<&2,String>,ys: List<&2,String>) -> Bool:
+  match xs ys:
+    case Nil{} Nil{}: True{}
+    case Nil{} Con{_,_}: False{}
+    case Con{_,_} Nil{}: False{}
+    case Con{x,xs} Con{y,ys}: Bool.and(String.eq(x,y),access_equal(xs,ys))
+
+def registration_meta_matches(meta: RegistrationMeta,+id: U32,+name: String,+access: List<&2,String>) -> Bool:
+  match meta:
+    case RegistrationMeta{mid,mname,maccess}: Bool.and(U32.is_eq(mid,id),Bool.and(String.eq(mname,name),access_equal(maccess,access)))
+
+def registration_list_matches(registrations: List<&2,RegistrationMeta>,+id: U32,+name: String,+access: List<&2,String>) -> Bool:
+  match registrations:
+    case []: False{}
+    case meta <> rest: Bool.or(registration_meta_matches(meta,id,name,access),registration_list_matches(rest,id,name,access))
+
+def namespace(~S: Data,~C: Type,~R: Type,~E: Data,world: World<S,C,R,E>) -> World<S,C,R,E> & U32:
+  match world:
+    case World{+namespace,+nextId,+highWater,live,+capacity,+depth,store,resource,+events,pending,+registrations,+nextSystemId}: (World{namespace,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId},namespace)
+
+def registration_matches(~S: Data,~C: Type,~R: Type,~E: Data,world: World<S,C,R,E>,+id: U32,+name: String,+access: List<&2,String>) -> World<S,C,R,E> & Bool:
+  match world:
+    case World{+namespace,+nextId,+highWater,live,+capacity,+depth,store,resource,+events,pending,+registrations,+nextSystemId}: (World{namespace,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId},registration_list_matches(registrations,id,name,access))
+
+def with_store_finish(~S: Data,~C: Type,~R: Type,~E: Data,~Out: Type,observed: C & Out,+namespace: U32,+nextId: U32,+highWater: U32,live: Array<Bool>,+capacity: U32,+depth: Nat,resource: R,+events: List<&2,E>,pending: List<(World<S,C,R,E> -> World<S,C,R,E>)>,+registrations: List<&2,RegistrationMeta>,+nextSystemId: U32) -> World<S,C,R,E> & Out:
+  (store,value) = observed
+  (World{namespace,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId},value)
+
+def with_store(~S: Data,~C: Type,~R: Type,~E: Data,~Out: Type,effect: C -> C & Out,world: World<S,C,R,E>) -> World<S,C,R,E> & Out:
+  match world:
+    case World{+namespace,+nextId,+highWater,live,+capacity,+depth,store,resource,+events,pending,+registrations,+nextSystemId}: with_store_finish(~S,~C,~R,~E,~Out,effect(store),namespace,nextId,highWater,live,capacity,depth,resource,events,pending,registrations,nextSystemId)
