@@ -1,0 +1,67 @@
+[
+  {
+    "argv": [
+      "taskset",
+      "-c",
+      "9",
+      "bend",
+      "/tmp/bendvy-threehour-journal-handle/experiments/s-prep/source-closed-metadata/retained-lifecycle.bend",
+      "--check-only"
+    ],
+    "capSeconds": 5,
+    "exit": 0,
+    "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+  },
+  {
+    "argv": [
+      "taskset",
+      "-c",
+      "9",
+      "bend",
+      "/tmp/bendvy-threehour-journal-handle/experiments/s-prep/source-closed-metadata/lifecycle-affine-negative.bend",
+      "--check-only"
+    ],
+    "capSeconds": 5,
+    "exit": 1,
+    "output": "SOME PROOFS FAIL\nError:\n- expected : log\n- observed : log (consumed more than once)\nLocation: bad\n5 | \n6>| def bad(log:S.LifeLog<W.Handle<T.MotionSchema>>) -> S.LifeLog<W.Handle<T.MotionSchema>> & S.LifeLog<W.Handle<T.MotionSchema>>:\n  |         ^^^\n7 |   (log,log)\n"
+  },
+  {
+    "argv": [
+      "taskset",
+      "-c",
+      "9",
+      "bend",
+      "/tmp/bendvy-threehour-journal-handle/experiments/s-prep/source-closed-metadata/lifecycle-schema-negative.bend",
+      "--check-only"
+    ],
+    "capSeconds": 5,
+    "exit": 1,
+    "output": "SOME PROOFS FAIL\nError:\n- expected : S.LifeLog<W.Handle<T.HealthSchema>>\n- observed : S.LifeLog<W.Handle<T.MotionSchema>>\nContext:\n- log : S.LifeLog<W.Handle<T.MotionSchema>>\nLocation: bad\n6 | def bad(log:S.LifeLog<W.Handle<T.MotionSchema>>) -> S.LifeLog<W.Handle<T.HealthSchema>>:\n7>|   S.prototype_closed_stream_append_lifecycle(W.Handle<T.HealthSchema>,log,1,[])\n  |                                                                       ^^^\n8 | def main() -> U32: 0\n"
+  },
+  {
+    "argv": [
+      "taskset",
+      "-c",
+      "9",
+      "bend",
+      "/tmp/bendvy-threehour-journal-handle/experiments/s-prep/source-closed-metadata/retained-lifecycle.bend",
+      "-o",
+      "/tmp/bendvy-retained-lifecycle.js"
+    ],
+    "capSeconds": 30,
+    "exit": 0,
+    "output": ""
+  },
+  {
+    "argv": [
+      "taskset",
+      "-c",
+      "9",
+      "node",
+      "/tmp/bendvy-retained-lifecycle.js"
+    ],
+    "capSeconds": 5,
+    "exit": 0,
+    "output": "(../../../../bendvy-closed-streams-probe/experiments/s-integrate/streams.Inspection{8, 1, 0, [../../../../bendvy-closed-streams-probe/experiments/s-integrate/streams.Batch{1, 1, [../../../../bendvy-closed-streams-probe/experiments/s-integrate/storage.Handle{7, 1}]}]}, ../../../../bendvy-closed-streams-probe/experiments/s-integrate/streams.Inspection{8, 2, 0, [../../../../bendvy-closed-streams-probe/experiments/s-integrate/streams.Batch{1, 1, [../../../../bendvy-closed-streams-probe/experiments/s-integrate/storage.Handle{7, 1}]}, ../../../../bendvy-closed-streams-probe/experiments/s-integrate/streams.Batch{2, 1, [../../../../bendvy-closed-streams-probe/experiments/s-integrate/storage.Handle{8, 2}]}]})\n"
+  }
+]

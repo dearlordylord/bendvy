@@ -1,0 +1,9 @@
+# Closed lifecycle append route
+
+Seven private helpers close the next independently observed lifecycle H append route: streams.count/append_buffer/append_units/append_lifecycle and reader-host.append_change/append_all/append_changes. The already closed host barrier-applied helper calls the private reader route. Original generic helpers remain byte-for-byte present; batch counts, one-unit lifecycle batches, order, tick, namespace-bearing handles and owned log fields retain their exact original algorithms. Raw world payloads remain arbitrary affine Type.
+
+`materialize-closed-streams.py` admits only the closed-storage29 source catalog and coherent source/cache manifests, preserves originals, and refreshes all29 pins. Patch/source/build pins are packaged separately from the previous storage variant. Actual Motion64 checker15/Cemit30/approvedClang19O3-120 pass; fresh TS vs Native complete65 worlds pass under runtime5. Retained full lifecycle Inspection snapshots preserve all old fields/batches/handles while current size grows1→2; affine LifeLog duplication and Motion→Health log misuse are rejected. Newsource Health/Tx/mutation/authority observations remain open, and no older-source controls are transferred.
+
+Read-only Native inspection re-emits byte-identical C18057e5a3c19bfb1ab00d7904b12f5784b6f55e8d9bd30869974db7ed809333f. The append seed is removed. The next independent first wildcard is Base.List.reverse→go receiving streams.Batch<V>; open V resolves against the caller domain a. Observed1894 branches/120 sites include post-star consequences and do not quantify independent causes or runtime allocations.
+
+The next separate variant freezes only the required stream trim/frame caller frontier, retaining the unchanged Base reverse and every capacity/window/reader operation. Global zero-star, allocation reduction, universal refinement, performance qualification and adoption remain unestablished.

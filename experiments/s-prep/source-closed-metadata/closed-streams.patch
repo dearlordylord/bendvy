@@ -1,0 +1,56 @@
+--- a/experiments/s-integrate/reader-host.bend
++++ b/experiments/s-integrate/reader-host.bend
+@@ -82,2 +82,17 @@
+ def read(-Schema: Data,-P: Data,logs: Logs<Schema,P>,run: R.Run) -> Read<Schema,P>:
+   read_info(Schema,P,logs,R.project(run))
++
++# Closed lifecycle append route; public generic functions retained.
++def prototype_closed_stream_append_change(~Schema: Data,~P: Data,logs: Logs<Schema,P>,tick: U32,change: W.Change<Schema>) -> Logs<Schema,P>:
++  match logs change:
++    case Logs{ping,removed,despawned} W.MainRemoved{handle}: Logs{ping,S.prototype_closed_stream_append_lifecycle(W.Handle<Schema>,removed,tick,[handle]),despawned}
++    case Logs{ping,removed,despawned} W.Despawned{handle}: Logs{ping,removed,S.prototype_closed_stream_append_lifecycle(W.Handle<Schema>,despawned,tick,[handle])}
++    case saved _: saved
++
++def prototype_closed_stream_append_all(~Schema: Data,~P: Data,changes: List<&2,W.Change<Schema>>,+tick: U32,logs: Logs<Schema,P>) -> Logs<Schema,P>:
++  match changes:
++    case Nil{}: logs
++    case Con{head,tail}: prototype_closed_stream_append_all(~Schema,~P,tail,tick,prototype_closed_stream_append_change(~Schema,~P,logs,tick,head))
++
++def prototype_closed_stream_append_changes(~Schema: Data,~P: Data,logs: Logs<Schema,P>,tick: U32,changes: List<&2,W.Change<Schema>>) -> Logs<Schema,P>:
++  prototype_closed_stream_append_all(~Schema,~P,changes,tick,logs)
+--- a/experiments/s-integrate/streams.bend
++++ b/experiments/s-integrate/streams.bend
+@@ -131,2 +131,24 @@
+     case Buffer{+capacity,+size,+dropped,+front,+rear}:
+       (Buffer{capacity,size,dropped,front,rear},Inspection{capacity,size,dropped,List.append(&2,Batch<V>,front,List.reverse(&2,Batch<V>,rear))})
++
++# Closed lifecycle append route; public generic functions retained.
++def prototype_closed_stream_count(~V: Data,values: List<&2,V>,acc: U32) -> U32:
++  match values:
++    case Nil{}: acc
++    case Con{_,tail}: prototype_closed_stream_count(~V,tail,U32.add(acc,1))
++
++def prototype_closed_stream_append_buffer(~V: Data,buffer: Buffer<V>,tick: U32,values: List<&2,V>) -> Buffer<V>:
++  match buffer values:
++    case Buffer{capacity,size,dropped,front,rear} Nil{}: Buffer{capacity,size,dropped,front,rear}
++    case Buffer{capacity,size,dropped,front,rear} Con{+v,+vs}:
++      +n = prototype_closed_stream_count(~V,v <> vs,0)
++      Buffer{capacity,U32.add(size,n),dropped,front,Batch{tick,n,v <> vs} <> rear}
++
++def prototype_closed_stream_append_units(~H: Data,values: List<&2,H>,+tick: U32,buffer: Buffer<H>) -> Buffer<H>:
++  match values:
++    case Nil{}: buffer
++    case Con{value,tail}: prototype_closed_stream_append_units(~H,tail,tick,append_buffer(H,buffer,tick,[value]))
++
++def prototype_closed_stream_append_lifecycle(~H: Data,log: LifeLog<H>,tick: U32,handles: List<&2,H>) -> LifeLog<H>:
++  match log:
++    case LifeLog{buffer}: LifeLog{prototype_closed_stream_append_units(~H,handles,tick,buffer)}
+--- a/experiments/s-integrate/host.bend
++++ b/experiments/s-integrate/host.bend
+@@ -410,5 +410,5 @@
+ def prototype_closed_barrier_applied(~Schema: Data,~M: Type,~A: Type,~F: Data,~L: Type,~Mode: Data,~P: Data,~V: Data,~AV: Data,~LV: Data,logs:H.Logs<Schema,P>,bindings:List<&2,E.Binding<Schema>>,worldName:String,step:String,prior:D.DispatchOutcome,events:List<&2,E.TraceEvent<Schema,V,AV,F,LV,Mode,P>>,+clock:R.Clock,result:C.CheckedApply<Schema,M,A,F,L,Mode>) -> IO(Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & R.Clock):
+   match result:
+-    case C.Applied{world,changes}: IO.pure(Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & R.Clock,(Host{world,H.append_changes(Schema,P,logs,D.clock_tick(clock),changes),bindings,worldName,step,prior,events},clock))
++    case C.Applied{world,changes}: IO.pure(Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & R.Clock,(Host{world,H.prototype_closed_stream_append_changes(~Schema,~P,logs,D.clock_tick(clock),changes),bindings,worldName,step,prior,events},clock))
+     case C.CapacityRejected{_}: IO.die(Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & R.Clock,20,"indexed capacity capability rejected")
+     case C.InvariantFault{_,_,_}: IO.die(Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & R.Clock,21,"indexed placement invariant failed")
