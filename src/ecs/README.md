@@ -37,6 +37,11 @@ main/aux reads and resource read; use it for movement. String registration
 metadata alone does not constrain a
 concrete runner. `Query.each_read` supplies only main/aux/resource reads and
 collects Data output. It supplies no setter, event writer or command operation.
+`Query.each_rw_read_events` grants main replacement, main/aux reads, event
+emission and current-entity despawn, without resource or spawn operations.
+The bounded query combinators cover two component families per callback;
+arbitrary typed query tuples and combined multi-family filters remain a
+follow-up rather than an implied complete query API.
 
 Bind a closed query runner to a caller-authored rank2 gameplay body, then call
 `System.register`. Registration returns the World and an affine

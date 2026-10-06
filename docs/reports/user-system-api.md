@@ -44,6 +44,10 @@ do not establish performance of these new generic interfaces.
 - Arbitrary affine captured callbacks and runtime-extensible heterogeneous
   schedules: current runners are closed templates in a typed static composition;
   return with a repeatable ownership-preserving capture interface and controls.
+- Arbitrary typed query tuples and composable capability combinations: bounded
+  combinators supply two families and explicit movement/damage/full bundles;
+  return after a third independently authored application/query declaration
+  demonstrates a need and its access/ownership negatives pass.
 - Universal root provisioning authority and globally unique independent factory
   roots: shared affine Factory creates distinct namespaces, but concrete public
   constructors are not protected against a malicious root owner. Callback

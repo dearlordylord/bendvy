@@ -8,12 +8,17 @@ def counted(observed: E.Observed<Unit,Unit,Unit,U32>) -> U32:
     case E.ForeignReader{_,_}: 99
     case E.Read{world,reader,+events}:
       U32.from_nat(List.length(&2,U32,events))
+def reread(observed: E.Observed<Unit,Unit,Unit,U32>,other: E.Reader<Unit>,+prior: U32) -> List<&2,U32>:
+  match observed:
+    case E.ForeignReader{_,_}: [99]
+    case E.Read{world,reader,+events}:
+      [prior,U32.from_nat(List.length(&2,U32,events)),counted(E.read(~Unit,~Unit,~Unit,~U32,world,other))]
 def first(observed: E.Observed<Unit,Unit,Unit,U32>,other: E.Reader<Unit>) -> List<&2,U32>:
   match observed:
     case E.ForeignReader{_,_}: [99]
     case E.Read{world,reader,+events}:
       n = U32.from_nat(List.length(&2,U32,events))
-      [n,counted(E.read(~Unit,~Unit,~Unit,~U32,world,other))]
+      reread(E.read(~Unit,~Unit,~Unit,~U32,world,reader),other,n)
 def readers(pair: W.World<Unit,Unit,Unit,U32> & E.Reader<Unit>,other: E.Reader<Unit>) -> List<&2,U32>:
   (world,reader) = pair
   first(E.read(~Unit,~Unit,~Unit,~U32,W.event_publish(~Unit,~Unit,~Unit,~U32,world,[7,8]),reader),other)
