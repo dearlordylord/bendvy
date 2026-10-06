@@ -198,3 +198,20 @@ def with_store_finish(~S: Data,~C: Type,~R: Type,~E: Data,~Out: Type,observed: C
 def with_store(~S: Data,~C: Type,~R: Type,~E: Data,~Out: Type,effect: C -> C & Out,world: World<S,C,R,E>) -> World<S,C,R,E> & Out:
   match world:
     case World{+namespace,+nextId,+highWater,live,+capacity,+depth,store,resource,+events,pending,+registrations,+nextSystemId}: with_store_finish(~S,~C,~R,~E,~Out,effect(store),namespace,nextId,highWater,live,capacity,depth,resource,events,pending,registrations,nextSystemId)
+
+def pending_prepend(~S: Data,~C: Type,~R: Type,~E: Data,command: World<S,C,R,E> -> World<S,C,R,E>,counted: List<(World<S,C,R,E> -> World<S,C,R,E>)> & U32) -> List<(World<S,C,R,E> -> World<S,C,R,E>)> & U32:
+  (commands,count) = counted
+  (command <> commands,(count + 1 : U32))
+
+def pending_length(~S: Data,~C: Type,~R: Type,~E: Data,commands: List<(World<S,C,R,E> -> World<S,C,R,E>)>) -> List<(World<S,C,R,E> -> World<S,C,R,E>)> & U32:
+  match commands:
+    case []: ([],0)
+    case command <> rest: pending_prepend(~S,~C,~R,~E,command,pending_length(~S,~C,~R,~E,rest))
+
+def pending_count_join(~S: Data,~C: Type,~R: Type,~E: Data,+namespace: U32,+nextId: U32,+highWater: U32,live: Array<Bool>,+capacity: U32,+depth: Nat,store: C,resource: R,+events: List<&2,E>,+registrations: List<&2,RegistrationMeta>,+nextSystemId: U32,counted: List<(World<S,C,R,E> -> World<S,C,R,E>)> & U32) -> World<S,C,R,E> & U32:
+  (pending,count) = counted
+  (World{namespace,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId},count)
+
+def pending_count(~S: Data,~C: Type,~R: Type,~E: Data,world: World<S,C,R,E>) -> World<S,C,R,E> & U32:
+  match world:
+    case World{+namespace,+nextId,+highWater,live,+capacity,+depth,store,resource,+events,pending,+registrations,+nextSystemId}: pending_count_join(~S,~C,~R,~E,namespace,nextId,highWater,live,capacity,depth,store,resource,events,registrations,nextSystemId,pending_length(~S,~C,~R,~E,pending))
