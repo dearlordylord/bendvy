@@ -1,0 +1,13 @@
+'use strict';
+const fs=require('fs'),path=require('path'),crypto=require('crypto'),acorn=require('internal/deps/acorn/acorn/dist/acorn');
+const H=__dirname,upPath='/workspace/formal-proofs/bendvy/experiments/s-prep/js-profile-followup/input-pins.json',up=JSON.parse(fs.readFileSync(upPath)),sha=s=>crypto.createHash('sha256').update(s).digest('hex'),cat={};
+for(const label of ['motion','health']){
+ const inputPath='/tmp/bendvy-descending-generated-frozen-v1/'+label+'-tuple.js',s=fs.readFileSync(inputPath,'utf8'),prior=up[sha(s)];if(!prior||prior.sourceRoot!='/tmp/bendvy-private-id-query-descending-v1')throw Error('exact original descending admission');
+ for(const[p,h]of Object.entries(prior.files))if(sha(fs.readFileSync(p))!==h)throw Error('provenance changed '+p);
+ const ast=acorn.parse(s,{ecmaVersion:'latest'}),defs=ast.body.filter(n=>n.type==='FunctionDeclaration'),map=new Map(defs.map(n=>[n.id.name,n]));const unique=mark=>{const ns=defs.filter(n=>n.id.name.includes(mark));if(ns.length!==1)throw Error('frontier '+mark+' '+ns.length);return ns[0]};
+ const advance=unique('query$058prototype_cursor_struct_idx_advance$'),selected=unique('query$058prototype_cursor_struct_idx_selected$'),inspect=unique('query$058prototype_cursor_inspect_state$'),restore=unique('query$058prototype_cursor_restore_state$'),caller=unique('query$058prototype_cursor_struct_idx_go$');
+ function tupleBridge(fn){const found=[];function walk(n){if(!n||typeof n!=='object')return;if(n.type==='CallExpression'&&n.callee.type==='Identifier'&&n.callee.name.startsWith('__direct_tuple_helper_'))found.push(n.callee.name);for(const v of Object.values(n))if(Array.isArray(v))v.forEach(walk);else if(v&&typeof v==='object')walk(v)}walk(fn);if(found.length!==1)throw Error('unique tuple bridge');return map.get(found[0]);}
+ const h1=tupleBridge(advance),h2=unique('query$058prototype_cursor_struct_idx_metadata$'),family=[advance,h1,h2,selected,inspect,restore].map(n=>n.id.name);const files={...prior.files,[upPath]:sha(fs.readFileSync(upPath))};
+ cat[sha(s)]={inputPath,schema:label==='motion'?'Motion':'Health',label:'normal-'+label,sourceRoot:prior.sourceRoot,sourcePins:prior.sourcePins,files,family,bodyPins:Object.fromEntries(family.map(n=>[n,sha(s.slice(map.get(n).start,map.get(n).end))])),caller:caller.id.name,callerSHA256:sha(s.slice(caller.start,caller.end)),stateTag:'../bendvy-private-id-query-descending-v1/experiments/s-integrate/query.StructColsState'};
+}
+if(Object.keys(cat).length!==2)throw Error('catalog cardinality');fs.writeFileSync(path.join(H,'input-pins.json'),JSON.stringify(cat,null,2)+'\n',{flag:'wx'});console.log(JSON.stringify(Object.values(cat).map(x=>({label:x.label,family:x.family}))));
