@@ -1,0 +1,695 @@
+{
+  "scope": "Source anchors associated with passing diagnostic/frozen rows; no universal reachability/refinement claim",
+  "anchors": [
+    {
+      "file": "workload-measurement-bend.bend",
+      "line": 58,
+      "text": "  Q.each(T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,Unit,Unit,Unit,S.Handle<T.MotionSchema>,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,keep(~CP.PrototypeMotionMainSlot),keep(~T.Velocity),handle_client(~T.MotionSchema,~T.Selected),Q.Required{},world)"
+    },
+    {
+      "file": "workload-measurement-bend.bend",
+      "line": 84,
+      "text": "  Q.each(T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,Unit,Unit,Unit,S.Handle<T.HealthSchema>,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,keep(~CP.PrototypeHealthMainSlot),keep(~T.Armor),handle_client(~T.HealthSchema,~T.Tracked),Q.Required{},world)"
+    },
+    {
+      "file": "workload-measurement-bend.bend",
+      "line": 87,
+      "text": "  MotionBench{host:H.prototype_slot_host_MotionHost(),sparse:Bool,readsum:U32,calls:U32}"
+    },
+    {
+      "file": "workload-measurement-bend.bend",
+      "line": 92,
+      "text": "def motion_presence_return(sparse:Bool,total:U32,calls:U32,pair:H.prototype_slot_host_MotionHost() & D.Presence) -> MotionBench & D.Presence:"
+    },
+    {
+      "file": "workload-measurement-bend.bend",
+      "line": 97,
+      "text": "    case MotionBench{host,sparse,total,calls}: motion_presence_return(sparse,total,calls,H.prototype_slot_host_motion_presence(host))"
+    },
+    {
+      "file": "workload-measurement-bend.bend",
+      "line": 98,
+      "text": "def motion_frame_return(sparse:Bool,total:U32,calls:U32,pair:H.prototype_slot_host_MotionHost() & (R.Readers & R.Clock)) -> MotionBench & (R.Readers & R.Clock):"
+    },
+    {
+      "file": "workload-measurement-bend.bend",
+      "line": 104,
+      "text": "def motion_clock_return(sparse:Bool,total:U32,calls:U32,pair:H.prototype_slot_host_MotionHost() & R.Clock) -> MotionBench & R.Clock:"
+    },
+    {
+      "file": "workload-measurement-bend.bend",
+      "line": 109,
+      "text": "    case MotionBench{host,sparse,total,calls}: IO.bind(H.prototype_slot_host_MotionHost() & R.Clock,MotionBench & R.Clock,H.barrier(T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,T.MotionPing,T.PositionView,T.VelocityView,T.LedgerView,host,clock), pair => IO.pure(MotionBench & R.Clock,motion_clock_return(sparse,total,calls,pair)))"
+    },
+    {
+      "file": "workload-measurement-bend.bend",
+      "line": 112,
+      "text": "    case MotionBench{host,sparse,total,calls}: motion_clock_return(sparse,total,calls,H.prototype_slot_host_motion_transition(host,pending,clock))"
+    },
+    {
+      "file": "workload-measurement-bend.bend",
+      "line": 150,
+      "text": "  Q.each(T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,T.PositionToken,T.PositionView,T.VelocityView,O.QueryRow<T.MotionSchema,T.PositionView,T.VelocityView,T.Selected>,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,CP.prototype_slot_position_get,P.velocity_get,O.client(~T.MotionSchema,~T.PositionToken,~T.PositionView,~T.VelocityView,~T.Selected,~T.PositionToken{}),Q.Optional{},world)"
+    },
+    {
+      "file": "workload-measurement-bend.bend",
+      "line": 193,
+      "text": "    case True{}: Some{CP.prototype_slot_position_new(T.Position{quad(j,U32.add(j,1),U32.add(j,2),U32.add(j,3)),7})}"
+    },
+    {
+      "file": "workload-measurement-bend.bend",
+      "line": 222,
+      "text": "  HealthBench{host:H.prototype_slot_host_HealthHost(),sparse:Bool,readsum:U32,calls:U32}"
+    },
+    {
+      "file": "workload-measurement-bend.bend",
+      "line": 223,
+      "text": "def health_presence_return(sparse:Bool,total:U32,calls:U32,pair:H.prototype_slot_host_HealthHost() & D.Presence) -> HealthBench & D.Presence:"
+    },
+    {
+      "file": "workload-measurement-bend.bend",
+      "line": 228,
+      "text": "    case HealthBench{host,sparse,total,calls}: health_presence_return(sparse,total,calls,H.prototype_slot_host_health_presence(host))"
+    },
+    {
+      "file": "workload-measurement-bend.bend",
+      "line": 229,
+      "text": "def health_frame_return(sparse:Bool,total:U32,calls:U32,pair:H.prototype_slot_host_HealthHost() & (R.Readers & R.Clock)) -> HealthBench & (R.Readers & R.Clock):"
+    },
+    {
+      "file": "workload-measurement-bend.bend",
+      "line": 235,
+      "text": "def health_clock_return(sparse:Bool,total:U32,calls:U32,pair:H.prototype_slot_host_HealthHost() & R.Clock) -> HealthBench & R.Clock:"
+    },
+    {
+      "file": "workload-measurement-bend.bend",
+      "line": 240,
+      "text": "    case HealthBench{host,sparse,total,calls}: IO.bind(H.prototype_slot_host_HealthHost() & R.Clock,HealthBench & R.Clock,H.barrier(T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,T.HealthPing,T.VitalsView,T.ArmorView,T.LedgerView,host,clock), pair => IO.pure(HealthBench & R.Clock,health_clock_return(sparse,total,calls,pair)))"
+    },
+    {
+      "file": "workload-measurement-bend.bend",
+      "line": 243,
+      "text": "    case HealthBench{host,sparse,total,calls}: health_clock_return(sparse,total,calls,H.prototype_slot_host_health_transition(host,pending,clock))"
+    },
+    {
+      "file": "workload-measurement-bend.bend",
+      "line": 281,
+      "text": "  Q.each(T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,T.VitalsToken,T.VitalsView,T.ArmorView,O.QueryRow<T.HealthSchema,T.VitalsView,T.ArmorView,T.Tracked>,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,CP.prototype_slot_vitals_get,P.armor_get,O.client(~T.HealthSchema,~T.VitalsToken,~T.VitalsView,~T.ArmorView,~T.Tracked,~T.VitalsToken{}),Q.Optional{},world)"
+    },
+    {
+      "file": "workload-measurement-bend.bend",
+      "line": 324,
+      "text": "    case True{}: Some{CP.prototype_slot_vitals_new(T.Vitals{quad(j,U32.add(j,1),U32.add(j,2),U32.add(j,3)),9,2})}"
+    },
+    {
+      "file": "workload-measurement-bend.bend",
+      "line": 360,
+      "text": "    case D.Runtime{MotionBench{H.Host{world,_,_,_,_,_,_},_,total,calls},_,_,clock,_,_,_,_,_}: motion_print(elapsed,total,calls,clock,O.world(T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,T.PositionView,T.VelocityView,T.LedgerView,CP.prototype_slot_position_get,P.velocity_get,CP.motion_ledger_get,world))"
+    },
+    {
+      "file": "workload-measurement-bend.bend",
+      "line": 380,
+      "text": "    case D.Runtime{HealthBench{H.Host{world,_,_,_,_,_,_},_,total,calls},_,_,clock,_,_,_,_,_}: health_print(elapsed,total,calls,clock,O.world(T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,T.VitalsView,T.ArmorView,T.LedgerView,CP.prototype_slot_vitals_get,P.armor_get,CP.health_ledger_get,world))"
+    },
+    {
+      "file": "workload-measurement-lifecycle.bend",
+      "line": 27,
+      "text": "  HostRestMotion{host:H.prototype_slot_host_MotionHost(),count:U32,iteration:U32,target:Maybe<&2,S.Handle<T.MotionSchema>>,pending:Maybe<&2,S.Handle<T.MotionSchema>>,foreign:S.Handle<T.MotionSchema>}"
+    },
+    {
+      "file": "workload-measurement-lifecycle.bend",
+      "line": 30,
+      "text": "  MotionState{host:H.prototype_slot_host_MotionHost(),count:U32,iteration:U32,target:Maybe<&2,S.Handle<T.MotionSchema>>,pending:Maybe<&2,S.Handle<T.MotionSchema>>,foreign:S.Handle<T.MotionSchema>}"
+    },
+    {
+      "file": "workload-measurement-lifecycle.bend",
+      "line": 31,
+      "text": "def motion_presence_pair(count:U32,i:U32,target:Maybe<&2,S.Handle<T.MotionSchema>>,pending:Maybe<&2,S.Handle<T.MotionSchema>>,foreign:S.Handle<T.MotionSchema>,pair:H.prototype_slot_host_MotionHost() & D.Presence) -> MotionState & D.Presence:"
+    },
+    {
+      "file": "workload-measurement-lifecycle.bend",
+      "line": 36,
+      "text": "    case MotionState{host,count,i,target,pending,foreign}: motion_presence_pair(count,i,target,pending,foreign,H.prototype_slot_host_motion_presence(host))"
+    },
+    {
+      "file": "workload-measurement-lifecycle.bend",
+      "line": 37,
+      "text": "def motion_frame_pair(count:U32,i:U32,target:Maybe<&2,S.Handle<T.MotionSchema>>,pending:Maybe<&2,S.Handle<T.MotionSchema>>,foreign:S.Handle<T.MotionSchema>,pair:H.prototype_slot_host_MotionHost() & (R.Readers & R.Clock)) -> MotionState & (R.Readers & R.Clock):"
+    },
+    {
+      "file": "workload-measurement-lifecycle.bend",
+      "line": 42,
+      "text": "    case MotionState{host,count,i,target,pending,foreign}: motion_frame_pair(count,i,target,pending,foreign,H.prototype_slot_host_motion_frame(host,readers,boundary))"
+    },
+    {
+      "file": "workload-measurement-lifecycle.bend",
+      "line": 43,
+      "text": "def motion_clock_pair(count:U32,i:U32,target:Maybe<&2,S.Handle<T.MotionSchema>>,pending:Maybe<&2,S.Handle<T.MotionSchema>>,foreign:S.Handle<T.MotionSchema>,pair:H.prototype_slot_host_MotionHost() & R.Clock) -> MotionState & R.Clock:"
+    },
+    {
+      "file": "workload-measurement-lifecycle.bend",
+      "line": 48,
+      "text": "    case MotionState{host,count,i,target,pending,foreign}: IO.bind(H.prototype_slot_host_MotionHost() & R.Clock,MotionState & R.Clock,H.prototype_slot_host_motion_barrier(host,clock), pair => IO.pure(MotionState & R.Clock,motion_clock_pair(count,i,target,pending,foreign,pair)))"
+    },
+    {
+      "file": "workload-measurement-lifecycle.bend",
+      "line": 51,
+      "text": "    case MotionState{host,count,i,target,handle,foreign}: motion_clock_pair(count,i,target,handle,foreign,H.prototype_slot_host_motion_transition(host,pending,clock))"
+    },
+    {
+      "file": "workload-measurement-lifecycle.bend",
+      "line": 54,
+      "text": "    case MotionState{host,count,+i,target,_,foreign}: MotionState{H.prototype_slot_host_motion_reserve(host,\"pending\",S.Bundle{M.motion_main(i,True{}),None{},None{}}),count,i,target,None{},foreign}"
+    },
+    {
+      "file": "workload-measurement-lifecycle.bend",
+      "line": 64,
+      "text": "def motion_dispose_host(owner:H.prototype_slot_host_MotionHost(),+handle:S.Handle<T.MotionSchema>) -> H.prototype_slot_host_MotionHost():"
+    },
+    {
+      "file": "workload-measurement-lifecycle.bend",
+      "line": 87,
+      "text": "  HostRestHealth{host:H.prototype_slot_host_HealthHost(),count:U32,iteration:U32,target:Maybe<&2,S.Handle<T.HealthSchema>>,pending:Maybe<&2,S.Handle<T.HealthSchema>>,foreign:S.Handle<T.HealthSchema>}"
+    },
+    {
+      "file": "workload-measurement-lifecycle.bend",
+      "line": 90,
+      "text": "  HealthState{host:H.prototype_slot_host_HealthHost(),count:U32,iteration:U32,target:Maybe<&2,S.Handle<T.HealthSchema>>,pending:Maybe<&2,S.Handle<T.HealthSchema>>,foreign:S.Handle<T.HealthSchema>}"
+    },
+    {
+      "file": "workload-measurement-lifecycle.bend",
+      "line": 91,
+      "text": "def health_presence_pair(count:U32,i:U32,target:Maybe<&2,S.Handle<T.HealthSchema>>,pending:Maybe<&2,S.Handle<T.HealthSchema>>,foreign:S.Handle<T.HealthSchema>,pair:H.prototype_slot_host_HealthHost() & D.Presence) -> HealthState & D.Presence:"
+    },
+    {
+      "file": "workload-measurement-lifecycle.bend",
+      "line": 96,
+      "text": "    case HealthState{host,count,i,target,pending,foreign}: health_presence_pair(count,i,target,pending,foreign,H.prototype_slot_host_health_presence(host))"
+    },
+    {
+      "file": "workload-measurement-lifecycle.bend",
+      "line": 97,
+      "text": "def health_frame_pair(count:U32,i:U32,target:Maybe<&2,S.Handle<T.HealthSchema>>,pending:Maybe<&2,S.Handle<T.HealthSchema>>,foreign:S.Handle<T.HealthSchema>,pair:H.prototype_slot_host_HealthHost() & (R.Readers & R.Clock)) -> HealthState & (R.Readers & R.Clock):"
+    },
+    {
+      "file": "workload-measurement-lifecycle.bend",
+      "line": 102,
+      "text": "    case HealthState{host,count,i,target,pending,foreign}: health_frame_pair(count,i,target,pending,foreign,H.prototype_slot_host_health_frame(host,readers,boundary))"
+    },
+    {
+      "file": "workload-measurement-lifecycle.bend",
+      "line": 103,
+      "text": "def health_clock_pair(count:U32,i:U32,target:Maybe<&2,S.Handle<T.HealthSchema>>,pending:Maybe<&2,S.Handle<T.HealthSchema>>,foreign:S.Handle<T.HealthSchema>,pair:H.prototype_slot_host_HealthHost() & R.Clock) -> HealthState & R.Clock:"
+    },
+    {
+      "file": "workload-measurement-lifecycle.bend",
+      "line": 108,
+      "text": "    case HealthState{host,count,i,target,pending,foreign}: IO.bind(H.prototype_slot_host_HealthHost() & R.Clock,HealthState & R.Clock,H.prototype_slot_host_health_barrier(host,clock), pair => IO.pure(HealthState & R.Clock,health_clock_pair(count,i,target,pending,foreign,pair)))"
+    },
+    {
+      "file": "workload-measurement-lifecycle.bend",
+      "line": 111,
+      "text": "    case HealthState{host,count,i,target,handle,foreign}: health_clock_pair(count,i,target,handle,foreign,H.prototype_slot_host_health_transition(host,pending,clock))"
+    },
+    {
+      "file": "workload-measurement-lifecycle.bend",
+      "line": 114,
+      "text": "    case HealthState{host,count,+i,target,_,foreign}: HealthState{H.prototype_slot_host_health_reserve(host,\"pending\",S.Bundle{M.health_main(i,True{}),None{},None{}}),count,i,target,None{},foreign}"
+    },
+    {
+      "file": "workload-measurement-lifecycle.bend",
+      "line": 124,
+      "text": "def health_dispose_host(owner:H.prototype_slot_host_HealthHost(),+handle:S.Handle<T.HealthSchema>) -> H.prototype_slot_host_HealthHost():"
+    },
+    {
+      "file": "workload-measurement-lifecycle.bend",
+      "line": 175,
+      "text": "    case Some{handle}: motion_lookup_value(Q.lookup(T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,Unit,Unit,Unit,S.Handle<T.MotionSchema>,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,M.keep(~CP.PrototypeMotionMainSlot),M.keep(~T.Velocity),M.handle_client(~T.MotionSchema,~T.Selected),Q.Required{},world,handle))"
+    },
+    {
+      "file": "workload-measurement-lifecycle.bend",
+      "line": 185,
+      "text": "def motion_views(count:U32,+i:U32,+target:Maybe<&2,S.Handle<T.MotionSchema>>,+pending:Maybe<&2,S.Handle<T.MotionSchema>>,+foreign:S.Handle<T.MotionSchema>,restore:S.World<T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode> -> H.prototype_slot_host_MotionHost(),query:List<&2,O.QueryRow<T.MotionSchema,T.PositionView,T.VelocityView,T.Selected>>,lookups:T.Four,pair:S.World<T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode> & O.WorldView<T.PositionView,T.VelocityView,T.Selected,T.LedgerView,T.MotionMode>) -> MotionState & String:"
+    },
+    {
+      "file": "workload-measurement-lifecycle.bend",
+      "line": 188,
+      "text": "def motion_queried(count:U32,i:U32,target:Maybe<&2,S.Handle<T.MotionSchema>>,pending:Maybe<&2,S.Handle<T.MotionSchema>>,foreign:S.Handle<T.MotionSchema>,restore:S.World<T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode> -> H.prototype_slot_host_MotionHost(),kinds:T.Four,pair:S.World<T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode> & List<&2,O.QueryRow<T.MotionSchema,T.PositionView,T.VelocityView,T.Selected>>) -> MotionState & String:"
+    },
+    {
+      "file": "workload-measurement-lifecycle.bend",
+      "line": 190,
+      "text": "    case (world,query): motion_views(count,i,target,pending,foreign,restore,query,kinds,O.world(T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,T.PositionView,T.VelocityView,T.LedgerView,CP.prototype_slot_position_get,P.velocity_get,CP.motion_ledger_get,world))"
+    },
+    {
+      "file": "workload-measurement-lifecycle.bend",
+      "line": 191,
+      "text": "def motion_observed(count:U32,i:U32,target:Maybe<&2,S.Handle<T.MotionSchema>>,pending:Maybe<&2,S.Handle<T.MotionSchema>>,foreign:S.Handle<T.MotionSchema>,restore:S.World<T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode> -> H.prototype_slot_host_MotionHost(),pair:S.World<T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode> & T.Four) -> MotionState & String:"
+    },
+    {
+      "file": "workload-measurement-lifecycle.bend",
+      "line": 193,
+      "text": "    case (world,kinds): motion_queried(count,i,target,pending,foreign,restore,kinds,Q.each(T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,T.PositionToken,T.PositionView,T.VelocityView,O.QueryRow<T.MotionSchema,T.PositionView,T.VelocityView,T.Selected>,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,CP.prototype_slot_position_get,P.velocity_get,O.client(~T.MotionSchema,~T.PositionToken,~T.PositionView,~T.VelocityView,~T.Selected,~T.PositionToken{}),Q.Required{},world))"
+    },
+    {
+      "file": "workload-measurement-lifecycle.bend",
+      "line": 266,
+      "text": "    case Some{handle}: health_lookup_value(Q.lookup(T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,Unit,Unit,Unit,S.Handle<T.HealthSchema>,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,M.keep(~CP.PrototypeHealthMainSlot),M.keep(~T.Armor),M.handle_client(~T.HealthSchema,~T.Tracked),Q.Required{},world,handle))"
+    },
+    {
+      "file": "workload-measurement-lifecycle.bend",
+      "line": 276,
+      "text": "def health_views(count:U32,+i:U32,+target:Maybe<&2,S.Handle<T.HealthSchema>>,+pending:Maybe<&2,S.Handle<T.HealthSchema>>,+foreign:S.Handle<T.HealthSchema>,restore:S.World<T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode> -> H.prototype_slot_host_HealthHost(),query:List<&2,O.QueryRow<T.HealthSchema,T.VitalsView,T.ArmorView,T.Tracked>>,lookups:T.Four,pair:S.World<T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode> & O.WorldView<T.VitalsView,T.ArmorView,T.Tracked,T.LedgerView,T.HealthMode>) -> HealthState & String:"
+    },
+    {
+      "file": "workload-measurement-lifecycle.bend",
+      "line": 279,
+      "text": "def health_queried(count:U32,i:U32,target:Maybe<&2,S.Handle<T.HealthSchema>>,pending:Maybe<&2,S.Handle<T.HealthSchema>>,foreign:S.Handle<T.HealthSchema>,restore:S.World<T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode> -> H.prototype_slot_host_HealthHost(),kinds:T.Four,pair:S.World<T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode> & List<&2,O.QueryRow<T.HealthSchema,T.VitalsView,T.ArmorView,T.Tracked>>) -> HealthState & String:"
+    },
+    {
+      "file": "workload-measurement-lifecycle.bend",
+      "line": 281,
+      "text": "    case (world,query): health_views(count,i,target,pending,foreign,restore,query,kinds,O.world(T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,T.VitalsView,T.ArmorView,T.LedgerView,CP.prototype_slot_vitals_get,P.armor_get,CP.health_ledger_get,world))"
+    },
+    {
+      "file": "workload-measurement-lifecycle.bend",
+      "line": 282,
+      "text": "def health_observed(count:U32,i:U32,target:Maybe<&2,S.Handle<T.HealthSchema>>,pending:Maybe<&2,S.Handle<T.HealthSchema>>,foreign:S.Handle<T.HealthSchema>,restore:S.World<T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode> -> H.prototype_slot_host_HealthHost(),pair:S.World<T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode> & T.Four) -> HealthState & String:"
+    },
+    {
+      "file": "workload-measurement-lifecycle.bend",
+      "line": 284,
+      "text": "    case (world,kinds): health_queried(count,i,target,pending,foreign,restore,kinds,Q.each(T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,T.VitalsToken,T.VitalsView,T.ArmorView,O.QueryRow<T.HealthSchema,T.VitalsView,T.ArmorView,T.Tracked>,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,CP.prototype_slot_vitals_get,P.armor_get,O.client(~T.HealthSchema,~T.VitalsToken,~T.VitalsView,~T.ArmorView,~T.Tracked,~T.VitalsToken{}),Q.Required{},world))"
+    },
+    {
+      "file": "workload-measurement-readers.bend",
+      "line": 25,
+      "text": "def motion_read_done(count:U32,i:U32,target:Maybe<&2,S.Handle<T.MotionSchema>>,pending:Maybe<&2,S.Handle<T.MotionSchema>>,foreign:S.Handle<T.MotionSchema>,result:D.Invoked<H.prototype_slot_host_MotionHost(),S.Handle<T.MotionSchema>>) -> IO(D.Invoked<L.MotionState,S.Handle<T.MotionSchema>>):"
+    },
+    {
+      "file": "workload-measurement-readers.bend",
+      "line": 30,
+      "text": "    case L.MotionState{host,count,i,target,pending,foreign}: IO.bind(D.Invoked<H.prototype_slot_host_MotionHost(),S.Handle<T.MotionSchema>>,D.Invoked<L.MotionState,S.Handle<T.MotionSchema>>,H.prototype_slot_host_motion_invoke(system,mode,capture,clock,host,audit,run),result => motion_read_done(count,i,target,pending,foreign,result))"
+    },
+    {
+      "file": "workload-measurement-readers.bend",
+      "line": 37,
+      "text": "def motion_published(count:U32,i:U32,target:Maybe<&2,S.Handle<T.MotionSchema>>,pending:Maybe<&2,S.Handle<T.MotionSchema>>,foreign:S.Handle<T.MotionSchema>,audit:Maybe<D.Audit>,run:Maybe<R.Run>,pair:H.prototype_slot_host_MotionHost() & R.Clock) -> IO(D.Invoked<L.MotionState,S.Handle<T.MotionSchema>>):"
+    },
+    {
+      "file": "workload-measurement-readers.bend",
+      "line": 40,
+      "text": "def motion_commit(count:U32,i:U32,target:Maybe<&2,S.Handle<T.MotionSchema>>,pending:Maybe<&2,S.Handle<T.MotionSchema>>,foreign:S.Handle<T.MotionSchema>,restore:S.World<T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode> -> H.prototype_slot_host_MotionHost(),clock:R.Clock,audit:Maybe<D.Audit>,run:Maybe<R.Run>,pair:S.World<T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode> & List<&2,U32>) -> IO(D.Invoked<L.MotionState,S.Handle<T.MotionSchema>>):"
+    },
+    {
+      "file": "workload-measurement-readers.bend",
+      "line": 42,
+      "text": "    case (world,pings): motion_published(count,i,target,pending,foreign,audit,run,H.publish(T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,T.MotionPing,T.PositionView,T.VelocityView,T.LedgerView,restore(world),clock,H.prototype_slot_host_motion_pings(pings)))"
+    },
+    {
+      "file": "workload-measurement-readers.bend",
+      "line": 128,
+      "text": "def health_read_done(count:U32,i:U32,target:Maybe<&2,S.Handle<T.HealthSchema>>,pending:Maybe<&2,S.Handle<T.HealthSchema>>,foreign:S.Handle<T.HealthSchema>,result:D.Invoked<H.prototype_slot_host_HealthHost(),S.Handle<T.HealthSchema>>) -> IO(D.Invoked<L.HealthState,S.Handle<T.HealthSchema>>):"
+    },
+    {
+      "file": "workload-measurement-readers.bend",
+      "line": 133,
+      "text": "    case L.HealthState{host,count,i,target,pending,foreign}: IO.bind(D.Invoked<H.prototype_slot_host_HealthHost(),S.Handle<T.HealthSchema>>,D.Invoked<L.HealthState,S.Handle<T.HealthSchema>>,H.prototype_slot_host_health_invoke(system,mode,capture,clock,host,audit,run),result => health_read_done(count,i,target,pending,foreign,result))"
+    },
+    {
+      "file": "workload-measurement-readers.bend",
+      "line": 140,
+      "text": "def health_published(count:U32,i:U32,target:Maybe<&2,S.Handle<T.HealthSchema>>,pending:Maybe<&2,S.Handle<T.HealthSchema>>,foreign:S.Handle<T.HealthSchema>,audit:Maybe<D.Audit>,run:Maybe<R.Run>,pair:H.prototype_slot_host_HealthHost() & R.Clock) -> IO(D.Invoked<L.HealthState,S.Handle<T.HealthSchema>>):"
+    },
+    {
+      "file": "workload-measurement-readers.bend",
+      "line": 143,
+      "text": "def health_commit(count:U32,i:U32,target:Maybe<&2,S.Handle<T.HealthSchema>>,pending:Maybe<&2,S.Handle<T.HealthSchema>>,foreign:S.Handle<T.HealthSchema>,restore:S.World<T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode> -> H.prototype_slot_host_HealthHost(),clock:R.Clock,audit:Maybe<D.Audit>,run:Maybe<R.Run>,pair:S.World<T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode> & List<&2,U32>) -> IO(D.Invoked<L.HealthState,S.Handle<T.HealthSchema>>):"
+    },
+    {
+      "file": "workload-measurement-readers.bend",
+      "line": 145,
+      "text": "    case (world,pings): health_published(count,i,target,pending,foreign,audit,run,H.publish(T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,T.HealthPing,T.VitalsView,T.ArmorView,T.LedgerView,restore(world),clock,H.prototype_slot_host_health_pings(pings)))"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 87,
+      "text": "  MotionFailure{host:H.prototype_slot_host_MotionHost(),iteration:U32,failed:List<&2,S.Handle<T.MotionSchema>>}"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 97,
+      "text": "def motion_presence_done(i:U32,failed:List<&2,S.Handle<T.MotionSchema>>,pair:H.prototype_slot_host_MotionHost() & D.Presence) -> MotionFailure & D.Presence:"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 102,
+      "text": "    case MotionFailure{host,i,failed}: motion_presence_done(i,failed,H.prototype_slot_host_motion_presence(host))"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 103,
+      "text": "def motion_clock_done(i:U32,failed:List<&2,S.Handle<T.MotionSchema>>,pair:H.prototype_slot_host_MotionHost() & R.Clock) -> MotionFailure & R.Clock:"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 108,
+      "text": "    case MotionFailure{host,i,failed}: IO.bind(H.prototype_slot_host_MotionHost() & R.Clock,MotionFailure & R.Clock,H.prototype_slot_host_motion_barrier(host,clock), pair => IO.pure(MotionFailure & R.Clock,motion_clock_done(i,failed,pair)))"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 111,
+      "text": "    case MotionFailure{host,i,failed}: motion_clock_done(i,failed,H.prototype_slot_host_motion_transition(host,mode,clock))"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 112,
+      "text": "def motion_frame_done(i:U32,failed:List<&2,S.Handle<T.MotionSchema>>,pair:H.prototype_slot_host_MotionHost() & (R.Readers & R.Clock)) -> MotionFailure & (R.Readers & R.Clock):"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 117,
+      "text": "    case MotionFailure{host,i,failed}: motion_frame_done(i,failed,H.prototype_slot_host_motion_frame(host,readers,boundary))"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 118,
+      "text": "def motion_record(+label:String,handle:S.Handle<T.MotionSchema>,owner:H.prototype_slot_host_MotionHost()) -> H.prototype_slot_host_MotionHost():"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 121,
+      "text": "def motion_latest(+system:K.System,mode:K.Mode,handle:S.Handle<T.MotionSchema>,owner:H.prototype_slot_host_MotionHost()) -> H.prototype_slot_host_MotionHost():"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 126,
+      "text": "def motion_mapped(i:U32,failed:List<&2,S.Handle<T.MotionSchema>>,system:K.System,mode:K.Mode,result:D.Invoked<H.prototype_slot_host_MotionHost(),S.Handle<T.MotionSchema>>) -> D.Invoked<MotionFailure,S.Handle<T.MotionSchema>>:"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 131,
+      "text": "def motion_transaction(i:U32,+kind:K.BodyKind,+mode:K.Mode,+name:String,+count:U32,+clock:R.Clock,owner:H.prototype_slot_host_MotionHost(),audit:Maybe<D.Audit>,run:Maybe<R.Run>,selected:Maybe<&2,S.Handle<T.MotionSchema>>) -> IO(D.Invoked<H.prototype_slot_host_MotionHost(),S.Handle<T.MotionSchema>>):"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 134,
+      "text": "      IO.bind(AI.ServiceResult<S.World<T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Handle<T.MotionSchema>,T.PositionView,T.VelocityView,T.Selected>,D.Invoked<H.prototype_slot_host_MotionHost(),S.Handle<T.MotionSchema>>,F.motion_invoke(i,is_b(kind),choose_outcome(kind,mode),count,D.clock_tick(clock),world,handle,audit),result => H.prototype_slot_host_motion_service(kind,mode,name,count,clock,logs,bindings,worldName,step,prior,events,run,result))"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 135,
+      "text": "    case state service _: IO.pure(D.Invoked<H.prototype_slot_host_MotionHost(),S.Handle<T.MotionSchema>>,D.Invoked{state,service,run,T.Failure{10},clock,None{},[]})"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 136,
+      "text": "def motion_body(i:U32,+kind:K.BodyKind,mode:K.Mode,name:String,count:U32,clock:R.Clock,owner:H.prototype_slot_host_MotionHost(),audit:Maybe<D.Audit>,run:Maybe<R.Run>) -> IO(D.Invoked<H.prototype_slot_host_MotionHost(),S.Handle<T.MotionSchema>>):"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 139,
+      "text": "def motion_read_body(prime:Bool,i:U32,kind:K.BodyKind,mode:K.Mode,name:String,count:U32,clock:R.Clock,owner:H.prototype_slot_host_MotionHost(),audit:Maybe<D.Audit>,run:R.Run) -> IO(D.Invoked<H.prototype_slot_host_MotionHost(),S.Handle<T.MotionSchema>>):"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 141,
+      "text": "    case True{}: IO.pure(D.Invoked<H.prototype_slot_host_MotionHost(),S.Handle<T.MotionSchema>>,D.Invoked{owner,audit,Some{run},T.Success{},clock,None{},[]})"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 143,
+      "text": "def motion_read_done(+i:U32,+kind:K.BodyKind,+mode:K.Mode,+name:String,+count:U32,+clock:R.Clock,world:S.World<T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,removed:ST.LifeLog<S.Handle<T.MotionSchema>>,despawned:ST.LifeLog<S.Handle<T.MotionSchema>>,bindings:List<&2,E.Binding<T.MotionSchema>>,worldName:String,step:String,prior:D.DispatchOutcome,events:List<&2,E.TraceEvent<T.MotionSchema,T.PositionView,T.VelocityView,T.Selected,T.LedgerView,T.MotionMode,T.MotionPing>>,audit:Maybe<D.Audit>,result:ST.PingRead<T.MotionPing>) -> IO(D.Invoked<H.prototype_slot_host_MotionHost(),S.Handle<T.MotionSchema>>):"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 146,
+      "text": "      IO.bind(Unit,D.Invoked<H.prototype_slot_host_MotionHost(),S.Handle<T.MotionSchema>>,IO.print(\"FAILURE-READ:\" ++ U32.show(i) ++ \":\" ++ name ++ \":\" ++ U32.show(count) ++ \":\" ++ J.render_list(T.MotionPing,J.render_motion_ping,messages) ++ \":\" ++ Bool.show(lag) ++ \":\" ++ U32.show(D.clock_tick(clock)) ++ \":\" ++ U32.show(H.clock_frame(clock))),_ => motion_read_body(Bool.or(is_fast(kind),Bool.and(is_b(kind),Bool.not(U.writes(mode)))),i,kind,mode,name,count,clock,H.Host{world,RH.Logs{ping,removed,despawned},bindings,worldName,step,prior,events},audit,run))"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 147,
+      "text": "def motion_active(i:U32,kind:K.BodyKind,mode:K.Mode,name:String,count:U32,clock:R.Clock,owner:H.prototype_slot_host_MotionHost(),audit:Maybe<D.Audit>,run:Maybe<R.Run>) -> IO(D.Invoked<H.prototype_slot_host_MotionHost(),S.Handle<T.MotionSchema>>):"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 151,
+      "text": "def motion_b_choose(active:Bool,i:U32,mode:K.Mode,name:String,count:U32,clock:R.Clock,owner:H.prototype_slot_host_MotionHost(),audit:Maybe<D.Audit>,run:Maybe<R.Run>) -> IO(D.Invoked<H.prototype_slot_host_MotionHost(),S.Handle<T.MotionSchema>>):"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 154,
+      "text": "    case False{}: H.prototype_slot_host_motion_body(K.B{},mode,name,count,clock,owner,audit,run)"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 167,
+      "text": "def motion_dispose(owner:H.prototype_slot_host_MotionHost()) -> H.prototype_slot_host_MotionHost():"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 170,
+      "text": "def motion_chosen(i:U32,+system:K.System,+mode:K.Mode,count:U32,clock:R.Clock,owner:H.prototype_slot_host_MotionHost(),audit:Maybe<D.Audit>,run:Maybe<R.Run>) -> IO(D.Invoked<H.prototype_slot_host_MotionHost(),S.Handle<T.MotionSchema>>):"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 175,
+      "text": "    case K.System{_,_,K.Dispose{},_,_,_,_}: IO.pure(D.Invoked<H.prototype_slot_host_MotionHost(),S.Handle<T.MotionSchema>>,D.Invoked{motion_dispose(owner),audit,run,T.Success{},clock,None{},[]})"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 176,
+      "text": "    case _: H.prototype_slot_host_motion_invoke(system,mode,count,clock,owner,audit,run)"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 179,
+      "text": "    case MotionFailure{host,+i,failed}: IO.bind(D.Invoked<H.prototype_slot_host_MotionHost(),S.Handle<T.MotionSchema>>,D.Invoked<MotionFailure,S.Handle<T.MotionSchema>>,motion_chosen(i,system,mode,count,clock,host,audit,run),result => IO.pure(D.Invoked<MotionFailure,S.Handle<T.MotionSchema>>,motion_mapped(i,failed,system,mode,result)))"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 194,
+      "text": "  HealthFailure{host:H.prototype_slot_host_HealthHost(),iteration:U32,failed:List<&2,S.Handle<T.HealthSchema>>}"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 204,
+      "text": "def health_presence_done(i:U32,failed:List<&2,S.Handle<T.HealthSchema>>,pair:H.prototype_slot_host_HealthHost() & D.Presence) -> HealthFailure & D.Presence:"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 209,
+      "text": "    case HealthFailure{host,i,failed}: health_presence_done(i,failed,H.prototype_slot_host_health_presence(host))"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 210,
+      "text": "def health_clock_done(i:U32,failed:List<&2,S.Handle<T.HealthSchema>>,pair:H.prototype_slot_host_HealthHost() & R.Clock) -> HealthFailure & R.Clock:"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 215,
+      "text": "    case HealthFailure{host,i,failed}: IO.bind(H.prototype_slot_host_HealthHost() & R.Clock,HealthFailure & R.Clock,H.prototype_slot_host_health_barrier(host,clock), pair => IO.pure(HealthFailure & R.Clock,health_clock_done(i,failed,pair)))"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 218,
+      "text": "    case HealthFailure{host,i,failed}: health_clock_done(i,failed,H.prototype_slot_host_health_transition(host,mode,clock))"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 219,
+      "text": "def health_frame_done(i:U32,failed:List<&2,S.Handle<T.HealthSchema>>,pair:H.prototype_slot_host_HealthHost() & (R.Readers & R.Clock)) -> HealthFailure & (R.Readers & R.Clock):"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 224,
+      "text": "    case HealthFailure{host,i,failed}: health_frame_done(i,failed,H.prototype_slot_host_health_frame(host,readers,boundary))"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 225,
+      "text": "def health_record(+label:String,handle:S.Handle<T.HealthSchema>,owner:H.prototype_slot_host_HealthHost()) -> H.prototype_slot_host_HealthHost():"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 228,
+      "text": "def health_latest(+system:K.System,mode:K.Mode,handle:S.Handle<T.HealthSchema>,owner:H.prototype_slot_host_HealthHost()) -> H.prototype_slot_host_HealthHost():"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 233,
+      "text": "def health_mapped(i:U32,failed:List<&2,S.Handle<T.HealthSchema>>,system:K.System,mode:K.Mode,result:D.Invoked<H.prototype_slot_host_HealthHost(),S.Handle<T.HealthSchema>>) -> D.Invoked<HealthFailure,S.Handle<T.HealthSchema>>:"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 238,
+      "text": "def health_transaction(i:U32,+kind:K.BodyKind,+mode:K.Mode,+name:String,+count:U32,+clock:R.Clock,owner:H.prototype_slot_host_HealthHost(),audit:Maybe<D.Audit>,run:Maybe<R.Run>,selected:Maybe<&2,S.Handle<T.HealthSchema>>) -> IO(D.Invoked<H.prototype_slot_host_HealthHost(),S.Handle<T.HealthSchema>>):"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 241,
+      "text": "      IO.bind(AI.ServiceResult<S.World<T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Handle<T.HealthSchema>,T.VitalsView,T.ArmorView,T.Tracked>,D.Invoked<H.prototype_slot_host_HealthHost(),S.Handle<T.HealthSchema>>,F.health_invoke(i,is_b(kind),choose_outcome(kind,mode),count,D.clock_tick(clock),world,handle,audit),result => H.prototype_slot_host_health_service(kind,mode,name,count,clock,logs,bindings,worldName,step,prior,events,run,result))"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 242,
+      "text": "    case state service _: IO.pure(D.Invoked<H.prototype_slot_host_HealthHost(),S.Handle<T.HealthSchema>>,D.Invoked{state,service,run,T.Failure{10},clock,None{},[]})"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 243,
+      "text": "def health_body(i:U32,+kind:K.BodyKind,mode:K.Mode,name:String,count:U32,clock:R.Clock,owner:H.prototype_slot_host_HealthHost(),audit:Maybe<D.Audit>,run:Maybe<R.Run>) -> IO(D.Invoked<H.prototype_slot_host_HealthHost(),S.Handle<T.HealthSchema>>):"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 246,
+      "text": "def health_read_body(prime:Bool,i:U32,kind:K.BodyKind,mode:K.Mode,name:String,count:U32,clock:R.Clock,owner:H.prototype_slot_host_HealthHost(),audit:Maybe<D.Audit>,run:R.Run) -> IO(D.Invoked<H.prototype_slot_host_HealthHost(),S.Handle<T.HealthSchema>>):"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 248,
+      "text": "    case True{}: IO.pure(D.Invoked<H.prototype_slot_host_HealthHost(),S.Handle<T.HealthSchema>>,D.Invoked{owner,audit,Some{run},T.Success{},clock,None{},[]})"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 250,
+      "text": "def health_read_done(+i:U32,+kind:K.BodyKind,+mode:K.Mode,+name:String,+count:U32,+clock:R.Clock,world:S.World<T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,removed:ST.LifeLog<S.Handle<T.HealthSchema>>,despawned:ST.LifeLog<S.Handle<T.HealthSchema>>,bindings:List<&2,E.Binding<T.HealthSchema>>,worldName:String,step:String,prior:D.DispatchOutcome,events:List<&2,E.TraceEvent<T.HealthSchema,T.VitalsView,T.ArmorView,T.Tracked,T.LedgerView,T.HealthMode,T.HealthPing>>,audit:Maybe<D.Audit>,result:ST.PingRead<T.HealthPing>) -> IO(D.Invoked<H.prototype_slot_host_HealthHost(),S.Handle<T.HealthSchema>>):"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 253,
+      "text": "      IO.bind(Unit,D.Invoked<H.prototype_slot_host_HealthHost(),S.Handle<T.HealthSchema>>,IO.print(\"FAILURE-READ:\" ++ U32.show(i) ++ \":\" ++ name ++ \":\" ++ U32.show(count) ++ \":\" ++ J.render_list(T.HealthPing,J.render_health_ping,messages) ++ \":\" ++ Bool.show(lag) ++ \":\" ++ U32.show(D.clock_tick(clock)) ++ \":\" ++ U32.show(H.clock_frame(clock))),_ => health_read_body(Bool.or(is_fast(kind),Bool.and(is_b(kind),Bool.not(U.writes(mode)))),i,kind,mode,name,count,clock,H.Host{world,RH.Logs{ping,removed,despawned},bindings,worldName,step,prior,events},audit,run))"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 254,
+      "text": "def health_active(i:U32,kind:K.BodyKind,mode:K.Mode,name:String,count:U32,clock:R.Clock,owner:H.prototype_slot_host_HealthHost(),audit:Maybe<D.Audit>,run:Maybe<R.Run>) -> IO(D.Invoked<H.prototype_slot_host_HealthHost(),S.Handle<T.HealthSchema>>):"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 258,
+      "text": "def health_b_choose(active:Bool,i:U32,mode:K.Mode,name:String,count:U32,clock:R.Clock,owner:H.prototype_slot_host_HealthHost(),audit:Maybe<D.Audit>,run:Maybe<R.Run>) -> IO(D.Invoked<H.prototype_slot_host_HealthHost(),S.Handle<T.HealthSchema>>):"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 261,
+      "text": "    case False{}: H.prototype_slot_host_health_body(K.B{},mode,name,count,clock,owner,audit,run)"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 274,
+      "text": "def health_dispose(owner:H.prototype_slot_host_HealthHost()) -> H.prototype_slot_host_HealthHost():"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 277,
+      "text": "def health_chosen(i:U32,+system:K.System,+mode:K.Mode,count:U32,clock:R.Clock,owner:H.prototype_slot_host_HealthHost(),audit:Maybe<D.Audit>,run:Maybe<R.Run>) -> IO(D.Invoked<H.prototype_slot_host_HealthHost(),S.Handle<T.HealthSchema>>):"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 282,
+      "text": "    case K.System{_,_,K.Dispose{},_,_,_,_}: IO.pure(D.Invoked<H.prototype_slot_host_HealthHost(),S.Handle<T.HealthSchema>>,D.Invoked{health_dispose(owner),audit,run,T.Success{},clock,None{},[]})"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 283,
+      "text": "    case _: H.prototype_slot_host_health_invoke(system,mode,count,clock,owner,audit,run)"
+    },
+    {
+      "file": "workload-measurement-failure-host.bend",
+      "line": 286,
+      "text": "    case HealthFailure{host,+i,failed}: IO.bind(D.Invoked<H.prototype_slot_host_HealthHost(),S.Handle<T.HealthSchema>>,D.Invoked<HealthFailure,S.Handle<T.HealthSchema>>,health_chosen(i,system,mode,count,clock,host,audit,run),result => IO.pure(D.Invoked<HealthFailure,S.Handle<T.HealthSchema>>,health_mapped(i,failed,system,mode,result)))"
+    },
+    {
+      "file": "workload-measurement-failure-invoker.bend",
+      "line": 17,
+      "text": "    case T.ReserveRejected{owner,payload}: T.ReserveRejected{owner,CP.prototype_slot_position_raw(payload)}"
+    },
+    {
+      "file": "workload-measurement-failure-invoker.bend",
+      "line": 19,
+      "text": "  motion_raw_spawn_result(AI.prototype_slot_host_motion_spawn_main(owner,CP.prototype_slot_position_new(payload)))"
+    },
+    {
+      "file": "workload-measurement-failure-invoker.bend",
+      "line": 21,
+      "text": "  AI.prototype_slot_host_motion_finished(tick,True{},result)"
+    },
+    {
+      "file": "workload-measurement-failure-invoker.bend",
+      "line": 25,
+      "text": "      AI.prototype_slot_host_motion_read_main,AI.prototype_slot_host_motion_set_main0,AI.prototype_slot_host_motion_read_main,AI.prototype_slot_host_motion_set_main0,AI.prototype_slot_host_motion_read_main,"
+    },
+    {
+      "file": "workload-measurement-failure-invoker.bend",
+      "line": 26,
+      "text": "      AI.prototype_slot_host_motion_read_ledger,AI.prototype_slot_host_motion_set_ledger0,AI.prototype_slot_host_motion_read_ledger,motion_raw_spawn,AI.prototype_slot_host_motion_emit,AI.prototype_slot_host_motion_log,"
+    },
+    {
+      "file": "workload-measurement-failure-invoker.bend",
+      "line": 33,
+      "text": "    case T.ReserveRejected{owner,payload}: T.ReserveRejected{owner,CP.prototype_slot_vitals_raw(payload)}"
+    },
+    {
+      "file": "workload-measurement-failure-invoker.bend",
+      "line": 35,
+      "text": "  health_raw_spawn_result(AI.prototype_slot_host_health_spawn_main(owner,CP.prototype_slot_vitals_new(payload)))"
+    },
+    {
+      "file": "workload-measurement-failure-invoker.bend",
+      "line": 37,
+      "text": "  AI.prototype_slot_host_health_finished(tick,True{},result)"
+    },
+    {
+      "file": "workload-measurement-failure-invoker.bend",
+      "line": 41,
+      "text": "      AI.prototype_slot_host_health_read_main,AI.prototype_slot_host_health_set_main0,AI.prototype_slot_host_health_read_main,AI.prototype_slot_host_health_set_main0,AI.prototype_slot_host_health_read_main,"
+    },
+    {
+      "file": "workload-measurement-failure-invoker.bend",
+      "line": 42,
+      "text": "      AI.prototype_slot_host_health_read_ledger,AI.prototype_slot_host_health_set_ledger0,AI.prototype_slot_host_health_read_ledger,health_raw_spawn,AI.prototype_slot_host_health_emit,AI.prototype_slot_host_health_log,"
+    },
+    {
+      "file": "workload-measurement-failure-observe.bend",
+      "line": 26,
+      "text": "    case Con{+handle,rest}: motion_lookup_done(handle,w => rows => motion_lookups(rest,w,rows),seen,Q.lookup(T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,T.PositionToken,T.PositionView,T.VelocityView,O.QueryRow<T.MotionSchema,T.PositionView,T.VelocityView,T.Selected>,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,CP.prototype_slot_position_get,P.velocity_get,O.client(~T.MotionSchema,~T.PositionToken,~T.PositionView,~T.VelocityView,~T.Selected,~T.PositionToken{}),Q.Required{},world,handle))"
+    },
+    {
+      "file": "workload-measurement-failure-observe.bend",
+      "line": 49,
+      "text": "      motion_queried(motion_append_handle(H.binding_find(T.MotionSchema,\"p\",bindings),motion_append_handle(H.binding_find(T.MotionSchema,\"q\",bindings),motion_append_handle(H.binding_find(T.MotionSchema,\"r\",bindings),failed))),MotionRest{logs,bindings,name,step,prior,events,iteration,failed,audit,run,clock},Q.each(T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,T.PositionToken,T.PositionView,T.VelocityView,O.QueryRow<T.MotionSchema,T.PositionView,T.VelocityView,T.Selected>,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,CP.prototype_slot_position_get,P.velocity_get,O.client(~T.MotionSchema,~T.PositionToken,~T.PositionView,~T.VelocityView,~T.Selected,~T.PositionToken{}),Q.Required{},world))"
+    },
+    {
+      "file": "workload-measurement-failure-observe.bend",
+      "line": 65,
+      "text": "    case Con{+handle,rest}: health_lookup_done(handle,w => rows => health_lookups(rest,w,rows),seen,Q.lookup(T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,T.VitalsToken,T.VitalsView,T.ArmorView,O.QueryRow<T.HealthSchema,T.VitalsView,T.ArmorView,T.Tracked>,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,CP.prototype_slot_vitals_get,P.armor_get,O.client(~T.HealthSchema,~T.VitalsToken,~T.VitalsView,~T.ArmorView,~T.Tracked,~T.VitalsToken{}),Q.Required{},world,handle))"
+    },
+    {
+      "file": "workload-measurement-failure-observe.bend",
+      "line": 88,
+      "text": "      health_queried(health_append_handle(H.binding_find(T.HealthSchema,\"p\",bindings),health_append_handle(H.binding_find(T.HealthSchema,\"q\",bindings),health_append_handle(H.binding_find(T.HealthSchema,\"r\",bindings),failed))),HealthRest{logs,bindings,name,step,prior,events,iteration,failed,audit,run,clock},Q.each(T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,T.VitalsToken,T.VitalsView,T.ArmorView,O.QueryRow<T.HealthSchema,T.VitalsView,T.ArmorView,T.Tracked>,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,CP.prototype_slot_vitals_get,P.armor_get,O.client(~T.HealthSchema,~T.VitalsToken,~T.VitalsView,~T.ArmorView,~T.Tracked,~T.VitalsToken{}),Q.Required{},world))"
+    },
+    {
+      "file": "workload-measurement-lifecycle-timed.bend",
+      "line": 83,
+      "text": "      motion_observed_query(i,phase,target,pending,foreign,w => L.MotionState{H.Host{w,logs,bindings,name,step,prior,events},count,i,target,pending,foreign},stale,Q.each(T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,T.PositionToken,T.PositionView,T.VelocityView,O.QueryRow<T.MotionSchema,T.PositionView,T.VelocityView,T.Selected>,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,CP.prototype_slot_position_get,P.velocity_get,O.client(~T.MotionSchema,~T.PositionToken,~T.PositionView,~T.VelocityView,~T.Selected,~T.PositionToken{}),Q.Required{},world))"
+    },
+    {
+      "file": "workload-measurement-lifecycle-timed.bend",
+      "line": 200,
+      "text": "      health_observed_query(i,phase,target,pending,foreign,w => L.HealthState{H.Host{w,logs,bindings,name,step,prior,events},count,i,target,pending,foreign},stale,Q.each(T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,T.VitalsToken,T.VitalsView,T.ArmorView,O.QueryRow<T.HealthSchema,T.VitalsView,T.ArmorView,T.Tracked>,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,CP.prototype_slot_vitals_get,P.armor_get,O.client(~T.HealthSchema,~T.VitalsToken,~T.VitalsView,~T.ArmorView,~T.Tracked,~T.VitalsToken{}),Q.Required{},world))"
+    },
+    {
+      "file": "workload-measurement-lifecycle-timed.bend",
+      "line": 292,
+      "text": "    case T.Reserved{beta,foreign}: motion_foreign_applied(count,world,foreign,CMD.apply_checked(T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,beta,1))"
+    },
+    {
+      "file": "workload-measurement-lifecycle-timed.bend",
+      "line": 362,
+      "text": "    case T.Reserved{beta,foreign}: health_foreign_applied(count,world,foreign,CMD.apply_checked(T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,beta,1))"
+    }
+  ]
+}
