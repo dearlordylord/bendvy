@@ -1,7 +1,9 @@
 # S-USER-API Standards review
 
 Baseline `7ea583bc8771c5243dca4495c899868a2e7dc6f9`; reviewed HEAD
-`7fcbf10a29b52907868f301973012fe5fe8fa233`.
+`5468082973d54ddfd10a836c609c187c8f553e50`; initial review
+`7fcbf10a29b52907868f301973012fe5fe8fa233` plus explicit delta
+`git diff 7fcbf10..54680829`.
 Commands: `git diff 7ea583bc8771c5243dca4495c899868a2e7dc6f9...HEAD`
 and `git log 7ea583bc8771c5243dca4495c899868a2e7dc6f9..HEAD --oneline`.
 Sources: AGENTS.md, docs/SPEC.md, installed Bend guide, bend-ldd and code-review.
@@ -21,8 +23,14 @@ Typed callback grants, not string metadata, form the gameplay capability boundar
 `src/ecs/README.md` explicitly says "String registration metadata alone does not
 constrain a concrete runner" and documents trusted provisioning/public
 constructors, broader grant bundles and two-family query follow-ups. These limits
-must remain visible in the final report. The pending actor-handle delta requires
-separate review; this result does not assert that its confinement gate passed.
+remain visible in the report. Actor handles now come from actual reservation
+returns; no gameplay handle fixture is reconstructed. RetryArgs retains the
+actual final selected handle, making failure perform both component writes
+before resource/event/spawn operations. Connected work-count controls accompany
+full observations; the earlier same-output/different-work cohort is explicitly
+disqualified and retained. Final suite/check/build/timing harnesses keep checker5s,
+complete-output checks and source hashes. The15 equal-work rows remain
+informational whole-process measurements, not hot-path or full5×3 acceptance.
 
 **Heuristic follow-up: possible Primitive Obsession**, nonblocking.
 `src/ecs/system.bend:9` hunk:
