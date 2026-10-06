@@ -108,3 +108,7 @@ def read(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~
 # despawn operation is handed to the universally quantified user callback.
 def component_body(~S: Data,~C: Type,~V: Data,~AuxV: Data,~RV: Data,~R: Type,~E: Data,~Payload: Type,~A: Data,~U: Data,~body: @-H: Type -> @-get: (H -> H & Cmp.Access<V>) -> @-set: (H -> C -> H) -> @-aux: (H -> H & Cmp.Access<AuxV>) -> @-resource_get: (H -> H & RV) -> A -> W.Handle<S> -> H -> H & T.Outcome<U>,~H: Type,~get: H -> H & Cmp.Access<V>,~set: H -> C -> H,~aux: H -> H & Cmp.Access<AuxV>,~resource_get: H -> H & RV,~resource_set: H -> R -> H,~emit: H -> E -> H,~despawn: H -> H,~spawn: H -> Payload -> H & W.Reservation<S>,args: A,handle: W.Handle<S>,ctx: H) -> H & T.Outcome<U>:
   body(H,get,set,aux,resource_get,args,handle,ctx)
+
+# Main RW + aux Read + event Write + current-entity Despawn only.
+def event_body(~S: Data,~C: Type,~V: Data,~AuxV: Data,~RV: Data,~R: Type,~E: Data,~Payload: Type,~A: Data,~U: Data,~body: @-H: Type -> @-get: (H -> H & Cmp.Access<V>) -> @-set: (H -> C -> H) -> @-aux: (H -> H & Cmp.Access<AuxV>) -> @-emit: (H -> E -> H) -> @-despawn: (H -> H) -> A -> W.Handle<S> -> H -> H & T.Outcome<U>,~H: Type,~get: H -> H & Cmp.Access<V>,~set: H -> C -> H,~aux: H -> H & Cmp.Access<AuxV>,~resource_get: H -> H & RV,~resource_set: H -> R -> H,~emit: H -> E -> H,~despawn: H -> H,~spawn: H -> Payload -> H & W.Reservation<S>,args: A,handle: W.Handle<S>,ctx: H) -> H & T.Outcome<U>:
+  body(H,get,set,aux,emit,despawn,args,handle,ctx)
