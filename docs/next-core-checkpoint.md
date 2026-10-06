@@ -285,3 +285,10 @@ New-source Tx/mutation/retained gates require fresh execution; full-chain old-so
 lost-mark runtime gate is open because unchanged structural guards reject subjects.
 The user explicitly approved private Clang19 extraction/use; record unchanged-C
 same-toolchain diagnostics separately. [Current report](reports/profile-directed-optimization.md).
+
+Private Clang19 is verified and four unchanged-C builds/full65 observations pass;
+it automatically enables the existing ABI branch without C/compiler edits. Same-C
+14→19 clocks are mixed, so no native performance acceptance. Frozen scalar mark
+counts5,105,216/eight timed worlds, but mixed raw clocks do not justify adoption.
+Next: finish source-bound frozen-chain direct Tx/negative controls, then source
+owner-transport reduction with full gates. No E11/full22/qualification claim.

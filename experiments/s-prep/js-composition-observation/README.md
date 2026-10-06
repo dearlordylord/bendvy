@@ -70,3 +70,8 @@ joined with eight unchanged backend recipes passes both schemas at266/209.680ms
 and271/212.434ms, respectively; Native256/209.680 and282/212.434 remain far from
 2x. Nine-world construction count5,236,800 in both schemas is separate from speed
 acceptance. No old-source Tx/mutation acceptance transfers to this new source.
+
+Fresh source-frozen/eight-stage profiling also passes all nine states. Sampled
+heap240,665,928bytes is close to the previous chain's239,600,904; do not infer an
+extra heap reduction from source freezing. GC intervals239MB/TS90MB; GC self12.8%,
+storage_mark_all13.8%, reached read-client11.1%. [New exact profile and heap](frozen/index.json).

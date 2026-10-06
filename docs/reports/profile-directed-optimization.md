@@ -237,3 +237,35 @@ inverse-order witnesses pass. The old-source full chain passes fresh Tx576 and
 inverse-order witnesses, but unchanged same-slot guards reject lost-mark subjects;
 its combined runtime lost-mark gate remains open. Full E11/full22, qualified
 JS parity/native2x, universal refinement and production adoption remain unpassed.
+
+## Approved private Clang19 diagnostic
+
+The four pinned packages were privately extracted after explicit approval;
+existing default Clang/system/compiler/kernel/C source stayed unchanged. Clang19
+supports both attributes and automatically enables Bend's existing ABI branch.
+Four unchanged-C baseline/candidate Motion/Health builds and independent full65
+controls pass. Root same-toolchain source-join comparisons pass all fields, but
+raw ratios still miss native2x. A separate same-frozen-C Clang14→19 observation
+is248→242ms Motion and251→288ms Health: no consistent or qualified speed gain.
+No source gate transfers from successful compilation.
+
+[Raw-store diagnostic](../../experiments/s-prep/js-raw-store-elision/README.md)
+removes4/5 same-slot writes without changing RHS order or construction counts;
+fresh full9 schemas and actual Tx576 controls pass. Full65 adjacent raw JS is
+260→260ms Motion and251→300ms Health. No performance adoption is justified.
+
+The unchanged scalar-mark recipe also admits the fresh frozen source for both
+schemas. Counts5,236,800→5,105,216 (131,584 Tuple only), fresh nine-world fields,
+retained/exception witness and15 refusal controls pass. Root full65 fields match;
+raw JSMotion268→306ms (TS207.411), Health331→304ms (TS248.997). A lower construction
+count does not establish a speed improvement. Native roles reuse the identical
+Clang19 frozen binary, so219→249/241→292ms differences are repeat-clock noise.
+New-source transaction and mutation acceptance remain separate/open.
+
+Next implementation hypotheses are source-level fused query/owner continuations
+and fewer reached Held/Cache transport constructions, retaining abstract handles,
+general getters and arbitrary affine Type owners. Native needs elimination of
+reached allocator/refcount work, not merely smaller ABI argument counts. Every
+candidate needs source-bound original/suppression/rollback/mark-order controls,
+new-source authority/provider/factory checks and the full equivalent-work matrix;
+none is approved for production by this diagnostic report.

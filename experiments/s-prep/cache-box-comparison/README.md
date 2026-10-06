@@ -42,6 +42,14 @@ never change an oracle/limit to turn a preflight failure into a pass.
 | Raw store / Motion (base: final old-source JS) |215.682705|258|246*|260|260|
 | Raw store / Health (base: final old-source JS) |215.266458|253|282*|251|300|
 
+| Clang19 source join / Motion |298.439964|287|364|592|309|
+| Clang19 source join / Health |225.827308|309|240|358|262|
+| Same frozen C: Clang14→19 / Motion |333.435173|248|242|—|—|
+| Same frozen C: Clang14→19 / Health |225.453847|251|288|—|—|
+
+| Frozen scalar mark / Motion (base: frozen eight-stage JS) |207.410876|219|249*|268|306|
+| Frozen scalar mark / Health (base: frozen eight-stage JS) |248.996988|241|292*|331|304|
+
 *These candidate Native roles use the identical baseline binary; their clock
 differences represent repeated diagnostics, not a Native implementation change.
 
@@ -55,3 +63,10 @@ already built v2 artifacts bind to that identical closure.
 [Frozen index](evidence/index.json) includes commands, builds, input drivers/C/JS,
 raw outputs and reference scripts. Separate source experiments record provenance,
 controls and untested follow-ups. The historical canonical attempt cap is unchanged.
+
+Clang19 rows use the approved private toolchain on unchanged generated C.
+Source-join rows compile both source roles with Clang19. The explicit Clang14→19
+rows hold the source and emitted C fixed: their two Native roles deliberately
+change compiler/automatic existing ABI branch, not ECS source. None establishes
+a qualified compiler speedup; the Health observation is adverse. Build/attribute
+bindings are in the separate Clang19 diagnostic package.
