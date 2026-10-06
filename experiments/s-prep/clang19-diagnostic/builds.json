@@ -1,0 +1,131 @@
+{
+  "status": "FOUR_UNCHANGED_C_SAME_CLANG19_BUILDS_PASS",
+  "toolchainReceiptSHA256": "ffc69c7dfffbbf7dc6953ba3eff1afb896e5f7f909dc399e772cc5cc1f249c72",
+  "wrapperSHA256": "3e171a978d6c1decae4e6645e9bfb771cf5af21ff699ea119fdb058936b0af2d",
+  "compilerArguments": [
+    "-O3",
+    "-pthread",
+    "-lm"
+  ],
+  "sourceEdited": false,
+  "subjects": {
+    "motion-baseline": {
+      "CPath": "/tmp/bendvy-live-first-native-static/batch.c",
+      "CSHA256": "b4b12ec1b61887b909e870454616cd46f542145f7dc43319a11b74d5e0e543b3",
+      "entryPath": "/tmp/bendvy-live-first-native-static/batch.bend",
+      "entrySHA256": "5ef8b2903e4b93229d14b786ed1f65aa508fa349fbc5108a6b741454e06f8dac",
+      "upstreamBuildReceiptSHA256": "de3f8f8445122c47e7b9ac7bcadb0bb20a68a1a770eb0e2946588b47220ae8c1",
+      "binary": "/tmp/bendvy-clang19-diagnostic/motion-baseline.native",
+      "status": "UNCHANGED_C_CLANG19_BUILD_PASS",
+      "command": {
+        "argv": [
+          "taskset",
+          "-c",
+          "11",
+          "/tmp/bendvy-clang19-diagnostic/clang19",
+          "-O3",
+          "/tmp/bendvy-live-first-native-static/batch.c",
+          "-pthread",
+          "-lm",
+          "-o",
+          "/tmp/bendvy-clang19-diagnostic/motion-baseline.native"
+        ],
+        "limitSeconds": 120,
+        "exit": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "CAfterSHA256": "b4b12ec1b61887b909e870454616cd46f542145f7dc43319a11b74d5e0e543b3",
+      "binarySHA256": "0f1e727b2c0b420aa504118f38729933b88c5d799365801447fbec100b69b5c4"
+    },
+    "motion-candidate": {
+      "CPath": "/tmp/bendvy-query-frozen-provider-motion-build-v2/batch.c",
+      "CSHA256": "01683bcb4ca6691a31603f26bbe444fb1b02ad0ad59c93ebaf5edfaf2d7957c4",
+      "entryPath": "/tmp/bendvy-query-frozen-provider-motion-build-v2/batch.bend",
+      "entrySHA256": "a3cc8f260aba3d9c272edd364d45eb08a44f19788cd4ac426920bea9ea3dfaa9",
+      "upstreamBuildReceiptSHA256": "8bb90cc27068a10ed55f6923f073223ff1c5788ddfcc41d639b79beabef2ae68",
+      "binary": "/tmp/bendvy-clang19-diagnostic/motion-candidate.native",
+      "status": "UNCHANGED_C_CLANG19_BUILD_PASS",
+      "command": {
+        "argv": [
+          "taskset",
+          "-c",
+          "11",
+          "/tmp/bendvy-clang19-diagnostic/clang19",
+          "-O3",
+          "/tmp/bendvy-query-frozen-provider-motion-build-v2/batch.c",
+          "-pthread",
+          "-lm",
+          "-o",
+          "/tmp/bendvy-clang19-diagnostic/motion-candidate.native"
+        ],
+        "limitSeconds": 120,
+        "exit": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "CAfterSHA256": "01683bcb4ca6691a31603f26bbe444fb1b02ad0ad59c93ebaf5edfaf2d7957c4",
+      "binarySHA256": "dc323a124f01c813a00574fd576bcc3309147ea4973ed80014ccf92751ebaaaa"
+    },
+    "health-baseline": {
+      "CPath": "/tmp/bendvy-cache-box-baseline-health/batch.c",
+      "CSHA256": "fbd15d97fa0bed20b8d518a5e14cc3740ead63a8e7fb4898e9df9d456fc31676",
+      "entryPath": "/tmp/bendvy-cache-box-baseline-health/batch.bend",
+      "entrySHA256": "fbbd330ffc8338beda7844f4eb1c7148589aecdd98b7dae7b5cc98ff87f85b2b",
+      "upstreamBuildReceiptSHA256": "7967d3d5508f896b26d881e7b295927b5ffbbdd6ba20947a5fae9db81c6a7576",
+      "binary": "/tmp/bendvy-clang19-diagnostic/health-baseline.native",
+      "status": "UNCHANGED_C_CLANG19_BUILD_PASS",
+      "command": {
+        "argv": [
+          "taskset",
+          "-c",
+          "11",
+          "/tmp/bendvy-clang19-diagnostic/clang19",
+          "-O3",
+          "/tmp/bendvy-cache-box-baseline-health/batch.c",
+          "-pthread",
+          "-lm",
+          "-o",
+          "/tmp/bendvy-clang19-diagnostic/health-baseline.native"
+        ],
+        "limitSeconds": 120,
+        "exit": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "CAfterSHA256": "fbd15d97fa0bed20b8d518a5e14cc3740ead63a8e7fb4898e9df9d456fc31676",
+      "binarySHA256": "7e62aad2b411d1e8683bee9f0873e862369423f972e74160fb7cc5c01ee9e765"
+    },
+    "health-candidate": {
+      "CPath": "/tmp/bendvy-query-frozen-provider-health-build/batch.c",
+      "CSHA256": "5b660d88bba6a78ff934617867d528b1928a75e714516f84cfe193da6ce9de1a",
+      "entryPath": "/tmp/bendvy-query-frozen-provider-health-build/batch.bend",
+      "entrySHA256": "c48e49f22f71b10c65fe8fef42976335d760949a479fb80bc54b73d3569697c5",
+      "upstreamBuildReceiptSHA256": "a503c95ef31de9f59f81ddc3b32ae438fe357a23e2a97f37f8e74a4c5e1d6f94",
+      "binary": "/tmp/bendvy-clang19-diagnostic/health-candidate.native",
+      "status": "UNCHANGED_C_CLANG19_BUILD_PASS",
+      "command": {
+        "argv": [
+          "taskset",
+          "-c",
+          "11",
+          "/tmp/bendvy-clang19-diagnostic/clang19",
+          "-O3",
+          "/tmp/bendvy-query-frozen-provider-health-build/batch.c",
+          "-pthread",
+          "-lm",
+          "-o",
+          "/tmp/bendvy-clang19-diagnostic/health-candidate.native"
+        ],
+        "limitSeconds": 120,
+        "exit": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "CAfterSHA256": "5b660d88bba6a78ff934617867d528b1928a75e714516f84cfe193da6ce9de1a",
+      "binarySHA256": "8b37049ae2037dd01574557ed19dea264ba1df41ebc4bc0f6157a83e3e104247"
+    }
+  },
+  "initialToolchainReceiptSHA256": "33d5eaa792052136f357fde900ad481b5850d48a4d8a883131fbf5f7cc7431ec",
+  "toolchainMetadataEnrichment": "Final receipt adds literal approval and reverified archive/Z3 provenance; compiler/wrapper/header/ELF pins unchanged"
+}

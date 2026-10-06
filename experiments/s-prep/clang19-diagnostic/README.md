@@ -1,0 +1,15 @@
+# Approved private Clang19 diagnostic
+
+**Private compiler usable; four unchanged-C builds and independent full65 field comparisons pass. No qualified performance or full22 acceptance.**
+
+The user answered “Да, установить отдельно и проверить” to the separate pinned Clang19.1.7 proposal. Root received that approval between 2026-10-06T02:26:27Z and 02:27:35Z; no exact user-message timestamp was exposed. Scope follows [the reviewed plan](../../../docs/design/clang19-diagnostic-plan.md): four pinned Debian ARM64 archives, private extraction and existing pinned Z3 reuse, with no system replacement or additional package.
+
+All four archive lengths/SHA256 and the existing Z3 SHA256 were reverified before `dpkg-deb --extract`. The reviewed wrapper was copied byte-for-byte. New files live under `/tmp/bendvy-clang19-diagnostic/root`; compiler wrapper is `/tmp/bendvy-clang19-diagnostic/clang19`, with `BENDVY_CLANG19_ROOT` set for its invocation only. No apt transaction, maintainer script, PATH/profile/alternatives/ldconfig, existing compiler, system file, Bend source/compiler/kernel/reference or generated C was changed.
+
+[toolchain.json](toolchain.json) pins archives, actual ELF/compiler/libraries/resource headers, wrapper and Z3; loader dependencies resolve without extra archives. Clang19.1.7's AArch64/O3 attribute probe passes. Preprocessing unchanged generated C enables its existing `PRESERVE(A) __attribute__((A))`, `WL_FN preserve_none` and `OUTLINE preserve_most` branch, without forcing a macro/attribute. Link/resource search trace and package symlinks are retained.
+
+All four 120s builds use the same private compiler, `-O3 -pthread -lm`, serial CPU11. C hashes before/after are identical; binary/driver/upstream source-build/compiler provenance is in [builds.json](builds.json). Binaries are `/tmp/bendvy-clang19-diagnostic/{motion-baseline,motion-candidate,health-baseline,health-candidate}.native`. Baseline uses the original 29-module live-first source; candidate uses the frozen-query 29-module source. Every generated-function ABI domain is built consistently with Clang19; no Clang14 object is mixed in.
+
+Independent fresh pinned TS comparisons passed all65 complete worlds for each Native role and each schema, runtime5, one worker/GPU off (260 full-record comparisons). Exact source/cache manifests, commands and compressed outputs are in [evidence/index.json](evidence/index.json). These CPU11 executions completed before root requested no duplicate timing; their embedded unchanged-harness clocks are retained without interpretation. Root's separate CPU7 adjacency is a separate diagnostic, not a qualified cohort.
+
+Compiler approval does not transfer source-gate acceptance. Complete source-specific ownership/access/provider/factory/fallback/rollback/publication checks, full22 gates, workload and size matrix, noise qualification and TS-relative acceptance remain open. No canonical allowance is reset. Reversal removes only the verified task-owned private root/staging, preserving existing Clang14/Z3/system files and evidence.
