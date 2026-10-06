@@ -7,25 +7,30 @@ The complete [core map](reference/core-map.md) and [SPEC](SPEC.md) remain the go
 
 ## Current performance diagnostic follow-up
 
-Renewed two-hour source/profile work (2026-10-06) is recorded in the
-[current report](reports/profile-directed-optimization.md#renewed-two-hour-diagnostic-window-2026-10-06).
-Private cache boxing narrows Native transport but increases allocator work and
-slows adjacent diagnostics; do not adopt. Token sharing, reached emitted affine
-owner reuse and static Array.peek product splitting reduce counted JS
-constructions with bounded complete-field controls. Four-stage composition
-passes576 Tx checkpoints and fresh full65 Motion/Health fields, but both raw
-JS comparisons miss parity; full gates/performance remain open. All ten staged
-E11 subjects compile, sixteen backend comparisons pass; two TS references
-timeout5, leaving four comparisons and all required mutants unexecuted. The isolated
-[Clang19 proposal](design/clang19-diagnostic-plan.md) awaits dependency approval.
-Canonical allowance/thresholds/full core remain unchanged.
+The user authorized three further hours, **2026-10-06T02:43:17Z–05:43:17Z**,
+including preparation, source experiments, checks, measurements and delivery.
+Targets remain JS/TS elapsed<=1 and Native/TS<=0.5 on equivalent complete work.
+Current active issues are #21/#24; the full core and all acceptance gates remain.
+See [the active source-transport report](reports/threehour-source-transport.md).
 
-Current profiling follow-ups under #21/#24: finish exact composed backend gates;
-verify frozen query-provider source feasibility with independent getter-using
-clients and arbitrary affine owners; qualify both backends across the full matrix
-before adoption. Scoped JS constructor/store recipes are experiments, not a
-production compiler pass; universal alias/refinement and general captured/dynamic
-provider support require their own recorded follow-ups.
+The previous window delivered frozen29 query-provider source and guarded emitted
+JS diagnostics, 65 full worlds/schema, 576 fresh direct Tx records through the
+full chain/scalar-mark stage, and eight detected live changed-stamp omission
+mutants. These finite controls do not prove universal refinement. JS parity and
+Native2x remain unmet; adverse timings and failed E11 subjects are retained.
+Private Clang19 was explicitly approved, installed separately and verified;
+unchanged-C attributes/builds pass, with mixed raw clocks and no qualified gain.
+
+This window prioritizes actual Bend-source query/owner transport and flat
+Main/Ledger cache ownership, with Native allocation call-site attribution.
+No compiler/kernel/reference/foreign repository change, new dependency/law/proof,
+Data-only restriction, production adoption or canonical20-attempt reset is
+inferred. Diagnostic checker15 is explicitly authorized; default/proof5,
+codegen30, clang120 and runtime5 remain. Root owns integration and fresh exact-work
+comparisons; isolated workers own disjoint source probes. The old canonical
+session remains untouched; direct bounded observations do not authorize keeps.
+
+### Earlier profiling history
 
 [Profile-directed continuation](reports/profile-directed-optimization.md) adds source-bound batched marks, boxed Native context and direct raw swaps. Batched marks pass64 literal lifecycle fields/backend and actual live omission mutant; boxed original/suppressed-owner/lost-mark/inverse-order Tx and fresh access/provider/factory controls pass within their bounded scopes. V8 heap sampling identifies callback/held/query allocation; constructor reduction alone does not establish a GC or speed improvement. Latest raw equal65world sample TS312.143ms/JS890ms/Native828ms misses targets. Full22 still fails Cemit30 (boxed joined gate reaches inverse-order Motion); no qualification/adoption/cap reset. Query CPS reconstruction was rejected for adding closure/trampoline constructions. A strict emitted Held/Cache reuse probe removes8 constructions/update and passes bounded traces, but one raw TS1097.803ms/JS1683ms comparison still misses parity. See the [compiler reuse draft](design/affine-js-node-reuse.md); compiler adoption and universal alias safety remain open, with fresh source-bound gates required.
 
