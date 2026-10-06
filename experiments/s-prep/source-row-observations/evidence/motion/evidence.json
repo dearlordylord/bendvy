@@ -1,0 +1,182 @@
+{
+  "status": "ONE_ADJACENT_ALL_FULL65_WORLDS_PASS",
+  "scope": "One adjacent source-bound full65 comparison; no qualification, cohort, adoption or canonical allowance reset",
+  "schema": "Motion",
+  "cpu": 7,
+  "batch": 64,
+  "count": 256,
+  "commands": [
+    {
+      "role": "prepare-ts",
+      "argv": [
+        "/usr/bin/python3",
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-measurement/prepare-ts.py",
+        "--source",
+        "/workspace/formal-proofs/bendvy/experiments/s-integrate/measurement-samples-reference.mjs",
+        "--output",
+        "/tmp/bendvy-threehour-row-source-motion-quiet/reference.mjs",
+        "--schema",
+        "Motion",
+        "--batch",
+        "64"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "7202e7c0172b81b817b1079ac6bebc07271467a20d40626571348b68bb35ce93"
+    },
+    {
+      "role": "TS",
+      "argv": [
+        "node",
+        "/tmp/bendvy-threehour-row-source-motion-quiet/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "7d602104542df80b956f769b0ee22a826eb51527e068b74bcf60264bebc91a64"
+    },
+    {
+      "role": "baseline-Native",
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/motion-candidate.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "14c17d42486d87c022165f13660d7257e7a8ea540a822e8f93d7ca0e4671925e"
+    },
+    {
+      "role": "candidate-Native",
+      "argv": [
+        "/tmp/bendvy-row-owner-split-motion-build/batch-native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "1a05aad5e6540fc7ab464eadabd9ef57a046e72e2c7f2ffb53fc1b66f405d483"
+    },
+    {
+      "role": "baseline-JS",
+      "argv": [
+        "node",
+        "/tmp/bendvy-query-frozen-provider-motion-build-v2/batch.js"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "c48131a4e96262e0315a435f477dd28dd649c9f45700a1df496429a770c392e9"
+    },
+    {
+      "role": "candidate-JS",
+      "argv": [
+        "node",
+        "/tmp/bendvy-row-owner-split-motion-build/batch.js"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "468b75c4a9ec44b02c484b29fe510d2acdc8c34971bdb2d88695c72c25f56681"
+    }
+  ],
+  "inputPins": {
+    "baseline": {
+      "manifestSHA256": "8f942d77f9965ad4044eb3791fb9b6a953027284dacf3e51dd27d8611fd236bb",
+      "runtimeSources": {
+        "experiments/s-integrate/prototype-static-client.bend": "1a9d22180604433d91e6572679761f660b89b093ed5dbe2ad783859fb05d7a51",
+        "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+        "experiments/s-integrate/measurement-bend.bend": "43cd36f611f1691c93da36920d75bd7676bf66d0d2975a954362f2640006ac97",
+        "experiments/s-integrate/held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+        "experiments/s-integrate/transaction-dispatch-adapters.bend": "f2276c1c16ad3694ab8a253f97da892df3a1db81b621cd80018b1376d79d490d",
+        "experiments/s-integrate/cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+        "experiments/s-integrate/systems.bend": "32e11a5a89b01e8db00f0b58a9fd1e2da87f4882189725b0012933421b6b1716",
+        "experiments/s-integrate/identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+        "experiments/s-integrate/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+        "experiments/s-integrate/reader-host.bend": "26eb687a8fb1893b55e4a0c7c8a629b688e37466e169cb3c95dd5273a553db6d",
+        "experiments/s-integrate/audited-invoker.bend": "6ad63360f72ab8358441f2ca0c2281d729899bb3933c26234af2ff7c7fe5bb7c",
+        "experiments/s-integrate/cached-payload.bend": "354bb1ddb9dbd90a64138aa0e0ea4dd499a1a9345b3e94940c183dc16390db82",
+        "experiments/s-integrate/observations.bend": "35b2c98a7bd8fb390919dac80f9cec245dddad62da6aebfea2540cdcc84873b1",
+        "experiments/s-integrate/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+        "experiments/s-integrate/structural-invoker.bend": "8e1269193d719b1f0ea68b040c62e8966160bacb898ac51caa2f6494f4621e0a",
+        "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+        "experiments/s-integrate/commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+        "experiments/s-integrate/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+        "experiments/s-integrate/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+        "experiments/s-integrate/readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+        "experiments/s-integrate/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+        "experiments/s-integrate/raw-boundaries.bend": "77dbad2365e0499ae4e9e6a5ae7dd67b5a2ebcc5be163de56d0e836781f70a2f",
+        "experiments/s-integrate/streams.bend": "291d9a46ad58bdc481a5710976e01b762f6e11be3aeba07076c46c69f236d2c0",
+        "experiments/s-integrate/host.bend": "2207269eb56458c6430246a5cca743ca57a98cbb5e213031ec5f050cae37d3e3",
+        "experiments/s-integrate/storage.bend": "185c5fe6c6d81608b0e3dae4416d32bcbc6f74a50dbb5b28120cc5d1d9400c7a",
+        "experiments/s-integrate/transaction.bend": "67f0e0dc4dee21381dab33bc242e6c9c67f64705ef8faea3e02b641270fa3519",
+        "experiments/s-integrate/held-adapter.bend": "ea9bce769439500a28ec9a266a23d3966e9ba5c44faeb108351d9aa2704a2c96",
+        "experiments/s-integrate/uncached-payload.bend": "a35ae64d1c1fd6c50082c0f75bca22a5e84d700493d1b3949fbb1c2e17b8cb55",
+        "experiments/s-integrate/query.bend": "38e5379abe64917762a7b97878f2e937b347220e0c36fa00700b068acbbc9079"
+      }
+    },
+    "candidate": {
+      "manifestSHA256": "d57a9a182b97589e6ea4a23f06b9363c5da961582988f10ac3bcc01688fd0b44",
+      "runtimeSources": {
+        "experiments/s-integrate/prototype-static-client.bend": "1a9d22180604433d91e6572679761f660b89b093ed5dbe2ad783859fb05d7a51",
+        "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+        "experiments/s-integrate/measurement-bend.bend": "43cd36f611f1691c93da36920d75bd7676bf66d0d2975a954362f2640006ac97",
+        "experiments/s-integrate/held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+        "experiments/s-integrate/transaction-dispatch-adapters.bend": "f2276c1c16ad3694ab8a253f97da892df3a1db81b621cd80018b1376d79d490d",
+        "experiments/s-integrate/cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+        "experiments/s-integrate/systems.bend": "32e11a5a89b01e8db00f0b58a9fd1e2da87f4882189725b0012933421b6b1716",
+        "experiments/s-integrate/identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+        "experiments/s-integrate/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+        "experiments/s-integrate/reader-host.bend": "26eb687a8fb1893b55e4a0c7c8a629b688e37466e169cb3c95dd5273a553db6d",
+        "experiments/s-integrate/audited-invoker.bend": "6ad63360f72ab8358441f2ca0c2281d729899bb3933c26234af2ff7c7fe5bb7c",
+        "experiments/s-integrate/cached-payload.bend": "354bb1ddb9dbd90a64138aa0e0ea4dd499a1a9345b3e94940c183dc16390db82",
+        "experiments/s-integrate/observations.bend": "35b2c98a7bd8fb390919dac80f9cec245dddad62da6aebfea2540cdcc84873b1",
+        "experiments/s-integrate/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+        "experiments/s-integrate/structural-invoker.bend": "8e1269193d719b1f0ea68b040c62e8966160bacb898ac51caa2f6494f4621e0a",
+        "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+        "experiments/s-integrate/commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+        "experiments/s-integrate/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+        "experiments/s-integrate/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+        "experiments/s-integrate/readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+        "experiments/s-integrate/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+        "experiments/s-integrate/raw-boundaries.bend": "77dbad2365e0499ae4e9e6a5ae7dd67b5a2ebcc5be163de56d0e836781f70a2f",
+        "experiments/s-integrate/streams.bend": "291d9a46ad58bdc481a5710976e01b762f6e11be3aeba07076c46c69f236d2c0",
+        "experiments/s-integrate/host.bend": "2207269eb56458c6430246a5cca743ca57a98cbb5e213031ec5f050cae37d3e3",
+        "experiments/s-integrate/storage.bend": "185c5fe6c6d81608b0e3dae4416d32bcbc6f74a50dbb5b28120cc5d1d9400c7a",
+        "experiments/s-integrate/transaction.bend": "67f0e0dc4dee21381dab33bc242e6c9c67f64705ef8faea3e02b641270fa3519",
+        "experiments/s-integrate/uncached-payload.bend": "a35ae64d1c1fd6c50082c0f75bca22a5e84d700493d1b3949fbb1c2e17b8cb55",
+        "experiments/s-integrate/query.bend": "38e5379abe64917762a7b97878f2e937b347220e0c36fa00700b068acbbc9079",
+        "experiments/s-integrate/held-adapter.bend": "eba51d553139f559f8d479b9ca44bfe898c95514a6f9597714069c6acec6ac14"
+      }
+    },
+    "baseline-native": {
+      "path": "/tmp/bendvy-clang19-diagnostic/motion-candidate.native",
+      "SHA256": "dc323a124f01c813a00574fd576bcc3309147ea4973ed80014ccf92751ebaaaa"
+    },
+    "candidate-native": {
+      "path": "/tmp/bendvy-row-owner-split-motion-build/batch-native",
+      "SHA256": "77d2a4583c9e98aceee026a436275f55695a5836f2a690e6ce1bf1e11008469e"
+    },
+    "baseline-js": {
+      "path": "/tmp/bendvy-query-frozen-provider-motion-build-v2/batch.js",
+      "SHA256": "5a2a5b3e6498b6cb6541cc8a1f4ce0ad45347c05f29365649a804a8e03516606"
+    },
+    "candidate-js": {
+      "path": "/tmp/bendvy-row-owner-split-motion-build/batch.js",
+      "SHA256": "73dcfe041b554aa7eed3b0660283a6512a873748ec922eea3b1a43b4c1bbde45"
+    },
+    "reference": {
+      "sourceSHA256": "ecfd1b590964fb76fb69a7a28e9dffa05b631592f47a52f11921ffaec25253b6",
+      "derivedSHA256": "644022682476c10f8232681349baecdb7d860d37a218aaec38c3633beaf024fe"
+    }
+  },
+  "phaseMS": {
+    "TS": 294.44351699999993,
+    "baseline-Native": 381.0,
+    "candidate-Native": 276.0,
+    "baseline-JS": 465.0,
+    "candidate-JS": 387.0
+  },
+  "allFullFieldsEqual": true
+}

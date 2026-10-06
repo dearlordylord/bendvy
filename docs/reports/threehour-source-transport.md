@@ -48,3 +48,7 @@ Independent actual row-owner Native attribution passes65 fresh TS full worlds. R
 Flat query+flat Held exact disjoint join has Motion full65, general-query lifecycle/mutants and reached authority controls. Health JS full65 times out under5; no joined all-gate acceptance. Initial root same-CPU Motion overlap and relative-import boundary failures are retained and corrected with unchanged limits/oracles. This partial join is preserved separately rather than accepted from prior candidate receipts.
 
 Closed private storage/commands/host specialization preserves original public generic definitions and arbitrary Type components. Actual byte-identical-C inspection removes original storage wildcard seeds; next first seed is streams.append_buffer→count. Global hotness persists. Additional closure is being investigated; no compiler/kernel change or global-resolution claim.
+
+## Unprofiled source observations (03:45 UTC)
+
+After safe owned-worker boundaries, one exact full65 adjacent comparison/schema passes all fields. Motion TS294.443517ms, frozen19 Native381/row276, frozen JS465/row387. Health TS319.907692ms, Native342/303, JS742/842. Candidate elapsed/TS Motion JS1.3143/Native0.9374; Health JS2.6320/Native0.9471. Both goals remain unmet and Health JS adverse result is retained. These are individual diagnostics, not unknown-noise qualification or measured-improvement acceptance. Workers resume source investigations; actual Health JS receives a separate phase profile.
