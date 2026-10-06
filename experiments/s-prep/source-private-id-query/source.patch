@@ -1,0 +1,155 @@
+--- a/experiments/s-integrate/query.bend
++++ b/experiments/s-integrate/query.bend
+@@ -280,3 +280,55 @@
+   match world:
+     case S.World{+namespace,next,rows,pending,ledger,mode}:
+       each_return(Schema,M,A,F,L,Mode,S.Handle<Schema>,namespace,next,pending,ledger,mode,prototype_identity_read_rows(~Schema,~M,~A,~F,rows,selection,namespace))
++
++def prototype_cursor_restore_state(-Schema:Data,-M:Type,-A:Type,-F:Data,+id:U32,+namespace:U32,aux:Array<Maybe<A>>,live:Array<Bool>,flags:Array<Maybe<&2,F>>,added:Array<U32>,changed:Array<U32>,values:List<&2,U32>,result:Array<Maybe<M>> & Maybe<M>) -> StructColsState<M,A,F,U32>:
++  match result:
++    case Tuple{main,None{}}: StructColsState{main,aux,live,flags,added,changed,values}
++    case Tuple{main,Some{owner}}: StructColsState{Array.set(Maybe<M>,main,U32.sub(id,1),Some{owner}),aux,live,flags,added,changed,id <> values}
++def prototype_cursor_inspect_state(-Schema:Data,-M:Type,-A:Type,-F:Data,+id:U32,+namespace:U32,main:Array<Maybe<M>>,aux:Array<Maybe<A>>,live:Array<Bool>,flags:Array<Maybe<&2,F>>,added:Array<U32>,changed:Array<U32>,values:List<&2,U32>) -> StructColsState<M,A,F,U32>:
++  prototype_cursor_restore_state(Schema,M,A,F,id,namespace,aux,live,flags,added,changed,values,Array.swap(Maybe<M>,main,U32.sub(id,1),None{}))
++
++def prototype_cursor_struct_idx_selected(~Schema: Data,~M: Type,~A: Type,~F: Data,include: Bool,+id: U32,namespace: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,live: Array<Bool>,flags: Array<Maybe<&2,F>>,added: Array<U32>,changed: Array<U32>,values: List<&2,U32>,flag: Maybe<&2,F>) -> StructColsState<M,A,F,U32>:
++  match include:
++    case False{}: StructColsState{main,aux,live,flags,added,changed,values}
++    case True{}: prototype_cursor_inspect_state(Schema,M,A,F,id,namespace,main,aux,live,flags,added,changed,values)
++
++def prototype_cursor_struct_idx_metadata(~Schema: Data,~M: Type,~A: Type,~F: Data,id: U32,namespace: U32,selection: Selection,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,values: List<&2,U32>,live: Array<Bool>,added: Array<U32>,changed: Array<U32>,value: Bool,result: Array<Maybe<&2,F>> & Maybe<&2,F>) -> StructColsState<M,A,F,U32>:
++  match value result:
++    case False{} Tuple{flags,_}: StructColsState{main,aux,live,flags,added,changed,values}
++    case True{} Tuple{flags,+flag}: prototype_cursor_struct_idx_selected(~Schema,~M,~A,~F,selected(F,selection,flag),id,namespace,main,aux,live,flags,added,changed,values,flag)
++
++def prototype_cursor_struct_cols_live(~Schema: Data,~M: Type,~A: Type,~F: Data,+id: U32,namespace: U32,selection: Selection,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,values: List<&2,U32>,flags: Array<Maybe<&2,F>>,added: Array<U32>,changed: Array<U32>,result: Array<Bool> & Bool) -> StructColsState<M,A,F,U32>:
++  match result:
++    case Tuple{live,False{}}: StructColsState{main,aux,live,flags,added,changed,values}
++    case Tuple{live,True{}}: prototype_cursor_struct_idx_metadata(~Schema,~M,~A,~F,id,namespace,selection,main,aux,values,live,added,changed,True{},Array.get(Maybe<&2,F>,flags,U32.sub(id,1)))
++
++def prototype_cursor_struct_idx_advance(~Schema: Data,~M: Type,~A: Type,~F: Data,valid: Bool,+id: U32,namespace: U32,selection: Selection,state: StructColsState<M,A,F,U32>) -> StructColsState<M,A,F,U32>:
++  match valid state:
++    case False{} state: state
++    case True{} StructColsState{main,aux,live,flags,added,changed,values}:
++      prototype_cursor_struct_cols_live(~Schema,~M,~A,~F,id,namespace,selection,main,aux,values,flags,added,changed,Array.get(Bool,live,U32.sub(id,1)))
++
++def prototype_cursor_struct_idx_go(~Schema: Data,~M: Type,~A: Type,~F: Data,remaining: Nat,+id: U32,+capacity: U32,+depth: Nat,+high: U32,+selection: Selection,+namespace: U32,state: StructColsState<M,A,F,U32>) -> S.Rows<M,A,F> & List<&2,U32>:
++  match remaining:
++    case 0n: struct_cols_finish(M,A,F,U32,capacity,depth,high,state)
++    case 1n++rest: prototype_cursor_struct_idx_go(~Schema,~M,~A,~F,rest,U32.add(id,1),capacity,depth,high,selection,namespace,prototype_cursor_struct_idx_advance(~Schema,~M,~A,~F,Bool.and((0 < id : U32),(id <= capacity : U32)),id,namespace,selection,state))
++
++def prototype_cursor_read_rows(~Schema: Data,~M: Type,~A: Type,~F: Data,rows: S.Rows<M,A,F>,selection: Selection,namespace: U32) -> S.Rows<M,A,F> & List<&2,U32>:
++  match rows:
++    case S.Rows{main,aux,S.MetadataColumns{live,flags,added,changed},capacity,depth,+high}:
++      prototype_cursor_struct_idx_go(~Schema,~M,~A,~F,U32.to_nat(high),1,capacity,depth,high,selection,namespace,StructColsState{main,aux,live,flags,added,changed,[]})
++
++def prototype_cursor_ids(~Schema: Data,~M: Type,~A: Type,~F: Data,~L:Type,~Mode:Data,selection: Selection,world: S.World<Schema,M,A,F,L,Mode>) -> S.World<Schema,M,A,F,L,Mode> & List<&2,U32>:
++  match world:
++    case S.World{+namespace,next,rows,pending,ledger,mode}:
++      each_return(Schema,M,A,F,L,Mode,U32,namespace,next,pending,ledger,mode,prototype_cursor_read_rows(~Schema,~M,~A,~F,rows,selection,namespace))
++
++type PrototypeIdCursor<-Schema:Data> is Type:
++  PrototypeIdCursor{namespace:U32,ids:List<&2,U32>}
++def prototype_cursor_return(-Schema:Data,-M:Type,-A:Type,-F:Data,-L:Type,-Mode:Data,namespace:U32,result:S.World<Schema,M,A,F,L,Mode> & List<&2,U32>) -> S.World<Schema,M,A,F,L,Mode> & PrototypeIdCursor<Schema>:
++  match result:
++    case (world,ids): (world,PrototypeIdCursor{namespace,ids})
++def prototype_cursor_each(~Schema:Data,~M:Type,~A:Type,~F:Data,~L:Type,~Mode:Data,selection:Selection,world:S.World<Schema,M,A,F,L,Mode>) -> S.World<Schema,M,A,F,L,Mode> & PrototypeIdCursor<Schema>:
++  match world:
++    case S.World{+namespace,next,rows,pending,ledger,mode}: prototype_cursor_return(Schema,M,A,F,L,Mode,namespace,prototype_cursor_ids(~Schema,~M,~A,~F,~L,~Mode,selection,S.World{namespace,next,rows,pending,ledger,mode}))
+--- a/experiments/s-integrate/held-adapter.bend
++++ b/experiments/s-integrate/held-adapter.bend
+@@ -1,4 +1,5 @@
+ import Base
++import ./query.bend as Q
+ import ./types.bend as T
+ import ./storage.bend as S
+ import ./transaction.bend as X
+@@ -785,3 +786,26 @@
+ def prototype_packed_prototype_flatfold_health(~client:@-Owner:Type -> @-get:(Owner -> T.VitalsToken -> Owner & T.Access<T.VitalsView>) -> @-set:(Owner -> T.VitalsToken -> U32 -> Owner) -> @-ledger:(Owner -> T.HealthLedgerToken -> Owner & Maybe<&2,T.LedgerView>) -> @-setledger:(Owner -> T.HealthLedgerToken -> U32 -> Owner) -> Owner -> Owner & U32,handles:List<&2,S.Handle<T.HealthSchema>>,owner:X.PrototypeFlatTx<T.HealthSchema,S.World<T.HealthSchema,P.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Command<P.PrototypeHealthMainSlot,T.Armor,T.Tracked>>,total:U32) -> X.PrototypeFlatTx<T.HealthSchema,S.World<T.HealthSchema,P.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Command<P.PrototypeHealthMainSlot,T.Armor,T.Tracked>> & U32:
+   prototype_packed_prototype_journalledger_health(~client,handles,owner,total)
+ 
++
++
++def prototype_cursor_flatfold_motion_loop(~client:@-Owner:Type -> @-get:(Owner -> T.PositionToken -> Owner & T.Access<T.PositionView>) -> @-set:(Owner -> T.PositionToken -> U32 -> Owner) -> @-ledger:(Owner -> T.MotionLedgerToken -> Owner & Maybe<&2,T.LedgerView>) -> @-setledger:(Owner -> T.MotionLedgerToken -> U32 -> Owner) -> Owner -> Owner & U32,+namespace:U32,handles:List<&2,U32>,state:PrototypeFlatFold<T.MotionSchema,P.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>) -> PrototypeFlatFold<T.MotionSchema,P.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>:
++  match handles:
++    case Nil{}: state
++    case Con{handle,rest}: prototype_cursor_flatfold_motion_loop(~client,namespace,rest,prototype_packed_prototype_flatfold_motion_step(~client,S.Handle{namespace,handle},state))
++
++def prototype_cursor_flatfold_motion(~client:@-Owner:Type -> @-get:(Owner -> T.PositionToken -> Owner & T.Access<T.PositionView>) -> @-set:(Owner -> T.PositionToken -> U32 -> Owner) -> @-ledger:(Owner -> T.MotionLedgerToken -> Owner & Maybe<&2,T.LedgerView>) -> @-setledger:(Owner -> T.MotionLedgerToken -> U32 -> Owner) -> Owner -> Owner & U32,cursor:Q.PrototypeIdCursor<T.MotionSchema>,owner:X.PrototypeFlatTx<T.MotionSchema,S.World<T.MotionSchema,P.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Command<P.PrototypeMotionMainSlot,T.Velocity,T.Selected>>,total:U32) -> X.PrototypeFlatTx<T.MotionSchema,S.World<T.MotionSchema,P.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Command<P.PrototypeMotionMainSlot,T.Velocity,T.Selected>> & U32:
++  match cursor:
++    case Q.PrototypeIdCursor{namespace,handles}: prototype_packed_prototype_flatfold_motion_finish(prototype_cursor_flatfold_motion_loop(~client,namespace,handles,prototype_packed_prototype_flatfold_motion_pack(owner,total)))
++
++
++# Private persistent packed Health Main route.
++
++def prototype_cursor_flatfold_health_loop(~client:@-Owner:Type -> @-get:(Owner -> T.VitalsToken -> Owner & T.Access<T.VitalsView>) -> @-set:(Owner -> T.VitalsToken -> U32 -> Owner) -> @-ledger:(Owner -> T.HealthLedgerToken -> Owner & Maybe<&2,T.LedgerView>) -> @-setledger:(Owner -> T.HealthLedgerToken -> U32 -> Owner) -> Owner -> Owner & U32,+namespace:U32,handles:List<&2,U32>,state:PrototypeFlatFold<T.HealthSchema,P.PrototypeHealthMainSlot,T.Armor,T.Tracked,PrototypeJournalLedger<T.LedgerView>,T.HealthMode>) -> PrototypeFlatFold<T.HealthSchema,P.PrototypeHealthMainSlot,T.Armor,T.Tracked,PrototypeJournalLedger<T.LedgerView>,T.HealthMode>:
++  match handles:
++    case Nil{}: state
++    case Con{handle,rest}: prototype_cursor_flatfold_health_loop(~client,namespace,rest,prototype_packed_prototype_journalledger_health_step(~client,S.Handle{namespace,handle},state))
++
++def prototype_cursor_flatfold_health(~client:@-Owner:Type -> @-get:(Owner -> T.VitalsToken -> Owner & T.Access<T.VitalsView>) -> @-set:(Owner -> T.VitalsToken -> U32 -> Owner) -> @-ledger:(Owner -> T.HealthLedgerToken -> Owner & Maybe<&2,T.LedgerView>) -> @-setledger:(Owner -> T.HealthLedgerToken -> U32 -> Owner) -> Owner -> Owner & U32,cursor:Q.PrototypeIdCursor<T.HealthSchema>,owner:X.PrototypeFlatTx<T.HealthSchema,S.World<T.HealthSchema,P.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Command<P.PrototypeHealthMainSlot,T.Armor,T.Tracked>>,total:U32) -> X.PrototypeFlatTx<T.HealthSchema,S.World<T.HealthSchema,P.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Command<P.PrototypeHealthMainSlot,T.Armor,T.Tracked>> & U32:
++  match cursor:
++    case Q.PrototypeIdCursor{namespace,handles}: prototype_packed_prototype_journalledger_health_finish(prototype_cursor_flatfold_health_loop(~client,namespace,handles,prototype_packed_prototype_journalledger_health_pack(owner,total)))
++
+--- a/experiments/s-integrate/measurement-bend.bend
++++ b/experiments/s-integrate/measurement-bend.bend
+@@ -448,8 +448,8 @@
+     args(values)
+ 
+ # Private persistent packed Main route; original definitions retained.
+-def prototype_packed_motion_handles(world:S.World<T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>) -> S.World<T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode> & List<&2,S.Handle<T.MotionSchema>>:
+-  Q.prototype_identity_each(T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,Q.Required{},world)
++def prototype_packed_motion_handles(world:S.World<T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>) -> S.World<T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode> & Q.PrototypeIdCursor<T.MotionSchema>:
++  Q.prototype_cursor_each(T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,Q.Required{},world)
+ 
+ # Trusted measurement adapter; callback below never sees Tx representation.
+ type prototype_packed_MotionBench is Type:
+@@ -537,14 +537,14 @@
+ def prototype_packed_prototype_flat_motion_rows_next(result:X.PrototypeFlatTx<T.MotionSchema,S.World<T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Command<CP.PrototypeMotionMainSlot,T.Velocity,T.Selected>> & U32,total:U32) -> prototype_packed_PrototypeFlatMotionRows:
+   match result:
+     case (owner,value): prototype_packed_PrototypeFlatMotionRows{owner,U32.add(total,value)}
+-def prototype_packed_prototype_flat_motion_rows(handles:List<&2,S.Handle<T.MotionSchema>>,state:prototype_packed_PrototypeFlatMotionRows) -> prototype_packed_PrototypeFlatMotionRows:
+-  match state:
+-    case prototype_packed_PrototypeFlatMotionRows{owner,total}: prototype_packed_prototype_flat_motion_rows_next(HA.prototype_packed_prototype_flatfold_motion(~SC.motion_body,handles,owner,total),0)
++def prototype_packed_prototype_flat_motion_rows(handles:Q.PrototypeIdCursor<T.MotionSchema>,state:prototype_packed_PrototypeFlatMotionRows) -> prototype_packed_PrototypeFlatMotionRows:
++  match state:
++    case prototype_packed_PrototypeFlatMotionRows{owner,total}: prototype_packed_prototype_flat_motion_rows_next(HA.prototype_cursor_flatfold_motion(~SC.motion_body,handles,owner,total),0)
+ 
+ def prototype_packed_prototype_flat_motion_updated(+sparse:Bool,count:U32,logs:RH.Logs<T.MotionSchema,T.MotionPing>,bindings:List<&2,E.Binding<T.MotionSchema>>,name:String,step:String,prior:D.DispatchOutcome,events:List<&2,E.TraceEvent<T.MotionSchema,T.PositionView,T.VelocityView,T.Selected,T.LedgerView,T.MotionMode,T.MotionPing>>,audit:Maybe<D.Audit>,run:Maybe<R.Run>,+clock:R.Clock,result:prototype_packed_PrototypeFlatMotionRows) -> IO(D.Invoked<prototype_packed_MotionBench,S.Handle<T.MotionSchema>>):
+   match result:
+     case prototype_packed_PrototypeFlatMotionRows{owner,total}: prototype_packed_motion_committed(sparse,total,count,logs,bindings,name,step,prior,events,audit,run,clock,prototype_packed_motion_committed_queries(sparse,X.prototype_flat_storage_commit(~T.MotionSchema,~CP.PrototypeMotionMainSlot,~T.Velocity,~T.Selected,~CC.Cache<T.MotionLedger,T.LedgerView>,~T.MotionMode,X.prototype_flat_finish_success(~T.MotionSchema,~S.World<T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,~S.Command<CP.PrototypeMotionMainSlot,T.Velocity,T.Selected>,owner),D.clock_tick(clock))))
+-def prototype_packed_prototype_flat_motion_queried(sparse:Bool,total:U32,count:U32,logs:RH.Logs<T.MotionSchema,T.MotionPing>,bindings:List<&2,E.Binding<T.MotionSchema>>,name:String,step:String,prior:D.DispatchOutcome,events:List<&2,E.TraceEvent<T.MotionSchema,T.PositionView,T.VelocityView,T.Selected,T.LedgerView,T.MotionMode,T.MotionPing>>,audit:Maybe<D.Audit>,run:Maybe<R.Run>,clock:R.Clock,pair:S.World<T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode> & List<&2,S.Handle<T.MotionSchema>>) -> IO(D.Invoked<prototype_packed_MotionBench,S.Handle<T.MotionSchema>>):
++def prototype_packed_prototype_flat_motion_queried(sparse:Bool,total:U32,count:U32,logs:RH.Logs<T.MotionSchema,T.MotionPing>,bindings:List<&2,E.Binding<T.MotionSchema>>,name:String,step:String,prior:D.DispatchOutcome,events:List<&2,E.TraceEvent<T.MotionSchema,T.PositionView,T.VelocityView,T.Selected,T.LedgerView,T.MotionMode,T.MotionPing>>,audit:Maybe<D.Audit>,run:Maybe<R.Run>,clock:R.Clock,pair:S.World<T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode> & Q.PrototypeIdCursor<T.MotionSchema>) -> IO(D.Invoked<prototype_packed_MotionBench,S.Handle<T.MotionSchema>>):
+   match pair:
+     case (world,handles): prototype_packed_prototype_flat_motion_updated(sparse,count,logs,bindings,name,step,prior,events,audit,run,clock,prototype_packed_prototype_flat_motion_rows(handles,prototype_packed_PrototypeFlatMotionRows{X.prototype_flat_pack(~T.MotionSchema,~S.World<T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,~S.Command<CP.PrototypeMotionMainSlot,T.Velocity,T.Selected>,X.tx_begin(S.World<T.MotionSchema,CP.PrototypeMotionMainSlot,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<CP.PrototypeMotionMainSlot,T.Velocity,T.Selected>,world,S.Handle{0,0})),total}))
+ 
+@@ -615,8 +615,8 @@
+ 
+ 
+ # Private persistent packed Health Main route.
+-def prototype_packed_health_handles(world:S.World<T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>) -> S.World<T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode> & List<&2,S.Handle<T.HealthSchema>>:
+-  Q.prototype_identity_each(T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,Q.Required{},world)
++def prototype_packed_health_handles(world:S.World<T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>) -> S.World<T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode> & Q.PrototypeIdCursor<T.HealthSchema>:
++  Q.prototype_cursor_each(T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,Q.Required{},world)
+ 
+ type prototype_packed_HealthBench is Type:
+   prototype_packed_HealthBench{host:H.prototype_packed_HealthHost(),sparse:Bool,readsum:U32,calls:U32}
+@@ -703,14 +703,14 @@
+ def prototype_packed_prototype_flat_health_rows_next(result:X.PrototypeFlatTx<T.HealthSchema,S.World<T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Command<CP.PrototypeHealthMainSlot,T.Armor,T.Tracked>> & U32,total:U32) -> prototype_packed_PrototypeFlatHealthRows:
+   match result:
+     case (owner,value): prototype_packed_PrototypeFlatHealthRows{owner,U32.add(total,value)}
+-def prototype_packed_prototype_flat_health_rows(handles:List<&2,S.Handle<T.HealthSchema>>,state:prototype_packed_PrototypeFlatHealthRows) -> prototype_packed_PrototypeFlatHealthRows:
+-  match state:
+-    case prototype_packed_PrototypeFlatHealthRows{owner,total}: prototype_packed_prototype_flat_health_rows_next(HA.prototype_packed_prototype_flatfold_health(~SC.health_body,handles,owner,total),0)
++def prototype_packed_prototype_flat_health_rows(handles:Q.PrototypeIdCursor<T.HealthSchema>,state:prototype_packed_PrototypeFlatHealthRows) -> prototype_packed_PrototypeFlatHealthRows:
++  match state:
++    case prototype_packed_PrototypeFlatHealthRows{owner,total}: prototype_packed_prototype_flat_health_rows_next(HA.prototype_cursor_flatfold_health(~SC.health_body,handles,owner,total),0)
+ 
+ def prototype_packed_prototype_flat_health_updated(+sparse:Bool,count:U32,logs:RH.Logs<T.HealthSchema,T.HealthPing>,bindings:List<&2,E.Binding<T.HealthSchema>>,name:String,step:String,prior:D.DispatchOutcome,events:List<&2,E.TraceEvent<T.HealthSchema,T.VitalsView,T.ArmorView,T.Tracked,T.LedgerView,T.HealthMode,T.HealthPing>>,audit:Maybe<D.Audit>,run:Maybe<R.Run>,+clock:R.Clock,result:prototype_packed_PrototypeFlatHealthRows) -> IO(D.Invoked<prototype_packed_HealthBench,S.Handle<T.HealthSchema>>):
+   match result:
+     case prototype_packed_PrototypeFlatHealthRows{owner,total}: prototype_packed_health_committed(sparse,total,count,logs,bindings,name,step,prior,events,audit,run,clock,prototype_packed_health_committed_queries(sparse,X.prototype_flat_storage_commit(~T.HealthSchema,~CP.PrototypeHealthMainSlot,~T.Armor,~T.Tracked,~CC.Cache<T.HealthLedger,T.LedgerView>,~T.HealthMode,X.prototype_flat_finish_success(~T.HealthSchema,~S.World<T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,~S.Command<CP.PrototypeHealthMainSlot,T.Armor,T.Tracked>,owner),D.clock_tick(clock))))
+-def prototype_packed_prototype_flat_health_queried(sparse:Bool,total:U32,count:U32,logs:RH.Logs<T.HealthSchema,T.HealthPing>,bindings:List<&2,E.Binding<T.HealthSchema>>,name:String,step:String,prior:D.DispatchOutcome,events:List<&2,E.TraceEvent<T.HealthSchema,T.VitalsView,T.ArmorView,T.Tracked,T.LedgerView,T.HealthMode,T.HealthPing>>,audit:Maybe<D.Audit>,run:Maybe<R.Run>,clock:R.Clock,pair:S.World<T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode> & List<&2,S.Handle<T.HealthSchema>>) -> IO(D.Invoked<prototype_packed_HealthBench,S.Handle<T.HealthSchema>>):
++def prototype_packed_prototype_flat_health_queried(sparse:Bool,total:U32,count:U32,logs:RH.Logs<T.HealthSchema,T.HealthPing>,bindings:List<&2,E.Binding<T.HealthSchema>>,name:String,step:String,prior:D.DispatchOutcome,events:List<&2,E.TraceEvent<T.HealthSchema,T.VitalsView,T.ArmorView,T.Tracked,T.LedgerView,T.HealthMode,T.HealthPing>>,audit:Maybe<D.Audit>,run:Maybe<R.Run>,clock:R.Clock,pair:S.World<T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode> & Q.PrototypeIdCursor<T.HealthSchema>) -> IO(D.Invoked<prototype_packed_HealthBench,S.Handle<T.HealthSchema>>):
+   match pair:
+     case (world,handles): prototype_packed_prototype_flat_health_updated(sparse,count,logs,bindings,name,step,prior,events,audit,run,clock,prototype_packed_prototype_flat_health_rows(handles,prototype_packed_PrototypeFlatHealthRows{X.prototype_flat_pack(~T.HealthSchema,~S.World<T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,~S.Command<CP.PrototypeHealthMainSlot,T.Armor,T.Tracked>,X.tx_begin(S.World<T.HealthSchema,CP.PrototypeHealthMainSlot,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<CP.PrototypeHealthMainSlot,T.Armor,T.Tracked>,world,S.Handle{0,0})),total}))
+ 
