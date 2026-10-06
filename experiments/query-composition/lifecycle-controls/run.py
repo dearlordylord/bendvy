@@ -4,6 +4,7 @@ import hashlib
 import json
 import os
 import subprocess
+import shutil
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -49,6 +50,25 @@ def main():
             actual = run(cmd, 5, name + '-' + backend)
             assert actual == expected, f'{name}/{backend}: {actual!r} != {expected!r}'
             receipt['observations'][name][backend] = actual
+    mutant_root = OUT / 'own-write-mutant'
+    for source in sources:
+        target = mutant_root / source.relative_to(ROOT)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source, target)
+    mutated_system = mutant_root / 'src/ecs/system.bend'
+    original_text = mutated_system.read_text()
+    target = 'Succeeded{world,output},registry,clock)'
+    assert original_text.count(target) == 1
+    mutated_system.write_text(original_text.replace(target, 'Succeeded{world,output},registry,U32.sub(clock,1))'))
+    mutant_entry = mutant_root / 'experiments/query-composition/lifecycle-controls/self-writes.bend'
+    checked = run(['bend', mutant_entry, '--check-only'], 5, 'own-write-mutant-check')
+    assert 'ALL PROOFS CHECK' in checked
+    run(['bend', mutant_entry, '-o', OUT / 'own-write-mutant.js'], 30, 'own-write-mutant-emit')
+    mutant_output = run(['node', OUT / 'own-write-mutant.js'], 5, 'own-write-mutant-JS')
+    assert mutant_output != EXPECTED['self-writes'] and 'self-repeat:false;' in mutant_output
+    receipt['mutation'] = {'target': 'tracked_clock: postClock -> postClock-1',
+                           'sourceHash': sha(mutated_system), 'output': mutant_output,
+                           'status': 'DETECTED_OWN_WRITE_REPEAT'}
     for p in sources:
         assert sha(p) == receipt['sources'][str(p.relative_to(ROOT))], f'source changed: {p}'
     receipt['status'] = 'PASS_FINITE_LIFECYCLE_BOTH_BACKENDS'

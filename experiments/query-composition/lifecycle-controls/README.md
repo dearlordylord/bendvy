@@ -53,3 +53,9 @@ The caller-owned schema must use `Col.clear` for despawn cleanup. Full removal
 streams, retention policy, production clock policy and representative scaling
 remain full-core follow-ups; this list-backed metadata is a bounded implementation
 whose performance cost requires fresh application measurements.
+
+The runner also copies the frozen sources into its output directory, plants a
+compilable one-tick cursor omission (`postClock` becomes `postClock-1`) and runs
+the same actual query control on JS. The expected repeat suppression fails at
+`self-repeat`; the receipt records the mutant hash and complete output. This
+finite source mutation is detected without modifying the original source tree.

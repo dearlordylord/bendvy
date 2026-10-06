@@ -21,7 +21,7 @@
     "experiments/query-composition/lifecycle-controls/self-writes.bend": "5b1a894db9656940096a545526057f5d01456b586a3fd9a7ab1294575e146d6d",
     "experiments/query-composition/lifecycle-controls/stamps.bend": "e17330602171b7046fbae93a9fd4a13bc902e02c90353a324e0f5951b6b63650",
     "examples/user-simulation/schema.bend": "d6fbf524ab654c41a34e09eff93f4831fff719de01a83e6abb0553595ef31d80",
-    "experiments/query-composition/lifecycle-controls/run.py": "68881c9a011d9fdb8700cd5391787f5a7ca90954b53d5d88737542b18a1d803c",
+    "experiments/query-composition/lifecycle-controls/run.py": "3d27c2fe03c5b40be2e0fbee84496787f5e37c6013342af9e66ffa8cbddbe2f9",
     "experiments/query-composition/lifecycle-controls/self-writes-reference.mjs": "c46bb04863e6e8499f3d44799a4c46f7525ea48c884e9cd0006935f9e062b14f"
   },
   "commands": [
@@ -348,6 +348,36 @@
       "limitSeconds": 5,
       "exit": 0,
       "label": "boundaries-Native"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-lifecycle-controls/own-write-mutant/experiments/query-composition/lifecycle-controls/self-writes.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "label": "own-write-mutant-check"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-lifecycle-controls/own-write-mutant/experiments/query-composition/lifecycle-controls/self-writes.bend",
+        "-o",
+        "/tmp/bendvy-lifecycle-controls/own-write-mutant.js"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "label": "own-write-mutant-emit"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-lifecycle-controls/own-write-mutant.js"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "label": "own-write-mutant-JS"
     }
   ],
   "observations": {
@@ -390,5 +420,11 @@
         ]
       }
     ]
+  },
+  "mutation": {
+    "target": "tracked_clock: postClock -> postClock-1",
+    "sourceHash": "576c685e801475183a4587b91a610d2509ee38e9b8fc75630d1d7b702518f668",
+    "output": "self-first:false;self-repeat:false;self-failure:true;failed-self-stamp:false;restored-owner:true;self-retry:true;self-repeat-after-retry:false;\n",
+    "status": "DETECTED_OWN_WRITE_REPEAT"
   }
 }
