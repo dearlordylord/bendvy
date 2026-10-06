@@ -1,0 +1,100 @@
+{
+  "status": "BOUNDED_SLOT_STAGING_AND_REACHED_MUTANTS_PASS",
+  "closureSHA256": "4baad4960575cda216576e8b90593fbd7ed7dcd44cfa86836b8d87dd5af71f5c",
+  "sourceManifest": {
+    "experiments/s-integrate/audited-invoker.bend": "2c4a2fa6c271a4c2c38b518bd5f2cf62d15676ff65e6e9bf672119aad3a7a6b6",
+    "experiments/s-integrate/cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+    "experiments/s-integrate/cached-payload.bend": "977f91e225af0f3238829895109c47bd25ad5f1b5475e75435c4bd94b31c287f",
+    "experiments/s-integrate/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+    "experiments/s-integrate/commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+    "experiments/s-integrate/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+    "experiments/s-integrate/held-adapter.bend": "51f2fc1d9de8bfb778054128ad14ce06c4737fa9df6f1eb2d651d9e2a9fb80a8",
+    "experiments/s-integrate/held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+    "experiments/s-integrate/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+    "experiments/s-integrate/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+    "experiments/s-integrate/host.bend": "290b8ec33a3e2053ab7379aefff5978324050520dd9c0d419001dc8edf5f82ec",
+    "experiments/s-integrate/identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+    "experiments/s-integrate/measurement-bend.bend": "eedb90563721f0c1f97caffde83b7a93a691cdcaa59bd61141315472b98153f6",
+    "experiments/s-integrate/observations.bend": "35b2c98a7bd8fb390919dac80f9cec245dddad62da6aebfea2540cdcc84873b1",
+    "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "experiments/s-integrate/prototype-static-client.bend": "1a9d22180604433d91e6572679761f660b89b093ed5dbe2ad783859fb05d7a51",
+    "experiments/s-integrate/query.bend": "4a3af56012ea543274738b5d7891a787fbde643ec7f6c088a63a213a6dbf8982",
+    "experiments/s-integrate/raw-boundaries.bend": "9438dfe1ea17b9edae02518652663923807f85a037cfc4551ca63f289e2c18a6",
+    "experiments/s-integrate/reader-host.bend": "26eb687a8fb1893b55e4a0c7c8a629b688e37466e169cb3c95dd5273a553db6d",
+    "experiments/s-integrate/readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+    "experiments/s-integrate/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+    "experiments/s-integrate/storage.bend": "185c5fe6c6d81608b0e3dae4416d32bcbc6f74a50dbb5b28120cc5d1d9400c7a",
+    "experiments/s-integrate/streams.bend": "291d9a46ad58bdc481a5710976e01b762f6e11be3aeba07076c46c69f236d2c0",
+    "experiments/s-integrate/structural-invoker.bend": "790a73373e007f5f285f9656a880a8407aa78b73700cca829365ca5fcab61834",
+    "experiments/s-integrate/systems.bend": "5d3fd2c7afb3d51385ebe12b90bd6b1c4368f6e7fcb6027f144e97395e0cfa10",
+    "experiments/s-integrate/transaction-dispatch-adapters.bend": "928eb4ef837bec11636fc761fa7fdbaa803251f2e68fd597b936187ead040112",
+    "experiments/s-integrate/transaction.bend": "b2dcd35e95830766b8e1a51b7c8356e270b007c7066590d7caf999589218b51b",
+    "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+    "experiments/s-integrate/uncached-payload.bend": "a35ae64d1c1fd6c50082c0f75bca22a5e84d700493d1b3949fbb1c2e17b8cb55"
+  },
+  "positiveTypeCases": 2,
+  "intendedNegativeTypeCases": 10,
+  "runtimeFullCheckpoints": 40,
+  "foreignAPICalls": 100,
+  "actualTxStagedSlotPayloads": 640,
+  "compilingMutants": 4,
+  "mutantBackendSchemaRoles": 16,
+  "preparationFailures": [
+    {
+      "folder": "/tmp/bendvy-slot-staging-r1",
+      "status": "INCOMPLETE",
+      "error": "AssertionError()"
+    },
+    {
+      "folder": "/tmp/bendvy-slot-staging-host-r2",
+      "status": "INCOMPLETE",
+      "error": "AssertionError(({'argv': ['bend', '/tmp/bendvy-slot-staging-host-r2/core/motion-runtime.bend', '--check-only'], 'limitSeconds': 15, 'log': 'Motion-runtime-check.txt', 'exit': 1, 'sha256': '2cab0bf39388aa6deff1f11380b573e31a734bc57ab737f66959233d5b4c908e'}, 'SOME PROOFS FAIL\\nError:\\n- expected : 2 patterns (one per scrutinee)\\n- observed : \\'(owner,full) (world,now)\\'\\nLocation:\\n75 |   match payload current:\\n76>|     case (owner,full) (world,now): Bool.show(String.is_eq(prior,now)) ++ \"|\" ++ full ++ \"|\" ++ now\\n   |          ^^^^^^^^^^^^^^^^^^^^^^^^\\n77 | def foreign_despawn_result(+depth:Nat,prior:String,+foreign:S.Handle<T.MotionSchema>,result:T.CommandResult<S.World<T.MotionSchema,CP.PrototypeMotionMainSlot,Unit,Unit,Unit,Unit>,Unit>) -> String:\\n'))"
+    },
+    {
+      "folder": "/tmp/bendvy-slot-staging-host-r3",
+      "status": "INCOMPLETE",
+      "error": "NameError(\"name 'owner' is not defined\")"
+    },
+    {
+      "folder": "/tmp/bendvy-slot-staging-host-r4",
+      "status": "INCOMPLETE",
+      "error": "AssertionError(({'argv': ['bend', '/tmp/bendvy-slot-staging-host-r4/core/motion-runtime.bend', '--check-only'], 'limitSeconds': 15, 'log': 'Motion-runtime-check.txt', 'exit': 1, 'sha256': '7bbf51061824de8afef1c6608e9d357b73a8dfd8b9d21bd074a3df7b13d9d410'}, 'SOME PROOFS FAIL\\nError:\\n- expected : a defined name\\n- observed : Nat.to_u32\\nContext:\\n- depth : Nat\\n- seed  : U32\\nLocation: arr\\n13 | def arr(+depth:Nat,seed:U32) -> Array<U32>:\\n14>|   filled(U32.to_nat(U32.pow(2,Nat.to_u32(depth))),0,[0:U32^depth],seed)\\n   |                               ^^^^^^^^^^\\n15 | def arr_text_next(n:Nat,+i:U32,text:String,result:Array<U32> & U32) -> Array<U32> & String:\\n'))"
+    },
+    {
+      "folder": "/tmp/bendvy-slot-staging-host-r5",
+      "status": "INCOMPLETE",
+      "error": "AssertionError(({'argv': ['bend', '/tmp/bendvy-slot-staging-host-r5/core/motion-runtime.bend', '--check-only'], 'limitSeconds': 15, 'log': 'Motion-runtime-check.txt', 'exit': 1, 'sha256': 'b97144de61ced91f8c4cf0fec33183180e18579ae8e275e7967d3caf8dc716fe'}, 'SOME PROOFS FAIL\\nError:\\n- expected : a filled definition (an unfilled law is a dead claim: live code cannot use it)\\n- observed : arr_text\\nContext:\\n- n     : Nat\\n- i     : U32\\n- text  : String\\n- owner : Array<U32>\\n- value : U32\\nLocation: arr_text_next\\n16 |   match result:\\n17>|     case (owner,value): arr_text(n,i,text ++ U32.show(value) ++ \",\",owner)\\n   |                         ^^^^^^^^\\n18 | def arr_text(n:Nat,+i:U32,text:String,owner:Array<U32>) -> Array<U32> & String:\\n'))"
+    },
+    {
+      "folder": "/tmp/bendvy-slot-staging-host-r6",
+      "status": "INCOMPLETE",
+      "error": "AssertionError(({'argv': ['bend', '/tmp/bendvy-slot-staging-host-r6/core/motion-runtime.bend', '--check-only'], 'limitSeconds': 15, 'log': 'Motion-runtime-check.txt', 'exit': 1, 'sha256': '56da14188229c9b2e83b4a6608790ec063ca87c68eb9c59a306943df46819d87'}, 'SOME PROOFS FAIL\\nError:\\n- expected : cachedframe\\n- observed : cachedframe (consumed more than once)\\nContext:\\n- rawframe : U32\\n- a        : U32\\n- b        : U32\\n- c        : U32\\n- d        : U32\\nLocation: slot_done\\n23 |   CP.prototype_slot_position_new(T.Position{arr(depth,seed),17})\\n24>| def slot_done(rawframe:U32,a:U32,b:U32,c:U32,d:U32,cachedframe:U32,result:Array<U32> & String) -> CP.PrototypeMotionMainSlot & String:\\n   |                                                    ^^^^^^^^^^^\\n25 |   match result:\\n'))"
+    },
+    {
+      "folder": "/tmp/bendvy-slot-staging-host-r7",
+      "status": "INCOMPLETE",
+      "error": "AssertionError(({'argv': ['bend', '/tmp/bendvy-slot-staging-host-r7/core/motion-runtime.bend', '--check-only'], 'limitSeconds': 15, 'log': 'Motion-runtime-check.txt', 'exit': 1, 'sha256': '562ffbf135888e3be4eac84d4fcc970d06e9f0f21465eda346b8d040a717930e'}, 'SOME PROOFS FAIL\\nError:\\n- expected : a filled definition (an unfilled law is a dead claim: live code cannot use it)\\n- observed : finish_payload\\nContext:\\n- depth   : Nat\\n- prior   : String\\n- world   : S.World<T.MotionSchema, CP.PrototypeMotionMainSlot, Unit, Unit, Unit, Unit>\\n- payload : CP.PrototypeMotionMainSlot\\nLocation: finish_slot\\n71 |   match result:\\n72>|     case T.CommandMissing{world,payload}: finish_payload(prior,slot_text(depth,payload),snapshot(depth,world))\\n   |                                           ^^^^^^^^^^^^^^\\n73 |     case T.CommandQueued{world}: \"BAD_QUEUED\"\\n'))"
+    },
+    {
+      "folder": "/tmp/bendvy-slot-staging-host-r8",
+      "status": "INCOMPLETE",
+      "error": "AssertionError(({'argv': ['bend', '/tmp/bendvy-slot-staging-host-r8/core/motion-runtime.bend', '--check-only'], 'limitSeconds': 15, 'log': 'Motion-runtime-check.txt', 'exit': 1, 'sha256': 'f86f78d79da9c46deee2e875bb3bcfe4d350f9c08408af45ca9ab843b5e8a625'}, 'SOME PROOFS FAIL\\nError:\\n- expected : a defined name\\n- observed : String.is_eq\\nContext:\\n- prior : String\\n- owner : CP.PrototypeMotionMainSlot\\n- full  : String\\n- world : S.World<T.MotionSchema, CP.PrototypeMotionMainSlot, Unit, Unit, Unit, Unit>\\n- now   : String\\nLocation: finish_payload\\n71 |   match payload current:\\n72>|     case Tuple{owner,full} Tuple{world,now}: Bool.show(String.is_eq(prior,now)) ++ \"|\" ++ full ++ \"|\" ++ now\\n   |                                                        ^^^^^^^^^^^^\\n73 | def finish_slot(+depth:Nat,prior:String,result:T.CommandResult<S.World<T.MotionSchema,CP.PrototypeMotionMainSlot,Unit,Unit,Unit,Unit>,CP.PrototypeMotionMainSlot>) -> String:\\n'))"
+    },
+    {
+      "folder": "/tmp/bendvy-slot-staging-host-r9",
+      "status": "INCOMPLETE",
+      "error": "AssertionError(({'argv': ['bend', '/tmp/bendvy-slot-staging-host-r9/core/motion-runtime.bend', '--check-only'], 'limitSeconds': 15, 'log': 'Motion-runtime-check.txt', 'exit': 1, 'sha256': '78d59ffa092f4e67bc43b1198c8c60eb5292b7628bd548e1a19c5e6438c294f4'}, 'SOME PROOFS FAIL\\nError:\\n- expected : now\\n- observed : now (consumed more than once)\\nContext:\\n- prior : String\\n- owner : CP.PrototypeMotionMainSlot\\n- full  : String\\n- world : S.World<T.MotionSchema, CP.PrototypeMotionMainSlot, Unit, Unit, Unit, Unit>\\nLocation: finish_payload\\n71 |   match payload current:\\n72>|     case Tuple{owner,full} Tuple{world,now}: Bool.show(String.eq(prior,now)) ++ \"|\" ++ full ++ \"|\" ++ now\\n   |                                        ^^^\\n73 | def finish_slot(+depth:Nat,prior:String,result:T.CommandResult<S.World<T.MotionSchema,CP.PrototypeMotionMainSlot,Unit,Unit,Unit,Unit>,CP.PrototypeMotionMainSlot>) -> String:\\n'))"
+    },
+    {
+      "folder": "/tmp/bendvy-slot-staging-host-r10",
+      "status": "INCOMPLETE",
+      "error": "AssertionError(('Motion', 'JS', 'True|[90,]:17:90:90:90:90:17|insert:1:[30,]:17:30:30:30:30:17;flag:1;removeMain:1;removeFlag:1;despawn:1;spawn:2:[50,]:17:50:50:50:50:17;\\nTrue|[90,91,]:17:90:91:90:91:17|insert:1:[30,31,]:17:30:31:30:31:17;flag:1;removeMain:1;removeFlag:1;despawn:1;spawn:2:[50,51,]:17:50:51:50:51:17;\\nTrue|[90,91,92,93,]:17:90:91:92:93:17|insert:1:[30,31,32,33,]:17:30:31:32:33:17;flag:1;removeMain:1;removeFlag:1;despawn:1;spawn:2:[50,51,52,53,]:17:50:51:52:53:17;\\nTrue|[90,91,92,93,94,95,96,97,]:17:90:91:92:93:17|insert:1:[30,31,32,33,34,35,36,37,]:17:30:31:32:33:17;flag:1;removeMain:1;removeFlag:1;despawn:1;spawn:2:[50,51,52,53,54,55,56,57,]:17:50:51:52:53:17;\\nTrue|[90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,]:17:90:91:92:93:17|insert:1:[30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,]:17:30:31:32:33:17;flag:1;removeMain:1;removeFlag:1;despawn:1;spawn:2:[50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,]:17:50:51:52:53:17;\\n', 'true|[90,]:17:90:90:90:90:17|spawn:2:[50,]:17:50:50:50:50:17;despawn:1;removeFlag:1;removeMain:1;flag:1;insert:1:[30,]:17:30:30:30:30:17;\\ntrue|[90,91,]:17:90:91:90:91:17|spawn:2:[50,51,]:17:50:51:50:51:17;despawn:1;removeFlag:1;removeMain:1;flag:1;insert:1:[30,31,]:17:30:31:30:31:17;\\ntrue|[90,91,92,93,]:17:90:91:92:93:17|spawn:2:[50,51,52,53,]:17:50:51:52:53:17;despawn:1;removeFlag:1;removeMain:1;flag:1;insert:1:[30,31,32,33,]:17:30:31:32:33:17;\\ntrue|[90,91,92,93,94,95,96,97,]:17:90:91:92:93:17|spawn:2:[50,51,52,53,54,55,56,57,]:17:50:51:52:53:17;despawn:1;removeFlag:1;removeMain:1;flag:1;insert:1:[30,31,32,33,34,35,36,37,]:17:30:31:32:33:17;\\ntrue|[90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,]:17:90:91:92:93:17|spawn:2:[50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,]:17:50:51:52:53:17;despawn:1;removeFlag:1;removeMain:1;flag:1;insert:1:[30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,]:17:30:31:32:33:17;\\n'))"
+    }
+  ],
+  "archive": {
+    "sha256": "a3f7b92688f493e7620730e9b7f25bd152a80b2838bd4fb501257909b7eea8f9",
+    "bytes": 2957035,
+    "members": 396
+  },
+  "limits": "Finite Main Slot staging/ingress only; no Host runtime/full22, universal refinement, proofs or performance acceptance."
+}
