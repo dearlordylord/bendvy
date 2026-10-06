@@ -1,0 +1,20 @@
+{
+  "scope": "Executed literal/closure construction sites, not exact physical heap allocations/bytes; instrumentation changes escape optimization and JIT",
+  "baseline": 10086976,
+  "threeStages": 7858240,
+  "fourStages": 7333952,
+  "delta": -2753024,
+  "pointCallbacks": 131072,
+  "kindDeltas": {
+    "object:Tuple": -786944,
+    "storage.Rows": -131072,
+    "held.Held": -524288,
+    "storage.World": -131072,
+    "types.PositionToken": -262144,
+    "types.MotionLedgerToken": -262144,
+    "transaction.Tx": -131072,
+    "cache.Cache": -524288
+  },
+  "allOtherKindsEqual": true,
+  "closuresEqual": true
+}
