@@ -1,0 +1,30 @@
+{
+  "scope": "Batched marks Motion diagnostic build, no acceptance",
+  "commands": [
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-batched-marks-batch/batch.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 15,
+      "exit": 0,
+      "seconds": 5.443415212910622,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-batched-marks-batch/batch.bend",
+        "-o",
+        "/tmp/bendvy-batched-marks-batch/batch.js"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "seconds": 5.884145084070042,
+      "output": ""
+    }
+  ],
+  "status": "CHECKER_AND_JS_CODEGEN_PASS",
+  "generatedSHA256": "2a758edd3c2e5ab36a2fa990569462992750cd67a475b13b38f9892ea640e233"
+}

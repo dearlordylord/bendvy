@@ -29,12 +29,63 @@ def fused_presence(text,cached_text=None):
             assert 'H.main_write' not in body and 'H.ledger_write' not in body,'mixed generic/fused writer'
     return True
 
+def main_sites(text):
+    """Select the actual guarded owner family; refuse partial/mixed catalogs."""
+    d=defs(text)
+    flat=['prototype_flat_'+p+'_set_done' for p in ('motion','health')]
+    present=[name in d for name in flat]
+    assert not any(present) or all(present), 'partial flat writer catalog'
+    boxed=['prototype_boxed_'+p+'_set_fused_done' for p in ('motion','health')]
+    boxed_present=[name in d for name in boxed]
+    assert not any(boxed_present) or all(boxed_present), 'partial boxed writer catalog'
+    assert not (any(present) and any(boxed_present)), 'mixed private writer catalogs'
+    if all(present) or all(boxed_present):
+        family='prototype_flat_' if all(present) else 'prototype_boxed_'
+        for prefix in ('motion','health'):
+            stem=family+prefix
+            done=stem+('_set_done' if all(present) else '_set_fused_done')
+            assert d[prefix+'_fields_checked'].count(stem+'_taken(')==1
+            assert d[stem+'_set'].count(done+'(')==1
+            assert d[stem+'_invoke'].count(','+stem+'_set,')==1
+            if all(present):
+                assert d[stem+'_taken'].count(stem+'_open_ledger(')==1
+                assert d[stem+'_open_ledger'].count(stem+'_invoke(')==1
+            else:
+                assert d[stem+'_taken'].count(stem+'_invoke(')==1
+        return flat if all(present) else boxed
+    return [p+'_set_fused_done' for p in ('motion','health')]
+
+def flat_suppression(text,observer):
+    d=defs(text);sites=main_sites(text)
+    for prefix,stem,raw,view in WRITERS:
+        name='prototype_flat_'+prefix+'_set_done';before=d[name]
+        after=before.replace(',main_view:T.'+view,'',1)
+        needle=',value:U32,result:T.'+raw+' & U32';assert after.count(needle)==1
+        after=after.replace(needle,',result:CC.Cache<T.'+raw+',T.'+view+'> & T.'+view)
+        pattern='T.'+view+'{T.Four{old,_,_,_},'+('_' if prefix=='motion' else '_,_')+'}'
+        assert after.count('case (main,old):')==1
+        after=after.replace('case (main,old):','case (CC.Cache{main,main_view},'+pattern+'):')
+        needle='P.'+stem+'_patch(main_view,value)';assert after.count(needle)==1
+        after=after.replace(needle,'main_view')
+        setter=d['prototype_flat_'+prefix+'_set'];changed=setter.replace('      +value = value\n','')
+        call=name+'(world,main_view,';assert changed.count(call)==1
+        changed=changed.replace(call,name+'(world,',1)
+        needle=',value,P.prototype_'+stem+'_raw_swap(main,value)';assert changed.count(needle)==1
+        getter=observer+'.'+stem+'_get' if observer else 'P.'+stem+'_uncached'
+        changed=changed.replace(needle,','+getter+'(CC.Cache{main,main_view})',1)
+        assert text.count(before)==text.count(setter)==1
+        text=text.replace(before,after,1).replace(setter,changed,1)
+    return text,sites
+
 def mutation(text,kind,observer=None):
     assert fused_presence(text),'expected live fused targets'
     if observer is not None:assert re.fullmatch(r'[A-Za-z][A-Za-z0-9_]*',observer),'invalid observer alias'
+    if main_sites(text)[0].startswith('prototype_flat_') and kind=='suppressed-setter':
+        return flat_suppression(text,observer)
     d=defs(text);sites=[]
+    targets=main_sites(text)
     for prefix,stem,raw,view in WRITERS:
-        name=prefix+'_set_fused_done';before=d[name];after=before
+        name=targets[0 if prefix=='motion' else 1];before=d[name];after=before
         if kind=='lost-mark':
             assert before.count('handle <> marks')==1
             after=before.replace('handle <> marks','marks')
@@ -50,7 +101,7 @@ def mutation(text,kind,observer=None):
             after=after.replace('case (raw,old):','case (CC.Cache{raw,cached},'+pattern+'):')
             patch='P.'+stem+'_patch(cached,value)';assert after.count(patch)==1
             after=after.replace(patch,'cached')
-            setter=d[prefix+'_set'];needle='cached,value,P.prototype_'+stem+'_raw_swap(raw,value)';assert setter.count(needle)==1
+            setter=d[name.removesuffix('_fused_done')];needle='cached,value,P.prototype_'+stem+'_raw_swap(raw,value)';assert setter.count(needle)==1
             getter=(observer+'.'+stem+'_get' if observer else 'P.'+stem+'_uncached')
             changed=setter.replace('      +value = value\n','').replace(needle,getter+'(CC.Cache{raw,cached})')
             assert changed!=setter and text.count(setter)==1

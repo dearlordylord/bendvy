@@ -44,9 +44,9 @@ Old setter mutation anchors are no longer authoritative on the selected private
 held path. Retarget live owner-suppression controls to prototype_flat_motion_set_done
 and prototype_flat_health_set_done, which construct MainInverse and handle<>marks;
 Ledger controls target prototype_flat_motion_setledger_done and
-prototype_flat_health_setledger_done, which construct LedgerInverse. Remove both
-inverse and mark effects for a Main owner-suppression mutant, retain raw/cache writes,
-and require the actual-live witness to distinguish it. Do not count a mutation of
+prototype_flat_health_setledger_done, which construct LedgerInverse. For the suppressed-setter control, preserve raw/cache owners as a no-op while retaining
+the true-old journal and Main mark; require the actual-live full-field witness.
+Use separate compiling lost-mark and inverse-order mutants for publication/journal defects. Do not count a mutation of
 unused original setters as this variant's passing acceptance.
 
 Return conditions: execute connected finite traces and cache-after-write/full-field
@@ -63,3 +63,7 @@ Corrected standalone diagnostic: taskset -c 10 timeout 15s bend
 --check-only exited 0 with ALL PROOFS CHECK. This is executable module checking,
 not a new proof or replacement for connected gates. Output adapter SHA256:
 aef254216044bc6ea813a1320d7d7925b501ec423237bd37624086289afc7fd1.
+
+Coordinator observations: Motion emitted counters confirm exactly262,144 fewer construction expressions in131,072 point callbacks (79.942 to77.942 percallback), matching two Cache removals. Both profiled/count runs match allnine full worlds against fresh TS. GC allocation estimates are413.3MB for flat-owner versus387.8MB for a neighboring combined-source profile on the same CPU10 (earlier CPU11 combined estimate397.3MB). Different GC boundary intervals and profiler perturbation prevent an exact allocation comparison; the flat owner has two additional fields and this is not an allocation win or speed acceptance. Retain the variant as an experiment, not an adopted optimization.
+
+Fresh split-schema Tx baseline passes full fields on Native/JS with cached and original raw observers. Its mandatory live suppressed-setter control targets the new private Main completion helpers and preserves true-old journal, marks and full owners while suppressing only the authored write. Receipt status PASS_LIVE_NOOP_TRUEOLD_JOURNAL_MARK_FULLFIELDS_BOTH;144records per observer/backend case. Original unused setter anchors are not reused. Lost-mark/inverse-order and complete access/fallback/full22 gates remain required.

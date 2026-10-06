@@ -5,9 +5,9 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[3]
 sys.path.insert(0,str(ROOT/'experiments/s-prep/fivehour-connected-gates'));import supervisor
 H=ROOT/'experiments/s-prep/fivehour-measurement'
-p=argparse.ArgumentParser();p.add_argument('--generated-js',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument("--no-gc",action="store_true",help="Disable GC tracing when only constructor counts are needed");a=p.parse_args();a.output.mkdir(exist_ok=False);os.sched_setaffinity(0,{11})
+p=argparse.ArgumentParser();p.add_argument('--generated-js',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--cpu',type=int,default=11);p.add_argument("--no-gc",action="store_true",help="Disable GC tracing when only constructor counts are needed");a=p.parse_args();a.output.mkdir(exist_ok=False);os.sched_setaffinity(0,{a.cpu})
 sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
-r={'status':'INCOMPLETE','scope':'CPU/GC diagnosis with equal eight fresh worlds; no timing acceptance','batch':8,'ticks':64,'entities':256,'cpu':11,'gcTracing':not a.no_gc,'generatedOriginalSHA256':sha(a.generated_js),'commands':[]}
+r={'status':'INCOMPLETE','scope':'CPU/GC diagnosis with equal eight fresh worlds; no timing acceptance','batch':8,'ticks':64,'entities':256,'cpu':a.cpu,'gcTracing':not a.no_gc,'generatedOriginalSHA256':sha(a.generated_js),'commands':[]}
 def command(args,limit=5):
  code,text=supervisor.execute(list(map(str,args)),limit);r['commands'].append({'argv':list(map(str,args)),'limit':limit,'exit':code});assert code==0,text[-1000:];return text
 try:

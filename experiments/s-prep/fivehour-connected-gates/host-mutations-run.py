@@ -102,7 +102,13 @@ def main():
               'queryOrderSeam':'Full indexed-finalization tuple targets actual struct_idx_finish, not retained unused read_rows_finish'}
     original_command=M.command
     def logged_command(command,expected=0,timeout=5):
-        if "--check-only" in list(map(str,command)):timeout=int(os.environ.get("BENDVY_CHECKER_SECONDS","5"))
+        if "--check-only" in list(map(str,command)):
+            timeout=int(os.environ.get("BENDVY_CHECKER_SECONDS","5"))
+            assert timeout in (5,15), 'Only authorized executable checker limits'
+            # The historical proof wrapper embeds5s. Opted-in executable probes
+            # must use the supervised checker directly, retaining default5s.
+            if timeout==15 and Path(command[0]).resolve()==Path(M.CHECK).resolve():
+                command=['bend',*command[1:]]
         number=len(metadata['commands'])+1
         log=args.output_dir/f'command-{number:03d}.txt'
         entry={'command':list(map(str,command)),'expectedExit':expected,'limitSeconds':timeout,

@@ -58,3 +58,21 @@ Run version2.0.35 and guide before work. Governing AGENTS/checkpoint/#21/SPEC an
 Bend LDD remain applicable. No new laws/proofs, cap reset or dependency approval.
 Archive evidence pins source closure, tools, generated sources, full observed
 outputs, validator/count receipts, JS lowering excerpts and explicit limits.
+
+Root continuation adds an exact second Native input revision/patch, preserving
+its retained four-read/scalar helpers and all public headers. Original incompatible
+revision refusal is retained. [Native source/build/full65 evidence](native-evidence/index.json)
+passes15/30/120/5 caps. One raw Motion64 observation is TS312.143ms/JS890ms/Native828ms;
+neither target is met in that observation, and no qualified ratio is available.
+Fresh original Tx plus mandatory live suppressed-owner controls pass both schemas,
+observer styles and backends. [Access/factory negatives](../profile-directed-access/README.md)
+also pass separately; the full22 aggregate is still incomplete.
+
+[Compiling mutation controls](mutation-evidence/index.json) target all four actual
+prototype_direct_* helpers. Returning0 instead of true old and writing cell1 instead
+of0 both compile/run on JS/Native and fail each intended literal checkpoint. Full
+metadata suffixes are additionally revalidated against retained raw outputs; the
+original execution receipt is preserved. These are finite controls, not proofs.
+
+Same-CPU heap/GC diagnostics do not establish an allocation-byte improvement from
+the closure reduction. Keep this as a source hypothesis, not an accepted optimization.

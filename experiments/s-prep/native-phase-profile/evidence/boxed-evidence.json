@@ -1,0 +1,90 @@
+{
+  "status": "PHASE_PROFILE_FULL65_WORLDS_PASS",
+  "scope": "Native computation-only sampled profile, no elapsed acceptance",
+  "cpu": 10,
+  "commands": [
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/native-phase-profile/materialize.py",
+        "--source",
+        "/tmp/bendvy-boxed-native-build/batch.c",
+        "--output",
+        "/tmp/bendvy-boxed-native-phase/phase.c"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "ae98e073c0fa7bcc8697a5f072ce2c1e25a5c76dd501a4a6d1eb35aa2fa1923a"
+    },
+    {
+      "argv": [
+        "clang",
+        "-O3",
+        "-g",
+        "-pg",
+        "/tmp/bendvy-boxed-native-phase/phase.c",
+        "-pthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-boxed-native-phase/phase-profile"
+      ],
+      "limitSeconds": 120,
+      "exit": 0,
+      "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-profile-combined-speed/Motion.mjs"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "1d47c1b63e1b1ea845c31b786a89f8f42640bff2727e1e43ea45348c4532796a"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-c",
+        "import os,sys; fd=os.open(sys.argv[1],os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600); os.dup2(fd,2); os.close(fd); os.execv(sys.argv[2],sys.argv[2:])",
+        "/tmp/bendvy-boxed-native-phase/clock.txt",
+        "/tmp/bendvy-boxed-native-phase/phase-profile",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "dd1551c52662566c052a52fba674471e068a711f0d03ac7b2e37332d30fc6ddd"
+    },
+    {
+      "argv": [
+        "gprof",
+        "-b",
+        "-p",
+        "/tmp/bendvy-boxed-native-phase/phase-profile",
+        "/tmp/bendvy-boxed-native-phase/gmon.out"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "10467133e820fd4b643e20348d61084b94b8d7fdb7ed77e37599322c26a08e5b"
+    }
+  ],
+  "inputSHA256": "67d7bc4241134166264be327e335c0b0a919d706f2c683106d7190dbf1099278",
+  "clocks": [
+    "DIAGNOSTIC-CLOCK:1",
+    "DIAGNOSTIC-CLOCK:2",
+    "DIAGNOSTIC-CLOCK:3",
+    "DIAGNOSTIC-CLOCK:4"
+  ],
+  "allFullFieldsEqual": true,
+  "artifacts": {
+    "phase.c": "44df41f0a0b2344958314d34882b95406553826ba05db0fa283b200a4fc74f3c",
+    "phase.recipe.json": "8dbe4b66cbfb3ba2765b2c113c882588f2cdd3084cd8ba17fa59b1dd3ee10b49",
+    "gmon.out": "4dfba986d9db19069f293bf63f2fa225fa19fb20b2c1669fabbc3c71f88507f4",
+    "flat.txt": "10467133e820fd4b643e20348d61084b94b8d7fdb7ed77e37599322c26a08e5b",
+    "clock.txt": "f3e5476c9c8e5b72047140a1d4c43794dc1cb7a2748ad3f3a5b72d04cf40539a",
+    "TS.raw.txt": "1d47c1b63e1b1ea845c31b786a89f8f42640bff2727e1e43ea45348c4532796a",
+    "Native.raw.txt": "dd1551c52662566c052a52fba674471e068a711f0d03ac7b2e37332d30fc6ddd"
+  }
+}

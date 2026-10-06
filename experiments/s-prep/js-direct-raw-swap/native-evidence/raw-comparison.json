@@ -1,0 +1,46 @@
+{
+  "status": "ONE_RAW_JS_NATIVE_TS_FULL65_WORLDS_PASS",
+  "scope": "One raw JS/Native/TS equalMotion64 comparison, no accepted cohort/qualification/full22/product acceptance",
+  "cpu": 11,
+  "commands": [
+    {
+      "role": "TS",
+      "argv": [
+        "node",
+        "/tmp/bendvy-profile-combined-speed/Motion.mjs"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "0c6cc86934c2603863f78bff5e1d986ad321cddbbdc1409e4058a97fb7194a5c"
+    },
+    {
+      "role": "JS",
+      "argv": [
+        "node",
+        "/tmp/bendvy-direct-raw-swap-build/batch.js"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "4c01b4029906f3fcbeae2a2bdc18b9545edfd8f1f11c2ca5bc6092622afbdda4"
+    },
+    {
+      "role": "Native",
+      "argv": [
+        "/tmp/bendvy-boxed-direct-native-static/batch-native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "4b637b8bee743305a71cb2485d8e8f628e2632f327b4f320e11aae9b61dd853e"
+    }
+  ],
+  "phaseMS": {
+    "TS": 312.14335500000004,
+    "JS": 890.0,
+    "Native": 828.0
+  },
+  "allFullFieldsEqual": true
+}

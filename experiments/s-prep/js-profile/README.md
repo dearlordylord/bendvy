@@ -39,4 +39,32 @@ python3 summarize.py /tmp/fresh-read-profile
 
 ## Next seam
 
+### Collected-object heap sampling continuation
+
+`heap-sampling-probe.py` attaches installed Node Inspector sampling at the existing
+execution markers (32KiB interval, collected minor/major objects included). A
+canary observes allocations after explicit GC with that option enabled versus
+disabled; this is infrastructure evidence, not an ECS law. The sampled candidate
+passes all nine full worlds against fresh TS. [Pinned archive](heap-evidence/index.json).
+
+Sampled attributed self size is406.4MB over12,324 samples: callback frames124.6MB,
+held-adapter117.5MB, query94.0MB, storage34.9MB. Inlined allocation may be attributed
+to its caller; these estimates are neither exact bytes nor retained heap. Neighbor
+same-CPU GC diagnostics report direct-raw405.2MB / batched380.2MB despite two fewer
+executed closure expressions/update. No raw-swap heap or speed win is established.
+
+```sh
+node --expose-gc experiments/s-prep/js-profile/heap-sampling-canary.cjs
+python3 heap-sampling-probe.py --input /tmp/batch.js \
+  --output /tmp/heap-probe.js --profile /tmp/candidate.heapprofile
+python3 run.py --generated-js /tmp/heap-probe.js \
+  --output /tmp/fresh-heap-profile --cpu 11 --no-gc
+python3 heap-sampling-summary.py /tmp/candidate.heapprofile \
+  --output /tmp/heap-summary.json
+```
+
+The injection has no remote Inspector endpoint and changes no Bend/compiler source.
+Core profiles, full22 failures and all unfavorable raw times remain documented in
+[continuation report](../../../docs/reports/profile-directed-optimization.md).
+
 Target owner-transport allocations around point take/return, mark and indexed query, while preserving actual callbacks, journals, stamps and abstract authority. The narrow getter probe removes only a small part of observed allocation. A source-level continuation/fusion candidate needs fresh complete field/rollback/access/cursor/mutation controls; a general emitted-record reuse pass would require separately authorized compiler work and affine alias/safety validation. Do not hand-edit generated JS as a shipped Bend implementation. Complete full22 and resolve codegen/runtime blockers before qualified Native/JS performance claims. No measured-loop cap was reset.

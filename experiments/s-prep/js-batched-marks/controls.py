@@ -25,7 +25,6 @@ after='X.storage_mark_all(Unit,A.Motion,A.Health,Unit,Unit,Unit,[S.Handle{7,4},S
 assert original.count(before)==1
 source=original.replace('import Base\n','import Base\nimport ./transaction.bend as X\n',1).replace(before,after)
 extra=''
-extra=''
 for label,ids,tick in [('nonmonotonic',[8,4,1,4],99),('empty',[],101)]:
  handles=','.join('S.Handle{7,'+str(i)+'}' for i in ids)
  extra+='    world : S.World<Unit,A.Motion,A.Health,Unit,Unit,Unit> = S.World{7,65538,rows,[],None{},Unit{}}\n'
@@ -48,6 +47,12 @@ expected=literal+extra_expected
 receipt['adaptation']={'before':before,'after':after,'originalFixtureSHA256':sha(original.encode()),'originalLiteralSHA256':sha(literal.encode()),'derivedFixtureSHA256':sha(source.encode()),'expectedSHA256':sha(expected.encode()),'originalCheckpoints':52,'additionalCheckpoints':12}
 (a.output/'fixture.bend').write_text(source);(a.output/'expected.txt').write_text(expected)
 frozen={f.name:f.read_bytes() for f in (a.overlay/'experiments/s-integrate').glob('*.bend')};assert len(frozen)==29
+manifest=json.loads((a.overlay/'overlay.json').read_text())
+actual={str(f.relative_to(a.overlay)):sha(f.read_bytes()) for f in a.overlay.rglob('*.bend')}
+assert actual==manifest['sources'], 'Overlay source manifest differs from actual source'
+cache=json.loads((a.overlay/'cache-specialization.json').read_text())
+assert cache==manifest['cacheSpecialization']
+assert cache['runtimeClosure']==actual and cache['specializedClosure']==actual
 receipt['sourceSHA256']={n:sha(v) for n,v in frozen.items()};receipt['overlayManifestSHA256']=sha((a.overlay/'overlay.json').read_bytes())
 with tempfile.TemporaryDirectory(prefix='batched-mark-controls-') as directory:
  for backend in ['JS','Native']:

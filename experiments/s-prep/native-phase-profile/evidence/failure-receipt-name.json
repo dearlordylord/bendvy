@@ -1,0 +1,75 @@
+{
+  "status": "FAIL",
+  "scope": "Native computation-only sampled profile, no elapsed acceptance",
+  "cpu": 11,
+  "commands": [
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/native-phase-profile/materialize.py",
+        "--source",
+        "/tmp/bendvy-static-native-motion/batch.c",
+        "--output",
+        "/tmp/bendvy-native-phase-reproduced-v2/phase.c"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "0d24751693a094da74e0335055452f3d134840331c43d92d4860d19ef18e40d5"
+    },
+    {
+      "argv": [
+        "clang",
+        "-O3",
+        "-g",
+        "-pg",
+        "/tmp/bendvy-native-phase-reproduced-v2/phase.c",
+        "-pthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-native-phase-reproduced-v2/phase-profile"
+      ],
+      "limitSeconds": 120,
+      "exit": 0,
+      "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-profile-combined-speed/Motion.mjs"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "3cb8588472eaee4cab0d9689865da478332c86c5dea78804da281dd6fe90b111"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-c",
+        "import os,sys; fd=os.open(sys.argv[1],os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600); os.dup2(fd,2); os.close(fd); os.execv(sys.argv[2],sys.argv[2:])",
+        "/tmp/bendvy-native-phase-reproduced-v2/clock.txt",
+        "/tmp/bendvy-native-phase-reproduced-v2/phase-profile",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "358b029e153929b81798086b75561e03782463b6a9098854b71cc1614e70bdb7"
+    },
+    {
+      "argv": [
+        "gprof",
+        "-b",
+        "-p",
+        "/tmp/bendvy-native-phase-reproduced-v2/phase-profile",
+        "/tmp/bendvy-native-phase-reproduced-v2/gmon.out"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "06fa23ca39eaf2a1c3c3b98ba8b9d2df418f812d71874ecc628a157b34c2a607"
+    }
+  ],
+  "inputSHA256": "a102de9825f356b4f84882f5f9743b48cd0a27b0c5046e7843a331554180fe0c",
+  "error": "FileNotFoundError(2, 'No such file or directory')"
+}

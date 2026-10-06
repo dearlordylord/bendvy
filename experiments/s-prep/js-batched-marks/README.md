@@ -1,5 +1,12 @@
 # Unpack-once batched marks
 
+Executed profile continuation: eight fresh Motion worlds match TS in every field.
+AST counters confirm10,218,048 constructions, exactly260,096 fewer than the combined
+baseline (2×131,072−4×512 batches). [Source/profile archive](evidence-index.json).
+These counts are not physical allocation bytes or speed acceptance. Native-only
+raw timings and later profiled timings disagree substantially; no reproducible
+regression or speedup is established. [Native diagnostics](../native-phase-profile/README.md).
+
 Isolated S-PERF-NEXT #21 source experiment from the point/metadata/query-fused
 29-module overlay, excluding flat point-owner. Only transaction.bend changes.
 

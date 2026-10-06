@@ -1,0 +1,55 @@
+--- a/experiments/s-integrate/uncached-payload.bend
++++ b/experiments/s-integrate/uncached-payload.bend
+@@ -59,9 +59,12 @@
+ def position_swapped(+frame: U32,result: Array<U32> & U32) -> T.Position & U32:
+   match result:
+     case (array,old): (T.Position{array,frame},old)
++def prototype_direct_position_swap(frame: U32,value: U32,result: Array<U32> & U32) -> T.Position & U32:
++  match result:
++    case (array,old): (T.Position{Array.set(U32,array,0,value),frame},old)
+ def position_swap(owner: T.Position,value: U32) -> T.Position & U32:
+   match owner:
+-    case T.Position{array,frame}: position_swapped(frame,scalar0_swap(array,value))
++    case T.Position{array,frame}: prototype_direct_position_swap(frame,value,Array.get(U32,array,0))
+ 
+ def vitals_observed(+reserve: U32,+class: U32,result: Array<U32> & T.Four) -> T.Vitals & T.VitalsView:
+   match result:
+@@ -72,9 +75,12 @@
+ def vitals_swapped(+reserve: U32,+class: U32,result: Array<U32> & U32) -> T.Vitals & U32:
+   match result:
+     case (array,old): (T.Vitals{array,reserve,class},old)
++def prototype_direct_vitals_swap(reserve: U32,class: U32,value: U32,result: Array<U32> & U32) -> T.Vitals & U32:
++  match result:
++    case (array,old): (T.Vitals{Array.set(U32,array,0,value),reserve,class},old)
+ def vitals_swap(owner: T.Vitals,value: U32) -> T.Vitals & U32:
+   match owner:
+-    case T.Vitals{array,reserve,class}: vitals_swapped(reserve,class,scalar0_swap(array,value))
++    case T.Vitals{array,reserve,class}: prototype_direct_vitals_swap(reserve,class,value,Array.get(U32,array,0))
+ 
+ def velocity_observed(+moving: Bool,result: Array<U32> & T.Four) -> T.Velocity & T.VelocityView:
+   match result:
+@@ -99,9 +105,12 @@
+ def motion_ledger_swapped(+epoch: U32,result: Array<U32> & U32) -> T.MotionLedger & U32:
+   match result:
+     case (array,old): (T.MotionLedger{array,epoch},old)
++def prototype_direct_motion_ledger_swap(epoch: U32,value: U32,result: Array<U32> & U32) -> T.MotionLedger & U32:
++  match result:
++    case (array,old): (T.MotionLedger{Array.set(U32,array,0,value),epoch},old)
+ def motion_ledger_swap(owner: T.MotionLedger,value: U32) -> T.MotionLedger & U32:
+   match owner:
+-    case T.MotionLedger{array,epoch}: motion_ledger_swapped(epoch,scalar0_swap(array,value))
++    case T.MotionLedger{array,epoch}: prototype_direct_motion_ledger_swap(epoch,value,Array.get(U32,array,0))
+ 
+ def health_ledger_observed(+epoch: U32,result: Array<U32> & T.Four) -> T.HealthLedger & T.LedgerView:
+   match result:
+@@ -112,6 +121,9 @@
+ def health_ledger_swapped(+epoch: U32,result: Array<U32> & U32) -> T.HealthLedger & U32:
+   match result:
+     case (array,old): (T.HealthLedger{array,epoch},old)
++def prototype_direct_health_ledger_swap(epoch: U32,value: U32,result: Array<U32> & U32) -> T.HealthLedger & U32:
++  match result:
++    case (array,old): (T.HealthLedger{Array.set(U32,array,0,value),epoch},old)
+ def health_ledger_swap(owner: T.HealthLedger,value: U32) -> T.HealthLedger & U32:
+   match owner:
+-    case T.HealthLedger{array,epoch}: health_ledger_swapped(epoch,scalar0_swap(array,value))
++    case T.HealthLedger{array,epoch}: prototype_direct_health_ledger_swap(epoch,value,Array.get(U32,array,0))

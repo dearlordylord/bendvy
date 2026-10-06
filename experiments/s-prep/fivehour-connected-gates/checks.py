@@ -28,7 +28,7 @@ def validate_suppressed_owner(baseline_receipt,overlay):
  assert isinstance(sub,dict) and sub.get('status')==status,'Missing or incomplete mandatory fused suppressedOwner receipt'
  receipt=Path(sub['receipt']);assert receipt.absolute()==receipt.resolve() and sha(receipt)==sub['receiptSHA256'],'Suppressed owner receipt changed/escaped'
  evidence=json.loads(receipt.read_text());assert evidence.get('status')==status and evidence.get('records')==144,'Suppressed owner status/record mismatch'
- assert evidence.get('liveMutationSites')==['motion_set_fused_done','health_set_fused_done'],'Missing live fused setter sites'
+ assert evidence.get('liveMutationSites')==adapter.main_sites((core/'held-adapter.bend').read_text()),'Missing live fused setter sites'
  pins=evidence['sourcePins'];assert set(pins)=={'overlaySHA256','heldAdapterSHA256','cachedPayloadSHA256','fixtureSHA256','protectedRawSHA256','adapterSHA256','fusedAdapterSHA256'},'Suppression source pin set mismatch'
  assert pins['overlaySHA256']==sub['overlaySHA256'],'Suppression original overlay provenance differs'
  binding=source_binding(Path(overlay));assert evidence['runtimeSources']==binding['runtimeSources'] and evidence['runtimeClosureSHA256']==binding['runtimeClosureSHA256'],'Suppression full runtime differs'

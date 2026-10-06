@@ -1,7 +1,7 @@
 # Boxed cached Held context hypothesis
 
 Bounded S-PERF-NEXT #21 source hypothesis from Native profile observations; no
-adoption, speed or ABI improvement is established. Only held-adapter.bend changes.
+adoption or qualified speed improvement is established. Only held-adapter.bend changes.
 Input is the complete point/metadata/query/batched-marks overlay, excluding flat-owner.
 
 The copied private helper family retains original CC.Cache Main/Ledger and actual
@@ -139,3 +139,13 @@ Native/TS output, complete source/cache book, static recipe and bounded build/ru
 receipts. Remaining connected access/ownership/rollback/mutation gates, Health,
 full22 and qualified measurement remain root responsibilities; these diagnostics
 approve no laws/proofs or universal refinement.
+
+Root follow-up: [fresh actual Tx receipts](tx-evidence/index.json) pass original
+success/failure/no-op ownership observations for both schemas, cached/raw observers
+and JS/Native. Live private boxed Main setter omission and inverse-order mutants
+compile and are detected; suppression records the actual private done-helper names.
+The regenerated recognizer requires exact Main setter arguments and the guarded
+taken/invoke chain. [Computation-only Native profile](../native-phase-profile/README.md)
+excludes setup/output. [Fresh access/provider/factory controls](../profile-directed-access/README.md)
+also pass for the boxed/direct Native role. Stale/torn controls, full22 and qualified
+Health/product performance remain open; none of these receipts establish adoption.

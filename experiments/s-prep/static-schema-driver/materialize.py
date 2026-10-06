@@ -1,0 +1,5 @@
+#!/usr/bin/env python3
+"""Select the already frozen schema at the diagnostic driver entry, not runtime."""
+import argparse,hashlib,json,re
+from pathlib import Path
+p=argparse.ArgumentParser();p.add_argument('--driver',type=Path,required=True);p.add_argument('--schema',choices=['Motion','Health'],required=True);a=p.parse_args();source=a.driver.read_text();choice=int(a.schema=='Health');old=f'  choose({choice},256,64)';assert source.count(old)==1 and source.endswith(old+'\n');changed=source.replace(old,'  '+a.schema.lower()+'_batch(256,64)',1);a.driver.write_text(changed);r={'scope':'Only known schema at main entry selected statically; all runtime modules/callbacks/work/clock/outputs unchanged; not canonical evaluator approval','schema':a.schema,'originalSHA256':hashlib.sha256(source.encode()).hexdigest(),'derivedSHA256':hashlib.sha256(changed.encode()).hexdigest(),'originalMain':old.strip(),'derivedMain':changed.splitlines()[-1].strip(),'recipeSHA256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()};(a.driver.parent/'static-driver.json').write_text(json.dumps(r,indent=2)+'\n');print(json.dumps(r))

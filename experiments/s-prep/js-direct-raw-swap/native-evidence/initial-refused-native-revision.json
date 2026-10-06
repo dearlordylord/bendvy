@@ -1,0 +1,16 @@
+{
+  "status": "REFUSED_UNSUPPORTED_INPUT_REVISION_BEFORE_STAGE_COPY",
+  "command": [
+    "python3",
+    "experiments/s-prep/js-direct-raw-swap/materialize.py",
+    "--input",
+    "/tmp/bendvy-boxed-point-native",
+    "--output",
+    "/tmp/bendvy-boxed-direct-native"
+  ],
+  "exit": 1,
+  "inputPayloadSHA256": "03c861d32a6a4194a27e7d9acf89eac369f6dafef46fc56d423cc80985872db6",
+  "originalSupportedJSSHA256": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+  "error": "ValueError: Unsupported uncached-payload input revision",
+  "followUp": "Added exact second Native patch; subsequent materializer fresh-output precondition passed."
+}

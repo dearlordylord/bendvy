@@ -19,7 +19,7 @@ def main():
    if a.mutation:
     mutations={'stale-head':('cached-payload.bend','T.Four{value,b,c,d},frame','T.Four{U32.add(value,1),b,c,d},frame'),'torn-tail':('cached-payload.bend','T.Four{value,b,c,d},frame','T.Four{value,b,c,U32.add(d,1)},frame'),'lost-mark':('held.bend','handle <> marks','marks'),'inverse-order':('held.bend','X.MainInverse{handle,old} <> undo','List.append(&2,X.Inverse<H>,undo,[X.MainInverse{handle,old}])')}
     if fused and a.mutation in ('lost-mark','inverse-order'):
-     target=core/'held-adapter.bend';changed,sites=FA.mutation(target.read_text(),a.mutation);assert sites==['motion_set_fused_done','health_set_fused_done'];target.write_text(changed);result['liveMutationSites']=sites;result['mutationTarget']='held-adapter.bend fused Main completion'
+     target=core/'held-adapter.bend';changed,sites=FA.mutation(target.read_text(),a.mutation);assert sites==FA.main_sites(target.read_text());target.write_text(changed);result['liveMutationSites']=sites;result['mutationTarget']='held-adapter.bend fused Main completion'
     else:
      file,before,after=mutations[a.mutation];target=core/file;original=target.read_text();assert original.count(before)==1,(a.mutation,original.count(before));target.write_text(original.replace(before,after))
    text=(HERE/'tx-controls.bend').read_text().replace('import ./measurement-bend.bend as M','import ./gate-callbacks.bend as M')

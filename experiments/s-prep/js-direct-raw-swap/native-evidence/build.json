@@ -1,0 +1,45 @@
+{
+  "scope": "Boxed+direct-raw Native build diagnostic, no timing acceptance",
+  "cpu": 11,
+  "commands": [
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-boxed-direct-native-static/batch.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 15,
+      "exit": 0,
+      "seconds": 7.0837155929766595,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-boxed-direct-native-static/batch.bend",
+        "-o",
+        "/tmp/bendvy-boxed-direct-native-static/batch.c"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "seconds": 17.621948221931234,
+      "output": ""
+    },
+    {
+      "argv": [
+        "clang",
+        "-O3",
+        "/tmp/bendvy-boxed-direct-native-static/batch.c",
+        "-pthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-boxed-direct-native-static/batch-native"
+      ],
+      "limitSeconds": 120,
+      "exit": 0,
+      "seconds": 30.984532739035785,
+      "output": ""
+    }
+  ],
+  "status": "CHECK_C_AND_NATIVE_BUILD_PASS"
+}

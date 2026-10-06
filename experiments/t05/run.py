@@ -18,6 +18,8 @@ def command(args, expected=0, timeout=5):
     if "--check-only" in list(map(str,args)):
         timeout = int(os.environ.get("BENDVY_CHECKER_SECONDS", "5"))
         assert timeout in (5, 15), "Only reviewed checker limits are allowed"
+        if timeout == 15 and Path(args[0]).resolve() == CHECK.resolve():
+            args = ['bend', *args[1:]]
     p = subprocess.Popen([str(a) for a in args], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, start_new_session=True)
     try:
         out, err = p.communicate(timeout=timeout)

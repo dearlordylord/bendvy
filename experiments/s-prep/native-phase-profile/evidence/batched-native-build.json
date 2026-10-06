@@ -1,0 +1,45 @@
+{
+  "scope": "Batched-only Native causal diagnostic, no timing acceptance",
+  "cpu": 11,
+  "commands": [
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-batched-native-static/batch.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 15,
+      "exit": 0,
+      "seconds": 6.205671295989305,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-batched-native-static/batch.bend",
+        "-o",
+        "/tmp/bendvy-batched-native-static/batch.c"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "seconds": 12.807943726889789,
+      "output": ""
+    },
+    {
+      "argv": [
+        "clang",
+        "-O3",
+        "/tmp/bendvy-batched-native-static/batch.c",
+        "-pthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-batched-native-static/batch-native"
+      ],
+      "limitSeconds": 120,
+      "exit": 0,
+      "seconds": 28.566996848909184,
+      "output": ""
+    }
+  ],
+  "status": "CHECK_C_AND_NATIVE_BUILD_PASS"
+}

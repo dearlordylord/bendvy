@@ -1,0 +1,59 @@
+{
+  "status": "FAIL",
+  "scope": "Native computation-only sampled profile, no elapsed acceptance",
+  "cpu": 11,
+  "commands": [
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/native-phase-profile/materialize.py",
+        "--source",
+        "/tmp/bendvy-static-native-motion/batch.c",
+        "--output",
+        "/tmp/bendvy-native-phase-reproduced/phase.c"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "0d24751693a094da74e0335055452f3d134840331c43d92d4860d19ef18e40d5"
+    },
+    {
+      "argv": [
+        "clang",
+        "-O3",
+        "-g",
+        "-pg",
+        "/tmp/bendvy-native-phase-reproduced/phase.c",
+        "-pthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-native-phase-reproduced/phase-profile"
+      ],
+      "limitSeconds": 120,
+      "exit": 0,
+      "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-profile-combined-speed/Motion.mjs"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "6b555d5a412baca44cb380e7490c01ad62476356bd8d8f95f39d25f291ecd406"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-native-phase-reproduced/phase-profile",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "0f37665893778eab33839154d24548ff1222b4dd23436ff6ca9c69e2b63e6a32"
+    }
+  ],
+  "inputSHA256": "a102de9825f356b4f84882f5f9743b48cd0a27b0c5046e7843a331554180fe0c",
+  "error": "AssertionError(['DIAGNOSTIC-CLOCK:1', 'DIAGNOSTIC-CLOCK:2', 'DIAGNOSTIC-CLOCK:4'])"
+}

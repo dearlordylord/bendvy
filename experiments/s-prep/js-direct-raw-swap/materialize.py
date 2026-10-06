@@ -11,6 +11,7 @@ import tempfile
 HERE = pathlib.Path(__file__).resolve().parent
 PAYLOAD = 'experiments/s-integrate/uncached-payload.bend'
 BASE_PAYLOAD = '5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572'
+NATIVE_PAYLOAD = '03c861d32a6a4194a27e7d9acf89eac369f6dafef46fc56d423cc80985872db6'
 
 def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -37,8 +38,8 @@ def materialize(source, output):
     require(cache['runtimeClosure'] == pins, 'Runtime closure must pin all 29 modules')
     require(cache['specializedClosure'] == pins, 'Specialized closure must pin all 29 modules')
     require(cache['runtimeClosureSHA256'] == closure_digest(pins), 'Closure digest mismatch')
-    require(pins[PAYLOAD] == BASE_PAYLOAD, 'Unsupported uncached-payload input revision')
-    patch = HERE / 'uncached-payload.patch'
+    require(pins[PAYLOAD] in (BASE_PAYLOAD,NATIVE_PAYLOAD), 'Unsupported uncached-payload input revision')
+    patch = HERE / ('uncached-payload.patch' if pins[PAYLOAD]==BASE_PAYLOAD else 'uncached-payload-native.patch')
     patch_text = patch.read_text()
     require(patch_text.startswith('--- a/' + PAYLOAD + '\n+++ b/' + PAYLOAD + '\n'), 'Patch target mismatch')
     require(patch_text.count('\n--- ') == 0, 'Patch must affect uncached-payload only')

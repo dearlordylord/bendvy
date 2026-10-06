@@ -1,0 +1,58 @@
+{
+  "status": "FAIL",
+  "scope": "One adjacent raw equal-work comparison onCPU11, no canonical cohort/qualification/adoption",
+  "cpu": 11,
+  "commands": [
+    {
+      "role": "TS",
+      "argv": [
+        "node",
+        "/tmp/bendvy-profile-combined-speed/Motion.mjs"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "791a00b6ff9c67ee9f594ebc66937dd0458aa69848e4d505bbaeb9f2a9fa5d8c"
+    },
+    {
+      "role": "combined",
+      "argv": [
+        "/tmp/bendvy-static-native-motion/batch-native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "99d00c112dab8ad92642b54192ae0d8265c2f0129234d21dec8c5b0e07983c7d"
+    },
+    {
+      "role": "batched",
+      "argv": [
+        "/tmp/bendvy-batched-native-static/batch-native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "0747b404acdac88090a32965b5442f2304a43c1124f8ec81ea02263bff62df24"
+    },
+    {
+      "role": "boxed",
+      "argv": [
+        "/tmp/bendvy-boxed-native-build/batch-native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "97ee7b49aab2df763bcb71ab01cc00c6ce2da90907cff997369b258634d3d21a"
+    }
+  ],
+  "phaseMS": {},
+  "error": "KeyError('milliseconds')"
+}

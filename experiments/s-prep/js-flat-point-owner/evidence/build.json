@@ -1,0 +1,30 @@
+{
+  "scope": "Flat owner Motion diagnostic build, no acceptance",
+  "commands": [
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-flat-owner-batch/batch.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 15,
+      "exit": 0,
+      "seconds": 7.106592775089666,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-flat-owner-batch/batch.bend",
+        "-o",
+        "/tmp/bendvy-flat-owner-batch/batch.js"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "seconds": 6.382815917953849,
+      "output": ""
+    }
+  ],
+  "status": "CHECKER_AND_JS_CODEGEN_PASS",
+  "generatedSHA256": "96d3667c1acfa762b24442ae846f441e1b6d56dc2a79ec542cf79efdfb533108"
+}
