@@ -1,0 +1,504 @@
+{
+  "protectedRunner": "/tmp/bendvy-threehour-query-transport/experiments/s-prep/fivehour-connected-gates/static-world-run.py",
+  "protectedRunnerSHA256": "03e135b7a4d5512afc2da74b50bdf2003eb07121ef3bf82f02acc0cb8b362c95",
+  "adapterSHA256": "2bc17b915b9fd48b7edf691af48cfd05013168a59e53a538c5dd6f34f0c0caee",
+  "changes": "Only explicit approved Clang19 executable and process-local checker diagnostic limit; fixtures/oracles unchanged",
+  "commands": [
+    {
+      "argv": [
+        "/tmp/bendvy-threehour-query-transport/experiments/t01/bend-check",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-static-motion/core/static-world-controls.bend",
+        "--check-only"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 15
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-static-motion/core/static-world-controls.bend",
+        "-o",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-static-motion/static-world-controls.c"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-std=c11",
+        "-O3",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-static-motion/static-world-controls.c",
+        "-lpthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-static-motion/static-world-controls-native"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 120
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-static-motion/core/static-world-controls.bend",
+        "-o",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-static-motion/static-world-controls.js"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-static-motion/static-world-controls-native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-static-motion/static-world-controls.js"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-threehour-query-transport/experiments/t01/bend-check",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-static-health/core/static-world-controls.bend",
+        "--check-only"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 15
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-static-health/core/static-world-controls.bend",
+        "-o",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-static-health/static-world-controls.c"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-std=c11",
+        "-O3",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-static-health/static-world-controls.c",
+        "-lpthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-static-health/static-world-controls-native"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 120
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-static-health/core/static-world-controls.bend",
+        "-o",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-static-health/static-world-controls.js"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-static-health/static-world-controls-native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-static-health/static-world-controls.js"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-threehour-query-transport/experiments/t01/bend-check",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-original-point-motion/core/static-world-controls.bend",
+        "--check-only"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 15
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-original-point-motion/core/static-world-controls.bend",
+        "-o",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-original-point-motion/static-world-controls.c"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-std=c11",
+        "-O3",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-original-point-motion/static-world-controls.c",
+        "-lpthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-original-point-motion/static-world-controls-native"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 120
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-original-point-motion/core/static-world-controls.bend",
+        "-o",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-original-point-motion/static-world-controls.js"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-original-point-motion/static-world-controls-native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-original-point-motion/static-world-controls.js"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-threehour-query-transport/experiments/t01/bend-check",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-original-point-health/core/static-world-controls.bend",
+        "--check-only"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 15
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-original-point-health/core/static-world-controls.bend",
+        "-o",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-original-point-health/static-world-controls.c"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-std=c11",
+        "-O3",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-original-point-health/static-world-controls.c",
+        "-lpthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-original-point-health/static-world-controls-native"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 120
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-original-point-health/core/static-world-controls.bend",
+        "-o",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-original-point-health/static-world-controls.js"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-original-point-health/static-world-controls-native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/cached-original-point-health/static-world-controls.js"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-threehour-query-transport/experiments/t01/bend-check",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-static-motion/core/static-world-controls.bend",
+        "--check-only"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 15
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-static-motion/core/static-world-controls.bend",
+        "-o",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-static-motion/static-world-controls.c"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-std=c11",
+        "-O3",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-static-motion/static-world-controls.c",
+        "-lpthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-static-motion/static-world-controls-native"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 120
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-static-motion/core/static-world-controls.bend",
+        "-o",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-static-motion/static-world-controls.js"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-static-motion/static-world-controls-native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-static-motion/static-world-controls.js"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-threehour-query-transport/experiments/t01/bend-check",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-static-health/core/static-world-controls.bend",
+        "--check-only"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 15
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-static-health/core/static-world-controls.bend",
+        "-o",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-static-health/static-world-controls.c"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-std=c11",
+        "-O3",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-static-health/static-world-controls.c",
+        "-lpthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-static-health/static-world-controls-native"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 120
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-static-health/core/static-world-controls.bend",
+        "-o",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-static-health/static-world-controls.js"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-static-health/static-world-controls-native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-static-health/static-world-controls.js"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-threehour-query-transport/experiments/t01/bend-check",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-original-point-motion/core/static-world-controls.bend",
+        "--check-only"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 15
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-original-point-motion/core/static-world-controls.bend",
+        "-o",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-original-point-motion/static-world-controls.c"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-std=c11",
+        "-O3",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-original-point-motion/static-world-controls.c",
+        "-lpthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-original-point-motion/static-world-controls-native"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 120
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-original-point-motion/core/static-world-controls.bend",
+        "-o",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-original-point-motion/static-world-controls.js"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-original-point-motion/static-world-controls-native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-original-point-motion/static-world-controls.js"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-threehour-query-transport/experiments/t01/bend-check",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-original-point-health/core/static-world-controls.bend",
+        "--check-only"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 15
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-original-point-health/core/static-world-controls.bend",
+        "-o",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-original-point-health/static-world-controls.c"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-std=c11",
+        "-O3",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-original-point-health/static-world-controls.c",
+        "-lpthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-original-point-health/static-world-controls-native"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 120
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-original-point-health/core/static-world-controls.bend",
+        "-o",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-original-point-health/static-world-controls.js"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-original-point-health/static-world-controls-native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-fold-noaux-factory-storage-v3/raw-original-point-health/static-world-controls.js"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 5
+    }
+  ]
+}
