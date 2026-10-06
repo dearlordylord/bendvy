@@ -15,3 +15,5 @@ Fresh finite evidence:
 Reproduction requires materializing the frozen source and build paths from the archived manifest, running `enroll.cjs` and `enroll-tx.cjs`, then `freeze-pipeline.py --output <new-directory>`; run `validate-full65.py`, `witness-run.py` and `count-pair.py` against those exact programs. Catalogs fail closed on changed bytes. Checker15s executable diagnostic, emission30s, Clang120s, runtime5s; proof/default checker5s. Runtime comparisons belong to separate source-bound receipts.
 
 This first-stage package does not contain the later Fold-state reuse variant, does not select a performance keep and does not close Host/access/full22, qualified five-family/three-size acceptance, production API or universal runtime refinement. Whole-source and benchmark-route evidence remain distinct.
+
+Verification note: `git diff --check` flags one existing trailing space in the byte-identical pinned `analyze.cjs` copy (line16). It is intentionally preserved to retain exact recipe/provenance hashes; no whitespace cleanup was applied to the measured recipe. Other newly written text passes the whitespace check.
