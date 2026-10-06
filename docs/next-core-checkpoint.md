@@ -5,6 +5,23 @@ performance thresholds or a selected production layout. The first two research
 tickets are now published after user authorization and [Astra review](reviews/next-research-tickets.md).
 The complete [core map](reference/core-map.md) and [SPEC](SPEC.md) remain the goal.
 
+## Active four-hour profile-guided continuation
+
+The user authorized four further hours on 2026-10-06, starting **05:51:16 UTC**
+and ending **09:51:16 UTC**, including preparation, experiments, verification,
+integration and delivery. Targets remain JS/TS <=1 and Native/TS <=0.5.
+Baseline is the exact fold/noAux source closure
+`49614f72311af5b03123d536ff301115d28b8886bf516b0d7057a8c52e68ad38`.
+Prior single observations are unqualified; neither target is achieved.
+Prioritize Health/Ledger generated-JS hot paths and dynamic Native attribution.
+Preserve original callbacks, arbitrary affine Type components, ownership,
+transaction/rollback, marks and all full-world observations. The separate inline
+payload probe has no consistent advantage and is not adopted.
+Direct source investigation continues; the exhausted canonical20-attempt session
+is unchanged. No new law, dependency, compiler/kernel/reference modification,
+production adoption or relaxed acceptance gate is authorized.
+Current evidence: [four-hour report](reports/fourhour-profile-continuation.md).
+
 ## Current performance diagnostic follow-up
 
 The user authorized three further hours, **2026-10-06T02:43:17Z–05:43:17Z**,
