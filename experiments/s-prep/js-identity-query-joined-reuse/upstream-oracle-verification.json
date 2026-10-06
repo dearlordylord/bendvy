@@ -1,0 +1,39 @@
+{
+  "status": "ALL_SUPPRESSED_FULL_RECORDS_MATCH_FRESH_SOURCE_ORACLE",
+  "comparison": "Every parsed field of each of 72 records per schema; complete arrays and metadata, no tolerance",
+  "preparationFailures": [
+    "Whole-file JSON parsing refused JSONL.",
+    "Contiguous schema assumption was false: upstream interleaves schemas per fixture.",
+    "Raw main can be absent: schema selector must use existing world mode."
+  ],
+  "cases": [
+    {
+      "case": "suppressed-cached-motion",
+      "records": 72,
+      "upstreamSHA256": "82327fe23ec780486cc4cb39af1ee2711bf65389dbe70c35cf4fdf8126233fb8",
+      "actualSHA256": "48125f684a95c9ef5c1b978eefbf87fd6ef24bc91afdb5f74b422067aae0f2cb",
+      "allParsedFieldsEqual": true
+    },
+    {
+      "case": "suppressed-cached-health",
+      "records": 72,
+      "upstreamSHA256": "82327fe23ec780486cc4cb39af1ee2711bf65389dbe70c35cf4fdf8126233fb8",
+      "actualSHA256": "133f41d153791b23c4afc5922cf289a7836a3de8e4938e01418e21fc00baf3e8",
+      "allParsedFieldsEqual": true
+    },
+    {
+      "case": "suppressed-raw-motion",
+      "records": 72,
+      "upstreamSHA256": "82327fe23ec780486cc4cb39af1ee2711bf65389dbe70c35cf4fdf8126233fb8",
+      "actualSHA256": "48125f684a95c9ef5c1b978eefbf87fd6ef24bc91afdb5f74b422067aae0f2cb",
+      "allParsedFieldsEqual": true
+    },
+    {
+      "case": "suppressed-raw-health",
+      "records": 72,
+      "upstreamSHA256": "82327fe23ec780486cc4cb39af1ee2711bf65389dbe70c35cf4fdf8126233fb8",
+      "actualSHA256": "133f41d153791b23c4afc5922cf289a7836a3de8e4938e01418e21fc00baf3e8",
+      "allParsedFieldsEqual": true
+    }
+  ]
+}
