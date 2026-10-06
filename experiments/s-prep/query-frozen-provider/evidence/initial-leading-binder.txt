@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : a plain binder (only leading binders take ~)
+- observed : '~'
+Location:
+27 | def client_main(-Schema: Data,-P: Type,-U: Type,-V: Data,-AV: Data,-F: Data,
+28>|   ~aux_get: U -> U & Maybe<&2,AV>,handle: S.Handle<Schema>,flag: Maybe<&2,F>,aux: U,result: P & V) -> P & (U & QueryRow<Schema,V,AV,F>):
+   |   ^
+29 |   match result:

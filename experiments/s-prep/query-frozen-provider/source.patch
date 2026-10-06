@@ -1,0 +1,243 @@
+--- a/experiments/s-integrate/query.bend
++++ b/experiments/s-integrate/query.bend
+@@ -25,18 +25,18 @@
+   match result:
+     case (main,(aux,observation)): (S.Row{id,Some{main},aux,flag,added,changed},observation)
+ # Only this trusted adapter sees the concrete row. Both abstract providers return.
+-def read_main(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),namespace: U32,+id: U32,main: M,aux: Maybe<A>,+flag: Maybe<&2,F>,added: U32,changed: U32) -> S.Row<M,A,F> & O:
++def read_main(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> @-get: (P -> Tok -> P & V) -> @-ag: (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),namespace: U32,+id: U32,main: M,aux: Maybe<A>,+flag: Maybe<&2,F>,added: U32,changed: U32) -> S.Row<M,A,F> & O:
+   restored(M,A,F,O,id,flag,added,changed,client(M,Maybe<A>,main_read(~M,~Tok,~V,~main_get),aux_read(~A,~AV,~aux_get),S.Handle{namespace,id},flag,main,aux))
+ def included(-M: Type,-A: Type,-F: Data,-O: Data,result: S.Row<M,A,F> & O) -> S.Row<M,A,F> & Maybe<&2,O>:
+   match result:
+     case (row,value): (row,Some{value})
+-def read_selected(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),include: Bool,namespace: U32,row: S.Row<M,A,F>) -> S.Row<M,A,F> & Maybe<&2,O>:
++def read_selected(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> @-get: (P -> Tok -> P & V) -> @-ag: (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),include: Bool,namespace: U32,row: S.Row<M,A,F>) -> S.Row<M,A,F> & Maybe<&2,O>:
+   match include row:
+     case False{} r: (r,None{})
+     case True{} S.Row{id,None{},aux,flag,added,changed}: (S.Row{id,None{},aux,flag,added,changed},None{})
+     case True{} S.Row{id,Some{main},aux,flag,added,changed}:
+       included(M,A,F,O,read_main(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,namespace,id,main,aux,flag,added,changed))
+-def read_row(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),selection: Selection,namespace: U32,row: S.Row<M,A,F>) -> S.Row<M,A,F> & Maybe<&2,O>:
++def read_row(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> @-get: (P -> Tok -> P & V) -> @-ag: (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),selection: Selection,namespace: U32,row: S.Row<M,A,F>) -> S.Row<M,A,F> & Maybe<&2,O>:
+   match row:
+     case S.Row{id,main,aux,+flag,added,changed}:
+       read_selected(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,selected(F,selection,flag),namespace,S.Row{id,main,aux,flag,added,changed})
+@@ -45,21 +45,21 @@
+   match result:
+     case (owner,None{}): (S.rows_restore(M,A,F,owners,owner),values)
+     case (owner,Some{value}): (S.rows_restore(M,A,F,owners,owner),value <> values)
+-def read_rows_slot(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),selection: Selection,namespace: U32,result: S.Rows<M,A,F> & Maybe<S.Row<M,A,F>>,values: List<&2,O>) -> S.Rows<M,A,F> & List<&2,O>:
++def read_rows_slot(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> @-get: (P -> Tok -> P & V) -> @-ag: (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),selection: Selection,namespace: U32,result: S.Rows<M,A,F> & Maybe<S.Row<M,A,F>>,values: List<&2,O>) -> S.Rows<M,A,F> & List<&2,O>:
+   match result:
+     case (owners,None{}): (owners,values)
+     case (owners,Some{owner}): read_rows_step(M,A,F,O,owners,read_row(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,selection,namespace,owner),values)
+ def read_rows_finish(-M: Type,-A: Type,-F: Data,-O: Data,state: S.Rows<M,A,F> & List<&2,O>) -> S.Rows<M,A,F> & List<&2,O>:
+   match state:
+     case (owners,values): (owners,List.reverse(&2,O,values))
+-def read_rows_advance(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),id: U32,selection: Selection,namespace: U32,state: S.Rows<M,A,F> & List<&2,O>) -> S.Rows<M,A,F> & List<&2,O>:
++def read_rows_advance(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> @-get: (P -> Tok -> P & V) -> @-ag: (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),id: U32,selection: Selection,namespace: U32,state: S.Rows<M,A,F> & List<&2,O>) -> S.Rows<M,A,F> & List<&2,O>:
+   match state:
+     case (owners,values): read_rows_slot(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,selection,namespace,S.rows_extract(M,A,F,owners,id),values)
+-def read_rows_go(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),remaining: Nat,+id: U32,+selection: Selection,+namespace: U32,state: S.Rows<M,A,F> & List<&2,O>) -> S.Rows<M,A,F> & List<&2,O>:
++def read_rows_go(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> @-get: (P -> Tok -> P & V) -> @-ag: (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),remaining: Nat,+id: U32,+selection: Selection,+namespace: U32,state: S.Rows<M,A,F> & List<&2,O>) -> S.Rows<M,A,F> & List<&2,O>:
+   match remaining:
+     case 0n: read_rows_finish(M,A,F,O,state)
+     case 1n++remaining: read_rows_go(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,remaining,U32.add(id,1),selection,namespace,read_rows_advance(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,id,selection,namespace,state))
+-def read_rows_start(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),selection: Selection,namespace: U32,result: S.Rows<M,A,F> & U32) -> S.Rows<M,A,F> & List<&2,O>:
++def read_rows_start(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> @-get: (P -> Tok -> P & V) -> @-ag: (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),selection: Selection,namespace: U32,result: S.Rows<M,A,F> & U32) -> S.Rows<M,A,F> & List<&2,O>:
+   match result:
+     case (owners,high): read_rows_go(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,U32.to_nat(high),1,selection,namespace,(owners,[]))
+ # Fused indexed traversal: physical metadata remains unchanged by read callbacks.
+@@ -72,27 +72,27 @@
+ def struct_idx_return(-M: Type,-A: Type,-F: Data,-O: Data,+index: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,live: Array<Bool>,flags: Array<Maybe<&2,F>>,added: Array<U32>,changed: Array<U32>,values: List<&2,O>,result: M & (Maybe<A> & O)) -> StructColsState<M,A,F,O>:
+   match result:
+     case (m,(a,value)): StructColsState{Array.set(Maybe<M>,main,index,Some{m}),Array.set(Maybe<A>,aux,index,a),live,flags,added,changed,value <> values}
+-def struct_idx_aux(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),+id: U32,namespace: U32,main: Array<Maybe<M>>,owner: M,live: Array<Bool>,flags: Array<Maybe<&2,F>>,added: Array<U32>,changed: Array<U32>,values: List<&2,O>,flag: Maybe<&2,F>,result: Array<Maybe<A>> & Maybe<A>) -> StructColsState<M,A,F,O>:
++def struct_idx_aux(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> @-get: (P -> Tok -> P & V) -> @-ag: (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),+id: U32,namespace: U32,main: Array<Maybe<M>>,owner: M,live: Array<Bool>,flags: Array<Maybe<&2,F>>,added: Array<U32>,changed: Array<U32>,values: List<&2,O>,flag: Maybe<&2,F>,result: Array<Maybe<A>> & Maybe<A>) -> StructColsState<M,A,F,O>:
+   match result:
+     case (aux,a): struct_idx_return(M,A,F,O,U32.sub(id,1),main,aux,live,flags,added,changed,values,client(M,Maybe<A>,main_read(~M,~Tok,~V,~main_get),aux_read(~A,~AV,~aux_get),S.Handle{namespace,id},flag,owner,a))
+-def struct_idx_main(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),+id: U32,namespace: U32,aux: Array<Maybe<A>>,live: Array<Bool>,flags: Array<Maybe<&2,F>>,added: Array<U32>,changed: Array<U32>,values: List<&2,O>,flag: Maybe<&2,F>,result: Array<Maybe<M>> & Maybe<M>) -> StructColsState<M,A,F,O>:
++def struct_idx_main(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> @-get: (P -> Tok -> P & V) -> @-ag: (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),+id: U32,namespace: U32,aux: Array<Maybe<A>>,live: Array<Bool>,flags: Array<Maybe<&2,F>>,added: Array<U32>,changed: Array<U32>,values: List<&2,O>,flag: Maybe<&2,F>,result: Array<Maybe<M>> & Maybe<M>) -> StructColsState<M,A,F,O>:
+   match result:
+     case (main,None{}): StructColsState{main,aux,live,flags,added,changed,values}
+     case (main,Some{owner}): struct_idx_aux(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,id,namespace,main,owner,live,flags,added,changed,values,flag,Array.swap(Maybe<A>,aux,U32.sub(id,1),None{}))
+-def struct_idx_selected(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),include: Bool,+id: U32,namespace: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,live: Array<Bool>,flags: Array<Maybe<&2,F>>,added: Array<U32>,changed: Array<U32>,values: List<&2,O>,flag: Maybe<&2,F>) -> StructColsState<M,A,F,O>:
++def struct_idx_selected(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> @-get: (P -> Tok -> P & V) -> @-ag: (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),include: Bool,+id: U32,namespace: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,live: Array<Bool>,flags: Array<Maybe<&2,F>>,added: Array<U32>,changed: Array<U32>,values: List<&2,O>,flag: Maybe<&2,F>) -> StructColsState<M,A,F,O>:
+   match include:
+     case False{}: StructColsState{main,aux,live,flags,added,changed,values}
+     case True{}: struct_idx_main(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,id,namespace,aux,live,flags,added,changed,values,flag,Array.swap(Maybe<M>,main,U32.sub(id,1),None{}))
+-def struct_idx_metadata(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),id: U32,namespace: U32,selection: Selection,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,values: List<&2,O>,live: Array<Bool>,added: Array<U32>,changed: Array<U32>,value: Bool,result: Array<Maybe<&2,F>> & Maybe<&2,F>) -> StructColsState<M,A,F,O>:
++def struct_idx_metadata(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> @-get: (P -> Tok -> P & V) -> @-ag: (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),id: U32,namespace: U32,selection: Selection,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,values: List<&2,O>,live: Array<Bool>,added: Array<U32>,changed: Array<U32>,value: Bool,result: Array<Maybe<&2,F>> & Maybe<&2,F>) -> StructColsState<M,A,F,O>:
+   match value result:
+     case False{} Tuple{flags,_}: StructColsState{main,aux,live,flags,added,changed,values}
+     case True{} Tuple{flags,+flag}: struct_idx_selected(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,selected(F,selection,flag),id,namespace,main,aux,live,flags,added,changed,values,flag)
+-def struct_cols_live(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),+id: U32,namespace: U32,selection: Selection,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,values: List<&2,O>,flags: Array<Maybe<&2,F>>,added: Array<U32>,changed: Array<U32>,result: Array<Bool> & Bool) -> StructColsState<M,A,F,O>:
++def struct_cols_live(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> @-get: (P -> Tok -> P & V) -> @-ag: (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),+id: U32,namespace: U32,selection: Selection,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,values: List<&2,O>,flags: Array<Maybe<&2,F>>,added: Array<U32>,changed: Array<U32>,result: Array<Bool> & Bool) -> StructColsState<M,A,F,O>:
+   match result:
+     case Tuple{live,False{}}: StructColsState{main,aux,live,flags,added,changed,values}
+     case Tuple{live,True{}}: struct_idx_metadata(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,id,namespace,selection,main,aux,values,live,added,changed,True{},Array.get(Maybe<&2,F>,flags,U32.sub(id,1)))
+ 
+-def struct_idx_advance(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),valid: Bool,+id: U32,namespace: U32,selection: Selection,state: StructColsState<M,A,F,O>) -> StructColsState<M,A,F,O>:
++def struct_idx_advance(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> @-get: (P -> Tok -> P & V) -> @-ag: (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),valid: Bool,+id: U32,namespace: U32,selection: Selection,state: StructColsState<M,A,F,O>) -> StructColsState<M,A,F,O>:
+   match valid state:
+     case False{} state: state
+     case True{} StructColsState{main,aux,live,flags,added,changed,values}:
+@@ -104,18 +104,18 @@
+ def struct_cols_finish(-M: Type,-A: Type,-F: Data,-O: Data,capacity: U32,depth: Nat,high: U32,state: StructColsState<M,A,F,O>) -> S.Rows<M,A,F> & List<&2,O>:
+   match state:
+     case StructColsState{main,aux,live,flags,added,changed,values}: struct_idx_finish(M,A,F,O,capacity,depth,high,StructIdxState{main,aux,S.MetadataColumns{live,flags,added,changed},values})
+-def struct_idx_go(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),remaining: Nat,+id: U32,+capacity: U32,+depth: Nat,+high: U32,+selection: Selection,+namespace: U32,state: StructColsState<M,A,F,O>) -> S.Rows<M,A,F> & List<&2,O>:
++def struct_idx_go(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> @-get: (P -> Tok -> P & V) -> @-ag: (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),remaining: Nat,+id: U32,+capacity: U32,+depth: Nat,+high: U32,+selection: Selection,+namespace: U32,state: StructColsState<M,A,F,O>) -> S.Rows<M,A,F> & List<&2,O>:
+   match remaining:
+     case 0n: struct_cols_finish(M,A,F,O,capacity,depth,high,state)
+     case 1n++rest: struct_idx_go(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,rest,U32.add(id,1),capacity,depth,high,selection,namespace,struct_idx_advance(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,Bool.and((0 < id : U32),(id <= capacity : U32)),id,namespace,selection,state))
+-def read_rows(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),rows: S.Rows<M,A,F>,selection: Selection,namespace: U32) -> S.Rows<M,A,F> & List<&2,O>:
++def read_rows(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> @-get: (P -> Tok -> P & V) -> @-ag: (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),rows: S.Rows<M,A,F>,selection: Selection,namespace: U32) -> S.Rows<M,A,F> & List<&2,O>:
+   match rows:
+     case S.Rows{main,aux,S.MetadataColumns{live,flags,added,changed},capacity,depth,+high}:
+       struct_idx_go(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,U32.to_nat(high),1,capacity,depth,high,selection,namespace,StructColsState{main,aux,live,flags,added,changed,[]})
+ def each_return(-Schema: Data,-M: Type,-A: Type,-F: Data,-L: Type,-Mode: Data,-O: Data,namespace: U32,next: U32,pending: List<S.Command<M,A,F>>,ledger: Maybe<L>,mode: Mode,result: S.Rows<M,A,F> & List<&2,O>) -> S.World<Schema,M,A,F,L,Mode> & List<&2,O>:
+   match result:
+     case (rows,observations): (S.World{namespace,next,rows,pending,ledger,mode},observations)
+-def each(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~L: Type,~Mode: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),selection: Selection,world: S.World<Schema,M,A,F,L,Mode>) -> S.World<Schema,M,A,F,L,Mode> & List<&2,O>:
++def each(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~L: Type,~Mode: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> @-get: (P -> Tok -> P & V) -> @-ag: (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),selection: Selection,world: S.World<Schema,M,A,F,L,Mode>) -> S.World<Schema,M,A,F,L,Mode> & List<&2,O>:
+   match world:
+     case S.World{+namespace,next,rows,pending,ledger,mode}:
+       each_return(Schema,M,A,F,L,Mode,O,namespace,next,pending,ledger,mode,read_rows(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,rows,selection,namespace))
+@@ -125,21 +125,21 @@
+   match result:
+     case (owner,None{}): (S.rows_restore(M,A,F,owners,owner),T.Mismatch{})
+     case (owner,Some{value}): (S.rows_restore(M,A,F,owners,owner),T.Found{value})
+-def lookup_slot(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),selection: Selection,namespace: U32,result: S.Rows<M,A,F> & Maybe<S.Row<M,A,F>>) -> S.Rows<M,A,F> & T.Access<O>:
++def lookup_slot(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> @-get: (P -> Tok -> P & V) -> @-ag: (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),selection: Selection,namespace: U32,result: S.Rows<M,A,F> & Maybe<S.Row<M,A,F>>) -> S.Rows<M,A,F> & T.Access<O>:
+   match result:
+     case (owners,None{}): (owners,T.Missing{})
+     case (owners,Some{owner}): lookup_read(M,A,F,O,owners,read_row(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,selection,namespace,owner))
+-def lookup_rows(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),rows: S.Rows<M,A,F>,selection: Selection,namespace: U32,target: U32) -> S.Rows<M,A,F> & T.Access<O>:
++def lookup_rows(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> @-get: (P -> Tok -> P & V) -> @-ag: (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),rows: S.Rows<M,A,F>,selection: Selection,namespace: U32,target: U32) -> S.Rows<M,A,F> & T.Access<O>:
+   lookup_slot(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,selection,namespace,S.rows_extract(M,A,F,rows,target))
+ def lookup_return(-Schema: Data,-M: Type,-A: Type,-F: Data,-L: Type,-Mode: Data,-O: Data,namespace: U32,next: U32,pending: List<S.Command<M,A,F>>,ledger: Maybe<L>,mode: Mode,result: S.Rows<M,A,F> & T.Access<O>) -> S.World<Schema,M,A,F,L,Mode> & T.Access<O>:
+   match result:
+     case (rows,observation): (S.World{namespace,next,rows,pending,ledger,mode},observation)
+-def lookup_checked(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~L: Type,~Mode: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),valid: Bool,selection: Selection,world: S.World<Schema,M,A,F,L,Mode>,target: U32) -> S.World<Schema,M,A,F,L,Mode> & T.Access<O>:
++def lookup_checked(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~L: Type,~Mode: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> @-get: (P -> Tok -> P & V) -> @-ag: (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),valid: Bool,selection: Selection,world: S.World<Schema,M,A,F,L,Mode>,target: U32) -> S.World<Schema,M,A,F,L,Mode> & T.Access<O>:
+   match valid world:
+     case False{} w: (w,T.Missing{})
+     case True{} S.World{+namespace,next,rows,pending,ledger,mode}:
+       lookup_return(Schema,M,A,F,L,Mode,O,namespace,next,pending,ledger,mode,lookup_rows(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,rows,selection,namespace,target))
+-def lookup(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~L: Type,~Mode: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),selection: Selection,world: S.World<Schema,M,A,F,L,Mode>,handle: S.Handle<Schema>) -> S.World<Schema,M,A,F,L,Mode> & T.Access<O>:
++def lookup(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~L: Type,~Mode: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> @-get: (P -> Tok -> P & V) -> @-ag: (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),selection: Selection,world: S.World<Schema,M,A,F,L,Mode>,handle: S.Handle<Schema>) -> S.World<Schema,M,A,F,L,Mode> & T.Access<O>:
+   match world handle:
+     case S.World{+namespace,next,rows,pending,ledger,mode} S.Handle{foreign,target}:
+       lookup_checked(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~L,~Mode,~main_get,~aux_get,~client,U32.is_eq(namespace,foreign),selection,S.World{namespace,next,rows,pending,ledger,mode},target)
+--- a/experiments/s-integrate/observations.bend
++++ b/experiments/s-integrate/observations.bend
+@@ -24,14 +24,14 @@
+   handle: S.Handle<Schema>,flag: Maybe<&2,F>,owner: P,main: V,result: U & Maybe<&2,AV>) -> P & (U & QueryRow<Schema,V,AV,F>):
+   match result:
+     case (aux,value): (owner,(aux,QueryRow{handle,main,value,flag}))
+-def client_main(-Schema: Data,-P: Type,-U: Type,-V: Data,-AV: Data,-F: Data,
+-  aux_get: U -> U & Maybe<&2,AV>,handle: S.Handle<Schema>,flag: Maybe<&2,F>,aux: U,result: P & V) -> P & (U & QueryRow<Schema,V,AV,F>):
++def client_main(~Schema: Data,~P: Type,~U: Type,~V: Data,~AV: Data,~F: Data,
++  ~aux_get: U -> U & Maybe<&2,AV>,handle: S.Handle<Schema>,flag: Maybe<&2,F>,aux: U,result: P & V) -> P & (U & QueryRow<Schema,V,AV,F>):
+   match result:
+     case (owner,value): client_aux(Schema,P,U,V,AV,F,handle,flag,owner,value,aux_get(aux))
+ def client(~Schema: Data,~Tok: Data,~V: Data,~AV: Data,~F: Data,~token: Tok,
+-  -P: Type,-U: Type,main_get: P -> Tok -> P & V,aux_get: U -> U & Maybe<&2,AV>,
++  ~P: Type,~U: Type,~main_get: P -> Tok -> P & V,~aux_get: U -> U & Maybe<&2,AV>,
+   handle: S.Handle<Schema>,flag: Maybe<&2,F>,main: P,aux: U) -> P & (U & QueryRow<Schema,V,AV,F>):
+-  client_main(Schema,P,U,V,AV,F,aux_get,handle,flag,aux,main_get(main,token))
++  client_main(~Schema,~P,~U,~V,~AV,~F,~aux_get,handle,flag,aux,main_get(main,token))
+ 
+ def maybe_present(-Owner: Type,-View: Data,result: Owner & View) -> Maybe<Owner> & Maybe<&2,View>:
+   match result:
+--- a/experiments/s-integrate/measurement-bend.bend
++++ b/experiments/s-integrate/measurement-bend.bend
+@@ -25,7 +25,7 @@
+ def quad(a:U32,b:U32,c:U32,d:U32) -> Array<U32>:
+   Array.set(U32,Array.set(U32,Array.set(U32,[a:U32^2n],1,b),2,c),3,d)
+ def keep(~A:Type,owner:A) -> A & Unit: (owner,Unit{})
+-def handle_client(~Schema:Data,~F:Data,-Owner:Type,-Aux:Type,get:Owner -> Unit -> Owner & Unit,ag:Aux -> Aux & Maybe<&2,Unit>,handle:S.Handle<Schema>,flag:Maybe<&2,F>,owner:Owner,aux:Aux) -> Owner & (Aux & S.Handle<Schema>):
++def handle_client(~Schema:Data,~F:Data,~Owner:Type,~Aux:Type,~get:Owner -> Unit -> Owner & Unit,~ag:Aux -> Aux & Maybe<&2,Unit>,handle:S.Handle<Schema>,flag:Maybe<&2,F>,owner:Owner,aux:Aux) -> Owner & (Aux & S.Handle<Schema>):
+   (owner,(aux,handle))
+ def first(value:T.Four) -> U32:
+   match value:
+--- a/experiments/s-integrate/host.bend
++++ b/experiments/s-integrate/host.bend
+@@ -95,7 +95,7 @@
+ def query_return(-Schema:Data,-M:Type,-A:Type,-F:Data,-L:Type,-Mode:Data,-P:Data,-V:Data,-AV:Data,-LV:Data,logs:H.Logs<Schema,P>,bindings:List<&2,E.Binding<Schema>>,worldName:String,step:String,prior:D.DispatchOutcome,events:List<&2,E.TraceEvent<Schema,V,AV,F,LV,Mode,P>>,result:W.World<Schema,M,A,F,L,Mode> & List<&2,O.QueryRow<Schema,V,AV,F>>) -> Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & List<&2,O.QueryRow<Schema,V,AV,F>>:
+   match result:
+     case (world,values): (Host{world,logs,bindings,worldName,step,prior,events},values)
+-def query(~Schema:Data,~M:Type,~A:Type,~F:Data,~L:Type,~Mode:Data,~P:Data,~V:Data,~AV:Data,~LV:Data,~Tok:Data,~main_get:M -> M & V,~aux_get:A -> A & AV,~client:@-Owner:Type -> @-Aux:Type -> (Owner -> Tok -> Owner & V) -> (Aux -> Aux & Maybe<&2,AV>) -> W.Handle<Schema> -> Maybe<&2,F> -> Owner -> Aux -> Owner & (Aux & O.QueryRow<Schema,V,AV,F>),selection:Q.Selection,owner:Host<Schema,M,A,F,L,Mode,P,V,AV,LV>) -> Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & List<&2,O.QueryRow<Schema,V,AV,F>>:
++def query(~Schema:Data,~M:Type,~A:Type,~F:Data,~L:Type,~Mode:Data,~P:Data,~V:Data,~AV:Data,~LV:Data,~Tok:Data,~main_get:M -> M & V,~aux_get:A -> A & AV,~client:@-Owner:Type -> @-Aux:Type -> @-get:(Owner -> Tok -> Owner & V) -> @-ag:(Aux -> Aux & Maybe<&2,AV>) -> W.Handle<Schema> -> Maybe<&2,F> -> Owner -> Aux -> Owner & (Aux & O.QueryRow<Schema,V,AV,F>),selection:Q.Selection,owner:Host<Schema,M,A,F,L,Mode,P,V,AV,LV>) -> Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & List<&2,O.QueryRow<Schema,V,AV,F>>:
+   match owner:
+     case Host{world,logs,bindings,worldName,step,prior,events}:
+       query_return(Schema,M,A,F,L,Mode,P,V,AV,LV,logs,bindings,worldName,step,prior,events,Q.each(~Schema,~M,~A,~F,~Tok,~V,~AV,~O.QueryRow<Schema,V,AV,F>,~L,~Mode,~main_get,~aux_get,~client,selection,world))
+@@ -116,15 +116,15 @@
+   match result:
+     case (Host{world,logs,bindings,worldName,step,prior,events},query):
+       read_world(Schema,M,A,F,L,Mode,P,V,AV,LV,ledger_get,system,count,logs,bindings,worldName,step,prior,events,query,run,O.world(~Schema,~M,~A,~F,~L,~Mode,~V,~AV,~LV,~main_get,~aux_get,~ledger_get,world))
+-def read(~Schema:Data,~M:Type,~A:Type,~F:Data,~L:Type,~Mode:Data,~P:Data,~V:Data,~AV:Data,~LV:Data,~Tok:Data,~main_get:M -> M & V,~aux_get:A -> A & AV,~client:@-Owner:Type -> @-Aux:Type -> (Owner -> Tok -> Owner & V) -> (Aux -> Aux & Maybe<&2,AV>) -> W.Handle<Schema> -> Maybe<&2,F> -> Owner -> Aux -> Owner & (Aux & O.QueryRow<Schema,V,AV,F>),~ledger_get:L -> L & LV,system:String,count:U32,owner:Host<Schema,M,A,F,L,Mode,P,V,AV,LV>,run:R.Run) -> Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & R.Run:
++def read(~Schema:Data,~M:Type,~A:Type,~F:Data,~L:Type,~Mode:Data,~P:Data,~V:Data,~AV:Data,~LV:Data,~Tok:Data,~main_get:M -> M & V,~aux_get:A -> A & AV,~client:@-Owner:Type -> @-Aux:Type -> @-get:(Owner -> Tok -> Owner & V) -> @-ag:(Aux -> Aux & Maybe<&2,AV>) -> W.Handle<Schema> -> Maybe<&2,F> -> Owner -> Aux -> Owner & (Aux & O.QueryRow<Schema,V,AV,F>),~ledger_get:L -> L & LV,system:String,count:U32,owner:Host<Schema,M,A,F,L,Mode,P,V,AV,LV>,run:R.Run) -> Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & R.Run:
+   read_query(Schema,M,A,F,L,Mode,P,V,AV,LV,main_get,aux_get,ledger_get,system,count,run,query(Schema,M,A,F,L,Mode,P,V,AV,LV,Tok,main_get,aux_get,client,Q.Required{},owner))
+ def lookup_result(~Schema:Data,~M:Type,~A:Type,~F:Data,~L:Type,~Mode:Data,~P:Data,~V:Data,~AV:Data,~LV:Data,label:String,handle:W.Handle<Schema>,tail:List<&2,E.Lookup<Schema,V,AV,F>>,result:W.World<Schema,M,A,F,L,Mode> & T.Access<O.QueryRow<Schema,V,AV,F>>) -> W.World<Schema,M,A,F,L,Mode> & List<&2,E.Lookup<Schema,V,AV,F>>:
+   match result:
+     case (world,value): (world,E.Lookup{label,handle,value} <> tail)
+-def lookup_join(~Schema:Data,~M:Type,~A:Type,~F:Data,~L:Type,~Mode:Data,~P:Data,~V:Data,~AV:Data,~LV:Data,~Tok:Data,~main_get:M -> M & V,~aux_get:A -> A & AV,~client:@-Owner:Type -> @-Aux:Type -> (Owner -> Tok -> Owner & V) -> (Aux -> Aux & Maybe<&2,AV>) -> W.Handle<Schema> -> Maybe<&2,F> -> Owner -> Aux -> Owner & (Aux & O.QueryRow<Schema,V,AV,F>),label:String,+handle:W.Handle<Schema>,tail:W.World<Schema,M,A,F,L,Mode> & List<&2,E.Lookup<Schema,V,AV,F>>) -> W.World<Schema,M,A,F,L,Mode> & List<&2,E.Lookup<Schema,V,AV,F>>:
++def lookup_join(~Schema:Data,~M:Type,~A:Type,~F:Data,~L:Type,~Mode:Data,~P:Data,~V:Data,~AV:Data,~LV:Data,~Tok:Data,~main_get:M -> M & V,~aux_get:A -> A & AV,~client:@-Owner:Type -> @-Aux:Type -> @-get:(Owner -> Tok -> Owner & V) -> @-ag:(Aux -> Aux & Maybe<&2,AV>) -> W.Handle<Schema> -> Maybe<&2,F> -> Owner -> Aux -> Owner & (Aux & O.QueryRow<Schema,V,AV,F>),label:String,+handle:W.Handle<Schema>,tail:W.World<Schema,M,A,F,L,Mode> & List<&2,E.Lookup<Schema,V,AV,F>>) -> W.World<Schema,M,A,F,L,Mode> & List<&2,E.Lookup<Schema,V,AV,F>>:
+   match tail:
+     case (world,values): lookup_result(Schema,M,A,F,L,Mode,P,V,AV,LV,label,handle,values,Q.lookup(~Schema,~M,~A,~F,~Tok,~V,~AV,~O.QueryRow<Schema,V,AV,F>,~L,~Mode,~main_get,~aux_get,~client,Q.Required{},world,handle))
+-def lookups(~Schema:Data,~M:Type,~A:Type,~F:Data,~L:Type,~Mode:Data,~P:Data,~V:Data,~AV:Data,~LV:Data,~Tok:Data,~main_get:M -> M & V,~aux_get:A -> A & AV,~client:@-Owner:Type -> @-Aux:Type -> (Owner -> Tok -> Owner & V) -> (Aux -> Aux & Maybe<&2,AV>) -> W.Handle<Schema> -> Maybe<&2,F> -> Owner -> Aux -> Owner & (Aux & O.QueryRow<Schema,V,AV,F>),bindings:List<&2,E.Binding<Schema>>,world:W.World<Schema,M,A,F,L,Mode>) -> W.World<Schema,M,A,F,L,Mode> & List<&2,E.Lookup<Schema,V,AV,F>>:
++def lookups(~Schema:Data,~M:Type,~A:Type,~F:Data,~L:Type,~Mode:Data,~P:Data,~V:Data,~AV:Data,~LV:Data,~Tok:Data,~main_get:M -> M & V,~aux_get:A -> A & AV,~client:@-Owner:Type -> @-Aux:Type -> @-get:(Owner -> Tok -> Owner & V) -> @-ag:(Aux -> Aux & Maybe<&2,AV>) -> W.Handle<Schema> -> Maybe<&2,F> -> Owner -> Aux -> Owner & (Aux & O.QueryRow<Schema,V,AV,F>),bindings:List<&2,E.Binding<Schema>>,world:W.World<Schema,M,A,F,L,Mode>) -> W.World<Schema,M,A,F,L,Mode> & List<&2,E.Lookup<Schema,V,AV,F>>:
+   match bindings:
+     case Nil{}: (world,[])
+     case Con{E.Binding{label,handle},tail}: lookup_join(Schema,M,A,F,L,Mode,P,V,AV,LV,Tok,main_get,aux_get,client,label,handle,lookups(Schema,M,A,F,L,Mode,P,V,AV,LV,Tok,main_get,aux_get,client,tail,world))
+@@ -140,22 +140,22 @@
+ def snapshot_end(~Schema:Data,~M:Type,~A:Type,~F:Data,~L:Type,~Mode:Data,~P:Data,~V:Data,~AV:Data,~LV:Data,logs:H.Logs<Schema,P>,bindings:List<&2,E.Binding<Schema>>,+worldName:String,+step:String,+prior:D.DispatchOutcome,events:List<&2,E.TraceEvent<Schema,V,AV,F,LV,Mode,P>>,view:O.WorldView<V,AV,F,LV,Mode>,query:List<&2,O.QueryRow<Schema,V,AV,F>>,plus:List<&2,O.QueryRow<Schema,V,AV,F>>,minus:List<&2,O.QueryRow<Schema,V,AV,F>>,optional:List<&2,O.QueryRow<Schema,V,AV,F>>,result:W.World<Schema,M,A,F,L,Mode> & List<&2,E.Lookup<Schema,V,AV,F>>) -> Host<Schema,M,A,F,L,Mode,P,V,AV,LV>:
+   match result:
+     case (world,values): Host{world,logs,bindings,worldName,step,prior,List.append(&2,E.TraceEvent<Schema,V,AV,F,LV,Mode,P>,events,[E.Snapshot{step,worldName,prior,view,query,plus,minus,optional,values}])}
+-def snapshot_world(~Schema:Data,~M:Type,~A:Type,~F:Data,~L:Type,~Mode:Data,~P:Data,~V:Data,~AV:Data,~LV:Data,~Tok:Data,~main_get:M -> M & V,~aux_get:A -> A & AV,~client:@-Owner:Type -> @-Aux:Type -> (Owner -> Tok -> Owner & V) -> (Aux -> Aux & Maybe<&2,AV>) -> W.Handle<Schema> -> Maybe<&2,F> -> Owner -> Aux -> Owner & (Aux & O.QueryRow<Schema,V,AV,F>),logs:H.Logs<Schema,P>,+bindings:List<&2,E.Binding<Schema>>,worldName:String,step:String,prior:D.DispatchOutcome,events:List<&2,E.TraceEvent<Schema,V,AV,F,LV,Mode,P>>,query:List<&2,O.QueryRow<Schema,V,AV,F>>,plus:List<&2,O.QueryRow<Schema,V,AV,F>>,minus:List<&2,O.QueryRow<Schema,V,AV,F>>,optional:List<&2,O.QueryRow<Schema,V,AV,F>>,result:W.World<Schema,M,A,F,L,Mode> & O.WorldView<V,AV,F,LV,Mode>) -> Host<Schema,M,A,F,L,Mode,P,V,AV,LV>:
++def snapshot_world(~Schema:Data,~M:Type,~A:Type,~F:Data,~L:Type,~Mode:Data,~P:Data,~V:Data,~AV:Data,~LV:Data,~Tok:Data,~main_get:M -> M & V,~aux_get:A -> A & AV,~client:@-Owner:Type -> @-Aux:Type -> @-get:(Owner -> Tok -> Owner & V) -> @-ag:(Aux -> Aux & Maybe<&2,AV>) -> W.Handle<Schema> -> Maybe<&2,F> -> Owner -> Aux -> Owner & (Aux & O.QueryRow<Schema,V,AV,F>),logs:H.Logs<Schema,P>,+bindings:List<&2,E.Binding<Schema>>,worldName:String,step:String,prior:D.DispatchOutcome,events:List<&2,E.TraceEvent<Schema,V,AV,F,LV,Mode,P>>,query:List<&2,O.QueryRow<Schema,V,AV,F>>,plus:List<&2,O.QueryRow<Schema,V,AV,F>>,minus:List<&2,O.QueryRow<Schema,V,AV,F>>,optional:List<&2,O.QueryRow<Schema,V,AV,F>>,result:W.World<Schema,M,A,F,L,Mode> & O.WorldView<V,AV,F,LV,Mode>) -> Host<Schema,M,A,F,L,Mode,P,V,AV,LV>:
+   match result:
+     case (world,view): snapshot_end(Schema,M,A,F,L,Mode,P,V,AV,LV,logs,bindings,worldName,step,prior,events,view,query,plus,minus,optional,lookups(Schema,M,A,F,L,Mode,P,V,AV,LV,Tok,main_get,aux_get,client,bindings,world))
+-def snapshot_optional(~Schema:Data,~M:Type,~A:Type,~F:Data,~L:Type,~Mode:Data,~P:Data,~V:Data,~AV:Data,~LV:Data,~Tok:Data,~main_get:M -> M & V,~aux_get:A -> A & AV,~client:@-Owner:Type -> @-Aux:Type -> (Owner -> Tok -> Owner & V) -> (Aux -> Aux & Maybe<&2,AV>) -> W.Handle<Schema> -> Maybe<&2,F> -> Owner -> Aux -> Owner & (Aux & O.QueryRow<Schema,V,AV,F>),~ledger_get:L -> L & LV,query:List<&2,O.QueryRow<Schema,V,AV,F>>,plus:List<&2,O.QueryRow<Schema,V,AV,F>>,minus:List<&2,O.QueryRow<Schema,V,AV,F>>,result:Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & List<&2,O.QueryRow<Schema,V,AV,F>>) -> Host<Schema,M,A,F,L,Mode,P,V,AV,LV>:
++def snapshot_optional(~Schema:Data,~M:Type,~A:Type,~F:Data,~L:Type,~Mode:Data,~P:Data,~V:Data,~AV:Data,~LV:Data,~Tok:Data,~main_get:M -> M & V,~aux_get:A -> A & AV,~client:@-Owner:Type -> @-Aux:Type -> @-get:(Owner -> Tok -> Owner & V) -> @-ag:(Aux -> Aux & Maybe<&2,AV>) -> W.Handle<Schema> -> Maybe<&2,F> -> Owner -> Aux -> Owner & (Aux & O.QueryRow<Schema,V,AV,F>),~ledger_get:L -> L & LV,query:List<&2,O.QueryRow<Schema,V,AV,F>>,plus:List<&2,O.QueryRow<Schema,V,AV,F>>,minus:List<&2,O.QueryRow<Schema,V,AV,F>>,result:Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & List<&2,O.QueryRow<Schema,V,AV,F>>) -> Host<Schema,M,A,F,L,Mode,P,V,AV,LV>:
+   match result:
+     case (Host{world,logs,bindings,worldName,step,prior,events},optional): snapshot_world(Schema,M,A,F,L,Mode,P,V,AV,LV,Tok,main_get,aux_get,client,logs,bindings,worldName,step,prior,events,query,plus,minus,optional,O.world(~Schema,~M,~A,~F,~L,~Mode,~V,~AV,~LV,~main_get,~aux_get,~ledger_get,world))
+-def snapshot_minus(~Schema:Data,~M:Type,~A:Type,~F:Data,~L:Type,~Mode:Data,~P:Data,~V:Data,~AV:Data,~LV:Data,~Tok:Data,~main_get:M -> M & V,~aux_get:A -> A & AV,~client:@-Owner:Type -> @-Aux:Type -> (Owner -> Tok -> Owner & V) -> (Aux -> Aux & Maybe<&2,AV>) -> W.Handle<Schema> -> Maybe<&2,F> -> Owner -> Aux -> Owner & (Aux & O.QueryRow<Schema,V,AV,F>),~ledger_get:L -> L & LV,required:List<&2,O.QueryRow<Schema,V,AV,F>>,plus:List<&2,O.QueryRow<Schema,V,AV,F>>,result:Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & List<&2,O.QueryRow<Schema,V,AV,F>>) -> Host<Schema,M,A,F,L,Mode,P,V,AV,LV>:
++def snapshot_minus(~Schema:Data,~M:Type,~A:Type,~F:Data,~L:Type,~Mode:Data,~P:Data,~V:Data,~AV:Data,~LV:Data,~Tok:Data,~main_get:M -> M & V,~aux_get:A -> A & AV,~client:@-Owner:Type -> @-Aux:Type -> @-get:(Owner -> Tok -> Owner & V) -> @-ag:(Aux -> Aux & Maybe<&2,AV>) -> W.Handle<Schema> -> Maybe<&2,F> -> Owner -> Aux -> Owner & (Aux & O.QueryRow<Schema,V,AV,F>),~ledger_get:L -> L & LV,required:List<&2,O.QueryRow<Schema,V,AV,F>>,plus:List<&2,O.QueryRow<Schema,V,AV,F>>,result:Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & List<&2,O.QueryRow<Schema,V,AV,F>>) -> Host<Schema,M,A,F,L,Mode,P,V,AV,LV>:
+   match result:
+     case (owner,minus): snapshot_optional(Schema,M,A,F,L,Mode,P,V,AV,LV,Tok,main_get,aux_get,client,ledger_get,required,plus,minus,query(Schema,M,A,F,L,Mode,P,V,AV,LV,Tok,main_get,aux_get,client,Q.Optional{},owner))
+-def snapshot_plus(~Schema:Data,~M:Type,~A:Type,~F:Data,~L:Type,~Mode:Data,~P:Data,~V:Data,~AV:Data,~LV:Data,~Tok:Data,~main_get:M -> M & V,~aux_get:A -> A & AV,~client:@-Owner:Type -> @-Aux:Type -> (Owner -> Tok -> Owner & V) -> (Aux -> Aux & Maybe<&2,AV>) -> W.Handle<Schema> -> Maybe<&2,F> -> Owner -> Aux -> Owner & (Aux & O.QueryRow<Schema,V,AV,F>),~ledger_get:L -> L & LV,required:List<&2,O.QueryRow<Schema,V,AV,F>>,result:Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & List<&2,O.QueryRow<Schema,V,AV,F>>) -> Host<Schema,M,A,F,L,Mode,P,V,AV,LV>:
++def snapshot_plus(~Schema:Data,~M:Type,~A:Type,~F:Data,~L:Type,~Mode:Data,~P:Data,~V:Data,~AV:Data,~LV:Data,~Tok:Data,~main_get:M -> M & V,~aux_get:A -> A & AV,~client:@-Owner:Type -> @-Aux:Type -> @-get:(Owner -> Tok -> Owner & V) -> @-ag:(Aux -> Aux & Maybe<&2,AV>) -> W.Handle<Schema> -> Maybe<&2,F> -> Owner -> Aux -> Owner & (Aux & O.QueryRow<Schema,V,AV,F>),~ledger_get:L -> L & LV,required:List<&2,O.QueryRow<Schema,V,AV,F>>,result:Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & List<&2,O.QueryRow<Schema,V,AV,F>>) -> Host<Schema,M,A,F,L,Mode,P,V,AV,LV>:
+   match result:
+     case (owner,plus): snapshot_minus(Schema,M,A,F,L,Mode,P,V,AV,LV,Tok,main_get,aux_get,client,ledger_get,required,plus,query(Schema,M,A,F,L,Mode,P,V,AV,LV,Tok,main_get,aux_get,client,Q.Absent{},owner))
+-def snapshot_required(~Schema:Data,~M:Type,~A:Type,~F:Data,~L:Type,~Mode:Data,~P:Data,~V:Data,~AV:Data,~LV:Data,~Tok:Data,~main_get:M -> M & V,~aux_get:A -> A & AV,~client:@-Owner:Type -> @-Aux:Type -> (Owner -> Tok -> Owner & V) -> (Aux -> Aux & Maybe<&2,AV>) -> W.Handle<Schema> -> Maybe<&2,F> -> Owner -> Aux -> Owner & (Aux & O.QueryRow<Schema,V,AV,F>),~ledger_get:L -> L & LV,result:Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & List<&2,O.QueryRow<Schema,V,AV,F>>) -> Host<Schema,M,A,F,L,Mode,P,V,AV,LV>:
++def snapshot_required(~Schema:Data,~M:Type,~A:Type,~F:Data,~L:Type,~Mode:Data,~P:Data,~V:Data,~AV:Data,~LV:Data,~Tok:Data,~main_get:M -> M & V,~aux_get:A -> A & AV,~client:@-Owner:Type -> @-Aux:Type -> @-get:(Owner -> Tok -> Owner & V) -> @-ag:(Aux -> Aux & Maybe<&2,AV>) -> W.Handle<Schema> -> Maybe<&2,F> -> Owner -> Aux -> Owner & (Aux & O.QueryRow<Schema,V,AV,F>),~ledger_get:L -> L & LV,result:Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & List<&2,O.QueryRow<Schema,V,AV,F>>) -> Host<Schema,M,A,F,L,Mode,P,V,AV,LV>:
+   match result:
+     case (owner,required): snapshot_plus(Schema,M,A,F,L,Mode,P,V,AV,LV,Tok,main_get,aux_get,client,ledger_get,required,query(Schema,M,A,F,L,Mode,P,V,AV,LV,Tok,main_get,aux_get,client,Q.Present{},owner))
+-def snapshot(~Schema:Data,~M:Type,~A:Type,~F:Data,~L:Type,~Mode:Data,~P:Data,~V:Data,~AV:Data,~LV:Data,~Tok:Data,~main_get:M -> M & V,~aux_get:A -> A & AV,~client:@-Owner:Type -> @-Aux:Type -> (Owner -> Tok -> Owner & V) -> (Aux -> Aux & Maybe<&2,AV>) -> W.Handle<Schema> -> Maybe<&2,F> -> Owner -> Aux -> Owner & (Aux & O.QueryRow<Schema,V,AV,F>),~ledger_get:L -> L & LV,owner:Host<Schema,M,A,F,L,Mode,P,V,AV,LV>) -> Host<Schema,M,A,F,L,Mode,P,V,AV,LV>:
++def snapshot(~Schema:Data,~M:Type,~A:Type,~F:Data,~L:Type,~Mode:Data,~P:Data,~V:Data,~AV:Data,~LV:Data,~Tok:Data,~main_get:M -> M & V,~aux_get:A -> A & AV,~client:@-Owner:Type -> @-Aux:Type -> @-get:(Owner -> Tok -> Owner & V) -> @-ag:(Aux -> Aux & Maybe<&2,AV>) -> W.Handle<Schema> -> Maybe<&2,F> -> Owner -> Aux -> Owner & (Aux & O.QueryRow<Schema,V,AV,F>),~ledger_get:L -> L & LV,owner:Host<Schema,M,A,F,L,Mode,P,V,AV,LV>) -> Host<Schema,M,A,F,L,Mode,P,V,AV,LV>:
+   snapshot_required(Schema,M,A,F,L,Mode,P,V,AV,LV,Tok,main_get,aux_get,client,ledger_get,query(Schema,M,A,F,L,Mode,P,V,AV,LV,Tok,main_get,aux_get,client,Q.Required{},owner))
+ def MotionHost() -> Type:
+   Host<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,T.MotionPing,T.PositionView,T.VelocityView,T.LedgerView>
+--- a/experiments/s-integrate/audited-invoker.bend
++++ b/experiments/s-integrate/audited-invoker.bend
+@@ -86,7 +86,7 @@
+ def motion_lookup_read(-Main:Type,-Aux:Type,aux:Aux,result:Main & T.PositionView) -> Main & (Aux & T.MainView):
+   match result:
+     case (main,value): (main,(aux,T.MotionMain{value}))
+-def motion_lookup_client(-Main:Type,-Aux:Type,get:Main -> T.PositionToken -> Main & T.PositionView,aux_get:Aux -> Aux & Maybe<&2,T.VelocityView>,handle:S.Handle<T.MotionSchema>,flag:Maybe<&2,T.Selected>,main:Main,aux:Aux) -> Main & (Aux & T.MainView):
++def motion_lookup_client(~Main:Type,~Aux:Type,~get:Main -> T.PositionToken -> Main & T.PositionView,~aux_get:Aux -> Aux & Maybe<&2,T.VelocityView>,handle:S.Handle<T.MotionSchema>,flag:Maybe<&2,T.Selected>,main:Main,aux:Aux) -> Main & (Aux & T.MainView):
+   motion_lookup_read(Main,Aux,aux,get(main,T.PositionToken{}))
+ def motion_complete(tick:U32,audit:D.Audit,reservation:Maybe<&2,O.BundleView<T.PositionView,T.VelocityView,T.Selected>>,result:U.BodyResult<X.Tx<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>>,S.Handle<T.MotionSchema>>) -> IO(ServiceResult<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Handle<T.MotionSchema>,T.PositionView,T.VelocityView,T.Selected>):
+   IO.pure(ServiceResult<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Handle<T.MotionSchema>,T.PositionView,T.VelocityView,T.Selected>,ServiceResult{A.motion_finished(result,tick),audit,reservation})
+@@ -182,7 +182,7 @@
+ def health_lookup_read(-Main:Type,-Aux:Type,aux:Aux,result:Main & T.VitalsView) -> Main & (Aux & T.MainView):
+   match result:
+     case (main,value): (main,(aux,T.HealthMain{value}))
+-def health_lookup_client(-Main:Type,-Aux:Type,get:Main -> T.VitalsToken -> Main & T.VitalsView,aux_get:Aux -> Aux & Maybe<&2,T.ArmorView>,handle:S.Handle<T.HealthSchema>,flag:Maybe<&2,T.Tracked>,main:Main,aux:Aux) -> Main & (Aux & T.MainView):
++def health_lookup_client(~Main:Type,~Aux:Type,~get:Main -> T.VitalsToken -> Main & T.VitalsView,~aux_get:Aux -> Aux & Maybe<&2,T.ArmorView>,handle:S.Handle<T.HealthSchema>,flag:Maybe<&2,T.Tracked>,main:Main,aux:Aux) -> Main & (Aux & T.MainView):
+   health_lookup_read(Main,Aux,aux,get(main,T.VitalsToken{}))
+ def health_complete(tick:U32,audit:D.Audit,reservation:Maybe<&2,O.BundleView<T.VitalsView,T.ArmorView,T.Tracked>>,result:U.BodyResult<X.Tx<S.World<T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked>>,S.Handle<T.HealthSchema>>) -> IO(ServiceResult<S.World<T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Handle<T.HealthSchema>,T.VitalsView,T.ArmorView,T.Tracked>):
+   IO.pure(ServiceResult<S.World<T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Handle<T.HealthSchema>,T.VitalsView,T.ArmorView,T.Tracked>,ServiceResult{A.health_finished(result,tick),audit,reservation})
