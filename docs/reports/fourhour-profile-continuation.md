@@ -39,3 +39,24 @@ and binaries for both roles, preserving all65 worlds. Native253/257ms and JS287/
 Status: active. Isolated source experiments investigate ledger owner flattening,
 private journal representation, query transport and the actually reached generic
 publish frontier. No changed-source elapsed result or new adoption exists yet.
+
+## Stopped minor query hypothesis
+
+The source saturated-query experiment removes only512 terminal state expressions
+across eight measured Motion worlds; perrow states and allother counts remain.
+Primitive Bool removal creates no allocation saving. The recursive self-template
+canary is rejected as unfilleddefinition. Motion finite counts/fields pass; Health
+and broader gates are not transferred. Stop this low-yield seam; source/report
+retained in [query evidence](../../experiments/s-prep/source-query-saturated-loop/README.md).
+
+## Separate emitted-JS ownership diagnostic
+
+[Private row-owner reuse](../../experiments/s-prep/js-row-owner-reuse/README.md)
+preserves576 fresh actual Tx/suppression records, bothschemas65worlds, four frozen
+view/trueold witnesses and seven structural refusal controls. Health expressions
+7,206,464→6,682,176 (four wrapper copies/callback). Single parallel-preparation raw
+Motion306/255.999651ms and Health382/357.168522ms still miss JSparity. No stable
+speedup, Native benefit, source/compiler adoption or universal alias proof follows.
+Earlier empty-catalog false-success receipt is invalid and retained; final executor
+requires exactlyeight actualcases/576records. Other initial scaffold refusals
+remain distinct from semantic negative controls.
