@@ -1,0 +1,33 @@
+--- experiments/s-integrate/commands.bend
++++ experiments/s-integrate/commands.bend
+@@ -21 +21 @@
+-def prototype_closed_reserve(~M: Type,~A: Type,~F: Data,-Schema: Data,-L: Type,-Mode: Data,
++def prototype_closed_reserve(~M: Type,~A: Type,~F: Data,~L: Type,-Schema: Data,-Mode: Data,
+@@ -23 +23 @@
+-  prototype_closed_reserved(~M,~A,~F,Schema,L,Mode,bundle,I.reserve_id(Schema,M,A,F,L,Mode,world))
++  prototype_closed_reserved(~M,~A,~F,Schema,L,Mode,bundle,I.prototype_closed_L_reserve_id(~L,Schema,M,A,F,Mode,world))
+--- experiments/s-integrate/identity.bend
++++ experiments/s-integrate/identity.bend
+@@ -30,0 +31,14 @@
++
++def prototype_closed_L_reserve_checked(~L: Type,-Schema: Data,-M: Type,-A: Type,-F: Data,-Mode: Data,
++  available: Bool,+namespace: U32,+next: U32,rows: S.Rows<M,A,F>,pending: List<S.Command<M,A,F>>,ledger: Maybe<L>,mode: Mode) -> S.World<Schema,M,A,F,L,Mode> & Maybe<&2,S.Handle<Schema>>:
++  match available:
++    case False{}: (S.World{namespace,next,rows,pending,ledger,mode},None{})
++    case True{}: (S.World{namespace,(next + 1 : U32),rows,pending,ledger,mode},Some{S.Handle{namespace,next}})
++# Reservation is deliberately independent of publication, enabling failed Tx
++# publication to disappear without rewinding or reissuing its escaped handle.
++
++def prototype_closed_L_reserve_id(~L: Type,-Schema: Data,-M: Type,-A: Type,-F: Data,-Mode: Data,
++  world: S.World<Schema,M,A,F,L,Mode>) -> S.World<Schema,M,A,F,L,Mode> & Maybe<&2,S.Handle<Schema>>:
++  match world:
++    case S.World{+namespace,+next,rows,pending,ledger,mode}:
++      prototype_closed_L_reserve_checked(~L,Schema,M,A,F,Mode,U32.is_lt(next,4294967295),namespace,next,rows,pending,ledger,mode)
+--- experiments/s-integrate/raw-boundaries.bend
++++ experiments/s-integrate/raw-boundaries.bend
+@@ -28 +28 @@
+-  motion_reserve_return(Q.prototype_closed_reserve(~C.Cache<T.Position,T.PositionView>,~T.Velocity,~T.Selected,T.MotionSchema,C.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,world,motion_bundle(raw)))
++  motion_reserve_return(Q.prototype_closed_reserve(~C.Cache<T.Position,T.PositionView>,~T.Velocity,~T.Selected,~C.Cache<T.MotionLedger,T.LedgerView>,T.MotionSchema,T.MotionMode,world,motion_bundle(raw)))
+@@ -59 +59 @@
+-  health_reserve_return(Q.prototype_closed_reserve(~C.Cache<T.Vitals,T.VitalsView>,~T.Armor,~T.Tracked,T.HealthSchema,C.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,world,health_bundle(raw)))
++  health_reserve_return(Q.prototype_closed_reserve(~C.Cache<T.Vitals,T.VitalsView>,~T.Armor,~T.Tracked,~C.Cache<T.HealthLedger,T.LedgerView>,T.HealthSchema,T.HealthMode,world,health_bundle(raw)))
