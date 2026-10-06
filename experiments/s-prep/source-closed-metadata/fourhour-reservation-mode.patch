@@ -1,0 +1,27 @@
+--- experiments/s-integrate/commands.bend
++++ experiments/s-integrate/commands.bend
+@@ -21 +21 @@
+-def prototype_closed_reserve(~M: Type,~A: Type,~F: Data,~L: Type,-Schema: Data,-Mode: Data,
++def prototype_closed_reserve(~M: Type,~A: Type,~F: Data,~L: Type,~Mode: Data,-Schema: Data,
+@@ -23 +23 @@
+-  prototype_closed_reserved(~M,~A,~F,Schema,L,Mode,bundle,I.prototype_closed_L_reserve_id(~L,Schema,M,A,F,Mode,world))
++  prototype_closed_reserved(~M,~A,~F,Schema,L,Mode,bundle,I.prototype_closed_L_reserve_id(~L,~Mode,Schema,M,A,F,world))
+--- experiments/s-integrate/identity.bend
++++ experiments/s-integrate/identity.bend
+@@ -32 +32 @@
+-def prototype_closed_L_reserve_checked(~L: Type,-Schema: Data,-M: Type,-A: Type,-F: Data,-Mode: Data,
++def prototype_closed_L_reserve_checked(~L: Type,~Mode: Data,-Schema: Data,-M: Type,-A: Type,-F: Data,
+@@ -40 +40 @@
+-def prototype_closed_L_reserve_id(~L: Type,-Schema: Data,-M: Type,-A: Type,-F: Data,-Mode: Data,
++def prototype_closed_L_reserve_id(~L: Type,~Mode: Data,-Schema: Data,-M: Type,-A: Type,-F: Data,
+@@ -44 +44 @@
+-      prototype_closed_L_reserve_checked(~L,Schema,M,A,F,Mode,U32.is_lt(next,4294967295),namespace,next,rows,pending,ledger,mode)
++      prototype_closed_L_reserve_checked(~L,~Mode,Schema,M,A,F,U32.is_lt(next,4294967295),namespace,next,rows,pending,ledger,mode)
+--- experiments/s-integrate/raw-boundaries.bend
++++ experiments/s-integrate/raw-boundaries.bend
+@@ -28 +28 @@
+-  motion_reserve_return(Q.prototype_closed_reserve(~C.Cache<T.Position,T.PositionView>,~T.Velocity,~T.Selected,~C.Cache<T.MotionLedger,T.LedgerView>,T.MotionSchema,T.MotionMode,world,motion_bundle(raw)))
++  motion_reserve_return(Q.prototype_closed_reserve(~C.Cache<T.Position,T.PositionView>,~T.Velocity,~T.Selected,~C.Cache<T.MotionLedger,T.LedgerView>,~T.MotionMode,T.MotionSchema,world,motion_bundle(raw)))
+@@ -59 +59 @@
+-  health_reserve_return(Q.prototype_closed_reserve(~C.Cache<T.Vitals,T.VitalsView>,~T.Armor,~T.Tracked,~C.Cache<T.HealthLedger,T.LedgerView>,T.HealthSchema,T.HealthMode,world,health_bundle(raw)))
++  health_reserve_return(Q.prototype_closed_reserve(~C.Cache<T.Vitals,T.VitalsView>,~T.Armor,~T.Tracked,~C.Cache<T.HealthLedger,T.LedgerView>,~T.HealthMode,T.HealthSchema,world,health_bundle(raw)))
