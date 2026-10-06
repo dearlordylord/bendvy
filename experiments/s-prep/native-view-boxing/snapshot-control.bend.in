@@ -1,0 +1,48 @@
+import Base
+import CORE/types.bend as T
+import CORE/cache.bend as C
+import CORE/cached-payload.bend as CP
+import CORE/host-render.bend as JSON
+
+def quad(a:U32,b:U32,c:U32,d:U32) -> Array<U32>:
+  Array.set(U32,Array.set(U32,Array.set(U32,[a:U32^2n],1,b),2,c),3,d)
+
+def position_written(saved:T.PositionView,pair:C.Cache<T.Position,T.PositionView> & U32) -> String:
+  match pair:
+    case (C.Cache{T.Position{array,frame},cached},old): JSON.render_position(saved) ++ "|" ++ JSON.render_position(cached) ++ "|" ++ U32.show(old) ++ "|" ++ List.show(&1,U32,U32.show,Array.to_list(U32,array)) ++ "|" ++ U32.show(frame)
+def position_read(pair:C.Cache<T.Position,T.PositionView> & T.PositionView) -> String:
+  match pair:
+    case (owner,saved): position_written(saved,CP.position_swap(owner,91))
+
+def vitals_written(saved:T.VitalsView,pair:C.Cache<T.Vitals,T.VitalsView> & U32) -> String:
+  match pair:
+    case (C.Cache{T.Vitals{array,reserve,class},cached},old): JSON.render_vitals(saved) ++ "|" ++ JSON.render_vitals(cached) ++ "|" ++ U32.show(old) ++ "|" ++ List.show(&1,U32,U32.show,Array.to_list(U32,array)) ++ "|" ++ U32.show(reserve) ++ ":" ++ U32.show(class)
+def vitals_read(pair:C.Cache<T.Vitals,T.VitalsView> & T.VitalsView) -> String:
+  match pair:
+    case (owner,saved): vitals_written(saved,CP.vitals_swap(owner,91))
+
+def motion_ledger_written(saved:T.LedgerView,pair:C.Cache<T.MotionLedger,T.LedgerView> & U32) -> String:
+  match pair:
+    case (C.Cache{T.MotionLedger{array,epoch},cached},old): JSON.render_ledger(saved) ++ "|" ++ JSON.render_ledger(cached) ++ "|" ++ U32.show(old) ++ "|" ++ List.show(&1,U32,U32.show,Array.to_list(U32,array)) ++ "|" ++ U32.show(epoch)
+def motion_ledger_read(pair:C.Cache<T.MotionLedger,T.LedgerView> & T.LedgerView) -> String:
+  match pair:
+    case (owner,saved): motion_ledger_written(saved,CP.motion_ledger_swap(owner,91))
+
+def health_ledger_written(saved:T.LedgerView,pair:C.Cache<T.HealthLedger,T.LedgerView> & U32) -> String:
+  match pair:
+    case (C.Cache{T.HealthLedger{array,epoch},cached},old): JSON.render_ledger(saved) ++ "|" ++ JSON.render_ledger(cached) ++ "|" ++ U32.show(old) ++ "|" ++ List.show(&1,U32,U32.show,Array.to_list(U32,array)) ++ "|" ++ U32.show(epoch)
+def health_ledger_read(pair:C.Cache<T.HealthLedger,T.LedgerView> & T.LedgerView) -> String:
+  match pair:
+    case (owner,saved): health_ledger_written(saved,CP.health_ledger_swap(owner,91))
+
+def main() -> IO(Unit):
+  do IO<Unit>:
+    IO.print("position-root:" ++ position_read(CP.position_get(C.Cache{T.Position{quad(11,12,13,14),7},T.PositionView{T.Four{11,12,13,14},7}})))
+    IO.print("position-nested:" ++ position_read(CP.position_get(C.Cache{T.Position{quad(11,12,13,14),7},T.PositionViewNested{T.PositionViewNested{T.PositionView{T.Four{11,12,13,14},7}}}})))
+    IO.print("vitals-root:" ++ vitals_read(CP.vitals_get(C.Cache{T.Vitals{quad(21,22,23,24),8,9},T.VitalsView{T.Four{21,22,23,24},8,9}})))
+    IO.print("vitals-nested:" ++ vitals_read(CP.vitals_get(C.Cache{T.Vitals{quad(21,22,23,24),8,9},T.VitalsViewNested{T.VitalsViewNested{T.VitalsView{T.Four{21,22,23,24},8,9}}}})))
+    IO.print("motion_ledger-root:" ++ motion_ledger_read(CP.motion_ledger_get(C.Cache{T.MotionLedger{quad(31,32,33,34),10},T.LedgerView{T.Four{31,32,33,34},10}})))
+    IO.print("motion_ledger-nested:" ++ motion_ledger_read(CP.motion_ledger_get(C.Cache{T.MotionLedger{quad(31,32,33,34),10},T.LedgerViewNested{T.LedgerViewNested{T.LedgerView{T.Four{31,32,33,34},10}}}})))
+    IO.print("health_ledger-root:" ++ health_ledger_read(CP.health_ledger_get(C.Cache{T.HealthLedger{quad(41,42,43,44),11},T.LedgerView{T.Four{41,42,43,44},11}})))
+    IO.print("health_ledger-nested:" ++ health_ledger_read(CP.health_ledger_get(C.Cache{T.HealthLedger{quad(41,42,43,44),11},T.LedgerViewNested{T.LedgerViewNested{T.LedgerView{T.Four{41,42,43,44},11}}}})))
+    return Unit{}

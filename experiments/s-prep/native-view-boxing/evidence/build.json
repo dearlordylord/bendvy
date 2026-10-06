@@ -1,0 +1,30 @@
+{
+  "commands": [
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-native-view-boxing-build3/batch.bend",
+        "-o",
+        "/tmp/bendvy-native-view-boxing-build3/batch.c"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "argv": [
+        "clang",
+        "-O3",
+        "/tmp/bendvy-native-view-boxing-build3/batch.c",
+        "-o",
+        "/tmp/bendvy-native-view-boxing-build3/batch-native",
+        "-lm",
+        "-pthread"
+      ],
+      "limitSeconds": 120,
+      "exit": 0,
+      "output": ""
+    }
+  ],
+  "status": "STATIC_NATIVE_BUILD_PASS"
+}

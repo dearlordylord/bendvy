@@ -1,0 +1,102 @@
+--- a/experiments/s-integrate/types.bend
++++ b/experiments/s-integrate/types.bend
+@@ -36,0 +37 @@
++  PositionViewNested{inner: PositionView}
+@@ -38,0 +40 @@
++  VitalsViewNested{inner: VitalsView}
+@@ -44,0 +47 @@
++  LedgerViewNested{inner: LedgerView}
+--- a/experiments/s-integrate/cached-payload.bend
++++ b/experiments/s-integrate/cached-payload.bend
+@@ -14,0 +15 @@
++    case T.PositionViewNested{inner}: position_patch(inner,value)
+@@ -27,0 +29 @@
++    case T.VitalsViewNested{inner}: vitals_patch(inner,value)
+@@ -40,0 +43 @@
++    case T.LedgerViewNested{inner}: motion_ledger_patch(inner,value)
+@@ -53,0 +57 @@
++    case T.LedgerViewNested{inner}: health_ledger_patch(inner,value)
+--- a/experiments/s-integrate/host-render.bend
++++ b/experiments/s-integrate/host-render.bend
+@@ -92,0 +93 @@
++    case T.PositionViewNested{inner}: render_position(inner)
+@@ -96,0 +98 @@
++    case T.VitalsViewNested{inner}: render_vitals(inner)
+@@ -108,0 +111 @@
++    case T.LedgerViewNested{inner}: render_ledger(inner)
+@@ -339,0 +343 @@
++    case T.PositionViewNested{inner}: compact_motion_main(namespace,id,aux,flag,inner)
+@@ -342,0 +347 @@
++    case T.VitalsViewNested{inner}: compact_health_main(namespace,id,aux,flag,inner)
+--- a/experiments/s-integrate/measurement-bend.bend
++++ b/experiments/s-integrate/measurement-bend.bend
+@@ -40,0 +41,4 @@
++def prototype_view_box_motion_body_ledger(-Owner:Type,set:Owner -> T.MotionLedgerToken -> U32 -> Owner,readsum:U32,view:T.LedgerView,owner:Owner) -> Owner & U32:
++  match view:
++    case T.LedgerView{values,_}: (set(owner,T.MotionLedgerToken{},U32.add(first(values),1)),readsum)
++    case T.LedgerViewNested{inner}: prototype_view_box_motion_body_ledger(Owner,set,readsum,inner,owner)
+@@ -43 +47 @@
+-    case (owner,Some{T.LedgerView{values,_}}): (set(owner,T.MotionLedgerToken{},U32.add(first(values),1)),readsum)
++    case (owner,Some{view}): prototype_view_box_motion_body_ledger(Owner,set,readsum,view,owner)
+@@ -44,0 +49,4 @@
++def prototype_view_box_motion_body_read(-Owner:Type,set:Owner -> T.PositionToken -> U32 -> Owner,ledger:Owner -> T.MotionLedgerToken -> Owner & Maybe<&2,T.LedgerView>,setledger:Owner -> T.MotionLedgerToken -> U32 -> Owner,view:T.PositionView,owner:Owner) -> Owner & U32:
++  match view:
++    case T.PositionView{+values,_}: motion_body_ledger(Owner,setledger,sum(values),ledger(set(owner,T.PositionToken{},U32.add(first(values),1)),T.MotionLedgerToken{}))
++    case T.PositionViewNested{inner}: prototype_view_box_motion_body_read(Owner,set,ledger,setledger,inner,owner)
+@@ -47 +55 @@
+-    case (owner,T.Found{T.PositionView{+values,_}}): motion_body_ledger(Owner,setledger,sum(values),ledger(set(owner,T.PositionToken{},U32.add(first(values),1)),T.MotionLedgerToken{}))
++    case (owner,T.Found{view}): prototype_view_box_motion_body_read(Owner,set,ledger,setledger,view,owner)
+@@ -66,0 +75,4 @@
++def prototype_view_box_health_body_ledger(-Owner:Type,set:Owner -> T.HealthLedgerToken -> U32 -> Owner,readsum:U32,view:T.LedgerView,owner:Owner) -> Owner & U32:
++  match view:
++    case T.LedgerView{values,_}: (set(owner,T.HealthLedgerToken{},U32.add(first(values),1)),readsum)
++    case T.LedgerViewNested{inner}: prototype_view_box_health_body_ledger(Owner,set,readsum,inner,owner)
+@@ -69 +81 @@
+-    case (owner,Some{T.LedgerView{values,_}}): (set(owner,T.HealthLedgerToken{},U32.add(first(values),1)),readsum)
++    case (owner,Some{view}): prototype_view_box_health_body_ledger(Owner,set,readsum,view,owner)
+@@ -70,0 +83,4 @@
++def prototype_view_box_health_body_read(-Owner:Type,set:Owner -> T.VitalsToken -> U32 -> Owner,ledger:Owner -> T.HealthLedgerToken -> Owner & Maybe<&2,T.LedgerView>,setledger:Owner -> T.HealthLedgerToken -> U32 -> Owner,view:T.VitalsView,owner:Owner) -> Owner & U32:
++  match view:
++    case T.VitalsView{+values,_,_}: health_body_ledger(Owner,setledger,sum(values),ledger(set(owner,T.VitalsToken{},U32.add(first(values),1)),T.HealthLedgerToken{}))
++    case T.VitalsViewNested{inner}: prototype_view_box_health_body_read(Owner,set,ledger,setledger,inner,owner)
+@@ -73 +89 @@
+-    case (owner,T.Found{T.VitalsView{+values,_,_}}): health_body_ledger(Owner,setledger,sum(values),ledger(set(owner,T.VitalsToken{},U32.add(first(values),1)),T.HealthLedgerToken{}))
++    case (owner,T.Found{view}): prototype_view_box_health_body_read(Owner,set,ledger,setledger,view,owner)
+@@ -119,0 +136 @@
++    case T.PositionViewNested{inner}: motion_main_sum(inner)
+@@ -250,0 +268 @@
++    case T.VitalsViewNested{inner}: health_main_sum(inner)
+--- a/experiments/s-integrate/prototype-static-client.bend
++++ b/experiments/s-integrate/prototype-static-client.bend
+@@ -12,0 +13,4 @@
++def prototype_view_box_motion_body_ledger(~Owner:Type,~set:Owner -> T.MotionLedgerToken -> U32 -> Owner,readsum:U32,view:T.LedgerView,owner:Owner) -> Owner & U32:
++  match view:
++    case T.LedgerView{values,_}: (set(owner,T.MotionLedgerToken{},U32.add(first(values),1)),readsum)
++    case T.LedgerViewNested{inner}: prototype_view_box_motion_body_ledger(~Owner,~set,readsum,inner,owner)
+@@ -15 +19 @@
+-    case (owner,Some{T.LedgerView{values,_}}): (set(owner,T.MotionLedgerToken{},U32.add(first(values),1)),readsum)
++    case (owner,Some{view}): prototype_view_box_motion_body_ledger(~Owner,~set,readsum,view,owner)
+@@ -17,0 +22,4 @@
++def prototype_view_box_motion_body_read(~Owner:Type,~set:Owner -> T.PositionToken -> U32 -> Owner,~ledger:Owner -> T.MotionLedgerToken -> Owner & Maybe<&2,T.LedgerView>,~setledger:Owner -> T.MotionLedgerToken -> U32 -> Owner,view:T.PositionView,owner:Owner) -> Owner & U32:
++  match view:
++    case T.PositionView{+values,_}: motion_body_ledger(~Owner,~setledger,sum(values),ledger(set(owner,T.PositionToken{},U32.add(first(values),1)),T.MotionLedgerToken{}))
++    case T.PositionViewNested{inner}: prototype_view_box_motion_body_read(~Owner,~set,~ledger,~setledger,inner,owner)
+@@ -20 +28 @@
+-    case (owner,T.Found{T.PositionView{+values,_}}): motion_body_ledger(~Owner,~setledger,sum(values),ledger(set(owner,T.PositionToken{},U32.add(first(values),1)),T.MotionLedgerToken{}))
++    case (owner,T.Found{view}): prototype_view_box_motion_body_read(~Owner,~set,~ledger,~setledger,view,owner)
+@@ -25,0 +34,4 @@
++def prototype_view_box_health_body_ledger(~Owner:Type,~set:Owner -> T.HealthLedgerToken -> U32 -> Owner,readsum:U32,view:T.LedgerView,owner:Owner) -> Owner & U32:
++  match view:
++    case T.LedgerView{values,_}: (set(owner,T.HealthLedgerToken{},U32.add(first(values),1)),readsum)
++    case T.LedgerViewNested{inner}: prototype_view_box_health_body_ledger(~Owner,~set,readsum,inner,owner)
+@@ -28 +40 @@
+-    case (owner,Some{T.LedgerView{values,_}}): (set(owner,T.HealthLedgerToken{},U32.add(first(values),1)),readsum)
++    case (owner,Some{view}): prototype_view_box_health_body_ledger(~Owner,~set,readsum,view,owner)
+@@ -30,0 +43,4 @@
++def prototype_view_box_health_body_read(~Owner:Type,~set:Owner -> T.VitalsToken -> U32 -> Owner,~ledger:Owner -> T.HealthLedgerToken -> Owner & Maybe<&2,T.LedgerView>,~setledger:Owner -> T.HealthLedgerToken -> U32 -> Owner,view:T.VitalsView,owner:Owner) -> Owner & U32:
++  match view:
++    case T.VitalsView{+values,_,_}: health_body_ledger(~Owner,~setledger,sum(values),ledger(set(owner,T.VitalsToken{},U32.add(first(values),1)),T.HealthLedgerToken{}))
++    case T.VitalsViewNested{inner}: prototype_view_box_health_body_read(~Owner,~set,~ledger,~setledger,inner,owner)
+@@ -33 +49 @@
+-    case (owner,T.Found{T.VitalsView{+values,_,_}}): health_body_ledger(~Owner,~setledger,sum(values),ledger(set(owner,T.VitalsToken{},U32.add(first(values),1)),T.HealthLedgerToken{}))
++    case (owner,T.Found{view}): prototype_view_box_health_body_read(~Owner,~set,~ledger,~setledger,view,owner)
