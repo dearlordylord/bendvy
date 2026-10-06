@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from pathlib import Path
 import argparse,hashlib,json,re,shutil
-H=Path(__file__).resolve().parent;p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True);a=p.parse_args();BASE=Path('/tmp/bendvy-packed-main-slot-motion-v4-receipt-v2');m=json.loads((BASE/'overlay.json').read_text());pins=m['sources'];sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();assert len(pins)==29 and hashlib.sha256(json.dumps(pins,sort_keys=True,separators=(',',':')).encode()).hexdigest()=='52b505c4d7c3a0b304659b48b0a892e6d0db973a3637bc033e03282792d52c6e';assert not any(p.is_symlink() for p in BASE.rglob('*'))
+H=Path(__file__).resolve().parent;p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True);p.add_argument('--input',type=Path,default=Path('/tmp/bendvy-packed-main-slot-motion-v4-receipt-v2'));a=p.parse_args();BASE=a.input;m=json.loads((BASE/'overlay.json').read_text());pins=m['sources'];sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();assert len(pins)==29 and hashlib.sha256(json.dumps(pins,sort_keys=True,separators=(',',':')).encode()).hexdigest()=='52b505c4d7c3a0b304659b48b0a892e6d0db973a3637bc033e03282792d52c6e';assert not any(p.is_symlink() for p in BASE.rglob('*'))
 for n,h in pins.items():assert sha(BASE/n)==h
 cache=json.loads((BASE/'cache-specialization.json').read_text());assert cache==m['cacheSpecialization'] and cache['runtimeClosure']==pins and cache['specializedClosure']==pins and cache['specializedClosureSHA256']==cache['runtimeClosureSHA256']
 assert not a.output.exists();shutil.copytree(BASE,a.output);root=a.output/'experiments/s-integrate'

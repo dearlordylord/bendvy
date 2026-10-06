@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from pathlib import Path
 import json,hashlib,re,shutil,argparse
-H=Path(__file__).resolve().parent;p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True);a=p.parse_args();base=Path('/tmp/bendvy-packed-main-slot-both-v3');pair=Path('/tmp/bendvy-paired-journal-v2');sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+H=Path(__file__).resolve().parent;p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True);p.add_argument('--packed-input',type=Path,default=Path('/tmp/bendvy-packed-main-slot-both-v3'));p.add_argument('--paired-input',type=Path,default=Path('/tmp/bendvy-paired-journal-v2'));a=p.parse_args();base=a.packed_input;pair=a.paired_input;sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
 def verify(root,digest,legacy=False):
  m=json.loads((root/'overlay.json').read_text());c=json.loads((root/'cache-specialization.json').read_text());s=m['sources'];assert len(s)==29 and hashlib.sha256(json.dumps(s,sort_keys=True,separators=(',',':')).encode()).hexdigest()==digest and c==m['cacheSpecialization'] and c['runtimeClosure']==s and c['specializedClosure']==s and c['runtimeClosureSHA256']==digest and ((legacy and 'specializedClosureSHA256' not in c) or (not legacy and c['specializedClosureSHA256']==digest))
  for n,h in s.items():assert sha(root/n)==h
