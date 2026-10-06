@@ -132,20 +132,36 @@ def damage(world: W.World<S.Schema,S.Store,F32,S.SimEvent>) -> T.Returned<W.Worl
 def retry_spawned(~H: Type,observed: H & W.Reservation<S.Schema>) -> H & T.Outcome<UserError>:
   (ctx,_) = observed
   (ctx,T.Failure{Rejected{}})
-def retry_owner(~H: Type,~set: H -> S.Position -> H,~resource_set: H -> F32 -> H,~emit: H -> S.SimEvent -> H,~spawn: H -> S.Bundle -> H & W.Reservation<S.Schema>,ctx: H,owner: Maybe<&1,S.Position>) -> H & T.Outcome<UserError>:
+type RetryArgs is Data:
+  RetryArgs{fail: Bool,finalHandle: W.Handle<S.Schema>}
+def handle_equal(a: W.Handle<S.Schema>,b: W.Handle<S.Schema>) -> Bool:
+  match a b:
+    case W.Handle{ans,aid} W.Handle{bns,bid}: Bool.and(U32.is_eq(ans,bns),U32.is_eq(aid,bid))
+def retry_effects(~H: Type,~resource_set: H -> F32 -> H,~emit: H -> S.SimEvent -> H,~spawn: H -> S.Bundle -> H & W.Reservation<S.Schema>,final: Bool,ctx: H) -> H & T.Outcome<UserError>:
+  match final:
+    case False{}: (ctx,T.Success{})
+    case True{}: retry_spawned(~H,spawn(emit(resource_set(ctx,9.0),S.Hit{999,999.0,999.0}),S.ghost()))
+def retry_owner(~H: Type,~set: H -> S.Position -> H,~resource_set: H -> F32 -> H,~emit: H -> S.SimEvent -> H,~spawn: H -> S.Bundle -> H & W.Reservation<S.Schema>,final: Bool,ctx: H,owner: Maybe<&1,S.Position>) -> H & T.Outcome<UserError>:
   match owner:
     case None{}: (ctx,T.Failure{UnsupportedFixture{}})
-    case Some{owner}: retry_spawned(~H,spawn(emit(resource_set(set(ctx,owner),9.0),S.Hit{999,999.0,999.0}),S.ghost()))
-def retry_view(~H: Type,~set: H -> S.Position -> H,~resource_set: H -> F32 -> H,~emit: H -> S.SimEvent -> H,~spawn: H -> S.Bundle -> H & W.Reservation<S.Schema>,ctx: H,position: S.PositionView) -> H & T.Outcome<UserError>:
+    case Some{owner}: retry_effects(~H,~resource_set,~emit,~spawn,final,set(ctx,owner))
+def retry_view(~H: Type,~set: H -> S.Position -> H,~resource_set: H -> F32 -> H,~emit: H -> S.SimEvent -> H,~spawn: H -> S.Bundle -> H & W.Reservation<S.Schema>,final: Bool,ctx: H,position: S.PositionView) -> H & T.Outcome<UserError>:
   match position:
-    case S.PositionView{_,+trail}: retry_owner(~H,~set,~resource_set,~emit,~spawn,ctx,S.position_owner(S.PositionView{999.0,trail}))
-def retry_get(~H: Type,~set: H -> S.Position -> H,~resource_set: H -> F32 -> H,~emit: H -> S.SimEvent -> H,~spawn: H -> S.Bundle -> H & W.Reservation<S.Schema>,observed: H & C.Access<S.PositionView>) -> H & T.Outcome<UserError>:
+    case S.PositionView{_,+trail}: retry_owner(~H,~set,~resource_set,~emit,~spawn,final,ctx,S.position_owner(S.PositionView{999.0,trail}))
+def retry_get(~H: Type,~set: H -> S.Position -> H,~resource_set: H -> F32 -> H,~emit: H -> S.SimEvent -> H,~spawn: H -> S.Bundle -> H & W.Reservation<S.Schema>,final: Bool,observed: H & C.Access<S.PositionView>) -> H & T.Outcome<UserError>:
   match observed:
-    case (ctx,C.Found{position}): retry_view(~H,~set,~resource_set,~emit,~spawn,ctx,position)
+    case (ctx,C.Found{position}): retry_view(~H,~set,~resource_set,~emit,~spawn,final,ctx,position)
     case (ctx,_): (ctx,T.Failure{UnsupportedFixture{}})
-def retry_body(~H: Type,~get: H -> H & C.Access<S.PositionView>,~set: H -> S.Position -> H,~aux: H -> H & C.Access<S.VelocityView>,~resource_get: H -> H & F32,~resource_set: H -> F32 -> H,~emit: H -> S.SimEvent -> H,~despawn: H -> H,~spawn: H -> S.Bundle -> H & W.Reservation<S.Schema>,args: Bool,handle: W.Handle<S.Schema>,ctx: H) -> H & T.Outcome<UserError>:
+def retry_success(~H: Type,~resource_set: H -> F32 -> H,final: Bool,ctx: H) -> H & T.Outcome<UserError>:
+  match final:
+    case False{}: (ctx,T.Success{})
+    case True{}: (resource_set(ctx,1.0),T.Success{})
+def retry_mode(~H: Type,~get: H -> H & C.Access<S.PositionView>,~set: H -> S.Position -> H,~resource_set: H -> F32 -> H,~emit: H -> S.SimEvent -> H,~spawn: H -> S.Bundle -> H & W.Reservation<S.Schema>,fail: Bool,final: Bool,ctx: H) -> H & T.Outcome<UserError>:
+  match fail:
+    case False{}: retry_success(~H,~resource_set,final,ctx)
+    case True{}: retry_get(~H,~set,~resource_set,~emit,~spawn,final,get(ctx))
+def retry_body(~H: Type,~get: H -> H & C.Access<S.PositionView>,~set: H -> S.Position -> H,~aux: H -> H & C.Access<S.VelocityView>,~resource_get: H -> H & F32,~resource_set: H -> F32 -> H,~emit: H -> S.SimEvent -> H,~despawn: H -> H,~spawn: H -> S.Bundle -> H & W.Reservation<S.Schema>,args: RetryArgs,handle: W.Handle<S.Schema>,ctx: H) -> H & T.Outcome<UserError>:
   match args:
-    case False{}: (resource_set(ctx,1.0),T.Success{})
-    case True{}: retry_get(~H,~set,~resource_set,~emit,~spawn,get(ctx))
-def retry(world: W.World<S.Schema,S.Store,F32,S.SimEvent>,fail: Bool) -> T.Returned<W.World<S.Schema,S.Store,F32,S.SimEvent>,Pv.Error<UserError>>:
-  Q.each_rw_read(~S.Schema,~S.Store,~F32,~S.SimEvent,~S.PositionRest,~S.Position,~S.PositionView,~S.PositionToken,~S.take_positions,~S.put_positions,~S.project_position,~S.VelocityRest,~S.Velocity,~S.VelocityView,~S.VelocityToken,~S.take_velocities,~S.put_velocities,~S.project_velocity,~F32,~resource_view,~S.Bundle,~S.populate,~S.clear,~Bool,~UserError,~retry_body,S.position(),S.velocity(),Q.Required{},world,fail)
+    case RetryArgs{fail,finalHandle}: retry_mode(~H,~get,~set,~resource_set,~emit,~spawn,fail,handle_equal(handle,finalHandle),ctx)
+def retry(world: W.World<S.Schema,S.Store,F32,S.SimEvent>,args: RetryArgs) -> T.Returned<W.World<S.Schema,S.Store,F32,S.SimEvent>,Pv.Error<UserError>>:
+  Q.each_rw_read(~S.Schema,~S.Store,~F32,~S.SimEvent,~S.PositionRest,~S.Position,~S.PositionView,~S.PositionToken,~S.take_positions,~S.put_positions,~S.project_position,~S.VelocityRest,~S.Velocity,~S.VelocityView,~S.VelocityToken,~S.take_velocities,~S.put_velocities,~S.project_velocity,~F32,~resource_view,~S.Bundle,~S.populate,~S.clear,~RetryArgs,~UserError,~retry_body,S.position(),S.velocity(),Q.Required{},world,args)

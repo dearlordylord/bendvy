@@ -28,7 +28,7 @@ def run_movement(world: World(),args: Unit) -> Sys.Outcome<World(),String,Unit>:
   runner_result(Sim.movement(world))
 def run_damage(world: World(),args: Unit) -> Sys.Outcome<World(),String,Unit>:
   runner_result(Sim.damage(world))
-def run_retry(world: World(),args: Bool) -> Sys.Outcome<World(),String,Unit>:
+def run_retry(world: World(),args: Sim.RetryArgs) -> Sys.Outcome<World(),String,Unit>:
   runner_result(Sim.retry(world,args))
 type Checkpoint is Data:
   Observed{label: String,snapshot: Sim.Snapshot,filtered: List<&2,U32>}
@@ -38,17 +38,17 @@ type ActorHandles is Data:
   NoActors{}
   Actors{a: W.Handle<S.Schema>,b: W.Handle<S.Schema>,c: W.Handle<S.Schema>}
 type State is Type:
-  State{factory: W.Factory,world: World(),reader: E.Reader<S.Schema>,movement: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_movement>,damage: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_damage>,retry: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Bool,String,Unit,run_retry>,actors: ActorHandles,checkpoints: List<&2,Checkpoint>}
+  State{factory: W.Factory,world: World(),reader: E.Reader<S.Schema>,movement: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_movement>,damage: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_damage>,retry: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Sim.RetryArgs,String,Unit,run_retry>,actors: ActorHandles,checkpoints: List<&2,Checkpoint>}
 type Owners is Type:
-  Owners{factory: W.Factory,reader: E.Reader<S.Schema>,movement: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_movement>,damage: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_damage>,retry: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Bool,String,Unit,run_retry>,actors: ActorHandles,checkpoints: List<&2,Checkpoint>}
+  Owners{factory: W.Factory,reader: E.Reader<S.Schema>,movement: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_movement>,damage: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_damage>,retry: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Sim.RetryArgs,String,Unit,run_retry>,actors: ActorHandles,checkpoints: List<&2,Checkpoint>}
 def filter_body(~H: Type,~get: H -> H & C.Access<S.Tag>,~aux: H -> H & C.Access<S.VelocityView>,~resource_get: H -> H & F32,args: Unit,handle: W.Handle<S.Schema>,ctx: H) -> H & U32:
   (ctx,Sim.handle_id(handle))
 def filtered(world: World()) -> World() & List<&2,U32>:
   Q.each_read(~S.Schema,~S.Store,~F32,~S.SimEvent,~S.TagRest,~S.Tag,~S.Tag,~S.TagToken,~S.take_tags,~S.put_tags,~S.project_tag,~S.VelocityRest,~S.Velocity,~S.VelocityView,~S.VelocityToken,~S.take_velocities,~S.put_velocities,~S.project_velocity,~F32,~Sim.resource_view,~S.Bundle,~S.populate,~S.clear,~Unit,~U32,~filter_body,S.tag(),S.velocity(),Q.Absent{},world,Unit{})
-def record_filter(+label: String,+snapshot: Sim.Snapshot,factory: W.Factory,reader: E.Reader<S.Schema>,movement: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_movement>,damage: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_damage>,retry: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Bool,String,Unit,run_retry>,+actors: ActorHandles,+checkpoints: List<&2,Checkpoint>,result: World() & List<&2,U32>) -> State:
+def record_filter(+label: String,+snapshot: Sim.Snapshot,factory: W.Factory,reader: E.Reader<S.Schema>,movement: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_movement>,damage: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_damage>,retry: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Sim.RetryArgs,String,Unit,run_retry>,+actors: ActorHandles,+checkpoints: List<&2,Checkpoint>,result: World() & List<&2,U32>) -> State:
   (world,+ids) = result
   State{factory,world,reader,movement,damage,retry,actors,Observed{label,snapshot,ids} <> checkpoints}
-def record_observed(+label: String,factory: W.Factory,movement: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_movement>,damage: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_damage>,retry: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Bool,String,Unit,run_retry>,+actors: ActorHandles,+checkpoints: List<&2,Checkpoint>,result: Sim.Observation) -> State:
+def record_observed(+label: String,factory: W.Factory,movement: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_movement>,damage: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_damage>,retry: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Sim.RetryArgs,String,Unit,run_retry>,+actors: ActorHandles,+checkpoints: List<&2,Checkpoint>,result: Sim.Observation) -> State:
   match result:
     case Sim.Observation{world,reader,+snapshot}: record_filter(label,snapshot,factory,reader,movement,damage,retry,actors,checkpoints,filtered(world))
     case Sim.ObservationRejected{world,reader}: State{factory,world,reader,movement,damage,retry,actors,FailedResult{label,"ForeignReader"} <> checkpoints}
@@ -58,7 +58,7 @@ def record(state: State,+label: String) -> State:
 def barrier(state: State) -> State:
   match state:
     case State{factory,world,reader,movement,damage,retry,+actors,+checkpoints}: State{factory,W.barrier(~S.Schema,~S.Store,~F32,~S.SimEvent,world),reader,movement,damage,retry,actors,checkpoints}
-def ran_movement(factory: W.Factory,reader: E.Reader<S.Schema>,damage: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_damage>,retry: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Bool,String,Unit,run_retry>,+actors: ActorHandles,+checkpoints: List<&2,Checkpoint>,result: Sys.RunResult<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_movement>) -> State:
+def ran_movement(factory: W.Factory,reader: E.Reader<S.Schema>,damage: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_damage>,retry: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Sim.RetryArgs,String,Unit,run_retry>,+actors: ActorHandles,+checkpoints: List<&2,Checkpoint>,result: Sys.RunResult<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_movement>) -> State:
   match result:
     case Sys.Completed{movement,Sys.Succeeded{world,_}}: State{factory,world,reader,movement,damage,retry,actors,checkpoints}
     case Sys.Completed{movement,Sys.Failed{world,+error}}: State{factory,world,reader,movement,damage,retry,actors,FailedResult{"failed-result",error} <> checkpoints}
@@ -66,7 +66,7 @@ def ran_movement(factory: W.Factory,reader: E.Reader<S.Schema>,damage: Sys.Regis
 def step_movement(state: State) -> State:
   match state:
     case State{factory,world,reader,movement,damage,retry,+actors,+checkpoints}: ran_movement(factory,reader,damage,retry,actors,checkpoints,Sys.run(~S.Schema,~S.Store,~F32,~S.SimEvent,~Unit,~String,~Unit,~run_movement,movement,world,Unit{}))
-def ran_damage(factory: W.Factory,reader: E.Reader<S.Schema>,movement: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_movement>,retry: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Bool,String,Unit,run_retry>,+actors: ActorHandles,+checkpoints: List<&2,Checkpoint>,result: Sys.RunResult<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_damage>) -> State:
+def ran_damage(factory: W.Factory,reader: E.Reader<S.Schema>,movement: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_movement>,retry: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Sim.RetryArgs,String,Unit,run_retry>,+actors: ActorHandles,+checkpoints: List<&2,Checkpoint>,result: Sys.RunResult<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_damage>) -> State:
   match result:
     case Sys.Completed{damage,Sys.Succeeded{world,_}}: State{factory,world,reader,movement,damage,retry,actors,checkpoints}
     case Sys.Completed{damage,Sys.Failed{world,+error}}: State{factory,world,reader,movement,damage,retry,actors,FailedResult{"failed-result",error} <> checkpoints}
@@ -74,19 +74,30 @@ def ran_damage(factory: W.Factory,reader: E.Reader<S.Schema>,movement: Sys.Regis
 def step_damage(state: State) -> State:
   match state:
     case State{factory,world,reader,movement,damage,retry,+actors,+checkpoints}: ran_damage(factory,reader,movement,retry,actors,checkpoints,Sys.run(~S.Schema,~S.Store,~F32,~S.SimEvent,~Unit,~String,~Unit,~run_damage,damage,world,Unit{}))
-def ran_retry(factory: W.Factory,reader: E.Reader<S.Schema>,movement: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_movement>,damage: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_damage>,+actors: ActorHandles,+checkpoints: List<&2,Checkpoint>,result: Sys.RunResult<S.Schema,S.Store,F32,S.SimEvent,Bool,String,Unit,run_retry>) -> State:
+def ran_retry(factory: W.Factory,reader: E.Reader<S.Schema>,movement: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_movement>,damage: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_damage>,+actors: ActorHandles,+checkpoints: List<&2,Checkpoint>,result: Sys.RunResult<S.Schema,S.Store,F32,S.SimEvent,Sim.RetryArgs,String,Unit,run_retry>) -> State:
   match result:
     case Sys.Completed{retry,Sys.Succeeded{world,_}}: State{factory,world,reader,movement,damage,retry,actors,checkpoints}
     case Sys.Completed{retry,Sys.Failed{world,+error}}: State{factory,world,reader,movement,damage,retry,actors,FailedResult{"failed-result",error} <> checkpoints}
     case Sys.RegistrationRejected{retry,world,_}: State{factory,world,reader,movement,damage,retry,actors,FailedResult{"failed-result","RegistrationRejected"} <> checkpoints}
-def step_retry(state: State,args: Bool) -> State:
+def step_retry_actual(state: State,args: Sim.RetryArgs) -> State:
   match state:
-    case State{factory,world,reader,movement,damage,retry,+actors,+checkpoints}: ran_retry(factory,reader,movement,damage,actors,checkpoints,Sys.run(~S.Schema,~S.Store,~F32,~S.SimEvent,~Bool,~String,~Unit,~run_retry,retry,world,args))
+    case State{factory,world,reader,movement,damage,retry,+actors,+checkpoints}: ran_retry(factory,reader,movement,damage,actors,checkpoints,Sys.run(~S.Schema,~S.Store,~F32,~S.SimEvent,~Sim.RetryArgs,~String,~Unit,~run_retry,retry,world,args))
 def committed(result: T.Returned<World(),String>) -> World():
   match result:
     case T.Returned{world,_}: world
 def commit(tx: Tx()) -> World():
   committed(T.finish(~World(),~S.SimEvent,~String,~Cmd.enqueue(~S.Schema,~S.Store,~F32,~S.SimEvent),~Cmd.publish(~S.Schema,~S.Store,~F32,~S.SimEvent),tx,T.Success{}))
+def retry_args(+fail: Bool,actors: ActorHandles) -> Maybe<&2,Sim.RetryArgs>:
+  match actors:
+    case NoActors{}: None{}
+    case Actors{_,b,_}: Some{Sim.RetryArgs{fail,b}}
+def step_retry_prepared(state: State,prepared: Maybe<&2,Sim.RetryArgs>) -> State:
+  match prepared:
+    case None{}: state
+    case Some{args}: step_retry_actual(state,args)
+def step_retry(state: State,+fail: Bool) -> State:
+  match state:
+    case State{factory,world,reader,movement,damage,retry,+actors,+checkpoints}: step_retry_prepared(State{factory,world,reader,movement,damage,retry,actors,checkpoints},retry_args(fail,actors))
 def spawned_state(owners: Owners,world: World(),+actors: ActorHandles) -> State:
   match owners:
     case Owners{factory,reader,movement,damage,retry,_,+checkpoints}: State{factory,world,reader,movement,damage,retry,actors,checkpoints}
@@ -145,13 +156,13 @@ def despawn_actor(world: World(),actors: ActorHandles) -> World():
 def despawn_state(state: State) -> State:
   match state:
     case State{factory,world,reader,movement,damage,retry,+actors,+checkpoints}: State{factory,despawn_actor(world,actors),reader,movement,damage,retry,actors,checkpoints}
-def init_retry(factory: W.Factory,reader: E.Reader<S.Schema>,movement: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_movement>,damage: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_damage>,result: Sys.RegistrationResult<S.Schema,S.Store,F32,S.SimEvent,Bool,String,Unit,run_retry>) -> Maybe<&1,State>:
+def init_retry(factory: W.Factory,reader: E.Reader<S.Schema>,movement: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_movement>,damage: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_damage>,result: Sys.RegistrationResult<S.Schema,S.Store,F32,S.SimEvent,Sim.RetryArgs,String,Unit,run_retry>) -> Maybe<&1,State>:
   match result:
     case Sys.Registered{world,retry}: Some{State{factory,world,reader,movement,damage,retry,NoActors{},[]}}
     case _: None{}
 def init_damage(factory: W.Factory,reader: E.Reader<S.Schema>,movement: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_movement>,result: Sys.RegistrationResult<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_damage>) -> Maybe<&1,State>:
   match result:
-    case Sys.Registered{world,damage}: init_retry(factory,reader,movement,damage,Sys.register(~S.Schema,~S.Store,~F32,~S.SimEvent,~Bool,~String,~Unit,~run_retry,world,"retry",["Position.write","Velocity.read","Dt.read","Dt.write","Hit.emit","Death.emit","despawn","spawn"]))
+    case Sys.Registered{world,damage}: init_retry(factory,reader,movement,damage,Sys.register(~S.Schema,~S.Store,~F32,~S.SimEvent,~Sim.RetryArgs,~String,~Unit,~run_retry,world,"retry",["Position.write","Velocity.read","Dt.read","Dt.write","Hit.emit","Death.emit","despawn","spawn"]))
     case _: None{}
 def init_movement(factory: W.Factory,reader: E.Reader<S.Schema>,result: Sys.RegistrationResult<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_movement>) -> Maybe<&1,State>:
   match result:
@@ -211,7 +222,7 @@ def foreign_reserved(owners: Owners,local: World(),reserved: World() & W.Reserva
   match reserved:
     case (foreign,W.Reserved{+handle}): foreign_live(owners,local,handle,W.activate(~S.Schema,~S.Store,~F32,~S.SimEvent,S.populate(foreign,handle,S.Bundle{Some{S.Position{777.0,ALeaf{77}}},None{},None{},None{},None{}}),handle))
     case (_,W.ReservationRejected{_}): foreign_finished(owners,local,FailedResult{"foreign-collision-reference","ReservationRejected"})
-def foreign_created(local: World(),reader: E.Reader<S.Schema>,movement: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_movement>,damage: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_damage>,retry: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Bool,String,Unit,run_retry>,+actors: ActorHandles,+checkpoints: List<&2,Checkpoint>,created: W.Creation<S.Schema,S.Store,F32,S.SimEvent>) -> State:
+def foreign_created(local: World(),reader: E.Reader<S.Schema>,movement: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_movement>,damage: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_damage>,retry: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Sim.RetryArgs,String,Unit,run_retry>,+actors: ActorHandles,+checkpoints: List<&2,Checkpoint>,created: W.Creation<S.Schema,S.Store,F32,S.SimEvent>) -> State:
   match created:
     case W.Created{factory,foreign}: foreign_reserved(Owners{factory,reader,movement,damage,retry,actors,checkpoints},local,W.reserve_id(~S.Schema,~S.Store,~F32,~S.SimEvent,foreign))
     case W.CreateRejected{factory,_}: State{factory,local,reader,movement,damage,retry,actors,FailedResult{"foreign-collision-reference","NamespaceExhausted"} <> checkpoints}
