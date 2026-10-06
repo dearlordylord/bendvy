@@ -1,0 +1,87 @@
+{
+  "status": "FINITE_SOURCE_FLAT_RESULT_GATES_PASS_PERFORMANCE_OPEN",
+  "inputClosureSHA256": "409d87045a832f021c7d7a1aa880ebfd16ff8d2b9eb5035883d96f781a49daad",
+  "outputClosureSHA256": "ac8de957a37d85cb473168d43c89c589e418fd32685f5269a225d11d68dac31a",
+  "changedModules": [
+    "experiments/s-integrate/measurement-bend.bend",
+    "experiments/s-integrate/query.bend"
+  ],
+  "full65": {
+    "Motion": {
+      "Native": 65,
+      "JS": 65
+    },
+    "Health": {
+      "Native": 65,
+      "JS": 65
+    }
+  },
+  "generalGetterLiteralCheckpoints": 160,
+  "generalGetterCompilingMutants": 8,
+  "nonidentityGetterProtocolComparisons": {
+    "subjects": 8,
+    "recordsPerSubject": 40
+  },
+  "newFlatAuthority": {
+    "positive": 1,
+    "intendedNegative": 6
+  },
+  "inheritedFrozenAuthority": {
+    "positive": 2,
+    "intendedNegative": 3
+  },
+  "staticProvider": {
+    "positive": 2,
+    "intendedNegative": 6
+  },
+  "factory": {
+    "subjects": 16,
+    "recordsPerSubject": 8
+  },
+  "directTx": {
+    "originalPrograms": 8,
+    "suppressedPrograms": 8,
+    "recordsPerProgram": 72,
+    "newQueryPathExercisedByTxFixture": false
+  },
+  "limitsSeconds": {
+    "proofDefault": 5,
+    "checkerDiagnostic": 15,
+    "emit": 30,
+    "clang": 120,
+    "runtime": 5
+  },
+  "failuresPreserved": [
+    "First Motion C emission timeout30; same-source retry passed6.23s",
+    "One Motion TS full65 runtime timeout5 while a parallel same-CPU build was active; fresh serialized rerun passed unchanged5s bound",
+    "Abandoned record-context v1 materialization failed before matching provenance; v2 separately checked but not selected"
+  ],
+  "NativeAllocationAcceptance": false,
+  "JavaScriptPerformanceAcceptance": false,
+  "universalRefinement": false,
+  "proofAcceptance": false,
+  "unverifiedHeldJoin": false,
+  "evidenceFiles": {
+    "evidence/motion-check-v2.txt": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+    "evidence/motion-js-v1.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "evidence/motion-c-v1-retry.json": "e166ee8049edac4991667d4b1eafa8ff4f8455fed9ff679e2979645d3c734567",
+    "evidence/getter-flat-v1.json": "8eff327f16fdc00bfd9d04a987f1b54d1e956dc76b8adfcb081c2c00d6138bf3",
+    "evidence/provider-flat-v1.json": "d6fb64e247ad212c2de10e9cf10bb966aff858112f25c8f4c345096f16003afd",
+    "evidence/frozen-authority-flat-v1.json": "dfd33c0e3533c31742f572ae54cd970b6db40d12f7d8a81bb99550ed4c62cde9",
+    "evidence/motion-build-v1-failed.json": "bad612b197d474dab0024e9291031acae87dc74a6b2c450c8bc1b606a9f2b19a",
+    "evidence/motion-build-v2.json": "715be23c56b3cf4b324237acb2ff52c60e9855224a12528b5dce163120ac64d0",
+    "evidence/health-build-v1.json": "d439a30b1b442113c7eead57dc41087959f496aa21a7094c1f29a91ac0f4599a",
+    "evidence/motion-full65-v2-failed.json": "f95878fb4c3a606141165f1bd899439a74a4c0987d9970b121b3e223725f05ce",
+    "evidence/motion-full65-v3.json": "e88f50ca469d9c76195d33d0c59ee966597ae8af4461035ecc5342c9411480af",
+    "evidence/health-full65-v1.json": "b877e75cb0019982f78f8120ddf7b2e8a8a0d6a09f8fe2a42552edb62bd0c12b",
+    "evidence/authority-flat-v1.json": "78354f6c36450c87dcffee429b9c01b4a49bd2b5cf795a4a5f63251a5b2d51a3",
+    "evidence/tx-flat-v1.json": "b30b2dccf6e1ecdddfed3ccf94b88bce63682c1dfce1e30d6e2f87441d38ca60",
+    "evidence/suppressed-flat-v1.json": "fedaa761768d436083f9cd7dccaf2e531edbc9398924a4a48b2c150f4a45f523",
+    "evidence/factory-flat-v1.json": "5f646198135fca2ca12f3f49ba97bd26b4c66e63d9f93c3c9f863a4cfaf6abbd",
+    "evidence/owner-threading-flat-v1.json": "2b098ae3382940767688551c769483ac6ef64c913f8b3f31aa4ca6cf70c7f888",
+    "evidence/tx-adapter.json": "27df1ea65222c0e8db26b052883fefe2b8c9811cd3d86ed19f1f5b09e37d7ebe",
+    "evidence/factory-adapter.json": "33a3c754ebe164e50da575ec9f281a143e3312ccabad9f2eecb81d13b9da7061",
+    "evidence/flat-source-controls.tar.gz": "bb76461a162e2e8649d01102675b5b0c0492665cb3dc8828535a888a8f0a501a"
+  },
+  "baselineArchiveSHA256": "703cd5629b07132cfef47eb057d6417270d6a39dc1dbf6bd3ec508975ba49b74"
+}

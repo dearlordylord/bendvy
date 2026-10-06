@@ -1,0 +1,504 @@
+{
+  "protectedRunner": "/tmp/bendvy-threehour-query-transport/experiments/s-prep/fivehour-connected-gates/tx-controls-run.py",
+  "protectedRunnerSHA256": "9e53369d1ba7f7c2ff97798c7829778b9537cbd1c78a37a1e79f3afbe7752357",
+  "adapterSHA256": "2bc17b915b9fd48b7edf691af48cfd05013168a59e53a538c5dd6f34f0c0caee",
+  "changes": "Only explicit approved Clang19 executable and process-local checker diagnostic limit; fixtures/oracles unchanged",
+  "commands": [
+    {
+      "argv": [
+        "/tmp/bendvy-threehour-query-transport/experiments/t01/bend-check",
+        "/tmp/bendvy-source-query-flat-tx/cached/core/cache-tx-motion-controls.bend",
+        "--check-only"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 15
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-source-query-flat-tx/cached/core/cache-tx-motion-controls.bend",
+        "-o",
+        "/tmp/bendvy-source-query-flat-tx/cached/motion/cache-tx-motion-controls.c"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-std=c11",
+        "-O3",
+        "/tmp/bendvy-source-query-flat-tx/cached/motion/cache-tx-motion-controls.c",
+        "-lpthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-source-query-flat-tx/cached/motion/cache-tx-motion-controls-native"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 120
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-source-query-flat-tx/cached/core/cache-tx-motion-controls.bend",
+        "-o",
+        "/tmp/bendvy-source-query-flat-tx/cached/motion/cache-tx-motion-controls.js"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-source-query-flat-tx/cached/motion/cache-tx-motion-controls-native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-source-query-flat-tx/cached/motion/cache-tx-motion-controls.js"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-threehour-query-transport/experiments/t01/bend-check",
+        "/tmp/bendvy-source-query-flat-tx/cached/core/cache-tx-health-controls.bend",
+        "--check-only"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 15
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-source-query-flat-tx/cached/core/cache-tx-health-controls.bend",
+        "-o",
+        "/tmp/bendvy-source-query-flat-tx/cached/health/cache-tx-health-controls.c"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-std=c11",
+        "-O3",
+        "/tmp/bendvy-source-query-flat-tx/cached/health/cache-tx-health-controls.c",
+        "-lpthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-source-query-flat-tx/cached/health/cache-tx-health-controls-native"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 120
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-source-query-flat-tx/cached/core/cache-tx-health-controls.bend",
+        "-o",
+        "/tmp/bendvy-source-query-flat-tx/cached/health/cache-tx-health-controls.js"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-source-query-flat-tx/cached/health/cache-tx-health-controls-native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-source-query-flat-tx/cached/health/cache-tx-health-controls.js"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-threehour-query-transport/experiments/t01/bend-check",
+        "/tmp/bendvy-source-query-flat-tx/raw/core/cache-tx-motion-controls.bend",
+        "--check-only"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 15
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-source-query-flat-tx/raw/core/cache-tx-motion-controls.bend",
+        "-o",
+        "/tmp/bendvy-source-query-flat-tx/raw/motion/cache-tx-motion-controls.c"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-std=c11",
+        "-O3",
+        "/tmp/bendvy-source-query-flat-tx/raw/motion/cache-tx-motion-controls.c",
+        "-lpthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-source-query-flat-tx/raw/motion/cache-tx-motion-controls-native"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 120
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-source-query-flat-tx/raw/core/cache-tx-motion-controls.bend",
+        "-o",
+        "/tmp/bendvy-source-query-flat-tx/raw/motion/cache-tx-motion-controls.js"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-source-query-flat-tx/raw/motion/cache-tx-motion-controls-native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-source-query-flat-tx/raw/motion/cache-tx-motion-controls.js"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-threehour-query-transport/experiments/t01/bend-check",
+        "/tmp/bendvy-source-query-flat-tx/raw/core/cache-tx-health-controls.bend",
+        "--check-only"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 15
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-source-query-flat-tx/raw/core/cache-tx-health-controls.bend",
+        "-o",
+        "/tmp/bendvy-source-query-flat-tx/raw/health/cache-tx-health-controls.c"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-std=c11",
+        "-O3",
+        "/tmp/bendvy-source-query-flat-tx/raw/health/cache-tx-health-controls.c",
+        "-lpthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-source-query-flat-tx/raw/health/cache-tx-health-controls-native"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 120
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-source-query-flat-tx/raw/core/cache-tx-health-controls.bend",
+        "-o",
+        "/tmp/bendvy-source-query-flat-tx/raw/health/cache-tx-health-controls.js"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-source-query-flat-tx/raw/health/cache-tx-health-controls-native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-source-query-flat-tx/raw/health/cache-tx-health-controls.js"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-threehour-query-transport/experiments/t01/bend-check",
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/cached/core/cache-tx-motion-controls.bend",
+        "--check-only"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 15
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/cached/core/cache-tx-motion-controls.bend",
+        "-o",
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/cached/motion/cache-tx-motion-controls.c"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-std=c11",
+        "-O3",
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/cached/motion/cache-tx-motion-controls.c",
+        "-lpthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/cached/motion/cache-tx-motion-controls-native"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 120
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/cached/core/cache-tx-motion-controls.bend",
+        "-o",
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/cached/motion/cache-tx-motion-controls.js"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/cached/motion/cache-tx-motion-controls-native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/cached/motion/cache-tx-motion-controls.js"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-threehour-query-transport/experiments/t01/bend-check",
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/cached/core/cache-tx-health-controls.bend",
+        "--check-only"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 15
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/cached/core/cache-tx-health-controls.bend",
+        "-o",
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/cached/health/cache-tx-health-controls.c"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-std=c11",
+        "-O3",
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/cached/health/cache-tx-health-controls.c",
+        "-lpthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/cached/health/cache-tx-health-controls-native"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 120
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/cached/core/cache-tx-health-controls.bend",
+        "-o",
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/cached/health/cache-tx-health-controls.js"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/cached/health/cache-tx-health-controls-native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/cached/health/cache-tx-health-controls.js"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-threehour-query-transport/experiments/t01/bend-check",
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/raw/core/cache-tx-motion-controls.bend",
+        "--check-only"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 15
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/raw/core/cache-tx-motion-controls.bend",
+        "-o",
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/raw/motion/cache-tx-motion-controls.c"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-std=c11",
+        "-O3",
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/raw/motion/cache-tx-motion-controls.c",
+        "-lpthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/raw/motion/cache-tx-motion-controls-native"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 120
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/raw/core/cache-tx-motion-controls.bend",
+        "-o",
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/raw/motion/cache-tx-motion-controls.js"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/raw/motion/cache-tx-motion-controls-native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/raw/motion/cache-tx-motion-controls.js"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-threehour-query-transport/experiments/t01/bend-check",
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/raw/core/cache-tx-health-controls.bend",
+        "--check-only"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 15
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/raw/core/cache-tx-health-controls.bend",
+        "-o",
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/raw/health/cache-tx-health-controls.c"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-std=c11",
+        "-O3",
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/raw/health/cache-tx-health-controls.c",
+        "-lpthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/raw/health/cache-tx-health-controls-native"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 120
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/raw/core/cache-tx-health-controls.bend",
+        "-o",
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/raw/health/cache-tx-health-controls.js"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/raw/health/cache-tx-health-controls-native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-source-query-flat-tx/suppressed-owner/raw/health/cache-tx-health-controls.js"
+      ],
+      "expectedExit": 0,
+      "limitSeconds": 5
+    }
+  ]
+}

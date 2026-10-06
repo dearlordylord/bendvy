@@ -1,0 +1,691 @@
+{
+  "status": "FINITE_QUERY_COMMAND_LIFECYCLE_AND_TWO_COMPILING_MUTANTS_PASS",
+  "scope": "Fresh private flat-owner Q.each plus original Q.lookup and command lifecycle, no full22/performance acceptance",
+  "commands": [
+    {
+      "argv": [
+        "bend",
+        "version"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "bend",
+        "guide"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "bend",
+        "/tmp/primitive-query-7jmxelxv/JS-one/getter-control.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 15
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "bend",
+        "/tmp/primitive-query-7jmxelxv/JS-one/getter-control.bend",
+        "-o",
+        "/tmp/primitive-query-7jmxelxv/JS-one/original.js"
+      ],
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "node",
+        "/tmp/primitive-query-7jmxelxv/JS-one/original.js"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "bend",
+        "/tmp/primitive-query-7jmxelxv/JS-one/getter-control.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 15
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "bend",
+        "/tmp/primitive-query-7jmxelxv/JS-one/getter-control.bend",
+        "-o",
+        "/tmp/primitive-query-7jmxelxv/JS-one/query-order.js"
+      ],
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "node",
+        "/tmp/primitive-query-7jmxelxv/JS-one/query-order.js"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "bend",
+        "/tmp/primitive-query-7jmxelxv/JS-one/getter-control.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 15
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "bend",
+        "/tmp/primitive-query-7jmxelxv/JS-one/getter-control.bend",
+        "-o",
+        "/tmp/primitive-query-7jmxelxv/JS-one/flag-membership.js"
+      ],
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "node",
+        "/tmp/primitive-query-7jmxelxv/JS-one/flag-membership.js"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "bend",
+        "/tmp/primitive-query-7jmxelxv/JS-two/getter-control.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 15
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "bend",
+        "/tmp/primitive-query-7jmxelxv/JS-two/getter-control.bend",
+        "-o",
+        "/tmp/primitive-query-7jmxelxv/JS-two/original.js"
+      ],
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "node",
+        "/tmp/primitive-query-7jmxelxv/JS-two/original.js"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "bend",
+        "/tmp/primitive-query-7jmxelxv/JS-two/getter-control.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 15
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "bend",
+        "/tmp/primitive-query-7jmxelxv/JS-two/getter-control.bend",
+        "-o",
+        "/tmp/primitive-query-7jmxelxv/JS-two/query-order.js"
+      ],
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "node",
+        "/tmp/primitive-query-7jmxelxv/JS-two/query-order.js"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "bend",
+        "/tmp/primitive-query-7jmxelxv/JS-two/getter-control.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 15
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "bend",
+        "/tmp/primitive-query-7jmxelxv/JS-two/getter-control.bend",
+        "-o",
+        "/tmp/primitive-query-7jmxelxv/JS-two/flag-membership.js"
+      ],
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "node",
+        "/tmp/primitive-query-7jmxelxv/JS-two/flag-membership.js"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "bend",
+        "/tmp/primitive-query-7jmxelxv/Native-one/getter-control.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 15
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "bend",
+        "/tmp/primitive-query-7jmxelxv/Native-one/getter-control.bend",
+        "-o",
+        "/tmp/primitive-query-7jmxelxv/Native-one/original.c"
+      ],
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/primitive-query-7jmxelxv/Native-one/original.c",
+        "-o",
+        "/tmp/primitive-query-7jmxelxv/Native-one/original",
+        "-lm",
+        "-pthread"
+      ],
+      "limitSeconds": 120
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "/tmp/primitive-query-7jmxelxv/Native-one/original",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "bend",
+        "/tmp/primitive-query-7jmxelxv/Native-one/getter-control.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 15
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "bend",
+        "/tmp/primitive-query-7jmxelxv/Native-one/getter-control.bend",
+        "-o",
+        "/tmp/primitive-query-7jmxelxv/Native-one/query-order.c"
+      ],
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/primitive-query-7jmxelxv/Native-one/query-order.c",
+        "-o",
+        "/tmp/primitive-query-7jmxelxv/Native-one/query-order",
+        "-lm",
+        "-pthread"
+      ],
+      "limitSeconds": 120
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "/tmp/primitive-query-7jmxelxv/Native-one/query-order",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "bend",
+        "/tmp/primitive-query-7jmxelxv/Native-one/getter-control.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 15
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "bend",
+        "/tmp/primitive-query-7jmxelxv/Native-one/getter-control.bend",
+        "-o",
+        "/tmp/primitive-query-7jmxelxv/Native-one/flag-membership.c"
+      ],
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/primitive-query-7jmxelxv/Native-one/flag-membership.c",
+        "-o",
+        "/tmp/primitive-query-7jmxelxv/Native-one/flag-membership",
+        "-lm",
+        "-pthread"
+      ],
+      "limitSeconds": 120
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "/tmp/primitive-query-7jmxelxv/Native-one/flag-membership",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "bend",
+        "/tmp/primitive-query-7jmxelxv/Native-two/getter-control.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 15
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "bend",
+        "/tmp/primitive-query-7jmxelxv/Native-two/getter-control.bend",
+        "-o",
+        "/tmp/primitive-query-7jmxelxv/Native-two/original.c"
+      ],
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/primitive-query-7jmxelxv/Native-two/original.c",
+        "-o",
+        "/tmp/primitive-query-7jmxelxv/Native-two/original",
+        "-lm",
+        "-pthread"
+      ],
+      "limitSeconds": 120
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "/tmp/primitive-query-7jmxelxv/Native-two/original",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "bend",
+        "/tmp/primitive-query-7jmxelxv/Native-two/getter-control.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 15
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "bend",
+        "/tmp/primitive-query-7jmxelxv/Native-two/getter-control.bend",
+        "-o",
+        "/tmp/primitive-query-7jmxelxv/Native-two/query-order.c"
+      ],
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/primitive-query-7jmxelxv/Native-two/query-order.c",
+        "-o",
+        "/tmp/primitive-query-7jmxelxv/Native-two/query-order",
+        "-lm",
+        "-pthread"
+      ],
+      "limitSeconds": 120
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "/tmp/primitive-query-7jmxelxv/Native-two/query-order",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "bend",
+        "/tmp/primitive-query-7jmxelxv/Native-two/getter-control.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 15
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "bend",
+        "/tmp/primitive-query-7jmxelxv/Native-two/getter-control.bend",
+        "-o",
+        "/tmp/primitive-query-7jmxelxv/Native-two/flag-membership.c"
+      ],
+      "limitSeconds": 30
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/primitive-query-7jmxelxv/Native-two/flag-membership.c",
+        "-o",
+        "/tmp/primitive-query-7jmxelxv/Native-two/flag-membership",
+        "-lm",
+        "-pthread"
+      ],
+      "limitSeconds": 120
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "8",
+        "/tmp/primitive-query-7jmxelxv/Native-two/flag-membership",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limitSeconds": 5
+    }
+  ],
+  "subjects": {
+    "JS-one": {
+      "status": "PASS",
+      "fixtureSHA256": "3e9fced442a690fe82b7b5536439ce7671d2c57109f805ffa8f2b42e18bea2ed",
+      "expectedSHA256": "dd6d4e4e0f0099b40f4b6402d99d42d9739fb0e6c78767a464c619a42e8a4a57",
+      "literalObservations": 40,
+      "originalSHA256": "dd6d4e4e0f0099b40f4b6402d99d42d9739fb0e6c78767a464c619a42e8a4a57",
+      "mutants": [
+        "query-order",
+        "flag-membership"
+      ],
+      "witnesses": {
+        "query-order": {
+          "checkpoint": "initial-required",
+          "expected": "initial-required:7:1|10:10,11,12,13|110:110,111,112,113|present;7:3|30:30,31,32,33|none|absent;end",
+          "actual": "initial-required:7:3|30:30,31,32,33|none|absent;7:1|10:10,11,12,13|110:110,111,112,113|present;end",
+          "outputSHA256": "56821a33131965c8677a512e6b01d6162581d12a4e48d04041316800c64e5747"
+        },
+        "flag-membership": {
+          "checkpoint": "initial-present",
+          "expected": "initial-present:7:1|10:10,11,12,13|110:110,111,112,113|present;end",
+          "actual": "initial-present:7:1|10:10,11,12,13|110:110,111,112,113|present;7:3|30:30,31,32,33|none|absent;end",
+          "outputSHA256": "1994daff94eb9ad28450c3c57dd3b1137c01afe2ee1bbb0db174579baac25a54"
+        }
+      }
+    },
+    "JS-two": {
+      "status": "PASS",
+      "fixtureSHA256": "461fdeda0dac856c19eef89fed2946d768388aa743422c3dd307945f7b3cce68",
+      "expectedSHA256": "a82db494f1dfb9fe95dadfad126a97bc8d4ac4c73f49aadb8fca2c0666417e7d",
+      "literalObservations": 40,
+      "originalSHA256": "a82db494f1dfb9fe95dadfad126a97bc8d4ac4c73f49aadb8fca2c0666417e7d",
+      "mutants": [
+        "query-order",
+        "flag-membership"
+      ],
+      "witnesses": {
+        "query-order": {
+          "checkpoint": "initial-required",
+          "expected": "initial-required:9:1|10:10,11,12,13|110:110,111,112,113|present;9:3|30:30,31,32,33|none|absent;end",
+          "actual": "initial-required:9:3|30:30,31,32,33|none|absent;9:1|10:10,11,12,13|110:110,111,112,113|present;end",
+          "outputSHA256": "4e7e4d61bc43be6739ea373e57cfeac28793dcc6539ffe37ec180d621b7c9682"
+        },
+        "flag-membership": {
+          "checkpoint": "initial-present",
+          "expected": "initial-present:9:1|10:10,11,12,13|110:110,111,112,113|present;end",
+          "actual": "initial-present:9:1|10:10,11,12,13|110:110,111,112,113|present;9:3|30:30,31,32,33|none|absent;end",
+          "outputSHA256": "986a2b191c5d3722738bdd8450f759ba9b7eb32207aa42424f997369e9562c31"
+        }
+      }
+    },
+    "Native-one": {
+      "status": "PASS",
+      "fixtureSHA256": "3e9fced442a690fe82b7b5536439ce7671d2c57109f805ffa8f2b42e18bea2ed",
+      "expectedSHA256": "dd6d4e4e0f0099b40f4b6402d99d42d9739fb0e6c78767a464c619a42e8a4a57",
+      "literalObservations": 40,
+      "originalSHA256": "dd6d4e4e0f0099b40f4b6402d99d42d9739fb0e6c78767a464c619a42e8a4a57",
+      "mutants": [
+        "query-order",
+        "flag-membership"
+      ],
+      "witnesses": {
+        "query-order": {
+          "checkpoint": "initial-required",
+          "expected": "initial-required:7:1|10:10,11,12,13|110:110,111,112,113|present;7:3|30:30,31,32,33|none|absent;end",
+          "actual": "initial-required:7:3|30:30,31,32,33|none|absent;7:1|10:10,11,12,13|110:110,111,112,113|present;end",
+          "outputSHA256": "56821a33131965c8677a512e6b01d6162581d12a4e48d04041316800c64e5747"
+        },
+        "flag-membership": {
+          "checkpoint": "initial-present",
+          "expected": "initial-present:7:1|10:10,11,12,13|110:110,111,112,113|present;end",
+          "actual": "initial-present:7:1|10:10,11,12,13|110:110,111,112,113|present;7:3|30:30,31,32,33|none|absent;end",
+          "outputSHA256": "1994daff94eb9ad28450c3c57dd3b1137c01afe2ee1bbb0db174579baac25a54"
+        }
+      }
+    },
+    "Native-two": {
+      "status": "PASS",
+      "fixtureSHA256": "461fdeda0dac856c19eef89fed2946d768388aa743422c3dd307945f7b3cce68",
+      "expectedSHA256": "a82db494f1dfb9fe95dadfad126a97bc8d4ac4c73f49aadb8fca2c0666417e7d",
+      "literalObservations": 40,
+      "originalSHA256": "a82db494f1dfb9fe95dadfad126a97bc8d4ac4c73f49aadb8fca2c0666417e7d",
+      "mutants": [
+        "query-order",
+        "flag-membership"
+      ],
+      "witnesses": {
+        "query-order": {
+          "checkpoint": "initial-required",
+          "expected": "initial-required:9:1|10:10,11,12,13|110:110,111,112,113|present;9:3|30:30,31,32,33|none|absent;end",
+          "actual": "initial-required:9:3|30:30,31,32,33|none|absent;9:1|10:10,11,12,13|110:110,111,112,113|present;end",
+          "outputSHA256": "4e7e4d61bc43be6739ea373e57cfeac28793dcc6539ffe37ec180d621b7c9682"
+        },
+        "flag-membership": {
+          "checkpoint": "initial-present",
+          "expected": "initial-present:9:1|10:10,11,12,13|110:110,111,112,113|present;end",
+          "actual": "initial-present:9:1|10:10,11,12,13|110:110,111,112,113|present;9:3|30:30,31,32,33|none|absent;end",
+          "outputSHA256": "986a2b191c5d3722738bdd8450f759ba9b7eb32207aa42424f997369e9562c31"
+        }
+      }
+    }
+  },
+  "sourceSHA256": {
+    "JS": {
+      "prototype-static-client.bend": "1a9d22180604433d91e6572679761f660b89b093ed5dbe2ad783859fb05d7a51",
+      "payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+      "measurement-bend.bend": "1116f590822e34d4fc97887c8cf5a51b4cb93d9460ddf8635be8c0ef197956eb",
+      "held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+      "transaction-dispatch-adapters.bend": "f2276c1c16ad3694ab8a253f97da892df3a1db81b621cd80018b1376d79d490d",
+      "cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+      "systems.bend": "32e11a5a89b01e8db00f0b58a9fd1e2da87f4882189725b0012933421b6b1716",
+      "identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+      "schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+      "reader-host.bend": "26eb687a8fb1893b55e4a0c7c8a629b688e37466e169cb3c95dd5273a553db6d",
+      "audited-invoker.bend": "6ad63360f72ab8358441f2ca0c2281d729899bb3933c26234af2ff7c7fe5bb7c",
+      "cached-payload.bend": "354bb1ddb9dbd90a64138aa0e0ea4dd499a1a9345b3e94940c183dc16390db82",
+      "observations.bend": "35b2c98a7bd8fb390919dac80f9cec245dddad62da6aebfea2540cdcc84873b1",
+      "host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+      "structural-invoker.bend": "8e1269193d719b1f0ea68b040c62e8966160bacb898ac51caa2f6494f4621e0a",
+      "types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+      "commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+      "capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+      "host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+      "readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+      "dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+      "raw-boundaries.bend": "77dbad2365e0499ae4e9e6a5ae7dd67b5a2ebcc5be163de56d0e836781f70a2f",
+      "streams.bend": "291d9a46ad58bdc481a5710976e01b762f6e11be3aeba07076c46c69f236d2c0",
+      "host.bend": "2207269eb56458c6430246a5cca743ca57a98cbb5e213031ec5f050cae37d3e3",
+      "storage.bend": "185c5fe6c6d81608b0e3dae4416d32bcbc6f74a50dbb5b28120cc5d1d9400c7a",
+      "transaction.bend": "67f0e0dc4dee21381dab33bc242e6c9c67f64705ef8faea3e02b641270fa3519",
+      "held-adapter.bend": "ea9bce769439500a28ec9a266a23d3966e9ba5c44faeb108351d9aa2704a2c96",
+      "uncached-payload.bend": "a35ae64d1c1fd6c50082c0f75bca22a5e84d700493d1b3949fbb1c2e17b8cb55",
+      "query.bend": "35dfe73a550af2ba18198ad8d9e10651e882003abc7c230dc6abdf9bd2a1857c"
+    },
+    "Native": {
+      "prototype-static-client.bend": "1a9d22180604433d91e6572679761f660b89b093ed5dbe2ad783859fb05d7a51",
+      "payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+      "measurement-bend.bend": "1116f590822e34d4fc97887c8cf5a51b4cb93d9460ddf8635be8c0ef197956eb",
+      "held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+      "transaction-dispatch-adapters.bend": "f2276c1c16ad3694ab8a253f97da892df3a1db81b621cd80018b1376d79d490d",
+      "cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+      "systems.bend": "32e11a5a89b01e8db00f0b58a9fd1e2da87f4882189725b0012933421b6b1716",
+      "identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+      "schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+      "reader-host.bend": "26eb687a8fb1893b55e4a0c7c8a629b688e37466e169cb3c95dd5273a553db6d",
+      "audited-invoker.bend": "6ad63360f72ab8358441f2ca0c2281d729899bb3933c26234af2ff7c7fe5bb7c",
+      "cached-payload.bend": "354bb1ddb9dbd90a64138aa0e0ea4dd499a1a9345b3e94940c183dc16390db82",
+      "observations.bend": "35b2c98a7bd8fb390919dac80f9cec245dddad62da6aebfea2540cdcc84873b1",
+      "host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+      "structural-invoker.bend": "8e1269193d719b1f0ea68b040c62e8966160bacb898ac51caa2f6494f4621e0a",
+      "types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+      "commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+      "capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+      "host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+      "readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+      "dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+      "raw-boundaries.bend": "77dbad2365e0499ae4e9e6a5ae7dd67b5a2ebcc5be163de56d0e836781f70a2f",
+      "streams.bend": "291d9a46ad58bdc481a5710976e01b762f6e11be3aeba07076c46c69f236d2c0",
+      "host.bend": "2207269eb56458c6430246a5cca743ca57a98cbb5e213031ec5f050cae37d3e3",
+      "storage.bend": "185c5fe6c6d81608b0e3dae4416d32bcbc6f74a50dbb5b28120cc5d1d9400c7a",
+      "transaction.bend": "67f0e0dc4dee21381dab33bc242e6c9c67f64705ef8faea3e02b641270fa3519",
+      "held-adapter.bend": "ea9bce769439500a28ec9a266a23d3966e9ba5c44faeb108351d9aa2704a2c96",
+      "uncached-payload.bend": "a35ae64d1c1fd6c50082c0f75bca22a5e84d700493d1b3949fbb1c2e17b8cb55",
+      "query.bend": "35dfe73a550af2ba18198ad8d9e10651e882003abc7c230dc6abdf9bd2a1857c"
+    }
+  },
+  "fixtureOwnersSHA256": "5ad53b8f5e68fb53670d5e243850180522c02c7dfcb62eac7067c2a939d64bff"
+}

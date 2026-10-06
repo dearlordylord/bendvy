@@ -1,0 +1,70 @@
+{
+  "status": "FRESH_FULL65_FIELDS_PASS",
+  "scope": "Fresh source candidate full65 fields against independently executed pinned TS, no ratio/keep",
+  "schema": "Health",
+  "cpu": [
+    8
+  ],
+  "runtimeLimitSeconds": 5,
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-measurement/prepare-ts.py",
+        "--source",
+        "/workspace/formal-proofs/bendvy/experiments/s-integrate/measurement-samples-reference.mjs",
+        "--output",
+        "/tmp/bendvy-source-query-flat-health-full65/reference.mjs",
+        "--schema",
+        "Health",
+        "--batch",
+        "64"
+      ],
+      "limitSeconds": 5,
+      "exit": 0
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-source-query-flat-health-full65/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "exit": 0
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-source-query-flat-health-build/batch.js"
+      ],
+      "limitSeconds": 5,
+      "exit": 0
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-source-query-flat-health-build/batch.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limitSeconds": 5,
+      "exit": 0
+    }
+  ],
+  "candidatePins": {
+    "JS": "1c7b3a24e15d7415f34d6af29da5ae5715cb8d85567e7ac72cbc0d075c2d4c08",
+    "Native": "6bf75a2feeeaee8ca873ff1aba622158582297c16533e737b04e06620c9f457b"
+  },
+  "backends": {
+    "JS": {
+      "records": 65,
+      "allFullFieldsEqual": true
+    },
+    "Native": {
+      "records": 65,
+      "allFullFieldsEqual": true
+    }
+  },
+  "referencePin": "bf28b60bb93ab8ce037f6464e575691316e4baf4a0cca55ecc64250054e2f688",
+  "validatorPin": "25ab577d5234a1c30f46318708455377353ec39d4fb0b6bf1b40ad5ea5da8f84"
+}

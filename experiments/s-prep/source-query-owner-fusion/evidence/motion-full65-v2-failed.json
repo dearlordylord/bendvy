@@ -1,0 +1,31 @@
+{
+  "status": "FAILED",
+  "scope": "Fresh source candidate full65 fields against independently executed pinned TS, no ratio/keep",
+  "schema": "Motion",
+  "cpu": [
+    8
+  ],
+  "runtimeLimitSeconds": 5,
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-measurement/prepare-ts.py",
+        "--source",
+        "/workspace/formal-proofs/bendvy/experiments/s-integrate/measurement-samples-reference.mjs",
+        "--output",
+        "/tmp/bendvy-source-query-flat-motion-full65-v2/reference.mjs",
+        "--schema",
+        "Motion",
+        "--batch",
+        "64"
+      ],
+      "limitSeconds": 5,
+      "exit": 0
+    }
+  ],
+  "candidatePins": {
+    "JS": "a84a843e3a37a912f3444910086972e7fd4687a475f03f8a2551226b443ac25b"
+  },
+  "error": "TimeoutExpired(['node', '/tmp/bendvy-source-query-flat-motion-full65-v2/reference.mjs'], 5)"
+}
