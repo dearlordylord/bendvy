@@ -70,3 +70,26 @@ def cursor_result(~S: Data,~C: Type,~R: Type,~E: Data,~Args: Type,~Error: Data,~
 
 def run_to_cursor(~S: Data,~C: Type,~R: Type,~E: Data,~Args: Type,~Error: Data,~Output: Type,~runner: W.World<S,C,R,E> -> Args -> Outcome<W.World<S,C,R,E>,Error,Output>,registry: Registry<S,C,R,E,Args,Error,Output,runner>,world: W.World<S,C,R,E>,args: Args,+nextCursor: U32) -> RunResult<S,C,R,E,Args,Error,Output,runner>:
   cursor_result(~S,~C,~R,~E,~Args,~Error,~Output,~runner,run(~S,~C,~R,~E,~Args,~Error,~Output,~runner,registry,world,args),nextCursor)
+
+# A successful tracked reader consumes every component stamp committed during
+# its own run. Failed/rejected runs preserve the existing reader cursor.
+def tracked_clock(~S: Data,~C: Type,~R: Type,~E: Data,~Args: Type,~Error: Data,~Output: Type,~runner: W.World<S,C,R,E> -> Args -> Outcome<W.World<S,C,R,E>,Error,Output>,registry: Registry<S,C,R,E,Args,Error,Output,runner>,output: Output,observed: W.World<S,C,R,E> & U32) -> RunResult<S,C,R,E,Args,Error,Output,runner>:
+  (world,clock) = observed
+  cursor_outcome(~S,~C,~R,~E,~Args,~Error,~Output,~runner,Succeeded{world,output},registry,clock)
+
+def tracked_outcome(~S: Data,~C: Type,~R: Type,~E: Data,~Args: Type,~Error: Data,~Output: Type,~runner: W.World<S,C,R,E> -> Args -> Outcome<W.World<S,C,R,E>,Error,Output>,registry: Registry<S,C,R,E,Args,Error,Output,runner>,outcome: Outcome<W.World<S,C,R,E>,Error,Output>) -> RunResult<S,C,R,E,Args,Error,Output,runner>:
+  match outcome:
+    case Failed{world,error}: Completed{registry,Failed{world,error}}
+    case Succeeded{world,output}: tracked_clock(~S,~C,~R,~E,~Args,~Error,~Output,~runner,registry,output,W.clock(~S,~C,~R,~E,world))
+
+def tracked_result(~S: Data,~C: Type,~R: Type,~E: Data,~Args: Type,~Error: Data,~Output: Type,~runner: W.World<S,C,R,E> -> Args -> Outcome<W.World<S,C,R,E>,Error,Output>,result: RunResult<S,C,R,E,Args,Error,Output,runner>) -> RunResult<S,C,R,E,Args,Error,Output,runner>:
+  match result:
+    case RegistrationRejected{registry,world,args}: RegistrationRejected{registry,world,args}
+    case Completed{registry,outcome}: tracked_outcome(~S,~C,~R,~E,~Args,~Error,~Output,~runner,registry,outcome)
+
+def run_tracked(~S: Data,~C: Type,~R: Type,~E: Data,~Args: Type,~Error: Data,~Output: Type,~runner: W.World<S,C,R,E> -> Args -> Outcome<W.World<S,C,R,E>,Error,Output>,registry: Registry<S,C,R,E,Args,Error,Output,runner>,world: W.World<S,C,R,E>,args: Args) -> RunResult<S,C,R,E,Args,Error,Output,runner>:
+  tracked_result(~S,~C,~R,~E,~Args,~Error,~Output,~runner,run(~S,~C,~R,~E,~Args,~Error,~Output,~runner,registry,world,args))
+
+def cursor(~S: Data,~C: Type,~R: Type,~E: Data,~Args: Type,~Error: Data,~Output: Type,~runner: W.World<S,C,R,E> -> Args -> Outcome<W.World<S,C,R,E>,Error,Output>,registry: Registry<S,C,R,E,Args,Error,Output,runner>) -> Registry<S,C,R,E,Args,Error,Output,runner> & U32:
+  match registry:
+    case Registry{+namespace,+id,+name,+access,+cursor}: (Registry{namespace,id,name,access,cursor},cursor)

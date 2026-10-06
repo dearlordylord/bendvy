@@ -22,8 +22,17 @@ invalidating earlier committed stamps and keeps subsequent observations ordered.
 The boundary fixture also rolls back a successful last-clock write at exhaustion,
 so inverse restoration cannot require another available write-clock position.
 
-Four fixture entry points pass both backends:
+Five fixture entry points pass both backends:
 
+- `self-writes.bend`: actual `Q.each_since` Required+Changed selection and
+  registered `run_tracked`, success consumes its own writes (one row then zero),
+  a failed self-write preserves cursor and the exact prior stamp/two-cell Array,
+  retry sees one row, then repeat sees zero. The runner executes pinned TS
+  `self-writes-reference.mjs` and observes `[1,0,1,1,0]` plus the same complete
+  restored retry payload. `System.cursor` returns the affine registry beside its
+  position; the trusted runner adapter threads that actual value into query args.
+  `run_tracked` captures authoritative post-success clock. Existing explicit
+  `run_to_cursor` retains its caller-selected cursor behavior for compatibility.
 - `stamps.bend`: initial absence, insertion, equal-value replacement, three
   tentative writes followed by failure, exact restored two-cell owned payload,
   identical family names, removal and re-addition.

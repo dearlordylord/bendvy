@@ -1,0 +1,25 @@
+import {Descriptor as D,Schema,Fx} from '/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/index.ts';
+import assert from 'node:assert/strict';
+const A=D.Component()('A');
+const W=Schema.bind(Schema.fragment({components:{A}}));
+const rt=W.Runtime.make({services:W.Runtime.services()});
+let id,fail=false;
+const counts=[],before=[];
+const query=W.Query({selection:{a:W.Query.write(A)},filters:[W.Query.changed(A)]});
+const self=W.System('self',{queries:{query}},({queries})=>{
+  const rows=queries.query.each();counts.push(rows.length);
+  before.push(rows.map(({data})=>structuredClone(data.a.get())));
+  for(const {data} of rows)data.a.set({value:8,owned:[81,82]});
+  return fail?Fx.fail('Rejected'):Fx.succeed(undefined);
+});
+const seed=W.System('seed',{},({commands})=>{id=commands.spawn(W.Command.spawn([A,{value:7,owned:[71,72]}]));});
+const reset=W.System('reset',{},({commands})=>{commands.insert(id,[A,{value:7,owned:[71,72]}]);});
+const tick=(...systems)=>{const result=rt.tick(W.Schedule(...systems));assert.equal(result.ok,true);};
+tick(seed,W.Schedule.applyDeferred());tick(self);tick(self);
+tick(reset,W.Schedule.applyDeferred());fail=true;
+const failed=rt.tick(W.Schedule(self));assert.equal(failed.ok,false);
+fail=false;tick(self);tick(self);
+assert.deepEqual(counts,[1,0,1,1,0]);
+assert.deepEqual(before[2],[{value:7,owned:[71,72]}]);
+assert.deepEqual(before[3],[{value:7,owned:[71,72]}]);
+console.log(JSON.stringify({counts,failed:!failed.ok,retryRestoredPayload:before[3]}));
