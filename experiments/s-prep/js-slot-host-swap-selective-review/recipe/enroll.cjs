@@ -1,0 +1,16 @@
+'use strict';
+const fs=require('fs'),path=require('path'),crypto=require('crypto'),acorn=require('internal/deps/acorn/acorn/dist/acorn');const sha=x=>crypto.createHash('sha256').update(x).digest('hex'),file=p=>sha(fs.readFileSync(p));
+const oldcat=JSON.parse(fs.readFileSync('/tmp/bendvy-followup-selective-frozen-v1/recipe/input-pins.json')),tupleRoot='/workspace/formal-proofs/bendvy/experiments/s-prep/js-slot-host-transport',catpath=tupleRoot+'/input-pins.json',tuplecat=JSON.parse(fs.readFileSync(catpath)),out={};
+for(const [poolsha,p]of Object.entries(tuplecat)){
+ const input='/tmp/bendvy-slot-host-generated-v1/'+p.label+'-tuple.js',receipt=input+'.recipe.json',r=JSON.parse(fs.readFileSync(receipt));if(r.inputSHA256!==poolsha||r.outputSHA256!==file(input)||r.recipeSHA256!==file(tupleRoot+'/rewrite.cjs')||r.catalogSHA256!==file(catpath))throw Error('tuple join');
+ const source=fs.readFileSync(input,'utf8'),ast=acorn.parse(source,{ecmaVersion:'latest'}),defs=ast.body.filter(n=>n.type==='FunctionDeclaration'),old=Object.values(oldcat).find(x=>x.label===p.label);if(!old)throw Error('unknown label');
+ const mapped=name=>{const suffix=name.slice(name.indexOf('held$045adapter$058'));if(!suffix.startsWith('held$045adapter$058'))throw Error('only HA suffix');const matches=defs.filter(n=>n.id.name.endsWith(suffix));if(matches.length!==1)throw Error('unique function');return matches[0];};
+ const family=old.family.map(n=>mapped(n).id.name),bodyPins=Object.fromEntries(old.family.map(n=>{const d=mapped(n);return[d.id.name,sha(source.slice(d.start,d.end))]})),confinementPins=Object.fromEntries(Object.keys(old.confinementPins).map(n=>{const d=mapped(n);return[d.id.name,sha(source.slice(d.start,d.end))]}));
+ const caller=mapped(old.caller);const files={...p.provenancePins,[catpath]:file(catpath),[tupleRoot+'/rewrite.cjs']:file(tupleRoot+'/rewrite.cjs'),[input]:file(input),[receipt]:file(receipt)};
+ for(const [rel,digest]of Object.entries(p.sourcePins)){const f=path.join(p.sourceRoot,rel);if(file(f)!==digest)throw Error('actual source');files[f]=digest;}
+ for(const [f,digest]of Object.entries(r.fixtureExtraPins||{})){if(file(f)!==digest)throw Error('fixture source');files[f]=digest;}
+ for(const [f,digest]of Object.entries(files))if(file(f)!==digest)throw Error('provenance');
+ let tags=[];function walk(n){if(!n||typeof n!=='object')return;if(n.type==='Literal'&&typeof n.value==='string'&&n.value.endsWith('held-adapter.PrototypeFlatFold'))tags.push(n.value);for(const v of Object.values(n)){if(Array.isArray(v))v.forEach(walk);else if(v&&typeof v==='object')walk(v)}}walk(ast);tags=[...new Set(tags)];if(tags.length!==1)throw Error('state tag');
+ out[file(input)]={inputPath:input,label:p.label,schema:p.schema,sourceRoot:p.sourceRoot,sourcePins:p.sourcePins,files,family,bodyPins,confinementPins,caller:caller.id.name,callerSHA256:sha(source.slice(caller.start,caller.end)),stateTag:tags[0]};
+}
+if(Object.keys(out).length!==10)throw Error('ten');const output=path.join(__dirname,'selective/input-pins.json');if(fs.existsSync(output))throw Error('fresh');fs.writeFileSync(output,JSON.stringify(out,null,2)+'\n',{flag:'wx'});console.log('EXACT_TEN_SLOT_HOST_SELECTIVE_ENROLLED');
