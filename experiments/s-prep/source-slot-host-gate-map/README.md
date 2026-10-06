@@ -54,3 +54,5 @@ python3 verify-cohort-map.py --map /tmp/fresh-cohort-map.json --config cohort-co
 ```
 
 Receipts pin current read-only paths. Archives preserve the snapshot compactly; verification requires those exact source bytes, or a separately reviewed relocation/reconstruction matching all pins. A missing path refuses rather than skipping the subject. No timing, dependency, proof/law or compiler/kernel/reference change is included.
+
+Followup snapshot v4 additionally recomputes the complete import closure and exact checker-entry set from pinned receipts/configuration rather than trusting map membership. Seven fresh malformed-map controls include dropped imported fixture and invented consumed subject. v3 remains preserved; static8v2 provenance limitation is still open pending root v3.
