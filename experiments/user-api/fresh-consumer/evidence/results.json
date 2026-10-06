@@ -1,0 +1,170 @@
+{
+  "base_public_pin": "7279c98",
+  "restricted_damage_change": "2a31548",
+  "commands": [
+    {
+      "argv": [
+        "bend",
+        "version"
+      ],
+      "exit": 0,
+      "seconds": 0.0187,
+      "output": "bend 2.0.35\n"
+    },
+    {
+      "argv": [
+        "node",
+        "--version"
+      ],
+      "exit": 0,
+      "seconds": 0.0072,
+      "output": "v24.20.0\n"
+    },
+    {
+      "argv": [
+        "timeout",
+        "5s",
+        "bend",
+        "experiments/user-api/fresh-consumer/arena.bend"
+      ],
+      "exit": 0,
+      "seconds": 0.325,
+      "output": "SSSSFS:position1,position2,health1,health2=8,14,21,5,events=6\n"
+    },
+    {
+      "argv": [
+        "timeout",
+        "5s",
+        "bend",
+        "experiments/user-api/fresh-consumer/arena.bend",
+        "-o",
+        "/tmp/bendvy-fresh-consumer-cwzs3wpj/arena.c"
+      ],
+      "exit": 0,
+      "seconds": 1.1847,
+      "output": ""
+    },
+    {
+      "argv": [
+        "clang",
+        "-O2",
+        "-pthread",
+        "/tmp/bendvy-fresh-consumer-cwzs3wpj/arena.c",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-fresh-consumer-cwzs3wpj/arena"
+      ],
+      "exit": 0,
+      "seconds": 2.5417,
+      "output": ""
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-fresh-consumer-cwzs3wpj/arena",
+        "--threads",
+        "1"
+      ],
+      "exit": 0,
+      "seconds": 0.0048,
+      "output": "SSSSFS:position1,position2,health1,health2=8,14,21,5,events=6\n"
+    },
+    {
+      "argv": [
+        "timeout",
+        "5s",
+        "bend",
+        "experiments/user-api/fresh-consumer/arena.bend",
+        "-o",
+        "/tmp/bendvy-fresh-consumer-cwzs3wpj/arena.mjs"
+      ],
+      "exit": 0,
+      "seconds": 0.3065,
+      "output": ""
+    },
+    {
+      "argv": [
+        "node",
+        "--input-type=module",
+        "-e",
+        "import Arena from \"/tmp/bendvy-fresh-consumer-cwzs3wpj/arena.mjs\"; console.log(Arena.scenario())"
+      ],
+      "exit": 0,
+      "seconds": 0.0228,
+      "output": "SSSSFS:position1,position2,health1,health2=8,14,21,5,events=6\n"
+    },
+    {
+      "argv": [
+        "timeout",
+        "5s",
+        "bend",
+        "experiments/user-api/fresh-consumer/negative_cross_schema.bend"
+      ],
+      "exit": 1,
+      "seconds": 0.1632,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : W.Handle<Arena.Arena>\n- observed : W.Handle<Other>\nContext:\n- world  : W.World<Arena.Arena, Arena.Store, U32, Arena.Hit>\n- handle : W.Handle<Other>\nLocation: bad\n10 | def bad(world: W.World<Arena.Arena,Arena.Store,U32,Arena.Hit>,handle: W.Handle<Other>) -> W.World<Arena.Arena,Arena.Store,U32,Arena.Hit>:\n11>|   Arena.write_Health(world,handle,10)\n   |                            ^^^^^^\n12 | \n"
+    },
+    {
+      "argv": [
+        "timeout",
+        "5s",
+        "bend",
+        "experiments/user-api/fresh-consumer/negative_owned_copy.bend"
+      ],
+      "exit": 1,
+      "seconds": 0.1808,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : Data\n- observed : Type\nLocation: bad\n7 | \n8>| def bad(+owner: Arena.Position) -> Arena.Position:\n  |                 ^^^^^^^^^^^^^^\n9 |   owner\nNote: +owner can be used many times, so its type must be Data.\n"
+    },
+    {
+      "argv": [
+        "timeout",
+        "5s",
+        "bend",
+        "experiments/user-api/fresh-consumer/negative_read_write.bend"
+      ],
+      "exit": 1,
+      "seconds": 0.1782,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : @_:bad~H -> @_:Arena.Position -> bad~H\n- observed : @_:bad~H -> Sigma<&1, &1, bad~H, _ => Cmp.Access<U32>>\nContext:\n- ctx : bad~H\nLocation: bad\n 8 | def bad(~H: Type,~aux: H -> H & Cmp.Access<U32>,ctx: H) -> H & T.Outcome<Arena.Fault>:\n 9>|   Arena.move_values(~H,~aux,1,Cmp.Found{0},Cmp.Found{2},ctx)\n   |                         ^^^\n10 | \n"
+    },
+    {
+      "argv": [
+        "timeout",
+        "5s",
+        "bend",
+        "experiments/user-api/fresh-consumer/negative_registry_rebind.bend"
+      ],
+      "exit": 1,
+      "seconds": 0.1742,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : Sys.Registry<Arena.Arena, Arena.Store, U32, Arena.Hit, Unit, Pv.Error<Arena.Fault>, Unit, alternate>\n- observed : Sys.Registry<Arena.Arena, Arena.Store, U32, Arena.Hit, Unit, Pv.Error<Arena.Fault>, Unit, Arena.move_runner>\nContext:\n- world    : W.World<Arena.Arena, Arena.Store, U32, Arena.Hit>\n- registry : Sys.Registry<Arena.Arena, Arena.Store, U32, Arena.Hit, Unit, Pv.Error<Arena.Fault>, Unit, Arena.move_runner>\nLocation: bad\n10 | def bad(world: W.World<Arena.Arena,Arena.Store,U32,Arena.Hit>,registry: Sys.Registry<Arena.Arena,Arena.Store,U32,Arena.Hit,Unit,Pv.Error<Arena.Fault>,Unit,Arena.move_runner>) -> Sys.RunResult<Arena.Arena,Arena.Store,U32,Arena.Hit,Unit,Pv.Error<Arena.Fault>,Unit,alternate>:\n11>|   Sys.run(~Arena.Arena,~Arena.Store,~U32,~Arena.Hit,~Unit,~Pv.Error<Arena.Fault>,~Unit,~alternate,registry,world,Unit{})\n   |                                                                                                   ^^^^^^^^\n12 | \n"
+    },
+    {
+      "argv": [
+        "timeout",
+        "5s",
+        "bend",
+        "experiments/user-api/fresh-consumer/negative_undeclared.bend"
+      ],
+      "exit": 1,
+      "seconds": 0.2007,
+      "output": "SOME PROOFS FAIL\nError:\n- expected : W.World<Arena.Arena, Arena.Store, U32, Arena.Hit>\n- observed : bad~H\nContext:\n- ctx : bad~H\nLocation: bad\n 8 | def bad(~H: Type,ctx: H) -> H:\n 9>|   Arena.write_Health(ctx,W.Handle{1,1},10)\n   |                      ^^^\n10 | \n"
+    }
+  ],
+  "source_sha256": {
+    "experiments/user-api/fresh-consumer/arena.bend": "1fc9ab83e542c918e7999f6aa026ab109ed51307896318abd859fcf9a4bb1259",
+    "experiments/user-api/fresh-consumer/negative_cross_schema.bend": "315bb03618da731f19c15714a09a41ad36faebd5a907bfa88d953604a4c3ecda",
+    "experiments/user-api/fresh-consumer/negative_owned_copy.bend": "42af9409d4699fb8e325bd924963951e8170d308a7d92fca1dfa23721bab6a68",
+    "experiments/user-api/fresh-consumer/negative_read_write.bend": "6d34781b70cd6b15ee2b04de8da6582548cb75bc3b092df9f3390afbf6effa40",
+    "experiments/user-api/fresh-consumer/negative_registry_rebind.bend": "354ef55d9ce003363229e2211c0ade2e02bb4758eaed75f25f42cddabe3e1ff7",
+    "experiments/user-api/fresh-consumer/negative_undeclared.bend": "d6629848619c8880773f4f7a0d80ec041dd2ce58f9b33e02344fc9adbea69732",
+    "src/ecs/column.bend": "6bed81e82da38ad1bc835fcf50f1ebb654788823b9870aef419b70ce0aba9c24",
+    "src/ecs/commands.bend": "b41ec45ad17513351fd68436cefbaec0058ac4556d1d722f2c0ce5a7d4a9f9d1",
+    "src/ecs/component.bend": "d3ac5feb5e76fdd22e8cec4ffdb9c2bd3bf93c4d4ab2da96d445f0b1c19016a4",
+    "src/ecs/events.bend": "3d89fbbb40fefab4be349bfbe0d1f99c870c25c725130ccb1823910c1ace7c53",
+    "src/ecs/provider.bend": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72",
+    "src/ecs/query.bend": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9",
+    "src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+    "src/ecs/structural.bend": "f813a10058914cdf85f94e879b2dc68b9cb3e878b5c683dae60152f40001fcae",
+    "src/ecs/system.bend": "b603976da337b72586cf731fc1cf886238dbcbe9c53e1e192552aa6244408fde",
+    "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "src/ecs/world.bend": "cde43ad8afc50129fbbb2de634829e0322a86b1e6e323a2ca8f56c03de5a01f5"
+  }
+}
