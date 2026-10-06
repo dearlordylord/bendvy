@@ -25,6 +25,8 @@ for row in rows:
  outer=Path(str(output)+'-outer.json');outer.write_text(json.dumps({'argv':argv,'outerSeconds':60,**result},indent=2)+'\n')
  receipt=output/'evidence.json';row.update(status='FAILED_NO_RECEIPT',outerReceipt=str(outer),**result)
  if receipt.exists():
-  current=json.loads(receipt.read_text());row.update(status=current['status'],receipt=str(receipt),receiptSHA256=hashlib.sha256(receipt.read_bytes()).hexdigest())
+  current=json.loads(receipt.read_text());row.update(reportedReceiptStatus=current['status'],receipt=str(receipt),receiptSHA256=hashlib.sha256(receipt.read_bytes()).hexdigest())
+  if result['exit']==0 and not result['timeout']:row['status']=current['status']
+  else:row['status']='OUTER_TIMEOUT' if result['timeout'] else 'OUTER_FAILURE'
  save()
 sys.exit(0 if all(x['status']=='COMPLETE_FIELDS_RAW_DIAGNOSTIC_PASS' for x in rows) else 1)

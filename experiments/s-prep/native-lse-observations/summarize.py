@@ -27,6 +27,8 @@ for schema in ['Motion', 'Health']:
         result['receiptPins'][str(path)] = hashlib.sha256(data).hexdigest()
         assert result['receiptPins'][str(path)]==row['receiptSHA256']
         record = json.loads(data)
+        if row['status'] != 'COMPLETE_FIELDS_RAW_DIAGNOSTIC_PASS':
+            record['reportedReceiptStatus']=record['status'];record['status']=row['status']
         assert record['schema'] == schema and record['rotation'] == rotation
         records.append(record)
     assert len({r['planSHA256'] for r in records}) == 1
