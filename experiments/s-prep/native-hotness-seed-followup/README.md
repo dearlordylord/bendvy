@@ -156,3 +156,14 @@ not H. Wildcard was false at this site. Later capture/dispatcher branches alread
 observe wildcard true. This confirms a changed first-seed frontier, not elimination
 of global sharing. Metadata worker owns the next source hypothesis. No compiler,
 Base or source edit occurs in this diagnostic. Exact pin/frame receipts are archived.
+
+## Closed stream follow-up
+
+Private frozen stream/read-host lifecycle helpers remove the preceding first
+stream-helper seed. Exact emission/check15/emitter30 PASS C
+`18057e5a3c19bfb1ab00d7904b12f5784b6f55e8d9bd30869974db7ed809333f`
+observes1,894 branches/120sites. Actual next first wildcard is Base List.reverse
+calling List.reverse.go: Batch<V> recursively exposes foreign VarV index0,
+resolved against local dom a:Qnt quantNone while wildcard is false. This is
+remaining generic library reachability, not a need to change Base. Metadata
+worker owns the source-only closed reversal hypothesis; no result is presumed.
