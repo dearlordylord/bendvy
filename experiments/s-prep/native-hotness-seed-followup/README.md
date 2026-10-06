@@ -142,3 +142,17 @@ Clang19 compile120, runtime5, threads1/GPUoff. Node inspector is an in-process
 Session with no listening endpoint or monkeypatch. Timers enforce bounds, not
 metrics. No canonical packet, budget reset, new dependency, law, proof, authority
 approval, universal refinement, full22 or JS≤TS/Native≥2× acceptance is claimed.
+
+## Closed storage frontier follow-up
+
+The separate closed-private62-helper storage/command/barrier frontier v3 removes
+the earlier actual storage first seeds. Its actual C
+`9f4e9062e53c1b8d80d36b822339ff58743789894b3cbe58840dee82d734139e`
+is byte-identical to the read-only inspector emission (checker15/emitter30 pass).
+The replay observes2,026 wildcard branches/129 distinct sites, with no missing
+frames. The new first global wildcard is `streams:append_buffer` calling
+`streams:count`: forced Var H index0 resolves to caller V:Type (quantNone),
+not H. Wildcard was false at this site. Later capture/dispatcher branches already
+observe wildcard true. This confirms a changed first-seed frontier, not elimination
+of global sharing. Metadata worker owns the next source hypothesis. No compiler,
+Base or source edit occurs in this diagnostic. Exact pin/frame receipts are archived.
