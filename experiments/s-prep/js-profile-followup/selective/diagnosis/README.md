@@ -1,0 +1,7 @@
+# Selective trace and rejected name-only follow-up
+
+Fresh bounded CPU7 traces validate all 65 worlds against fresh TS for each parent and candidate. The selective Motion step clone is actually inlined into its cursor loop (bytecode 240), and the Health step clone likewise inlines. Returned helper bytecode is 328 for Motion and 364 for Health. Thus the earlier full-write Motion sample without observed loop inlining does not establish a persistent clone barrier. A direct original-function rename/replacement would retain the added owner argument and changed helper work; it has no supported inlining benefit here and was not implemented.
+
+Actual bailout counts are Motion parent 1/candidate 2 and Health parent 2/candidate 1. Dependency invalidation messages also occur; neither trace establishes an elapsed causal explanation. All traces and observations are retained in the decoded-byte archive.
+
+Root reports fourteen quiet raw comparisons, all full65 fields passing. Median Motion TS 201.055ms, parent 224ms, selective 221ms, Native 78ms; Health TS 207.371ms, parent 235ms, selective 236ms, Native 97ms. These are unqualified diagnostics, with mixed pairs and no joint selection or stable parity. One favorable Health observation cannot be selected independently. Raw root paths are /tmp/bendvy-selective-fold-{motion,health}-joined-r{0..6}; this report records the root's communicated summary rather than claiming independent timing. No Slot Host enrollment or composition follows.
