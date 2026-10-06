@@ -1,0 +1,24 @@
+{
+  "argv": [
+    "python3",
+    "/workspace/formal-proofs/bendvy-worktrees/native-runtime-call-attributes/experiments/s-prep/native-runtime-call-attributes/run.py",
+    "--baseline-c",
+    "/tmp/bendvy-native-runtime-call-attributes-unpinned.c",
+    "--baseline-native",
+    "/tmp/bendvy-live-first-native-static/batch-native",
+    "--overlay",
+    "/tmp/bendvy-live-first-native",
+    "--comparison-runner",
+    "/workspace/formal-proofs/bendvy/experiments/s-prep/cache-box-comparison/run.py",
+    "--output",
+    "/tmp/bendvy-native-runtime-call-attributes-rejected",
+    "--cpu",
+    "10"
+  ],
+  "exit": 1,
+  "stdout": "",
+  "stderr": "Traceback (most recent call last):\n  File \"/workspace/formal-proofs/bendvy-worktrees/native-runtime-call-attributes/experiments/s-prep/native-runtime-call-attributes/run.py\", line 38, in <module>\n    if __name__=='__main__':main()\n                            ^^^^^^\n  File \"/workspace/formal-proofs/bendvy-worktrees/native-runtime-call-attributes/experiments/s-prep/native-runtime-call-attributes/run.py\", line 15, in main\n    assert sha(a.baseline_c)==BASE_C_SHA,'Unsupported generated C source'\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: Unsupported generated C source\n",
+  "inputSHA256": "d632229e54c1b54bd1c63c82430f9ddea274e5706d89b523844e98b6bdca69b6",
+  "intendedDiagnostic": "Unsupported generated C source",
+  "noCompilationStarted": true
+}
