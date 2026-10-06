@@ -87,9 +87,6 @@ def committed(result: T.Returned<World(),String>) -> World():
     case T.Returned{world,_}: world
 def commit(tx: Tx()) -> World():
   committed(T.finish(~World(),~S.SimEvent,~String,~Cmd.enqueue(~S.Schema,~S.Store,~F32,~S.SimEvent),~Cmd.publish(~S.Schema,~S.Store,~F32,~S.SimEvent),tx,T.Success{}))
-def spawn_next(result: Tx() & W.Reservation<S.Schema>) -> Tx():
-  (tx,_) = result
-  tx
 def spawned_state(owners: Owners,world: World(),+actors: ActorHandles) -> State:
   match owners:
     case Owners{factory,reader,movement,damage,retry,_,+checkpoints}: State{factory,world,reader,movement,damage,retry,actors,checkpoints}
@@ -108,9 +105,6 @@ def spawned_a(owners: Owners,result: Tx() & W.Reservation<S.Schema>) -> State:
 def spawn_state(state: State) -> State:
   match state:
     case State{factory,world,reader,movement,damage,retry,+actors,+checkpoints}: spawned_a(Owners{factory,reader,movement,damage,retry,actors,checkpoints},Cmd.tx_spawn(~S.Schema,~S.Store,~F32,~S.SimEvent,~S.Bundle,~S.populate,T.begin(~World(),~S.SimEvent,world),S.actor_a()))
-def replace_world(state: State,effect: World() -> World()) -> State:
-  match state:
-    case State{factory,world,reader,movement,damage,retry,+actors,+checkpoints}: State{factory,effect(world),reader,movement,damage,retry,actors,checkpoints}
 def queued(~Owner: Type,result: St.Queued<Tx(),Owner>) -> Tx():
   match result:
     case St.Queued{tx}: tx
