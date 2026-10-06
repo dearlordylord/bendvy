@@ -1,0 +1,61 @@
+[
+  {
+    "argv": [
+      "taskset",
+      "-c",
+      "9",
+      "bend",
+      "/tmp/bendvy-threehour-journal-handle/experiments/s-prep/source-closed-metadata/retained-pending-observation.bend",
+      "--check-only"
+    ],
+    "capSeconds": 5,
+    "exit": 0,
+    "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+  },
+  {
+    "argv": [
+      "taskset",
+      "-c",
+      "9",
+      "bend",
+      "/tmp/bendvy-threehour-journal-handle/experiments/s-prep/source-closed-metadata/retained-pending-observation.bend",
+      "-o",
+      "/tmp/bendvy-retained-pending-observation.js"
+    ],
+    "capSeconds": 30,
+    "exit": 0,
+    "output": ""
+  },
+  {
+    "argv": [
+      "taskset",
+      "-c",
+      "9",
+      "node",
+      "/tmp/bendvy-retained-pending-observation.js"
+    ],
+    "capSeconds": 5,
+    "exit": 0,
+    "output": "(../../../../bendvy-closed-world-observation-probe/experiments/s-integrate/observations.WorldView{7, 3, [], [../../../../bendvy-closed-world-observation-probe/experiments/s-integrate/observations.RemoveMainView{1}, ../../../../bendvy-closed-world-observation-probe/experiments/s-integrate/observations.FlagView{2, 7}], Some{88}, 9}, 42)\n"
+  },
+  {
+    "status": "PASS_FINITE_PENDING_ORDER_AND_AFFINE_LEDGER",
+    "expectedNamespace": 7,
+    "expectedNext": 3,
+    "expectedRows": [],
+    "expectedPending": [
+      [
+        "RemoveMain",
+        1
+      ],
+      [
+        "Flag",
+        2,
+        7
+      ]
+    ],
+    "expectedLedgerView": 88,
+    "expectedMode": 9,
+    "expectedRawLedgerCell": 42
+  }
+]

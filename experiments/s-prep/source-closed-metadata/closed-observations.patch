@@ -1,0 +1,36 @@
+--- experiments/s-integrate/observations.bend
++++ experiments/s-integrate/observations.bend
+@@ -68,4 +68,8 @@
+   match state:
+     case (owners,values): (owners,List.reverse(&2,RowView<V,AV,F>,values))
++def prototype_closed_observation_rows_finish(~M: Type,~A: Type,~F: Data,~V: Data,~AV: Data,state: S.Rows<M,A,F> & List<&2,RowView<V,AV,F>>) -> S.Rows<M,A,F> & List<&2,RowView<V,AV,F>>:
++  match state:
++    case (owners,values): (owners,List.reverse(&2,RowView<V,AV,F>,values))
++
+ def rows_advance(~M: Type,~A: Type,~F: Data,~V: Data,~AV: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,id: U32,state: S.Rows<M,A,F> & List<&2,RowView<V,AV,F>>) -> S.Rows<M,A,F> & List<&2,RowView<V,AV,F>>:
+   match state:
+@@ -73,5 +77,5 @@
+ def rows_go(~M: Type,~A: Type,~F: Data,~V: Data,~AV: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,remaining: Nat,+id: U32,state: S.Rows<M,A,F> & List<&2,RowView<V,AV,F>>) -> S.Rows<M,A,F> & List<&2,RowView<V,AV,F>>:
+   match remaining:
+-    case 0n: rows_finish(M,A,F,V,AV,state)
++    case 0n: prototype_closed_observation_rows_finish(~M,~A,~F,~V,~AV,state)
+     case 1n++remaining: rows_go(~M,~A,~F,~V,~AV,~main_get,~aux_get,remaining,U32.add(id,1),rows_advance(~M,~A,~F,~V,~AV,~main_get,~aux_get,id,state))
+ def rows_start(~M: Type,~A: Type,~F: Data,~V: Data,~AV: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,result: S.Rows<M,A,F> & U32) -> S.Rows<M,A,F> & List<&2,RowView<V,AV,F>>:
+@@ -125,9 +129,16 @@
+   match result:
+     case (ledger,value): (S.World{namespace,next,rows,pending,ledger,mode},WorldView{namespace,next,rowViews,List.reverse(&2,PendingView<V,AV,F>,pendingViews),value,mode})
++def prototype_closed_observation_world_ledger(~Schema: Data,~M: Type,~A: Type,~F: Data,~L: Type,~Mode: Data,~V: Data,~AV: Data,~LV: Data,
++  +namespace: U32,+next: U32,rows: S.Rows<M,A,F>,rowViews: List<&2,RowView<V,AV,F>>,
++  pending: List<S.Command<M,A,F>>,pendingViews: List<&2,PendingView<V,AV,F>>,+mode: Mode,
++  result: Maybe<L> & Maybe<&2,LV>) -> S.World<Schema,M,A,F,L,Mode> & WorldView<V,AV,F,LV,Mode>:
++  match result:
++    case (ledger,value): (S.World{namespace,next,rows,pending,ledger,mode},WorldView{namespace,next,rowViews,List.reverse(&2,PendingView<V,AV,F>,pendingViews),value,mode})
++
+ def world_commands(~Schema: Data,~M: Type,~A: Type,~F: Data,~L: Type,~Mode: Data,~V: Data,~AV: Data,~LV: Data,
+   ~ledger_get: L -> L & LV,namespace: U32,next: U32,rows: S.Rows<M,A,F>,rowViews: List<&2,RowView<V,AV,F>>,
+   ledger: Maybe<L>,mode: Mode,result: List<S.Command<M,A,F>> & List<&2,PendingView<V,AV,F>>) -> S.World<Schema,M,A,F,L,Mode> & WorldView<V,AV,F,LV,Mode>:
+   match result:
+-    case (pending,values): world_ledger(Schema,M,A,F,L,Mode,V,AV,LV,namespace,next,rows,rowViews,pending,values,mode,maybe_get(~L,~LV,~ledger_get,ledger))
++    case (pending,values): prototype_closed_observation_world_ledger(~Schema,~M,~A,~F,~L,~Mode,~V,~AV,~LV,namespace,next,rows,rowViews,pending,values,mode,maybe_get(~L,~LV,~ledger_get,ledger))
+ def world_rows(~Schema: Data,~M: Type,~A: Type,~F: Data,~L: Type,~Mode: Data,~V: Data,~AV: Data,~LV: Data,
+   ~main_get: M -> M & V,~aux_get: A -> A & AV,~ledger_get: L -> L & LV,

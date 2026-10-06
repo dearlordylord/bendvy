@@ -1,0 +1,19 @@
+--- experiments/s-integrate/query.bend
++++ experiments/s-integrate/query.bend
+@@ -105,7 +105,15 @@
+   match state:
+     case StructColsState{main,aux,live,flags,added,changed,values}: struct_idx_finish(M,A,F,O,capacity,depth,high,StructIdxState{main,aux,S.MetadataColumns{live,flags,added,changed},values})
++def prototype_closed_query_idx_finish(~M: Type,~A: Type,~F: Data,~O: Data,capacity: U32,depth: Nat,high: U32,state: StructIdxState<M,A,F,O>) -> S.Rows<M,A,F> & List<&2,O>:
++  match state:
++    case StructIdxState{main,aux,metadata,values}: (S.Rows{main,aux,metadata,capacity,depth,high},List.reverse(&2,O,values))
++
++def prototype_closed_query_cols_finish(~M: Type,~A: Type,~F: Data,~O: Data,capacity: U32,depth: Nat,high: U32,state: StructColsState<M,A,F,O>) -> S.Rows<M,A,F> & List<&2,O>:
++  match state:
++    case StructColsState{main,aux,live,flags,added,changed,values}: prototype_closed_query_idx_finish(~M,~A,~F,~O,capacity,depth,high,StructIdxState{main,aux,S.MetadataColumns{live,flags,added,changed},values})
++
+ def struct_idx_go(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> @-get: (P -> Tok -> P & V) -> @-ag: (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),remaining: Nat,+id: U32,+capacity: U32,+depth: Nat,+high: U32,+selection: Selection,+namespace: U32,state: StructColsState<M,A,F,O>) -> S.Rows<M,A,F> & List<&2,O>:
+   match remaining:
+-    case 0n: struct_cols_finish(M,A,F,O,capacity,depth,high,state)
++    case 0n: prototype_closed_query_cols_finish(~M,~A,~F,~O,capacity,depth,high,state)
+     case 1n++rest: struct_idx_go(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,rest,U32.add(id,1),capacity,depth,high,selection,namespace,struct_idx_advance(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,Bool.and((0 < id : U32),(id <= capacity : U32)),id,namespace,selection,state))
+ def read_rows(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> @-get: (P -> Tok -> P & V) -> @-ag: (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),rows: S.Rows<M,A,F>,selection: Selection,namespace: U32) -> S.Rows<M,A,F> & List<&2,O>:
