@@ -1,0 +1,39 @@
+// Exact private scalar mark loop; no generic inliner/source/compiler change.
+const fs=require('node:fs'),crypto=require('node:crypto'),acorn=require('internal/deps/acorn/acorn/dist/acorn');
+const [input,output]=process.argv.slice(2),sha=s=>crypto.createHash('sha256').update(s).digest('hex'),assert=(v,m)=>{if(!v)throw Error(m)};
+assert(input&&output&&!fs.existsSync(output),'fresh output');const source=fs.readFileSync(input,'utf8'),catalog=fs.readFileSync(__dirname+'/input-pins.json'),pin=JSON.parse(catalog)[sha(source)];assert(pin,'exact input');assert(!source.includes('__mark_scalar_'),'reserved namespace');
+if(pin.runtimeSourcePins){assert(Object.keys(pin.runtimeSourcePins).length===29,'29 source pins');for(const[n,d]of Object.entries(pin.runtimeSourcePins))assert(sha(fs.readFileSync(pin.sourceRoot+'/'+n))===d,'actual source '+n);}
+for(const[n,d]of Object.entries(pin.fixtureExtraPins||{}))assert(sha(fs.readFileSync(pin.sourceRoot+'/'+n))===d,'actual fixture '+n);
+const ast=acorn.parse(source,{ecmaVersion:'latest',locations:true}),defs=new Map(),names={},nodes={},roles={entry:'storage_mark_all$',loop:'prototype_storage_mark_loop$',guard:'prototype_storage_mark_guard$',live:'prototype_storage_mark_live$__product_split',and:'$Bool$and$'},edits=[];
+function walk(n,visit,p=null){if(!n||typeof n!=='object')return;visit(n,p);for(const[k,v]of Object.entries(n))if(!['loc','start','end'].includes(k)){if(Array.isArray(v))v.forEach(x=>walk(x,visit,n));else if(v&&typeof v==='object')walk(v,visit,n);}}
+for(const n of ast.body)if(n.type==='FunctionDeclaration'){assert(!defs.has(n.id.name),'duplicate definitions');defs.set(n.id.name,n);}
+for(const[role,suffix]of Object.entries(roles)){const found=[...defs].filter(([name])=>role==='and'?name===suffix:name.endsWith('$058'+suffix));assert(found.length===1,'unique '+role);[names[role],nodes[role]]=found[0];}
+walk(ast,(n,p)=>{assert(!(n.type==='Identifier'&&['Proxy','Reflect','defineProperty','setPrototypeOf','getPrototypeOf','eval','arguments'].includes(n.name)),'proxy/reflection/FFI forbidden');assert(!(n.type==='Property'&&['get','set'].includes(n.kind)),'accessor forbidden');assert(!(n.type==='MemberExpression'&&((n.computed&&n.property.value==='prototype')||(!n.computed&&n.property.name==='prototype'))),'prototype forbidden');if(n.type==='VariableDeclarator'&&n.id.type==='Identifier')assert(!Object.values(names).includes(n.id.name),'helper shadow');if(['FunctionDeclaration','FunctionExpression','ArrowFunctionExpression'].includes(n.type))n.params.forEach(x=>walk(x,b=>{if(b.type==='Identifier')assert(!Object.values(names).includes(b.name),'unshadowed helper parameter')}));if(n.type==='AssignmentExpression'&&n.left.type==='Identifier')assert(!Object.values(names).includes(n.left.name),'helper reassignment');if(n.type==='Identifier'&&n.name===names.loop)assert((p.type==='FunctionDeclaration'&&p.id===n)||(p.type==='CallExpression'&&p.callee===n),'loop confinement');});
+function canonical(n){if(Array.isArray(n))return n.map(canonical);if(!n||typeof n!=='object')return n;const o={};for(const[k,v]of Object.entries(n)){if(['start','end','loc','raw'].includes(k))continue;if(k==='name'&&n.type==='Identifier'&&Object.values(names).includes(v)){o[k]=Object.keys(names).find(r=>names[r]===v);continue;}if(k==='value'&&n.type==='Literal'&&typeof v==='string'&&/storage\.(World|Rows|MetadataColumns)$/.test(v)){o[k]=v.slice(v.lastIndexOf('/')+1);continue;}o[k]=canonical(v);}return o;}
+const templateBytes=fs.readFileSync(__dirname+'/template-pins.json');assert(sha(templateBytes)==='a9081cfc6acac2c3d7bed625f29dadfc0eeffae7e69f61fc885d287cf5df8998','frozen semantic template');const template=JSON.parse(templateBytes);for(const role of Object.keys(roles))assert(sha(JSON.stringify(canonical(nodes[role])))===template[role],'unchanged exact '+role+' decisions/fields/order');
+const text=n=>source.slice(n.start,n.end),entry=nodes.entry,loop=nodes.loop,guard=nodes.guard;
+let entryCall;walk(entry.body,(n)=>{if(n.type==='CallExpression'&&n.callee.name===names.loop){assert(!entryCall,'one private entry');entryCall=n;}});assert(entryCall&&entryCall.arguments.length===15,'loop entry');const tuple=entryCall.arguments[7];assert(tuple.type==='ObjectExpression'&&tuple.properties.length===3,'entry transport');const live=tuple.properties[1].value,changed=tuple.properties[2].value;assert(live.type==='Identifier'&&changed.type==='Identifier'&&entryCall.arguments.every((n,i)=>i===7||n.type==='Identifier'),'pure stable entry field reads');
+const newName=names.loop+'__mark_scalar_loop';edits.push([entryCall.callee.start,entryCall.callee.end,newName],[tuple.start,tuple.end,text(live)],[entryCall.end-1,entryCall.end-1,', '+text(changed)]);
+const localEdits=[],transportDecls=[],projections=[];let update;
+walk(loop.body,(n)=>{if(n.type==='VariableDeclaration'&&n.declarations.length===1&&n.declarations[0].id.name==='_transport_0')transportDecls.push(n);if(n.type==='MemberExpression'&&n.object.name==='_transport_0')projections.push(n);if(n.type==='AssignmentExpression'&&n.left.type==='Identifier'&&n.left.name==='$7'){assert(!update,'one transport tail update');update=n;}});
+assert(transportDecls.length===1&&projections.length===4&&update,'exclusive transport shape');localEdits.push([transportDecls[0].start,transportDecls[0].end,'']);for(const n of projections){assert(n.computed&&['fst','snd'].includes(n.property.value),'read transport only');localEdits.push([n.start,n.end,n.property.value==='fst'?'$7':'$15']);}
+const call=update.right;assert(call.type==='CallExpression'&&call.callee.name===names.guard&&call.arguments.length===5,'exact guard call');const valid=text(call.arguments[0]);
+// Exact guard argument evaluation precedes guard branch. The live helper's index
+// argument is computed before its final array-read argument, as in the original.
+const code='const __mark_scalar_valid = '+valid+';\n'+
+'const __mark_scalar_live = '+text(call.arguments[1])+';\n'+
+'const __mark_scalar_changed = '+text(call.arguments[2])+';\n'+
+'const __mark_scalar_id = '+text(call.arguments[3])+';\n'+
+'const __mark_scalar_tick = '+text(call.arguments[4])+';\n'+
+'if (__mark_scalar_valid) {\n'+
+' const __mark_scalar_x = ((__mark_scalar_id - 1) >>> 0);\n'+
+' const __mark_scalar_changed_arg = __mark_scalar_changed;\n'+
+' const __mark_scalar_index_arg = ((__mark_scalar_id - 1) >>> 0);\n'+
+' const __mark_scalar_tick_arg = __mark_scalar_tick;\n'+
+' const __mark_scalar_live_arg = __mark_scalar_live;\n'+
+' const __mark_scalar_current = __mark_scalar_live[__mark_scalar_x % __mark_scalar_live.length];\n'+
+' if (__mark_scalar_current) { __mark_scalar_changed_arg[__mark_scalar_index_arg % __mark_scalar_changed_arg.length] = __mark_scalar_tick_arg; }\n'+
+'}\n$7 = __mark_scalar_live;\n$15 = __mark_scalar_changed';
+localEdits.push([update.start,update.end,code]);
+function apply(a,b,changes){let out=source.slice(a,b),last=b;for(const[x,y,v]of changes.sort((a,b)=>b[0]-a[0])){assert(y<=last&&x>=a&&y<=b,'nonoverlap');out=out.slice(0,x-a)+v+out.slice(y-a);last=x;}return out;}
+const body=apply(loop.body.start,loop.body.end,localEdits),privateLoop='\nfunction '+newName+'('+loop.params.map(text).concat('$15').join(', ')+') '+body+'\n';let out=apply(0,source.length,edits)+privateLoop;acorn.parse(out,{ecmaVersion:'latest'});fs.writeFileSync(output,out);fs.writeFileSync(output+'.recipe.json',JSON.stringify({scope:'Exact private scalar mark-loop transport only; no generic CPS/compiler/source/refinement claim',inputSHA256:sha(source),outputSHA256:sha(out),recipeSHA256:sha(fs.readFileSync(__filename)),catalogSHA256:sha(catalog),helperNames:names,templatePins:template,entryTupleSitesRemoved:1,perMarkTupleSitesRemoved:1,newClosures:0,originalLoopGuardLiveRetained:true,remainingWorldRowsMetadataFieldsUnchanged:true},null,2)+'\n');
