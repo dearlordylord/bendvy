@@ -1,0 +1,104 @@
+ new Debian package, version 2.0.
+ size 112672 bytes: control archive=1264 bytes.
+    1063 bytes,    20 lines      control              
+     995 bytes,    13 lines      md5sums              
+ Package: clang-19
+ Source: llvm-toolchain-19
+ Version: 1:19.1.7-3~deb12u1
+ Architecture: arm64
+ Maintainer: LLVM Packaging Team <pkg-llvm-team@lists.alioth.debian.org>
+ Installed-Size: 378
+ Depends: libc6 (>= 2.34), libclang-cpp19 (>= 1:19.1.7), libgcc-s1 (>= 3.0), libllvm19 (= 1:19.1.7-3~deb12u1), libstdc++6 (>= 11), libstdc++-12-dev, libgcc-12-dev, libobjc-12-dev, libclang-common-19-dev (= 1:19.1.7-3~deb12u1), llvm-19-linker-tools (= 1:19.1.7-3~deb12u1), libclang1-19 (= 1:19.1.7-3~deb12u1), libc6-dev, binutils
+ Recommends: llvm-19-dev, python3, clang-tools-19
+ Suggests: clang-19-doc, wasi-libc
+ Provides: c++-compiler, c-compiler, objc++-compiler, objc-compiler
+ Section: devel
+ Priority: optional
+ Homepage: https://www.llvm.org/
+ Description: C, C++ and Objective-C compiler
+  Clang project is a C, C++, Objective C and Objective C++ front-end
+  based on the LLVM compiler. Its goal is to offer a replacement to the
+  GNU Compiler Collection (GCC).
+  .
+  Clang implements all of the ISO C++ 1998, 11, 14 and 17 standards and also
+  provides most of the support of C++20.
+ new Debian package, version 2.0.
+ size 739736 bytes: control archive=6760 bytes.
+     716 bytes,    20 lines      control              
+   21586 bytes,   243 lines      md5sums              
+ Package: libclang-common-19-dev
+ Source: llvm-toolchain-19
+ Version: 1:19.1.7-3~deb12u1
+ Architecture: arm64
+ Maintainer: LLVM Packaging Team <pkg-llvm-team@lists.alioth.debian.org>
+ Installed-Size: 13456
+ Recommends: libclang-rt-19-dev
+ Section: libdevel
+ Priority: optional
+ Multi-Arch: same
+ Homepage: https://www.llvm.org/
+ Description: Clang library - Common development package
+  Clang project is a C, C++, Objective C and Objective C++ front-end
+  based on the LLVM compiler. Its goal is to offer a replacement to the
+  GNU Compiler Collection (GCC).
+  .
+  Clang implements all of the ISO C++ 1998, 11, 14 and 17 standards and also
+  provides most of the support of C++20.
+  .
+  This package contains the Clang generic headers.
+ new Debian package, version 2.0.
+ size 11899592 bytes: control archive=1116 bytes.
+    1060 bytes,    25 lines      control              
+     237 bytes,     3 lines      md5sums              
+      47 bytes,     1 lines      shlibs               
+      68 bytes,     2 lines      triggers             
+ Package: libclang-cpp19
+ Source: llvm-toolchain-19
+ Version: 1:19.1.7-3~deb12u1
+ Architecture: arm64
+ Maintainer: LLVM Packaging Team <pkg-llvm-team@lists.alioth.debian.org>
+ Installed-Size: 65895
+ Depends: libc6 (>= 2.34), libgcc-s1 (>= 3.0), libllvm19 (= 1:19.1.7-3~deb12u1), libstdc++6 (>= 12)
+ Section: libs
+ Priority: optional
+ Homepage: https://www.llvm.org/
+ Description: C++ interface to the Clang library
+  Clang project is a C, C++, Objective C and Objective C++ front-end
+  based on the LLVM compiler. Its goal is to offer a replacement to the
+  GNU Compiler Collection (GCC).
+  .
+  Clang implements all of the ISO C++ 1998, 11, 14 and 17 standards and also
+  provides most of the support of C++20.
+  .
+  This package contains the Clang C++ library.
+  .
+  The C++ Interface to Clang provides an API that exposes
+  facilities for parsing source code into an abstract syntax tree (AST),
+  loading already-parsed ASTs, traversing the AST, associating physical source
+  locations with elements within the AST, and other facilities that support
+  Clang-based development tools.
+ new Debian package, version 2.0.
+ size 23183452 bytes: control archive=1028 bytes.
+     858 bytes,    19 lines      control              
+     294 bytes,     4 lines      md5sums              
+      23 bytes,     1 lines      shlibs               
+      68 bytes,     2 lines      triggers             
+ Package: libllvm19
+ Source: llvm-toolchain-19
+ Version: 1:19.1.7-3~deb12u1
+ Architecture: arm64
+ Maintainer: LLVM Packaging Team <pkg-llvm-team@lists.alioth.debian.org>
+ Installed-Size: 118943
+ Depends: libc6 (>= 2.36), libedit2 (>= 2.11-20080614-0), libffi8 (>= 3.4), libgcc-s1 (>= 4.2), libstdc++6 (>= 12), libxml2 (>= 2.7.4), libz3-4 (>= 4.8.12), libzstd1 (>= 1.5.2), zlib1g (>= 1:1.2.0)
+ Breaks: llvm-19-dev (<< 1:19.1.0~++rc3-1~exp2)
+ Replaces: llvm-19-dev (<< 1:19.1.0~++rc3-1~exp2)
+ Section: libs
+ Priority: optional
+ Multi-Arch: same
+ Homepage: https://www.llvm.org/
+ Description: Modular compiler and toolchain technologies, runtime library
+  LLVM is a collection of libraries and tools that make it easy to build
+  compilers, optimizers, just-in-time code generators, and many other
+  compiler-related programs.
+  .
+  This package contains the LLVM runtime library.

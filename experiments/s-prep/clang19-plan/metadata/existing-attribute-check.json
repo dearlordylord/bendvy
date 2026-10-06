@@ -1,0 +1,17 @@
+{
+  "command": [
+    "clang",
+    "-O3",
+    "-E",
+    "-P",
+    "-x",
+    "c",
+    "-"
+  ],
+  "input": "#if __has_attribute(preserve_none)\nNONE_YES\n#else\nNONE_NO\n#endif\n#if __has_attribute(preserve_most)\nMOST_YES\n#else\nMOST_NO\n#endif\n",
+  "exit": 0,
+  "output": "NONE_NO\nMOST_YES\n",
+  "stderr": "",
+  "compilerVersion": "Debian clang version 14.0.6\nTarget: aarch64-unknown-linux-gnu\nThread model: posix\nInstalledDir: /home/node/.local/opt/dnd-clang14/usr/lib/llvm-14/bin\n",
+  "scope": "Existing compiler only; no new compiler invoked"
+}

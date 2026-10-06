@@ -1,0 +1,90 @@
+{
+  "status": "PROPOSAL_NOT_APPROVED",
+  "architecture": "arm64",
+  "release": "Debian12bookworm",
+  "version": "1:19.1.7-3~deb12u1",
+  "proposedPackages": [
+    {
+      "name": "clang-19",
+      "version": "1:19.1.7-3~deb12u1",
+      "architecture": "arm64",
+      "url": "https://deb.debian.org/debian/pool/main/l/llvm-toolchain-19/clang-19_19.1.7-3~deb12u1_arm64.deb",
+      "bytes": 112672,
+      "installedKiB": 378,
+      "sha256": "afc69199696252641c7bfb39d46c290d4bc9f235e251bf7afbe62143f3a6bdbf",
+      "depends": "libc6 (>= 2.34), libclang-cpp19 (>= 1:19.1.7), libgcc-s1 (>= 3.0), libllvm19 (= 1:19.1.7-3~deb12u1), libstdc++6 (>= 11), libstdc++-12-dev, libgcc-12-dev, libobjc-12-dev, libclang-common-19-dev (= 1:19.1.7-3~deb12u1), llvm-19-linker-tools (= 1:19.1.7-3~deb12u1), libclang1-19 (= 1:19.1.7-3~deb12u1), libc6-dev, binutils",
+      "officialPackagePage": "https://packages.debian.org/bookworm/clang-19"
+    },
+    {
+      "name": "libclang-cpp19",
+      "version": "1:19.1.7-3~deb12u1",
+      "architecture": "arm64",
+      "url": "https://deb.debian.org/debian/pool/main/l/llvm-toolchain-19/libclang-cpp19_19.1.7-3~deb12u1_arm64.deb",
+      "bytes": 11899592,
+      "installedKiB": 65895,
+      "sha256": "d9398ada6c8091669fd4af736fbb9aacaf28e140c309685ab00196625969422b",
+      "depends": "libc6 (>= 2.34), libgcc-s1 (>= 3.0), libllvm19 (= 1:19.1.7-3~deb12u1), libstdc++6 (>= 12)",
+      "officialPackagePage": "https://packages.debian.org/bookworm/libclang-cpp19"
+    },
+    {
+      "name": "libllvm19",
+      "version": "1:19.1.7-3~deb12u1",
+      "architecture": "arm64",
+      "url": "https://deb.debian.org/debian/pool/main/l/llvm-toolchain-19/libllvm19_19.1.7-3~deb12u1_arm64.deb",
+      "bytes": 23183452,
+      "installedKiB": 118943,
+      "sha256": "8da27fd815c3feceb5aed709b66e0daf9ef6ea98600778f7fd6b569a9ae1f109",
+      "depends": "libc6 (>= 2.36), libedit2 (>= 2.11-20080614-0), libffi8 (>= 3.4), libgcc-s1 (>= 4.2), libstdc++6 (>= 12), libxml2 (>= 2.7.4), libz3-4 (>= 4.8.12), libzstd1 (>= 1.5.2), zlib1g (>= 1:1.2.0)",
+      "officialPackagePage": "https://packages.debian.org/bookworm/libllvm19"
+    },
+    {
+      "name": "libclang-common-19-dev",
+      "version": "1:19.1.7-3~deb12u1",
+      "architecture": "arm64",
+      "url": "https://deb.debian.org/debian/pool/main/l/llvm-toolchain-19/libclang-common-19-dev_19.1.7-3~deb12u1_arm64.deb",
+      "bytes": 739736,
+      "installedKiB": 13456,
+      "sha256": "ba6f837294395f6aec7f2177c8e578e1c45cf6a3733b469b659fb08824a35f6e",
+      "depends": "",
+      "officialPackagePage": "https://packages.debian.org/bookworm/libclang-common-19-dev"
+    }
+  ],
+  "proposedDownloadBytes": 35935452,
+  "declaredInstalledKiB": 198672,
+  "optionalPackages": [
+    {
+      "name": "libclang1-19",
+      "version": "1:19.1.7-3~deb12u1",
+      "architecture": "arm64",
+      "url": "https://deb.debian.org/debian/pool/main/l/llvm-toolchain-19/libclang1-19_19.1.7-3~deb12u1_arm64.deb",
+      "bytes": 6821592,
+      "installedKiB": 35387,
+      "sha256": "82c965471225e3a4d6cdb8fcb37186def7dd3d36de53d30fab6394b67ff55a5f",
+      "depends": "libc6 (>= 2.34), libgcc-s1 (>= 3.0), libllvm19, libstdc++6 (>= 11)",
+      "officialPackagePage": "https://packages.debian.org/bookworm/libclang1-19"
+    },
+    {
+      "name": "llvm-19-linker-tools",
+      "version": "1:19.1.7-3~deb12u1",
+      "architecture": "arm64",
+      "url": "https://deb.debian.org/debian/pool/main/l/llvm-toolchain-19/llvm-19-linker-tools_19.1.7-3~deb12u1_arm64.deb",
+      "bytes": 1091184,
+      "installedKiB": 4266,
+      "sha256": "da12f4d0c792a895a59cb32b03a2aa41b308478921d96db9abd84f43c1792401",
+      "depends": "libc6 (>= 2.34), libgcc-s1 (>= 3.0), libllvm19, libstdc++6 (>= 11)",
+      "officialPackagePage": "https://packages.debian.org/bookworm/llvm-19-linker-tools"
+    },
+    {
+      "name": "libz3-4",
+      "version": "4.8.12-3.1",
+      "architecture": "arm64",
+      "url": "https://deb.debian.org/debian/pool/main/z/z3/libz3-4_4.8.12-3.1_arm64.deb",
+      "bytes": 6281640,
+      "installedKiB": 21607,
+      "sha256": "115080b0aee2d75f316da4be24c8a5e88ed7c362c7b4a4cd13f3af9b9da130f2",
+      "depends": "libc6 (>= 2.34), libgcc-s1 (>= 3.0), libstdc++6 (>= 12)",
+      "officialPackagePage": "https://packages.debian.org/bookworm/libz3-4"
+    }
+  ],
+  "scope": "Minimal intended isolated plain-C payload; not an apt installation/complete package dependency transaction. Payload DT_NEEDED/resource discovery checks remain after approval."
+}
