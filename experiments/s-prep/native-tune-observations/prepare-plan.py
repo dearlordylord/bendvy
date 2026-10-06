@@ -37,6 +37,7 @@ for catalog_path in a.catalog:
  assert c['defaultNative']!=c['tuneNative']
  feature=json.loads(Path(c['isaFeatureReceipt']).read_text())[schema]
  assert feature['featuresIdentical'] and feature['baselineFeatures']==feature['candidateFeatures'] and feature['soleAddedTune']=='apple-m1'
+ assert feature['tripleIdentical'] and feature['abiIdentical']
  assert str(Path(c['isaFeatureReceipt']).resolve()) in pins
  assert all(str(Path(c[k]).resolve()) in pins for k in ['defaultBuild','tuneBuild','hardwareReceipt','jsFreeze','admission','jsProgram','defaultNative','tuneNative','defaultC','tuneC'])
  b=json.loads(Path(c['defaultBuild']).read_text());assert b['status']=='BUILD_PASS' and b['schema']==schema
