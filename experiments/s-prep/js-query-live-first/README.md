@@ -79,4 +79,30 @@ Neither target is met in that observation; no stable comparison or attribution t
 this source change is established. The exact-role full22 runner is being exercised
 separately; this raw observation does not pass its incomplete gates.
 
-Current validation handle: root exec session66232, output `/tmp/bendvy-live-first-full22`. It is a live exact-role gate run, not a passed receipt; do not restart from a missing final evidence file while its process remains live. Archive terminal evidence separately when it finishes.
+## Terminal full22 follow-up
+
+Exec66232 terminated exit1. Aggregate **FAIL**: JS-role materialization, Host12
+(two original schemas and12 compiling semantic mutants), access/provider and
+actual16 foreign-world factory cases pass; E11 initially fails its override
+manifest precondition before executing Bend. Later JS gates and the Native role
+are **untested** by this aggregate. The JS role's controls compile its own source
+on both backends; they do not accept the separate boxed Native role.
+
+The materializer copied the protected candidate host-batch-invoker, specialized
+it and pinned it in sources, but omitted its override origin. The repair records
+protected Git source paths/hashes for all copied controls. Fresh materialization
+retains identical hashes for all95 Bend files. It changes only manifest provenance;
+no assertion, oracle or source semantics is weakened. The original failed result
+remains unchanged and is not converted to PASS.
+
+Standalone E11 on the repaired manifest (exec59093, exit2) executes10 fresh TS
+references, then reaches Motion/message Native codegen and fails Cemit30. Its
+status is BUILD_BLOCKED:0 actual cases, semantic mutants pending. Historical
+receipt limits display checker5 while actual command phases use the explicitly
+opted-in15; command-phase limits are the execution evidence. No deadline is raised.
+
+[Terminal evidence and metadata repair](full22-evidence/index.json) preserve source
+books, command logs, original failure, passing partial controls and repaired E11
+failure. Protected materializer bytes changed; reconcile pins before any canonical
+reuse. Full22 and performance targets remain incomplete. No owned gate process
+remains from these two terminal sessions.

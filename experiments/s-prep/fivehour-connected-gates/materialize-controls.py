@@ -73,7 +73,7 @@ def main():
   runtime.add(relative)
   for name in re.findall(r'^import (\./\S+\.bend)',path.read_text(),re.M):runtime_visit((path.parent/name).resolve())
  runtime_visit(core/'measurement-bend.bend')
- already=set(manifest.get('cacheSpecialization',{}).get('specializedClosure',{}))|runtime;seen=set();changes={}
+ already=set(manifest.get('cacheSpecialization',{}).get('specializedClosure',{}))|runtime;seen=set();changes={};control_origins={}
  root=Path(__file__).resolve().parents[3]
  for original in sorted((root/'experiments/s-integrate').glob('*.bend')):
   destination=core/original.name
@@ -81,7 +81,10 @@ def main():
   candidate=root/'experiments/s-perf/candidate'/original.name;source=candidate if candidate.exists() else original
   pinned=subprocess.check_output(['git','-C',str(root),'show','HEAD:'+str(source.relative_to(root))],timeout=5);assert source.read_bytes()==pinned,'Untracked protected fixture source change'
   destination.write_bytes(pinned)
-  manifest['sources'][str(destination.relative_to(a.output))]=h(destination)
+  relative=str(destination.relative_to(a.output));origin=str(source.relative_to(root))
+  manifest['sources'][relative]=h(destination)
+  manifest.setdefault('overrides',{})[relative]=origin
+  control_origins[relative]={'protectedSource':origin,'protectedSourceSHA256':hashlib.sha256(pinned).hexdigest()}
  def visit(path):
   path=path.resolve();assert path.is_relative_to(core.resolve()) and not path.is_symlink()
   if path in seen:return
@@ -107,5 +110,5 @@ def main():
   original=core/'host-fixture.bend';text=original.read_text()
   for schema in ['motion','health']:
    sliced,retained,removed=reachable_fixture(text,'main_'+schema);body=core/('host-'+schema+'-body.bend');body.write_text(sliced);entry=core/('host-'+schema+'-fixture.bend');entry.write_text(entry.read_text().replace('./host-fixture.bend','./host-'+schema+'-body.bend'));manifest['sources'][str(body.relative_to(a.output))]=h(body);changes.update(slice_control_imports(core,entry,runtime));changes[str(body.relative_to(a.output))]={'originalSHA256':h(original),'derivedSHA256':h(body),'entry':'main_'+schema,'retainedDefinitions':retained,'removedUnreachableFixtureDefinitions':removed,'scope':'Explicit conservative local reachable definition slice; imported runtime entire closure unchanged; all frames/phases/captures retained'}
- manifest['sources']={str(path.relative_to(a.output)):h(path) for path in a.output.rglob('*.bend')};manifest['controlSpecialization']={'scope':'Previously-unvisited actual Host/access fixture closure; exact full constructor wrap and raw->cached Type/provider map','changes':changes};(a.output/'overlay.json').write_text(json.dumps(manifest,indent=2)+'\n');print(json.dumps(manifest['controlSpecialization'],indent=2))
+ manifest['sources']={str(path.relative_to(a.output)):h(path) for path in a.output.rglob('*.bend')};manifest['controlSpecialization']={'scope':'Previously-unvisited actual Host/access fixture closure; exact full constructor wrap and raw->cached Type/provider map','changes':changes,'copiedControlOrigins':control_origins};(a.output/'overlay.json').write_text(json.dumps(manifest,indent=2)+'\n');print(json.dumps(manifest['controlSpecialization'],indent=2))
 if __name__=='__main__':main()

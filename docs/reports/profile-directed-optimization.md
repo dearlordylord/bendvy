@@ -81,7 +81,7 @@ heap/speed claim. Both schemas on JS/Native pass40 literal query/command checkpo
 and intended compiling order/membership mutants. Independent read-only review
 finds no blocking semantic issue within that domain. Exact boxed Native static
 Motion build passes15/30/120; one raw full65 observation TS389.164ms/JS776ms/
-Native443ms still misses targets. Full22 remains separate.
+Native443ms still misses targets. Full22 remains separate; see terminal evidence below.
 
 ## Emitted affine container reuse
 
@@ -115,6 +115,12 @@ failed. Batched-JS joined gate failed Motion query-order Cemit30. Boxed joined g
 got through original, query-order and suppressed-setter on both backends/schemas,
 then failed Motion inverse-order Cemit30. Downstream gates were not run by those
 aggregates. Each partial pass belongs only to its exact source; no aggregate pass.
+Live-first aggregate subsequently passes JS-role materialization/Host12/access,
+then fails E11's missing host-batch-invoker override origin. The materializer
+repair records copied control provenance; all95 Bend source hashes remain
+identical. Standalone repaired E11 executes10 fresh TS references, then fails
+Motion/message Cemit30:0 actual cases and mutants pending. Later JS gates and
+the Native role are untested. [Terminal evidence](../../experiments/s-prep/js-query-live-first/full22-evidence/index.json).
 Protected runner changes require pin reconciliation before canonical reuse.
 
 Limits: executable diagnostic checker15s by explicit user approval, default/proof5s,
