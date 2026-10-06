@@ -23,7 +23,7 @@ for row in rows:
  except Exception as error:
   result={'exit':124 if isinstance(error,TimeoutError) else 1,'timeout':isinstance(error,TimeoutError),'error':repr(error)}
  outer=Path(str(output)+'-outer.json');outer.write_text(json.dumps({'argv':argv,'outerSeconds':60,**result},indent=2)+'\n')
- receipt=output/'evidence.json';row.update(status='FAILED_NO_RECEIPT',outerReceipt=str(outer),**result)
+ receipt=output/'evidence.json';row.update(status=('OUTER_TIMEOUT' if result['timeout'] else 'OUTER_FAILURE') if result['exit'] else 'FAILED_NO_RECEIPT',receiptMissing=not receipt.exists(),outerReceipt=str(outer),**result)
  if receipt.exists():
   current=json.loads(receipt.read_text());row.update(reportedReceiptStatus=current['status'],receipt=str(receipt),receiptSHA256=hashlib.sha256(receipt.read_bytes()).hexdigest())
   if result['exit']==0 and not result['timeout']:row['status']=current['status']
