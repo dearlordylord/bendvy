@@ -1,53 +1,35 @@
-# Native computation-only profile
+# Native1024 phase CPU diagnostic
 
-Diagnostic evidence under #21/#24, not qualified timing or full22 acceptance.
-The generated C copy enables gprof sampling only between the frozen Motion
-driver's third and fourth `IO.now` effects (warmup uses clocks1/2).
-`main` disables sampling first. Exactly four clocks are required; stderr is
-captured separately to prevent markers splitting JSON output.
+`sample.py` is the fresh r2 Linux/aarch64 sampler. It inserts only a fixed
+lock-free atomic SIGPROF PC buffer and clocks3/4 phase hooks into copied C.
+The original C/compiler/runtime binaries remain unchanged. ITIMER_PROF requests
+1ms process-CPU intervals and may deliver signals to any unblocked OS thread.
+Samples are not worker residency, exact durations, call stacks or causation.
 
-Both combined and boxed/batched candidates pass all65 full worlds against fresh
-pinned bevy-ts. The compiler, runtime modules, authored callback algorithms and
-work are unchanged by the C sampling recipe. Whole-process call counts are not
-phase-only; the reported flat **sampled self time** is bounded by the clock gate.
-Sampling is10ms, with only82 combined /53 boxed phase samples in these runs.
-Different CPUs/shared-machine noise prevent a comparative timing conclusion.
+Both schemas freshly match all65 complete TS observations. Motion/Health collect
+413/366 PCs with zero pending slots. [`summary.json`](summary.json) retains exact
+function counts; many samples occur in reference-count/owner transport routines.
+This supports investigating that seam, without proving it is the sole bottleneck.
 
-| Phase self-time site | Combined (CPU11) | Boxed+batched (CPU10) |
-| --- | ---: | ---: |
-| term_drop |21.95%|22.64%|
-| reached spin75 |19.51%|13.21%|
-| motion_row |10.98%|20.75%|
-| dispatcher visit continuation |19.51%|11.32%|
-| rfc_wrap |3.66%|9.43%|
+Original source29/build/reference/validator, installed tools, new include closure,
+nm/addr2line binaries/libraries and sampled binary are prospectively pinned and
+rechecked. Existing Dense enrollment supplies the reference-driver join; this
+sampler does not independently reproduce that derivation. `-g`, `-no-pie`, signal
+interrupts and clock4 stop/printing perturb the run. **No elapsed clock from these
+runs may support a performance comparison.** Runtime5/Clang120 remain unchanged.
 
-A separate adjacent unprofiled CPU11 diagnostic validates all65 worlds for each
-variant: TS1339.735ms, combined1260ms, batched-only3203ms, boxed+batched986ms.
-These are one raw observation each. Batched-only's later profiled run reports831ms
-and68 samples, so its3203ms observation does **not** establish a reproducible
-regression. Host load was about14 on12 available CPUs; the container reports no
-CPU quota/throttling. No process owned by another task was stopped. Keep the
-outlier and the uncertainty; do not select an implementation from these clocks.
-The initial neighbor summary used an incorrect TS key; retained executions are
-independently validated by `validate-comparison.py` using `batchMilliseconds`.
+`sample-r1.py` and r1 receipts retain historical full65 controls with incomplete
+header/symbol-tool provenance. Fresh r2 supersedes only that diagnostic admission.
+Read [independent review](../../../docs/reviews/native-phase-profile.md) for all
+remaining failure-path/provenance limits.
 
-Preparation/serialization is excluded from this sampling window. An earlier
-whole-process profile attributed21% to a printing-related helper; that is not a
-valid reason to optimize serialization for the measured compute interval.
-Remaining targets are affine owner transport, reference-count/drop traffic and
-dispatcher continuation context; percentages alone do not establish causality.
-
-Reproduce with an exact generated C and the frozen TS Motion64 driver:
+`evidence.tar.xz` plus adjacent manifest preserves exact decoded C, logs, PC
+symbolization, receipts and both recipe versions. Native executables are hash
+pinned and reproducible, excluded from the compact capsule. Verify:
 
 ```sh
-python3 experiments/s-prep/native-phase-profile/run.py \
-  --source /tmp/batch.c --reference /tmp/Motion.mjs \
-  --output /tmp/fresh-phase-profile --cpu 11
+python3 ../source-handoff-observations/verify-archive.py evidence.tar.xz
 ```
 
-Requires existing clang/gprof/Node; no dependency installation. Caps remain
-clang120s/runtime5s. [Archive index](evidence-index.json) pins C, gmon, full outputs,
-clocks and receipts. Two runner failures are retained: mixed stderr markers split
-JSON, then the receipt used the wrong recipe filename. Both are corrected; fresh
-successful executions are distinct receipts. No repeated measured-loop allowance
-was renewed.
+No laws/proofs, dependency installation, compiler/kernel/reference modification,
+performance acceptance or production adoption is claimed.

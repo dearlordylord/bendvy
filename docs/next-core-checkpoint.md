@@ -5,6 +5,21 @@ performance thresholds or a selected production layout. The first two research
 tickets are now published after user authorization and [Astra review](reviews/next-research-tickets.md).
 The complete [core map](reference/core-map.md) and [SPEC](SPEC.md) remain the goal.
 
+## Active two-hour Native1024 continuation
+
+User authorized **2026-10-06 18:25:54–20:25:54 UTC**, including delivery.
+Start from exact coherent v8 closure4eb71a36 and master0afc0c9. Diagnose
+Native1024 opaque-owner/Array transport using copied generated C and source
+inspection, then independently review one bounded source improvement before
+implementation. Preserve arbitrary affine Type payloads, original authored work,
+ascending callbacks, transaction/rollback, complete owner recovery and fallback.
+Require fresh source-bound controls and complete observations for any new closure.
+Targets JS/TS<=1 and Native/TS<=0.5 remain; raw diagnostics are not a keep,
+qualification, production adoption or complete5×3 acceptance. Canonical20/20
+remains exhausted and unchanged. Diagnostic checker15/default-proof5/codegen30/
+Clang120/runtime5 limits and existing dependency/compiler/kernel/reference scope
+remain. No Canonical Defense edits or new laws/proofs.
+
 ## Active two-hour cursor owner handoff
 
 The user authorized **2026-10-06 16:19:04–18:19:04 UTC**, including verification
