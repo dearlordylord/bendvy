@@ -1,0 +1,51 @@
+{
+  "status": "LSE_UNCHANGED_C_BUILD_ELF_AND_FRESH65_PASS",
+  "AT_HWCAP": 800325631,
+  "HWCAP_ATOMICS": true,
+  "soleAddedFlag": "-march=armv8-a+lse",
+  "receipts": {
+    "Motion": {
+      "receiptSHA256": "5ecea5023f1bbe285d4e81d6a7708cdd245b1f0e67d1d26174c68100231a61d7",
+      "worlds": 65,
+      "nativeSHA256": "f44da4a0fbaf321db33604ee85c07fdf85289c1f94621ed4bc3c501af6194742"
+    },
+    "MotionDefault": {
+      "receiptSHA256": "f565231bb764e73dc4a5ed0495a88c166c49209c6dc9f19c5c4e1fcdb2018afe",
+      "worlds": 65,
+      "nativeSHA256": "45f33544155b94f19f07e88be300cc604db3d4d145b5e27603176871022ecbf6"
+    }
+  },
+  "ELF": {
+    "Motion-baseline": {
+      "nativeSHA256": "45f33544155b94f19f07e88be300cc604db3d4d145b5e27603176871022ecbf6",
+      "outlinedCallSites": {
+        "__aarch64_cas4_acq_rel": 1,
+        "__aarch64_ldadd4_rel": 3,
+        "__aarch64_ldadd4_relax": 43,
+        "__aarch64_swp4_acq": 3
+      },
+      "lseInstructionSites": {
+        "casal": 1,
+        "ldadd": 1,
+        "ldaddl": 1,
+        "swpa": 1
+      }
+    },
+    "Motion-lse": {
+      "nativeSHA256": "f44da4a0fbaf321db33604ee85c07fdf85289c1f94621ed4bc3c501af6194742",
+      "outlinedCallSites": {},
+      "lseInstructionSites": {
+        "casal": 1,
+        "ldadd": 44,
+        "ldaddl": 3,
+        "swpa": 3
+      }
+    }
+  },
+  "archiveSHA256": "31b9c52ca710e512e06b0ac1d88d44b672bae78aa2bf4b3f9a8dbdf8d0c22104",
+  "archiveBytes": 2425468,
+  "logicalFiles": 29,
+  "uniqueBlobs": 23,
+  "allDecodedHashesVerified": true,
+  "scope": "Verified LSE-capable Linux aarch64 host only. No source change, timing, non-LSE portability or product adoption claim."
+}
