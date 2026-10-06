@@ -193,3 +193,12 @@ def populate(world: W.World<Schema,Store,F32,SimEvent>,handle: W.Handle<Schema>,
 def clear(store: Store,handle: W.Handle<Schema>) -> Store:
   match handle:
     case W.Handle{+namespace,+id}: clear_inner(store,W.Handle{namespace,id})
+
+def actor_a() -> Bundle:
+  Bundle{Some{Position{0.0,ANode{ALeaf{10},ALeaf{11}}}},Some{Velocity{2.0,ALeaf{20}}},Some{Health{5.0,ALeaf{50}}},Some{Armor{1.0}},Some{Tag{}}}
+def actor_b() -> Bundle:
+  Bundle{Some{Position{10.0,ALeaf{12}}},Some{Velocity{-1.0,ALeaf{21}}},Some{Health{3.0,ALeaf{51}}},None{},None{}}
+def actor_c() -> Bundle:
+  Bundle{Some{Position{20.0,ALeaf{13}}},None{},Some{Health{9.0,ALeaf{52}}},None{},Some{Tag{}}}
+def ghost() -> Bundle:
+  Bundle{Some{Position{999.0,ALeaf{999}}},None{},None{},None{},None{}}
