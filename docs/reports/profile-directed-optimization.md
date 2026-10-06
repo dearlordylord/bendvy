@@ -134,3 +134,61 @@ records for more closure/trampoline allocation; recover the exact-source full22
 codegen gates; only then qualify complete equivalent JS/Native performance. Full
 core, both schemas, five families×three sizes and copied defense integration stay
 explicit follow-ups, not silently reduced scope.
+
+## Renewed two-hour diagnostic window, 2026-10-06
+
+User authorization:00:43:20–02:43:20UTC. Direct source/generated-code/profile
+diagnostics continue; the exhausted canonical allowance is not reset. Targets
+remain JS/TS<=1 and Native/TS<=0.5 on equivalent complete work, with full gates.
+
+- [Private cache boxing](../../experiments/s-prep/native-point-cache-boxing/README.md)
+  narrows the reached Native getter21→9 value parameters, but two adjacent
+  Motion/Health diagnostics slow down. Actual original/suppressed-owner Tx,
+  compiling lost-mark/inverse-order mutants and access/provider/factory controls
+  pass on that exact source. No adoption.
+- [Data view boxing](../../experiments/s-prep/native-view-boxing/README.md) narrows
+  read transport30→24 total parameters and preserves root/double-Nested retained
+  snapshots plus affine/schema/read-only negatives. No stable speed win; added
+  public constructors need exhaustive external matches before any adoption.
+- [Native memory counters](../../experiments/s-prep/native-memory-count/README.md)
+  verify all65 states. Cache boxing increases diagnostic heap_alloc33→75million;
+  Data view boxing lowers requested words but adds about2million keep/drop calls.
+  These are instrumented operation counts, not RAM/physical byte acceptance.
+- [Source token reuse](../../experiments/s-prep/js-token-reuse/README.md) removes
+  exactly2 constructions/callback; fresh Native/JS Motion/Health full65 fields
+  pass. Manifest-only v3 repair preserves all29 Bend bytes; the failed provenance
+  preflight remains archived. Broader source-bound gates remain open.
+- [Boxed emitted owner reuse](../../experiments/s-prep/js-boxed-owner-reuse/README.md)
+  targets reached helpers and removes8 Held/Cache constructions/callback; retained
+  Data views and576 actual Tx checkpoints pass. One raw JS333ms/TS228.243ms
+  misses parity. This is a backend diagnostic, not universal alias refinement.
+- [Call-product elision](../../experiments/s-prep/js-call-product-elision/README.md)
+  removes786,944 Tuple constructions/eight worlds without adding closures;576 Tx
+  checkpoints and field/evaluation-order/refusal witnesses pass. A raw comparison
+  does not show a speed win. A strictly local-only scan found zero eligible sites.
+- [E11 staging](../research/e11-codegen-blocker.md) recovers Motion/message
+  Cemit30 and both actual full-field backend traces by resolving two fixture-only
+  selectors. Imported invoker/runtime remain unchanged. All ten original subjects now check/emit both backends; eight fresh TS
+  references and sixteen backend comparisons pass. Two TS lifecycle references
+  timeout5; four comparisons and all required mutants/type/oracle controls remain
+  unexecuted. Full22 is not passed.
+
+[Adjacent raw receipts](../../experiments/s-prep/cache-box-comparison/README.md)
+retain every observation, including strongly varying clocks; no qualified metric
+or favorable-row selection. Native call-attribute inlining slows its diagnostic;
+existing GCC rejects emitted musttail syntax. Affine journal kinds alone emit
+identical elementary C; rank2 frozen syntax is unsupported. Those negative probes
+justify no core simplification.
+
+[Clang19 proposal](../design/clang19-diagnostic-plan.md) is reviewable and awaits
+the SPEC:77 dependency approval: Clang14 disables the existing preserve_none ABI
+path. Only pinned archives were downloaded; no new tool was installed/executed.
+Protected runner edits need reviewed pin reconciliation before canonical reuse.
+No new laws/proofs, kernel/reference/foreign repository changes or new dependencies.
+
+- [Four-stage JS composition](../../experiments/s-prep/js-profile-composition/README.md)
+  removes2,753,024 counted constructions/eight worlds (10,086,976→7,333,952),
+  with576 full Tx checkpoints and retained Data witnesses. Independent Health
+  composition and root full65 Motion/Health comparisons pass all fields. Raw JS
+  remains slower than TS in both schemas; sampled heap379→311MB is a diagnostic,
+  not exact accounting or acceptance. [Profiling/clock bounds](../../experiments/s-prep/js-composition-observation/README.md).

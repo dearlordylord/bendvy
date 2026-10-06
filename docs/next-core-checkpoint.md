@@ -7,6 +7,19 @@ The complete [core map](reference/core-map.md) and [SPEC](SPEC.md) remain the go
 
 ## Current performance diagnostic follow-up
 
+Renewed two-hour source/profile work (2026-10-06) is recorded in the
+[current report](reports/profile-directed-optimization.md#renewed-two-hour-diagnostic-window-2026-10-06).
+Private cache boxing narrows Native transport but increases allocator work and
+slows adjacent diagnostics; do not adopt. Token sharing, reached emitted affine
+owner reuse and static Array.peek product splitting reduce counted JS
+constructions with bounded complete-field controls. Four-stage composition
+passes576 Tx checkpoints and fresh full65 Motion/Health fields, but both raw
+JS comparisons miss parity; full gates/performance remain open. All ten staged
+E11 subjects compile, sixteen backend comparisons pass; two TS references
+timeout5, leaving four comparisons and all required mutants unexecuted. The isolated
+[Clang19 proposal](design/clang19-diagnostic-plan.md) awaits dependency approval.
+Canonical allowance/thresholds/full core remain unchanged.
+
 [Profile-directed continuation](reports/profile-directed-optimization.md) adds source-bound batched marks, boxed Native context and direct raw swaps. Batched marks pass64 literal lifecycle fields/backend and actual live omission mutant; boxed original/suppressed-owner/lost-mark/inverse-order Tx and fresh access/provider/factory controls pass within their bounded scopes. V8 heap sampling identifies callback/held/query allocation; constructor reduction alone does not establish a GC or speed improvement. Latest raw equal65world sample TS312.143ms/JS890ms/Native828ms misses targets. Full22 still fails Cemit30 (boxed joined gate reaches inverse-order Motion); no qualification/adoption/cap reset. Query CPS reconstruction was rejected for adding closure/trampoline constructions. A strict emitted Held/Cache reuse probe removes8 constructions/update and passes bounded traces, but one raw TS1097.803ms/JS1683ms comparison still misses parity. See the [compiler reuse draft](design/affine-js-node-reuse.md); compiler adoption and universal alias safety remain open, with fresh source-bound gates required.
 
 [Profile-directed source fusion](../experiments/s-prep/js-query-columns/README.md) retains all 29 modules and arbitrary affine Type components. Combined point/metadata/query transport reduces executed construction expressions from 11,656,768 to 10,478,144 in the bounded Motion diagnostic. Two-schema JS/Native query traces and two compiling mutants pass. Quiet sequential JS/Native lifecycle passes 52 observations per backend, clone/duplicate/cross-schema negatives and the mark mutant after an initial negative-clone diagnostic15 timeout; both receipts remain. The unprofiled Motion cohort is partial, with no qualified comparative metric. Full22 and JS parity / native >=2× gates remain open; the historical canonical attempt cap is unchanged. Next inspect callback read/ledger and query advance from their generated JS/CPU profile, complete source-bound gates before any adoption or new authorized cohort.

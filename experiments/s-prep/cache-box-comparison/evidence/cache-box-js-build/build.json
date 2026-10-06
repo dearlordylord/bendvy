@@ -1,0 +1,33 @@
+{
+  "scope": "Exact Native-selected source JS compilation; no cohort or acceptance",
+  "commands": [
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-live-first-native-static/batch.bend",
+        "-o",
+        "/tmp/bendvy-cache-box-js-build/baseline.js"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "timeout": false,
+      "output": "",
+      "sourceSHA256": "5ef8b2903e4b93229d14b786ed1f65aa508fa349fbc5108a6b741454e06f8dac",
+      "generatedSHA256": "4c01f06e3460c9b3752ec2ff3ddfbdaa8c59ec1af321d89fe83068f43c02b7dd"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-native-point-cache-boxing-build/batch.bend",
+        "-o",
+        "/tmp/bendvy-cache-box-js-build/candidate.js"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "timeout": false,
+      "output": "",
+      "sourceSHA256": "5490b1652f2e5cfe27f0ea79ae1738bdf65abf1f8f3640fa7831563a813539dc",
+      "generatedSHA256": "3055217b6477c39d52120f96e40b67c02577c92ab6263aa2e8ef4021b0429b56"
+    }
+  ]
+}

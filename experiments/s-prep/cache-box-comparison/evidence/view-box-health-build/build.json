@@ -1,0 +1,64 @@
+{
+  "schema": "Health",
+  "adaptation": "Only selected main Motion64 to Health64; exact candidate measurement unchanged",
+  "sourcePins": {
+    "/tmp/bendvy-native-view-boxing-build3/batch.bend": "5426d987eb3fcbbe4d17ecc21f3fe46b2af255207a743377b98b48ab1d59a3a5",
+    "/tmp/bendvy-native-view-boxing-build3/measurement-bend.bend": "0b06c138da5d58170fe4df341f9c2daeaaf9d9f3aa1d10c5c8a33d994720b17d",
+    "/tmp/bendvy-view-box-health-build/batch.bend": "7053e7e575bb251e0da47c79508407adef3f0b95939cf337b87d137c0e6b771f",
+    "/tmp/bendvy-view-box-health-build/measurement-bend.bend": "0b06c138da5d58170fe4df341f9c2daeaaf9d9f3aa1d10c5c8a33d994720b17d"
+  },
+  "commands": [
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-view-box-health-build/batch.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 15,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-view-box-health-build/batch.bend",
+        "-o",
+        "/tmp/bendvy-view-box-health-build/batch.c"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "argv": [
+        "clang",
+        "-O3",
+        "/tmp/bendvy-view-box-health-build/batch.c",
+        "-o",
+        "/tmp/bendvy-view-box-health-build/batch-native",
+        "-lm",
+        "-pthread"
+      ],
+      "limitSeconds": 120,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-view-box-health-build/batch.bend",
+        "-o",
+        "/tmp/bendvy-view-box-health-build/candidate.js"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "output": ""
+    }
+  ],
+  "status": "STATIC_HEALTH_NATIVE_JS_BUILD_PASS",
+  "artifacts": {
+    "batch.c": "8b35f32115a2a9a7ac8d341932371608060b92dca37c9584c850488ba6bddb80",
+    "batch-native": "ccffe9c9c58ca2fae95d1f4ee0965122a8c3557b87166a8daee18911cf00d49c",
+    "candidate.js": "744feda1b66b7978a5d90c13c87ef47ba3c9dd5d3080a8e10e453f90ba41d107"
+  }
+}

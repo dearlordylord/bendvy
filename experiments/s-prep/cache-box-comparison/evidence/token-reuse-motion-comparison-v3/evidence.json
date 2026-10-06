@@ -1,0 +1,182 @@
+{
+  "status": "ONE_ADJACENT_ALL_FULL65_WORLDS_PASS",
+  "scope": "One adjacent source-bound full65 comparison; no qualification, cohort, adoption or canonical allowance reset",
+  "schema": "Motion",
+  "cpu": 11,
+  "batch": 64,
+  "count": 256,
+  "commands": [
+    {
+      "role": "prepare-ts",
+      "argv": [
+        "/usr/bin/python3",
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-measurement/prepare-ts.py",
+        "--source",
+        "/workspace/formal-proofs/bendvy/experiments/s-integrate/measurement-samples-reference.mjs",
+        "--output",
+        "/tmp/bendvy-token-reuse-motion-comparison-v3/reference.mjs",
+        "--schema",
+        "Motion",
+        "--batch",
+        "64"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "7202e7c0172b81b817b1079ac6bebc07271467a20d40626571348b68bb35ce93"
+    },
+    {
+      "role": "TS",
+      "argv": [
+        "node",
+        "/tmp/bendvy-token-reuse-motion-comparison-v3/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "1f6764374271ae92dbd422dc7cc412c1bd82990b22013afdf2b6a70ea3d84f6b"
+    },
+    {
+      "role": "baseline-Native",
+      "argv": [
+        "/tmp/bendvy-live-first-native-static/batch-native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "81a93f7ccb4630b121ac06af715aa62879cbdd2aa51fd712fbc0bb979e791329"
+    },
+    {
+      "role": "candidate-Native",
+      "argv": [
+        "/tmp/bendvy-token-reuse-native-build/batch-native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "9298a47efb66cee7c64bd0ad6d06444e5e935ab01c89d05111897225d7b3a320"
+    },
+    {
+      "role": "baseline-JS",
+      "argv": [
+        "node",
+        "/tmp/bendvy-cache-box-js-build/baseline.js"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "0db339c42c44a5ebca4468327a45363cbf1408b6bb8cf587353b104bae05e9fa"
+    },
+    {
+      "role": "candidate-JS",
+      "argv": [
+        "node",
+        "/tmp/bendvy-token-reuse-static-v2/batch.js"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "30ef86c5e035321c35d733fe9201ea824acf1c2752196ee5ecb342a83fa525fc"
+    }
+  ],
+  "inputPins": {
+    "baseline": {
+      "manifestSHA256": "3a84b58962406b287fdfd91c764d16da6306564d3a85912471030895f1b8d66f",
+      "runtimeSources": {
+        "experiments/s-integrate/prototype-static-client.bend": "1a9d22180604433d91e6572679761f660b89b093ed5dbe2ad783859fb05d7a51",
+        "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+        "experiments/s-integrate/measurement-bend.bend": "86f2e4fd5a8dbf9f4e4d29a5ffedf80f00a01868ccb783da1ad08204d4a11e40",
+        "experiments/s-integrate/held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+        "experiments/s-integrate/transaction-dispatch-adapters.bend": "f2276c1c16ad3694ab8a253f97da892df3a1db81b621cd80018b1376d79d490d",
+        "experiments/s-integrate/cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+        "experiments/s-integrate/systems.bend": "32e11a5a89b01e8db00f0b58a9fd1e2da87f4882189725b0012933421b6b1716",
+        "experiments/s-integrate/identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+        "experiments/s-integrate/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+        "experiments/s-integrate/reader-host.bend": "26eb687a8fb1893b55e4a0c7c8a629b688e37466e169cb3c95dd5273a553db6d",
+        "experiments/s-integrate/audited-invoker.bend": "8f4cc0acd27b49d7425e43419dc0f6d2be7eeed1cb36962c33d0b97aaf2ef5b3",
+        "experiments/s-integrate/cached-payload.bend": "354bb1ddb9dbd90a64138aa0e0ea4dd499a1a9345b3e94940c183dc16390db82",
+        "experiments/s-integrate/observations.bend": "e81cb63b3ab6da947a2455c3cc1b388abb1aa71dea593671d1c18f00da07a778",
+        "experiments/s-integrate/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+        "experiments/s-integrate/structural-invoker.bend": "8e1269193d719b1f0ea68b040c62e8966160bacb898ac51caa2f6494f4621e0a",
+        "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+        "experiments/s-integrate/commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+        "experiments/s-integrate/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+        "experiments/s-integrate/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+        "experiments/s-integrate/readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+        "experiments/s-integrate/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+        "experiments/s-integrate/raw-boundaries.bend": "77dbad2365e0499ae4e9e6a5ae7dd67b5a2ebcc5be163de56d0e836781f70a2f",
+        "experiments/s-integrate/streams.bend": "291d9a46ad58bdc481a5710976e01b762f6e11be3aeba07076c46c69f236d2c0",
+        "experiments/s-integrate/host.bend": "912a679e54098d5c4e395fc75e993092c3cb735968ce2fc96edba709b778bb04",
+        "experiments/s-integrate/storage.bend": "185c5fe6c6d81608b0e3dae4416d32bcbc6f74a50dbb5b28120cc5d1d9400c7a",
+        "experiments/s-integrate/transaction.bend": "67f0e0dc4dee21381dab33bc242e6c9c67f64705ef8faea3e02b641270fa3519",
+        "experiments/s-integrate/held-adapter.bend": "ea9bce769439500a28ec9a266a23d3966e9ba5c44faeb108351d9aa2704a2c96",
+        "experiments/s-integrate/uncached-payload.bend": "a35ae64d1c1fd6c50082c0f75bca22a5e84d700493d1b3949fbb1c2e17b8cb55",
+        "experiments/s-integrate/query.bend": "d766efcce9cc4e8ae447b473fe32d9a9247946313038f1ca3af1222764b9abe2"
+      }
+    },
+    "candidate": {
+      "manifestSHA256": "cd701a45e1f3c3b14748cc60c5d55069632d5e668f5691b3f055739219debd03",
+      "runtimeSources": {
+        "experiments/s-integrate/prototype-static-client.bend": "9c602f1b2a0379fd7b45de090ce880a663f2cb34aa5ef9e98baee356cb3cdfac",
+        "experiments/s-integrate/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+        "experiments/s-integrate/measurement-bend.bend": "86f2e4fd5a8dbf9f4e4d29a5ffedf80f00a01868ccb783da1ad08204d4a11e40",
+        "experiments/s-integrate/held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+        "experiments/s-integrate/transaction-dispatch-adapters.bend": "f2276c1c16ad3694ab8a253f97da892df3a1db81b621cd80018b1376d79d490d",
+        "experiments/s-integrate/cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+        "experiments/s-integrate/systems.bend": "32e11a5a89b01e8db00f0b58a9fd1e2da87f4882189725b0012933421b6b1716",
+        "experiments/s-integrate/identity.bend": "fbd88fe1ca5c721e6e68b1b192c3e95cbf93688eb272d1c569a96c4e04c1fc44",
+        "experiments/s-integrate/schedule.bend": "c33771943ac20ef478fc06ee65f14dca45380d09834af289748f835e193d06e7",
+        "experiments/s-integrate/reader-host.bend": "26eb687a8fb1893b55e4a0c7c8a629b688e37466e169cb3c95dd5273a553db6d",
+        "experiments/s-integrate/audited-invoker.bend": "8f4cc0acd27b49d7425e43419dc0f6d2be7eeed1cb36962c33d0b97aaf2ef5b3",
+        "experiments/s-integrate/cached-payload.bend": "354bb1ddb9dbd90a64138aa0e0ea4dd499a1a9345b3e94940c183dc16390db82",
+        "experiments/s-integrate/observations.bend": "e81cb63b3ab6da947a2455c3cc1b388abb1aa71dea593671d1c18f00da07a778",
+        "experiments/s-integrate/host-observations.bend": "6c1fa384c485df2e5fccbcd5d3effdbf20c323d13aca5be62e4e1bd2da4e26d2",
+        "experiments/s-integrate/structural-invoker.bend": "8e1269193d719b1f0ea68b040c62e8966160bacb898ac51caa2f6494f4621e0a",
+        "experiments/s-integrate/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+        "experiments/s-integrate/commands.bend": "27c4c4c0db47c6f2b4e21412ec9ebdc630ddec78fa491511f0ed3526a4e7561b",
+        "experiments/s-integrate/capture.bend": "8851cedca23b18ee795736ee419d109b7ac0bbfe4cef52080c08db2aede3358b",
+        "experiments/s-integrate/host-render.bend": "1e1724f3b29e74c1d4808b6ea7515dfa9654c4ef883e9309cdfa6bf689d29731",
+        "experiments/s-integrate/readers.bend": "1c6de629be0e44cc2e3c58d48cc8ddbdaf8cf12904686ff6edb23e72cd28ca73",
+        "experiments/s-integrate/dispatcher.bend": "f0fce40aca6b500f1e9a6bf494e634a16d4aae51ee89b8bc4c865ada86c6f9f1",
+        "experiments/s-integrate/raw-boundaries.bend": "77dbad2365e0499ae4e9e6a5ae7dd67b5a2ebcc5be163de56d0e836781f70a2f",
+        "experiments/s-integrate/streams.bend": "291d9a46ad58bdc481a5710976e01b762f6e11be3aeba07076c46c69f236d2c0",
+        "experiments/s-integrate/host.bend": "912a679e54098d5c4e395fc75e993092c3cb735968ce2fc96edba709b778bb04",
+        "experiments/s-integrate/storage.bend": "185c5fe6c6d81608b0e3dae4416d32bcbc6f74a50dbb5b28120cc5d1d9400c7a",
+        "experiments/s-integrate/transaction.bend": "67f0e0dc4dee21381dab33bc242e6c9c67f64705ef8faea3e02b641270fa3519",
+        "experiments/s-integrate/held-adapter.bend": "ea9bce769439500a28ec9a266a23d3966e9ba5c44faeb108351d9aa2704a2c96",
+        "experiments/s-integrate/uncached-payload.bend": "a35ae64d1c1fd6c50082c0f75bca22a5e84d700493d1b3949fbb1c2e17b8cb55",
+        "experiments/s-integrate/query.bend": "d766efcce9cc4e8ae447b473fe32d9a9247946313038f1ca3af1222764b9abe2"
+      }
+    },
+    "baseline-native": {
+      "path": "/tmp/bendvy-live-first-native-static/batch-native",
+      "SHA256": "75ca4304921ec9208fb5d110dd3a947b83ed6ee67416eb98c10e668611ed26fe"
+    },
+    "candidate-native": {
+      "path": "/tmp/bendvy-token-reuse-native-build/batch-native",
+      "SHA256": "deee7b162e04b7ee47bc3e87a852821f8afb9830457799407f6ae4be10505e99"
+    },
+    "baseline-js": {
+      "path": "/tmp/bendvy-cache-box-js-build/baseline.js",
+      "SHA256": "4c01f06e3460c9b3752ec2ff3ddfbdaa8c59ec1af321d89fe83068f43c02b7dd"
+    },
+    "candidate-js": {
+      "path": "/tmp/bendvy-token-reuse-static-v2/batch.js",
+      "SHA256": "e0329d406228902599b4013d49467cfb9278454bce8a4d9d184cec3c8f0fb2f4"
+    },
+    "reference": {
+      "sourceSHA256": "ecfd1b590964fb76fb69a7a28e9dffa05b631592f47a52f11921ffaec25253b6",
+      "derivedSHA256": "644022682476c10f8232681349baecdb7d860d37a218aaec38c3633beaf024fe"
+    }
+  },
+  "phaseMS": {
+    "TS": 1025.277898,
+    "baseline-Native": 1166.0,
+    "candidate-Native": 932.0,
+    "baseline-JS": 1553.0,
+    "candidate-JS": 1513.0
+  },
+  "allFullFieldsEqual": true
+}

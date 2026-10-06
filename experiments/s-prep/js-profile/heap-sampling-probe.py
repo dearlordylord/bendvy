@@ -9,7 +9,12 @@ p.add_argument('--profile',type=Path,required=True)
 a=p.parse_args()
 assert not a.output.exists() and not a.profile.exists()
 source=a.input.read_text()
-assert '__allocation_phase' not in source
+hook='if(typeof __allocation_phase === "function") __allocation_phase(phase); '
+if '__allocation_phase' in source:
+    assert source.count(hook)==1 and source.count('__allocation_phase')==2, 'Unexpected existing allocation hook'
+    assert source.startswith('function __profile_mark(phase) { '+hook), 'Unexpected marker location'
+else:
+    assert 'function __profile_mark(phase)' in source
 prefix='''const __heap_fs = require('node:fs');
 const __heap_inspector = require('node:inspector');
 const __heap_session = new __heap_inspector.Session();

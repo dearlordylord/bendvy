@@ -32,6 +32,19 @@ def fused_presence(text,cached_text=None):
 def main_sites(text):
     """Select the actual guarded owner family; refuse partial/mixed catalogs."""
     d=defs(text)
+    cacheboxed=['prototype_cacheboxed_'+p+'_set_fused_done' for p in ('motion','health')]
+    cache_present=[name in d for name in cacheboxed]
+    assert not any(cache_present) or all(cache_present), 'partial cache-boxed writer catalog'
+    if all(cache_present):
+        for prefix in ('motion','health'):
+            stem='prototype_cacheboxed_'+prefix
+            assert d[prefix+'_fields_checked'].count(stem+'_taken(')==1
+            assert d[stem+'_set'].count(stem+'_set_fused_done(')==1
+            assert d[stem+'_invoke'].count(','+stem+'_set,')==1
+            assert d[stem+'_taken'].count(stem+'_invoke(')==1
+            assert d[stem+'_set'].count('P.prototype_'+('position' if prefix=='motion' else 'vitals')+'_raw_swap(raw,value)')==1
+            assert 'PrototypeWorldRoot{CC.Cache{' in d[stem+'_set']
+        return cacheboxed
     flat=['prototype_flat_'+p+'_set_done' for p in ('motion','health')]
     present=[name in d for name in flat]
     assert not any(present) or all(present), 'partial flat writer catalog'

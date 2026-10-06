@@ -1,0 +1,44 @@
+{
+  "status": "BASELINE_HEALTH_STATIC_NATIVE_BUILD_PASS",
+  "schema": "Health",
+  "scope": "Static selected schema, original callback/work/29-module Native closure unchanged",
+  "driverSHA256": "fbbd330ffc8338beda7844f4eb1c7148589aecdd98b7dae7b5cc98ff87f85b2b",
+  "baselineDriverSHA256": "5ef8b2903e4b93229d14b786ed1f65aa508fa349fbc5108a6b741454e06f8dac",
+  "commands": [
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-cache-box-baseline-health/batch.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 15,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-cache-box-baseline-health/batch.bend",
+        "-o",
+        "/tmp/bendvy-cache-box-baseline-health/batch.c"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "argv": [
+        "clang",
+        "-O3",
+        "/tmp/bendvy-cache-box-baseline-health/batch.c",
+        "-o",
+        "/tmp/bendvy-cache-box-baseline-health/batch-native",
+        "-lm",
+        "-pthread"
+      ],
+      "limitSeconds": 120,
+      "exit": 0,
+      "output": ""
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "status": "STATIC_NATIVE_BUILD_PASS",
+  "commands": [
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-token-reuse-health-build/batch.bend",
+        "--check-only"
+      ],
+      "cpu": 11,
+      "limitSeconds": 15,
+      "exit": 0,
+      "timeout": false,
+      "elapsedSeconds": 2.7375751349609345,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-token-reuse-health-build/batch.bend",
+        "-o",
+        "/tmp/bendvy-token-reuse-health-build/batch.c"
+      ],
+      "cpu": 11,
+      "limitSeconds": 30,
+      "exit": 0,
+      "timeout": false,
+      "elapsedSeconds": 7.852064229082316,
+      "output": ""
+    },
+    {
+      "argv": [
+        "clang",
+        "-O3",
+        "/tmp/bendvy-token-reuse-health-build/batch.c",
+        "-o",
+        "/tmp/bendvy-token-reuse-health-build/batch-native",
+        "-lm",
+        "-pthread"
+      ],
+      "cpu": 11,
+      "limitSeconds": 120,
+      "exit": 0,
+      "timeout": false,
+      "elapsedSeconds": 28.85114253498614,
+      "output": ""
+    }
+  ],
+  "inputs": {
+    "batch.bend": {
+      "baselineSHA256": "fbbd330ffc8338beda7844f4eb1c7148589aecdd98b7dae7b5cc98ff87f85b2b",
+      "candidateSHA256": "00b7688684888aba5f80930ce689ae8aecfa45c351d93ba26667e73c751705a6",
+      "adaptation": "Only exact absolute runtime-overlay prefix replacement"
+    },
+    "measurement-bend.bend": {
+      "baselineSHA256": "51c84dcdea96874d8e9e39d717de935fe02399b6f0f712eac68d03aea45bfc62",
+      "candidateSHA256": "29c5c239c07723c01b0cbb5e5648e9c9f72034e141b7c777dba2d3d97786083d",
+      "adaptation": "Only exact absolute runtime-overlay prefix replacement"
+    }
+  },
+  "productionAdoption": false,
+  "performanceAcceptance": false,
+  "generatedCSHA256": "8e235deb6ab79c201f61226136f56a5b50aa2f5cf253891b3ba7d871189a3757"
+}

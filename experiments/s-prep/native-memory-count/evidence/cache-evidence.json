@@ -1,0 +1,67 @@
+{
+  "status": "MEMORY_COUNTS_FULL65_WORLDS_PASS",
+  "scope": "Generated C single-thread phase memory-operation counts; not physical allocation bytes or elapsed acceptance",
+  "commands": [
+    {
+      "argv": [
+        "clang",
+        "-O3",
+        "/tmp/bendvy-memory-count-cache/counted.c",
+        "-pthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-memory-count-cache/counted-native"
+      ],
+      "limitSeconds": 120,
+      "exit": 0,
+      "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-view-box-motion-comparison/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "749bab05e80aa638d1f459a24aedb28e431b55f7cc55c23e6792e05d5032d7da"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-c",
+        "import os,sys; fd=os.open(sys.argv[1],os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600); os.dup2(fd,2); os.close(fd); os.execv(sys.argv[2],sys.argv[2:])",
+        "/tmp/bendvy-memory-count-cache/counts.txt",
+        "/tmp/bendvy-memory-count-cache/counted-native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "c639978fad259af3b8a582910a1d5bc52fb0600716c502b243d28ccbd14f6a29"
+    }
+  ],
+  "sourceSHA256": "1814f2f769928e2805e1959d5988852ce43a4b237a317ee4c0cb3d309be185bc",
+  "referenceSHA256": "644022682476c10f8232681349baecdb7d860d37a218aaec38c3633beaf024fe",
+  "recipeSHA256": "b5f1899d9c55a0a0e4a36b8c44bedbdf8014a2d4e09c3c913c023211bd8162d6",
+  "derivedSHA256": "e63c909beafee859efde280b77d6e06a9961c31c9f1af952528a16ce4547e06b",
+  "allFullFieldsEqual": true,
+  "counts": {
+    "heap_alloc": 74863559,
+    "heap_free": 74880263,
+    "rfc_wrap": 34001214,
+    "term_keep": 1085440,
+    "term_drop": 36928,
+    "span_fade": 8192,
+    "ctr_take": 39694849,
+    "heapRequestedWords": 180358159
+  },
+  "updates": 1048576,
+  "artifacts": {
+    "counted.c": "e63c909beafee859efde280b77d6e06a9961c31c9f1af952528a16ce4547e06b",
+    "counts.txt": "b96a5a24d26517753e779afcf38bca9f335d95a6fd5c06e410e6b5a48971f24d",
+    "TS.raw.txt": "749bab05e80aa638d1f459a24aedb28e431b55f7cc55c23e6792e05d5032d7da",
+    "Native.raw.txt": "c639978fad259af3b8a582910a1d5bc52fb0600716c502b243d28ccbd14f6a29"
+  }
+}

@@ -11,7 +11,11 @@ r={'status':'INCOMPLETE','scope':'CPU/GC diagnosis with equal eight fresh worlds
 def command(args,limit=5):
  code,text=supervisor.execute(list(map(str,args)),limit);r['commands'].append({'argv':list(map(str,args)),'limit':limit,'exit':code});assert code==0,text[-1000:];return text
 try:
- js=a.generated_js.read_text();assert js.count('return $choose$(0, 256, 64);')==1;js=js.replace('return $choose$(0, 256, 64);','return $choose$(0, 256, 8);',1)
+ js=a.generated_js.read_text()
+ entries=[('return $choose$(0, 256, 64);','return $choose$(0, 256, 8);'),('return $motion_batch$(256, 64);','return $motion_batch$(256, 8);')]
+ selected=[(old,new) for old,new in entries if js.count(old)==1]
+ assert len(selected)==1 and sum(js.count(old) for old,_ in entries)==1,'Ambiguous or unsupported full64 Motion entry'
+ old,new=selected[0];js=js.replace(old,new,1);r['entryAdaptation']={'original':old,'derived':new}
  begin=js.index('function $motion_timed$(');end=js.index('\nfunction ',begin+1);body=js[begin:end];needle='$IO$now$(_x_1)';assert body.count(needle)==1;body=body.replace(needle,'(__profile_mark("start"), '+needle+')');needle='$IO$now$(_x_6)';assert body.count(needle)==1;body=body.replace(needle,'(__profile_mark("end"), '+needle+')');js=js[:begin]+body+js[end:]
  marker='function __profile_mark(phase) { if(typeof __allocation_phase === "function") __allocation_phase(phase); console.error("PROFILE-MARK:" + JSON.stringify({phase, micro:Number(process.hrtime.bigint()/1000n), uptimeMS:process.uptime()*1000})); }\n';js=marker+'console.error("PROFILE-READY");\n'+js
  (a.output/'bend.js').write_text(js)
