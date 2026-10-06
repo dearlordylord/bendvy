@@ -1,0 +1,96 @@
+{
+  "status": "TUNE_UNCHANGED_C_BUILD_ELF_AND_FRESH65_PASS",
+  "AT_HWCAP": 800325631,
+  "HWCAP_ATOMICS": true,
+  "soleAddedFlag": "-mtune=apple-m1",
+  "receipts": {
+    "Motion": {
+      "receiptSHA256": "83d30ec2e3a230dda74bf0ee478a9be0b38b959c9522d6dd68f4ebfe3f705efd",
+      "worlds": 65,
+      "nativeSHA256": "2fc5dbcebb0348a279bc6e09dec4d7a5da1db9c62911fa4bd65071d26c19e3bc"
+    },
+    "Health": {
+      "receiptSHA256": "c9d7d2bfd0cdaa11d28f9ea4c4964291e97f1b4bb139a626064a7b970d61066d",
+      "worlds": 65,
+      "nativeSHA256": "2f41dad0073f953287b7c938db57543e645a7a13ddb84c3693043c884e7c53ca"
+    },
+    "MotionDefault": {
+      "receiptSHA256": "38691f17e64cee7916ba2759ab3beb65487270085120e3e35ee11d2ac525fa1c",
+      "worlds": 65,
+      "nativeSHA256": "45f33544155b94f19f07e88be300cc604db3d4d145b5e27603176871022ecbf6"
+    },
+    "HealthDefault": {
+      "receiptSHA256": "70d6c407f142351acb041e53467a644c9816408d005582f11990524ab1c57eda",
+      "worlds": 65,
+      "nativeSHA256": "e9612327d723c20cd8e5b6f15fb1918adf489931fb96d1a4ae386fd5695301ca"
+    }
+  },
+  "ELF": {
+    "Motion-baseline": {
+      "nativeSHA256": "45f33544155b94f19f07e88be300cc604db3d4d145b5e27603176871022ecbf6",
+      "outlinedCallSites": {
+        "__aarch64_cas4_acq_rel": 1,
+        "__aarch64_ldadd4_rel": 3,
+        "__aarch64_ldadd4_relax": 43,
+        "__aarch64_swp4_acq": 3
+      },
+      "lseInstructionSites": {
+        "casal": 1,
+        "ldadd": 1,
+        "ldaddl": 1,
+        "swpa": 1
+      }
+    },
+    "Motion-tune": {
+      "nativeSHA256": "2fc5dbcebb0348a279bc6e09dec4d7a5da1db9c62911fa4bd65071d26c19e3bc",
+      "outlinedCallSites": {
+        "__aarch64_cas4_acq_rel": 1,
+        "__aarch64_ldadd4_rel": 3,
+        "__aarch64_ldadd4_relax": 43,
+        "__aarch64_swp4_acq": 3
+      },
+      "lseInstructionSites": {
+        "casal": 1,
+        "ldadd": 1,
+        "ldaddl": 1,
+        "swpa": 1
+      }
+    },
+    "Health-baseline": {
+      "nativeSHA256": "e9612327d723c20cd8e5b6f15fb1918adf489931fb96d1a4ae386fd5695301ca",
+      "outlinedCallSites": {
+        "__aarch64_cas4_acq_rel": 1,
+        "__aarch64_ldadd4_rel": 3,
+        "__aarch64_ldadd4_relax": 43,
+        "__aarch64_swp4_acq": 3
+      },
+      "lseInstructionSites": {
+        "casal": 1,
+        "ldadd": 1,
+        "ldaddl": 1,
+        "swpa": 1
+      }
+    },
+    "Health-tune": {
+      "nativeSHA256": "2f41dad0073f953287b7c938db57543e645a7a13ddb84c3693043c884e7c53ca",
+      "outlinedCallSites": {
+        "__aarch64_cas4_acq_rel": 1,
+        "__aarch64_ldadd4_rel": 3,
+        "__aarch64_ldadd4_relax": 43,
+        "__aarch64_swp4_acq": 3
+      },
+      "lseInstructionSites": {
+        "casal": 1,
+        "ldadd": 1,
+        "ldaddl": 1,
+        "swpa": 1
+      }
+    }
+  },
+  "archiveSHA256": "1e68f73f21da5e257991146868839f86768ae3cbe68462710b67a4ba155538f9",
+  "archiveBytes": 4790748,
+  "logicalFiles": 59,
+  "uniqueBlobs": 44,
+  "allDecodedHashesVerified": true,
+  "scope": "Reviewed non-ISA zcm/zcz scheduling preference additions only; baseline architecture envelope unchanged. No identified M1 hardware, source change, timing or adoption claim."
+}
