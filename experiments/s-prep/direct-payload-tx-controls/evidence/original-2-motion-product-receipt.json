@@ -1,0 +1,130 @@
+{
+  "scope": "Pinned generated-JS Array.peek direct-call product split; no general optimizer/refinement/qualification",
+  "parserVersion": "8.18.0",
+  "inputSHA256": "7d6d3b02a6c1f3e1e2be7d0bc6d7beeb3f80262b9b59f8cb83c0917f24e4b1a1",
+  "outputSHA256": "ec801895869f7c9e6167ab2a0b26c6fb0a62456d8ce13309f0ce123d32758fce",
+  "recipeSHA256": "fe8eea63dfb22893ea9027aadb56769565dcd5efb02d23dc1330b1fadbdbf1d5",
+  "edges": [
+    {
+      "caller": "$transaction$058prototype_storage_mark_guard$",
+      "receiver": "$transaction$058prototype_storage_mark_live$",
+      "line": 1088,
+      "source": "{$: \"Tuple\", fst: _live_0, snd: _live_0[_x_0 % _live_0.length]}",
+      "projectionReads": 2
+    },
+    {
+      "caller": "$storage$058prototype_take_columns$",
+      "receiver": "$storage$058prototype_take_live$",
+      "line": 1145,
+      "source": "{$: \"Tuple\", fst: _live_0, snd: _live_0[_x_0 % _live_0.length]}",
+      "projectionReads": 2
+    },
+    {
+      "caller": "$payload$058four$",
+      "receiver": "$payload$058four_a$",
+      "line": 1225,
+      "source": "{$: \"Tuple\", fst: _array_0, snd: _array_0[0 % _array_0.length]}",
+      "projectionReads": 2
+    },
+    {
+      "caller": "$uncached$045payload$058original_four$",
+      "receiver": "$uncached$045payload$058four_a$",
+      "line": 1308,
+      "source": "{$: \"Tuple\", fst: _array_0, snd: _array_0[0 % _array_0.length]}",
+      "projectionReads": 2
+    },
+    {
+      "caller": "$payload$058four_a$",
+      "receiver": "$payload$058four_b$",
+      "line": 1522,
+      "source": "{$: \"Tuple\", fst: _array_0, snd: _array_0[1 % _array_0.length]}",
+      "projectionReads": 2
+    },
+    {
+      "caller": "$uncached$045payload$058four_a$",
+      "receiver": "$uncached$045payload$058four_b$",
+      "line": 1575,
+      "source": "{$: \"Tuple\", fst: _array_0, snd: _array_0[1 % _array_0.length]}",
+      "projectionReads": 2
+    },
+    {
+      "caller": "$payload$058four_b$",
+      "receiver": "$payload$058four_c$",
+      "line": 1786,
+      "source": "{$: \"Tuple\", fst: _array_0, snd: _array_0[2 % _array_0.length]}",
+      "projectionReads": 2
+    },
+    {
+      "caller": "$storage$058prototype_fuse_columns$",
+      "receiver": "$storage$058prototype_fuse_live_result$",
+      "line": 1804,
+      "source": "{$: \"Tuple\", fst: _live_0, snd: _live_0[_index_0 % _live_0.length]}",
+      "projectionReads": 2
+    },
+    {
+      "caller": "$uncached$045payload$058four_b$",
+      "receiver": "$uncached$045payload$058four_c$",
+      "line": 1810,
+      "source": "{$: \"Tuple\", fst: _array_0, snd: _array_0[2 % _array_0.length]}",
+      "projectionReads": 2
+    },
+    {
+      "caller": "$payload$058four_c$",
+      "receiver": "$payload$058four_done$",
+      "line": 2001,
+      "source": "{$: \"Tuple\", fst: _array_0, snd: _array_0[3 % _array_0.length]}",
+      "projectionReads": 2
+    },
+    {
+      "caller": "$uncached$045payload$058position_swap$",
+      "receiver": "$uncached$045payload$058prototype_direct_position_swap$",
+      "line": 2019,
+      "source": "{$: \"Tuple\", fst: _array_0, snd: _array_0[0 % _array_0.length]}",
+      "projectionReads": 2
+    },
+    {
+      "caller": "$uncached$045payload$058four_c$",
+      "receiver": "$uncached$045payload$058four_done$",
+      "line": 2031,
+      "source": "{$: \"Tuple\", fst: _array_0, snd: _array_0[3 % _array_0.length]}",
+      "projectionReads": 2
+    },
+    {
+      "caller": "$uncached$045payload$058motion_ledger_swap$",
+      "receiver": "$uncached$045payload$058prototype_direct_motion_ledger_swap$",
+      "line": 2118,
+      "source": "{$: \"Tuple\", fst: _array_0, snd: _array_0[0 % _array_0.length]}",
+      "projectionReads": 2
+    },
+    {
+      "caller": "$storage$058metadata_get$",
+      "receiver": "$storage$058metadata_get_live$",
+      "line": 2195,
+      "source": "{$: \"Tuple\", fst: _live_0, snd: _live_0[_index_0 % _live_0.length]}",
+      "projectionReads": 2
+    },
+    {
+      "caller": "$storage$058metadata_get_live$",
+      "receiver": "$storage$058metadata_get_flags$",
+      "line": 2325,
+      "source": "{$: \"Tuple\", fst: _flags_0, snd: _flags_0[_index_0 % _flags_0.length]}",
+      "projectionReads": 2
+    },
+    {
+      "caller": "$storage$058metadata_get_flags$",
+      "receiver": "$storage$058metadata_get_added$",
+      "line": 2344,
+      "source": "{$: \"Tuple\", fst: _added_0, snd: _added_0[_index_0 % _added_0.length]}",
+      "projectionReads": 2
+    },
+    {
+      "caller": "$storage$058metadata_get_added$",
+      "receiver": "$storage$058metadata_get_changed$",
+      "line": 2357,
+      "source": "{$: \"Tuple\", fst: _changed_0, snd: _changed_0[_index_0 % _changed_0.length]}",
+      "projectionReads": 2
+    }
+  ],
+  "derivedReceivers": 17,
+  "addedClosures": 0
+}
