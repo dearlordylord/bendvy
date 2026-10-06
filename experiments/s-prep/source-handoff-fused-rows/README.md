@@ -51,3 +51,10 @@ symlink exclusion and output absence before copying. It independently reproduced
 `/tmp/bendvy-slot-host-handoff-v8-reproduced-r2` with identical 29 source bytes;
 its fused and source receipts bind the producer SHA and recipe SHA. Historical
 recipes/freezes remain retained. The consumed coherent source is unchanged.
+
+The exact reviewed r2 producer is retained as `prepare-preflight-r2.py`
+(SHA256 `ab4689845c2794dcf3128d3e8877b494ef76c756d9139de9c81fcde778c27b7e`).
+This file, byte-identical to the independent reviewer replay, is the enrollment
+producer. `prepare-preflight-r1.py` is historical evidence and must not be used
+as the r2 producer. A prospective enrollment mistakenly selected r1; it failed
+before a timing plan was written. The reproduced r2 source remains unchanged.
