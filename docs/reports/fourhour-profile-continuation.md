@@ -132,3 +132,23 @@ identical to its exact joined parent. This is a stopped allocation-saving
 hypothesis, not an accepted optimization. Current reached investigations are
 private generic affine handle-query presence inspection, exact emitted-JS
 row-owner/token diagnostics, and same-C Native layout observations.
+
+## Current emitted-JS finite diagnostic
+
+[Flat row-owner reuse plus qualified nullary Data tokens](../../experiments/s-prep/js-flatjournal-row-reuse/README.md)
+passes fresh current-version8/576 controller records, scope controls and bothschema
+full65 rotations0..2. Its own chain-validating Health count removes1,048,576
+construction expressions (four private owner copies and four nullary token objects
+per callback). Original mutable raw owners retain affine source confinement;
+immutable cached Data and journal/mark observations remain fresh. No arbitrary
+FFI/alias theorem or source/compiler/backend adoption follows.
+
+Current raw ratios remain above parity: Motion candidate198/168.999829,
+194/163.920538,199/171.384390ms; Health202/195.921922,207/194.285575,
+209/193.749446ms. These source-specific full-world observations are descriptive,
+not qualified acceptance. Native is unchanged by this emitted-JS diagnostic.
+
+A same-C Os layout probe retains bothschema full65 and actual transaction
+originals/compiling journal mutants. Motion raw elapsed is mixed against O3;
+Health Os is slower in each of three paired runs. No Native2x observation or
+qualification is obtained. Stop the layout seam without an O2 flag matrix.
