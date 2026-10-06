@@ -35,3 +35,5 @@ python3 /workspace/formal-proofs/bendvy/experiments/s-prep/js-profile/run.py --c
 ```
 
 Further gates: fresh full65 timing and heap evidence, Health full-world performance, arbitrary affine layouts/external aliases/interleavings, a general source/compiler lowering, Native and full22. This backend diagnostic does not weaken the existing ownership/access/performance requirements.
+
+Root adjacent full65 Motion diagnostic preserves all fields but reports TS209.797ms, baseline JS341ms, composed JS438ms (`/tmp/bendvy-composed-motion-comparison`). This is adverse raw timing evidence, not a qualified comparison. One exact-byte `--trace-opt --trace-deopt` run per variant finds baseline81 versus composed77 deoptimization lines, with no wrong-map/call/constness reason; it does not support an extra-deoptimization explanation. Static emitted inspection finds33 added owner-property stores per callback (selected-Tx1, World/Rows12, two Held/Cache setters10 each); many repeat unchanged slot projections. No causal attribution is established. [Trace summary](evidence/deopt-summary.json) and compressed primary logs retain the evidence; no rewrite is included in this followup.

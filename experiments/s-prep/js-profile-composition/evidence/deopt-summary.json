@@ -1,0 +1,33 @@
+{
+  "scope": "One trace-opt/deopt diagnostic of exact bytes, not timings or universal shape proof",
+  "cpu": [
+    8
+  ],
+  "records": [
+    {
+      "label": "baseline",
+      "inputSHA256": "4c01f06e3460c9b3752ec2ff3ddfbdaa8c59ec1af321d89fe83068f43c02b7dd",
+      "deoptLines": 81,
+      "reasons": {
+        "dependent field type changed": 7,
+        "dependent field representation changed": 50,
+        "dependent allocation site tenuring changed": 23,
+        "(unknown": 1
+      },
+      "wrongMapCallConstnessLines": 0
+    },
+    {
+      "label": "composed",
+      "inputSHA256": "a9e530c46235989f6ca6d59cc036382da76fe0a22d3946463816e87960275c9d",
+      "deoptLines": 77,
+      "reasons": {
+        "dependent field type changed": 7,
+        "dependent field representation changed": 43,
+        "dependent allocation site tenuring changed": 25,
+        "(unknown": 2
+      },
+      "wrongMapCallConstnessLines": 0
+    }
+  ],
+  "conclusion": "This single diagnostic does not support additional composition deoptimization; both have field representation/type transitions. Counts are not causal speed evidence."
+}
