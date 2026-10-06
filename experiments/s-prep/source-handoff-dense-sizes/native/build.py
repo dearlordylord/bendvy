@@ -1,0 +1,40 @@
+#!/usr/bin/env python3
+"""Fresh exact full64 driver build; explicit child-only Clang19 and immutable source pins."""
+import argparse,pathlib,json,hashlib,os,subprocess,signal,time
+HERE=pathlib.Path(__file__).resolve().parent
+p=argparse.ArgumentParser();p.add_argument('--schema',choices=['Motion','Health'],required=True);p.add_argument('--output',type=pathlib.Path,required=True);p.add_argument('--overlay',type=pathlib.Path,required=True);p.add_argument('--count',type=int,choices=[64,256,1024],default=256);p.add_argument('--execute',action='store_true',help='Run bounded build commands; otherwise prepare exact sources and plan only');a=p.parse_args();a.output.mkdir(exist_ok=False)
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+b=pathlib.Path('/tmp/bendvy-packed-paired-motion-build-v3' if a.schema=='Motion' else '/tmp/bendvy-packed-paired-health-build-v3')
+s=b/'batch.bend';expected={'Motion': '26746058bd2a49123d7810e3e0b2e5b4ab29c382f19919da3c1ac70ba820f4b2', 'Health': 'df88b678664f69da3a541194003bc238811b8d141df18c59c0d9a2530b0aeea1'};assert sha(s)==expected[a.schema],'Original full64 driver drift'
+overlay=json.loads((a.overlay/'overlay.json').read_text());cache=json.loads((a.overlay/'cache-specialization.json').read_text());pins=overlay['sources'];assert len(pins)==29 and all(sha(a.overlay/n)==v for n,v in pins.items());assert overlay['cacheSpecialization']==cache and cache['runtimeClosure']==pins and cache['specializedClosure']==pins;closure=hashlib.sha256(json.dumps(pins,sort_keys=True,separators=(',',':')).encode()).hexdigest();assert cache['runtimeClosureSHA256']==closure and cache['specializedClosureSHA256']==closure;baseline=json.loads(pathlib.Path('/tmp/bendvy-slot-host-v1/overlay.json').read_text())['sources'];assert hashlib.sha256(json.dumps(baseline,sort_keys=True,separators=(',',':')).encode()).hexdigest()=='4baad4960575cda216576e8b90593fbd7ed7dcd44cfa86836b8d87dd5af71f5c';assert set(pins)==set(baseline);changed=[n for n in pins if pins[n]!=baseline[n]];assert set(changed)<=set(['experiments/s-integrate/query.bend','experiments/s-integrate/held-adapter.bend','experiments/s-integrate/measurement-bend.bend']),('unexpected source frontier',changed)
+local=b/'measurement-bend.bend';assert sha(local)=={'Motion': '5ac7445c938f3f20bc7c50435ca23fa811fc4315b0554a8a3b4d8c57b58a6b82', 'Health': '17e7b0e43d0e1860c3686b100720b036e84e7984dbf042289e521a9e9786e7ee'}[a.schema]
+basepath=pathlib.Path('/tmp/bendvy-packed-paired-journal-both-v3/experiments/s-integrate/measurement-bend.bend');assert sha(basepath)=='364177ad52c5b6027e3c5ecd36661852232ecf1eef2e01388a75846fb26a91a8';base=basepath.read_text();normalized=local.read_text().replace('/tmp/bendvy-packed-paired-journal-both-v3/experiments/s-integrate/','./');assert normalized.startswith(base)
+extras=normalized[len(base):];assert 'def prototype_packed_'+a.schema.lower()+'_fresh(' in extras
+measurement=a.output/'measurement-bend.bend';measurement.write_text((a.overlay/'experiments/s-integrate/measurement-bend.bend').read_text().replace('import ./','import '+str(a.overlay.resolve())+'/experiments/s-integrate/')+extras)
+t=a.output/'batch.bend';original=s.read_text();prefix='/tmp/bendvy-packed-paired-journal-both-v3/';assert prefix in original;driver256=original.replace(prefix,str(a.overlay.resolve())+'/')
+main256='def main() -> IO(Unit):\n  '+a.schema.lower()+'_batch(256,64)\n';assert driver256.endswith(main256) and driver256.count(main256)==1
+parententry=pathlib.Path('/tmp/bendvy-source-handoff-'+a.schema.lower()+'-build-v8/batch.bend');assert driver256==parententry.read_text(),'Count256 entry differs from frozen v8 actual producer'
+mainnew=main256.replace('_batch(256,64)','_batch('+str(a.count)+',64)')
+derived=driver256[:-len(main256)]+mainnew;assert derived[:-len(mainnew)]==driver256[:-len(main256)]
+frame=driver256[:-len(main256)]+'def main() -> IO(Unit):\n  '+a.schema.lower()+'_batch(COUNT,64)\n';frameafter=derived[:-len(mainnew)]+'def main() -> IO(Unit):\n  '+a.schema.lower()+'_batch(COUNT,64)\n';assert frame==frameafter
+t.write_text(derived);countadapt={'count':a.count,'batch':64,'ticks':64,'originalDriverSHA256':sha(parententry),'derivedDriverSHA256':sha(t),'bodyFrameSHA256':hashlib.sha256(frame.encode()).hexdigest(),'onlyChange':'singleton anchored main count literal; all imports/functions/algorithms otherwise equal to v8 entry','parentEntry':str(parententry)}
+assert closure=='4eb71a36304194a1c2764c7301ed59afa9b4d0a4ee7336b8b6c7f8175095f235','Unexpected source closure'
+r={'status':'INCOMPLETE','schema':a.schema,'CPU':10,'recipeSHA256':sha(pathlib.Path(__file__)),'sourcePins':pins,'sourceInputSHA256':sha(s),'sourceOutputSHA256':sha(t),'measurementSourceSHA256':sha(local),'measurementOutputSHA256':sha(measurement),'adaptation':'exact source overlay + byte-preserved original builder fresh-entry suffix','defaultProofSeconds':5,'commands':[]}
+r.update(countAdaptation=countadapt,sourceClosure=closure,changedFromSlotHost=changed,sourceRoot=str(a.overlay.resolve()),inputManifestPins={str(a.overlay/n):sha(a.overlay/n) for n in ['overlay.json','cache-specialization.json']},builderInputPins={str(s):sha(s),str(local):sha(local),'/tmp/bendvy-packed-paired-journal-both-v3/experiments/s-integrate/measurement-bend.bend':sha(pathlib.Path('/tmp/bendvy-packed-paired-journal-both-v3/experiments/s-integrate/measurement-bend.bend'))})
+if not a.execute:
+ r.update(status='PREPARED_ONLY_NO_CHECK_EMIT_RUNTIME',plannedCaps={'executableCheck':15,'defaultProof':5,'emission':30,'clang':120,'runtime':5},artifacts={'batch.bend':sha(t),'measurement-bend.bend':sha(measurement)});(a.output/'build-plan.json').write_text(json.dumps(r,indent=2)+'\n');print(r['status']);raise SystemExit(0)
+import importlib.util,shlex
+spec=importlib.util.spec_from_file_location('toolpins',HERE/'tool-pins.py');toolpins=importlib.util.module_from_spec(spec);spec.loader.exec_module(toolpins);toolbefore=toolpins.snapshot();r['toolPinsBefore']=toolbefore;r['toolPinRecipeSHA256']=sha(HERE/'tool-pins.py');(a.output/'build.json').write_text(json.dumps(r,indent=2)+'\n')
+for argv,cap in [(['bend','version'],5),(['bend','guide'],5),(['bend',str(t),'--check-only'],15),(['bend',str(t),'-o',str(a.output/'batch.c')],30),(['/tmp/bendvy-clang19-diagnostic/clang19','-M','-MT','DEPENDENCIES',str(a.output/'batch.c')],5),(['/tmp/bendvy-clang19-diagnostic/clang19','-O3',str(a.output/'batch.c'),'-o',str(a.output/'batch-native'),'-lm','-pthread'],120),(['bend',str(t),'-o',str(a.output/'batch.js')],30)]:
+ st=time.monotonic();env=os.environ.copy();env['BENDVY_CLANG19_ROOT']='/tmp/bendvy-clang19-diagnostic/root';child=subprocess.Popen(['taskset','-c','10',*argv],stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,start_new_session=True,env=env);timed=False
+ try:out=child.communicate(timeout=cap)[0]
+ except subprocess.TimeoutExpired:timed=True;os.killpg(child.pid,signal.SIGKILL);out=child.communicate()[0]
+ r['commands'].append({'argv':argv,'limitSeconds':cap,'elapsedSeconds':time.monotonic()-st,'exit':child.returncode,'timeout':timed,'output':out});(a.output/'build.json').write_text(json.dumps(r,indent=2)+'\n')
+ if child.returncode:r['status']='FAIL';break
+ if '-M' in argv:
+  deps=shlex.split(out.replace('\\\n',' '));assert deps[0]=='DEPENDENCIES:';r['cIncludePinsBeforeClang']={str(pathlib.Path(n).resolve()):sha(pathlib.Path(n).resolve()) for n in deps[1:]};(a.output/'build.json').write_text(json.dumps(r,indent=2)+'\n')
+else:r['status']='BUILD_PASS'
+toolpins.verify(toolbefore);r['toolPinsAfter']=toolpins.snapshot();r['toolBytesStableBeforeAfter']=True
+for name,h in r.get('cIncludePinsBeforeClang',{}).items():assert sha(pathlib.Path(name))==h,'C include changed '+name
+r['cIncludeBytesStableBeforeAfter']=True
+r['artifacts']={name:sha(a.output/name) for name in ['batch.bend','batch.c','batch-native','batch.js'] if (a.output/name).is_file()};(a.output/'build.json').write_text(json.dumps(r,indent=2)+'\n');print(r['status'])
