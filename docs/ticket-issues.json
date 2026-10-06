@@ -6,7 +6,7 @@
       "number": 2,
       "id": 5693298781,
       "url": "https://github.com/dearlordylord/bendvy/issues/2",
-      "title": "T01: Воспроизводимый native/JS и proof canary",
+      "title": "T01: \u0412\u043e\u0441\u043f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0438\u043c\u044b\u0439 native/JS \u0438 proof canary",
       "local_file": "docs/tickets/01-toolchain-canary.md",
       "blocked_by": [],
       "native_blocked_by": []
@@ -15,7 +15,7 @@
       "number": 3,
       "id": 5693298911,
       "url": "https://github.com/dearlordylord/bendvy/issues/3",
-      "title": "T02: Карта core и reference traces",
+      "title": "T02: \u041a\u0430\u0440\u0442\u0430 core \u0438 reference traces",
       "local_file": "docs/tickets/02-contract-reference.md",
       "blocked_by": [],
       "native_blocked_by": []
@@ -24,7 +24,7 @@
       "number": 4,
       "id": 5693299042,
       "url": "https://github.com/dearlordylord/bendvy/issues/4",
-      "title": "T03: Повторяемая типобезопасная query на двух мирах",
+      "title": "T03: \u041f\u043e\u0432\u0442\u043e\u0440\u044f\u0435\u043c\u0430\u044f \u0442\u0438\u043f\u043e\u0431\u0435\u0437\u043e\u043f\u0430\u0441\u043d\u0430\u044f query \u043d\u0430 \u0434\u0432\u0443\u0445 \u043c\u0438\u0440\u0430\u0445",
       "local_file": "docs/tickets/03-typed-query.md",
       "blocked_by": [
         1,
@@ -157,7 +157,7 @@
       "number": 13,
       "id": 5693302343,
       "url": "https://github.com/dearlordylord/bendvy/issues/13",
-      "title": "T12: Спецификация proofs и следующего этапа по evidence",
+      "title": "T12: \u0421\u043f\u0435\u0446\u0438\u0444\u0438\u043a\u0430\u0446\u0438\u044f proofs \u0438 \u0441\u043b\u0435\u0434\u0443\u044e\u0449\u0435\u0433\u043e \u044d\u0442\u0430\u043f\u0430 \u043f\u043e evidence",
       "local_file": "docs/tickets/12-next-specification.md",
       "blocked_by": [
         9,
@@ -260,6 +260,30 @@
         22
       ],
       "status": "blocked on #22 prerequisites and accepted contract/budget",
+      "native_blocked_by": []
+    },
+    "S-USER-API": {
+      "number": 26,
+      "url": "https://github.com/dearlordylord/bendvy/issues/26",
+      "title": "S-USER-API: Support independently authored ECS systems and typed component families",
+      "local_file": "docs/tickets/24-user-system-api.md",
+      "parent": 1,
+      "evidence_prerequisites": [
+        25
+      ],
+      "status": "complete bounded implementation; full-core and performance qualification open",
+      "native_blocked_by": []
+    },
+    "S-QUERY-COMPOSE": {
+      "number": 27,
+      "url": "https://github.com/dearlordylord/bendvy/issues/27",
+      "title": "S-QUERY-COMPOSE: Typed query tuples and declaration ergonomics",
+      "local_file": "docs/tickets/25-query-composition.md",
+      "parent": 26,
+      "evidence_prerequisites": [
+        26
+      ],
+      "status": "planned design slice; not executing",
       "native_blocked_by": []
     }
   }

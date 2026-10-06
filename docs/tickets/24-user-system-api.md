@@ -2,6 +2,12 @@
 
 GitHub #26; first step is interface design and independent review.
 
+Implementation was subsequently authorized by the user's `$implement` request
+after review. The bounded conditions below are delivered in
+[the completion report](../reports/user-system-api.md); production/full-core
+adoption and qualified performance remain open. The independent consumer's
+query-composition/ergonomics follow-up is [#27](25-query-composition.md).
+
 Follow-up to blind consumer audit #25; full-core #1 and callback integration
 #24 remain binding. Optimization is paused while the application boundary is
 made usable. This ticket approves investigation and interface design, not a

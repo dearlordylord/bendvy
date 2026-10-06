@@ -17,6 +17,8 @@ Handles carry the resulting namespace and local ID. Foreign handles reject
 before access/queue mutation even when local IDs coincide. Independent factory
 roots and fabricated concrete root owners do not have universal authority
 protection; concrete public constructors are not secrets.
+The bounded allocator uses monotonic IDs, no reuse and a 131072 entity limit.
+Production capacity/growth and exhaustion policy remain full-core follow-ups.
 
 `Query.each_rw_read` iterates ascending live handles. The main family is required
 and writable; the auxiliary family is read-only with `Required`, `Present`,

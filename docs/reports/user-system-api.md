@@ -1,6 +1,7 @@
 # S-USER-API #26 — implementation ledger
 
-Status: implementation in progress. This ledger is not a completion report.
+Status: **complete for the bounded #26 implementation conditions**. Full core,
+production adoption and qualified performance remain incomplete.
 The user authorized filling the audited gaps through `$implement` after the
 independent interface review. Optimization remains paused.
 
@@ -21,8 +22,10 @@ independent interface review. Optimization remains paused.
 
 ## Acceptance evidence
 
-All bounded implementation/execution gates pass; final review and delivery are
-pending. The final suite is [suite.json](../../experiments/user-api/suite.json).
+All bounded implementation/execution gates pass. Independent
+[Standards](../reviews/user-api-standards.md) and [Spec](../reviews/user-api-spec.md)
+reviews have no unresolved blocking findings. The final suite is
+[suite.json](../../experiments/user-api/suite.json).
 
 | #26 condition | Observed evidence |
 | --- | --- |
@@ -61,6 +64,9 @@ JS parity/Native2× representative-work goals remain open.
 
 ## Explicit follow-ups
 
+- Allocator/exhaustion: this prototype uses monotonic, unreused IDs bounded at
+  131072 entities. Return when the full-core identity/exhaustion contract and
+  production capacity/growth policy are approved and independently checked.
 - Event retention/lag and affine event payloads: bounded log is append-only Data;
   return when independent-reader retention semantics are integrated and tested.
 - Arbitrary affine captured callbacks and runtime-extensible heterogeneous

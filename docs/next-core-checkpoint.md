@@ -5,7 +5,7 @@ performance thresholds or a selected production layout. The first two research
 tickets are now published after user authorization and [Astra review](reviews/next-research-tickets.md).
 The complete [core map](reference/core-map.md) and [SPEC](SPEC.md) remain the goal.
 
-## Completed blind API audit; next interface gate
+## Completed user API slice; next composition gate
 
 User-authorized [S-API-AUDIT #25](tickets/23-blind-ecs-api-audit.md). Pause
 optimization and evaluate the current29-module source as an independent ECS
@@ -16,10 +16,20 @@ negative diagnostics; root independently replays the result. [Delivered audit](r
 commands. Generic queries work after correcting a client template-binder mistake;
 the immutable initial report and assisted correction remain separate. Actual
 public setter on an abstract read owner rejects. Full authored gameplay remains
-blocked on the registrar/component-family seams. Continue [S-USER-API #26](tickets/24-user-system-api.md):
-review the explicit typed interface design before implementation. No new
-production API or proof approval follows. Simple simulation is a consumer probe
-here, not completion of broader integrated capability/performance gates.
+blocked on the registrar/component-family seams. [S-USER-API #26](tickets/24-user-system-api.md)
+now delivers those bounded seams: independently authored registered systems,
+five typed families, exact23-point JS/Native observations (22 TS-equal plus the
+approved foreign-world difference), source-bound negatives and a fresh blind
+consumer. [Completion/evidence](reports/user-system-api.md) and final independent
+Standards/Spec reviews are recorded. No production adoption, new proof/law
+approval, full-core completion or qualified performance follows.
+
+Next planned design slice is [S-QUERY-COMPOSE #27](tickets/25-query-composition.md):
+arbitrary typed query tuples, combined filters and declaration ergonomics.
+Read `src/ecs/README.md` and the exact-source #26 receipts before extension.
+The optimized29-module integration and full connected/performance gates under
+#21/#24 remain open; tiny whole-process timing does not establish hot-path speed.
+Tower Defense remains conditional and its canonical source is unchanged.
 
 ## Active two-hour Native1024 continuation
 
