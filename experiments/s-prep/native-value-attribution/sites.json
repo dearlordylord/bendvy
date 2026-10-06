@@ -1,0 +1,358 @@
+{
+  "Motion": {
+    "originalCSHA256": "47d44d1c7597b8c134b3824f6d268f8ba4d2b46eed5e6ef703baddefd1e1665c",
+    "scope": "Executed allocation counts; static direct callers are not dynamic stack attribution.",
+    "sites": [
+      {
+        "id": 134,
+        "operation": "heap_alloc",
+        "expandedSourceLine": 5564,
+        "owner": "spin_45",
+        "expression": "heap_alloc(e, cls_fit(2))",
+        "following": ";\n      e.mem[_nd_0 + 0] = rfc_seal(e, _owner_7);\n      e.mem[_nd_0 + 1] = rfc_seal(e, _owner_8);\n      u64 _nd_1 = heap_alloc(e, cls_fit(5));\n      e.mem[_nd_1 + 0] = rfc_seal(e, ",
+        "entries": 1048576,
+        "rfcCreated": 0,
+        "originalLine": 5552,
+        "staticAllocationKind": "Constructor:CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_POSITION",
+        "staticDirectCallers": [
+          "spin_53"
+        ],
+        "originalContext": "    } else {\n      _o_0 = 1;\n      u64 _nd_0 = heap_alloc(e, cls_fit(2));\n      e.mem[_nd_0 + 0] = rfc_seal(e, _owner_7);\n      e.mem[_nd_0 + 1] = rfc_seal(e, _owner_8);\n      u64 _nd_1 = heap_alloc(e, cls_fit(5));\n      e.mem[_nd_1 + 0] = rfc_seal(e, _owner_9);\n      e.mem[_nd_1 + 1] = rfc_seal(e, _owner_10);\n      e.mem[_nd_1 + 2] = rfc_seal(e, _owner_11);\n      e.mem[_nd_1 + 3] = rfc_seal(e, _owner_12);\n      e.mem[_nd_1 + 4] = rfc_seal(e, _owner_13);\n      u64 _nd_2 = heap_alloc(e, cls_fit(2));\n      e.mem[_nd_2 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_POSITION, _nd_0));\n      e.mem[_nd_2 + 1] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_POSITIONVIEW, _nd_1));\n      _o_1 = term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_CACHE_CACHE, _nd_2);"
+      },
+      {
+        "id": 137,
+        "operation": "heap_alloc",
+        "expandedSourceLine": 5567,
+        "owner": "spin_45",
+        "expression": "heap_alloc(e, cls_fit(5))",
+        "following": ";\n      e.mem[_nd_1 + 0] = rfc_seal(e, _owner_9);\n      e.mem[_nd_1 + 1] = rfc_seal(e, _owner_10);\n      e.mem[_nd_1 + 2] = rfc_seal(e, _owner_11);\n      e.mem[_nd_1 + 3] = rfc_sea",
+        "entries": 1048576,
+        "rfcCreated": 0,
+        "originalLine": 5555,
+        "staticAllocationKind": "Constructor:CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_POSITIONVIEW",
+        "staticDirectCallers": [
+          "spin_53"
+        ],
+        "originalContext": "      e.mem[_nd_0 + 0] = rfc_seal(e, _owner_7);\n      e.mem[_nd_0 + 1] = rfc_seal(e, _owner_8);\n      u64 _nd_1 = heap_alloc(e, cls_fit(5));\n      e.mem[_nd_1 + 0] = rfc_seal(e, _owner_9);\n      e.mem[_nd_1 + 1] = rfc_seal(e, _owner_10);\n      e.mem[_nd_1 + 2] = rfc_seal(e, _owner_11);\n      e.mem[_nd_1 + 3] = rfc_seal(e, _owner_12);\n      e.mem[_nd_1 + 4] = rfc_seal(e, _owner_13);\n      u64 _nd_2 = heap_alloc(e, cls_fit(2));\n      e.mem[_nd_2 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_POSITION, _nd_0));\n      e.mem[_nd_2 + 1] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_POSITIONVIEW, _nd_1));\n      _o_1 = term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_CACHE_CACHE, _nd_2);\n    }\n    blk_write(e.mem, 1, _at_0, _at_1 + 0, _o_0);\n    blk_write(e.mem, 1, _at_0, _at_1 + 1, _o_1);"
+      },
+      {
+        "id": 143,
+        "operation": "heap_alloc",
+        "expandedSourceLine": 5573,
+        "owner": "spin_45",
+        "expression": "heap_alloc(e, cls_fit(2))",
+        "following": ";\n      e.mem[_nd_2 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_POSITION, _nd_0));\n      e.mem[_nd_2 + 1] = rfc_seal(e, term_ctr(CID____",
+        "entries": 1048576,
+        "rfcCreated": 0,
+        "originalLine": 5561,
+        "staticAllocationKind": "Constructor:CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_CACHE_CACHE",
+        "staticDirectCallers": [
+          "spin_53"
+        ],
+        "originalContext": "      e.mem[_nd_1 + 3] = rfc_seal(e, _owner_12);\n      e.mem[_nd_1 + 4] = rfc_seal(e, _owner_13);\n      u64 _nd_2 = heap_alloc(e, cls_fit(2));\n      e.mem[_nd_2 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_POSITION, _nd_0));\n      e.mem[_nd_2 + 1] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_POSITIONVIEW, _nd_1));\n      _o_1 = term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_CACHE_CACHE, _nd_2);\n    }\n    blk_write(e.mem, 1, _at_0, _at_1 + 0, _o_0);\n    blk_write(e.mem, 1, _at_0, _at_1 + 1, _o_1);\n    term_sink(e, _c_1);\n    u64 _nd_3 = heap_alloc(e, cls_fit(2));\n    e.mem[_nd_3 + 0] = rfc_seal(e, _value_0);\n    e.mem[_nd_3 + 1] = rfc_seal(e, _value_1);\n    u64 _nd_4 = heap_alloc(e, cls_fit(2));\n    e.mem[_nd_4 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_STORAGE_HANDLE, _nd_3));"
+      },
+      {
+        "id": 166,
+        "operation": "heap_alloc",
+        "expandedSourceLine": 7155,
+        "owner": "spin_65",
+        "expression": "heap_alloc(e, cls_fit(2))",
+        "following": ";\n      e.mem[_nd_0 + 0] = rfc_seal(e, _result_9);\n      e.mem[_nd_0 + 1] = rfc_seal(e, _result_10);\n      u64 _nd_1 = heap_alloc(e, cls_fit(5));\n      e.mem[_nd_1 + 0] = rfc_seal(",
+        "entries": 1048576,
+        "rfcCreated": 0,
+        "originalLine": 7143,
+        "staticAllocationKind": "Constructor:CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_POSITION",
+        "staticDirectCallers": [
+          "FID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_HELD_ADAPTER_PROTOTYPE_FLATFOLD_MOTION_STEP_0"
+        ],
+        "originalContext": "    } else {\n      _o_2 = 1;\n      u64 _nd_0 = heap_alloc(e, cls_fit(2));\n      e.mem[_nd_0 + 0] = rfc_seal(e, _result_9);\n      e.mem[_nd_0 + 1] = rfc_seal(e, _result_10);\n      u64 _nd_1 = heap_alloc(e, cls_fit(5));\n      e.mem[_nd_1 + 0] = rfc_seal(e, _result_11);\n      e.mem[_nd_1 + 1] = rfc_seal(e, _result_12);\n      e.mem[_nd_1 + 2] = rfc_seal(e, _result_13);\n      e.mem[_nd_1 + 3] = rfc_seal(e, _result_14);\n      e.mem[_nd_1 + 4] = rfc_seal(e, _result_15);\n      u64 _nd_2 = heap_alloc(e, cls_fit(2));\n      e.mem[_nd_2 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_POSITION, _nd_0));\n      e.mem[_nd_2 + 1] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_POSITIONVIEW, _nd_1));\n      _o_3 = term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_CACHE_CACHE, _nd_2);"
+      },
+      {
+        "id": 169,
+        "operation": "heap_alloc",
+        "expandedSourceLine": 7158,
+        "owner": "spin_65",
+        "expression": "heap_alloc(e, cls_fit(5))",
+        "following": ";\n      e.mem[_nd_1 + 0] = rfc_seal(e, _result_11);\n      e.mem[_nd_1 + 1] = rfc_seal(e, _result_12);\n      e.mem[_nd_1 + 2] = rfc_seal(e, _result_13);\n      e.mem[_nd_1 + 3] = rfc",
+        "entries": 1048576,
+        "rfcCreated": 0,
+        "originalLine": 7146,
+        "staticAllocationKind": "Constructor:CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_POSITIONVIEW",
+        "staticDirectCallers": [
+          "FID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_HELD_ADAPTER_PROTOTYPE_FLATFOLD_MOTION_STEP_0"
+        ],
+        "originalContext": "      e.mem[_nd_0 + 0] = rfc_seal(e, _result_9);\n      e.mem[_nd_0 + 1] = rfc_seal(e, _result_10);\n      u64 _nd_1 = heap_alloc(e, cls_fit(5));\n      e.mem[_nd_1 + 0] = rfc_seal(e, _result_11);\n      e.mem[_nd_1 + 1] = rfc_seal(e, _result_12);\n      e.mem[_nd_1 + 2] = rfc_seal(e, _result_13);\n      e.mem[_nd_1 + 3] = rfc_seal(e, _result_14);\n      e.mem[_nd_1 + 4] = rfc_seal(e, _result_15);\n      u64 _nd_2 = heap_alloc(e, cls_fit(2));\n      e.mem[_nd_2 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_POSITION, _nd_0));\n      e.mem[_nd_2 + 1] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_POSITIONVIEW, _nd_1));\n      _o_3 = term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_CACHE_CACHE, _nd_2);\n    }\n    blk_write(e.mem, 1, _at_0, _at_1 + 0, _o_2);\n    blk_write(e.mem, 1, _at_0, _at_1 + 1, _o_3);"
+      },
+      {
+        "id": 175,
+        "operation": "heap_alloc",
+        "expandedSourceLine": 7164,
+        "owner": "spin_65",
+        "expression": "heap_alloc(e, cls_fit(2))",
+        "following": ";\n      e.mem[_nd_2 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_POSITION, _nd_0));\n      e.mem[_nd_2 + 1] = rfc_seal(e, term_ctr(CID____",
+        "entries": 1048576,
+        "rfcCreated": 0,
+        "originalLine": 7152,
+        "staticAllocationKind": "Constructor:CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_CACHE_CACHE",
+        "staticDirectCallers": [
+          "FID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_HELD_ADAPTER_PROTOTYPE_FLATFOLD_MOTION_STEP_0"
+        ],
+        "originalContext": "      e.mem[_nd_1 + 3] = rfc_seal(e, _result_14);\n      e.mem[_nd_1 + 4] = rfc_seal(e, _result_15);\n      u64 _nd_2 = heap_alloc(e, cls_fit(2));\n      e.mem[_nd_2 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_POSITION, _nd_0));\n      e.mem[_nd_2 + 1] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_POSITIONVIEW, _nd_1));\n      _o_3 = term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_CACHE_CACHE, _nd_2);\n    }\n    blk_write(e.mem, 1, _at_0, _at_1 + 0, _o_2);\n    blk_write(e.mem, 1, _at_0, _at_1 + 1, _o_3);\n    term_sink(e, _c_1);\n    _v_104 = _ns_1;\n    _v_105 = _next_1;\n    _v_106 = _columns_0;\n    _v_107 = _aux_1;\n    _v_108 = _metadata_4;"
+      },
+      {
+        "id": 246,
+        "operation": "heap_alloc",
+        "expandedSourceLine": 14366,
+        "owner": "spin_146",
+        "expression": "heap_alloc(e, cls_fit(2))",
+        "following": ";\n        e.mem[_nd_2 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_MOTIONLEDGER, _nd_0));\n        e.mem[_nd_2 + 1] = rfc_seal(e, term_ctr",
+        "entries": 4096,
+        "rfcCreated": 0,
+        "originalLine": 14354,
+        "staticAllocationKind": "Constructor:CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_CACHE_CACHE",
+        "staticDirectCallers": [
+          "FID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_2_K405"
+        ],
+        "originalContext": "        e.mem[_nd_1 + 3] = rfc_seal(e, _v_181);\n        e.mem[_nd_1 + 4] = rfc_seal(e, _v_182);\n        u64 _nd_2 = heap_alloc(e, cls_fit(2));\n        e.mem[_nd_2 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_MOTIONLEDGER, _nd_0));\n        e.mem[_nd_2 + 1] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_LEDGERVIEW, _nd_1));\n        _o_7 = term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_CACHE_CACHE, _nd_2);\n      }\n      Term _b_0 = 0;\n      if (_v_183 == 0) {\n        _b_0 = term_pak(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_MOTIONON, 0);\n      } else {\n        _b_0 = term_pak(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_MOTIONOFF, 0);\n      }\n      u32 _v_207 = 0;\n      u32 _v_208 = 0;"
+      },
+      {
+        "id": 280,
+        "operation": "heap_alloc",
+        "expandedSourceLine": 15355,
+        "owner": "spin_152",
+        "expression": "heap_alloc(e, cls_fit(2))",
+        "following": ";\n      e.mem[_nd_2 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_MOTIONLEDGER, _nd_0));\n      e.mem[_nd_2 + 1] = rfc_seal(e, term_ctr(CID",
+        "entries": 4096,
+        "rfcCreated": 0,
+        "originalLine": 15343,
+        "staticAllocationKind": "Constructor:CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_CACHE_CACHE",
+        "staticDirectCallers": [
+          "spin_160"
+        ],
+        "originalContext": "      e.mem[_nd_1 + 3] = rfc_seal(e, _world_39);\n      e.mem[_nd_1 + 4] = rfc_seal(e, _world_40);\n      u64 _nd_2 = heap_alloc(e, cls_fit(2));\n      e.mem[_nd_2 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_MOTIONLEDGER, _nd_0));\n      e.mem[_nd_2 + 1] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_LEDGERVIEW, _nd_1));\n      _o_2 = term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_CACHE_CACHE, _nd_2);\n    }\n    Term _b_0 = 0;\n    if (_world_41 == 0) {\n      _b_0 = term_pak(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_MOTIONON, 0);\n    } else {\n      _b_0 = term_pak(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_MOTIONOFF, 0);\n    }\n    u32 _v_64 = 0;\n    u32 _v_65 = 0;"
+      },
+      {
+        "id": 477,
+        "operation": "heap_alloc",
+        "expandedSourceLine": 22083,
+        "owner": "spin_234",
+        "expression": "heap_alloc(e, cls_fit(2))",
+        "following": ";\n      e.mem[_nd_2 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_MOTIONLEDGER, _nd_0));\n      e.mem[_nd_2 + 1] = rfc_seal(e, term_ctr(CID",
+        "entries": 8192,
+        "rfcCreated": 0,
+        "originalLine": 22071,
+        "staticAllocationKind": "Constructor:CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_CACHE_CACHE",
+        "staticDirectCallers": [
+          "spin_233"
+        ],
+        "originalContext": "      e.mem[_nd_1 + 3] = rfc_seal(e, _owner_64);\n      e.mem[_nd_1 + 4] = rfc_seal(e, _owner_65);\n      u64 _nd_2 = heap_alloc(e, cls_fit(2));\n      e.mem[_nd_2 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_MOTIONLEDGER, _nd_0));\n      e.mem[_nd_2 + 1] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_LEDGERVIEW, _nd_1));\n      _o_1 = term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_CACHE_CACHE, _nd_2);\n    }\n    u32 _v_282 = 0;\n    Term _v_283 = 0;\n    u32 _v_284 = 0;\n    Term _o_2[3];\n    if (spin_235(e, _o_2, _o_0, _o_1, _o_1 == h42 ? q42 : _o_1 == h40 ? q40 : _o_1 == h38 ? q38 : _o_1 == h37 ? q37 : _o_1 == h36 ? q36 : _o_1 == h35 ? q35 : _o_1 == h34 ? q34 : _o_1 == h30 ? q30 : _o_1 == h29 ? q29 : _o_1 == h25 ? q25 : _o_1 == h24 ? q24 : _o_1 == h13 ? q13 : _o_1 == h11 ? q11 : _o_1 == h7 ? q7 : _o_1 == h6 ? q6 : _o_1 == h5 ? q5 : _o_1 == h4 ? q4 : _o_1 == h3 ? q3 : _o_1 == h2 ? q2 : blk_loc(e.mem, _o_1)) == 0) {\n      return 0;\n    }\n    _v_282 = _o_2[0];"
+      },
+      {
+        "id": 1753,
+        "operation": "heap_alloc",
+        "expandedSourceLine": 47323,
+        "owner": "FID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_2_C403",
+        "expression": "heap_alloc(e, cls_fit(2))",
+        "following": ";\n      e.mem[_nd_18 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_MOTIONLEDGER, _nd_16));\n      e.mem[_nd_18 + 1] = rfc_seal(e, term_ctr(",
+        "entries": 4096,
+        "rfcCreated": 0,
+        "originalLine": 47311,
+        "staticAllocationKind": "Constructor:CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_CACHE_CACHE",
+        "staticDirectCallers": [],
+        "originalContext": "      e.mem[_nd_17 + 3] = rfc_seal(e, _v_18);\n      e.mem[_nd_17 + 4] = rfc_seal(e, _v_19);\n      u64 _nd_18 = heap_alloc(e, cls_fit(2));\n      e.mem[_nd_18 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_MOTIONLEDGER, _nd_16));\n      e.mem[_nd_18 + 1] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_LEDGERVIEW, _nd_17));\n      _o_34 = term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_CACHE_CACHE, _nd_18);\n    }\n    Term _b_0 = 0;\n    if (_v_20 == 0) {\n      _b_0 = term_pak(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_MOTIONON, 0);\n    } else {\n      _b_0 = term_pak(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_MOTIONOFF, 0);\n    }\n    u64 _nd_19 = heap_alloc(e, cls_fit(15));\n    e.mem[_nd_19 + 0] = rfc_seal(e, _v_0);"
+      },
+      {
+        "id": 2828,
+        "operation": "heap_alloc",
+        "expandedSourceLine": 61379,
+        "owner": "FID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_MEASUREMENT_BEND_MOTION_FRAME",
+        "expression": "heap_alloc(e, cls_fit(2))",
+        "following": ";\n      e.mem[_nd_2 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_MOTIONLEDGER, _nd_0));\n      e.mem[_nd_2 + 1] = rfc_seal(e, term_ctr(CID",
+        "entries": 4096,
+        "rfcCreated": 0,
+        "originalLine": 61367,
+        "staticAllocationKind": "Constructor:CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_CACHE_CACHE",
+        "staticDirectCallers": [],
+        "originalContext": "      e.mem[_nd_1 + 3] = rfc_seal(e, _owner_18);\n      e.mem[_nd_1 + 4] = rfc_seal(e, _owner_19);\n      u64 _nd_2 = heap_alloc(e, cls_fit(2));\n      e.mem[_nd_2 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_MOTIONLEDGER, _nd_0));\n      e.mem[_nd_2 + 1] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_LEDGERVIEW, _nd_1));\n      _o_1 = term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_CACHE_CACHE, _nd_2);\n    }\n    Term _b_0 = 0;\n    if (_owner_20 == 0) {\n      _b_0 = term_pak(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_MOTIONON, 0);\n    } else {\n      _b_0 = term_pak(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_MOTIONOFF, 0);\n    }\n    if (seq) {\n      WL_ROOM(4);"
+      }
+    ]
+  },
+  "Health": {
+    "originalCSHA256": "b4db263d90e47b78e0127abc84d9e8e8b42d9413ce77bf2c862e321be3dba8e9",
+    "scope": "Executed allocation counts; static direct callers are not dynamic stack attribution.",
+    "sites": [
+      {
+        "id": 142,
+        "operation": "heap_alloc",
+        "expandedSourceLine": 5804,
+        "owner": "spin_45",
+        "expression": "heap_alloc(e, cls_fit(3))",
+        "following": ";\n      e.mem[_nd_0 + 0] = rfc_seal(e, _owner_9);\n      e.mem[_nd_0 + 1] = rfc_seal(e, _owner_10);\n      e.mem[_nd_0 + 2] = rfc_seal(e, _owner_11);\n      u64 _nd_1 = heap_alloc(e, ",
+        "entries": 1048576,
+        "rfcCreated": 0,
+        "originalLine": 5792,
+        "staticAllocationKind": "Constructor:CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_VITALS",
+        "staticDirectCallers": [
+          "spin_53"
+        ],
+        "originalContext": "    } else {\n      _o_0 = 1;\n      u64 _nd_0 = heap_alloc(e, cls_fit(3));\n      e.mem[_nd_0 + 0] = rfc_seal(e, _owner_9);\n      e.mem[_nd_0 + 1] = rfc_seal(e, _owner_10);\n      e.mem[_nd_0 + 2] = rfc_seal(e, _owner_11);\n      u64 _nd_1 = heap_alloc(e, cls_fit(6));\n      e.mem[_nd_1 + 0] = rfc_seal(e, _owner_12);\n      e.mem[_nd_1 + 1] = rfc_seal(e, _owner_13);\n      e.mem[_nd_1 + 2] = rfc_seal(e, _owner_14);\n      e.mem[_nd_1 + 3] = rfc_seal(e, _owner_15);\n      e.mem[_nd_1 + 4] = rfc_seal(e, _owner_16);\n      e.mem[_nd_1 + 5] = rfc_seal(e, _owner_17);\n      u64 _nd_2 = heap_alloc(e, cls_fit(2));\n      e.mem[_nd_2 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_VITALS, _nd_0));"
+      },
+      {
+        "id": 146,
+        "operation": "heap_alloc",
+        "expandedSourceLine": 5808,
+        "owner": "spin_45",
+        "expression": "heap_alloc(e, cls_fit(6))",
+        "following": ";\n      e.mem[_nd_1 + 0] = rfc_seal(e, _owner_12);\n      e.mem[_nd_1 + 1] = rfc_seal(e, _owner_13);\n      e.mem[_nd_1 + 2] = rfc_seal(e, _owner_14);\n      e.mem[_nd_1 + 3] = rfc_se",
+        "entries": 1048576,
+        "rfcCreated": 0,
+        "originalLine": 5796,
+        "staticAllocationKind": "Constructor:CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_VITALSVIEW",
+        "staticDirectCallers": [
+          "spin_53"
+        ],
+        "originalContext": "      e.mem[_nd_0 + 1] = rfc_seal(e, _owner_10);\n      e.mem[_nd_0 + 2] = rfc_seal(e, _owner_11);\n      u64 _nd_1 = heap_alloc(e, cls_fit(6));\n      e.mem[_nd_1 + 0] = rfc_seal(e, _owner_12);\n      e.mem[_nd_1 + 1] = rfc_seal(e, _owner_13);\n      e.mem[_nd_1 + 2] = rfc_seal(e, _owner_14);\n      e.mem[_nd_1 + 3] = rfc_seal(e, _owner_15);\n      e.mem[_nd_1 + 4] = rfc_seal(e, _owner_16);\n      e.mem[_nd_1 + 5] = rfc_seal(e, _owner_17);\n      u64 _nd_2 = heap_alloc(e, cls_fit(2));\n      e.mem[_nd_2 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_VITALS, _nd_0));\n      e.mem[_nd_2 + 1] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_VITALSVIEW, _nd_1));\n      _o_1 = term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_CACHE_CACHE, _nd_2);\n    }\n    blk_write(e.mem, 1, _at_0, _at_1 + 0, _o_0);"
+      },
+      {
+        "id": 153,
+        "operation": "heap_alloc",
+        "expandedSourceLine": 5815,
+        "owner": "spin_45",
+        "expression": "heap_alloc(e, cls_fit(2))",
+        "following": ";\n      e.mem[_nd_2 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_VITALS, _nd_0));\n      e.mem[_nd_2 + 1] = rfc_seal(e, term_ctr(CID____BE",
+        "entries": 1048576,
+        "rfcCreated": 0,
+        "originalLine": 5803,
+        "staticAllocationKind": "Constructor:CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_CACHE_CACHE",
+        "staticDirectCallers": [
+          "spin_53"
+        ],
+        "originalContext": "      e.mem[_nd_1 + 4] = rfc_seal(e, _owner_16);\n      e.mem[_nd_1 + 5] = rfc_seal(e, _owner_17);\n      u64 _nd_2 = heap_alloc(e, cls_fit(2));\n      e.mem[_nd_2 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_VITALS, _nd_0));\n      e.mem[_nd_2 + 1] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_VITALSVIEW, _nd_1));\n      _o_1 = term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_CACHE_CACHE, _nd_2);\n    }\n    blk_write(e.mem, 1, _at_0, _at_1 + 0, _o_0);\n    blk_write(e.mem, 1, _at_0, _at_1 + 1, _o_1);\n    term_sink(e, _c_1);\n    u64 _nd_3 = heap_alloc(e, cls_fit(2));\n    e.mem[_nd_3 + 0] = rfc_seal(e, _value_0);\n    e.mem[_nd_3 + 1] = rfc_seal(e, _value_1);\n    u64 _nd_4 = heap_alloc(e, cls_fit(2));\n    e.mem[_nd_4 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_STORAGE_HANDLE, _nd_3));"
+      },
+      {
+        "id": 176,
+        "operation": "heap_alloc",
+        "expandedSourceLine": 7465,
+        "owner": "spin_64",
+        "expression": "heap_alloc(e, cls_fit(3))",
+        "following": ";\n      e.mem[_nd_0 + 0] = rfc_seal(e, _result_11);\n      e.mem[_nd_0 + 1] = rfc_seal(e, _result_12);\n      e.mem[_nd_0 + 2] = rfc_seal(e, _result_13);\n      u64 _nd_1 = heap_alloc",
+        "entries": 1048576,
+        "rfcCreated": 0,
+        "originalLine": 7453,
+        "staticAllocationKind": "Constructor:CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_VITALS",
+        "staticDirectCallers": [
+          "FID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_HELD_ADAPTER_PROTOTYPE_FLATFOLD_HEALTH_STEP_0"
+        ],
+        "originalContext": "    } else {\n      _o_2 = 1;\n      u64 _nd_0 = heap_alloc(e, cls_fit(3));\n      e.mem[_nd_0 + 0] = rfc_seal(e, _result_11);\n      e.mem[_nd_0 + 1] = rfc_seal(e, _result_12);\n      e.mem[_nd_0 + 2] = rfc_seal(e, _result_13);\n      u64 _nd_1 = heap_alloc(e, cls_fit(6));\n      e.mem[_nd_1 + 0] = rfc_seal(e, _result_14);\n      e.mem[_nd_1 + 1] = rfc_seal(e, _result_15);\n      e.mem[_nd_1 + 2] = rfc_seal(e, _result_16);\n      e.mem[_nd_1 + 3] = rfc_seal(e, _result_17);\n      e.mem[_nd_1 + 4] = rfc_seal(e, _result_18);\n      e.mem[_nd_1 + 5] = rfc_seal(e, _result_19);\n      u64 _nd_2 = heap_alloc(e, cls_fit(2));\n      e.mem[_nd_2 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_VITALS, _nd_0));"
+      },
+      {
+        "id": 180,
+        "operation": "heap_alloc",
+        "expandedSourceLine": 7469,
+        "owner": "spin_64",
+        "expression": "heap_alloc(e, cls_fit(6))",
+        "following": ";\n      e.mem[_nd_1 + 0] = rfc_seal(e, _result_14);\n      e.mem[_nd_1 + 1] = rfc_seal(e, _result_15);\n      e.mem[_nd_1 + 2] = rfc_seal(e, _result_16);\n      e.mem[_nd_1 + 3] = rfc",
+        "entries": 1048576,
+        "rfcCreated": 0,
+        "originalLine": 7457,
+        "staticAllocationKind": "Constructor:CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_VITALSVIEW",
+        "staticDirectCallers": [
+          "FID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_HELD_ADAPTER_PROTOTYPE_FLATFOLD_HEALTH_STEP_0"
+        ],
+        "originalContext": "      e.mem[_nd_0 + 1] = rfc_seal(e, _result_12);\n      e.mem[_nd_0 + 2] = rfc_seal(e, _result_13);\n      u64 _nd_1 = heap_alloc(e, cls_fit(6));\n      e.mem[_nd_1 + 0] = rfc_seal(e, _result_14);\n      e.mem[_nd_1 + 1] = rfc_seal(e, _result_15);\n      e.mem[_nd_1 + 2] = rfc_seal(e, _result_16);\n      e.mem[_nd_1 + 3] = rfc_seal(e, _result_17);\n      e.mem[_nd_1 + 4] = rfc_seal(e, _result_18);\n      e.mem[_nd_1 + 5] = rfc_seal(e, _result_19);\n      u64 _nd_2 = heap_alloc(e, cls_fit(2));\n      e.mem[_nd_2 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_VITALS, _nd_0));\n      e.mem[_nd_2 + 1] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_VITALSVIEW, _nd_1));\n      _o_3 = term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_CACHE_CACHE, _nd_2);\n    }\n    blk_write(e.mem, 1, _at_0, _at_1 + 0, _o_2);"
+      },
+      {
+        "id": 187,
+        "operation": "heap_alloc",
+        "expandedSourceLine": 7476,
+        "owner": "spin_64",
+        "expression": "heap_alloc(e, cls_fit(2))",
+        "following": ";\n      e.mem[_nd_2 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_VITALS, _nd_0));\n      e.mem[_nd_2 + 1] = rfc_seal(e, term_ctr(CID____BE",
+        "entries": 1048576,
+        "rfcCreated": 0,
+        "originalLine": 7464,
+        "staticAllocationKind": "Constructor:CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_CACHE_CACHE",
+        "staticDirectCallers": [
+          "FID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_HELD_ADAPTER_PROTOTYPE_FLATFOLD_HEALTH_STEP_0"
+        ],
+        "originalContext": "      e.mem[_nd_1 + 4] = rfc_seal(e, _result_18);\n      e.mem[_nd_1 + 5] = rfc_seal(e, _result_19);\n      u64 _nd_2 = heap_alloc(e, cls_fit(2));\n      e.mem[_nd_2 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_VITALS, _nd_0));\n      e.mem[_nd_2 + 1] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_VITALSVIEW, _nd_1));\n      _o_3 = term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_CACHE_CACHE, _nd_2);\n    }\n    blk_write(e.mem, 1, _at_0, _at_1 + 0, _o_2);\n    blk_write(e.mem, 1, _at_0, _at_1 + 1, _o_3);\n    term_sink(e, _c_1);\n    _v_112 = _ns_1;\n    _v_113 = _next_1;\n    _v_114 = _columns_0;\n    _v_115 = _aux_1;\n    _v_116 = _metadata_4;"
+      },
+      {
+        "id": 260,
+        "operation": "heap_alloc",
+        "expandedSourceLine": 14682,
+        "owner": "spin_145",
+        "expression": "heap_alloc(e, cls_fit(2))",
+        "following": ";\n        e.mem[_nd_2 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_HEALTHLEDGER, _nd_0));\n        e.mem[_nd_2 + 1] = rfc_seal(e, term_ctr",
+        "entries": 4096,
+        "rfcCreated": 0,
+        "originalLine": 14670,
+        "staticAllocationKind": "Constructor:CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_CACHE_CACHE",
+        "staticDirectCallers": [
+          "FID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_3_K404"
+        ],
+        "originalContext": "        e.mem[_nd_1 + 3] = rfc_seal(e, _v_181);\n        e.mem[_nd_1 + 4] = rfc_seal(e, _v_182);\n        u64 _nd_2 = heap_alloc(e, cls_fit(2));\n        e.mem[_nd_2 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_HEALTHLEDGER, _nd_0));\n        e.mem[_nd_2 + 1] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_LEDGERVIEW, _nd_1));\n        _o_7 = term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_CACHE_CACHE, _nd_2);\n      }\n      Term _b_0 = 0;\n      if (_v_183 == 0) {\n        _b_0 = term_pak(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_HEALTHON, 0);\n      } else {\n        _b_0 = term_pak(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_HEALTHOFF, 0);\n      }\n      u32 _v_207 = 0;\n      u32 _v_208 = 0;"
+      },
+      {
+        "id": 294,
+        "operation": "heap_alloc",
+        "expandedSourceLine": 15671,
+        "owner": "spin_151",
+        "expression": "heap_alloc(e, cls_fit(2))",
+        "following": ";\n      e.mem[_nd_2 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_HEALTHLEDGER, _nd_0));\n      e.mem[_nd_2 + 1] = rfc_seal(e, term_ctr(CID",
+        "entries": 4096,
+        "rfcCreated": 0,
+        "originalLine": 15659,
+        "staticAllocationKind": "Constructor:CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_CACHE_CACHE",
+        "staticDirectCallers": [
+          "spin_159"
+        ],
+        "originalContext": "      e.mem[_nd_1 + 3] = rfc_seal(e, _world_39);\n      e.mem[_nd_1 + 4] = rfc_seal(e, _world_40);\n      u64 _nd_2 = heap_alloc(e, cls_fit(2));\n      e.mem[_nd_2 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_HEALTHLEDGER, _nd_0));\n      e.mem[_nd_2 + 1] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_LEDGERVIEW, _nd_1));\n      _o_2 = term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_CACHE_CACHE, _nd_2);\n    }\n    Term _b_0 = 0;\n    if (_world_41 == 0) {\n      _b_0 = term_pak(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_HEALTHON, 0);\n    } else {\n      _b_0 = term_pak(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_HEALTHOFF, 0);\n    }\n    u32 _v_64 = 0;\n    u32 _v_65 = 0;"
+      },
+      {
+        "id": 491,
+        "operation": "heap_alloc",
+        "expandedSourceLine": 22399,
+        "owner": "spin_233",
+        "expression": "heap_alloc(e, cls_fit(2))",
+        "following": ";\n      e.mem[_nd_2 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_HEALTHLEDGER, _nd_0));\n      e.mem[_nd_2 + 1] = rfc_seal(e, term_ctr(CID",
+        "entries": 8192,
+        "rfcCreated": 0,
+        "originalLine": 22387,
+        "staticAllocationKind": "Constructor:CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_CACHE_CACHE",
+        "staticDirectCallers": [
+          "spin_232"
+        ],
+        "originalContext": "      e.mem[_nd_1 + 3] = rfc_seal(e, _owner_64);\n      e.mem[_nd_1 + 4] = rfc_seal(e, _owner_65);\n      u64 _nd_2 = heap_alloc(e, cls_fit(2));\n      e.mem[_nd_2 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_HEALTHLEDGER, _nd_0));\n      e.mem[_nd_2 + 1] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_LEDGERVIEW, _nd_1));\n      _o_1 = term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_CACHE_CACHE, _nd_2);\n    }\n    u32 _v_282 = 0;\n    Term _v_283 = 0;\n    u32 _v_284 = 0;\n    Term _o_2[3];\n    if (spin_234(e, _o_2, _o_0, _o_1, _o_1 == h42 ? q42 : _o_1 == h40 ? q40 : _o_1 == h38 ? q38 : _o_1 == h37 ? q37 : _o_1 == h36 ? q36 : _o_1 == h35 ? q35 : _o_1 == h34 ? q34 : _o_1 == h30 ? q30 : _o_1 == h29 ? q29 : _o_1 == h25 ? q25 : _o_1 == h24 ? q24 : _o_1 == h13 ? q13 : _o_1 == h11 ? q11 : _o_1 == h7 ? q7 : _o_1 == h6 ? q6 : _o_1 == h5 ? q5 : _o_1 == h4 ? q4 : _o_1 == h3 ? q3 : _o_1 == h2 ? q2 : blk_loc(e.mem, _o_1)) == 0) {\n      return 0;\n    }\n    _v_282 = _o_2[0];"
+      },
+      {
+        "id": 1796,
+        "operation": "heap_alloc",
+        "expandedSourceLine": 48084,
+        "owner": "FID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_3_C402",
+        "expression": "heap_alloc(e, cls_fit(2))",
+        "following": ";\n      e.mem[_nd_18 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_HEALTHLEDGER, _nd_16));\n      e.mem[_nd_18 + 1] = rfc_seal(e, term_ctr(",
+        "entries": 4096,
+        "rfcCreated": 0,
+        "originalLine": 48072,
+        "staticAllocationKind": "Constructor:CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_CACHE_CACHE",
+        "staticDirectCallers": [],
+        "originalContext": "      e.mem[_nd_17 + 3] = rfc_seal(e, _v_18);\n      e.mem[_nd_17 + 4] = rfc_seal(e, _v_19);\n      u64 _nd_18 = heap_alloc(e, cls_fit(2));\n      e.mem[_nd_18 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_HEALTHLEDGER, _nd_16));\n      e.mem[_nd_18 + 1] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_LEDGERVIEW, _nd_17));\n      _o_34 = term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_CACHE_CACHE, _nd_18);\n    }\n    Term _b_0 = 0;\n    if (_v_20 == 0) {\n      _b_0 = term_pak(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_HEALTHON, 0);\n    } else {\n      _b_0 = term_pak(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_HEALTHOFF, 0);\n    }\n    u64 _nd_19 = heap_alloc(e, cls_fit(15));\n    e.mem[_nd_19 + 0] = rfc_seal(e, _v_0);"
+      },
+      {
+        "id": 2871,
+        "operation": "heap_alloc",
+        "expandedSourceLine": 62140,
+        "owner": "FID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_MEASUREMENT_BEND_HEALTH_FRAME",
+        "expression": "heap_alloc(e, cls_fit(2))",
+        "following": ";\n      e.mem[_nd_2 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_HEALTHLEDGER, _nd_0));\n      e.mem[_nd_2 + 1] = rfc_seal(e, term_ctr(CID",
+        "entries": 4096,
+        "rfcCreated": 0,
+        "originalLine": 62128,
+        "staticAllocationKind": "Constructor:CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_CACHE_CACHE",
+        "staticDirectCallers": [],
+        "originalContext": "      e.mem[_nd_1 + 3] = rfc_seal(e, _owner_18);\n      e.mem[_nd_1 + 4] = rfc_seal(e, _owner_19);\n      u64 _nd_2 = heap_alloc(e, cls_fit(2));\n      e.mem[_nd_2 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_HEALTHLEDGER, _nd_0));\n      e.mem[_nd_2 + 1] = rfc_seal(e, term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_LEDGERVIEW, _nd_1));\n      _o_1 = term_ctr(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_CACHE_CACHE, _nd_2);\n    }\n    Term _b_0 = 0;\n    if (_owner_20 == 0) {\n      _b_0 = term_pak(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_HEALTHON, 0);\n    } else {\n      _b_0 = term_pak(CID____BENDVY_FLAT_JOURNAL_V4_EXPERIMENTS_S_INTEGRATE_TYPES_HEALTHOFF, 0);\n    }\n    if (seq) {\n      WL_ROOM(4);"
+      }
+    ]
+  }
+}
