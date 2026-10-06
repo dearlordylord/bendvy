@@ -157,3 +157,32 @@ def clear_column(~Owner: Type,handle: W.Handle<Schema>,column: Col.Column<Schema
 def clear(store: Store,+handle: W.Handle<Schema>) -> Store:
   match store:
     case Store{positions,velocities,healths,armors,tags}: Store{clear_column(~Position,handle,positions),clear_column(~Velocity,handle,velocities),clear_column(~Health,handle,healths),clear_column(~Armor,handle,armors),clear_column(~Tag,handle,tags)}
+
+# This finite consumer admits exactly the one/two-cell arrays in its frozen
+# fixture. Unsupported lengths are explicit failures, never truncated owners.
+def array_second(+first: U32,+second: U32,rest: List<&2,U32>) -> Maybe<&1,Array<U32>>:
+  match rest:
+    case []: Some{ANode{ALeaf{first},ALeaf{second}}}
+    case _ <> _: None{}
+def array_tail(+first: U32,rest: List<&2,U32>) -> Maybe<&1,Array<U32>>:
+  match rest:
+    case []: Some{ALeaf{first}}
+    case +second <> rest: array_second(first,second,rest)
+def array_from_values(values: List<&2,U32>) -> Maybe<&1,Array<U32>>:
+  match values:
+    case []: None{}
+    case +first <> rest: array_tail(first,rest)
+def position_owner_join(+x: F32,incoming: Maybe<&1,Array<U32>>) -> Maybe<&1,Position>:
+  match incoming:
+    case None{}: None{}
+    case Some{trail}: Some{Position{x,trail}}
+def position_owner(view: PositionView) -> Maybe<&1,Position>:
+  match view:
+    case PositionView{+x,trail}: position_owner_join(x,array_from_values(trail))
+def health_owner_join(+hp: F32,incoming: Maybe<&1,Array<U32>>) -> Maybe<&1,Health>:
+  match incoming:
+    case None{}: None{}
+    case Some{history}: Some{Health{hp,history}}
+def health_owner(view: HealthView) -> Maybe<&1,Health>:
+  match view:
+    case HealthView{+hp,history}: health_owner_join(hp,array_from_values(history))
