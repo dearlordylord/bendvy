@@ -1,0 +1,664 @@
+{
+  "status": "FRESH_SOURCE_PINNED_CLOSED_METADATA_NATIVE_COUNTS_BOTH_PASS",
+  "scope": "Fresh four Native diagnostic executions, clocks3\u20134, no timing/physicalallocation/universal/product acceptance",
+  "sourceClosures": {
+    "baseline": "409d87045a832f021c7d7a1aa880ebfd16ff8d2b9eb5035883d96f781a49daad",
+    "candidate": "118c55026da99accd64febac3a66bbcce58bec4b5419fdff8d2e03441dfd285a"
+  },
+  "cases": [
+    {
+      "schema": "Motion",
+      "status": "PASS",
+      "sourceC": {
+        "baseline": "01683bcb4ca6691a31603f26bbe444fb1b02ad0ad59c93ebaf5edfaf2d7957c4",
+        "candidate": "0a2d39cae02f590e0957ed925d5a25da8adbc23880086bfe037d5513c5e37682"
+      },
+      "fullWorldsEach": 65,
+      "updates": 1048576,
+      "metrics": {
+        "heapEntries": {
+          "baseline": 32216007,
+          "candidate": 32199623,
+          "delta": -16384
+        },
+        "requestedWords": {
+          "baseline": 81087503,
+          "candidate": 81071119,
+          "delta": -16384
+        },
+        "rfcCreated": {
+          "baseline": 14774590,
+          "candidate": 14758206,
+          "delta": -16384
+        }
+      },
+      "physicalCalls": {
+        "baseline": {
+          "malloc": 0,
+          "mmap": 0,
+          "mprotect": 0,
+          "heap_alloc_miss": 0,
+          "bank_pop": 0,
+          "corpus_grow": 0
+        },
+        "candidate": {
+          "malloc": 0,
+          "mmap": 0,
+          "mprotect": 0,
+          "heap_alloc_miss": 0,
+          "bank_pop": 0,
+          "corpus_grow": 0
+        }
+      },
+      "changedConstructorKinds": {
+        "Closure:FID_MEASUREMENT_BEND_MOTION_COMMITTED_C247": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_CALL_2_C586": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID_MEASUREMENT_BEND_MOTION_LOOPS_C927": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_CALL_PRESENCE_2_C572": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID_MEASUREMENT_BEND_MOTION_LOOPS_C926": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_2_C348": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID_MAIN_C1024": {
+          "baseline": 1,
+          "candidate": 0
+        },
+        "Closure:FID_MAIN_C1021": {
+          "baseline": 1,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_2_C386": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_2_C371": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID_MAIN_C1043": {
+          "baseline": 0,
+          "candidate": 1
+        },
+        "Closure:FID_MOTION_EXECUTE_C952": {
+          "baseline": 0,
+          "candidate": 1
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_2_C374": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID_MOTION_EXECUTE_C936": {
+          "baseline": 64,
+          "candidate": 0
+        },
+        "Closure:FID_MAIN_C1040": {
+          "baseline": 0,
+          "candidate": 1
+        },
+        "Closure:FID_MOTION_EXECUTE_C956": {
+          "baseline": 0,
+          "candidate": 64
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_CALL_PRESENCE_2_C553": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_CALL_2_C606": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_CALL_PRESENCE_2_C554": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_RUN_2_C625": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID_MAIN_C1023": {
+          "baseline": 1,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_RUN_2_C613": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_RUN_2_C631": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_2_C369": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID_MOTION_EXECUTE_C955": {
+          "baseline": 0,
+          "candidate": 64
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_RUN_2_C614": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_CALL_PRESENCE_2_C556": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID_IO_BIND_C1010": {
+          "baseline": 0,
+          "candidate": 20546
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_2_C355": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID_MOTION_EXECUTE_C933": {
+          "baseline": 1,
+          "candidate": 0
+        },
+        "Closure:FID_MOTION_EXECUTE_C954": {
+          "baseline": 0,
+          "candidate": 64
+        },
+        "Closure:FID_MAIN_C1022": {
+          "baseline": 1,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_CALL_2_C605": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_2_C357": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID_MAIN_C1042": {
+          "baseline": 0,
+          "candidate": 1
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_2_C354": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_2_C385": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_2_C387": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_RUN_2_C633": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_2_C375": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_RUN_2_C612": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_CALL_PRESENCE_2_C575": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_CALL_2_C585": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_MEASUREMENT_BEND_MOTION_COMMITTED_C243": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_2_C358": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_2_C359": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_2_C372": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_2_C371": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_MEASUREMENT_BEND_MOTION_LOOPS_C907": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_CALL_2_C604": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_2_C356": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_MEASUREMENT_BEND_MOTION_LOOPS_C908": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID_MEASUREMENT_BEND_MOTION_LOOPS_C924": {
+          "baseline": 0,
+          "candidate": 64
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_MEASUREMENT_BEND_MOTION_LOOPS_C909": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_2_C370": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_RUN_2_C632": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_CALL_PRESENCE_2_C573": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID_IO_BIND_C991": {
+          "baseline": 20546,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_CALL_2_C587": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_2_C373": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_RUN_2_C606": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID_MEASUREMENT_BEND_MOTION_LOOPS_C928": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "RFC redirect cell": {
+          "baseline": 14774590,
+          "candidate": 14758206
+        },
+        "Closure:FID_MAIN_C1041": {
+          "baseline": 0,
+          "candidate": 1
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_2_C370": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID_MOTION_EXECUTE_C935": {
+          "baseline": 64,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_2_C364": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_MEASUREMENT_BEND_MOTION_LOOPS_C905": {
+          "baseline": 64,
+          "candidate": 0
+        },
+        "Closure:FID_MOTION_EXECUTE_C937": {
+          "baseline": 64,
+          "candidate": 0
+        }
+      },
+      "evidenceHashes": {
+        "baseline": "9037212406d981720a527c00ffb9a481d5c975c21eb3211e1329e2ec0f525fe7",
+        "candidate": "0150285143319ca62573b7a321de9921119487921252248e23382b527a307260"
+      }
+    },
+    {
+      "schema": "Health",
+      "status": "PASS",
+      "sourceC": {
+        "baseline": "5b660d88bba6a78ff934617867d528b1928a75e714516f84cfe193da6ce9de1a",
+        "candidate": "d8028075ffae8e0144c7217aa62e4af01a2589ec1f608dcf47f5dd9b1efc29de"
+      },
+      "fullWorldsEach": 65,
+      "updates": 1048576,
+      "metrics": {
+        "heapEntries": {
+          "baseline": 32216007,
+          "candidate": 32199623,
+          "delta": -16384
+        },
+        "requestedWords": {
+          "baseline": 85281807,
+          "candidate": 85265423,
+          "delta": -16384
+        },
+        "rfcCreated": {
+          "baseline": 14774590,
+          "candidate": 14758206,
+          "delta": -16384
+        }
+      },
+      "physicalCalls": {
+        "baseline": {
+          "malloc": 0,
+          "mmap": 0,
+          "mprotect": 0,
+          "heap_alloc_miss": 0,
+          "bank_pop": 0,
+          "corpus_grow": 0
+        },
+        "candidate": {
+          "malloc": 0,
+          "mmap": 0,
+          "mprotect": 0,
+          "heap_alloc_miss": 0,
+          "bank_pop": 0,
+          "corpus_grow": 0
+        }
+      },
+      "changedConstructorKinds": {
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_RUN_3_C624": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_MEASUREMENT_BEND_HEALTH_LOOPS_C908": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_3_C371": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID_MEASUREMENT_BEND_HEALTH_LOOPS_C925": {
+          "baseline": 0,
+          "candidate": 64
+        },
+        "Closure:FID_MAIN_C1024": {
+          "baseline": 1,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_3_C370": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_RUN_3_C612": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID_MEASUREMENT_BEND_HEALTH_LOOPS_C929": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID_MAIN_C1043": {
+          "baseline": 0,
+          "candidate": 1
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_MEASUREMENT_BEND_HEALTH_LOOPS_C910": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_MEASUREMENT_BEND_HEALTH_COMMITTED_C242": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_RUN_3_C605": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID_MEASUREMENT_BEND_HEALTH_LOOPS_C928": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_3_C384": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID_HEALTH_EXECUTE_C936": {
+          "baseline": 64,
+          "candidate": 0
+        },
+        "Closure:FID_MAIN_C1023": {
+          "baseline": 1,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_CALL_3_C604": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_3_C347": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_CALL_3_C584": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_3_C358": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_CALL_PRESENCE_3_C574": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_RUN_3_C632": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_3_C369": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_3_C370": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_3_C386": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_RUN_3_C611": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID_HEALTH_EXECUTE_C957": {
+          "baseline": 0,
+          "candidate": 64
+        },
+        "Closure:FID_HEALTH_EXECUTE_C934": {
+          "baseline": 1,
+          "candidate": 0
+        },
+        "Closure:FID_HEALTH_EXECUTE_C938": {
+          "baseline": 64,
+          "candidate": 0
+        },
+        "Closure:FID_MEASUREMENT_BEND_HEALTH_LOOPS_C927": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID_MAIN_C1022": {
+          "baseline": 1,
+          "candidate": 0
+        },
+        "Closure:FID_IO_BIND_C992": {
+          "baseline": 20546,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_MEASUREMENT_BEND_HEALTH_LOOPS_C909": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID_MAIN_C1042": {
+          "baseline": 0,
+          "candidate": 1
+        },
+        "Closure:FID_IO_BIND_C1011": {
+          "baseline": 0,
+          "candidate": 20546
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_CALL_3_C603": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_CALL_PRESENCE_3_C553": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_3_C363": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_RUN_3_C630": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID_HEALTH_EXECUTE_C955": {
+          "baseline": 0,
+          "candidate": 64
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_3_C355": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID_MAIN_C1044": {
+          "baseline": 0,
+          "candidate": 1
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_3_C372": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_CALL_PRESENCE_3_C571": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID_HEALTH_EXECUTE_C956": {
+          "baseline": 0,
+          "candidate": 64
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_MEASUREMENT_BEND_HEALTH_LOOPS_C906": {
+          "baseline": 64,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_3_C369": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_CALL_PRESENCE_3_C552": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_CALL_PRESENCE_3_C572": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_3_C368": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_3_C353": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_CALL_3_C585": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID_HEALTH_EXECUTE_C953": {
+          "baseline": 0,
+          "candidate": 1
+        },
+        "Closure:FID_HEALTH_EXECUTE_C937": {
+          "baseline": 64,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_CALL_3_C586": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_3_C374": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_3_C373": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "RFC redirect cell": {
+          "baseline": 14774590,
+          "candidate": 14758206
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_3_C356": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_RUN_3_C631": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID_MAIN_C1041": {
+          "baseline": 0,
+          "candidate": 1
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_3_C354": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID_MEASUREMENT_BEND_HEALTH_COMMITTED_C246": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_RUN_3_C613": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_CALL_3_C605": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID____BENDVY_FOURHOUR_CLOSED_READER_INITIAL_PROBE_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_3_C385": {
+          "baseline": 0,
+          "candidate": 4096
+        },
+        "Closure:FID_MAIN_C1025": {
+          "baseline": 1,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_VISIT_3_C357": {
+          "baseline": 4096,
+          "candidate": 0
+        },
+        "Closure:FID____BENDVY_QUERY_FROZEN_PROVIDER_NATIVE_V3_EXPERIMENTS_S_INTEGRATE_DISPATCHER_CALL_PRESENCE_3_C555": {
+          "baseline": 4096,
+          "candidate": 0
+        }
+      },
+      "evidenceHashes": {
+        "baseline": "caeb75bc3d89e106aa8f4510dd798e7844a66abff40ce218cf1b8c9c126dd101",
+        "candidate": "b7d6c6c41edd1790c10129ac950352ce0be36b4eb97b48c4f0405725f16a9bfd"
+      }
+    }
+  ]
+}
