@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : IA.Wrapped<transaction.Tx<storage.World<T.HealthSchema, cached-payload.PrototypeHealthMainSlot, T.Armor, T.Tracked, cache.Cache<T.HealthLedger, T.LedgerView>, T.HealthMode>, storage.Handle<T.HealthSchema>, storage.Command<cached-payload.PrototypeHealthMainSlot, T.Armor, T.Tracked>>>
+- observed : Tx
+Context:
+- Tx    : Type
+- set   : @_:Tx -> @_:T.PositionToken -> @_:U32 -> Tx
+- owner : Tx
+Location: bad
+5 | def bad(-Tx:Type,set:Tx -> T.PositionToken -> U32 -> Tx,owner:Tx) -> Tx & T.Access<T.VitalsView>:
+6>|   IA.prototype_slot_host_health_read_main(owner,T.VitalsToken{})
+  |                                           ^^^^^
+7 | 

@@ -1,0 +1,9 @@
+#!/usr/bin/env python3
+"""Fresh pinned finite opaque-provider typing replay; no universal claim."""
+import argparse,pathlib,json,hashlib,shutil,subprocess
+p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path,required=True);p.add_argument('--fixtures',type=pathlib.Path,required=True);p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args();a.output.mkdir();sha=lambda b:hashlib.sha256(b).hexdigest();manifest=json.loads((a.candidate/'overlay.json').read_text());pins=manifest['sources'];assert len(pins)==29 and all(sha((a.candidate/n).read_bytes())==h for n,h in pins.items());shutil.copytree(a.candidate,a.output/'source');r={'status':'INCOMPLETE','scope':'Fresh finite private opaque-provider typing replay, not runtime/universal authority','sourcePins':pins,'cases':[]};old=json.loads((a.fixtures/'evidence.json').read_text())
+try:
+ for case in old['cases']:
+  name=case['case'];b=(a.fixtures/('authority-'+name+'.bend')).read_bytes();assert sha(b)==case['sourceSHA256'];entry=a.output/'source/experiments/s-integrate'/('authority-'+name+'.bend');entry.write_bytes(b);cmd=['taskset','-c','8','timeout','-k','1s','15s','bend',str(entry),'--check-only'];v=subprocess.run(cmd,capture_output=True,text=True,timeout=17);out=v.stdout+v.stderr;(a.output/(name+'.txt')).write_text(out);anchors=case['anchors'];passed=(v.returncode==0 and 'ALL PROOFS CHECK' in out) if anchors is None else (v.returncode==1 and 'SOME PROOFS FAIL' in out and all(s in out for s in anchors));r['cases'].append({'case':name,'command':cmd,'exit':v.returncode,'sourceSHA256':sha(b),'outputSHA256':sha(out.encode()),'anchors':anchors,'pass':passed});assert passed,name
+ r['status']='FRESH_SIX_FINITE_PRIVATE_PROVIDER_TYPING_CONTROLS_PASS'
+finally:(a.output/'evidence.json').write_text(json.dumps(r,indent=2)+'\n')

@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : T.PositionToken
+- observed : T.VitalsToken
+Context:
+- Tx    : Type
+- set   : @_:Tx -> @_:T.PositionToken -> @_:U32 -> Tx
+- owner : Tx
+Location: bad
+5 | def bad(-Tx:Type,set:Tx -> T.PositionToken -> U32 -> Tx,owner:Tx) -> Tx:
+6>|   set(owner,T.VitalsToken{},55)
+  |             ^^^^^^^^^^^^^^^
+7 | 
