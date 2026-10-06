@@ -103,3 +103,29 @@ def movement_body(~H: Type,~get: H -> H & C.Access<S.PositionView>,~set: H -> S.
   movement_get(~H,~set,~aux,~resource_get,get(ctx))
 def movement(world: W.World<S.Schema,S.Store,F32,S.SimEvent>) -> T.Returned<W.World<S.Schema,S.Store,F32,S.SimEvent>,Pv.Error<UserError>>:
   Q.each_rw_read(~S.Schema,~S.Store,~F32,~S.SimEvent,~S.PositionRest,~S.Position,~S.PositionView,~S.PositionToken,~S.take_positions,~S.put_positions,~S.project_position,~S.VelocityRest,~S.Velocity,~S.VelocityView,~S.VelocityToken,~S.take_velocities,~S.put_velocities,~S.project_velocity,~F32,~resource_view,~S.Bundle,~S.populate,~S.clear,~Unit,~UserError,~movement_body,S.position(),S.velocity(),Q.Required{},world,Unit{})
+def damage_publish(~H: Type,~emit: H -> S.SimEvent -> H,~despawn: H -> H,+id: U32,+amount: F32,+hp: F32,dead: Bool,ctx: H) -> H & T.Outcome<UserError>:
+  match dead:
+    case False{}: (emit(ctx,S.Hit{id,amount,hp}),T.Success{})
+    case True{}: (despawn(emit(emit(ctx,S.Hit{id,amount,hp}),S.Death{id})),T.Success{})
+def damage_write(~H: Type,~set: H -> S.Health -> H,~emit: H -> S.SimEvent -> H,~despawn: H -> H,+id: U32,+amount: F32,+hp: F32,ctx: H,owner: Maybe<&1,S.Health>) -> H & T.Outcome<UserError>:
+  match owner:
+    case None{}: (ctx,T.Failure{UnsupportedFixture{}})
+    case Some{owner}: damage_publish(~H,~emit,~despawn,id,amount,hp,F32.is_le(hp,0.0),set(ctx,owner))
+def damage_amount(~H: Type,~set: H -> S.Health -> H,~emit: H -> S.SimEvent -> H,~despawn: H -> H,+id: U32,+amount: F32,health: S.HealthView,ctx: H) -> H & T.Outcome<UserError>:
+  match health:
+    case S.HealthView{+hp,+history}: damage_write(~H,~set,~emit,~despawn,id,amount,(hp - amount : F32),ctx,S.health_owner(S.HealthView{(hp - amount : F32),history}))
+def armor_value(armor: C.Access<S.Armor>) -> F32:
+  match armor:
+    case C.Found{S.Armor{value}}: value
+    case _: 0.0
+def damage_aux(~H: Type,~set: H -> S.Health -> H,~emit: H -> S.SimEvent -> H,~despawn: H -> H,+id: U32,+health: S.HealthView,observed: H & C.Access<S.Armor>) -> H & T.Outcome<UserError>:
+  (ctx,+armor) = observed
+  damage_amount(~H,~set,~emit,~despawn,id,(2.0 - armor_value(armor) : F32),health,ctx)
+def damage_get(~H: Type,~set: H -> S.Health -> H,~aux: H -> H & C.Access<S.Armor>,~emit: H -> S.SimEvent -> H,~despawn: H -> H,+id: U32,observed: H & C.Access<S.HealthView>) -> H & T.Outcome<UserError>:
+  match observed:
+    case (ctx,C.Found{+health}): damage_aux(~H,~set,~emit,~despawn,id,health,aux(ctx))
+    case (ctx,_): (ctx,T.Failure{UnsupportedFixture{}})
+def damage_body(~H: Type,~get: H -> H & C.Access<S.HealthView>,~set: H -> S.Health -> H,~aux: H -> H & C.Access<S.Armor>,~resource_get: H -> H & F32,~resource_set: H -> F32 -> H,~emit: H -> S.SimEvent -> H,~despawn: H -> H,~spawn: H -> S.Bundle -> H & W.Reservation<S.Schema>,args: Unit,handle: W.Handle<S.Schema>,ctx: H) -> H & T.Outcome<UserError>:
+  damage_get(~H,~set,~aux,~emit,~despawn,handle_id(handle),get(ctx))
+def damage(world: W.World<S.Schema,S.Store,F32,S.SimEvent>) -> T.Returned<W.World<S.Schema,S.Store,F32,S.SimEvent>,Pv.Error<UserError>>:
+  Q.each_rw_read(~S.Schema,~S.Store,~F32,~S.SimEvent,~S.HealthRest,~S.Health,~S.HealthView,~S.HealthToken,~S.take_healths,~S.put_healths,~S.project_health,~S.ArmorRest,~S.Armor,~S.Armor,~S.ArmorToken,~S.take_armors,~S.put_armors,~S.project_armor,~F32,~resource_view,~S.Bundle,~S.populate,~S.clear,~Unit,~UserError,~damage_body,S.health(),S.armor(),Q.Optional{},world,Unit{})
