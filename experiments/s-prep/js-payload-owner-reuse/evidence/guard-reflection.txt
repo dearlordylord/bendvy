@@ -1,0 +1,17 @@
+/tmp/bendvy-js-payload-owner-reuse-guards-v2/reflection/rewrite.cjs:3
+const [input,output]=process.argv.slice(2),sha=s=>crypto.createHash('sha256').update(s).digest('hex'),assert=(v,m)=>{if(!v)throw Error(m)};
+                                                                                                                           ^
+
+Error: no owner reflection
+    at assert (/tmp/bendvy-js-payload-owner-reuse-guards-v2/reflection/rewrite.cjs:3:130)
+    at /tmp/bendvy-js-payload-owner-reuse-guards-v2/reflection/rewrite.cjs:9:274
+    at walk (/tmp/bendvy-js-payload-owner-reuse-guards-v2/reflection/rewrite.cjs:7:61)
+    at walk (/tmp/bendvy-js-payload-owner-reuse-guards-v2/reflection/rewrite.cjs:7:177)
+    at walk (/tmp/bendvy-js-payload-owner-reuse-guards-v2/reflection/rewrite.cjs:7:177)
+    at /tmp/bendvy-js-payload-owner-reuse-guards-v2/reflection/rewrite.cjs:7:133
+    at Array.forEach (<anonymous>)
+    at walk (/tmp/bendvy-js-payload-owner-reuse-guards-v2/reflection/rewrite.cjs:7:122)
+    at Object.<anonymous> (/tmp/bendvy-js-payload-owner-reuse-guards-v2/reflection/rewrite.cjs:9:1)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+
+Node.js v24.20.0

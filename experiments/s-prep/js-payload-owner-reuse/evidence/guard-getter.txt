@@ -1,0 +1,17 @@
+/tmp/bendvy-js-payload-owner-reuse-guards-v2/getter/rewrite.cjs:3
+const [input,output]=process.argv.slice(2),sha=s=>crypto.createHash('sha256').update(s).digest('hex'),assert=(v,m)=>{if(!v)throw Error(m)};
+                                                                                                                           ^
+
+Error: plain properties
+    at assert (/tmp/bendvy-js-payload-owner-reuse-guards-v2/getter/rewrite.cjs:3:130)
+    at /tmp/bendvy-js-payload-owner-reuse-guards-v2/getter/rewrite.cjs:9:15
+    at walk (/tmp/bendvy-js-payload-owner-reuse-guards-v2/getter/rewrite.cjs:7:61)
+    at /tmp/bendvy-js-payload-owner-reuse-guards-v2/getter/rewrite.cjs:7:133
+    at Array.forEach (<anonymous>)
+    at walk (/tmp/bendvy-js-payload-owner-reuse-guards-v2/getter/rewrite.cjs:7:122)
+    at walk (/tmp/bendvy-js-payload-owner-reuse-guards-v2/getter/rewrite.cjs:7:177)
+    at /tmp/bendvy-js-payload-owner-reuse-guards-v2/getter/rewrite.cjs:7:133
+    at Array.forEach (<anonymous>)
+    at walk (/tmp/bendvy-js-payload-owner-reuse-guards-v2/getter/rewrite.cjs:7:122)
+
+Node.js v24.20.0
