@@ -1,0 +1,33 @@
+{
+  "clone-owner": [
+    "owner"
+  ],
+  "cross-schema": [
+    "S.World<Other",
+    "S.World<Schema"
+  ],
+  "cross-component": [
+    "S.World<Schema, U32",
+    "S.World<Schema, Owned"
+  ],
+  "undeclared-access": [
+    "expected : Owned",
+    "observed : bad~P"
+  ],
+  "write-read": [
+    "expected : bad~P",
+    "observed : Owned"
+  ],
+  "escape-data": [
+    "expected : Data",
+    "observed : Type"
+  ],
+  "actual-client-undeclared": [
+    "expected : Owned",
+    "observed : bad~P"
+  ],
+  "actual-client-write-read": [
+    "expected : bad~P",
+    "observed : Owned"
+  ]
+}
