@@ -1,0 +1,72 @@
+[
+  {
+    "argv": [
+      "python3",
+      "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-measurement/prepare-bend.py",
+      "--core",
+      "/tmp/bendvy-fourhour-closed-reservation-v2-probe/experiments/s-integrate",
+      "--output",
+      "/tmp/bendvy-fourhour-closed-reservation-v2-health-build",
+      "--schema",
+      "Health",
+      "--batch",
+      "64"
+    ],
+    "cpu": 7,
+    "capSeconds": 5,
+    "exit": 0,
+    "output": ""
+  },
+  {
+    "argv": [
+      "python3",
+      "/workspace/formal-proofs/bendvy/experiments/s-prep/static-schema-driver/materialize.py",
+      "--driver",
+      "/tmp/bendvy-fourhour-closed-reservation-v2-health-build/batch.bend",
+      "--schema",
+      "Health"
+    ],
+    "cpu": 7,
+    "capSeconds": 5,
+    "exit": 0,
+    "output": "{\"scope\": \"Only known schema at main entry selected statically; all runtime modules/callbacks/work/clock/outputs unchanged; not canonical evaluator approval\", \"schema\": \"Health\", \"originalSHA256\": \"09fa24f71c24bcedec5c1d56a0a31daadc7a79640aec079b7855ec23f8bcd314\", \"derivedSHA256\": \"ff0d301751e25510bc425a5c703cc242d8a00105a35be6733666bce1e9ede3ee\", \"originalMain\": \"choose(1,256,64)\", \"derivedMain\": \"health_batch(256,64)\", \"recipeSHA256\": \"32e5af1cbb3e5996253d1f29f531de23d2ebb47f9e6ce9ac19c4ec6ac0fae6f7\"}\n"
+  },
+  {
+    "argv": [
+      "bend",
+      "/tmp/bendvy-fourhour-closed-reservation-v2-health-build/batch.bend",
+      "--check-only"
+    ],
+    "cpu": 7,
+    "capSeconds": 15,
+    "exit": 0,
+    "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+  },
+  {
+    "argv": [
+      "bend",
+      "/tmp/bendvy-fourhour-closed-reservation-v2-health-build/batch.bend",
+      "-o",
+      "/tmp/bendvy-fourhour-closed-reservation-v2-health-build/batch.c"
+    ],
+    "cpu": 7,
+    "capSeconds": 30,
+    "exit": 0,
+    "output": ""
+  },
+  {
+    "argv": [
+      "/tmp/bendvy-clang19-diagnostic/clang19",
+      "-O3",
+      "/tmp/bendvy-fourhour-closed-reservation-v2-health-build/batch.c",
+      "-pthread",
+      "-lm",
+      "-o",
+      "/tmp/bendvy-fourhour-closed-reservation-v2-health-build/batch.native"
+    ],
+    "cpu": 7,
+    "capSeconds": 120,
+    "exit": 0,
+    "output": ""
+  }
+]

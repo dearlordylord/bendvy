@@ -1,0 +1,57 @@
+{
+  "status": "PASS_FULL65",
+  "scope": "Finite full65 schema fields only; no elapsed qualification or universal refinement",
+  "schema": "Health",
+  "cpu": 7,
+  "commands": [
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-measurement/prepare-ts.py",
+        "--source",
+        "/workspace/formal-proofs/bendvy/experiments/s-integrate/measurement-samples-reference.mjs",
+        "--output",
+        "/tmp/bendvy-fourhour-publish-health-edges/reference.mjs",
+        "--schema",
+        "Health",
+        "--batch",
+        "64"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "a16a68a4cfe33cbc63dcf6f593994b93bcb88d8f8ffe9a682a892a58d3a0f7d3"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-fourhour-publish-health-edges/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "f9e1bd407ab8c0e898a2d899e6b229f43b3dc3f008a97dd1d3d0a4b12d7c230f"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-fourhour-publish-health-js/counted.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "0d0d4a0a39cac1ee4a67b576696ad6c50fd188b978f6b058781a1513884bfc40"
+    }
+  ],
+  "programSHA256": "73ad0a6a5c794b58c9dffe939b0960a0229d4ae107602f92c3c1674bc15602bc",
+  "kind": "js",
+  "runnerSHA256": "1c3d548f303e8edc6349636f461b71f33e99087640304ebd6ec190ae0b21d438",
+  "publishEdges": {
+    "reserve": 16640,
+    "reserved": 16640,
+    "publish": 16640,
+    "edge": 16640
+  },
+  "allFullFieldsEqual": true,
+  "worlds": 65,
+  "referenceSourceSHA256": "ecfd1b590964fb76fb69a7a28e9dffa05b631592f47a52f11921ffaec25253b6",
+  "referenceSHA256": "bf28b60bb93ab8ce037f6464e575691316e4baf4a0cca55ecc64250054e2f688",
+  "validatorSHA256": "25ab577d5234a1c30f46318708455377353ec39d4fb0b6bf1b40ad5ea5da8f84"
+}

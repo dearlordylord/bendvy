@@ -1,0 +1,22 @@
+--- experiments/s-integrate/commands.bend
++++ experiments/s-integrate/commands.bend
+@@ -13,0 +14,11 @@
++
++def prototype_closed_reserved(~M: Type,~A: Type,~F: Data,-Schema: Data,-L: Type,-Mode: Data,
++  bundle: S.Bundle<M,A,F>,result: S.World<Schema,M,A,F,L,Mode> & Maybe<&2,S.Handle<Schema>>) -> T.Reservation<S.World<Schema,M,A,F,L,Mode>,S.Handle<Schema>,S.Bundle<M,A,F>>:
++  match result:
++    case (world,None{}): T.ReserveRejected{world,bundle}
++    case (world,Some{S.Handle{namespace,+id}}): T.Reserved{S.prototype_closed_publish(~M,~A,~F,Schema,L,Mode,world,[S.Spawn{id,bundle}]),S.Handle{namespace,id}}
++
++def prototype_closed_reserve(~M: Type,~A: Type,~F: Data,-Schema: Data,-L: Type,-Mode: Data,
++  world: S.World<Schema,M,A,F,L,Mode>,bundle: S.Bundle<M,A,F>) -> T.Reservation<S.World<Schema,M,A,F,L,Mode>,S.Handle<Schema>,S.Bundle<M,A,F>>:
++  prototype_closed_reserved(~M,~A,~F,Schema,L,Mode,bundle,I.reserve_id(Schema,M,A,F,L,Mode,world))
++
+--- experiments/s-integrate/raw-boundaries.bend
++++ experiments/s-integrate/raw-boundaries.bend
+@@ -28 +28 @@
+-  motion_reserve_return(Q.reserve(T.MotionSchema,C.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,C.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,world,motion_bundle(raw)))
++  motion_reserve_return(Q.prototype_closed_reserve(~C.Cache<T.Position,T.PositionView>,~T.Velocity,~T.Selected,T.MotionSchema,C.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,world,motion_bundle(raw)))
+@@ -59 +59 @@
+-  health_reserve_return(Q.reserve(T.HealthSchema,C.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,C.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,world,health_bundle(raw)))
++  health_reserve_return(Q.prototype_closed_reserve(~C.Cache<T.Vitals,T.VitalsView>,~T.Armor,~T.Tracked,T.HealthSchema,C.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,world,health_bundle(raw)))
