@@ -351,3 +351,23 @@ The new reached scalar changed-stamp omission is now detected on all eight fresh
 JS direct subjects by protected normal/suppression oracles (576 records), with
 positive unmodified conditional-write counters. This is finite backend mutation
 coverage only; source-level full22/inverse-order/refinement/performance remain open.
+
+## Four-hour profile window frontier — 2026-10-06
+
+#21/#24 remain incomplete. Current exact source is descending typed-ID cursor
+b0fdd6c4 with independent Native7,758,791requests/3,248,446RFC per schema.
+Scoped query/Owned/order/mutation and fresh576Tx/backend gates pass; current-source
+JS transport also has fresh finite gates. Raw Dense Native examples reach2x,
+but not consistently; JS parity, full22, qualification and the5×3 matrix are open.
+Do not select a keep or reuse another source's acceptance.
+
+Next integration is actual persistent Slot Host invoke/tick/dispatch/reserve/service/
+barrier plus audited/structural providers, preserving authored Host algorithms and
+both capture styles. Original Cache dispatch rejects Slot Host; merely relaxing
+fixture recognition would bypass the candidate. Implement this interface before
+claiming original Host/E11/private-route coverage, then complete the route-aware
+full22 and qualified measurement prerequisites. Existing20 physical attempts stay
+exhausted, default/proofs5s and executable diagnostic15s remain distinct.
+[Outcome and full acceptance ledger](reports/fourhour-profile-outcome.md);
+[exact full22 map](../experiments/s-prep/source-private-id-query-remaining-gates/README.md);
+[Host interface evidence](../experiments/s-prep/source-private-id-query-host-gates/README.md).

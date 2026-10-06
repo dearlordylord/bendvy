@@ -22,7 +22,18 @@ try:
  constant=m['status']=='STRICT_CONSTANT_SWAP_PASS'
  state=m['status']=='STRICT_PRIVATE_CURSOR_STATE_REUSE_PASS'
  unused=m['status']=='STRICT_UNUSED_PLAIN_PRIVATE_ROW_PROJECTIONS_PASS'
- if unused:
+ sum4=m['status']=='EXACT_CLOSED_FOUR_U32_SUM_INNER_CASTS_REMOVED'
+ if sum4:
+  catalog=d/'input-pins.json';pin=json.loads(catalog.read_text())[m['inputSHA256']]
+  assert pin['schema']==a.schema.lower() and pin['label']==a.schema.lower() and pin['mode']=='cursor-normal'
+  assert m['outputSHA256']==sha(a.candidate) and m['recipeSHA256']==sha(d/'rewrite.cjs') and m['catalogSHA256']==sha(catalog)
+  assert m['helper']==pin['sumName'] and m['removedCasts']==2 and m['bound']==17179869180 and m['bound']<2**53
+  baseline=Path(pin['inputPath']);assert sha(baseline)==m['inputSHA256']
+  for n,h in pin['files'].items():assert sha(Path(n))==h
+  parent=Path(str(baseline)+'.recipe.json');pm=json.loads(parent.read_text());assert pm['status']=='STRICT_UNUSED_PLAIN_PRIVATE_ROW_PROJECTIONS_PASS' and pm['outputSHA256']==sha(baseline)
+  m['sourcePins']=pin['sourcePins'];m['sourceRoot']=pin['sourceRoot'];m['provenancePins']={**pin['files'],str(catalog):sha(catalog),str(d/'rewrite.cjs'):sha(d/'rewrite.cjs')}
+  r['u32SumAdmission']={'catalogSHA256':sha(catalog),'parentReceiptSHA256':sha(parent),'removedCasts':2,'maximumExactSum':m['bound']}
+ elif unused:
   catalog=d/'input-pins.json';pin=json.loads(catalog.read_text())[m['inputSHA256']]
   assert pin['schema']==a.schema.lower() and pin['label']==a.schema.lower() and pin['mode']=='cursor-normal'
   assert m['outputSHA256']==sha(a.candidate) and m['recipeSHA256']==sha(d/'rewrite.cjs') and m['catalogSHA256']==sha(catalog)

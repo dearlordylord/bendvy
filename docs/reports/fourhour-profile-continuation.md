@@ -1,4 +1,4 @@
-# Four-hour profile-guided continuation — active
+# Four-hour profile-guided continuation — investigation record
 
 Authorization: user granted four hours, 2026-10-06T05:51:16Z–09:51:16Z,
 including preparation, source experiments, controls, observations and delivery.
@@ -279,3 +279,13 @@ are explicitly invalid and retained with annotations. Later comparisons above
 are serial. No contaminated observation, parent gate or timeout is acceptance.
 Next active probe removes only dominating-const array swap closures in generated
 JS with exact source/runtime/order guards; speed and adoption remain unclaimed.
+
+## Final reporting checkpoint
+
+[Outcome and acceptance ledger](fourhour-profile-outcome.md) supersede historical
+pending statements above. Both governing issues remain incomplete. No qualified
+keep, core completion or performance acceptance is claimed. Final same-source
+first-stage controls after owned workers idle: Motion TS177.705/Native72/JS190ms,
+Health164.896/75/188ms, complete65 fields pass. Optional micro-probes have mixed
+or adverse effects and remain diagnostic. Next integration is actual Slot Host
+services/providers, then route-aware full22 and qualified matrix prerequisites.

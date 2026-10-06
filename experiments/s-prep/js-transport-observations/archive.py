@@ -4,7 +4,7 @@ import hashlib,io,json,tarfile
 from pathlib import Path
 H=Path(__file__).resolve().parent;E=H/'evidence';E.mkdir(exist_ok=True)
 sha=lambda b:hashlib.sha256(b).hexdigest();files={};cases=[]
-patterns=['bendvy-js-direct-tuple-*-observation*','bendvy-js-packed-paired-*-observation*','bendvy-js-cursor-*-observation*']
+patterns=['bendvy-js-direct-tuple-*-observation*','bendvy-js-packed-paired-*-observation*','bendvy-js-cursor-*-observation*','bendvy-js-cursor-*-joined*']
 for root in sorted({p for pattern in patterns for p in Path('/tmp').glob(pattern) if p.is_dir()}):
  r=json.loads((root/'evidence.json').read_text());case={k:r.get(k) for k in ['status','schema','rotation','phaseMS','error','recipeSHA256']};case['directory']=root.name
  case['measurementLimit']=json.loads((root/'measurement-limit.json').read_text()) if (root/'measurement-limit.json').exists() else None;cases.append(case)
@@ -17,7 +17,7 @@ for root in sorted({p for pattern in patterns for p in Path('/tmp').glob(pattern
    p=Path('/tmp')/source/n
    if p.exists() and sha(p.read_bytes())==h:files[str(p)]=p;break
   else:raise AssertionError(n)
-for pattern in ['bendvy-direct-tuple-*-final.js*','bendvy-direct-tuple-*-nested.js*','bendvy-cursor-generated-*-nested.js*','bendvy-js-identity-query-*-pool-v3.js*','bendvy-descending-generated-*-nested.js*','bendvy-unused-row-*.js*','bendvy-cursor-state-*.js*']:
+for pattern in ['bendvy-direct-tuple-*-final.js*','bendvy-direct-tuple-*-nested.js*','bendvy-cursor-generated-*-nested.js*','bendvy-js-identity-query-*-pool-v3.js*','bendvy-descending-generated-*-nested.js*','bendvy-unused-row-*.js*','bendvy-cursor-state-*.js*','bendvy-u32-sum-*.js*']:
  for p in Path('/tmp').glob(pattern):
   if p.is_file():files[str(p)]=p
 for root in [Path('/tmp/bendvy-packed-paired-generated-frozen-v1'),Path('/tmp/bendvy-constant-swap-controls-frozen'),Path('/tmp/bendvy-descending-generated-frozen-v1')]:

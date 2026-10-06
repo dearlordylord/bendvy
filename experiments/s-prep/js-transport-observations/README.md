@@ -71,3 +71,21 @@ controllers lacking query enumeration are refused. It remains mechanism-only.
 All raw values and adverse outcomes are retained. Archive naming initially
 failed on relative root-added recipe paths; explicit path normalization repairs
 packaging without changing observations or waiving any decoded SHA256 check.
+
+The final closed Four-U32 sum probe removes only two inner casts, retains
+four reads/addition order/outer wrap and bounds the full exact Number sum
+below2^53. Its own2320 BigInt edges, throw/order/refusal controls, full65 and
+current576 pass; it establishes no new ECS law or compiler adoption. Joined
+Motion TS173.175/Native74/JS192ms and Health162.748/73/177ms pass complete fields.
+Same-parent causal clocks are mixed: Motion189/parent170/TS153.184ms,
+Health175/parent189/TS172.862ms. Therefore this is not a joint performance keep.
+The observer pins exact actual arithmetic/source/body/catalog/producer metadata;
+all prior recipes and adverse observations remain available. No per-schema
+cherry-pick of different probes constitutes project acceptance.
+
+Final same-first-stage control observations run after all owned workers report
+idle: Motion TS177.704792/Native72/JS190ms; Health164.895935/75/188ms. Every65
+world's complete fields pass. JS ratios1.069/1.140 and Native speedups2.468/2.199
+are descriptive only; host-wide noise, full22/5×3 matrix and qualification remain
+open. This does not select different optional probes per schema or hide earlier
+adverse observations.
