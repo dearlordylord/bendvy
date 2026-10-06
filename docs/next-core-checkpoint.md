@@ -21,15 +21,18 @@ Direct source investigation continues; the exhausted canonical20-attempt session
 is unchanged. No new law, dependency, compiler/kernel/reference modification,
 production adoption or relaxed acceptance gate is authorized.
 Current evidence: [four-hour report](reports/fourhour-profile-continuation.md).
-Current reached mechanism: private erased-Type handle-query presence keeps opaque
-Main through intrinsic Array.swap/set. Motion independent counters improve
-22,414,279→17,171,399 requests with all65 full worlds; Health and query/authority
-controls are being verified separately. The prior custom-array recursive route
-regressed to43,385,799 requests and is rejected. Flat row/pool emitted-JS and its
-genuine ledger composition pass their own bounded controls; these are separate
-backend diagnostics, not source/compiler adoption. Same-C Os is not adopted.
-Adjacent private journal pairing remains a new measured mechanism probe; no
-full22, production authority, universal refinement or speed threshold is passed.
+Current reached mechanism: private erased-Type identity query passes independent
+version-specific ownership/access controls; both schemas remove5,242,880 Native
+requests versus joined source without JS constructor savings. Persistent private
+Main slots then remove4,194,304 requests per schema, retaining owned raw arrays
+and every distinct cached scalar. Both schema/backend full65 fields pass, with
+raw Native/TS around0.6 and JS still above1. Current work measures an actual
+packed-slot+paired-journal composition and guarded direct-Tuple JS transport.
+Each new closure requires its own Tx/ownership/access/mutation evidence; no
+full22, universal refinement, qualification or production adoption is passed.
+Same-C Os, direct Main transport and recursive owning query traversal are stopped.
+The historical canonical20-attempt session remains exhausted and unchanged.
+
 
 
 ## Current performance diagnostic follow-up
