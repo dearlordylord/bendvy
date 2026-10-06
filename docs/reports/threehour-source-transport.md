@@ -84,3 +84,80 @@ receipt retains the next exact boundary; global conservative hotness still
 persists at query.struct_idx_finish. This does not resolve global sharing or
 authorize compiler/kernel changes. The current five/15/30/120/5 limits and all
 unmet targets remain unchanged.
+
+## Recovery and current acceptance (05:28 UTC)
+
+The container/session interruption left the exact source overlays and receipts
+intact. Old process IDs/handles were revalidated; no uncertain live execution was
+restarted. Fresh missing query/provider/factory and write-fold retained/returned
+controls were completed on the joined closure. The original raw retained emitter
+timeout is preserved; exact main-call partitions keep reachable definitions and
+callbacks byte-identical and concatenate to independently expected full records.
+Local registration recognition is precisely bound to the actual fold route;
+shared oracles/compiler/kernel are unchanged, earlier refusals remain separate.
+
+The [fold/no-Aux source join](../../experiments/s-prep/source-fold-noaux-join/README.md)
+matches full65 fields on both schemas/backends and passes the freshly bound query,
+authority/provider/factory, actual Tx/suppression, live mutation, affine/clone,
+retained and returned-owner slices. Its independent Native totals are
+heap28,718,023/RFC13,726,014/requestedwords61,508,623; source seam savings are
+observed as additive in this exact binary, not inferred from other overlays.
+
+After revalidating changed host/process state, one adjacent CPU11 observation per
+schema passed complete fields: Motion TS186.828453ms, row Native188/join184,
+row JS292/join233; Health TS171.197362ms, Native197/198, JS273/236. Joined elapsed/TS
+ratios are Motion JS1.2471/Native0.9849; Health JS1.3785/Native1.1566. **Both required
+targets remain unmet.** Earlier CPU7 TS and CPU11 joined-JS timeouts are retained;
+these isolated observations do not qualify gain/regression or authorize a keep.
+
+An equal eight-world Health CPU/GC profile matches all nine complete worlds.
+Self samples: fold live9.43%, GC8.04%, Ledger swap7.86%, no-Aux advance6.14% and
+authored Ledger callback5.36%. GC intervals approximately288.7MB versus TS90.2MB
+are boundary-straddling diagnostics, not exact physical allocation. Profile and
+recipe hashes are retained in the joined source package. This motivates a
+separate nominal-Type inline payload representation probe, not callback changes.
+That probe changes concrete benchmark constructor layout and cannot inherit
+#24's existing-payload preservation or protected Raw-fixture acceptance.
+
+The separate helper-closure chain removes successive observed seeds through
+transaction success, storage commit and ledger marks. A publish-only copy passes
+finite Motion fields yet leaves the **same original storage.publish seed**:
+structural reserve/queue callers retain the generic route. Global sharing is not
+resolved; the conditional resolved-star Native counters were therefore not run.
+This negative is archived with exact emitted-C equality and limits; source-body
+closure cannot be reported as global-sharing or elapsed success.
+
+### Remaining governing criteria
+
+- #21 source-supported candidate/profile/counters: delivered bounded evidence.
+  No reviewed production layout or independent final Spec/Standards approval.
+- #21/#24 complete connected22, both capture styles and full E11/access/ownership
+  matrix: partial; this window's finite gates do not replace those observations.
+- #21 five workloads ×three sizes ×three backends/seven rotations, resolution
+  margin and noise qualification: untested for current joins; no new contract,
+  physical-attempt allowance or qualified cohort is inferred.
+- #21 actual workload transaction peaks/cursor metrics and compiling counter
+  mutants: not delivered by constructor counts or end-state observations.
+- #24 callback/affine return/negative controls: fresh bounded slices pass;
+  universal refinement, production confinement/API and approved-law proof
+  obligations remain separate. No new law/proof approval or dependency.
+- Product JS<=1/Native<=0.5: contradicted by current raw observations, not accepted.
+  Simulation/Canonical-defense integration and production adoption stay gated.
+
+Next performance decisions should use exact source-pinned profiling and unchanged
+authored work. Preserve the source-layout probe's constructor-domain distinction,
+and either close all genuine generic publish callers or obtain an explicitly
+reviewed compiler investigation before any compiler edit. Continue tracking every
+full-parent gate rather than treating this diagnostic window as issue completion.
+
+## Final inline payload diagnostic
+
+The separate [inline nominal-Type probe](../../experiments/s-prep/source-inline-payload-probe/README.md)
+passes both schemas/backends full65 fields and nominal owner clone rejection.
+Original measured callbacks/generic ECS are unchanged, but six benchmark raw
+constructor arities/domains change; protected Raw Tx/access/retained gates remain
+open and this is not #24 payload-preservation acceptance. One adjacent diagnostic:
+Motion TS199.633160ms, joined/inline Native194/198, JS231/256; Health TS199.970078ms,
+Native194/198, JS257/251. No consistent raw advantage or target achievement is
+observed. Motion JS adverse result, source failures and exact outputs are retained;
+no qualified gain, production layout or canonical keep is accepted.

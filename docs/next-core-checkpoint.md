@@ -30,6 +30,18 @@ codegen30, clang120 and runtime5 remain. Root owns integration and fresh exact-w
 comparisons; isolated workers own disjoint source probes. The old canonical
 session remains untouched; direct bounded observations do not authorize keeps.
 
+Latest fresh joined source gates are recorded in
+[row/query evidence](../experiments/s-prep/source-row-query-join/README.md).
+Both schemas/backends full65, actual Tx/suppression, retained views and live
+mutation families pass in their bounded scopes. The next diagnostic composition
+is source write-fold plus exact closed no-get query forwarding; fresh full65 and
+independent Native request attribution pass, while its own remaining joined
+controls now pass in their scoped slices; single full65 raw clocks still miss
+both targets. The separate inline nominal-Type payload probe also misses targets
+and requires fresh concrete Raw fixture reconciliation. Native counters alone and
+JS expression counts do not pass the performance gate. No production adoption,
+full22 completion or universal refinement is implied.
+
 ### Earlier profiling history
 
 [Profile-directed continuation](reports/profile-directed-optimization.md) adds source-bound batched marks, boxed Native context and direct raw swaps. Batched marks pass64 literal lifecycle fields/backend and actual live omission mutant; boxed original/suppressed-owner/lost-mark/inverse-order Tx and fresh access/provider/factory controls pass within their bounded scopes. V8 heap sampling identifies callback/held/query allocation; constructor reduction alone does not establish a GC or speed improvement. Latest raw equal65world sample TS312.143ms/JS890ms/Native828ms misses targets. Full22 still fails Cemit30 (boxed joined gate reaches inverse-order Motion); no qualification/adoption/cap reset. Query CPS reconstruction was rejected for adding closure/trampoline constructions. A strict emitted Held/Cache reuse probe removes8 constructions/update and passes bounded traces, but one raw TS1097.803ms/JS1683ms comparison still misses parity. See the [compiler reuse draft](design/affine-js-node-reuse.md); compiler adoption and universal alias safety remain open, with fresh source-bound gates required.

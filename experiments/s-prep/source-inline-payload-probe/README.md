@@ -1,5 +1,21 @@
 # Inline nominal Type benchmark payload probe
 
+## Adjacent observations; targets remain unmet
+
+One CPU11 full65 diagnostic per schema, all fields matched fresh pinned TS.
+Baseline is the actual fold/no-Aux source join; same privateClang19 O3/oneworker,
+GPUoff, Node24.20 and runtime5. Source/build/raw outputs are pinned in observations/.
+
+| Milliseconds | TS | Joined Native | Inline Native | Joined JS | Inline JS |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Motion |199.633160|194|198|231|256|
+| Health |199.970078|194|198|257|251|
+
+The Motion JS adverse value is retained; there is no qualified gain/regression.
+Inline JS/TS remains above1 and Native/TS above0.5 on both subjects. This result
+does not justify adoption or complete #24's existing-concrete-payload criterion;
+the probe is separate representation research under the broader performance goal.
+
 This is an experimental representation of the benchmark's six fixed-four payloads, not a generic ECS component restriction. Position, Velocity, Vitals, Armor and both Ledgers remain nominal `Type`, with four U32 fields plus all original metadata. Generic storage/query/Held/transaction support for arbitrary affine Type and Array owners is unchanged. Public get/swap signatures and Data view schemas remain unchanged. Get reconstructs the same immutable view; swap returns the exact true-old first scalar and preserves the other three scalars and metadata.
 
 The pin-checked recipe copies the joined 29-source closure, then changes only types.bend, payload.bend, uncached-payload.bend and concrete constructor expressions in measurement-bend.bend, systems.bend and host.bend. Constructor adaptation uses balanced parentheses, requires exactly four top-level arguments, and preserves every argument byte and order. Original measured prototype-static-client callbacks and generic callback headers/algorithms remain unchanged. Obsolete private concrete array-get/swap adapters are replaced with scalar adapters; generic Array helpers remain.
