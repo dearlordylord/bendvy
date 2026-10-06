@@ -1,0 +1,11 @@
+# Concrete-v3 scheduling probe prospective review
+
+Reviewed final MASTER catalogs `/tmp/bendvy-native-tune-catalogs-final-v2-r1/{motion,health}.json`; independently verified all1012 current pins per catalog. Both exact source29/cache closures are concrete-v3 `a4672d110446195e3ac92911c6f41166b62025811df8816878356d0eafd08a55`. Actual unchanged C/default builder/driver, tool/library/include, current guarded JS89-input freeze and finite admission joins are bound.
+
+Fresh default and tuned Native full65 receipts pass for both schemas with explicit current source29/closure/program hashes. Actual tuned builds add solely `-mtune=apple-m1`. Recorded target CPUs remain generic, triple/ABI agree, and ordered target features differ only by exactly one each `+zcm,+zcz`. Their reviewed LLVM19.1.7 definitions are non-ISA move/zeroing preferences; after removing them the baseline feature list is identical. No march/LSE/fast-math change is admitted. Original strict-feature rejection and subsequent precise targetCPU-key preparer repair remain history, rather than being relabeled passes.
+
+Independent admission JSON `/tmp/bendvy-native-tune-review-v2-r1.json` binds the exact catalogs and current observer. Fresh `prepare-plan-v2.py` replay succeeds at `/tmp/bendvy-native-tune-plan-independent-v2-r1.json`, SHA `124ef20ca905f1c98cf588c842d24d5fa666fd3abee763e47d3d9c41193138bc`. No build/workload/comparative execution by this reviewer.
+
+The prospective five-role protocol explicitly duplicates identical current JS, compares default/tuned Native on the same C, and uses ten balanced shifts/reversed shifts per schema, CPU11 sequential5-second children, fresh whole-process RSS, complete65 observations and pre/post pins. Reviewed outer-failure handling and deadline/partial-status rules remain intact. This is speculative scheduling on an unidentified Apple CPU, not detected M1 optimization or new hardware requirements.
+
+This exact plan is suitable for bounded raw diagnosis only. No noise qualification, timed physical wholeWorld forcing, full22/fullmatrix, canonical reset, numerical performance acceptance, keep or adoption is established. This file is frozen before execution; final numbers require separate review.
