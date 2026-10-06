@@ -301,3 +301,11 @@ performance acceptance. Root verified all331 initial archive member hashes and
 13 private-toolchain archive pairs. New live mutation/full22/authority/matrix/
 qualification gates remain separate; fresh source Native and compiler ABI receipts
 are explicitly separate from emitted-JS transformation acceptance.
+
+A final source-pinned generated-JS negative control removes only the changed-stamp
+write at the new reached scalar loop. All eight subjects compile/execute72 records,
+positive original conditional-write counters are nonzero, and unchanged protected
+normal/suppression oracles detect the omission (576 records). Other fields and
+index/RHS evaluation stay unchanged. [Finite backend mutation evidence](../../experiments/s-prep/frozen-query-chain-direct-controls/mark/README.md).
+This fills that finite backend negative-control gap; source-level ECS mutants,
+inverse-order on this new chain, full22/refinement and performance remain open.

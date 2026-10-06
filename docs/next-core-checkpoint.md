@@ -299,3 +299,8 @@ Sixteen direct Raw receivers/eight mark loops are reached. This fills the finite
 Tx gap with new execution, not old-source transfer. Live mutants, full22/remaining
 Host/authority, qualification/matrix/refinement and performance gates stay open.
 [Direct receipt](../experiments/s-prep/frozen-query-chain-direct-controls/README.md).
+
+The new reached scalar changed-stamp omission is now detected on all eight fresh
+JS direct subjects by protected normal/suppression oracles (576 records), with
+positive unmodified conditional-write counters. This is finite backend mutation
+coverage only; source-level full22/inverse-order/refinement/performance remain open.
