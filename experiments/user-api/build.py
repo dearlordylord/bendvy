@@ -30,6 +30,8 @@ def main():
     for folder in [ROOT / "src/ecs", ROOT / "examples/user-simulation"]:
         for source in sorted(folder.glob("*.bend")):
             receipt["sources"][str(source.relative_to(ROOT))] = sha(source)
+    work = ROOT / "experiments/user-api/core-controls/retry-work.bend"
+    receipt["sources"][str(work.relative_to(ROOT))] = sha(work)
     env = os.environ.copy()
     env["BENDVY_CLANG19_ROOT"] = "/tmp/bendvy-clang19-diagnostic/root"
 
@@ -59,6 +61,17 @@ def main():
         observed = json.loads(run(command, 5, backend.lower() + "-run"))
         receipt["observations"][backend] = validate(observed)
         (evidence / (backend.lower() + ".json")).write_text(json.dumps(observed, indent=2) + "\n")
+    run(["bend", work, "-o", output / "retry-work.js"], 30, "work-js-emit")
+    run(["bend", work, "-o", output / "retry-work.c"], 30, "work-c-emit")
+    run([clang, "-O3", output / "retry-work.c", "-o", output / "retry-work.native",
+         "-pthread", "-lm"], 120, "work-native-build")
+    for backend, command in [("JS", ["node", output / "retry-work.js"]),
+                             ("Native", [output / "retry-work.native"])]:
+        counted = json.loads(run(command, 5, backend.lower() + "-work-run"))
+        assert counted == [[2, 1, 1, 1], [0, 1, 0, 0]], "Authored retry work differs"
+        receipt["observations"][backend]["retryWorkCounts"] = counted
+    for source, digest in receipt["sources"].items():
+        assert sha(ROOT / source) == digest, "Source changed during controls"
     receipt["artifacts"] = {name: sha(output / name) for name in
                             ["simulation.js", "simulation.c", "simulation.native"]}
     receipt["status"] = "PASS_FINITE_PUBLIC_APPLICATION_BOTH_BACKENDS"

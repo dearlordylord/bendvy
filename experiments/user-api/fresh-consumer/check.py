@@ -40,9 +40,20 @@ with tempfile.TemporaryDirectory(prefix="bendvy-fresh-consumer-") as tmp:
     script = "import Arena from " + json.dumps(module) + "; console.log(Arena.scenario())"
     assert run(["node", "--input-type=module", "-e", script]) == EXPECTED
 
-for name in ["cross_schema", "owned_copy", "read_write", "registry_rebind", "undeclared"]:
+diagnostics = {
+    "cross_schema": ["expected : W.Handle<Arena.Arena>", "observed : W.Handle<Other>"],
+    "owned_copy": ["expected : Data", "observed : Type"],
+    "read_write": ["expected : @_:bad~H -> @_:Arena.Position -> bad~H",
+                   "observed : @_:bad~H -> Sigma"],
+    "registry_rebind": ["Unit, alternate>", "Unit, Arena.move_runner>"],
+    "undeclared": ["expected : W.World<Arena.Arena, Arena.Store, U32, Arena.Hit>",
+                   "observed : bad~H"],
+}
+for name, required in diagnostics.items():
     path = str((HERE / ("negative_" + name + ".bend")).relative_to(ROOT))
-    run(["timeout", "5s", "bend", path], expected_code=1, contains="- expected :")
+    run(["timeout", "5s", "bend", path], expected_code=1, contains="Location: bad")
+    output = receipt["commands"][-1]["output"]
+    assert all(text in output for text in required), output
 
 receipt["source_sha256"] = {
     str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
