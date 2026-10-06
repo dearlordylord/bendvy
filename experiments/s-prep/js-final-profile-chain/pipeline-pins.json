@@ -1,0 +1,117 @@
+{
+  "scope": "Explicit final read+swap\u2192dead-provider\u2192affine Raw reuse chain; no guard waiver",
+  "recipePins": {
+    "dead-provider": "7c699f1a45db9310d8dc34714926ea44ce71760c48b3ac501b873f621ae8cd3f",
+    "payload": "308d27b4f709ad1661e23f4a1e101dd4034e5caa2b2b31dc074d924fbcb594d1"
+  },
+  "catalogPins": {
+    "dead-provider": "c9cb87c4a487739ecbc816a4ad670bb3222f0ad51cf4a7ed88f5bd89529ead8b",
+    "payload": "04ec6e27563a1b126642c95ea08f455a0c5a3af20faa658d2d347c95244e8b32"
+  },
+  "cases": [
+    {
+      "label": "baseline",
+      "schema": "motion",
+      "input": "/tmp/bendvy-js-read-wrapper-swap-controls/baseline.js",
+      "inputSHA256": "943c15d834fbf8a9f9322904515049d304dcd25977a6b400773ea12dd2142ae8",
+      "dead": "/tmp/bendvy-js-final-profile-chain/baseline-dead.js",
+      "deadSHA256": "8ebb5f92391dbfc6bc0f85b9aa6b7c995d1d0ab05a03dbb16a2b4fb4f1ef5ee7",
+      "output": "/tmp/bendvy-js-final-profile-chain/baseline.js",
+      "outputSHA256": "bc4382c11d55169a8b138b8ab83ae662cd6574b98ed3ba0d347ff6f7233814b6"
+    },
+    {
+      "label": "normal-cached-motion",
+      "schema": "motion",
+      "input": "/tmp/bendvy-js-read-wrapper-swap-controls/normal-cached-motion.js",
+      "inputSHA256": "3121db2d6ffb5d4efde8e3cfdaed45de98d4219f24170a741437b15d002cd00c",
+      "dead": "/tmp/bendvy-js-final-profile-chain/normal-cached-motion-dead.js",
+      "deadSHA256": "3121db2d6ffb5d4efde8e3cfdaed45de98d4219f24170a741437b15d002cd00c",
+      "output": "/tmp/bendvy-js-final-profile-chain/normal-cached-motion.js",
+      "outputSHA256": "b6de39c77f8f332a5df6d31b153172de5116fd565ec36edfb7435848a64af0c2"
+    },
+    {
+      "label": "normal-cached-health",
+      "schema": "health",
+      "input": "/tmp/bendvy-js-read-wrapper-swap-controls/normal-cached-health.js",
+      "inputSHA256": "e8c08874b7ca9eaa7741eb09e5e76b1393f1297ff2534f2ff46d9b91730805bb",
+      "dead": "/tmp/bendvy-js-final-profile-chain/normal-cached-health-dead.js",
+      "deadSHA256": "e8c08874b7ca9eaa7741eb09e5e76b1393f1297ff2534f2ff46d9b91730805bb",
+      "output": "/tmp/bendvy-js-final-profile-chain/normal-cached-health.js",
+      "outputSHA256": "08a7290247a9e34b7e8f1c433bc36e55212626ec140b6c2d1ab47ed13adc99fe"
+    },
+    {
+      "label": "normal-raw-motion",
+      "schema": "motion",
+      "input": "/tmp/bendvy-js-read-wrapper-swap-controls/normal-raw-motion.js",
+      "inputSHA256": "741f3bcef88bf282b3afb9306c7502f16f3f72c9fd30b10d78e4697ad0106f38",
+      "dead": "/tmp/bendvy-js-final-profile-chain/normal-raw-motion-dead.js",
+      "deadSHA256": "741f3bcef88bf282b3afb9306c7502f16f3f72c9fd30b10d78e4697ad0106f38",
+      "output": "/tmp/bendvy-js-final-profile-chain/normal-raw-motion.js",
+      "outputSHA256": "be9679b34e0e0f1545c4eb24044319c0780d116e4d7370c62c203b6eb8618505"
+    },
+    {
+      "label": "normal-raw-health",
+      "schema": "health",
+      "input": "/tmp/bendvy-js-read-wrapper-swap-controls/normal-raw-health.js",
+      "inputSHA256": "e4d51efc204592dd18964b6ace4b08289217b78a04e5768df26d177f90b93961",
+      "dead": "/tmp/bendvy-js-final-profile-chain/normal-raw-health-dead.js",
+      "deadSHA256": "e4d51efc204592dd18964b6ace4b08289217b78a04e5768df26d177f90b93961",
+      "output": "/tmp/bendvy-js-final-profile-chain/normal-raw-health.js",
+      "outputSHA256": "cd30d4050875b5bcf5a2d6f8497b67d7630ff5658b126083fa8d39948d9cd616"
+    },
+    {
+      "label": "suppressed-cached-motion",
+      "schema": "motion",
+      "input": "/tmp/bendvy-js-read-wrapper-swap-controls/suppressed-cached-motion.js",
+      "inputSHA256": "2335cff1faa65dd1b0675d065ee2bc45c7b726052f8f66c70da893490f9ebb6a",
+      "dead": "/tmp/bendvy-js-final-profile-chain/suppressed-cached-motion-dead.js",
+      "deadSHA256": "2335cff1faa65dd1b0675d065ee2bc45c7b726052f8f66c70da893490f9ebb6a",
+      "output": "/tmp/bendvy-js-final-profile-chain/suppressed-cached-motion.js",
+      "outputSHA256": "e460d6b8f4515db705f23be6d3599fd1bb638c038c1a5d8d00f2748134906b4f"
+    },
+    {
+      "label": "suppressed-cached-health",
+      "schema": "health",
+      "input": "/tmp/bendvy-js-read-wrapper-swap-controls/suppressed-cached-health.js",
+      "inputSHA256": "09f5b291cd3c910a346a7dfb4d9ed0043698b4f4153ec4f200e04b2fd2678e3e",
+      "dead": "/tmp/bendvy-js-final-profile-chain/suppressed-cached-health-dead.js",
+      "deadSHA256": "09f5b291cd3c910a346a7dfb4d9ed0043698b4f4153ec4f200e04b2fd2678e3e",
+      "output": "/tmp/bendvy-js-final-profile-chain/suppressed-cached-health.js",
+      "outputSHA256": "c67a973043e40fca0d524131d73095d454cddd033a9864edcf37c354b571583a"
+    },
+    {
+      "label": "suppressed-raw-motion",
+      "schema": "motion",
+      "input": "/tmp/bendvy-js-read-wrapper-swap-controls/suppressed-raw-motion.js",
+      "inputSHA256": "dc0356e46e508486b91d69e62b793b04deafd361a309f0a721340e8cd6169612",
+      "dead": "/tmp/bendvy-js-final-profile-chain/suppressed-raw-motion-dead.js",
+      "deadSHA256": "dc0356e46e508486b91d69e62b793b04deafd361a309f0a721340e8cd6169612",
+      "output": "/tmp/bendvy-js-final-profile-chain/suppressed-raw-motion.js",
+      "outputSHA256": "6aed640e80c1995d115f949285e21f5444339e04b1ecff43741a8e5ff3df4abb"
+    },
+    {
+      "label": "suppressed-raw-health",
+      "schema": "health",
+      "input": "/tmp/bendvy-js-read-wrapper-swap-controls/suppressed-raw-health.js",
+      "inputSHA256": "c0a6e5261fef3a17e2e5efb2ff7885131b523a85511c19fdf5c6c05b74b53cde",
+      "dead": "/tmp/bendvy-js-final-profile-chain/suppressed-raw-health-dead.js",
+      "deadSHA256": "c0a6e5261fef3a17e2e5efb2ff7885131b523a85511c19fdf5c6c05b74b53cde",
+      "output": "/tmp/bendvy-js-final-profile-chain/suppressed-raw-health.js",
+      "outputSHA256": "38771a35483535de3189b1b70e3b699a8da23acb0a7b26971e19d6d9d9c1e711"
+    },
+    {
+      "label": "baseline-health",
+      "schema": "health",
+      "input": "/tmp/bendvy-js-read-wrapper-swap-controls/baseline-health.js",
+      "inputSHA256": "2925168f36e0bdbdd3bc2d40897b4ede22967fdeeda0dcf23e2290d64f21c5c5",
+      "dead": "/tmp/bendvy-js-final-profile-chain/baseline-health-dead.js",
+      "deadSHA256": "9a25ab21a6c340010ff56b61cbf0078ed2a27a521f8c5002d0387a36935c3199",
+      "output": "/tmp/bendvy-js-final-profile-chain/baseline-health.js",
+      "outputSHA256": "d443000ec80e45824ccea88ca109514076d8386a01590e2ca4ed490859e48506"
+    }
+  ],
+  "provenancePins": {
+    "health-source-build-pins.json": "28a7f4d62d8c9cf088ee97e318e378d6e48922fb56bbdab576a68bccf33eeab6",
+    "motion-source-build-pins.json": "ee15eea251028f2aad396ecb2d655ef68c3edf82a2fd851b6f93425a2b527f51"
+  }
+}
