@@ -1,0 +1,124 @@
+import Base
+import ../../src/ecs/column.bend as Col
+import ../../src/ecs/component.bend as C
+import ../../src/ecs/world.bend as W
+
+type Schema is Data:
+  Schema{}
+type Position is Type:
+  Position{x: F32,trail: Array<U32>}
+type Velocity is Type:
+  Velocity{dx: F32,history: Array<U32>}
+type Health is Type:
+  Health{hp: F32,history: Array<U32>}
+type Armor is Data:
+  Armor{value: F32}
+type Tag is Data:
+  Tag{}
+type PositionView is Data:
+  PositionView{x: F32,trail: List<&2,U32>}
+type VelocityView is Data:
+  VelocityView{dx: F32,history: List<&2,U32>}
+type HealthView is Data:
+  HealthView{hp: F32,history: List<&2,U32>}
+type SimEvent is Data:
+  Hit{id: U32,amount: F32,hp: F32}
+  Death{id: U32}
+type Store is Type:
+  Store{positions: Col.Column<Schema,Position>,velocities: Col.Column<Schema,Velocity>,healths: Col.Column<Schema,Health>,armors: Col.Column<Schema,Armor>,tags: Col.Column<Schema,Tag>}
+type PositionToken is Data:
+  PositionToken{}
+type PositionRest is Type:
+  PositionRest{velocities: Col.Column<Schema,Velocity>,healths: Col.Column<Schema,Health>,armors: Col.Column<Schema,Armor>,tags: Col.Column<Schema,Tag>}
+def take_positions(store: Store) -> PositionRest & Col.Column<Schema,Position>:
+  match store:
+    case Store{positions,velocities,healths,armors,tags}: (PositionRest{velocities,healths,armors,tags},positions)
+def put_positions(rest: PositionRest,column: Col.Column<Schema,Position>) -> Store:
+  match rest:
+    case PositionRest{velocities,healths,armors,tags}: Store{column,velocities,healths,armors,tags}
+type VelocityToken is Data:
+  VelocityToken{}
+type VelocityRest is Type:
+  VelocityRest{positions: Col.Column<Schema,Position>,healths: Col.Column<Schema,Health>,armors: Col.Column<Schema,Armor>,tags: Col.Column<Schema,Tag>}
+def take_velocities(store: Store) -> VelocityRest & Col.Column<Schema,Velocity>:
+  match store:
+    case Store{positions,velocities,healths,armors,tags}: (VelocityRest{positions,healths,armors,tags},velocities)
+def put_velocities(rest: VelocityRest,column: Col.Column<Schema,Velocity>) -> Store:
+  match rest:
+    case VelocityRest{positions,healths,armors,tags}: Store{positions,column,healths,armors,tags}
+type HealthToken is Data:
+  HealthToken{}
+type HealthRest is Type:
+  HealthRest{positions: Col.Column<Schema,Position>,velocities: Col.Column<Schema,Velocity>,armors: Col.Column<Schema,Armor>,tags: Col.Column<Schema,Tag>}
+def take_healths(store: Store) -> HealthRest & Col.Column<Schema,Health>:
+  match store:
+    case Store{positions,velocities,healths,armors,tags}: (HealthRest{positions,velocities,armors,tags},healths)
+def put_healths(rest: HealthRest,column: Col.Column<Schema,Health>) -> Store:
+  match rest:
+    case HealthRest{positions,velocities,armors,tags}: Store{positions,velocities,column,armors,tags}
+type ArmorToken is Data:
+  ArmorToken{}
+type ArmorRest is Type:
+  ArmorRest{positions: Col.Column<Schema,Position>,velocities: Col.Column<Schema,Velocity>,healths: Col.Column<Schema,Health>,tags: Col.Column<Schema,Tag>}
+def take_armors(store: Store) -> ArmorRest & Col.Column<Schema,Armor>:
+  match store:
+    case Store{positions,velocities,healths,armors,tags}: (ArmorRest{positions,velocities,healths,tags},armors)
+def put_armors(rest: ArmorRest,column: Col.Column<Schema,Armor>) -> Store:
+  match rest:
+    case ArmorRest{positions,velocities,healths,tags}: Store{positions,velocities,healths,column,tags}
+type TagToken is Data:
+  TagToken{}
+type TagRest is Type:
+  TagRest{positions: Col.Column<Schema,Position>,velocities: Col.Column<Schema,Velocity>,healths: Col.Column<Schema,Health>,armors: Col.Column<Schema,Armor>}
+def take_tags(store: Store) -> TagRest & Col.Column<Schema,Tag>:
+  match store:
+    case Store{positions,velocities,healths,armors,tags}: (TagRest{positions,velocities,healths,armors},tags)
+def put_tags(rest: TagRest,column: Col.Column<Schema,Tag>) -> Store:
+  match rest:
+    case TagRest{positions,velocities,healths,armors}: Store{positions,velocities,healths,armors,column}
+def array_join(left_view: Array<U32> & List<&2,U32>,right_view: Array<U32> & List<&2,U32>) -> Array<U32> & List<&2,U32>:
+  (left,+xs) = left_view
+  (right,+ys) = right_view
+  (ANode{left,right},List.append(&2,U32,xs,ys))
+def array_view(array: Array<U32>) -> Array<U32> & List<&2,U32>:
+  match array:
+    case ALeaf{+value}: (ALeaf{value},value <> [])
+    case ANode{left,right}: array_join(array_view(left),array_view(right))
+def project_position_join(+scalar: F32,viewed: Array<U32> & List<&2,U32>) -> Position & PositionView:
+  (array,+values) = viewed
+  (Position{scalar,array},PositionView{scalar,values})
+def project_position(owner: Position) -> Position & PositionView:
+  match owner:
+    case Position{+x,trail}: project_position_join(x,array_view(trail))
+def project_velocity_join(+scalar: F32,viewed: Array<U32> & List<&2,U32>) -> Velocity & VelocityView:
+  (array,+values) = viewed
+  (Velocity{scalar,array},VelocityView{scalar,values})
+def project_velocity(owner: Velocity) -> Velocity & VelocityView:
+  match owner:
+    case Velocity{+dx,history}: project_velocity_join(dx,array_view(history))
+def project_health_join(+scalar: F32,viewed: Array<U32> & List<&2,U32>) -> Health & HealthView:
+  (array,+values) = viewed
+  (Health{scalar,array},HealthView{scalar,values})
+def project_health(owner: Health) -> Health & HealthView:
+  match owner:
+    case Health{+hp,history}: project_health_join(hp,array_view(history))
+def project_armor(owner: Armor) -> Armor & Armor:
+  match owner:
+    case Armor{+value}: (Armor{value},Armor{value})
+def project_tag(owner: Tag) -> Tag & Tag:
+  match owner:
+    case Tag{}: (Tag{},Tag{})
+def position() -> C.Family<Schema,Store,PositionRest,Position,PositionView,PositionToken,take_positions,put_positions,project_position>:
+  C.define(~Schema,~Store,~F32,~SimEvent,~PositionRest,~Position,~PositionView,~PositionToken,~take_positions,~put_positions,~project_position,"Position")
+def velocity() -> C.Family<Schema,Store,VelocityRest,Velocity,VelocityView,VelocityToken,take_velocities,put_velocities,project_velocity>:
+  C.define(~Schema,~Store,~F32,~SimEvent,~VelocityRest,~Velocity,~VelocityView,~VelocityToken,~take_velocities,~put_velocities,~project_velocity,"Velocity")
+def health() -> C.Family<Schema,Store,HealthRest,Health,HealthView,HealthToken,take_healths,put_healths,project_health>:
+  C.define(~Schema,~Store,~F32,~SimEvent,~HealthRest,~Health,~HealthView,~HealthToken,~take_healths,~put_healths,~project_health,"Health")
+def armor() -> C.Family<Schema,Store,ArmorRest,Armor,Armor,ArmorToken,take_armors,put_armors,project_armor>:
+  C.define(~Schema,~Store,~F32,~SimEvent,~ArmorRest,~Armor,~Armor,~ArmorToken,~take_armors,~put_armors,~project_armor,"Armor")
+def tag() -> C.Family<Schema,Store,TagRest,Tag,Tag,TagToken,take_tags,put_tags,project_tag>:
+  C.define(~Schema,~Store,~F32,~SimEvent,~TagRest,~Tag,~Tag,~TagToken,~take_tags,~put_tags,~project_tag,"Tag")
+def empty_store(unit: Unit) -> Store:
+  Store{Col.empty(~Schema,~Position),Col.empty(~Schema,~Velocity),Col.empty(~Schema,~Health),Col.empty(~Schema,~Armor),Col.empty(~Schema,~Tag)}
+def create(factory: W.Factory,dt: F32) -> W.Creation<Schema,Store,F32,SimEvent>:
+  W.create(~Schema,~Store,~F32,~SimEvent,~empty_store,factory,dt)
