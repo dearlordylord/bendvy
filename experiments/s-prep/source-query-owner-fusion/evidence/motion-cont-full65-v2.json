@@ -1,0 +1,70 @@
+{
+  "status": "FRESH_FULL65_FIELDS_PASS",
+  "scope": "Fresh source candidate full65 fields against independently executed pinned TS, no ratio/keep",
+  "schema": "Motion",
+  "cpu": [
+    8
+  ],
+  "runtimeLimitSeconds": 5,
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-measurement/prepare-ts.py",
+        "--source",
+        "/workspace/formal-proofs/bendvy/experiments/s-integrate/measurement-samples-reference.mjs",
+        "--output",
+        "/tmp/bendvy-source-query-cont-motion-full65-v2/reference.mjs",
+        "--schema",
+        "Motion",
+        "--batch",
+        "64"
+      ],
+      "limitSeconds": 5,
+      "exit": 0
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-source-query-cont-motion-full65-v2/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "exit": 0
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-source-query-cont-motion-build-v2/batch.js"
+      ],
+      "limitSeconds": 5,
+      "exit": 0
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-source-query-cont-motion-build-v2/batch.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limitSeconds": 5,
+      "exit": 0
+    }
+  ],
+  "candidatePins": {
+    "JS": "c0093295a720987229c5ccfe7bb1319a0f722e96912ac1d29807068da66d8806",
+    "Native": "4e5d5381167f54d98d2c1d8328c191c5a2d1223793a517a73c4fb4079a4daf64"
+  },
+  "backends": {
+    "JS": {
+      "records": 65,
+      "allFullFieldsEqual": true
+    },
+    "Native": {
+      "records": 65,
+      "allFullFieldsEqual": true
+    }
+  },
+  "referencePin": "644022682476c10f8232681349baecdb7d860d37a218aaec38c3633beaf024fe",
+  "validatorPin": "25ab577d5234a1c30f46318708455377353ec39d4fb0b6bf1b40ad5ea5da8f84"
+}

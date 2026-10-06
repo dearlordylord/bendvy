@@ -1,0 +1,197 @@
+{
+  "status": "CAPTURE_CANARY_OBSERVED_NOT_UNIVERSAL_GATE",
+  "scope": "Finite reached captured affine Array; separate from closed named query continuation and ECS gates",
+  "cases": [
+    {
+      "subject": "generic-open",
+      "sourceSHA256": "9fb08e0a7ddcbffda03c553858162b6f31972afa9c361a2b61154be51936c53b",
+      "commands": [
+        {
+          "argv": [
+            "bend",
+            "/tmp/bendvy-source-query-captured-affine-canary-v3/generic-open/generic-open.bend",
+            "--check-only"
+          ],
+          "limitSeconds": 15,
+          "exit": 0,
+          "seconds": 0.3851079398300499,
+          "out": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n",
+          "err": ""
+        }
+      ],
+      "status": "CHECKER_ACCEPTED"
+    },
+    {
+      "subject": "generic-open-repeated",
+      "sourceSHA256": "109f096bbf42529a8066d9c2389645fc85a7af519341c67696a3bc4ed58b7c81",
+      "commands": [
+        {
+          "argv": [
+            "bend",
+            "/tmp/bendvy-source-query-captured-affine-canary-v3/generic-open-repeated/generic-open-repeated.bend",
+            "--check-only"
+          ],
+          "limitSeconds": 15,
+          "exit": 0,
+          "seconds": 0.3797436850145459,
+          "out": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n",
+          "err": ""
+        }
+      ],
+      "status": "CHECKER_ACCEPTED"
+    },
+    {
+      "subject": "plain-duplicate",
+      "sourceSHA256": "82ba85d25e31a65438c8e052e2cdd4521729d933646ad7b214bfd1a20f90b44c",
+      "commands": [
+        {
+          "argv": [
+            "bend",
+            "/tmp/bendvy-source-query-captured-affine-canary-v3/plain-duplicate/plain-duplicate.bend",
+            "--check-only"
+          ],
+          "limitSeconds": 15,
+          "exit": 1,
+          "seconds": 0.33641810389235616,
+          "out": "",
+          "err": "SOME PROOFS FAIL\nError:\n- expected : owner\n- observed : owner (consumed more than once)\nLocation: bad\n2 | \n3>| def bad(owner:Array<U32>) -> Array<U32> & Array<U32>:\n  |         ^^^^^\n4 |   (owner,owner)\n"
+        }
+      ],
+      "status": "CHECKER_REJECTED"
+    },
+    {
+      "subject": "one-use",
+      "sourceSHA256": "2962e97cf6a683620b94ee4cd6069ac7520bcf68cc651e03b1f759f4b277470c",
+      "commands": [
+        {
+          "argv": [
+            "bend",
+            "/tmp/bendvy-source-query-captured-affine-canary-v3/one-use/one-use.bend",
+            "--check-only"
+          ],
+          "limitSeconds": 15,
+          "exit": 1,
+          "seconds": 0.37765866704285145,
+          "out": "",
+          "err": "SOME PROOFS FAIL\nError:\n- expected : a template applied to closed ~ arguments (owner is a variable here, not comptime: pass it at run time)\n- observed : invoke\nContext:\n- owner : Array<U32>\nLocation: captured\n5 | def captured(owner:Array<U32>) -> Array<U32>:\n6>|   invoke(~Array<U32>,~(_ => owner),Unit{})\n  |   ^^^^^^\n7 | def output(result:Array<U32> & U32) -> IO(Unit):\n"
+        }
+      ],
+      "status": "CHECKER_REJECTED"
+    },
+    {
+      "subject": "repeated",
+      "sourceSHA256": "f3a1587659e9550e4e13b249d7e512f48c4087fdccbe8cc111aa6eb578459227",
+      "commands": [
+        {
+          "argv": [
+            "bend",
+            "/tmp/bendvy-source-query-captured-affine-canary-v3/repeated/repeated.bend",
+            "--check-only"
+          ],
+          "limitSeconds": 15,
+          "exit": 1,
+          "seconds": 0.44823264982551336,
+          "out": "",
+          "err": "SOME PROOFS FAIL\nError:\n- expected : a template applied to closed ~ arguments (owner is a variable here, not comptime: pass it at run time)\n- observed : invoke\nContext:\n- owner : Array<U32>\nLocation: captured\n5 | def captured(owner:Array<U32>) -> Array<U32> & Array<U32>:\n6>|   invoke(~Array<U32>,~(_ => owner),Unit{})\n  |   ^^^^^^\n7 | def output_right(left:U32,result:Array<U32> & U32) -> IO(Unit):\n"
+        }
+      ],
+      "status": "CHECKER_REJECTED"
+    },
+    {
+      "subject": "closed-positive",
+      "sourceSHA256": "7414490118dcd562d0bc7ee7d8dcb47973096aa7e03c8d3865f0371020745b49",
+      "commands": [
+        {
+          "argv": [
+            "bend",
+            "/tmp/bendvy-source-query-captured-affine-canary-v3/closed-positive/closed-positive.bend",
+            "--check-only"
+          ],
+          "limitSeconds": 15,
+          "exit": 0,
+          "seconds": 0.3391931268852204,
+          "out": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n",
+          "err": ""
+        },
+        {
+          "argv": [
+            "bend",
+            "/tmp/bendvy-source-query-captured-affine-canary-v3/closed-positive/closed-positive.bend",
+            "-o",
+            "/tmp/bendvy-source-query-captured-affine-canary-v3/closed-positive/subject.c"
+          ],
+          "limitSeconds": 30,
+          "exit": 0,
+          "seconds": 0.45466041285544634,
+          "out": "",
+          "err": ""
+        },
+        {
+          "argv": [
+            "/tmp/bendvy-clang19-diagnostic/clang19",
+            "-O3",
+            "/tmp/bendvy-source-query-captured-affine-canary-v3/closed-positive/subject.c",
+            "-o",
+            "/tmp/bendvy-source-query-captured-affine-canary-v3/closed-positive/subject.native",
+            "-lm",
+            "-pthread"
+          ],
+          "limitSeconds": 120,
+          "exit": 0,
+          "seconds": 0.46781827695667744,
+          "out": "",
+          "err": ""
+        },
+        {
+          "argv": [
+            "/tmp/bendvy-source-query-captured-affine-canary-v3/closed-positive/subject.native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "limitSeconds": 5,
+          "exit": 0,
+          "seconds": 0.0023343530483543873,
+          "out": "9\n",
+          "err": ""
+        },
+        {
+          "argv": [
+            "bend",
+            "/tmp/bendvy-source-query-captured-affine-canary-v3/closed-positive/closed-positive.bend",
+            "-o",
+            "/tmp/bendvy-source-query-captured-affine-canary-v3/closed-positive/subject.js"
+          ],
+          "limitSeconds": 30,
+          "exit": 0,
+          "seconds": 0.3541232149582356,
+          "out": "",
+          "err": ""
+        },
+        {
+          "argv": [
+            "node",
+            "/tmp/bendvy-source-query-captured-affine-canary-v3/closed-positive/subject.js"
+          ],
+          "limitSeconds": 5,
+          "exit": 0,
+          "seconds": 0.0217570208478719,
+          "out": "9\n",
+          "err": ""
+        }
+      ],
+      "status": "CHECKER_ACCEPTED",
+      "backend": {
+        "Native": {
+          "status": "EXECUTED",
+          "output": "9"
+        },
+        "JS": {
+          "status": "EXECUTED",
+          "output": "9"
+        }
+      }
+    }
+  ]
+}
