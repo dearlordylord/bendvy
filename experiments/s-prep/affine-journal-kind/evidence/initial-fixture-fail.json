@@ -1,0 +1,96 @@
+{
+  "status": "ELEMENTARY_CONTROLS_FAIL",
+  "newProofs": false,
+  "cases": {
+    "data": {
+      "sourceSHA256": "d955ececde19c1e1baa6225ec03843f37719766fc8ad9fa1f5f0c091d736ab02",
+      "commands": [
+        {
+          "argv": [
+            "bend",
+            "/tmp/bendvy-affine-journal-kind/data.bend",
+            "--check-only"
+          ],
+          "limitSeconds": 15,
+          "exit": 1,
+          "timeout": false,
+          "elapsedSeconds": 1.593769566854462,
+          "output": "SOME PROOFS FAIL\nError:\n- expected : a decreasing self-call (arguments are read left to right: each passed unchanged until one shrinks)\n- observed : build\nContext:\n- _73    : Bool<> - False{}\n- _74    : Word.Nil\n- values : List<&2, U32>\nLocation: build\n4 |     case 0: values\n5>|     case _: build(U32.sub(count,1),count <> values)\n  |             ^^^^^\n6 | def sum(values:List<&2,U32>) -> U32:\n"
+        }
+      ],
+      "pass": false
+    },
+    "affine": {
+      "sourceSHA256": "a1736b220200b9e3f0869b0d7c2b232210f9d6c67c911ed44fad6f5670dfb62d",
+      "commands": [
+        {
+          "argv": [
+            "bend",
+            "/tmp/bendvy-affine-journal-kind/affine.bend",
+            "--check-only"
+          ],
+          "limitSeconds": 15,
+          "exit": 1,
+          "timeout": false,
+          "elapsedSeconds": 1.2219436708837748,
+          "output": "SOME PROOFS FAIL\nError:\n- expected : a decreasing self-call (arguments are read left to right: each passed unchanged until one shrinks)\n- observed : build\nContext:\n- _73    : Bool<> - False{}\n- _74    : Word.Nil\n- values : List<&1, U32>\nLocation: build\n4 |     case 0: values\n5>|     case _: build(U32.sub(count,1),count <> values)\n  |             ^^^^^\n6 | def sum(values:List<&1,U32>) -> U32:\n"
+        }
+      ],
+      "pass": false
+    },
+    "snapshot": {
+      "sourceSHA256": "54cc9cec122d35a9752dbeae7d5403c3c3697d182f3ebd8482f0459136f211f6",
+      "commands": [
+        {
+          "argv": [
+            "bend",
+            "/tmp/bendvy-affine-journal-kind/snapshot.bend",
+            "--check-only"
+          ],
+          "limitSeconds": 15,
+          "exit": 1,
+          "timeout": false,
+          "elapsedSeconds": 1.2689640840981156,
+          "output": "SOME PROOFS FAIL\nError:\n- expected : a filled definition (an unfilled law is a dead claim: live code cannot use it)\n- observed : repeated\nContext:\n- owner : List<&1, U32>\n- view  : List<&2, U32>\nLocation: completed\n14 |   match pair:\n15>|     case (owner,+view): repeated(owner,view,sum(view),sum(view))\n   |                         ^^^^^^^^\n16 | def repeated(owner:List<U32>,retained:List<&2,U32>,a:U32,b:U32) -> IO(Unit):\n"
+        }
+      ],
+      "pass": false
+    },
+    "affine-duplicate": {
+      "sourceSHA256": "ac1de9acefccb47bd1df60b36b0881da7b82bdfbe5935987116fab789101b30f",
+      "commands": [
+        {
+          "argv": [
+            "bend",
+            "/tmp/bendvy-affine-journal-kind/affine-duplicate.bend",
+            "--check-only"
+          ],
+          "limitSeconds": 15,
+          "exit": 1,
+          "timeout": false,
+          "elapsedSeconds": 1.2968078712001443,
+          "output": "SOME PROOFS FAIL\nError:\n- expected : a decreasing self-call (arguments are read left to right: each passed unchanged until one shrinks)\n- observed : build\nContext:\n- _73    : Bool<> - False{}\n- _74    : Word.Nil\n- values : List<&1, U32>\nLocation: build\n4 |     case 0: values\n5>|     case _: build(U32.sub(count,1),count <> values)\n  |             ^^^^^\n6 | def sum(values:List<&1,U32>) -> U32:\n"
+        }
+      ],
+      "pass": false
+    },
+    "implicit-coercion": {
+      "sourceSHA256": "21cda1a4eeda62e97411663272aa04b11da6b5718e9efae53ba88b07efafee0e",
+      "commands": [
+        {
+          "argv": [
+            "bend",
+            "/tmp/bendvy-affine-journal-kind/implicit-coercion.bend",
+            "--check-only"
+          ],
+          "limitSeconds": 15,
+          "exit": 1,
+          "timeout": false,
+          "elapsedSeconds": 1.1043182609137148,
+          "output": "SOME PROOFS FAIL\nError:\n- expected : a decreasing self-call (arguments are read left to right: each passed unchanged until one shrinks)\n- observed : build\nContext:\n- _73    : Bool<> - False{}\n- _74    : Word.Nil\n- values : List<&1, U32>\nLocation: build\n4 |     case 0: values\n5>|     case _: build(U32.sub(count,1),count <> values)\n  |             ^^^^^\n6 | def sum(values:List<&1,U32>) -> U32:\n"
+        }
+      ],
+      "pass": false
+    }
+  }
+}

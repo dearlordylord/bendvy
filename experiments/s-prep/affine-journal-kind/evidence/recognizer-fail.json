@@ -1,0 +1,213 @@
+{
+  "status": "ELEMENTARY_CONTROLS_FAIL",
+  "newProofs": false,
+  "cases": {
+    "data": {
+      "sourceSHA256": "5ee479a3d076231168d8fa68b680bfa7c5f4cdff08b6d5c0c033b1d8d72486d8",
+      "commands": [
+        {
+          "argv": [
+            "bend",
+            "/tmp/bendvy-affine-journal-kind-v2/data.bend",
+            "--check-only"
+          ],
+          "limitSeconds": 15,
+          "exit": 0,
+          "timeout": false,
+          "elapsedSeconds": 1.7986220789607614,
+          "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+        },
+        {
+          "argv": [
+            "bend",
+            "/tmp/bendvy-affine-journal-kind-v2/data.bend",
+            "-o",
+            "/tmp/bendvy-affine-journal-kind-v2/data.c"
+          ],
+          "limitSeconds": 30,
+          "exit": 0,
+          "timeout": false,
+          "elapsedSeconds": 1.6690172301605344,
+          "output": ""
+        },
+        {
+          "argv": [
+            "clang",
+            "-O3",
+            "/tmp/bendvy-affine-journal-kind-v2/data.c",
+            "-o",
+            "/tmp/bendvy-affine-journal-kind-v2/data.bin",
+            "-lm",
+            "-pthread"
+          ],
+          "limitSeconds": 120,
+          "exit": 0,
+          "timeout": false,
+          "elapsedSeconds": 1.1016426121350378,
+          "output": ""
+        },
+        {
+          "argv": [
+            "/tmp/bendvy-affine-journal-kind-v2/data.bin"
+          ],
+          "limitSeconds": 5,
+          "exit": 0,
+          "timeout": false,
+          "elapsedSeconds": 0.00529329595156014,
+          "output": "36\n"
+        }
+      ],
+      "pass": true
+    },
+    "affine": {
+      "sourceSHA256": "b3f46f93edd7ec859c2a728e7bfe0dabffbe167b51248896dbe96aeea93f0205",
+      "commands": [
+        {
+          "argv": [
+            "bend",
+            "/tmp/bendvy-affine-journal-kind-v2/affine.bend",
+            "--check-only"
+          ],
+          "limitSeconds": 15,
+          "exit": 0,
+          "timeout": false,
+          "elapsedSeconds": 0.7781834320630878,
+          "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+        },
+        {
+          "argv": [
+            "bend",
+            "/tmp/bendvy-affine-journal-kind-v2/affine.bend",
+            "-o",
+            "/tmp/bendvy-affine-journal-kind-v2/affine.c"
+          ],
+          "limitSeconds": 30,
+          "exit": 0,
+          "timeout": false,
+          "elapsedSeconds": 1.4460201431065798,
+          "output": ""
+        },
+        {
+          "argv": [
+            "clang",
+            "-O3",
+            "/tmp/bendvy-affine-journal-kind-v2/affine.c",
+            "-o",
+            "/tmp/bendvy-affine-journal-kind-v2/affine.bin",
+            "-lm",
+            "-pthread"
+          ],
+          "limitSeconds": 120,
+          "exit": 0,
+          "timeout": false,
+          "elapsedSeconds": 1.6318471529521048,
+          "output": ""
+        },
+        {
+          "argv": [
+            "/tmp/bendvy-affine-journal-kind-v2/affine.bin"
+          ],
+          "limitSeconds": 5,
+          "exit": 0,
+          "timeout": false,
+          "elapsedSeconds": 0.0031083610374480486,
+          "output": "36\n"
+        }
+      ],
+      "pass": true
+    },
+    "snapshot": {
+      "sourceSHA256": "f0c9131ef91fe9483b8d3769ac1c41a0d60bb872ee67e9d302740d9b460235f3",
+      "commands": [
+        {
+          "argv": [
+            "bend",
+            "/tmp/bendvy-affine-journal-kind-v2/snapshot.bend",
+            "--check-only"
+          ],
+          "limitSeconds": 15,
+          "exit": 0,
+          "timeout": false,
+          "elapsedSeconds": 0.885214373935014,
+          "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+        },
+        {
+          "argv": [
+            "bend",
+            "/tmp/bendvy-affine-journal-kind-v2/snapshot.bend",
+            "-o",
+            "/tmp/bendvy-affine-journal-kind-v2/snapshot.c"
+          ],
+          "limitSeconds": 30,
+          "exit": 0,
+          "timeout": false,
+          "elapsedSeconds": 0.7636316369753331,
+          "output": ""
+        },
+        {
+          "argv": [
+            "clang",
+            "-O3",
+            "/tmp/bendvy-affine-journal-kind-v2/snapshot.c",
+            "-o",
+            "/tmp/bendvy-affine-journal-kind-v2/snapshot.bin",
+            "-lm",
+            "-pthread"
+          ],
+          "limitSeconds": 120,
+          "exit": 0,
+          "timeout": false,
+          "elapsedSeconds": 0.5817133279051632,
+          "output": ""
+        },
+        {
+          "argv": [
+            "/tmp/bendvy-affine-journal-kind-v2/snapshot.bin"
+          ],
+          "limitSeconds": 5,
+          "exit": 0,
+          "timeout": false,
+          "elapsedSeconds": 0.0022333108354359865,
+          "output": "6:6:6:6\n"
+        }
+      ],
+      "pass": true
+    },
+    "affine-duplicate": {
+      "sourceSHA256": "0fa3c5c3fda49ab328eb4fa971ca9f6d4b350d5f7cfcaf44970fe2e49dc33f1e",
+      "commands": [
+        {
+          "argv": [
+            "bend",
+            "/tmp/bendvy-affine-journal-kind-v2/affine-duplicate.bend",
+            "--check-only"
+          ],
+          "limitSeconds": 15,
+          "exit": 1,
+          "timeout": false,
+          "elapsedSeconds": 0.3359682899899781,
+          "output": "SOME PROOFS FAIL\nError:\n- expected : values\n- observed : values (consumed more than once)\nLocation: duplicate\n11 |   IO.print(U32.show(sum(build(8n,1,[]))))\n12>| def duplicate(values:List<U32>) -> List<U32> & List<U32>:\n   |               ^^^^^^\n13 |   (values,values)\n"
+        }
+      ],
+      "pass": true
+    },
+    "implicit-coercion": {
+      "sourceSHA256": "9b2e1d866e5979d943e62b4cf78d4799277b62092203e94203fad573a0de4244",
+      "commands": [
+        {
+          "argv": [
+            "bend",
+            "/tmp/bendvy-affine-journal-kind-v2/implicit-coercion.bend",
+            "--check-only"
+          ],
+          "limitSeconds": 15,
+          "exit": 1,
+          "timeout": false,
+          "elapsedSeconds": 0.34552712412551045,
+          "output": "SOME PROOFS FAIL\nError:\n- expected : List<&2, U32>\n- observed : List<&1, U32>\nContext:\n- values : List<&1, U32>\nLocation: coerce\n12 | def coerce(values:List<U32>) -> List<&2,U32>:\n13>|   values\n   |   ^^^^^^\n14 | \n"
+        }
+      ],
+      "pass": false
+    }
+  }
+}

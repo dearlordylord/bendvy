@@ -1,0 +1,117 @@
+{
+  "scope": "Whole elementary single-thread runtime counts, including IO; not core/profile/performance acceptance",
+  "cases": {
+    "data": {
+      "inputSHA256": "ec791bd11f0fccf43008da9c6ffb60235d091dc165da10c858f5c6deb730658b",
+      "instrumentedSHA256": "43e24f52b0b32bb664771028d5a6e7bf480efa358b477d48a59f29cdbce2d4d4",
+      "commands": [
+        {
+          "argv": [
+            "clang",
+            "-O3",
+            "/tmp/bendvy-affine-journal-kind-counts/data.c",
+            "-o",
+            "/tmp/bendvy-affine-journal-kind-counts/data.bin",
+            "-lm",
+            "-pthread"
+          ],
+          "limitSeconds": 120,
+          "exit": 0,
+          "timeout": false,
+          "elapsedSeconds": 32.2824321470689,
+          "output": ""
+        },
+        {
+          "argv": [
+            "/tmp/bendvy-affine-journal-kind-counts/data.bin",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "limitSeconds": 5,
+          "exit": 0,
+          "timeout": false,
+          "elapsedSeconds": 0.003811825066804886,
+          "output": "36\nPROBE_ALLOCATIONS:15 RFC_WRAPS:0\n"
+        }
+      ],
+      "pass": true
+    },
+    "affine": {
+      "inputSHA256": "ec791bd11f0fccf43008da9c6ffb60235d091dc165da10c858f5c6deb730658b",
+      "instrumentedSHA256": "43e24f52b0b32bb664771028d5a6e7bf480efa358b477d48a59f29cdbce2d4d4",
+      "commands": [
+        {
+          "argv": [
+            "clang",
+            "-O3",
+            "/tmp/bendvy-affine-journal-kind-counts/affine.c",
+            "-o",
+            "/tmp/bendvy-affine-journal-kind-counts/affine.bin",
+            "-lm",
+            "-pthread"
+          ],
+          "limitSeconds": 120,
+          "exit": 0,
+          "timeout": false,
+          "elapsedSeconds": 3.1372496099211276,
+          "output": ""
+        },
+        {
+          "argv": [
+            "/tmp/bendvy-affine-journal-kind-counts/affine.bin",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "limitSeconds": 5,
+          "exit": 0,
+          "timeout": false,
+          "elapsedSeconds": 0.01715831714682281,
+          "output": "36\nPROBE_ALLOCATIONS:15 RFC_WRAPS:0\n"
+        }
+      ],
+      "pass": true
+    },
+    "snapshot": {
+      "inputSHA256": "42d87f9ed8d6d91a6c93b4a501099414e7248e72370645c6f9aa62d83651e069",
+      "instrumentedSHA256": "c85535dd72f64bd2fcb9399b766f0343c63099cc3582f9acbfe4e5e1728e7057",
+      "commands": [
+        {
+          "argv": [
+            "clang",
+            "-O3",
+            "/tmp/bendvy-affine-journal-kind-counts/snapshot.c",
+            "-o",
+            "/tmp/bendvy-affine-journal-kind-counts/snapshot.bin",
+            "-lm",
+            "-pthread"
+          ],
+          "limitSeconds": 120,
+          "exit": 0,
+          "timeout": false,
+          "elapsedSeconds": 2.541151156183332,
+          "output": ""
+        },
+        {
+          "argv": [
+            "/tmp/bendvy-affine-journal-kind-counts/snapshot.bin",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "limitSeconds": 5,
+          "exit": 0,
+          "timeout": false,
+          "elapsedSeconds": 0.004527498036623001,
+          "output": "6:6:6:6\nPROBE_ALLOCATIONS:37 RFC_WRAPS:9\n"
+        }
+      ],
+      "pass": true
+    }
+  },
+  "status": "ELEMENTARY_COUNTS_PASS"
+}
