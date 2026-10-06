@@ -93,12 +93,9 @@ def advanced_result(factory: W.Factory,work: WorkRegistry(),retry: RetryRegistry
     case Sys.Completed{advanced,Sys.Succeeded{world,+ids}}: State{factory,world,work,retry,advanced,("{\"label\":" ++ J.quoted(label) ++ ",\"ids\":" ++ J.numbers(ids) ++ "}") <> checkpoints}
     case Sys.Completed{advanced,Sys.Failed{world,error}}: State{factory,world,work,retry,advanced,("{\"label\":" ++ J.quoted(label) ++ ",\"error\":" ++ J.quoted(error) ++ "}") <> checkpoints}
     case Sys.RegistrationRejected{advanced,world,_}: State{factory,world,work,retry,advanced,"{\"unexpectedAdvancedRefusal\":true}" <> checkpoints}
-def advanced_clocked(factory: W.Factory,work: WorkRegistry(),retry: RetryRegistry(),advanced: AdvancedRegistry(),+checkpoints: List<&2,String>,+label: String,+cursor: U32,clocked: S.World() & U32) -> State:
-  (world,+next) = clocked
-  advanced_result(factory,work,retry,checkpoints,label,Sys.run_to_cursor(~S.Schema,~S.Store,~Unit,~Unit,~U32,~String,~List<&2,U32>,~run_advanced,advanced,world,cursor,next))
 def advanced_cursor(factory: W.Factory,work: WorkRegistry(),retry: RetryRegistry(),advanced: AdvancedRegistry(),+checkpoints: List<&2,String>,+label: String,world: S.World()) -> State:
   match advanced:
-    case Sys.Registry{+namespace,+id,+name,+access,+cursor}: advanced_clocked(factory,work,retry,Sys.Registry{namespace,id,name,access,cursor},checkpoints,label,cursor,W.clock(~S.Schema,~S.Store,~Unit,~Unit,world))
+    case Sys.Registry{+namespace,+id,+name,+access,+cursor}: advanced_result(factory,work,retry,checkpoints,label,Sys.run_tracked(~S.Schema,~S.Store,~Unit,~Unit,~U32,~String,~List<&2,U32>,~run_advanced,Sys.Registry{namespace,id,name,access,cursor},world,cursor))
 def step_advanced(state: State,+label: String) -> State:
   match state:
     case State{factory,world,work,retry,advanced,+checkpoints}: advanced_cursor(factory,work,retry,advanced,checkpoints,label,world)
