@@ -68,7 +68,9 @@ original callbacks and public headers, complete LIFO undo and guarded mark publi
 Fresh source-specific full65, actual Tx576 plus mutants, mixed-mark32, private
 boundary16 and affine-owned examples pass. Root independently verifies source
 derivation and archived pins; [review](../../experiments/s-prep/source-query-saturated-loop/flat-journal-v4-review.md)
-identifies a reached nonidentity generic-fallback witness still needed, now assigned.
+identified a reached nonidentity generic-fallback gap, subsequently addressed by
+fresh abstract-callback/full-context and owned-array transport witnesses and
+actual omission mutations. See the source package fallback evidence.
 These bounded gates do not establish full22, universal authority/refinement or adoption.
 
 Native Motion allocator requests28,718,023→22,414,279 and destroyed objects
@@ -84,3 +86,29 @@ follows. Health JS expressions7,206,464→7,076,928; five row-owner copies/callb
 remain. This explains why Native representation savings do not transfer equally to JS.
 Next source experiment genuinely composes ledger-array ownership into the flat
 journal Health route, followed by fresh controls and profiling.
+
+## Joined ledger and stopped metadata paths
+
+The [genuine composition](../../experiments/s-prep/source-joined-flatjournal-ledger/README.md)
+passes its own finite full65, transaction/suppression, retained-view, returned-owner,
+nonidentity-fallback, authority and factory gates. Health JS expressions decrease
+by259,584, while independently counted Native operations are exactly unchanged.
+[Fourteen raw observations](../../experiments/s-prep/source-joined-ledger-observations/README.md)
+retain complete worlds and descriptive clocks; host noise and identical-source
+Motion variation prevent qualification. Targets remain unmet.
+
+Closed metadata removes all wildcard branch entries in both emitted C programs,
+but fresh counters remove only16,384 of32,216,007 allocator requests. Stop this
+low-yield composition seam; the source, negative controls and exact C evidence
+remain in source-closed-metadata and source-closed-metadata-native. Static branch
+absence is not dynamic performance acceptance.
+
+[Exact value-site attribution](../../experiments/s-prep/native-value-attribution/README.md)
+identifies two equally large Main/View/Cache reconstruction sites: handle-only
+query restoration and private fold row return,1,048,576 triplets each. The query
+client never invokes its getter. This supports investigating a private affine
+presence/identity query route; it does not authorize bypassing arbitrary clients.
+The [Main-array source probe](../../experiments/s-prep/source-flat-main-transport/README.md)
+passes first-stage full fields and literal full-shape/true-old witnesses. It
+removes one JS Tuple/update but adds2 Motion/7 Health property initializations;
+nominal Main counts remain unchanged. Expanded gates and adoption remain open.
