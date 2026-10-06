@@ -122,3 +122,38 @@ def empty_store(unit: Unit) -> Store:
   Store{Col.empty(~Schema,~Position),Col.empty(~Schema,~Velocity),Col.empty(~Schema,~Health),Col.empty(~Schema,~Armor),Col.empty(~Schema,~Tag)}
 def create(factory: W.Factory,dt: F32) -> W.Creation<Schema,Store,F32,SimEvent>:
   W.create(~Schema,~Store,~F32,~SimEvent,~empty_store,factory,dt)
+
+type Bundle is Type:
+  Bundle{position: Maybe<&1,Position>,velocity: Maybe<&1,Velocity>,health: Maybe<&1,Health>,armor: Maybe<&1,Armor>,tag: Maybe<&1,Tag>}
+def replaced(result: C.Replacement<W.World<Schema,Store,F32,SimEvent>,Position>) -> W.World<Schema,Store,F32,SimEvent>:
+  match result:
+    case C.Replaced{world,_}: world
+    case C.ReplaceRejected{world,_,_}: world
+def consume_replaced(~Owner: Type,result: C.Replacement<W.World<Schema,Store,F32,SimEvent>,Owner>) -> W.World<Schema,Store,F32,SimEvent>:
+  match result:
+    case C.Replaced{world,_}: world
+    case C.ReplaceRejected{world,_,_}: world
+def populate_position(world: W.World<Schema,Store,F32,SimEvent>,handle: W.Handle<Schema>,incoming: Maybe<&1,Position>) -> W.World<Schema,Store,F32,SimEvent>:
+  consume_replaced(~Position,C.structural_replace(~Schema,~Store,~F32,~SimEvent,~PositionRest,~Position,~PositionView,~PositionToken,~take_positions,~put_positions,~project_position,position(),world,handle,incoming))
+def populate_velocity(world: W.World<Schema,Store,F32,SimEvent>,handle: W.Handle<Schema>,incoming: Maybe<&1,Velocity>) -> W.World<Schema,Store,F32,SimEvent>:
+  consume_replaced(~Velocity,C.structural_replace(~Schema,~Store,~F32,~SimEvent,~VelocityRest,~Velocity,~VelocityView,~VelocityToken,~take_velocities,~put_velocities,~project_velocity,velocity(),world,handle,incoming))
+def populate_health(world: W.World<Schema,Store,F32,SimEvent>,handle: W.Handle<Schema>,incoming: Maybe<&1,Health>) -> W.World<Schema,Store,F32,SimEvent>:
+  consume_replaced(~Health,C.structural_replace(~Schema,~Store,~F32,~SimEvent,~HealthRest,~Health,~HealthView,~HealthToken,~take_healths,~put_healths,~project_health,health(),world,handle,incoming))
+def populate_armor(world: W.World<Schema,Store,F32,SimEvent>,handle: W.Handle<Schema>,incoming: Maybe<&1,Armor>) -> W.World<Schema,Store,F32,SimEvent>:
+  consume_replaced(~Armor,C.structural_replace(~Schema,~Store,~F32,~SimEvent,~ArmorRest,~Armor,~Armor,~ArmorToken,~take_armors,~put_armors,~project_armor,armor(),world,handle,incoming))
+def populate_tag(world: W.World<Schema,Store,F32,SimEvent>,handle: W.Handle<Schema>,incoming: Maybe<&1,Tag>) -> W.World<Schema,Store,F32,SimEvent>:
+  consume_replaced(~Tag,C.structural_replace(~Schema,~Store,~F32,~SimEvent,~TagRest,~Tag,~Tag,~TagToken,~take_tags,~put_tags,~project_tag,tag(),world,handle,incoming))
+def populate(world: W.World<Schema,Store,F32,SimEvent>,+handle: W.Handle<Schema>,bundle: Bundle) -> W.World<Schema,Store,F32,SimEvent>:
+  match bundle:
+    case Bundle{position,velocity,health,armor,tag}:
+      populate_tag(populate_armor(populate_health(populate_velocity(populate_position(world,handle,position),handle,velocity),handle,health),handle,armor),handle,tag)
+def clear_column_result(~Owner: Type,result: Col.SwapOutcome<Schema,Owner>) -> Col.Column<Schema,Owner>:
+  match result:
+    case Col.Accepted{column,_}: column
+    case Col.Rejected{column,_}: column
+def clear_column(~Owner: Type,handle: W.Handle<Schema>,column: Col.Column<Schema,Owner>) -> Col.Column<Schema,Owner>:
+  match handle:
+    case W.Handle{_,id}: clear_column_result(~Owner,Col.swap(~Schema,~Owner,column,id,None{}))
+def clear(store: Store,+handle: W.Handle<Schema>) -> Store:
+  match store:
+    case Store{positions,velocities,healths,armors,tags}: Store{clear_column(~Position,handle,positions),clear_column(~Velocity,handle,velocities),clear_column(~Health,handle,healths),clear_column(~Armor,handle,armors),clear_column(~Tag,handle,tags)}
