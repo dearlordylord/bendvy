@@ -1,0 +1,403 @@
+--- a/experiments/s-integrate/measurement-bend.bend
++++ b/experiments/s-integrate/measurement-bend.bend
+@@ -109,7 +109,7 @@
+     case (host,clock): (MotionBench{host,sparse,total,calls},clock)
+ def motion_barrier(owner:MotionBench,clock:R.Clock) -> IO(MotionBench & R.Clock):
+   match owner:
+-    case MotionBench{host,sparse,total,calls}: IO.bind(H.MotionHost() & R.Clock,MotionBench & R.Clock,H.barrier(T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,T.MotionPing,T.PositionView,T.VelocityView,T.LedgerView,host,clock),pair => IO.pure(MotionBench & R.Clock,motion_clock_return(sparse,total,calls,pair)))
++    case MotionBench{host,sparse,total,calls}: IO.bind(H.MotionHost() & R.Clock,MotionBench & R.Clock,H.prototype_closed_barrier(~T.MotionSchema,~CC.Cache<T.Position,T.PositionView>,~T.Velocity,~T.Selected,~CC.Cache<T.MotionLedger,T.LedgerView>,~T.MotionMode,~T.MotionPing,~T.PositionView,~T.VelocityView,~T.LedgerView,host,clock),pair => IO.pure(MotionBench & R.Clock,motion_clock_return(sparse,total,calls,pair)))
+ def motion_transition(owner:MotionBench,pending:Maybe<&2,Bool>,clock:R.Clock) -> MotionBench & R.Clock:
+   match owner:
+     case MotionBench{host,sparse,total,calls}: motion_clock_return(sparse,total,calls,H.motion_transition(host,pending,clock))
+@@ -240,7 +240,7 @@
+     case (host,clock): (HealthBench{host,sparse,total,calls},clock)
+ def health_barrier(owner:HealthBench,clock:R.Clock) -> IO(HealthBench & R.Clock):
+   match owner:
+-    case HealthBench{host,sparse,total,calls}: IO.bind(H.HealthHost() & R.Clock,HealthBench & R.Clock,H.barrier(T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,T.HealthPing,T.VitalsView,T.ArmorView,T.LedgerView,host,clock),pair => IO.pure(HealthBench & R.Clock,health_clock_return(sparse,total,calls,pair)))
++    case HealthBench{host,sparse,total,calls}: IO.bind(H.HealthHost() & R.Clock,HealthBench & R.Clock,H.prototype_closed_barrier(~T.HealthSchema,~CC.Cache<T.Vitals,T.VitalsView>,~T.Armor,~T.Tracked,~CC.Cache<T.HealthLedger,T.LedgerView>,~T.HealthMode,~T.HealthPing,~T.VitalsView,~T.ArmorView,~T.LedgerView,host,clock),pair => IO.pure(HealthBench & R.Clock,health_clock_return(sparse,total,calls,pair)))
+ def health_transition(owner:HealthBench,pending:Maybe<&2,Bool>,clock:R.Clock) -> HealthBench & R.Clock:
+   match owner:
+     case HealthBench{host,sparse,total,calls}: health_clock_return(sparse,total,calls,H.health_transition(host,pending,clock))
+--- a/experiments/s-integrate/identity.bend
++++ b/experiments/s-integrate/identity.bend
+@@ -10,7 +10,7 @@
+   ~initial_ledger: Unit -> L,available: Bool,+namespace: U32,mode: Mode) -> T.Creation<S.Factory,S.World<Schema,M,A,F,L,Mode>>:
+   match available:
+     case False{}: T.CreateRejected{S.Factory{namespace}}
+-    case True{}: T.Created{S.Factory{(namespace + 1 : U32)},S.World{namespace,1,S.rows_empty(M,A,F),[],Some{initial_ledger(Unit{})},mode}}
++    case True{}: T.Created{S.Factory{(namespace + 1 : U32)},S.World{namespace,1,S.prototype_closed_rows_empty(~M,~A,~F),[],Some{initial_ledger(Unit{})},mode}}
+ def create(~Schema: Data,~M: Type,~A: Type,~F: Data,~L: Type,~Mode: Data,
+   ~initial_ledger: Unit -> L,factory: S.Factory,mode: Mode) -> T.Creation<S.Factory,S.World<Schema,M,A,F,L,Mode>>:
+   match factory:
+--- a/experiments/s-integrate/observations.bend
++++ b/experiments/s-integrate/observations.bend
+@@ -69,7 +69,7 @@
+     case (owners,values): (owners,List.reverse(&2,RowView<V,AV,F>,values))
+ def rows_advance(~M: Type,~A: Type,~F: Data,~V: Data,~AV: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,id: U32,state: S.Rows<M,A,F> & List<&2,RowView<V,AV,F>>) -> S.Rows<M,A,F> & List<&2,RowView<V,AV,F>>:
+   match state:
+-    case (owners,values): rows_slot(~M,~A,~F,~V,~AV,~main_get,~aux_get,values,S.rows_extract(M,A,F,owners,id))
++    case (owners,values): rows_slot(~M,~A,~F,~V,~AV,~main_get,~aux_get,values,S.prototype_closed_rows_extract(~M,~A,~F,owners,id))
+ def rows_go(~M: Type,~A: Type,~F: Data,~V: Data,~AV: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,remaining: Nat,+id: U32,state: S.Rows<M,A,F> & List<&2,RowView<V,AV,F>>) -> S.Rows<M,A,F> & List<&2,RowView<V,AV,F>>:
+   match remaining:
+     case 0n: rows_finish(M,A,F,V,AV,state)
+--- a/experiments/s-integrate/commands.bend
++++ b/experiments/s-integrate/commands.bend
+@@ -170,3 +170,129 @@
+ def apply_checked(-Schema: Data,-M: Type,-A: Type,-F: Data,-L: Type,-Mode: Data,world: S.World<Schema,M,A,F,L,Mode>,tick: U32) -> CheckedApply<Schema,M,A,F,L,Mode>:
+   match world:
+     case S.World{namespace,next,rows,pending,ledger,mode}: preflight_world(Schema,M,A,F,L,Mode,namespace,next,ledger,mode,tick,preflight(M,A,F,pending,rows))
++
++# Bounded closed private lifecycle hypothesis; originals retained.
++def prototype_closed_edit_row(~Schema: Data,~M: Type,~A: Type,~F: Data,+namespace: U32,+tick: U32,command: S.Command<M,A,F>,row: S.Row<M,A,F>) -> RowEdit<Schema,M,A,F>:
++  match command row:
++    case S.InsertFlag{_,flag} S.Row{id,main,aux,_,added,changed}:
++      RowEdit{Some{S.Row{id,main,aux,Some{flag},added,changed}},[]}
++    case S.RemoveFlag{_} S.Row{id,main,aux,_,added,changed}:
++      RowEdit{Some{S.Row{id,main,aux,None{},added,changed}},[]}
++    case S.InsertMain{_,_} r: RowEdit{Some{r},[]}
++    case S.RemoveMain{_} r: RowEdit{Some{r},[]}
++    case S.Despawn{_} S.Row{+id,Some{_},_,_,_,_}:
++      RowEdit{None{},[S.MainRemoved{S.Handle{namespace,id}},S.Despawned{S.Handle{namespace,id}}]}
++    case S.Despawn{_} S.Row{id,None{},_,_,_,_}:
++      RowEdit{None{},[S.Despawned{S.Handle{namespace,id}}]}
++    case S.Spawn{_,_} r: RowEdit{Some{r},[]}
++
++# Entire queue is preflighted before the first payload is installed. The affine
++# queue is reconstructed in its original order, including on rejection.
++
++def prototype_closed_bounded_spawn(~M: Type,~A: Type,~F: Data,id: U32,bundle: S.Bundle<M,A,F>,result: S.Rows<M,A,F> & Bool) -> S.Rows<M,A,F> & (S.Command<M,A,F> & Bool):
++  match result:
++    case (rows,valid): (rows,(S.Spawn{id,bundle},valid))
++
++def prototype_closed_command_bound(~M: Type,~A: Type,~F: Data,rows: S.Rows<M,A,F>,command: S.Command<M,A,F>) -> S.Rows<M,A,F> & (S.Command<M,A,F> & Bool):
++  match command:
++    case S.Spawn{+id,bundle}:
++      prototype_closed_bounded_spawn(~M,~A,~F,id,bundle,S.prototype_closed_rows_can_place(~M,~A,~F,rows,id))
++    case other: (rows,(other,True{}))
++
++def prototype_closed_preflight_step(~M: Type,~A: Type,~F: Data,reverse: List<S.Command<M,A,F>>,valid: Bool,result: S.Rows<M,A,F> & (S.Command<M,A,F> & Bool)) -> Preflight<M,A,F>:
++  match result:
++    case (rows,(command,bounded)): Preflight{rows,command <> reverse,valid && bounded}
++
++def prototype_closed_preflight_go(~M: Type,~A: Type,~F: Data,commands: List<S.Command<M,A,F>>,state: Preflight<M,A,F>) -> Preflight<M,A,F>:
++  match commands state:
++    case Nil{} Preflight{rows,reverse,valid}: Preflight{rows,List.reverse(&1,S.Command<M,A,F>,reverse),valid}
++    case Con{command,tail} Preflight{rows,reverse,valid}: prototype_closed_preflight_go(~M,~A,~F,tail,prototype_closed_preflight_step(~M,~A,~F,reverse,valid,prototype_closed_command_bound(~M,~A,~F,rows,command)))
++
++def prototype_closed_preflight(~M: Type,~A: Type,~F: Data,commands: List<S.Command<M,A,F>>,rows: S.Rows<M,A,F>) -> Preflight<M,A,F>:
++  prototype_closed_preflight_go(~M,~A,~F,commands,Preflight{rows,[],True{}})
++
++def prototype_closed_removed(~Schema: Data,~M: Type,~A: Type,~F: Data,changes: List<&2,S.Change<Schema>>,result: S.Rows<M,A,F> & Maybe<S.Row<M,A,F>>) -> StepResult<Schema,M,A,F>:
++  match result:
++    case (rows,_): Stepped{rows,changes}
++
++def prototype_closed_edited(~Schema: Data,~M: Type,~A: Type,~F: Data,rows: S.Rows<M,A,F>,id: U32,result: RowEdit<Schema,M,A,F>) -> StepResult<Schema,M,A,F>:
++  match result:
++    case RowEdit{Some{row},changes}: Stepped{S.prototype_closed_rows_restore(~M,~A,~F,rows,row),changes}
++    case RowEdit{None{},changes}: prototype_closed_removed(~Schema,~M,~A,~F,changes,S.prototype_closed_rows_remove(~M,~A,~F,rows,id))
++
++def prototype_closed_extracted(~Schema: Data,~M: Type,~A: Type,~F: Data,namespace: U32,tick: U32,id: U32,command: S.Command<M,A,F>,result: S.Rows<M,A,F> & Maybe<S.Row<M,A,F>>) -> StepResult<Schema,M,A,F>:
++  match result:
++    case (rows,None{}): Stepped{rows,[]}
++    case (rows,Some{row}): prototype_closed_edited(~Schema,~M,~A,~F,rows,id,prototype_closed_edit_row(~Schema,~M,~A,~F,namespace,tick,command,row))
++
++def prototype_closed_placed(~Schema: Data,~M: Type,~A: Type,~F: Data,changes: List<&2,S.Change<Schema>>,result: S.Placement<M,A,F>) -> StepResult<Schema,M,A,F>:
++  match result:
++    case S.Placed{rows}: Stepped{rows,changes}
++    case S.Rejected{rows,row}: PlacementFault{rows,row}
++
++def prototype_closed_spawn(~Schema: Data,~M: Type,~A: Type,~F: Data,+namespace: U32,+tick: U32,+id: U32,rows: S.Rows<M,A,F>,bundle: S.Bundle<M,A,F>) -> StepResult<Schema,M,A,F>:
++  match bundle:
++    case S.Bundle{None{},aux,flag}: prototype_closed_placed(~Schema,~M,~A,~F,[],S.prototype_closed_rows_place(~M,~A,~F,rows,S.Row{id,None{},aux,flag,0,0}))
++    case S.Bundle{Some{main},aux,flag}: prototype_closed_placed(~Schema,~M,~A,~F,[S.MainAdded{S.Handle{namespace,id}},S.MainChanged{S.Handle{namespace,id}}],S.prototype_closed_rows_place(~M,~A,~F,rows,S.Row{id,Some{main},aux,flag,tick,tick}))
++
++def prototype_closed_targeted(~M: Type,~A: Type,~F: Data,command: S.Command<M,A,F>) -> S.Command<M,A,F> & U32:
++  match command:
++    case S.Spawn{+id,bundle}: (S.Spawn{id,bundle},id)
++    case S.InsertMain{+id,main}: (S.InsertMain{id,main},id)
++    case S.InsertFlag{+id,flag}: (S.InsertFlag{id,flag},id)
++    case S.RemoveMain{+id}: (S.RemoveMain{id},id)
++    case S.RemoveFlag{+id}: (S.RemoveFlag{id},id)
++    case S.Despawn{+id}: (S.Despawn{id},id)
++
++def prototype_closed_edit_target(~Schema: Data,~M: Type,~A: Type,~F: Data,namespace: U32,tick: U32,rows: S.Rows<M,A,F>,result: S.Command<M,A,F> & U32) -> StepResult<Schema,M,A,F>:
++  match result:
++    case (command,+id): prototype_closed_extracted(~Schema,~M,~A,~F,namespace,tick,id,command,S.prototype_closed_rows_extract(~M,~A,~F,rows,id))
++
++def prototype_closed_main_effect(~Schema: Data,~M: Type,~A: Type,~F: Data,+namespace: U32,+id: U32,result: S.Rows<M,A,F> & S.MainEffect) -> StepResult<Schema,M,A,F>:
++  match result:
++    case (rows,S.AddedMain{}): Stepped{rows,[S.MainAdded{S.Handle{namespace,id}},S.MainChanged{S.Handle{namespace,id}}]}
++    case (rows,S.ChangedMain{}): Stepped{rows,[S.MainChanged{S.Handle{namespace,id}}]}
++    case (rows,S.RemovedMain{}): Stepped{rows,[S.MainRemoved{S.Handle{namespace,id}}]}
++    case (rows,S.MissingMainTarget{}): Stepped{rows,[]}
++    case (rows,S.NoMainChange{}): Stepped{rows,[]}
++
++def prototype_closed_step(~Schema: Data,~M: Type,~A: Type,~F: Data,namespace: U32,tick: U32,rows: S.Rows<M,A,F>,command: S.Command<M,A,F>) -> StepResult<Schema,M,A,F>:
++  match command:
++    case S.Spawn{id,bundle}: prototype_closed_spawn(~Schema,~M,~A,~F,namespace,tick,id,rows,bundle)
++    case S.InsertMain{+id,main}: prototype_closed_main_effect(~Schema,~M,~A,~F,namespace,id,S.prototype_closed_rows_replace_main(~M,~A,~F,rows,id,Some{main},tick))
++    case S.RemoveMain{+id}: prototype_closed_main_effect(~Schema,~M,~A,~F,namespace,id,S.prototype_closed_rows_replace_main(~M,~A,~F,rows,id,None{},tick))
++    case other: prototype_closed_edit_target(~Schema,~M,~A,~F,namespace,tick,rows,prototype_closed_targeted(~M,~A,~F,other))
++
++def prototype_closed_state_step(~Schema: Data,~M: Type,~A: Type,~F: Data,reverseChanges: List<&2,S.Change<Schema>>,result: StepResult<Schema,M,A,F>) -> BatchState<Schema,M,A,F>:
++  match result:
++    case Stepped{rows,changes}: Running{rows,List.reverse.go(&2,S.Change<Schema>,changes,reverseChanges)}
++    case PlacementFault{rows,row}: Faulted{rows,row,[],List.reverse(&2,S.Change<Schema>,reverseChanges)}
++
++def prototype_closed_state_command(~Schema: Data,~M: Type,~A: Type,~F: Data,namespace: U32,tick: U32,command: S.Command<M,A,F>,state: BatchState<Schema,M,A,F>) -> BatchState<Schema,M,A,F>:
++  match state:
++    case Running{rows,changes}: prototype_closed_state_step(~Schema,~M,~A,~F,changes,prototype_closed_step(~Schema,~M,~A,~F,namespace,tick,rows,command))
++    case Faulted{rows,row,remaining,changes}: Faulted{rows,row,command <> remaining,changes}
++
++def prototype_closed_state_finish(~Schema: Data,~M: Type,~A: Type,~F: Data,state: BatchState<Schema,M,A,F>) -> BatchResult<Schema,M,A,F>:
++  match state:
++    case Running{rows,changes}: Completed{rows,List.reverse(&2,S.Change<Schema>,changes)}
++    case Faulted{rows,row,remaining,changes}: BatchFault{rows,row,List.reverse(&1,S.Command<M,A,F>,remaining),changes}
++
++def prototype_closed_batch(~Schema: Data,~M: Type,~A: Type,~F: Data,commands: List<S.Command<M,A,F>>,+namespace: U32,+tick: U32,state: BatchState<Schema,M,A,F>) -> BatchResult<Schema,M,A,F>:
++  match commands:
++    case Nil{}: prototype_closed_state_finish(~Schema,~M,~A,~F,state)
++    case Con{command,tail}: prototype_closed_batch(~Schema,~M,~A,~F,tail,namespace,tick,prototype_closed_state_command(~Schema,~M,~A,~F,namespace,tick,command,state))
++
++def prototype_closed_batch_world(~Schema: Data,~M: Type,~A: Type,~F: Data,~L: Type,~Mode: Data,namespace: U32,next: U32,ledger: Maybe<L>,mode: Mode,result: BatchResult<Schema,M,A,F>) -> CheckedApply<Schema,M,A,F,L,Mode>:
++  match result:
++    case Completed{rows,changes}: Applied{S.World{namespace,next,rows,[],ledger,mode},changes}
++    case BatchFault{rows,row,remaining,changes}: InvariantFault{S.World{namespace,next,rows,List.reverse(&1,S.Command<M,A,F>,remaining),ledger,mode},row,changes}
++
++def prototype_closed_preflight_world(~Schema: Data,~M: Type,~A: Type,~F: Data,~L: Type,~Mode: Data,+namespace: U32,next: U32,ledger: Maybe<L>,mode: Mode,tick: U32,result: Preflight<M,A,F>) -> CheckedApply<Schema,M,A,F,L,Mode>:
++  match result:
++    case Preflight{rows,pending,False{}}: CapacityRejected{S.World{namespace,next,rows,pending,ledger,mode}}
++    case Preflight{rows,pending,True{}}: prototype_closed_batch_world(~Schema,~M,~A,~F,~L,~Mode,namespace,next,ledger,mode,prototype_closed_batch(~Schema,~M,~A,~F,List.reverse(&1,S.Command<M,A,F>,pending),namespace,tick,Running{rows,[]}))
++
++def prototype_closed_apply_checked(~Schema: Data,~M: Type,~A: Type,~F: Data,~L: Type,~Mode: Data,world: S.World<Schema,M,A,F,L,Mode>,tick: U32) -> CheckedApply<Schema,M,A,F,L,Mode>:
++  match world:
++    case S.World{namespace,next,rows,pending,ledger,mode}: prototype_closed_preflight_world(~Schema,~M,~A,~F,~L,~Mode,namespace,next,ledger,mode,tick,prototype_closed_preflight(~M,~A,~F,pending,rows))
+--- a/experiments/s-integrate/host.bend
++++ b/experiments/s-integrate/host.bend
+@@ -405,8 +405,22 @@
+     case K.System{_,name,kind,_,_,_,_} None{}: motion_body(kind,mode,name,count,clock,owner,audit,None{})
+ def motion_invoke(system:K.System,mode:K.Mode,count:U32,clock:R.Clock,owner:MotionHost(),audit:Maybe<D.Audit>,run:Maybe<R.Run>) -> IO(D.Invoked<MotionHost(),W.Handle<T.MotionSchema>>):
+   motion_invoke_count(system,mode,count,clock,owner,audit,run)
++
++# Bounded closed private lifecycle hypothesis; originals retained.
++def prototype_closed_barrier_applied(~Schema: Data,~M: Type,~A: Type,~F: Data,~L: Type,~Mode: Data,~P: Data,~V: Data,~AV: Data,~LV: Data,logs:H.Logs<Schema,P>,bindings:List<&2,E.Binding<Schema>>,worldName:String,step:String,prior:D.DispatchOutcome,events:List<&2,E.TraceEvent<Schema,V,AV,F,LV,Mode,P>>,+clock:R.Clock,result:C.CheckedApply<Schema,M,A,F,L,Mode>) -> IO(Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & R.Clock):
++  match result:
++    case C.Applied{world,changes}: IO.pure(Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & R.Clock,(Host{world,H.append_changes(Schema,P,logs,D.clock_tick(clock),changes),bindings,worldName,step,prior,events},clock))
++    case C.CapacityRejected{_}: IO.die(Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & R.Clock,20,"indexed capacity capability rejected")
++    case C.InvariantFault{_,_,_}: IO.die(Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & R.Clock,21,"indexed placement invariant failed")
++
++def prototype_closed_barrier(~Schema: Data,~M: Type,~A: Type,~F: Data,~L: Type,~Mode: Data,~P: Data,~V: Data,~AV: Data,~LV: Data,owner:Host<Schema,M,A,F,L,Mode,P,V,AV,LV>,clock:R.Clock) -> IO(Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & R.Clock):
++  match owner:
++    case Host{world,logs,bindings,worldName,step,prior,events}:
++      +next = {R.advance(clock):R.Clock}
++      prototype_closed_barrier_applied(~Schema,~M,~A,~F,~L,~Mode,~P,~V,~AV,~LV,logs,bindings,worldName,step,prior,events,next,C.prototype_closed_apply_checked(~Schema,~M,~A,~F,~L,~Mode,world,D.clock_tick(next)))
++
+ def motion_barrier(owner:MotionHost(),clock:R.Clock) -> IO(MotionHost() & R.Clock):
+-  barrier(T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,T.MotionPing,T.PositionView,T.VelocityView,T.LedgerView,owner,clock)
++  prototype_closed_barrier(~T.MotionSchema,~CC.Cache<T.Position,T.PositionView>,~T.Velocity,~T.Selected,~CC.Cache<T.MotionLedger,T.LedgerView>,~T.MotionMode,~T.MotionPing,~T.PositionView,~T.VelocityView,~T.LedgerView,owner,clock)
+ def motion_frame(owner:MotionHost(),readers:R.Readers,boundary:R.Frame) -> MotionHost() & (R.Readers & R.Clock):
+   frame(T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,T.MotionPing,T.PositionView,T.VelocityView,T.LedgerView,owner,readers,boundary)
+ def motion_tick(nodes:List<&2,K.Node>,runtime:D.Runtime<MotionHost(),W.Handle<T.MotionSchema>>) -> IO(D.Dispatched<MotionHost(),W.Handle<T.MotionSchema>>):
+@@ -466,7 +480,7 @@
+ def health_invoke(system:K.System,mode:K.Mode,count:U32,clock:R.Clock,owner:HealthHost(),audit:Maybe<D.Audit>,run:Maybe<R.Run>) -> IO(D.Invoked<HealthHost(),W.Handle<T.HealthSchema>>):
+   health_invoke_count(system,mode,count,clock,owner,audit,run)
+ def health_barrier(owner:HealthHost(),clock:R.Clock) -> IO(HealthHost() & R.Clock):
+-  barrier(T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,T.HealthPing,T.VitalsView,T.ArmorView,T.LedgerView,owner,clock)
++  prototype_closed_barrier(~T.HealthSchema,~CC.Cache<T.Vitals,T.VitalsView>,~T.Armor,~T.Tracked,~CC.Cache<T.HealthLedger,T.LedgerView>,~T.HealthMode,~T.HealthPing,~T.VitalsView,~T.ArmorView,~T.LedgerView,owner,clock)
+ def health_frame(owner:HealthHost(),readers:R.Readers,boundary:R.Frame) -> HealthHost() & (R.Readers & R.Clock):
+   frame(T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,T.HealthPing,T.VitalsView,T.ArmorView,T.LedgerView,owner,readers,boundary)
+ def health_tick(nodes:List<&2,K.Node>,runtime:D.Runtime<HealthHost(),W.Handle<T.HealthSchema>>) -> IO(D.Dispatched<HealthHost(),W.Handle<T.HealthSchema>>):
+--- a/experiments/s-integrate/storage.bend
++++ b/experiments/s-integrate/storage.bend
+@@ -358,3 +358,171 @@
+ def rows_replace_main(-M: Type,-A: Type,-F: Data,rows: Rows<M,A,F>,+id: U32,replacement: Maybe<M>,tick: U32) -> Rows<M,A,F> & MainEffect:
+   match rows:
+     case Rows{m,a,f,+c,d,+h}: replace_main_checked(M,A,F,Bool.and((0 < id : U32),Bool.and((id <= c : U32),(id <= h : U32))),id,tick,Rows{m,a,f,c,d,h},replacement)
++
++# Bounded closed private lifecycle hypothesis; originals retained.
++def prototype_closed_metadata_empty(~F: Data,+depth: Nat) -> MetadataColumns<F>:
++  MetadataColumns{[False{} : Bool^depth],[None{} : Maybe<&2,F>^depth],[0 : U32^depth],[0 : U32^depth]}
++
++def prototype_closed_metadata_grow(~F: Data,columns: MetadataColumns<F>,+depth: Nat) -> MetadataColumns<F>:
++  match columns:
++    case MetadataColumns{live,flags,added,changed}: MetadataColumns{ANode{live,[False{} : Bool^depth]},ANode{flags,[None{} : Maybe<&2,F>^depth]},ANode{added,[0 : U32^depth]},ANode{changed,[0 : U32^depth]}}
++
++def prototype_closed_metadata_get_changed(~F: Data,live: Array<Bool>,flags: Array<Maybe<&2,F>>,added: Array<U32>,l: Bool,f: Maybe<&2,F>,a: U32,result: Array<U32> & U32) -> MetadataColumns<F> & Metadata<F>:
++  match result:
++    case (changed,c): (MetadataColumns{live,flags,added,changed},Metadata{l,f,a,c})
++
++def prototype_closed_metadata_get_added(~F: Data,live: Array<Bool>,flags: Array<Maybe<&2,F>>,changed: Array<U32>,index: U32,l: Bool,f: Maybe<&2,F>,result: Array<U32> & U32) -> MetadataColumns<F> & Metadata<F>:
++  match result:
++    case (added,a): prototype_closed_metadata_get_changed(~F,live,flags,added,l,f,a,Array.get(U32,changed,index))
++
++def prototype_closed_metadata_get_flags(~F: Data,live: Array<Bool>,added: Array<U32>,changed: Array<U32>,+index: U32,l: Bool,result: Array<Maybe<&2,F>> & Maybe<&2,F>) -> MetadataColumns<F> & Metadata<F>:
++  match result:
++    case (flags,f): prototype_closed_metadata_get_added(~F,live,flags,changed,index,l,f,Array.get(U32,added,index))
++
++def prototype_closed_metadata_get_live(~F: Data,flags: Array<Maybe<&2,F>>,added: Array<U32>,changed: Array<U32>,+index: U32,result: Array<Bool> & Bool) -> MetadataColumns<F> & Metadata<F>:
++  match result:
++    case (live,l): prototype_closed_metadata_get_flags(~F,live,added,changed,index,l,Array.get(Maybe<&2,F>,flags,index))
++
++def prototype_closed_metadata_get(~F: Data,columns: MetadataColumns<F>,+index: U32) -> MetadataColumns<F> & Metadata<F>:
++  match columns:
++    case MetadataColumns{live,flags,added,changed}: prototype_closed_metadata_get_live(~F,flags,added,changed,index,Array.get(Bool,live,index))
++# Query selection observes membership/flag only; stamps remain owned and untouched.
++
++def prototype_closed_metadata_live_done(~F: Data,flags: Array<Maybe<&2,F>>,added: Array<U32>,changed: Array<U32>,result: Array<Bool> & Bool) -> MetadataColumns<F> & Bool:
++  match result:
++    case (live,value): (MetadataColumns{live,flags,added,changed},value)
++
++def prototype_closed_metadata_live(~F: Data,columns: MetadataColumns<F>,index: U32) -> MetadataColumns<F> & Bool:
++  match columns:
++    case MetadataColumns{live,flags,added,changed}: prototype_closed_metadata_live_done(~F,flags,added,changed,Array.get(Bool,live,index))
++
++def prototype_closed_metadata_set(~F: Data,columns: MetadataColumns<F>,+index: U32,meta: Metadata<F>) -> MetadataColumns<F>:
++  match columns meta:
++    case MetadataColumns{live,flags,added,changed} Metadata{l,f,a,c}: MetadataColumns{Array.set(Bool,live,index,l),Array.set(Maybe<&2,F>,flags,index,f),Array.set(U32,added,index,a),Array.set(U32,changed,index,c)}
++
++def prototype_closed_slots_empty(~P: Type,+depth: Nat) -> Array<Maybe<P>>:
++  match depth:
++    case 0n: ALeaf{None{}}
++    case 1n+d: ANode{prototype_closed_slots_empty(~P,d),prototype_closed_slots_empty(~P,d)}
++
++def prototype_closed_rows_empty(~M: Type,~A: Type,~F: Data) -> Rows<M,A,F>:
++  Rows{ALeaf{None{}},ALeaf{None{}},prototype_closed_metadata_empty(~F,0n),1,0n,0}
++
++def prototype_closed_rows_can_place(~M: Type,~A: Type,~F: Data,rows: Rows<M,A,F>,+id: U32) -> Rows<M,A,F> & Bool:
++  (rows,Bool.and((0 < id : U32),(id <= 131072 : U32)))
++
++def prototype_closed_grow_decide(~M: Type,~A: Type,~F: Data,needed: Bool,rows: Rows<M,A,F>,recurse: Rows<M,A,F> -> Rows<M,A,F>) -> Rows<M,A,F>:
++  match needed rows:
++    case False{} rows: rows
++    case True{} Rows{m,a,f,+c,+d,h}:
++      recurse(Rows{ANode{m,slots_empty(M,d)},ANode{a,slots_empty(A,d)},prototype_closed_metadata_grow(~F,f,d),U32.add(c,c),1n+d,h})
++
++def prototype_closed_grow(~M: Type,~A: Type,~F: Data,fuel: Nat,+id: U32,rows: Rows<M,A,F>) -> Rows<M,A,F>:
++  match fuel rows:
++    case 0n rows: rows
++    case 1n+n Rows{m,a,f,+c,d,h}: prototype_closed_grow_decide(~M,~A,~F,Bool.and((c < id : U32),(c <= 65536 : U32)),Rows{m,a,f,c,d,h},(grown => prototype_closed_grow(~M,~A,~F,n,id,grown)))
++
++def prototype_closed_extract_row(~M: Type,~A: Type,~F: Data,id: U32,main: Array<Maybe<M>>,value: Maybe<M>,aux: Array<Maybe<A>>,av: Maybe<A>,metadata: MetadataColumns<F>,capacity: U32,depth: Nat,high: U32,meta: Metadata<F>) -> Rows<M,A,F> & Maybe<Row<M,A,F>>:
++  match meta:
++    case Metadata{_,flag,added,changed}: (Rows{main,aux,metadata,capacity,depth,high},Some{Row{id,value,av,flag,added,changed}})
++
++def prototype_closed_extract_aux(~M: Type,~A: Type,~F: Data,id: U32,main: Array<Maybe<M>>,value: Maybe<M>,metadata: MetadataColumns<F>,capacity: U32,depth: Nat,high: U32,meta: Metadata<F>,result: Array<Maybe<A>> & Maybe<A>) -> Rows<M,A,F> & Maybe<Row<M,A,F>>:
++  match result:
++    case (aux,av): prototype_closed_extract_row(~M,~A,~F,id,main,value,aux,av,metadata,capacity,depth,high,meta)
++
++def prototype_closed_extract_main(~M: Type,~A: Type,~F: Data,+id: U32,aux: Array<Maybe<A>>,metadata: MetadataColumns<F>,capacity: U32,depth: Nat,high: U32,meta: Metadata<F>,result: Array<Maybe<M>> & Maybe<M>) -> Rows<M,A,F> & Maybe<Row<M,A,F>>:
++  match result:
++    case (main,mv): prototype_closed_extract_aux(~M,~A,~F,id,main,mv,metadata,capacity,depth,high,meta,Array.swap(Maybe<A>,aux,U32.sub(id,1),None{}))
++
++def prototype_closed_extract_meta(~M: Type,~A: Type,~F: Data,+id: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,capacity: U32,depth: Nat,high: U32,result: MetadataColumns<F> & Metadata<F>) -> Rows<M,A,F> & Maybe<Row<M,A,F>>:
++  match result:
++    case (metadata,Metadata{False{},flag,added,changed}): (Rows{main,aux,metadata,capacity,depth,high},None{})
++    case (metadata,Metadata{True{},flag,added,changed}): prototype_closed_extract_main(~M,~A,~F,id,aux,metadata,capacity,depth,high,Metadata{True{},flag,added,changed},Array.swap(Maybe<M>,main,U32.sub(id,1),None{}))
++
++def prototype_closed_extract_checked(~M: Type,~A: Type,~F: Data,valid: Bool,+id: U32,rows: Rows<M,A,F>) -> Rows<M,A,F> & Maybe<Row<M,A,F>>:
++  match valid rows:
++    case False{} rows: (rows,None{})
++    case True{} Rows{main,aux,metadata,capacity,depth,high}: prototype_closed_extract_meta(~M,~A,~F,id,main,aux,capacity,depth,high,prototype_closed_metadata_get(~F,metadata,U32.sub(id,1)))
++
++def prototype_closed_rows_extract(~M: Type,~A: Type,~F: Data,rows: Rows<M,A,F>,+id: U32) -> Rows<M,A,F> & Maybe<Row<M,A,F>>:
++  match rows:
++    case Rows{main,aux,metadata,+capacity,depth,+high}: prototype_closed_extract_checked(~M,~A,~F,Bool.and((0 < id : U32),Bool.and((id <= capacity : U32),(id <= high : U32))),id,Rows{main,aux,metadata,capacity,depth,high})
++
++def prototype_closed_rows_restore(~M: Type,~A: Type,~F: Data,rows: Rows<M,A,F>,row: Row<M,A,F>) -> Rows<M,A,F>:
++  match rows row:
++    case Rows{main,aux,metadata,capacity,depth,high} Row{+id,m,a,f,added,changed}:
++      Rows{Array.set(Maybe<M>,main,U32.sub(id,1),m),Array.set(Maybe<A>,aux,U32.sub(id,1),a),prototype_closed_metadata_set(~F,metadata,U32.sub(id,1),Metadata{True{},f,added,changed}),capacity,depth,high}
++
++def prototype_closed_remove_done(~M: Type,~A: Type,~F: Data,+id: U32,result: Rows<M,A,F> & Maybe<Row<M,A,F>>) -> Rows<M,A,F> & Maybe<Row<M,A,F>>:
++  match result:
++    case (rows,None{}): (rows,None{})
++    case (Rows{m,a,f,c,d,h},Some{row}): (Rows{m,a,prototype_closed_metadata_set(~F,f,U32.sub(id,1),Metadata{False{},None{},0,0}),c,d,h},Some{row})
++
++def prototype_closed_rows_remove(~M: Type,~A: Type,~F: Data,rows: Rows<M,A,F>,+id: U32) -> Rows<M,A,F> & Maybe<Row<M,A,F>>:
++  prototype_closed_remove_done(~M,~A,~F,id,prototype_closed_rows_extract(~M,~A,~F,rows,id))
++
++def prototype_closed_place_status(~M: Type,~A: Type,~F: Data,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,metadata: MetadataColumns<F>,capacity: U32,depth: Nat,+high: U32,live: Bool,row: Row<M,A,F>) -> Placement<M,A,F>:
++  match live row:
++    case True{} row: Rejected{Rows{main,aux,metadata,capacity,depth,high},row}
++    case False{} Row{+id,m,a,f,added,changed}: Placed{Rows{Array.set(Maybe<M>,main,U32.sub(id,1),m),Array.set(Maybe<A>,aux,U32.sub(id,1),a),prototype_closed_metadata_set(~F,metadata,U32.sub(id,1),Metadata{True{},f,added,changed}),capacity,depth,U32.max(high,id)}}
++
++def prototype_closed_place_metadata(~M: Type,~A: Type,~F: Data,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,metadata: MetadataColumns<F>,capacity: U32,depth: Nat,high: U32,row: Row<M,A,F>,meta: Bool) -> Placement<M,A,F>:
++  match meta:
++    case live: prototype_closed_place_status(~M,~A,~F,main,aux,metadata,capacity,depth,high,live,row)
++
++def prototype_closed_place_meta(~M: Type,~A: Type,~F: Data,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,capacity: U32,depth: Nat,high: U32,row: Row<M,A,F>,result: MetadataColumns<F> & Bool) -> Placement<M,A,F>:
++  match result:
++    case (metadata,meta): prototype_closed_place_metadata(~M,~A,~F,main,aux,metadata,capacity,depth,high,row,meta)
++
++def prototype_closed_place_capacity(~M: Type,~A: Type,~F: Data,valid: Bool,rows: Rows<M,A,F>,row: Row<M,A,F>) -> Placement<M,A,F>:
++  match valid rows row:
++    case False{} rows row: Rejected{rows,row}
++    case True{} Rows{m,a,f,c,d,h} Row{+id,main,aux,flag,added,changed}: prototype_closed_place_meta(~M,~A,~F,m,a,c,d,h,Row{id,main,aux,flag,added,changed},prototype_closed_metadata_live(~F,f,U32.sub(id,1)))
++
++def prototype_closed_place_grown(~M: Type,~A: Type,~F: Data,rows: Rows<M,A,F>,row: Row<M,A,F>) -> Placement<M,A,F>:
++  match rows row:
++    case Rows{m,a,f,+c,d,h} Row{+id,main,aux,flag,added,changed}: prototype_closed_place_capacity(~M,~A,~F,Bool.and((0 < id : U32),(id <= c : U32)),Rows{m,a,f,c,d,h},Row{id,main,aux,flag,added,changed})
++
++def prototype_closed_place_checked(~M: Type,~A: Type,~F: Data,valid: Bool,rows: Rows<M,A,F>,row: Row<M,A,F>) -> Placement<M,A,F>:
++  match valid row:
++    case False{} row: Rejected{rows,row}
++    case True{} Row{+id,m,a,f,added,changed}: prototype_closed_place_grown(~M,~A,~F,prototype_closed_grow(~M,~A,~F,17n,id,rows),Row{id,m,a,f,added,changed})
++
++def prototype_closed_rows_place(~M: Type,~A: Type,~F: Data,rows: Rows<M,A,F>,row: Row<M,A,F>) -> Placement<M,A,F>:
++  match row:
++    case Row{+id,m,a,f,added,changed}: prototype_closed_place_checked(~M,~A,~F,Bool.and((0 < id : U32),(id <= 131072 : U32)),rows,Row{id,m,a,f,added,changed})
++# Main-only point access never extracts Aux or constructs a Row.
++
++def prototype_closed_replace_main_effect(~M: Type,~A: Type,~F: Data,id: U32,+tick: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,metadata: MetadataColumns<F>,capacity: U32,depth: Nat,high: U32,flag: Maybe<&2,F>,added: U32,changed: U32,insert: Bool,old: Maybe<M>) -> Rows<M,A,F> & MainEffect:
++  match insert old:
++    case False{} None{}: (Rows{main,aux,metadata,capacity,depth,high},NoMainChange{})
++    case False{} Some{_}: (Rows{main,aux,prototype_closed_metadata_set(~F,metadata,U32.sub(id,1),Metadata{True{},flag,0,0}),capacity,depth,high},RemovedMain{})
++    case True{} None{}: (Rows{main,aux,prototype_closed_metadata_set(~F,metadata,U32.sub(id,1),Metadata{True{},flag,tick,tick}),capacity,depth,high},AddedMain{})
++    case True{} Some{_}: (Rows{main,aux,prototype_closed_metadata_set(~F,metadata,U32.sub(id,1),Metadata{True{},flag,added,tick}),capacity,depth,high},ChangedMain{})
++
++def prototype_closed_replace_main_done(~M: Type,~A: Type,~F: Data,id: U32,tick: U32,aux: Array<Maybe<A>>,metadata: MetadataColumns<F>,capacity: U32,depth: Nat,high: U32,flag: Maybe<&2,F>,added: U32,changed: U32,insert: Bool,result: Array<Maybe<M>> & Maybe<M>) -> Rows<M,A,F> & MainEffect:
++  match result:
++    case (main,old): prototype_closed_replace_main_effect(~M,~A,~F,id,tick,main,aux,metadata,capacity,depth,high,flag,added,changed,insert,old)
++
++def prototype_closed_replace_main_slot(~M: Type,~A: Type,~F: Data,+id: U32,tick: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,metadata: MetadataColumns<F>,capacity: U32,depth: Nat,high: U32,flag: Maybe<&2,F>,added: U32,changed: U32,replacement: Maybe<M>) -> Rows<M,A,F> & MainEffect:
++  match replacement:
++    case None{}: prototype_closed_replace_main_done(~M,~A,~F,id,tick,aux,metadata,capacity,depth,high,flag,added,changed,False{},Array.swap(Maybe<M>,main,U32.sub(id,1),None{}))
++    case Some{value}: prototype_closed_replace_main_done(~M,~A,~F,id,tick,aux,metadata,capacity,depth,high,flag,added,changed,True{},Array.swap(Maybe<M>,main,U32.sub(id,1),Some{value}))
++
++def prototype_closed_replace_main_meta(~M: Type,~A: Type,~F: Data,id: U32,tick: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,metadata: MetadataColumns<F>,capacity: U32,depth: Nat,high: U32,replacement: Maybe<M>,meta: Metadata<F>) -> Rows<M,A,F> & MainEffect:
++  match meta:
++    case Metadata{False{},_,_,_}: (Rows{main,aux,metadata,capacity,depth,high},MissingMainTarget{})
++    case Metadata{True{},flag,added,changed}: prototype_closed_replace_main_slot(~M,~A,~F,id,tick,main,aux,metadata,capacity,depth,high,flag,added,changed,replacement)
++
++def prototype_closed_replace_main_meta_done(~M: Type,~A: Type,~F: Data,id: U32,tick: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,capacity: U32,depth: Nat,high: U32,replacement: Maybe<M>,result: MetadataColumns<F> & Metadata<F>) -> Rows<M,A,F> & MainEffect:
++  match result:
++    case (metadata,meta): prototype_closed_replace_main_meta(~M,~A,~F,id,tick,main,aux,metadata,capacity,depth,high,replacement,meta)
++
++def prototype_closed_replace_main_checked(~M: Type,~A: Type,~F: Data,valid: Bool,+id: U32,tick: U32,rows: Rows<M,A,F>,replacement: Maybe<M>) -> Rows<M,A,F> & MainEffect:
++  match valid rows:
++    case False{} rows: (rows,MissingMainTarget{})
++    case True{} Rows{m,a,f,c,d,h}: prototype_closed_replace_main_meta_done(~M,~A,~F,id,tick,m,a,c,d,h,replacement,prototype_closed_metadata_get(~F,f,U32.sub(id,1)))
++
++def prototype_closed_rows_replace_main(~M: Type,~A: Type,~F: Data,rows: Rows<M,A,F>,+id: U32,replacement: Maybe<M>,tick: U32) -> Rows<M,A,F> & MainEffect:
++  match rows:
++    case Rows{m,a,f,+c,d,+h}: prototype_closed_replace_main_checked(~M,~A,~F,Bool.and((0 < id : U32),Bool.and((id <= c : U32),(id <= h : U32))),id,tick,Rows{m,a,f,c,d,h},replacement)
+--- a/experiments/s-integrate/query.bend
++++ b/experiments/s-integrate/query.bend
+@@ -54,7 +54,7 @@
+     case (owners,values): (owners,List.reverse(&2,O,values))
+ def read_rows_advance(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> @-get: (P -> Tok -> P & V) -> @-ag: (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),id: U32,selection: Selection,namespace: U32,state: S.Rows<M,A,F> & List<&2,O>) -> S.Rows<M,A,F> & List<&2,O>:
+   match state:
+-    case (owners,values): read_rows_slot(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,selection,namespace,S.rows_extract(M,A,F,owners,id),values)
++    case (owners,values): read_rows_slot(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,selection,namespace,S.prototype_closed_rows_extract(~M,~A,~F,owners,id),values)
+ def read_rows_go(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> @-get: (P -> Tok -> P & V) -> @-ag: (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),remaining: Nat,+id: U32,+selection: Selection,+namespace: U32,state: S.Rows<M,A,F> & List<&2,O>) -> S.Rows<M,A,F> & List<&2,O>:
+   match remaining:
+     case 0n: read_rows_finish(M,A,F,O,state)
+@@ -130,7 +130,7 @@
+     case (owners,None{}): (owners,T.Missing{})
+     case (owners,Some{owner}): lookup_read(M,A,F,O,owners,read_row(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,selection,namespace,owner))
+ def lookup_rows(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> @-get: (P -> Tok -> P & V) -> @-ag: (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),rows: S.Rows<M,A,F>,selection: Selection,namespace: U32,target: U32) -> S.Rows<M,A,F> & T.Access<O>:
+-  lookup_slot(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,selection,namespace,S.rows_extract(M,A,F,rows,target))
++  lookup_slot(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,selection,namespace,S.prototype_closed_rows_extract(~M,~A,~F,rows,target))
+ def lookup_return(-Schema: Data,-M: Type,-A: Type,-F: Data,-L: Type,-Mode: Data,-O: Data,namespace: U32,next: U32,pending: List<S.Command<M,A,F>>,ledger: Maybe<L>,mode: Mode,result: S.Rows<M,A,F> & T.Access<O>) -> S.World<Schema,M,A,F,L,Mode> & T.Access<O>:
+   match result:
+     case (rows,observation): (S.World{namespace,next,rows,pending,ledger,mode},observation)

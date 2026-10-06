@@ -1,0 +1,42 @@
+[
+  {
+    "argv": [
+      "taskset",
+      "-c",
+      "9",
+      "bend",
+      "/tmp/bendvy-threehour-journal-handle/experiments/s-prep/source-closed-metadata/closed-private-probe.bend",
+      "-o",
+      "/tmp/bendvy-closed-private-probe.c"
+    ],
+    "capSeconds": 30,
+    "exit": 0,
+    "output": ""
+  },
+  {
+    "argv": [
+      "taskset",
+      "-c",
+      "9",
+      "bend",
+      "/tmp/bendvy-threehour-journal-handle/experiments/s-prep/source-closed-metadata/closed-private-probe.bend",
+      "-o",
+      "/tmp/bendvy-closed-private-probe.js"
+    ],
+    "capSeconds": 30,
+    "exit": 0,
+    "output": ""
+  },
+  {
+    "argv": [
+      "taskset",
+      "-c",
+      "9",
+      "node",
+      "/tmp/bendvy-closed-private-probe.js"
+    ],
+    "capSeconds": 5,
+    "exit": 0,
+    "output": "0\n"
+  }
+]

@@ -1,0 +1,52 @@
+{
+  "status": "PASS_FULL65",
+  "scope": "Finite full65 Motion fields only; no elapsed qualification or universal refinement",
+  "cpu": 9,
+  "commands": [
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-measurement/prepare-ts.py",
+        "--source",
+        "/workspace/formal-proofs/bendvy/experiments/s-integrate/measurement-samples-reference.mjs",
+        "--output",
+        "/tmp/bendvy-closed-frontier-native-semantic/reference.mjs",
+        "--schema",
+        "Motion",
+        "--batch",
+        "64"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "7202e7c0172b81b817b1079ac6bebc07271467a20d40626571348b68bb35ce93"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-closed-frontier-native-semantic/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "0d6f76e622b876427091b324bdf7b2d9befbc0720473f588dc64bff43312bc5a"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-closed-frontier-motion-build/batch.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "3aad727d0122ddcba378477b4dca907ab53ab3b042466308356073850ef227d3"
+    }
+  ],
+  "binarySHA256": "68516757e94b95623389cbb0901d4223bb69a48a13c8a73c132eaaf6027b94b7",
+  "runnerSHA256": "86f2009c09e222beee772de79e9c6a061776701377f14afdac53afa988e9663c",
+  "allFullFieldsEqual": true,
+  "worlds": 65,
+  "referenceSourceSHA256": "ecfd1b590964fb76fb69a7a28e9dffa05b631592f47a52f11921ffaec25253b6",
+  "referenceSHA256": "644022682476c10f8232681349baecdb7d860d37a218aaec38c3633beaf024fe",
+  "validatorSHA256": "25ab577d5234a1c30f46318708455377353ec39d4fb0b6bf1b40ad5ea5da8f84"
+}
