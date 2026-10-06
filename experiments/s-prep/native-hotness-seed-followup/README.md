@@ -218,3 +218,28 @@ primed local freelist requests, not physical allocation, peak memory or time.
 Source-specific authority/negative/full22 and speed gates remain separate.
 Receipts, original/derived C, full fresh observations and exact maps are archived
 under write-fold-v2 names. No earlier candidate receipt is used as this acceptance.
+
+## Closed world observation boundary
+
+world_ledger closure removes PendingView firstseed. Checker15/emitter30 PASS
+byte-identical C9e0d21c311ef8b8321f1e495f5ea548cc596d1d594c02d7dae5c7e98fe19a7db,
+1,594branches/105sites. Next first is query.struct_idx_finish line103→List.reverse
+with VarO index3/span12508/domNULL/starfalse. Exact source mapping accounts for
+book_load blanking import lines (bend.ts984): span12508 points to O in that call,
+not read_rows_finish. Metadata worker owns the next closed finish hypothesis.
+
+## Independent no-Aux query counters
+
+Actual C1d1310c739afad94a4d3383c301d0115cba3ab73948ce7940679748b6b539ec7/current29
+passes65 complete fresh TS fields under privateClang19 compile120/runtime5 CPU11.
+Against its frozen/continuation source base: heap31,863,751 (−352,256), cumulative
+requestedwords80,382,991 (−704,512), RFC14,774,590 unchanged. The only constructor
+category reduction is Velocity−352,256. seal56,962,816 and ctr_take13,824,513
+reduce704,512 and352,256; keep/drop/span unchanged. System/miss/growth remain0.
+This removes one two-word auxiliary constructor per populated Velocity; no
+physical malloc, peak memory or speed inference follows.
+
+Separately, compared with row split it requests2,793,472 more heap objects,
+1,048,576 more RFCs and18,169,856 more words. These are different source overlays;
+no joined or mixed-base saving is claimed. Exact fresh receipts/observations/maps
+are archived under noaux-v1. Source-specific gates and qualification remain open.
