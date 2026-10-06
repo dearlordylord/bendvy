@@ -268,3 +268,16 @@ additivity therefore holds for these observed requests in this exact join; it
 was not assumed from individual sources. No speed additivity, physical-memory
 claim, universal semantic refinement or source qualification follows. Raw complete
 fields, currentmanifest, original/derived C and counters are separate join archives.
+
+## Narrow transaction element follow-up
+
+Freezing only the generic commit element C removes its previous firstseed;
+full-slot source-emission negative remains the source worker's separate receipt.
+Read-only checker15/emitter30 PASS byte-identical C
+`e2505123516eaa289bc9568eb503d8d607691ccd82ab341ba2bae9f9f5b55125`,
+1,572branches/103sites. Next actual firstseed is transaction.storage_commit
+line121→List.reverse(&1,S.Command<M,A,F>,commands): foreign VarM index1/span9071
+resolves local A:Type quantNone with wildcardfalse. Import-blank mapping confirms
+that exact source call. Global sharing is still seeded; conditional follow-on
+counters for a globally resolved candidate therefore were not run. No code or
+compiler edit was made by this diagnostic.
