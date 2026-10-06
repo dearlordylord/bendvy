@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : IA.Wrapped<transaction.Tx<storage.World<T.MotionSchema, cached-payload.PrototypeMotionMainSlot, T.Velocity, T.Selected, cache.Cache<T.MotionLedger, T.LedgerView>, T.MotionMode>, storage.Handle<T.MotionSchema>, storage.Command<cached-payload.PrototypeMotionMainSlot, T.Velocity, T.Selected>>>
+- observed : Tx
+Context:
+- Tx    : Type
+- get   : @_:Tx -> @_:T.PositionToken -> Sigma<&1, &1, Tx, _ => T.Access<T.PositionView>>
+- owner : Tx
+Location: bad
+5 | def bad(-Tx:Type,get:Tx -> T.PositionToken -> Tx & T.Access<T.PositionView>,owner:Tx) -> Tx:
+6>|   IA.prototype_slot_host_motion_set_main0(owner,T.PositionToken{},55)
+  |                                           ^^^^^
+7 | 

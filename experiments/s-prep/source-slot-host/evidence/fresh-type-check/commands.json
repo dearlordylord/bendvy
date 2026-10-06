@@ -1,0 +1,49 @@
+{
+  "status": "EXECUTABLE_TYPE_CHECK_PASS",
+  "notProof": true,
+  "cpu": 10,
+  "defaultProofCheckerUnchangedSeconds": 5,
+  "commands": [
+    {
+      "name": "version",
+      "command": [
+        "bend",
+        "version"
+      ],
+      "returncode": 0,
+      "elapsedSeconds": 0.016507598000316648,
+      "supervisionSeconds": 5,
+      "diagnosticCheckerSeconds": null
+    },
+    {
+      "name": "guide",
+      "command": [
+        "bend",
+        "guide"
+      ],
+      "returncode": 0,
+      "elapsedSeconds": 0.01494791000004625,
+      "supervisionSeconds": 5,
+      "diagnosticCheckerSeconds": null
+    },
+    {
+      "name": "host-check",
+      "command": [
+        "taskset",
+        "-c",
+        "10",
+        "timeout",
+        "-k",
+        "1s",
+        "15s",
+        "bend",
+        "/tmp/bendvy-slot-host-v1/experiments/s-integrate/host.bend",
+        "--check-only"
+      ],
+      "returncode": 0,
+      "elapsedSeconds": 1.175061599999026,
+      "supervisionSeconds": 17,
+      "diagnosticCheckerSeconds": 15
+    }
+  ]
+}

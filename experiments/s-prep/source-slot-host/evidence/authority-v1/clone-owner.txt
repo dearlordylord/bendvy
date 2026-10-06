@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- expected : owner
+- observed : owner (consumed more than once)
+Context:
+- Tx : Type
+Location: bad
+4 | 
+5>| def bad(-Tx:Type,owner:Tx) -> Tx & Tx:
+  |                  ^^^^^
+6 |   (owner,owner)
