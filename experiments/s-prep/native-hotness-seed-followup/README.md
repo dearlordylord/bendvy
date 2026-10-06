@@ -243,3 +243,28 @@ Separately, compared with row split it requests2,793,472 more heap objects,
 1,048,576 more RFCs and18,169,856 more words. These are different source overlays;
 no joined or mixed-base saving is claimed. Exact fresh receipts/observations/maps
 are archived under noaux-v1. Source-specific gates and qualification remain open.
+
+## Closed query finish follow-up
+
+Private closed struct_idx_finish/struct_cols_finish removes prior O firstseed.
+Checker15/emitter30 PASS byte-identical C
+`fef387f8acd21d622ed4a3d16b9f1fbd390c9a9d15ec6c584f4555808d3d64d2`,
+1,582branches/105sites. New firstseed is transaction.commit line41→
+List.reverse(&1,C,commands): foreign VarC index2/span2449 resolves xs:List
+quantLone, with wildcardfalse. Import-blank source mapping confirms C in that
+exact reverse call. A closed commit boundary remains a source hypothesis; all
+commands/order/authority fields must stay intact.
+
+## Independent composed fold + no-Aux attribution
+
+Exact joined C
+`f5261110337876cd31e0a0fd8c4d50f5f182b085306904f82ab69b6c7beb6295`
+passes65 complete fresh TS fields with29 current source pins, unchanged original
+C and approved private compile120/runtime5 CPU11. Actual heap28,718,023,
+RFC13,726,014 and requestedwords61,508,623 are independently observed.
+Against exact fold-v2 base:−352,256 heap/−704,512 words/RFCunchanged. Against
+exact noAux-v1 base:−3,145,728 heap/−1,048,576 RFC/−18,874,368words. Arithmetic
+additivity therefore holds for these observed requests in this exact join; it
+was not assumed from individual sources. No speed additivity, physical-memory
+claim, universal semantic refinement or source qualification follows. Raw complete
+fields, currentmanifest, original/derived C and counters are separate join archives.
