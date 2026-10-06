@@ -58,3 +58,34 @@ cache could survive input preflight. Current candidate embedded/standalone recei
 this is a fail-closed provenance gap, not an observed source semantic failure. Worker was
 notified and agreed to add equality. The strengthened recipe/negative receipt must be
 reviewed before closing this finding. No worker source was changed by this review.
+
+## Follow-up inspection of produced controls
+
+Worker closed the embedded-cache equality omission in derive.py and pins.py before
+copy/materialization; source29 remains bdf6b2. The code finding is resolved. Reviewer
+did not execute a malformed embedded-receipt control. Current recipe and producer
+receipt hashes are fixed in [controls-followup.json](controls-followup.json).
+
+Produced cursor-v5 fixture adds duplicate `[3,3]`; both backend receipts report12 literal
+checkpoints, preserving original array cells/raw/cache metadata, incoming pending and
+rollback. Order-v5 reports four literal lists: Required/Optional `[1,2,3]`, Present
+`[1,3]`, Absent `[2]`. Generic full-shape-v4 reports20 checkpoints (depths0..4 × four
+selections), with genuinely Type owned arrays in Main, Aux and Ledger, physical cells/
+scalars and metadata retained. This generic shape fixture has empty pending; the Motion
+cursor physical fixture covers a nonempty pending command. These are finite subjects.
+
+Fresh fallback-v5 reports both schema/backend PASS: valid prefix then foreign cursor in
+two consumed cursor phases calls the unchanged opaque nonidentity client and preserves
+full returned context. It deliberately uses two namespace-specific cursors; it does not
+claim one cursor can represent a mixed-namespace Handle list. Separate concrete all-context
+transport remains distinct from opaque callback authority. Six new-source negatives
+include owner cloning/undeclared access/cross-schema token/write-through-read plus cursor
+cloning and Motion/Health cursor schema mismatch. These are producer executed gates
+inspected here, not new executions or acceptance transferred by this review.
+
+Remaining review limitations: a dedicated Health physical cursor rollback/duplicate
+literal subject was not visible at this inspection; generic query fields/Health fallback
+and full65 do not substitute for that exact subject. Source-bound protected Tx/suppression
+matrix must be adapted to cursor entry if claimed; d437 controls still call old packed
+fold entry. Universal cursor authority, arbitrary-client query equivalence and mandatory
+performance acceptance remain open. No new concrete source defect found.

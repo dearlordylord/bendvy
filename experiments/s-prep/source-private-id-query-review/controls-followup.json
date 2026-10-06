@@ -1,0 +1,164 @@
+{
+  "scope": "Independent read-only follow-up inspection of producer receipts/code, no new executable gates",
+  "recipeFix": {
+    "deriveSHA256": "64112230e2f378e3767629c9a79735992dedbdb500aac7151dc469091014a946",
+    "pinsSHA256": "4fbe50310057cd03beab186bef3a32072c518aaa2efe143f2ad952d1856b62ac",
+    "embeddedEqualityPreflightPresent": true,
+    "freshMalformedEmbeddedControlNotRunByReviewer": true
+  },
+  "producerReceipts": {
+    "cursor-controls-v5": {
+      "path": "/tmp/bendvy-private-id-query-cursor-controls-v5/evidence.json",
+      "SHA256": "b4a95c8afc88e8bf00de36fde9950860d05950e59e48df78a4e0b1bcc7ae3d16",
+      "status": "FINITE_AUTHORED_LITERAL_FULL_FIELDS_BOTH_BACKENDS_PASS",
+      "scope": "Authored finite owned full-shape identity fixture or intended type negative; no universal proof",
+      "subjects": {
+        "JS": {
+          "status": "PASS",
+          "checkpoints": 12,
+          "outputSHA256": "28640ab23f7e5e6cce6b37d91a448a63604f00c73beee5ae75d1446fe3c40e2e"
+        },
+        "Native": {
+          "status": "PASS",
+          "checkpoints": 12,
+          "outputSHA256": "28640ab23f7e5e6cce6b37d91a448a63604f00c73beee5ae75d1446fe3c40e2e"
+        }
+      },
+      "cases": []
+    },
+    "order-controls-v5": {
+      "path": "/tmp/bendvy-private-id-query-order-controls-v5/evidence.json",
+      "SHA256": "83005cec526494f0bba5ed9ddb35437414888d0213ff6a4621b2e687c6123503",
+      "status": "FINITE_AUTHORED_LITERAL_FULL_FIELDS_BOTH_BACKENDS_PASS",
+      "scope": "Authored finite owned full-shape identity fixture or intended type negative; no universal proof",
+      "subjects": {
+        "JS": {
+          "status": "PASS",
+          "checkpoints": 4,
+          "outputSHA256": "d6a34228196493c7cc389d891dba5d48f075195a4ba107f8e461a1acf5b2b3ab"
+        },
+        "Native": {
+          "status": "PASS",
+          "checkpoints": 4,
+          "outputSHA256": "d6a34228196493c7cc389d891dba5d48f075195a4ba107f8e461a1acf5b2b3ab"
+        }
+      },
+      "cases": []
+    },
+    "shape-controls-v4": {
+      "path": "/tmp/bendvy-private-id-query-shape-controls-v4/evidence.json",
+      "SHA256": "d4fc45d83a3075e3df53fd1273f96657afcfe555663b8320f287b20e9d129487",
+      "status": "FINITE_AUTHORED_LITERAL_FULL_FIELDS_BOTH_BACKENDS_PASS",
+      "scope": "Authored finite owned full-shape identity fixture or intended type negative; no universal proof",
+      "subjects": {
+        "JS": {
+          "status": "PASS",
+          "checkpoints": 20,
+          "outputSHA256": "99c9c74eb65e11aeb9b83ac96fa8f30b7273d8d655c827a14cf6b5ad2a46d7f2"
+        },
+        "Native": {
+          "status": "PASS",
+          "checkpoints": 20,
+          "outputSHA256": "99c9c74eb65e11aeb9b83ac96fa8f30b7273d8d655c827a14cf6b5ad2a46d7f2"
+        }
+      },
+      "cases": []
+    },
+    "fallback-controls-v5": {
+      "path": "/tmp/bendvy-private-id-query-fallback-controls-v5/evidence.json",
+      "SHA256": "44cde121c1e6965a89f16793ad7abb4800188821ecb9c093bfc06691cc7fa9ca",
+      "status": "ACTUAL_NONIDENTITY_GENERIC_FALLBACK_AND_CONCRETE_TRANSPORT_FINISH_BOTH_PASS",
+      "scope": null,
+      "subjects": null,
+      "cases": [
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          "motion",
+          "Native",
+          "PASS"
+        ],
+        [
+          null,
+          "motion",
+          "JS",
+          "PASS"
+        ],
+        [
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          "health",
+          "Native",
+          "PASS"
+        ],
+        [
+          null,
+          "health",
+          "JS",
+          "PASS"
+        ]
+      ]
+    },
+    "negatives-v4": {
+      "path": "/tmp/bendvy-private-id-query-negatives-v4/evidence.json",
+      "SHA256": "58a40121590d65464fa6344b4be29262d88c3b0e2f98ed4a6e20c31fcf6bf258",
+      "status": "ALL_REQUESTED_INTENDED_TYPE_SCHEMA_QUANTITY_NEGATIVES_PASS",
+      "scope": "Actual packed row abstract Owner, schema tokens and getter-only read registration; no universal authority proof",
+      "subjects": null,
+      "cases": [
+        [
+          "clone-owner",
+          null,
+          null,
+          null
+        ],
+        [
+          "undeclared-access",
+          null,
+          null,
+          null
+        ],
+        [
+          "cross-schema",
+          null,
+          null,
+          null
+        ],
+        [
+          "write-read",
+          null,
+          null,
+          null
+        ],
+        [
+          "cursor-clone",
+          null,
+          null,
+          null
+        ],
+        [
+          "cursor-cross-schema",
+          null,
+          null,
+          null
+        ]
+      ]
+    }
+  },
+  "inspectedSubjects": {
+    "cursor.bend": "2dd0de0f70c1d2aa7d388131d5ee4f8be603949a0d0f32c25e1b84dc4e56df82",
+    "order.bend": "7c17054991bc2fca863bb59c64f483fdf41d2150b4d33f6960ae9d70d60d2e63",
+    "full-shape.bend": "f243b7c2607922ade95e94427eb66fcd2f0236fec45257a3e69e60b4cd877b33",
+    "fallback.py": "5c0b39a1cb8e6ba4a795f68c82ef7631c1c3dd86be7382634d4e08c82e2077ce"
+  }
+}
