@@ -1,0 +1,294 @@
+{
+  "status": "PASS_FINITE_LIFECYCLE_BOTH_BACKENDS",
+  "sources": {
+    "src/ecs/column.bend": "635a9ededb97fdccb5a0272a581485aa5faafd1bdc2ba2e2504c609a0aee5115",
+    "src/ecs/commands.bend": "b41ec45ad17513351fd68436cefbaec0058ac4556d1d722f2c0ce5a7d4a9f9d1",
+    "src/ecs/component.bend": "d36e068152c07c410425e5114b5ca2d3e853d615025481b9b4a5fbade38d04f6",
+    "src/ecs/events.bend": "3d89fbbb40fefab4be349bfbe0d1f99c870c25c725130ccb1823910c1ace7c53",
+    "src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "src/ecs/provider.bend": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72",
+    "src/ecs/query.bend": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9",
+    "src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+    "src/ecs/structural.bend": "f813a10058914cdf85f94e879b2dc68b9cb3e878b5c683dae60152f40001fcae",
+    "src/ecs/system.bend": "b603976da337b72586cf731fc1cf886238dbcbe9c53e1e192552aa6244408fde",
+    "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "src/ecs/world.bend": "4dfe48b4d9457f8a3c0455260d8465dede4057d6a6f9c8864caa7c5bb19d5c16",
+    "experiments/query-composition/lifecycle-controls/boundaries.bend": "76e538b88edfc1453913845a9759e1c45996dec6751eb79f8120d019140511c0",
+    "experiments/query-composition/lifecycle-controls/column.bend": "2088fb74159024ed17c272eb433e4f1b278eeb66e802c0953df3f05ff53da34c",
+    "experiments/query-composition/lifecycle-controls/cursors.bend": "82434aaa570578a0d84efbd1b5617ee2d3961cd2451a3bc1ae4e8ae8be043d74",
+    "experiments/query-composition/lifecycle-controls/stamps.bend": "e17330602171b7046fbae93a9fd4a13bc902e02c90353a324e0f5951b6b63650",
+    "examples/user-simulation/schema.bend": "d6fbf524ab654c41a34e09eff93f4831fff719de01a83e6abb0553595ef31d80"
+  },
+  "commands": [
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-query-lifecycle/experiments/query-composition/lifecycle-controls/stamps.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "label": "stamps-check"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-query-lifecycle/experiments/query-composition/lifecycle-controls/stamps.bend",
+        "-o",
+        "/tmp/bendvy-lifecycle-controls/stamps.js"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "label": "stamps-emit-js"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-query-lifecycle/experiments/query-composition/lifecycle-controls/stamps.bend",
+        "-o",
+        "/tmp/bendvy-lifecycle-controls/stamps.c"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "label": "stamps-emit-c"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/bendvy-lifecycle-controls/stamps.c",
+        "-o",
+        "/tmp/bendvy-lifecycle-controls/stamps.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limitSeconds": 120,
+      "exit": 0,
+      "label": "stamps-clang"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-lifecycle-controls/stamps.js"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "label": "stamps-JS"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-lifecycle-controls/stamps.native"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "label": "stamps-Native"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-query-lifecycle/experiments/query-composition/lifecycle-controls/column.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "label": "column-check"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-query-lifecycle/experiments/query-composition/lifecycle-controls/column.bend",
+        "-o",
+        "/tmp/bendvy-lifecycle-controls/column.js"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "label": "column-emit-js"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-query-lifecycle/experiments/query-composition/lifecycle-controls/column.bend",
+        "-o",
+        "/tmp/bendvy-lifecycle-controls/column.c"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "label": "column-emit-c"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/bendvy-lifecycle-controls/column.c",
+        "-o",
+        "/tmp/bendvy-lifecycle-controls/column.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limitSeconds": 120,
+      "exit": 0,
+      "label": "column-clang"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-lifecycle-controls/column.js"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "label": "column-JS"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-lifecycle-controls/column.native"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "label": "column-Native"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-query-lifecycle/experiments/query-composition/lifecycle-controls/cursors.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "label": "cursors-check"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-query-lifecycle/experiments/query-composition/lifecycle-controls/cursors.bend",
+        "-o",
+        "/tmp/bendvy-lifecycle-controls/cursors.js"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "label": "cursors-emit-js"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-query-lifecycle/experiments/query-composition/lifecycle-controls/cursors.bend",
+        "-o",
+        "/tmp/bendvy-lifecycle-controls/cursors.c"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "label": "cursors-emit-c"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/bendvy-lifecycle-controls/cursors.c",
+        "-o",
+        "/tmp/bendvy-lifecycle-controls/cursors.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limitSeconds": 120,
+      "exit": 0,
+      "label": "cursors-clang"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-lifecycle-controls/cursors.js"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "label": "cursors-JS"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-lifecycle-controls/cursors.native"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "label": "cursors-Native"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-query-lifecycle/experiments/query-composition/lifecycle-controls/boundaries.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "label": "boundaries-check"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-query-lifecycle/experiments/query-composition/lifecycle-controls/boundaries.bend",
+        "-o",
+        "/tmp/bendvy-lifecycle-controls/boundaries.js"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "label": "boundaries-emit-js"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-query-lifecycle/experiments/query-composition/lifecycle-controls/boundaries.bend",
+        "-o",
+        "/tmp/bendvy-lifecycle-controls/boundaries.c"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "label": "boundaries-emit-c"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/bendvy-lifecycle-controls/boundaries.c",
+        "-o",
+        "/tmp/bendvy-lifecycle-controls/boundaries.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limitSeconds": 120,
+      "exit": 0,
+      "label": "boundaries-clang"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-lifecycle-controls/boundaries.js"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "label": "boundaries-JS"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-lifecycle-controls/boundaries.native"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "label": "boundaries-Native"
+    }
+  ],
+  "observations": {
+    "stamps": {
+      "JS": "empty:true;add:true;equal-write:true;rollback:true;same-name-other-family:true;restored-owner:true;remove:true;re-add:true;\n",
+      "Native": "empty:true;add:true;equal-write:true;rollback:true;same-name-other-family:true;restored-owner:true;remove:true;re-add:true;\n"
+    },
+    "column": {
+      "JS": "projection-neutral:true;clear:true\n",
+      "Native": "projection-neutral:true;clear:true\n"
+    },
+    "cursors": {
+      "JS": "A-first:true;B-independent:true;A-repeat:true;A-failure:true;A-retry:true;B-later:true;A-repeat-after-retry:true;\n",
+      "Native": "A-first:true;B-independent:true;A-repeat:true;A-failure:true;A-retry:true;B-later:true;A-repeat-after-retry:true;\n"
+    },
+    "boundaries": {
+      "JS": "deferred-before-barrier:true;deferred-after-barrier:true;exhaustion-recovers-incoming:true;exhaustion-clock:true;exhaustion-preserves-stamp:true;\n",
+      "Native": "deferred-before-barrier:true;deferred-after-barrier:true;exhaustion-recovers-incoming:true;exhaustion-clock:true;exhaustion-preserves-stamp:true;\n"
+    }
+  }
+}

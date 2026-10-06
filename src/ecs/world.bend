@@ -222,6 +222,11 @@ def clock(~S: Data,~C: Type,~R: Type,~E: Data,world: World<S,C,R,E>) -> World<S,
   match world:
     case World{+namespace,+nextId,+highWater,live,+capacity,+depth,store,resource,+events,pending,+registrations,+nextSystemId,+clock}: (World{namespace,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId,clock},clock)
 
+def next_clock(available: Bool,+clock: U32) -> U32:
+  match available:
+    case False{}: clock
+    case True{}: (clock + 1 : U32)
+
 def advance_clock(~S: Data,~C: Type,~R: Type,~E: Data,world: World<S,C,R,E>) -> World<S,C,R,E> & U32:
   match world:
-    case World{+namespace,+nextId,+highWater,live,+capacity,+depth,store,resource,+events,pending,+registrations,+nextSystemId,+clock}: (World{namespace,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId,(clock + 1 : U32)},(clock + 1 : U32))
+    case World{+namespace,+nextId,+highWater,live,+capacity,+depth,store,resource,+events,pending,+registrations,+nextSystemId,+clock}: (World{namespace,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId,next_clock(U32.is_lt(clock,4294967295),clock)},next_clock(U32.is_lt(clock,4294967295),clock))

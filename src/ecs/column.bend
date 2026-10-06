@@ -113,3 +113,17 @@ def restore_stamp(~S: Data,~C: Type,column: Column<S,C>,+id: U32,stamp: L.Stamp)
 def mark(~S: Data,~C: Type,column: Column<S,C>,+id: U32,incoming: Bool,wasPresent: Bool,tick: U32) -> Column<S,C>:
   match column:
     case Column{values,+stamps}: Column{values,L.set(stamps,id,L.after_write(incoming,wasPresent,L.get(stamps,id),tick))}
+
+# Structural cleanup releases payload and associated lifecycle entry. Projection
+# and journal swaps remain metadata-neutral; despawn must use this explicit seam.
+def clear_stamp(~S: Data,~C: Type,column: Column<S,C>,+id: U32) -> Column<S,C>:
+  match column:
+    case Column{values,stamps}: Column{values,L.clear(stamps,id)}
+
+def cleared(~S: Data,~C: Type,+id: U32,outcome: SwapOutcome<S,C>) -> SwapOutcome<S,C>:
+  match outcome:
+    case Accepted{column,previous}: Accepted{clear_stamp(~S,~C,column,id),previous}
+    case Rejected{column,incoming}: Rejected{column,incoming}
+
+def clear(~S: Data,~C: Type,column: Column<S,C>,+id: U32) -> SwapOutcome<S,C>:
+  cleared(~S,~C,id,swap(~S,~C,column,id,None{}))
