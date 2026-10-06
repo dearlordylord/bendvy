@@ -42,6 +42,6 @@ for file in ['transaction-dispatch-adapters.bend','raw-boundaries.bend','host.be
   clone=clone.replace('PrototypeFlatRowOwner{main_raw,main_cached,ledger_raw,ledger_cached,selected,undo,marks}', 'PrototypePackedMotionRowOwner{coordinates,rawframe,a,b,c,d,cachedframe,ledger_raw,ledger_cached,selected,undo,marks}')
   clone=(H/'packed-row.bend').read_text()+'\n'+clone
  (root/file).write_text(text+'\n# Private persistent packed Main route; original definitions retained.\n'+clone+'\n')
-new={n:sha(a.output/n) for n in pins};cache['runtimeClosure']=new;cache['specializedClosure']=new;cache['runtimeClosureSHA256']=hashlib.sha256(json.dumps(new,sort_keys=True,separators=(',',':')).encode()).hexdigest();m['sources']=new;m['cacheSpecialization']=cache
+new={n:sha(a.output/n) for n in pins};cache['runtimeClosure']=new;cache['specializedClosure']=new;cache['runtimeClosureSHA256']=hashlib.sha256(json.dumps(new,sort_keys=True,separators=(',',':')).encode()).hexdigest();cache['specializedClosureSHA256']=cache['runtimeClosureSHA256'];m['sources']=new;m['cacheSpecialization']=cache
 for name,d in [('overlay.json',m),('cache-specialization.json',cache)]: (a.output/name).write_text(json.dumps(d,indent=2)+'\n')
 print(cache['runtimeClosureSHA256'])

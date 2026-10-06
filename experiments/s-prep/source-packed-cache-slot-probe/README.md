@@ -66,3 +66,34 @@ paths. evidence/motion-feasibility.tar.gz archives source29/cache, actual genera
 prepared modules, intermediate failure/build receipts and both finite full65 records;
 all decoded member hashes independently verified in evidence/manifest.json. Native
 binary is hashed in build receipt, not committed.
+
+## Health extension and immutable Motion lineage
+
+`derive-both.py` appends Health to the frozen Motion-v4 Bend bytes; all29 original
+Motion-v4 module prefixes remain byteexact. Corrected manifest-only Motion input is
+`/tmp/bendvy-packed-main-slot-motion-v4-receipt-v2`. Both private persistent routes
+are `/tmp/bendvy-packed-main-slot-both-v3`, closure
+`3cbe3d7b076743d074e693d959572a47c485c3a17078a5d1f20a691f47618bef`.
+`PrototypeHealthMainSlot` is Type owning levels:Array<U32>, raw reserve/class and
+cached a/b/c/d/reserve/class: nine distinct fields. Set changes raw cell0 and cached-a
+only, journals the true raw old cell, preserves other cells and all four metadata
+scalars. Nominal VitalsView/Four Data is reconstructed on get. The Health private row
+retains the earlier direct owned ledger totals:Array<U32>, epoch and immutable cached
+LedgerView. Original public Health/Motion Host aliases and SC callback bodies remain
+byteexact; private Host/Bench storage remains Slot throughout all64 frames.
+
+A first Health fallback clone used the old nominal converted helper and was rejected
+by the checker. The next version appends its slot-typed private converter; the original
+converter remains unchanged. Motion metadata initially inherited a stale
+specializedClosureSHA256 even though both maps matched current29. Independent worker
+preflight correctly refused it. Fresh receipt-v2 fixes both digest fields without
+changing any Bend bytes; old v4 and both-v2 metadata history remains retained. This is
+a packaging correction, not a provenance waiver. Current recipes set both digests.
+
+Fresh both-v3 builds are `/tmp/bendvy-packed-main-slot-both-{motion,health}-build-v3`.
+First Health v2 Native/JS full65 fields passed; the current manifest-bound four-lane
+full65 receipts all PASS on both-v3 (four fresh schema/backend runs), archived with67
+independently SHA-verified members (~1.91 MB). Independent Health Native allocation result
+is pending. This extension does not execute new authority, generic returned-owner,
+stale-cache/all-cell, rollback, factory/provider or Tx/suppression gates, and makes no
+speed/adoption claim. Motion capability controls are independently owned by storage.
