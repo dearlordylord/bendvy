@@ -1,0 +1,162 @@
+{
+  "status": "FRESH_CONCRETE_V3_BOTH_SCHEMA_PRIVATE_REGISTRATION_PASS",
+  "closure": "a4672d110446195e3ac92911c6f41166b62025811df8816878356d0eafd08a55",
+  "positiveRegistrations": 4,
+  "intendedNegativeControls": 10,
+  "subjects": [
+    {
+      "schema": "Motion",
+      "cases": [
+        {
+          "label": "cross-schema-callback",
+          "status": "PASS",
+          "expected": "intended diagnostic",
+          "anchors": [
+            "SOME PROOFS FAIL",
+            "Location: registered",
+            "VitalsToken",
+            "PositionToken"
+          ],
+          "subjectSHA256": "c58fd3ea9e80143a5fd3b4df511b9ab2c078f65bd6a0de389b1ce7762141b40e"
+        },
+        {
+          "label": "declared-write",
+          "status": "PASS",
+          "expected": "positive",
+          "anchors": null,
+          "subjectSHA256": "f58303f107d464973860e63556b2a6fbaf9b1753c2fd90d912bb0bfe6aa7a7c1"
+        },
+        {
+          "label": "declared-read",
+          "status": "PASS",
+          "expected": "positive",
+          "anchors": null,
+          "subjectSHA256": "b5bf040a1b97a65ba4edc85fc096948a26255ae228221ef10da5cf0bbe144cd6"
+        },
+        {
+          "label": "undeclared-access",
+          "status": "PASS",
+          "expected": "intended diagnostic",
+          "anchors": [
+            "expected : HA.PrototypePackedHealthRowOwner",
+            "observed : body~Owner",
+            "Location: body"
+          ],
+          "subjectSHA256": "4f5655fa8de80d25e3ba7ad8dd791f13da86c0da927c19d7ec8113941a2cfbe8"
+        },
+        {
+          "label": "cross-schema",
+          "status": "PASS",
+          "expected": "intended diagnostic",
+          "anchors": [
+            "expected : T.PositionToken",
+            "observed : T.VitalsToken",
+            "Location: body"
+          ],
+          "subjectSHA256": "b5dcdbe0060c6b19dc2892c8f6cc433a9ba4dd55df7570e04d1621cdfec378d0"
+        },
+        {
+          "label": "write-through-read",
+          "status": "PASS",
+          "expected": "intended diagnostic",
+          "anchors": [
+            "expected : HA.PrototypePackedMotionRowOwner",
+            "observed : read_scope~Owner",
+            "Location: read_scope"
+          ],
+          "subjectSHA256": "590966d239fae8bce46cbfc532e3e1bc860a5dc2d59eaa514ab9a3fe1c563840"
+        },
+        {
+          "label": "clone-owner",
+          "status": "PASS",
+          "expected": "intended diagnostic",
+          "anchors": [
+            "owner (consumed more than once)",
+            "Location: body"
+          ],
+          "subjectSHA256": "8ebedde985856c3dda007aa1fca7f61cf45508c13567b96ee64c8073696fdeae"
+        }
+      ],
+      "receiptSHA256": "f41d209c6df35eb977c48184ea442e0349ee48cf3533db422036c107214cf38a"
+    },
+    {
+      "schema": "Health",
+      "cases": [
+        {
+          "label": "cross-schema-callback",
+          "status": "PASS",
+          "expected": "intended diagnostic",
+          "anchors": [
+            "SOME PROOFS FAIL",
+            "Location: registered",
+            "PositionToken",
+            "VitalsToken"
+          ],
+          "subjectSHA256": "7685df68ec2a3201ed507601c31861d383eb72b11ab232c420710b7d79f07fde"
+        },
+        {
+          "label": "declared-write",
+          "status": "PASS",
+          "expected": "positive",
+          "anchors": null,
+          "subjectSHA256": "11d77ea74bdf9082da6feae92377612ec2a43cf0c5e102ee6b39014c2d703ca0"
+        },
+        {
+          "label": "declared-read",
+          "status": "PASS",
+          "expected": "positive",
+          "anchors": null,
+          "subjectSHA256": "60916bc0b7d9a465ecd9b7c67d518aaaf93a002d111ef1bf6015bf5907548bb0"
+        },
+        {
+          "label": "undeclared-access",
+          "status": "PASS",
+          "expected": "intended diagnostic",
+          "anchors": [
+            "expected : HA.PrototypePackedMotionRowOwner",
+            "observed : body~Owner",
+            "Location: body"
+          ],
+          "subjectSHA256": "ababd43caec9ca0aa31ea3eb77db4c8020e2df985f32e2f589cb921a29c51913"
+        },
+        {
+          "label": "cross-schema",
+          "status": "PASS",
+          "expected": "intended diagnostic",
+          "anchors": [
+            "expected : T.VitalsToken",
+            "observed : T.PositionToken",
+            "Location: body"
+          ],
+          "subjectSHA256": "9b378315906f98789026c078eb02c8051ae4ca3808917756983bd52a22ff3aee"
+        },
+        {
+          "label": "write-through-read",
+          "status": "PASS",
+          "expected": "intended diagnostic",
+          "anchors": [
+            "expected : HA.PrototypePackedHealthRowOwner",
+            "observed : read_scope~Owner",
+            "Location: read_scope"
+          ],
+          "subjectSHA256": "23c46595ea18fbcd36ca75e181f91351e733b09b4c46d22178cbcd695e614c5c"
+        },
+        {
+          "label": "clone-owner",
+          "status": "PASS",
+          "expected": "intended diagnostic",
+          "anchors": [
+            "owner (consumed more than once)",
+            "Location: body"
+          ],
+          "subjectSHA256": "1b6dbe1a3da8dbc7aac3255f7eba7aa555e7a1a01afc168dc21b9da0454e3bf4"
+        }
+      ],
+      "receiptSHA256": "147fe41b79b1c3e622deb37e51ac5054a163d603664b0be525a949903121e5b6"
+    }
+  ],
+  "archiveSHA256": "71da8093f6e0fa6be879726520c313c2fc9e18583453cec7df7e5eaa79c58fbd",
+  "decodedMembers": 88,
+  "allDecodedHashesVerified": true,
+  "scope": "Executable type checks of current concrete HA registration. No universal authority, proof or performance acceptance."
+}
