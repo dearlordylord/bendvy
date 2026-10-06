@@ -1,0 +1,2137 @@
+{
+  "status": "FRESH_DESCENDING_GENERATED_CHAIN_FINITE_CONTROLS_PASS",
+  "sourceClosure": "b0fdd6c41be12b34efc79e45edc98225c1b0158a51976b432a1646bfcae9e8f0",
+  "scope": "Generated-JS only; no source/Native/compiler/refinement/heap/speed/adoption claim",
+  "schemas": {
+    "motion": {
+      "rawOrdinaryConstructors": 6946368,
+      "finalOrdinaryConstructors": 5110848,
+      "delta": -1835520,
+      "full65": {
+        "status": "PASS_FULL65",
+        "scope": "Finite full65 schema fields only; no elapsed qualification or universal refinement",
+        "schema": "Motion",
+        "cpu": 7,
+        "commands": [
+          {
+            "argv": [
+              "/usr/bin/python3",
+              "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-measurement/prepare-ts.py",
+              "--source",
+              "/workspace/formal-proofs/bendvy/experiments/s-integrate/measurement-samples-reference.mjs",
+              "--output",
+              "/tmp/bendvy-descending-generated-motion-full65/reference.mjs",
+              "--schema",
+              "Motion",
+              "--batch",
+              "64"
+            ],
+            "capSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "7202e7c0172b81b817b1079ac6bebc07271467a20d40626571348b68bb35ce93"
+          },
+          {
+            "argv": [
+              "node",
+              "/tmp/bendvy-descending-generated-motion-full65/reference.mjs"
+            ],
+            "capSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "2684a3121e0c835eb46019aa7b90caf90e598af25ebbda795915c7172f663f63"
+          },
+          {
+            "argv": [
+              "node",
+              "/tmp/bendvy-descending-generated-motion-nested.js"
+            ],
+            "capSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "e8c5507d9d1c2bb655ce117bfb520c7ad4a1924099ef10e50f7e28c0b6ed65ac"
+          }
+        ],
+        "programSHA256": "edb4c587b8df505636c48a2f1e216144832c5ecaecd3ccbc518def33703e0dda",
+        "kind": "js",
+        "runnerSHA256": "1c3d548f303e8edc6349636f461b71f33e99087640304ebd6ec190ae0b21d438",
+        "publishEdges": null,
+        "allFullFieldsEqual": true,
+        "worlds": 65,
+        "referenceSourceSHA256": "ecfd1b590964fb76fb69a7a28e9dffa05b631592f47a52f11921ffaec25253b6",
+        "referenceSHA256": "644022682476c10f8232681349baecdb7d860d37a218aaec38c3633beaf024fe",
+        "validatorSHA256": "25ab577d5234a1c30f46318708455377353ec39d4fb0b6bf1b40ad5ea5da8f84"
+      },
+      "countEvidence": {
+        "status": "FRESH_EXACT_SOURCE_NINE_WORLDS_PAIR_PASS",
+        "cpu": 7,
+        "commands": [
+          {
+            "argv": [
+              "/usr/bin/python3",
+              "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-measurement/prepare-ts.py",
+              "--source",
+              "/workspace/formal-proofs/bendvy/experiments/s-integrate/measurement-samples-reference.mjs",
+              "--output",
+              "/tmp/bendvy-descending-generated-motion-count/Motion-reference.mjs",
+              "--schema",
+              "Motion",
+              "--batch",
+              "8"
+            ],
+            "exit": 0,
+            "capSeconds": 5,
+            "outputSHA256": "f93d03afc5928c62eaac0aa2dd52edb3e6759617256b5a96f20df4a57dddf9b0"
+          },
+          {
+            "argv": [
+              "node",
+              "/tmp/bendvy-descending-generated-motion-count/Motion-reference.mjs"
+            ],
+            "exit": 0,
+            "capSeconds": 5,
+            "outputSHA256": "608bc08e0f4b8758ef038dfe1e20db0493f9eeaf38433193ae58e152b15dde9f"
+          },
+          {
+            "argv": [
+              "node",
+              "--expose-internals",
+              "/workspace/formal-proofs/bendvy/experiments/s-prep/js-allocation-map/instrument.cjs",
+              "/tmp/bendvy-descending-generated-motion-count/Motion-before-eight.js",
+              "/tmp/bendvy-descending-generated-motion-count/Motion-before-counted.js"
+            ],
+            "exit": 0,
+            "capSeconds": 5,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "argv": [
+              "node",
+              "/tmp/bendvy-descending-generated-motion-count/Motion-before-counted.js"
+            ],
+            "exit": 0,
+            "capSeconds": 5,
+            "outputSHA256": "3161e4a6f1c4ae13291642ec25660167bafbcec48e9f1c9979b23dd1293d68cc"
+          },
+          {
+            "argv": [
+              "node",
+              "--expose-internals",
+              "/workspace/formal-proofs/bendvy/experiments/s-prep/js-allocation-map/instrument.cjs",
+              "/tmp/bendvy-descending-generated-motion-count/Motion-after-eight.js",
+              "/tmp/bendvy-descending-generated-motion-count/Motion-after-counted.js"
+            ],
+            "exit": 0,
+            "capSeconds": 5,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "argv": [
+              "node",
+              "/tmp/bendvy-descending-generated-motion-count/Motion-after-counted.js"
+            ],
+            "exit": 0,
+            "capSeconds": 5,
+            "outputSHA256": "701533e69acb69583b6002c6036543ee0b91d2d443bbeefe3b05fa0f14768515"
+          }
+        ],
+        "counts": [
+          {
+            "schema": "Motion",
+            "role": "before",
+            "ordinaryConstructors": 6946368,
+            "kinds": {
+              "object:WNil": 0,
+              "object:WCon": 0,
+              "object:untagged": 1,
+              "object:Tuple": 1847808,
+              "ArrayExpression": 8742,
+              "object:Some": 526328,
+              "object:None": 264200,
+              "FunctionExpression": 0,
+              "object:$JMP": 8741,
+              "ArrowFunctionExpression": 292961,
+              "object:Unit": 0,
+              "object:Nil": 16834,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.MotionOn": 0,
+              "object:Con": 133648,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.Snapshot": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Factory": 0,
+              "object:$FFI": 1,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.Deferred": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.Runtime": 3072,
+              "object:measurement-bend.prototype_packed_MotionBench": 2048,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/capture.Returned": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.System": 2048,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.Registered": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.Registry": 1024,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.Entry": 1024,
+              "object:Halt": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.Call": 1024,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.Normal": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/host.Host": 2048,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.Complete": 1536,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Readers": 1536,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Clock": 1024,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/capture.Local": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.CreateRejected": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Created": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.World": 3584,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/reader-host.Logs": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Bundle": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Rows": 1536,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/streams.PingLog": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/streams.Buffer": 1520,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/streams.LifeLog": 1008,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Reserved": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.ReserveRejected": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Position": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Velocity": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Selected": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.MetadataColumns": 132096,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.MotionLedger": 131072,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.Dispatched": 1536,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.SetupRejected": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.Accepted": 1024,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Spawn": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Handle": 524800,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.WorldView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.InsertFlag": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.FlagView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.RemoveMain": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.RemoveMainView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.RemoveFlag": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.RemoveFlagView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Despawn": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.DespawnView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.Unknown": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.Nested": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/cache.Cache": 131072,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.SpawnView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.InsertMain": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.MainView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/cached-payload.PrototypeMotionMainSlot": 131072,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.PositionView": 131072,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Four": 262144,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.LedgerView": 131072,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.MissingRuntimeRequirements": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.Presence": 1024,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.BundleView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.ResourceRequired": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.ServiceRequired": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.StateRequired": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Metadata": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Frame": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.VelocityView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Row": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.RowView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Messages": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Removed": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Despawned": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/reader-host.Framed": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Interests": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.CapacityRejected": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.Running": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.Preflight": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.MotionOff": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/streams.Cut": 3040,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/streams.Batch": 0,
+              "object:EQ": 0,
+              "object:LT": 0,
+              "object:GT": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Slot": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.ReaderState": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.Applied": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.InvariantFault": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.Visit": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.Completed": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.BatchFault": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.Faulted": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Success": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Failure": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Started": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Run": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.ReadBoundary": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.MainAdded": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.MainChanged": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.Stepped": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.MainRemoved": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.SystemFailure": 0,
+              "object:measurement-bend.prototype_packed_PrototypeFlatMotionRows": 1024,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/query.Required": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.PlacementFault": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.MissingMainTarget": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.PrototypeFlatTx": 1024,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.Tx": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Rejected": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.RowEdit": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Despawned": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.Invoked": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.PrototypeFlatCommitted": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.PrototypeFlatEnd": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.PrototypeFlatMain": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.PrototypeFlatLedger": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.PrototypeFlatMarksEnd": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.PrototypeFlatMark": 131072,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/query.PrototypeIdCursor": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/held-adapter.PrototypeFlatFold": 131584,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/query.StructColsState": 131584,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/query.Optional": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.NoMainChange": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.RemovedMain": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.AddedMain": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.ChangedMain": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.PositionToken": 262144,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Placed": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/held-adapter.PrototypePackedMotionRowOwner": 655360,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/held-adapter.PrototypePendingUndo": 393216,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.MotionLedgerToken": 262144,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.MainInverse": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.LedgerInverse": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/query.StructIdxState": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Found": 131072,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Missing": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.PrototypeFlatPair": 131072,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Mismatch": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.QueryRow": 0,
+              "object:Fail": 0,
+              "object:Done": 0,
+              "object:Emit": 0
+            },
+            "fullWorlds": 9,
+            "programSHA256": "e07a646e258c8a96cf90a69028bab6d416ed6d1faa768d5ea6dd17e1bdffbf10"
+          },
+          {
+            "schema": "Motion",
+            "role": "after",
+            "ordinaryConstructors": 5110848,
+            "kinds": {
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.PositionToken": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.MotionLedgerToken": 0,
+              "object:WNil": 0,
+              "object:WCon": 0,
+              "object:untagged": 1,
+              "object:Tuple": 1060864,
+              "ArrayExpression": 8742,
+              "object:Some": 526328,
+              "object:None": 264200,
+              "FunctionExpression": 0,
+              "object:$JMP": 8741,
+              "ArrowFunctionExpression": 292961,
+              "object:Unit": 0,
+              "object:Nil": 16834,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.MotionOn": 0,
+              "object:Con": 133648,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.Snapshot": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Factory": 0,
+              "object:$FFI": 1,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.Deferred": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.Runtime": 3072,
+              "object:measurement-bend.prototype_packed_MotionBench": 2048,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/capture.Returned": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.System": 2048,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.Registered": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.Registry": 1024,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.Entry": 1024,
+              "object:Halt": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.Call": 1024,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.Normal": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/host.Host": 2048,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.Complete": 1536,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Readers": 1536,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Clock": 1024,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/capture.Local": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.CreateRejected": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Created": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.World": 3584,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/reader-host.Logs": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Bundle": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Rows": 1536,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/streams.PingLog": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/streams.Buffer": 1520,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/streams.LifeLog": 1008,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Reserved": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.ReserveRejected": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Position": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Velocity": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Selected": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.MetadataColumns": 132096,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.MotionLedger": 131072,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.Dispatched": 1536,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.SetupRejected": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.Accepted": 1024,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Spawn": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Handle": 524800,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.WorldView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.InsertFlag": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.FlagView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.RemoveMain": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.RemoveMainView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.RemoveFlag": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.RemoveFlagView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Despawn": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.DespawnView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.Unknown": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.Nested": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/cache.Cache": 131072,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.SpawnView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.InsertMain": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.MainView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/cached-payload.PrototypeMotionMainSlot": 131072,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.PositionView": 131072,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Four": 262144,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.LedgerView": 131072,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.MissingRuntimeRequirements": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.Presence": 1024,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.BundleView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.ResourceRequired": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.ServiceRequired": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.StateRequired": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Metadata": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Frame": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.VelocityView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Row": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.RowView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Messages": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Removed": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Despawned": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/reader-host.Framed": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Interests": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.CapacityRejected": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.Running": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.Preflight": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.MotionOff": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/streams.Cut": 3040,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/streams.Batch": 0,
+              "object:EQ": 0,
+              "object:LT": 0,
+              "object:GT": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Slot": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.ReaderState": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.Applied": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.InvariantFault": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.Visit": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.Completed": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.BatchFault": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.Faulted": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Success": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Failure": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Started": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Run": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.ReadBoundary": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.MainAdded": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.MainChanged": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.Stepped": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.MainRemoved": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.SystemFailure": 0,
+              "object:measurement-bend.prototype_packed_PrototypeFlatMotionRows": 1024,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/query.Required": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.PlacementFault": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.MissingMainTarget": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.PrototypeFlatTx": 1024,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.Tx": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Rejected": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.RowEdit": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Despawned": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.Invoked": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.PrototypeFlatCommitted": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.PrototypeFlatEnd": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.PrototypeFlatMain": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.PrototypeFlatLedger": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.PrototypeFlatMarksEnd": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.PrototypeFlatMark": 131072,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/query.PrototypeIdCursor": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/held-adapter.PrototypeFlatFold": 131584,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/query.StructColsState": 131584,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/query.Optional": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.NoMainChange": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.RemovedMain": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.AddedMain": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.ChangedMain": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Placed": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/held-adapter.PrototypePackedMotionRowOwner": 131072,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/held-adapter.PrototypePendingUndo": 393216,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.MainInverse": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.LedgerInverse": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/query.StructIdxState": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Found": 131072,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Missing": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.PrototypeFlatPair": 131072,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Mismatch": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.QueryRow": 0,
+              "object:Fail": 0,
+              "object:Done": 0,
+              "object:Emit": 0
+            },
+            "fullWorlds": 9,
+            "programSHA256": "edb4c587b8df505636c48a2f1e216144832c5ecaecd3ccbc518def33703e0dda"
+          }
+        ],
+        "controllers": [],
+        "runnerSHA256": "02cd56d6da300565471936de95c38d557f96cab398082b3549b8dc4c986ab209"
+      },
+      "finalPath": "/tmp/bendvy-descending-generated-motion-nested.js",
+      "finalSHA256": "edb4c587b8df505636c48a2f1e216144832c5ecaecd3ccbc518def33703e0dda"
+    },
+    "health": {
+      "rawOrdinaryConstructors": 6686784,
+      "finalOrdinaryConstructors": 4851264,
+      "delta": -1835520,
+      "full65": {
+        "status": "PASS_FULL65",
+        "scope": "Finite full65 schema fields only; no elapsed qualification or universal refinement",
+        "schema": "Health",
+        "cpu": 7,
+        "commands": [
+          {
+            "argv": [
+              "/usr/bin/python3",
+              "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-measurement/prepare-ts.py",
+              "--source",
+              "/workspace/formal-proofs/bendvy/experiments/s-integrate/measurement-samples-reference.mjs",
+              "--output",
+              "/tmp/bendvy-descending-generated-health-full65/reference.mjs",
+              "--schema",
+              "Health",
+              "--batch",
+              "64"
+            ],
+            "capSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "a16a68a4cfe33cbc63dcf6f593994b93bcb88d8f8ffe9a682a892a58d3a0f7d3"
+          },
+          {
+            "argv": [
+              "node",
+              "/tmp/bendvy-descending-generated-health-full65/reference.mjs"
+            ],
+            "capSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "5a70c116b72bf5650f0f1ada8bf98a64a83aeb57717905363b396544881a6e9a"
+          },
+          {
+            "argv": [
+              "node",
+              "/tmp/bendvy-descending-generated-health-nested.js"
+            ],
+            "capSeconds": 5,
+            "exit": 0,
+            "outputSHA256": "4e021b95fbeaf86b4018aabf5639889fb9cfd32d04aaa16b5cd4d03c483df9d5"
+          }
+        ],
+        "programSHA256": "a897c1532c6bcc8946d3d96c3a2cba4c57626bde158afb0af15874f93d6b924c",
+        "kind": "js",
+        "runnerSHA256": "1c3d548f303e8edc6349636f461b71f33e99087640304ebd6ec190ae0b21d438",
+        "publishEdges": null,
+        "allFullFieldsEqual": true,
+        "worlds": 65,
+        "referenceSourceSHA256": "ecfd1b590964fb76fb69a7a28e9dffa05b631592f47a52f11921ffaec25253b6",
+        "referenceSHA256": "bf28b60bb93ab8ce037f6464e575691316e4baf4a0cca55ecc64250054e2f688",
+        "validatorSHA256": "25ab577d5234a1c30f46318708455377353ec39d4fb0b6bf1b40ad5ea5da8f84"
+      },
+      "countEvidence": {
+        "status": "FRESH_EXACT_SOURCE_NINE_WORLDS_PAIR_PASS",
+        "cpu": 7,
+        "commands": [
+          {
+            "argv": [
+              "/usr/bin/python3",
+              "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-measurement/prepare-ts.py",
+              "--source",
+              "/workspace/formal-proofs/bendvy/experiments/s-integrate/measurement-samples-reference.mjs",
+              "--output",
+              "/tmp/bendvy-descending-generated-health-count/Health-reference.mjs",
+              "--schema",
+              "Health",
+              "--batch",
+              "8"
+            ],
+            "exit": 0,
+            "capSeconds": 5,
+            "outputSHA256": "427b9e88ee40e254b66b29aa9a5db9fb6b637dca11fe3c28f2eaa1ce0d620e12"
+          },
+          {
+            "argv": [
+              "node",
+              "/tmp/bendvy-descending-generated-health-count/Health-reference.mjs"
+            ],
+            "exit": 0,
+            "capSeconds": 5,
+            "outputSHA256": "1b9f1ffe694237b4f332d98e26b48716d805bd8e33c017311c74cff040312b78"
+          },
+          {
+            "argv": [
+              "node",
+              "--expose-internals",
+              "/workspace/formal-proofs/bendvy/experiments/s-prep/js-allocation-map/instrument.cjs",
+              "/tmp/bendvy-descending-generated-health-count/Health-before-eight.js",
+              "/tmp/bendvy-descending-generated-health-count/Health-before-counted.js"
+            ],
+            "exit": 0,
+            "capSeconds": 5,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "argv": [
+              "node",
+              "/tmp/bendvy-descending-generated-health-count/Health-before-counted.js"
+            ],
+            "exit": 0,
+            "capSeconds": 5,
+            "outputSHA256": "11a6e5c9ac18cf88025fd7fe0dc98a4ff1207da550067d1054132bc5a98c3c87"
+          },
+          {
+            "argv": [
+              "node",
+              "--expose-internals",
+              "/workspace/formal-proofs/bendvy/experiments/s-prep/js-allocation-map/instrument.cjs",
+              "/tmp/bendvy-descending-generated-health-count/Health-after-eight.js",
+              "/tmp/bendvy-descending-generated-health-count/Health-after-counted.js"
+            ],
+            "exit": 0,
+            "capSeconds": 5,
+            "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "argv": [
+              "node",
+              "/tmp/bendvy-descending-generated-health-count/Health-after-counted.js"
+            ],
+            "exit": 0,
+            "capSeconds": 5,
+            "outputSHA256": "1c7a05e42ba2e45f43cc5275f3d5a9cc85893a1e69e4b31ba418e9e9456a4d95"
+          }
+        ],
+        "counts": [
+          {
+            "schema": "Health",
+            "role": "before",
+            "ordinaryConstructors": 6686784,
+            "kinds": {
+              "object:WNil": 0,
+              "object:WCon": 0,
+              "object:untagged": 1,
+              "object:Tuple": 1716736,
+              "ArrayExpression": 8742,
+              "object:Some": 527352,
+              "object:None": 264200,
+              "FunctionExpression": 0,
+              "object:$JMP": 8741,
+              "ArrowFunctionExpression": 292961,
+              "object:Unit": 0,
+              "object:Nil": 16834,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.HealthOn": 0,
+              "object:Con": 133648,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.Snapshot": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Factory": 0,
+              "object:$FFI": 1,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.Deferred": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.Runtime": 3072,
+              "object:measurement-bend.prototype_packed_HealthBench": 2048,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/capture.Returned": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.System": 2048,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.Registered": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.Registry": 1024,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.Entry": 1024,
+              "object:Halt": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.Call": 1024,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.Normal": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/host.Host": 2048,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.Complete": 1536,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Readers": 1536,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Clock": 1024,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/capture.Local": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.CreateRejected": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Created": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.World": 3584,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/reader-host.Logs": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Bundle": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Rows": 1536,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/streams.PingLog": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/streams.Buffer": 1520,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/streams.LifeLog": 1008,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Reserved": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.ReserveRejected": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Vitals": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Armor": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Tracked": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.MetadataColumns": 132096,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.HealthLedger": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.Dispatched": 1536,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.SetupRejected": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.Accepted": 1024,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Spawn": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Handle": 524800,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.WorldView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.InsertFlag": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.FlagView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.RemoveMain": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.RemoveMainView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.RemoveFlag": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.RemoveFlagView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Despawn": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.DespawnView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.Unknown": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.Nested": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/cache.Cache": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.SpawnView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.InsertMain": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.MainView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/cached-payload.PrototypeHealthMainSlot": 131072,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.VitalsView": 131072,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Four": 262144,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.LedgerView": 131072,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.MissingRuntimeRequirements": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.Presence": 1024,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.BundleView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.ResourceRequired": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.ServiceRequired": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.StateRequired": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Metadata": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Frame": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.ArmorView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Row": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.RowView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Messages": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Removed": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Despawned": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/reader-host.Framed": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Interests": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.CapacityRejected": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.Running": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.Preflight": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.HealthOff": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/streams.Cut": 3040,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/streams.Batch": 0,
+              "object:EQ": 0,
+              "object:LT": 0,
+              "object:GT": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Slot": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.ReaderState": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.Applied": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.InvariantFault": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.Visit": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.Completed": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.BatchFault": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.Faulted": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Success": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Failure": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Started": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Run": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.ReadBoundary": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.MainAdded": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.MainChanged": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.Stepped": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.MainRemoved": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.SystemFailure": 0,
+              "object:measurement-bend.prototype_packed_PrototypeFlatHealthRows": 1024,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/query.Required": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.PlacementFault": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.MissingMainTarget": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.PrototypeFlatTx": 1024,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.Tx": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Rejected": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.RowEdit": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Despawned": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.Invoked": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.PrototypeFlatCommitted": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.PrototypeFlatEnd": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.PrototypeFlatMain": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.PrototypeFlatLedger": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.PrototypeFlatMarksEnd": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.PrototypeFlatMark": 131072,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/query.PrototypeIdCursor": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/held-adapter.PrototypeFlatFold": 131584,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/held-adapter.PrototypeJournalLedger": 131584,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/query.StructColsState": 131584,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/query.Optional": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.NoMainChange": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.RemovedMain": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.AddedMain": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.ChangedMain": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Placed": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/held-adapter.PrototypePackedHealthRowOwner": 655360,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/held-adapter.PrototypePendingUndo": 393216,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/query.StructIdxState": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.VitalsToken": 262144,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.HealthLedgerToken": 262144,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.MainInverse": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.LedgerInverse": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Found": 131072,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Missing": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.PrototypeFlatPair": 131072,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.QueryRow": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Mismatch": 0,
+              "object:Fail": 0,
+              "object:Done": 0,
+              "object:Emit": 0
+            },
+            "fullWorlds": 9,
+            "programSHA256": "1e3c3a840b871505591a8721834883381aae5410f370456f03f99fd2b09e40f8"
+          },
+          {
+            "schema": "Health",
+            "role": "after",
+            "ordinaryConstructors": 4851264,
+            "kinds": {
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.VitalsToken": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.HealthLedgerToken": 0,
+              "object:WNil": 0,
+              "object:WCon": 0,
+              "object:untagged": 1,
+              "object:Tuple": 929792,
+              "ArrayExpression": 8742,
+              "object:Some": 527352,
+              "object:None": 264200,
+              "FunctionExpression": 0,
+              "object:$JMP": 8741,
+              "ArrowFunctionExpression": 292961,
+              "object:Unit": 0,
+              "object:Nil": 16834,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.HealthOn": 0,
+              "object:Con": 133648,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.Snapshot": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Factory": 0,
+              "object:$FFI": 1,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.Deferred": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.Runtime": 3072,
+              "object:measurement-bend.prototype_packed_HealthBench": 2048,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/capture.Returned": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.System": 2048,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.Registered": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.Registry": 1024,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.Entry": 1024,
+              "object:Halt": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.Call": 1024,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.Normal": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/host.Host": 2048,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.Complete": 1536,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Readers": 1536,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Clock": 1024,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/capture.Local": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.CreateRejected": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Created": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.World": 3584,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/reader-host.Logs": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Bundle": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Rows": 1536,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/streams.PingLog": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/streams.Buffer": 1520,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/streams.LifeLog": 1008,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Reserved": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.ReserveRejected": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Vitals": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Armor": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Tracked": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.MetadataColumns": 132096,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.HealthLedger": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.Dispatched": 1536,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.SetupRejected": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.Accepted": 1024,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Spawn": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Handle": 524800,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.WorldView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.InsertFlag": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.FlagView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.RemoveMain": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.RemoveMainView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.RemoveFlag": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.RemoveFlagView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Despawn": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.DespawnView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.Unknown": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/schedule.Nested": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/cache.Cache": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.SpawnView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.InsertMain": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.MainView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/cached-payload.PrototypeHealthMainSlot": 131072,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.VitalsView": 131072,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Four": 262144,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.LedgerView": 131072,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.MissingRuntimeRequirements": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.Presence": 1024,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.BundleView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.ResourceRequired": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.ServiceRequired": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.StateRequired": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Metadata": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Frame": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.ArmorView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Row": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.RowView": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Messages": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Removed": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Despawned": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/reader-host.Framed": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Interests": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.CapacityRejected": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.Running": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.Preflight": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.HealthOff": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/streams.Cut": 3040,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/streams.Batch": 0,
+              "object:EQ": 0,
+              "object:LT": 0,
+              "object:GT": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Slot": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.ReaderState": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.Applied": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.InvariantFault": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.Visit": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.Completed": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.BatchFault": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.Faulted": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Success": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Failure": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Started": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/readers.Run": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.ReadBoundary": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.MainAdded": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.MainChanged": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.Stepped": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.MainRemoved": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.SystemFailure": 0,
+              "object:measurement-bend.prototype_packed_PrototypeFlatHealthRows": 1024,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/query.Required": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.PlacementFault": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.MissingMainTarget": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.PrototypeFlatTx": 1024,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.Tx": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Rejected": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/commands.RowEdit": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Despawned": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/dispatcher.Invoked": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.PrototypeFlatCommitted": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.PrototypeFlatEnd": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.PrototypeFlatMain": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.PrototypeFlatLedger": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.PrototypeFlatMarksEnd": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.PrototypeFlatMark": 131072,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/query.PrototypeIdCursor": 512,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/held-adapter.PrototypeFlatFold": 131584,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/held-adapter.PrototypeJournalLedger": 131584,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/query.StructColsState": 131584,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/query.Optional": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.NoMainChange": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.RemovedMain": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.AddedMain": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.ChangedMain": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/storage.Placed": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/held-adapter.PrototypePackedHealthRowOwner": 131072,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/held-adapter.PrototypePendingUndo": 393216,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/query.StructIdxState": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.MainInverse": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.LedgerInverse": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Found": 131072,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Missing": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/transaction.PrototypeFlatPair": 131072,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/observations.QueryRow": 0,
+              "object:../bendvy-private-id-query-descending-v1/experiments/s-integrate/types.Mismatch": 0,
+              "object:Fail": 0,
+              "object:Done": 0,
+              "object:Emit": 0
+            },
+            "fullWorlds": 9,
+            "programSHA256": "a897c1532c6bcc8946d3d96c3a2cba4c57626bde158afb0af15874f93d6b924c"
+          }
+        ],
+        "controllers": [],
+        "runnerSHA256": "02cd56d6da300565471936de95c38d557f96cab398082b3549b8dc4c986ab209"
+      },
+      "finalPath": "/tmp/bendvy-descending-generated-health-nested.js",
+      "finalSHA256": "a897c1532c6bcc8946d3d96c3a2cba4c57626bde158afb0af15874f93d6b924c"
+    }
+  },
+  "firststage": {
+    "status": "FROZEN_TEN_EXACT_CHAIN_PROGRAMS_PASS",
+    "cpu": 7,
+    "scope": "Exact frozen derivation and own-byte-equality bindings; no source/compiler/Native/gate transfer",
+    "commands": [
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/row-rewrite.cjs",
+          "/tmp/bendvy-cursor-descending-motion-build-v1/batch.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/motion-row.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "72c959d986e485bb6aa786179efde60d8247b971a7f640c4619aba700859ea81"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/row-rewrite.cjs",
+          "/tmp/bendvy-cursor-descending-health-build-v1/batch.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/health-row.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "02811eabdc500fb430cf2b2e8e0079d3f9ee9181ddd50286a803227f8b215b70"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/row-rewrite.cjs",
+          "/tmp/bendvy-private-id-query-descending-tx-controls-v1/cached-motion/subject.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/cached-motion-row.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "763efed32a74c58be26ad4a6eb560a7dff9ab310858582706640646875b0176b"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/row-rewrite.cjs",
+          "/tmp/bendvy-private-id-query-descending-tx-controls-v1/cached-health/subject.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/cached-health-row.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "58ffb242480e3bb038de14553bde4866aff91bc3d846fa4183e4ed140988c4dd"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/row-rewrite.cjs",
+          "/tmp/bendvy-private-id-query-descending-tx-controls-v1/raw-motion/subject.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/raw-motion-row.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "6b363685f4981ba5218087b3906a4624032d18b8ebb0a34e5b743e2ba32edd13"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/row-rewrite.cjs",
+          "/tmp/bendvy-private-id-query-descending-tx-controls-v1/raw-health/subject.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/raw-health-row.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "93fc7dc92aa036f12933d3461deb33d9254a5cb0f6cab3d97b5647e5ce5b6288"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/row-rewrite.cjs",
+          "/tmp/bendvy-private-id-query-descending-tx-controls-v1/suppressed-cached-motion/subject.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-cached-motion-row.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "9a31ad8e5611a178f05de6805052e9955ac01279d2cb7762527aae6a0ce8c050"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/row-rewrite.cjs",
+          "/tmp/bendvy-private-id-query-descending-tx-controls-v1/suppressed-cached-health/subject.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-cached-health-row.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "735dbf0dc7bfb73eaa2147da781c7719ac3ae592c8fe898766ca34057ac1c6e4"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/row-rewrite.cjs",
+          "/tmp/bendvy-private-id-query-descending-tx-controls-v1/suppressed-raw-motion/subject.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-raw-motion-row.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "588cbdd00f1f6d1cc19a5ced92e56d5187fc99984602f055d772b591fd1106d8"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/row-rewrite.cjs",
+          "/tmp/bendvy-private-id-query-descending-tx-controls-v1/suppressed-raw-health/subject.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-raw-health-row.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "8b32f907adb36e790f6012ce4bf63ca517e3fc0d76d56efc577093f9bffbbb1e"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/token-pool/rewrite.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/motion-row.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/motion-pool.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/token-pool/rewrite.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/health-row.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/health-pool.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/token-pool/rewrite.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/cached-motion-row.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/cached-motion-pool.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/token-pool/rewrite.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/cached-health-row.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/cached-health-pool.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/token-pool/rewrite.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/raw-motion-row.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/raw-motion-pool.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/token-pool/rewrite.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/raw-health-row.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/raw-health-pool.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/token-pool/rewrite.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-cached-motion-row.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-cached-motion-pool.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/token-pool/rewrite.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-cached-health-row.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-cached-health-pool.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/token-pool/rewrite.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-raw-motion-row.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-raw-motion-pool.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/token-pool/rewrite.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-raw-health-row.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-raw-health-pool.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/analyze.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/motion-pool.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/motion-analysis.json"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "9b63a5d533d4a538f2a8e6fba9adc55262f6ba8bef2ccc449d43844a8f9b2842"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/analyze.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/health-pool.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/health-analysis.json"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "f85c68324c92100170767c27825a9da10d110622b69fa5cb6531f0cad9aeb650"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/analyze.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/cached-motion-pool.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/cached-motion-analysis.json"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "98b16e950462a7a929148a70a8f9b1b8e05d26a3e738c08f7fc750fd778553bf"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/analyze.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/cached-health-pool.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/cached-health-analysis.json"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "1f4ad58abcc00ac0f205ab75324fe1f2146663adf15e613101ec716815c14130"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/analyze.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/raw-motion-pool.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/raw-motion-analysis.json"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "f83815f23d7051295b54d1aa78eb6e2b0fd61f113c239b7363651ed6b9adb056"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/analyze.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/raw-health-pool.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/raw-health-analysis.json"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "0ed9d4ca154c5782219bb34b18d9a31c68e5c5161c89d2d914e2692b45584a26"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/analyze.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-cached-motion-pool.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-cached-motion-analysis.json"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "98b16e950462a7a929148a70a8f9b1b8e05d26a3e738c08f7fc750fd778553bf"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/analyze.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-cached-health-pool.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-cached-health-analysis.json"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "1f4ad58abcc00ac0f205ab75324fe1f2146663adf15e613101ec716815c14130"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/analyze.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-raw-motion-pool.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-raw-motion-analysis.json"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "f83815f23d7051295b54d1aa78eb6e2b0fd61f113c239b7363651ed6b9adb056"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/analyze.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-raw-health-pool.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-raw-health-analysis.json"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "0ed9d4ca154c5782219bb34b18d9a31c68e5c5161c89d2d914e2692b45584a26"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/rewrite.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/motion-pool.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/motion-tuple.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "a2dd8bd0c0846020d319f49c72a729dd4be4f2268c171c6cb9a48061df08dd67"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/rewrite.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/health-pool.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/health-tuple.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "2fb68ae5963f20e5f8622e999aee3f587913acf96adfbebf8a2c7326e28090e3"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/rewrite.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/cached-motion-pool.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/cached-motion-tuple.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "9a721cfcbf7d38a625f548a8fd6e28ab8f1e7477953509a949003971c65fbe7b"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-private-id-query-descending-tx-controls-v1/cached-motion/subject.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "e54652e6ce571e2eed4d6488b5450a69492399ae0d074a888d98f27def1a0d2e"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-descending-generated-frozen-v1/cached-motion-tuple.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "e54652e6ce571e2eed4d6488b5450a69492399ae0d074a888d98f27def1a0d2e"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/rewrite.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/cached-health-pool.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/cached-health-tuple.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "c925c424c86a837bc05a1a69b96b48e22597064b898d6161c675d3838613e2b4"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-private-id-query-descending-tx-controls-v1/cached-health/subject.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "ace2b0cb2eaca3476572aae4e73e656fc825763b54c0aa452178a7bb14e602b9"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-descending-generated-frozen-v1/cached-health-tuple.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "ace2b0cb2eaca3476572aae4e73e656fc825763b54c0aa452178a7bb14e602b9"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/rewrite.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/raw-motion-pool.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/raw-motion-tuple.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "eb8f7dadb5b50f82f95bcfe0e115a843bad428819fb941a4a0a02620bb05f6b9"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-private-id-query-descending-tx-controls-v1/raw-motion/subject.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "e54652e6ce571e2eed4d6488b5450a69492399ae0d074a888d98f27def1a0d2e"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-descending-generated-frozen-v1/raw-motion-tuple.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "e54652e6ce571e2eed4d6488b5450a69492399ae0d074a888d98f27def1a0d2e"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/rewrite.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/raw-health-pool.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/raw-health-tuple.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "ae6cf102509d9ca627e850671cb796fed37fb36156e218cdcb03a5200ed74358"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-private-id-query-descending-tx-controls-v1/raw-health/subject.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "ace2b0cb2eaca3476572aae4e73e656fc825763b54c0aa452178a7bb14e602b9"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-descending-generated-frozen-v1/raw-health-tuple.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "ace2b0cb2eaca3476572aae4e73e656fc825763b54c0aa452178a7bb14e602b9"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/rewrite.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-cached-motion-pool.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-cached-motion-tuple.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "98daedcbbcd13b6aa13681c0da276ef7db8ffb1185a0712178a6385b9a2b652d"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-private-id-query-descending-tx-controls-v1/suppressed-cached-motion/subject.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "48125f684a95c9ef5c1b978eefbf87fd6ef24bc91afdb5f74b422067aae0f2cb"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-cached-motion-tuple.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "48125f684a95c9ef5c1b978eefbf87fd6ef24bc91afdb5f74b422067aae0f2cb"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/rewrite.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-cached-health-pool.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-cached-health-tuple.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "b4e746ebcd12b9864f51ee0de5ba2c63452089cc73607f0e67171478aab988b0"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-private-id-query-descending-tx-controls-v1/suppressed-cached-health/subject.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "133f41d153791b23c4afc5922cf289a7836a3de8e4938e01418e21fc00baf3e8"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-cached-health-tuple.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "133f41d153791b23c4afc5922cf289a7836a3de8e4938e01418e21fc00baf3e8"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/rewrite.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-raw-motion-pool.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-raw-motion-tuple.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "c28cbea1d835163690f6672449ced10036cd8932ea8de27c234cbe9528cfbc90"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-private-id-query-descending-tx-controls-v1/suppressed-raw-motion/subject.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "48125f684a95c9ef5c1b978eefbf87fd6ef24bc91afdb5f74b422067aae0f2cb"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-raw-motion-tuple.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "48125f684a95c9ef5c1b978eefbf87fd6ef24bc91afdb5f74b422067aae0f2cb"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/rewrite.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-raw-health-pool.js",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-raw-health-tuple.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "6000d951e58bdda3879d33683c1794e1d3e72ecd7a5754ddea0f246247867f71"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-private-id-query-descending-tx-controls-v1/suppressed-raw-health/subject.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "133f41d153791b23c4afc5922cf289a7836a3de8e4938e01418e21fc00baf3e8"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-raw-health-tuple.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "133f41d153791b23c4afc5922cf289a7836a3de8e4938e01418e21fc00baf3e8"
+      }
+    ],
+    "programs": [
+      {
+        "label": "motion",
+        "sourceSHA256": "e07a646e258c8a96cf90a69028bab6d416ed6d1faa768d5ea6dd17e1bdffbf10",
+        "rowSHA256": "73aef89fef460fdf11e3bb0dff932f8233db25544c69b8e1e6dbf34d3b1b7e88",
+        "poolSHA256": "3026531ecc118ff6c00e035101200ec51b07dde0dee66bbfe3a49e28caffed15",
+        "finalSHA256": "11a315855c9cf15cb593a92303732c457b0f82834fe6ca801a94b27e47cb1709",
+        "finalPath": "/tmp/bendvy-descending-generated-frozen-v1/motion-tuple.js",
+        "freshControllerRecords": null,
+        "normalFull65AndNineWorldValidationPending": true
+      },
+      {
+        "label": "health",
+        "sourceSHA256": "1e3c3a840b871505591a8721834883381aae5410f370456f03f99fd2b09e40f8",
+        "rowSHA256": "d185503a13015dcfd991621fc2423d64d0c3ff84a3b6942db5b575ed9b6285eb",
+        "poolSHA256": "ba1e6313e5816b748605dfcb22175844b2fa3f493dcb2453cf2b0c44d7f11fa8",
+        "finalSHA256": "32942fb0f0f7dbd0b1d15032a4b20bb155ee7e2e32916e44e4d63c6110a744a5",
+        "finalPath": "/tmp/bendvy-descending-generated-frozen-v1/health-tuple.js",
+        "freshControllerRecords": null,
+        "normalFull65AndNineWorldValidationPending": true
+      },
+      {
+        "label": "cached-motion",
+        "sourceSHA256": "8f69a83e49f880a563f6f1ee101e0d13c06af8610f6ff2b6ed832fde36b959de",
+        "rowSHA256": "e2e06bf350edacaf4c52c2c9f0dd166327564401e42022df4e6b6e105ec86126",
+        "poolSHA256": "d913f6629333db9fe8bd5a26479f9c01266e03c9e32280987afcfdbcd3cbbc2c",
+        "finalSHA256": "361c9ebbb3cb6db4966a72cd8a997ebf4a3575cea17b97891d68da688bff139f",
+        "finalPath": "/tmp/bendvy-descending-generated-frozen-v1/cached-motion-tuple.js",
+        "freshControllerRecords": 72,
+        "normalFull65AndNineWorldValidationPending": false
+      },
+      {
+        "label": "cached-health",
+        "sourceSHA256": "a8a1a8772a87282658288bcddb7627b06be7cf4701b00ea399f3aaa2b6122d35",
+        "rowSHA256": "51a23fd5ef15ff1880344575d60b3f2a62fe729dd793bf421c2ad8c7381f31b8",
+        "poolSHA256": "89d886b5c3a11df70d462acafa31c275f36136ad6f3f8ae5aafc392b4040708b",
+        "finalSHA256": "e85c6bec14eed1fd77acd3566f9215679a537bee1b1885a5661af0faf93f25d0",
+        "finalPath": "/tmp/bendvy-descending-generated-frozen-v1/cached-health-tuple.js",
+        "freshControllerRecords": 72,
+        "normalFull65AndNineWorldValidationPending": false
+      },
+      {
+        "label": "raw-motion",
+        "sourceSHA256": "ce09c0482fa36ec9a6c11bb18e9a4a700fdb52f8218f337885f20012c17df8a4",
+        "rowSHA256": "59aaa6a13d69b001f035be6962d866c17478f6bcb59779c1920dd19bccb3c761",
+        "poolSHA256": "b44895245e0aa6404de8d0c1f963c48c8ecf55fe620d6695399f33a20c0cfd17",
+        "finalSHA256": "d8f0fee33161006e6816be93b1d3e78711c2bf92b6aa986b2dae0ae26ea52aed",
+        "finalPath": "/tmp/bendvy-descending-generated-frozen-v1/raw-motion-tuple.js",
+        "freshControllerRecords": 72,
+        "normalFull65AndNineWorldValidationPending": false
+      },
+      {
+        "label": "raw-health",
+        "sourceSHA256": "4f100204782e1e2a9a6504abf51476a8bca6855b1546c166cc48ec566e487799",
+        "rowSHA256": "16d355d4eb513f771fb9587d452bc911697e659ebf3adea8750eed981cb209e1",
+        "poolSHA256": "6d0b405d12865bdee4975c1df8a58e9dd4be806964171b5c5423cc2e87ab7776",
+        "finalSHA256": "caed95abe9ae722b04bcfb0edb2c75429ae05ccfdd96f98080284f0e8429335e",
+        "finalPath": "/tmp/bendvy-descending-generated-frozen-v1/raw-health-tuple.js",
+        "freshControllerRecords": 72,
+        "normalFull65AndNineWorldValidationPending": false
+      },
+      {
+        "label": "suppressed-cached-motion",
+        "sourceSHA256": "05b70a14df65115f1b05bbcb8213e4768921481a56cba780a287debca674c2c0",
+        "rowSHA256": "43659a31211fe031292c4b940d2d9ba9710e936cc025d94bc9b3002ca0aaf746",
+        "poolSHA256": "4c9f03670f2544ed6ca4cc9420f2fa616ee8bb1dc055d5590dd7897d4b72f03c",
+        "finalSHA256": "2110ac685a28b5f3115509c73f457802e9726555eede82684226c326208602f2",
+        "finalPath": "/tmp/bendvy-descending-generated-frozen-v1/suppressed-cached-motion-tuple.js",
+        "freshControllerRecords": 72,
+        "normalFull65AndNineWorldValidationPending": false
+      },
+      {
+        "label": "suppressed-cached-health",
+        "sourceSHA256": "ebcc3d195b6794b4d088a119e475ce1929b68f2a99b767b1e91f26553c25a79f",
+        "rowSHA256": "1c7fc4341720a7de3107834aa5d73d1656a8f5ef376d775d917688372092e707",
+        "poolSHA256": "c1d0041f37015950075b44836763c733f18baf428fb749e901b619953e0032cd",
+        "finalSHA256": "27a7dc55a6b1d444b781f246b975ea02b58b1d399297d277417c766445950bef",
+        "finalPath": "/tmp/bendvy-descending-generated-frozen-v1/suppressed-cached-health-tuple.js",
+        "freshControllerRecords": 72,
+        "normalFull65AndNineWorldValidationPending": false
+      },
+      {
+        "label": "suppressed-raw-motion",
+        "sourceSHA256": "119c2e468dd9e912c664fd103934ed8c3d3a275f210371b9f689fe3de9fc9f8b",
+        "rowSHA256": "2b398f4ee0bbf55cfabeabc705559e164df35f78ce5e83425ea18043147275d2",
+        "poolSHA256": "75f24f662fe6534cbdfacd597bfc020d432e3bd9920941ecb7826b0753fa014d",
+        "finalSHA256": "169a366c10e0984a0a51298ba0ef2bbf7cc176b4fa10778f4c1af4f6debf4f98",
+        "finalPath": "/tmp/bendvy-descending-generated-frozen-v1/suppressed-raw-motion-tuple.js",
+        "freshControllerRecords": 72,
+        "normalFull65AndNineWorldValidationPending": false
+      },
+      {
+        "label": "suppressed-raw-health",
+        "sourceSHA256": "08500c0797c4e70f1e13c9a1ce9b8433c2d0f60a3d24963a0b9b79fcb26a6b47",
+        "rowSHA256": "3d8e4e8e961d29ff7aa00caeea42e181d15eff8b7fa8a109b7fb7f455818c69b",
+        "poolSHA256": "6d635300d11f059ef43b803b085194764d969c2a3e3e1602f0ffdb7020263014",
+        "finalSHA256": "c388bed4766a2ffb3edabc56af1c083d279ae95ffe3f0112b97d5ac8da6dfb58",
+        "finalPath": "/tmp/bendvy-descending-generated-frozen-v1/suppressed-raw-health-tuple.js",
+        "freshControllerRecords": 72,
+        "normalFull65AndNineWorldValidationPending": false
+      }
+    ],
+    "recipes": {
+      "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/row-rewrite.cjs": "67724be2cacd1e3547fb2419de3835e980e158a3f4369ce523c5f3c7a3eed51f",
+      "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/rewrite.cjs": "def4aedbcd4927b7558c6b47c8acbbf60552d084dcc0f1a7a001cd31d6117207",
+      "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/analyze.cjs": "439ebd7e81479225cd66b3a45ed9e972b56efc2c13c5037afe76935697fbbe1b",
+      "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/token-pool/rewrite.cjs": "8a5643f7db4c335ba115e8fdce7a2c41aab6b61c26e77387b139a3957ea0d591"
+    },
+    "catalogs": {
+      "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/row-input-pins.json": "7740e063b9939c0db5f6ca859502102311b16a47673a337ca31f996ac34b1b8d",
+      "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/input-pins.json": "272c77c27b61d3e21100f7884d8581a684d63b7a37a84863349ffaddffc18e25",
+      "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/token-pool/input-pins.json": "fb37b2fedc53ab5d28839458a89de32ccd50b9924b03a7b5c03100def124efd5"
+    },
+    "actualControllerRecords": 576
+  },
+  "nestedControllers": {
+    "status": "FRESH_CURSOR_NESTED_CONTROLLERS_576_RECORDS_EQUAL",
+    "cpu": 7,
+    "scope": "Fresh secondstage generated-JS exact current-source controller observations; no inherited gate or alias/refinement proof",
+    "commands": [
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/nested/rewrite.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/cached-motion-tuple.js",
+          "/tmp/bendvy-descending-generated-nested-controllers-v1/cached-motion.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "3c2197ef78327d8b322b970de78656f18197b4c3f4cce3eba6950bdc781cbb32"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-descending-generated-frozen-v1/cached-motion-tuple.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "e54652e6ce571e2eed4d6488b5450a69492399ae0d074a888d98f27def1a0d2e"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-descending-generated-nested-controllers-v1/cached-motion.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "e54652e6ce571e2eed4d6488b5450a69492399ae0d074a888d98f27def1a0d2e"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/nested/rewrite.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/cached-health-tuple.js",
+          "/tmp/bendvy-descending-generated-nested-controllers-v1/cached-health.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "fe57c0463fd45d1f7ce895f8d40bf70c58447c29d58f1866ca1ef8f3d287d9d6"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-descending-generated-frozen-v1/cached-health-tuple.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "ace2b0cb2eaca3476572aae4e73e656fc825763b54c0aa452178a7bb14e602b9"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-descending-generated-nested-controllers-v1/cached-health.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "ace2b0cb2eaca3476572aae4e73e656fc825763b54c0aa452178a7bb14e602b9"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/nested/rewrite.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/raw-motion-tuple.js",
+          "/tmp/bendvy-descending-generated-nested-controllers-v1/raw-motion.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "581fc3ff581332723ce64ee945b040d01599c409462880f58da7dd1d83a6606c"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-descending-generated-frozen-v1/raw-motion-tuple.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "e54652e6ce571e2eed4d6488b5450a69492399ae0d074a888d98f27def1a0d2e"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-descending-generated-nested-controllers-v1/raw-motion.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "e54652e6ce571e2eed4d6488b5450a69492399ae0d074a888d98f27def1a0d2e"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/nested/rewrite.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/raw-health-tuple.js",
+          "/tmp/bendvy-descending-generated-nested-controllers-v1/raw-health.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "aa2d0fcd34d118293fb4fc95bebd64a9c130e9054473deffbc5ce5f0e7c9e0a5"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-descending-generated-frozen-v1/raw-health-tuple.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "ace2b0cb2eaca3476572aae4e73e656fc825763b54c0aa452178a7bb14e602b9"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-descending-generated-nested-controllers-v1/raw-health.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "ace2b0cb2eaca3476572aae4e73e656fc825763b54c0aa452178a7bb14e602b9"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/nested/rewrite.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-cached-motion-tuple.js",
+          "/tmp/bendvy-descending-generated-nested-controllers-v1/suppressed-cached-motion.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "3482862cb241a66ea5e955ca0017909e55431f3a6236b1ba5418b010ced34f70"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-cached-motion-tuple.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "48125f684a95c9ef5c1b978eefbf87fd6ef24bc91afdb5f74b422067aae0f2cb"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-descending-generated-nested-controllers-v1/suppressed-cached-motion.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "48125f684a95c9ef5c1b978eefbf87fd6ef24bc91afdb5f74b422067aae0f2cb"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/nested/rewrite.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-cached-health-tuple.js",
+          "/tmp/bendvy-descending-generated-nested-controllers-v1/suppressed-cached-health.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "a910d473af2d46cbfd9f2b87c34cfa96e58f50b42e3bcab6377741844762deb0"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-cached-health-tuple.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "133f41d153791b23c4afc5922cf289a7836a3de8e4938e01418e21fc00baf3e8"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-descending-generated-nested-controllers-v1/suppressed-cached-health.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "133f41d153791b23c4afc5922cf289a7836a3de8e4938e01418e21fc00baf3e8"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/nested/rewrite.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-raw-motion-tuple.js",
+          "/tmp/bendvy-descending-generated-nested-controllers-v1/suppressed-raw-motion.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "d120f09a5e035e84aeb6331bfdce11ac8c45fc17d584c4111ab4881b1f120c3f"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-raw-motion-tuple.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "48125f684a95c9ef5c1b978eefbf87fd6ef24bc91afdb5f74b422067aae0f2cb"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-descending-generated-nested-controllers-v1/suppressed-raw-motion.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "48125f684a95c9ef5c1b978eefbf87fd6ef24bc91afdb5f74b422067aae0f2cb"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/nested/rewrite.cjs",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-raw-health-tuple.js",
+          "/tmp/bendvy-descending-generated-nested-controllers-v1/suppressed-raw-health.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "770286b169302be33b1533ba30fb08f1f170c764fd6be6526de22c3c67be9668"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-descending-generated-frozen-v1/suppressed-raw-health-tuple.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "133f41d153791b23c4afc5922cf289a7836a3de8e4938e01418e21fc00baf3e8"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-descending-generated-nested-controllers-v1/suppressed-raw-health.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "133f41d153791b23c4afc5922cf289a7836a3de8e4938e01418e21fc00baf3e8"
+      }
+    ],
+    "cases": [
+      {
+        "label": "cached-motion",
+        "schema": "motion",
+        "firststageSHA256": "361c9ebbb3cb6db4966a72cd8a997ebf4a3575cea17b97891d68da688bff139f",
+        "nestedSHA256": "14a03f2eab5bb5aa16b35b8b823c1596e192dc8713589aaa700b2fb8c7d1d036",
+        "records": 72
+      },
+      {
+        "label": "cached-health",
+        "schema": "health",
+        "firststageSHA256": "e85c6bec14eed1fd77acd3566f9215679a537bee1b1885a5661af0faf93f25d0",
+        "nestedSHA256": "762f6c92b587a229e3b44453ad7af121984f6fff8266e2ec05025c7731b996e4",
+        "records": 72
+      },
+      {
+        "label": "raw-motion",
+        "schema": "motion",
+        "firststageSHA256": "d8f0fee33161006e6816be93b1d3e78711c2bf92b6aa986b2dae0ae26ea52aed",
+        "nestedSHA256": "672036c1e3cfc92885189856b3f4764dcd9a520364c967bd1948258efd11a270",
+        "records": 72
+      },
+      {
+        "label": "raw-health",
+        "schema": "health",
+        "firststageSHA256": "caed95abe9ae722b04bcfb0edb2c75429ae05ccfdd96f98080284f0e8429335e",
+        "nestedSHA256": "97516c859b379ea437e97d1763cc33be5a1656c0d0e5ad82a6aa21ec46ad9e2f",
+        "records": 72
+      },
+      {
+        "label": "suppressed-cached-motion",
+        "schema": "motion",
+        "firststageSHA256": "2110ac685a28b5f3115509c73f457802e9726555eede82684226c326208602f2",
+        "nestedSHA256": "fa4d6a6827f55ea78167bbd1ef3afd5d7bb34b76f8806dcc5c37fe0d6b0df4a6",
+        "records": 72
+      },
+      {
+        "label": "suppressed-cached-health",
+        "schema": "health",
+        "firststageSHA256": "27a7dc55a6b1d444b781f246b975ea02b58b1d399297d277417c766445950bef",
+        "nestedSHA256": "28ceb978cdc26d1c67de78666d482ee7da2c9ceba75ab22d6b9a4f6f0cb7018b",
+        "records": 72
+      },
+      {
+        "label": "suppressed-raw-motion",
+        "schema": "motion",
+        "firststageSHA256": "169a366c10e0984a0a51298ba0ef2bbf7cc176b4fa10778f4c1af4f6debf4f98",
+        "nestedSHA256": "3eefcf1b494dc4173cc213fbd71b3bce4145dd7e0082b0ddce1be74b6c57c9cd",
+        "records": 72
+      },
+      {
+        "label": "suppressed-raw-health",
+        "schema": "health",
+        "firststageSHA256": "c388bed4766a2ffb3edabc56af1c083d279ae95ffe3f0112b97d5ac8da6dfb58",
+        "nestedSHA256": "516aa0faf5a9a8ea7e5ae7c4e5d32fd58583e8dc406552f50811315f8a30c389",
+        "records": 72
+      }
+    ],
+    "records": 576
+  },
+  "retainedWitness": {
+    "status": "BOTH_SCHEMAS_FROZEN_VIEWS_FULL_ARRAYS_TRUEOLD_PENDING_PAIRS_EQUAL",
+    "cpu": 7,
+    "commands": [
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/packed-witness.cjs",
+          "/tmp/bendvy-cursor-descending-motion-build-v1/batch.js",
+          "/tmp/bendvy-descending-generated-witness-v1/motion-baseline.js",
+          "motion"
+        ],
+        "limitSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-descending-generated-witness-v1/motion-baseline.js"
+        ],
+        "limitSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "fb106b22feebd8041433244e6843fd3cf15f629c3e16f998b1f712a9847debe8"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/packed-witness.cjs",
+          "/tmp/bendvy-descending-generated-motion-nested.js",
+          "/tmp/bendvy-descending-generated-witness-v1/motion-candidate.js",
+          "motion"
+        ],
+        "limitSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-descending-generated-witness-v1/motion-candidate.js"
+        ],
+        "limitSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "fb106b22feebd8041433244e6843fd3cf15f629c3e16f998b1f712a9847debe8"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/packed-witness.cjs",
+          "/tmp/bendvy-cursor-descending-health-build-v1/batch.js",
+          "/tmp/bendvy-descending-generated-witness-v1/health-baseline.js",
+          "health"
+        ],
+        "limitSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-descending-generated-witness-v1/health-baseline.js"
+        ],
+        "limitSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "44880c7f6a28a4bb0585bc64e24ae5cfce03bf98e6e3a29ab0cf3f7e3a81e8c0"
+      },
+      {
+        "argv": [
+          "node",
+          "--expose-internals",
+          "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/js-descending-cursor-transport/packed-witness.cjs",
+          "/tmp/bendvy-descending-generated-health-nested.js",
+          "/tmp/bendvy-descending-generated-witness-v1/health-candidate.js",
+          "health"
+        ],
+        "limitSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "argv": [
+          "node",
+          "/tmp/bendvy-descending-generated-witness-v1/health-candidate.js"
+        ],
+        "limitSeconds": 5,
+        "exit": 0,
+        "outputSHA256": "44880c7f6a28a4bb0585bc64e24ae5cfce03bf98e6e3a29ab0cf3f7e3a81e8c0"
+      }
+    ],
+    "cases": [
+      {
+        "schema": "motion",
+        "role": "baseline",
+        "sourceSHA256": "e07a646e258c8a96cf90a69028bab6d416ed6d1faa768d5ea6dd17e1bdffbf10",
+        "derivedSHA256": "90665bf47a703e62184d938d88b13b5e091903eabc5db2215c47910477ef0fb3",
+        "records": 4
+      },
+      {
+        "schema": "motion",
+        "role": "candidate",
+        "sourceSHA256": "edb4c587b8df505636c48a2f1e216144832c5ecaecd3ccbc518def33703e0dda",
+        "derivedSHA256": "d31e29ac1a91772cd78fe8a7b4b089cba4ae2e04a262bb0e269932a87ff13336",
+        "records": 4
+      },
+      {
+        "schema": "health",
+        "role": "baseline",
+        "sourceSHA256": "1e3c3a840b871505591a8721834883381aae5410f370456f03f99fd2b09e40f8",
+        "derivedSHA256": "dfefeb9adaf35e85546d548fa04ae316908c154fcf20195793ced7372b6b5c25",
+        "records": 4
+      },
+      {
+        "schema": "health",
+        "role": "candidate",
+        "sourceSHA256": "a897c1532c6bcc8946d3d96c3a2cba4c57626bde158afb0af15874f93d6b924c",
+        "derivedSHA256": "f32f305fd28fdcae8becc1a4824d1ea28174403aba92870056cf65b6d1c136cb",
+        "records": 4
+      }
+    ],
+    "scope": "Fresh emitted actual-helper full-shape/Data snapshot/pending journal witness; no public capability or universal alias proof",
+    "harnessSHA256": "05ab69830de102a769d0b14eb6981f7dde2a35efde4304cbdfd9347792ee7dc5"
+  },
+  "archiveSHA256": "36cf9715e19a81abc9f5ea60271e5753e788d56cb762d49174198c914a705366",
+  "recipes": {
+    "status": "ALL_FIVE_SAFETY_RECIPE_FILES_BYTE_IDENTICAL",
+    "files": {
+      "row-rewrite.cjs": "67724be2cacd1e3547fb2419de3835e980e158a3f4369ce523c5f3c7a3eed51f",
+      "rewrite.cjs": "def4aedbcd4927b7558c6b47c8acbbf60552d084dcc0f1a7a001cd31d6117207",
+      "analyze.cjs": "439ebd7e81479225cd66b3a45ed9e972b56efc2c13c5037afe76935697fbbe1b",
+      "token-pool/rewrite.cjs": "8a5643f7db4c335ba115e8fdce7a2c41aab6b61c26e77387b139a3957ea0d591",
+      "nested/rewrite.cjs": "ab172d27c0740027b9db767bfdb6d3974c9a4fca7faa03609df240fe8ccb5689"
+    }
+  },
+  "catalogs": {
+    "row-input-pins.json": "7740e063b9939c0db5f6ca859502102311b16a47673a337ca31f996ac34b1b8d",
+    "input-pins.json": "272c77c27b61d3e21100f7884d8581a684d63b7a37a84863349ffaddffc18e25",
+    "token-pool/input-pins.json": "fb37b2fedc53ab5d28839458a89de32ccd50b9924b03a7b5c03100def124efd5",
+    "nested/input-pins.json": "c723f35583829368df4401edf3e0ab536ff2eb3d291353c60c1b6212684b833c"
+  }
+}
