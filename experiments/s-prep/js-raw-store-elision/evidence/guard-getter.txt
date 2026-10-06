@@ -1,0 +1,17 @@
+/tmp/bendvy-js-raw-store-elision-guards/getter/rewrite.cjs:2
+const fs=require('node:fs'),crypto=require('node:crypto'),acorn=require('internal/deps/acorn/acorn/dist/acorn');const[input,output]=process.argv.slice(2),sha=s=>crypto.createHash('sha256').update(s).digest('hex'),assert=(v,m)=>{if(!v)throw Error(m)};assert(input&&output&&!fs.existsSync(output),'fresh output');const source=fs.readFileSync(input,'utf8'),pin=JSON.parse(fs.readFileSync(__dirname+'/input-pins.json'))[sha(source)];assert(pin,'exact input');assert(Object.keys(pin.sourcePins).length===29,'actual29');for(const[n,h]of Object.entries(pin.sourcePins))assert(sha(fs.readFileSync(pin.sourceRoot+'/'+n))===h,'source '+n);const types=fs.readFileSync(pin.sourceRoot+'/types.bend','utf8');for(const kind of ['Position','Vitals','MotionLedger','HealthLedger'])assert(new RegExp('type '+kind+' is Type:').test(types),'affine Raw '+kind);
+                                                                                                                                                                                                                                          ^
+
+Error: plain properties
+    at assert (/tmp/bendvy-js-raw-store-elision-guards/getter/rewrite.cjs:2:241)
+    at /tmp/bendvy-js-raw-store-elision-guards/getter/rewrite.cjs:3:370
+    at walk (/tmp/bendvy-js-raw-store-elision-guards/getter/rewrite.cjs:3:228)
+    at /tmp/bendvy-js-raw-store-elision-guards/getter/rewrite.cjs:3:300
+    at Array.forEach (<anonymous>)
+    at walk (/tmp/bendvy-js-raw-store-elision-guards/getter/rewrite.cjs:3:289)
+    at walk (/tmp/bendvy-js-raw-store-elision-guards/getter/rewrite.cjs:3:344)
+    at /tmp/bendvy-js-raw-store-elision-guards/getter/rewrite.cjs:3:300
+    at Array.forEach (<anonymous>)
+    at walk (/tmp/bendvy-js-raw-store-elision-guards/getter/rewrite.cjs:3:289)
+
+Node.js v24.20.0

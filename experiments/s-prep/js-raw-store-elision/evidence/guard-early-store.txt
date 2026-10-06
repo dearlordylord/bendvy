@@ -1,0 +1,16 @@
+/tmp/bendvy-js-raw-store-elision-guards/early-store/rewrite.cjs:2
+const fs=require('node:fs'),crypto=require('node:crypto'),acorn=require('internal/deps/acorn/acorn/dist/acorn');const[input,output]=process.argv.slice(2),sha=s=>crypto.createHash('sha256').update(s).digest('hex'),assert=(v,m)=>{if(!v)throw Error(m)};assert(input&&output&&!fs.existsSync(output),'fresh output');const source=fs.readFileSync(input,'utf8'),pin=JSON.parse(fs.readFileSync(__dirname+'/input-pins.json'))[sha(source)];assert(pin,'exact input');assert(Object.keys(pin.sourcePins).length===29,'actual29');for(const[n,h]of Object.entries(pin.sourcePins))assert(sha(fs.readFileSync(pin.sourceRoot+'/'+n))===h,'source '+n);const types=fs.readFileSync(pin.sourceRoot+'/types.bend','utf8');for(const kind of ['Position','Vitals','MotionLedger','HealthLedger'])assert(new RegExp('type '+kind+' is Type:').test(types),'affine Raw '+kind);
+                                                                                                                                                                                                                                          ^
+
+Error: all evaluations before stores
+    at assert (/tmp/bendvy-js-raw-store-elision-guards/early-store/rewrite.cjs:2:241)
+    at Object.<anonymous> (/tmp/bendvy-js-raw-store-elision-guards/early-store/rewrite.cjs:8:188)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+    at Module.load (node:internal/modules/cjs/loader:1651:32)
+    at Module._load (node:internal/modules/cjs/loader:1443:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47
+
+Node.js v24.20.0

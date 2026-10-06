@@ -1,0 +1,91 @@
+{
+  "scope": "Intended test-only copied catalog guards, no shipping bypass",
+  "CPU": 10,
+  "limitSeconds": 5,
+  "records": [
+    {
+      "label": "getter",
+      "exit": 1,
+      "intendedDiagnostic": "plain properties",
+      "inputSHA256": "7647c5479256e936fc820ff8b3f3568d618bdffa363039e89c4bf914b4a9675c",
+      "outputAbsent": true
+    },
+    {
+      "label": "proxy",
+      "exit": 1,
+      "intendedDiagnostic": "no proxy/reflection/eval",
+      "inputSHA256": "1e476a78145acff4b1383eb11026836bba9e6caebcc593803f8d2550516b5a23",
+      "outputAbsent": true
+    },
+    {
+      "label": "reflect",
+      "exit": 1,
+      "intendedDiagnostic": "no owner reflection",
+      "inputSHA256": "b15f467611ff45137c8bcad5c0d44a89048631598e5ac9438d2e39bea2fcc28b",
+      "outputAbsent": true
+    },
+    {
+      "label": "caller-ffi",
+      "exit": 1,
+      "intendedDiagnostic": "original owner projections",
+      "inputSHA256": "9d2627178002b52de644bd3f13bef3dfa5186de5022c6ad38e691bf09d62f46d",
+      "outputAbsent": true
+    },
+    {
+      "label": "caller-identity",
+      "exit": 1,
+      "intendedDiagnostic": "original owner projections",
+      "inputSHA256": "f28bbd211661de9502b289924d2fbac682e4015ed464bf7986cacbc19bd27929",
+      "outputAbsent": true
+    },
+    {
+      "label": "receiver-ffi",
+      "exit": 1,
+      "intendedDiagnostic": "receiver no calls/captures",
+      "inputSHA256": "c288f0f1265401eb10c5d08b7a86cdce3e252eb0f77cf887687411742640287d",
+      "outputAbsent": true
+    },
+    {
+      "label": "changed-metadata",
+      "exit": 1,
+      "intendedDiagnostic": "only same original Raw slot",
+      "inputSHA256": "67ddc4119c2a99b3823f7fd2833a5c0d521821a5af13a5d71a07c6f543d759c7",
+      "outputAbsent": true
+    },
+    {
+      "label": "different-array-return",
+      "exit": 1,
+      "intendedDiagnostic": "only same original Raw slot",
+      "inputSHA256": "9c5dab52979d6af8a80891cbc164153323bd4a509b58b6b42678671044d31c7d",
+      "outputAbsent": true
+    },
+    {
+      "label": "early-store",
+      "exit": 1,
+      "intendedDiagnostic": "all evaluations before stores",
+      "inputSHA256": "9b8743a606883938debc2688e60ddb10364ad61481ec0e8d424107d717145d1d",
+      "outputAbsent": true
+    },
+    {
+      "label": "wrong-old-read",
+      "exit": 1,
+      "intendedDiagnostic": "original array/old read order",
+      "inputSHA256": "3647647ef05acb33b083f6adc6da561e2b07aeb9c8c2156ac924977db1820e82",
+      "outputAbsent": true
+    },
+    {
+      "label": "changed-array-write",
+      "exit": 1,
+      "intendedDiagnostic": "exact Array.set expression",
+      "inputSHA256": "aee380f249d638f4945593fbb0846183c3c3d67282987e25e1ec0e269ddc491f",
+      "outputAbsent": true
+    },
+    {
+      "label": "duplicate-edge",
+      "exit": 1,
+      "intendedDiagnostic": "unique receiver reference",
+      "inputSHA256": "f3b7062b2cf13faefcbf7393b49ea33459172065d27b62b8796c8e4eb4aa83ed",
+      "outputAbsent": true
+    }
+  ]
+}
