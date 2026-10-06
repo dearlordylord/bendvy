@@ -1,0 +1,61 @@
+{
+  "status": "JOINED_HEALTH_FRESH_NATIVE_COUNTS_AND_PROFILE_PASS",
+  "schema": "Health",
+  "sourceClosures": {
+    "baseline": "bdba8a91c1b56f4961217454139b79dc5c1614ab2301f4dae766a0cd70934bb3",
+    "joined": "8cb83bc7467ca8e9b0192b8dadd89d3c143262d37e812079342289be1c0f6e26"
+  },
+  "bindings": [
+    {
+      "role": "baseline",
+      "sourceC": "/tmp/bendvy-flat-journal-health-v4/batch.c",
+      "sourceSHA256": "b4db263d90e47b78e0127abc84d9e8e8b42d9413ce77bf2c862e321be3dba8e9",
+      "buildSHA256": "6af08bec8eb8ccd70e82ab1cca2aa8f98d05e5c8bbd6b4bc1f955e148846e14e",
+      "countSHA256": "91f7778934482bb84dd665b41b7dfb7f4957a856e1656bca8441a50572b66f91"
+    },
+    {
+      "role": "joined",
+      "sourceC": "/tmp/bendvy-joined-flatjournal-ledger-health-build-v1/batch.c",
+      "sourceSHA256": "a2ae0508ff55b9dd7f9195f8e510ddd2543e0b860d9f0d778d7da2c2ed5943f9",
+      "buildSHA256": "0e92d50cc72d2cee5829bca8cf4c7f65ad8493da3aa07ee92a72d588dfdc3841",
+      "countSHA256": "96a21aa036ffed06042c3681845c15a9a011d56190e1e0ea8882a6afdd96f734"
+    }
+  ],
+  "metrics": {
+    "heapEntries": {
+      "baseline": 22414279,
+      "joined": 22414279,
+      "delta": 0
+    },
+    "rfcCreated": {
+      "baseline": 10576190,
+      "joined": 10576190,
+      "delta": 0
+    },
+    "requestedWords": {
+      "baseline": 60382223,
+      "joined": 60382223,
+      "delta": 0
+    }
+  },
+  "allInstrumentedOperationTotalsEqual": true,
+  "operationTotals": {
+    "bank_pop": 0,
+    "corpus_grow": 0,
+    "heap_alloc_miss": 0,
+    "heap_alloc": 22414279,
+    "rfc_wrap": 10576190,
+    "term_drop": 32832,
+    "span_fade": 8192,
+    "term_keep": 1085440,
+    "rfc_seal": 41164544,
+    "ctr_take": 10674689,
+    "blk_node": 0,
+    "mmap": 0,
+    "mprotect": 0,
+    "malloc": 0
+  },
+  "profileEvidenceSHA256": "78a615725c1e37cc16aa6c697df3f08d17eae65ab92c536d7ac5e9d291439e13",
+  "profileCMatchesJoined": true,
+  "scope": "Health-specific finite count equality; profile sampling/instrumentation not cycles/speed/causality; no Motion transfer or product acceptance"
+}
