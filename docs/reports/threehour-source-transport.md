@@ -30,3 +30,13 @@ Autoresearch fit returned `continue-direct`; active session state is untouched.
 Initial host evidence: cgroup cpu.max=`max 100000`, nr_periods/nr_throttled0,
 cpuset0–11. No evidence of cgroup quota throttling. External processes are retained;
 quiet owned-worker intervals are required before interpreting diagnostic clocks.
+
+## Native diagnosis (03:12 UTC)
+
+Committed per-site counters identify 32,216,007 heap entries, 14,774,590 RFC redirects and 81,087,503 requested words in the frozen Motion timed phase. All allocation misses and physical malloc/mmap/mprotect counters are zero in that phase: these are recycled runtime nodes, not newly allocated physical bytes. Fresh flat Held and flat query source candidates produce exactly the same Native counters. The JS Cache reduction therefore cannot be claimed as a Native allocation reduction.
+
+Read-only compiler inspection reproduces byte-identical baseline C. A generic metadata helper argument seeds conservative global hotness before World binding, which causes constructor-field sealing; source closure of helper parameters is being investigated. This is a compiler decision observed through its inspector, not a soundness failure or permission to disable ownership machinery.
+
+Phase-bounded existing gprof diagnostics pass full65 fields for both schemas. Sparse samples point to term_drop, Held row loops and rfc_wrap. CPU/wall accounting passes Health full65 fields, with CPU/wall milliseconds TS420.297/420.300, Native412.264/412.332 and JS423.825/423.826. The preceding Motion diagnostic failed at the unchanged JS five-second limit; its failed receipt is retained. Instrumented observations do not qualify performance or explain host variation.
+
+Source flat Held full65 comparisons pass both schemas. Raw adjacent clocks vary materially: Motion TS223.577, baseline Native254/candidate342, baseline JS523/candidate365; Health TS870.581, Native440/458, JS573/686 milliseconds. Concurrent owned compilation was present, adverse results are retained and no improvement/parity is accepted. Fresh source boundary and compiling runtime-mutant gates remain under review.

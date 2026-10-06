@@ -1,0 +1,97 @@
+{
+  "status": "PHASE_CPU_AND_FULL65_FIELDS_PASS",
+  "scope": "Phase CPU/wall diagnosis with small instrumentation; no speed/qualification/keep claim",
+  "schema": "Health",
+  "cpu": 7,
+  "originalPins": {
+    "c": "5b660d88bba6a78ff934617867d528b1928a75e714516f84cfe193da6ce9de1a",
+    "js": "1ef14f117a404cdebb60b2efe2ef74f8a3a6d3fa037553f8a5467ca51a0e3bae",
+    "reference": "bf28b60bb93ab8ce037f6464e575691316e4baf4a0cca55ecc64250054e2f688"
+  },
+  "recipeSHA256": "bdb0b8c8cb69cbcc6bede81d26f7df728ebbd7f679c6ff74bc1d7442335815c0",
+  "commands": [
+    {
+      "argv": [
+        "env",
+        "BENDVY_CLANG19_ROOT=/tmp/bendvy-clang19-diagnostic/root",
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/bendvy-phase-cpu-frozen-health-immediate/cpu.c",
+        "-pthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-phase-cpu-frozen-health-immediate/cpu.native"
+      ],
+      "limitSeconds": 120,
+      "exit": 0,
+      "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-c",
+        "import os,sys;fd=os.open(sys.argv[1],os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600);os.dup2(fd,2);os.close(fd);os.execvp(sys.argv[2],sys.argv[2:])",
+        "/tmp/bendvy-phase-cpu-frozen-health-immediate/TS.stderr.txt",
+        "node",
+        "/tmp/bendvy-phase-cpu-frozen-health-immediate/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "9a3144037f632298b2768e1df8e62b54d774a6f3710b5b1c300df3d0132b0d2f"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-c",
+        "import os,sys;fd=os.open(sys.argv[1],os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600);os.dup2(fd,2);os.close(fd);os.execvp(sys.argv[2],sys.argv[2:])",
+        "/tmp/bendvy-phase-cpu-frozen-health-immediate/Native.stderr.txt",
+        "/tmp/bendvy-phase-cpu-frozen-health-immediate/cpu.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "540bb470e87898a3ffbcafcb2ae36ca0c9c1a84ac4a482dd7db0e0d218ec7eba"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-c",
+        "import os,sys;fd=os.open(sys.argv[1],os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600);os.dup2(fd,2);os.close(fd);os.execvp(sys.argv[2],sys.argv[2:])",
+        "/tmp/bendvy-phase-cpu-frozen-health-immediate/JS.stderr.txt",
+        "node",
+        "/tmp/bendvy-phase-cpu-frozen-health-immediate/cpu.js"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "7e6c0556f2cb64c93f0be6d325f2efea0a099c1a0bad4977d61a27d8b9472b58"
+    }
+  ],
+  "derivedPins": {
+    "cpu.c": "e1a0fe7bde07f68c068d444876998d3d5b5431dad4cd370a58f3634438ab50e7",
+    "cpu.js": "78f13bbca45251b5b8c312e772d86fde2746e7f82e6d3c6890eb10337def73d1",
+    "reference.mjs": "7d7a0bcffbcf0bdc5af3086070dd81269595708d2ef58164c750d8320dedca6a"
+  },
+  "binarySHA256": "458ced3d78552296cea20a4d0675562119d10ca88d9e70eb36d97011c9782b0e",
+  "phaseCPU": {
+    "TS": {
+      "userMS": 387.902,
+      "systemMS": 32.395,
+      "wallMS": 420.300115
+    },
+    "Native": {
+      "userMS": 412.218,
+      "systemMS": 0.046,
+      "wallMS": 412.331839
+    },
+    "JS": {
+      "userMS": 407.742,
+      "systemMS": 16.083,
+      "wallMS": 423.826396
+    }
+  },
+  "allFullFieldsEqual": true,
+  "limits": "CPU sums all process threads; instrumentation adds small boundary cost; wall/CPU differences do not independently prove scheduler causation. Not a performance metric."
+}

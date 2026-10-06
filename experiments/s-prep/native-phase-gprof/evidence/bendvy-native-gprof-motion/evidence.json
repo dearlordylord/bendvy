@@ -1,0 +1,72 @@
+{
+  "status": "PROFILE_AND_FULL65_FIELDS_PASS",
+  "scope": "Existing GNU gprof phase diagnostic; instrumentation and sampling are not speed/physical allocation acceptance",
+  "schema": "Motion",
+  "cpu": 7,
+  "sourceSHA256": "01683bcb4ca6691a31603f26bbe444fb1b02ad0ad59c93ebaf5edfaf2d7957c4",
+  "referenceSHA256": "644022682476c10f8232681349baecdb7d860d37a218aaec38c3633beaf024fe",
+  "recipeSHA256": "439a292832f1db1db9f2fa5e259b7efac48662653b8774b772f36a402ed810e1",
+  "commands": [
+    {
+      "argv": [
+        "env",
+        "BENDVY_CLANG19_ROOT=/tmp/bendvy-clang19-diagnostic/root",
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "-pg",
+        "/tmp/bendvy-native-gprof-motion/phase.c",
+        "-pthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-native-gprof-motion/phase.native"
+      ],
+      "limitSeconds": 120,
+      "exit": 0,
+      "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-frozen-chain-motion-comparison/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "095833c3f233e294e4870112703783e97c151df96bdc78b70a0f015d7d723b08"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-c",
+        "import os,sys;os.chdir(sys.argv[1]);fd=os.open(\"phase.stderr.txt\",os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600);os.dup2(fd,2);os.close(fd);os.execv(sys.argv[2],sys.argv[2:])",
+        "/tmp/bendvy-native-gprof-motion",
+        "/tmp/bendvy-native-gprof-motion/phase.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "dca18ac11f2a906ab3399c220222ce241545f11905ab0e39244517f117405926"
+    },
+    {
+      "argv": [
+        "gprof",
+        "-b",
+        "/tmp/bendvy-native-gprof-motion/phase.native",
+        "/tmp/bendvy-native-gprof-motion/gmon.out"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "0b8e23d9c145c360406192ad864a85979e814c535940e13fbca5fcf6d11dba12"
+    }
+  ],
+  "derivedSHA256": "072b2dc39ca054e82d4ad1c624861b39ebd79f849e537e29b14aa6a3da26c7f9",
+  "binarySHA256": "a4473019e21232653aa43992df77c10784a0fe8864dc8416a6b5c9f9d5bf1e71",
+  "allFullFieldsEqual": true,
+  "phaseClocks": [
+    3,
+    4
+  ],
+  "startupLimit": "Profiling disabled at main body and outside clocks3/4; pre-main entry instrumentation can leave negligible startup records. Samples/call accounting are perturbed; no clock or causation acceptance."
+}

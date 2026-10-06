@@ -1,0 +1,78 @@
+{
+  "status": "FAILED",
+  "scope": "Phase CPU/wall diagnosis with small instrumentation; no speed/qualification/keep claim",
+  "schema": "Motion",
+  "cpu": 7,
+  "originalPins": {
+    "c": "01683bcb4ca6691a31603f26bbe444fb1b02ad0ad59c93ebaf5edfaf2d7957c4",
+    "js": "5a2a5b3e6498b6cb6541cc8a1f4ce0ad45347c05f29365649a804a8e03516606",
+    "reference": "644022682476c10f8232681349baecdb7d860d37a218aaec38c3633beaf024fe"
+  },
+  "recipeSHA256": "02151b8f9b388911c5867395ea7528fe82f2014d5287d11bd66d77c0fb28bb00",
+  "commands": [
+    {
+      "argv": [
+        "env",
+        "BENDVY_CLANG19_ROOT=/tmp/bendvy-clang19-diagnostic/root",
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/bendvy-phase-cpu-frozen-motion/cpu.c",
+        "-pthread",
+        "-lm",
+        "-o",
+        "/tmp/bendvy-phase-cpu-frozen-motion/cpu.native"
+      ],
+      "limitSeconds": 120,
+      "exit": 0,
+      "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-c",
+        "import os,sys;fd=os.open(sys.argv[1],os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600);os.dup2(fd,2);os.close(fd);os.execvp(sys.argv[2],sys.argv[2:])",
+        "/tmp/bendvy-phase-cpu-frozen-motion/TS.stderr.txt",
+        "node",
+        "/tmp/bendvy-phase-cpu-frozen-motion/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "c7a85a7f289a4d2fcc085b7e89809aca29f1cf8a9d42387d24897e72538fb585"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-c",
+        "import os,sys;fd=os.open(sys.argv[1],os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600);os.dup2(fd,2);os.close(fd);os.execvp(sys.argv[2],sys.argv[2:])",
+        "/tmp/bendvy-phase-cpu-frozen-motion/Native.stderr.txt",
+        "/tmp/bendvy-phase-cpu-frozen-motion/cpu.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "2f1a9837141cfbe1c5a993e1ef618de48078a108de38b2fa1c730e619c866d5d"
+    }
+  ],
+  "derivedPins": {
+    "cpu.c": "bdac383dea839d3ed9e466ac494df64ce9816a476a71b4a9ce151584e11c383c",
+    "cpu.js": "38ab374cc5be334ce6efd6d7f0703a3386337042c70457a335cecc864e734594",
+    "reference.mjs": "4d94ab7d5c04201f0ca45df3ac76063f5698c5133a78e38d59a4f9667c835656"
+  },
+  "binarySHA256": "6c119c0d530137e007473dafe21dcc7dd43b30072845452fde44e10cc3df28d9",
+  "phaseCPU": {
+    "TS": {
+      "userMS": 750.512,
+      "systemMS": 25.816,
+      "wallMS": 776.394958
+    },
+    "Native": {
+      "userMS": 710.498,
+      "systemMS": 0.0,
+      "wallMS": 740.786058
+    }
+  },
+  "error": "TimeoutError('child deadline; cleanup=None; output=flag\":null,\"added\":1,\"changed\":65},{\"id\":244,\"main\":{\"coordinates\":{\"a\":307,\"b\":244,\"c\":245,\"d\":246},\"frame\":7},\"aux\":{\"rates\":{\"a\":1,\"b\":2,\"c\":3,\"d\":4},\"moving\":true},\"flag\":null,\"added\":1,\"changed\":65},{\"id\":245,\"main\":{\"coordinates\":{\"a\":308,\"b\":245,\"c\":246,\"d\":247},\"frame\":7},\"aux\":null,\"flag\":{\"group\":8},\"added\":1,\"changed\":65},{\"id\":246,\"main\":{\"coordinates\":{\"a\":309,\"b\":246,\"c\":247,\"d\":248},\"frame\":7},\"aux\":null,\"flag\":null,\"added\":1,\"changed\":65},{\"id\":247,\"main\":{\"coordinates\":{\"a\":310,\"b\":247,\"c\":248,\"d\":249},\"frame\":7},\"aux\":{\"rates\":{\"a\":1,\"b\":2,\"c\":3,\"d\":4},\"moving\":true},\"flag\":null,\"added\":1,\"changed\":65},{\"id\":248,\"main\":{\"coordinates\":{\"a\":311,\"b\":248,\"c\":249,\"d\":250},\"frame\":7},\"aux\":null,\"flag\":{\"group\":8},\"added\":1,\"changed\":65},{\"id\":249,\"main\":{\"coordinates\":{\"a\":312,\"b\":249,\"c\":250,\"d\":251},\"frame\":7},\"aux\":null,\"flag\":null,\"added\":1,\"changed\":65},{\"id\":250,\"main\":{\"coordinates\":{\"a\":313,\"b\":250,\"c\":251,\"d\":252},\"frame\":7},\"aux\":{\"rates\":{\"a\":1,\"b\":2,\"c\":3,\"d\":4},\"moving\":true},\"flag\":null,\"added\":1,\"changed\":65},{\"id\":251,\"main\":{\"coordinates\":{\"a\":314,\"b\":251,\"c\":252,\"d\":253},\"frame\":7},\"aux\":null,\"flag\":{\"group\":8},\"added\":1,\"changed\":65},{\"id\":252,\"main\":{\"coordinates\":{\"a\":315,\"b\":252,\"c\":253,\"d\":254},\"frame\":7},\"aux\":null,\"flag\":null,\"added\":1,\"changed\":65},{\"id\":253,\"main\":{\"coordinates\":{\"a\":316,\"b\":253,\"c\":254,\"d\":255},\"frame\":7},\"aux\":{\"rates\":{\"a\":1,\"b\":2,\"c\":3,\"d\":4},\"moving\":true},\"flag\":null,\"added\":1,\"changed\":65},{\"id\":254,\"main\":{\"coordinates\":{\"a\":317,\"b\":254,\"c\":255,\"d\":256},\"frame\":7},\"aux\":null,\"flag\":{\"group\":8},\"added\":1,\"changed\":65},{\"id\":255,\"main\":{\"coordinates\":{\"a\":318,\"b\":255,\"c\":256,\"d\":257},\"frame\":7},\"aux\":null,\"flag\":null,\"added\":1,\"changed\":65},{\"id\":256,\"main\":{\"coordinates\":{\"a\":319,\"b\":256,\"c\":257,\"d\":258},\"frame\":7},\"aux\":{\"rates\":{\"a\":1,\"b\":2,\"c\":3,\"d\":4},\"moving\":true},\"flag\":null,\"added\":1,\"changed\":65}],\"pending\":[],\"ledger\":{\"totals\":{\"a\":16384,\"b\":101,\"c\":102,\"d\":103},\"epoch\":4},\"mode\":\"MotionOn\"}}\\n')"
+}
