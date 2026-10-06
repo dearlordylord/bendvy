@@ -1,0 +1,69 @@
+--- a/experiments/s-integrate/query.bend
++++ b/experiments/s-integrate/query.bend
+@@ -237,3 +237,46 @@
+   match world:
+     case S.World{+namespace,next,rows,pending,ledger,mode}:
+       each_return(Schema,M,A,F,L,Mode,O,namespace,next,pending,ledger,mode,prototype_noaux_read_rows(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,rows,selection,namespace))
++
++def prototype_identity_restore_state(-Schema:Data,-M:Type,-A:Type,-F:Data,+id:U32,+namespace:U32,aux:Array<Maybe<A>>,live:Array<Bool>,flags:Array<Maybe<&2,F>>,added:Array<U32>,changed:Array<U32>,values:List<&2,S.Handle<Schema>>,result:Array<Maybe<M>> & Maybe<M>) -> StructColsState<M,A,F,S.Handle<Schema>>:
++  match result:
++    case Tuple{main,None{}}: StructColsState{main,aux,live,flags,added,changed,values}
++    case Tuple{main,Some{owner}}: StructColsState{Array.set(Maybe<M>,main,U32.sub(id,1),Some{owner}),aux,live,flags,added,changed,S.Handle{namespace,id} <> values}
++def prototype_identity_inspect_state(-Schema:Data,-M:Type,-A:Type,-F:Data,+id:U32,+namespace:U32,main:Array<Maybe<M>>,aux:Array<Maybe<A>>,live:Array<Bool>,flags:Array<Maybe<&2,F>>,added:Array<U32>,changed:Array<U32>,values:List<&2,S.Handle<Schema>>) -> StructColsState<M,A,F,S.Handle<Schema>>:
++  prototype_identity_restore_state(Schema,M,A,F,id,namespace,aux,live,flags,added,changed,values,Array.swap(Maybe<M>,main,U32.sub(id,1),None{}))
++
++def prototype_identity_struct_idx_selected(~Schema: Data,~M: Type,~A: Type,~F: Data,include: Bool,+id: U32,namespace: U32,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,live: Array<Bool>,flags: Array<Maybe<&2,F>>,added: Array<U32>,changed: Array<U32>,values: List<&2,S.Handle<Schema>>,flag: Maybe<&2,F>) -> StructColsState<M,A,F,S.Handle<Schema>>:
++  match include:
++    case False{}: StructColsState{main,aux,live,flags,added,changed,values}
++    case True{}: prototype_identity_inspect_state(Schema,M,A,F,id,namespace,main,aux,live,flags,added,changed,values)
++
++def prototype_identity_struct_idx_metadata(~Schema: Data,~M: Type,~A: Type,~F: Data,id: U32,namespace: U32,selection: Selection,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,values: List<&2,S.Handle<Schema>>,live: Array<Bool>,added: Array<U32>,changed: Array<U32>,value: Bool,result: Array<Maybe<&2,F>> & Maybe<&2,F>) -> StructColsState<M,A,F,S.Handle<Schema>>:
++  match value result:
++    case False{} Tuple{flags,_}: StructColsState{main,aux,live,flags,added,changed,values}
++    case True{} Tuple{flags,+flag}: prototype_identity_struct_idx_selected(~Schema,~M,~A,~F,selected(F,selection,flag),id,namespace,main,aux,live,flags,added,changed,values,flag)
++
++def prototype_identity_struct_cols_live(~Schema: Data,~M: Type,~A: Type,~F: Data,+id: U32,namespace: U32,selection: Selection,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,values: List<&2,S.Handle<Schema>>,flags: Array<Maybe<&2,F>>,added: Array<U32>,changed: Array<U32>,result: Array<Bool> & Bool) -> StructColsState<M,A,F,S.Handle<Schema>>:
++  match result:
++    case Tuple{live,False{}}: StructColsState{main,aux,live,flags,added,changed,values}
++    case Tuple{live,True{}}: prototype_identity_struct_idx_metadata(~Schema,~M,~A,~F,id,namespace,selection,main,aux,values,live,added,changed,True{},Array.get(Maybe<&2,F>,flags,U32.sub(id,1)))
++
++def prototype_identity_struct_idx_advance(~Schema: Data,~M: Type,~A: Type,~F: Data,valid: Bool,+id: U32,namespace: U32,selection: Selection,state: StructColsState<M,A,F,S.Handle<Schema>>) -> StructColsState<M,A,F,S.Handle<Schema>>:
++  match valid state:
++    case False{} state: state
++    case True{} StructColsState{main,aux,live,flags,added,changed,values}:
++      prototype_identity_struct_cols_live(~Schema,~M,~A,~F,id,namespace,selection,main,aux,values,flags,added,changed,Array.get(Bool,live,U32.sub(id,1)))
++
++def prototype_identity_struct_idx_go(~Schema: Data,~M: Type,~A: Type,~F: Data,remaining: Nat,+id: U32,+capacity: U32,+depth: Nat,+high: U32,+selection: Selection,+namespace: U32,state: StructColsState<M,A,F,S.Handle<Schema>>) -> S.Rows<M,A,F> & List<&2,S.Handle<Schema>>:
++  match remaining:
++    case 0n: struct_cols_finish(M,A,F,S.Handle<Schema>,capacity,depth,high,state)
++    case 1n++rest: prototype_identity_struct_idx_go(~Schema,~M,~A,~F,rest,U32.add(id,1),capacity,depth,high,selection,namespace,prototype_identity_struct_idx_advance(~Schema,~M,~A,~F,Bool.and((0 < id : U32),(id <= capacity : U32)),id,namespace,selection,state))
++
++def prototype_identity_read_rows(~Schema: Data,~M: Type,~A: Type,~F: Data,rows: S.Rows<M,A,F>,selection: Selection,namespace: U32) -> S.Rows<M,A,F> & List<&2,S.Handle<Schema>>:
++  match rows:
++    case S.Rows{main,aux,S.MetadataColumns{live,flags,added,changed},capacity,depth,+high}:
++      prototype_identity_struct_idx_go(~Schema,~M,~A,~F,U32.to_nat(high),1,capacity,depth,high,selection,namespace,StructColsState{main,aux,live,flags,added,changed,[]})
++
++def prototype_identity_each(~Schema: Data,~M: Type,~A: Type,~F: Data,~L:Type,~Mode:Data,selection: Selection,world: S.World<Schema,M,A,F,L,Mode>) -> S.World<Schema,M,A,F,L,Mode> & List<&2,S.Handle<Schema>>:
++  match world:
++    case S.World{+namespace,next,rows,pending,ledger,mode}:
++      each_return(Schema,M,A,F,L,Mode,S.Handle<Schema>,namespace,next,pending,ledger,mode,prototype_identity_read_rows(~Schema,~M,~A,~F,rows,selection,namespace))
+--- a/experiments/s-integrate/measurement-bend.bend
++++ b/experiments/s-integrate/measurement-bend.bend
+@@ -60,7 +60,7 @@
+     case MotionRows{owner,total}: motion_rows_next(HA.prototype_writefold_motion(~SC.motion_body,handles,owner,total),0)
+ 
+ def motion_handles(world:S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>) -> S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode> & List<&2,S.Handle<T.MotionSchema>>:
+-  Q.prototype_noaux_each(T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,Unit,Unit,Unit,S.Handle<T.MotionSchema>,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,keep(~CC.Cache<T.Position,T.PositionView>),keep(~T.Velocity),prototype_cont_handle_client(~T.MotionSchema,~T.Selected),Q.Required{},world)
++  Q.prototype_identity_each(T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,Q.Required{},world)
+ 
+ # Trusted measurement adapter; callback below never sees Tx representation.
+ def health_select(owner:X.Tx<S.World<T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked>>,handle:S.Handle<T.HealthSchema>) -> X.Tx<S.World<T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>,S.Handle<T.HealthSchema>,S.Command<CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked>>:
+@@ -86,7 +86,7 @@
+     case HealthRows{owner,total}: health_rows_next(HA.prototype_writefold_health(~SC.health_body,handles,owner,total),0)
+ 
+ def health_handles(world:S.World<T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode>) -> S.World<T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode> & List<&2,S.Handle<T.HealthSchema>>:
+-  Q.prototype_noaux_each(T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,Unit,Unit,Unit,S.Handle<T.HealthSchema>,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,keep(~CC.Cache<T.Vitals,T.VitalsView>),keep(~T.Armor),prototype_cont_handle_client(~T.HealthSchema,~T.Tracked),Q.Required{},world)
++  Q.prototype_identity_each(T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,Q.Required{},world)
+ 
+ type MotionBench is Type:
+   MotionBench{host:H.MotionHost(),sparse:Bool,readsum:U32,calls:U32}

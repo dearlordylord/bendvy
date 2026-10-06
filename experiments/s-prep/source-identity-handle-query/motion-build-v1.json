@@ -1,0 +1,69 @@
+[
+  {
+    "argv": [
+      "python3",
+      "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-measurement/prepare-bend.py",
+      "--core",
+      "/tmp/bendvy-identity-handle-query-v1/experiments/s-integrate",
+      "--output",
+      "/tmp/bendvy-identity-query-motion-v1",
+      "--schema",
+      "Motion",
+      "--batch",
+      "64"
+    ],
+    "exit": 0,
+    "output": "",
+    "capSeconds": 5,
+    "cpu": 7
+  },
+  {
+    "argv": [
+      "python3",
+      "/workspace/formal-proofs/bendvy/experiments/s-prep/static-schema-driver/materialize.py",
+      "--driver",
+      "/tmp/bendvy-identity-query-motion-v1/batch.bend",
+      "--schema",
+      "Motion"
+    ],
+    "exit": 0,
+    "output": "{\"scope\": \"Only known schema at main entry selected statically; all runtime modules/callbacks/work/clock/outputs unchanged; not canonical evaluator approval\", \"schema\": \"Motion\", \"originalSHA256\": \"db6b402d3653e7ca25bb93f28ef6759298d4055377cd50bbb3d3b8d50022eb20\", \"derivedSHA256\": \"29df45c3b8c82f43b49408850f310ce1e520f92c518ba15a4bf3a2a910b9eea6\", \"originalMain\": \"choose(0,256,64)\", \"derivedMain\": \"motion_batch(256,64)\", \"recipeSHA256\": \"32e5af1cbb3e5996253d1f29f531de23d2ebb47f9e6ce9ac19c4ec6ac0fae6f7\"}\n",
+    "capSeconds": 5,
+    "cpu": 7
+  },
+  {
+    "argv": [
+      "bend",
+      "/tmp/bendvy-identity-query-motion-v1/batch.bend",
+      "--check-only"
+    ],
+    "exit": 0,
+    "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n",
+    "capSeconds": 15,
+    "cpu": 7
+  },
+  {
+    "argv": [
+      "bend",
+      "/tmp/bendvy-identity-query-motion-v1/batch.bend",
+      "-o",
+      "/tmp/bendvy-identity-query-motion-v1/batch.js"
+    ],
+    "exit": 0,
+    "output": "",
+    "capSeconds": 30,
+    "cpu": 7
+  },
+  {
+    "argv": [
+      "bend",
+      "/tmp/bendvy-identity-query-motion-v1/batch.bend",
+      "-o",
+      "/tmp/bendvy-identity-query-motion-v1/batch.c"
+    ],
+    "exit": 0,
+    "output": "",
+    "capSeconds": 30,
+    "cpu": 7
+  }
+]

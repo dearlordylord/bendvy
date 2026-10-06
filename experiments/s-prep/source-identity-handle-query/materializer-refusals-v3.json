@@ -1,0 +1,65 @@
+{
+  "status": "FOUR_FAIL_CLOSED_REFUSALS_PASS",
+  "cases": [
+    {
+      "name": "existing-output",
+      "argv": [
+        "/usr/bin/python3",
+        "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/source-identity-handle-query/materialize.py",
+        "--input",
+        "/tmp/bendvy-joined-flatjournal-ledger-v1",
+        "--output",
+        "/tmp/bendvy-identity-query-materializer-refusals-v3-corrected/existing-output-result"
+      ],
+      "capSeconds": 5,
+      "exit": 1,
+      "output": "Traceback (most recent call last):\n  File \"/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/source-identity-handle-query/materialize.py\", line 89, in <module>\n    args=parser.parse_args();materialize(args.input,args.output)\n                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/source-identity-handle-query/materialize.py\", line 24, in materialize\n    assert not output.exists() and not output.is_relative_to(root)\nAssertionError\n",
+      "refusedBeforeOutputCreation": true
+    },
+    {
+      "name": "changed-source",
+      "argv": [
+        "/usr/bin/python3",
+        "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/source-identity-handle-query/materialize.py",
+        "--input",
+        "/tmp/bendvy-identity-query-materializer-refusals-v3-corrected/changed-source-input",
+        "--output",
+        "/tmp/bendvy-identity-query-materializer-refusals-v3-corrected/changed-source-result"
+      ],
+      "capSeconds": 5,
+      "exit": 1,
+      "output": "Traceback (most recent call last):\n  File \"/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/source-identity-handle-query/materialize.py\", line 89, in <module>\n    args=parser.parse_args();materialize(args.input,args.output)\n                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/source-identity-handle-query/materialize.py\", line 27, in materialize\n    assert len(pins) == 29 and pins == json.loads((HERE / 'input-pins.json').read_text())\n                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+      "refusedBeforeOutputCreation": true
+    },
+    {
+      "name": "stale-embedded-cache",
+      "argv": [
+        "/usr/bin/python3",
+        "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/source-identity-handle-query/materialize.py",
+        "--input",
+        "/tmp/bendvy-identity-query-materializer-refusals-v3-corrected/stale-embedded-cache-input",
+        "--output",
+        "/tmp/bendvy-identity-query-materializer-refusals-v3-corrected/stale-embedded-cache-result"
+      ],
+      "capSeconds": 5,
+      "exit": 1,
+      "output": "Traceback (most recent call last):\n  File \"/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/source-identity-handle-query/materialize.py\", line 89, in <module>\n    args=parser.parse_args();materialize(args.input,args.output)\n                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/source-identity-handle-query/materialize.py\", line 30, in materialize\n    assert overlay['cacheSpecialization'] == cache\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+      "refusedBeforeOutputCreation": true
+    },
+    {
+      "name": "stale-specialized-hash",
+      "argv": [
+        "/usr/bin/python3",
+        "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/source-identity-handle-query/materialize.py",
+        "--input",
+        "/tmp/bendvy-identity-query-materializer-refusals-v3-corrected/stale-specialized-hash-input",
+        "--output",
+        "/tmp/bendvy-identity-query-materializer-refusals-v3-corrected/stale-specialized-hash-result"
+      ],
+      "capSeconds": 5,
+      "exit": 1,
+      "output": "Traceback (most recent call last):\n  File \"/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/source-identity-handle-query/materialize.py\", line 89, in <module>\n    args=parser.parse_args();materialize(args.input,args.output)\n                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/source-identity-handle-query/materialize.py\", line 33, in materialize\n    assert cache.get('specializedClosureSHA256', closure(pins)) == closure(pins)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+      "refusedBeforeOutputCreation": true
+    }
+  ]
+}

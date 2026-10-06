@@ -1,0 +1,52 @@
+{
+  "status": "PASS_FULL65",
+  "scope": "Finite full65 schema fields only; no elapsed qualification or universal refinement",
+  "schema": "Motion",
+  "cpu": 7,
+  "commands": [
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-measurement/prepare-ts.py",
+        "--source",
+        "/workspace/formal-proofs/bendvy/experiments/s-integrate/measurement-samples-reference.mjs",
+        "--output",
+        "/tmp/bendvy-identity-query-motion-js-fields-v2/reference.mjs",
+        "--schema",
+        "Motion",
+        "--batch",
+        "64"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "7202e7c0172b81b817b1079ac6bebc07271467a20d40626571348b68bb35ce93"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-identity-query-motion-js-fields-v2/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "d06280b5c1dc1558e4e1918f7b7514e73183dce35e22651b78bd4229956a35ce"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-identity-query-motion-v2/batch.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "650b92947e496897106f91dae97329f03285fd0d37657f92930536831ff6f095"
+    }
+  ],
+  "programSHA256": "1b66830d2789ce197d18e243b199ab1910b23d54eeb1a82f8b0f1870844efa21",
+  "kind": "js",
+  "runnerSHA256": "1c3d548f303e8edc6349636f461b71f33e99087640304ebd6ec190ae0b21d438",
+  "publishEdges": null,
+  "allFullFieldsEqual": true,
+  "worlds": 65,
+  "referenceSourceSHA256": "ecfd1b590964fb76fb69a7a28e9dffa05b631592f47a52f11921ffaec25253b6",
+  "referenceSHA256": "644022682476c10f8232681349baecdb7d860d37a218aaec38c3633beaf024fe",
+  "validatorSHA256": "25ab577d5234a1c30f46318708455377353ec39d4fb0b6bf1b40ad5ea5da8f84"
+}

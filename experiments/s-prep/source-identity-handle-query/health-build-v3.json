@@ -1,0 +1,84 @@
+[
+  {
+    "argv": [
+      "python3",
+      "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-measurement/prepare-bend.py",
+      "--core",
+      "/tmp/bendvy-identity-handle-query-v3/experiments/s-integrate",
+      "--output",
+      "/tmp/bendvy-identity-query-health-v3",
+      "--schema",
+      "Health",
+      "--batch",
+      "64"
+    ],
+    "exit": 0,
+    "output": "",
+    "capSeconds": 5,
+    "cpu": 7
+  },
+  {
+    "argv": [
+      "python3",
+      "/workspace/formal-proofs/bendvy/experiments/s-prep/static-schema-driver/materialize.py",
+      "--driver",
+      "/tmp/bendvy-identity-query-health-v3/batch.bend",
+      "--schema",
+      "Health"
+    ],
+    "exit": 0,
+    "output": "{\"scope\": \"Only known schema at main entry selected statically; all runtime modules/callbacks/work/clock/outputs unchanged; not canonical evaluator approval\", \"schema\": \"Health\", \"originalSHA256\": \"c7e7259557fbe47585c8d0cdf840964f94841b30f71425f70c33689956e6cb7b\", \"derivedSHA256\": \"871129112edc201586a1dee2d0dad5a86658115c1c833f144e33bf7ee6814c84\", \"originalMain\": \"choose(1,256,64)\", \"derivedMain\": \"health_batch(256,64)\", \"recipeSHA256\": \"32e5af1cbb3e5996253d1f29f531de23d2ebb47f9e6ce9ac19c4ec6ac0fae6f7\"}\n",
+    "capSeconds": 5,
+    "cpu": 7
+  },
+  {
+    "argv": [
+      "bend",
+      "/tmp/bendvy-identity-query-health-v3/batch.bend",
+      "--check-only"
+    ],
+    "exit": 0,
+    "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n",
+    "capSeconds": 15,
+    "cpu": 7
+  },
+  {
+    "argv": [
+      "bend",
+      "/tmp/bendvy-identity-query-health-v3/batch.bend",
+      "-o",
+      "/tmp/bendvy-identity-query-health-v3/batch.js"
+    ],
+    "exit": 0,
+    "output": "",
+    "capSeconds": 30,
+    "cpu": 7
+  },
+  {
+    "argv": [
+      "bend",
+      "/tmp/bendvy-identity-query-health-v3/batch.bend",
+      "-o",
+      "/tmp/bendvy-identity-query-health-v3/batch.c"
+    ],
+    "exit": 0,
+    "output": "",
+    "capSeconds": 30,
+    "cpu": 7
+  },
+  {
+    "argv": [
+      "/tmp/bendvy-clang19-diagnostic/clang19",
+      "-O3",
+      "/tmp/bendvy-identity-query-health-v3/batch.c",
+      "-pthread",
+      "-lm",
+      "-o",
+      "/tmp/bendvy-identity-query-health-v3/batch.native"
+    ],
+    "exit": 0,
+    "output": "",
+    "capSeconds": 120,
+    "cpu": 7
+  }
+]

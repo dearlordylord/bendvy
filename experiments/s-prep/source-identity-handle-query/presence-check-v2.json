@@ -1,0 +1,6 @@
+{
+  "exit": 1,
+  "output": "SOME PROOFS FAIL\nError:\n- expected : a filled definition (an unfilled law is a dead claim: live code cannot use it)\n- observed : release\nContext:\n- array   : Array<Maybe<&1, Array<U32>>>\n- present : Bool\nLocation: done\n34 |   match result:\n35>|     case Tuple{array,+present}: release(present,Array.swap(Maybe<Array<U32>>,array,0,None{}))\n   |                                 ^^^^^^^\n36 | def release(+present:Bool,result:Array<Maybe<Array<U32>>> & Maybe<Array<U32>>) -> U32:\n",
+  "capSeconds": 15,
+  "cpu": 7
+}

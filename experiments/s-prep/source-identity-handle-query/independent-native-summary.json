@@ -1,0 +1,52 @@
+{
+  "scope": "Independent Native source-specific allocation counts; not elapsed acceptance or inherited gate",
+  "reportDirectory": "/tmp/bendvy-threehour-native-attribution/experiments/s-prep/native-identity-query",
+  "commits": {
+    "v1Negative": "6d803c3",
+    "v2Motion": "4cb356c",
+    "v2Health": "a3a5198",
+    "v3Both": "b634a70"
+  },
+  "cases": [
+    {
+      "schema": "motion",
+      "evidencePath": "/tmp/bendvy-identity-query-native-motion-count-v3/evidence.json",
+      "evidenceSHA256": "f573b47caccffc050f9a0e1fc000af15d59e7b2b1b7138ea5b643c744f20ac87",
+      "status": "CALLSITE_COUNTS_FULL65_FIELDS_PASS",
+      "allFullFieldsEqual": true,
+      "fullWorlds": 65,
+      "updates": 1048576,
+      "heapEntries": 17171399,
+      "requestedWords": 41507855,
+      "rfcCreated": 8479038,
+      "sourceSHA256": "a7c05de6c3e331215798635a23f14892a9f3bea9ec4e230c5a36a900cf60372d",
+      "entrySHA256": "7a0d07f16a775b30d9578973b975feddcd3de2a4322f48b553f9e2d0e3ef6077",
+      "countsSHA256": "1dbd9556d6f53bb9fa0fb384258cb4d587ea0afe54cc01190d47c745d6c94213",
+      "perUpdateDelta": {
+        "requests": -5,
+        "RFC": -2,
+        "requestedWords": -14
+      }
+    },
+    {
+      "schema": "health",
+      "evidencePath": "/tmp/bendvy-identity-query-native-health-count-v3/evidence.json",
+      "evidenceSHA256": "db6ca290006f3d7a1b0448eb05c30a8929cdd5df1a1a84553fac4a109eba7f76",
+      "status": "CALLSITE_COUNTS_FULL65_FIELDS_PASS",
+      "allFullFieldsEqual": true,
+      "fullWorlds": 65,
+      "updates": 1048576,
+      "heapEntries": 17171399,
+      "requestedWords": 43605007,
+      "rfcCreated": 8479038,
+      "sourceSHA256": "6a9c5c19a565802f558f50cb4f50b26e880f29a726a947fbdac2bb35523e847b",
+      "entrySHA256": "871129112edc201586a1dee2d0dad5a86658115c1c833f144e33bf7ee6814c84",
+      "countsSHA256": "41116d1519d6256783f723b25e3f241d4c807c4cc737d885bef8e538d41a47a9",
+      "perUpdateDelta": {
+        "requests": -5,
+        "RFC": -2,
+        "requestedWords": -16
+      }
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "scope": "Materializer infrastructure negative: legacy input has complete specialized map but no optional specialized digest field",
+  "exit": 1,
+  "output": "Traceback (most recent call last):\n  File \"/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/source-identity-handle-query/materialize.py\", line 89, in <module>\n    args=parser.parse_args();materialize(args.input,args.output)\n                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/source-identity-handle-query/materialize.py\", line 33, in materialize\n    assert cache['specializedClosureSHA256'] == closure(pins)\n           ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nKeyError: 'specializedClosureSHA256'\n",
+  "capSeconds": 5
+}
