@@ -1,0 +1,21 @@
+SOME PROOFS FAIL
+Error:
+- expected : List<&2, read_rows~O>
+- observed : PrototypeHandoffRows
+Context:
+- main      : Array<Maybe<&1, read_rows~M>>
+- aux       : Array<Maybe<&1, read_rows~A>>
+- live      : Array<Bool>
+- flags     : Array<Maybe<&2, read_rows~F>>
+- added     : Array<U32>
+- changed   : Array<U32>
+- capacity  : U32
+- depth     : Nat
+- high      : U32
+- selection : Selection
+- namespace : U32
+Location: read_rows
+113 |     case S.Rows{main,aux,S.MetadataColumns{live,flags,added,changed},capacity,depth,+high}:
+114>|       struct_idx_go(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,U32.to_nat(high),1,capacity,depth,high,selection,namespace,StructColsState{main,aux,live,flags,added,changed,HandoffNil{}})
+    |                                                                                                                                                                                             ^^^^^^^^^^^^
+115 | def each_return(-Schema: Data,-M: Type,-A: Type,-F: Data,-L: Type,-Mode: Data,-O: Data,namespace: U32,next: U32,pending: List<S.Command<M,A,F>>,ledger: Maybe<L>,mode: Mode,result: S.Rows<M,A,F> & List<&2,O>) -> S.World<Schema,M,A,F,L,Mode> & List<&2,O>:
