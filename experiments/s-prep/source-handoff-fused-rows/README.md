@@ -1,6 +1,6 @@
 # Fused affine handoff rows — bounded source candidate
 
-Frozen v8: `/tmp/bendvy-slot-host-handoff-v8`, closure
+Frozen coherent v8: `/tmp/bendvy-slot-host-handoff-v8-coherent`, closure
 `4eb71a36304194a1c2764c7301ed59afa9b4d0a4ee7336b8b6c7f8175095f235`.
 Baseline v7: `a9a2fa20913658b9561056e660803e3afd74870f321ff3a30c839e62fa44a56b`.
 
@@ -31,3 +31,8 @@ receipts against this v8 closure. Module checking alone supplies none of
 those gates. No allocation or speed improvement is claimed here.
 The exposed Batch still permits observing an evacuated World. This candidate
 adds no production confinement, proof or universal runtime refinement.
+
+Independent allocation preflight rejected stale embedded cache metadata in the
+initial v8 directory. The new coherent directory preserves all 29 source bytes
+and updates both standalone/embedded maps and their digests. Initial v8 is
+retained; its source checks apply to identical bytes, not allocation admission.
