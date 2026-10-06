@@ -1,6 +1,7 @@
 import Base
 import schema.bend as S
 import simulation.bend as Sim
+import json.bend as J
 import ../../src/ecs/world.bend as W
 import ../../src/ecs/transaction.bend as T
 import ../../src/ecs/component.bend as C
@@ -32,7 +33,7 @@ def run_retry(world: World(),args: Bool) -> Sys.Outcome<World(),String,Unit>:
 type Checkpoint is Data:
   Observed{label: String,snapshot: Sim.Snapshot,filtered: List<&2,U32>}
   FailedResult{label: String,error: String}
-  ForeignResult{missing: Bool}
+  ForeignResult{foreignId: U32,localId: U32,missing: Bool,queueUnchanged: Bool,postBarrierUnchanged: Bool}
 type State is Type:
   State{factory: W.Factory,world: World(),reader: E.Reader<S.Schema>,movement: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_movement>,damage: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_damage>,retry: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Bool,String,Unit,run_retry>,checkpoints: List<&2,Checkpoint>}
 def filter_body(~H: Type,~get: H -> H & C.Access<S.Tag>,~aux: H -> H & C.Access<S.VelocityView>,~resource_get: H -> H & F32,args: Unit,handle: W.Handle<S.Schema>,ctx: H) -> H & U32:
@@ -135,6 +136,46 @@ def phase_three(state: State) -> State:
   record(barrier(record(step_damage(record(step_movement(state),"tick3-movement")),"tick3-damage-before-barrier")),"tick3-after-barrier")
 def phase_structural(state: State) -> State:
   record(barrier(record(replace_world(record(barrier(record(replace_world(state,insert),"insert-pending")),"insert-visible"),remove),"remove-pending")),"remove-visible")
+type Owners is Type:
+  Owners{factory: W.Factory,reader: E.Reader<S.Schema>,movement: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_movement>,damage: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_damage>,retry: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Bool,String,Unit,run_retry>,checkpoints: List<&2,Checkpoint>}
+def foreign_finished(owners: Owners,world: World(),+checkpoint: Checkpoint) -> State:
+  match owners:
+    case Owners{factory,reader,movement,damage,retry,+checkpoints}: State{factory,world,reader,movement,damage,retry,checkpoint <> checkpoints}
+def foreign_finish(owners: Owners,+foreignId: U32,+localId: U32,+missing: Bool,+queueUnchanged: Bool,+before: String,observed: World() & Sim.Snapshot) -> State:
+  (world,+snapshot) = observed
+  foreign_finished(owners,world,ForeignResult{foreignId,localId,missing,queueUnchanged,String.eq(before,J.snapshot("foreign-invariant",snapshot,[]))})
+def foreign_after(owners: Owners,+handle: W.Handle<S.Schema>,+missing: Bool,+beforeQueue: U32,+before: String,observed: World() & U32) -> State:
+  (world,+afterQueue) = observed
+  foreign_finish(owners,Sim.handle_id(handle),1,missing,U32.is_eq(beforeQueue,afterQueue),before,Sim.snapshot(W.barrier(~S.Schema,~S.Store,~F32,~S.SimEvent,world)))
+def foreign_command(owners: Owners,+handle: W.Handle<S.Schema>,+lookupMissing: Bool,+beforeQueue: U32,+before: String,observed: Tx() & W.Status) -> State:
+  match observed:
+    case (tx,W.Rejected{W.MissingEntity{}}): foreign_after(owners,handle,lookupMissing,beforeQueue,before,W.pending_count(~S.Schema,~S.Store,~F32,~S.SimEvent,commit(tx)))
+    case (tx,_): foreign_after(owners,handle,False{},beforeQueue,before,W.pending_count(~S.Schema,~S.Store,~F32,~S.SimEvent,commit(tx)))
+def foreign_lookup(owners: Owners,+handle: W.Handle<S.Schema>,+beforeQueue: U32,+before: String,observed: World() & C.Access<S.PositionView>) -> State:
+  match observed:
+    case (world,C.MissingEntity{}): foreign_command(owners,handle,True{},beforeQueue,before,Cmd.tx_despawn_with(~S.Schema,~S.Store,~F32,~S.SimEvent,~S.clear,T.begin(~World(),~S.SimEvent,world),handle))
+    case (world,_): foreign_command(owners,handle,False{},beforeQueue,before,Cmd.tx_despawn_with(~S.Schema,~S.Store,~F32,~S.SimEvent,~S.clear,T.begin(~World(),~S.SimEvent,world),handle))
+def foreign_queue(owners: Owners,+handle: W.Handle<S.Schema>,+before: String,observed: World() & U32) -> State:
+  (world,+beforeQueue) = observed
+  foreign_lookup(owners,handle,beforeQueue,before,C.get(~S.Schema,~S.Store,~F32,~S.SimEvent,~S.PositionRest,~S.Position,~S.PositionView,~S.PositionToken,~S.take_positions,~S.put_positions,~S.project_position,S.position(),world,handle))
+def foreign_before(owners: Owners,+handle: W.Handle<S.Schema>,observed: World() & Sim.Snapshot) -> State:
+  (world,+snapshot) = observed
+  foreign_queue(owners,handle,J.snapshot("foreign-invariant",snapshot,[]),W.pending_count(~S.Schema,~S.Store,~F32,~S.SimEvent,world))
+def foreign_live(owners: Owners,local: World(),+handle: W.Handle<S.Schema>,activated: World() & W.Status) -> State:
+  match activated:
+    case (_,W.Accepted{}): foreign_before(owners,handle,Sim.snapshot(local))
+    case (_,_): foreign_finished(owners,local,FailedResult{"foreign-collision-reference","ActivationRejected"})
+def foreign_reserved(owners: Owners,local: World(),reserved: World() & W.Reservation<S.Schema>) -> State:
+  match reserved:
+    case (foreign,W.Reserved{+handle}): foreign_live(owners,local,handle,W.activate(~S.Schema,~S.Store,~F32,~S.SimEvent,S.populate(foreign,handle,S.Bundle{Some{S.Position{777.0,ALeaf{77}}},None{},None{},None{},None{}}),handle))
+    case (_,W.ReservationRejected{_}): foreign_finished(owners,local,FailedResult{"foreign-collision-reference","ReservationRejected"})
+def foreign_created(local: World(),reader: E.Reader<S.Schema>,movement: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_movement>,damage: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_damage>,retry: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Bool,String,Unit,run_retry>,+checkpoints: List<&2,Checkpoint>,created: W.Creation<S.Schema,S.Store,F32,S.SimEvent>) -> State:
+  match created:
+    case W.Created{factory,foreign}: foreign_reserved(Owners{factory,reader,movement,damage,retry,checkpoints},local,W.reserve_id(~S.Schema,~S.Store,~F32,~S.SimEvent,foreign))
+    case W.CreateRejected{factory,_}: State{factory,local,reader,movement,damage,retry,FailedResult{"foreign-collision-reference","NamespaceExhausted"} <> checkpoints}
+def phase_foreign(state: State) -> State:
+  match state:
+    case State{factory,world,reader,movement,damage,retry,+checkpoints}: foreign_created(world,reader,movement,damage,retry,checkpoints,S.create(factory,1.0))
 def phase_despawn(state: State) -> State:
   record(barrier(record(replace_world(state,despawn),"despawn-pending")),"despawn-visible")
 def finish(state: State) -> List<&2,Checkpoint>:
@@ -143,6 +184,6 @@ def finish(state: State) -> List<&2,Checkpoint>:
 def run_ready(ready: Maybe<&1,State>) -> List<&2,Checkpoint>:
   match ready:
     case None{}: [FailedResult{"init","RegistrationFailed"}]
-    case Some{state}: finish(phase_despawn(phase_structural(phase_three(phase_two(phase_one(state))))))
+    case Some{state}: finish(phase_despawn(phase_foreign(phase_structural(phase_three(phase_two(phase_one(state)))))))
 def main() -> List<&2,Checkpoint>:
   run_ready(init_created(S.create(W.factory(),1.0)))
