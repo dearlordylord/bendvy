@@ -1,0 +1,9 @@
+# Host-specific LSE build probe review
+
+Adding only `-march=armv8-a+lse` to the existing approved Clang19 `-O3` invocation on unchanged generated C is an appropriate bounded hardware-specific diagnostic. LLVM documents that enabling AArch64 LSE replaces outlined atomic calls with single-instruction operations. This changes lowering while retaining the C atomic operations and memory orders; it does not authorize source/runtime/kernel edits, fast-math or another compiler installation. [LLVM atomic lowering guide](https://llvm.org/docs/Atomics.html).
+
+Before executing either new binary, record an actual Linux `getauxval(AT_HWCAP)` check with `HWCAP_ATOMICS` set. `/proc/cpuinfo` reports atomics on this host, but that is supporting evidence rather than the executable feature gate. Kernel documentation requires checking the relevant hwcap before relying on a feature. Pin the capability checker, its interpreter/libc and raw result. [Linux arm64 hwcap contract](https://www.kernel.org/doc/html/next/arch/arm64/elf_hwcaps.html).
+
+Pin exact original C/source29/build joins, Clang wrapper/compiler/libraries, transitive includes before/after, complete argv with the sole added architecture flag, and immediate/post-execution binary hashes. Fresh full65 complete observations against the original TS workload are required for each new binary; previous builds' passes cannot be relabeled. Assembly/outline-symbol inspection may confirm the mechanism but is not a performance result or concurrency proof.
+
+The resulting executable targets this LSE-capable host and must not be advertised as portable to every Armv8-A machine. Existing preserve-none/preserve-most ABI requirements remain unchanged. No elapsed gain, numerical acceptance, keep or production adoption is established by this design review. Actual producer receipts remain pending; no compilation or workload execution by this reviewer.
