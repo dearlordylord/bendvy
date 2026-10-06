@@ -104,3 +104,52 @@ Health build-v3 initially carried a Motion-only success label while its commands
 source were Health. The root observer refused it. Original build.json is retained;
 separate build-health-receipt-v4.json corrects only status/schema and pins the rejected
 receipt hash, with no generated-byte or executed-command changes. Archive retains both.
+
+## Fresh packed-slot plus paired-journal composition
+
+`derive-paired.py` pins packed both-v3 and paired-v2 (`a72494c6…`) inputs separately,
+then copies the exact paired transaction module and its three PendingUndo helpers.
+Only the appended private packed row owner's undo field/provider headers and its
+returned/taken boundaries change: Main starts/flushed pending Main undo; ledger pairs
+with pending Main; taken wraps incoming FlatInverse; returned flushes. Every original
+public held definition remains byteexact, authored SC callbacks and all other27 modules
+remain unchanged. The transaction module adds Pair and its exact ledger-before-main
+unpack/unwind cases, byteidentical to paired input. Pair does not reorder writes or
+substitute an authored callback. Paired input's older cache schema has no specialized
+SHA field: its exact schema/actual29/maps/runtime digest are validated, while composed
+output explicitly emits both SHA fields. No stale digest is accepted.
+
+Frozen composition `/tmp/bendvy-packed-paired-journal-both-v3` closure
+`d437d8f7e97ae66764e470c58cada7182715b8724d9dd065d20e55417e01e744`.
+Builds `/tmp/bendvy-packed-paired-{motion,health}-build-v3` pass actual checker15,
+C/JSemit30/Clang19O3_120, then four fresh independent TS full65 field comparisons.
+No elapsed qualification is inferred. Retained v1 parser rejection declared frozen
+helpers after their call; v2 matched the whole Health fold family when changing undo
+headers. V3 declares helpers before calls and limits header edits to exact row helpers.
+These are rejected intermediate subjects, not permissions to weaken type checks.
+
+Fresh literal actual packed callback controls: Main→ledger→Main→ledger on both schemas,
+arrays1/2/4/8, raw/cache scalar discrepancy, retained immutable old Data, complete ledger
+cells and epochs, exact paired old values (500/700, then100/10). Separate Motion
+Main→Main flush covers the unpaired path. Both-schema rollback uses actual slot-aware
+finish_failure after flushing/unpacking the new journal and compares complete literal
+payload/metadata/pending/ledger fields. Forty total positive records across both
+backends pass. Six fresh actual rank2 negatives reject clone-owner, undeclared concrete
+access and cross-schema token use at bad. Four actual compiling source mutants omit
+the reached mark or use Main old as Ledger old; unchanged literal oracle detects all
+four on JS. Native mutation detection was not executed here.
+
+Independent Native producer fresh65 counts: both schemas10,879,943 heap requests and
+5,333,310 RFC cells; wordsMotion36,264,975 and Health44,653,583. Versus exact packed
+parents this is −2,097,152 requests, −1,048,576 RFC, **+1,048,576 requested words**.
+See evidence/packed-paired-native-count-followup.json for exact producer receipt pins.
+This is observed composition evidence, not additive prediction or speed acceptance.
+
+Archive evidence/packed-paired.tar.gz has240 decoded SHA-verified members (~2.41MB),
+including exact29/source manifests, actual emitted C/JS/drivers/build receipts, full65,
+new literal controls and compiling mutation source/outputs, plus both failed builds.
+Reproduce using derive-paired.py, build-both.py --schema, paired-fixture-run.py,
+paired-negative-controls.py and paired-mutants.py. Controls are finite new-source
+observations. Actual composed Tx576/suppression, general nonidentity callback/fallback,
+all provider/factory/public authority routes, full22/proof/performance acceptance remain
+OPEN; old packed-only or paired-only receipts are not this composition's gates.
