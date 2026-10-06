@@ -1,0 +1,67 @@
+[
+  {
+    "name": "journal-failure",
+    "command": [
+      "timeout",
+      "5s",
+      "bend",
+      "/workspace/formal-proofs/bendvy/experiments/user-api/transaction-controls/journal-failure.bend"
+    ],
+    "source_sha256": "87f778ac9e8d5f46b2f7289eed4bd37c06ad11a153620bd9b03dc4319bc75b0f",
+    "exit": 0,
+    "passed": true,
+    "log": "journal-failure.log"
+  },
+  {
+    "name": "journal-success",
+    "command": [
+      "timeout",
+      "5s",
+      "bend",
+      "/workspace/formal-proofs/bendvy/experiments/user-api/transaction-controls/journal-success.bend"
+    ],
+    "source_sha256": "7624bdb9127aadfe089fe6e3c7caa21a4025afcd0d12c1744fe8c33ab9625734",
+    "exit": 0,
+    "passed": true,
+    "log": "journal-success.log"
+  },
+  {
+    "name": "resource-rollback",
+    "command": [
+      "timeout",
+      "5s",
+      "bend",
+      "/workspace/formal-proofs/bendvy/experiments/user-api/transaction-controls/resource-rollback.bend"
+    ],
+    "source_sha256": "68176d6d0ee9d8b915b4a07992f5f356d7c8bb4e305c923dda653ef3f2720bde",
+    "exit": 0,
+    "passed": true,
+    "log": "resource-rollback.log"
+  },
+  {
+    "name": "foreign-command-unchanged",
+    "command": [
+      "timeout",
+      "5s",
+      "bend",
+      "/workspace/formal-proofs/bendvy/experiments/user-api/transaction-controls/foreign-command-unchanged.bend"
+    ],
+    "source_sha256": "c98e60e10f231d7543092b87ab6aa1032b2228802723206c36ccd1f56aa251df",
+    "exit": 0,
+    "passed": true,
+    "log": "foreign-command-unchanged.log"
+  },
+  {
+    "name": "journal-duplicate-negative",
+    "command": [
+      "timeout",
+      "5s",
+      "bend",
+      "/workspace/formal-proofs/bendvy/experiments/user-api/transaction-controls/journal-duplicate-negative.bend"
+    ],
+    "source_sha256": "81e3e93d6889f216f22c3e5bbd22a017286266390c741430ef58a1caa8e88cee",
+    "exit": 1,
+    "passed": true,
+    "log": "journal-duplicate-negative.log"
+  }
+]

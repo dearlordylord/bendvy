@@ -29,7 +29,7 @@ def main():
         log.write_text(proc.stdout)
         rejected = case.get("reject")
         passed = (proc.returncode == 1 and rejected in proc.stdout) if rejected else (
-            proc.returncode == 0 and case["expected"] in proc.stdout)
+            proc.returncode == 0 and case["expected"] in proc.stdout.splitlines())
         results.append({"name": case["name"], "command": command,
                         "source_sha256": hashlib.sha256(source.read_bytes()).hexdigest(),
                         "exit": proc.returncode, "passed": passed,

@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : tx
+- observed : tx (consumed more than once)
+Location: main
+68 | def main() -> U32:
+69>|   tx = T.begin(~World, ~U32, World{[0 : U32^0n], 7, [], []})
+   |   ^^
+70 |   a = T.stage(~World, ~U32, tx, w => command(w, 1))

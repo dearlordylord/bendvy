@@ -1,0 +1,47 @@
+[
+  {
+    "name": "column-affine",
+    "file": "experiments/user-api/core-controls/column-affine.bend",
+    "expected": "1"
+  },
+  {
+    "name": "column-data",
+    "file": "experiments/user-api/core-controls/column-data.bend",
+    "expected": "1"
+  },
+  {
+    "name": "transaction-rollback",
+    "file": "experiments/user-api/core-controls/transaction-rollback.bend",
+    "expected": "9191"
+  },
+  {
+    "name": "transaction-failure",
+    "file": "experiments/user-api/core-controls/transaction-failure.bend",
+    "expected": "70"
+  },
+  {
+    "name": "transaction-success",
+    "file": "experiments/user-api/core-controls/transaction-success.bend",
+    "expected": "9121"
+  },
+  {
+    "name": "component-functional",
+    "file": "experiments/user-api/core-controls/component-functional.bend",
+    "expected": "[[107, 208, 309, 107], [404, 107], [998, 107]]"
+  },
+  {
+    "name": "column-schema-negative",
+    "file": "experiments/user-api/core-controls/column-schema-negative.bend",
+    "reject": "expected : K.Column<B, U32>"
+  },
+  {
+    "name": "transaction-duplicate-negative",
+    "file": "experiments/user-api/core-controls/transaction-duplicate-negative.bend",
+    "reject": "observed : tx (consumed more than once)"
+  },
+  {
+    "name": "events-readers",
+    "file": "experiments/user-api/core-controls/events-readers.bend",
+    "expected": "[2, 2]"
+  }
+]

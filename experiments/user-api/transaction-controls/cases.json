@@ -1,0 +1,27 @@
+[
+  {
+    "name": "journal-failure",
+    "file": "experiments/user-api/transaction-controls/journal-failure.bend",
+    "expected": "70"
+  },
+  {
+    "name": "journal-success",
+    "file": "experiments/user-api/transaction-controls/journal-success.bend",
+    "expected": "9121"
+  },
+  {
+    "name": "resource-rollback",
+    "file": "experiments/user-api/transaction-controls/resource-rollback.bend",
+    "expected": "0"
+  },
+  {
+    "name": "foreign-command-unchanged",
+    "file": "experiments/user-api/transaction-controls/foreign-command-unchanged.bend",
+    "expected": "1"
+  },
+  {
+    "name": "journal-duplicate-negative",
+    "file": "experiments/user-api/transaction-controls/journal-duplicate-negative.bend",
+    "reject": "observed : tx (consumed more than once)"
+  }
+]

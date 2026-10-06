@@ -1,0 +1,106 @@
+[
+  {
+    "name": "column-affine",
+    "command": [
+      "timeout",
+      "5s",
+      "bend",
+      "/workspace/formal-proofs/bendvy/experiments/user-api/core-controls/column-affine.bend"
+    ],
+    "source_sha256": "0b9edce238938b9f0218ab06e4397a19af2a8e0a8b71821a5ac867ef10938f05",
+    "exit": 0,
+    "passed": true,
+    "log": "column-affine.log"
+  },
+  {
+    "name": "column-data",
+    "command": [
+      "timeout",
+      "5s",
+      "bend",
+      "/workspace/formal-proofs/bendvy/experiments/user-api/core-controls/column-data.bend"
+    ],
+    "source_sha256": "155cf943f5f2bfcd12f5692b6c04e5298bf57c9b6020c9fbed48834697edd114",
+    "exit": 0,
+    "passed": true,
+    "log": "column-data.log"
+  },
+  {
+    "name": "transaction-rollback",
+    "command": [
+      "timeout",
+      "5s",
+      "bend",
+      "/workspace/formal-proofs/bendvy/experiments/user-api/core-controls/transaction-rollback.bend"
+    ],
+    "source_sha256": "fddaf7a23616b8addc56156b068b7d78a79145218792cf864020aae66d3c23a6",
+    "exit": 0,
+    "passed": true,
+    "log": "transaction-rollback.log"
+  },
+  {
+    "name": "transaction-failure",
+    "command": [
+      "timeout",
+      "5s",
+      "bend",
+      "/workspace/formal-proofs/bendvy/experiments/user-api/core-controls/transaction-failure.bend"
+    ],
+    "source_sha256": "87f778ac9e8d5f46b2f7289eed4bd37c06ad11a153620bd9b03dc4319bc75b0f",
+    "exit": 0,
+    "passed": true,
+    "log": "transaction-failure.log"
+  },
+  {
+    "name": "transaction-success",
+    "command": [
+      "timeout",
+      "5s",
+      "bend",
+      "/workspace/formal-proofs/bendvy/experiments/user-api/core-controls/transaction-success.bend"
+    ],
+    "source_sha256": "7624bdb9127aadfe089fe6e3c7caa21a4025afcd0d12c1744fe8c33ab9625734",
+    "exit": 0,
+    "passed": true,
+    "log": "transaction-success.log"
+  },
+  {
+    "name": "component-functional",
+    "command": [
+      "timeout",
+      "5s",
+      "bend",
+      "/workspace/formal-proofs/bendvy/experiments/user-api/core-controls/component-functional.bend"
+    ],
+    "source_sha256": "8da6273f05477a200fa247de8db2e9a4c03aa5ad716f577faada255a0f247075",
+    "exit": 0,
+    "passed": true,
+    "log": "component-functional.log"
+  },
+  {
+    "name": "column-schema-negative",
+    "command": [
+      "timeout",
+      "5s",
+      "bend",
+      "/workspace/formal-proofs/bendvy/experiments/user-api/core-controls/column-schema-negative.bend"
+    ],
+    "source_sha256": "095c184dfd952e4fa6fcd97a6604b9a831f49b84849f889cf9b2698a35dcf8fd",
+    "exit": 1,
+    "passed": true,
+    "log": "column-schema-negative.log"
+  },
+  {
+    "name": "transaction-duplicate-negative",
+    "command": [
+      "timeout",
+      "5s",
+      "bend",
+      "/workspace/formal-proofs/bendvy/experiments/user-api/core-controls/transaction-duplicate-negative.bend"
+    ],
+    "source_sha256": "81e3e93d6889f216f22c3e5bbd22a017286266390c741430ef58a1caa8e88cee",
+    "exit": 1,
+    "passed": true,
+    "log": "transaction-duplicate-negative.log"
+  }
+]

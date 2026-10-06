@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : S.Registry<Schema, Unit, U32, U32, Unit, Error, Unit, idle>
+- observed : S.Registry<Schema, Unit, U32, U32, Unit, Error, Unit, body>
+Context:
+- registry : S.Registry<Schema, Unit, U32, U32, Unit, Error, Unit, body>
+- world    : W.World<Schema, Unit, U32, U32>
+- _        : Unit
+Location: second_outcome
+34 |     case S.Failed{_,_}: 997
+35>|     case S.Succeeded{world,_}: final(S.run_to_cursor(~Schema,~Unit,~U32,~U32,~Unit,~Error,~Unit,~idle,registry,world,Unit{},2))
+   |                                                                                                       ^^^^^^^^
+36 | def second(result: S.RunResult<Schema,Unit,U32,U32,Unit,Error,Unit,body>) -> U32:
