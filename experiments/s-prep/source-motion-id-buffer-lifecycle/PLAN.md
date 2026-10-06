@@ -1,4 +1,6 @@
-# Split ID buffer lifecycle — fresh finite plan
+# Split ID buffer lifecycle — historical prospective plan
+
+This plan predates admitted direct-v1 execution. The delivered exact cohort and remaining scope are in README.md; the direct Bundle snapshot observes count/ID cells/owner payloads, while recovery IDs are established through actual HA behavior rather than a separate Bundle-rendered ID list.
 
 Read-only preparation while root replaces adverse v12 transport. No v10/v12 passing receipt is counted for the next source closure. Source worker owns Q/HA; this package owns fixtures and unchanged independent literal oracles.
 
