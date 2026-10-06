@@ -19,4 +19,23 @@ Limits: executable diagnostic checker15s, default/proofs5s, emission30s,
 Clang120s, runtime5s. Private Clang19 remains separate. No new dependencies,
 laws/proofs, compiler/kernel/reference or external-repository changes.
 
-Status: active; no new candidate measurement or gate result yet.
+## Fresh baseline diagnostics
+
+Native phase profiles on both schemas match actual65 TS worlds. Motion dynamic
+branch counters match65 fields:4.235m outer destruction iterations/12.714m inner,
+4.223m atomic RFC decrements. Destroyed nodes are primarily journal Cons/Handle/
+MainInverse. These are operation counts, not elapsed attribution or physicalRAM.
+See [Native evidence](../../experiments/s-prep/native-joined-hotpath/README.md).
+
+Retained Health JS driver with V8 optimization tracing matches all nine actual TS
+worlds; one prepare-for-OSR bailout, no other observed JS bailout/abort/disable.
+This bounds an unsupported recurring-deoptimization hypothesis, not all JIT behavior.
+See [JIT evidence](../../experiments/s-prep/source-js-jit-diagnostics/README.md).
+
+The new source/build-pinned observation recipe passes on identical Health source
+and binaries for both roles, preserving all65 worlds. Native253/257ms and JS287/
+300ms are single raw unchanged-source observations, not qualification or a gain.
+
+Status: active. Isolated source experiments investigate ledger owner flattening,
+private journal representation, query transport and the actually reached generic
+publish frontier. No changed-source elapsed result or new adoption exists yet.
