@@ -1,0 +1,8 @@
+[
+  {"name":"contract", "file":"experiments/user-api/design-canaries/contract.bend", "expected":"Edit{Position{[2, 2], 2}, [Position{[1, 1], 1}, Position{[0, 0], 0}]}"},
+  {"name":"binding", "file":"experiments/user-api/design-canaries/binding.bend", "expected":"Edit{Position{[2, 2], 2}, [Position{[1, 1], 1}, Position{[0, 0], 0}]}"},
+  {"name":"binding-forged", "file":"experiments/user-api/design-canaries/binding-forged.bend", "expected":"Edit{Position{[0, 0], 0}, []}"},
+  {"name":"binding-negative", "file":"experiments/user-api/design-canaries/binding-negative.bend", "reject":"expected : Bound<Edit<Schema, Position>, idle>"},
+  {"name":"typed-registry", "file":"experiments/user-api/design-canaries/typed-registry.bend", "expected":"(Registry{7}, Edit{Position{[2, 2], 2}, [Position{[1, 1], 1}, Position{[0, 0], 0}]})"},
+  {"name":"typed-registry-negative", "file":"experiments/user-api/design-canaries/typed-registry-negative.bend", "reject":"expected : Registry<Edit<Schema, Position>, idle>"}
+]
