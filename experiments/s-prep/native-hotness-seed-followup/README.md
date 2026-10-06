@@ -281,3 +281,16 @@ resolves local A:Type quantNone with wildcardfalse. Import-blank mapping confirm
 that exact source call. Global sharing is still seeded; conditional follow-on
 counters for a globally resolved candidate therefore were not run. No code or
 compiler edit was made by this diagnostic.
+
+## Minimal storage commit follow-up
+
+Freezing storage_commit M/A/F removes the preceding Command reverse firstseed.
+Checker15/emitter30 PASS byte-identical C
+`019713f7a0db70f64b64a877974a1c0106ce51b214e8f7d44d2b9fca7032e7f8`,
+1,922branches/107sites. New firstseed is transaction.storage_mark_all calling
+prototype_storage_mark_loop: foreign VarL index1/span9500 resolves local M:Type
+quantNone with wildcardfalse. Globalstar remains; conditional resolved-star
+full65/counts were not triggered. Branch/site counts grew from the previous
+source despite moving its firstseed, illustrating that frontier movement alone
+is not global-sharing resolution or a performance result. No further source
+closure is presumed; metadata worker owns its bounded seam decision.
