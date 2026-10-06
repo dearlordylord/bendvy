@@ -1,0 +1,7 @@
+# Root review of current Slot source-cohort map
+
+Reviewed mapv7/config-v3 against exact frozen4baa source29 and fresh semantic receipts. Independently replayed `verify-cohort-map.py`: thirteen exact cohorts,109 consumed checker subjects, complete imports/runtime maps, explicit permitted mutation/suppression deltas, protected oracle pins and static8 actual-input archive aliases pass. Source/cache bytes remain unchanged. Ten malformed-map controls were separately delivered by the author; root did not rerun them or count them as new execution.
+
+The verifier recomputes source membership and receipt-selected subjects rather than trusting map lists, and distinguishes Host generic Slot, supplied-ID typed row/FlatPair, public static contracts and actual factory/queue paths. Source anchors establish pinned reachability, not execution of every branch. The static8 wrapper logs actual argv/source/output before the original runner removes temporary subjects; alias bytes and results are verified explicitly.
+
+This review accepts the **pinned diagnostic immutable cohort map**. It does not accept a universal materializer/authority proof or invent the old canonical materialize/status/validate_gates result. Canonical aggregate consumer/status reconciliation remains a follow-up; no attempt ledger or budget changes. Full performance matrix, production API and universal runtime refinement remain open.

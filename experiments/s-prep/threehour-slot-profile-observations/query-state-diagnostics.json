@@ -1,0 +1,172 @@
+{
+  "scope": "Raw sequential rotations during ownedheavyworker quiet span; no noise qualification/accepted keep/product acceptance",
+  "sourceClosure": "b0fdd6c41be12b34efc79e45edc98225c1b0158a51976b432a1646bfcae9e8f0",
+  "variant": "query-state",
+  "selection": "NOT_SELECTED",
+  "transactionQueryIngressGate": "OPEN_UNREACHED_ORIGINAL_CONTROLLERS",
+  "CPU": 11,
+  "comparisons": [
+    {
+      "schema": "motion",
+      "rotation": 0,
+      "receiptSHA256": "a9b63939ed13fe96c4b5c12f5198437ccc4d4a1a34a471822b91835fd9c74a1c",
+      "phaseMS": {
+        "TS": 188.89288800000003,
+        "Native": 79.0,
+        "parent-JS": 219.0,
+        "candidate-JS": 212.0
+      },
+      "executionOrder": [
+        "TS",
+        "Native",
+        "parent-JS",
+        "candidate-JS"
+      ]
+    },
+    {
+      "schema": "motion",
+      "rotation": 1,
+      "receiptSHA256": "4376630c731d86f1182405cecd3349e4568465c9c51d8629af617090d6ba138c",
+      "phaseMS": {
+        "TS": 190.422977,
+        "candidate-JS": 211.0,
+        "parent-JS": 215.0,
+        "Native": 80.0
+      },
+      "executionOrder": [
+        "TS",
+        "candidate-JS",
+        "parent-JS",
+        "Native"
+      ]
+    },
+    {
+      "schema": "motion",
+      "rotation": 2,
+      "receiptSHA256": "ee8fcfbd8e6ead0af9fdf00c953e605fa34a67414745d1353602b5f3dd2da3b3",
+      "phaseMS": {
+        "TS": 205.16040400000003,
+        "parent-JS": 214.0,
+        "candidate-JS": 202.0,
+        "Native": 98.0
+      },
+      "executionOrder": [
+        "parent-JS",
+        "candidate-JS",
+        "TS",
+        "Native"
+      ]
+    },
+    {
+      "schema": "health",
+      "rotation": 0,
+      "receiptSHA256": "6562d209af73687d791081192427b9cb53c8233d8a6c1c8fcc3cd57bcec7e29b",
+      "phaseMS": {
+        "TS": 203.55548100000004,
+        "Native": 82.0,
+        "parent-JS": 233.0,
+        "candidate-JS": 233.0
+      },
+      "executionOrder": [
+        "TS",
+        "Native",
+        "parent-JS",
+        "candidate-JS"
+      ]
+    },
+    {
+      "schema": "health",
+      "rotation": 1,
+      "receiptSHA256": "0f4b04ec66cf35bd2b9f5d1d79deb3475b494443329db2dd3e91e288a0846468",
+      "phaseMS": {
+        "TS": 219.31262099999998,
+        "candidate-JS": 227.0,
+        "parent-JS": 223.0,
+        "Native": 83.0
+      },
+      "executionOrder": [
+        "TS",
+        "candidate-JS",
+        "parent-JS",
+        "Native"
+      ]
+    },
+    {
+      "schema": "health",
+      "rotation": 2,
+      "receiptSHA256": "f4592ce59438b830ff3c0ff170403116764f51d2c74ab81f371716f383455517",
+      "phaseMS": {
+        "TS": 215.99031800000006,
+        "parent-JS": 217.0,
+        "candidate-JS": 225.0,
+        "Native": 81.0
+      },
+      "executionOrder": [
+        "parent-JS",
+        "candidate-JS",
+        "TS",
+        "Native"
+      ]
+    }
+  ],
+  "descriptiveSummary": {
+    "motion": {
+      "mediansMS": {
+        "TS": 190.422977,
+        "Native": 80.0,
+        "parent-JS": 215.0,
+        "candidate-JS": 211.0
+      },
+      "ratioOfMediansJSvsTS": 1.1080595594301628,
+      "ratioOfMediansNativevsTS": 0.42011736850432707,
+      "ratioOfMediansCandidatevsParent": 0.9813953488372092,
+      "sampledRangeMS": {
+        "TS": [
+          188.89288800000003,
+          205.16040400000003
+        ],
+        "Native": [
+          79.0,
+          98.0
+        ],
+        "parent-JS": [
+          214.0,
+          219.0
+        ],
+        "candidate-JS": [
+          202.0,
+          212.0
+        ]
+      }
+    },
+    "health": {
+      "mediansMS": {
+        "TS": 215.99031800000006,
+        "Native": 82.0,
+        "parent-JS": 223.0,
+        "candidate-JS": 227.0
+      },
+      "ratioOfMediansJSvsTS": 1.0509730348190882,
+      "ratioOfMediansNativevsTS": 0.3796466469390539,
+      "ratioOfMediansCandidatevsParent": 1.0179372197309418,
+      "sampledRangeMS": {
+        "TS": [
+          203.55548100000004,
+          219.31262099999998
+        ],
+        "Native": [
+          81.0,
+          83.0
+        ],
+        "parent-JS": [
+          217.0,
+          233.0
+        ],
+        "candidate-JS": [
+          225.0,
+          233.0
+        ]
+      }
+    }
+  }
+}
