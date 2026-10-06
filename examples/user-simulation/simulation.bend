@@ -3,6 +3,9 @@ import schema.bend as S
 import ../../src/ecs/component.bend as C
 import ../../src/ecs/world.bend as W
 import ../../src/ecs/events.bend as E
+import ../../src/ecs/transaction.bend as T
+import ../../src/ecs/query.bend as Q
+import ../../src/ecs/provider.bend as Pv
 
 type Row is Data:
   Row{id: U32,position: C.Access<S.PositionView>,velocity: C.Access<S.VelocityView>,health: C.Access<S.HealthView>,armor: C.Access<S.Armor>,tag: C.Access<S.Tag>}
@@ -71,3 +74,32 @@ def observed_snapshot(reader: E.Reader<S.Schema>,result: W.World<S.Schema,S.Stor
     case (world,Snapshot{+rows,+dt,_}): observed_events(rows,dt,E.read(~S.Schema,~S.Store,~F32,~S.SimEvent,world,reader))
 def observe(world: W.World<S.Schema,S.Store,F32,S.SimEvent>,reader: E.Reader<S.Schema>) -> Observation:
   observed_snapshot(reader,snapshot(world))
+
+type UserError is Data:
+  UnsupportedFixture{}
+  Rejected{}
+def movement_write(~H: Type,~set: H -> S.Position -> H,ctx: H,owner: Maybe<&1,S.Position>) -> H & T.Outcome<UserError>:
+  match owner:
+    case None{}: (ctx,T.Failure{UnsupportedFixture{}})
+    case Some{owner}: (set(ctx,owner),T.Success{})
+def movement_numbers(~H: Type,~set: H -> S.Position -> H,+x: F32,+trail: List<&2,U32>,+dx: F32,observed: H & F32) -> H & T.Outcome<UserError>:
+  (ctx,+dt) = observed
+  movement_write(~H,~set,ctx,S.position_owner(S.PositionView{(x + dx * dt : F32),trail}))
+def movement_velocity(~H: Type,~set: H -> S.Position -> H,+x: F32,+trail: List<&2,U32>,velocity: S.VelocityView,observed: H & F32) -> H & T.Outcome<UserError>:
+  match velocity:
+    case S.VelocityView{+dx,_}: movement_numbers(~H,~set,x,trail,dx,observed)
+def movement_dt(~H: Type,~set: H -> S.Position -> H,position: S.PositionView,velocity: S.VelocityView,observed: H & F32) -> H & T.Outcome<UserError>:
+  match position:
+    case S.PositionView{+x,+trail}: movement_velocity(~H,~set,x,trail,velocity,observed)
+def movement_aux(~H: Type,~set: H -> S.Position -> H,~resource_get: H -> H & F32,+position: S.PositionView,observed: H & C.Access<S.VelocityView>) -> H & T.Outcome<UserError>:
+  match observed:
+    case (ctx,C.Found{+velocity}): movement_dt(~H,~set,position,velocity,resource_get(ctx))
+    case (ctx,_): (ctx,T.Failure{UnsupportedFixture{}})
+def movement_get(~H: Type,~set: H -> S.Position -> H,~aux: H -> H & C.Access<S.VelocityView>,~resource_get: H -> H & F32,observed: H & C.Access<S.PositionView>) -> H & T.Outcome<UserError>:
+  match observed:
+    case (ctx,C.Found{+position}): movement_aux(~H,~set,~resource_get,position,aux(ctx))
+    case (ctx,_): (ctx,T.Failure{UnsupportedFixture{}})
+def movement_body(~H: Type,~get: H -> H & C.Access<S.PositionView>,~set: H -> S.Position -> H,~aux: H -> H & C.Access<S.VelocityView>,~resource_get: H -> H & F32,~resource_set: H -> F32 -> H,~emit: H -> S.SimEvent -> H,~despawn: H -> H,~spawn: H -> S.Bundle -> H & W.Reservation<S.Schema>,args: Unit,handle: W.Handle<S.Schema>,ctx: H) -> H & T.Outcome<UserError>:
+  movement_get(~H,~set,~aux,~resource_get,get(ctx))
+def movement(world: W.World<S.Schema,S.Store,F32,S.SimEvent>) -> T.Returned<W.World<S.Schema,S.Store,F32,S.SimEvent>,Pv.Error<UserError>>:
+  Q.each_rw_read(~S.Schema,~S.Store,~F32,~S.SimEvent,~S.PositionRest,~S.Position,~S.PositionView,~S.PositionToken,~S.take_positions,~S.put_positions,~S.project_position,~S.VelocityRest,~S.Velocity,~S.VelocityView,~S.VelocityToken,~S.take_velocities,~S.put_velocities,~S.project_velocity,~F32,~resource_view,~S.Bundle,~S.populate,~S.clear,~Unit,~UserError,~movement_body,S.position(),S.velocity(),Q.Required{},world,Unit{})

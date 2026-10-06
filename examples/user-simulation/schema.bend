@@ -143,7 +143,7 @@ def populate_armor(world: W.World<Schema,Store,F32,SimEvent>,handle: W.Handle<Sc
   consume_replaced(~Armor,C.structural_replace(~Schema,~Store,~F32,~SimEvent,~ArmorRest,~Armor,~Armor,~ArmorToken,~take_armors,~put_armors,~project_armor,armor(),world,handle,incoming))
 def populate_tag(world: W.World<Schema,Store,F32,SimEvent>,handle: W.Handle<Schema>,incoming: Maybe<&1,Tag>) -> W.World<Schema,Store,F32,SimEvent>:
   consume_replaced(~Tag,C.structural_replace(~Schema,~Store,~F32,~SimEvent,~TagRest,~Tag,~Tag,~TagToken,~take_tags,~put_tags,~project_tag,tag(),world,handle,incoming))
-def populate(world: W.World<Schema,Store,F32,SimEvent>,+handle: W.Handle<Schema>,bundle: Bundle) -> W.World<Schema,Store,F32,SimEvent>:
+def populate_inner(world: W.World<Schema,Store,F32,SimEvent>,+handle: W.Handle<Schema>,bundle: Bundle) -> W.World<Schema,Store,F32,SimEvent>:
   match bundle:
     case Bundle{position,velocity,health,armor,tag}:
       populate_tag(populate_armor(populate_health(populate_velocity(populate_position(world,handle,position),handle,velocity),handle,health),handle,armor),handle,tag)
@@ -154,7 +154,7 @@ def clear_column_result(~Owner: Type,result: Col.SwapOutcome<Schema,Owner>) -> C
 def clear_column(~Owner: Type,handle: W.Handle<Schema>,column: Col.Column<Schema,Owner>) -> Col.Column<Schema,Owner>:
   match handle:
     case W.Handle{_,id}: clear_column_result(~Owner,Col.swap(~Schema,~Owner,column,id,None{}))
-def clear(store: Store,+handle: W.Handle<Schema>) -> Store:
+def clear_inner(store: Store,+handle: W.Handle<Schema>) -> Store:
   match store:
     case Store{positions,velocities,healths,armors,tags}: Store{clear_column(~Position,handle,positions),clear_column(~Velocity,handle,velocities),clear_column(~Health,handle,healths),clear_column(~Armor,handle,armors),clear_column(~Tag,handle,tags)}
 
@@ -186,3 +186,10 @@ def health_owner_join(+hp: F32,incoming: Maybe<&1,Array<U32>>) -> Maybe<&1,Healt
 def health_owner(view: HealthView) -> Maybe<&1,Health>:
   match view:
     case HealthView{+hp,history}: health_owner_join(hp,array_from_values(history))
+
+def populate(world: W.World<Schema,Store,F32,SimEvent>,handle: W.Handle<Schema>,bundle: Bundle) -> W.World<Schema,Store,F32,SimEvent>:
+  match handle:
+    case W.Handle{+namespace,+id}: populate_inner(world,W.Handle{namespace,id},bundle)
+def clear(store: Store,handle: W.Handle<Schema>) -> Store:
+  match handle:
+    case W.Handle{+namespace,+id}: clear_inner(store,W.Handle{namespace,id})
