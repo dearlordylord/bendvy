@@ -200,3 +200,21 @@ observes1,782branches/111sites. Next firstseed is observations.world_ledger line
 calling List.reverse(PendingView<V,AV,F>): VarV index6/span9419 has no local
 telescope domain, starfalse. world_commands is frozen, world_ledger has erased
 type arguments. Metadata worker owns the next exact-boundary experiment.
+
+## Independent write-row-fold v2 counters
+
+Actual Motion C
+`4b6402750739fbf88959eaf82931b510dbd9ac9903f09e53582f1905bcf5e7f2`
+with current29 source pins independently passes all65 complete fresh TS fields.
+Approved private Clang19 compile120/runtime5 on CPU11; original C unchanged.
+Heap29,070,279, RFC13,726,014 and cumulative requestedwords62,213,135 exactly
+equal the prior row split. Operation totals also match: seal40,890,112,
+ctr_take12,079,617, keep1,085,440, drop36,928, span8,192; zero allocator/system
+misses/growth. Constructor-category totals agree. This new flat fold source
+produces no additional measured allocator-request reduction over row split;
+compared with original frozen baseline it independently retains3 fewer heap
+requests/1 fewer RFC/18 fewer words per updated row. Requested words describe
+primed local freelist requests, not physical allocation, peak memory or time.
+Source-specific authority/negative/full22 and speed gates remain separate.
+Receipts, original/derived C, full fresh observations and exact maps are archived
+under write-fold-v2 names. No earlier candidate receipt is used as this acceptance.
