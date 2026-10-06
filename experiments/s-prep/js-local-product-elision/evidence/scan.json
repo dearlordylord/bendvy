@@ -1,0 +1,989 @@
+{
+  "scope": "Exact local Tuple literal diagnosis only; no generated rewrite, refinement or performance qualification",
+  "parserVersion": "8.18.0",
+  "inputSHA256": "4c01f06e3460c9b3752ec2ff3ddfbdaa8c59ec1af321d89fe83068f43c02b7dd",
+  "catalogSHA256": "d50807980f86dee3d7b97ec3439fee59b2cce3fdd27ca4e327c7a2da8fea1695",
+  "countsSHA256": "947c01e96d081a7e7dbdd502c1c3b48117d082fce1ecfb6782684096a823b3ef",
+  "scannerSHA256": "81150994e4ebd79168ae9fbe2141d5b7e3b5267fe9fd4838a0d65bb3982c45b7",
+  "tupleLiteralSites": 161,
+  "tupleParentContexts": {
+    "ConditionalExpression": 2,
+    "ReturnStatement": 119,
+    "CallExpression": 27,
+    "Property": 12,
+    "ArrowFunctionExpression": 1
+  },
+  "localTupleInitializerSites": 0,
+  "safelyEligibleExecutedTupleSites": 0,
+  "predictedConstructorDelta": 0,
+  "priorBaselineObservedTupleExecutions": 2502144,
+  "priorCountScope": "Executed construction expressions in eight fresh worlds; not physical bytes or speed",
+  "sites": [
+    {
+      "function": "nat_divmod",
+      "line": 24,
+      "parent": "ConditionalExpression",
+      "source": "{$: \"Tuple\", fst: 0, snd: a}"
+    },
+    {
+      "function": "nat_divmod",
+      "line": 25,
+      "parent": "ConditionalExpression",
+      "source": "{$: \"Tuple\", fst: Math.trunc(a / b), snd: a % b}"
+    },
+    {
+      "function": "array_rmw",
+      "line": 119,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", fst: a, snd: old}"
+    },
+    {
+      "function": "$measurement$045bend$058motion_registered$",
+      "line": 363,
+      "parent": "CallExpression",
+      "source": "{$: \"Tuple\", \"fst\": _x_5, \"snd\": _system_0}"
+    },
+    {
+      "function": "$Nat$show$put$",
+      "line": 478,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": char_new((_x_0 >>> 0)), \"snd\": _q_0}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047observations$058commands$1260$",
+      "line": 836,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"Nil\"}, \"snd\": {$: \"Nil\"}}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047observations$058rows_start$1260$",
+      "line": 847,
+      "parent": "CallExpression",
+      "source": "{$: \"Tuple\", \"fst\": _owners_0, \"snd\": {$: \"Nil\"}}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047storage$058rows_high_water$",
+      "line": 857,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.Rows\", \"main\": _m_0, \"aux\": _a_0, \"metadata\": _f_0, \"capacity\": _c_0, \"depth\": _d_0, \"high_wate"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047dispatcher$058registry_return$",
+      "line": 907,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/schedule.Registry\", \"next\": _next_0, \"entries\": _entries_0}, \"snd\": _systems_0}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047dispatcher$058registry_entries$",
+      "line": 912,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"Nil\"}, \"snd\": {$: \"Nil\"}}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047observations$058world_ledger$",
+      "line": 1075,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.World\", \"namespace\": _namespace_0, \"next\": _next_0, \"rows\": _rows_0, \"pending\": _pending_0, \"le"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047observations$058maybe_get$1264$",
+      "line": 1080,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"None\"}, \"snd\": {$: \"None\"}}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047observations$058command$1260$",
+      "line": 1105,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.InsertFlag\", \"id\": _id_2, \"flag\": _value_2}, \"snd\": {$: \"../bendvy-live-first-native/experiment"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047observations$058command$1260$",
+      "line": 1108,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.RemoveMain\", \"id\": _id_3}, \"snd\": {$: \"../bendvy-live-first-native/experiments/s-integrate/obse"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047observations$058command$1260$",
+      "line": 1111,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.RemoveFlag\", \"id\": _id_4}, \"snd\": {$: \"../bendvy-live-first-native/experiments/s-integrate/obse"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047observations$058command$1260$",
+      "line": 1114,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.Despawn\", \"id\": _id_5}, \"snd\": {$: \"../bendvy-live-first-native/experiments/s-integrate/observa"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047dispatcher$058registry_join$",
+      "line": 1199,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"Con\", \"head\": {$: \"../bendvy-live-first-native/experiments/s-integrate/schedule.Entry\", \"system\": _system_0, \"local\": _local_0}, \"tail\": _entries_0}, \"snd\""
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047identity$058reserve_checked$",
+      "line": 1224,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.World\", \"namespace\": _namespace_0, \"next\": _next_0, \"rows\": _rows_0, \"pending\": _pending_0, \"le"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047identity$058reserve_checked$",
+      "line": 1226,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.World\", \"namespace\": _namespace_0, \"next\": ((_next_0 + 1) >>> 0), \"rows\": _rows_0, \"pending\": _"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047observations$058maybe_present$",
+      "line": 1358,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"Some\", \"value\": _owner_0}, \"snd\": {$: \"Some\", \"value\": _value_0}}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047cached$045payload$058motion_ledger_get$",
+      "line": 1364,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/cache.Cache\", \"raw\": _raw_0, \"cached\": _cached_0}, \"snd\": _cached_0}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047observations$058commands_tail$",
+      "line": 1370,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"Con\", \"head\": _owner_0, \"tail\": _tail_0}, \"snd\": {$: \"Con\", \"head\": _value_0, \"tail\": _values_0}}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047observations$058command_spawn$",
+      "line": 1376,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.Spawn\", \"id\": _id_0, \"bundle\": _owner_0}, \"snd\": {$: \"../bendvy-live-first-native/experiments/s"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047observations$058command_main$",
+      "line": 1389,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.InsertMain\", \"id\": _id_0, \"main\": _owner_0}, \"snd\": {$: \"../bendvy-live-first-native/experiment"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047cached$045payload$058position_get$",
+      "line": 1395,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/cache.Cache\", \"raw\": _raw_0, \"cached\": _cached_0}, \"snd\": _cached_0}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047observations$058rows_finish$",
+      "line": 1401,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": _owners_0, \"snd\": ($List$reverse$(_values_0))}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047dispatcher$058audit_present$",
+      "line": 1418,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"None\"}, \"snd\": false}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047dispatcher$058audit_present$",
+      "line": 1421,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"Some\", \"value\": _audit_0}, \"snd\": true}"
+    },
+    {
+      "function": "$measurement$045bend$058motion_presence_return$",
+      "line": 1428,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"measurement-bend.MotionBench\", \"host\": _host_0, \"sparse\": _sparse_0, \"readsum\": _total_0, \"calls\": _calls_0}, \"snd\": _view_0}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047uncached$045payload$058motion_ledger_observed$",
+      "line": 1463,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/types.MotionLedger\", \"totals\": _array_0, \"epoch\": _epoch_0}, \"snd\": {$: \"../bendvy-live-first-native/ex"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047observations$058maybe_get$1261$",
+      "line": 1541,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"None\"}, \"snd\": {$: \"None\"}}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047observations$058rows_slot$1260$",
+      "line": 1552,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": _owners_0, \"snd\": _values_0}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047host$058motion_presence_ledger$",
+      "line": 1636,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/host.Host\", \"world\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.World\", \"namespac"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047host$058ledger_presence$",
+      "line": 1641,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"None\"}, \"snd\": false}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047host$058ledger_presence$",
+      "line": 1644,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"Some\", \"value\": _owner_0}, \"snd\": true}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047uncached$045payload$058original_four$",
+      "line": 1655,
+      "parent": "CallExpression",
+      "source": "{$: \"Tuple\", fst: _array_0, snd: _array_0[0 % _array_0.length]}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047observations$058bundle_aux$",
+      "line": 1667,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.Bundle\", \"main\": _main_0, \"aux\": _aux_0, \"flag\": _flag_0}, \"snd\": {$: \"../bendvy-live-first-nat"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047observations$058maybe_get$1260$",
+      "line": 1672,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"None\"}, \"snd\": {$: \"None\"}}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047observations$058rows_observed$",
+      "line": 1682,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": ($$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047storage$058rows_restore$(_owners_0, _owner_0)), \"snd\": {$: \"Con\", \"head\": _value_0"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047storage$058extract_checked$",
+      "line": 1697,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": _rows_0, \"snd\": {$: \"None\"}}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047uncached$045payload$058position_observed$",
+      "line": 1763,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/types.Position\", \"coordinates\": _array_0, \"frame\": _frame_0}, \"snd\": {$: \"../bendvy-live-first-native/e"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047uncached$045payload$058four_a$",
+      "line": 1769,
+      "parent": "CallExpression",
+      "source": "{$: \"Tuple\", fst: _array_0, snd: _array_0[1 % _array_0.length]}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047storage$058extract_meta$",
+      "line": 1815,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.Rows\", \"main\": _main_0, \"aux\": _aux_0, \"metadata\": _metadata_0, \"capacity\": _capacity_0, \"depth"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047storage$058metadata_get$",
+      "line": 1831,
+      "parent": "CallExpression",
+      "source": "{$: \"Tuple\", fst: _live_0, snd: _live_0[_index_0 % _live_0.length]}"
+    },
+    {
+      "function": "$measurement$045bend$058motion_frame_return$",
+      "line": 1883,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"measurement-bend.MotionBench\", \"host\": _host_0, \"sparse\": _sparse_0, \"readsum\": _total_0, \"calls\": _calls_0}, \"snd\": _rest_0}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047uncached$045payload$058four_b$",
+      "line": 1938,
+      "parent": "CallExpression",
+      "source": "{$: \"Tuple\", fst: _array_0, snd: _array_0[2 % _array_0.length]}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047payload$058velocity_observed$",
+      "line": 1944,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/types.Velocity\", \"rates\": _array_0, \"moving\": _moving_0}, \"snd\": {$: \"../bendvy-live-first-native/exper"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047payload$058four$",
+      "line": 1948,
+      "parent": "CallExpression",
+      "source": "{$: \"Tuple\", fst: _array_0, snd: _array_0[0 % _array_0.length]}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047observations$058row_aux$",
+      "line": 1966,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.Row\", \"id\": _id_0, \"main\": _main_0, \"aux\": _aux_0, \"flag\": _flag_0, \"added\": _added_0, \"changed"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047storage$058metadata_get_live$",
+      "line": 1980,
+      "parent": "CallExpression",
+      "source": "{$: \"Tuple\", fst: _flags_0, snd: _flags_0[_index_0 % _flags_0.length]}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047host$058frame_return$",
+      "line": 2056,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/host.Host\", \"world\": _world_0, \"logs\": _logs_0, \"bindings\": _bindings_0, \"worldName\": _worldName_0, \"st"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047host$058frame_return$",
+      "line": 2056,
+      "parent": "Property",
+      "source": "{$: \"Tuple\", \"fst\": _readers_0, \"snd\": _clock_0}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047uncached$045payload$058four_c$",
+      "line": 2092,
+      "parent": "CallExpression",
+      "source": "{$: \"Tuple\", fst: _array_0, snd: _array_0[3 % _array_0.length]}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047payload$058four_a$",
+      "line": 2098,
+      "parent": "CallExpression",
+      "source": "{$: \"Tuple\", fst: _array_0, snd: _array_0[1 % _array_0.length]}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047storage$058metadata_get_flags$",
+      "line": 2110,
+      "parent": "CallExpression",
+      "source": "{$: \"Tuple\", fst: _added_0, snd: _added_0[_index_0 % _added_0.length]}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047readers$058holders$",
+      "line": 2173,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/readers.Readers\", \"slots\": _slots_0}, \"snd\": ($$$$047bendvy$045live$045first$045native$047experiments$0"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047uncached$045payload$058four_done$",
+      "line": 2217,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": _array_0, \"snd\": {$: \"../bendvy-live-first-native/experiments/s-integrate/types.Four\", \"a\": _a_0, \"b\": _b_0, \"c\": _c_0, \"d\": _d_0}}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047payload$058four_b$",
+      "line": 2223,
+      "parent": "CallExpression",
+      "source": "{$: \"Tuple\", fst: _array_0, snd: _array_0[2 % _array_0.length]}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047storage$058extract_row$",
+      "line": 2230,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.Rows\", \"main\": _main_0, \"aux\": _aux_0, \"metadata\": _metadata_0, \"capacity\": _capacity_0, \"depth"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047storage$058metadata_get_added$",
+      "line": 2236,
+      "parent": "CallExpression",
+      "source": "{$: \"Tuple\", fst: _changed_0, snd: _changed_0[_index_0 % _changed_0.length]}"
+    },
+    {
+      "function": "$measurement$045bend$058motion_clock_return$",
+      "line": 2277,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"measurement-bend.MotionBench\", \"host\": _host_0, \"sparse\": _sparse_0, \"readsum\": _total_0, \"calls\": _calls_0}, \"snd\": _clock_0}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047payload$058four_c$",
+      "line": 2318,
+      "parent": "CallExpression",
+      "source": "{$: \"Tuple\", fst: _array_0, snd: _array_0[3 % _array_0.length]}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047storage$058metadata_get_changed$",
+      "line": 2324,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.MetadataColumns\", \"live\": _live_0, \"flags\": _flags_0, \"added\": _added_0, \"changed\": _changed_0}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047host$058barrier_applied$",
+      "line": 2362,
+      "parent": "CallExpression",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/host.Host\", \"world\": _world_0, \"logs\": ($$$$047bendvy$045live$045first$045native$047experiments$047s$04"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047host$058motion_transition$",
+      "line": 2400,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/host.Host\", \"world\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.World\", \"namespac"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047host$058motion_transition$",
+      "line": 2403,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/host.Host\", \"world\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.World\", \"namespac"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047payload$058four_done$",
+      "line": 2479,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": _array_0, \"snd\": {$: \"../bendvy-live-first-native/experiments/s-integrate/types.Four\", \"a\": _a_0, \"b\": _b_0, \"c\": _c_0, \"d\": _d_0}}"
+    },
+    {
+      "function": "$String$cmp$",
+      "line": 2617,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"Tuple\", \"fst\": \"\", \"snd\": \"\"}, \"snd\": {$: \"EQ\"}}"
+    },
+    {
+      "function": "$String$cmp$",
+      "line": 2617,
+      "parent": "Property",
+      "source": "{$: \"Tuple\", \"fst\": \"\", \"snd\": \"\"}"
+    },
+    {
+      "function": "$String$cmp$",
+      "line": 2621,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"Tuple\", \"fst\": \"\", \"snd\": (_h_0 + _t_0)}, \"snd\": {$: \"LT\"}}"
+    },
+    {
+      "function": "$String$cmp$",
+      "line": 2621,
+      "parent": "Property",
+      "source": "{$: \"Tuple\", \"fst\": \"\", \"snd\": (_h_0 + _t_0)}"
+    },
+    {
+      "function": "$String$cmp$",
+      "line": 2627,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"Tuple\", \"fst\": (_h_1 + _t_1), \"snd\": \"\"}, \"snd\": {$: \"GT\"}}"
+    },
+    {
+      "function": "$String$cmp$",
+      "line": 2627,
+      "parent": "Property",
+      "source": "{$: \"Tuple\", \"fst\": (_h_1 + _t_1), \"snd\": \"\"}"
+    },
+    {
+      "function": "$String$cmp$fin$",
+      "line": 2800,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"Tuple\", \"fst\": (_h1b_0 + _t1_0), \"snd\": (_h2b_0 + _t2_0)}, \"snd\": {$: \"LT\"}}"
+    },
+    {
+      "function": "$String$cmp$fin$",
+      "line": 2800,
+      "parent": "Property",
+      "source": "{$: \"Tuple\", \"fst\": (_h1b_0 + _t1_0), \"snd\": (_h2b_0 + _t2_0)}"
+    },
+    {
+      "function": "$String$cmp$fin$",
+      "line": 2804,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"Tuple\", \"fst\": (_h1b_0 + _t1_0), \"snd\": (_h2b_0 + _t2_0)}, \"snd\": {$: \"GT\"}}"
+    },
+    {
+      "function": "$String$cmp$fin$",
+      "line": 2804,
+      "parent": "Property",
+      "source": "{$: \"Tuple\", \"fst\": (_h1b_0 + _t1_0), \"snd\": (_h2b_0 + _t2_0)}"
+    },
+    {
+      "function": "$Char$cmp$",
+      "line": 2811,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"Tuple\", \"fst\": _a_0, \"snd\": _b_0}, \"snd\": cmp_new(_x_0, _x_1)}"
+    },
+    {
+      "function": "$Char$cmp$",
+      "line": 2811,
+      "parent": "Property",
+      "source": "{$: \"Tuple\", \"fst\": _a_0, \"snd\": _b_0}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047commands$058command_bound$",
+      "line": 2949,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": _rows_0, \"snd\": {$: \"Tuple\", \"fst\": _command_0, \"snd\": true}}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047commands$058command_bound$",
+      "line": 2949,
+      "parent": "Property",
+      "source": "{$: \"Tuple\", \"fst\": _command_0, \"snd\": true}"
+    },
+    {
+      "function": "$String$cmp$rec$",
+      "line": 2970,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"Tuple\", \"fst\": (_h1b_0 + _t1b_0), \"snd\": (_h2b_0 + _t2b_0)}, \"snd\": _r_0}"
+    },
+    {
+      "function": "$String$cmp$rec$",
+      "line": 2970,
+      "parent": "Property",
+      "source": "{$: \"Tuple\", \"fst\": (_h1b_0 + _t1b_0), \"snd\": (_h2b_0 + _t2b_0)}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047commands$058bounded_spawn$",
+      "line": 3083,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": _rows_0, \"snd\": {$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.Spawn\", \"id\": _id_0, \"bundle\": _bundle_0}, \"snd\": _valid_0}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047commands$058bounded_spawn$",
+      "line": 3083,
+      "parent": "Property",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.Spawn\", \"id\": _id_0, \"bundle\": _bundle_0}, \"snd\": _valid_0}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047storage$058rows_can_place$",
+      "line": 3087,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": _rows_0, \"snd\": ($Bool$and$((0 < _id_0), (_id_0 <= 131072)))}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047commands$058targeted$",
+      "line": 3228,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.Spawn\", \"id\": _id_0, \"bundle\": _bundle_0}, \"snd\": _id_0}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047commands$058targeted$",
+      "line": 3232,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.InsertMain\", \"id\": _id_1, \"main\": _main_0}, \"snd\": _id_1}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047commands$058targeted$",
+      "line": 3236,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.InsertFlag\", \"id\": _id_2, \"flag\": _flag_0}, \"snd\": _id_2}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047commands$058targeted$",
+      "line": 3239,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.RemoveMain\", \"id\": _id_3}, \"snd\": _id_3}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047commands$058targeted$",
+      "line": 3242,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.RemoveFlag\", \"id\": _id_4}, \"snd\": _id_4}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047commands$058targeted$",
+      "line": 3245,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.Despawn\", \"id\": _id_5}, \"snd\": _id_5}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047capture$058increment$",
+      "line": 3277,
+      "parent": "CallExpression",
+      "source": "{$: \"Tuple\", fst: _array_0, snd: _array_0[0 % _array_0.length]}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047storage$058replace_main_checked$",
+      "line": 3348,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": _rows_0, \"snd\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.MissingMainTarget\"}}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047capture$058incremented$",
+      "line": 3375,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/capture.Local\", \"count\": (_array_0[0 % _array_0.length] = _x_0, _array_0)}, \"snd\": ((_count_0 + 1) >>> "
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047transaction$058storage_commit$",
+      "line": 3519,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": ($$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047storage$058publish$(($$$$047bendvy$045live$045first$045native$047experiments$047s$"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047transaction$058storage_commit$",
+      "line": 3522,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": _world_1, \"snd\": {$: \"Nil\"}}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047query$058each_return$",
+      "line": 3570,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.World\", \"namespace\": _namespace_0, \"next\": _next_0, \"rows\": _rows_0, \"pending\": _pending_0, \"le"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047storage$058replace_main_meta$",
+      "line": 3623,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.Rows\", \"main\": _main_0, \"aux\": _aux_0, \"metadata\": _metadata_0, \"capacity\": _capacity_0, \"depth"
+    },
+    {
+      "function": "$measurement$045bend$058motion_queries$",
+      "line": 3643,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": _world_0, \"snd\": 0}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047transaction$058storage_mark_all$",
+      "line": 3685,
+      "parent": "CallExpression",
+      "source": "{$: \"Tuple\", \"fst\": _live_1, \"snd\": _changed_1}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047storage$058remove_done$",
+      "line": 3788,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.Rows\", \"main\": _m_0, \"aux\": _a_0, \"metadata\": _f_0, \"capacity\": _c_0, \"depth\": _d_0, \"high_wate"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047storage$058remove_done$",
+      "line": 3791,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.Rows\", \"main\": _m_0, \"aux\": _a_0, \"metadata\": ($$$$047bendvy$045live$045first$045native$047expe"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047query$058struct_idx_advance$1262$",
+      "line": 3903,
+      "parent": "CallExpression",
+      "source": "{$: \"Tuple\", fst: _live_0, snd: _live_0[_x_0 % _live_0.length]}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047storage$058metadata_live$",
+      "line": 3918,
+      "parent": "CallExpression",
+      "source": "{$: \"Tuple\", fst: _live_0, snd: _live_0[_index_0 % _live_0.length]}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047transaction$058prototype_storage_mark_guard$",
+      "line": 3979,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": _live_0, \"snd\": _changed_0}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047transaction$058prototype_storage_mark_guard$",
+      "line": 3982,
+      "parent": "CallExpression",
+      "source": "{$: \"Tuple\", fst: _live_0, snd: _live_0[_x_0 % _live_0.length]}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047storage$058take_checked$",
+      "line": 4006,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": _rows_0, \"snd\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.NoEntity\"}}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047prototype$045static$045client$058motion_body_read$1261$",
+      "line": 4027,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": _owner_0, \"snd\": 4294967295}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047query$058struct_idx_finish$",
+      "line": 4044,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.Rows\", \"main\": _main_0, \"aux\": _aux_0, \"metadata\": _metadata_0, \"capacity\": _capacity_0, \"depth"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047query$058struct_cols_live$1262$",
+      "line": 4054,
+      "parent": "CallExpression",
+      "source": "{$: \"Tuple\", fst: _flags_0, snd: _flags_0[_x_0 % _flags_0.length]}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047storage$058metadata_live_done$",
+      "line": 4065,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.MetadataColumns\", \"live\": _live_0, \"flags\": _flags_0, \"added\": _added_0, \"changed\": _changed_0}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047storage$058replace_main_effect$",
+      "line": 4071,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.Rows\", \"main\": _main_0, \"aux\": _aux_0, \"metadata\": _metadata_0, \"capacity\": _capacity_0, \"depth"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047storage$058replace_main_effect$",
+      "line": 4073,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.Rows\", \"main\": _main_0, \"aux\": _aux_0, \"metadata\": ($$$$047bendvy$045live$045first$045native$04"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047storage$058replace_main_effect$",
+      "line": 4077,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.Rows\", \"main\": _main_0, \"aux\": _aux_0, \"metadata\": ($$$$047bendvy$045live$045first$045native$04"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047storage$058replace_main_effect$",
+      "line": 4079,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.Rows\", \"main\": _main_0, \"aux\": _aux_0, \"metadata\": ($$$$047bendvy$045live$045first$045native$04"
+    },
+    {
+      "function": "$measurement$045bend$058motion_query3$",
+      "line": 4089,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": _world_0, \"snd\": ((_total_0 + _x_1) >>> 0)}"
+    },
+    {
+      "function": "$measurement$045bend$058motion_score$",
+      "line": 4100,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": _index_0, \"snd\": _total_0}"
+    },
+    {
+      "function": "$measurement$045bend$058motion_score$",
+      "line": 4104,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": ((_index_0 + 1) >>> 0), \"snd\": ((_total_0 + _x_1) >>> 0)}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047transaction$058prototype_storage_mark_live$",
+      "line": 4140,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": _live_0, \"snd\": _changed_0}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047transaction$058prototype_storage_mark_live$",
+      "line": 4142,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": _live_0, \"snd\": (_changed_0[_index_0 % _changed_0.length] = _tick_0, _changed_0)}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047held$045adapter$058prototype_boxed_motion_return_world$",
+      "line": 4162,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/transaction.Tx\", \"world\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.World\", \"nam"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047storage$058prototype_take_columns$",
+      "line": 4191,
+      "parent": "CallExpression",
+      "source": "{$: \"Tuple\", fst: _live_0, snd: _live_0[_x_0 % _live_0.length]}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047prototype$045static$045client$058motion_body_ledger$1261$",
+      "line": 4201,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": ($$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047transaction$045dispatch$045adapters$058motion_set_ledger0$(_owner_0, {$: \"../bendv"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047prototype$045static$045client$058motion_body_ledger$1261$",
+      "line": 4203,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": _owner_0, \"snd\": 4294967295}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047prototype$045static$045client$058motion_body_read$1260$",
+      "line": 4343,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": _owner_0, \"snd\": 4294967295}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047held$045adapter$058prototype_boxed_motion_get$",
+      "line": 4358,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/held.Held\", \"world\": _world_0, \"main\": {$: \"../bendvy-live-first-native/experiments/s-integrate/cache.C"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047transaction$058read_main_finish$",
+      "line": 4408,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/transaction.Tx\", \"world\": _world_0, \"selected\": _selected_0, \"undo\": _undo_0, \"commands\": _commands_0, "
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047query$058struct_idx_advance$1260$",
+      "line": 4498,
+      "parent": "CallExpression",
+      "source": "{$: \"Tuple\", fst: _live_0, snd: _live_0[_x_0 % _live_0.length]}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047prototype$045static$045client$058motion_body_ledger$1260$",
+      "line": 4509,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": ($$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047held$045adapter$058prototype_boxed_motion_setledger$(_owner_0, {$: \"../bendvy-live"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047prototype$045static$045client$058motion_body_ledger$1260$",
+      "line": 4511,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": _owner_0, \"snd\": 4294967295}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047held$045adapter$058prototype_boxed_motion_ledger$",
+      "line": 4526,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/held.Held\", \"world\": _world_0, \"main\": _main_0, \"ledger\": {$: \"../bendvy-live-first-native/experiments/"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047storage$058take_meta$",
+      "line": 4546,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.Rows\", \"main\": _main_0, \"aux\": _aux_0, \"metadata\": _metadata_0, \"capacity\": _capacity_0, \"depth"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047transaction$058read_ledger_finish$",
+      "line": 4571,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/transaction.Tx\", \"world\": _world_0, \"selected\": _selected_0, \"undo\": _undo_0, \"commands\": _commands_0, "
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047storage$058with_ledger$",
+      "line": 4582,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.World\", \"namespace\": _namespace_0, \"next\": _next_0, \"rows\": _rows_0, \"pending\": _pending_0, \"le"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047storage$058hook_checked$",
+      "line": 4609,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": _world_0, \"snd\": {$: \"../bendvy-live-first-native/experiments/s-integrate/types.Missing\"}}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047query$058struct_cols_live$1260$",
+      "line": 4673,
+      "parent": "CallExpression",
+      "source": "{$: \"Tuple\", fst: _flags_0, snd: _flags_0[_x_0 % _flags_0.length]}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047storage$058take_main_done$",
+      "line": 4706,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.Rows\", \"main\": _main_0, \"aux\": _aux_0, \"metadata\": _metadata_0, \"capacity\": _capacity_0, \"depth"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047storage$058take_main_done$",
+      "line": 4709,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.Rows\", \"main\": _main_0, \"aux\": _aux_0, \"metadata\": _metadata_0, \"capacity\": _capacity_0, \"depth"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047storage$058ledger_return$",
+      "line": 4733,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.World\", \"namespace\": _namespace_0, \"next\": _next_0, \"rows\": _rows_0, \"pending\": _pending_0, \"le"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047storage$058fuse_bounds$",
+      "line": 4742,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": _world_0, \"snd\": {$: \"../bendvy-live-first-native/experiments/s-integrate/types.Missing\"}}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047uncached$045payload$058position_swap$",
+      "line": 4805,
+      "parent": "CallExpression",
+      "source": "{$: \"Tuple\", fst: _array_0, snd: _array_0[0 % _array_0.length]}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047storage$058prototype_fuse_columns$",
+      "line": 4823,
+      "parent": "CallExpression",
+      "source": "{$: \"Tuple\", fst: _live_0, snd: _live_0[_index_0 % _live_0.length]}"
+    },
+    {
+      "function": "$measurement$045bend$058handle_client$1260$",
+      "line": 4836,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": _owner_0, \"snd\": {$: \"Tuple\", \"fst\": _aux_0, \"snd\": _handle_0}}"
+    },
+    {
+      "function": "$measurement$045bend$058handle_client$1260$",
+      "line": 4836,
+      "parent": "Property",
+      "source": "{$: \"Tuple\", \"fst\": _aux_0, \"snd\": _handle_0}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047query$058aux_read$1262$",
+      "line": 4845,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"None\"}, \"snd\": {$: \"None\"}}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047uncached$045payload$058motion_ledger_swap$",
+      "line": 4874,
+      "parent": "CallExpression",
+      "source": "{$: \"Tuple\", fst: _array_0, snd: _array_0[0 % _array_0.length]}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047uncached$045payload$058prototype_direct_position_swap$",
+      "line": 4880,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/types.Position\", \"coordinates\": (_array_0[0 % _array_0.length] = _value_0, _array_0), \"frame\": _frame_0"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047cache$058static_swap_done$1260$",
+      "line": 4892,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/cache.Cache\", \"raw\": _raw_0, \"cached\": ($$$$047bendvy$045live$045first$045native$047experiments$047s$04"
+    },
+    {
+      "function": "$measurement$045bend$058keep$1260$",
+      "line": 4902,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": _owner_0, \"snd\": {$: \"Unit\"}}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047query$058aux_return$",
+      "line": 4908,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"Some\", \"value\": _owner_0}, \"snd\": {$: \"Some\", \"value\": _value_0}}"
+    },
+    {
+      "function": "$measurement$045bend$058keep$1261$",
+      "line": 4912,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": _owner_0, \"snd\": {$: \"Unit\"}}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047uncached$045payload$058prototype_direct_motion_ledger_swap$",
+      "line": 4931,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/types.MotionLedger\", \"totals\": (_array_0[0 % _array_0.length] = _value_0, _array_0), \"epoch\": _epoch_0}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047cache$058static_swap_done$1262$",
+      "line": 4937,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/cache.Cache\", \"raw\": _raw_0, \"cached\": ($$$$047bendvy$045live$045first$045native$047experiments$047s$04"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047storage$058fuse_live$",
+      "line": 4942,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.World\", \"namespace\": _namespace_0, \"next\": _next_0, \"rows\": {$: \"../bendvy-live-first-native/ex"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047storage$058fuse_taken$",
+      "line": 4965,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.World\", \"namespace\": _namespace_0, \"next\": _next_0, \"rows\": {$: \"../bendvy-live-first-native/ex"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047query$058aux_read$1260$",
+      "line": 4982,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"None\"}, \"snd\": {$: \"None\"}}"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047storage$058fuse_return$",
+      "line": 4993,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": {$: \"../bendvy-live-first-native/experiments/s-integrate/storage.World\", \"namespace\": _namespace_0, \"next\": _next_0, \"rows\": {$: \"../bendvy-live-first-native/ex"
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047observations$058client_aux$",
+      "line": 5005,
+      "parent": "ReturnStatement",
+      "source": "{$: \"Tuple\", \"fst\": _owner_0, \"snd\": {$: \"Tuple\", \"fst\": _aux_0, \"snd\": {$: \"../bendvy-live-first-native/experiments/s-integrate/observations.QueryRow\", \"handle\": _handle_0, \"main\""
+    },
+    {
+      "function": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047observations$058client_aux$",
+      "line": 5005,
+      "parent": "Property",
+      "source": "{$: \"Tuple\", \"fst\": _aux_0, \"snd\": {$: \"../bendvy-live-first-native/experiments/s-integrate/observations.QueryRow\", \"handle\": _handle_0, \"main\": _main_0, \"aux\": _value_0, \"flag\": _"
+    },
+    {
+      "function": "io_tup",
+      "line": 5164,
+      "parent": "ArrowFunctionExpression",
+      "source": "{ $: \"Tuple\", fst, snd }"
+    }
+  ]
+}
