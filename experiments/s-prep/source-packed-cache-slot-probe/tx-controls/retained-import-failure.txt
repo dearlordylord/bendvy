@@ -1,0 +1,5 @@
+Actual first command: python3 experiments/s-prep/source-packed-cache-slot-probe/tx-controls/run.py --output /tmp/bendvy-packed-paired-tx-first-v1 --first-only
+Exit:1, before source materialization or any Bend checker invocation.
+Existing suppressed-owner.py imports existing provider_controls.py; runner had not added its directory to sys.path.
+Observed diagnostic: ModuleNotFoundError: No module named 'provider_controls'
+Scope: retained control-runner import failure; no semantic/compiler acceptance or rejection.
