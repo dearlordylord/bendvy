@@ -1,0 +1,17 @@
+{
+  "scope": "Executed literal/closure construction sites, not exact physical heap allocations/bytes; instrumentation changes escape optimization and JIT",
+  "baseline": 10086976,
+  "candidate": 9693760,
+  "delta": -393216,
+  "pointCallbacks": 131072,
+  "kindDeltas": {
+    "storage.World": -131072,
+    "storage.Rows": -131072,
+    "transaction.Tx": -131072
+  },
+  "allOtherKindsEqual": true,
+  "baselineSummarySHA256": "eabb81a7486bbb6118f8e3b0d77207e4759c75030b6f7ad8f76dd8d9fa1e44c0",
+  "candidateSummarySHA256": "5fb14390bad0c29bbb3a35a755a8a2103f1a336723cb4b59dc8eca1de897d642",
+  "profiledAndFinalOutputByteEqual": true,
+  "allEightOldAndFinalControllerOutputsByteEqual": true
+}

@@ -1,0 +1,44 @@
+{
+  "scope": "Pinned emitted affine Tx/World/Rows causal probe; no source/compiler change or universal alias proof",
+  "inputSHA256": "4c01f06e3460c9b3752ec2ff3ddfbdaa8c59ec1af321d89fe83068f43c02b7dd",
+  "outputSHA256": "48489dbf513e561695c6e9a7cdc914a1dad8ff0c16c7a76671070fd1ea2f9eb1",
+  "recipeSHA256": "913536fe72b187e3ca071ec4126e5bf2b446dbcf062a15c8f49112b075065da2",
+  "sourcePins": {
+    "held-adapter.bend": "ea9bce769439500a28ec9a266a23d3966e9ba5c44faeb108351d9aa2704a2c96",
+    "prototype-static-client.bend": "1a9d22180604433d91e6572679761f660b89b093ed5dbe2ad783859fb05d7a51",
+    "held.bend": "30147916fc8fffb5f9b83847b706c3c9dea3073bfa0282c9ac593a1198bd9283",
+    "cache.bend": "1e39566e68de59350a93ad11fae6175a8c368463d0d2f9ee2ff28e3a6963e40b",
+    "storage.bend": "185c5fe6c6d81608b0e3dae4416d32bcbc6f74a50dbb5b28120cc5d1d9400c7a",
+    "transaction.bend": "67f0e0dc4dee21381dab33bc242e6c9c67f64705ef8faea3e02b641270fa3519",
+    "measurement-bend.bend": "86f2e4fd5a8dbf9f4e4d29a5ffedf80f00a01868ccb783da1ad08204d4a11e40"
+  },
+  "inputCatalogSHA256": "bb47451e6a51a66fe3d69c53e8903676d9698949d90872d2dd33ba1dc06fa36c",
+  "callChain": [
+    "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047held$045adapter$058motion_fields_checked$1260$",
+    "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047held$045adapter$058prototype_boxed_motion_taken$1260$",
+    "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047held$045adapter$058prototype_boxed_motion_invoke$1260$",
+    "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047held$045adapter$058prototype_boxed_motion_return$",
+    "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047held$045adapter$058prototype_boxed_motion_return_world$"
+  ],
+  "catalog": [
+    {
+      "helper": "$measurement$045bend$058motion_select$",
+      "kind": "select",
+      "removedObjects": 1,
+      "callSites": 1
+    },
+    {
+      "helper": "$$$$047bendvy$045live$045first$045native$047experiments$047s$045integrate$047held$045adapter$058prototype_boxed_motion_return_world$",
+      "kind": "restore",
+      "removedObjects": 2,
+      "retainedConstructors": [
+        "Tuple",
+        "Tx",
+        "Handle",
+        "Some"
+      ],
+      "worldRowsType": "Type",
+      "arrayWriteEvaluatedBeforeOwnerMutation": true
+    }
+  ]
+}

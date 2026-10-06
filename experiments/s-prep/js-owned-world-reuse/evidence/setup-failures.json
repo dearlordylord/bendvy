@@ -1,0 +1,17 @@
+{
+  "scope": "Setup failures, not semantic comparison failures",
+  "failures": [
+    {
+      "stage": "first prototype output AST parse",
+      "reason": "Unparenthesized SequenceExpression in const initializer parsed as duplicate binding",
+      "outputWritten": false,
+      "correction": "Parenthesize each original field expression; reparse before writing"
+    },
+    {
+      "stage": "first synthetic guard harness",
+      "reason": "Expected rows identity diagnostic but nonexistent _metadata_0 correctly triggered unknown projection rejection",
+      "outputWritten": false,
+      "correction": "Use actual _meta_0 binder; fresh complete eight-control run"
+    }
+  ]
+}
