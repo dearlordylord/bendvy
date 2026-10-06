@@ -1,0 +1,17 @@
+/workspace/formal-proofs/bendvy/experiments/s-prep/js-private-fold-reuse/rewrite.cjs:3
+const [input,output,schema]=process.argv.slice(2),sha=x=>crypto.createHash('sha256').update(x).digest('hex');function need(x,m){if(!x)throw Error(m)}
+                                                                                                                                      ^
+
+Error: no nested capture
+    at need (/workspace/formal-proofs/bendvy/experiments/s-prep/js-private-fold-reuse/rewrite.cjs:3:141)
+    at /workspace/formal-proofs/bendvy/experiments/s-prep/js-private-fold-reuse/rewrite.cjs:15:251
+    at walk (/workspace/formal-proofs/bendvy/experiments/s-prep/js-private-fold-reuse/rewrite.cjs:8:54)
+    at /workspace/formal-proofs/bendvy/experiments/s-prep/js-private-fold-reuse/rewrite.cjs:8:124
+    at Array.forEach (<anonymous>)
+    at walk (/workspace/formal-proofs/bendvy/experiments/s-prep/js-private-fold-reuse/rewrite.cjs:8:113)
+    at /workspace/formal-proofs/bendvy/experiments/s-prep/js-private-fold-reuse/rewrite.cjs:8:124
+    at Array.forEach (<anonymous>)
+    at walk (/workspace/formal-proofs/bendvy/experiments/s-prep/js-private-fold-reuse/rewrite.cjs:8:113)
+    at walk (/workspace/formal-proofs/bendvy/experiments/s-prep/js-private-fold-reuse/rewrite.cjs:8:166)
+
+Node.js v24.20.0
