@@ -21,6 +21,16 @@ Direct source investigation continues; the exhausted canonical20-attempt session
 is unchanged. No new law, dependency, compiler/kernel/reference modification,
 production adoption or relaxed acceptance gate is authorized.
 Current evidence: [four-hour report](reports/fourhour-profile-continuation.md).
+Current reached mechanism: private erased-Type handle-query presence keeps opaque
+Main through intrinsic Array.swap/set. Motion independent counters improve
+22,414,279→17,171,399 requests with all65 full worlds; Health and query/authority
+controls are being verified separately. The prior custom-array recursive route
+regressed to43,385,799 requests and is rejected. Flat row/pool emitted-JS and its
+genuine ledger composition pass their own bounded controls; these are separate
+backend diagnostics, not source/compiler adoption. Same-C Os is not adopted.
+Adjacent private journal pairing remains a new measured mechanism probe; no
+full22, production authority, universal refinement or speed threshold is passed.
+
 
 ## Current performance diagnostic follow-up
 
