@@ -20,6 +20,19 @@ remains exhausted and unchanged. Diagnostic checker15/default-proof5/codegen30/
 Clang120/runtime5 limits and existing dependency/compiler/kernel/reference scope
 remain. No Canonical Defense edits or new laws/proofs.
 
+Delivered [Native1024 report](reports/native1024-continuation.md): concrete
+schema-specific owners reduce RFC creation and improve raw Native medians
+6.50% Motion/14.76% Health versus coherentv8, but remain about1.92× TS.
+The smaller Motion split-ID carrier reduces requested words yet Native is3.45%
+slower than concrete-v3 in its own fresh cohort. Unchanged-C LSE removes outlined
+atomic calls but gives1.95035×/1.97751× TS and no median improvement. All
+negative results and complete raw cohorts are preserved; neither is selected.
+Scheduling-only tune probe completes20rawrows: Motion2.12011× TS with6.57%
+lower elapsed versus default, but Health1.82803× TS with5.94% higher elapsed.
+The shared flag is not selected; both-schema Native2× still fails. Full22,5×3 matrix, forcing/noise and workload occupancy remain open.
+Continue source work from concrete-v3 closurea4672d11 with these failed
+mechanisms recorded. Native2× remains mandatory.
+
 ## Active two-hour cursor owner handoff
 
 The user authorized **2026-10-06 16:19:04–18:19:04 UTC**, including verification
