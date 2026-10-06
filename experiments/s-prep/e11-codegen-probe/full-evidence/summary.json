@@ -1,0 +1,87 @@
+{
+  "status": "ORIGINAL_CAPABILITY_FAILED",
+  "actualCheckerSeconds": 15,
+  "legacySharedMetadataCheckerSeconds": 5,
+  "defaultProofCheckerSeconds": 5,
+  "originalSubjectsBuilt": 10,
+  "freshTSReferencesPassed": 8,
+  "actualOriginalBackendComparisonsPassed": 16,
+  "requiredMutantsExecuted": 0,
+  "typeControlsExecuted": false,
+  "oraclePerturbationsExecuted": false,
+  "failedReferenceCases": [
+    {
+      "schema": "Motion",
+      "lane": "removed",
+      "wallSeconds": 5.166048394050449,
+      "limitSeconds": 5,
+      "partialOutputBytes": 0,
+      "exit": -9
+    },
+    {
+      "schema": "Motion",
+      "lane": "despawned",
+      "wallSeconds": 5.023003562120721,
+      "limitSeconds": 5,
+      "partialOutputBytes": 0,
+      "exit": -9
+    }
+  ],
+  "gateAcceptance": false,
+  "full22Acceptance": false,
+  "baselineOnly": true,
+  "executedScopedRunnerSHA256": "b8d14de8328394111797b0251ac2cbe644c2f90ae133e1b39a7a5d21f9b025c2",
+  "deliveredRunnerOnlyDifference": "Return the unchanged inner executor result as process exit status; executed recipe returned shell 0 while inner result was 2. No source/compiler/test logic change; revised launcher not rerun.",
+  "CEmissionSeconds": [
+    {
+      "schema": "motion",
+      "lane": "message",
+      "seconds": 13.765770850004628
+    },
+    {
+      "schema": "motion",
+      "lane": "removed",
+      "seconds": 8.937503342051059
+    },
+    {
+      "schema": "motion",
+      "lane": "despawned",
+      "seconds": 10.174549873918295
+    },
+    {
+      "schema": "motion",
+      "lane": "unheld",
+      "seconds": 8.226152832852677
+    },
+    {
+      "schema": "motion",
+      "lane": "marks",
+      "seconds": 8.492773501900956
+    },
+    {
+      "schema": "health",
+      "lane": "message",
+      "seconds": 8.366994659882039
+    },
+    {
+      "schema": "health",
+      "lane": "removed",
+      "seconds": 16.250256371917203
+    },
+    {
+      "schema": "health",
+      "lane": "despawned",
+      "seconds": 8.484827501932159
+    },
+    {
+      "schema": "health",
+      "lane": "unheld",
+      "seconds": 8.213493855204433
+    },
+    {
+      "schema": "health",
+      "lane": "marks",
+      "seconds": 7.659115626011044
+    }
+  ]
+}

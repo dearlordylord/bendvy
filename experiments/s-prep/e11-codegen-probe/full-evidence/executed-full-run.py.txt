@@ -1,0 +1,48 @@
+#!/usr/bin/env python3
+"""Scoped static-lane staging of the unchanged full E11 executor."""
+import argparse,hashlib,json,os,pathlib,re,sys,time,types
+import run as probe
+ROOT=probe.ROOT
+LANES={'message':('RetMessage','message_frames()'),'removed':('RetRemoved','lifecycle_frames(B.RetRemoveAll{})'),'despawned':('RetDespawned','lifecycle_frames(B.RetDespawnAll{})'),'unheld':('RetUnheld','unheld_frames()'),'marks':('RetMarks','marks_frames()')}
+def main():
+ p=argparse.ArgumentParser();p.add_argument('--input',type=pathlib.Path,required=True);p.add_argument('--output',type=pathlib.Path,required=True);p.add_argument('--cpu',type=int,default=10);a=p.parse_args();a.output.mkdir(exist_ok=False)
+ assert probe.sha(a.input/'overlay.json')==probe.INPUT_MANIFEST
+ manifest=json.loads((a.input/'overlay.json').read_text());assert all(probe.sha(a.input/n)==v for n,v in manifest['sources'].items())
+ receipts={'status':'RUNNING','actualCheckerSeconds':15,'defaultProofCheckerSeconds':5,'codegenSeconds':30,'clangSeconds':120,'runtimeSeconds':5,'baselineOnly':True,'full22Acceptance':False,'commands':[],'staging':[],'sourcePins':manifest['sources']}
+ def save():(a.output/'staging-evidence.json').write_text(json.dumps(receipts,indent=2)+'\n')
+ def stage(core,source,runtime):
+  text=source.read_text();defs=probe.blocks(text);m=re.search(r'def main\(\) -> IO\(Unit\):\n  (motion|health)\((Ret\w+)\{\}\)\n\Z',text);assert m,'Nonconstant main cannot be staged'
+  schema,ctor=m.groups();lane,expr=next((lane,expr) for lane,(c,expr) in LANES.items() if c==ctor)
+  # Assert exact original selector arms, including lifecycle constructor arguments.
+  assert 'case '+ctor+'{}: '+expr in defs['frames']
+  assert 'case '+ctor+'{}: "'+lane+'"' in defs['lane_name']
+  before=defs[schema+'_registered'];assert before.count('lane_name(lane)')==1 and before.count('frames(lane)')==1
+  after=before.replace('lane_name(lane)','"'+lane+'"').replace('frames(lane)',expr);changed=text.replace(before,after,1);assert changed!=text
+  frame=expr.split('(')[0];frame_before=defs[frame];inv=core/'host-batch-invoker.bend';inv_before=probe.blocks(inv.read_text());runtime_before={n:probe.sha(core.parent.parent/n) for n in runtime}
+  source.write_text(changed);slices=mapping.slice_control_imports(core,source,runtime)
+  assert probe.blocks(source.read_text())[frame]==frame_before
+  derived=next(core/pathlib.Path(n).name for n,v in slices.items() if v['originalSource']=='experiments/s-integrate/host-batch-invoker.bend');actual=probe.blocks(derived.read_text());assert all(body==inv_before[n] for n,body in actual.items())
+  assert 'D.tick(Batch<H.'+schema.title()+'Host()>,W.Handle<T.'+schema.title()+'Schema>,'+schema+'_presence,'+schema+'_invoke,'+schema+'_barrier,'+schema+'_transition,'+schema+'_frame' in actual[schema+'_tick']
+  assert all(probe.sha(core.parent.parent/n)==v for n,v in runtime_before.items())
+  receipts['staging'].append({'schema':schema,'lane':lane,'sourceBeforeSHA256':hashlib.sha256(text.encode()).hexdigest(),'sourceAfterSHA256':probe.sha(source),'slices':slices,'runtimePins':runtime_before,'retainedProtectedInvokerBodiesIdenticalToAuthoritativeInput':True,'invokerSHA256':probe.sha(derived)});save();return slices
+ shared=ROOT/'experiments/s-prep/fivehour-connected-gates/e11-run.py';mapping=probe.load(shared.with_name('materialize-controls.py'),'full_mapping');text=shared.read_text()
+ old="if name in cases and name in {case[0] for case in runner.mutation_cases()[5:]}:";assert text.count(old)==1;text=text.replace(old,'if name in cases:')
+ assert text.count('mapping.slice_control_imports(core, source, runtime)')==1 and text.count('mapping.slice_control_imports(core,source,runtime)')==1
+ text=text.replace('mapping.slice_control_imports(core, source, runtime)','stage(core, source, runtime)').replace('mapping.slice_control_imports(core,source,runtime)','stage(core,source,runtime)')
+ # Instrument the unchanged build helper before any commands, without changing checker/kernel defaults.
+ anchor="runner.B.CHECK = ROOT / 'experiments/t01/bend-check'";assert text.count(anchor)==1;text=text.replace(anchor,anchor+'\n        runner.B.command = bounded_command')
+ module=types.ModuleType('scoped_full_e11');module.__file__=str(shared);module.__dict__.update(stage=stage,bounded_command=None)
+ def bounded_command(argv,expected=0,timeout=5):
+  argv=list(map(str,argv))
+  if '--check-only' in argv:timeout=15;argv[0]='bend'
+  r=probe.run(argv,timeout,a.cpu);receipts['commands'].append(r);save()
+  if r['exit']!=expected:raise RuntimeError(json.dumps(r))
+  return r['output']
+ module.__dict__['bounded_command']=bounded_command
+ receipts['runnerSHA256']=probe.sha(shared);receipts['mappingSHA256']=probe.sha(shared.with_name('materialize-controls.py'));receipts['scopedRunnerSHA256']=probe.sha(pathlib.Path(__file__));save()
+ exec(compile(text,str(shared),'exec'),module.__dict__)
+ sys.argv=[str(shared),str(a.input),'--cpu',str(a.cpu),'--evidence',str(a.output/'evidence.json')];os.environ['BENDVY_CHECKER_SECONDS']='15'
+ try:result=module.main();receipts['status']='FINISHED';receipts['returnCode']=result
+ except Exception as error:receipts['status']='FAILED';receipts['error']=repr(error);raise
+ finally:save()
+if __name__=='__main__':main()
