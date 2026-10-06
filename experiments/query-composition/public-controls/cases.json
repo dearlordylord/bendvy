@@ -15,6 +15,11 @@
     "expected": "0"
   },
   {
+    "name": "positive-detached-frame",
+    "file": "positive-detached-frame.bend",
+    "expected": "0"
+  },
+  {
     "name": "writes-through-read",
     "file": "negative-read-set.bend",
     "reject": [
@@ -58,6 +63,15 @@
       "Col.Column<bad~S2, bad~C>",
       "Q.read_family",
       "Location: bad"
+    ]
+  },
+  {
+    "name": "runtime-capability-template",
+    "file": "negative-runtime-cap.bend",
+    "reject": [
+      "closed ~ arguments",
+      "observed : Cap.read",
+      "Location: bad~0"
     ]
   }
 ]

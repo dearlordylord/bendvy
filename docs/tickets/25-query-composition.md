@@ -1,6 +1,6 @@
 # S-QUERY-COMPOSE — typed query tuples and declaration ergonomics
 
-GitHub #27; follow-up to #26's independent consumer. Status: planned design slice; not
+GitHub #27; follow-up to #26's independent consumer. Status: delivered with verified evidence; not
 production adoption, new laws/proofs, dependencies or renewed optimization.
 
 The new API supports caller-authored systems and independent Type families, but
@@ -10,11 +10,21 @@ lens/template/helper plumbing. Restricted callbacks also carry unused trusted
 population/resource template arguments. Do not treat this as complete Bevy query
 composition or discard it because the two-system application runs.
 
-Design ordinary Bend typed declarations and composable capability providers for
-three or more independently selected families, optional values and combined
+Implement ordinary Bend typed declarations and composable capability providers for
+arbitrary finite heterogeneous selections, optional values and combined
 presence/absence filters. Keep affine Type owners, actual Array payloads, repeated
 reads, full-replacement rollback and rank2 confinement. Improve schema-local
 declaration reuse without requiring a DSL, generator or reflection.
+
+The library must not replace the main/aux limit with fixed three/four-family
+overloads. Closed caller-defined `Ops(H)` records and one abstract affine context
+support general composition and repeated aliases sharing current storage. The
+frozen Workshop reference also exercises AND-composed added/changed filters;
+authoritative tracking and reader cursors are part of this active implementation.
+See [design checkpoint](../reviews/query-composition-design.md) and
+[reference contract](../reference/query-composition-contract.md).
+Delivery: [completion report](../reports/query-composition.md),
+[independent final review](../reviews/query-composition-final.md).
 
 Return conditions: a third independently authored schema/application registers
 and repeatedly executes a query with at least three families and independent

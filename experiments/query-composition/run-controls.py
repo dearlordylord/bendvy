@@ -21,13 +21,13 @@ def main():
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=True)
     cases = json.loads((ROOT / OWNED / 'cases.json').read_text())
-    library = {str(p.relative_to(args.source_root)): sha(p)
-               for p in sorted((args.source_root / 'src/ecs').glob('*.bend'))}
     results = []
     with tempfile.TemporaryDirectory(prefix='query-public-controls-') as temp:
         stage = Path(temp)
         shutil.copytree(args.source_root / 'src/ecs', stage / 'src/ecs')
         shutil.copytree(ROOT / OWNED, stage / OWNED)
+        library = {str(p.relative_to(stage)): sha(p)
+                   for p in sorted((stage / 'src/ecs').glob('*.bend'))}
         for case in cases:
             source = stage / OWNED / case['file']
             command = ['timeout', '5', 'bend', str(OWNED / case['file'])]

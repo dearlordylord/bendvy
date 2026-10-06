@@ -38,7 +38,7 @@ def Family() -> Data:
 def family() -> Family():
   C.define(~Game,~Store,~Res,~GameEvent,~Unit,~Cell,~U32,~Token,~take,~put,~project,"cell")
 def initial() -> World():
-  W.World{1,2,1,Array.new(Bool,1n,True{}),2,1n,Store{Col.Column{ALeaf{Some{Cell{[7 : U32^1n],1}}}}},Res{0},[],[],[],1}
+  W.World{1,2,1,Array.new(Bool,1n,True{}),2,1n,Store{Col.Column{ALeaf{Some{Cell{[7 : U32^1n],1}}},[]}},Res{0},[],[],[],1,0}
 def read_value(result: C.Access<U32>) -> U32:
   match result:
     case C.Found{value}: value
@@ -106,14 +106,14 @@ def pending_size(commands: List<(World() -> World())>) -> List<(World() -> World
   match commands:
     case []: ([],0)
     case command <> rest: pending_join(command,pending_size(rest))
-def metadata_join(+ns: U32,+next: U32,+high: U32,live: Array<Bool>,+cap: U32,+depth: Nat,store: Store,+tick: U32,+events: List<&2,GameEvent>,+regs: List<&2,W.RegistrationMeta>,+sys: U32,sized: List<(World() -> World())> & U32) -> World() & U32:
+def metadata_join(+ns: U32,+next: U32,+high: U32,live: Array<Bool>,+cap: U32,+depth: Nat,store: Store,+tick: U32,+events: List<&2,GameEvent>,+regs: List<&2,W.RegistrationMeta>,+sys: U32,clock: U32,sized: List<(World() -> World())> & U32) -> World() & U32:
   match sized:
     case (pending,count):
-      (W.World{ns,next,high,live,cap,depth,store,Res{tick},events,pending,regs,sys},((next + (tick * 10 : U32) : U32) + ((U32.from_nat(List.length(&2,GameEvent,events)) * 1000 : U32) + (count * 10000 : U32) : U32) : U32))
+      (W.World{ns,next,high,live,cap,depth,store,Res{tick},events,pending,regs,sys,clock},((next + (tick * 10 : U32) : U32) + ((U32.from_nat(List.length(&2,GameEvent,events)) * 1000 : U32) + (count * 10000 : U32) : U32) : U32))
 def metadata(world: World()) -> World() & U32:
   match world:
-    case W.World{+ns,+next,+high,live,+cap,+depth,store,Res{+tick},+events,pending,+regs,+sys}:
-      metadata_join(ns,next,high,live,cap,depth,store,tick,events,regs,sys,pending_size(pending))
+    case W.World{+ns,+next,+high,live,+cap,+depth,store,Res{+tick},+events,pending,+regs,+sys,clock}:
+      metadata_join(ns,next,high,live,cap,depth,store,tick,events,regs,sys,clock,pending_size(pending))
 def final_observed(observed: World() & C.Access<U32>,meta: U32) -> List<&2,U32>:
   match observed:
     case (_,C.Found{value}): [value,meta]

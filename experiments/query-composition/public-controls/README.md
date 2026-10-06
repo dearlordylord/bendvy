@@ -12,7 +12,8 @@ python3 experiments/query-composition/run-controls.py --output /tmp/query-public
 python3 experiments/query-composition/run-controls.py --source-root /tmp/bendvy-query-compose-core --output /tmp/query-public-controls
 ```
 
-Final evidence passes8/8 controls. Positive five-field arbitrary Ops shape actually
+The suite contains eight independent controls and two integrator-added controls for runtime
+closure rejection and correctly constructed detached Frame; integrated evidence is recorded separately. Positive five-field arbitrary Ops shape actually
 specializes and invokes `Cap.invoke`. Two writes and three read aliases operate
 through one opaque affine context containing an actual Array payload. Runtime
 output `[70,71,71,72,73]` is read B after write A, read R after write B, then all
@@ -33,6 +34,9 @@ Negative controls require exit1 plus real `expected`/`observed` diagnostics:
   this missing authority.
 - Reconstruction: actual public `Q.Frame` constructor cannot inhabit universally
   abstract gameplay H, even when the caller supplies a separate concrete World.
+- Runtime capability: an instantiated `Cap.read` cannot accept a runtime affine
+  operation record as a closed template argument. The compiling positives use
+  closed operation records.
 - Cross-schema Family: binding a foreign typed Family/lens bundle through
   `Q.read_family` for S1 rejects the S2 column projection at that public seam.
   The positive uses exactly the same arguments with S2 consistently. This does

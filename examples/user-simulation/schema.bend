@@ -153,7 +153,7 @@ def clear_column_result(~Owner: Type,result: Col.SwapOutcome<Schema,Owner>) -> C
     case Col.Rejected{column,_}: column
 def clear_column(~Owner: Type,handle: W.Handle<Schema>,column: Col.Column<Schema,Owner>) -> Col.Column<Schema,Owner>:
   match handle:
-    case W.Handle{_,id}: clear_column_result(~Owner,Col.swap(~Schema,~Owner,column,id,None{}))
+    case W.Handle{_,id}: clear_column_result(~Owner,Col.clear(~Schema,~Owner,column,id))
 def clear_inner(store: Store,+handle: W.Handle<Schema>) -> Store:
   match store:
     case Store{positions,velocities,healths,armors,tags}: Store{clear_column(~Position,handle,positions),clear_column(~Velocity,handle,velocities),clear_column(~Health,handle,healths),clear_column(~Armor,handle,armors),clear_column(~Tag,handle,tags)}

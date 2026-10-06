@@ -36,7 +36,7 @@ def Family() -> Data:
 def family() -> Family():
   C.define(~Game,~Store,~Res,~GameEvent,~Unit,~Cell,~U32,~Token,~take,~put,~project,"cell")
 def initial() -> World():
-  W.World{1,2,1,Array.new(Bool,1n,True{}),2,1n,Store{Col.Column{ALeaf{Some{Cell{[7 : U32^1n],1}}}}},Res{0},[],[],[],1}
+  W.World{1,2,1,Array.new(Bool,1n,True{}),2,1n,Store{Col.Column{ALeaf{Some{Cell{[7 : U32^1n],1}}},[]}},Res{0},[],[],[],1,0}
 def read_value(result: C.Access<U32>) -> U32:
   match result:
     case C.Found{value}: value

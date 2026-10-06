@@ -1,0 +1,191 @@
+{
+  "status": "PASS_FINITE_PUBLIC_APPLICATION_BOTH_BACKENDS",
+  "commands": [
+    {
+      "argv": [
+        "bend",
+        "/tmp/query-composition-regression-1nh9e0_h/examples/user-simulation/main.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "label": "checker"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/query-composition-regression-1nh9e0_h/examples/user-simulation/main.bend",
+        "-o",
+        "/tmp/query-composition-regression-1nh9e0_h/.artifacts/user-api-final/simulation.js"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "label": "js-emit"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/query-composition-regression-1nh9e0_h/examples/user-simulation/main.bend",
+        "-o",
+        "/tmp/query-composition-regression-1nh9e0_h/.artifacts/user-api-final/simulation.c"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "label": "c-emit"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/query-composition-regression-1nh9e0_h/.artifacts/user-api-final/simulation.c",
+        "-o",
+        "/tmp/query-composition-regression-1nh9e0_h/.artifacts/user-api-final/simulation.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limitSeconds": 120,
+      "exit": 0,
+      "label": "native-build"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/query-composition-regression-1nh9e0_h/.artifacts/user-api-final/simulation.js"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "label": "js-run"
+    },
+    {
+      "argv": [
+        "/tmp/query-composition-regression-1nh9e0_h/.artifacts/user-api-final/simulation.native"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "label": "native-run"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/query-composition-regression-1nh9e0_h/experiments/user-api/core-controls/retry-work.bend",
+        "-o",
+        "/tmp/query-composition-regression-1nh9e0_h/.artifacts/user-api-final/retry-work.js"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "label": "work-js-emit"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/query-composition-regression-1nh9e0_h/experiments/user-api/core-controls/retry-work.bend",
+        "-o",
+        "/tmp/query-composition-regression-1nh9e0_h/.artifacts/user-api-final/retry-work.c"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "label": "work-c-emit"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/query-composition-regression-1nh9e0_h/.artifacts/user-api-final/retry-work.c",
+        "-o",
+        "/tmp/query-composition-regression-1nh9e0_h/.artifacts/user-api-final/retry-work.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limitSeconds": 120,
+      "exit": 0,
+      "label": "work-native-build"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/query-composition-regression-1nh9e0_h/.artifacts/user-api-final/retry-work.js"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "label": "js-work-run"
+    },
+    {
+      "argv": [
+        "/tmp/query-composition-regression-1nh9e0_h/.artifacts/user-api-final/retry-work.native"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "label": "native-work-run"
+    }
+  ],
+  "sources": {
+    "src/ecs/capabilities.bend": "91c0cdc01e9143d10dc0156ef4f6c39beff97d8088ed0bbb056ffff2ffabf964",
+    "src/ecs/column.bend": "635a9ededb97fdccb5a0272a581485aa5faafd1bdc2ba2e2504c609a0aee5115",
+    "src/ecs/commands.bend": "b41ec45ad17513351fd68436cefbaec0058ac4556d1d722f2c0ce5a7d4a9f9d1",
+    "src/ecs/component.bend": "d36e068152c07c410425e5114b5ca2d3e853d615025481b9b4a5fbade38d04f6",
+    "src/ecs/compose.bend": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+    "src/ecs/events.bend": "3d89fbbb40fefab4be349bfbe0d1f99c870c25c725130ccb1823910c1ace7c53",
+    "src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "src/ecs/provider.bend": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72",
+    "src/ecs/query.bend": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9",
+    "src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+    "src/ecs/structural.bend": "f813a10058914cdf85f94e879b2dc68b9cb3e878b5c683dae60152f40001fcae",
+    "src/ecs/system.bend": "95756114410e8606896ffc40ad4f50f6293e1f8fd3d739156c8d0c55a48a92ef",
+    "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "src/ecs/world.bend": "4dfe48b4d9457f8a3c0455260d8465dede4057d6a6f9c8864caa7c5bb19d5c16",
+    "examples/user-simulation/driver.bend": "84f8bc078e2b24e78567b4b0688c7bbb74d27d13f50a7f4e3e389f8181e637c2",
+    "examples/user-simulation/json.bend": "07ec96803f16bcb5e7e2d6f1e13b859e48603b3239c65941d3d5fd0f34698351",
+    "examples/user-simulation/main.bend": "8a0a0c8e2444a914553b2c0c87a0debc832d0473c72c52ba03b92f292fde9f6e",
+    "examples/user-simulation/schema.bend": "85a0e05a5e2eb31ec5fb2ff1104bf9c3ca1e196c5296ae71b8275854dbe2cd82",
+    "examples/user-simulation/simulation.bend": "35d0db9a1c9f374a940dea171dd7bbf78280250796e7883bc60fca3556ea2412",
+    "examples/user-simulation/timing-main.bend": "a658a8818be9554339b82af4d4aa78a99ce7e3badaac50679c38a6b9a5cf8d8c",
+    "experiments/user-api/core-controls/retry-work.bend": "b1dbe7eb317926bb249a77255da61588527e25042ef2c84bd85770a301723460"
+  },
+  "observations": {
+    "JS": {
+      "status": "PASS",
+      "equalCheckpoints": 22,
+      "approvedDivergences": 1,
+      "completeCheckpoints": 23,
+      "retryWorkCounts": [
+        [
+          2,
+          1,
+          1,
+          1
+        ],
+        [
+          0,
+          1,
+          0,
+          0
+        ]
+      ]
+    },
+    "Native": {
+      "status": "PASS",
+      "equalCheckpoints": 22,
+      "approvedDivergences": 1,
+      "completeCheckpoints": 23,
+      "retryWorkCounts": [
+        [
+          2,
+          1,
+          1,
+          1
+        ],
+        [
+          0,
+          1,
+          0,
+          0
+        ]
+      ]
+    }
+  },
+  "artifacts": {
+    "simulation.js": "eed4729afedc9f4596852ac3c7a5d77d9b65f60d39b0c107f49ee3e2128632a8",
+    "simulation.c": "b73d73f6ebcaf96ac7c48c87f67a0eaa4ba5438d2011a58df8424d85309dedf2",
+    "simulation.native": "01ea190da997dced2c451815725d8614a84f4d25086e18bb2a065c7db7631e1b"
+  }
+}

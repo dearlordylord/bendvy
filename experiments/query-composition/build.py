@@ -75,7 +75,7 @@ def main():
                              ("Native", [output / "workshop.native"])]:
         observed = json.loads(run(command, 5, backend.lower() + "-run"))
         receipt["observations"][backend] = validate(observed)
-        (evidence / (backend.lower() + ".json")).write_text(json.dumps(observed, indent=2) + "\n")
+        (evidence / (backend.lower() + ".json")).write_text(json.dumps(observed, separators=(",", ":")) + "\n")
     controls = ROOT / "examples/query-composition/array-controls.bend"
     run(["bend", controls, "--check-only"], 5, "array-checker")
     run(["bend", controls, "-o", output / "array-controls.js"], 30, "array-js-emit")

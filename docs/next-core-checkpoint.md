@@ -24,9 +24,14 @@ consumer. [Completion/evidence](reports/user-system-api.md) and final independen
 Standards/Spec reviews are recorded. No production adoption, new proof/law
 approval, full-core completion or qualified performance follows.
 
-Next planned design slice is [S-QUERY-COMPOSE #27](tickets/25-query-composition.md):
-arbitrary typed query tuples, combined filters and declaration ergonomics.
-Read `src/ecs/README.md` and the exact-source #26 receipts before extension.
+Delivered [S-QUERY-COMPOSE #27](tickets/25-query-composition.md): caller-defined
+heterogeneous capability records without main/aux arity, independent combined
+filters, typed added/changed stamps, transactional registered reader cursors and
+shared aliases. [Completion](reports/query-composition.md) records 22 exact TS
+points plus the approved foreign-world difference on JS/Native, fresh confinement
+controls, prior-consumer regression and independent reviews. The own-write cursor
+finding was fixed and its compiling mutant detected within this ticket.
+Read `src/ecs/README.md` and the exact-source #27 receipts before extension.
 The optimized29-module integration and full connected/performance gates under
 #21/#24 remain open; tiny whole-process timing does not establish hot-path speed.
 Tower Defense remains conditional and its canonical source is unchanged.

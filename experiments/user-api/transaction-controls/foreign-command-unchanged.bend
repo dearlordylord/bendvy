@@ -38,7 +38,7 @@ def rejected(result: T.Tx<W.World<Unit,Unit,Array<U32>,U32>,U32> & W.Status) -> 
     case _: 99
 
 def main() -> U32:
-  world = {W.World{1,2,1,Array.new(Bool,1n,True{}),2,1n,Unit{},[0 : U32^0n],[],[],[],1} : W.World<Unit,Unit,Array<U32>,U32>}
+  world = {W.World{1,2,1,Array.new(Bool,1n,True{}),2,1n,Unit{},[0 : U32^0n],[],[],[],1,0} : W.World<Unit,Unit,Array<U32>,U32>}
   tx = T.begin(~W.World<Unit,Unit,Array<U32>,U32>,~U32,world)
   tx = T.stage(~W.World<Unit,Unit,Array<U32>,U32>,~U32,tx,w => w)
   rejected(C.tx_despawn_with(~Unit,~Unit,~Array<U32>,~U32,~clear,tx,W.Handle{2,1}))

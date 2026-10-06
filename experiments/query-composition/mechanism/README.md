@@ -28,6 +28,11 @@ callback order. Any user/access failure aborts traversal, rolls back owned
 replacement journals, discards staged commands/events and returns no outputs.
 Deferred commands remain invisible until the existing explicit apply boundary.
 Concrete Frame is trusted orchestration; gameplay never receives its type.
+Caller-defined `Ops(H)` is trusted declaration code: its fields must describe
+operations, not manufacture replacement owners. The generic executor does not
+certify arbitrary type constructors or malicious closed adapters. Open runtime
+owners cannot enter closed templates; confinement controls exercise the actual
+operation-only public declarations. This is not global root authority proof.
 
 Resource reads/replacements, handle and clock reads, event publication and
 spawn/despawn/targeted insert commands are separate opt-in fields. They are not

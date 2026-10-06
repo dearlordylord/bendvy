@@ -1,0 +1,269 @@
+{
+  "status": "PASS_FINITE_PUBLIC_APPLICATION_BOTH_BACKENDS",
+  "commands": [
+    {
+      "argv": [
+        "bend",
+        "version"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "label": "bend-version"
+    },
+    {
+      "argv": [
+        "node",
+        "--version"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "label": "node-version"
+    },
+    {
+      "argv": [
+        "git",
+        "-C",
+        "/workspace/formal-proofs/bendvy/.references/bevy-ts",
+        "rev-parse",
+        "HEAD"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "label": "reference-bevy-ts"
+    },
+    {
+      "argv": [
+        "git",
+        "-C",
+        "/workspace/formal-proofs/bendvy/.references/bevy",
+        "rev-parse",
+        "HEAD"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "label": "reference-bevy"
+    },
+    {
+      "argv": [
+        "git",
+        "-C",
+        "/workspace/formal-proofs/bendvy/.references/bend2",
+        "rev-parse",
+        "HEAD"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "label": "reference-bend2"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/examples/query-composition/reference.mjs",
+        "--verify"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "label": "reference-run"
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/examples/query-composition/main.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "label": "checker"
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/examples/query-composition/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/query-composition/workshop.js"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "label": "js-emit"
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/examples/query-composition/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/query-composition/workshop.c"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "label": "c-emit"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/query-composition/workshop.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/query-composition/workshop.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limitSeconds": 120,
+      "exit": 0,
+      "label": "native-build"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/query-composition/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "label": "js-run"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/query-composition/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "label": "native-run"
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/examples/query-composition/array-controls.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "label": "array-checker"
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/examples/query-composition/array-controls.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/query-composition/array-controls.js"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "label": "array-js-emit"
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/examples/query-composition/array-controls.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/query-composition/array-controls.c"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "label": "array-c-emit"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/query-composition/array-controls.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/query-composition/array-controls.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limitSeconds": 120,
+      "exit": 0,
+      "label": "array-native-build"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/query-composition/array-controls.js"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "label": "js-array-run"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/query-composition/array-controls.native"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "label": "native-array-run"
+    }
+  ],
+  "sources": {
+    "src/ecs/capabilities.bend": "91c0cdc01e9143d10dc0156ef4f6c39beff97d8088ed0bbb056ffff2ffabf964",
+    "src/ecs/column.bend": "635a9ededb97fdccb5a0272a581485aa5faafd1bdc2ba2e2504c609a0aee5115",
+    "src/ecs/commands.bend": "b41ec45ad17513351fd68436cefbaec0058ac4556d1d722f2c0ce5a7d4a9f9d1",
+    "src/ecs/component.bend": "d36e068152c07c410425e5114b5ca2d3e853d615025481b9b4a5fbade38d04f6",
+    "src/ecs/compose.bend": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+    "src/ecs/events.bend": "3d89fbbb40fefab4be349bfbe0d1f99c870c25c725130ccb1823910c1ace7c53",
+    "src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "src/ecs/provider.bend": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72",
+    "src/ecs/query.bend": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9",
+    "src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+    "src/ecs/structural.bend": "f813a10058914cdf85f94e879b2dc68b9cb3e878b5c683dae60152f40001fcae",
+    "src/ecs/system.bend": "95756114410e8606896ffc40ad4f50f6293e1f8fd3d739156c8d0c55a48a92ef",
+    "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "src/ecs/world.bend": "4dfe48b4d9457f8a3c0455260d8465dede4057d6a6f9c8864caa7c5bb19d5c16",
+    "examples/query-composition/array-controls.bend": "f5c6c28b2a563db088331309b6753ec09ccc00b2c8f22931e838b7cd5e913cd2",
+    "examples/query-composition/declarations.bend": "50da7392497713d68874a609c39f418f829611654c1db05973e2249463ada9f2",
+    "examples/query-composition/driver.bend": "cf15e0ca8bbb1ea0b410776a3f74916e3f86f10ff9a92d44f0efcc5ad5974b4c",
+    "examples/query-composition/gameplay.bend": "590a878e0002afcc4904dc42c7a36df1b2afc3c3515dac8dac773cbed7d24670",
+    "examples/query-composition/json.bend": "826fca39e8bd47bef326b9fd141d1784bc1f9004c7b460894a602cc3100f16be",
+    "examples/query-composition/main.bend": "4339adc4de65c6bcbe25f243ba3a152ee16509fe3a74c966251d6ccc0bba97dd",
+    "examples/query-composition/observe.bend": "0380c97203301393e5954aafe1be98269f5e2776de7f5aebb6eed25071f366ac",
+    "examples/query-composition/scenario-ops.bend": "fb6e87b28dd29552f530c4986b793726a6f3f00e5e29c3641e01a7d1b2c5d64e",
+    "examples/query-composition/schema.bend": "d845bf538d8368406bed7473677f9c3511f311d373511d8e6322728e5d5b8384",
+    "examples/query-composition/timing-main.bend": "a7fea467df249864772e4be3e229342cddd2e457bed6fb596f28e224b203fbb6",
+    "examples/query-composition/verify.py": "e80c4264366b7380f516689964e5d0204a93b75eef4e7958351f4abbbe4a9235",
+    "examples/query-composition/expected.json": "e042305fedcb646ff7a52d28ca3fd5ba9f11a1eda2a12cd5c945dd77f57bb742",
+    "examples/query-composition/reference.mjs": "40ea098e003335229a2fdbeac023ad01a786fca6322165d1a698889c01358e35",
+    "experiments/query-composition/build.py": "920eda128ba3a47ba90cd8f75a8c39e7943727255c31b7861b7ddd15db32f2a1",
+    ".references/sources.json": "5d4d89ca984a2eb21e21715344219bb9caa022b6bebca0c9f8959584cceb8b8f"
+  },
+  "observations": {
+    "TS": {
+      "status": "PASS",
+      "checkpoints": 23
+    },
+    "JS": {
+      "status": "PASS",
+      "equalCheckpoints": 22,
+      "approvedDivergences": 1,
+      "completeCheckpoints": 23,
+      "dynamicArrayLengths": [
+        0,
+        9,
+        17
+      ]
+    },
+    "Native": {
+      "status": "PASS",
+      "equalCheckpoints": 22,
+      "approvedDivergences": 1,
+      "completeCheckpoints": 23,
+      "dynamicArrayLengths": [
+        0,
+        9,
+        17
+      ]
+    }
+  },
+  "compilerVersion": "bend 2.0.35",
+  "nodeVersion": "v24.20.0",
+  "referenceCommits": {
+    "bevy-ts": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334",
+    "bevy": "ad678262ce53b5d142fe49ee5e08caff6f00ab60",
+    "bend2": "a950fd683c0d76f09794078e6174fe98a1492876"
+  },
+  "artifacts": {
+    "workshop.js": "5fe6ee0b6f7ecbdb523c084520f362e0433d8fc71417f593b635396658f9ae9b",
+    "workshop.c": "2499fec71ed1b8e864704295f77cdaa3639c8eb29d99205d160f64bf890df1ee",
+    "workshop.native": "a1ff6aeea3b6ed7824c88bdcf4c7d698bdd145522f99c8bcb543c9c26a98c143",
+    "array-controls.js": "3e5030275e7bb3298a0f06851597b4a37ae224b177019c171009513f5f5f460c",
+    "array-controls.c": "b306cffa48a3c24c1c4cc3755afb42ff9173830aebb1f4496d6ba2c36e8b61d3",
+    "array-controls.native": "31325c816178520e0664178e44f8b37ca2cb24a0ded0115005b2f8d23b448be7"
+  }
+}

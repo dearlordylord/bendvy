@@ -1,6 +1,6 @@
 # Explicit typed ECS application API
 
-This is the bounded #26 public interface. It supports caller-authored component
+This is the explicit typed API extended in #26 and #27. It supports caller-authored component
 families and closed, repeatedly executable gameplay callbacks. It is not full
 Bevy parity or a qualified performance claim.
 
@@ -20,30 +20,29 @@ protection; concrete public constructors are not secrets.
 The bounded allocator uses monotonic IDs, no reuse and a 131072 entity limit.
 Production capacity/growth and exhaustion policy remain full-core follow-ups.
 
-`Query.each_rw_read` iterates ascending live handles. The main family is required
-and writable; the auxiliary family is read-only with `Required`, `Present`,
-`Absent` or `Optional` selection. Optional presence is represented by
-`Component.Access`. Gameplay is universally quantified over an abstract affine
-context and erased operation templates. Thread the context through every read
-and write. Erased getters can be invoked repeatedly; do not copy runtime affine
-function closures. Replacement consumes a newly owned component; the library
-retains its old owner for rollback. It does not expose destructive arbitrary
-component conversion as a rollback-safe operation.
+Use `Compose.each` with a closed `Plan{caps,select}` and an ordinary caller-defined
+`Ops(H)` record. Each field selects an independently typed read/write/optional
+capability; the library has no main/aux or fixed tuple-arity limit. `family_match`
+and recursive `both` compose required, presence and absence requirements
+independently of granted operations. `all` supports empty selection. Optional
+reads return `Component.Access` without requiring presence. The Workshop
+[declarations](../../examples/query-composition/declarations.bend) show reusable
+schema-local binding helpers and named capability records without a generator.
 
-The broad writable callback bundle grants main replacement, auxiliary read,
-resource read/replacement, Data event emission, deferred despawn and typed bundle
-spawn. Declare every granted capability when registering this bundle, even if
-a body uses fewer operations. More granular operation combinations are an
-explicit follow-up. `Query.each_rw_read_resource` grants only main replacement,
-main/aux reads and resource read; use it for movement. String registration
-metadata alone does not constrain a
-concrete runner. `Query.each_read` supplies only main/aux/resource reads and
-collects Data output. It supplies no setter, event writer or command operation.
-`Query.each_rw_read_events` grants main replacement, main/aux reads, event
-emission and current-entity despawn, without resource or spawn operations.
-The bounded query combinators cover two component families per callback;
-arbitrary typed query tuples and combined multi-family filters remain a
-follow-up rather than an implied complete query API.
+Gameplay is checked for arbitrary affine H and receives only its declared
+operations. Thread H through every call; closed getters can run repeatedly.
+Aliases of the same component share the current storage through this one owner.
+Replacement consumes actual C: Type and journals its old owner for rollback.
+Read-only fields have no setter. Resource, event and command operations are
+separate opt-in fields. Caller-defined Ops and closed adapters are trusted
+provisioning; arbitrary type constructors are not a universal authority theorem.
+
+`Compose.each_since` combines `lifecycle_match(Added/Changed)` with structural
+predicates using a runtime reader cursor and authoritative typed column stamps.
+Reads leave stamps unchanged; equal-value writes count as changes. Transaction
+failure restores old payloads and stamps. The existing two-family `Query`
+entry points remain available for earlier consumers; use Compose for new general
+selections.
 
 Bind a closed query runner to a caller-authored rank2 gameplay body, then call
 `System.register`. Registration returns the World and an affine
@@ -61,8 +60,13 @@ explicitly; schedule completion does not flush. Schema cleanup on public
 despawn releases all component owners. `Structural` queues independent family
 insert/remove operations with validation before queuing and at application.
 
+`System.cursor` reads the current cursor while returning its registry owner.
+Use `System.run_tracked` for lifecycle readers: success consumes the authoritative
+post-run clock, including the system's own writes; failure/refusal retains the
+old cursor. `System.run_to_cursor` remains an explicit caller-supplied cursor
+operation for existing consumers.
+
 `Events.create/read` threads independent affine reader owners through an
 append-only Data event log. Retention, lag and affine event payloads are separate
-follow-ups. `System.run_to_cursor` advances its supplied cursor only on success;
-failure/refusal retains it. No universal proof/refinement follows from finite
+follow-ups. No universal proof/refinement follows from finite
 compiler or application tests.
