@@ -157,7 +157,7 @@ def init_retry(factory: W.Factory,reader: E.Reader<S.Schema>,movement: Sys.Regis
     case _: None{}
 def init_damage(factory: W.Factory,reader: E.Reader<S.Schema>,movement: Sys.Registry<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_movement>,result: Sys.RegistrationResult<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_damage>) -> Maybe<&1,State>:
   match result:
-    case Sys.Registered{world,damage}: init_retry(factory,reader,movement,damage,Sys.register(~S.Schema,~S.Store,~F32,~S.SimEvent,~Bool,~String,~Unit,~run_retry,world,"retry",["Position.write","Velocity.read","Dt.write","Hit.emit","spawn"]))
+    case Sys.Registered{world,damage}: init_retry(factory,reader,movement,damage,Sys.register(~S.Schema,~S.Store,~F32,~S.SimEvent,~Bool,~String,~Unit,~run_retry,world,"retry",["Position.write","Velocity.read","Dt.read","Dt.write","Hit.emit","Death.emit","despawn","spawn"]))
     case _: None{}
 def init_movement(factory: W.Factory,reader: E.Reader<S.Schema>,result: Sys.RegistrationResult<S.Schema,S.Store,F32,S.SimEvent,Unit,String,Unit,run_movement>) -> Maybe<&1,State>:
   match result:
@@ -235,3 +235,12 @@ def run_ready(ready: Maybe<&1,State>) -> List<&2,Checkpoint>:
     case Some{state}: finish(phase_despawn(phase_foreign(phase_structural(phase_three(phase_two(phase_one(state)))))))
 def main() -> List<&2,Checkpoint>:
   run_ready(init_created(S.create(W.factory(),1.0)))
+
+# Timing keeps the 22 equivalent observations; the approved foreign-world
+# difference is verified separately by main and is not equivalent TS work.
+def equivalent_ready(ready: Maybe<&1,State>) -> List<&2,Checkpoint>:
+  match ready:
+    case None{}: [FailedResult{"init","RegistrationFailed"}]
+    case Some{state}: finish(phase_despawn(phase_structural(phase_three(phase_two(phase_one(state))))))
+def equivalent() -> List<&2,Checkpoint>:
+  equivalent_ready(init_created(S.create(W.factory(),1.0)))
