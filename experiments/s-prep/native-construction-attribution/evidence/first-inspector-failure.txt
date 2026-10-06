@@ -1,0 +1,10 @@
+Captured tool-console excerpt from the initial Node inspector attempt, before adding book_valid. This is an excerpt, not a complete raw subprocess log or a checker verdict. Invocation was bounded30s onCPU11; it exited1 rather than timing out.
+
+TypeError: Cannot read properties of null (reading '$')
+    at Module.term_force (file:///workspace/formal-proofs/bendvy/.references/bend2/bend2/bend.ts:679:12)
+    at term_force (file:///workspace/formal-proofs/bendvy/.references/bend2/bend2/comp.ts:645:18)
+    at term_any (file:///workspace/formal-proofs/bendvy/.references/bend2/bend2/comp.ts:760:13)
+    at file_book (file:///workspace/formal-proofs/bendvy/.references/bend2/bend2/comp.ts:1371:5)
+    at Module.compile_book (file:///workspace/formal-proofs/bendvy/.references/bend2/bend2/comp.ts:2756:14)
+
+This failed diagnostic does not supply hotness evidence. Final inspect-run.py separately bounds read/check15s and emission30s, observes both seeds and regenerates byte-identical baseline C.
