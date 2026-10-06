@@ -1,0 +1,39 @@
+{
+  "status": "FRESH_NEW_CURSOR_BOUNDED_GUARDS_PASS",
+  "cpu": 7,
+  "commands": [
+    {
+      "argv": [
+        "node",
+        "--expose-internals",
+        "experiments/s-prep/js-cursor-query-transport/guard-controls.cjs",
+        "/tmp/bendvy-cursor-tuple-guards.json"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "output": "{\"status\":\"STRUCTURAL_ORDER_RETAINED_CONTROLS_PASS\",\"checks\":34}\n"
+    },
+    {
+      "argv": [
+        "node",
+        "--expose-internals",
+        "experiments/s-prep/js-cursor-query-transport/row-guard-controls.cjs",
+        "/tmp/bendvy-cursor-row-guards.json"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "output": "{\"status\":\"PASS\",\"checks\":120}\n"
+    },
+    {
+      "argv": [
+        "node",
+        "--expose-internals",
+        "experiments/s-prep/js-cursor-query-transport/nested/guard-controls.cjs",
+        "/tmp/bendvy-cursor-nested-guards.json"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "output": "{\"status\":\"PASS\",\"checks\":11}\n"
+    }
+  ]
+}
