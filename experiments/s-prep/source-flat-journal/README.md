@@ -109,3 +109,41 @@ Physical `malloc`/`mmap`/heap-miss/growth calls are zero in both observed phases
 Allocator requests and requested words therefore must not be presented as physical
 allocations or peak memory. Counts establish this finite source mechanism; they do
 not establish Native speed, JS comparability, universal behavior or product targets.
+
+Independent-review follow-up: reached nonidentity fallback
+
+`fallback-controls.py` now executes two deliberately distinct subjects on v4,
+64 full pre/post records across both schemas/backends, success and rollback:
+
+- Actual flat fold first processes valid handle7/1, then foreign handle8/1 forces
+  its generic fallback. A new fixture callback keeps the rank2 Owner opaque and
+  uses only supplied main/ledger setters (main30, ledger200 then300), returning the
+  updated owner and55 each time. The original generic two-callback path supplies
+  an independent whole-field comparator. Literal checks pin total110, selected8/1,
+  exact inverse/mark/command/ping order, main30/ledger300 on success and main10/
+  ledger77 after full failed unwind, including the incoming legacy inverse tail.
+- The actual concrete fallback-result adapter receives a fixture-owned returned
+  Tx with changed affine payload, selected handle, undo, commands, pings and marks.
+  Every field reaches repacking and private success/rollback and matches the
+  original generic path plus literals. This tests complete concrete result
+  transport; it does not grant an opaque rank2 callback authority to manufacture
+  handles or edit commands/pings. That authority distinction is deliberate.
+
+A compiling mutation in both actual `prototype_flatfold_*_converted` helpers
+preserves the returned world but drops selected/undo/commands/pings/marks. All four
+schema/backend lanes detect its runtime counterexample. The first fixture forward
+reference failure is archived; changing definition order fixes the fixture only.
+The final recipe consumes archived fixture templates, not an earlier temporary
+control directory, and records recipe/template hashes.
+
+`generic-returned-owner.bend` additionally transforms custom array-owning Main,
+Aux and Ledger fields and an affine array-owning command, with nonidentity
+selected/undo/commands/pings/marks. Generic flat pack/unpack and private success/
+rollback produce independent literal full4-cell vectors and ordered output in
+both backends. Cloning this changed affine owner is rejected at the Data-kind
+boundary. It complements the reached concrete schema callback rather than claiming
+arbitrary payload substitution into that concrete callback family.
+
+No candidate defect was found; v4 Bend source and all original callback bytes stay
+unchanged. These controls close the reported finite returned-owner/fallback gap,
+not a universal refinement or full22 capability gate. Receipt archives are indexed.
