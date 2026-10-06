@@ -20,32 +20,16 @@ def run(role,argv):
 try:
  receipt=Path(str(a.candidate)+'.recipe.json');m=json.loads(receipt.read_text());d=a.recipe_directory
  constant=m['status']=='STRICT_CONSTANT_SWAP_PASS'
- state=m['status']=='STRICT_PRIVATE_CURSOR_STATE_REUSE_PASS'
- unused=m['status']=='STRICT_UNUSED_PLAIN_PRIVATE_ROW_PROJECTIONS_PASS'
- if unused:
-  catalog=d/'input-pins.json';pin=json.loads(catalog.read_text())[m['inputSHA256']]
-  assert pin['schema']==a.schema.lower() and pin['label']==a.schema.lower() and pin['mode']=='cursor-normal'
-  assert m['outputSHA256']==sha(a.candidate) and m['recipeSHA256']==sha(d/'rewrite.cjs') and m['catalogSHA256']==sha(catalog)
-  assert len(m['removed'])==sum(pin['expectedRemoved'].values()) and m['ownerProducers']==pin['expectedProducers']
-  baseline=Path(pin['inputPath']);assert sha(baseline)==m['inputSHA256']
-  for n,h in pin['files'].items():assert sha(Path(n))==h
-  parent=Path(str(baseline)+'.recipe.json');pm=json.loads(parent.read_text());assert pm['status']=='PINNED_DIRECT_TUPLE_SCALAR_RECEIVERS_DERIVED' and pm['mode']=='cursor-normal' and pm['schema']==a.schema.lower() and pm['outputSHA256']==sha(baseline)
-  assert pin['sourceRoot']==pm['sourceRoot'] and pin['sourcePins']==pm['sourcePins']
-  m['sourcePins']=pm['sourcePins'];m['sourceRoot']=pm['sourceRoot'];m['provenancePins']={**pin['files'],**pm['provenancePins'],str(catalog):sha(catalog),str(d/'rewrite.cjs'):sha(d/'rewrite.cjs')}
-  r['unusedProjectionAdmission']={'catalogSHA256':sha(catalog),'parentReceiptSHA256':sha(parent),'removedReads':len(m['removed']),'ownerProducers':m['ownerProducers']}
- elif constant or state:
+ if constant:
   catalog=d/'input-pins.json';pin=json.loads(catalog.read_text())[m['inputSHA256']]
   baseline=Path(pin['inputPath']);assert sha(baseline)==m['inputSHA256']
-  assert pin['schema']==a.schema and pin['label']=='normal-'+a.schema.lower()
-  if constant:assert pin['expectedSites']==9 and len(m['sites'])==9
-  else:assert m['catalogSHA256']==sha(catalog) and m['family']==pin['family'] and len(m['family'])==6 and m['terminalCount']==5 and m['edges']==5
+  assert pin['schema']==a.schema and pin['label']=='normal-'+a.schema.lower() and pin['expectedSites']==9 and len(m['sites'])==9
   assert m['outputSHA256']==sha(a.candidate) and m['recipeSHA256']==sha(d/'rewrite.cjs')
-  if constant:assert m['sourceClosure']==pin['sourceClosure']=='bdf6b2fc46d2a89615d0e9eb48d44f4a3e8c8f2ff5b8268d7ca50463e6bfbe94'
+  assert m['sourceClosure']==pin['sourceClosure']=='bdf6b2fc46d2a89615d0e9eb48d44f4a3e8c8f2ff5b8268d7ca50463e6bfbe94'
   for n,h in pin['files'].items():assert sha(Path(n))==h
   parent=Path(str(baseline)+'.recipe.json');pm=json.loads(parent.read_text());assert pm['status']=='PINNED_NESTED_DIRECT_LITERAL_SCALAR_EDGES_DERIVED' and pm['mode']=='cursor-normal' and pm['schema']==a.schema.lower() and pm['outputSHA256']==sha(baseline)
   m['sourcePins']=pm['sourcePins'];m['sourceRoot']=pm['sourceRoot'];m['provenancePins']={**pin['files'],**pm['provenancePins']}
-  r['privateGeneratedAdmission']={'status':m['status'],'catalogSHA256':sha(catalog),'parentReceiptSHA256':sha(parent),'selectedSites':len(m.get('sites',[])),'runtimeSHA256':pin.get('runtimeSHA256'),'terminalCount':m.get('terminalCount')}
-  m['provenancePins'].update({str(d/'rewrite.cjs'):sha(d/'rewrite.cjs'),str(catalog):sha(catalog)})
+  r['constantSwapAdmission']={'catalogSHA256':sha(catalog),'parentReceiptSHA256':sha(parent),'selectedSites':len(m['sites']),'runtimeSHA256':pin['runtimeSHA256']}
  else:
   nested=m['status']=='PINNED_NESTED_DIRECT_LITERAL_SCALAR_EDGES_DERIVED'
   assert (nested or m['status']=='PINNED_DIRECT_TUPLE_SCALAR_RECEIVERS_DERIVED') and m['schema']==a.schema.lower() and m['mode'] in ['normal','packed-paired-raw','cursor-normal']

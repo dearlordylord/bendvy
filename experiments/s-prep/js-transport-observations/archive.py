@@ -13,15 +13,19 @@ for root in sorted({p for pattern in patterns for p in Path('/tmp').glob(pattern
  for n,h in r.get('inputs',{}).get('producerPins',{}).items():
   p=Path(n);assert sha(p.read_bytes())==h;files[str(p)]=p
  for n,h in r.get('inputs',{}).get('sourcePins',{}).items():
-  for source in ['bendvy-identity-handle-query-v3','bendvy-packed-paired-journal-both-v3','bendvy-private-id-query-v4']:
+  for source in ['bendvy-identity-handle-query-v3','bendvy-packed-paired-journal-both-v3','bendvy-private-id-query-v4','bendvy-private-id-query-descending-v1']:
    p=Path('/tmp')/source/n
    if p.exists() and sha(p.read_bytes())==h:files[str(p)]=p;break
   else:raise AssertionError(n)
-for pattern in ['bendvy-direct-tuple-*-final.js*','bendvy-direct-tuple-*-nested.js*','bendvy-cursor-generated-*-nested.js*','bendvy-js-identity-query-*-pool-v3.js*']:
+for pattern in ['bendvy-direct-tuple-*-final.js*','bendvy-direct-tuple-*-nested.js*','bendvy-cursor-generated-*-nested.js*','bendvy-js-identity-query-*-pool-v3.js*','bendvy-descending-generated-*-nested.js*','bendvy-unused-row-*.js*','bendvy-cursor-state-*.js*']:
  for p in Path('/tmp').glob(pattern):
   if p.is_file():files[str(p)]=p
-for p in Path('/tmp/bendvy-packed-paired-generated-frozen-v1').rglob('*'):
- if p.is_file():files[str(p)]=p
+for root in [Path('/tmp/bendvy-packed-paired-generated-frozen-v1'),Path('/tmp/bendvy-constant-swap-controls-frozen'),Path('/tmp/bendvy-descending-generated-frozen-v1')]:
+ for p in root.rglob('*'):
+  if p.is_file():files[str(p)]=p
+for p in (H.parent/'js-constant-swap').glob('*.json'):files[str(p)]=p
+for p in (H.parent/'js-constant-swap').glob('*.cjs'):files[str(p)]=p
+files={str(p.resolve()):p.resolve() for p in files.values()}
 archive=E/'exact-observations.tar.gz';manifest={n:{'SHA256':sha(p.read_bytes()),'bytes':p.stat().st_size} for n,p in sorted(files.items())}
 with tarfile.open(archive,'w:gz') as t:
  for n,p in sorted(files.items()):t.add(p,arcname=n.lstrip('/'),recursive=False)

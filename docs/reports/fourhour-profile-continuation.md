@@ -227,3 +227,55 @@ executor forwarded CPU10 despite outerCPU8; those child receipts are CPU10, with
 no performance measurement claim. Subsequent runner uses actualCPU8.
 No full22, universal refinement, proof/adoption, qualification or goal completion
 is inferred. The active deadline remains09:51:16 UTC.
+
+## Updated evidence at 09:00 UTC — still active
+
+Overall issues #21/#24 remain **incomplete**. The new source frontier is
+[typed private-ID cursor](../../experiments/s-prep/source-private-id-query/README.md),
+closure bdf6b2fc46d2a89615d0e9eb48d44f4a3e8c8f2ff5b8268d7ca50463e6bfbe94.
+It retains nominal schema/namespace, creates original handles at the unchanged
+step boundary, preserves live/flag/Main checks and ascending order, and retains
+public/generic callbacks and fallback. Native counters independently decrease
+to8,803,271 requests/4,292,926RFC on both schemas. Source-owned shape/query/
+negative/mutation controls and fresh reached-cursor protected8/576 controls
+pass. Those are bounded observations, not global root-authority/refinement proofs.
+
+The same-source [JS chain](../../experiments/s-prep/js-cursor-query-transport/README.md)
+passes bothschema full65, own counted nine-world equality, current8/576 protected
+controllers and frozen/fullshape/pending true-old/order guards. It removes
+1,835,520 ordinary construction expressions per counted subject; no physical
+allocation or speed conclusion follows from the count. Root serial raw clocks:
+Motion189/TS182.114ms, Health213/182.156ms; parity remains unmet. Source Native
+serial clocks range Motion82/176.829 and84/165.058, Health87/184.478 and85/165.873.
+The latter pair misses2x. These are noisy descriptive measurements, not qualified
+performance acceptance or a full workload matrix.
+
+[Independent generated-chain review](../reviews/cursor-js-transport-review.md)
+finds no concrete blocker in the two exact final programs. It records an inactive
+optional row-provenance path mismatch and missing fresh final-chain generic/
+nonidentity fallback coverage. A fresh attempted fallback admission safely
+refuses an absent compiler-eliminated get helper; no guard was relaxed and no
+fallback pass is claimed. These explicit follow-ups remain under #24.
+
+[Remaining full22 assessment](../../experiments/s-prep/source-private-id-query-remaining-gates/README.md)
+maps all11 gate IDs per backend. The unchanged materializer refuses historical
+registration matching. Simply relaxing it would run original public Cache Hosts
+and bypass the actual private Slot/cursor route. A new route-aware adapter must
+preserve original algorithms/oracles, both capture styles, exact Host/E11 and
+command/transaction mutant anchors. One actual cached Motion lost-mark mutant
+now compiles on JS/Native and is detected at five protected discrepancies each;
+Health/raw/suppressed and the other exact catalogue IDs remain open.
+
+Current [Health CPU/GC/inlining profile](../../experiments/s-prep/js-transport-phase-profile/README.md)
+passes full65. Approximate allocation intervaltraffic1.985GB JS versus625MB TS
+for64fresh worlds is accumulated churn, not live heap/RSS. GC samples~12/13.6%;
+query/owner/setter work remains material. V8 actually inlines several relevant
+helpers, so a general missing-inlining explanation is unsupported. An earlier
+GC/TS JSON collision is retained as failure; separate fullJSON output outside
+the phase repairs diagnostic transport without deleting authored work.
+
+The root accidentally overlapped two CPU11 drivers; their comparative clocks
+are explicitly invalid and retained with annotations. Later comparisons above
+are serial. No contaminated observation, parent gate or timeout is acceptance.
+Next active probe removes only dominating-const array swap closures in generated
+JS with exact source/runtime/order guards; speed and adoption remain unclaimed.

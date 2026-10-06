@@ -67,3 +67,15 @@ driver on CPU11. Their full fields pass, but all comparative elapsed conclusions
 are invalid. Original outputs and measurement-limit annotations are archived;
 serial reruns above are separate new observations. No contaminated fast/slow
 clock or parent gate is used as candidate acceptance.
+
+## Descending producer source
+
+Closure b0fdd6c41be12b34efc79e45edc98225c1b0158a51976b432a1646bfcae9e8f0
+changes only private query collection: high→1/prepend, preserving ascending
+callback IDs, full Rows and opaque owners. Fresh serial observations:
+Motion Native75/TS186.356ms, Health77/170.811ms (parents83/85ms). RawJS223/232ms
+misses parity. All65 complete fields pass; these are source-bound raw examples,
+not qualified2x acceptance. Independent counts remove1,044,480RFC cells/schema,
+with Cons construction unchanged. `observe-cursor-v3.py` preserves the preceding
+exact recipe; current version supports actual standard receipts symmetrically
+and validates the approved private Clang wrapper hash for all routes.

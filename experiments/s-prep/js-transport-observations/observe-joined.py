@@ -6,13 +6,15 @@ ROOT=Path(__file__).resolve().parents[3]
 sys.path.insert(0,str(ROOT/'experiments/s-prep/fivehour-connected-gates'));import supervisor
 p=argparse.ArgumentParser()
 p.add_argument('--candidate',type=Path,required=True)
+p.add_argument('--native-build',type=Path,required=True)
+p.add_argument('--native-receipt',type=Path,required=True)
 p.add_argument('--recipe-directory',type=Path,required=True)
 p.add_argument('--schema',choices=['Motion','Health'],required=True)
 p.add_argument('--rotation',type=int,choices=range(7),required=True)
 p.add_argument('--output',type=Path,required=True)
 a=p.parse_args();a.output.mkdir(exist_ok=False);os.sched_setaffinity(0,{11})
 sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
-r={'status':'INCOMPLETE','scope':'Raw full65 diagnostic only; no qualified keep, source/compiler adoption or Native claim','schema':a.schema,'rotation':a.rotation,'CPU':11,'recipeSHA256':sha(Path(__file__)),'commands':[]}
+r={'status':'INCOMPLETE','scope':'Joined exact-source full65 Dense diagnostic; no qualified keep, workload matrix, source/compiler adoption or complete acceptance','schema':a.schema,'rotation':a.rotation,'CPU':11,'recipeSHA256':sha(Path(__file__)),'commands':[]}
 def save():(a.output/'evidence.json').write_text(json.dumps(r,indent=2)+'\n')
 def run(role,argv):
  c={'role':role,'argv':list(map(str,argv)),'limitSeconds':5};r['commands'].append(c);save()
@@ -57,18 +59,26 @@ try:
  for n,h in m['sourcePins'].items():assert sha(Path(m['sourceRoot'])/n)==h
  for n,h in m['provenancePins'].items():assert sha(Path(n))==h
  r['inputs']={'baselineSHA256':sha(baseline),'candidateSHA256':sha(a.candidate),'actualDerivationReceiptSHA256':sha(receipt),'sourcePins':m['sourcePins'],'producerPins':m['provenancePins']}
+ build=a.native_build;nb=json.loads(a.native_receipt.read_text());assert nb['status']=='BUILD_PASS' and nb['schema']==a.schema and nb['sourcePins']==m['sourcePins']
+ assert str(a.native_receipt) in m['provenancePins'] and m['provenancePins'][str(a.native_receipt)]==sha(a.native_receipt)
+ assert {n:sha(build/n) for n in ['batch.bend','batch.c','batch-native','batch.js']}==nb['artifacts']
+ assert sha(build/'measurement-bend.bend')==nb['measurementOutputSHA256']
+ for argv,cap in [(['bend',str(build/'batch.bend'),'--check-only'],15),(['bend',str(build/'batch.bend'),'-o',str(build/'batch.c')],30),(['bend',str(build/'batch.bend'),'-o',str(build/'batch.js')],30),(['/tmp/bendvy-clang19-diagnostic/clang19','-O3',str(build/'batch.c'),'-o',str(build/'batch-native'),'-lm','-pthread'],120)]:
+  hits=[c for c in nb['commands'] if c['argv']==argv];assert len(hits)==1 and hits[0]['limitSeconds']==cap and hits[0]['exit']==0 and not hits[0].get('timeout',False)
+ assert sha(Path('/tmp/bendvy-clang19-diagnostic/clang19'))=='3e171a978d6c1decae4e6645e9bfb771cf5af21ff699ea119fdb058936b0af2d'
+ r['joinedNative']={'actualReceiptPath':str(a.native_receipt),'actualReceiptSHA256':sha(a.native_receipt),'artifacts':nb['artifacts'],'measurementOutputSHA256':nb['measurementOutputSHA256'],'same29SourceAsDerivedJS':True,'workerCount':1,'GPU':'off'}
  ref=a.output/'reference.mjs';run('prepare-ts',[sys.executable,ROOT/'experiments/s-prep/fivehour-measurement/prepare-ts.py','--source',ROOT/'experiments/s-integrate/measurement-samples-reference.mjs','--output',ref,'--schema',a.schema,'--batch','64'])
- order=['TS','baseline-JS','candidate-JS'];shift=a.rotation%3;order=order[shift:]+order[:shift]
+ order=['TS','Native','candidate-JS'];shift=a.rotation%3;order=order[shift:]+order[:shift]
  if a.rotation%2:order=order[::-1]
- paths={'TS':ref,'baseline-JS':baseline,'candidate-JS':a.candidate};r['executionOrder']=order;outputs={role:run(role,['node',paths[role]]) for role in order}
+ paths={'TS':['node',ref],'Native':[build/'batch-native','--threads','1','--gpu','off'],'candidate-JS':['node',a.candidate]};r['executionOrder']=order;outputs={role:run(role,paths[role]) for role in order}
  ts=json.loads(outputs['TS']);assert ts['schema']==a.schema and ts['count']==256 and ts['iterations']==64 and ts['batch']==64 and len(ts['samples'])==64
  spec=importlib.util.spec_from_file_location('V',ROOT/'experiments/s-integrate/measurement-bend-run.py');v=importlib.util.module_from_spec(spec);spec.loader.exec_module(v)
  r['phaseMS']={'TS':ts['batchMilliseconds']}
- for role in ['baseline-JS','candidate-JS']:
+ for role in ['Native','candidate-JS']:
   lines=outputs[role].splitlines();records=[x for x in lines if x.startswith('{')];clocks=[x for x in lines if x.startswith('BATCH-MILLISECONDS:')];assert len(records)==65 and len(clocks)==1
   for line,world in zip(records,[ts['warmup'],*ts['samples']]):v.validate(line,a.schema,False,256,world);assert v.normalized(json.loads(line),a.schema)==world['final']
   r['phaseMS'][role]=float(clocks[0].split(':',1)[1])
- r.update(status='EXACT_JS_TRANSPORT_FULL65_RAW_DIAGNOSTIC_PASS',fullFieldsEqual=True)
+ r.update(status='EXACT_JOINED_SOURCE_FULL65_RAW_DIAGNOSTIC_PASS',fullFieldsEqual=True)
 except Exception as e:r.update(status='FAILED',error=repr(e))
 finally:save()
-print(json.dumps({k:r.get(k) for k in ['status','schema','phaseMS','error']}));sys.exit(0 if r['status']=='EXACT_JS_TRANSPORT_FULL65_RAW_DIAGNOSTIC_PASS' else 1)
+print(json.dumps({k:r.get(k) for k in ['status','schema','phaseMS','error']}));sys.exit(0 if r['status']=='EXACT_JOINED_SOURCE_FULL65_RAW_DIAGNOSTIC_PASS' else 1)

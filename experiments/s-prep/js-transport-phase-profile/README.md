@@ -50,3 +50,30 @@ retained; it is not a field pass. The successful no-GC-tracing profile reports
 no GC event traffic estimate. Zero parsed events with tracing disabled must not
 be interpreted as zero allocation or zero collection. Existing old-source GC
 estimates are not transferred to this source.
+
+A subsequent cursor-bound GC profile succeeds with all65 worlds: the exact
+TS JSON.stringify work remains, but its full output is written to a separate
+file outside the bracket to avoid trace interleaving. GC/marker output and
+the failed predecessor remain archived. For64fresh worlds, approximate GC
+allocation intervals total1,984,505,680bytes JS versus625,465,112bytes TS
+(102 versus27 events; pauses18.4 versus17.7ms). Sampled GC self shares are
+12.17% and13.56%. This is accumulated traffic, not live heap/RSS or exact
+phase allocation; timestamp/interval/profiler limits apply. This Health result
+cannot be compared numerically to the historical454MB eight-world Motion
+profile as though the workload/source/bracket were identical.
+
+An exact-source `--trace-turbo-inlining` profile also passes full65 fields.
+The actual trace records array_rmw inlining into the Health step/query advance,
+scalar helper19 and pending Main/flush inlining into Main set, and selection,
+inspection and restoration inlining into query advance. Therefore a missing
+small-helper inlining explanation is not supported for those observed targets.
+This does not prove scalar replacement or physical allocation removal; traced
+clocks are perturbed. Actual events/refusals and complete outputs are archived.
+
+A fresh descending-source first-stage Motion profile passes full65. Its approximate
+64-world intervaltraffic is1,889,915,288bytes JS versus609,832,848bytes TS; sampled
+GC12.7/12.0%. Actual hot frames include authored ledger continuation15.1%,
+private live/take10.8%, step8.4%, returned7.9%, queryadvance6.0% and Main set5.3%.
+CPU frame attribution can include inlined work; it does not identify a particular
+arithmetic expression as the cause. No cross-source/schema physical-memory
+improvement or exact phase-allocation claim follows.

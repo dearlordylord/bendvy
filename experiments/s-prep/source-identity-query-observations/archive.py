@@ -12,7 +12,7 @@ for root in roots:
  for role,m in r.get('inputs',{}).items():
   for path in m['actualReceiptPins']:
    p=Path(path);files['build-receipts/'+root.name+'/'+role+'/'+p.name]=p
-for rootname in ['bendvy-identity-handle-query-v2','bendvy-identity-handle-query-v3','bendvy-packed-main-slot-both-v3','bendvy-packed-paired-journal-both-v3','bendvy-private-id-query-v4']:
+for rootname in ['bendvy-identity-handle-query-v2','bendvy-identity-handle-query-v3','bendvy-packed-main-slot-both-v3','bendvy-packed-paired-journal-both-v3','bendvy-private-id-query-v4','bendvy-private-id-query-descending-v1']:
  root=Path('/tmp')/rootname
  for p in root.rglob('*.bend'):files['sources/'+rootname+'/'+str(p.relative_to(root))]=p
  for n in ['overlay.json','cache-specialization.json']:files['sources/'+rootname+'/'+n]=root/n
