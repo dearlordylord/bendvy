@@ -12,8 +12,8 @@ slots directly plus unchanged ledger/raw view/handle/inverse/marks transport.
 Main setter reads actual raw cell0 then sets it and cached-a only. The returned row
 stores one new MainSlot into its Main column; no nominal Position/View/Cache trio
 is rebuilt there. Original nominal PositionView/Four Data is reconstructed on get.
-Whether these reads unbox or recreate Native allocations is an independent open
-counter gate, not inferred from source shape.
+The independently executed Native counter below observes zero nominal Main/View
+constructors in this phase; this is not inferred from source shape.
 
 Private Host/Bench/World<Slot,...> persists through all64 scheduler frames using the
 unchanged generic dispatcher, Host, Rows/World/query/transaction APIs. No wholeWorld
@@ -46,8 +46,14 @@ linear provider header and duplicates only its local U32 match binder, and appen
 private generated fresh adapter. These are concrete rejected intermediate subjects,
 not exceptions to ownership checking.
 
-Native executed allocation/RFC/word attribution is pending independently. Do not expand
-Health or claim adoption until that mechanism checkpoint is observed. New dedicated
+Independent Native attribution (`primitive_lifecycle_controls`) passed fresh65 fields
+with original C preserved: requests 17,171,399→12,977,095 (−4,194,304),
+RFC cells 8,479,038→6,381,886 (−2,097,152), requested words
+41,507,855→35,216,399 (−6,291,456). It reports 1,048,576 Slot constructors
+replacing each Main/View/Cache triplet, with 24,576 Ledger-boundary Cache constructors
+remaining. See evidence/native-counter-followup.json for the exact independent receipt
+hash and scope; the producer archive is authoritative. This count is not a speed result.
+Health is not implemented and adoption remains open. New dedicated
 stale-cache/raw frame/cell lengths, retained-view, returned-owner/fallback, authority,
 factory/provider, actual Tx/suppression/rollback/order/live mutation gates remain OPEN.
 First full65 dense equality does not imply those capability gates. Full22, proofs and
