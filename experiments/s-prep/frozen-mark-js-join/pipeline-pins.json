@@ -1,0 +1,44 @@
+{
+  "recipeSHA256": "228fd42ab609eeea6db6eb6a826c3a6b2ebac462bdfa56a0f5c7369e8b93beb1",
+  "templateSHA256": "a9081cfc6acac2c3d7bed625f29dadfc0eeffae7e69f61fc885d287cf5df8998",
+  "catalogSHA256": "07176fbeea8df5d55c03167226ce3a18256bc1a645a6ea6def4c2ce51cf26e61",
+  "sourcePinsSHA256": "79f3e845d390455fdc072bce436c53ecffa96e3e6a43ed7ffe5eb57861c83946",
+  "cases": [
+    {
+      "schema": "motion",
+      "input": "/tmp/bendvy-frozen-query-js-chain/motion-payload.js",
+      "inputSHA256": "4ee5bae9b18d1b1dbace4906a31583cc1f5e9fbeacd6db668d45cde7a83df205",
+      "exit": 0,
+      "stderr": "",
+      "output": "/tmp/bendvy-frozen-mark-js-join/motion.js",
+      "outputSHA256": "1ec3f9f755381561b56f8b7e710a86f226d9fe4212a9ad9a38353ac1e35291fc",
+      "argv": [
+        "node",
+        "--expose-internals",
+        "/workspace/formal-proofs/bendvy-worktrees/native-view-boxing/experiments/s-prep/frozen-mark-js-join/rewrite.cjs",
+        "/tmp/bendvy-frozen-query-js-chain/motion-payload.js",
+        "/tmp/bendvy-frozen-mark-js-join/motion.js"
+      ]
+    },
+    {
+      "schema": "health",
+      "input": "/tmp/bendvy-frozen-query-js-chain/health-payload.js",
+      "inputSHA256": "9b72ff64d6f9aa93b29b734e141fab2993dcc7d073422dcf6013fe2e0f85bd70",
+      "exit": 0,
+      "stderr": "",
+      "output": "/tmp/bendvy-frozen-mark-js-join/health.js",
+      "outputSHA256": "38737d237554e911c6ee0c59fc4abf6ab148d63ee09881f2fe36ec4d781fe042",
+      "argv": [
+        "node",
+        "--expose-internals",
+        "/workspace/formal-proofs/bendvy-worktrees/native-view-boxing/experiments/s-prep/frozen-mark-js-join/rewrite.cjs",
+        "/tmp/bendvy-frozen-query-js-chain/health-payload.js",
+        "/tmp/bendvy-frozen-mark-js-join/health.js"
+      ]
+    }
+  ],
+  "upstreamChainPins": {
+    "/tmp/bendvy-profile-next-source-seam/experiments/s-prep/frozen-query-js-chain/pipeline-pins.json": "c50e35a6f219e75e763582aba8c7dca883819708899b6f7837d1a38861e24c1c",
+    "/tmp/bendvy-frozen-query-js-chain/admission.json": "3cba96ff083a16d7ebcda9aa524b77c0b8a18f66c57ef71955320f6646fddc79"
+  }
+}
