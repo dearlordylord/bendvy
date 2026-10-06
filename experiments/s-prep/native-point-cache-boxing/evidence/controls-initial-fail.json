@@ -1,0 +1,65 @@
+{
+  "status": "FINITE_CONTROLS_FAIL",
+  "cases": {
+    "nested-affine-roundtrip": {
+      "sourceSHA256": "2cce862344ebbcc5abab701b1ae221a1efcbe07cac1f9f81cc12e7ee5f61f378",
+      "commands": [
+        {
+          "argv": [
+            "bend",
+            "/tmp/bendvy-native-point-cache-boxing-controls/nested-affine-roundtrip.bend",
+            "--check-only"
+          ],
+          "cpu": 10,
+          "limitSeconds": 15,
+          "exit": 1,
+          "timeout": false,
+          "elapsedSeconds": 0.309760516975075,
+          "output": "SOME PROOFS FAIL\nError:\n- message  : a parameter or field scrutinee (a match cannot scrutinize a computed value: give it its own def)\nLocation:\n11 |     case CC.Cache{Raw{values},view}:\n12>|       match Array.get(U32,values,0):\n   |             ^^^^^^^^^^^^^^^^^^^^^^^\n13 |         case (_,value): U32.add(view,value)\n"
+        }
+      ],
+      "pass": false
+    },
+    "affine-duplicate": {
+      "sourceSHA256": "f47e65039da78fae9a432148564da7616804d79bd5184cdc07764d3f846de4e2",
+      "commands": [
+        {
+          "argv": [
+            "bend",
+            "/tmp/bendvy-native-point-cache-boxing-controls/affine-duplicate.bend",
+            "--check-only"
+          ],
+          "cpu": 10,
+          "limitSeconds": 15,
+          "exit": 1,
+          "timeout": false,
+          "elapsedSeconds": 0.23268648399971426,
+          "output": "SOME PROOFS FAIL\nError:\n- message  : a parameter or field scrutinee (a match cannot scrutinize a computed value: give it its own def)\nLocation:\n11 |     case CC.Cache{Raw{values},view}:\n12>|       match Array.get(U32,values,0):\n   |             ^^^^^^^^^^^^^^^^^^^^^^^\n13 |         case (_,value): U32.add(view,value)\n"
+        }
+      ],
+      "pass": false
+    },
+    "cross-schema-cache": {
+      "sourceSHA256": "b2b521264d5c855919b085b413ceb7b479896852df592432084b7057edf29a2d",
+      "commands": [
+        {
+          "argv": [
+            "bend",
+            "/tmp/bendvy-native-point-cache-boxing-controls/cross-schema-cache.bend",
+            "--check-only"
+          ],
+          "cpu": 10,
+          "limitSeconds": 15,
+          "exit": 1,
+          "timeout": false,
+          "elapsedSeconds": 0.22479301295243204,
+          "output": "SOME PROOFS FAIL\nError:\n- message  : a parameter or field scrutinee (a match cannot scrutinize a computed value: give it its own def)\nLocation:\n11 |     case CC.Cache{Raw{values},view}:\n12>|       match Array.get(U32,values,0):\n   |             ^^^^^^^^^^^^^^^^^^^^^^^\n13 |         case (_,value): U32.add(view,value)\n"
+        }
+      ],
+      "pass": false
+    }
+  },
+  "checkerSeconds": 15,
+  "proofDefaultSeconds": 5,
+  "newLaws": false
+}

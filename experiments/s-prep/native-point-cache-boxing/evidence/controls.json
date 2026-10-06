@@ -1,0 +1,107 @@
+{
+  "status": "FINITE_CONTROLS_PASS",
+  "cases": {
+    "nested-affine-roundtrip": {
+      "sourceSHA256": "08dc7b09fedf1a0b4eb9f0bdc0518008f785b787758488ea81f8734f0c08b66e",
+      "commands": [
+        {
+          "argv": [
+            "bend",
+            "/tmp/bendvy-native-point-cache-boxing-controls-v3/nested-affine-roundtrip.bend",
+            "--check-only"
+          ],
+          "cpu": 10,
+          "limitSeconds": 15,
+          "exit": 0,
+          "timeout": false,
+          "elapsedSeconds": 0.6208307021297514,
+          "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+        },
+        {
+          "argv": [
+            "bend",
+            "/tmp/bendvy-native-point-cache-boxing-controls-v3/nested-affine-roundtrip.bend",
+            "-o",
+            "/tmp/bendvy-native-point-cache-boxing-controls-v3/nested-affine-roundtrip.c"
+          ],
+          "cpu": 10,
+          "limitSeconds": 30,
+          "exit": 0,
+          "timeout": false,
+          "elapsedSeconds": 0.48448602808639407,
+          "output": ""
+        },
+        {
+          "argv": [
+            "clang",
+            "-O3",
+            "/tmp/bendvy-native-point-cache-boxing-controls-v3/nested-affine-roundtrip.c",
+            "-o",
+            "/tmp/bendvy-native-point-cache-boxing-controls-v3/nested-affine-roundtrip.bin",
+            "-lm",
+            "-pthread"
+          ],
+          "cpu": 10,
+          "limitSeconds": 120,
+          "exit": 0,
+          "timeout": false,
+          "elapsedSeconds": 0.3347577350214124,
+          "output": ""
+        },
+        {
+          "argv": [
+            "/tmp/bendvy-native-point-cache-boxing-controls-v3/nested-affine-roundtrip.bin"
+          ],
+          "cpu": 10,
+          "limitSeconds": 5,
+          "exit": 0,
+          "timeout": false,
+          "elapsedSeconds": 0.003441364038735628,
+          "output": "30\n"
+        }
+      ],
+      "pass": true
+    },
+    "affine-duplicate": {
+      "sourceSHA256": "0ea280d1fa40f53127c8158e8c2e564b959f9ef64274260fb2f5d2918630e22e",
+      "commands": [
+        {
+          "argv": [
+            "bend",
+            "/tmp/bendvy-native-point-cache-boxing-controls-v3/affine-duplicate.bend",
+            "--check-only"
+          ],
+          "cpu": 10,
+          "limitSeconds": 15,
+          "exit": 1,
+          "timeout": false,
+          "elapsedSeconds": 0.5007684649899602,
+          "output": "SOME PROOFS FAIL\nError:\n- expected : box\n- observed : box (consumed more than once)\nContext:\n- R : Type\nLocation: duplicate\n17 |   IO.print(U32.show(observe(restore(Raw,H.PrototypeWorldNested{H.PrototypeWorldNested{H.PrototypeWorldRoot{CC.Cache{Raw{[7 : U32^0n]},23}}}}))))\n18>| def duplicate(-R:Type,box:H.PrototypeWorldBox<CC.Cache<R,U32>>) -> H.PrototypeWorldBox<CC.Cache<R,U32>> & H.PrototypeWorldBox<CC.Cache<R,U32>>:\n   |                       ^^^\n19 |   (box,box)\n"
+        }
+      ],
+      "pass": true
+    },
+    "cross-schema-cache": {
+      "sourceSHA256": "e5b4a54df58dc2bb5109aaa9423afa4cfee64dcabddce2376de38236a6dadb1c",
+      "commands": [
+        {
+          "argv": [
+            "bend",
+            "/tmp/bendvy-native-point-cache-boxing-controls-v3/cross-schema-cache.bend",
+            "--check-only"
+          ],
+          "cpu": 10,
+          "limitSeconds": 15,
+          "exit": 1,
+          "timeout": false,
+          "elapsedSeconds": 0.5708945489022881,
+          "output": "SOME PROOFS FAIL\nError:\n- expected : H.PrototypeWorldBox<CC.Cache<T.Vitals, T.VitalsView>>\n- observed : H.PrototypeWorldBox<CC.Cache<T.Position, T.PositionView>>\nContext:\n- box : H.PrototypeWorldBox<CC.Cache<T.Position, T.PositionView>>\nLocation: cross_schema\n18 | def cross_schema(box:H.PrototypeWorldBox<CC.Cache<T.Position,T.PositionView>>) -> H.PrototypeWorldBox<CC.Cache<T.Vitals,T.VitalsView>>:\n19>|   box\n   |   ^^^\n20 | \n"
+        }
+      ],
+      "pass": true
+    }
+  },
+  "checkerSeconds": 15,
+  "proofDefaultSeconds": 5,
+  "newLaws": false
+}
