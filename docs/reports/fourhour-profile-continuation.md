@@ -60,3 +60,27 @@ speedup, Native benefit, source/compiler adoption or universal alias proof follo
 Earlier empty-catalog false-success receipt is invalid and retained; final executor
 requires exactlyeight actualcases/576records. Other initial scaffold refusals
 remain distinct from semantic negative controls.
+
+## Flat journal source and bounded observations
+
+[Source experiment](../../experiments/s-prep/source-flat-journal/README.md) preserves
+original callbacks and public headers, complete LIFO undo and guarded mark publication.
+Fresh source-specific full65, actual Tx576 plus mutants, mixed-mark32, private
+boundary16 and affine-owned examples pass. Root independently verifies source
+derivation and archived pins; [review](../../experiments/s-prep/source-query-saturated-loop/flat-journal-v4-review.md)
+identifies a reached nonidentity generic-fallback witness still needed, now assigned.
+These bounded gates do not establish full22, universal authority/refinement or adoption.
+
+Native Motion allocator requests28,718,023→22,414,279 and destroyed objects
+4,210,688→2,109,440 are actual diagnostic counter results with fresh65 fields,
+original C unchanged. Physical phase allocation/growth calls are0 in both binaries;
+these operation counts must not be described as physical heap allocations.
+
+[Fourteen rotated observations and fresh JS profiles](../../experiments/s-prep/source-flat-journal-js/README.md)
+all preserve65 complete worlds; raw candidate Bend/TS median ratios are Native0.741
+Motion/0.978Health and JS1.309Motion/1.255Health. Unrelated host tests change load
+strongly (Motion TS233.60–560.63ms), so no qualified improvement/keep/target acceptance
+follows. Health JS expressions7,206,464→7,076,928; five row-owner copies/callback
+remain. This explains why Native representation savings do not transfer equally to JS.
+Next source experiment genuinely composes ledger-array ownership into the flat
+journal Health route, followed by fresh controls and profiling.
