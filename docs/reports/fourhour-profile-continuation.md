@@ -112,3 +112,23 @@ The [Main-array source probe](../../experiments/s-prep/source-flat-main-transpor
 passes first-stage full fields and literal full-shape/true-old witnesses. It
 removes one JS Tuple/update but adds2 Motion/7 Health property initializations;
 nominal Main counts remain unchanged. Expanded gates and adoption remain open.
+
+## Working method for the remaining window
+
+1. Pin exact Bend closure, executable, emitted program and equal-work TS reference.
+2. Attribute actual hot operations/CPU samples; distinguish expressions, requested
+   words, physical allocation, live heap and elapsed time.
+3. Change one reached mechanism, preserving authored callbacks and affine Type
+   ownership; retain generic/nonidentity behavior through its original route.
+4. Run first-stage full-world fields and mechanism counters. Stop low-yield seams
+   before expanding control suites; never infer speed from fewer constructors.
+5. For a promising mechanism, run its own transaction/suppression, true-old,
+   returned-owner, retained-view, authority and compiling mutation controls.
+6. Compare fresh equal-work roles with rotated order. Record noisy clocks as raw;
+   adopt nothing until the governing qualification and complete gates pass.
+
+The source flat Main experiment's Motion Native counter totals are independently
+identical to its exact joined parent. This is a stopped allocation-saving
+hypothesis, not an accepted optimization. Current reached investigations are
+private generic affine handle-query presence inspection, exact emitted-JS
+row-owner/token diagnostics, and same-C Native layout observations.
