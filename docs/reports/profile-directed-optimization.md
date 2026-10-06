@@ -70,6 +70,19 @@ removes state records but adds14 closure expressions/ID and trampoline allocatio
 11,920,960 total constructions, +1,965,056 versus its direct-raw input. Rejected as
 an allocation-count candidate; no physical heap or speed regression is inferred.
 
+## Source follow-up: live-first query
+
+[Live-first flag read](../../experiments/s-prep/js-query-live-first/README.md)
+branches before reading a dead slot's flag, preserving all affine columns. Dense
+Motion construction count remains9,955,904; nine full worlds equal fresh TS.
+Aligned all-dead high65538 removes65,538 Tuple constructions, with unchanged
+other kinds. One short profiled sample estimates6.64MB versus6.24MB; no stable
+heap/speed claim. Both schemas on JS/Native pass40 literal query/command checkpoints
+and intended compiling order/membership mutants. Independent read-only review
+finds no blocking semantic issue within that domain. Exact boxed Native static
+Motion build passes15/30/120; one raw full65 observation TS389.164ms/JS776ms/
+Native443ms still misses targets. Full22 remains separate.
+
 ## Emitted affine container reuse
 
 [Strict catalog probe](../../experiments/s-prep/js-affine-owner-reuse/README.md)
@@ -108,7 +121,9 @@ Limits: executable diagnostic checker15s by explicit user approval, default/proo
 codegen30s, clang120s, runtime5s. References match the tracked manifest: TS3040a3b,
 Bevyad67826, Bend2a950fd6; installed Bend2.0.35. No foreign process/repository was changed.
 
-Next: inspect query-state allocation lowering; reject source variants that trade
+Next: the [Native cache-boxing draft](../design/native-point-cache-boxing.md)
+records additional reached ABI headroom and allocation/drop costs before a source
+probe. Investigate checked compiler reuse separately; reject source variants that trade
 records for more closure/trampoline allocation; recover the exact-source full22
 codegen gates; only then qualify complete equivalent JS/Native performance. Full
 core, both schemas, five families×three sizes and copied defense integration stay

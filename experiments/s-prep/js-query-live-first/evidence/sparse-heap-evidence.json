@@ -1,0 +1,66 @@
+{
+  "status": "BOTH_SPARSE_HEAP_OUTPUTS_PASS",
+  "scope": "One sparse query allocation sample per source; profiler overhead, no qualified speed/heap acceptance",
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/js-profile/heap-sampling-probe.py",
+        "--input",
+        "/tmp/bendvy-live-first-sparse/original.js",
+        "--output",
+        "/tmp/bendvy-live-first-sparse-heap/original.js",
+        "--profile",
+        "/tmp/bendvy-live-first-sparse-heap/original.heapprofile"
+      ],
+      "limitSeconds": 5,
+      "exit": 0
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-live-first-sparse-heap/original.js"
+      ],
+      "limitSeconds": 5,
+      "exit": 0
+    },
+    {
+      "argv": [
+        "python3",
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/js-profile/heap-sampling-probe.py",
+        "--input",
+        "/tmp/bendvy-live-first-sparse/candidate.js",
+        "--output",
+        "/tmp/bendvy-live-first-sparse-heap/candidate.js",
+        "--profile",
+        "/tmp/bendvy-live-first-sparse-heap/candidate.heapprofile"
+      ],
+      "limitSeconds": 5,
+      "exit": 0
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-live-first-sparse-heap/candidate.js"
+      ],
+      "limitSeconds": 5,
+      "exit": 0
+    }
+  ],
+  "cases": [
+    {
+      "role": "original",
+      "sourceSHA256": "7a507577a3925a515eae2382f48dd7d92ab041d46fef6179f15d3147ecaf2eef",
+      "instrumentedSHA256": "09b80c8fe7721d2047923e195ffcf15d34fda82dd58886f0bbecfa0107639108",
+      "sampledSelfBytes": 6635128,
+      "profiledMS": 6.009053999999992
+    },
+    {
+      "role": "candidate",
+      "sourceSHA256": "91805ed23854f935d5261f5639a7c192472a487371adfbb36bee9694d77f7777",
+      "instrumentedSHA256": "82c6264863c19c4ef3f3d365fbcfb9b320a66128d484da2907bf6c02a50e9000",
+      "sampledSelfBytes": 6237992,
+      "profiledMS": 4.429539999999989
+    }
+  ]
+}

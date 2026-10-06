@@ -1,0 +1,40 @@
+{
+  "status": "STATIC_NATIVE_BUILD_PASS",
+  "commands": [
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-live-first-native-static/batch.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 15,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-live-first-native-static/batch.bend",
+        "-o",
+        "/tmp/bendvy-live-first-native-static/batch.c"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "argv": [
+        "clang",
+        "-O3",
+        "/tmp/bendvy-live-first-native-static/batch.c",
+        "-o",
+        "/tmp/bendvy-live-first-native-static/batch-native",
+        "-lm",
+        "-pthread"
+      ],
+      "limitSeconds": 120,
+      "exit": 0,
+      "output": ""
+    }
+  ]
+}

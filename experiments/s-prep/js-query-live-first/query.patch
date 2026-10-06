@@ -1,0 +1,12 @@
+--- a/experiments/s-integrate/query.bend
++++ b/experiments/s-integrate/query.bend
+@@ -89,7 +89,8 @@
+     case True{} Tuple{flags,+flag}: struct_idx_selected(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,selected(F,selection,flag),id,namespace,main,aux,live,flags,added,changed,values,flag)
+ def struct_cols_live(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),+id: U32,namespace: U32,selection: Selection,main: Array<Maybe<M>>,aux: Array<Maybe<A>>,values: List<&2,O>,flags: Array<Maybe<&2,F>>,added: Array<U32>,changed: Array<U32>,result: Array<Bool> & Bool) -> StructColsState<M,A,F,O>:
+   match result:
+-    case (live,value): struct_idx_metadata(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,id,namespace,selection,main,aux,values,live,added,changed,value,Array.get(Maybe<&2,F>,flags,U32.sub(id,1)))
++    case Tuple{live,False{}}: StructColsState{main,aux,live,flags,added,changed,values}
++    case Tuple{live,True{}}: struct_idx_metadata(~Schema,~M,~A,~F,~Tok,~V,~AV,~O,~main_get,~aux_get,~client,id,namespace,selection,main,aux,values,live,added,changed,True{},Array.get(Maybe<&2,F>,flags,U32.sub(id,1)))
+ 
+ def struct_idx_advance(~Schema: Data,~M: Type,~A: Type,~F: Data,~Tok: Data,~V: Data,~AV: Data,~O: Data,~main_get: M -> M & V,~aux_get: A -> A & AV,~client: @-P: Type -> @-U: Type -> (P -> Tok -> P & V) -> (U -> U & Maybe<&2,AV>) -> S.Handle<Schema> -> Maybe<&2,F> -> P -> U -> P & (U & O),valid: Bool,+id: U32,namespace: U32,selection: Selection,state: StructColsState<M,A,F,O>) -> StructColsState<M,A,F,O>:
+   match valid state:

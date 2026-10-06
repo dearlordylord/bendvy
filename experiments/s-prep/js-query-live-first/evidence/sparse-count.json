@@ -1,0 +1,117 @@
+{
+  "status": "ORIGINAL_CANDIDATE_SPARSE_OUTPUTS_PASS",
+  "scope": "Whole-program sparse construction counts including setup; no heap/time acceptance",
+  "commands": [
+    {
+      "argv": [
+        "node",
+        "--expose-internals",
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/js-allocation-map/instrument.cjs",
+        "/tmp/bendvy-live-first-sparse/original.js",
+        "/tmp/bendvy-live-first-sparse-count-reproduced/original.js"
+      ],
+      "limitSeconds": 5,
+      "exit": 0
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-live-first-sparse-count-reproduced/original.js"
+      ],
+      "limitSeconds": 5,
+      "exit": 0
+    },
+    {
+      "argv": [
+        "node",
+        "--expose-internals",
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/js-allocation-map/instrument.cjs",
+        "/tmp/bendvy-live-first-sparse/candidate.js",
+        "/tmp/bendvy-live-first-sparse-count-reproduced/candidate.js"
+      ],
+      "limitSeconds": 5,
+      "exit": 0
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-live-first-sparse-count-reproduced/candidate.js"
+      ],
+      "limitSeconds": 5,
+      "exit": 0
+    }
+  ],
+  "cases": [
+    {
+      "role": "original",
+      "total": 721066,
+      "kinds": {
+        "object:WNil": 0,
+        "object:WCon": 0,
+        "object:untagged": 4,
+        "object:Tuple": 131077,
+        "ArrayExpression": 262166,
+        "object:Some": 0,
+        "object:None": 262162,
+        "FunctionExpression": 1,
+        "object:$JMP": 17,
+        "ArrowFunctionExpression": 37,
+        "object:Unit": 1,
+        "storage.Rows": 37,
+        "query.Optional": 1,
+        "query.StructColsState": 65539,
+        "object:Nil": 2,
+        "storage.MetadataColumns": 19,
+        "object:$FFI": 1,
+        "query.StructIdxState": 1,
+        "object:Con": 0,
+        "storage.Handle": 0,
+        "types.Position": 0,
+        "types.PositionView": 0,
+        "types.Velocity": 0,
+        "types.VelocityView": 0,
+        "types.Four": 0,
+        "object:Fail": 0,
+        "object:Done": 0,
+        "object:Emit": 1
+      },
+      "generatedSHA256": "de6e61158420b42646cbedcf77904f047b528c5827fb0ac3f4f193452bc12264"
+    },
+    {
+      "role": "candidate",
+      "total": 655528,
+      "kinds": {
+        "object:WNil": 0,
+        "object:WCon": 0,
+        "object:untagged": 4,
+        "object:Tuple": 65539,
+        "ArrayExpression": 262166,
+        "object:Some": 0,
+        "object:None": 262162,
+        "FunctionExpression": 1,
+        "object:$JMP": 17,
+        "ArrowFunctionExpression": 37,
+        "object:Unit": 1,
+        "storage.Rows": 37,
+        "query.Optional": 1,
+        "query.StructColsState": 65539,
+        "object:Nil": 2,
+        "storage.MetadataColumns": 19,
+        "object:$FFI": 1,
+        "query.StructIdxState": 1,
+        "object:Con": 0,
+        "storage.Handle": 0,
+        "types.Position": 0,
+        "types.PositionView": 0,
+        "types.Velocity": 0,
+        "types.VelocityView": 0,
+        "types.Four": 0,
+        "object:Fail": 0,
+        "object:Done": 0,
+        "object:Emit": 1
+      },
+      "generatedSHA256": "b9953e9db3b77f35006a3246f6fd83f5202839b971b354c6738505a65aa9d6b6"
+    }
+  ],
+  "delta": -65538
+}

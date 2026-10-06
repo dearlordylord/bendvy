@@ -1,0 +1,26 @@
+{
+  "status": "CHECK_AND_JS_CODEGEN_PASS",
+  "commands": [
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-live-first-batch/batch.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 15,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-live-first-batch/batch.bend",
+        "-o",
+        "/tmp/bendvy-live-first-batch/batch.js"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "output": ""
+    }
+  ]
+}

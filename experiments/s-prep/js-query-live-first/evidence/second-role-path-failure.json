@@ -1,0 +1,55 @@
+{
+  "status": "INCOMPLETE",
+  "scope": "Finite actual Q.each/Q.lookup and public C queue/apply lifecycle; not full22 gates, authority proof or performance acceptance",
+  "commands": [
+    {
+      "argv": [
+        "bend",
+        "version"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "bend",
+        "guide"
+      ],
+      "limitSeconds": 5
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "10",
+        "bend",
+        "/tmp/primitive-query-r75yyga3/JS-one/query-lifecycle.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 15
+    }
+  ],
+  "subjects": {
+    "JS-one": {
+      "status": "INCOMPLETE",
+      "fixtureSHA256": "2e8c017bacf0d54150cba96d32c6d96598345ba94f9be5d80a20c9150aa3855f",
+      "expectedSHA256": "dd6d4e4e0f0099b40f4b6402d99d42d9739fb0e6c78767a464c619a42e8a4a57"
+    }
+  },
+  "sourceSHA256": {
+    "JS": {}
+  },
+  "fixtureOwnersSHA256": "5ad53b8f5e68fb53670d5e243850180522c02c7dfcb62eac7067c2a939d64bff",
+  "failure": {
+    "argv": [
+      "taskset",
+      "-c",
+      "10",
+      "bend",
+      "/tmp/primitive-query-r75yyga3/JS-one/query-lifecycle.bend",
+      "--check-only"
+    ],
+    "exit": 1,
+    "out": "",
+    "err": "SOME PROOFS FAIL\nError:\n- message  : no such file: /tmp/primitive-query-r75yyga3/JS-one/storage.bend\nLocation:\n1 | import Base\n2>| import ./storage.bend as S\n  |        ^\n3 | import ./query.bend as Q\n"
+  }
+}

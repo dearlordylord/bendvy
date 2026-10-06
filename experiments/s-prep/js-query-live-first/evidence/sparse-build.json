@@ -1,0 +1,87 @@
+{
+  "status": "ORIGINAL_AND_CPS_DEFAULT_STACK_SPARSE65538_PASS",
+  "cpu": 9,
+  "highWater": 65538,
+  "capacity": 131072,
+  "scope": "Default-stack JS trampoline, aligned all-dead columns; finite original/candidate comparison",
+  "commands": [
+    {
+      "role": "original",
+      "argv": [
+        "bend",
+        "/tmp/bendvy-live-first-sparse/original.bend",
+        "--check-only"
+      ],
+      "cap": 15,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "role": "original",
+      "argv": [
+        "bend",
+        "/tmp/bendvy-live-first-sparse/original.bend",
+        "-o",
+        "/tmp/bendvy-live-first-sparse/original.js"
+      ],
+      "cap": 30,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "role": "original",
+      "argv": [
+        "node",
+        "/tmp/bendvy-live-first-sparse/original.js"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "output": "SPARSE-HIGH-PASS\n"
+    },
+    {
+      "role": "candidate",
+      "argv": [
+        "bend",
+        "/tmp/bendvy-live-first-sparse/candidate.bend",
+        "--check-only"
+      ],
+      "cap": 15,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "role": "candidate",
+      "argv": [
+        "bend",
+        "/tmp/bendvy-live-first-sparse/candidate.bend",
+        "-o",
+        "/tmp/bendvy-live-first-sparse/candidate.js"
+      ],
+      "cap": 30,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "role": "candidate",
+      "argv": [
+        "node",
+        "/tmp/bendvy-live-first-sparse/candidate.js"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "output": "SPARSE-HIGH-PASS\n"
+    }
+  ],
+  "cases": [
+    {
+      "role": "original",
+      "status": "PASS",
+      "generatedSHA256": "7a507577a3925a515eae2382f48dd7d92ab041d46fef6179f15d3147ecaf2eef"
+    },
+    {
+      "role": "candidate",
+      "status": "PASS",
+      "generatedSHA256": "91805ed23854f935d5261f5639a7c192472a487371adfbb36bee9694d77f7777"
+    }
+  ]
+}
