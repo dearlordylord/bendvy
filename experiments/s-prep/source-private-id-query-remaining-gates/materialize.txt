@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-connected-gates/materialize-controls.py", line 114, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-connected-gates/materialize-controls.py", line 69, in main
+    manifest=json.loads((a.overlay/'overlay.json').read_text());assert all(h(a.overlay/n)==v for n,v in manifest['sources'].items());runtime=set(PC.runtime_sources(a.overlay));shutil.copytree(a.overlay,a.output);core=a.output/'experiments/s-integrate';
+                                                                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-connected-gates/provider_controls.py", line 60, in runtime_sources
+    core=overlay/'experiments/s-integrate';is_static=static_registration(core)
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-connected-gates/provider_controls.py", line 26, in static_registration
+    assert measurement.count('HA.'+lane+'_row(~SC.'+lane+'_body,')==1,'Static measured callback absent/ambiguous'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Static measured callback absent/ambiguous
