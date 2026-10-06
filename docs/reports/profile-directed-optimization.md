@@ -180,11 +180,13 @@ existing GCC rejects emitted musttail syntax. Affine journal kinds alone emit
 identical elementary C; rank2 frozen syntax is unsupported. Those negative probes
 justify no core simplification.
 
-[Clang19 proposal](../design/clang19-diagnostic-plan.md) is reviewable and awaits
-the SPEC:77 dependency approval: Clang14 disables the existing preserve_none ABI
-path. Only pinned archives were downloaded; no new tool was installed/executed.
+[Clang19 plan](../design/clang19-diagnostic-plan.md) received explicit user approval
+on2026-10-06 at the profiling checkpoint: "Да, установить отдельно и проверить".
+Private extraction and same-toolchain unchanged-C diagnostics are now authorized;
+Clang14 disables the existing preserve_none ABI path. Results must be recorded
+separately; approval is not a performance gate or production adoption.
 Protected runner edits need reviewed pin reconciliation before canonical reuse.
-No new laws/proofs, kernel/reference/foreign repository changes or new dependencies.
+No new laws/proofs or kernel/reference/foreign repository changes. Only the explicitly approved private toolchain dependency is permitted.
 
 - [Four-stage JS composition](../../experiments/s-prep/js-profile-composition/README.md)
   removes2,753,024 counted constructions/eight worlds (10,086,976→7,333,952),
@@ -192,3 +194,46 @@ No new laws/proofs, kernel/reference/foreign repository changes or new dependenc
   composition and root full65 Motion/Health comparisons pass all fields. Raw JS
   remains slower than TS in both schemas; sampled heap379→311MB is a diagnostic,
   not exact accounting or acceptance. [Profiling/clock bounds](../../experiments/s-prep/js-composition-observation/README.md).
+
+- [Same-slot owner-store elision](../../experiments/s-prep/js-owner-store-elision/README.md)
+  removes24 redundant stores/callback, preserving original expression evaluation
+  and9 necessary stores; counted constructions stay unchanged. Full65 fields pass;
+  raw JS311/TS197.458ms misses parity.
+- [Static Array.swap bridge](../../experiments/s-prep/js-array-swap-elision/README.md)
+  removes524,288 constructions/eight worlds, including262,144 closures. Both
+  composed/store inputs pass nine-world fields and1,152 controller records plus
+  retained/ordering/refusal controls. Raw JS290/TS217.928ms still misses parity.
+- [Scalar mark-source feasibility](../../experiments/s-prep/mark-loop-scalar-transport/README.md)
+  is rejected by computed-match/live forward-reference language rules. No
+  executable candidate, count or speed claim; exact failed subjects are retained.
+
+## Final-chain profiling and source join
+
+[Final generated-JS chain](../../experiments/s-prep/js-final-profile-chain/README.md)
+reduces counted constructions10,086,976→5,498,944; sampled heap379→240MB on equal
+nine-world Motion diagnostics. These are separate counters/samples, not exact
+allocated bytes. Corrected blocking profiler output passes all nine states;
+its original asynchronous JSON/GC interleaving failure is retained. Old-source
+full65 clocks are mixed: Motion300/TS246.954ms; Health773/TS293.061ms. Keep the
+adverse Health result; no qualified metric follows.
+
+[Source-frozen provider query](../../experiments/s-prep/query-frozen-provider/README.md)
+erases two concrete provider parameters in the actually reached callback type,
+retaining general getters and arbitrary affine Type owners. Both actual backends,
+160 independent getter/owner checkpoints and intended authority negatives pass.
+Instrumented Native allocator calls32,920,519→32,216,007 (~2%) are not native2x.
+[Counter receipt](../../experiments/s-prep/native-memory-count/frozen-query/index.json).
+
+[Fresh eight-stage source join](../../experiments/s-prep/frozen-query-js-chain/README.md)
+keeps each recipe's guards and explicitly omits the absent dead-provider stage.
+Both schemas count5,236,800 constructions; fresh full65 fields pass. Raw Motion
+JS266/TS209.680ms, Native256ms; HealthJS271/TS212.434ms, Native282ms. Full new-source
+Tx/retained/mutation gates remain open; old-source passing gates do not transfer.
+Scalar emitted mark removes131,584 additional Tuple constructions on its exact
+old-source input; its new reached loop requires new mutation anchoring.
+
+Standalone actual Raw-direct Tx576 protected records and intended lost-mark/
+inverse-order witnesses pass. The old-source full chain passes fresh Tx576 and
+inverse-order witnesses, but unchanged same-slot guards reject lost-mark subjects;
+its combined runtime lost-mark gate remains open. Full E11/full22, qualified
+JS parity/native2x, universal refinement and production adoption remain unpassed.

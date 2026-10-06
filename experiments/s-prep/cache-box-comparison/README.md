@@ -27,6 +27,20 @@ never change an oracle/limit to turn a preflight failure into a pass.
 | Call-product / Motion |199.011377|271|254*|381|388|
 | Four-stage JS / Motion |209.797197|255|253*|341|438|
 | Four-stage JS / Health |347.330431|584|527*|746|598|
+| Store elision / Motion (base: four-stage) |197.457589|245|300*|343|311|
+| Swap elision / Motion (base: store elision) |217.928394|339|262*|308|290|
+
+| Read-wrapper / Motion (base: store elision) |274.499254|377|381*|480|299|
+| Frozen source / Motion |264.556097|249|233|338|304|
+| Frozen source / Health |195.212202|384|276|353|299|
+| Final old-source JS / Motion |246.953548|251|273*|416|300|
+| Final old-source JS / Health |293.061347|392|357*|466|773|
+| Scalar mark / Motion (base: final old-source JS) |318.339806|357|292*|273|259|
+| Frozen source + eight-stage JS / Motion |209.680012|243|256|341|266|
+| Frozen source + eight-stage JS / Health |212.434193|246|282|324|271|
+
+| Raw store / Motion (base: final old-source JS) |215.682705|258|246*|260|260|
+| Raw store / Health (base: final old-source JS) |215.266458|253|282*|251|300|
 
 *These candidate Native roles use the identical baseline binary; their clock
 differences represent repeated diagnostics, not a Native implementation change.

@@ -2,7 +2,14 @@
 
 Approve extracting and using the four pinned Debian ARM64 archives below in a new private `/tmp/bendvy-clang19-diagnostic/root`, with an explicit process-local wrapper and the pinned existing Z3 library. Purpose: test the existing Bend generated-C calling-convention path without changing Bend, generated C, kernels, source APIs or default Clang. This proposal does not approve a global package installation, new project dependency graph, product adoption, numerical threshold, canonical cap reset or performance acceptance.
 
-**Status: proposal; extraction/use approval pending.** Only read-only metadata inspection and reversible archive downloads have occurred. No new archive payload was extracted, installed or executed. [SPEC.md:77](/workspace/formal-proofs/bendvy/docs/SPEC.md:77) says: “New project dependencies require approval when their concrete need is established.” The current optimization scope excludes dependency installation, so the integrator must obtain explicit approval for this concrete toolchain exception before the prospective commands run.
+**Status: explicit user approval received on2026-10-06 during the profiling window:**
+“Да, установить отдельно и проверить.” The exact four-package private extraction/use
+is approved; the system compiler and dependency graph remain unchanged. Fresh
+ELF/resource/attribute/build/full-trace results are recorded separately. Approval
+does not imply numerical acceptance or authority to add further dependencies.
+[SPEC.md:77](/workspace/formal-proofs/bendvy/docs/SPEC.md:77) requires approval
+when a concrete new dependency is needed; this explicit response supplies it.
+
 
 ## Concrete need and primary evidence
 
@@ -41,4 +48,4 @@ Build exact unchanged pinned C with `-O3 -pthread -lm`, clang120. Rebuild source
 
 Only then run bounded fresh Motion256/Health256 diagnostics against fresh pinned TS and same-toolchain source baseline: warmup plus64 worlds,64ticks, all65 full observations. Keep runtime5/codegen30 and existing scoped checker limits, all observation fields/oracles, canonical attempt history, qualification/noise/keep policy and product gates intact. A raw diagnostic can test whether this ABI helps; it cannot qualify timing or close acceptance. Do not compare an old Clang14 baseline with a new Clang19 candidate as a source-only improvement.
 
-Record the exact approval and outcomes. Reversal removes only the verified new task-owned private root and download staging; retain small source/package/command evidence. No global uninstall or external repository modification is involved. Until approval, old-tool source gates can continue independently; nothing in this proposal authorizes new compiler execution.
+Record the exact approval and outcomes. Reversal removes only the verified new task-owned private root and download staging; retain small source/package/command evidence. No global uninstall or external repository modification is involved. The explicit approval authorizes only this pinned private compiler execution; unrelated dependencies and global installation remain outside scope.

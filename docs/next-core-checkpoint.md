@@ -20,6 +20,13 @@ timeout5, leaving four comparisons and all required mutants unexecuted. The isol
 [Clang19 proposal](design/clang19-diagnostic-plan.md) awaits dependency approval.
 Canonical allowance/thresholds/full core remain unchanged.
 
+Current profiling follow-ups under #21/#24: finish exact composed backend gates;
+verify frozen query-provider source feasibility with independent getter-using
+clients and arbitrary affine owners; qualify both backends across the full matrix
+before adoption. Scoped JS constructor/store recipes are experiments, not a
+production compiler pass; universal alias/refinement and general captured/dynamic
+provider support require their own recorded follow-ups.
+
 [Profile-directed continuation](reports/profile-directed-optimization.md) adds source-bound batched marks, boxed Native context and direct raw swaps. Batched marks pass64 literal lifecycle fields/backend and actual live omission mutant; boxed original/suppressed-owner/lost-mark/inverse-order Tx and fresh access/provider/factory controls pass within their bounded scopes. V8 heap sampling identifies callback/held/query allocation; constructor reduction alone does not establish a GC or speed improvement. Latest raw equal65world sample TS312.143ms/JS890ms/Native828ms misses targets. Full22 still fails Cemit30 (boxed joined gate reaches inverse-order Motion); no qualification/adoption/cap reset. Query CPS reconstruction was rejected for adding closure/trampoline constructions. A strict emitted Held/Cache reuse probe removes8 constructions/update and passes bounded traces, but one raw TS1097.803ms/JS1683ms comparison still misses parity. See the [compiler reuse draft](design/affine-js-node-reuse.md); compiler adoption and universal alias safety remain open, with fresh source-bound gates required.
 
 [Profile-directed source fusion](../experiments/s-prep/js-query-columns/README.md) retains all 29 modules and arbitrary affine Type components. Combined point/metadata/query transport reduces executed construction expressions from 11,656,768 to 10,478,144 in the bounded Motion diagnostic. Two-schema JS/Native query traces and two compiling mutants pass. Quiet sequential JS/Native lifecycle passes 52 observations per backend, clone/duplicate/cross-schema negatives and the mark mutant after an initial negative-clone diagnostic15 timeout; both receipts remain. The unprofiled Motion cohort is partial, with no qualified comparative metric. Full22 and JS parity / native >=2× gates remain open; the historical canonical attempt cap is unchanged. Next inspect callback read/ledger and query advance from their generated JS/CPU profile, complete source-bound gates before any adoption or new authorized cohort.
@@ -266,3 +273,15 @@ CPU/GC diagnostics on equal eight-world Motion workloads pass full nine-world fi
 ## Executed owner-transport allocation map
 
 Eight-world Motion AST counters report11,656,768 executed literal/closure constructions (~89/update, not materialized allocations). Held/storage/query contribute most. An isolated Bend source field-continuation candidate removes pre-validation World+Handle+Tx reconstruction in both point adapters: exactly393,216 fewer constructions (3/update), full nine-world fields matched. Eight existing provider controls and JS-only64 factory/journal/mark observations pass; Native, missing-ledger runtime and remaining full22 controls are untested. Actual candidate stays unchanged; no speedup/adoption claim. Next metadata/query continuation targets and reproduction: [allocation map](../experiments/s-prep/js-allocation-map/README.md), [pinned compiler constraints](research/js-owner-reuse-language.md).
+
+## Profiling window source-join checkpoint (2026-10-06)
+
+Direct diagnostics remain under #21/#24; full core/performance gates are open.
+Final old-source generated JS cuts counted constructions45.5% and sampled heap
+379→240MB, but raw Health timing regresses; no qualified keep. Source-frozen query
+plus eight unchanged guarded passes matches all65 worlds on both schemas, counts
+5,236,800 constructions each, and remains slower than fresh TS. Native is not2x.
+New-source Tx/mutation/retained gates require fresh execution; full-chain old-source
+lost-mark runtime gate is open because unchanged structural guards reject subjects.
+The user explicitly approved private Clang19 extraction/use; record unchanged-C
+same-toolchain diagnostics separately. [Current report](reports/profile-directed-optimization.md).

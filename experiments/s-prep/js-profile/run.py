@@ -17,10 +17,15 @@ try:
  assert len(selected)==1 and sum(js.count(old) for old,_ in entries)==1,'Ambiguous or unsupported full64 Motion entry'
  old,new=selected[0];js=js.replace(old,new,1);r['entryAdaptation']={'original':old,'derived':new}
  begin=js.index('function $motion_timed$(');end=js.index('\nfunction ',begin+1);body=js[begin:end];needle='$IO$now$(_x_1)';assert body.count(needle)==1;body=body.replace(needle,'(__profile_mark("start"), '+needle+')');needle='$IO$now$(_x_6)';assert body.count(needle)==1;body=body.replace(needle,'(__profile_mark("end"), '+needle+')');js=js[:begin]+body+js[end:]
- marker='function __profile_mark(phase) { if(typeof __allocation_phase === "function") __allocation_phase(phase); console.error("PROFILE-MARK:" + JSON.stringify({phase, micro:Number(process.hrtime.bigint()/1000n), uptimeMS:process.uptime()*1000})); }\n';js=marker+'console.error("PROFILE-READY");\n'+js
+ marker='function __profile_mark(phase) { if(typeof __allocation_phase === "function") __allocation_phase(phase); console.error("PROFILE-MARK:" + JSON.stringify({phase, micro:Number(process.hrtime.bigint()/1000n), uptimeMS:process.uptime()*1000})); }\n'
+ # V8 writes GC traces directly to stdout. A pending asynchronous large JSON
+ # write can be split by those traces; synchronously serialize outside the phase.
+ transport='if (!process.stdout._handle || typeof process.stdout._handle.setBlocking !== "function") throw Error("Unsupported diagnostic stdout transport"); process.stdout._handle.setBlocking(true);\n'
+ r['outputTransport']='Both roles use blocking stdout to prevent GC trace/JSON interleaving; setup/output remain outside the measured phase'
+ js=marker+transport+'console.error("PROFILE-READY");\n'+js
  (a.output/'bend.js').write_text(js)
  command([sys.executable,H/'prepare-ts.py','--source',ROOT/'experiments/s-integrate/measurement-samples-reference.mjs','--output',a.output/'reference.mjs','--schema','Motion','--batch','8'])
- ts=(a.output/'reference.mjs').read_text();needle='const start=performance.now();for(const owner of prepared)owner.run();const end=performance.now();';assert ts.count(needle)==1;ts=ts.replace(needle,'__profile_mark("start");'+needle+'__profile_mark("end");');(a.output/'reference.mjs').write_text(marker+'console.error("PROFILE-READY");\n'+ts)
+ ts=(a.output/'reference.mjs').read_text();needle='const start=performance.now();for(const owner of prepared)owner.run();const end=performance.now();';assert ts.count(needle)==1;ts=ts.replace(needle,'__profile_mark("start");'+needle+'__profile_mark("end");');(a.output/'reference.mjs').write_text(marker+transport+'console.error("PROFILE-READY");\n'+ts)
  r['derivedPins']={name:sha(a.output/name) for name in ['bend.js','reference.mjs']}
  outputs={}
  for role,entry in [('TS','reference.mjs'),('JS','bend.js')]:
