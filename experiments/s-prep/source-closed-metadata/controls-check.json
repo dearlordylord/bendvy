@@ -1,0 +1,28 @@
+[
+  {
+    "argv": [
+      "taskset",
+      "-c",
+      "9",
+      "bend",
+      "/tmp/bendvy-threehour-journal-handle/experiments/s-prep/source-closed-metadata/retained-metadata.bend",
+      "--check-only"
+    ],
+    "capSeconds": 5,
+    "exit": 0,
+    "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+  },
+  {
+    "argv": [
+      "taskset",
+      "-c",
+      "9",
+      "bend",
+      "/tmp/bendvy-threehour-journal-handle/experiments/s-prep/source-closed-metadata/affine-negative.bend",
+      "--check-only"
+    ],
+    "capSeconds": 5,
+    "exit": 1,
+    "output": "SOME PROOFS FAIL\nError:\n- expected : owner\n- observed : owner (consumed more than once)\nLocation: bad\n1 | \n2>| def bad(owner:Array<U32>) -> Array<U32> & Array<U32>:\n  |         ^^^^^\n3 |   (owner,owner)\n"
+  }
+]

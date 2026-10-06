@@ -1,0 +1,20 @@
+--- a/experiments/s-integrate/storage.bend
++++ b/experiments/s-integrate/storage.bend
+@@ -62,12 +62,16 @@
+ def metadata_membership(-F: Data,columns: MetadataColumns<F>,+index: U32) -> MetadataColumns<F> & Membership<F>:
+   match columns:
+     case MetadataColumns{live,flags,added,changed}: metadata_membership_live(F,flags,added,changed,index,Array.get(Bool,live,index))
++# Private live-only eliminator transports Bool arrays without an erased Flag argument.
++def prototype_metadata_live_apply(-Result: Type,resume: Array<Bool> -> Bool -> Result,result: Array<Bool> & Bool) -> Result:
++  match result:
++    case (live,value): resume(live,value)
+ def metadata_live_done(-F: Data,flags: Array<Maybe<&2,F>>,added: Array<U32>,changed: Array<U32>,result: Array<Bool> & Bool) -> MetadataColumns<F> & Bool:
+   match result:
+     case (live,value): (MetadataColumns{live,flags,added,changed},value)
+ def metadata_live(-F: Data,columns: MetadataColumns<F>,index: U32) -> MetadataColumns<F> & Bool:
+   match columns:
+-    case MetadataColumns{live,flags,added,changed}: metadata_live_done(F,flags,added,changed,Array.get(Bool,live,index))
++    case MetadataColumns{live,flags,added,changed}: prototype_metadata_live_apply(MetadataColumns<F> & Bool,next_live => value => (MetadataColumns{next_live,flags,added,changed},value),Array.get(Bool,live,index))
+ def metadata_mark(-F: Data,columns: MetadataColumns<F>,index: U32,tick: U32) -> MetadataColumns<F>:
+   match columns:
+     case MetadataColumns{live,flags,added,changed}: MetadataColumns{live,flags,added,Array.set(U32,changed,index,tick)}

@@ -1,0 +1,13 @@
+{
+  "argv": [
+    "taskset",
+    "-c",
+    "9",
+    "bend",
+    "/tmp/bendvy-threehour-journal-handle/experiments/s-prep/source-closed-metadata/live-context-probe.bend",
+    "--check-only"
+  ],
+  "capSeconds": 5,
+  "exit": 1,
+  "output": "SOME PROOFS FAIL\nError:\n- expected : a plain binder (only leading binders take ~)\n- observed : '~'\nLocation:\n7 |     case (live,value): done(c0,c1,c2,live,value)\n8>| def apply(-F:Data,~client:@-C0:Type -> @-C1:Type -> @-C2:Type -> @-Out:Type -> @-done:(C0 -> C1 -> C2 -> Array<Bool> -> Bool -> Out) -> C0 -> C1 -> C2 -> (Array<Bool> & Bool) -> Out,flags:Array<Maybe<&2,F>>,added:Array<U32>,changed:Array<U32>,live:Array<Bool>) -> (Array<Bool> & Array<Maybe<&2,F>>) & (Array<U32> & (Array<U32> & Bool)):\n  |                   ^\n9 |   client(Array<Maybe<&2,F>>,Array<U32>,Array<U32>,(Array<Bool> & Array<Maybe<&2,F>>) & (Array<U32> & (Array<U32> & Bool)),finish(F),flags,added,changed,Array.get(Bool,live,0))\n"
+}
