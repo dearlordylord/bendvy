@@ -1,0 +1,57 @@
+[
+  {
+    "argv": [
+      "taskset",
+      "-c",
+      "9",
+      "bend",
+      "/tmp/bendvy-threehour-journal-handle/experiments/s-prep/source-closed-metadata/closed-tx-element-control.bend",
+      "--check-only"
+    ],
+    "capSeconds": 5,
+    "exit": 0,
+    "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+  },
+  {
+    "argv": [
+      "taskset",
+      "-c",
+      "9",
+      "bend",
+      "/tmp/bendvy-threehour-journal-handle/experiments/s-prep/source-closed-metadata/closed-tx-element-control.bend",
+      "-o",
+      "/tmp/bendvy-closed-tx-element-control.js"
+    ],
+    "capSeconds": 30,
+    "exit": 0,
+    "output": ""
+  },
+  {
+    "argv": [
+      "taskset",
+      "-c",
+      "9",
+      "node",
+      "/tmp/bendvy-closed-tx-element-control.js"
+    ],
+    "capSeconds": 5,
+    "exit": 0,
+    "output": "(9, 1, 2, [3, 4], [7, 8])\n"
+  },
+  {
+    "status": "PASS_AFFINE_COMMAND_ORDER_PINGS_MARKS_WORLD",
+    "expected": [
+      9,
+      1,
+      2,
+      [
+        3,
+        4
+      ],
+      [
+        7,
+        8
+      ]
+    ]
+  }
+]

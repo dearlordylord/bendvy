@@ -1,0 +1,53 @@
+{
+  "status": "PASS_FULL65",
+  "scope": "Finite full65 schema fields only; no elapsed qualification or universal refinement",
+  "schema": "Health",
+  "cpu": 9,
+  "commands": [
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-measurement/prepare-ts.py",
+        "--source",
+        "/workspace/formal-proofs/bendvy/experiments/s-integrate/measurement-samples-reference.mjs",
+        "--output",
+        "/tmp/bendvy-closed-storage-commit-health-native-semantic/reference.mjs",
+        "--schema",
+        "Health",
+        "--batch",
+        "64"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "a16a68a4cfe33cbc63dcf6f593994b93bcb88d8f8ffe9a682a892a58d3a0f7d3"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-closed-storage-commit-health-native-semantic/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "4c1275dbad48054f1ff9e8edcc0689d1342f8501bcdc4de21429de200cd7f627"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-closed-storage-commit-health-build/batch.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "a6ec1f501f19cc5df18c565ed30ffb5491fbde833c75229b87542c484e2857be"
+    }
+  ],
+  "binarySHA256": "458b220de84a9e41b5c306cb1f1a7c45d2166762259b42cd45d619ec6a9fd51d",
+  "runnerSHA256": "c70df6f88b1518aa0e2244f6a0f0ffc7a12fdbf1c26b8fb05e12ce95e8aeace5",
+  "allFullFieldsEqual": true,
+  "worlds": 65,
+  "referenceSourceSHA256": "ecfd1b590964fb76fb69a7a28e9dffa05b631592f47a52f11921ffaec25253b6",
+  "referenceSHA256": "bf28b60bb93ab8ce037f6464e575691316e4baf4a0cca55ecc64250054e2f688",
+  "validatorSHA256": "25ab577d5234a1c30f46318708455377353ec39d4fb0b6bf1b40ad5ea5da8f84"
+}

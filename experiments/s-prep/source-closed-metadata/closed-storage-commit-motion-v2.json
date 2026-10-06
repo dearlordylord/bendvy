@@ -1,0 +1,29 @@
+[
+  {
+    "argv": [
+      "taskset",
+      "-c",
+      "9",
+      "bend",
+      "/tmp/bendvy-closed-storage-commit-motion-v2/batch.bend",
+      "--check-only"
+    ],
+    "capSeconds": 15,
+    "exit": 0,
+    "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+  },
+  {
+    "argv": [
+      "taskset",
+      "-c",
+      "9",
+      "bend",
+      "/tmp/bendvy-closed-storage-commit-motion-v2/batch.bend",
+      "-o",
+      "/tmp/bendvy-closed-storage-commit-motion-v2/batch.c"
+    ],
+    "capSeconds": 30,
+    "exit": 0,
+    "output": ""
+  }
+]
