@@ -17,3 +17,9 @@ As previously documented, exported malformed detached bundles can violate count/
 ## Existing raw20 summary arithmetic
 
 Independently rehashed all20 source-concrete-owner-observations receipt pins and recomputed medians/ratios. Motion medians TS635.4188185, baselineJS564, baselineNative354, concreteJS603, concreteNative331ms; candidate JS/TS0.9489804, Native/TS0.5209163, Native/baselineNative0.9350282. Health TS614.561384, baselineJS524, baselineNative376, concreteJS542.5, concreteNative320.5ms; ratios0.8827434/0.5215102/0.8523936. Both Native/TS ratios exceed0.5, so neither reaches the raw 2× target. These ratios of medians support descriptive diagnosis only, not qualification, common timed wholeWorld forcing, keep or full-matrix completion.
+
+## Immutable v12 repair
+
+Reviewed actual v12 source, closure `599b1c2fb2389fc71fdcf289243b0e388caab33a338625623cbf6f38bfbd9a63`, and independently verified its29 bytes/cache maps/digests. The new preallocation match routes False to the original query/fold before Array.new. Its predicate requires physical Main size at least capacity and capacity at most2^31. True computes depth from capacity: 0 for capacity0/1, otherwise floor(log2(capacity−1))+1. The original metadata depth is retained in the world and never drives ID allocation. A second actual ID size guard still precedes evacuation.
+
+This resolves the v10 oversized-metadata allocation blocker without narrowing the rejected inputs' original route. It does not guarantee resource availability for every large valid capacity. Fresh executable controls should cover0/1, exact powers/nonpowers, above2^31, undersized physical Main, oversized metadata depth and actual undersized ID guard. Source inspection alone does not count these gates passed. Alignment/private-constructor limits and complete recovery requirements remain as above. Root/author were immediately notified that authorized builds could proceed; no execution by this reviewer.
