@@ -1,0 +1,20 @@
+'use strict';
+// Read-only exact call-frontier evidence. This produces no optimized JavaScript.
+const fs=require('fs'),crypto=require('crypto'),a=require('internal/deps/acorn/acorn/dist/acorn');
+const [input,schema,catalog,output]=process.argv.slice(2),sha=s=>crypto.createHash('sha256').update(s).digest('hex');
+if(!['motion','health'].includes(schema)||fs.existsSync(output))throw Error('schema/fresh output');
+const s=fs.readFileSync(input,'utf8'),old=Object.values(JSON.parse(fs.readFileSync(catalog))).find(p=>p.schema===schema),ast=a.parse(s,{ecmaVersion:'latest'}),defs=ast.body.filter(n=>n.type==='FunctionDeclaration');
+if(!old)throw Error('old exact family');const unique=part=>{const xs=defs.filter(n=>n.id.name.includes(part));if(xs.length!==1)throw Error('unique '+part);return xs[0]},map=name=>unique(name.slice(name.indexOf('$058'))),text=n=>s.slice(n.start,n.end);
+const family=old.family.map(map),caller=map(old.caller),drain=unique('prototype_handoff_'+schema+'_drain$'),bridge=defs.find(n=>n.id.name==='__direct_tuple_helper_15');
+if(!bridge)throw Error('actual scalar bridge');const returned=family[4],calls=[],nodes=[],parent=new Map();
+function walk(n,p,owner){if(!n||typeof n!=='object')return;if(n.type==='FunctionDeclaration')owner=n.id.name;if(n.type){nodes.push(n);parent.set(n,p);}if(n.type==='CallExpression'&&n.callee.type==='Identifier')calls.push({from:owner,to:n.callee.name,args:n.arguments.length,start:n.start,end:n.end});for(const[k,v]of Object.entries(n))if(!['start','end'].includes(k)){if(Array.isArray(v))v.forEach(x=>walk(x,n,owner));else if(v&&typeof v==='object')walk(v,n,owner);}}walk(ast,null,null);
+const hot= calls.filter(c=>[drain.id.name,bridge.id.name,returned.id.name].includes(c.to)),frontier=family.map((n,i)=>({name:n.id.name,expectedCaller:i?family[i-1].id.name:caller.id.name,actualCalls:calls.filter(c=>c.to===n.id.name)}));
+const bridgeEdges=hot.filter(c=>c.to===bridge.id.name);if(bridgeEdges.length!==1||bridgeEdges[0].from!==drain.id.name||bridgeEdges[0].args!==18)throw Error('hot ingress changed');
+const returnedEdges=hot.filter(c=>c.to===returned.id.name);if(returnedEdges.length!==2||returnedEdges.some(c=>c.args!==14)||new Set(returnedEdges.map(c=>c.from)).size!==2||!returnedEdges.some(c=>c.from===bridge.id.name)||!returnedEdges.some(c=>c.from===family[3].id.name))throw Error('return origins changed');
+const hotRmw=calls.filter(c=>c.from===drain.id.name&&c.to==='array_rmw');if(hotRmw.length)throw Error('unexpected hot swap');
+const offending=frontier.filter(f=>f.actualCalls.length!==1||f.actualCalls.some(c=>c.from!==f.expectedCaller));
+if(!offending.length)throw Error('old unique frontier unexpectedly fits');
+const stateUses=nodes.filter(n=>n.type==='Identifier'&&n.name==='_state_0'&&n.start>drain.body.start&&n.end<drain.body.end).map(n=>{const p=parent.get(n);return{start:n.start,parent:p.type,projection:p.type==='MemberExpression'&&p.object===n?(p.property.value??p.property.name):null,text:text(p)}});
+const fact='type PrototypeFlatFold<-Schema:Data,-M:Type,-A:Type,-F:Data,-L:Type,-Mode:Data> is Type:';
+const result={status:'READ_ONLY_EXACT_V8_FRONTIER_AND_OLD_GUARD_MISMATCH',schema,inputSHA256:sha(s),oldCatalogSHA256:sha(fs.readFileSync(catalog)),parserVersion:a.version,functions:[drain,bridge,returned].map(n=>({name:n.id.name,params:n.params.map(p=>p.name),bodySHA256:sha(text(n))})),hotCalls:hot,oldFamilyFrontier:frontier,offendingOldFrontier:offending,drainStateUses:stateUses,hotDrainArrayRmwCalls:0,sourceTypeFact:fact,predictionOnly:{newHotOnlyReuse:'one Fold construction expression per successful callback; seven stores after all17 original RHS evaluations',swapAtHotDrain:'zero Array.rmw sites; no predicted hot closure/tuple savings'},scope:'Read-only exact emitted graph; no implemented new guard, no new semantic gate transfer, no elapsed claim'};
+fs.writeFileSync(output,JSON.stringify(result,null,2)+'\n',{flag:'wx'});console.log(JSON.stringify({status:result.status,schema,offendingOldFunctions:offending.length}));
