@@ -1,0 +1,32 @@
+# Fresh source-handoff producer and JavaScript enrollment
+
+This package builds and enrolls the new v7 handoff closure, without changing Bend source, compiler, references, dependencies or the existing recipes. The frozen source is `/tmp/bendvy-slot-host-handoff-v7`, closure `a9a2fa20913658b9561056e660803e3afd74870f321ff3a30c839e62fa44a56b`. Only query, held-adapter and measurement differ from the original Slot Host source. The source author's minimal owning `Array.size >= capacity` guard precedes evacuation and delegates to the original path on failure. Its balanced-layout premise has separate executable backend canaries; no universal runtime refinement is claimed here.
+
+`build.py` preserves the original full64 entry and fresh-initialization suffix, adapting only absolute imports and the frozen measurement prefix. It validates the coherent 29-file overlay/cache manifests. Before executing commands it snapshots the installed Bend executable, Base/effects, Clang wrapper/binary/resources and resolved ELF libraries. Clang `-M` additionally binds transitive C includes before compilation. Tool and include bytes are checked afterward. The installed compiler is embedded in the pinned Bend executable; this does not claim a separate installed TypeScript compiler source was consumed.
+
+Run from this folder, using fresh absent output directories:
+
+```sh
+python3 build.py --execute --schema Motion --overlay /tmp/bendvy-slot-host-handoff-v7 --output /tmp/bendvy-source-handoff-motion-build-v7
+python3 build.py --execute --schema Health --overlay /tmp/bendvy-slot-host-handoff-v7 --output /tmp/bendvy-source-handoff-health-build-v7
+taskset -c 7 node --expose-internals pipeline/enroll.cjs /tmp/bendvy-slot-host-handoff-v7 a9a2fa20913658b9561056e660803e3afd74870f321ff3a30c839e62fa44a56b /tmp/bendvy-source-handoff-motion-build-v7 /tmp/bendvy-source-handoff-health-build-v7
+python3 pipeline/derive-normal.py --cpu 7 --source-root /tmp/bendvy-slot-host-handoff-v7 --output /tmp/bendvy-source-handoff-generated-v7
+python3 verify-normal.py
+```
+
+Build commands use CPU7: version/guide5, executable check15, C/JS emission30, Clang120. Runtime validators and diagnostic children use five seconds; default proof allowance remains five seconds. `build.py` without `--execute` prepares sources and a plan only. It never installs a toolchain.
+
+The row, Data-token-pool and direct-Tuple safety recipes are byte-identical copies of the existing first-stage recipes. New exact source, producer-body, input and intermediate catalogs admit these programs. The normal catalogs remain immutable while lifecycle fixtures use a separate `fixtures-pipeline` folder. Old selective-Fold and positioned-swap recipes are not admitted: new drain calls introduce another taken consumer, and the old live boundary is no longer the normal ingress.
+
+Fresh finite observations passed:
+
+- Both schemas, raw JS and Native, and transformed JS: all 65 complete worlds equal fresh TS.
+- Both schema normal diagnostic routes: 4,160 handoff/ready/drain calls and 1,064,960 getter, ledger, setter, setledger, invoke, taken and returned calls each.
+- Eight actual retained lifecycle subjects, cached/raw × one/two rows × two schemas: 64 independent literal pre/post success/failure records. Counters are scoped inside the new handoff entry; retained Main and Ledger Data views are consumed after writes.
+- Six live derived-receiver mutations omitting cached Main, cached Ledger or true-old capture were detected with positive execution counters.
+- Sixteen helper records cover owning arrays of lengths 1/2/4/8, frozen retained views, repeated writes and pending inverse pairs. Row structural checks24 and Tuple order/exception/refusal checks34 passed.
+- Nine-world expression counts fell from 6,291,520 to 4,586,560 for Motion and 6,031,936 to 4,326,976 for Health. These are executed construction-expression counts, not physical allocation or elapsed improvements.
+
+Exact paths and SHA bindings are recorded in `status.json`; full producer/layer joins are checked by `verify-normal.py`. Broader lifecycle, authority and source mutations belong to independently recorded source controls. Old 576-controller receipts, full22, universal refinement and performance acceptance remain outside this package. Comparative clocks are root-owned; the canonical 20/20 allowance is not reset.
+
+Failed history is retained: v1 affine namespace check failure; v2 malformed capacity/modulo alias semantics; v5 open Array element emission; v6 historical topology-walk source builds. The first writes-only lifecycle fixture legitimately refused row enrollment because getters were pruned. A fixture schema lookup and an incorrect four-entry counter expectation were corrected without changing safety recipes; their refusal/failure receipts remain separate.
