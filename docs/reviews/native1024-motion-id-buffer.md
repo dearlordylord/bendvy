@@ -1,0 +1,19 @@
+# Motion split-ID v10 source review
+
+Read-only implementation review of `/tmp/bendvy-slot-host-motion-id-buffer-v10`, closure `b5dd78364ee9ef376eb8227fd7d11c79bc3ecf26c3e17e35bb17fc613f41848e`. No checker, compiler, workload or timing was executed. This reviews implementation against the conditional design I authored; it is not independent design approval.
+
+All29 actual hashes, embedded/standalone cache equality, runtime/specialized maps and closure digests independently agree. Query retains its complete concrete-v3 byte prefix. The source adds only Motion rows/bundle/producer/recovery helpers. Held-adapter inserts private Motion helpers and redirects one Some entry call; Health, original callback/provider/returned/finish bodies and initial LedgerNone route remain unchanged.
+
+Successful Some evacuation alone writes buffer[count], increments count and prepends its owner. Descending scan therefore aligns the ascending owner head with buffer[count-1]. Drain and recovery each read that index and decrement once. Missing/excluded rows do not increment. Recovery restores the complete current+remaining owner list, reverses accumulated Data IDs once and resumes the original recovered cursor continuation with full context. Drain temporarily reconstructs a private Fold with None ledger/zero selected handle only to pass its projected context through a single-use helper; actual old taken receives the real ledger and namespace/id before invoking the unchanged client. Runtime curried continuations capture the remaining affine owner list; their allocation cost is new work and must be counted, not inferred absent from the class8 node result.
+
+## Blocking preflight issue
+
+`prototype_split_motion_shape` allocates `Array.new(U32,depth,0)` before the buffer guard checks either physical Main size or physical buffer size. `Rows.depth` is publicly constructible metadata and may be oversized/inconsistent with a physically small Main. Thus the new buffer allocation can fail-stop or consume unbounded additional resources where the original query/fold could complete. The installed Native `blk_new` rejects depth beyond its runtime limit; smaller oversized values still initialize exponentially many cells. This is a concrete source-backed failure risk, not an executed counterexample in this review.
+
+Before candidate admission, a new immutable version must reject unsuitable metadata before allocation or derive bounded buffer depth from actual physical Main size/capacity, with overflow/zero cases routed to the original path before evacuation. Fresh oversized-depth, undersized-depth/ID size and undersized physical Main controls must exercise that preflight. Merely inspecting Array.size after allocation does not fix this issue. Author and root were notified immediately.
+
+As previously documented, exported malformed detached bundles can violate count/list/initialized-ID alignment; checking Nil/count cannot recover IDs already lost. Safe finite scope remains private producer-to-consumer confinement. Complete true-old, order, namespace, nonidentity recovery, pending Pair, immutable cached Data and authority gates must be newly source-bound; no concrete-v3 gate transfers.
+
+## Existing raw20 summary arithmetic
+
+Independently rehashed all20 source-concrete-owner-observations receipt pins and recomputed medians/ratios. Motion medians TS635.4188185, baselineJS564, baselineNative354, concreteJS603, concreteNative331ms; candidate JS/TS0.9489804, Native/TS0.5209163, Native/baselineNative0.9350282. Health TS614.561384, baselineJS524, baselineNative376, concreteJS542.5, concreteNative320.5ms; ratios0.8827434/0.5215102/0.8523936. Both Native/TS ratios exceed0.5, so neither reaches the raw 2× target. These ratios of medians support descriptive diagnosis only, not qualification, common timed wholeWorld forcing, keep or full-matrix completion.
