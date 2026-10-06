@@ -307,3 +307,16 @@ unchanged function prepends staged FIFO commands to pending with reverse.go;
 no staging/order work was removed. Global wildcard remains, so conditional
 resolved-star counters were not run. The bounded source investigation stops
 with this exact residual, not a global-sharing, speed or acceptance claim.
+
+## Publish-only final bounded negative
+
+The additional private frozen publish helper and single already-closed commit
+redirect checker15/emitter30 PASS, byte-identical actual C
+`6ab2a0198168bbed2a29bc6f5a40bc00607d706a37a8ae5b5d5f66abed1c3304`.
+All1,759branches/105sites and the FIRST seed remain unchanged: original generic
+storage.publish line275/span24395 Command<M,A,F>/VarM index1 resolves A:Type
+quantNone while wildcardfalse. Another route still emits the original generic
+publish. No further cascade is authorized by this probe; it ends as a precise
+negative. Globalstar remains, so conditional absent-star full65/counts were not
+run. Moving private callers does not justify claiming elimination of generic
+emission or runtime sharing. Exact current-source/compiler/C pins are archived.
