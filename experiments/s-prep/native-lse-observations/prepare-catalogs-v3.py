@@ -11,21 +11,22 @@ assert l['status']=='BOTH_UNCHANGED_C_LSE_BUILD_AND_ELF_INSPECTION_PASS' and i['
 for schema in ['Motion','Health']:
  subject_receipt=a.motion_lse_build if schema=='Motion' else path
  current_l=json.loads(subject_receipt.read_text())
+ current_inspector=subject_receipt.with_name('fresh-elf-inspection.json');current_i=json.loads(current_inspector.read_text());assert current_i['allPinnedBytesStableBeforeAfter']
  s=current_l['subjects'][schema];source=Path(s['sourceRoot']);build=Path(s['inputC']).parent
  fpath=ROOT/'experiments/s-prep/js-profile-followup'/'source-concrete-owner'/'freeze.json';f=json.loads(fpath.read_text())
  admission=a.motion_admission if schema=='Motion' else a.health_admission
  tools=current_l['toolPinsBefore']['pins'];headers=s['includePinsBefore'];hardware=current_l['hostBefore']['headerPins']
- libraries={k:v for k,v in {**tools,**i['pinsBefore']}.items() if '.so' in k}
+ libraries={k:v for k,v in {**tools,**i['pinsBefore'],**current_i['pinsBefore']}.items() if '.so' in k}
  pins={}
  def pin(path,expected=None):
   path=Path(path).resolve();h=sha(path)
   if expected is not None:assert h==expected,('drift',str(path))
   assert str(path) not in pins or pins[str(path)]==h;pins[str(path)]=h
  for name in base['pins']:pin(name)
- for name,h in {**tools,**headers,**hardware,**i['pinsBefore'],**l['extraToolPins']}.items():pin(name,h)
+ for name,h in {**tools,**headers,**hardware,**i['pinsBefore'],**current_i['pinsBefore'],**current_l['extraToolPins']}.items():pin(name,h)
  for name,h in {**f['normalConsumedFiles'],**f['currentReceipts']}.items():pin(name,h)
  for name,h in s['source29'].items():pin(source/name,h)
- for name in [path,subject_receipt,inspector,path.with_name('exact-flag-join.json'),fpath,admission,build/'build.json',build/'batch.c',build/'batch-native',source/'overlay.json',source/'cache-specialization.json',s['native'],f['schemaPrograms'][schema.lower()],__file__,HERE/'observe.py',HERE/'summarize.py',HERE/'cohort.py',HERE/'prepare-plan-v3.py']:pin(name)
+ for name in [path,subject_receipt,inspector,current_inspector,subject_receipt.with_name('exact-flag-join.json'),fpath,admission,build/'build.json',build/'batch.c',build/'batch-native',source/'overlay.json',source/'cache-specialization.json',s['native'],f['schemaPrograms'][schema.lower()],__file__,HERE/'observe.py',HERE/'summarize.py',HERE/'cohort.py',HERE/'prepare-plan-v3.py']:pin(name)
  full={}
  for name in [str(a.motion_lse65.resolve()) if schema=='Motion' else '/tmp/bendvy-native-lse-health-full65-v1/evidence.json',str(a.motion_default65.resolve()) if schema=='Motion' else str(a.health_default65.resolve())]:
   pin(name);full[name]=sha(name)
