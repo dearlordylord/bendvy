@@ -190,3 +190,13 @@ seed is observations.rows_finish line69 calling List.reverse with RowView<V,AV,F
 foreign VarV index3/span4247 has no local telescope domain. Wildcard is false at
 this site. Upstream frozen rows_go/advance still call an erased-type rows_finish.
 Closing that helper is a separate source hypothesis, not a delivered sharing fix.
+
+## Closed row-observation finish follow-up
+
+The one-helper private frozen rows_finish removes the preceding RowView firstseed.
+Checker15/emitter30 PASS, byte-identical actual C
+`38fb1f6c285c012af5b462295365882cd94ad7660ee96724991699fd70cb4ff1`,
+observes1,782branches/111sites. Next firstseed is observations.world_ledger line130
+calling List.reverse(PendingView<V,AV,F>): VarV index6/span9419 has no local
+telescope domain, starfalse. world_commands is frozen, world_ledger has erased
+type arguments. Metadata worker owns the next exact-boundary experiment.
