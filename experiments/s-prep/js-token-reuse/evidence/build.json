@@ -1,0 +1,50 @@
+{
+  "scope": "Explicit source token reuse diagnostic; check-only is not a mathematical proof",
+  "CPU": [
+    8
+  ],
+  "toolchain": "bend 2.0.35",
+  "guideCommand": [
+    "bend",
+    "guide"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-token-reuse-static/batch.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 15,
+      "exit": 1,
+      "status": "REJECTED_UNANNOTATED_TOKEN_CONSTRUCTOR"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-token-reuse-static-v2/batch.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 15,
+      "exit": 0,
+      "status": "ALL_PROOFS_CHECK_NOT_APPROVED_LAW_PROOF"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-token-reuse-static-v2/batch.bend",
+        "-o",
+        "/tmp/bendvy-token-reuse-static-v2/batch.js"
+      ],
+      "limitSeconds": 30,
+      "exit": 0
+    }
+  ],
+  "sourceSHA256": "e3d1748476506981cd67fffbf87b0ecf37d4f60f260ed6110852f67c2bb11709",
+  "generatedSHA256": "e0329d406228902599b4013d49467cfb9278454bce8a4d9d184cec3c8f0fb2f4",
+  "recipeSHA256": "fbc08f284b6555d250de4e76df1e37b5b6588fdda96c845bfc1ed62b22016787",
+  "controlsAdapterSHA256": "447041d3ce0cd7713fc85b93f86c79c038ef655138b2d33fcf9d51199eba9bdc",
+  "noOriginalCallbackPinAcceptance": true,
+  "fullCoreAccepted": false,
+  "performanceAccepted": false
+}
