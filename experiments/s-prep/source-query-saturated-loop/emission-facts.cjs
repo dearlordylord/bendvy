@@ -1,0 +1,9 @@
+// Read-only emitted AST facts; Node's bundled parser, no new dependency.
+const fs=require('node:fs'),crypto=require('node:crypto'),acorn=require('internal/deps/acorn/acorn/dist/acorn');
+const [baseline,candidate,output]=process.argv.slice(2);
+function walk(n,f){if(!n||typeof n!=='object')return;f(n);for(const [k,v]of Object.entries(n)){if(['start','end','loc'].includes(k))continue;if(Array.isArray(v))v.forEach(x=>walk(x,f));else if(v&&typeof v==='object')walk(v,f);}}
+function facts(path,label,prefix){const source=fs.readFileSync(path,'utf8'),ast=acorn.parse(source,{ecmaVersion:'latest'});const defs=ast.body.filter(n=>n.type==='FunctionDeclaration');const functions={};
+ for(const suffix of [prefix+'_struct_idx_metadata',prefix+'_struct_cols_live',label==='baseline'?'struct_cols_finish':'prototype_transport_finish']){
+  const matches=defs.filter(n=>n.id.name.includes('query$058'+suffix+'$'));if(matches.length!==1)throw Error('Ambiguous function '+suffix);const fn=matches[0];let branches=0;const constructors=[];walk(fn.body,n=>{if(n.type==='IfStatement')branches++;if(n.type==='ObjectExpression'){const tag=n.properties.find(p=>(p.key.name??p.key.value)==='$');constructors.push(tag?.value?.value??'untagged');}});functions[suffix]={name:fn.id.name,arity:fn.params.length,ifBranches:branches,staticObjectExpressions:constructors,bodySHA256:crypto.createHash('sha256').update(source.slice(fn.start,fn.end)).digest('hex')};
+ }return {sourceSHA256:crypto.createHash('sha256').update(source).digest('hex'),functions};}
+const result={scope:'Emitted static shape only; not heap, timing, authority or universal equivalence evidence',baseline:facts(baseline,'baseline','prototype_noaux'),candidate:facts(candidate,'candidate','prototype_transport_noaux')};fs.writeFileSync(output,JSON.stringify(result,null,2)+'\n');

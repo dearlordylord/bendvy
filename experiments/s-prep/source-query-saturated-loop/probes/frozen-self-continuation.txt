@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : a filled definition (an unfilled law is a dead claim: live code cannot use it)
+- observed : loop
+Context:
+- rest  : Nat
+- owner : Array<U32>
+Location: advance~0
+7 |     case 0n: owner
+8>|     case 1n++rest: advance(~loop,rest,owner)
+  |                             ^^^^
+9 | def printed(result:Array<U32> & U32) -> IO(Unit):
