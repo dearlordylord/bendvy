@@ -281,7 +281,7 @@ Final old-source generated JS cuts counted constructions45.5% and sampled heap
 379→240MB, but raw Health timing regresses; no qualified keep. Source-frozen query
 plus eight unchanged guarded passes matches all65 worlds on both schemas, counts
 5,236,800 constructions each, and remains slower than fresh TS. Native is not2x.
-New-source Tx/mutation/retained gates require fresh execution; full-chain old-source
+At that checkpoint new-source Tx/mutation/retained gates required fresh execution; full-chain old-source
 lost-mark runtime gate is open because unchanged structural guards reject subjects.
 The user explicitly approved private Clang19 extraction/use; record unchanged-C
 same-toolchain diagnostics separately. [Current report](reports/profile-directed-optimization.md).
@@ -292,3 +292,10 @@ it automatically enables the existing ABI branch without C/compiler edits. Same-
 counts5,105,216/eight timed worlds, but mixed raw clocks do not justify adoption.
 Next: finish source-bound frozen-chain direct Tx/negative controls, then source
 owner-transport reduction with full gates. No E11/full22/qualification claim.
+
+Fresh frozen-source direct controls now pass576 full original/suppression records
+through all eight unchanged recipes and a separately validated scalar-mark stage.
+Sixteen direct Raw receivers/eight mark loops are reached. This fills the finite
+Tx gap with new execution, not old-source transfer. Live mutants, full22/remaining
+Host/authority, qualification/matrix/refinement and performance gates stay open.
+[Direct receipt](../experiments/s-prep/frozen-query-chain-direct-controls/README.md).

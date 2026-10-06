@@ -75,3 +75,8 @@ Fresh source-frozen/eight-stage profiling also passes all nine states. Sampled
 heap240,665,928bytes is close to the previous chain's239,600,904; do not infer an
 extra heap reduction from source freezing. GC intervals239MB/TS90MB; GC self12.8%,
 storage_mark_all13.8%, reached read-client11.1%. [New exact profile and heap](frozen/index.json).
+
+The subsequent [fresh frozen direct controls](../frozen-query-chain-direct-controls/README.md)
+pass576 protected original/suppression records through eight stages and separately
+through scalar mark, with actual receiver/loop reach evidence. These are fresh
+executions; universal refinement, live mutants and full acceptance remain open.

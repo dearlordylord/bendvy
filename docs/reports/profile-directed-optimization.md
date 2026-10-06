@@ -242,8 +242,8 @@ Instrumented Native allocator calls32,920,519→32,216,007 (~2%) are not native2
 [Fresh eight-stage source join](../../experiments/s-prep/frozen-query-js-chain/README.md)
 keeps each recipe's guards and explicitly omits the absent dead-provider stage.
 Both schemas count5,236,800 constructions; fresh full65 fields pass. Raw Motion
-JS266/TS209.680ms, Native256ms; HealthJS271/TS212.434ms, Native282ms. Full new-source
-Tx/retained/mutation gates remain open; old-source passing gates do not transfer.
+JS266/TS209.680ms, Native256ms; HealthJS271/TS212.434ms, Native282ms. At this observation new-source Tx/retained/mutation gates were not yet executed;
+the fresh finite direct-Tx receipts below subsequently fill only the stated gap.
 Scalar emitted mark removes131,584 additional Tuple constructions on its exact
 old-source input; its new reached loop requires new mutation anchoring.
 
@@ -275,7 +275,8 @@ retained/exception witness and15 refusal controls pass. Root full65 fields match
 raw JSMotion268→306ms (TS207.411), Health331→304ms (TS248.997). A lower construction
 count does not establish a speed improvement. Native roles reuse the identical
 Clang19 frozen binary, so219→249/241→292ms differences are repeat-clock noise.
-New-source transaction and mutation acceptance remain separate/open.
+The subsequent fresh marked direct-Tx receipt passes below; mutation/full-matrix
+acceptance remains separate/open.
 
 Next implementation hypotheses are source-level fused query/owner continuations
 and fewer reached Held/Cache transport constructions, retaining abstract handles,
@@ -284,3 +285,19 @@ reached allocator/refcount work, not merely smaller ABI argument counts. Every
 candidate needs source-bound original/suppression/rollback/mark-order controls,
 new-source authority/provider/factory checks and the full equivalent-work matrix;
 none is approved for production by this diagnostic report.
+
+## Fresh frozen-source direct transaction controls
+
+[Newly executed direct controls](../../experiments/s-prep/frozen-query-chain-direct-controls/README.md)
+compile/check all eight actual frozen29 source subjects and admit every unchanged
+eight-stage recipe on actual generated fixtures. Original/standalone/full-chain
+576 records match protected independent journal/marks/rollback/value, mandatory
+suppression and cached/raw oracles; sixteen actual direct receivers are reached.
+A [separate scalar-mark stage](../../experiments/s-prep/frozen-query-chain-direct-controls/mark/README.md)
+admits all eight fresh inputs and passes the same576 complete records with eight
+positive scalar-loop reach counters. No old-source gate was transferred.
+These are finite source-bound executable controls, not universal refinement or
+performance acceptance. Root verified all331 initial archive member hashes and
+13 private-toolchain archive pairs. New live mutation/full22/authority/matrix/
+qualification gates remain separate; fresh source Native and compiler ABI receipts
+are explicitly separate from emitted-JS transformation acceptance.
