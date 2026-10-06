@@ -1,0 +1,28 @@
+{
+  "status": "FRESH_BOUNDED_GUARDS_PASS",
+  "CPU": 7,
+  "commands": [
+    {
+      "argv": [
+        "node",
+        "--expose-internals",
+        "experiments/s-prep/js-packed-paired-transport/guard-controls.cjs",
+        "/tmp/bendvy-packed-paired-tuple-guards.json"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "output": "{\"status\":\"STRUCTURAL_ORDER_RETAINED_CONTROLS_PASS\",\"checks\":34}\n"
+    },
+    {
+      "argv": [
+        "node",
+        "--expose-internals",
+        "experiments/s-prep/js-packed-paired-transport/row-guard-controls.cjs",
+        "/tmp/bendvy-packed-paired-row-guards-final.json"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "output": "{\"status\":\"PASS\",\"checks\":24}\n"
+    }
+  ]
+}
