@@ -1,0 +1,415 @@
+{
+  "status": "OBSERVATIONS_PASS_FAILURE_WORK_NOT_EQUIVALENT",
+  "scope": "Informational whole-process generic API comparison",
+  "iterations": 10,
+  "cpu": 8,
+  "order": [
+    "TS",
+    "JS",
+    "Native",
+    "JS",
+    "Native",
+    "TS",
+    "Native",
+    "TS",
+    "JS",
+    "TS",
+    "Native",
+    "JS",
+    "JS",
+    "TS",
+    "Native"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/examples/user-simulation/timing-main.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "checker",
+      "stderr": "",
+      "elapsedMs": 702.637027
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/examples/user-simulation/timing-main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing/timing.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "label": "js-emit",
+      "stderr": "",
+      "elapsedMs": 1174.177233
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/examples/user-simulation/timing-main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing/timing.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "label": "c-emit",
+      "stderr": "",
+      "elapsedMs": 3929.565382
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing/timing.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing/timing.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "label": "native-build",
+      "stderr": "",
+      "elapsedMs": 4541.512894
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing/timing-reference.mjs"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "TS-control",
+      "stderr": "",
+      "elapsedMs": 247.199232
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing/timing.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "JS-control",
+      "stderr": "",
+      "elapsedMs": 56.594133
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing/timing.native"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "Native-control",
+      "stderr": "",
+      "elapsedMs": 7.226346
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing/timing-reference.mjs"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "row-0-TS",
+      "stderr": "",
+      "elapsedMs": 228.245714
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing/timing.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "row-1-JS",
+      "stderr": "",
+      "elapsedMs": 56.776093
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing/timing.native"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "row-2-Native",
+      "stderr": "",
+      "elapsedMs": 5.911878
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing/timing.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "row-3-JS",
+      "stderr": "",
+      "elapsedMs": 58.61119
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing/timing.native"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "row-4-Native",
+      "stderr": "",
+      "elapsedMs": 6.315255
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing/timing-reference.mjs"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "row-5-TS",
+      "stderr": "",
+      "elapsedMs": 232.81379
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing/timing.native"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "row-6-Native",
+      "stderr": "",
+      "elapsedMs": 5.879378
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing/timing-reference.mjs"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "row-7-TS",
+      "stderr": "",
+      "elapsedMs": 230.272021
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing/timing.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "row-8-JS",
+      "stderr": "",
+      "elapsedMs": 57.384223
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing/timing-reference.mjs"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "row-9-TS",
+      "stderr": "",
+      "elapsedMs": 237.558659
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing/timing.native"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "row-10-Native",
+      "stderr": "",
+      "elapsedMs": 6.366464
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing/timing.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "row-11-JS",
+      "stderr": "",
+      "elapsedMs": 60.470662
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing/timing.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "row-12-JS",
+      "stderr": "",
+      "elapsedMs": 57.685266
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing/timing-reference.mjs"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "row-13-TS",
+      "stderr": "",
+      "elapsedMs": 237.042822
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing/timing.native"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "row-14-Native",
+      "stderr": "",
+      "elapsedMs": 6.084213
+    }
+  ],
+  "rows": [
+    {
+      "backend": "TS",
+      "elapsedMs": 228.245714,
+      "valid": true,
+      "output": "row-0-TS.stdout.gz",
+      "outputSha256": "11dd16a257215d8c6e4a9236c90933476eea24259be18990a8a82aa62a6ba57c"
+    },
+    {
+      "backend": "JS",
+      "elapsedMs": 56.776093,
+      "valid": true,
+      "output": "row-1-JS.stdout.gz",
+      "outputSha256": "f5dc8cc993bb2aaa22b2a9bc1cd9e605e6eab5cc68c1a9aabde6362879adb73c"
+    },
+    {
+      "backend": "Native",
+      "elapsedMs": 5.911878,
+      "valid": true,
+      "output": "row-2-Native.stdout.gz",
+      "outputSha256": "f5dc8cc993bb2aaa22b2a9bc1cd9e605e6eab5cc68c1a9aabde6362879adb73c"
+    },
+    {
+      "backend": "JS",
+      "elapsedMs": 58.61119,
+      "valid": true,
+      "output": "row-3-JS.stdout.gz",
+      "outputSha256": "f5dc8cc993bb2aaa22b2a9bc1cd9e605e6eab5cc68c1a9aabde6362879adb73c"
+    },
+    {
+      "backend": "Native",
+      "elapsedMs": 6.315255,
+      "valid": true,
+      "output": "row-4-Native.stdout.gz",
+      "outputSha256": "f5dc8cc993bb2aaa22b2a9bc1cd9e605e6eab5cc68c1a9aabde6362879adb73c"
+    },
+    {
+      "backend": "TS",
+      "elapsedMs": 232.81379,
+      "valid": true,
+      "output": "row-5-TS.stdout.gz",
+      "outputSha256": "11dd16a257215d8c6e4a9236c90933476eea24259be18990a8a82aa62a6ba57c"
+    },
+    {
+      "backend": "Native",
+      "elapsedMs": 5.879378,
+      "valid": true,
+      "output": "row-6-Native.stdout.gz",
+      "outputSha256": "f5dc8cc993bb2aaa22b2a9bc1cd9e605e6eab5cc68c1a9aabde6362879adb73c"
+    },
+    {
+      "backend": "TS",
+      "elapsedMs": 230.272021,
+      "valid": true,
+      "output": "row-7-TS.stdout.gz",
+      "outputSha256": "11dd16a257215d8c6e4a9236c90933476eea24259be18990a8a82aa62a6ba57c"
+    },
+    {
+      "backend": "JS",
+      "elapsedMs": 57.384223,
+      "valid": true,
+      "output": "row-8-JS.stdout.gz",
+      "outputSha256": "f5dc8cc993bb2aaa22b2a9bc1cd9e605e6eab5cc68c1a9aabde6362879adb73c"
+    },
+    {
+      "backend": "TS",
+      "elapsedMs": 237.558659,
+      "valid": true,
+      "output": "row-9-TS.stdout.gz",
+      "outputSha256": "11dd16a257215d8c6e4a9236c90933476eea24259be18990a8a82aa62a6ba57c"
+    },
+    {
+      "backend": "Native",
+      "elapsedMs": 6.366464,
+      "valid": true,
+      "output": "row-10-Native.stdout.gz",
+      "outputSha256": "f5dc8cc993bb2aaa22b2a9bc1cd9e605e6eab5cc68c1a9aabde6362879adb73c"
+    },
+    {
+      "backend": "JS",
+      "elapsedMs": 60.470662,
+      "valid": true,
+      "output": "row-11-JS.stdout.gz",
+      "outputSha256": "f5dc8cc993bb2aaa22b2a9bc1cd9e605e6eab5cc68c1a9aabde6362879adb73c"
+    },
+    {
+      "backend": "JS",
+      "elapsedMs": 57.685266,
+      "valid": true,
+      "output": "row-12-JS.stdout.gz",
+      "outputSha256": "f5dc8cc993bb2aaa22b2a9bc1cd9e605e6eab5cc68c1a9aabde6362879adb73c"
+    },
+    {
+      "backend": "TS",
+      "elapsedMs": 237.042822,
+      "valid": true,
+      "output": "row-13-TS.stdout.gz",
+      "outputSha256": "11dd16a257215d8c6e4a9236c90933476eea24259be18990a8a82aa62a6ba57c"
+    },
+    {
+      "backend": "Native",
+      "elapsedMs": 6.084213,
+      "valid": true,
+      "output": "row-14-Native.stdout.gz",
+      "outputSha256": "f5dc8cc993bb2aaa22b2a9bc1cd9e605e6eab5cc68c1a9aabde6362879adb73c"
+    }
+  ],
+  "sources": {
+    "src/ecs/world.bend": "35d8cb40eaed156ed32444ad238a12b81da1f35a281002ceeac8066ca48831a7",
+    "src/ecs/provider.bend": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72",
+    "src/ecs/system.bend": "b603976da337b72586cf731fc1cf886238dbcbe9c53e1e192552aa6244408fde",
+    "src/ecs/component.bend": "d3ac5feb5e76fdd22e8cec4ffdb9c2bd3bf93c4d4ab2da96d445f0b1c19016a4",
+    "src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+    "src/ecs/query.bend": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9",
+    "src/ecs/commands.bend": "b41ec45ad17513351fd68436cefbaec0058ac4556d1d722f2c0ce5a7d4a9f9d1",
+    "src/ecs/column.bend": "6bed81e82da38ad1bc835fcf50f1ebb654788823b9870aef419b70ce0aba9c24",
+    "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "src/ecs/events.bend": "3d89fbbb40fefab4be349bfbe0d1f99c870c25c725130ccb1823910c1ace7c53",
+    "src/ecs/structural.bend": "f813a10058914cdf85f94e879b2dc68b9cb3e878b5c683dae60152f40001fcae",
+    "examples/user-simulation/simulation.bend": "6b7e86a86c66e007c2cb6fc3024d864a3f8fb4c1dbcca5c4f6b3c144d90921cd",
+    "examples/user-simulation/schema.bend": "d6fbf524ab654c41a34e09eff93f4831fff719de01a83e6abb0553595ef31d80",
+    "examples/user-simulation/json.bend": "07ec96803f16bcb5e7e2d6f1e13b859e48603b3239c65941d3d5fd0f34698351",
+    "examples/user-simulation/driver.bend": "12ae7f3df699c71afe167f8300148d02bfd610110718c21afa169e125f1b9140",
+    "examples/user-simulation/main.bend": "8a0a0c8e2444a914553b2c0c87a0debc832d0473c72c52ba03b92f292fde9f6e",
+    "examples/user-simulation/timing-main.bend": "a658a8818be9554339b82af4d4aa78a99ce7e3badaac50679c38a6b9a5cf8d8c"
+  },
+  "mediansMs": {
+    "TS": 232.81379,
+    "JS": 57.685266,
+    "Native": 6.084213
+  },
+  "ratios": {
+    "JS/TS": 0.24777426629238755,
+    "Native/TS": 0.026133387545471426
+  },
+  "artifacts": {
+    "reference.mjs": "cf08d713d15dc0fd1e609da7d2225139e05ef53f6564a8fb811aba8d7abd4568",
+    "normative-reference.mjs": "1b30f566ef9f4a8c15348da95ee7c05ccdcda09fb70c314dcc24f05b9428c2bd",
+    "timing-reference.mjs": "4cbe9d18fce49840f9400d7b587aecaeeb6fe07281e769d201b123d3b96ab7e6",
+    "timing.js": "393a180ddbde08211aa33f17ab65ee9b298cb9d1539c99881d5c5cf48070d1ca",
+    "timing.c": "9f53a1b54919b7fb1f1bd7e12adba5864e5f8ee5639df1146e224d05c97786f9",
+    "timing.native": "9a195c52f323174403c1086d5b98f4f1da9a5a4673b7fd5d623ed7c1892c3340"
+  },
+  "limitation": "Frozen TS failing retry writes both moving entities before failing; this earlier Bend callback failed after the first entity. Ratios are retained raw observations, not the reviewed equivalent-work comparison."
+}

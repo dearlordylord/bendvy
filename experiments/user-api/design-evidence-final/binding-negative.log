@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : Bound<Edit<Schema, Position>, idle>
+- observed : Bound<Edit<Schema, Position>, concrete>
+Context:
+- bound : Bound<Edit<Schema, Position>, concrete>
+- edit  : Edit<Schema, Position>
+Location: wrong
+53 | def wrong(bound: Bound<Edit<Schema,Position>,concrete>,edit: Edit<Schema,Position>) -> Edit<Schema,Position>:
+54>|   twice_bound(~Edit<Schema,Position>,~idle,bound,edit)
+   |                                            ^^^^^
+55 | def main() -> U32:

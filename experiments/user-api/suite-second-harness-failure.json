@@ -1,0 +1,73 @@
+{
+  "status": "INCOMPLETE",
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "experiments/user-api/check.py",
+        "experiments/user-api/design-canaries/cases.json",
+        "--output",
+        "experiments/user-api/design-evidence-final"
+      ],
+      "exit": 0,
+      "seconds": 0.6092806999949971,
+      "output": "{\"passed\": 6, \"total\": 6}\n"
+    },
+    {
+      "argv": [
+        "python3",
+        "experiments/user-api/check.py",
+        "experiments/user-api/core-controls/cases.json",
+        "--output",
+        "experiments/user-api/core-evidence-final"
+      ],
+      "exit": 0,
+      "seconds": 1.6188756140036276,
+      "output": "{\"passed\": 11, \"total\": 11}\n"
+    },
+    {
+      "argv": [
+        "python3",
+        "experiments/user-api/check.py",
+        "experiments/user-api/system-controls/cases.json",
+        "--output",
+        "experiments/user-api/system-evidence-final"
+      ],
+      "exit": 0,
+      "seconds": 1.0239024390029954,
+      "output": "{\"passed\": 8, \"total\": 8}\n"
+    },
+    {
+      "argv": [
+        "python3",
+        "experiments/user-api/check.py",
+        "experiments/user-api/transaction-controls/cases.json",
+        "--output",
+        "experiments/user-api/transaction-evidence-final"
+      ],
+      "exit": 0,
+      "seconds": 0.5843780550058,
+      "output": "{\"passed\": 5, \"total\": 5}\n"
+    },
+    {
+      "argv": [
+        "python3",
+        "experiments/user-api-provider/replay.py",
+        "--evidence",
+        "experiments/user-api/provider-evidence-final.json"
+      ],
+      "exit": 0,
+      "seconds": 6.859310507999908,
+      "output": "{\"status\": \"PASS_SCOPED_FINITE_PROVIDER_CONTROLS\", \"positiveControls\": 7, \"negativeControls\": 5, \"nativeAndJSPrograms\": 3}\n"
+    },
+    {
+      "argv": [
+        "python3",
+        "experiments/user-api/fresh-consumer/check.py"
+      ],
+      "exit": 1,
+      "seconds": 5.000779218004027,
+      "output": "Traceback (most recent call last):\n  File \"/workspace/formal-proofs/bendvy/experiments/user-api/fresh-consumer/check.py\", line 55, in <module>\n    assert all(text in output for text in required), output\nAssertionError\n"
+    }
+  ]
+}

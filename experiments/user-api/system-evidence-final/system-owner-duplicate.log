@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : registry
+- observed : registry (consumed more than once)
+Location: duplicate
+29 |     case S.Completed{_,outcome}: final_outcome(outcome)
+30>| def duplicate(registry: S.Registry<Schema,Unit,U32,U32,Unit,Error,Unit,body>) -> S.Registry<Schema,Unit,U32,U32,Unit,Error,Unit,body> & S.Registry<Schema,Unit,U32,U32,Unit,Error,Unit,body>:
+   |               ^^^^^^^^
+31 |   (registry,registry)

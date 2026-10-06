@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : Registry<Edit<Schema, Position>, idle>
+- observed : Registry<Edit<Schema, Position>, concrete>
+Context:
+- registration : Registry<Edit<Schema, Position>, concrete>
+- edit         : Edit<Schema, Position>
+Location: forged
+57 | def forged(registration: Registry<Edit<Schema,Position>,concrete>,edit: Edit<Schema,Position>) -> Registry<Edit<Schema,Position>,idle> & Edit<Schema,Position>:
+58>|   run_registered(~Edit<Schema,Position>,~idle,registration,Bound{7},edit)
+   |                                               ^^^^^^^^^^^^
+59 | def main() -> U32:

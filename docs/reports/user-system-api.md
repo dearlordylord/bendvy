@@ -19,23 +19,45 @@ independent interface review. Optimization remains paused.
   owners. Liveness-only low-level despawn is not the public integration route.
 - Independent affine event readers observe an append-only Data event log.
 
-## Evidence and remaining gates
+## Acceptance evidence
 
-Pinned bevy-ts executes all 23 frozen checkpoints using
-`timeout 5s node examples/user-simulation/reference.mjs --verify`.
-The final foreign-world collision has an approved Bend divergence; the other
-22 checkpoints require an actual Bend application comparison.
+All bounded implementation/execution gates pass; final review and delivery are
+pending. The final suite is [suite.json](../../experiments/user-api/suite.json).
 
-Replayable bounded source/type controls live under `experiments/user-api`.
-Their runner records source hashes and rejects timeouts. Design canaries are
-separate from connected public-module controls. These are finite executable
-and compiler controls, not ECS proofs or universal runtime refinement.
+| #26 condition | Observed evidence |
+| --- | --- |
+| Independent authored systems | [Blind consumer](../../experiments/user-api/fresh-consumer/README.md) authors and registers movement/damage without library edits or journals; current-source checker/Native/JS and five intended negatives pass. |
+| Independent Type families | Main application has five independent families, three with complete owned Arrays; blind application has four affine Array-owning families. Data Armor/tag remain supported. |
+| Finite application/reference | [Final backend receipt](../../experiments/user-api/application-evidence-final/receipt.json): both backends match all22 normative frozen TS checkpoints; the23rd separately verifies MissingEntity, unchanged queue and unchanged post-barrier world. |
+| Transaction/access/ownership | 31 explicit design/core/system/transaction cases; public provider7 positive/5 intended negative cases and3 compiled programs. Read-your-writes, reverse rollback, earlier commits, retry/cursor identity, foreign rejection and five-column physical despawn cleanup pass in their bounded cases. |
+| Connected source/timing | Exact-source replay hashes and reviewed15-row equal-work cohort; no transfer from earlier optimized source. |
+| Fresh consumer/next integration | Blind consumer gate met; [query composition #27](../tickets/25-query-composition.md) records its usability gaps. Tower Defense remains conditional on separate integration/performance prerequisites. |
 
-Still required before closing #26: connected public query/provider callbacks;
-full frozen simulation; intended public access/ownership negatives with positive
-controls; a fresh blind application author; independent Standards/Spec review;
-reviewed bounded backend performance observations. Earlier optimization results
-do not establish performance of these new generic interfaces.
+Replay command: `python3 experiments/user-api/run-all.py`. Default Bend checker5s,
+codegen30s, host Clang120s and runtime5s for the full application. Bend2.0.35,
+Node24.20.0, approved private Clang19.1.7; reference commits match the tracked
+`.references/sources.json`. Supporting law approvals/kernel are unchanged.
+Finite tests and compiler rejection controls are not ECS proofs or universal
+runtime refinement.
+
+The frozen TS failing retry writes both selected Positions before one resource
+write/event/spawn and failure. An initial Bend callback failed after the first
+row: observations matched, but that timing cohort is explicitly disqualified
+for equivalent work. The corrected callback uses the retained final entity
+handle. Actual body controls on both backends count failure `[2,1,1,1]` and
+success `[0,1,0,0]` (component/resource/event/spawn operations). Final23-point
+traces and the equal-work cohort were rerun. Initial invalid JSON and harness
+failures, earlier receipts and the mismatched-work cohort remain archived.
+
+[Reviewed bounded timing](../../experiments/user-api/timing-evidence-equal-work/receipt.json)
+uses10 complete22-checkpoint applications per fresh process, five processes per
+backend in fixed balanced order onCPU8. Medians: TS342.292ms, JS82.926ms,
+Native9.034ms; elapsed ratios JS/TS0.24227, Native/TS0.02639. These include
+startup/import/serialization, strongly favoring precompiled Native and showing
+substantial process noise. They are **not ECS hot-path speedups**, a historical
+API regression comparison, qualification or full5×3 acceptance. Raw outputs,
+all15 rows, source/tool/artifact hashes and exact commands are retained. Existing
+JS parity/Native2× representative-work goals remain open.
 
 ## Explicit follow-ups
 

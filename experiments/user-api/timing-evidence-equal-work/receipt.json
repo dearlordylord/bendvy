@@ -1,0 +1,414 @@
+{
+  "status": "PASS_BOUNDED_INFORMATIONAL_COHORT",
+  "scope": "Informational whole-process generic API comparison",
+  "iterations": 10,
+  "cpu": 8,
+  "order": [
+    "TS",
+    "JS",
+    "Native",
+    "JS",
+    "Native",
+    "TS",
+    "Native",
+    "TS",
+    "JS",
+    "TS",
+    "Native",
+    "JS",
+    "JS",
+    "TS",
+    "Native"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/examples/user-simulation/timing-main.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "checker",
+      "stderr": "",
+      "elapsedMs": 1069.042404
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/examples/user-simulation/timing-main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing-equal-work/timing.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "label": "js-emit",
+      "stderr": "",
+      "elapsedMs": 1794.899022
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/examples/user-simulation/timing-main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing-equal-work/timing.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "label": "c-emit",
+      "stderr": "",
+      "elapsedMs": 6723.541163
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing-equal-work/timing.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing-equal-work/timing.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "label": "native-build",
+      "stderr": "",
+      "elapsedMs": 9747.034412
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing-equal-work/timing-reference.mjs"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "TS-control",
+      "stderr": "",
+      "elapsedMs": 312.833599
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing-equal-work/timing.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "JS-control",
+      "stderr": "",
+      "elapsedMs": 69.271062
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing-equal-work/timing.native"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "Native-control",
+      "stderr": "",
+      "elapsedMs": 7.37268
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing-equal-work/timing-reference.mjs"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "row-0-TS",
+      "stderr": "",
+      "elapsedMs": 342.291654
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing-equal-work/timing.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "row-1-JS",
+      "stderr": "",
+      "elapsedMs": 71.660538
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing-equal-work/timing.native"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "row-2-Native",
+      "stderr": "",
+      "elapsedMs": 6.721592
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing-equal-work/timing.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "row-3-JS",
+      "stderr": "",
+      "elapsedMs": 69.585564
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing-equal-work/timing.native"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "row-4-Native",
+      "stderr": "",
+      "elapsedMs": 6.537924
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing-equal-work/timing-reference.mjs"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "row-5-TS",
+      "stderr": "",
+      "elapsedMs": 273.341344
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing-equal-work/timing.native"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "row-6-Native",
+      "stderr": "",
+      "elapsedMs": 9.034485
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing-equal-work/timing-reference.mjs"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "row-7-TS",
+      "stderr": "",
+      "elapsedMs": 313.981525
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing-equal-work/timing.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "row-8-JS",
+      "stderr": "",
+      "elapsedMs": 125.815611
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing-equal-work/timing-reference.mjs"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "row-9-TS",
+      "stderr": "",
+      "elapsedMs": 353.188235
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing-equal-work/timing.native"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "row-10-Native",
+      "stderr": "",
+      "elapsedMs": 13.87148
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing-equal-work/timing.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "row-11-JS",
+      "stderr": "",
+      "elapsedMs": 82.925872
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing-equal-work/timing.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "row-12-JS",
+      "stderr": "",
+      "elapsedMs": 96.910936
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing-equal-work/timing-reference.mjs"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "row-13-TS",
+      "stderr": "",
+      "elapsedMs": 384.396596
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-timing-equal-work/timing.native"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "label": "row-14-Native",
+      "stderr": "",
+      "elapsedMs": 9.764823
+    }
+  ],
+  "rows": [
+    {
+      "backend": "TS",
+      "elapsedMs": 342.291654,
+      "valid": true,
+      "output": "row-0-TS.stdout.gz",
+      "outputSha256": "11dd16a257215d8c6e4a9236c90933476eea24259be18990a8a82aa62a6ba57c"
+    },
+    {
+      "backend": "JS",
+      "elapsedMs": 71.660538,
+      "valid": true,
+      "output": "row-1-JS.stdout.gz",
+      "outputSha256": "f5dc8cc993bb2aaa22b2a9bc1cd9e605e6eab5cc68c1a9aabde6362879adb73c"
+    },
+    {
+      "backend": "Native",
+      "elapsedMs": 6.721592,
+      "valid": true,
+      "output": "row-2-Native.stdout.gz",
+      "outputSha256": "f5dc8cc993bb2aaa22b2a9bc1cd9e605e6eab5cc68c1a9aabde6362879adb73c"
+    },
+    {
+      "backend": "JS",
+      "elapsedMs": 69.585564,
+      "valid": true,
+      "output": "row-3-JS.stdout.gz",
+      "outputSha256": "f5dc8cc993bb2aaa22b2a9bc1cd9e605e6eab5cc68c1a9aabde6362879adb73c"
+    },
+    {
+      "backend": "Native",
+      "elapsedMs": 6.537924,
+      "valid": true,
+      "output": "row-4-Native.stdout.gz",
+      "outputSha256": "f5dc8cc993bb2aaa22b2a9bc1cd9e605e6eab5cc68c1a9aabde6362879adb73c"
+    },
+    {
+      "backend": "TS",
+      "elapsedMs": 273.341344,
+      "valid": true,
+      "output": "row-5-TS.stdout.gz",
+      "outputSha256": "11dd16a257215d8c6e4a9236c90933476eea24259be18990a8a82aa62a6ba57c"
+    },
+    {
+      "backend": "Native",
+      "elapsedMs": 9.034485,
+      "valid": true,
+      "output": "row-6-Native.stdout.gz",
+      "outputSha256": "f5dc8cc993bb2aaa22b2a9bc1cd9e605e6eab5cc68c1a9aabde6362879adb73c"
+    },
+    {
+      "backend": "TS",
+      "elapsedMs": 313.981525,
+      "valid": true,
+      "output": "row-7-TS.stdout.gz",
+      "outputSha256": "11dd16a257215d8c6e4a9236c90933476eea24259be18990a8a82aa62a6ba57c"
+    },
+    {
+      "backend": "JS",
+      "elapsedMs": 125.815611,
+      "valid": true,
+      "output": "row-8-JS.stdout.gz",
+      "outputSha256": "f5dc8cc993bb2aaa22b2a9bc1cd9e605e6eab5cc68c1a9aabde6362879adb73c"
+    },
+    {
+      "backend": "TS",
+      "elapsedMs": 353.188235,
+      "valid": true,
+      "output": "row-9-TS.stdout.gz",
+      "outputSha256": "11dd16a257215d8c6e4a9236c90933476eea24259be18990a8a82aa62a6ba57c"
+    },
+    {
+      "backend": "Native",
+      "elapsedMs": 13.87148,
+      "valid": true,
+      "output": "row-10-Native.stdout.gz",
+      "outputSha256": "f5dc8cc993bb2aaa22b2a9bc1cd9e605e6eab5cc68c1a9aabde6362879adb73c"
+    },
+    {
+      "backend": "JS",
+      "elapsedMs": 82.925872,
+      "valid": true,
+      "output": "row-11-JS.stdout.gz",
+      "outputSha256": "f5dc8cc993bb2aaa22b2a9bc1cd9e605e6eab5cc68c1a9aabde6362879adb73c"
+    },
+    {
+      "backend": "JS",
+      "elapsedMs": 96.910936,
+      "valid": true,
+      "output": "row-12-JS.stdout.gz",
+      "outputSha256": "f5dc8cc993bb2aaa22b2a9bc1cd9e605e6eab5cc68c1a9aabde6362879adb73c"
+    },
+    {
+      "backend": "TS",
+      "elapsedMs": 384.396596,
+      "valid": true,
+      "output": "row-13-TS.stdout.gz",
+      "outputSha256": "11dd16a257215d8c6e4a9236c90933476eea24259be18990a8a82aa62a6ba57c"
+    },
+    {
+      "backend": "Native",
+      "elapsedMs": 9.764823,
+      "valid": true,
+      "output": "row-14-Native.stdout.gz",
+      "outputSha256": "f5dc8cc993bb2aaa22b2a9bc1cd9e605e6eab5cc68c1a9aabde6362879adb73c"
+    }
+  ],
+  "sources": {
+    "src/ecs/world.bend": "35d8cb40eaed156ed32444ad238a12b81da1f35a281002ceeac8066ca48831a7",
+    "src/ecs/provider.bend": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72",
+    "src/ecs/system.bend": "b603976da337b72586cf731fc1cf886238dbcbe9c53e1e192552aa6244408fde",
+    "src/ecs/component.bend": "d3ac5feb5e76fdd22e8cec4ffdb9c2bd3bf93c4d4ab2da96d445f0b1c19016a4",
+    "src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+    "src/ecs/query.bend": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9",
+    "src/ecs/commands.bend": "b41ec45ad17513351fd68436cefbaec0058ac4556d1d722f2c0ce5a7d4a9f9d1",
+    "src/ecs/column.bend": "6bed81e82da38ad1bc835fcf50f1ebb654788823b9870aef419b70ce0aba9c24",
+    "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "src/ecs/events.bend": "3d89fbbb40fefab4be349bfbe0d1f99c870c25c725130ccb1823910c1ace7c53",
+    "src/ecs/structural.bend": "f813a10058914cdf85f94e879b2dc68b9cb3e878b5c683dae60152f40001fcae",
+    "examples/user-simulation/simulation.bend": "35d0db9a1c9f374a940dea171dd7bbf78280250796e7883bc60fca3556ea2412",
+    "examples/user-simulation/schema.bend": "d6fbf524ab654c41a34e09eff93f4831fff719de01a83e6abb0553595ef31d80",
+    "examples/user-simulation/json.bend": "07ec96803f16bcb5e7e2d6f1e13b859e48603b3239c65941d3d5fd0f34698351",
+    "examples/user-simulation/driver.bend": "84f8bc078e2b24e78567b4b0688c7bbb74d27d13f50a7f4e3e389f8181e637c2",
+    "examples/user-simulation/main.bend": "8a0a0c8e2444a914553b2c0c87a0debc832d0473c72c52ba03b92f292fde9f6e",
+    "examples/user-simulation/timing-main.bend": "a658a8818be9554339b82af4d4aa78a99ce7e3badaac50679c38a6b9a5cf8d8c"
+  },
+  "mediansMs": {
+    "TS": 342.291654,
+    "JS": 82.925872,
+    "Native": 9.034485
+  },
+  "ratios": {
+    "JS/TS": 0.24226670744358844,
+    "Native/TS": 0.026394114184273978
+  },
+  "artifacts": {
+    "reference.mjs": "cf08d713d15dc0fd1e609da7d2225139e05ef53f6564a8fb811aba8d7abd4568",
+    "normative-reference.mjs": "1b30f566ef9f4a8c15348da95ee7c05ccdcda09fb70c314dcc24f05b9428c2bd",
+    "timing-reference.mjs": "4cbe9d18fce49840f9400d7b587aecaeeb6fe07281e769d201b123d3b96ab7e6",
+    "timing.js": "93564093d2d5523c8293f8a0c743ea8a3820051b2a97d427535ee1aa43f6ca7d",
+    "timing.c": "7ed64cf7d0e9a9ab117bd37e73922b705000ccbfbbf22e04ad69a9b9f28c5957",
+    "timing.native": "026865b0b051912363419aa390ffdc19f99ab697bc97c41fcacf3755e385853e"
+  }
+}

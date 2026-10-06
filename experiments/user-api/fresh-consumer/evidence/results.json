@@ -8,7 +8,7 @@
         "version"
       ],
       "exit": 0,
-      "seconds": 0.0187,
+      "seconds": 0.0212,
       "output": "bend 2.0.35\n"
     },
     {
@@ -17,7 +17,7 @@
         "--version"
       ],
       "exit": 0,
-      "seconds": 0.0072,
+      "seconds": 0.0078,
       "output": "v24.20.0\n"
     },
     {
@@ -28,7 +28,7 @@
         "experiments/user-api/fresh-consumer/arena.bend"
       ],
       "exit": 0,
-      "seconds": 0.325,
+      "seconds": 0.31,
       "output": "SSSSFS:position1,position2,health1,health2=8,14,21,5,events=6\n"
     },
     {
@@ -38,10 +38,10 @@
         "bend",
         "experiments/user-api/fresh-consumer/arena.bend",
         "-o",
-        "/tmp/bendvy-fresh-consumer-cwzs3wpj/arena.c"
+        "/tmp/bendvy-fresh-consumer-ut8gtjkk/arena.c"
       ],
       "exit": 0,
-      "seconds": 1.1847,
+      "seconds": 1.247,
       "output": ""
     },
     {
@@ -49,23 +49,23 @@
         "clang",
         "-O2",
         "-pthread",
-        "/tmp/bendvy-fresh-consumer-cwzs3wpj/arena.c",
+        "/tmp/bendvy-fresh-consumer-ut8gtjkk/arena.c",
         "-lm",
         "-o",
-        "/tmp/bendvy-fresh-consumer-cwzs3wpj/arena"
+        "/tmp/bendvy-fresh-consumer-ut8gtjkk/arena"
       ],
       "exit": 0,
-      "seconds": 2.5417,
+      "seconds": 2.5306,
       "output": ""
     },
     {
       "argv": [
-        "/tmp/bendvy-fresh-consumer-cwzs3wpj/arena",
+        "/tmp/bendvy-fresh-consumer-ut8gtjkk/arena",
         "--threads",
         "1"
       ],
       "exit": 0,
-      "seconds": 0.0048,
+      "seconds": 0.0037,
       "output": "SSSSFS:position1,position2,health1,health2=8,14,21,5,events=6\n"
     },
     {
@@ -75,10 +75,10 @@
         "bend",
         "experiments/user-api/fresh-consumer/arena.bend",
         "-o",
-        "/tmp/bendvy-fresh-consumer-cwzs3wpj/arena.mjs"
+        "/tmp/bendvy-fresh-consumer-ut8gtjkk/arena.mjs"
       ],
       "exit": 0,
-      "seconds": 0.3065,
+      "seconds": 0.3119,
       "output": ""
     },
     {
@@ -86,10 +86,10 @@
         "node",
         "--input-type=module",
         "-e",
-        "import Arena from \"/tmp/bendvy-fresh-consumer-cwzs3wpj/arena.mjs\"; console.log(Arena.scenario())"
+        "import Arena from \"/tmp/bendvy-fresh-consumer-ut8gtjkk/arena.mjs\"; console.log(Arena.scenario())"
       ],
       "exit": 0,
-      "seconds": 0.0228,
+      "seconds": 0.0264,
       "output": "SSSSFS:position1,position2,health1,health2=8,14,21,5,events=6\n"
     },
     {
@@ -100,7 +100,7 @@
         "experiments/user-api/fresh-consumer/negative_cross_schema.bend"
       ],
       "exit": 1,
-      "seconds": 0.1632,
+      "seconds": 0.1854,
       "output": "SOME PROOFS FAIL\nError:\n- expected : W.Handle<Arena.Arena>\n- observed : W.Handle<Other>\nContext:\n- world  : W.World<Arena.Arena, Arena.Store, U32, Arena.Hit>\n- handle : W.Handle<Other>\nLocation: bad\n10 | def bad(world: W.World<Arena.Arena,Arena.Store,U32,Arena.Hit>,handle: W.Handle<Other>) -> W.World<Arena.Arena,Arena.Store,U32,Arena.Hit>:\n11>|   Arena.write_Health(world,handle,10)\n   |                            ^^^^^^\n12 | \n"
     },
     {
@@ -111,7 +111,7 @@
         "experiments/user-api/fresh-consumer/negative_owned_copy.bend"
       ],
       "exit": 1,
-      "seconds": 0.1808,
+      "seconds": 0.2254,
       "output": "SOME PROOFS FAIL\nError:\n- expected : Data\n- observed : Type\nLocation: bad\n7 | \n8>| def bad(+owner: Arena.Position) -> Arena.Position:\n  |                 ^^^^^^^^^^^^^^\n9 |   owner\nNote: +owner can be used many times, so its type must be Data.\n"
     },
     {
@@ -122,7 +122,7 @@
         "experiments/user-api/fresh-consumer/negative_read_write.bend"
       ],
       "exit": 1,
-      "seconds": 0.1782,
+      "seconds": 0.2393,
       "output": "SOME PROOFS FAIL\nError:\n- expected : @_:bad~H -> @_:Arena.Position -> bad~H\n- observed : @_:bad~H -> Sigma<&1, &1, bad~H, _ => Cmp.Access<U32>>\nContext:\n- ctx : bad~H\nLocation: bad\n 8 | def bad(~H: Type,~aux: H -> H & Cmp.Access<U32>,ctx: H) -> H & T.Outcome<Arena.Fault>:\n 9>|   Arena.move_values(~H,~aux,1,Cmp.Found{0},Cmp.Found{2},ctx)\n   |                         ^^^\n10 | \n"
     },
     {
@@ -133,7 +133,7 @@
         "experiments/user-api/fresh-consumer/negative_registry_rebind.bend"
       ],
       "exit": 1,
-      "seconds": 0.1742,
+      "seconds": 0.2033,
       "output": "SOME PROOFS FAIL\nError:\n- expected : Sys.Registry<Arena.Arena, Arena.Store, U32, Arena.Hit, Unit, Pv.Error<Arena.Fault>, Unit, alternate>\n- observed : Sys.Registry<Arena.Arena, Arena.Store, U32, Arena.Hit, Unit, Pv.Error<Arena.Fault>, Unit, Arena.move_runner>\nContext:\n- world    : W.World<Arena.Arena, Arena.Store, U32, Arena.Hit>\n- registry : Sys.Registry<Arena.Arena, Arena.Store, U32, Arena.Hit, Unit, Pv.Error<Arena.Fault>, Unit, Arena.move_runner>\nLocation: bad\n10 | def bad(world: W.World<Arena.Arena,Arena.Store,U32,Arena.Hit>,registry: Sys.Registry<Arena.Arena,Arena.Store,U32,Arena.Hit,Unit,Pv.Error<Arena.Fault>,Unit,Arena.move_runner>) -> Sys.RunResult<Arena.Arena,Arena.Store,U32,Arena.Hit,Unit,Pv.Error<Arena.Fault>,Unit,alternate>:\n11>|   Sys.run(~Arena.Arena,~Arena.Store,~U32,~Arena.Hit,~Unit,~Pv.Error<Arena.Fault>,~Unit,~alternate,registry,world,Unit{})\n   |                                                                                                   ^^^^^^^^\n12 | \n"
     },
     {
@@ -165,6 +165,6 @@
     "src/ecs/structural.bend": "f813a10058914cdf85f94e879b2dc68b9cb3e878b5c683dae60152f40001fcae",
     "src/ecs/system.bend": "b603976da337b72586cf731fc1cf886238dbcbe9c53e1e192552aa6244408fde",
     "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
-    "src/ecs/world.bend": "cde43ad8afc50129fbbb2de634829e0322a86b1e6e323a2ca8f56c03de5a01f5"
+    "src/ecs/world.bend": "35d8cb40eaed156ed32444ad238a12b81da1f35a281002ceeac8066ca48831a7"
   }
 }

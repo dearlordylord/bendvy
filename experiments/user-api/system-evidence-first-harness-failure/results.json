@@ -1,0 +1,106 @@
+[
+  {
+    "name": "system-body-negative",
+    "command": [
+      "timeout",
+      "5s",
+      "bend",
+      "/workspace/formal-proofs/bendvy/experiments/user-api/system-controls/system-body-negative.bend"
+    ],
+    "source_sha256": "36cadcd5d57f3528102f3a71e0dcbcf256597b5f8b06a2ee3ef9c0b084934f8c",
+    "exit": 1,
+    "passed": true,
+    "log": "system-body-negative.log"
+  },
+  {
+    "name": "system-control",
+    "command": [
+      "timeout",
+      "5s",
+      "bend",
+      "/workspace/formal-proofs/bendvy/experiments/user-api/system-controls/system-control.bend"
+    ],
+    "source_sha256": "23fea3f913429993c515c094b447bbae97b438510ca87dbc25537507dde98843",
+    "exit": 0,
+    "passed": false,
+    "log": "system-control.log"
+  },
+  {
+    "name": "system-cursor-retry",
+    "command": [
+      "timeout",
+      "5s",
+      "bend",
+      "/workspace/formal-proofs/bendvy/experiments/user-api/system-controls/system-cursor-retry.bend"
+    ],
+    "source_sha256": "6994ea24a12ae299edf4a3b824fdeab74cd3a594e2e5f876b86b55682f3001b3",
+    "exit": 0,
+    "passed": false,
+    "log": "system-cursor-retry.log"
+  },
+  {
+    "name": "system-detached-id",
+    "command": [
+      "timeout",
+      "5s",
+      "bend",
+      "/workspace/formal-proofs/bendvy/experiments/user-api/system-controls/system-detached-id.bend"
+    ],
+    "source_sha256": "b493b56214e9dd93575103f81b78dfe0d98357904078d424a75e681657f27549",
+    "exit": 0,
+    "passed": false,
+    "log": "system-detached-id.log"
+  },
+  {
+    "name": "system-detached-name",
+    "command": [
+      "timeout",
+      "5s",
+      "bend",
+      "/workspace/formal-proofs/bendvy/experiments/user-api/system-controls/system-detached-name.bend"
+    ],
+    "source_sha256": "7861910b71dd7d945616c3ee4538daafa0f11a8c3974d501103ef9004af55b5e",
+    "exit": 0,
+    "passed": false,
+    "log": "system-detached-name.log"
+  },
+  {
+    "name": "system-foreign-namespace",
+    "command": [
+      "timeout",
+      "5s",
+      "bend",
+      "/workspace/formal-proofs/bendvy/experiments/user-api/system-controls/system-foreign-namespace.bend"
+    ],
+    "source_sha256": "15ce5e6ce7a8e245230d17ad5f527c3533e6cb798d20e8f8fa902c64d3f91f2f",
+    "exit": 0,
+    "passed": false,
+    "log": "system-foreign-namespace.log"
+  },
+  {
+    "name": "system-owner-duplicate",
+    "command": [
+      "timeout",
+      "5s",
+      "bend",
+      "/workspace/formal-proofs/bendvy/experiments/user-api/system-controls/system-owner-duplicate.bend"
+    ],
+    "source_sha256": "45d746ce39768c2e62ffed492dd6cd782bf257f9d4ae5a6d5a2653d71fcbc6ef",
+    "exit": 1,
+    "passed": true,
+    "log": "system-owner-duplicate.log"
+  },
+  {
+    "name": "system-two-worlds",
+    "command": [
+      "timeout",
+      "5s",
+      "bend",
+      "/workspace/formal-proofs/bendvy/experiments/user-api/system-controls/system-two-worlds.bend"
+    ],
+    "source_sha256": "055c547403d70b669e964d311c8abcaee045dfd3812d6099cd1ddf97768d9d29",
+    "exit": 0,
+    "passed": false,
+    "log": "system-two-worlds.log"
+  }
+]

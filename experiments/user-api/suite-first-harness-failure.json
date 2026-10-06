@@ -1,0 +1,41 @@
+{
+  "status": "INCOMPLETE",
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "experiments/user-api/check.py",
+        "experiments/user-api/design-canaries/cases.json",
+        "--output",
+        "experiments/user-api/design-evidence-final"
+      ],
+      "exit": 0,
+      "seconds": 0.7258900340020773,
+      "output": "{\"passed\": 6, \"total\": 6}\n"
+    },
+    {
+      "argv": [
+        "python3",
+        "experiments/user-api/check.py",
+        "experiments/user-api/core-controls/cases.json",
+        "--output",
+        "experiments/user-api/core-evidence-final"
+      ],
+      "exit": 0,
+      "seconds": 1.799228593998123,
+      "output": "{\"passed\": 11, \"total\": 11}\n"
+    },
+    {
+      "argv": [
+        "python3",
+        "experiments/user-api/check.py",
+        "experiments/user-api/system-controls/cases.json",
+        "--output",
+        "experiments/user-api/system-evidence-final"
+      ],
+      "exit": 1,
+      "seconds": 0.9500045500026317,
+      "output": "{\"passed\": 2, \"total\": 8}\n"
+    }
+  ]
+}

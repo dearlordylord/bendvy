@@ -1,0 +1,80 @@
+[
+  {
+    "name": "contract",
+    "command": [
+      "timeout",
+      "5s",
+      "bend",
+      "/workspace/formal-proofs/bendvy/experiments/user-api/design-canaries/contract.bend"
+    ],
+    "source_sha256": "04af208d0c8995ab535743ec751d20cf1657c4da93a9697c4feaf3aa91d81a2a",
+    "exit": 0,
+    "passed": true,
+    "log": "contract.log"
+  },
+  {
+    "name": "binding",
+    "command": [
+      "timeout",
+      "5s",
+      "bend",
+      "/workspace/formal-proofs/bendvy/experiments/user-api/design-canaries/binding.bend"
+    ],
+    "source_sha256": "a1324b3370dc38126c65d3da84d630f22785ff36fa73a3740e0489d331d56a0e",
+    "exit": 0,
+    "passed": true,
+    "log": "binding.log"
+  },
+  {
+    "name": "binding-forged",
+    "command": [
+      "timeout",
+      "5s",
+      "bend",
+      "/workspace/formal-proofs/bendvy/experiments/user-api/design-canaries/binding-forged.bend"
+    ],
+    "source_sha256": "84fed2dac4064b907f997e12b35256a2b86a88606c0136c1a128ac04a880a977",
+    "exit": 0,
+    "passed": true,
+    "log": "binding-forged.log"
+  },
+  {
+    "name": "binding-negative",
+    "command": [
+      "timeout",
+      "5s",
+      "bend",
+      "/workspace/formal-proofs/bendvy/experiments/user-api/design-canaries/binding-negative.bend"
+    ],
+    "source_sha256": "23e6ce8d2607524850ecf7e9526b44653034e6de9e5f38cd59843d1262d46ef4",
+    "exit": 1,
+    "passed": true,
+    "log": "binding-negative.log"
+  },
+  {
+    "name": "typed-registry",
+    "command": [
+      "timeout",
+      "5s",
+      "bend",
+      "/workspace/formal-proofs/bendvy/experiments/user-api/design-canaries/typed-registry.bend"
+    ],
+    "source_sha256": "c66f013c3344b5f2b8368d56fc3db6132a564305f7c8a31b50b42241ae36ff08",
+    "exit": 0,
+    "passed": true,
+    "log": "typed-registry.log"
+  },
+  {
+    "name": "typed-registry-negative",
+    "command": [
+      "timeout",
+      "5s",
+      "bend",
+      "/workspace/formal-proofs/bendvy/experiments/user-api/design-canaries/typed-registry-negative.bend"
+    ],
+    "source_sha256": "c123c9337cdf1cb7b477823835ce8659a64f573e86eb537325a5ed16f64b147c",
+    "exit": 1,
+    "passed": true,
+    "log": "typed-registry-negative.log"
+  }
+]

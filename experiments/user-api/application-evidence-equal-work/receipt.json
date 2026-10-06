@@ -1,0 +1,106 @@
+{
+  "status": "PASS_FINITE_PUBLIC_APPLICATION_BOTH_BACKENDS",
+  "commands": [
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/examples/user-simulation/main.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "label": "checker"
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/examples/user-simulation/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-equal-work/simulation.js"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "label": "js-emit"
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/examples/user-simulation/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-equal-work/simulation.c"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "label": "c-emit"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-equal-work/simulation.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-equal-work/simulation.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limitSeconds": 120,
+      "exit": 0,
+      "label": "native-build"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-equal-work/simulation.js"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "label": "js-run"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/user-api-equal-work/simulation.native"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "label": "native-run"
+    }
+  ],
+  "sources": {
+    "src/ecs/column.bend": "6bed81e82da38ad1bc835fcf50f1ebb654788823b9870aef419b70ce0aba9c24",
+    "src/ecs/commands.bend": "b41ec45ad17513351fd68436cefbaec0058ac4556d1d722f2c0ce5a7d4a9f9d1",
+    "src/ecs/component.bend": "d3ac5feb5e76fdd22e8cec4ffdb9c2bd3bf93c4d4ab2da96d445f0b1c19016a4",
+    "src/ecs/events.bend": "3d89fbbb40fefab4be349bfbe0d1f99c870c25c725130ccb1823910c1ace7c53",
+    "src/ecs/provider.bend": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72",
+    "src/ecs/query.bend": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9",
+    "src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+    "src/ecs/structural.bend": "f813a10058914cdf85f94e879b2dc68b9cb3e878b5c683dae60152f40001fcae",
+    "src/ecs/system.bend": "b603976da337b72586cf731fc1cf886238dbcbe9c53e1e192552aa6244408fde",
+    "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "src/ecs/world.bend": "35d8cb40eaed156ed32444ad238a12b81da1f35a281002ceeac8066ca48831a7",
+    "examples/user-simulation/driver.bend": "84f8bc078e2b24e78567b4b0688c7bbb74d27d13f50a7f4e3e389f8181e637c2",
+    "examples/user-simulation/json.bend": "07ec96803f16bcb5e7e2d6f1e13b859e48603b3239c65941d3d5fd0f34698351",
+    "examples/user-simulation/main.bend": "8a0a0c8e2444a914553b2c0c87a0debc832d0473c72c52ba03b92f292fde9f6e",
+    "examples/user-simulation/schema.bend": "d6fbf524ab654c41a34e09eff93f4831fff719de01a83e6abb0553595ef31d80",
+    "examples/user-simulation/simulation.bend": "35d0db9a1c9f374a940dea171dd7bbf78280250796e7883bc60fca3556ea2412",
+    "examples/user-simulation/timing-main.bend": "a658a8818be9554339b82af4d4aa78a99ce7e3badaac50679c38a6b9a5cf8d8c"
+  },
+  "observations": {
+    "JS": {
+      "status": "PASS",
+      "equalCheckpoints": 22,
+      "approvedDivergences": 1,
+      "completeCheckpoints": 23
+    },
+    "Native": {
+      "status": "PASS",
+      "equalCheckpoints": 22,
+      "approvedDivergences": 1,
+      "completeCheckpoints": 23
+    }
+  },
+  "artifacts": {
+    "simulation.js": "36a9eb1d62c4b495b0af7fa4848de8b2ee0668715556a1e4670bcd0132ce5c96",
+    "simulation.c": "f14851ae76b76896d80c20ce6e4cb11532b9057d38b847aef46abde92dc774fd",
+    "simulation.native": "ec46a4ac4087dfe77aa116e0690630760198438598d4fa6784f0700899977b4b"
+  }
+}

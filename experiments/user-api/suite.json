@@ -1,0 +1,98 @@
+{
+  "status": "PASS_SCOPED_USER_API_SUITE",
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "experiments/user-api/check.py",
+        "experiments/user-api/design-canaries/cases.json",
+        "--output",
+        "experiments/user-api/design-evidence-final"
+      ],
+      "exit": 0,
+      "seconds": 0.6958955580048496,
+      "output": "{\"passed\": 6, \"total\": 6}\n"
+    },
+    {
+      "argv": [
+        "python3",
+        "experiments/user-api/check.py",
+        "experiments/user-api/core-controls/cases.json",
+        "--output",
+        "experiments/user-api/core-evidence-final"
+      ],
+      "exit": 0,
+      "seconds": 2.013196824998886,
+      "output": "{\"passed\": 12, \"total\": 12}\n"
+    },
+    {
+      "argv": [
+        "python3",
+        "experiments/user-api/check.py",
+        "experiments/user-api/system-controls/cases.json",
+        "--output",
+        "experiments/user-api/system-evidence-final"
+      ],
+      "exit": 0,
+      "seconds": 1.0455431000009412,
+      "output": "{\"passed\": 8, \"total\": 8}\n"
+    },
+    {
+      "argv": [
+        "python3",
+        "experiments/user-api/check.py",
+        "experiments/user-api/transaction-controls/cases.json",
+        "--output",
+        "experiments/user-api/transaction-evidence-final"
+      ],
+      "exit": 0,
+      "seconds": 0.5752009440038819,
+      "output": "{\"passed\": 5, \"total\": 5}\n"
+    },
+    {
+      "argv": [
+        "python3",
+        "experiments/user-api-provider/replay.py",
+        "--evidence",
+        "experiments/user-api/provider-evidence-final.json"
+      ],
+      "exit": 0,
+      "seconds": 7.388319352001417,
+      "output": "{\"status\": \"PASS_SCOPED_FINITE_PROVIDER_CONTROLS\", \"positiveControls\": 7, \"negativeControls\": 5, \"nativeAndJSPrograms\": 3}\n"
+    },
+    {
+      "argv": [
+        "python3",
+        "experiments/user-api/fresh-consumer/check.py"
+      ],
+      "exit": 0,
+      "seconds": 5.53986930699466,
+      "output": "Consumer checker, native, JavaScript and five negative controls passed.\n"
+    },
+    {
+      "argv": [
+        "timeout",
+        "5s",
+        "node",
+        "examples/user-simulation/reference.mjs",
+        "--verify"
+      ],
+      "exit": 0,
+      "seconds": 0.09598542899766471,
+      "output": "{\"status\":\"PASS\",\"checkpoints\":23}\n"
+    },
+    {
+      "argv": [
+        "python3",
+        "experiments/user-api/build.py",
+        "--output",
+        ".artifacts/user-api-final",
+        "--evidence",
+        "experiments/user-api/application-evidence-final"
+      ],
+      "exit": 0,
+      "seconds": 9.218744055004208,
+      "output": "{\"JS\": {\"status\": \"PASS\", \"equalCheckpoints\": 22, \"approvedDivergences\": 1, \"completeCheckpoints\": 23, \"retryWorkCounts\": [[2, 1, 1, 1], [0, 1, 0, 0]]}, \"Native\": {\"status\": \"PASS\", \"equalCheckpoints\": 22, \"approvedDivergences\": 1, \"completeCheckpoints\": 23, \"retryWorkCounts\": [[2, 1, 1, 1], [0, 1, 0, 0]]}}\n"
+    }
+  ]
+}
