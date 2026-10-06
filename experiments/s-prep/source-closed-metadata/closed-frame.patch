@@ -1,0 +1,115 @@
+--- a/experiments/s-integrate/measurement-bend.bend
++++ b/experiments/s-integrate/measurement-bend.bend
+@@ -104,5 +104,5 @@
+ def motion_frame(owner:MotionBench,readers:R.Readers,boundary:R.Frame) -> MotionBench & (R.Readers & R.Clock):
+   match owner:
+-    case MotionBench{host,sparse,total,calls}: motion_frame_return(sparse,total,calls,H.frame(T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,T.MotionPing,T.PositionView,T.VelocityView,T.LedgerView,host,readers,boundary))
++    case MotionBench{host,sparse,total,calls}: motion_frame_return(sparse,total,calls,H.prototype_closed_frame_frame(~T.MotionSchema,~CC.Cache<T.Position,T.PositionView>,~T.Velocity,~T.Selected,~CC.Cache<T.MotionLedger,T.LedgerView>,~T.MotionMode,~T.MotionPing,~T.PositionView,~T.VelocityView,~T.LedgerView,host,readers,boundary))
+ def motion_clock_return(sparse:Bool,total:U32,calls:U32,pair:H.MotionHost() & R.Clock) -> MotionBench & R.Clock:
+   match pair:
+@@ -235,5 +235,5 @@
+ def health_frame(owner:HealthBench,readers:R.Readers,boundary:R.Frame) -> HealthBench & (R.Readers & R.Clock):
+   match owner:
+-    case HealthBench{host,sparse,total,calls}: health_frame_return(sparse,total,calls,H.frame(T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,T.HealthPing,T.VitalsView,T.ArmorView,T.LedgerView,host,readers,boundary))
++    case HealthBench{host,sparse,total,calls}: health_frame_return(sparse,total,calls,H.prototype_closed_frame_frame(~T.HealthSchema,~CC.Cache<T.Vitals,T.VitalsView>,~T.Armor,~T.Tracked,~CC.Cache<T.HealthLedger,T.LedgerView>,~T.HealthMode,~T.HealthPing,~T.VitalsView,~T.ArmorView,~T.LedgerView,host,readers,boundary))
+ def health_clock_return(sparse:Bool,total:U32,calls:U32,pair:H.HealthHost() & R.Clock) -> HealthBench & R.Clock:
+   match pair:
+--- a/experiments/s-integrate/reader-host.bend
++++ b/experiments/s-integrate/reader-host.bend
+@@ -97,2 +97,27 @@
+ def prototype_closed_stream_append_changes(~Schema: Data,~P: Data,logs: Logs<Schema,P>,tick: U32,changes: List<&2,W.Change<Schema>>) -> Logs<Schema,P>:
+   prototype_closed_stream_append_all(~Schema,~P,changes,tick,logs)
++
++# Closed frame trim frontier; all public generic bodies retained.
++def prototype_closed_frame_life_trim(~Schema: Data,log: S.LifeLog<W.Handle<Schema>>,window: Maybe<&2,U32>,holds: List<&2,U32>) -> S.LifeLog<W.Handle<Schema>>:
++  match window:
++    case None{}: log
++    case Some{tick}: S.prototype_closed_frame_trim_lifecycle(W.Handle<Schema>,log,tick,holds)
++
++def prototype_closed_frame_frame_despawned(~Schema: Data,~P: Data,ping: S.PingLog<P>,removed: S.LifeLog<W.Handle<Schema>>,despawned: S.LifeLog<W.Handle<Schema>>,
++  clock: R.Clock,window: Maybe<&2,U32>,result: R.Readers & List<&2,U32>) -> Framed<Schema,P>:
++  match result:
++    case (readers,holds): Framed{Logs{ping,removed,prototype_closed_frame_life_trim(~Schema,despawned,window,holds)},readers,clock}
++
++def prototype_closed_frame_frame_removed(~Schema: Data,~P: Data,ping: S.PingLog<P>,removed: S.LifeLog<W.Handle<Schema>>,despawned: S.LifeLog<W.Handle<Schema>>,
++  clock: R.Clock,+window: Maybe<&2,U32>,result: R.Readers & List<&2,U32>) -> Framed<Schema,P>:
++  match result:
++    case (readers,holds): prototype_closed_frame_frame_despawned(~Schema,~P,ping,prototype_closed_frame_life_trim(~Schema,removed,window,holds),despawned,clock,window,R.holders(readers,R.Despawned{}))
++
++def prototype_closed_frame_frame_ping(~Schema: Data,~P: Data,ping: S.PingLog<P>,removed: S.LifeLog<W.Handle<Schema>>,despawned: S.LifeLog<W.Handle<Schema>>,
++  clock: R.Clock,window: Maybe<&2,U32>,messageWindow: U32,result: R.Readers & List<&2,U32>) -> Framed<Schema,P>:
++  match result:
++    case (readers,holds): prototype_closed_frame_frame_removed(~Schema,~P,S.prototype_closed_frame_trim(~P,ping,messageWindow,holds),removed,despawned,clock,window,R.holders(readers,R.Removed{0}))
++
++def prototype_closed_frame_frame(~Schema: Data,~P: Data,logs: Logs<Schema,P>,readers: R.Readers,frame: R.Frame) -> Framed<Schema,P>:
++  match logs frame:
++    case Logs{ping,removed,despawned} R.Frame{clock,window,messageWindow}: prototype_closed_frame_frame_ping(~Schema,~P,ping,removed,despawned,clock,window,messageWindow,R.holders(readers,R.Messages{}))
+--- a/experiments/s-integrate/streams.bend
++++ b/experiments/s-integrate/streams.bend
+@@ -153,2 +153,39 @@
+   match log:
+     case LifeLog{buffer}: LifeLog{prototype_closed_stream_append_units(~H,handles,tick,buffer)}
++
++# Closed frame trim frontier; all public generic bodies retained.
++def prototype_closed_frame_trim_decision(~V: Data,drop: Bool,+head: Batch<V>,tail: List<&2,Batch<V>>,+size: U32,+dropped: U32,
++  ih: U32 -> U32 -> Cut<V>) -> Cut<V>:
++  match drop head:
++    case False{} kept: Cut{kept <> tail,size,dropped}
++    case True{} Batch{tick,n,_}: ih(U32.sub(size,n),maximum(dropped,tick))
++
++def prototype_closed_frame_trim_front(~V: Data,front: List<&2,Batch<V>>,+capacity: U32,+window: U32,+size: U32,+dropped: U32) -> Cut<V>:
++  match front:
++    case Nil{}: Cut{[],size,dropped}
++    case Con{Batch{+tick,+n,+values},+tail}:
++      prototype_closed_frame_trim_decision(~V,Bool.or(U32.is_le(tick,window),U32.is_gt(size,capacity)),Batch{tick,n,values},tail,size,dropped,
++        remaining => lost => prototype_closed_frame_trim_front(~V,tail,capacity,window,remaining,lost))
++
++def prototype_closed_frame_finish_cut(~V: Data,capacity: U32,cut: Cut<V>) -> Buffer<V>:
++  match cut:
++    case Cut{front,size,dropped}: Buffer{capacity,size,dropped,front,[]}
++
++def prototype_closed_frame_trim_second(~V: Data,+capacity: U32,+window: U32,rear: List<&2,Batch<V>>,cut: Cut<V>) -> Buffer<V>:
++  match cut:
++    case Cut{Nil{},size,dropped}: prototype_closed_frame_finish_cut(~V,capacity,prototype_closed_frame_trim_front(~V,List.reverse(&2,Batch<V>,rear),capacity,window,size,dropped))
++    case Cut{Con{head,tail},size,dropped}: Buffer{capacity,size,dropped,head <> tail,rear}
++
++def prototype_closed_frame_trim_buffer(~V: Data,buffer: Buffer<V>,window: U32,holders: List<&2,U32>) -> Buffer<V>:
++  match buffer:
++    case Buffer{+capacity,size,dropped,front,rear}:
++      +oldest = boundary(holders,window)
++      prototype_closed_frame_trim_second(~V,capacity,oldest,rear,prototype_closed_frame_trim_front(~V,front,capacity,oldest,size,dropped))
++
++def prototype_closed_frame_trim(~P: Data,log: PingLog<P>,window: U32,holders: List<&2,U32>) -> PingLog<P>:
++  match log:
++    case PingLog{buffer}: PingLog{prototype_closed_frame_trim_buffer(~P,buffer,window,holders)}
++
++def prototype_closed_frame_trim_lifecycle(~H: Data,log: LifeLog<H>,window: U32,holders: List<&2,U32>) -> LifeLog<H>:
++  match log:
++    case LifeLog{buffer}: LifeLog{prototype_closed_frame_trim_buffer(~H,buffer,window,holders)}
+--- a/experiments/s-integrate/host.bend
++++ b/experiments/s-integrate/host.bend
+@@ -422,6 +422,16 @@
+ def motion_barrier(owner:MotionHost(),clock:R.Clock) -> IO(MotionHost() & R.Clock):
+   prototype_closed_barrier(~T.MotionSchema,~CC.Cache<T.Position,T.PositionView>,~T.Velocity,~T.Selected,~CC.Cache<T.MotionLedger,T.LedgerView>,~T.MotionMode,~T.MotionPing,~T.PositionView,~T.VelocityView,~T.LedgerView,owner,clock)
++
++# Closed frame trim frontier; all public generic bodies retained.
++def prototype_closed_frame_frame_return(~Schema: Data,~M: Type,~A: Type,~F: Data,~L: Type,~Mode: Data,~P: Data,~V: Data,~AV: Data,~LV: Data,world:W.World<Schema,M,A,F,L,Mode>,bindings:List<&2,E.Binding<Schema>>,worldName:String,step:String,prior:D.DispatchOutcome,events:List<&2,E.TraceEvent<Schema,V,AV,F,LV,Mode,P>>,result:H.Framed<Schema,P>) -> Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & (R.Readers & R.Clock):
++  match result:
++    case H.Framed{logs,readers,clock}: (Host{world,logs,bindings,worldName,step,prior,events},(readers,clock))
++
++def prototype_closed_frame_frame(~Schema: Data,~M: Type,~A: Type,~F: Data,~L: Type,~Mode: Data,~P: Data,~V: Data,~AV: Data,~LV: Data,owner:Host<Schema,M,A,F,L,Mode,P,V,AV,LV>,readers:R.Readers,boundary:R.Frame) -> Host<Schema,M,A,F,L,Mode,P,V,AV,LV> & (R.Readers & R.Clock):
++  match owner:
++    case Host{world,logs,bindings,worldName,step,prior,events}: prototype_closed_frame_frame_return(~Schema,~M,~A,~F,~L,~Mode,~P,~V,~AV,~LV,world,bindings,worldName,step,prior,events,H.prototype_closed_frame_frame(~Schema,~P,logs,readers,boundary))
++
+ def motion_frame(owner:MotionHost(),readers:R.Readers,boundary:R.Frame) -> MotionHost() & (R.Readers & R.Clock):
+-  frame(T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode,T.MotionPing,T.PositionView,T.VelocityView,T.LedgerView,owner,readers,boundary)
++  prototype_closed_frame_frame(~T.MotionSchema,~CC.Cache<T.Position,T.PositionView>,~T.Velocity,~T.Selected,~CC.Cache<T.MotionLedger,T.LedgerView>,~T.MotionMode,~T.MotionPing,~T.PositionView,~T.VelocityView,~T.LedgerView,owner,readers,boundary)
+ def motion_tick(nodes:List<&2,K.Node>,runtime:D.Runtime<MotionHost(),W.Handle<T.MotionSchema>>) -> IO(D.Dispatched<MotionHost(),W.Handle<T.MotionSchema>>):
+   D.tick(~MotionHost(),~W.Handle<T.MotionSchema>,~motion_presence,~motion_invoke,~motion_barrier,~motion_transition,~motion_frame,nodes,"MotionLedger","MotionMode",runtime)
+@@ -483,5 +493,5 @@
+   prototype_closed_barrier(~T.HealthSchema,~CC.Cache<T.Vitals,T.VitalsView>,~T.Armor,~T.Tracked,~CC.Cache<T.HealthLedger,T.LedgerView>,~T.HealthMode,~T.HealthPing,~T.VitalsView,~T.ArmorView,~T.LedgerView,owner,clock)
+ def health_frame(owner:HealthHost(),readers:R.Readers,boundary:R.Frame) -> HealthHost() & (R.Readers & R.Clock):
+-  frame(T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,CC.Cache<T.HealthLedger,T.LedgerView>,T.HealthMode,T.HealthPing,T.VitalsView,T.ArmorView,T.LedgerView,owner,readers,boundary)
++  prototype_closed_frame_frame(~T.HealthSchema,~CC.Cache<T.Vitals,T.VitalsView>,~T.Armor,~T.Tracked,~CC.Cache<T.HealthLedger,T.LedgerView>,~T.HealthMode,~T.HealthPing,~T.VitalsView,~T.ArmorView,~T.LedgerView,owner,readers,boundary)
+ def health_tick(nodes:List<&2,K.Node>,runtime:D.Runtime<HealthHost(),W.Handle<T.HealthSchema>>) -> IO(D.Dispatched<HealthHost(),W.Handle<T.HealthSchema>>):
+   D.tick(~HealthHost(),~W.Handle<T.HealthSchema>,~health_presence,~health_invoke,~health_barrier,~health_transition,~health_frame,nodes,"HealthLedger","HealthMode",runtime)

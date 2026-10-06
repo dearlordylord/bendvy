@@ -1,0 +1,16 @@
+{
+  "status": "FIRST_SEED_NOT_REMOVED",
+  "C_SHA256": "19a4fb4f6c2201b3c40343aef27f4f69130bbb62cb5f1d3867ad4488ee49074b",
+  "firstSeed": "Base.List.reverse -> reverse.go Batch<V> VarV index0 vs domain a",
+  "verifiedSourceFrontier": [
+    "private streams.trim(~P) -> original trim_buffer(P) -> original trim_second",
+    "private streams.trim_lifecycle(~H) -> original trim_buffer(H) -> original trim_second"
+  ],
+  "cause": "Copier matched callee parameter V, not actual caller type arguments P/H. No new helper family needed; v2 redirects these two existing private edges.",
+  "otherDeclarationConsumers": [
+    "original trim_buffer -> original trim_second",
+    "original trim/trim_lifecycle -> original trim_buffer",
+    "original reader-host frame/life_trim and original host.frame remain available"
+  ],
+  "scope": "Direct exact-source incoming consumers; emitted runtime reachability beyond these edges is not asserted. Inspector independently verifies next actual firstseed."
+}

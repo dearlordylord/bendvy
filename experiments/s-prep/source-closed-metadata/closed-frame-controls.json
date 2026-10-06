@@ -1,0 +1,46 @@
+{
+  "status": "PASS_RETAINED_FULL_INSPECTION_AND_CAPACITY_TRIM",
+  "commands": [
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "9",
+        "bend",
+        "/tmp/bendvy-threehour-journal-handle/experiments/s-prep/source-closed-metadata/retained-frame.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "9",
+        "bend",
+        "/tmp/bendvy-threehour-journal-handle/experiments/s-prep/source-closed-metadata/retained-frame.bend",
+        "-o",
+        "/tmp/bendvy-retained-frame.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "9",
+        "node",
+        "/tmp/bendvy-retained-frame.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "output": "(../../../../bendvy-closed-frame-probe-v2/experiments/s-integrate/streams.Inspection{1, 2, 0, [../../../../bendvy-closed-frame-probe-v2/experiments/s-integrate/streams.Batch{1, 1, [../../../../bendvy-closed-frame-probe-v2/experiments/s-integrate/storage.Handle{7, 1}]}, ../../../../bendvy-closed-frame-probe-v2/experiments/s-integrate/streams.Batch{2, 1, [../../../../bendvy-closed-frame-probe-v2/experiments/s-integrate/storage.Handle{8, 2}]}]}, ../../../../bendvy-closed-frame-probe-v2/experiments/s-integrate/streams.Inspection{1, 1, 1, [../../../../bendvy-closed-frame-probe-v2/experiments/s-integrate/streams.Batch{2, 1, [../../../../bendvy-closed-frame-probe-v2/experiments/s-integrate/storage.Handle{8, 2}]}]})\n"
+    }
+  ],
+  "normalizedObserved": "(Inspection{1, 2, 0, [Batch{1, 1, [Handle{7, 1}]}, Batch{2, 1, [Handle{8, 2}]}]}, Inspection{1, 1, 1, [Batch{2, 1, [Handle{8, 2}]}]})",
+  "expected": "(Inspection{1, 2, 0, [Batch{1, 1, [Handle{7, 1}]}, Batch{2, 1, [Handle{8, 2}]}]}, Inspection{1, 1, 1, [Batch{2, 1, [Handle{8, 2}]}]})"
+}
