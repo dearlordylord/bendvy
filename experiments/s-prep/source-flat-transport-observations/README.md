@@ -14,3 +14,5 @@ python3 experiments/s-prep/js-profile/summarize.py NEW_DIRECTORY
 ```
 
 Full65 commands and artifact/source pins are retained verbatim in the comparison receipts. Each gzip archive contains exact original data; archive.json pins uncompressed hashes. Native source construction attribution independently finds zero delta for both flat Held and flat query candidates, despite the finite JS constructor reduction. Full core/refinement/performance gates remain open.
+
+Separate flat query source V8 diagnostic also passes nine complete Motion worlds against fresh TS. Top sampled JS self sites: new private live query helper15.1%, unchanged boxed return-world9.4%, GC8.5% and boxed ledger6.8%. Neither its longer absolute bracket nor comparison against the separate Held run is an improvement or regression measurement; conditions and source candidates differ. Exact profiles and adverse observations are archived.

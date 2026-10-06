@@ -1,0 +1,90 @@
+{
+  "status": "PROFILE_AND_NINE_FULL_WORLDS_PASS",
+  "scope": "CPU/GC diagnosis with equal eight fresh worlds; no timing acceptance",
+  "batch": 8,
+  "ticks": 64,
+  "entities": 256,
+  "cpu": 7,
+  "gcTracing": true,
+  "generatedOriginalSHA256": "a84a843e3a37a912f3444910086972e7fd4687a475f03f8a2551226b443ac25b",
+  "commands": [
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-measurement/prepare-ts.py",
+        "--source",
+        "/workspace/formal-proofs/bendvy/experiments/s-integrate/measurement-samples-reference.mjs",
+        "--output",
+        "/tmp/bendvy-threehour-query-source-cpu-profile/reference.mjs",
+        "--schema",
+        "Motion",
+        "--batch",
+        "8"
+      ],
+      "limit": 5,
+      "exit": 0
+    },
+    {
+      "argv": [
+        "node",
+        "--cpu-prof",
+        "--cpu-prof-interval=100",
+        "--cpu-prof-dir=/tmp/bendvy-threehour-query-source-cpu-profile",
+        "--cpu-prof-name=TS.cpuprofile",
+        "--trace-gc-nvp",
+        "/tmp/bendvy-threehour-query-source-cpu-profile/reference.mjs"
+      ],
+      "limit": 5,
+      "exit": 0
+    },
+    {
+      "argv": [
+        "node",
+        "--cpu-prof",
+        "--cpu-prof-interval=100",
+        "--cpu-prof-dir=/tmp/bendvy-threehour-query-source-cpu-profile",
+        "--cpu-prof-name=JS.cpuprofile",
+        "--trace-gc-nvp",
+        "/tmp/bendvy-threehour-query-source-cpu-profile/bend.js"
+      ],
+      "limit": 5,
+      "exit": 0
+    }
+  ],
+  "entryAdaptation": {
+    "original": "return $motion_batch$(256, 64);",
+    "derived": "return $motion_batch$(256, 8);"
+  },
+  "outputTransport": "Both roles use blocking stdout to prevent GC trace/JSON interleaving; setup/output remain outside the measured phase",
+  "derivedPins": {
+    "bend.js": "3822a7ba5706c2a6734096ebffa9bca695952c6ce212d42da427995cecbb9fa6",
+    "reference.mjs": "af2ce90b756f7bc6d49d0fa1f93b3e912064150202f2ad28ed3706b1f85161a3"
+  },
+  "marks": {
+    "TS": [
+      {
+        "phase": "start",
+        "micro": 1742722177854,
+        "uptimeMS": 1785.0946860000001
+      },
+      {
+        "phase": "end",
+        "micro": 1742722610596,
+        "uptimeMS": 2217.7992830000003
+      }
+    ],
+    "JS": [
+      {
+        "phase": "start",
+        "micro": 1742723912066,
+        "uptimeMS": 1180.727627
+      },
+      {
+        "phase": "end",
+        "micro": 1742724862668,
+        "uptimeMS": 2131.330631
+      }
+    ]
+  },
+  "allFullFieldsEqual": true
+}
