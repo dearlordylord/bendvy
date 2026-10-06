@@ -294,3 +294,16 @@ full65/counts were not triggered. Branch/site counts grew from the previous
 source despite moving its firstseed, illustrating that frontier movement alone
 is not global-sharing resolution or a performance result. No further source
 closure is presumed; metadata worker owns its bounded seam decision.
+
+## Final private ledger-mark seam
+
+The bounded privatecommit→markall→loop frozen L seam removes the prior markall
+firstseed. Checker15/emitter30 PASS byte-identical C
+`4dd5f99cc148bcc4a4483a45d00b4b45c9021ff2ef46c1c1f695cbd41ed0fcac`,
+1,759branches/105sites. Final precise next firstseed is storage.publish line275:
+List.reverse(&1,Command<M,A,F>,staged) recursively heats foreign VarM index1/
+span24395, resolved against local A:Type quantNone while wildcardfalse. The
+unchanged function prepends staged FIFO commands to pending with reverse.go;
+no staging/order work was removed. Global wildcard remains, so conditional
+resolved-star counters were not run. The bounded source investigation stops
+with this exact residual, not a global-sharing, speed or acceptance claim.
