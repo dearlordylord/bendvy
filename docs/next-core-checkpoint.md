@@ -42,6 +42,18 @@ policy. [Evidence](reports/performance-regression.md) includes the ordinary pass
 and a detected real-delay control. Run `benchmarks/README.md` before executable
 src/ecs changes; its scope does not replace the full performance matrix.
 
+## Published parity frontier
+
+User pre-approved remaining-feature ticket publication after Astra discussion.
+[Current parity table](reference/core-map.md#current-parity-checkpoint--2026-10-06)
+and [breakdown](design/parity-ticket-breakdown.md) separate public integrated
+capabilities from historical probes. #29–#36 cover exact query contracts,
+optimized public Compose, event/removal readers, schedules/provisioning and Local.
+Frontier: #29/#30/#31/#32/#33/#36; #34 waits for #33, #35 for #31/#32/#33.
+Explicit source/policy prerequisites remain binding even for unblocked issues.
+No ticket publication approves unreviewed laws/dependencies, a small slowdown
+allowance or a renewed experiment budget. #1 and #21/#23/#24 remain open.
+
 ## Active two-hour Native1024 continuation
 
 User authorized **2026-10-06 18:25:54–20:25:54 UTC**, including delivery.

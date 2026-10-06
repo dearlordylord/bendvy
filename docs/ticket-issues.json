@@ -6,7 +6,7 @@
       "number": 2,
       "id": 5693298781,
       "url": "https://github.com/dearlordylord/bendvy/issues/2",
-      "title": "T01: \u0412\u043e\u0441\u043f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0438\u043c\u044b\u0439 native/JS \u0438 proof canary",
+      "title": "T01: Воспроизводимый native/JS и proof canary",
       "local_file": "docs/tickets/01-toolchain-canary.md",
       "blocked_by": [],
       "native_blocked_by": []
@@ -15,7 +15,7 @@
       "number": 3,
       "id": 5693298911,
       "url": "https://github.com/dearlordylord/bendvy/issues/3",
-      "title": "T02: \u041a\u0430\u0440\u0442\u0430 core \u0438 reference traces",
+      "title": "T02: Карта core и reference traces",
       "local_file": "docs/tickets/02-contract-reference.md",
       "blocked_by": [],
       "native_blocked_by": []
@@ -24,7 +24,7 @@
       "number": 4,
       "id": 5693299042,
       "url": "https://github.com/dearlordylord/bendvy/issues/4",
-      "title": "T03: \u041f\u043e\u0432\u0442\u043e\u0440\u044f\u0435\u043c\u0430\u044f \u0442\u0438\u043f\u043e\u0431\u0435\u0437\u043e\u043f\u0430\u0441\u043d\u0430\u044f query \u043d\u0430 \u0434\u0432\u0443\u0445 \u043c\u0438\u0440\u0430\u0445",
+      "title": "T03: Повторяемая типобезопасная query на двух мирах",
       "local_file": "docs/tickets/03-typed-query.md",
       "blocked_by": [
         1,
@@ -157,7 +157,7 @@
       "number": 13,
       "id": 5693302343,
       "url": "https://github.com/dearlordylord/bendvy/issues/13",
-      "title": "T12: \u0421\u043f\u0435\u0446\u0438\u0444\u0438\u043a\u0430\u0446\u0438\u044f proofs \u0438 \u0441\u043b\u0435\u0434\u0443\u044e\u0449\u0435\u0433\u043e \u044d\u0442\u0430\u043f\u0430 \u043f\u043e evidence",
+      "title": "T12: Спецификация proofs и следующего этапа по evidence",
       "local_file": "docs/tickets/12-next-specification.md",
       "blocked_by": [
         9,
@@ -296,6 +296,102 @@
         27
       ],
       "status": "complete paired regression gate; qualified hot-path and full-matrix acceptance separate",
+      "native_blocked_by": []
+    }
+  },
+  "parity_tickets": {
+    "P-QUERY-CONTRACT": {
+      "number": 29,
+      "id": 5736570268,
+      "url": "https://github.com/dearlordylord/bendvy/issues/29",
+      "local_file": "docs/tickets/27-p-query-contract.md",
+      "blocked_by": [],
+      "title": "P-QUERY-CONTRACT: Complete public query cardinality and exact lookup contracts",
+      "parent": 1,
+      "status": "published; frontier; resolve explicit design/policy gates before implementation",
+      "native_blocked_by": []
+    },
+    "P-COMPOSE-STORAGE": {
+      "number": 30,
+      "id": 5736570490,
+      "url": "https://github.com/dearlordylord/bendvy/issues/30",
+      "local_file": "docs/tickets/28-p-compose-storage.md",
+      "blocked_by": [],
+      "title": "P-COMPOSE-STORAGE: Execute public Compose queries through optimized owned storage",
+      "parent": 1,
+      "status": "published; frontier; resolve explicit design/policy gates before implementation",
+      "native_blocked_by": []
+    },
+    "P-EVENT-READERS": {
+      "number": 31,
+      "id": 5736570719,
+      "url": "https://github.com/dearlordylord/bendvy/issues/31",
+      "local_file": "docs/tickets/29-p-event-readers.md",
+      "blocked_by": [],
+      "title": "P-EVENT-READERS: Integrate registered event readers with retention and lag",
+      "parent": 1,
+      "status": "published; frontier; resolve explicit design/policy gates before implementation",
+      "native_blocked_by": []
+    },
+    "P-REMOVAL-READERS": {
+      "number": 32,
+      "id": 5736570939,
+      "url": "https://github.com/dearlordylord/bendvy/issues/32",
+      "local_file": "docs/tickets/30-p-removal-readers.md",
+      "blocked_by": [],
+      "title": "P-REMOVAL-READERS: Integrate registered removal and despawn readers",
+      "parent": 1,
+      "status": "published; frontier; resolve explicit design/policy gates before implementation",
+      "native_blocked_by": []
+    },
+    "P-SCHEDULE-RUN": {
+      "number": 33,
+      "id": 5736571164,
+      "url": "https://github.com/dearlordylord/bendvy/issues/33",
+      "local_file": "docs/tickets/31-p-schedule-run.md",
+      "blocked_by": [],
+      "title": "P-SCHEDULE-RUN: Execute deterministic public phases and conditional schedules",
+      "parent": 1,
+      "status": "published; frontier; resolve explicit design/policy gates before implementation",
+      "native_blocked_by": []
+    },
+    "P-SCHEDULE-PROVIDE": {
+      "number": 34,
+      "id": 5736571370,
+      "url": "https://github.com/dearlordylord/bendvy/issues/34",
+      "local_file": "docs/tickets/32-p-schedule-provide.md",
+      "blocked_by": [
+        33
+      ],
+      "title": "P-SCHEDULE-PROVIDE: Validate nested schedule requirements before public execution",
+      "parent": 1,
+      "status": "published; blocked",
+      "native_blocked_by": []
+    },
+    "P-SCHEDULE-READERS": {
+      "number": 35,
+      "id": 5736571726,
+      "url": "https://github.com/dearlordylord/bendvy/issues/35",
+      "local_file": "docs/tickets/33-p-schedule-readers.md",
+      "blocked_by": [
+        31,
+        32,
+        33
+      ],
+      "title": "P-SCHEDULE-READERS: Preserve transactional reader visibility across composed schedules",
+      "parent": 1,
+      "status": "published; blocked",
+      "native_blocked_by": []
+    },
+    "P-LOCAL-OWNER": {
+      "number": 36,
+      "id": 5736572262,
+      "url": "https://github.com/dearlordylord/bendvy/issues/36",
+      "local_file": "docs/tickets/34-p-local-owner.md",
+      "blocked_by": [],
+      "title": "P-LOCAL-OWNER: Define and execute per-system affine Local ownership",
+      "parent": 1,
+      "status": "published; frontier; resolve explicit design/policy gates before implementation",
       "native_blocked_by": []
     }
   }
