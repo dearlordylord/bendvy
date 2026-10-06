@@ -1,0 +1,146 @@
+[
+  {
+    "role": "cached",
+    "schema": "motion",
+    "sourceSHA256": "1db26de41ebad669ffe99a30bf225b6cfbd0553cb76e5ada5aa706c468bbfaa3",
+    "baselineStored": false,
+    "lines": 72,
+    "byteEqual": true,
+    "stdoutSHA256": "48125f684a95c9ef5c1b978eefbf87fd6ef24bc91afdb5f74b422067aae0f2cb",
+    "commands": [
+      [
+        "node",
+        "--expose-internals",
+        "experiments/s-prep/js-affine-owner-reuse/rewrite.cjs",
+        "/tmp/bendvy-direct-raw-tx-baseline/suppressed-owner/cached/motion/cache-tx-motion-controls.js",
+        "/tmp/bendvy-affine-suppressed-cached-motion-final.js",
+        "motion",
+        "--suppressed-main"
+      ],
+      [
+        "taskset",
+        "-c",
+        "9",
+        "node",
+        "/tmp/bendvy-affine-suppressed-cached-motion-final.js"
+      ],
+      [
+        "taskset",
+        "-c",
+        "9",
+        "node",
+        "/tmp/bendvy-direct-raw-tx-baseline/suppressed-owner/cached/motion/cache-tx-motion-controls.js"
+      ]
+    ],
+    "limitSeconds": 5,
+    "baselineKind": "fresh original generated-JS run; no stored suppressed .jsonl present"
+  },
+  {
+    "role": "cached",
+    "schema": "health",
+    "sourceSHA256": "468d081edbfdd773d0437fb8aa497f03b37db99af1b5153c2b78c503afde75fc",
+    "baselineStored": false,
+    "lines": 72,
+    "byteEqual": true,
+    "stdoutSHA256": "133f41d153791b23c4afc5922cf289a7836a3de8e4938e01418e21fc00baf3e8",
+    "commands": [
+      [
+        "node",
+        "--expose-internals",
+        "experiments/s-prep/js-affine-owner-reuse/rewrite.cjs",
+        "/tmp/bendvy-direct-raw-tx-baseline/suppressed-owner/cached/health/cache-tx-health-controls.js",
+        "/tmp/bendvy-affine-suppressed-cached-health-final.js",
+        "health",
+        "--suppressed-main"
+      ],
+      [
+        "taskset",
+        "-c",
+        "9",
+        "node",
+        "/tmp/bendvy-affine-suppressed-cached-health-final.js"
+      ],
+      [
+        "taskset",
+        "-c",
+        "9",
+        "node",
+        "/tmp/bendvy-direct-raw-tx-baseline/suppressed-owner/cached/health/cache-tx-health-controls.js"
+      ]
+    ],
+    "limitSeconds": 5,
+    "baselineKind": "fresh original generated-JS run; no stored suppressed .jsonl present"
+  },
+  {
+    "role": "raw",
+    "schema": "motion",
+    "sourceSHA256": "fc23c2caf09d321c7b11c42f72a5716d67358b287a387279df0fd0b477572969",
+    "baselineStored": false,
+    "lines": 72,
+    "byteEqual": true,
+    "stdoutSHA256": "48125f684a95c9ef5c1b978eefbf87fd6ef24bc91afdb5f74b422067aae0f2cb",
+    "commands": [
+      [
+        "node",
+        "--expose-internals",
+        "experiments/s-prep/js-affine-owner-reuse/rewrite.cjs",
+        "/tmp/bendvy-direct-raw-tx-baseline/suppressed-owner/raw/motion/cache-tx-motion-controls.js",
+        "/tmp/bendvy-affine-suppressed-raw-motion-final.js",
+        "motion",
+        "--suppressed-main"
+      ],
+      [
+        "taskset",
+        "-c",
+        "9",
+        "node",
+        "/tmp/bendvy-affine-suppressed-raw-motion-final.js"
+      ],
+      [
+        "taskset",
+        "-c",
+        "9",
+        "node",
+        "/tmp/bendvy-direct-raw-tx-baseline/suppressed-owner/raw/motion/cache-tx-motion-controls.js"
+      ]
+    ],
+    "limitSeconds": 5,
+    "baselineKind": "fresh original generated-JS run; no stored suppressed .jsonl present"
+  },
+  {
+    "role": "raw",
+    "schema": "health",
+    "sourceSHA256": "b1eb2b6be2c739d1f15d1f081121c7bef770e504eac5ee5076481bb8f4649556",
+    "baselineStored": false,
+    "lines": 72,
+    "byteEqual": true,
+    "stdoutSHA256": "133f41d153791b23c4afc5922cf289a7836a3de8e4938e01418e21fc00baf3e8",
+    "commands": [
+      [
+        "node",
+        "--expose-internals",
+        "experiments/s-prep/js-affine-owner-reuse/rewrite.cjs",
+        "/tmp/bendvy-direct-raw-tx-baseline/suppressed-owner/raw/health/cache-tx-health-controls.js",
+        "/tmp/bendvy-affine-suppressed-raw-health-final.js",
+        "health",
+        "--suppressed-main"
+      ],
+      [
+        "taskset",
+        "-c",
+        "9",
+        "node",
+        "/tmp/bendvy-affine-suppressed-raw-health-final.js"
+      ],
+      [
+        "taskset",
+        "-c",
+        "9",
+        "node",
+        "/tmp/bendvy-direct-raw-tx-baseline/suppressed-owner/raw/health/cache-tx-health-controls.js"
+      ]
+    ],
+    "limitSeconds": 5,
+    "baselineKind": "fresh original generated-JS run; no stored suppressed .jsonl present"
+  }
+]
