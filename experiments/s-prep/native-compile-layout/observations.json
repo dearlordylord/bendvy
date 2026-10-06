@@ -1,0 +1,138 @@
+{
+  "scope": "Three native-only rotated full65 raw observations per schema; no noise qualification or adoption",
+  "results": {
+    "motion": {
+      "observations": [
+        {
+          "rotation": 0,
+          "receipt": "/tmp/bendvy-native-layout-Os-motion-rotation0-v1/evidence.json",
+          "executionOrder": [
+            "TS",
+            "O3",
+            "Os"
+          ],
+          "phaseMS": {
+            "TS": 239.83165299999996,
+            "O3": 177.0,
+            "Os": 167.0
+          },
+          "ratios": {
+            "O3": 0.7380176794261599,
+            "Os": 0.6963217653342865
+          }
+        },
+        {
+          "rotation": 1,
+          "receipt": "/tmp/bendvy-native-layout-Os-motion-rotation1-v1/evidence.json",
+          "executionOrder": [
+            "O3",
+            "Os",
+            "TS"
+          ],
+          "phaseMS": {
+            "TS": 238.45455800000002,
+            "O3": 168.0,
+            "Os": 169.0
+          },
+          "ratios": {
+            "O3": 0.7045367528684437,
+            "Os": 0.7087304240164702
+          }
+        },
+        {
+          "rotation": 2,
+          "receipt": "/tmp/bendvy-native-layout-Os-motion-rotation2-v1/evidence.json",
+          "executionOrder": [
+            "Os",
+            "TS",
+            "O3"
+          ],
+          "phaseMS": {
+            "TS": 334.817798,
+            "O3": 191.0,
+            "Os": 233.0
+          },
+          "ratios": {
+            "O3": 0.5704595190008388,
+            "Os": 0.6959008791999761
+          }
+        }
+      ],
+      "descriptiveMedianMS": {
+        "TS": 239.83165299999996,
+        "O3": 177.0,
+        "Os": 169.0
+      },
+      "allFull65FieldsEqual": true,
+      "NativeHalfTSObserved": false,
+      "qualification": false
+    },
+    "health": {
+      "observations": [
+        {
+          "rotation": 0,
+          "receipt": "/tmp/bendvy-native-layout-Os-health-rotation0-v1/evidence.json",
+          "executionOrder": [
+            "TS",
+            "O3",
+            "Os"
+          ],
+          "phaseMS": {
+            "TS": 219.01331700000003,
+            "O3": 172.0,
+            "Os": 181.0
+          },
+          "ratios": {
+            "O3": 0.7853403727043684,
+            "Os": 0.8264337642993644
+          }
+        },
+        {
+          "rotation": 1,
+          "receipt": "/tmp/bendvy-native-layout-Os-health-rotation1-v1/evidence.json",
+          "executionOrder": [
+            "O3",
+            "Os",
+            "TS"
+          ],
+          "phaseMS": {
+            "TS": 221.65350499999994,
+            "O3": 186.0,
+            "Os": 189.0
+          },
+          "ratios": {
+            "O3": 0.8391475695365163,
+            "Os": 0.8526822077548472
+          }
+        },
+        {
+          "rotation": 2,
+          "receipt": "/tmp/bendvy-native-layout-Os-health-rotation2-v1/evidence.json",
+          "executionOrder": [
+            "Os",
+            "TS",
+            "O3"
+          ],
+          "phaseMS": {
+            "TS": 212.86943399999996,
+            "O3": 164.0,
+            "Os": 165.0
+          },
+          "ratios": {
+            "O3": 0.7704253115080864,
+            "Os": 0.77512302682216
+          }
+        }
+      ],
+      "descriptiveMedianMS": {
+        "TS": 219.01331700000003,
+        "O3": 172.0,
+        "Os": 181.0
+      },
+      "allFull65FieldsEqual": true,
+      "NativeHalfTSObserved": false,
+      "qualification": false
+    }
+  },
+  "decision": "No Os adoption supported: Health slower in all paired raw runs; Motion mixed; selected static transport adverse/mixed; Native half-TS target not observed. No O2 matrix."
+}

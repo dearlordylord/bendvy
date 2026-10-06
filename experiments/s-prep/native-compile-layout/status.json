@@ -1,0 +1,32 @@
+{
+  "scope": "One same-C size-layout diagnostic only",
+  "sourceClosureSHA256": "8cb83bc7467ca8e9b0192b8dadd89d3c143262d37e812079342289be1c0f6e26",
+  "flagsTested": [
+    "O3 baseline",
+    "Os candidate"
+  ],
+  "O2Tested": false,
+  "PMUAvailable": false,
+  "full65": {
+    "motion": {
+      "path": "/tmp/bendvy-native-layout-motion-Os-full65-v1/evidence.json",
+      "status": "ONE_ADJACENT_ALL_FULL65_WORLDS_PASS"
+    },
+    "health": {
+      "path": "/tmp/bendvy-native-layout-health-Os-full65-v1/evidence.json",
+      "status": "ONE_ADJACENT_ALL_FULL65_WORLDS_PASS"
+    }
+  },
+  "actualTxCanary": {
+    "path": "/tmp/bendvy-native-layout-Os-tx-canary-v1/evidence.json",
+    "status": "OS_ACTUAL_TX_ROLLBACK_FOREIGN_ORDER_AND_COMPILING_MUTANTS_FULL_FIELDS_PASS",
+    "subjects": 12,
+    "records": 864
+  },
+  "performanceAcceptance": false,
+  "productionAdoption": false,
+  "full22Acceptance": false,
+  "layoutConclusion": "Overall text reduction with mixed/adverse reached step/loop stack/call layout; no dynamic speed conclusion",
+  "rotatedObservation": "observations.json",
+  "decision": "No Os adoption supported: Health slower in all paired raw runs; Motion mixed; selected static transport adverse/mixed; Native half-TS target not observed. No O2 matrix."
+}
