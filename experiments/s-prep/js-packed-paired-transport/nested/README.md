@@ -1,0 +1,11 @@
+# Nested direct-literal scalar edges
+
+This separate second-stage variant redirects guarded direct Tuple literals only inside the first pass's private receiver clones. The target must already exist in the exact verified first-pass clone catalog with its expected scalar parameter signature. Originals and all other edges remain intact. Arguments and both field expressions retain their once-only order; no inlining, new helper, closure, mutation or source/Native/compiler change occurs. Unknown targets, overlapping/multiple-pair calls, reflection and occupied namespaces refuse.
+
+Twenty exact programs are pinned: the previous identity-query row/pool/Tuple source's two normal and eight current controllers, plus the distinct packed+paired source's corresponding ten programs. Every input has its own actual29 sources, first-stage receipt/recipe/catalog, producer and fixture pins. No schema/source gate is silently transferred.
+
+All four normal variants pass own fresh full65 and counted nine-world fields. Each removes exactly 131,072 additional construction expressions (one remaining hot Tuple/update), with no new closures/functions. Motion ordinary counts become 5,241,408 and Health 4,981,824 in both families. These are expression counters, not physical heap or speed evidence.
+
+Fresh second-stage controller execution matches all 576 full records per source family (1,152 total). Actual emitted-helper witnesses preserve frozen Data snapshots, owning arrays/full shape/scalars, true-old journals and pending pairs. Eleven additional finite controls cover nested field/adjacent/throwing order, retained array/Data values and missing target/definition/reflection/reapply refusals. No universal alias/refinement or general authority/source-mutant acceptance is claimed.
+
+The exact outputs are `/tmp/bendvy-direct-tuple-{motion,health}-nested.js` and `/tmp/bendvy-packed-paired-{motion,health}-nested.js`. Receipts contain their hashes. Existing parent adverse/no-heap-benefit diagnostics for first-stage tuples remain relevant; this variant has no elapsed or adoption claim. Runtime commands use CPU7 with five-second owned caps. `evidence/summary.json` and the small receipt archive bind the executed programs and commands.
