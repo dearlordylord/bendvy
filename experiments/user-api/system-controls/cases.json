@@ -1,0 +1,42 @@
+[
+  {
+    "name": "system-body-negative",
+    "file": "experiments/user-api/system-controls/system-body-negative.bend",
+    "reject": "expected : S.Registry<Schema, Unit, U32, U32, Unit, Error, Unit, idle>"
+  },
+  {
+    "name": "system-control",
+    "file": "experiments/user-api/system-controls/system-control.bend",
+    "expected": "2\n"
+  },
+  {
+    "name": "system-cursor-retry",
+    "file": "experiments/user-api/system-controls/system-cursor-retry.bend",
+    "expected": "107\n"
+  },
+  {
+    "name": "system-detached-id",
+    "file": "experiments/user-api/system-controls/system-detached-id.bend",
+    "expected": "996\n"
+  },
+  {
+    "name": "system-detached-name",
+    "file": "experiments/user-api/system-controls/system-detached-name.bend",
+    "expected": "996\n"
+  },
+  {
+    "name": "system-foreign-namespace",
+    "file": "experiments/user-api/system-controls/system-foreign-namespace.bend",
+    "expected": "996\n"
+  },
+  {
+    "name": "system-owner-duplicate",
+    "file": "experiments/user-api/system-controls/system-owner-duplicate.bend",
+    "reject": "registry (consumed more than once)"
+  },
+  {
+    "name": "system-two-worlds",
+    "file": "experiments/user-api/system-controls/system-two-worlds.bend",
+    "expected": "998\n"
+  }
+]
