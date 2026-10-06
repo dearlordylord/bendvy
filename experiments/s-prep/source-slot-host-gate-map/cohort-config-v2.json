@@ -1,0 +1,277 @@
+{
+  "cohorts": [
+    {
+      "name": "host-original-motion",
+      "gateIDs": [
+        "host12"
+      ],
+      "receipt": "/tmp/bendvy-slot-host-motion-original-v1/evidence.json",
+      "expectedStatus": "FRESH_ORIGINAL_SLOT_HOST_SCHEMA_BOTH_CAPTURES_BOTH_BACKENDS_PASS",
+      "route": "private persistent Slot Host generic query/Tx/barrier, both captures",
+      "oracles": [
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/source-slot-host-controls/original-reference.json.gz",
+        "/workspace/formal-proofs/bendvy/experiments/s-integrate/trace-decode.py",
+        "/workspace/formal-proofs/bendvy/experiments/s-integrate/trace-compare.py"
+      ],
+      "requiredControlTokens": [
+        "H.prototype_slot_host_motion_dispatch"
+      ],
+      "requiredDefinitions": [
+        [
+          "host.bend",
+          "prototype_slot_host_motion_dispatch"
+        ]
+      ]
+    },
+    {
+      "name": "host-original-health",
+      "gateIDs": [
+        "host12"
+      ],
+      "receipt": "/tmp/bendvy-slot-host-health-original-v1/evidence.json",
+      "expectedStatus": "FRESH_ORIGINAL_SLOT_HOST_SCHEMA_BOTH_CAPTURES_BOTH_BACKENDS_PASS",
+      "route": "private persistent Slot Host generic query/Tx/barrier, both captures",
+      "oracles": [
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/source-slot-host-controls/original-reference.json.gz",
+        "/workspace/formal-proofs/bendvy/experiments/s-integrate/trace-decode.py",
+        "/workspace/formal-proofs/bendvy/experiments/s-integrate/trace-compare.py"
+      ],
+      "requiredControlTokens": [
+        "H.prototype_slot_host_health_dispatch"
+      ],
+      "requiredDefinitions": [
+        [
+          "host.bend",
+          "prototype_slot_host_health_dispatch"
+        ]
+      ]
+    },
+    {
+      "name": "e11-original",
+      "gateIDs": [
+        "e11"
+      ],
+      "receipt": "/tmp/bendvy-slot-host-retention-original-v2/evidence.json",
+      "expectedStatus": "FRESH_ORIGINAL_SLOT_E11_20_CASES_MUTANTS_PENDING",
+      "route": "private persistent Slot Host with awaited effectful Batch bridge",
+      "oracles": [
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/source-slot-host-controls/retention.py",
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-connected-gates/e11-run.py"
+      ]
+    },
+    {
+      "name": "e11-mutants",
+      "gateIDs": [
+        "e11"
+      ],
+      "receipt": "/tmp/bendvy-slot-host-retention-mutants-v1/evidence.json",
+      "expectedStatus": "FRESH_ACTUAL_SLOT_E11_TEN_MUTANTS_BOTH_BACKENDS_PASS",
+      "route": "original designated Motion/lane retention mutations",
+      "oracles": [
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/source-slot-host-controls/retention-mutants.py",
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-connected-gates/e11-run.py"
+      ],
+      "permittedRuntimeModules": [
+        "readers.bend",
+        "dispatcher.bend",
+        "host.bend",
+        "schedule.bend",
+        "reader-host.bend",
+        "streams.bend",
+        "systems.bend",
+        "audited-invoker.bend",
+        "capture.bend"
+      ]
+    },
+    {
+      "name": "access-nine",
+      "gateIDs": [
+        "access"
+      ],
+      "receipt": "/tmp/bendvy-slot-host-access-v3/evidence.json",
+      "expectedStatus": "FRESH_NINE_SLOT_HOST_SCOPED_ACCESS_BOUNDARIES_PASS",
+      "route": "scoped privateSlot/frozen public query typing",
+      "oracles": [
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/source-slot-host-controls/access.py",
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-connected-gates/access-run.py"
+      ],
+      "permittedRuntimeModules": [
+        "systems.bend",
+        "audited-invoker.bend"
+      ],
+      "negativeCohort": true
+    },
+    {
+      "name": "tx-baseline",
+      "gateIDs": [
+        "tx-baseline"
+      ],
+      "receipt": "/tmp/bendvy-slot-host-tx-controls-v2/evidence.json",
+      "expectedStatus": "FRESH_ACTUAL_TYPED_CURSOR_TX_AND_SUPPRESSED_576_PER_BACKEND_PASS",
+      "route": "supplied-ID typed row/private FlatPair normal+suppress, cached/raw, bothschemas",
+      "oracles": [
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/owned-write-query-integration/controls-run.py",
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-connected-gates/suppressed-owner.py"
+      ],
+      "requiredDefinitions": [
+        [
+          "held-adapter.bend",
+          "prototype_cursor_flatfold_motion"
+        ],
+        [
+          "held-adapter.bend",
+          "prototype_cursor_flatfold_health"
+        ]
+      ]
+    },
+    {
+      "name": "tx-mutants",
+      "gateIDs": [
+        "tx-stale-head",
+        "tx-torn-tail",
+        "tx-lost-mark",
+        "tx-inverse-order"
+      ],
+      "receipt": "/tmp/bendvy-slot-host-tx-mutants-v3/evidence.json",
+      "expectedStatus": "FOUR_REACHED_SLOT_TX_MUTANTS_DETECTED_IN_REQUIRED_OBSERVER_ROUTES_BOTH_BACKENDS",
+      "route": "actualSlot/privateFlatPair live setter/rollback mutations",
+      "oracles": [
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/owned-write-query-integration/controls-run.py",
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-connected-gates/suppressed-owner.py"
+      ],
+      "permittedRuntimeModules": [
+        "held-adapter.bend",
+        "transaction.bend"
+      ],
+      "extraEntries": [
+        "/tmp/bendvy-slot-host-tx-mutants-v2/stale-head-cached-motion/core/cache-tx-motion-controls.bend",
+        "/tmp/bendvy-slot-host-tx-mutants-v2/stale-head-cached-health/core/cache-tx-health-controls.bend",
+        "/tmp/bendvy-slot-host-tx-mutants-v2/stale-head-raw-motion/core/cache-tx-motion-controls.bend",
+        "/tmp/bendvy-slot-host-tx-mutants-v2/stale-head-raw-health/core/cache-tx-health-controls.bend",
+        "/tmp/bendvy-slot-host-tx-mutants-v2/torn-tail-cached-motion/core/cache-tx-motion-controls.bend",
+        "/tmp/bendvy-slot-host-tx-mutants-v2/torn-tail-cached-health/core/cache-tx-health-controls.bend",
+        "/tmp/bendvy-slot-host-tx-mutants-v2/torn-tail-raw-motion/core/cache-tx-motion-controls.bend",
+        "/tmp/bendvy-slot-host-tx-mutants-v2/torn-tail-raw-health/core/cache-tx-health-controls.bend",
+        "/tmp/bendvy-slot-host-tx-mutants-v2/lost-mark-cached-motion/core/cache-tx-motion-controls.bend",
+        "/tmp/bendvy-slot-host-tx-mutants-v2/lost-mark-cached-health/core/cache-tx-health-controls.bend",
+        "/tmp/bendvy-slot-host-tx-mutants-v2/lost-mark-raw-motion/core/cache-tx-motion-controls.bend",
+        "/tmp/bendvy-slot-host-tx-mutants-v2/lost-mark-raw-health/core/cache-tx-health-controls.bend"
+      ]
+    },
+    {
+      "name": "owned-generic",
+      "gateIDs": [
+        "owned-storage"
+      ],
+      "receipt": "/tmp/bendvy-slot-host-owned-generic-v1/actual/evidence.json",
+      "expectedStatus": "ACTUAL_FINAL_STORAGE_FIELDS_OWNERSHIP_MUTANTS_PASS",
+      "route": "unchanged original generic Rows arbitrary affine Type",
+      "oracles": [
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-connected-gates/owned-storage-run.py"
+      ],
+      "extraEntries": [
+        "/tmp/bendvy-slot-host-owned-generic-v1/actual/input/candidate/owned-storage-control.bend"
+      ],
+      "subjectRoot": "/tmp/bendvy-slot-host-owned-generic-v1/actual/input"
+    },
+    {
+      "name": "staging",
+      "gateIDs": [
+        "staging"
+      ],
+      "receipt": "/tmp/bendvy-slot-staging-final-r2/evidence.json",
+      "expectedStatus": "PASS_BOUNDED_SLOT_STAGING",
+      "route": "actualSlot staging/API queues/factory twoWorlds",
+      "oracles": [
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/source-slot-staging/fixtures.py"
+      ]
+    },
+    {
+      "name": "host12-selected-live-mutants",
+      "gateIDs": [
+        "host12"
+      ],
+      "receipt": "/workspace/formal-proofs/bendvy/experiments/s-prep/source-slot-host-controls/host12-evidence.json",
+      "expectedStatus": "FRESH_ACTUAL_SLOT_HOST12_ORIGINALS_AND_12_MUTANTS_BOTH_BACKENDS_PASS",
+      "route": "selected twelve reached Host original-channel compiling mutations",
+      "oracles": [
+        "/workspace/formal-proofs/bendvy/experiments/s-integrate/trace-decode.py",
+        "/workspace/formal-proofs/bendvy/experiments/s-integrate/trace-compare.py",
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/source-slot-host-controls/original-reference.json.gz"
+      ],
+      "permittedRuntimeModules": [
+        "query.bend",
+        "cached-payload.bend",
+        "transaction.bend",
+        "readers.bend",
+        "capture.bend",
+        "commands.bend",
+        "dispatcher.bend"
+      ]
+    },
+    {
+      "name": "static-provider-eight",
+      "gateIDs": [
+        "access"
+      ],
+      "receipt": "/tmp/bendvy-slot-host-static-access-v2/evidence.json",
+      "expectedStatus": "FRESH_RETAINED_PUBLIC_STATIC_EIGHT_CONTRACTS_PASS",
+      "route": "unchanged protected retained public rank2/Held static contract; private authority separate",
+      "oracles": [
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-connected-gates/static_provider_boundary.py"
+      ],
+      "extraEntries": [
+        "/tmp/bendvy-slot-host-static-access-v2/cross-schema-callback/subject.bend",
+        "/tmp/bendvy-slot-host-static-access-v2/cross-schema-setter/subject.bend",
+        "/tmp/bendvy-slot-host-static-access-v2/owner-inspection/subject.bend",
+        "/tmp/bendvy-slot-host-static-access-v2/positive/subject.bend",
+        "/tmp/bendvy-slot-host-static-access-v2/positive-registration/subject.bend",
+        "/tmp/bendvy-slot-host-static-access-v2/public-setter-on-abstract-owner/subject.bend",
+        "/tmp/bendvy-slot-host-static-access-v2/undeclared-ledger-authority/subject.bend",
+        "/tmp/bendvy-slot-host-static-access-v2/write-through-read/subject.bend"
+      ],
+      "runtimeRoot": "/tmp/bendvy-slot-host-v1/experiments/s-integrate",
+      "negativeCohort": true,
+      "entryPins": {
+        "/tmp/bendvy-slot-host-static-access-v2/cross-schema-callback/subject.bend": "aa6f30b9e9e4ea8c9989a1e74d19d7d9d5df3084bbb137b514e1a586bff493cb",
+        "/tmp/bendvy-slot-host-static-access-v2/cross-schema-setter/subject.bend": "76b6054fb3ce9b24ba976f0ab9f009082ad442681100274271ce3d84b6076419",
+        "/tmp/bendvy-slot-host-static-access-v2/owner-inspection/subject.bend": "b021502f0cfd366570adb0b017b71cca191a967378cdbc186b018a6ce1c1f2f5",
+        "/tmp/bendvy-slot-host-static-access-v2/positive/subject.bend": "56beea2158abf9d29621b88c2cafc1b9be668533704634f6242af86ff43cb1ca",
+        "/tmp/bendvy-slot-host-static-access-v2/positive-registration/subject.bend": "0a718a08d53815022126a3bc3226ecfcb715edea5490820785a3ac9952c0980b",
+        "/tmp/bendvy-slot-host-static-access-v2/public-setter-on-abstract-owner/subject.bend": "5bce7a6bb61a85863e615f43a66b84d1223741667e9b59b8cf9a70a1ab0876f8",
+        "/tmp/bendvy-slot-host-static-access-v2/undeclared-ledger-authority/subject.bend": "87d27e292cc3a49bc20fb4a34d17024ccdd9cd5bb6871313ca2684170410855c",
+        "/tmp/bendvy-slot-host-static-access-v2/write-through-read/subject.bend": "0411b02f80e6be653c3120e39f8d36ccf95f3026d10f3c5d72d42b56d0171a46"
+      }
+    },
+    {
+      "name": "static-world-sixteen",
+      "gateIDs": [
+        "access"
+      ],
+      "receipt": "/tmp/bendvy-slot-host-static-world-v2/evidence.json",
+      "expectedStatus": "FRESH_ACTUAL_SLOT_FACTORY_WORLD16_FULL_FIELDS_PASS",
+      "route": "factory twoWorlds Slot: actualcursor static and original authored point comparator; singletonID no enumeration",
+      "oracles": [
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-connected-gates/static-world-run.py",
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-connected-gates/static-world-controls.bend"
+      ]
+    },
+    {
+      "name": "staging-live-mutants",
+      "gateIDs": [
+        "staging"
+      ],
+      "receipt": "/tmp/bendvy-slot-staging-mutants-r3/evidence.json",
+      "expectedStatus": "FOUR_REACHED_COMPILING_SLOT_DEFECTS_ALL_FOUR_ROLES_DETECTED",
+      "route": "actualSlot queue/factory/payload compiling defects",
+      "oracles": [
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/source-slot-staging/fixtures.py"
+      ],
+      "permittedRuntimeModules": [
+        "commands.bend",
+        "transaction.bend"
+      ]
+    }
+  ],
+  "missingRequiredCohorts": []
+}

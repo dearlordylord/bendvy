@@ -16,7 +16,7 @@ Diagnostic map for source29 `4baad4960575cda216576e8b90593fbd7ed7dcd44cfa86836b8
 | tx-lost-mark | Actual Main mark omission detected through both getters/backends | Retain exact source/fixture/live anchor binding |
 | tx-inverse-order | Actual flat rollback reversal detected by independent oracle/full records, both getters/backends | Paired getter comparison is0 because both routes corrupt identically; old dead generic rollback rejection remains history |
 
-The exact residual semantic frontier is **access's8+16 subrequirements**, plus **materialize-controls's coherent reviewed route/source map**. Nine other IDs have fresh finite coverage for both backends; this is18 role/ID coverage-equivalents, not eighteen canonical accepted gate entries. Existing statuses differ from the catalogue aggregate and must be reconciled explicitly. All eleven IDs must be ordered, complete, uniquely bound and meet unchanged expectations before any full22 claim.
+At initial snapshot v1, the exact residual semantic frontier was **access's8+16 subrequirements**, plus **materialize-controls's coherent reviewed route/source map**. Nine other IDs have fresh finite coverage for both backends; this is18 role/ID coverage-equivalents, not eighteen canonical accepted gate entries. Existing statuses differ from the catalogue aggregate and must be reconciled explicitly. All eleven IDs must be ordered, complete, uniquely bound and meet unchanged expectations before any full22 claim.
 
 ## Routes that cannot substitute for one another
 
@@ -36,3 +36,21 @@ Keep the original shared materializer/recognizer and its failure history unchang
 The local result can be a **diagnostic source-cohort map** consumed by scoped adapters; it must not invent the old `PASS_DERIVED_CONTROL_SOURCE_MAP` status or a canonical budget reset. A reviewer must approve the route-aware consumer before adapting the original aggregate verifier. Static source closure is not proof that every branch executed. Raw observer adaptation must stay an explicit control-only route; old Cache-only `--raw-snapshots` rewrites cannot silently alter retained original Host runtime or weaken full-field obligations.
 
 `reconcile.py` verifies source29/cache and pins all currently selected receipts; `verify-evidence.py` independently decodes/verifies four delivered archives. Compact receipts and #24 snapshot are SHA-indexed. Some Owned/E11 final packages were still being integrated during this snapshot, so pending archive delivery is kept separate from observed local PASS receipts. Performance, five-family/three-size matrix, public API, universal refinement and approved-law proofs remain outside this map.
+
+
+## Diagnostic cohort snapshot v3
+
+Final static8/world16 finite results are now supplied. `cohort-map.py` freezes thirteen subject cohorts and109 actual checker source subjects, their complete local import closures, all29 runtime bytes/deltas, extras and protected oracle pins. `verify-cohort-map.py` freshly verifies every pinned byte/receipt, exact cohort membership/counts, permitted observer/suppression/mutation modules and required unique source anchors. Five fresh corrupt-map controls reject missing cohorts, runtime conflicts, missing oracle, missing anchor and missing subject. These guards do not infer dynamic branch execution from a source token.
+
+The later gate map now records finite evidence for all ten semantic IDs on both backends. The structural materialization is a **diagnostic immutable source-cohort map**, not the original shared materializer's status or canonical acceptance. Exact aggregate consumer/status review remains open. Root independently reviews this verifier; old validators and canonical budgets remain unchanged.
+
+The static8 v2 wrapper preserved rebound subjects and output diagnostics but omitted literal temporary checker argv/source/output hashes from its command receipt. This snapshot binds its preserved source bytes and finite boundary receipt, retaining that provenance limitation. Root is preparing a fresh instrumented v3 wrapper/receipt; refresh the map from that distinct receipt when delivered, rather than relabeling v2. The109-subject count includes static8 positive/negative type subjects and eight factory-world subjects which each execute both backends (world16). Reused Tx programs are individually bound to their actual prior same-source directories; no source role is transferred.
+
+Reproduce the static map, then verify it:
+
+```sh
+python3 cohort-map.py --source /tmp/bendvy-slot-host-v1 --config cohort-config-v2.json --output /tmp/fresh-cohort-map.json
+python3 verify-cohort-map.py --map /tmp/fresh-cohort-map.json --config cohort-config-v2.json --output /tmp/fresh-cohort-map-verified.json
+```
+
+Receipts pin current read-only paths. Archives preserve the snapshot compactly; verification requires those exact source bytes, or a separately reviewed relocation/reconstruction matching all pins. A missing path refuses rather than skipping the subject. No timing, dependency, proof/law or compiler/kernel/reference change is included.
