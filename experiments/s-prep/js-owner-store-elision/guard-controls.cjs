@@ -1,0 +1,15 @@
+// Synthetic guard controls under test-only copied catalogs; shipping has no bypass.
+const fs=require('node:fs'),cp=require('node:child_process'),path=require('node:path'),crypto=require('node:crypto'),assert=require('node:assert/strict'),acorn=require('internal/deps/acorn/acorn/dist/acorn');
+const [input,output]=process.argv.slice(2);assert(!fs.existsSync(output));fs.mkdirSync(output);const source=fs.readFileSync(input,'utf8'),sha=s=>crypto.createHash('sha256').update(s).digest('hex'),pin=JSON.parse(fs.readFileSync(__dirname+'/input-pins.json'))[sha(source)];assert(pin);const defs=acorn.parse(source,{ecmaVersion:'latest'}).body.filter(n=>n.type==='FunctionDeclaration');const done=defs.find(n=>n.id.name.endsWith('held$045adapter$058prototype_boxed_motion_set_fused_done$')),restore=defs.find(n=>n.id.name.endsWith('held$045adapter$058prototype_boxed_motion_return_world$'));
+const insert=(n,s)=>source.slice(0,n.body.start+1)+'\n'+s+'\n'+source.slice(n.body.start+1);
+const mutations=[
+ ['getter',source+'\nconst injected_owner={get world(){return 0}};','plain fields no accessors'],
+ ['ffi-owner-escape',insert(done,'const injected_ffi=foreign_owner(__boxed_reuse_owner);'),'done no owner identity/FFI escape'],
+ ['identity-observation',insert(done,'const injected_identity=__boxed_reuse_owner===__boxed_reuse_owner;'),'done no owner identity/FFI escape'],
+ ['evaluation-order',insert(done,'__boxed_reuse_owner["world"] = _world_0;'),'all evaluations before stores'],
+ ['proxy',source+'\nconst injected_proxy=Proxy;','no proxy reflection eval'],
+ ['shape-reflection',source+'\nObject.defineProperty({},"world",{});','no owner shape reflection'],
+ ['restore-ffi',insert(restore,'const injected_ffi=foreign_owner(_world_0);'),'restore no calls/captures'],
+ ['wrong-slot-identity',source.replace('const __owned_reuse_rows_aux = (_aux_0);','const __owned_reuse_rows_aux = (_meta_0);'),'exact redundant store set/order'],
+];
+const records=[];for(const[label,changed,error]of mutations){const dir=path.join(output,label);fs.mkdirSync(dir);fs.writeFileSync(path.join(dir,'rewrite.cjs'),fs.readFileSync(__dirname+'/rewrite.cjs'));fs.writeFileSync(path.join(dir,'input-pins.json'),JSON.stringify({[sha(changed)]:pin}));const inp=path.join(dir,'input.js'),out=path.join(dir,'output.js');fs.writeFileSync(inp,changed);const p=cp.spawnSync(process.execPath,['--expose-internals',path.join(dir,'rewrite.cjs'),inp,out],{encoding:'utf8',timeout:5000});assert.notEqual(p.status,0,label);assert(p.stderr.includes(error),p.stderr);assert(!fs.existsSync(out));fs.writeFileSync(path.join(dir,'diagnostic.txt'),p.stdout+p.stderr);records.push({label,exit:p.status,intendedDiagnostic:error,inputSHA256:sha(changed),outputAbsent:true})}fs.writeFileSync(path.join(output,'evidence.json'),JSON.stringify({scope:'Synthetic copied-catalog structural controls only; shipping no pin bypass/source/compiler change',cpu:[8],runtimeLimitSeconds:5,records},null,2)+'\n');console.log('EIGHT_STORE_GUARDS_REFUSE_BEFORE_OUTPUT');
