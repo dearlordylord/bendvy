@@ -1,0 +1,24 @@
+--- a/experiments/s-integrate/query.bend
++++ b/experiments/s-integrate/query.bend
+@@ -309,15 +309,18 @@
+     case True{} StructColsState{main,aux,live,flags,added,changed,values}:
+       prototype_cursor_struct_cols_live(~Schema,~M,~A,~F,id,namespace,selection,main,aux,values,flags,added,changed,Array.get(Bool,live,U32.sub(id,1)))
+ 
++def prototype_cursor_finish_forward(-M:Type,-A:Type,-F:Data,capacity:U32,depth:Nat,high:U32,state:StructColsState<M,A,F,U32>) -> S.Rows<M,A,F> & List<&2,U32>:
++  match state:
++    case StructColsState{main,aux,live,flags,added,changed,values}: (S.Rows{main,aux,S.MetadataColumns{live,flags,added,changed},capacity,depth,high},values)
+ def prototype_cursor_struct_idx_go(~Schema: Data,~M: Type,~A: Type,~F: Data,remaining: Nat,+id: U32,+capacity: U32,+depth: Nat,+high: U32,+selection: Selection,+namespace: U32,state: StructColsState<M,A,F,U32>) -> S.Rows<M,A,F> & List<&2,U32>:
+   match remaining:
+-    case 0n: struct_cols_finish(M,A,F,U32,capacity,depth,high,state)
+-    case 1n++rest: prototype_cursor_struct_idx_go(~Schema,~M,~A,~F,rest,U32.add(id,1),capacity,depth,high,selection,namespace,prototype_cursor_struct_idx_advance(~Schema,~M,~A,~F,Bool.and((0 < id : U32),(id <= capacity : U32)),id,namespace,selection,state))
++    case 0n: prototype_cursor_finish_forward(M,A,F,capacity,depth,high,state)
++    case 1n++rest: prototype_cursor_struct_idx_go(~Schema,~M,~A,~F,rest,U32.sub(id,1),capacity,depth,high,selection,namespace,prototype_cursor_struct_idx_advance(~Schema,~M,~A,~F,Bool.and((0 < id : U32),(id <= capacity : U32)),id,namespace,selection,state))
+ 
+ def prototype_cursor_read_rows(~Schema: Data,~M: Type,~A: Type,~F: Data,rows: S.Rows<M,A,F>,selection: Selection,namespace: U32) -> S.Rows<M,A,F> & List<&2,U32>:
+   match rows:
+     case S.Rows{main,aux,S.MetadataColumns{live,flags,added,changed},capacity,depth,+high}:
+-      prototype_cursor_struct_idx_go(~Schema,~M,~A,~F,U32.to_nat(high),1,capacity,depth,high,selection,namespace,StructColsState{main,aux,live,flags,added,changed,[]})
++      prototype_cursor_struct_idx_go(~Schema,~M,~A,~F,U32.to_nat(high),high,capacity,depth,high,selection,namespace,StructColsState{main,aux,live,flags,added,changed,[]})
+ 
+ def prototype_cursor_ids(~Schema: Data,~M: Type,~A: Type,~F: Data,~L:Type,~Mode:Data,selection: Selection,world: S.World<Schema,M,A,F,L,Mode>) -> S.World<Schema,M,A,F,L,Mode> & List<&2,U32>:
+   match world:
