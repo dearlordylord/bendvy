@@ -1,0 +1,167 @@
+{
+  "generic": {
+    "status": "PASS",
+    "failure": null,
+    "subjects": null
+  },
+  "cursor-fullshape": {
+    "status": "FINITE_AUTHORED_LITERAL_FULL_FIELDS_BOTH_BACKENDS_PASS",
+    "failure": null,
+    "subjects": {
+      "JS": {
+        "status": "PASS",
+        "checkpoints": 20,
+        "outputSHA256": "99c9c74eb65e11aeb9b83ac96fa8f30b7273d8d655c827a14cf6b5ad2a46d7f2"
+      },
+      "Native": {
+        "status": "PASS",
+        "checkpoints": 20,
+        "outputSHA256": "99c9c74eb65e11aeb9b83ac96fa8f30b7273d8d655c827a14cf6b5ad2a46d7f2"
+      }
+    }
+  },
+  "motion-slot": {
+    "status": "FINITE_AUTHORED_LITERAL_FULL_FIELDS_BOTH_BACKENDS_PASS",
+    "failure": null,
+    "subjects": {
+      "JS": {
+        "status": "PASS",
+        "checkpoints": 5,
+        "outputSHA256": "ba23ca0b5c0ade4e0b7e0a18d055e385e75c3a75df99d91eb1f8019158c9d645"
+      },
+      "Native": {
+        "status": "PASS",
+        "checkpoints": 5,
+        "outputSHA256": "ba23ca0b5c0ade4e0b7e0a18d055e385e75c3a75df99d91eb1f8019158c9d645"
+      }
+    }
+  },
+  "health-slot": {
+    "status": "FINITE_AUTHORED_LITERAL_FULL_FIELDS_BOTH_BACKENDS_PASS",
+    "failure": null,
+    "subjects": {
+      "JS": {
+        "status": "PASS",
+        "checkpoints": 5,
+        "outputSHA256": "b5ea9d8e1695692e240606cfcaf94dff8cede5e4a6d5686458998a4ac70bbcb4"
+      },
+      "Native": {
+        "status": "PASS",
+        "checkpoints": 5,
+        "outputSHA256": "b5ea9d8e1695692e240606cfcaf94dff8cede5e4a6d5686458998a4ac70bbcb4"
+      }
+    }
+  },
+  "motion-lifecycle": {
+    "status": "FINITE_AUTHORED_LITERAL_FULL_FIELDS_BOTH_BACKENDS_PASS",
+    "failure": null,
+    "subjects": {
+      "JS": {
+        "status": "PASS",
+        "checkpoints": 50,
+        "outputSHA256": "339dc056ef06d5cabd3a716471cf1c325f2d3cd28dae43310f8a08f6d4bdba02"
+      },
+      "Native": {
+        "status": "PASS",
+        "checkpoints": 50,
+        "outputSHA256": "339dc056ef06d5cabd3a716471cf1c325f2d3cd28dae43310f8a08f6d4bdba02"
+      }
+    }
+  },
+  "health-lifecycle": {
+    "status": "FINITE_AUTHORED_LITERAL_FULL_FIELDS_BOTH_BACKENDS_PASS",
+    "failure": null,
+    "subjects": {
+      "JS": {
+        "status": "PASS",
+        "checkpoints": 50,
+        "outputSHA256": "a578cfe2f48acac24b649e32df37c2a5671e4e478702d5171c81115c8791b95d"
+      },
+      "Native": {
+        "status": "PASS",
+        "checkpoints": 50,
+        "outputSHA256": "a578cfe2f48acac24b649e32df37c2a5671e4e478702d5171c81115c8791b95d"
+      }
+    }
+  },
+  "slot-negatives": {
+    "status": "PASS",
+    "failure": null,
+    "subjects": null
+  },
+  "slot-mutants": {
+    "status": "PASS",
+    "failure": null,
+    "subjects": null
+  },
+  "public-query": {
+    "status": "FINITE_AUTHORED_LITERAL_FULL_FIELDS_BOTH_BACKENDS_PASS",
+    "failure": null,
+    "subjects": {
+      "JS": {
+        "status": "PASS",
+        "checkpoints": 20,
+        "outputSHA256": "398201d8265179736fecc7aed12c0f6dcf76f9dd86011170dfd278938c054e0b"
+      },
+      "Native": {
+        "status": "PASS",
+        "checkpoints": 20,
+        "outputSHA256": "398201d8265179736fecc7aed12c0f6dcf76f9dd86011170dfd278938c054e0b"
+      }
+    }
+  },
+  "public-query-mutant": {
+    "status": "COMPILING_RETURNED_OWNER_MUTATION_DETECTED_BOTH_BACKENDS",
+    "failure": null,
+    "subjects": {
+      "JS": {
+        "status": "INTENDED_RUNTIME_COUNTEREXAMPLE",
+        "checkpoint": "d0-Required",
+        "expectedMain": "1000@2",
+        "observedMain": "none",
+        "otherFieldsAndHandlesUnchanged": true,
+        "recordCount": 20,
+        "outputSHA256": "a7308085d6aae97ef204f45f195474c205f59e36b30b493d13ff865a842232ba"
+      },
+      "Native": {
+        "status": "INTENDED_RUNTIME_COUNTEREXAMPLE",
+        "checkpoint": "d0-Required",
+        "expectedMain": "1000@2",
+        "observedMain": "none",
+        "otherFieldsAndHandlesUnchanged": true,
+        "recordCount": 20,
+        "outputSHA256": "a7308085d6aae97ef204f45f195474c205f59e36b30b493d13ff865a842232ba"
+      }
+    }
+  },
+  "failed-motion-lifecycle-v1": {
+    "status": "INCOMPLETE",
+    "failure": "AssertionError()",
+    "subjects": {}
+  },
+  "failed-motion-lifecycle-v2": {
+    "status": "INCOMPLETE",
+    "failure": "AssertionError()",
+    "subjects": {}
+  },
+  "failed-motion-lifecycle-v3": {
+    "status": "INCOMPLETE",
+    "failure": "AssertionError()",
+    "subjects": {}
+  },
+  "failed-motion-lifecycle-v4": {
+    "status": "INCOMPLETE",
+    "failure": "AssertionError()",
+    "subjects": {}
+  },
+  "failed-public-query-v1": {
+    "status": "INCOMPLETE",
+    "failure": "AssertionError()",
+    "subjects": {}
+  },
+  "failed-public-query-v2": {
+    "status": "INCOMPLETE",
+    "failure": "AssertionError()",
+    "subjects": {}
+  }
+}
