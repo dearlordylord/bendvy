@@ -150,6 +150,16 @@ including exact29/source manifests, actual emitted C/JS/drivers/build receipts, 
 new literal controls and compiling mutation source/outputs, plus both failed builds.
 Reproduce using derive-paired.py, build-both.py --schema, paired-fixture-run.py,
 paired-negative-controls.py and paired-mutants.py. Controls are finite new-source
-observations. Actual composed Tx576/suppression, general nonidentity callback/fallback,
-all provider/factory/public authority routes, full22/proof/performance acceptance remain
+observations. At this mechanism checkpoint Tx/suppression/nonidentity fallback were OPEN; the
+subsequent fresh tx-controls/ package below executes them on exact d437 source.
+All provider/factory/public authority routes, full22/proof/performance acceptance remain
 OPEN; old packed-only or paired-only receipts are not this composition's gates.
+
+## Subsequent exact-source transaction checkpoint
+
+See [tx-controls/README.md](tx-controls/README.md). Fresh eight-subject cached/raw/normal/
+suppressed matrix passes576 complete records per backend, protected independent oracles
+and exact no-op effects; separate nonidentity opaque fallback/concrete all-context transport
+passes64 records, with compiling private returned-context discard detected in all four
+backend/schema lanes. This subsequent gate is source-bound d437, not transferred from
+earlier mechanisms. Full public capability/performance acceptance remains open.
