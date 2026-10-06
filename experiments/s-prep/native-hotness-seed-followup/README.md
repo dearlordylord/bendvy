@@ -178,3 +178,15 @@ streams.trim_second line74/span3722 supplies Batch<V> to Base List.reverse→go,
 with foreign VarV index0 resolving to a:Qnt quantNone. This is evidence that the
 original generic helper still reaches emission despite concrete private hooks;
 not a successful global-sharing fix. Exact firstseed frames and bounds are archived.
+
+## Corrected frame v2 follow-up
+
+The source worker corrected two missed private helper call edges (actual P/H
+arguments). Original v1 negative remains intact. Actual checker15/emitter30
+replay PASS byte-identical C
+`d406c71f4be0a5269260a936e97539b8e6a32b9ef10dd87879f2e5f7b5546275`
+observes1,819 branches/117sites. The previous Batch trim seed is gone. New first
+seed is observations.rows_finish line69 calling List.reverse with RowView<V,AV,F>;
+foreign VarV index3/span4247 has no local telescope domain. Wildcard is false at
+this site. Upstream frozen rows_go/advance still call an erased-type rows_finish.
+Closing that helper is a separate source hypothesis, not a delivered sharing fix.
