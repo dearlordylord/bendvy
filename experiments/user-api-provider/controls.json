@@ -1,0 +1,102 @@
+{
+  "checkerSeconds": 5,
+  "positive": [
+    {
+      "file": "full-functional.bend",
+      "expectedExit": 0,
+      "expectedOutput": "[[107, 3], [309, 11123]]"
+    },
+    {
+      "file": "minimal-functional.bend",
+      "expectedExit": 0,
+      "expectedOutput": "[208, 2]"
+    },
+    {
+      "file": "readonly-control.bend",
+      "expectedExit": 0,
+      "expectedOutput": "[214]"
+    },
+    {
+      "file": "cross-schema-control.bend",
+      "expectedExit": 0,
+      "expectedOutput": "0"
+    },
+    {
+      "file": "undeclared-control.bend",
+      "expectedExit": 0,
+      "expectedOutput": "42"
+    },
+    {
+      "file": "duplicate-control.bend",
+      "expectedExit": 0,
+      "expectedOutput": "0"
+    },
+    {
+      "file": "reconstruct-control.bend",
+      "expectedExit": 0,
+      "expectedOutput": "0"
+    }
+  ],
+  "negative": [
+    {
+      "file": "write-through-read.bend",
+      "positiveControl": "readonly-control.bend",
+      "expectedExit": 1,
+      "requiredDiagnostic": [
+        "SOME PROOFS FAIL",
+        "Location: bad",
+        "- expected : Pv.Frame<F.Game, F.Store, F.Res, F.GameEvent>",
+        "- observed : bad~H"
+      ]
+    },
+    {
+      "file": "undeclared-access.bend",
+      "positiveControl": "undeclared-control.bend",
+      "expectedExit": 1,
+      "requiredDiagnostic": [
+        "SOME PROOFS FAIL",
+        "Location: bad",
+        "- expected : T.Tx<W.World<F.Game, SecretStore, F.Res, F.GameEvent>, F.GameEvent>",
+        "- observed : bad~H"
+      ]
+    },
+    {
+      "file": "duplicate-owner.bend",
+      "positiveControl": "duplicate-control.bend",
+      "expectedExit": 1,
+      "requiredDiagnostic": [
+        "SOME PROOFS FAIL",
+        "Location: bad",
+        "- expected : ctx",
+        "- observed : ctx (consumed more than once)"
+      ]
+    },
+    {
+      "file": "reconstruct.bend",
+      "positiveControl": "reconstruct-control.bend",
+      "expectedExit": 1,
+      "requiredDiagnostic": [
+        "SOME PROOFS FAIL",
+        "Location: bad",
+        "- expected : bad~H",
+        "- observed : Pv.Frame"
+      ]
+    },
+    {
+      "file": "cross-schema.bend",
+      "positiveControl": "cross-schema-control.bend",
+      "expectedExit": 1,
+      "requiredDiagnostic": [
+        "SOME PROOFS FAIL",
+        "Location: bad",
+        "- expected : C.Family<Foreign, ForeignStore, Unit, F.Cell, U32, F.Token, take, put, F.project>",
+        "- observed : C.Family<F.Game, F.Store, Unit, F.Cell, U32, F.Token, F.take, F.put, F.project>"
+      ]
+    }
+  ],
+  "compiled": [
+    "full-functional.bend",
+    "minimal-functional.bend",
+    "readonly-control.bend"
+  ]
+}
