@@ -27,3 +27,16 @@ Worker receipts were inspected, not rerun or claimed as this review's newly exec
 Private helper names are importable; naming is not a language-level privacy barrier. Finite boundary/owned examples support this concrete registration and do not establish universal authority or alias safety. Scalar journals specialize the existing concrete U32 inverse contract, not arbitrary generic inverse payloads. The general original API remains present.
 
 No new defect was identified, but universal rollback/refinement, full22/law/proof acceptance and product performance remain open. No timing conclusion follows from source shape or constructor counts. The minor query transport experiment in this folder is separate and is not combined with v4.
+
+## Join readiness checklist (before a ledger/journal join exists)
+
+The standalone Owned witnesses have a narrower meaning than a returned-owner control. `generic_read` reconstructs the same private row owner; the fold witness only constructs/destructs its private state ([row witness](/tmp/bendvy-flat-journal-owned-v4/generic-owner/generic-owner.bend:9), [fold witness](/tmp/bendvy-flat-journal-owned-v4/generic-fold/generic-fold.bend:23)). Neither establishes a nonidentity returned-owner round trip through the reached private fallback.
+
+For a new ledger/journal owner route, run these fresh source-bound gates rather than transfer standalone receipts:
+
+- A reached fallback with an abstract rank2 callback using supplied get/set/ledger/setledger providers, including a mutation and subsequent observation of the returned owner. Callback opacity must remain intact. Assert repacked World, selected handle, inverse/mark tails, commands, pings and full immutable cached views; success/failure finalization must use that returned state. Arbitrary affine owner storage remains a separate positive/clone-negative check.
+- Original callback/body/header/kind pins and actual measured registration checks on the joined source; provider positives and live provider mutants, plus factory semantic comparisons. Original-prefix preservation and the private boundary negatives do not replace these runtime gates.
+- Actual joined cached/raw protected Tx, suppression, live omitted-inverse/mark detection, direct recursive mixed-mark publication, and both-schema/backend full65 observations. Record which route each fixture reaches; a point wrapper that materializes legacy state does not establish the fully flat dense path by itself.
+- Exact joined source/cache closure, fail-closed recipe input pins and deterministic materialization. Joining two passing recipes is not itself an independently passing source closure.
+
+No joined source or gate is yet claimed by this checklist. No additional runtime was executed by this reviewer.
