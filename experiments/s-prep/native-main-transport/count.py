@@ -86,6 +86,8 @@ static unsigned long long diagnostic_sites[{len(sites)}], diagnostic_rfc[{len(si
  if a.artifact_pins:
   assert a.source_root and a.build_receipt and a.clang_receipt
   pins=json.loads(a.artifact_pins.read_text()); commands=json.loads(a.build_receipt.read_text()); clang=json.loads(a.clang_receipt.read_text())
+  if isinstance(clang,list):
+   matches=[x for x in clang if '/tmp/bendvy-clang19-diagnostic/clang19' in x.get('argv',[])]; assert len(matches)==1; clang=matches[0]
   assert Path(pins['actualBuildDirectory'])==a.source.parent
   for name,pin in pins['artifacts'].items(): assert sha(a.source.parent/name)==pin,name
   assert pins['artifacts']['batch.c']==r['sourceSHA256']
