@@ -39,7 +39,7 @@ universal alias safety, affine runtime refinement, full22, production authority 
 performance qualification. No source/compiler adoption follows.
 
 `archive.py` retains actual build command/artifact receipts rather than inventing
-BUILD_PASS for derived JS. The 313 compressed members are independently decoded
+BUILD_PASS for derived JS. All compressed members are independently decoded
 and SHA256 checked in `evidence/manifest.json`; recipes/catalogs bind absolute
 working paths while artifacts exist. Simplification follow-up: implement and
 validate an equivalent source or compiler optimization before production use.

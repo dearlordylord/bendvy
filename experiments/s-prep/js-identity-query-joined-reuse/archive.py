@@ -6,7 +6,7 @@ roots=['bendvy-js-identity-query-'+x for x in ['row-controls-v3','pool-controls-
 for name in roots:
  root=Path('/tmp')/name;assert root.is_dir()
  for p in root.rglob('*'):
-  if p.is_file() and p.suffix in ['.json','.txt','.jsonl','.bend']:files['receipts/'+name+'/'+str(p.relative_to(root))]=p
+  if p.is_file() and p.suffix in ['.json','.txt','.jsonl','.bend','.js']:files['receipts/'+name+'/'+str(p.relative_to(root))]=p
 for schema in ['motion','health']:
  for name in ['bendvy-identity-query-'+schema+'-v3/batch.js','bendvy-js-identity-query-'+schema+'-row-v3.js','bendvy-js-identity-query-'+schema+'-pool-v3.js']:
   p=Path('/tmp')/name;files['inputs/'+name]=p;rp=Path(str(p)+'.recipe.json')
