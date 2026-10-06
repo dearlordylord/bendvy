@@ -41,3 +41,29 @@ reference programs and complete child outputs; every compressed member is
 decoded and SHA256 verified in `evidence/manifest.json`. Absolute artifact paths
 remain required for fresh reruns. These clocks must not be transferred to a
 different source closure or emitted-JS rewrite.
+
+## Paired journal and typed-ID cursor observations
+
+`observe-packed-v1.py` preserves the actual intermediate recipe. Current recipe
+also validates the cursor's standard BUILD_PASS receipt, actual commands, source29,
+prepared measurement digest and artifact pins. The current cursor closure is
+bdf6b2fc46d2a89615d0e9eb48d44f4a3e8c8f2ff5b8268d7ca50463e6bfbe94.
+
+| Exact cursor / serial rotation | Fresh TS ms | Cursor Native ms | Raw cursor JS ms |
+| --- | ---: | ---: | ---: |
+| Motion /2 | 176.829 | 82 | 231 |
+| Health /0 | 184.478 | 87 | 261 |
+| Motion /4 | 165.058 | 84 | 254 |
+| Health /5 | 165.873 | 85 | 236 |
+
+The first pair exceeds2x Native speed in raw observations; the second pair is
+about1.95–1.97x and misses the required2x. This is promising mechanism evidence,
+not stable threshold acceptance. Native millisecond clocks, changing reference
+clocks, full22/qualification and the complete matrix remain unresolved. Raw cursor
+JS misses parity; separately guarded generated-JS variants have their own observer.
+
+The root accidentally overlapped one Health cursor and one Motion generated-JS
+driver on CPU11. Their full fields pass, but all comparative elapsed conclusions
+are invalid. Original outputs and measurement-limit annotations are archived;
+serial reruns above are separate new observations. No contaminated fast/slow
+clock or parent gate is used as candidate acceptance.

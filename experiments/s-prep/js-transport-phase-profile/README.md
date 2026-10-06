@@ -34,3 +34,19 @@ execution. `preparation-failure.json` preserves that infrastructure diagnosis;
 candidate/source/oracle bytes were unchanged. `archive.py` independently decodes
 and verifies all62 compressed profile/input/source/provenance members. No source,
 compiler, original runtime, Native, dependency, API, law or proof change follows.
+
+## Typed cursor source profile
+
+The exact final cursor Health chain has a new no-GC-tracing CPU profile and
+full65 field validation, retaining source29, build/catalog/recipe and original
+callback provenance. CPU samples inside the actual timed bracket attribute
+about12% to GC,11.2% to live/take dispatch,9.7% to the callback,9.2% to Main set,
+8.9% to row return,8.4% to cursor folding and7.4% to query advance. These are
+perturbed samples, not elapsed acceptance or proof of allocation costs.
+
+The first GC-tracing cursor profile fails JSON decoding: combined profiler/GC
+output split a TS JSON record despite blocking stdout. Its complete failure is
+retained; it is not a field pass. The successful no-GC-tracing profile reports
+no GC event traffic estimate. Zero parsed events with tracing disabled must not
+be interpreted as zero allocation or zero collection. Existing old-source GC
+estimates are not transferred to this source.

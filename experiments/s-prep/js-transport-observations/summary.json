@@ -1,0 +1,111 @@
+{
+  "scope": "Raw full65 descriptive comparisons; no qualification or product acceptance",
+  "cases": [
+    {
+      "status": "EXACT_JS_TRANSPORT_FULL65_RAW_DIAGNOSTIC_PASS",
+      "schema": "Health",
+      "rotation": 3,
+      "phaseMS": {
+        "TS": 182.15639499999997,
+        "baseline-JS": 209.0,
+        "candidate-JS": 213.0
+      },
+      "error": null,
+      "recipeSHA256": "2d146828ce5d163a42742549b4cafb5c1f95fdb17baa372b6ad2bf894614c99e",
+      "directory": "bendvy-js-cursor-health-observation-r3",
+      "measurementLimit": null
+    },
+    {
+      "status": "EXACT_JS_TRANSPORT_FULL65_RAW_DIAGNOSTIC_PASS",
+      "schema": "Motion",
+      "rotation": 2,
+      "phaseMS": {
+        "TS": 182.11364700000001,
+        "baseline-JS": 193.0,
+        "candidate-JS": 189.0
+      },
+      "error": null,
+      "recipeSHA256": "2d146828ce5d163a42742549b4cafb5c1f95fdb17baa372b6ad2bf894614c99e",
+      "directory": "bendvy-js-cursor-motion-observation-r2",
+      "measurementLimit": null
+    },
+    {
+      "status": "EXACT_JS_TRANSPORT_FULL65_RAW_DIAGNOSTIC_PASS",
+      "schema": "Health",
+      "rotation": 1,
+      "phaseMS": {
+        "TS": 191.10984100000002,
+        "baseline-JS": 213.0,
+        "candidate-JS": 218.0
+      },
+      "error": null,
+      "recipeSHA256": "ac6ff32c0c24154ff7a0e1d6a313761d2b6d4cd40e5403dfd45e8d6b206e293c",
+      "directory": "bendvy-js-direct-tuple-health-observation-r1",
+      "measurementLimit": null
+    },
+    {
+      "status": "EXACT_JS_TRANSPORT_FULL65_RAW_DIAGNOSTIC_PASS",
+      "schema": "Motion",
+      "rotation": 0,
+      "phaseMS": {
+        "TS": 196.20655399999998,
+        "baseline-JS": 203.0,
+        "candidate-JS": 216.0
+      },
+      "error": null,
+      "recipeSHA256": "ac6ff32c0c24154ff7a0e1d6a313761d2b6d4cd40e5403dfd45e8d6b206e293c",
+      "directory": "bendvy-js-direct-tuple-motion-observation-r0",
+      "measurementLimit": null
+    },
+    {
+      "status": "EXACT_JS_TRANSPORT_FULL65_RAW_DIAGNOSTIC_PASS",
+      "schema": "Health",
+      "rotation": 1,
+      "phaseMS": {
+        "TS": 180.59240799999998,
+        "baseline-JS": 206.0,
+        "candidate-JS": 222.0
+      },
+      "error": null,
+      "recipeSHA256": "89238f528a14374730e0048fd10a69c51cd281f2f175f7d5eedcf873d0d998f4",
+      "directory": "bendvy-js-packed-paired-health-observation-serial-r1",
+      "measurementLimit": null
+    },
+    {
+      "status": "EXACT_JS_TRANSPORT_FULL65_RAW_DIAGNOSTIC_PASS",
+      "schema": "Motion",
+      "rotation": 2,
+      "phaseMS": {
+        "TS": 316.32900599999994,
+        "baseline-JS": 374.0,
+        "candidate-JS": 210.0
+      },
+      "error": null,
+      "recipeSHA256": "89238f528a14374730e0048fd10a69c51cd281f2f175f7d5eedcf873d0d998f4",
+      "directory": "bendvy-js-packed-paired-motion-observation-r2",
+      "measurementLimit": {
+        "status": "ELAPSED_COMPARISON_INVALID_ROOT_OVERLAPPING_CPU11_BENCHMARKS",
+        "reason": "Root launched both diagnostic drivers before awaiting first completion; both set affinity CPU11. Complete fields remain observed; elapsed values must not be used as improvement or target evidence.",
+        "overlappingDriverDirectories": [
+          "bendvy-js-packed-paired-motion-observation-r2",
+          "bendvy-private-cursor-health-observation-v4-r3"
+        ],
+        "correction": "Retain original receipts and rerun each driver sequentially."
+      }
+    },
+    {
+      "status": "EXACT_JS_TRANSPORT_FULL65_RAW_DIAGNOSTIC_PASS",
+      "schema": "Motion",
+      "rotation": 0,
+      "phaseMS": {
+        "TS": 192.99595500000004,
+        "baseline-JS": 198.0,
+        "candidate-JS": 187.0
+      },
+      "error": null,
+      "recipeSHA256": "89238f528a14374730e0048fd10a69c51cd281f2f175f7d5eedcf873d0d998f4",
+      "directory": "bendvy-js-packed-paired-motion-observation-serial-r0",
+      "measurementLimit": null
+    }
+  ]
+}

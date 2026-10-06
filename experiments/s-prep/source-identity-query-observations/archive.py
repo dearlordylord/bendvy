@@ -3,16 +3,16 @@
 import hashlib,json,tarfile
 from pathlib import Path
 H=Path(__file__).resolve().parent;E=H/'evidence';E.mkdir(exist_ok=True);sha=lambda b:hashlib.sha256(b).hexdigest();files={};cases=[]
-patterns=['bendvy-fourhour-identity-query-*-v*-r0','bendvy-packed-slot-*-observation-v*-r*']
+patterns=['bendvy-fourhour-identity-query-*-v*-r0','bendvy-packed-slot-*-observation-v*-r*','bendvy-packed-paired-*-observation-v*-r*','bendvy-private-cursor-*-observation*']
 roots=sorted({p for pattern in patterns for p in Path('/tmp').glob(pattern) if p.is_dir()})
 for root in roots:
- r=json.loads((root/'evidence.json').read_text());cases.append({k:r.get(k) for k in ['status','schema','rotation','phaseMS','error','recipeSHA256']})
+ r=json.loads((root/'evidence.json').read_text());case={k:r.get(k) for k in ['status','schema','rotation','phaseMS','error','recipeSHA256']};case['directory']=root.name;case['measurementLimit']=json.loads((root/'measurement-limit.json').read_text()) if (root/'measurement-limit.json').exists() else None;cases.append(case)
  for p in root.rglob('*'):
   if p.is_file():files['observations/'+root.name+'/'+str(p.relative_to(root))]=p
  for role,m in r.get('inputs',{}).items():
   for path in m['actualReceiptPins']:
    p=Path(path);files['build-receipts/'+root.name+'/'+role+'/'+p.name]=p
-for rootname in ['bendvy-identity-handle-query-v2','bendvy-identity-handle-query-v3','bendvy-packed-main-slot-both-v3']:
+for rootname in ['bendvy-identity-handle-query-v2','bendvy-identity-handle-query-v3','bendvy-packed-main-slot-both-v3','bendvy-packed-paired-journal-both-v3','bendvy-private-id-query-v4']:
  root=Path('/tmp')/rootname
  for p in root.rglob('*.bend'):files['sources/'+rootname+'/'+str(p.relative_to(root))]=p
  for n in ['overlay.json','cache-specialization.json']:files['sources/'+rootname+'/'+n]=root/n

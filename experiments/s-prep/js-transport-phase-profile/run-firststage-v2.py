@@ -12,10 +12,8 @@ def command(args,limit=5):
  code,text=supervisor.execute(list(map(str,args)),limit);r['commands'].append({'argv':list(map(str,args)),'limit':limit,'exit':code});assert code==0,text[-1000:];return text
 try:
  receipt=Path(str(a.generated_js)+'.recipe.json');m=json.loads(receipt.read_text());d=a.recipe_directory
- nested=m['status']=='PINNED_NESTED_DIRECT_LITERAL_SCALAR_EDGES_DERIVED'
- assert (nested or m['status']=='PINNED_DIRECT_TUPLE_SCALAR_RECEIVERS_DERIVED') and m['schema']=='health' and m['mode'] in ['normal','packed-paired-raw','cursor-normal']
- analysis=d.parent/'analyze.cjs' if nested else d/'analyze.cjs'
- assert m['outputSHA256']==sha(a.generated_js) and m['recipeSHA256']==sha(d/'rewrite.cjs') and m['analysisSHA256']==sha(analysis) and m['catalogSHA256']==sha(d/'input-pins.json')
+ assert m['status']=='PINNED_DIRECT_TUPLE_SCALAR_RECEIVERS_DERIVED' and m['schema']=='health' and m['mode'] in ['normal','packed-paired-raw']
+ assert m['outputSHA256']==sha(a.generated_js) and m['recipeSHA256']==sha(d/'rewrite.cjs') and m['analysisSHA256']==sha(d/'analyze.cjs') and m['catalogSHA256']==sha(d/'input-pins.json')
  pin=json.loads((d/'input-pins.json').read_text())[m['inputSHA256']];baseline=Path(pin['inputPath']);assert sha(baseline)==m['inputSHA256']
  assert pin['sourcePins']==m['sourcePins'] and pin['sourceRoot']==m['sourceRoot'] and len(m['sourcePins'])==29
  for n,h in m['sourcePins'].items():assert sha(Path(m['sourceRoot'])/n)==h

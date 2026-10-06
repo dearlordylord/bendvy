@@ -9,8 +9,7 @@ for role in ['baseline','candidate']:
  p.add_argument('--'+role+'-overlay',type=Path,required=True);p.add_argument('--'+role+'-build',type=Path,required=True)
 p.add_argument('--candidate-artifact-pins',type=Path);p.add_argument('--candidate-commands',type=Path)
 p.add_argument('--baseline-artifact-pins',type=Path);p.add_argument('--baseline-commands',type=Path)
-p.add_argument('--candidate-packed-receipt',type=Path);p.add_argument('--baseline-packed-receipt',type=Path)
-p.add_argument('--candidate-standard-receipt',type=Path)
+p.add_argument('--candidate-packed-receipt',type=Path)
 p.add_argument('--schema',choices=['Motion','Health'],required=True);p.add_argument('--rotation',type=int,choices=range(7),required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--cpu',type=int,default=11)
 a=p.parse_args();a.output.mkdir(exist_ok=False);os.sched_setaffinity(0,{a.cpu})
 sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
@@ -27,25 +26,17 @@ try:
   overlay=getattr(a,role+'_overlay');build=getattr(a,role+'_build');m=json.loads((overlay/'overlay.json').read_text());cache=json.loads((overlay/'cache-specialization.json').read_text())
   pins={str(f.relative_to(overlay)):sha(f) for f in overlay.rglob('*.bend')};assert pins==m['sources']==cache['runtimeClosure']==cache['specializedClosure'] and len(pins)==29 and m['cacheSpecialization']==cache
   digest=hashlib.sha256(json.dumps(pins,sort_keys=True,separators=(',',':')).encode()).hexdigest();assert digest==cache['runtimeClosureSHA256']==cache['specializedClosureSHA256']
-  if role=='baseline' and not a.baseline_artifact_pins and not a.baseline_packed_receipt:
+  if role=='baseline' and not a.baseline_artifact_pins:
    b=json.loads((build/'build.json').read_text());assert b['status']=='BUILD_PASS' and b['sourcePins']==pins
    names=['batch.bend','batch.c','batch-native','batch.js'];artifacts={n:sha(build/n) for n in names};assert all(h==b['artifacts'][n] for n,h in artifacts.items());native=build/'batch-native';receiptPins={str(build/'build.json'):sha(build/'build.json')}
-  elif getattr(a,role+'_packed_receipt'):
-   receipt=getattr(a,role+'_packed_receipt');b=json.loads(receipt.read_text());assert b['status']=='PRIVATE_PACKED_'+a.schema.upper()+'_SOURCE_BUILD_PASS' and b['sourcePins']==pins
+  elif role=='candidate' and a.candidate_packed_receipt:
+   receipt=a.candidate_packed_receipt;b=json.loads(receipt.read_text());assert b['status']=='PRIVATE_PACKED_'+a.schema.upper()+'_SOURCE_BUILD_PASS' and b['sourcePins']==pins
    names=['batch.bend','batch.c','batch.native','batch.js'];artifacts={n:sha(build/n) for n in names};assert artifacts==b['generatedPins']
    assert sha(build/'measurement-bend.bend')==b['preparedModuleSHA256'] and sha(build/'batch.bend')==b['driverSHA256']
    commands=b['commands'];assert all(c['exit']==0 for c in commands)
    for argv,cap in [(['bend',str(build/'batch.bend'),'--check-only'],15),(['bend',str(build/'batch.bend'),'-o',str(build/'batch.c')],30),(['bend',str(build/'batch.bend'),'-o',str(build/'batch.js')],30),(['/tmp/bendvy-clang19-diagnostic/clang19','-O3',str(build/'batch.c'),'-pthread','-lm','-o',str(build/'batch.native')],120)]:
     hits=[c for c in commands if c['argv']==argv];assert len(hits)==1 and hits[0]['limitSeconds']==cap
    native=build/'batch.native';receiptPins={str(receipt):sha(receipt)}
-  elif role=='candidate' and a.candidate_standard_receipt:
-   receipt=a.candidate_standard_receipt;b=json.loads(receipt.read_text());assert b['status']=='BUILD_PASS' and b['schema']==a.schema and b['sourcePins']==pins
-   names=['batch.bend','batch.c','batch-native','batch.js'];artifacts={n:sha(build/n) for n in names};assert artifacts==b['artifacts']
-   assert sha(build/'measurement-bend.bend')==b['measurementOutputSHA256']
-   commands=b['commands'];assert all(c['exit']==0 and not c.get('timeout',False) for c in commands)
-   for argv,cap in [(['bend',str(build/'batch.bend'),'--check-only'],15),(['bend',str(build/'batch.bend'),'-o',str(build/'batch.c')],30),(['bend',str(build/'batch.bend'),'-o',str(build/'batch.js')],30),(['/tmp/bendvy-clang19-diagnostic/clang19','-O3',str(build/'batch.c'),'-o',str(build/'batch-native'),'-lm','-pthread'],120)]:
-    hits=[c for c in commands if c['argv']==argv];assert len(hits)==1 and hits[0]['limitSeconds']==cap
-   native=build/'batch-native';receiptPins={str(receipt):sha(receipt)}
   else:
    artifact_path=getattr(a,role+'_artifact_pins');command_path=getattr(a,role+'_commands');assert artifact_path and command_path
    b=json.loads(artifact_path.read_text());commands=json.loads(command_path.read_text());assert isinstance(commands,list) and commands and all(c['exit']==0 for c in commands)

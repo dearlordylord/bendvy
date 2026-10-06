@@ -18,3 +18,8 @@ for role in ['JS','TS']:
    fields=dict(re.findall(r'(\w+)=([^ ]+)',m[2]));gc.append({'atMS':int(m[1]),'pauseMS':float(fields['pause']),'allocatedSincePreviousGC':int(fields.get('allocated',0)),'gc':fields['gc']})
  result[role]={'profileBracketMS':(hi-lo)/1000,'sampledOverlapMS':total/1000,'gcSelfPercent':100*sum(v for i,v in counts.items() if name(i)=='(garbage collector)')/total,'topSelf':top,'approximateGC':{'events':len(gc),'pauseMS':sum(x['pauseMS'] for x in gc),'allocatedSincePriorEventsBytes':sum(x['allocatedSincePreviousGC'] for x in gc),'limits':'GC event timestamps have millisecond resolution; allocation intervals can straddle bracket boundaries; profiler perturbs execution.'}}
 (a.directory/'summary.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))
+
+if e.get('gcTracing') is False:
+ for role in result:
+  result[role]['approximateGC']={'status':'UNAVAILABLE_GC_TRACING_DISABLED','limits':'CPU GC self samples remain available; no event count, pause or allocation traffic estimate was collected.'}
+ (a.directory/'summary.json').write_text(json.dumps(result,indent=2)+'\n')
