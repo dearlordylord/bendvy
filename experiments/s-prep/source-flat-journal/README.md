@@ -74,3 +74,38 @@ V4 receipts:
 
 Native counter/drop attribution and raw timing remain pending. Full22, product
 acceptance and universal affine refinement remain open; no proof/law is added.
+
+Native Motion mechanism controls now pass independently against fresh65 TS worlds,
+using exact v4 C `47d44d1c…` and the approved private Clang19 wrapper. Original C
+is hashed before/after. Diagnostic copies retain all original evaluation paths;
+callsite counters and inner destruction counters are separate runs, clocks3–4,
+oneworker/GPUoff. Recipes are `native-count.py`, `native-drop-count.py` and
+`compare-native-counts.py`; receipts, generated diagnostic C, raw outputs and
+constructor labels are archived and indexed.
+
+| Dynamic operation | Fold/noAux join | Flat journals |
+|---|---:|---:|
+| Allocator requests | 28,718,023 | 22,414,279 |
+| Requested heap words | 61,508,623 | 56,187,919 |
+| Created RFC redirect cells | 13,726,014 | 10,576,190 |
+| Destroyed constructor objects | 4,210,688 | 2,109,440 |
+| Inner destruction iterations | 12,714,048 | 8,503,360 |
+| Destruction child visits | 8,466,432 | 6,361,088 |
+
+Executed constructor allocation sites explain a concrete change: Cons requests
+4,214,848→1,069,120; Handle3,149,824→1,048,576; old MainInverse1,048,576→0.
+New FlatMain, FlatLedger and FlatMark each request1,048,576 cells. FlatLedger
+introduces boxing where the old singleton LedgerInverse was unboxed; it is included
+in these totals. Cache2,121,728 and Position/PositionView2,097,152 each are unchanged.
+Constructor labels are static unique allocated-local uses, not sampled call stacks.
+
+Destruction labels independently change from Cons2,101,248 + Handle1,052,672 +
+MainInverse1,048,576 + System4,096 to FlatMain1,048,576 + FlatLedger1,048,576 +
+Cons4,096 + System4,096. RFC-view calls decrease9,556,414→8,503,742; seal calls
+40,185,600→36,970,240. Deferred drops24,576, RFC bumps20,480 and term-keep
+1,085,440 are unchanged.
+
+Physical `malloc`/`mmap`/heap-miss/growth calls are zero in both observed phases.
+Allocator requests and requested words therefore must not be presented as physical
+allocations or peak memory. Counts establish this finite source mechanism; they do
+not establish Native speed, JS comparability, universal behavior or product targets.
