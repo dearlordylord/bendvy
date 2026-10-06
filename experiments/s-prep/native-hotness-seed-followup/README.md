@@ -167,3 +167,14 @@ calling List.reverse.go: Batch<V> recursively exposes foreign VarV index0,
 resolved against local dom a:Qnt quantNone while wildcard is false. This is
 remaining generic library reachability, not a need to change Base. Metadata
 worker owns the source-only closed reversal hypothesis; no result is presumed.
+
+## Closed frame/trim negative follow-up
+
+The next candidate freezes14 private exact-body trim/frame helpers while preserving
+originals. Inspector/check15/emitter30 PASS and byte-identical C
+`19a4fb4f6c2201b3c40343aef27f4f69130bbb62cb5f1d3867ad4488ee49074b`
+observes1,888 branches/119sites. The first wildcard remains unchanged: original
+streams.trim_second line74/span3722 supplies Batch<V> to Base List.reverse→go,
+with foreign VarV index0 resolving to a:Qnt quantNone. This is evidence that the
+original generic helper still reaches emission despite concrete private hooks;
+not a successful global-sharing fix. Exact firstseed frames and bounds are archived.
