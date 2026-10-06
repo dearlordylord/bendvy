@@ -1,0 +1,76 @@
+{
+  "status": "LSE_UNCHANGED_C_BUILD_ELF_AND_FRESH65_PASS",
+  "AT_HWCAP": 800325631,
+  "HWCAP_ATOMICS": true,
+  "soleAddedFlag": "-march=armv8-a+lse",
+  "receipts": {
+    "Motion": {
+      "receiptSHA256": "eacdb81d369e6bb2eb07bb18b9acabc5e3735007436c5cc373738d764b484fc2",
+      "worlds": 65,
+      "nativeSHA256": "d051767e4052e835b8eadbe47184c135d1fbd3face58ec24268b74f675e809a9"
+    },
+    "Health": {
+      "receiptSHA256": "595d317efc4d9c2797165c2ecc44699c2deed3f2e1b329bfcbccb336d155a30c",
+      "worlds": 65,
+      "nativeSHA256": "dfd955a41e42f7c1750ea56bb2b7df410949e6a0923d494a77ff7ea599809d46"
+    }
+  },
+  "ELF": {
+    "Motion-baseline": {
+      "nativeSHA256": "2b4644ad43a1e542ef2c5c9990b2aa2aa91ea848ea361045e3ca03a111c9c940",
+      "outlinedCallSites": {
+        "__aarch64_cas4_acq_rel": 1,
+        "__aarch64_ldadd4_rel": 3,
+        "__aarch64_ldadd4_relax": 43,
+        "__aarch64_swp4_acq": 3
+      },
+      "lseInstructionSites": {
+        "casal": 1,
+        "ldadd": 1,
+        "ldaddl": 1,
+        "swpa": 1
+      }
+    },
+    "Motion-lse": {
+      "nativeSHA256": "d051767e4052e835b8eadbe47184c135d1fbd3face58ec24268b74f675e809a9",
+      "outlinedCallSites": {},
+      "lseInstructionSites": {
+        "casal": 1,
+        "ldadd": 44,
+        "ldaddl": 3,
+        "swpa": 3
+      }
+    },
+    "Health-baseline": {
+      "nativeSHA256": "e9612327d723c20cd8e5b6f15fb1918adf489931fb96d1a4ae386fd5695301ca",
+      "outlinedCallSites": {
+        "__aarch64_cas4_acq_rel": 1,
+        "__aarch64_ldadd4_rel": 3,
+        "__aarch64_ldadd4_relax": 43,
+        "__aarch64_swp4_acq": 3
+      },
+      "lseInstructionSites": {
+        "casal": 1,
+        "ldadd": 1,
+        "ldaddl": 1,
+        "swpa": 1
+      }
+    },
+    "Health-lse": {
+      "nativeSHA256": "dfd955a41e42f7c1750ea56bb2b7df410949e6a0923d494a77ff7ea599809d46",
+      "outlinedCallSites": {},
+      "lseInstructionSites": {
+        "casal": 1,
+        "ldadd": 44,
+        "ldaddl": 3,
+        "swpa": 3
+      }
+    }
+  },
+  "archiveSHA256": "36a35377114759f4034e8d85412a2b7c3fd81f880d7e6847ac70182388b1cead",
+  "archiveBytes": 4785304,
+  "logicalFiles": 43,
+  "uniqueBlobs": 34,
+  "allDecodedHashesVerified": true,
+  "scope": "Verified LSE-capable Linux aarch64 host only. No source change, timing, non-LSE portability or product adoption claim."
+}
