@@ -1,0 +1,210 @@
+{
+  "scope": "Exact new frozen-provider source/backend diagnostic, no Tx or performance acceptance",
+  "sourcePinsSHA256": "79f3e845d390455fdc072bce436c53ecffa96e3e6a43ed7ffe5eb57861c83946",
+  "stages": [
+    {
+      "stage": "world",
+      "recipeSHA256": "913536fe72b187e3ca071ec4126e5bf2b446dbcf062a15c8f49112b075065da2",
+      "catalogSHA256": "447cd112d392b3fab75865c0d499cab8736266c07a2ab31dae3374fa6bc13778",
+      "cases": [
+        {
+          "schema": "motion",
+          "input": "/tmp/bendvy-query-frozen-provider-motion-build-v2/batch.js",
+          "inputSHA256": "5a2a5b3e6498b6cb6541cc8a1f4ce0ad45347c05f29365649a804a8e03516606",
+          "output": "/tmp/bendvy-frozen-query-js-chain/motion-world.js",
+          "outputSHA256": "3ed9c47f5b4918fc0b8ebe079948c47b41c0c9c296171aa667468c932f432388",
+          "accepted": true,
+          "error": ""
+        },
+        {
+          "schema": "health",
+          "input": "/tmp/bendvy-query-frozen-provider-health-build/batch.js",
+          "inputSHA256": "1ef14f117a404cdebb60b2efe2ef74f8a3a6d3fa037553f8a5467ca51a0e3bae",
+          "output": "/tmp/bendvy-frozen-query-js-chain/health-world.js",
+          "outputSHA256": "28a738f1b6404d1e36d680eb1b8f08a689297611acb9d311aff3b8832b05880c",
+          "accepted": true,
+          "error": ""
+        }
+      ]
+    },
+    {
+      "stage": "boxed",
+      "recipeSHA256": "ec8b2d6838f080c05e6c9508ab3c8392ec4eb0b5d8d89e0200226acb14e479ab",
+      "catalogSHA256": "9dd0c53f532f89064df498a9a224df61fd707c34a4eb38eb7fe1aba316226e82",
+      "cases": [
+        {
+          "schema": "motion",
+          "input": "/tmp/bendvy-frozen-query-js-chain/motion-world.js",
+          "inputSHA256": "3ed9c47f5b4918fc0b8ebe079948c47b41c0c9c296171aa667468c932f432388",
+          "output": "/tmp/bendvy-frozen-query-js-chain/motion-boxed.js",
+          "outputSHA256": "5b05350738aafe3008c293552a059a29a432e157b65a3e84971f4b45ca014c51",
+          "accepted": true,
+          "error": ""
+        },
+        {
+          "schema": "health",
+          "input": "/tmp/bendvy-frozen-query-js-chain/health-world.js",
+          "inputSHA256": "28a738f1b6404d1e36d680eb1b8f08a689297611acb9d311aff3b8832b05880c",
+          "output": "/tmp/bendvy-frozen-query-js-chain/health-boxed.js",
+          "outputSHA256": "3ddc1550211d44d28c28a7bd3aa7d5e797510ca00496385356e1b0e98401977e",
+          "accepted": true,
+          "error": ""
+        }
+      ]
+    },
+    {
+      "stage": "product",
+      "recipeSHA256": "fe8eea63dfb22893ea9027aadb56769565dcd5efb02d23dc1330b1fadbdbf1d5",
+      "catalogSHA256": "dfba86eaeb7de07b2696ffd933f7c1b1979489da0aebc0fcf4f0539ecdd48810",
+      "cases": [
+        {
+          "schema": "motion",
+          "input": "/tmp/bendvy-frozen-query-js-chain/motion-boxed.js",
+          "inputSHA256": "5b05350738aafe3008c293552a059a29a432e157b65a3e84971f4b45ca014c51",
+          "output": "/tmp/bendvy-frozen-query-js-chain/motion-product.js",
+          "outputSHA256": "f85ac80ff5f384818bad2c42b4d9912b96a5b6a82e8a5eca9c1fcacb003dcff6",
+          "accepted": true,
+          "error": ""
+        },
+        {
+          "schema": "health",
+          "input": "/tmp/bendvy-frozen-query-js-chain/health-boxed.js",
+          "inputSHA256": "3ddc1550211d44d28c28a7bd3aa7d5e797510ca00496385356e1b0e98401977e",
+          "output": "/tmp/bendvy-frozen-query-js-chain/health-product.js",
+          "outputSHA256": "a6288bdb61a66327163fa9c634161cf2c091d0357230bda49d9b289beed61388",
+          "accepted": true,
+          "error": ""
+        }
+      ]
+    },
+    {
+      "stage": "pool",
+      "recipeSHA256": "d38b96ab3c938ae92eebb87717547d82e498c82ba0e2b020872c50d37c8d54cd",
+      "catalogSHA256": "3a57f666b9381a848cc80def659bc4db8e12e16188e8a1b6d5e5aa3a8043a786",
+      "cases": [
+        {
+          "schema": "motion",
+          "input": "/tmp/bendvy-frozen-query-js-chain/motion-product.js",
+          "inputSHA256": "f85ac80ff5f384818bad2c42b4d9912b96a5b6a82e8a5eca9c1fcacb003dcff6",
+          "output": "/tmp/bendvy-frozen-query-js-chain/motion-pool.js",
+          "outputSHA256": "34a7b4553244c149085789a2cc8b892e51dbcb0ba8c32f8a2fcd7d05947503c3",
+          "accepted": true,
+          "error": ""
+        },
+        {
+          "schema": "health",
+          "input": "/tmp/bendvy-frozen-query-js-chain/health-product.js",
+          "inputSHA256": "a6288bdb61a66327163fa9c634161cf2c091d0357230bda49d9b289beed61388",
+          "output": "/tmp/bendvy-frozen-query-js-chain/health-pool.js",
+          "outputSHA256": "40ef3a82f2a476a45687b27299e5a51199d7f31798e35dcf38b5b23e7ff7305e",
+          "accepted": true,
+          "error": ""
+        }
+      ]
+    },
+    {
+      "stage": "store",
+      "recipeSHA256": "f4e65beecf46c15b02e6f3780e0519adb8439281b8ef39c2292e3da8fb417629",
+      "catalogSHA256": "02f07bf0188c828a174d5c6c0f5fd0a14223d03c59fc657f3a1fee46f5a19c84",
+      "cases": [
+        {
+          "schema": "motion",
+          "input": "/tmp/bendvy-frozen-query-js-chain/motion-pool.js",
+          "inputSHA256": "34a7b4553244c149085789a2cc8b892e51dbcb0ba8c32f8a2fcd7d05947503c3",
+          "output": "/tmp/bendvy-frozen-query-js-chain/motion-store.js",
+          "outputSHA256": "52d2d13c3d6e22f568ca43e2cf24775f5a7e621368747233d29141f328ad5be6",
+          "accepted": true,
+          "error": ""
+        },
+        {
+          "schema": "health",
+          "input": "/tmp/bendvy-frozen-query-js-chain/health-pool.js",
+          "inputSHA256": "40ef3a82f2a476a45687b27299e5a51199d7f31798e35dcf38b5b23e7ff7305e",
+          "output": "/tmp/bendvy-frozen-query-js-chain/health-store.js",
+          "outputSHA256": "296fab93c2a0a68dc453864225b14e13b3ab182d62403575b5e6ca5974141438",
+          "accepted": true,
+          "error": ""
+        }
+      ]
+    },
+    {
+      "stage": "read",
+      "recipeSHA256": "4f850ec5b0cb9633f465795734814ffa6d211e982bd53908f8a20d400cd5f251",
+      "catalogSHA256": "1389f9bf5006ec42329da8f0a70ac791fac48186c61907dc920e9ef9b79608f1",
+      "cases": [
+        {
+          "schema": "motion",
+          "input": "/tmp/bendvy-frozen-query-js-chain/motion-store.js",
+          "inputSHA256": "52d2d13c3d6e22f568ca43e2cf24775f5a7e621368747233d29141f328ad5be6",
+          "output": "/tmp/bendvy-frozen-query-js-chain/motion-read.js",
+          "outputSHA256": "dbad26f27f06361c1501983e165dbe53e286bb5820ae4ac0f385ce12f149c581",
+          "accepted": true,
+          "error": ""
+        },
+        {
+          "schema": "health",
+          "input": "/tmp/bendvy-frozen-query-js-chain/health-store.js",
+          "inputSHA256": "296fab93c2a0a68dc453864225b14e13b3ab182d62403575b5e6ca5974141438",
+          "output": "/tmp/bendvy-frozen-query-js-chain/health-read.js",
+          "outputSHA256": "d075dae799765fad31a85338f93dcf611b9396bc36aa78da4b8950baf5ea09e7",
+          "accepted": true,
+          "error": ""
+        }
+      ]
+    },
+    {
+      "stage": "swap",
+      "recipeSHA256": "b79b69dd04722ae45124c55f50d89a2cd5cc945ba57d38864f72d146108a862a",
+      "catalogSHA256": "16321cacf0e599b0549985be2f66e8125af0c43e65eb6ae329da27885216213b",
+      "cases": [
+        {
+          "schema": "motion",
+          "input": "/tmp/bendvy-frozen-query-js-chain/motion-read.js",
+          "inputSHA256": "dbad26f27f06361c1501983e165dbe53e286bb5820ae4ac0f385ce12f149c581",
+          "output": "/tmp/bendvy-frozen-query-js-chain/motion-swap.js",
+          "outputSHA256": "a1b4f733817787ba0c8710b7979349ee90492dced8a43b5e3e2ecfa36b601d36",
+          "accepted": true,
+          "error": ""
+        },
+        {
+          "schema": "health",
+          "input": "/tmp/bendvy-frozen-query-js-chain/health-read.js",
+          "inputSHA256": "d075dae799765fad31a85338f93dcf611b9396bc36aa78da4b8950baf5ea09e7",
+          "output": "/tmp/bendvy-frozen-query-js-chain/health-swap.js",
+          "outputSHA256": "8d2317a0349cc06860113564de3347fa54866b6f5da52bec6dd4840f23908512",
+          "accepted": true,
+          "error": ""
+        }
+      ]
+    },
+    {
+      "stage": "payload",
+      "recipeSHA256": "308d27b4f709ad1661e23f4a1e101dd4034e5caa2b2b31dc074d924fbcb594d1",
+      "catalogSHA256": "fc6600c20abf46fcd205293301d2000e5c4fd510441693a21e704c0837942cc6",
+      "cases": [
+        {
+          "schema": "motion",
+          "input": "/tmp/bendvy-frozen-query-js-chain/motion-swap.js",
+          "inputSHA256": "a1b4f733817787ba0c8710b7979349ee90492dced8a43b5e3e2ecfa36b601d36",
+          "output": "/tmp/bendvy-frozen-query-js-chain/motion-payload.js",
+          "outputSHA256": "4ee5bae9b18d1b1dbace4906a31583cc1f5e9fbeacd6db668d45cde7a83df205",
+          "accepted": true,
+          "error": ""
+        },
+        {
+          "schema": "health",
+          "input": "/tmp/bendvy-frozen-query-js-chain/health-swap.js",
+          "inputSHA256": "8d2317a0349cc06860113564de3347fa54866b6f5da52bec6dd4840f23908512",
+          "output": "/tmp/bendvy-frozen-query-js-chain/health-payload.js",
+          "outputSHA256": "9b72ff64d6f9aa93b29b734e141fab2993dcc7d073422dcf6013fe2e0f85bd70",
+          "accepted": true,
+          "error": ""
+        }
+      ]
+    }
+  ],
+  "factsPins": {
+    "pool/types-source.bend.gz": "30e2b7024514e73d1140e8726f2123beab2d4948e9b25c7ce7714b856097e7b0",
+    "pool/source-facts.json": "20a471b0773498478d718eec2baead42a8b91299da8701f8952c38e9297bee78"
+  }
+}
