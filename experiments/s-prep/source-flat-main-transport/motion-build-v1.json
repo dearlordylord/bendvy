@@ -1,0 +1,45 @@
+[
+  {
+    "argv": [
+      "python3",
+      "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-measurement/prepare-bend.py",
+      "--core",
+      "/tmp/bendvy-flat-main-transport-v1/experiments/s-integrate",
+      "--output",
+      "/tmp/bendvy-flat-main-motion-v1",
+      "--schema",
+      "Motion",
+      "--batch",
+      "64"
+    ],
+    "cpu": 7,
+    "capSeconds": 5,
+    "exit": 0,
+    "output": ""
+  },
+  {
+    "argv": [
+      "python3",
+      "/workspace/formal-proofs/bendvy/experiments/s-prep/static-schema-driver/materialize.py",
+      "--driver",
+      "/tmp/bendvy-flat-main-motion-v1/batch.bend",
+      "--schema",
+      "Motion"
+    ],
+    "cpu": 7,
+    "capSeconds": 5,
+    "exit": 0,
+    "output": "{\"scope\": \"Only known schema at main entry selected statically; all runtime modules/callbacks/work/clock/outputs unchanged; not canonical evaluator approval\", \"schema\": \"Motion\", \"originalSHA256\": \"21e41634e63483208b451a63bdff4f8152d43e2be03021feb523f26643b0efbb\", \"derivedSHA256\": \"04993643dc2bd761580c1f42710179eb647991f37eb1e4537cbc4b153169cedb\", \"originalMain\": \"choose(0,256,64)\", \"derivedMain\": \"motion_batch(256,64)\", \"recipeSHA256\": \"32e5af1cbb3e5996253d1f29f531de23d2ebb47f9e6ce9ac19c4ec6ac0fae6f7\"}\n"
+  },
+  {
+    "argv": [
+      "bend",
+      "/tmp/bendvy-flat-main-motion-v1/batch.bend",
+      "--check-only"
+    ],
+    "cpu": 7,
+    "capSeconds": 15,
+    "exit": 1,
+    "output": "SOME PROOFS FAIL\nError:\n- expected : a term\n- observed : '~'\nLocation:\n435 |   match result ledger:\n436>|     case (columns,Some{CC.Cache{T.Position{coordinates,frame},main_cached}}) CC.Cache{ledger_raw,ledger_cached}: prototype_mainarray_motion_returned(prototype_mainarray_motion_invoke(~client,PrototypeMainArrayMotionOwner{coordinates,frame,main_cached,ledger_raw,ledger_cached,selected,undo,marks}),ns,next,columns,aux,metadata,capacity,depth,high,pending,mode,commands,pings,total)\n    |                                                                                                                                                                                        ^\n437 |     case (columns,_) ledger: prototype_flatfold_motion_fallback(client(X.Tx<S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,S.Handle<T.MotionSchema>,S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>>,A.motion_read_main,A.motion_set_main0,A.motion_read_ledger,A.motion_set_ledger0,X.prototype_flat_unpack(~T.MotionSchema,~S.World<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>,~S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>,X.PrototypeFlatTx{S.World{ns,next,S.Rows{columns,aux,metadata,capacity,depth,high},pending,Some{ledger},mode},selected,undo,commands,pings,marks})),total)\n"
+  }
+]

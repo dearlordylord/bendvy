@@ -1,0 +1,13 @@
+[
+  {
+    "argv": [
+      "bend",
+      "/tmp/bendvy-fourhour-flat-main-transport/experiments/s-prep/source-flat-main-transport/main-old-witness.bend",
+      "--check-only"
+    ],
+    "cpu": 7,
+    "capSeconds": 5,
+    "exit": 1,
+    "output": "SOME PROOFS FAIL\nError:\n- message  : 'retained' can't be matched in this position (it is matched after a local statement or after a match on a later binder, it was already matched, or it is a def)\nLocation:\n13 | def observe_motion(label:U32,retained:T.PositionView,owner:HA.PrototypeMainArrayMotionOwner) -> Report:\n14>|   match owner retained:\n   |               ^^^^^^^^\n15 |     case HA.PrototypeMainArrayMotionOwner{array,frame,T.PositionView{T.Four{a,b,c,d},cf},T.MotionLedger{totals,epoch},T.LedgerView{T.Four{l0,l1,l2,l3},le},S.Handle{space,id},X.PrototypeFlatMain{8,4,old,X.PrototypeFlatMain{8,4,prior,X.PrototypeFlatLedger{tailOld,X.PrototypeFlatEnd{}}}},X.PrototypeFlatMark{8,4,X.PrototypeFlatMark{8,4,X.PrototypeFlatMark{9,2,X.PrototypeFlatMarksEnd{}}}}} T.PositionView{T.Four{ra,rb,rc0,rd},rf}:\n"
+  }
+]

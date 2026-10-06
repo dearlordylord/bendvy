@@ -1,0 +1,90 @@
+--- a/experiments/s-integrate/held-adapter.bend
++++ b/experiments/s-integrate/held-adapter.bend
+@@ -436 +436 @@
+-    case (columns,Some{CC.Cache{main_raw,main_cached}}) CC.Cache{ledger_raw,ledger_cached}: prototype_flatfold_motion_returned(prototype_flatrows_motion_invoke(~client,PrototypeFlatRowOwner{main_raw,main_cached,ledger_raw,ledger_cached,selected,undo,marks}),ns,next,columns,aux,metadata,capacity,depth,high,pending,mode,commands,pings,total)
++    case (columns,Some{CC.Cache{T.Position{coordinates,frame},main_cached}}) CC.Cache{ledger_raw,ledger_cached}: prototype_mainarray_motion_returned(prototype_mainarray_motion_invoke(~client,PrototypeMainArrayMotionOwner{coordinates,frame,main_cached,ledger_raw,ledger_cached,selected,undo,marks}),ns,next,columns,aux,metadata,capacity,depth,high,pending,mode,commands,pings,total)
+@@ -565 +565 @@
+-    case (columns,Some{CC.Cache{main_raw,main_cached}}) PrototypeJournalLedger{totals,epoch,ledger_cached}: prototype_journalledger_health_returned(prototype_journalledger_health_invoke(~client,PrototypeJournalLedgerRowOwner{main_raw,main_cached,totals,epoch,ledger_cached,selected,undo,marks}),ns,next,columns,aux,metadata,capacity,depth,high,pending,mode,commands,pings,total)
++    case (columns,Some{CC.Cache{T.Vitals{levels,reserve,class},main_cached}}) PrototypeJournalLedger{totals,epoch,ledger_cached}: prototype_mainarray_health_returned(prototype_mainarray_health_invoke(~client,PrototypeMainArrayHealthOwner{levels,reserve,class,main_cached,totals,epoch,ledger_cached,selected,undo,marks}),ns,next,columns,aux,metadata,capacity,depth,high,pending,mode,commands,pings,total)
+@@ -599,0 +600,81 @@
++
++# Private full-shape affine Main Array transport diagnostic.
++type PrototypeMainArrayMotionOwner is Type:
++  PrototypeMainArrayMotionOwner{coordinates:Array<U32>,frame:U32,main_cached:T.PositionView,ledger_raw:T.MotionLedger,ledger_cached:T.LedgerView,handle:S.Handle<T.MotionSchema>,undo:X.PrototypeFlatInverse<T.MotionSchema>,marks:X.PrototypeFlatMark<T.MotionSchema>}
++
++def prototype_mainarray_motion_get(owner:PrototypeMainArrayMotionOwner,token:T.PositionToken) -> PrototypeMainArrayMotionOwner & T.Access<T.PositionView>:
++  match owner token:
++    case PrototypeMainArrayMotionOwner{coordinates,frame,+cached,ledger_raw,ledger_cached,handle,undo,marks} T.PositionToken{}:
++      (PrototypeMainArrayMotionOwner{coordinates,frame,cached,ledger_raw,ledger_cached,handle,undo,marks},T.Found{cached})
++
++def prototype_mainarray_motion_ledger(owner:PrototypeMainArrayMotionOwner,token:T.MotionLedgerToken) -> PrototypeMainArrayMotionOwner & Maybe<&2,T.LedgerView>:
++  match owner token:
++    case PrototypeMainArrayMotionOwner{coordinates,frame,main_cached,raw,+cached,handle,undo,marks} T.MotionLedgerToken{}:
++      (PrototypeMainArrayMotionOwner{coordinates,frame,main_cached,raw,cached,handle,undo,marks},Some{cached})
++
++def prototype_mainarray_motion_set_fused_done(frame:U32,ledger_raw:T.MotionLedger,ledger_cached:T.LedgerView,+handle:S.Handle<T.MotionSchema>,undo:X.PrototypeFlatInverse<T.MotionSchema>,marks:X.PrototypeFlatMark<T.MotionSchema>,cached:T.PositionView,+value:U32,result:Array<U32> & U32) -> PrototypeMainArrayMotionOwner:
++  match handle result:
++    case S.Handle{+space,+id} Tuple{coordinates,old}: PrototypeMainArrayMotionOwner{Array.set(U32,coordinates,0,value),frame,P.position_patch(cached,value),ledger_raw,ledger_cached,S.Handle{space,id},X.PrototypeFlatMain{space,id,old,undo},X.PrototypeFlatMark{space,id,marks}}
++
++def prototype_mainarray_motion_set(owner:PrototypeMainArrayMotionOwner,token:T.PositionToken,value:U32) -> PrototypeMainArrayMotionOwner:
++  match owner token:
++    case PrototypeMainArrayMotionOwner{coordinates,frame,cached,ledger_raw,ledger_cached,+handle,undo,marks} T.PositionToken{}:
++      +value = value
++      prototype_mainarray_motion_set_fused_done(frame,ledger_raw,ledger_cached,handle,undo,marks,cached,value,Array.get(U32,coordinates,0))
++
++def prototype_mainarray_motion_setledger_fused_done(coordinates:Array<U32>,frame:U32,main_cached:T.PositionView,+handle:S.Handle<T.MotionSchema>,undo:X.PrototypeFlatInverse<T.MotionSchema>,marks:X.PrototypeFlatMark<T.MotionSchema>,cached:T.LedgerView,value:U32,result:T.MotionLedger & U32) -> PrototypeMainArrayMotionOwner:
++  match result:
++    case (raw,old): PrototypeMainArrayMotionOwner{coordinates,frame,main_cached,raw,P.motion_ledger_patch(cached,value),handle,X.PrototypeFlatLedger{old,undo},marks}
++
++def prototype_mainarray_motion_setledger(owner:PrototypeMainArrayMotionOwner,token:T.MotionLedgerToken,value:U32) -> PrototypeMainArrayMotionOwner:
++  match owner token:
++    case PrototypeMainArrayMotionOwner{coordinates,frame,main_cached,raw,cached,handle,undo,marks} T.MotionLedgerToken{}:
++      +value = value
++      prototype_mainarray_motion_setledger_fused_done(coordinates,frame,main_cached,handle,undo,marks,cached,value,P.prototype_motion_ledger_raw_swap(raw,value))
++
++def prototype_mainarray_motion_invoke(~client:@-Owner:Type -> @-get:(Owner -> T.PositionToken -> Owner & T.Access<T.PositionView>) -> @-set:(Owner -> T.PositionToken -> U32 -> Owner) -> @-ledger:(Owner -> T.MotionLedgerToken -> Owner & Maybe<&2,T.LedgerView>) -> @-setledger:(Owner -> T.MotionLedgerToken -> U32 -> Owner) -> Owner -> Owner & U32,owner:PrototypeMainArrayMotionOwner) -> PrototypeMainArrayMotionOwner & U32:
++  client(PrototypeMainArrayMotionOwner,prototype_mainarray_motion_get,prototype_mainarray_motion_set,prototype_mainarray_motion_ledger,prototype_mainarray_motion_setledger,owner)
++
++def prototype_mainarray_motion_returned(result:PrototypeMainArrayMotionOwner & U32,ns:U32,next:U32,columns:Array<Maybe<CC.Cache<T.Position,T.PositionView>>>,aux:Array<Maybe<T.Velocity>>,metadata:S.MetadataColumns<T.Selected>,capacity:U32,depth:Nat,high:U32,pending:List<S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>>,mode:T.MotionMode,commands:List<S.Command<CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected>>,pings:List<&2,U32>,total:U32) -> PrototypeFlatFold<T.MotionSchema,CC.Cache<T.Position,T.PositionView>,T.Velocity,T.Selected,CC.Cache<T.MotionLedger,T.LedgerView>,T.MotionMode>:
++  match result:
++    case (PrototypeMainArrayMotionOwner{coordinates,frame,main_cached,ledger_raw,ledger_cached,S.Handle{+space,+id},undo,marks},value):
++      PrototypeFlatFold{ns,next,Array.set(Maybe<CC.Cache<T.Position,T.PositionView>>,columns,U32.sub(id,1),Some{CC.Cache{T.Position{coordinates,frame},main_cached}}),aux,metadata,capacity,depth,high,pending,Some{CC.Cache{ledger_raw,ledger_cached}},mode,S.Handle{space,id},undo,commands,pings,marks,U32.add(total,value)}
++
++type PrototypeMainArrayHealthOwner is Type:
++  PrototypeMainArrayHealthOwner{levels:Array<U32>,reserve:U32,class:U32,main_cached:T.VitalsView,totals:Array<U32>,epoch:U32,ledger_cached:T.LedgerView,handle:S.Handle<T.HealthSchema>,undo:X.PrototypeFlatInverse<T.HealthSchema>,marks:X.PrototypeFlatMark<T.HealthSchema>}
++
++def prototype_mainarray_health_get(owner:PrototypeMainArrayHealthOwner,token:T.VitalsToken) -> PrototypeMainArrayHealthOwner & T.Access<T.VitalsView>:
++  match owner token:
++    case PrototypeMainArrayHealthOwner{levels,reserve,class,+main_cached,totals,epoch,ledger_cached,handle,undo,marks} T.VitalsToken{}: (PrototypeMainArrayHealthOwner{levels,reserve,class,main_cached,totals,epoch,ledger_cached,handle,undo,marks},T.Found{main_cached})
++
++def prototype_mainarray_health_ledger(owner:PrototypeMainArrayHealthOwner,token:T.HealthLedgerToken) -> PrototypeMainArrayHealthOwner & Maybe<&2,T.LedgerView>:
++  match owner token:
++    case PrototypeMainArrayHealthOwner{levels,reserve,class,main_cached,totals,epoch,+ledger_cached,handle,undo,marks} T.HealthLedgerToken{}: (PrototypeMainArrayHealthOwner{levels,reserve,class,main_cached,totals,epoch,ledger_cached,handle,undo,marks},Some{ledger_cached})
++
++def prototype_mainarray_health_set_fused_done(reserve:U32,class:U32,totals:Array<U32>,epoch:U32,ledger_cached:T.LedgerView,+handle:S.Handle<T.HealthSchema>,undo:X.PrototypeFlatInverse<T.HealthSchema>,marks:X.PrototypeFlatMark<T.HealthSchema>,cached:T.VitalsView,+value:U32,result:Array<U32> & U32) -> PrototypeMainArrayHealthOwner:
++  match handle result:
++    case S.Handle{+space,+id} Tuple{levels,old}: PrototypeMainArrayHealthOwner{Array.set(U32,levels,0,value),reserve,class,P.vitals_patch(cached,value),totals,epoch,ledger_cached,S.Handle{space,id},X.PrototypeFlatMain{space,id,old,undo},X.PrototypeFlatMark{space,id,marks}}
++
++def prototype_mainarray_health_set(owner:PrototypeMainArrayHealthOwner,token:T.VitalsToken,value:U32) -> PrototypeMainArrayHealthOwner:
++  match owner token:
++    case PrototypeMainArrayHealthOwner{levels,reserve,class,cached,totals,epoch,ledger_cached,+handle,undo,marks} T.VitalsToken{}:
++      +value = value
++      prototype_mainarray_health_set_fused_done(reserve,class,totals,epoch,ledger_cached,handle,undo,marks,cached,value,Array.get(U32,levels,0))
++
++def prototype_mainarray_health_setledger_done(levels:Array<U32>,reserve:U32,class:U32,main_cached:T.VitalsView,epoch:U32,handle:S.Handle<T.HealthSchema>,undo:X.PrototypeFlatInverse<T.HealthSchema>,marks:X.PrototypeFlatMark<T.HealthSchema>,cached:T.LedgerView,+value:U32,result:Array<U32> & U32) -> PrototypeMainArrayHealthOwner:
++  match result:
++    case (totals,old): PrototypeMainArrayHealthOwner{levels,reserve,class,main_cached,Array.set(U32,totals,0,value),epoch,P.health_ledger_patch(cached,value),handle,X.PrototypeFlatLedger{old,undo},marks}
++
++def prototype_mainarray_health_setledger(owner:PrototypeMainArrayHealthOwner,token:T.HealthLedgerToken,value:U32) -> PrototypeMainArrayHealthOwner:
++  match owner token:
++    case PrototypeMainArrayHealthOwner{levels,reserve,class,main_cached,totals,epoch,cached,handle,undo,marks} T.HealthLedgerToken{}:
++      +value = value
++      prototype_mainarray_health_setledger_done(levels,reserve,class,main_cached,epoch,handle,undo,marks,cached,value,Array.get(U32,totals,0))
++
++def prototype_mainarray_health_invoke(~client:@-Owner:Type -> @-get:(Owner -> T.VitalsToken -> Owner & T.Access<T.VitalsView>) -> @-set:(Owner -> T.VitalsToken -> U32 -> Owner) -> @-ledger:(Owner -> T.HealthLedgerToken -> Owner & Maybe<&2,T.LedgerView>) -> @-setledger:(Owner -> T.HealthLedgerToken -> U32 -> Owner) -> Owner -> Owner & U32,owner:PrototypeMainArrayHealthOwner) -> PrototypeMainArrayHealthOwner & U32:
++  client(PrototypeMainArrayHealthOwner,prototype_mainarray_health_get,prototype_mainarray_health_set,prototype_mainarray_health_ledger,prototype_mainarray_health_setledger,owner)
++
++def prototype_mainarray_health_returned(result:PrototypeMainArrayHealthOwner & U32,ns:U32,next:U32,columns:Array<Maybe<CC.Cache<T.Vitals,T.VitalsView>>>,aux:Array<Maybe<T.Armor>>,metadata:S.MetadataColumns<T.Tracked>,capacity:U32,depth:Nat,high:U32,pending:List<S.Command<CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked>>,mode:T.HealthMode,commands:List<S.Command<CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked>>,pings:List<&2,U32>,total:U32) -> PrototypeFlatFold<T.HealthSchema,CC.Cache<T.Vitals,T.VitalsView>,T.Armor,T.Tracked,PrototypeJournalLedger<T.LedgerView>,T.HealthMode>:
++  match result:
++    case (PrototypeMainArrayHealthOwner{levels,reserve,class,main_cached,totals,epoch,ledger_cached,S.Handle{+space,+id},undo,marks},value):
++      PrototypeFlatFold{ns,next,Array.set(Maybe<CC.Cache<T.Vitals,T.VitalsView>>,columns,U32.sub(id,1),Some{CC.Cache{T.Vitals{levels,reserve,class},main_cached}}),aux,metadata,capacity,depth,high,pending,Some{PrototypeJournalLedger{totals,epoch,ledger_cached}},mode,S.Handle{space,id},undo,commands,pings,marks,U32.add(total,value)}

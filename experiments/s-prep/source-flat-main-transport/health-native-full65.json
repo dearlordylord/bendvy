@@ -1,0 +1,55 @@
+{
+  "status": "PASS_FULL65",
+  "scope": "Finite full65 schema fields only; no elapsed qualification or universal refinement",
+  "schema": "Health",
+  "cpu": 7,
+  "commands": [
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-measurement/prepare-ts.py",
+        "--source",
+        "/workspace/formal-proofs/bendvy/experiments/s-integrate/measurement-samples-reference.mjs",
+        "--output",
+        "/tmp/bendvy-flat-main-health-native-fields-v2/reference.mjs",
+        "--schema",
+        "Health",
+        "--batch",
+        "64"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "a16a68a4cfe33cbc63dcf6f593994b93bcb88d8f8ffe9a682a892a58d3a0f7d3"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-flat-main-health-native-fields-v2/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "6e880894bef83c4113808bfe5cc3bb6f4e495dd24f5ea45fc95b988459ca0685"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-flat-main-health-v2/batch.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "outputSHA256": "bff3d5ff4aaba5f27099d1eead5a35c208d4ddc4988fbb08cdb7ef1d91a5d6bf"
+    }
+  ],
+  "programSHA256": "77e2466a01c16d2bb1716621ebf31e438eaf0df4fa389db88b2abebce9ba09ca",
+  "kind": "native",
+  "runnerSHA256": "1c3d548f303e8edc6349636f461b71f33e99087640304ebd6ec190ae0b21d438",
+  "publishEdges": null,
+  "allFullFieldsEqual": true,
+  "worlds": 65,
+  "referenceSourceSHA256": "ecfd1b590964fb76fb69a7a28e9dffa05b631592f47a52f11921ffaec25253b6",
+  "referenceSHA256": "bf28b60bb93ab8ce037f6464e575691316e4baf4a0cca55ecc64250054e2f688",
+  "validatorSHA256": "25ab577d5234a1c30f46318708455377353ec39d4fb0b6bf1b40ad5ea5da8f84"
+}

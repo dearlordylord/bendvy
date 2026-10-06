@@ -1,0 +1,69 @@
+[
+  {
+    "argv": [
+      "python3",
+      "/workspace/formal-proofs/bendvy/experiments/s-prep/fivehour-measurement/prepare-bend.py",
+      "--core",
+      "/tmp/bendvy-flat-main-transport-v2/experiments/s-integrate",
+      "--output",
+      "/tmp/bendvy-flat-main-health-v2",
+      "--schema",
+      "Health",
+      "--batch",
+      "64"
+    ],
+    "cpu": 7,
+    "capSeconds": 5,
+    "exit": 0,
+    "output": ""
+  },
+  {
+    "argv": [
+      "python3",
+      "/workspace/formal-proofs/bendvy/experiments/s-prep/static-schema-driver/materialize.py",
+      "--driver",
+      "/tmp/bendvy-flat-main-health-v2/batch.bend",
+      "--schema",
+      "Health"
+    ],
+    "cpu": 7,
+    "capSeconds": 5,
+    "exit": 0,
+    "output": "{\"scope\": \"Only known schema at main entry selected statically; all runtime modules/callbacks/work/clock/outputs unchanged; not canonical evaluator approval\", \"schema\": \"Health\", \"originalSHA256\": \"11e7c285bf6cde8ca673998d2953ea98a6559ac44557f8146d2cda7411469148\", \"derivedSHA256\": \"26869d3199454ee4ae0a1b8f54dbefb96aba2d6f47c2df4db50321717d9cf114\", \"originalMain\": \"choose(1,256,64)\", \"derivedMain\": \"health_batch(256,64)\", \"recipeSHA256\": \"32e5af1cbb3e5996253d1f29f531de23d2ebb47f9e6ce9ac19c4ec6ac0fae6f7\"}\n"
+  },
+  {
+    "argv": [
+      "bend",
+      "/tmp/bendvy-flat-main-health-v2/batch.bend",
+      "--check-only"
+    ],
+    "cpu": 7,
+    "capSeconds": 15,
+    "exit": 0,
+    "output": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+  },
+  {
+    "argv": [
+      "bend",
+      "/tmp/bendvy-flat-main-health-v2/batch.bend",
+      "-o",
+      "/tmp/bendvy-flat-main-health-v2/batch.js"
+    ],
+    "cpu": 7,
+    "capSeconds": 30,
+    "exit": 0,
+    "output": ""
+  },
+  {
+    "argv": [
+      "bend",
+      "/tmp/bendvy-flat-main-health-v2/batch.bend",
+      "-o",
+      "/tmp/bendvy-flat-main-health-v2/batch.c"
+    ],
+    "cpu": 7,
+    "capSeconds": 30,
+    "exit": 0,
+    "output": ""
+  }
+]
