@@ -15,7 +15,7 @@ review=json.loads(a.review.read_text());assert review['status']=='ADMITTED_PROSP
 assert review['observerSHA256']==sha(HERE/'observe.py')
 assert review['catalogPins']=={str(x.resolve()):sha(x) for x in a.catalog}
 pin(a.review)
-for path in [__file__,HERE/'observe.py',HERE/'summarize.py']:pin(path)
+for path in [__file__,HERE/'observe.py',HERE/'summarize.py',HERE/'cohort.py']:pin(path)
 schemas={}
 for path in a.catalog:
  pin(path);c=json.loads(path.read_text());schema=c['schema'];assert schema in ['Motion','Health'] and schema not in schemas
@@ -59,7 +59,13 @@ for path in a.catalog:
   for name,h in f[key].items():pin(name,h)
  assert f['schemaPrograms'][schema.lower()]==c['jsProgram']
  assert c['actualFull65Receipts']
- for name,h in c['actualFull65Receipts'].items():pin(name,h)
+ seen_native=set()
+ for name,h in c['actualFull65Receipts'].items():
+  pin(name,h);r=json.loads(Path(name).read_text())
+  assert r['status']=='PASS_FULL65' and r['schema']==schema and r['worlds']==65 and r['allFullFieldsEqual']
+  assert r['sourceClosureSHA256']==c['sourceClosure'] and r['source29']==b['sourcePins']
+  if r['kind']=='native':seen_native.add(r['programSHA256'])
+ assert {sha(c['defaultNative']),sha(c['lseNative'])} <= seen_native
  # Libraries, compiler, prospective include and hardware bytes are explicit required groups, not inferred from an old build.
  for key in ['toolPins','headerPins','libraryPins','hardwarePins']:
   assert c[key]
