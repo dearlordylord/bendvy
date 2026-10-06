@@ -10,8 +10,14 @@ for lane,stem in [('motion','position'),('health','vitals')]:
  # Frozen source already requires named saturated templates; do not change abstract Owner kind or ownership.
  text=text.replace('def '+lane+'_read(-Owner:Type,-Aux:Type,get:','def '+lane+'_read(~Owner:Type,~Aux:Type,~get:').replace('aux_get:Aux -> Aux & Maybe<&2,T.'+('VelocityView' if lane=='motion' else 'ArmorView')+'>','~aux_get:Aux -> Aux & Maybe<&2,T.'+('VelocityView' if lane=='motion' else 'ArmorView')+'>')
  text=text.replace('Owner,Aux,get,aux_get,handle,flag,owner,aux)','~Owner,~Aux,~get,~aux_get,handle,flag,owner,aux)')
+ for tok in [('Motion','Position','Velocity','Selected'),('Health','Vitals','Armor','Tracked')]:
+  cap,main,aux,flag=tok
+  text=text.replace('O.client(T.'+cap+'Schema,T.'+main+'Token,T.'+main+'View,T.'+aux+'View,T.'+flag+',T.'+main+'Token{},','O.client(~T.'+cap+'Schema,~T.'+main+'Token,~T.'+main+'View,~T.'+aux+'View,~T.'+flag+',~T.'+main+'Token{},')
  # All fixed type/getter/client query arguments are already the public frozen template telescope.
  text=text.replace(','+lane+'_read,Q.Required{}',',~'+lane+'_read,Q.Required{}')
+ for query in re.findall(r'H.query\((.*?),Q.Required\{\},owner\)',text):
+  # Generic type terms have nested commas; frozen leading telescope can be named without explicit markers throughout instead.
+  text=text.replace('H.query('+query+',Q.Required{},owner)','H.query('+query.replace('~motion_read','motion_read').replace('~health_read','health_read')+',Q.Required{},owner)')
 labels=['positive','undeclared_token','cross_schema','write_through_read','reconstruct_owner','invalid_owner_return','audit_copy_text_historical','audit_copy','irrecoverable_destructure'];r={'status':'INCOMPLETE','scope':'Fresh nine original scoped static access subjects, actual private Slot A/B and generic named read client; no universal authority','sourcePins':pins,'sourceClosureSHA256':digest,'originalFixtureSHA256':hashlib.sha256(old.encode()).hexdigest(),'positiveAdaptedSHA256':hashlib.sha256(text.encode()).hexdigest(),'localTemplateAdaptation':'Owner/Aux/get/aux_get freeze markers and saturated query client required by frozen source; kind Type and owner/result telescope unchanged','cases':[]}
 def block(s,name):return re.search(r'^def '+re.escape(name)+r'\(.*?(?=\ndef |\ntype |\Z)',s,re.M|re.S)[0]
 def save():(a.output/'evidence.json').write_text(json.dumps(r,indent=2)+'\n')
@@ -25,10 +31,10 @@ for label in labels:
   s=s.replace(b,new,1);location='log';who='audit' if label=='audit_copy' else 'text';patterns=['expected : '+who,'observed : '+who+' (consumed more than once)']
  elif label!='positive':
   b=block(s,'motion_read');body=b.splitlines()[-1];newbody=body
-  if label=='write_through_read':newbody=body.replace(',owner,aux)',',CP.prototype_slot_position_swap(owner,30),aux)');patterns=['expected : CP.PrototypeMotionMainSlot','observed : Owner']
-  elif label=='reconstruct_owner':newbody=body.replace(',owner,aux)',',CP.prototype_slot_position_new(T.Position{[30:U32^2n],7}),aux)');patterns=['expected : Owner','observed : CP.PrototypeMotionMainSlot']
-  elif label=='invalid_owner_return':newbody=body.replace(',owner,aux)',',aux,owner)');patterns=['expected : Owner','observed : Aux']
-  elif label=='irrecoverable_destructure':newbody='  match owner:\n    case T.Position{values,frame}: (T.Position{[30:U32^2n],frame},(aux,O.QueryRow{handle,T.PositionView{T.Four{30,30,30,30},frame},None{},flag}))';patterns=['expected : a datatype','observed : Owner','T.Position{']
+  if label=='write_through_read':newbody=body.replace(',owner,aux)',',CP.prototype_slot_position_swap(owner,30),aux)');patterns=['expected : CP.PrototypeMotionMainSlot','observed : motion_read~Owner']
+  elif label=='reconstruct_owner':newbody=body.replace(',owner,aux)',',CP.prototype_slot_position_new(T.Position{[30:U32^2n],7}),aux)');patterns=['expected : motion_read~Owner','observed : CP.PrototypeMotionMainSlot']
+  elif label=='invalid_owner_return':newbody=body.replace(',owner,aux)',',aux,owner)');patterns=['expected : motion_read~Owner','observed : motion_read~Aux']
+  elif label=='irrecoverable_destructure':newbody='  match owner:\n    case T.Position{values,frame}: (T.Position{[30:U32^2n],frame},(aux,O.QueryRow{handle,T.PositionView{T.Four{30,30,30,30},frame},None{},flag}))';patterns=['expected : a datatype','observed : motion_read~Owner','T.Position{']
   assert newbody!=body;s=s.replace(b,b.replace(body,newbody),1)
  fixture.write_text(text)
  if label!='positive':file.write_text(s)
@@ -37,7 +43,7 @@ for label in labels:
  cmd=['bend',str(fixture),'--check-only'];pr=subprocess.Popen(cmd,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,start_new_session=True)
  try:o,_=pr.communicate(timeout=15)
  except subprocess.TimeoutExpired:os.killpg(pr.pid,signal.SIGKILL);o,_=pr.communicate();case.update(status='TIMEOUT');(folder/'checker.txt').write_text(o);save();raise
- (folder/'checker.txt').write_text(o);case.update(checkerExit=pr.returncode,outputSHA256=hashlib.sha256(o.encode()).hexdigest(),command=cmd,limitSeconds=15)
+ (folder/'checker.txt').write_text(o);case.update(checkerExit=pr.returncode,outputSHA256=hashlib.sha256(o.encode()).hexdigest(),command=cmd,limitSeconds=15);save()
  if label=='positive':assert pr.returncode==0 and 'ALL PROOFS CHECK' in o,o
  else:
   assert pr.returncode==1 and 'SOME PROOFS FAIL' in o and 'Location: '+location in o,o
