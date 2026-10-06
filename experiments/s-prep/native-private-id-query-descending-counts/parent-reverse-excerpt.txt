@@ -1,0 +1,24 @@
+Original parent C e886d9386f87d09daec31745ca9737bc72e330ddd3c25899057b01e82b363175, lines9770–9792
+INLINE Term spin_101(Env e, THR Term* o, Term r0, u64 q0, Term r1, u64 q1) {
+  u32 wpoll = 0;
+  Term h0 = r0;
+  Term h1 = r1;
+  Term _v_44 = 0;
+  Term _xs_1 = r0;
+  Term _acc_0 = r1;
+  WL_SPIN
+    if (term_aux(_xs_1) == CID_NIL) {
+      _v_44 = _acc_0;
+    } else {
+      Term _fb_0[2];
+      u64 _sp_0 = ctr_take(e, _xs_1, 2, _fb_0);
+      Term _f_0 = _fb_0[0];
+      Term _f_1 = _fb_0[1];
+      u64 _nd_0 = _sp_0 >= HEAP_OFF ? _sp_0 : heap_alloc(e, cls_fit(2));
+      e.mem[_nd_0 + 0] = rfc_seal(e, _f_0);
+      e.mem[_nd_0 + 1] = rfc_seal(e, _acc_0);
+      r0 = _f_1;
+      r1 = term_ctr(CID_CON, _nd_0);
+      _xs_1 = r0;
+      _acc_0 = r1;
+      WL_AGAIN(spin_101);
