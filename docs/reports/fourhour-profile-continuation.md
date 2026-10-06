@@ -152,3 +152,32 @@ A same-C Os layout probe retains bothschema full65 and actual transaction
 originals/compiling journal mutants. Motion raw elapsed is mixed against O3;
 Health Os is slower in each of three paired runs. No Native2x observation or
 qualification is obtained. Stop the layout seam without an O2 flag matrix.
+
+## Private opaque-Type identity query
+
+Recursive owning Array traversal is rejected: it removes Main/View/Cache query
+restoration but emits16,777,216 block-half,8,388,608 block-node and1,048,576
+block-new operations. Requests rise22.4m→43.4m; requested words56.2m→2.18bn.
+This is retained failed mechanism evidence, not a passing optimization.
+
+The erased-Type intrinsic alternative preserves the opaque owner within
+Array.swap/Array.set and never inspects Main. Version2 removes5,242,880 Native
+requests and2,097,152 RFC operations on each schema with fresh65 full worlds.
+Version3 returns the existing column state directly, eliminating version2's
+extra JS Array/Bool Tuple; independently recounted Native counters are byte-identical
+to version2. Motion JS nine-world expression/property deltas are0; Health is
+being measured separately. New query controls remain version-specific.
+
+First version2 descriptive full65 clocks: Motion TS257.929464, baselineNative250,
+candidateNative175, baselineJS320, candidateJS533ms; Health TS268.824104,
+baselineNative203, candidateNative173, baselineJS305, candidateJS308ms. These
+show no qualified target acceptance; the Motion JS observation is adverse.
+Version3 requires its own fresh observations and complete controls.
+
+Private adjacent journal pairing defers only internal Main inverse construction;
+marks remain immediate and LedgerThenMain unpacks/restores exact original order.
+Motion first-stage counters save2,097,152 requests and1,048,576 RFC operations,
+but requested words increase1,048,576 due allocation-class rounding. Seven
+finite helper histories and actual compiling lost-pending/order mutants pass
+both backends. Actual provider/row-return/fallback/rollback/Health/authority
+gates remain open; no adoption or speed gain is inferred.
