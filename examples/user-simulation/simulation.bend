@@ -2,6 +2,7 @@ import Base
 import schema.bend as S
 import ../../src/ecs/component.bend as C
 import ../../src/ecs/world.bend as W
+import ../../src/ecs/events.bend as E
 
 type Row is Data:
   Row{id: U32,position: C.Access<S.PositionView>,velocity: C.Access<S.VelocityView>,health: C.Access<S.HealthView>,armor: C.Access<S.Armor>,tag: C.Access<S.Tag>}
@@ -56,3 +57,17 @@ def snapshot_handles(observed: W.World<S.Schema,S.Store,F32,S.SimEvent> & List<&
 def snapshot(world: W.World<S.Schema,S.Store,F32,S.SimEvent>) -> W.World<S.Schema,S.Store,F32,S.SimEvent> & Snapshot:
   snapshot_handles(W.handles(~S.Schema,~S.Store,~F32,~S.SimEvent,world))
 
+
+# Observation owns an independent library reader; no application event cursor.
+type Observation is Type:
+  Observation{world: W.World<S.Schema,S.Store,F32,S.SimEvent>,reader: E.Reader<S.Schema>,snapshot: Snapshot}
+  ObservationRejected{world: W.World<S.Schema,S.Store,F32,S.SimEvent>,reader: E.Reader<S.Schema>}
+def observed_events(+rows: List<&2,Row>,+dt: F32,result: E.Observed<S.Schema,S.Store,F32,S.SimEvent>) -> Observation:
+  match result:
+    case E.Read{world,reader,events}: Observation{world,reader,Snapshot{rows,dt,events}}
+    case E.ForeignReader{world,reader}: ObservationRejected{world,reader}
+def observed_snapshot(reader: E.Reader<S.Schema>,result: W.World<S.Schema,S.Store,F32,S.SimEvent> & Snapshot) -> Observation:
+  match result:
+    case (world,Snapshot{+rows,+dt,_}): observed_events(rows,dt,E.read(~S.Schema,~S.Store,~F32,~S.SimEvent,world,reader))
+def observe(world: W.World<S.Schema,S.Store,F32,S.SimEvent>,reader: E.Reader<S.Schema>) -> Observation:
+  observed_snapshot(reader,snapshot(world))
