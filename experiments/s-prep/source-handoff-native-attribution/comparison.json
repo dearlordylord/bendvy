@@ -1,0 +1,294 @@
+{
+  "status": "FOUR_FRESH_SOURCE_BOUND_FULL65_COUNT_PASSES",
+  "scope": "Measured-phase allocator requests, RFC creations and static source-site labels; not physical allocations or elapsed causality",
+  "schemas": {
+    "motion": {
+      "baselineReceipt": "/tmp/bendvy-handoff-native-count-motion-base/evidence.json",
+      "candidateReceipt": "/tmp/bendvy-handoff-native-count-motion-v7/evidence.json",
+      "totals": {
+        "heapEntries": {
+          "baseline": 7758791,
+          "candidate": 10867655,
+          "delta": 3108864
+        },
+        "rfcCreated": {
+          "baseline": 3248446,
+          "candidate": 5321022,
+          "delta": 2072576
+        },
+        "requestedWords": {
+          "baseline": 32132111,
+          "candidate": 36252687,
+          "delta": 4120576
+        }
+      },
+      "constructorDelta": {
+        "Constructor:CID_CON": 0,
+        "Constructor:CID_CORE_CACHED_PAYLOAD_PROTOTYPEMOTIONMAINSLOT": 0,
+        "Constructor:CID_CORE_CACHE_CACHE": -4096,
+        "Constructor:CID_CORE_DISPATCHER_DISPATCHED": 0,
+        "Constructor:CID_CORE_DISPATCHER_INVOKED": 0,
+        "Constructor:CID_CORE_DISPATCHER_RUNTIME": 0,
+        "Constructor:CID_CORE_DISPATCHER_VISIT": 0,
+        "Constructor:CID_CORE_QUERY_PROTOTYPEHANDOFFROW": 1048576,
+        "Constructor:CID_CORE_READERS_CLOCK": 0,
+        "Constructor:CID_CORE_SCHEDULE_CALL": 0,
+        "Constructor:CID_CORE_SCHEDULE_ENTRY": 0,
+        "Constructor:CID_CORE_SCHEDULE_SYSTEM": 0,
+        "Constructor:CID_CORE_STORAGE_WORLD": 0,
+        "Constructor:CID_CORE_TRANSACTION_PROTOTYPEFLATMARK": 0,
+        "Constructor:CID_CORE_TRANSACTION_PROTOTYPEFLATPAIR": 0,
+        "Constructor:CID_CORE_TYPES_LEDGERVIEW": -4096,
+        "Constructor:CID_CORE_TYPES_MOTIONLEDGER": -4096,
+        "Constructor:CID_IO_NOW": 0,
+        "Constructor:CID_MEASUREMENT_BEND_PROTOTYPE_PACKED_MOTIONBENCH": 0
+      },
+      "operationTotals": {
+        "bank_pop": {
+          "baseline": 0,
+          "candidate": 0,
+          "delta": 0
+        },
+        "blk_node": {
+          "baseline": 0,
+          "candidate": 0,
+          "delta": 0
+        },
+        "corpus_grow": {
+          "baseline": 0,
+          "candidate": 0,
+          "delta": 0
+        },
+        "ctr_take": {
+          "baseline": 3346945,
+          "candidate": 4383233,
+          "delta": 1036288
+        },
+        "heap_alloc": {
+          "baseline": 7758791,
+          "candidate": 10867655,
+          "delta": 3108864
+        },
+        "heap_alloc_miss": {
+          "baseline": 0,
+          "candidate": 0,
+          "delta": 0
+        },
+        "malloc": {
+          "baseline": 0,
+          "candidate": 0,
+          "delta": 0
+        },
+        "mmap": {
+          "baseline": 0,
+          "candidate": 0,
+          "delta": 0
+        },
+        "mprotect": {
+          "baseline": 0,
+          "candidate": 0,
+          "delta": 0
+        },
+        "rfc_seal": {
+          "baseline": 20229888,
+          "candidate": 22290176,
+          "delta": 2060288
+        },
+        "rfc_wrap": {
+          "baseline": 3248446,
+          "candidate": 5321022,
+          "delta": 2072576
+        },
+        "span_fade": {
+          "baseline": 8192,
+          "candidate": 8192,
+          "delta": 0
+        },
+        "term_drop": {
+          "baseline": 32832,
+          "candidate": 32832,
+          "delta": 0
+        },
+        "term_keep": {
+          "baseline": 1085440,
+          "candidate": 1085440,
+          "delta": 0
+        }
+      },
+      "candidateRowAndOwnerRFCOrigins": [
+        {
+          "id": 113,
+          "operation": "rfc_seal",
+          "expandedSourceLine": 4580,
+          "owner": "spin_36",
+          "expression": "rfc_seal(e, _result_2)",
+          "following": ";\n      u64 _nd_1 = heap_alloc(e, cls_fit(2));\n      e.mem[_nd_1 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_SLOT_HOST_HANDOFF_V7_EXPERIMENTS_S_INTEGRATE_QUERY_PROTOTYPEHANDOFFROW, _",
+          "entries": 1048576,
+          "rfcCreated": 1032192,
+          "originalLine": 4568,
+          "staticDirectCallers": [
+            "spin_35"
+          ]
+        },
+        {
+          "id": 115,
+          "operation": "rfc_seal",
+          "expandedSourceLine": 4582,
+          "owner": "spin_36",
+          "expression": "rfc_seal(e, term_ctr(CID____BENDVY_SLOT_HOST_HANDOFF_V7_EXPERIMENTS_S_INTEGRATE_QUERY_PROTOTYPEHANDOFFROW, _nd_0))",
+          "following": ";\n      e.mem[_nd_1 + 1] = rfc_seal(e, _values_2);\n      _v_21 = _result_0;\n      _v_22 = _aux_2;\n      _v_23 = _live_2;\n      _v_24 = _flags_2;\n      _v_25 = _added_2;\n      _v_26",
+          "entries": 1048576,
+          "rfcCreated": 1048576,
+          "originalLine": 4570,
+          "staticDirectCallers": [
+            "spin_35"
+          ]
+        }
+      ]
+    },
+    "health": {
+      "baselineReceipt": "/tmp/bendvy-handoff-native-count-health-base/evidence.json",
+      "candidateReceipt": "/tmp/bendvy-handoff-native-count-health-v7/evidence.json",
+      "totals": {
+        "heapEntries": {
+          "baseline": 7758791,
+          "candidate": 10867655,
+          "delta": 3108864
+        },
+        "rfcCreated": {
+          "baseline": 3248446,
+          "candidate": 5321022,
+          "delta": 2072576
+        },
+        "requestedWords": {
+          "baseline": 40520719,
+          "candidate": 44641295,
+          "delta": 4120576
+        }
+      },
+      "constructorDelta": {
+        "Constructor:CID_CON": 0,
+        "Constructor:CID_CORE_CACHED_PAYLOAD_PROTOTYPEHEALTHMAINSLOT": 0,
+        "Constructor:CID_CORE_CACHE_CACHE": -4096,
+        "Constructor:CID_CORE_DISPATCHER_DISPATCHED": 0,
+        "Constructor:CID_CORE_DISPATCHER_INVOKED": 0,
+        "Constructor:CID_CORE_DISPATCHER_RUNTIME": 0,
+        "Constructor:CID_CORE_DISPATCHER_VISIT": 0,
+        "Constructor:CID_CORE_QUERY_PROTOTYPEHANDOFFROW": 1048576,
+        "Constructor:CID_CORE_READERS_CLOCK": 0,
+        "Constructor:CID_CORE_SCHEDULE_CALL": 0,
+        "Constructor:CID_CORE_SCHEDULE_ENTRY": 0,
+        "Constructor:CID_CORE_SCHEDULE_SYSTEM": 0,
+        "Constructor:CID_CORE_STORAGE_WORLD": 0,
+        "Constructor:CID_CORE_TRANSACTION_PROTOTYPEFLATMARK": 0,
+        "Constructor:CID_CORE_TRANSACTION_PROTOTYPEFLATPAIR": 0,
+        "Constructor:CID_CORE_TYPES_HEALTHLEDGER": -4096,
+        "Constructor:CID_CORE_TYPES_LEDGERVIEW": -4096,
+        "Constructor:CID_IO_NOW": 0,
+        "Constructor:CID_MEASUREMENT_BEND_PROTOTYPE_PACKED_HEALTHBENCH": 0
+      },
+      "operationTotals": {
+        "bank_pop": {
+          "baseline": 0,
+          "candidate": 0,
+          "delta": 0
+        },
+        "blk_node": {
+          "baseline": 0,
+          "candidate": 0,
+          "delta": 0
+        },
+        "corpus_grow": {
+          "baseline": 0,
+          "candidate": 0,
+          "delta": 0
+        },
+        "ctr_take": {
+          "baseline": 3346945,
+          "candidate": 4383233,
+          "delta": 1036288
+        },
+        "heap_alloc": {
+          "baseline": 7758791,
+          "candidate": 10867655,
+          "delta": 3108864
+        },
+        "heap_alloc_miss": {
+          "baseline": 190,
+          "candidate": 319,
+          "delta": 129
+        },
+        "malloc": {
+          "baseline": 0,
+          "candidate": 0,
+          "delta": 0
+        },
+        "mmap": {
+          "baseline": 0,
+          "candidate": 0,
+          "delta": 0
+        },
+        "mprotect": {
+          "baseline": 0,
+          "candidate": 0,
+          "delta": 0
+        },
+        "rfc_seal": {
+          "baseline": 22327040,
+          "candidate": 24387328,
+          "delta": 2060288
+        },
+        "rfc_wrap": {
+          "baseline": 3248446,
+          "candidate": 5321022,
+          "delta": 2072576
+        },
+        "span_fade": {
+          "baseline": 8192,
+          "candidate": 8192,
+          "delta": 0
+        },
+        "term_drop": {
+          "baseline": 32832,
+          "candidate": 32832,
+          "delta": 0
+        },
+        "term_keep": {
+          "baseline": 1085440,
+          "candidate": 1085440,
+          "delta": 0
+        }
+      },
+      "candidateRowAndOwnerRFCOrigins": [
+        {
+          "id": 133,
+          "operation": "rfc_seal",
+          "expandedSourceLine": 4898,
+          "owner": "spin_43",
+          "expression": "rfc_seal(e, _result_2)",
+          "following": ";\n      u64 _nd_1 = heap_alloc(e, cls_fit(2));\n      e.mem[_nd_1 + 0] = rfc_seal(e, term_ctr(CID____BENDVY_SLOT_HOST_HANDOFF_V7_EXPERIMENTS_S_INTEGRATE_QUERY_PROTOTYPEHANDOFFROW, _",
+          "entries": 1048576,
+          "rfcCreated": 1032192,
+          "originalLine": 4886,
+          "staticDirectCallers": [
+            "spin_42"
+          ]
+        },
+        {
+          "id": 135,
+          "operation": "rfc_seal",
+          "expandedSourceLine": 4900,
+          "owner": "spin_43",
+          "expression": "rfc_seal(e, term_ctr(CID____BENDVY_SLOT_HOST_HANDOFF_V7_EXPERIMENTS_S_INTEGRATE_QUERY_PROTOTYPEHANDOFFROW, _nd_0))",
+          "following": ";\n      e.mem[_nd_1 + 1] = rfc_seal(e, _values_2);\n      _v_21 = _result_0;\n      _v_22 = _aux_2;\n      _v_23 = _live_2;\n      _v_24 = _flags_2;\n      _v_25 = _added_2;\n      _v_26",
+          "entries": 1048576,
+          "rfcCreated": 1048576,
+          "originalLine": 4888,
+          "staticDirectCallers": [
+            "spin_42"
+          ]
+        }
+      ]
+    }
+  }
+}
