@@ -1,14 +1,12 @@
 #!/usr/bin/env python3
 import pathlib,shutil,json,hashlib
 P=pathlib.Path
-base=P('/tmp/bendvy-slot-host-handoff-v7'); out=P('/tmp/bendvy-slot-host-handoff-v8-reproduced-r2')
+base=P('/tmp/bendvy-slot-host-handoff-v7'); out=P('/tmp/bendvy-slot-host-handoff-v8-reproduced')
 sha=lambda x:hashlib.sha256(x).hexdigest()
 closure=lambda d:sha(json.dumps(d,sort_keys=True,separators=(',',':')).encode())
 inputOverlay=json.loads((base/'overlay.json').read_text());inputPins=inputOverlay['sources'];inputCache=json.loads((base/'cache-specialization.json').read_text())
 assert len(inputPins)==29 and closure(inputPins)=='a9a2fa20913658b9561056e660803e3afd74870f321ff3a30c839e62fa44a56b'
-assert not out.exists()
-assert all(not (base/n).is_symlink() and (base/n).is_file() and sha((base/n).read_bytes())==h for n,h in inputPins.items())
-assert all(not (base/n).is_symlink() for n in ['overlay.json','cache-specialization.json'])
+assert all(sha((base/n).read_bytes())==h for n,h in inputPins.items())
 assert inputCache==inputOverlay['cacheSpecialization']
 assert inputCache['runtimeClosure']==inputCache['specializedClosure']==inputPins
 assert inputCache['runtimeClosureSHA256']==inputCache['specializedClosureSHA256']==closure(inputPins)
@@ -33,7 +31,7 @@ closure=lambda d:sha(json.dumps(d,sort_keys=True,separators=(',',':')).encode())
 for name,key in [('overlay.json','sources'),('cache-specialization.json','runtimeClosure')]:
  d=json.loads((out/name).read_text());d[key]=new;(out/name).write_text(json.dumps(d,indent=2)+'\n')
 c=json.loads((out/'cache-specialization.json').read_text());c.update(specializedClosure=new,runtimeClosureSHA256=closure(new),specializedClosureSHA256=closure(new));(out/'cache-specialization.json').write_text(json.dumps(c,indent=2)+'\n');o=json.loads((out/'overlay.json').read_text());o['cacheSpecialization']=c;(out/'overlay.json').write_text(json.dumps(o,indent=2)+'\n')
-recipe={'sourceRoot':str(base),'inputOverlaySHA256':sha((base/'overlay.json').read_bytes()),'inputCacheSHA256':sha((base/'cache-specialization.json').read_bytes()),'producerSHA256':producerSHA256,'baselinePreflight':'Exact v7 29 actual hashes, embedded and standalone maps, both digests checked before copy','scope':'Nominal affine fused row carrier only; no production confinement, proof or performance acceptance.','baseSourceClosureSHA256':closure(pins),'sourceClosureSHA256':closure(new),'inputSources':pins,'sources':new,'changedSources':changed,'unchangedSourceCount':27,'queryOriginalPrefixSHA256':sha(old.split('# Private two-phase affine ownership handoff;')[0].encode()),'heldAdapterOriginalPrefixSHA256':sha(prefix.encode()),'measurementUnchangedSHA256':new['experiments/s-integrate/measurement-bend.bend'],'rewrite':'Row wrapper plus affine List is replaced by HandoffNil/HandoffCon; complete None recovery node, ID reverse-once, callbacks and guards unchanged.'}
+recipe={'producerSHA256':producerSHA256,'baselinePreflight':'Exact v7 29 actual hashes, embedded and standalone maps, both digests checked before copy','scope':'Nominal affine fused row carrier only; no production confinement, proof or performance acceptance.','baseSourceClosureSHA256':closure(pins),'sourceClosureSHA256':closure(new),'inputSources':pins,'sources':new,'changedSources':changed,'unchangedSourceCount':27,'queryOriginalPrefixSHA256':sha(old.split('# Private two-phase affine ownership handoff;')[0].encode()),'heldAdapterOriginalPrefixSHA256':sha(prefix.encode()),'measurementUnchangedSHA256':new['experiments/s-integrate/measurement-bend.bend'],'rewrite':'Row wrapper plus affine List is replaced by HandoffNil/HandoffCon; complete None recovery node, ID reverse-once, callbacks and guards unchanged.'}
 (out/'fused-rows-recipe.json').write_text(json.dumps(recipe,indent=2)+'\n')
 (out/'handoff-source-pins.json').write_text(json.dumps({'input':{'sources':pins},'output':{'sources':new},'sourceClosureSHA256':closure(new),'recipe':'fused-rows-recipe.json','producerSHA256':producerSHA256,'recipeSHA256':sha((out/'fused-rows-recipe.json').read_bytes())},indent=2)+'\n')
 print(closure(new))

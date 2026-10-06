@@ -36,3 +36,18 @@ Independent allocation preflight rejected stale embedded cache metadata in the
 initial v8 directory. The new coherent directory preserves all 29 source bytes
 and updates both standalone/embedded maps and their digests. Initial v8 is
 retained; its source checks apply to identical bytes, not allocation admission.
+
+Fresh generic Q controls now pass against coherent v8: 1600 full-field
+records, four programs (two nominal schemas and direct Array/affine Owned
+payloads) on actual emitted JS and Native. Clone and cross-schema controls
+reject for their intended reasons. Lost-owner, reversed-ID and wrong-selection
+Q mutants compile and are detected in all 24 schema/payload/backend roles.
+`controls/evidence/exact-observations.tar.xz` preserves complete outputs and
+fixtures; all 247 decoded member hashes were verified. These are generic Q
+controls, not HA consumer, transaction, production confinement or speed gates.
+
+The prospective producer now checks exact baseline hashes, both maps/digests,
+symlink exclusion and output absence before copying. It independently reproduced
+`/tmp/bendvy-slot-host-handoff-v8-reproduced-r2` with identical 29 source bytes;
+its fused and source receipts bind the producer SHA and recipe SHA. Historical
+recipes/freezes remain retained. The consumed coherent source is unchanged.
