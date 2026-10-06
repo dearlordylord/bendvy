@@ -1,0 +1,14 @@
+{
+  "baselineCommit": "327bec49d41f00f88950343dea1edc1e0ec97dc4",
+  "workload": "Workshop: ten complete 22-checkpoint applications per process",
+  "scope": "Whole-process API regression; startup and output included, not qualified hot-path acceptance",
+  "pairs": 20,
+  "warmups": 2,
+  "seed": 20261007,
+  "alpha": 0.05,
+  "method": "One-sided exact paired sign tests, Holm correction across JS and Native",
+  "allowedSlowdown": 0,
+  "approval": "User: no statistically confirmed slowdown, 2026-10-06",
+  "iterations": 10,
+  "referenceCommit": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334"
+}

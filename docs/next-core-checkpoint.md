@@ -36,6 +36,12 @@ The optimized29-module integration and full connected/performance gates under
 #21/#24 remain open; tiny whole-process timing does not establish hot-path speed.
 Tower Defense remains conditional and its canonical source is unchanged.
 
+Delivered [P-REGRESSION #28](tickets/26-performance-regression.md): same-host
+paired baseline/current Workshop gate under the approved no-confirmed-slowdown
+policy. [Evidence](reports/performance-regression.md) includes the ordinary pass
+and a detected real-delay control. Run `benchmarks/README.md` before executable
+src/ecs changes; its scope does not replace the full performance matrix.
+
 ## Active two-hour Native1024 continuation
 
 User authorized **2026-10-06 18:25:54–20:25:54 UTC**, including delivery.

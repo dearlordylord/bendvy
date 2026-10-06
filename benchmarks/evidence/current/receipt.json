@@ -1,0 +1,2116 @@
+{
+  "status": "NO_CONFIRMED_REGRESSION",
+  "contract": {
+    "baselineCommit": "327bec49d41f00f88950343dea1edc1e0ec97dc4",
+    "workload": "Workshop: ten complete 22-checkpoint applications per process",
+    "scope": "Whole-process API regression; startup and output included, not qualified hot-path acceptance",
+    "pairs": 20,
+    "warmups": 2,
+    "seed": 20261007,
+    "alpha": 0.05,
+    "method": "One-sided exact paired sign tests, Holm correction across JS and Native",
+    "allowedSlowdown": 0,
+    "approval": "User: no statistically confirmed slowdown, 2026-10-06",
+    "iterations": 10,
+    "referenceCommit": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334"
+  },
+  "cpu": 0,
+  "machine": {
+    "system": "Linux",
+    "node": "f09fe046f4d2",
+    "release": "7.0.14-orbstack-00380-ga7e0a2dc9535",
+    "version": "#1 SMP PREEMPT Fri Aug  7 03:48:40 UTC 2026",
+    "machine": "aarch64",
+    "processor": ""
+  },
+  "commands": [
+    {
+      "argv": [
+        "bend",
+        "version"
+      ],
+      "limitSeconds": 5,
+      "label": "version-Bend",
+      "exit": 0,
+      "elapsedMs": 17.473545,
+      "stdoutSHA256": "ca6fc52ac20b452bc60b3e8da766c53d679f0325ca4f1ac580ec72f09758d79d"
+    },
+    {
+      "argv": [
+        "node",
+        "--version"
+      ],
+      "limitSeconds": 5,
+      "label": "version-Node",
+      "exit": 0,
+      "elapsedMs": 10.075408,
+      "stdoutSHA256": "b67d0ced059f9313d861ddbbe734d2d1f9219106a9e036ae6d88407afa0846e6"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "--version"
+      ],
+      "limitSeconds": 5,
+      "label": "version-Clang",
+      "exit": 0,
+      "elapsedMs": 13.701559,
+      "stdoutSHA256": "cdddf8c4dfb42fef72caa5c3988c573a4f7bca9409456a32841dfe34e6b4b6c3"
+    },
+    {
+      "argv": [
+        "git",
+        "-C",
+        "/workspace/formal-proofs/bendvy/.references/bevy-ts",
+        "rev-parse",
+        "HEAD"
+      ],
+      "limitSeconds": 5,
+      "label": "reference-head",
+      "exit": 0,
+      "elapsedMs": 2.119432,
+      "stdoutSHA256": "1e9fa0f2cb924e419c66fb68fbc27326da39b4f0a4ec43b422da942e21d2459f"
+    },
+    {
+      "argv": [
+        "git",
+        "-C",
+        "/workspace/formal-proofs/bendvy/.references/bevy-ts",
+        "status",
+        "--porcelain",
+        "--",
+        "packages/core/src"
+      ],
+      "limitSeconds": 5,
+      "label": "reference-clean",
+      "exit": 0,
+      "elapsedMs": 4.185531,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/examples/query-composition/timing-main.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5,
+      "label": "baseline-checker",
+      "exit": 0,
+      "elapsedMs": 677.910365,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/examples/query-composition/timing-main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.js"
+      ],
+      "limitSeconds": 30,
+      "label": "baseline-js-emit",
+      "exit": 0,
+      "elapsedMs": 1078.191895,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/examples/query-composition/timing-main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.c"
+      ],
+      "limitSeconds": 30,
+      "label": "baseline-c-emit",
+      "exit": 0,
+      "elapsedMs": 5380.428189,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limitSeconds": 120,
+      "label": "baseline-native-build",
+      "exit": 0,
+      "elapsedMs": 11699.176702,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/examples/query-composition/timing-main.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5,
+      "label": "candidate-checker",
+      "exit": 0,
+      "elapsedMs": 656.279164,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/examples/query-composition/timing-main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.js"
+      ],
+      "limitSeconds": 30,
+      "label": "candidate-js-emit",
+      "exit": 0,
+      "elapsedMs": 1060.050594,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/examples/query-composition/timing-main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.c"
+      ],
+      "limitSeconds": 30,
+      "label": "candidate-c-emit",
+      "exit": 0,
+      "elapsedMs": 5411.230708,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limitSeconds": 120,
+      "label": "candidate-native-build",
+      "exit": 0,
+      "elapsedMs": 11722.734292,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "warmup-0-TS",
+      "exit": 0,
+      "elapsedMs": 240.645896,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "warmup-0-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 98.513642,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "warmup-0-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 17.45092,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "warmup-0-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 98.679851,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "warmup-0-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 17.600421,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "warmup-1-TS",
+      "exit": 0,
+      "elapsedMs": 234.020681,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "warmup-1-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 100.475823,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "warmup-1-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 17.179377,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "warmup-1-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 104.543478,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "warmup-1-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 17.585546,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-0-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 101.380788,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-0-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 104.187433,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-0-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 17.278627,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-0-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 17.315795,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-0-TS",
+      "exit": 0,
+      "elapsedMs": 237.324331,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-1-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 100.90541,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-1-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 98.891603,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-1-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 17.611963,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-1-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 17.837923,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-1-TS",
+      "exit": 0,
+      "elapsedMs": 233.492885,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-2-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 17.496545,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-2-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 16.685998,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-2-TS",
+      "exit": 0,
+      "elapsedMs": 231.475995,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-2-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 96.861755,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-2-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 98.974854,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-3-TS",
+      "exit": 0,
+      "elapsedMs": 233.262134,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-3-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 97.411759,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-3-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 103.30901,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-3-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 18.066008,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-3-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 26.604196,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-4-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 17.97384,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-4-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 18.503219,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-4-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 101.414621,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-4-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 101.503497,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-4-TS",
+      "exit": 0,
+      "elapsedMs": 237.446747,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-5-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 105.305275,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-5-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 102.611381,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-5-TS",
+      "exit": 0,
+      "elapsedMs": 235.291357,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-5-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 17.010083,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-5-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 17.088876,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-6-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 17.097584,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-6-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 17.352169,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-6-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 102.728632,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-6-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 100.255196,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-6-TS",
+      "exit": 0,
+      "elapsedMs": 236.776701,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-7-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 17.222877,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-7-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 17.633379,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-7-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 101.271954,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-7-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 98.055805,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-7-TS",
+      "exit": 0,
+      "elapsedMs": 236.036112,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-8-TS",
+      "exit": 0,
+      "elapsedMs": 234.493309,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-8-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 98.527975,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-8-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 99.908486,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-8-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 17.330586,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-8-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 16.504871,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-9-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 102.202419,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-9-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 101.249246,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-9-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 17.132168,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-9-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 17.550546,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-9-TS",
+      "exit": 0,
+      "elapsedMs": 232.635838,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-10-TS",
+      "exit": 0,
+      "elapsedMs": 236.960661,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-10-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 105.141066,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-10-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 99.390981,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-10-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 17.503087,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-10-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 17.139335,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-11-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 99.6259,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-11-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 102.234419,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-11-TS",
+      "exit": 0,
+      "elapsedMs": 235.944112,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-11-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 17.626254,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-11-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 17.587046,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-12-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 18.319135,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-12-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 18.284426,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-12-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 104.871606,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-12-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 98.785227,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-12-TS",
+      "exit": 0,
+      "elapsedMs": 239.010718,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-13-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 17.948507,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-13-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 18.203301,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-13-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 99.909777,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-13-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 101.361955,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-13-TS",
+      "exit": 0,
+      "elapsedMs": 239.05101,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-14-TS",
+      "exit": 0,
+      "elapsedMs": 235.857194,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-14-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 16.916624,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-14-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 16.614914,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-14-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 105.864946,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-14-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 100.345072,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-15-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 17.27921,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-15-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 16.971167,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-15-TS",
+      "exit": 0,
+      "elapsedMs": 237.102953,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-15-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 99.657108,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-15-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 98.438474,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-16-TS",
+      "exit": 0,
+      "elapsedMs": 234.351975,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-16-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 17.228377,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-16-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 17.236127,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-16-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 101.216203,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-16-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 99.333523,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-17-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 17.252336,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-17-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 17.500378,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-17-TS",
+      "exit": 0,
+      "elapsedMs": 240.92294,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-17-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 112.060992,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-17-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 105.914322,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-18-TS",
+      "exit": 0,
+      "elapsedMs": 345.93463,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-18-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 24.107219,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-18-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 28.232499,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-18-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 102.354295,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-18-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 100.569574,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-19-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 17.217918,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-19-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 17.414295,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-19-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 102.777132,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-19-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 110.47598,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/performance-regression-current-r2/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-19-TS",
+      "exit": 0,
+      "elapsedMs": 235.276732,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    }
+  ],
+  "pairs": [
+    {
+      "pair": 0,
+      "backend": "JS",
+      "baselineMs": 101.380788,
+      "candidateMs": 104.187433
+    },
+    {
+      "pair": 0,
+      "backend": "Native",
+      "baselineMs": 17.278627,
+      "candidateMs": 17.315795
+    },
+    {
+      "pair": 1,
+      "backend": "JS",
+      "baselineMs": 98.891603,
+      "candidateMs": 100.90541
+    },
+    {
+      "pair": 1,
+      "backend": "Native",
+      "baselineMs": 17.611963,
+      "candidateMs": 17.837923
+    },
+    {
+      "pair": 2,
+      "backend": "JS",
+      "baselineMs": 96.861755,
+      "candidateMs": 98.974854
+    },
+    {
+      "pair": 2,
+      "backend": "Native",
+      "baselineMs": 17.496545,
+      "candidateMs": 16.685998
+    },
+    {
+      "pair": 3,
+      "backend": "JS",
+      "baselineMs": 97.411759,
+      "candidateMs": 103.30901
+    },
+    {
+      "pair": 3,
+      "backend": "Native",
+      "baselineMs": 26.604196,
+      "candidateMs": 18.066008
+    },
+    {
+      "pair": 4,
+      "backend": "JS",
+      "baselineMs": 101.414621,
+      "candidateMs": 101.503497
+    },
+    {
+      "pair": 4,
+      "backend": "Native",
+      "baselineMs": 18.503219,
+      "candidateMs": 17.97384
+    },
+    {
+      "pair": 5,
+      "backend": "JS",
+      "baselineMs": 102.611381,
+      "candidateMs": 105.305275
+    },
+    {
+      "pair": 5,
+      "backend": "Native",
+      "baselineMs": 17.010083,
+      "candidateMs": 17.088876
+    },
+    {
+      "pair": 6,
+      "backend": "JS",
+      "baselineMs": 102.728632,
+      "candidateMs": 100.255196
+    },
+    {
+      "pair": 6,
+      "backend": "Native",
+      "baselineMs": 17.352169,
+      "candidateMs": 17.097584
+    },
+    {
+      "pair": 7,
+      "backend": "JS",
+      "baselineMs": 98.055805,
+      "candidateMs": 101.271954
+    },
+    {
+      "pair": 7,
+      "backend": "Native",
+      "baselineMs": 17.633379,
+      "candidateMs": 17.222877
+    },
+    {
+      "pair": 8,
+      "backend": "JS",
+      "baselineMs": 98.527975,
+      "candidateMs": 99.908486
+    },
+    {
+      "pair": 8,
+      "backend": "Native",
+      "baselineMs": 17.330586,
+      "candidateMs": 16.504871
+    },
+    {
+      "pair": 9,
+      "backend": "JS",
+      "baselineMs": 101.249246,
+      "candidateMs": 102.202419
+    },
+    {
+      "pair": 9,
+      "backend": "Native",
+      "baselineMs": 17.550546,
+      "candidateMs": 17.132168
+    },
+    {
+      "pair": 10,
+      "backend": "JS",
+      "baselineMs": 105.141066,
+      "candidateMs": 99.390981
+    },
+    {
+      "pair": 10,
+      "backend": "Native",
+      "baselineMs": 17.503087,
+      "candidateMs": 17.139335
+    },
+    {
+      "pair": 11,
+      "backend": "JS",
+      "baselineMs": 99.6259,
+      "candidateMs": 102.234419
+    },
+    {
+      "pair": 11,
+      "backend": "Native",
+      "baselineMs": 17.626254,
+      "candidateMs": 17.587046
+    },
+    {
+      "pair": 12,
+      "backend": "JS",
+      "baselineMs": 98.785227,
+      "candidateMs": 104.871606
+    },
+    {
+      "pair": 12,
+      "backend": "Native",
+      "baselineMs": 18.319135,
+      "candidateMs": 18.284426
+    },
+    {
+      "pair": 13,
+      "backend": "JS",
+      "baselineMs": 101.361955,
+      "candidateMs": 99.909777
+    },
+    {
+      "pair": 13,
+      "backend": "Native",
+      "baselineMs": 18.203301,
+      "candidateMs": 17.948507
+    },
+    {
+      "pair": 14,
+      "backend": "JS",
+      "baselineMs": 105.864946,
+      "candidateMs": 100.345072
+    },
+    {
+      "pair": 14,
+      "backend": "Native",
+      "baselineMs": 16.614914,
+      "candidateMs": 16.916624
+    },
+    {
+      "pair": 15,
+      "backend": "JS",
+      "baselineMs": 98.438474,
+      "candidateMs": 99.657108
+    },
+    {
+      "pair": 15,
+      "backend": "Native",
+      "baselineMs": 16.971167,
+      "candidateMs": 17.27921
+    },
+    {
+      "pair": 16,
+      "backend": "JS",
+      "baselineMs": 99.333523,
+      "candidateMs": 101.216203
+    },
+    {
+      "pair": 16,
+      "backend": "Native",
+      "baselineMs": 17.228377,
+      "candidateMs": 17.236127
+    },
+    {
+      "pair": 17,
+      "backend": "JS",
+      "baselineMs": 112.060992,
+      "candidateMs": 105.914322
+    },
+    {
+      "pair": 17,
+      "backend": "Native",
+      "baselineMs": 17.252336,
+      "candidateMs": 17.500378
+    },
+    {
+      "pair": 18,
+      "backend": "JS",
+      "baselineMs": 100.569574,
+      "candidateMs": 102.354295
+    },
+    {
+      "pair": 18,
+      "backend": "Native",
+      "baselineMs": 28.232499,
+      "candidateMs": 24.107219
+    },
+    {
+      "pair": 19,
+      "backend": "JS",
+      "baselineMs": 110.47598,
+      "candidateMs": 102.777132
+    },
+    {
+      "pair": 19,
+      "backend": "Native",
+      "baselineMs": 17.414295,
+      "candidateMs": 17.217918
+    }
+  ],
+  "versions": {
+    "Bend": "bend 2.0.35",
+    "Node": "v24.20.0",
+    "Clang": "Debian clang version 19.1.7 (3~deb12u1)\nTarget: aarch64-unknown-linux-gnu\nThread model: posix\nInstalledDir: /tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin"
+  },
+  "sources": {
+    "baseline": {
+      "examples/query-composition/scenario.md": "f05bf4d785d86f09052fe6b11c8f7e6c06b149b599e2fdde106ef0a11e112857",
+      "examples/query-composition/declarations.bend": "50da7392497713d68874a609c39f418f829611654c1db05973e2249463ada9f2",
+      "examples/query-composition/expected.json": "e042305fedcb646ff7a52d28ca3fd5ba9f11a1eda2a12cd5c945dd77f57bb742",
+      "examples/query-composition/array-controls.bend": "f5c6c28b2a563db088331309b6753ec09ccc00b2c8f22931e838b7cd5e913cd2",
+      "examples/query-composition/observe.bend": "0380c97203301393e5954aafe1be98269f5e2776de7f5aebb6eed25071f366ac",
+      "examples/query-composition/schema.bend": "d845bf538d8368406bed7473677f9c3511f311d373511d8e6322728e5d5b8384",
+      "examples/query-composition/json.bend": "826fca39e8bd47bef326b9fd141d1784bc1f9004c7b460894a602cc3100f16be",
+      "examples/query-composition/driver.bend": "cf15e0ca8bbb1ea0b410776a3f74916e3f86f10ff9a92d44f0efcc5ad5974b4c",
+      "examples/query-composition/scenario-ops.bend": "fb6e87b28dd29552f530c4986b793726a6f3f00e5e29c3641e01a7d1b2c5d64e",
+      "examples/query-composition/main.bend": "4339adc4de65c6bcbe25f243ba3a152ee16509fe3a74c966251d6ccc0bba97dd",
+      "examples/query-composition/timing-main.bend": "a7fea467df249864772e4be3e229342cddd2e457bed6fb596f28e224b203fbb6",
+      "examples/query-composition/gameplay.bend": "590a878e0002afcc4904dc42c7a36df1b2afc3c3515dac8dac773cbed7d24670",
+      "examples/query-composition/verify.py": "e80c4264366b7380f516689964e5d0204a93b75eef4e7958351f4abbbe4a9235",
+      "examples/query-composition/reference.mjs": "40ea098e003335229a2fdbeac023ad01a786fca6322165d1a698889c01358e35",
+      "src/ecs/world.bend": "4dfe48b4d9457f8a3c0455260d8465dede4057d6a6f9c8864caa7c5bb19d5c16",
+      "src/ecs/provider.bend": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72",
+      "src/ecs/system.bend": "95756114410e8606896ffc40ad4f50f6293e1f8fd3d739156c8d0c55a48a92ef",
+      "src/ecs/compose.bend": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+      "src/ecs/component.bend": "d36e068152c07c410425e5114b5ca2d3e853d615025481b9b4a5fbade38d04f6",
+      "src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+      "src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+      "src/ecs/README.md": "45f691b2b5fb1eb4921403ec398d4513dd99f63a719d697735def756cc217cbe",
+      "src/ecs/query.bend": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9",
+      "src/ecs/commands.bend": "b41ec45ad17513351fd68436cefbaec0058ac4556d1d722f2c0ce5a7d4a9f9d1",
+      "src/ecs/column.bend": "635a9ededb97fdccb5a0272a581485aa5faafd1bdc2ba2e2504c609a0aee5115",
+      "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+      "src/ecs/capabilities.bend": "91c0cdc01e9143d10dc0156ef4f6c39beff97d8088ed0bbb056ffff2ffabf964",
+      "src/ecs/events.bend": "3d89fbbb40fefab4be349bfbe0d1f99c870c25c725130ccb1823910c1ace7c53",
+      "src/ecs/structural.bend": "f813a10058914cdf85f94e879b2dc68b9cb3e878b5c683dae60152f40001fcae"
+    },
+    "candidate": {
+      "examples/query-composition/scenario.md": "f05bf4d785d86f09052fe6b11c8f7e6c06b149b599e2fdde106ef0a11e112857",
+      "examples/query-composition/declarations.bend": "50da7392497713d68874a609c39f418f829611654c1db05973e2249463ada9f2",
+      "examples/query-composition/expected.json": "e042305fedcb646ff7a52d28ca3fd5ba9f11a1eda2a12cd5c945dd77f57bb742",
+      "examples/query-composition/array-controls.bend": "f5c6c28b2a563db088331309b6753ec09ccc00b2c8f22931e838b7cd5e913cd2",
+      "examples/query-composition/observe.bend": "0380c97203301393e5954aafe1be98269f5e2776de7f5aebb6eed25071f366ac",
+      "examples/query-composition/schema.bend": "d845bf538d8368406bed7473677f9c3511f311d373511d8e6322728e5d5b8384",
+      "examples/query-composition/json.bend": "826fca39e8bd47bef326b9fd141d1784bc1f9004c7b460894a602cc3100f16be",
+      "examples/query-composition/driver.bend": "cf15e0ca8bbb1ea0b410776a3f74916e3f86f10ff9a92d44f0efcc5ad5974b4c",
+      "examples/query-composition/scenario-ops.bend": "fb6e87b28dd29552f530c4986b793726a6f3f00e5e29c3641e01a7d1b2c5d64e",
+      "examples/query-composition/main.bend": "4339adc4de65c6bcbe25f243ba3a152ee16509fe3a74c966251d6ccc0bba97dd",
+      "examples/query-composition/timing-main.bend": "a7fea467df249864772e4be3e229342cddd2e457bed6fb596f28e224b203fbb6",
+      "examples/query-composition/gameplay.bend": "590a878e0002afcc4904dc42c7a36df1b2afc3c3515dac8dac773cbed7d24670",
+      "examples/query-composition/verify.py": "e80c4264366b7380f516689964e5d0204a93b75eef4e7958351f4abbbe4a9235",
+      "examples/query-composition/reference.mjs": "40ea098e003335229a2fdbeac023ad01a786fca6322165d1a698889c01358e35",
+      "src/ecs/world.bend": "4dfe48b4d9457f8a3c0455260d8465dede4057d6a6f9c8864caa7c5bb19d5c16",
+      "src/ecs/provider.bend": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72",
+      "src/ecs/system.bend": "95756114410e8606896ffc40ad4f50f6293e1f8fd3d739156c8d0c55a48a92ef",
+      "src/ecs/compose.bend": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+      "src/ecs/component.bend": "d36e068152c07c410425e5114b5ca2d3e853d615025481b9b4a5fbade38d04f6",
+      "src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+      "src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+      "src/ecs/README.md": "45f691b2b5fb1eb4921403ec398d4513dd99f63a719d697735def756cc217cbe",
+      "src/ecs/query.bend": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9",
+      "src/ecs/commands.bend": "b41ec45ad17513351fd68436cefbaec0058ac4556d1d722f2c0ce5a7d4a9f9d1",
+      "src/ecs/column.bend": "635a9ededb97fdccb5a0272a581485aa5faafd1bdc2ba2e2504c609a0aee5115",
+      "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+      "src/ecs/capabilities.bend": "91c0cdc01e9143d10dc0156ef4f6c39beff97d8088ed0bbb056ffff2ffabf964",
+      "src/ecs/events.bend": "3d89fbbb40fefab4be349bfbe0d1f99c870c25c725130ccb1823910c1ace7c53",
+      "src/ecs/structural.bend": "f813a10058914cdf85f94e879b2dc68b9cb3e878b5c683dae60152f40001fcae"
+    }
+  },
+  "artifacts": {
+    "normative-reference.mjs": "9f12dfd6e3a5d5114d9a4c4f13d9b3fad5c10f5143672cbb9c67d7de93208ff0",
+    "reference.mjs": "4cbe9d18fce49840f9400d7b587aecaeeb6fe07281e769d201b123d3b96ab7e6",
+    "candidate/workshop.js": "926bb3dd820d6fedb9f11a5759e37564531826977178c11c4d6b38f1e5000e67",
+    "candidate/workshop.c": "6945bd7db285b76664e7439f9150f7e2e4de81ed5e0e4b5f9b9c614e4b36614c",
+    "candidate/workshop.native": "4e2dbfcdeca9c40798c2199eeba64ea8b7d87ac88a1633c8b393ff25dfe1543d",
+    "candidate/examples/query-composition/reference.mjs": "40ea098e003335229a2fdbeac023ad01a786fca6322165d1a698889c01358e35",
+    "baseline/workshop.js": "926bb3dd820d6fedb9f11a5759e37564531826977178c11c4d6b38f1e5000e67",
+    "baseline/workshop.c": "6945bd7db285b76664e7439f9150f7e2e4de81ed5e0e4b5f9b9c614e4b36614c",
+    "baseline/workshop.native": "4e2dbfcdeca9c40798c2199eeba64ea8b7d87ac88a1633c8b393ff25dfe1543d",
+    "baseline/examples/query-composition/reference.mjs": "40ea098e003335229a2fdbeac023ad01a786fca6322165d1a698889c01358e35"
+  },
+  "timings": [
+    {
+      "pair": 0,
+      "order": [
+        "baseline-JS",
+        "candidate-JS",
+        "baseline-Native",
+        "candidate-Native",
+        "TS"
+      ],
+      "milliseconds": {
+        "baseline-JS": 101.380788,
+        "candidate-JS": 104.187433,
+        "baseline-Native": 17.278627,
+        "candidate-Native": 17.315795,
+        "TS": 237.324331
+      }
+    },
+    {
+      "pair": 1,
+      "order": [
+        "candidate-JS",
+        "baseline-JS",
+        "baseline-Native",
+        "candidate-Native",
+        "TS"
+      ],
+      "milliseconds": {
+        "candidate-JS": 100.90541,
+        "baseline-JS": 98.891603,
+        "baseline-Native": 17.611963,
+        "candidate-Native": 17.837923,
+        "TS": 233.492885
+      }
+    },
+    {
+      "pair": 2,
+      "order": [
+        "baseline-Native",
+        "candidate-Native",
+        "TS",
+        "baseline-JS",
+        "candidate-JS"
+      ],
+      "milliseconds": {
+        "baseline-Native": 17.496545,
+        "candidate-Native": 16.685998,
+        "TS": 231.475995,
+        "baseline-JS": 96.861755,
+        "candidate-JS": 98.974854
+      }
+    },
+    {
+      "pair": 3,
+      "order": [
+        "TS",
+        "baseline-JS",
+        "candidate-JS",
+        "candidate-Native",
+        "baseline-Native"
+      ],
+      "milliseconds": {
+        "TS": 233.262134,
+        "baseline-JS": 97.411759,
+        "candidate-JS": 103.30901,
+        "candidate-Native": 18.066008,
+        "baseline-Native": 26.604196
+      }
+    },
+    {
+      "pair": 4,
+      "order": [
+        "candidate-Native",
+        "baseline-Native",
+        "baseline-JS",
+        "candidate-JS",
+        "TS"
+      ],
+      "milliseconds": {
+        "candidate-Native": 17.97384,
+        "baseline-Native": 18.503219,
+        "baseline-JS": 101.414621,
+        "candidate-JS": 101.503497,
+        "TS": 237.446747
+      }
+    },
+    {
+      "pair": 5,
+      "order": [
+        "candidate-JS",
+        "baseline-JS",
+        "TS",
+        "baseline-Native",
+        "candidate-Native"
+      ],
+      "milliseconds": {
+        "candidate-JS": 105.305275,
+        "baseline-JS": 102.611381,
+        "TS": 235.291357,
+        "baseline-Native": 17.010083,
+        "candidate-Native": 17.088876
+      }
+    },
+    {
+      "pair": 6,
+      "order": [
+        "candidate-Native",
+        "baseline-Native",
+        "baseline-JS",
+        "candidate-JS",
+        "TS"
+      ],
+      "milliseconds": {
+        "candidate-Native": 17.097584,
+        "baseline-Native": 17.352169,
+        "baseline-JS": 102.728632,
+        "candidate-JS": 100.255196,
+        "TS": 236.776701
+      }
+    },
+    {
+      "pair": 7,
+      "order": [
+        "candidate-Native",
+        "baseline-Native",
+        "candidate-JS",
+        "baseline-JS",
+        "TS"
+      ],
+      "milliseconds": {
+        "candidate-Native": 17.222877,
+        "baseline-Native": 17.633379,
+        "candidate-JS": 101.271954,
+        "baseline-JS": 98.055805,
+        "TS": 236.036112
+      }
+    },
+    {
+      "pair": 8,
+      "order": [
+        "TS",
+        "baseline-JS",
+        "candidate-JS",
+        "baseline-Native",
+        "candidate-Native"
+      ],
+      "milliseconds": {
+        "TS": 234.493309,
+        "baseline-JS": 98.527975,
+        "candidate-JS": 99.908486,
+        "baseline-Native": 17.330586,
+        "candidate-Native": 16.504871
+      }
+    },
+    {
+      "pair": 9,
+      "order": [
+        "candidate-JS",
+        "baseline-JS",
+        "candidate-Native",
+        "baseline-Native",
+        "TS"
+      ],
+      "milliseconds": {
+        "candidate-JS": 102.202419,
+        "baseline-JS": 101.249246,
+        "candidate-Native": 17.132168,
+        "baseline-Native": 17.550546,
+        "TS": 232.635838
+      }
+    },
+    {
+      "pair": 10,
+      "order": [
+        "TS",
+        "baseline-JS",
+        "candidate-JS",
+        "baseline-Native",
+        "candidate-Native"
+      ],
+      "milliseconds": {
+        "TS": 236.960661,
+        "baseline-JS": 105.141066,
+        "candidate-JS": 99.390981,
+        "baseline-Native": 17.503087,
+        "candidate-Native": 17.139335
+      }
+    },
+    {
+      "pair": 11,
+      "order": [
+        "baseline-JS",
+        "candidate-JS",
+        "TS",
+        "baseline-Native",
+        "candidate-Native"
+      ],
+      "milliseconds": {
+        "baseline-JS": 99.6259,
+        "candidate-JS": 102.234419,
+        "TS": 235.944112,
+        "baseline-Native": 17.626254,
+        "candidate-Native": 17.587046
+      }
+    },
+    {
+      "pair": 12,
+      "order": [
+        "baseline-Native",
+        "candidate-Native",
+        "candidate-JS",
+        "baseline-JS",
+        "TS"
+      ],
+      "milliseconds": {
+        "baseline-Native": 18.319135,
+        "candidate-Native": 18.284426,
+        "candidate-JS": 104.871606,
+        "baseline-JS": 98.785227,
+        "TS": 239.010718
+      }
+    },
+    {
+      "pair": 13,
+      "order": [
+        "candidate-Native",
+        "baseline-Native",
+        "candidate-JS",
+        "baseline-JS",
+        "TS"
+      ],
+      "milliseconds": {
+        "candidate-Native": 17.948507,
+        "baseline-Native": 18.203301,
+        "candidate-JS": 99.909777,
+        "baseline-JS": 101.361955,
+        "TS": 239.05101
+      }
+    },
+    {
+      "pair": 14,
+      "order": [
+        "TS",
+        "candidate-Native",
+        "baseline-Native",
+        "baseline-JS",
+        "candidate-JS"
+      ],
+      "milliseconds": {
+        "TS": 235.857194,
+        "candidate-Native": 16.916624,
+        "baseline-Native": 16.614914,
+        "baseline-JS": 105.864946,
+        "candidate-JS": 100.345072
+      }
+    },
+    {
+      "pair": 15,
+      "order": [
+        "candidate-Native",
+        "baseline-Native",
+        "TS",
+        "candidate-JS",
+        "baseline-JS"
+      ],
+      "milliseconds": {
+        "candidate-Native": 17.27921,
+        "baseline-Native": 16.971167,
+        "TS": 237.102953,
+        "candidate-JS": 99.657108,
+        "baseline-JS": 98.438474
+      }
+    },
+    {
+      "pair": 16,
+      "order": [
+        "TS",
+        "baseline-Native",
+        "candidate-Native",
+        "candidate-JS",
+        "baseline-JS"
+      ],
+      "milliseconds": {
+        "TS": 234.351975,
+        "baseline-Native": 17.228377,
+        "candidate-Native": 17.236127,
+        "candidate-JS": 101.216203,
+        "baseline-JS": 99.333523
+      }
+    },
+    {
+      "pair": 17,
+      "order": [
+        "baseline-Native",
+        "candidate-Native",
+        "TS",
+        "baseline-JS",
+        "candidate-JS"
+      ],
+      "milliseconds": {
+        "baseline-Native": 17.252336,
+        "candidate-Native": 17.500378,
+        "TS": 240.92294,
+        "baseline-JS": 112.060992,
+        "candidate-JS": 105.914322
+      }
+    },
+    {
+      "pair": 18,
+      "order": [
+        "TS",
+        "candidate-Native",
+        "baseline-Native",
+        "candidate-JS",
+        "baseline-JS"
+      ],
+      "milliseconds": {
+        "TS": 345.93463,
+        "candidate-Native": 24.107219,
+        "baseline-Native": 28.232499,
+        "candidate-JS": 102.354295,
+        "baseline-JS": 100.569574
+      }
+    },
+    {
+      "pair": 19,
+      "order": [
+        "candidate-Native",
+        "baseline-Native",
+        "candidate-JS",
+        "baseline-JS",
+        "TS"
+      ],
+      "milliseconds": {
+        "candidate-Native": 17.217918,
+        "baseline-Native": 17.414295,
+        "candidate-JS": 102.777132,
+        "baseline-JS": 110.47598,
+        "TS": 235.276732
+      }
+    }
+  ],
+  "injectedSlowdownMs": 0,
+  "currentSourceHashes": {
+    "src/ecs/world.bend": "4dfe48b4d9457f8a3c0455260d8465dede4057d6a6f9c8864caa7c5bb19d5c16",
+    "src/ecs/provider.bend": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72",
+    "src/ecs/system.bend": "95756114410e8606896ffc40ad4f50f6293e1f8fd3d739156c8d0c55a48a92ef",
+    "src/ecs/compose.bend": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+    "src/ecs/component.bend": "d36e068152c07c410425e5114b5ca2d3e853d615025481b9b4a5fbade38d04f6",
+    "src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+    "src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "src/ecs/query.bend": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9",
+    "src/ecs/commands.bend": "b41ec45ad17513351fd68436cefbaec0058ac4556d1d722f2c0ce5a7d4a9f9d1",
+    "src/ecs/column.bend": "635a9ededb97fdccb5a0272a581485aa5faafd1bdc2ba2e2504c609a0aee5115",
+    "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "src/ecs/capabilities.bend": "91c0cdc01e9143d10dc0156ef4f6c39beff97d8088ed0bbb056ffff2ffabf964",
+    "src/ecs/events.bend": "3d89fbbb40fefab4be349bfbe0d1f99c870c25c725130ccb1823910c1ace7c53",
+    "src/ecs/structural.bend": "f813a10058914cdf85f94e879b2dc68b9cb3e878b5c683dae60152f40001fcae",
+    "benchmarks/run.py": "c90bbbf16a56bb08108a5dd41ce6486dff9a33b38010a140d0783965574c4326",
+    "benchmarks/test-statistics.py": "dda374623d512b150cb734764c9eb7333e33c8b1cd17e38e5b091f0ecd4081da",
+    "benchmarks/slowdown-control.py": "3f723a3d2d306c62ab6706907881adef687aa64fd43a8e20ac54c50a8618240a",
+    "benchmarks/decision.py": "c16d3ffe4a0cc47354522c7e4639b92a11fdbc444e366074da73c63f82272a6a",
+    "benchmarks/contract.json": "c0e13575f6e4d25ca8ca669936eef39c93a66b57ac1e4bfa42186f6f2d58bb6a"
+  },
+  "referenceHashes": {
+    "packages/core/src/Schema.ts": "26e7c140a6f3c2a98ea4e43c1f067a18e47c03ff6f56939c8139f1535ae1a0ec",
+    "packages/core/src/EntityScope.ts": "3241a13ed0c337434e193e80a790498a9130ea31d4aca1f73294a5af2c50b04a",
+    "packages/core/src/Snapshot.ts": "249f57c429d97e57088ebb1e959b6258dd97ca71c9cc66a0a4ed6ac35ad04a3b",
+    "packages/core/src/Brand.ts": "85090ad2253694526dda4e2e54802158cf229d98477169bc25e77396bdc963b9",
+    "packages/core/src/Decode.ts": "a8e8e91e5dffc15718ba8d3ecbea1007b386117af12764df4238356600bd82df",
+    "packages/core/src/Fx.ts": "75242b8513225601589f4658d59c86100351557fef39cc8d17506c958dd2c5b3",
+    "packages/core/src/Schedule.ts": "ab1610c356bfbcedf6ac85758e04c7032cda1f2458ff13c8a483c53d94b55c2a",
+    "packages/core/src/Entity.ts": "05d724f241b2d662a7a03ce82da5f133c4b587df92e5e22fdfdb7484edbca68e",
+    "packages/core/src/Definition.ts": "96054da50280f6dca44fd97dbd126e597f1492c9737e34329adf3f1cda1b325f",
+    "packages/core/src/Debug.ts": "942fc7e3bdf1b15f31708bad0ab02c0789a037b707a566e2cb860b43f9b5c3ff",
+    "packages/core/src/Condition.ts": "1b4c8c906cab11745535ffe84f169a48767c88c26336f3b46f45cf7d59f08083",
+    "packages/core/src/Result.ts": "96b098025e5e84b26bc97355ed1c463fe17f652954d2f83a83058e9817f7766c",
+    "packages/core/src/Machine.ts": "a0007e841e07afb10a40ab8f3056691a3555cd6815b4564f5f1326e0e956ceb3",
+    "packages/core/src/Runtime.ts": "c744aa5c52845bd3323358c5085161b40a452c6802a1653e3851bfd34c69f5b4",
+    "packages/core/src/Feature.ts": "bf3be7437c63c1f12d8b0ff0f1a4965408331fad7a279669ef7c9b2cb29140a8",
+    "packages/core/src/Inspector.ts": "21757eb340c0ae192a36726538d0a87aefbd455859d196dab36aa3515c1addb3",
+    "packages/core/src/index.ts": "a74d79748f5eff6e9f732b54ed6efc0a42826e4cf8ffc7ab9504d11257e6d61f",
+    "packages/core/src/Query.ts": "45e2fe513f66e336f97d40b41b3c866363a1af17ecbc90087086e00c08b28414",
+    "packages/core/src/Command.ts": "de5db2093401e24ce54fae8166e7f686c153852094b6446dc0ee22cfa28cef28",
+    "packages/core/src/Requirement.ts": "0397bbf69285e1f50edafdceab81b48208c0127fe53ff0305e52d6a1b4766783",
+    "packages/core/src/System.ts": "ae53852dbd815ad441446cbcfc663d25aed6c2bd0afcfacbc3c20e0c40dc2ba7",
+    "packages/core/src/Relation.ts": "7c2cbe93d90c6ca4f173932c9bb7e4536323d6b5bf17dc64c1c8fda83c3a7aa4",
+    "packages/core/src/Descriptor.ts": "03e7339516d9f6bd455763a8dcdf7244d0c11f7165e493aa895aaa64225acab7",
+    "packages/core/src/internal/brand.ts": "7b888113edd48ea9777880fa85fc159428b78ac82587ca43eda8f1bbec4cc1b0",
+    "packages/core/src/internal/cells.ts": "adbf5e99cb1d40e284aee9ce3b1ddeefdcb10e0e1420be5bda91f58a96afe41e",
+    "packages/core/src/internal/fragments.ts": "4220e09fcc78e50cecd05ec373f57a278a5c33fbd51c53cbb2f7d57c6593ba68",
+    "packages/core/src/internal/queries.ts": "382ce3b334df1bb7f4d0c4c19c17827b2343cae8a68ba7f562e9e732b6a5a4ab",
+    "packages/core/src/internal/definition.ts": "543dee934661802fb57cb75a8faec653112433a566ce31231fca33ffa8d36f92",
+    "packages/core/src/internal/debug.ts": "944a9858586dcf8ad58e66efd92b05c437c0be23afe517fabe00642d7bf4e338",
+    "packages/core/src/internal/result.ts": "87570330858b0b41bed22be9661bd9e3b04f67e7004998082e6a83cbb1ce1c89",
+    "packages/core/src/internal/game.ts": "b1584dbe4c579783e4b2fae802a25e6af95384972e15ffccd2b868d6ba879773",
+    "packages/core/src/internal/streams.ts": "3e817555dddf937c51b51014ceb6422f068aeca4a40328281dbb774b8880168e",
+    "packages/core/src/internal/world.ts": "e71b4b060fec85fae690957104c14051e4bea0d857bacd648993ea69a6fe27d7"
+  },
+  "baselineArchiveSHA256": "567e1e0e7d27a4c111791fcd89f9afc84e301c008741a323de258b5ca1e793e3",
+  "endpoints": {
+    "JS": {
+      "nonTiePairs": 20,
+      "slowerPairs": 14,
+      "pValue": 0.057659149169921875,
+      "medianPairedRatio": 1.015878746687645,
+      "confirmedRegression": false,
+      "holmCutoff": 0.025
+    },
+    "Native": {
+      "nonTiePairs": 20,
+      "slowerPairs": 7,
+      "pValue": 0.9423408508300781,
+      "medianPairedRatio": 0.9873630491739775,
+      "confirmedRegression": false
+    }
+  },
+  "mediansMs": {
+    "TS": 235.990112,
+    "baseline-JS": 100.90941000000001,
+    "baseline-Native": 17.499816000000003,
+    "candidate-JS": 101.38772549999999,
+    "candidate-Native": 17.2576685
+  },
+  "descriptiveTargets": {
+    "JS/TS": 0.42962700699934403,
+    "Native/TS": 0.07312877795490008
+  }
+}
