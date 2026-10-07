@@ -1,0 +1,58 @@
+{
+  "status": "SOURCE_BACKED_DIAGNOSTICS_CLASSIFIED_SEPARATELY",
+  "collectorReceipt": "/workspace/formal-proofs/bendvy-worktrees/parity-49-handlers/experiments/public-machine-handlers/candidate-v1/development/authority-negative-cheap-1791408299657331622/receipt.json",
+  "collectorReceiptSHA256": "0c4e586cd579959402ab82e473b78aac2ee2fdb69e0ecdb2875d3b690498556a",
+  "collectorStatusUnchanged": "FOUR_AUTHORITY_NONZERO_DIAGNOSTICS_RETAINED_UNCLASSIFIED",
+  "positiveSiblingReceipt": "development/control-source-cheap-1791407861883379025/receipt.json",
+  "positiveSiblingReceiptSHA256": "a45a38998304cff8d16e1c707aadffaab4bdeec47e896695639701e7ec714d6d",
+  "positiveSiblingSourceSHA256": "440d636a3728ccfb4d9789765065c45dac18068584dff8160d047f2bf17e8751",
+  "acceptanceQualified": false,
+  "proofCredit": false,
+  "scope": "Exact intended rejection reasons with matched source-positive siblings; source-feasibility protocol only. Raw exit1 alone establishes no acceptance/proof. No runtime semantic mutant credit. Final resolver-qualified cohort remains.",
+  "controls": {
+    "owner-duplicate": {
+      "classification": "INTENDED_AFFINE_OWNERSHIP_REFUSAL",
+      "intendedErrorSnippets": [
+        "- expected : owner",
+        "- observed : owner (consumed more than once)"
+      ],
+      "rawStderrSHA256": "d351bc185d500e3012b49b083367ebc072ccb7c17ea2d5a38f5e45ea7f104179",
+      "rawStdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceSHA256": "0fb52f2a56dcb93660b7f6b040153f85cda129bb8e46512077db0182f573ad47",
+      "matchedPositiveDefinition": "owner_move"
+    },
+    "cross-schema": {
+      "classification": "INTENDED_NOMINAL_SCHEMA_REFUSAL",
+      "intendedErrorSnippets": [
+        "- expected : Sys.Registry<P.SchemaB",
+        "- observed : Sys.Registry<P.SchemaA"
+      ],
+      "rawStderrSHA256": "976ecce196e25b160ea613f996bd6e6257dd35517f9d7cb6ac594fa1f9c4cace",
+      "rawStdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceSHA256": "cbfc73148c75d2363bbc13d5241538af9300aa0ce0c5832bdd17ed89b1154ffb",
+      "matchedPositiveDefinition": "schema_move"
+    },
+    "write-through-read": {
+      "classification": "INTENDED_WRITE_CAPABILITY_REFUSAL",
+      "intendedErrorSnippets": [
+        "- expected : Cap.ValueWrite<",
+        "- observed : Cap.ValueRead<"
+      ],
+      "rawStderrSHA256": "cddb67dcdfae12b0f2db548124ef5fc3cde1fcb8dcce62d493f884280ce70d92",
+      "rawStdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceSHA256": "1226de0a7eb99b243f8271813fd432f03601fe480ab83d7351182e23de077e60",
+      "matchedPositiveDefinition": "read"
+    },
+    "undeclared-next": {
+      "classification": "INTENDED_DECLARATION_FIELD_REFUSAL",
+      "intendedErrorSnippets": [
+        "a ReadOnly pattern with 1 field",
+        "ReadOnly{flow,next}"
+      ],
+      "rawStderrSHA256": "9d7bf53fd00910a6e7fff068ef33c7fe3fa2b660a9ae6fc2b5ccfa431b138c0f",
+      "rawStdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceSHA256": "cb313e8a7db55df14aa574e420f88c69e8caa8d7c43b19752df5bd5556750c71",
+      "matchedPositiveDefinition": "declared"
+    }
+  }
+}
