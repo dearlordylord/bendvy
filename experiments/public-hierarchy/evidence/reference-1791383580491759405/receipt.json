@@ -1,0 +1,128 @@
+{
+  "status": "INCOMPLETE",
+  "sources": {
+    ".references/bend2/bend2/base.bend": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+    ".references/bevy/crates/bevy_ecs/src/hierarchy.rs": "8a6bc5e70dfcec8d6c5dd4d3cb9480871b10e5871d62f5b07ae0be52ead8d379",
+    ".references/bevy-ts/packages/core/src/Brand.ts": "85090ad2253694526dda4e2e54802158cf229d98477169bc25e77396bdc963b9",
+    ".references/bevy-ts/packages/core/src/Command.ts": "de5db2093401e24ce54fae8166e7f686c153852094b6446dc0ee22cfa28cef28",
+    ".references/bevy-ts/packages/core/src/Condition.ts": "1b4c8c906cab11745535ffe84f169a48767c88c26336f3b46f45cf7d59f08083",
+    ".references/bevy-ts/packages/core/src/Debug.ts": "942fc7e3bdf1b15f31708bad0ab02c0789a037b707a566e2cb860b43f9b5c3ff",
+    ".references/bevy-ts/packages/core/src/Decode.ts": "a8e8e91e5dffc15718ba8d3ecbea1007b386117af12764df4238356600bd82df",
+    ".references/bevy-ts/packages/core/src/Definition.ts": "96054da50280f6dca44fd97dbd126e597f1492c9737e34329adf3f1cda1b325f",
+    ".references/bevy-ts/packages/core/src/Descriptor.ts": "03e7339516d9f6bd455763a8dcdf7244d0c11f7165e493aa895aaa64225acab7",
+    ".references/bevy-ts/packages/core/src/Entity.ts": "05d724f241b2d662a7a03ce82da5f133c4b587df92e5e22fdfdb7484edbca68e",
+    ".references/bevy-ts/packages/core/src/EntityScope.ts": "3241a13ed0c337434e193e80a790498a9130ea31d4aca1f73294a5af2c50b04a",
+    ".references/bevy-ts/packages/core/src/Feature.ts": "bf3be7437c63c1f12d8b0ff0f1a4965408331fad7a279669ef7c9b2cb29140a8",
+    ".references/bevy-ts/packages/core/src/Fx.ts": "75242b8513225601589f4658d59c86100351557fef39cc8d17506c958dd2c5b3",
+    ".references/bevy-ts/packages/core/src/Inspector.ts": "21757eb340c0ae192a36726538d0a87aefbd455859d196dab36aa3515c1addb3",
+    ".references/bevy-ts/packages/core/src/Machine.ts": "a0007e841e07afb10a40ab8f3056691a3555cd6815b4564f5f1326e0e956ceb3",
+    ".references/bevy-ts/packages/core/src/Query.ts": "45e2fe513f66e336f97d40b41b3c866363a1af17ecbc90087086e00c08b28414",
+    ".references/bevy-ts/packages/core/src/Relation.ts": "7c2cbe93d90c6ca4f173932c9bb7e4536323d6b5bf17dc64c1c8fda83c3a7aa4",
+    ".references/bevy-ts/packages/core/src/Requirement.ts": "0397bbf69285e1f50edafdceab81b48208c0127fe53ff0305e52d6a1b4766783",
+    ".references/bevy-ts/packages/core/src/Result.ts": "96b098025e5e84b26bc97355ed1c463fe17f652954d2f83a83058e9817f7766c",
+    ".references/bevy-ts/packages/core/src/Runtime.ts": "c744aa5c52845bd3323358c5085161b40a452c6802a1653e3851bfd34c69f5b4",
+    ".references/bevy-ts/packages/core/src/Schedule.ts": "ab1610c356bfbcedf6ac85758e04c7032cda1f2458ff13c8a483c53d94b55c2a",
+    ".references/bevy-ts/packages/core/src/Schema.ts": "26e7c140a6f3c2a98ea4e43c1f067a18e47c03ff6f56939c8139f1535ae1a0ec",
+    ".references/bevy-ts/packages/core/src/Snapshot.ts": "249f57c429d97e57088ebb1e959b6258dd97ca71c9cc66a0a4ed6ac35ad04a3b",
+    ".references/bevy-ts/packages/core/src/System.ts": "ae53852dbd815ad441446cbcfc663d25aed6c2bd0afcfacbc3c20e0c40dc2ba7",
+    ".references/bevy-ts/packages/core/src/index.ts": "a74d79748f5eff6e9f732b54ed6efc0a42826e4cf8ffc7ab9504d11257e6d61f",
+    ".references/bevy-ts/packages/core/src/internal/brand.ts": "7b888113edd48ea9777880fa85fc159428b78ac82587ca43eda8f1bbec4cc1b0",
+    ".references/bevy-ts/packages/core/src/internal/cells.ts": "adbf5e99cb1d40e284aee9ce3b1ddeefdcb10e0e1420be5bda91f58a96afe41e",
+    ".references/bevy-ts/packages/core/src/internal/debug.ts": "944a9858586dcf8ad58e66efd92b05c437c0be23afe517fabe00642d7bf4e338",
+    ".references/bevy-ts/packages/core/src/internal/definition.ts": "543dee934661802fb57cb75a8faec653112433a566ce31231fca33ffa8d36f92",
+    ".references/bevy-ts/packages/core/src/internal/fragments.ts": "4220e09fcc78e50cecd05ec373f57a278a5c33fbd51c53cbb2f7d57c6593ba68",
+    ".references/bevy-ts/packages/core/src/internal/game.ts": "b1584dbe4c579783e4b2fae802a25e6af95384972e15ffccd2b868d6ba879773",
+    ".references/bevy-ts/packages/core/src/internal/queries.ts": "382ce3b334df1bb7f4d0c4c19c17827b2343cae8a68ba7f562e9e732b6a5a4ab",
+    ".references/bevy-ts/packages/core/src/internal/result.ts": "87570330858b0b41bed22be9661bd9e3b04f67e7004998082e6a83cbb1ce1c89",
+    ".references/bevy-ts/packages/core/src/internal/streams.ts": "3e817555dddf937c51b51014ceb6422f068aeca4a40328281dbb774b8880168e",
+    ".references/bevy-ts/packages/core/src/internal/world.ts": "e71b4b060fec85fae690957104c14051e4bea0d857bacd648993ea69a6fe27d7",
+    ".references/sources.json": "5d4d89ca984a2eb21e21715344219bb9caa022b6bebca0c9f8959584cceb8b8f",
+    "experiments/public-hierarchy/README.md": "94938188ab8e3c738ccfdcb1839b8984ba0c0b2eb57e998065beb982367ce7db",
+    "experiments/public-hierarchy/reference.mjs": "031e4481db3f055791979cb9913c01bf87097546fae7319b5c587227118b7799",
+    "experiments/public-hierarchy/run-reference.py": "c2c54c4d4fa71dfb8adc7f14b0a67e2b728fb6b0dd56c6bf193c4513b3d87bae",
+    "scripts/task_runner.py": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7"
+  },
+  "commands": [
+    {
+      "label": "head-bevy-ts",
+      "argv": [
+        "git",
+        "-C",
+        "/workspace/formal-proofs/bendvy/.references/bevy-ts",
+        "rev-parse",
+        "HEAD"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "1e9fa0f2cb924e419c66fb68fbc27326da39b4f0a4ec43b422da942e21d2459f",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "head-bevy",
+      "argv": [
+        "git",
+        "-C",
+        "/workspace/formal-proofs/bendvy/.references/bevy",
+        "rev-parse",
+        "HEAD"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "9d667d1b5a173bd77d18a052c89dfe962a682536324abca195bd390f8686f635",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "head-bend2",
+      "argv": [
+        "git",
+        "-C",
+        "/workspace/formal-proofs/bendvy/.references/bend2",
+        "rev-parse",
+        "HEAD"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "c53bda1d7dcf325e36742cd1f44a9b6ce315828efa108c57f73015807decb429",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "node-version",
+      "argv": [
+        "node",
+        "--version"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "b67d0ced059f9313d861ddbbe734d2d1f9219106a9e036ae6d88407afa0846e6",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "hierarchy",
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/experiments/public-hierarchy/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "exit": 1,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "aefaabf635c9d91f26f464ea35cb9518e3a7f5e44221375f45f40d7a8ac4e778"
+    }
+  ],
+  "scope": "Public TS hierarchy observations only; no Bend parity, affine disposal, proof or performance acceptance.",
+  "error": "AssertionError(('hierarchy', None, b\"node:internal/modules/run_main:107\\n    triggerUncaughtException(\\n    ^\\n\\nAssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\\n+ actual - expected\\n\\n+ undefined\\n- null\\n\\n    at file:///workspace/formal-proofs/bendvy/experiments/public-hierarchy/reference.mjs:89:10\\n    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)\\n    at async node:internal/modules/esm/loader:647:26\\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {\\n  generatedMessage: true,\\n  code: 'ERR_ASSERTION',\\n  actual: undefined,\\n  expected: null,\\n  operator: 'strictEqual',\\n  diff: 'simple'\\n}\\n\\nNode.js v24.20.0\\n\"))"
+}
