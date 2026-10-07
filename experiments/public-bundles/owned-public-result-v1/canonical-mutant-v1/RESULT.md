@@ -1,0 +1,7 @@
+# #41 canonical omitted-value reached control
+
+All six admitted subjects passed: source5 returns only the exact expected eleven IO-effect-boundary diagnostics (not proof); JS emit30/run5 and approved private Clang19 Native emit30/compile120/run5 produce the same complete22-row independently authored defect oracle. They differ from the unchanged canonical normal oracle. Exactly two original installer calls are omitted; provider/core/caller types, observers and other57 source files remain canonical.
+
+Actual plan204ed1f170aeaff6cb11e303b20f0700fc18912c989127dd7bed3c8aeadf1c88; receipt67eddce621f9a8728850069381b145d68b57f6c7b7d77805f140808a3e98acde. Both normal canonical JS/Native actual receipts and their59-file source bindings are frozen dependencies.13 ordinary tool guards,52 execution probes and4 preparation probes; shared lock, full source membership and configuration/environment/tool/resource/library/loader/helper/raw/generated/oracle guards retained.
+
+DIFF records changed physical rows and exact source edits. The finite control reaches absent values/lost write ticks in both nominal schemas. No law, policy or acceptance threshold changed; no new mutation class, normal replay or full20 mutant. Portable evidence excludes the local compiled binary and private environment; actual run bytes and binary hash remain. Root adoption and combined production #28/feature timing/profiling remain separate; this closes neither full #41 nor parity and makes no theorem or performance claim.

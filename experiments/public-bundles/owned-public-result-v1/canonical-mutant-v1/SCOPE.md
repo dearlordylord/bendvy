@@ -1,0 +1,5 @@
+# Minimal canonical omitted-value control
+
+Reuse the already-authored exact two installer mutations and complete independent22-row defect oracle. Canonical source retains both matching base hashes and one actual installation call per schema. The mutant skips that call, retains the actual incoming entry for its inverse and reaches absence/lost-write-tick observations in both schemas. Only these two installer sources differ from the59-file canonical closure; new core/provider/caller types and all observation operations remain unchanged.
+
+One source5 IO-boundary check and five actual backend subjects: JS emit30/run5, Native emit30/compile120/run5 with one thread/GPUoff. No normal replay or full20 mutant extension. Normal canonical full22 source-bound JS/Native evidence must remain the comparator; actual complete mutant outputs must equal the existing independently authored defect oracle and differ from normal. This file and PLAN are preparation only; no check/snapshot/probe/backend was run. Execution requires the same exact guarded runner/ordinary snapshot/frozen-plan review and shared queue. No universal proof, new law, policy, gate or performance claim.
