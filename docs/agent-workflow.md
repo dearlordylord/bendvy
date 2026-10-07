@@ -11,6 +11,11 @@ type and affine-binder errors before preparing a complete receipt cohort. This
 five-second development check grants no proof or delivery acceptance. Once the
 source is ready, freeze and run the governing task's unchanged evidence gates.
 
+For application fixtures, run the existing Node adapter and runnable Bend seam
+against their complete observation oracle before broad installed-tool discovery.
+Retain failed development attempts. These checks locate adapter/oracle errors;
+the frozen source, negative, mutation and backend delivery gates still apply.
+
 For API changes, require negative controls for undeclared access, cross-schema misuse and writes through read.
 
 ## Approval requirements

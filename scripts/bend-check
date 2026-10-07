@@ -5,4 +5,4 @@ if [ "$#" -ne 1 ]; then
   echo 'usage: scripts/bend-check source.bend' >&2
   exit 2
 fi
-exec timeout --kill-after=1s 5s bend "$1" --check-only
+exec timeout --signal=KILL 5s bend "$1" --check-only
