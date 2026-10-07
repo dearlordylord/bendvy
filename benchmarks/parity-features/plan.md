@@ -1,0 +1,27 @@
+# Feature-equivalent measurement preflight
+
+Scope: governing #34, #35 and #39, their exact public applications, and SPEC's existing JS<=TS / Native<=0.5TS targets. This does not amend #28, choose a new historical comparator, close parent qualification, or approve numerical noise allowances. No comparative execution is authorized by this plan alone.
+
+| Feature | Complete proposed timed work | Required observations |
+|---|---|---|
+| #34 nested provisioning | Both nominal schemas; authored nested positive/empty/duplicate schedules, all common missing resource/service refusals, retained-service repair and successful retry | Full component/resource/service cells, retired owners, attempted writes/calls, conditions, event and queue counts, complete flattening/requirements/missing order; original Bend-only typed incompatibility/family refusal gates stay separately validated |
+| #35 composed readers | Existing entire 25-point application plus four Added+Changed points, fresh registrations each repetition; preserve 65,535-publication retention workload | Every full JSON checkpoint, all component cells, event backlog, reader lag, failed/retry cursor behavior, pending commands and own-write consumption |
+| #39 fragments | Actual composed application and invalid-name refusal in both nominal schemas using existing application/reference | Complete before/after barrier payloads, resource, service owner/calls, immutable event snapshot and pending queue; typed undeclared initializer rejection remains a separate authority control |
+
+Scale application lifecycle repetitions, not weakened entity/event counts: initially 1, 2 and 4 repetitions with all observations retained. Increase a batch only by a separately frozen preflight amendment if operation time is too small relative to timer overhead; do not silently drop retention or failed/retry work to fit a runtime cap. Every timeout remains inconclusive.
+
+## Exact equivalence boundary requiring review
+
+#34's existing Bend `main` executes twelve modes and same-owner repair/retry. Its TS reference executes eight modes without those retries. These cannot be timed as equivalent merely because selected counters agree. TS `Runtime.make` seeds a private resource Map; `resourceValues` is initial validated data, and a declared writer of a missing resource also fails provisioning. Services use the supplied object and can be repaired in place. Public `Runtime.restore` can install resources in the same runtime, but also clears queues/events, advances ticks and despawns/recreates entities (Runtime.ts:1818–1855). There is no public resource-only setter equivalent to Bend's slot repair. Measure common resource refusals without the Bend-only repair extension; retain that extension in its original semantic control. Pair service repair/retry through the retained actual public services object. Optional full snapshot/restore workaround cost is separate, with all additional work explicitly recorded; it cannot establish a direct same-operation resource-repair advantage.
+
+## Timing boundary proposal
+
+Use task-local host IO Begin/End and captured-print adapters, preserving the public application bodies. Begin executes before a fresh complete lifecycle; each output is fully materialized and retained inside the region; a streaming digest touches every output byte inside the region. End records monotonic operation time before flushing retained full output. TS uses equivalent capture and timing around its actual application invocation. Record process time separately. No edits to compiler/kernel/Base or core; adapters belong only to this harness and need independent source/generated-effect review before builds.
+
+Pair TS with JS and TS with Native in adjacent balanced AB/BA order on one allowed CPU. Retain all raw pairs, all output and host observations; never select favorable samples. A quiet window must be positively established by host telemetry plus user/integrator context; elapsed time alone is not authorization. Contended windows are descriptive/inconclusive. Ratios use complete lifecycle elapsed regions; process/startup observations remain separate. No new statistical criterion or performance threshold is introduced.
+
+## Source and evidence binding
+
+`preflight.py` freezes the exact feature fixture import closures, complete reference source inventories, installed Bend sources/effects/checker bytes, manifest, governing documents and this harness. It checks reference HEADs against the tracked manifest. A reviewer receives the manifest before build/timing. Staged inputs, generated programs, timer effects, full expected outputs, command/version records and final inventory guards must be bound before any accepted measurement. Current default #28 is separate evidence and must match the final executable source.
+
+This initial preflight intentionally cannot emit a timing verdict. Next steps are implement the explicit #34 common/service-retry adapter and reviewed timing/validation adapters, observe the TS repair checkpoints, then independently inspect source and staging guards before quiet paired execution. No ECS law or proof is introduced.
