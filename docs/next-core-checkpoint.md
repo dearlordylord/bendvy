@@ -25,6 +25,14 @@ actual global FIFO and same-Batch successful reservation integration; #48 prepar
 full registered hook/reader semantic replay. Observable policy conflicts and
 unapproved laws remain explicit. The earlier checkpoint below is historical.
 
+`2bf38810` delivers #42's initial chronological registered application: 35
+commands, 491 current input pins, 22 full checkpoints per backend, three reached
+mutants in both schemas/backends and five precise negatives. Independent review
+and the 2,900-member lossless capsule are retained. See
+[initial application report](reports/relations-application-initial.md).
+Rollback, reserved future targets, actual foreign worlds, production adoption and
+complete feature timing remain mandatory; #42 stays open.
+
 
 The additive canonical `WorldIO.create` entry point is now adopted: four new
 files, existing World implementation unchanged. Direct live-core identity and
