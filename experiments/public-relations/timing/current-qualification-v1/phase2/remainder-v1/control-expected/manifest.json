@@ -1,0 +1,84 @@
+{
+  "scope": "Authored separate nonpower/sparse/empty expected bytes only; no normal-family or backend/timing acceptance",
+  "sourceSHA256": "99ccf79001a71c63f6f96884977ec3fea75d3b5dd7283e942cd140b40babab69",
+  "cases": [
+    {
+      "control": "nonpower",
+      "payloadSeed": 0,
+      "expected": "nonpower-seed-0.json",
+      "sha256": "d577540c1a5f292bf06d98cf67d949e7be766ba89ac1e42a79c6e942b0c5989d",
+      "bytes": 119543,
+      "records": 30,
+      "operationCounts": [
+        {
+          "root": "Workshop",
+          "observations": 15,
+          "queryShapes": 165,
+          "selectedRows": 496,
+          "visitedPayloadWriterRows": 12,
+          "registeredOperationSystems": 22
+        },
+        {
+          "root": "Other",
+          "observations": 15,
+          "queryShapes": 165,
+          "selectedRows": 496,
+          "visitedPayloadWriterRows": 12,
+          "registeredOperationSystems": 22
+        }
+      ]
+    },
+    {
+      "control": "sparse",
+      "payloadSeed": 0,
+      "expected": "sparse-seed-0.json",
+      "sha256": "6a13c8c7430bdb65bfcad63aa750ceb637f39b7a91fb38335c0402a7871ba064",
+      "bytes": 89791,
+      "records": 30,
+      "operationCounts": [
+        {
+          "root": "Workshop",
+          "observations": 15,
+          "queryShapes": 165,
+          "selectedRows": 346,
+          "visitedPayloadWriterRows": 8,
+          "registeredOperationSystems": 22
+        },
+        {
+          "root": "Other",
+          "observations": 15,
+          "queryShapes": 165,
+          "selectedRows": 346,
+          "visitedPayloadWriterRows": 8,
+          "registeredOperationSystems": 22
+        }
+      ]
+    },
+    {
+      "control": "empty",
+      "payloadSeed": 0,
+      "expected": "empty-seed-0.json",
+      "sha256": "f75d89e4502d8a64e18dba0e3032852b29e0924441c3ed1218eb7990f188d211",
+      "bytes": 1296,
+      "records": 2,
+      "operationCounts": [
+        {
+          "root": "Workshop",
+          "observations": 1,
+          "queryShapes": 11,
+          "selectedRows": 0,
+          "visitedPayloadWriterRows": 0,
+          "registeredOperationSystems": 1
+        },
+        {
+          "root": "Other",
+          "observations": 1,
+          "queryShapes": 11,
+          "selectedRows": 0,
+          "visitedPayloadWriterRows": 0,
+          "registeredOperationSystems": 1
+        }
+      ]
+    }
+  ]
+}
