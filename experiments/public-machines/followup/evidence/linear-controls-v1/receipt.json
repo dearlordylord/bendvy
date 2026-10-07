@@ -1,0 +1,4008 @@
+{
+  "status": "FIVE_REACHED_BOTH_SCHEMA_MUTANTS_FOUR_NEGATIVES_PASS_NO_ISSUE_ACCEPTANCE",
+  "scope": "Four actual access negatives, five compiling finite operation mutants; no acceptance",
+  "planSHA256": "b1cd91ad86784c2f0a51dad1cb311d69c14ebd0237c5ca1240014ce3ac293b88",
+  "commands": [
+    {
+      "label": "child-000",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "8aafff8561439be5fa3e1d5d44ab0539ee2ae28cf79f33a811a3473c6a412f9c",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-001",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.bend/bin/bend"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "f956570be8bd27dd29dd5bd32169b8e8df191d11f258ad8e4de6ceb57fd0e85f",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-002",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/git"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "95f55a9a24d94b527d98293dba1d6f89f8d553f64e968bc43f415e4663e3e06e",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-003",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/taskset"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "6b05709c2509fa8f5e7c0eb8902d6972f11eae9e211858f9d52002f73993c4e4",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-004",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/bash"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "2da9c3c2fd580a1a82ab70ae2a170a5c1f765ba7fa2257a29a2510ec54d23b40",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-005",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/python3.11"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "06ed4a6359ed9e999df9e8904f8fe1840075777d9a2a7b095af7f83408dc4a13",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-006",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "86475d1527ee719ab5f1755079433f98da202b72eccd6acd35b6606cbf5b662b",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-007",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/home/node/.bend/bin/bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/machines-stream-opt-linear-format-development-v1/stage/experiments/public-machines/negative-undeclared-transition.bend",
+        "--check-only"
+      ],
+      "cap": 5,
+      "exit": 1,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "61dda76fbf102232a0fd6eaa6e2856aefd989213071c1469b8d08f64454f21eb"
+    },
+    {
+      "label": "child-008",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "60f43c35315a5a7deb0783759dbeaa45a410446bd31ab488d3b42460424d89f3",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-009",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.bend/bin/bend"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "c32440571227ddfb980a64970b5c890b0ec4d9c3e17bfa24d207f947bd2053a3",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-010",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/git"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "a720e37a0646d2b598d3aaf6a1e2299caa564715c8d67d68c4218c8f8cecd73e",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-011",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/taskset"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "ed3c8eb4eef0c409dc0cff4f623f5dc0885ca38746578f9ec02c664c2fd6ea58",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-012",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/bash"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "4e84c62a97f46885bda733651c69266143aeb89235249884a4eda0255b7926d8",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-013",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/python3.11"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "8577dcaabf39877251e56499398b735c7abb4ac4e18cbbe5f963b884c26ee5b7",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-014",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "a1d1537c9d0cfcbf0afd6c866e839f11f99ad0e8589dfe9c8428196644942df1",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-015",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "39f827e81a2783e68a7d623f437857606e49f4a4da253867d21971c04f36c964",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-016",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.bend/bin/bend"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "87b8b3fa0f4cf680445cb0aa039f48e969eedb477a17bd15bed6e966d382a31d",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-017",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/git"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "949949a0cf6f2c08b2ce0bd31a9fc82c700514b699b93dd9606e6033c7ec7144",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-018",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/taskset"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "e32ee3da3b3cde0e83f820e3bc39fa5a5754a853877489fb125e30725c8b81f2",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-019",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/bash"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "ab0245e6966925c6e04080b409465b90c763edc3b115425407f72de12c6a4d81",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-020",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/python3.11"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "88b2f03ee9d49ac97011b42d966e48bd7ec73cf80b7652b22cd6ad3ce9408aaf",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-021",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "355fa767b601379c93cc2676ae8e1c7b32dfb63d5b2c9bd20a7a170ccac9d453",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-022",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/home/node/.bend/bin/bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/machines-stream-opt-linear-format-development-v1/stage/experiments/public-machines/negative-reader-schema.bend",
+        "--check-only"
+      ],
+      "cap": 5,
+      "exit": 1,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "eb9ea2b877a752d6d527a5fcaf93d9ceb034fe3f4a09a5c013aeaf1f8a91dbad"
+    },
+    {
+      "label": "child-023",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "014745e868c791ac87bc6fe70b1c279edb0e74fcf3fa448cb824ef9d726bafad",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-024",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.bend/bin/bend"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "e801ba0c09bdf528a98227be911661c515161611d723120c37eebd2c8deae9e4",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-025",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/git"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "3c93318fd9aea0624ee9404c3a0dbfc1d70cfb345b1425372fa48a826dad2be1",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-026",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/taskset"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "43688dc4d09ef5a71fe80f6988b3bb888ddadac07fbdd3d96b7c726f90e80ff7",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-027",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/bash"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "e43b3f4929f2cfbf837ab2217004a00f06fd1f775f28c7386fb56ca77c9cd20e",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-028",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/python3.11"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "b7985878599e205f7625b95509a4f92cd9d377109b92b83ec1e7d3d7685bc6c5",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-029",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "af77bdc79e3b1d0ac77504969c9bf9944ff68887db0a7540222a7a434f3474a5",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-030",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "efda7d40b80d5df6ab228d8473dbed9e75f2bb63d2fc8a5390b5230986d9526c",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-031",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.bend/bin/bend"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "a4617585a30efa959419e8f508da011976407996a0866c4984fa2d029ad22bcc",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-032",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/git"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "e96b52f54847213144e967940af3526dc9196e5eb9c8dfea2a5f1464eb47798c",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-033",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/taskset"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "930611313d2511adec1736ab7a7369d206be1f15e5252a188777a3ad24c04fab",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-034",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/bash"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "a758b811248c257164e8ccfd714058f605ceab5d22e83795e5fe0cdc3d1a4fbb",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-035",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/python3.11"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "fa5d867bf24c8af3ff98f68a7832e84e8add5eb03bb823aec9310b9017ef5439",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-036",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "c791b31b1e7bb100c71fb8243cb376a4b0f11e3d94e43199647b4a883da002c9",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-037",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/home/node/.bend/bin/bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/machines-stream-opt-linear-format-development-v1/stage/experiments/public-machines/negative-transition-write.bend",
+        "--check-only"
+      ],
+      "cap": 5,
+      "exit": 1,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "d115df3edf87f2623a30948a69098117d6a0275b825e549568dc8d8e838a937a"
+    },
+    {
+      "label": "child-038",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "2592d54ffe822615f596c11478b5f879127fa198f80e169c47056a2c03d713ce",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-039",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.bend/bin/bend"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "452702ce1c48081cff15fdd610fb4c61fd9d22acbde846abadf98c15d8e3f6cb",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-040",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/git"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "6df971ccca86cef866fa18ea5495fe39857619de4783fb149482982dc17846e6",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-041",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/taskset"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "03a00924b4a1d7016e5e31bc70ff0c7182231df0d62c17141a4f8a9f7305ea58",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-042",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/bash"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "23acbbd63437789846545627e84a832b5560033192dd1f97f876604cd6ffdfe5",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-043",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/python3.11"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "3ed7adc8f91f889f5d63f0f0c3f7b7bf28980678c1256a9d3640827008b7913c",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-044",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "11bbf25937e45202746fc18b72feb68c39ab2444ff51c4cee8f2a7e2a5bb0a35",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-045",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "a6c4e2d8ade32a279ccba751789b81884f6a85c441963ded72c8ca7122756a05",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-046",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.bend/bin/bend"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "d0ada32354a61375f4dd2edb4bee157fc95ea16304af27ac59aab5acd3a8b898",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-047",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/git"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "e24d89db8c9b112b4c4d508660c4ca935991dbcccf76ea637ac25bdd866af082",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-048",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/taskset"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "2de0cc8d0ccc9b7e0326e1371e035a18ef0b8b1cc61da43cce998521e8156351",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-049",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/bash"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "22b0bd0b198819b180db82129f4600eafb00949233ef2ae1fb6d46176af96dc5",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-050",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/python3.11"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "09606fedca21ef6422aa2f1747f1dd4f8f520d2dfd98c9637f7ca6a6f9907fc7",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-051",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "106de7e08d466e5eb7b30725fd9d936e800adcb7b80e074b1a4dc1b77ff8ed7a",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-052",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/home/node/.bend/bin/bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/machines-stream-opt-linear-format-development-v1/stage/experiments/public-machines/negative-reader-instance-duplicate.bend",
+        "--check-only"
+      ],
+      "cap": 5,
+      "exit": 1,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "a77dad5b9754c78ecf96a17d20833de0a816eb58f4a6b6201a196ce4ee8144d1"
+    },
+    {
+      "label": "child-053",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "a5004da4345a865064d32bf1a0db4f6a9f302cd034a7f93cdb57ff20e9c4d9da",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-054",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.bend/bin/bend"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "e0999894ff3934debfa0abcdf950266446403f13079c6b82bbf5f5f692ee4fc3",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-055",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/git"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "468796e79483d612a163fe19d84695a8b17efd3632ca7df7ee8cace370447229",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-056",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/taskset"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "0a06f071104bacb73a99f56d985700292c687ccba3fa9124d17f0cdea80fca13",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-057",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/bash"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "4a281e681a5043bef5349e86acc151db887d3f8b2a34afda9120025508a54509",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-058",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/python3.11"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "4e174c90fbdd917df06060d76bc9facbac2f1774c1448b380cc8a4f1ca0dc96a",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-059",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "569b1c902a1872b3e10dbeb85e4ed09ea1a087635f6fb33dc7ef7abb9f9b3c79",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-060",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "8d2d7704c986bc75f47e27b401067ca8d6f1fa6c83c87bca1e96cf3eb3b978d6",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-061",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.bend/bin/bend"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "1c2909f5969e4365c69863091539101fb166f692615f6be1e5bed562fe99b1a0",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-062",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/git"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "d52d0ca30dab7a93068bde7818e6ccb3b3fb27fc14e5e94d44bb24dc71f6814b",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-063",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/taskset"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "91fdd1223fb96586bb41908de44087d4e0ebebc89079768ffd230aa9b408a751",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-064",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/bash"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "63dbffbedbd2901ebe4b1b884a7e8bc05e45968b58b9ee23e941c15184a08892",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-065",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/python3.11"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "a2e790d62aaa5436f149612056ae2e60fa6038956f8e1771b468261fb8c8d485",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-066",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "68c3ad53530f2c1ad06789e8dd883e11e3d0e4fd02267d13c26ab1882d475deb",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-067",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/home/node/.bend/bin/bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/machines-stream-opt-controls-development-v1/queue-capacity/stage/experiments/public-machines/followup/overflow.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/machines-stream-opt-controls-freeze-v3/queue-capacity.js"
+      ],
+      "cap": 30,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "child-068",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "adc005701c15181ddd9a2151fde0596084185b9099de0660044e3de00105627a",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-069",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.bend/bin/bend"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "f0aead03f097126edd05a3f41ea9ca1974cba76e811c2ee781327c3cbcf0d2f5",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-070",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/git"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "3eb724d65072441db2402c1f99b1b517d5b54f7bb8889cadc85d648b5ef006b4",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-071",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/taskset"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "9fd8582d26838868c2e3a2e4c05f32c3c4b46b3e52256a3dc4b9f432ef76ea05",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-072",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/bash"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "7171def1abfe7ee70b59e911250f57edb18e3d20ca2178aea4a74052636102dd",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-073",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/python3.11"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "9340d1fae0fb87fb5baf05de104c64fa27c3824f666737cdf79f3d0c0a24a922",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-074",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "132310fd39db249610a9c860aa7162b330ec9f940a431ed28d663e2f36624330",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-075",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "6ff9b50f992738e002af94bad6c9ced06929a9b783b0266e06f7cbf53eedc99f",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-076",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.bend/bin/bend"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "8b434170c6e5a388b1220187f89a411e4cec22e6ca761c2dca2d0dd6201b0971",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-077",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/git"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "96862fef0442572f6f20a9c78ca50c44329e0e21f1c79b6e6691b3d2baa21a3e",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-078",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/taskset"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "decec714dff678acc4c23c1c4d09d78bbc0eaf03bf25e442b3c6b43fbff59ed9",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-079",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/bash"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "1c4bfc33418dcfa3eb302cea332330b45cd45ef17b32c3370691677691aee78e",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-080",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/python3.11"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "9bd0a2e17f3ee14bd4e1c4e17cc6e54e441f406c930c9bb5c59ece90f7ca91cd",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-081",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "8c5796e438c22695f05a7f1e2c7465c000bbb5a6142a82c3df8a63b209e1dfb6",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-082",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/workspace/formal-proofs/bendvy/.artifacts/machines-stream-opt-controls-freeze-v3/queue-capacity.js",
+        "65537"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "886aa6f2a99eb132b2dbe376156b4578f7ca445553a59693f5012a092c79ece9",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "child-083",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "ff8a5d93d7ede937e1ac431366793db399c890245264149c0a77c4513b0e017e",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-084",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.bend/bin/bend"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "61310ad3068e536a00862a0a2b04d2f9446f23407e9872a1438150da4476f737",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-085",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/git"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "8bc258ae4bb59d64b0a6fb36872b2f21cbeb0b875c8cd34c1698f6d18cc7a5f1",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-086",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/taskset"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "f7eed75a3ad13cc24a0ccb19c8a5d558bd2ab2ea5706faa14a2e106e550e8b03",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-087",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/bash"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "66d7f9589fcd01ce633e9cb3b84c494022716179bbd7263b5ca47f7b928661fb",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-088",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/python3.11"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "11a8c98988eed14dfd0e3d7d1e03c811ec03c1823575ce1ea6a0b348084b83a5",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-089",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "3d8b49976d1fff3a5fd0c087a3ff34b0fdec4dcb068261a671d69aeffc8e5a25",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-090",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "db8fa63017872e5c4bef431f6ffaf0bf553fb09e0e8608a94cc6a3b8144b3971",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-091",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.bend/bin/bend"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "baff38dde78a6ae6a4bc4fb77727eefcdf00198dc81e6d9e4ec326e3a8cac02d",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-092",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/git"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "8ab3a63a90a0647ea2efcdf3ef83a26e9b36b2628f66eac0329095e102a1e710",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-093",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/taskset"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "9c069b10801e1d1dfaae478ca2836a7d73e37b3f7d14b9bc09741aca45022382",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-094",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/bash"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "073b220c589f2669ef1d3f6a924cb11b885439c6fd4069cbfdca5c924d460eb8",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-095",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/python3.11"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "e5bc008b53c788ac333444c6310191f5f81f97589ba71d57914a6a04a474970c",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-096",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "55e39cab3280d9e8411427efd4bf960a28399e86f95b0661aff2ea6689f65a57",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-097",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/home/node/.bend/bin/bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/machines-stream-opt-controls-development-v1/cached-size/stage/experiments/public-machines/followup/overflow.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/machines-stream-opt-controls-freeze-v3/cached-size.js"
+      ],
+      "cap": 30,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "child-098",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "0335cde12e941a7bd060a6a87fe57164d5d472bb56a1529b9e3e132efc7280fa",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-099",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.bend/bin/bend"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "1515b5afab3b6f12c0737337290289428b5eb35c42651b9911cfd4cea47858c5",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-100",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/git"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "b279f3486963b71c600baf6e380d0b2a099f137a7a23f080e792d97797fb2582",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-101",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/taskset"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "fc15b649442eb206cd80364032271a9f34e6ad1f09c7ffcf05e35b2e833de3cb",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-102",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/bash"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "c6710ab9c151830907a37723425980e4a50e1d082e66650bd8107a04d2509014",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-103",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/python3.11"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "4c2249e82740f250768e9c848cd58965da6b72871481fde4233a76758f895ed0",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-104",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "c0887a54cb8f30255f1fa32b1d298a232925c5b5051055b37945b920dad7d569",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-105",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "f5c785b482bc0f06b747a91be9b16f0470f6a91ceb3501b22e1b975f68784982",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-106",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.bend/bin/bend"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "c7b05b7a127e96002433683f08cccbece585ea6263ba90699b762105090159cf",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-107",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/git"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "9c8592c3a937b46069dbfddd65c1b1b520189b538e08ccc680cd945aa76327a2",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-108",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/taskset"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "acb9803f7fb1a0c455f081ae01e890939b7c73fb24ac7ad8e1579b2f64867eca",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-109",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/bash"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "094b0207745367101ba580680a35ec47cd63d44f959b6d1da05e2b9b94d07266",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-110",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/python3.11"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "a5563d12ac718be61da353c363271f93ab45070f96e7f4825c8b786fda74ccf0",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-111",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "23eefa7469dda4a47a347059906a5ac2c050d3dd0b8c373d3e8d9cf1efb35a33",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-112",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/workspace/formal-proofs/bendvy/.artifacts/machines-stream-opt-controls-freeze-v3/cached-size.js",
+        "65537"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "5532701ee68af20b05f59425347d7186db503fff6a9146ae172abac373c95f92",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "child-113",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "55e464b432299ea036b675d6bbd6e2182fc7c537fb8f28922aeb009d4adb941a",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-114",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.bend/bin/bend"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "877ec49ee3585158b6f8c24a7e815ce71fef7725560ed00e6ab7d80d2bcbca31",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-115",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/git"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "c0dbfeb5f231dc8a826a515b0c6529eb2d22e09796e816baadb75b52c57c5807",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-116",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/taskset"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "fa56a2d205b856e3aca1911b53694fad3fc66f6c80020ae57e97ce7c5ab76bb4",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-117",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/bash"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "49df6db2d98a997687506e594320fc555ffa2678e4182abd5c5f0443bdd77dee",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-118",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/python3.11"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "3fec90e15aa6d410d360070a60cc874f7e65d2ebb5a9b621ebc500ec781d29c8",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-119",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "4b08b84f334792230df0cd9949d3dd2b2470b8a808fc6f8b45becd10336d6891",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-120",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "57be5161efccc3de57bb3e9295a9ab3057ae286e7badd39086e0fb4d29b59d25",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-121",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.bend/bin/bend"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "b222c863b070f00e4a64e1d67603c4a18347220b46569179c4f91a365e89992f",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-122",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/git"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "345d5779e9be948ab25f1c4f3371879f82b59b7c61e9a86286a45f4b4eb563fb",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-123",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/taskset"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "8c3730c80d084cfe71482a1871e0e29352ef77edd423d423de5d5768cd4850e3",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-124",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/bash"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "da22064ff849d8b5fbb9441a3ed9e48085013e0cae5464d354b96397d4cdf70b",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-125",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/python3.11"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "fb0e2d6e56da4fab0b3ebad8f94b077fafaca3b454f618b166ba75546c916778",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-126",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "d8a179f364dd548ab34c928cee151dc4007d8300485e8ae9fc4f3270e62ad0e4",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-127",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/home/node/.bend/bin/bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/machines-stream-opt-controls-development-v1/oldest-newest-order/stage/experiments/public-machines/followup/overflow.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/machines-stream-opt-controls-freeze-v3/oldest-newest-order.js"
+      ],
+      "cap": 30,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "child-128",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "b80506fcac30426853a2c132ba84c7ed40d2267d3bcdb89b6b8b0091e7af4e0b",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-129",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.bend/bin/bend"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "924507d57be43ae44a380d586ccdb7d29bfff2f0613714de147bb55da209d87b",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-130",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/git"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "4decf11331d3b758bffbbd6703fe6ecacba06622b76010b2944fa9bf22ea8321",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-131",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/taskset"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "36baabc25e05ee06ec48803d6af4719dfeb4bdf19d1729f030842435c684e5f3",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-132",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/bash"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "0b8ec673abccf00f0e0d4f68874e4ad13b362a12d3697a62087f2f259612c05a",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-133",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/python3.11"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "3016cf33b3489dbdfa91ef05bd87d2d6a7bb3d1c146d378f2add17e383e687a4",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-134",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "196f2b71b5a3ac0d8963d7d09c07a4ae867eac4d0375915fc407d7d333a331ff",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-135",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "c914fc61633a98e6ff065e3cdbf27dbae7bf5b0da711c74265722b7314427f84",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-136",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.bend/bin/bend"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "d34d46e0e52d27fb9174681e57bf34c9929fdd8998bd2ab592ac1732100f10b3",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-137",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/git"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "7c6267db1a5e1b34e146539d03ebf8cea2bd7f03477ac5fc3f64a152d705938d",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-138",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/taskset"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "2a22276cddd7d5ca905931612e5a6797dceaf9064a909dfada9be7176d4ce4cf",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-139",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/bash"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "3812aa4ab30164cff3ff2a6de24fe026e5d6829a8a6c000ab5dfaad2deaffd2c",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-140",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/python3.11"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "3dfd45b3c7257383773b059862b45b38ac8eb7137cf42108ca782100f5ec7158",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-141",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "99301988816c62a57640a3a38e0cb3d9919ef9a85eb54794d617c9a1d47866e6",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-142",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/workspace/formal-proofs/bendvy/.artifacts/machines-stream-opt-controls-freeze-v3/oldest-newest-order.js",
+        "65537"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "f3ba5305450938c9a5671dcc0e5dbe95419c2493845db17503713cab08f910ff",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "child-143",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "c41a4521a73415e71f2b0783e052453918322da6b3516cd9fdfda78ea6e68b2d",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-144",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.bend/bin/bend"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "f2efb2c72b0999ae04779ec1ddc75a5afc93bd73064da022a14c0821f7ba76cb",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-145",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/git"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "98d14cf1f8547fd4fc803a6ca594a3c9150e5c2b1df45387cc94f5df17a38ecd",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-146",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/taskset"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "2b1125339c418892ad6ab406c6dcb973da05cc92dc447afc70eb239210fd9c69",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-147",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/bash"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "2d9bcf9ac1a08fa00dbb27ea00d5be2accba7431507a1f575a29da8ff462ad86",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-148",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/python3.11"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "4216b7612a0615c85b168cca52ec93e19d9e76cbfbdf488fec65795c5afbf955",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-149",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "16e74fa7d9b54986c26aa445382fc148ec0e3826e25033e7db238b93b64d7f2c",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-150",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "1ddec9c32b56c474b91a5fd4f2ee395935612ffe87e95d8c4c57a574a7dc47c4",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-151",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.bend/bin/bend"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "ad32941b42d55abcd798e4f758c862219a049351f3dc940fb2b5812cb2ba1dff",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-152",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/git"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "86f7ff4276e23cfcf167de72f300f80bceb8b09b4722e1e70e67c3b2aefaa687",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-153",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/taskset"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "3fbe4e80f1e8f4e8e0f8127ed7a9a23fb3dcbc5b8de7ed837668ff1bfd036a35",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-154",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/bash"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "4df490e3be0e7ca1d60ef484184ee89b6e3a8a6f0757a7d8badf4a73192c96e3",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-155",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/python3.11"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "e72b9dcd5e7a913f2048ebf7c18534a4d39af4eb4a31206168621c60cec2bf5e",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-156",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "6db82b6916f3c952f802fff54fa989c349110f3d8d66acc9474d329a9932aa28",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-157",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/home/node/.bend/bin/bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/machines-stream-opt-controls-development-v1/dropped-through/stage/experiments/public-machines/followup/overflow.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/machines-stream-opt-controls-freeze-v3/dropped-through.js"
+      ],
+      "cap": 30,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "child-158",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "11b331efe80341f1620b7d1e2267d87180f0e858d48b3060f714322e89cf6edb",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-159",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.bend/bin/bend"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "4ffd7c4c880e37986fa092d35428118ec7503d8835dcd298266ac65fe7cf31ad",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-160",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/git"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "967b80789710236e7351823c022d192900c420bd9eff01b5476847584d336eb3",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-161",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/taskset"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "f5dee14a8fc16571d540d47e1cedbd43075be8b2e96ba6e9c0dd509e8fcd57fa",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-162",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/bash"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "00f442a9d7c89528bffa0e6b528e9b47f2dd7509cf7943576c606f3b79e6a9c9",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-163",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/python3.11"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "0f59035852e8225ecc3a067e025b6a41d6416540c2628e2fc31cd8ff772ecb1e",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-164",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "8a63cc720431e27d46bb1e4571bf0bd2612a8bac44592de2bb5efcbea26b5617",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-165",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "4bfb33863c24fa821e063bb0ee782c164bef03941f54ab93cfb776c8b464da2b",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-166",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.bend/bin/bend"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "7100aee861bb0e40c80d01ce3a58a1a831e97d97f62dff8a49552701c4a3f54c",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-167",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/git"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "852a4d675bae64f474db9632ac2a7a31b46f09e07f399afa045772c950a9a421",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-168",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/taskset"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "ec4747cbb8e4c33498b3fed657e92bf554fb705b832703c38f875d90db3023d2",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-169",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/bash"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "b812dab438c4d5a5c359871930dd9863f036cd2a986c67f46f6b24c19552b4b0",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-170",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/python3.11"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "4df656da1ac3805fa5a8254eee63ef45d37f627754950e603107cd658f020bb4",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-171",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "c0537523cdbae61723cb5868cbac4a37aa22d539401bac7fc4b2cccf85051d6f",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-172",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/workspace/formal-proofs/bendvy/.artifacts/machines-stream-opt-controls-freeze-v3/dropped-through.js",
+        "65537"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "d98bf09447a5ae667180d2cba03073be3b0128ea749ec098723b7c4ac1b16eaf",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "child-173",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "e7560602d692a5c49544ab726bfd7ef2c230fd0ef918a17daa67664e3739c7ed",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-174",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.bend/bin/bend"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "a8be5494c1a17c16f9f51ebd5f7a4de65837059ca25abe6670ec68e26a877441",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-175",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/git"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "28d7be110dc2c5773ef209be44a2f4088ce96a68783871fecefad12f68f312ab",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-176",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/taskset"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "bb1d472b7e5718e1da9cc858ce1edb2f5847b2d7c30c4ee439863c028551c204",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-177",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/bash"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "fafa5320ee909aaadfc72ac2b72891ab3c5ca1df1520516010423cace13153be",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-178",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/python3.11"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "390d3388ab10da8ece53310b7d93a8c9150b309ee3289865029f562a65a7d4f7",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-179",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "38a9fe388c4826a216bc085d614964eab707914306ef8357f56f029d38b1f84b",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-180",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "11f1c3ee39582b95484258766365d4ef8aa42af11f53afc685d488bd260773ca",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-181",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.bend/bin/bend"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "ba5354f65b708d372055d13c2b1506dfdaee12e5aa1674cd2862a8d1cce88a96",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-182",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/git"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "24d1dfa7448e5f1ee7817ae8a63a42a5b45fa0bb3735cddd93b507e06242f6d8",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-183",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/taskset"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "fef0b019d79c48f29eb1f4501499bbcf860aa4b9c9ab9d70927b4f5d1774f2a6",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-184",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/bash"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "c2bd1b9ca19c7e67b61e75f1d3cacf74aafdbbaf82a63333e83b7566386e934b",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-185",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/python3.11"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "ba059d60c0088a2c63960f5e06ae4c402c04afad8aabd3e131b904a555a0fdd7",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-186",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "2037a05b9db5e39e744178866b051caabc8790218674f461d07c31d70b58631d",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-187",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/home/node/.bend/bin/bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/machines-stream-opt-controls-development-v1/successful-cursor/stage/experiments/public-machines/followup/overflow.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/machines-stream-opt-controls-freeze-v3/successful-cursor.js"
+      ],
+      "cap": 30,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "child-188",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "3cc6f950c22d9141b1e68a3499ab0d54e770e381154bd598f690e352a714676a",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-189",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.bend/bin/bend"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "2a0924cd317123baf639ad47accdd0fcb785390f517c5cb2648320773879b16f",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-190",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/git"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "7311c39e839992e049195b351b6de54e2327cf88810c1f96e9751b8ab998c077",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-191",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/taskset"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "5704cc6d2c3ef15db3275c0fd53707f0f99bf43120fe4cd90e6f2a7148542ac3",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-192",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/bash"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "45bc7861223ae8d93ea771cbea82761f2981f4beb9c9cd6b3b40104107aba324",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-193",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/python3.11"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "1b5ae89a071736a3975159a2a5eeaa3d99b8cd87c9ad7809da2917a3c3c7d688",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-194",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "7d6fe7cd3eec1aa55e0fb3d475955df428b6471dc44ee7cf54deb624e8af61f9",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-195",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "f0ec709fdc6018d974d0cfa381c85dae5099fa1b2ae37b8acfe01666c916cffc",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-196",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.bend/bin/bend"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "d0f3ec6116c18a6859fc4dc0d697048291c5ca70fe642bba129e1b54f239a905",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-197",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/git"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "a2bec5599eca893d7fa50ae07c5593602b7842c35181276994eb5ded102d058c",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-198",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/taskset"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "ed5887bc0e64bc29f7dd13590fe9d6679cb034c9feaa470ca20246fede0368b1",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-199",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/bash"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "0f9e135de3520ca9a15af60e69a180991f55b3733b7fa996ac747d637c894944",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-200",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/python3.11"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "5cf7ee4a4e8a936ff119a74b93eff7635cad8c3ec9759d479d47b4a10d56a88f",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-201",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "16d4363394abf5a4ede68d6b696ffd411b0972f6f9f50732c6ebf7be3453d752",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-202",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/workspace/formal-proofs/bendvy/.artifacts/machines-stream-opt-controls-freeze-v3/successful-cursor.js",
+        "65537"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "32cf07b92568c9adbf5897caaf368a9baef83a4eac3437f7868ee0b183d2e986",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "child-203",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "704ce11cc7883f424d338c858264d58c798a6606ec13954cabdef4d47741f1c7",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-204",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/home/node/.bend/bin/bend"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "9326509df14c723fc6116a173b6aec41e97916aa49e83170e68b256dccfb009d",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-205",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/git"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "d0dbab165f398adefbc73394c17338183bd50cd44abb28696fa682a7bfb2b3e7",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-206",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/taskset"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "b41ba4b10a614430ec17b583f4f164801f22f86d7498d20e722791e7571fd1a1",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-207",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/bash"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "8d4c3b30430d97928e2161a9af2880cf635f67ef1b1d8bebe80366d2e82e5f4d",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-208",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/usr/bin/python3.11"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "76446fe02461c5a16028d61eedf6f5f0649140ea1baf2a63d5558e4ff5f6c7c4",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    },
+    {
+      "label": "child-209",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/usr/bin/ldd",
+        "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "2eba6ea07a84f2b69b1343822844541e5eef1c8aa9b8a845c72212b78472b8b7",
+      "stderrSHA256": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3"
+    }
+  ],
+  "subjects": [
+    {
+      "label": "negative-undeclared-transition",
+      "childLabel": "child-007",
+      "exit": 1,
+      "failure": null,
+      "produced": {}
+    },
+    {
+      "label": "negative-reader-schema",
+      "childLabel": "child-022",
+      "exit": 1,
+      "failure": null,
+      "produced": {}
+    },
+    {
+      "label": "negative-transition-write",
+      "childLabel": "child-037",
+      "exit": 1,
+      "failure": null,
+      "produced": {}
+    },
+    {
+      "label": "negative-reader-instance-duplicate",
+      "childLabel": "child-052",
+      "exit": 1,
+      "failure": null,
+      "produced": {}
+    },
+    {
+      "label": "queue-capacity-emit",
+      "childLabel": "child-067",
+      "exit": 0,
+      "failure": null,
+      "produced": {
+        "queue-capacity.js": "2b5dfdb87bdbf2f59c174ddb8e1d18d7ae87920b154550ac8d6561183ad2a789"
+      }
+    },
+    {
+      "label": "queue-capacity-run",
+      "childLabel": "child-082",
+      "exit": 0,
+      "failure": null,
+      "produced": {}
+    },
+    {
+      "label": "cached-size-emit",
+      "childLabel": "child-097",
+      "exit": 0,
+      "failure": null,
+      "produced": {
+        "cached-size.js": "e742fce8d06f619a59fd66cfd15ec90c5444d73022afb45c43898311573009d8"
+      }
+    },
+    {
+      "label": "cached-size-run",
+      "childLabel": "child-112",
+      "exit": 0,
+      "failure": null,
+      "produced": {}
+    },
+    {
+      "label": "oldest-newest-order-emit",
+      "childLabel": "child-127",
+      "exit": 0,
+      "failure": null,
+      "produced": {
+        "oldest-newest-order.js": "67199df57c1f093217018d82be7bb62ac6df598cc4f094e4b60a24fb5489cdaf"
+      }
+    },
+    {
+      "label": "oldest-newest-order-run",
+      "childLabel": "child-142",
+      "exit": 0,
+      "failure": null,
+      "produced": {}
+    },
+    {
+      "label": "dropped-through-emit",
+      "childLabel": "child-157",
+      "exit": 0,
+      "failure": null,
+      "produced": {
+        "dropped-through.js": "7526a5f73dbf79350c0488fff8a520ec76986ec61915644ff4ac92bd273e88d6"
+      }
+    },
+    {
+      "label": "dropped-through-run",
+      "childLabel": "child-172",
+      "exit": 0,
+      "failure": null,
+      "produced": {}
+    },
+    {
+      "label": "successful-cursor-emit",
+      "childLabel": "child-187",
+      "exit": 0,
+      "failure": null,
+      "produced": {
+        "successful-cursor.js": "79c83debda7fcc98f4a7d0903967d13edbff9512d2cf9b55488649e57d3c6aae"
+      }
+    },
+    {
+      "label": "successful-cursor-run",
+      "childLabel": "child-202",
+      "exit": 0,
+      "failure": null,
+      "produced": {}
+    }
+  ],
+  "witnesses": [
+    {
+      "mutant": "queue-capacity",
+      "witnesses": [
+        {
+          "schema": "A",
+          "checkpoint": "capacity-frame",
+          "field": "flowStream"
+        },
+        {
+          "schema": "B",
+          "checkpoint": "capacity-frame",
+          "field": "flowStream"
+        }
+      ]
+    },
+    {
+      "mutant": "cached-size",
+      "witnesses": [
+        {
+          "schema": "A",
+          "checkpoint": "capacity-frame",
+          "field": "flowStream"
+        },
+        {
+          "schema": "B",
+          "checkpoint": "capacity-frame",
+          "field": "flowStream"
+        }
+      ]
+    },
+    {
+      "mutant": "oldest-newest-order",
+      "witnesses": [
+        {
+          "schema": "A",
+          "checkpoint": "overflow-failed-reader",
+          "field": "deliveries"
+        },
+        {
+          "schema": "B",
+          "checkpoint": "overflow-failed-reader",
+          "field": "deliveries"
+        }
+      ]
+    },
+    {
+      "mutant": "dropped-through",
+      "witnesses": [
+        {
+          "schema": "A",
+          "checkpoint": "capacity-frame",
+          "field": "flowStream"
+        },
+        {
+          "schema": "B",
+          "checkpoint": "capacity-frame",
+          "field": "flowStream"
+        }
+      ]
+    },
+    {
+      "mutant": "successful-cursor",
+      "witnesses": [
+        {
+          "schema": "A",
+          "checkpoint": "overflow-successful-retry",
+          "field": "flowStream"
+        },
+        {
+          "schema": "B",
+          "checkpoint": "overflow-successful-retry",
+          "field": "flowStream"
+        }
+      ]
+    }
+  ],
+  "artifacts": {
+    "cached-size-expected.json.gz": "f2232f5f59db378203ba582141368a4e2cf61b48769dd307d65c172ecedc06ad",
+    "cached-size.js": "e742fce8d06f619a59fd66cfd15ec90c5444d73022afb45c43898311573009d8",
+    "child-000.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-000.stdout.gz": "622a9fefb6d7792d6bb7961e927fb7892b0925e642bc290569bfc1e18554f958",
+    "child-001.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-001.stdout.gz": "f9a870a7b7d6f012b84eae86b0849c3c3cd6fab6e57be958254f9e29a0b02916",
+    "child-002.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-002.stdout.gz": "aa76fd546cc65fdb1c6b9448af3db9d33f836312e199f2d098baba8302774919",
+    "child-003.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-003.stdout.gz": "d3e0a16f9493773e9f0b5c88bb95d21d969e7c91e4f2156f1d2e1d2d45521a0a",
+    "child-004.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-004.stdout.gz": "d20a01ae10d847608150858cb53070e5d0c2084b97be0865023dc790a4c98973",
+    "child-005.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-005.stdout.gz": "50097cd9ce0993b35ada4d1d37169089380bf90fae6db96cf5fb5897a7fcc6b3",
+    "child-006.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-006.stdout.gz": "8078a2697e40f60dd4a572ebabf84c4ca04ff4d84c00c157885624c64dea2d69",
+    "child-007.stderr": "61dda76fbf102232a0fd6eaa6e2856aefd989213071c1469b8d08f64454f21eb",
+    "child-007.stdout.gz": "07693a3659fffc09f293e0900b1ddea0ec371e14267eae6d5c1f2c19a0a40fc9",
+    "child-008.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-008.stdout.gz": "fd7547022cdf1278ab67353cb682c1f2f20d0b1fc78746e738134b8c081eb2fb",
+    "child-009.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-009.stdout.gz": "70bb610877f2ec6e768ca5409e9aa5de144e226ad8c1b2fb745f5cddc4959685",
+    "child-010.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-010.stdout.gz": "8969574148a3022f3d18e16fc16ae68532b05389c4f0578473b2ec45fb9b7133",
+    "child-011.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-011.stdout.gz": "896a87387c753785f678dbe12504a15d6f05a9faf76d03cbddac97add51433c6",
+    "child-012.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-012.stdout.gz": "659cfa595966e4ee42854290bbb750d7faae9500392b234e46ebc81eeaa3dd25",
+    "child-013.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-013.stdout.gz": "087de2ca435870f2645c1d1c3031cbdf6582f6ec2edfb6ba323439cd745d232c",
+    "child-014.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-014.stdout.gz": "d934033f2722829d4811c98ce331417b4d1e78781734935e10751586582d5f68",
+    "child-015.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-015.stdout.gz": "6b385f027591e16b06efdda08980a70362af545978549d63383eaed8b3570ce9",
+    "child-016.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-016.stdout.gz": "b24a205b4b3a0dc2c60e182f459097167277093129ae99c16fd998e38032a927",
+    "child-017.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-017.stdout.gz": "868fcf80b049b148a7f71f380c870ae99d8547d8d680a84119faeaf72c480947",
+    "child-018.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-018.stdout.gz": "99907bd8f491d3128011a7ca51833ee25b5dc99ae95e94fb815d25e46ed393ca",
+    "child-019.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-019.stdout.gz": "ab7eaa2290cf736d3fb8e0eff65dcb61f6e18f889dc6495a3899b40d64c3ffb0",
+    "child-020.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-020.stdout.gz": "a2d641b933b99229792f5944e04fb253f6fa3ac9aed2299e233376a74db14c46",
+    "child-021.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-021.stdout.gz": "719a6312af5d79927ee5b268bb1b8b33efbec7dd6802412e216a1562b5f9e7b6",
+    "child-022.stderr": "eb9ea2b877a752d6d527a5fcaf93d9ceb034fe3f4a09a5c013aeaf1f8a91dbad",
+    "child-022.stdout.gz": "2ba00768e26bae91ca3c18a85aaefcf92cab6adebcdaf7bececbeaa35da4b797",
+    "child-023.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-023.stdout.gz": "1816460bfcfc2c27c45e3ca91786c7db308e7a146c67bd068de5b528e29b4776",
+    "child-024.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-024.stdout.gz": "f34558d9c7cdf99e31cfcd91c0114875c28a08eb1ddfeab9abe8d3d6da18f01e",
+    "child-025.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-025.stdout.gz": "334dd8a7004f5b91f18274882f0fc940a7bc1c0fe31ec571e81181fe7853bf13",
+    "child-026.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-026.stdout.gz": "2928e3259081c26e4487db95562997713ca34b0e08eb49e1ad7ca71eecd3f1ac",
+    "child-027.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-027.stdout.gz": "829876ba5e7ad8c94c4bf0da62aade6f7a2c731faf6ae98cc1851447a6618c61",
+    "child-028.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-028.stdout.gz": "4e9e2f3325e9e6d4c2e43185265a77d4fd2d248791a5d98a82f6dfcfa2fe5615",
+    "child-029.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-029.stdout.gz": "0ae2bbdaba873b6c76e2fab84153965dbe4b04a90e5eeb206dc62c7a19efd0e9",
+    "child-030.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-030.stdout.gz": "2283baf56e47be663f218f2b8cc8b4757348129994932de66fadd4ac759aa431",
+    "child-031.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-031.stdout.gz": "c5b9bce9c0f501d5d88489251e495daecb98a0b252148b663471b6edbabefbf9",
+    "child-032.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-032.stdout.gz": "f9d67f1d7bfd88906a135475b8062a272173906054bca013426728680a5e4224",
+    "child-033.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-033.stdout.gz": "8fde8979582f3c72d4acfc811741ad0dc58b2054abae5644a1e7c00ec9ac2089",
+    "child-034.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-034.stdout.gz": "4215b08be9dfbf2c5074ba83e35ae9153db7416901a05e3eae50ecfb2f12a791",
+    "child-035.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-035.stdout.gz": "fe952c551f3374a0c8fd30ee7578035a385c9c9666f4d86232dafec4a064777d",
+    "child-036.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-036.stdout.gz": "0d6adcb70f00cfe1cd6cbd8bceee37d1669208ae46504713b3c83078d13d9623",
+    "child-037.stderr": "d115df3edf87f2623a30948a69098117d6a0275b825e549568dc8d8e838a937a",
+    "child-037.stdout.gz": "837e23b45805ca3377e723ac8583693f620210a240e0efa43900ee6310eda4fc",
+    "child-038.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-038.stdout.gz": "4ab7f3fa540c7da5fc0b1813f4d53199f214dfd94901f00ea2b79212a2d9ade9",
+    "child-039.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-039.stdout.gz": "5271bac7f7fca3de5a0ab85c61edc5e9d1915ba0532e4b8b26d17e92567af7e7",
+    "child-040.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-040.stdout.gz": "771f228e607f8b4a1c024da72e019e059f0cd54842aed926517e03700e0ac088",
+    "child-041.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-041.stdout.gz": "6eb19829064869b21741cf738d8ed72447af2e5e9a59f93e5be8ac058dfe3d95",
+    "child-042.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-042.stdout.gz": "890e11e20a746880fd267e34c141c4509637a0926fa60eee9c1e58e5c4d9d0db",
+    "child-043.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-043.stdout.gz": "1a9d4f0b6690f1d7658668af6776617abfcafb60a91ef1c8a576d7b698c3b3ef",
+    "child-044.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-044.stdout.gz": "014eb58d55ace08e9fb47f9bfeeb0e1443c71e7056de2cdb041c02f5e8bf3383",
+    "child-045.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-045.stdout.gz": "14e26639f439cad9a9fd5a0a5687cca1ce93ad752fa8a2c7072e3138935976e5",
+    "child-046.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-046.stdout.gz": "512aa7e5db068ee313c3f44c9750bb8fe0610fad255d4fab9b754c0a02cf6866",
+    "child-047.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-047.stdout.gz": "b0086b8ac8955ca1563b78230c4fd45d51a8299749612125093a03e9fea4032e",
+    "child-048.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-048.stdout.gz": "f0f04bedaca7c5b353a8018010498bf08e53e54ab701fad8e42a9cf6ca854938",
+    "child-049.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-049.stdout.gz": "96175016b759c3f77f4b33b7fc3024e31008bc97675a4e58abd7c5f8c9be7e4f",
+    "child-050.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-050.stdout.gz": "c5bd28f966f1d4f11852072a949102860b83ce1d134ad5512926d4f98925f7d9",
+    "child-051.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-051.stdout.gz": "90e3c8368b8588e7e892270d8a6b1940c720990a7d562ac1e1e480c9bd499913",
+    "child-052.stderr": "a77dad5b9754c78ecf96a17d20833de0a816eb58f4a6b6201a196ce4ee8144d1",
+    "child-052.stdout.gz": "b97359a3e63e3371ded0a3035a9bb9b82ea030cd050bf69d1df8df444d99a3cf",
+    "child-053.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-053.stdout.gz": "270e3446fa88fd9685c84bd8146b56e92b190261801e392ce6368ce34756e67a",
+    "child-054.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-054.stdout.gz": "11f68070491f0e07a8f330ec74e951fd00a61f14e1d9ce9b76e3ad2c36381776",
+    "child-055.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-055.stdout.gz": "3e9e2f05be9da505cceec6c2f0bb60b8f0c95edb6b68a94c2411a0f6126e8cb9",
+    "child-056.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-056.stdout.gz": "2f3024a2b79f380704dca99bd4c272208f5821c79ddc692a218ea426c15980b3",
+    "child-057.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-057.stdout.gz": "310c1c7d1729df444618b152bf8fa511266a19d54d07532c08673e7ff2627005",
+    "child-058.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-058.stdout.gz": "ac4e6508d8d9d237d8036fda01d52e14c5a325cf6e31aa8f8c79f07b8d7fe6ac",
+    "child-059.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-059.stdout.gz": "2850898173e1d3a6d40d47d92808c5ae7da6f8160d604c6d131269f84cd94fa1",
+    "child-060.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-060.stdout.gz": "d47053aa49d0172f090c865aaaae43a3684404deca25deff21502833c882e03d",
+    "child-061.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-061.stdout.gz": "3e7e27692b7a36dbf541ef2407cdc011a94519db49f3bf5203ca7564ee4e9846",
+    "child-062.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-062.stdout.gz": "dc36bee8e9d3352dae660fe1777da69064115e3489ef05604d9f758da61cfadb",
+    "child-063.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-063.stdout.gz": "ca8efbd0acd6295bfa8352ffcd2b3a929845002e9605b4c88bff69e31f230100",
+    "child-064.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-064.stdout.gz": "767298ccd72b90ffc553172f4d91923611d5ef30958721f8afc71400c94baede",
+    "child-065.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-065.stdout.gz": "7ca63e2851ed795f65ded9403be758e010466620eda9868cd45317e244f6b1a7",
+    "child-066.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-066.stdout.gz": "92ba5cc4dda6b6a89241295bb5551be7a8d03d516ad6088cac3186ffe660bee9",
+    "child-067.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "child-067.stdout.gz": "8e499d6c00652d0262a027fa3d5164f38ce1c0ea33f17b4b3a31821020456a98",
+    "child-068.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-068.stdout.gz": "cd6c4dca8859ef65a7eb90f146179ccb8c23656d9c89b4387d16091e4c4a6a5d",
+    "child-069.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-069.stdout.gz": "353cab77bfe00c24bf238103310148f2ce0fedd25f03defb92cb87266979450b",
+    "child-070.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-070.stdout.gz": "ca2084d1d6e404315696bbdbc2b12d7ef8e5722442f5d40a7ade165e2a71e497",
+    "child-071.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-071.stdout.gz": "65ffcbafda68e1033a7fe80c218dbdad879c3e081f9af0ccd869b4eaa4bcaddd",
+    "child-072.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-072.stdout.gz": "490a290e21857801b0b41004f9e155635d80a1e8181f9e66bda82297cb7c25bf",
+    "child-073.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-073.stdout.gz": "9450139c9af0098cbb973dd4005554ac5b4a6b8fcb507080692c3234e1ec58b9",
+    "child-074.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-074.stdout.gz": "9011fdedb74afa10eedbd89935f51117d4703d8ac9d69dd01e0571de0b4aba50",
+    "child-075.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-075.stdout.gz": "275046867cb0eb527d3bba33879973a0d7e86a36c36aef20132a3b0355c4be86",
+    "child-076.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-076.stdout.gz": "2fd5048168b6c8beb228bb8cfd9bf47d1fa15becc6380a6b36b83cd3974c353e",
+    "child-077.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-077.stdout.gz": "2da7138d28d43f526482a374badab68dd2d4c6e15a1b435f69e3747ef0786754",
+    "child-078.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-078.stdout.gz": "b17a67b7217e03c012f711c79911afa1a849cabb9a9ae3ebf564378ecbb82db5",
+    "child-079.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-079.stdout.gz": "ae206e2b4756ae8aebed61c9a2ca2f12e646a0cfa65a5da7feb6922dea7f0ee9",
+    "child-080.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-080.stdout.gz": "d20028356d7b1620e417182edb1097c1fc4fa049b61b49d35a14af6aacc2fbe6",
+    "child-081.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-081.stdout.gz": "a790c72c2e26c86ffc3be09c5117eb3ca79e69b1102a5291cb4f66529ff0c642",
+    "child-082.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "child-082.stdout.gz": "733b4bca9741b0495b5e713e3bbdd78f30a27315d423b882e8441d0f93dbbc8c",
+    "child-083.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-083.stdout.gz": "86cbcffceb091e69385a2e260e9112e29ffcb826636069bead99bc0a797c0782",
+    "child-084.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-084.stdout.gz": "880d5fe848c0b35033ab23891178f6ba4021debf75119b3c9a54697e477e754e",
+    "child-085.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-085.stdout.gz": "1e66f97e1f4b8d5b5b9c828ddf5d603ba7da95aa72faedfbfa0c2e2d675b2cf0",
+    "child-086.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-086.stdout.gz": "c60415be8306b6bb56bcd0566ff132acacaa8f8219b0392b3ae0fd61f1fa0fb2",
+    "child-087.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-087.stdout.gz": "5199923375fd42f389e8eaa023120003aa1b00e4793cab55d1fe3254f1a8b878",
+    "child-088.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-088.stdout.gz": "f9f9a80d7999a09df5b365a04bbe033e01f5be5bd76d1e115e8cacde7ddc9137",
+    "child-089.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-089.stdout.gz": "378f31635500949b9f1d9b16a4f0e8debcb49b256c1a870764f50d69887c4f10",
+    "child-090.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-090.stdout.gz": "939ba09d1932ce5e3f17cc121be05fc0f7fc7d35a427d5fcddd9a42aa960f970",
+    "child-091.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-091.stdout.gz": "c5e18025d68c995655bc53a031f4bfa09261d0b0dfe0fa72ca93294b8a6f422d",
+    "child-092.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-092.stdout.gz": "e0193d2f85670a60e36143d89b7d441c27ec5a4ebe209dee91713f88faf4beaf",
+    "child-093.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-093.stdout.gz": "8b327ff091ca20fe4eb8c70df83733d71c190786968a91ecc235034ff83a7a5a",
+    "child-094.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-094.stdout.gz": "d0183b3ba31a8aad5c5ce6a16762c620d5be276c064e17634b3ce0f88a81b76e",
+    "child-095.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-095.stdout.gz": "b951787a797ede362319540259c51ab9087a42ea5405a4183ad5aa855de0a075",
+    "child-096.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-096.stdout.gz": "e8fdc6b68016ab7679f375436e15dce6034fa926b9fd6665091980faed832870",
+    "child-097.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "child-097.stdout.gz": "ab3e8611bd7407593ad63c3b3ac20185d467ddf76a2f73c50136c455fdd57128",
+    "child-098.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-098.stdout.gz": "9683fbfe831bfb692ae350169acd0d3b11400475677eeb7040ea14c3ff12248d",
+    "child-099.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-099.stdout.gz": "6889df70e54a6121b1f9ac57af251745dd7f81ab94e3f5c12fb22e51e26c923c",
+    "child-100.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-100.stdout.gz": "0d2e381edbabbf54713e4c3efb0ca38e2e7d4bf36aee6cc5816bc3a8d1514b0b",
+    "child-101.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-101.stdout.gz": "438bbc5c9e5095c3edb52bca00d327f38094f8920b642f2dc1229788873fe129",
+    "child-102.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-102.stdout.gz": "cf7e2b87cf4a06f368bc66a6726db8e521a23721777381ee7dca2877af6b319c",
+    "child-103.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-103.stdout.gz": "58c69088bd6a370dcf48af7ce5beef4ad98046801b2a5f62dba46d3235ddc657",
+    "child-104.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-104.stdout.gz": "56189d3b58c96332f6ec0876151b8dc2c15829df2f9bbc98f20c1bf1d89a0f06",
+    "child-105.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-105.stdout.gz": "f05b20ccf504024a40901e709f5244d3cff9b04bfd9a66bf5610f23a1b0f94f9",
+    "child-106.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-106.stdout.gz": "2c62d4c81074d39c56ca2e5d6701f7cf6de65412b5d16c927a412b2548dd536d",
+    "child-107.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-107.stdout.gz": "d18c0876eea1d0165fde41329b819b0e12134ca92b334ba335eb9f0c830d0c65",
+    "child-108.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-108.stdout.gz": "d66a6c5a7052cfef3ddec2ad752ae0ba55ea2056fae7218bef0e56e9f78b9dcb",
+    "child-109.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-109.stdout.gz": "6e68e2ea7b8828485ccbe5b2cd6c11f103c96f49d79f483bedb26b55dbb65dbb",
+    "child-110.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-110.stdout.gz": "88c460ca542930a51e0c617375d9adee036860ec74b4199cfc942504387e6ca8",
+    "child-111.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-111.stdout.gz": "c9090d9bb64e081bc83742c94fd71231198af98a60c2566a8d4dd08ec4a01236",
+    "child-112.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "child-112.stdout.gz": "4f51cfea36f48b7dc388127680ae98e75c69b6f280a195e05880d3cea54afc5d",
+    "child-113.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-113.stdout.gz": "b79b78ee0fa05fd68b8ca3112864016b667269194b1b9943fbb6693d24af297a",
+    "child-114.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-114.stdout.gz": "054073c90c8b39c9d3bca0b54c74f54c2dcd8c1bfec18e4b341e7183d278a4d6",
+    "child-115.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-115.stdout.gz": "7fe258c8e92c8131692cdb35ed791d62156d5a7a55ac53605dc89c01c83f27ce",
+    "child-116.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-116.stdout.gz": "4daa5c056c8d55751bd9ba2e05e8d894a48e26b6abc27c1ad6248a2f40495bbc",
+    "child-117.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-117.stdout.gz": "1c7d9406f9655431a656c9d5893e3a89616a878b10fe5d3693908afa256e6cc0",
+    "child-118.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-118.stdout.gz": "be953c4d9c3f707fd079722b0bc0680f7397879a0c8e48bf7091d28947d2b880",
+    "child-119.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-119.stdout.gz": "2430f8407732f6de8961cfb6525693f737bf491226a639f0751edd6f0c97e256",
+    "child-120.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-120.stdout.gz": "378098f716fd0e7984641a691dd3e664f8cf12fd36e236922be1182bb5faf0c0",
+    "child-121.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-121.stdout.gz": "2d78a75875c5cf92b72567f11b7b00e1c2d2cd6c2ba7c5116a0b60fa15aea686",
+    "child-122.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-122.stdout.gz": "255647db0048ca874d813a92fd92de1ceb698663482186c0a19beb014d5d9975",
+    "child-123.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-123.stdout.gz": "409f565e056eb99d6b6e6001909f09cc8f93664e257fcb8b6e2ccd290b796f71",
+    "child-124.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-124.stdout.gz": "a6c5c3ee6eee0a0d36b01fc98d7e745a7c2151e76591df5a9f0ec98699905eb0",
+    "child-125.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-125.stdout.gz": "c6845b8dbf4cbe2c513663b620e2db9047516e9d6f27ad7ac37ae966aba7e239",
+    "child-126.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-126.stdout.gz": "d12facb7f22dd107b956652bdc9bfaadaff86b0d87cefc7f4acb504195ce6918",
+    "child-127.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "child-127.stdout.gz": "1e90ea32c94b5d022aa41c5048231a40eae23dd711617350e41bda2e357c6d81",
+    "child-128.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-128.stdout.gz": "b2ecbb865f604ba26596f25dc681caebb3a42c4b4f6a95fce63f65a1cbdb401d",
+    "child-129.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-129.stdout.gz": "6c8eb1db3c4659a6472450e1b3dbc3d968045a4d06069d167fb3f99f708d0440",
+    "child-130.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-130.stdout.gz": "5d650c60334d7443dd0abcea10fff735af8cc505ba28b12fb2e648ae6271df00",
+    "child-131.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-131.stdout.gz": "1f42bcf28060cc0771b4e849ff8278938512ff5356b643fb41eba934ba5a178f",
+    "child-132.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-132.stdout.gz": "08bc12178166206cb507be3ca712401e4d130310671566c812fab07717d97a3a",
+    "child-133.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-133.stdout.gz": "1e6affb6ce93f1f8d9da592316d1df00d840aa84e77e6e951cb40b20792945a4",
+    "child-134.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-134.stdout.gz": "e72de62a791f0f62b4c0db0f0f4c9f5c4672be3f361e6fd7c878baa6347186e0",
+    "child-135.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-135.stdout.gz": "d8bca9ee2ed93f0d46a106ad3bc3167d420c01de31a992d0aabea48cdbbe7ef9",
+    "child-136.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-136.stdout.gz": "befded805d1f233af50c9d7accda347c28aebb0db9d7ba0979d5b7e2c346b33c",
+    "child-137.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-137.stdout.gz": "3eff5a7abf04cbb3718968f81bd64df769d20abe94a9c4d0451fccfaf30aa983",
+    "child-138.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-138.stdout.gz": "123ecb9b9723a7f7b3b814cabf1972f513ac41e06ec0413bea7b7442db2c4a73",
+    "child-139.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-139.stdout.gz": "17f034bc8b3997399cf20bc0fdca868bfe92b54a0f997dfe90a4b0ab0e67d264",
+    "child-140.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-140.stdout.gz": "d913b881f9fe5a0559b6cd26b58bf4f2bb32b27edabb06072252f4b794f8e1d7",
+    "child-141.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-141.stdout.gz": "a1f8512368a5d33395d013847270fdba2b81c620de8ca322c630af40e222a05a",
+    "child-142.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "child-142.stdout.gz": "ea38f280c3924b7af319f815ad3cb468ec31314226a738a8cb303b0dc0dec6a6",
+    "child-143.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-143.stdout.gz": "e49f930da6b644d07b2ad5df7e70ce3f51ebaee6055cb7ed6abf266d8d2f302f",
+    "child-144.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-144.stdout.gz": "f212642818a2ce3827c6f7c72c2f4369a701397d529e11fe8c1a97e8fa2474ed",
+    "child-145.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-145.stdout.gz": "6c5c58e5bed4c71643b7decfcbca0f07af9525084a368aa74335d2837107d183",
+    "child-146.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-146.stdout.gz": "28e4c711fc9fc293f69b1797dbcdf5e94f89d5f05f1d7ceb491be6189a9c405b",
+    "child-147.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-147.stdout.gz": "b3f67e799ccdb8f27f5ac82010c8cb5c1c6cac5ae98ba9406f2e957e3628da04",
+    "child-148.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-148.stdout.gz": "6cde33b332073f24455399734a5f0ff384630df51ff828e3951768656242ddce",
+    "child-149.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-149.stdout.gz": "ab1405a54ddc52bc567e926197c7366c1ee0e9e761223771777192c1d1044d64",
+    "child-150.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-150.stdout.gz": "0d769503b87aa9d04632c6da1adb2c4e5ef9578b90628c79025cf4ab54fa636e",
+    "child-151.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-151.stdout.gz": "bbdadaf3526fddef1c09641ef40b531e9d8476300e180521ec8e4293036b92dd",
+    "child-152.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-152.stdout.gz": "8fc12b101f627c097e475d4c56ae3ee6f21f76b43574227b44c1c429e47e6b03",
+    "child-153.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-153.stdout.gz": "c4dff282a8c105f56991c49e1ea4e9e8714abee1eaf8e0a0de690c9eeccb5164",
+    "child-154.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-154.stdout.gz": "0a0d994651e298e9af359f07def93975c378bde1510498174d2a6e03ffcb85ee",
+    "child-155.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-155.stdout.gz": "db73a0b4a6c3247f49edfa3477be48a1f0ad21e5d043ebf9bb3968806b3b1132",
+    "child-156.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-156.stdout.gz": "983c3c6837d313bc2c49ffe3f7f7a6b1564057227f9f0a5a3e54f3a7a75264d8",
+    "child-157.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "child-157.stdout.gz": "7629ae35b2897fe4714b036467ff2a0b7b32d9374dce428c1b8aedf1be5d30ff",
+    "child-158.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-158.stdout.gz": "52f196af0dc2b850b5633640bd1e728db92576c215cc26de9c2b21f951b44967",
+    "child-159.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-159.stdout.gz": "2996ff70d93c4f080f3e93202b586dc682ac8234763d7dbdfbb49f997eb5b302",
+    "child-160.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-160.stdout.gz": "59d22473ec56f16b8de23d6fbda2738913fbb11aac5d0ca86a7732d2e66bf9b6",
+    "child-161.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-161.stdout.gz": "aa76b7f4c1949280609c776362b05f9df459b93be247f1f811cda3b54036d5cc",
+    "child-162.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-162.stdout.gz": "e78b0203f1dd8398fa48b2c642059eb40152129d6b3ec59a02c9a165d8350537",
+    "child-163.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-163.stdout.gz": "5d9b8227fd4ac9797213af8eb836f517babd7e97d0dd93a9609525798c93becc",
+    "child-164.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-164.stdout.gz": "91d6af6be6870df8ff48190230e727a604de02bda611696f83912768f10177f6",
+    "child-165.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-165.stdout.gz": "66351c79dca638786465ae24783b6c078ef54cde98d839d2073ee854da97cc33",
+    "child-166.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-166.stdout.gz": "fc512b664bb0927323916cc225c36d19be2e24cbcd423a7e39390c003b5a7683",
+    "child-167.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-167.stdout.gz": "ab7723db7b2a7dba8746510b4e21761fda575f2741bb5ae0cd3dc610b99d3bc6",
+    "child-168.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-168.stdout.gz": "1d54b51218bd436def43ea4aac5d51f881b7c59acbf2af242bce998e715a0c40",
+    "child-169.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-169.stdout.gz": "dc5a9a58a438b1520978dcaf675b3ddddf6631ee3d40a6f7641fcd30f52360ed",
+    "child-170.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-170.stdout.gz": "57055d5dc0b8d1c5dbeff7a2e6680c3721f40f9d7eadc8cc497bd3d7e3971c66",
+    "child-171.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-171.stdout.gz": "95bd570fb6f7e177230463a31c4a92bb37afadbe42fc6b8b68482968312c474f",
+    "child-172.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "child-172.stdout.gz": "dc14cc977aa48aed7edd854b19440c0563e9f6f404bc909ea1b985c46c33cf1a",
+    "child-173.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-173.stdout.gz": "fe528f30a5d643db3d2bb02aa717d2c2793c538a36872d3e9d07e9f4f0d62a3e",
+    "child-174.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-174.stdout.gz": "ddea0d09947b18ab48c171d8138a18af1a657104f316690db66ec1d26df1887d",
+    "child-175.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-175.stdout.gz": "ea2b489e92cc4adbcea4474cf3fd6fba0ea1354a065259888b77767519736b13",
+    "child-176.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-176.stdout.gz": "609fd21634f998a5cbd1eb9104e576c68164a3896a99666ba438d3e0d77dc433",
+    "child-177.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-177.stdout.gz": "01b4aa7602a82d096248920efcb88a10352d2c0de3907b58cfdf3407268156bf",
+    "child-178.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-178.stdout.gz": "7c8113f0d4faab9001024c13bb759aa1168c2b0651157a2ad7261db8169b371c",
+    "child-179.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-179.stdout.gz": "4fbd362b9ab99cd8395c57f86edc0a1891832a03bb8ca76fdfc70a82ff8c5a7e",
+    "child-180.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-180.stdout.gz": "91de6d1e354b7aaa3777941889b6375e3bd8a90b410a73f59485ff3a0d68aec7",
+    "child-181.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-181.stdout.gz": "116d841c3d5df5b2d6a43ccff2dbb673beca678edbe48799e2eae7d29abc6892",
+    "child-182.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-182.stdout.gz": "28095e21a0c1d253317430f172b438545a295da8d515df42981662fc3845b5fe",
+    "child-183.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-183.stdout.gz": "5b9e305c84bdb382e6e04808623968d4ac067cfbeac54687723c616de476468c",
+    "child-184.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-184.stdout.gz": "18f89983a44471c1b47099068c22d0f216d7b0e6bf39256b79cbd329482ac28a",
+    "child-185.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-185.stdout.gz": "f3a5d84630b173c35c4c511d17bfdf8d89a230696325a5d194e4fcf8c23ba79a",
+    "child-186.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-186.stdout.gz": "c56b1796de8b2ec1127e570ffcd0251d6523c4f16ec4b4f66dc4f137241984c6",
+    "child-187.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "child-187.stdout.gz": "70e3b11953b655483f2fa982dedac5c979faffa57463f2cbbf9ad5a30992d6ee",
+    "child-188.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-188.stdout.gz": "ffc10849ededd28f0dba484adbbda505f1df20f8e503ba0bfa30503f46a28612",
+    "child-189.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-189.stdout.gz": "c04bfcaa4e4313cef3e50ee7cdaccf3a05a25f463a9cb8f5bc1956bfec264351",
+    "child-190.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-190.stdout.gz": "7a29102abaf221afc910c52fbe968ce12e3d0c8ca84e4d08fae1bd5f70cd8dcb",
+    "child-191.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-191.stdout.gz": "bbea61761aa0823cbebc107c034a2c06bafbf5a65deb496f46223f8cacb76e0c",
+    "child-192.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-192.stdout.gz": "ee92df0c7cb5bdc007923f687b3d7e726639f0398733a198a5aa2406ed5c445d",
+    "child-193.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-193.stdout.gz": "e96e47450e0d2ea0e52384a0c49856ee8b4a20e2c09d8cfcf330d1d39cce6a26",
+    "child-194.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-194.stdout.gz": "1d86634005214ac347a760dddb3e466e3ec778783ec3e852a07eaa5243949f6e",
+    "child-195.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-195.stdout.gz": "9090269316f780ea8079a507d2173a8943bff017d36c0eb853f1d2d6a94a0bee",
+    "child-196.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-196.stdout.gz": "d24cfae9e707ba802453e43df2661240e583d001a9c8e70190c0ec199e6a506d",
+    "child-197.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-197.stdout.gz": "2f404b3fd6de4dd3ee76b18741ff23f5c5f6581b5c9374be82353db7f1d59033",
+    "child-198.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-198.stdout.gz": "510fe5e8ba9e0e8ce99c50f27518c0f2136a883700d138bd1cfb9773c988a0fc",
+    "child-199.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-199.stdout.gz": "38903bb6e0b1d9de89ac50ba439bcc9500ca0b5f996e4be5b4335f6cdd20e3ce",
+    "child-200.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-200.stdout.gz": "a6d3b0d8f593e4b3d232d4ea43f772e477520734b2cd9ca1e7fb42b4b529a51a",
+    "child-201.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-201.stdout.gz": "bd5d7401b9b195afbbebe661b6dfeccc6ccf6cd84cac04597132fab9b1f4788f",
+    "child-202.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "child-202.stdout.gz": "0a5b128c4f554e757b764f668e6f9ad32073c255473618896f2d4a69e32941c3",
+    "child-203.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-203.stdout.gz": "e12be20b0344a695e3ec6b6cb347fab30855cbe88bbca69ff597c6b3c96284e9",
+    "child-204.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-204.stdout.gz": "17b91bd61d93b8028b9c8dc0b4087c0f4f88ad137c38b04b4639120594d61051",
+    "child-205.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-205.stdout.gz": "fcc18ed66cb1c4e1a0855491fe6bf76e67a95197b5f6ff1cfd8d76c8f6e299ba",
+    "child-206.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-206.stdout.gz": "e6415ec87a5c7ced51459d079183fa185f6ee83f21d748522f68c949d1595924",
+    "child-207.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-207.stdout.gz": "6a8d97530ff822000d892eec56d8c36b350ef9b4a586b1ed6f35720dc938c56c",
+    "child-208.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-208.stdout.gz": "a754590b00828aae11123f5b4c43c0680accb3c13c2fc9228c6d39c51e239c88",
+    "child-209.stderr": "7503b3389748a3efa7ad58e3f1fabf1af186a5653c23ec84c163764f93fb3cf3",
+    "child-209.stdout.gz": "de7aee90dec6a89e23899bb68bc9d968eb020bd8e37e63d5f5a8487c8fcac0a8",
+    "dropped-through-expected.json.gz": "a7afbeb64080df199eefeccce4970f13e96f3a6a48d966de8567da548fa522eb",
+    "dropped-through.js": "7526a5f73dbf79350c0488fff8a520ec76986ec61915644ff4ac92bd273e88d6",
+    "environment.private.json": "52d8344e4e309c2e668a904372ca8a610287c50b8fe0305d7a6ba2dc7758080e",
+    "expected.json.gz": "de13be8557d10ac65ef5e4a5c02c71c639bc5a1bf31db507eef2fd2ee7c1612f",
+    "oldest-newest-order-expected.json.gz": "65f4b3d891669cbe5a17aa0d5322c51bc7ea22894874fd146eefd1deefb0c024",
+    "oldest-newest-order.js": "67199df57c1f093217018d82be7bb62ac6df598cc4f094e4b60a24fb5489cdaf",
+    "plan.json": "b1cd91ad86784c2f0a51dad1cb311d69c14ebd0237c5ca1240014ce3ac293b88",
+    "queue-capacity-expected.json.gz": "edfac3c6fc5e745523d6009d13514f7915d53403c8b3cd555fba7d8c23f9f1fe",
+    "queue-capacity.js": "2b5dfdb87bdbf2f59c174ddb8e1d18d7ae87920b154550ac8d6561183ad2a789",
+    "successful-cursor-expected.json.gz": "ea7b6a5f007842771462b9a2a285c01ef0e44f67f75af91c41eb64fcd9e084df",
+    "successful-cursor.js": "79c83debda7fcc98f4a7d0903967d13edbff9512d2cf9b55488649e57d3c6aae"
+  }
+}

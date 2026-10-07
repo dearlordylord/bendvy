@@ -1,0 +1,58 @@
+{
+  "status": "DEVELOPMENT_FULL65537_TWO_SCHEMA_COMPLETE_MODEL_PASS",
+  "scope": "DEVELOPMENT_COMPLETE_MODEL_SEAM_ONLY_NOT_DELIVERY_OR_PERFORMANCE",
+  "planSHA256": "c98caf2be5ff8da985843395e0b798276f5092aeafed73cd9ca701017cb76f4c",
+  "commands": [
+    {
+      "label": "emit-js",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/home/node/.bend/bin/bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/machines-stream-opt-linear-format-development-v1/stage/experiments/public-machines/followup/overflow.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/machines-stream-opt-linear-cheap-freeze-v2/application.js"
+      ],
+      "cap": 30,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "run-js",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/workspace/formal-proofs/bendvy/.artifacts/machines-stream-opt-linear-cheap-freeze-v2/application.js",
+        "65537"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "6e89e6755cc5fddeb5bd992add71012ee0cd37e702c90071d1497bf4133051da",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "generatedSHA256": "fd23232932f1d7d737f350d8b10cba8aa7091a64ad6bcdad7570f73e7f67e290",
+  "completeRowsPerSchema": 7,
+  "requestedCount": 65537,
+  "capacity": 65536,
+  "artifacts": {
+    "application.js": "fd23232932f1d7d737f350d8b10cba8aa7091a64ad6bcdad7570f73e7f67e290",
+    "emit-js.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "emit-js.stdout.gz": "8f58d2659167906ed5991df830dbe55e5843c54eaecec4d49549e4e0b2b0425a",
+    "environment.private.json": "8fb7c8d53fc41c789ce5ac6958b02a125d38f2ceb1be44017bbb8ccdb5d43ed4",
+    "expected.json.gz": "de13be8557d10ac65ef5e4a5c02c71c639bc5a1bf31db507eef2fd2ee7c1612f",
+    "plan.json": "c98caf2be5ff8da985843395e0b798276f5092aeafed73cd9ca701017cb76f4c",
+    "run-js.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "run-js.stdout.gz": "c71931649b2cb65c1150554e1a02be584ffd503e1e0e12e9a2eb8ac51448df52"
+  }
+}
