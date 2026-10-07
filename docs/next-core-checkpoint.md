@@ -33,6 +33,14 @@ and the 2,900-member lossless capsule are retained. See
 Rollback, reserved future targets, actual foreign worlds, production adoption and
 complete feature timing remain mandatory; #42 stays open.
 
+`04d446e4` delivers #41's initial unified FIFO/successful reservation application:
+73 commands, 70 frozen source inputs, 36 complete rows per backend, eight reached
+mutants per backend and nine negative controls. The exact source/log/emission
+archive and independent result review are retained in
+[milestone report](../experiments/public-bundles/production-candidate/transactions/FIFO-MILESTONE.md).
+Direct repeatable-capability controls, omitted-component mutation, production
+adoption and complete feature timing remain mandatory; #41 stays open.
+
 
 The additive canonical `WorldIO.create` entry point is now adopted: four new
 files, existing World implementation unchanged. Direct live-core identity and
