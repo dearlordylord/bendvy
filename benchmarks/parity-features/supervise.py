@@ -5,6 +5,7 @@ sys.path.insert(0, str(ROOT / 'experiments/s-prep/fivehour-connected-gates'))
 import supervisor
 
 def execute(command, timeout, env):
+    env=dict(env,BEND_NO_TELEMETRY='1')
     supervisor.enable_subreaper()
     prior = supervisor.child_pids(os.getpid())
     child = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, start_new_session=True, env=env)

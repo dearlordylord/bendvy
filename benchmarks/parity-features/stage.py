@@ -11,6 +11,7 @@ def inventory(directory):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--output', type=pathlib.Path, required=True)
+    parser.add_argument('--nested-spawn', action='store_true', help='Reviewed actual spawn+public allocator probe+barrier observations')
     args = parser.parse_args()
     assert not args.output.exists(), 'Stage must be fresh'
     sources, external = preflight.snapshot(), preflight.external()
@@ -28,10 +29,16 @@ def main():
     for name in ['timing.bend', 'timing.c', 'timing.js', 'capture.mjs']:
         shutil.copy2(HERE / name, harness / name)
     changes = {}
+    if args.nested_spawn:
+        import importlib.util
+        spec=importlib.util.spec_from_file_location('nested_spawn',HERE/'nested-candidate/adapt.py')
+        nested_spawn=importlib.util.module_from_spec(spec);spec.loader.exec_module(nested_spawn)
     for name in ['app.bend', 'other.bend']:
         path = stage / 'experiments/public-nested-provision' / name
         before = preflight.digest(path)
-        path.write_text(workloads.adapt_nested(path.read_text()))
+        text=workloads.adapt_nested(path.read_text())
+        if args.nested_spawn:text=nested_spawn.instrument(text)
+        path.write_text(text)
         changes[str(path.relative_to(stage))] = {'before': before, 'after': preflight.digest(path), 'purpose': 'Common missing-resource refusal without supplemental Bend-only repair; service-only repair retained'}
     for name in ['driver.bend', 'added-controls.bend']:
         path = stage / 'experiments/public-schedule-readers' / name
@@ -51,7 +58,9 @@ def main():
         refs = references[feature]
         for name, original in refs:
             adapted = harness / name
-            adapted.write_text(workloads.callable_ts(original.read_text()))
+            text=original.read_text()
+            if args.nested_spawn and feature=='nested':text=nested_spawn.ts(text)
+            adapted.write_text(workloads.callable_ts(text))
             changes[str(adapted.relative_to(stage))] = {'source': str(original.relative_to(stage)), 'before': preflight.digest(original), 'after': preflight.digest(adapted), 'purpose': 'Static imports outside timing; unchanged authored statements inside fresh callable lifecycle'}
         for batches in [1, 2, 4]:
             name = f'{feature}-{batches}'
@@ -60,7 +69,7 @@ def main():
             calls = "".join(f"R{i}();" for i in range(len(refs)))
             (harness / (name + '.mjs')).write_text(f"import {{timed}} from './capture.mjs';\n{imports}\nawait timed(async()=>{{for(let batch=0;batch<{batches};batch++){{{calls}}}}});\n")
     assert sources == preflight.snapshot() and external == preflight.external(), 'Live source drift'
-    receipt = {'status': 'STAGED_REVIEW_REQUIRED_NO_EXECUTION', 'sources': sources, 'external': external, 'intentionalAdaptations': changes, 'stageInventory': inventory(stage), 'scales': [1, 2, 4], 'timingScope': 'Full callable lifecycle; static imports/process startup and output flush excluded; no performance verdict'}
+    receipt = {'status': 'STAGED_REVIEW_REQUIRED_NO_EXECUTION', 'sources': sources, 'external': external, 'intentionalAdaptations': changes, 'stageInventory': inventory(stage), 'scales': [1, 2, 4], 'nestedSpawn':args.nested_spawn, 'noticeCacheObserved':preflight.notice_cache(), 'timingScope': 'Full callable lifecycle; static imports/process startup and output flush excluded; no performance verdict'}
     (args.output / 'stage.json').write_text(json.dumps(receipt, indent=2) + '\n')
     print(json.dumps({'status': receipt['status'], 'output': str(args.output)}))
 

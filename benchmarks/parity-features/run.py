@@ -16,25 +16,26 @@ def telemetry(cpu):
 
 def main():
     parser=argparse.ArgumentParser()
-    parser.add_argument('--stage',type=pathlib.Path,required=True);parser.add_argument('--output',type=pathlib.Path,required=True)
+    parser.add_argument('--features',nargs='+',choices=['nested','readers','fragments'],default=['nested','readers','fragments']);parser.add_argument('--stage',type=pathlib.Path,required=True);parser.add_argument('--output',type=pathlib.Path,required=True)
     parser.add_argument('--semantic-receipt',type=pathlib.Path,required=True)
     parser.add_argument('--quiet-window',required=True,help='Integrator-established quiet-window evidence/context; not an automatic noise threshold')
     parser.add_argument('--cpu',type=int,required=True)
     args=parser.parse_args();assert args.cpu in os.sched_getaffinity(0)
     semantic=json.loads(args.semantic_receipt.read_text());assert semantic['status']=='PASS'
     harness=Harness(args.stage,args.output)
+    assert set(args.features)<=set(semantic.get('features',['nested','readers','fragments'])),'Feature missing from semantic receipt'
     assert semantic['stageReceiptSHA']==harness.receipt['stageReceiptSHA'],'Semantic receipt is from another staged source'
     contract=json.loads((pathlib.Path(__file__).parents[1]/'contract.json').read_text())
     harness.receipt.update(scope='Source-bound complete lifecycle feature timing/scaling; no #28 baseline change, statistical verdict or full-core qualification',quietWindowContext=args.quiet_window,cpu=args.cpu,semanticReceiptSHA=__import__('hashlib').sha256(args.semantic_receipt.read_bytes()).hexdigest(),pairs=contract['pairs'],warmups=contract['warmups'],observations=[])
     generator=random.Random(contract['seed']);summary=[]
     def sample(feature,batches,backend,command,label):
         result=harness.run(label,[harness.tools['taskset'],'-c',str(args.cpu),*command],5)
-        validate(feature,backend,result.stdout.decode('utf8'),batches)
+        validate(feature,backend,result.stdout.decode('utf8'),batches,harness.staged.get('nestedSpawn',False))
         region=json.loads(result.stderr)
         assert region['bytes']==len(result.stdout) and region['digest']==timer.fnv(result.stdout) and int(region['elapsedNs'])>=0
         return region
     try:
-        for feature in ['nested','readers','fragments']:
+        for feature in args.features:
             for batches in [1,2,4]:
                 name=feature+'-'+str(batches);commands=harness.build(name)
                 for backend,command in commands.items():

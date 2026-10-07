@@ -27,7 +27,8 @@ def closure(entries):
     return found
 
 def snapshot():
-    inputs = set(HERE.glob('*')) | {ROOT / 'experiments/s-prep/fivehour-connected-gates/supervisor.py'}
+    inputs = set(HERE.glob('*')) | {p for p in (HERE/'nested-candidate').glob('*') if p.is_file()} | {ROOT / 'experiments/s-prep/fivehour-connected-gates/supervisor.py', ROOT / '.references/bend2/bend2/main.ts'}
+    inputs |= set((ROOT/'src/ecs').rglob('*.bend'))
     for feature in FEATURES:
         directory = ROOT / 'experiments' / feature
         authored = {p for p in directory.iterdir() if p.is_file() and p.suffix in {'.bend', '.mjs', '.json', '.py', '.md'}}
@@ -39,8 +40,12 @@ def snapshot():
 def external():
     directories = [ROOT / '.references/bevy-ts/packages/core/src', pathlib.Path('/home/node/.bend/bend2')]
     files = {p for d in directories for p in d.rglob('*') if p.is_file()}
-    files |= {pathlib.Path('/home/node/.bend/check.json'), ROOT / '.references/bevy-ts/package.json', ROOT / '.references/bevy-ts/packages/core/package.json'}
+    files |= {ROOT / '.references/bevy-ts/package.json', ROOT / '.references/bevy-ts/packages/core/package.json'}
     return {str(p): digest(p) for p in sorted(files)}
+
+def notice_cache():
+    path=pathlib.Path('/home/node/.bend/check.json')
+    return {'path':str(path),'SHA256':digest(path) if path.is_file() else None,'scope':'Daily update-notice cache; not checker configuration or executable/compiler input. Future child commands set BEND_NO_TELEMETRY=1.'}
 
 def main():
     parser = argparse.ArgumentParser()
@@ -56,7 +61,7 @@ def main():
         heads[name] = actual
     assert sources == snapshot() and dependencies == external(), 'Source drift during freeze'
     args.output.mkdir(parents=True)
-    receipt = {'status': 'PREFLIGHT_ONLY_REPAIR_AND_TIMING_ADAPTER_REVIEW_PENDING', 'sources': sources, 'external': dependencies, 'referenceHeads': heads, 'scope': 'No builds, timings, equivalent-retry assertion or performance verdict'}
+    receipt = {'status': 'PREFLIGHT_ONLY_REPAIR_AND_TIMING_ADAPTER_REVIEW_PENDING', 'sources': sources, 'external': dependencies, 'referenceHeads': heads, 'noticeCacheObserved':notice_cache(), 'scope': 'No builds, timings, equivalent-retry assertion or performance verdict'}
     (args.output / 'preflight.json').write_text(json.dumps(receipt, indent=2) + '\n')
     print(json.dumps({'status': receipt['status'], 'sourceCount': len(sources), 'externalCount': len(dependencies)}))
 

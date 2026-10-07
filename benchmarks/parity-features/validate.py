@@ -29,15 +29,39 @@ def nested_records(block):
         records.append(record)
     return records
 
-def validate(feature, backend, text, batches):
+def supplement(block):
+    expected=[]
+    for index,line in enumerate(block):
+        label,body=line.split('|',1)
+        retry=label=='retry'
+        mode=expected[-1]['mode'] if retry else int(label[4:])
+        if mode==0:reserved=[2,3];before=[1];probe=4
+        elif mode==3 and retry:reserved=[3,4];before=[1,2];probe=5
+        elif retry:reserved=[];before=[1,2];probe=3
+        else:reserved=[];before=[1];probe=2
+        fields=dict(item.split('=',1) for item in body.split('|')[-1].split(';'))
+        expected.append({'mode':mode,'reserved':reserved,'beforeLive':before,'published':json.loads(fields['events']),'probeId':probe,'afterLive':list(range(1,probe+1))})
+    return expected
+
+def validate(feature, backend, text, batches,nested_spawn=False):
     lines = text.splitlines()
     if feature == 'nested':
         block = json.loads((HERE/'nested-expected.json').read_text())['nominalBlock']
+        if nested_spawn:
+            assert supplement(block)==json.loads((HERE/'nested-candidate/expected.json').read_text()),'Supplemental expected source drift'
         if backend == 'TS':
             expected = nested_records(block)
+            if nested_spawn:
+                for record,extra in zip(expected,supplement(block)):record.update({k:v for k,v in extra.items() if k!='mode'})
             assert len(lines)==2*batches
             for line in lines: assert json.loads(line)==expected, ('nested TS checkpoint mismatch',json.loads(line),expected)
         else:
+            if nested_spawn:
+                expanded=[]
+                for line,extra in zip(block,supplement(block)):
+                    suffix=''.join(';'+key+'='+json.dumps(extra[key]) for key in ['reserved','beforeLive','published','probeId','afterLive'])
+                    expanded.append(line+suffix)
+                block=expanded
             expected = (['schema-A']+block+['schema-B']+block)*batches
             assert lines==expected, 'Complete nested owner/metadata/checkpoint mismatch'
     elif feature == 'readers':

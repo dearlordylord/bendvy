@@ -16,7 +16,7 @@ class Harness:
         spec = importlib.util.spec_from_file_location('feature_tools',HERE/'tool-pins.py')
         self.pins = importlib.util.module_from_spec(spec); spec.loader.exec_module(self.pins)
         self.installed = self.pins.snapshot()
-        self.receipt = {'status':'INCOMPLETE','stageReceiptSHA':preflight.digest(stage_path/'stage.json'),'installedTools':self.installed,'commands':[],'artifacts':{},'logs':{}}
+        self.receipt = {'status':'INCOMPLETE','stageReceiptSHA':preflight.digest(stage_path/'stage.json'),'installedTools':self.installed,'childEnvironmentFixed':{'BEND_NO_TELEMETRY':'1'},'noticeCacheObserved':preflight.notice_cache(),'commands':[],'artifacts':{},'logs':{}}
         self.guard()
     def save(self):
         (self.output/'receipt.json').write_text(json.dumps(self.receipt,indent=2)+'\n')
