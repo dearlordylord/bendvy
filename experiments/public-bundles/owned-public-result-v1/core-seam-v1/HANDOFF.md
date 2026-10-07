@@ -1,0 +1,19 @@
+# #41 additive capability leaf — preparation only
+
+Apply capabilities.patch to src/ecs/capabilities.bend only after review. Existing file bytes are unchanged; four new definitions expose OwnedRequest, owned_request_field, owned_request, invoke_owned. No spawn, reservation, cancellation, installation, storage or runtime policy changes. Root owns adoption; this directory is an isolated preparation.
+
+capability-leaf.bend imports the actual existing core capabilities and repeats only the proposed additive suffix. witness.bend calls actual new invoke_owned/owned_request with arbitrary P:Type, Q:Type and nested Packet<P,Q>; owner and returned payload remain affine. It separately calls the unchanged actual core Request/invoke Data API. The requested output U is fixed before universally bound H. No casts, Data coercions or cloned runtime owners.
+
+No provide/provision wrappers are added by this leaf. Existing public.provide binds the schema provider to the caller's abstract request; public.provision_declared delegates to SchemaFragments.bind_declared. Their later compatibility adapters can construct OwnedRequest and invoke_owned, preserving the existing caller interface. The source-current public/provider fixtures have not been rebound or requalified here. Constructor/Pack/installer adoption remains a separate slice, not silently included in this patch.
+
+## Development checks
+
+All commands used scripts/bend-check (five-second --check-only), installed Bend 2.0.35. witness exited 0; negative-opaque-output exited 1 with the exact expected universally bound output mismatch at bad; negative-duplicate-input exited 1 with input consumed more than once at bad. The latter is a language quantity boundary control rather than a exercised invocation. stdout/stderr are retained verbatim. These are source feasibility and static refusal observations, not mathematical proofs, receipt admission, full #41 acceptance or performance results.
+
+The affected closure is capabilities.bend → component.bend plus Base; the isolated leaf additionally imports existing capabilities. Witness imports only that leaf and unchanged core. Before adoption, check the applied core leaf and witness against the actual production import, reroute all eight existing negatives in owned-public-result-v1/negatives against the new API/provider adapters without changing their intent, and preserve old exact path diagnostics. Cross-schema, read-authority and reconstruct-owner checks require those schema adapters; this small preparation does not assert their qualification.
+
+After provider/bundle wiring, use existing unchanged expected.stdout (22 observations) and surface-expected.stdout (20 physical rows, 20 public joins), both authored schemas, complete refusal/foreign/undeclared/retry and spawn/rollback/cleanup observations. Requalify the reached omitted-value mutant against adopted installer imports. Use the unchanged #28 gate on combined executable production source; compare timing only when host contention permits. No new baseline or tolerance.
+
+## Primary source grounding and limits
+
+Pinned bevy-ts Command.ts defines typed staged entries and deferred spawn/insert; Runtime.ts owns system execution. Rust Bevy bundle/mod.rs defines Bundle: DynamicBundle + Send + Sync + static and command insertion uses typed components. These motivate typed recipe/provider construction rather than a Data-only payload restriction. Bend guide was read; pinned safe.ts quantities and comp.ts/main.ts distinguish affine Type from duplicable Data and source checking from runtime execution. Reference commits remain the existing surface-COVERAGE pins. No new law is proposed or proved; existing approved contracts govern this additive type capability. Arbitrary Type signatures are checked, but this tiny witness does not constitute runtime verification for every inhabitant or new universal rollback machinery.

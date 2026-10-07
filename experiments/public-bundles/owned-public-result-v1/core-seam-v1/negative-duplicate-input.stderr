@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : input
+- observed : input (consumed more than once)
+Context:
+- owner : W.Owner
+Location: bad
+3 | # An arbitrary affine input cannot be duplicated by the new entrypoint.
+4>| def bad(~P:Type,owner:W.Owner,input:P) -> W.Owner & (P & P):
+  |                               ^^^^^
+5 |   (owner,(input,input))
+bend 2.0.36 is available: run bend update

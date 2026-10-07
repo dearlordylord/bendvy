@@ -1,0 +1,43 @@
+{
+  "status": "SOURCE_ONLY_PREPARATION_NOT_ACCEPTANCE_NOT_PROOF",
+  "checks": [
+    {
+      "source": "witness.bend",
+      "exitCode": 0
+    },
+    {
+      "source": "negative-duplicate-input.bend",
+      "exitCode": 1,
+      "diagnostic": "input consumed more than once; Location bad"
+    },
+    {
+      "source": "negative-opaque-output.bend",
+      "exitCode": 1,
+      "diagnostic": "fixed Array<U32> versus H -> H; Location bad"
+    }
+  ],
+  "command": [
+    "scripts/bend-check",
+    "SOURCE"
+  ],
+  "sources": {
+    "src/ecs/capabilities.bend": "91c0cdc01e9143d10dc0156ef4f6c39beff97d8088ed0bbb056ffff2ffabf964",
+    "src/ecs/component.bend": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+    "experiments/public-bundles/owned-public-result-v1/public.bend": "410e32605c946459043df3cccf5bc28fd374cb8d92259563e2c1ce056d60edba",
+    "experiments/public-bundles/owned-public-result-v1/surface-COVERAGE.md": "80dd86789112e77f3ce4d2dc0808944d5882e21308137ce277336fb484917466"
+  },
+  "delivery": {
+    "capability-leaf.bend": "e232947e7fefbf134633d31412153170e9dd9c18db6b16f98ad2a94429a5b469",
+    "negative-opaque-output.bend": "3dfefc6c7206bf65ef1eb7621a832205a7c8031fe786c54d6aff66ed83beb30f",
+    "source.stdout": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+    "source.stderr": "57f1325a11b98d00f4bdbb487bda0cc9787e2baa240266722596845baee2e494",
+    "witness.bend": "01049bdff9c781af2324e9f70d60492850135bd92e5a33a648ff450f968f2d63",
+    "negative-duplicate-input.stderr": "206a14b2cf02b07ad17acee928db2e81ceb5180134c01d89391cbb6f41df5ec2",
+    "negative-opaque-output.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "capabilities.patch": "08df949d8e1c9afa56eb0c7ba275adc0b22bb30e57e7c992f24073eece63ee35",
+    "negative-duplicate-input.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "negative-opaque-output.stderr": "d3672f1f95f336ce9791346afad372c03d20638965838a9870533c110c740a6e",
+    "negative-duplicate-input.bend": "6f3bc05830b41d92a573f69fa53107501efaa6869df19dbf3f9f5add142a2813",
+    "HANDOFF.md": "3bdcbce02d8d355225a9775528a3bcdb8ee2f79c03a493438d355deb5096fef3"
+  }
+}
