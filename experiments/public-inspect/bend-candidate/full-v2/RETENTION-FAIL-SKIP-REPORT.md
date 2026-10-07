@@ -1,0 +1,9 @@
+# Actual failed and skipped retaining systems
+
+Two nominal schemas pass the same complete 20-line oracle on emitted JavaScript and Native. Genuine `System.run_tracked` failure preserves both registration cursors at zero. A false condition through actual `Schedule.run_with_skip` also preserves them. At both boundaries, actual lifecycle collection retains removal/despawn counts 1/1 and dropped-through ticks 0/0. Subsequent genuine successful execution advances only removal; actual disposal releases the remaining owners and permits despawn collection. Full preceding Inspector observations and affine component/resource projections remain checked.
+
+The new fixture received five-second source checks and complete JS/Native execution; no separate interpreted execution is claimed. Inherited JS receipt labels mention 16 observations, and inherited Native scope text mentions an interpreted pass. Those immutable labels are stale: the actual oracle, full raw output and command ledger qualify exactly 20 JS/Native observations. Receipts were not rewritten and positive backends were not repeated.
+
+The focused Native plan `14465c54ac30404ec55add8e5420dc08b52ccdd221b1362ab8f62e09bb9d1c1e` owns three subjects with unchanged 30/120/5-second caps, one thread, GPU off and 35 execution plus five preparation installed-tool probes. The closed `retention-fail-skip-evidence-v1/verify.py` reconciles 544 records without launching children; tools are hash-only and private environment values are excluded.
+
+This is finite development evidence, not universal refinement, production integration, performance qualification or complete #54 acceptance. Full API/Inspector policy boundaries and equivalent feature performance remain. Historical preparation helpers retain local artifact paths; the capsule is portable retained evidence, not a standalone toolchain rebuild.
