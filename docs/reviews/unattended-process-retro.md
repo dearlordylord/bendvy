@@ -75,3 +75,18 @@ schedule with repeated registration IDs. The actual emitted JS checkpoint
 rejected this before Native. Preserve that failure and run the two phases with
 their returned owners, matching the actual TS phase sequence. Generic labels
 and guards cannot replace a complete executable application oracle.
+
+## Installed-tool checks and review routing
+
+#48 repeated unsafe library discovery and lost timeout output. New runners can
+reuse `scripts/owned-tool-pins.py` with an independently reviewed injected
+owned-descendant executor; there is no fallback executor. Seven deterministic
+controls run in the local pre-commit hook. They cover raw failure captures,
+environment digest publication, prerequisite drift and ASLR-insensitive library
+comparison. Keep raw logs intact and compare exact paths, bytes and meaningful
+diagnostics. See [independent review](owned-tool-pins-final.md).
+
+Assign one admission reviewer per frozen runner and notify its author. Parallel
+duplicate reviews repeated the same findings without improving coverage. Keep
+historical runners and receipts unchanged; this helper does not qualify source
+staging, semantic oracles, mutation witnesses or performance by itself.

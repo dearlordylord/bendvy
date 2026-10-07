@@ -2,6 +2,7 @@
 set -eu
 cd "$(git rev-parse --show-toplevel)"
 python3 scripts/test-receipt-logs.py
+python3 scripts/test-owned-tool-pins.py
 python3 benchmarks/test-statistics.py
 # Raw evidence retains compiler whitespace and complete output terminators.
 git diff --cached --check -- '*.bend' '*.py' '*.md' '*.c' '*.js' '*.json' '.githooks/*'
