@@ -1,0 +1,186 @@
+--- experiments/public-machine-handlers/candidate-v1/full-actions.bend
++++ experiments/public-machine-handlers/candidate-v1/full-actions.bend
+@@ -3,11 +3,11 @@
+ import full-observe.bend as O
+ import full-query.bend as Q
+ import full-locals.bend as Local
+-import handlers-tracked.bend as H
++import ../../../src/ecs/machine-handlers.bend as H
+ import full-provider.bend as P
+ import full-context.bend as Ctx
+-import ../../public-machines/machine.bend as M
+-import ../../public-machines/stream.bend as St
++import ../../../src/ecs/machine.bend as M
++import ../../../src/ecs/machine-stream.bend as St
+ import ../../../src/ecs/capabilities.bend as Cap
+ import ../../../src/ecs/transaction.bend as Tx
+ import ../../../src/ecs/system.bend as Sys
+--- experiments/public-machine-handlers/candidate-v1/full-authority-positive.bend
++++ experiments/public-machine-handlers/candidate-v1/full-authority-positive.bend
+@@ -1,8 +1,8 @@
+ import Base
+ import full-provider.bend as P
+ import full-actions.bend as A
+-import handlers-tracked.bend as H
+-import ../../public-machines/machine.bend as M
++import ../../../src/ecs/machine-handlers.bend as H
++import ../../../src/ecs/machine.bend as M
+ import ../../../src/ecs/system.bend as Sys
+ import ../../../src/ecs/capabilities.bend as Cap
+ 
+--- experiments/public-machine-handlers/candidate-v1/full-context.bend
++++ experiments/public-machine-handlers/candidate-v1/full-context.bend
+@@ -1,5 +1,5 @@
+ import Base
+-import ../../public-machines/machine.bend as M
++import ../../../src/ecs/machine.bend as M
+ import full-provider.bend as P
+ import ../../../src/ecs/world.bend as W
+ import ../../../src/ecs/transaction.bend as Tx
+--- experiments/public-machine-handlers/candidate-v1/full-foreign-controls.bend
++++ experiments/public-machine-handlers/candidate-v1/full-foreign-controls.bend
+@@ -4,7 +4,7 @@
+ import full-main.bend as Main
+ import full-observe.bend as O
+ import full-locals.bend as Local
+-import handlers-tracked.bend as H
++import ../../../src/ecs/machine-handlers.bend as H
+ import ../../../src/ecs/world.bend as W
+ import ../../../src/ecs/system.bend as Sys
+ 
+--- experiments/public-machine-handlers/candidate-v1/full-main.bend
++++ experiments/public-machine-handlers/candidate-v1/full-main.bend
+@@ -2,17 +2,17 @@
+ import full-marker.bend as Mark
+ import full-readers.bend as R
+ import full-steps.bend as Step
+-import event-stream.bend as ES
+-import ../../public-machines/stream.bend as St
++import ../../../src/ecs/internal/machine-handler-events.bend as ES
++import ../../../src/ecs/machine-stream.bend as St
+ import ../../../src/ecs/event-runtime.bend as Ev
+ import full-context.bend as Ctx
+ import ../../../src/ecs/transaction.bend as Tx
+ import full-provider.bend as P
+ import full-actions.bend as A
+ import full-observe.bend as O
+-import handlers-tracked.bend as H
++import ../../../src/ecs/machine-handlers.bend as H
+ import full-locals.bend as Local
+-import ../../public-machines/machine.bend as M
++import ../../../src/ecs/machine.bend as M
+ import ../../../src/ecs/world.bend as W
+ import ../../../src/ecs/system.bend as Sys
+ 
+--- experiments/public-machine-handlers/candidate-v1/full-marker.bend
++++ experiments/public-machine-handlers/candidate-v1/full-marker.bend
+@@ -1,9 +1,9 @@
+ import Base
+ import full-provider.bend as P
+ import full-actions.bend as A
+-import handlers-tracked.bend as H
+-import ../../public-machines/machine.bend as M
+-import ../../public-machines/stream.bend as St
++import ../../../src/ecs/machine-handlers.bend as H
++import ../../../src/ecs/machine.bend as M
++import ../../../src/ecs/machine-stream.bend as St
+ import ../../../src/ecs/world.bend as W
+ import ../../../src/ecs/system.bend as Sys
+ 
+--- experiments/public-machine-handlers/candidate-v1/full-negative-cross-schema.bend
++++ experiments/public-machine-handlers/candidate-v1/full-negative-cross-schema.bend
+@@ -1,7 +1,7 @@
+ import Base
+ import full-provider.bend as P
+ import full-actions.bend as A
+-import handlers-tracked.bend as H
++import ../../../src/ecs/machine-handlers.bend as H
+ import ../../../src/ecs/system.bend as Sys
+ 
+ def cross(~failure:H.Phase -> U32 -> Bool,owner:Sys.Registry<P.SchemaA,P.Store<P.SchemaA>,P.Resources<P.SchemaA>,P.Ping,H.Invocation<P.Flow>,String,Unit,A.runner(~P.SchemaA,~failure)>) -> Sys.Registry<P.SchemaB,P.Store<P.SchemaB>,P.Resources<P.SchemaB>,P.Ping,H.Invocation<P.Flow>,String,Unit,A.runner(~P.SchemaB,~failure)>:
+--- experiments/public-machine-handlers/candidate-v1/full-negative-owner-duplicate.bend
++++ experiments/public-machine-handlers/candidate-v1/full-negative-owner-duplicate.bend
+@@ -1,7 +1,7 @@
+ import Base
+ import full-provider.bend as P
+ import full-actions.bend as A
+-import handlers-tracked.bend as H
++import ../../../src/ecs/machine-handlers.bend as H
+ 
+ def duplicate(~failure:H.Phase -> U32 -> Bool,owner:H.Owners<P.SchemaA,P.Store<P.SchemaA>,P.Resources<P.SchemaA>,P.Ping,P.Flow,A.runner(~P.SchemaA,~failure)>) -> H.Owners<P.SchemaA,P.Store<P.SchemaA>,P.Resources<P.SchemaA>,P.Ping,P.Flow,A.runner(~P.SchemaA,~failure)> & H.Owners<P.SchemaA,P.Store<P.SchemaA>,P.Resources<P.SchemaA>,P.Ping,P.Flow,A.runner(~P.SchemaA,~failure)>:
+   (owner,owner)
+--- experiments/public-machine-handlers/candidate-v1/full-negative-undeclared-next.bend
++++ experiments/public-machine-handlers/candidate-v1/full-negative-undeclared-next.bend
+@@ -1,6 +1,6 @@
+ import Base
+ import full-provider.bend as P
+-import ../../public-machines/machine.bend as M
++import ../../../src/ecs/machine.bend as M
+ import ../../../src/ecs/capabilities.bend as Cap
+ 
+ type ReadOnly<F:Type> is Type:
+--- experiments/public-machine-handlers/candidate-v1/full-negative-write-through-read.bend
++++ experiments/public-machine-handlers/candidate-v1/full-negative-write-through-read.bend
+@@ -1,6 +1,6 @@
+ import Base
+ import full-provider.bend as P
+-import ../../public-machines/machine.bend as M
++import ../../../src/ecs/machine.bend as M
+ import ../../../src/ecs/capabilities.bend as Cap
+ 
+ def write(~F:Type,~read:Cap.ValueRead<F,M.CurrentView<P.SchemaA,P.FlowToken,P.Flow>>,owner:F) -> F:
+--- experiments/public-machine-handlers/candidate-v1/full-observe.bend
++++ experiments/public-machine-handlers/candidate-v1/full-observe.bend
+@@ -1,9 +1,9 @@
+ import Base
+ import ../../../src/ecs/local.bend as Local
+-import event-stream.bend as ES
+-import ../../public-machines/machine.bend as M
++import ../../../src/ecs/internal/machine-handler-events.bend as ES
++import ../../../src/ecs/machine.bend as M
+ import full-provider.bend as P
+-import ../../public-machines/stream.bend as St
++import ../../../src/ecs/machine-stream.bend as St
+ import ../../../src/ecs/world.bend as W
+ import ../../../src/ecs/column.bend as Col
+ import ../../../src/ecs/lifecycle.bend as L
+--- experiments/public-machine-handlers/candidate-v1/full-provider.bend
++++ experiments/public-machine-handlers/candidate-v1/full-provider.bend
+@@ -1,8 +1,8 @@
+ import Base
+-import event-stream.bend as ES
++import ../../../src/ecs/internal/machine-handler-events.bend as ES
+ import ../../../src/ecs/local.bend as Local
+-import ../../public-machines/machine.bend as M
+-import ../../public-machines/stream.bend as St
++import ../../../src/ecs/machine.bend as M
++import ../../../src/ecs/machine-stream.bend as St
+ import ../../public-machines/world.bend as MW
+ import ../../../src/ecs/world.bend as W
+ import ../../../src/ecs/column.bend as Col
+--- experiments/public-machine-handlers/candidate-v1/full-readers.bend
++++ experiments/public-machine-handlers/candidate-v1/full-readers.bend
+@@ -1,9 +1,9 @@
+ import Base
+-import ../../public-machines/machine.bend as M
++import ../../../src/ecs/machine.bend as M
+ import full-provider.bend as P
+ import full-observe.bend as O
+-import event-stream.bend as ES
+-import ../../public-machines/stream.bend as St
++import ../../../src/ecs/internal/machine-handler-events.bend as ES
++import ../../../src/ecs/machine-stream.bend as St
+ import ../../../src/ecs/event-runtime.bend as Ev
+ import ../../../src/ecs/world.bend as W
+ import ../../../src/ecs/system.bend as Sys
+--- experiments/public-machine-handlers/candidate-v1/full-steps.bend
++++ experiments/public-machine-handlers/candidate-v1/full-steps.bend
+@@ -5,7 +5,7 @@
+ import ../../../src/ecs/system.bend as Sys
+ import ../../../src/ecs/transaction.bend as Tx
+ import ../../../src/ecs/capabilities.bend as Cap
+-import ../../public-machines/machine.bend as M
++import ../../../src/ecs/machine.bend as M
+ 
+ type SeedWork<F:Type> is Type:
+   SeedWork{spawn:Cap.Send<F,Array<U32>>}

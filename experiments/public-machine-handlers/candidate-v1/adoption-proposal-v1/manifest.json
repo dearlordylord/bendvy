@@ -1,0 +1,112 @@
+{
+  "status": "SOURCE_ONLY_UNEXECUTED_PROPOSAL",
+  "modules": [
+    {
+      "source": "experiments/public-machines/machine.bend",
+      "sourceSha256": "862ccbbac2c753d9b61e3d903ca64b353eb4c034113a676c9754b5a03606f108",
+      "target": "src/ecs/machine.bend",
+      "proposedSha256": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed",
+      "patch": "01-machine.patch",
+      "changes": "import paths only; declarations and bodies unchanged"
+    },
+    {
+      "source": "experiments/public-machines/stream.bend",
+      "sourceSha256": "dbf179f863c9ba9f0b7b98dd714cf0f9c4312f30d943c31ebcf36e6ba9bd7822",
+      "target": "src/ecs/machine-stream.bend",
+      "proposedSha256": "c47ff38671eb67b4369311408c81a2ef388ed971923419625c36f92219eb0fe4",
+      "patch": "02-machine-stream.patch",
+      "changes": "import paths only; declarations and bodies unchanged"
+    },
+    {
+      "source": "experiments/public-machine-handlers/candidate-v1/event-stream.bend",
+      "sourceSha256": "99510f9b9b3421a84a4ec845a67c8e86947114912922aa3c96112a2c7202d147",
+      "target": "src/ecs/internal/machine-handler-events.bend",
+      "proposedSha256": "c0e605e1b707e9e344d2f19172daa348b8467d6db5b7596960a3649318f44c74",
+      "patch": "03-internal-machine-handler-events.patch",
+      "changes": "import paths only; declarations and bodies unchanged",
+      "visibility": "INTERNAL trusted handler integration; not a public event API"
+    },
+    {
+      "source": "experiments/public-machine-handlers/candidate-v1/handlers-tracked.bend",
+      "sourceSha256": "fa48086ea7e2698b9cb42d2dfdeee3dd6f7e3faf2c86c67704bae1cde1c679c3",
+      "target": "src/ecs/machine-handlers.bend",
+      "proposedSha256": "a63c3847277c69e1513346f35f43c9a482bd3af25373858b2e8df957f75e5fd8",
+      "patch": "04-machine-handlers.patch",
+      "changes": "import paths only; declarations and bodies unchanged"
+    }
+  ],
+  "consumerImports": [
+    {
+      "path": "experiments/public-machine-handlers/candidate-v1/full-actions.bend",
+      "beforeSha256": "e82af5a38f45a2d297ef26340e4c23d9eb73e977e01576fe72e9fc19097e656f",
+      "afterSha256": "a4457772c289608113edd5964feb23cd9f6af2dbf011873f68eec975b426b52a"
+    },
+    {
+      "path": "experiments/public-machine-handlers/candidate-v1/full-authority-positive.bend",
+      "beforeSha256": "440d636a3728ccfb4d9789765065c45dac18068584dff8160d047f2bf17e8751",
+      "afterSha256": "387d2280115d0f7b4882fd2e66b321e8eeb84c40235cc98fcd6a4487c3f22689"
+    },
+    {
+      "path": "experiments/public-machine-handlers/candidate-v1/full-context.bend",
+      "beforeSha256": "efaf32702e734968bb8fe0113d0ccf801534910e24d0b03bf6237b0a2409ad0c",
+      "afterSha256": "f0ec48756546365e3f071a1a30d7c139ac203a3c6a288c40986453a2db4cb4d6"
+    },
+    {
+      "path": "experiments/public-machine-handlers/candidate-v1/full-foreign-controls.bend",
+      "beforeSha256": "3ac25baa7b0ce38a9ede58f950d8f23f6162c2b32b4ad12e56405e48aed5bbff",
+      "afterSha256": "cc50c0ec141a50d646cd73e681bc49f4d951f29129e5e954ff4fd6b9cf3b0caf"
+    },
+    {
+      "path": "experiments/public-machine-handlers/candidate-v1/full-main.bend",
+      "beforeSha256": "e4b13919843e4041bb9255f98d248eec3248574d31fd93d69b0b45d33440a5ae",
+      "afterSha256": "f6c5c6f27709f1541372c2d9554f02ce9792817b676b518f317fc798b4f7b4cc"
+    },
+    {
+      "path": "experiments/public-machine-handlers/candidate-v1/full-marker.bend",
+      "beforeSha256": "6d42da110909566bc93829e3d256c86143480a765d3c1a62940f89538e33224e",
+      "afterSha256": "ec2330ddeb352c39aca5dcf14b92f9d58ea1a24fc0f3cea602fdc290f4277afe"
+    },
+    {
+      "path": "experiments/public-machine-handlers/candidate-v1/full-negative-cross-schema.bend",
+      "beforeSha256": "cbfc73148c75d2363bbc13d5241538af9300aa0ce0c5832bdd17ed89b1154ffb",
+      "afterSha256": "a0679266b87f7da853cf538e95b5246dd13e6b6492462ef1884755ed51331a7c"
+    },
+    {
+      "path": "experiments/public-machine-handlers/candidate-v1/full-negative-owner-duplicate.bend",
+      "beforeSha256": "0fb52f2a56dcb93660b7f6b040153f85cda129bb8e46512077db0182f573ad47",
+      "afterSha256": "3688b020038be8d7215c711fb8b654f9c84977e3d09c518305f2e77b8bbdd27f"
+    },
+    {
+      "path": "experiments/public-machine-handlers/candidate-v1/full-negative-undeclared-next.bend",
+      "beforeSha256": "cb313e8a7db55df14aa574e420f88c69e8caa8d7c43b19752df5bd5556750c71",
+      "afterSha256": "51d8095e37dc5408cbae09a8c06aabe8f7d42844a88ee5a289b34d001576234f"
+    },
+    {
+      "path": "experiments/public-machine-handlers/candidate-v1/full-negative-write-through-read.bend",
+      "beforeSha256": "1226de0a7eb99b243f8271813fd432f03601fe480ab83d7351182e23de077e60",
+      "afterSha256": "7ede75621e44a3e3ebb674c2ed53a4b3141fa5c712f4468057878aed16325375"
+    },
+    {
+      "path": "experiments/public-machine-handlers/candidate-v1/full-observe.bend",
+      "beforeSha256": "0041a92aad7d8565abfe9836a4ae929bb21d0972b98175356313da59fda494f9",
+      "afterSha256": "ed4ba4340bad910141e4cbfc81cf94120715fd87cecac5745fbb7d1f78efd064"
+    },
+    {
+      "path": "experiments/public-machine-handlers/candidate-v1/full-provider.bend",
+      "beforeSha256": "63a8acdba27959f56ea0210ab0caf2050db21f3b4d3850b16f061e95939f418e",
+      "afterSha256": "6741a471f147ec21fa5c676ebb8d66ddcc5503be2055174bf315711f25682829"
+    },
+    {
+      "path": "experiments/public-machine-handlers/candidate-v1/full-readers.bend",
+      "beforeSha256": "89581912c3fea1d999747dc5c34a4f259115ab12224b544b44efc663da02ab39",
+      "afterSha256": "d712560b71713784fba65d36cc5f8695dbe16304400b154098a1e084e0f99fc3"
+    },
+    {
+      "path": "experiments/public-machine-handlers/candidate-v1/full-steps.bend",
+      "beforeSha256": "a8db56b365e95ab105a2260e8d70137fb0499ffa2f722c1f4800bbbdec0af7f1",
+      "afterSha256": "0af848462984b425258f69c249df5c06a602f59022455cd984075d944760c191"
+    }
+  ],
+  "noCurrentDeliveryRequalification": true,
+  "trustBoundary": "Internal Data metadata helper uses raw U32 reader IDs; trusted integration validates affine Reader namespace before operations. It does not enforce that validation itself or establish #53 event ownership/retention/skip policy."
+}
