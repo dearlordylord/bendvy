@@ -7,6 +7,13 @@ import re
 import subprocess
 import tempfile
 
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+from task_runner import run as _run_command
+
+
 parser = argparse.ArgumentParser()
 parser.add_argument("generated_js", type=pathlib.Path)
 args = parser.parse_args()
@@ -39,7 +46,7 @@ diagnostic = "process.on('exit', () => process.stderr.write(JSON.stringify({entr
 with tempfile.TemporaryDirectory(prefix="bendvy-compose30-profile-") as directory:
     generated = pathlib.Path(directory) / "profile.js"
     generated.write_text(diagnostic)
-    result = subprocess.run(["node", str(generated)], timeout=5, capture_output=True, text=True)
+    result = _run_command(["node", str(generated)], timeout=5, capture_output=True, text=True)
     if result.returncode:
         raise RuntimeError(result.stderr)
     counts = json.loads(result.stderr.strip())

@@ -22,7 +22,7 @@ closure(HERE/'positive.bend',files)
 files.add(HERE.parent/'diagnostics.json')
 files.add(HERE.parent/'expected-reference.stdout');files.add(HERE.parent/'expected-combined-reference.stdout')
 files.update(p for p in HERE.iterdir() if p.is_file())
-files.update(ROOT/p for p in [SUP/'supervisor.py',SUP/'supervisor-provenance.json',SUP/'supervisor-control.py',Path('experiments/s-prep/fivehour-connected-gates/supervisor.py'),Path('scripts/receipt-logs.py'),LOCAL/'tool-pins.py',Path('experiments/public-bundles/reference.mjs'),Path('experiments/public-bundles/combined-reference.mjs')])
+files.update(ROOT/p for p in [SUP/'supervisor.py',SUP/'supervisor-provenance.json',SUP/'supervisor-control.py',Path('experiments/s-prep/fivehour-connected-gates/supervisor.py'),Path('scripts/receipt-logs.py'),Path('scripts/task_runner.py'),LOCAL/'tool-pins.py',Path('experiments/public-bundles/reference.mjs'),Path('experiments/public-bundles/combined-reference.mjs')])
 for v in plans:
  for e in v['edits']:
   f=ROOT/e['path'];assert sha(f)==e['originalSHA256'];assert f.read_text().count(e['anchor'])==e['count'];assert hashlib.sha256(f.read_text().replace(e['anchor'],e['replacement']).encode()).hexdigest()==e['intendedSHA256'];files.add(f)

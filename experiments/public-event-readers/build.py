@@ -2,6 +2,13 @@
 """Freeze source; replay full pinned observations, capabilities and reached mutants."""
 import argparse, gzip, hashlib, json, os, platform, shutil, subprocess, time
 from pathlib import Path
+
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+from task_runner import run as _run_command
+
 ROOT=Path(__file__).resolve().parents[2]
 HERE=Path('experiments/public-event-readers')
 def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
@@ -12,7 +19,7 @@ def main():
  def save(): (evidence/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
  def run(cmd,limit,cwd=ROOT,allow=False):
   started=time.perf_counter();env=os.environ.copy();env['BENDVY_CLANG19_ROOT']='/tmp/bendvy-clang19-diagnostic/root'
-  q=subprocess.run([str(x) for x in cmd],cwd=cwd,env=env,capture_output=True,text=True,timeout=limit)
+  q=_run_command([str(x) for x in cmd],cwd=cwd,env=env,capture_output=True,text=True,timeout=limit)
   receipt['commands'].append({'argv':[str(x) for x in cmd],'limit':limit,'exit':q.returncode,'elapsedSeconds':time.perf_counter()-started,'stdoutSha256':hashlib.sha256(q.stdout.encode()).hexdigest(),'stderr':q.stderr[:2000]})
   save()
   if not allow and q.returncode: raise AssertionError(q.stderr+q.stdout)

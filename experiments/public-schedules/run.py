@@ -1,6 +1,13 @@
 #!/usr/bin/env python3
 """Source-bound public schedule observations and compiling mutation controls."""
 import hashlib,json,os,pathlib,re,shutil,subprocess,tempfile,time
+
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+from task_runner import run as _run_command
+
 ROOT=pathlib.Path(__file__).resolve().parents[2]
 OUT=ROOT/'.artifacts'/('public-schedules-'+str(time.time_ns()))
 OUT.mkdir(parents=True)
@@ -8,7 +15,7 @@ receipt={'commands':[], 'cases':[], 'source':{},'limits':{'check':5,'emit':30,'c
 env=os.environ.copy();env['BENDVY_CLANG19_ROOT']='/tmp/bendvy-clang19-diagnostic/root'
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def run(args,cap,expect=0):
- start=time.monotonic();p=subprocess.run(list(map(str,args)),cwd=ROOT,env=env,capture_output=True,timeout=cap)
+ start=time.monotonic();p=_run_command(list(map(str,args)),cwd=ROOT,env=env,capture_output=True,timeout=cap)
  record={'args':list(map(str,args)),'cap':cap,'exit':p.returncode,'elapsed':time.monotonic()-start,'stdout':p.stdout.decode(),'stderr':p.stderr.decode()};receipt['commands'].append(record)
  if expect is not None:assert p.returncode==expect,record
  return p

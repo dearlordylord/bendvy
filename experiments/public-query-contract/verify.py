@@ -2,6 +2,13 @@
 """Build and observe #29 against pinned TS, with source-bound controls."""
 import argparse, hashlib, json, os, shutil, statistics, subprocess, tempfile, time
 from pathlib import Path
+
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+from task_runner import run as _run_command
+
 ROOT=Path(__file__).resolve().parents[2]
 HERE=Path('experiments/public-query-contract')
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
@@ -10,7 +17,7 @@ def main():
  receipt={'status':'INCOMPLETE','commands':[],'scope':'Workshop public count/single/get; full process timing is diagnostic only'}
  def save(): (out/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
  def run(cmd,cwd,cap=5,expected=0,name=None):
-  t=time.perf_counter();r=subprocess.run(cmd,cwd=cwd,stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True,timeout=cap);elapsed=time.perf_counter()-t
+  t=time.perf_counter();r=_run_command(cmd,cwd=cwd,stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True,timeout=cap);elapsed=time.perf_counter()-t
   receipt['commands'].append({'command':list(map(str,cmd)),'capSeconds':cap,'exit':r.returncode,'seconds':elapsed,'stdoutSHA256':hashlib.sha256(r.stdout.encode()).hexdigest(),'stderr':r.stderr});save()
   if name:(out/name).write_text(r.stdout)
   if expected is not None and r.returncode!=expected:raise AssertionError((cmd,r.returncode,r.stderr,r.stdout))

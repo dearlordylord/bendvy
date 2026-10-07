@@ -1,6 +1,13 @@
 #!/usr/bin/env python3
 """Exact source-bound public affine Local gate; stdlib only."""
 import argparse,hashlib,json,os,pathlib,shutil,subprocess,tempfile,time,statistics
+
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+from task_runner import run as _run_command
+
 ROOT=pathlib.Path(__file__).resolve().parents[2]
 HERE=pathlib.Path(__file__).resolve().parent
 ORIGINAL_ROOT=ROOT
@@ -26,7 +33,7 @@ def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 def inventory(path):return {str(p.relative_to(path)):sha(p) for p in sorted(path.rglob('*')) if p.is_file()}
 def run(cmd,limit,name,expected=0):
     start=time.perf_counter()
-    p=subprocess.run([str(x) for x in cmd],cwd=ROOT,env=env,text=True,capture_output=True,timeout=limit)
+    p=_run_command([str(x) for x in cmd],cwd=ROOT,env=env,text=True,capture_output=True,timeout=limit)
     elapsed=time.perf_counter()-start
     (OUT/(name+'.stdout')).write_text(p.stdout)
     (OUT/(name+'.stderr')).write_text(p.stderr)

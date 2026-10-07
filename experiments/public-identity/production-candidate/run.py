@@ -2,6 +2,8 @@
 """Source-bound canonical creator candidate; finite semantics, no core adoption."""
 import pathlib,hashlib,json,os,re,shutil,subprocess,signal,tempfile,time,sys,runpy
 ROOT=pathlib.Path(__file__).resolve().parents[3];LOCAL=pathlib.Path('experiments/public-identity/production-candidate')
+sys.path.insert(0,str(ROOT/'scripts'))
+from task_runner import execute_result, _raise_failure
 os.sched_setaffinity(0,{10})
 OUT=ROOT/'.artifacts'/('identity-production-candidate-'+str(time.time_ns()));OUT.mkdir()
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
@@ -12,7 +14,7 @@ def imports(p,seen):
  seen.add(p)
  for name in re.findall(r'^\s*import\s+(\S+)',p.read_text(),re.M):
   if name!='Base':imports(p.parent/name.strip('"'),seen)
-files=set()
+files={ROOT/'scripts/task_runner.py'}
 for p in (ROOT/LOCAL).glob('*.bend'):imports(p,files)
 files.update(p for p in (ROOT/LOCAL).iterdir() if p.is_file() and p.suffix in {'.py','.json','.mjs','.stdout'})
 sources={str(p.relative_to(ROOT)):sha(p) for p in files}
@@ -36,12 +38,14 @@ with tempfile.TemporaryDirectory(prefix='bendvy-world-io-') as tmp:
  def run(label,args,cap,expected=0,emits=None):
   guard()
   if emits:assert not (OUT/emits).exists(),'prospective output exists'
-  argv=['taskset','-c','10']+list(map(str,args));p=subprocess.Popen(argv,env=env,stdout=subprocess.PIPE,stderr=subprocess.PIPE,start_new_session=True)
-  try:out,err=p.communicate(timeout=cap)
-  except subprocess.TimeoutExpired:
-   os.killpg(p.pid,signal.SIGKILL);out,err=p.communicate();r['commands'].append({'label':label,'argv':argv,'cap':cap,'timeout':True});raise
+  argv=['taskset','-c','10']+list(map(str,args))
+  result=execute_result(argv,cap,env,capture='split')
+  out,err=result['stdout'],result['stderr']
+  p=subprocess.CompletedProcess(argv,result['exit'],out,err)
   (OUT/(label+'.stdout')).write_bytes(out);(OUT/(label+'.stderr')).write_bytes(err)
   r['commands'].append({'label':label,'argv':argv,'cap':cap,'exit':p.returncode,'stdoutSHA256':sha(OUT/(label+'.stdout')),'stderrSHA256':sha(OUT/(label+'.stderr'))})
+  if result['failure']:
+   r['commands'][-1]['failure']=result['failure'];_raise_failure(result)
   assert p.returncode==expected,(label,err.decode())
   if emits:r['generated'][emits]=sha(OUT/emits)
   guard();return out.decode(),err.decode()

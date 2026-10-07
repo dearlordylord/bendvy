@@ -6,6 +6,13 @@ import os
 from pathlib import Path
 import subprocess
 
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+from task_runner import run as _run_command
+
+
 ROOT = Path(__file__).resolve().parents[2]
 parser = argparse.ArgumentParser()
 parser.add_argument('--output', type=Path, required=True)
@@ -20,7 +27,7 @@ env['BENDVY_CLANG19_ROOT'] = '/tmp/bendvy-clang19-diagnostic/root'
 
 def run(command, seconds, label):
     command = list(map(str, command))
-    result = subprocess.run(['timeout', str(seconds), *command], cwd=ROOT, env=env, capture_output=True, text=True)
+    result = _run_command(command, timeout=seconds, cwd=ROOT, env=env, capture_output=True, text=True)
     (output/(label+'.stdout')).write_text(result.stdout)
     (output/(label+'.stderr')).write_text(result.stderr)
     receipt['commands'].append({'argv':command, 'seconds':seconds, 'exit':result.returncode})

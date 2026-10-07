@@ -1,12 +1,19 @@
 """Finite constant-None specialization/restoration controls; not provider acceptance."""
 import argparse, pathlib, subprocess, hashlib, json, os
 from freeze import ROOT
+
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+from task_runner import run as _run_command
+
 p=argparse.ArgumentParser();p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args();out=a.output.resolve();out.mkdir(exist_ok=False)
 source=ROOT/'experiments/public-optimized-compose/captured-column-control.bend'
 def inventory():return {str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(list((ROOT/'src/ecs').glob('*.bend'))+list(source.parent.glob('*.bend')))}
 r={'scope':'Finite captured restoration and original constant-None seek equivalence; no World journal/provider/performance acceptance','sources':inventory(),'commands':[],'status':'INCOMPLETE'}
 def run(label,cmd,cap):
- env=dict(os.environ,BENDVY_CLANG19_ROOT='/tmp/bendvy-clang19-diagnostic/root');q=subprocess.run(list(map(str,cmd)),capture_output=True,text=True,timeout=cap,env=env);(out/(label+'.stdout')).write_text(q.stdout);(out/(label+'.stderr')).write_text(q.stderr);r['commands'].append({'label':label,'command':list(map(str,cmd)),'cap':cap,'exit':q.returncode});assert q.returncode==0,q.stderr;return q.stdout
+ env=dict(os.environ,BENDVY_CLANG19_ROOT='/tmp/bendvy-clang19-diagnostic/root');q=_run_command(list(map(str,cmd)),capture_output=True,text=True,timeout=cap,env=env);(out/(label+'.stdout')).write_text(q.stdout);(out/(label+'.stderr')).write_text(q.stderr);r['commands'].append({'label':label,'command':list(map(str,cmd)),'cap':cap,'exit':q.returncode});assert q.returncode==0,q.stderr;return q.stdout
 try:
  run('check',['bend',source,'--check-only'],5)
  observed=[]

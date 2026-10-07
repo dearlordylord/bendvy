@@ -1,6 +1,13 @@
 """Read-only prospective installed-tool, resource and resolved-library pins."""
 from pathlib import Path
 import hashlib,os,re,shutil,subprocess,sys
+
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+from task_runner import run as _run_command
+
 sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
 CLANG_ROOT=Path('/tmp/bendvy-clang19-diagnostic/root')
 WRAPPER=Path('/tmp/bendvy-clang19-diagnostic/clang19')
@@ -14,7 +21,7 @@ def snapshot():
  logs={};env=os.environ.copy();env['LD_LIBRARY_PATH']=LIBPATH
  for binary in binaries:
   if binary==WRAPPER.resolve():continue
-  child=subprocess.run(['ldd',str(binary)],env=env,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,timeout=5);assert child.returncode==0,(binary,child.stdout);logs[str(binary)]=child.stdout
+  child=_run_command(['ldd',str(binary)],env=env,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,timeout=5);assert child.returncode==0,(binary,child.stdout);logs[str(binary)]=child.stdout
   assert 'not found' not in child.stdout,(binary,child.stdout)
   for line in child.stdout.splitlines():
    if 'warning: setlocale:' in line:continue

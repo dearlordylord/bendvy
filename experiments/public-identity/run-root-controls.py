@@ -1,6 +1,13 @@
 #!/usr/bin/env python3
 """Finite discovery controls; expected failure is not identity acceptance."""
 import hashlib,json,os,pathlib,subprocess,time
+
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+from task_runner import run as _run_command
+
 ROOT=pathlib.Path(__file__).resolve().parents[2]
 OUT=ROOT/'.artifacts'/('identity-root-controls-'+str(time.time_ns()))
 OUT.mkdir(parents=True)
@@ -12,7 +19,7 @@ receipt={'scope':'Finite independently created same-schema root discovery; not i
 def guard():
  assert all(sha(ROOT/k)==v for k,v in receipt['sources'].items()),'Source drift'
 def run(argv,cap):
- guard();p=subprocess.run(list(map(str,argv)),cwd=ROOT,env=ENV,capture_output=True,timeout=cap)
+ guard();p=_run_command(list(map(str,argv)),cwd=ROOT,env=ENV,capture_output=True,timeout=cap)
  receipt['commands'].append({'argv':list(map(str,argv)),'limitSeconds':cap,'exit':p.returncode,'stdout':p.stdout.decode(),'stderr':p.stderr.decode()})
  assert p.returncode==0,receipt['commands'][-1]
  guard();return p.stdout

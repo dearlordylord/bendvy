@@ -7,6 +7,13 @@ import subprocess
 import tempfile
 from freeze import ROOT, freeze
 
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+from task_runner import run as _run_command
+
+
 expected = "[1, 3, 7, 3, 11, 19, 4, 23, 29]|[1, 3, 7, 3, 11, 19, 4, 23, 29]|[1, 3, 7, 2, 999, 999, 3, 11, 19, 4, 23, 29, 1, 3, 4]|[1, 3, 7, 2, 999, 999, 3, 11, 19, 4, 23, 29]"
 with tempfile.TemporaryDirectory(prefix="bendvy-compose30-equivalence-") as temporary:
     stage = pathlib.Path(temporary)
@@ -28,7 +35,7 @@ with tempfile.TemporaryDirectory(prefix="bendvy-compose30-equivalence-") as temp
     receipt["columnSHA256"] = hashlib.sha256((ROOT / "src/ecs/column.bend").read_bytes()).hexdigest()
     receipt["commands"] = []
     for command, limit, observation in commands:
-        result = subprocess.run(command, timeout=limit, capture_output=True, text=True, env=env)
+        result = _run_command(command, timeout=limit, capture_output=True, text=True, env=env)
         receipt["commands"].append({"command": command, "limit": limit,
                                     "exit": result.returncode, "stdout": result.stdout,
                                     "stderr": result.stderr})

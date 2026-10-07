@@ -1,5 +1,12 @@
 """Source-bound finite seek controls. No profiling, timing or live promotion."""
 import argparse,pathlib,hashlib,json,subprocess,os,tempfile,shutil,gzip,re
+
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+from task_runner import run as _run_command
+
 HERE=pathlib.Path(__file__).resolve().parent; ROOT=HERE.parents[2]
 p=argparse.ArgumentParser();p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args();OUT=a.output.resolve();OUT.mkdir(parents=True,exist_ok=False)
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
@@ -9,7 +16,7 @@ def inventory(stage):return {str(p.relative_to(stage)):sha(p) for p in sorted(st
 def guard(stage,expected):assert inventory(stage)==expected,'staged source drift';assert source()==SNAP,'root source drift'
 def run(stage,expected,label,cmd,cap,good=True):
  guard(stage,expected)
- q=subprocess.run(list(map(str,cmd)),capture_output=True,text=True,timeout=cap,env=dict(os.environ,BENDVY_CLANG19_ROOT='/tmp/bendvy-clang19-diagnostic/root'))
+ q=_run_command(list(map(str,cmd)),capture_output=True,text=True,timeout=cap,env=dict(os.environ,BENDVY_CLANG19_ROOT='/tmp/bendvy-clang19-diagnostic/root'))
  data=q.stdout.encode();gzip.open(OUT/(label+'.stdout.gz'),'wb').write(data);(OUT/(label+'.stderr')).write_text(q.stderr)
  r['commands'].append({'label':label,'command':list(map(str,cmd)),'cap_seconds':cap,'exit':q.returncode})
  assert (q.returncode==0)==good,(label,q.stderr)

@@ -2,12 +2,19 @@
 """Experimental typed-state semantics gate; stdlib only, no timings."""
 import argparse,hashlib,json,os,pathlib,re,shutil,subprocess,tempfile,time,runpy,gzip
 import supervisor
+
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+from task_runner import run as _run_command
+
 ROOT=pathlib.Path(__file__).resolve().parents[2];HERE=pathlib.Path(__file__).resolve().parent
 p=argparse.ArgumentParser();p.add_argument('--output',type=pathlib.Path);p.add_argument('--preflight',action='store_true');p.add_argument('--wrong-target-only',action='store_true');p.add_argument('--cpu',default='10');args=p.parse_args()
 OUT=(args.output or ROOT/'.artifacts'/('component-state-'+str(time.time_ns()))).resolve();OUT.mkdir(parents=True,exist_ok=False)
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def inv(p):return {str(q.relative_to(p)):sha(q) for q in sorted(p.rglob('*')) if q.is_file()}
-closure=set()
+closure={ROOT/'scripts/task_runner.py'}
 def visit(path):
  path=path.resolve()
  if path in closure:return
@@ -68,7 +75,7 @@ def guards():
  assert inv(refs)==receipt['referenceSourceHashes'],'reference source drift'
  for n,h in receipt['artifactHashes'].items():assert sha(OUT/n)==h,'generated artifact drift: '+n
  for n,h in receipt['referenceHeads'].items():
-  head=subprocess.run(['git','-C',ROOT/'.references'/n,'rev-parse','HEAD'],capture_output=True,text=True,timeout=5);assert head.returncode==0 and head.stdout.strip()==h
+  head=_run_command(['git','-C',ROOT/'.references'/n,'rev-parse','HEAD'],capture_output=True,text=True,timeout=5);assert head.returncode==0 and head.stdout.strip()==h
 
 def run(cmd,limit,name,exit=0):
  guards();cmd=['taskset','-c',args.cpu]+[str(x) for x in cmd]

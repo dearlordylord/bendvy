@@ -12,7 +12,7 @@ def imports(p,seen):
  seen.add(p)
  for name in re.findall(r'^\s*import\s+(\S+)',p.read_text(),re.M):
   if name!='Base':imports(p.parent/name.strip('"'),seen)
-files=set()
+files={ROOT/'scripts/task_runner.py'}
 for p in (ROOT/LOCAL).glob('*.bend'):imports(p,files)
 files.update(p for p in (ROOT/LOCAL).iterdir() if p.is_file() and p.suffix in {'.py','.json','.mjs','.stdout'})
 files.add(ROOT/'experiments/s-prep/fivehour-connected-gates/supervisor.py')
