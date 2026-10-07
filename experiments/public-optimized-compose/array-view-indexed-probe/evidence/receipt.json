@@ -1,0 +1,243 @@
+{
+  "status": "PASS",
+  "scope": "576fullcapacity/owner/prefix/snapshot pairs and3checked bound refusals; no universal raw-helper refinement, timing/profile or live promotion",
+  "sources": {
+    "experiments/public-optimized-compose/array-view-indexed-probe/controls.bend": "0b8bc389d8091ad22473f2b007d52dab8a0b75c1913264f8976ff3f1524a9984",
+    "experiments/public-optimized-compose/array-view-indexed-probe/negative-owner.bend": "5a590d44d5a88edccf45e3237454aed812b0255f9dab01a9d62780aff760909e",
+    "experiments/public-optimized-compose/array-view-indexed-probe/oracle.bend": "18ddde4c3a94157061bceee7c708562e71ced1ae2e4c4395c54e052a120e64be",
+    "experiments/public-optimized-compose/array-view-indexed-probe/run.py": "a864d5a400897a3040d01d2912cf8541afcef319ff9b310ce8a5bd588abf6d94",
+    "experiments/public-optimized-compose/array-view-indexed-probe/view.bend": "a1a75b24aaa61596f7d4b8d9e62b0264f32bda2d995c2c1bce81f4329c6b7d0c",
+    "experiments/public-optimized-compose/workshop/schema.bend": "b09a3978f3f2205ee6597285f2aae383133f4c25cb6d7e9083547139743b5743"
+  },
+  "commands": [
+    {
+      "label": "version",
+      "command": [
+        "bend",
+        "version"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "check",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/array-view-indexed-probe/controls.bend",
+        "--check-only"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "negative-owner",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/array-view-indexed-probe/negative-owner.bend",
+        "--check-only"
+      ],
+      "cap": 5,
+      "exit": 1
+    },
+    {
+      "label": "emit-JS",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/array-view-indexed-probe/controls.bend",
+        "-o",
+        "/tmp/storage30-array-view-probe/controls.js"
+      ],
+      "cap": 30,
+      "exit": 0
+    },
+    {
+      "label": "run-JS",
+      "command": [
+        "node",
+        "/tmp/storage30-array-view-probe/controls.js"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "emit-Native",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/array-view-indexed-probe/controls.bend",
+        "-o",
+        "/tmp/storage30-array-view-probe/controls.c"
+      ],
+      "cap": 30,
+      "exit": 0
+    },
+    {
+      "label": "compile",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/storage30-array-view-probe/controls.c",
+        "-o",
+        "/tmp/storage30-array-view-probe/controls",
+        "-pthread",
+        "-lm"
+      ],
+      "cap": 120,
+      "exit": 0
+    },
+    {
+      "label": "run-Native",
+      "command": [
+        "/tmp/storage30-array-view-probe/controls"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "omission-check",
+      "command": [
+        "bend",
+        "/tmp/array-view-mutant-7chka1oa/probe/controls.bend",
+        "--check-only"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "omission-emit-JS",
+      "command": [
+        "bend",
+        "/tmp/array-view-mutant-7chka1oa/probe/controls.bend",
+        "-o",
+        "/tmp/storage30-array-view-probe/omission.js"
+      ],
+      "cap": 30,
+      "exit": 0
+    },
+    {
+      "label": "omission-run-JS",
+      "command": [
+        "node",
+        "/tmp/storage30-array-view-probe/omission.js"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "omission-emit-Native",
+      "command": [
+        "bend",
+        "/tmp/array-view-mutant-7chka1oa/probe/controls.bend",
+        "-o",
+        "/tmp/storage30-array-view-probe/omission.c"
+      ],
+      "cap": 30,
+      "exit": 0
+    },
+    {
+      "label": "omission-compile",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/storage30-array-view-probe/omission.c",
+        "-o",
+        "/tmp/storage30-array-view-probe/omission",
+        "-pthread",
+        "-lm"
+      ],
+      "cap": 120,
+      "exit": 0
+    },
+    {
+      "label": "omission-run-Native",
+      "command": [
+        "/tmp/storage30-array-view-probe/omission"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "reordering-check",
+      "command": [
+        "bend",
+        "/tmp/array-view-mutant-im6qkftl/probe/controls.bend",
+        "--check-only"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "reordering-emit-JS",
+      "command": [
+        "bend",
+        "/tmp/array-view-mutant-im6qkftl/probe/controls.bend",
+        "-o",
+        "/tmp/storage30-array-view-probe/reordering.js"
+      ],
+      "cap": 30,
+      "exit": 0
+    },
+    {
+      "label": "reordering-run-JS",
+      "command": [
+        "node",
+        "/tmp/storage30-array-view-probe/reordering.js"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "reordering-emit-Native",
+      "command": [
+        "bend",
+        "/tmp/array-view-mutant-im6qkftl/probe/controls.bend",
+        "-o",
+        "/tmp/storage30-array-view-probe/reordering.c"
+      ],
+      "cap": 30,
+      "exit": 0
+    },
+    {
+      "label": "reordering-compile",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/storage30-array-view-probe/reordering.c",
+        "-o",
+        "/tmp/storage30-array-view-probe/reordering",
+        "-pthread",
+        "-lm"
+      ],
+      "cap": 120,
+      "exit": 0
+    },
+    {
+      "label": "reordering-run-Native",
+      "command": [
+        "/tmp/storage30-array-view-probe/reordering"
+      ],
+      "cap": 5,
+      "exit": 0
+    }
+  ],
+  "oracle_is_exact_live_schema_projection_extract": true,
+  "mutants": {
+    "omission": {
+      "original_sha256": "a1a75b24aaa61596f7d4b8d9e62b0264f32bda2d995c2c1bce81f4329c6b7d0c",
+      "mutant_sha256": "32899dc895668a3bdfe65f8665e8aaaef4aa744eb3ee9f5bdaa5d41386b37b6b",
+      "backends": {
+        "JS": "DETECTED",
+        "Native": "DETECTED"
+      }
+    },
+    "reordering": {
+      "original_sha256": "a1a75b24aaa61596f7d4b8d9e62b0264f32bda2d995c2c1bce81f4329c6b7d0c",
+      "mutant_sha256": "f13ba4f0835c7573a4989d5a8be6664f01e1e5eeb4b4be11182dc67da5be12fb",
+      "backends": {
+        "JS": "DETECTED",
+        "Native": "DETECTED"
+      }
+    }
+  },
+  "pairs": 576,
+  "bound_refusals": 3
+}

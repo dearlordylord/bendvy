@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- expected : Rm.Reader<S.Schema, S.Notice, S.AToken, S.selected_a>
+- observed : Rm.Reader<S.Schema, S.Notice, S.AllToken, S.selected>
+Context:
+- reader : Rm.Reader<S.Schema, S.Notice, S.AllToken, S.selected>
+Location: change_family
+6 | def change_family(reader: Rm.Reader<S.Schema,S.Notice,S.AllToken,S.selected>) -> Rm.Reader<S.Schema,S.Notice,S.AToken,S.selected_a>:
+7>|   reader
+  |   ^^^^^^
+8 | 

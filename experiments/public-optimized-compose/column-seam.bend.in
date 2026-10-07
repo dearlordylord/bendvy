@@ -1,0 +1,41 @@
+import Base
+import ./experiments/s-integrate/query.bend as Q
+import ./experiments/s-integrate/storage.bend as S
+import @@ROOT@@/src/ecs/column.bend as Col
+import @@ROOT@@/src/ecs/lifecycle.bend as L
+
+type Schema is Data:
+  Schema{}
+type Blank is Type:
+  Blank{}
+type Flag is Data:
+  Flag{}
+type Payload is Type:
+  Payload{values:Array<U32>}
+type Batch<-C:Type> is Type:
+  Batch{column:Col.Column<Schema,C>,rows:Q.PrototypeHandoffRows<Schema,C>}
+def returned(~C:Type,stamps:List<&2,L.Entry>,result:S.Rows<C,Blank,Flag> & Q.PrototypeHandoffRows<Schema,C>) -> Batch<C>:
+  match result:
+    case (S.Rows{values,_,_,_,_,_},rows): Batch{Col.Column{values,stamps},rows}
+def take(~C:Type,column:Col.Column<Schema,C>) -> Batch<C>:
+  match column:
+    case Col.Column{values,stamps}: returned(~C,stamps,Q.prototype_handoff_read_rows(~Schema,~C,~Blank,~Flag,S.Rows{values,ANode{ALeaf{None{}},ALeaf{None{}}},S.MetadataColumns{[True{} : Bool^1n],[None{} : Maybe<&2,Flag>^1n],[0 : U32^1n],[0 : U32^1n]},2,1n,2},Q.Required{},1))
+def recovered(~C:Type,stamps:List<&2,L.Entry>,result:Array<Maybe<C>> & List<&2,U32>) -> Col.Column<Schema,C>:
+  match result:
+    case (values,_): Col.Column{values,stamps}
+def restore(~C:Type,batch:Batch<C>) -> Col.Column<Schema,C>:
+  match batch:
+    case Batch{Col.Column{values,stamps},rows}: recovered(~C,stamps,Q.prototype_handoff_recover(Schema,C,rows,values))
+def print_value(result:Array<U32> & U32) -> IO(Unit):
+  match result:
+    case (values,value): IO.print(U32.show(value))
+def observed(result:Array<Maybe<&1,Payload>> & Maybe<&1,Payload>) -> IO(Unit):
+  match result:
+    case (column,None{}): IO.print("missing")
+    case (column,Some{Payload{values}}): print_value(Array.get(U32,values,1))
+def observe(column:Col.Column<Schema,Payload>) -> IO(Unit):
+  match column:
+    case Col.Column{values,_}: observed(Array.swap(Maybe<&1,Payload>,values,0,None{}))
+def main() -> IO(Unit):
+  column: Col.Column<Schema,Payload> = Col.Column{ANode{ALeaf{Some{Payload{ANode{ALeaf{3},ALeaf{7}}}}},ALeaf{Some{Payload{ANode{ALeaf{11},ALeaf{19}}}}}},[]}
+  observe(restore(~Payload,take(~Payload,column)))

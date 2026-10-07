@@ -110,7 +110,9 @@ or full performance qualification.
 ### Performance preservation for parity work
 
 Approved policy: **no statistically confirmed slowdown** against the fixed
-Workshop baseline; there is no approved small percentage allowance. Run the
+Workshop baseline; its bounded contract has no small percentage allowance. The
+user separately permits up to10% aggregate loss at full parity, with final
+JS<=TS and Native<=0.5TS; this does not change the bounded gate. Run the
 [#28 paired gate](../../benchmarks/README.md) for executable public-core changes.
 This protects existing work, including process startup/output, and does not cover
 new capabilities or the optimized five-by-three matrix. New feature slices must
@@ -128,19 +130,27 @@ or timing-control run closes #21/#24 or full-core #1.
 The user approved publication on 2026-10-06 after Astra review. See the
 [breakdown and retained later scope](../design/parity-ticket-breakdown.md).
 
-| Issue | Vertical slice | Blocking issues |
+| Issue | Vertical slice | Current status / dependency |
 | --- | --- | --- |
-| #29 | Public query cardinality and exact entity lookup | None |
-| #30 | Public Compose on exact optimized owned storage | None; exact owner/provider interface and source-route gates apply |
-| #31 | Registered event readers, retention and lag | None |
-| #32 | Registered removal/despawn readers | None |
-| #33 | Basic deterministic phases/conditions/barriers | None |
-| #34 | Nested schedules and checked requirement unions | #33 |
-| #35 | Transactional reader visibility in schedules | #31, #32, #33 |
-| #36 | Defined per-system affine Local lifetime/retry/disposal | None; explicit Local policy before implementation |
+| #29 | Public query cardinality and exact entity lookup | Implemented; fresh root JS/Native replay and Spec review pass on shared-live closure; final common-source gate/delivery pending |
+| #30 | Public Compose on exact optimized owned storage | Indexed ordinary/prepared/capture and full application controls pass; default paired gate passes, selected prepared JS gate fails; reviewed array projection optimization is being integrated |
+| #31 | Registered event readers, retention and lag | Implemented; fresh root JS/Native replay and Spec review pass on shared-live closure; final common-source gate/delivery pending |
+| #32 | Registered removal/despawn readers | Implemented; fresh root JS/Native replay and Spec review pass on shared-live closure; final common-source gate/delivery pending |
+| #33 | Basic deterministic phases/conditions/barriers | Implemented; fresh root JS/Native replay and Spec review pass on shared-live closure; final common-source gate/delivery pending |
+| #34 | Nested schedules and checked requirement unions | Waiting for #33 delivery |
+| #35 | Transactional reader visibility in schedules | Waiting for #31/#32/#33 delivery |
+| #36 | Per-system affine Local lifetime/retry/disposal | Policy explicitly confirmed; source review and fresh root JS/Native replay pass; final shared-source delivery pending |
+
+All six active slices remain **in progress**. Fresh current-core semantic, negative and mutation replays pass for #29/#31/#32/#33/#36. Indexed storage passes complete ordinary/prepared/capture controls, 2,430 capture pairs per backend, and the 23-checkpoint Workshop/14-pair transaction gate. The unchanged default paired gate passes (JS 0.996465; Native 0.999347). Selected prepared-provider JS fails (1.297299, confirmed); Native 1.021101 is unconfirmed. Neither the passing default route nor the large-world metadata microbenchmarks substitutes for selected-provider acceptance.
+
+Dense 1,024-entity metadata diagnostics improve versus the previous Bend list implementation by about 5.00× JS and 8.34× Native. Sparse/high-water 64-entity Native is about 10% slower, with more sampled allocation. Complete dense/mixed cohorts and earlier failures are retained. These are metadata diagnostics, not TS comparisons or application qualification. Matched application profiles instead identify structural scalar-array projection as a remaining cost; its reviewed equivalent indexed prototype is being integrated before another unchanged gate. Historical Plan/Frame/capability experiments and failed gates remain in the ledger. No bounded allowance or baseline update is selected.
+
+Final source-current consumer controls, feature timings, reviews, commit/push and English issue reports remain required. [Acceptance ledger](../reports/parity-frontier-implementation.md).
 
 Existing #21/#23/#24 retain optimization/qualification responsibility; feature
 slices do not duplicate those tasks or blanket-block independent feature work on
 final performance. Later rows remain full-core obligations with return conditions,
 not completed capabilities. Platform adapters, a schema generator and parallel/GPU
 orchestration remain separate revisit items, not hidden core parity blockers.
+
+Full-parity performance clarification: the user permits up to10% aggregate loss after all features, with final JS<=TS and Native<=0.5TS retained. See SPEC; this does not amend the existing bounded #28 contract or qualify current intermediate providers.

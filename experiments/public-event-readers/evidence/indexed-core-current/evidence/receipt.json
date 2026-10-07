@@ -1,0 +1,1296 @@
+{
+  "format": 1,
+  "environment": {
+    "machine": "aarch64",
+    "platform": "Linux-7.0.14-orbstack-00380-ga7e0a2dc9535-aarch64-with-glibc2.36",
+    "allowedCPUs": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ]
+  },
+  "timingScope": "Whole-process full trace work including startup and serialization, 3 complete observations per backend; uncontrolled concurrent load, not qualification",
+  "limits": {
+    "checker": 5,
+    "emit": 30,
+    "clang": 120,
+    "runtime": 5
+  },
+  "commands": [
+    {
+      "argv": [
+        "git",
+        "-C",
+        "/workspace/formal-proofs/bendvy/.references/bevy-ts",
+        "rev-parse",
+        "HEAD"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.0031928530079312623,
+      "stdoutSha256": "1e9fa0f2cb924e419c66fb68fbc27326da39b4f0a4ec43b422da942e21d2459f",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "-C",
+        "/workspace/formal-proofs/bendvy/.references/bevy",
+        "rev-parse",
+        "HEAD"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.0017983449943130836,
+      "stdoutSha256": "9d667d1b5a173bd77d18a052c89dfe962a682536324abca195bd390f8686f635",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "-C",
+        "/workspace/formal-proofs/bendvy/.references/bend2",
+        "rev-parse",
+        "HEAD"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.005932578002102673,
+      "stdoutSha256": "c53bda1d7dcf325e36742cd1f44a9b6ce315828efa108c57f73015807decb429",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "version"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.018732615004410036,
+      "stdoutSha256": "ca6fc52ac20b452bc60b3e8da766c53d679f0325ca4f1ac580ec72f09758d79d",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "--version"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.003825564999715425,
+      "stdoutSha256": "b67d0ced059f9313d861ddbbe734d2d1f9219106a9e036ae6d88407afa0846e6",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "--version"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.02134375600144267,
+      "stdoutSha256": "cdddf8c4dfb42fef72caa5c3988c573a4f7bca9409456a32841dfe34e6b4b6c3",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/experiments/public-event-readers/reference.mjs"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.09898681699996814,
+      "stdoutSha256": "076b4ee955f33e3bd3d626863461a763f59ee65b9b0deacbbf91927983a57443",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/experiments/public-event-readers/reference-late.mjs"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.0859632780047832,
+      "stdoutSha256": "902a5fee3a3db80983597086f168d6ebdcc9ba81afe2a50ecf63a5233820c6df",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/experiments/public-event-readers/reference.mjs"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.10894133598776534,
+      "stdoutSha256": "076b4ee955f33e3bd3d626863461a763f59ee65b9b0deacbbf91927983a57443",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/experiments/public-event-readers/reference-late.mjs"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.08957342499343213,
+      "stdoutSha256": "902a5fee3a3db80983597086f168d6ebdcc9ba81afe2a50ecf63a5233820c6df",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/experiments/public-event-readers/reference.mjs"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.09181993899983354,
+      "stdoutSha256": "076b4ee955f33e3bd3d626863461a763f59ee65b9b0deacbbf91927983a57443",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/experiments/public-event-readers/reference-late.mjs"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.08635182199941482,
+      "stdoutSha256": "902a5fee3a3db80983597086f168d6ebdcc9ba81afe2a50ecf63a5233820c6df",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/experiments/public-event-readers/main.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.16432309300580528,
+      "stdoutSha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/experiments/public-event-readers/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/main.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsedSeconds": 0.1970882530004019,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/experiments/public-event-readers/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/main.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsedSeconds": 0.732412999990629,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/main.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/main.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "elapsedSeconds": 1.9457654549914878,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/main.js",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.07841602400003467,
+      "stdoutSha256": "214cc166ddf2a174d85d4d8a543f8673610984bd589a96e050d68a3fabe6799a",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/main.js",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.07860035799967591,
+      "stdoutSha256": "214cc166ddf2a174d85d4d8a543f8673610984bd589a96e050d68a3fabe6799a",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/main.js",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.07788485400669742,
+      "stdoutSha256": "214cc166ddf2a174d85d4d8a543f8673610984bd589a96e050d68a3fabe6799a",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/main.native",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.04461423298926093,
+      "stdoutSha256": "214cc166ddf2a174d85d4d8a543f8673610984bd589a96e050d68a3fabe6799a",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/main.native",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.04253563600650523,
+      "stdoutSha256": "214cc166ddf2a174d85d4d8a543f8673610984bd589a96e050d68a3fabe6799a",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/main.native",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.06371026700071525,
+      "stdoutSha256": "214cc166ddf2a174d85d4d8a543f8673610984bd589a96e050d68a3fabe6799a",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/experiments/public-event-readers/late-registration.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.15892805901239626,
+      "stdoutSha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/experiments/public-event-readers/late-registration.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/late-registration.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsedSeconds": 0.1892903709958773,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/experiments/public-event-readers/late-registration.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/late-registration.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsedSeconds": 0.6723634230002062,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/late-registration.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/late-registration.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "elapsedSeconds": 1.6825702970090788,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/late-registration.js",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.04723262300831266,
+      "stdoutSha256": "69322858020ed94f826818ba7b8603902092085ec1a0b2c349e6b1f3e9dda17d",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/late-registration.js",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.04092758499609772,
+      "stdoutSha256": "69322858020ed94f826818ba7b8603902092085ec1a0b2c349e6b1f3e9dda17d",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/late-registration.js",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.05208336201030761,
+      "stdoutSha256": "69322858020ed94f826818ba7b8603902092085ec1a0b2c349e6b1f3e9dda17d",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/late-registration.native",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.014035795000381768,
+      "stdoutSha256": "69322858020ed94f826818ba7b8603902092085ec1a0b2c349e6b1f3e9dda17d",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/late-registration.native",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.01630564201332163,
+      "stdoutSha256": "69322858020ed94f826818ba7b8603902092085ec1a0b2c349e6b1f3e9dda17d",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/late-registration.native",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.016550144006032497,
+      "stdoutSha256": "69322858020ed94f826818ba7b8603902092085ec1a0b2c349e6b1f3e9dda17d",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/experiments/public-event-readers/disposal.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.15930614600074477,
+      "stdoutSha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/experiments/public-event-readers/disposal.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/disposal.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsedSeconds": 0.208056070987368,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/experiments/public-event-readers/disposal.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/disposal.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsedSeconds": 0.9432852540048771,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/disposal.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/disposal.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "elapsedSeconds": 1.6791309420077596,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/disposal.js",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.01759735800442286,
+      "stdoutSha256": "7b68fab358fd99774a22df5ae8ee2fb613c5a18abc0c562330cf951af59b0106",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/disposal.js",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.017623192004975863,
+      "stdoutSha256": "7b68fab358fd99774a22df5ae8ee2fb613c5a18abc0c562330cf951af59b0106",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/disposal.js",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.019841913992422633,
+      "stdoutSha256": "7b68fab358fd99774a22df5ae8ee2fb613c5a18abc0c562330cf951af59b0106",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/disposal.native",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.005323533012415282,
+      "stdoutSha256": "7b68fab358fd99774a22df5ae8ee2fb613c5a18abc0c562330cf951af59b0106",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/disposal.native",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.004390693997265771,
+      "stdoutSha256": "7b68fab358fd99774a22df5ae8ee2fb613c5a18abc0c562330cf951af59b0106",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/disposal.native",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.005199114995775744,
+      "stdoutSha256": "7b68fab358fd99774a22df5ae8ee2fb613c5a18abc0c562330cf951af59b0106",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/experiments/public-event-readers/registration-swap.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.17836942900612485,
+      "stdoutSha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/experiments/public-event-readers/registration-swap.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/registration-swap.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsedSeconds": 0.1752142850018572,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/experiments/public-event-readers/registration-swap.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/registration-swap.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsedSeconds": 0.4891947560099652,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/registration-swap.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/registration-swap.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "elapsedSeconds": 0.8623559230036335,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/registration-swap.js",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.01785844299593009,
+      "stdoutSha256": "99dabb9b53269fe7d7f49a9a18b1ecc155f3568386d64fabe521294c5b3863a1",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/registration-swap.js",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.020951336991856806,
+      "stdoutSha256": "99dabb9b53269fe7d7f49a9a18b1ecc155f3568386d64fabe521294c5b3863a1",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/registration-swap.js",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.02046508400235325,
+      "stdoutSha256": "99dabb9b53269fe7d7f49a9a18b1ecc155f3568386d64fabe521294c5b3863a1",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/registration-swap.native",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.002835350009263493,
+      "stdoutSha256": "99dabb9b53269fe7d7f49a9a18b1ecc155f3568386d64fabe521294c5b3863a1",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/registration-swap.native",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.0025212650070898235,
+      "stdoutSha256": "99dabb9b53269fe7d7f49a9a18b1ecc155f3568386d64fabe521294c5b3863a1",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/registration-swap.native",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.002029720999416895,
+      "stdoutSha256": "99dabb9b53269fe7d7f49a9a18b1ecc155f3568386d64fabe521294c5b3863a1",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/experiments/public-event-readers/controls/read-write.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 1,
+      "elapsedSeconds": 0.12323775699769612,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": "SOME PROOFS FAIL\nError:\n- expected : E.WriteAccess<bad~H, U32, bad~publish>\n- observed : E.ReadAccess<bad~H, U32, bad~observe>\nContext:\n- ops   : E.ReadAccess<bad~H, U32, bad~observe>\n- owner : bad~H\nLocation: bad\n4 | def bad(~H: Type,~observe: H -> H & E.Reading<U32>,~publish: H -> U32 -> H,ops: E.ReadAccess<H,U32,observe>,owner: H) -> H:\n5>|   E.emit(~H,~U32,~publish,ops,owner,1)\n  |                           ^^^\n6 | \n"
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/experiments/public-event-readers/controls/undeclared.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 1,
+      "elapsedSeconds": 0.12009698800102342,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": "SOME PROOFS FAIL\nError:\n- expected : E.ReadAccess<bad~H, U32, h => (h, E.Reading{[], False{}})>\n- observed : Unit\nContext:\n- ops   : Unit\n- owner : bad~H\nLocation: bad\n4 | def bad(~H: Type,ops: Unit,owner: H) -> H & E.Reading<U32>:\n5>|   E.all(~H,~U32,~(h => (h,E.Reading{[],False{}})),ops,owner)\n  |                                                   ^^^\n6 | \n"
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/experiments/public-event-readers/controls/duplicate-reader.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 1,
+      "elapsedSeconds": 0.12119632799294777,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": "SOME PROOFS FAIL\nError:\n- expected : reader\n- observed : reader (consumed more than once)\nLocation: bad\n5 |   Schema{}\n6>| def bad(reader: E.Reader<Schema>) -> E.Reader<Schema> & E.Reader<Schema>:\n  |         ^^^^^^\n7 |   (reader,reader)\n"
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage/experiments/public-event-readers/controls/cross-schema.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 1,
+      "elapsedSeconds": 0.11922660699929111,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": "SOME PROOFS FAIL\nError:\n- expected : E.Reader<B>\n- observed : E.Reader<A>\nContext:\n- reader : E.Reader<A>\nLocation: bad\n7 |   B{}\n8>| def bad(reader: E.Reader<A>) -> E.Reader<B>: reader\n  |                                              ^^^^^^\n9 | \n"
+    },
+    {
+      "argv": [
+        "python3",
+        "/workspace/formal-proofs/bendvy/experiments/query-composition/run-controls.py",
+        "--source-root",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/stage",
+        "--output",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/public-controls"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsedSeconds": 1.50692771699687,
+      "stdoutSha256": "1dbdce66f3c848a109fe1b03ddbfc1f4337796705bffa5686b23537994086f15",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/mutant-publication/experiments/public-event-readers/main.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.15903189399978146,
+      "stdoutSha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/mutant-publication/experiments/public-event-readers/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/mutant-publication/mutant-publication.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsedSeconds": 0.19041592000576202,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/mutant-publication/experiments/public-event-readers/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/mutant-publication/mutant-publication.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsedSeconds": 0.7122569180064602,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/mutant-publication/mutant-publication.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/mutant-publication/mutant-publication.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "elapsedSeconds": 1.7013376200047787,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/mutant-publication/mutant-publication.js",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.03911265700298827,
+      "stdoutSha256": "85c551df15e7b2eb8ff986a57dcd49e9a37b9bb6412ffb9c30925fc624cd9b5c",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/mutant-publication/mutant-publication.native",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.006746874991222285,
+      "stdoutSha256": "85c551df15e7b2eb8ff986a57dcd49e9a37b9bb6412ffb9c30925fc624cd9b5c",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/mutant-cursor/experiments/public-event-readers/main.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.19291801899089478,
+      "stdoutSha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/mutant-cursor/experiments/public-event-readers/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/mutant-cursor/mutant-cursor.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsedSeconds": 0.22302287099591922,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/mutant-cursor/experiments/public-event-readers/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/mutant-cursor/mutant-cursor.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsedSeconds": 0.8117126119905151,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/mutant-cursor/mutant-cursor.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/mutant-cursor/mutant-cursor.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "elapsedSeconds": 1.6935919060051674,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/mutant-cursor/mutant-cursor.js",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.08908796400646679,
+      "stdoutSha256": "88913e8073c7e8d5e852771241d62d12c15d5693c684dae77f5acc10c08edc96",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/mutant-cursor/mutant-cursor.native",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.044732983005815186,
+      "stdoutSha256": "88913e8073c7e8d5e852771241d62d12c15d5693c684dae77f5acc10c08edc96",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/mutant-retention/experiments/public-event-readers/main.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.16084948800562415,
+      "stdoutSha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/mutant-retention/experiments/public-event-readers/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/mutant-retention/mutant-retention.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsedSeconds": 0.20043318999523763,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/mutant-retention/experiments/public-event-readers/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/mutant-retention/mutant-retention.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsedSeconds": 0.8026011399924755,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/mutant-retention/mutant-retention.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/mutant-retention/mutant-retention.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "elapsedSeconds": 1.844134580998798,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/mutant-retention/mutant-retention.js",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.09015188700868748,
+      "stdoutSha256": "9332ca9f50f9086260692bab07f339f43532d2239c7dee6105ce583eb186ba25",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-events-current/mutant-retention/mutant-retention.native",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.044086605004849844,
+      "stdoutSha256": "9332ca9f50f9086260692bab07f339f43532d2239c7dee6105ce583eb186ba25",
+      "stderr": ""
+    }
+  ],
+  "results": {
+    "main": {
+      "js": {
+        "validatedOutputs": 3,
+        "detectedMutation": false,
+        "generatedSha256": "847d963a20d95c5fea43e850b838a5b3d1c1982bb2d53554ee90d17cb549819c"
+      },
+      "native": {
+        "validatedOutputs": 3,
+        "detectedMutation": false,
+        "generatedSha256": "432db141a5f75ded0df505d7fd956a07f3ec524ba5c32ceb490d088e1e512880"
+      }
+    },
+    "late-registration": {
+      "js": {
+        "validatedOutputs": 3,
+        "detectedMutation": false,
+        "generatedSha256": "331a305775b0c0fc32eaf6e9cb2ca1d4f6ed6eb1b264ca148aee72b6182fb934"
+      },
+      "native": {
+        "validatedOutputs": 3,
+        "detectedMutation": false,
+        "generatedSha256": "868f4524d0b38f5160c1534b69297e9501dbc1b6bc59e2860566bb9b0e1f03f0"
+      }
+    },
+    "disposal": {
+      "js": {
+        "validatedOutputs": 3,
+        "detectedMutation": false,
+        "generatedSha256": "a2492cd89fa59ce508f1805cbbbef0bec0c8187e20a9b6b7c19d630bad16f018"
+      },
+      "native": {
+        "validatedOutputs": 3,
+        "detectedMutation": false,
+        "generatedSha256": "4b9e209cb2c5a8a590b3911a310596cce507db5b34c79546798b4fd766826762"
+      }
+    },
+    "registration-swap": {
+      "js": {
+        "validatedOutputs": 3,
+        "detectedMutation": false,
+        "generatedSha256": "18d50df78cfbbb69fcd8db25ac48e1fd6fd998b83fc0ba07dd0fba8f45711f9c"
+      },
+      "native": {
+        "validatedOutputs": 3,
+        "detectedMutation": false,
+        "generatedSha256": "3b07f1442ba7309694c3f7a08ff108bfed7ee133b9d3ca3ac41a256e45f6b4eb"
+      }
+    },
+    "mutant-publication": {
+      "js": {
+        "validatedOutputs": 1,
+        "detectedMutation": true,
+        "generatedSha256": "dcbb9888606e1b2a7cc78b4ebbe6c2d34d2101cd28793f338d71507c9c64e057"
+      },
+      "native": {
+        "validatedOutputs": 1,
+        "detectedMutation": true,
+        "generatedSha256": "722d4545dc5e2fa66a318c1d350724ade3038e0cb3e459d994f54a41387d0034"
+      }
+    },
+    "mutant-cursor": {
+      "js": {
+        "validatedOutputs": 1,
+        "detectedMutation": true,
+        "generatedSha256": "b095f6c4cc2ee30dd95f0da1558b616ab15b27cd8418808f17b4fa3032bfd92d"
+      },
+      "native": {
+        "validatedOutputs": 1,
+        "detectedMutation": true,
+        "generatedSha256": "358c15458f3922bcabb865a757a81a7e5d12bf6a0843c65b0ba9bd6301265928"
+      }
+    },
+    "mutant-retention": {
+      "js": {
+        "validatedOutputs": 1,
+        "detectedMutation": true,
+        "generatedSha256": "3e2c95497f8d3e8bee5c0c5343a7ca3668489dff0c77eede6cd79a19f80ec5a9"
+      },
+      "native": {
+        "validatedOutputs": 1,
+        "detectedMutation": true,
+        "generatedSha256": "65ce55c9ec0d4c6812324eee50386f1e1290f7af960f11c15e86ed0eb677ee4c"
+      }
+    }
+  },
+  "source": {
+    "src/ecs/README.md": "dfe7580eb9de72e158cd60deef2d92382edd517a3b643eaae4d4d53dc06592fd",
+    "src/ecs/capabilities.bend": "91c0cdc01e9143d10dc0156ef4f6c39beff97d8088ed0bbb056ffff2ffabf964",
+    "src/ecs/captured-column.bend": "340efc234a5681adb2ccd35da22a1cbe3fbde4d15f0e6a3f8a75e76c4852df0a",
+    "src/ecs/column.bend": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+    "src/ecs/commands.bend": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+    "src/ecs/component.bend": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+    "src/ecs/compose.bend": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+    "src/ecs/event-runtime.bend": "409b45060a9d8b02ce5bf43c584f2be05b81b2239b04e75dca384f07cc626ea7",
+    "src/ecs/events.bend": "fffc3ec427072c4ba1c880f2ba8a73c1fcd1db66550cf63cdce56ba9e10bdc63",
+    "src/ecs/indexed-lifecycle.bend": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+    "src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "src/ecs/local.bend": "8cc5b3c9d3597c60d8a1b9b7fd206a92b289669c3cd9a8575db65ce9af37bd47",
+    "src/ecs/optimized-compose.bend": "ac9c98457c7d6890f1f30dd82f41658a5d3ae962a7fb9022062af5b9d581ca25",
+    "src/ecs/owned-compose.bend": "1115ffe6db7a1940b53889f53df09cff7fd43a3d244e07b843ea9094f62d31c7",
+    "src/ecs/owned-family.bend": "1fe504b1130eed24fb0c1dfc9bf7c6de0ab0f855d4adf30694a1f6b3c634f7e1",
+    "src/ecs/owned-optimized-compose.bend": "3e651cc49f4d6cfb37ea5af07a4b4668a8983911a7547a03aec193f9ca305fff",
+    "src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+    "src/ecs/provider.bend": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72",
+    "src/ecs/query-contract.bend": "de8eb5a047d2ca82e5832513798a6590a2cd025296b80b154da65a51270c4e91",
+    "src/ecs/query.bend": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9",
+    "src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+    "src/ecs/removals.bend": "98a5f5cf42372d8eab35f3927539079e4412886eeaa3e07bbb2113f2286222f6",
+    "src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+    "src/ecs/restored-row.bend": "9a1e25359a7775e230ad1b720180db622c12c2e9757cba98acef9c89e8d0f2d5",
+    "src/ecs/row-column.bend": "f3846a5378958c522d4053f13f7af4898a8a60c76f7534b060f020adca631f72",
+    "src/ecs/schedule.bend": "ad7a7c4187bfb028d01e98b821bd65078ae503604ec04ab645440be3898caa9f",
+    "src/ecs/structural.bend": "e8e813dc6de2f8a38ca61f51c0cbc5aeaf243fcc9cd399303e2adca2674480d4",
+    "src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+    "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "src/ecs/world.bend": "7d394b623b8bb60a3fef7b160bb69af135719edd3008126ee186e190047708f8",
+    "experiments/public-event-readers/README.md": "6d5f3498a8e82998f3301d743720659336e0f84be1b26923bf7197f664cd3bef",
+    "experiments/public-event-readers/build.py": "9432117db4648de7ad8a3f9d801981e1f61cb850c5e61e098e6770411e7a72bb",
+    "experiments/public-event-readers/controls/cross-schema.bend": "72ec66064ae549eeacd9fc16e8cf0b085f84ecf03cffaabdddfa35b78a8364e4",
+    "experiments/public-event-readers/controls/duplicate-reader.bend": "faed6f0da8d1e7b3702a830e70eaf6d3bd5a4e26acd0c110e070f3a00c32ec0c",
+    "experiments/public-event-readers/controls/read-write.bend": "93621441534030cb9a6a57d5cb2eb7f51444de0f2186c462aa61eec0cd839d26",
+    "experiments/public-event-readers/controls/undeclared.bend": "1326dc5bf5362831b03ef896936cccb7680e0c003431c33313146385562c810f",
+    "experiments/public-event-readers/disposal.bend": "3ac16a40fc690cf9f58cc1e382d94040a5c469635a87f14442e0afdc65f88aec",
+    "experiments/public-event-readers/fixture.bend": "57f9f42c38bb129c48d9bc6dd56fa631fae88668084f36d0764b806a53f6d6ce",
+    "experiments/public-event-readers/late-registration.bend": "9affa92ba3c6f704e2652fefdf74c9d966018ee9365f8664b9438721e5183dc8",
+    "experiments/public-event-readers/main.bend": "a056f26d930df3ce694f84b1beba283a842005bd5bd8c5fe6bae4f644ecf3591",
+    "experiments/public-event-readers/reference-late.mjs": "40541cc9beb97015e7873a8cc2f60276cdafaa26362ffc800a427d1c2793f93f",
+    "experiments/public-event-readers/reference.mjs": "00528f0d5436e383e8e96b2ba14658b0ac715289bace88dcb050eadcaf92a7b2",
+    "experiments/public-event-readers/registration-swap.bend": "df5c67d3e5f8209f59753e6f977bd3a9de6bc97382c8c0d92733b00d82f05b73"
+  },
+  "references": {
+    "bevy-ts": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334",
+    "bevy": "ad678262ce53b5d142fe49ee5e08caff6f00ab60",
+    "bend2": "a950fd683c0d76f09794078e6174fe98a1492876"
+  },
+  "versions": {
+    "Bend": "bend 2.0.35",
+    "Node": "v24.20.0",
+    "Clang": "Debian clang version 19.1.7 (3~deb12u1)\nTarget: aarch64-unknown-linux-gnu\nThread model: posix\nInstalledDir: /tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin"
+  },
+  "negativeControls": [
+    "read-write",
+    "undeclared",
+    "duplicate-reader",
+    "cross-schema"
+  ],
+  "priorPublicControls": {
+    "format": 1,
+    "limit_seconds": 5,
+    "version": "bend 2.0.35",
+    "runner_sha256": "124c772245aa211c76602e6ec492590ea12c01b71d72cb59b67968cd89c9d17f",
+    "library": {
+      "src/ecs/capabilities.bend": "91c0cdc01e9143d10dc0156ef4f6c39beff97d8088ed0bbb056ffff2ffabf964",
+      "src/ecs/captured-column.bend": "340efc234a5681adb2ccd35da22a1cbe3fbde4d15f0e6a3f8a75e76c4852df0a",
+      "src/ecs/column.bend": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+      "src/ecs/commands.bend": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+      "src/ecs/component.bend": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+      "src/ecs/compose.bend": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+      "src/ecs/event-runtime.bend": "409b45060a9d8b02ce5bf43c584f2be05b81b2239b04e75dca384f07cc626ea7",
+      "src/ecs/events.bend": "fffc3ec427072c4ba1c880f2ba8a73c1fcd1db66550cf63cdce56ba9e10bdc63",
+      "src/ecs/indexed-lifecycle.bend": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+      "src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+      "src/ecs/local.bend": "8cc5b3c9d3597c60d8a1b9b7fd206a92b289669c3cd9a8575db65ce9af37bd47",
+      "src/ecs/optimized-compose.bend": "ac9c98457c7d6890f1f30dd82f41658a5d3ae962a7fb9022062af5b9d581ca25",
+      "src/ecs/owned-compose.bend": "1115ffe6db7a1940b53889f53df09cff7fd43a3d244e07b843ea9094f62d31c7",
+      "src/ecs/owned-family.bend": "1fe504b1130eed24fb0c1dfc9bf7c6de0ab0f855d4adf30694a1f6b3c634f7e1",
+      "src/ecs/owned-optimized-compose.bend": "3e651cc49f4d6cfb37ea5af07a4b4668a8983911a7547a03aec193f9ca305fff",
+      "src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+      "src/ecs/provider.bend": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72",
+      "src/ecs/query-contract.bend": "de8eb5a047d2ca82e5832513798a6590a2cd025296b80b154da65a51270c4e91",
+      "src/ecs/query.bend": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9",
+      "src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+      "src/ecs/removals.bend": "98a5f5cf42372d8eab35f3927539079e4412886eeaa3e07bbb2113f2286222f6",
+      "src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+      "src/ecs/restored-row.bend": "9a1e25359a7775e230ad1b720180db622c12c2e9757cba98acef9c89e8d0f2d5",
+      "src/ecs/row-column.bend": "f3846a5378958c522d4053f13f7af4898a8a60c76f7534b060f020adca631f72",
+      "src/ecs/schedule.bend": "ad7a7c4187bfb028d01e98b821bd65078ae503604ec04ab645440be3898caa9f",
+      "src/ecs/structural.bend": "e8e813dc6de2f8a38ca61f51c0cbc5aeaf243fcc9cd399303e2adca2674480d4",
+      "src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+      "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+      "src/ecs/world.bend": "7d394b623b8bb60a3fef7b160bb69af135719edd3008126ee186e190047708f8"
+    },
+    "cases_sha256": "4950d3d48c9d9cb122b4e7c36db6bf64774f0653a92a5cd9e3db0246a67de6ba",
+    "results": [
+      {
+        "name": "positive-five-alias-runtime",
+        "command": [
+          "timeout",
+          "5",
+          "bend",
+          "experiments/query-composition/public-controls/positive-alias-runtime.bend"
+        ],
+        "source_sha256": "6aac020cd0a9783cd8cf7bc45fd125b75eb2b19300e9f60f2091581acd8832fa",
+        "exit": 0,
+        "passed": true,
+        "log": "positive-five-alias-runtime.log"
+      },
+      {
+        "name": "positive-selection",
+        "command": [
+          "timeout",
+          "5",
+          "bend",
+          "experiments/query-composition/public-controls/positive-selection.bend"
+        ],
+        "source_sha256": "b500c5c4e93e3c80061db3db8dea380907ee9295bc272d997f8a148de3607aa7",
+        "exit": 0,
+        "passed": true,
+        "log": "positive-selection.log"
+      },
+      {
+        "name": "positive-family",
+        "command": [
+          "timeout",
+          "5",
+          "bend",
+          "experiments/query-composition/public-controls/positive-family.bend"
+        ],
+        "source_sha256": "9508eb317bb49e39ae2e54148a6cb0e1f3f916d37a0579a658f6284ae3d7baa3",
+        "exit": 0,
+        "passed": true,
+        "log": "positive-family.log"
+      },
+      {
+        "name": "positive-detached-frame",
+        "command": [
+          "timeout",
+          "5",
+          "bend",
+          "experiments/query-composition/public-controls/positive-detached-frame.bend"
+        ],
+        "source_sha256": "31ad02312c06f17ff3534568e7799665cbb4f584f32680dd215c75ad0527ff4d",
+        "exit": 0,
+        "passed": true,
+        "log": "positive-detached-frame.log"
+      },
+      {
+        "name": "writes-through-read",
+        "command": [
+          "timeout",
+          "5",
+          "bend",
+          "experiments/query-composition/public-controls/negative-read-set.bend"
+        ],
+        "source_sha256": "5f7360a6399186c0160902178554d43b07381609be2cf2c24f3dc3f8a4e213ef",
+        "exit": 1,
+        "passed": true,
+        "log": "writes-through-read.log"
+      },
+      {
+        "name": "duplicate-context",
+        "command": [
+          "timeout",
+          "5",
+          "bend",
+          "experiments/query-composition/public-controls/negative-duplicate-context.bend"
+        ],
+        "source_sha256": "64cb26680a6edbe6e53655c77c5e45e42bc23c952f89e0e476ab284a1d0855e7",
+        "exit": 1,
+        "passed": true,
+        "log": "duplicate-context.log"
+      },
+      {
+        "name": "undeclared-operation",
+        "command": [
+          "timeout",
+          "5",
+          "bend",
+          "experiments/query-composition/public-controls/negative-undeclared.bend"
+        ],
+        "source_sha256": "ebe70e155468fefb2ae3670ae6ea09558c0df9e8b62445ffd2dade468bc4682c",
+        "exit": 1,
+        "passed": true,
+        "log": "undeclared-operation.log"
+      },
+      {
+        "name": "opaque-reconstruction",
+        "command": [
+          "timeout",
+          "5",
+          "bend",
+          "experiments/query-composition/public-controls/negative-reconstruct-context.bend"
+        ],
+        "source_sha256": "2a823edc584f6be9c496efcfa5b54cf3ee1a9a7b140b947199a431f050ba9b97",
+        "exit": 1,
+        "passed": true,
+        "log": "opaque-reconstruction.log"
+      },
+      {
+        "name": "cross-schema-family",
+        "command": [
+          "timeout",
+          "5",
+          "bend",
+          "experiments/query-composition/public-controls/negative-cross-schema.bend"
+        ],
+        "source_sha256": "04b32a47877edc329d4d62379c5706cbbb07885767290cba6b809285cca8f60a",
+        "exit": 1,
+        "passed": true,
+        "log": "cross-schema-family.log"
+      },
+      {
+        "name": "runtime-capability-template",
+        "command": [
+          "timeout",
+          "5",
+          "bend",
+          "experiments/query-composition/public-controls/negative-runtime-cap.bend"
+        ],
+        "source_sha256": "aba22d2ad5049c014ad5b852390a18074d7752181c8bf445f8aca73abdef2870",
+        "exit": 1,
+        "passed": true,
+        "log": "runtime-capability-template.log"
+      }
+    ]
+  },
+  "mutants": {
+    "mutant-publication": {
+      "file": "src/ecs/world.bend",
+      "original": "event_append(~E,events,published)",
+      "replacement": "events",
+      "sha256": "820eb0539d6f6b1a3350213db105aee5ef84b80c0c31c3a8246e36fb32ed1a86"
+    },
+    "mutant-cursor": {
+      "file": "src/ecs/event-runtime.bend",
+      "original": "case Sy.Failed{world,error}: Ran{Runtime{world,namespace,batches,activate(positions,readerId,Nat.sub(tick,1n)),nextReader,tick,frameStart,boundary,capacity,dropped}",
+      "replacement": "case Sy.Failed{world,error}: Ran{Runtime{world,namespace,batches,update(positions,readerId,tick,False{}),nextReader,tick,frameStart,boundary,capacity,dropped}",
+      "sha256": "47c8a4fa92f5d3c7a36e9f5f295be22a017924b4df1ad223531b617d15253d7b"
+    },
+    "mutant-retention": {
+      "file": "src/ecs/event-runtime.bend",
+      "original": "hold_boundary(positions,boundary)",
+      "replacement": "boundary",
+      "sha256": "8dc24b84837fc406b91146dd354206c11844a2ec660a04053baca529e63763eb"
+    }
+  },
+  "status": "PASS",
+  "scope": "25 complete TS-equal event checkpoints; disposal and registration swap are separate Bend extensions; finite tests, not proofs or qualified hot-path performance"
+}

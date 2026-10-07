@@ -1,0 +1,31 @@
+{
+  "scope": "Finite actual helper counts and standalone emitter source audit; no measured performance/bytes allocation/universal refinement",
+  "js_sha256": "48205cfb5b2059dc172b0d72af2cfc78a6bf7a0f19943b3e7ebd417eee9fd12d",
+  "native_sha256": "b0b0b7063bc2150d333748b79859a3cf9b9895b4cc8c523d13afb7d21f249f5a",
+  "instrumented_sha256": "b5432dde3a40255a77238f7d266b72c88c4482161c343351d0ad67a0a95284ad",
+  "probe_source_sha256": "94ee6ccde00ec16f34e04931fbb52bba2a670707b31ab8dc46acb8709d51e539",
+  "actual_counts": {
+    "views": 576,
+    "read_true": 18360,
+    "read_false": 3,
+    "complete": 576,
+    "refused": 0
+  },
+  "full_stdout_equals_original": true,
+  "view_function_names": [
+    "$view$058read$",
+    "$view$058read_checked$",
+    "$view$058array_view$",
+    "$view$058read_result$",
+    "$view$058sized$",
+    "$view$058finished$",
+    "$view$058collect$"
+  ],
+  "new_view_functions_no_slice_or_concat": true,
+  "collector_tail_loop": true,
+  "bounds_check_precedes_masked_get": true,
+  "size_and_get_actual_owner_returned": true,
+  "explicit_fallback": "finished Refused preserves owner and calls original structural oracle; unreachable on all576size-derived valid inputs. Raw helper capacity can be forged, no universal helper-authority claim.",
+  "native_read": "spin_4 branches on checked predicate before blk_read; returns actual array word through spin_5. Same actual owner threads loop; no new Array clone.",
+  "native_standalone_WL_RESW": 2
+}

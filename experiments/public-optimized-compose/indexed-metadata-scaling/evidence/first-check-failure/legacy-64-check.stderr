@@ -1,0 +1,8 @@
+SOME PROOFS FAIL
+Error:
+- message  : 'saved' can't be matched in this position (it is matched after a local statement or after a match on a later binder, it was already matched, or it is a def)
+Location:
+36 | def second_write(~M:Type,~get:M -> U32 -> M & L.Stamp,~set:M -> U32 -> L.Stamp -> M,~clear:M -> U32 -> M,+id:U32,+saved:L.Stamp,trace:Trace<M>) -> Trace<M>:
+37>|   match trace saved:
+   |               ^^^^^
+38 |     case Trace{metadata,points} L.Stamp{+a,c}: cleared_then_restore(~M,~get,~set,~clear,id,saved,read(~M,~get,4,id,Trace{set(metadata,id,L.Stamp{a,U32.add(c,2000)}),points}))

@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : E.WriteAccess<bad~H, U32, bad~publish>
+- observed : E.ReadAccess<bad~H, U32, bad~observe>
+Context:
+- ops   : E.ReadAccess<bad~H, U32, bad~observe>
+- owner : bad~H
+Location: bad
+4 | def bad(~H: Type,~observe: H -> H & E.Reading<U32>,~publish: H -> U32 -> H,ops: E.ReadAccess<H,U32,observe>,owner: H) -> H:
+5>|   E.emit(~H,~U32,~publish,ops,owner,1)
+  |                           ^^^
+6 | 

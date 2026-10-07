@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : reader
+- observed : reader (consumed more than once)
+Location: bad
+5 |   Schema{}
+6>| def bad(reader: E.Reader<Schema>) -> E.Reader<Schema> & E.Reader<Schema>:
+  |         ^^^^^^
+7 |   (reader,reader)

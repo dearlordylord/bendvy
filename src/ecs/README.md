@@ -48,9 +48,7 @@ Bind a closed query runner to a caller-authored rank2 gameplay body, then call
 `System.register`. Registration returns the World and an affine
 `Registry<...,runner>` owner. `System.run` threads that exact owner through each
 invocation and retry; changing its runner index is a type mismatch. Namespace
-and exact metadata are checked before execution. Runtime captured affine
-callbacks and extensible heterogeneous schedules remain follow-ups. Static
-typed products and sequential runner calls provide the bounded schedule.
+and exact metadata are checked before execution. Runtime captured affine callbacks remain a follow-up. `Schedule` provides authored static heterogeneous steps, read-only conditions, phases and explicit barriers; closed dispatch retains the registered instance owners.
 
 The query executor owns one transaction across its selected callbacks.
 Success publishes events and queues commands; failure restores its own writes
@@ -66,7 +64,35 @@ post-run clock, including the system's own writes; failure/refusal retains the
 old cursor. `System.run_to_cursor` remains an explicit caller-supplied cursor
 operation for existing consumers.
 
-`Events.create/read` threads independent affine reader owners through an
-append-only Data event log. Retention, lag and affine event payloads are separate
-follow-ups. No universal proof/refinement follows from finite
-compiler or application tests.
+`Events.create/read` retains its legacy append-only interface. `EventRuntime`
+adds registered readers, bounded whole-batch retention and lag reporting against
+the actual World event log. Reader failure preserves its position; an accepted
+condition skip advances to the current tick without reading. `Removals` uses a
+separate typed removal domain, preserves its cursor on skip and retains backlog until reader disposal;
+observed Structural/Commands hooks publish metadata at the explicit barrier.
+Affine event fan-out and composed event/removal provisioning remain follow-ups.
+
+`QueryContract` adds count/single/get and exact typed error diagnostics over
+caller-defined Compose selections. `OptimizedCompose` optionally prepares typed
+column owners and always recovers them after the transaction; reverse access and
+growth retain safe fallback. Caller-provided Store preparation/recovery is a
+trusted schema adapter, with generic Type component payloads preserved.
+
+`OwnedCompose` offers an additive provider for a caller-defined row owner `H`.
+Selection still runs on the original Frame; closed enter/leave adapters move and
+restore actual family owners around the same abstract gameplay body. Use its
+direct closed-field entrypoints to declare capabilities, selector and adapters
+without repeated runtime Plan projection. Existing Plan entrypoints remain usable.
+All owners return before transaction completion, including failure. Adapters and
+raw captured-row constructors are trusted provisioning, not opaque authority;
+rank2 gameplay retains its abstract context. Current finite controls pass, while
+the selected provider's performance acceptance remains pending.
+
+`System.identity/dispose` exposes instance identity and checked unregistration;
+rejected disposal returns the original owner. `Local` threads a separate affine
+state owner for each registered system instance. Skip preserves that state;
+changes returned by a failing system persist while its ECS transaction rolls back,
+as explicitly approved. Rejected foreign execution/disposal returns the original
+instance and argument owners. Finite executable controls pass; final shared-source
+delivery remains pending. No universal proof/refinement or complete product
+performance qualification follows from these finite compiler/application tests.

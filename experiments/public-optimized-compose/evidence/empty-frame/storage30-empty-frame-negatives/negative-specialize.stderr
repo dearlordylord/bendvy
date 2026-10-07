@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : S.Row
+- observed : body~H
+Context:
+- args : Bool
+- row  : body~H
+Location: body
+12 | def body(~H:Type,~caps:S.Ops<H>,args:Bool,row:H) -> H & (T.Outcome<Unit> & List<&2,U32>):
+13>|   S.get(row)
+   |         ^^^
+14 | 

@@ -1,0 +1,563 @@
+{
+  "commands": [
+    {
+      "command": [
+        "node",
+        "/tmp/bendvy-removal-closure-nzjfh97i/experiments/public-removal-readers/reference.mjs"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsed": 0.09329771601187531,
+      "stdout": "reference.stdout",
+      "stderr": "reference.stderr"
+    },
+    {
+      "command": [
+        "bend",
+        "/tmp/bendvy-removal-closure-nzjfh97i/experiments/public-removal-readers/main.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsed": 0.25171717698685825,
+      "stdout": "checker.stdout",
+      "stderr": "checker.stderr"
+    },
+    {
+      "command": [
+        "bend",
+        "/tmp/bendvy-removal-closure-nzjfh97i/experiments/public-removal-readers/foreign-reader.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsed": 0.20409966699662618,
+      "stdout": "foreign-checker.stdout",
+      "stderr": "foreign-checker.stderr"
+    },
+    {
+      "command": [
+        "bend",
+        "/tmp/bendvy-removal-closure-nzjfh97i/experiments/public-removal-readers/main.bend",
+        "-o",
+        "/tmp/bendvy-removals-7sajlyb4/main.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsed": 0.3068262340093497,
+      "stdout": "emit-js.stdout",
+      "stderr": "emit-js.stderr"
+    },
+    {
+      "command": [
+        "bend",
+        "/tmp/bendvy-removal-closure-nzjfh97i/experiments/public-removal-readers/main.bend",
+        "-o",
+        "/tmp/bendvy-removals-7sajlyb4/main.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsed": 1.3273149020096753,
+      "stdout": "emit-c.stdout",
+      "stderr": "emit-c.stderr"
+    },
+    {
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/bendvy-removals-7sajlyb4/main.c",
+        "-o",
+        "/tmp/bendvy-removals-7sajlyb4/main.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "elapsed": 2.7927531369932694,
+      "stdout": "build-native.stdout",
+      "stderr": "build-native.stderr"
+    },
+    {
+      "command": [
+        "node",
+        "/tmp/bendvy-removals-7sajlyb4/main.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsed": 0.01722927599621471,
+      "stdout": "JS-full.stdout",
+      "stderr": "JS-full.stderr"
+    },
+    {
+      "command": [
+        "/tmp/bendvy-removals-7sajlyb4/main.native"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsed": 0.0033370210003340617,
+      "stdout": "Native-full.stdout",
+      "stderr": "Native-full.stderr"
+    },
+    {
+      "command": [
+        "bend",
+        "/tmp/bendvy-removal-closure-nzjfh97i/experiments/public-removal-readers/timing-main.bend",
+        "-o",
+        "/tmp/bendvy-removals-7sajlyb4/timing.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsed": 0.2583406359917717,
+      "stdout": "timing-emit-js.stdout",
+      "stderr": "timing-emit-js.stderr"
+    },
+    {
+      "command": [
+        "bend",
+        "/tmp/bendvy-removal-closure-nzjfh97i/experiments/public-removal-readers/timing-main.bend",
+        "-o",
+        "/tmp/bendvy-removals-7sajlyb4/timing.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsed": 0.7692032860068139,
+      "stdout": "timing-emit-c.stdout",
+      "stderr": "timing-emit-c.stderr"
+    },
+    {
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/bendvy-removals-7sajlyb4/timing.c",
+        "-o",
+        "/tmp/bendvy-removals-7sajlyb4/timing.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "elapsed": 2.377662175989826,
+      "stdout": "timing-build-native.stdout",
+      "stderr": "timing-build-native.stderr"
+    },
+    {
+      "command": [
+        "bend",
+        "/tmp/bendvy-removal-closure-nzjfh97i/experiments/public-removal-readers/foreign-reader.bend",
+        "-o",
+        "/tmp/bendvy-removals-7sajlyb4/foreign.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsed": 0.16898582001158502,
+      "stdout": "foreign-emit-js.stdout",
+      "stderr": "foreign-emit-js.stderr"
+    },
+    {
+      "command": [
+        "bend",
+        "/tmp/bendvy-removal-closure-nzjfh97i/experiments/public-removal-readers/foreign-reader.bend",
+        "-o",
+        "/tmp/bendvy-removals-7sajlyb4/foreign.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsed": 0.3111916790076066,
+      "stdout": "foreign-emit-c.stdout",
+      "stderr": "foreign-emit-c.stderr"
+    },
+    {
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/bendvy-removals-7sajlyb4/foreign.c",
+        "-o",
+        "/tmp/bendvy-removals-7sajlyb4/foreign.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "elapsed": 0.7380877550021978,
+      "stdout": "foreign-build-native.stdout",
+      "stderr": "foreign-build-native.stderr"
+    },
+    {
+      "command": [
+        "node",
+        "/tmp/bendvy-removals-7sajlyb4/foreign.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsed": 0.013161750001017936,
+      "stdout": "JS-foreign.stdout",
+      "stderr": "JS-foreign.stderr"
+    },
+    {
+      "command": [
+        "/tmp/bendvy-removals-7sajlyb4/foreign.native"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsed": 0.004974823008524254,
+      "stdout": "Native-foreign.stdout",
+      "stderr": "Native-foreign.stderr"
+    },
+    {
+      "command": [
+        "node",
+        "/tmp/bendvy-removal-closure-nzjfh97i/experiments/public-removal-readers/reference.mjs"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsed": 0.0832583190058358,
+      "stdout": "TS-0.stdout",
+      "stderr": "TS-0.stderr"
+    },
+    {
+      "command": [
+        "node",
+        "/tmp/bendvy-removal-closure-nzjfh97i/experiments/public-removal-readers/reference.mjs"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsed": 0.08147118298802525,
+      "stdout": "TS-1.stdout",
+      "stderr": "TS-1.stderr"
+    },
+    {
+      "command": [
+        "node",
+        "/tmp/bendvy-removal-closure-nzjfh97i/experiments/public-removal-readers/reference.mjs"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsed": 0.08044296799926087,
+      "stdout": "TS-2.stdout",
+      "stderr": "TS-2.stderr"
+    },
+    {
+      "command": [
+        "node",
+        "/tmp/bendvy-removal-closure-nzjfh97i/experiments/public-removal-readers/reference.mjs"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsed": 0.07966104599472601,
+      "stdout": "TS-3.stdout",
+      "stderr": "TS-3.stderr"
+    },
+    {
+      "command": [
+        "node",
+        "/tmp/bendvy-removal-closure-nzjfh97i/experiments/public-removal-readers/reference.mjs"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsed": 0.07931933499639854,
+      "stdout": "TS-4.stdout",
+      "stderr": "TS-4.stderr"
+    },
+    {
+      "command": [
+        "node",
+        "/tmp/bendvy-removals-7sajlyb4/timing.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsed": 0.020097293992876075,
+      "stdout": "JS-0.stdout",
+      "stderr": "JS-0.stderr"
+    },
+    {
+      "command": [
+        "node",
+        "/tmp/bendvy-removals-7sajlyb4/timing.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsed": 0.02104663400677964,
+      "stdout": "JS-1.stdout",
+      "stderr": "JS-1.stderr"
+    },
+    {
+      "command": [
+        "node",
+        "/tmp/bendvy-removals-7sajlyb4/timing.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsed": 0.018827035994036123,
+      "stdout": "JS-2.stdout",
+      "stderr": "JS-2.stderr"
+    },
+    {
+      "command": [
+        "node",
+        "/tmp/bendvy-removals-7sajlyb4/timing.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsed": 0.018918494999525137,
+      "stdout": "JS-3.stdout",
+      "stderr": "JS-3.stderr"
+    },
+    {
+      "command": [
+        "node",
+        "/tmp/bendvy-removals-7sajlyb4/timing.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsed": 0.018246323001221754,
+      "stdout": "JS-4.stdout",
+      "stderr": "JS-4.stderr"
+    },
+    {
+      "command": [
+        "/tmp/bendvy-removals-7sajlyb4/timing.native"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsed": 0.005230700000538491,
+      "stdout": "Native-0.stdout",
+      "stderr": "Native-0.stderr"
+    },
+    {
+      "command": [
+        "/tmp/bendvy-removals-7sajlyb4/timing.native"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsed": 0.004676697004470043,
+      "stdout": "Native-1.stdout",
+      "stderr": "Native-1.stderr"
+    },
+    {
+      "command": [
+        "/tmp/bendvy-removals-7sajlyb4/timing.native"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsed": 0.004602778994012624,
+      "stdout": "Native-2.stdout",
+      "stderr": "Native-2.stderr"
+    },
+    {
+      "command": [
+        "/tmp/bendvy-removals-7sajlyb4/timing.native"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsed": 0.00486673999694176,
+      "stdout": "Native-3.stdout",
+      "stderr": "Native-3.stderr"
+    },
+    {
+      "command": [
+        "/tmp/bendvy-removals-7sajlyb4/timing.native"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsed": 0.004644112996174954,
+      "stdout": "Native-4.stdout",
+      "stderr": "Native-4.stderr"
+    },
+    {
+      "command": [
+        "bend",
+        "/tmp/bendvy-removal-closure-nzjfh97i/experiments/public-removal-readers/negative-owner.bend"
+      ],
+      "limit": 5,
+      "exit": 1,
+      "elapsed": 0.1566028659872245,
+      "stdout": "negative-owner.stdout",
+      "stderr": "negative-owner.stderr"
+    },
+    {
+      "command": [
+        "bend",
+        "/tmp/bendvy-removal-closure-nzjfh97i/experiments/public-removal-readers/negative-family.bend"
+      ],
+      "limit": 5,
+      "exit": 1,
+      "elapsed": 0.15849791999789886,
+      "stdout": "negative-family.stdout",
+      "stderr": "negative-family.stderr"
+    },
+    {
+      "command": [
+        "bend",
+        "/tmp/bendvy-removal-closure-nzjfh97i/experiments/public-removal-readers/negative-schema.bend"
+      ],
+      "limit": 5,
+      "exit": 1,
+      "elapsed": 0.14401786999951582,
+      "stdout": "negative-schema.stdout",
+      "stderr": "negative-schema.stderr"
+    },
+    {
+      "command": [
+        "bend",
+        "/tmp/bendvy-removal-closure-nzjfh97i/experiments/public-removal-readers/negative-write.bend"
+      ],
+      "limit": 5,
+      "exit": 1,
+      "elapsed": 0.15310830299858935,
+      "stdout": "negative-write.stdout",
+      "stderr": "negative-write.stderr"
+    },
+    {
+      "command": [
+        "bend",
+        "/tmp/bendvy-removals-7sajlyb4/mutant/experiments/public-removal-readers/main.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsed": 0.21720591699704528,
+      "stdout": "mutant-checker.stdout",
+      "stderr": "mutant-checker.stderr"
+    },
+    {
+      "command": [
+        "bend",
+        "/tmp/bendvy-removals-7sajlyb4/mutant/experiments/public-removal-readers/main.bend",
+        "-o",
+        "/tmp/bendvy-removals-7sajlyb4/mutant.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsed": 0.345300977001898,
+      "stdout": "mutant-emit.stdout",
+      "stderr": "mutant-emit.stderr"
+    },
+    {
+      "command": [
+        "node",
+        "/tmp/bendvy-removals-7sajlyb4/mutant.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsed": 0.0288063899934059,
+      "stdout": "mutant-run.stdout",
+      "stderr": "mutant-run.stderr"
+    }
+  ],
+  "sourceHashes": {
+    "experiments/public-removal-readers/foreign-reader.bend": "0f59fb7e46f956fd8ae754c1da34d192e1e55aae4f1e4e1ca8ee5ea9420cbe4e",
+    "experiments/public-removal-readers/main.bend": "309c064e5c8a93537abee5bc4392f327616198cde2a121618325a7cf40c51a75",
+    "experiments/public-removal-readers/negative-family.bend": "730e9e084fe8919d466e9b717655f6edd290ecca7feeb890fbd8fbba7503079e",
+    "experiments/public-removal-readers/negative-owner.bend": "67c46291aa688dec570d334dbdb717ad190f85c31026256a8ec1a84429afc57e",
+    "experiments/public-removal-readers/negative-schema.bend": "7be6e6d571bf6a16f0c4ad37ca6c045e911d3e1f46ba2da552dba09cbb19c9bc",
+    "experiments/public-removal-readers/negative-write.bend": "12ddc1618b61b451537689990232e786d5ed901d7a6769f6402369f733c27f03",
+    "experiments/public-removal-readers/schema.bend": "b171d9697766790f12b9f84240aa056123aa67b9ef30be3e7a524143809fe595",
+    "experiments/public-removal-readers/timing-main.bend": "8204adc7b0b3e0fab7dcd9dd2310f338492bef286ff15f84033f231d36a13ff0",
+    "src/ecs/capabilities.bend": "91c0cdc01e9143d10dc0156ef4f6c39beff97d8088ed0bbb056ffff2ffabf964",
+    "src/ecs/column.bend": "a90bc5375c3a550b0d76cb890f4afd2bd7787db9c04f8fc19809c008910a25b8",
+    "src/ecs/commands.bend": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+    "src/ecs/component.bend": "d36e068152c07c410425e5114b5ca2d3e853d615025481b9b4a5fbade38d04f6",
+    "src/ecs/compose.bend": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+    "src/ecs/event-runtime.bend": "3b696e7b00d032b078e5def969790674c4682ba97de649e8609ca056bf5095d7",
+    "src/ecs/events.bend": "3d89fbbb40fefab4be349bfbe0d1f99c870c25c725130ccb1823910c1ace7c53",
+    "src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "src/ecs/optimized-compose.bend": "ac9c98457c7d6890f1f30dd82f41658a5d3ae962a7fb9022062af5b9d581ca25",
+    "src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+    "src/ecs/provider.bend": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72",
+    "src/ecs/query-contract.bend": "b11480a269a188fc2eb7bdda1fb13536a9d69245496fcd164f8872e6914ba81e",
+    "src/ecs/query.bend": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9",
+    "src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+    "src/ecs/removals.bend": "98a5f5cf42372d8eab35f3927539079e4412886eeaa3e07bbb2113f2286222f6",
+    "src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+    "src/ecs/schedule.bend": "ad7a7c4187bfb028d01e98b821bd65078ae503604ec04ab645440be3898caa9f",
+    "src/ecs/structural.bend": "e8e813dc6de2f8a38ca61f51c0cbc5aeaf243fcc9cd399303e2adca2674480d4",
+    "src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+    "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "src/ecs/world.bend": "76c5b51557a219ff4840ed8b6825421c663199b4d10ac0909f691b93dd0e01c2"
+  },
+  "timings": [
+    {
+      "backend": "TS",
+      "sample": 0,
+      "elapsed": 0.0832583190058358
+    },
+    {
+      "backend": "TS",
+      "sample": 1,
+      "elapsed": 0.08147118298802525
+    },
+    {
+      "backend": "TS",
+      "sample": 2,
+      "elapsed": 0.08044296799926087
+    },
+    {
+      "backend": "TS",
+      "sample": 3,
+      "elapsed": 0.07966104599472601
+    },
+    {
+      "backend": "TS",
+      "sample": 4,
+      "elapsed": 0.07931933499639854
+    },
+    {
+      "backend": "JS",
+      "sample": 0,
+      "elapsed": 0.020097293992876075
+    },
+    {
+      "backend": "JS",
+      "sample": 1,
+      "elapsed": 0.02104663400677964
+    },
+    {
+      "backend": "JS",
+      "sample": 2,
+      "elapsed": 0.018827035994036123
+    },
+    {
+      "backend": "JS",
+      "sample": 3,
+      "elapsed": 0.018918494999525137
+    },
+    {
+      "backend": "JS",
+      "sample": 4,
+      "elapsed": 0.018246323001221754
+    },
+    {
+      "backend": "Native",
+      "sample": 0,
+      "elapsed": 0.005230700000538491
+    },
+    {
+      "backend": "Native",
+      "sample": 1,
+      "elapsed": 0.004676697004470043
+    },
+    {
+      "backend": "Native",
+      "sample": 2,
+      "elapsed": 0.004602778994012624
+    },
+    {
+      "backend": "Native",
+      "sample": 3,
+      "elapsed": 0.00486673999694176
+    },
+    {
+      "backend": "Native",
+      "sample": 4,
+      "elapsed": 0.004644112996174954
+    }
+  ],
+  "mutantDetected": true,
+  "timingScope": "Whole child process, startup/printing included; five raw samples of equivalent main workload, not product qualification. Disposal/foreign-runtime controls separately checked.",
+  "medians": {
+    "TS": 0.08044296799926087,
+    "JS": 0.018918494999525137,
+    "Native": 0.004676697004470043
+  },
+  "status": "PASS"
+}

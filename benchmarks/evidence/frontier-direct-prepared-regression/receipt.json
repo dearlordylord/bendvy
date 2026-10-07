@@ -1,0 +1,2137 @@
+{
+  "status": "REGRESSION",
+  "contract": {
+    "baselineCommit": "327bec49d41f00f88950343dea1edc1e0ec97dc4",
+    "workload": "Workshop: ten complete 22-checkpoint applications per process",
+    "scope": "Whole-process API regression; startup and output included, not qualified hot-path acceptance",
+    "pairs": 20,
+    "warmups": 2,
+    "seed": 20261007,
+    "alpha": 0.05,
+    "method": "One-sided exact paired sign tests, Holm correction across JS and Native",
+    "allowedSlowdown": 0,
+    "approval": "User: no statistically confirmed slowdown, 2026-10-06",
+    "iterations": 10,
+    "referenceCommit": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334"
+  },
+  "cpu": 0,
+  "machine": {
+    "system": "Linux",
+    "node": "f09fe046f4d2",
+    "release": "7.0.14-orbstack-00380-ga7e0a2dc9535",
+    "version": "#1 SMP PREEMPT Fri Aug  7 03:48:40 UTC 2026",
+    "machine": "aarch64",
+    "processor": ""
+  },
+  "commands": [
+    {
+      "argv": [
+        "bend",
+        "version"
+      ],
+      "limitSeconds": 5,
+      "label": "version-Bend",
+      "exit": 0,
+      "elapsedMs": 18.119612,
+      "stdoutSHA256": "ca6fc52ac20b452bc60b3e8da766c53d679f0325ca4f1ac580ec72f09758d79d"
+    },
+    {
+      "argv": [
+        "node",
+        "--version"
+      ],
+      "limitSeconds": 5,
+      "label": "version-Node",
+      "exit": 0,
+      "elapsedMs": 2.845643,
+      "stdoutSHA256": "b67d0ced059f9313d861ddbbe734d2d1f9219106a9e036ae6d88407afa0846e6"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "--version"
+      ],
+      "limitSeconds": 5,
+      "label": "version-Clang",
+      "exit": 0,
+      "elapsedMs": 25.919285,
+      "stdoutSHA256": "cdddf8c4dfb42fef72caa5c3988c573a4f7bca9409456a32841dfe34e6b4b6c3"
+    },
+    {
+      "argv": [
+        "git",
+        "-C",
+        "/workspace/formal-proofs/bendvy/.references/bevy-ts",
+        "rev-parse",
+        "HEAD"
+      ],
+      "limitSeconds": 5,
+      "label": "reference-head",
+      "exit": 0,
+      "elapsedMs": 1.299883,
+      "stdoutSHA256": "1e9fa0f2cb924e419c66fb68fbc27326da39b4f0a4ec43b422da942e21d2459f"
+    },
+    {
+      "argv": [
+        "git",
+        "-C",
+        "/workspace/formal-proofs/bendvy/.references/bevy-ts",
+        "status",
+        "--porcelain",
+        "--",
+        "packages/core/src"
+      ],
+      "limitSeconds": 5,
+      "label": "reference-clean",
+      "exit": 0,
+      "elapsedMs": 3.470854,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/examples/query-composition/timing-main.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5,
+      "label": "baseline-checker",
+      "exit": 0,
+      "elapsedMs": 676.254704,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/examples/query-composition/timing-main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.js"
+      ],
+      "limitSeconds": 30,
+      "label": "baseline-js-emit",
+      "exit": 0,
+      "elapsedMs": 1086.256101,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/examples/query-composition/timing-main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.c"
+      ],
+      "limitSeconds": 30,
+      "label": "baseline-c-emit",
+      "exit": 0,
+      "elapsedMs": 5590.324359,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limitSeconds": 120,
+      "label": "baseline-native-build",
+      "exit": 0,
+      "elapsedMs": 12296.48971,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/examples/query-composition/timing-main.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5,
+      "label": "candidate-checker",
+      "exit": 0,
+      "elapsedMs": 743.592617,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/examples/query-composition/timing-main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.js"
+      ],
+      "limitSeconds": 30,
+      "label": "candidate-js-emit",
+      "exit": 0,
+      "elapsedMs": 1146.271637,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/examples/query-composition/timing-main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.c"
+      ],
+      "limitSeconds": 30,
+      "label": "candidate-c-emit",
+      "exit": 0,
+      "elapsedMs": 6530.785104,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limitSeconds": 120,
+      "label": "candidate-native-build",
+      "exit": 0,
+      "elapsedMs": 14592.165295,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "warmup-0-TS",
+      "exit": 0,
+      "elapsedMs": 237.957048,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "warmup-0-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 98.041145,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "warmup-0-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 18.346363,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "warmup-0-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 123.848095,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "warmup-0-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 18.785366,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "warmup-1-TS",
+      "exit": 0,
+      "elapsedMs": 247.954609,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "warmup-1-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 100.660453,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "warmup-1-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 18.790449,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "warmup-1-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 121.401622,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "warmup-1-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 18.355363,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-0-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 101.311623,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-0-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 127.981246,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-0-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 17.335274,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-0-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 18.15582,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-0-TS",
+      "exit": 0,
+      "elapsedMs": 233.530729,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-1-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 126.666446,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-1-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 99.15811,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-1-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 17.033521,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-1-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 19.449244,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-1-TS",
+      "exit": 0,
+      "elapsedMs": 246.630226,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-2-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 17.496649,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-2-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 18.096153,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-2-TS",
+      "exit": 0,
+      "elapsedMs": 237.186709,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-2-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 107.179618,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-2-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 128.215706,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-3-TS",
+      "exit": 0,
+      "elapsedMs": 235.182822,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-3-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 102.526839,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-3-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 119.185816,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-3-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 18.392155,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-3-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 16.972646,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-4-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 18.510614,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-4-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 16.443518,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-4-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 101.711626,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-4-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 124.022472,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-4-TS",
+      "exit": 0,
+      "elapsedMs": 235.101113,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-5-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 122.632005,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-5-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 100.048074,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-5-TS",
+      "exit": 0,
+      "elapsedMs": 237.753213,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-5-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 19.27841,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-5-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 21.861676,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-6-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 18.316821,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-6-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 17.343566,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-6-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 105.18148,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-6-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 124.105014,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-6-TS",
+      "exit": 0,
+      "elapsedMs": 239.368973,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-7-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 18.635323,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-7-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 18.155612,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-7-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 126.61382,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-7-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 104.989063,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-7-TS",
+      "exit": 0,
+      "elapsedMs": 218.726471,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-8-TS",
+      "exit": 0,
+      "elapsedMs": 210.514545,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-8-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 89.500801,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-8-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 106.631156,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-8-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 15.91189,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-8-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 16.607894,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-9-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 106.61599,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-9-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 93.873911,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-9-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 16.993687,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-9-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 15.693096,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-9-TS",
+      "exit": 0,
+      "elapsedMs": 209.718249,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-10-TS",
+      "exit": 0,
+      "elapsedMs": 214.446778,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-10-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 93.297865,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-10-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 107.349411,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-10-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 16.00489,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-10-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 16.833229,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-11-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 89.394592,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-11-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 105.964152,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-11-TS",
+      "exit": 0,
+      "elapsedMs": 226.047183,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-11-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 19.505287,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-11-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 19.211452,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-12-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 18.086737,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-12-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 20.72921,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-12-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 114.280037,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-12-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 106.059027,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-12-TS",
+      "exit": 0,
+      "elapsedMs": 213.320896,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-13-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 17.366107,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-13-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 15.655596,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-13-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 110.916849,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-13-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 87.72679,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-13-TS",
+      "exit": 0,
+      "elapsedMs": 208.692534,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-14-TS",
+      "exit": 0,
+      "elapsedMs": 327.250056,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-14-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 17.398357,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-14-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 18.032069,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-14-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 91.013268,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-14-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 106.70824,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-15-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 17.083022,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-15-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 15.560888,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-15-TS",
+      "exit": 0,
+      "elapsedMs": 214.737904,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-15-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 107.258535,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-15-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 89.590885,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-16-TS",
+      "exit": 0,
+      "elapsedMs": 209.498539,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-16-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 16.430767,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-16-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 16.873395,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-16-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 107.000033,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-16-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 89.216049,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-17-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 19.097242,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-17-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 16.960188,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-17-TS",
+      "exit": 0,
+      "elapsedMs": 211.703303,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-17-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 88.628004,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-17-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 106.599156,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-18-TS",
+      "exit": 0,
+      "elapsedMs": 217.358587,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-18-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 18.638614,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-18-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 16.971813,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-18-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 110.799515,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-18-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 88.468795,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-19-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 16.967479,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-19-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 16.046266,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-19-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 110.878308,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-19-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 76.888849,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-direct-prepared-regression/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-19-TS",
+      "exit": 0,
+      "elapsedMs": 209.324496,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    }
+  ],
+  "pairs": [
+    {
+      "pair": 0,
+      "backend": "JS",
+      "baselineMs": 101.311623,
+      "candidateMs": 127.981246
+    },
+    {
+      "pair": 0,
+      "backend": "Native",
+      "baselineMs": 17.335274,
+      "candidateMs": 18.15582
+    },
+    {
+      "pair": 1,
+      "backend": "JS",
+      "baselineMs": 99.15811,
+      "candidateMs": 126.666446
+    },
+    {
+      "pair": 1,
+      "backend": "Native",
+      "baselineMs": 17.033521,
+      "candidateMs": 19.449244
+    },
+    {
+      "pair": 2,
+      "backend": "JS",
+      "baselineMs": 107.179618,
+      "candidateMs": 128.215706
+    },
+    {
+      "pair": 2,
+      "backend": "Native",
+      "baselineMs": 17.496649,
+      "candidateMs": 18.096153
+    },
+    {
+      "pair": 3,
+      "backend": "JS",
+      "baselineMs": 102.526839,
+      "candidateMs": 119.185816
+    },
+    {
+      "pair": 3,
+      "backend": "Native",
+      "baselineMs": 16.972646,
+      "candidateMs": 18.392155
+    },
+    {
+      "pair": 4,
+      "backend": "JS",
+      "baselineMs": 101.711626,
+      "candidateMs": 124.022472
+    },
+    {
+      "pair": 4,
+      "backend": "Native",
+      "baselineMs": 16.443518,
+      "candidateMs": 18.510614
+    },
+    {
+      "pair": 5,
+      "backend": "JS",
+      "baselineMs": 100.048074,
+      "candidateMs": 122.632005
+    },
+    {
+      "pair": 5,
+      "backend": "Native",
+      "baselineMs": 19.27841,
+      "candidateMs": 21.861676
+    },
+    {
+      "pair": 6,
+      "backend": "JS",
+      "baselineMs": 105.18148,
+      "candidateMs": 124.105014
+    },
+    {
+      "pair": 6,
+      "backend": "Native",
+      "baselineMs": 17.343566,
+      "candidateMs": 18.316821
+    },
+    {
+      "pair": 7,
+      "backend": "JS",
+      "baselineMs": 104.989063,
+      "candidateMs": 126.61382
+    },
+    {
+      "pair": 7,
+      "backend": "Native",
+      "baselineMs": 18.155612,
+      "candidateMs": 18.635323
+    },
+    {
+      "pair": 8,
+      "backend": "JS",
+      "baselineMs": 89.500801,
+      "candidateMs": 106.631156
+    },
+    {
+      "pair": 8,
+      "backend": "Native",
+      "baselineMs": 15.91189,
+      "candidateMs": 16.607894
+    },
+    {
+      "pair": 9,
+      "backend": "JS",
+      "baselineMs": 93.873911,
+      "candidateMs": 106.61599
+    },
+    {
+      "pair": 9,
+      "backend": "Native",
+      "baselineMs": 15.693096,
+      "candidateMs": 16.993687
+    },
+    {
+      "pair": 10,
+      "backend": "JS",
+      "baselineMs": 93.297865,
+      "candidateMs": 107.349411
+    },
+    {
+      "pair": 10,
+      "backend": "Native",
+      "baselineMs": 16.00489,
+      "candidateMs": 16.833229
+    },
+    {
+      "pair": 11,
+      "backend": "JS",
+      "baselineMs": 89.394592,
+      "candidateMs": 105.964152
+    },
+    {
+      "pair": 11,
+      "backend": "Native",
+      "baselineMs": 19.505287,
+      "candidateMs": 19.211452
+    },
+    {
+      "pair": 12,
+      "backend": "JS",
+      "baselineMs": 106.059027,
+      "candidateMs": 114.280037
+    },
+    {
+      "pair": 12,
+      "backend": "Native",
+      "baselineMs": 18.086737,
+      "candidateMs": 20.72921
+    },
+    {
+      "pair": 13,
+      "backend": "JS",
+      "baselineMs": 87.72679,
+      "candidateMs": 110.916849
+    },
+    {
+      "pair": 13,
+      "backend": "Native",
+      "baselineMs": 15.655596,
+      "candidateMs": 17.366107
+    },
+    {
+      "pair": 14,
+      "backend": "JS",
+      "baselineMs": 91.013268,
+      "candidateMs": 106.70824
+    },
+    {
+      "pair": 14,
+      "backend": "Native",
+      "baselineMs": 18.032069,
+      "candidateMs": 17.398357
+    },
+    {
+      "pair": 15,
+      "backend": "JS",
+      "baselineMs": 89.590885,
+      "candidateMs": 107.258535
+    },
+    {
+      "pair": 15,
+      "backend": "Native",
+      "baselineMs": 15.560888,
+      "candidateMs": 17.083022
+    },
+    {
+      "pair": 16,
+      "backend": "JS",
+      "baselineMs": 89.216049,
+      "candidateMs": 107.000033
+    },
+    {
+      "pair": 16,
+      "backend": "Native",
+      "baselineMs": 16.430767,
+      "candidateMs": 16.873395
+    },
+    {
+      "pair": 17,
+      "backend": "JS",
+      "baselineMs": 88.628004,
+      "candidateMs": 106.599156
+    },
+    {
+      "pair": 17,
+      "backend": "Native",
+      "baselineMs": 19.097242,
+      "candidateMs": 16.960188
+    },
+    {
+      "pair": 18,
+      "backend": "JS",
+      "baselineMs": 88.468795,
+      "candidateMs": 110.799515
+    },
+    {
+      "pair": 18,
+      "backend": "Native",
+      "baselineMs": 16.971813,
+      "candidateMs": 18.638614
+    },
+    {
+      "pair": 19,
+      "backend": "JS",
+      "baselineMs": 76.888849,
+      "candidateMs": 110.878308
+    },
+    {
+      "pair": 19,
+      "backend": "Native",
+      "baselineMs": 16.046266,
+      "candidateMs": 16.967479
+    }
+  ],
+  "versions": {
+    "Bend": "bend 2.0.35",
+    "Node": "v24.20.0",
+    "Clang": "Debian clang version 19.1.7 (3~deb12u1)\nTarget: aarch64-unknown-linux-gnu\nThread model: posix\nInstalledDir: /tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin"
+  },
+  "sources": {
+    "baseline": {
+      "examples/query-composition/scenario.md": "f05bf4d785d86f09052fe6b11c8f7e6c06b149b599e2fdde106ef0a11e112857",
+      "examples/query-composition/declarations.bend": "50da7392497713d68874a609c39f418f829611654c1db05973e2249463ada9f2",
+      "examples/query-composition/expected.json": "e042305fedcb646ff7a52d28ca3fd5ba9f11a1eda2a12cd5c945dd77f57bb742",
+      "examples/query-composition/array-controls.bend": "f5c6c28b2a563db088331309b6753ec09ccc00b2c8f22931e838b7cd5e913cd2",
+      "examples/query-composition/observe.bend": "0380c97203301393e5954aafe1be98269f5e2776de7f5aebb6eed25071f366ac",
+      "examples/query-composition/schema.bend": "d845bf538d8368406bed7473677f9c3511f311d373511d8e6322728e5d5b8384",
+      "examples/query-composition/json.bend": "826fca39e8bd47bef326b9fd141d1784bc1f9004c7b460894a602cc3100f16be",
+      "examples/query-composition/driver.bend": "cf15e0ca8bbb1ea0b410776a3f74916e3f86f10ff9a92d44f0efcc5ad5974b4c",
+      "examples/query-composition/scenario-ops.bend": "fb6e87b28dd29552f530c4986b793726a6f3f00e5e29c3641e01a7d1b2c5d64e",
+      "examples/query-composition/main.bend": "4339adc4de65c6bcbe25f243ba3a152ee16509fe3a74c966251d6ccc0bba97dd",
+      "examples/query-composition/timing-main.bend": "a7fea467df249864772e4be3e229342cddd2e457bed6fb596f28e224b203fbb6",
+      "examples/query-composition/gameplay.bend": "590a878e0002afcc4904dc42c7a36df1b2afc3c3515dac8dac773cbed7d24670",
+      "examples/query-composition/verify.py": "e80c4264366b7380f516689964e5d0204a93b75eef4e7958351f4abbbe4a9235",
+      "examples/query-composition/reference.mjs": "40ea098e003335229a2fdbeac023ad01a786fca6322165d1a698889c01358e35",
+      "src/ecs/world.bend": "4dfe48b4d9457f8a3c0455260d8465dede4057d6a6f9c8864caa7c5bb19d5c16",
+      "src/ecs/provider.bend": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72",
+      "src/ecs/system.bend": "95756114410e8606896ffc40ad4f50f6293e1f8fd3d739156c8d0c55a48a92ef",
+      "src/ecs/compose.bend": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+      "src/ecs/component.bend": "d36e068152c07c410425e5114b5ca2d3e853d615025481b9b4a5fbade38d04f6",
+      "src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+      "src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+      "src/ecs/README.md": "45f691b2b5fb1eb4921403ec398d4513dd99f63a719d697735def756cc217cbe",
+      "src/ecs/query.bend": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9",
+      "src/ecs/commands.bend": "b41ec45ad17513351fd68436cefbaec0058ac4556d1d722f2c0ce5a7d4a9f9d1",
+      "src/ecs/column.bend": "635a9ededb97fdccb5a0272a581485aa5faafd1bdc2ba2e2504c609a0aee5115",
+      "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+      "src/ecs/capabilities.bend": "91c0cdc01e9143d10dc0156ef4f6c39beff97d8088ed0bbb056ffff2ffabf964",
+      "src/ecs/events.bend": "3d89fbbb40fefab4be349bfbe0d1f99c870c25c725130ccb1823910c1ace7c53",
+      "src/ecs/structural.bend": "f813a10058914cdf85f94e879b2dc68b9cb3e878b5c683dae60152f40001fcae"
+    },
+    "candidate": {
+      "examples/query-composition/scenario.md": "f05bf4d785d86f09052fe6b11c8f7e6c06b149b599e2fdde106ef0a11e112857",
+      "examples/query-composition/declarations.bend": "01f65f69bcff988b1821ee03eb27db6feb0271e2feeb59debbc0558a3da84e46",
+      "examples/query-composition/expected.json": "e042305fedcb646ff7a52d28ca3fd5ba9f11a1eda2a12cd5c945dd77f57bb742",
+      "examples/query-composition/array-controls.bend": "f5c6c28b2a563db088331309b6753ec09ccc00b2c8f22931e838b7cd5e913cd2",
+      "examples/query-composition/observe.bend": "0380c97203301393e5954aafe1be98269f5e2776de7f5aebb6eed25071f366ac",
+      "examples/query-composition/schema.bend": "ce1f3ccd09030719eb3400d3053a501f91dd7dd5fe32a0f99a2d68ad9749c81d",
+      "examples/query-composition/json.bend": "826fca39e8bd47bef326b9fd141d1784bc1f9004c7b460894a602cc3100f16be",
+      "examples/query-composition/driver.bend": "cf15e0ca8bbb1ea0b410776a3f74916e3f86f10ff9a92d44f0efcc5ad5974b4c",
+      "examples/query-composition/scenario-ops.bend": "fb6e87b28dd29552f530c4986b793726a6f3f00e5e29c3641e01a7d1b2c5d64e",
+      "examples/query-composition/main.bend": "4339adc4de65c6bcbe25f243ba3a152ee16509fe3a74c966251d6ccc0bba97dd",
+      "examples/query-composition/timing-main.bend": "a7fea467df249864772e4be3e229342cddd2e457bed6fb596f28e224b203fbb6",
+      "examples/query-composition/gameplay.bend": "590a878e0002afcc4904dc42c7a36df1b2afc3c3515dac8dac773cbed7d24670",
+      "examples/query-composition/verify.py": "e80c4264366b7380f516689964e5d0204a93b75eef4e7958351f4abbbe4a9235",
+      "examples/query-composition/reference.mjs": "40ea098e003335229a2fdbeac023ad01a786fca6322165d1a698889c01358e35",
+      "src/ecs/world.bend": "7d394b623b8bb60a3fef7b160bb69af135719edd3008126ee186e190047708f8",
+      "src/ecs/provider.bend": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72",
+      "src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+      "src/ecs/local.bend": "8cc5b3c9d3597c60d8a1b9b7fd206a92b289669c3cd9a8575db65ce9af37bd47",
+      "src/ecs/compose.bend": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+      "src/ecs/component.bend": "d36e068152c07c410425e5114b5ca2d3e853d615025481b9b4a5fbade38d04f6",
+      "src/ecs/optimized-compose.bend": "ac9c98457c7d6890f1f30dd82f41658a5d3ae962a7fb9022062af5b9d581ca25",
+      "src/ecs/event-runtime.bend": "409b45060a9d8b02ce5bf43c584f2be05b81b2239b04e75dca384f07cc626ea7",
+      "src/ecs/schedule.bend": "ad7a7c4187bfb028d01e98b821bd65078ae503604ec04ab645440be3898caa9f",
+      "src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+      "src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+      "src/ecs/README.md": "c6fc4814d1910b183f94798afc5c6a58a618d3b41ffbc3c15561f601d82a0b81",
+      "src/ecs/query.bend": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9",
+      "src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+      "src/ecs/removals.bend": "98a5f5cf42372d8eab35f3927539079e4412886eeaa3e07bbb2113f2286222f6",
+      "src/ecs/commands.bend": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+      "src/ecs/column.bend": "ca25da42abd6338ab07dd57188f2092036adf74fa046ae1f7e9b057e57bc528f",
+      "src/ecs/query-contract.bend": "de8eb5a047d2ca82e5832513798a6590a2cd025296b80b154da65a51270c4e91",
+      "src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+      "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+      "src/ecs/capabilities.bend": "91c0cdc01e9143d10dc0156ef4f6c39beff97d8088ed0bbb056ffff2ffabf964",
+      "src/ecs/events.bend": "fffc3ec427072c4ba1c880f2ba8a73c1fcd1db66550cf63cdce56ba9e10bdc63",
+      "src/ecs/structural.bend": "e8e813dc6de2f8a38ca61f51c0cbc5aeaf243fcc9cd399303e2adca2674480d4"
+    }
+  },
+  "artifacts": {
+    "normative-reference.mjs": "9f12dfd6e3a5d5114d9a4c4f13d9b3fad5c10f5143672cbb9c67d7de93208ff0",
+    "reference.mjs": "4cbe9d18fce49840f9400d7b587aecaeeb6fe07281e769d201b123d3b96ab7e6",
+    "candidate/workshop.js": "b082733487702cc8b36e2fce14697afb525f991fd505057dccd16d336609f029",
+    "candidate/workshop.c": "a6c7d4845a122055fa07fdd2281ae72743d6c46e2b302bf8425c890392d06f9a",
+    "candidate/workshop.native": "4a53d431f93a1d2ca3846ab4d499e91f5ee41251d6898e159cd076b3b02a068f",
+    "candidate/examples/query-composition/reference.mjs": "40ea098e003335229a2fdbeac023ad01a786fca6322165d1a698889c01358e35",
+    "baseline/workshop.js": "926bb3dd820d6fedb9f11a5759e37564531826977178c11c4d6b38f1e5000e67",
+    "baseline/workshop.c": "6945bd7db285b76664e7439f9150f7e2e4de81ed5e0e4b5f9b9c614e4b36614c",
+    "baseline/workshop.native": "4e2dbfcdeca9c40798c2199eeba64ea8b7d87ac88a1633c8b393ff25dfe1543d",
+    "baseline/examples/query-composition/reference.mjs": "40ea098e003335229a2fdbeac023ad01a786fca6322165d1a698889c01358e35"
+  },
+  "timings": [
+    {
+      "pair": 0,
+      "order": [
+        "baseline-JS",
+        "candidate-JS",
+        "baseline-Native",
+        "candidate-Native",
+        "TS"
+      ],
+      "milliseconds": {
+        "baseline-JS": 101.311623,
+        "candidate-JS": 127.981246,
+        "baseline-Native": 17.335274,
+        "candidate-Native": 18.15582,
+        "TS": 233.530729
+      }
+    },
+    {
+      "pair": 1,
+      "order": [
+        "candidate-JS",
+        "baseline-JS",
+        "baseline-Native",
+        "candidate-Native",
+        "TS"
+      ],
+      "milliseconds": {
+        "candidate-JS": 126.666446,
+        "baseline-JS": 99.15811,
+        "baseline-Native": 17.033521,
+        "candidate-Native": 19.449244,
+        "TS": 246.630226
+      }
+    },
+    {
+      "pair": 2,
+      "order": [
+        "baseline-Native",
+        "candidate-Native",
+        "TS",
+        "baseline-JS",
+        "candidate-JS"
+      ],
+      "milliseconds": {
+        "baseline-Native": 17.496649,
+        "candidate-Native": 18.096153,
+        "TS": 237.186709,
+        "baseline-JS": 107.179618,
+        "candidate-JS": 128.215706
+      }
+    },
+    {
+      "pair": 3,
+      "order": [
+        "TS",
+        "baseline-JS",
+        "candidate-JS",
+        "candidate-Native",
+        "baseline-Native"
+      ],
+      "milliseconds": {
+        "TS": 235.182822,
+        "baseline-JS": 102.526839,
+        "candidate-JS": 119.185816,
+        "candidate-Native": 18.392155,
+        "baseline-Native": 16.972646
+      }
+    },
+    {
+      "pair": 4,
+      "order": [
+        "candidate-Native",
+        "baseline-Native",
+        "baseline-JS",
+        "candidate-JS",
+        "TS"
+      ],
+      "milliseconds": {
+        "candidate-Native": 18.510614,
+        "baseline-Native": 16.443518,
+        "baseline-JS": 101.711626,
+        "candidate-JS": 124.022472,
+        "TS": 235.101113
+      }
+    },
+    {
+      "pair": 5,
+      "order": [
+        "candidate-JS",
+        "baseline-JS",
+        "TS",
+        "baseline-Native",
+        "candidate-Native"
+      ],
+      "milliseconds": {
+        "candidate-JS": 122.632005,
+        "baseline-JS": 100.048074,
+        "TS": 237.753213,
+        "baseline-Native": 19.27841,
+        "candidate-Native": 21.861676
+      }
+    },
+    {
+      "pair": 6,
+      "order": [
+        "candidate-Native",
+        "baseline-Native",
+        "baseline-JS",
+        "candidate-JS",
+        "TS"
+      ],
+      "milliseconds": {
+        "candidate-Native": 18.316821,
+        "baseline-Native": 17.343566,
+        "baseline-JS": 105.18148,
+        "candidate-JS": 124.105014,
+        "TS": 239.368973
+      }
+    },
+    {
+      "pair": 7,
+      "order": [
+        "candidate-Native",
+        "baseline-Native",
+        "candidate-JS",
+        "baseline-JS",
+        "TS"
+      ],
+      "milliseconds": {
+        "candidate-Native": 18.635323,
+        "baseline-Native": 18.155612,
+        "candidate-JS": 126.61382,
+        "baseline-JS": 104.989063,
+        "TS": 218.726471
+      }
+    },
+    {
+      "pair": 8,
+      "order": [
+        "TS",
+        "baseline-JS",
+        "candidate-JS",
+        "baseline-Native",
+        "candidate-Native"
+      ],
+      "milliseconds": {
+        "TS": 210.514545,
+        "baseline-JS": 89.500801,
+        "candidate-JS": 106.631156,
+        "baseline-Native": 15.91189,
+        "candidate-Native": 16.607894
+      }
+    },
+    {
+      "pair": 9,
+      "order": [
+        "candidate-JS",
+        "baseline-JS",
+        "candidate-Native",
+        "baseline-Native",
+        "TS"
+      ],
+      "milliseconds": {
+        "candidate-JS": 106.61599,
+        "baseline-JS": 93.873911,
+        "candidate-Native": 16.993687,
+        "baseline-Native": 15.693096,
+        "TS": 209.718249
+      }
+    },
+    {
+      "pair": 10,
+      "order": [
+        "TS",
+        "baseline-JS",
+        "candidate-JS",
+        "baseline-Native",
+        "candidate-Native"
+      ],
+      "milliseconds": {
+        "TS": 214.446778,
+        "baseline-JS": 93.297865,
+        "candidate-JS": 107.349411,
+        "baseline-Native": 16.00489,
+        "candidate-Native": 16.833229
+      }
+    },
+    {
+      "pair": 11,
+      "order": [
+        "baseline-JS",
+        "candidate-JS",
+        "TS",
+        "baseline-Native",
+        "candidate-Native"
+      ],
+      "milliseconds": {
+        "baseline-JS": 89.394592,
+        "candidate-JS": 105.964152,
+        "TS": 226.047183,
+        "baseline-Native": 19.505287,
+        "candidate-Native": 19.211452
+      }
+    },
+    {
+      "pair": 12,
+      "order": [
+        "baseline-Native",
+        "candidate-Native",
+        "candidate-JS",
+        "baseline-JS",
+        "TS"
+      ],
+      "milliseconds": {
+        "baseline-Native": 18.086737,
+        "candidate-Native": 20.72921,
+        "candidate-JS": 114.280037,
+        "baseline-JS": 106.059027,
+        "TS": 213.320896
+      }
+    },
+    {
+      "pair": 13,
+      "order": [
+        "candidate-Native",
+        "baseline-Native",
+        "candidate-JS",
+        "baseline-JS",
+        "TS"
+      ],
+      "milliseconds": {
+        "candidate-Native": 17.366107,
+        "baseline-Native": 15.655596,
+        "candidate-JS": 110.916849,
+        "baseline-JS": 87.72679,
+        "TS": 208.692534
+      }
+    },
+    {
+      "pair": 14,
+      "order": [
+        "TS",
+        "candidate-Native",
+        "baseline-Native",
+        "baseline-JS",
+        "candidate-JS"
+      ],
+      "milliseconds": {
+        "TS": 327.250056,
+        "candidate-Native": 17.398357,
+        "baseline-Native": 18.032069,
+        "baseline-JS": 91.013268,
+        "candidate-JS": 106.70824
+      }
+    },
+    {
+      "pair": 15,
+      "order": [
+        "candidate-Native",
+        "baseline-Native",
+        "TS",
+        "candidate-JS",
+        "baseline-JS"
+      ],
+      "milliseconds": {
+        "candidate-Native": 17.083022,
+        "baseline-Native": 15.560888,
+        "TS": 214.737904,
+        "candidate-JS": 107.258535,
+        "baseline-JS": 89.590885
+      }
+    },
+    {
+      "pair": 16,
+      "order": [
+        "TS",
+        "baseline-Native",
+        "candidate-Native",
+        "candidate-JS",
+        "baseline-JS"
+      ],
+      "milliseconds": {
+        "TS": 209.498539,
+        "baseline-Native": 16.430767,
+        "candidate-Native": 16.873395,
+        "candidate-JS": 107.000033,
+        "baseline-JS": 89.216049
+      }
+    },
+    {
+      "pair": 17,
+      "order": [
+        "baseline-Native",
+        "candidate-Native",
+        "TS",
+        "baseline-JS",
+        "candidate-JS"
+      ],
+      "milliseconds": {
+        "baseline-Native": 19.097242,
+        "candidate-Native": 16.960188,
+        "TS": 211.703303,
+        "baseline-JS": 88.628004,
+        "candidate-JS": 106.599156
+      }
+    },
+    {
+      "pair": 18,
+      "order": [
+        "TS",
+        "candidate-Native",
+        "baseline-Native",
+        "candidate-JS",
+        "baseline-JS"
+      ],
+      "milliseconds": {
+        "TS": 217.358587,
+        "candidate-Native": 18.638614,
+        "baseline-Native": 16.971813,
+        "candidate-JS": 110.799515,
+        "baseline-JS": 88.468795
+      }
+    },
+    {
+      "pair": 19,
+      "order": [
+        "candidate-Native",
+        "baseline-Native",
+        "candidate-JS",
+        "baseline-JS",
+        "TS"
+      ],
+      "milliseconds": {
+        "candidate-Native": 16.967479,
+        "baseline-Native": 16.046266,
+        "candidate-JS": 110.878308,
+        "baseline-JS": 76.888849,
+        "TS": 209.324496
+      }
+    }
+  ],
+  "injectedSlowdownMs": 0,
+  "candidateProvider": "experiments/public-optimized-compose/workshop",
+  "scope": "Reviewed optimized-provider variant; same frozen baseline gameplay, inputs, observations and statistical contract",
+  "currentSourceHashes": {
+    "src/ecs/world.bend": "7d394b623b8bb60a3fef7b160bb69af135719edd3008126ee186e190047708f8",
+    "src/ecs/provider.bend": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72",
+    "src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+    "src/ecs/local.bend": "8cc5b3c9d3597c60d8a1b9b7fd206a92b289669c3cd9a8575db65ce9af37bd47",
+    "src/ecs/compose.bend": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+    "src/ecs/component.bend": "d36e068152c07c410425e5114b5ca2d3e853d615025481b9b4a5fbade38d04f6",
+    "src/ecs/optimized-compose.bend": "ac9c98457c7d6890f1f30dd82f41658a5d3ae962a7fb9022062af5b9d581ca25",
+    "src/ecs/event-runtime.bend": "409b45060a9d8b02ce5bf43c584f2be05b81b2239b04e75dca384f07cc626ea7",
+    "src/ecs/schedule.bend": "ad7a7c4187bfb028d01e98b821bd65078ae503604ec04ab645440be3898caa9f",
+    "src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+    "src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "src/ecs/query.bend": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9",
+    "src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+    "src/ecs/removals.bend": "98a5f5cf42372d8eab35f3927539079e4412886eeaa3e07bbb2113f2286222f6",
+    "src/ecs/commands.bend": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+    "src/ecs/column.bend": "ca25da42abd6338ab07dd57188f2092036adf74fa046ae1f7e9b057e57bc528f",
+    "src/ecs/query-contract.bend": "de8eb5a047d2ca82e5832513798a6590a2cd025296b80b154da65a51270c4e91",
+    "src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+    "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "src/ecs/capabilities.bend": "91c0cdc01e9143d10dc0156ef4f6c39beff97d8088ed0bbb056ffff2ffabf964",
+    "src/ecs/events.bend": "fffc3ec427072c4ba1c880f2ba8a73c1fcd1db66550cf63cdce56ba9e10bdc63",
+    "src/ecs/structural.bend": "e8e813dc6de2f8a38ca61f51c0cbc5aeaf243fcc9cd399303e2adca2674480d4",
+    "benchmarks/run.py": "1a0c65a02042d8cf64583bc120383cd48e99cfe363067be0d777fa0a182ad7d9",
+    "benchmarks/test-statistics.py": "dda374623d512b150cb734764c9eb7333e33c8b1cd17e38e5b091f0ecd4081da",
+    "benchmarks/slowdown-control.py": "3f723a3d2d306c62ab6706907881adef687aa64fd43a8e20ac54c50a8618240a",
+    "benchmarks/decision.py": "c16d3ffe4a0cc47354522c7e4639b92a11fdbc444e366074da73c63f82272a6a",
+    "benchmarks/contract.json": "c0e13575f6e4d25ca8ca669936eef39c93a66b57ac1e4bfa42186f6f2d58bb6a",
+    "experiments/public-optimized-compose/workshop/schema.bend": "0c629457791ee5fe2921d33201fe20be10bae8fd0f18a6c728ba775e66339500",
+    "experiments/public-optimized-compose/workshop/declarations.bend": "ccb7bd1379bf37a0f2087709e65d39cb65aa21bb5fcb48b3e4fce17a3cd3dad5"
+  },
+  "referenceHashes": {
+    "packages/core/src/Schema.ts": "26e7c140a6f3c2a98ea4e43c1f067a18e47c03ff6f56939c8139f1535ae1a0ec",
+    "packages/core/src/EntityScope.ts": "3241a13ed0c337434e193e80a790498a9130ea31d4aca1f73294a5af2c50b04a",
+    "packages/core/src/Snapshot.ts": "249f57c429d97e57088ebb1e959b6258dd97ca71c9cc66a0a4ed6ac35ad04a3b",
+    "packages/core/src/Brand.ts": "85090ad2253694526dda4e2e54802158cf229d98477169bc25e77396bdc963b9",
+    "packages/core/src/Decode.ts": "a8e8e91e5dffc15718ba8d3ecbea1007b386117af12764df4238356600bd82df",
+    "packages/core/src/Fx.ts": "75242b8513225601589f4658d59c86100351557fef39cc8d17506c958dd2c5b3",
+    "packages/core/src/Schedule.ts": "ab1610c356bfbcedf6ac85758e04c7032cda1f2458ff13c8a483c53d94b55c2a",
+    "packages/core/src/Entity.ts": "05d724f241b2d662a7a03ce82da5f133c4b587df92e5e22fdfdb7484edbca68e",
+    "packages/core/src/Definition.ts": "96054da50280f6dca44fd97dbd126e597f1492c9737e34329adf3f1cda1b325f",
+    "packages/core/src/Debug.ts": "942fc7e3bdf1b15f31708bad0ab02c0789a037b707a566e2cb860b43f9b5c3ff",
+    "packages/core/src/Condition.ts": "1b4c8c906cab11745535ffe84f169a48767c88c26336f3b46f45cf7d59f08083",
+    "packages/core/src/Result.ts": "96b098025e5e84b26bc97355ed1c463fe17f652954d2f83a83058e9817f7766c",
+    "packages/core/src/Machine.ts": "a0007e841e07afb10a40ab8f3056691a3555cd6815b4564f5f1326e0e956ceb3",
+    "packages/core/src/Runtime.ts": "c744aa5c52845bd3323358c5085161b40a452c6802a1653e3851bfd34c69f5b4",
+    "packages/core/src/Feature.ts": "bf3be7437c63c1f12d8b0ff0f1a4965408331fad7a279669ef7c9b2cb29140a8",
+    "packages/core/src/Inspector.ts": "21757eb340c0ae192a36726538d0a87aefbd455859d196dab36aa3515c1addb3",
+    "packages/core/src/index.ts": "a74d79748f5eff6e9f732b54ed6efc0a42826e4cf8ffc7ab9504d11257e6d61f",
+    "packages/core/src/Query.ts": "45e2fe513f66e336f97d40b41b3c866363a1af17ecbc90087086e00c08b28414",
+    "packages/core/src/Command.ts": "de5db2093401e24ce54fae8166e7f686c153852094b6446dc0ee22cfa28cef28",
+    "packages/core/src/Requirement.ts": "0397bbf69285e1f50edafdceab81b48208c0127fe53ff0305e52d6a1b4766783",
+    "packages/core/src/System.ts": "ae53852dbd815ad441446cbcfc663d25aed6c2bd0afcfacbc3c20e0c40dc2ba7",
+    "packages/core/src/Relation.ts": "7c2cbe93d90c6ca4f173932c9bb7e4536323d6b5bf17dc64c1c8fda83c3a7aa4",
+    "packages/core/src/Descriptor.ts": "03e7339516d9f6bd455763a8dcdf7244d0c11f7165e493aa895aaa64225acab7",
+    "packages/core/src/internal/brand.ts": "7b888113edd48ea9777880fa85fc159428b78ac82587ca43eda8f1bbec4cc1b0",
+    "packages/core/src/internal/cells.ts": "adbf5e99cb1d40e284aee9ce3b1ddeefdcb10e0e1420be5bda91f58a96afe41e",
+    "packages/core/src/internal/fragments.ts": "4220e09fcc78e50cecd05ec373f57a278a5c33fbd51c53cbb2f7d57c6593ba68",
+    "packages/core/src/internal/queries.ts": "382ce3b334df1bb7f4d0c4c19c17827b2343cae8a68ba7f562e9e732b6a5a4ab",
+    "packages/core/src/internal/definition.ts": "543dee934661802fb57cb75a8faec653112433a566ce31231fca33ffa8d36f92",
+    "packages/core/src/internal/debug.ts": "944a9858586dcf8ad58e66efd92b05c437c0be23afe517fabe00642d7bf4e338",
+    "packages/core/src/internal/result.ts": "87570330858b0b41bed22be9661bd9e3b04f67e7004998082e6a83cbb1ce1c89",
+    "packages/core/src/internal/game.ts": "b1584dbe4c579783e4b2fae802a25e6af95384972e15ffccd2b868d6ba879773",
+    "packages/core/src/internal/streams.ts": "3e817555dddf937c51b51014ceb6422f068aeca4a40328281dbb774b8880168e",
+    "packages/core/src/internal/world.ts": "e71b4b060fec85fae690957104c14051e4bea0d857bacd648993ea69a6fe27d7"
+  },
+  "baselineArchiveSHA256": "567e1e0e7d27a4c111791fcd89f9afc84e301c008741a323de258b5ca1e793e3",
+  "endpoints": {
+    "JS": {
+      "nonTiePairs": 20,
+      "slowerPairs": 20,
+      "pValue": 9.5367431640625e-07,
+      "medianPairedRatio": 1.1982699041664402,
+      "confirmedRegression": true,
+      "holmCutoff": 0.025
+    },
+    "Native": {
+      "nonTiePairs": 20,
+      "slowerPairs": 17,
+      "pValue": 0.0012884140014648438,
+      "medianPairedRatio": 1.056763001906924,
+      "confirmedRegression": true,
+      "holmCutoff": 0.05
+    }
+  },
+  "mediansMs": {
+    "TS": 218.042529,
+    "baseline-JS": 93.58588800000001,
+    "baseline-Native": 17.003083500000002,
+    "candidate-JS": 110.89757850000001,
+    "candidate-Native": 18.1259865
+  },
+  "descriptiveTargets": {
+    "JS/TS": 0.5086052661772237,
+    "Native/TS": 0.08313050936957349
+  }
+}

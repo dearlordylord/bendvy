@@ -1,0 +1,82 @@
+function $view$058read$(_array_0, _index_0, _capacity_0) {
+  return $view$058read_checked$(_array_0, _index_0, (_index_0 < _capacity_0));
+}
+
+
+function $view$058read_checked$(_array_0, _index_0, _valid_0) {
+  if (!_valid_0) {
+    return {$: "Tuple", "fst": _array_0, "snd": {$: "None"}};
+  } else {
+    return $view$058read_result$({$: "Tuple", fst: _array_0, snd: _array_0[_index_0 % _array_0.length]});
+  }
+}
+
+
+function $view$058array_view$(_array_0) {
+  return $view$058sized$({$: "Tuple", fst: _array_0, snd: _array_0.length});
+}
+
+
+function $view$058read_result$(_observed_0) {
+  const _array_0 = _observed_0["fst"];
+  const _value_0 = _observed_0["snd"];
+  return {$: "Tuple", "fst": _array_0, "snd": {$: "Some", "value": _value_0}};
+}
+
+
+function $view$058sized$(_observed_0) {
+  const _array_0 = _observed_0["fst"];
+  const _capacity_0 = _observed_0["snd"];
+  const _x_0 = ((_capacity_0 - 1) >>> 0);
+  return $view$058finished$(($view$058collect$(_x_0, 0, _capacity_0, {$: "Nil"}, ($view$058read$(_array_0, 0, _capacity_0)))));
+}
+
+
+function $view$058finished$(_collected_0) {
+  if (_collected_0.$ === "view.Complete") {
+    const _array_0 = _collected_0["array"];
+    const _values_0 = _collected_0["values"];
+    return {$: "Tuple", "fst": _array_0, "snd": _values_0};
+  } else {
+    const _array_1 = _collected_0["array"];
+    return $oracle$058array_view$(_array_1);
+  }
+}
+
+
+function $view$058collect$($0, $1, $2, $3, $4) {
+  for (;;) {
+    {
+      const _fuel_0 = $0;
+      const _index_0 = $1;
+      const _capacity_0 = $2;
+      const _reverse_0 = $3;
+      const _observed_0 = $4;
+      if (_fuel_0 === 0) {
+        const _array_0 = _observed_0["fst"];
+        const _t_0 = _observed_0["snd"];
+        if (_t_0.$ === "None") {
+          return {$: "view.Refused", "array": _array_0, "partial": _reverse_0};
+        } else {
+          const _value_0 = _t_0["value"];
+          return {$: "view.Complete", "array": _array_0, "values": ($List$reverse$({$: "Con", "head": _value_0, "tail": _reverse_0}))};
+        }
+      } else {
+        const _rest_0 = (_fuel_0 - 1);
+        const _array_1 = _observed_0["fst"];
+        const _t_1 = _observed_0["snd"];
+        if (_t_1.$ === "None") {
+          return {$: "view.Refused", "array": _array_1, "partial": _reverse_0};
+        } else {
+          const _value_1 = _t_1["value"];
+          $0 = _rest_0;
+          $1 = ((_index_0 + 1) >>> 0);
+          $2 = _capacity_0;
+          $3 = {$: "Con", "head": _value_1, "tail": _reverse_0};
+          $4 = ($view$058read$(_array_1, ((_index_0 + 1) >>> 0), _capacity_0));
+          continue;
+        }
+      }
+    }
+  }
+}

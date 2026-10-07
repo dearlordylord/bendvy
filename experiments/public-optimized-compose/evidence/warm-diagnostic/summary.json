@@ -1,0 +1,78 @@
+{
+  "scope": "single exploratory CPU0 diagnostic pair; 20 fresh lexical iterations/200 identical complete applications per role; not #28 qualification",
+  "roles": {
+    "baseline": {
+      "firstIterationMicroseconds": 110858,
+      "remaining19TotalMicroseconds": 822737,
+      "aggregateSelfMicroseconds": {
+        "other": 473895,
+        "schema": 112721,
+        "component": 82044,
+        "column": 37017,
+        "array-runtime": 58122,
+        "compose": 102776,
+        "gc": 89472
+      },
+      "sampledPhases": {
+        "cold": {
+          "other": 50055,
+          "schema": 13387,
+          "component": 12154,
+          "column": 9409,
+          "array-runtime": 3910,
+          "compose": 10941,
+          "gc": 10952
+        },
+        "warm": {
+          "other": 400332,
+          "schema": 99334,
+          "compose": 91835,
+          "gc": 78520,
+          "column": 27608,
+          "array-runtime": 54212,
+          "component": 69890
+        }
+      },
+      "sourceSHA256": "926bb3dd820d6fedb9f11a5759e37564531826977178c11c4d6b38f1e5000e67",
+      "wrapperSHA256": "94f86cf977c8aa318e223b0fdffd71db435e920cae90d469546b845d12b52584"
+    },
+    "candidate": {
+      "firstIterationMicroseconds": 133622,
+      "remaining19TotalMicroseconds": 865665,
+      "aggregateSelfMicroseconds": {
+        "other": 473817,
+        "optimized-compose": 7155,
+        "column": 136074,
+        "compose": 93535,
+        "schema": 85564,
+        "component": 53702,
+        "array-runtime": 83574,
+        "gc": 89219
+      },
+      "sampledPhases": {
+        "cold": {
+          "other": 52761,
+          "optimized-compose": 1708,
+          "column": 21600,
+          "compose": 7871,
+          "schema": 11225,
+          "component": 11550,
+          "array-runtime": 1446,
+          "gc": 25500
+        },
+        "warm": {
+          "other": 397963,
+          "column": 114474,
+          "component": 42152,
+          "schema": 74339,
+          "array-runtime": 82128,
+          "compose": 85664,
+          "gc": 63719,
+          "optimized-compose": 5447
+        }
+      },
+      "sourceSHA256": "6823dd5a1e4823c377bcec6980f6790b15b434f079da83e577ae5050ea7f62b9",
+      "wrapperSHA256": "d87dc634f997b863f67901b84ca8b673d70a5a90c9804edee4dcc6876d6cf381"
+    }
+  }
+}

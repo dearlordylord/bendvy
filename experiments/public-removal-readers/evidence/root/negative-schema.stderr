@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- expected : Rm.Record<Other, S.AllToken>
+- observed : Rm.Record<S.Schema, S.AllToken>
+Context:
+- record : Rm.Record<S.Schema, S.AllToken>
+Location: cross_schema
+ 8 | def cross_schema(record: Rm.Record<S.Schema,S.AllToken>) -> Rm.Record<Other,S.AllToken>:
+ 9>|   record
+   |   ^^^^^^
+10 | 

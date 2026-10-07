@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : row
+- observed : row (consumed more than once)
+Location: duplicated
+ 8 | 
+ 9>| def duplicated(~H:Type,row:H) -> H & H:
+   |                        ^^^
+10 |   (row,row)

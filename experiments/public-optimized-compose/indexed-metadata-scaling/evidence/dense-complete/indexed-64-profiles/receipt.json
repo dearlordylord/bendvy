@@ -1,0 +1,64 @@
+{
+  "status": "PASS",
+  "generatedSHA256": "1a572f1b1597d6dd0a5a05fcc44562499e724ff58fa4eb13aef8f18645ab3058",
+  "expectedSHA256": "756c1bb3ef1d762a0c3ac44f36cc8aae95fa5dfde5784148ae35c17b6b80f760",
+  "runnerSHA256": "64ff52bd90bd86fa5cbb4e2d8d51dc62ab34a0a817287c153c839fa9048ac7fa",
+  "iterations": 1,
+  "cpu": 0,
+  "runs": {
+    "cpu": {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered-v2/indexed-64-profiles/cpu.js"
+      ],
+      "limitSeconds": 5,
+      "validatedApplications": 1,
+      "audit": {
+        "completed": 1,
+        "zeroExits": 1,
+        "times": [
+          4.340067000000001
+        ],
+        "gc": [
+          {
+            "duration": 0.36158500611782074,
+            "kind": 1
+          }
+        ]
+      },
+      "wrapperSHA256": "3846fa3bfb37cff13617b0a9d8ba7d45260d9ee16e50341b2ccb5529d5449207",
+      "profileSHA256": "0f8d7bd679cabb41f74d3c0c47bd196ffc0db0fcc3db235c27a863276e33ef72"
+    },
+    "heap": {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered-v2/indexed-64-profiles/heap.js"
+      ],
+      "limitSeconds": 5,
+      "validatedApplications": 1,
+      "audit": {
+        "completed": 1,
+        "zeroExits": 1,
+        "times": [
+          3.2194780000000005
+        ],
+        "gc": [
+          {
+            "duration": 0.33466799557209015,
+            "kind": 1
+          }
+        ]
+      },
+      "wrapperSHA256": "faee83535eaac88b285848fb1caa7074a189a404f1278b30b0ed9237c64fe7b1",
+      "profileSHA256": "37f6055578589ef8c2d407dcd6825c8dc7191048ba068d5bf79ff17f06de60b3"
+    }
+  },
+  "scope": "Diagnostic CPU samples and sampled allocation stacks, including collected objects; fresh generated-program scope per iteration. Not physical allocation totals or performance acceptance.",
+  "nodeVersion": "v24.20.0"
+}

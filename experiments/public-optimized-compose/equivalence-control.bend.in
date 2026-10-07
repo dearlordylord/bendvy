@@ -1,0 +1,66 @@
+import Base
+import @@ARCHIVE@@/experiments/s-integrate/query.bend as Old
+import @@ARCHIVE@@/experiments/s-integrate/storage.bend as Storage
+import @@COLUMN@@ as Col
+import @@ROOT@@/src/ecs/owner-handoff.bend as H
+type Schema is Data:
+  Schema{}
+type Payload is Type:
+  Payload{values:Array<U32>}
+type Aux is Type:
+  Aux{}
+type Flag is Data:
+  Flag{}
+def slots() -> Array<Maybe<&1,Payload>>:
+  ANode{ANode{ALeaf{Some{Payload{ANode{ALeaf{3},ALeaf{7}}}}},ALeaf{None{}}},ANode{ALeaf{Some{Payload{ANode{ALeaf{11},ALeaf{19}}}}},ALeaf{Some{Payload{ANode{ALeaf{23},ALeaf{29}}}}}}}
+def full_second(+id:U32,+first:U32,result:Array<U32> & U32) -> List<&2,U32>:
+  match result:
+    case (_,second): [id,first,second]
+def full_first(+id:U32,result:Array<U32> & U32) -> List<&2,U32>:
+  match result:
+    case (values,first): full_second(id,first,Array.get(U32,values,1))
+def full(+id:U32,owner:Payload) -> List<&2,U32>:
+  match owner:
+    case Payload{values}: full_first(id,Array.get(U32,values,0))
+def old_values(rows:Old.PrototypeHandoffRows<Schema,Payload>) -> List<&2,U32>:
+  match rows:
+    case Old.HandoffNil{}: []
+    case Old.HandoffCon{id,owner,rest}: List.append(&2,U32,full(id,owner),old_values(rest))
+def selected_values(rows:H.PrototypeHandoffRows<Schema,Payload>) -> List<&2,U32>:
+  match rows:
+    case H.HandoffNil{}: []
+    case H.HandoffCon{id,owner,rest}: List.append(&2,U32,full(id,owner),selected_values(rest))
+def old_result(result:Storage.Rows<Payload,Aux,Flag> & Old.PrototypeHandoffRows<Schema,Payload>) -> List<&2,U32>:
+  match result:
+    case (_,rows): old_values(rows)
+def selected_state(state:Col.State<Schema,Payload>) -> List<&2,U32>:
+  match state:
+    case Col.State{_,_,_,_,_,rows,_}: selected_values(rows)
+def selected_result(column:Col.Column<Schema,Payload>) -> List<&2,U32>:
+  match column:
+    case Col.Prepared{carrier}: selected_state(Col.unseal(~Schema,~Payload,carrier))
+    case _: []
+def physical_taken(next:Array<Maybe<&1,Payload>> -> List<&2,U32>,+id:U32,result:Array<Maybe<&1,Payload>> & Maybe<&1,Payload>) -> List<&2,U32>:
+  match result:
+    case (values,None{}): List.append(&2,U32,[id,999,999],next(values))
+    case (values,Some{owner}): List.append(&2,U32,full(id,owner),next(values))
+def physical(fuel:Nat,+id:U32,values:Array<Maybe<&1,Payload>>) -> List<&2,U32>:
+  match fuel:
+    case 0n: []
+    case 1n+rest: physical_taken((values => physical(rest,U32.add(id,1),values)),id,Array.swap(Maybe<&1,Payload>,values,U32.sub(id,1),None{}))
+def old_recovered(result:Array<Maybe<Payload>> & List<&2,U32>) -> List<&2,U32>:
+  match result:
+    case (values,ids): List.append(&2,U32,physical(4n,1,values),ids)
+def old_recovery(result:Storage.Rows<Payload,Aux,Flag> & Old.PrototypeHandoffRows<Schema,Payload>) -> List<&2,U32>:
+  match result:
+    case (Storage.Rows{values,_,_,_,_,_},rows): old_recovered(Old.prototype_handoff_recover(Schema,Payload,rows,values))
+def selected_recovery(column:Col.Column<Schema,Payload>) -> List<&2,U32>:
+  match column:
+    case Col.Column{values,_}: physical(4n,1,values)
+    case _: []
+def main() -> IO(Unit):
+  original=old_result(Old.prototype_handoff_read_rows(~Schema,~Payload,~Aux,~Flag,Storage.Rows{slots(),ANode{ANode{ALeaf{None{}},ALeaf{None{}}},ANode{ALeaf{None{}},ALeaf{None{}}}},Storage.MetadataColumns{[True{} : Bool^2n],[None{} : Maybe<&2,Flag>^2n],[0 : U32^2n],[0 : U32^2n]},4,2n,4},Old.Required{},0))
+  selected=selected_result(Col.prepare(~Schema,~Payload,Col.Column{slots(),[]}))
+  oldRecover=old_recovery(Old.prototype_handoff_read_rows(~Schema,~Payload,~Aux,~Flag,Storage.Rows{slots(),ANode{ANode{ALeaf{None{}},ALeaf{None{}}},ANode{ALeaf{None{}},ALeaf{None{}}}},Storage.MetadataColumns{[True{} : Bool^2n],[None{} : Maybe<&2,Flag>^2n],[0 : U32^2n],[0 : U32^2n]},4,2n,4},Old.Required{},0))
+  selectedRecover=selected_recovery(Col.recover(~Schema,~Payload,Col.prepare(~Schema,~Payload,Col.Column{slots(),[]})))
+  IO.print(List.show(&2,U32,U32.show,original) ++ "|" ++ List.show(&2,U32,U32.show,selected) ++ "|" ++ List.show(&2,U32,U32.show,oldRecover) ++ "|" ++ List.show(&2,U32,U32.show,selectedRecover))

@@ -42,6 +42,16 @@ policy. [Evidence](reports/performance-regression.md) includes the ordinary pass
 and a detected real-delay control. Run `benchmarks/README.md` before executable
 src/ecs changes; its scope does not replace the full performance matrix.
 
+## Active parity implementation checkpoint
+
+#29/#31/#32/#33/#36 have fresh root finite JS/Native receipts and scoped Spec review on the shared-live closure. They remain open pending the final shared source gate and delivery. #36 Local persistence on error is explicitly confirmed by the user.
+
+#30 remains open: the selected indexed provider passes 23 complete Workshop checkpoints, 14 legacy/indexed transaction/access pairs, and 2,430 capture pairs per backend, with source-current confinement controls and reached restoration mutants. Indexed metadata is active only through the selected schema's five empty-column provisioning calls. The unchanged default paired regression gate passes (JS ratio 0.996465; Native 0.999347). The prepared-provider gate fails for JS (1.297299, statistically confirmed); Native 1.021101 is not a confirmed slowdown. Large-world metadata microbenchmarks do not establish application acceptance.
+
+Matched application CPU/allocation profiles identify structural scalar-array projection as a remaining cost. An isolated indexed projection passes 576 complete physical-value, prefix, returned-owner and snapshot comparisons per backend, bounds refusals and reached omission/order mutations. Independent Spec and Standards reviews permit selected schema promotion, subject to full application rollback/access replays and unchanged performance gates. No measured gain follows from the prototype. Source, evidence and historical failures are recorded in [the acceptance ledger](reports/parity-frontier-implementation.md).
+
+Fresh current-core replays for #29, #31, #32, #33 and #36 pass their finite semantic/negative/mutation checks. They remain open pending final evidence, review and delivery; feature timing is separate from qualification. The old-consumer replay is in progress. User separately accepts up to 10% aggregate loss at full parity with final JS <= TS and Native <= 0.5 TS; this does not amend the bounded gate or close parent tasks.
+
 ## Published parity frontier
 
 User pre-approved remaining-feature ticket publication after Astra discussion.

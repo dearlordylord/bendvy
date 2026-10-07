@@ -1,0 +1,141 @@
+import Base
+import refusal-control.bend as P
+import ../../src/ecs/column.bend as Col
+import ../../src/ecs/world.bend as W
+import ../../src/ecs/compose.bend as Q
+import ../../src/ecs/owned-compose.bend as O
+import ../../src/ecs/capabilities.bend as Cap
+import ../../src/ecs/component.bend as C
+import ../../src/ecs/transaction.bend as T
+
+type Other is Type:
+  Other{values:Array<Bool>}
+type Store is Type:
+  Store{first:Col.Column<P.Schema,P.Payload>,second:Col.Column<P.Schema,Other>}
+def World() -> Type:
+  W.World<P.Schema,Store,Unit,Unit>
+def Frame() -> Type:
+  Q.Frame<P.Schema,Store,Unit,Unit>
+type Row is Type:
+  Row{first:Maybe<&1,P.Payload>,second:Maybe<&1,Other>,cold:Frame()}
+type Ops<-H:Type> is Type:
+  Ops{first:Cap.Read<H,P.View>,alias:Cap.Read<H,P.View>}
+def Bundle(H:Type) -> Type:
+  Ops<H>
+# Finite prototype: the sole selected live ID is1, both prepared columns fit.
+# Complete-world bridges and arbitrary refusal are not implemented by this fixture.
+def extracted_second(first:Col.Column<P.Schema,P.Payload>,owner:Maybe<&1,P.Payload>,outcome:Col.SwapOutcome<P.Schema,Other>) -> Store & (Maybe<&1,P.Payload> & Maybe<&1,Other>):
+  match outcome:
+    case Col.Accepted{second,other}: (Store{first,second},(owner,other))
+    case Col.Rejected{second,_}: (Store{first,second},(owner,None{}))
+def extracted_first(second:Col.Column<P.Schema,Other>,outcome:Col.SwapOutcome<P.Schema,P.Payload>) -> Store & (Maybe<&1,P.Payload> & Maybe<&1,Other>):
+  match outcome:
+    case Col.Accepted{first,owner}: extracted_second(first,owner,Col.swap(~P.Schema,~Other,second,1,None{}))
+    case Col.Rejected{first,_}: (Store{first,second},(None{},None{}))
+def extract(store:Store) -> Store & (Maybe<&1,P.Payload> & Maybe<&1,Other>):
+  match store:
+    case Store{first,second}: extracted_first(second,Col.swap(~P.Schema,~P.Payload,first,1,None{}))
+def world_join(~Out:Type,undo:List<(World() -> World())>,commands:List<(World() -> World())>,events:List<&2,Unit>,observed:World() & Out) -> T.Tx<World(),Unit> & Out:
+  match observed:
+    case (world,value): (T.Tx{world,undo,commands,events},value)
+def with_world(~Out:Type,effect:World() -> World() & Out,tx:T.Tx<World(),Unit>) -> T.Tx<World(),Unit> & Out:
+  match tx:
+    case T.Tx{world,undo,commands,events}: world_join(~Out,undo,commands,events,effect(world))
+def entered(+handle:W.Handle<P.Schema>,error:Maybe<&2,W.WorldError>,cursor:U32,observed:T.Tx<World(),Unit> & (Maybe<&1,P.Payload> & Maybe<&1,Other>)) -> Row:
+  match observed:
+    case (tx,(first,second)): Row{first,second,Q.Frame{tx,handle,error,cursor}}
+def enter(frame:Frame()) -> Row:
+  match frame:
+    case Q.Frame{tx,+handle,error,cursor}: entered(handle,error,cursor,with_world(~(Maybe<&1,P.Payload> & Maybe<&1,Other>),(world => W.with_store(~P.Schema,~Store,~Unit,~Unit,~(Maybe<&1,P.Payload> & Maybe<&1,Other>),extract,world)),tx))
+# Cold current owner is None after the checked selected extraction. Reattach the
+# actual returned row owners without clock/stamp writes before transaction finish.
+def restore_state(~C:Type,incoming:Maybe<&1,C>,state:Col.State<P.Schema,C>) -> Col.Column<P.Schema,C>:
+  match state:
+    case Col.State{values,stamps,capacity,current,_,remaining,past}: Col.Prepared{Col.Owned{Col.State{values,stamps,capacity,current,incoming,remaining,past}}}
+# Explicit raw-sum coverage for the indexed experimental constructors. The
+# authored prototype still selects only ID1; cold owners are checked None.
+def restore_indexed_plain(~C:Type,incoming:Maybe<&1,C>,state:Col.IndexedOrdinaryState<P.Schema,C>) -> Col.Column<P.Schema,C>:
+  match state:
+    case Col.IndexedOrdinaryState{values,metadata}: Col.indexed_wrap(~P.Schema,~C,Array.set(Maybe<&1,C>,values,0,incoming),metadata)
+def restore_indexed_prepared(~C:Type,incoming:Maybe<&1,C>,state:Col.IndexedPreparedState<P.Schema,C>) -> Col.Column<P.Schema,C>:
+  match state:
+    case Col.IndexedPreparedState{values,metadata,capacity,current,_,remaining,past}: Col.PreparedIndexed{Col.IndexedPreparedOwned{Col.IndexedPreparedState{values,metadata,capacity,current,incoming,remaining,past}}}
+def restore(~C:Type,incoming:Maybe<&1,C>,column:Col.Column<P.Schema,C>) -> Col.Column<P.Schema,C>:
+  match column:
+    case Col.Prepared{carrier}: restore_state(~C,incoming,Col.unseal(~P.Schema,~C,carrier))
+    case Col.Column{values,stamps}: Col.Column{Array.set(Maybe<&1,C>,values,0,incoming),stamps}
+    case Col.Indexed{carrier}: restore_indexed_plain(~C,incoming,Col.indexed_unseal(~P.Schema,~C,carrier))
+    case Col.PreparedIndexed{carrier}: restore_indexed_prepared(~C,incoming,Col.indexed_prepared_unseal(~P.Schema,~C,carrier))
+def restored(first:Maybe<&1,P.Payload>,second:Maybe<&1,Other>,store:Store) -> Store & Unit:
+  match store:
+    case Store{a,b}: (Store{restore(~P.Payload,first,a),restore(~Other,second,b)},Unit{})
+def left(+handle:W.Handle<P.Schema>,error:Maybe<&2,W.WorldError>,cursor:U32,observed:T.Tx<World(),Unit> & Unit) -> Frame():
+  match observed:
+    case (tx,_): Q.Frame{tx,handle,error,cursor}
+def leave(row:Row) -> Frame():
+  match row:
+    case Row{first,second,Q.Frame{tx,+handle,error,cursor}}: left(handle,error,cursor,with_world(~Unit,(world => W.with_store(~P.Schema,~Store,~Unit,~Unit,~Unit,(store => restored(first,second,store)),world)),tx))
+def projected(second:Maybe<&1,Other>,cold:Frame(),result:P.Payload & P.View) -> Row & C.Access<P.View>:
+  match result:
+    case (P.Payload{values},P.View{+a,+b}): (Row{Some{P.Payload{Array.set(U32,values,0,U32.add(a,1))}},second,cold},C.Found{P.View{a,b}})
+def get(row:Row) -> Row & C.Access<P.View>:
+  match row:
+    case Row{None{},second,cold}: (Row{None{},second,cold},C.ComponentAbsent{})
+    case Row{Some{owner},second,cold}: projected(second,cold,P.project(owner))
+def first(~H:Type,caps:Ops<H>) -> Cap.Read<H,P.View>:
+  match caps:
+    case Ops{first,_}: first
+def alias(~H:Type,caps:Ops<H>) -> Cap.Read<H,P.View>:
+  match caps:
+    case Ops{_,alias}: alias
+def number(value:C.Access<P.View>) -> U32:
+  match value:
+    case C.Found{P.View{a,_}}: a
+    case _: 999
+def outcome(fail:Bool) -> T.Outcome<Unit>:
+  match fail:
+    case True{}: T.Failure{Unit{}}
+    case False{}: T.Success{}
+def body_second(~H:Type,fail:Bool,a:U32,result:H & C.Access<P.View>) -> H & (T.Outcome<Unit> & List<&2,U32>):
+  match result:
+    case (row,b): (row,(outcome(fail),[a,number(b)]))
+def body_first(~H:Type,~caps:Ops<H>,fail:Bool,result:H & C.Access<P.View>) -> H & (T.Outcome<Unit> & List<&2,U32>):
+  match result:
+    case (row,a): body_second(~H,fail,number(a),Cap.read(~H,~P.View,~alias(~H,caps),row))
+def body(~H:Type,~caps:Ops<H>,args:Bool,row:H) -> H & (T.Outcome<Unit> & List<&2,U32>):
+  body_first(~H,~caps,args,Cap.read(~H,~P.View,~first(~H,caps),row))
+def bit(flag:Bool) -> U32:
+  match flag:
+    case True{}: 1
+    case False{}: 0
+def other_second(first:Bool,result:Array<Bool> & Bool) -> Other & List<&2,U32>:
+  match result:
+    case (values,last): (Other{values},[bit(first),bit(last)])
+def other_first(result:Array<Bool> & Bool) -> Other & List<&2,U32>:
+  match result:
+    case (values,first): other_second(first,Array.get(Bool,values,1))
+def other_project(owner:Other) -> Other & List<&2,U32>:
+  match owner:
+    case Other{values}: other_first(Array.get(Bool,values,0))
+def final_other(outputs:List<&2,List<&2,U32>>,result:Col.Column<P.Schema,Other> & Maybe<&2,List<&2,U32>>) -> List<&2,List<&2,U32>>:
+  match result:
+    case (_,Some{view}): List.append(&2,List<&2,U32>,outputs,[view])
+    case _: []
+def final_stock(other:Col.Column<P.Schema,Other>,outputs:List<&2,List<&2,U32>>,result:Col.Column<P.Schema,P.Payload> & Maybe<&2,P.View>) -> List<&2,List<&2,U32>>:
+  match result:
+    case (_,Some{P.View{a,b}}): final_other(List.append(&2,List<&2,U32>,outputs,[[a,b]]),Col.view(~P.Schema,~Other,~List<&2,U32>,~other_project,Col.recover(~P.Schema,~Other,other),1))
+    case _: []
+def code(result:T.Outcome<Q.Error<Unit>>) -> U32:
+  match result:
+    case T.Success{}: 0
+    case T.Failure{_}: 1
+def observed(result:Q.Executed<World(),Q.Error<Unit>,List<&2,U32>>) -> List<&2,List<&2,U32>>:
+  match result:
+    case Q.Executed{W.World{_,_,_,_,_,_,Store{first,second},_,_,_,_,_,_},result,outputs}: final_stock(second,List.append(&2,List<&2,U32>,[[code(result)]],outputs),Col.view(~P.Schema,~P.Payload,~P.View,~P.project,Col.recover(~P.Schema,~P.Payload,first),1))
+    case _: []
+def probe(fail:Bool) -> List<&2,List<&2,U32>>:
+  world:World() = W.World{1,2,1,ANode{ALeaf{False{}},ALeaf{True{}}},2,1n,Store{Col.prepare(~P.Schema,~P.Payload,Col.Column{ALeaf{Some{P.Payload{ANode{ALeaf{3},ALeaf{7}}}}},[]}),Col.prepare(~P.Schema,~Other,Col.Column{ALeaf{Some{Other{ANode{ALeaf{True{}},ALeaf{False{}}}}}},[]})},Unit{},[],[],[],1,0}
+  observed(O.each(~P.Schema,~Store,~Unit,~Unit,~Bundle,~Row,~Bool,~Unit,~List<&2,U32>,~O.Plan{Ops{Cap.Read{get},Cap.Read{get}},Q.all(~P.Schema,~Store,~Unit,~Unit),enter,leave},~body,fail,world))
+
+def main() -> IO(Unit):
+  IO.print(List.show(&2,List<&2,List<&2,U32>>,(rows => List.show(&2,List<&2,U32>,(xs => List.show(&2,U32,U32.show,xs)),rows)),[probe(False{}),probe(True{})]))

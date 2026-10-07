@@ -1,0 +1,74 @@
+{
+  "scope": "Copied old append diagnostic only; not an accepted candidate or regression gate",
+  "commands": [
+    {
+      "cmd": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-world-append-diagnostic/examples/query-composition/timing.bend",
+        "--check-only"
+      ],
+      "exit": 1,
+      "stderr": "SOME PROOFS FAIL\nError:\n- message  : no such file: /workspace/formal-proofs/bendvy/.artifacts/frontier-world-append-diagnostic/examples/query-composition/timing.bend\n"
+    },
+    {
+      "cmd": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-world-append-diagnostic/examples/query-composition/timing-main.bend",
+        "--check-only"
+      ],
+      "exit": 0,
+      "stderr": ""
+    },
+    {
+      "cmd": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-world-append-diagnostic/examples/query-composition/timing-main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-world-append-diagnostic/main.c"
+      ],
+      "exit": 0,
+      "stderr": ""
+    },
+    {
+      "cmd": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-world-append-diagnostic/main.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-world-append-diagnostic/main.native",
+        "-pthread",
+        "-lm"
+      ],
+      "exit": 0,
+      "stderr": ""
+    }
+  ],
+  "samples": {
+    "baseline": [
+      0.019625540997367352,
+      0.0219638889975613,
+      0.017992281005717814,
+      0.018222031998448074,
+      0.023230063990922645
+    ],
+    "current": [
+      0.025364618995808996,
+      0.02274130999285262,
+      0.025070907999179326,
+      0.025286534990300424,
+      0.02408252700115554
+    ],
+    "old-append": [
+      0.033547169994562864,
+      0.02430181999807246,
+      0.025992121998569928,
+      0.022701310997945257,
+      0.022606851009186357
+    ]
+  },
+  "medians": {
+    "baseline": 0.019625540997367352,
+    "current": 0.025070907999179326,
+    "old-append": 0.02430181999807246
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "status": "PASS",
+  "generatedSHA256": "6913da484e3eef4091efa9d4fbea1ef1e4a54b14ffbec49a20f3da443cdf4a81",
+  "expectedSHA256": "71746359b584635d8211d52a56f4ae57b23878a6de51ea9d3213f08d4f67a31c",
+  "runnerSHA256": "64ff52bd90bd86fa5cbb4e2d8d51dc62ab34a0a817287c153c839fa9048ac7fa",
+  "iterations": 1,
+  "cpu": 0,
+  "runs": {
+    "cpu": {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-mixed-rendered/indexed-1024-profiles/cpu.js"
+      ],
+      "limitSeconds": 5,
+      "validatedApplications": 1,
+      "audit": {
+        "completed": 1,
+        "zeroExits": 1,
+        "times": [
+          29.406886
+        ],
+        "gc": [
+          {
+            "duration": 0.4844200015068054,
+            "kind": 1
+          },
+          {
+            "duration": 0.44450199604034424,
+            "kind": 1
+          },
+          {
+            "duration": 0.3142100125551224,
+            "kind": 1
+          },
+          {
+            "duration": 1.6027179956436157,
+            "kind": 1
+          },
+          {
+            "duration": 0.41858600080013275,
+            "kind": 1
+          },
+          {
+            "duration": 0.252376988530159,
+            "kind": 1
+          },
+          {
+            "duration": 1.3663409948349,
+            "kind": 1
+          },
+          {
+            "duration": 0.577879011631012,
+            "kind": 8
+          },
+          {
+            "duration": 1.9653040021657944,
+            "kind": 4
+          }
+        ]
+      },
+      "wrapperSHA256": "c17454fb533a4f49020824aa55bfbe6aa07bfdaa5c4c8de683b9d180547bb351",
+      "profileSHA256": "42fd1948e06334fcf271420609c3c95e7ca94a7b4e31421618c67f1956e43ff8"
+    },
+    "heap": {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-mixed-rendered/indexed-1024-profiles/heap.js"
+      ],
+      "limitSeconds": 5,
+      "validatedApplications": 1,
+      "audit": {
+        "completed": 1,
+        "zeroExits": 1,
+        "times": [
+          34.645208999999994
+        ],
+        "gc": [
+          {
+            "duration": 0.3704189956188202,
+            "kind": 1
+          },
+          {
+            "duration": 1.750009998679161,
+            "kind": 1
+          },
+          {
+            "duration": 0.26329299807548523,
+            "kind": 1
+          },
+          {
+            "duration": 0.33946099877357483,
+            "kind": 1
+          },
+          {
+            "duration": 0.4550030082464218,
+            "kind": 1
+          },
+          {
+            "duration": 1.1176320016384125,
+            "kind": 1
+          }
+        ]
+      },
+      "wrapperSHA256": "46c79b56de675d70b9e1968c8552b28739b6cf43366127ad7db2187f7b289233",
+      "profileSHA256": "171011e2738ee3c6a8f69697b2f9cb8473bb88bc202292cdac6e0b8c1227b3a4"
+    }
+  },
+  "scope": "Diagnostic CPU samples and sampled allocation stacks, including collected objects; fresh generated-program scope per iteration. Not physical allocation totals or performance acceptance.",
+  "nodeVersion": "v24.20.0"
+}

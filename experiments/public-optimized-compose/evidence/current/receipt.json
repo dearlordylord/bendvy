@@ -1,0 +1,495 @@
+{
+  "sourceHashes": {
+    "experiments/public-optimized-compose/extracted/handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+    "experiments/public-optimized-compose/extracted/row-context.bend": "547f4cf9e909703a2bbf7caa691da75ced13b5100c3969b2e7cb2c85e0bdded7",
+    "experiments/public-optimized-compose/prepared-control.bend": "7e03fd9a540dd9d2606aa8b40bca50491957c77a5c1040771c0c61f76a366df1",
+    "experiments/public-optimized-compose/refusal-control.bend": "7f8f6756577e56c11804ea718bad3c4bde98aa8ad57c242d6a65975012e3ef9f",
+    "experiments/public-optimized-compose/row-context-control.bend": "347f5443d97328aae7e66b0ca9eb74d0cb7f32d9a5946d54c9a75c0b1a4b4fe5",
+    "experiments/public-optimized-compose/workshop/array-controls.bend": "373c3067726ee403eb21f540df1165824385bbc38c799994a76f1c9f4248327e",
+    "experiments/public-optimized-compose/workshop/declarations.bend": "ccb7bd1379bf37a0f2087709e65d39cb65aa21bb5fcb48b3e4fce17a3cd3dad5",
+    "experiments/public-optimized-compose/workshop/driver.bend": "2fe44766efe070d39dafa24f35be69c1a47c2a078f761b51e4113a86ed3aec02",
+    "experiments/public-optimized-compose/workshop/gameplay.bend": "d0a8af8e8832ecbde6bb73bd907a0541dd091702e8d5dcf7cfd9fc151a291736",
+    "experiments/public-optimized-compose/workshop/json.bend": "dcd23ba12208488dc2cc2368a23609dc6f685fbcff95c2af40e4f96b64bcadc1",
+    "experiments/public-optimized-compose/workshop/main.bend": "4339adc4de65c6bcbe25f243ba3a152ee16509fe3a74c966251d6ccc0bba97dd",
+    "experiments/public-optimized-compose/workshop/observe.bend": "c84c1db643e9e92b22433945b305b540281e6a52041b1be2a85b864964e3dbbc",
+    "experiments/public-optimized-compose/workshop/scenario-ops.bend": "b2d0e9b5212d762006fbefe92e032d9e1fe260436542485e1a8be257e245aa99",
+    "experiments/public-optimized-compose/workshop/schema.bend": "0c629457791ee5fe2921d33201fe20be10bae8fd0f18a6c728ba775e66339500",
+    "experiments/public-optimized-compose/workshop/timing-main.bend": "a7fea467df249864772e4be3e229342cddd2e457bed6fb596f28e224b203fbb6",
+    "experiments/public-optimized-compose/wrapped-prepared-control.bend": "089f1ceae1ecac5ac58d80af1679bf3e457e348d17d4877a12dea88f68d42672",
+    "experiments/public-optimized-compose/wrapped-recovery-control.bend": "c59b1242d8ffe035848a7ffb97b81317b1a458f5a9eb95d365add53243ef030e",
+    "experiments/public-optimized-compose/wrapped-refusal-control.bend": "84711f7dfc2b404c6f4f19e47e84d10eec759ece16684cfd37e38ef29a4be358",
+    "src/ecs/capabilities.bend": "91c0cdc01e9143d10dc0156ef4f6c39beff97d8088ed0bbb056ffff2ffabf964",
+    "src/ecs/column.bend": "319747b0d687a565652571fda2e940c324bddd9fe83f92a3f434d32e5d47b9a4",
+    "src/ecs/commands.bend": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+    "src/ecs/component.bend": "d36e068152c07c410425e5114b5ca2d3e853d615025481b9b4a5fbade38d04f6",
+    "src/ecs/compose.bend": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+    "src/ecs/event-runtime.bend": "409b45060a9d8b02ce5bf43c584f2be05b81b2239b04e75dca384f07cc626ea7",
+    "src/ecs/events.bend": "fffc3ec427072c4ba1c880f2ba8a73c1fcd1db66550cf63cdce56ba9e10bdc63",
+    "src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "src/ecs/local.bend": "8cc5b3c9d3597c60d8a1b9b7fd206a92b289669c3cd9a8575db65ce9af37bd47",
+    "src/ecs/optimized-compose.bend": "ac9c98457c7d6890f1f30dd82f41658a5d3ae962a7fb9022062af5b9d581ca25",
+    "src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+    "src/ecs/provider.bend": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72",
+    "src/ecs/query-contract.bend": "de8eb5a047d2ca82e5832513798a6590a2cd025296b80b154da65a51270c4e91",
+    "src/ecs/query.bend": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9",
+    "src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+    "src/ecs/removals.bend": "98a5f5cf42372d8eab35f3927539079e4412886eeaa3e07bbb2113f2286222f6",
+    "src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+    "src/ecs/schedule.bend": "ad7a7c4187bfb028d01e98b821bd65078ae503604ec04ab645440be3898caa9f",
+    "src/ecs/structural.bend": "e8e813dc6de2f8a38ca61f51c0cbc5aeaf243fcc9cd399303e2adca2674480d4",
+    "src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+    "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "src/ecs/world.bend": "7d394b623b8bb60a3fef7b160bb69af135719edd3008126ee186e190047708f8"
+  },
+  "runnerSHA256": "74864a6114dbd0e4d812b2e76f73ed07381bb114f335a3afa0e16e0a434844de",
+  "commands": [
+    {
+      "label": "version",
+      "command": [
+        "bend",
+        "version"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "ca6fc52ac20b452bc60b3e8da766c53d679f0325ca4f1ac580ec72f09758d79d"
+    },
+    {
+      "label": "workshop-main-check",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/workshop/main.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    {
+      "label": "workshop-main-emit-JS",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/workshop/main.bend",
+        "-o",
+        "/tmp/storage30-boxed-observations/workshop-main.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "workshop-main-run-JS",
+      "command": [
+        "node",
+        "/tmp/storage30-boxed-observations/workshop-main.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "3ced874f4baca512dc828392d0f4c7cb93bb70634aea4b7b591363ac4b7a2592"
+    },
+    {
+      "label": "workshop-main-emit-Native",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/workshop/main.bend",
+        "-o",
+        "/tmp/storage30-boxed-observations/workshop-main.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "workshop-main-compile",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/storage30-boxed-observations/workshop-main.c",
+        "-o",
+        "/tmp/storage30-boxed-observations/workshop-main",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "workshop-main-run-Native",
+      "command": [
+        "/tmp/storage30-boxed-observations/workshop-main"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "3ced874f4baca512dc828392d0f4c7cb93bb70634aea4b7b591363ac4b7a2592"
+    },
+    {
+      "label": "prepared-control-check",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/prepared-control.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    {
+      "label": "prepared-control-emit-JS",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/prepared-control.bend",
+        "-o",
+        "/tmp/storage30-boxed-observations/prepared-control.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "prepared-control-run-JS",
+      "command": [
+        "node",
+        "/tmp/storage30-boxed-observations/prepared-control.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "9b85c4dfcf26a2beef9660763335c37e76edec95c6ef98879262f6fef6c60ef1"
+    },
+    {
+      "label": "prepared-control-emit-Native",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/prepared-control.bend",
+        "-o",
+        "/tmp/storage30-boxed-observations/prepared-control.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "prepared-control-compile",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/storage30-boxed-observations/prepared-control.c",
+        "-o",
+        "/tmp/storage30-boxed-observations/prepared-control",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "prepared-control-run-Native",
+      "command": [
+        "/tmp/storage30-boxed-observations/prepared-control"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "9b85c4dfcf26a2beef9660763335c37e76edec95c6ef98879262f6fef6c60ef1"
+    },
+    {
+      "label": "refusal-control-check",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/refusal-control.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    {
+      "label": "refusal-control-emit-JS",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/refusal-control.bend",
+        "-o",
+        "/tmp/storage30-boxed-observations/refusal-control.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "refusal-control-run-JS",
+      "command": [
+        "node",
+        "/tmp/storage30-boxed-observations/refusal-control.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "9af837efee7e10fe7cd5cdf4612c946f485a968e276a2430d7b31efe5dda43b0"
+    },
+    {
+      "label": "refusal-control-emit-Native",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/refusal-control.bend",
+        "-o",
+        "/tmp/storage30-boxed-observations/refusal-control.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "refusal-control-compile",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/storage30-boxed-observations/refusal-control.c",
+        "-o",
+        "/tmp/storage30-boxed-observations/refusal-control",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "refusal-control-run-Native",
+      "command": [
+        "/tmp/storage30-boxed-observations/refusal-control"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "9af837efee7e10fe7cd5cdf4612c946f485a968e276a2430d7b31efe5dda43b0"
+    },
+    {
+      "label": "wrapped-prepared-control-check",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/wrapped-prepared-control.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    {
+      "label": "wrapped-prepared-control-emit-JS",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/wrapped-prepared-control.bend",
+        "-o",
+        "/tmp/storage30-boxed-observations/wrapped-prepared-control.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "wrapped-prepared-control-run-JS",
+      "command": [
+        "node",
+        "/tmp/storage30-boxed-observations/wrapped-prepared-control.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "9b85c4dfcf26a2beef9660763335c37e76edec95c6ef98879262f6fef6c60ef1"
+    },
+    {
+      "label": "wrapped-prepared-control-emit-Native",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/wrapped-prepared-control.bend",
+        "-o",
+        "/tmp/storage30-boxed-observations/wrapped-prepared-control.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "wrapped-prepared-control-compile",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/storage30-boxed-observations/wrapped-prepared-control.c",
+        "-o",
+        "/tmp/storage30-boxed-observations/wrapped-prepared-control",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "wrapped-prepared-control-run-Native",
+      "command": [
+        "/tmp/storage30-boxed-observations/wrapped-prepared-control"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "9b85c4dfcf26a2beef9660763335c37e76edec95c6ef98879262f6fef6c60ef1"
+    },
+    {
+      "label": "wrapped-refusal-control-check",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/wrapped-refusal-control.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    {
+      "label": "wrapped-refusal-control-emit-JS",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/wrapped-refusal-control.bend",
+        "-o",
+        "/tmp/storage30-boxed-observations/wrapped-refusal-control.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "wrapped-refusal-control-run-JS",
+      "command": [
+        "node",
+        "/tmp/storage30-boxed-observations/wrapped-refusal-control.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "9af837efee7e10fe7cd5cdf4612c946f485a968e276a2430d7b31efe5dda43b0"
+    },
+    {
+      "label": "wrapped-refusal-control-emit-Native",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/wrapped-refusal-control.bend",
+        "-o",
+        "/tmp/storage30-boxed-observations/wrapped-refusal-control.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "wrapped-refusal-control-compile",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/storage30-boxed-observations/wrapped-refusal-control.c",
+        "-o",
+        "/tmp/storage30-boxed-observations/wrapped-refusal-control",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "wrapped-refusal-control-run-Native",
+      "command": [
+        "/tmp/storage30-boxed-observations/wrapped-refusal-control"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "9af837efee7e10fe7cd5cdf4612c946f485a968e276a2430d7b31efe5dda43b0"
+    },
+    {
+      "label": "wrapped-recovery-control-check",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/wrapped-recovery-control.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    {
+      "label": "wrapped-recovery-control-emit-JS",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/wrapped-recovery-control.bend",
+        "-o",
+        "/tmp/storage30-boxed-observations/wrapped-recovery-control.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "wrapped-recovery-control-run-JS",
+      "command": [
+        "node",
+        "/tmp/storage30-boxed-observations/wrapped-recovery-control.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "159e0d2bcdff0e09c01236b1edac7975e4ceb2de8aaeb302a4d4d83f754f73ac"
+    },
+    {
+      "label": "wrapped-recovery-control-emit-Native",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/wrapped-recovery-control.bend",
+        "-o",
+        "/tmp/storage30-boxed-observations/wrapped-recovery-control.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "wrapped-recovery-control-compile",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/storage30-boxed-observations/wrapped-recovery-control.c",
+        "-o",
+        "/tmp/storage30-boxed-observations/wrapped-recovery-control",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "wrapped-recovery-control-run-Native",
+      "command": [
+        "/tmp/storage30-boxed-observations/wrapped-recovery-control"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "159e0d2bcdff0e09c01236b1edac7975e4ceb2de8aaeb302a4d4d83f754f73ac"
+    }
+  ],
+  "status": "PASS",
+  "bendVersion": "bend 2.0.35",
+  "generatedHashes": {
+    "workshop-main.js": "3731e4bf126a36faded31b9fbfd8a8213813bcb055dc1c0b2903cf658da4b2b8",
+    "workshop-main.c": "7f923e8c475480907316e28fb4ef64b48dcba8207163c3c4b479610b1820fb01",
+    "prepared-control.js": "a2ebacc1c665d795cb65a03fa14f9ae5a40c95b6ec1bec37226459bbebbffa0c",
+    "prepared-control.c": "3ac239bb60483b941620bed6f54ad88fe8cdb94c8b2031a75b44c72408c619f4",
+    "refusal-control.js": "93a732fe70ca61e3eba7d6929d26340993c35602dbe674c22d8a671bd3783bde",
+    "refusal-control.c": "5dfb87ba747676b0b6de88ead712e452698d713d514d9987f133ddf5a07ff49f",
+    "wrapped-prepared-control.js": "06615b22191fd24a153ec499785ef17a95462890741e9d62a9d7439a7b12bf8a",
+    "wrapped-prepared-control.c": "e77795daaed275ddd302727e2fec16fc6f949b67e61168e9aa0338edc4d8c541",
+    "wrapped-refusal-control.js": "7389f5cf6985b7140b8b9472e73d2336d8b5b4a974ab479cafe79d7f23d5cd59",
+    "wrapped-refusal-control.c": "5c0fe98090b5147ff15da22cd777a3c898408437ee679600c069af419f8c339c",
+    "wrapped-recovery-control.js": "aa2404de861b5911ae23de74952e9d361a90c028d932cd3c20bfc556f4be769f",
+    "wrapped-recovery-control.c": "5d9e9d2bbb472c8677a788367886ceff50f32a5c2f0077669471306a328561b3"
+  },
+  "binaryHashes": {
+    "workshop-main": "1eeae23f48688ac4a354b3ac4489f9434fcb413e478f9f78474331a33d8ce819",
+    "prepared-control": "597351c55616a21b01cb9ffc53ab59d9cdf5c9782584730162250d16f558b873",
+    "refusal-control": "279c847b34e21f6d14751cc072b50d03475721938c081bfeb158a7771d99be69",
+    "wrapped-prepared-control": "3a84da636a98ac25516eccd42c26f8330816d78afb580cfa0482ad74d589ad5e",
+    "wrapped-refusal-control": "ef3bc7ed93a12e0e66d39926d2442292314d7beacea53553ea64e86cfd91a6bb",
+    "wrapped-recovery-control": "aea21a6ea329696cad7a8ebbc89bee7064b296c82c7da7b405a41b374c30282f"
+  }
+}

@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- expected : L.Instance<S.Schema, Unit, U32, Unit, S.Owner, S.Args, Unit, S.Output, other_runner>
+- observed : L.Instance<S.Schema, Unit, U32, Unit, S.Owner, S.Args, Unit, S.Output, S.runner>
+Context:
+- instance : L.Instance<S.Schema, Unit, U32, Unit, S.Owner, S.Args, Unit, S.Output, S.runner>
+Location: change_runner
+ 8 | def change_runner(instance: L.Instance<S.Schema,Unit,U32,Unit,S.Owner,S.Args,Unit,S.Output,S.runner>) -> L.Instance<S.Schema,Unit,U32,Unit,S.Owner,S.Args,Unit,S.Output,other_runner>:
+ 9>|   instance
+   |   ^^^^^^^^
+10 | 

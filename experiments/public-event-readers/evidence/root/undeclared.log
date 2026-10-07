@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : E.ReadAccess<bad~H, U32, h => (h, E.Reading{[], False{}})>
+- observed : Unit
+Context:
+- ops   : Unit
+- owner : bad~H
+Location: bad
+4 | def bad(~H: Type,ops: Unit,owner: H) -> H & E.Reading<U32>:
+5>|   E.all(~H,~U32,~(h => (h,E.Reading{[],False{}})),ops,owner)
+  |                                                   ^^^
+6 | 

@@ -1,0 +1,163 @@
+{
+  "format": 1,
+  "limit_seconds": 5,
+  "version": "bend 2.0.35",
+  "runner_sha256": "124c772245aa211c76602e6ec492590ea12c01b71d72cb59b67968cd89c9d17f",
+  "library": {
+    "src/ecs/capabilities.bend": "91c0cdc01e9143d10dc0156ef4f6c39beff97d8088ed0bbb056ffff2ffabf964",
+    "src/ecs/column.bend": "869091a81636ece3b6d8fd37bae552bcb58b76c7d3ea396e8ecdb9e6f4eeb032",
+    "src/ecs/commands.bend": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+    "src/ecs/component.bend": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+    "src/ecs/compose.bend": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+    "src/ecs/event-runtime.bend": "409b45060a9d8b02ce5bf43c584f2be05b81b2239b04e75dca384f07cc626ea7",
+    "src/ecs/events.bend": "fffc3ec427072c4ba1c880f2ba8a73c1fcd1db66550cf63cdce56ba9e10bdc63",
+    "src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "src/ecs/local.bend": "8cc5b3c9d3597c60d8a1b9b7fd206a92b289669c3cd9a8575db65ce9af37bd47",
+    "src/ecs/optimized-compose.bend": "ac9c98457c7d6890f1f30dd82f41658a5d3ae962a7fb9022062af5b9d581ca25",
+    "src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+    "src/ecs/provider.bend": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72",
+    "src/ecs/query-contract.bend": "de8eb5a047d2ca82e5832513798a6590a2cd025296b80b154da65a51270c4e91",
+    "src/ecs/query.bend": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9",
+    "src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+    "src/ecs/removals.bend": "98a5f5cf42372d8eab35f3927539079e4412886eeaa3e07bbb2113f2286222f6",
+    "src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+    "src/ecs/schedule.bend": "ad7a7c4187bfb028d01e98b821bd65078ae503604ec04ab645440be3898caa9f",
+    "src/ecs/structural.bend": "e8e813dc6de2f8a38ca61f51c0cbc5aeaf243fcc9cd399303e2adca2674480d4",
+    "src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+    "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "src/ecs/world.bend": "7d394b623b8bb60a3fef7b160bb69af135719edd3008126ee186e190047708f8"
+  },
+  "cases_sha256": "4950d3d48c9d9cb122b4e7c36db6bf64774f0653a92a5cd9e3db0246a67de6ba",
+  "results": [
+    {
+      "name": "positive-five-alias-runtime",
+      "command": [
+        "timeout",
+        "5",
+        "bend",
+        "experiments/query-composition/public-controls/positive-alias-runtime.bend"
+      ],
+      "source_sha256": "6aac020cd0a9783cd8cf7bc45fd125b75eb2b19300e9f60f2091581acd8832fa",
+      "exit": 0,
+      "passed": true,
+      "log": "positive-five-alias-runtime.log"
+    },
+    {
+      "name": "positive-selection",
+      "command": [
+        "timeout",
+        "5",
+        "bend",
+        "experiments/query-composition/public-controls/positive-selection.bend"
+      ],
+      "source_sha256": "b500c5c4e93e3c80061db3db8dea380907ee9295bc272d997f8a148de3607aa7",
+      "exit": 0,
+      "passed": true,
+      "log": "positive-selection.log"
+    },
+    {
+      "name": "positive-family",
+      "command": [
+        "timeout",
+        "5",
+        "bend",
+        "experiments/query-composition/public-controls/positive-family.bend"
+      ],
+      "source_sha256": "9508eb317bb49e39ae2e54148a6cb0e1f3f916d37a0579a658f6284ae3d7baa3",
+      "exit": 0,
+      "passed": true,
+      "log": "positive-family.log"
+    },
+    {
+      "name": "positive-detached-frame",
+      "command": [
+        "timeout",
+        "5",
+        "bend",
+        "experiments/query-composition/public-controls/positive-detached-frame.bend"
+      ],
+      "source_sha256": "31ad02312c06f17ff3534568e7799665cbb4f584f32680dd215c75ad0527ff4d",
+      "exit": 0,
+      "passed": true,
+      "log": "positive-detached-frame.log"
+    },
+    {
+      "name": "writes-through-read",
+      "command": [
+        "timeout",
+        "5",
+        "bend",
+        "experiments/query-composition/public-controls/negative-read-set.bend"
+      ],
+      "source_sha256": "5f7360a6399186c0160902178554d43b07381609be2cf2c24f3dc3f8a4e213ef",
+      "exit": 1,
+      "passed": true,
+      "log": "writes-through-read.log"
+    },
+    {
+      "name": "duplicate-context",
+      "command": [
+        "timeout",
+        "5",
+        "bend",
+        "experiments/query-composition/public-controls/negative-duplicate-context.bend"
+      ],
+      "source_sha256": "64cb26680a6edbe6e53655c77c5e45e42bc23c952f89e0e476ab284a1d0855e7",
+      "exit": 1,
+      "passed": true,
+      "log": "duplicate-context.log"
+    },
+    {
+      "name": "undeclared-operation",
+      "command": [
+        "timeout",
+        "5",
+        "bend",
+        "experiments/query-composition/public-controls/negative-undeclared.bend"
+      ],
+      "source_sha256": "ebe70e155468fefb2ae3670ae6ea09558c0df9e8b62445ffd2dade468bc4682c",
+      "exit": 1,
+      "passed": true,
+      "log": "undeclared-operation.log"
+    },
+    {
+      "name": "opaque-reconstruction",
+      "command": [
+        "timeout",
+        "5",
+        "bend",
+        "experiments/query-composition/public-controls/negative-reconstruct-context.bend"
+      ],
+      "source_sha256": "2a823edc584f6be9c496efcfa5b54cf3ee1a9a7b140b947199a431f050ba9b97",
+      "exit": 1,
+      "passed": true,
+      "log": "opaque-reconstruction.log"
+    },
+    {
+      "name": "cross-schema-family",
+      "command": [
+        "timeout",
+        "5",
+        "bend",
+        "experiments/query-composition/public-controls/negative-cross-schema.bend"
+      ],
+      "source_sha256": "04b32a47877edc329d4d62379c5706cbbb07885767290cba6b809285cca8f60a",
+      "exit": 1,
+      "passed": true,
+      "log": "cross-schema-family.log"
+    },
+    {
+      "name": "runtime-capability-template",
+      "command": [
+        "timeout",
+        "5",
+        "bend",
+        "experiments/query-composition/public-controls/negative-runtime-cap.bend"
+      ],
+      "source_sha256": "aba22d2ad5049c014ad5b852390a18074d7752181c8bf445f8aca73abdef2870",
+      "exit": 1,
+      "passed": true,
+      "log": "runtime-capability-template.log"
+    }
+  ]
+}

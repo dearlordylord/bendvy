@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : bad~H
+- observed : Q.Frame
+Context:
+- world : W.World<Unit, Unit, Unit, U32>
+- ctx   : bad~H
+Location: bad
+7 | def bad(~H: Type,~read: Cap.Read<H,U32>,world: W.World<Unit,Unit,Unit,U32>,ctx: H) -> H:
+8>|   Q.Frame{T.begin(~W.World<Unit,Unit,Unit,U32>,~U32,world),W.Handle{1,1},None{},0}
+  |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+9 | def main() -> U32:

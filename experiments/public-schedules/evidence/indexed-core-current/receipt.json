@@ -1,0 +1,613 @@
+{
+  "commands": [
+    {
+      "args": [
+        "node",
+        "/workspace/formal-proofs/bendvy/experiments/public-schedules/reference.mjs"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "elapsed": 0.09087210000143386,
+      "stdout": "ok:phase:before;run:1;phase:after;run:2;\n2:2,:\nok:phase:before;run:1;phase:after;run:2;\n22:2,2,:\nflush:22:2,2,:1,2,\nok:phase:before;run:1;barrier;phase:after;run:2;\n3:2,:1,\nok:phase:before;run:1;barrier;phase:after;run:2;\n34:2,2,:1,2,\nflush:34:2,2,:1,2,\nok:run:1;skip:2;barrier;\n0::1,\nok:run:1;skip:2;barrier;\n0::1,2,\nflush:0::1,2,\ninvalid\ninvalid\nfail:planned:phase:failure;run:1;run:2;\n2:2,:\nfail:planned:phase:failure;run:1;run:2;\n22:2,2,:\nflush:22:2,2,:1,3,\n\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "timeout",
+        "5",
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-schedules/negative-affine.bend"
+      ],
+      "cap": 6,
+      "exit": 1,
+      "elapsed": 0.22297549499489833,
+      "stdout": "",
+      "stderr": "SOME PROOFS FAIL\nError:\n- expected : schedule\n- observed : schedule (consumed more than once)\nLocation: duplicate\n4 | \n5>| def duplicate(schedule: Sch.Schedule<D.Schema,Unit,U32,U32,D.Owners>) -> Sch.Schedule<D.Schema,Unit,U32,U32,D.Owners> & Sch.Schedule<D.Schema,Unit,U32,U32,D.Owners>:\n  |               ^^^^^^^^\n6 |   (schedule,schedule)\n"
+    },
+    {
+      "args": [
+        "timeout",
+        "5",
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-schedules/negative-schema.bend"
+      ],
+      "cap": 6,
+      "exit": 1,
+      "elapsed": 0.22407287699752487,
+      "stdout": "",
+      "stderr": "SOME PROOFS FAIL\nError:\n- expected : W.World<D.Schema, Unit, U32, U32>\n- observed : W.World<Other, Unit, U32, U32>\nContext:\n- schedule : Sch.Schedule<D.Schema, Unit, U32, U32, D.Owners>\n- world    : W.World<Other, Unit, U32, U32>\nLocation: wrong\n 8 | def wrong(schedule: Sch.Schedule<D.Schema,Unit,U32,U32,D.Owners>,world: W.World<Other,Unit,U32,U32>) -> Sch.RunResult<D.Schema,Unit,U32,U32,D.Owners,String>:\n 9>|   Sch.run(~D.Schema,~Unit,~U32,~U32,~D.Owners,~String,~D.dispatch,~D.condition,schedule,world)\n   |                                                                                         ^^^^^\n10 | \n"
+    },
+    {
+      "args": [
+        "timeout",
+        "5",
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/writes-through-read/experiments/public-schedules/main.bend"
+      ],
+      "cap": 6,
+      "exit": 1,
+      "elapsed": 0.23413397998956498,
+      "stdout": "",
+      "stderr": "SOME PROOFS FAIL\nError:\n- expected : Cap.ValueWrite<gameplay_read~H, U32, U32>\n- observed : Cap.ValueRead<gameplay_read~H, U32>\nContext:\n- ctx : gameplay_read~H\nLocation: gameplay_read\n93 | def gameplay_read(~H: Type,~cap: Cap.ValueRead<H,U32>,ctx: H) -> H & U32:\n94>|   Cap.value_set(~H,~U32,~U32,~cap,ctx,0)\n   |                               ^^^\n95 | def condition_observed(observed: W.World<Schema,Unit,U32,U32> & U32,slot: U32) -> W.World<Schema,Unit,U32,U32> & Bool:\n"
+    },
+    {
+      "args": [
+        "timeout",
+        "5",
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/undeclared-access/experiments/public-schedules/main.bend"
+      ],
+      "cap": 6,
+      "exit": 1,
+      "elapsed": 0.24262744099542033,
+      "stdout": "",
+      "stderr": "SOME PROOFS FAIL\nError:\n- expected : W.World<Schema, Unit, U32, U32>\n- observed : gameplay_read~H\nContext:\n- ctx : gameplay_read~H\nLocation: gameplay_read\n93 | def gameplay_read(~H: Type,~cap: Cap.ValueRead<H,U32>,ctx: H) -> H & U32:\n94>|   W.observe_resource(~Schema,~Unit,~U32,~U32,~U32,~project_counter,ctx)\n   |                                                                    ^^^\n95 | def condition_observed(observed: W.World<Schema,Unit,U32,U32> & U32,slot: U32) -> W.World<Schema,Unit,U32,U32> & Bool:\n"
+    },
+    {
+      "args": [
+        "timeout",
+        "5",
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/foreign-world/experiments/public-schedules/main.bend"
+      ],
+      "cap": 6,
+      "exit": 0,
+      "elapsed": 0.43501351500162855,
+      "stdout": "rejected\n0::\nrejected\n0::\nflush:0::\nrejected\n0::\nrejected\n0::\nflush:0::\nrejected\n0::\nrejected\n0::\nflush:0::\ninvalid\ninvalid\nrejected\n0::\nrejected\n0::\nflush:0::\n\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/foreign-world/experiments/public-schedules/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/foreign-world/foreign.js"
+      ],
+      "cap": 30,
+      "exit": 0,
+      "elapsed": 0.3662574789923383,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/foreign-world/foreign.js"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "elapsed": 0.018208925001090392,
+      "stdout": "rejected\n0::\nrejected\n0::\nflush:0::\nrejected\n0::\nrejected\n0::\nflush:0::\nrejected\n0::\nrejected\n0::\nflush:0::\ninvalid\ninvalid\nrejected\n0::\nrejected\n0::\nflush:0::\n\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/foreign-world/experiments/public-schedules/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/foreign-world/foreign.c"
+      ],
+      "cap": 30,
+      "exit": 0,
+      "elapsed": 1.167805226999917,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/foreign-world/foreign.c",
+        "-pthread",
+        "-lm",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/foreign-world/foreign"
+      ],
+      "cap": 120,
+      "exit": 0,
+      "elapsed": 1.58192495800904,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/foreign-world/foreign",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "elapsed": 0.004759878996992484,
+      "stdout": "rejected\n0::\nrejected\n0::\nflush:0::\nrejected\n0::\nrejected\n0::\nflush:0::\nrejected\n0::\nrejected\n0::\nflush:0::\ninvalid\ninvalid\nrejected\n0::\nrejected\n0::\nflush:0::\n\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "timeout",
+        "5",
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/current/src/ecs/schedule.bend"
+      ],
+      "cap": 6,
+      "exit": 0,
+      "elapsed": 0.1424479529960081,
+      "stdout": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "timeout",
+        "5",
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/current/experiments/public-schedules/main.bend"
+      ],
+      "cap": 6,
+      "exit": 0,
+      "elapsed": 0.3537736930011306,
+      "stdout": "ok:phase:before;run:1;phase:after;run:2;\n2:2,:\nok:phase:before;run:1;phase:after;run:2;\n22:2,2,:\nflush:22:2,2,:1,2,\nok:phase:before;run:1;barrier;phase:after;run:2;\n3:2,:1,\nok:phase:before;run:1;barrier;phase:after;run:2;\n34:2,2,:1,2,\nflush:34:2,2,:1,2,\nok:run:1;skip:2;barrier;\n0::1,\nok:run:1;skip:2;barrier;\n0::1,2,\nflush:0::1,2,\ninvalid\ninvalid\nfail:planned:phase:failure;run:1;run:2;\n2:2,:\nfail:planned:phase:failure;run:1;run:2;\n22:2,2,:\nflush:22:2,2,:1,3,\n\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/current/experiments/public-schedules/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/current/main.js"
+      ],
+      "cap": 30,
+      "exit": 0,
+      "elapsed": 0.35109845899569336,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/current/main.js"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "elapsed": 0.019175183988409117,
+      "stdout": "ok:phase:before;run:1;phase:after;run:2;\n2:2,:\nok:phase:before;run:1;phase:after;run:2;\n22:2,2,:\nflush:22:2,2,:1,2,\nok:phase:before;run:1;barrier;phase:after;run:2;\n3:2,:1,\nok:phase:before;run:1;barrier;phase:after;run:2;\n34:2,2,:1,2,\nflush:34:2,2,:1,2,\nok:run:1;skip:2;barrier;\n0::1,\nok:run:1;skip:2;barrier;\n0::1,2,\nflush:0::1,2,\ninvalid\ninvalid\nfail:planned:phase:failure;run:1;run:2;\n2:2,:\nfail:planned:phase:failure;run:1;run:2;\n22:2,2,:\nflush:22:2,2,:1,3,\n\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/current/experiments/public-schedules/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/current/main.c"
+      ],
+      "cap": 30,
+      "exit": 0,
+      "elapsed": 1.230484786996385,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/current/main.c",
+        "-pthread",
+        "-lm",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/current/main"
+      ],
+      "cap": 120,
+      "exit": 0,
+      "elapsed": 1.599718794997898,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/current/main",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "elapsed": 0.0012829289917135611,
+      "stdout": "ok:phase:before;run:1;phase:after;run:2;\n2:2,:\nok:phase:before;run:1;phase:after;run:2;\n22:2,2,:\nflush:22:2,2,:1,2,\nok:phase:before;run:1;barrier;phase:after;run:2;\n3:2,:1,\nok:phase:before;run:1;barrier;phase:after;run:2;\n34:2,2,:1,2,\nflush:34:2,2,:1,2,\nok:run:1;skip:2;barrier;\n0::1,\nok:run:1;skip:2;barrier;\n0::1,2,\nflush:0::1,2,\ninvalid\ninvalid\nfail:planned:phase:failure;run:1;run:2;\n2:2,:\nfail:planned:phase:failure;run:1;run:2;\n22:2,2,:\nflush:22:2,2,:1,3,\n\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "timeout",
+        "5",
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/order/src/ecs/schedule.bend"
+      ],
+      "cap": 6,
+      "exit": 0,
+      "elapsed": 0.12911432499822695,
+      "stdout": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "timeout",
+        "5",
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/order/experiments/public-schedules/main.bend"
+      ],
+      "cap": 6,
+      "exit": 0,
+      "elapsed": 0.34779976100253407,
+      "stdout": "ok:run:2;phase:after;run:1;phase:before;\n2:2,:\nok:run:2;phase:after;run:1;phase:before;\n22:2,2,:\nflush:22:2,2,:1,2,\nok:run:2;phase:after;barrier;run:1;phase:before;\n2:2,:\nok:run:2;phase:after;barrier;run:1;phase:before;\n22:2,2,:1,\nflush:22:2,2,:1,2,\nok:barrier;skip:2;run:1;\n0::\nok:barrier;skip:2;run:1;\n0::1,\nflush:0::1,2,\ninvalid\ninvalid\nfail:planned:barrier;run:2;\n0::\nfail:planned:barrier;run:2;\n0::\nflush:0::\n\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/order/experiments/public-schedules/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/order/main.js"
+      ],
+      "cap": 30,
+      "exit": 0,
+      "elapsed": 0.33259961400472093,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/order/main.js"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "elapsed": 0.020876866998150945,
+      "stdout": "ok:run:2;phase:after;run:1;phase:before;\n2:2,:\nok:run:2;phase:after;run:1;phase:before;\n22:2,2,:\nflush:22:2,2,:1,2,\nok:run:2;phase:after;barrier;run:1;phase:before;\n2:2,:\nok:run:2;phase:after;barrier;run:1;phase:before;\n22:2,2,:1,\nflush:22:2,2,:1,2,\nok:barrier;skip:2;run:1;\n0::\nok:barrier;skip:2;run:1;\n0::1,\nflush:0::1,2,\ninvalid\ninvalid\nfail:planned:barrier;run:2;\n0::\nfail:planned:barrier;run:2;\n0::\nflush:0::\n\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/order/experiments/public-schedules/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/order/main.c"
+      ],
+      "cap": 30,
+      "exit": 0,
+      "elapsed": 1.229931656998815,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/order/main.c",
+        "-pthread",
+        "-lm",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/order/main"
+      ],
+      "cap": 120,
+      "exit": 0,
+      "elapsed": 1.6363735650083981,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/order/main",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "elapsed": 0.002770777005935088,
+      "stdout": "ok:run:2;phase:after;run:1;phase:before;\n2:2,:\nok:run:2;phase:after;run:1;phase:before;\n22:2,2,:\nflush:22:2,2,:1,2,\nok:run:2;phase:after;barrier;run:1;phase:before;\n2:2,:\nok:run:2;phase:after;barrier;run:1;phase:before;\n22:2,2,:1,\nflush:22:2,2,:1,2,\nok:barrier;skip:2;run:1;\n0::\nok:barrier;skip:2;run:1;\n0::1,\nflush:0::1,2,\ninvalid\ninvalid\nfail:planned:barrier;run:2;\n0::\nfail:planned:barrier;run:2;\n0::\nflush:0::\n\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "timeout",
+        "5",
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/condition/src/ecs/schedule.bend"
+      ],
+      "cap": 6,
+      "exit": 0,
+      "elapsed": 0.14328304400260095,
+      "stdout": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "timeout",
+        "5",
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/condition/experiments/public-schedules/main.bend"
+      ],
+      "cap": 6,
+      "exit": 0,
+      "elapsed": 0.4050589359976584,
+      "stdout": "ok:phase:before;run:1;phase:after;run:2;\n2:2,:\nok:phase:before;run:1;phase:after;run:2;\n22:2,2,:\nflush:22:2,2,:1,2,\nok:phase:before;run:1;barrier;phase:after;run:2;\n3:2,:1,\nok:phase:before;run:1;barrier;phase:after;run:2;\n34:2,2,:1,2,\nflush:34:2,2,:1,2,\nok:run:1;run:2;barrier;\n2:2,:1,\nok:run:1;run:2;barrier;\n23:2,2,:1,2,\nflush:23:2,2,:1,2,\ninvalid\ninvalid\nfail:planned:phase:failure;run:1;run:2;\n2:2,:\nfail:planned:phase:failure;run:1;run:2;\n22:2,2,:\nflush:22:2,2,:1,3,\n\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/condition/experiments/public-schedules/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/condition/main.js"
+      ],
+      "cap": 30,
+      "exit": 0,
+      "elapsed": 0.36413920899212826,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/condition/main.js"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "elapsed": 0.021711459005018696,
+      "stdout": "ok:phase:before;run:1;phase:after;run:2;\n2:2,:\nok:phase:before;run:1;phase:after;run:2;\n22:2,2,:\nflush:22:2,2,:1,2,\nok:phase:before;run:1;barrier;phase:after;run:2;\n3:2,:1,\nok:phase:before;run:1;barrier;phase:after;run:2;\n34:2,2,:1,2,\nflush:34:2,2,:1,2,\nok:run:1;run:2;barrier;\n2:2,:1,\nok:run:1;run:2;barrier;\n23:2,2,:1,2,\nflush:23:2,2,:1,2,\ninvalid\ninvalid\nfail:planned:phase:failure;run:1;run:2;\n2:2,:\nfail:planned:phase:failure;run:1;run:2;\n22:2,2,:\nflush:22:2,2,:1,3,\n\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/condition/experiments/public-schedules/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/condition/main.c"
+      ],
+      "cap": 30,
+      "exit": 0,
+      "elapsed": 1.1640068990091095,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/condition/main.c",
+        "-pthread",
+        "-lm",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/condition/main"
+      ],
+      "cap": 120,
+      "exit": 0,
+      "elapsed": 1.5113835719967028,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/condition/main",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "elapsed": 0.0020801450009457767,
+      "stdout": "ok:phase:before;run:1;phase:after;run:2;\n2:2,:\nok:phase:before;run:1;phase:after;run:2;\n22:2,2,:\nflush:22:2,2,:1,2,\nok:phase:before;run:1;barrier;phase:after;run:2;\n3:2,:1,\nok:phase:before;run:1;barrier;phase:after;run:2;\n34:2,2,:1,2,\nflush:34:2,2,:1,2,\nok:run:1;run:2;barrier;\n2:2,:1,\nok:run:1;run:2;barrier;\n23:2,2,:1,2,\nflush:23:2,2,:1,2,\ninvalid\ninvalid\nfail:planned:phase:failure;run:1;run:2;\n2:2,:\nfail:planned:phase:failure;run:1;run:2;\n22:2,2,:\nflush:22:2,2,:1,3,\n\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "timeout",
+        "5",
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/implicit-flush/src/ecs/schedule.bend"
+      ],
+      "cap": 6,
+      "exit": 0,
+      "elapsed": 0.1288670720095979,
+      "stdout": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "timeout",
+        "5",
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/implicit-flush/experiments/public-schedules/main.bend"
+      ],
+      "cap": 6,
+      "exit": 0,
+      "elapsed": 0.36214110600121785,
+      "stdout": "ok:phase:before;run:1;phase:after;run:2;\n2:2,:1,\nok:phase:before;run:1;phase:after;run:2;\n23:2,2,:1,2,\nflush:23:2,2,:1,2,\nok:phase:before;run:1;barrier;phase:after;run:2;\n3:2,:1,\nok:phase:before;run:1;barrier;phase:after;run:2;\n34:2,2,:1,2,\nflush:34:2,2,:1,2,\nok:run:1;skip:2;barrier;\n0::1,\nok:run:1;skip:2;barrier;\n0::1,2,\nflush:0::1,2,\ninvalid\ninvalid\nfail:planned:phase:failure;run:1;run:2;\n2:2,:\nfail:planned:phase:failure;run:1;run:2;\n22:2,2,:\nflush:22:2,2,:1,3,\n\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/implicit-flush/experiments/public-schedules/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/implicit-flush/main.js"
+      ],
+      "cap": 30,
+      "exit": 0,
+      "elapsed": 0.33189873199444264,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/implicit-flush/main.js"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "elapsed": 0.019736647998797707,
+      "stdout": "ok:phase:before;run:1;phase:after;run:2;\n2:2,:1,\nok:phase:before;run:1;phase:after;run:2;\n23:2,2,:1,2,\nflush:23:2,2,:1,2,\nok:phase:before;run:1;barrier;phase:after;run:2;\n3:2,:1,\nok:phase:before;run:1;barrier;phase:after;run:2;\n34:2,2,:1,2,\nflush:34:2,2,:1,2,\nok:run:1;skip:2;barrier;\n0::1,\nok:run:1;skip:2;barrier;\n0::1,2,\nflush:0::1,2,\ninvalid\ninvalid\nfail:planned:phase:failure;run:1;run:2;\n2:2,:\nfail:planned:phase:failure;run:1;run:2;\n22:2,2,:\nflush:22:2,2,:1,3,\n\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/implicit-flush/experiments/public-schedules/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/implicit-flush/main.c"
+      ],
+      "cap": 30,
+      "exit": 0,
+      "elapsed": 1.1904032770107733,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/implicit-flush/main.c",
+        "-pthread",
+        "-lm",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/implicit-flush/main"
+      ],
+      "cap": 120,
+      "exit": 0,
+      "elapsed": 1.6377649119967828,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "/workspace/formal-proofs/bendvy/.artifacts/public-schedules-1791345619107075661/implicit-flush/main",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "elapsed": 0.004715045011835173,
+      "stdout": "ok:phase:before;run:1;phase:after;run:2;\n2:2,:1,\nok:phase:before;run:1;phase:after;run:2;\n23:2,2,:1,2,\nflush:23:2,2,:1,2,\nok:phase:before;run:1;barrier;phase:after;run:2;\n3:2,:1,\nok:phase:before;run:1;barrier;phase:after;run:2;\n34:2,2,:1,2,\nflush:34:2,2,:1,2,\nok:run:1;skip:2;barrier;\n0::1,\nok:run:1;skip:2;barrier;\n0::1,2,\nflush:0::1,2,\ninvalid\ninvalid\nfail:planned:phase:failure;run:1;run:2;\n2:2,:\nfail:planned:phase:failure;run:1;run:2;\n22:2,2,:\nflush:22:2,2,:1,3,\n\n",
+      "stderr": ""
+    }
+  ],
+  "cases": [
+    {
+      "case": "current",
+      "backend": "JS",
+      "equal": true,
+      "detected": false,
+      "outputSHA": "0c4a9f492bd0482d53aebd02847b111b0a2d20fe4fa6a77ee7041d8ec1dc9ef5",
+      "artifactSHA": "09aab49825563c4ec761289646138cba6dfeb26c1be47b09e4e4e177fb99e02c"
+    },
+    {
+      "case": "current",
+      "backend": "Native",
+      "equal": true,
+      "detected": false,
+      "outputSHA": "0c4a9f492bd0482d53aebd02847b111b0a2d20fe4fa6a77ee7041d8ec1dc9ef5",
+      "artifactSHA": "9234d0c4a57208b2d2a5119bd89b7b8daec78c43c776e84ad9de961098aea530"
+    },
+    {
+      "case": "order",
+      "backend": "JS",
+      "equal": false,
+      "detected": true,
+      "outputSHA": "e23fc334cde321b4059e615c5e9128e5924e9c5b19e9090e1a4931ebb16f2027",
+      "artifactSHA": "93d33e1090478db48fba263fdb81f843820db45ee97a59513ec2c24e4a805571"
+    },
+    {
+      "case": "order",
+      "backend": "Native",
+      "equal": false,
+      "detected": true,
+      "outputSHA": "e23fc334cde321b4059e615c5e9128e5924e9c5b19e9090e1a4931ebb16f2027",
+      "artifactSHA": "cd2158c6dabd345de4623900769427ca09b646359a248c1e7dcec5156cf61581"
+    },
+    {
+      "case": "condition",
+      "backend": "JS",
+      "equal": false,
+      "detected": true,
+      "outputSHA": "cab73b77ea631deb4d6ee2878ad1fd0aab4717fea3d2e9150afad2759ab30693",
+      "artifactSHA": "16e0b24762361076bc98b9d583d91ec7b54ed1a24d68be220c833c8d4003fb93"
+    },
+    {
+      "case": "condition",
+      "backend": "Native",
+      "equal": false,
+      "detected": true,
+      "outputSHA": "cab73b77ea631deb4d6ee2878ad1fd0aab4717fea3d2e9150afad2759ab30693",
+      "artifactSHA": "4e709ac34b729e65b3fb4a41e5c9ec616660446a8e9f1696976cd2ce14498c63"
+    },
+    {
+      "case": "implicit-flush",
+      "backend": "JS",
+      "equal": false,
+      "detected": true,
+      "outputSHA": "e4003b4ccc2729fb912e0b0a39809e3a706862579e6da6deaefa4721f769c5e4",
+      "artifactSHA": "26b0f239272b4e94182e3367bb163012ffe6e6a5b69724717fe3283f9478591b"
+    },
+    {
+      "case": "implicit-flush",
+      "backend": "Native",
+      "equal": false,
+      "detected": true,
+      "outputSHA": "e4003b4ccc2729fb912e0b0a39809e3a706862579e6da6deaefa4721f769c5e4",
+      "artifactSHA": "37a4f9c194638d0f1f4879df7896a70f0e7cb9f1ef6b6471e4bc5eec1588f862"
+    }
+  ],
+  "source": {
+    "experiments/public-schedules/reference.mjs": "edd5cb2d53729fd0b8abd656190bfb7b080f7a9b53399d255418c6cf221f2459",
+    "experiments/public-schedules/README.md": "d0280225bae1f5f6158226966ec556b9d1c7b2d193ae869a6da9733ca466d216",
+    "src/ecs/component.bend": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+    "src/ecs/indexed-lifecycle.bend": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+    "src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+    "src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+    "experiments/public-schedules/main.bend": "7e1a1fdd9f651e6b770afbc7046a691d47df3b98d5cacabdcb06945de3f92f31",
+    "src/ecs/world.bend": "7d394b623b8bb60a3fef7b160bb69af135719edd3008126ee186e190047708f8",
+    "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+    "src/ecs/capabilities.bend": "91c0cdc01e9143d10dc0156ef4f6c39beff97d8088ed0bbb056ffff2ffabf964",
+    "experiments/public-schedules/run.py": "9ef54377fd735bb8511ad6e6740a9978b96c4a6bf0948454d42de4bdb8d6551b",
+    "experiments/public-schedules/negative-schema.bend": "a19d45c98ebdb7918a85eddf507a390bb597a2864d6191058dd872ad79b853f5",
+    "experiments/public-schedules/negative-affine.bend": "aa57e1108545ca615792c69aac4538d0b9a3a770fae854ac46225bc3c58f543b",
+    "src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "src/ecs/schedule.bend": "ad7a7c4187bfb028d01e98b821bd65078ae503604ec04ab645440be3898caa9f",
+    "src/ecs/column.bend": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a"
+  },
+  "limits": {
+    "check": 5,
+    "emit": 30,
+    "clang": 120,
+    "run": 5
+  },
+  "foreignWorld": "rejected without callbacks; owners/world recovered on repeated calls",
+  "sourceUnchanged": true,
+  "status": "PASS"
+}

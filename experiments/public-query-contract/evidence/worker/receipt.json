@@ -1,0 +1,656 @@
+{
+  "status": "PASS",
+  "commands": [
+    {
+      "command": [
+        "bend",
+        "version"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.01943308100453578,
+      "stdoutSHA256": "ca6fc52ac20b452bc60b3e8da766c53d679f0325ca4f1ac580ec72f09758d79d",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "node",
+        "--version"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.003767107002204284,
+      "stdoutSHA256": "b67d0ced059f9313d861ddbbe734d2d1f9219106a9e036ae6d88407afa0846e6",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "--version"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.01327895899885334,
+      "stdoutSHA256": "cdddf8c4dfb42fef72caa5c3988c573a4f7bca9409456a32841dfe34e6b4b6c3",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "/workspace/formal-proofs/bendvy/.references/bevy-ts",
+        "rev-parse",
+        "HEAD"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.0038674829993396997,
+      "stdoutSHA256": "1e9fa0f2cb924e419c66fb68fbc27326da39b4f0a4ec43b422da942e21d2459f",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "/workspace/formal-proofs/bendvy/.references/bevy",
+        "rev-parse",
+        "HEAD"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.006299248008872382,
+      "stdoutSHA256": "9d667d1b5a173bd77d18a052c89dfe962a682536324abca195bd390f8686f635",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "/workspace/formal-proofs/bendvy/.references/bend2",
+        "rev-parse",
+        "HEAD"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.0022113890008768067,
+      "stdoutSHA256": "c53bda1d7dcf325e36742cd1f44a9b6ce315828efa108c57f73015807decb429",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy/experiments/public-query-contract/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.08215447800466791,
+      "stdoutSHA256": "b78b07aea9a9ed5f13f83c7b5a7764110ef44ac6964e07c4d739487c33db3faf",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "bend",
+        "experiments/public-query-contract/negative-read-set.bend"
+      ],
+      "capSeconds": 5,
+      "exit": 1,
+      "seconds": 0.1627722800039919,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": "SOME PROOFS FAIL\nError:\n- expected : Cap.Write<bad~H, S.Recipe, S.RecipeView>\n- observed : Cap.Read<bad~H, S.RecipeView>\nContext:\n- ctx : bad~H\nLocation: bad\n7 | def bad(~H: Type,~caps: G.WorkOps(H),ctx: H) -> H:\n8>|   Cap.set(~H,~S.Recipe,~S.RecipeView,~G.work_recipe(~H,caps),ctx,S.recipe_payload(1))\n  |                                       ^^^^^^^^^^^^^^^^^^^^^^\n9 | \n"
+    },
+    {
+      "command": [
+        "bend",
+        "experiments/public-query-contract/negative-undeclared.bend"
+      ],
+      "capSeconds": 5,
+      "exit": 1,
+      "seconds": 0.15792008199787233,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": "SOME PROOFS FAIL\nError:\n- expected : ../../src/ecs/world.World<S.Schema, S.Store, Unit, Unit>\n- observed : bad~H\nContext:\n- ctx : bad~H\nLocation: bad\n6 | def bad(~H: Type,~caps: G.WorkOps(H),ctx: H) -> S.World():\n7>|   ctx\n  |   ^^^\n8 | \n"
+    },
+    {
+      "command": [
+        "bend",
+        "experiments/public-query-contract/negative-cross-schema.bend"
+      ],
+      "capSeconds": 5,
+      "exit": 1,
+      "seconds": 0.20505113100807648,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": "SOME PROOFS FAIL\nError:\n- expected : W.Handle<S.Schema>\n- observed : W.Handle<Other>\nContext:\n- world  : W.World<S.Schema, S.Store, Unit, Unit>\n- handle : W.Handle<Other>\nLocation: bad\n10 | def bad(world: S.World(),handle: W.Handle<Other>) -> QC.Executed<S.World(),G.Error,String>:\n11>|   QC.get(~S.Schema,~S.Store,~Unit,~Unit,~D.EmptyOps,~D.empty_plan(),~Unit,~G.Error,~String,~D.empty_body,Unit{},world,handle,0)\n   |                                                                                                                       ^^^^^^\n12 | \n"
+    },
+    {
+      "command": [
+        "bend",
+        "experiments/public-query-contract/main.bend"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.37187889499182347,
+      "stdoutSHA256": "84be774b2a10eff1d7ac9dc09a78a4659d4a24a20e4d6d9bb984dc4c6d7f4bc7",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "bend",
+        "experiments/public-query-contract/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-query-contract-worker-id-final/main.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 0.34772761799104046,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "bend",
+        "experiments/public-query-contract/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-query-contract-worker-id-final/main.c"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 1.0000709960004315,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-query-contract-worker-id-final/main.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-query-contract-worker-id-final/main.native",
+        "-pthread",
+        "-lm"
+      ],
+      "capSeconds": 120,
+      "exit": 0,
+      "seconds": 11.680583477005712,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-query-contract-worker-id-final/main.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.02663183500408195,
+      "stdoutSHA256": "84be774b2a10eff1d7ac9dc09a78a4659d4a24a20e4d6d9bb984dc4c6d7f4bc7",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy/.artifacts/public-query-contract-worker-id-final/main.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.00570353600778617,
+      "stdoutSHA256": "84be774b2a10eff1d7ac9dc09a78a4659d4a24a20e4d6d9bb984dc4c6d7f4bc7",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "bend",
+        "experiments/public-query-contract/array-controls.bend"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.3468832789949374,
+      "stdoutSHA256": "4448518c81afbc06cf751ba29797c15df9c76c56d2d9e1084be853ddc6f23a97",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "bend",
+        "experiments/public-query-contract/array-controls.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-query-contract-worker-id-final/array-controls.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 0.36185162399488036,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "bend",
+        "experiments/public-query-contract/array-controls.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-query-contract-worker-id-final/array-controls.c"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 0.8298847949918127,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-query-contract-worker-id-final/array-controls.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-query-contract-worker-id-final/array-controls.native",
+        "-pthread",
+        "-lm"
+      ],
+      "capSeconds": 120,
+      "exit": 0,
+      "seconds": 8.254916669000522,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-query-contract-worker-id-final/array-controls.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.045323454003664665,
+      "stdoutSHA256": "4448518c81afbc06cf751ba29797c15df9c76c56d2d9e1084be853ddc6f23a97",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy/.artifacts/public-query-contract-worker-id-final/array-controls.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.005461783992359415,
+      "stdoutSHA256": "4448518c81afbc06cf751ba29797c15df9c76c56d2d9e1084be853ddc6f23a97",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "bend",
+        "experiments/public-query-contract/integrity-controls.bend"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.6039575719914865,
+      "stdoutSHA256": "e09dfcee2d99426f082a0a06afa675adadd3ab97d5a932399c9c09e88abf27e1",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "bend",
+        "experiments/public-query-contract/integrity-controls.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-query-contract-worker-id-final/integrity-controls.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 0.5015373829955934,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "bend",
+        "experiments/public-query-contract/integrity-controls.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-query-contract-worker-id-final/integrity-controls.c"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 1.5851982010062784,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-query-contract-worker-id-final/integrity-controls.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-query-contract-worker-id-final/integrity-controls.native",
+        "-pthread",
+        "-lm"
+      ],
+      "capSeconds": 120,
+      "exit": 0,
+      "seconds": 13.727941727993311,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-query-contract-worker-id-final/integrity-controls.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.02923476800788194,
+      "stdoutSHA256": "e09dfcee2d99426f082a0a06afa675adadd3ab97d5a932399c9c09e88abf27e1",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy/.artifacts/public-query-contract-worker-id-final/integrity-controls.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.012420077997376211,
+      "stdoutSHA256": "e09dfcee2d99426f082a0a06afa675adadd3ab97d5a932399c9c09e88abf27e1",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "bend",
+        "experiments/public-query-contract/main.bend"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.4421666730049765,
+      "stdoutSHA256": "e9e8ca459cd71aa570f0f3625dd7246e9f2da30254db43013e5201fb0f5efbe6",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "bend",
+        "experiments/public-query-contract/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-query-contract-worker-id-final/main.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 0.3948722920031287,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "bend",
+        "experiments/public-query-contract/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-query-contract-worker-id-final/main.c"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 1.1239961559913354,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-query-contract-worker-id-final/main.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-query-contract-worker-id-final/main.native",
+        "-pthread",
+        "-lm"
+      ],
+      "capSeconds": 120,
+      "exit": 0,
+      "seconds": 11.750342334999004,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-query-contract-worker-id-final/main.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.02959356199426111,
+      "stdoutSHA256": "e9e8ca459cd71aa570f0f3625dd7246e9f2da30254db43013e5201fb0f5efbe6",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy/.artifacts/public-query-contract-worker-id-final/main.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.005958328998531215,
+      "stdoutSHA256": "e9e8ca459cd71aa570f0f3625dd7246e9f2da30254db43013e5201fb0f5efbe6",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "bend",
+        "experiments/public-query-contract/main.bend"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.44804175199533347,
+      "stdoutSHA256": "da58dbca903d083f4f9f9733d0e27440560fa80781705961f5318f4ed4208ec4",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "bend",
+        "experiments/public-query-contract/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-query-contract-worker-id-final/main.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 0.4768265590100782,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "bend",
+        "experiments/public-query-contract/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-query-contract-worker-id-final/main.c"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 1.0668522949999897,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-query-contract-worker-id-final/main.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-query-contract-worker-id-final/main.native",
+        "-pthread",
+        "-lm"
+      ],
+      "capSeconds": 120,
+      "exit": 0,
+      "seconds": 10.652452094000182,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-query-contract-worker-id-final/main.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.028764097995008342,
+      "stdoutSHA256": "da58dbca903d083f4f9f9733d0e27440560fa80781705961f5318f4ed4208ec4",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/workspace/formal-proofs/bendvy/.artifacts/public-query-contract-worker-id-final/main.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.0063223309989552945,
+      "stdoutSHA256": "da58dbca903d083f4f9f9733d0e27440560fa80781705961f5318f4ed4208ec4",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "bend",
+        "experiments/public-query-contract/main.bend"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.42851883699768223,
+      "stdoutSHA256": "84be774b2a10eff1d7ac9dc09a78a4659d4a24a20e4d6d9bb984dc4c6d7f4bc7",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "bend",
+        "experiments/public-query-contract/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-query-contract-worker-id-final/main.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 0.3858906919922447,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "bend",
+        "experiments/public-query-contract/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-query-contract-worker-id-final/main.c"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 1.0042176480055787,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-query-contract-worker-id-final/main.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/public-query-contract-worker-id-final/main.native",
+        "-pthread",
+        "-lm"
+      ],
+      "capSeconds": 120,
+      "exit": 0,
+      "seconds": 12.27185421899776,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    }
+  ],
+  "scope": "Workshop public count/single/get; full process timing is diagnostic only",
+  "versions": {
+    "bend": "bend 2.0.35",
+    "node": "v24.20.0",
+    "clang": "Debian clang version 19.1.7 (3~deb12u1)\nTarget: aarch64-unknown-linux-gnu\nThread model: posix\nInstalledDir: /tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin"
+  },
+  "references": {
+    "bevy-ts": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334",
+    "bevy": "ad678262ce53b5d142fe49ee5e08caff6f00ab60",
+    "bend2": "a950fd683c0d76f09794078e6174fe98a1492876"
+  },
+  "referenceSHA256": "c0dfe28f5ccea94722f7d5807730aacd53fee5a71a021727fdccf3b03c8ecddb",
+  "verifierSHA256": "cd9e1eec5591231148108f3381f8f71b721bf544ace6b1151c65168c3e3f248b",
+  "sources": {
+    "src/ecs/capabilities.bend": "91c0cdc01e9143d10dc0156ef4f6c39beff97d8088ed0bbb056ffff2ffabf964",
+    "src/ecs/column.bend": "a90bc5375c3a550b0d76cb890f4afd2bd7787db9c04f8fc19809c008910a25b8",
+    "src/ecs/commands.bend": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+    "src/ecs/component.bend": "d36e068152c07c410425e5114b5ca2d3e853d615025481b9b4a5fbade38d04f6",
+    "src/ecs/compose.bend": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+    "src/ecs/event-runtime.bend": "36630c69306e4afe2e2717a08ef6260dd646c2a57f72905c5b557eb72b23bf45",
+    "src/ecs/events.bend": "3d89fbbb40fefab4be349bfbe0d1f99c870c25c725130ccb1823910c1ace7c53",
+    "src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "src/ecs/optimized-compose.bend": "ac9c98457c7d6890f1f30dd82f41658a5d3ae962a7fb9022062af5b9d581ca25",
+    "src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+    "src/ecs/provider.bend": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72",
+    "src/ecs/query-contract.bend": "de8eb5a047d2ca82e5832513798a6590a2cd025296b80b154da65a51270c4e91",
+    "src/ecs/query.bend": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9",
+    "src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+    "src/ecs/removals.bend": "98a5f5cf42372d8eab35f3927539079e4412886eeaa3e07bbb2113f2286222f6",
+    "src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+    "src/ecs/schedule.bend": "ad7a7c4187bfb028d01e98b821bd65078ae503604ec04ab645440be3898caa9f",
+    "src/ecs/structural.bend": "e8e813dc6de2f8a38ca61f51c0cbc5aeaf243fcc9cd399303e2adca2674480d4",
+    "src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+    "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "src/ecs/world.bend": "76c5b51557a219ff4840ed8b6825421c663199b4d10ac0909f691b93dd0e01c2",
+    "examples/query-composition/array-controls.bend": "f5c6c28b2a563db088331309b6753ec09ccc00b2c8f22931e838b7cd5e913cd2",
+    "examples/query-composition/declarations.bend": "50da7392497713d68874a609c39f418f829611654c1db05973e2249463ada9f2",
+    "examples/query-composition/driver.bend": "cf15e0ca8bbb1ea0b410776a3f74916e3f86f10ff9a92d44f0efcc5ad5974b4c",
+    "examples/query-composition/gameplay.bend": "590a878e0002afcc4904dc42c7a36df1b2afc3c3515dac8dac773cbed7d24670",
+    "examples/query-composition/json.bend": "826fca39e8bd47bef326b9fd141d1784bc1f9004c7b460894a602cc3100f16be",
+    "examples/query-composition/main.bend": "4339adc4de65c6bcbe25f243ba3a152ee16509fe3a74c966251d6ccc0bba97dd",
+    "examples/query-composition/observe.bend": "0380c97203301393e5954aafe1be98269f5e2776de7f5aebb6eed25071f366ac",
+    "examples/query-composition/scenario-ops.bend": "fb6e87b28dd29552f530c4986b793726a6f3f00e5e29c3641e01a7d1b2c5d64e",
+    "examples/query-composition/schema.bend": "d845bf538d8368406bed7473677f9c3511f311d373511d8e6322728e5d5b8384",
+    "examples/query-composition/timing-main.bend": "a7fea467df249864772e4be3e229342cddd2e457bed6fb596f28e224b203fbb6",
+    "experiments/public-query-contract/array-controls.bend": "a5f87d0d4425bbab0dbf520f4546a62f9afa92ed758d8d56be90da594392deaa",
+    "experiments/public-query-contract/integrity-controls.bend": "55336ed449cde68645e6edf95494997744f627eb6337d812776e5a40329b1b96",
+    "experiments/public-query-contract/main.bend": "24eb7005a7a76416d04645ee1bf66ed76c01e68cb6ec2b978a1bf1640b8c4d35",
+    "experiments/public-query-contract/negative-cross-schema.bend": "f522e86b0cee92b1a42f5cec0592e31a6907fa05a545768a595ed4d58034486e",
+    "experiments/public-query-contract/negative-read-set.bend": "cfa311dca02426861e4abb0abb7ad49228b87b30e2ee52461ce1819cd1d961ec",
+    "experiments/public-query-contract/negative-undeclared.bend": "9fefd11fa12dde419818e278101166369806f07f1597e97149a5239a7ebde7a2"
+  },
+  "mutants": [
+    {
+      "name": "wrong-cardinality",
+      "compiled": true,
+      "detected": [
+        "JS",
+        "Native"
+      ],
+      "sourceSHA256": "49ff447891b6f994a3be1a4b6acc66290cd6d503909160fb834c6b2a76ad0e5b"
+    },
+    {
+      "name": "wrong-mismatch",
+      "compiled": true,
+      "detected": [
+        "JS",
+        "Native"
+      ],
+      "sourceSHA256": "511bc60de6e05c7c33f070000e3ff1740858627dd2f3587d7aaf399e46cb6464"
+    }
+  ],
+  "artifacts": {
+    "wrong-cardinality-JS.stdout.json": "e9e8ca459cd71aa570f0f3625dd7246e9f2da30254db43013e5201fb0f5efbe6",
+    "wrong-mismatch-Native.stdout.json": "da58dbca903d083f4f9f9733d0e27440560fa80781705961f5318f4ed4208ec4",
+    "array-controls.c": "b1e68dc0c2452d0ed42ae9d5db775454833be1c98f312aabdf6b5067a018cd2b",
+    "array-controls.check.txt": "4448518c81afbc06cf751ba29797c15df9c76c56d2d9e1084be853ddc6f23a97",
+    "array-controls-Native.stdout.json": "4448518c81afbc06cf751ba29797c15df9c76c56d2d9e1084be853ddc6f23a97",
+    "array-controls.native": "347287028a2a559cbaaa218f9d2a85cae1e531240fb371478c1c91bde6eeb2ee",
+    "integrity-controls.native": "40d40a33bb386ac521ef073e60f9d020a9f6a07a7e0c70428e4b905a1988d68b",
+    "wrong-mismatch-JS.stdout.json": "da58dbca903d083f4f9f9733d0e27440560fa80781705961f5318f4ed4208ec4",
+    "negative-undeclared.txt": "748d8b889d0ee584b26af0efef4c04d01328bc73c40d1ae3be00176280c92f74",
+    "main-Native.stdout.json": "84be774b2a10eff1d7ac9dc09a78a4659d4a24a20e4d6d9bb984dc4c6d7f4bc7",
+    "integrity-controls.js": "dd392826370c1913c534606d2119a6f7c49c64a5cd6683374fcf8da5d1c902c5",
+    "wrong-cardinality-Native.stdout.json": "e9e8ca459cd71aa570f0f3625dd7246e9f2da30254db43013e5201fb0f5efbe6",
+    "integrity-controls-Native.stdout.json": "e09dfcee2d99426f082a0a06afa675adadd3ab97d5a932399c9c09e88abf27e1",
+    "main.native": "b620353b74ba0a35621f877bb7eee69fa339db2d9a56c4b6fadd86ce90dcdd1d",
+    "main.js": "eda147f9baaf67c59e4d3d3ded892a3be1683df781f6ea3c849a9ca54b5051a4",
+    "main.c": "816e9191c8c175bc0f000765c5415c279c12cdf742e38544a19b2eafb36bab3e",
+    "ts.stdout.json": "b78b07aea9a9ed5f13f83c7b5a7764110ef44ac6964e07c4d739487c33db3faf",
+    "integrity-controls.c": "e490e97eea64c2b2973ab9d31d0d53cf3408293865180d308d97d10fcd2583a4",
+    "array-controls-JS.stdout.json": "4448518c81afbc06cf751ba29797c15df9c76c56d2d9e1084be853ddc6f23a97",
+    "negative-cross-schema.txt": "e8733bc84ca4a024ec32dd6b7ff09cdd61ab796029a5702d82f739c0630c2658",
+    "main-JS.stdout.json": "84be774b2a10eff1d7ac9dc09a78a4659d4a24a20e4d6d9bb984dc4c6d7f4bc7",
+    "integrity-controls-JS.stdout.json": "e09dfcee2d99426f082a0a06afa675adadd3ab97d5a932399c9c09e88abf27e1",
+    "main.check.txt": "84be774b2a10eff1d7ac9dc09a78a4659d4a24a20e4d6d9bb984dc4c6d7f4bc7",
+    "array-controls.js": "8d687b6b457c1feacc87fb1511d783167733d0e2a822abff537f886edd2871d3",
+    "integrity-controls.check.txt": "e09dfcee2d99426f082a0a06afa675adadd3ab97d5a932399c9c09e88abf27e1",
+    "negative-read-set.txt": "efcfdb3f59804fdcfad7011ae7c12b0b9fbf50e1ea098185e237c237d28ea107"
+  },
+  "commonCheckpoints": 15,
+  "approvedForeignDivergences": 1,
+  "affineArrayLengths": [
+    0,
+    9,
+    17
+  ],
+  "negativeControls": 3,
+  "metadataAndPendingQueueControl": true
+}

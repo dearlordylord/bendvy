@@ -1,0 +1,237 @@
+{
+  "scope": "Single exploratory dense pair, not acceptance",
+  "roles": {
+    "baseline": {
+      "firstIterationMicroseconds": 137950,
+      "remaining19TotalMicroseconds": 912900,
+      "aggregateSelfMicroseconds": {
+        "other": 604135,
+        "schema": 107422,
+        "component": 62456,
+        "column": 42533,
+        "compose": 68660,
+        "gc": 127309,
+        "array-runtime": 64359
+      },
+      "sampledPhases": {
+        "cold": {
+          "other": 53697,
+          "schema": 17713,
+          "component": 17354,
+          "column": 14594,
+          "compose": 16923,
+          "gc": 14998,
+          "array-runtime": 2632
+        },
+        "warm": {
+          "other": 524666,
+          "array-runtime": 61727,
+          "compose": 51737,
+          "component": 45102,
+          "gc": 112311,
+          "schema": 89709,
+          "column": 27939
+        }
+      },
+      "hotFunctions": [
+        [
+          "(garbage collector)",
+          127309
+        ],
+        [
+          "",
+          67558
+        ],
+        [
+          "array_node",
+          58816
+        ],
+        [
+          "writeBuffer",
+          46398
+        ],
+        [
+          "$schema$058array_view$",
+          45427
+        ],
+        [
+          "encodeUtf8String",
+          41565
+        ],
+        [
+          "io_push",
+          22477
+        ],
+        [
+          "$$$$047$$$047src$047ecs$047lifecycle$058get$",
+          19057
+        ],
+        [
+          "$$$$047$$$047src$047ecs$047world$058set_live_join$1260$",
+          17604
+        ],
+        [
+          "$String$cmp$",
+          16197
+        ],
+        [
+          "$observe$058row_locked$",
+          15075
+        ],
+        [
+          "f",
+          14015
+        ],
+        [
+          "$$$$047$$$047src$047ecs$047world$058metadata_valid$1260$",
+          12920
+        ],
+        [
+          "$schema$058project_recipe_join$",
+          12474
+        ],
+        [
+          "$List$append$",
+          12369
+        ],
+        [
+          "$String$cmp$fin$",
+          11580
+        ],
+        [
+          "$List$show$go$1260$",
+          11543
+        ],
+        [
+          "(program)",
+          11446
+        ],
+        [
+          "$schema$058project_stock$",
+          10283
+        ],
+        [
+          "$schema$058prefix$",
+          9137
+        ]
+      ],
+      "samples": 2786
+    },
+    "candidate": {
+      "firstIterationMicroseconds": 145123,
+      "remaining19TotalMicroseconds": 909720,
+      "aggregateSelfMicroseconds": {
+        "other": 455030,
+        "column": 196784,
+        "compose": 82147,
+        "schema": 100982,
+        "component": 105158,
+        "gc": 77988,
+        "array-runtime": 61796
+      },
+      "sampledPhases": {
+        "cold": {
+          "other": 58011,
+          "column": 22526,
+          "compose": 18499,
+          "schema": 13396,
+          "component": 15776,
+          "gc": 12713,
+          "array-runtime": 4236
+        },
+        "warm": {
+          "other": 372084,
+          "column": 174258,
+          "compose": 63648,
+          "component": 89382,
+          "schema": 87586,
+          "gc": 65275,
+          "array-runtime": 57560
+        }
+      },
+      "hotFunctions": [
+        [
+          "(garbage collector)",
+          77988
+        ],
+        [
+          "$schema$058array_view$",
+          51568
+        ],
+        [
+          "array_node",
+          48696
+        ],
+        [
+          "encodeUtf8String",
+          27705
+        ],
+        [
+          "",
+          25021
+        ],
+        [
+          "$$$$047$$$047src$047ecs$047component$058mark_swapped$1261$",
+          22807
+        ],
+        [
+          "$$$$047$$$047src$047ecs$047column$058recover_state$1263$",
+          21531
+        ],
+        [
+          "writeBuffer",
+          20707
+        ],
+        [
+          "$$$$047$$$047src$047ecs$047column$058mark$1260$",
+          18137
+        ],
+        [
+          "(program)",
+          18004
+        ],
+        [
+          "$String$cmp$fin$",
+          17408
+        ],
+        [
+          "$observe$058row_enabled$",
+          16152
+        ],
+        [
+          "$$$$047$$$047src$047ecs$047column$058prepared_view_checked$1261$",
+          15847
+        ],
+        [
+          "$$$$047$$$047src$047ecs$047column$058seek_view$1264$",
+          14773
+        ],
+        [
+          "$List$show$go$1260$",
+          13635
+        ],
+        [
+          "$$$$047$$$047src$047ecs$047column$058prepared_view_different$1261$",
+          11963
+        ],
+        [
+          "$$$$047$$$047src$047ecs$047component$058get_live_owned$1263$",
+          11958
+        ],
+        [
+          "io_out",
+          11620
+        ],
+        [
+          "$driver$058phase_advanced$",
+          11541
+        ],
+        [
+          "$List$append$",
+          10604
+        ]
+      ],
+      "samples": 3144
+    }
+  }
+}

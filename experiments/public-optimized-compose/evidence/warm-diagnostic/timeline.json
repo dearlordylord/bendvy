@@ -1,0 +1,322 @@
+{
+  "scope": "exploratory20iterationwarmtimeline+V8profile; notperformanceacceptance",
+  "roles": {
+    "baseline": {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "--cpu-prof",
+        "--cpu-prof-interval=100",
+        "--cpu-prof-dir=/workspace/formal-proofs/bendvy/.artifacts/storage30-warm-timeline",
+        "--cpu-prof-name=baseline.cpuprofile",
+        "/workspace/formal-proofs/bendvy/.artifacts/storage30-warm-timeline/baseline.js"
+      ],
+      "limit": 5,
+      "wrapperSHA256": "94f86cf977c8aa318e223b0fdffd71db435e920cae90d469546b845d12b52584",
+      "sourceSHA256": "926bb3dd820d6fedb9f11a5759e37564531826977178c11c4d6b38f1e5000e67",
+      "profileSHA256": "e95462eb4786ddc6bbe317abf793eb60b73d51194b15d5ed60927e2ee41557b6",
+      "validatedApplications": 200,
+      "audit": {
+        "diagnosticAudit": true,
+        "completed": 20,
+        "zeroExits": 20,
+        "iterationTimes": [
+          {
+            "start": 72748077574,
+            "end": 72748188432
+          },
+          {
+            "start": 72748188443,
+            "end": 72748257300
+          },
+          {
+            "start": 72748257307,
+            "end": 72748299501
+          },
+          {
+            "start": 72748299508,
+            "end": 72748334116
+          },
+          {
+            "start": 72748334122,
+            "end": 72748408881
+          },
+          {
+            "start": 72748408890,
+            "end": 72748473696
+          },
+          {
+            "start": 72748473702,
+            "end": 72748520767
+          },
+          {
+            "start": 72748520775,
+            "end": 72748594577
+          },
+          {
+            "start": 72748594589,
+            "end": 72748647015
+          },
+          {
+            "start": 72748647024,
+            "end": 72748678293
+          },
+          {
+            "start": 72748678300,
+            "end": 72748728838
+          },
+          {
+            "start": 72748728853,
+            "end": 72748745833
+          },
+          {
+            "start": 72748745846,
+            "end": 72748809853
+          },
+          {
+            "start": 72748809867,
+            "end": 72748871390
+          },
+          {
+            "start": 72748871400,
+            "end": 72748893763
+          },
+          {
+            "start": 72748893789,
+            "end": 72748922394
+          },
+          {
+            "start": 72748922407,
+            "end": 72748936771
+          },
+          {
+            "start": 72748936794,
+            "end": 72748964376
+          },
+          {
+            "start": 72748964393,
+            "end": 72748987882
+          },
+          {
+            "start": 72748987892,
+            "end": 72749011392
+          }
+        ]
+      },
+      "samples": 2666,
+      "aggregateSelfMicroseconds": {
+        "other": 473895,
+        "schema": 112721,
+        "component": 82044,
+        "column": 37017,
+        "array-runtime": 58122,
+        "compose": 102776,
+        "gc": 89472
+      },
+      "sampledPhaseSelfMicroseconds": {
+        "cold": {
+          "other": 50055,
+          "schema": 13387,
+          "component": 12154,
+          "column": 9409,
+          "array-runtime": 3910,
+          "compose": 10941,
+          "gc": 10952
+        },
+        "warm": {
+          "other": 400332,
+          "schema": 99334,
+          "compose": 91835,
+          "gc": 78520,
+          "column": 27608,
+          "array-runtime": 54212,
+          "component": 69890
+        }
+      },
+      "iterationExecutionMicroseconds": [
+        110858,
+        68857,
+        42194,
+        34608,
+        74759,
+        64806,
+        47065,
+        73802,
+        52426,
+        31269,
+        50538,
+        16980,
+        64007,
+        61523,
+        22363,
+        28605,
+        14364,
+        27582,
+        23489,
+        23500
+      ]
+    },
+    "candidate": {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "--cpu-prof",
+        "--cpu-prof-interval=100",
+        "--cpu-prof-dir=/workspace/formal-proofs/bendvy/.artifacts/storage30-warm-timeline",
+        "--cpu-prof-name=candidate.cpuprofile",
+        "/workspace/formal-proofs/bendvy/.artifacts/storage30-warm-timeline/candidate.js"
+      ],
+      "limit": 5,
+      "wrapperSHA256": "d87dc634f997b863f67901b84ca8b673d70a5a90c9804edee4dcc6876d6cf381",
+      "sourceSHA256": "6823dd5a1e4823c377bcec6980f6790b15b434f079da83e577ae5050ea7f62b9",
+      "profileSHA256": "21e9ba47fae14b3dd9d1b7db4f9b5420c73aeebf579cf906f964d8904e5368b6",
+      "validatedApplications": 200,
+      "audit": {
+        "diagnosticAudit": true,
+        "completed": 20,
+        "zeroExits": 20,
+        "iterationTimes": [
+          {
+            "start": 72749169146,
+            "end": 72749302768
+          },
+          {
+            "start": 72749302781,
+            "end": 72749379065
+          },
+          {
+            "start": 72749379071,
+            "end": 72749422220
+          },
+          {
+            "start": 72749422227,
+            "end": 72749457349
+          },
+          {
+            "start": 72749457355,
+            "end": 72749518916
+          },
+          {
+            "start": 72749518927,
+            "end": 72749583954
+          },
+          {
+            "start": 72749583961,
+            "end": 72749638541
+          },
+          {
+            "start": 72749638547,
+            "end": 72749714965
+          },
+          {
+            "start": 72749714972,
+            "end": 72749754192
+          },
+          {
+            "start": 72749754197,
+            "end": 72749788977
+          },
+          {
+            "start": 72749788982,
+            "end": 72749840930
+          },
+          {
+            "start": 72749840938,
+            "end": 72749865226
+          },
+          {
+            "start": 72749865235,
+            "end": 72749958973
+          },
+          {
+            "start": 72749958985,
+            "end": 72749999260
+          },
+          {
+            "start": 72749999272,
+            "end": 72750035750
+          },
+          {
+            "start": 72750035758,
+            "end": 72750054598
+          },
+          {
+            "start": 72750054614,
+            "end": 72750084362
+          },
+          {
+            "start": 72750084375,
+            "end": 72750112658
+          },
+          {
+            "start": 72750112673,
+            "end": 72750133970
+          },
+          {
+            "start": 72750133980,
+            "end": 72750168609
+          }
+        ]
+      },
+      "samples": 2973,
+      "aggregateSelfMicroseconds": {
+        "other": 473817,
+        "optimized-compose": 7155,
+        "column": 136074,
+        "compose": 93535,
+        "schema": 85564,
+        "component": 53702,
+        "array-runtime": 83574,
+        "gc": 89219
+      },
+      "sampledPhaseSelfMicroseconds": {
+        "cold": {
+          "other": 52761,
+          "optimized-compose": 1708,
+          "column": 21600,
+          "compose": 7871,
+          "schema": 11225,
+          "component": 11550,
+          "array-runtime": 1446,
+          "gc": 25500
+        },
+        "warm": {
+          "other": 397963,
+          "column": 114474,
+          "component": 42152,
+          "schema": 74339,
+          "array-runtime": 82128,
+          "compose": 85664,
+          "gc": 63719,
+          "optimized-compose": 5447
+        }
+      },
+      "iterationExecutionMicroseconds": [
+        133622,
+        76284,
+        43149,
+        35122,
+        61561,
+        65027,
+        54580,
+        76418,
+        39220,
+        34780,
+        51948,
+        24288,
+        93738,
+        40275,
+        36478,
+        18840,
+        29748,
+        28283,
+        21297,
+        34629
+      ]
+    }
+  }
+}

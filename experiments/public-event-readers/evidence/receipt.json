@@ -1,0 +1,1279 @@
+{
+  "format": 1,
+  "environment": {
+    "machine": "aarch64",
+    "platform": "Linux-7.0.14-orbstack-00380-ga7e0a2dc9535-aarch64-with-glibc2.36",
+    "allowedCPUs": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ]
+  },
+  "timingScope": "Whole-process full trace work including startup and serialization, 3 complete observations per backend; uncontrolled concurrent load, not qualification",
+  "limits": {
+    "checker": 5,
+    "emit": 30,
+    "clang": 120,
+    "runtime": 5
+  },
+  "commands": [
+    {
+      "argv": [
+        "git",
+        "-C",
+        "/workspace/formal-proofs/bendvy/.references/bevy-ts",
+        "rev-parse",
+        "HEAD"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.002247431009891443,
+      "stdoutSha256": "1e9fa0f2cb924e419c66fb68fbc27326da39b4f0a4ec43b422da942e21d2459f",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "-C",
+        "/workspace/formal-proofs/bendvy/.references/bevy",
+        "rev-parse",
+        "HEAD"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.005313326008035801,
+      "stdoutSha256": "9d667d1b5a173bd77d18a052c89dfe962a682536324abca195bd390f8686f635",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "-C",
+        "/workspace/formal-proofs/bendvy/.references/bend2",
+        "rev-parse",
+        "HEAD"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.0049944070051424205,
+      "stdoutSha256": "c53bda1d7dcf325e36742cd1f44a9b6ce315828efa108c57f73015807decb429",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "version"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.0163618119986495,
+      "stdoutSha256": "ca6fc52ac20b452bc60b3e8da766c53d679f0325ca4f1ac580ec72f09758d79d",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "--version"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.006652541997027583,
+      "stdoutSha256": "b67d0ced059f9313d861ddbbe734d2d1f9219106a9e036ae6d88407afa0846e6",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "--version"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.022312267014058307,
+      "stdoutSha256": "cdddf8c4dfb42fef72caa5c3988c573a4f7bca9409456a32841dfe34e6b4b6c3",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/events31-final-build-r4/stage/experiments/public-event-readers/reference.mjs"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.11899966999772005,
+      "stdoutSha256": "076b4ee955f33e3bd3d626863461a763f59ee65b9b0deacbbf91927983a57443",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/events31-final-build-r4/stage/experiments/public-event-readers/reference-late.mjs"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.09310800601087976,
+      "stdoutSha256": "902a5fee3a3db80983597086f168d6ebdcc9ba81afe2a50ecf63a5233820c6df",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/events31-final-build-r4/stage/experiments/public-event-readers/reference.mjs"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.10965206900436897,
+      "stdoutSha256": "076b4ee955f33e3bd3d626863461a763f59ee65b9b0deacbbf91927983a57443",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/events31-final-build-r4/stage/experiments/public-event-readers/reference-late.mjs"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.10816643500584178,
+      "stdoutSha256": "902a5fee3a3db80983597086f168d6ebdcc9ba81afe2a50ecf63a5233820c6df",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/events31-final-build-r4/stage/experiments/public-event-readers/reference.mjs"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.1006216370005859,
+      "stdoutSha256": "076b4ee955f33e3bd3d626863461a763f59ee65b9b0deacbbf91927983a57443",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/events31-final-build-r4/stage/experiments/public-event-readers/reference-late.mjs"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.08715751000272576,
+      "stdoutSha256": "902a5fee3a3db80983597086f168d6ebdcc9ba81afe2a50ecf63a5233820c6df",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/events31-final-build-r4/stage/experiments/public-event-readers/main.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.20183994399849325,
+      "stdoutSha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/events31-final-build-r4/stage/experiments/public-event-readers/main.bend",
+        "-o",
+        "/tmp/events31-final-build-r4/stage/main.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsedSeconds": 0.3098256700031925,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/events31-final-build-r4/stage/experiments/public-event-readers/main.bend",
+        "-o",
+        "/tmp/events31-final-build-r4/stage/main.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsedSeconds": 0.8228094589867396,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/events31-final-build-r4/stage/main.c",
+        "-o",
+        "/tmp/events31-final-build-r4/stage/main.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "elapsedSeconds": 1.8208951519918628,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/events31-final-build-r4/stage/main.js",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.08983498500310816,
+      "stdoutSha256": "214cc166ddf2a174d85d4d8a543f8673610984bd589a96e050d68a3fabe6799a",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/events31-final-build-r4/stage/main.js",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.09411142900353298,
+      "stdoutSha256": "214cc166ddf2a174d85d4d8a543f8673610984bd589a96e050d68a3fabe6799a",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/events31-final-build-r4/stage/main.js",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.07583223000983708,
+      "stdoutSha256": "214cc166ddf2a174d85d4d8a543f8673610984bd589a96e050d68a3fabe6799a",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/tmp/events31-final-build-r4/stage/main.native",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.04240751900942996,
+      "stdoutSha256": "214cc166ddf2a174d85d4d8a543f8673610984bd589a96e050d68a3fabe6799a",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/tmp/events31-final-build-r4/stage/main.native",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.04112701000121888,
+      "stdoutSha256": "214cc166ddf2a174d85d4d8a543f8673610984bd589a96e050d68a3fabe6799a",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/tmp/events31-final-build-r4/stage/main.native",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.04523186999722384,
+      "stdoutSha256": "214cc166ddf2a174d85d4d8a543f8673610984bd589a96e050d68a3fabe6799a",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/events31-final-build-r4/stage/experiments/public-event-readers/late-registration.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.2057371770060854,
+      "stdoutSha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/events31-final-build-r4/stage/experiments/public-event-readers/late-registration.bend",
+        "-o",
+        "/tmp/events31-final-build-r4/stage/late-registration.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsedSeconds": 0.25924489099998027,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/events31-final-build-r4/stage/experiments/public-event-readers/late-registration.bend",
+        "-o",
+        "/tmp/events31-final-build-r4/stage/late-registration.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsedSeconds": 0.8480140340107027,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/events31-final-build-r4/stage/late-registration.c",
+        "-o",
+        "/tmp/events31-final-build-r4/stage/late-registration.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "elapsedSeconds": 1.8018356139946263,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/events31-final-build-r4/stage/late-registration.js",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.05049102799966931,
+      "stdoutSha256": "69322858020ed94f826818ba7b8603902092085ec1a0b2c349e6b1f3e9dda17d",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/events31-final-build-r4/stage/late-registration.js",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.0650402449973626,
+      "stdoutSha256": "69322858020ed94f826818ba7b8603902092085ec1a0b2c349e6b1f3e9dda17d",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/events31-final-build-r4/stage/late-registration.js",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.0481594720040448,
+      "stdoutSha256": "69322858020ed94f826818ba7b8603902092085ec1a0b2c349e6b1f3e9dda17d",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/tmp/events31-final-build-r4/stage/late-registration.native",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.014501049998216331,
+      "stdoutSha256": "69322858020ed94f826818ba7b8603902092085ec1a0b2c349e6b1f3e9dda17d",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/tmp/events31-final-build-r4/stage/late-registration.native",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.014524133992381394,
+      "stdoutSha256": "69322858020ed94f826818ba7b8603902092085ec1a0b2c349e6b1f3e9dda17d",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/tmp/events31-final-build-r4/stage/late-registration.native",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.01702060799289029,
+      "stdoutSha256": "69322858020ed94f826818ba7b8603902092085ec1a0b2c349e6b1f3e9dda17d",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/events31-final-build-r4/stage/experiments/public-event-readers/disposal.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.18605692700657528,
+      "stdoutSha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/events31-final-build-r4/stage/experiments/public-event-readers/disposal.bend",
+        "-o",
+        "/tmp/events31-final-build-r4/stage/disposal.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsedSeconds": 0.2478481520083733,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/events31-final-build-r4/stage/experiments/public-event-readers/disposal.bend",
+        "-o",
+        "/tmp/events31-final-build-r4/stage/disposal.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsedSeconds": 1.2834410409996053,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/events31-final-build-r4/stage/disposal.c",
+        "-o",
+        "/tmp/events31-final-build-r4/stage/disposal.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "elapsedSeconds": 2.035683802998392,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/events31-final-build-r4/stage/disposal.js",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.04112976000760682,
+      "stdoutSha256": "7b68fab358fd99774a22df5ae8ee2fb613c5a18abc0c562330cf951af59b0106",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/events31-final-build-r4/stage/disposal.js",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.037386070005595684,
+      "stdoutSha256": "7b68fab358fd99774a22df5ae8ee2fb613c5a18abc0c562330cf951af59b0106",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/events31-final-build-r4/stage/disposal.js",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.0330815429915674,
+      "stdoutSha256": "7b68fab358fd99774a22df5ae8ee2fb613c5a18abc0c562330cf951af59b0106",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/tmp/events31-final-build-r4/stage/disposal.native",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.0013474669976858422,
+      "stdoutSha256": "7b68fab358fd99774a22df5ae8ee2fb613c5a18abc0c562330cf951af59b0106",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/tmp/events31-final-build-r4/stage/disposal.native",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.0025247239973396063,
+      "stdoutSha256": "7b68fab358fd99774a22df5ae8ee2fb613c5a18abc0c562330cf951af59b0106",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/tmp/events31-final-build-r4/stage/disposal.native",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.0033681880013318732,
+      "stdoutSha256": "7b68fab358fd99774a22df5ae8ee2fb613c5a18abc0c562330cf951af59b0106",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/events31-final-build-r4/stage/experiments/public-event-readers/registration-swap.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.4124567770049907,
+      "stdoutSha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/events31-final-build-r4/stage/experiments/public-event-readers/registration-swap.bend",
+        "-o",
+        "/tmp/events31-final-build-r4/stage/registration-swap.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsedSeconds": 0.21573565699509345,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/events31-final-build-r4/stage/experiments/public-event-readers/registration-swap.bend",
+        "-o",
+        "/tmp/events31-final-build-r4/stage/registration-swap.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsedSeconds": 0.7322965530038346,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/events31-final-build-r4/stage/registration-swap.c",
+        "-o",
+        "/tmp/events31-final-build-r4/stage/registration-swap.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "elapsedSeconds": 0.9680721280019497,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/events31-final-build-r4/stage/registration-swap.js",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.019327706002513878,
+      "stdoutSha256": "99dabb9b53269fe7d7f49a9a18b1ecc155f3568386d64fabe521294c5b3863a1",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/events31-final-build-r4/stage/registration-swap.js",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.017209983998327516,
+      "stdoutSha256": "99dabb9b53269fe7d7f49a9a18b1ecc155f3568386d64fabe521294c5b3863a1",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/events31-final-build-r4/stage/registration-swap.js",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.03598597699601669,
+      "stdoutSha256": "99dabb9b53269fe7d7f49a9a18b1ecc155f3568386d64fabe521294c5b3863a1",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/tmp/events31-final-build-r4/stage/registration-swap.native",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.0019400540040805936,
+      "stdoutSha256": "99dabb9b53269fe7d7f49a9a18b1ecc155f3568386d64fabe521294c5b3863a1",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/tmp/events31-final-build-r4/stage/registration-swap.native",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.0025472660054219887,
+      "stdoutSha256": "99dabb9b53269fe7d7f49a9a18b1ecc155f3568386d64fabe521294c5b3863a1",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/tmp/events31-final-build-r4/stage/registration-swap.native",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.0016900519985938445,
+      "stdoutSha256": "99dabb9b53269fe7d7f49a9a18b1ecc155f3568386d64fabe521294c5b3863a1",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/events31-final-build-r4/stage/experiments/public-event-readers/controls/read-write.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 1,
+      "elapsedSeconds": 0.15830183601065073,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": "SOME PROOFS FAIL\nError:\n- expected : E.WriteAccess<bad~H, U32, bad~publish>\n- observed : E.ReadAccess<bad~H, U32, bad~observe>\nContext:\n- ops   : E.ReadAccess<bad~H, U32, bad~observe>\n- owner : bad~H\nLocation: bad\n4 | def bad(~H: Type,~observe: H -> H & E.Reading<U32>,~publish: H -> U32 -> H,ops: E.ReadAccess<H,U32,observe>,owner: H) -> H:\n5>|   E.emit(~H,~U32,~publish,ops,owner,1)\n  |                           ^^^\n6 | \n"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/events31-final-build-r4/stage/experiments/public-event-readers/controls/undeclared.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 1,
+      "elapsedSeconds": 0.16095510199374985,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": "SOME PROOFS FAIL\nError:\n- expected : E.ReadAccess<bad~H, U32, h => (h, E.Reading{[], False{}})>\n- observed : Unit\nContext:\n- ops   : Unit\n- owner : bad~H\nLocation: bad\n4 | def bad(~H: Type,ops: Unit,owner: H) -> H & E.Reading<U32>:\n5>|   E.all(~H,~U32,~(h => (h,E.Reading{[],False{}})),ops,owner)\n  |                                                   ^^^\n6 | \n"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/events31-final-build-r4/stage/experiments/public-event-readers/controls/duplicate-reader.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 1,
+      "elapsedSeconds": 0.15445235298830085,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": "SOME PROOFS FAIL\nError:\n- expected : reader\n- observed : reader (consumed more than once)\nLocation: bad\n5 |   Schema{}\n6>| def bad(reader: E.Reader<Schema>) -> E.Reader<Schema> & E.Reader<Schema>:\n  |         ^^^^^^\n7 |   (reader,reader)\n"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/events31-final-build-r4/stage/experiments/public-event-readers/controls/cross-schema.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 1,
+      "elapsedSeconds": 0.22466954700939823,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": "SOME PROOFS FAIL\nError:\n- expected : E.Reader<B>\n- observed : E.Reader<A>\nContext:\n- reader : E.Reader<A>\nLocation: bad\n7 |   B{}\n8>| def bad(reader: E.Reader<A>) -> E.Reader<B>: reader\n  |                                              ^^^^^^\n9 | \n"
+    },
+    {
+      "argv": [
+        "python3",
+        "/workspace/formal-proofs/bendvy/experiments/query-composition/run-controls.py",
+        "--source-root",
+        "/tmp/events31-final-build-r4/stage",
+        "--output",
+        "/tmp/events31-final-build-r4/public-controls"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsedSeconds": 1.8332677300059004,
+      "stdoutSha256": "1dbdce66f3c848a109fe1b03ddbfc1f4337796705bffa5686b23537994086f15",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/events31-final-build-r4/mutant-publication/experiments/public-event-readers/main.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.159034590004012,
+      "stdoutSha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/events31-final-build-r4/mutant-publication/experiments/public-event-readers/main.bend",
+        "-o",
+        "/tmp/events31-final-build-r4/mutant-publication/mutant-publication.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsedSeconds": 0.21530582099512685,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/events31-final-build-r4/mutant-publication/experiments/public-event-readers/main.bend",
+        "-o",
+        "/tmp/events31-final-build-r4/mutant-publication/mutant-publication.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsedSeconds": 0.9631538880057633,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/events31-final-build-r4/mutant-publication/mutant-publication.c",
+        "-o",
+        "/tmp/events31-final-build-r4/mutant-publication/mutant-publication.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "elapsedSeconds": 1.6399890480097383,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/events31-final-build-r4/mutant-publication/mutant-publication.js",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.025221659991075285,
+      "stdoutSha256": "85c551df15e7b2eb8ff986a57dcd49e9a37b9bb6412ffb9c30925fc624cd9b5c",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/tmp/events31-final-build-r4/mutant-publication/mutant-publication.native",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.006157205993076786,
+      "stdoutSha256": "85c551df15e7b2eb8ff986a57dcd49e9a37b9bb6412ffb9c30925fc624cd9b5c",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/events31-final-build-r4/mutant-cursor/experiments/public-event-readers/main.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.17793041800905485,
+      "stdoutSha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/events31-final-build-r4/mutant-cursor/experiments/public-event-readers/main.bend",
+        "-o",
+        "/tmp/events31-final-build-r4/mutant-cursor/mutant-cursor.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsedSeconds": 0.20700472700991668,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/events31-final-build-r4/mutant-cursor/experiments/public-event-readers/main.bend",
+        "-o",
+        "/tmp/events31-final-build-r4/mutant-cursor/mutant-cursor.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsedSeconds": 0.7382147979951696,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/events31-final-build-r4/mutant-cursor/mutant-cursor.c",
+        "-o",
+        "/tmp/events31-final-build-r4/mutant-cursor/mutant-cursor.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "elapsedSeconds": 1.6438429890113184,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/events31-final-build-r4/mutant-cursor/mutant-cursor.js",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.07582993801042903,
+      "stdoutSha256": "88913e8073c7e8d5e852771241d62d12c15d5693c684dae77f5acc10c08edc96",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/tmp/events31-final-build-r4/mutant-cursor/mutant-cursor.native",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.04475478299718816,
+      "stdoutSha256": "88913e8073c7e8d5e852771241d62d12c15d5693c684dae77f5acc10c08edc96",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/events31-final-build-r4/mutant-retention/experiments/public-event-readers/main.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.16056893300265074,
+      "stdoutSha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/events31-final-build-r4/mutant-retention/experiments/public-event-readers/main.bend",
+        "-o",
+        "/tmp/events31-final-build-r4/mutant-retention/mutant-retention.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsedSeconds": 0.19840404800197575,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/events31-final-build-r4/mutant-retention/experiments/public-event-readers/main.bend",
+        "-o",
+        "/tmp/events31-final-build-r4/mutant-retention/mutant-retention.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "elapsedSeconds": 0.7099141600047005,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/events31-final-build-r4/mutant-retention/mutant-retention.c",
+        "-o",
+        "/tmp/events31-final-build-r4/mutant-retention/mutant-retention.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "elapsedSeconds": 1.6468330490024528,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/events31-final-build-r4/mutant-retention/mutant-retention.js",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.06905181299953256,
+      "stdoutSha256": "9332ca9f50f9086260692bab07f339f43532d2239c7dee6105ce583eb186ba25",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/tmp/events31-final-build-r4/mutant-retention/mutant-retention.native",
+        "65535"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "elapsedSeconds": 0.041815639997366816,
+      "stdoutSha256": "9332ca9f50f9086260692bab07f339f43532d2239c7dee6105ce583eb186ba25",
+      "stderr": ""
+    }
+  ],
+  "results": {
+    "main": {
+      "js": {
+        "validatedOutputs": 3,
+        "detectedMutation": false,
+        "generatedSha256": "f86dfb808599929991fead0d1ce7fec6c69f347d0c150f4f6ada9b6835f7b3c6"
+      },
+      "native": {
+        "validatedOutputs": 3,
+        "detectedMutation": false,
+        "generatedSha256": "c9043b76c75b5ca8a2fa4eeff8f6f2db24da0e44c54a048d10ab4a2d3b2e7ed5"
+      }
+    },
+    "late-registration": {
+      "js": {
+        "validatedOutputs": 3,
+        "detectedMutation": false,
+        "generatedSha256": "fccee8ae54776270affd3407043726528329396171c06a7299e094af922a529a"
+      },
+      "native": {
+        "validatedOutputs": 3,
+        "detectedMutation": false,
+        "generatedSha256": "2de8daf6c2ab688a8e8b0b89dac9d7ae86a5a80a08b4ca0ec6dd95c5981db9df"
+      }
+    },
+    "disposal": {
+      "js": {
+        "validatedOutputs": 3,
+        "detectedMutation": false,
+        "generatedSha256": "a98d60915e4fc2dfe3bfe0ccfa104ff627ff437cccf5ed5ad8e5c8aa40b08db8"
+      },
+      "native": {
+        "validatedOutputs": 3,
+        "detectedMutation": false,
+        "generatedSha256": "ea178d70b768fb6e0ebe457002f8336bd12782af99f9cf4e371267e3e7ea96c4"
+      }
+    },
+    "registration-swap": {
+      "js": {
+        "validatedOutputs": 3,
+        "detectedMutation": false,
+        "generatedSha256": "18d50df78cfbbb69fcd8db25ac48e1fd6fd998b83fc0ba07dd0fba8f45711f9c"
+      },
+      "native": {
+        "validatedOutputs": 3,
+        "detectedMutation": false,
+        "generatedSha256": "3b07f1442ba7309694c3f7a08ff108bfed7ee133b9d3ca3ac41a256e45f6b4eb"
+      }
+    },
+    "mutant-publication": {
+      "js": {
+        "validatedOutputs": 1,
+        "detectedMutation": true,
+        "generatedSha256": "fdb8882c85475ef4bda3ee9ba3ab0fdb83ea926b0ba2fee3fe00f27e219cdcfb"
+      },
+      "native": {
+        "validatedOutputs": 1,
+        "detectedMutation": true,
+        "generatedSha256": "f107480b10e572aa289e88ad32c678450a486101ffa65c0f28902e7a528316e1"
+      }
+    },
+    "mutant-cursor": {
+      "js": {
+        "validatedOutputs": 1,
+        "detectedMutation": true,
+        "generatedSha256": "bc4ecb826e68c32188972dfcd4993e5ace9205ddb9430fc8ad6a92d47ec1bd1e"
+      },
+      "native": {
+        "validatedOutputs": 1,
+        "detectedMutation": true,
+        "generatedSha256": "053d3e186257b6b4d7c07951d80982037385a16ac64df62e9cd085ce877a099a"
+      }
+    },
+    "mutant-retention": {
+      "js": {
+        "validatedOutputs": 1,
+        "detectedMutation": true,
+        "generatedSha256": "6cb3ec65a6965e42bdf6107260469cf0c9d34128671c28967bbeeb890531412e"
+      },
+      "native": {
+        "validatedOutputs": 1,
+        "detectedMutation": true,
+        "generatedSha256": "fcbe06fad6fe0fa9ad9c9752b6556d489b9ba3ea760019505009b1402fb3d6c5"
+      }
+    }
+  },
+  "source": {
+    "src/ecs/README.md": "45f691b2b5fb1eb4921403ec398d4513dd99f63a719d697735def756cc217cbe",
+    "src/ecs/capabilities.bend": "91c0cdc01e9143d10dc0156ef4f6c39beff97d8088ed0bbb056ffff2ffabf964",
+    "src/ecs/column.bend": "e6682fcb7966ff743f8b9bfdbf0fa1c97389c83513ea51034c509b83e235e25f",
+    "src/ecs/commands.bend": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+    "src/ecs/component.bend": "d36e068152c07c410425e5114b5ca2d3e853d615025481b9b4a5fbade38d04f6",
+    "src/ecs/compose.bend": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+    "src/ecs/event-runtime.bend": "409b45060a9d8b02ce5bf43c584f2be05b81b2239b04e75dca384f07cc626ea7",
+    "src/ecs/events.bend": "fffc3ec427072c4ba1c880f2ba8a73c1fcd1db66550cf63cdce56ba9e10bdc63",
+    "src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "src/ecs/optimized-compose.bend": "ac9c98457c7d6890f1f30dd82f41658a5d3ae962a7fb9022062af5b9d581ca25",
+    "src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+    "src/ecs/provider.bend": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72",
+    "src/ecs/query-contract.bend": "de8eb5a047d2ca82e5832513798a6590a2cd025296b80b154da65a51270c4e91",
+    "src/ecs/query.bend": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9",
+    "src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+    "src/ecs/removals.bend": "98a5f5cf42372d8eab35f3927539079e4412886eeaa3e07bbb2113f2286222f6",
+    "src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+    "src/ecs/schedule.bend": "ad7a7c4187bfb028d01e98b821bd65078ae503604ec04ab645440be3898caa9f",
+    "src/ecs/structural.bend": "e8e813dc6de2f8a38ca61f51c0cbc5aeaf243fcc9cd399303e2adca2674480d4",
+    "src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+    "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "src/ecs/world.bend": "76c5b51557a219ff4840ed8b6825421c663199b4d10ac0909f691b93dd0e01c2",
+    "experiments/public-event-readers/build.py": "6352a3adf36afcffcc7e52f3f433d5d209eea83125958244869ff299abb2859c",
+    "experiments/public-event-readers/controls/cross-schema.bend": "72ec66064ae549eeacd9fc16e8cf0b085f84ecf03cffaabdddfa35b78a8364e4",
+    "experiments/public-event-readers/controls/duplicate-reader.bend": "faed6f0da8d1e7b3702a830e70eaf6d3bd5a4e26acd0c110e070f3a00c32ec0c",
+    "experiments/public-event-readers/controls/read-write.bend": "93621441534030cb9a6a57d5cb2eb7f51444de0f2186c462aa61eec0cd839d26",
+    "experiments/public-event-readers/controls/undeclared.bend": "1326dc5bf5362831b03ef896936cccb7680e0c003431c33313146385562c810f",
+    "experiments/public-event-readers/disposal.bend": "3ac16a40fc690cf9f58cc1e382d94040a5c469635a87f14442e0afdc65f88aec",
+    "experiments/public-event-readers/fixture.bend": "57f9f42c38bb129c48d9bc6dd56fa631fae88668084f36d0764b806a53f6d6ce",
+    "experiments/public-event-readers/late-registration.bend": "9affa92ba3c6f704e2652fefdf74c9d966018ee9365f8664b9438721e5183dc8",
+    "experiments/public-event-readers/main.bend": "a056f26d930df3ce694f84b1beba283a842005bd5bd8c5fe6bae4f644ecf3591",
+    "experiments/public-event-readers/reference-late.mjs": "40541cc9beb97015e7873a8cc2f60276cdafaa26362ffc800a427d1c2793f93f",
+    "experiments/public-event-readers/reference.mjs": "00528f0d5436e383e8e96b2ba14658b0ac715289bace88dcb050eadcaf92a7b2",
+    "experiments/public-event-readers/registration-swap.bend": "df5c67d3e5f8209f59753e6f977bd3a9de6bc97382c8c0d92733b00d82f05b73"
+  },
+  "references": {
+    "bevy-ts": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334",
+    "bevy": "ad678262ce53b5d142fe49ee5e08caff6f00ab60",
+    "bend2": "a950fd683c0d76f09794078e6174fe98a1492876"
+  },
+  "versions": {
+    "Bend": "bend 2.0.35",
+    "Node": "v24.20.0",
+    "Clang": "Debian clang version 19.1.7 (3~deb12u1)\nTarget: aarch64-unknown-linux-gnu\nThread model: posix\nInstalledDir: /tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin"
+  },
+  "negativeControls": [
+    "read-write",
+    "undeclared",
+    "duplicate-reader",
+    "cross-schema"
+  ],
+  "priorPublicControls": {
+    "format": 1,
+    "limit_seconds": 5,
+    "version": "bend 2.0.35",
+    "runner_sha256": "124c772245aa211c76602e6ec492590ea12c01b71d72cb59b67968cd89c9d17f",
+    "library": {
+      "src/ecs/capabilities.bend": "91c0cdc01e9143d10dc0156ef4f6c39beff97d8088ed0bbb056ffff2ffabf964",
+      "src/ecs/column.bend": "e6682fcb7966ff743f8b9bfdbf0fa1c97389c83513ea51034c509b83e235e25f",
+      "src/ecs/commands.bend": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+      "src/ecs/component.bend": "d36e068152c07c410425e5114b5ca2d3e853d615025481b9b4a5fbade38d04f6",
+      "src/ecs/compose.bend": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+      "src/ecs/event-runtime.bend": "409b45060a9d8b02ce5bf43c584f2be05b81b2239b04e75dca384f07cc626ea7",
+      "src/ecs/events.bend": "fffc3ec427072c4ba1c880f2ba8a73c1fcd1db66550cf63cdce56ba9e10bdc63",
+      "src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+      "src/ecs/optimized-compose.bend": "ac9c98457c7d6890f1f30dd82f41658a5d3ae962a7fb9022062af5b9d581ca25",
+      "src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+      "src/ecs/provider.bend": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72",
+      "src/ecs/query-contract.bend": "de8eb5a047d2ca82e5832513798a6590a2cd025296b80b154da65a51270c4e91",
+      "src/ecs/query.bend": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9",
+      "src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+      "src/ecs/removals.bend": "98a5f5cf42372d8eab35f3927539079e4412886eeaa3e07bbb2113f2286222f6",
+      "src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+      "src/ecs/schedule.bend": "ad7a7c4187bfb028d01e98b821bd65078ae503604ec04ab645440be3898caa9f",
+      "src/ecs/structural.bend": "e8e813dc6de2f8a38ca61f51c0cbc5aeaf243fcc9cd399303e2adca2674480d4",
+      "src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+      "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+      "src/ecs/world.bend": "76c5b51557a219ff4840ed8b6825421c663199b4d10ac0909f691b93dd0e01c2"
+    },
+    "cases_sha256": "4950d3d48c9d9cb122b4e7c36db6bf64774f0653a92a5cd9e3db0246a67de6ba",
+    "results": [
+      {
+        "name": "positive-five-alias-runtime",
+        "command": [
+          "timeout",
+          "5",
+          "bend",
+          "experiments/query-composition/public-controls/positive-alias-runtime.bend"
+        ],
+        "source_sha256": "6aac020cd0a9783cd8cf7bc45fd125b75eb2b19300e9f60f2091581acd8832fa",
+        "exit": 0,
+        "passed": true,
+        "log": "positive-five-alias-runtime.log"
+      },
+      {
+        "name": "positive-selection",
+        "command": [
+          "timeout",
+          "5",
+          "bend",
+          "experiments/query-composition/public-controls/positive-selection.bend"
+        ],
+        "source_sha256": "b500c5c4e93e3c80061db3db8dea380907ee9295bc272d997f8a148de3607aa7",
+        "exit": 0,
+        "passed": true,
+        "log": "positive-selection.log"
+      },
+      {
+        "name": "positive-family",
+        "command": [
+          "timeout",
+          "5",
+          "bend",
+          "experiments/query-composition/public-controls/positive-family.bend"
+        ],
+        "source_sha256": "9508eb317bb49e39ae2e54148a6cb0e1f3f916d37a0579a658f6284ae3d7baa3",
+        "exit": 0,
+        "passed": true,
+        "log": "positive-family.log"
+      },
+      {
+        "name": "positive-detached-frame",
+        "command": [
+          "timeout",
+          "5",
+          "bend",
+          "experiments/query-composition/public-controls/positive-detached-frame.bend"
+        ],
+        "source_sha256": "31ad02312c06f17ff3534568e7799665cbb4f584f32680dd215c75ad0527ff4d",
+        "exit": 0,
+        "passed": true,
+        "log": "positive-detached-frame.log"
+      },
+      {
+        "name": "writes-through-read",
+        "command": [
+          "timeout",
+          "5",
+          "bend",
+          "experiments/query-composition/public-controls/negative-read-set.bend"
+        ],
+        "source_sha256": "5f7360a6399186c0160902178554d43b07381609be2cf2c24f3dc3f8a4e213ef",
+        "exit": 1,
+        "passed": true,
+        "log": "writes-through-read.log"
+      },
+      {
+        "name": "duplicate-context",
+        "command": [
+          "timeout",
+          "5",
+          "bend",
+          "experiments/query-composition/public-controls/negative-duplicate-context.bend"
+        ],
+        "source_sha256": "64cb26680a6edbe6e53655c77c5e45e42bc23c952f89e0e476ab284a1d0855e7",
+        "exit": 1,
+        "passed": true,
+        "log": "duplicate-context.log"
+      },
+      {
+        "name": "undeclared-operation",
+        "command": [
+          "timeout",
+          "5",
+          "bend",
+          "experiments/query-composition/public-controls/negative-undeclared.bend"
+        ],
+        "source_sha256": "ebe70e155468fefb2ae3670ae6ea09558c0df9e8b62445ffd2dade468bc4682c",
+        "exit": 1,
+        "passed": true,
+        "log": "undeclared-operation.log"
+      },
+      {
+        "name": "opaque-reconstruction",
+        "command": [
+          "timeout",
+          "5",
+          "bend",
+          "experiments/query-composition/public-controls/negative-reconstruct-context.bend"
+        ],
+        "source_sha256": "2a823edc584f6be9c496efcfa5b54cf3ee1a9a7b140b947199a431f050ba9b97",
+        "exit": 1,
+        "passed": true,
+        "log": "opaque-reconstruction.log"
+      },
+      {
+        "name": "cross-schema-family",
+        "command": [
+          "timeout",
+          "5",
+          "bend",
+          "experiments/query-composition/public-controls/negative-cross-schema.bend"
+        ],
+        "source_sha256": "04b32a47877edc329d4d62379c5706cbbb07885767290cba6b809285cca8f60a",
+        "exit": 1,
+        "passed": true,
+        "log": "cross-schema-family.log"
+      },
+      {
+        "name": "runtime-capability-template",
+        "command": [
+          "timeout",
+          "5",
+          "bend",
+          "experiments/query-composition/public-controls/negative-runtime-cap.bend"
+        ],
+        "source_sha256": "aba22d2ad5049c014ad5b852390a18074d7752181c8bf445f8aca73abdef2870",
+        "exit": 1,
+        "passed": true,
+        "log": "runtime-capability-template.log"
+      }
+    ]
+  },
+  "mutants": {
+    "mutant-publication": {
+      "file": "src/ecs/world.bend",
+      "original": "event_append(~E,events,published)",
+      "replacement": "events",
+      "sha256": "0178cc96b702ca20a4e9b801e6b43bdb5f092499e3e4fb67e87f3dc0fd78b4ee"
+    },
+    "mutant-cursor": {
+      "file": "src/ecs/event-runtime.bend",
+      "original": "case Sy.Failed{world,error}: Ran{Runtime{world,namespace,batches,activate(positions,readerId,Nat.sub(tick,1n)),nextReader,tick,frameStart,boundary,capacity,dropped}",
+      "replacement": "case Sy.Failed{world,error}: Ran{Runtime{world,namespace,batches,update(positions,readerId,tick,False{}),nextReader,tick,frameStart,boundary,capacity,dropped}",
+      "sha256": "47c8a4fa92f5d3c7a36e9f5f295be22a017924b4df1ad223531b617d15253d7b"
+    },
+    "mutant-retention": {
+      "file": "src/ecs/event-runtime.bend",
+      "original": "hold_boundary(positions,boundary)",
+      "replacement": "boundary",
+      "sha256": "8dc24b84837fc406b91146dd354206c11844a2ec660a04053baca529e63763eb"
+    }
+  },
+  "status": "PASS",
+  "scope": "25 complete TS-equal event checkpoints; disposal and registration swap are separate Bend extensions; finite tests, not proofs or qualified hot-path performance"
+}

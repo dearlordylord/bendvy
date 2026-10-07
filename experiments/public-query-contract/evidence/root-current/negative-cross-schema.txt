@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : W.Handle<S.Schema>
+- observed : W.Handle<Other>
+Context:
+- world  : W.World<S.Schema, S.Store, Unit, Unit>
+- handle : W.Handle<Other>
+Location: bad
+10 | def bad(world: S.World(),handle: W.Handle<Other>) -> QC.Executed<S.World(),G.Error,String>:
+11>|   QC.get(~S.Schema,~S.Store,~Unit,~Unit,~D.EmptyOps,~D.empty_plan(),~Unit,~G.Error,~String,~D.empty_body,Unit{},world,handle,0)
+   |                                                                                                                       ^^^^^^
+12 | 

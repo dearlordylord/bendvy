@@ -1,0 +1,239 @@
+{
+  "scope": "Exploratory 20 complete ten-application iterations; not performance acceptance",
+  "roles": {
+    "baseline": {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "--cpu-prof",
+        "--cpu-prof-interval=100",
+        "--cpu-prof-dir=/workspace/formal-proofs/bendvy/.artifacts/storage30-get-warm-timeline",
+        "--cpu-prof-name=baseline.cpuprofile",
+        "/workspace/formal-proofs/bendvy/.artifacts/storage30-get-warm-timeline/baseline.js"
+      ],
+      "limit": 5,
+      "sourceSHA256": "926bb3dd820d6fedb9f11a5759e37564531826977178c11c4d6b38f1e5000e67",
+      "wrapperSHA256": "94f86cf977c8aa318e223b0fdffd71db435e920cae90d469546b845d12b52584",
+      "profileSHA256": "22f3395d5dd839fbd581106a8b35beadfe92a10d312208e9a972e5e2deeabc8f",
+      "validatedApplications": 200,
+      "audit": {
+        "diagnosticAudit": true,
+        "completed": 20,
+        "zeroExits": 20,
+        "iterationTimes": [
+          {
+            "start": 73810786856,
+            "end": 73810924806
+          },
+          {
+            "start": 73810924817,
+            "end": 73810994277
+          },
+          {
+            "start": 73810994282,
+            "end": 73811042343
+          },
+          {
+            "start": 73811042351,
+            "end": 73811078501
+          },
+          {
+            "start": 73811078508,
+            "end": 73811146123
+          },
+          {
+            "start": 73811146132,
+            "end": 73811218033
+          },
+          {
+            "start": 73811218038,
+            "end": 73811284988
+          },
+          {
+            "start": 73811284995,
+            "end": 73811327960
+          },
+          {
+            "start": 73811327967,
+            "end": 73811379697
+          },
+          {
+            "start": 73811379706,
+            "end": 73811437242
+          },
+          {
+            "start": 73811437250,
+            "end": 73811479193
+          },
+          {
+            "start": 73811479202,
+            "end": 73811506735
+          },
+          {
+            "start": 73811506749,
+            "end": 73811583828
+          },
+          {
+            "start": 73811583859,
+            "end": 73811674294
+          },
+          {
+            "start": 73811674303,
+            "end": 73811708653
+          },
+          {
+            "start": 73811708665,
+            "end": 73811722286
+          },
+          {
+            "start": 73811722296,
+            "end": 73811745024
+          },
+          {
+            "start": 73811745037,
+            "end": 73811769012
+          },
+          {
+            "start": 73811769025,
+            "end": 73811802322
+          },
+          {
+            "start": 73811802331,
+            "end": 73811837902
+          }
+        ]
+      }
+    },
+    "candidate": {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "--cpu-prof",
+        "--cpu-prof-interval=100",
+        "--cpu-prof-dir=/workspace/formal-proofs/bendvy/.artifacts/storage30-get-warm-timeline",
+        "--cpu-prof-name=candidate.cpuprofile",
+        "/workspace/formal-proofs/bendvy/.artifacts/storage30-get-warm-timeline/candidate.js"
+      ],
+      "limit": 5,
+      "sourceSHA256": "d31d2c04d8d39b617c249686f3d13c58998b32db5b5b901bc89f23d01f7976d9",
+      "wrapperSHA256": "805c5f6b3935c69c1b989aa8e19a0dce09af092c234db4fa6347fe51cd57960d",
+      "profileSHA256": "c7f7da6c59e25cdd7111015bb9a36b3ebad9c33b71906a36162584533ca29e12",
+      "validatedApplications": 200,
+      "audit": {
+        "diagnosticAudit": true,
+        "completed": 20,
+        "zeroExits": 20,
+        "iterationTimes": [
+          {
+            "start": 73812054451,
+            "end": 73812199574
+          },
+          {
+            "start": 73812199586,
+            "end": 73812273951
+          },
+          {
+            "start": 73812273958,
+            "end": 73812342245
+          },
+          {
+            "start": 73812342499,
+            "end": 73812370457
+          },
+          {
+            "start": 73812370462,
+            "end": 73812459753
+          },
+          {
+            "start": 73812459764,
+            "end": 73812530767
+          },
+          {
+            "start": 73812530772,
+            "end": 73812598700
+          },
+          {
+            "start": 73812598706,
+            "end": 73812652067
+          },
+          {
+            "start": 73812652073,
+            "end": 73812702795
+          },
+          {
+            "start": 73812702801,
+            "end": 73812732031
+          },
+          {
+            "start": 73812732037,
+            "end": 73812790724
+          },
+          {
+            "start": 73812790732,
+            "end": 73812814728
+          },
+          {
+            "start": 73812814736,
+            "end": 73812888377
+          },
+          {
+            "start": 73812888387,
+            "end": 73812953376
+          },
+          {
+            "start": 73812953385,
+            "end": 73812990641
+          },
+          {
+            "start": 73812990649,
+            "end": 73813008489
+          },
+          {
+            "start": 73813008498,
+            "end": 73813026583
+          },
+          {
+            "start": 73813026594,
+            "end": 73813058398
+          },
+          {
+            "start": 73813058458,
+            "end": 73813078043
+          },
+          {
+            "start": 73813078050,
+            "end": 73813109742
+          }
+        ]
+      }
+    }
+  },
+  "sourceHashes": {
+    "/workspace/formal-proofs/bendvy/src/ecs/world.bend": "7d394b623b8bb60a3fef7b160bb69af135719edd3008126ee186e190047708f8",
+    "/workspace/formal-proofs/bendvy/src/ecs/provider.bend": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72",
+    "/workspace/formal-proofs/bendvy/src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+    "/workspace/formal-proofs/bendvy/src/ecs/local.bend": "8cc5b3c9d3597c60d8a1b9b7fd206a92b289669c3cd9a8575db65ce9af37bd47",
+    "/workspace/formal-proofs/bendvy/src/ecs/compose.bend": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+    "/workspace/formal-proofs/bendvy/src/ecs/component.bend": "36969e291b40f5bdc091ef657011c2cf22595d84b98b7664e7b46d033b9b0c0f",
+    "/workspace/formal-proofs/bendvy/src/ecs/optimized-compose.bend": "ac9c98457c7d6890f1f30dd82f41658a5d3ae962a7fb9022062af5b9d581ca25",
+    "/workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend": "409b45060a9d8b02ce5bf43c584f2be05b81b2239b04e75dca384f07cc626ea7",
+    "/workspace/formal-proofs/bendvy/src/ecs/schedule.bend": "ad7a7c4187bfb028d01e98b821bd65078ae503604ec04ab645440be3898caa9f",
+    "/workspace/formal-proofs/bendvy/src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+    "/workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "/workspace/formal-proofs/bendvy/src/ecs/query.bend": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9",
+    "/workspace/formal-proofs/bendvy/src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+    "/workspace/formal-proofs/bendvy/src/ecs/removals.bend": "98a5f5cf42372d8eab35f3927539079e4412886eeaa3e07bbb2113f2286222f6",
+    "/workspace/formal-proofs/bendvy/src/ecs/commands.bend": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+    "/workspace/formal-proofs/bendvy/src/ecs/column.bend": "869091a81636ece3b6d8fd37bae552bcb58b76c7d3ea396e8ecdb9e6f4eeb032",
+    "/workspace/formal-proofs/bendvy/src/ecs/query-contract.bend": "de8eb5a047d2ca82e5832513798a6590a2cd025296b80b154da65a51270c4e91",
+    "/workspace/formal-proofs/bendvy/src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+    "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend": "91c0cdc01e9143d10dc0156ef4f6c39beff97d8088ed0bbb056ffff2ffabf964",
+    "/workspace/formal-proofs/bendvy/src/ecs/events.bend": "fffc3ec427072c4ba1c880f2ba8a73c1fcd1db66550cf63cdce56ba9e10bdc63",
+    "/workspace/formal-proofs/bendvy/src/ecs/structural.bend": "e8e813dc6de2f8a38ca61f51c0cbc5aeaf243fcc9cd399303e2adca2674480d4"
+  }
+}

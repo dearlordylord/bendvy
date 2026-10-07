@@ -1,0 +1,380 @@
+{
+  "scope": "warm diagnostic, fresh lexical program scope per iteration; not #28 acceptance",
+  "sourceClosure": {
+    "src/ecs/world.bend": "7d394b623b8bb60a3fef7b160bb69af135719edd3008126ee186e190047708f8",
+    "src/ecs/provider.bend": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72",
+    "src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+    "src/ecs/local.bend": "8cc5b3c9d3597c60d8a1b9b7fd206a92b289669c3cd9a8575db65ce9af37bd47",
+    "src/ecs/compose.bend": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+    "src/ecs/component.bend": "4a378ec4aee020d06d04c0ff883911063c75f3a6afe9e278f6969e60d20dfb98",
+    "src/ecs/optimized-compose.bend": "ac9c98457c7d6890f1f30dd82f41658a5d3ae962a7fb9022062af5b9d581ca25",
+    "src/ecs/event-runtime.bend": "409b45060a9d8b02ce5bf43c584f2be05b81b2239b04e75dca384f07cc626ea7",
+    "src/ecs/schedule.bend": "ad7a7c4187bfb028d01e98b821bd65078ae503604ec04ab645440be3898caa9f",
+    "src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+    "src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "src/ecs/query.bend": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9",
+    "src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+    "src/ecs/removals.bend": "98a5f5cf42372d8eab35f3927539079e4412886eeaa3e07bbb2113f2286222f6",
+    "src/ecs/commands.bend": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+    "src/ecs/column.bend": "aca582faa4fdc3ba57686c25310c4cb924a608fe919d4ea3d90a9909929e37a0",
+    "src/ecs/query-contract.bend": "de8eb5a047d2ca82e5832513798a6590a2cd025296b80b154da65a51270c4e91",
+    "src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+    "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "src/ecs/capabilities.bend": "91c0cdc01e9143d10dc0156ef4f6c39beff97d8088ed0bbb056ffff2ffabf964",
+    "src/ecs/events.bend": "fffc3ec427072c4ba1c880f2ba8a73c1fcd1db66550cf63cdce56ba9e10bdc63",
+    "src/ecs/structural.bend": "e8e813dc6de2f8a38ca61f51c0cbc5aeaf243fcc9cd399303e2adca2674480d4"
+  },
+  "roles": {
+    "baseline": {
+      "sourcePath": "/workspace/formal-proofs/bendvy/.artifacts/frontier-pending-wrapper-prepared-regression/baseline/workshop.js",
+      "sourceSHA256": "926bb3dd820d6fedb9f11a5759e37564531826977178c11c4d6b38f1e5000e67",
+      "attempts": [
+        {
+          "command": [
+            "taskset",
+            "-c",
+            "0",
+            "node",
+            "--cpu-prof",
+            "--cpu-prof-interval=100",
+            "--cpu-prof-dir=/workspace/formal-proofs/bendvy/.artifacts/storage30-warm-profile",
+            "--cpu-prof-name=baseline-20.cpuprofile",
+            "/workspace/formal-proofs/bendvy/.artifacts/storage30-warm-profile/baseline-20.js"
+          ],
+          "limit": 5,
+          "iterations": 20,
+          "wrapperSHA256": "02febf636a923169902e61f032d8e048a4a8e91d0d452b558af05b3fc3743f5f",
+          "exit": 0,
+          "stderr": "{\"diagnosticAudit\":true,\"completed\":20,\"zeroExits\":20}\n",
+          "validatedApplications": 200,
+          "audit": {
+            "diagnosticAudit": true,
+            "completed": 20,
+            "zeroExits": 20
+          }
+        }
+      ],
+      "profileSHA256": "2b1b41e5dc0ae6ee24e6911e56efcb151b93acd3652fe18526d0c825c0c0019c",
+      "samples": 2856,
+      "sampleMicroseconds": 1013857,
+      "topSelfSamples": [
+        {
+          "function": "(garbage collector)",
+          "line": 0,
+          "microseconds": 108331
+        },
+        {
+          "function": "$schema$058array_view$",
+          "line": 4206,
+          "microseconds": 74563
+        },
+        {
+          "function": "array_node",
+          "line": 110,
+          "microseconds": 55115
+        },
+        {
+          "function": "writeBuffer",
+          "line": 0,
+          "microseconds": 29745
+        },
+        {
+          "function": "encodeUtf8String",
+          "line": 0,
+          "microseconds": 24417
+        },
+        {
+          "function": "$String$cmp$fin$",
+          "line": 3775,
+          "microseconds": 24117
+        },
+        {
+          "function": "$List$append$",
+          "line": 2685,
+          "microseconds": 19062
+        },
+        {
+          "function": "$json$058numbers$",
+          "line": 906,
+          "microseconds": 16850
+        },
+        {
+          "function": "f",
+          "line": 132,
+          "microseconds": 14966
+        },
+        {
+          "function": "$String$cmp$",
+          "line": 3372,
+          "microseconds": 14525
+        },
+        {
+          "function": "$$$$047$$$047src$047ecs$047compose$058get$1260$",
+          "line": 2543,
+          "microseconds": 12683
+        },
+        {
+          "function": "(program)",
+          "line": 0,
+          "microseconds": 12186
+        },
+        {
+          "function": "$declarations$058work_match$",
+          "line": 2124,
+          "microseconds": 12084
+        },
+        {
+          "function": "$U32$show$",
+          "line": 1371,
+          "microseconds": 11095
+        },
+        {
+          "function": "",
+          "line": 2149,
+          "microseconds": 10258
+        },
+        {
+          "function": "run_clo",
+          "line": 131,
+          "microseconds": 9620
+        },
+        {
+          "function": "$gameplay$058compose_body$1260$",
+          "line": 2420,
+          "microseconds": 9178
+        },
+        {
+          "function": "$declarations$058work_plan$",
+          "line": 1821,
+          "microseconds": 9046
+        },
+        {
+          "function": "$schema$058prefix$",
+          "line": 4640,
+          "microseconds": 8976
+        },
+        {
+          "function": "$$$$047$$$047src$047ecs$047component$058get_store$1261$",
+          "line": 2844,
+          "microseconds": 8536
+        },
+        {
+          "function": "$$$$047$$$047src$047ecs$047column$058viewed$1263$",
+          "line": 5031,
+          "microseconds": 8119
+        },
+        {
+          "function": "$$$$047$$$047src$047ecs$047compose$058body_returned$1261$",
+          "line": 1857,
+          "microseconds": 8079
+        },
+        {
+          "function": "$declarations$058match_enabled$1260$",
+          "line": 3508,
+          "microseconds": 7486
+        },
+        {
+          "function": "$observe$058row_enabled$",
+          "line": 2436,
+          "microseconds": 7171
+        },
+        {
+          "function": "$gameplay$058compose_stock$1260$",
+          "line": 3091,
+          "microseconds": 6793
+        },
+        {
+          "function": "$$$$047$$$047src$047ecs$047column$058viewed$1260$",
+          "line": 3679,
+          "microseconds": 5954
+        },
+        {
+          "function": "$$$$047$$$047src$047ecs$047world$058metadata_valid$1260$",
+          "line": 1600,
+          "microseconds": 5689
+        },
+        {
+          "function": "$List$show$go$1260$",
+          "line": 1376,
+          "microseconds": 5450
+        }
+      ]
+    },
+    "candidate": {
+      "sourcePath": "/workspace/formal-proofs/bendvy/.artifacts/frontier-pending-wrapper-prepared-regression/candidate/workshop.js",
+      "sourceSHA256": "6823dd5a1e4823c377bcec6980f6790b15b434f079da83e577ae5050ea7f62b9",
+      "attempts": [
+        {
+          "command": [
+            "taskset",
+            "-c",
+            "0",
+            "node",
+            "--cpu-prof",
+            "--cpu-prof-interval=100",
+            "--cpu-prof-dir=/workspace/formal-proofs/bendvy/.artifacts/storage30-warm-profile",
+            "--cpu-prof-name=candidate-20.cpuprofile",
+            "/workspace/formal-proofs/bendvy/.artifacts/storage30-warm-profile/candidate-20.js"
+          ],
+          "limit": 5,
+          "iterations": 20,
+          "wrapperSHA256": "0c0758f6dead44cce2ccd9d92c16924e9445b73bbd74bbff0ed980b70489aae5",
+          "exit": 0,
+          "stderr": "{\"diagnosticAudit\":true,\"completed\":20,\"zeroExits\":20}\n",
+          "validatedApplications": 200,
+          "audit": {
+            "diagnosticAudit": true,
+            "completed": 20,
+            "zeroExits": 20
+          }
+        }
+      ],
+      "profileSHA256": "3a6a39194f26fa4e831ed9b896b8ade0f02e140b502ce1b9d0567cfc83961a50",
+      "samples": 3079,
+      "sampleMicroseconds": 1022776,
+      "topSelfSamples": [
+        {
+          "function": "(garbage collector)",
+          "line": 0,
+          "microseconds": 78560
+        },
+        {
+          "function": "array_node",
+          "line": 110,
+          "microseconds": 64457
+        },
+        {
+          "function": "$schema$058array_view$",
+          "line": 6875,
+          "microseconds": 49440
+        },
+        {
+          "function": "writeBuffer",
+          "line": 0,
+          "microseconds": 27393
+        },
+        {
+          "function": "$List$append$",
+          "line": 8013,
+          "microseconds": 22972
+        },
+        {
+          "function": "$$$$047$$$047src$047ecs$047column$058evacuate_pending$1260$",
+          "line": 3478,
+          "microseconds": 19555
+        },
+        {
+          "function": "encodeUtf8String",
+          "line": 0,
+          "microseconds": 19047
+        },
+        {
+          "function": "(program)",
+          "line": 0,
+          "microseconds": 15230
+        },
+        {
+          "function": "$$$$047$$$047src$047ecs$047column$058prepared_view_taken_state$1261$",
+          "line": 6768,
+          "microseconds": 13944
+        },
+        {
+          "function": "$String$cmp$",
+          "line": 4196,
+          "microseconds": 13709
+        },
+        {
+          "function": "$$$$047$$$047src$047ecs$047column$058plain_view_taken$1262$",
+          "line": 6683,
+          "microseconds": 12588
+        },
+        {
+          "function": "io_out",
+          "line": 9822,
+          "microseconds": 12522
+        },
+        {
+          "function": "$schema$058prefix$",
+          "line": 7571,
+          "microseconds": 12309
+        },
+        {
+          "function": "$$$$047$$$047src$047ecs$047compose$058run_handles$1261$",
+          "line": 1929,
+          "microseconds": 12158
+        },
+        {
+          "function": "array_rmw",
+          "line": 117,
+          "microseconds": 12110
+        },
+        {
+          "function": "$$$$047$$$047src$047ecs$047world$058access_equal$",
+          "line": 3038,
+          "microseconds": 10218
+        },
+        {
+          "function": "$$$$047$$$047src$047ecs$047column$058prepared_view_state$1261$",
+          "line": 4973,
+          "microseconds": 9262
+        },
+        {
+          "function": "$$$$047$$$047src$047ecs$047column$058restore_stamp$1261$",
+          "line": 9614,
+          "microseconds": 9115
+        },
+        {
+          "function": "$declarations$058empty_body$1260$",
+          "line": 3642,
+          "microseconds": 8437
+        },
+        {
+          "function": "$observe$058row_enabled$",
+          "line": 2894,
+          "microseconds": 8218
+        },
+        {
+          "function": "$List$show$go$1260$",
+          "line": 1428,
+          "microseconds": 8193
+        },
+        {
+          "function": "$$$$047$$$047src$047ecs$047optimized$045compose$058map_store$1260$",
+          "line": 1567,
+          "microseconds": 8038
+        },
+        {
+          "function": "f",
+          "line": 132,
+          "microseconds": 7569
+        },
+        {
+          "function": "$declarations$058work_plan$",
+          "line": 2371,
+          "microseconds": 7380
+        },
+        {
+          "function": "run_clo",
+          "line": 131,
+          "microseconds": 6830
+        },
+        {
+          "function": "$$$$047$$$047src$047ecs$047compose$058run_handles$1263$",
+          "line": 2681,
+          "microseconds": 6436
+        },
+        {
+          "function": "$String$cmp$fin$",
+          "line": 4549,
+          "microseconds": 6207
+        },
+        {
+          "function": "$json$058numbers$",
+          "line": 906,
+          "microseconds": 6057
+        }
+      ]
+    }
+  },
+  "closureStillCurrent": true
+}

@@ -1,0 +1,80 @@
+{
+  "status": "PASS",
+  "generatedSHA256": "c46bb44348cd17919bee5d03e1212066175fddbfbc220bc027341ebb6c452561",
+  "expectedSHA256": "b173443256b174955aba25d528e4577836be2273225064317a260b26b46efb3b",
+  "runnerSHA256": "64ff52bd90bd86fa5cbb4e2d8d51dc62ab34a0a817287c153c839fa9048ac7fa",
+  "iterations": 1,
+  "cpu": 0,
+  "runs": {
+    "cpu": {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-v2/indexed-256-profiles/cpu.js"
+      ],
+      "limitSeconds": 5,
+      "validatedApplications": 1,
+      "audit": {
+        "completed": 1,
+        "zeroExits": 1,
+        "times": [
+          10.985858000000004
+        ],
+        "gc": [
+          {
+            "duration": 0.42233599722385406,
+            "kind": 1
+          },
+          {
+            "duration": 0.5593779981136322,
+            "kind": 1
+          },
+          {
+            "duration": 0.48496198654174805,
+            "kind": 1
+          }
+        ]
+      },
+      "wrapperSHA256": "4d0fa260a877884a9ed8471b866a5a8f71b94901a54360a9d09228f318f1b12d",
+      "profileSHA256": "25b79e04697670751dc6fa62b2e07fe7db7771f090c66a02450a208091095bd8"
+    },
+    "heap": {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-v2/indexed-256-profiles/heap.js"
+      ],
+      "limitSeconds": 5,
+      "validatedApplications": 1,
+      "audit": {
+        "completed": 1,
+        "zeroExits": 1,
+        "times": [
+          9.343264999999999
+        ],
+        "gc": [
+          {
+            "duration": 0.31346000730991364,
+            "kind": 1
+          },
+          {
+            "duration": 0.41287699341773987,
+            "kind": 1
+          },
+          {
+            "duration": 0.3940019905567169,
+            "kind": 1
+          }
+        ]
+      },
+      "wrapperSHA256": "caec3d91d4d4c834d0983893e7722469cccaf4eed5eb688ede5215eccf425eda",
+      "profileSHA256": "eac6a9f9f0610ba1443c61508524b4cdfca54207c51b838d2f5e18ddf8769666"
+    }
+  },
+  "scope": "Diagnostic CPU samples and sampled allocation stacks, including collected objects; fresh generated-program scope per iteration. Not physical allocation totals or performance acceptance.",
+  "nodeVersion": "v24.20.0"
+}

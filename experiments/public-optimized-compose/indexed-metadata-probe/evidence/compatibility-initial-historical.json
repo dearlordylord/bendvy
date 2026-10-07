@@ -1,0 +1,27 @@
+{
+  "scope": "Byte-unchanged old generic/nominal match consumer with additive constructors",
+  "consumer_sha256": "9b163d30a587383b9581ba6487d9e08b0a0332b66fcf70ebf5d787cc4fa7c7d2",
+  "cases": [
+    {
+      "name": "old",
+      "exit": 0,
+      "stdout": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n",
+      "stderr": "",
+      "library_sha256": "a4a4c12a6c11e237c11bf93de50b3d3c0e4325e11aadb8284cebd015af8bbd6d"
+    },
+    {
+      "name": "generic-added",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "SOME PROOFS FAIL\nError:\n- expected : cases for compat-library.Indexed\n- observed : \\{}\nLocation: column\n 9 | def column(~A:Type,value:C.Column<A>) -> A:\n10>|   match value:\n   |   ^^^^^^^^^^^^\n11 |     case C.Column{owner,_}: owner\n",
+      "library_sha256": "6802603f1fdf808f1efb5d463027ca067935023d88030b985f952f48f28726e7"
+    },
+    {
+      "name": "nominal-added",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "SOME PROOFS FAIL\nError:\n- expected : cases for compat-library.IndexedNominal\n- observed : \\{}\nLocation: nominal\n13 | def nominal(value:C.Nominal) -> Array<U32>:\n14>|   match value:\n   |   ^^^^^^^^^^^^\n15 |     case C.Nominal{owner}: owner\n",
+      "library_sha256": "dc6dbbd4935b2801edd8f73b64e4f9a9d91e2d8668e2ef1ec2099e90206ab1df"
+    }
+  ]
+}

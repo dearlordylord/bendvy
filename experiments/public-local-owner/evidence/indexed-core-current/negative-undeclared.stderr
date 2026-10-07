@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : L.Cell<S.Owner>
+- observed : H
+Context:
+- H     : Type
+- ops   : L.Ops<H, S.Owner, List<&2, U32>>
+- owner : H
+Location: undeclared
+6 | def undeclared(-H: Type,ops: L.Ops<H,S.Owner,List<&2,U32>>,owner: H) -> H & Unit:
+7>|   (L.replace_cell(~S.Owner,owner,S.owned(9,9,9,9)),Unit{})
+  |                            ^^^^^
+8 | 

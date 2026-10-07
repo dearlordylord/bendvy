@@ -8,7 +8,7 @@
         "version"
       ],
       "exit": 0,
-      "seconds": 0.0212,
+      "seconds": 0.0176,
       "output": "bend 2.0.35\n"
     },
     {
@@ -17,7 +17,7 @@
         "--version"
       ],
       "exit": 0,
-      "seconds": 0.0078,
+      "seconds": 0.0068,
       "output": "v24.20.0\n"
     },
     {
@@ -28,7 +28,7 @@
         "experiments/user-api/fresh-consumer/arena.bend"
       ],
       "exit": 0,
-      "seconds": 0.31,
+      "seconds": 0.4407,
       "output": "SSSSFS:position1,position2,health1,health2=8,14,21,5,events=6\n"
     },
     {
@@ -38,10 +38,10 @@
         "bend",
         "experiments/user-api/fresh-consumer/arena.bend",
         "-o",
-        "/tmp/bendvy-fresh-consumer-ut8gtjkk/arena.c"
+        "/tmp/bendvy-fresh-consumer-xjiz7czs/arena.c"
       ],
       "exit": 0,
-      "seconds": 1.247,
+      "seconds": 2.3579,
       "output": ""
     },
     {
@@ -49,23 +49,23 @@
         "clang",
         "-O2",
         "-pthread",
-        "/tmp/bendvy-fresh-consumer-ut8gtjkk/arena.c",
+        "/tmp/bendvy-fresh-consumer-xjiz7czs/arena.c",
         "-lm",
         "-o",
-        "/tmp/bendvy-fresh-consumer-ut8gtjkk/arena"
+        "/tmp/bendvy-fresh-consumer-xjiz7czs/arena"
       ],
       "exit": 0,
-      "seconds": 2.5306,
+      "seconds": 6.6601,
       "output": ""
     },
     {
       "argv": [
-        "/tmp/bendvy-fresh-consumer-ut8gtjkk/arena",
+        "/tmp/bendvy-fresh-consumer-xjiz7czs/arena",
         "--threads",
         "1"
       ],
       "exit": 0,
-      "seconds": 0.0037,
+      "seconds": 0.0026,
       "output": "SSSSFS:position1,position2,health1,health2=8,14,21,5,events=6\n"
     },
     {
@@ -75,10 +75,10 @@
         "bend",
         "experiments/user-api/fresh-consumer/arena.bend",
         "-o",
-        "/tmp/bendvy-fresh-consumer-ut8gtjkk/arena.mjs"
+        "/tmp/bendvy-fresh-consumer-xjiz7czs/arena.mjs"
       ],
       "exit": 0,
-      "seconds": 0.3119,
+      "seconds": 0.4654,
       "output": ""
     },
     {
@@ -86,10 +86,10 @@
         "node",
         "--input-type=module",
         "-e",
-        "import Arena from \"/tmp/bendvy-fresh-consumer-ut8gtjkk/arena.mjs\"; console.log(Arena.scenario())"
+        "import Arena from \"/tmp/bendvy-fresh-consumer-xjiz7czs/arena.mjs\"; console.log(Arena.scenario())"
       ],
       "exit": 0,
-      "seconds": 0.0264,
+      "seconds": 0.0293,
       "output": "SSSSFS:position1,position2,health1,health2=8,14,21,5,events=6\n"
     },
     {
@@ -100,7 +100,7 @@
         "experiments/user-api/fresh-consumer/negative_cross_schema.bend"
       ],
       "exit": 1,
-      "seconds": 0.1854,
+      "seconds": 0.1985,
       "output": "SOME PROOFS FAIL\nError:\n- expected : W.Handle<Arena.Arena>\n- observed : W.Handle<Other>\nContext:\n- world  : W.World<Arena.Arena, Arena.Store, U32, Arena.Hit>\n- handle : W.Handle<Other>\nLocation: bad\n10 | def bad(world: W.World<Arena.Arena,Arena.Store,U32,Arena.Hit>,handle: W.Handle<Other>) -> W.World<Arena.Arena,Arena.Store,U32,Arena.Hit>:\n11>|   Arena.write_Health(world,handle,10)\n   |                            ^^^^^^\n12 | \n"
     },
     {
@@ -111,7 +111,7 @@
         "experiments/user-api/fresh-consumer/negative_owned_copy.bend"
       ],
       "exit": 1,
-      "seconds": 0.2254,
+      "seconds": 0.2135,
       "output": "SOME PROOFS FAIL\nError:\n- expected : Data\n- observed : Type\nLocation: bad\n7 | \n8>| def bad(+owner: Arena.Position) -> Arena.Position:\n  |                 ^^^^^^^^^^^^^^\n9 |   owner\nNote: +owner can be used many times, so its type must be Data.\n"
     },
     {
@@ -122,7 +122,7 @@
         "experiments/user-api/fresh-consumer/negative_read_write.bend"
       ],
       "exit": 1,
-      "seconds": 0.2393,
+      "seconds": 0.2107,
       "output": "SOME PROOFS FAIL\nError:\n- expected : @_:bad~H -> @_:Arena.Position -> bad~H\n- observed : @_:bad~H -> Sigma<&1, &1, bad~H, _ => Cmp.Access<U32>>\nContext:\n- ctx : bad~H\nLocation: bad\n 8 | def bad(~H: Type,~aux: H -> H & Cmp.Access<U32>,ctx: H) -> H & T.Outcome<Arena.Fault>:\n 9>|   Arena.move_values(~H,~aux,1,Cmp.Found{0},Cmp.Found{2},ctx)\n   |                         ^^^\n10 | \n"
     },
     {
@@ -133,7 +133,7 @@
         "experiments/user-api/fresh-consumer/negative_registry_rebind.bend"
       ],
       "exit": 1,
-      "seconds": 0.2033,
+      "seconds": 0.1916,
       "output": "SOME PROOFS FAIL\nError:\n- expected : Sys.Registry<Arena.Arena, Arena.Store, U32, Arena.Hit, Unit, Pv.Error<Arena.Fault>, Unit, alternate>\n- observed : Sys.Registry<Arena.Arena, Arena.Store, U32, Arena.Hit, Unit, Pv.Error<Arena.Fault>, Unit, Arena.move_runner>\nContext:\n- world    : W.World<Arena.Arena, Arena.Store, U32, Arena.Hit>\n- registry : Sys.Registry<Arena.Arena, Arena.Store, U32, Arena.Hit, Unit, Pv.Error<Arena.Fault>, Unit, Arena.move_runner>\nLocation: bad\n10 | def bad(world: W.World<Arena.Arena,Arena.Store,U32,Arena.Hit>,registry: Sys.Registry<Arena.Arena,Arena.Store,U32,Arena.Hit,Unit,Pv.Error<Arena.Fault>,Unit,Arena.move_runner>) -> Sys.RunResult<Arena.Arena,Arena.Store,U32,Arena.Hit,Unit,Pv.Error<Arena.Fault>,Unit,alternate>:\n11>|   Sys.run(~Arena.Arena,~Arena.Store,~U32,~Arena.Hit,~Unit,~Pv.Error<Arena.Fault>,~Unit,~alternate,registry,world,Unit{})\n   |                                                                                                   ^^^^^^^^\n12 | \n"
     },
     {
@@ -144,7 +144,7 @@
         "experiments/user-api/fresh-consumer/negative_undeclared.bend"
       ],
       "exit": 1,
-      "seconds": 0.2007,
+      "seconds": 0.2158,
       "output": "SOME PROOFS FAIL\nError:\n- expected : W.World<Arena.Arena, Arena.Store, U32, Arena.Hit>\n- observed : bad~H\nContext:\n- ctx : bad~H\nLocation: bad\n 8 | def bad(~H: Type,ctx: H) -> H:\n 9>|   Arena.write_Health(ctx,W.Handle{1,1},10)\n   |                      ^^^\n10 | \n"
     }
   ],
@@ -155,16 +155,34 @@
     "experiments/user-api/fresh-consumer/negative_read_write.bend": "6d34781b70cd6b15ee2b04de8da6582548cb75bc3b092df9f3390afbf6effa40",
     "experiments/user-api/fresh-consumer/negative_registry_rebind.bend": "354ef55d9ce003363229e2211c0ade2e02bb4758eaed75f25f42cddabe3e1ff7",
     "experiments/user-api/fresh-consumer/negative_undeclared.bend": "d6629848619c8880773f4f7a0d80ec041dd2ce58f9b33e02344fc9adbea69732",
-    "src/ecs/column.bend": "6bed81e82da38ad1bc835fcf50f1ebb654788823b9870aef419b70ce0aba9c24",
-    "src/ecs/commands.bend": "b41ec45ad17513351fd68436cefbaec0058ac4556d1d722f2c0ce5a7d4a9f9d1",
-    "src/ecs/component.bend": "d3ac5feb5e76fdd22e8cec4ffdb9c2bd3bf93c4d4ab2da96d445f0b1c19016a4",
-    "src/ecs/events.bend": "3d89fbbb40fefab4be349bfbe0d1f99c870c25c725130ccb1823910c1ace7c53",
+    "src/ecs/capabilities.bend": "91c0cdc01e9143d10dc0156ef4f6c39beff97d8088ed0bbb056ffff2ffabf964",
+    "src/ecs/captured-column.bend": "340efc234a5681adb2ccd35da22a1cbe3fbde4d15f0e6a3f8a75e76c4852df0a",
+    "src/ecs/column.bend": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+    "src/ecs/commands.bend": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+    "src/ecs/component.bend": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+    "src/ecs/compose.bend": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+    "src/ecs/event-runtime.bend": "409b45060a9d8b02ce5bf43c584f2be05b81b2239b04e75dca384f07cc626ea7",
+    "src/ecs/events.bend": "fffc3ec427072c4ba1c880f2ba8a73c1fcd1db66550cf63cdce56ba9e10bdc63",
+    "src/ecs/indexed-lifecycle.bend": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+    "src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "src/ecs/local.bend": "8cc5b3c9d3597c60d8a1b9b7fd206a92b289669c3cd9a8575db65ce9af37bd47",
+    "src/ecs/optimized-compose.bend": "ac9c98457c7d6890f1f30dd82f41658a5d3ae962a7fb9022062af5b9d581ca25",
+    "src/ecs/owned-compose.bend": "1115ffe6db7a1940b53889f53df09cff7fd43a3d244e07b843ea9094f62d31c7",
+    "src/ecs/owned-family.bend": "1fe504b1130eed24fb0c1dfc9bf7c6de0ab0f855d4adf30694a1f6b3c634f7e1",
+    "src/ecs/owned-optimized-compose.bend": "3e651cc49f4d6cfb37ea5af07a4b4668a8983911a7547a03aec193f9ca305fff",
+    "src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
     "src/ecs/provider.bend": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72",
+    "src/ecs/query-contract.bend": "de8eb5a047d2ca82e5832513798a6590a2cd025296b80b154da65a51270c4e91",
     "src/ecs/query.bend": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9",
+    "src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+    "src/ecs/removals.bend": "98a5f5cf42372d8eab35f3927539079e4412886eeaa3e07bbb2113f2286222f6",
     "src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
-    "src/ecs/structural.bend": "f813a10058914cdf85f94e879b2dc68b9cb3e878b5c683dae60152f40001fcae",
-    "src/ecs/system.bend": "b603976da337b72586cf731fc1cf886238dbcbe9c53e1e192552aa6244408fde",
+    "src/ecs/restored-row.bend": "9a1e25359a7775e230ad1b720180db622c12c2e9757cba98acef9c89e8d0f2d5",
+    "src/ecs/row-column.bend": "f3846a5378958c522d4053f13f7af4898a8a60c76f7534b060f020adca631f72",
+    "src/ecs/schedule.bend": "ad7a7c4187bfb028d01e98b821bd65078ae503604ec04ab645440be3898caa9f",
+    "src/ecs/structural.bend": "e8e813dc6de2f8a38ca61f51c0cbc5aeaf243fcc9cd399303e2adca2674480d4",
+    "src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
     "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
-    "src/ecs/world.bend": "35d8cb40eaed156ed32444ad238a12b81da1f35a281002ceeac8066ca48831a7"
+    "src/ecs/world.bend": "7d394b623b8bb60a3fef7b160bb69af135719edd3008126ee186e190047708f8"
   }
 }

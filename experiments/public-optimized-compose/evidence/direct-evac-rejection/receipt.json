@@ -1,0 +1,15 @@
+{
+  "candidateSHA256": "357ec4f84203be8b6ecc7b414809ecbf9178cea0615ef9657aec9685f681740d",
+  "command": [
+    "timeout",
+    "5",
+    "bend",
+    "src/ecs/column.bend",
+    "--check-only"
+  ],
+  "exit": 1,
+  "diagnostic": "a parameter or field scrutinee (a match cannot scrutinize a computed value: give it its own def)",
+  "subject": "computed tuple destructure after fuel match",
+  "restoredColumnSHA256": "32a81f541e475af8be98528431f6e83990b978490c48afbb751b096a250b79c5",
+  "scope": "checker refusal; no executable acceptance; no checker repair or compiler/kernel edits"
+}

@@ -1,0 +1,48 @@
+{
+  "scope": "V8 trace diagnostic with extra flags, not timing or regression acceptance. Each program must match its complete ten-application output.",
+  "commands": [
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "--trace-opt",
+        "--trace-deopt",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-empty-frame-prepared-regression/candidate/workshop.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "--trace-opt",
+        "--trace-deopt",
+        "/workspace/formal-proofs/bendvy/.artifacts/frontier-indexed-prepared-regression/candidate/workshop.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0
+    }
+  ],
+  "programs": {
+    "before-empty": {
+      "sha256": "a5f8388703a1f347e21978ce2e72904c537f8be2b565cbd186f8eebb119494ac",
+      "completeApplications": 10,
+      "bailouts": 1,
+      "optimizationLogLines": 1042,
+      "expectedSHA256": "f8584ee09f32b5cdbdbb778c773a5a279cee5987bc8ff43e6cd3d01dd5d5ec71"
+    },
+    "after-indexed": {
+      "sha256": "14f6854ee77a7a9da9f4e5f5966762472e881a560c1cc896d2222dcac90ab2f9",
+      "completeApplications": 10,
+      "bailouts": 1,
+      "optimizationLogLines": 1135,
+      "expectedSHA256": "f8584ee09f32b5cdbdbb778c773a5a279cee5987bc8ff43e6cd3d01dd5d5ec71"
+    }
+  },
+  "status": "PASS_COMPLETE_OUTPUTS"
+}

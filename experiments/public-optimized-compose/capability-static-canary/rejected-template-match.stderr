@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : an annotated term (cannot infer)
+- observed : \{Cap.Read: (get => row => get(row))}
+Location: static_read
+24 |   match cap:
+25>|     case Cap.Read{get}: get(row)
+   |          ^^^^^^^^^^^^^
+26 | def static_get(~H:Type,~A:Type,~V:Data,~cap:Cap.Write<H,A,V>,row:H) -> H & C.Access<V>:

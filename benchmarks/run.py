@@ -31,6 +31,11 @@ def main():
     parser.add_argument("--cpu", type=int, default=min(os.sched_getaffinity(0)))
     parser.add_argument("--inject-slowdown-ms", type=int, default=0,
                         help="Harness negative control only; delay both candidate processes")
+    parser.add_argument("--candidate-provider", type=Path,
+                        help="Reviewed provider adapter; frozen gameplay and inputs remain unchanged")
+    parser.add_argument("--candidate-declarations", default="declarations.bend",
+                        choices=("declarations.bend", "owned-declarations.bend"),
+                        help="Select the reviewed declaration entry within the provider")
     args = parser.parse_args()
     output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=False)
@@ -38,11 +43,25 @@ def main():
     contract = json.loads((HERE / "contract.json").read_text())
     if args.inject_slowdown_ms < 0:
         raise ValueError("Negative injected delay")
+    if not args.candidate_provider and args.candidate_declarations != "declarations.bend":
+        raise ValueError("Alternate declarations require a provider")
     receipt = {"status": "INCOMPLETE", "contract": contract, "cpu": args.cpu,
                "machine": platform.uname()._asdict(), "commands": [], "pairs": [],
                "versions": {}, "sources": {}, "artifacts": {}, "timings": []}
     receipt["injectedSlowdownMs"] = args.inject_slowdown_ms
     monitored = list((ROOT / "src/ecs").glob("*.bend")) + list(HERE.glob("*.py")) + [HERE / "contract.json"]
+    if args.candidate_provider:
+        provider = args.candidate_provider.resolve()
+        provider_names = ["schema.bend", args.candidate_declarations]
+        # Only these reviewed provisioning helpers may supplement the adapter.
+        # Driver, gameplay, observation, inputs and the baseline remain archived.
+        provider_names += [name for name in ("owned-rows.bend", "reference-declarations.bend")
+                           if (provider / name).is_file()]
+        monitored += [provider / name for name in provider_names]
+        receipt["providerFiles"] = provider_names
+        receipt["providerDeclarations"] = args.candidate_declarations
+        receipt["candidateProvider"] = str(provider.relative_to(ROOT))
+        receipt["scope"] = "Reviewed optimized-provider variant; same frozen baseline gameplay, inputs, observations and statistical contract"
     initial = {str(p.relative_to(ROOT)): sha(p) for p in monitored}
     receipt["currentSourceHashes"] = initial
     env = os.environ.copy()
@@ -97,6 +116,37 @@ def main():
             if role == "candidate":
                 shutil.rmtree(stage / "src/ecs")
                 shutil.copytree(ROOT / "src/ecs", stage / "src/ecs")
+                if args.candidate_provider:
+                    for name in provider_names:
+                        source = provider / name
+                        # Rebase only imports when relocating this reviewed adapter.
+                        original_parent = source.parent
+                        destination = "declarations.bend" if name == args.candidate_declarations else name
+                        target = stage / "examples/query-composition" / destination
+                        lines = []
+                        for line in source.read_text().splitlines():
+                            if line.startswith("import "):
+                                parts = line.split()
+                                if parts[1].endswith(".bend"):
+                                    imported = (original_parent / parts[1]).resolve()
+                                    if imported.is_relative_to(ROOT / "src/ecs"):
+                                        if imported.parent != ROOT / "src/ecs" or imported not in monitored:
+                                            raise ValueError("Unmonitored core import: " + parts[1])
+                                        parts[1] = "../../src/ecs/" + imported.name
+                                        line = " ".join(parts)
+                                    elif imported in {provider / n for n in provider_names}:
+                                        parts[1] = "declarations.bend" if imported.name == args.candidate_declarations else imported.name
+                                        line = " ".join(parts)
+                                    elif parts[1] in ("gameplay.bend", "observe.bend"):
+                                        # These names always select archived workload files,
+                                        # never the provider's local copies.
+                                        if not (stage / "examples/query-composition" / parts[1]).is_file():
+                                            raise ValueError("Missing archived workload import: " + parts[1])
+                                    else:
+                                        raise ValueError("Import outside staged provider boundary: " + parts[1])
+                            lines.append(line)
+                        target.write_text("\n".join(lines) + "\n")
+
             receipt["sources"][role] = {str(p.relative_to(stage)): sha(p)
                                         for p in stage.rglob("*") if p.is_file()}
         workload = output / "baseline/examples/query-composition"
@@ -162,6 +212,11 @@ def main():
             if sha(ROOT / relative) != digest:
                 raise ValueError("Source changed during benchmark: " + relative)
         current = list((ROOT / "src/ecs").glob("*.bend")) + list(HERE.glob("*.py")) + [HERE / "contract.json"]
+        if args.candidate_provider:
+            final_provider_names = ["schema.bend", args.candidate_declarations] + [
+                name for name in ("owned-rows.bend", "reference-declarations.bend")
+                if (provider / name).is_file()]
+            current += [provider / name for name in final_provider_names]
         if {str(p.relative_to(ROOT)) for p in current} != set(initial):
             raise ValueError("Current source inventory changed during benchmark")
         for role in ("baseline", "candidate"):

@@ -1,0 +1,613 @@
+{
+  "scope": "Exploratory sampled CPU microseconds and V8 sampled allocation attribution; inclusive rows overlap. Not exact allocation totals, causal proof or performance acceptance.",
+  "cpuSamples": 45,
+  "heapSamples": 130,
+  "cpuSelfMicroseconds": [
+    {
+      "name": "(idle)",
+      "value": 22207
+    },
+    {
+      "name": "post",
+      "value": 9567
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/lifecycle:get",
+      "value": 1253
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/lifecycle:clear",
+      "value": 1211
+    },
+    {
+      "name": "(garbage collector)",
+      "value": 951
+    },
+    {
+      "name": "$providers:legacy_get_shared",
+      "value": 465
+    },
+    {
+      "name": "$workload:observation_show",
+      "value": 419
+    },
+    {
+      "name": "$workload:render_fragment",
+      "value": 379
+    },
+    {
+      "name": "io_out",
+      "value": 283
+    },
+    {
+      "name": "$workload:run_dense",
+      "value": 280
+    },
+    {
+      "name": "$workload:cleared_then_restore",
+      "value": 223
+    },
+    {
+      "name": "$workload:record",
+      "value": 216
+    },
+    {
+      "name": "debuglogImpl",
+      "value": 203
+    },
+    {
+      "name": "$providers:legacy_clear",
+      "value": 170
+    },
+    {
+      "name": "dispatch",
+      "value": 163
+    },
+    {
+      "name": "$workload:second_write",
+      "value": 162
+    },
+    {
+      "name": "(program)",
+      "value": 156
+    },
+    {
+      "name": "$U32$show$if",
+      "value": 155
+    },
+    {
+      "name": "$workload:render_reverse",
+      "value": 154
+    },
+    {
+      "name": "enqueue",
+      "value": 151
+    },
+    {
+      "name": "$workload:updates",
+      "value": 99
+    },
+    {
+      "name": "char_new",
+      "value": 87
+    },
+    {
+      "name": "writeSync",
+      "value": 37
+    },
+    {
+      "name": "$providers:legacy_set",
+      "value": 14
+    }
+  ],
+  "cpuInclusiveMicroseconds": [
+    {
+      "name": "(root)",
+      "value": 39005
+    },
+    {
+      "name": "(idle)",
+      "value": 22207
+    },
+    {
+      "name": "(anonymous at line 825)",
+      "value": 15464
+    },
+    {
+      "name": "post",
+      "value": 9730
+    },
+    {
+      "name": "(anonymous at line 5)",
+      "value": 9730
+    },
+    {
+      "name": "freshProgram",
+      "value": 5531
+    },
+    {
+      "name": "io_run",
+      "value": 5531
+    },
+    {
+      "name": "io_exit",
+      "value": 5531
+    },
+    {
+      "name": "(anonymous at line 190)",
+      "value": 5211
+    },
+    {
+      "name": "$workload:run_dense",
+      "value": 4017
+    },
+    {
+      "name": "$workload:updates",
+      "value": 1938
+    },
+    {
+      "name": "$workload:read",
+      "value": 1934
+    },
+    {
+      "name": "$workload:saved_write",
+      "value": 1839
+    },
+    {
+      "name": "$workload:first_write",
+      "value": 1839
+    },
+    {
+      "name": "$workload:one_update",
+      "value": 1839
+    },
+    {
+      "name": "$providers:legacy_get_shared",
+      "value": 1718
+    },
+    {
+      "name": "$providers:legacy_get",
+      "value": 1718
+    },
+    {
+      "name": "$workload:second_write",
+      "value": 1331
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/lifecycle:get",
+      "value": 1253
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/lifecycle:clear",
+      "value": 1211
+    },
+    {
+      "name": "$workload:render_reverse",
+      "value": 1194
+    },
+    {
+      "name": "$workload:render",
+      "value": 1194
+    },
+    {
+      "name": "$workload:cleared_then_restore",
+      "value": 1169
+    },
+    {
+      "name": "$providers:legacy_set",
+      "value": 1149
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/lifecycle:set",
+      "value": 1135
+    },
+    {
+      "name": "$workload:render_fragment",
+      "value": 1040
+    },
+    {
+      "name": "$workload:all_read",
+      "value": 961
+    },
+    {
+      "name": "(garbage collector)",
+      "value": 951
+    },
+    {
+      "name": "$workload:seed",
+      "value": 838
+    },
+    {
+      "name": "$workload:restore_then_read",
+      "value": 776
+    },
+    {
+      "name": "$workload:observation_show",
+      "value": 661
+    },
+    {
+      "name": "io_out",
+      "value": 320
+    },
+    {
+      "name": "io_print",
+      "value": 320
+    },
+    {
+      "name": "$U32$show",
+      "value": 242
+    },
+    {
+      "name": "$U32$show$if",
+      "value": 242
+    },
+    {
+      "name": "$workload:record",
+      "value": 216
+    },
+    {
+      "name": "setTimeout",
+      "value": 203
+    },
+    {
+      "name": "logger",
+      "value": 203
+    },
+    {
+      "name": "(anonymous at line 828)",
+      "value": 203
+    },
+    {
+      "name": "debug",
+      "value": 203
+    },
+    {
+      "name": "insert",
+      "value": 203
+    },
+    {
+      "name": "debuglogImpl",
+      "value": 203
+    },
+    {
+      "name": "$providers:legacy_clear",
+      "value": 170
+    },
+    {
+      "name": "dispatch",
+      "value": 163
+    },
+    {
+      "name": "(program)",
+      "value": 156
+    },
+    {
+      "name": "observerCallback",
+      "value": 151
+    },
+    {
+      "name": "enqueue",
+      "value": 151
+    },
+    {
+      "name": "$U32$show$go",
+      "value": 87
+    },
+    {
+      "name": "char_new",
+      "value": 87
+    },
+    {
+      "name": "writeSync",
+      "value": 37
+    }
+  ],
+  "cpuModuleInclusiveMicroseconds": [
+    {
+      "name": "other/runtime/observation",
+      "value": 39005
+    },
+    {
+      "name": "ecs/lifecycle",
+      "value": 2464
+    },
+    {
+      "name": "GC",
+      "value": 951
+    }
+  ],
+  "heapSelfSampledBytes": [
+    {
+      "name": "$$$/$$/$$/src/ecs/lifecycle:clear",
+      "value": 1560224
+    },
+    {
+      "name": "$workload:record",
+      "value": 98512
+    },
+    {
+      "name": "$workload:render_fragment",
+      "value": 98400
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/lifecycle:keep",
+      "value": 82112
+    },
+    {
+      "name": "$workload:observation_show",
+      "value": 65608
+    },
+    {
+      "name": "$providers:legacy_get_shared",
+      "value": 49280
+    },
+    {
+      "name": "$workload:cleared_then_restore",
+      "value": 49280
+    },
+    {
+      "name": "$U32$show$go",
+      "value": 32784
+    },
+    {
+      "name": "io_print",
+      "value": 16456
+    },
+    {
+      "name": "$workload:saved_write",
+      "value": 16448
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/lifecycle:set",
+      "value": 16448
+    },
+    {
+      "name": "$workload:first_write",
+      "value": 16416
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/lifecycle:get",
+      "value": 16416
+    },
+    {
+      "name": "(anonymous at line 190)",
+      "value": 16400
+    },
+    {
+      "name": "(root)",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 0)",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 825)",
+      "value": 0
+    },
+    {
+      "name": "freshProgram",
+      "value": 0
+    },
+    {
+      "name": "io_exit",
+      "value": 0
+    },
+    {
+      "name": "io_run",
+      "value": 0
+    },
+    {
+      "name": "$workload:render",
+      "value": 0
+    },
+    {
+      "name": "$workload:render_reverse",
+      "value": 0
+    },
+    {
+      "name": "$U32$show",
+      "value": 0
+    },
+    {
+      "name": "$U32$show$if",
+      "value": 0
+    },
+    {
+      "name": "$workload:run_dense",
+      "value": 0
+    },
+    {
+      "name": "$workload:all_read",
+      "value": 0
+    },
+    {
+      "name": "$workload:read",
+      "value": 0
+    },
+    {
+      "name": "$workload:updates",
+      "value": 0
+    },
+    {
+      "name": "$workload:one_update",
+      "value": 0
+    },
+    {
+      "name": "$providers:legacy_get",
+      "value": 0
+    },
+    {
+      "name": "$providers:legacy_set",
+      "value": 0
+    },
+    {
+      "name": "$workload:second_write",
+      "value": 0
+    },
+    {
+      "name": "$workload:restore_then_read",
+      "value": 0
+    },
+    {
+      "name": "$providers:legacy_clear",
+      "value": 0
+    },
+    {
+      "name": "$workload:seed",
+      "value": 0
+    }
+  ],
+  "heapInclusiveSampledBytes": [
+    {
+      "name": "(root)",
+      "value": 2134784
+    },
+    {
+      "name": "(anonymous at line 0)",
+      "value": 2134784
+    },
+    {
+      "name": "(anonymous at line 825)",
+      "value": 2134784
+    },
+    {
+      "name": "freshProgram",
+      "value": 2134784
+    },
+    {
+      "name": "io_exit",
+      "value": 2134784
+    },
+    {
+      "name": "io_run",
+      "value": 2134784
+    },
+    {
+      "name": "(anonymous at line 190)",
+      "value": 2118328
+    },
+    {
+      "name": "$workload:run_dense",
+      "value": 1905136
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/lifecycle:clear",
+      "value": 1642336
+    },
+    {
+      "name": "$workload:updates",
+      "value": 1609376
+    },
+    {
+      "name": "$workload:one_update",
+      "value": 1609376
+    },
+    {
+      "name": "$workload:saved_write",
+      "value": 1609376
+    },
+    {
+      "name": "$workload:first_write",
+      "value": 1592928
+    },
+    {
+      "name": "$providers:legacy_set",
+      "value": 1264800
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/lifecycle:set",
+      "value": 1264800
+    },
+    {
+      "name": "$workload:second_write",
+      "value": 1149632
+    },
+    {
+      "name": "$workload:cleared_then_restore",
+      "value": 755616
+    },
+    {
+      "name": "$providers:legacy_clear",
+      "value": 393984
+    },
+    {
+      "name": "$workload:restore_then_read",
+      "value": 312352
+    },
+    {
+      "name": "$workload:seed",
+      "value": 246528
+    },
+    {
+      "name": "$workload:render",
+      "value": 196792
+    },
+    {
+      "name": "$workload:render_reverse",
+      "value": 196792
+    },
+    {
+      "name": "$workload:render_fragment",
+      "value": 196792
+    },
+    {
+      "name": "$workload:read",
+      "value": 164208
+    },
+    {
+      "name": "$workload:record",
+      "value": 98512
+    },
+    {
+      "name": "$workload:observation_show",
+      "value": 98392
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/lifecycle:keep",
+      "value": 82112
+    },
+    {
+      "name": "$providers:legacy_get",
+      "value": 65696
+    },
+    {
+      "name": "$providers:legacy_get_shared",
+      "value": 65696
+    },
+    {
+      "name": "$workload:all_read",
+      "value": 49232
+    },
+    {
+      "name": "$U32$show",
+      "value": 32784
+    },
+    {
+      "name": "$U32$show$go",
+      "value": 32784
+    },
+    {
+      "name": "io_print",
+      "value": 16456
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/lifecycle:get",
+      "value": 16416
+    },
+    {
+      "name": "$U32$show$if",
+      "value": 16392
+    }
+  ],
+  "heapModuleInclusiveSampledBytes": [
+    {
+      "name": "other/runtime/observation",
+      "value": 2134784
+    },
+    {
+      "name": "ecs/lifecycle",
+      "value": 1675200
+    }
+  ]
+}

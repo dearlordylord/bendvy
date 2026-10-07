@@ -1,0 +1,813 @@
+{
+  "scope": "Exploratory sampled CPU microseconds and V8 sampled allocation attribution; inclusive rows overlap. Not exact allocation totals, causal proof or performance acceptance.",
+  "cpuSamples": 50,
+  "heapSamples": 87,
+  "cpuSelfMicroseconds": [
+    {
+      "name": "(idle)",
+      "value": 19904
+    },
+    {
+      "name": "post",
+      "value": 9408
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:set",
+      "value": 1551
+    },
+    {
+      "name": "(garbage collector)",
+      "value": 1263
+    },
+    {
+      "name": "array_node",
+      "value": 918
+    },
+    {
+      "name": "$U32$show$go",
+      "value": 665
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:got_added",
+      "value": 331
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:get_checked",
+      "value": 316
+    },
+    {
+      "name": "array_new",
+      "value": 307
+    },
+    {
+      "name": "$workload:specials",
+      "value": 282
+    },
+    {
+      "name": "$providers:indexed_get",
+      "value": 224
+    },
+    {
+      "name": "$workload:read",
+      "value": 219
+    },
+    {
+      "name": "(program)",
+      "value": 207
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:normal",
+      "value": 194
+    },
+    {
+      "name": "$U32$show$if",
+      "value": 164
+    },
+    {
+      "name": "$workload:render_reverse",
+      "value": 161
+    },
+    {
+      "name": "$workload:observation_show",
+      "value": 154
+    },
+    {
+      "name": "io_run",
+      "value": 153
+    },
+    {
+      "name": "observerCallback",
+      "value": 148
+    },
+    {
+      "name": "writeBuffer",
+      "value": 118
+    },
+    {
+      "name": "enqueue",
+      "value": 105
+    },
+    {
+      "name": "$U32$show",
+      "value": 95
+    },
+    {
+      "name": "$workload:record",
+      "value": 42
+    }
+  ],
+  "cpuInclusiveMicroseconds": [
+    {
+      "name": "(root)",
+      "value": 36929
+    },
+    {
+      "name": "(idle)",
+      "value": 19904
+    },
+    {
+      "name": "(anonymous at line 996)",
+      "value": 15302
+    },
+    {
+      "name": "(anonymous at line 5)",
+      "value": 9408
+    },
+    {
+      "name": "post",
+      "value": 9408
+    },
+    {
+      "name": "io_run",
+      "value": 5894
+    },
+    {
+      "name": "io_exit",
+      "value": 5894
+    },
+    {
+      "name": "freshProgram",
+      "value": 5894
+    },
+    {
+      "name": "(anonymous at line 190)",
+      "value": 5623
+    },
+    {
+      "name": "$workload:run",
+      "value": 4384
+    },
+    {
+      "name": "$providers:indexed_set",
+      "value": 2970
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:set",
+      "value": 2970
+    },
+    {
+      "name": "$workload:finish_sparse",
+      "value": 2511
+    },
+    {
+      "name": "$workload:specials",
+      "value": 1896
+    },
+    {
+      "name": "$workload:updates",
+      "value": 1873
+    },
+    {
+      "name": "$workload:one_update",
+      "value": 1873
+    },
+    {
+      "name": "$workload:saved_write",
+      "value": 1873
+    },
+    {
+      "name": "$workload:first_write",
+      "value": 1873
+    },
+    {
+      "name": "$workload:second_write",
+      "value": 1740
+    },
+    {
+      "name": "$workload:special",
+      "value": 1614
+    },
+    {
+      "name": "$workload:special_written",
+      "value": 1449
+    },
+    {
+      "name": "(garbage collector)",
+      "value": 1263
+    },
+    {
+      "name": "$workload:render",
+      "value": 1239
+    },
+    {
+      "name": "$workload:render_reverse",
+      "value": 1239
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:set_checked",
+      "value": 1225
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:write_grow",
+      "value": 1225
+    },
+    {
+      "name": "$workload:read",
+      "value": 1132
+    },
+    {
+      "name": "$workload:render_fragment",
+      "value": 1078
+    },
+    {
+      "name": "$workload:observation_show",
+      "value": 1078
+    },
+    {
+      "name": "$U32$show",
+      "value": 924
+    },
+    {
+      "name": "array_node",
+      "value": 918
+    },
+    {
+      "name": "$providers:indexed_get",
+      "value": 871
+    },
+    {
+      "name": "$U32$show$if",
+      "value": 829
+    },
+    {
+      "name": "$U32$show$go",
+      "value": 665
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:get_checked",
+      "value": 647
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:get",
+      "value": 647
+    },
+    {
+      "name": "$workload:all_read",
+      "value": 615
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:got_added",
+      "value": 331
+    },
+    {
+      "name": "array_new",
+      "value": 307
+    },
+    {
+      "name": "observerCallback",
+      "value": 253
+    },
+    {
+      "name": "$workload:special_clear",
+      "value": 219
+    },
+    {
+      "name": "(program)",
+      "value": 207
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:normal",
+      "value": 194
+    },
+    {
+      "name": "writeSync",
+      "value": 118
+    },
+    {
+      "name": "io_print",
+      "value": 118
+    },
+    {
+      "name": "io_out",
+      "value": 118
+    },
+    {
+      "name": "writeBuffer",
+      "value": 118
+    },
+    {
+      "name": "enqueue",
+      "value": 105
+    },
+    {
+      "name": "$workload:record",
+      "value": 42
+    }
+  ],
+  "cpuModuleInclusiveMicroseconds": [
+    {
+      "name": "other/runtime/observation",
+      "value": 36929
+    },
+    {
+      "name": "ecs/indexed-lifecycle",
+      "value": 3617
+    },
+    {
+      "name": "GC",
+      "value": 1263
+    }
+  ],
+  "heapSelfSampledBytes": [
+    {
+      "name": "array_node",
+      "value": 4223616
+    },
+    {
+      "name": "array_new",
+      "value": 2126160
+    },
+    {
+      "name": "$workload:observation_show",
+      "value": 246000
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:got_changed",
+      "value": 98648
+    },
+    {
+      "name": "$workload:record",
+      "value": 98576
+    },
+    {
+      "name": "$U32$show$go",
+      "value": 81984
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:write_ready",
+      "value": 49368
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:got_added",
+      "value": 49344
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:get_checked",
+      "value": 32896
+    },
+    {
+      "name": "post",
+      "value": 24096
+    },
+    {
+      "name": "observerCallback",
+      "value": 16560
+    },
+    {
+      "name": "PerformanceNodeEntry",
+      "value": 16560
+    },
+    {
+      "name": "Timeout",
+      "value": 16464
+    },
+    {
+      "name": "$workload:first_write",
+      "value": 16448
+    },
+    {
+      "name": "(anonymous at line 4)",
+      "value": 16432
+    },
+    {
+      "name": "wrappedFn",
+      "value": 16416
+    },
+    {
+      "name": "$workload:render_fragment",
+      "value": 16416
+    },
+    {
+      "name": "$workload:run",
+      "value": 16416
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:empty",
+      "value": 16416
+    },
+    {
+      "name": "push",
+      "value": 16416
+    },
+    {
+      "name": "createPerformanceNodeEntry",
+      "value": 16416
+    },
+    {
+      "name": "$workload:read",
+      "value": 16400
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:write_grow",
+      "value": 16400
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:get",
+      "value": 16400
+    },
+    {
+      "name": "(root)",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 0)",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 996)",
+      "value": 0
+    },
+    {
+      "name": "Promise",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 999)",
+      "value": 0
+    },
+    {
+      "name": "setTimeout",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 5)",
+      "value": 0
+    },
+    {
+      "name": "freshProgram",
+      "value": 0
+    },
+    {
+      "name": "io_exit",
+      "value": 0
+    },
+    {
+      "name": "io_run",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 190)",
+      "value": 0
+    },
+    {
+      "name": "$workload:render",
+      "value": 0
+    },
+    {
+      "name": "$workload:render_reverse",
+      "value": 0
+    },
+    {
+      "name": "$U32$show",
+      "value": 0
+    },
+    {
+      "name": "$U32$show$if",
+      "value": 0
+    },
+    {
+      "name": "$workload:finish_sparse",
+      "value": 0
+    },
+    {
+      "name": "$workload:all_read",
+      "value": 0
+    },
+    {
+      "name": "$workload:specials",
+      "value": 0
+    },
+    {
+      "name": "$workload:special",
+      "value": 0
+    },
+    {
+      "name": "$workload:special_written",
+      "value": 0
+    },
+    {
+      "name": "$providers:indexed_set",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:set",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:set_checked",
+      "value": 0
+    },
+    {
+      "name": "$providers:indexed_get",
+      "value": 0
+    },
+    {
+      "name": "$workload:updates",
+      "value": 0
+    },
+    {
+      "name": "$workload:one_update",
+      "value": 0
+    },
+    {
+      "name": "$workload:saved_write",
+      "value": 0
+    },
+    {
+      "name": "$workload:second_write",
+      "value": 0
+    },
+    {
+      "name": "$workload:cleared_then_restore",
+      "value": 0
+    },
+    {
+      "name": "$providers:indexed_clear",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:clear",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:clear_checked",
+      "value": 0
+    },
+    {
+      "name": "$workload:restore_then_read",
+      "value": 0
+    },
+    {
+      "name": "$workload:seed",
+      "value": 0
+    },
+    {
+      "name": "processImmediate",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 127)",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 354)",
+      "value": 0
+    }
+  ],
+  "heapInclusiveSampledBytes": [
+    {
+      "name": "(root)",
+      "value": 7260848
+    },
+    {
+      "name": "(anonymous at line 0)",
+      "value": 7178464
+    },
+    {
+      "name": "(anonymous at line 996)",
+      "value": 7178464
+    },
+    {
+      "name": "freshProgram",
+      "value": 7121488
+    },
+    {
+      "name": "io_exit",
+      "value": 7121488
+    },
+    {
+      "name": "io_run",
+      "value": 7121488
+    },
+    {
+      "name": "(anonymous at line 190)",
+      "value": 7121488
+    },
+    {
+      "name": "$workload:run",
+      "value": 6760672
+    },
+    {
+      "name": "$providers:indexed_set",
+      "value": 6399088
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:set",
+      "value": 6399088
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:set_checked",
+      "value": 6399088
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:write_grow",
+      "value": 6399088
+    },
+    {
+      "name": "$workload:finish_sparse",
+      "value": 6366224
+    },
+    {
+      "name": "$workload:specials",
+      "value": 6349776
+    },
+    {
+      "name": "$workload:special",
+      "value": 6349776
+    },
+    {
+      "name": "$workload:special_written",
+      "value": 6349776
+    },
+    {
+      "name": "array_node",
+      "value": 4223616
+    },
+    {
+      "name": "array_new",
+      "value": 2126160
+    },
+    {
+      "name": "$workload:render",
+      "value": 344400
+    },
+    {
+      "name": "$workload:render_reverse",
+      "value": 344400
+    },
+    {
+      "name": "$workload:render_fragment",
+      "value": 344400
+    },
+    {
+      "name": "$workload:observation_show",
+      "value": 327984
+    },
+    {
+      "name": "$workload:updates",
+      "value": 263096
+    },
+    {
+      "name": "$workload:one_update",
+      "value": 263096
+    },
+    {
+      "name": "$workload:read",
+      "value": 246528
+    },
+    {
+      "name": "$workload:saved_write",
+      "value": 197360
+    },
+    {
+      "name": "$workload:first_write",
+      "value": 197360
+    },
+    {
+      "name": "$providers:indexed_get",
+      "value": 197288
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:get",
+      "value": 197288
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:get_checked",
+      "value": 180888
+    },
+    {
+      "name": "$workload:second_write",
+      "value": 148008
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:got_added",
+      "value": 147992
+    },
+    {
+      "name": "$workload:cleared_then_restore",
+      "value": 115112
+    },
+    {
+      "name": "$workload:all_read",
+      "value": 114984
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:got_changed",
+      "value": 98648
+    },
+    {
+      "name": "$workload:record",
+      "value": 98576
+    },
+    {
+      "name": "$U32$show",
+      "value": 81984
+    },
+    {
+      "name": "$U32$show$go",
+      "value": 81984
+    },
+    {
+      "name": "Promise",
+      "value": 56976
+    },
+    {
+      "name": "observerCallback",
+      "value": 49536
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:write_ready",
+      "value": 49368
+    },
+    {
+      "name": "$workload:restore_then_read",
+      "value": 49304
+    },
+    {
+      "name": "createPerformanceNodeEntry",
+      "value": 32976
+    },
+    {
+      "name": "(anonymous at line 999)",
+      "value": 32880
+    },
+    {
+      "name": "setTimeout",
+      "value": 32880
+    },
+    {
+      "name": "processImmediate",
+      "value": 32848
+    },
+    {
+      "name": "(anonymous at line 127)",
+      "value": 32848
+    },
+    {
+      "name": "(anonymous at line 354)",
+      "value": 32848
+    },
+    {
+      "name": "(anonymous at line 4)",
+      "value": 32848
+    },
+    {
+      "name": "post",
+      "value": 24096
+    },
+    {
+      "name": "(anonymous at line 5)",
+      "value": 24096
+    },
+    {
+      "name": "PerformanceNodeEntry",
+      "value": 16560
+    },
+    {
+      "name": "Timeout",
+      "value": 16464
+    },
+    {
+      "name": "$providers:indexed_clear",
+      "value": 16456
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:clear",
+      "value": 16456
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:clear_checked",
+      "value": 16456
+    },
+    {
+      "name": "wrappedFn",
+      "value": 16416
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:empty",
+      "value": 16416
+    },
+    {
+      "name": "push",
+      "value": 16416
+    },
+    {
+      "name": "$workload:seed",
+      "value": 16400
+    },
+    {
+      "name": "$U32$show$if",
+      "value": 16392
+    }
+  ],
+  "heapModuleInclusiveSampledBytes": [
+    {
+      "name": "other/runtime/observation",
+      "value": 7260848
+    },
+    {
+      "name": "ecs/indexed-lifecycle",
+      "value": 6629248
+    }
+  ]
+}

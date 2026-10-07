@@ -1,0 +1,641 @@
+{
+  "sourceHashes": {
+    "experiments/public-optimized-compose/extracted/handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+    "experiments/public-optimized-compose/extracted/row-context.bend": "547f4cf9e909703a2bbf7caa691da75ced13b5100c3969b2e7cb2c85e0bdded7",
+    "experiments/public-optimized-compose/prepared-control.bend": "7e03fd9a540dd9d2606aa8b40bca50491957c77a5c1040771c0c61f76a366df1",
+    "experiments/public-optimized-compose/refusal-control.bend": "7f8f6756577e56c11804ea718bad3c4bde98aa8ad57c242d6a65975012e3ef9f",
+    "experiments/public-optimized-compose/row-context-control.bend": "347f5443d97328aae7e66b0ca9eb74d0cb7f32d9a5946d54c9a75c0b1a4b4fe5",
+    "experiments/public-optimized-compose/seek-fuel-control.bend": "969d01f644caa81effb98c5cce388285e1aaa5e51923fc35ceabe4f848e689b0",
+    "experiments/public-optimized-compose/tx-set-refusal-control.bend": "e1f0a80b384d571ece4359b2aed189b53c83311f65ef7e081778acdcfad59c16",
+    "experiments/public-optimized-compose/workshop/array-controls.bend": "373c3067726ee403eb21f540df1165824385bbc38c799994a76f1c9f4248327e",
+    "experiments/public-optimized-compose/workshop/declarations.bend": "ccb7bd1379bf37a0f2087709e65d39cb65aa21bb5fcb48b3e4fce17a3cd3dad5",
+    "experiments/public-optimized-compose/workshop/driver.bend": "2fe44766efe070d39dafa24f35be69c1a47c2a078f761b51e4113a86ed3aec02",
+    "experiments/public-optimized-compose/workshop/gameplay.bend": "d0a8af8e8832ecbde6bb73bd907a0541dd091702e8d5dcf7cfd9fc151a291736",
+    "experiments/public-optimized-compose/workshop/json.bend": "dcd23ba12208488dc2cc2368a23609dc6f685fbcff95c2af40e4f96b64bcadc1",
+    "experiments/public-optimized-compose/workshop/main.bend": "4339adc4de65c6bcbe25f243ba3a152ee16509fe3a74c966251d6ccc0bba97dd",
+    "experiments/public-optimized-compose/workshop/observe.bend": "c84c1db643e9e92b22433945b305b540281e6a52041b1be2a85b864964e3dbbc",
+    "experiments/public-optimized-compose/workshop/scenario-ops.bend": "b2d0e9b5212d762006fbefe92e032d9e1fe260436542485e1a8be257e245aa99",
+    "experiments/public-optimized-compose/workshop/schema.bend": "0c629457791ee5fe2921d33201fe20be10bae8fd0f18a6c728ba775e66339500",
+    "experiments/public-optimized-compose/workshop/timing-main.bend": "a7fea467df249864772e4be3e229342cddd2e457bed6fb596f28e224b203fbb6",
+    "experiments/public-optimized-compose/wrapped-prepared-control.bend": "089f1ceae1ecac5ac58d80af1679bf3e457e348d17d4877a12dea88f68d42672",
+    "experiments/public-optimized-compose/wrapped-recovery-control.bend": "c59b1242d8ffe035848a7ffb97b81317b1a458f5a9eb95d365add53243ef030e",
+    "experiments/public-optimized-compose/wrapped-refusal-control.bend": "84711f7dfc2b404c6f4f19e47e84d10eec759ece16684cfd37e38ef29a4be358",
+    "src/ecs/capabilities.bend": "91c0cdc01e9143d10dc0156ef4f6c39beff97d8088ed0bbb056ffff2ffabf964",
+    "src/ecs/column.bend": "5eed33d40d4d9231bd9884c843ae8bc72f16a9d27a216727fb03cc492bd6f7f1",
+    "src/ecs/commands.bend": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+    "src/ecs/component.bend": "4a378ec4aee020d06d04c0ff883911063c75f3a6afe9e278f6969e60d20dfb98",
+    "src/ecs/compose.bend": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+    "src/ecs/event-runtime.bend": "409b45060a9d8b02ce5bf43c584f2be05b81b2239b04e75dca384f07cc626ea7",
+    "src/ecs/events.bend": "fffc3ec427072c4ba1c880f2ba8a73c1fcd1db66550cf63cdce56ba9e10bdc63",
+    "src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "src/ecs/local.bend": "8cc5b3c9d3597c60d8a1b9b7fd206a92b289669c3cd9a8575db65ce9af37bd47",
+    "src/ecs/optimized-compose.bend": "ac9c98457c7d6890f1f30dd82f41658a5d3ae962a7fb9022062af5b9d581ca25",
+    "src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+    "src/ecs/provider.bend": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72",
+    "src/ecs/query-contract.bend": "de8eb5a047d2ca82e5832513798a6590a2cd025296b80b154da65a51270c4e91",
+    "src/ecs/query.bend": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9",
+    "src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+    "src/ecs/removals.bend": "98a5f5cf42372d8eab35f3927539079e4412886eeaa3e07bbb2113f2286222f6",
+    "src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+    "src/ecs/schedule.bend": "ad7a7c4187bfb028d01e98b821bd65078ae503604ec04ab645440be3898caa9f",
+    "src/ecs/structural.bend": "e8e813dc6de2f8a38ca61f51c0cbc5aeaf243fcc9cd399303e2adca2674480d4",
+    "src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+    "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "src/ecs/world.bend": "7d394b623b8bb60a3fef7b160bb69af135719edd3008126ee186e190047708f8"
+  },
+  "runnerSHA256": "ad1e3d9155f1eeb54c83cfb8746ece968f1496ac287b48c6abe367ebfdbf0d8f",
+  "commands": [
+    {
+      "label": "version",
+      "command": [
+        "bend",
+        "version"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "ca6fc52ac20b452bc60b3e8da766c53d679f0325ca4f1ac580ec72f09758d79d"
+    },
+    {
+      "label": "workshop-main-check",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/workshop/main.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    {
+      "label": "workshop-main-emit-JS",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/workshop/main.bend",
+        "-o",
+        "/tmp/storage30-owned-seek-observations/workshop-main.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "workshop-main-run-JS",
+      "command": [
+        "node",
+        "/tmp/storage30-owned-seek-observations/workshop-main.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "3ced874f4baca512dc828392d0f4c7cb93bb70634aea4b7b591363ac4b7a2592"
+    },
+    {
+      "label": "workshop-main-emit-Native",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/workshop/main.bend",
+        "-o",
+        "/tmp/storage30-owned-seek-observations/workshop-main.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "workshop-main-compile",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/storage30-owned-seek-observations/workshop-main.c",
+        "-o",
+        "/tmp/storage30-owned-seek-observations/workshop-main",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "workshop-main-run-Native",
+      "command": [
+        "/tmp/storage30-owned-seek-observations/workshop-main"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "3ced874f4baca512dc828392d0f4c7cb93bb70634aea4b7b591363ac4b7a2592"
+    },
+    {
+      "label": "prepared-control-check",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/prepared-control.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    {
+      "label": "prepared-control-emit-JS",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/prepared-control.bend",
+        "-o",
+        "/tmp/storage30-owned-seek-observations/prepared-control.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "prepared-control-run-JS",
+      "command": [
+        "node",
+        "/tmp/storage30-owned-seek-observations/prepared-control.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "9b85c4dfcf26a2beef9660763335c37e76edec95c6ef98879262f6fef6c60ef1"
+    },
+    {
+      "label": "prepared-control-emit-Native",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/prepared-control.bend",
+        "-o",
+        "/tmp/storage30-owned-seek-observations/prepared-control.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "prepared-control-compile",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/storage30-owned-seek-observations/prepared-control.c",
+        "-o",
+        "/tmp/storage30-owned-seek-observations/prepared-control",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "prepared-control-run-Native",
+      "command": [
+        "/tmp/storage30-owned-seek-observations/prepared-control"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "9b85c4dfcf26a2beef9660763335c37e76edec95c6ef98879262f6fef6c60ef1"
+    },
+    {
+      "label": "refusal-control-check",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/refusal-control.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    {
+      "label": "refusal-control-emit-JS",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/refusal-control.bend",
+        "-o",
+        "/tmp/storage30-owned-seek-observations/refusal-control.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "refusal-control-run-JS",
+      "command": [
+        "node",
+        "/tmp/storage30-owned-seek-observations/refusal-control.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "9af837efee7e10fe7cd5cdf4612c946f485a968e276a2430d7b31efe5dda43b0"
+    },
+    {
+      "label": "refusal-control-emit-Native",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/refusal-control.bend",
+        "-o",
+        "/tmp/storage30-owned-seek-observations/refusal-control.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "refusal-control-compile",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/storage30-owned-seek-observations/refusal-control.c",
+        "-o",
+        "/tmp/storage30-owned-seek-observations/refusal-control",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "refusal-control-run-Native",
+      "command": [
+        "/tmp/storage30-owned-seek-observations/refusal-control"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "9af837efee7e10fe7cd5cdf4612c946f485a968e276a2430d7b31efe5dda43b0"
+    },
+    {
+      "label": "wrapped-prepared-control-check",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/wrapped-prepared-control.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    {
+      "label": "wrapped-prepared-control-emit-JS",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/wrapped-prepared-control.bend",
+        "-o",
+        "/tmp/storage30-owned-seek-observations/wrapped-prepared-control.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "wrapped-prepared-control-run-JS",
+      "command": [
+        "node",
+        "/tmp/storage30-owned-seek-observations/wrapped-prepared-control.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "9b85c4dfcf26a2beef9660763335c37e76edec95c6ef98879262f6fef6c60ef1"
+    },
+    {
+      "label": "wrapped-prepared-control-emit-Native",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/wrapped-prepared-control.bend",
+        "-o",
+        "/tmp/storage30-owned-seek-observations/wrapped-prepared-control.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "wrapped-prepared-control-compile",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/storage30-owned-seek-observations/wrapped-prepared-control.c",
+        "-o",
+        "/tmp/storage30-owned-seek-observations/wrapped-prepared-control",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "wrapped-prepared-control-run-Native",
+      "command": [
+        "/tmp/storage30-owned-seek-observations/wrapped-prepared-control"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "9b85c4dfcf26a2beef9660763335c37e76edec95c6ef98879262f6fef6c60ef1"
+    },
+    {
+      "label": "wrapped-refusal-control-check",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/wrapped-refusal-control.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    {
+      "label": "wrapped-refusal-control-emit-JS",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/wrapped-refusal-control.bend",
+        "-o",
+        "/tmp/storage30-owned-seek-observations/wrapped-refusal-control.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "wrapped-refusal-control-run-JS",
+      "command": [
+        "node",
+        "/tmp/storage30-owned-seek-observations/wrapped-refusal-control.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "9af837efee7e10fe7cd5cdf4612c946f485a968e276a2430d7b31efe5dda43b0"
+    },
+    {
+      "label": "wrapped-refusal-control-emit-Native",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/wrapped-refusal-control.bend",
+        "-o",
+        "/tmp/storage30-owned-seek-observations/wrapped-refusal-control.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "wrapped-refusal-control-compile",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/storage30-owned-seek-observations/wrapped-refusal-control.c",
+        "-o",
+        "/tmp/storage30-owned-seek-observations/wrapped-refusal-control",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "wrapped-refusal-control-run-Native",
+      "command": [
+        "/tmp/storage30-owned-seek-observations/wrapped-refusal-control"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "9af837efee7e10fe7cd5cdf4612c946f485a968e276a2430d7b31efe5dda43b0"
+    },
+    {
+      "label": "wrapped-recovery-control-check",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/wrapped-recovery-control.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    {
+      "label": "wrapped-recovery-control-emit-JS",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/wrapped-recovery-control.bend",
+        "-o",
+        "/tmp/storage30-owned-seek-observations/wrapped-recovery-control.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "wrapped-recovery-control-run-JS",
+      "command": [
+        "node",
+        "/tmp/storage30-owned-seek-observations/wrapped-recovery-control.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "159e0d2bcdff0e09c01236b1edac7975e4ceb2de8aaeb302a4d4d83f754f73ac"
+    },
+    {
+      "label": "wrapped-recovery-control-emit-Native",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/wrapped-recovery-control.bend",
+        "-o",
+        "/tmp/storage30-owned-seek-observations/wrapped-recovery-control.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "wrapped-recovery-control-compile",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/storage30-owned-seek-observations/wrapped-recovery-control.c",
+        "-o",
+        "/tmp/storage30-owned-seek-observations/wrapped-recovery-control",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "wrapped-recovery-control-run-Native",
+      "command": [
+        "/tmp/storage30-owned-seek-observations/wrapped-recovery-control"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "159e0d2bcdff0e09c01236b1edac7975e4ceb2de8aaeb302a4d4d83f754f73ac"
+    },
+    {
+      "label": "seek-fuel-control-check",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/seek-fuel-control.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    {
+      "label": "seek-fuel-control-emit-JS",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/seek-fuel-control.bend",
+        "-o",
+        "/tmp/storage30-owned-seek-observations/seek-fuel-control.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "seek-fuel-control-run-JS",
+      "command": [
+        "node",
+        "/tmp/storage30-owned-seek-observations/seek-fuel-control.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "b8c9ef57bd686b422de3c63f06d0a111268b41563a47a57f8b72c11adc5832e9"
+    },
+    {
+      "label": "seek-fuel-control-emit-Native",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/seek-fuel-control.bend",
+        "-o",
+        "/tmp/storage30-owned-seek-observations/seek-fuel-control.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "seek-fuel-control-compile",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/storage30-owned-seek-observations/seek-fuel-control.c",
+        "-o",
+        "/tmp/storage30-owned-seek-observations/seek-fuel-control",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "seek-fuel-control-run-Native",
+      "command": [
+        "/tmp/storage30-owned-seek-observations/seek-fuel-control"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "b8c9ef57bd686b422de3c63f06d0a111268b41563a47a57f8b72c11adc5832e9"
+    },
+    {
+      "label": "tx-set-refusal-control-check",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/tx-set-refusal-control.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    {
+      "label": "tx-set-refusal-control-emit-JS",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/tx-set-refusal-control.bend",
+        "-o",
+        "/tmp/storage30-owned-seek-observations/tx-set-refusal-control.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "tx-set-refusal-control-run-JS",
+      "command": [
+        "node",
+        "/tmp/storage30-owned-seek-observations/tx-set-refusal-control.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "55fec8ff7cc101df5141c06444d791d74f0d895b48cced644439b9d485d3e029"
+    },
+    {
+      "label": "tx-set-refusal-control-emit-Native",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/tx-set-refusal-control.bend",
+        "-o",
+        "/tmp/storage30-owned-seek-observations/tx-set-refusal-control.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "tx-set-refusal-control-compile",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/storage30-owned-seek-observations/tx-set-refusal-control.c",
+        "-o",
+        "/tmp/storage30-owned-seek-observations/tx-set-refusal-control",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "tx-set-refusal-control-run-Native",
+      "command": [
+        "/tmp/storage30-owned-seek-observations/tx-set-refusal-control"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "55fec8ff7cc101df5141c06444d791d74f0d895b48cced644439b9d485d3e029"
+    }
+  ],
+  "status": "PASS",
+  "bendVersion": "bend 2.0.35",
+  "generatedHashes": {
+    "workshop-main.js": "ba50a15bb0f9a718edff999253c121994c9e3d06659cdd99c3adbb436f52f776",
+    "workshop-main.c": "9f7701b414729a9f2becdcbb12674aabb6e0262b16dc8701b1b7c3ce63644862",
+    "prepared-control.js": "8c20e3dbabb175820e24d70a30473cb826cf4176bd1ee2d5078181ac4b4424e6",
+    "prepared-control.c": "b9efc1dc47c8b8cc2ff959919d3ff9a8b9e017e6b4419bbce8418ce126f8d663",
+    "refusal-control.js": "d029574a3d2342c1d78b0728117f82d11f05d078ba6bdbd04423569284595a0b",
+    "refusal-control.c": "e8f6968689a8dbe8cde8b106f86eab899d2add683ce4406bc1a10b9a7b2700f8",
+    "wrapped-prepared-control.js": "3e44df8124a04984cd0a9d691d1526e0b89c33907f612d676a2720c32ade66dd",
+    "wrapped-prepared-control.c": "11e63efe633a1ff28c1fe27a660ee45e75e0d886e1dd6b18b6528ade603cd0d1",
+    "wrapped-refusal-control.js": "d83edc7eff93b54e3877dd51ef4484c9f531c3c127ae527d37354f0e515f945c",
+    "wrapped-refusal-control.c": "c61acd87ee3bd973d3ef188c01b40d4da1e90f3dcce068beccf6cd480e0efa1f",
+    "wrapped-recovery-control.js": "63d90e6cf8c3c67cda8827d6cab0a54942e73bfed07a451acb13cf22083c633d",
+    "wrapped-recovery-control.c": "b8c4f14d16cad5bc1e982ca18c484d220890ceb2953ec181403fe15f014ef0dd",
+    "seek-fuel-control.js": "06e5dd2d71ec5f60c0ed6fe8476fc261f3c2801a03b227a7ee1189d1fcd4c44a",
+    "seek-fuel-control.c": "27178ef626ffe9b9030d986a8f89cb6917d25df5c837e0166d333949ee7b1f6d",
+    "tx-set-refusal-control.js": "46a0a189236788b74673e853210f4d247df4c12bfc9df0d675c828b11360f388",
+    "tx-set-refusal-control.c": "3afd7ea548aa70eeaa3aec24c755d98c3d67303052441135690fa510f375524f"
+  },
+  "binaryHashes": {
+    "workshop-main": "fd5931797b5314ab9dcf97e5821d61bcac2c1e6137d9571b8860604bc708858f",
+    "prepared-control": "4146acbcbed2e9d968785d4f4fab56eb23b572adf007bc29e649d23f1e5af1b5",
+    "refusal-control": "1bc28ae62b56a4222fa401b25b7b0686d34b1c45de7273c2f781d4b433a1a404",
+    "wrapped-prepared-control": "0506f0e24d43bbce7b5ec171ce8869cf41a4d7266e4a0d6293cd957fe93eb80f",
+    "wrapped-refusal-control": "605bef905b4346c25ed6405bfeb89fe497757de18724daa61812905761babec4",
+    "wrapped-recovery-control": "8412b42365c3b293a898169f4fc5452a033aa630fced923f1a30dcc7b2043b44",
+    "seek-fuel-control": "44d9c686fa14d931c005c62e7fc46a0d3295ac30bae012e35abe7afb7c1c6ebf",
+    "tx-set-refusal-control": "6bb4d7be1c390dea99c2344a6ee9a0d4b2b9d952db2600330b345384140bf70e"
+  }
+}

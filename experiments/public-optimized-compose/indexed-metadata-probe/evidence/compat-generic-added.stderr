@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : cases for compat-library.Indexed
+- observed : \{}
+Location: column
+ 9 | def column(~A:Type,value:C.Column<A>) -> A:
+10>|   match value:
+   |   ^^^^^^^^^^^^
+11 |     case C.Column{owner,_}: owner

@@ -1,0 +1,2299 @@
+{
+  "status": "ERROR",
+  "scope": "Metadata-only equal-work diagnostic. No TS/product/full-ECS qualification or regression acceptance.",
+  "sizes": [
+    64,
+    256,
+    1024
+  ],
+  "cpu": 0,
+  "scenario": "dense",
+  "runtimeCapSeconds": 5,
+  "checkerCapSeconds": 5,
+  "commands": [
+    {
+      "command": [
+        "bend",
+        "version"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.017994067005929537,
+      "stdoutSHA256": "ca6fc52ac20b452bc60b3e8da766c53d679f0325ca4f1ac580ec72f09758d79d",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "node",
+        "--version"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.005969660996925086,
+      "stdoutSHA256": "b67d0ced059f9313d861ddbbe734d2d1f9219106a9e036ae6d88407afa0846e6",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "--version"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.024668523998116143,
+      "stdoutSHA256": "cdddf8c4dfb42fef72caa5c3988c573a4f7bca9409456a32841dfe34e6b4b6c3",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/legacy-64.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.10797869399539195,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/legacy-64.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-64.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 0.11411568900803104,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/legacy-64.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-64.c"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 0.15574960799131077,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-64.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-64.native",
+        "-pthread",
+        "-lm"
+      ],
+      "capSeconds": 120,
+      "exit": 0,
+      "seconds": 0.4043904010031838,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-64.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.022943096002563834,
+      "stdoutSHA256": "711f37f6f4ca514519fb9ab6cf77106cf0a0f336de601e5e2a42e9068373c388",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-64.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.0030391009931918234,
+      "stdoutSHA256": "711f37f6f4ca514519fb9ab6cf77106cf0a0f336de601e5e2a42e9068373c388",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/legacy-64-capacity.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.1313744180079084,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/legacy-64-capacity.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-64-capacity.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 0.1318266290036263,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/legacy-64-capacity.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-64-capacity.c"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 0.18631604200345464,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-64-capacity.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-64-capacity.native",
+        "-pthread",
+        "-lm"
+      ],
+      "capSeconds": 120,
+      "exit": 0,
+      "seconds": 0.3277623960020719,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-64-capacity.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.01623263899818994,
+      "stdoutSHA256": "979b894f2d91bf199766571d58024f020d1a44a417da5f48e1fa1cdf554a14f5",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-64-capacity.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.008018965003429912,
+      "stdoutSHA256": "979b894f2d91bf199766571d58024f020d1a44a417da5f48e1fa1cdf554a14f5",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/indexed-64.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.10823557000549044,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/indexed-64.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-64.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 0.14824085400323384,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/indexed-64.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-64.c"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 0.17725098700611852,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-64.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-64.native",
+        "-pthread",
+        "-lm"
+      ],
+      "capSeconds": 120,
+      "exit": 0,
+      "seconds": 0.4977208389900625,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-64.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.019271657991339453,
+      "stdoutSHA256": "711f37f6f4ca514519fb9ab6cf77106cf0a0f336de601e5e2a42e9068373c388",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-64.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.002845351002179086,
+      "stdoutSHA256": "711f37f6f4ca514519fb9ab6cf77106cf0a0f336de601e5e2a42e9068373c388",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/indexed-64-capacity.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.12424954198650084,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/indexed-64-capacity.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-64-capacity.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 0.11940763700113166,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/indexed-64-capacity.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-64-capacity.c"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 0.1556304400000954,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-64-capacity.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-64-capacity.native",
+        "-pthread",
+        "-lm"
+      ],
+      "capSeconds": 120,
+      "exit": 0,
+      "seconds": 0.3085790719924262,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-64-capacity.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.018419152998831123,
+      "stdoutSHA256": "38ea4bbef6fea8d73df79e1cfd9ee0e1e8aa44b963877e0285c6e892018cacda",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-64-capacity.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.002982309990329668,
+      "stdoutSHA256": "38ea4bbef6fea8d73df79e1cfd9ee0e1e8aa44b963877e0285c6e892018cacda",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-64.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.021421962999738753,
+      "stdoutSHA256": "711f37f6f4ca514519fb9ab6cf77106cf0a0f336de601e5e2a42e9068373c388",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-64.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.01820260999375023,
+      "stdoutSHA256": "711f37f6f4ca514519fb9ab6cf77106cf0a0f336de601e5e2a42e9068373c388",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-64.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.018882906006183475,
+      "stdoutSHA256": "711f37f6f4ca514519fb9ab6cf77106cf0a0f336de601e5e2a42e9068373c388",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-64.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.019711743996595033,
+      "stdoutSHA256": "711f37f6f4ca514519fb9ab6cf77106cf0a0f336de601e5e2a42e9068373c388",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-64.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.022672844992484897,
+      "stdoutSHA256": "711f37f6f4ca514519fb9ab6cf77106cf0a0f336de601e5e2a42e9068373c388",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-64.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.018796571996062994,
+      "stdoutSHA256": "711f37f6f4ca514519fb9ab6cf77106cf0a0f336de601e5e2a42e9068373c388",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-64.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.01838202800718136,
+      "stdoutSHA256": "711f37f6f4ca514519fb9ab6cf77106cf0a0f336de601e5e2a42e9068373c388",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-64.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.020301830998505466,
+      "stdoutSHA256": "711f37f6f4ca514519fb9ab6cf77106cf0a0f336de601e5e2a42e9068373c388",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-64.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.020909126003971323,
+      "stdoutSHA256": "711f37f6f4ca514519fb9ab6cf77106cf0a0f336de601e5e2a42e9068373c388",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-64.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.020121955007198267,
+      "stdoutSHA256": "711f37f6f4ca514519fb9ab6cf77106cf0a0f336de601e5e2a42e9068373c388",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-64.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.0026966409932356328,
+      "stdoutSHA256": "711f37f6f4ca514519fb9ab6cf77106cf0a0f336de601e5e2a42e9068373c388",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-64.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.00224097199679818,
+      "stdoutSHA256": "711f37f6f4ca514519fb9ab6cf77106cf0a0f336de601e5e2a42e9068373c388",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-64.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.005046614009188488,
+      "stdoutSHA256": "711f37f6f4ca514519fb9ab6cf77106cf0a0f336de601e5e2a42e9068373c388",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-64.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.002435055997921154,
+      "stdoutSHA256": "711f37f6f4ca514519fb9ab6cf77106cf0a0f336de601e5e2a42e9068373c388",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-64.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.002110679997713305,
+      "stdoutSHA256": "711f37f6f4ca514519fb9ab6cf77106cf0a0f336de601e5e2a42e9068373c388",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-64.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.0024250979913631454,
+      "stdoutSHA256": "711f37f6f4ca514519fb9ab6cf77106cf0a0f336de601e5e2a42e9068373c388",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-64.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.0020983879949199036,
+      "stdoutSHA256": "711f37f6f4ca514519fb9ab6cf77106cf0a0f336de601e5e2a42e9068373c388",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-64.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.002242721995571628,
+      "stdoutSHA256": "711f37f6f4ca514519fb9ab6cf77106cf0a0f336de601e5e2a42e9068373c388",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-64.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.002590307005448267,
+      "stdoutSHA256": "711f37f6f4ca514519fb9ab6cf77106cf0a0f336de601e5e2a42e9068373c388",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-64.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.0027991839888272807,
+      "stdoutSHA256": "711f37f6f4ca514519fb9ab6cf77106cf0a0f336de601e5e2a42e9068373c388",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "python3",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/node-profiles/run.py",
+        "--generated",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-64.js",
+        "--expected",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-64-JS-semantic.stdout.gz",
+        "--output",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-64-profiles",
+        "--iterations",
+        "1",
+        "--cpu",
+        "0"
+      ],
+      "capSeconds": 20,
+      "exit": 0,
+      "seconds": 0.15548923100868706,
+      "stdoutSHA256": "0cc95cafa795bde00398d60e536afe7121430abd3a020b7ba539e9ab74195142",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "python3",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/node-profiles/summarize.py",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-64-profiles"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.10776985999837052,
+      "stdoutSHA256": "67d1ff793feec659e1c5e59052d9b836bd9f4722bfdc6eff6a6395db9acad019",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "python3",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/node-profiles/run.py",
+        "--generated",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-64.js",
+        "--expected",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-64-JS-semantic.stdout.gz",
+        "--output",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-64-profiles",
+        "--iterations",
+        "1",
+        "--cpu",
+        "0"
+      ],
+      "capSeconds": 20,
+      "exit": 0,
+      "seconds": 0.16359761299099773,
+      "stdoutSHA256": "a506918bf31757f23bca27717c7ad1de6b8613ac1f476a759da94730e347dec9",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "python3",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/node-profiles/summarize.py",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-64-profiles"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.022189718001754954,
+      "stdoutSHA256": "4c8d4c6daea754dde443eea076c3f1a80adfd7d381f142cc125221a6d11523f1",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/legacy-256.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.13084103999426588,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/legacy-256.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-256.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 0.12428420899959747,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/legacy-256.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-256.c"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 0.15999992500292137,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-256.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-256.native",
+        "-pthread",
+        "-lm"
+      ],
+      "capSeconds": 120,
+      "exit": 0,
+      "seconds": 0.379627875998267,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-256.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.03786235400184523,
+      "stdoutSHA256": "eb9661b6d29a52a59745c8005022c035005fa577612719b1ae5f4f14643c3112",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-256.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.006116246004239656,
+      "stdoutSHA256": "eb9661b6d29a52a59745c8005022c035005fa577612719b1ae5f4f14643c3112",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/legacy-256-capacity.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.11123550499905832,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/legacy-256-capacity.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-256-capacity.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 0.12389112300297711,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/legacy-256-capacity.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-256-capacity.c"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 0.17269679300079588,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-256-capacity.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-256-capacity.native",
+        "-pthread",
+        "-lm"
+      ],
+      "capSeconds": 120,
+      "exit": 0,
+      "seconds": 0.3074251060024835,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-256-capacity.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.023194598004920408,
+      "stdoutSHA256": "0ef4e1a6f9e2e77d081c8943f03b3df5fc6339e2690024c928a14f3e04ea7954",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-256-capacity.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.0036078550037927926,
+      "stdoutSHA256": "0ef4e1a6f9e2e77d081c8943f03b3df5fc6339e2690024c928a14f3e04ea7954",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/indexed-256.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.1811463430058211,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/indexed-256.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-256.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 0.13774078999995254,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/indexed-256.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-256.c"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 0.3599577160057379,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-256.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-256.native",
+        "-pthread",
+        "-lm"
+      ],
+      "capSeconds": 120,
+      "exit": 0,
+      "seconds": 0.4730206480016932,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-256.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.03826393900089897,
+      "stdoutSHA256": "eb9661b6d29a52a59745c8005022c035005fa577612719b1ae5f4f14643c3112",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-256.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.002414305999991484,
+      "stdoutSHA256": "eb9661b6d29a52a59745c8005022c035005fa577612719b1ae5f4f14643c3112",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/indexed-256-capacity.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.143372366001131,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/indexed-256-capacity.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-256-capacity.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 0.12938303100236226,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/indexed-256-capacity.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-256-capacity.c"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 0.14127718700910918,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-256-capacity.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-256-capacity.native",
+        "-pthread",
+        "-lm"
+      ],
+      "capSeconds": 120,
+      "exit": 0,
+      "seconds": 0.3213403150002705,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-256-capacity.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.021186794998357072,
+      "stdoutSHA256": "38ea4bbef6fea8d73df79e1cfd9ee0e1e8aa44b963877e0285c6e892018cacda",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-256-capacity.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.003952273997128941,
+      "stdoutSHA256": "38ea4bbef6fea8d73df79e1cfd9ee0e1e8aa44b963877e0285c6e892018cacda",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-256.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.03694480599369854,
+      "stdoutSHA256": "eb9661b6d29a52a59745c8005022c035005fa577612719b1ae5f4f14643c3112",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-256.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.02692137099802494,
+      "stdoutSHA256": "eb9661b6d29a52a59745c8005022c035005fa577612719b1ae5f4f14643c3112",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-256.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.024046020000241697,
+      "stdoutSHA256": "eb9661b6d29a52a59745c8005022c035005fa577612719b1ae5f4f14643c3112",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-256.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.04594569400069304,
+      "stdoutSHA256": "eb9661b6d29a52a59745c8005022c035005fa577612719b1ae5f4f14643c3112",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-256.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.041989877994637936,
+      "stdoutSHA256": "eb9661b6d29a52a59745c8005022c035005fa577612719b1ae5f4f14643c3112",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-256.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.0336840780073544,
+      "stdoutSHA256": "eb9661b6d29a52a59745c8005022c035005fa577612719b1ae5f4f14643c3112",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-256.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.026771245000418276,
+      "stdoutSHA256": "eb9661b6d29a52a59745c8005022c035005fa577612719b1ae5f4f14643c3112",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-256.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.035011294996365905,
+      "stdoutSHA256": "eb9661b6d29a52a59745c8005022c035005fa577612719b1ae5f4f14643c3112",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-256.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.049965593992965296,
+      "stdoutSHA256": "eb9661b6d29a52a59745c8005022c035005fa577612719b1ae5f4f14643c3112",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-256.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.050712723008473404,
+      "stdoutSHA256": "eb9661b6d29a52a59745c8005022c035005fa577612719b1ae5f4f14643c3112",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-256.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.012038280998240225,
+      "stdoutSHA256": "eb9661b6d29a52a59745c8005022c035005fa577612719b1ae5f4f14643c3112",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-256.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.00416935799876228,
+      "stdoutSHA256": "eb9661b6d29a52a59745c8005022c035005fa577612719b1ae5f4f14643c3112",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-256.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.008194050009478815,
+      "stdoutSHA256": "eb9661b6d29a52a59745c8005022c035005fa577612719b1ae5f4f14643c3112",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-256.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.015126465994399041,
+      "stdoutSHA256": "eb9661b6d29a52a59745c8005022c035005fa577612719b1ae5f4f14643c3112",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-256.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.013732583000091836,
+      "stdoutSHA256": "eb9661b6d29a52a59745c8005022c035005fa577612719b1ae5f4f14643c3112",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-256.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.006366579997120425,
+      "stdoutSHA256": "eb9661b6d29a52a59745c8005022c035005fa577612719b1ae5f4f14643c3112",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-256.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.008584135008277372,
+      "stdoutSHA256": "eb9661b6d29a52a59745c8005022c035005fa577612719b1ae5f4f14643c3112",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-256.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.014733588992385194,
+      "stdoutSHA256": "eb9661b6d29a52a59745c8005022c035005fa577612719b1ae5f4f14643c3112",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-256.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.012918286010972224,
+      "stdoutSHA256": "eb9661b6d29a52a59745c8005022c035005fa577612719b1ae5f4f14643c3112",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-256.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.005794242999400012,
+      "stdoutSHA256": "eb9661b6d29a52a59745c8005022c035005fa577612719b1ae5f4f14643c3112",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "python3",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/node-profiles/run.py",
+        "--generated",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-256.js",
+        "--expected",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-256-JS-semantic.stdout.gz",
+        "--output",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-256-profiles",
+        "--iterations",
+        "1",
+        "--cpu",
+        "0"
+      ],
+      "capSeconds": 20,
+      "exit": 0,
+      "seconds": 0.3490292749920627,
+      "stdoutSHA256": "667d2b94728e210febd66debbd9b8eb50c7766421ed27084ba3ba5249a67d8e9",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "python3",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/node-profiles/summarize.py",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-256-profiles"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 1.9495477730088169,
+      "stdoutSHA256": "7f1082b854b6eeaf6a4f4a2872ffa4969e3e33d50c656152b109242b178389b9",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "python3",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/node-profiles/run.py",
+        "--generated",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-256.js",
+        "--expected",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-256-JS-semantic.stdout.gz",
+        "--output",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-256-profiles",
+        "--iterations",
+        "1",
+        "--cpu",
+        "0"
+      ],
+      "capSeconds": 20,
+      "exit": 0,
+      "seconds": 0.15313921599590685,
+      "stdoutSHA256": "216e4da546746f5c5e01d9e33c4b42e7b8f442b6915ade6fa115338f07a5cc58",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "python3",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/node-profiles/summarize.py",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-256-profiles"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.024279146004118957,
+      "stdoutSHA256": "bcd60fd385a1808dc38814bce93795546b921a13fd1816bb26ef4ef0cab64dcf",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/legacy-1024.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.1826301440014504,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/legacy-1024.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-1024.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 0.29121830000076443,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/legacy-1024.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-1024.c"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 0.3365544489934109,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-1024.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-1024.native",
+        "-pthread",
+        "-lm"
+      ],
+      "capSeconds": 120,
+      "exit": 0,
+      "seconds": 0.3873170049919281,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-1024.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.21204736399522517,
+      "stdoutSHA256": "9dbcda3516267a40c8abe4c2796069cf178ace681daae9b9be38afa18ed3cfdb",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-1024.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.03727718300069682,
+      "stdoutSHA256": "9dbcda3516267a40c8abe4c2796069cf178ace681daae9b9be38afa18ed3cfdb",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/legacy-1024-capacity.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.09861397100030445,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/legacy-1024-capacity.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-1024-capacity.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 0.10489084098662715,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/legacy-1024-capacity.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-1024-capacity.c"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 0.1299634099996183,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-1024-capacity.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-1024-capacity.native",
+        "-pthread",
+        "-lm"
+      ],
+      "capSeconds": 120,
+      "exit": 0,
+      "seconds": 0.27980964799644426,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-1024-capacity.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.0338001210038783,
+      "stdoutSHA256": "6407f57599ea19aaefd71b13c2771ad25998686a6a2d1b142cfc3060ef008129",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-1024-capacity.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.005015571994590573,
+      "stdoutSHA256": "6407f57599ea19aaefd71b13c2771ad25998686a6a2d1b142cfc3060ef008129",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/indexed-1024.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.10743639900465496,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/indexed-1024.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-1024.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 0.11013045700383373,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/indexed-1024.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-1024.c"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 0.13888679699448403,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-1024.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-1024.native",
+        "-pthread",
+        "-lm"
+      ],
+      "capSeconds": 120,
+      "exit": 0,
+      "seconds": 0.4306113079946954,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-1024.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.044452476999140345,
+      "stdoutSHA256": "9dbcda3516267a40c8abe4c2796069cf178ace681daae9b9be38afa18ed3cfdb",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-1024.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.0044451930007198825,
+      "stdoutSHA256": "9dbcda3516267a40c8abe4c2796069cf178ace681daae9b9be38afa18ed3cfdb",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/indexed-1024-capacity.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.11387668699899223,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/indexed-1024-capacity.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-1024-capacity.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 0.10698410500481259,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/stage/experiments/public-optimized-compose/indexed-metadata-scaling/indexed-1024-capacity.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-1024-capacity.c"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "seconds": 0.11785346199758351,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-1024-capacity.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-1024-capacity.native",
+        "-pthread",
+        "-lm"
+      ],
+      "capSeconds": 120,
+      "exit": 0,
+      "seconds": 0.3038185840123333,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-1024-capacity.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.01983095299510751,
+      "stdoutSHA256": "38ea4bbef6fea8d73df79e1cfd9ee0e1e8aa44b963877e0285c6e892018cacda",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-1024-capacity.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.0036490220081759617,
+      "stdoutSHA256": "38ea4bbef6fea8d73df79e1cfd9ee0e1e8aa44b963877e0285c6e892018cacda",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-1024.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.22919917599938344,
+      "stdoutSHA256": "9dbcda3516267a40c8abe4c2796069cf178ace681daae9b9be38afa18ed3cfdb",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-1024.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.03837814899452496,
+      "stdoutSHA256": "9dbcda3516267a40c8abe4c2796069cf178ace681daae9b9be38afa18ed3cfdb",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-1024.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.04163371000322513,
+      "stdoutSHA256": "9dbcda3516267a40c8abe4c2796069cf178ace681daae9b9be38afa18ed3cfdb",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-1024.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.21183465399371926,
+      "stdoutSHA256": "9dbcda3516267a40c8abe4c2796069cf178ace681daae9b9be38afa18ed3cfdb",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-1024.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.21007443498820066,
+      "stdoutSHA256": "9dbcda3516267a40c8abe4c2796069cf178ace681daae9b9be38afa18ed3cfdb",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-1024.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.04651482201006729,
+      "stdoutSHA256": "9dbcda3516267a40c8abe4c2796069cf178ace681daae9b9be38afa18ed3cfdb",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-1024.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.04318238599807955,
+      "stdoutSHA256": "9dbcda3516267a40c8abe4c2796069cf178ace681daae9b9be38afa18ed3cfdb",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-1024.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.2138039999990724,
+      "stdoutSHA256": "9dbcda3516267a40c8abe4c2796069cf178ace681daae9b9be38afa18ed3cfdb",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-1024.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.21571288599807303,
+      "stdoutSHA256": "9dbcda3516267a40c8abe4c2796069cf178ace681daae9b9be38afa18ed3cfdb",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-1024.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.03787864599144086,
+      "stdoutSHA256": "9dbcda3516267a40c8abe4c2796069cf178ace681daae9b9be38afa18ed3cfdb",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-1024.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.0375052260060329,
+      "stdoutSHA256": "9dbcda3516267a40c8abe4c2796069cf178ace681daae9b9be38afa18ed3cfdb",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-1024.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.004752319990075193,
+      "stdoutSHA256": "9dbcda3516267a40c8abe4c2796069cf178ace681daae9b9be38afa18ed3cfdb",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-1024.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.0043972349958494306,
+      "stdoutSHA256": "9dbcda3516267a40c8abe4c2796069cf178ace681daae9b9be38afa18ed3cfdb",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-1024.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.03656905400566757,
+      "stdoutSHA256": "9dbcda3516267a40c8abe4c2796069cf178ace681daae9b9be38afa18ed3cfdb",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-1024.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.03599250900151674,
+      "stdoutSHA256": "9dbcda3516267a40c8abe4c2796069cf178ace681daae9b9be38afa18ed3cfdb",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-1024.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.004430027009220794,
+      "stdoutSHA256": "9dbcda3516267a40c8abe4c2796069cf178ace681daae9b9be38afa18ed3cfdb",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-1024.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.00489494699286297,
+      "stdoutSHA256": "9dbcda3516267a40c8abe4c2796069cf178ace681daae9b9be38afa18ed3cfdb",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-1024.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.03568025700224098,
+      "stdoutSHA256": "9dbcda3516267a40c8abe4c2796069cf178ace681daae9b9be38afa18ed3cfdb",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-1024.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.03671763799502514,
+      "stdoutSHA256": "9dbcda3516267a40c8abe4c2796069cf178ace681daae9b9be38afa18ed3cfdb",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "0",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/indexed-1024.native"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "seconds": 0.004092232993571088,
+      "stdoutSHA256": "9dbcda3516267a40c8abe4c2796069cf178ace681daae9b9be38afa18ed3cfdb",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "python3",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/node-profiles/run.py",
+        "--generated",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-1024.js",
+        "--expected",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-1024-JS-semantic.stdout.gz",
+        "--output",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-1024-profiles",
+        "--iterations",
+        "1",
+        "--cpu",
+        "0"
+      ],
+      "capSeconds": 20,
+      "exit": 0,
+      "seconds": 1.5090406539966352,
+      "stdoutSHA256": "38498ff127f5096a751a335ade806c8d703e0eadbaa02052a593c906a5f9968b",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "python3",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/node-profiles/summarize.py",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-1024-profiles"
+      ],
+      "capSeconds": 5,
+      "timedOut": true,
+      "seconds": 5.0069531930057565,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "cases": {
+    "64": {
+      "status": "PASS",
+      "expectedOperations": 512,
+      "samples": {
+        "JS": {
+          "legacy": {
+            "seconds": [
+              0.021421962999738753,
+              0.019711743996595033,
+              0.022672844992484897,
+              0.020301830998505466,
+              0.020909126003971323
+            ],
+            "medianSeconds": 0.020909126003971323
+          },
+          "indexed": {
+            "seconds": [
+              0.01820260999375023,
+              0.018882906006183475,
+              0.018796571996062994,
+              0.01838202800718136,
+              0.020121955007198267
+            ],
+            "medianSeconds": 0.018796571996062994
+          }
+        },
+        "Native": {
+          "legacy": {
+            "seconds": [
+              0.0026966409932356328,
+              0.002435055997921154,
+              0.002110679997713305,
+              0.002242721995571628,
+              0.002590307005448267
+            ],
+            "medianSeconds": 0.002435055997921154
+          },
+          "indexed": {
+            "seconds": [
+              0.00224097199679818,
+              0.005046614009188488,
+              0.0024250979913631454,
+              0.0020983879949199036,
+              0.0027991839888272807
+            ],
+            "medianSeconds": 0.0024250979913631454
+          }
+        }
+      },
+      "capacity": {
+        "legacy-JS": {
+          "value": 65,
+          "unit": "listEntries",
+          "scalarTickSlots": null
+        },
+        "legacy-Native": {
+          "value": 65,
+          "unit": "listEntries",
+          "scalarTickSlots": null
+        },
+        "indexed-JS": {
+          "value": 131072,
+          "unit": "slotsPerTickArray",
+          "scalarTickSlots": 262144
+        },
+        "indexed-Native": {
+          "value": 131072,
+          "unit": "slotsPerTickArray",
+          "scalarTickSlots": 262144
+        }
+      },
+      "completeEqualOutputs": true,
+      "profiles": {
+        "legacy": "legacy-64-profiles",
+        "indexed": "indexed-64-profiles"
+      }
+    },
+    "256": {
+      "status": "PASS",
+      "expectedOperations": 2048,
+      "samples": {
+        "JS": {
+          "legacy": {
+            "seconds": [
+              0.03694480599369854,
+              0.04594569400069304,
+              0.041989877994637936,
+              0.035011294996365905,
+              0.049965593992965296
+            ],
+            "medianSeconds": 0.041989877994637936
+          },
+          "indexed": {
+            "seconds": [
+              0.02692137099802494,
+              0.024046020000241697,
+              0.0336840780073544,
+              0.026771245000418276,
+              0.050712723008473404
+            ],
+            "medianSeconds": 0.02692137099802494
+          }
+        },
+        "Native": {
+          "legacy": {
+            "seconds": [
+              0.012038280998240225,
+              0.015126465994399041,
+              0.013732583000091836,
+              0.014733588992385194,
+              0.012918286010972224
+            ],
+            "medianSeconds": 0.013732583000091836
+          },
+          "indexed": {
+            "seconds": [
+              0.00416935799876228,
+              0.008194050009478815,
+              0.006366579997120425,
+              0.008584135008277372,
+              0.005794242999400012
+            ],
+            "medianSeconds": 0.006366579997120425
+          }
+        }
+      },
+      "capacity": {
+        "legacy-JS": {
+          "value": 257,
+          "unit": "listEntries",
+          "scalarTickSlots": null
+        },
+        "legacy-Native": {
+          "value": 257,
+          "unit": "listEntries",
+          "scalarTickSlots": null
+        },
+        "indexed-JS": {
+          "value": 131072,
+          "unit": "slotsPerTickArray",
+          "scalarTickSlots": 262144
+        },
+        "indexed-Native": {
+          "value": 131072,
+          "unit": "slotsPerTickArray",
+          "scalarTickSlots": 262144
+        }
+      },
+      "completeEqualOutputs": true,
+      "profiles": {
+        "legacy": "legacy-256-profiles",
+        "indexed": "indexed-256-profiles"
+      }
+    },
+    "1024": {
+      "status": "INCOMPLETE",
+      "expectedOperations": 8192,
+      "samples": {
+        "JS": {
+          "legacy": {
+            "seconds": [
+              0.22919917599938344,
+              0.21183465399371926,
+              0.21007443498820066,
+              0.2138039999990724,
+              0.21571288599807303
+            ],
+            "medianSeconds": 0.2138039999990724
+          },
+          "indexed": {
+            "seconds": [
+              0.03837814899452496,
+              0.04163371000322513,
+              0.04651482201006729,
+              0.04318238599807955,
+              0.03787864599144086
+            ],
+            "medianSeconds": 0.04163371000322513
+          }
+        },
+        "Native": {
+          "legacy": {
+            "seconds": [
+              0.0375052260060329,
+              0.03656905400566757,
+              0.03599250900151674,
+              0.03568025700224098,
+              0.03671763799502514
+            ],
+            "medianSeconds": 0.03656905400566757
+          },
+          "indexed": {
+            "seconds": [
+              0.004752319990075193,
+              0.0043972349958494306,
+              0.004430027009220794,
+              0.00489494699286297,
+              0.004092232993571088
+            ],
+            "medianSeconds": 0.004430027009220794
+          }
+        }
+      },
+      "capacity": {
+        "legacy-JS": {
+          "value": 1025,
+          "unit": "listEntries",
+          "scalarTickSlots": null
+        },
+        "legacy-Native": {
+          "value": 1025,
+          "unit": "listEntries",
+          "scalarTickSlots": null
+        },
+        "indexed-JS": {
+          "value": 131072,
+          "unit": "slotsPerTickArray",
+          "scalarTickSlots": 262144
+        },
+        "indexed-Native": {
+          "value": 131072,
+          "unit": "slotsPerTickArray",
+          "scalarTickSlots": 262144
+        }
+      },
+      "completeEqualOutputs": true
+    }
+  },
+  "timingLimit": "Whole fresh child process includes startup, complete JSON formatting and stdout. No steady-state speedup inference.",
+  "memoryLimit": "Capacity slots/list entries are representation evidence, not measured RSS or cumulative allocation. Node heap profiles are sampled allocations including collected objects.",
+  "sources": {
+    "src/ecs/README.md": "dfe7580eb9de72e158cd60deef2d92382edd517a3b643eaae4d4d53dc06592fd",
+    "src/ecs/capabilities.bend": "91c0cdc01e9143d10dc0156ef4f6c39beff97d8088ed0bbb056ffff2ffabf964",
+    "src/ecs/captured-column.bend": "340efc234a5681adb2ccd35da22a1cbe3fbde4d15f0e6a3f8a75e76c4852df0a",
+    "src/ecs/column.bend": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+    "src/ecs/commands.bend": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+    "src/ecs/component.bend": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+    "src/ecs/compose.bend": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+    "src/ecs/event-runtime.bend": "409b45060a9d8b02ce5bf43c584f2be05b81b2239b04e75dca384f07cc626ea7",
+    "src/ecs/events.bend": "fffc3ec427072c4ba1c880f2ba8a73c1fcd1db66550cf63cdce56ba9e10bdc63",
+    "src/ecs/indexed-lifecycle.bend": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+    "src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "src/ecs/local.bend": "8cc5b3c9d3597c60d8a1b9b7fd206a92b289669c3cd9a8575db65ce9af37bd47",
+    "src/ecs/optimized-compose.bend": "ac9c98457c7d6890f1f30dd82f41658a5d3ae962a7fb9022062af5b9d581ca25",
+    "src/ecs/owned-compose.bend": "1115ffe6db7a1940b53889f53df09cff7fd43a3d244e07b843ea9094f62d31c7",
+    "src/ecs/owned-family.bend": "1fe504b1130eed24fb0c1dfc9bf7c6de0ab0f855d4adf30694a1f6b3c634f7e1",
+    "src/ecs/owned-optimized-compose.bend": "3e651cc49f4d6cfb37ea5af07a4b4668a8983911a7547a03aec193f9ca305fff",
+    "src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+    "src/ecs/provider.bend": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72",
+    "src/ecs/query-contract.bend": "de8eb5a047d2ca82e5832513798a6590a2cd025296b80b154da65a51270c4e91",
+    "src/ecs/query.bend": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9",
+    "src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+    "src/ecs/removals.bend": "98a5f5cf42372d8eab35f3927539079e4412886eeaa3e07bbb2113f2286222f6",
+    "src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+    "src/ecs/restored-row.bend": "9a1e25359a7775e230ad1b720180db622c12c2e9757cba98acef9c89e8d0f2d5",
+    "src/ecs/row-column.bend": "f3846a5378958c522d4053f13f7af4898a8a60c76f7534b060f020adca631f72",
+    "src/ecs/schedule.bend": "ad7a7c4187bfb028d01e98b821bd65078ae503604ec04ab645440be3898caa9f",
+    "src/ecs/structural.bend": "e8e813dc6de2f8a38ca61f51c0cbc5aeaf243fcc9cd399303e2adca2674480d4",
+    "src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+    "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "src/ecs/world.bend": "7d394b623b8bb60a3fef7b160bb69af135719edd3008126ee186e190047708f8",
+    "experiments/public-optimized-compose/indexed-metadata-scaling/workload.bend": "adb025057d7a832585c748cc69dd8c0619d8cadf3f9648f981b7e2c38ea3ee86",
+    "experiments/public-optimized-compose/indexed-metadata-scaling/providers.bend": "9cf88bcf819c3ec39662ed398ece58ea6b57fac1980aba94c913d05609a9e30b",
+    "experiments/public-optimized-compose/indexed-metadata-scaling/run.py": "6bba4d7f1bef4b94acf261d79f72b96b6b6ba6cbce26e020d7d67242b9089b29"
+  },
+  "profileRunner": {
+    "experiments/public-optimized-compose/node-profiles/run.py": "64ff52bd90bd86fa5cbb4e2d8d51dc62ab34a0a817287c153c839fa9048ac7fa",
+    "experiments/public-optimized-compose/node-profiles/summarize.py": "04d490cc421758a74e97cafd5689b6a210c5f7ea80b66349bb2d10c5b7a2c205"
+  },
+  "sourceBindingChecks": [
+    "immediately-after-copy",
+    "before-build-legacy-64",
+    "before-build-legacy-64-capacity",
+    "before-build-indexed-64",
+    "before-build-indexed-64-capacity",
+    "before-build-legacy-256",
+    "before-build-legacy-256-capacity",
+    "before-build-indexed-256",
+    "before-build-indexed-256-capacity",
+    "before-build-legacy-1024",
+    "before-build-legacy-1024-capacity",
+    "before-build-indexed-1024",
+    "before-build-indexed-1024-capacity"
+  ],
+  "versions": {
+    "bend": "bend 2.0.35",
+    "node": "v24.20.0",
+    "clang": "Debian clang version 19.1.7 (3~deb12u1)\nTarget: aarch64-unknown-linux-gnu\nThread model: posix\nInstalledDir: /tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin"
+  },
+  "generatedWorkloadSources": {
+    "legacy-64": "a46b9ebb945b6640045a8822783f2eebfffee24d07f8bf671b1618ce0e61f139",
+    "legacy-64-capacity": "52dea7426a8a80411636dc7670d579d7b75b1496b62539f4fa09f29f359af74c",
+    "indexed-64": "612d2771ae5dd7c4720f84890659576b757ea79d1e2ccc3926a4f5677c7ab8df",
+    "indexed-64-capacity": "b55101113cf534775307d75fbe3f6a8d27433218ec5b9d30ed34ff5883298558",
+    "legacy-256": "8b7a2a906364aeb52a58c48e295e78928a7607939e840bd7100afc36fef6d580",
+    "legacy-256-capacity": "ca443bc78a208e006b906223075808bb2404654fa73bf4df0fdfc5d5c7eaf23c",
+    "indexed-256": "ac27ba63c68efbdb4d69565971d2c07a9ba454648b827dfb1432fcae3f5c5c78",
+    "indexed-256-capacity": "9753f1fc0ffb4765c05802866fca9726668f4fadc88c1370380387bc66aac5b2",
+    "legacy-1024": "351c877865a3b1692956fb09e04cc15ba8705e6d17fdae46dc5df3c278769e3f",
+    "legacy-1024-capacity": "e3af1fa403dd353636fa26684d76471150ec44d110c3c136d5a0666a6f0d8773",
+    "indexed-1024": "8bd83ebce323a2ff4caff73c045db74b923faf10f9e8fd3adac86cea703fceb0",
+    "indexed-1024-capacity": "598af59c71c19cf21c142468b8b9325681079043eff2494e3adf6875a7753f8c"
+  },
+  "error": "TimeoutExpired(['python3', '/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/node-profiles/summarize.py', '/workspace/formal-proofs/bendvy/.artifacts/indexed-scaling-dense-rendered/legacy-1024-profiles'], 5)"
+}

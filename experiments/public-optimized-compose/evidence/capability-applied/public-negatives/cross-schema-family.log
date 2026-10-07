@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : @_:bad~Store -> Sigma<&1, &1, bad~Rest, _ => Col.Column<bad~S1, bad~C>>
+- observed : @_:bad~Store -> Sigma<&1, &1, bad~Rest, _ => Col.Column<bad~S2, bad~C>>
+Location: bad
+7 | def bad(~S1: Data,~S2: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S2,C>,~put: Rest -> Col.Column<S2,C> -> Store,~project: C -> C & V,~family: Cmp.Family<S2,Store,Rest,C,V,Token,take,put,project>) -> Cap.Read<Q.Frame<S1,Store,R,E>,V>:
+8>|   Q.read_family(~S1,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~family)
+  |                                                      ^^^^
+9 | def main() -> U32:

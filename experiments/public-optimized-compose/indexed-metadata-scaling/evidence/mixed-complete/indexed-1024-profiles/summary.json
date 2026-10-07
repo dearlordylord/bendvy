@@ -1,0 +1,921 @@
+{
+  "scope": "Exploratory sampled CPU microseconds and V8 sampled allocation attribution; inclusive rows overlap. Not exact allocation totals, causal proof or performance acceptance.",
+  "cpuSamples": 142,
+  "heapSamples": 573,
+  "cpuSelfMicroseconds": [
+    {
+      "name": "(idle)",
+      "value": 16661
+    },
+    {
+      "name": "(garbage collector)",
+      "value": 12240
+    },
+    {
+      "name": "post",
+      "value": 11029
+    },
+    {
+      "name": "writeBuffer",
+      "value": 2422
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:get",
+      "value": 2126
+    },
+    {
+      "name": "char_new",
+      "value": 1356
+    },
+    {
+      "name": "$workload:read",
+      "value": 1314
+    },
+    {
+      "name": "$workload:all_read",
+      "value": 1177
+    },
+    {
+      "name": "$workload:observation_show",
+      "value": 1164
+    },
+    {
+      "name": "$workload:seed",
+      "value": 990
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:get_checked",
+      "value": 956
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:got_added",
+      "value": 917
+    },
+    {
+      "name": "(anonymous at line 354)",
+      "value": 777
+    },
+    {
+      "name": "$U32$show$go",
+      "value": 776
+    },
+    {
+      "name": "$workload:first_write",
+      "value": 757
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:clear",
+      "value": 665
+    },
+    {
+      "name": "array_new",
+      "value": 657
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:set_checked",
+      "value": 647
+    },
+    {
+      "name": "deprecate",
+      "value": 620
+    },
+    {
+      "name": "array_node",
+      "value": 584
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:clear_checked",
+      "value": 577
+    },
+    {
+      "name": "$workload:render_reverse",
+      "value": 481
+    },
+    {
+      "name": "$workload:record",
+      "value": 471
+    },
+    {
+      "name": "writeSync",
+      "value": 457
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:write_grow",
+      "value": 432
+    },
+    {
+      "name": "$workload:render_fragment",
+      "value": 430
+    },
+    {
+      "name": "$U32$show$if",
+      "value": 328
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:write_ready",
+      "value": 301
+    },
+    {
+      "name": "$workload:saved_write",
+      "value": 220
+    },
+    {
+      "name": "$workload:special_written",
+      "value": 213
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:normal",
+      "value": 201
+    },
+    {
+      "name": "Timeout",
+      "value": 158
+    },
+    {
+      "name": "$workload:render",
+      "value": 154
+    },
+    {
+      "name": "get detail",
+      "value": 154
+    },
+    {
+      "name": "$workload:run",
+      "value": 110
+    },
+    {
+      "name": "(program)",
+      "value": 110
+    },
+    {
+      "name": "$providers:indexed_get",
+      "value": 95
+    },
+    {
+      "name": "$workload:specials",
+      "value": 68
+    },
+    {
+      "name": "$providers:indexed_clear",
+      "value": 56
+    },
+    {
+      "name": "$providers:indexed_set",
+      "value": 41
+    }
+  ],
+  "cpuInclusiveMicroseconds": [
+    {
+      "name": "(root)",
+      "value": 62892
+    },
+    {
+      "name": "(anonymous at line 996)",
+      "value": 32330
+    },
+    {
+      "name": "io_run",
+      "value": 21143
+    },
+    {
+      "name": "io_exit",
+      "value": 21143
+    },
+    {
+      "name": "freshProgram",
+      "value": 21143
+    },
+    {
+      "name": "(anonymous at line 190)",
+      "value": 18264
+    },
+    {
+      "name": "(idle)",
+      "value": 16661
+    },
+    {
+      "name": "$workload:run",
+      "value": 13575
+    },
+    {
+      "name": "(garbage collector)",
+      "value": 12240
+    },
+    {
+      "name": "(anonymous at line 5)",
+      "value": 11029
+    },
+    {
+      "name": "post",
+      "value": 11029
+    },
+    {
+      "name": "$workload:all_read",
+      "value": 6297
+    },
+    {
+      "name": "$workload:read",
+      "value": 5879
+    },
+    {
+      "name": "$workload:render",
+      "value": 4689
+    },
+    {
+      "name": "$workload:render_reverse",
+      "value": 4535
+    },
+    {
+      "name": "$providers:indexed_get",
+      "value": 4094
+    },
+    {
+      "name": "$workload:finish_sparse",
+      "value": 4076
+    },
+    {
+      "name": "$workload:render_fragment",
+      "value": 4054
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:get",
+      "value": 3999
+    },
+    {
+      "name": "$workload:observation_show",
+      "value": 3624
+    },
+    {
+      "name": "$workload:specials",
+      "value": 2923
+    },
+    {
+      "name": "writeSync",
+      "value": 2879
+    },
+    {
+      "name": "io_out",
+      "value": 2879
+    },
+    {
+      "name": "io_print",
+      "value": 2879
+    },
+    {
+      "name": "$workload:special",
+      "value": 2855
+    },
+    {
+      "name": "$workload:special_written",
+      "value": 2829
+    },
+    {
+      "name": "$providers:indexed_set",
+      "value": 2562
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:set",
+      "value": 2521
+    },
+    {
+      "name": "$U32$show",
+      "value": 2460
+    },
+    {
+      "name": "$U32$show$if",
+      "value": 2460
+    },
+    {
+      "name": "writeBuffer",
+      "value": 2422
+    },
+    {
+      "name": "$workload:one_update",
+      "value": 2381
+    },
+    {
+      "name": "$workload:saved_write",
+      "value": 2381
+    },
+    {
+      "name": "$workload:updates",
+      "value": 2381
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:set_checked",
+      "value": 2320
+    },
+    {
+      "name": "$workload:first_write",
+      "value": 2161
+    },
+    {
+      "name": "$U32$show$go",
+      "value": 2132
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:get_checked",
+      "value": 1873
+    },
+    {
+      "name": "$workload:seed",
+      "value": 1864
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:write_grow",
+      "value": 1673
+    },
+    {
+      "name": "$providers:indexed_clear",
+      "value": 1599
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:clear",
+      "value": 1543
+    },
+    {
+      "name": "$workload:cleared_then_restore",
+      "value": 1404
+    },
+    {
+      "name": "$workload:second_write",
+      "value": 1404
+    },
+    {
+      "name": "char_new",
+      "value": 1356
+    },
+    {
+      "name": "(anonymous at line 354)",
+      "value": 931
+    },
+    {
+      "name": "processImmediate",
+      "value": 931
+    },
+    {
+      "name": "(anonymous at line 127)",
+      "value": 931
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:got_added",
+      "value": 917
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:clear_checked",
+      "value": 878
+    },
+    {
+      "name": "$workload:special_clear",
+      "value": 791
+    },
+    {
+      "name": "array_new",
+      "value": 657
+    },
+    {
+      "name": "deprecate",
+      "value": 620
+    },
+    {
+      "name": "observerCallback",
+      "value": 620
+    },
+    {
+      "name": "array_node",
+      "value": 584
+    },
+    {
+      "name": "$workload:record",
+      "value": 471
+    },
+    {
+      "name": "$workload:restore_then_read",
+      "value": 313
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:write_ready",
+      "value": 301
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:normal",
+      "value": 201
+    },
+    {
+      "name": "(anonymous at line 999)",
+      "value": 158
+    },
+    {
+      "name": "Timeout",
+      "value": 158
+    },
+    {
+      "name": "setTimeout",
+      "value": 158
+    },
+    {
+      "name": "(anonymous at line 4)",
+      "value": 154
+    },
+    {
+      "name": "get detail",
+      "value": 154
+    },
+    {
+      "name": "(program)",
+      "value": 110
+    }
+  ],
+  "cpuModuleInclusiveMicroseconds": [
+    {
+      "name": "other/runtime/observation",
+      "value": 62892
+    },
+    {
+      "name": "GC",
+      "value": 12240
+    },
+    {
+      "name": "ecs/indexed-lifecycle",
+      "value": 8063
+    }
+  ],
+  "heapSelfSampledBytes": [
+    {
+      "name": "array_node",
+      "value": 4186384
+    },
+    {
+      "name": "$workload:render_reverse",
+      "value": 2591176
+    },
+    {
+      "name": "array_new",
+      "value": 2072816
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:get_checked",
+      "value": 1444320
+    },
+    {
+      "name": "$U32$show$go",
+      "value": 1032912
+    },
+    {
+      "name": "$workload:record",
+      "value": 870224
+    },
+    {
+      "name": "$workload:observation_show",
+      "value": 394096
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:got_changed",
+      "value": 377736
+    },
+    {
+      "name": "$workload:read",
+      "value": 344664
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:got_added",
+      "value": 295504
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:write_grow",
+      "value": 262656
+    },
+    {
+      "name": "$workload:all_read",
+      "value": 262608
+    },
+    {
+      "name": "$workload:second_write",
+      "value": 164160
+    },
+    {
+      "name": "$workload:first_write",
+      "value": 147776
+    },
+    {
+      "name": "encode",
+      "value": 136904
+    },
+    {
+      "name": "$workload:updates",
+      "value": 115392
+    },
+    {
+      "name": "$workload:saved_write",
+      "value": 114992
+    },
+    {
+      "name": "$workload:render_fragment",
+      "value": 114816
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:write_ready",
+      "value": 98576
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:clear_checked",
+      "value": 98496
+    },
+    {
+      "name": "(anonymous at line 996)",
+      "value": 49200
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:get",
+      "value": 16704
+    },
+    {
+      "name": "freshProgram",
+      "value": 16448
+    },
+    {
+      "name": "resolveForCJSWithHooks",
+      "value": 16448
+    },
+    {
+      "name": "$workload:cleared_then_restore",
+      "value": 16448
+    },
+    {
+      "name": "$workload:restore_then_read",
+      "value": 16448
+    },
+    {
+      "name": "(anonymous at line 190)",
+      "value": 16416
+    },
+    {
+      "name": "$IO$print",
+      "value": 16416
+    },
+    {
+      "name": "observerCallback",
+      "value": 16416
+    },
+    {
+      "name": "deprecate",
+      "value": 16416
+    },
+    {
+      "name": "(root)",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 0)",
+      "value": 0
+    },
+    {
+      "name": "io_exit",
+      "value": 0
+    },
+    {
+      "name": "io_run",
+      "value": 0
+    },
+    {
+      "name": "io_print",
+      "value": 0
+    },
+    {
+      "name": "io_out",
+      "value": 0
+    },
+    {
+      "name": "require",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 1666)",
+      "value": 0
+    },
+    {
+      "name": "wrapModuleLoad",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 1314)",
+      "value": 0
+    },
+    {
+      "name": "io_bytes",
+      "value": 0
+    },
+    {
+      "name": "$workload:render",
+      "value": 0
+    },
+    {
+      "name": "$U32$show",
+      "value": 0
+    },
+    {
+      "name": "$U32$show$if",
+      "value": 0
+    },
+    {
+      "name": "$workload:run",
+      "value": 0
+    },
+    {
+      "name": "$workload:finish_sparse",
+      "value": 0
+    },
+    {
+      "name": "$providers:indexed_get",
+      "value": 0
+    },
+    {
+      "name": "$workload:specials",
+      "value": 0
+    },
+    {
+      "name": "$workload:special",
+      "value": 0
+    },
+    {
+      "name": "$workload:special_written",
+      "value": 0
+    },
+    {
+      "name": "$providers:indexed_set",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:set",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:set_checked",
+      "value": 0
+    },
+    {
+      "name": "$workload:special_clear",
+      "value": 0
+    },
+    {
+      "name": "$workload:one_update",
+      "value": 0
+    },
+    {
+      "name": "$providers:indexed_clear",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:clear",
+      "value": 0
+    },
+    {
+      "name": "$workload:seed",
+      "value": 0
+    }
+  ],
+  "heapInclusiveSampledBytes": [
+    {
+      "name": "(root)",
+      "value": 15323568
+    },
+    {
+      "name": "(anonymous at line 0)",
+      "value": 15290736
+    },
+    {
+      "name": "(anonymous at line 996)",
+      "value": 15290736
+    },
+    {
+      "name": "freshProgram",
+      "value": 15241536
+    },
+    {
+      "name": "io_exit",
+      "value": 15225088
+    },
+    {
+      "name": "io_run",
+      "value": 15225088
+    },
+    {
+      "name": "(anonymous at line 190)",
+      "value": 15071736
+    },
+    {
+      "name": "$workload:run",
+      "value": 10905904
+    },
+    {
+      "name": "$workload:finish_sparse",
+      "value": 6809184
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:write_grow",
+      "value": 6554768
+    },
+    {
+      "name": "$providers:indexed_set",
+      "value": 6390608
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:set",
+      "value": 6316696
+    },
+    {
+      "name": "$workload:specials",
+      "value": 6250992
+    },
+    {
+      "name": "$workload:special",
+      "value": 6250992
+    },
+    {
+      "name": "$workload:special_written",
+      "value": 6250992
+    },
+    {
+      "name": "array_node",
+      "value": 4186384
+    },
+    {
+      "name": "$workload:render",
+      "value": 4133000
+    },
+    {
+      "name": "$workload:render_reverse",
+      "value": 4133000
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:set_checked",
+      "value": 3187320
+    },
+    {
+      "name": "$workload:updates",
+      "value": 2807880
+    },
+    {
+      "name": "$workload:read",
+      "value": 2331408
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:get_checked",
+      "value": 2117560
+    },
+    {
+      "name": "array_new",
+      "value": 2072816
+    },
+    {
+      "name": "$workload:second_write",
+      "value": 1789248
+    },
+    {
+      "name": "$workload:all_read",
+      "value": 1740248
+    },
+    {
+      "name": "$workload:first_write",
+      "value": 1608904
+    },
+    {
+      "name": "$workload:one_update",
+      "value": 1526904
+    },
+    {
+      "name": "$workload:saved_write",
+      "value": 1461288
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:get",
+      "value": 1215208
+    },
+    {
+      "name": "$U32$show$go",
+      "value": 1032912
+    },
+    {
+      "name": "$workload:record",
+      "value": 870224
+    },
+    {
+      "name": "$providers:indexed_get",
+      "value": 837448
+    },
+    {
+      "name": "$workload:render_fragment",
+      "value": 803496
+    },
+    {
+      "name": "$workload:observation_show",
+      "value": 738376
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:got_added",
+      "value": 673240
+    },
+    {
+      "name": "$workload:cleared_then_restore",
+      "value": 476104
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:got_changed",
+      "value": 377736
+    },
+    {
+      "name": "$U32$show",
+      "value": 344280
+    },
+    {
+      "name": "$U32$show$if",
+      "value": 344280
+    },
+    {
+      "name": "$workload:restore_then_read",
+      "value": 164184
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:clear_checked",
+      "value": 164160
+    },
+    {
+      "name": "io_print",
+      "value": 153352
+    },
+    {
+      "name": "io_bytes",
+      "value": 136904
+    },
+    {
+      "name": "encode",
+      "value": 136904
+    },
+    {
+      "name": "$providers:indexed_clear",
+      "value": 114912
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:clear",
+      "value": 114912
+    },
+    {
+      "name": "$workload:seed",
+      "value": 106784
+    },
+    {
+      "name": "$$$/$$/$$/src/ecs/indexed-lifecycle:write_ready",
+      "value": 98576
+    },
+    {
+      "name": "observerCallback",
+      "value": 32832
+    },
+    {
+      "name": "io_out",
+      "value": 16448
+    },
+    {
+      "name": "require",
+      "value": 16448
+    },
+    {
+      "name": "(anonymous at line 1666)",
+      "value": 16448
+    },
+    {
+      "name": "wrapModuleLoad",
+      "value": 16448
+    },
+    {
+      "name": "(anonymous at line 1314)",
+      "value": 16448
+    },
+    {
+      "name": "resolveForCJSWithHooks",
+      "value": 16448
+    },
+    {
+      "name": "$IO$print",
+      "value": 16416
+    },
+    {
+      "name": "$workload:special_clear",
+      "value": 16416
+    },
+    {
+      "name": "deprecate",
+      "value": 16416
+    }
+  ],
+  "heapModuleInclusiveSampledBytes": [
+    {
+      "name": "other/runtime/observation",
+      "value": 15323568
+    },
+    {
+      "name": "ecs/indexed-lifecycle",
+      "value": 8853192
+    }
+  ]
+}

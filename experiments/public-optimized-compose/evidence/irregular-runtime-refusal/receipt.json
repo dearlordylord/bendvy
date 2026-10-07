@@ -1,0 +1,28 @@
+{
+  "sourceSHA256": "7d50c55596028dbf95c1391b91de818f089e8bc42948f86ae745a33d407156a0",
+  "columnSHA256": "aca582faa4fdc3ba57686c25310c4cb924a608fe919d4ea3d90a9909929e37a0",
+  "commands": [
+    {
+      "command": [
+        "bend",
+        "/tmp/storage30-irregular-producer-control.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdout": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "bend",
+        "/tmp/storage30-irregular-producer-control.bend"
+      ],
+      "limit": 5,
+      "exit": 1,
+      "stdout": "",
+      "stderr": "bend: runtime fail-stop\n"
+    }
+  ],
+  "scope": "checker-accepted unequal Array node; installed runtime refuses before paired observations. Not positive producer equivalence."
+}

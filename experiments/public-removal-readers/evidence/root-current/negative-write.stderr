@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- expected : Col.Column<S.Schema, S.Owner>
+- observed : Rm.Record<S.Schema, S.AllToken>
+Context:
+- record : Rm.Record<S.Schema, S.AllToken>
+Location: overwrite
+7 | def overwrite(record: Rm.Record<S.Schema,S.AllToken>) -> Col.SwapOutcome<S.Schema,S.Owner>:
+8>|   Col.swap(~S.Schema,~S.Owner,record,1,None{})
+  |                               ^^^^^^
+9 | 

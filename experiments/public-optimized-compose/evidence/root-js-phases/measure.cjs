@@ -1,0 +1,13 @@
+const fs = require('node:fs');
+const vm = require('node:vm');
+const {performance} = require('node:perf_hooks');
+global.require = require;
+process.exit = code => { if (code) throw new Error(`Generated exit ${code}`); };
+const start = performance.now();
+const source = fs.readFileSync(process.argv[2], 'utf8');
+const read = performance.now();
+const script = new vm.Script(source, {filename: process.argv[2]});
+const compiled = performance.now();
+script.runInThisContext();
+const done = performance.now();
+process.stderr.write(JSON.stringify({readMs:read-start,compileMs:compiled-read,executeMs:done-compiled})+'\n');

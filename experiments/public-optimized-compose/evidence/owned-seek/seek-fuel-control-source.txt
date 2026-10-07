@@ -1,0 +1,141 @@
+import Base
+import refusal-control.bend as P
+import ../../src/ecs/column.bend as Col
+import ../../src/ecs/owner-handoff.bend as H
+def cells(view:P.View) -> List<&2,U32>:
+  match view:
+    case P.View{first,second}: [first,second]
+def physical_payload(next:Array<Maybe<&1,P.Payload>> -> List<&2,U32>,values:Array<Maybe<&1,P.Payload>>,result:P.Payload & P.View) -> List<&2,U32>:
+  match result:
+    case (_,view): List.append(&2,U32,cells(view),next(values))
+def physical_taken(next:Array<Maybe<&1,P.Payload>> -> List<&2,U32>,result:Array<Maybe<&1,P.Payload>> & Maybe<&1,P.Payload>) -> List<&2,U32>:
+  match result:
+    case (values,None{}): List.append(&2,U32,[999,999],next(values))
+    case (values,Some{owner}): physical_payload(next,values,P.project(owner))
+def physical(fuel:Nat,+id:U32,values:Array<Maybe<&1,P.Payload>>) -> List<&2,U32>:
+  match fuel:
+    case 0n: []
+    case 1n+rest: physical_taken((values => physical(rest,U32.add(id,1),values)),Array.swap(Maybe<&1,P.Payload>,values,U32.sub(id,1),None{}))
+def recovered(+points:List<&2,U32>,column:Col.Column<P.Schema,P.Payload>) -> List<&2,U32>:
+  match column:
+    case Col.Column{values,_}: List.append(&2,U32,points,physical(4n,1,values))
+    case _: []
+def projected(+points:List<&2,U32>,column:Col.Column<P.Schema,P.Payload>,result:P.Payload & P.View) -> List<&2,U32>:
+  match result:
+    case (_,view): recovered(List.append(&2,U32,points,cells(view)),Col.recover(~P.Schema,~P.Payload,column))
+def returned(+status:U32,column:Col.Column<P.Schema,P.Payload>,owner:Maybe<&1,P.Payload>) -> List<&2,U32>:
+  match owner:
+    case None{}: recovered([status,999,999],Col.recover(~P.Schema,~P.Payload,column))
+    case Some{owner}: projected([status],column,P.project(owner))
+def observed(result:Col.SwapOutcome<P.Schema,P.Payload>) -> List<&2,U32>:
+  match result:
+    case Col.Accepted{column,owner}: returned(0,column,owner)
+    case Col.Rejected{column,owner}: returned(1,column,owner)
+def rows() -> H.PrototypeHandoffRows<P.Schema,P.Payload>:
+  H.HandoffCon{1,P.Payload{ANode{ALeaf{3},ALeaf{7}}},H.HandoffCon{3,P.Payload{ANode{ALeaf{11},ALeaf{19}}},H.HandoffNil{}}}
+def probe(legacy:Bool,+fuel:Nat,+target:U32) -> List<&2,U32>:
+  match legacy:
+    case True{}: observed(Col.seek(~P.Schema,~P.Payload,fuel,Col.absent(~P.Payload,2n),[],4,target,Some{P.Payload{ANode{ALeaf{41},ALeaf{43}}}},rows(),Col.HistoryNil{},Col.Inspect{}))
+    case False{}: observed(Col.seek_owned(~P.Schema,~P.Payload,fuel,Col.absent(~P.Payload,2n),[],4,target,Some{P.Payload{ANode{ALeaf{41},ALeaf{43}}}},Col.HistoryNil{},Col.Ready{rows()}))
+def compared_probe(legacy:Bool,+fuel:Nat,+equal:Bool,+before:Bool) -> List<&2,U32>:
+  match legacy:
+    case True{}: observed(Col.seek(~P.Schema,~P.Payload,fuel,Col.absent(~P.Payload,2n),[],4,2,Some{P.Payload{ANode{ALeaf{41},ALeaf{43}}}},rows(),Col.HistoryNil{},Col.Choice{equal,before}))
+    case False{}: observed(Col.seek_owned(~P.Schema,~P.Payload,fuel,Col.absent(~P.Payload,2n),[],4,2,Some{P.Payload{ANode{ALeaf{41},ALeaf{43}}}},Col.HistoryNil{},Col.Compared{1,P.Payload{ANode{ALeaf{3},ALeaf{7}}},H.HandoffCon{3,P.Payload{ANode{ALeaf{11},ALeaf{19}}},H.HandoffNil{}},equal,before}))
+def main() -> IO(Unit):
+  IO.print(List.show(&2,List<&2,U32>,(xs => List.show(&2,U32,U32.show,xs)),[
+    probe(True{},0n,1),
+    probe(False{},0n,1),
+    probe(True{},0n,2),
+    probe(False{},0n,2),
+    probe(True{},0n,3),
+    probe(False{},0n,3),
+    probe(True{},0n,4),
+    probe(False{},0n,4),
+    probe(True{},1n,1),
+    probe(False{},1n,1),
+    probe(True{},1n,2),
+    probe(False{},1n,2),
+    probe(True{},1n,3),
+    probe(False{},1n,3),
+    probe(True{},1n,4),
+    probe(False{},1n,4),
+    probe(True{},2n,1),
+    probe(False{},2n,1),
+    probe(True{},2n,2),
+    probe(False{},2n,2),
+    probe(True{},2n,3),
+    probe(False{},2n,3),
+    probe(True{},2n,4),
+    probe(False{},2n,4),
+    probe(True{},3n,1),
+    probe(False{},3n,1),
+    probe(True{},3n,2),
+    probe(False{},3n,2),
+    probe(True{},3n,3),
+    probe(False{},3n,3),
+    probe(True{},3n,4),
+    probe(False{},3n,4),
+    probe(True{},4n,1),
+    probe(False{},4n,1),
+    probe(True{},4n,2),
+    probe(False{},4n,2),
+    probe(True{},4n,3),
+    probe(False{},4n,3),
+    probe(True{},4n,4),
+    probe(False{},4n,4),
+    probe(True{},5n,1),
+    probe(False{},5n,1),
+    probe(True{},5n,2),
+    probe(False{},5n,2),
+    probe(True{},5n,3),
+    probe(False{},5n,3),
+    probe(True{},5n,4),
+    probe(False{},5n,4),
+    compared_probe(True{},0n,True{},False{}),
+    compared_probe(False{},0n,True{},False{}),
+    compared_probe(True{},0n,False{},True{}),
+    compared_probe(False{},0n,False{},True{}),
+    compared_probe(True{},0n,False{},False{}),
+    compared_probe(False{},0n,False{},False{}),
+    compared_probe(True{},0n,True{},True{}),
+    compared_probe(False{},0n,True{},True{}),
+    compared_probe(True{},1n,True{},False{}),
+    compared_probe(False{},1n,True{},False{}),
+    compared_probe(True{},1n,False{},True{}),
+    compared_probe(False{},1n,False{},True{}),
+    compared_probe(True{},1n,False{},False{}),
+    compared_probe(False{},1n,False{},False{}),
+    compared_probe(True{},1n,True{},True{}),
+    compared_probe(False{},1n,True{},True{}),
+    compared_probe(True{},2n,True{},False{}),
+    compared_probe(False{},2n,True{},False{}),
+    compared_probe(True{},2n,False{},True{}),
+    compared_probe(False{},2n,False{},True{}),
+    compared_probe(True{},2n,False{},False{}),
+    compared_probe(False{},2n,False{},False{}),
+    compared_probe(True{},2n,True{},True{}),
+    compared_probe(False{},2n,True{},True{}),
+    compared_probe(True{},3n,True{},False{}),
+    compared_probe(False{},3n,True{},False{}),
+    compared_probe(True{},3n,False{},True{}),
+    compared_probe(False{},3n,False{},True{}),
+    compared_probe(True{},3n,False{},False{}),
+    compared_probe(False{},3n,False{},False{}),
+    compared_probe(True{},3n,True{},True{}),
+    compared_probe(False{},3n,True{},True{}),
+    compared_probe(True{},4n,True{},False{}),
+    compared_probe(False{},4n,True{},False{}),
+    compared_probe(True{},4n,False{},True{}),
+    compared_probe(False{},4n,False{},True{}),
+    compared_probe(True{},4n,False{},False{}),
+    compared_probe(False{},4n,False{},False{}),
+    compared_probe(True{},4n,True{},True{}),
+    compared_probe(False{},4n,True{},True{}),
+    compared_probe(True{},5n,True{},False{}),
+    compared_probe(False{},5n,True{},False{}),
+    compared_probe(True{},5n,False{},True{}),
+    compared_probe(False{},5n,False{},True{}),
+    compared_probe(True{},5n,False{},False{}),
+    compared_probe(False{},5n,False{},False{}),
+    compared_probe(True{},5n,True{},True{}),
+    compared_probe(False{},5n,True{},True{})]))

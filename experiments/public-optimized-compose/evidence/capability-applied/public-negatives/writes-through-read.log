@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : Cap.Write<bad~H, Payload, U32>
+- observed : Cap.Read<bad~H, U32>
+Context:
+- ctx   : bad~H
+- value : Payload
+Location: bad
+ 8 | def bad(~H: Type,~read: Cap.Read<H,U32>,ctx: H,value: Payload) -> H:
+ 9>|   Cap.set(~H,~Payload,~U32,~read,ctx,value)
+   |                             ^^^^
+10 | def main() -> U32:

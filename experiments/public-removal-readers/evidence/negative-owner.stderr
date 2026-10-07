@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : reader
+- observed : reader (consumed more than once)
+Location: duplicate
+4 | 
+5>| def duplicate(reader: Rm.Reader<S.Schema,S.Notice,S.AllToken,S.selected>) -> Rm.Reader<S.Schema,S.Notice,S.AllToken,S.selected> & Rm.Reader<S.Schema,S.Notice,S.AllToken,S.selected>:
+  |               ^^^^^^
+6 |   (reader,reader)

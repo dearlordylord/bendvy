@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : column
+- observed : column (consumed more than once)
+Location: duplicate
+3 | 
+4>| def duplicate(column:Col.Column<P.Schema,P.Payload>) -> Col.Column<P.Schema,P.Payload> & Col.Column<P.Schema,P.Payload>:
+  |               ^^^^^^
+5 |   (column,column)

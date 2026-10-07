@@ -1,0 +1,4195 @@
+{
+  "generatedSHA256": "d537d099869d37aaecb232aac5a1af4d2d667cf7dc4ecd058e7da0778f28ec5d",
+  "instrumentedFunctions": {
+    "evacuate": 5,
+    "evacuate_taken": 0,
+    "evacuate_phase": 5,
+    "run_clo": 1,
+    "run_loop": 1,
+    "prototype_handoff_read_rows": 0,
+    "prototype_handoff_inspect_state": 0,
+    "prepared_swap": 5,
+    "swap_recovered": 5,
+    "recover_current": 5,
+    "seek": 5,
+    "array_rmw": 1,
+    "prepared_view_state": 5,
+    "prepared_view_current": 5,
+    "prepared_view_projected": 5,
+    "prepared_view_taken": 5,
+    "prepared_view_taken_state": 5,
+    "swap_state": 5,
+    "view_taken": 0,
+    "viewed": 5,
+    "unseal": 5,
+    "recover_state": 5,
+    "recover_past": 5,
+    "prototype_handoff_recover_rows": 0
+  },
+  "entries": {
+    "evacuate": 140,
+    "evacuate_taken": 0,
+    "evacuate_phase": 140,
+    "run_clo": 3262,
+    "run_loop": 930,
+    "prototype_handoff_read_rows": 0,
+    "prototype_handoff_inspect_state": 0,
+    "prepared_swap": 584,
+    "swap_recovered": 0,
+    "recover_current": 140,
+    "seek": 564,
+    "array_rmw": 1920,
+    "prepared_view_state": 745,
+    "prepared_view_current": 181,
+    "prepared_view_projected": 587,
+    "prepared_view_taken": 564,
+    "prepared_view_taken_state": 406,
+    "swap_state": 20,
+    "view_taken": 0,
+    "viewed": 0,
+    "unseal": 1373,
+    "recover_state": 140,
+    "recover_past": 140,
+    "prototype_handoff_recover_rows": 0
+  },
+  "objectLiterals": {
+    "$JMP": 523,
+    "../../../src/ecs/capabilities.Read": 745,
+    "../../../src/ecs/capabilities.Send": 15,
+    "../../../src/ecs/capabilities.ValueRead": 650,
+    "../../../src/ecs/capabilities.Write": 407,
+    "../../../src/ecs/column.Accepted": 642,
+    "../../../src/ecs/column.Choice": 485,
+    "../../../src/ecs/column.Column": 829,
+    "../../../src/ecs/column.Fetch": 1176,
+    "../../../src/ecs/column.HistoryCon": 457,
+    "../../../src/ecs/column.HistoryNil": 140,
+    "../../../src/ecs/column.Inspect": 581,
+    "../../../src/ecs/column.Owned": 1373,
+    "../../../src/ecs/column.Prepared": 1531,
+    "../../../src/ecs/column.Rejected": 0,
+    "../../../src/ecs/column.State": 1373,
+    "../../../src/ecs/column.Taken": 1036,
+    "../../../src/ecs/component.ComponentAbsent": 347,
+    "../../../src/ecs/component.Family": 1341,
+    "../../../src/ecs/component.Found": 908,
+    "../../../src/ecs/component.MissingEntity": 1,
+    "../../../src/ecs/component.ReplaceRejected": 0,
+    "../../../src/ecs/component.Replaced": 65,
+    "../../../src/ecs/component.SwapRejected": 0,
+    "../../../src/ecs/component.Swapped": 65,
+    "../../../src/ecs/component.WriteFailure": 0,
+    "../../../src/ecs/component.WriteRejected": 0,
+    "../../../src/ecs/component.Written": 17,
+    "../../../src/ecs/compose.Absent": 154,
+    "../../../src/ecs/compose.AccessError": 0,
+    "../../../src/ecs/compose.Added": 15,
+    "../../../src/ecs/compose.Changed": 5,
+    "../../../src/ecs/compose.Executed": 120,
+    "../../../src/ecs/compose.Frame": 1408,
+    "../../../src/ecs/compose.Insert": 2,
+    "../../../src/ecs/compose.Plan": 665,
+    "../../../src/ecs/compose.Present": 191,
+    "../../../src/ecs/compose.Required": 220,
+    "../../../src/ecs/compose.UserError": 1,
+    "../../../src/ecs/lifecycle.Entry": 366,
+    "../../../src/ecs/lifecycle.Stamp": 167,
+    "../../../src/ecs/owner-handoff.HandoffCon": 1035,
+    "../../../src/ecs/owner-handoff.HandoffNil": 236,
+    "../../../src/ecs/structural.QueueRejected": 0,
+    "../../../src/ecs/structural.Queued": 7,
+    "../../../src/ecs/system.Completed": 11,
+    "../../../src/ecs/system.Failed": 1,
+    "../../../src/ecs/system.Registered": 3,
+    "../../../src/ecs/system.RegistrationFailed": 0,
+    "../../../src/ecs/system.RegistrationRejected": 0,
+    "../../../src/ecs/system.Registry": 25,
+    "../../../src/ecs/system.Succeeded": 13,
+    "../../../src/ecs/transaction.Failure": 5,
+    "../../../src/ecs/transaction.Returned": 66,
+    "../../../src/ecs/transaction.Success": 503,
+    "../../../src/ecs/transaction.Tx": 868,
+    "../../../src/ecs/world.Accepted": 10,
+    "../../../src/ecs/world.CapacityExceeded": 0,
+    "../../../src/ecs/world.CreateRejected": 0,
+    "../../../src/ecs/world.Created": 2,
+    "../../../src/ecs/world.Factory": 3,
+    "../../../src/ecs/world.Growth": 8,
+    "../../../src/ecs/world.Handle": 452,
+    "../../../src/ecs/world.HandleScan": 552,
+    "../../../src/ecs/world.MissingEntity": 1,
+    "../../../src/ecs/world.Registered": 3,
+    "../../../src/ecs/world.RegistrationMeta": 3,
+    "../../../src/ecs/world.RegistrationRejected": 0,
+    "../../../src/ecs/world.Rejected": 1,
+    "../../../src/ecs/world.ReservationRejected": 0,
+    "../../../src/ecs/world.Reserved": 15,
+    "../../../src/ecs/world.SystemIdExhausted": 0,
+    "../../../src/ecs/world.World": 4488,
+    "Con": 9033,
+    "EQ": 69,
+    "GT": 45,
+    "LT": 41,
+    "Nil": 4111,
+    "None": 3208,
+    "Some": 2416,
+    "Tuple": 30068,
+    "Unit": 87,
+    "WCon": 0,
+    "WNil": 0,
+    "declarations.AdvancedCaps": 33,
+    "driver.Owners": 19,
+    "driver.State": 39,
+    "gameplay.DuplicateCaps": 15,
+    "gameplay.MissingFixture": 0,
+    "gameplay.Rejected": 1,
+    "gameplay.RetryArgs": 2,
+    "gameplay.RetryCaps": 15,
+    "gameplay.WorkCaps": 332,
+    "schema.ArrayShape": 167,
+    "schema.Bundle": 8,
+    "schema.Enabled": 602,
+    "schema.EnabledRest": 369,
+    "schema.Locked": 47,
+    "schema.LockedRest": 198,
+    "schema.Queue": 132,
+    "schema.QueueRest": 181,
+    "schema.QueueView": 124,
+    "schema.Recipe": 224,
+    "schema.RecipeRest": 287,
+    "schema.RecipeView": 214,
+    "schema.Stock": 270,
+    "schema.StockRest": 328,
+    "schema.StockView": 258,
+    "schema.Store": 1452
+  },
+  "completeObservation": {
+    "format": 1,
+    "application": "Workshop",
+    "checkpoints": [
+      {
+        "label": "empty",
+        "entities": [],
+        "composed": [],
+        "empty": [],
+        "contradict": []
+      },
+      {
+        "label": "spawn-pending",
+        "entities": [],
+        "composed": [],
+        "empty": [],
+        "contradict": []
+      },
+      {
+        "label": "seed-visible",
+        "entities": [
+          {
+            "id": 1,
+            "stock": {
+              "value": 10,
+              "owned": [
+                10,
+                11,
+                12
+              ]
+            },
+            "recipe": {
+              "value": 20,
+              "owned": [
+                20,
+                21,
+                22
+              ]
+            },
+            "queue": {
+              "value": 30,
+              "owned": [
+                30,
+                31,
+                32
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 2,
+            "stock": {
+              "value": 11,
+              "owned": [
+                11,
+                12,
+                13
+              ]
+            },
+            "recipe": {
+              "value": 21,
+              "owned": [
+                21,
+                22,
+                23
+              ]
+            },
+            "queue": null,
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 3,
+            "stock": {
+              "value": 12,
+              "owned": [
+                12,
+                13,
+                14
+              ]
+            },
+            "recipe": null,
+            "queue": {
+              "value": 32,
+              "owned": [
+                32,
+                33,
+                34
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 4,
+            "stock": {
+              "value": 13,
+              "owned": [
+                13,
+                14,
+                15
+              ]
+            },
+            "recipe": {
+              "value": 23,
+              "owned": [
+                23,
+                24,
+                25
+              ]
+            },
+            "queue": {
+              "value": 33,
+              "owned": [
+                33,
+                34,
+                35
+              ]
+            },
+            "enabled": {},
+            "locked": {}
+          },
+          {
+            "id": 5,
+            "stock": {
+              "value": 14,
+              "owned": [
+                14,
+                15,
+                16
+              ]
+            },
+            "recipe": {
+              "value": 24,
+              "owned": [
+                24,
+                25,
+                26
+              ]
+            },
+            "queue": {
+              "value": 34,
+              "owned": [
+                34,
+                35,
+                36
+              ]
+            },
+            "enabled": null,
+            "locked": null
+          },
+          {
+            "id": 6,
+            "stock": null,
+            "recipe": null,
+            "queue": null,
+            "enabled": null,
+            "locked": null
+          }
+        ],
+        "composed": [
+          {
+            "id": 1,
+            "stock": {
+              "value": 10,
+              "owned": [
+                10,
+                11,
+                12
+              ]
+            },
+            "recipe": {
+              "value": 20,
+              "owned": [
+                20,
+                21,
+                22
+              ]
+            },
+            "queue": {
+              "value": 30,
+              "owned": [
+                30,
+                31,
+                32
+              ]
+            }
+          },
+          {
+            "id": 2,
+            "stock": {
+              "value": 11,
+              "owned": [
+                11,
+                12,
+                13
+              ]
+            },
+            "recipe": {
+              "value": 21,
+              "owned": [
+                21,
+                22,
+                23
+              ]
+            },
+            "queue": null
+          }
+        ],
+        "empty": [
+          {
+            "id": 1,
+            "data": {}
+          },
+          {
+            "id": 2,
+            "data": {}
+          },
+          {
+            "id": 3,
+            "data": {}
+          },
+          {
+            "id": 4,
+            "data": {}
+          },
+          {
+            "id": 5,
+            "data": {}
+          },
+          {
+            "id": 6,
+            "data": {}
+          }
+        ],
+        "contradict": []
+      },
+      {
+        "label": "work-first",
+        "entities": [
+          {
+            "id": 1,
+            "stock": {
+              "value": 30,
+              "owned": [
+                10,
+                11,
+                12,
+                30
+              ]
+            },
+            "recipe": {
+              "value": 20,
+              "owned": [
+                20,
+                21,
+                22
+              ]
+            },
+            "queue": {
+              "value": 30,
+              "owned": [
+                30,
+                31,
+                32
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 2,
+            "stock": {
+              "value": 32,
+              "owned": [
+                11,
+                12,
+                13,
+                0
+              ]
+            },
+            "recipe": {
+              "value": 21,
+              "owned": [
+                21,
+                22,
+                23
+              ]
+            },
+            "queue": null,
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 3,
+            "stock": {
+              "value": 12,
+              "owned": [
+                12,
+                13,
+                14
+              ]
+            },
+            "recipe": null,
+            "queue": {
+              "value": 32,
+              "owned": [
+                32,
+                33,
+                34
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 4,
+            "stock": {
+              "value": 13,
+              "owned": [
+                13,
+                14,
+                15
+              ]
+            },
+            "recipe": {
+              "value": 23,
+              "owned": [
+                23,
+                24,
+                25
+              ]
+            },
+            "queue": {
+              "value": 33,
+              "owned": [
+                33,
+                34,
+                35
+              ]
+            },
+            "enabled": {},
+            "locked": {}
+          },
+          {
+            "id": 5,
+            "stock": {
+              "value": 14,
+              "owned": [
+                14,
+                15,
+                16
+              ]
+            },
+            "recipe": {
+              "value": 24,
+              "owned": [
+                24,
+                25,
+                26
+              ]
+            },
+            "queue": {
+              "value": 34,
+              "owned": [
+                34,
+                35,
+                36
+              ]
+            },
+            "enabled": null,
+            "locked": null
+          },
+          {
+            "id": 6,
+            "stock": null,
+            "recipe": null,
+            "queue": null,
+            "enabled": null,
+            "locked": null
+          }
+        ],
+        "composed": [
+          {
+            "id": 1,
+            "stock": {
+              "value": 30,
+              "owned": [
+                10,
+                11,
+                12,
+                30
+              ]
+            },
+            "recipe": {
+              "value": 20,
+              "owned": [
+                20,
+                21,
+                22
+              ]
+            },
+            "queue": {
+              "value": 30,
+              "owned": [
+                30,
+                31,
+                32
+              ]
+            }
+          },
+          {
+            "id": 2,
+            "stock": {
+              "value": 32,
+              "owned": [
+                11,
+                12,
+                13,
+                0
+              ]
+            },
+            "recipe": {
+              "value": 21,
+              "owned": [
+                21,
+                22,
+                23
+              ]
+            },
+            "queue": null
+          }
+        ],
+        "empty": [
+          {
+            "id": 1,
+            "data": {}
+          },
+          {
+            "id": 2,
+            "data": {}
+          },
+          {
+            "id": 3,
+            "data": {}
+          },
+          {
+            "id": 4,
+            "data": {}
+          },
+          {
+            "id": 5,
+            "data": {}
+          },
+          {
+            "id": 6,
+            "data": {}
+          }
+        ],
+        "contradict": []
+      },
+      {
+        "label": "work-repeat",
+        "entities": [
+          {
+            "id": 1,
+            "stock": {
+              "value": 50,
+              "owned": [
+                10,
+                11,
+                12,
+                30,
+                30
+              ]
+            },
+            "recipe": {
+              "value": 20,
+              "owned": [
+                20,
+                21,
+                22
+              ]
+            },
+            "queue": {
+              "value": 30,
+              "owned": [
+                30,
+                31,
+                32
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 2,
+            "stock": {
+              "value": 53,
+              "owned": [
+                11,
+                12,
+                13,
+                0,
+                0
+              ]
+            },
+            "recipe": {
+              "value": 21,
+              "owned": [
+                21,
+                22,
+                23
+              ]
+            },
+            "queue": null,
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 3,
+            "stock": {
+              "value": 12,
+              "owned": [
+                12,
+                13,
+                14
+              ]
+            },
+            "recipe": null,
+            "queue": {
+              "value": 32,
+              "owned": [
+                32,
+                33,
+                34
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 4,
+            "stock": {
+              "value": 13,
+              "owned": [
+                13,
+                14,
+                15
+              ]
+            },
+            "recipe": {
+              "value": 23,
+              "owned": [
+                23,
+                24,
+                25
+              ]
+            },
+            "queue": {
+              "value": 33,
+              "owned": [
+                33,
+                34,
+                35
+              ]
+            },
+            "enabled": {},
+            "locked": {}
+          },
+          {
+            "id": 5,
+            "stock": {
+              "value": 14,
+              "owned": [
+                14,
+                15,
+                16
+              ]
+            },
+            "recipe": {
+              "value": 24,
+              "owned": [
+                24,
+                25,
+                26
+              ]
+            },
+            "queue": {
+              "value": 34,
+              "owned": [
+                34,
+                35,
+                36
+              ]
+            },
+            "enabled": null,
+            "locked": null
+          },
+          {
+            "id": 6,
+            "stock": null,
+            "recipe": null,
+            "queue": null,
+            "enabled": null,
+            "locked": null
+          }
+        ],
+        "composed": [
+          {
+            "id": 1,
+            "stock": {
+              "value": 50,
+              "owned": [
+                10,
+                11,
+                12,
+                30,
+                30
+              ]
+            },
+            "recipe": {
+              "value": 20,
+              "owned": [
+                20,
+                21,
+                22
+              ]
+            },
+            "queue": {
+              "value": 30,
+              "owned": [
+                30,
+                31,
+                32
+              ]
+            }
+          },
+          {
+            "id": 2,
+            "stock": {
+              "value": 53,
+              "owned": [
+                11,
+                12,
+                13,
+                0,
+                0
+              ]
+            },
+            "recipe": {
+              "value": 21,
+              "owned": [
+                21,
+                22,
+                23
+              ]
+            },
+            "queue": null
+          }
+        ],
+        "empty": [
+          {
+            "id": 1,
+            "data": {}
+          },
+          {
+            "id": 2,
+            "data": {}
+          },
+          {
+            "id": 3,
+            "data": {}
+          },
+          {
+            "id": 4,
+            "data": {}
+          },
+          {
+            "id": 5,
+            "data": {}
+          },
+          {
+            "id": 6,
+            "data": {}
+          }
+        ],
+        "contradict": []
+      },
+      {
+        "label": "failed-result",
+        "ok": false,
+        "error": {
+          "kind": "SystemFailure",
+          "system": "retry",
+          "error": "Rejected"
+        }
+      },
+      {
+        "label": "rollback-three-families",
+        "entities": [
+          {
+            "id": 1,
+            "stock": {
+              "value": 50,
+              "owned": [
+                10,
+                11,
+                12,
+                30,
+                30
+              ]
+            },
+            "recipe": {
+              "value": 20,
+              "owned": [
+                20,
+                21,
+                22
+              ]
+            },
+            "queue": {
+              "value": 30,
+              "owned": [
+                30,
+                31,
+                32
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 2,
+            "stock": {
+              "value": 53,
+              "owned": [
+                11,
+                12,
+                13,
+                0,
+                0
+              ]
+            },
+            "recipe": {
+              "value": 21,
+              "owned": [
+                21,
+                22,
+                23
+              ]
+            },
+            "queue": null,
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 3,
+            "stock": {
+              "value": 12,
+              "owned": [
+                12,
+                13,
+                14
+              ]
+            },
+            "recipe": null,
+            "queue": {
+              "value": 32,
+              "owned": [
+                32,
+                33,
+                34
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 4,
+            "stock": {
+              "value": 13,
+              "owned": [
+                13,
+                14,
+                15
+              ]
+            },
+            "recipe": {
+              "value": 23,
+              "owned": [
+                23,
+                24,
+                25
+              ]
+            },
+            "queue": {
+              "value": 33,
+              "owned": [
+                33,
+                34,
+                35
+              ]
+            },
+            "enabled": {},
+            "locked": {}
+          },
+          {
+            "id": 5,
+            "stock": {
+              "value": 14,
+              "owned": [
+                14,
+                15,
+                16
+              ]
+            },
+            "recipe": {
+              "value": 24,
+              "owned": [
+                24,
+                25,
+                26
+              ]
+            },
+            "queue": {
+              "value": 34,
+              "owned": [
+                34,
+                35,
+                36
+              ]
+            },
+            "enabled": null,
+            "locked": null
+          },
+          {
+            "id": 6,
+            "stock": null,
+            "recipe": null,
+            "queue": null,
+            "enabled": null,
+            "locked": null
+          }
+        ],
+        "composed": [
+          {
+            "id": 1,
+            "stock": {
+              "value": 50,
+              "owned": [
+                10,
+                11,
+                12,
+                30,
+                30
+              ]
+            },
+            "recipe": {
+              "value": 20,
+              "owned": [
+                20,
+                21,
+                22
+              ]
+            },
+            "queue": {
+              "value": 30,
+              "owned": [
+                30,
+                31,
+                32
+              ]
+            }
+          },
+          {
+            "id": 2,
+            "stock": {
+              "value": 53,
+              "owned": [
+                11,
+                12,
+                13,
+                0,
+                0
+              ]
+            },
+            "recipe": {
+              "value": 21,
+              "owned": [
+                21,
+                22,
+                23
+              ]
+            },
+            "queue": null
+          }
+        ],
+        "empty": [
+          {
+            "id": 1,
+            "data": {}
+          },
+          {
+            "id": 2,
+            "data": {}
+          },
+          {
+            "id": 3,
+            "data": {}
+          },
+          {
+            "id": 4,
+            "data": {}
+          },
+          {
+            "id": 5,
+            "data": {}
+          },
+          {
+            "id": 6,
+            "data": {}
+          }
+        ],
+        "contradict": []
+      },
+      {
+        "label": "rollback-no-command",
+        "entities": [
+          {
+            "id": 1,
+            "stock": {
+              "value": 50,
+              "owned": [
+                10,
+                11,
+                12,
+                30,
+                30
+              ]
+            },
+            "recipe": {
+              "value": 20,
+              "owned": [
+                20,
+                21,
+                22
+              ]
+            },
+            "queue": {
+              "value": 30,
+              "owned": [
+                30,
+                31,
+                32
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 2,
+            "stock": {
+              "value": 53,
+              "owned": [
+                11,
+                12,
+                13,
+                0,
+                0
+              ]
+            },
+            "recipe": {
+              "value": 21,
+              "owned": [
+                21,
+                22,
+                23
+              ]
+            },
+            "queue": null,
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 3,
+            "stock": {
+              "value": 12,
+              "owned": [
+                12,
+                13,
+                14
+              ]
+            },
+            "recipe": null,
+            "queue": {
+              "value": 32,
+              "owned": [
+                32,
+                33,
+                34
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 4,
+            "stock": {
+              "value": 13,
+              "owned": [
+                13,
+                14,
+                15
+              ]
+            },
+            "recipe": {
+              "value": 23,
+              "owned": [
+                23,
+                24,
+                25
+              ]
+            },
+            "queue": {
+              "value": 33,
+              "owned": [
+                33,
+                34,
+                35
+              ]
+            },
+            "enabled": {},
+            "locked": {}
+          },
+          {
+            "id": 5,
+            "stock": {
+              "value": 14,
+              "owned": [
+                14,
+                15,
+                16
+              ]
+            },
+            "recipe": {
+              "value": 24,
+              "owned": [
+                24,
+                25,
+                26
+              ]
+            },
+            "queue": {
+              "value": 34,
+              "owned": [
+                34,
+                35,
+                36
+              ]
+            },
+            "enabled": null,
+            "locked": null
+          },
+          {
+            "id": 6,
+            "stock": null,
+            "recipe": null,
+            "queue": null,
+            "enabled": null,
+            "locked": null
+          }
+        ],
+        "composed": [
+          {
+            "id": 1,
+            "stock": {
+              "value": 50,
+              "owned": [
+                10,
+                11,
+                12,
+                30,
+                30
+              ]
+            },
+            "recipe": {
+              "value": 20,
+              "owned": [
+                20,
+                21,
+                22
+              ]
+            },
+            "queue": {
+              "value": 30,
+              "owned": [
+                30,
+                31,
+                32
+              ]
+            }
+          },
+          {
+            "id": 2,
+            "stock": {
+              "value": 53,
+              "owned": [
+                11,
+                12,
+                13,
+                0,
+                0
+              ]
+            },
+            "recipe": {
+              "value": 21,
+              "owned": [
+                21,
+                22,
+                23
+              ]
+            },
+            "queue": null
+          }
+        ],
+        "empty": [
+          {
+            "id": 1,
+            "data": {}
+          },
+          {
+            "id": 2,
+            "data": {}
+          },
+          {
+            "id": 3,
+            "data": {}
+          },
+          {
+            "id": 4,
+            "data": {}
+          },
+          {
+            "id": 5,
+            "data": {}
+          },
+          {
+            "id": 6,
+            "data": {}
+          }
+        ],
+        "contradict": []
+      },
+      {
+        "label": "retry-committed-command-pending",
+        "entities": [
+          {
+            "id": 1,
+            "stock": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            },
+            "recipe": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            },
+            "queue": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 2,
+            "stock": {
+              "value": 53,
+              "owned": [
+                11,
+                12,
+                13,
+                0,
+                0
+              ]
+            },
+            "recipe": {
+              "value": 21,
+              "owned": [
+                21,
+                22,
+                23
+              ]
+            },
+            "queue": null,
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 3,
+            "stock": {
+              "value": 12,
+              "owned": [
+                12,
+                13,
+                14
+              ]
+            },
+            "recipe": null,
+            "queue": {
+              "value": 32,
+              "owned": [
+                32,
+                33,
+                34
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 4,
+            "stock": {
+              "value": 13,
+              "owned": [
+                13,
+                14,
+                15
+              ]
+            },
+            "recipe": {
+              "value": 23,
+              "owned": [
+                23,
+                24,
+                25
+              ]
+            },
+            "queue": {
+              "value": 33,
+              "owned": [
+                33,
+                34,
+                35
+              ]
+            },
+            "enabled": {},
+            "locked": {}
+          },
+          {
+            "id": 5,
+            "stock": {
+              "value": 14,
+              "owned": [
+                14,
+                15,
+                16
+              ]
+            },
+            "recipe": {
+              "value": 24,
+              "owned": [
+                24,
+                25,
+                26
+              ]
+            },
+            "queue": {
+              "value": 34,
+              "owned": [
+                34,
+                35,
+                36
+              ]
+            },
+            "enabled": null,
+            "locked": null
+          },
+          {
+            "id": 6,
+            "stock": null,
+            "recipe": null,
+            "queue": null,
+            "enabled": null,
+            "locked": null
+          }
+        ],
+        "composed": [
+          {
+            "id": 1,
+            "stock": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            },
+            "recipe": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            },
+            "queue": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            }
+          },
+          {
+            "id": 2,
+            "stock": {
+              "value": 53,
+              "owned": [
+                11,
+                12,
+                13,
+                0,
+                0
+              ]
+            },
+            "recipe": {
+              "value": 21,
+              "owned": [
+                21,
+                22,
+                23
+              ]
+            },
+            "queue": null
+          }
+        ],
+        "empty": [
+          {
+            "id": 1,
+            "data": {}
+          },
+          {
+            "id": 2,
+            "data": {}
+          },
+          {
+            "id": 3,
+            "data": {}
+          },
+          {
+            "id": 4,
+            "data": {}
+          },
+          {
+            "id": 5,
+            "data": {}
+          },
+          {
+            "id": 6,
+            "data": {}
+          }
+        ],
+        "contradict": []
+      },
+      {
+        "label": "retry-command-visible",
+        "entities": [
+          {
+            "id": 1,
+            "stock": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            },
+            "recipe": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            },
+            "queue": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 2,
+            "stock": {
+              "value": 53,
+              "owned": [
+                11,
+                12,
+                13,
+                0,
+                0
+              ]
+            },
+            "recipe": {
+              "value": 21,
+              "owned": [
+                21,
+                22,
+                23
+              ]
+            },
+            "queue": {
+              "value": 31,
+              "owned": [
+                31,
+                32,
+                33
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 3,
+            "stock": {
+              "value": 12,
+              "owned": [
+                12,
+                13,
+                14
+              ]
+            },
+            "recipe": null,
+            "queue": {
+              "value": 32,
+              "owned": [
+                32,
+                33,
+                34
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 4,
+            "stock": {
+              "value": 13,
+              "owned": [
+                13,
+                14,
+                15
+              ]
+            },
+            "recipe": {
+              "value": 23,
+              "owned": [
+                23,
+                24,
+                25
+              ]
+            },
+            "queue": {
+              "value": 33,
+              "owned": [
+                33,
+                34,
+                35
+              ]
+            },
+            "enabled": {},
+            "locked": {}
+          },
+          {
+            "id": 5,
+            "stock": {
+              "value": 14,
+              "owned": [
+                14,
+                15,
+                16
+              ]
+            },
+            "recipe": {
+              "value": 24,
+              "owned": [
+                24,
+                25,
+                26
+              ]
+            },
+            "queue": {
+              "value": 34,
+              "owned": [
+                34,
+                35,
+                36
+              ]
+            },
+            "enabled": null,
+            "locked": null
+          },
+          {
+            "id": 6,
+            "stock": null,
+            "recipe": null,
+            "queue": null,
+            "enabled": null,
+            "locked": null
+          }
+        ],
+        "composed": [
+          {
+            "id": 1,
+            "stock": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            },
+            "recipe": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            },
+            "queue": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            }
+          },
+          {
+            "id": 2,
+            "stock": {
+              "value": 53,
+              "owned": [
+                11,
+                12,
+                13,
+                0,
+                0
+              ]
+            },
+            "recipe": {
+              "value": 21,
+              "owned": [
+                21,
+                22,
+                23
+              ]
+            },
+            "queue": {
+              "value": 31,
+              "owned": [
+                31,
+                32,
+                33
+              ]
+            }
+          }
+        ],
+        "empty": [
+          {
+            "id": 1,
+            "data": {}
+          },
+          {
+            "id": 2,
+            "data": {}
+          },
+          {
+            "id": 3,
+            "data": {}
+          },
+          {
+            "id": 4,
+            "data": {}
+          },
+          {
+            "id": 5,
+            "data": {}
+          },
+          {
+            "id": 6,
+            "data": {}
+          }
+        ],
+        "contradict": []
+      },
+      {
+        "label": "insert-pending",
+        "entities": [
+          {
+            "id": 1,
+            "stock": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            },
+            "recipe": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            },
+            "queue": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 2,
+            "stock": {
+              "value": 53,
+              "owned": [
+                11,
+                12,
+                13,
+                0,
+                0
+              ]
+            },
+            "recipe": {
+              "value": 21,
+              "owned": [
+                21,
+                22,
+                23
+              ]
+            },
+            "queue": {
+              "value": 31,
+              "owned": [
+                31,
+                32,
+                33
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 3,
+            "stock": {
+              "value": 12,
+              "owned": [
+                12,
+                13,
+                14
+              ]
+            },
+            "recipe": null,
+            "queue": {
+              "value": 32,
+              "owned": [
+                32,
+                33,
+                34
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 4,
+            "stock": {
+              "value": 13,
+              "owned": [
+                13,
+                14,
+                15
+              ]
+            },
+            "recipe": {
+              "value": 23,
+              "owned": [
+                23,
+                24,
+                25
+              ]
+            },
+            "queue": {
+              "value": 33,
+              "owned": [
+                33,
+                34,
+                35
+              ]
+            },
+            "enabled": {},
+            "locked": {}
+          },
+          {
+            "id": 5,
+            "stock": {
+              "value": 14,
+              "owned": [
+                14,
+                15,
+                16
+              ]
+            },
+            "recipe": {
+              "value": 24,
+              "owned": [
+                24,
+                25,
+                26
+              ]
+            },
+            "queue": {
+              "value": 34,
+              "owned": [
+                34,
+                35,
+                36
+              ]
+            },
+            "enabled": null,
+            "locked": null
+          },
+          {
+            "id": 6,
+            "stock": null,
+            "recipe": null,
+            "queue": null,
+            "enabled": null,
+            "locked": null
+          }
+        ],
+        "composed": [
+          {
+            "id": 1,
+            "stock": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            },
+            "recipe": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            },
+            "queue": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            }
+          },
+          {
+            "id": 2,
+            "stock": {
+              "value": 53,
+              "owned": [
+                11,
+                12,
+                13,
+                0,
+                0
+              ]
+            },
+            "recipe": {
+              "value": 21,
+              "owned": [
+                21,
+                22,
+                23
+              ]
+            },
+            "queue": {
+              "value": 31,
+              "owned": [
+                31,
+                32,
+                33
+              ]
+            }
+          }
+        ],
+        "empty": [
+          {
+            "id": 1,
+            "data": {}
+          },
+          {
+            "id": 2,
+            "data": {}
+          },
+          {
+            "id": 3,
+            "data": {}
+          },
+          {
+            "id": 4,
+            "data": {}
+          },
+          {
+            "id": 5,
+            "data": {}
+          },
+          {
+            "id": 6,
+            "data": {}
+          }
+        ],
+        "contradict": []
+      },
+      {
+        "label": "insert-visible",
+        "entities": [
+          {
+            "id": 1,
+            "stock": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            },
+            "recipe": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            },
+            "queue": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 2,
+            "stock": {
+              "value": 53,
+              "owned": [
+                11,
+                12,
+                13,
+                0,
+                0
+              ]
+            },
+            "recipe": {
+              "value": 21,
+              "owned": [
+                21,
+                22,
+                23
+              ]
+            },
+            "queue": {
+              "value": 31,
+              "owned": [
+                31,
+                32,
+                33
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 3,
+            "stock": {
+              "value": 12,
+              "owned": [
+                12,
+                13,
+                14
+              ]
+            },
+            "recipe": {
+              "value": 22,
+              "owned": [
+                22,
+                23,
+                24
+              ]
+            },
+            "queue": {
+              "value": 32,
+              "owned": [
+                32,
+                33,
+                34
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 4,
+            "stock": {
+              "value": 13,
+              "owned": [
+                13,
+                14,
+                15
+              ]
+            },
+            "recipe": {
+              "value": 23,
+              "owned": [
+                23,
+                24,
+                25
+              ]
+            },
+            "queue": {
+              "value": 33,
+              "owned": [
+                33,
+                34,
+                35
+              ]
+            },
+            "enabled": {},
+            "locked": {}
+          },
+          {
+            "id": 5,
+            "stock": {
+              "value": 14,
+              "owned": [
+                14,
+                15,
+                16
+              ]
+            },
+            "recipe": {
+              "value": 24,
+              "owned": [
+                24,
+                25,
+                26
+              ]
+            },
+            "queue": {
+              "value": 34,
+              "owned": [
+                34,
+                35,
+                36
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 6,
+            "stock": null,
+            "recipe": null,
+            "queue": null,
+            "enabled": null,
+            "locked": null
+          }
+        ],
+        "composed": [
+          {
+            "id": 1,
+            "stock": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            },
+            "recipe": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            },
+            "queue": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            }
+          },
+          {
+            "id": 2,
+            "stock": {
+              "value": 53,
+              "owned": [
+                11,
+                12,
+                13,
+                0,
+                0
+              ]
+            },
+            "recipe": {
+              "value": 21,
+              "owned": [
+                21,
+                22,
+                23
+              ]
+            },
+            "queue": {
+              "value": 31,
+              "owned": [
+                31,
+                32,
+                33
+              ]
+            }
+          },
+          {
+            "id": 3,
+            "stock": {
+              "value": 12,
+              "owned": [
+                12,
+                13,
+                14
+              ]
+            },
+            "recipe": {
+              "value": 22,
+              "owned": [
+                22,
+                23,
+                24
+              ]
+            },
+            "queue": {
+              "value": 32,
+              "owned": [
+                32,
+                33,
+                34
+              ]
+            }
+          },
+          {
+            "id": 5,
+            "stock": {
+              "value": 14,
+              "owned": [
+                14,
+                15,
+                16
+              ]
+            },
+            "recipe": {
+              "value": 24,
+              "owned": [
+                24,
+                25,
+                26
+              ]
+            },
+            "queue": {
+              "value": 34,
+              "owned": [
+                34,
+                35,
+                36
+              ]
+            }
+          }
+        ],
+        "empty": [
+          {
+            "id": 1,
+            "data": {}
+          },
+          {
+            "id": 2,
+            "data": {}
+          },
+          {
+            "id": 3,
+            "data": {}
+          },
+          {
+            "id": 4,
+            "data": {}
+          },
+          {
+            "id": 5,
+            "data": {}
+          },
+          {
+            "id": 6,
+            "data": {}
+          }
+        ],
+        "contradict": []
+      },
+      {
+        "label": "remove-pending",
+        "entities": [
+          {
+            "id": 1,
+            "stock": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            },
+            "recipe": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            },
+            "queue": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 2,
+            "stock": {
+              "value": 53,
+              "owned": [
+                11,
+                12,
+                13,
+                0,
+                0
+              ]
+            },
+            "recipe": {
+              "value": 21,
+              "owned": [
+                21,
+                22,
+                23
+              ]
+            },
+            "queue": {
+              "value": 31,
+              "owned": [
+                31,
+                32,
+                33
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 3,
+            "stock": {
+              "value": 12,
+              "owned": [
+                12,
+                13,
+                14
+              ]
+            },
+            "recipe": {
+              "value": 22,
+              "owned": [
+                22,
+                23,
+                24
+              ]
+            },
+            "queue": {
+              "value": 32,
+              "owned": [
+                32,
+                33,
+                34
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 4,
+            "stock": {
+              "value": 13,
+              "owned": [
+                13,
+                14,
+                15
+              ]
+            },
+            "recipe": {
+              "value": 23,
+              "owned": [
+                23,
+                24,
+                25
+              ]
+            },
+            "queue": {
+              "value": 33,
+              "owned": [
+                33,
+                34,
+                35
+              ]
+            },
+            "enabled": {},
+            "locked": {}
+          },
+          {
+            "id": 5,
+            "stock": {
+              "value": 14,
+              "owned": [
+                14,
+                15,
+                16
+              ]
+            },
+            "recipe": {
+              "value": 24,
+              "owned": [
+                24,
+                25,
+                26
+              ]
+            },
+            "queue": {
+              "value": 34,
+              "owned": [
+                34,
+                35,
+                36
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 6,
+            "stock": null,
+            "recipe": null,
+            "queue": null,
+            "enabled": null,
+            "locked": null
+          }
+        ],
+        "composed": [
+          {
+            "id": 1,
+            "stock": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            },
+            "recipe": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            },
+            "queue": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            }
+          },
+          {
+            "id": 2,
+            "stock": {
+              "value": 53,
+              "owned": [
+                11,
+                12,
+                13,
+                0,
+                0
+              ]
+            },
+            "recipe": {
+              "value": 21,
+              "owned": [
+                21,
+                22,
+                23
+              ]
+            },
+            "queue": {
+              "value": 31,
+              "owned": [
+                31,
+                32,
+                33
+              ]
+            }
+          },
+          {
+            "id": 3,
+            "stock": {
+              "value": 12,
+              "owned": [
+                12,
+                13,
+                14
+              ]
+            },
+            "recipe": {
+              "value": 22,
+              "owned": [
+                22,
+                23,
+                24
+              ]
+            },
+            "queue": {
+              "value": 32,
+              "owned": [
+                32,
+                33,
+                34
+              ]
+            }
+          },
+          {
+            "id": 5,
+            "stock": {
+              "value": 14,
+              "owned": [
+                14,
+                15,
+                16
+              ]
+            },
+            "recipe": {
+              "value": 24,
+              "owned": [
+                24,
+                25,
+                26
+              ]
+            },
+            "queue": {
+              "value": 34,
+              "owned": [
+                34,
+                35,
+                36
+              ]
+            }
+          }
+        ],
+        "empty": [
+          {
+            "id": 1,
+            "data": {}
+          },
+          {
+            "id": 2,
+            "data": {}
+          },
+          {
+            "id": 3,
+            "data": {}
+          },
+          {
+            "id": 4,
+            "data": {}
+          },
+          {
+            "id": 5,
+            "data": {}
+          },
+          {
+            "id": 6,
+            "data": {}
+          }
+        ],
+        "contradict": []
+      },
+      {
+        "label": "remove-visible",
+        "entities": [
+          {
+            "id": 1,
+            "stock": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            },
+            "recipe": null,
+            "queue": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 2,
+            "stock": {
+              "value": 53,
+              "owned": [
+                11,
+                12,
+                13,
+                0,
+                0
+              ]
+            },
+            "recipe": {
+              "value": 21,
+              "owned": [
+                21,
+                22,
+                23
+              ]
+            },
+            "queue": {
+              "value": 31,
+              "owned": [
+                31,
+                32,
+                33
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 3,
+            "stock": {
+              "value": 12,
+              "owned": [
+                12,
+                13,
+                14
+              ]
+            },
+            "recipe": {
+              "value": 22,
+              "owned": [
+                22,
+                23,
+                24
+              ]
+            },
+            "queue": {
+              "value": 32,
+              "owned": [
+                32,
+                33,
+                34
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 4,
+            "stock": {
+              "value": 13,
+              "owned": [
+                13,
+                14,
+                15
+              ]
+            },
+            "recipe": {
+              "value": 23,
+              "owned": [
+                23,
+                24,
+                25
+              ]
+            },
+            "queue": {
+              "value": 33,
+              "owned": [
+                33,
+                34,
+                35
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 5,
+            "stock": {
+              "value": 14,
+              "owned": [
+                14,
+                15,
+                16
+              ]
+            },
+            "recipe": {
+              "value": 24,
+              "owned": [
+                24,
+                25,
+                26
+              ]
+            },
+            "queue": {
+              "value": 34,
+              "owned": [
+                34,
+                35,
+                36
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 6,
+            "stock": null,
+            "recipe": null,
+            "queue": null,
+            "enabled": null,
+            "locked": null
+          }
+        ],
+        "composed": [
+          {
+            "id": 2,
+            "stock": {
+              "value": 53,
+              "owned": [
+                11,
+                12,
+                13,
+                0,
+                0
+              ]
+            },
+            "recipe": {
+              "value": 21,
+              "owned": [
+                21,
+                22,
+                23
+              ]
+            },
+            "queue": {
+              "value": 31,
+              "owned": [
+                31,
+                32,
+                33
+              ]
+            }
+          },
+          {
+            "id": 3,
+            "stock": {
+              "value": 12,
+              "owned": [
+                12,
+                13,
+                14
+              ]
+            },
+            "recipe": {
+              "value": 22,
+              "owned": [
+                22,
+                23,
+                24
+              ]
+            },
+            "queue": {
+              "value": 32,
+              "owned": [
+                32,
+                33,
+                34
+              ]
+            }
+          },
+          {
+            "id": 4,
+            "stock": {
+              "value": 13,
+              "owned": [
+                13,
+                14,
+                15
+              ]
+            },
+            "recipe": {
+              "value": 23,
+              "owned": [
+                23,
+                24,
+                25
+              ]
+            },
+            "queue": {
+              "value": 33,
+              "owned": [
+                33,
+                34,
+                35
+              ]
+            }
+          },
+          {
+            "id": 5,
+            "stock": {
+              "value": 14,
+              "owned": [
+                14,
+                15,
+                16
+              ]
+            },
+            "recipe": {
+              "value": 24,
+              "owned": [
+                24,
+                25,
+                26
+              ]
+            },
+            "queue": {
+              "value": 34,
+              "owned": [
+                34,
+                35,
+                36
+              ]
+            }
+          }
+        ],
+        "empty": [
+          {
+            "id": 1,
+            "data": {}
+          },
+          {
+            "id": 2,
+            "data": {}
+          },
+          {
+            "id": 3,
+            "data": {}
+          },
+          {
+            "id": 4,
+            "data": {}
+          },
+          {
+            "id": 5,
+            "data": {}
+          },
+          {
+            "id": 6,
+            "data": {}
+          }
+        ],
+        "contradict": []
+      },
+      {
+        "label": "churn-pending",
+        "entities": [
+          {
+            "id": 1,
+            "stock": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            },
+            "recipe": null,
+            "queue": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 2,
+            "stock": {
+              "value": 53,
+              "owned": [
+                11,
+                12,
+                13,
+                0,
+                0
+              ]
+            },
+            "recipe": {
+              "value": 21,
+              "owned": [
+                21,
+                22,
+                23
+              ]
+            },
+            "queue": {
+              "value": 31,
+              "owned": [
+                31,
+                32,
+                33
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 3,
+            "stock": {
+              "value": 12,
+              "owned": [
+                12,
+                13,
+                14
+              ]
+            },
+            "recipe": {
+              "value": 22,
+              "owned": [
+                22,
+                23,
+                24
+              ]
+            },
+            "queue": {
+              "value": 32,
+              "owned": [
+                32,
+                33,
+                34
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 4,
+            "stock": {
+              "value": 13,
+              "owned": [
+                13,
+                14,
+                15
+              ]
+            },
+            "recipe": {
+              "value": 23,
+              "owned": [
+                23,
+                24,
+                25
+              ]
+            },
+            "queue": {
+              "value": 33,
+              "owned": [
+                33,
+                34,
+                35
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 5,
+            "stock": {
+              "value": 14,
+              "owned": [
+                14,
+                15,
+                16
+              ]
+            },
+            "recipe": {
+              "value": 24,
+              "owned": [
+                24,
+                25,
+                26
+              ]
+            },
+            "queue": {
+              "value": 34,
+              "owned": [
+                34,
+                35,
+                36
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 6,
+            "stock": null,
+            "recipe": null,
+            "queue": null,
+            "enabled": null,
+            "locked": null
+          }
+        ],
+        "composed": [
+          {
+            "id": 2,
+            "stock": {
+              "value": 53,
+              "owned": [
+                11,
+                12,
+                13,
+                0,
+                0
+              ]
+            },
+            "recipe": {
+              "value": 21,
+              "owned": [
+                21,
+                22,
+                23
+              ]
+            },
+            "queue": {
+              "value": 31,
+              "owned": [
+                31,
+                32,
+                33
+              ]
+            }
+          },
+          {
+            "id": 3,
+            "stock": {
+              "value": 12,
+              "owned": [
+                12,
+                13,
+                14
+              ]
+            },
+            "recipe": {
+              "value": 22,
+              "owned": [
+                22,
+                23,
+                24
+              ]
+            },
+            "queue": {
+              "value": 32,
+              "owned": [
+                32,
+                33,
+                34
+              ]
+            }
+          },
+          {
+            "id": 4,
+            "stock": {
+              "value": 13,
+              "owned": [
+                13,
+                14,
+                15
+              ]
+            },
+            "recipe": {
+              "value": 23,
+              "owned": [
+                23,
+                24,
+                25
+              ]
+            },
+            "queue": {
+              "value": 33,
+              "owned": [
+                33,
+                34,
+                35
+              ]
+            }
+          },
+          {
+            "id": 5,
+            "stock": {
+              "value": 14,
+              "owned": [
+                14,
+                15,
+                16
+              ]
+            },
+            "recipe": {
+              "value": 24,
+              "owned": [
+                24,
+                25,
+                26
+              ]
+            },
+            "queue": {
+              "value": 34,
+              "owned": [
+                34,
+                35,
+                36
+              ]
+            }
+          }
+        ],
+        "empty": [
+          {
+            "id": 1,
+            "data": {}
+          },
+          {
+            "id": 2,
+            "data": {}
+          },
+          {
+            "id": 3,
+            "data": {}
+          },
+          {
+            "id": 4,
+            "data": {}
+          },
+          {
+            "id": 5,
+            "data": {}
+          },
+          {
+            "id": 6,
+            "data": {}
+          }
+        ],
+        "contradict": []
+      },
+      {
+        "label": "churn-visible",
+        "entities": [
+          {
+            "id": 1,
+            "stock": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            },
+            "recipe": {
+              "value": 27,
+              "owned": [
+                27,
+                28,
+                29
+              ]
+            },
+            "queue": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 3,
+            "stock": {
+              "value": 12,
+              "owned": [
+                12,
+                13,
+                14
+              ]
+            },
+            "recipe": {
+              "value": 22,
+              "owned": [
+                22,
+                23,
+                24
+              ]
+            },
+            "queue": {
+              "value": 32,
+              "owned": [
+                32,
+                33,
+                34
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 4,
+            "stock": {
+              "value": 13,
+              "owned": [
+                13,
+                14,
+                15
+              ]
+            },
+            "recipe": {
+              "value": 23,
+              "owned": [
+                23,
+                24,
+                25
+              ]
+            },
+            "queue": {
+              "value": 33,
+              "owned": [
+                33,
+                34,
+                35
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 5,
+            "stock": {
+              "value": 14,
+              "owned": [
+                14,
+                15,
+                16
+              ]
+            },
+            "recipe": {
+              "value": 24,
+              "owned": [
+                24,
+                25,
+                26
+              ]
+            },
+            "queue": {
+              "value": 34,
+              "owned": [
+                34,
+                35,
+                36
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 6,
+            "stock": null,
+            "recipe": null,
+            "queue": null,
+            "enabled": null,
+            "locked": null
+          },
+          {
+            "id": 7,
+            "stock": {
+              "value": 16,
+              "owned": [
+                16,
+                17,
+                18
+              ]
+            },
+            "recipe": {
+              "value": 26,
+              "owned": [
+                26,
+                27,
+                28
+              ]
+            },
+            "queue": null,
+            "enabled": {},
+            "locked": null
+          }
+        ],
+        "composed": [
+          {
+            "id": 1,
+            "stock": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            },
+            "recipe": {
+              "value": 27,
+              "owned": [
+                27,
+                28,
+                29
+              ]
+            },
+            "queue": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            }
+          },
+          {
+            "id": 3,
+            "stock": {
+              "value": 12,
+              "owned": [
+                12,
+                13,
+                14
+              ]
+            },
+            "recipe": {
+              "value": 22,
+              "owned": [
+                22,
+                23,
+                24
+              ]
+            },
+            "queue": {
+              "value": 32,
+              "owned": [
+                32,
+                33,
+                34
+              ]
+            }
+          },
+          {
+            "id": 4,
+            "stock": {
+              "value": 13,
+              "owned": [
+                13,
+                14,
+                15
+              ]
+            },
+            "recipe": {
+              "value": 23,
+              "owned": [
+                23,
+                24,
+                25
+              ]
+            },
+            "queue": {
+              "value": 33,
+              "owned": [
+                33,
+                34,
+                35
+              ]
+            }
+          },
+          {
+            "id": 5,
+            "stock": {
+              "value": 14,
+              "owned": [
+                14,
+                15,
+                16
+              ]
+            },
+            "recipe": {
+              "value": 24,
+              "owned": [
+                24,
+                25,
+                26
+              ]
+            },
+            "queue": {
+              "value": 34,
+              "owned": [
+                34,
+                35,
+                36
+              ]
+            }
+          },
+          {
+            "id": 7,
+            "stock": {
+              "value": 16,
+              "owned": [
+                16,
+                17,
+                18
+              ]
+            },
+            "recipe": {
+              "value": 26,
+              "owned": [
+                26,
+                27,
+                28
+              ]
+            },
+            "queue": null
+          }
+        ],
+        "empty": [
+          {
+            "id": 1,
+            "data": {}
+          },
+          {
+            "id": 3,
+            "data": {}
+          },
+          {
+            "id": 4,
+            "data": {}
+          },
+          {
+            "id": 5,
+            "data": {}
+          },
+          {
+            "id": 6,
+            "data": {}
+          },
+          {
+            "id": 7,
+            "data": {}
+          }
+        ],
+        "contradict": []
+      },
+      {
+        "label": "work-after-churn",
+        "entities": [
+          {
+            "id": 1,
+            "stock": {
+              "value": 127,
+              "owned": [
+                100,
+                101,
+                102,
+                100
+              ]
+            },
+            "recipe": {
+              "value": 27,
+              "owned": [
+                27,
+                28,
+                29
+              ]
+            },
+            "queue": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 3,
+            "stock": {
+              "value": 34,
+              "owned": [
+                12,
+                13,
+                14,
+                32
+              ]
+            },
+            "recipe": {
+              "value": 22,
+              "owned": [
+                22,
+                23,
+                24
+              ]
+            },
+            "queue": {
+              "value": 32,
+              "owned": [
+                32,
+                33,
+                34
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 4,
+            "stock": {
+              "value": 36,
+              "owned": [
+                13,
+                14,
+                15,
+                33
+              ]
+            },
+            "recipe": {
+              "value": 23,
+              "owned": [
+                23,
+                24,
+                25
+              ]
+            },
+            "queue": {
+              "value": 33,
+              "owned": [
+                33,
+                34,
+                35
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 5,
+            "stock": {
+              "value": 38,
+              "owned": [
+                14,
+                15,
+                16,
+                34
+              ]
+            },
+            "recipe": {
+              "value": 24,
+              "owned": [
+                24,
+                25,
+                26
+              ]
+            },
+            "queue": {
+              "value": 34,
+              "owned": [
+                34,
+                35,
+                36
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 6,
+            "stock": null,
+            "recipe": null,
+            "queue": null,
+            "enabled": null,
+            "locked": null
+          },
+          {
+            "id": 7,
+            "stock": {
+              "value": 42,
+              "owned": [
+                16,
+                17,
+                18,
+                0
+              ]
+            },
+            "recipe": {
+              "value": 26,
+              "owned": [
+                26,
+                27,
+                28
+              ]
+            },
+            "queue": null,
+            "enabled": {},
+            "locked": null
+          }
+        ],
+        "composed": [
+          {
+            "id": 1,
+            "stock": {
+              "value": 127,
+              "owned": [
+                100,
+                101,
+                102,
+                100
+              ]
+            },
+            "recipe": {
+              "value": 27,
+              "owned": [
+                27,
+                28,
+                29
+              ]
+            },
+            "queue": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            }
+          },
+          {
+            "id": 3,
+            "stock": {
+              "value": 34,
+              "owned": [
+                12,
+                13,
+                14,
+                32
+              ]
+            },
+            "recipe": {
+              "value": 22,
+              "owned": [
+                22,
+                23,
+                24
+              ]
+            },
+            "queue": {
+              "value": 32,
+              "owned": [
+                32,
+                33,
+                34
+              ]
+            }
+          },
+          {
+            "id": 4,
+            "stock": {
+              "value": 36,
+              "owned": [
+                13,
+                14,
+                15,
+                33
+              ]
+            },
+            "recipe": {
+              "value": 23,
+              "owned": [
+                23,
+                24,
+                25
+              ]
+            },
+            "queue": {
+              "value": 33,
+              "owned": [
+                33,
+                34,
+                35
+              ]
+            }
+          },
+          {
+            "id": 5,
+            "stock": {
+              "value": 38,
+              "owned": [
+                14,
+                15,
+                16,
+                34
+              ]
+            },
+            "recipe": {
+              "value": 24,
+              "owned": [
+                24,
+                25,
+                26
+              ]
+            },
+            "queue": {
+              "value": 34,
+              "owned": [
+                34,
+                35,
+                36
+              ]
+            }
+          },
+          {
+            "id": 7,
+            "stock": {
+              "value": 42,
+              "owned": [
+                16,
+                17,
+                18,
+                0
+              ]
+            },
+            "recipe": {
+              "value": 26,
+              "owned": [
+                26,
+                27,
+                28
+              ]
+            },
+            "queue": null
+          }
+        ],
+        "empty": [
+          {
+            "id": 1,
+            "data": {}
+          },
+          {
+            "id": 3,
+            "data": {}
+          },
+          {
+            "id": 4,
+            "data": {}
+          },
+          {
+            "id": 5,
+            "data": {}
+          },
+          {
+            "id": 6,
+            "data": {}
+          },
+          {
+            "id": 7,
+            "data": {}
+          }
+        ],
+        "contradict": []
+      },
+      {
+        "label": "duplicate-family-reference",
+        "afterA": {
+          "value": 70,
+          "owned": [
+            70,
+            71,
+            72
+          ]
+        },
+        "afterB": {
+          "value": 71,
+          "owned": [
+            71,
+            72,
+            73
+          ]
+        },
+        "readHasSet": false
+      },
+      {
+        "label": "duplicate-final-world",
+        "entities": [
+          {
+            "id": 1,
+            "stock": {
+              "value": 71,
+              "owned": [
+                71,
+                72,
+                73
+              ]
+            },
+            "recipe": {
+              "value": 27,
+              "owned": [
+                27,
+                28,
+                29
+              ]
+            },
+            "queue": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 3,
+            "stock": {
+              "value": 34,
+              "owned": [
+                12,
+                13,
+                14,
+                32
+              ]
+            },
+            "recipe": {
+              "value": 22,
+              "owned": [
+                22,
+                23,
+                24
+              ]
+            },
+            "queue": {
+              "value": 32,
+              "owned": [
+                32,
+                33,
+                34
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 4,
+            "stock": {
+              "value": 36,
+              "owned": [
+                13,
+                14,
+                15,
+                33
+              ]
+            },
+            "recipe": {
+              "value": 23,
+              "owned": [
+                23,
+                24,
+                25
+              ]
+            },
+            "queue": {
+              "value": 33,
+              "owned": [
+                33,
+                34,
+                35
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 5,
+            "stock": {
+              "value": 38,
+              "owned": [
+                14,
+                15,
+                16,
+                34
+              ]
+            },
+            "recipe": {
+              "value": 24,
+              "owned": [
+                24,
+                25,
+                26
+              ]
+            },
+            "queue": {
+              "value": 34,
+              "owned": [
+                34,
+                35,
+                36
+              ]
+            },
+            "enabled": {},
+            "locked": null
+          },
+          {
+            "id": 6,
+            "stock": null,
+            "recipe": null,
+            "queue": null,
+            "enabled": null,
+            "locked": null
+          },
+          {
+            "id": 7,
+            "stock": {
+              "value": 42,
+              "owned": [
+                16,
+                17,
+                18,
+                0
+              ]
+            },
+            "recipe": {
+              "value": 26,
+              "owned": [
+                26,
+                27,
+                28
+              ]
+            },
+            "queue": null,
+            "enabled": {},
+            "locked": null
+          }
+        ],
+        "composed": [
+          {
+            "id": 1,
+            "stock": {
+              "value": 71,
+              "owned": [
+                71,
+                72,
+                73
+              ]
+            },
+            "recipe": {
+              "value": 27,
+              "owned": [
+                27,
+                28,
+                29
+              ]
+            },
+            "queue": {
+              "value": 100,
+              "owned": [
+                100,
+                101,
+                102
+              ]
+            }
+          },
+          {
+            "id": 3,
+            "stock": {
+              "value": 34,
+              "owned": [
+                12,
+                13,
+                14,
+                32
+              ]
+            },
+            "recipe": {
+              "value": 22,
+              "owned": [
+                22,
+                23,
+                24
+              ]
+            },
+            "queue": {
+              "value": 32,
+              "owned": [
+                32,
+                33,
+                34
+              ]
+            }
+          },
+          {
+            "id": 4,
+            "stock": {
+              "value": 36,
+              "owned": [
+                13,
+                14,
+                15,
+                33
+              ]
+            },
+            "recipe": {
+              "value": 23,
+              "owned": [
+                23,
+                24,
+                25
+              ]
+            },
+            "queue": {
+              "value": 33,
+              "owned": [
+                33,
+                34,
+                35
+              ]
+            }
+          },
+          {
+            "id": 5,
+            "stock": {
+              "value": 38,
+              "owned": [
+                14,
+                15,
+                16,
+                34
+              ]
+            },
+            "recipe": {
+              "value": 24,
+              "owned": [
+                24,
+                25,
+                26
+              ]
+            },
+            "queue": {
+              "value": 34,
+              "owned": [
+                34,
+                35,
+                36
+              ]
+            }
+          },
+          {
+            "id": 7,
+            "stock": {
+              "value": 42,
+              "owned": [
+                16,
+                17,
+                18,
+                0
+              ]
+            },
+            "recipe": {
+              "value": 26,
+              "owned": [
+                26,
+                27,
+                28
+              ]
+            },
+            "queue": null
+          }
+        ],
+        "empty": [
+          {
+            "id": 1,
+            "data": {}
+          },
+          {
+            "id": 3,
+            "data": {}
+          },
+          {
+            "id": 4,
+            "data": {}
+          },
+          {
+            "id": 5,
+            "data": {}
+          },
+          {
+            "id": 6,
+            "data": {}
+          },
+          {
+            "id": 7,
+            "data": {}
+          }
+        ],
+        "contradict": []
+      },
+      {
+        "label": "advanced-first",
+        "ids": [
+          1,
+          3,
+          4,
+          5,
+          7
+        ]
+      },
+      {
+        "label": "advanced-repeat",
+        "ids": []
+      },
+      {
+        "label": "advanced-replacement",
+        "ids": []
+      },
+      {
+        "label": "foreign-collision-reference",
+        "foreignId": 1,
+        "localId": 1,
+        "ok": false,
+        "error": "MissingEntity",
+        "queueUnchanged": true,
+        "postBarrierUnchanged": true
+      }
+    ]
+  },
+  "scope": "function calls and emitted constructor-literal evaluations; not physical allocation bytes or elapsed timing"
+}

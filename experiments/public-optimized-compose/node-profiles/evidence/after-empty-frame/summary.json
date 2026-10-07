@@ -1,0 +1,9241 @@
+{
+  "scope": "Exploratory sampled CPU microseconds and V8 sampled allocation attribution; inclusive rows overlap. Not exact allocation totals, causal proof or performance acceptance.",
+  "cpuSamples": 3090,
+  "heapSamples": 55330,
+  "cpuSelfMicroseconds": [
+    {
+      "name": "$schema:array_view",
+      "value": 72077
+    },
+    {
+      "name": "array_node",
+      "value": 70510
+    },
+    {
+      "name": "(garbage collector)",
+      "value": 65629
+    },
+    {
+      "name": "encodeUtf8String",
+      "value": 34015
+    },
+    {
+      "name": "writeBuffer",
+      "value": 28353
+    },
+    {
+      "name": "$List$append",
+      "value": 20122
+    },
+    {
+      "name": "$$$/$$/src/ecs/capabilities:read",
+      "value": 18072
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:get",
+      "value": 17375
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:seek_view",
+      "value": 14308
+    },
+    {
+      "name": "run_tail",
+      "value": 13332
+    },
+    {
+      "name": "run_clo",
+      "value": 13018
+    },
+    {
+      "name": "(idle)",
+      "value": 12935
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:both",
+      "value": 12030
+    },
+    {
+      "name": "$String$cmp$fin",
+      "value": 11792
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:evacuate_pending",
+      "value": 11490
+    },
+    {
+      "name": "$json:numbers",
+      "value": 11475
+    },
+    {
+      "name": "(program)",
+      "value": 10420
+    },
+    {
+      "name": "$String$cmp",
+      "value": 9885
+    },
+    {
+      "name": "$List$show$go",
+      "value": 9626
+    },
+    {
+      "name": "$U32$show$go",
+      "value": 9525
+    },
+    {
+      "name": "post",
+      "value": 9469
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:evacuate_start",
+      "value": 9330
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:tx_finish",
+      "value": 9196
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:plain_view_checked",
+      "value": 9009
+    },
+    {
+      "name": "(anonymous at line 6786)",
+      "value": 8316
+    },
+    {
+      "name": "run_loop",
+      "value": 7660
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:run_handles_fields",
+      "value": 7647
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:get_live_owned",
+      "value": 7640
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepared_view_different",
+      "value": 7052
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:write_clocked",
+      "value": 6977
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:selected_fields",
+      "value": 6948
+    },
+    {
+      "name": "$reference-declarations:advanced_match",
+      "value": 6755
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:family_match",
+      "value": 6262
+    },
+    {
+      "name": "$$$/$$/src/ecs/lifecycle:get",
+      "value": 6169
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:get",
+      "value": 6147
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:collect_step",
+      "value": 6122
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:view",
+      "value": 5977
+    },
+    {
+      "name": "$Bool$and",
+      "value": 5670
+    },
+    {
+      "name": "$$$/$$/src/ecs/captured-column:prepared_checked",
+      "value": 5621
+    },
+    {
+      "name": "$json:stock",
+      "value": 5514
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:access_equal",
+      "value": 5502
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:plain_view_taken",
+      "value": 5396
+    },
+    {
+      "name": "$schema:prefix",
+      "value": 5300
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:next_clock",
+      "value": 5274
+    },
+    {
+      "name": "$observe:row_locked",
+      "value": 4983
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:restore",
+      "value": 4922
+    },
+    {
+      "name": "$observe:row_enabled",
+      "value": 4780
+    },
+    {
+      "name": "$$$/$$/src/ecs/restored-row:project",
+      "value": 4728
+    },
+    {
+      "name": "$$$/$$/src/ecs/captured-column:capture",
+      "value": 4482
+    },
+    {
+      "name": "array_rmw",
+      "value": 4463
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:get_projected",
+      "value": 4418
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepared_view_state",
+      "value": 4249
+    },
+    {
+      "name": "$owned-rows:enter_work",
+      "value": 4132
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:lifecycle_match",
+      "value": 3896
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:collect_live",
+      "value": 3854
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:run_namespace_value",
+      "value": 3838
+    },
+    {
+      "name": "$observe:row",
+      "value": 3836
+    },
+    {
+      "name": "$owned-rows:leave_work",
+      "value": 3779
+    },
+    {
+      "name": "handleErrorFromBinding",
+      "value": 3733
+    },
+    {
+      "name": "$reference-declarations:work_required",
+      "value": 3597
+    },
+    {
+      "name": "$$$/$$/src/ecs/captured-column:prepared_state",
+      "value": 3565
+    },
+    {
+      "name": "f",
+      "value": 3563
+    },
+    {
+      "name": "$gameplay:compose_queue",
+      "value": 3393
+    },
+    {
+      "name": "$json:recipe",
+      "value": 3320
+    },
+    {
+      "name": "$$$/$$/src/ecs/optimized-compose:map_store",
+      "value": 3220
+    },
+    {
+      "name": "$schema:prepare_store",
+      "value": 3215
+    },
+    {
+      "name": "$Bool$not",
+      "value": 3203
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:reserved_fields",
+      "value": 3190
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:and_join",
+      "value": 3108
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:recover_current",
+      "value": 3091
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:recover_past",
+      "value": 3088
+    },
+    {
+      "name": "io_out",
+      "value": 3034
+    },
+    {
+      "name": "$reference-declarations:match_enabled",
+      "value": 2942
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:ensure_state",
+      "value": 2911
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:tx_get",
+      "value": 2883
+    },
+    {
+      "name": "$driver:phase_advanced",
+      "value": 2834
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:each_fields",
+      "value": 2812
+    },
+    {
+      "name": "$schema:project_stock",
+      "value": 2784
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:plain_view_projected",
+      "value": 2755
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:plain_view_sized",
+      "value": 2706
+    },
+    {
+      "name": "$observe:row_stock",
+      "value": 2701
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepare_sized",
+      "value": 2654
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:checked",
+      "value": 2602
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:left",
+      "value": 2585
+    },
+    {
+      "name": "$$$/$$/src/ecs/captured-column:captured_prepared",
+      "value": 2564
+    },
+    {
+      "name": "$schema:project_recipe",
+      "value": 2552
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:get",
+      "value": 2532
+    },
+    {
+      "name": "char_new",
+      "value": 2504
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:selected_value",
+      "value": 2448
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:get_store",
+      "value": 2430
+    },
+    {
+      "name": "$U32$show",
+      "value": 2333
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepared_view_checked",
+      "value": 2314
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:get_ready",
+      "value": 2299
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:lifecycle",
+      "value": 2227
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:handles",
+      "value": 2193
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:evacuate",
+      "value": 2184
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:get_targeted",
+      "value": 2184
+    },
+    {
+      "name": "$owned-rows:put_header_work_queue",
+      "value": 2137
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:swap_store",
+      "value": 2125
+    },
+    {
+      "name": "$owned-rows:read_work_recipe",
+      "value": 2073
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:get_taken",
+      "value": 2067
+    },
+    {
+      "name": "$U32$log2",
+      "value": 2056
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:projected",
+      "value": 1964
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:with_store_finish",
+      "value": 1912
+    },
+    {
+      "name": "$gameplay:compose_stock",
+      "value": 1912
+    },
+    {
+      "name": "$$$/$$/src/ecs/transaction:finish_world",
+      "value": 1903
+    },
+    {
+      "name": "$reference-declarations:work_match",
+      "value": 1894
+    },
+    {
+      "name": "$$$/$$/src/ecs/captured-column:capture_seek",
+      "value": 1882
+    },
+    {
+      "name": "(anonymous at line 12888)",
+      "value": 1856
+    },
+    {
+      "name": "$owned-rows:read_work_queue",
+      "value": 1849
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:recover_state",
+      "value": 1840
+    },
+    {
+      "name": "$schema:payload_array",
+      "value": 1823
+    },
+    {
+      "name": "$owned-rows:write_work_stock",
+      "value": 1816
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:recover",
+      "value": 1808
+    },
+    {
+      "name": "(anonymous at line 2748)",
+      "value": 1731
+    },
+    {
+      "name": "$$$/$$/src/ecs/restored-row:projected_owner",
+      "value": 1722
+    },
+    {
+      "name": "$declarations:composed",
+      "value": 1703
+    },
+    {
+      "name": "$$$/$$/src/ecs/restored-row:detach",
+      "value": 1645
+    },
+    {
+      "name": "(anonymous at line 1941)",
+      "value": 1635
+    },
+    {
+      "name": "(anonymous at line 4780)",
+      "value": 1631
+    },
+    {
+      "name": "$reference-declarations:structural_match",
+      "value": 1603
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:grow",
+      "value": 1586
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepared_view_projected",
+      "value": 1582
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:reserve_available",
+      "value": 1574
+    },
+    {
+      "name": "$gameplay:compose_recipe",
+      "value": 1574
+    },
+    {
+      "name": "$schema:project_queue",
+      "value": 1571
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:completed",
+      "value": 1564
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:replace_clock",
+      "value": 1550
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:advance_clock",
+      "value": 1541
+    },
+    {
+      "name": "$$$/$$/src/ecs/transaction:finish",
+      "value": 1531
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:replace_clock_advanced",
+      "value": 1520
+    },
+    {
+      "name": "$List$reverse",
+      "value": 1517
+    },
+    {
+      "name": "$schema:recover_store",
+      "value": 1512
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:read_join",
+      "value": 1496
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepare",
+      "value": 1496
+    },
+    {
+      "name": "$json:queue",
+      "value": 1466
+    },
+    {
+      "name": "$owned-rows:get_work_stock",
+      "value": 1443
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:tx_get_join",
+      "value": 1407
+    },
+    {
+      "name": "deprecate",
+      "value": 1386
+    },
+    {
+      "name": "$$$/$$/src/ecs/restored-row:captured",
+      "value": 1352
+    },
+    {
+      "name": "io_exit",
+      "value": 1350
+    },
+    {
+      "name": "$List$show",
+      "value": 1339
+    },
+    {
+      "name": "$owned-rows:journal_work_stock_header",
+      "value": 1334
+    },
+    {
+      "name": "$$$/$$/src/ecs/captured-column:restore_prepared",
+      "value": 1320
+    },
+    {
+      "name": "encode",
+      "value": 1317
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepared_evacuated",
+      "value": 1314
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:mark_swapped",
+      "value": 1281
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:get_split",
+      "value": 1256
+    },
+    {
+      "name": "$json:array",
+      "value": 1243
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:write_owner",
+      "value": 1243
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:metadata_valid",
+      "value": 1234
+    },
+    {
+      "name": "$$$/$$/src/ecs/structural:queue_join",
+      "value": 1233
+    },
+    {
+      "name": "$schema:get_queue",
+      "value": 1212
+    },
+    {
+      "name": "$$$/$$/src/ecs/capabilities:set",
+      "value": 1188
+    },
+    {
+      "name": "$schema:enabled",
+      "value": 1185
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:swap",
+      "value": 1181
+    },
+    {
+      "name": "$$$/$$/src/ecs/optimized-compose:recovered",
+      "value": 1159
+    },
+    {
+      "name": "$schema:shape_advance",
+      "value": 1143
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:insert_checked",
+      "value": 1141
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:ensure_checked",
+      "value": 1132
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:outcome",
+      "value": 1112
+    },
+    {
+      "name": "$owned-rows:id_read_work",
+      "value": 1111
+    },
+    {
+      "name": "$$$/$$/src/ecs/lifecycle:written",
+      "value": 1110
+    },
+    {
+      "name": "$observe:row_queue",
+      "value": 1109
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:swap_world",
+      "value": 1105
+    },
+    {
+      "name": "$schema:shape",
+      "value": 1105
+    },
+    {
+      "name": "$reference-declarations:match_locked",
+      "value": 1075
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:create_checked",
+      "value": 1073
+    },
+    {
+      "name": "wrappedFn",
+      "value": 1067
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:replace_allowed",
+      "value": 1014
+    },
+    {
+      "name": "$Char$cmp",
+      "value": 982
+    },
+    {
+      "name": "(anonymous at line 5287)",
+      "value": 978
+    },
+    {
+      "name": "$owned-rows:leave_work_cold",
+      "value": 955
+    },
+    {
+      "name": "$gameplay:compose_id",
+      "value": 948
+    },
+    {
+      "name": "$driver:record_finish",
+      "value": 947
+    },
+    {
+      "name": "$owned-rows:get_work_queue",
+      "value": 931
+    },
+    {
+      "name": "$U32$show$if",
+      "value": 927
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:finish_returned",
+      "value": 927
+    },
+    {
+      "name": "(anonymous at line 1314)",
+      "value": 927
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:body_returned",
+      "value": 923
+    },
+    {
+      "name": "$$$/$$/src/ecs/captured-column:stamped",
+      "value": 920
+    },
+    {
+      "name": "$schema:populate_stock",
+      "value": 920
+    },
+    {
+      "name": "array_new",
+      "value": 919
+    },
+    {
+      "name": "$scenario-ops:barrier",
+      "value": 916
+    },
+    {
+      "name": "(anonymous at line 203)",
+      "value": 915
+    },
+    {
+      "name": "(anonymous at line 6081)",
+      "value": 906
+    },
+    {
+      "name": "$$$/$$/src/ecs/lifecycle:after_write",
+      "value": 905
+    },
+    {
+      "name": "$reference-declarations:advanced_body",
+      "value": 904
+    },
+    {
+      "name": "$U32$log2$go",
+      "value": 883
+    },
+    {
+      "name": "$schema:put_locked",
+      "value": 877
+    },
+    {
+      "name": "$owned-rows:leave_work_header",
+      "value": 851
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:handles_finish",
+      "value": 844
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:restored",
+      "value": 839
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:finished",
+      "value": 831
+    },
+    {
+      "name": "(anonymous at line 4774)",
+      "value": 820
+    },
+    {
+      "name": "$schema:stock",
+      "value": 818
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:write_split",
+      "value": 803
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:clear_stamp",
+      "value": 800
+    },
+    {
+      "name": "$schema:project_stock_join",
+      "value": 797
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:selected_join",
+      "value": 797
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:swap_join",
+      "value": 794
+    },
+    {
+      "name": "$gameplay:retry_body",
+      "value": 793
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepared_view_current",
+      "value": 793
+    },
+    {
+      "name": "$$$/$$/src/ecs/capabilities:get",
+      "value": 792
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:registration_list_matches",
+      "value": 786
+    },
+    {
+      "name": "$gameplay:work_queue_read",
+      "value": 783
+    },
+    {
+      "name": "(anonymous at line 9588)",
+      "value": 783
+    },
+    {
+      "name": "$$$/$$/src/ecs/restored-row:replacement_present",
+      "value": 777
+    },
+    {
+      "name": "$owned-rows:id_duplicate",
+      "value": 776
+    },
+    {
+      "name": "$owned-rows:put_work_queue",
+      "value": 774
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:mark",
+      "value": 774
+    },
+    {
+      "name": "TimersList",
+      "value": 774
+    },
+    {
+      "name": "(anonymous at line 4503)",
+      "value": 773
+    },
+    {
+      "name": "$$$/$$/src/ecs/lifecycle:clear",
+      "value": 769
+    },
+    {
+      "name": "$owned-rows:id_advanced_header",
+      "value": 765
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:run",
+      "value": 764
+    },
+    {
+      "name": "(anonymous at line 1875)",
+      "value": 754
+    },
+    {
+      "name": "$gameplay:duplicate_selected",
+      "value": 746
+    },
+    {
+      "name": "freshProgram",
+      "value": 736
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:run_namespace",
+      "value": 716
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:reserve_id",
+      "value": 708
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:past_current",
+      "value": 682
+    },
+    {
+      "name": "io_run",
+      "value": 677
+    },
+    {
+      "name": "$schema:replaced",
+      "value": 676
+    },
+    {
+      "name": "$String$eq",
+      "value": 672
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:lifecycle_world",
+      "value": 660
+    },
+    {
+      "name": "(anonymous at line 6331)",
+      "value": 655
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:swap_state",
+      "value": 644
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:enqueue",
+      "value": 639
+    },
+    {
+      "name": "$String$cmp$rec",
+      "value": 638
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:registration_matches",
+      "value": 636
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:get_checked",
+      "value": 631
+    },
+    {
+      "name": "$$$/$$/src/ecs/restored-row:replace",
+      "value": 622
+    },
+    {
+      "name": "$gameplay:queue_value",
+      "value": 622
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-optimized-compose:each_fields",
+      "value": 621
+    },
+    {
+      "name": "$observe:all_join",
+      "value": 619
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:lifecycle_store",
+      "value": 619
+    },
+    {
+      "name": "$scenario-ops:churn_namespace",
+      "value": 619
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:registration_meta_matches",
+      "value": 618
+    },
+    {
+      "name": "$$$/$$/src/ecs/capabilities:invoke",
+      "value": 617
+    },
+    {
+      "name": "$driver:run_advanced",
+      "value": 615
+    },
+    {
+      "name": "$schema:populate_locked",
+      "value": 612
+    },
+    {
+      "name": "$$$/$$/src/ecs/capabilities:send",
+      "value": 604
+    },
+    {
+      "name": "$reference-declarations:empty_body",
+      "value": 597
+    },
+    {
+      "name": "$String$order",
+      "value": 596
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:tracked_clock",
+      "value": 594
+    },
+    {
+      "name": "$reference-declarations:id_get",
+      "value": 585
+    },
+    {
+      "name": "get hasSubscribers",
+      "value": 584
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:namespace",
+      "value": 572
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:replace_clock_checked",
+      "value": 562
+    },
+    {
+      "name": "$gameplay:work_stock_read",
+      "value": 562
+    },
+    {
+      "name": "wrapModuleLoad",
+      "value": 558
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:absent",
+      "value": 543
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:unseal",
+      "value": 543
+    },
+    {
+      "name": "$driver:change",
+      "value": 538
+    },
+    {
+      "name": "$driver:record",
+      "value": 520
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:replaced",
+      "value": 510
+    },
+    {
+      "name": "$observe:rows",
+      "value": 509
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:cursor_outcome",
+      "value": 495
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:valid_join",
+      "value": 493
+    },
+    {
+      "name": "$reference-declarations:match_recipe",
+      "value": 489
+    },
+    {
+      "name": "$owned-rows:take_work_queue",
+      "value": 480
+    },
+    {
+      "name": "$driver:unit_outcome",
+      "value": 480
+    },
+    {
+      "name": "$owned-rows:journal_work_recipe_header",
+      "value": 479
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-optimized-compose:each_fields_since",
+      "value": 477
+    },
+    {
+      "name": "$scenario-ops:seed",
+      "value": 474
+    },
+    {
+      "name": "ensureTimerFlagsAreUpdated",
+      "value": 474
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:set_live_checked",
+      "value": 471
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:get_matching",
+      "value": 470
+    },
+    {
+      "name": "$owned-rows:leave_duplicate_header",
+      "value": 469
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:drain_fifo",
+      "value": 466
+    },
+    {
+      "name": "nat_chk",
+      "value": 466
+    },
+    {
+      "name": "$driver:step_duplicate",
+      "value": 466
+    },
+    {
+      "name": "$schema:locked",
+      "value": 466
+    },
+    {
+      "name": "$$$/$$/src/ecs/capabilities:value_read",
+      "value": 465
+    },
+    {
+      "name": "$schema:take_stock",
+      "value": 465
+    },
+    {
+      "name": "(anonymous at line 3455)",
+      "value": 465
+    },
+    {
+      "name": "(anonymous at line 2136)",
+      "value": 464
+    },
+    {
+      "name": "$json:raw",
+      "value": 463
+    },
+    {
+      "name": "$driver:phase_churn",
+      "value": 463
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:restore_stamp_world",
+      "value": 461
+    },
+    {
+      "name": "(anonymous at line 3449)",
+      "value": 460
+    },
+    {
+      "name": "$owned-rows:header_work_recipe",
+      "value": 459
+    },
+    {
+      "name": "io_bytes",
+      "value": 456
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:cleared",
+      "value": 455
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:cell_matches",
+      "value": 454
+    },
+    {
+      "name": "$scenario-ops:insert_namespace",
+      "value": 452
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:swap_sized",
+      "value": 452
+    },
+    {
+      "name": "$schema:get_recipe",
+      "value": 450
+    },
+    {
+      "name": "(anonymous at line 5622)",
+      "value": 449
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepared_swap",
+      "value": 448
+    },
+    {
+      "name": "$observe:all",
+      "value": 445
+    },
+    {
+      "name": "$owned-rows:set_work_stock",
+      "value": 445
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:lifecycle_join",
+      "value": 437
+    },
+    {
+      "name": "$schema:queue_recipe",
+      "value": 429
+    },
+    {
+      "name": "$driver:run_ready",
+      "value": 427
+    },
+    {
+      "name": "$schema:queued",
+      "value": 425
+    },
+    {
+      "name": "require",
+      "value": 424
+    },
+    {
+      "name": "$owned-rows:read_advanced_queue",
+      "value": 422
+    },
+    {
+      "name": "$owned-rows:id",
+      "value": 421
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:all",
+      "value": 418
+    },
+    {
+      "name": "$schema:get_stock",
+      "value": 417
+    },
+    {
+      "name": "$schema:stock_payload",
+      "value": 416
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:define",
+      "value": 413
+    },
+    {
+      "name": "$declarations:queue_send",
+      "value": 409
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:restore_stamp",
+      "value": 406
+    },
+    {
+      "name": "$List$reverse$go",
+      "value": 404
+    },
+    {
+      "name": "$run",
+      "value": 403
+    },
+    {
+      "name": "$schema:array_join",
+      "value": 398
+    },
+    {
+      "name": "(anonymous at line 1480)",
+      "value": 389
+    },
+    {
+      "name": "(anonymous at line 5724)",
+      "value": 388
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:insert",
+      "value": 373
+    },
+    {
+      "name": "$schema:recipe",
+      "value": 369
+    },
+    {
+      "name": "$schema:get_enabled",
+      "value": 361
+    },
+    {
+      "name": "$owned-rows:journal_work_queue",
+      "value": 359
+    },
+    {
+      "name": "$schema:get_locked",
+      "value": 354
+    },
+    {
+      "name": "$reference-declarations:match_stock",
+      "value": 353
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:live_join",
+      "value": 345
+    },
+    {
+      "name": "$owned-rows:journal_duplicate_stock_header",
+      "value": 343
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:collect_join",
+      "value": 340
+    },
+    {
+      "name": "$driver:record_empty",
+      "value": 335
+    },
+    {
+      "name": "(anonymous at line 4758)",
+      "value": 333
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:checked_live",
+      "value": 332
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:register_namespace",
+      "value": 332
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:spawn_reserved",
+      "value": 329
+    },
+    {
+      "name": "$driver:step_retry_result",
+      "value": 328
+    },
+    {
+      "name": "$owned-rows:put_work_recipe",
+      "value": 325
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:get_live_read",
+      "value": 323
+    },
+    {
+      "name": "$owned-rows:put_header_work_stock",
+      "value": 322
+    },
+    {
+      "name": "$$$/$$/src/ecs/restored-row:attach",
+      "value": 320
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:target",
+      "value": 319
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:tx_spawn",
+      "value": 316
+    },
+    {
+      "name": "(anonymous at line 6178)",
+      "value": 316
+    },
+    {
+      "name": "$Cmp$is_eq",
+      "value": 316
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:owner_present",
+      "value": 316
+    },
+    {
+      "name": "$schema:project_enabled",
+      "value": 314
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:run_namespace_checked",
+      "value": 313
+    },
+    {
+      "name": "$gameplay:compose_body",
+      "value": 313
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:structural_replace",
+      "value": 312
+    },
+    {
+      "name": "$schema:put_stock",
+      "value": 312
+    },
+    {
+      "name": "reportModuleToWatchModeFromWorker",
+      "value": 312
+    },
+    {
+      "name": "$owned-rows:journal_work_queue_header",
+      "value": 311
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:valid",
+      "value": 311
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:each_fields_since",
+      "value": 311
+    },
+    {
+      "name": "$driver:run_retry",
+      "value": 311
+    },
+    {
+      "name": "$schema:fill",
+      "value": 311
+    },
+    {
+      "name": "$reference-declarations:contradictory_match",
+      "value": 311
+    },
+    {
+      "name": "$$$/$$/src/ecs/capabilities:read_field",
+      "value": 311
+    },
+    {
+      "name": "(anonymous at line 2316)",
+      "value": 310
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:tracked_result",
+      "value": 310
+    },
+    {
+      "name": "PerformanceNodeEntry",
+      "value": 310
+    },
+    {
+      "name": "$gameplay:work_recipe_view",
+      "value": 309
+    },
+    {
+      "name": "append",
+      "value": 309
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:ensure",
+      "value": 308
+    },
+    {
+      "name": "enqueue",
+      "value": 308
+    },
+    {
+      "name": "$owned-rows:id_advanced",
+      "value": 304
+    },
+    {
+      "name": "(anonymous at line 4768)",
+      "value": 301
+    },
+    {
+      "name": "writeSync",
+      "value": 301
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:write_checked",
+      "value": 298
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:activate",
+      "value": 295
+    },
+    {
+      "name": "$$$/$$/src/ecs/structural:apply",
+      "value": 295
+    },
+    {
+      "name": "$schema:populate_inner",
+      "value": 295
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:valid_checked",
+      "value": 292
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:restore_state",
+      "value": 289
+    },
+    {
+      "name": "$gameplay:work_body",
+      "value": 280
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:swapped",
+      "value": 280
+    },
+    {
+      "name": "$reference-declarations:lifecycle_recipe",
+      "value": 275
+    },
+    {
+      "name": "$schema:take_recipe",
+      "value": 252
+    },
+    {
+      "name": "$owned-rows:write_work_recipe",
+      "value": 249
+    },
+    {
+      "name": "$owned-rows:leave_duplicate",
+      "value": 246
+    },
+    {
+      "name": "$schema:seed_1",
+      "value": 243
+    },
+    {
+      "name": "$reference-declarations:id_join",
+      "value": 241
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:reserve_finish",
+      "value": 235
+    },
+    {
+      "name": "$schema:queue_payload",
+      "value": 215
+    },
+    {
+      "name": "$reference-declarations:advanced_stock_read",
+      "value": 213
+    },
+    {
+      "name": "$driver:advanced_result",
+      "value": 212
+    },
+    {
+      "name": "$owned-rows:enter_duplicate",
+      "value": 210
+    },
+    {
+      "name": "$owned-rows:get_advanced_stock",
+      "value": 209
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:ensure_sized",
+      "value": 205
+    },
+    {
+      "name": "$scenario-ops:churn",
+      "value": 200
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:despawn_checked_with",
+      "value": 197
+    },
+    {
+      "name": "reportModuleToWatchMode",
+      "value": 195
+    },
+    {
+      "name": "$owned-rows:journal_work_recipe_cold",
+      "value": 191
+    },
+    {
+      "name": "$schema:clear",
+      "value": 188
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:register_meta",
+      "value": 187
+    },
+    {
+      "name": "io_print",
+      "value": 182
+    },
+    {
+      "name": "$owned-rows:get_work_recipe",
+      "value": 181
+    },
+    {
+      "name": "$gameplay:duplicate_after_a",
+      "value": 178
+    },
+    {
+      "name": "$reference-declarations:id_read",
+      "value": 178
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:clocked",
+      "value": 178
+    },
+    {
+      "name": "$schema:populate",
+      "value": 177
+    },
+    {
+      "name": "(anonymous at line 12202)",
+      "value": 176
+    },
+    {
+      "name": "$$$/$$/src/ecs/lifecycle:set",
+      "value": 176
+    },
+    {
+      "name": "$$$/$$/src/ecs/restored-row:owner_present",
+      "value": 175
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:register_checked",
+      "value": 173
+    },
+    {
+      "name": "(anonymous at line 12827)",
+      "value": 171
+    },
+    {
+      "name": "$reference-declarations:advanced_queue_read",
+      "value": 169
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:restore_swap",
+      "value": 169
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:lifecycle_allowed",
+      "value": 168
+    },
+    {
+      "name": "$driver:run_work",
+      "value": 168
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:replaced",
+      "value": 166
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:enqueue",
+      "value": 165
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:checked_metadata",
+      "value": 165
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:write_targeted",
+      "value": 164
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:lifecycle_state",
+      "value": 164
+    },
+    {
+      "name": "$owned-rows:leave_advanced",
+      "value": 163
+    },
+    {
+      "name": "$driver:init_advanced",
+      "value": 161
+    },
+    {
+      "name": "$gameplay:duplicate_after_b",
+      "value": 160
+    },
+    {
+      "name": "(anonymous at line 1666)",
+      "value": 159
+    },
+    {
+      "name": "get",
+      "value": 159
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:spawn_join",
+      "value": 159
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:set_live_join",
+      "value": 159
+    },
+    {
+      "name": "$driver:step_retry",
+      "value": 159
+    },
+    {
+      "name": "$scenario-ops:handle",
+      "value": 158
+    },
+    {
+      "name": "$owned-rows:header_work_stock",
+      "value": 158
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:restore_allowed",
+      "value": 157
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:barrier",
+      "value": 157
+    },
+    {
+      "name": "$declarations:empty",
+      "value": 157
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:register_join",
+      "value": 157
+    },
+    {
+      "name": "$schema:put_recipe",
+      "value": 156
+    },
+    {
+      "name": "$schema:shape_choose",
+      "value": 156
+    },
+    {
+      "name": "$driver:record_rows",
+      "value": 156
+    },
+    {
+      "name": "PerformanceObserverEntryList",
+      "value": 156
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:restore_store",
+      "value": 155
+    },
+    {
+      "name": "$schema:recipe_payload",
+      "value": 155
+    },
+    {
+      "name": "$schema:stock_owner",
+      "value": 155
+    },
+    {
+      "name": "observerCallback",
+      "value": 155
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:prepend",
+      "value": 154
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:with_store",
+      "value": 154
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:swap_checked",
+      "value": 153
+    },
+    {
+      "name": "$owned-rows:leave_duplicate_cold",
+      "value": 153
+    },
+    {
+      "name": "cmp_new",
+      "value": 153
+    },
+    {
+      "name": "$owned-rows:put_advanced_queue",
+      "value": 152
+    },
+    {
+      "name": "(anonymous at line 4500)",
+      "value": 151
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:collect_checked",
+      "value": 151
+    },
+    {
+      "name": "(anonymous at line 8791)",
+      "value": 151
+    },
+    {
+      "name": "(anonymous at line 775)",
+      "value": 150
+    },
+    {
+      "name": "$$$/$$/src/ecs/lifecycle:choose",
+      "value": 146
+    },
+    {
+      "name": "$declarations:frame_identity",
+      "value": 145
+    },
+    {
+      "name": "$schema:churn_bundle",
+      "value": 144
+    },
+    {
+      "name": "$observe:handle_id",
+      "value": 144
+    },
+    {
+      "name": "$$$/$$/src/ecs/structural:queue_checked",
+      "value": 142
+    },
+    {
+      "name": "$owned-rows:header_advanced_stock",
+      "value": 141
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:restore_stamp_done",
+      "value": 141
+    },
+    {
+      "name": "$schema:prepare_advanced",
+      "value": 138
+    },
+    {
+      "name": "$gameplay:duplicate_body",
+      "value": 138
+    },
+    {
+      "name": "$schema:queue_stock",
+      "value": 135
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:lifecycle",
+      "value": 132
+    },
+    {
+      "name": "$scenario-ops:remove_namespace",
+      "value": 128
+    },
+    {
+      "name": "$driver:step_work_result",
+      "value": 127
+    },
+    {
+      "name": "$schema:queue",
+      "value": 124
+    },
+    {
+      "name": "$driver:phase_duplicate",
+      "value": 122
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:replace",
+      "value": 120
+    },
+    {
+      "name": "(anonymous at line 4921)",
+      "value": 119
+    },
+    {
+      "name": "$owned-rows:header_work_queue",
+      "value": 115
+    },
+    {
+      "name": "resolveForCJSWithHooks",
+      "value": 114
+    },
+    {
+      "name": "wrapResolveFilename",
+      "value": 103
+    },
+    {
+      "name": "$$$/$$/src/ecs/transaction:begin",
+      "value": 92
+    },
+    {
+      "name": "$owned-rows:take_work_stock",
+      "value": 82
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:write_matching",
+      "value": 82
+    },
+    {
+      "name": "$scenario-ops:spawn",
+      "value": 81
+    },
+    {
+      "name": "(anonymous at line 165)",
+      "value": 73
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:lifecycle_selected",
+      "value": 72
+    },
+    {
+      "name": "(anonymous at line 4272)",
+      "value": 70
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:access",
+      "value": 53
+    },
+    {
+      "name": "$observe:row_recipe",
+      "value": 48
+    }
+  ],
+  "cpuInclusiveMicroseconds": [
+    {
+      "name": "(root)",
+      "value": 1032811
+    },
+    {
+      "name": "(anonymous at line 12888)",
+      "value": 933993
+    },
+    {
+      "name": "freshProgram",
+      "value": 921598
+    },
+    {
+      "name": "io_exit",
+      "value": 920862
+    },
+    {
+      "name": "io_run",
+      "value": 919512
+    },
+    {
+      "name": "f",
+      "value": 842052
+    },
+    {
+      "name": "(anonymous at line 200)",
+      "value": 840245
+    },
+    {
+      "name": "$driver:equivalent",
+      "value": 840164
+    },
+    {
+      "name": "$driver:run_ready",
+      "value": 835125
+    },
+    {
+      "name": "run_loop",
+      "value": 750115
+    },
+    {
+      "name": "$driver:record",
+      "value": 553747
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-optimized-compose:each_fields",
+      "value": 522300
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:reserved_fields",
+      "value": 511710
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:run_handles_fields",
+      "value": 480296
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:each_fields",
+      "value": 475569
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:selected_fields",
+      "value": 406541
+    },
+    {
+      "name": "$driver:record_rows",
+      "value": 403198
+    },
+    {
+      "name": "$declarations:composed",
+      "value": 346113
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:body_returned",
+      "value": 288111
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:completed",
+      "value": 287333
+    },
+    {
+      "name": "(anonymous at line 1941)",
+      "value": 219712
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:get",
+      "value": 219547
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:run",
+      "value": 203377
+    },
+    {
+      "name": "$$$/$$/src/ecs/capabilities:invoke",
+      "value": 202130
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:run_namespace_value",
+      "value": 201897
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:run_namespace",
+      "value": 201529
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:get_live_owned",
+      "value": 201479
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:run_namespace_checked",
+      "value": 198059
+    },
+    {
+      "name": "$driver:phase_retry",
+      "value": 192563
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:get_store",
+      "value": 192411
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:view",
+      "value": 184468
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:both",
+      "value": 179562
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:run_checked",
+      "value": 165252
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:run_metadata",
+      "value": 165252
+    },
+    {
+      "name": "$schema:array_view",
+      "value": 161798
+    },
+    {
+      "name": "$observe:all",
+      "value": 148955
+    },
+    {
+      "name": "$driver:phase_churn",
+      "value": 145851
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:family_match",
+      "value": 144954
+    },
+    {
+      "name": "$reference-declarations:work_match",
+      "value": 144016
+    },
+    {
+      "name": "$observe:all_join",
+      "value": 141141
+    },
+    {
+      "name": "$observe:rows",
+      "value": 140354
+    },
+    {
+      "name": "$observe:row",
+      "value": 139892
+    },
+    {
+      "name": "$gameplay:compose_body",
+      "value": 139500
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:get",
+      "value": 136099
+    },
+    {
+      "name": "$gameplay:compose_id",
+      "value": 134874
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:tx_get",
+      "value": 127245
+    },
+    {
+      "name": "$gameplay:compose_stock",
+      "value": 106742
+    },
+    {
+      "name": "$driver:phase_seed",
+      "value": 106090
+    },
+    {
+      "name": "$driver:phase_work",
+      "value": 105895
+    },
+    {
+      "name": "$observe:row_stock",
+      "value": 105445
+    },
+    {
+      "name": "$reference-declarations:work_required",
+      "value": 105405
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepared_view_state",
+      "value": 99237
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepared_view_checked",
+      "value": 94988
+    },
+    {
+      "name": "$driver:phase_remove",
+      "value": 94757
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepared_view_different",
+      "value": 91607
+    },
+    {
+      "name": "$schema:array_join",
+      "value": 89551
+    },
+    {
+      "name": "$schema:project_stock",
+      "value": 86446
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:seek_view",
+      "value": 84452
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:and_join",
+      "value": 83964
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:plain_view_sized",
+      "value": 78699
+    },
+    {
+      "name": "$driver:phase_insert",
+      "value": 78531
+    },
+    {
+      "name": "$observe:row_recipe",
+      "value": 78430
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:get",
+      "value": 77577
+    },
+    {
+      "name": "io_print",
+      "value": 76783
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:plain_view_checked",
+      "value": 75373
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:get_taken",
+      "value": 74483
+    },
+    {
+      "name": "$driver:phase_advanced",
+      "value": 74308
+    },
+    {
+      "name": "$driver:step_work",
+      "value": 72405
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:get_split",
+      "value": 71743
+    },
+    {
+      "name": "array_node",
+      "value": 70510
+    },
+    {
+      "name": "$driver:step_retry",
+      "value": 68969
+    },
+    {
+      "name": "$driver:retry_named",
+      "value": 68810
+    },
+    {
+      "name": "$reference-declarations:match_stock",
+      "value": 67774
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:get_checked",
+      "value": 66829
+    },
+    {
+      "name": "(garbage collector)",
+      "value": 65629
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:get_targeted",
+      "value": 65568
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:plain_view_taken",
+      "value": 65122
+    },
+    {
+      "name": "$driver:step_advanced",
+      "value": 64373
+    },
+    {
+      "name": "$driver:advanced_cursor",
+      "value": 64373
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:run_tracked",
+      "value": 64016
+    },
+    {
+      "name": "$gameplay:compose_recipe",
+      "value": 63367
+    },
+    {
+      "name": "$driver:change",
+      "value": 63111
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:get_matching",
+      "value": 60782
+    },
+    {
+      "name": "$driver:run_work",
+      "value": 59781
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:get_ready",
+      "value": 59458
+    },
+    {
+      "name": "$declarations:work",
+      "value": 59301
+    },
+    {
+      "name": "$driver:record_composed",
+      "value": 58159
+    },
+    {
+      "name": "$driver:run_retry",
+      "value": 55570
+    },
+    {
+      "name": "$declarations:retry",
+      "value": 55259
+    },
+    {
+      "name": "$$$/$$/src/ecs/restored-row:project",
+      "value": 54963
+    },
+    {
+      "name": "$driver:run_advanced",
+      "value": 49733
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-optimized-compose:each_fields_since",
+      "value": 49595
+    },
+    {
+      "name": "$declarations:advanced",
+      "value": 49118
+    },
+    {
+      "name": "$schema:project_recipe",
+      "value": 48382
+    },
+    {
+      "name": "$observe:row_queue",
+      "value": 47932
+    },
+    {
+      "name": "$$$/$$/src/ecs/optimized-compose:map_store",
+      "value": 47835
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:each_fields_since",
+      "value": 46537
+    },
+    {
+      "name": "$driver:record_empty",
+      "value": 43291
+    },
+    {
+      "name": "io_out",
+      "value": 40813
+    },
+    {
+      "name": "$scenario-ops:barrier",
+      "value": 40473
+    },
+    {
+      "name": "$declarations:contradictory",
+      "value": 39445
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:barrier",
+      "value": 39401
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:drain_fifo",
+      "value": 39400
+    },
+    {
+      "name": "(anonymous at line 5724)",
+      "value": 39081
+    },
+    {
+      "name": "$driver:phase_duplicate",
+      "value": 38619
+    },
+    {
+      "name": "$observe:row_enabled",
+      "value": 38425
+    },
+    {
+      "name": "$schema:project_queue",
+      "value": 36895
+    },
+    {
+      "name": "io_bytes",
+      "value": 35788
+    },
+    {
+      "name": "encode",
+      "value": 35332
+    },
+    {
+      "name": "encodeUtf8String",
+      "value": 34015
+    },
+    {
+      "name": "$reference-declarations:match_recipe",
+      "value": 33883
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:replace_allowed",
+      "value": 33634
+    },
+    {
+      "name": "writeSync",
+      "value": 33317
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:replace_clock",
+      "value": 32620
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:registration_matches",
+      "value": 32494
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:registration_list_matches",
+      "value": 31858
+    },
+    {
+      "name": "(anonymous at line 1772)",
+      "value": 31594
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:spawn_apply",
+      "value": 31594
+    },
+    {
+      "name": "$reference-declarations:match_enabled",
+      "value": 31297
+    },
+    {
+      "name": "$reference-declarations:structural_match",
+      "value": 31194
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:registration_meta_matches",
+      "value": 30930
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:replace_clock_checked",
+      "value": 30914
+    },
+    {
+      "name": "$$$/$$/src/ecs/capabilities:read",
+      "value": 30674
+    },
+    {
+      "name": "$schema:prepare_store",
+      "value": 30579
+    },
+    {
+      "name": "$schema:get_stock",
+      "value": 30498
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepare",
+      "value": 30408
+    },
+    {
+      "name": "$schema:get_queue",
+      "value": 30087
+    },
+    {
+      "name": "$schema:populate",
+      "value": 29904
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:spawned",
+      "value": 29904
+    },
+    {
+      "name": "(anonymous at line 6821)",
+      "value": 29849
+    },
+    {
+      "name": "$owned-rows:enter_work",
+      "value": 29382
+    },
+    {
+      "name": "$schema:populate_inner",
+      "value": 29268
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepare_sized",
+      "value": 28966
+    },
+    {
+      "name": "writeBuffer",
+      "value": 28353
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:access_equal",
+      "value": 27706
+    },
+    {
+      "name": "$observe:row_locked",
+      "value": 27535
+    },
+    {
+      "name": "(anonymous at line 4774)",
+      "value": 27463
+    },
+    {
+      "name": "$gameplay:compose_queue",
+      "value": 27386
+    },
+    {
+      "name": "$$$/$$/src/ecs/restored-row:detach",
+      "value": 27305
+    },
+    {
+      "name": "$json:numbers",
+      "value": 26842
+    },
+    {
+      "name": "$owned-rows:get_work_queue",
+      "value": 26643
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:structural_replace",
+      "value": 26498
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:finished",
+      "value": 25958
+    },
+    {
+      "name": "(anonymous at line 4758)",
+      "value": 25398
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:evacuate",
+      "value": 25251
+    },
+    {
+      "name": "$owned-rows:get_work_stock",
+      "value": 25065
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:tx_finish",
+      "value": 24950
+    },
+    {
+      "name": "$String$eq",
+      "value": 24295
+    },
+    {
+      "name": "$schema:get_recipe",
+      "value": 24003
+    },
+    {
+      "name": "$$$/$$/src/ecs/captured-column:capture",
+      "value": 23991
+    },
+    {
+      "name": "$String$order",
+      "value": 23623
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:replace_clock_advanced",
+      "value": 23537
+    },
+    {
+      "name": "$String$cmp",
+      "value": 23297
+    },
+    {
+      "name": "$reference-declarations:advanced_match",
+      "value": 23289
+    },
+    {
+      "name": "$gameplay:work_body",
+      "value": 23204
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:evacuate_start",
+      "value": 22918
+    },
+    {
+      "name": "(anonymous at line 4768)",
+      "value": 22876
+    },
+    {
+      "name": "$owned-rows:get_work_recipe",
+      "value": 22575
+    },
+    {
+      "name": "$gameplay:retry_body",
+      "value": 21182
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:swap_world",
+      "value": 21042
+    },
+    {
+      "name": "$List$append",
+      "value": 20122
+    },
+    {
+      "name": "$json:stock",
+      "value": 20111
+    },
+    {
+      "name": "$$$/$$/src/ecs/captured-column:prepared_state",
+      "value": 19969
+    },
+    {
+      "name": "$gameplay:work_stock_read",
+      "value": 19873
+    },
+    {
+      "name": "$reference-declarations:contradictory_match",
+      "value": 19236
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:swap_store",
+      "value": 18960
+    },
+    {
+      "name": "(anonymous at line 2748)",
+      "value": 18808
+    },
+    {
+      "name": "$String$cmp$fin",
+      "value": 18507
+    },
+    {
+      "name": "$gameplay:work_write",
+      "value": 18230
+    },
+    {
+      "name": "$gameplay:work_recipe_read",
+      "value": 18230
+    },
+    {
+      "name": "$gameplay:work_recipe_view",
+      "value": 17901
+    },
+    {
+      "name": "$json:recipe",
+      "value": 17325
+    },
+    {
+      "name": "$List$show",
+      "value": 16225
+    },
+    {
+      "name": "$$$/$$/src/ecs/transaction:finish",
+      "value": 15754
+    },
+    {
+      "name": "$$$/$$/src/ecs/captured-column:prepared_checked",
+      "value": 15632
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:write",
+      "value": 15595
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:write_taken",
+      "value": 15432
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:write_split",
+      "value": 15136
+    },
+    {
+      "name": "$U32$show",
+      "value": 14978
+    },
+    {
+      "name": "$declarations:empty",
+      "value": 14868
+    },
+    {
+      "name": "$reference-declarations:match_locked",
+      "value": 14850
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:write_checked",
+      "value": 14333
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:handles",
+      "value": 14330
+    },
+    {
+      "name": "$$$/$$/src/ecs/transaction:finish_world",
+      "value": 14223
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:write_targeted",
+      "value": 14035
+    },
+    {
+      "name": "$$$/$$/src/ecs/optimized-compose:recovered",
+      "value": 13891
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:write_matching",
+      "value": 13693
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:write_clocked",
+      "value": 13611
+    },
+    {
+      "name": "run_tail",
+      "value": 13332
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:left",
+      "value": 13235
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:ensure",
+      "value": 13099
+    },
+    {
+      "name": "run_clo",
+      "value": 13018
+    },
+    {
+      "name": "(idle)",
+      "value": 12935
+    },
+    {
+      "name": "$gameplay:work_queue_read",
+      "value": 12830
+    },
+    {
+      "name": "$U32$show$if",
+      "value": 12645
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:evacuate_pending",
+      "value": 12314
+    },
+    {
+      "name": "$U32$show$go",
+      "value": 11718
+    },
+    {
+      "name": "$owned-rows:leave_work",
+      "value": 11514
+    },
+    {
+      "name": "$$$/$$/src/ecs/transaction:rollback",
+      "value": 11234
+    },
+    {
+      "name": "$List$show$go",
+      "value": 11210
+    },
+    {
+      "name": "(anonymous at line 6786)",
+      "value": 11122
+    },
+    {
+      "name": "$driver:step_duplicate",
+      "value": 10759
+    },
+    {
+      "name": "$reference-declarations:advanced_lifecycle",
+      "value": 10659
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:collect_live",
+      "value": 10645
+    },
+    {
+      "name": "(program)",
+      "value": 10420
+    },
+    {
+      "name": "$declarations:duplicate",
+      "value": 10293
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:lifecycle_match",
+      "value": 10229
+    },
+    {
+      "name": "$schema:recover_store",
+      "value": 10003
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:restore",
+      "value": 9753
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:ensure_checked",
+      "value": 9709
+    },
+    {
+      "name": "post",
+      "value": 9469
+    },
+    {
+      "name": "(anonymous at line 5)",
+      "value": 9469
+    },
+    {
+      "name": "$schema:populate_locked",
+      "value": 9344
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:recover",
+      "value": 9055
+    },
+    {
+      "name": "$reference-declarations:advanced_body",
+      "value": 8067
+    },
+    {
+      "name": "$owned-rows:set_work_queue",
+      "value": 7738
+    },
+    {
+      "name": "(anonymous at line 10072)",
+      "value": 7738
+    },
+    {
+      "name": "$reference-declarations:triple_match",
+      "value": 7737
+    },
+    {
+      "name": "$schema:get_enabled",
+      "value": 7711
+    },
+    {
+      "name": "$$$/$$/src/ecs/captured-column:captured_prepared",
+      "value": 7664
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:replace",
+      "value": 7578
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:recover_state",
+      "value": 7391
+    },
+    {
+      "name": "$scenario-ops:spawn",
+      "value": 7310
+    },
+    {
+      "name": "$$$/$$/src/ecs/structural:apply",
+      "value": 7283
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:tx_spawn",
+      "value": 7229
+    },
+    {
+      "name": "$reference-declarations:lifecycle_stock",
+      "value": 7207
+    },
+    {
+      "name": "$scenario-ops:churn",
+      "value": 7056
+    },
+    {
+      "name": "$schema:populate_enabled",
+      "value": 6976
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:advance_clock",
+      "value": 6815
+    },
+    {
+      "name": "(anonymous at line 2316)",
+      "value": 6700
+    },
+    {
+      "name": "$scenario-ops:churn_namespace",
+      "value": 6421
+    },
+    {
+      "name": "(anonymous at line 4761)",
+      "value": 6348
+    },
+    {
+      "name": "$owned-rows:set_work_stock",
+      "value": 6348
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:collect_step",
+      "value": 6273
+    },
+    {
+      "name": "$json:queue",
+      "value": 6229
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:recover_current",
+      "value": 6179
+    },
+    {
+      "name": "$$$/$$/src/ecs/lifecycle:get",
+      "value": 6169
+    },
+    {
+      "name": "(anonymous at line 1875)",
+      "value": 6167
+    },
+    {
+      "name": "$schema:populate_stock",
+      "value": 6110
+    },
+    {
+      "name": "$schema:get_locked",
+      "value": 6110
+    },
+    {
+      "name": "$scenario-ops:seed",
+      "value": 5912
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:reserve_id",
+      "value": 5845
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:lifecycle",
+      "value": 5824
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:get_projected",
+      "value": 5816
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:collect_join",
+      "value": 5808
+    },
+    {
+      "name": "(anonymous at line 9588)",
+      "value": 5673
+    },
+    {
+      "name": "$Bool$and",
+      "value": 5670
+    },
+    {
+      "name": "$schema:payload_array",
+      "value": 5592
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:plain_view_projected",
+      "value": 5589
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:ensure_sized",
+      "value": 5447
+    },
+    {
+      "name": "$gameplay:duplicate_body",
+      "value": 5429
+    },
+    {
+      "name": "$schema:prefix",
+      "value": 5300
+    },
+    {
+      "name": "$$$/$$/src/ecs/captured-column:capture_seek",
+      "value": 5294
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:next_clock",
+      "value": 5274
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:swap_join",
+      "value": 5038
+    },
+    {
+      "name": "array_rmw",
+      "value": 4928
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:restore_allowed",
+      "value": 4831
+    },
+    {
+      "name": "(anonymous at line 12202)",
+      "value": 4826
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:restore_store",
+      "value": 4674
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:restore_world",
+      "value": 4674
+    },
+    {
+      "name": "$declarations:queue_send",
+      "value": 4517
+    },
+    {
+      "name": "require",
+      "value": 4462
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:lifecycle_world",
+      "value": 4441
+    },
+    {
+      "name": "$gameplay:duplicate_named",
+      "value": 4377
+    },
+    {
+      "name": "$$$/$$/src/ecs/capabilities:get",
+      "value": 4315
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:lifecycle_allowed",
+      "value": 4274
+    },
+    {
+      "name": "$reference-declarations:empty_body",
+      "value": 4272
+    },
+    {
+      "name": "$gameplay:duplicate_selected",
+      "value": 4239
+    },
+    {
+      "name": "$$$/$$/src/ecs/capabilities:set",
+      "value": 4154
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:mark_swapped",
+      "value": 4084
+    },
+    {
+      "name": "(anonymous at line 1666)",
+      "value": 4038
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:checked",
+      "value": 3917
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:replaced",
+      "value": 3817
+    },
+    {
+      "name": "$schema:populate_recipe",
+      "value": 3805
+    },
+    {
+      "name": "handleErrorFromBinding",
+      "value": 3733
+    },
+    {
+      "name": "(anonymous at line 12277)",
+      "value": 3674
+    },
+    {
+      "name": "wrapModuleLoad",
+      "value": 3637
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:swap",
+      "value": 3628
+    },
+    {
+      "name": "$owned-rows:get_advanced_stock",
+      "value": 3585
+    },
+    {
+      "name": "$driver:record_finish",
+      "value": 3511
+    },
+    {
+      "name": "(anonymous at line 1644)",
+      "value": 3473
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:lifecycle_store",
+      "value": 3472
+    },
+    {
+      "name": "$$$/$$/src/ecs/captured-column:restore_prepared",
+      "value": 3402
+    },
+    {
+      "name": "(anonymous at line 10163)",
+      "value": 3376
+    },
+    {
+      "name": "$schema:project_stock_join",
+      "value": 3313
+    },
+    {
+      "name": "$reference-declarations:lifecycle_recipe",
+      "value": 3297
+    },
+    {
+      "name": "$reference-declarations:advanced_stock_read",
+      "value": 3258
+    },
+    {
+      "name": "$owned-rows:write_work_stock",
+      "value": 3212
+    },
+    {
+      "name": "$Bool$not",
+      "value": 3203
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:recover_past",
+      "value": 3088
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:selected_join",
+      "value": 3081
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:ensure_state",
+      "value": 2911
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:lifecycle",
+      "value": 2853
+    },
+    {
+      "name": "(anonymous at line 6081)",
+      "value": 2838
+    },
+    {
+      "name": "$$$/$$/src/ecs/restored-row:replace",
+      "value": 2817
+    },
+    {
+      "name": "$schema:stock_payload",
+      "value": 2750
+    },
+    {
+      "name": "$U32$log2",
+      "value": 2684
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:mark",
+      "value": 2647
+    },
+    {
+      "name": "$$$/$$/src/ecs/capabilities:value_read",
+      "value": 2617
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:projected",
+      "value": 2581
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:grow",
+      "value": 2572
+    },
+    {
+      "name": "$schema:populate_queue",
+      "value": 2571
+    },
+    {
+      "name": "$schema:shape",
+      "value": 2570
+    },
+    {
+      "name": "$json:array",
+      "value": 2564
+    },
+    {
+      "name": "(anonymous at line 10062)",
+      "value": 2544
+    },
+    {
+      "name": "$owned-rows:set_work_recipe",
+      "value": 2544
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:reserve_available",
+      "value": 2514
+    },
+    {
+      "name": "char_new",
+      "value": 2504
+    },
+    {
+      "name": "$gameplay:duplicate_after_a",
+      "value": 2488
+    },
+    {
+      "name": "observerCallback",
+      "value": 2468
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:selected_value",
+      "value": 2448
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:insert",
+      "value": 2400
+    },
+    {
+      "name": "$owned-rows:read_work_recipe",
+      "value": 2390
+    },
+    {
+      "name": "$schema:stock_owner",
+      "value": 2388
+    },
+    {
+      "name": "(anonymous at line 1314)",
+      "value": 2190
+    },
+    {
+      "name": "$owned-rows:put_header_work_queue",
+      "value": 2137
+    },
+    {
+      "name": "$$$/$$/src/ecs/captured-column:stamped",
+      "value": 2082
+    },
+    {
+      "name": "$scenario-ops:advanced_replace",
+      "value": 2064
+    },
+    {
+      "name": "$scenario-ops:advanced_replace_namespace",
+      "value": 2064
+    },
+    {
+      "name": "$schema:project_queue_join",
+      "value": 2030
+    },
+    {
+      "name": "(anonymous at line 1692)",
+      "value": 2022
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:despawn_apply_with",
+      "value": 2022
+    },
+    {
+      "name": "$$$/$$/src/ecs/restored-row:replacement_present",
+      "value": 2020
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:valid",
+      "value": 2009
+    },
+    {
+      "name": "(anonymous at line 5287)",
+      "value": 1948
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:with_store_finish",
+      "value": 1912
+    },
+    {
+      "name": "$schema:prepare_advanced",
+      "value": 1892
+    },
+    {
+      "name": "$reference-declarations:match_queue",
+      "value": 1855
+    },
+    {
+      "name": "$owned-rows:read_work_queue",
+      "value": 1849
+    },
+    {
+      "name": "$schema:seed_1",
+      "value": 1833
+    },
+    {
+      "name": "$owned-rows:leave_work_cold",
+      "value": 1806
+    },
+    {
+      "name": "$List$reverse",
+      "value": 1762
+    },
+    {
+      "name": "$owned-rows:enter_advanced",
+      "value": 1738
+    },
+    {
+      "name": "$$$/$$/src/ecs/restored-row:projected_owner",
+      "value": 1722
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:clear_accepted",
+      "value": 1713
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:with_store",
+      "value": 1713
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:activate",
+      "value": 1690
+    },
+    {
+      "name": "(anonymous at line 4780)",
+      "value": 1631
+    },
+    {
+      "name": "$schema:shape_advance",
+      "value": 1608
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepared_view_projected",
+      "value": 1582
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:insert_checked",
+      "value": 1573
+    },
+    {
+      "name": "$schema:clear",
+      "value": 1559
+    },
+    {
+      "name": "(anonymous at line 2579)",
+      "value": 1559
+    },
+    {
+      "name": "$owned-rows:get_advanced_queue",
+      "value": 1549
+    },
+    {
+      "name": "(anonymous at line 10169)",
+      "value": 1549
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:read_join",
+      "value": 1496
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:metadata_valid",
+      "value": 1493
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:handles_finish",
+      "value": 1475
+    },
+    {
+      "name": "(anonymous at line 4503)",
+      "value": 1426
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:tx_get_join",
+      "value": 1407
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:tracked_result",
+      "value": 1399
+    },
+    {
+      "name": "$$$/$$/src/ecs/lifecycle:after_write",
+      "value": 1393
+    },
+    {
+      "name": "deprecate",
+      "value": 1386
+    },
+    {
+      "name": "$$$/$$/src/ecs/structural:queue_join",
+      "value": 1375
+    },
+    {
+      "name": "$schema:clear_column",
+      "value": 1371
+    },
+    {
+      "name": "$schema:clear_inner",
+      "value": 1371
+    },
+    {
+      "name": "$$$/$$/src/ecs/restored-row:captured",
+      "value": 1352
+    },
+    {
+      "name": "$owned-rows:journal_work_stock_header",
+      "value": 1334
+    },
+    {
+      "name": "$owned-rows:journal_work_stock",
+      "value": 1334
+    },
+    {
+      "name": "(anonymous at line 2136)",
+      "value": 1333
+    },
+    {
+      "name": "$schema:queue_recipe",
+      "value": 1324
+    },
+    {
+      "name": "(anonymous at line 203)",
+      "value": 1318
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepared_evacuated",
+      "value": 1314
+    },
+    {
+      "name": "$schema:prepare_enabled",
+      "value": 1314
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:cleared",
+      "value": 1255
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:clear",
+      "value": 1247
+    },
+    {
+      "name": "$$$/$$/src/ecs/structural:tx_replace",
+      "value": 1246
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:write_owner",
+      "value": 1243
+    },
+    {
+      "name": "$reference-declarations:advanced_queue_read",
+      "value": 1238
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:swap_sized",
+      "value": 1197
+    },
+    {
+      "name": "$schema:enabled",
+      "value": 1185
+    },
+    {
+      "name": "$scenario-ops:insert_namespace",
+      "value": 1155
+    },
+    {
+      "name": "$scenario-ops:insert",
+      "value": 1155
+    },
+    {
+      "name": "wrappedFn",
+      "value": 1140
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:valid_join",
+      "value": 1130
+    },
+    {
+      "name": "(anonymous at line 5622)",
+      "value": 1121
+    },
+    {
+      "name": "(anonymous at line 6178)",
+      "value": 1114
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:outcome",
+      "value": 1112
+    },
+    {
+      "name": "$owned-rows:id_read_work",
+      "value": 1111
+    },
+    {
+      "name": "$$$/$$/src/ecs/lifecycle:written",
+      "value": 1110
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:swap_state",
+      "value": 1092
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:tracked_outcome",
+      "value": 1089
+    },
+    {
+      "name": "$owned-rows:enter_duplicate",
+      "value": 1080
+    },
+    {
+      "name": "$schema:create",
+      "value": 1073
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:create_checked",
+      "value": 1073
+    },
+    {
+      "name": "$owned-rows:id_advanced",
+      "value": 1069
+    },
+    {
+      "name": "(anonymous at line 10175)",
+      "value": 1069
+    },
+    {
+      "name": "$schema:recipe_payload",
+      "value": 1044
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:restore_stamp",
+      "value": 1013
+    },
+    {
+      "name": "$driver:init_created",
+      "value": 1010
+    },
+    {
+      "name": "$Char$cmp",
+      "value": 982
+    },
+    {
+      "name": "$owned-rows:leave_duplicate",
+      "value": 981
+    },
+    {
+      "name": "$reference-declarations:id_get",
+      "value": 970
+    },
+    {
+      "name": "$$$/$$/src/ecs/lifecycle:set",
+      "value": 945
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:finish_returned",
+      "value": 927
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:create",
+      "value": 925
+    },
+    {
+      "name": "$owned-rows:get_duplicate_stock",
+      "value": 924
+    },
+    {
+      "name": "array_new",
+      "value": 919
+    },
+    {
+      "name": "$U32$log2$go",
+      "value": 883
+    },
+    {
+      "name": "$schema:put_locked",
+      "value": 877
+    },
+    {
+      "name": "$owned-rows:leave_work_header",
+      "value": 851
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:register",
+      "value": 849
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:restored",
+      "value": 839
+    },
+    {
+      "name": "$schema:stock",
+      "value": 818
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:enqueue",
+      "value": 804
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:clear_stamp",
+      "value": 800
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepared_view_current",
+      "value": 793
+    },
+    {
+      "name": "$schema:locked",
+      "value": 777
+    },
+    {
+      "name": "$owned-rows:id_duplicate",
+      "value": 776
+    },
+    {
+      "name": "(anonymous at line 4516)",
+      "value": 776
+    },
+    {
+      "name": "$owned-rows:put_work_queue",
+      "value": 774
+    },
+    {
+      "name": "insert",
+      "value": 774
+    },
+    {
+      "name": "TimersList",
+      "value": 774
+    },
+    {
+      "name": "setTimeout",
+      "value": 774
+    },
+    {
+      "name": "(anonymous at line 12891)",
+      "value": 774
+    },
+    {
+      "name": "$$$/$$/src/ecs/lifecycle:clear",
+      "value": 769
+    },
+    {
+      "name": "$owned-rows:id_advanced_header",
+      "value": 765
+    },
+    {
+      "name": "$scenario-ops:commit",
+      "value": 750
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:swap_checked",
+      "value": 745
+    },
+    {
+      "name": "$schema:queue_stock",
+      "value": 731
+    },
+    {
+      "name": "(anonymous at line 4510)",
+      "value": 723
+    },
+    {
+      "name": "$driver:finish",
+      "value": 715
+    },
+    {
+      "name": "(anonymous at line 2146)",
+      "value": 714
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:grow_live",
+      "value": 705
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:register_namespace",
+      "value": 692
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:absent",
+      "value": 682
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:past_current",
+      "value": 682
+    },
+    {
+      "name": "$driver:init_work",
+      "value": 678
+    },
+    {
+      "name": "$schema:replaced",
+      "value": 676
+    },
+    {
+      "name": "$owned-rows:journal_work_queue",
+      "value": 670
+    },
+    {
+      "name": "$owned-rows:journal_work_recipe",
+      "value": 670
+    },
+    {
+      "name": "$owned-rows:journal_work_recipe_header",
+      "value": 670
+    },
+    {
+      "name": "(anonymous at line 6331)",
+      "value": 655
+    },
+    {
+      "name": "$owned-rows:set_duplicate_stock",
+      "value": 653
+    },
+    {
+      "name": "(anonymous at line 11401)",
+      "value": 649
+    },
+    {
+      "name": "(anonymous at line 215)",
+      "value": 639
+    },
+    {
+      "name": "$String$cmp$rec",
+      "value": 638
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:valid_checked",
+      "value": 637
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:set_live_join",
+      "value": 630
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:lifecycle_state",
+      "value": 626
+    },
+    {
+      "name": "$scenario-ops:remove",
+      "value": 625
+    },
+    {
+      "name": "$scenario-ops:remove_namespace",
+      "value": 625
+    },
+    {
+      "name": "$gameplay:queue_value",
+      "value": 622
+    },
+    {
+      "name": "enqueue",
+      "value": 617
+    },
+    {
+      "name": "$schema:recover_stock",
+      "value": 613
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:restore_state",
+      "value": 607
+    },
+    {
+      "name": "resolveForCJSWithHooks",
+      "value": 606
+    },
+    {
+      "name": "$$$/$$/src/ecs/capabilities:send",
+      "value": 604
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:tracked_clock",
+      "value": 594
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:insert_apply",
+      "value": 590
+    },
+    {
+      "name": "(anonymous at line 10790)",
+      "value": 590
+    },
+    {
+      "name": "get hasSubscribers",
+      "value": 584
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:namespace",
+      "value": 572
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:unseal",
+      "value": 543
+    },
+    {
+      "name": "$owned-rows:leave_advanced",
+      "value": 541
+    },
+    {
+      "name": "$schema:queue_payload",
+      "value": 525
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:replaced",
+      "value": 510
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:lifecycle_join",
+      "value": 509
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:tx_despawn_with",
+      "value": 508
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:checked_metadata",
+      "value": 497
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:cursor_outcome",
+      "value": 495
+    },
+    {
+      "name": "defaultResolveImplForCJSLoading",
+      "value": 492
+    },
+    {
+      "name": "wrapResolveFilename",
+      "value": 492
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:spawn_join",
+      "value": 488
+    },
+    {
+      "name": "$reference-declarations:empty_join",
+      "value": 481
+    },
+    {
+      "name": "$owned-rows:take_work_queue",
+      "value": 480
+    },
+    {
+      "name": "$driver:unit_outcome",
+      "value": 480
+    },
+    {
+      "name": "internalStartTimer",
+      "value": 474
+    },
+    {
+      "name": "ensureTimerFlagsAreUpdated",
+      "value": 474
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:set_live_checked",
+      "value": 471
+    },
+    {
+      "name": "$owned-rows:leave_duplicate_header",
+      "value": 469
+    },
+    {
+      "name": "nat_chk",
+      "value": 466
+    },
+    {
+      "name": "$schema:take_stock",
+      "value": 465
+    },
+    {
+      "name": "(anonymous at line 3455)",
+      "value": 465
+    },
+    {
+      "name": "$json:raw",
+      "value": 463
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:restore_stamp",
+      "value": 461
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:restore_stamp_world",
+      "value": 461
+    },
+    {
+      "name": "(anonymous at line 3449)",
+      "value": 460
+    },
+    {
+      "name": "$owned-rows:header_work_recipe",
+      "value": 459
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:cell_matches",
+      "value": 454
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepared_swap",
+      "value": 448
+    },
+    {
+      "name": "$schema:queued",
+      "value": 425
+    },
+    {
+      "name": "$owned-rows:read_advanced_queue",
+      "value": 422
+    },
+    {
+      "name": "$owned-rows:id",
+      "value": 421
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:all",
+      "value": 418
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:define",
+      "value": 413
+    },
+    {
+      "name": "$List$reverse$go",
+      "value": 404
+    },
+    {
+      "name": "$run",
+      "value": 403
+    },
+    {
+      "name": "(anonymous at line 1480)",
+      "value": 389
+    },
+    {
+      "name": "$reference-declarations:id_join",
+      "value": 385
+    },
+    {
+      "name": "$schema:recipe",
+      "value": 369
+    },
+    {
+      "name": "$driver:advanced_result",
+      "value": 357
+    },
+    {
+      "name": "(anonymous at line 4500)",
+      "value": 352
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:live_join",
+      "value": 345
+    },
+    {
+      "name": "$reference-declarations:id_read",
+      "value": 345
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:register_join",
+      "value": 344
+    },
+    {
+      "name": "$owned-rows:journal_duplicate_stock",
+      "value": 343
+    },
+    {
+      "name": "$owned-rows:journal_duplicate_stock_header",
+      "value": 343
+    },
+    {
+      "name": "$schema:recover_enabled",
+      "value": 338
+    },
+    {
+      "name": "$driver:init_retry",
+      "value": 334
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:checked_live",
+      "value": 332
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:spawn_reserved",
+      "value": 329
+    },
+    {
+      "name": "$driver:step_retry_result",
+      "value": 328
+    },
+    {
+      "name": "$owned-rows:put_work_recipe",
+      "value": 325
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:get_live_read",
+      "value": 323
+    },
+    {
+      "name": "$owned-rows:put_header_work_stock",
+      "value": 322
+    },
+    {
+      "name": "$$$/$$/src/ecs/restored-row:attach",
+      "value": 320
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:target",
+      "value": 319
+    },
+    {
+      "name": "$Cmp$is_eq",
+      "value": 316
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:owner_present",
+      "value": 316
+    },
+    {
+      "name": "$schema:project_enabled",
+      "value": 314
+    },
+    {
+      "name": "$schema:put_stock",
+      "value": 312
+    },
+    {
+      "name": "reportModuleToWatchModeFromWorker",
+      "value": 312
+    },
+    {
+      "name": "$owned-rows:journal_work_queue_header",
+      "value": 311
+    },
+    {
+      "name": "$schema:fill",
+      "value": 311
+    },
+    {
+      "name": "$$$/$$/src/ecs/capabilities:read_field",
+      "value": 311
+    },
+    {
+      "name": "createPerformanceNodeEntry",
+      "value": 310
+    },
+    {
+      "name": "PerformanceNodeEntry",
+      "value": 310
+    },
+    {
+      "name": "(anonymous at line 345)",
+      "value": 309
+    },
+    {
+      "name": "Immediate",
+      "value": 309
+    },
+    {
+      "name": "queuePending",
+      "value": 309
+    },
+    {
+      "name": "append",
+      "value": 309
+    },
+    {
+      "name": "setImmediate",
+      "value": 309
+    },
+    {
+      "name": "(anonymous at line 1865)",
+      "value": 287
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:swapped",
+      "value": 280
+    },
+    {
+      "name": "$schema:take_recipe",
+      "value": 252
+    },
+    {
+      "name": "$owned-rows:write_work_recipe",
+      "value": 249
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:reserve_finish",
+      "value": 235
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:despawn_checked_with",
+      "value": 197
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:despawn_join_with",
+      "value": 197
+    },
+    {
+      "name": "reportModuleToWatchMode",
+      "value": 195
+    },
+    {
+      "name": "$owned-rows:journal_work_recipe_cold",
+      "value": 191
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:register_meta",
+      "value": 187
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:clocked",
+      "value": 178
+    },
+    {
+      "name": "$$$/$$/src/ecs/restored-row:owner_present",
+      "value": 175
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:register_checked",
+      "value": 173
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:register",
+      "value": 173
+    },
+    {
+      "name": "(anonymous at line 12827)",
+      "value": 171
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:restore_swap",
+      "value": 169
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:enqueue_list",
+      "value": 165
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:enqueue",
+      "value": 165
+    },
+    {
+      "name": "$driver:init_advanced",
+      "value": 161
+    },
+    {
+      "name": "$gameplay:duplicate_after_b",
+      "value": 160
+    },
+    {
+      "name": "get",
+      "value": 159
+    },
+    {
+      "name": "$scenario-ops:handle",
+      "value": 158
+    },
+    {
+      "name": "$owned-rows:header_work_stock",
+      "value": 158
+    },
+    {
+      "name": "$schema:put_recipe",
+      "value": 156
+    },
+    {
+      "name": "$schema:shape_choose",
+      "value": 156
+    },
+    {
+      "name": "processImmediate",
+      "value": 156
+    },
+    {
+      "name": "(anonymous at line 127)",
+      "value": 156
+    },
+    {
+      "name": "PerformanceObserverEntryList",
+      "value": 156
+    },
+    {
+      "name": "(anonymous at line 354)",
+      "value": 156
+    },
+    {
+      "name": "$schema:seed_5",
+      "value": 155
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:prepend",
+      "value": 154
+    },
+    {
+      "name": "$owned-rows:leave_duplicate_cold",
+      "value": 153
+    },
+    {
+      "name": "cmp_new",
+      "value": 153
+    },
+    {
+      "name": "$owned-rows:put_advanced_queue",
+      "value": 152
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:collect_checked",
+      "value": 151
+    },
+    {
+      "name": "(anonymous at line 8791)",
+      "value": 151
+    },
+    {
+      "name": "(anonymous at line 775)",
+      "value": 150
+    },
+    {
+      "name": "$$$/$$/src/ecs/lifecycle:choose",
+      "value": 146
+    },
+    {
+      "name": "$declarations:frame_identity",
+      "value": 145
+    },
+    {
+      "name": "$schema:churn_bundle",
+      "value": 144
+    },
+    {
+      "name": "$observe:handle_id",
+      "value": 144
+    },
+    {
+      "name": "$schema:seed_3",
+      "value": 143
+    },
+    {
+      "name": "$$$/$$/src/ecs/structural:queue_checked",
+      "value": 142
+    },
+    {
+      "name": "$owned-rows:header_advanced_stock",
+      "value": 141
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:restore_stamp_done",
+      "value": 141
+    },
+    {
+      "name": "$schema:seed_2",
+      "value": 139
+    },
+    {
+      "name": "$owned-rows:write_duplicate_stock",
+      "value": 138
+    },
+    {
+      "name": "$driver:step_work_result",
+      "value": 127
+    },
+    {
+      "name": "$schema:queue",
+      "value": 124
+    },
+    {
+      "name": "(anonymous at line 4921)",
+      "value": 119
+    },
+    {
+      "name": "$owned-rows:header_work_queue",
+      "value": 115
+    },
+    {
+      "name": "$$$/$$/src/ecs/transaction:begin",
+      "value": 92
+    },
+    {
+      "name": "$owned-rows:take_work_stock",
+      "value": 82
+    },
+    {
+      "name": "$IO$bind",
+      "value": 81
+    },
+    {
+      "name": "(anonymous at line 165)",
+      "value": 73
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:lifecycle_selected",
+      "value": 72
+    },
+    {
+      "name": "(anonymous at line 4272)",
+      "value": 70
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:access",
+      "value": 53
+    }
+  ],
+  "cpuModuleInclusiveMicroseconds": [
+    {
+      "name": "other/runtime/observation",
+      "value": 1032811
+    },
+    {
+      "name": "ecs/owned-optimized-compose",
+      "value": 571895
+    },
+    {
+      "name": "ecs/owned-compose",
+      "value": 522106
+    },
+    {
+      "name": "ecs/component",
+      "value": 274976
+    },
+    {
+      "name": "ecs/column",
+      "value": 250368
+    },
+    {
+      "name": "ecs/system",
+      "value": 205625
+    },
+    {
+      "name": "ecs/capabilities",
+      "value": 202130
+    },
+    {
+      "name": "ecs/compose",
+      "value": 185895
+    },
+    {
+      "name": "ecs/world",
+      "value": 97908
+    },
+    {
+      "name": "ecs/owned-family",
+      "value": 94415
+    },
+    {
+      "name": "ecs/restored-row",
+      "value": 86042
+    },
+    {
+      "name": "ecs/commands",
+      "value": 66303
+    },
+    {
+      "name": "GC",
+      "value": 65629
+    },
+    {
+      "name": "ecs/optimized-compose",
+      "value": 49606
+    },
+    {
+      "name": "ecs/captured-column",
+      "value": 28017
+    },
+    {
+      "name": "ecs/transaction",
+      "value": 15846
+    },
+    {
+      "name": "ecs/lifecycle",
+      "value": 9275
+    },
+    {
+      "name": "ecs/structural",
+      "value": 8658
+    }
+  ],
+  "heapSelfSampledBytes": [
+    {
+      "name": "$schema:array_view",
+      "value": 134171784
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:seek_view",
+      "value": 43818408
+    },
+    {
+      "name": "slice",
+      "value": 42912360
+    },
+    {
+      "name": "run_clo",
+      "value": 31644520
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:get",
+      "value": 27561296
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:evacuate_pending",
+      "value": 24963864
+    },
+    {
+      "name": "$String$cmp",
+      "value": 24174424
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:with_store_finish",
+      "value": 24142992
+    },
+    {
+      "name": "$owned-rows:write_work_stock",
+      "value": 18381904
+    },
+    {
+      "name": "$String$cmp$fin",
+      "value": 18306688
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:run_handles_fields",
+      "value": 18242504
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:plain_view_checked",
+      "value": 16692056
+    },
+    {
+      "name": "$schema:prefix",
+      "value": 15875200
+    },
+    {
+      "name": "run_tail",
+      "value": 13702672
+    },
+    {
+      "name": "$observe:row_locked",
+      "value": 11366152
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:collect_live",
+      "value": 10890712
+    },
+    {
+      "name": "$owned-rows:id_read_work",
+      "value": 9803304
+    },
+    {
+      "name": "$owned-rows:read_work_queue",
+      "value": 9643792
+    },
+    {
+      "name": "$owned-rows:read_work_recipe",
+      "value": 9638760
+    },
+    {
+      "name": "$List$show$go",
+      "value": 9609736
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepared_view_projected",
+      "value": 9166488
+    },
+    {
+      "name": "array_rmw",
+      "value": 8879456
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:get",
+      "value": 8871552
+    },
+    {
+      "name": "$List$append",
+      "value": 7370608
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:target",
+      "value": 7153872
+    },
+    {
+      "name": "$schema:project_stock",
+      "value": 6936200
+    },
+    {
+      "name": "$$$/$$/src/ecs/captured-column:captured_prepared",
+      "value": 6849096
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepared_evacuated",
+      "value": 6647752
+    },
+    {
+      "name": "$$$/$$/src/ecs/restored-row:projected_owner",
+      "value": 6400312
+    },
+    {
+      "name": "$$$/$$/src/ecs/captured-column:restore_prepared",
+      "value": 6284888
+    },
+    {
+      "name": "(anonymous at line 2316)",
+      "value": 6182736
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:plain_view_projected",
+      "value": 5858688
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:checked",
+      "value": 5626576
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:read_join",
+      "value": 5618592
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:get_projected",
+      "value": 5251808
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:restored",
+      "value": 5218312
+    },
+    {
+      "name": "$owned-rows:enter_work",
+      "value": 5197880
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:tx_get_join",
+      "value": 5044224
+    },
+    {
+      "name": "$schema:project_recipe",
+      "value": 4979840
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:cell_matches",
+      "value": 4843464
+    },
+    {
+      "name": "encode",
+      "value": 4785456
+    },
+    {
+      "name": "$schema:project_queue",
+      "value": 4553416
+    },
+    {
+      "name": "$$$/$$/src/ecs/lifecycle:clear",
+      "value": 4547104
+    },
+    {
+      "name": "(anonymous at line 2748)",
+      "value": 4519304
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:plain_view_taken",
+      "value": 4374488
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:view",
+      "value": 4211912
+    },
+    {
+      "name": "$List$reverse",
+      "value": 4070928
+    },
+    {
+      "name": "$owned-rows:leave_work_header",
+      "value": 3948088
+    },
+    {
+      "name": "(anonymous at line 1941)",
+      "value": 3918248
+    },
+    {
+      "name": "$json:stock",
+      "value": 3838312
+    },
+    {
+      "name": "$$$/$$/src/ecs/captured-column:capture_seek",
+      "value": 3782072
+    },
+    {
+      "name": "$json:numbers",
+      "value": 3658008
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:access_equal",
+      "value": 3586208
+    },
+    {
+      "name": "$gameplay:compose_queue",
+      "value": 3528136
+    },
+    {
+      "name": "$json:recipe",
+      "value": 3526472
+    },
+    {
+      "name": "$$$/$$/src/ecs/optimized-compose:map_store",
+      "value": 3455664
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:projected",
+      "value": 3347920
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:evacuate_start",
+      "value": 3330456
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:get_live_owned",
+      "value": 3283128
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:metadata_valid",
+      "value": 3275504
+    },
+    {
+      "name": "$String$cmp$rec",
+      "value": 3134760
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:handles",
+      "value": 2915864
+    },
+    {
+      "name": "$json:queue",
+      "value": 2775088
+    },
+    {
+      "name": "$List$show",
+      "value": 2772320
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:get_live_read",
+      "value": 2757568
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:selected_join",
+      "value": 2725040
+    },
+    {
+      "name": "$schema:take_enabled",
+      "value": 2712240
+    },
+    {
+      "name": "$schema:project_enabled",
+      "value": 2709984
+    },
+    {
+      "name": "$$$/$$/src/ecs/restored-row:attach",
+      "value": 2709408
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepared_view_checked",
+      "value": 2676656
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:define",
+      "value": 2574904
+    },
+    {
+      "name": "$Char$cmp",
+      "value": 2562976
+    },
+    {
+      "name": "$$$/$$/src/ecs/capabilities:read",
+      "value": 2496280
+    },
+    {
+      "name": "$owned-rows:id_work_header",
+      "value": 2479688
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:handles_finish",
+      "value": 2472368
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:selected_fields",
+      "value": 2464992
+    },
+    {
+      "name": "$$$/$$/src/ecs/restored-row:captured",
+      "value": 2380720
+    },
+    {
+      "name": "$$$/$$/src/ecs/lifecycle:get",
+      "value": 2298144
+    },
+    {
+      "name": "$reference-declarations:work_match",
+      "value": 2225520
+    },
+    {
+      "name": "$reference-declarations:empty_join",
+      "value": 2166448
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:past_current",
+      "value": 2116744
+    },
+    {
+      "name": "$$$/$$/src/ecs/transaction:begin",
+      "value": 2101248
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:access",
+      "value": 2066848
+    },
+    {
+      "name": "$schema:take_stock",
+      "value": 2037776
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:prepend",
+      "value": 2003072
+    },
+    {
+      "name": "$observe:rows",
+      "value": 2002968
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:family_match",
+      "value": 1944072
+    },
+    {
+      "name": "freshProgram",
+      "value": 1929288
+    },
+    {
+      "name": "$reference-declarations:match_enabled",
+      "value": 1912064
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:tx_get",
+      "value": 1880944
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepared_view_different",
+      "value": 1739864
+    },
+    {
+      "name": "$schema:take_recipe",
+      "value": 1692616
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:advance_clock",
+      "value": 1661032
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepared_view_state",
+      "value": 1657376
+    },
+    {
+      "name": "$driver:record_finish",
+      "value": 1657144
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:checked_live",
+      "value": 1627152
+    },
+    {
+      "name": "$owned-rows:take_work_stock",
+      "value": 1610352
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepare",
+      "value": 1592816
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:body_returned",
+      "value": 1579936
+    },
+    {
+      "name": "$schema:project_stock_join",
+      "value": 1575768
+    },
+    {
+      "name": "$schema:project_recipe_join",
+      "value": 1559320
+    },
+    {
+      "name": "$schema:project_queue_join",
+      "value": 1559136
+    },
+    {
+      "name": "$schema:take_queue",
+      "value": 1544128
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:owner_present",
+      "value": 1543256
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:clock",
+      "value": 1496360
+    },
+    {
+      "name": "$owned-rows:put_work_stock",
+      "value": 1467632
+    },
+    {
+      "name": "$owned-rows:take_work_recipe",
+      "value": 1461840
+    },
+    {
+      "name": "$owned-rows:put_work_recipe",
+      "value": 1460792
+    },
+    {
+      "name": "$schema:put_recipe",
+      "value": 1428352
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:live_join",
+      "value": 1397872
+    },
+    {
+      "name": "$observe:row_accumulate",
+      "value": 1395392
+    },
+    {
+      "name": "$schema:take_locked",
+      "value": 1346848
+    },
+    {
+      "name": "$$$/$$/src/ecs/lifecycle:set",
+      "value": 1346352
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:recover_current",
+      "value": 1346224
+    },
+    {
+      "name": "$owned-rows:header_work_stock",
+      "value": 1346200
+    },
+    {
+      "name": "$List$reverse$go",
+      "value": 1296752
+    },
+    {
+      "name": "$U32$show",
+      "value": 1295040
+    },
+    {
+      "name": "$owned-rows:header_work_recipe",
+      "value": 1263896
+    },
+    {
+      "name": "$owned-rows:put_work_queue",
+      "value": 1263792
+    },
+    {
+      "name": "$U32$show$go",
+      "value": 1263336
+    },
+    {
+      "name": "$$$/$$/src/ecs/capabilities:get",
+      "value": 1235840
+    },
+    {
+      "name": "$schema:put_stock",
+      "value": 1231320
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:collect_join",
+      "value": 1214784
+    },
+    {
+      "name": "$schema:put_enabled",
+      "value": 1198408
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:handle_get",
+      "value": 1166160
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:swapped",
+      "value": 1133440
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:left",
+      "value": 1133024
+    },
+    {
+      "name": "$reference-declarations:id_read",
+      "value": 1099144
+    },
+    {
+      "name": "$owned-rows:take_work_queue",
+      "value": 1051424
+    },
+    {
+      "name": "$owned-rows:header_work_queue",
+      "value": 1034024
+    },
+    {
+      "name": "(anonymous at line 5622)",
+      "value": 990112
+    },
+    {
+      "name": "$owned-rows:put_header_work_stock",
+      "value": 953120
+    },
+    {
+      "name": "$schema:put_queue",
+      "value": 952168
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:swap_checked",
+      "value": 951488
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:checked_metadata",
+      "value": 919704
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:lifecycle_join",
+      "value": 919456
+    },
+    {
+      "name": "$$$/$$/src/ecs/capabilities:value_read",
+      "value": 903512
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepare_sized",
+      "value": 902656
+    },
+    {
+      "name": "$schema:put_locked",
+      "value": 870208
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:outcome",
+      "value": 853520
+    },
+    {
+      "name": "cmp_new",
+      "value": 853472
+    },
+    {
+      "name": "$schema:array_join",
+      "value": 820896
+    },
+    {
+      "name": "$owned-rows:journal_work_stock_cold",
+      "value": 805392
+    },
+    {
+      "name": "$owned-rows:put_header_work_queue",
+      "value": 788640
+    },
+    {
+      "name": "$$$/$$/src/ecs/optimized-compose:recovered",
+      "value": 787712
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:finish_returned",
+      "value": 771312
+    },
+    {
+      "name": "$schema:shape",
+      "value": 771232
+    },
+    {
+      "name": "$gameplay:work_queue_read",
+      "value": 755088
+    },
+    {
+      "name": "$$$/$$/src/ecs/captured-column:prepared_state",
+      "value": 741600
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:and_join",
+      "value": 738768
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:collect_checked",
+      "value": 738752
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:both",
+      "value": 730064
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:replaced",
+      "value": 706496
+    },
+    {
+      "name": "$String$eq",
+      "value": 706160
+    },
+    {
+      "name": "$schema:stock_payload",
+      "value": 705960
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:mark_swapped",
+      "value": 689520
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:absent",
+      "value": 689112
+    },
+    {
+      "name": "array_node",
+      "value": 672880
+    },
+    {
+      "name": "(anonymous at line 5287)",
+      "value": 658144
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:collect_step",
+      "value": 656736
+    },
+    {
+      "name": "$owned-rows:put_header_work_recipe",
+      "value": 641088
+    },
+    {
+      "name": "$reference-declarations:id_join",
+      "value": 640416
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:restore_state",
+      "value": 640376
+    },
+    {
+      "name": "$schema:shape_choose",
+      "value": 639936
+    },
+    {
+      "name": "$schema:recipe",
+      "value": 639640
+    },
+    {
+      "name": "$$$/$$/src/ecs/restored-row:detach",
+      "value": 609176
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:mark",
+      "value": 607840
+    },
+    {
+      "name": "array_new",
+      "value": 607640
+    },
+    {
+      "name": "$$$/$$/src/ecs/restored-row:replacement_present",
+      "value": 607472
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:spawn_reserved",
+      "value": 590832
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:ensure_checked",
+      "value": 542080
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:namespace",
+      "value": 526520
+    },
+    {
+      "name": "$schema:locked",
+      "value": 524800
+    },
+    {
+      "name": "$owned-rows:enter_advanced",
+      "value": 509728
+    },
+    {
+      "name": "$$$/$$/src/ecs/transaction:finish_world",
+      "value": 509072
+    },
+    {
+      "name": "$$$/$$/src/ecs/lifecycle:keep",
+      "value": 508960
+    },
+    {
+      "name": "$$$/$$/src/ecs/restored-row:project",
+      "value": 508944
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:enqueue",
+      "value": 493304
+    },
+    {
+      "name": "$owned-rows:write_duplicate_stock",
+      "value": 492328
+    },
+    {
+      "name": "deprecate",
+      "value": 477416
+    },
+    {
+      "name": "$schema:enabled",
+      "value": 459200
+    },
+    {
+      "name": "$owned-rows:leave_duplicate_header",
+      "value": 443656
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:clock_checked",
+      "value": 443480
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:grow",
+      "value": 443472
+    },
+    {
+      "name": "$owned-rows:id_duplicate_header",
+      "value": 443424
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:plain_view_sized",
+      "value": 443096
+    },
+    {
+      "name": "$schema:recipe_payload",
+      "value": 426912
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:all",
+      "value": 426880
+    },
+    {
+      "name": "$schema:payload_array",
+      "value": 426616
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:recover_selected_rows",
+      "value": 426480
+    },
+    {
+      "name": "$schema:stock",
+      "value": 426400
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:swap",
+      "value": 410704
+    },
+    {
+      "name": "$$$/$$/src/ecs/structural:queue_checked",
+      "value": 410504
+    },
+    {
+      "name": "$$$/$$/src/ecs/lifecycle:written",
+      "value": 410464
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:reserve_finish",
+      "value": 394224
+    },
+    {
+      "name": "$json:quoted",
+      "value": 393704
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:set_live_checked",
+      "value": 377952
+    },
+    {
+      "name": "$schema:prepare_store",
+      "value": 377608
+    },
+    {
+      "name": "$owned-rows:enter_duplicate",
+      "value": 361576
+    },
+    {
+      "name": "$owned-rows:leave_advanced_header",
+      "value": 361520
+    },
+    {
+      "name": "$owned-rows:journal_work_stock_header",
+      "value": 346104
+    },
+    {
+      "name": "$$$/$$/src/ecs/capabilities:set",
+      "value": 344792
+    },
+    {
+      "name": "$schema:recover_store",
+      "value": 344768
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:valid_checked",
+      "value": 344736
+    },
+    {
+      "name": "$$$/$$/src/ecs/captured-column:prepared_checked",
+      "value": 344704
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:register_checked",
+      "value": 328680
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:lifecycle_state",
+      "value": 328440
+    },
+    {
+      "name": "$owned-rows:write_work_recipe",
+      "value": 328224
+    },
+    {
+      "name": "$owned-rows:read_advanced_stock",
+      "value": 328120
+    },
+    {
+      "name": "$observe:row",
+      "value": 316296
+    },
+    {
+      "name": "$schema:queue_payload",
+      "value": 311952
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:lifecycle",
+      "value": 311888
+    },
+    {
+      "name": "$owned-rows:read_advanced_queue",
+      "value": 295296
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:barrier",
+      "value": 279648
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:registration_matches",
+      "value": 279424
+    },
+    {
+      "name": "$owned-rows:id_advanced_header",
+      "value": 279288
+    },
+    {
+      "name": "$driver:change",
+      "value": 279168
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:empty",
+      "value": 279120
+    },
+    {
+      "name": "$owned-rows:write_work_queue",
+      "value": 279008
+    },
+    {
+      "name": "$gameplay:duplicate_selected",
+      "value": 262784
+    },
+    {
+      "name": "$$$/$$/src/ecs/restored-row:owner_present",
+      "value": 262696
+    },
+    {
+      "name": "$schema:project_locked",
+      "value": 262688
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:get_checked",
+      "value": 246512
+    },
+    {
+      "name": "$schema:recover_enabled",
+      "value": 246360
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:lifecycle_join",
+      "value": 229904
+    },
+    {
+      "name": "$driver:record",
+      "value": 229904
+    },
+    {
+      "name": "$owned-rows:put_duplicate_stock",
+      "value": 229760
+    },
+    {
+      "name": "$reference-declarations:id_get",
+      "value": 214032
+    },
+    {
+      "name": "$owned-rows:journal_work_recipe_cold",
+      "value": 213496
+    },
+    {
+      "name": "$observe:all_join",
+      "value": 213408
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:replaced",
+      "value": 213312
+    },
+    {
+      "name": "$owned-rows:id_read_advanced",
+      "value": 213272
+    },
+    {
+      "name": "(anonymous at line 12888)",
+      "value": 211912
+    },
+    {
+      "name": "$owned-rows:take_duplicate_stock",
+      "value": 197056
+    },
+    {
+      "name": "handleErrorFromBinding",
+      "value": 182128
+    },
+    {
+      "name": "observerCallback",
+      "value": 181128
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:cursor_outcome",
+      "value": 180712
+    },
+    {
+      "name": "$$$/$$/src/ecs/lifecycle:after_write",
+      "value": 180576
+    },
+    {
+      "name": "$owned-rows:id_read_duplicate",
+      "value": 180464
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:get",
+      "value": 165744
+    },
+    {
+      "name": "$owned-rows:journal_duplicate_stock_cold",
+      "value": 164320
+    },
+    {
+      "name": "$scenario-ops:handle",
+      "value": 164296
+    },
+    {
+      "name": "$owned-rows:header_advanced_stock",
+      "value": 164288
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:get_taken",
+      "value": 164232
+    },
+    {
+      "name": "$schema:prepare_enabled",
+      "value": 164200
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:ensure_state",
+      "value": 164200
+    },
+    {
+      "name": "$owned-rows:put_advanced_stock",
+      "value": 164112
+    },
+    {
+      "name": "setPrototypeOf",
+      "value": 148480
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:create_checked",
+      "value": 147912
+    },
+    {
+      "name": "$declarations:composed",
+      "value": 147712
+    },
+    {
+      "name": "(anonymous at line 6178)",
+      "value": 131712
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:register_meta",
+      "value": 131592
+    },
+    {
+      "name": "$owned-rows:journal_work_queue_header",
+      "value": 131472
+    },
+    {
+      "name": "wrappedFn",
+      "value": 131456
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:insert_checked",
+      "value": 131312
+    },
+    {
+      "name": "$owned-rows:put_header_advanced_queue",
+      "value": 131296
+    },
+    {
+      "name": "(anonymous at line 4760)",
+      "value": 131232
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:run_namespace_value",
+      "value": 115120
+    },
+    {
+      "name": "$owned-rows:header_advanced_queue",
+      "value": 115040
+    },
+    {
+      "name": "$owned-rows:take_advanced_stock",
+      "value": 114976
+    },
+    {
+      "name": "$driver:unit_outcome",
+      "value": 114976
+    },
+    {
+      "name": "$owned-rows:journal_work_queue_cold",
+      "value": 114936
+    },
+    {
+      "name": "$schema:seed_5",
+      "value": 114928
+    },
+    {
+      "name": "$declarations:contradictory",
+      "value": 114912
+    },
+    {
+      "name": "$reference-declarations:advanced_id",
+      "value": 114880
+    },
+    {
+      "name": "$owned-rows:put_advanced_queue",
+      "value": 114872
+    },
+    {
+      "name": "$owned-rows:read_duplicate_stock",
+      "value": 114848
+    },
+    {
+      "name": "post",
+      "value": 103168
+    },
+    {
+      "name": "$reference-declarations:match_stock",
+      "value": 100016
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:register",
+      "value": 99176
+    },
+    {
+      "name": "$$$/$$/src/ecs/transaction:finish",
+      "value": 98800
+    },
+    {
+      "name": "$owned-rows:leave_work",
+      "value": 98784
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:clear_stamp",
+      "value": 98560
+    },
+    {
+      "name": "$driver:init_work",
+      "value": 98528
+    },
+    {
+      "name": "$owned-rows:header_duplicate_stock",
+      "value": 98496
+    },
+    {
+      "name": "$schema:stock_owner",
+      "value": 98472
+    },
+    {
+      "name": "(anonymous at line 200)",
+      "value": 98456
+    },
+    {
+      "name": "$$$/$$/src/ecs/capabilities:send",
+      "value": 98440
+    },
+    {
+      "name": "(anonymous at line 10061)",
+      "value": 98424
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:run_namespace_checked",
+      "value": 83144
+    },
+    {
+      "name": "$owned-rows:take_advanced_queue",
+      "value": 82176
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:reserve_id",
+      "value": 82160
+    },
+    {
+      "name": "$driver:init_retry",
+      "value": 82112
+    },
+    {
+      "name": "$$$/$$/src/ecs/capabilities:invoke",
+      "value": 82056
+    },
+    {
+      "name": "$json:array",
+      "value": 82048
+    },
+    {
+      "name": "$schema:shape_advance",
+      "value": 82040
+    },
+    {
+      "name": "(anonymous at line 4502)",
+      "value": 82008
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:recover_past",
+      "value": 73248
+    },
+    {
+      "name": "$driver:advanced_result",
+      "value": 65760
+    },
+    {
+      "name": "$schema:populate",
+      "value": 65760
+    },
+    {
+      "name": "io_run",
+      "value": 65752
+    },
+    {
+      "name": "$driver:retry_named",
+      "value": 65728
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:complete",
+      "value": 65728
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepared_swap",
+      "value": 65712
+    },
+    {
+      "name": "$driver:step_retry_result",
+      "value": 65696
+    },
+    {
+      "name": "$schema:seed_1",
+      "value": 65688
+    },
+    {
+      "name": "$gameplay:retry_body",
+      "value": 65664
+    },
+    {
+      "name": "$schema:seed_6",
+      "value": 65664
+    },
+    {
+      "name": "$driver:init_created",
+      "value": 65664
+    },
+    {
+      "name": "$owned-rows:put_header_advanced_stock",
+      "value": 65656
+    },
+    {
+      "name": "$schema:seed_2",
+      "value": 65656
+    },
+    {
+      "name": "$scenario-ops:insert_namespace",
+      "value": 65648
+    },
+    {
+      "name": "codePointAt",
+      "value": 50160
+    },
+    {
+      "name": "$$$/$$/src/ecs/captured-column:capture",
+      "value": 49536
+    },
+    {
+      "name": "$schema:recover_advanced",
+      "value": 49328
+    },
+    {
+      "name": "$owned-rows:put_header_duplicate_stock",
+      "value": 49312
+    },
+    {
+      "name": "(anonymous at line 2579)",
+      "value": 49312
+    },
+    {
+      "name": "$driver:advanced_cursor",
+      "value": 49280
+    },
+    {
+      "name": "$gameplay:duplicate_after_b",
+      "value": 49280
+    },
+    {
+      "name": "$schema:churn_bundle",
+      "value": 49280
+    },
+    {
+      "name": "$schema:seed_3",
+      "value": 49280
+    },
+    {
+      "name": "$schema:seed_4",
+      "value": 49272
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:completed",
+      "value": 49264
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:clear",
+      "value": 49248
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:reserve_available",
+      "value": 49240
+    },
+    {
+      "name": "$schema:empty_store",
+      "value": 49240
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:get_split",
+      "value": 49232
+    },
+    {
+      "name": "$scenario-ops:advanced_replace_namespace",
+      "value": 49224
+    },
+    {
+      "name": "getDeprecationWarningEmitter",
+      "value": 49224
+    },
+    {
+      "name": "$declarations:empty",
+      "value": 49216
+    },
+    {
+      "name": "$reference-declarations:match_recipe",
+      "value": 49216
+    },
+    {
+      "name": "$schema:queue",
+      "value": 49200
+    },
+    {
+      "name": "getOwnPropertyDescriptor",
+      "value": 49200
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:get_ready",
+      "value": 35776
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:reserved_fields",
+      "value": 34640
+    },
+    {
+      "name": "(anonymous at line 1314)",
+      "value": 33160
+    },
+    {
+      "name": "Map",
+      "value": 32984
+    },
+    {
+      "name": "wrapResolveFilename",
+      "value": 32960
+    },
+    {
+      "name": "$schema:prepare_advanced",
+      "value": 32912
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:register",
+      "value": 32888
+    },
+    {
+      "name": "$observe:row_recipe",
+      "value": 32880
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:tracked_clock",
+      "value": 32864
+    },
+    {
+      "name": "$driver:duplicate_result",
+      "value": 32848
+    },
+    {
+      "name": "$declarations:duplicate",
+      "value": 32832
+    },
+    {
+      "name": "$driver:step_work",
+      "value": 32832
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:cleared",
+      "value": 32832
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:restore_swap",
+      "value": 32832
+    },
+    {
+      "name": "$owned-rows:journal_work_recipe_header",
+      "value": 32832
+    },
+    {
+      "name": "$driver:advanced_outcome",
+      "value": 32832
+    },
+    {
+      "name": "resolveForCJSWithHooks",
+      "value": 32832
+    },
+    {
+      "name": "$schema:recover_stock",
+      "value": 32824
+    },
+    {
+      "name": "$$$/$$/src/ecs/structural:queue_join",
+      "value": 32816
+    },
+    {
+      "name": "$schema:get_queue",
+      "value": 32816
+    },
+    {
+      "name": "$driver:init_advanced",
+      "value": 32816
+    },
+    {
+      "name": "writeSync",
+      "value": 32816
+    },
+    {
+      "name": "loadBuiltinWithHooks",
+      "value": 32816
+    },
+    {
+      "name": "(anonymous at line 10071)",
+      "value": 32808
+    },
+    {
+      "name": "$IO$print",
+      "value": 32808
+    },
+    {
+      "name": "wrapModuleLoad",
+      "value": 32808
+    },
+    {
+      "name": "$$$/$$/src/ecs/transaction:stage",
+      "value": 32800
+    },
+    {
+      "name": "$gameplay:retry_value",
+      "value": 19296
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:get_store",
+      "value": 17520
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:selected_value",
+      "value": 17120
+    },
+    {
+      "name": "io_exit",
+      "value": 17072
+    },
+    {
+      "name": "$gameplay:work_write",
+      "value": 16632
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:swap_world",
+      "value": 16560
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:swap_store",
+      "value": 16544
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:tx_finish",
+      "value": 16480
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:restore_stamp",
+      "value": 16480
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:lifecycle_match",
+      "value": 16464
+    },
+    {
+      "name": "f",
+      "value": 16456
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:lifecycle_allowed",
+      "value": 16456
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:evacuate",
+      "value": 16456
+    },
+    {
+      "name": "$$$/$$/src/ecs/structural:apply",
+      "value": 16456
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:write_checked",
+      "value": 16456
+    },
+    {
+      "name": "$schema:populate_recipe",
+      "value": 16456
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:get_targeted",
+      "value": 16448
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:despawn_checked_with",
+      "value": 16448
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:restore_stamp_store",
+      "value": 16448
+    },
+    {
+      "name": "(anonymous at line 9588)",
+      "value": 16448
+    },
+    {
+      "name": "$owned-rows:journal_duplicate_stock_header",
+      "value": 16432
+    },
+    {
+      "name": "$declarations:advanced",
+      "value": 16416
+    },
+    {
+      "name": "$reference-declarations:structural_match",
+      "value": 16416
+    },
+    {
+      "name": "$reference-declarations:match_locked",
+      "value": 16416
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepared_view_current",
+      "value": 16416
+    },
+    {
+      "name": "$declarations:work",
+      "value": 16416
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:structural_replace",
+      "value": 16416
+    },
+    {
+      "name": "$scenario-ops:commit",
+      "value": 16416
+    },
+    {
+      "name": "$scenario-ops:remove_namespace",
+      "value": 16416
+    },
+    {
+      "name": "$schema:shape_depth",
+      "value": 16416
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:grow_live",
+      "value": 16416
+    },
+    {
+      "name": "$schema:create",
+      "value": 16416
+    },
+    {
+      "name": "$gameplay:retry_outcome",
+      "value": 16416
+    },
+    {
+      "name": "$driver:step_work_result",
+      "value": 16416
+    },
+    {
+      "name": "$IO$bind",
+      "value": 16408
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:clear_accepted",
+      "value": 16408
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:insert_apply",
+      "value": 16408
+    },
+    {
+      "name": "(anonymous at line 9587)",
+      "value": 16408
+    },
+    {
+      "name": "io_push",
+      "value": 16408
+    },
+    {
+      "name": "(EXTERNAL)",
+      "value": 16400
+    },
+    {
+      "name": "(anonymous at line 10175)",
+      "value": 16400
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:replace_allowed",
+      "value": 16400
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:replace_clock",
+      "value": 16400
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:replace_clock_advanced",
+      "value": 16400
+    },
+    {
+      "name": "$driver:record_rows",
+      "value": 16400
+    },
+    {
+      "name": "$observe:row_stock",
+      "value": 16400
+    },
+    {
+      "name": "$schema:get_enabled",
+      "value": 16400
+    },
+    {
+      "name": "$scenario-ops:remove",
+      "value": 16400
+    },
+    {
+      "name": "$driver:step_retry",
+      "value": 16400
+    },
+    {
+      "name": "$run",
+      "value": 16400
+    },
+    {
+      "name": "require",
+      "value": 16400
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:run_checked",
+      "value": 16392
+    },
+    {
+      "name": "$schema:populate_inner",
+      "value": 16392
+    },
+    {
+      "name": "(root)",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 0)",
+      "value": 0
+    },
+    {
+      "name": "Promise",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 5)",
+      "value": 0
+    },
+    {
+      "name": "run_loop",
+      "value": 0
+    },
+    {
+      "name": "$driver:equivalent",
+      "value": 0
+    },
+    {
+      "name": "$driver:run_ready",
+      "value": 0
+    },
+    {
+      "name": "$driver:finish",
+      "value": 0
+    },
+    {
+      "name": "$driver:phase_advanced",
+      "value": 0
+    },
+    {
+      "name": "$driver:step_advanced",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:run_tracked",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:tracked_result",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:tracked_outcome",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:run",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:run_namespace",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:registration_list_matches",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:registration_meta_matches",
+      "value": 0
+    },
+    {
+      "name": "$String$order",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:run_metadata",
+      "value": 0
+    },
+    {
+      "name": "$driver:run_advanced",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-optimized-compose:each_fields_since",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:recover",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:recover_state",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:each_fields_since",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 6821)",
+      "value": 0
+    },
+    {
+      "name": "$reference-declarations:advanced_match",
+      "value": 0
+    },
+    {
+      "name": "$reference-declarations:advanced_lifecycle",
+      "value": 0
+    },
+    {
+      "name": "$reference-declarations:lifecycle_recipe",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:lifecycle",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:valid",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:valid_join",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:lifecycle_world",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:lifecycle_store",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:finished",
+      "value": 0
+    },
+    {
+      "name": "$owned-rows:leave_advanced",
+      "value": 0
+    },
+    {
+      "name": "$owned-rows:leave_advanced_cold",
+      "value": 0
+    },
+    {
+      "name": "$reference-declarations:advanced_body",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 10163)",
+      "value": 0
+    },
+    {
+      "name": "$owned-rows:get_advanced_stock",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:get_matching",
+      "value": 0
+    },
+    {
+      "name": "$reference-declarations:advanced_stock_read",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 10169)",
+      "value": 0
+    },
+    {
+      "name": "$owned-rows:get_advanced_queue",
+      "value": 0
+    },
+    {
+      "name": "$reference-declarations:advanced_queue_read",
+      "value": 0
+    },
+    {
+      "name": "$owned-rows:id_advanced",
+      "value": 0
+    },
+    {
+      "name": "$reference-declarations:lifecycle_stock",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 1865)",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:replace",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:replace_clock_checked",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:swap_sized",
+      "value": 0
+    },
+    {
+      "name": "$scenario-ops:barrier",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:drain_fifo",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 1875)",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:swap_join",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:ensure",
+      "value": 0
+    },
+    {
+      "name": "$scenario-ops:advanced_replace",
+      "value": 0
+    },
+    {
+      "name": "$schema:queue_stock",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/structural:tx_replace",
+      "value": 0
+    },
+    {
+      "name": "$schema:queue_recipe",
+      "value": 0
+    },
+    {
+      "name": "$driver:phase_duplicate",
+      "value": 0
+    },
+    {
+      "name": "$driver:record_composed",
+      "value": 0
+    },
+    {
+      "name": "$driver:record_empty",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-optimized-compose:each_fields",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:each_fields",
+      "value": 0
+    },
+    {
+      "name": "$reference-declarations:contradictory_match",
+      "value": 0
+    },
+    {
+      "name": "$reference-declarations:empty_body",
+      "value": 0
+    },
+    {
+      "name": "$owned-rows:leave_work_cold",
+      "value": 0
+    },
+    {
+      "name": "$gameplay:compose_body",
+      "value": 0
+    },
+    {
+      "name": "$gameplay:compose_id",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 4758)",
+      "value": 0
+    },
+    {
+      "name": "$owned-rows:get_work_stock",
+      "value": 0
+    },
+    {
+      "name": "$gameplay:compose_stock",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 4768)",
+      "value": 0
+    },
+    {
+      "name": "$owned-rows:get_work_recipe",
+      "value": 0
+    },
+    {
+      "name": "$gameplay:compose_recipe",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 4774)",
+      "value": 0
+    },
+    {
+      "name": "$owned-rows:get_work_queue",
+      "value": 0
+    },
+    {
+      "name": "$reference-declarations:work_required",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 6081)",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 4780)",
+      "value": 0
+    },
+    {
+      "name": "$owned-rows:id_work",
+      "value": 0
+    },
+    {
+      "name": "$observe:all",
+      "value": 0
+    },
+    {
+      "name": "$observe:row_queue",
+      "value": 0
+    },
+    {
+      "name": "$observe:row_enabled",
+      "value": 0
+    },
+    {
+      "name": "$schema:get_locked",
+      "value": 0
+    },
+    {
+      "name": "$schema:get_recipe",
+      "value": 0
+    },
+    {
+      "name": "$schema:get_stock",
+      "value": 0
+    },
+    {
+      "name": "$driver:step_duplicate",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 1644)",
+      "value": 0
+    },
+    {
+      "name": "$owned-rows:leave_duplicate",
+      "value": 0
+    },
+    {
+      "name": "$owned-rows:leave_duplicate_cold",
+      "value": 0
+    },
+    {
+      "name": "$gameplay:duplicate_body",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 4516)",
+      "value": 0
+    },
+    {
+      "name": "$owned-rows:id_duplicate",
+      "value": 0
+    },
+    {
+      "name": "$gameplay:duplicate_named",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/captured-column:stamped",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 4500)",
+      "value": 0
+    },
+    {
+      "name": "$owned-rows:get_duplicate_stock",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 4503)",
+      "value": 0
+    },
+    {
+      "name": "$owned-rows:set_duplicate_stock",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:write",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:write_taken",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:write_split",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:write_targeted",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:write_matching",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:write_clocked",
+      "value": 0
+    },
+    {
+      "name": "$owned-rows:journal_duplicate_stock",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/restored-row:replace",
+      "value": 0
+    },
+    {
+      "name": "$gameplay:duplicate_after_a",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:clocked",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 4510)",
+      "value": 0
+    },
+    {
+      "name": "$Nat$is_eq",
+      "value": 0
+    },
+    {
+      "name": "$schema:prepare_stock",
+      "value": 0
+    },
+    {
+      "name": "$driver:phase_churn",
+      "value": 0
+    },
+    {
+      "name": "$driver:run_work",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 5724)",
+      "value": 0
+    },
+    {
+      "name": "$gameplay:work_body",
+      "value": 0
+    },
+    {
+      "name": "$gameplay:work_stock_read",
+      "value": 0
+    },
+    {
+      "name": "$gameplay:work_recipe_read",
+      "value": 0
+    },
+    {
+      "name": "$gameplay:work_recipe_view",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 4761)",
+      "value": 0
+    },
+    {
+      "name": "$owned-rows:set_work_stock",
+      "value": 0
+    },
+    {
+      "name": "$owned-rows:journal_work_stock",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 1772)",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:spawn_apply",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:spawned",
+      "value": 0
+    },
+    {
+      "name": "$schema:populate_locked",
+      "value": 0
+    },
+    {
+      "name": "$schema:populate_enabled",
+      "value": 0
+    },
+    {
+      "name": "$schema:populate_queue",
+      "value": 0
+    },
+    {
+      "name": "$schema:populate_stock",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 1692)",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:despawn_apply_with",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:with_store",
+      "value": 0
+    },
+    {
+      "name": "$schema:clear",
+      "value": 0
+    },
+    {
+      "name": "$schema:clear_inner",
+      "value": 0
+    },
+    {
+      "name": "$schema:clear_column",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:deactivate",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:set_live_join",
+      "value": 0
+    },
+    {
+      "name": "$scenario-ops:churn",
+      "value": 0
+    },
+    {
+      "name": "$scenario-ops:churn_namespace",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:enqueue",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:enqueue_list",
+      "value": 0
+    },
+    {
+      "name": "$scenario-ops:spawn",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:tx_spawn",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:spawn_join",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:tx_despawn_with",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:despawn_join_with",
+      "value": 0
+    },
+    {
+      "name": "$driver:phase_remove",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 2136)",
+      "value": 0
+    },
+    {
+      "name": "$schema:queue_locked",
+      "value": 0
+    },
+    {
+      "name": "$driver:phase_insert",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 2146)",
+      "value": 0
+    },
+    {
+      "name": "$scenario-ops:insert",
+      "value": 0
+    },
+    {
+      "name": "$schema:queue_enabled",
+      "value": 0
+    },
+    {
+      "name": "$driver:phase_retry",
+      "value": 0
+    },
+    {
+      "name": "$U32$show$if",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 10790)",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:ensure_sized",
+      "value": 0
+    },
+    {
+      "name": "$driver:run_retry",
+      "value": 0
+    },
+    {
+      "name": "$declarations:retry",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/transaction:rollback",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 11401)",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:restore_stamp",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:restore_stamp_world",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:restore",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:restore_allowed",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:restore_world",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:restore_store",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 12202)",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 12277)",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:swap_state",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 6786)",
+      "value": 0
+    },
+    {
+      "name": "$reference-declarations:triple_match",
+      "value": 0
+    },
+    {
+      "name": "$reference-declarations:match_queue",
+      "value": 0
+    },
+    {
+      "name": "$declarations:queue_send",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:insert",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 10062)",
+      "value": 0
+    },
+    {
+      "name": "$owned-rows:set_work_recipe",
+      "value": 0
+    },
+    {
+      "name": "$owned-rows:journal_work_recipe",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 10072)",
+      "value": 0
+    },
+    {
+      "name": "$owned-rows:set_work_queue",
+      "value": 0
+    },
+    {
+      "name": "$owned-rows:journal_work_queue",
+      "value": 0
+    },
+    {
+      "name": "$driver:phase_work",
+      "value": 0
+    },
+    {
+      "name": "$driver:phase_seed",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:activate",
+      "value": 0
+    },
+    {
+      "name": "$scenario-ops:seed",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:register_namespace",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:register_join",
+      "value": 0
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:create",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 203)",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 215)",
+      "value": 0
+    },
+    {
+      "name": "io_print",
+      "value": 0
+    },
+    {
+      "name": "io_out",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 1666)",
+      "value": 0
+    },
+    {
+      "name": "defaultResolveImplForCJSLoading",
+      "value": 0
+    },
+    {
+      "name": "io_bytes",
+      "value": 0
+    },
+    {
+      "name": "processImmediate",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 127)",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 354)",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 4)",
+      "value": 0
+    },
+    {
+      "name": "get duration",
+      "value": 0
+    },
+    {
+      "name": "PerformanceObserverEntryList",
+      "value": 0
+    },
+    {
+      "name": "sort",
+      "value": 0
+    },
+    {
+      "name": "performanceObserverSorter",
+      "value": 0
+    },
+    {
+      "name": "get startTime",
+      "value": 0
+    },
+    {
+      "name": "SafeMap",
+      "value": 0
+    },
+    {
+      "name": "enqueue",
+      "value": 0
+    },
+    {
+      "name": "(anonymous at line 345)",
+      "value": 0
+    },
+    {
+      "name": "get entryType",
+      "value": 0
+    }
+  ],
+  "heapInclusiveSampledBytes": [
+    {
+      "name": "(root)",
+      "value": 912850224
+    },
+    {
+      "name": "(anonymous at line 0)",
+      "value": 911813168
+    },
+    {
+      "name": "(anonymous at line 12888)",
+      "value": 911813168
+    },
+    {
+      "name": "freshProgram",
+      "value": 911498088
+    },
+    {
+      "name": "io_exit",
+      "value": 909568800
+    },
+    {
+      "name": "io_run",
+      "value": 909551728
+    },
+    {
+      "name": "f",
+      "value": 904238960
+    },
+    {
+      "name": "(anonymous at line 200)",
+      "value": 904091104
+    },
+    {
+      "name": "$driver:equivalent",
+      "value": 903631024
+    },
+    {
+      "name": "$driver:run_ready",
+      "value": 902086128
+    },
+    {
+      "name": "$driver:record",
+      "value": 661319336
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-optimized-compose:each_fields",
+      "value": 580197840
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:reserved_fields",
+      "value": 547820360
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:each_fields",
+      "value": 535195656
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:run_handles_fields",
+      "value": 515504344
+    },
+    {
+      "name": "$driver:record_rows",
+      "value": 466427224
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:selected_fields",
+      "value": 433335232
+    },
+    {
+      "name": "run_loop",
+      "value": 430060408
+    },
+    {
+      "name": "$declarations:composed",
+      "value": 367155760
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:body_returned",
+      "value": 301097048
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:get",
+      "value": 262757032
+    },
+    {
+      "name": "(anonymous at line 1941)",
+      "value": 251446608
+    },
+    {
+      "name": "$$$/$$/src/ecs/capabilities:invoke",
+      "value": 208805512
+    },
+    {
+      "name": "$driver:phase_retry",
+      "value": 204123856
+    },
+    {
+      "name": "$driver:phase_churn",
+      "value": 198198152
+    },
+    {
+      "name": "$observe:all",
+      "value": 194662208
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:run",
+      "value": 193796600
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:run_namespace",
+      "value": 193533112
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:run_namespace_value",
+      "value": 193533112
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:run_namespace_checked",
+      "value": 193417992
+    },
+    {
+      "name": "$observe:all_join",
+      "value": 189400072
+    },
+    {
+      "name": "$observe:rows",
+      "value": 189186664
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:completed",
+      "value": 176145568
+    },
+    {
+      "name": "$schema:array_view",
+      "value": 171228472
+    },
+    {
+      "name": "$observe:row",
+      "value": 139807408
+    },
+    {
+      "name": "$gameplay:compose_body",
+      "value": 139537288
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:run_metadata",
+      "value": 139090344
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:run_checked",
+      "value": 139090344
+    },
+    {
+      "name": "$driver:phase_work",
+      "value": 131239512
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:both",
+      "value": 128501504
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:get_live_owned",
+      "value": 128308336
+    },
+    {
+      "name": "$gameplay:compose_id",
+      "value": 126238704
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:get",
+      "value": 124996000
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:seek_view",
+      "value": 121326936
+    },
+    {
+      "name": "$reference-declarations:work_match",
+      "value": 120745960
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:get",
+      "value": 112041368
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:view",
+      "value": 110691992
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepared_view_state",
+      "value": 109036544
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:get_taken",
+      "value": 108802080
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:get_split",
+      "value": 103217104
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:family_match",
+      "value": 101268968
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:tx_get",
+      "value": 100874176
+    },
+    {
+      "name": "$driver:record_composed",
+      "value": 99255064
+    },
+    {
+      "name": "$driver:phase_remove",
+      "value": 98467592
+    },
+    {
+      "name": "$driver:step_work",
+      "value": 95989456
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:get_checked",
+      "value": 95324712
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:plain_view_checked",
+      "value": 92179264
+    },
+    {
+      "name": "$driver:phase_insert",
+      "value": 90412248
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:get_targeted",
+      "value": 88583016
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:get_store",
+      "value": 87592496
+    },
+    {
+      "name": "$observe:row_stock",
+      "value": 85859672
+    },
+    {
+      "name": "$gameplay:compose_stock",
+      "value": 84360936
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:get_matching",
+      "value": 81274000
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:get_ready",
+      "value": 81274000
+    },
+    {
+      "name": "$$$/$$/src/ecs/restored-row:project",
+      "value": 76265480
+    },
+    {
+      "name": "$driver:run_work",
+      "value": 74652504
+    },
+    {
+      "name": "$declarations:work",
+      "value": 74586808
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:plain_view_taken",
+      "value": 73160416
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepared_view_checked",
+      "value": 73022720
+    },
+    {
+      "name": "$schema:project_stock",
+      "value": 69214720
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:and_join",
+      "value": 68280104
+    },
+    {
+      "name": "$driver:phase_duplicate",
+      "value": 64927848
+    },
+    {
+      "name": "$driver:record_empty",
+      "value": 64512704
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepared_view_different",
+      "value": 63137840
+    },
+    {
+      "name": "$observe:row_recipe",
+      "value": 63026080
+    },
+    {
+      "name": "$reference-declarations:work_required",
+      "value": 61122952
+    },
+    {
+      "name": "$driver:phase_seed",
+      "value": 60018440
+    },
+    {
+      "name": "$declarations:contradictory",
+      "value": 59197504
+    },
+    {
+      "name": "$driver:phase_advanced",
+      "value": 54419520
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:registration_matches",
+      "value": 54244504
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:registration_list_matches",
+      "value": 53965080
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:registration_meta_matches",
+      "value": 53965080
+    },
+    {
+      "name": "$driver:step_advanced",
+      "value": 52086648
+    },
+    {
+      "name": "$driver:advanced_cursor",
+      "value": 52086648
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:run_tracked",
+      "value": 51856800
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:plain_view_sized",
+      "value": 49830424
+    },
+    {
+      "name": "$String$cmp",
+      "value": 49672712
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:access_equal",
+      "value": 49332864
+    },
+    {
+      "name": "(anonymous at line 5724)",
+      "value": 49007072
+    },
+    {
+      "name": "$schema:project_recipe",
+      "value": 48984720
+    },
+    {
+      "name": "$$$/$$/src/ecs/optimized-compose:map_store",
+      "value": 48238304
+    },
+    {
+      "name": "$gameplay:compose_recipe",
+      "value": 46835920
+    },
+    {
+      "name": "$driver:step_retry",
+      "value": 46525352
+    },
+    {
+      "name": "$driver:retry_named",
+      "value": 46459624
+    },
+    {
+      "name": "$schema:project_queue",
+      "value": 44914592
+    },
+    {
+      "name": "slice",
+      "value": 42912360
+    },
+    {
+      "name": "$String$cmp$fin",
+      "value": 41784808
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepare",
+      "value": 41688688
+    },
+    {
+      "name": "(anonymous at line 4758)",
+      "value": 40976168
+    },
+    {
+      "name": "$owned-rows:get_work_stock",
+      "value": 40170696
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepare_sized",
+      "value": 40095872
+    },
+    {
+      "name": "(anonymous at line 2748)",
+      "value": 38272944
+    },
+    {
+      "name": "$reference-declarations:match_enabled",
+      "value": 37531952
+    },
+    {
+      "name": "$reference-declarations:match_stock",
+      "value": 37529336
+    },
+    {
+      "name": "$$$/$$/src/ecs/capabilities:read",
+      "value": 35412360
+    },
+    {
+      "name": "(anonymous at line 4768)",
+      "value": 35402472
+    },
+    {
+      "name": "$owned-rows:get_work_recipe",
+      "value": 34909216
+    },
+    {
+      "name": "$declarations:empty",
+      "value": 34742360
+    },
+    {
+      "name": "$driver:run_advanced",
+      "value": 33328432
+    },
+    {
+      "name": "$observe:row_queue",
+      "value": 33301064
+    },
+    {
+      "name": "$schema:prepare_store",
+      "value": 33296608
+    },
+    {
+      "name": "$declarations:advanced",
+      "value": 33295600
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-optimized-compose:each_fields_since",
+      "value": 33279184
+    },
+    {
+      "name": "$gameplay:work_body",
+      "value": 33221472
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:evacuate",
+      "value": 32545464
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:evacuate_start",
+      "value": 32529008
+    },
+    {
+      "name": "$driver:change",
+      "value": 31955040
+    },
+    {
+      "name": "$schema:get_stock",
+      "value": 31922264
+    },
+    {
+      "name": "run_clo",
+      "value": 31644520
+    },
+    {
+      "name": "$driver:run_retry",
+      "value": 31027288
+    },
+    {
+      "name": "$declarations:retry",
+      "value": 30978008
+    },
+    {
+      "name": "(anonymous at line 4774)",
+      "value": 29974104
+    },
+    {
+      "name": "$owned-rows:get_work_queue",
+      "value": 29628992
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:each_fields_since",
+      "value": 29255352
+    },
+    {
+      "name": "$reference-declarations:match_recipe",
+      "value": 29107088
+    },
+    {
+      "name": "$reference-declarations:structural_match",
+      "value": 28717864
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:evacuate_pending",
+      "value": 27934616
+    },
+    {
+      "name": "$schema:get_queue",
+      "value": 26898240
+    },
+    {
+      "name": "$String$eq",
+      "value": 26611176
+    },
+    {
+      "name": "$observe:row_locked",
+      "value": 25666752
+    },
+    {
+      "name": "$owned-rows:enter_work",
+      "value": 25309760
+    },
+    {
+      "name": "$reference-declarations:contradictory_match",
+      "value": 24482000
+    },
+    {
+      "name": "$gameplay:work_stock_read",
+      "value": 24412448
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:with_store_finish",
+      "value": 24142992
+    },
+    {
+      "name": "$schema:get_recipe",
+      "value": 24094400
+    },
+    {
+      "name": "$observe:row_enabled",
+      "value": 23323408
+    },
+    {
+      "name": "(anonymous at line 6821)",
+      "value": 23005880
+    },
+    {
+      "name": "(anonymous at line 2316)",
+      "value": 22720848
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:handles",
+      "value": 21892784
+    },
+    {
+      "name": "$owned-rows:write_work_stock",
+      "value": 21887368
+    },
+    {
+      "name": "$String$order",
+      "value": 20747624
+    },
+    {
+      "name": "$$$/$$/src/ecs/restored-row:detach",
+      "value": 19828640
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:replace_allowed",
+      "value": 19745528
+    },
+    {
+      "name": "$scenario-ops:barrier",
+      "value": 19256472
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:barrier",
+      "value": 19256472
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:drain_fifo",
+      "value": 18976824
+    },
+    {
+      "name": "$owned-rows:leave_work",
+      "value": 18741928
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:left",
+      "value": 18402144
+    },
+    {
+      "name": "(anonymous at line 1772)",
+      "value": 18369072
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:spawn_apply",
+      "value": 18369072
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:replace_clock",
+      "value": 18347800
+    },
+    {
+      "name": "$$$/$$/src/ecs/capabilities:value_read",
+      "value": 18106248
+    },
+    {
+      "name": "$$$/$$/src/ecs/captured-column:prepared_state",
+      "value": 17875984
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:spawned",
+      "value": 17711264
+    },
+    {
+      "name": "$schema:populate",
+      "value": 17711264
+    },
+    {
+      "name": "$schema:populate_inner",
+      "value": 17645504
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:replace_clock_checked",
+      "value": 17477832
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:structural_replace",
+      "value": 17399456
+    },
+    {
+      "name": "$$$/$$/src/ecs/capabilities:get",
+      "value": 17369536
+    },
+    {
+      "name": "$$$/$$/src/ecs/captured-column:prepared_checked",
+      "value": 16756832
+    },
+    {
+      "name": "$$$/$$/src/ecs/captured-column:capture",
+      "value": 16181376
+    },
+    {
+      "name": "$schema:prefix",
+      "value": 15875200
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:replace_clock_advanced",
+      "value": 15816800
+    },
+    {
+      "name": "$gameplay:work_recipe_read",
+      "value": 15796256
+    },
+    {
+      "name": "$gameplay:work_write",
+      "value": 15796256
+    },
+    {
+      "name": "$gameplay:work_recipe_view",
+      "value": 15779624
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:swap_world",
+      "value": 15093904
+    },
+    {
+      "name": "$gameplay:compose_queue",
+      "value": 14225784
+    },
+    {
+      "name": "$driver:step_duplicate",
+      "value": 13931336
+    },
+    {
+      "name": "$declarations:duplicate",
+      "value": 13898488
+    },
+    {
+      "name": "$$$/$$/src/ecs/captured-column:captured_prepared",
+      "value": 13766768
+    },
+    {
+      "name": "run_tail",
+      "value": 13702672
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:collect_live",
+      "value": 13468152
+    },
+    {
+      "name": "$reference-declarations:advanced_match",
+      "value": 13108352
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:plain_view_projected",
+      "value": 12619864
+    },
+    {
+      "name": "$reference-declarations:match_locked",
+      "value": 12541192
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:swap_store",
+      "value": 12247808
+    },
+    {
+      "name": "$reference-declarations:triple_match",
+      "value": 12243728
+    },
+    {
+      "name": "$owned-rows:id_read_work",
+      "value": 11683832
+    },
+    {
+      "name": "$owned-rows:read_work_recipe",
+      "value": 11568192
+    },
+    {
+      "name": "$owned-rows:read_work_queue",
+      "value": 11540088
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:get_projected",
+      "value": 11095024
+    },
+    {
+      "name": "$gameplay:retry_body",
+      "value": 10269784
+    },
+    {
+      "name": "$List$show$go",
+      "value": 9921184
+    },
+    {
+      "name": "$schema:get_enabled",
+      "value": 9846272
+    },
+    {
+      "name": "$reference-declarations:advanced_body",
+      "value": 9734600
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepared_view_projected",
+      "value": 9166488
+    },
+    {
+      "name": "$json:numbers",
+      "value": 9021368
+    },
+    {
+      "name": "array_rmw",
+      "value": 8879456
+    },
+    {
+      "name": "$json:stock",
+      "value": 8495768
+    },
+    {
+      "name": "$gameplay:work_queue_read",
+      "value": 8428688
+    },
+    {
+      "name": "$schema:get_locked",
+      "value": 8365728
+    },
+    {
+      "name": "$$$/$$/src/ecs/captured-column:restore_prepared",
+      "value": 8320600
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:checked",
+      "value": 8156976
+    },
+    {
+      "name": "$reference-declarations:empty_body",
+      "value": 7953352
+    },
+    {
+      "name": "$$$/$$/src/ecs/captured-column:capture_seek",
+      "value": 7910136
+    },
+    {
+      "name": "$List$show",
+      "value": 7873176
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:projected",
+      "value": 7572704
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:write",
+      "value": 7448384
+    },
+    {
+      "name": "(anonymous at line 6786)",
+      "value": 7405224
+    },
+    {
+      "name": "$List$append",
+      "value": 7370608
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:swap_join",
+      "value": 7207592
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:target",
+      "value": 7153872
+    },
+    {
+      "name": "$$$/$$/src/ecs/capabilities:set",
+      "value": 6960160
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:write_taken",
+      "value": 6856912
+    },
+    {
+      "name": "$gameplay:duplicate_body",
+      "value": 6807952
+    },
+    {
+      "name": "(anonymous at line 1644)",
+      "value": 6762896
+    },
+    {
+      "name": "$json:recipe",
+      "value": 6723992
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepared_evacuated",
+      "value": 6647752
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:write_split",
+      "value": 6594272
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:mark_swapped",
+      "value": 6517904
+    },
+    {
+      "name": "$$$/$$/src/ecs/restored-row:projected_owner",
+      "value": 6400312
+    },
+    {
+      "name": "$json:queue",
+      "value": 6187512
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:write_checked",
+      "value": 6001240
+    },
+    {
+      "name": "$$$/$$/src/ecs/restored-row:attach",
+      "value": 5946200
+    },
+    {
+      "name": "$$$/$$/src/ecs/lifecycle:set",
+      "value": 5909936
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:read_join",
+      "value": 5618592
+    },
+    {
+      "name": "$reference-declarations:advanced_lifecycle",
+      "value": 5504768
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:handles_finish",
+      "value": 5475936
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:lifecycle_match",
+      "value": 5406288
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:mark",
+      "value": 5368736
+    },
+    {
+      "name": "$List$reverse",
+      "value": 5367680
+    },
+    {
+      "name": "$driver:record_finish",
+      "value": 5315200
+    },
+    {
+      "name": "io_print",
+      "value": 5230608
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:restored",
+      "value": 5218312
+    },
+    {
+      "name": "$reference-declarations:advanced_stock_read",
+      "value": 5213080
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:write_targeted",
+      "value": 5144280
+    },
+    {
+      "name": "$schema:prepare_enabled",
+      "value": 5058296
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:tx_get_join",
+      "value": 5044224
+    },
+    {
+      "name": "(anonymous at line 5622)",
+      "value": 5040072
+    },
+    {
+      "name": "$$$/$$/src/ecs/lifecycle:clear",
+      "value": 5039648
+    },
+    {
+      "name": "$$$/$$/src/ecs/optimized-compose:recovered",
+      "value": 5034872
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:cell_matches",
+      "value": 4843464
+    },
+    {
+      "name": "io_bytes",
+      "value": 4785456
+    },
+    {
+      "name": "encode",
+      "value": 4785456
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:write_matching",
+      "value": 4684504
+    },
+    {
+      "name": "$gameplay:duplicate_named",
+      "value": 4635752
+    },
+    {
+      "name": "$gameplay:duplicate_selected",
+      "value": 4635752
+    },
+    {
+      "name": "(anonymous at line 4761)",
+      "value": 4506160
+    },
+    {
+      "name": "$owned-rows:set_work_stock",
+      "value": 4506160
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:replace",
+      "value": 4288248
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:lifecycle",
+      "value": 4273528
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:write_clocked",
+      "value": 4241024
+    },
+    {
+      "name": "$schema:populate_queue",
+      "value": 4074328
+    },
+    {
+      "name": "$owned-rows:leave_work_header",
+      "value": 3948088
+    },
+    {
+      "name": "$owned-rows:leave_work_cold",
+      "value": 3915160
+    },
+    {
+      "name": "$reference-declarations:lifecycle_recipe",
+      "value": 3910656
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:tx_finish",
+      "value": 3909976
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:finished",
+      "value": 3859536
+    },
+    {
+      "name": "$$$/$$/src/ecs/transaction:finish",
+      "value": 3811344
+    },
+    {
+      "name": "$$$/$$/src/ecs/structural:apply",
+      "value": 3746088
+    },
+    {
+      "name": "$$$/$$/src/ecs/transaction:finish_world",
+      "value": 3728808
+    },
+    {
+      "name": "$schema:populate_stock",
+      "value": 3646624
+    },
+    {
+      "name": "$schema:project_stock_join",
+      "value": 3562040
+    },
+    {
+      "name": "$json:array",
+      "value": 3526944
+    },
+    {
+      "name": "$schema:prepare_advanced",
+      "value": 3498016
+    },
+    {
+      "name": "$scenario-ops:seed",
+      "value": 3481112
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepared_view_current",
+      "value": 3470864
+    },
+    {
+      "name": "$schema:populate_locked",
+      "value": 3351392
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:valid",
+      "value": 3338632
+    },
+    {
+      "name": "(anonymous at line 10163)",
+      "value": 3320752
+    },
+    {
+      "name": "$owned-rows:get_advanced_stock",
+      "value": 3320752
+    },
+    {
+      "name": "$schema:project_queue_join",
+      "value": 3315408
+    },
+    {
+      "name": "$schema:populate_recipe",
+      "value": 3303168
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:metadata_valid",
+      "value": 3275504
+    },
+    {
+      "name": "$schema:populate_enabled",
+      "value": 3253600
+    },
+    {
+      "name": "$schema:project_recipe_join",
+      "value": 3233688
+    },
+    {
+      "name": "$String$cmp$rec",
+      "value": 3134760
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:swap",
+      "value": 3119488
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:replaced",
+      "value": 3075176
+    },
+    {
+      "name": "$Char$cmp",
+      "value": 2973344
+    },
+    {
+      "name": "$reference-declarations:id_read",
+      "value": 2928808
+    },
+    {
+      "name": "$schema:payload_array",
+      "value": 2904848
+    },
+    {
+      "name": "(anonymous at line 10169)",
+      "value": 2811872
+    },
+    {
+      "name": "$owned-rows:get_advanced_queue",
+      "value": 2811872
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:get_live_read",
+      "value": 2757568
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:selected_join",
+      "value": 2725040
+    },
+    {
+      "name": "$schema:take_enabled",
+      "value": 2712240
+    },
+    {
+      "name": "$schema:project_enabled",
+      "value": 2709984
+    },
+    {
+      "name": "(anonymous at line 5287)",
+      "value": 2678752
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:swap_sized",
+      "value": 2643072
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:swap_checked",
+      "value": 2643072
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:lifecycle_allowed",
+      "value": 2612168
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:collect_join",
+      "value": 2610272
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:lifecycle_world",
+      "value": 2595712
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:restore_stamp",
+      "value": 2577512
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:define",
+      "value": 2574904
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:restore_state",
+      "value": 2561032
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:checked_metadata",
+      "value": 2546856
+    },
+    {
+      "name": "(anonymous at line 6178)",
+      "value": 2530104
+    },
+    {
+      "name": "(anonymous at line 4780)",
+      "value": 2479688
+    },
+    {
+      "name": "$owned-rows:id_work",
+      "value": 2479688
+    },
+    {
+      "name": "$owned-rows:id_work_header",
+      "value": 2479688
+    },
+    {
+      "name": "(anonymous at line 9588)",
+      "value": 2465544
+    },
+    {
+      "name": "$declarations:queue_send",
+      "value": 2449096
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:ensure",
+      "value": 2429664
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:ensure_checked",
+      "value": 2429664
+    },
+    {
+      "name": "$$$/$$/src/ecs/restored-row:captured",
+      "value": 2380720
+    },
+    {
+      "name": "$$$/$$/src/ecs/lifecycle:get",
+      "value": 2298144
+    },
+    {
+      "name": "$gameplay:duplicate_after_a",
+      "value": 2169584
+    },
+    {
+      "name": "$reference-declarations:empty_join",
+      "value": 2166448
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:past_current",
+      "value": 2116744
+    },
+    {
+      "name": "(anonymous at line 6081)",
+      "value": 2102112
+    },
+    {
+      "name": "$$$/$$/src/ecs/transaction:begin",
+      "value": 2101248
+    },
+    {
+      "name": "(anonymous at line 1875)",
+      "value": 2086368
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:access",
+      "value": 2066848
+    },
+    {
+      "name": "$schema:take_stock",
+      "value": 2037776
+    },
+    {
+      "name": "$reference-declarations:id_get",
+      "value": 2020608
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:prepend",
+      "value": 2003072
+    },
+    {
+      "name": "$owned-rows:enter_advanced",
+      "value": 1989200
+    },
+    {
+      "name": "$$$/$$/src/ecs/captured-column:stamped",
+      "value": 1937232
+    },
+    {
+      "name": "$schema:shape",
+      "value": 1936312
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:recover",
+      "value": 1845952
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:recover_state",
+      "value": 1845952
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:recover_current",
+      "value": 1845952
+    },
+    {
+      "name": "$schema:recover_store",
+      "value": 1796808
+    },
+    {
+      "name": "$reference-declarations:match_queue",
+      "value": 1775272
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:valid_join",
+      "value": 1742608
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:valid_checked",
+      "value": 1742608
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:ensure_sized",
+      "value": 1723384
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:grow",
+      "value": 1723384
+    },
+    {
+      "name": "$schema:take_recipe",
+      "value": 1692616
+    },
+    {
+      "name": "$owned-rows:write_duplicate_stock",
+      "value": 1678352
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:advance_clock",
+      "value": 1661032
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:checked_live",
+      "value": 1627152
+    },
+    {
+      "name": "$owned-rows:take_work_stock",
+      "value": 1610352
+    },
+    {
+      "name": "$owned-rows:journal_work_stock",
+      "value": 1547208
+    },
+    {
+      "name": "$owned-rows:journal_work_stock_header",
+      "value": 1547208
+    },
+    {
+      "name": "$schema:take_queue",
+      "value": 1544128
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:owner_present",
+      "value": 1543256
+    },
+    {
+      "name": "$U32$show",
+      "value": 1541832
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:clock",
+      "value": 1496360
+    },
+    {
+      "name": "$reference-declarations:lifecycle_stock",
+      "value": 1495632
+    },
+    {
+      "name": "$scenario-ops:spawn",
+      "value": 1494936
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:tx_spawn",
+      "value": 1494936
+    },
+    {
+      "name": "$schema:stock_payload",
+      "value": 1493600
+    },
+    {
+      "name": "$owned-rows:put_work_stock",
+      "value": 1467632
+    },
+    {
+      "name": "$owned-rows:take_work_recipe",
+      "value": 1461840
+    },
+    {
+      "name": "$owned-rows:put_work_recipe",
+      "value": 1460792
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:lifecycle_store",
+      "value": 1444736
+    },
+    {
+      "name": "$schema:put_recipe",
+      "value": 1428352
+    },
+    {
+      "name": "$$$/$$/src/ecs/transaction:rollback",
+      "value": 1413008
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:live_join",
+      "value": 1397872
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:collect_step",
+      "value": 1395488
+    },
+    {
+      "name": "$observe:row_accumulate",
+      "value": 1395392
+    },
+    {
+      "name": "$schema:take_locked",
+      "value": 1346848
+    },
+    {
+      "name": "$owned-rows:header_work_stock",
+      "value": 1346200
+    },
+    {
+      "name": "$$$/$$/src/ecs/structural:tx_replace",
+      "value": 1315576
+    },
+    {
+      "name": "$List$reverse$go",
+      "value": 1296752
+    },
+    {
+      "name": "$reference-declarations:advanced_queue_read",
+      "value": 1282928
+    },
+    {
+      "name": "$scenario-ops:churn",
+      "value": 1281624
+    },
+    {
+      "name": "$scenario-ops:churn_namespace",
+      "value": 1265168
+    },
+    {
+      "name": "$owned-rows:header_work_recipe",
+      "value": 1263896
+    },
+    {
+      "name": "$owned-rows:put_work_queue",
+      "value": 1263792
+    },
+    {
+      "name": "$U32$show$go",
+      "value": 1263336
+    },
+    {
+      "name": "$schema:put_stock",
+      "value": 1231320
+    },
+    {
+      "name": "$owned-rows:journal_work_stock_cold",
+      "value": 1201104
+    },
+    {
+      "name": "$owned-rows:get_duplicate_stock",
+      "value": 1199840
+    },
+    {
+      "name": "$schema:put_enabled",
+      "value": 1198408
+    },
+    {
+      "name": "$schema:recipe",
+      "value": 1197256
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:handle_get",
+      "value": 1166160
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:swapped",
+      "value": 1133440
+    },
+    {
+      "name": "$schema:shape_advance",
+      "value": 1115832
+    },
+    {
+      "name": "$schema:recipe_payload",
+      "value": 1099848
+    },
+    {
+      "name": "(anonymous at line 4503)",
+      "value": 1068664
+    },
+    {
+      "name": "$owned-rows:set_duplicate_stock",
+      "value": 1068664
+    },
+    {
+      "name": "$owned-rows:take_work_queue",
+      "value": 1051424
+    },
+    {
+      "name": "$schema:enabled",
+      "value": 1049616
+    },
+    {
+      "name": "$driver:init_created",
+      "value": 1035800
+    },
+    {
+      "name": "$owned-rows:header_work_queue",
+      "value": 1034024
+    },
+    {
+      "name": "$schema:locked",
+      "value": 1033208
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:absent",
+      "value": 1017336
+    },
+    {
+      "name": "$owned-rows:write_work_queue",
+      "value": 1003704
+    },
+    {
+      "name": "(anonymous at line 1692)",
+      "value": 1001944
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:despawn_apply_with",
+      "value": 1001944
+    },
+    {
+      "name": "$schema:array_join",
+      "value": 1001536
+    },
+    {
+      "name": "$$$/$$/src/ecs/restored-row:replace",
+      "value": 985080
+    },
+    {
+      "name": "observerCallback",
+      "value": 971424
+    },
+    {
+      "name": "$schema:queue_payload",
+      "value": 968432
+    },
+    {
+      "name": "$owned-rows:leave_advanced",
+      "value": 954920
+    },
+    {
+      "name": "(anonymous at line 10062)",
+      "value": 953344
+    },
+    {
+      "name": "$owned-rows:set_work_recipe",
+      "value": 953344
+    },
+    {
+      "name": "$owned-rows:put_header_work_stock",
+      "value": 953120
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:clear_accepted",
+      "value": 952592
+    },
+    {
+      "name": "$schema:put_queue",
+      "value": 952168
+    },
+    {
+      "name": "(anonymous at line 10072)",
+      "value": 920216
+    },
+    {
+      "name": "$owned-rows:set_work_queue",
+      "value": 920216
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:with_store",
+      "value": 919640
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:lifecycle_join",
+      "value": 919456
+    },
+    {
+      "name": "$schema:stock",
+      "value": 918416
+    },
+    {
+      "name": "$schema:stock_owner",
+      "value": 886264
+    },
+    {
+      "name": "$owned-rows:read_advanced_stock",
+      "value": 872256
+    },
+    {
+      "name": "$owned-rows:write_work_recipe",
+      "value": 871776
+    },
+    {
+      "name": "$scenario-ops:insert",
+      "value": 871152
+    },
+    {
+      "name": "$scenario-ops:advanced_replace",
+      "value": 870704
+    },
+    {
+      "name": "$schema:put_locked",
+      "value": 870208
+    },
+    {
+      "name": "$scenario-ops:insert_namespace",
+      "value": 854704
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:spawn_join",
+      "value": 854336
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:spawn_reserved",
+      "value": 854336
+    },
+    {
+      "name": "$scenario-ops:advanced_replace_namespace",
+      "value": 854248
+    },
+    {
+      "name": "(anonymous at line 2579)",
+      "value": 853856
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:lifecycle",
+      "value": 853640
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:outcome",
+      "value": 853520
+    },
+    {
+      "name": "cmp_new",
+      "value": 853472
+    },
+    {
+      "name": "$scenario-ops:commit",
+      "value": 838168
+    },
+    {
+      "name": "$owned-rows:id_read_advanced",
+      "value": 806784
+    },
+    {
+      "name": "$owned-rows:read_advanced_queue",
+      "value": 806176
+    },
+    {
+      "name": "$owned-rows:enter_duplicate",
+      "value": 805800
+    },
+    {
+      "name": "$schema:clear",
+      "value": 804544
+    },
+    {
+      "name": "$schema:clear_inner",
+      "value": 804544
+    },
+    {
+      "name": "$schema:clear_column",
+      "value": 804544
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:clear",
+      "value": 804544
+    },
+    {
+      "name": "$owned-rows:put_header_work_queue",
+      "value": 788640
+    },
+    {
+      "name": "$$$/$$/src/ecs/capabilities:send",
+      "value": 774696
+    },
+    {
+      "name": "$owned-rows:leave_duplicate",
+      "value": 773688
+    },
+    {
+      "name": "$schema:queue_recipe",
+      "value": 772808
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-compose:finish_returned",
+      "value": 771312
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:register",
+      "value": 756680
+    },
+    {
+      "name": "deprecate",
+      "value": 740736
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:collect_checked",
+      "value": 738752
+    },
+    {
+      "name": "$$$/$$/src/ecs/restored-row:replacement_present",
+      "value": 722384
+    },
+    {
+      "name": "$$$/$$/src/ecs/structural:queue_join",
+      "value": 707176
+    },
+    {
+      "name": "$driver:init_work",
+      "value": 707064
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:replaced",
+      "value": 706496
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:restore",
+      "value": 690248
+    },
+    {
+      "name": "$$$/$$/src/ecs/structural:queue_checked",
+      "value": 674360
+    },
+    {
+      "name": "(anonymous at line 4500)",
+      "value": 673904
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:restore_stamp",
+      "value": 673560
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:restore_stamp_world",
+      "value": 673560
+    },
+    {
+      "name": "array_node",
+      "value": 672880
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:activate",
+      "value": 657808
+    },
+    {
+      "name": "$scenario-ops:remove",
+      "value": 657464
+    },
+    {
+      "name": "$owned-rows:put_header_work_recipe",
+      "value": 641088
+    },
+    {
+      "name": "$scenario-ops:remove_namespace",
+      "value": 641064
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:reserve_id",
+      "value": 640600
+    },
+    {
+      "name": "$reference-declarations:id_join",
+      "value": 640416
+    },
+    {
+      "name": "$schema:shape_choose",
+      "value": 639936
+    },
+    {
+      "name": "$owned-rows:read_duplicate_stock",
+      "value": 626768
+    },
+    {
+      "name": "(anonymous at line 1865)",
+      "value": 624336
+    },
+    {
+      "name": "array_new",
+      "value": 607640
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:lifecycle_join",
+      "value": 591096
+    },
+    {
+      "name": "$$$/$$/src/ecs/lifecycle:after_write",
+      "value": 591040
+    },
+    {
+      "name": "(anonymous at line 2146)",
+      "value": 575168
+    },
+    {
+      "name": "(anonymous at line 10790)",
+      "value": 575024
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:insert_apply",
+      "value": 575024
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:register_namespace",
+      "value": 559448
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:reserve_available",
+      "value": 558440
+    },
+    {
+      "name": "$owned-rows:id_read_duplicate",
+      "value": 543056
+    },
+    {
+      "name": "$schema:seed_5",
+      "value": 541688
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:namespace",
+      "value": 526520
+    },
+    {
+      "name": "(anonymous at line 4510)",
+      "value": 525936
+    },
+    {
+      "name": "(anonymous at line 4760)",
+      "value": 510376
+    },
+    {
+      "name": "(anonymous at line 11401)",
+      "value": 509328
+    },
+    {
+      "name": "$schema:create",
+      "value": 509096
+    },
+    {
+      "name": "$$$/$$/src/ecs/lifecycle:keep",
+      "value": 508960
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:restore_stamp_store",
+      "value": 508960
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:enqueue",
+      "value": 493304
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:enqueue_list",
+      "value": 493304
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:enqueue",
+      "value": 493304
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:insert",
+      "value": 493008
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:restore_allowed",
+      "value": 492776
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:restore_world",
+      "value": 492776
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:create",
+      "value": 492680
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:create_checked",
+      "value": 492680
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:cleared",
+      "value": 476128
+    },
+    {
+      "name": "$schema:queue",
+      "value": 475648
+    },
+    {
+      "name": "(anonymous at line 2136)",
+      "value": 460216
+    },
+    {
+      "name": "(anonymous at line 12202)",
+      "value": 459968
+    },
+    {
+      "name": "io_out",
+      "value": 445152
+    },
+    {
+      "name": "(anonymous at line 12277)",
+      "value": 443712
+    },
+    {
+      "name": "$owned-rows:leave_duplicate_cold",
+      "value": 443656
+    },
+    {
+      "name": "$owned-rows:leave_duplicate_header",
+      "value": 443656
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:clocked",
+      "value": 443480
+    },
+    {
+      "name": "$$$/$$/src/ecs/owned-family:clock_checked",
+      "value": 443480
+    },
+    {
+      "name": "(anonymous at line 4516)",
+      "value": 443424
+    },
+    {
+      "name": "$owned-rows:id_duplicate",
+      "value": 443424
+    },
+    {
+      "name": "$owned-rows:id_duplicate_header",
+      "value": 443424
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:clear_stamp",
+      "value": 443296
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:register",
+      "value": 427856
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:all",
+      "value": 426880
+    },
+    {
+      "name": "$schema:seed_4",
+      "value": 426768
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:recover_selected_rows",
+      "value": 426480
+    },
+    {
+      "name": "$schema:prepare_stock",
+      "value": 410488
+    },
+    {
+      "name": "$$$/$$/src/ecs/lifecycle:written",
+      "value": 410464
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:reserve_finish",
+      "value": 394224
+    },
+    {
+      "name": "$schema:seed_1",
+      "value": 393896
+    },
+    {
+      "name": "$Nat$is_eq",
+      "value": 393856
+    },
+    {
+      "name": "$json:quoted",
+      "value": 393704
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:set_live_join",
+      "value": 377952
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:set_live_checked",
+      "value": 377952
+    },
+    {
+      "name": "$schema:recover_enabled",
+      "value": 377720
+    },
+    {
+      "name": "$owned-rows:leave_advanced_cold",
+      "value": 361520
+    },
+    {
+      "name": "$owned-rows:leave_advanced_header",
+      "value": 361520
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:restore_store",
+      "value": 344808
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:register_checked",
+      "value": 328680
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:tracked_result",
+      "value": 328608
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:tracked_outcome",
+      "value": 328608
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:lifecycle_state",
+      "value": 328440
+    },
+    {
+      "name": "$schema:empty_store",
+      "value": 328360
+    },
+    {
+      "name": "$schema:churn_bundle",
+      "value": 328280
+    },
+    {
+      "name": "$schema:seed_3",
+      "value": 311936
+    },
+    {
+      "name": "$schema:recover_advanced",
+      "value": 311880
+    },
+    {
+      "name": "$driver:init_retry",
+      "value": 296352
+    },
+    {
+      "name": "$owned-rows:journal_duplicate_stock",
+      "value": 296208
+    },
+    {
+      "name": "$owned-rows:journal_duplicate_stock_header",
+      "value": 296208
+    },
+    {
+      "name": "$owned-rows:journal_work_recipe",
+      "value": 295784
+    },
+    {
+      "name": "$owned-rows:journal_work_recipe_header",
+      "value": 295784
+    },
+    {
+      "name": "(anonymous at line 10175)",
+      "value": 295688
+    },
+    {
+      "name": "$owned-rows:journal_duplicate_stock_cold",
+      "value": 279776
+    },
+    {
+      "name": "$owned-rows:id_advanced",
+      "value": 279288
+    },
+    {
+      "name": "$owned-rows:id_advanced_header",
+      "value": 279288
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:empty",
+      "value": 279120
+    },
+    {
+      "name": "$driver:finish",
+      "value": 278960
+    },
+    {
+      "name": "$schema:queue_enabled",
+      "value": 263144
+    },
+    {
+      "name": "$owned-rows:journal_work_recipe_cold",
+      "value": 262952
+    },
+    {
+      "name": "$owned-rows:journal_work_queue",
+      "value": 262952
+    },
+    {
+      "name": "$owned-rows:journal_work_queue_header",
+      "value": 262952
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:insert_checked",
+      "value": 262880
+    },
+    {
+      "name": "$$$/$$/src/ecs/restored-row:owner_present",
+      "value": 262696
+    },
+    {
+      "name": "$schema:project_locked",
+      "value": 262688
+    },
+    {
+      "name": "writeSync",
+      "value": 247760
+    },
+    {
+      "name": "$schema:seed_2",
+      "value": 246224
+    },
+    {
+      "name": "$gameplay:duplicate_after_b",
+      "value": 246056
+    },
+    {
+      "name": "$owned-rows:put_duplicate_stock",
+      "value": 229760
+    },
+    {
+      "name": "$schema:queue_locked",
+      "value": 213832
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:tracked_clock",
+      "value": 213576
+    },
+    {
+      "name": "require",
+      "value": 197392
+    },
+    {
+      "name": "(anonymous at line 10061)",
+      "value": 197160
+    },
+    {
+      "name": "$owned-rows:take_duplicate_stock",
+      "value": 197056
+    },
+    {
+      "name": "handleErrorFromBinding",
+      "value": 182128
+    },
+    {
+      "name": "(anonymous at line 1666)",
+      "value": 180992
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:tx_despawn_with",
+      "value": 180968
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:cursor_outcome",
+      "value": 180712
+    },
+    {
+      "name": "$driver:advanced_result",
+      "value": 180568
+    },
+    {
+      "name": "wrapModuleLoad",
+      "value": 164576
+    },
+    {
+      "name": "$scenario-ops:handle",
+      "value": 164296
+    },
+    {
+      "name": "$owned-rows:header_advanced_stock",
+      "value": 164288
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:ensure_state",
+      "value": 164200
+    },
+    {
+      "name": "$owned-rows:put_advanced_stock",
+      "value": 164112
+    },
+    {
+      "name": "setPrototypeOf",
+      "value": 148480
+    },
+    {
+      "name": "(anonymous at line 1314)",
+      "value": 131768
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:register_join",
+      "value": 131592
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:register_meta",
+      "value": 131592
+    },
+    {
+      "name": "$owned-rows:journal_work_queue_cold",
+      "value": 131480
+    },
+    {
+      "name": "wrappedFn",
+      "value": 131456
+    },
+    {
+      "name": "$owned-rows:put_header_advanced_queue",
+      "value": 131296
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:despawn_join_with",
+      "value": 115184
+    },
+    {
+      "name": "$$$/$$/src/ecs/commands:despawn_checked_with",
+      "value": 115184
+    },
+    {
+      "name": "$owned-rows:header_advanced_queue",
+      "value": 115040
+    },
+    {
+      "name": "$schema:queue_stock",
+      "value": 114992
+    },
+    {
+      "name": "$owned-rows:take_advanced_stock",
+      "value": 114976
+    },
+    {
+      "name": "$driver:unit_outcome",
+      "value": 114976
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:grow_live",
+      "value": 114976
+    },
+    {
+      "name": "$reference-declarations:advanced_id",
+      "value": 114880
+    },
+    {
+      "name": "$owned-rows:put_advanced_queue",
+      "value": 114872
+    },
+    {
+      "name": "post",
+      "value": 103168
+    },
+    {
+      "name": "Promise",
+      "value": 103168
+    },
+    {
+      "name": "(anonymous at line 5)",
+      "value": 103168
+    },
+    {
+      "name": "(anonymous at line 215)",
+      "value": 98592
+    },
+    {
+      "name": "(anonymous at line 4502)",
+      "value": 98552
+    },
+    {
+      "name": "$owned-rows:header_duplicate_stock",
+      "value": 98496
+    },
+    {
+      "name": "$$$/$$/src/ecs/component:restore_swap",
+      "value": 98496
+    },
+    {
+      "name": "$U32$show$if",
+      "value": 98352
+    },
+    {
+      "name": "$IO$bind",
+      "value": 82360
+    },
+    {
+      "name": "$owned-rows:take_advanced_queue",
+      "value": 82176
+    },
+    {
+      "name": "(anonymous at line 203)",
+      "value": 82120
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:recover_past",
+      "value": 73248
+    },
+    {
+      "name": "resolveForCJSWithHooks",
+      "value": 65792
+    },
+    {
+      "name": "(anonymous at line 10071)",
+      "value": 65752
+    },
+    {
+      "name": "$$$/$$/src/ecs/system:complete",
+      "value": 65728
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:swap_state",
+      "value": 65712
+    },
+    {
+      "name": "$$$/$$/src/ecs/column:prepared_swap",
+      "value": 65712
+    },
+    {
+      "name": "$driver:step_retry_result",
+      "value": 65696
+    },
+    {
+      "name": "$schema:seed_6",
+      "value": 65664
+    },
+    {
+      "name": "$owned-rows:put_header_advanced_stock",
+      "value": 65656
+    },
+    {
+      "name": "codePointAt",
+      "value": 50160
+    },
+    {
+      "name": "(anonymous at line 9587)",
+      "value": 49496
+    },
+    {
+      "name": "$$$/$$/src/ecs/world:deactivate",
+      "value": 49352
+    },
+    {
+      "name": "$owned-rows:put_header_duplicate_stock",
+      "value": 49312
+    },
+    {
+      "name": "$run",
+      "value": 49312
+    },
+    {
+      "name": "processImmediate",
+      "value": 49232
+    },
+    {
+      "name": "(anonymous at line 127)",
+      "value": 49232
+    },
+    {
+      "name": "(anonymous at line 354)",
+      "value": 49232
+    },
+    {
+      "name": "getDeprecationWarningEmitter",
+      "value": 49224
+    },
+    {
+      "name": "getOwnPropertyDescriptor",
+      "value": 49200
+    },
+    {
+      "name": "SafeMap",
+      "value": 32984
+    },
+    {
+      "name": "Map",
+      "value": 32984
+    },
+    {
+      "name": "defaultResolveImplForCJSLoading",
+      "value": 32960
+    },
+    {
+      "name": "wrapResolveFilename",
+      "value": 32960
+    },
+    {
+      "name": "$driver:duplicate_result",
+      "value": 32848
+    },
+    {
+      "name": "$driver:advanced_outcome",
+      "value": 32832
+    },
+    {
+      "name": "$schema:recover_stock",
+      "value": 32824
+    },
+    {
+      "name": "$driver:init_advanced",
+      "value": 32816
+    },
+    {
+      "name": "loadBuiltinWithHooks",
+      "value": 32816
+    },
+    {
+      "name": "(anonymous at line 4)",
+      "value": 32816
+    },
+    {
+      "name": "get duration",
+      "value": 32816
+    },
+    {
+      "name": "$IO$print",
+      "value": 32808
+    },
+    {
+      "name": "$$$/$$/src/ecs/transaction:stage",
+      "value": 32800
+    },
+    {
+      "name": "$gameplay:retry_value",
+      "value": 19296
+    },
+    {
+      "name": "$$$/$$/src/ecs/compose:selected_value",
+      "value": 17120
+    },
+    {
+      "name": "enqueue",
+      "value": 16576
+    },
+    {
+      "name": "(anonymous at line 345)",
+      "value": 16576
+    },
+    {
+      "name": "get entryType",
+      "value": 16576
+    },
+    {
+      "name": "$schema:shape_depth",
+      "value": 16416
+    },
+    {
+      "name": "$gameplay:retry_outcome",
+      "value": 16416
+    },
+    {
+      "name": "$driver:step_work_result",
+      "value": 16416
+    },
+    {
+      "name": "PerformanceObserverEntryList",
+      "value": 16416
+    },
+    {
+      "name": "sort",
+      "value": 16416
+    },
+    {
+      "name": "performanceObserverSorter",
+      "value": 16416
+    },
+    {
+      "name": "get startTime",
+      "value": 16416
+    },
+    {
+      "name": "io_push",
+      "value": 16408
+    },
+    {
+      "name": "(EXTERNAL)",
+      "value": 16400
+    }
+  ],
+  "heapModuleInclusiveSampledBytes": [
+    {
+      "name": "other/runtime/observation",
+      "value": 912850224
+    },
+    {
+      "name": "ecs/owned-optimized-compose",
+      "value": 613477024
+    },
+    {
+      "name": "ecs/owned-compose",
+      "value": 564451008
+    },
+    {
+      "name": "ecs/component",
+      "value": 326330016
+    },
+    {
+      "name": "ecs/column",
+      "value": 304659848
+    },
+    {
+      "name": "ecs/capabilities",
+      "value": 213931040
+    },
+    {
+      "name": "ecs/system",
+      "value": 194881888
+    },
+    {
+      "name": "ecs/compose",
+      "value": 164870776
+    },
+    {
+      "name": "ecs/world",
+      "value": 124748816
+    },
+    {
+      "name": "ecs/owned-family",
+      "value": 121051464
+    },
+    {
+      "name": "ecs/restored-row",
+      "value": 103058216
+    },
+    {
+      "name": "ecs/optimized-compose",
+      "value": 49026016
+    },
+    {
+      "name": "ecs/captured-column",
+      "value": 27366280
+    },
+    {
+      "name": "ecs/commands",
+      "value": 24956896
+    },
+    {
+      "name": "ecs/lifecycle",
+      "value": 9291600
+    },
+    {
+      "name": "ecs/transaction",
+      "value": 6027544
+    },
+    {
+      "name": "ecs/structural",
+      "value": 5061664
+    }
+  ]
+}

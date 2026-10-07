@@ -1,0 +1,91 @@
+{
+  "scope": "Five exploratory copied-JS vm.Script phase samples; zero exit intercepted to observe final phase; full output checked; not gate/acceptance",
+  "samples": [
+    {
+      "i": 0,
+      "role": "baseline",
+      "sourceSHA256": "926bb3dd820d6fedb9f11a5759e37564531826977178c11c4d6b38f1e5000e67",
+      "readMs": 0.4445440000000005,
+      "compileMs": 2.665641000000001,
+      "executeMs": 76.351
+    },
+    {
+      "i": 0,
+      "role": "candidate",
+      "sourceSHA256": "5bab8b6831f603abb7fe399fed64c642baf0ad556340e60f050075ec9270ea1a",
+      "readMs": 0.33487699999999876,
+      "compileMs": 3.6301050000000004,
+      "executeMs": 87.733819
+    },
+    {
+      "i": 1,
+      "role": "candidate",
+      "sourceSHA256": "5bab8b6831f603abb7fe399fed64c642baf0ad556340e60f050075ec9270ea1a",
+      "readMs": 0.308584999999999,
+      "compileMs": 3.5443550000000013,
+      "executeMs": 95.779575
+    },
+    {
+      "i": 1,
+      "role": "baseline",
+      "sourceSHA256": "926bb3dd820d6fedb9f11a5759e37564531826977178c11c4d6b38f1e5000e67",
+      "readMs": 0.29900199999999977,
+      "compileMs": 2.7053910000000005,
+      "executeMs": 82.809789
+    },
+    {
+      "i": 2,
+      "role": "baseline",
+      "sourceSHA256": "926bb3dd820d6fedb9f11a5759e37564531826977178c11c4d6b38f1e5000e67",
+      "readMs": 0.30616799999999955,
+      "compileMs": 2.8170590000000004,
+      "executeMs": 86.706062
+    },
+    {
+      "i": 2,
+      "role": "candidate",
+      "sourceSHA256": "5bab8b6831f603abb7fe399fed64c642baf0ad556340e60f050075ec9270ea1a",
+      "readMs": 0.5526699999999991,
+      "compileMs": 3.802023000000002,
+      "executeMs": 99.79064
+    },
+    {
+      "i": 3,
+      "role": "candidate",
+      "sourceSHA256": "5bab8b6831f603abb7fe399fed64c642baf0ad556340e60f050075ec9270ea1a",
+      "readMs": 0.3573769999999996,
+      "compileMs": 3.3901460000000014,
+      "executeMs": 105.80192600000001
+    },
+    {
+      "i": 3,
+      "role": "baseline",
+      "sourceSHA256": "926bb3dd820d6fedb9f11a5759e37564531826977178c11c4d6b38f1e5000e67",
+      "readMs": 0.3656689999999987,
+      "compileMs": 2.8953089999999992,
+      "executeMs": 83.95237900000001
+    },
+    {
+      "i": 4,
+      "role": "baseline",
+      "sourceSHA256": "926bb3dd820d6fedb9f11a5759e37564531826977178c11c4d6b38f1e5000e67",
+      "readMs": 0.27379399999999876,
+      "compileMs": 2.4542230000000007,
+      "executeMs": 82.173159
+    },
+    {
+      "i": 4,
+      "role": "candidate",
+      "sourceSHA256": "5bab8b6831f603abb7fe399fed64c642baf0ad556340e60f050075ec9270ea1a",
+      "readMs": 0.37079400000000007,
+      "compileMs": 3.961314999999999,
+      "executeMs": 95.395989
+    }
+  ],
+  "limitations": [
+    "Exploratory five-sample phase decomposition, not paired regression acceptance",
+    "vm.Script wrapper exposes require and intercepts only zero process.exit to record end time",
+    "An initial unaccepted wrapper attempt lacked global require and failed before complete execution; no timing accepted",
+    "No claimed compile/execution hot-path equivalence or product qualification"
+  ]
+}

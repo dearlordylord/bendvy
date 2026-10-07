@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : instance
+- observed : instance (consumed more than once)
+Location: duplicate
+4 | 
+5>| def duplicate(instance: L.Instance<S.Schema,Unit,U32,Unit,S.Owner,S.Args,Unit,S.Output,S.runner>) -> L.Instance<S.Schema,Unit,U32,Unit,S.Owner,S.Args,Unit,S.Output,S.runner> & L.Instance<S.Schema,Unit,U32,Unit,S.Owner,S.Args,Unit,S.Output,S.runner>:
+  |               ^^^^^^^^
+6 |   (instance,instance)
