@@ -1,0 +1,706 @@
+--- /dev/null
++++ b/src/ecs/relation-cleanup.bend
+@@ -0,0 +1,102 @@
++import Base
++import relation-types.bend as G
++import relation-graph.bend as C
++import relation-commands.bend as A
++import world.bend as W
++
++# Explicit experiment continuation. Exhaustion retains every affine owner/frame.
++type CleanupResult<S: Data,C: Type,R: Type,E: Data> is Type:
++  Complete{world: W.World<S,A.Store<S,C>,R,A.Notice<S,E>>}
++  Incomplete{world: W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,frames: List<&2,G.CleanupFrame<S>>}
++def snapshot(~S: Data,~C: Type,store: A.Store<S,C>,descriptor: G.Descriptor<S>,id: U32) -> A.Store<S,C> & List<&2,U32>:
++  A.store_inverse(~S,~C,store,descriptor,id)
++def clear_join(~S:Data,~C:Type,~E:Data,cleared:C & List<&2,A.Notice<S,E>>,graph:G.Graph<S>) -> A.Store<S,C> & List<&2,A.Notice<S,E>>:
++  (components,notices) = cleared
++  (A.Store{components,graph},notices)
++def clear_store(~S: Data,~C: Type,~E: Data,~clear: C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,store: A.Store<S,C>,handle: W.Handle<S>) -> A.Store<S,C> & List<&2,A.Notice<S,E>>:
++  match store:
++    case A.Store{components,graph}: clear_join(~S,~C,~E,clear(components,handle),graph)
++def publish_final(~S:Data,~C:Type,~R:Type,~E:Data,~record:W.Handle<S> -> A.Notice<S,E>,deactivated:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & W.Status,notices:List<&2,A.Notice<S,E>>,handle:W.Handle<S>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>:
++  (world,_) = deactivated
++  W.event_publish(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,world,List.append(&2,A.Notice<S,E>,notices,[record(handle)]))
++def finalized(~S: Data,~C: Type,~R: Type,~E: Data,~record: W.Handle<S> -> A.Notice<S,E>,cleared: W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,A.Notice<S,E>>,+handle: W.Handle<S>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>:
++  (world,notices) = cleared
++  publish_final(~S,~C,~R,~E,~record,W.deactivate(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,world,handle),notices,handle)
++def finish(~S: Data,~C: Type,~R: Type,~E: Data,~clear: C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record: W.Handle<S> -> A.Notice<S,E>,world: W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,+handle: W.Handle<S>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>:
++  finalized(~S,~C,~R,~E,~record,W.with_store(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,~List<&2,A.Notice<S,E>>,store => clear_store(~S,~C,~E,~clear,store,handle),world),handle)
++def entered(~S: Data,~C: Type,~R: Type,~E: Data,checked: W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & Bool,id: U32,descriptors: List<&2,G.Descriptor<S>>,frames: List<&2,G.CleanupFrame<S>>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,G.CleanupFrame<S>>:
++  match checked:
++    case (world,False{}): (world,frames)
++    case (world,True{}): (world,G.CleanupDescriptors{id,descriptors} <> frames)
++def children_start(~S: Data,~C: Type,~R: Type,~E: Data,observed: W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,U32>,id: U32,descriptor: G.Descriptor<S>,remaining: List<&2,G.Descriptor<S>>,frames: List<&2,G.CleanupFrame<S>>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,G.CleanupFrame<S>>:
++  (world,children) = observed
++  (world,G.CleanupChildren{id,descriptor,remaining,children} <> frames)
++def child_step(~S: Data,~C: Type,~R: Type,~E: Data,kind: G.RelationKind,world: W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,namespace: U32,id: U32,+descriptor: G.Descriptor<S>,remaining: List<&2,G.Descriptor<S>>,child: U32,children: List<&2,U32>,frames: List<&2,G.CleanupFrame<S>>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,G.CleanupFrame<S>>:
++  match kind:
++    case G.Hierarchy{}: (world,G.CleanupEnter{child} <> G.CleanupChildren{id,descriptor,remaining,children} <> frames)
++    case G.Ordinary{}: (A.apply_unrelate(~S,~C,~R,~E,world,descriptor,W.Handle{namespace,child}),G.CleanupChildren{id,descriptor,remaining,children} <> frames)
++def kind(~S: Data,d: G.Descriptor<S>) -> G.RelationKind:
++  match d:
++    case G.Descriptor{_,_,_,kind}: kind
++def step(~S: Data,~C: Type,~R: Type,~E: Data,~clear: C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record: W.Handle<S> -> A.Notice<S,E>,frame: G.CleanupFrame<S>,world: W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,+namespace: U32,+descriptors: List<&2,G.Descriptor<S>>,frames: List<&2,G.CleanupFrame<S>>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,G.CleanupFrame<S>>:
++  match frame:
++    case G.CleanupEnter{+id}: entered(~S,~C,~R,~E,W.valid(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,world,W.Handle{namespace,id}),id,descriptors,frames)
++    case G.CleanupDescriptors{id,[]}: (world,G.CleanupFinish{id} <> frames)
++    case G.CleanupDescriptors{+id,+d <> remaining}: children_start(~S,~C,~R,~E,W.with_store(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,~List<&2,U32>,store => snapshot(~S,~C,store,d,id),world),id,d,remaining,frames)
++    case G.CleanupChildren{+id,d,remaining,[]}: (A.apply_unrelate(~S,~C,~R,~E,world,d,W.Handle{namespace,id}),G.CleanupDescriptors{id,remaining} <> frames)
++    case G.CleanupChildren{id,+d,remaining,child <> children}: child_step(~S,~C,~R,~E,kind(~S,d),world,namespace,id,d,remaining,child,children,frames)
++    case G.CleanupFinish{id}: (finish(~S,~C,~R,~E,~clear,~record,world,W.Handle{namespace,id}),frames)
++def resumed(~S:Data,~C:Type,~R:Type,~E:Data,observed:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,G.CleanupFrame<S>>,next:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> -> List<&2,G.CleanupFrame<S>> -> CleanupResult<S,C,R,E>) -> CleanupResult<S,C,R,E>:
++  (world,frames) = observed
++  next(world,frames)
++def drive(~S: Data,~C: Type,~R: Type,~E: Data,~clear: C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record: W.Handle<S> -> A.Notice<S,E>,fuel: Nat,frames: List<&2,G.CleanupFrame<S>>,world: W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,+namespace: U32,+descriptors: List<&2,G.Descriptor<S>>) -> CleanupResult<S,C,R,E>:
++  match fuel frames:
++    case _ Nil{}: Complete{world}
++    case 0n frames: Incomplete{world,frames}
++    case 1n+rest Con{frame,frames}: resumed(~S,~C,~R,~E,step(~S,~C,~R,~E,~clear,~record,frame,world,namespace,descriptors,frames),world => frames => drive(~S,~C,~R,~E,~clear,~record,rest,frames,world,namespace,descriptors))
++
++
++# Structural product budget. No scalar Nat aggregate/product is computed.
++# Small units retain one affine World+continuation and short-circuit Complete.
++def units(~S:Data,~C:Type,~R:Type,~E:Data,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,fuel:Nat,result:CleanupResult<S,C,R,E>,namespace:U32,descriptors:List<&2,G.Descriptor<S>>) -> CleanupResult<S,C,R,E>:
++  match result:
++    case Complete{world}: Complete{world}
++    case Incomplete{world,frames}: drive(~S,~C,~R,~E,~clear,~record,fuel,frames,world,namespace,descriptors)
++def edge_units(~S:Data,~C:Type,~R:Type,~E:Data,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,remaining:List<&2,G.Edge<S>>,result:CleanupResult<S,C,R,E>,+namespace:U32,+descriptors:List<&2,G.Descriptor<S>>) -> CleanupResult<S,C,R,E>:
++  match remaining result:
++    case Nil{} result: result
++    case Con{_,rest} Complete{world}: Complete{world}
++    case Con{_,rest} result: edge_units(~S,~C,~R,~E,~clear,~record,rest,units(~S,~C,~R,~E,~clear,~record,2n,result,namespace,descriptors),namespace,descriptors)
++def descriptor_units(~S:Data,~C:Type,~R:Type,~E:Data,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,remaining:List<&2,G.Descriptor<S>>,result:CleanupResult<S,C,R,E>,edges:List<&2,G.Edge<S>>,+namespace:U32,+descriptors:List<&2,G.Descriptor<S>>) -> CleanupResult<S,C,R,E>:
++  match remaining result:
++    case Nil{} result: edge_units(~S,~C,~R,~E,~clear,~record,edges,result,namespace,descriptors)
++    case Con{_,rest} Complete{world}: Complete{world}
++    case Con{_,rest} result: descriptor_units(~S,~C,~R,~E,~clear,~record,rest,units(~S,~C,~R,~E,~clear,~record,2n,result,namespace,descriptors),edges,namespace,descriptors)
++def block(~S:Data,~C:Type,~R:Type,~E:Data,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,result:CleanupResult<S,C,R,E>,edges:List<&2,G.Edge<S>>,+namespace:U32,+descriptors:List<&2,G.Descriptor<S>>) -> CleanupResult<S,C,R,E>:
++  descriptor_units(~S,~C,~R,~E,~clear,~record,descriptors,units(~S,~C,~R,~E,~clear,~record,3n,result,namespace,descriptors),edges,namespace,descriptors)
++def node_blocks(~S:Data,~C:Type,~R:Type,~E:Data,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,remaining:Nat,result:CleanupResult<S,C,R,E>,+edges:List<&2,G.Edge<S>>,+namespace:U32,+descriptors:List<&2,G.Descriptor<S>>) -> CleanupResult<S,C,R,E>:
++  match remaining result:
++    case _ Complete{world}: Complete{world}
++    case 0n result: block(~S,~C,~R,~E,~clear,~record,result,edges,namespace,descriptors)
++    case 1n+rest result: node_blocks(~S,~C,~R,~E,~clear,~record,rest,block(~S,~C,~R,~E,~clear,~record,result,edges,namespace,descriptors),edges,namespace,descriptors)
++def phase_blocks(~S:Data,~C:Type,~R:Type,~E:Data,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,remaining:List<&2,G.Edge<S>>,result:CleanupResult<S,C,R,E>,nodes:Nat,+edges:List<&2,G.Edge<S>>,+namespace:U32,+descriptors:List<&2,G.Descriptor<S>>) -> CleanupResult<S,C,R,E>:
++  match remaining result:
++    case _ Complete{world}: Complete{world}
++    case Nil{} result: node_blocks(~S,~C,~R,~E,~clear,~record,nodes,result,edges,namespace,descriptors)
++    case Con{_,rest} result: phase_blocks(~S,~C,~R,~E,~clear,~record,rest,block(~S,~C,~R,~E,~clear,~record,result,edges,namespace,descriptors),nodes,edges,namespace,descriptors)
++def owner_blocks(~S:Data,~C:Type,~R:Type,~E:Data,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,remaining:Nat,result:CleanupResult<S,C,R,E>,+nodes:Nat,+edges:List<&2,G.Edge<S>>,+namespace:U32,+descriptors:List<&2,G.Descriptor<S>>) -> CleanupResult<S,C,R,E>:
++  match remaining result:
++    case _ Complete{world}: Complete{world}
++    case 0n result: result
++    case 1n+rest result: owner_blocks(~S,~C,~R,~E,~clear,~record,rest,phase_blocks(~S,~C,~R,~E,~clear,~record,edges,result,nodes,edges,namespace,descriptors),nodes,edges,namespace,descriptors)
++def original_edges(~S:Data,~C:Type,store:A.Store<S,C>) -> A.Store<S,C> & List<&2,G.Edge<S>>:
++  match store:
++    case A.Store{components,G.Graph{+edges,inverses}}: (A.Store{components,G.Graph{edges,inverses}},edges)
++def automatic_start(~S:Data,~C:Type,~R:Type,~E:Data,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,world:W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,+nodes:Nat,+edges:List<&2,G.Edge<S>>,+namespace:U32,id:U32,+descriptors:List<&2,G.Descriptor<S>>) -> CleanupResult<S,C,R,E>:
++  owner_blocks(~S,~C,~R,~E,~clear,~record,nodes,drive(~S,~C,~R,~E,~clear,~record,1n,[G.CleanupEnter{id}],world,namespace,descriptors),nodes,edges,namespace,descriptors)
++def automatic_inventory(~S:Data,~C:Type,~R:Type,~E:Data,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,observed:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,G.Edge<S>>,namespace:U32,id:U32,descriptors:List<&2,G.Descriptor<S>>) -> CleanupResult<S,C,R,E>:
++  match observed:
++    case (W.World{+ns,+nextId,+highWater,live,+capacity,+depth,store,resource,+events,pending,+registrations,+nextSystemId,+clock},edges): automatic_start(~S,~C,~R,~E,~clear,~record,W.World{ns,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId,clock},U32.to_nat(highWater),edges,namespace,id,descriptors)
++def automatic(~S:Data,~C:Type,~R:Type,~E:Data,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,world:W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,handle:W.Handle<S>,descriptors:List<&2,G.Descriptor<S>>) -> CleanupResult<S,C,R,E>:
++  match handle:
++    case W.Handle{namespace,id}: automatic_inventory(~S,~C,~R,~E,~clear,~record,W.with_store(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,~List<&2,G.Edge<S>>,store => original_edges(~S,~C,store),world),namespace,id,descriptors)
+--- /dev/null
++++ b/src/ecs/relation-commands.bend
+@@ -0,0 +1,86 @@
++import Base
++import relation-types.bend as G
++import relation-graph.bend as C
++import world.bend as W
++import transaction.bend as X
++
++# Experiment-only transport: never duplicates or inspects arbitrary component owners.
++# This initial seam implements relate/unrelate, not linked cleanup or keyed retention.
++type Store<S: Data,Components: Type> is Type:
++  Store{components: Components,graph: G.Graph<S>}
++type Notice<S: Data,Original: Data> is Data:
++  Original{event: Original}
++  RelationFailed{failure: G.Failure<S>}
++  ComponentRemoved{id: U32}
++  CleanupPaused{frames: List<&2,G.CleanupFrame<S>>}
++type QueueStatus is Data:
++  Queued{}
++  MissingEntity{}
++def empty(~S: Data,~C: Type,components: C) -> Store<S,C>:
++  Store{components,G.Graph{[],[]}}
++def graph_read(~S: Data,~C: Type,store: Store<S,C>) -> Store<S,C> & G.Graph<S>:
++  match store:
++    case Store{components,+graph}: (Store{components,graph},graph)
++def graph_replace(~S: Data,~C: Type,store: Store<S,C>,replacement: G.Graph<S>) -> Store<S,C>:
++  match store:
++    case Store{components,_}: Store{components,replacement}
++def relate_result(~S: Data,~C: Type,result: G.CoreResult<S>,components: C) -> Store<S,C> & Maybe<&2,G.Error>:
++  match result:
++    case G.CoreResult{graph,error}: (Store{components,graph},error)
++def store_relate(~S: Data,~C: Type,store: Store<S,C>,descriptor: G.Descriptor<S>,source: U32,target: U32,sourceLive: Bool,targetLive: Bool) -> Store<S,C> & Maybe<&2,G.Error>:
++  match store:
++    case Store{components,graph}: relate_result(~S,~C,C.relate(~S,graph,descriptor,source,target,sourceLive,targetLive),components)
++def publish_relate(~S: Data,~C: Type,~R: Type,~E: Data,observed: W.World<S,Store<S,C>,R,Notice<S,E>> & Maybe<&2,G.Error>,descriptor: G.Descriptor<S>,source: U32,target: U32) -> W.World<S,Store<S,C>,R,Notice<S,E>>:
++  match observed:
++    case (world,None{}): world
++    case (world,Some{error}): W.event_publish(~S,~Store<S,C>,~R,~Notice<S,E>,world,[RelationFailed{G.Failure{descriptor,G.Relate{},source,target,error}}])
++def apply_live(~S: Data,~C: Type,~R: Type,~E: Data,checked: W.World<S,Store<S,C>,R,Notice<S,E>> & Bool,+descriptor: G.Descriptor<S>,+source: U32,+target: U32,sourceLive: Bool) -> W.World<S,Store<S,C>,R,Notice<S,E>>:
++  (world,targetLive) = checked
++  publish_relate(~S,~C,~R,~E,W.with_store(~S,~Store<S,C>,~R,~Notice<S,E>,~Maybe<&2,G.Error>,store => store_relate(~S,~C,store,descriptor,source,target,sourceLive,targetLive),world),descriptor,source,target)
++def apply_source(~S: Data,~C: Type,~R: Type,~E: Data,checked: W.World<S,Store<S,C>,R,Notice<S,E>> & Bool,descriptor: G.Descriptor<S>,source: U32,target: U32,targetHandle: W.Handle<S>) -> W.World<S,Store<S,C>,R,Notice<S,E>>:
++  (world,sourceLive) = checked
++  apply_live(~S,~C,~R,~E,W.valid(~S,~Store<S,C>,~R,~Notice<S,E>,world,targetHandle),descriptor,source,target,sourceLive)
++def apply_relate(~S: Data,~C: Type,~R: Type,~E: Data,world: W.World<S,Store<S,C>,R,Notice<S,E>>,descriptor: G.Descriptor<S>,+source: W.Handle<S>,+target: W.Handle<S>) -> W.World<S,Store<S,C>,R,Notice<S,E>>:
++  match source target:
++    case W.Handle{+sn,+sid} W.Handle{+tn,+tid}: apply_source(~S,~C,~R,~E,W.valid(~S,~Store<S,C>,~R,~Notice<S,E>,world,W.Handle{sn,sid}),descriptor,sid,tid,W.Handle{tn,tid})
++def queue_checked(~S: Data,~C: Type,~R: Type,~E: Data,same: Bool,tx: X.Tx<W.World<S,Store<S,C>,R,Notice<S,E>>,Notice<S,E>>,descriptor: G.Descriptor<S>,source: W.Handle<S>,target: W.Handle<S>) -> X.Tx<W.World<S,Store<S,C>,R,Notice<S,E>>,Notice<S,E>> & QueueStatus:
++  match same:
++    case False{}: (tx,MissingEntity{})
++    case True{}: (X.stage(~W.World<S,Store<S,C>,R,Notice<S,E>>,~Notice<S,E>,tx,world => apply_relate(~S,~C,~R,~E,world,descriptor,source,target)),Queued{})
++def queue_namespaced(~S: Data,~C: Type,~R: Type,~E: Data,checked: W.World<S,Store<S,C>,R,Notice<S,E>> & U32,undo: List<(W.World<S,Store<S,C>,R,Notice<S,E>> -> W.World<S,Store<S,C>,R,Notice<S,E>>)>,commands: List<(W.World<S,Store<S,C>,R,Notice<S,E>> -> W.World<S,Store<S,C>,R,Notice<S,E>>)>,events: List<&2,Notice<S,E>>,descriptor: G.Descriptor<S>,source: W.Handle<S>,target: W.Handle<S>) -> X.Tx<W.World<S,Store<S,C>,R,Notice<S,E>>,Notice<S,E>> & QueueStatus:
++  match checked source target:
++    case (world,+namespace) W.Handle{+sn,+sid} W.Handle{+tn,+tid}: queue_checked(~S,~C,~R,~E,Bool.and(U32.is_eq(namespace,sn),U32.is_eq(namespace,tn)),X.Tx{world,undo,commands,events},descriptor,W.Handle{sn,sid},W.Handle{tn,tid})
++def queue_relate(~S: Data,~C: Type,~R: Type,~E: Data,tx: X.Tx<W.World<S,Store<S,C>,R,Notice<S,E>>,Notice<S,E>>,descriptor: G.Descriptor<S>,source: W.Handle<S>,target: W.Handle<S>) -> X.Tx<W.World<S,Store<S,C>,R,Notice<S,E>>,Notice<S,E>> & QueueStatus:
++  match tx:
++    case X.Tx{world,undo,commands,events}: queue_namespaced(~S,~C,~R,~E,W.namespace(~S,~Store<S,C>,~R,~Notice<S,E>,world),undo,commands,events,descriptor,source,target)
++def store_unrelate(~S: Data,~C: Type,store: Store<S,C>,descriptor: G.Descriptor<S>,source: U32) -> Store<S,C> & Unit:
++  match store:
++    case Store{components,graph}: (Store{components,C.unrelate(~S,graph,descriptor,source)},Unit{})
++def discard_unit(~S: Data,~C: Type,~R: Type,~E: Data,result: W.World<S,Store<S,C>,R,Notice<S,E>> & Unit) -> W.World<S,Store<S,C>,R,Notice<S,E>>:
++  (world,_) = result
++  world
++def apply_unrelate(~S: Data,~C: Type,~R: Type,~E: Data,world: W.World<S,Store<S,C>,R,Notice<S,E>>,descriptor: G.Descriptor<S>,source: W.Handle<S>) -> W.World<S,Store<S,C>,R,Notice<S,E>>:
++  match source:
++    case W.Handle{_,id}: discard_unit(~S,~C,~R,~E,W.with_store(~S,~Store<S,C>,~R,~Notice<S,E>,~Unit,store => store_unrelate(~S,~C,store,descriptor,id),world))
++def queue_clear_checked(~S: Data,~C: Type,~R: Type,~E: Data,same: Bool,tx: X.Tx<W.World<S,Store<S,C>,R,Notice<S,E>>,Notice<S,E>>,descriptor: G.Descriptor<S>,source: W.Handle<S>) -> X.Tx<W.World<S,Store<S,C>,R,Notice<S,E>>,Notice<S,E>> & QueueStatus:
++  match same:
++    case False{}: (tx,MissingEntity{})
++    case True{}: (X.stage(~W.World<S,Store<S,C>,R,Notice<S,E>>,~Notice<S,E>,tx,world => apply_unrelate(~S,~C,~R,~E,world,descriptor,source)),Queued{})
++def queue_clear_namespaced(~S: Data,~C: Type,~R: Type,~E: Data,checked: W.World<S,Store<S,C>,R,Notice<S,E>> & U32,undo: List<(W.World<S,Store<S,C>,R,Notice<S,E>> -> W.World<S,Store<S,C>,R,Notice<S,E>>)>,commands: List<(W.World<S,Store<S,C>,R,Notice<S,E>> -> W.World<S,Store<S,C>,R,Notice<S,E>>)>,events: List<&2,Notice<S,E>>,descriptor: G.Descriptor<S>,source: W.Handle<S>) -> X.Tx<W.World<S,Store<S,C>,R,Notice<S,E>>,Notice<S,E>> & QueueStatus:
++  match checked source:
++    case (world,namespace) W.Handle{+sn,+sid}: queue_clear_checked(~S,~C,~R,~E,U32.is_eq(namespace,sn),X.Tx{world,undo,commands,events},descriptor,W.Handle{sn,sid})
++def queue_unrelate(~S: Data,~C: Type,~R: Type,~E: Data,tx: X.Tx<W.World<S,Store<S,C>,R,Notice<S,E>>,Notice<S,E>>,descriptor: G.Descriptor<S>,source: W.Handle<S>) -> X.Tx<W.World<S,Store<S,C>,R,Notice<S,E>>,Notice<S,E>> & QueueStatus:
++  match tx:
++    case X.Tx{world,undo,commands,events}: queue_clear_namespaced(~S,~C,~R,~E,W.namespace(~S,~Store<S,C>,~R,~Notice<S,E>,world),undo,commands,events,descriptor,source)
++def store_inverse(~S: Data,~C: Type,store: Store<S,C>,descriptor: G.Descriptor<S>,target: U32) -> Store<S,C> & List<&2,U32>:
++  match store:
++    case Store{components,+graph}: (Store{components,graph},C.inverse(~S,graph,descriptor,target))
++def inverse_present(~S: Data,~C: Type,~R: Type,~E: Data,result: W.World<S,Store<S,C>,R,Notice<S,E>> & List<&2,U32>) -> W.World<S,Store<S,C>,R,Notice<S,E>> & Maybe<&2,List<&2,U32>>:
++  (world,sources) = result
++  (world,Some{sources})
++def inverse_checked(~S: Data,~C: Type,~R: Type,~E: Data,checked: W.World<S,Store<S,C>,R,Notice<S,E>> & Bool,descriptor: G.Descriptor<S>,target: W.Handle<S>) -> W.World<S,Store<S,C>,R,Notice<S,E>> & Maybe<&2,List<&2,U32>>:
++  match checked target:
++    case (world,False{}) _: (world,None{})
++    case (world,True{}) W.Handle{_,id}: inverse_present(~S,~C,~R,~E,W.with_store(~S,~Store<S,C>,~R,~Notice<S,E>,~List<&2,U32>,store => store_inverse(~S,~C,store,descriptor,id),world))
++def inverse(~S: Data,~C: Type,~R: Type,~E: Data,world: W.World<S,Store<S,C>,R,Notice<S,E>>,descriptor: G.Descriptor<S>,+target: W.Handle<S>) -> W.World<S,Store<S,C>,R,Notice<S,E>> & Maybe<&2,List<&2,U32>>:
++  inverse_checked(~S,~C,~R,~E,W.valid(~S,~Store<S,C>,~R,~Notice<S,E>,world,target),descriptor,target)
+--- /dev/null
++++ b/src/ecs/relation-graph.bend
+@@ -0,0 +1,129 @@
++import Base
++import relation-types.bend as T
++
++# Experimental maintained inverse implementation. Does not call graph-spec.
++def key(~S: Data,descriptor: T.Descriptor<S>) -> U32:
++  match descriptor:
++    case T.Descriptor{key,_,_,_}: key
++def name(~S: Data,descriptor: T.Descriptor<S>) -> String:
++  match descriptor:
++    case T.Descriptor{_,name,_,_}: name
++def contains(xs: List<&2,U32>,+id: U32) -> Bool:
++  match xs:
++    case []: False{}
++    case x <> rest: Bool.or(U32.is_eq(x,id),contains(rest,id))
++def removed_id(remove: Bool,id: U32,rest: List<&2,U32>) -> List<&2,U32>:
++  match remove:
++    case True{}: rest
++    case False{}: id <> rest
++def remove_id(xs: List<&2,U32>,+id: U32) -> List<&2,U32>:
++  match xs:
++    case []: []
++    case +x <> rest: removed_id(U32.is_eq(x,id),x,remove_id(rest,id))
++def chosen_target(found: Bool,target: U32,next: Unit -> Maybe<&2,U32>) -> Maybe<&2,U32>:
++  match found:
++    case True{}: Some{target}
++    case False{}: next(Unit{})
++def target_edges(~S: Data,edges: List<&2,T.Edge<S>>,+descriptor: T.Descriptor<S>,+source: U32) -> Maybe<&2,U32>:
++  match edges:
++    case []: None{}
++    case T.Edge{other,id,target} <> rest: chosen_target(Bool.and(U32.is_eq(key(~S,other),key(~S,descriptor)),U32.is_eq(id,source)),target,_ => target_edges(~S,rest,descriptor,source))
++def target(~S: Data,graph: T.Graph<S>,descriptor: T.Descriptor<S>,source: U32) -> Maybe<&2,U32>:
++  match graph:
++    case T.Graph{edges,_}: target_edges(~S,edges,descriptor,source)
++def chosen_inverse(found: Bool,sources: List<&2,U32>,next: Unit -> List<&2,U32>) -> List<&2,U32>:
++  match found:
++    case True{}: sources
++    case False{}: next(Unit{})
++def inverse_entries(~S: Data,entries: List<&2,T.Inverse<S>>,+descriptor: T.Descriptor<S>,+target: U32) -> List<&2,U32>:
++  match entries:
++    case []: []
++    case T.Inverse{other,id,sources} <> rest: chosen_inverse(Bool.and(U32.is_eq(key(~S,other),key(~S,descriptor)),U32.is_eq(id,target)),sources,_ => inverse_entries(~S,rest,descriptor,target))
++def inverse(~S: Data,graph: T.Graph<S>,descriptor: T.Descriptor<S>,target: U32) -> List<&2,U32>:
++  match graph:
++    case T.Graph{_,entries}: inverse_entries(~S,entries,descriptor,target)
++def edge_removed(~S: Data,remove: Bool,edge: T.Edge<S>,rest: List<&2,T.Edge<S>>) -> List<&2,T.Edge<S>>:
++  match remove:
++    case True{}: rest
++    case False{}: edge <> rest
++def remove_edge_fields(~S: Data,edge: T.Edge<S>,+descriptor: T.Descriptor<S>,source: U32,next: Unit -> List<&2,T.Edge<S>>) -> List<&2,T.Edge<S>>:
++  match edge:
++    case T.Edge{+other,+id,+target}: edge_removed(~S,Bool.and(U32.is_eq(key(~S,other),key(~S,descriptor)),U32.is_eq(id,source)),T.Edge{other,id,target},next(Unit{}))
++def remove_edge_keep(~S:Data,edge:T.Edge<S>,+descriptor:T.Descriptor<S>,source:U32,acc:List<&2,T.Edge<S>>) -> List<&2,T.Edge<S>>:
++  match edge:
++    case T.Edge{+other,+id,+target}: edge_removed(~S,Bool.and(U32.is_eq(key(~S,other),key(~S,descriptor)),U32.is_eq(id,source)),T.Edge{other,id,target},acc)
++def remove_edge_acc(~S:Data,edges:List<&2,T.Edge<S>>,+descriptor:T.Descriptor<S>,+source:U32,acc:List<&2,T.Edge<S>>) -> List<&2,T.Edge<S>>:
++  match edges:
++    case []: List.reverse(&2,T.Edge<S>,acc)
++    case +edge <> rest: remove_edge_acc(~S,rest,descriptor,source,remove_edge_keep(~S,edge,descriptor,source,acc))
++def remove_edge(~S: Data,edges: List<&2,T.Edge<S>>,descriptor: T.Descriptor<S>,source: U32) -> List<&2,T.Edge<S>>:
++  remove_edge_acc(~S,edges,descriptor,source,[])
++def nonempty_inverse(~S: Data,descriptor: T.Descriptor<S>,target: U32,sources: List<&2,U32>,rest: List<&2,T.Inverse<S>>) -> List<&2,T.Inverse<S>>:
++  match sources:
++    case []: rest
++    case head <> tail: T.Inverse{descriptor,target,head <> tail} <> rest
++def inverse_remove_one(~S: Data,matched: Bool,descriptor: T.Descriptor<S>,target: U32,sources: List<&2,U32>,source: U32,rest: List<&2,T.Inverse<S>>) -> List<&2,T.Inverse<S>>:
++  match matched:
++    case True{}: nonempty_inverse(~S,descriptor,target,remove_id(sources,source),rest)
++    case False{}: T.Inverse{descriptor,target,sources} <> rest
++def inverse_remove_acc(~S:Data,entries:List<&2,T.Inverse<S>>,+descriptor:T.Descriptor<S>,+target:U32,+source:U32,acc:List<&2,T.Inverse<S>>) -> List<&2,T.Inverse<S>>:
++  match entries:
++    case []: List.reverse(&2,T.Inverse<S>,acc)
++    case T.Inverse{+other,+id,sources} <> rest: inverse_remove_acc(~S,rest,descriptor,target,source,inverse_remove_one(~S,Bool.and(U32.is_eq(key(~S,other),key(~S,descriptor)),U32.is_eq(id,target)),other,id,sources,source,acc))
++def inverse_remove(~S: Data,entries: List<&2,T.Inverse<S>>,descriptor: T.Descriptor<S>,target: U32,source: U32) -> List<&2,T.Inverse<S>>:
++  inverse_remove_acc(~S,entries,descriptor,target,source,[])
++def remove_previous(~S: Data,previous: Maybe<&2,U32>,entries: List<&2,T.Inverse<S>>,descriptor: T.Descriptor<S>,source: U32) -> List<&2,T.Inverse<S>>:
++  match previous:
++    case None{}: entries
++    case Some{target}: inverse_remove(~S,entries,descriptor,target,source)
++def appended_source(present: Bool,sources: List<&2,U32>,source: U32) -> List<&2,U32>:
++  match present:
++    case True{}: sources
++    case False{}: List.append(&2,U32,sources,[source])
++def inverse_add_found(~S: Data,found: Bool,other: T.Descriptor<S>,id: U32,+sources: List<&2,U32>,+descriptor: T.Descriptor<S>,target: U32,+source: U32,rest: List<&2,T.Inverse<S>>,next: Unit -> List<&2,T.Inverse<S>>) -> List<&2,T.Inverse<S>>:
++  match found:
++    case True{}: T.Inverse{other,id,appended_source(contains(sources,source),sources,source)} <> rest
++    case False{}: T.Inverse{other,id,sources} <> next(Unit{})
++def inverse_add(~S: Data,entries: List<&2,T.Inverse<S>>,+descriptor: T.Descriptor<S>,+target: U32,+source: U32) -> List<&2,T.Inverse<S>>:
++  match entries:
++    case []: [T.Inverse{descriptor,target,[source]}]
++    case T.Inverse{+other,+id,+sources} <> +rest: inverse_add_found(~S,Bool.and(U32.is_eq(key(~S,other),key(~S,descriptor)),U32.is_eq(id,target)),other,id,sources,descriptor,target,source,rest,_ => inverse_add(~S,rest,descriptor,target,source))
++def unrelate(~S: Data,graph: T.Graph<S>,+descriptor: T.Descriptor<S>,+source: U32) -> T.Graph<S>:
++  match graph:
++    case T.Graph{+edges,inverses}: T.Graph{remove_edge(~S,edges,descriptor,source),remove_previous(~S,target_edges(~S,edges,descriptor,source),inverses,descriptor,source)}
++def next_cycle(~S: Data,current: Maybe<&2,U32>,next: U32 -> Bool) -> Bool:
++  match current:
++    case None{}: False{}
++    case Some{id}: next(id)
++def cycle_loop(~S: Data,fuel: Nat,+graph: T.Graph<S>,+descriptor: T.Descriptor<S>,+source: U32,+current: U32) -> Bool:
++  match fuel:
++    case 0n: U32.is_eq(source,current)
++    case 1n+rest: Bool.or(U32.is_eq(source,current),next_cycle(~S,target(~S,graph,descriptor,current),id => cycle_loop(~S,rest,graph,descriptor,source,id)))
++def cycle(~S: Data,+graph: T.Graph<S>,descriptor: T.Descriptor<S>,source: U32,target: U32) -> Bool:
++  match graph descriptor:
++    case T.Graph{edges,inverses} T.Descriptor{k,n,inv,T.Ordinary{}}: False{}
++    case T.Graph{+edges,+inverses} T.Descriptor{+k,+n,+inv,T.Hierarchy{}}: cycle_loop(~S,List.length(&2,T.Edge<S>,edges),T.Graph{edges,inverses},T.Descriptor{k,n,inv,T.Hierarchy{}},source,target)
++def validation(sourceLive: Bool,targetLive: Bool,self: Bool,cyclic: Bool,source: U32,target: U32,name: String) -> Maybe<&2,T.Error>:
++  match sourceLive targetLive self cyclic:
++    case False{} _ _ _: Some{T.MissingEntity{source}}
++    case True{} False{} _ _: Some{T.MissingTargetEntity{source,target,name}}
++    case True{} True{} True{} _: Some{T.SelfRelationNotAllowed{source,name}}
++    case True{} True{} False{} True{}: Some{T.HierarchyCycle{source,target,name}}
++    case True{} True{} False{} False{}: None{}
++def already(previous: Maybe<&2,U32>,target: U32) -> Bool:
++  match previous:
++    case None{}: False{}
++    case Some{id}: U32.is_eq(id,target)
++def updated(~S: Data,same: Bool,+edges: List<&2,T.Edge<S>>,inverses: List<&2,T.Inverse<S>>,+descriptor: T.Descriptor<S>,+source: U32,+target: U32) -> T.Graph<S>:
++  match same:
++    case True{}: T.Graph{edges,inverses}
++    case False{}: T.Graph{List.append(&2,T.Edge<S>,remove_edge(~S,edges,descriptor,source),[T.Edge{descriptor,source,target}]),inverse_add(~S,remove_previous(~S,target_edges(~S,edges,descriptor,source),inverses,descriptor,source),descriptor,target,source)}
++def checked(~S: Data,error: Maybe<&2,T.Error>,graph: T.Graph<S>,+descriptor: T.Descriptor<S>,+source: U32,+target: U32) -> T.CoreResult<S>:
++  match error graph:
++    case Some{error} graph: T.CoreResult{graph,Some{error}}
++    case None{} T.Graph{+edges,inverses}: T.CoreResult{updated(~S,already(target_edges(~S,edges,descriptor,source),target),edges,inverses,descriptor,source,target),None{}}
++def relate(~S: Data,+graph: T.Graph<S>,+descriptor: T.Descriptor<S>,+source: U32,+target: U32,sourceLive: Bool,targetLive: Bool) -> T.CoreResult<S>:
++  checked(~S,validation(sourceLive,targetLive,U32.is_eq(source,target),cycle(~S,graph,descriptor,source,target),source,target,name(~S,descriptor)),graph,descriptor,source,target)
++def project(~S: Data,graph: T.Graph<S>) -> T.SpecGraph<S>:
++  match graph:
++    case T.Graph{edges,_}: T.SpecGraph{edges}
+--- /dev/null
++++ b/src/ecs/relation-providers.bend
+@@ -0,0 +1,73 @@
++import Base
++import relation-types.bend as G
++import relation-commands.bend as A
++import world.bend as W
++import transaction.bend as X
++import capabilities.bend as Cap
++
++# Descriptor is closed by schema provisioning; gameplay has no descriptor argument.
++# Inverse capability exposes only a snapshot query, never a setter for the table.
++type Targets<S: Data> is Data:
++  Targets{source: W.Handle<S>,target: W.Handle<S>}
++type ReadOnly<-H: Type,S: Data> is Type:
++  ReadOnly{inverse: Cap.Request<H,W.Handle<S>,Maybe<&2,List<&2,W.Handle<S>>>>}
++type Writable<-H: Type,S: Data> is Type:
++  Writable{inverse: Cap.Request<H,W.Handle<S>,Maybe<&2,List<&2,W.Handle<S>>>>,relate: Cap.Request<H,Targets<S>,A.QueueStatus>,unrelate: Cap.Request<H,W.Handle<S>,A.QueueStatus>}
++def read_field(~H: Type,~S: Data,caps: ReadOnly<H,S>) -> Cap.Request<H,W.Handle<S>,Maybe<&2,List<&2,W.Handle<S>>>>:
++  match caps:
++    case ReadOnly{inverse}: inverse
++def write_inverse_field(~H: Type,~S: Data,caps: Writable<H,S>) -> Cap.Request<H,W.Handle<S>,Maybe<&2,List<&2,W.Handle<S>>>>:
++  match caps:
++    case Writable{inverse,_,_}: inverse
++def relate_field(~H: Type,~S: Data,caps: Writable<H,S>) -> Cap.Request<H,Targets<S>,A.QueueStatus>:
++  match caps:
++    case Writable{_,relate,_}: relate
++def clear_field(~H: Type,~S: Data,caps: Writable<H,S>) -> Cap.Request<H,W.Handle<S>,A.QueueStatus>:
++  match caps:
++    case Writable{_,_,clear}: clear
++def read(~H: Type,~S: Data,~caps: ReadOnly<H,S>,owner: H,target: W.Handle<S>) -> H & Maybe<&2,List<&2,W.Handle<S>>>:
++  Cap.request(~H,~W.Handle<S>,~Maybe<&2,List<&2,W.Handle<S>>>,~read_field(~H,~S,caps),owner,target)
++def inverse(~H: Type,~S: Data,~caps: Writable<H,S>,owner: H,target: W.Handle<S>) -> H & Maybe<&2,List<&2,W.Handle<S>>>:
++  Cap.request(~H,~W.Handle<S>,~Maybe<&2,List<&2,W.Handle<S>>>,~write_inverse_field(~H,~S,caps),owner,target)
++def relate(~H: Type,~S: Data,~caps: Writable<H,S>,owner: H,targets: Targets<S>) -> H & A.QueueStatus:
++  Cap.request(~H,~Targets<S>,~A.QueueStatus,~relate_field(~H,~S,caps),owner,targets)
++def unrelate(~H: Type,~S: Data,~caps: Writable<H,S>,owner: H,source: W.Handle<S>) -> H & A.QueueStatus:
++  Cap.request(~H,~W.Handle<S>,~A.QueueStatus,~clear_field(~H,~S,caps),owner,source)
++def handle_ids(~S: Data,ids: List<&2,U32>,+namespace: U32) -> List<&2,W.Handle<S>>:
++  match ids:
++    case []: []
++    case id <> rest: W.Handle{namespace,id} <> handle_ids(~S,rest,namespace)
++def handle_snapshot(~S: Data,value: Maybe<&2,List<&2,U32>>,namespace: U32) -> Maybe<&2,List<&2,W.Handle<S>>>:
++  match value:
++    case None{}: None{}
++    case Some{ids}: Some{handle_ids(~S,ids,namespace)}
++def inverse_handles(~S: Data,~C: Type,~R: Type,~E: Data,result: W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & Maybe<&2,List<&2,U32>>,target: W.Handle<S>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & Maybe<&2,List<&2,W.Handle<S>>>:
++  match result target:
++    case (world,value) W.Handle{ns,_}: (world,handle_snapshot(~S,value,ns))
++def inverse_tx_done(~S: Data,~C: Type,~R: Type,~E: Data,result: W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & Maybe<&2,List<&2,W.Handle<S>>>,undo: List<(W.World<S,A.Store<S,C>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>)>,commands: List<(W.World<S,A.Store<S,C>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>)>,events: List<&2,A.Notice<S,E>>) -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & Maybe<&2,List<&2,W.Handle<S>>>:
++  (world,value) = result
++  (X.Tx{world,undo,commands,events},value)
++def inverse_tx(~S: Data,~C: Type,~R: Type,~E: Data,~descriptor: G.Descriptor<S>,tx: X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>>,target: W.Handle<S>) -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & Maybe<&2,List<&2,W.Handle<S>>>:
++  match tx target:
++    case X.Tx{world,undo,commands,events} W.Handle{+ns,+id}: inverse_tx_done(~S,~C,~R,~E,inverse_handles(~S,~C,~R,~E,A.inverse(~S,~C,~R,~E,world,descriptor,W.Handle{ns,id}),W.Handle{ns,id}),undo,commands,events)
++def relate_tx(~S: Data,~C: Type,~R: Type,~E: Data,~descriptor: G.Descriptor<S>,tx: X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>>,targets: Targets<S>) -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & A.QueueStatus:
++  match targets:
++    case Targets{source,target}: A.queue_relate(~S,~C,~R,~E,tx,descriptor,source,target)
++def clear_tx(~S: Data,~C: Type,~R: Type,~E: Data,~descriptor: G.Descriptor<S>,tx: X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>>,source: W.Handle<S>) -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & A.QueueStatus:
++  A.queue_unrelate(~S,~C,~R,~E,tx,descriptor,source)
++def provide_read(~S: Data,~C: Type,~R: Type,~E: Data,~descriptor: G.Descriptor<S>) -> ReadOnly<X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>>,S>:
++  ReadOnly{Cap.Request{inverse_tx(~S,~C,~R,~E,~descriptor)}}
++def provide_write(~S: Data,~C: Type,~R: Type,~E: Data,~descriptor: G.Descriptor<S>) -> Writable<X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>>,S>:
++  Writable{Cap.Request{inverse_tx(~S,~C,~R,~E,~descriptor)},Cap.Request{relate_tx(~S,~C,~R,~E,~descriptor)},Cap.Request{clear_tx(~S,~C,~R,~E,~descriptor)}}
++# Rank-two abstract owners with live affine capability bundles. Erased bundles
++# cannot be scrutinized in live code; the prior rejected sketches are retained.
++def relate_live(-H: Type,-S: Data,caps: Writable<H,S>,owner: H,args: Targets<S>) -> H & A.QueueStatus:
++  match caps:
++    case Writable{_,Cap.Request{relate},_}: relate(owner,args)
++def read_live(-H: Type,-S: Data,caps: ReadOnly<H,S>,owner: H,target: W.Handle<S>) -> H & Maybe<&2,List<&2,W.Handle<S>>>:
++  match caps:
++    case ReadOnly{Cap.Request{get}}: get(owner,target)
++def invoke_write(~S: Data,~C: Type,~R: Type,~E: Data,~descriptor: G.Descriptor<S>,~Out: Type,~body: @-H: Type -> Writable<H,S> -> Targets<S> -> H -> H & Out,args: Targets<S>,tx: X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>>) -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & Out:
++  body(X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>>,provide_write(~S,~C,~R,~E,~descriptor),args,tx)
++def invoke_read(~S: Data,~C: Type,~R: Type,~E: Data,~descriptor: G.Descriptor<S>,~Out: Type,~body: @-H: Type -> ReadOnly<H,S> -> W.Handle<S> -> H -> H & Out,target: W.Handle<S>,tx: X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>>) -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & Out:
++  body(X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>>,provide_read(~S,~C,~R,~E,~descriptor),target,tx)
+--- /dev/null
++++ b/src/ecs/relation-query.bend
+@@ -0,0 +1,118 @@
++import Base
++import relation-types.bend as G
++import relation-graph.bend as Graph
++import relation-commands.bend as A
++import world.bend as W
++import transaction.bend as X
++import query.bend as Q
++import component.bend as Cmp
++import capabilities.bend as Cap
++
++# Relation requirements have arbitrary declaration length. The application C
++# remains Type; only immutable relation handles/snapshots are Data.
++type End is Data:
++  Outgoing{}
++  Incoming{}
++type Requirement<S:Data> is Data:
++  Requirement{key:String,descriptor:G.Descriptor<S>,end:End,mode:Q.Selection,project:Bool}
++type Spec<S:Data> is Data:
++  Spec{requirements:List<&2,Requirement<S>>}
++type Value<S:Data> is Data:
++  Missing{}
++  Target{handle:W.Handle<S>}
++  Sources{handles:List<&2,W.Handle<S>>}
++type Cell<S:Data> is Data:
++  Cell{key:String,end:End,value:Value<S>}
++type Row<S:Data,V:Data> is Data:
++  Row{entity:W.Handle<S>,cells:List<&2,Cell<S>>,component:V}
++def read_relation(~S:Data,key:String,descriptor:G.Descriptor<S>) -> Requirement<S>:
++  Requirement{key,descriptor,Outgoing{},Q.Required{},True{}}
++def optional_relation(~S:Data,key:String,descriptor:G.Descriptor<S>) -> Requirement<S>:
++  Requirement{key,descriptor,Outgoing{},Q.Optional{},True{}}
++def read_related(~S:Data,key:String,descriptor:G.Descriptor<S>) -> Requirement<S>:
++  Requirement{key,descriptor,Incoming{},Q.Required{},True{}}
++def optional_related(~S:Data,key:String,descriptor:G.Descriptor<S>) -> Requirement<S>:
++  Requirement{key,descriptor,Incoming{},Q.Optional{},True{}}
++def with_relation(~S:Data,descriptor:G.Descriptor<S>) -> Requirement<S>:
++  Requirement{"",descriptor,Outgoing{},Q.Present{},False{}}
++def without_relation(~S:Data,descriptor:G.Descriptor<S>) -> Requirement<S>:
++  Requirement{"",descriptor,Outgoing{},Q.Absent{},False{}}
++def with_related(~S:Data,descriptor:G.Descriptor<S>) -> Requirement<S>:
++  Requirement{"",descriptor,Incoming{},Q.Present{},False{}}
++def without_related(~S:Data,descriptor:G.Descriptor<S>) -> Requirement<S>:
++  Requirement{"",descriptor,Incoming{},Q.Absent{},False{}}
++def handles_acc(~S:Data,ids:List<&2,U32>,+namespace:U32,acc:List<&2,W.Handle<S>>) -> List<&2,W.Handle<S>>:
++  match ids:
++    case []: List.reverse(&2,W.Handle<S>,acc)
++    case id <> rest: handles_acc(~S,rest,namespace,W.Handle{namespace,id} <> acc)
++def outgoing_value(~S:Data,value:Maybe<&2,U32>,namespace:U32) -> Value<S>:
++  match value:
++    case None{}: Missing{}
++    case Some{id}: Target{W.Handle{namespace,id}}
++def incoming_value(~S:Data,ids:List<&2,U32>,namespace:U32) -> Value<S>:
++  match ids:
++    case []: Missing{}
++    case first <> rest: Sources{handles_acc(~S,first <> rest,namespace,[])}
++def value(~S:Data,graph:G.Graph<S>,descriptor:G.Descriptor<S>,end:End,+namespace:U32,id:U32) -> Value<S>:
++  match end:
++    case Outgoing{}: outgoing_value(~S,Graph.target(~S,graph,descriptor,id),namespace)
++    case Incoming{}: incoming_value(~S,Graph.inverse(~S,graph,descriptor,id),namespace)
++def presence(~S:Data,value:Value<S>) -> Cmp.Access<Bool>:
++  match value:
++    case Missing{}: Cmp.ComponentAbsent{}
++    case _: Cmp.Found{True{}}
++def add_cell(~S:Data,project:Bool,key:String,end:End,value:Value<S>,cells:List<&2,Cell<S>>) -> List<&2,Cell<S>>:
++  match project:
++    case False{}: cells
++    case True{}: Cell{key,end,value} <> cells
++def requirements(~S:Data,remaining:List<&2,Requirement<S>>,+graph:G.Graph<S>,+namespace:U32,+id:U32,selected:Bool,acc:List<&2,Cell<S>>) -> Bool & List<&2,Cell<S>>:
++  match remaining:
++    case []: (selected,List.reverse(&2,Cell<S>,acc))
++    case Requirement{key,descriptor,+end,mode,project} <> rest:
++      +observed = value(~S,graph,descriptor,end,namespace,id)
++      requirements(~S,rest,graph,namespace,id,selected && Q.selection_aux(~Bool,mode,presence(~S,observed)),add_cell(~S,project,key,end,observed,acc))
++def spec_rows_result(~S:Data,~V:Data,observed:Bool & List<&2,Cell<S>>,handle:W.Handle<S>,component:V) -> Bool & Row<S,V>:
++  (selected,cells) = observed
++  (selected,Row{handle,cells,component})
++def spec_rows(~S:Data,~V:Data,spec:Spec<S>,graph:G.Graph<S>,handle:W.Handle<S>,component:V) -> Bool & Row<S,V>:
++  match spec handle:
++    case Spec{items} W.Handle{+namespace,+id}: spec_rows_result(~S,~V,requirements(~S,items,graph,namespace,id,True{},[]),W.Handle{namespace,id},component)
++def graph_read(~S:Data,~C:Type,store:A.Store<S,C>) -> A.Store<S,C> & G.Graph<S>:
++  match store:
++    case A.Store{components,+graph}: (A.Store{components,graph},graph)
++def inspect_done(~S:Data,~V:Data,~C:Type,~R:Type,~E:Data,~spec:Spec<S>,observed:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & G.Graph<S>,handle:W.Handle<S>,component:V,undo:List<(W.World<S,A.Store<S,C>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>)>,commands:List<(W.World<S,A.Store<S,C>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>)>,events:List<&2,A.Notice<S,E>>) -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & (Bool & Row<S,V>):
++  (world,graph) = observed
++  (X.Tx{world,undo,commands,events},spec_rows(~S,~V,spec,graph,handle,component))
++def inspect(~S:Data,~V:Data,~C:Type,~R:Type,~E:Data,~spec:Spec<S>,tx:X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>>,handle:W.Handle<S>,component:V) -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & (Bool & Row<S,V>):
++  match tx:
++    case X.Tx{world,undo,commands,events}: inspect_done(~S,~V,~C,~R,~E,~spec,W.with_store(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,~G.Graph<S>,graph_read(~S,~C),world),handle,component,undo,commands,events)
++def row_get(~S:Data,~V:Data,~H:Type,+row:Row<S,V>,owner:H) -> H & Row<S,V>:
++  (owner,row)
++def invoke(~S:Data,~V:Data,~C:Type,~R:Type,~E:Data,~Out:Data,~body:@-H:Type -> Cap.ValueRead<H,Row<S,V>> -> H -> H & Out,row:Row<S,V>,tx:X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>>) -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & Out:
++  body(X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>>,Cap.ValueRead{row_get(~S,~V,~X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>>,row)},tx)
++def output_prepend(~S:Data,~C:Type,~R:Type,~E:Data,~Out:Data,value:Out,observed:X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & List<&2,Out>) -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & List<&2,Out>:
++  (tx,rest) = observed
++  (tx,value <> rest)
++def output_join(~S:Data,~V:Data,~C:Type,~R:Type,~E:Data,~Out:Data,observed:X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & Out,next:X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & List<&2,Out>) -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & List<&2,Out>:
++  (tx,value) = observed
++  output_prepend(~S,~C,~R,~E,~Out,value,next(tx))
++def selected_row(~S:Data,~V:Data,~C:Type,~R:Type,~E:Data,~Out:Data,~body:@-H:Type -> Cap.ValueRead<H,Row<S,V>> -> H -> H & Out,observed:X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & (Bool & Row<S,V>),next:X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & List<&2,Out>) -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & List<&2,Out>:
++  match observed:
++    case (tx,(False{},_)): next(tx)
++    case (tx,(True{},row)): output_join(~S,~V,~C,~R,~E,~Out,invoke(~S,~V,~C,~R,~E,~Out,~body,row,tx),next)
++def component_join(~S:Data,~V:Data,~C:Type,~R:Type,~E:Data,~Out:Data,~spec:Spec<S>,~body:@-H:Type -> Cap.ValueRead<H,Row<S,V>> -> H -> H & Out,handle:W.Handle<S>,observed:X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & (Bool & V),next:X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & List<&2,Out>) -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & List<&2,Out>:
++  match observed:
++    case (tx,(False{},_)): next(tx)
++    case (tx,(True{},component)): selected_row(~S,~V,~C,~R,~E,~Out,~body,inspect(~S,~V,~C,~R,~E,~spec,tx,handle,component),next)
++def scan(~S:Data,~V:Data,~C:Type,~R:Type,~E:Data,~Out:Data,~spec:Spec<S>,~component_selected:X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> -> W.Handle<S> -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & (Bool & V),~body:@-H:Type -> Cap.ValueRead<H,Row<S,V>> -> H -> H & Out,handles:List<&2,W.Handle<S>>,tx:X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>>) -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & List<&2,Out>:
++  match handles:
++    case []: (tx,[])
++    case +handle <> rest: component_join(~S,~V,~C,~R,~E,~Out,~spec,~body,handle,component_selected(tx,handle),tx => scan(~S,~V,~C,~R,~E,~Out,~spec,~component_selected,~body,rest,tx))
++def finish(~S:Data,~C:Type,~R:Type,~E:Data,~Out:Data,observed:X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & List<&2,Out>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,Out>:
++  match observed:
++    case (X.Tx{world,_,_,_},values): (world,values)
++def reserved(~S:Data,~V:Data,~C:Type,~R:Type,~E:Data,~Out:Data,~spec:Spec<S>,~component_selected:X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> -> W.Handle<S> -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & (Bool & V),~body:@-H:Type -> Cap.ValueRead<H,Row<S,V>> -> H -> H & Out,observed:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,W.Handle<S>>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,Out>:
++  (world,handles) = observed
++  finish(~S,~C,~R,~E,~Out,scan(~S,~V,~C,~R,~E,~Out,~spec,~component_selected,~body,handles,X.begin(~W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,~A.Notice<S,E>,world)))
++def each(~S:Data,~V:Data,~C:Type,~R:Type,~E:Data,~Out:Data,~spec:Spec<S>,~component_selected:X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> -> W.Handle<S> -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & (Bool & V),~body:@-H:Type -> Cap.ValueRead<H,Row<S,V>> -> H -> H & Out,world:W.World<S,A.Store<S,C>,R,A.Notice<S,E>>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,Out>:
++  reserved(~S,~V,~C,~R,~E,~Out,~spec,~component_selected,~body,W.handles(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,world))
+--- /dev/null
++++ b/src/ecs/relation-reorder-core.bend
+@@ -0,0 +1,60 @@
++import Base
++import relation-types.bend as T
++import relation-graph.bend as C
++
++# Maintained inverse reorder: preserve authoritative targets; replace selected inverse order.
++def child_ids(children: List<&2,T.ChildStatus>) -> List<&2,U32>:
++  match children:
++    case []: []
++    case T.ChildStatus{id,_} <> rest: id <> child_ids(rest)
++def parent_match(value: Maybe<&2,U32>,parent: U32) -> Bool:
++  match value:
++    case None{}: False{}
++    case Some{id}: U32.is_eq(id,parent)
++def same_count(a: List<&2,U32>,b: List<&2,U32>) -> Bool:
++  match a b:
++    case Nil{} Nil{}: True{}
++    case Con{_,ar} Con{_,br}: same_count(ar,br)
++    case _ _: False{}
++def subset(a: List<&2,U32>,+b: List<&2,U32>) -> Bool:
++  match a:
++    case []: True{}
++    case x <> rest: Bool.and(C.contains(b,x),subset(rest,b))
++def child_error(live: Bool,duplicate: Bool,related: Bool,parent: U32,child: U32,+name: String) -> Maybe<&2,T.Error>:
++  match live duplicate related:
++    case False{} _ _: Some{T.MissingChildEntity{parent,child,name}}
++    case True{} True{} _: Some{T.DuplicateChild{parent,child,name}}
++    case True{} False{} False{}: Some{T.ChildNotRelatedToParent{parent,child,name}}
++    case True{} False{} True{}: None{}
++def first_error(current: Maybe<&2,T.Error>,next: Unit -> Maybe<&2,T.Error>) -> Maybe<&2,T.Error>:
++  match current:
++    case Some{e}: Some{e}
++    case None{}: next(Unit{})
++def children_checked(~S: Data,children: List<&2,T.ChildStatus>,+graph: T.Graph<S>,+d: T.Descriptor<S>,+parent: U32,+seen: List<&2,U32>) -> Maybe<&2,T.Error>:
++  match children:
++    case []: None{}
++    case T.ChildStatus{+id,live} <> rest: first_error(child_error(live,C.contains(seen,id),parent_match(C.target(~S,graph,d,id),parent),parent,id,C.name(~S,d)),_ => children_checked(~S,rest,graph,d,parent,id <> seen))
++def mismatch(same: Bool,error: Maybe<&2,T.Error>,parent: U32,name: String) -> Maybe<&2,T.Error>:
++  match same error:
++    case _ Some{e}: Some{e}
++    case True{} None{}: None{}
++    case False{} None{}: Some{T.ChildSetMismatch{parent,name}}
++def validate(~S: Data,parentLive: Bool,+graph: T.Graph<S>,+d: T.Descriptor<S>,+parent: U32,+children: List<&2,T.ChildStatus>) -> Maybe<&2,T.Error>:
++  match parentLive:
++    case False{}: Some{T.MissingEntity{parent}}
++    case True{}: mismatch(Bool.and(same_count(C.inverse(~S,graph,d,parent),child_ids(children)),subset(C.inverse(~S,graph,d,parent),child_ids(children))),children_checked(~S,children,graph,d,parent,[]),parent,C.name(~S,d))
++# Maintained inverse reorder changes only the selected inverse entry.
++def replaced(~S: Data,found: Bool,entry: T.Inverse<S>,sources: List<&2,U32>,rest: List<&2,T.Inverse<S>>) -> List<&2,T.Inverse<S>>:
++  match found entry:
++    case True{} T.Inverse{d,parent,_}: T.Inverse{d,parent,sources} <> rest
++    case False{} entry: entry <> rest
++def replace_inverse(~S: Data,entries: List<&2,T.Inverse<S>>,+d: T.Descriptor<S>,+parent: U32,+sources: List<&2,U32>) -> List<&2,T.Inverse<S>>:
++  match entries:
++    case []: []
++    case T.Inverse{+other,+id,old} <> rest: replaced(~S,Bool.and(U32.is_eq(C.key(~S,d),C.key(~S,other)),U32.is_eq(parent,id)),T.Inverse{other,id,old},sources,replace_inverse(~S,rest,d,parent,sources))
++def checked(~S: Data,error: Maybe<&2,T.Error>,graph: T.Graph<S>,d: T.Descriptor<S>,parent: U32,children: List<&2,T.ChildStatus>) -> T.CoreResult<S>:
++  match error graph:
++    case Some{e} graph: T.CoreResult{graph,Some{e}}
++    case None{} T.Graph{edges,inverses}: T.CoreResult{T.Graph{edges,replace_inverse(~S,inverses,d,parent,child_ids(children))},None{}}
++def reorder(~S: Data,+graph: T.Graph<S>,+d: T.Descriptor<S>,+parent: U32,+children: List<&2,T.ChildStatus>,parentLive: Bool) -> T.CoreResult<S>:
++  checked(~S,validate(~S,parentLive,graph,d,parent,children),graph,d,parent,children)
+--- /dev/null
++++ b/src/ecs/relation-reorder.bend
+@@ -0,0 +1,69 @@
++import Base
++import relation-types.bend as G
++import relation-reorder-core.bend as C
++import relation-commands.bend as A
++import world.bend as W
++import transaction.bend as X
++import capabilities.bend as Cap
++
++type Args<S:Data> is Data:
++  Args{parent:W.Handle<S>,children:List<&2,W.Handle<S>>}
++type Writable<H:Type,S:Data> is Type:
++  Writable{reorder:Cap.Request<H,Args<S>,A.QueueStatus>}
++def descriptor(~S:Data,value:G.HierarchyDescriptor<S>) -> G.Descriptor<S>:
++  match value:
++    case G.HierarchyDescriptor{key,name,inverse}: G.Descriptor{key,name,inverse,G.Hierarchy{}}
++def store_reorder(~S:Data,~C:Type,store:A.Store<S,C>,d:G.Descriptor<S>,parent:U32,children:List<&2,G.ChildStatus>,parentLive:Bool) -> A.Store<S,C> & Maybe<&2,G.Error>:
++  match store:
++    case A.Store{components,graph}: A.relate_result(~S,~C,C.reorder(~S,graph,d,parent,children,parentLive),components)
++def error_target(error:G.Error,parent:U32) -> U32:
++  match error:
++    case G.MissingChildEntity{_,child,_}: child
++    case G.DuplicateChild{_,child,_}: child
++    case G.ChildNotRelatedToParent{_,child,_}: child
++    case _: parent
++def publish(~S:Data,~C:Type,~R:Type,~E:Data,observed:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & Maybe<&2,G.Error>,d:G.Descriptor<S>,+parent:U32) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>:
++  match observed:
++    case (world,None{}): world
++    case (world,Some{+error}): W.event_publish(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,world,[A.RelationFailed{G.Failure{d,G.ReorderChildren{},parent,error_target(error,parent),error}}])
++def children_prepend(~S:Data,~C:Type,~R:Type,~E:Data,result:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,G.ChildStatus>,id:U32,live:Bool) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,G.ChildStatus>:
++  (world,rest) = result
++  (world,G.ChildStatus{id,live} <> rest)
++def child_next(~S:Data,~C:Type,~R:Type,~E:Data,checked:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & Bool,id:U32,next:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,G.ChildStatus>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,G.ChildStatus>:
++  (world,live) = checked
++  children_prepend(~S,~C,~R,~E,next(world),id,live)
++def child_statuses(~S:Data,~C:Type,~R:Type,~E:Data,children:List<&2,W.Handle<S>>,world:W.World<S,A.Store<S,C>,R,A.Notice<S,E>>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,G.ChildStatus>:
++  match children:
++    case []: (world,[])
++    case W.Handle{+ns,+id} <> rest: child_next(~S,~C,~R,~E,W.valid(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,world,W.Handle{ns,id}),id,world => child_statuses(~S,~C,~R,~E,rest,world))
++def apply_children(~S:Data,~C:Type,~R:Type,~E:Data,observed:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,G.ChildStatus>,+d:G.Descriptor<S>,+parent:U32,parentLive:Bool) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>:
++  (world,children) = observed
++  publish(~S,~C,~R,~E,W.with_store(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,~Maybe<&2,G.Error>,store => store_reorder(~S,~C,store,d,parent,children,parentLive),world),d,parent)
++def apply_parent(~S:Data,~C:Type,~R:Type,~E:Data,checked:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & Bool,d:G.Descriptor<S>,parent:U32,children:List<&2,W.Handle<S>>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>:
++  (world,live) = checked
++  apply_children(~S,~C,~R,~E,child_statuses(~S,~C,~R,~E,children,world),d,parent,live)
++def apply(~S:Data,~C:Type,~R:Type,~E:Data,~d:G.HierarchyDescriptor<S>,world:W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,args:Args<S>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>:
++  match args:
++    case Args{W.Handle{+ns,+parent},children}: apply_parent(~S,~C,~R,~E,W.valid(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,world,W.Handle{ns,parent}),descriptor(~S,d),parent,children)
++def namespaces(~S:Data,children:List<&2,W.Handle<S>>,+namespace:U32) -> Bool:
++  match children:
++    case []: True{}
++    case W.Handle{ns,_} <> rest: Bool.and(U32.is_eq(namespace,ns),namespaces(~S,rest,namespace))
++def same_world(~S:Data,+args:Args<S>,+namespace:U32) -> Bool:
++  match args:
++    case Args{W.Handle{ns,_},children}: Bool.and(U32.is_eq(ns,namespace),namespaces(~S,children,namespace))
++def queued(~S:Data,~C:Type,~R:Type,~E:Data,~d:G.HierarchyDescriptor<S>,same:Bool,tx:X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>>,args:Args<S>) -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & A.QueueStatus:
++  match same:
++    case False{}: (tx,A.MissingEntity{})
++    case True{}: (X.stage(~W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,~A.Notice<S,E>,tx,world => apply(~S,~C,~R,~E,~d,world,args)),A.Queued{})
++def namespace_join(~S:Data,~C:Type,~R:Type,~E:Data,~d:G.HierarchyDescriptor<S>,observed:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & U32,undo:List<(W.World<S,A.Store<S,C>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>)>,commands:List<(W.World<S,A.Store<S,C>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>)>,events:List<&2,A.Notice<S,E>>,+args:Args<S>) -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & A.QueueStatus:
++  (world,namespace) = observed
++  queued(~S,~C,~R,~E,~d,same_world(~S,args,namespace),X.Tx{world,undo,commands,events},args)
++def queue(~S:Data,~C:Type,~R:Type,~E:Data,~d:G.HierarchyDescriptor<S>,tx:X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>>,args:Args<S>) -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & A.QueueStatus:
++  match tx:
++    case X.Tx{world,undo,commands,events}: namespace_join(~S,~C,~R,~E,~d,W.namespace(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,world),undo,commands,events,args)
++def body(~S:Data,-H:Type,caps:Writable<H,S>,args:Args<S>,owner:H) -> H & A.QueueStatus:
++  match caps:
++    case Writable{Cap.Request{reorder}}: reorder(owner,args)
++def invoke(~S:Data,~C:Type,~R:Type,~E:Data,~d:G.HierarchyDescriptor<S>,~Out:Type,~client:@-H:Type -> Writable<H,S> -> Args<S> -> H -> H & Out,args:Args<S>,tx:X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>>) -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & Out:
++  client(X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>>,Writable{Cap.Request{queue(~S,~C,~R,~E,~d)}},args,tx)
+--- /dev/null
++++ b/src/ecs/relation-types.bend
+@@ -0,0 +1,45 @@
++import Base
++
++type RelationKind is Data:
++  Ordinary{}
++  Hierarchy{}
++type Descriptor<S: Data> is Data:
++  Descriptor{key: U32,name: String,inverseName: String,kind: RelationKind}
++type Edge<S: Data> is Data:
++  Edge{relation: Descriptor<S>,source: U32,target: U32}
++type Error is Data:
++  MissingEntity{source: U32}
++  MissingTargetEntity{source: U32,target: U32,relation: String}
++  SelfRelationNotAllowed{source: U32,relation: String}
++  HierarchyCycle{source: U32,target: U32,relation: String}
++  MissingChildEntity{source: U32,child: U32,relation: String}
++  DuplicateChild{source: U32,child: U32,relation: String}
++  ChildNotRelatedToParent{source: U32,child: U32,relation: String}
++  ChildSetMismatch{source: U32,relation: String}
++type Operation is Data:
++  Relate{}
++  ReorderChildren{}
++type Failure<S: Data> is Data:
++  Failure{relation: Descriptor<S>,operation: Operation,source: U32,target: U32,error: Error}
++type Inverse<S: Data> is Data:
++  Inverse{relation: Descriptor<S>,target: U32,sources: List<&2,U32>}
++type SpecGraph<S: Data> is Data:
++  SpecGraph{edges: List<&2,Edge<S>>}
++type Graph<S: Data> is Data:
++  Graph{edges: List<&2,Edge<S>>,inverses: List<&2,Inverse<S>>}
++type SpecResult<S: Data> is Data:
++  SpecResult{graph: SpecGraph<S>,error: Maybe<&2,Error>}
++type CoreResult<S: Data> is Data:
++  CoreResult{graph: Graph<S>,error: Maybe<&2,Error>}
++type ChildStatus is Data:
++  ChildStatus{id: U32,live: Bool}
++
++# Diagnostic continuation, not a new relation rejection policy.
++type CleanupFrame<S:Data> is Data:
++  CleanupEnter{id:U32}
++  CleanupDescriptors{id:U32,remaining:List<&2,Descriptor<S>>}
++  CleanupChildren{id:U32,descriptor:Descriptor<S>,remainingDescriptors:List<&2,Descriptor<S>>,remainingChildren:List<&2,U32>}
++  CleanupFinish{id:U32}
++# Public reorder provisioning accepts this nominal hierarchy family only.
++type HierarchyDescriptor<S:Data> is Data:
++  HierarchyDescriptor{key:U32,name:String,inverseName:String}

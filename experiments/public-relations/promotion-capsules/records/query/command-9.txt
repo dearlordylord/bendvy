@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : Cap.ValueWrite<H, RQ.Row<bad~S, List<&2, U32>>, RQ.Row<bad~S, List<&2, U32>>>
+- observed : Cap.ValueRead<H, RQ.Row<bad~S, List<&2, U32>>>
+Context:
+- H     : Type
+- caps  : Cap.ValueRead<H, RQ.Row<bad~S, List<&2, U32>>>
+- owner : H
+- row   : RQ.Row<bad~S, List<&2, U32>>
+Location: bad
+7 | def bad(~S:Data,-H:Type,caps:Cap.ValueRead<H,RQ.Row<S,List<&2,U32>>>,owner:H,row:RQ.Row<S,List<&2,U32>>) -> H:
+8>|   Cap.value_set(~H,~RQ.Row<S,List<&2,U32>>,~RQ.Row<S,List<&2,U32>>,~caps,owner,row)
+  |                                                                     ^^^^
+9 | 

@@ -1,0 +1,21 @@
+import {Schema,Descriptor as D} from '/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/index.ts';
+for(const root of ['Workshop','Other']) {
+ const Payload=D.Component()('Payload');const {relation:Link}=D.Relation('Link','LinkedBy');const {relation:OtherLink}=D.Relation('OtherLink','OtherIncoming');
+ const G=Schema.bind(Schema.fragment({components:{Payload},relations:{Link,OtherLink}}),Schema.defineRoot(root));const runtime=G.Runtime.make({});const ids=[];
+ const p=()=>({payload:G.Query.read(Payload)});
+ const defs={
+ optional:{selection:{...p(),target:G.Query.optionalRelation(Link),sources:G.Query.optionalRelated(Link)}},
+ outgoing:{selection:{...p(),target:G.Query.readRelation(Link)}},incoming:{selection:{...p(),sources:G.Query.readRelated(Link)}},
+ 'with-out':{selection:p(),withRelations:[Link]},'without-out':{selection:p(),withoutRelations:[Link]},
+ 'with-in':{selection:p(),withRelated:[Link]},'without-in':{selection:p(),withoutRelated:[Link]},
+ multi:{selection:{...p(),target:G.Query.readRelation(Link),otherTarget:G.Query.optionalRelation(OtherLink),otherSources:G.Query.optionalRelated(OtherLink)},withoutRelated:[OtherLink]},
+ 'cross-filters':{selection:{...p(),sources:G.Query.optionalRelated(Link)},withRelations:[OtherLink],withoutRelations:[Link]},empty:{selection:p()}
+ };
+ const queries=Object.fromEntries(Object.entries(defs).map(([key,value])=>[key,G.Query(value)]));
+ const tick=(...steps)=>{const r=runtime.tick(G.Schedule(...steps));if(!r.ok)throw Error(JSON.stringify(r));};
+ tick(G.System('spawn',{},({commands})=>{for(const value of [{tag:100,cells:[10]},{tag:200,cells:[20,21]},{tag:300,cells:[30,31,32,33]},{tag:400,cells:[40,41,42,43,44,45,46,47]}])ids.push(commands.spawn(G.Command.spawn([Payload,value])));ids.push(commands.spawn(G.Command.spawn()));}),G.Schedule.applyDeferred());
+ tick(G.System('seed',{},({commands})=>{commands.relate(ids[2],Link,ids[0]);commands.relate(ids[1],Link,ids[0]);commands.relate(ids[4],Link,ids[0]);commands.relate(ids[0],OtherLink,ids[3]);commands.relate(ids[3],OtherLink,ids[1]);}),G.Schedule.applyDeferred());
+ let rows;
+ tick(G.System('relation-query',{queries},({queries:q})=>{rows=Object.fromEntries(Object.keys(defs).map(key=>[key,q[key].each().map(({entity,data})=>({id:entity.id.value,component:[data.payload.get().tag,...data.payload.get().cells],cells:Object.keys(defs[key].selection).filter(x=>x!=='payload').map(name=>{const cell=data[name];return {key:name,value:cell.present===false?null:Array.isArray(cell.get())?cell.get().map(id=>id.value):cell.get().value};})}))]));}));
+ console.log(JSON.stringify({root,rows}));
+}

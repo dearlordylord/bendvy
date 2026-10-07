@@ -1,0 +1,13 @@
+# #42 equivalent-work timing and scaling plan (draft)
+
+This is an implementation plan, not an accepted performance protocol or result. Timing waits for complete source-current feature gates and root coordination.
+
+The application must run public registered systems on both nominal schemas. Each measured batch performs component-and-relation queries (required/optional/with/without on outgoing and incoming ends, conjunctive descriptors), deferred FIFO relate/replacement/unrelate, hierarchy reorder, accepted cycles and observed failure publication, and linked/ordinary despawn cleanup of actual component owners. It retains immutable query/inverse views and consumes descriptor-keyed failure sources. A pure graph helper or ignored component predicate is not equivalent work.
+
+Use the pinned bevy-ts public `Schema.fragment`/`Schema.bind`, `System`, `Query`, `Command`, `Schedule.applyDeferred`, and Runtime. Bend uses the relocated production candidate imports and public registration/provider adapters. Keep callbacks, effect order and checkpoint shape identical; every entity/payload cell, target/source order, liveness/removal notice, returned owner and keyed error DTO is checked against actual TS plus the independent chronological/literal model. A failed or incomplete cleanup is not a completed workload. Unsupported independent-root authority is reported separately; supported worlds share one consumed Factory.
+
+Vary entity population, descriptor count, incoming fanout and hierarchy depth independently. Record the full operation/selected-row/edge/cleanup-step counts, including relation-only entities excluded by required component selection. Include zero/empty, sparse and non-power-of-two logical populations; physical arrays keep their supported representation. Freeze exact source, tools, input sizes, callback code, consumed files, binaries and validators before enrollment.
+
+Run JS and Native alongside fresh TS on the same complete batch; initialization, warmup and full observations are outside the measured update phase but remain validated. Root chooses the approved cohort/rotations and existing project thresholds. There is no separate #42 threshold, budget reset or acceptance from a single descriptive sample. Preserve all failures, timeouts, adverse observations and unexecuted roles.
+
+Mandatory prerequisites still open: query lifetime/pre-barrier/foreign cases, exact relocated complete feature adapters and failure publication, affected-closure controls, coordinated current default #28 regression and source/API review. No #42 closure or production adoption follows from the finite Query slice.

@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : a defined name
+- observed : relation_read
+Context:
+- H     : Type
+- caps  : Cap.ValueRead<H, RQ.Row<bad~S, List<&2, U32>>>
+- owner : H
+Location: bad
+7 | def bad(~S:Data,-H:Type,caps:Cap.ValueRead<H,RQ.Row<S,List<&2,U32>>>,owner:H) -> H & RQ.Row<S,List<&2,U32>>:
+8>|   Cap.value_read(~H,~RQ.Row<S,List<&2,U32>>,~relation_read,owner)
+  |                                              ^^^^^^^^^^^^^
+9 | 

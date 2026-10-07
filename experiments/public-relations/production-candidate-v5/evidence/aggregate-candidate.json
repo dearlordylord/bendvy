@@ -1,0 +1,222 @@
+{
+  "status": "REVIEWABLE_DISTINCT_SOURCE_BOUND_FINITE_SLICES",
+  "notOneFreshAllPassExecution": true,
+  "receipts": {
+    "v4Large": {
+      "path": "/workspace/formal-proofs/bendvy/experiments/public-relations/production-candidate-v4/evidence/large-1791365640480813099/receipt.json",
+      "sha256": "9055148f7032852e4d705c6f41bd1be16661d15b6a35df208ca0932fe24e9a8c",
+      "originalStatus": "FAIL"
+    },
+    "v5Cleanup": {
+      "path": "/workspace/formal-proofs/bendvy/experiments/public-relations/production-candidate-v5/evidence/cleanup-1791366078591710869/receipt.json",
+      "sha256": "2835d604a1bce251bdd98d53eda7130626c32d6d647d9705605c1d6fd403a44a",
+      "originalStatus": "FINITE_DERIVED_NAT_REGISTERED_AFFINE_CLEANUP_PASS"
+    },
+    "v5Overflow": {
+      "path": "/workspace/formal-proofs/bendvy/experiments/public-relations/production-candidate-v5/evidence/large-1791366033230965729/receipt.json",
+      "sha256": "000222dcbf152304ff87c56dd29e73b92fa120e70f19e3bfe3708fb8610542e0",
+      "originalStatus": "FINITE_OLD_OVERFLOW_MUTANT_ISOLATED_PASS"
+    }
+  },
+  "normalBendInventoriesEqualAfterPathNormalization": true,
+  "toolPinsAndEnvironmentEqual": true,
+  "resolvedLibraryListsEqualIgnoringOnlyASLRAddresses": true,
+  "v4LargeObservations": [
+    {
+      "case": "normal",
+      "backend": "js",
+      "originalReceipt": "v4Large",
+      "originalCommand": {
+        "argv": [
+          "taskset",
+          "-c",
+          "10",
+          "node",
+          "/workspace/formal-proofs/bendvy/experiments/public-relations/production-candidate-v4/evidence/large-1791365640480813099/normal/world.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/production-candidate-v4/evidence/large-1791365640480813099/command-20.txt",
+        "sha256": "0af96d96cab746a445ec1ef7c5b9b2a2f14fcc85ec1764bf92aa943e79791b40"
+      },
+      "fullRecordCount": 6,
+      "witnesses": []
+    },
+    {
+      "case": "normal",
+      "backend": "native",
+      "originalReceipt": "v4Large",
+      "originalCommand": {
+        "argv": [
+          "taskset",
+          "-c",
+          "10",
+          "/workspace/formal-proofs/bendvy/experiments/public-relations/production-candidate-v4/evidence/large-1791365640480813099/normal/world-native",
+          "--threads",
+          "1",
+          "--gpu",
+          "off"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/production-candidate-v4/evidence/large-1791365640480813099/command-23.txt",
+        "sha256": "0af96d96cab746a445ec1ef7c5b9b2a2f14fcc85ec1764bf92aa943e79791b40"
+      },
+      "fullRecordCount": 6,
+      "witnesses": []
+    },
+    {
+      "case": "graph-remove-wrong-order",
+      "backend": "js",
+      "originalReceipt": "v4Large",
+      "originalCommand": {
+        "argv": [
+          "taskset",
+          "-c",
+          "10",
+          "node",
+          "/workspace/formal-proofs/bendvy/experiments/public-relations/production-candidate-v4/evidence/large-1791365640480813099/graph-remove-wrong-order/world.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/production-candidate-v4/evidence/large-1791365640480813099/command-26.txt",
+        "sha256": "98f6259a1064cef43fa79bc7e6e366744c9cf4960d3dc7999cad25ca62f51bac"
+      },
+      "fullRecordCount": 6,
+      "witnesses": [
+        {
+          "checkpoint": 3,
+          "expected": "after|absent;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=Removed:1;Original:100100;Original:100010;Original:1001;|meta=1,131073,131072,262144,18,77,2,0|pending=0|all-live-shape=true|all-graph-fields=true",
+          "actual": "after|absent;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=Removed:1;Original:100100;Original:100010;Original:1001;|meta=1,131073,131072,262144,18,77,2,0|pending=0|all-live-shape=true|all-graph-fields=false"
+        },
+        {
+          "checkpoint": 7,
+          "expected": "after|absent;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=Removed:1;Original:100100;Original:100010;Original:1001;|meta=1,131073,131072,262144,18,77,2,0|pending=0|all-live-shape=true|all-graph-fields=true",
+          "actual": "after|absent;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=Removed:1;Original:100100;Original:100010;Original:1001;|meta=1,131073,131072,262144,18,77,2,0|pending=0|all-live-shape=true|all-graph-fields=false"
+        }
+      ]
+    },
+    {
+      "case": "graph-remove-wrong-order",
+      "backend": "native",
+      "originalReceipt": "v4Large",
+      "originalCommand": {
+        "argv": [
+          "taskset",
+          "-c",
+          "10",
+          "/workspace/formal-proofs/bendvy/experiments/public-relations/production-candidate-v4/evidence/large-1791365640480813099/graph-remove-wrong-order/world-native",
+          "--threads",
+          "1",
+          "--gpu",
+          "off"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/production-candidate-v4/evidence/large-1791365640480813099/command-29.txt",
+        "sha256": "98f6259a1064cef43fa79bc7e6e366744c9cf4960d3dc7999cad25ca62f51bac"
+      },
+      "fullRecordCount": 6,
+      "witnesses": [
+        {
+          "checkpoint": 3,
+          "expected": "after|absent;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=Removed:1;Original:100100;Original:100010;Original:1001;|meta=1,131073,131072,262144,18,77,2,0|pending=0|all-live-shape=true|all-graph-fields=true",
+          "actual": "after|absent;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=Removed:1;Original:100100;Original:100010;Original:1001;|meta=1,131073,131072,262144,18,77,2,0|pending=0|all-live-shape=true|all-graph-fields=false"
+        },
+        {
+          "checkpoint": 7,
+          "expected": "after|absent;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=Removed:1;Original:100100;Original:100010;Original:1001;|meta=1,131073,131072,262144,18,77,2,0|pending=0|all-live-shape=true|all-graph-fields=true",
+          "actual": "after|absent;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=Removed:1;Original:100100;Original:100010;Original:1001;|meta=1,131073,131072,262144,18,77,2,0|pending=0|all-live-shape=true|all-graph-fields=false"
+        }
+      ]
+    },
+    {
+      "case": "graph-remove-drop-survivors",
+      "backend": "js",
+      "originalReceipt": "v4Large",
+      "originalCommand": {
+        "argv": [
+          "taskset",
+          "-c",
+          "10",
+          "node",
+          "/workspace/formal-proofs/bendvy/experiments/public-relations/production-candidate-v4/evidence/large-1791365640480813099/graph-remove-drop-survivors/world.js"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/production-candidate-v4/evidence/large-1791365640480813099/command-32.txt",
+        "sha256": "98f6259a1064cef43fa79bc7e6e366744c9cf4960d3dc7999cad25ca62f51bac"
+      },
+      "fullRecordCount": 6,
+      "witnesses": [
+        {
+          "checkpoint": 3,
+          "expected": "after|absent;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=Removed:1;Original:100100;Original:100010;Original:1001;|meta=1,131073,131072,262144,18,77,2,0|pending=0|all-live-shape=true|all-graph-fields=true",
+          "actual": "after|absent;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=Removed:1;Original:100100;Original:100010;Original:1001;|meta=1,131073,131072,262144,18,77,2,0|pending=0|all-live-shape=true|all-graph-fields=false"
+        },
+        {
+          "checkpoint": 7,
+          "expected": "after|absent;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=Removed:1;Original:100100;Original:100010;Original:1001;|meta=1,131073,131072,262144,18,77,2,0|pending=0|all-live-shape=true|all-graph-fields=true",
+          "actual": "after|absent;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=Removed:1;Original:100100;Original:100010;Original:1001;|meta=1,131073,131072,262144,18,77,2,0|pending=0|all-live-shape=true|all-graph-fields=false"
+        }
+      ]
+    },
+    {
+      "case": "graph-remove-drop-survivors",
+      "backend": "native",
+      "originalReceipt": "v4Large",
+      "originalCommand": {
+        "argv": [
+          "taskset",
+          "-c",
+          "10",
+          "/workspace/formal-proofs/bendvy/experiments/public-relations/production-candidate-v4/evidence/large-1791365640480813099/graph-remove-drop-survivors/world-native",
+          "--threads",
+          "1",
+          "--gpu",
+          "off"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/production-candidate-v4/evidence/large-1791365640480813099/command-35.txt",
+        "sha256": "98f6259a1064cef43fa79bc7e6e366744c9cf4960d3dc7999cad25ca62f51bac"
+      },
+      "fullRecordCount": 6,
+      "witnesses": [
+        {
+          "checkpoint": 3,
+          "expected": "after|absent;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=Removed:1;Original:100100;Original:100010;Original:1001;|meta=1,131073,131072,262144,18,77,2,0|pending=0|all-live-shape=true|all-graph-fields=true",
+          "actual": "after|absent;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=Removed:1;Original:100100;Original:100010;Original:1001;|meta=1,131073,131072,262144,18,77,2,0|pending=0|all-live-shape=true|all-graph-fields=false"
+        },
+        {
+          "checkpoint": 7,
+          "expected": "after|absent;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=Removed:1;Original:100100;Original:100010;Original:1001;|meta=1,131073,131072,262144,18,77,2,0|pending=0|all-live-shape=true|all-graph-fields=true",
+          "actual": "after|absent;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=Removed:1;Original:100100;Original:100010;Original:1001;|meta=1,131073,131072,262144,18,77,2,0|pending=0|all-live-shape=true|all-graph-fields=false"
+        }
+      ]
+    }
+  ],
+  "retrospectiveV4GeneratedCapture": {
+    "explicitlyNotPinsRecordedInFailedReceipt": true,
+    "reason": "generatedPins finalized only at runner success; actual runner guarded generated bytes in-memory before/after each operation",
+    "pins": {
+      "/workspace/formal-proofs/bendvy/experiments/public-relations/production-candidate-v4/evidence/large-1791365640480813099/normal/world.js": "93863135548f22a16a297f7a299821080182bfcf364d89d8c95e218417fc4241",
+      "/workspace/formal-proofs/bendvy/experiments/public-relations/production-candidate-v4/evidence/large-1791365640480813099/normal/world-native": "6ff9f2e7b3b0766fd4f9299c002822d0204f4b39c171be8a3f159a7914a16473",
+      "/workspace/formal-proofs/bendvy/experiments/public-relations/production-candidate-v4/evidence/large-1791365640480813099/normal/world.c": "6bbf0603abce03a41050b2aedd742a2c34ef24187459dfb5c6133036f4860a4b",
+      "/workspace/formal-proofs/bendvy/experiments/public-relations/production-candidate-v4/evidence/large-1791365640480813099/graph-remove-wrong-order/world.js": "31b8c0d233609d046bc2a40495e2873320cc46283fe1eb9bf89b9a6d64bbf126",
+      "/workspace/formal-proofs/bendvy/experiments/public-relations/production-candidate-v4/evidence/large-1791365640480813099/graph-remove-wrong-order/world-native": "0ea0dd0dba886cbb5db0930e0617b51e265acada1d664481c9d25acd5d9945e8",
+      "/workspace/formal-proofs/bendvy/experiments/public-relations/production-candidate-v4/evidence/large-1791365640480813099/graph-remove-wrong-order/world.c": "7a7c638a43628dce6788bf712fa888529cee27b5bf69df22d6823deb87e60111",
+      "/workspace/formal-proofs/bendvy/experiments/public-relations/production-candidate-v4/evidence/large-1791365640480813099/graph-remove-drop-survivors/world.js": "e94399ecd6b620a795dd382928b2be7c8ee90cebe62ece7eba78177f75dd4c4b",
+      "/workspace/formal-proofs/bendvy/experiments/public-relations/production-candidate-v4/evidence/large-1791365640480813099/graph-remove-drop-survivors/world-native": "e22923011ab76b3f77bbc65f60342c1055c84a2d850b7b4bdd8fa154926815c9",
+      "/workspace/formal-proofs/bendvy/experiments/public-relations/production-candidate-v4/evidence/large-1791365640480813099/graph-remove-drop-survivors/world.c": "45330edab7fad5314ae0723f931df91fe12e31f7b5a9313b862bb98ea0160a14"
+    }
+  },
+  "v5CleanupFullRecordsPerBackend": 36,
+  "v5CleanupTenIntendedSpanNegatives": 10,
+  "v5CleanupCompilingMutantsPerBackend": 6,
+  "v5OverflowOnly": "actual old scalar arithmetic Nat48 fail-stop, not completion",
+  "recipeSHA256": "3a297f426ee43df528d241dc6e9aeb557659731d8659f2a174cba343b2c0d40e",
+  "proof": false,
+  "productionAdoption": false,
+  "performanceAcceptance": false
+}
