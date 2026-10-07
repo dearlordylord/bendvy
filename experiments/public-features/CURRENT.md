@@ -1,0 +1,21 @@
+# #40 experimental feature checkpoint
+
+Finite source-current cohort PASS: `evidence/current/receipt.json`, 61 commands, 88 source pins, 24 generated targets. Complete command captures are archived in `evidence/current/complete-command-logs.json.gz`; `.stdout` is honestly labeled merged supervisor output, `.stderr` a synthetic empty placeholder. Generated JS/C/native artifacts remain in `.artifacts/features40-current-v8/` with receipt hashes.
+
+Two nominal schemas each execute independently authored Combat/Core builders in selected order, then actual registered public bootstrap and update schedules in separate phases. The recursive typed Recipe pairs feature metadata, owners and callbacks; selected validation precedes construction. Actual returned World and Registry owners cross phases. All 42 normal records match JS/Native: 14 application, eight recipe, 12 scope, eight literal-law falsification rows. Original eight actual TS observations are preserved; two supplemental observations verify repeated direct dependency references. Six exact intended access/ownership negatives pass. Four compiling, reached omitted-dependency, schedule-order, name-order and visibility mutants each have named counterexamples on both backends.
+
+The earlier immutable-log collision and invalid combined-phase/incorrect raw-requirement-oracle attempts remain retained, without blanket passing credit. `COVERAGE.md` explains raw authored requirements versus the provisioning union. The final freeze changes no core, gameplay reference, compiler, dependency, numerical criterion or baseline.
+
+Limits: trusted schema authors can construct raw Recipe/Feature/metadata and close capability adapters. Rank-2 gameplay remains opaque, but metadata alone proves no authority. The checked registration-success paths do not select a policy for arbitrary builder exceptions or registration failure; registration refusal currently returns actual owners with empty plans and is an explicit unqualified branch. Array snapshots are finite actual-cell evidence, not universal Type refinement. `LAWS.bend` remains four unapproved TODO declarations; there are no proofs. Independent final review, production public-module integration, feature equivalent-work timing and the unchanged shared regression gate remain separate gates. No whole-#40 completion or performance acceptance is claimed here.
+
+Reproduction (after independent admission and a coordinated semantic CPU):
+
+```sh
+taskset -c 10 python3 experiments/public-features/run.py --output .artifacts/features40-fresh
+```
+
+Use a fresh output directory. Checker/emission/Clang/runtime limits are 5/30/120/5 seconds; Native uses one thread and GPU off. The runner freezes the recursive import DAG, tools, present/absent configuration, all prospective mutant inventories and all 61 unique command labels before execution; prior logs and generated artifacts are immutable through final guards.
+
+Post-integration evidence: root installed the two imports-only generic public modules and the qualified World/StringEquality batch. `evidence/live-current/receipt.json` binds actual public Feature/Provision, World `a20b0f23…`, and StringEquality `2f0f31d7…`: all 61 commands and 42 normal records pass with four actual-core mutants detected on both backends. `run-live.py` reproduces this consumer gate against actual live imports, applying only 22 staged consumer import rebases and the exact diagnostic type-path update. Historical promotion runners/evidence describe the pre-integration absent-target stage; they intentionally require those targets absent and are not the current live reproduction path. The root's unchanged named-workload regression is separately recorded in `docs/reports/feature-world-batch-regression.md`.
+
+The separate full-application comparison preparation also passes correctness only: `timing/evidence/current/receipt.json` has 16 complete Bend records and actual TS shared-field equality on both backends, including grown array padding, actual returned feature payloads, full queue/tag cells and all three pre-builder refusal modes for both roots. No measurement or numerical feature acceptance follows. Its full source, copied import rebases, installed tools/config and observations are guarded; compare protocol review and a quiet window remain required.

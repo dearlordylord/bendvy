@@ -1,0 +1,41 @@
+{
+  "scope": "Imports-only generic promotion candidate; no live src writes",
+  "files": {
+    "feature.bend": {
+      "source": "experiments/public-features/feature.bend",
+      "source_sha256": "2db15d26fa90f361a6bd315e6e8e8bd716ab4a395faf945ddf0b11661b1b439b",
+      "candidate": "experiments/public-features/promotion/feature.bend",
+      "candidate_sha256": "be03fb80093190ed1bc963a7f6516195c189921a56694b998ec3325e35c9091d",
+      "destination": "src/ecs/feature.bend",
+      "live_absent": true,
+      "imports": {
+        "../../src/ecs/schema-fragments.bend": "./schema-fragments.bend",
+        "../../src/ecs/schedule-provision.bend": "./schedule-provision.bend"
+      },
+      "anchor_counts": {
+        "../../src/ecs/schema-fragments.bend": 1,
+        "../../src/ecs/schedule-provision.bend": 1
+      }
+    },
+    "feature-provision.bend": {
+      "source": "experiments/public-features/provider.bend",
+      "source_sha256": "826413c6d278b83ce0467ad6590daa49bc72acc4e9a4c77248ffa24983a155fa",
+      "candidate": "experiments/public-features/promotion/feature-provision.bend",
+      "candidate_sha256": "430b9a1a382c4b78e4eaeb11a838b3f1cd01b5c3042ec83a72364815886a2b9d",
+      "destination": "src/ecs/feature-provision.bend",
+      "live_absent": true,
+      "imports": {
+        "feature.bend": "./feature.bend",
+        "../../src/ecs/component.bend": "./component.bend",
+        "../../src/ecs/schema-fragments.bend": "./schema-fragments.bend",
+        "../../src/ecs/capabilities.bend": "./capabilities.bend"
+      },
+      "anchor_counts": {
+        "feature.bend": 1,
+        "../../src/ecs/component.bend": 1,
+        "../../src/ecs/schema-fragments.bend": 1,
+        "../../src/ecs/capabilities.bend": 1
+      }
+    }
+  }
+}

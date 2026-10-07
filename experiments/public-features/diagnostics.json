@@ -1,0 +1,44 @@
+{
+  "undeclared": [
+    "- expected : feature.Pack<combat-feature.Owner, feature.Pack<core-feature.Owner, feature.Pack<Unit, Unit>>>",
+    "- observed : H",
+    "Location: bad",
+    "5>|   A.owner_text(ctx)",
+    "  |                ^^^"
+  ],
+  "root": [
+    "- expected : F.Definition<A.Schema>",
+    "- observed : F.Definition<B.Schema>",
+    "Location: bad",
+    "10>|   P.bind_feature(~A.Schema,~Array<U32>,~Array<U32>,~identity,definition,[],owner)",
+    "   |                                                              ^^^^^^^^^^"
+  ],
+  "write-read": [
+    "- expected : Cap.Write<H, U32, U32>",
+    "- observed : Cap.Read<H, U32>",
+    "Location: bad",
+    "5>|   P.write(H,U32,U32,cap,ctx,9)",
+    "  |                     ^^^"
+  ],
+  "owner": [
+    "- expected : ctx",
+    "- observed : ctx (consumed more than once)",
+    "Location: bad",
+    "2>| def bad(-H:Type,ctx:H) -> H & H:",
+    "  |                 ^^^"
+  ],
+  "runtime-root": [
+    "- expected : W.World<X.Schema, X.Declarations, X.Trace, U32>",
+    "- observed : W.World<Y.Schema, Y.Declarations, Y.Trace, U32>",
+    "Location: bad",
+    "8>|   Core.runner(world,Unit{})",
+    "  |               ^^^^^"
+  ],
+  "runtime-undeclared": [
+    "- expected : ../../src/ecs/world.World<X.Schema, X.Declarations, X.Trace, U32>",
+    "- observed : H",
+    "Location: bad",
+    "5>|   X.traced(ctx,\"unauthorized\")",
+    "  |            ^^^"
+  ]
+}

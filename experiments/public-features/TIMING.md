@@ -1,0 +1,9 @@
+# Full-application feature timing plan
+
+DRAFT, not an admitted benchmark contract or a new numerical threshold. Semantic admission and a coordinated quiet CPU window must precede measurements. Keep the original TS reference and all failed attempts intact.
+
+The comparable subject must execute Feature composition, two independently authored builders, actual registered bootstrap/update schedules in selected order, complete returned payload observation and pre-builder duplicate/missing/priority refusal. Run both nominal roots. Include an additional grown-array case preserving all old cells, new padding and actual returned owners; initializer mutations and full snapshots must be identical in TS, generated JS and Native. A recipe-only or metadata-only timing proxy is excluded.
+
+Use a separate full application driver and a source-pinned actual Node TS counterpart. Freeze equal owner inputs, authored names/descriptor requirements, builder and phase call traces, full array/queue/tag values, refusal owners and observable effect counters before running. Normalize only representation-specific identifiers explicitly; do not invent TS resource ownership, namespace or allocator observations absent from the real source. Retain backend-specific full observations alongside the shared equality oracle.
+
+One-shot cold program costs and repeated full-application costs must be labeled separately; timing may never skip validation, projection or owner recovery. Retain all output validation, artifacts, tools/config/CPU settings, failure attempts and paired samples. Root will review the equal-work contract and report ratios; this document selects no per-feature pass threshold. The existing global performance goals and committed shared regression gate remain independently binding. Registration failure/exception policy is unqualified and must not be silently selected to make a benchmark pass.
