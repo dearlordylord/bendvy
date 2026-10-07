@@ -12,6 +12,18 @@ supplies closed `take`, `put` and ownership-preserving Data `project` functions.
 wrappers can bind the repeated template arguments; no generator is required.
 Lenses and bundle population/cleanup are trusted provisioning declarations.
 
+`Feature` (`feature.bend`) composes recursively typed feature owners and builder
+callbacks using `FeatureOwner`, `recipe_empty` and `prepend`. `run_recipe`
+validates selected names, dependencies and fragment collisions before running
+builders in selected order. Refusal returns the original context and recipe;
+success returns arbitrary affine extras and separate bootstrap/update plans.
+Run these phases as separate schedules, threading returned World and registry
+owners between them. Repeated references to the same dependency are permitted.
+`FeatureProvision.bind_feature` (`feature-provision.bend`) checks declared needs
+against the feature's own fragment and dependency closure; identical descriptor
+entries collapse for grants, while conflicts remain errors. Raw metadata,
+recipes and closed builder/getter declarations are trusted authoring operations.
+
 Create application worlds with `WorldIO.create` from `world-io.bend`. Its IO
 allocator shares namespaces across canonical creations in one emitted program.
 `Created` returns the World; `Refused` returns the original affine resource.

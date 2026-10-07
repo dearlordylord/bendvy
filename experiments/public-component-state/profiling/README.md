@@ -1,0 +1,7 @@
+# Frozen full-application diagnostic profiles
+
+Run `python3 experiments/public-component-state/profiling/run.py --output .artifacts/state-profiles-FRESH --cpu 11` only with the integrator's CPU window. Reuses exact admitted stage-v1/generated JS and current tools; no compilation or workload modification. Each separate CPU/allocation process executes complete scale1 or scale4 application, compares every output byte and capture digest, and retains profiles plus stdout/stderr. Reviewed descendant supervisor applies the unchanged five-second process cap. Source/stage/reference/tool/config/artifact guards apply before and after commands.
+
+The inspector preload starts/stops on the existing two Begin/End clock calls. CPU sampling100us; heap sampling512bytes with collected minor/major objects included. Profile control startup/stopping is visible in `node:inspector post`; it must not be interpreted as application work. Profiling changes execution cost, so recorded elapsedNs are diagnostic only. Heap estimates are sampled allocation traffic, not live heap/RSS or exact byte counts. `--expose-gc` appears only in the separately retained collected-allocation canary, never in the actual application.
+
+Evidence-v1 retains all eight full application profiles and outputs, source/tool guard receipt, auxiliary canary and aggregation. `analyze.py ARTIFACT_DIR` aggregates self allocations by function/location across stack branches. No optimization, law, proof, numerical gate or repeated comparative timing is included.

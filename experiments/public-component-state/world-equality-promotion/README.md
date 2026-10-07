@@ -1,17 +1,9 @@
-# Staged World equality adoption — preparation
+# Isolated two-call World equality promotion
 
-`world.patch` adds one helper import and changes exactly two World string-equality
-calls: registration name and ordered access names. Existing IDs, ordering,
-registrations, owners and public semantics are unchanged by the proposed diff.
-The helper remains the independently tested codepoint-equality candidate.
-No live `src/ecs` file is changed.
+The root-authored `world.patch` is immutable. `stage.py --output FRESH` reuses the reviewed complete state timing generator, freezes every original application/negative/mutant/helper source, and applies exactly the import plus two access/name equality replacements. The helper bytes are copied to staged src/ecs/string-equality.bend. Live src is untouched.
 
-A copied full component-state application dependency closure passes the five-second
-checker with the staged World and helper. Initial use of nonexistent `--check`
-failed; original logs remain separate from the successful `--check-only` receipt.
-The checker verdict is type/termination evidence, not approval of new ECS laws.
+`semantic.py --stage STAGE --output FRESH --cpu 5 --preflight` runs the existing full state gate unchanged inside the isolated tree, using its original preflight path; remove preflight only after independent admission. The outer supervisor guards exact original/staged/reference/tool/config inventories. Child checker/emission/Clang/runtime limits remain5/30/120/5; outer120/600seconds bound aggregate orchestration, not individual checks. Every child command/output/receipt is retained; no Native credit from staging/checker preparation.
 
-Next: guarded actual full application JS/Native and affected registration/owner
-controls, matching before/after profiles, equivalent complete timing and unchanged
-#28 gate before shared-core delivery. Checker-only evidence qualifies none of
-those executable, proof or performance gates.
+`pipeline.py --stage STAGE --output FRESH --cpu 5` runs the existing three-scale complete timing semantic/build gate, unchanged. After semantic admission and a coordinated quiet CPU11 window, use `--profiles --semantic-receipt RECEIPT` for before/after diagnostic profiles (same full workload and region preload as baseline), or `--timing --semantic-receipt RECEIPT --quiet-window CONTEXT` for the unchanged20balanced pair protocol/scales1/2/4. No threshold, baseline, workload, compiler/runtime or Base amendment. CPU/allocation profiles are separate processes; sampled collected allocations are not physical/RSS memory. Comparison observations do not establish universal refinement.
+
+Preflight-v1 is historical checker/actual TS qualification before final orchestration files were added; no backend credit. The earlier root checker-only preparation and initial invalid --check attempt remain historical. Current delivery requires current frozen stage, independent admission, full API owner semantics including registration/foreign refusal, source-current profiles/default regression and equivalent feature pairs. #47 stays open pending these gates.
