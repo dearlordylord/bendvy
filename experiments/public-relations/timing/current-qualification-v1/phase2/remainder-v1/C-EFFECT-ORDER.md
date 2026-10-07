@@ -1,0 +1,16 @@
+# Current-source Native anchor boundary review
+
+Reviewed actual emitted C at `.artifacts/relations-phase2-native-anchor-1791409945667291493/trace.c`, SHA `d3ba89b5b44b18ee87e03822057ca8de460487448d54fb2cee67d3b64850bda6`. The same compiled binary SHA `3dc7dcf7bc63d242691d5b7bd561aa395b91cace8a4000d2b6de87aa5297e09b` passed the three existing full thirty-record independent inputs64/seed0,64/seedmax,256/seed0. Receipt SHA `879cf9a99202e66b6235c53ebd2ebf1e5c5b4de710f0552e251fc21d68ec32f9` retains five subjects and fifty-five owned execution probes, plus five preparation probes. This is finite correctness/forcing qualification, not comparative timing or scaling acceptance.
+
+The generated worklist dispatch provides an explicit order:
+
+- MAIN_C3338 (174654) parses actual IO.args. MAIN_K3339 (174678) waits for parsing, then dispatches SETUP_RUN_0. MAIN_K3340 (174727) captures that completed world's fields and dispatches SETUP_RUN_1. MAIN_K3341 accepts both Ready variants before creating the Begin closure.
+- MAIN_C3342 (174979) binds the Begin foreign effect to MAIN_C3343, preserving both affine world owners. The latter (175087) dispatches TRACE only as the Begin continuation. TRACE (172101) invokes actual APPLICATION_RUN_0, then TRACE_K3256 (172264) invokes APPLICATION_RUN_1. These are real registered observer/writer operation paths; APPLICATION_STEP_0 (158591) and OPERATIONS_WRITE_0 (155004) remain present.
+- MAIN_K3344 (175243) keeps the immutable returned trace and dispatches FORCE_FORCE. FORCE_WALK (166518) visits pending keys, scalar leaves and every member, maintaining U32 nodes/characters/sum; exhaustion and empty-pending completion are distinct branches.
+- MAIN_K3345 (175276) receives the completed tag and three demanded U32 primitives in registers. It constructs the completion continuation only on Complete. MAIN_C3346 (175306) binds the foreign completion effect, carrying those three primitive values, to MAIN_C3347. That continuation (175337) first dispatches SERIALIZE_ENCODE. Serialization cannot produce the controls used to close the boundary.
+
+The runtime io_step (176981) reduces the next continuation to an effect; io_exec (176731) runs the foreign effect before returning its result to the next loop iteration. Foreign completion (177100) consumes the three uint32 fields and emits their exact values. Thus actual trace production and whole-tree traversal are inside the Begin/completion interval; both setups are outside, and serialization follows completion.
+
+Runtime outputs carry the same independently expected controls as JS:64seed0 nodes208963/characters379393/sum68583244;64seedmax sum68530143;256seed0 nodes831043/characters1491073/sum458192524. Complete field equality remains the semantic gate; these controls support forcing/order only. No current-source JS replay is inferred from this Native evidence: the earlier JS artifact has the separately documented EOF-only source delivery join.
+
+N1024, fanout/depth, empty/sparse/nonpower and reached forcing mutants remain unexecuted. Generated C and binary are local hash-bound review artifacts excluded from the portable capsule; the capsule reconciles recorded bytes and cannot regenerate C or execute a fresh backend.
