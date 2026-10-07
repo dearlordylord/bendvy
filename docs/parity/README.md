@@ -1,6 +1,6 @@
 # Remaining full-core parity — published execution map
 
-Specification: [37](https://github.com/dearlordylord/bendvy/issues/37). Full parent #1 and performance parents #21/#23/#24 are unchanged. Existing #34/#35 remain the next immediate feature slices.
+Specification: [37](https://github.com/dearlordylord/bendvy/issues/37). Full parent #1 and performance parents #21/#23/#24 are unchanged. #34 and #39 are delivered; the active slices are recorded below.
 
 Publication is complete scope tracking, not capability acceptance. Every issue is labeled ready-for-agent; execute only when its genuine blockers and explicit decision gates are satisfied.
 
@@ -36,20 +36,20 @@ Publication is complete scope tracking, not capability acceptance. Every issue i
 
 ## Immediate frontier
 
-Existing #34 and #35, plus new #38, #39, #41, #42, #46, #47, #50, #53. Explicit unresolved identity/capture/affine-event contract choices must still be resolved before implementation; there is no blanket approval of divergence.
+#35, #38, #40, #41, #42, #46, #47, #48, #50 and #53. #34 and #39 are closed; their dependencies permit #40 and #48. #45 has actual TS preparation while #44 remains prerequisite. Explicit unresolved identity/capture/affine-event contract choices must still be resolved before implementation; there is no blanket approval of divergence.
 
 ## Implementation checkpoint — 2026-10-07
 
 | Issue | Current evidence | Remaining delivery boundary |
 | --- | --- | --- |
 | #34 | Delivered bounded nested provisioning: current 33-core provisioning/flat replays pass 31/42 guarded commands, complete refusal/access/owner controls and reached mutants. Corrected actual-command common work retains full TS/JS/Native observations and 120 timing pairs. | Independent final reviews pass; metadata laws remain unapproved. Modest JS overhead is recorded, and full-product qualification remains #21/#23/#24. See [completion](../reports/nested-provision-completion.md). |
-| #35 | Source-current composed schedule-reader controls and independent root replay pass (96 commands, 28 result rows); final independent reviews are reconciled. | Exact law drafts remain unapproved; current paired regression passes; equivalent feature measurements and delivery remain open. |
-| #38 | Independent-root collision discovery, checked IO-host namespace and reservation-state wrapper pass finite JS/Native controls; final wrapper has 61 commands and five reached mutants per backend. | Canonical production identity, reservation/capacity/clock/owner gates and explicit unresolved policy decisions remain open. |
+| #35 | Current complete reader semantics and 120 paired observations retained; CPU and collected-allocation profiles identify list reconstruction. | Heavy reader workload remains JS 3.8–4.1× TS and Native 1.1–2.0× TS; consequential performance gap remains. Exact laws unapproved; no full-product qualification. |
+| #38 | Canonical IO creator candidate passes 45 guarded JS/Native commands, 38 current source pins, four exact negatives and collision/range mutants; independent review passes. | Shared-core promotion, full reservation/capacity/clock gates and failed-ID policies remain open. Trusted raw/legacy helpers and separate-program authority are explicitly outside the candidate claim. |
 | #39 | Delivered executable fragment slice: two-schema public applications, collision/refusal/barrier controls, four reached mutants and independent replay. | Final reviews, unchanged regression and complete timing/scaling retained; JS initialization is slower than TS, Native faster. Full-product qualification remains #21/#23/#24. See [completion](../reports/schema-fragments-completion.md). |
-| #41 | Constructor receipts pass 28 guarded commands, pending real-Column insertion passes both backends; fallible spawn is under validation. | No production adoption; actual eager construction, fallible spawn lifecycle, confinement and performance gates remain open. |
-| #42 | Pure graph and actual affine World/Commands transport pass guarded JS/Native controls with reached mutants. | No core implementation or acceptance. |
+| #41 | Generic heterogeneous Type bundles and declared public boundaries pass finite current JS/Native controls, ownership/access negatives and reached omitted-grant mutant. | Complete command integration and failed post-activation body lifecycle remain open; no production acceptance. |
+| #42 | Six graph/World/provider suites retained. Structural cleanup V2 removes the rejected scalar Nat48 budget product; current finite cleanup controls pass both backends. | Large 131072-entity JS control failed with a stack fault before observations; Native/mutant remain unexecuted. Diagnose construction versus production path before a fresh admitted freeze. Production adoption, timing and universal progress/law approval remain separate. |
 | #46 | Guarded Node reference and independent root replay observe 38 Decode/constructor/Standard Schema cases. | Typed raw ownership, actual ECS rejection, transient save boundaries and full controls remain open. |
-| #47 | Generic typed state adapter passes an initial 36-command JS/Native application/foreign/mutant cohort. | Both reader families and executed raw constructors are being expanded; production and delivery gates remain open. |
+| #47 | Checked generic state core delivered; current 87-command cohort, eight negatives and five reached mutants pass. Complete 120 paired observations retained. | JS application workload is 2.99–3.23× TS, Native 6.36–11.94× faster. Actual JS profiling is next; full performance and final issue delivery remain open. |
 
 CPU contention defers comparative measurements. These are local integration
 checkpoints, not issue completion or full-parity acceptance. The unattended

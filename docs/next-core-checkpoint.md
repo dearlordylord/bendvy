@@ -21,8 +21,9 @@ See [regression evidence](reports/core-integrated-regression.md) and
 [independent/integrator review](reviews/integrated-core-final.md).
 
 - #39 is delivered and closed; its schema-fragment laws remain unapproved.
-- #34 now has actual TS/JS/Native spawn/reservation/barrier observations;
-  equivalent corrected feature pairing is running before final delivery.
+- #34 is delivered and closed at `5caa6b2d`: current nested/flat controls,
+  corrected actual-command timing and independent final reviews are retained.
+  #40 and #48 now proceed; exact metadata laws remain unapproved.
 - #35 current reader semantics pass; the heavy reader workload still takes
   approximately 3.8–4.1 times TS in JS and 1.1–2.0 times TS in Native. Sampled
   allocation decreased from 922 to 341 MB across diagnostic profiles. This gap
@@ -31,13 +32,16 @@ See [regression evidence](reports/core-integrated-regression.md) and
   contracts remain open. Finite pending/resource/FIFO controls are not proofs.
 - #47's current full cohort passes 87 commands, eight negatives and five reached
   mutants on both backends. Three-scale full application timing semantics pass;
-  comparative timing and final issue qualification remain open.
+  120 paired observations give JS 2.99–3.23× TS and Native 6.36–11.94×
+  faster. Actual JS profiling and final issue qualification remain open.
 - #41's generic declared bundle boundary passes direct public JS/Native controls;
   complete command integration and failed-body lifecycle remain open.
 - #42's six finite suites are archived; they are historical after the core batch.
   Production relation candidates are being integrated. The proposed numeric
   cleanup bound exceeds emitted Nat48 at legal sizes; replace the aggregate
   product with structural shrinking budgets and verify generated arithmetic.
+- #45 actual TS preparation retains canonical same-name scope keys, deferred
+  cleanup, failure/retry and independent-runtime membership; #44 remains required.
 - #46 validation/host integration continues. Remaining #40–#64 capabilities and
   #21/#23/#24 product qualification remain the full goal, not optional follow-ups.
 
