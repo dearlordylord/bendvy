@@ -110,6 +110,21 @@ rebase. Private environments and generated caches must stay out of Git.
   foreign Inspector association and held-view ownership remain approval gates.
   Relation/machine inspection stays dependent #55, not silently substituted for #54.
 
+### Consolidated ownership decision queue
+
+No ownership contract below is selected by this coordination change. Keep one
+approval packet; the existing #50 question remains pending and is not repeated.
+
+| Issue | Concrete approval subject | Source basis / status |
+| --- | --- | --- |
+| #50 | Confirm the complete [capture draft](captures-contract-draft.md): affine pack returned on run/failure; skip/refusal unchanged; sequential sharing separate from World registration/cursors; successful one-time closed finalizer, refusal returns both owners. | Actual TS capture study supports failure/skip/sharing; TS does not establish disposal. Local approval is separate. Awaiting the existing explicit reply. |
+| #53 access | Choose detached Data projections or opaque scoped read-only visitor with optional detached observations; explicitly approve departure from TS shared mutable alias identity. | [Observed study and proposal](../../experiments/public-owned-events/RESEARCH.md): TS shares objects, Rust readers borrow, Bend cannot duplicate arbitrary Type. A callback merely returning its owner does not prove read-only projection; the trusted projection boundary must be explicit. |
+| #53 ownership/release | Confirm publication transfers into one log, refusal returns unpublished owner, failed reads retain log owner/cursor; distinguish reader disposal from record removal and define projection survival after trim. | Proposed only. Preserve existing Data-event cursor/retention behavior. Internal RC release is not a public finalizer contract; no destructor callback is silently added. |
+
+Source investigation and typed interface preparation may continue; implementation
+of these ownership-visible choices waits for approval. No new laws/proofs follow
+from accepting a behavior contract; specific laws need their own approval.
+
 ### Resource and handoff protocol
 
 Four workers may implement/research/prepare concurrently. With external CPU
