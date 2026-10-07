@@ -15,8 +15,15 @@ Native/TS 0.07120 are descriptive only. See [batch report](reports/feature-world
 87 source-current commands, eight negatives, five reached mutants and retained
 full application profiles/timing. JS state workload remains 2.72–2.89× TS;
 full numerical qualification stays #21/#23/#24. See [completion](reports/component-state-completion.md).
-#40 actual-live controls and full 16-case application correctness pass;
-complete timing is the next gate. The earlier checkpoint below is historical.
+#40 is delivered and closed at `84f2187f`: live61, full16 applications,
+repeated20/200 correctness and complete descriptive timing, final independent
+review. Startup/output/internal-observer costs limit the whole-process ratios;
+full qualification remains open. See [completion](reports/features-completion.md).
+#42 current Query/lifetime replays are delivered at `1cd27cfb`,41 commands
+per suite; full application/timing/adoption remain mandatory. #41 now completes
+actual global FIFO and same-Batch successful reservation integration; #48 prepares
+full registered hook/reader semantic replay. Observable policy conflicts and
+unapproved laws remain explicit. The earlier checkpoint below is historical.
 
 
 The additive canonical `WorldIO.create` entry point is now adopted: four new
