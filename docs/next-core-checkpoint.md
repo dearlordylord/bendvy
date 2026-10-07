@@ -7,6 +7,18 @@ The complete [core map](reference/core-map.md) and [SPEC](SPEC.md) remain the go
 
 ## Latest delivery checkpoint — 2026-10-07
 
+`26316f52` adopts qualified exact String equality/lazy registration and generic
+Feature/FeatureProvision. Fresh #28 passes with 43 inputs and exact 38 core
+modules; affected readers pass 99 commands. Workshop JS/TS 0.37423 and
+Native/TS 0.07120 are descriptive only. See [batch report](reports/feature-world-batch-regression.md).
+#47 is delivered and closed after final review/report in `c52eda57`:
+87 source-current commands, eight negatives, five reached mutants and retained
+full application profiles/timing. JS state workload remains 2.72–2.89× TS;
+full numerical qualification stays #21/#23/#24. See [completion](reports/component-state-completion.md).
+#40 actual-live controls and full 16-case application correctness pass;
+complete timing is the next gate. The earlier checkpoint below is historical.
+
+
 The additive canonical `WorldIO.create` entry point is now adopted: four new
 files, existing World implementation unchanged. Direct live-core identity and
 owner controls pass 47 supervised commands on JS/Native, with independent final
@@ -43,10 +55,8 @@ See [regression evidence](reports/core-integrated-regression.md) and
   remains a consequential performance obligation, not qualified full performance.
 - #38's stack fix is delivered; independent-root authority and failed-reservation
   contracts remain open. Finite pending/resource/FIFO controls are not proofs.
-- #47's current full cohort passes 87 commands, eight negatives and five reached
-  mutants on both backends. Three-scale full application timing semantics pass;
-  120 paired observations give JS 2.99–3.23× TS and Native 6.36–11.94×
-  faster. Actual JS profiling and final issue qualification remain open.
+- #47 is delivered and closed; current live87 and qualified profiles/timing are
+  retained in the completion report above. No state/equality laws are approved.
 - #41's generic declared bundle boundary passes direct public JS/Native controls;
   complete command integration and failed-body lifecycle remain open.
 - #42's six finite suites are archived; they are historical after the core batch.
