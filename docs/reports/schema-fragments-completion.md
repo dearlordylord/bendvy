@@ -1,8 +1,9 @@
-# #39 schema fragments — verified implementation, publication pending
+# #39 schema fragments — completion
 
-The executable fragment slice meets its functional criteria. Final commit,
-push and governing-issue publication remain pending; full product parity and
-performance qualification remain open under #1/#21/#23/#24.
+The executable fragment slice meets its functional and delivery evidence
+criteria. Implementation and reviewed controls are committed on master in
+`439aa496`. Full product parity and performance qualification remain open under
+#1/#21/#23/#24; these parents are not closed by this slice.
 
 `src/ecs/schema-fragments.bend` composes recursively authored affine owner packs,
 validates each fragment before the combined registry, and checks initializer

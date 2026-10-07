@@ -38,6 +38,23 @@ Publication is complete scope tracking, not capability acceptance. Every issue i
 
 Existing #34 and #35, plus new #38, #39, #41, #42, #46, #47, #50, #53. Explicit unresolved identity/capture/affine-event contract choices must still be resolved before implementation; there is no blanket approval of divergence.
 
+## Implementation checkpoint — 2026-10-07
+
+| Issue | Current evidence | Remaining delivery boundary |
+| --- | --- | --- |
+| #34 | Two-schema JS/Native nested provision controls and independent root replay pass; complete refusal snapshots repaired and independently reconciled. Five exact metadata law drafts have reached mutants. | Laws remain unapproved; current paired regression passes; equivalent feature measurement and commit/report remain open. |
+| #35 | Source-current composed schedule-reader controls and independent root replay pass (96 commands, 28 result rows); final independent reviews are reconciled. | Exact law drafts remain unapproved; current paired regression passes; equivalent feature measurements and delivery remain open. |
+| #38 | Independent-root collision discovery, checked IO-host namespace and reservation-state wrapper pass finite JS/Native controls; final wrapper has 61 commands and five reached mutants per backend. | Canonical production identity, reservation/capacity/clock/owner gates and explicit unresolved policy decisions remain open. |
+| #39 | Delivered executable fragment slice: two-schema public applications, collision/refusal/barrier controls, four reached mutants and independent replay. | Final reviews, unchanged regression and complete timing/scaling retained; JS initialization is slower than TS, Native faster. Full-product qualification remains #21/#23/#24. See [completion](../reports/schema-fragments-completion.md). |
+| #41 | Constructor receipts pass 28 guarded commands, pending real-Column insertion passes both backends; fallible spawn is under validation. | No production adoption; actual eager construction, fallible spawn lifecycle, confinement and performance gates remain open. |
+| #42 | Pure graph and actual affine World/Commands transport pass guarded JS/Native controls with reached mutants. | No core implementation or acceptance. |
+| #46 | Guarded Node reference and independent root replay observe 38 Decode/constructor/Standard Schema cases. | Typed raw ownership, actual ECS rejection, transient save boundaries and full controls remain open. |
+| #47 | Generic typed state adapter passes an initial 36-command JS/Native application/foreign/mutant cohort. | Both reader families and executed raw constructors are being expanded; production and delivery gates remain open. |
+
+CPU contention defers comparative measurements. These are local integration
+checkpoints, not issue completion or full-parity acceptance. The unattended
+95%-confidence instruction does not approve new laws, dependencies or divergence.
+
 ## Full-scope return conditions
 
 - Proof execution is deliberately not published as unconditional agent work: #62 drafts/falsifies exact remaining subjects and obtains specific approval; approved executable-proof/mutation and any backend-refinement slices are then published. Seven #18 subjects remain delivered; supporting candidates remain unapproved.
