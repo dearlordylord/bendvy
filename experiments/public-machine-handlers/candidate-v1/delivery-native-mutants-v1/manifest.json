@@ -11,7 +11,7 @@
     "run-premature-b-phase-native.py": "3c3a676998507c22bb4545df114fd29e5a4db0c7aa54b89ed3726189e472da92",
     "run-premature-b-enter-native.py": "2a86dfbcb99912c1218f3bf365cedb3992f91590ce3cd65b64c6b8768087dde5",
     "prepare-native-mutants-handoff.py": "f2fc502c6598a88818c773d44e23f230323344d6d4bd2e42eea621d0f35f74fa",
-    "verify-native-mutants-handoff.py": "5b6b02c4d9f419b216831ca0917f893e20b30ca31cfae0b3353ca1a9d3a71e26"
+    "verify-native-mutants-handoff.py": "c66e65dcf3c073eab35836319d5b5d77a2da0d39f09555b929391a977bd82663"
   },
   "archives": {
     "first-whole-a": {
@@ -6574,5 +6574,24 @@
       }
     }
   },
-  "reportSHA256": "e06dc1381fd376f071fcf593445eff04a5e13dc85967e5a8b4510a690c85cd2f"
+  "reportSHA256": "642474b61834fcb10ab3ef1bd646684638045b10e5b24e1753abeb557404113c",
+  "relocationHistory": {
+    "archive": "relocation-history.tar.gz",
+    "sha256": "fc10900756fb8342966e30d3f3d159a313d3c77e4dce50d694af304cb833c1ea",
+    "members": {
+      "manifest-original.json": {
+        "sha256": "0525fa274020e3934b11eb0087bf9290b50eec08109a9f71e9aba4bfbff5f85e",
+        "bytes": 338924
+      },
+      "verifier-original.py": {
+        "sha256": "5b6b02c4d9f419b216831ca0917f893e20b30ca31cfae0b3353ca1a9d3a71e26",
+        "bytes": 7020
+      },
+      "root-failure-observation.json": {
+        "sha256": "d94b86b6a2aa7b0236c28fa527f64b62d25ad60052294f5f5b6ebe36e6d1df50",
+        "bytes": 800
+      }
+    },
+    "scope": "Transcribed root tool observation; not original stderr bytes"
+  }
 }

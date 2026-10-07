@@ -16,6 +16,14 @@ assert not any(manifest[k] for k in ['completeIssue49', 'acceptanceQualified',
 for name, digest in manifest['source'].items():
     assert sha((H / name).read_bytes()) == digest, name
 assert sha((OUT / 'REPORT.md').read_bytes()) == manifest['reportSHA256']
+history = manifest['relocationHistory']
+blob = (OUT / history['archive']).read_bytes()
+assert sha(blob) == history['sha256']
+with tarfile.open(fileobj=io.BytesIO(blob), mode='r:gz') as tar:
+    assert set(tar.getnames()) == set(history['members'])
+    for name, recorded in history['members'].items():
+        data = tar.extractfile(name).read()
+        assert sha(data) == recorded['sha256'] and len(data) == recorded['bytes']
 archives = {}
 for label, archive in manifest['archives'].items():
     blob = (OUT / archive['archive']).read_bytes()
@@ -52,9 +60,15 @@ for label, members in archives.items():
         if Path(path).suffix == '.c':
             assert sha(absolute[path]) == digest
     for source, joined in plan.get('sourceJoins', {}).items():
-        relative = Path(source).relative_to(H.parents[2])
+        # Bind historical source paths to the archived inventory, independent
+        # of the checkout in which this capsule is verified. Ambiguity refuses.
+        candidates = [name for name in plan['inventory']
+                      if source.endswith('/' + name)]
+        assert len(candidates) == 1, (source, candidates)
+        relative = candidates[0]
         compiled = str(Path(plan['stage']) / relative)
         assert sha(absolute[compiled]) == joined['sha256'] == plan['pins'][source]
+        assert plan['inventory'][relative] == joined['sha256']
     for command in plan['commands']:
         if '-clang' in command['label'] or command['label'] == 'clang':
             source = next(arg for arg in command['argv'] if arg.endswith('.c'))
