@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Reject syntax errors and literal tuple calls to filesystem methods."""
+"""Reject syntax, tuple filesystem calls and unshared entrypoint execution."""
 import argparse
 import ast
 import pathlib
@@ -9,6 +9,21 @@ PATH_METHODS = {'read_text', 'read_bytes', 'write_text', 'write_bytes',
                 'exists', 'is_file', 'is_dir', 'mkdir', 'glob', 'rglob'}
 
 
+def entrypoint_scope(name):
+    path = pathlib.Path(name)
+    if path.is_absolute():
+        try:
+            path = path.relative_to(pathlib.Path(__file__).resolve().parents[1])
+        except ValueError:
+            return False
+    parts = path.parts
+    if len(parts) >= 3 and parts[0] == 'experiments' and parts[1].startswith('public-'):
+        return path.suffix == '.py'
+    return (len(parts) >= 2 and parts[0] in ('benchmarks', 'docs', 'examples', 'scripts')
+            and path.suffix == '.py' and path.name != 'task_runner.py'
+            and not path.name.startswith('test-'))
+
+
 def check(name, source):
     try:
         tree = ast.parse(source, filename=name)
@@ -16,12 +31,24 @@ def check(name, source):
         print(f'{name}:{error.lineno}: {error.msg}')
         return False
     valid = True
+    entrypoint = entrypoint_scope(name)
     for node in ast.walk(tree):
         if (isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute)
                 and isinstance(node.func.value, ast.Tuple)
                 and node.func.attr in PATH_METHODS):
             print(f'{name}:{node.lineno}: tuple has no {node.func.attr} method')
             valid = False
+        if entrypoint:
+            if (isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute)
+                    and isinstance(node.func.value, ast.Name)
+                    and node.func.value.id == 'subprocess'
+                    and node.func.attr in ('Popen', 'run', 'check_output', 'check_call', 'call')):
+                print(f'{name}:{node.lineno}: use the shared task_runner process implementation')
+                valid = False
+            if (isinstance(node, ast.Import)
+                    and any(n.name in ('supervisor', 'supervise', 'raw_supervisor') for n in node.names)):
+                print(f'{name}:{node.lineno}: forbidden alternate supervisor import')
+                valid = False
     return valid
 
 

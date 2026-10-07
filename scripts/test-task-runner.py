@@ -15,6 +15,9 @@ from task_runner import Inputs, Runner, execute, execute_result, execute_split
 spec = importlib.util.spec_from_file_location('logs', Path(__file__).with_name('receipt-logs.py'))
 logs = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(logs)
+source_spec = importlib.util.spec_from_file_location('python_source', Path(__file__).with_name('check-python-source.py'))
+python_source = importlib.util.module_from_spec(source_spec)
+source_spec.loader.exec_module(python_source)
 
 
 def command(code):
@@ -27,7 +30,6 @@ class Execution(unittest.TestCase):
             with self.assertRaises(RuntimeError): execute_result(command('pass'), 3)
 
     def test_current_entrypoints_use_one_process_implementation(self):
-        import ast
         root = Path(__file__).resolve().parents[1]
         tracked = set(subprocess.check_output(['git', 'ls-files', '-z'], cwd=root).decode().split('\0'))
         paths=list(root.glob('experiments/public-*/**/*.py'))
@@ -35,12 +37,37 @@ class Execution(unittest.TestCase):
         for path in paths:
             if str(path.relative_to(root)) not in tracked:
                 continue
-            tree=ast.parse(path.read_text())
-            for node in ast.walk(tree):
-                if isinstance(node,ast.Call) and isinstance(node.func,ast.Attribute) and isinstance(node.func.value,ast.Name):
-                    self.assertFalse(node.func.value.id=='subprocess' and node.func.attr in ('Popen','run','check_output','check_call','call'),str(path))
-                if isinstance(node,ast.Import):
-                    self.assertFalse(any(n.name in ('supervisor','supervise','raw_supervisor') for n in node.names),str(path))
+            self.assertTrue(python_source.check(str(path), path.read_bytes()), str(path))
+
+    def test_entrypoint_source_refusals(self):
+        for folder in ['experiments/public-candidate', 'benchmarks', 'docs', 'examples', 'scripts']:
+            for method in ['Popen', 'run', 'check_output', 'check_call', 'call']:
+                with self.subTest(folder=folder, method=method), mock.patch('builtins.print'):
+                    self.assertFalse(python_source.check(folder + '/candidate.py', f'subprocess.{method}([])'))
+        for module in ['supervisor', 'supervise', 'raw_supervisor']:
+            with self.subTest(module=module), mock.patch('builtins.print'):
+                self.assertFalse(python_source.check('scripts/candidate.py', 'import ' + module))
+
+    def test_entrypoint_source_existing_exemptions(self):
+        for name in ['scripts/task_runner.py', 'scripts/test-candidate.py', 'examples/test-candidate.py',
+                     'experiments/private-candidate/main.py', 'other/main.py']:
+            with self.subTest(name=name):
+                self.assertTrue(python_source.check(name, 'import supervisor\nsubprocess.run([])'))
+        self.assertTrue(python_source.check('scripts/candidate.py', 'from task_runner import run\nrun([])'))
+        # Public experiments had no test-name or task_runner exemption.
+        with mock.patch('builtins.print'):
+            self.assertFalse(python_source.check('experiments/public-candidate/test-case.py', 'subprocess.run([])'))
+            self.assertFalse(python_source.check('experiments/public-candidate/task_runner.py', 'import supervisor'))
+
+    def test_explicit_untracked_source_checked_before_staging(self):
+        with tempfile.TemporaryDirectory(dir=Path(__file__).parent) as directory:
+            candidate = Path(directory) / 'candidate.py'
+            candidate.write_text('import subprocess\nsubprocess.run([])\n')
+            with mock.patch.object(sys, 'argv', ['check-python-source.py', str(candidate)]), mock.patch('builtins.print'):
+                self.assertEqual(python_source.main(), 1)
+            candidate.write_text('from task_runner import run\nrun([])\n')
+            with mock.patch.object(sys, 'argv', ['check-python-source.py', str(candidate)]):
+                self.assertEqual(python_source.main(), 0)
 
     def test_completed_process_adapter(self):
         result = task_runner.run(command('import os; os.write(1,b"a\\r\\n"); os.write(2,b"err"); exit(7)'),timeout=3,capture_output=True,text=True)
