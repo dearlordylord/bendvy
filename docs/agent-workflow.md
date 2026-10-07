@@ -42,3 +42,7 @@ Run the paired regression gate in [benchmarks/README.md](../benchmarks/README.md
 Read-only checkouts are `/workspace/formal-proofs/bendvy/.references/bevy-ts`, `/workspace/formal-proofs/bendvy/.references/bevy` and `/workspace/formal-proofs/bendvy/.references/bend2`. Check commits against the tracked [manifest](../.references/sources.json). They are excluded from Git; use these absolute locations in isolated worktrees or document unavailable references.
 
 For TS execution, check the existing Node runtime first and try a Node-only adapter against the pinned `.ts` entrypoint. Core has no external runtime dependencies. New packages still require SPEC approval when concretely necessary. Source-derived traces become observed evidence only after their actual checkpoints run.
+
+For a previously delivered comparator, follow the delivery-manifest selection
+check in [check policy](check-policy.md#preparing-a-focused-runner) before
+preparing another execution.
