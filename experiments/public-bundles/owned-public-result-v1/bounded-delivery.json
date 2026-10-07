@@ -26,7 +26,7 @@
     "negatives/read-authority.bend": "92c6f271f1992e71cc3b811e4c5e7b9609532ada3db2e668b2e45ec1d709dab8",
     "negatives/reconstruct-owner.bend": "92827bc9130ddd6aaf57dd6452f37afd4eb63b1f5f62f1b7bb7085a967781412",
     "negatives/support.bend": "b1e40e807ecadf590916ab799cc5e0af25d86c31166dad35cfb1c8059bdd3f56",
-    "bounded-README.md": "c11ec8d2e3d9011a7070e331d19f8f3f982e45fbcfabd3ff298f33ccac79e801",
+    "bounded-README.md": "4e5c634fec84289c006155e896280f75e13070acce7ad7fa695d2d752f83bc4a",
     "bounded-verify.py": "a7d2990468ff1950e2542c1e084142604322cfb99cd00c5663b337baa1dc5960"
   },
   "archiveSHA256": "9d7b86e0f1f9872124143dd110ef2ab133b779c6fc6eb4bd290af9a4e7611fb9",
@@ -191,5 +191,9 @@
   "controlsReceiptSHA256": "4b214e357d249ecf08e0d2d0f2cea242495e468d56940f49970b350f4c096b15",
   "controlsSubjects": 17,
   "controlsExecutionProbes": 136,
-  "controlsPreparationProbes": 4
+  "controlsPreparationProbes": 4,
+  "reportingCorrection": {
+    "priorManifestSHA256": "cb8bdced4f78efb60d5a094719fac5aff9b0c20ebba237db42dd9d282609f4d2",
+    "reason": "Bend IO CLI uses Comp.io_run in-process generated JavaScript; it is not an independent pure interpreter backend. Archive, frozen raw receipts, sources and probe evidence unchanged."
+  }
 }
