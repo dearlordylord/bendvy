@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : created
+- observed : created (consumed more than once)
+Location: duplicate
+4 | 
+5>| def duplicate(created:H.Creation<S.Schema,Unit,Array<U32>,U32>) -> H.Creation<S.Schema,Unit,Array<U32>,U32> & H.Creation<S.Schema,Unit,Array<U32>,U32>:
+  |               ^^^^^^^
+6 |   (created,created)

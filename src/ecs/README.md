@@ -12,11 +12,17 @@ supplies closed `take`, `put` and ownership-preserving Data `project` functions.
 wrappers can bind the repeated template arguments; no generator is required.
 Lenses and bundle population/cleanup are trusted provisioning declarations.
 
-Create worlds by threading one affine `World.Factory` through `World.create`.
+Create application worlds with `WorldIO.create` from `world-io.bend`. Its IO
+allocator shares namespaces across canonical creations in one emitted program.
+`Created` returns the World; `Refused` returns the original affine resource.
 Handles carry the resulting namespace and local ID. Foreign handles reject
-before access/queue mutation even when local IDs coincide. Independent factory
-roots and fabricated concrete root owners do not have universal authority
-protection; concrete public constructors are not secrets.
+before access/queue mutation even when local IDs coincide. Namespace allocation
+saturates: 1 through 4294967294 succeed, and exhaustion refuses without reuse.
+Separate programs, bundles, realms, workers and processes have no shared allocator.
+Raw World/Handle constructors, `World.create_checked`, legacy `World.Factory`
+and `World.create`, and `WorldIO.with_namespace/convert` remain trusted setup
+operations. They can bypass canonical provenance; this is not language-wide
+constructor confinement or a proved concurrent uniqueness guarantee.
 The bounded allocator uses monotonic IDs, no reuse and a 131072 entity limit.
 Production capacity/growth and exhaustion policy remain full-core follow-ups.
 

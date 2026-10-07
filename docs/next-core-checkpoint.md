@@ -7,6 +7,16 @@ The complete [core map](reference/core-map.md) and [SPEC](SPEC.md) remain the go
 
 ## Latest delivery checkpoint — 2026-10-07
 
+The additive canonical `WorldIO.create` entry point is now adopted: four new
+files, existing World implementation unchanged. Direct live-core identity and
+owner controls pass 47 supervised commands on JS/Native, with independent final
+[review](reviews/world-io-adoption-final.md). The fresh unchanged #28 gate passes
+with exact 35-module inventory; Workshop JS/TS is 0.4072954565 and Native/TS
+0.0734734352, descriptive only. See [regression report](reports/world-io-regression.md)
+and the [partial #38 report](../experiments/public-identity/production-candidate/promotion/LIVE-REPORT.md).
+#38 remains open for reservation/cancellation, capacity and full performance.
+Earlier 33-module receipts below retain their historical source boundaries.
+
 Read this checkpoint before the historical sections below. The active objective
 is full #34–#64 parity, with source-backed autonomous decisions at least 95%
 confidence while the user is absent. Exact laws, dependencies, numerical changes

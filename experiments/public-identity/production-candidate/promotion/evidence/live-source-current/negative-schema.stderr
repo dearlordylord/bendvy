@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : W.Handle<S.Schema>
+- observed : W.Handle<Other>
+Context:
+- world  : W.World<S.Schema, S.Store, Unit, S.Notice>
+- handle : W.Handle<Other>
+Location: cross
+ 8 | def cross(world:S.World(),handle:W.Handle<Other>) -> S.World() & C.Access<S.StockView>:
+ 9>|   S.get_stock(world,handle)
+   |                     ^^^^^^
+10 | 

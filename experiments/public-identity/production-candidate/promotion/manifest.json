@@ -1,0 +1,25 @@
+{
+  "status": "UNAPPLIED_PROMOTION_PLAN",
+  "candidateReceiptSHA256": "62278bb50befbbd413564c7bcaf8f53c731ee55b560f6da41e447f2a12efb76f",
+  "patchSHA256": "801141f3fc3ac8cee32c2448efee3647db63c79d53daf526908c35874719380e",
+  "existingWorldSHA256": "6d0a28d94b53095040bbf915e3a9d21513609c9fd5113b23ec7e3e105944976e",
+  "prospectiveNewFiles": {
+    "src/ecs/world-io.bend": "4cb99615ad5177439b60cb659be2d5bc95ff02dc9cf55c162c2470e6d0f19a2a",
+    "src/ecs/world-namespace.bend": "92f7205a5d4d633289348960e139f5797354ff7dbfb0627b5d9435e17c5f48d7",
+    "src/ecs/world-namespace.c": "b218011c7738b7ac8ca94963b8c8cacd97006af6fa1c6ab6f4ac506c612b4521",
+    "src/ecs/world-namespace.js": "2731ad76f78bcdfe51714a1562fe487d5808b9300394ec0aebd89e24b00163f3"
+  },
+  "requiredAbsentDestinations": [
+    "src/ecs/world-io.bend",
+    "src/ecs/world-namespace.bend",
+    "src/ecs/world-namespace.c",
+    "src/ecs/world-namespace.js"
+  ],
+  "candidateInputs": {
+    "experiments/public-identity/production-candidate/world-io.bend": "86a8053aee3171231883999cb99f63a81cf9715f277ce0e70691ab30d6ca3a5c",
+    "experiments/public-identity/production-candidate/fresh.bend": "ea6e10f6d7bdb3a91471f31b99380e81f4692a4b83183a5598d07ee0b3ea03d5",
+    "experiments/public-identity/production-candidate/fresh.c": "b218011c7738b7ac8ca94963b8c8cacd97006af6fa1c6ab6f4ac506c612b4521",
+    "experiments/public-identity/production-candidate/fresh.js": "2731ad76f78bcdfe51714a1562fe487d5808b9300394ec0aebd89e24b00163f3"
+  },
+  "changes": "Add four files only. Relative imports/effect file paths and candidate comment change; C/JS effect bytes unchanged."
+}

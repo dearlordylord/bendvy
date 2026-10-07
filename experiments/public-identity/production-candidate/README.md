@@ -1,0 +1,33 @@
+# #38 additive WorldIO creation candidate — experiment only
+
+`world-io.bend` is an experiment-local additive application entry point, importing actual pure `W.create_checked`. Its generic `Creation<S:Data,C:Type,R:Type,E:Data>` returns `Created{world}` or `Refused{resource}`; the refused affine Resource is the original owner. `create(~S,~C,~R,~E,~empty:Unit->C,resource:R)` performs the admitted namespace IO effect. It exposes no restartable Factory in its result and adds no dependency, contract, proof or production source edit.
+
+The existing admitted `fresh.bend`/`fresh.c`/`fresh.js` are copied without semantic changes from the host-namespace experiment. Native uses one shared atomic uint32 counter and relaxed compare/exchange; JS uses one module counter in the emitted program. Successful namespaces are1 through4294967294. Exhaustion returns0 and stays exhausted, with no wrap, disposal reuse, allocator rewind, randomness or timestamp identity. All canonical calls in the tested emitted application share this one effect module. The source-backed atomic implementation is not a concurrency theorem, and the finite controls are sequential.
+
+The guarantee is scoped to one emitted program using this canonical module. Separately emitted programs, separately loaded bundles, JS realms/workers and processes have separate allocator domains. No uniqueness or handle transport protocol across those domains is claimed. Combining two distinct copies of a foreign allocator module in one program is not part of this tested guarantee.
+
+## Actual public controls
+
+`authority.bend` creates two actual same-schema Worlds independently through WorldIO.create. Each owns Stock/Recipe/Queue affine Arrays and Enabled/Locked families. Entity1 exists in both, but namespaces differ. Actual typed Stock lookup with the sending handle returns MissingEntity. A local component setter journals the complete previous Stock owner; an affine deferred Bundle command and transactional event are also present. Actual gameplay `Cmd.tx_despawn_with` using the foreign handle rejects MissingEntity. Complete before/after World/Tx observations preserve fields, three payload arrays, staged count1, undo count1 and event71. Commit and barrier execute the original captured Bundle, leaving complete receiving payload33 and sending payload10.
+
+`authority-failure.bend` repeats that real refusal with the same journal and command owners, then finishes Failure. Actual rollback restores the original Stock20 Array, keeps Recipe/Queue20, and discards the deferred Bundle and transactional event as prescribed by the existing transaction. The authoritative clock stays6 under the existing component journal implementation. This is a live-entity component rollback control, not a failed reservation policy decision.
+
+`namespace-owners.bend` creates four Worlds with an affine four-cell Array Resource. Ordinary IDs1,2,3,4 and complete `[77,77,77,77]` owners are observed. A declared staged near-exhaustion counter input produces4294967293,4294967294,refusal,refusal; complete Resource contents are returned on both creation and refusal. Empty Store is Unit in this range control, while the authority controls use actual heterogeneous typed columns.
+
+A reached collision mutation changes the allocator's returned namespaces to1 on JS and Native. It causes actual foreign lookup to return receiving Stock20 and accepts the foreign despawn, adding a second command and clearing the receiving families at its barrier. A reached range mutation bypasses the new creator's namespace predicate under the declared exhausted counter; it incorrectly creates namespace0 Worlds instead of returning Refused, retaining complete observed Resource contents. Exact anchors and intended stage hashes are planned before executing these inputs.
+
+The Node-only pinned TS adapter executes two actual same-schema runtimes: both entity IDs are1, foreign lookup resolves receiving Stock20, and foreign despawn clears that receiving entity while preserving the sending payload10. These actual outputs retain the already approved Bend MissingEntity foreign-world difference. They are not claimed equal to the Bend refusal behavior, and no failed reservation is observed or decided.
+
+## Authority and proof limits
+
+The advertised application entry point is WorldIO.create. Existing pure W.Factory/W.factory/W.create, raw World/Handle constructors, and this candidate's convert/with_namespace integration helpers remain trusted setup operations. They are source-accessible and can bypass canonical provenance. This candidate does not establish language-wide constructor/handle confinement or prevent callers intentionally using trusted raw namespace construction. No passing negative for that unsupported claim is invented. Opaque gameplay capability migration and any broader authority claim remain separate acceptance work.
+
+Four exact negative diagnostics bind creation-owner duplication, nominal cross-schema handle misuse, writes through an abstract read grant and undeclared World access, including expected/observed types, definition/location/source spans and empty stdout. They do not replace provenance or universal refinement. A foreign-effect proof-only checker failure is retained separately; successful live IO checking/emission/runtime is not an ECS mathematical proof. No laws or proofs are written or approved.
+
+## Harness and delivery boundary
+
+`python3 experiments/public-identity/production-candidate/run.py` is the guarded JavaScript preflight; `--native` requires independent inspection of its current freeze. Checker/live/runtime caps5s, emission30s and private Clang120s are unchanged. Semantic work uses CPU10; Native uses1 thread/GPUoff. No timing/performance cohort or new threshold is introduced.
+
+The receipt binds the recursive actual import closure including foreign C/JS, executed helpers and complete expected outputs/diagnostics; actual TS and installed Bend2/Base inventories; reference HEADs; tool/checker/package/manifest bytes; Clang resource/resolved-library snapshots; copied stage inventory before/after commands; prospective emitted output absence; generated JS/C/native runtime bytes; and intended staged input/mutant hashes. Update-notice cache bytes are freshly pinned with BEND_NO_TELEMETRY=1 for children; the global cache, compiler and kernel are not changed. Timeout is inconclusive and kills only an owned process group.
+
+Production source/adoption, current measurement freeze, legacy consumers, unchanged paired regression and governing issue delivery remain root-owned. This experiment alone is not full #38 completion. No canonical creator production choice, failed-reservation policy, proof approval, commit, push or issue closure follows.

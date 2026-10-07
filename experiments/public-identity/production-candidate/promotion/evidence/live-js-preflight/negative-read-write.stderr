@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : Cap.Write<write~H, S.Stock, S.StockView>
+- observed : Cap.Read<write~H, S.StockView>
+Context:
+- ctx   : write~H
+- owner : S.Stock
+Location: write
+4 | def write(~H:Type,~cap:Cap.Read<H,S.StockView>,ctx:H,owner:S.Stock) -> H:
+5>|   Cap.set(~H,~S.Stock,~S.StockView,~cap,ctx,owner)
+  |                                     ^^^
+6 | 
