@@ -1,0 +1,57 @@
+{
+  "status": "DEVELOPMENT_FULL65537_TWO_SCHEMA_COMPLETE_MODEL_PASS",
+  "scope": "DEVELOPMENT_COMPLETE_MODEL_SEAM_ONLY_NOT_DELIVERY_OR_PERFORMANCE",
+  "planSHA256": "28c56f904e3fbd399bbf69013dfdb316ae2a7dfa2c1ac8df00e92fd5b49f666f",
+  "commands": [
+    {
+      "label": "emit-js",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/home/node/.bend/bin/bend",
+        "/workspace/formal-proofs/bendvy/.artifacts/machines-stream-opt-integration-development-v3/stage/experiments/public-machines/followup/overflow.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/machines-stream-opt-cheap-freeze-v2/application.js"
+      ],
+      "cap": 30,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "run-js",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "7",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/workspace/formal-proofs/bendvy/.artifacts/machines-stream-opt-cheap-freeze-v2/application.js",
+        "65537"
+      ],
+      "cap": 5,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "f6e3e815ede2d24dc80825f156ace534956d2f61ef559a09253bf97504e746b7",
+      "stdoutSHA256": "6e89e6755cc5fddeb5bd992add71012ee0cd37e702c90071d1497bf4133051da",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "generatedSHA256": "b043318dee62241d123d223b2203135329e182c007fd668dea249d901ee8a213",
+  "completeRowsPerSchema": 7,
+  "requestedCount": 65537,
+  "capacity": 65536,
+  "artifacts": {
+    "application.js": "b043318dee62241d123d223b2203135329e182c007fd668dea249d901ee8a213",
+    "emit-js.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "emit-js.stdout.gz": "4035451c306dc1eacc1182799fb406509c9d6ff55e996b80db9b687f9d0b2f98",
+    "expected.json.gz": "541284c6779926548bc1617b0d5608df3719f2a887ba24d23ce8014a77c19230",
+    "plan.json": "28c56f904e3fbd399bbf69013dfdb316ae2a7dfa2c1ac8df00e92fd5b49f666f",
+    "run-js.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "run-js.stdout.gz": "fa09c0e94a41579f531792df51c47453c049668e6fcccf2d6ff896bc8e943352"
+  }
+}
