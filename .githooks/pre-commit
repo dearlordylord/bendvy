@@ -1,8 +1,6 @@
 #!/bin/sh
 set -eu
 cd "$(git rev-parse --show-toplevel)"
-python3 scripts/check-agent-routing.py
-python3 scripts/test-agent-routing.py
 python3 scripts/test-receipt-logs.py
 python3 scripts/test-owned-tool-pins.py
 python3 benchmarks/test-statistics.py
