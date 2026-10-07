@@ -1,0 +1,53 @@
+{
+  "status": "MANUAL_INTENDED_DIAGNOSTIC_REVIEW",
+  "rawReceipt": "/workspace/formal-proofs/bendvy-worktrees/parity-54-inspector/.artifacts/inspect54-controls-negatives-bound-1-1791409490022959741/receipt.json",
+  "rawReceiptSHA256": "30290c38a6914fa7cec4a311d60991ad057a6918d3b9209e400db30990729630",
+  "rawReceiptStatusUnchanged": "RAW_NEGATIVE_REJECTIONS_PENDING_DIAGNOSTIC_REVIEW",
+  "targetManifestSHA256": "cd85325e2f543c61b3f15ff3652082a63a593828ef9f78e139d5484966704506",
+  "matchedSiblingReceipt": "/workspace/formal-proofs/bendvy-worktrees/parity-54-inspector/.artifacts/inspect54-controls-positives-1791408859815249636/receipt.json",
+  "cases": [
+    {
+      "label": "negative-undeclared-query",
+      "classification": "INTENDED_TYPE_CONFINEMENT_REJECTION",
+      "exit": 1,
+      "failure": null,
+      "rawDiagnostic": "/workspace/formal-proofs/bendvy-worktrees/parity-54-inspector/.artifacts/inspect54-controls-negatives-bound-1-1791409490022959741/negative-undeclared-query.stderr",
+      "rawSHA256": "5d43dbc7b790a6390ef8a19497268fb893bbed8460106bf0eb3cb026dd74c321",
+      "expectedType": "API.ReadQuery<bad~H, A.Schema, List<&2, U32>>",
+      "observedType": "API.ReadQuery<I.Frame<A.Schema, A.Store, A.Resource, U32>, A.Schema, List<&2, U32>>",
+      "operation": "API.each",
+      "sourceSHA256": "40835fcc1fe762be44c8db206d9915c8945ea9fe6a98fad060559c4700d8c9a7",
+      "matchedPositive": "positive-query",
+      "review": "Diagnostic Location bad and underline identifies actual offending grant/owner expression; expected and observed type exactly match independently frozen target. No parser/import/missing-symbol/effect error. No mathematical proof credit."
+    },
+    {
+      "label": "negative-cross-owner-query",
+      "classification": "INTENDED_TYPE_CONFINEMENT_REJECTION",
+      "exit": 1,
+      "failure": null,
+      "rawDiagnostic": "/workspace/formal-proofs/bendvy-worktrees/parity-54-inspector/.artifacts/inspect54-controls-negatives-bound-1-1791409490022959741/negative-cross-owner-query.stderr",
+      "rawSHA256": "2231627f9d4472d73be5d7b2b8d2d32e762b93555afab1175a63f75a7b1e81ca",
+      "expectedType": "bad~H",
+      "observedType": "bad~Other",
+      "operation": "API.each",
+      "sourceSHA256": "dadeb34bc26482b8e8a3a8368a3c4e7f1798736cd8730f7c1921c2e2bc7c0958",
+      "matchedPositive": "positive-query",
+      "review": "Diagnostic Location bad and underline identifies actual offending grant/owner expression; expected and observed type exactly match independently frozen target. No parser/import/missing-symbol/effect error. No mathematical proof credit."
+    },
+    {
+      "label": "negative-write-through-query",
+      "classification": "INTENDED_TYPE_CONFINEMENT_REJECTION",
+      "exit": 1,
+      "failure": null,
+      "rawDiagnostic": "/workspace/formal-proofs/bendvy-worktrees/parity-54-inspector/.artifacts/inspect54-controls-negatives-bound-1-1791409490022959741/negative-write-through-query.stderr",
+      "rawSHA256": "2967e41fecd820b6daa7c06a5cc32e3ca387f0b37d1268cc06474574f6c1cda2",
+      "expectedType": "Cap.ValueWrite<bad~H, List<&2, Q.Row<A.Schema, List<&2, U32>>>, List<&2, Q.Row<A.Schema, List<&2, U32>>>>",
+      "observedType": "../query-api.ReadQuery<bad~H, A.Schema, List<&2, U32>>",
+      "operation": "Cap.value_set",
+      "sourceSHA256": "c63129c85ce39e136632ba8b1d7ef52ae782e18bbcb43f895fc36c845ddab0c9",
+      "matchedPositive": "positive-query",
+      "review": "Diagnostic Location bad and underline identifies actual offending grant/owner expression; expected and observed type exactly match independently frozen target. No parser/import/missing-symbol/effect error. No mathematical proof credit."
+    }
+  ],
+  "scope": "Three exact typed declaration/owner/read-only controls only; independent final review remains required."
+}

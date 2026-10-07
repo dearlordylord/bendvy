@@ -1,0 +1,157 @@
+{
+  "status": "SOURCE_ONLY_UNADMITTED",
+  "kind": "focused ownership/declaration source controls",
+  "commands": [
+    {
+      "label": "positive-owner",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-54-inspector/experiments/public-inspect/promotion-stage/controls/positives/owner.bend",
+        "--check-only"
+      ],
+      "seconds": 5,
+      "expected": "safe source check exit0; no proof validity claim"
+    },
+    {
+      "label": "positive-query",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-54-inspector/experiments/public-inspect/promotion-stage/controls/positives/query.bend",
+        "--check-only"
+      ],
+      "seconds": 5,
+      "expected": "safe source check exit0; no proof validity claim"
+    },
+    {
+      "label": "positive-read",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-54-inspector/experiments/public-inspect/promotion-stage/controls/positives/read.bend",
+        "--check-only"
+      ],
+      "seconds": 5,
+      "expected": "safe source check exit0; no proof validity claim"
+    },
+    {
+      "label": "negative-undeclared-query",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-54-inspector/experiments/public-inspect/promotion-stage/negatives/undeclared-query.bend",
+        "--check-only"
+      ],
+      "seconds": 5,
+      "matchedPositive": "positive-query",
+      "expected": "nonzero source rejection with reached intended diagnostic: concrete Frame grant cannot satisfy abstract H",
+      "deadline": "INCOMPLETE, never negative PASS"
+    },
+    {
+      "label": "negative-cross-owner-query",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-54-inspector/experiments/public-inspect/promotion-stage/negatives/cross-owner-query.bend",
+        "--check-only"
+      ],
+      "seconds": 5,
+      "matchedPositive": "positive-query",
+      "expected": "nonzero source rejection with reached intended diagnostic: Other owner cannot satisfy H grant",
+      "deadline": "INCOMPLETE, never negative PASS"
+    },
+    {
+      "label": "negative-write-through-query",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-54-inspector/experiments/public-inspect/promotion-stage/negatives/write-through-query.bend",
+        "--check-only"
+      ],
+      "seconds": 5,
+      "matchedPositive": "positive-query",
+      "expected": "nonzero source rejection with reached intended diagnostic: ReadQuery cannot satisfy ValueWrite",
+      "deadline": "INCOMPLETE, never negative PASS"
+    },
+    {
+      "label": "negative-condition-write",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-54-inspector/experiments/public-inspect/promotion-stage/negatives/condition-write.bend",
+        "--check-only"
+      ],
+      "seconds": 5,
+      "matchedPositive": "positive-read",
+      "expected": "nonzero source rejection with reached intended diagnostic: ValueRead cannot satisfy ValueWrite",
+      "deadline": "INCOMPLETE, never negative PASS"
+    },
+    {
+      "label": "negative-duplicate-owner",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-54-inspector/experiments/public-inspect/promotion-stage/negatives/duplicate-owner.bend",
+        "--check-only"
+      ],
+      "seconds": 5,
+      "matchedPositive": "positive-owner",
+      "expected": "nonzero source rejection with reached intended diagnostic: quantity consumes affine abstract H twice",
+      "deadline": "INCOMPLETE, never negative PASS"
+    },
+    {
+      "label": "negative-escape-owner",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-54-inspector/experiments/public-inspect/promotion-stage/negatives/escape-owner.bend",
+        "--check-only"
+      ],
+      "seconds": 5,
+      "matchedPositive": "positive-owner",
+      "expected": "nonzero source rejection with reached intended diagnostic: abstract H cannot become String",
+      "deadline": "INCOMPLETE, never negative PASS"
+    }
+  ],
+  "files": {
+    "experiments/public-inspect/promotion-stage/controls/positives/owner.bend": "906e6d1b9dab74ae99bf76fb99c58426dc5e9ce61cbb32300034c0ebd80263ef",
+    "experiments/public-inspect/promotion-stage/controls/positives/query.bend": "eeab507757a8d40716355bc5007989fa2c1089f0413472d03cb50e317ce93734",
+    "experiments/public-inspect/promotion-stage/controls/positives/read.bend": "9ccd53c90c811cbd0b6b277e0070e9e5a3fa0c344fa236315a106e6d04e4fa46",
+    "experiments/public-inspect/promotion-stage/negatives/undeclared-query.bend": "40835fcc1fe762be44c8db206d9915c8945ea9fe6a98fad060559c4700d8c9a7",
+    "experiments/public-inspect/promotion-stage/negatives/cross-owner-query.bend": "dadeb34bc26482b8e8a3a8368a3c4e7f1798736cd8730f7c1921c2e2bc7c0958",
+    "experiments/public-inspect/promotion-stage/negatives/write-through-query.bend": "c63129c85ce39e136632ba8b1d7ef52ae782e18bbcb43f895fc36c845ddab0c9",
+    "experiments/public-inspect/promotion-stage/negatives/condition-write.bend": "40df625ad8993b6e852a8c0df914500f4fe00b515736c10e8f30dca5a88b4c03",
+    "experiments/public-inspect/promotion-stage/negatives/duplicate-owner.bend": "8c3c15d355b2af8702ced49e56235141ec34564aa6bfe5a6d04c8f661009c22f",
+    "experiments/public-inspect/promotion-stage/negatives/escape-owner.bend": "fdfd856e9ce29857b47970de558edf80cee0a22213bc1f4e178d88c8f944b9c8"
+  },
+  "missingRequirement": "Existing complete check IO source/TS/CLI/JS/Native oracles already cover actual Check.run missing resource refusal before callback, with entire World preserved; schedule adapter manual preflight remains explicitly distinct from actual Sys rejection. No duplicate positive execution requested.",
+  "gates": "Before execution freeze actual transitive closures plus tool/config/environment/runner guards from approved Native snapshot, raw logs each attempt, exclusive flock, stop first unexpected outcome; matched siblings must pass before rejection credit. This JSON is source proposal, not executable admission.",
+  "deferredNegatives": [
+    "condition-added.bend",
+    "condition-changed.bend",
+    "condition-cross-schema.bend",
+    "condition-lifecycle-frame.bend",
+    "condition-lifecycle-row.bend",
+    "condition-stream.bend",
+    "cross-schema-query.bend"
+  ]
+}

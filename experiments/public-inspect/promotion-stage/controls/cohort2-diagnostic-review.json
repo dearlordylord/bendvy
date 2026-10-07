@@ -1,0 +1,53 @@
+{
+  "status": "MANUAL_INTENDED_DIAGNOSTIC_REVIEW",
+  "rawReceipt": "/workspace/formal-proofs/bendvy-worktrees/parity-54-inspector/.artifacts/inspect54-controls-negatives-bound-2-1791409491894285321/receipt.json",
+  "rawReceiptSHA256": "86028cee2a9353061213340dff25dc9df43642d22a47780b78b64e68f6ef6b28",
+  "rawReceiptStatusUnchanged": "RAW_NEGATIVE_REJECTIONS_PENDING_DIAGNOSTIC_REVIEW",
+  "targetManifestSHA256": "cd85325e2f543c61b3f15ff3652082a63a593828ef9f78e139d5484966704506",
+  "matchedSiblingReceipt": "/workspace/formal-proofs/bendvy-worktrees/parity-54-inspector/.artifacts/inspect54-controls-positives-1791408859815249636/receipt.json",
+  "cases": [
+    {
+      "label": "negative-condition-write",
+      "classification": "INTENDED_TYPE_CONFINEMENT_REJECTION",
+      "exit": 1,
+      "failure": null,
+      "rawDiagnostic": "/workspace/formal-proofs/bendvy-worktrees/parity-54-inspector/.artifacts/inspect54-controls-negatives-bound-2-1791409491894285321/negative-condition-write.stderr",
+      "rawSHA256": "ad78e9d6386c51ef39c16625040b3c0764c0c7172e257c94da2afc47d89a5bac",
+      "expected": "Cap.ValueWrite<bad~H, List<&2, U32>, List<&2, U32>>",
+      "observed": "Cap.ValueRead<bad~H, List<&2, U32>>",
+      "operation": "Cap.value_set",
+      "sourceSHA256": "40df625ad8993b6e852a8c0df914500f4fe00b515736c10e8f30dca5a88b4c03",
+      "matchedPositive": "positive-read",
+      "review": "Location bad and underline identifies intended read grant, affine owner binder, or return expression. Exact expected/observed matches independently frozen target. No mathematical proof credit."
+    },
+    {
+      "label": "negative-duplicate-owner",
+      "classification": "INTENDED_QUANTITY_CONFINEMENT_REJECTION",
+      "exit": 1,
+      "failure": null,
+      "rawDiagnostic": "/workspace/formal-proofs/bendvy-worktrees/parity-54-inspector/.artifacts/inspect54-controls-negatives-bound-2-1791409491894285321/negative-duplicate-owner.stderr",
+      "rawSHA256": "7e76ae526e7d434a3e8c57e51d566d06ec07dfe8d240595ca45cd6f3c6e6cc75",
+      "expected": "owner",
+      "observed": "owner (consumed more than once)",
+      "operation": "(owner,owner)",
+      "sourceSHA256": "8c3c15d355b2af8702ced49e56235141ec34564aa6bfe5a6d04c8f661009c22f",
+      "matchedPositive": "positive-owner",
+      "review": "Location bad and underline identifies intended read grant, affine owner binder, or return expression. Exact expected/observed matches independently frozen target. No mathematical proof credit."
+    },
+    {
+      "label": "negative-escape-owner",
+      "classification": "INTENDED_TYPE_CONFINEMENT_REJECTION",
+      "exit": 1,
+      "failure": null,
+      "rawDiagnostic": "/workspace/formal-proofs/bendvy-worktrees/parity-54-inspector/.artifacts/inspect54-controls-negatives-bound-2-1791409491894285321/negative-escape-owner.stderr",
+      "rawSHA256": "c379792cc7259dc3fe3e5ffe2d4b9f298ee0838ac9ede3b4d9ac56017a8ef531",
+      "expected": "String",
+      "observed": "bad~H",
+      "operation": "owner",
+      "sourceSHA256": "fdfd856e9ce29857b47970de558edf80cee0a22213bc1f4e178d88c8f944b9c8",
+      "matchedPositive": "positive-owner",
+      "review": "Location bad and underline identifies intended read grant, affine owner binder, or return expression. Exact expected/observed matches independently frozen target. No mathematical proof credit."
+    }
+  ],
+  "scope": "Three exact read-only/quantity/escape controls only; independent final review remains required."
+}

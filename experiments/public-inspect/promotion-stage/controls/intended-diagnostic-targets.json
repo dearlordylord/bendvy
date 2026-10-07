@@ -1,0 +1,78 @@
+{
+  "status": "SOURCE_ONLY_EXPECTED_DIAGNOSTIC_TARGETS_NOT_ACCEPTANCE",
+  "rules": [
+    "Exact sibling source/raw joins must remain valid.",
+    "Deadline/supervisor failure is INCOMPLETE regardless of stdout.",
+    "Exit0 is unexpected compilation.",
+    "Nonzero raw output is retained then classified at actual offending operation with expected type/quantity authority.",
+    "Unrelated error cannot count as confinement; preserve and repair source only under new admitted plan."
+  ],
+  "cases": [
+    {
+      "label": "negative-undeclared-query",
+      "source": "negatives/undeclared-query.bend",
+      "sibling": "positive-query",
+      "operation": "API.each",
+      "offending": "F.required instantiated with I.Frame<A.Schema,A.Store,A.Resource,U32> from I.plan_caps, while API.each expects ReadQuery<H,...>.",
+      "expectedCategory": "type mismatch between nominal concrete I.Frame and universally quantified H in read grant; intended error must point to concrete grant expression, not missing symbol/import/parser/effect.",
+      "sourceSHA256": "40835fcc1fe762be44c8db206d9915c8945ea9fe6a98fad060559c4700d8c9a7",
+      "sourceText": "import Base\nimport ../query-api.bend as API\nimport ../cardinality-workshop.bend as F\nimport ../../bend-candidate/consumer.bend as A\nimport ../../bend-candidate/inspect.bend as I\nimport ../../bend-candidate/query.bend as Q\n# Trusted concrete setup cannot satisfy a universally quantified callback owner.\ndef bad(~H:Type,owner:H) -> H & List<&2,Q.Row<A.Schema,List<&2,U32>>>:\n  API.each(~H,~A.Schema,~List<&2,U32>,~F.required(~I.Frame<A.Schema,A.Store,A.Resource,U32>,I.plan_caps(~A.Schema,~A.Store,~A.Resource,~U32,~F.Ops,F.plan())),owner)\n",
+      "status": "UNEXECUTED"
+    },
+    {
+      "label": "negative-cross-owner-query",
+      "source": "negatives/cross-owner-query.bend",
+      "sibling": "positive-query",
+      "operation": "API.each",
+      "offending": "ReadQuery<H,...> with owner:Other passed as the owner argument expected H.",
+      "expectedCategory": "type mismatch Other versus H at API.each owner argument; not missing symbol/import/parser/effect.",
+      "sourceSHA256": "dadeb34bc26482b8e8a3a8368a3c4e7f1798736cd8730f7c1921c2e2bc7c0958",
+      "sourceText": "import Base\nimport ../query-api.bend as API\nimport ../cardinality-workshop.bend as F\nimport ../../bend-candidate/consumer.bend as A\nimport ../../bend-candidate/query.bend as Q\n# A declaration tied to one universally quantified owner cannot consume another.\ndef bad(~H:Type,~Other:Type,~caps:F.Reads<H>,owner:Other) -> Other & List<&2,Q.Row<A.Schema,List<&2,U32>>>:\n  API.each(~H,~A.Schema,~List<&2,U32>,~F.required(~H,caps),owner)\n",
+      "status": "UNEXECUTED"
+    },
+    {
+      "label": "negative-write-through-query",
+      "source": "negatives/write-through-query.bend",
+      "sibling": "positive-query",
+      "operation": "Cap.value_set",
+      "offending": "F.required(~H,caps):API.ReadQuery<H,...> passed to Cap.value_set write grant argument.",
+      "expectedCategory": "type mismatch ReadQuery versus Cap.ValueWrite at write grant; not missing symbol/import/parser/effect.",
+      "sourceSHA256": "c63129c85ce39e136632ba8b1d7ef52ae782e18bbcb43f895fc36c845ddab0c9",
+      "sourceText": "import Base\nimport ../cardinality-workshop.bend as F\nimport ../../bend-candidate/consumer.bend as A\nimport ../../bend-candidate/query.bend as Q\nimport ../../../../src/ecs/capabilities.bend as Cap\ndef bad(~H:Type,~caps:F.Reads<H>,owner:H) -> H:\n  Cap.value_set(~H,~List<&2,Q.Row<A.Schema,List<&2,U32>>>,~List<&2,Q.Row<A.Schema,List<&2,U32>>>,~F.required(~H,caps),owner,[])\n",
+      "status": "UNEXECUTED"
+    },
+    {
+      "label": "negative-condition-write",
+      "source": "negatives/condition-write.bend",
+      "sibling": "positive-read",
+      "operation": "Cap.value_set",
+      "offending": "Cap.ValueRead<H,List<U32>> passed to Cap.value_set write grant argument.",
+      "expectedCategory": "type mismatch ValueRead versus ValueWrite; not missing symbol/import/parser/effect.",
+      "sourceSHA256": "40df625ad8993b6e852a8c0df914500f4fe00b515736c10e8f30dca5a88b4c03",
+      "sourceText": "import Base\nimport ../../../../src/ecs/capabilities.bend as Cap\n# A condition consumer receives an opaque owner and read-only declaration grant.\ndef bad(~H:Type,~read:Cap.ValueRead<H,List<&2,U32>>,owner:H) -> H:\n  Cap.value_set(~H,~List<&2,U32>,~List<&2,U32>,~read,owner,[])\n",
+      "status": "UNEXECUTED"
+    },
+    {
+      "label": "negative-duplicate-owner",
+      "source": "negatives/duplicate-owner.bend",
+      "sibling": "positive-owner",
+      "operation": "(owner,owner)",
+      "offending": "Single linear binder owner:H consumed twice.",
+      "expectedCategory": "quantity/linear duplication error at owner binder/use; not generic result type mismatch or parser error.",
+      "sourceSHA256": "8c3c15d355b2af8702ced49e56235141ec34564aa6bfe5a6d04c8f661009c22f",
+      "sourceText": "import Base\ndef bad(~H:Type,owner:H) -> H & H:\n  (owner,owner)\n",
+      "status": "UNEXECUTED"
+    },
+    {
+      "label": "negative-escape-owner",
+      "source": "negatives/escape-owner.bend",
+      "sibling": "positive-owner",
+      "operation": "owner",
+      "offending": "Abstract owner:H returned as String.",
+      "expectedCategory": "type mismatch H versus String at return expression; not import/parser/effect.",
+      "sourceSHA256": "fdfd856e9ce29857b47970de558edf80cee0a22213bc1f4e178d88c8f944b9c8",
+      "sourceText": "import Base\ndef bad(~H:Type,owner:H) -> String:\n  owner\n",
+      "status": "UNEXECUTED"
+    }
+  ]
+}
