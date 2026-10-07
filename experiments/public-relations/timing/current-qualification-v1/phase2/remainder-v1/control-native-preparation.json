@@ -1,0 +1,56 @@
+{
+  "scope": "Source-only Native preparation request; no probes/backend executed",
+  "runner": "/workspace/formal-proofs/bendvy-worktrees/parity-42-relations/experiments/public-relations/timing/current-qualification-v1/phase2/remainder-v1/control-native.py",
+  "runnerSHA256": "f333d13185ec98576b879de2bc411490c8dc9326c3711785798945ba9dc3e655",
+  "retainedJSPlanSHA256": "d25c9d02a212643873ddc541862369e0f75e2a8d01d970e8e3b2a4bac8f0c678",
+  "retainedJSReceiptSHA256": "b2e443ab7a79a4e8e0bca8779d51117f66478365899179f8336b559304a04c17",
+  "entries": {
+    "nonpower": {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/parity-42-relations/experiments/public-relations/timing/current-qualification-v1/phase2/remainder-v1/driver-nonpower.bend",
+      "sourceSHA256": "fba6dccb4d59c2b83c985f937d253d4e7fa091bcb278a3b08d8ffbba093d0601",
+      "oracle": "/workspace/formal-proofs/bendvy-worktrees/parity-42-relations/experiments/public-relations/timing/current-qualification-v1/phase2/remainder-v1/control-expected/nonpower-seed-0.json",
+      "oracleSHA256": "d577540c1a5f292bf06d98cf67d949e7be766ba89ac1e42a79c6e942b0c5989d",
+      "runtimeArgs": [
+        "0"
+      ]
+    },
+    "sparse": {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/parity-42-relations/experiments/public-relations/timing/current-qualification-v1/phase2/remainder-v1/driver-sparse.bend",
+      "sourceSHA256": "c0a61bb31770791b56687c912b5c121f86b3839b0363ed2981102362cc1e2452",
+      "oracle": "/workspace/formal-proofs/bendvy-worktrees/parity-42-relations/experiments/public-relations/timing/current-qualification-v1/phase2/remainder-v1/control-expected/sparse-seed-0.json",
+      "oracleSHA256": "6a13c8c7430bdb65bfcad63aa750ceb637f39b7a91fb38335c0402a7871ba064",
+      "runtimeArgs": [
+        "0"
+      ]
+    },
+    "empty": {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/parity-42-relations/experiments/public-relations/timing/current-qualification-v1/phase2/remainder-v1/driver-empty.bend",
+      "sourceSHA256": "f11f409b85b315e1204c1e2b538b24aaf7c97d5765750cf17c7baa2fcb27c762",
+      "oracle": "/workspace/formal-proofs/bendvy-worktrees/parity-42-relations/experiments/public-relations/timing/current-qualification-v1/phase2/remainder-v1/control-expected/empty-seed-0.json",
+      "oracleSHA256": "f75d89e4502d8a64e18dba0e3032852b29e0924441c3ed1218eb7990f188d211",
+      "runtimeArgs": [
+        "0"
+      ]
+    }
+  },
+  "guards": "Existing ordinary owned tool/config/stage/private environment composition; exact current dedicated control sources checked against retained JS pins",
+  "preparationProbes": 5,
+  "subjects": 9,
+  "executionProbes": 95,
+  "caps": {
+    "emit": 30,
+    "compile": 120,
+    "run": 5,
+    "probe": 5
+  },
+  "cpu": 5,
+  "threads": 1,
+  "gpu": "off",
+  "clang": "/tmp/bendvy-clang19-diagnostic/clang19",
+  "flags": [
+    "-O3",
+    "-pthread",
+    "-lm"
+  ],
+  "stop": "First failure/timeout, retain raw; no cap raise"
+}
