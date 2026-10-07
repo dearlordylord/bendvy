@@ -1,0 +1,241 @@
+{
+  "retained-ts": {
+    "format": 1,
+    "application": "PublicInspectJointReference",
+    "observations": [
+      {
+        "schema": "Workshop",
+        "label": "warm-failure",
+        "ok": false,
+        "snapshot": {
+          "rows": [
+            {
+              "id": 1,
+              "cells": [
+                11,
+                11,
+                11,
+                14
+              ],
+              "added": true,
+              "changed": true
+            }
+          ],
+          "score": [
+            21,
+            21,
+            21,
+            24
+          ],
+          "events": [],
+          "eventLag": false,
+          "removed": [],
+          "lookup": {
+            "ok": true,
+            "cells": [
+              11,
+              11,
+              11,
+              14
+            ]
+          },
+          "despawned": []
+        }
+      },
+      {
+        "schema": "Workshop",
+        "label": "mixed-failure",
+        "ok": false,
+        "snapshot": {
+          "rows": [],
+          "score": [
+            21,
+            21,
+            21,
+            24
+          ],
+          "events": [
+            31,
+            32
+          ],
+          "eventLag": false,
+          "removed": [
+            1
+          ],
+          "lookup": {
+            "ok": false,
+            "error": "MissingEntity"
+          },
+          "despawned": [
+            1
+          ]
+        }
+      },
+      {
+        "schema": "Workshop",
+        "label": "lag-retry",
+        "ok": true,
+        "snapshot": {
+          "rows": [],
+          "score": [
+            21,
+            21,
+            21,
+            24
+          ],
+          "events": [],
+          "eventLag": true,
+          "removed": [
+            1
+          ],
+          "lookup": {
+            "ok": false,
+            "error": "MissingEntity"
+          },
+          "despawned": [
+            1
+          ]
+        }
+      },
+      {
+        "schema": "Workshop",
+        "label": "repeat",
+        "ok": true,
+        "snapshot": {
+          "rows": [],
+          "score": [
+            21,
+            21,
+            21,
+            24
+          ],
+          "events": [],
+          "eventLag": false,
+          "removed": [],
+          "lookup": {
+            "ok": false,
+            "error": "MissingEntity"
+          },
+          "despawned": []
+        }
+      },
+      {
+        "schema": "Garden",
+        "label": "warm-failure",
+        "ok": false,
+        "snapshot": {
+          "rows": [
+            {
+              "id": 1,
+              "cells": [
+                11,
+                11,
+                11,
+                14
+              ],
+              "added": true,
+              "changed": true
+            }
+          ],
+          "score": [
+            21,
+            21,
+            21,
+            24
+          ],
+          "events": [],
+          "eventLag": false,
+          "removed": [],
+          "lookup": {
+            "ok": true,
+            "cells": [
+              11,
+              11,
+              11,
+              14
+            ]
+          },
+          "despawned": []
+        }
+      },
+      {
+        "schema": "Garden",
+        "label": "mixed-failure",
+        "ok": false,
+        "snapshot": {
+          "rows": [],
+          "score": [
+            21,
+            21,
+            21,
+            24
+          ],
+          "events": [
+            31,
+            32
+          ],
+          "eventLag": false,
+          "removed": [
+            1
+          ],
+          "lookup": {
+            "ok": false,
+            "error": "MissingEntity"
+          },
+          "despawned": [
+            1
+          ]
+        }
+      },
+      {
+        "schema": "Garden",
+        "label": "lag-retry",
+        "ok": true,
+        "snapshot": {
+          "rows": [],
+          "score": [
+            21,
+            21,
+            21,
+            24
+          ],
+          "events": [],
+          "eventLag": true,
+          "removed": [
+            1
+          ],
+          "lookup": {
+            "ok": false,
+            "error": "MissingEntity"
+          },
+          "despawned": [
+            1
+          ]
+        }
+      },
+      {
+        "schema": "Garden",
+        "label": "repeat",
+        "ok": true,
+        "snapshot": {
+          "rows": [],
+          "score": [
+            21,
+            21,
+            21,
+            24
+          ],
+          "events": [],
+          "eventLag": false,
+          "removed": [],
+          "lookup": {
+            "ok": false,
+            "error": "MissingEntity"
+          },
+          "despawned": []
+        }
+      }
+    ]
+  },
+  "retained-bend": "Workshop\nfail:lookup=[11, 11, 11, 14]/True/True|rows=[1:[11, 11, 11, 14]/True/True]|score=[21, 21, 21, 24]|events=[]/False|removed=[]/False|despawned=[]/False|retainers=[0]/[0]|cursor=0/1/0/1\nfail:lookup=missing/False/False|rows=[]|score=[21, 21, 21, 24]|events=[31, 32]/False|removed=[1]/False|despawned=[despawn:1]/False|retainers=[0]/[0]|cursor=0/1/0/1\nsuccess:lookup=missing/False/False|rows=[]|score=[21, 21, 21, 24]|events=[]/True|removed=[1]/False|despawned=[despawn:1]/False|retainers=[0]/[0]|cursor=3/1/3/1\nsuccess:lookup=missing/False/False|rows=[]|score=[21, 21, 21, 24]|events=[]/False|removed=[]/False|despawned=[]/False|retainers=[0]/[0]|cursor=4/1/4/1\nGarden\nfail:lookup=[11, 11, 11, 14]/True/True|rows=[1:[11, 11, 11, 14]/True/True]|score=[21, 21, 21, 24]|events=[]/False|removed=[]/False|despawned=[]/False|retainers=[0]/[0]|cursor=0/1/0/1\nfail:lookup=missing/False/False|rows=[]|score=[21, 21, 21, 24]|events=[31, 32]/False|removed=[1]/False|despawned=[despawn:1]/False|retainers=[0]/[0]|cursor=0/1/0/1\nsuccess:lookup=missing/False/False|rows=[]|score=[21, 21, 21, 24]|events=[]/True|removed=[1]/False|despawned=[despawn:1]/False|retainers=[0]/[0]|cursor=3/1/3/1\nsuccess:lookup=missing/False/False|rows=[]|score=[21, 21, 21, 24]|events=[]/False|removed=[]/False|despawned=[]/False|retainers=[0]/[0]|cursor=4/1/4/1\n"
+}
