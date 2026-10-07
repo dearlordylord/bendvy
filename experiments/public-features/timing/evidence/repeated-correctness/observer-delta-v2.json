@@ -1,0 +1,706 @@
+{
+  "status": "LITERAL_VALIDATION_PASS",
+  "scope": "Observer-only Python comprehension repair; no backend/measurement",
+  "prior_preflight": ".artifacts/features40-repeated-preflight-v1/receipt.json",
+  "exact_source_changes": {
+    "experiments/public-features/timing/repeated-observations.py": {
+      "old": "85424e12ed0b1373c8982cc12b467b2463b4cd9b95deaf818d496558b524502a",
+      "new": "b5e13b858d1d92bdc67563ce4eb51d872f1a62f7c2a4d9583930baca095b12c0"
+    }
+  },
+  "current_sources": {
+    "experiments/public-features/core-feature.bend": "74356062bb4205dd5db301fb0f1a8473323e028650fbfbd2c961374af261ec2c",
+    "experiments/public-features/runtime-context-other.bend": "6def9dd8c10a613fbe46f5a84e86d7e36140d7ca9263e04ace4f0d140c080cb2",
+    "src/ecs/feature.bend": "be03fb80093190ed1bc963a7f6516195c189921a56694b998ec3325e35c9091d",
+    ".references/bevy-ts/packages/core/src/Decode.ts": "a8e8e91e5dffc15718ba8d3ecbea1007b386117af12764df4238356600bd82df",
+    "experiments/public-features/timing/repeated-work.bend": "45ffa793e38e5484a10e3baa7d1c152b2c2fbf7d814f0ca4f792c483fc0e5e46",
+    "experiments/public-features/timing/growth-app.bend": "3c4c0c45045a1dd22b1ea16337182f76c8934a85a0aa3e9acd4ad98251bbdc52",
+    "src/ecs/column.bend": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+    "experiments/public-features/timing/repeat-derivation.json": "5b13586ad1fdce8d81b65d32d4fedb96e96ba91b6a5c328531c60ba96b7184bc",
+    ".references/bevy-ts/packages/core/src/Query.ts": "45e2fe513f66e336f97d40b41b3c866363a1af17ecbc90087086e00c08b28414",
+    ".references/bevy-ts/packages/core/src/internal/brand.ts": "7b888113edd48ea9777880fa85fc159428b78ac82587ca43eda8f1bbec4cc1b0",
+    ".references/bevy-ts/packages/core/src/Schedule.ts": "ab1610c356bfbcedf6ac85758e04c7032cda1f2458ff13c8a483c53d94b55c2a",
+    "src/ecs/schedule-provision.bend": "45d8b7d2c11d9fe28a6ee2a4cd460bad2b8591dbc8546daa68ae29d66d3979e9",
+    ".references/bevy-ts/packages/core/src/internal/definition.ts": "543dee934661802fb57cb75a8faec653112433a566ce31231fca33ffa8d36f92",
+    ".references/bevy-ts/packages/core/src/internal/debug.ts": "944a9858586dcf8ad58e66efd92b05c437c0be23afe517fabe00642d7bf4e338",
+    ".references/bevy-ts/packages/core/src/index.ts": "a74d79748f5eff6e9f732b54ed6efc0a42826e4cf8ffc7ab9504d11257e6d61f",
+    "experiments/public-features/feature.bend": "2db15d26fa90f361a6bd315e6e8e8bd716ab4a395faf945ddf0b11661b1b439b",
+    "experiments/public-features/timing/reference.mjs": "08fae751ce417e1ac6a27028314fb555b84b6b6d4eafc494e5b4754c53db00d7",
+    ".references/bevy-ts/packages/core/src/internal/game.ts": "b1584dbe4c579783e4b2fae802a25e6af95384972e15ffccd2b868d6ba879773",
+    "experiments/public-bundles/run-combined.py": "2537e5980932df4c9a15d476fe92763d4152e1755f20396993910a265c33d4fb",
+    "experiments/public-features/runtime-context.bend": "6def9dd8c10a613fbe46f5a84e86d7e36140d7ca9263e04ace4f0d140c080cb2",
+    ".references/bevy-ts/packages/core/src/EntityScope.ts": "3241a13ed0c337434e193e80a790498a9130ea31d4aca1f73294a5af2c50b04a",
+    "src/ecs/string-equality.bend": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+    "src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+    ".references/sources.json": "5d4d89ca984a2eb21e21715344219bb9caa022b6bebca0c9f8959584cceb8b8f",
+    ".references/bevy-ts/packages/core/src/Schema.ts": "26e7c140a6f3c2a98ea4e43c1f067a18e47c03ff6f56939c8139f1535ae1a0ec",
+    ".references/bevy-ts/packages/core/src/Fx.ts": "75242b8513225601589f4658d59c86100351557fef39cc8d17506c958dd2c5b3",
+    ".references/bevy-ts/packages/core/src/internal/cells.ts": "adbf5e99cb1d40e284aee9ce3b1ddeefdcb10e0e1420be5bda91f58a96afe41e",
+    ".references/bevy-ts/packages/core/src/Command.ts": "de5db2093401e24ce54fae8166e7f686c153852094b6446dc0ee22cfa28cef28",
+    ".references/bevy-ts/packages/core/src/Inspector.ts": "21757eb340c0ae192a36726538d0a87aefbd455859d196dab36aa3515c1addb3",
+    "experiments/public-features/runtime-app.bend": "c7b31c42ab467f283d5d3ee97f6b5145df1cc13b75e2491ea5a35c92f2c12a69",
+    ".references/bevy-ts/packages/core/src/System.ts": "ae53852dbd815ad441446cbcfc663d25aed6c2bd0afcfacbc3c20e0c40dc2ba7",
+    "experiments/public-features/recipe-app.bend": "74ec37fb4a38f212261222696f2e7d70ab2dea69472fa0f2259d70c902afc3fe",
+    ".references/bevy-ts/packages/core/src/Condition.ts": "1b4c8c906cab11745535ffe84f169a48767c88c26336f3b46f45cf7d59f08083",
+    ".references/bevy-ts/packages/core/src/Machine.ts": "a0007e841e07afb10a40ab8f3056691a3555cd6815b4564f5f1326e0e956ceb3",
+    "experiments/public-features/timing/run-repeated.py": "b3ce435732766a8fcaefe3d4fdb3a254f2651b045a0421bcc12d39bd5eca372d",
+    "src/ecs/feature-provision.bend": "430b9a1a382c4b78e4eaeb11a838b3f1cd01b5c3042ec83a72364815886a2b9d",
+    ".references/bevy-ts/packages/core/src/Brand.ts": "85090ad2253694526dda4e2e54802158cf229d98477169bc25e77396bdc963b9",
+    ".references/bevy-ts/packages/core/src/Snapshot.ts": "249f57c429d97e57088ebb1e959b6258dd97ca71c9cc66a0a4ed6ac35ad04a3b",
+    ".references/bevy-ts/packages/core/src/Requirement.ts": "0397bbf69285e1f50edafdceab81b48208c0127fe53ff0305e52d6a1b4766783",
+    "experiments/public-features/runtime-other.bend": "9e16e0b2b3f7a864b0592373f07caa65409869b555fbb04e0212a9392e63ec90",
+    "experiments/public-features/provider.bend": "826413c6d278b83ce0467ad6590daa49bc72acc4e9a4c77248ffa24983a155fa",
+    "src/ecs/capabilities.bend": "91c0cdc01e9143d10dc0156ef4f6c39beff97d8088ed0bbb056ffff2ffabf964",
+    "experiments/public-features/timing/growth-other.bend": "04143c46a213abc95773dddb0870cfe5f0c388055bba0219f9e17d3520bad20d",
+    "src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+    "src/ecs/schema-fragments.bend": "83525f185b6099d48af4e3a14f30149cd94069ad5e29663c63e44a15a866cfe6",
+    ".references/bevy-ts/packages/core/src/Feature.ts": "bf3be7437c63c1f12d8b0ff0f1a4965408331fad7a279669ef7c9b2cb29140a8",
+    "src/ecs/world.bend": "a20b0f2363dab12b73109354ebddf5c9126d3e786031cf9232a0c68c5ffc3b5c",
+    "experiments/public-features/combat-feature.bend": "25aec834669f21f1db571ead7ec44a695faf77fc6758a622f1a20fc1d11ac1ff",
+    "experiments/public-features/timing/repeated-reference.mjs": "bb2705470fe5fe35c6321fac67a9c5c6998e6bbe31183dd320a8f20d001f06cb",
+    ".references/bevy-ts/packages/core/src/Debug.ts": "942fc7e3bdf1b15f31708bad0ab02c0789a037b707a566e2cb860b43f9b5c3ff",
+    "experiments/s-prep/fivehour-connected-gates/supervisor.py": "83c8c87fb0cb5fc3b5646e89bb68113702c163be9189bc0872bbf5aa61c2122a",
+    ".references/bevy-ts/packages/core/src/internal/queries.ts": "382ce3b334df1bb7f4d0c4c19c17827b2343cae8a68ba7f562e9e732b6a5a4ab",
+    "src/ecs/indexed-lifecycle.bend": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+    "experiments/public-features/runtime-combat.bend": "eaaeb827e207c6209b6dee9745bc74b1f1928f3a1c29c0c563b5e068a1166129",
+    ".references/bevy-ts/packages/core/src/Relation.ts": "7c2cbe93d90c6ca4f173932c9bb7e4536323d6b5bf17dc64c1c8fda83c3a7aa4",
+    "experiments/public-features/timing/repeated-grown.bend": "557199766939d7835ef04d53d5d6f3daf8d52b48b88a1a4f1c9b69da1e92bbe2",
+    "experiments/public-features/gameplay.bend": "7d60bafb19bc97104aa83fc325a568bfccc666128ada52c2b5959e52cd54f4fe",
+    "experiments/public-features/timing/expected.json": "81a2cf152caddfd0215bb1ba72a504dba970aa80d8e920d9727741675ed67da0",
+    "experiments/public-features/timing/application.bend": "72f44025a7e15c7628707b7c166355f8e29982ddd90b16b5e3644a2f8c67d1b1",
+    "src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+    ".references/bevy-ts/packages/core/src/internal/fragments.ts": "4220e09fcc78e50cecd05ec373f57a278a5c33fbd51c53cbb2f7d57c6593ba68",
+    "experiments/public-features/runtime-core.bend": "41571b3310d72451853142010581f3bed4d59520e5a6906c252429117e728f8a",
+    "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    ".references/bevy-ts/packages/core/src/internal/result.ts": "87570330858b0b41bed22be9661bd9e3b04f67e7004998082e6a83cbb1ce1c89",
+    ".references/bevy-ts/packages/core/src/Descriptor.ts": "03e7339516d9f6bd455763a8dcdf7244d0c11f7165e493aa895aaa64225acab7",
+    "experiments/public-features/timing/repeated-observations.py": "b5e13b858d1d92bdc67563ce4eb51d872f1a62f7c2a4d9583930baca095b12c0",
+    ".references/bevy-ts/packages/core/src/Result.ts": "96b098025e5e84b26bc97355ed1c463fe17f652954d2f83a83058e9817f7766c",
+    ".references/bevy-ts/package.json": "3f0b043057510024d301b5354ecf4d20ef350fe82d982da58c4f79224a2a5df5",
+    "experiments/public-features/runtime-core-other.bend": "e75559e4aee91caddae78eca78308dd4836a7bd2ad8fb86199c8026795154007",
+    ".references/bevy-ts/packages/core/package.json": "ff20948e9c79ec1362eddf348aeb707216b7b2645fdfe09fbe9f1318e7c4a770",
+    "src/ecs/component.bend": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+    ".references/bevy-ts/packages/core/src/Runtime.ts": "c744aa5c52845bd3323358c5085161b40a452c6802a1653e3851bfd34c69f5b4",
+    "experiments/public-features/guarded-logs.py": "364a83a1a7394053ad1e02aabc3ac55c1ab1487de3e91ce41f5d2fbcae1c8b63",
+    ".references/bevy-ts/packages/core/src/internal/world.ts": "e71b4b060fec85fae690957104c14051e4bea0d857bacd648993ea69a6fe27d7",
+    "src/ecs/schedule.bend": "e7c1f18bcb27ba6b5d6c7de88e81d0fe41c000b8d16fcd4d500d72655de86da3",
+    "experiments/public-features/timing/repeated-small.bend": "a463dc2eb07ff06af28045f91010d39d2688ca7fb379b9338cfc399064510537",
+    "experiments/public-bundles/tool-pins.py": "a8c116c7195c66982ba039c546a753e1753ec3f2a85d98e0c1f5f4fea62b9991",
+    "experiments/public-bundles/guarded-harness.py": "8a0a95440bbc668acbb363106b3475831b4221331eefa94621215ac747ef6269",
+    ".references/bevy-ts/packages/core/src/internal/streams.ts": "3e817555dddf937c51b51014ceb6422f068aeca4a40328281dbb774b8880168e",
+    "experiments/public-features/runtime-combat-other.bend": "ae87bd1df6d0b2cad983d2bd08c7cda2a575f731f7eb8ea5f9761547eea44bb8",
+    ".references/bevy-ts/packages/core/src/Entity.ts": "05d724f241b2d662a7a03ce82da5f133c4b587df92e5e22fdfdb7484edbca68e",
+    ".references/bevy-ts/packages/core/src/Definition.ts": "96054da50280f6dca44fd97dbd126e597f1492c9737e34329adf3f1cda1b325f"
+  },
+  "literal_group_observations": {
+    "small": [
+      {
+        "case": "A-small-selected",
+        "status": "executed",
+        "error": null,
+        "trace": [
+          "build:Combat",
+          "build:Core",
+          "bootstrap:Combat",
+          "bootstrap:Core",
+          "update:Combat",
+          "update:Core"
+        ],
+        "calls": [
+          2,
+          2
+        ],
+        "owners": {
+          "front": [
+            131,
+            32
+          ],
+          "back": [
+            41,
+            142
+          ],
+          "queued": [
+            [
+              51,
+              52
+            ]
+          ],
+          "core": [
+            11,
+            212
+          ],
+          "tag": "tag"
+        },
+        "empty": "empty"
+      },
+      {
+        "case": "A-small-duplicate",
+        "status": "refused",
+        "error": "Duplicate feature name: Core",
+        "trace": [],
+        "calls": [
+          0,
+          0
+        ],
+        "owners": {
+          "front": [
+            31,
+            32
+          ],
+          "back": [
+            41,
+            42
+          ],
+          "queued": [
+            [
+              51,
+              52
+            ]
+          ],
+          "core": [
+            11,
+            12
+          ],
+          "tag": "tag"
+        },
+        "empty": null
+      },
+      {
+        "case": "A-small-missing",
+        "status": "refused",
+        "error": "Missing required feature: Core",
+        "trace": [],
+        "calls": [
+          0,
+          0
+        ],
+        "owners": {
+          "front": [
+            31,
+            32
+          ],
+          "back": [
+            41,
+            42
+          ],
+          "queued": [
+            [
+              51,
+              52
+            ]
+          ],
+          "core": [
+            11,
+            12
+          ],
+          "tag": "tag"
+        },
+        "empty": null
+      },
+      {
+        "case": "A-small-priority",
+        "status": "refused",
+        "error": "Duplicate feature name: Combat",
+        "trace": [],
+        "calls": [
+          0,
+          0
+        ],
+        "owners": {
+          "front": [
+            31,
+            32
+          ],
+          "back": [
+            41,
+            42
+          ],
+          "queued": [
+            [
+              51,
+              52
+            ]
+          ],
+          "core": [
+            11,
+            12
+          ],
+          "tag": "tag"
+        },
+        "empty": null
+      },
+      {
+        "case": "B-small-selected",
+        "status": "executed",
+        "error": null,
+        "trace": [
+          "build:Combat",
+          "build:Core",
+          "bootstrap:Combat",
+          "bootstrap:Core",
+          "update:Combat",
+          "update:Core"
+        ],
+        "calls": [
+          2,
+          2
+        ],
+        "owners": {
+          "front": [
+            131,
+            32
+          ],
+          "back": [
+            41,
+            142
+          ],
+          "queued": [
+            [
+              51,
+              52
+            ]
+          ],
+          "core": [
+            11,
+            212
+          ],
+          "tag": "tag"
+        },
+        "empty": "empty"
+      },
+      {
+        "case": "B-small-duplicate",
+        "status": "refused",
+        "error": "Duplicate feature name: Core",
+        "trace": [],
+        "calls": [
+          0,
+          0
+        ],
+        "owners": {
+          "front": [
+            31,
+            32
+          ],
+          "back": [
+            41,
+            42
+          ],
+          "queued": [
+            [
+              51,
+              52
+            ]
+          ],
+          "core": [
+            11,
+            12
+          ],
+          "tag": "tag"
+        },
+        "empty": null
+      },
+      {
+        "case": "B-small-missing",
+        "status": "refused",
+        "error": "Missing required feature: Core",
+        "trace": [],
+        "calls": [
+          0,
+          0
+        ],
+        "owners": {
+          "front": [
+            31,
+            32
+          ],
+          "back": [
+            41,
+            42
+          ],
+          "queued": [
+            [
+              51,
+              52
+            ]
+          ],
+          "core": [
+            11,
+            12
+          ],
+          "tag": "tag"
+        },
+        "empty": null
+      },
+      {
+        "case": "B-small-priority",
+        "status": "refused",
+        "error": "Duplicate feature name: Combat",
+        "trace": [],
+        "calls": [
+          0,
+          0
+        ],
+        "owners": {
+          "front": [
+            31,
+            32
+          ],
+          "back": [
+            41,
+            42
+          ],
+          "queued": [
+            [
+              51,
+              52
+            ]
+          ],
+          "core": [
+            11,
+            12
+          ],
+          "tag": "tag"
+        },
+        "empty": null
+      }
+    ],
+    "grown": [
+      {
+        "case": "A-grown-selected",
+        "status": "executed",
+        "error": null,
+        "trace": [
+          "build:Combat",
+          "build:Core",
+          "bootstrap:Combat",
+          "bootstrap:Core",
+          "update:Combat",
+          "update:Core"
+        ],
+        "calls": [
+          2,
+          2
+        ],
+        "owners": {
+          "front": [
+            131,
+            32,
+            33,
+            34
+          ],
+          "back": [
+            41,
+            142,
+            43,
+            44
+          ],
+          "queued": [
+            [
+              51,
+              52,
+              53,
+              54
+            ]
+          ],
+          "core": [
+            11,
+            212,
+            13,
+            14
+          ],
+          "tag": "tag"
+        },
+        "empty": "empty"
+      },
+      {
+        "case": "A-grown-duplicate",
+        "status": "refused",
+        "error": "Duplicate feature name: Core",
+        "trace": [],
+        "calls": [
+          0,
+          0
+        ],
+        "owners": {
+          "front": [
+            31,
+            32,
+            33,
+            34
+          ],
+          "back": [
+            41,
+            42,
+            43,
+            44
+          ],
+          "queued": [
+            [
+              51,
+              52,
+              53,
+              54
+            ]
+          ],
+          "core": [
+            11,
+            12,
+            13,
+            14
+          ],
+          "tag": "tag"
+        },
+        "empty": null
+      },
+      {
+        "case": "A-grown-missing",
+        "status": "refused",
+        "error": "Missing required feature: Core",
+        "trace": [],
+        "calls": [
+          0,
+          0
+        ],
+        "owners": {
+          "front": [
+            31,
+            32,
+            33,
+            34
+          ],
+          "back": [
+            41,
+            42,
+            43,
+            44
+          ],
+          "queued": [
+            [
+              51,
+              52,
+              53,
+              54
+            ]
+          ],
+          "core": [
+            11,
+            12,
+            13,
+            14
+          ],
+          "tag": "tag"
+        },
+        "empty": null
+      },
+      {
+        "case": "A-grown-priority",
+        "status": "refused",
+        "error": "Duplicate feature name: Combat",
+        "trace": [],
+        "calls": [
+          0,
+          0
+        ],
+        "owners": {
+          "front": [
+            31,
+            32,
+            33,
+            34
+          ],
+          "back": [
+            41,
+            42,
+            43,
+            44
+          ],
+          "queued": [
+            [
+              51,
+              52,
+              53,
+              54
+            ]
+          ],
+          "core": [
+            11,
+            12,
+            13,
+            14
+          ],
+          "tag": "tag"
+        },
+        "empty": null
+      },
+      {
+        "case": "B-grown-selected",
+        "status": "executed",
+        "error": null,
+        "trace": [
+          "build:Combat",
+          "build:Core",
+          "bootstrap:Combat",
+          "bootstrap:Core",
+          "update:Combat",
+          "update:Core"
+        ],
+        "calls": [
+          2,
+          2
+        ],
+        "owners": {
+          "front": [
+            131,
+            32,
+            33,
+            34
+          ],
+          "back": [
+            41,
+            142,
+            43,
+            44
+          ],
+          "queued": [
+            [
+              51,
+              52,
+              53,
+              54
+            ]
+          ],
+          "core": [
+            11,
+            212,
+            13,
+            14
+          ],
+          "tag": "tag"
+        },
+        "empty": "empty"
+      },
+      {
+        "case": "B-grown-duplicate",
+        "status": "refused",
+        "error": "Duplicate feature name: Core",
+        "trace": [],
+        "calls": [
+          0,
+          0
+        ],
+        "owners": {
+          "front": [
+            31,
+            32,
+            33,
+            34
+          ],
+          "back": [
+            41,
+            42,
+            43,
+            44
+          ],
+          "queued": [
+            [
+              51,
+              52,
+              53,
+              54
+            ]
+          ],
+          "core": [
+            11,
+            12,
+            13,
+            14
+          ],
+          "tag": "tag"
+        },
+        "empty": null
+      },
+      {
+        "case": "B-grown-missing",
+        "status": "refused",
+        "error": "Missing required feature: Core",
+        "trace": [],
+        "calls": [
+          0,
+          0
+        ],
+        "owners": {
+          "front": [
+            31,
+            32,
+            33,
+            34
+          ],
+          "back": [
+            41,
+            42,
+            43,
+            44
+          ],
+          "queued": [
+            [
+              51,
+              52,
+              53,
+              54
+            ]
+          ],
+          "core": [
+            11,
+            12,
+            13,
+            14
+          ],
+          "tag": "tag"
+        },
+        "empty": null
+      },
+      {
+        "case": "B-grown-priority",
+        "status": "refused",
+        "error": "Duplicate feature name: Combat",
+        "trace": [],
+        "calls": [
+          0,
+          0
+        ],
+        "owners": {
+          "front": [
+            31,
+            32,
+            33,
+            34
+          ],
+          "back": [
+            41,
+            42,
+            43,
+            44
+          ],
+          "queued": [
+            [
+              51,
+              52,
+              53,
+              54
+            ]
+          ],
+          "core": [
+            11,
+            12,
+            13,
+            14
+          ],
+          "tag": "tag"
+        },
+        "empty": null
+      }
+    ]
+  }
+}

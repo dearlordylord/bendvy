@@ -1,0 +1,26 @@
+{
+  "status": "PREPARED_NOT_EXECUTED",
+  "changes": {
+    "repeated-small.bend": {
+      "candidate": "repeated200-small.bend",
+      "before_sha256": "a463dc2eb07ff06af28045f91010d39d2688ca7fb379b9338cfc399064510537",
+      "after_sha256": "4116c33fa8faec6df40e2bb8f6feca9ddabc917cf6ffb37c1f000a4f6e4a1501"
+    },
+    "repeated-grown.bend": {
+      "candidate": "repeated200-grown.bend",
+      "before_sha256": "557199766939d7835ef04d53d5d6f3daf8d52b48b88a1a4f1c9b69da1e92bbe2",
+      "after_sha256": "356354854e6a53912a9dcd3cc0f6f0ccfab10bc27d42c2212a1499d62afa2499"
+    },
+    "repeated-reference.mjs": {
+      "candidate": "repeated200-reference.mjs",
+      "before_sha256": "bb2705470fe5fe35c6321fac67a9c5c6998e6bbe31183dd320a8f20d001f06cb",
+      "after_sha256": "bf648eddbebead1af5b56aef5a450560015f5206db715d5d47ba396a51a0c392"
+    },
+    "run-repeated.py": {
+      "candidate": "run-repeated200.py",
+      "before_sha256": "b3ce435732766a8fcaefe3d4fdb3a254f2651b045a0421bcc12d39bd5eca372d",
+      "after_sha256": "2cf67af418625abffa036bbfa8f877070454e1e043ecebaaace3229381370013"
+    }
+  },
+  "scope": "Same eight bodies, role orders, outputs and caps; repeat count20->200 only, subject filenames rebased. Correctness first; reviewer/root admission required. No speed inference. The new delta manifest is additionally pinned by the runner."
+}
