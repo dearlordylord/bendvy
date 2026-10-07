@@ -1,0 +1,54 @@
+{"label":"descriptor/Phase","value":{"states":["ready","windup","active"],"transitions":{"ready":["windup"],"windup":["active","ready"],"active":["ready"]}}}
+{"label":"construct/Phase/ready","value":{"ok":true,"value":"ready"}}
+{"label":"construct/Phase/windup","value":{"ok":true,"value":"windup"}}
+{"label":"construct/Phase/active","value":{"ok":true,"value":"active"}}
+{"label":"construct/Phase/sleeping","value":{"ok":false,"error":{"_tag":"DecodeError","path":"$","expected":"\"ready\" | \"windup\" | \"active\"","actual":"sleeping"}}}
+{"label":"construct/Phase/undefined","value":{"ok":false,"error":{"_tag":"DecodeError","path":"$","expected":"\"ready\" | \"windup\" | \"active\""}}}
+{"label":"construct/Phase/null","value":{"ok":false,"error":{"_tag":"DecodeError","path":"$","expected":"\"ready\" | \"windup\" | \"active\"","actual":null}}}
+{"label":"construct/Phase/0","value":{"ok":false,"error":{"_tag":"DecodeError","path":"$","expected":"\"ready\" | \"windup\" | \"active\"","actual":0}}}
+{"label":"descriptor/Mode","value":{"states":[0,1,2],"transitions":null}}
+{"label":"construct/Mode/0","value":{"ok":true,"value":0}}
+{"label":"construct/Mode/1","value":{"ok":true,"value":1}}
+{"label":"construct/Mode/2","value":{"ok":true,"value":2}}
+{"label":"construct/Mode/3","value":{"ok":false,"error":{"_tag":"DecodeError","path":"$","expected":"0 | 1 | 2","actual":3}}}
+{"label":"construct/Mode/0","value":{"ok":false,"error":{"_tag":"DecodeError","path":"$","expected":"0 | 1 | 2","actual":"0"}}}
+{"label":"construct/Mode/undefined","value":{"ok":false,"error":{"_tag":"DecodeError","path":"$","expected":"0 | 1 | 2"}}}
+{"label":"construct/Mode/null","value":{"ok":false,"error":{"_tag":"DecodeError","path":"$","expected":"0 | 1 | 2","actual":null}}}
+{"label":"before-barrier","value":[]}
+{"label":"after-barrier","value":[["ready",0,[11,22,33]]]}
+{"label":"changed","value":["ready"]}
+{"label":"fail/transition","value":{"ok":true}}
+{"label":"failed-tick","value":{"ok":false,"error":{"kind":"SystemFailure","system":"state/fail","error":"Rejected"}}}
+{"label":"rollback","value":[["ready",0,[11,22,33]]]}
+{"label":"changed","value":[]}
+{"label":"transition","value":{"ok":true}}
+{"label":"stale","value":{"ok":false,"error":{"_tag":"StateMismatch","state":"State/Phase","expected":"ready","actual":"windup"}}}
+{"label":"next","value":{"ok":true}}
+{"label":"numeric","value":{"ok":true}}
+{"label":"changed","value":["active"]}
+{"label":"advanced","value":[["active",2,[11,22,33]]]}
+{"label":"changed","value":[]}
+{"label":"raw/legal","value":{"ok":true}}
+{"label":"raw/illegal","value":{"ok":false,"error":{"_tag":"DecodeError","path":"$","expected":"\"ready\" | \"windup\" | \"active\"","actual":"sleeping"}}}
+{"label":"raw-retains","value":[["ready",2,[11,22,33]]]}
+{"label":"restore/illegal","value":{"ok":false,"error":{"_tag":"InvalidComponent","entityId":1,"name":"State/Phase","error":{"_tag":"DecodeError","path":"$","expected":"\"ready\" | \"windup\" | \"active\"","actual":"sleeping"}}}}
+{"label":"restore-retains","value":[["ready",2,[11,22,33]]]}
+{"label":"restore/legal","value":{"ok":true}}
+{"label":"graph/bypassed","value":{"ok":true}}
+{"label":"graph-bypassed","value":[["active",2,[11,22,33]]]}
+{"label":"changed","value":["active"]}
+{"label":"changed","value":["active"]}
+{"label":"edge/ready/windup","value":{"ok":true}}
+{"label":"edge/windup/active","value":{"ok":true}}
+{"label":"edge/windup/ready","value":{"ok":true}}
+{"label":"edge/active/ready","value":{"ok":true}}
+{"label":"free-edge/0/0","value":{"ok":true}}
+{"label":"free-edge/0/1","value":{"ok":true}}
+{"label":"free-edge/0/2","value":{"ok":true}}
+{"label":"free-edge/1/0","value":{"ok":true}}
+{"label":"free-edge/1/1","value":{"ok":true}}
+{"label":"free-edge/1/2","value":{"ok":true}}
+{"label":"free-edge/2/0","value":{"ok":true}}
+{"label":"free-edge/2/1","value":{"ok":true}}
+{"label":"free-edge/2/2","value":{"ok":true}}
+{"label":"all-pairs-final","value":[["ready",2,[11,22,33]]]}

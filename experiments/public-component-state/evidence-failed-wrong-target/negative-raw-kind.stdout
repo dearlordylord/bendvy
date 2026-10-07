@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : String
+- observed : U32
+Context:
+- action : G.Action
+- owner  : bad~H
+Location: bad
+15 | def bad(~H: Type,~ops: G.Ops<H>,action: G.Action,owner: H) -> H & (T.Outcome<G.Error> & String):
+16>|   G.phase_raw_done(~H,A.set_raw_result(~H,~V.Phase,~String,~D.Error,~W.WorldError,~Decode.phase,~G.phase_raw_cap(~H,ops),owner,9))
+   |                                                                                                                                ^
+17 | def main(world: W.World<S.SchemaA,S.Store<S.SchemaA>,Unit,Unit>) -> Compose.Executed<W.World<S.SchemaA,S.Store<S.SchemaA>,Unit,Unit>,Compose.Error<G.Error>,String>:
+bend 2.0.36 is available: run bend update

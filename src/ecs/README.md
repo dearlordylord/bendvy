@@ -113,3 +113,19 @@ ordered requirement union and pre-execution provisioning checks. `ReaderDomains`
 while retaining real event ticks and reader cursors. Their composed public
 applications and current delivery limits are recorded in the #34/#35 experiments.
 Full-core performance qualification remains under #21/#23/#24.
+
+`State` (`state.bend`) provides generic component-state comparison, legal typed
+transitions and caller-defined raw decoding. Consumers declare their finite
+value/move vocabulary, equality and endpoints. The owner context remains
+arbitrary affine `Type`; neighboring components need not be Data. This is entity
+component state; global scheduled machines belong to #48.
+
+State writes require a `Cap.Request` returning `WriteAccepted` or the actual
+`WriteRejected` error. A `Cap.Write` returning its owner alone does not establish
+write success. `compare_set`/`transition` preserve mismatch, missing-entity and
+absent-component distinctions; raw setters return the supplied raw value with
+decoder/write refusal. Local acceptance still does not commit its surrounding
+transaction. Equality, endpoints, decoder and closed checked-write adapters are
+trusted consumer declarations. See
+[`public-component-state`](../../experiments/public-component-state/completion.md)
+for source-bound controls and remaining #47 delivery gates.

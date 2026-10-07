@@ -31,15 +31,23 @@ def append_loop(~E: Data,reversed: List<&2,E>,+output: List<&2,E>) -> List<&2,E>
     case head <> rest: append_loop(~E,rest,head <> output)
 
 def append(~E: Data,+left: List<&2,E>,+right: List<&2,E>) -> List<&2,E>:
-  append_loop(~E,List.reverse(&2,E,left),right)
+  match left right:
+    case Nil{} right: right
+    case left Nil{}: left
+    case left right: append_loop(~E,List.reverse(&2,E,left),right)
 
 def values(~E: Data,batches: List<&2,Batch<E>>) -> List<&2,E>:
   match batches:
     case []: []
     case Batch{_,items} <> rest: append(~E,items,values(~E,rest))
 
+def size_loop(~E: Data,batches: List<&2,Batch<E>>,+acc: Nat) -> Nat:
+  match batches:
+    case []: acc
+    case Batch{_,items} <> rest: size_loop(~E,rest,count_loop(~E,items,acc))
+
 def size(~E: Data,batches: List<&2,Batch<E>>) -> Nat:
-  count(~E,values(~E,batches))
+  size_loop(~E,batches,0n)
 
 def hold_boundary(positions: List<&2,Position>,+boundary: Nat) -> Nat:
   match positions:

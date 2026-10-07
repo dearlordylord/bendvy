@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- expected : W.World<S.SchemaB, S.Store<S.SchemaB>, Unit, Unit>
+- observed : W.World<S.SchemaA, S.Store<S.SchemaA>, Unit, Unit>
+Context:
+- world : W.World<S.SchemaA, S.Store<S.SchemaA>, Unit, Unit>
+Location: main
+12 | def main(world: W.World<S.SchemaA,S.Store<S.SchemaA>,Unit,Unit>) -> Compose.Executed<W.World<S.SchemaB,S.Store<S.SchemaB>,Unit,Unit>,Compose.Error<G.Error>,String>:
+13>|   Q.each(~S.SchemaB,world,G.Advance{})
+   |                     ^^^^^
+14 | 

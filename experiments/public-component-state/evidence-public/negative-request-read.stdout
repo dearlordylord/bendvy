@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : Cap.Request<bad~H, V.Phase, A.WriteStatus<W.WorldError>>
+- observed : Cap.Read<bad~H, V.Phase>
+Context:
+- action : G.Action
+- owner  : bad~H
+Location: bad
+18 | def bad(~H: Type,~ops: G.Ops<H>,action: G.Action,owner: H) -> H & (T.Outcome<G.Error> & String):
+19>|   observed(~H,A.compare_set(~H,~V.Phase,~W.WorldError,~V.phase_equal,~read_cap(~H,~ops),~read_cap(~H,~ops),owner,V.Ready{},V.Windup{}))
+   |                                                                                          ^^^^^^^^^^^^^^^^^
+20 | def main(world: W.World<S.SchemaA,S.Store<S.SchemaA>,Unit,Unit>) -> Compose.Executed<W.World<S.SchemaA,S.Store<S.SchemaA>,Unit,Unit>,Compose.Error<G.Error>,String>:
+bend 2.0.36 is available: run bend update

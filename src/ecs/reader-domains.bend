@@ -37,7 +37,9 @@ def attach(~S: Data,~C: Type,~R: Type,~E: Data,events: Events<S,E>,world: W.Worl
 # this same operation; rollback leaves no publication delta to transport.
 def collected(~S: Data,~C: Type,~R: Type,~E: Data,world: W.World<S,C,R,E>,events: Events<S,E>,partition: List<&2,E> & List<&2,E>) -> Detached<S,C,R,E>:
   match events partition:
-    case Events{+ns,+batches,+positions,+next,+tick,+start,+boundary,+capacity,+dropped,+old}, (+fresh,+removals): detach(~S,~C,~R,~E,Ev.sync_values(~S,~C,~R,~E,(W.events_replace(~S,~C,~R,~E,world,Ev.append(~E,old,fresh)),Ev.append(~E,old,fresh)),ns,batches,positions,next,1n+tick,start,boundary,capacity,dropped),removals)
+    case Events{+ns,+batches,+positions,+next,+tick,+start,+boundary,+capacity,+dropped,+old}, (+fresh,+removals):
+      +all = Ev.append(~E,old,fresh)
+      detach(~S,~C,~R,~E,Ev.sync_values(~S,~C,~R,~E,(W.events_replace(~S,~C,~R,~E,world,all),all),ns,batches,positions,next,1n+tick,start,boundary,capacity,dropped),removals)
 def collect_view(~S: Data,~C: Type,~R: Type,~E: Data,~is_event: E -> Bool,events: Events<S,E>,observed: W.World<S,C,R,E> & List<&2,E>) -> Detached<S,C,R,E>:
   (world,+values) = observed
   collected(~S,~C,~R,~E,world,events,split(~E,~is_event,values))

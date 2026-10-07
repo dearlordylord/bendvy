@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : Cap.Write<Compose.Frame<S.SchemaA, S.Store<S.SchemaA>, Unit, Unit>, V.Phase, V.Phase>
+- observed : Cap.Read<Compose.Frame<S.SchemaA, S.Store<S.SchemaA>, Unit, Unit>, V.Phase>
+Location: main
+12 | def main(frame: Q.Frame(~S.SchemaA)) -> Q.Frame(~S.SchemaA):
+13>|   Cap.set(~Q.Frame(~S.SchemaA),~V.Phase,~V.Phase,~Q.read_phase(~S.SchemaA),frame,V.Active{})
+   |                                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+14 | 
+bend 2.0.36 is available: run bend update
