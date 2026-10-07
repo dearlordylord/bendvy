@@ -6,6 +6,11 @@ Read only the branches triggered by the task. The governing issue and linked spe
 
 Follow the bend-ldd skill.
 
+During source development, use `scripts/bend-check source.bend` to find parser,
+type and affine-binder errors before preparing a complete receipt cohort. This
+five-second development check grants no proof or delivery acceptance. Once the
+source is ready, freeze and run the governing task's unchanged evidence gates.
+
 For API changes, require negative controls for undeclared access, cross-schema misuse and writes through read.
 
 ## Approval requirements
