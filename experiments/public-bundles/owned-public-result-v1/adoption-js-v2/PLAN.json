@@ -1,0 +1,152 @@
+{
+  "status": "PROPOSED_UNEXECUTED_NOT_ADMITTED_NO_TOOL_SNAPSHOT_YET",
+  "commands": [
+    {
+      "label": "full22-JS-emit",
+      "argv": [
+        "bend",
+        "STAGE/experiments/public-bundles/owned-public-result-v1/main.bend",
+        "-o",
+        "OUT/full22.js"
+      ],
+      "seconds": 30,
+      "kind": "emit",
+      "expectedExit": 0,
+      "generated": "full22.js"
+    },
+    {
+      "label": "full22-JS-consumer",
+      "argv": [
+        "node",
+        "OUT/full22.js"
+      ],
+      "seconds": 5,
+      "kind": "full",
+      "expectedExit": 0,
+      "completeOracle": "experiments/public-bundles/owned-public-result-v1/expected.stdout",
+      "completeOracleSha256": "4c507fc35e21519242ab419467d7529f4488a0357c5cb9c1465ae1fadaf44311",
+      "rows": 22
+    },
+    {
+      "label": "full20-JS-emit",
+      "argv": [
+        "bend",
+        "STAGE/experiments/public-bundles/owned-public-result-v1/surface-main.bend",
+        "-o",
+        "OUT/full20.js"
+      ],
+      "seconds": 30,
+      "kind": "emit",
+      "expectedExit": 0,
+      "generated": "full20.js"
+    },
+    {
+      "label": "full20-JS-consumer",
+      "argv": [
+        "node",
+        "OUT/full20.js"
+      ],
+      "seconds": 5,
+      "kind": "full",
+      "expectedExit": 0,
+      "completeOracle": "experiments/public-bundles/owned-public-result-v1/surface-expected.stdout",
+      "completeOracleSha256": "442666c57364c0ad6e90a1fddbb258919996c3354009d85ea52d1877b7b2ef92",
+      "rows": 20
+    }
+  ],
+  "inputs": {
+    "experiments/public-bundles/owned-public-result-v1/adoption-stage-v2/DELIVERY.json": "41a56f266f4425964bc04a80413c380e6c973c8aa75232e466246d11a2fcd204",
+    "experiments/public-bundles/owned-public-result-v1/adoption-stage-v2/stage-binding.json": "3ac5bdea3ce08b9826eaf763646f3efa46c82a1566d70bfbdb820de08418266b",
+    "experiments/public-bundles/owned-public-result-v1/adoption-stage-v2/source-stage.zip": "2ecd0058b21fc7597b8a624979809feedd80861de211373b38a469cc67e472e0",
+    "experiments/public-bundles/owned-public-result-v1/adoption-stage-v2/public.patch": "748cfc4247748289db754c604b15fcc6ddcdbea843cab492dd4d86e61e2a3c65",
+    "experiments/public-bundles/owned-public-result-v1/adoption-stage-v2/source-controls/results.json": "74b1a91351da6e371de1bced2066a6edaf278375dfb9517c96fb412c82982b8d",
+    "experiments/public-bundles/owned-public-result-v1/adoption-stage-v2/source-controls/classification.json": "984a518ab922c1fc759b3a83697d068c6c2f22a2482ec16a25cce42c600cdfb8",
+    "experiments/public-bundles/owned-public-result-v1/bounded-delivery.json": "68507d66e645b92f488310e1ab5af4d4af0f8e54d93a28822afbb1c1dc84668a",
+    "experiments/public-bundles/owned-public-result-v1/surface-delivery.json": "a3305ca3299969ce290c7fe40d2b43980940ea9e5513c5f23593140f7a4ef7f9",
+    "experiments/public-bundles/owned-public-result-v1/expected.stdout": "4c507fc35e21519242ab419467d7529f4488a0357c5cb9c1465ae1fadaf44311",
+    "experiments/public-bundles/owned-public-result-v1/surface-expected.stdout": "442666c57364c0ad6e90a1fddbb258919996c3354009d85ea52d1877b7b2ef92",
+    "experiments/public-bundles/owned-public-result-v1/surface-expected-reference.stdout": "ee4c8437e4a2644cd9931945e9e40e8368810d4b8c321bec1534ab9874436974",
+    "experiments/public-bundles/owned-public-result-v1/surface-public-join.py": "08b04611b4fc398e10db6d713f7ac539bae67491972fdc261876c9fc4cfdd2ba",
+    "experiments/public-bundles/owned-public-result-v1/adoption-js-v2/foreign-sidecars.zip": "9dfe973b7048f79859d3a1516e45691d489fb1508959cdbc00a272c381fa926e",
+    "experiments/public-bundles/owned-public-result-v1/adoption-js-v2/foreign-sidecars.json": "1d6b584ca41cc9bea9f595c23345b5bdefb41bee1a0fbbaa81f866fe188db5aa"
+  },
+  "stageFiles": {
+    "experiments/public-bundles/owned-public-result-v1/main.bend": "4f078dca4c3e0f44fd589aed6099e11565ba8484b52da58faf47bb3070e3a69f",
+    "experiments/public-bundles/owned-public-result-v1/schema-a.bend": "a817ba1657d6e637ecb13bab60034f3ba08ebf0516429e6299743a91201c0414",
+    "experiments/public-bundles/owned-public-result-v1/public.bend": "072570cb47d661b03338dfc225f8243acf44f688ee1e68c444e2f580727da3c4",
+    "src/ecs/schema-fragments.bend": "83525f185b6099d48af4e3a14f30149cd94069ad5e29663c63e44a15a866cfe6",
+    "experiments/public-bundles/owned-public-result-v1/adapter.bend": "5f6677c6f28a4c18724979e3b064863cbc096345bb78cdf7b7092f5d497c356d",
+    "experiments/public-bundles/production-candidate/transactions/batch.bend": "e49feb7d6ab5e20c47ca11074b6a47dc27c02754e82d435543b6ef4866c3dfc4",
+    "experiments/public-bundles/prototype.bend": "26b708098689d7f3bc544ced0dfcde1f79f42003db6839658e564dde833f59c9",
+    "src/ecs/world.bend": "a20b0f2363dab12b73109354ebddf5c9126d3e786031cf9232a0c68c5ffc3b5c",
+    "src/ecs/string-equality.bend": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+    "src/ecs/commands.bend": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+    "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "experiments/public-bundles/constructor-stage.bend": "de8fea03493d43b6da0008284aba5c46bb2aaa77f1f1b8b1574bb8ef183b4a29",
+    "experiments/public-bundles/constructor-control.bend": "ef3521b8db0e0b1dc484370b0b7d3f0d7ac7086b3584999c28b9dced4afcd084",
+    "experiments/public-bundles/read-provider.bend": "2441e3d42208b212042663f05deea3acce4242daae6a4dd63e2080904de3c890",
+    "src/ecs/capabilities.bend": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+    "src/ecs/component.bend": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+    "src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "src/ecs/column.bend": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+    "src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+    "src/ecs/indexed-lifecycle.bend": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+    "experiments/public-bundles/combined-control.bend": "47811be3b6a059e065e77f06bc95149c333bfefc0c53fbf203252b3e6362197c",
+    "experiments/public-bundles/fallible-install.bend": "5e139adfb7b0ef6c0f7baafb8dde5bff83c8d1a1c6fac50564c09b8cb5c38498",
+    "experiments/public-bundles/component-install.bend": "2d0ddb4a4ea20c639453e70715b73b8f30cafdec25b73e523eefd007e5abc2ad",
+    "experiments/public-bundles/fallible-spawn.bend": "1fbd1e1301ec5aa4b46eb47b5b868d74f5761acd4c2e96fe8453fececa745973",
+    "experiments/public-bundles/production-candidate/schema-a.bend": "044fbf3b1b51096b70267158f1cdaae0b08374d3873ce600d75783b114dcf4b6",
+    "experiments/public-bundles/queue.bend": "11d2277045e229373bfc8108a7aac90792b7d53a1841f8423a7219fcd738f5a0",
+    "experiments/public-bundles/public.bend": "b91271cf8dac6254608d7973ad41b53d584981fe398371fc52333aa63b8828b1",
+    "src/ecs/world-io.bend": "4cb99615ad5177439b60cb659be2d5bc95ff02dc9cf55c162c2470e6d0f19a2a",
+    "src/ecs/world-namespace.bend": "92f7205a5d4d633289348960e139f5797354ff7dbfb0627b5d9435e17c5f48d7",
+    "experiments/public-bundles/public-client/declared.bend": "394043158abff5397cfa0bb7898baf43a1907062050ee0acd75e822f16204c52",
+    "experiments/public-bundles/public-client/trusted.bend": "9042428fdb956df0311d2b50fa002aaed3f05a1ccb29c3c03a70b7858ff538aa",
+    "experiments/public-bundles/combined-other.bend": "47811be3b6a059e065e77f06bc95149c333bfefc0c53fbf203252b3e6362197c",
+    "experiments/public-bundles/public-client/gameplay.bend": "eefcbc1bf5f6503c09eac16392966a3969fe80829ad78af7ab4ee8d91e40b740",
+    "src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+    "src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+    "experiments/public-bundles/production-candidate/transactions/schema-a.bend": "721a1b1412fc8e35a242026c8c3e3d64f3adf172393c57c05051adbf0a08053b",
+    "experiments/public-bundles/production-candidate/transactions/drain-recovery.bend": "03ef9bc6b5cb86971acbd465a73a15d3553c00ae1c5949eb0f3dcd4871d93d2f",
+    "experiments/public-bundles/owned-public-result-v1/schema-b.bend": "76a8e3d17fae858d2cdd4e402ea2c57ac1fc872e5f6a7f88fa748de8b23b74ef",
+    "experiments/public-bundles/production-candidate/schema-b.bend": "1120796a08f4ad640ed5483f1e0ffce06e88c3ff9475ee8e227f467b87a19448",
+    "experiments/public-bundles/public-client/declared-other.bend": "076b18848606cf5042f056a34fafb0b1a3f831fd24ec3c9e397901c9166a3ede",
+    "experiments/public-bundles/public-client/trusted-other.bend": "39560c9afe4c224a3f846387daf537ab0a058702857b17fc6d4a1fa49ab1ece1",
+    "experiments/public-bundles/public-client/gameplay-other.bend": "c20bed97eda50a59209e94a820aecca0b150d1d46747699086203b6d743d4664",
+    "experiments/public-bundles/production-candidate/transactions/schema-b.bend": "6bbb34fa7f06ae3f8b8937e1807bef1e3e33811086bc8ecbf575b493ab40ea43",
+    "experiments/public-bundles/owned-public-result-v1/surface-main.bend": "4b980262b6cc7178c8966d400d1e215c50fe2835383b081303cbda4590d2b02b",
+    "experiments/public-bundles/owned-public-result-v1/surface-a.bend": "f264989b2c899e063d76e4216d0a1ddd73c4b8398a0097c60ab5a88ba45c49bd",
+    "experiments/public-bundles/owned-public-result-v1/commands.bend": "4eec975a87efb248c5270e070c76eae9016abc1d3b6e1483f13340e8edd6ea24",
+    "experiments/public-bundles/owned-public-result-v1/composition.bend": "3d0586a7d14501a6541d85d6d3ca7e6c7658d601c790529e44cad8415859f4ad",
+    "experiments/public-bundles/owned-public-result-v1/surface-b.bend": "93cfb295c2559bd30fe4e8d512b7fc2349c8d607af93f00ad0b888150baf53e9",
+    "experiments/public-bundles/owned-public-result-v1/negatives/duplicate-input.bend": "630964a9fbe5ed963f69e98c0e3a0d87ef98165eff72ae07e8bd04d2f07494c6",
+    "experiments/public-bundles/owned-public-result-v1/negatives/support.bend": "b1e40e807ecadf590916ab799cc5e0af25d86c31166dad35cfb1c8059bdd3f56",
+    "experiments/public-bundles/owned-public-result-v1/negatives/reconstruct-owner.bend": "92827bc9130ddd6aaf57dd6452f37afd4eb63b1f5f62f1b7bb7085a967781412",
+    "experiments/public-bundles/owned-public-result-v1/negatives/cross-schema.bend": "db01dffec745e4ba2a1ccab06e952f432041d747554de4b54c89a9e54adfc115",
+    "experiments/public-bundles/owned-public-result-v1/negatives/duplicate-context.bend": "7d9534419eb591362a6434cb9c9d6dff1492db285a209d9e07c152a6e9db047f",
+    "experiments/public-bundles/owned-public-result-v1/negatives/opaque-h-escape.bend": "9fce8f5376baf20107800d949470ef286d58a94ac9dbfd3619e475f361988492",
+    "experiments/public-bundles/owned-public-result-v1/negatives/read-authority.bend": "92c6f271f1992e71cc3b811e4c5e7b9609532ada3db2e668b2e45ec1d709dab8",
+    "experiments/public-bundles/owned-public-result-v1/negatives/duplicate-result.bend": "e94c396c7bbca1a0292eaf5ec63984bc358871172053f58b1da1f762909dca4c",
+    "experiments/public-bundles/owned-public-result-v1/negatives/cross-schema-request.bend": "8cd14993140061fa31066b3351db6e3046c80067b263a89e581b0340909311da",
+    "src/ecs/world-namespace.c": "b218011c7738b7ac8ca94963b8c8cacd97006af6fa1c6ab6f4ac506c612b4521",
+    "src/ecs/world-namespace.js": "2731ad76f78bcdfe51714a1562fe487d5808b9300394ec0aebd89e24b00163f3"
+  },
+  "qualification": "Actual new production capability through unchanged public compatibilitywrapper; full22 and full20 arbitrary affine payload/World/system observations. Finite correctness only; no proof/performance/full41/core adoption claim.",
+  "beforeExecution": [
+    "Independent review/admission; then freeze reviewed runner source and current installed Bend/Node/library/resource/config/env pins with existing owned-tool-pins and task_runner; private env excluded from delivery",
+    "Unpack exactsource archive into isolated root, assert complete file membership and hashes; freeze stage ancestor configuration absence/presence",
+    "Use shared heavy flock; supervise every child and probe, retain complete raw stdout/stderr including failures; stop at first timeout/nonzero/mismatch",
+    "Verify immutable source/archive/manifest/oracle/runner/tool/config/environment before and after each subject; no broad backend replay"
+  ],
+  "oracleBindings": {
+    "full22": "bounded-delivery.json selected expected.stdout unchanged22 complete rows",
+    "full20": "surface-delivery.json selected surface-expected.stdout unchanged20 physical rows; apply unchanged surface-public-join.py to complete newstdout and pinned surface-expected-reference.stdout for20declaredpubliccheckpoints",
+    "actualTsReference": "Existing qualified archive receipt/source bindings unchanged; no regenerated or invented TS outputs"
+  },
+  "later": [
+    "ActualCLIIOcomplete consumers if required by feature gate",
+    "AffectedNative and reachedomitted-value mutant; no Native inference from JS",
+    "Rootsolecoreintegrator; unchanged28 on combined executableproduction source and no timing claim under contention"
+  ],
+  "stageDelta": "Two exact qualified World namespace foreign .c/.js sidecars added; unchanged57Bendsource bytes/oracles/API/caps. Quotedimport closure must resolve beforeemit."
+}

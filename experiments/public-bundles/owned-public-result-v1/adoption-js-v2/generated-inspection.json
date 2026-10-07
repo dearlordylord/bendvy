@@ -1,0 +1,126 @@
+{
+  "status": "BYTE_BOUND_STATIC_INSPECTION_NOT_CPU_OR_ALLOCATION_PROFILE",
+  "observations": {
+    "full22": {
+      "baselineArchive": "bounded-evidence-v1.zip",
+      "baselineMember": "history/js-004/owned.js",
+      "baselineSha256": "7cf5f82d9e480d73931cf55bbc2f9063da96b6678c3332e9eba092ee1ce5c6da",
+      "currentArtifact": "execution/full22.js",
+      "currentSha256": "40a641b1928b09940e2f792f490d1543b1d6f23f887251bc3941815487063f70",
+      "baselineBytes": 848199,
+      "currentBytes": 849547,
+      "deltaBytes": 1348,
+      "ownedRequestConstructionSites": 2,
+      "oldOwnedRequestConstructionSites": 0,
+      "constructionExcerpts": [
+        {
+          "line": 9587,
+          "text": "function $$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request$1260$(_ctx_0, _input_0) {\n  return run_tail(($$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request_field$1260$({$: \"../../../src/ecs/capabilities.OwnedRequest\", \"run\": ($public$058request_field$1260$({$: \"public.Request\", \"run\": run_clo((_x_0) => {\n  return run_clo((_x_1) => {\n  return $schema$045a$058request$(_x_0, _x_1);\n});\n})}))}))(_ctx_0), _input_0);\n}\n\nfunction $$$$047$$$047$$$047src$047ecs$047indexed$045lifecycle$058write_grow$($0, $1, $2, $3, $4, $5, $6, $7, $8) {\n  for (;;) {\n    {\n      const _fuel_0 = $0;\n      const _id_0 = $1;"
+        },
+        {
+          "line": 9743,
+          "text": "function $$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request$1261$(_ctx_0, _input_0) {\n  return run_tail(($$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request_field$1261$({$: \"../../../src/ecs/capabilities.OwnedRequest\", \"run\": ($public$058request_field$1261$({$: \"public.Request\", \"run\": run_clo((_x_0) => {\n  return run_clo((_x_1) => {\n  return $schema$045b$058request$(_x_0, _x_1);\n});\n})}))}))(_ctx_0), _input_0);\n}\n\nfunction $$$$047$$$047$$$047src$047ecs$047column$058recover_current$1263$(_values_0, _stamps_0, _current_0, _owner_0, _remaining_0, _past_0, _active_0) {\n  if (!_active_0) {\n    return {$: \"../../../src/ecs/column.Column\", \"values\": ($$$$047$$$047$$$047src$047ecs$047column$058recover_selected_rows$(_remaining_0, ($$$$047$$$047$$$047src$047ecs$047column$058recover_past$1263$(_past_0, _values_0)))), \"stamps\": _stamps_0};\n  } else {\n    const _x_0 = ((_current_0 - 1) >>> 0);"
+        }
+      ],
+      "specializedFunctionExcerpts": [
+        {
+          "line": 7958,
+          "text": "function $$$$047$$$047$$$047src$047ecs$047capabilities$058invoke_owned$1260$(_args_0, _ctx_0) {\n  return $schema$045a$058body$1260$(_args_0, _ctx_0);\n}\n\nfunction $$$$047$$$047$$$047src$047ecs$047lifecycle$058set$(_entries_0, _id_0, _stamp_0) {\n  return {$: \"Con\", \"head\": {$: \"../../../src/ecs/lifecycle.Entry\", \"id\": _id_0, \"stamp\": _stamp_0}, \"tail\": ($$$$047$$$047$$$047src$047ecs$047lifecycle$058clear$(_entries_0, _id_0))};\n}\n\nfunction $$$$047$$$047$$$047src$047ecs$047column$058restore_state$1260$(_id_0, _stamp_0, _state_0) {\n  const _values_0 = _state_0[\"values\"];\n  const _stamps_0 = _state_0[\"stamps\"];\n  const _capacity_0 = _state_0[\"capacity\"];"
+        },
+        {
+          "line": 8201,
+          "text": "function $$$$047$$$047$$$047src$047ecs$047capabilities$058invoke_owned$1261$(_args_0, _ctx_0) {\n  return $schema$045b$058body$1260$(_args_0, _ctx_0);\n}\n\nfunction $$$$047$$$047$$$047src$047ecs$047column$058restore_state$1263$(_id_0, _stamp_0, _state_0) {\n  const _values_0 = _state_0[\"values\"];\n  const _stamps_0 = _state_0[\"stamps\"];\n  const _capacity_0 = _state_0[\"capacity\"];\n  const _current_0 = _state_0[\"current\"];\n  const _owner_0 = _state_0[\"owner\"];\n  const _remaining_0 = _state_0[\"remaining\"];\n  const _past_0 = _state_0[\"past\"];"
+        },
+        {
+          "line": 9586,
+          "text": "function $$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request$1260$(_ctx_0, _input_0) {\n  return run_tail(($$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request_field$1260$({$: \"../../../src/ecs/capabilities.OwnedRequest\", \"run\": ($public$058request_field$1260$({$: \"public.Request\", \"run\": run_clo((_x_0) => {\n  return run_clo((_x_1) => {\n  return $schema$045a$058request$(_x_0, _x_1);\n});\n})}))}))(_ctx_0), _input_0);\n}\n\nfunction $$$$047$$$047$$$047src$047ecs$047indexed$045lifecycle$058write_grow$($0, $1, $2, $3, $4, $5, $6, $7, $8) {\n  for (;;) {\n    {\n      const _fuel_0 = $0;"
+        },
+        {
+          "line": 9742,
+          "text": "function $$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request$1261$(_ctx_0, _input_0) {\n  return run_tail(($$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request_field$1261$({$: \"../../../src/ecs/capabilities.OwnedRequest\", \"run\": ($public$058request_field$1261$({$: \"public.Request\", \"run\": run_clo((_x_0) => {\n  return run_clo((_x_1) => {\n  return $schema$045b$058request$(_x_0, _x_1);\n});\n})}))}))(_ctx_0), _input_0);\n}\n\nfunction $$$$047$$$047$$$047src$047ecs$047column$058recover_current$1263$(_values_0, _stamps_0, _current_0, _owner_0, _remaining_0, _past_0, _active_0) {\n  if (!_active_0) {\n    return {$: \"../../../src/ecs/column.Column\", \"values\": ($$$$047$$$047$$$047src$047ecs$047column$058recover_selected_rows$(_remaining_0, ($$$$047$$$047$$$047src$047ecs$047column$058recover_past$1263$(_past_0, _values_0)))), \"stamps\": _stamps_0};\n  } else {"
+        },
+        {
+          "line": 9850,
+          "text": "function $$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request_field$1260$(_cap_0) {\n  const _run_0 = _cap_0[\"run\"];\n  return _run_0;\n}\n\nfunction $public$058request_field$1260$(_cap_0) {\n  const _run_0 = _cap_0[\"run\"];\n  return _run_0;\n}\n\nfunction $schema$045a$058request$(_owner_0, _input_0) {\n  return $adapter$058request$1260$(_owner_0, _input_0);"
+        },
+        {
+          "line": 10001,
+          "text": "function $$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request_field$1261$(_cap_0) {\n  const _run_0 = _cap_0[\"run\"];\n  return _run_0;\n}\n\nfunction $public$058request_field$1261$(_cap_0) {\n  const _run_0 = _cap_0[\"run\"];\n  return _run_0;\n}\n\nfunction $schema$045b$058request$(_owner_0, _input_0) {\n  return $adapter$058request$1261$(_owner_0, _input_0);"
+        }
+      ]
+    },
+    "full20": {
+      "baselineArchive": "surface-evidence-v1.zip",
+      "baselineMember": "history/surface-backend-001/surface.js",
+      "baselineSha256": "77e7e8898239449c67dbabf1be00de948a51deeb1839c1440e0558fbb5b34e47",
+      "currentArtifact": "execution/full20.js",
+      "currentSha256": "44cd9c93423fe3e3058e396fa64a788779cd991f95593db90bff42f4a7e3ff5b",
+      "baselineBytes": 914005,
+      "currentBytes": 916409,
+      "deltaBytes": 2404,
+      "ownedRequestConstructionSites": 4,
+      "oldOwnedRequestConstructionSites": 0,
+      "constructionExcerpts": [
+        {
+          "line": 9563,
+          "text": "function $$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request$1261$(_ctx_0, _input_0) {\n  return run_tail(($$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request_field$1261$({$: \"../../../src/ecs/capabilities.OwnedRequest\", \"run\": ($public$058request_field$1261$({$: \"public.Request\", \"run\": run_clo((_x_0) => {\n  return run_clo((_x_1) => {\n  return $surface$045a$058request$(_x_0, _x_1);\n});\n})}))}))(_ctx_0), _input_0);\n}\n\nfunction $$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request$1262$(_ctx_0, _input_0) {\n  return run_tail(($$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request_field$1261$({$: \"../../../src/ecs/capabilities.OwnedRequest\", \"run\": ($public$058request_field$1261$({$: \"public.Request\", \"run\": run_clo((_x_0) => {\n  return run_clo((_x_1) => {\n  return $surface$045a$058request_clean$(_x_0, _x_1);\n});"
+        },
+        {
+          "line": 9571,
+          "text": "function $$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request$1262$(_ctx_0, _input_0) {\n  return run_tail(($$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request_field$1261$({$: \"../../../src/ecs/capabilities.OwnedRequest\", \"run\": ($public$058request_field$1261$({$: \"public.Request\", \"run\": run_clo((_x_0) => {\n  return run_clo((_x_1) => {\n  return $surface$045a$058request_clean$(_x_0, _x_1);\n});\n})}))}))(_ctx_0), _input_0);\n}\n\nfunction $$$$047$$$047$$$047src$047ecs$047indexed$045lifecycle$058write_ready$(_id_0, _added_0, _changed_0, _capacity_0, _depth_0, _exceptional_0, _stamp_0) {\n  const _first_0 = _stamp_0[\"added\"];\n  const _last_0 = _stamp_0[\"changed\"];\n  const _x_0 = ((_id_0 - 1) >>> 0);\n  const _x_1 = ((_id_0 - 1) >>> 0);"
+        },
+        {
+          "line": 9727,
+          "text": "function $$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request$1264$(_ctx_0, _input_0) {\n  return run_tail(($$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request_field$1263$({$: \"../../../src/ecs/capabilities.OwnedRequest\", \"run\": ($public$058request_field$1263$({$: \"public.Request\", \"run\": run_clo((_x_0) => {\n  return run_clo((_x_1) => {\n  return $surface$045b$058request$(_x_0, _x_1);\n});\n})}))}))(_ctx_0), _input_0);\n}\n\nfunction $$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request$1265$(_ctx_0, _input_0) {\n  return run_tail(($$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request_field$1263$({$: \"../../../src/ecs/capabilities.OwnedRequest\", \"run\": ($public$058request_field$1263$({$: \"public.Request\", \"run\": run_clo((_x_0) => {\n  return run_clo((_x_1) => {\n  return $surface$045b$058request_clean$(_x_0, _x_1);\n});"
+        },
+        {
+          "line": 9735,
+          "text": "function $$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request$1265$(_ctx_0, _input_0) {\n  return run_tail(($$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request_field$1263$({$: \"../../../src/ecs/capabilities.OwnedRequest\", \"run\": ($public$058request_field$1263$({$: \"public.Request\", \"run\": run_clo((_x_0) => {\n  return run_clo((_x_1) => {\n  return $surface$045b$058request_clean$(_x_0, _x_1);\n});\n})}))}))(_ctx_0), _input_0);\n}\n\nfunction $$$$047$$$047$$$047src$047ecs$047column$058recover_past$1263$($0, $1) {\n  for (;;) {\n    {\n      const _past_0 = $0;\n      const _values_0 = $1;"
+        }
+      ],
+      "specializedFunctionExcerpts": [
+        {
+          "line": 7602,
+          "text": "function $$$$047$$$047$$$047src$047ecs$047capabilities$058invoke_owned$1261$(_args_0, _ctx_0) {\n  return $surface$045a$058body$1260$(_args_0, _ctx_0);\n}\n\nfunction $$$$047$$$047$$$047src$047ecs$047capabilities$058invoke_owned$1262$(_args_0, _ctx_0) {\n  return $surface$045a$058body$1261$(_args_0, _ctx_0);\n}\n\nfunction $$$$047$$$047$$$047src$047ecs$047lifecycle$058set$(_entries_0, _id_0, _stamp_0) {\n  return {$: \"Con\", \"head\": {$: \"../../../src/ecs/lifecycle.Entry\", \"id\": _id_0, \"stamp\": _stamp_0}, \"tail\": ($$$$047$$$047$$$047src$047ecs$047lifecycle$058clear$(_entries_0, _id_0))};\n}\n"
+        },
+        {
+          "line": 7606,
+          "text": "function $$$$047$$$047$$$047src$047ecs$047capabilities$058invoke_owned$1262$(_args_0, _ctx_0) {\n  return $surface$045a$058body$1261$(_args_0, _ctx_0);\n}\n\nfunction $$$$047$$$047$$$047src$047ecs$047lifecycle$058set$(_entries_0, _id_0, _stamp_0) {\n  return {$: \"Con\", \"head\": {$: \"../../../src/ecs/lifecycle.Entry\", \"id\": _id_0, \"stamp\": _stamp_0}, \"tail\": ($$$$047$$$047$$$047src$047ecs$047lifecycle$058clear$(_entries_0, _id_0))};\n}\n\nfunction $$$$047$$$047$$$047src$047ecs$047column$058restore_state$1260$(_id_0, _stamp_0, _state_0) {\n  const _values_0 = _state_0[\"values\"];\n  const _stamps_0 = _state_0[\"stamps\"];\n  const _capacity_0 = _state_0[\"capacity\"];"
+        },
+        {
+          "line": 7865,
+          "text": "function $$$$047$$$047$$$047src$047ecs$047capabilities$058invoke_owned$1264$(_args_0, _ctx_0) {\n  return $surface$045b$058body$1260$(_args_0, _ctx_0);\n}\n\nfunction $$$$047$$$047$$$047src$047ecs$047capabilities$058invoke_owned$1265$(_args_0, _ctx_0) {\n  return $surface$045b$058body$1261$(_args_0, _ctx_0);\n}\n\nfunction $$$$047$$$047$$$047src$047ecs$047column$058restore_state$1263$(_id_0, _stamp_0, _state_0) {\n  const _values_0 = _state_0[\"values\"];\n  const _stamps_0 = _state_0[\"stamps\"];\n  const _capacity_0 = _state_0[\"capacity\"];"
+        },
+        {
+          "line": 7869,
+          "text": "function $$$$047$$$047$$$047src$047ecs$047capabilities$058invoke_owned$1265$(_args_0, _ctx_0) {\n  return $surface$045b$058body$1261$(_args_0, _ctx_0);\n}\n\nfunction $$$$047$$$047$$$047src$047ecs$047column$058restore_state$1263$(_id_0, _stamp_0, _state_0) {\n  const _values_0 = _state_0[\"values\"];\n  const _stamps_0 = _state_0[\"stamps\"];\n  const _capacity_0 = _state_0[\"capacity\"];\n  const _current_0 = _state_0[\"current\"];\n  const _owner_0 = _state_0[\"owner\"];\n  const _remaining_0 = _state_0[\"remaining\"];\n  const _past_0 = _state_0[\"past\"];"
+        },
+        {
+          "line": 9562,
+          "text": "function $$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request$1261$(_ctx_0, _input_0) {\n  return run_tail(($$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request_field$1261$({$: \"../../../src/ecs/capabilities.OwnedRequest\", \"run\": ($public$058request_field$1261$({$: \"public.Request\", \"run\": run_clo((_x_0) => {\n  return run_clo((_x_1) => {\n  return $surface$045a$058request$(_x_0, _x_1);\n});\n})}))}))(_ctx_0), _input_0);\n}\n\nfunction $$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request$1262$(_ctx_0, _input_0) {\n  return run_tail(($$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request_field$1261$({$: \"../../../src/ecs/capabilities.OwnedRequest\", \"run\": ($public$058request_field$1261$({$: \"public.Request\", \"run\": run_clo((_x_0) => {\n  return run_clo((_x_1) => {\n  return $surface$045a$058request_clean$(_x_0, _x_1);"
+        },
+        {
+          "line": 9570,
+          "text": "function $$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request$1262$(_ctx_0, _input_0) {\n  return run_tail(($$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request_field$1261$({$: \"../../../src/ecs/capabilities.OwnedRequest\", \"run\": ($public$058request_field$1261$({$: \"public.Request\", \"run\": run_clo((_x_0) => {\n  return run_clo((_x_1) => {\n  return $surface$045a$058request_clean$(_x_0, _x_1);\n});\n})}))}))(_ctx_0), _input_0);\n}\n\nfunction $$$$047$$$047$$$047src$047ecs$047indexed$045lifecycle$058write_ready$(_id_0, _added_0, _changed_0, _capacity_0, _depth_0, _exceptional_0, _stamp_0) {\n  const _first_0 = _stamp_0[\"added\"];\n  const _last_0 = _stamp_0[\"changed\"];\n  const _x_0 = ((_id_0 - 1) >>> 0);"
+        },
+        {
+          "line": 9726,
+          "text": "function $$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request$1264$(_ctx_0, _input_0) {\n  return run_tail(($$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request_field$1263$({$: \"../../../src/ecs/capabilities.OwnedRequest\", \"run\": ($public$058request_field$1263$({$: \"public.Request\", \"run\": run_clo((_x_0) => {\n  return run_clo((_x_1) => {\n  return $surface$045b$058request$(_x_0, _x_1);\n});\n})}))}))(_ctx_0), _input_0);\n}\n\nfunction $$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request$1265$(_ctx_0, _input_0) {\n  return run_tail(($$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request_field$1263$({$: \"../../../src/ecs/capabilities.OwnedRequest\", \"run\": ($public$058request_field$1263$({$: \"public.Request\", \"run\": run_clo((_x_0) => {\n  return run_clo((_x_1) => {\n  return $surface$045b$058request_clean$(_x_0, _x_1);"
+        },
+        {
+          "line": 9734,
+          "text": "function $$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request$1265$(_ctx_0, _input_0) {\n  return run_tail(($$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request_field$1263$({$: \"../../../src/ecs/capabilities.OwnedRequest\", \"run\": ($public$058request_field$1263$({$: \"public.Request\", \"run\": run_clo((_x_0) => {\n  return run_clo((_x_1) => {\n  return $surface$045b$058request_clean$(_x_0, _x_1);\n});\n})}))}))(_ctx_0), _input_0);\n}\n\nfunction $$$$047$$$047$$$047src$047ecs$047column$058recover_past$1263$($0, $1) {\n  for (;;) {\n    {\n      const _past_0 = $0;"
+        },
+        {
+          "line": 9822,
+          "text": "function $$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request_field$1261$(_cap_0) {\n  const _run_0 = _cap_0[\"run\"];\n  return _run_0;\n}\n\nfunction $public$058request_field$1261$(_cap_0) {\n  const _run_0 = _cap_0[\"run\"];\n  return _run_0;\n}\n\nfunction $surface$045a$058request$(_owner_0, _input_0) {\n  return $commands$058request$1260$(_owner_0, _input_0);"
+        },
+        {
+          "line": 9971,
+          "text": "function $$$$047$$$047$$$047src$047ecs$047capabilities$058owned_request_field$1263$(_cap_0) {\n  const _run_0 = _cap_0[\"run\"];\n  return _run_0;\n}\n\nfunction $public$058request_field$1263$(_cap_0) {\n  const _run_0 = _cap_0[\"run\"];\n  return _run_0;\n}\n\nfunction $surface$045b$058request$(_owner_0, _input_0) {\n  return $commands$058request$1261$(_owner_0, _input_0);"
+        }
+      ]
+    }
+  },
+  "conclusion": "Compatibility apply adds an explicit OwnedRequest object around existing Public.Request projection at each reached request; this wrapper object is present in emitted code, not template-erased. invoke_owned has specialized forwarding functions; no generic runtime type reflection. Static site count does not measure dynamic calls, garbage collection, total allocations or slowdown. No Type payload cloning or Data restriction introduced."
+}
