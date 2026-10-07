@@ -40,6 +40,9 @@ See [regression evidence](reports/core-integrated-regression.md) and
   Production relation candidates are being integrated. The proposed numeric
   cleanup bound exceeds emitted Nat48 at legal sizes; replace the aggregate
   product with structural shrinking budgets and verify generated arithmetic.
+  The large control subsequently exposed fixture and actual graph-removal JS
+  stack faults; preserve both failures and repair the production path before
+  claiming large-world acceptance.
 - #45 actual TS preparation retains canonical same-name scope keys, deferred
   cleanup, failure/retry and independent-runtime membership; #44 remains required.
 - #46 validation/host integration continues. Remaining #40–#64 capabilities and
