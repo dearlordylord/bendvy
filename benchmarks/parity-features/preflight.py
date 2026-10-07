@@ -27,7 +27,7 @@ def closure(entries):
     return found
 
 def snapshot():
-    inputs = set(HERE.glob('*'))
+    inputs = set(HERE.glob('*')) | {ROOT / 'experiments/s-prep/fivehour-connected-gates/supervisor.py'}
     for feature in FEATURES:
         directory = ROOT / 'experiments' / feature
         authored = {p for p in directory.iterdir() if p.is_file() and p.suffix in {'.bend', '.mjs', '.json', '.py', '.md'}}
