@@ -1,0 +1,9 @@
+# Registered application candidate
+
+This is an implementation/equivalence candidate, not production delivery or a timing result. Frozen preflight `application-1791374412977032638` binds 486 input files and 35 unique supervised command labels; no backend command has been executed under it.
+
+The application runs two nominal schemas with owning Array payloads at depths 0–3, three independently keyed relation descriptors, declared registered write clients, eleven actual component/relation Query selections, queued commands, barriers, hierarchy reorder and linked cleanup. Its 22 checkpoints preserve all projected rows, retained initial views, complete outgoing/inverse entries, all eight physical component slots, stamps, live IDs, namespace/allocator/capacity/resource/system/clock metadata, pending counts and keyed publication history. The independent chronological model was corrected against actual TS observations before Bend comparison; the rejected prepending model and original observations remain retained.
+
+The normal stage and three compiling-mutant candidates are prepared prospectively. Mutation targets are actual inverse projection order, deferred relation-failure publication and the application's actual component write server. Exact diagnostics separately bind affine duplication, opaque-owner inspection, undeclared access, cross-schema misuse and writes through read. They are finite controls, not universal authority proofs.
+
+Mandatory remaining application coverage includes system failure/rollback, pending future targets and foreign-world frontend refusal. These require a new source/model/reference version after this freeze. Complete feature timing/scaling and live production promotion also remain open. Independent reader cursor/retry/lag behavior belongs to #43; this application observes the existing keyed notice carrier and does not create a substitute reader API.
