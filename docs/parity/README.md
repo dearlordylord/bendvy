@@ -1,6 +1,6 @@
 # Remaining full-core parity — published execution map
 
-Specification: [37](https://github.com/dearlordylord/bendvy/issues/37). Full parent #1 and performance parents #21/#23/#24 are unchanged. #34 and #39 are delivered; the active slices are recorded below.
+Specification: [37](https://github.com/dearlordylord/bendvy/issues/37). Full parent #1 and performance parents #21/#23/#24 are unchanged. #34, #35 and #39 are delivered; the active slices are recorded below.
 
 Publication is complete scope tracking, not capability acceptance. Every issue is labeled ready-for-agent; execute only when its genuine blockers and explicit decision gates are satisfied.
 
@@ -36,7 +36,7 @@ Publication is complete scope tracking, not capability acceptance. Every issue i
 
 ## Immediate frontier
 
-#35, #38, #40, #41, #42, #46, #47, #48, #50 and #53. #34 and #39 are closed; their dependencies permit #40 and #48. #45 has actual TS preparation while #44 remains prerequisite. Explicit unresolved identity/capture/affine-event contract choices must still be resolved before implementation; there is no blanket approval of divergence.
+#38, #40, #41, #42, #46, #47, #48, #50 and #53. #34, #35 and #39 are closed; their dependencies permit #40/#48 and the reader side of #43, whose #42 prerequisite remains open. #45 has actual TS preparation while #44 remains prerequisite. Explicit unresolved identity/capture/affine-event contract choices must still be resolved before implementation; there is no blanket approval of divergence.
 
 ## Implementation checkpoint — 2026-10-07
 
