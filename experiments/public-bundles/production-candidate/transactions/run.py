@@ -1,6 +1,13 @@
 """Source-bound finite bundle integration; reviewed donor supervisor/raw log policy."""
 from pathlib import Path
 import argparse,hashlib,json,os,re,runpy,shutil,sys,tempfile,time
+
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+import task_runner
+
 ROOT=Path(__file__).resolve().parents[4];LOCAL=Path('experiments/public-bundles/production-candidate/transactions');HERE=ROOT/LOCAL
 args=argparse.ArgumentParser();args.add_argument('--native',action='store_true');args.add_argument('--preflight-only',action='store_true');args.add_argument('--diagnostic-freeze',action='store_true');args=args.parse_args()
 os.sched_setaffinity(0,{5})
@@ -22,7 +29,7 @@ closure(HERE/'positive.bend',files)
 files.add(HERE.parent/'diagnostics.json')
 files.add(HERE.parent/'expected-reference.stdout');files.add(HERE.parent/'expected-combined-reference.stdout')
 files.update(p for p in HERE.iterdir() if p.is_file())
-files.update(ROOT/p for p in [SUP/'supervisor.py',SUP/'supervisor-provenance.json',SUP/'supervisor-control.py',Path('experiments/s-prep/fivehour-connected-gates/supervisor.py'),Path('scripts/receipt-logs.py'),Path('scripts/task_runner.py'),LOCAL/'tool-pins.py',Path('experiments/public-bundles/reference.mjs'),Path('experiments/public-bundles/combined-reference.mjs')])
+files.update(ROOT/p for p in [Path('scripts/task_runner.py'),SUP/'supervisor-control.py',Path('scripts/task_runner.py'),Path('scripts/receipt-logs.py'),Path('scripts/task_runner.py'),LOCAL/'tool-pins.py',Path('experiments/public-bundles/reference.mjs'),Path('experiments/public-bundles/combined-reference.mjs')])
 for v in plans:
  for e in v['edits']:
   f=ROOT/e['path'];assert sha(f)==e['originalSHA256'];assert f.read_text().count(e['anchor'])==e['count'];assert hashlib.sha256(f.read_text().replace(e['anchor'],e['replacement']).encode()).hexdigest()==e['intendedSHA256'];files.add(f)
@@ -49,7 +56,7 @@ try:
   stage=Path(tmp)
   for n in sources:
    p=stage/n;p.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(ROOT/n,p)
-  staged=dict(sources);stageConfigs=config_inventory({stage,stage/LOCAL});r['stageConfigurations']=stageConfigs;supervisor=runpy.run_path(str(stage/SUP/'supervisor.py'));provenance=json.loads((stage/SUP/'supervisor-provenance.json').read_text());original=(stage/provenance['origin']).read_bytes();assert hashlib.sha256(original).hexdigest()==provenance['originSHA256'];assert (stage/SUP/'supervisor.py').read_bytes()[:provenance['unchangedPrefixBytes']]==original;r['supervisorProvenance']=provenance
+  staged=dict(sources);stageConfigs=config_inventory({stage,stage/LOCAL});r['stageConfigurations']=stageConfigs;r['runnerImplementation']='scripts/task_runner.py'
   def guard():
    tool['verify'](toolSnapshot);logs.guard()
    assert config_inventory({ROOT,Path.cwd(),HERE})==rootConfigs,'root/cwd configuration drift'
@@ -63,7 +70,7 @@ try:
    guard();assert label in labels
    if emits:assert not (OUT/emits).exists()
    argv=['taskset','-c','5']+list(map(str,argv))
-   try:code,out,err=supervisor['execute_split'](argv,cap,env=env)
+   try:code,out,err=task_runner.execute_split(argv,cap,env=env)
    except (TimeoutError,RuntimeError) as error:
     r['immutableLogs']=logs.record(label,getattr(error,'stdout',b''),getattr(error,'stderr',b''));r['commands'].append({'label':label,'argv':argv,'cap':cap,'supervisionFailure':str(error)});raise
    r['immutableLogs']=logs.record(label,out,err);r['commands'].append({'label':label,'argv':argv,'cap':cap,'exit':code,'stdoutSHA256':sha(OUT/(label+'.stdout')),'stderrSHA256':sha(OUT/(label+'.stderr'))});assert code==exit,(label,err.decode())
@@ -71,9 +78,9 @@ try:
    guard();return out.decode(),err.decode()
   out,err=run('supervisor-raw',[sys.executable,stage/SUP/'supervisor-control.py','raw'],5);assert out=='raw-out\n' and err=='raw-err\n'
   guard()
-  try:supervisor['execute_split'](['taskset','-c','5',sys.executable,str(stage/SUP/'supervisor-control.py'),'escape'],0.5,env=env)
+  try:task_runner.execute_split(['taskset','-c','5',sys.executable,str(stage/SUP/'supervisor-control.py'),'escape'],0.5,env=env)
   except TimeoutError as error:
-   out=error.stdout;err=error.stderr;assert out.startswith(b'escaped:') and not err;pid=int(out.decode().strip().split(':')[1]);assert not Path('/proc',str(pid)).exists() and not supervisor['child_pids'](os.getpid());r['immutableLogs']=logs.record('supervisor-escape',out,err);r['commands'].append({'label':'supervisor-escape','expectedTimeoutControl':True,'escapedPID':pid,'reaped':True})
+   out=error.stdout;err=error.stderr;assert out.startswith(b'escaped:') and not err;pid=int(out.decode().strip().split(':')[1]);assert not Path('/proc',str(pid)).exists() and not task_runner.child_pids(os.getpid());r['immutableLogs']=logs.record('supervisor-escape',out,err);r['commands'].append({'label':'supervisor-escape','expectedTimeoutControl':True,'escapedPID':pid,'reaped':True})
   else:raise AssertionError('escaping child deadline absent')
   guard()
   fixture=stage/LOCAL/'main.bend';out,err=run('proof-boundary',['bend',fixture,'--check-only'],5,1);assert not out and 'rely on unsafe or foreign code' in err

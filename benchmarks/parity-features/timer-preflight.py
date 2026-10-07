@@ -1,8 +1,15 @@
 #!/usr/bin/env python3
 """Guarded finite timer protocol controls; no feature measurements."""
 import argparse, gzip, hashlib, json, os, pathlib, shutil, subprocess
-import preflight, supervise, importlib.util
+import preflight, importlib.util
 from stage import inventory
+
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+import task_runner
+
 ROOT = preflight.ROOT
 HERE = pathlib.Path(__file__).resolve().parent
 
@@ -41,7 +48,7 @@ def main():
         assert all(preflight.digest(args.output / p) == h for p, h in receipt['logs'].items()), 'Log drift'
     def run(label, command, cap, good=True):
         guard()
-        result = supervise.execute(list(map(str, command)), cap, dict(os.environ, BENDVY_CLANG19_ROOT='/tmp/bendvy-clang19-diagnostic/root'))
+        result = task_runner.execute_completed(list(map(str, command)), cap, dict(os.environ, BEND_NO_TELEMETRY='1', BENDVY_CLANG19_ROOT='/tmp/bendvy-clang19-diagnostic/root'))
         gzip.open(args.output / (label + '.stdout.gz'), 'wb').write(result.stdout)
         (args.output / (label + '.stderr')).write_bytes(result.stderr)
         for log in [label + '.stdout.gz', label + '.stderr']:

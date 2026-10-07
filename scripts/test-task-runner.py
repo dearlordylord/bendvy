@@ -26,26 +26,18 @@ class Execution(unittest.TestCase):
         with mock.patch.object(task_runner, 'IMPLEMENTATION_SHA256', 'changed'):
             with self.assertRaises(RuntimeError): execute_result(command('pass'), 3)
 
-    def test_adapters_delegate_and_no_public_process_copies(self):
+    def test_current_entrypoints_use_one_process_implementation(self):
+        import ast
         root = Path(__file__).resolve().parents[1]
-        for path in root.glob('experiments/public-*/**/*.py'):
-            source = path.read_text()
-            self.assertNotIn('subprocess.Popen(', source, str(path))
-            self.assertNotIn('subprocess.run(', source, str(path))
-        paths = ['experiments/s-prep/fivehour-connected-gates/supervisor.py',
-                 'experiments/public-component-state/supervisor.py',
-                 'experiments/public-component-state/timing/supervisor.py',
-                 'experiments/public-identity/production-candidate/promotion/supervisor.py']
-        for name in paths:
-            spec = importlib.util.spec_from_file_location('adapter', root/name)
-            adapter = importlib.util.module_from_spec(spec); spec.loader.exec_module(adapter)
-            self.assertIs(adapter.execute, task_runner.execute)
-            self.assertIs(adapter.cleanup_owned, task_runner.cleanup_owned)
-        for name in ['experiments/public-relations/promotion-stage/query-lifetime/raw-supervisor.py',
-                     'experiments/public-relations/promotion-stage/current-core-replay/guarded-v2/raw_supervisor.py']:
-            spec = importlib.util.spec_from_file_location('adapter', root/name)
-            adapter = importlib.util.module_from_spec(spec); spec.loader.exec_module(adapter)
-            self.assertEqual(adapter.execute(command('print("raw")'),3)['stdout'],b'raw\n')
+        paths=list(root.glob('experiments/public-*/**/*.py'))
+        paths += [p for folder in ('benchmarks','docs','examples','scripts') for p in (root/folder).rglob('*.py') if p.name!='task_runner.py' and not p.name.startswith('test-')]
+        for path in paths:
+            tree=ast.parse(path.read_text())
+            for node in ast.walk(tree):
+                if isinstance(node,ast.Call) and isinstance(node.func,ast.Attribute) and isinstance(node.func.value,ast.Name):
+                    self.assertFalse(node.func.value.id=='subprocess' and node.func.attr in ('Popen','run','check_output','check_call','call'),str(path))
+                if isinstance(node,ast.Import):
+                    self.assertFalse(any(n.name in ('supervisor','supervise','raw_supervisor') for n in node.names),str(path))
 
     def test_completed_process_adapter(self):
         result = task_runner.run(command('import os; os.write(1,b"a\\r\\n"); os.write(2,b"err"); exit(7)'),timeout=3,capture_output=True,text=True)
@@ -76,22 +68,14 @@ class Execution(unittest.TestCase):
                 with self.assertRaises(KeyboardInterrupt): execute_result(command(code),10)
             self.assertFalse(Path('/proc',pidfile.read_text()).exists())
 
-    def test_staged_adapter_and_current_provenance(self):
-        import hashlib, json, shutil
+    def test_staged_shared_module(self):
+        import shutil
         root = Path(__file__).resolve().parents[1]
-        provenance = json.loads((root/'experiments/public-identity/production-candidate/promotion/supervisor-provenance.json').read_text())
-        self.assertEqual(hashlib.sha256((root/provenance['implementation']).read_bytes()).hexdigest(),provenance['implementationSHA256'])
-        original = (root/provenance['origin']).read_bytes()
-        self.assertEqual(hashlib.sha256(original).hexdigest(),provenance['originSHA256'])
-        adapter = root/'experiments/public-identity/production-candidate/promotion/supervisor.py'
-        self.assertEqual(adapter.read_bytes()[:provenance['unchangedPrefixBytes']],original)
         with tempfile.TemporaryDirectory() as directory:
-            stage = Path(directory)
-            (stage/'scripts').mkdir(); (stage/'experiment').mkdir()
+            stage=Path(directory);(stage/'scripts').mkdir()
             shutil.copyfile(root/'scripts/task_runner.py',stage/'scripts/task_runner.py')
-            shutil.copyfile(adapter,stage/'experiment/supervisor.py')
-            code = 'import sys;sys.path.insert(0,'+repr(str(stage/'experiment'))+'); import supervisor; print(supervisor.execute([sys.executable,"-c","print(123)"],3))'
-            result = execute_result(command(code),5,cwd=directory)
+            code='import sys;sys.path.insert(0,'+repr(str(stage/'scripts'))+'); import task_runner; print(task_runner.execute([sys.executable,"-c","print(123)"],3))'
+            result=execute_result(command(code),5,cwd=directory)
             self.assertIsNone(result['failure'])
             self.assertEqual(result['exit'],0)
             self.assertEqual(result['stdout'],b"(0, '123\\n')\n")

@@ -1,7 +1,14 @@
 import concurrent.futures,hashlib,json,subprocess
 from pathlib import Path
+
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+import task_runner
+
 root=Path(__file__).resolve().parents[2];dest=root/'docs/parity';s=json.loads((dest/'published.json').read_text())
-def gh(*a):return subprocess.check_output(['gh',*a],cwd=root,text=True)
+def gh(*a):return task_runner.check_output(['gh',*a],cwd=root,text=True,timeout=30)
 issues=json.loads(gh('issue','list','--state','all','--limit','100','--json','number,title,body,labels,url'))
 lookup={x['number']:x for x in issues};checks=[]
 for key,e in s['tickets'].items():

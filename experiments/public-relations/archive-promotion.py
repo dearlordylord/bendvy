@@ -1,6 +1,13 @@
 """Retain reviewed Query slices as compressed decoded-hash-verifiable capsules."""
 from pathlib import Path
 import hashlib,json,tarfile
+
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+import task_runner
+
 HERE=Path(__file__).resolve().parent;STAGE=HERE/'promotion-stage';OUT=HERE/'promotion-capsules'
 sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
 def members(root):return [p for p in sorted(root.rglob('*')) if p.is_file() and '__pycache__' not in p.parts]
@@ -15,7 +22,7 @@ def main():
    actual={m.name:hashlib.sha256(tar.extractfile(m).read()).hexdigest() for m in tar.getmembers() if m.isfile()}
   assert actual==expected;assert all(sha(HERE/path)==h for path,h in expected.items());items.append({'archive':str(target.relative_to(HERE)),'sha256':sha(target),'bytes':target.stat().st_size,'members':expected,'receipt':str(receipt.relative_to(HERE)),'receiptSHA256':sha(receipt),'status':r['status']})
  sourcefiles=[p for p in sorted(STAGE.glob('*')) if p.is_file()]+list((STAGE/'modules').glob('*.bend'))+[p for p in (STAGE/'query-lifetime').glob('*') if p.is_file()]
- sourcefiles += [HERE.parents[1]/'scripts/receipt-logs.py',HERE.parents[1]/'experiments/s-prep/fivehour-connected-gates/supervisor.py']
+ sourcefiles += [HERE.parents[1]/'scripts/receipt-logs.py',HERE.parents[1]/'scripts/task_runner.py']
  target=OUT/'sources.tar.gz';assert not target.exists();expected={}
  with tarfile.open(target,'w:gz',compresslevel=9) as tar:
   for p in sourcefiles:

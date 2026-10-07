@@ -1,7 +1,13 @@
 """Read-only prospective installed-tool, resource and resolved-library pins."""
 from pathlib import Path
 import hashlib,os,re,shutil,sys,runpy
-SUPERVISOR=runpy.run_path(str(Path(__file__).resolve().parents[3]/'public-identity/production-candidate/promotion/supervisor.py'))
+
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+import task_runner
+
 sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
 CLANG_ROOT=Path('/tmp/bendvy-clang19-diagnostic/root')
 WRAPPER=Path('/tmp/bendvy-clang19-diagnostic/clang19')
@@ -15,7 +21,7 @@ def snapshot():
  logs={};env=os.environ.copy();env['LD_LIBRARY_PATH']=LIBPATH
  for binary in binaries:
   if binary==WRAPPER.resolve():continue
-  code,out,err=SUPERVISOR['execute_split'](['taskset','-c','5','ldd',str(binary)],5,env=env);text=out.decode()+err.decode();assert code==0,(binary,text);logs[str(binary)]=text
+  code,out,err=task_runner.execute_split(['taskset','-c','5','ldd',str(binary)],5,env=env);text=out.decode()+err.decode();assert code==0,(binary,text);logs[str(binary)]=text
   assert 'not found' not in text,(binary,text)
   for line in text.splitlines():
    if 'warning: setlocale:' in line:continue

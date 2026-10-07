@@ -6,6 +6,7 @@ from pathlib import Path as _runner_Path
 import sys as _runner_sys
 _runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
 _runner_sys.path.insert(0, str(_runner_root/'scripts'))
+import task_runner
 from task_runner import run as _run_command
 
 p=argparse.ArgumentParser();p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args();out=a.output.resolve();out.mkdir(exist_ok=False)

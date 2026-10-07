@@ -7,6 +7,7 @@ from pathlib import Path as _runner_Path
 import sys as _runner_sys
 _runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
 _runner_sys.path.insert(0, str(_runner_root/'scripts'))
+import task_runner
 from task_runner import run as _run_command
 
 ROOT=Path(__file__).resolve().parents[2]
@@ -66,7 +67,7 @@ def main():
  for name,words in diagnostics.items():
   q=run(['bend',stage/HERE/'controls'/(name+'.bend'),'--check-only'],5,stage,True);assert q.returncode==1 and all(w in q.stdout+q.stderr for w in words);(evidence/(name+'.log')).write_text(q.stdout+q.stderr)
  receipt['negativeControls']=list(diagnostics)
- run(['python3',ROOT/'experiments/query-composition/run-controls.py','--source-root',stage,'--output',a.output/'public-controls'],30)
+ run(['python3',ROOT/'scripts/query-controls.py','--source-root',stage,'--output',a.output/'public-controls'],30)
  old=json.loads((a.output/'public-controls/receipt.json').read_text());assert all(x['passed'] for x in old['results']);receipt['priorPublicControls']=old
  for label,filename,old,new in [
   ('mutant-publication','world.bend','event_append(~E,events,published)','events'),

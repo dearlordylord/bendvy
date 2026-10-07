@@ -7,12 +7,18 @@ import sys
 import tempfile
 import unittest
 
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+import task_runner
+
+
 ROOT = Path(__file__).resolve().parent.parent
 spec = importlib.util.spec_from_file_location('owned_pins', ROOT/'scripts/owned-tool-pins.py')
 pins = importlib.util.module_from_spec(spec); spec.loader.exec_module(pins)
-sys.path.insert(0, str(ROOT/'experiments/s-prep/fivehour-connected-gates'))
+sys.path.insert(0, str(ROOT/'scripts'))
 sys.path.insert(0, str(ROOT/'experiments/public-relations/promotion-stage/current-core-replay/guarded-v2'))
-import raw_supervisor
 
 
 class Contract(unittest.TestCase):
@@ -111,7 +117,7 @@ class Contract(unittest.TestCase):
         script = self.root/'ldd-fixture'; script.write_text('#!/bin/sh\nprintf "out\\n"\nprintf "err\\n" >&2\n'); script.chmod(0o755)
         calls = []
         def supervised(argv, cap, env=None):
-            calls.append(cap); return raw_supervisor.execute(argv, cap, env=env)
+            calls.append(cap); return task_runner.execute_result(argv, cap, env=env)
         got = pins.snapshot(**dict(self.cfg, execute=supervised, ldd=script, capture_mode='merged-stdout'))
         self.assertEqual(calls, [5])
         self.assertEqual(got['resolved_libraries']['tool']['stdout'], b'out\nerr\n')

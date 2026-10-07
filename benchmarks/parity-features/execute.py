@@ -1,7 +1,14 @@
 """Shared reviewed source/stage/tool/artifact/log guards and owned supervision."""
 import gzip, importlib.util, json, os, pathlib, shutil
-import preflight, supervise
+import preflight
 from stage import inventory
+
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+import task_runner
+
 HERE = pathlib.Path(__file__).resolve().parent
 
 class Harness:
@@ -33,7 +40,7 @@ class Harness:
     def run(self,label,command,cap,good=True):
         self.guard()
         try:
-            result=supervise.execute(list(map(str,command)),cap,dict(os.environ,BENDVY_CLANG19_ROOT='/tmp/bendvy-clang19-diagnostic/root'))
+            result=task_runner.execute_completed(list(map(str,command)),cap,dict(os.environ,BEND_NO_TELEMETRY='1',BENDVY_CLANG19_ROOT='/tmp/bendvy-clang19-diagnostic/root'))
         except Exception as error:
             self.receipt['commands'].append({'label':label,'command':list(map(str,command)),'cap':cap,'error':repr(error)})
             self.save();raise

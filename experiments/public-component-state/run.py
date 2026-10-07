@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """Experimental typed-state semantics gate; stdlib only, no timings."""
 import argparse,hashlib,json,os,pathlib,re,shutil,subprocess,tempfile,time,runpy,gzip
-import supervisor
 
 from pathlib import Path as _runner_Path
 import sys as _runner_sys
 _runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
 _runner_sys.path.insert(0, str(_runner_root/'scripts'))
+import task_runner
 from task_runner import run as _run_command
 
 ROOT=pathlib.Path(__file__).resolve().parents[2];HERE=pathlib.Path(__file__).resolve().parent
@@ -84,7 +84,7 @@ def run(cmd,limit,name,exit=0):
  assert not (OUT/(name+'.stdout')).exists(),'prospective log already exists'
  try:
   previous=pathlib.Path.cwd();os.chdir(STAGE)
-  try:code,stdout=supervisor.execute(cmd,limit,env=dict(os.environ,BENDVY_CLANG19_ROOT='/tmp/bendvy-clang19-diagnostic/root'))
+  try:code,stdout=task_runner.execute(cmd,limit,env=dict(os.environ,BENDVY_CLANG19_ROOT='/tmp/bendvy-clang19-diagnostic/root'))
   finally:os.chdir(previous)
  except Exception as error:
   guards();receipt['status']='INCONCLUSIVE_EXECUTION_FAILURE';receipt['commands'].append({'command':cmd,'limit':limit,'error':repr(error)});save();raise

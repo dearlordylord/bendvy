@@ -3,8 +3,15 @@
 No proof, World/Commands/cleanup or relation-system acceptance is reported.
 """
 import argparse, hashlib, json, os, pathlib, re, shutil, sys, time
+
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+import task_runner
+
 RUNNER=pathlib.Path(__file__).resolve();HERE=RUNNER.parent.parent;ROOT=HERE.parents[2]
-sys.path.insert(0,str(ROOT/'experiments/s-prep/fivehour-connected-gates'));import supervisor
+sys.path.insert(0,str(ROOT/'scripts'));import task_runner
 import importlib.util
 spec=importlib.util.spec_from_file_location("relation_tool_pins",HERE/"tool-pins.py");tool_pins=importlib.util.module_from_spec(spec);spec.loader.exec_module(tool_pins)
 sys.path.insert(0,str(HERE))
@@ -75,7 +82,7 @@ def validate(text,mutant):
 def main():
  ap=argparse.ArgumentParser();ap.add_argument('--execute',action='store_true');args=ap.parse_args()
  out=RUNNER.parent/'evidence'/('query-'+str(time.time_ns()));out.mkdir(parents=True)
- files={RUNNER}|set((HERE/'modules').glob('*.bend'))|{HERE/'derivation.json',HERE/'additive-modules.patch',HERE/'promotion-source.json'}|set(HERE.glob('*.bend'))|set(HERE.glob('*.py'))|set(HERE.glob('*.mjs'))|{pathlib.Path(supervisor.__file__).resolve(),ROOT/'docs/parity/source-review.json'}
+ files={RUNNER}|set((HERE/'modules').glob('*.bend'))|{HERE/'derivation.json',HERE/'additive-modules.patch',HERE/'promotion-source.json'}|set(HERE.glob('*.bend'))|set(HERE.glob('*.py'))|set(HERE.glob('*.mjs'))|{pathlib.Path(task_runner.__file__).resolve(),ROOT/'docs/parity/source-review.json'}
  files|=set((ROOT/'.references/bevy-ts/packages/core/src').rglob('*.ts'))
  files|=set((ROOT/'.references/bend2/bend2').rglob('*.ts'))
  files|={pathlib.Path('/home/node/.bend/check.json')}
@@ -96,7 +103,7 @@ def main():
   assert all(sha(p)==h for p,h in logs.items()),'recorded command log drift'
  def run(argv,cap,expected=0):
   guard();argv=['taskset','-c','8',*map(str,argv)]
-  try:code,text=supervisor.execute(argv,cap,env={**os.environ,'BENDVY_CLANG19_ROOT':'/tmp/bendvy-clang19-diagnostic/root','BEND_NO_TELEMETRY':'1'})
+  try:code,text=task_runner.execute(argv,cap,env={**os.environ,'BENDVY_CLANG19_ROOT':'/tmp/bendvy-clang19-diagnostic/root','BEND_NO_TELEMETRY':'1'})
   except Exception as e:receipt['commands'].append({'argv':argv,'capSeconds':cap,'error':repr(e)});save();raise
   guard();log=out/('command-'+str(len(receipt['commands']))+'.txt');log.write_text(text)
   receipt['commands'].append({'argv':argv,'capSeconds':cap,'exit':code,'log':str(log),'sha256':sha(log)});save();assert code==expected,(code,text);return text

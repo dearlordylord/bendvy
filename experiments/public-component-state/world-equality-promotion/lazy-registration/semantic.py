@@ -1,6 +1,13 @@
 #!/usr/bin/env python3
 """Use existing reviewed complete state gate unchanged inside isolated patch tree."""
 import sys,pathlib,argparse,json,os
+
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+import task_runner
+
 HERE=pathlib.Path(__file__).resolve().parent
 import stage as promotion
 sys.path.insert(0,str(HERE.parents[1]/'timing'));import run as timing

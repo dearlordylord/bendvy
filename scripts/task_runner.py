@@ -284,3 +284,16 @@ def run(command, *, timeout, capture_output=False, text=False, env=None,
     if check:
         completed.check_returncode()
     return completed
+
+
+def execute_completed(command, timeout, env=None, cwd=None):
+    result = execute_result(command, timeout, env, cwd, 'split')
+    _raise_failure(result)
+    completed = subprocess.CompletedProcess(command, result['exit'], result['stdout'], result['stderr'])
+    completed.runner_result = result
+    return completed
+
+
+def check_output(command, *, timeout, text=False, env=None, cwd=None):
+    return run(command, timeout=timeout, text=text, env=env, cwd=cwd,
+               capture_output=True, check=True).stdout

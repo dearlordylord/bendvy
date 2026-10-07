@@ -1,13 +1,20 @@
 #!/usr/bin/env python3
 """Prospective bounded lifetime adapter; preflight precedes Native admission."""
 import argparse,hashlib,importlib.util,json,os,pathlib,shutil,sys,time
+
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+import task_runner
+
 HERE=pathlib.Path(__file__).resolve().parent;PARENT=HERE.parent;ROOT=HERE.parents[3]
-sys.path.insert(0,str(ROOT/'experiments/s-prep/fivehour-connected-gates'));import supervisor
+sys.path.insert(0,str(ROOT/'scripts'));import task_runner
 sys.path.insert(0,str(HERE));from model import literal,portable,validate
 load=lambda name,path: importlib.util.spec_from_file_location(name,path)
 def module(name,path):
  spec=load(name,path);result=importlib.util.module_from_spec(spec);spec.loader.exec_module(result);return result
-raw=module('raw_supervisor',HERE/'raw-supervisor.py');logs_module=module('receipt_logs',ROOT/'scripts/receipt-logs.py');tools_module=module('lifetime_tools',HERE/'tool-pins.py')
+raw=task_runner;logs_module=module('receipt_logs',ROOT/'scripts/receipt-logs.py');tools_module=module('lifetime_tools',HERE/'tool-pins.py')
 sha=lambda p:hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
 MUTANTS={
  'inverse-order-reversed':('src/ecs/relation-query.bend','case []: List.reverse(&2,W.Handle<S>,acc)','case []: acc'),
@@ -29,7 +36,7 @@ NEGATIVES={
 def main():
  ap=argparse.ArgumentParser();ap.add_argument('--execute',action='store_true');args=ap.parse_args();out=HERE/'evidence'/str(time.time_ns());out.mkdir(parents=True)
  subjects=['normal',*MUTANTS,'eager-queue-application'];labels=['version','guide',*[f'reference-{name}' for name in ['bevy-ts','bevy','bend2']],'ts',*[f'negative-{name}' for name in NEGATIVES],*[f'{name}-{phase}' for name in subjects for phase in ['check','emit-js','run-js','emit-c','clang','run-native']]]
- logs=logs_module.CommandLogs(out,labels);tools=tools_module.snapshot();files=set(HERE.glob('*.bend'))|set(HERE.glob('*.py'))|set(HERE.glob('*.mjs'))|{HERE/'fixture-inputs.json',ROOT/'scripts/receipt-logs.py',pathlib.Path(supervisor.__file__),ROOT/'docs/parity/source-review.json'}
+ logs=logs_module.CommandLogs(out,labels);tools=tools_module.snapshot();files=set(HERE.glob('*.bend'))|set(HERE.glob('*.py'))|set(HERE.glob('*.mjs'))|{HERE/'fixture-inputs.json',ROOT/'scripts/receipt-logs.py',pathlib.Path(task_runner.__file__),ROOT/'docs/parity/source-review.json'}
  files|=set((PARENT/'modules').glob('*.bend'))|set((ROOT/'src/ecs').glob('*'));files={p for p in files if p.is_file()}
  files|=set((ROOT/'.references/bevy-ts/packages/core/src').rglob('*.ts'))|set((ROOT/'.references/bend2/bend2').rglob('*.ts'))|{pathlib.Path('/home/node/.bend/check.json')}
  files|={pathlib.Path(p) for p in tools['pins']};pins={str(p.resolve()):sha(p) for p in sorted(files)};stages={};generated={}
@@ -39,7 +46,7 @@ def main():
  def guard():
   logs.guard();tools_module.verify(tools);assert all(sha(p)==h for p,h in pins.items()),'input drift';assert all(inventory(pathlib.Path(d['path']))==d['derivedInventory'] for d in stages.values()),'stage drift';assert all(sha(p)==h for p,h in generated.items()),'generated drift'
  def run(label,argv,cap,expected=0):
-  guard();argv=['taskset','-c','9',*map(str,argv)];r=raw.execute(argv,cap,env={**os.environ,'BENDVY_CLANG19_ROOT':'/tmp/bendvy-clang19-diagnostic/root','BEND_NO_TELEMETRY':'1'});guard();logpins=logs.record(label,r['stdout'],r['stderr']);receipt['commandLogPins']=logpins;receipt['commands'].append({'label':label,'argv':argv,'capSeconds':cap,'exit':r['exit'],'failure':r['failure']});save();assert r['failure'] is None and r['exit']==expected,(label,r);return r['stdout'].decode('utf-8')
+  guard();argv=['taskset','-c','9',*map(str,argv)];r=task_runner.execute_result(argv,cap,env={**os.environ,'BENDVY_CLANG19_ROOT':'/tmp/bendvy-clang19-diagnostic/root','BEND_NO_TELEMETRY':'1'});guard();logpins=logs.record(label,r['stdout'],r['stderr']);receipt['commandLogPins']=logpins;receipt['commands'].append({'label':label,'argv':argv,'capSeconds':cap,'exit':r['exit'],'failure':r['failure']});save();assert r['failure'] is None and r['exit']==expected,(label,r);return r['stdout'].decode('utf-8')
  try:
   sources={str(p.relative_to(ROOT)):p for p in list(HERE.glob('*.bend'))+list((ROOT/'src/ecs').glob('*.bend'))}
   for p in (PARENT/'modules').glob('*.bend'):key='src/ecs/'+p.name;assert key not in sources;sources[key]=p

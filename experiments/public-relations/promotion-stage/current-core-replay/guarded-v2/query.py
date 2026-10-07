@@ -3,10 +3,17 @@
 No proof, World/Commands/cleanup or relation-system acceptance is reported.
 """
 import argparse, hashlib, json, os, pathlib, re, shutil, sys, time
+
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+import task_runner
+
 RUNNER=pathlib.Path(__file__).resolve();HERE=RUNNER.parent.parent.parent;ROOT=HERE.parents[2]
-sys.path.insert(0,str(ROOT/'experiments/s-prep/fivehour-connected-gates'));import supervisor
+sys.path.insert(0,str(ROOT/'scripts'));import task_runner
 import importlib.util
-sys.path.insert(0,str(RUNNER.parent));import raw_supervisor
+sys.path.insert(0,str(RUNNER.parent));import task_runner
 ls=importlib.util.spec_from_file_location("receipt_logs",ROOT/"scripts/receipt-logs.py");lm=importlib.util.module_from_spec(ls);ls.loader.exec_module(lm)
 spec=importlib.util.spec_from_file_location("relation_tool_pins",RUNNER.parent/"tool-pins.py");tool_pins=importlib.util.module_from_spec(spec);spec.loader.exec_module(tool_pins)
 sys.path.insert(0,str(HERE))
@@ -82,7 +89,7 @@ def exact_caret(name,entry,text):
 def main():
  subjects=['normal',*MUTANTS];ap=argparse.ArgumentParser();ap.add_argument('--execute',action='store_true');args=ap.parse_args()
  out=RUNNER.parent/'evidence'/('query-'+str(time.time_ns()));out.mkdir(parents=True)
- files={RUNNER, RUNNER.parent/'tool-pins.py',RUNNER.parent/'raw_supervisor.py',ROOT/'scripts/receipt-logs.py'}|set((HERE/'modules').glob('*.bend'))|{HERE/'derivation.json',HERE/'additive-modules.patch',HERE/'promotion-source.json'}|set(HERE.glob('*.bend'))|set(HERE.glob('*.py'))|set(HERE.glob('*.mjs'))|{pathlib.Path(supervisor.__file__).resolve(),ROOT/'docs/parity/source-review.json'}
+ files={RUNNER, RUNNER.parent/'tool-pins.py',ROOT/'scripts/task_runner.py',ROOT/'scripts/receipt-logs.py'}|set((HERE/'modules').glob('*.bend'))|{HERE/'derivation.json',HERE/'additive-modules.patch',HERE/'promotion-source.json'}|set(HERE.glob('*.bend'))|set(HERE.glob('*.py'))|set(HERE.glob('*.mjs'))|{pathlib.Path(task_runner.__file__).resolve(),ROOT/'docs/parity/source-review.json'}
  files|=set((ROOT/'.references/bevy-ts/packages/core/src').rglob('*.ts'))
  files|=set((ROOT/'.references/bend2/bend2').rglob('*.ts'))
  files|={pathlib.Path('/home/node/.bend/check.json')}
@@ -112,7 +119,7 @@ def main():
   assert all(sha(p)==h for p,h in generated.items()),'generated drift'
   logs.guard()
  def run(argv,cap,expected=0):
-  label=next(label_iter);guard();assert '-o' not in argv or not pathlib.Path(argv[argv.index('-o')+1]).exists(),'output already exists';argv=['taskset','-c','8',*map(str,argv)];r=raw_supervisor.execute(argv,cap,env={**os.environ,'BENDVY_CLANG19_ROOT':'/tmp/bendvy-clang19-diagnostic/root','BEND_NO_TELEMETRY':'1'})
+  label=next(label_iter);guard();assert '-o' not in argv or not pathlib.Path(argv[argv.index('-o')+1]).exists(),'output already exists';argv=['taskset','-c','8',*map(str,argv)];r=task_runner.execute_result(argv,cap,env={**os.environ,'BENDVY_CLANG19_ROOT':'/tmp/bendvy-clang19-diagnostic/root','BEND_NO_TELEMETRY':'1'})
   if '-o' in argv:
    product=pathlib.Path(argv[argv.index('-o')+1]);
    assert str(product) in receipt['plannedGeneratedOutputs'],'unplanned output'
