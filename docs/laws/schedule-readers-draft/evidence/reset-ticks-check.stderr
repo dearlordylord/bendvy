@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : a defined name
+- observed : tick
+Context:
+- items : List<&2, event_batches_loop~E>
+- rest  : List<&2, Ev.Batch<event_batches_loop~E>>
+- acc   : List<&2, Ev.Batch<event_batches_loop~E>>
+Location: event_batches_loop
+64 |     case []: List.reverse(&2,Ev.Batch<E>,acc)
+65>|     case Ev.Batch{0n,items} <> rest: event_batches_loop(~E,~is_event,rest,event_batch(~E,~is_event,tick,split(~E,~is_event,items),acc))
+   |                                                                                                    ^^^^
+66 | def event_batches(~E: Data,~is_event: E -> Bool,batches: List<&2,Ev.Batch<E>>) -> List<&2,Ev.Batch<E>>:

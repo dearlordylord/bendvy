@@ -1,0 +1,200 @@
+{
+  "status": "PASS",
+  "sources": {
+    "src/ecs/event-runtime.bend": "409b45060a9d8b02ce5bf43c584f2be05b81b2239b04e75dca384f07cc626ea7",
+    "src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+    "src/ecs/world.bend": "7d394b623b8bb60a3fef7b160bb69af135719edd3008126ee186e190047708f8",
+    "docs/laws/schedule-readers-draft/falsify.bend": "80f17ffb3976085cb0c3cc0c012add21653f1f622f0b64687663ae9fda1a3ec9",
+    "docs/laws/schedule-readers-draft/LAWS.bend": "ce5a4a76e9266aeaa532aa5efc259acd340cdd419ee7a564e21c384c20f59369",
+    "src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+    "docs/laws/schedule-readers-draft/run.py": "28eb963d03e27f6e1aac1c2ac6b364106a4f2fe7d9cfa4617747bd936e60dfb2",
+    "src/ecs/reader-domains.bend": "097b77d279056d305eacda7ac35eefb499f98b7a845d306c8fe7bc411a160021",
+    "docs/laws/schedule-readers-draft/spec.bend": "4fd6155ab3887b616588db3a0e0187448ec2740939a41cd15c09d9e3e48d297a"
+  },
+  "commands": [
+    {
+      "label": "law-draft-check",
+      "command": [
+        "bend",
+        "/tmp/tmpph5_ati4/docs/laws/schedule-readers-draft/LAWS.bend",
+        "--check-only"
+      ],
+      "cap": 5,
+      "exit": 1
+    },
+    {
+      "label": "normal-check",
+      "command": [
+        "bend",
+        "/tmp/tmpph5_ati4/docs/laws/schedule-readers-draft/falsify.bend",
+        "--check-only"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "normal-emit-JS",
+      "command": [
+        "bend",
+        "/tmp/tmpph5_ati4/docs/laws/schedule-readers-draft/falsify.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/docs/laws/schedule-readers-draft/evidence-final/normal.js"
+      ],
+      "cap": 30,
+      "exit": 0
+    },
+    {
+      "label": "normal-run-JS",
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy/docs/laws/schedule-readers-draft/evidence-final/normal.js"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "inverted-domain-check",
+      "command": [
+        "bend",
+        "/tmp/tmpph5_ati4/docs/laws/schedule-readers-draft/falsify.bend",
+        "--check-only"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "inverted-domain-emit-JS",
+      "command": [
+        "bend",
+        "/tmp/tmpph5_ati4/docs/laws/schedule-readers-draft/falsify.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/docs/laws/schedule-readers-draft/evidence-final/inverted-domain.js"
+      ],
+      "cap": 30,
+      "exit": 0
+    },
+    {
+      "label": "inverted-domain-run-JS",
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy/docs/laws/schedule-readers-draft/evidence-final/inverted-domain.js"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "reversed-batches-check",
+      "command": [
+        "bend",
+        "/tmp/tmpph5_ati4/docs/laws/schedule-readers-draft/falsify.bend",
+        "--check-only"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "reversed-batches-emit-JS",
+      "command": [
+        "bend",
+        "/tmp/tmpph5_ati4/docs/laws/schedule-readers-draft/falsify.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/docs/laws/schedule-readers-draft/evidence-final/reversed-batches.js"
+      ],
+      "cap": 30,
+      "exit": 0
+    },
+    {
+      "label": "reversed-batches-run-JS",
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy/docs/laws/schedule-readers-draft/evidence-final/reversed-batches.js"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "reset-ticks-check",
+      "command": [
+        "bend",
+        "/tmp/tmpph5_ati4/docs/laws/schedule-readers-draft/falsify.bend",
+        "--check-only"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "reset-ticks-emit-JS",
+      "command": [
+        "bend",
+        "/tmp/tmpph5_ati4/docs/laws/schedule-readers-draft/falsify.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/docs/laws/schedule-readers-draft/evidence-final/reset-ticks.js"
+      ],
+      "cap": 30,
+      "exit": 0
+    },
+    {
+      "label": "reset-ticks-run-JS",
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy/docs/laws/schedule-readers-draft/evidence-final/reset-ticks.js"
+      ],
+      "cap": 5,
+      "exit": 0
+    }
+  ],
+  "mutants": {
+    "normal": {
+      "source": "097b77d279056d305eacda7ac35eefb499f98b7a845d306c8fe7bc411a160021",
+      "backends": {
+        "JS": {
+          "target_literal": null,
+          "mismatches": [],
+          "scope": "finite literals only"
+        }
+      }
+    },
+    "inverted-domain": {
+      "source": "92d5368085f94cb216aa67389abf504d3b432499914048dd7516271da82c2038",
+      "backends": {
+        "JS": {
+          "target_literal": "stable_partition",
+          "mismatches": [
+            "stable_partition",
+            "stable_partition",
+            "stable_partition",
+            "filtered_batch_order",
+            "retained_publication_ticks"
+          ],
+          "scope": "finite literals only"
+        }
+      }
+    },
+    "reversed-batches": {
+      "source": "cfa74c65d76dbc1dc530742dd6484b951c0507cf5b0791e66b49566e498818ca",
+      "backends": {
+        "JS": {
+          "target_literal": "filtered_batch_order",
+          "mismatches": [
+            "filtered_batch_order",
+            "retained_publication_ticks"
+          ],
+          "scope": "finite literals only"
+        }
+      }
+    },
+    "reset-ticks": {
+      "source": "9b01097bac5a77dbf7348582156cb7ac6b6e0958325edaa88a28ba4b2d907103",
+      "backends": {
+        "JS": {
+          "target_literal": "retained_publication_ticks",
+          "mismatches": [
+            "filtered_batch_order",
+            "retained_publication_ticks"
+          ],
+          "scope": "finite literals only"
+        }
+      }
+    }
+  }
+}

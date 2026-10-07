@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : P.Plan<A.Schema>
+- observed : P.Plan<B.Schema>
+Location: composed
+5 | def composed() -> P.Plan<A.Schema>:
+6>|   P.Sequence{A.nested(0),B.nested(0)}
+  |                          ^^^^^^^^^^^
+7 | 

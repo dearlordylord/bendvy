@@ -96,3 +96,20 @@ as explicitly approved. Rejected foreign execution/disposal returns the original
 instance and argument owners. Finite executable controls pass; final shared-source
 delivery remains pending. No universal proof/refinement or complete product
 performance qualification follows from these finite compiler/application tests.
+
+`SchemaFragments` (`schema-fragments.bend`) combines schema-indexed declaration
+metadata and recursive affine owner packs. `merge` validates the left fragment,
+the right fragment and then their combined declarations; conflicts remain local
+to component/resource/event/relation/service kind. Refusal returns both owner
+packs. `bind_declared` validates all initializer requirements before handing
+owners to the closed setup initializer. Manifests and initializers are trusted
+schema-author declarations; gameplay continues to receive abstract declared
+capabilities. See the two independent applications in
+[`public-schema-fragments`](../../experiments/public-schema-fragments/README.md).
+
+`ScheduleProvision` (`schedule-provision.bend`) adds nested metadata flattening,
+ordered requirement union and pre-execution provisioning checks. `ReaderDomains`
+(`reader-domains.bend`) transports ordinary event and removal logs separately
+while retaining real event ticks and reader cursors. Their composed public
+applications and current delivery limits are recorded in the #34/#35 experiments.
+Full-core performance qualification remains under #21/#23/#24.

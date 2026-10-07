@@ -1,0 +1,260 @@
+{
+  "status": "PASS",
+  "sources": {
+    "docs/laws/nested-provision-draft/spec.bend": "c7454e54b19f282c4def71fe5537b6d5554cbc1d0fb728f6c4684147b21d6adc",
+    "src/ecs/schedule.bend": "e7c1f18bcb27ba6b5d6c7de88e81d0fe41c000b8d16fcd4d500d72655de86da3",
+    "src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+    "docs/laws/nested-provision-draft/run.py": "d73e2ead5b169ff58990e5fe2c4dc67baa2bfee07ad4cf814413af51690981ec",
+    "src/ecs/schedule-provision.bend": "45d8b7d2c11d9fe28a6ee2a4cd460bad2b8591dbc8546daa68ae29d66d3979e9",
+    "docs/laws/nested-provision-draft/falsify.bend": "f289e9efd083ef5d7ca67a469c0448118da56d95bfaa9196ee9a2f57db4495a6",
+    "src/ecs/world.bend": "7d394b623b8bb60a3fef7b160bb69af135719edd3008126ee186e190047708f8",
+    "src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+    "docs/laws/nested-provision-draft/LAWS.bend": "6812feffe10355412e456cfba5a085515f880393350e0270f4a8957b46573152"
+  },
+  "commands": [
+    {
+      "label": "law-draft-check",
+      "command": [
+        "bend",
+        "/tmp/tmpldojkqqe/docs/laws/nested-provision-draft/LAWS.bend",
+        "--check-only"
+      ],
+      "cap": 5,
+      "exit": 1
+    },
+    {
+      "label": "normal-check",
+      "command": [
+        "bend",
+        "/tmp/tmpldojkqqe/docs/laws/nested-provision-draft/falsify.bend",
+        "--check-only"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "normal-emit-JS",
+      "command": [
+        "bend",
+        "/tmp/tmpldojkqqe/docs/laws/nested-provision-draft/falsify.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/docs/laws/nested-provision-draft/evidence/normal.js"
+      ],
+      "cap": 30,
+      "exit": 0
+    },
+    {
+      "label": "normal-run-JS",
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy/docs/laws/nested-provision-draft/evidence/normal.js"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "normal-emit-Native",
+      "command": [
+        "bend",
+        "/tmp/tmpldojkqqe/docs/laws/nested-provision-draft/falsify.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/docs/laws/nested-provision-draft/evidence/normal.c"
+      ],
+      "cap": 30,
+      "exit": 0
+    },
+    {
+      "label": "normal-clang",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/docs/laws/nested-provision-draft/evidence/normal.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/docs/laws/nested-provision-draft/evidence/normal",
+        "-pthread",
+        "-lm"
+      ],
+      "cap": 120,
+      "exit": 0
+    },
+    {
+      "label": "normal-run-Native",
+      "command": [
+        "/workspace/formal-proofs/bendvy/docs/laws/nested-provision-draft/evidence/normal"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "omitted-requirement-check",
+      "command": [
+        "bend",
+        "/tmp/tmpldojkqqe/docs/laws/nested-provision-draft/falsify.bend",
+        "--check-only"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "omitted-requirement-emit-JS",
+      "command": [
+        "bend",
+        "/tmp/tmpldojkqqe/docs/laws/nested-provision-draft/falsify.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/docs/laws/nested-provision-draft/evidence/omitted-requirement.js"
+      ],
+      "cap": 30,
+      "exit": 0
+    },
+    {
+      "label": "omitted-requirement-run-JS",
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy/docs/laws/nested-provision-draft/evidence/omitted-requirement.js"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "omitted-requirement-emit-Native",
+      "command": [
+        "bend",
+        "/tmp/tmpldojkqqe/docs/laws/nested-provision-draft/falsify.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/docs/laws/nested-provision-draft/evidence/omitted-requirement.c"
+      ],
+      "cap": 30,
+      "exit": 0
+    },
+    {
+      "label": "omitted-requirement-clang",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/docs/laws/nested-provision-draft/evidence/omitted-requirement.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/docs/laws/nested-provision-draft/evidence/omitted-requirement",
+        "-pthread",
+        "-lm"
+      ],
+      "cap": 120,
+      "exit": 0
+    },
+    {
+      "label": "omitted-requirement-run-Native",
+      "command": [
+        "/workspace/formal-proofs/bendvy/docs/laws/nested-provision-draft/evidence/omitted-requirement"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "precheck-bypass-check",
+      "command": [
+        "bend",
+        "/tmp/tmpldojkqqe/docs/laws/nested-provision-draft/falsify.bend",
+        "--check-only"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "precheck-bypass-emit-JS",
+      "command": [
+        "bend",
+        "/tmp/tmpldojkqqe/docs/laws/nested-provision-draft/falsify.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/docs/laws/nested-provision-draft/evidence/precheck-bypass.js"
+      ],
+      "cap": 30,
+      "exit": 0
+    },
+    {
+      "label": "precheck-bypass-run-JS",
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy/docs/laws/nested-provision-draft/evidence/precheck-bypass.js"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "precheck-bypass-emit-Native",
+      "command": [
+        "bend",
+        "/tmp/tmpldojkqqe/docs/laws/nested-provision-draft/falsify.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/docs/laws/nested-provision-draft/evidence/precheck-bypass.c"
+      ],
+      "cap": 30,
+      "exit": 0
+    },
+    {
+      "label": "precheck-bypass-clang",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/docs/laws/nested-provision-draft/evidence/precheck-bypass.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/docs/laws/nested-provision-draft/evidence/precheck-bypass",
+        "-pthread",
+        "-lm"
+      ],
+      "cap": 120,
+      "exit": 0
+    },
+    {
+      "label": "precheck-bypass-run-Native",
+      "command": [
+        "/workspace/formal-proofs/bendvy/docs/laws/nested-provision-draft/evidence/precheck-bypass"
+      ],
+      "cap": 5,
+      "exit": 0
+    }
+  ],
+  "mutants": {
+    "normal": {
+      "source": "45d8b7d2c11d9fe28a6ee2a4cd460bad2b8591dbc8546daa68ae29d66d3979e9",
+      "backends": {
+        "JS": {
+          "mismatches": [],
+          "scope": "finite literals"
+        },
+        "Native": {
+          "mismatches": [],
+          "scope": "finite literals"
+        }
+      }
+    },
+    "omitted-requirement": {
+      "source": "ae1915eb90031e8e62301714a54cbcdf6703fdf6b83172e836aeb07d8e553818",
+      "backends": {
+        "JS": {
+          "mismatches": [
+            "requirements"
+          ],
+          "scope": "finite literals"
+        },
+        "Native": {
+          "mismatches": [
+            "requirements"
+          ],
+          "scope": "finite literals"
+        }
+      }
+    },
+    "precheck-bypass": {
+      "source": "08ea04011de7e9e5ce9d5d9a2f372e71362702630f2a84c88bac72f46ba35e46",
+      "backends": {
+        "JS": {
+          "mismatches": [],
+          "scope": "precheck-bypass intentionally outside pure metadata laws"
+        },
+        "Native": {
+          "mismatches": [],
+          "scope": "precheck-bypass intentionally outside pure metadata laws"
+        }
+      }
+    }
+  }
+}

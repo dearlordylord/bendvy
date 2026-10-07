@@ -1,0 +1,16 @@
+{
+  "command": [
+    "taskset",
+    "-c",
+    "11",
+    "timeout",
+    "5",
+    "bend",
+    "docs/laws/schema-fragments-draft/LAWS.bend",
+    "--check-only"
+  ],
+  "exit": 1,
+  "stdout": "",
+  "stderr": "SOME PROOFS FAIL\nError: 3 TODOs found.\nThe code is incomplete, and not a valid proof yet.\n",
+  "expected": "Three deliberately open, unapproved law claims. No proof definitions written. This is not a proof pass."
+}

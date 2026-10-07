@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : events
+- observed : events (consumed more than once)
+Location: duplicate
+4 | 
+5>| def duplicate(events: D.Events<S.Schema,S.Notice>) -> D.Events<S.Schema,S.Notice> & D.Events<S.Schema,S.Notice>:
+  |               ^^^^^^
+6 |   (events,events)

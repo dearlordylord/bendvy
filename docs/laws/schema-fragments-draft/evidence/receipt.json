@@ -1,0 +1,624 @@
+{
+  "status": "PASS_LITERAL_FALSIFICATION_AND_REACHED_MUTANTS",
+  "approval": "UNAPPROVED_DRAFT_NO_PROOFS",
+  "coreSHA256": "83525f185b6099d48af4e3a14f30149cd94069ad5e29663c63e44a15a866cfe6",
+  "sources": {
+    "model.bend": "6f31bb01332bbb8ce8027c72bf14431f995c8a4dcb60271e938a56f7c2ead5bf",
+    "LAWS.bend": "b4d16f96ee11a600a41435e1f9ba2c1a8c5b708be39535239acf8a7ea54d09a6",
+    "falsify.py": "7bd03b5c68cac2b4543b3c26badeb424bac00b0549b12fcbcd1ed5f6f8db1e4f"
+  },
+  "cpu": 11,
+  "commands": [
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "11",
+        "bend",
+        "version"
+      ],
+      "capSeconds": 5,
+      "exit": 0
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "11",
+        "node",
+        "--version"
+      ],
+      "capSeconds": 5,
+      "exit": 0
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "11",
+        "bend",
+        "/workspace/formal-proofs/bendvy/docs/laws/schema-fragments-draft/evidence/stage/collision_classification.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "exit": 0
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "11",
+        "bend",
+        "/workspace/formal-proofs/bendvy/docs/laws/schema-fragments-draft/evidence/stage/collision_classification.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/docs/laws/schema-fragments-draft/evidence/collision_classification.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "11",
+        "node",
+        "/workspace/formal-proofs/bendvy/docs/laws/schema-fragments-draft/evidence/collision_classification.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "11",
+        "bend",
+        "/workspace/formal-proofs/bendvy/docs/laws/schema-fragments-draft/evidence/stage/validation_priority.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "exit": 0
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "11",
+        "bend",
+        "/workspace/formal-proofs/bendvy/docs/laws/schema-fragments-draft/evidence/stage/validation_priority.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/docs/laws/schema-fragments-draft/evidence/validation_priority.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "11",
+        "node",
+        "/workspace/formal-proofs/bendvy/docs/laws/schema-fragments-draft/evidence/validation_priority.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "11",
+        "bend",
+        "/workspace/formal-proofs/bendvy/docs/laws/schema-fragments-draft/evidence/stage/declaration_membership.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "exit": 0
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "11",
+        "bend",
+        "/workspace/formal-proofs/bendvy/docs/laws/schema-fragments-draft/evidence/stage/declaration_membership.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/docs/laws/schema-fragments-draft/evidence/declaration_membership.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "11",
+        "node",
+        "/workspace/formal-proofs/bendvy/docs/laws/schema-fragments-draft/evidence/declaration_membership.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "11",
+        "bend",
+        "/workspace/formal-proofs/bendvy/docs/laws/schema-fragments-draft/evidence/stage/collision_classification.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "exit": 0
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "11",
+        "bend",
+        "/workspace/formal-proofs/bendvy/docs/laws/schema-fragments-draft/evidence/stage/collision_classification.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/docs/laws/schema-fragments-draft/evidence/omit-key.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "11",
+        "node",
+        "/workspace/formal-proofs/bendvy/docs/laws/schema-fragments-draft/evidence/omit-key.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "11",
+        "bend",
+        "/workspace/formal-proofs/bendvy/docs/laws/schema-fragments-draft/evidence/stage/collision_classification.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "exit": 0
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "11",
+        "bend",
+        "/workspace/formal-proofs/bendvy/docs/laws/schema-fragments-draft/evidence/stage/collision_classification.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/docs/laws/schema-fragments-draft/evidence/omit-name.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "11",
+        "node",
+        "/workspace/formal-proofs/bendvy/docs/laws/schema-fragments-draft/evidence/omit-name.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "11",
+        "bend",
+        "/workspace/formal-proofs/bendvy/docs/laws/schema-fragments-draft/evidence/stage/collision_classification.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "exit": 0
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "11",
+        "bend",
+        "/workspace/formal-proofs/bendvy/docs/laws/schema-fragments-draft/evidence/stage/collision_classification.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/docs/laws/schema-fragments-draft/evidence/cross-kind-component-resource.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "11",
+        "node",
+        "/workspace/formal-proofs/bendvy/docs/laws/schema-fragments-draft/evidence/cross-kind-component-resource.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "11",
+        "bend",
+        "/workspace/formal-proofs/bendvy/docs/laws/schema-fragments-draft/evidence/stage/validation_priority.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "exit": 0
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "11",
+        "bend",
+        "/workspace/formal-proofs/bendvy/docs/laws/schema-fragments-draft/evidence/stage/validation_priority.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/docs/laws/schema-fragments-draft/evidence/resource-before-component.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "11",
+        "node",
+        "/workspace/formal-proofs/bendvy/docs/laws/schema-fragments-draft/evidence/resource-before-component.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "11",
+        "bend",
+        "/workspace/formal-proofs/bendvy/docs/laws/schema-fragments-draft/evidence/stage/declaration_membership.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "exit": 0
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "11",
+        "bend",
+        "/workspace/formal-proofs/bendvy/docs/laws/schema-fragments-draft/evidence/stage/declaration_membership.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/docs/laws/schema-fragments-draft/evidence/ignore-name.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "11",
+        "node",
+        "/workspace/formal-proofs/bendvy/docs/laws/schema-fragments-draft/evidence/ignore-name.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0
+    }
+  ],
+  "subjects": {
+    "collision_classification": {
+      "literalInstances": 101,
+      "status": "NO_COUNTEREXAMPLE_IN_LITERAL_DOMAIN"
+    },
+    "validation_priority": {
+      "literalInstances": 42,
+      "status": "NO_COUNTEREXAMPLE_IN_LITERAL_DOMAIN"
+    },
+    "declaration_membership": {
+      "literalInstances": 102,
+      "status": "NO_COUNTEREXAMPLE_IN_LITERAL_DOMAIN"
+    }
+  },
+  "mutants": [
+    {
+      "subject": "collision_classification",
+      "label": "omit-key",
+      "compiled": true,
+      "detected": true,
+      "mismatchingLiteralIndices": [
+        0,
+        1,
+        24,
+        25,
+        48,
+        49,
+        72,
+        73,
+        96,
+        97
+      ],
+      "coreSHA256": "ea1cf89ff10a72444cbf7e1d0155c8ff4d004be07cdc0e6aa41eb155d3cd6e4c",
+      "reachedWitness": {
+        "input": [
+          [
+            [
+              0,
+              "a",
+              "A"
+            ]
+          ],
+          [
+            0,
+            "a",
+            "A"
+          ]
+        ],
+        "expected": [
+          1,
+          0,
+          "a",
+          ""
+        ],
+        "actual": [
+          0,
+          0,
+          "",
+          ""
+        ]
+      }
+    },
+    {
+      "subject": "collision_classification",
+      "label": "omit-name",
+      "compiled": true,
+      "detected": true,
+      "mismatchingLiteralIndices": [
+        2,
+        26,
+        50,
+        74,
+        98
+      ],
+      "coreSHA256": "f077d9fe432d42b3f6bcea01efdc2f37c3b34642ea52a2a62a09e5ce730c06bb",
+      "reachedWitness": {
+        "input": [
+          [
+            [
+              0,
+              "a",
+              "A"
+            ]
+          ],
+          [
+            0,
+            "b",
+            "A"
+          ]
+        ],
+        "expected": [
+          2,
+          0,
+          "",
+          "A"
+        ],
+        "actual": [
+          0,
+          0,
+          "",
+          ""
+        ]
+      }
+    },
+    {
+      "subject": "collision_classification",
+      "label": "cross-kind-component-resource",
+      "compiled": true,
+      "detected": true,
+      "mismatchingLiteralIndices": [
+        20,
+        21,
+        22
+      ],
+      "coreSHA256": "a3ce46afc3cfd4ea3c4374260ad3cba798a4c60b1789d7c1a89c70017dbd91cc",
+      "reachedWitness": {
+        "input": [
+          [
+            [
+              1,
+              "a",
+              "A"
+            ]
+          ],
+          [
+            0,
+            "a",
+            "A"
+          ]
+        ],
+        "expected": [
+          0,
+          0,
+          "",
+          ""
+        ],
+        "actual": [
+          1,
+          0,
+          "a",
+          ""
+        ]
+      }
+    },
+    {
+      "subject": "validation_priority",
+      "label": "resource-before-component",
+      "compiled": true,
+      "detected": true,
+      "mismatchingLiteralIndices": [
+        5,
+        13
+      ],
+      "coreSHA256": "a3deae2b5592eeb2956dbabf43ba126566ada9afb3279f154168e4ad80d83f72",
+      "reachedWitness": {
+        "input": [
+          [
+            0,
+            "x",
+            "X"
+          ],
+          [
+            0,
+            "y",
+            "X"
+          ],
+          [
+            1,
+            "k",
+            "K"
+          ],
+          [
+            1,
+            "k",
+            "L"
+          ]
+        ],
+        "expected": [
+          2,
+          0,
+          "",
+          "X"
+        ],
+        "actual": [
+          1,
+          1,
+          "k",
+          ""
+        ]
+      }
+    },
+    {
+      "subject": "declaration_membership",
+      "label": "ignore-name",
+      "compiled": true,
+      "detected": true,
+      "mismatchingLiteralIndices": [
+        1,
+        25,
+        49,
+        73,
+        97
+      ],
+      "coreSHA256": "447bffc7ba24cd9643878ffdd989a6fe7f46909512ab62580e669a16c22e5f9d",
+      "reachedWitness": {
+        "input": [
+          [
+            [
+              0,
+              "a",
+              "A"
+            ]
+          ],
+          [
+            0,
+            "a",
+            "B"
+          ]
+        ],
+        "expected": 0,
+        "actual": 1
+      }
+    }
+  ],
+  "versions": {
+    "bend": "bend 2.0.35",
+    "node": "v24.20.0"
+  },
+  "artifacts": {
+    "cross-kind-component-resource-emit.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "collision_classification-run.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "collision_classification-emit.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omit-key-emit.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "declaration_membership-expected.json": "bf66f208e390ef8d6d09275410d6b2ab602558c12baf0ac057b08b9c277cff2b",
+    "omit-name-check.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cross-kind-component-resource-check.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "ignore-name-emit.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "declaration_membership-check.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "collision_classification-expected.json": "36b48d6eb94db607cea597eeec452a1cd64b95f1b228ad649b3a2110f84c3f15",
+    "resource-before-component-check.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omit-key-check.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "declaration_membership.js": "efdb784891da8c66e6aecae3f060425d049d945edcff9dd7a9f8bd00827a9a22",
+    "resource-before-component-run.stdout": "230ddb9d61852cdfefe7e55338574cc440e6abafaeee38126c786aab7f9be39f",
+    "validation_priority-check.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omit-key.js": "efd27b21869311b3c259ac4b8466217fc613c51d4b01016f5ea0bd0651848273",
+    "ignore-name-check.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "validation_priority-inputs.json": "4da63ddfe16dfb177aebfc65d57e31bb0641ff9bf30ab7d98da0210a104f9733",
+    "declaration_membership-run.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "declaration_membership-inputs.json": "fd22d9bd7c597b5c2e2cbf6d4c815578a17209aa6e43bc3484b905231a4dcfa9",
+    "ignore-name-check.stdout": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+    "declaration_membership-run.stdout": "0e1b51c123a0654511a45bb95cf827abc5d484fb2997a8b3da4b20392ca04b6f",
+    "validation_priority-check.stdout": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+    "resource-before-component-run.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cross-kind-component-resource.js": "5d9ab8d4dc6974cfaf0ae691a75cf54d7a1e4aadd0c8191d323f20a1b5caef51",
+    "resource-before-component-check.stdout": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+    "omit-key-check.stdout": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+    "omit-key-emit.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cross-kind-component-resource-emit.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "collision_classification-emit.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "collision_classification-run.stdout": "7ba6e1cd37eaf61afb526b17dc0b4dd2c5007a528d3e84a293bcee0f0718b412",
+    "ignore-name-emit.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cross-kind-component-resource-check.stdout": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+    "declaration_membership-check.stdout": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+    "omit-name-check.stdout": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+    "resource-before-component-emit.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "validation_priority-run.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bend-version.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "resource-before-component.js": "bdfaf47ae0c3dda743903465eaec3329619096c480ea993f5887cd5ba1b01e45",
+    "collision_classification-check.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "collision_classification.js": "16addcaca07710065387489a48fd374cb5d420f9905de3e738a68a7a240c2bfb",
+    "omit-name-run.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omit-key-run.stdout": "d2f377a5b3d3ce9a7c595c0d6d0c033f6a59e36145ecfc75e950224f4bc901ac",
+    "declaration_membership-emit.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "ignore-name.js": "8b394da38d75f3b47aed89edcc10c8ae06f3cdc31369a1d8704a5fa04a7e1d26",
+    "node-version.stdout": "b67d0ced059f9313d861ddbbe734d2d1f9219106a9e036ae6d88407afa0846e6",
+    "validation_priority-emit.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "ignore-name-run.stdout": "07d505a825e2f1f5e2b1b629cc277ad556df474a8553a92fb9f72ee84df0b63b",
+    "omit-name-emit.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "validation_priority-expected.json": "b4d0cf21c12163da028df184bd99ae17b8f67fc9d44d0696ea17527e6da671da",
+    "cross-kind-component-resource-run.stdout": "65c9c5515aa4f924f249e23bfe1e1cbafda892bb9b4cfc4147c4800efece5497",
+    "validation_priority.js": "3a582510a2d565998ab5448b3726e54c6cd6ccff20800af11688ec8c7cf43d0a",
+    "cross-kind-component-resource-run.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "ignore-name-run.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omit-name-emit.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "collision_classification-inputs.json": "1cb182569e2f89fce467180acc17e27462581450c654a6e7897edff874fc4ae7",
+    "declaration_membership-emit.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "validation_priority-emit.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "node-version.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bend-version.stdout": "ca6fc52ac20b452bc60b3e8da766c53d679f0325ca4f1ac580ec72f09758d79d",
+    "resource-before-component-emit.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "validation_priority-run.stdout": "4a06ff6b4212079eaa51fed8c56784b784ff316031243dfc83b544b3bb54f7be",
+    "omit-key-run.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omit-name.js": "acaf873f4f8a1d2984e9297ea0334114ad0d6dc8e26d844ac855029432aa1a4d",
+    "collision_classification-check.stdout": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+    "omit-name-run.stdout": "139d94c088f36b19d094ca32170caac10c42eca3653b41cda7e97c86fda982b2",
+    "stage/declaration_membership.bend": "04d58fab9541ad8e334e2a6592cb06a6404a37a27373b89f450270abd998a4cf",
+    "stage/core.bend": "83525f185b6099d48af4e3a14f30149cd94069ad5e29663c63e44a15a866cfe6",
+    "stage/validation_priority.bend": "3e7a71dc167c63a2a1bfbe1f9ba6d619b84e1bd739ae69e17b0badb703fa446b",
+    "stage/model.bend": "d24e51ea429295ebb4db6ca75a26a01d06f677b6a2176d512d1600d3a6abf363",
+    "stage/collision_classification.bend": "0580b0a57f04bcc03f8b88b6d1edf25675e982ad5e8f267149079917909fe33e"
+  }
+}

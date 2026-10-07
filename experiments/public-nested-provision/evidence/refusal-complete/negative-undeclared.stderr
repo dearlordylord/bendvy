@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- expected : Array<U32>
+- observed : gameplay~H
+Context:
+- owner : gameplay~H
+Location: gameplay
+6 | def gameplay(~H:Type,~read:Cap.Read<H,List<&2,U32>>,owner:H) -> H & List<&2,U32>:
+7>|   A.projected(owner)
+  |               ^^^^^
+8 | def positive_instantiation(owner:Array<U32>) -> Array<U32> & List<&2,U32>:

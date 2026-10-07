@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : D.Events<S.Schema, S.Notice>
+- observed : D.Events<Other, S.Notice>
+Context:
+- events : D.Events<Other, S.Notice>
+- world  : ../../src/ecs/world.World<S.Schema, S.Store, Unit, S.Notice>
+Location: cross
+ 8 | def cross(events: D.Events<Other,S.Notice>,world: S.World()) -> Ev.Runtime<S.Schema,S.Store,Unit,S.Notice>:
+ 9>|   D.attach(~S.Schema,~S.Store,~Unit,~S.Notice,events,world)
+   |                                               ^^^^^^
+10 | 

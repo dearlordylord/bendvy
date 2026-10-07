@@ -1,0 +1,608 @@
+{
+  "status": "PASS",
+  "sources": {
+    "src/ecs/schedule-provision.bend": "45d8b7d2c11d9fe28a6ee2a4cd460bad2b8591dbc8546daa68ae29d66d3979e9",
+    "docs/laws/nested-provision-draft/spec.bend": "c7454e54b19f282c4def71fe5537b6d5554cbc1d0fb728f6c4684147b21d6adc",
+    "src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+    "docs/laws/nested-provision-draft/LAWS.bend": "6812feffe10355412e456cfba5a085515f880393350e0270f4a8957b46573152",
+    "src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+    "docs/laws/nested-provision-draft/run.py": "d2276d12be76bc7c8d6b53d22d0324d51737879ce4d30bb7dbeabb82e8d169dc",
+    "docs/laws/nested-provision-draft/falsify.bend": "f289e9efd083ef5d7ca67a469c0448118da56d95bfaa9196ee9a2f57db4495a6",
+    "src/ecs/schedule.bend": "e7c1f18bcb27ba6b5d6c7de88e81d0fe41c000b8d16fcd4d500d72655de86da3",
+    "src/ecs/world.bend": "7d394b623b8bb60a3fef7b160bb69af135719edd3008126ee186e190047708f8"
+  },
+  "commands": [
+    {
+      "label": "law-draft-check",
+      "command": [
+        "bend",
+        "/tmp/tmpcbqysoi2/docs/laws/nested-provision-draft/LAWS.bend",
+        "--check-only"
+      ],
+      "cap": 5,
+      "exit": 1
+    },
+    {
+      "label": "normal-check",
+      "command": [
+        "bend",
+        "/tmp/tmpcbqysoi2/docs/laws/nested-provision-draft/falsify.bend",
+        "--check-only"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "normal-emit-JS",
+      "command": [
+        "bend",
+        "/tmp/tmpcbqysoi2/docs/laws/nested-provision-draft/falsify.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/normal.js"
+      ],
+      "cap": 30,
+      "exit": 0
+    },
+    {
+      "label": "normal-run-JS",
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/normal.js"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "normal-emit-Native",
+      "command": [
+        "bend",
+        "/tmp/tmpcbqysoi2/docs/laws/nested-provision-draft/falsify.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/normal.c"
+      ],
+      "cap": 30,
+      "exit": 0
+    },
+    {
+      "label": "normal-clang",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/normal.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/normal",
+        "-pthread",
+        "-lm"
+      ],
+      "cap": 120,
+      "exit": 0
+    },
+    {
+      "label": "normal-run-Native",
+      "command": [
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/normal"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "omitted-requirement-check",
+      "command": [
+        "bend",
+        "/tmp/tmpcbqysoi2/docs/laws/nested-provision-draft/falsify.bend",
+        "--check-only"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "omitted-requirement-emit-JS",
+      "command": [
+        "bend",
+        "/tmp/tmpcbqysoi2/docs/laws/nested-provision-draft/falsify.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/omitted-requirement.js"
+      ],
+      "cap": 30,
+      "exit": 0
+    },
+    {
+      "label": "omitted-requirement-run-JS",
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/omitted-requirement.js"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "omitted-requirement-emit-Native",
+      "command": [
+        "bend",
+        "/tmp/tmpcbqysoi2/docs/laws/nested-provision-draft/falsify.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/omitted-requirement.c"
+      ],
+      "cap": 30,
+      "exit": 0
+    },
+    {
+      "label": "omitted-requirement-clang",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/omitted-requirement.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/omitted-requirement",
+        "-pthread",
+        "-lm"
+      ],
+      "cap": 120,
+      "exit": 0
+    },
+    {
+      "label": "omitted-requirement-run-Native",
+      "command": [
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/omitted-requirement"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "category-equality-check",
+      "command": [
+        "bend",
+        "/tmp/tmpcbqysoi2/docs/laws/nested-provision-draft/falsify.bend",
+        "--check-only"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "category-equality-emit-JS",
+      "command": [
+        "bend",
+        "/tmp/tmpcbqysoi2/docs/laws/nested-provision-draft/falsify.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/category-equality.js"
+      ],
+      "cap": 30,
+      "exit": 0
+    },
+    {
+      "label": "category-equality-run-JS",
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/category-equality.js"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "category-equality-emit-Native",
+      "command": [
+        "bend",
+        "/tmp/tmpcbqysoi2/docs/laws/nested-provision-draft/falsify.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/category-equality.c"
+      ],
+      "cap": 30,
+      "exit": 0
+    },
+    {
+      "label": "category-equality-clang",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/category-equality.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/category-equality",
+        "-pthread",
+        "-lm"
+      ],
+      "cap": 120,
+      "exit": 0
+    },
+    {
+      "label": "category-equality-run-Native",
+      "command": [
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/category-equality"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "union-order-check",
+      "command": [
+        "bend",
+        "/tmp/tmpcbqysoi2/docs/laws/nested-provision-draft/falsify.bend",
+        "--check-only"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "union-order-emit-JS",
+      "command": [
+        "bend",
+        "/tmp/tmpcbqysoi2/docs/laws/nested-provision-draft/falsify.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/union-order.js"
+      ],
+      "cap": 30,
+      "exit": 0
+    },
+    {
+      "label": "union-order-run-JS",
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/union-order.js"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "union-order-emit-Native",
+      "command": [
+        "bend",
+        "/tmp/tmpcbqysoi2/docs/laws/nested-provision-draft/falsify.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/union-order.c"
+      ],
+      "cap": 30,
+      "exit": 0
+    },
+    {
+      "label": "union-order-clang",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/union-order.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/union-order",
+        "-pthread",
+        "-lm"
+      ],
+      "cap": 120,
+      "exit": 0
+    },
+    {
+      "label": "union-order-run-Native",
+      "command": [
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/union-order"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "flatten-order-check",
+      "command": [
+        "bend",
+        "/tmp/tmpcbqysoi2/docs/laws/nested-provision-draft/falsify.bend",
+        "--check-only"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "flatten-order-emit-JS",
+      "command": [
+        "bend",
+        "/tmp/tmpcbqysoi2/docs/laws/nested-provision-draft/falsify.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/flatten-order.js"
+      ],
+      "cap": 30,
+      "exit": 0
+    },
+    {
+      "label": "flatten-order-run-JS",
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/flatten-order.js"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "flatten-order-emit-Native",
+      "command": [
+        "bend",
+        "/tmp/tmpcbqysoi2/docs/laws/nested-provision-draft/falsify.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/flatten-order.c"
+      ],
+      "cap": 30,
+      "exit": 0
+    },
+    {
+      "label": "flatten-order-clang",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/flatten-order.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/flatten-order",
+        "-pthread",
+        "-lm"
+      ],
+      "cap": 120,
+      "exit": 0
+    },
+    {
+      "label": "flatten-order-run-Native",
+      "command": [
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/flatten-order"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "missing-omission-check",
+      "command": [
+        "bend",
+        "/tmp/tmpcbqysoi2/docs/laws/nested-provision-draft/falsify.bend",
+        "--check-only"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "missing-omission-emit-JS",
+      "command": [
+        "bend",
+        "/tmp/tmpcbqysoi2/docs/laws/nested-provision-draft/falsify.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/missing-omission.js"
+      ],
+      "cap": 30,
+      "exit": 0
+    },
+    {
+      "label": "missing-omission-run-JS",
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/missing-omission.js"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "missing-omission-emit-Native",
+      "command": [
+        "bend",
+        "/tmp/tmpcbqysoi2/docs/laws/nested-provision-draft/falsify.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/missing-omission.c"
+      ],
+      "cap": 30,
+      "exit": 0
+    },
+    {
+      "label": "missing-omission-clang",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/missing-omission.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/missing-omission",
+        "-pthread",
+        "-lm"
+      ],
+      "cap": 120,
+      "exit": 0
+    },
+    {
+      "label": "missing-omission-run-Native",
+      "command": [
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/missing-omission"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "precheck-bypass-check",
+      "command": [
+        "bend",
+        "/tmp/tmpcbqysoi2/docs/laws/nested-provision-draft/falsify.bend",
+        "--check-only"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "precheck-bypass-emit-JS",
+      "command": [
+        "bend",
+        "/tmp/tmpcbqysoi2/docs/laws/nested-provision-draft/falsify.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/precheck-bypass.js"
+      ],
+      "cap": 30,
+      "exit": 0
+    },
+    {
+      "label": "precheck-bypass-run-JS",
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/precheck-bypass.js"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "precheck-bypass-emit-Native",
+      "command": [
+        "bend",
+        "/tmp/tmpcbqysoi2/docs/laws/nested-provision-draft/falsify.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/precheck-bypass.c"
+      ],
+      "cap": 30,
+      "exit": 0
+    },
+    {
+      "label": "precheck-bypass-clang",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/precheck-bypass.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/precheck-bypass",
+        "-pthread",
+        "-lm"
+      ],
+      "cap": 120,
+      "exit": 0
+    },
+    {
+      "label": "precheck-bypass-run-Native",
+      "command": [
+        "/workspace/formal-proofs/bendvy/.artifacts/nested-provision-laws-final/precheck-bypass"
+      ],
+      "cap": 5,
+      "exit": 0
+    }
+  ],
+  "mutants": {
+    "normal": {
+      "source": "45d8b7d2c11d9fe28a6ee2a4cd460bad2b8591dbc8546daa68ae29d66d3979e9",
+      "backends": {
+        "JS": {
+          "target_literal": null,
+          "mismatches": [],
+          "scope": "finite literals"
+        },
+        "Native": {
+          "target_literal": null,
+          "mismatches": [],
+          "scope": "finite literals"
+        }
+      }
+    },
+    "omitted-requirement": {
+      "source": "ae1915eb90031e8e62301714a54cbcdf6703fdf6b83172e836aeb07d8e553818",
+      "backends": {
+        "JS": {
+          "target_literal": "requirements",
+          "mismatches": [
+            "requirements"
+          ],
+          "scope": "finite literals"
+        },
+        "Native": {
+          "target_literal": "requirements",
+          "mismatches": [
+            "requirements"
+          ],
+          "scope": "finite literals"
+        }
+      }
+    },
+    "category-equality": {
+      "source": "d533a3bcf8fcdcd0d499d11e209ecd46815553b0ac4af43322734063a3a3bd9f",
+      "backends": {
+        "JS": {
+          "target_literal": "identity-cross",
+          "mismatches": [
+            "union",
+            "union",
+            "missing",
+            "union",
+            "identity-cross"
+          ],
+          "scope": "finite literals"
+        },
+        "Native": {
+          "target_literal": "identity-cross",
+          "mismatches": [
+            "union",
+            "union",
+            "missing",
+            "union",
+            "identity-cross"
+          ],
+          "scope": "finite literals"
+        }
+      }
+    },
+    "union-order": {
+      "source": "6e2ad26fe0e647574abbf4fdf5f9d34248ce574e5e58cef90488ea5cfe596efa",
+      "backends": {
+        "JS": {
+          "target_literal": "union",
+          "mismatches": [
+            "union",
+            "union",
+            "union"
+          ],
+          "scope": "finite literals"
+        },
+        "Native": {
+          "target_literal": "union",
+          "mismatches": [
+            "union",
+            "union",
+            "union"
+          ],
+          "scope": "finite literals"
+        }
+      }
+    },
+    "flatten-order": {
+      "source": "a5fbd6790b99eb2ad0e3bd530047c600c83f832415aa08d57e8d1d0eaf3ffb5b",
+      "backends": {
+        "JS": {
+          "target_literal": "flatten",
+          "mismatches": [
+            "flatten"
+          ],
+          "scope": "finite literals"
+        },
+        "Native": {
+          "target_literal": "flatten",
+          "mismatches": [
+            "flatten"
+          ],
+          "scope": "finite literals"
+        }
+      }
+    },
+    "missing-omission": {
+      "source": "cde7609b1827c36f1b5833a9ce2e559858a57da6f5dcb0a2fa5be81cb73e5b40",
+      "backends": {
+        "JS": {
+          "target_literal": "missing",
+          "mismatches": [
+            "missing",
+            "missing"
+          ],
+          "scope": "finite literals"
+        },
+        "Native": {
+          "target_literal": "missing",
+          "mismatches": [
+            "missing",
+            "missing"
+          ],
+          "scope": "finite literals"
+        }
+      }
+    },
+    "precheck-bypass": {
+      "source": "08ea04011de7e9e5ce9d5d9a2f372e71362702630f2a84c88bac72f46ba35e46",
+      "backends": {
+        "JS": {
+          "target_literal": null,
+          "mismatches": [],
+          "scope": "precheck-bypass intentionally outside pure metadata laws"
+        },
+        "Native": {
+          "target_literal": null,
+          "mismatches": [],
+          "scope": "precheck-bypass intentionally outside pure metadata laws"
+        }
+      }
+    }
+  }
+}

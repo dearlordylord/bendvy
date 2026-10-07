@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : Cap.Write<write_read~H, S.Stock, S.StockView>
+- observed : Cap.Read<write_read~H, S.StockView>
+Context:
+- ctx   : write_read~H
+- value : S.Stock
+Location: write_read
+5 | def write_read(~H: Type,~cap: Cap.Read<H,S.StockView>,ctx: H,value: S.Stock) -> H:
+6>|   Cap.set(~H,~S.Stock,~S.StockView,~cap,ctx,value)
+  |                                     ^^^
+7 | 

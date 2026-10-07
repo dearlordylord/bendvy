@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : owner
+- observed : owner (consumed more than once)
+Location: duplicate
+3 | 
+4>| def duplicate(owner:P.Provisioned<A.Schema,A.Store,A.Resources,U32,A.Owners>) -> P.Provisioned<A.Schema,A.Store,A.Resources,U32,A.Owners> & P.Provisioned<A.Schema,A.Store,A.Resources,U32,A.Owners>:
+  |               ^^^^^
+5 |   (owner,owner)
