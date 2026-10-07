@@ -86,10 +86,12 @@ Bend guide/Base supply the affine Array ownership boundary used here.
 - **Laws unapproved:** [specific candidates](law-candidates.md) remain discussion
   drafts. The current five diagnostic/status/state defects and historical endpoint defect are executed; no ECS proof or universal graph,
   ownership/refinement claim is made.
-- **Performance untested:** no timings/profiles were collected during user CPU
-  contention. Existing #28 workload/baseline was not changed; its unchanged gate is
-  required before eventual executable core delivery. Full-core/feature qualification
-  remains under #21/#23/#24 and #47.
+- **JS feature performance remains open:** [complete paired observations](timing-result.md)
+  retain all120 pairs/full outputs. Median JS/TS ratios at1/2/4 lifecycles are
+  3.0341/2.9936/3.2279; Native ratios0.08376/0.10891/0.15720 exceed2x observed
+  speedup, but JS does not meet the existing parity goal. Profiling/optimization
+  belongs to #47, not an omitted future feature. No new tolerance or statistical
+  criterion is approved. Root's unchanged default #28 remains separate evidence.
 - **Final integration review pending:** parent owns independent review, any production
   adoption, commit/push and the governing-issue report/closure. This experiment is
   not grounds to close #47.
