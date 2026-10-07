@@ -1,0 +1,7 @@
+# Observer projection controls
+
+Admitted expected-v2 controls passed baseline and candidate JS/Native: zero-length traversal with retained leaf owner, three-of-four physical cells, max U32/tag, mutation of the actual returned Array followed by repeated full projection and retained original Data list. Terminal receipt `evidence/1791386649567781358/receipt.json` contains 12 commands and exact source/tool/generated/log pins. Input and artifact hashes match after termination. The initial literal-oracle failure and serialization failure are retained separately.
+
+Full application stages are prepared, not executed: `full-application/stage-plan.json` binds 58 files per role, with exactly one changed observer module. Original callback, component, transaction, graph, query and complete physical output work remain. Full application semantic/profile comparison and independent review remain required; no ECS runtime performance acceptance follows.
+
+Admitted V2 complete application stages subsequently executed once each: baseline `application-results/baseline-1791386975673268137` and candidate `application-results/candidate-1791387028015054497` both COMPLETE_PROJECTION_APPLICATION_SEMANTICS_PASS, ten commands each. Actual reference TS, captured TS, JS and Native each validate the complete original30-record lifecycle including both schemas and every physical owner/graph/metadata/query field. Only the observer projection helper differs. No timing/profile comparison was run. Earlier wrapper HOLD and all failed controls remain separately historical.

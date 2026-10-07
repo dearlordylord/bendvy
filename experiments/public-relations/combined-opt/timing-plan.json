@@ -1,0 +1,41 @@
+{
+  "status": "PREPARED_ONLY_NO_EXECUTION",
+  "scales": [
+    1,
+    2,
+    4
+  ],
+  "records": [
+    30,
+    60,
+    120
+  ],
+  "contract": {
+    "baselineCommit": "327bec49d41f00f88950343dea1edc1e0ec97dc4",
+    "workload": "Workshop: ten complete 22-checkpoint applications per process",
+    "scope": "Whole-process API regression; startup and output included, not qualified hot-path acceptance",
+    "pairs": 20,
+    "warmups": 2,
+    "seed": 20261007,
+    "alpha": 0.05,
+    "method": "One-sided exact paired sign tests, Holm correction across JS and Native",
+    "allowedSlowdown": 0,
+    "approval": "User: no statistically confirmed slowdown, 2026-10-06",
+    "iterations": 10,
+    "referenceCommit": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334"
+  },
+  "contractSHA256": "c0e13575f6e4d25ca8ca669936eef39c93a66b57ac1e4bfa42186f6f2d58bb6a",
+  "wrapperSHA256": "f2ee32e332fb6e527eef8bbf737b82cc7cc423a045f50e1291ac64f4ff7b1f86",
+  "stages": {
+    "baseline": "202e0d23a951d40a0e45191d78cdf1ca77547d850f787d25d9970d913181cec7",
+    "candidate": "702042a51f2eeab7f50d2dbb3286f66c7491f312754549a8d7fb40aa70b80a31"
+  },
+  "cpu": 8,
+  "limits": {
+    "check": 5,
+    "emit": 30,
+    "clang": 120,
+    "run": 5
+  },
+  "review": "Required before correctness, then new timing admission/quietwindow before comparisons"
+}

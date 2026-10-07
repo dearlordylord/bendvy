@@ -1,0 +1,34 @@
+{
+  "projection": {
+    "original": "/workspace/formal-proofs/bendvy/experiments/public-relations/promotion-stage/application/next-version/v1/owned-world.bend",
+    "originalSHA256": "8052dea4453ab9eaca228ec491f582bb2d128cb54d35ebf98cad8d6603501b03",
+    "delta": "Only cells_next/cells_done/project_cells block replaced by project_cells_head/project_cells_loop/project_cells; all other bytes unchanged.",
+    "candidateSHA256": "c56ec191db999aa49c59774b54b2ad227687a20caf8220eac794bc41244a73c1",
+    "scope": "Observer full-cell projection; no ECS runtime gain/acceptance claimed. No proof/law approval."
+  },
+  "capture": {
+    "scope": "Harness-only bytewise FNV loop optimization, applied to both roles. No ECS operations, serialization, output bytes, timers or workload counts change. No speed acceptance.",
+    "files": {
+      "timing.js": {
+        "source": "experiments/public-relations/timing/timing.js",
+        "baselineSHA256": "5b4c1c6d1ba415bf8c89b663cfecfbd662267f1cd40da0e98cc5523bbf938508",
+        "candidateSHA256": "38883dbf23cd7646d497bde3b5f686634ff0fac79832946e084a87fa77ad394b",
+        "old": "for (const byte of bytes) featureDigest = Math.imul(featureDigest ^ byte, 16777619) >>> 0;",
+        "new": "for (let index = 0; index < bytes.length; index++) featureDigest = Math.imul(featureDigest ^ bytes[index], 16777619) >>> 0;"
+      },
+      "capture.mjs": {
+        "source": "experiments/public-relations/timing/capture.mjs",
+        "baselineSHA256": "9ce05abba1068752354cee18a3ddffc973369b57796a3efaf8d19702744b6976",
+        "candidateSHA256": "ddabbc8fb92a0f7f25eb6bd8247a70766b9648346d041597b08e86bccaac2b74",
+        "old": "for (const byte of chunk) digest = Math.imul(digest ^ byte, 16777619) >>> 0;",
+        "new": "for (let index = 0; index < chunk.length; index++) digest = Math.imul(digest ^ chunk[index], 16777619) >>> 0;"
+      }
+    }
+  },
+  "allowedChangedStagePaths": [
+    "experiments/public-relations/promotion-stage/application/next-version/v1/owned-world.bend",
+    "experiments/public-relations/timing/timing.js",
+    "experiments/public-relations/timing/capture.mjs"
+  ],
+  "scope": "Only independently observed observer projection and two capture helpers; lookup optimization excluded. No core/app/callback/workload edits."
+}

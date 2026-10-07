@@ -1,0 +1,10 @@
+# Remaining source-supported diagnostic seams
+
+Fresh combined candidate CPU/heap profiles validate600 complete records each. CPU self samples remain dominated by io_feature_capture55.958ms, GC36.189ms and UTF8 encoding14.150ms; capture remains required complete observer work. The unchanged profiler also includes flush/drain/JIT, so these are attribution hypotheses, not ECS-only timing.
+
+1. Graph first-match lookup still creates per-node closures: relation-graph.bend target_edges anonymous sampled self allocation31.28MB across both schemas; inverse_entries17.86MB. The actual source passes lazy next closures into chosen_target/chosen_inverse. A source-only decreasing direct dispatch preserving first-match/survivor order is a concrete next candidate. The separate lookup experiment is not included or credited here; incomplete profile coverage remains pending.
+2. Arbitrary-Type component projection transport remains: column.plain_view_taken sampled self58.14MB, component.get21.04MB. The source takes Some owner, invokes arbitrary project:C→C&V, restores the returned owner, and carries unchanged stamps. Any candidate must retain legitimate owner-mutating projection, missing/size bounds, metadata priority and all full owners. No cache of raw owners/views or Data-only narrowing.
+3. Query inspect_done self samples19.727ms in specialization11 and11.838ms in3. Actual source reconstructs Tx after W.with_store graph observation then combines relation requirements with component selection. A private transport specialization could reduce reconstruction, but must preserve complete undo/commands/events and arbitraryC/R; no existing verified candidate or speed acceptance.
+4. automatic_inventory appears8.954ms self. Structural cleanup budgeting must preserve full edge/inverse/live counting, completion and actual removal effects. Do not replace it with fixed fuel or omit scans based on this sample.
+
+These ranked source shapes are follow-up hypotheses only. The already observed observer continuation/capture reductions do not establish final JS<=TS/Native2x goals. No further execution is requested until a reviewed quiet comparative protocol is available.
