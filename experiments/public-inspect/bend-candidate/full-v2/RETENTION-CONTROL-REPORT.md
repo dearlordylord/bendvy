@@ -1,0 +1,11 @@
+# Actual retaining-system execution and disposal
+
+The two nominal schemas execute the same complete12-line oracle through interpreted Bend, emitted JavaScript and Native under the unchanged5-second runtime cap. Each starts with the prior complete warm/mixed Inspector failure observations and genuine registered removal/despawn reader owners. Cursor-zero readers preserve both lifecycle logs through frames.
+
+A successful actual `System.run_tracked` advances only the removal registration. The closed projection reads that returned owner through `System.cursor`: removal drops through tick2, while the independently owned despawn reader still retains its record. Both actual registrations are then successfully consumed by `System.dispose`. Removing those now-absent owners permits despawn collection through tick2. No fixture cursor assignment substitutes for system execution, and no manually discarded live registration substitutes for disposal.
+
+The archived full oracle checks both schemas: before-run counts1/1 and watermarks0/0; after removal-reader success counts0/1 and watermarks2/0; after disposal counts0/0 and watermarks2/2. It also retains the preceding full Inspector lookup/query/resource/event/lifecycle/cursor observations. `retention-control-evidence-v1/verify.py` reconciles exact source/Base/runner pins, immutable receipt/raw bytes and the complete oracle without launching children.
+
+Focused JavaScript qualification executed only emit30seconds and Node5seconds after the existing interpreted pass. Native executed only emitC30seconds, approved Clang19 `-O3` compilation120seconds and Native5seconds (one thread, GPUoff), with35 execution and5 preparation owned library probes. The generic backend receipt status identifies its literal-oracle driver; its scope is precisely these12 retention observations. Both emitted backends passed the same frozen full oracle on the first attempt. `retention-backend-evidence-v1/verify.py` reconciles the exact closed capsule without running children.
+
+This is bounded development evidence. Further failed/skipped execution controls remain unqualified; this does not close#54, adopt the experimental API into production, prove laws or establish performance. Binary tools are hash-only; no private environment values are archived.
