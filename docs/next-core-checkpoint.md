@@ -501,3 +501,9 @@ Three-hour outcome: current Slot Host4baa selective-Fold→positioned-swap pipel
 ## Published remaining-core scope — 2026-10-07
 
 User-authorized to-spec/to-tickets delivers [specification #37 and tickets #38–#64](parity/README.md), grounded in pinned bevy-ts, Rust Bevy ECS and Bend guide/compiler/Base. #34/#35 remain immediate next work; independent new tasks can also start once their explicit contract gates are resolved. Full scope remains #1. No actual feature work or measurement was performed by this publication. Exact law approval and copied-integration requirements gate their later execution tickets.
+
+## Active full-parity implementation — #34–#64
+
+The user explicitly set the full implementation objective after publication: complete pinned core parity without degradation relative to bevy-ts, retaining reasonable especially Native superiority and avoiding unnecessary optimization churn. Existing exact approved numeric/default regression contracts remain unchanged until explicitly amended. Work starts with #34/#35; additive schedule-provision and reader-domain seams are under executable validation, not delivered. Source-current finite controls and final independent review/default regression remain required. Known CPU contention defers new comparative timing, not correctness work.
+
+#38 independent-root discovery freshly confirms the existing public Factory limitation on JS/Native: separate roots collide, whereas a threaded affine Factory rejects foreign handles. See [discovery and exact limits](../experiments/public-identity/README.md). This is an expected failed capability observation, not identity acceptance or production root-policy approval.

@@ -1,0 +1,162 @@
+{
+  "scope": "Finite independently created same-schema root discovery; not issue38 acceptance",
+  "sources": {
+    "src/ecs/world.bend": "7d394b623b8bb60a3fef7b160bb69af135719edd3008126ee186e190047708f8",
+    "experiments/public-identity/run-root-controls.py": "debd5f9c737ae1d438ce8181695dfef08ad3172d03f76e1e35531ca22f3cd223",
+    "experiments/public-identity/root-collision.bend": "737a7adb0a8eb72254bdf0d5834490f26f82eb513ba00e59bfaca292af523825",
+    "experiments/public-identity/shared-root-control.bend": "c1914843c5726ba28a8e2da3e17bcacea575a1b0c29496cf9365c65d762decfa"
+  },
+  "commands": [
+    {
+      "argv": [
+        "timeout",
+        "5",
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-identity/root-collision.bend"
+      ],
+      "limitSeconds": 6,
+      "exit": 0,
+      "stdout": "independent-root collision: foreign handle accepted\n\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-identity/root-collision.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/identity-root-controls-1791349913724098506/root-collision.js"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-identity/root-collision.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/identity-root-controls-1791349913724098506/root-collision.c"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/identity-root-controls-1791349913724098506/root-collision.c",
+        "-pthread",
+        "-lm",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/identity-root-controls-1791349913724098506/root-collision"
+      ],
+      "limitSeconds": 120,
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/identity-root-controls-1791349913724098506/root-collision.js"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "stdout": "independent-root collision: foreign handle accepted\n\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/identity-root-controls-1791349913724098506/root-collision",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "stdout": "independent-root collision: foreign handle accepted\n\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "timeout",
+        "5",
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-identity/shared-root-control.bend"
+      ],
+      "limitSeconds": 6,
+      "exit": 0,
+      "stdout": "shared-root control: foreign handle rejected\n\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-identity/shared-root-control.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/identity-root-controls-1791349913724098506/shared-root-control.js"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-identity/shared-root-control.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/identity-root-controls-1791349913724098506/shared-root-control.c"
+      ],
+      "limitSeconds": 30,
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/identity-root-controls-1791349913724098506/shared-root-control.c",
+        "-pthread",
+        "-lm",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/identity-root-controls-1791349913724098506/shared-root-control"
+      ],
+      "limitSeconds": 120,
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/identity-root-controls-1791349913724098506/shared-root-control.js"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "stdout": "shared-root control: foreign handle rejected\n\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/.artifacts/identity-root-controls-1791349913724098506/shared-root-control",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "limitSeconds": 5,
+      "exit": 0,
+      "stdout": "shared-root control: foreign handle rejected\n\n",
+      "stderr": ""
+    }
+  ],
+  "status": "EXPECTED_IDENTITY_FAILURE_CONFIRMED",
+  "finding": "Separate public factory() roots both allocate namespace1/entity1. World.valid accepts the foreign handle after both actual worlds activate entity1. Shared affine factory control rejects it.",
+  "requiredNextGate": "Independent-root canonical identity creation, explicit trusted raw-constructor boundary and actual public lookup/command refusal controls; no language-wide/global identity claim."
+}
