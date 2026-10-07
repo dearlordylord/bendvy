@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : decision
+- observed : decision (consumed more than once)
+Context:
+- S : Data
+- C : Type
+Location: duplicate
+2 | 
+3>| def duplicate(-S:Data,-C:Type,decision:F.Decision<S,C>) -> F.Decision<S,C> & F.Decision<S,C>:
+  |                               ^^^^^^^^
+4 |   (decision,decision)

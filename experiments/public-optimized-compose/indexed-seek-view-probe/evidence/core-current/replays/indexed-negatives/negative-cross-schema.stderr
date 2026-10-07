@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : @_:Q.Frame<Other, S.Store, Unit, Unit> -> Sigma<&1, &1, Q.Frame<Other, S.Store, Unit, Unit>, _ => Bool>
+- observed : @frame:Q.Frame<P.Schema, S.Store, Unit, Unit> -> Sigma<&1, &1, Q.Frame<P.Schema, S.Store, Unit, Unit>, _ => Bool>
+Location: probe
+13 | def probe(world:W.World<Other,S.Store,Unit,Unit>) -> Q.Executed<W.World<Other,S.Store,Unit,Unit>,Q.Error<Unit>,List<&2,U32>>:
+14>|   O.each_fields(~Other,~S.Store,~Unit,~Unit,~S.Bundle,~S.Row,~Bool,~Unit,~List<&2,U32>,~S.Ops{Cap.Read{S.get},Cap.Read{S.get}},~Q.all(~P.Schema,~S.Store,~Unit,~Unit),~S.enter,~S.leave,~body,False{},world)
+   |                                                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+15 | 

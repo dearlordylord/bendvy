@@ -1,0 +1,898 @@
+{
+  "sourceHashes": {
+    "experiments/public-optimized-compose/array-view-indexed-probe/controls.bend": "0b8bc389d8091ad22473f2b007d52dab8a0b75c1913264f8976ff3f1524a9984",
+    "experiments/public-optimized-compose/array-view-indexed-probe/negative-owner.bend": "5a590d44d5a88edccf45e3237454aed812b0255f9dab01a9d62780aff760909e",
+    "experiments/public-optimized-compose/array-view-indexed-probe/oracle.bend": "18ddde4c3a94157061bceee7c708562e71ced1ae2e4c4395c54e052a120e64be",
+    "experiments/public-optimized-compose/array-view-indexed-probe/view.bend": "a1a75b24aaa61596f7d4b8d9e62b0264f32bda2d995c2c1bce81f4329c6b7d0c",
+    "experiments/public-optimized-compose/capability-static-canary/main.bend": "2968b8132c516ca5353221bdf1f11c3cf4b65d093484ed19d1ab831e5611b205",
+    "experiments/public-optimized-compose/capability-static-canary/rejected-template-match.bend": "69560b2c7da044f9e85ebc445ed8ceabc9b9df68a484335b8cda2a0b0527651f",
+    "experiments/public-optimized-compose/capture-matrix/fixture.bend": "7f6f13ab128d98355cb8cc26f2f98d461f697d9375bd1b065d4b4eda4730a7df",
+    "experiments/public-optimized-compose/capture-matrix/main.bend": "708ec839d573b9101f4a57afb0505a3f6a44842e0816e045550c4893cfe90a0b",
+    "experiments/public-optimized-compose/capture-matrix/smoke.bend": "373c6c9bc63184a53b9c4c350991dc31d14d02ff51dd91bdd4a759d55efa529f",
+    "experiments/public-optimized-compose/captured-column-control.bend": "ac5621a8874edaf17e979226dae587b0925bec37d07f5a9bdc6a180fe6cdf6ea",
+    "experiments/public-optimized-compose/evidence/capability-applied/capabilities-source.bend": "bf94887b67af0e00ede9c78e97abbeac21163c9ee73ce8d731d52021b6b0df34",
+    "experiments/public-optimized-compose/evidence/owned-before-source/src/capabilities.bend": "91c0cdc01e9143d10dc0156ef4f6c39beff97d8088ed0bbb056ffff2ffabf964",
+    "experiments/public-optimized-compose/evidence/owned-before-source/src/column.bend": "869091a81636ece3b6d8fd37bae552bcb58b76c7d3ea396e8ecdb9e6f4eeb032",
+    "experiments/public-optimized-compose/evidence/owned-before-source/src/commands.bend": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+    "experiments/public-optimized-compose/evidence/owned-before-source/src/component.bend": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+    "experiments/public-optimized-compose/evidence/owned-before-source/src/compose.bend": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+    "experiments/public-optimized-compose/evidence/owned-before-source/src/event-runtime.bend": "409b45060a9d8b02ce5bf43c584f2be05b81b2239b04e75dca384f07cc626ea7",
+    "experiments/public-optimized-compose/evidence/owned-before-source/src/events.bend": "fffc3ec427072c4ba1c880f2ba8a73c1fcd1db66550cf63cdce56ba9e10bdc63",
+    "experiments/public-optimized-compose/evidence/owned-before-source/src/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "experiments/public-optimized-compose/evidence/owned-before-source/src/local.bend": "8cc5b3c9d3597c60d8a1b9b7fd206a92b289669c3cd9a8575db65ce9af37bd47",
+    "experiments/public-optimized-compose/evidence/owned-before-source/src/optimized-compose.bend": "ac9c98457c7d6890f1f30dd82f41658a5d3ae962a7fb9022062af5b9d581ca25",
+    "experiments/public-optimized-compose/evidence/owned-before-source/src/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+    "experiments/public-optimized-compose/evidence/owned-before-source/src/provider.bend": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72",
+    "experiments/public-optimized-compose/evidence/owned-before-source/src/query-contract.bend": "de8eb5a047d2ca82e5832513798a6590a2cd025296b80b154da65a51270c4e91",
+    "experiments/public-optimized-compose/evidence/owned-before-source/src/query.bend": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9",
+    "experiments/public-optimized-compose/evidence/owned-before-source/src/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+    "experiments/public-optimized-compose/evidence/owned-before-source/src/removals.bend": "98a5f5cf42372d8eab35f3927539079e4412886eeaa3e07bbb2113f2286222f6",
+    "experiments/public-optimized-compose/evidence/owned-before-source/src/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+    "experiments/public-optimized-compose/evidence/owned-before-source/src/schedule.bend": "ad7a7c4187bfb028d01e98b821bd65078ae503604ec04ab645440be3898caa9f",
+    "experiments/public-optimized-compose/evidence/owned-before-source/src/structural.bend": "e8e813dc6de2f8a38ca61f51c0cbc5aeaf243fcc9cd399303e2adca2674480d4",
+    "experiments/public-optimized-compose/evidence/owned-before-source/src/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+    "experiments/public-optimized-compose/evidence/owned-before-source/src/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "experiments/public-optimized-compose/evidence/owned-before-source/src/world.bend": "7d394b623b8bb60a3fef7b160bb69af135719edd3008126ee186e190047708f8",
+    "experiments/public-optimized-compose/evidence/owned-before-source/workshop/array-controls.bend": "373c3067726ee403eb21f540df1165824385bbc38c799994a76f1c9f4248327e",
+    "experiments/public-optimized-compose/evidence/owned-before-source/workshop/declarations.bend": "ccb7bd1379bf37a0f2087709e65d39cb65aa21bb5fcb48b3e4fce17a3cd3dad5",
+    "experiments/public-optimized-compose/evidence/owned-before-source/workshop/driver.bend": "2fe44766efe070d39dafa24f35be69c1a47c2a078f761b51e4113a86ed3aec02",
+    "experiments/public-optimized-compose/evidence/owned-before-source/workshop/gameplay.bend": "d0a8af8e8832ecbde6bb73bd907a0541dd091702e8d5dcf7cfd9fc151a291736",
+    "experiments/public-optimized-compose/evidence/owned-before-source/workshop/json.bend": "dcd23ba12208488dc2cc2368a23609dc6f685fbcff95c2af40e4f96b64bcadc1",
+    "experiments/public-optimized-compose/evidence/owned-before-source/workshop/main.bend": "4339adc4de65c6bcbe25f243ba3a152ee16509fe3a74c966251d6ccc0bba97dd",
+    "experiments/public-optimized-compose/evidence/owned-before-source/workshop/observe.bend": "c84c1db643e9e92b22433945b305b540281e6a52041b1be2a85b864964e3dbbc",
+    "experiments/public-optimized-compose/evidence/owned-before-source/workshop/scenario-ops.bend": "b2d0e9b5212d762006fbefe92e032d9e1fe260436542485e1a8be257e245aa99",
+    "experiments/public-optimized-compose/evidence/owned-before-source/workshop/schema.bend": "0c629457791ee5fe2921d33201fe20be10bae8fd0f18a6c728ba775e66339500",
+    "experiments/public-optimized-compose/evidence/owned-before-source/workshop/timing-main.bend": "a7fea467df249864772e4be3e229342cddd2e457bed6fb596f28e224b203fbb6",
+    "experiments/public-optimized-compose/evidence/owned-plan-fields/direct-fields-negatives/negative-cross-schema.bend": "eb4d3a207df2f645bf9870591160a171153ac7c5dbd1cf2b2cda74910ae5f421",
+    "experiments/public-optimized-compose/evidence/owned-plan-fields/direct-fields-negatives/negative-duplicate.bend": "da8f6f3a3aa3fb520f14570673dbd0feed9240b819c3dbb16068a77c95267d33",
+    "experiments/public-optimized-compose/evidence/owned-plan-fields/direct-fields-negatives/negative-specialize.bend": "56631a7ed136e3d1c956cc6e71c862c8b854c9261dc74a46bea87ca305ef12f7",
+    "experiments/public-optimized-compose/evidence/owned-plan-fields/direct-fields-negatives/negative-undeclared.bend": "b11393c76e1b84e441afbe64dea2efe01034d6d2b164ac1b3c2b326458683fdd",
+    "experiments/public-optimized-compose/evidence/owned-plan-fields/direct-fields-negatives/negative-write-read.bend": "8d8a189667e95e73e7f469e4e531182bb30635cdd4adf6a78418847033800c38",
+    "experiments/public-optimized-compose/evidence/owned-plan-fields/direct-fields-negatives/positive.bend": "271c2b614e857f78e8a8cf456f0b467f63b75b5e60d56f9c4429f1d61adc9daf",
+    "experiments/public-optimized-compose/evidence/owned-plan-fields/source/owned-compose.bend": "1115ffe6db7a1940b53889f53df09cff7fd43a3d244e07b843ea9094f62d31c7",
+    "experiments/public-optimized-compose/evidence/owned-plan-fields/source/owned-declarations.bend": "ec071b53699e2c7f724cf4ef2d3741f8b4fd7efa61235a5fc4c7b55800ee25bc",
+    "experiments/public-optimized-compose/evidence/owned-plan-fields/source/owned-optimized-compose.bend": "3e651cc49f4d6cfb37ea5af07a4b4668a8983911a7547a03aec193f9ca305fff",
+    "experiments/public-optimized-compose/evidence/owned-provider-first/source/captured-column.bend": "e7257f7da54e5a2f9dfb01e892932e56810e67dcdc016aa373e75d72de2c2511",
+    "experiments/public-optimized-compose/evidence/owned-provider-first/source/owned-compose.bend": "e6ee80f51cd6cf53561bdab7648d6f44e63bce0ef867f0f57e271519e38d3df8",
+    "experiments/public-optimized-compose/evidence/owned-provider-first/source/owned-declarations.bend": "49d40e71828d332a44b8f9cc2996bddbb1eb19f3a7bdccd1f249db44dbe19019",
+    "experiments/public-optimized-compose/evidence/owned-provider-first/source/owned-family.bend": "1fe504b1130eed24fb0c1dfc9bf7c6de0ab0f855d4adf30694a1f6b3c634f7e1",
+    "experiments/public-optimized-compose/evidence/owned-provider-first/source/owned-optimized-compose.bend": "29ed0ce3c9ca88f8e36df00070e37faa020f0688d3f507bf7910e7512e64e6b1",
+    "experiments/public-optimized-compose/evidence/owned-provider-first/source/owned-rows.bend": "c68671011019903316e340206866bcf331a03abe340095212b639d595ad5194f",
+    "experiments/public-optimized-compose/evidence/owned-provider-first/source/reference-declarations.bend": "ccb7bd1379bf37a0f2087709e65d39cb65aa21bb5fcb48b3e4fce17a3cd3dad5",
+    "experiments/public-optimized-compose/evidence/owned-provider-first/source/restored-row.bend": "9a1e25359a7775e230ad1b720180db622c12c2e9757cba98acef9c89e8d0f2d5",
+    "experiments/public-optimized-compose/extracted/handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+    "experiments/public-optimized-compose/extracted/row-context.bend": "547f4cf9e909703a2bbf7caa691da75ced13b5100c3969b2e7cb2c85e0bdded7",
+    "experiments/public-optimized-compose/get-validation-control.bend": "5b33704a1defaa248dc58384f6af667ddca248ded1a248569d76930320240b29",
+    "experiments/public-optimized-compose/indexed-capture-matrix/fixture.bend": "d78cd0b3757247743f93f6b74b63d0bbd18612960cc6ff3719219dc6c6d20a42",
+    "experiments/public-optimized-compose/indexed-capture-matrix/main.bend": "708ec839d573b9101f4a57afb0505a3f6a44842e0816e045550c4893cfe90a0b",
+    "experiments/public-optimized-compose/indexed-capture-matrix/smoke.bend": "373c6c9bc63184a53b9c4c350991dc31d14d02ff51dd91bdd4a759d55efa529f",
+    "experiments/public-optimized-compose/indexed-column-integration/indexed-provider-control.bend": "f66539cb5c2e8e1cc4060917d18f39b2c72a3824da74c8498387e8e7c8623577",
+    "experiments/public-optimized-compose/indexed-column-integration/negative-owner.bend": "3dd24d7f441493917220065f670cb79bcb0f435a9f2399f41aba7cfe9a71700f",
+    "experiments/public-optimized-compose/indexed-column-integration/ordinary.bend": "6972637e110b02a4478f699857caf8f5a5cc9b0b0e8203a0491e994c8c995176",
+    "experiments/public-optimized-compose/indexed-column-integration/prepared.bend": "aac0587aa99907f92ca7d9f7a8d41654f9784ca05a5c114f5d8a0a2dea8c27c4",
+    "experiments/public-optimized-compose/indexed-direct-controls/negative-cross-schema.bend": "eb4d3a207df2f645bf9870591160a171153ac7c5dbd1cf2b2cda74910ae5f421",
+    "experiments/public-optimized-compose/indexed-direct-controls/negative-duplicate.bend": "da8f6f3a3aa3fb520f14570673dbd0feed9240b819c3dbb16068a77c95267d33",
+    "experiments/public-optimized-compose/indexed-direct-controls/negative-specialize.bend": "56631a7ed136e3d1c956cc6e71c862c8b854c9261dc74a46bea87ca305ef12f7",
+    "experiments/public-optimized-compose/indexed-direct-controls/negative-undeclared.bend": "b11393c76e1b84e441afbe64dea2efe01034d6d2b164ac1b3c2b326458683fdd",
+    "experiments/public-optimized-compose/indexed-direct-controls/negative-write-read.bend": "8d8a189667e95e73e7f469e4e531182bb30635cdd4adf6a78418847033800c38",
+    "experiments/public-optimized-compose/indexed-direct-controls/positive.bend": "271c2b614e857f78e8a8cf456f0b467f63b75b5e60d56f9c4429f1d61adc9daf",
+    "experiments/public-optimized-compose/indexed-metadata-probe/compat-consumer.bend": "3e58cd1b4fb266af00ed57594d5f7f110d00b0e8244b11f07251a04b54038d93",
+    "experiments/public-optimized-compose/indexed-metadata-probe/compat-library.bend": "a4a4c12a6c11e237c11bf93de50b3d3c0e4325e11aadb8284cebd015af8bbd6d",
+    "experiments/public-optimized-compose/indexed-metadata-probe/controls.bend": "25430d9edb2a1909dccb2aa1a3becd121f3badd0e0cf50fa04b24e7a69f915df",
+    "experiments/public-optimized-compose/indexed-metadata-probe/evidence/source/compat-consumer.bend": "3e58cd1b4fb266af00ed57594d5f7f110d00b0e8244b11f07251a04b54038d93",
+    "experiments/public-optimized-compose/indexed-metadata-probe/evidence/source/compat-library.bend": "a4a4c12a6c11e237c11bf93de50b3d3c0e4325e11aadb8284cebd015af8bbd6d",
+    "experiments/public-optimized-compose/indexed-metadata-probe/evidence/source/controls.bend": "25430d9edb2a1909dccb2aa1a3becd121f3badd0e0cf50fa04b24e7a69f915df",
+    "experiments/public-optimized-compose/indexed-metadata-probe/evidence/source/metadata.bend": "42d92bee142005bd6867eed80148f36e50303181e5f4902189f9d5f1ea1b9efa",
+    "experiments/public-optimized-compose/indexed-metadata-probe/evidence/source/negative-duplicate.bend": "9dac83ef66bdb617b8e07afc2d30d9fffd3edbb5d1e1392c79906b7ab708e603",
+    "experiments/public-optimized-compose/indexed-metadata-probe/metadata.bend": "42d92bee142005bd6867eed80148f36e50303181e5f4902189f9d5f1ea1b9efa",
+    "experiments/public-optimized-compose/indexed-metadata-probe/negative-duplicate.bend": "9dac83ef66bdb617b8e07afc2d30d9fffd3edbb5d1e1392c79906b7ab708e603",
+    "experiments/public-optimized-compose/indexed-metadata-scaling/providers.bend": "9cf88bcf819c3ec39662ed398ece58ea6b57fac1980aba94c913d05609a9e30b",
+    "experiments/public-optimized-compose/indexed-metadata-scaling/workload.bend": "adb025057d7a832585c748cc69dd8c0619d8cadf3f9648f981b7e2c38ea3ee86",
+    "experiments/public-optimized-compose/indexed-seek-view-probe/fast.bend": "bda18f06ec637059802858cd96bd1fbdca7cc2cf8db1bff95cbec903f4e1a14a",
+    "experiments/public-optimized-compose/indexed-seek-view-probe/fixture.bend": "84d93b980e6eed3535fdebded6b2ee8f50953cc5adc6979e433c56e7e4cc8fed",
+    "experiments/public-optimized-compose/indexed-seek-view-probe/negative-owner.bend": "3f0e6367081d7cc58c2bbc50240bb98cb810dbcf7622ac7ea36d166513887752",
+    "experiments/public-optimized-compose/owned-controls/negative-cross-schema.bend": "6a5e28f1d5460265c8548c05b877817121d2d7350bd8cfbd5b53ce9e522eed8c",
+    "experiments/public-optimized-compose/owned-controls/negative-duplicate.bend": "d6fa80d27346e4321e9dff9465eebca0e02fe80e377098334cfa249f2b19b58f",
+    "experiments/public-optimized-compose/owned-controls/negative-specialize.bend": "49837fc7da808ab2e938b0e4ea318ff9b7303ed3f55ede69cb02578c7d06e2a6",
+    "experiments/public-optimized-compose/owned-controls/negative-undeclared.bend": "b983e708b3beadd1e125f1840c26b0d6284ad9d67375fa800f304c02443ad53f",
+    "experiments/public-optimized-compose/owned-controls/negative-write-read.bend": "5fc90e43bc61e71592904fb090cc42adf9328eb996b2d77383f45112292c89b5",
+    "experiments/public-optimized-compose/owned-controls/positive.bend": "24febf69e6e535be43d92337e39140400faf8679c4be3fb9ea0963c341593e2a",
+    "experiments/public-optimized-compose/owned-seam-control.bend": "8603d088f2833e4f055bcf676179b524643d4351591b682e818e1482c208c7b8",
+    "experiments/public-optimized-compose/prepared-control.bend": "7e03fd9a540dd9d2606aa8b40bca50491957c77a5c1040771c0c61f76a366df1",
+    "experiments/public-optimized-compose/producer-fuel-control.bend": "16a156b30eef0a0db33160b9a1e88e50599d1ce62e31d64b66c204eb6b404a97",
+    "experiments/public-optimized-compose/refusal-control.bend": "7f8f6756577e56c11804ea718bad3c4bde98aa8ad57c242d6a65975012e3ef9f",
+    "experiments/public-optimized-compose/restoration-controls/duplicate.bend": "226de015fd86e991ea3211b054e442c6e33f9df58bdf570058b7314aff8357a5",
+    "experiments/public-optimized-compose/restoration-controls/positive.bend": "46868f59150aef0ef127b8e7ec2b208373af7094405794d8806bdb8e842cd8b2",
+    "experiments/public-optimized-compose/row-cell-control.bend": "8e60e87028afb46bf43740c74d32212d9ee64190d01ce9bbe5347e1c7e5967bd",
+    "experiments/public-optimized-compose/row-context-control.bend": "347f5443d97328aae7e66b0ca9eb74d0cb7f32d9a5946d54c9a75c0b1a4b4fe5",
+    "experiments/public-optimized-compose/tx-set-refusal-control.bend": "e1f0a80b384d571ece4359b2aed189b53c83311f65ef7e081778acdcfad59c16",
+    "experiments/public-optimized-compose/view-fuel-control.bend": "2fc66f7bd0f1c344e8ed3390b2da84400618f19ead30961b712386d4971b94cf",
+    "experiments/public-optimized-compose/workshop/array-controls.bend": "373c3067726ee403eb21f540df1165824385bbc38c799994a76f1c9f4248327e",
+    "experiments/public-optimized-compose/workshop/declarations.bend": "ccb7bd1379bf37a0f2087709e65d39cb65aa21bb5fcb48b3e4fce17a3cd3dad5",
+    "experiments/public-optimized-compose/workshop/driver.bend": "2fe44766efe070d39dafa24f35be69c1a47c2a078f761b51e4113a86ed3aec02",
+    "experiments/public-optimized-compose/workshop/gameplay.bend": "d0a8af8e8832ecbde6bb73bd907a0541dd091702e8d5dcf7cfd9fc151a291736",
+    "experiments/public-optimized-compose/workshop/json.bend": "dcd23ba12208488dc2cc2368a23609dc6f685fbcff95c2af40e4f96b64bcadc1",
+    "experiments/public-optimized-compose/workshop/main.bend": "4339adc4de65c6bcbe25f243ba3a152ee16509fe3a74c966251d6ccc0bba97dd",
+    "experiments/public-optimized-compose/workshop/observe.bend": "c84c1db643e9e92b22433945b305b540281e6a52041b1be2a85b864964e3dbbc",
+    "experiments/public-optimized-compose/workshop/owned-declarations.bend": "bb0e73628dcc93e984e4a94c7ee9dc68a5fb870f9c55ac72ef11b1f108a426eb",
+    "experiments/public-optimized-compose/workshop/owned-driver.bend": "d60b5a772161ae6665c16725598d0bed6bcb7f7884eb32ce1cf603e8fbe3cea4",
+    "experiments/public-optimized-compose/workshop/owned-main.bend": "da0f5a9deaa3aeba3e755a8bc8f933d3b2b0649ce642007ca66d8c570b326e55",
+    "experiments/public-optimized-compose/workshop/owned-provider-control.bend": "122c8d324cec95711fc6bec287dce2e40a2a4706b512ef6ef5331ef120034cb1",
+    "experiments/public-optimized-compose/workshop/owned-rows.bend": "c68671011019903316e340206866bcf331a03abe340095212b639d595ad5194f",
+    "experiments/public-optimized-compose/workshop/reference-declarations.bend": "ccb7bd1379bf37a0f2087709e65d39cb65aa21bb5fcb48b3e4fce17a3cd3dad5",
+    "experiments/public-optimized-compose/workshop/scenario-ops.bend": "b2d0e9b5212d762006fbefe92e032d9e1fe260436542485e1a8be257e245aa99",
+    "experiments/public-optimized-compose/workshop/schema.bend": "0903e05d7755c4ede468e2b60da505edf95c5db52b7adf69704ce651b49bb117",
+    "experiments/public-optimized-compose/workshop/timing-main.bend": "a7fea467df249864772e4be3e229342cddd2e457bed6fb596f28e224b203fbb6",
+    "experiments/public-optimized-compose/wrapped-prepared-control.bend": "089f1ceae1ecac5ac58d80af1679bf3e457e348d17d4877a12dea88f68d42672",
+    "experiments/public-optimized-compose/wrapped-recovery-control.bend": "c59b1242d8ffe035848a7ffb97b81317b1a458f5a9eb95d365add53243ef030e",
+    "experiments/public-optimized-compose/wrapped-refusal-control.bend": "84711f7dfc2b404c6f4f19e47e84d10eec759ece16684cfd37e38ef29a4be358",
+    "src/ecs/capabilities.bend": "91c0cdc01e9143d10dc0156ef4f6c39beff97d8088ed0bbb056ffff2ffabf964",
+    "src/ecs/captured-column.bend": "340efc234a5681adb2ccd35da22a1cbe3fbde4d15f0e6a3f8a75e76c4852df0a",
+    "src/ecs/column.bend": "dd7ead147396f13f464fdca8f48fff9c0b185872d9a09548d92bf13529f2f0ab",
+    "src/ecs/commands.bend": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+    "src/ecs/component.bend": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+    "src/ecs/compose.bend": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+    "src/ecs/event-runtime.bend": "409b45060a9d8b02ce5bf43c584f2be05b81b2239b04e75dca384f07cc626ea7",
+    "src/ecs/events.bend": "fffc3ec427072c4ba1c880f2ba8a73c1fcd1db66550cf63cdce56ba9e10bdc63",
+    "src/ecs/indexed-lifecycle.bend": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+    "src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "src/ecs/local.bend": "8cc5b3c9d3597c60d8a1b9b7fd206a92b289669c3cd9a8575db65ce9af37bd47",
+    "src/ecs/optimized-compose.bend": "ac9c98457c7d6890f1f30dd82f41658a5d3ae962a7fb9022062af5b9d581ca25",
+    "src/ecs/owned-compose.bend": "1115ffe6db7a1940b53889f53df09cff7fd43a3d244e07b843ea9094f62d31c7",
+    "src/ecs/owned-family.bend": "1fe504b1130eed24fb0c1dfc9bf7c6de0ab0f855d4adf30694a1f6b3c634f7e1",
+    "src/ecs/owned-optimized-compose.bend": "3e651cc49f4d6cfb37ea5af07a4b4668a8983911a7547a03aec193f9ca305fff",
+    "src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+    "src/ecs/provider.bend": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72",
+    "src/ecs/query-contract.bend": "de8eb5a047d2ca82e5832513798a6590a2cd025296b80b154da65a51270c4e91",
+    "src/ecs/query.bend": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9",
+    "src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+    "src/ecs/removals.bend": "98a5f5cf42372d8eab35f3927539079e4412886eeaa3e07bbb2113f2286222f6",
+    "src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+    "src/ecs/restored-row.bend": "9a1e25359a7775e230ad1b720180db622c12c2e9757cba98acef9c89e8d0f2d5",
+    "src/ecs/row-column.bend": "f3846a5378958c522d4053f13f7af4898a8a60c76f7534b060f020adca631f72",
+    "src/ecs/schedule.bend": "ad7a7c4187bfb028d01e98b821bd65078ae503604ec04ab645440be3898caa9f",
+    "src/ecs/structural.bend": "e8e813dc6de2f8a38ca61f51c0cbc5aeaf243fcc9cd399303e2adca2674480d4",
+    "src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+    "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "src/ecs/world.bend": "7d394b623b8bb60a3fef7b160bb69af135719edd3008126ee186e190047708f8"
+  },
+  "runnerSHA256": "1629a639b50a5b53ea7f1a727d7d5a50f34675cba0ed47e2cc0cc2aa7668f183",
+  "commands": [
+    {
+      "label": "version",
+      "command": [
+        "bend",
+        "version"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "ca6fc52ac20b452bc60b3e8da766c53d679f0325ca4f1ac580ec72f09758d79d"
+    },
+    {
+      "label": "workshop-main-check",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/workshop/main.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    {
+      "label": "workshop-main-emit-JS",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/workshop/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/workshop-main.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "workshop-main-run-JS",
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/workshop-main.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "3ced874f4baca512dc828392d0f4c7cb93bb70634aea4b7b591363ac4b7a2592"
+    },
+    {
+      "label": "workshop-main-emit-Native",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/workshop/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/workshop-main.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "workshop-main-compile",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/workshop-main.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/workshop-main",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "workshop-main-run-Native",
+      "command": [
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/workshop-main"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "3ced874f4baca512dc828392d0f4c7cb93bb70634aea4b7b591363ac4b7a2592"
+    },
+    {
+      "label": "prepared-control-check",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/prepared-control.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    {
+      "label": "prepared-control-emit-JS",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/prepared-control.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/prepared-control.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "prepared-control-run-JS",
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/prepared-control.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "9b85c4dfcf26a2beef9660763335c37e76edec95c6ef98879262f6fef6c60ef1"
+    },
+    {
+      "label": "prepared-control-emit-Native",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/prepared-control.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/prepared-control.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "prepared-control-compile",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/prepared-control.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/prepared-control",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "prepared-control-run-Native",
+      "command": [
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/prepared-control"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "9b85c4dfcf26a2beef9660763335c37e76edec95c6ef98879262f6fef6c60ef1"
+    },
+    {
+      "label": "refusal-control-check",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/refusal-control.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    {
+      "label": "refusal-control-emit-JS",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/refusal-control.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/refusal-control.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "refusal-control-run-JS",
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/refusal-control.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "9af837efee7e10fe7cd5cdf4612c946f485a968e276a2430d7b31efe5dda43b0"
+    },
+    {
+      "label": "refusal-control-emit-Native",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/refusal-control.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/refusal-control.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "refusal-control-compile",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/refusal-control.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/refusal-control",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "refusal-control-run-Native",
+      "command": [
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/refusal-control"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "9af837efee7e10fe7cd5cdf4612c946f485a968e276a2430d7b31efe5dda43b0"
+    },
+    {
+      "label": "wrapped-prepared-control-check",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/wrapped-prepared-control.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    {
+      "label": "wrapped-prepared-control-emit-JS",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/wrapped-prepared-control.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/wrapped-prepared-control.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "wrapped-prepared-control-run-JS",
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/wrapped-prepared-control.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "9b85c4dfcf26a2beef9660763335c37e76edec95c6ef98879262f6fef6c60ef1"
+    },
+    {
+      "label": "wrapped-prepared-control-emit-Native",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/wrapped-prepared-control.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/wrapped-prepared-control.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "wrapped-prepared-control-compile",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/wrapped-prepared-control.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/wrapped-prepared-control",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "wrapped-prepared-control-run-Native",
+      "command": [
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/wrapped-prepared-control"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "9b85c4dfcf26a2beef9660763335c37e76edec95c6ef98879262f6fef6c60ef1"
+    },
+    {
+      "label": "wrapped-refusal-control-check",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/wrapped-refusal-control.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    {
+      "label": "wrapped-refusal-control-emit-JS",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/wrapped-refusal-control.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/wrapped-refusal-control.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "wrapped-refusal-control-run-JS",
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/wrapped-refusal-control.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "9af837efee7e10fe7cd5cdf4612c946f485a968e276a2430d7b31efe5dda43b0"
+    },
+    {
+      "label": "wrapped-refusal-control-emit-Native",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/wrapped-refusal-control.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/wrapped-refusal-control.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "wrapped-refusal-control-compile",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/wrapped-refusal-control.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/wrapped-refusal-control",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "wrapped-refusal-control-run-Native",
+      "command": [
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/wrapped-refusal-control"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "9af837efee7e10fe7cd5cdf4612c946f485a968e276a2430d7b31efe5dda43b0"
+    },
+    {
+      "label": "wrapped-recovery-control-check",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/wrapped-recovery-control.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    {
+      "label": "wrapped-recovery-control-emit-JS",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/wrapped-recovery-control.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/wrapped-recovery-control.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "wrapped-recovery-control-run-JS",
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/wrapped-recovery-control.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "159e0d2bcdff0e09c01236b1edac7975e4ceb2de8aaeb302a4d4d83f754f73ac"
+    },
+    {
+      "label": "wrapped-recovery-control-emit-Native",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/wrapped-recovery-control.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/wrapped-recovery-control.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "wrapped-recovery-control-compile",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/wrapped-recovery-control.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/wrapped-recovery-control",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "wrapped-recovery-control-run-Native",
+      "command": [
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/wrapped-recovery-control"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "159e0d2bcdff0e09c01236b1edac7975e4ceb2de8aaeb302a4d4d83f754f73ac"
+    },
+    {
+      "label": "producer-fuel-control-check",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/producer-fuel-control.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    {
+      "label": "producer-fuel-control-emit-JS",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/producer-fuel-control.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/producer-fuel-control.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "producer-fuel-control-run-JS",
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/producer-fuel-control.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "d57428357684d25656e03242c014c746fea40804408344f66d1fd81ec6a0ea06"
+    },
+    {
+      "label": "producer-fuel-control-emit-Native",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/producer-fuel-control.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/producer-fuel-control.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "producer-fuel-control-compile",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/producer-fuel-control.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/producer-fuel-control",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "producer-fuel-control-run-Native",
+      "command": [
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/producer-fuel-control"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "d57428357684d25656e03242c014c746fea40804408344f66d1fd81ec6a0ea06"
+    },
+    {
+      "label": "view-fuel-control-check",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/view-fuel-control.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    {
+      "label": "view-fuel-control-emit-JS",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/view-fuel-control.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/view-fuel-control.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "view-fuel-control-run-JS",
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/view-fuel-control.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "d61aff1861ba2bfee7bd3bdf0c76c7d695747539a52e305573e19e73e70f787a"
+    },
+    {
+      "label": "view-fuel-control-emit-Native",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/view-fuel-control.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/view-fuel-control.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "view-fuel-control-compile",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/view-fuel-control.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/view-fuel-control",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "view-fuel-control-run-Native",
+      "command": [
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/view-fuel-control"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "d61aff1861ba2bfee7bd3bdf0c76c7d695747539a52e305573e19e73e70f787a"
+    },
+    {
+      "label": "get-validation-control-check",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/get-validation-control.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    {
+      "label": "get-validation-control-emit-JS",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/get-validation-control.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/get-validation-control.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "get-validation-control-run-JS",
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/get-validation-control.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "f9a05552f08c3dbf670745fc200976dad70a69737202eb89391d2216eedfef61"
+    },
+    {
+      "label": "get-validation-control-emit-Native",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/get-validation-control.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/get-validation-control.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "get-validation-control-compile",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/get-validation-control.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/get-validation-control",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "get-validation-control-run-Native",
+      "command": [
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/get-validation-control"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "f9a05552f08c3dbf670745fc200976dad70a69737202eb89391d2216eedfef61"
+    },
+    {
+      "label": "tx-set-refusal-control-check",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/tx-set-refusal-control.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    {
+      "label": "tx-set-refusal-control-emit-JS",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/tx-set-refusal-control.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/tx-set-refusal-control.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "tx-set-refusal-control-run-JS",
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/tx-set-refusal-control.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "55fec8ff7cc101df5141c06444d791d74f0d895b48cced644439b9d485d3e029"
+    },
+    {
+      "label": "tx-set-refusal-control-emit-Native",
+      "command": [
+        "bend",
+        "/workspace/formal-proofs/bendvy/experiments/public-optimized-compose/tx-set-refusal-control.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/tx-set-refusal-control.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "tx-set-refusal-control-compile",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/tx-set-refusal-control.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/tx-set-refusal-control",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "tx-set-refusal-control-run-Native",
+      "command": [
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-replays/ten-cases/tx-set-refusal-control"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdoutSHA256": "55fec8ff7cc101df5141c06444d791d74f0d895b48cced644439b9d485d3e029"
+    }
+  ],
+  "status": "PASS",
+  "bendVersion": "bend 2.0.35",
+  "generatedHashes": {
+    "workshop-main.js": "0c3105cf09b5868a2dc1ef30b7cfd526477abb85a290261274cb7e90fac32f78",
+    "workshop-main.c": "2432096bab5d4899520fb3c2b1a2cf7a07728f7d39428a79c5911604c1ee2893",
+    "prepared-control.js": "6d91b96380f13b250bfa5ae6a59ac73db340ff2218c961b0774aa70b40f6a0b4",
+    "prepared-control.c": "fca3996c9d14d229dd0020a7fdee9fabdba8ddd6f881bbae44107345aa4a6eb6",
+    "refusal-control.js": "312ebf170bd9e3a588a75e8eaa8a73f92327a4a2327929fc03eed4e9357bc538",
+    "refusal-control.c": "58737ecd76505413acefc697caea4677f5796840ef0f8d980f714b92da52265c",
+    "wrapped-prepared-control.js": "9c2e6301e7d15e4d0c47ab74b742dde6434ab866af6f080e6635d52b38cabfcb",
+    "wrapped-prepared-control.c": "434a8ae78ebc88d6dabf58f05a6f9b4b2f732bc6089e268d6ef9ee98bdc79dfa",
+    "wrapped-refusal-control.js": "de1500dd8f2146b05dd1ee58ce933b4ac293e30c28c7bd2b69cbe9482ea10149",
+    "wrapped-refusal-control.c": "b79f6e278865fb4f9f696fc371b27b3a0fe773e9218e60b9be731225d2fa4bf9",
+    "wrapped-recovery-control.js": "c06f9f8557dcce3e94425f33208d498133741172177896cb2f8e211e7ec87436",
+    "wrapped-recovery-control.c": "1226652d8579b3afd014958f5177e720993df29e0a348e25df03e3864d7e1626",
+    "producer-fuel-control.js": "624c11e3922fa63d5a47e29638e4999360c7a302e2761d370e4c4a19d417bbc9",
+    "producer-fuel-control.c": "5102eeec8cb7fb2e8166d38e93e4ca44777e84ef9518799c91fcb97ec1868dbb",
+    "view-fuel-control.js": "e5533c8aab2b52f04111bed3b47575d77437e377d0a3d3511d99d55e2f2f4baf",
+    "view-fuel-control.c": "b5c1110a175be1467e2bebe077747f81929af9edabbb1e326edcd88ad09ebfd5",
+    "get-validation-control.js": "85ea5eb155163668354f7a684196f4a0691bbcd7e04294cc2ea9ae3e8e85b623",
+    "get-validation-control.c": "0da29577bbd5c3121c5ef14cb1ddab5b0553b2d5d3818db0151f4fccea49f65f",
+    "tx-set-refusal-control.js": "ce772ded964704dea0662f6b42aeb1be712915444acb275598bc72629a3ba1d1",
+    "tx-set-refusal-control.c": "57e7489947fdc3469423cc1a8b41b9105327f9ce7d8295d063d44241d27b9dd3"
+  },
+  "binaryHashes": {
+    "workshop-main": "8fe431ede45a9f1fa3ae1211b8822fd1364d65cc93e018c6451ab4b470bdf51e",
+    "prepared-control": "7cb72a2dd0dc167b2a9903c5ef02ec7006d902fb7f8981734f57fdf3cf361ecf",
+    "refusal-control": "07b5c8ca2b519fd9f3e4b934df19d43b3781d7a2e0fc1f329b72c3384bed7825",
+    "wrapped-prepared-control": "dcae74000b4d1ff0c4b9b02db340cc4b3cf6f871648879640d376abe8a1dea99",
+    "wrapped-refusal-control": "68ce94cd1775e3672d5594bd832feb8755498253746bf4a7c04fd8efb6db869b",
+    "wrapped-recovery-control": "2b17b41ede73e692a6abc59a266fa897ef07e0d936f7653479660252cdd0ab2b",
+    "producer-fuel-control": "ea604d0854544be0a5e0807a8cb4aef8d9114af0dbaa67fa819ecd2af5d75fc6",
+    "view-fuel-control": "6b13fbe13aefb7cdb0985a24bf2900a96ea8932ed60e2fcb5942808813a3792f",
+    "get-validation-control": "352fe96f4a81b4b0aa14cb6548588e58c2cbd0728048322f5933d14fa5e65312",
+    "tx-set-refusal-control": "7fe3c6a98574e0163e8aee05b5317f9da04f8955cea0dad4973acfed78864e31"
+  }
+}

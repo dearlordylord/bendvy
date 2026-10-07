@@ -1,0 +1,34 @@
+{
+  "generated_sources": {
+    "normal.js": "26a412f7538db2e1347da8bf6a69bb48270b4621b0d34c31bc8fd79095c8c252",
+    "normal.c": "dedc1156ffc1d0f9bb3460a5aefb90c1341ef6fa216c746e7b6cb2beb2cd1bef"
+  },
+  "audit_source_sha256": "cf2d92c8314a77d67d4d5007ce04fc1095c50fd64eccdf69b9acaf2036701436",
+  "js_fast_helpers": [
+    "$fast$058loop$1261$",
+    "$fast$058finish_absent$1260$",
+    "$fast$058step$1260$",
+    "$fast$058inspect$1260$",
+    "$fast$058inspect$1261$",
+    "$fast$058choose$1260$",
+    "$fast$058loop$1260$"
+  ],
+  "js_loop_helpers": [
+    "$fast$058loop$1261$",
+    "$fast$058loop$1260$"
+  ],
+  "js_advance_no_handoff_reconstruction": true,
+  "js_fast_no_inspect_choice_literals": true,
+  "native_decision_loops": {
+    "spin_30": {
+      "signature": "FAR Term spin_30(Env e, THR Term* o, Term r0, Term r1, Term r2, Term r3, u32 r4, Term r5, Term r6, u32 r7, u32 r8, Term r9) {",
+      "decision_binding": "Term _decision_0 = r9;"
+    },
+    "spin_32": {
+      "signature": "FAR Term spin_32(Env e, THR Term* o, Term r0, Term r1, Term r2, Term r3, u32 r4, Term r5, Term r6, u32 r7, u32 r8, Term r9) {",
+      "decision_binding": "Term _decision_0 = r9;"
+    }
+  },
+  "native_actual_boxed_decision": true,
+  "limits": "Syntactic generated-code audit, not runtime allocation or speed. Native chooses heap-backed tagged Decision and boxes Payload inside; no zero-cost carrier claim. Existing legacy/indexed oracle emission remains unchanged."
+}

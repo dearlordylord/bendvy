@@ -1,0 +1,418 @@
+{
+  "status": "PASS",
+  "sources": {
+    "experiments/public-optimized-compose/indexed-seek-view-probe/fast.bend": "bda18f06ec637059802858cd96bd1fbdca7cc2cf8db1bff95cbec903f4e1a14a",
+    "experiments/public-optimized-compose/indexed-seek-view-probe/fixture.bend": "84d93b980e6eed3535fdebded6b2ee8f50953cc5adc6979e433c56e7e4cc8fed",
+    "experiments/public-optimized-compose/indexed-seek-view-probe/negative-owner.bend": "3f0e6367081d7cc58c2bbc50240bb98cb810dbcf7622ac7ea36d166513887752",
+    "experiments/public-optimized-compose/indexed-seek-view-probe/run.py": "f4890eaf44382158e17c3ede41bed23d84dea4aeeb4690dbcb49465a6d2dacf5",
+    "experiments/public-optimized-compose/workshop/schema.bend": "0903e05d7755c4ede468e2b60da505edf95c5db52b7adf69704ce651b49bb117",
+    "src/ecs/capabilities.bend": "91c0cdc01e9143d10dc0156ef4f6c39beff97d8088ed0bbb056ffff2ffabf964",
+    "src/ecs/captured-column.bend": "340efc234a5681adb2ccd35da22a1cbe3fbde4d15f0e6a3f8a75e76c4852df0a",
+    "src/ecs/column.bend": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+    "src/ecs/commands.bend": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+    "src/ecs/component.bend": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+    "src/ecs/compose.bend": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+    "src/ecs/event-runtime.bend": "409b45060a9d8b02ce5bf43c584f2be05b81b2239b04e75dca384f07cc626ea7",
+    "src/ecs/events.bend": "fffc3ec427072c4ba1c880f2ba8a73c1fcd1db66550cf63cdce56ba9e10bdc63",
+    "src/ecs/indexed-lifecycle.bend": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+    "src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "src/ecs/local.bend": "8cc5b3c9d3597c60d8a1b9b7fd206a92b289669c3cd9a8575db65ce9af37bd47",
+    "src/ecs/optimized-compose.bend": "ac9c98457c7d6890f1f30dd82f41658a5d3ae962a7fb9022062af5b9d581ca25",
+    "src/ecs/owned-compose.bend": "1115ffe6db7a1940b53889f53df09cff7fd43a3d244e07b843ea9094f62d31c7",
+    "src/ecs/owned-family.bend": "1fe504b1130eed24fb0c1dfc9bf7c6de0ab0f855d4adf30694a1f6b3c634f7e1",
+    "src/ecs/owned-optimized-compose.bend": "3e651cc49f4d6cfb37ea5af07a4b4668a8983911a7547a03aec193f9ca305fff",
+    "src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+    "src/ecs/provider.bend": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72",
+    "src/ecs/query-contract.bend": "de8eb5a047d2ca82e5832513798a6590a2cd025296b80b154da65a51270c4e91",
+    "src/ecs/query.bend": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9",
+    "src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+    "src/ecs/removals.bend": "98a5f5cf42372d8eab35f3927539079e4412886eeaa3e07bbb2113f2286222f6",
+    "src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+    "src/ecs/restored-row.bend": "9a1e25359a7775e230ad1b720180db622c12c2e9757cba98acef9c89e8d0f2d5",
+    "src/ecs/row-column.bend": "f3846a5378958c522d4053f13f7af4898a8a60c76f7534b060f020adca631f72",
+    "src/ecs/schedule.bend": "ad7a7c4187bfb028d01e98b821bd65078ae503604ec04ab645440be3898caa9f",
+    "src/ecs/structural.bend": "e8e813dc6de2f8a38ca61f51c0cbc5aeaf243fcc9cd399303e2adca2674480d4",
+    "src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+    "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "src/ecs/world.bend": "7d394b623b8bb60a3fef7b160bb69af135719edd3008126ee186e190047708f8"
+  },
+  "scope": "972 legacy/indexed/new triples and four wrapped raw controls; finite only; no performance qualification",
+  "commands": [
+    {
+      "label": "version",
+      "command": [
+        "bend",
+        "version"
+      ],
+      "cap_seconds": 5,
+      "exit": 0
+    },
+    {
+      "label": "guide",
+      "command": [
+        "bend",
+        "guide"
+      ],
+      "cap_seconds": 5,
+      "exit": 0
+    },
+    {
+      "label": "check",
+      "command": [
+        "bend",
+        "/tmp/indexed-seek-source-l5893s50/experiments/public-optimized-compose/indexed-seek-view-probe/fixture.bend",
+        "--check-only"
+      ],
+      "cap_seconds": 5,
+      "exit": 0
+    },
+    {
+      "label": "negative-owner",
+      "command": [
+        "bend",
+        "/tmp/indexed-seek-source-l5893s50/experiments/public-optimized-compose/indexed-seek-view-probe/negative-owner.bend",
+        "--check-only"
+      ],
+      "cap_seconds": 5,
+      "exit": 1
+    },
+    {
+      "label": "normal-emit-JS",
+      "command": [
+        "bend",
+        "/tmp/indexed-seek-source-l5893s50/experiments/public-optimized-compose/indexed-seek-view-probe/fixture.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-probe-final/normal.js"
+      ],
+      "cap_seconds": 30,
+      "exit": 0
+    },
+    {
+      "label": "normal-run-JS",
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-probe-final/normal.js"
+      ],
+      "cap_seconds": 5,
+      "exit": 0
+    },
+    {
+      "label": "normal-emit-Native",
+      "command": [
+        "bend",
+        "/tmp/indexed-seek-source-l5893s50/experiments/public-optimized-compose/indexed-seek-view-probe/fixture.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-probe-final/normal.c"
+      ],
+      "cap_seconds": 30,
+      "exit": 0
+    },
+    {
+      "label": "normal-compile",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-probe-final/normal.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-probe-final/normal",
+        "-pthread",
+        "-lm"
+      ],
+      "cap_seconds": 120,
+      "exit": 0
+    },
+    {
+      "label": "normal-run-Native",
+      "command": [
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-probe-final/normal"
+      ],
+      "cap_seconds": 5,
+      "exit": 0
+    },
+    {
+      "label": "head-check",
+      "command": [
+        "bend",
+        "/tmp/indexed-seek-source-l5893s50/experiments/public-optimized-compose/indexed-seek-view-probe/fixture.bend",
+        "--check-only"
+      ],
+      "cap_seconds": 5,
+      "exit": 0
+    },
+    {
+      "label": "head-emit-JS",
+      "command": [
+        "bend",
+        "/tmp/indexed-seek-source-l5893s50/experiments/public-optimized-compose/indexed-seek-view-probe/fixture.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-probe-final/head.js"
+      ],
+      "cap_seconds": 30,
+      "exit": 0
+    },
+    {
+      "label": "head-run-JS",
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-probe-final/head.js"
+      ],
+      "cap_seconds": 5,
+      "exit": 0
+    },
+    {
+      "label": "head-emit-Native",
+      "command": [
+        "bend",
+        "/tmp/indexed-seek-source-l5893s50/experiments/public-optimized-compose/indexed-seek-view-probe/fixture.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-probe-final/head.c"
+      ],
+      "cap_seconds": 30,
+      "exit": 0
+    },
+    {
+      "label": "head-compile",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-probe-final/head.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-probe-final/head",
+        "-pthread",
+        "-lm"
+      ],
+      "cap_seconds": 120,
+      "exit": 0
+    },
+    {
+      "label": "head-run-Native",
+      "command": [
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-probe-final/head"
+      ],
+      "cap_seconds": 5,
+      "exit": 0
+    },
+    {
+      "label": "history-check",
+      "command": [
+        "bend",
+        "/tmp/indexed-seek-source-l5893s50/experiments/public-optimized-compose/indexed-seek-view-probe/fixture.bend",
+        "--check-only"
+      ],
+      "cap_seconds": 5,
+      "exit": 0
+    },
+    {
+      "label": "history-emit-JS",
+      "command": [
+        "bend",
+        "/tmp/indexed-seek-source-l5893s50/experiments/public-optimized-compose/indexed-seek-view-probe/fixture.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-probe-final/history.js"
+      ],
+      "cap_seconds": 30,
+      "exit": 0
+    },
+    {
+      "label": "history-run-JS",
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-probe-final/history.js"
+      ],
+      "cap_seconds": 5,
+      "exit": 0
+    },
+    {
+      "label": "history-emit-Native",
+      "command": [
+        "bend",
+        "/tmp/indexed-seek-source-l5893s50/experiments/public-optimized-compose/indexed-seek-view-probe/fixture.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-probe-final/history.c"
+      ],
+      "cap_seconds": 30,
+      "exit": 0
+    },
+    {
+      "label": "history-compile",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-probe-final/history.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-probe-final/history",
+        "-pthread",
+        "-lm"
+      ],
+      "cap_seconds": 120,
+      "exit": 0
+    },
+    {
+      "label": "history-run-Native",
+      "command": [
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-probe-final/history"
+      ],
+      "cap_seconds": 5,
+      "exit": 0
+    },
+    {
+      "label": "fuel-check",
+      "command": [
+        "bend",
+        "/tmp/indexed-seek-source-l5893s50/experiments/public-optimized-compose/indexed-seek-view-probe/fixture.bend",
+        "--check-only"
+      ],
+      "cap_seconds": 5,
+      "exit": 0
+    },
+    {
+      "label": "fuel-emit-JS",
+      "command": [
+        "bend",
+        "/tmp/indexed-seek-source-l5893s50/experiments/public-optimized-compose/indexed-seek-view-probe/fixture.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-probe-final/fuel.js"
+      ],
+      "cap_seconds": 30,
+      "exit": 0
+    },
+    {
+      "label": "fuel-run-JS",
+      "command": [
+        "node",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-probe-final/fuel.js"
+      ],
+      "cap_seconds": 5,
+      "exit": 0
+    },
+    {
+      "label": "fuel-emit-Native",
+      "command": [
+        "bend",
+        "/tmp/indexed-seek-source-l5893s50/experiments/public-optimized-compose/indexed-seek-view-probe/fixture.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-probe-final/fuel.c"
+      ],
+      "cap_seconds": 30,
+      "exit": 0
+    },
+    {
+      "label": "fuel-compile",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-probe-final/fuel.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-probe-final/fuel",
+        "-pthread",
+        "-lm"
+      ],
+      "cap_seconds": 120,
+      "exit": 0
+    },
+    {
+      "label": "fuel-run-Native",
+      "command": [
+        "/workspace/formal-proofs/bendvy/.artifacts/indexed-seek-view-probe-final/fuel"
+      ],
+      "cap_seconds": 5,
+      "exit": 0
+    }
+  ],
+  "mutants": {
+    "head": {
+      "changed_source": "experiments/public-optimized-compose/indexed-seek-view-probe/fast.bend",
+      "sha256": "4b6561ec59f05cba95ba7f1a460793d238e52918f89bb95e06ae90dd59c7f3f5",
+      "backends": {
+        "JS": "DETECTED",
+        "Native": "DETECTED"
+      }
+    },
+    "history": {
+      "changed_source": "experiments/public-optimized-compose/indexed-seek-view-probe/fast.bend",
+      "sha256": "cde6e1631f96e0ebd85ef2339898418ca1c28771c8138cba3004bf5f1aad107e",
+      "backends": {
+        "JS": "DETECTED",
+        "Native": "DETECTED"
+      }
+    },
+    "fuel": {
+      "changed_source": "experiments/public-optimized-compose/indexed-seek-view-probe/fast.bend",
+      "sha256": "074da23531586eb823ddbce1e6bc435324bc41c637ae11aa5f72591010e7d9f1",
+      "backends": {
+        "JS": "DETECTED",
+        "Native": "DETECTED"
+      }
+    }
+  },
+  "triples": 972,
+  "wrapped_controls": 4,
+  "artifacts": {
+    "check.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "check.stdout.gz": "64d79ad8f1a76241fcb52fb08767ae2d94b908bc8e6109e56651a71e21b913f0",
+    "fuel": "c56b403c079c6a838ccc221fdd9d9061a992c72c97cfc50b79d5154dcd25f99f",
+    "fuel-check.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "fuel-check.stdout.gz": "fcb2bf6b37ab5c597fa5054b33ca1a6b9af3c0fd476b7149f18939296381656a",
+    "fuel-compile.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "fuel-compile.stdout.gz": "0ea05d0e88d22659edba2cbed417748d69cbf23ac82e9b294d475e571e20640c",
+    "fuel-emit-JS.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "fuel-emit-JS.stdout.gz": "aadc0402c6a5752da1ac54abacc7071afddf70660c3afeeb72b8afcb65f5a5e6",
+    "fuel-emit-Native.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "fuel-emit-Native.stdout.gz": "c43b029b5f3562e728055b21b3c42d766de49755cf3c28149fc7b53bcc70e9fe",
+    "fuel-run-JS.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "fuel-run-JS.stdout.gz": "aa1af7ccb36fb5e83b0439796d65c1f639283f552fe6239502e509661d1c13a9",
+    "fuel-run-Native.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "fuel-run-Native.stdout.gz": "5aa091c6190a626c118fe9256ac95b7473833c4e5655bb18c02157d8285f44d9",
+    "fuel.c": "d2b51090dc9b9b6741c8ffa647e7acb84b6383aa91245e71d6aed0f4bafd8c7d",
+    "fuel.js": "ed059b5fe709ea665cc7662a06ce033bb2d646e071d155e2181af0b644aae37e",
+    "guide.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "guide.stdout.gz": "c4fe2e23c67afe6dc7233edb94d31afe05ccfc2bb6e2835717b803606f73772a",
+    "head": "2bb2f1d3c30580e191f9cae82b8ee0069e41162d869f6735f06991373dcb1ba2",
+    "head-check.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "head-check.stdout.gz": "92db08c09d3ff2eff4420a3560cd15c453c5c91b70682f6bf0ccb64ff4d19db7",
+    "head-compile.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "head-compile.stdout.gz": "375f9277f686df2acc1b941fef3220c7c017f51afa91472fc93248ec9b078a16",
+    "head-emit-JS.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "head-emit-JS.stdout.gz": "5ce87cfb3203c89138e26fe278d849257f3e1621876cd881e228887ca16ad5c8",
+    "head-emit-Native.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "head-emit-Native.stdout.gz": "081967762e324d7bd4a22de33ae79e0e6207b431f29245bbf54a480fa786712a",
+    "head-run-JS.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "head-run-JS.stdout.gz": "b20254859edf203c841cd1e53792be8372f6bab5fcbd4b261d353a419dbf9fdc",
+    "head-run-Native.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "head-run-Native.stdout.gz": "35101fca7b7952bf4d67069bdb6b00b63f5f7c55a9d19b16b2aadf9e202f6d86",
+    "head.c": "0209e1566e99aaed0f5ee7c9fd5a36bcd2d7c4737ac3751fb1fd1807c6ea43fe",
+    "head.js": "758743b2b5ac533879b06374ce871e33558e8880ee73880685c4ffaa7a2ffd46",
+    "history": "5a676f8797e106a4ca072b3f754bcc2ea90ae7486d55de3b9aaff23d9d064c39",
+    "history-check.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "history-check.stdout.gz": "7a10f53f6c1ae0ff40e042c5077efcac73389255ac26eb10eefdb39b2e90cd7c",
+    "history-compile.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "history-compile.stdout.gz": "771cdfbf4ffec59e778b145bf31c3f162ea9d2d54f30bd68e52b50c00a465aca",
+    "history-emit-JS.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "history-emit-JS.stdout.gz": "59970836b9a019970b1558fd79bef900c2f471965aed9c017a702d303f158a1c",
+    "history-emit-Native.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "history-emit-Native.stdout.gz": "df65d27ced1e53a4dbec9744ee60e818a58253301bca58e038f5b1863c0ba3e2",
+    "history-run-JS.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "history-run-JS.stdout.gz": "644fe4d6ff1480a101f268413fc36666e61642a49d13e1d682273b1735ed621d",
+    "history-run-Native.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "history-run-Native.stdout.gz": "7c6b0703e14312f899eb77f5bb42f3ded9af8b81adf0933b4835e5f8e019d23c",
+    "history.c": "5b76c6c39d8c8d84230e20af9215aca8b70f2058722af5bf5dbc3d40f6959079",
+    "history.js": "7be378eacbef4d444b02e0373de6e5dd2f6644da0bee012d4cc9de6394a33451",
+    "negative-owner.stderr": "99af2e0616028e8403e86a588e0a7e46d08d12cf28b45413a8ed94013c1ada76",
+    "negative-owner.stdout.gz": "d929ff1118d8a9ba601377b538933b15a67381f35a485f0ba376375c4400469b",
+    "normal": "24c05aa4dec28d72cb8d8106e54d7b7a49a51790d1a812932dd47421a1226a24",
+    "normal-compile.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "normal-compile.stdout.gz": "5bc36ac68c69164916fd20047e10fa72ce85d157d9f1d66688aa6aa79a4db815",
+    "normal-emit-JS.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "normal-emit-JS.stdout.gz": "6f9c2f51c09c6ec8d85594d8d4c6fd3421748b1e6ea1f78bfc19c6a97e07fdfc",
+    "normal-emit-Native.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "normal-emit-Native.stdout.gz": "40f06332802497521f625e3aae393a79f4dbaed38cdc1e29f4d6627a8835682a",
+    "normal-run-JS.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "normal-run-JS.stdout.gz": "aad70396fcc13a0568a37a8935f300717237610fd0c0ba612844851d21291d5f",
+    "normal-run-Native.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "normal-run-Native.stdout.gz": "85de6b5b6c699c811b1f25644ab87772f2f4b093eaabd312e72acff241399702",
+    "normal.c": "dedc1156ffc1d0f9bb3460a5aefb90c1341ef6fa216c746e7b6cb2beb2cd1bef",
+    "normal.js": "26a412f7538db2e1347da8bf6a69bb48270b4621b0d34c31bc8fd79095c8c252",
+    "version.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "version.stdout.gz": "a98d166553ae2534284f4efd133ac52f0ce5f07d7bb7febb9926f88a442d952f"
+  }
+}

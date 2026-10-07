@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : Cap.Write<body~H, P.Payload, P.View>
+- observed : Cap.Read<body~H, P.View>
+Context:
+- args : Bool
+- row  : body~H
+Location: body
+ 9 | def body(~H:Type,~caps:S.Ops<H>,args:Bool,row:H) -> H & (T.Outcome<Unit> & List<&2,U32>):
+10>|   (Cap.set(~H,~P.Payload,~P.View,~S.first(~H,caps),row,P.Payload{ANode{ALeaf{9},ALeaf{9}}}),(T.Success{},[]))
+   |                                   ^^^^^^^^^^^^^^^^
+11 | 

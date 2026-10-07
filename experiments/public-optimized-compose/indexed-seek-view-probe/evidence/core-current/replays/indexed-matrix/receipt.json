@@ -1,0 +1,213 @@
+{
+  "status": "PASS",
+  "sourceHashes": {
+    "experiments/public-optimized-compose/indexed-capture-matrix/fixture.bend": "d78cd0b3757247743f93f6b74b63d0bbd18612960cc6ff3719219dc6c6d20a42",
+    "experiments/public-optimized-compose/indexed-capture-matrix/main.bend": "708ec839d573b9101f4a57afb0505a3f6a44842e0816e045550c4893cfe90a0b",
+    "experiments/public-optimized-compose/indexed-capture-matrix/smoke.bend": "373c6c9bc63184a53b9c4c350991dc31d14d02ff51dd91bdd4a759d55efa529f",
+    "experiments/public-optimized-compose/indexed-capture-matrix/verify.py": "b596dcd2ee2580f5eec41708091781025aa458d5c0741a85bb8950293441295f",
+    "src/ecs/captured-column.bend": "340efc234a5681adb2ccd35da22a1cbe3fbde4d15f0e6a3f8a75e76c4852df0a",
+    "src/ecs/column.bend": "dd7ead147396f13f464fdca8f48fff9c0b185872d9a09548d92bf13529f2f0ab",
+    "src/ecs/indexed-lifecycle.bend": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+    "src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec"
+  },
+  "commands": [
+    {
+      "command": [
+        "bend",
+        "version"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdout": "version-Bend.stdout",
+      "stderr": "version-Bend.stderr"
+    },
+    {
+      "command": [
+        "node",
+        "--version"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdout": "version-Node.stdout",
+      "stderr": "version-Node.stderr"
+    },
+    {
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "--version"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdout": "version-Clang.stdout",
+      "stderr": "version-Clang.stderr"
+    },
+    {
+      "command": [
+        "bend",
+        "/tmp/indexed-capture-matrix-lnz6rm5g/experiments/public-optimized-compose/indexed-capture-matrix/smoke.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdout": "smoke-checker.stdout",
+      "stderr": "smoke-checker.stderr"
+    },
+    {
+      "command": [
+        "bend",
+        "/tmp/indexed-capture-matrix-lnz6rm5g/experiments/public-optimized-compose/indexed-capture-matrix/smoke.bend",
+        "-o",
+        "/tmp/indexed-capture-matrix-lnz6rm5g/smoke.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdout": "smoke-emit-js.stdout",
+      "stderr": "smoke-emit-js.stderr"
+    },
+    {
+      "command": [
+        "bend",
+        "/tmp/indexed-capture-matrix-lnz6rm5g/experiments/public-optimized-compose/indexed-capture-matrix/smoke.bend",
+        "-o",
+        "/tmp/indexed-capture-matrix-lnz6rm5g/smoke.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdout": "smoke-emit-c.stdout",
+      "stderr": "smoke-emit-c.stderr"
+    },
+    {
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/indexed-capture-matrix-lnz6rm5g/smoke.c",
+        "-o",
+        "/tmp/indexed-capture-matrix-lnz6rm5g/smoke.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "stdout": "smoke-build.stdout",
+      "stderr": "smoke-build.stderr"
+    },
+    {
+      "command": [
+        "node",
+        "/tmp/indexed-capture-matrix-lnz6rm5g/smoke.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdout": "smoke-JS.stdout",
+      "stderr": "smoke-JS.stderr"
+    },
+    {
+      "command": [
+        "/tmp/indexed-capture-matrix-lnz6rm5g/smoke.native"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdout": "smoke-Native.stdout",
+      "stderr": "smoke-Native.stderr"
+    },
+    {
+      "command": [
+        "bend",
+        "/tmp/indexed-capture-matrix-lnz6rm5g/experiments/public-optimized-compose/indexed-capture-matrix/main.bend",
+        "--check-only"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdout": "main-checker.stdout",
+      "stderr": "main-checker.stderr"
+    },
+    {
+      "command": [
+        "bend",
+        "/tmp/indexed-capture-matrix-lnz6rm5g/experiments/public-optimized-compose/indexed-capture-matrix/main.bend",
+        "-o",
+        "/tmp/indexed-capture-matrix-lnz6rm5g/main.js"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdout": "main-emit-js.stdout",
+      "stderr": "main-emit-js.stderr"
+    },
+    {
+      "command": [
+        "bend",
+        "/tmp/indexed-capture-matrix-lnz6rm5g/experiments/public-optimized-compose/indexed-capture-matrix/main.bend",
+        "-o",
+        "/tmp/indexed-capture-matrix-lnz6rm5g/main.c"
+      ],
+      "limit": 30,
+      "exit": 0,
+      "stdout": "main-emit-c.stdout",
+      "stderr": "main-emit-c.stderr"
+    },
+    {
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/indexed-capture-matrix-lnz6rm5g/main.c",
+        "-o",
+        "/tmp/indexed-capture-matrix-lnz6rm5g/main.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limit": 120,
+      "exit": 0,
+      "stdout": "main-build.stdout",
+      "stderr": "main-build.stderr"
+    },
+    {
+      "command": [
+        "node",
+        "/tmp/indexed-capture-matrix-lnz6rm5g/main.js"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdout": "main-JS.stdout",
+      "stderr": "main-JS.stderr"
+    },
+    {
+      "command": [
+        "/tmp/indexed-capture-matrix-lnz6rm5g/main.native"
+      ],
+      "limit": 5,
+      "exit": 0,
+      "stdout": "main-Native.stdout",
+      "stderr": "main-Native.stderr"
+    }
+  ],
+  "cases": {
+    "smoke-JS": 6,
+    "smoke-Native": 6,
+    "main-JS": 2430,
+    "main-Native": 2430
+  },
+  "scope": {
+    "targets": [
+      0,
+      5
+    ],
+    "fuel": [
+      0,
+      8
+    ],
+    "phases": [
+      "Inspect",
+      "ChoiceFF",
+      "ChoiceFT",
+      "ChoiceTF",
+      "ChoiceTT"
+    ],
+    "remainingKinds": 3,
+    "historyKinds": 3,
+    "incoming": "None",
+    "restore": "None,dirty=False",
+    "metadata": "fresh indexed normal ticks plus explicit exceptional zero stamps; compared by canonical stamp observations, not raw list representation"
+  },
+  "sourceGuard": "PASS"
+}

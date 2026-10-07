@@ -203,3 +203,33 @@ The #31 main event trace's five complete observations per backend pass at 65,535
 ## Delivery checkpoint
 
 Commit [bfb4360d](https://github.com/dearlordylord/bendvy/commit/bfb4360d) is pushed to master. #29/#31/#32/#33/#36 are closed after English governing-issue completion reports with direct semantic, timing, review and default regression evidence. Experimental #30 source and all failed gates remain explicitly experimental; #30 is open and its performance acceptance is not waived. The full six-ticket objective remains incomplete.
+
+
+## Fused Inspect isolated controls
+
+The exact private prototype passes 972 complete legacy/indexed/new observations on both backends, four independently expected wrapped/raw controls, an affine duplication negative and reached head omission/history reordering/fuel-1 projection mutants. The final fresh source-bound pipeline runs 27 operations with per-operation root/staged guards. The new JS path omits transient Choice/Inspect and inspected HandoffCon reconstruction; Native uses actual boxed owner transport. These emitted-code facts do not establish allocation or speed. Original and final receipts remain distinct. Exact live promotion and direct actual-core/full application controls are now authorized; no new performance result exists yet.
+
+
+## Fused Inspect live integration
+
+Column `dd7ead147396f13f464fdca8f48fff9c0b185872d9a09548d92bf13529f2f0ab` preserves the existing public helper and changes only the internal indexed forward route. Actual-core controls, three reached mutants, prepared 60 pairs, both 2,430-pair phase/capture matrices, 12 owned/indexed negatives and ten public closure cases pass on JS/Native. Full provider controls pass 14 transaction/access pairs and all 23 Workshop points, including the restoration mutation. Root eight-part old-consumer suite passes on this source. Direct/provenance/provider/phase/confinement evidence is retained under `indexed-seek-view-probe/evidence/core-current/`. The new paired prepared comparison is running on this frozen closure; no speed result is yet available.
+
+
+### Fused Inspect measurements
+
+The unchanged selected-provider gate remains REGRESSION: JS 1.298132 (19/20 slower, exact p = 0.0000200272, Holm cutoff 0.025); Native 0.994465 (9/20 slower, p = 0.748278; no confirmed slowdown). Complete receipt and 110 outputs are retained under `benchmarks/evidence/frontier-fused-inspect-prepared-regression/`. No speed acceptance follows.
+
+Matched 200-application CPU/allocation profiles pass all full observations for the candidate and the actual frozen baseline. Candidate sampled node-self allocation is 815.195464 MB, prior indexed-projection candidate 829.437912 MB, and frozen baseline 1,026.048928 MB. Lower sampled allocation therefore does not by itself explain the remaining slowdown. Single-profile CPU totals are 1,308.153 ms candidate / 1,030.982 ms baseline; these diagnostics are not a paired inference. Raw profiles/receipts/full outputs are retained in `node-profiles/evidence/after-fused-inspect/` and `frozen-baseline/`.
+
+Generated candidate JS is 915,728 bytes / 1,597 declared functions; baseline is 327,960 bytes / 857. Textually exact duplicate signature/body groups account for 120,407 excess body bytes in candidate and 34,392 in baseline. This source-size diagnostic neither proves a causal speed cost nor authorizes emitted-code rewriting. The narrow step/choose erased-helper idea would remove only about 10 KB and cannot be assumed to solve the complete gap; inspect typed runtime packing before selecting any broader source change.
+
+
+## Host contention constraint
+
+The user announced CPU contention, potentially overnight, after the latest fused gate and profiles had terminated. New timing/profiling is deferred; numerical gates, workloads and checker/runtime limits are unchanged. Source analysis and isolated canary preparation continue. A timeout under contention must be recorded as inconclusive infrastructure evidence, not silently interpreted as a semantic regression or used to raise limits. The new executable Column remains uncommitted pending its current-source default gate and final acceptance.
+
+### Scoped acceptance amendment and rejected experiment — 2026-10-07
+
+The user explicitly selected changing #30 to comparison against bevy-ts: complete equivalent Workshop JS <= TS and Native <= 0.5 * TS. This removes only the additional historical Bend comparison for #30; the unchanged default #28 gate and full-core qualification remain binding. Historical REGRESSION receipts are not relabeled. Final source/evidence reconciliation and review remain required before closure.
+
+The fused Inspect candidate is rejected as an unnecessary complication without meaningful latency benefit. Live Column is exactly restored to committed `3fec368b`; all 34 current core hashes match the passing default gate. Exact rejected source and old-consumer replay are retained under `node-profiles/evidence/fused-rejected-source/`. Its controls and timing describe historical `dd7ead14`, not the restored live source. The selected array-view route remains unchanged; its retained complete cohort reports JS/TS 0.548940 and Native/TS 0.072534 on startup/output-inclusive work. No new measurements run during announced CPU contention.

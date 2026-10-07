@@ -1,0 +1,74 @@
+{
+  "files": {
+    ".artifacts/frontier-fused-inspect-prepared-regression/candidate/workshop.js": "2f16ddf72e9da77955a67f21a6a115b2561cf1153dc5692674bae585331fb1ba",
+    ".artifacts/frontier-fused-inspect-prepared-regression/candidate/workshop.c": "460fb6c0ceaad5ccbeac1a10fb87c2aff5b26e691589790b11af8702d77a0ff5",
+    ".artifacts/fused-inspect-after-node-profiles/summary.json": "82a0c9482b951f47f83879864f555c8b55c6dabb4d4582b127cb3db2ec90c2f8",
+    "src/ecs/column.bend": "dd7ead147396f13f464fdca8f48fff9c0b185872d9a09548d92bf13529f2f0ab",
+    ".references/bend2/bend2/comp.ts": "32fb66e09f608ce9e4b173384bcfeec453db8c5bc96650e26ad861bef815a8d9"
+  },
+  "groups": {
+    "indexed_view_choose": {
+      "copies": 5,
+      "utf8_bytes": 3640,
+      "lines": 55,
+      "distinct_after_generated_suffix_normalization": 1
+    },
+    "indexed_view_step": {
+      "copies": 5,
+      "utf8_bytes": 8950,
+      "lines": 150,
+      "distinct_after_generated_suffix_normalization": 1
+    },
+    "indexed_view_loop": {
+      "copies": 5,
+      "utf8_bytes": 28312,
+      "lines": 520,
+      "distinct_after_generated_suffix_normalization": 5
+    }
+  },
+  "profile_rows": {
+    "cpuSelfMicroseconds": [
+      {
+        "name": "$$$/$$/src/ecs/column:indexed_view_loop",
+        "value": 10696
+      },
+      {
+        "name": "$$$/$$/src/ecs/column:indexed_view_step",
+        "value": 4722
+      },
+      {
+        "name": "$$$/$$/src/ecs/column:indexed_view_choose",
+        "value": 968
+      }
+    ],
+    "cpuInclusiveMicroseconds": [
+      {
+        "name": "$$$/$$/src/ecs/column:indexed_view_loop",
+        "value": 32550
+      },
+      {
+        "name": "$$$/$$/src/ecs/column:indexed_view_step",
+        "value": 5377
+      },
+      {
+        "name": "$$$/$$/src/ecs/column:indexed_view_choose",
+        "value": 968
+      }
+    ],
+    "heapSelfSampledBytes": [
+      {
+        "name": "$$$/$$/src/ecs/column:indexed_view_loop",
+        "value": 18913336
+      },
+      {
+        "name": "$$$/$$/src/ecs/column:indexed_view_choose",
+        "value": 2625736
+      },
+      {
+        "name": "$$$/$$/src/ecs/column:indexed_view_step",
+        "value": 1871360
+      }
+    ]
+  },
+  "limits": "Generated textual sizes and sampled profile attribution, not exact allocation totals or causal timing decomposition."
+}
