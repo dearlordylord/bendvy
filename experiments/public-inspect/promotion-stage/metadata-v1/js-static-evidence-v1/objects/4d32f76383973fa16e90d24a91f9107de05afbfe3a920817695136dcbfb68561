@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : definition
+- observed : definition (consumed more than once)
+Location: bad
+2 | 
+3>| def bad(~S:Data,~Plan:Type,definition:Meta.Definition<S,Plan>) -> Meta.Definition<S,Plan> & Meta.Definition<S,Plan>:
+  |                            ^^^^^^^^^^
+4 |   (definition,definition)

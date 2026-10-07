@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : List<&2, Meta.Resource<A.Schema>>
+- observed : List<&2, Meta.Resource<B.Schema>>
+Context:
+- requirements : List<&2, Meta.Resource<B.Schema>>
+- plan         : bad~Plan
+Location: bad
+5 | def bad(~Plan:Type,requirements:List<&2,Meta.Resource<B.Schema>>,plan:Plan) -> Meta.Definition<A.Schema,Plan>:
+6>|   Meta.make(~A.Schema,~Plan,"Cross",requirements,plan)
+  |                                     ^^^^^^^^^^^^
+7 | 

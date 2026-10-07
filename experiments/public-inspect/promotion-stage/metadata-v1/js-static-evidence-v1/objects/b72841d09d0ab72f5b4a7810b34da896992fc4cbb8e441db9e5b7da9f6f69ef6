@@ -1,0 +1,33 @@
+{
+  "scope": "Source type/quantity refusal only; not proof/full54/automatic Plan metadata truth",
+  "matchedPositive": "controls positive exit0 safe source same_schema make and owner into_plan",
+  "negatives": [
+    {
+      "label": "cross-schema",
+      "stderrSHA256": "b249ad1f8fb895dd8e71ca970a9fa2ec6d057198206d749e69c73839a0df98a6",
+      "expected": "List<&2, Meta.Resource<A.Schema>>",
+      "observed": "List<&2, Meta.Resource<B.Schema>>",
+      "location": "bad line6 requirements argument",
+      "classification": "INTENDED_SOURCE_TYPE_OR_QUANTITY_REFUSAL",
+      "authority": "Independent evidence_review, root confirmed; original raw receipt remains UNCLASSIFIED"
+    },
+    {
+      "label": "duplicate-plan",
+      "stderrSHA256": "4d32f76383973fa16e90d24a91f9107de05afbfe3a920817695136dcbfb68561",
+      "expected": "expected : definition",
+      "observed": "definition (consumed more than once)",
+      "location": "bad binder line3 and tuple line4",
+      "classification": "INTENDED_SOURCE_TYPE_OR_QUANTITY_REFUSAL",
+      "authority": "Independent evidence_review, root confirmed; original raw receipt remains UNCLASSIFIED"
+    },
+    {
+      "label": "escape-plan",
+      "stderrSHA256": "829504011a6120a31de6b517d74ca4054d0c62cd355b07ffdf40896a341249f3",
+      "expected": "expected : String",
+      "observed": "observed : bad~Plan",
+      "location": "bad line4 actual into_plan",
+      "classification": "INTENDED_SOURCE_TYPE_OR_QUANTITY_REFUSAL",
+      "authority": "Independent evidence_review, root confirmed; original raw receipt remains UNCLASSIFIED"
+    }
+  ]
+}

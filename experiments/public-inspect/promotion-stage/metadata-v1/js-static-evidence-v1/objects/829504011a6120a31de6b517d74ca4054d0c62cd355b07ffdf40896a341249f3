@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- expected : String
+- observed : bad~Plan
+Context:
+- definition : Meta.Definition<bad~S, bad~Plan>
+Location: bad
+3 | def bad(~S:Data,~Plan:Type,definition:Meta.Definition<S,Plan>) -> String:
+4>|   Meta.into_plan(~S,~Plan,definition)
+  |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+5 | 
