@@ -1,0 +1,36 @@
+import assert from 'node:assert/strict';
+import {Descriptor as D,Schema} from '/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/index.ts';
+const results=[];
+const copy=x=>JSON.parse(JSON.stringify(x,(_,v)=>v===undefined?{$undefined:true}:typeof v==='symbol'?{$symbol:String(v)}:v));
+const attempt=f=>{try{return {ok:true,value:f()};}catch(e){return {ok:false,name:e.name,message:e.message};}};
+for(const schema of ['Workshop','Garden']){
+ const Stock=D.Component()(schema+'/Stock'),Tag=D.Tag(schema+'/Tag'),Score=D.Resource()(schema+'/Score'),Ping=D.Event()(schema+'/Ping');
+ const G=Schema.bind(Schema.fragment({components:{Stock,Tag},resources:{Score},events:{Ping}}));
+ const runtime=G.Runtime.make({resources:{Score:{cells:[7,8]}}});let ids=[],held;
+ const plain=G.Query({selection:{stock:G.Query.read(Stock)}});
+ const added=G.Query({selection:{stock:G.Query.read(Stock)},filters:[G.Query.added(Stock)]});
+ const changed=G.Query({selection:{stock:G.Query.read(Stock)},filters:[G.Query.changed(Stock)]});
+ const spec={queries:{plain,added,changed},resources:{score:G.System.readResource(Score)},events:{ping:G.System.readEvent(Ping)},removed:{stock:G.System.readRemoved(Stock)},despawned:{entities:G.System.readDespawned()}};
+ const project=({queries,resources,events,removed,despawned})=>({rows:queries.plain.each().map(({entity,data})=>({id:entity.id.value,cells:copy(data.stock.get().cells)})),added:queries.added.each().map(x=>x.entity.id.value),changed:queries.changed.each().map(x=>x.entity.id.value),score:copy(resources.score.get()),events:copy(events.ping.all()),eventLag:events.ping.lagged(),removed:removed.stock.all().map(x=>x.value),despawned:despawned.entities.all().map(x=>x.value)});
+ const peek=G.Inspector(schema+'/Peek',spec,project);
+ const observe=(label,value)=>{results.push({schema,label,value:copy(value)});};
+ const inspect=label=>observe(label,runtime.inspect(peek));
+ const reader=G.System(schema+'/Reader',spec,ctx=>{observe('system-reader',project(ctx));});
+ const seed=G.System(schema+'/Seed',{events:{ping:G.System.writeEvent(Ping)}},({commands,events})=>{ids=[commands.spawn(G.Command.spawn([Stock,{cells:[11,12]}],[Tag,{}])),commands.spawn(G.Command.spawn([Stock,{cells:[21,22]}]))];events.ping.emit({cells:[31,32]});});
+ inspect('empty-first');inspect('empty-repeat');assert.equal(runtime.tick(G.Schedule(reader)).ok,true);
+ assert.equal(runtime.tick(G.Schedule(seed)).ok,true);inspect('pending-first');inspect('pending-repeat');
+ assert.equal(runtime.tick(G.Schedule(G.Schedule.applyDeferred())).ok,true);inspect('live-first');inspect('live-repeat');
+ const holding=G.Inspector(schema+'/Held',{queries:{plain},resources:{score:G.System.readResource(Score)}},ctx=>({cell:ctx.queries.plain.each()[0].data.stock,score:ctx.resources.score,query:ctx.queries.plain}));held=runtime.inspect(holding);
+ observe('held-before',{cells:copy(held.cell.get()),resource:copy(held.score.get()),lookup:held.query.get(ids[0]).ok});
+ assert.equal(runtime.tick(G.Schedule(reader)).ok,true);inspect('after-reader');
+ const update=G.System(schema+'/Update',{queries:{q:G.Query({selection:{stock:G.Query.write(Stock)}})},resources:{score:G.System.writeResource(Score)},events:{ping:G.System.writeEvent(Ping)}},({queries,resources,events})=>{for(const {data} of queries.q.each())data.stock.set({cells:data.stock.get().cells.map(x=>x+100)});resources.score.set({cells:[70,80]});events.ping.emit({cells:[41,42]});});
+ assert.equal(runtime.tick(G.Schedule(update)).ok,true);inspect('changed-first');inspect('changed-repeat');observe('held-after-write',{cell:attempt(()=>held.cell.get()),resource:attempt(()=>held.score.get())});
+ const check=G.Condition.check(schema+'/Check',{queries:{plain},resources:{score:G.System.readResource(Score)}},({queries,resources})=>{observe('check',{count:queries.plain.each().length,score:copy(resources.score.get())});return true;});
+ assert.equal(runtime.tick(G.Schedule(G.Schedule.when([check],reader, G.System(schema+'/AfterCheck',{},()=>{observe('gated-second',true);} )))).ok,true);
+ const cleanup=G.System(schema+'/Cleanup',{},({commands})=>{commands.remove(ids[0],Stock);commands.despawn(ids[1]);});assert.equal(runtime.tick(G.Schedule(cleanup)).ok,true);inspect('cleanup-pending');assert.equal(runtime.tick(G.Schedule(G.Schedule.applyDeferred())).ok,true);inspect('cleanup-first');inspect('cleanup-repeat');
+ observe('held-after-removal',{cell:attempt(()=>held.cell.get()),lookupLiveMismatch:held.query.get(ids[0]),lookupDead:held.query.get(ids[1])});assert.equal(runtime.tick(G.Schedule(reader)).ok,true);
+ let fail=true;const throwing=G.Inspector(schema+'/Throw',{resources:{score:G.System.readResource(Score)}},({resources})=>{if(fail)throw new Error('projection failed');return resources.score.get();});observe('throw',attempt(()=>runtime.inspect(throwing)));fail=false;observe('throw-retry',runtime.inspect(throwing));
+ const missing=G.Runtime.make();const resource=G.Inspector(schema+'/Missing',{resources:{score:G.System.readResource(Score)}},({resources})=>resources.score.get());observe('missing-inspect',attempt(()=>missing.inspect(resource)));const missingCondition=G.Condition.check(schema+'/Need',{resources:{score:G.System.readResource(Score)}},()=>true);observe('missing-check',missing.tryTick(G.Schedule.when([missingCondition],G.System(schema+'/Noop',{},()=>undefined))));observe('requirements',resource.requirements);
+ const lagRuntime=G.Runtime.make({resources:{Score:{cells:[7,8]}}});const lagPeek=G.Inspector(schema+'/Lag', {events:{ping:G.System.readEvent(Ping)}},({events})=>({events:copy(events.ping.all()),lagged:events.ping.lagged()}));observe('lag-start',lagRuntime.inspect(lagPeek));const emit=G.System(schema+'/Emit',{events:{ping:G.System.writeEvent(Ping)}},({events})=>{events.ping.emit({cells:[91,92]});});lagRuntime.tick(G.Schedule(emit));lagRuntime.tick(G.Schedule());lagRuntime.tick(G.Schedule());observe('lag-no-retention',lagRuntime.inspect(lagPeek));
+}
+console.log(JSON.stringify({format:1,application:'PublicInspect',observations:results}));
