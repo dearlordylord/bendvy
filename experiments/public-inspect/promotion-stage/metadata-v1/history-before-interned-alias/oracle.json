@@ -1,0 +1,482 @@
+{
+  "TS": {
+    "format": 1,
+    "application": "InspectorDefinitionMetadata",
+    "observations": [
+      {
+        "schema": "Workshop",
+        "case": "empty",
+        "read": "first",
+        "kind": "inspector",
+        "name": "Workshop/Metadata/empty",
+        "systemName": "Workshop/Metadata/empty",
+        "requirements": [],
+        "readCallbackIsSupplied": true,
+        "requirementsAreSystemRequirements": true,
+        "callbackCalls": 0,
+        "runtimeSetup": "not-created",
+        "factory": "bound"
+      },
+      {
+        "schema": "Workshop",
+        "case": "empty",
+        "read": "repeat",
+        "kind": "inspector",
+        "name": "Workshop/Metadata/empty",
+        "systemName": "Workshop/Metadata/empty",
+        "requirements": [],
+        "readCallbackIsSupplied": true,
+        "requirementsAreSystemRequirements": true,
+        "callbackCalls": 0,
+        "runtimeSetup": "not-created",
+        "factory": "bound"
+      },
+      {
+        "schema": "Workshop",
+        "case": "query-only",
+        "read": "first",
+        "kind": "inspector",
+        "name": "Workshop/Metadata/query-only",
+        "systemName": "Workshop/Metadata/query-only",
+        "requirements": [],
+        "readCallbackIsSupplied": true,
+        "requirementsAreSystemRequirements": true,
+        "callbackCalls": 0,
+        "runtimeSetup": "not-created",
+        "factory": "bound"
+      },
+      {
+        "schema": "Workshop",
+        "case": "query-only",
+        "read": "repeat",
+        "kind": "inspector",
+        "name": "Workshop/Metadata/query-only",
+        "systemName": "Workshop/Metadata/query-only",
+        "requirements": [],
+        "readCallbackIsSupplied": true,
+        "requirementsAreSystemRequirements": true,
+        "callbackCalls": 0,
+        "runtimeSetup": "not-created",
+        "factory": "bound"
+      },
+      {
+        "schema": "Workshop",
+        "case": "resource-absent",
+        "read": "first",
+        "kind": "inspector",
+        "name": "Workshop/Metadata/resource-absent",
+        "systemName": "Workshop/Metadata/resource-absent",
+        "requirements": [
+          {
+            "kind": "resource",
+            "id": 1,
+            "name": "Workshop/Score"
+          }
+        ],
+        "readCallbackIsSupplied": true,
+        "requirementsAreSystemRequirements": true,
+        "callbackCalls": 0,
+        "runtimeSetup": "absent",
+        "factory": "bound"
+      },
+      {
+        "schema": "Workshop",
+        "case": "resource-absent",
+        "read": "repeat",
+        "kind": "inspector",
+        "name": "Workshop/Metadata/resource-absent",
+        "systemName": "Workshop/Metadata/resource-absent",
+        "requirements": [
+          {
+            "kind": "resource",
+            "id": 1,
+            "name": "Workshop/Score"
+          }
+        ],
+        "readCallbackIsSupplied": true,
+        "requirementsAreSystemRequirements": true,
+        "callbackCalls": 0,
+        "runtimeSetup": "absent",
+        "factory": "bound"
+      },
+      {
+        "schema": "Workshop",
+        "case": "resource-present",
+        "read": "first",
+        "kind": "inspector",
+        "name": "Workshop/Metadata/resource-present",
+        "systemName": "Workshop/Metadata/resource-present",
+        "requirements": [
+          {
+            "kind": "resource",
+            "id": 1,
+            "name": "Workshop/Score"
+          }
+        ],
+        "readCallbackIsSupplied": true,
+        "requirementsAreSystemRequirements": true,
+        "callbackCalls": 0,
+        "runtimeSetup": "present",
+        "factory": "bound"
+      },
+      {
+        "schema": "Workshop",
+        "case": "resource-present",
+        "read": "repeat",
+        "kind": "inspector",
+        "name": "Workshop/Metadata/resource-present",
+        "systemName": "Workshop/Metadata/resource-present",
+        "requirements": [
+          {
+            "kind": "resource",
+            "id": 1,
+            "name": "Workshop/Score"
+          }
+        ],
+        "readCallbackIsSupplied": true,
+        "requirementsAreSystemRequirements": true,
+        "callbackCalls": 0,
+        "runtimeSetup": "present",
+        "factory": "bound"
+      },
+      {
+        "schema": "Workshop",
+        "case": "aliases",
+        "read": "first",
+        "kind": "inspector",
+        "name": "Workshop/Metadata/aliases",
+        "systemName": "Workshop/Metadata/aliases",
+        "requirements": [
+          {
+            "kind": "resource",
+            "id": 2,
+            "name": "Workshop/Bonus"
+          },
+          {
+            "kind": "resource",
+            "id": 1,
+            "name": "Workshop/Score"
+          }
+        ],
+        "readCallbackIsSupplied": true,
+        "requirementsAreSystemRequirements": true,
+        "callbackCalls": 0,
+        "runtimeSetup": "not-created",
+        "factory": "bound"
+      },
+      {
+        "schema": "Workshop",
+        "case": "aliases",
+        "read": "repeat",
+        "kind": "inspector",
+        "name": "Workshop/Metadata/aliases",
+        "systemName": "Workshop/Metadata/aliases",
+        "requirements": [
+          {
+            "kind": "resource",
+            "id": 2,
+            "name": "Workshop/Bonus"
+          },
+          {
+            "kind": "resource",
+            "id": 1,
+            "name": "Workshop/Score"
+          }
+        ],
+        "readCallbackIsSupplied": true,
+        "requirementsAreSystemRequirements": true,
+        "callbackCalls": 0,
+        "runtimeSetup": "not-created",
+        "factory": "bound"
+      },
+      {
+        "schema": "Workshop",
+        "case": "distinct-same-name",
+        "read": "first",
+        "kind": "inspector",
+        "name": "Workshop/Metadata/distinct-same-name",
+        "systemName": "Workshop/Metadata/distinct-same-name",
+        "requirements": [
+          {
+            "kind": "resource",
+            "id": 3,
+            "name": "Workshop/Shared"
+          },
+          {
+            "kind": "resource",
+            "id": 4,
+            "name": "Workshop/Shared"
+          }
+        ],
+        "readCallbackIsSupplied": true,
+        "requirementsAreSystemRequirements": true,
+        "callbackCalls": 0,
+        "runtimeSetup": "not-created",
+        "factory": "low-level-metadata-only"
+      },
+      {
+        "schema": "Workshop",
+        "case": "distinct-same-name",
+        "read": "repeat",
+        "kind": "inspector",
+        "name": "Workshop/Metadata/distinct-same-name",
+        "systemName": "Workshop/Metadata/distinct-same-name",
+        "requirements": [
+          {
+            "kind": "resource",
+            "id": 3,
+            "name": "Workshop/Shared"
+          },
+          {
+            "kind": "resource",
+            "id": 4,
+            "name": "Workshop/Shared"
+          }
+        ],
+        "readCallbackIsSupplied": true,
+        "requirementsAreSystemRequirements": true,
+        "callbackCalls": 0,
+        "runtimeSetup": "not-created",
+        "factory": "low-level-metadata-only"
+      },
+      {
+        "schema": "Garden",
+        "case": "empty",
+        "read": "first",
+        "kind": "inspector",
+        "name": "Garden/Metadata/empty",
+        "systemName": "Garden/Metadata/empty",
+        "requirements": [],
+        "readCallbackIsSupplied": true,
+        "requirementsAreSystemRequirements": true,
+        "callbackCalls": 0,
+        "runtimeSetup": "not-created",
+        "factory": "bound"
+      },
+      {
+        "schema": "Garden",
+        "case": "empty",
+        "read": "repeat",
+        "kind": "inspector",
+        "name": "Garden/Metadata/empty",
+        "systemName": "Garden/Metadata/empty",
+        "requirements": [],
+        "readCallbackIsSupplied": true,
+        "requirementsAreSystemRequirements": true,
+        "callbackCalls": 0,
+        "runtimeSetup": "not-created",
+        "factory": "bound"
+      },
+      {
+        "schema": "Garden",
+        "case": "query-only",
+        "read": "first",
+        "kind": "inspector",
+        "name": "Garden/Metadata/query-only",
+        "systemName": "Garden/Metadata/query-only",
+        "requirements": [],
+        "readCallbackIsSupplied": true,
+        "requirementsAreSystemRequirements": true,
+        "callbackCalls": 0,
+        "runtimeSetup": "not-created",
+        "factory": "bound"
+      },
+      {
+        "schema": "Garden",
+        "case": "query-only",
+        "read": "repeat",
+        "kind": "inspector",
+        "name": "Garden/Metadata/query-only",
+        "systemName": "Garden/Metadata/query-only",
+        "requirements": [],
+        "readCallbackIsSupplied": true,
+        "requirementsAreSystemRequirements": true,
+        "callbackCalls": 0,
+        "runtimeSetup": "not-created",
+        "factory": "bound"
+      },
+      {
+        "schema": "Garden",
+        "case": "resource-absent",
+        "read": "first",
+        "kind": "inspector",
+        "name": "Garden/Metadata/resource-absent",
+        "systemName": "Garden/Metadata/resource-absent",
+        "requirements": [
+          {
+            "kind": "resource",
+            "id": 1,
+            "name": "Garden/Score"
+          }
+        ],
+        "readCallbackIsSupplied": true,
+        "requirementsAreSystemRequirements": true,
+        "callbackCalls": 0,
+        "runtimeSetup": "absent",
+        "factory": "bound"
+      },
+      {
+        "schema": "Garden",
+        "case": "resource-absent",
+        "read": "repeat",
+        "kind": "inspector",
+        "name": "Garden/Metadata/resource-absent",
+        "systemName": "Garden/Metadata/resource-absent",
+        "requirements": [
+          {
+            "kind": "resource",
+            "id": 1,
+            "name": "Garden/Score"
+          }
+        ],
+        "readCallbackIsSupplied": true,
+        "requirementsAreSystemRequirements": true,
+        "callbackCalls": 0,
+        "runtimeSetup": "absent",
+        "factory": "bound"
+      },
+      {
+        "schema": "Garden",
+        "case": "resource-present",
+        "read": "first",
+        "kind": "inspector",
+        "name": "Garden/Metadata/resource-present",
+        "systemName": "Garden/Metadata/resource-present",
+        "requirements": [
+          {
+            "kind": "resource",
+            "id": 1,
+            "name": "Garden/Score"
+          }
+        ],
+        "readCallbackIsSupplied": true,
+        "requirementsAreSystemRequirements": true,
+        "callbackCalls": 0,
+        "runtimeSetup": "present",
+        "factory": "bound"
+      },
+      {
+        "schema": "Garden",
+        "case": "resource-present",
+        "read": "repeat",
+        "kind": "inspector",
+        "name": "Garden/Metadata/resource-present",
+        "systemName": "Garden/Metadata/resource-present",
+        "requirements": [
+          {
+            "kind": "resource",
+            "id": 1,
+            "name": "Garden/Score"
+          }
+        ],
+        "readCallbackIsSupplied": true,
+        "requirementsAreSystemRequirements": true,
+        "callbackCalls": 0,
+        "runtimeSetup": "present",
+        "factory": "bound"
+      },
+      {
+        "schema": "Garden",
+        "case": "aliases",
+        "read": "first",
+        "kind": "inspector",
+        "name": "Garden/Metadata/aliases",
+        "systemName": "Garden/Metadata/aliases",
+        "requirements": [
+          {
+            "kind": "resource",
+            "id": 2,
+            "name": "Garden/Bonus"
+          },
+          {
+            "kind": "resource",
+            "id": 1,
+            "name": "Garden/Score"
+          }
+        ],
+        "readCallbackIsSupplied": true,
+        "requirementsAreSystemRequirements": true,
+        "callbackCalls": 0,
+        "runtimeSetup": "not-created",
+        "factory": "bound"
+      },
+      {
+        "schema": "Garden",
+        "case": "aliases",
+        "read": "repeat",
+        "kind": "inspector",
+        "name": "Garden/Metadata/aliases",
+        "systemName": "Garden/Metadata/aliases",
+        "requirements": [
+          {
+            "kind": "resource",
+            "id": 2,
+            "name": "Garden/Bonus"
+          },
+          {
+            "kind": "resource",
+            "id": 1,
+            "name": "Garden/Score"
+          }
+        ],
+        "readCallbackIsSupplied": true,
+        "requirementsAreSystemRequirements": true,
+        "callbackCalls": 0,
+        "runtimeSetup": "not-created",
+        "factory": "bound"
+      },
+      {
+        "schema": "Garden",
+        "case": "distinct-same-name",
+        "read": "first",
+        "kind": "inspector",
+        "name": "Garden/Metadata/distinct-same-name",
+        "systemName": "Garden/Metadata/distinct-same-name",
+        "requirements": [
+          {
+            "kind": "resource",
+            "id": 3,
+            "name": "Garden/Shared"
+          },
+          {
+            "kind": "resource",
+            "id": 4,
+            "name": "Garden/Shared"
+          }
+        ],
+        "readCallbackIsSupplied": true,
+        "requirementsAreSystemRequirements": true,
+        "callbackCalls": 0,
+        "runtimeSetup": "not-created",
+        "factory": "low-level-metadata-only"
+      },
+      {
+        "schema": "Garden",
+        "case": "distinct-same-name",
+        "read": "repeat",
+        "kind": "inspector",
+        "name": "Garden/Metadata/distinct-same-name",
+        "systemName": "Garden/Metadata/distinct-same-name",
+        "requirements": [
+          {
+            "kind": "resource",
+            "id": 3,
+            "name": "Garden/Shared"
+          },
+          {
+            "kind": "resource",
+            "id": 4,
+            "name": "Garden/Shared"
+          }
+        ],
+        "readCallbackIsSupplied": true,
+        "requirementsAreSystemRequirements": true,
+        "callbackCalls": 0,
+        "runtimeSetup": "not-created",
+        "factory": "low-level-metadata-only"
+      }
+    ]
+  },
+  "BendPureString": "Workshop|empty|first|kind=inspector|name=Workshop/Metadata/empty|requirements=[]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nWorkshop|empty|repeat|kind=inspector|name=Workshop/Metadata/empty|requirements=[]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nWorkshop|query-only|first|kind=inspector|name=Workshop/Metadata/query-only|requirements=[]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nWorkshop|query-only|repeat|kind=inspector|name=Workshop/Metadata/query-only|requirements=[]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nWorkshop|resource-absent|first|kind=inspector|name=Workshop/Metadata/resource-absent|requirements=[resource:1:Workshop/Score]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nWorkshop|resource-absent|repeat|kind=inspector|name=Workshop/Metadata/resource-absent|requirements=[resource:1:Workshop/Score]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nWorkshop|resource-present|first|kind=inspector|name=Workshop/Metadata/resource-present|requirements=[resource:1:Workshop/Score]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nWorkshop|resource-present|repeat|kind=inspector|name=Workshop/Metadata/resource-present|requirements=[resource:1:Workshop/Score]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nWorkshop|aliases|first|kind=inspector|name=Workshop/Metadata/aliases|requirements=[resource:2:Workshop/Bonus, resource:1:Workshop/Score]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nWorkshop|aliases|repeat|kind=inspector|name=Workshop/Metadata/aliases|requirements=[resource:2:Workshop/Bonus, resource:1:Workshop/Score]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nWorkshop|distinct-same-name|first|kind=inspector|name=Workshop/Metadata/distinct-same-name|requirements=[resource:3:Workshop/Shared, resource:4:Workshop/Shared]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nWorkshop|distinct-same-name|repeat|kind=inspector|name=Workshop/Metadata/distinct-same-name|requirements=[resource:3:Workshop/Shared, resource:4:Workshop/Shared]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nGarden|empty|first|kind=inspector|name=Garden/Metadata/empty|requirements=[]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nGarden|empty|repeat|kind=inspector|name=Garden/Metadata/empty|requirements=[]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nGarden|query-only|first|kind=inspector|name=Garden/Metadata/query-only|requirements=[]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nGarden|query-only|repeat|kind=inspector|name=Garden/Metadata/query-only|requirements=[]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nGarden|resource-absent|first|kind=inspector|name=Garden/Metadata/resource-absent|requirements=[resource:1:Garden/Score]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nGarden|resource-absent|repeat|kind=inspector|name=Garden/Metadata/resource-absent|requirements=[resource:1:Garden/Score]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nGarden|resource-present|first|kind=inspector|name=Garden/Metadata/resource-present|requirements=[resource:1:Garden/Score]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nGarden|resource-present|repeat|kind=inspector|name=Garden/Metadata/resource-present|requirements=[resource:1:Garden/Score]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nGarden|aliases|first|kind=inspector|name=Garden/Metadata/aliases|requirements=[resource:2:Garden/Bonus, resource:1:Garden/Score]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nGarden|aliases|repeat|kind=inspector|name=Garden/Metadata/aliases|requirements=[resource:2:Garden/Bonus, resource:1:Garden/Score]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nGarden|distinct-same-name|first|kind=inspector|name=Garden/Metadata/distinct-same-name|requirements=[resource:3:Garden/Shared, resource:4:Garden/Shared]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nGarden|distinct-same-name|repeat|kind=inspector|name=Garden/Metadata/distinct-same-name|requirements=[resource:3:Garden/Shared, resource:4:Garden/Shared]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\n",
+  "BendIOStringWithExactLF": "Workshop|empty|first|kind=inspector|name=Workshop/Metadata/empty|requirements=[]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nWorkshop|empty|repeat|kind=inspector|name=Workshop/Metadata/empty|requirements=[]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nWorkshop|query-only|first|kind=inspector|name=Workshop/Metadata/query-only|requirements=[]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nWorkshop|query-only|repeat|kind=inspector|name=Workshop/Metadata/query-only|requirements=[]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nWorkshop|resource-absent|first|kind=inspector|name=Workshop/Metadata/resource-absent|requirements=[resource:1:Workshop/Score]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nWorkshop|resource-absent|repeat|kind=inspector|name=Workshop/Metadata/resource-absent|requirements=[resource:1:Workshop/Score]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nWorkshop|resource-present|first|kind=inspector|name=Workshop/Metadata/resource-present|requirements=[resource:1:Workshop/Score]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nWorkshop|resource-present|repeat|kind=inspector|name=Workshop/Metadata/resource-present|requirements=[resource:1:Workshop/Score]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nWorkshop|aliases|first|kind=inspector|name=Workshop/Metadata/aliases|requirements=[resource:2:Workshop/Bonus, resource:1:Workshop/Score]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nWorkshop|aliases|repeat|kind=inspector|name=Workshop/Metadata/aliases|requirements=[resource:2:Workshop/Bonus, resource:1:Workshop/Score]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nWorkshop|distinct-same-name|first|kind=inspector|name=Workshop/Metadata/distinct-same-name|requirements=[resource:3:Workshop/Shared, resource:4:Workshop/Shared]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nWorkshop|distinct-same-name|repeat|kind=inspector|name=Workshop/Metadata/distinct-same-name|requirements=[resource:3:Workshop/Shared, resource:4:Workshop/Shared]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nGarden|empty|first|kind=inspector|name=Garden/Metadata/empty|requirements=[]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nGarden|empty|repeat|kind=inspector|name=Garden/Metadata/empty|requirements=[]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nGarden|query-only|first|kind=inspector|name=Garden/Metadata/query-only|requirements=[]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nGarden|query-only|repeat|kind=inspector|name=Garden/Metadata/query-only|requirements=[]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nGarden|resource-absent|first|kind=inspector|name=Garden/Metadata/resource-absent|requirements=[resource:1:Garden/Score]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nGarden|resource-absent|repeat|kind=inspector|name=Garden/Metadata/resource-absent|requirements=[resource:1:Garden/Score]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nGarden|resource-present|first|kind=inspector|name=Garden/Metadata/resource-present|requirements=[resource:1:Garden/Score]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nGarden|resource-present|repeat|kind=inspector|name=Garden/Metadata/resource-present|requirements=[resource:1:Garden/Score]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nGarden|aliases|first|kind=inspector|name=Garden/Metadata/aliases|requirements=[resource:2:Garden/Bonus, resource:1:Garden/Score]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nGarden|aliases|repeat|kind=inspector|name=Garden/Metadata/aliases|requirements=[resource:2:Garden/Bonus, resource:1:Garden/Score]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nGarden|distinct-same-name|first|kind=inspector|name=Garden/Metadata/distinct-same-name|requirements=[resource:3:Garden/Shared, resource:4:Garden/Shared]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\nGarden|distinct-same-name|repeat|kind=inspector|name=Garden/Metadata/distinct-same-name|requirements=[resource:3:Garden/Shared, resource:4:Garden/Shared]|left=[101, 102, 103, 104]|right=[201, 202, 203, 204]\n\n"
+}

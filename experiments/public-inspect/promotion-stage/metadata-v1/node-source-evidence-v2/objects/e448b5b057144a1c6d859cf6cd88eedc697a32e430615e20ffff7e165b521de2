@@ -1,0 +1,18 @@
+SOME PROOFS FAIL
+Error:
+- expected : rightText
+- observed : rightText (consumed more than once)
+Context:
+- schema   : String
+- label    : String
+- first    : Meta.Metadata<rendered~S>
+- second   : Meta.Metadata<rendered~S>
+- left     : Array<U32>
+- right    : Array<U32>
+- plan     : rendered~P
+- leftText : String
+Location: rendered
+22 |       leftText=List.show(&1,U32,U32.show,Array.to_list(~U32,left))
+23>|       rightText=List.show(&1,U32,U32.show,Array.to_list(~U32,right))
+   |       ^^^^^^^^^
+24 |       (plan,line(~S,schema,label,"first",leftText,rightText,first) ++ line(~S,schema,label,"repeat",leftText,rightText,second))

@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- expected : label
+- observed : label (consumed more than once)
+Context:
+- schema : String
+Location: rendered
+18 |   schema ++ "|" ++ label ++ "|" ++ pass ++ "|kind=" ++ Meta.kind(~S,metadata) ++ "|name=" ++ Meta.name(~S,metadata) ++ "|requirements=" ++ List.show(&2,Meta.Resource<S>,resource(~S),Meta.requirements(~S,metadata)) ++ "|left=" ++ left ++ "|right=" ++ right ++ "\n"
+19>| def rendered(~S:Data,~P:Type,schema:String,label:String,first:Meta.Metadata<S>,second:Meta.Metadata<S>,owner:Carrier<P>) -> P & String:
+   |                                            ^^^^^
+20 |   match owner:

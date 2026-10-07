@@ -1,0 +1,9 @@
+{
+  "status": "SOURCE_ONLY_UNEXECUTED_MUTATION_PROPOSAL",
+  "source": "definition.bend",
+  "sourceSHA256": "e9cad06ff0d8334d4ae5c2c23df0e3a07941a7dea95005b6edb382237b8c200c",
+  "before": "names(~S,Provision.unique(~S,tokens(~S,values)),values)",
+  "after": "List.reverse(&2,Resource<S>,names(~S,Provision.unique(~S,tokens(~S,values)),values))",
+  "exactDefect": "reverse complete deduplicated requirements, preserving every owner/callback behavior; aliases order2,1 and distinct-ID same-name3,4 cases must disagree",
+  "gates": "Fresh source5 safe compilation, then admitted complete runtime oracle rejection; no timeout/framing-only kill"
+}

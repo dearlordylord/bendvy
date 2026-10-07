@@ -1,0 +1,8 @@
+SOME PROOFS FAIL
+Error:
+- message  : a parameter or field scrutinee (a match cannot scrutinize a computed value: give it its own def)
+Location:
+13 | def twice(~S:Data,~Plan:Type,definition:Meta.Definition<S,Plan>) -> Meta.Definition<S,Plan> & (Meta.Metadata<S> & Meta.Metadata<S>):
+14>|   (definition,first)=Meta.read(~S,~Plan,definition)
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+15 |   (definition,second)=Meta.read(~S,~Plan,definition)

@@ -1,0 +1,18 @@
+{
+  "status": "FROZEN_SOURCE_CONTRACT_BEFORE_CANDIDATE_CHECK_OR_BACKENDS",
+  "authority": "Reviewed COVERAGE remaining section b9f3, docs commit2a71416c; resource-only existing declaration/nominal kind+ID contract",
+  "scope": "Named inspector-kind metadata around an arbitrary affine Type Plan; no World/Instance/callback execution/availability check",
+  "identity": "resource kind plus U32 ID within nominal schema S; display name never identity",
+  "normalization": "existing schedule-provision.unique token identity/order; resource-only entries preserve first occurrence and first displayed name",
+  "owner": "Each metadata read consumes and returns same underlying opaque Plan owner exactly once. Data metadata may be duplicated; Plan/callback is never duplicated or reconstructed as Data.",
+  "publicFields": ["kind=inspector", "name", "ordered resource requirements kind-ID-name"],
+  "tests": {
+    "schemas": ["Workshop", "Garden"],
+    "declarationsEach": ["empty access => []", "query-only => []", "one resource => one entry", "same resource aliases then distinct second resource => first occurrence order"],
+    "trustedMetadataIdentityOnly": "same display name, distinct nominal resource IDs => two entries; this is not duplicate schema descriptor acceptance",
+    "ownerWitness": "two Array payload owners and actual typed Inspector Plan retained through two metadata reads and returned unchanged; no World or callback argument at metadata API",
+    "negatives": ["cross-schema resource metadata", "duplicate opaque Plan owner", "escape opaque Plan as String"],
+    "mutantLater": "name-based dedup or reversed requirements must compile, execute, and disagree with complete independently authored metadata oracle"
+  },
+  "excluded": ["service operations", "machine requirement token extension", "runtime availability checks", "foreign Inspector policy", "held views", "new laws/proofs/dependencies", "shared core edits", "backend before admission"]
+}

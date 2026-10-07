@@ -1,0 +1,8 @@
+SOME PROOFS FAIL
+Error:
+- message  : a parameter or field scrutinee (a match cannot scrutinize a computed value: give it its own def)
+Location:
+24 |         case Resource{key,_}:
+25>|           match U32.is_eq(id,key):
+   |                 ^^^^^^^^^^^^^^^^^
+26 |             case True{}:Some{value}
