@@ -5,6 +5,47 @@ performance thresholds or a selected production layout. The first two research
 tickets are now published after user authorization and [Astra review](reviews/next-research-tickets.md).
 The complete [core map](reference/core-map.md) and [SPEC](SPEC.md) remain the goal.
 
+## Latest delivery checkpoint — 2026-10-07
+
+Read this checkpoint before the historical sections below. The active objective
+is full #34–#64 parity, with source-backed autonomous decisions at least 95%
+confidence while the user is absent. Exact laws, dependencies, numerical changes
+and unresolved observable contracts retain their approval requirements.
+
+Commit `ca8a9eb2` delivers tail-safe World handles, event size/empty-append and
+single-collection optimizations, plus the checked generic component-state module.
+The unchanged #28 gate passes: 33 core modules plus five benchmark inputs match
+the receipt inventory. Protected Workshop ratios are JS/TS 0.3992360770 and
+Native/TS 0.0691918848; full feature/product qualification is separate.
+See [regression evidence](reports/core-integrated-regression.md) and
+[independent/integrator review](reviews/integrated-core-final.md).
+
+- #39 is delivered and closed; its schema-fragment laws remain unapproved.
+- #34 now has actual TS/JS/Native spawn/reservation/barrier observations;
+  equivalent corrected feature pairing is running before final delivery.
+- #35 current reader semantics pass; the heavy reader workload still takes
+  approximately 3.8–4.1 times TS in JS and 1.1–2.0 times TS in Native. Sampled
+  allocation decreased from 922 to 341 MB across diagnostic profiles. This gap
+  remains a consequential performance obligation, not qualified full performance.
+- #38's stack fix is delivered; independent-root authority and failed-reservation
+  contracts remain open. Finite pending/resource/FIFO controls are not proofs.
+- #47's current full cohort passes 87 commands, eight negatives and five reached
+  mutants on both backends. Three-scale full application timing semantics pass;
+  comparative timing and final issue qualification remain open.
+- #41's generic declared bundle boundary passes direct public JS/Native controls;
+  complete command integration and failed-body lifecycle remain open.
+- #42's six finite suites are archived; they are historical after the core batch.
+  Production relation candidates are being integrated. The proposed numeric
+  cleanup bound exceeds emitted Nat48 at legal sizes; replace the aggregate
+  product with structural shrinking budgets and verify generated arithmetic.
+- #46 validation/host integration continues. Remaining #40–#64 capabilities and
+  #21/#23/#24 product qualification remain the full goal, not optional follow-ups.
+
+Do not reopen proven frozen workloads merely for report edits. Preserve failed
+oracle/guard attempts; replay changed executable subjects or add an explicitly
+bound missing control. Shared core changes wait for live source freezes to finish;
+semantic work uses separate CPUs from the sole comparative timing workload.
+
 ## Completed user API slice; next composition gate
 
 User-authorized [S-API-AUDIT #25](tickets/23-blind-ecs-api-audit.md). Pause
@@ -507,3 +548,162 @@ User-authorized to-spec/to-tickets delivers [specification #37 and tickets #38�
 The user explicitly set the full implementation objective after publication: complete pinned core parity without degradation relative to bevy-ts, retaining reasonable especially Native superiority and avoiding unnecessary optimization churn. Existing exact approved numeric/default regression contracts remain unchanged until explicitly amended. Work starts with #34/#35; additive schedule-provision and reader-domain seams are under executable validation, not delivered. Source-current finite controls and final independent review/default regression remain required. Known CPU contention defers new comparative timing, not correctness work.
 
 #38 independent-root discovery freshly confirms the existing public Factory limitation on JS/Native: separate roots collide, whereas a threaded affine Factory rejects foreign handles. See [discovery and exact limits](../experiments/public-identity/README.md). This is an expected failed capability observation, not identity acceptance or production root-policy approval.
+
+## Unattended implementation boundary — 2026-10-07
+
+The user is away and asks that autonomous decisions be limited to those with at
+least 95% confidence. Continue already approved contracts, source-backed
+implementation, finite falsification, negative controls and independent review.
+Confidence does not replace approval of exact new laws, dependencies or numerical
+criteria: preserve ambiguous choices as explicit drafts and do not prove against
+unapproved ECS laws. No pause or reduction of the full #34–#64 goal was requested.
+
+## Current unattended finite frontier
+
+#34 complete refusal validators and source-current independent root replay pass;
+Spec and Standards findings are reconciled. Five exact metadata drafts have
+literal checks and five reached mutants, remain unapproved, and have no proofs.
+See `docs/laws/nested-provision-draft/README.md`.
+
+#39 repaired public construction/merge priority and exact staged input/artifact
+binding now pass worker plus independent root pipelines (69 commands each).
+Final independent reviews find no remaining finite executable blocker;
+`docs/reviews/public-schema-fragments-final.md` records limits.
+
+#35 is completing source-current mixed event/removal recovery and reader controls.
+#41/#42 source-current references and coverage are being prepared before new core
+implementation. Default paired regression and feature-specific measurements
+remain deferred during contention; no issue is closed or executable core delivered
+from these semantic receipts alone.
+
+For subsequent slices, freeze the source-backed coverage/contract matrix before
+core implementation and ask an independent reviewer to inspect the harness
+source/stage/artifact guards before the first full native mutation pipeline.
+#34/#39 exposed omissions that were cheap to repair early but caused repeated
+late replays. Reuse the checked #34/#39 guard pattern rather than inventing an
+unbound staging harness. Generic feasibility probes remain explicitly separate
+from actual Column/System integration and delivery.
+
+#35 source-current worker and independent root replays now pass (96 commands,
+28 result rows); final independent Spec and Standards reviews find no remaining
+finite executable blocker. Performance delivery gates remain open.
+
+#38 additionally confirms a pending-reservation bug: actual same-transaction
+spawn then despawn returns MissingEntity and leaves the entity live after the
+barrier on both Bend backends, while actual pinned TS removes it. See
+`experiments/public-identity/pending-notes.md`. A live-only enqueue check cannot
+distinguish pending reservations from stale handles; metadata-only validation
+is not an accepted repair. Production World remains unchanged.
+
+#46 guarded Node Decode discovery and independent root replay observe 38 cases.
+Command raw-entry constructor precedence differs from decoder lookup precedence;
+handle decoding does not enforce runtime-root identity. These observed TS quirks
+do not authorize weakening approved Bend namespace checks. Actual affine raw
+recovery, ECS rejection and transient save controls remain pending.
+
+Current-source default #28 paired regression now passes with no confirmed
+slowdown: JS/baseline 0.9967384720, Native/baseline 0.9987585196. All 37 source
+pins match; receipt and 110 outputs are retained. See
+`docs/reports/parity-current-regression.md`. Feature-path measurements and
+full-core qualification remain open; no issues close from Workshop alone.
+
+Feature timing preflight now lives in `benchmarks/parity-features/plan.md`: common
+#34 refusals and service-repair retry are paired; resource-only Bend repair is
+supplemental, and TS same-runtime restore is a separate operation. Reviewer found
+no plan defect blocking adapter preparation; tool/effect sequencing, full output
+digests and actual equivalent checkpoints still require inspection before timing.
+
+#42 finite pure-graph receipt graph-1791355385681236770 passes 31 commands and
+92 checkpoints per backend; root verified all 430 pins. Actual Commands, cleanup
+and affine-owner integration remains open. #38 repaired preflight passed review
+and its final JS+Native pipeline is running; failed-reservation production policy
+remains unresolved and no new laws are approved.
+
+#38 reservation-state final receipt now passes 61 commands on JS/Native, with
+12 complete snapshots and five reached compiling mutants per backend; root
+verified all 13 current project source pins. Evidence is retained in
+`experiments/public-identity/reservation-state/evidence/source-current/`. This
+is a generic owned-store wrapper, not heterogeneous gameplay-family cleanup or
+production identity. A separate public integration experiment will test actual
+Columns/System/capability boundaries, canonical independent roots and limits.
+Failed-reservation policy remains unresolved; exact law drafts have no proofs.
+
+#42 actual affine World/Commands transport now passes 31 bounded commands and
+18 full literal snapshots per JS/Native with three reached mutants each. Root
+verified all 432 source/tool pins in world-1791355908877103866. Authored foreign
+namespace inputs are not independent-world authority; registered access, future
+targets, linked component cleanup, reorder and retention remain open.
+
+Feature timer host protocol controls pass raw UTF-8/LF/NUL transport on TS/JS/
+Native with identical 19-byte output/FNV digest 2573967014 and intended protocol
+refusal. This qualifies timer transport only; callable workload repeated-state
+validation and quiet paired feature measurements remain pending.
+
+#46 application receipt 1791355977571833367 passes 18 finite commands but its
+`typed.bend` pin no longer matches after numeric extension; root found the exact
+drift. It remains historical source-bound evidence, not current acceptance.
+Broader number/literal equality and full actual public integration remain open.
+
+#47 first full cohort terminal PASS_FINITE_SLICE: 36 bounded commands, complete
+38-row application and six-row foreign observations on JS/Native, reached mutant
+and six intended negatives. Root checked all 41 project pins against current
+bytes. The fixture will expand both state readers and actual raw decoders before
+final freeze; this initial receipt does not close constructor coverage or #47.
+
+Root independently executed four successive callable TS nested-provision
+lifecycles, validating every full nine-record output against the frozen common
+expected records. No timing or complete tool/environment qualification was
+claimed by that narrow replay.
+
+#38 query-boundary discovery: actual JS W.handles on a trusted administrative
+World with highWater131071 faults (memory fault/possible machine stack overflow).
+The original fixture/output must be retained and its invariant/runtime cause
+checked. Targeted allocator/clock refusals do not qualify that full scan.
+
+#46 receipt1791356232295910060 has 24 successful bounded numeric/application
+commands but root found later drift in application-controls.bend. It is historical
+freeze evidence until planned extensions finish and a single final current replay
+passes; report-time current pins cannot be inferred after subsequent edits.
+
+#41 pending/eager/fallible-spawn fixtures pass JS/Native with current root-verified
+18/21/23 source pins respectively. Eager invalid construction retains allocator,
+liveness, clock, queued sentinel and complete raw owners/positional errors.
+Delayed post-activation failure remains an explicit stress case with unresolved
+production cleanup. Combined eager-construction/heterogeneous-installation public
+path is still being implemented; separate fixtures do not close #41.
+
+#47 extended 62 application/54 descriptor/3 constructor observations and seven
+negative controls passed preflight. Root reviewed added exact mutant-copy guard
+and full inventory retention and released one final bounded backend cohort.
+No source edits or production/law acceptance follow during that frozen run.
+
+#46 guard repair now independently admitted and replayed: receipt
+1791356761882100986 passes24commands; root46sourcepins current, retained339tool
+pins/stagearchive. Diagnostic/pending/host/transient gaps remain open.
+
+#41 combined eager/heterogeneous installer uncovered a surviving stamp-restore
+mutant on initially empty slots (zero stamps). The pipeline correctly remains
+INCOMPLETE; an existing-live replacement/unwind case with nonzero stamps is
+being added before a fresh replay. Do not credit earlier normal output as mutant
+or full combined rollback acceptance.
+
+The fresh #41 combined-current receipt now passes 25 commands and 14 complete
+records per Bend backend; root verified all 25 current source pins. The nonzero
+stamp case detects the previously surviving mutant. Public confinement,
+failed-activated-handle policy and feature performance remain open.
+
+The live v10 paired feature cohort must finish unchanged. Its #34 queue work is
+not equivalent: Bend enqueues an identity closure, while TS enqueues an empty
+spawn. Those nested ratios are descriptive only. Prepare a fresh staged actual
+Commands spawn path and observe reservation/liveness after the cohort ends;
+retain unaffected feature evidence and all original measurements.
+
+#47 caller decoder error preservation passed guarded preflight review. Before
+Native replay, also preserve exact ComponentAbsent/MissingEntity access errors
+in the generic adapter, with reached public refusal controls. Earlier frozen
+receipts remain historical after this extension; no new laws are approved.
+
+Actual #42 cross-descriptor hierarchy cycle cleanup terminates; the original
+expected-nontermination oracle was falsified and retained. Descriptor-order
+unrelating and entered frames produce observable duplicate despawn notices in
+one entry order. Do not silently substitute a visited-set or new cycle rejection.
