@@ -4,9 +4,8 @@ No proof, World/Commands/cleanup or relation-system acceptance is reported.
 """
 import argparse, hashlib, json, os, pathlib, re, shutil, sys, time, base64
 RUNNER=pathlib.Path(__file__).resolve();HERE=RUNNER.parent;ROOT=HERE.parents[5]
-sys.path.insert(0,str(ROOT/'experiments/s-prep/fivehour-connected-gates'));import supervisor
+sys.path.insert(0,str(ROOT/'scripts'));import task_runner
 import importlib.util
-sys.path.insert(0,str(ROOT/'experiments/public-relations/promotion-stage/current-core-replay/guarded-v2'));import raw_supervisor
 ls=importlib.util.spec_from_file_location("receipt_logs",ROOT/"scripts/receipt-logs.py");lm=importlib.util.module_from_spec(ls);ls.loader.exec_module(lm)
 spec=importlib.util.spec_from_file_location("relation_tool_pins",HERE/"tool-pins.py");tool_pins=importlib.util.module_from_spec(spec);spec.loader.exec_module(tool_pins)
 sys.path.insert(0,str(HERE))
@@ -34,7 +33,7 @@ def exact_caret(name,entry,text):
 def main():
  subjects=['normal',*MUTANTS];ap=argparse.ArgumentParser();ap.add_argument('--execute',action='store_true');args=ap.parse_args()
  out=RUNNER.parent/'evidence'/('application-'+str(time.time_ns()));out.mkdir(parents=True)
- files={RUNNER, HERE/'tool-pins.py',HERE.parent/'current-core-replay/guarded-v2/raw_supervisor.py',ROOT/'scripts/receipt-logs.py',ROOT/'scripts/owned-tool-pins.py'}|set((ROOT/'experiments/public-relations/promotion-stage/modules').glob('*.bend'))|{HERE/'expected.json',HERE/'model-freeze.json'}|set(HERE.glob('*.bend'))|set(HERE.glob('*.py'))|set(HERE.glob('*.mjs'))|{pathlib.Path(supervisor.__file__).resolve(),ROOT/'docs/parity/source-review.json'}
+ files={RUNNER, HERE/'tool-pins.py',ROOT/'scripts/task_runner.py',ROOT/'scripts/receipt-logs.py',ROOT/'scripts/owned-tool-pins.py'}|set((ROOT/'experiments/public-relations/promotion-stage/modules').glob('*.bend'))|{HERE/'expected.json',HERE/'model-freeze.json'}|set(HERE.glob('*.bend'))|set(HERE.glob('*.py'))|set(HERE.glob('*.mjs'))|{pathlib.Path(task_runner.__file__).resolve(),ROOT/'docs/parity/source-review.json'}
  files|=set((ROOT/'.references/bevy-ts/packages/core/src').rglob('*.ts'))
  files|=set((ROOT/'.references/bend2/bend2').rglob('*.ts'))
  files|={pathlib.Path('/home/node/.bend/check.json')}
@@ -65,7 +64,7 @@ def main():
   assert all(sha(p)==h for p,h in generated.items()),'generated drift'
   logs.guard()
  def run(argv,cap,expected=0):
-  label=next(label_iter);guard();assert '-o' not in argv or not pathlib.Path(argv[argv.index('-o')+1]).exists(),'output already exists';argv=['taskset','-c','8',*map(str,argv)];r=raw_supervisor.execute(argv,cap,env={**os.environ,'BENDVY_CLANG19_ROOT':'/tmp/bendvy-clang19-diagnostic/root','BEND_NO_TELEMETRY':'1'})
+  label=next(label_iter);guard();assert '-o' not in argv or not pathlib.Path(argv[argv.index('-o')+1]).exists(),'output already exists';argv=['taskset','-c','8',*map(str,argv)];r=task_runner.execute_result(argv,cap,env={**os.environ,'BENDVY_CLANG19_ROOT':'/tmp/bendvy-clang19-diagnostic/root','BEND_NO_TELEMETRY':'1'})
   if '-o' in argv:
    product=pathlib.Path(argv[argv.index('-o')+1]);
    assert str(product) in receipt['plannedGeneratedOutputs'],'unplanned output'
@@ -92,7 +91,7 @@ def main():
    assert inventory(stage)==plan['inventory']
    stages[name]={'path':str(stage),'normalInventory':normal,'derivedInventory':plan['inventory'],'intentionalChanges':plan['changes']}
   guard();save()
-  # Preflight records deliberate mutant bytes, source closure, imported supervisor;
+  # Preflight records deliberate mutant bytes, source closure, imported task runner;
   # all operations below recheck both normal and every mutant stage.
   if not args.execute:receipt['status']='GUARDED_RELATION_APPLICATION_PREFLIGHT_ONLY';save();print(out,receipt['status']);return 0
   run(['bend','version'],5);run(['bend','guide'],5)

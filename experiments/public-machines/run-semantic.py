@@ -5,13 +5,13 @@ ROOT=pathlib.Path(__file__).resolve().parents[2];HERE=pathlib.Path(__file__).res
 def load(name,path):
  spec=importlib.util.spec_from_file_location(name,path);module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);return module
 tools=load('machine_tools',ROOT/'benchmarks/parity-features/tool-pins.py')
-owned=load('machine_owned',HERE/'owned-exec.py')
+sys.path.insert(0,str(ROOT/'scripts'));import task_runner
 model=load('machine_model',HERE/'full-model.py');mutations=load('machine_mutations',HERE/'mutations.py')
 def sha(p):return hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
 def inventory():
  paths=[p for p in (ROOT/'src/ecs').rglob('*') if p.is_file()]
  paths += [p for p in HERE.iterdir() if p.is_file() and p.suffix in ('.bend','.mjs','.py','.md','.json')]
- paths += [ROOT/'.references/sources.json',ROOT/'benchmarks/parity-features/supervise.py',ROOT/'benchmarks/parity-features/tool-pins.py',ROOT/'experiments/s-prep/fivehour-connected-gates/supervisor.py']
+ paths += [ROOT/'.references/sources.json',ROOT/'scripts/task_runner.py',ROOT/'benchmarks/parity-features/tool-pins.py']
  paths += [pathlib.Path(shutil.which('ldd')).resolve()]
  paths += [p for p in (HERE/'evidence/check-preflight-v6').iterdir() if p.is_file()]
  return {str(p):sha(p) for p in sorted(set(paths))}
@@ -33,15 +33,18 @@ def main():
  def supervised_ldd(argv,**kwargs):
   assert argv[0]=='ldd' and kwargs['timeout']==5 and kwargs['text'] is True
   assert kwargs['stdout']==subprocess.PIPE and kwargs['stderr']==subprocess.STDOUT
-  label=f'ldd-{len(tool_logs)//2:05d}';stdout=probe_dir/(label+'.stdout');stderr=probe_dir/(label+'.stderr')
+  label=f'ldd-{len(tool_logs)//3:05d}';stdout=probe_dir/(label+'.stdout');stderr=probe_dir/(label+'.stderr');metadata=probe_dir/(label+'.json')
+  assert all(not p.exists() for p in [stdout,stderr,metadata]),'prospective immutable probe log absence'
   assert sha(ldd)==pins[str(ldd)],'consumed ldd script changed before probe'
-  q=owned.execute(['taskset','-c',str(a.cpu),str(ldd),*argv[1:]],5,kwargs['env'],stdout,stderr)
-  for path in [stdout,stderr]:tool_logs[str(path.relative_to(out))]=sha(path)
-  return subprocess.CompletedProcess(argv,q.returncode,(q.stdout+q.stderr).decode(),None)
- # Replace only the inherited module's subprocess dependency. The global
- # subprocess module and its other clients are untouched. Its exact snapshot
- # implementation still computes installed binaries/resources/resolved libs.
- tools.subprocess=types.SimpleNamespace(run=supervised_ldd,PIPE=subprocess.PIPE,STDOUT=subprocess.STDOUT)
+  q=task_runner.execute_result(['taskset','-c',str(a.cpu),str(ldd),*argv[1:]],5,kwargs['env'],capture='split')
+  stdout.write_bytes(q['stdout']);stderr.write_bytes(q['stderr'])
+  metadata.write_text(json.dumps({k:v for k,v in q.items() if k not in ('stdout','stderr')},indent=2)+'\n')
+  for path in [stdout,stderr,metadata]:tool_logs[str(path.relative_to(out))]=sha(path)
+  if q['failure']:raise RuntimeError(q['failure'])
+  return subprocess.CompletedProcess(argv,q['exit'],(q['stdout']+q['stderr']).decode(),None)
+ # Bind this tools module's runner dependency to the captured ldd adapter.
+ # The shared runner module and other clients keep their own bindings.
+ tools.task_runner=types.SimpleNamespace(run=supervised_ldd)
  installed=tools.snapshot();installed['environment']['CPU']=a.cpu;installed['consumedLdd']={'resolvedPath':str(ldd),'sha256':pins[str(ldd)],'boundAs':'source pin, checked before every owned probe'}
  expected=model.expected()
  (out/'complete-expected.json').write_text(json.dumps(expected,indent=2)+'\n')
@@ -107,7 +110,12 @@ def main():
   command_record={'label':label,'command':list(map(str,args)),'capSeconds':cap,'expectedExit':expected_exit,'status':'STARTED'}
   r['commands'].append(command_record)
   capture_out=out/(label+'.capture.stdout');capture_err=out/(label+'.capture.stderr')
-  try:result=owned.execute(['taskset','-c',str(a.cpu),*map(str,args)],cap,dict(os.environ,BEND_NO_TELEMETRY='1',BENDVY_CLANG19_ROOT=str(tools.CLANG_ROOT)),capture_out,capture_err)
+  assert not capture_out.exists() and not capture_err.exists(),'prospective raw capture absence'
+  try:
+   result=task_runner.execute_result(['taskset','-c',str(a.cpu),*map(str,args)],cap,dict(os.environ,BEND_NO_TELEMETRY='1',BENDVY_CLANG19_ROOT=str(tools.CLANG_ROOT)),capture='split')
+   capture_out.write_bytes(result['stdout']);capture_err.write_bytes(result['stderr'])
+   command_record.update(exit=result['exit'],directChildExit=result['exit'],inconclusiveReason=result['failure'],failure=result['failure'],runnerSHA256=result['runnerSHA256'])
+   if result['failure']:raise RuntimeError(result['failure'])
   except Exception as error:
    command_record.update(status='SUPERVISION_FAILURE',exception=repr(error))
    for path in [capture_out,capture_err]:
@@ -115,15 +123,15 @@ def main():
    with gzip.open(stdout,'wb') as f:f.write(capture_out.read_bytes() if capture_out.exists() else b'')
    stderr.write_bytes(capture_err.read_bytes() if capture_err.exists() else b'');retain(stdout);retain(stderr)
    raise
-  with gzip.open(stdout,'wb') as f:f.write(result.stdout)
-  stderr.write_bytes(result.stderr);retain(stdout);retain(stderr);retain(capture_out);retain(capture_err)
-  command_record.update(status='TERMINAL',exit=result.returncode,directChildExit=result.direct_returncode,inconclusiveReason=result.inconclusive_reason)
+  with gzip.open(stdout,'wb') as f:f.write(result['stdout'])
+  stderr.write_bytes(result['stderr']);retain(stdout);retain(stderr);retain(capture_out);retain(capture_err)
+  command_record.update(status='TERMINAL',exit=result['exit'],directChildExit=result['exit'],inconclusiveReason=result['failure'])
   for path in prospective:
    if path.is_file():retain(path)
   guard()
-  assert result.returncode==expected_exit,(label,result.returncode,(result.stdout+result.stderr).decode(errors='replace'))
+  assert result['exit']==expected_exit,(label,result['exit'],(result['stdout']+result['stderr']).decode(errors='replace'))
   assert all(path.is_file() for path in prospective),(label,'missing produced artifact')
-  return result.stdout+result.stderr if diagnostic else result.stdout
+  return result['stdout']+result['stderr'] if diagnostic else result['stdout']
  try:
   guard()
   if a.freeze_only:return

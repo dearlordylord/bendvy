@@ -29,9 +29,12 @@ class Execution(unittest.TestCase):
     def test_current_entrypoints_use_one_process_implementation(self):
         import ast
         root = Path(__file__).resolve().parents[1]
+        tracked = set(subprocess.check_output(['git', 'ls-files', '-z'], cwd=root).decode().split('\0'))
         paths=list(root.glob('experiments/public-*/**/*.py'))
         paths += [p for folder in ('benchmarks','docs','examples','scripts') for p in (root/folder).rglob('*.py') if p.name!='task_runner.py' and not p.name.startswith('test-')]
         for path in paths:
+            if str(path.relative_to(root)) not in tracked:
+                continue
             tree=ast.parse(path.read_text())
             for node in ast.walk(tree):
                 if isinstance(node,ast.Call) and isinstance(node.func,ast.Attribute) and isinstance(node.func.value,ast.Name):

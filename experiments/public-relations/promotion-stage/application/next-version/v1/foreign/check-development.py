@@ -1,15 +1,14 @@
 """Source feasibility checker only; no emission/runtime/parity acceptance."""
 import pathlib,sys,json,hashlib,os,time,importlib.util,base64
-D=pathlib.Path(__file__).resolve().parent;R=D.parents[6];H=R/'experiments/public-relations/promotion-stage/current-core-replay/guarded-v2'
-sys.path.insert(0,str(R/'experiments/s-prep/fivehour-connected-gates'));import supervisor
-sys.path.insert(0,str(H));import raw_supervisor
+D=pathlib.Path(__file__).resolve().parent;R=D.parents[6]
+sys.path.insert(0,str(R/'scripts'));import task_runner
 spec=importlib.util.spec_from_file_location('tp',D/'tool-pins.py');tp=importlib.util.module_from_spec(spec);spec.loader.exec_module(tp)
 sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
 out=D/'development-checks'/str(time.time_ns());out.mkdir(parents=True);stage=out/'stage'
 sources={str(p.relative_to(R)):p for p in list(D.glob('*.bend'))+list((R/'src/ecs').glob('*')) if p.is_file()}
 for p in (R/'experiments/public-relations/promotion-stage/modules').glob('*.bend'):key='src/ecs/'+p.name;assert key not in sources;sources[key]=p
 contents={key:p.read_bytes() for key,p in sources.items()};plan={key:hashlib.sha256(value).hexdigest() for key,value in contents.items()}
-tools=tp.snapshot();files=set(sources.values())|{pathlib.Path(__file__).resolve(),D/'tool-pins.py',H/'raw_supervisor.py',pathlib.Path(supervisor.__file__).resolve(),R/'scripts/owned-tool-pins.py'}|{pathlib.Path(p) for p in tools['pins']};pins={str(p):sha(p) for p in files}
+tools=tp.snapshot();files=set(sources.values())|{pathlib.Path(__file__).resolve(),D/'tool-pins.py',R/'scripts/task_runner.py',pathlib.Path(task_runner.__file__).resolve(),R/'scripts/owned-tool-pins.py'}|{pathlib.Path(p) for p in tools['pins']};pins={str(p):sha(p) for p in files}
 configs={}
 for folder in [R,pathlib.Path.cwd(),stage]:
  for ancestor in [folder,*folder.parents]:
@@ -25,7 +24,7 @@ def guard():
   for path,h in c['logs'].items():assert sha(pathlib.Path(path))==h
 try:
  for label,args in [('version',['bend','version']),('guide',['bend','guide']),('check',['bend',str(stage/str(D.relative_to(R))/'application.bend'),'--check-only'])]:
-  guard();argv=['taskset','-c','8',*args];res=raw_supervisor.execute(argv,5,env={**os.environ,'BEND_NO_TELEMETRY':'1'});guard();logs={}
+  guard();argv=['taskset','-c','8',*args];res=task_runner.execute_result(argv,5,env={**os.environ,'BEND_NO_TELEMETRY':'1'});guard();logs={}
   for suffix in ['stdout','stderr']:
    p=out/(label+'.'+suffix);assert not p.exists();p.write_bytes(res[suffix]);logs[str(p)]=sha(p)
   r['commands'].append({'label':label,'argv':argv,'exit':res['exit'],'failure':res['failure'],'logs':logs});save();assert res['exit']==0 and res['failure'] is None
