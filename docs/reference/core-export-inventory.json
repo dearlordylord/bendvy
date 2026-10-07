@@ -1,0 +1,842 @@
+{
+  "formatVersion": 2,
+  "scope": "PREPARATION ONLY: complete pinned public symbol/signature/use/error source inventory with canonical aliases, inherited core members and inferred shapes; exact full-core executable acceptance remains UNMET.",
+  "baseCommit": "2296bb5ef5281db4ed78ea8cf6b8b791d2a0ec5e",
+  "payload": {
+    "path": "core-export-inventory.json.gz",
+    "encoding": "deterministic gzip (mtime=0); UTF-8 canonical sorted-key JSON, compact separators, terminal LF",
+    "sha256": "1b0aacb8c756b5d7b87508f07d5c31f1a5eaa8e32716cea11661a3b33475d25f",
+    "bytes": 2044323,
+    "uncompressedSHA256": "f086bf0e7b2385fd647cdf33028d0e41f6a2ad162b78db93a300813dfde395e3",
+    "uncompressedBytes": 25118664,
+    "roundTrip": "Exact compressed→uncompressed bytes and parsed data equality PASS"
+  },
+  "references": {
+    "bend2": {
+      "branch": "main",
+      "commit": "a950fd683c0d76f09794078e6174fe98a1492876",
+      "commit_date": "2026-10-03T18:48:23+02:00",
+      "shallow": true,
+      "url": "https://github.com/bendlang/bend"
+    },
+    "bevy": {
+      "branch": "main",
+      "commit": "ad678262ce53b5d142fe49ee5e08caff6f00ab60",
+      "commit_date": "2026-10-03T00:50:35+00:00",
+      "shallow": true,
+      "url": "https://github.com/bevyengine/bevy"
+    },
+    "bevy-ts": {
+      "branch": "main",
+      "commit": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334",
+      "commit_date": "2026-10-01T02:43:31-07:00",
+      "shallow": true,
+      "url": "https://github.com/SandroMaglione/bevy-ts"
+    }
+  },
+  "syntaxCounts": {
+    "boundGameMemberOccurrences": 61,
+    "canonicalDeclarationNameKeys": 477,
+    "canonicalMemberPathKeys": 762,
+    "declarationOccurrences": 493,
+    "documentedUseExamples": 62,
+    "itTestOccurrences": 251,
+    "memberOccurrences": 808,
+    "modules": 23,
+    "rejectionMarkers": 133,
+    "rootNamespaces": 13,
+    "runtimeMemberOccurrences": 12,
+    "signatureDependencies": 101,
+    "sourceErrorBoundaryOccurrences": 84,
+    "sourceFiles": 33,
+    "staticFiles": 15,
+    "suiteOccurrences": 40,
+    "testCaseAndSuiteOccurrences": 291,
+    "testFiles": 20,
+    "topLevelTestStatements": 466,
+    "useCallOccurrences": 4999
+  },
+  "semanticCounts": {
+    "boundOperationAndMetadataKeys": 67,
+    "callOverloads": 1772,
+    "callableBoundOperationKeys": 55,
+    "canonicalExportTargets": 477,
+    "classifiedUseCalls": 4999,
+    "constructorOverloads": 0,
+    "coreUseOperationGroups": 222,
+    "indexSignatures": 933,
+    "inheritedBaseEdges": 9,
+    "propertyOccurrences": 12085,
+    "publicExportKeys": 688,
+    "typeNodes": 10468,
+    "useClassification": {
+      "authored test/static helper": 298,
+      "host standard-library operation": 127,
+      "intended static refusal at absent/read-only/undeclared member": 12,
+      "pinned-core operation": 3402,
+      "test-framework declaration/assertion": 1160
+    },
+    "useOperationGroups": 658
+  },
+  "publicModules": [
+    {
+      "module": "Brand",
+      "entrypoint": "./Brand",
+      "rootNamespace": true,
+      "path": "src/Brand.ts",
+      "sha256": "85090ad2253694526dda4e2e54802158cf229d98477169bc25e77396bdc963b9",
+      "declarationOccurrences": 5,
+      "nestedMemberOccurrences": 3
+    },
+    {
+      "module": "Command",
+      "entrypoint": "./Command",
+      "rootNamespace": false,
+      "path": "src/Command.ts",
+      "sha256": "de5db2093401e24ce54fae8166e7f686c153852094b6446dc0ee22cfa28cef28",
+      "declarationOccurrences": 19,
+      "nestedMemberOccurrences": 22
+    },
+    {
+      "module": "Condition",
+      "entrypoint": "./Condition",
+      "rootNamespace": false,
+      "path": "src/Condition.ts",
+      "sha256": "1b4c8c906cab11745535ffe84f169a48767c88c26336f3b46f45cf7d59f08083",
+      "declarationOccurrences": 4,
+      "nestedMemberOccurrences": 4
+    },
+    {
+      "module": "Debug",
+      "entrypoint": "./Debug",
+      "rootNamespace": true,
+      "path": "src/Debug.ts",
+      "sha256": "942fc7e3bdf1b15f31708bad0ab02c0789a037b707a566e2cb860b43f9b5c3ff",
+      "declarationOccurrences": 42,
+      "nestedMemberOccurrences": 206
+    },
+    {
+      "module": "Decode",
+      "entrypoint": "./Decode",
+      "rootNamespace": true,
+      "path": "src/Decode.ts",
+      "sha256": "a8e8e91e5dffc15718ba8d3ecbea1007b386117af12764df4238356600bd82df",
+      "declarationOccurrences": 12,
+      "nestedMemberOccurrences": 6
+    },
+    {
+      "module": "Definition",
+      "entrypoint": "./Definition",
+      "rootNamespace": true,
+      "path": "src/Definition.ts",
+      "sha256": "96054da50280f6dca44fd97dbd126e597f1492c9737e34329adf3f1cda1b325f",
+      "declarationOccurrences": 7,
+      "nestedMemberOccurrences": 0
+    },
+    {
+      "module": "Descriptor",
+      "entrypoint": "./Descriptor",
+      "rootNamespace": true,
+      "path": "src/Descriptor.ts",
+      "sha256": "03e7339516d9f6bd455763a8dcdf7244d0c11f7165e493aa895aaa64225acab7",
+      "declarationOccurrences": 46,
+      "nestedMemberOccurrences": 29
+    },
+    {
+      "module": "Entity",
+      "entrypoint": "./Entity",
+      "rootNamespace": true,
+      "path": "src/Entity.ts",
+      "sha256": "05d724f241b2d662a7a03ce82da5f133c4b587df92e5e22fdfdb7484edbca68e",
+      "declarationOccurrences": 20,
+      "nestedMemberOccurrences": 29
+    },
+    {
+      "module": "EntityScope",
+      "entrypoint": "./EntityScope",
+      "rootNamespace": true,
+      "path": "src/EntityScope.ts",
+      "sha256": "3241a13ed0c337434e193e80a790498a9130ea31d4aca1f73294a5af2c50b04a",
+      "declarationOccurrences": 6,
+      "nestedMemberOccurrences": 4
+    },
+    {
+      "module": "Feature",
+      "entrypoint": "./Feature",
+      "rootNamespace": false,
+      "path": "src/Feature.ts",
+      "sha256": "bf3be7437c63c1f12d8b0ff0f1a4965408331fad7a279669ef7c9b2cb29140a8",
+      "declarationOccurrences": 7,
+      "nestedMemberOccurrences": 19
+    },
+    {
+      "module": "Fx",
+      "entrypoint": "./Fx",
+      "rootNamespace": true,
+      "path": "src/Fx.ts",
+      "sha256": "75242b8513225601589f4658d59c86100351557fef39cc8d17506c958dd2c5b3",
+      "declarationOccurrences": 15,
+      "nestedMemberOccurrences": 5
+    },
+    {
+      "module": "Inspector",
+      "entrypoint": "./Inspector",
+      "rootNamespace": true,
+      "path": "src/Inspector.ts",
+      "sha256": "21757eb340c0ae192a36726538d0a87aefbd455859d196dab36aa3515c1addb3",
+      "declarationOccurrences": 9,
+      "nestedMemberOccurrences": 17
+    },
+    {
+      "module": "Machine",
+      "entrypoint": "./Machine",
+      "rootNamespace": false,
+      "path": "src/Machine.ts",
+      "sha256": "a0007e841e07afb10a40ab8f3056691a3555cd6815b4564f5f1326e0e956ceb3",
+      "declarationOccurrences": 41,
+      "nestedMemberOccurrences": 61
+    },
+    {
+      "module": "Query",
+      "entrypoint": "./Query",
+      "rootNamespace": false,
+      "path": "src/Query.ts",
+      "sha256": "45e2fe513f66e336f97d40b41b3c866363a1af17ecbc90087086e00c08b28414",
+      "declarationOccurrences": 44,
+      "nestedMemberOccurrences": 52
+    },
+    {
+      "module": "Relation",
+      "entrypoint": "./Relation",
+      "rootNamespace": false,
+      "path": "src/Relation.ts",
+      "sha256": "7c2cbe93d90c6ca4f173932c9bb7e4536323d6b5bf17dc64c1c8fda83c3a7aa4",
+      "declarationOccurrences": 43,
+      "nestedMemberOccurrences": 72
+    },
+    {
+      "module": "Requirement",
+      "entrypoint": "./Requirement",
+      "rootNamespace": true,
+      "path": "src/Requirement.ts",
+      "sha256": "0397bbf69285e1f50edafdceab81b48208c0127fe53ff0305e52d6a1b4766783",
+      "declarationOccurrences": 4,
+      "nestedMemberOccurrences": 4
+    },
+    {
+      "module": "Result",
+      "entrypoint": "./Result",
+      "rootNamespace": true,
+      "path": "src/Result.ts",
+      "sha256": "96b098025e5e84b26bc97355ed1c463fe17f652954d2f83a83058e9817f7766c",
+      "declarationOccurrences": 12,
+      "nestedMemberOccurrences": 2
+    },
+    {
+      "module": "Runtime",
+      "entrypoint": "./Runtime",
+      "rootNamespace": false,
+      "path": "src/Runtime.ts",
+      "sha256": "c744aa5c52845bd3323358c5085161b40a452c6802a1653e3851bfd34c69f5b4",
+      "declarationOccurrences": 23,
+      "nestedMemberOccurrences": 33
+    },
+    {
+      "module": "Schedule",
+      "entrypoint": "./Schedule",
+      "rootNamespace": false,
+      "path": "src/Schedule.ts",
+      "sha256": "ab1610c356bfbcedf6ac85758e04c7032cda1f2458ff13c8a483c53d94b55c2a",
+      "declarationOccurrences": 29,
+      "nestedMemberOccurrences": 16
+    },
+    {
+      "module": "Schema",
+      "entrypoint": "./Schema",
+      "rootNamespace": true,
+      "path": "src/Schema.ts",
+      "sha256": "26e7c140a6f3c2a98ea4e43c1f067a18e47c03ff6f56939c8139f1535ae1a0ec",
+      "declarationOccurrences": 37,
+      "nestedMemberOccurrences": 88
+    },
+    {
+      "module": "Snapshot",
+      "entrypoint": "./Snapshot",
+      "rootNamespace": true,
+      "path": "src/Snapshot.ts",
+      "sha256": "249f57c429d97e57088ebb1e959b6258dd97ca71c9cc66a0a4ed6ac35ad04a3b",
+      "declarationOccurrences": 6,
+      "nestedMemberOccurrences": 39
+    },
+    {
+      "module": "System",
+      "entrypoint": "./System",
+      "rootNamespace": false,
+      "path": "src/System.ts",
+      "sha256": "ae53852dbd815ad441446cbcfc663d25aed6c2bd0afcfacbc3c20e0c40dc2ba7",
+      "declarationOccurrences": 49,
+      "nestedMemberOccurrences": 97
+    },
+    {
+      "module": "index",
+      "entrypoint": ".",
+      "rootNamespace": null,
+      "path": "src/index.ts",
+      "sha256": "a74d79748f5eff6e9f732b54ed6efc0a42826e4cf8ffc7ab9504d11257e6d61f",
+      "declarationOccurrences": 13,
+      "nestedMemberOccurrences": 0
+    }
+  ],
+  "testStaticSources": [
+    {
+      "path": "dtslint/Architecture.tst.ts",
+      "sha256": "e519d9db1c31b9e06d308e3c5e90cdc23ccf32df8861734d4d24db13409bc17a",
+      "testSuiteOccurrences": 2,
+      "callOccurrences": 66,
+      "rejectionMarkers": 1
+    },
+    {
+      "path": "dtslint/Cells.tst.ts",
+      "sha256": "51f419ebb2ce715cc09f4d8aea187ca5b1b138a8b9483aeeb6323bb49ad943b3",
+      "testSuiteOccurrences": 8,
+      "callOccurrences": 101,
+      "rejectionMarkers": 4
+    },
+    {
+      "path": "dtslint/Command.tst.ts",
+      "sha256": "850296412af64a3e87bd5712afad1cba506366f4ef78a64d4865e78745b6ecd5",
+      "testSuiteOccurrences": 10,
+      "callOccurrences": 57,
+      "rejectionMarkers": 2
+    },
+    {
+      "path": "dtslint/CommandEntries.tst.ts",
+      "sha256": "8963116cbc23744b079df99b04869ad3ff1e8a7921073b01a99d01f2af73b1e3",
+      "testSuiteOccurrences": 4,
+      "callOccurrences": 26,
+      "rejectionMarkers": 5
+    },
+    {
+      "path": "dtslint/Condition.tst.ts",
+      "sha256": "e515594c821892462931183c796edbf1caca19c194a5c30aa8cdffed518dc110",
+      "testSuiteOccurrences": 6,
+      "callOccurrences": 94,
+      "rejectionMarkers": 19
+    },
+    {
+      "path": "dtslint/Debug.tst.ts",
+      "sha256": "07fa28280bb06664c1212e0bb7bcdc6c1ac49c05fca2f1905076528292a160fb",
+      "testSuiteOccurrences": 6,
+      "callOccurrences": 57,
+      "rejectionMarkers": 0
+    },
+    {
+      "path": "dtslint/Identity.tst.ts",
+      "sha256": "2b031c24545e3e963d087609218c3d6bcbe5c3c0f47e9e80ea29e1763d7f67c3",
+      "testSuiteOccurrences": 8,
+      "callOccurrences": 55,
+      "rejectionMarkers": 7
+    },
+    {
+      "path": "dtslint/Runtime.tst.ts",
+      "sha256": "f704b916e103814aa2274f70e3ba6a5b2aa6d942ff7bbbcddc5e27f06bbfc3b3",
+      "testSuiteOccurrences": 22,
+      "callOccurrences": 229,
+      "rejectionMarkers": 17
+    },
+    {
+      "path": "dtslint/Schedule.tst.ts",
+      "sha256": "e1ddf4550f676364126712a3cba5e088e3ebf9a409fcfccd1b1aeaae2e636353",
+      "testSuiteOccurrences": 5,
+      "callOccurrences": 33,
+      "rejectionMarkers": 2
+    },
+    {
+      "path": "dtslint/Schema.tst.ts",
+      "sha256": "b4304e419114416dadbe1f8e643162c6502a0e124a5a97ca83b47b08f81629f5",
+      "testSuiteOccurrences": 16,
+      "callOccurrences": 308,
+      "rejectionMarkers": 43
+    },
+    {
+      "path": "dtslint/Stability.tst.ts",
+      "sha256": "b6d383c961fcabb42ca4140b1c4ce36b8b60fc23b6857c0fa52549405858913e",
+      "testSuiteOccurrences": 7,
+      "callOccurrences": 82,
+      "rejectionMarkers": 3
+    },
+    {
+      "path": "dtslint/State.tst.ts",
+      "sha256": "fa32248377b800d622ad4b230dfeded6ecea440f87567e49fdddab94775321fe",
+      "testSuiteOccurrences": 4,
+      "callOccurrences": 50,
+      "rejectionMarkers": 9
+    },
+    {
+      "path": "dtslint/StateMachine.tst.ts",
+      "sha256": "f6831c59baaa005c599d8d37118ed9eee22ff04f252dada854efe593a38c7eb2",
+      "testSuiteOccurrences": 15,
+      "callOccurrences": 149,
+      "rejectionMarkers": 14
+    },
+    {
+      "path": "dtslint/System.tst.ts",
+      "sha256": "ebd9f4be81d5ff89e69382d111b481b7d018126ec8ed5fc115159b69a92a36f9",
+      "testSuiteOccurrences": 4,
+      "callOccurrences": 96,
+      "rejectionMarkers": 5
+    },
+    {
+      "path": "dtslint/Values.tst.ts",
+      "sha256": "7119e4ac19d58003d37a255db90e87098be2dd2191f8d3e82099bfb2240af07e",
+      "testSuiteOccurrences": 8,
+      "callOccurrences": 65,
+      "rejectionMarkers": 2
+    },
+    {
+      "path": "test/Concepts.test.ts",
+      "sha256": "d407a8099e2cc4e471558787605cb8c6e3e258aa8ff8ddbdf395a9fccc244baa",
+      "testSuiteOccurrences": 2,
+      "callOccurrences": 5,
+      "rejectionMarkers": 0
+    },
+    {
+      "path": "test/Condition.check.test.ts",
+      "sha256": "dcc4dba5f54a12caa8cd0df7781b9264dd59a067995671977fc75b9a1a494aff",
+      "testSuiteOccurrences": 9,
+      "callOccurrences": 164,
+      "rejectionMarkers": 0
+    },
+    {
+      "path": "test/Decode.test.ts",
+      "sha256": "1e5bc96458c4772f74021714866d1a82614e27eb0760c04e0516f2cec7646a50",
+      "testSuiteOccurrences": 4,
+      "callOccurrences": 95,
+      "rejectionMarkers": 0
+    },
+    {
+      "path": "test/Descriptor.State.test.ts",
+      "sha256": "61db3634c0adf1d1804645e92b78659f00c8991c43eae29172abf7a1e9a3b1fc",
+      "testSuiteOccurrences": 5,
+      "callOccurrences": 112,
+      "rejectionMarkers": 0
+    },
+    {
+      "path": "test/Feature.test.ts",
+      "sha256": "9266537db19ad2f4c234182dcf96a7bfc835c41d37aac153f67d959840e079d3",
+      "testSuiteOccurrences": 4,
+      "callOccurrences": 102,
+      "rejectionMarkers": 0
+    },
+    {
+      "path": "test/Runtime.commands.test.ts",
+      "sha256": "237035e02b5d07c563255eb5314f153f10d8c219edb4e4279da02477b3472724",
+      "testSuiteOccurrences": 8,
+      "callOccurrences": 199,
+      "rejectionMarkers": 0
+    },
+    {
+      "path": "test/Runtime.debug.test.ts",
+      "sha256": "364887dda8e83401065ddbd49e7e73cfdf1327883850e090458be5a7bdf53b74",
+      "testSuiteOccurrences": 15,
+      "callOccurrences": 327,
+      "rejectionMarkers": 0
+    },
+    {
+      "path": "test/Runtime.events.test.ts",
+      "sha256": "2a1e152c3efdaed271a7414b1de5c968bbebdaa28185e530202a023bbd7d2af9",
+      "testSuiteOccurrences": 13,
+      "callOccurrences": 232,
+      "rejectionMarkers": 0
+    },
+    {
+      "path": "test/Runtime.lifecycle.test.ts",
+      "sha256": "7050b726e9c5be56ba67fdbf295910ba69ee9be367b2170e2a4fc6c2c10f5d4c",
+      "testSuiteOccurrences": 8,
+      "callOccurrences": 194,
+      "rejectionMarkers": 0
+    },
+    {
+      "path": "test/Runtime.query-lookup.test.ts",
+      "sha256": "7747d9e17c459079ad9237146f28a9bee9390c2aa6984cf996ed062972c62199",
+      "testSuiteOccurrences": 14,
+      "callOccurrences": 351,
+      "rejectionMarkers": 0
+    },
+    {
+      "path": "test/Runtime.relations.test.ts",
+      "sha256": "9f4f7fd1e076a73cd1234a37e7855b94f788f945f5fe1b205ce5d46f866ae328",
+      "testSuiteOccurrences": 11,
+      "callOccurrences": 373,
+      "rejectionMarkers": 0
+    },
+    {
+      "path": "test/Runtime.requirements.test.ts",
+      "sha256": "a4aece571fb064e50639eccbfbe92b9c9a341d565523cbeb66cb4d6a7bc687cb",
+      "testSuiteOccurrences": 2,
+      "callOccurrences": 33,
+      "rejectionMarkers": 0
+    },
+    {
+      "path": "test/Runtime.resources.test.ts",
+      "sha256": "d1533d79163394283fdc656fce0fda77cc424e17d15045386fa3126d35db4693",
+      "testSuiteOccurrences": 12,
+      "callOccurrences": 179,
+      "rejectionMarkers": 0
+    },
+    {
+      "path": "test/Runtime.scheduling.test.ts",
+      "sha256": "85b6b8356e903e084299fc47c4e6f650b6b934dbde5f781a8752b5e8d670ed84",
+      "testSuiteOccurrences": 9,
+      "callOccurrences": 125,
+      "rejectionMarkers": 0
+    },
+    {
+      "path": "test/Runtime.snapshot.test.ts",
+      "sha256": "d9d416c391da954db3e89f040a4ad2ef353b07b735dc673f49279e6f142bad09",
+      "testSuiteOccurrences": 8,
+      "callOccurrences": 187,
+      "rejectionMarkers": 0
+    },
+    {
+      "path": "test/Runtime.stability.test.ts",
+      "sha256": "86d7fe01481d028cd28ee8f603f57d8279993e8fa0931e62987484d270956cdc",
+      "testSuiteOccurrences": 5,
+      "callOccurrences": 144,
+      "rejectionMarkers": 0
+    },
+    {
+      "path": "test/Runtime.state-machine.test.ts",
+      "sha256": "12ecbe430b55098db05827908fb12b1d09f0eaeb05cc1dcec7ae460f182ed36f",
+      "testSuiteOccurrences": 21,
+      "callOccurrences": 458,
+      "rejectionMarkers": 0
+    },
+    {
+      "path": "test/Runtime.storage.test.ts",
+      "sha256": "0b9c9ae0bde0045db22fe51e16f70ccff9141f2d02353ecaf429c2bb4a9b2716",
+      "testSuiteOccurrences": 9,
+      "callOccurrences": 138,
+      "rejectionMarkers": 0
+    },
+    {
+      "path": "test/Schedule.when.test.ts",
+      "sha256": "854af53a8f8d1a51273147a07d0535a98a8ef2a11eea9a957c5a4cf4b69558b1",
+      "testSuiteOccurrences": 7,
+      "callOccurrences": 108,
+      "rejectionMarkers": 0
+    },
+    {
+      "path": "test/utils/fixtures.ts",
+      "sha256": "eacc6b741ca1b44ad8b29b94f0d253c7c5c22c884e5b7d196b3fd0cf7328857c",
+      "testSuiteOccurrences": 0,
+      "callOccurrences": 5,
+      "rejectionMarkers": 0
+    }
+  ],
+  "auditBaseCoreSources": [
+    {
+      "path": "src/ecs/README.md",
+      "sha256": "4d53a49f4897cc6a68207cc142458e617e1963ab26ad00a044d5501b4cc548e8"
+    },
+    {
+      "path": "src/ecs/capabilities.bend",
+      "sha256": "91c0cdc01e9143d10dc0156ef4f6c39beff97d8088ed0bbb056ffff2ffabf964"
+    },
+    {
+      "path": "src/ecs/captured-column.bend",
+      "sha256": "340efc234a5681adb2ccd35da22a1cbe3fbde4d15f0e6a3f8a75e76c4852df0a"
+    },
+    {
+      "path": "src/ecs/column.bend",
+      "sha256": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a"
+    },
+    {
+      "path": "src/ecs/commands.bend",
+      "sha256": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d"
+    },
+    {
+      "path": "src/ecs/component.bend",
+      "sha256": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c"
+    },
+    {
+      "path": "src/ecs/compose.bend",
+      "sha256": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca"
+    },
+    {
+      "path": "src/ecs/event-runtime.bend",
+      "sha256": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557"
+    },
+    {
+      "path": "src/ecs/events.bend",
+      "sha256": "fffc3ec427072c4ba1c880f2ba8a73c1fcd1db66550cf63cdce56ba9e10bdc63"
+    },
+    {
+      "path": "src/ecs/feature-provision.bend",
+      "sha256": "430b9a1a382c4b78e4eaeb11a838b3f1cd01b5c3042ec83a72364815886a2b9d"
+    },
+    {
+      "path": "src/ecs/feature.bend",
+      "sha256": "be03fb80093190ed1bc963a7f6516195c189921a56694b998ec3325e35c9091d"
+    },
+    {
+      "path": "src/ecs/indexed-lifecycle.bend",
+      "sha256": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5"
+    },
+    {
+      "path": "src/ecs/lifecycle.bend",
+      "sha256": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0"
+    },
+    {
+      "path": "src/ecs/local.bend",
+      "sha256": "8cc5b3c9d3597c60d8a1b9b7fd206a92b289669c3cd9a8575db65ce9af37bd47"
+    },
+    {
+      "path": "src/ecs/optimized-compose.bend",
+      "sha256": "ac9c98457c7d6890f1f30dd82f41658a5d3ae962a7fb9022062af5b9d581ca25"
+    },
+    {
+      "path": "src/ecs/owned-compose.bend",
+      "sha256": "1115ffe6db7a1940b53889f53df09cff7fd43a3d244e07b843ea9094f62d31c7"
+    },
+    {
+      "path": "src/ecs/owned-family.bend",
+      "sha256": "1fe504b1130eed24fb0c1dfc9bf7c6de0ab0f855d4adf30694a1f6b3c634f7e1"
+    },
+    {
+      "path": "src/ecs/owned-optimized-compose.bend",
+      "sha256": "3e651cc49f4d6cfb37ea5af07a4b4668a8983911a7547a03aec193f9ca305fff"
+    },
+    {
+      "path": "src/ecs/owner-handoff.bend",
+      "sha256": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec"
+    },
+    {
+      "path": "src/ecs/provider.bend",
+      "sha256": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72"
+    },
+    {
+      "path": "src/ecs/query-contract.bend",
+      "sha256": "de8eb5a047d2ca82e5832513798a6590a2cd025296b80b154da65a51270c4e91"
+    },
+    {
+      "path": "src/ecs/query.bend",
+      "sha256": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9"
+    },
+    {
+      "path": "src/ecs/reader-domains.bend",
+      "sha256": "1771e9a969c2533e4b38f27d7a8d4752f07f31f45cb9442625f44175e0beb314"
+    },
+    {
+      "path": "src/ecs/registration.bend",
+      "sha256": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5"
+    },
+    {
+      "path": "src/ecs/removals.bend",
+      "sha256": "98a5f5cf42372d8eab35f3927539079e4412886eeaa3e07bbb2113f2286222f6"
+    },
+    {
+      "path": "src/ecs/resource.bend",
+      "sha256": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3"
+    },
+    {
+      "path": "src/ecs/restored-row.bend",
+      "sha256": "9a1e25359a7775e230ad1b720180db622c12c2e9757cba98acef9c89e8d0f2d5"
+    },
+    {
+      "path": "src/ecs/row-column.bend",
+      "sha256": "f3846a5378958c522d4053f13f7af4898a8a60c76f7534b060f020adca631f72"
+    },
+    {
+      "path": "src/ecs/schedule-provision.bend",
+      "sha256": "45d8b7d2c11d9fe28a6ee2a4cd460bad2b8591dbc8546daa68ae29d66d3979e9"
+    },
+    {
+      "path": "src/ecs/schedule.bend",
+      "sha256": "e7c1f18bcb27ba6b5d6c7de88e81d0fe41c000b8d16fcd4d500d72655de86da3"
+    },
+    {
+      "path": "src/ecs/schema-fragments.bend",
+      "sha256": "83525f185b6099d48af4e3a14f30149cd94069ad5e29663c63e44a15a866cfe6"
+    },
+    {
+      "path": "src/ecs/state.bend",
+      "sha256": "301fc0aea3ecfd95b1253fe48f51b3a11e23345bfc0bb449b3287ddbc997f694"
+    },
+    {
+      "path": "src/ecs/string-equality.bend",
+      "sha256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723"
+    },
+    {
+      "path": "src/ecs/structural.bend",
+      "sha256": "e8e813dc6de2f8a38ca61f51c0cbc5aeaf243fcc9cd399303e2adca2674480d4"
+    },
+    {
+      "path": "src/ecs/system.bend",
+      "sha256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113"
+    },
+    {
+      "path": "src/ecs/transaction.bend",
+      "sha256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b"
+    },
+    {
+      "path": "src/ecs/world-io.bend",
+      "sha256": "4cb99615ad5177439b60cb659be2d5bc95ff02dc9cf55c162c2470e6d0f19a2a"
+    },
+    {
+      "path": "src/ecs/world-namespace.bend",
+      "sha256": "92f7205a5d4d633289348960e139f5797354ff7dbfb0627b5d9435e17c5f48d7"
+    },
+    {
+      "path": "src/ecs/world-namespace.c",
+      "sha256": "b218011c7738b7ac8ca94963b8c8cacd97006af6fa1c6ab6f4ac506c612b4521"
+    },
+    {
+      "path": "src/ecs/world-namespace.js",
+      "sha256": "2731ad76f78bcdfe51714a1562fe487d5808b9300394ec0aebd89e24b00163f3"
+    },
+    {
+      "path": "src/ecs/world.bend",
+      "sha256": "a20b0f2363dab12b73109354ebddf5c9126d3e786031cf9232a0c68c5ffc3b5c"
+    }
+  ],
+  "rootSourceSnapshot": {
+    "root": "/workspace/formal-proofs/bendvy",
+    "commit": "32392447a9d05ea88256efa7ee421a54669740d2",
+    "scope": "Read-only source snapshot supplement; base audit remains2296bb5e. Untracked relation modules are candidates, not delivered API or executable acceptance.",
+    "uncommittedCoreStatus": "?? src/ecs/relation-cleanup.bend\n?? src/ecs/relation-commands.bend\n?? src/ecs/relation-graph.bend\n?? src/ecs/relation-providers.bend\n?? src/ecs/relation-query.bend\n?? src/ecs/relation-reorder-core.bend\n?? src/ecs/relation-reorder.bend\n?? src/ecs/relation-types.bend",
+    "sourceCount": 49
+  },
+  "architectureSourcePins": [
+    {
+      "path": "crates/bevy_ecs/src/system/system_param.rs",
+      "reference": "bevy",
+      "sha256": "e7c04fb01eebff746876ab65a5db9e3e36184a872057408f2e8ac11b694a3d26"
+    },
+    {
+      "path": "crates/bevy_ecs/src/system/function_system.rs",
+      "reference": "bevy",
+      "sha256": "e4090247301cc611c7289f2f5c105a6121390fcacf7920cb25f43b5a2f1eaf77"
+    },
+    {
+      "path": "crates/bevy_ecs/src/system/query.rs",
+      "reference": "bevy",
+      "sha256": "41d678fa378ee419d6ce39a46b85c4b7056b3ae2fb93fbef256e70b62c82bbea"
+    },
+    {
+      "path": "crates/bevy_ecs/src/query/fetch.rs",
+      "reference": "bevy",
+      "sha256": "52dcdc188fccf8296a558dbaebe186026fd724f7c66146b58323981f00ee26bb"
+    },
+    {
+      "path": "crates/bevy_ecs/src/system/commands/mod.rs",
+      "reference": "bevy",
+      "sha256": "3c98f8b377e735a703bd86a2591663fa5f4d1658a0ca80dba3ceb00d86696f7a"
+    },
+    {
+      "path": "crates/bevy_ecs/src/message/message_reader.rs",
+      "reference": "bevy",
+      "sha256": "0784d874bb912b03d746f28c5804387a3377f2f12ee6e745f923ec259004c292"
+    },
+    {
+      "path": "crates/bevy_ecs/src/relationship/mod.rs",
+      "reference": "bevy",
+      "sha256": "08ea0566a6c3104bd4433754260cf474fec38ef162a3d572cbaa5ff48493a6e0"
+    },
+    {
+      "path": "crates/bevy_ecs/src/change_detection/params.rs",
+      "reference": "bevy",
+      "sha256": "2727d7b8f7a5ffd66a8bec6583465039e254f892e8126c30e5bc605a1fccb8aa"
+    },
+    {
+      "path": "guide/GUIDE.md",
+      "reference": "bend2",
+      "sha256": "9001a4ac112e92dc0c069c8b9d5812e114c2557427d9f962cddeef1ef6c292b6"
+    },
+    {
+      "path": "bend2/base.bend",
+      "reference": "bend2",
+      "sha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661"
+    },
+    {
+      "path": "bend2/comp.ts",
+      "reference": "bend2",
+      "sha256": "32fb66e09f608ce9e4b173384bcfeec453db8c5bc96650e26ad861bef815a8d9"
+    }
+  ],
+  "installedBaseReadOnlyPin": {
+    "path": "/home/node/.bend/bend2/base.bend",
+    "scope": "Read-only hash; installed tool version and behavior not probed.",
+    "sha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661"
+  },
+  "selectedCurrentEvidenceJoins": [
+    {
+      "issue": "#41",
+      "manifest": "/workspace/formal-proofs/bendvy/experiments/public-bundles/owned-public-result-v1/surface-delivery.json",
+      "manifestSHA256": "a3305ca3299969ce290c7fe40d2b43980940ea9e5513c5f23593140f7a4ef7f9",
+      "scope": "Selected finite full20 TS/JS/Native independent bundle surface; current manifest adds source-only integration mapping. No production/core acceptance.",
+      "fullIssueAccepted": false
+    },
+    {
+      "issue": "#49",
+      "manifest": "/workspace/formal-proofs/bendvy/experiments/public-machine-handlers/candidate-v1/delivery-driver-native-v1/manifest.json",
+      "manifestSHA256": "e790212901905d70492e7e06fcec769fd04cbd743ed660d9024be8c0ef6df965",
+      "scope": "Complete96/12 finite observable qualification; two actual refusal instantiations repeated under12 labels, not original predicate/owner TYPE identity.",
+      "fullIssueAccepted": false
+    },
+    {
+      "issue": "#42",
+      "manifest": "/workspace/formal-proofs/bendvy/experiments/public-relations/timing/current-qualification-v1/phase2/delivery-files.json",
+      "manifestSHA256": "41dfa6419955deeffe0ad151e78773d78cadc0caed683f698685dcfa8786fbb5",
+      "scope": "Finite #42 phase2 same-artifact three full30 JS runtime-input cases and portable original evidence; no core adoption/performance/parity closure",
+      "fullIssueAccepted": false
+    },
+    {
+      "issue": "#54",
+      "manifest": "/workspace/formal-proofs/bendvy-worktrees/parity-54-inspector/experiments/public-inspect/promotion-stage/controls/handoff-manifest.json",
+      "manifestSHA256": "d0f4d69ac4f80539a220e56e347ff5e55638ab67ade7b4beadf9c36b31e600ae",
+      "scope": "EXPERIMENTAL uncommitted promotion worktree: source/node/CLI and standalone JS/Native cardinality/check; selected old retainer controls separate; no production acceptance.",
+      "fullIssueAccepted": false
+    },
+    {
+      "issue": "#42",
+      "manifest": "/workspace/formal-proofs/bendvy/experiments/public-relations/timing/current-qualification-v1/phase2/remainder-v1/native-files.json",
+      "manifestSHA256": "49a1877ee8f18ee114dfe40f6e316b3b0425d65cc6e81ac64b700a7889582964",
+      "scope": "Finite #42 Native anchor extension only; unqualified source-only remainder fixtures/oracles excluded",
+      "fullIssueAccepted": false
+    },
+    {
+      "issue": "#49",
+      "manifest": "/workspace/formal-proofs/bendvy-worktrees/parity-49-handlers/experiments/public-machine-handlers/candidate-v1/delivery-mutants-v1/manifest.json",
+      "manifestSHA256": "8c1c878aa8deba3f05f7dff81afb31eb23535be3f20ca6e2297362a5d6ed2671",
+      "scope": "Independently approved bounded three full96/12 JS semantic variants; six subjects, all24 strings and two schema witnesses. Worker commit82d6d424; actual resolver/Native variants/full49/proof/performance UNMET.",
+      "fullIssueAccepted": false
+    },
+    {
+      "issue": "#54",
+      "manifest": "/workspace/formal-proofs/bendvy-worktrees/parity-54-inspector/experiments/public-inspect/promotion-stage/final-evidence-v1/SELECTED-DELIVERY-FILES.json",
+      "manifestSHA256": "ad6c621f06aaf09b9ec1dda6ec9214ec3161052d1a9e137ffcea1a76167080b4",
+      "scope": "Final bounded Inspector promotion selected path delta:91 listed plus self92; original95 review retained historical. Qualification unchanged. Selection delta pending independent review; full54/Native mutation/proof/performance/production integration UNMET.",
+      "fullIssueAccepted": false
+    }
+  ],
+  "limitations": [
+    "Canonical source generic conditional/indexed contracts are retained symbolically; this is not an enumeration of all possible type instantiations.",
+    "Builtin host primitive/collection prototypes are classified external, not silently claimed as ECS-owned APIs.",
+    "Documentation and source-test use boundaries are source-only; external imported test framework declarations stay explicit; all authored calls are classified.",
+    "Existing bounded implementation/evidence is related by contract; no full #61 per-boundary execution/negative/mutation acceptance is inferred.",
+    "Selected current41/42/49/54 manifests are independently hash-joined without replaying validators or backends."
+  ],
+  "regeneration": {
+    "instructions": "Extract generator sources below to temporary files. From matching audit checkout run syntax→historicalJoins→semantic→selectedCurrentJoins→enrichment→nativeExtension→approvedExtensions→selectionDelta→pack; syntax replaces this index with the full intermediate dataset. Uses already-present cached TypeScript 5.9.3 and Python stdlib only; no installation, diagnostic typecheck, backend or test execution. Later root/worktree sources must match retained hashes for identical output.",
+    "syntax": "const fs=require('fs'),path=require('path'),crypto=require('crypto');\nconst ts=require('/home/node/.npm/_npx/69f9afb961c37556/node_modules/typescript/lib/typescript.js');\nconst root=process.cwd(), ref=path.join(root,'.references/bevy-ts/packages/core');\nconst hash=s=>crypto.createHash('sha256').update(s).digest('hex');\nconst profiles={\n Brand:['46','src/ecs/component.bend','docs/reports/user-system-api.md','No independently verified complete Brand refinement/composition API; construction coverage is bounded.'],\n Decode:['46','experiments/public-validation','docs/parity/README.md','Decoder/host candidate requires joined public constructor, pending insert and persistence integration; Promise is host-only evidence.'],\n Definition:['46','src/ecs/component.bend','docs/reports/user-system-api.md','Generic reusable definition entry/all algebra lacks exact independent public evidence.'],\n Descriptor:['41','src/ecs/component.bend','docs/reports/component-state-completion.md','General constructors/bundles/validation/transient persistence need #41/#46/#47/#58 joins.'],\n Entity:['38','src/ecs/world-io.bend','experiments/public-identity/production-candidate/promotion/LIVE-REPORT.md','Growth, exhaustion, reservation and restore freshness remain #38/#41/#60; approved foreign-world behavior differs from TS.'],\n EntityScope:['45',null,null,'Public scope spawn/cleanup with persistent preservation absent.'],\n Feature:['40','src/ecs/feature.bend','docs/reports/features-completion.md','Bounded feature applications do not establish all dependency/provisioning/composition combinations.'],\n Schema:['39','src/ecs/schema-fragments.bend','docs/reports/schema-fragments-completion.md','All bound Game members separately require their capability owner; source signature aliases alone are not verification.'],\n Query:['61','src/ecs/query-contract.bend','docs/reports/public-query-contract.md','Count/lookup finite coverage (#29) does not establish every cell helper/error/related/hierarchy/constructed write combination; assign unresolved helper gap in #61.'],\n Command:['41','src/ecs/commands.bend','experiments/public-bundles','Production joined general bundle/refusal/retry and failed activation remain; relations/hierarchy/scope command branches belong #42/#44/#45.'],\n System:['51','src/ecs/system.bend','docs/reports/user-system-api.md','General Type recovery/capture/stream/machine capability composition remains #50/#51/#52/#53, and authority must be checked at real extensions.'],\n Requirement:['34','src/ecs/schedule-provision.bend','docs/reports/nested-provision-completion.md','Finite requirement unions are delivered; full mixed services/resources/machines/check/inspector combinations need independent current replay.'],\n Schedule:['34','src/ecs/schedule.bend','docs/reports/nested-provision-completion.md','Nested schedules/requirements bounded; reader combinations #35 and transition handlers #49 need joined replay.'],\n Condition:['54',null,'experiments/public-inspect/bend-candidate/full-v2/RESOURCE-REPORT.md','Experimental optional resource/check candidate is not full public check/machine/readonly filter integration.'],\n Inspector:['54',null,'experiments/public-inspect/bend-candidate/full-v2/REPORT.md','Experimental query/resource/event/removal subset does not cover services/machines/transitions/relation failures or full retention/debug integration.'],\n Runtime:['61','src/ecs/world.bend','docs/reports/parity-current-regression.md','No source-current full Runtime/Game joined independent consumer; static provisioning, snapshot, inspect and debug members require separate owners.'],\n Machine:['48',null,'docs/reports/machines-application-initial.md','Archive candidate queue/stream subset requires production, handler #49 and full Native/control/performance integration.'],\n Relation:['42',null,'docs/reports/relations-application-initial.md','Experimental relation graph/query candidate needs production/source-current complete replay; failure readers #43 and hierarchy #44 separate.'],\n Snapshot:['58',null,null,'Public independent codecs/basic snapshot absent; validation #59 and graph/machine/allocator/runtime omission restore #60 absent.'],\n Debug:['56',null,null,'Public descriptions/dumps/observe/report/stream diagnostics absent; description/dump #56 and trace/subscription/disabled overhead #57 separate.'],\n Fx:['61',null,null,'Complete effect success/failure/environment/combinator helper behavior has no mapped independent public evidence; #61 pending ownership assignment.'],\n Result:['61',null,null,'Result match/all/guards/tuple/record type and runtime helper behavior has no mapped independent public evidence; #61 pending ownership assignment.'],\n index:['61',null,null,'Namespace reexport reachability is inventory only; no full-core consumer acceptance.']\n};\nfunction mapping(mod,name){let p=profiles[mod], owner=p[0]; if(['Brand','Definition'].includes(mod)) owner='61';\n if(mod==='Descriptor' && /State|state|Transition/.test(name))owner='47';\n if(mod==='Descriptor' && /Transient|transient|Construct|construct|Decode|Raw|Error/.test(name))owner=/Transient|transient/.test(name)?'58':'46';\n if((mod==='Schema'||mod==='Runtime'||mod==='System'||mod==='Query'||mod==='Command') && /RelationFailure|relationFailures|readRelationFailures/.test(name)) owner='43';\n else if((mod==='Schema'||mod==='Runtime'||mod==='System'||mod==='Query'||mod==='Command') && /Relation|Related|relat|Related/.test(name))owner='42';\n if(/Hierarchy|Child|child|ancestor|descendant|parent|reorder/.test(name))owner='44';\n if(/EntityScope|spawnIn|despawnScope/.test(name))owner='45';\n if(mod==='Schema') {if(/\\.Game\\.Inspector/.test(name))owner='54';else if(/\\.Game\\.Condition/.test(name))owner='54';else if(/\\.Game\\.StateMachine|\\.Game\\.System\\.(machine|nextState|readTransition|transition)|\\.Game\\.Schedule\\.(transitions|applyStateTransitions)/.test(name))owner='48';else if(/\\.Game\\.Schedule\\.(onEnter|onExit|onTransition)/.test(name))owner='49';else if(/\\.Game\\.Command/.test(name))owner='41';else if(/\\.Game\\.System/.test(name))owner='51';else if(/\\.Game\\.Schedule|\\.Game\\.Runtime/.test(name))owner='34';else if(/\\.Game\\.Query/.test(name))owner='61';else if(/\\.Game\\.Entity/.test(name))owner='38';}\n if(mod==='Runtime'&&/snapshot/.test(name))owner='58';if(mod==='Runtime'&&/restore/.test(name))owner='60';if(mod==='Runtime'&&/inspect/.test(name))owner='54';\n if(mod==='Query'&&/StateWrite|StateMismatch|transition/.test(name))owner='47';if(mod==='Query'&&/ConstructedWrite|setRaw|updateRaw/.test(name))owner='46';\n if(mod==='System'&&/Event|event/.test(name))owner='53';if(mod==='System'&&/Removed|Despawn|removed|despawned/.test(name))owner='35';\n if(['Schema','Query','Command','System'].includes(mod)&&/readRelation|optionalRelation|readRelated|optionalRelated|withRelations|withoutRelations|withRelated|withoutRelated/.test(name))owner='42';\n if(['Inspector','Condition'].includes(mod)&&/machines|transitionEvents|relationFailures/.test(name))owner='55';\n if(mod==='Debug'&&/StreamReaderStatus|StreamStatus|ComponentWrite|ResourceWrite|EventEmit|NextStateWrite|MissedRead|Effect|AppliedCommand|FrameEvent|ScheduleStartEvent|ScheduleEndEvent|SystemEvent|SystemSkippedEvent|DeferredEvent|TransitionEvent|RestoreEvent|TraceEvent|\\.observe|\\.report|\\.reset|\\.streams/.test(name))owner='57';\n if(mod==='Schema'&&/\\.Game\\.EntityScope/.test(name))owner='45';\n if(mod==='Schema'&&/\\.Game\\.Command\\.relate/.test(name))owner='42';\n if(mod==='Schema'&&/\\.Game\\.Command\\.entryRaw/.test(name))owner='46';\n if(mod==='Schema'&&/\\.Game\\.System\\.(readEvent|writeEvent)/.test(name))owner='53';\n if(mod==='Schema'&&/\\.Game\\.System\\.(readRemoved|readDespawned)/.test(name))owner='35';\n if(mod==='Schema'&&/\\.Game\\.System\\.readRelationFailures/.test(name))owner='43';\n if(mod==='Schema'&&/\\.Game\\.Condition\\.(inState|stateChanged|not|and|or)/.test(name))owner='48';\n if(mod==='Schema'&&/\\.Game\\.Query\\.(added|changed)/.test(name))owner='35';\n if(mod==='Runtime'&&/\\.Runtime\\.(tick|tryTick|services|resourceValues)/.test(name))owner='34';\n if(mod==='Runtime'&&/\\.Runtime\\.machineValues/.test(name))owner='48';\n return {owner:'#'+owner,implementation:p[1],evidenceLead:p[2],verification:'Exact per-symbol acceptance UNMET; retain related bounded evidence separately. Type-only contracts need intended type/negative fixtures, not an invented runtime symbol test.',relatedEvidenceState:p[2]?'Bounded historical evidence lead; exact subject/source join required.':'No exact mapped evidence retained for this boundary.',gap:p[3]};}\nfunction parse(file){const source=fs.readFileSync(path.join(ref,file),'utf8');const sf=ts.createSourceFile(file,source,ts.ScriptTarget.Latest,true,ts.ScriptKind.TS);if(sf.parseDiagnostics.length)throw Error(file+' parse diagnostics');return {sf,source};}\nfunction loc(sf,n){return {line:sf.getLineAndCharacterOfPosition(n.getStart(sf)).line+1,endLine:sf.getLineAndCharacterOfPosition(n.end).line+1};}\nfunction ident(n,sf){if(ts.isExportDeclaration(n))return n.exportClause?n.exportClause.getText(sf):'*';return n.name?n.name.getText(sf):'<'+ts.SyntaxKind[n.kind]+'>';}\nconst modules=[];\nfor(const f of fs.readdirSync(path.join(ref,'src')).filter(f=>f.endsWith('.ts')).sort()){\n const file='src/'+f,mod=f.slice(0,-3),{sf,source}=parse(file),declarations=[],members=[],dependencies=[];\n function walkStatements(stmts,prefix){for(const n of stmts){const exported=n.modifiers?.some(m=>m.kind===ts.SyntaxKind.ExportKeyword)||ts.isExportDeclaration(n);if(!exported){if(ts.isInterfaceDeclaration(n)||ts.isTypeAliasDeclaration(n))dependencies.push({name:prefix+ident(n,sf),...loc(sf,n),sha256:hash(n.getText(sf)),text:n.getText(sf)});continue;}\n const ns=ts.isVariableStatement(n)?n.declarationList.declarations:[n];for(const d of ns){const name=prefix+ident(d,sf),text=d.getText(sf);declarations.push({id:file+':'+loc(sf,d).line+':'+name,name,kind:ts.SyntaxKind[d.kind],reexport:ts.isExportDeclaration(d)?{target:d.moduleSpecifier?.text,clause:d.exportClause?.getText(sf),typeOnly:d.isTypeOnly}:null,...loc(sf,d),sha256:hash(text),text,...mapping(mod,name)});\n if(ts.isModuleDeclaration(d)){let b=d.body;if(b&&ts.isModuleBlock(b))walkStatements(b.statements,name+'.');}\n else {function scan(x,trail){if(ts.isPropertySignature(x)||ts.isMethodSignature(x)||ts.isCallSignatureDeclaration(x)||ts.isConstructSignatureDeclaration(x)||ts.isIndexSignatureDeclaration(x)){const member=trail+'.'+ident(x,sf);members.push({id:file+':'+loc(sf,x).line+':'+member,name:member,kind:ts.SyntaxKind[x.kind],...loc(sf,x),signature:x.getText(sf),...mapping(mod,member)});trail=member;}ts.forEachChild(x,y=>scan(y,trail));}scan(d,name);}\n }} }\n walkStatements(sf.statements,mod+'.');\n modules.push({module:mod,path:file,sha256:hash(source),rootNamespace:mod==='index'?null:new RegExp('export \\\\* as '+mod+' from').test(fs.readFileSync(path.join(ref,'src/index.ts'),'utf8')),entrypoint:mod==='index'?'.':'./'+mod,declarations,members,signatureDependencies:dependencies});\n}\nfunction allFiles(dir){return fs.readdirSync(path.join(ref,dir),{withFileTypes:true}).flatMap(e=>e.isDirectory()?allFiles(dir+'/'+e.name):[dir+'/'+e.name]).filter(f=>f.endsWith('.ts'));}\nconst tests=[];for(const file of [...allFiles('test'),...allFiles('dtslint')].sort()){const {sf,source}=parse(file),cases=[],calls=[],statements=[];function visit(n){if(ts.isCallExpression(n)){const callee=n.expression.getText(sf);calls.push({callee,...loc(sf,n),sha256:hash(n.getText(sf))});if(/^(it|test|describe)(\\.|$)/.test(callee))cases.push({callee,title:n.arguments[0]?.getText(sf),...loc(sf,n)});}ts.forEachChild(n,visit);}visit(sf);const rejectionMarkers=source.split('\\n').flatMap((s,i)=>/@ts-expect-error|\\$ExpectError|@ts-ignore/.test(s)?[{line:i+1,marker:s.trim(),nextLine:source.split('\\n')[i+1]?.trim()}]:[]);for(const n of sf.statements)statements.push({...loc(sf,n),kind:ts.SyntaxKind[n.kind],sha256:hash(n.getText(sf))});tests.push({path:file,sha256:hash(source),cases,calls,rejectionMarkers,statements,owner:'#61',gap:'Exact per-case/static-boundary public Bend evidence mapping and execution remain UNMET; module capability leads must not be treated as case coverage.'});}\nconst coreFiles=allFiles('src').map(file=>{const {sf,source}=parse(file),errors=[],examples=[];function visit(n){if(ts.isThrowStatement(n))errors.push({kind:'throw',...loc(sf,n),text:n.getText(sf)});if(ts.isCallExpression(n)&&/(failure|Error|fail)$/.test(n.expression.getText(sf)))errors.push({kind:'failure/error call',...loc(sf,n),text:n.getText(sf)});ts.forEachChild(n,visit);}visit(sf);const re=/```(?:ts|typescript)\\n([\\s\\S]*?)```/g;let match;while((match=re.exec(source)))examples.push({line:source.slice(0,match.index).split('\\n').length,text:match[1],sha256:hash(match[1])});return {path:file,sha256:hash(source),errorBoundaries:errors,documentedUseExamples:examples};});\nconst bendFiles=fs.readdirSync(path.join(root,'src/ecs')).filter(f=>fs.statSync(path.join(root,'src/ecs',f)).isFile()).sort().map(f=>({path:'src/ecs/'+f,sha256:hash(fs.readFileSync(path.join(root,'src/ecs',f)))}));\nconst out={formatVersion:1,scope:'PREPARATION ONLY: exhaustive syntactic source catalogue, incomplete semantic export/use/error and exact-receipt mapping; no #61 acceptance',baseCommit:'2296bb5ef5281db4ed78ea8cf6b8b791d2a0ec5e',references:JSON.parse(fs.readFileSync(path.join(root,'.references/sources.json'))).sources,parser:{kind:'TypeScript AST syntax parse only',version:ts.version,checks:'No typechecker, Bend checker, backend, reference application or timing run.'},packageManifest:{path:'package.json',sha256:hash(fs.readFileSync(path.join(ref,'package.json'))),exports:JSON.parse(fs.readFileSync(path.join(ref,'package.json'))).exports},coreFiles,bendFiles,modules,tests,counts:{modules:modules.length,rootNamespaces:modules.filter(m=>m.rootNamespace).length,declarationOccurrences:modules.reduce((s,m)=>s+m.declarations.length,0),memberOccurrences:modules.reduce((s,m)=>s+m.members.length,0),signatureDependencies:modules.reduce((s,m)=>s+m.signatureDependencies.length,0),sourceFiles:coreFiles.length,testFiles:tests.filter(t=>t.path.startsWith('test/')).length,staticFiles:tests.filter(t=>t.path.startsWith('dtslint/')).length,testCaseAndSuiteOccurrences:tests.reduce((s,t)=>s+t.cases.length,0),useCallOccurrences:tests.reduce((s,t)=>s+t.calls.length,0),rejectionMarkers:tests.reduce((s,t)=>s+t.rejectionMarkers.length,0),topLevelTestStatements:tests.reduce((s,t)=>s+t.statements.length,0)},limitations:['Declaration occurrences include overloads and merged namespaces; they are not unique semantic exports.','Nested signature members include callback input/return shapes and branding fields; inherited members and aliases require semantic closure review.','Private top-level type/interface dependencies retained separately; namespace private helpers and expression-derived members require review.','Test calls are syntactic occurrences, not executed cases or complete dynamic parameter expansion.','Every item has an explicit UNMET exact evidence mapping; profile leads and provisional existing owners are not verification or issue acceptance.']};fs.writeFileSync(path.join(root,'docs/reference/core-export-inventory.json'),JSON.stringify(out,null,2)+'\\n');console.log(JSON.stringify(out.counts));\n",
+    "historicalJoins": "import json,gzip,pathlib,hashlib\nroot=pathlib.Path.cwd(); p=root/'docs/reference/core-export-inventory.json'; x=json.loads(p.read_text()); H=lambda b:hashlib.sha256(b).hexdigest()\npaths=['experiments/public-nested-provision/evidence/integrated-current/receipt.json','experiments/public-nested-provision/evidence/flat-integrated-current/receipt.json','experiments/public-schedule-readers/evidence/worldio-current/receipt.json','experiments/public-features/evidence/live-current/receipt.json','experiments/public-component-state/evidence-live-qualified-v1/receipt.json.gz','experiments/public-query-contract/evidence/indexed-core-current/receipt.json','experiments/public-bundles/production-candidate/transactions/evidence/fifo-pending-v1/receipt.json','experiments/public-relations/promotion-capsules/records/query/receipt.json','experiments/public-machine-handlers/candidate-v1/delivery-js-v1/full-consumer-receipt.json']\nr=[]\nfor file in paths:\n raw=(root/file).read_bytes(); body=gzip.decompress(raw) if file.endswith('.gz') else raw; d=json.loads(body)\n pins=d.get('sources',d.get('sourceHashes',d.get('pins',{}))); matches=[]; stale=[]; missing=[];other=[]\n for k,v in pins.items():\n  if not isinstance(v,str) or len(v)!=64:continue\n  current=root/k\n  if k.startswith('/workspace/formal-proofs/bendvy/'):\n   current=root/k[len('/workspace/formal-proofs/bendvy/'):]\n  if not current.is_file():missing.append(k);continue\n  got=H(current.read_bytes()); (matches if got==v else stale).append({'path':k,'recorded':v,'current':got})\n core=[m['path'] for m in matches+stale if 'src/ecs/' in m['path']]\n cmds=d.get('commands',[])\n e={'path':file,'sha256':H(raw),'decodedSHA256':H(body),'recordedStatus':d.get('status'),'commandOccurrences':len(cmds),'sourcePins':len(pins),'matchingPins':len(matches),'stalePins':len(stale),'unavailablePins':len(missing),'corePins':len(core),'matchingSources':matches,'staleSources':stale,'unavailableSources':missing,'interpretation':'Historical recorded status only; hash comparison does not replay commands, validate all output or prove full #61 capability coverage.'}\n r.append(e); print(file,d.get('status'),len(cmds),len(matches),len(stale),len(missing),len(core))\nx['retainedReceiptJoins']=r;x['generation']={'syntaxGeneratorSHA256':H(pathlib.Path('/tmp/bendvy61-inventory.cjs').read_bytes()),'syntaxGeneratorSource':pathlib.Path('/tmp/bendvy61-inventory.cjs').read_text(),'joinGeneratorSource':pathlib.Path('/tmp/bendvy61-joins.py').read_text(),'regeneration':'Extract syntaxGeneratorSource and joinGeneratorSource to temporary .cjs/.py files; run syntax then joins from the pinned audit worktree. Parser requires an already present TypeScript package; no installation authorized.'}\nx['counts']['itTestOccurrences']=sum(1 for t in x['tests'] for c in t['cases'] if c['callee'].split('.')[0] in ['it','test']);x['counts']['suiteOccurrences']=sum(1 for t in x['tests'] for c in t['cases'] if c['callee'].split('.')[0]=='describe')\nx['counts']['canonicalDeclarationNameKeys']=len({d['name'] for m in x['modules'] for d in m['declarations']});x['counts']['canonicalMemberPathKeys']=len({d['name'] for m in x['modules'] for d in m['members']})\nfor m in x['modules']:\n for d in m['declarations']:d['canonicalKey']=d['name'];d['surfaceCategory']='type-only' if d['kind'] in ['TypeAliasDeclaration','InterfaceDeclaration'] else 'value/namespace/reexport'\n for d in m['members']:\n  n=d['name'];d['canonicalKey']=n;d['surfaceCategory']='bound-Game API' if n.startswith('Schema.Schema.Game.') and len(n.split('.'))<=5 else 'Runtime API' if n.startswith('Runtime.Runtime.') and len(n.split('.'))<=4 else 'exported contract/DTO/callback nested shape'\nx['counts']['boundGameMemberOccurrences']=sum(1 for m in x['modules'] for d in m['members'] if d['surfaceCategory']=='bound-Game API');x['counts']['runtimeMemberOccurrences']=sum(1 for m in x['modules'] for d in m['members'] if d['surfaceCategory']=='Runtime API')\nx['counts']['sourceErrorBoundaryOccurrences']=sum(len(f['errorBoundaries']) for f in x['coreFiles']);x['counts']['documentedUseExamples']=sum(len(f['documentedUseExamples']) for f in x['coreFiles'])\np.write_text(json.dumps(x,indent=2)+'\\n')\n",
+    "semantic": "const fs=require('fs'),path=require('path'),crypto=require('crypto');\nconst ts=require('/home/node/.npm/_npx/69f9afb961c37556/node_modules/typescript/lib/typescript.js');\nconst cwd=process.cwd(),base=path.resolve('.references/bevy-ts/packages/core'),p=path.join(cwd,'docs/reference/core-export-inventory.json');const x=JSON.parse(fs.readFileSync(p));\nconst files=[...x.modules.map(m=>path.join(base,m.path)),...x.tests.map(t=>path.join(base,t.path))];const options={target:ts.ScriptTarget.ESNext,module:ts.ModuleKind.NodeNext,moduleResolution:ts.ModuleResolutionKind.NodeNext,allowImportingTsExtensions:true,noEmit:true,strict:true,skipLibCheck:true};const host=ts.createCompilerHost(options);const resolutionOverrides=[];\nfunction resolve(spec,from){let candidate=null;if(spec==='@typeonce/bevy-ts')candidate=path.join(base,'src/index.ts');else if(spec.startsWith('@typeonce/bevy-ts/'))candidate=path.join(base,'src',spec.slice('@typeonce/bevy-ts/'.length)+'.ts');else if(spec==='@typeonce/bevy-ts-math')candidate=path.resolve(base,'../math/src/index.ts');else if(spec.startsWith('@typeonce/bevy-ts-math/'))candidate=path.resolve(base,'../math/src',spec.slice('@typeonce/bevy-ts-math/'.length)+'.ts');if(candidate&&fs.existsSync(candidate)){resolutionOverrides.push({from:from.split(base).join('@core'),specifier:spec,target:candidate.split(base).join('@core'),scope:'Read-only pinned package export path mapping for source inspection; no installation or test execution.'});return {resolvedFileName:candidate,extension:ts.Extension.Ts};}return ts.resolveModuleName(spec,from,options,ts.sys).resolvedModule;}\nhost.resolveModuleNames=(names,from)=>names.map(spec=>resolve(spec,from));const program=ts.createProgram(files,options,host);const ck=program.getTypeChecker();const nodes=new Map(),exportRows=[];const seen=new Set();const fmt=ts.TypeFormatFlags.NoTruncation|ts.TypeFormatFlags.UseFullyQualifiedType;\nfunction sourceLoc(n){const sf=n.getSourceFile();return {file:sf.fileName.startsWith(base+path.sep)?path.relative(base,sf.fileName):sf.fileName.includes('/typescript/lib/')?'host/typescript/'+path.basename(sf.fileName):sf.fileName.includes('/.references/bevy-ts/')?'reference/bevy-ts/'+sf.fileName.split('/.references/bevy-ts/')[1]:'external/'+sf.fileName,line:sf.getLineAndCharacterOfPosition(n.getStart()).line+1,endLine:sf.getLineAndCharacterOfPosition(n.end).line+1,kind:ts.SyntaxKind[n.kind]};}\nfunction coreDecl(n){return n.getSourceFile().fileName.startsWith(base+path.sep);}\nfunction locations(s){return (s?.declarations||[]).map(sourceLoc);}\nfunction text(t){try{return ck.typeToString(t,undefined,fmt).split(base).join('@core');}catch(e){return '<type display unavailable>';}}\nfunction shape(t){if(!t)return null;const id='type:'+t.id;if(seen.has(id))return id;seen.add(id);\n const printed=text(t);const n={id,display:printed.length>512?printed.slice(0,512)+' [display excerpt; full shape in graph/source]':printed,displaySHA256:crypto.createHash('sha256').update(printed).digest('hex'),displayCharacters:printed.length,flags:t.flags,symbol:t.symbol?.getName(),alias:t.aliasSymbol?.getName(),declarations:locations(t.aliasSymbol||t.symbol),properties:[],calls:[],constructs:[],bases:[],union:[],intersection:[],indexes:[],typeArguments:[],constraint:null,externalPropertiesOmitted:[]};nodes.set(id,n);\n // Primitive/intrinsic/never/unknown/any do not acquire JS host prototypes in ECS API closure.\n if(t.flags&(ts.TypeFlags.StringLike|ts.TypeFlags.NumberLike|ts.TypeFlags.BigIntLike|ts.TypeFlags.BooleanLike|ts.TypeFlags.ESSymbolLike|ts.TypeFlags.Null|ts.TypeFlags.Undefined|ts.TypeFlags.Void|ts.TypeFlags.Never|ts.TypeFlags.Any|ts.TypeFlags.Unknown))return id;\n // Type parameters and conditional/indexed/mapped aliases remain symbolic; their exact source declarations are already retained.\n if(t.flags&ts.TypeFlags.TypeParameter){const c=ck.getBaseConstraintOfType(t);if(c&&c!==t)n.constraint=shape(c);return id;}\n if(t.flags&ts.TypeFlags.Union)n.union=t.types.map(shape);if(t.flags&ts.TypeFlags.Intersection)n.intersection=t.types.map(shape);\n if(t.flags&(ts.TypeFlags.Conditional|ts.TypeFlags.IndexedAccess|ts.TypeFlags.Index|ts.TypeFlags.Substitution)){n.symbolicSourceContract=true;return id;}\n for(const prop of ck.getPropertiesOfType(t)){const ds=prop.declarations||[];if(ds.length && !ds.some(coreDecl)){n.externalPropertiesOmitted.push(prop.getName());continue;}const loc=prop.valueDeclaration||ds[0];if(!loc){n.properties.push({name:prop.getName(),declarations:[],type:null,unresolved:'No source declaration'});continue;}const pt=ck.getTypeOfSymbolAtLocation(prop,loc);n.properties.push({name:prop.getName(),declarations:locations(prop),optional:!!(prop.flags&ts.SymbolFlags.Optional),type:shape(pt)});}\n function sig(s){return {declaration:s.declaration?sourceLoc(s.declaration):null,typeParameters:(s.typeParameters||[]).map(shape),parameters:s.getParameters().map(param=>({name:param.getName(),declarations:locations(param),type:shape(ck.getTypeOfSymbolAtLocation(param,param.valueDeclaration||param.declarations?.[0]||s.declaration))})),returns:shape(ck.getReturnTypeOfSignature(s))};}\n n.calls=ck.getSignaturesOfType(t,ts.SignatureKind.Call).map(sig);n.constructs=ck.getSignaturesOfType(t,ts.SignatureKind.Construct).map(sig);\n if(t.flags&ts.TypeFlags.Object){if(t.objectFlags&ts.ObjectFlags.Reference)n.typeArguments=(ck.getTypeArguments(t)||[]).map(shape);if(t.objectFlags&ts.ObjectFlags.Interface){try{n.bases=(ck.getBaseTypes(t)||[]).map(shape);}catch{}}}\n for(const info of ck.getIndexInfosOfType(t))n.indexes.push({key:shape(info.keyType),value:shape(info.type),readonly:info.isReadonly,declaration:info.declaration?sourceLoc(info.declaration):null});return id;\n}\nfor(const file of files){const sf=program.getSourceFile(file),mod=path.basename(file,'.ts'),ms=ck.getSymbolAtLocation(sf);if(!ms)throw Error('No module symbol '+file);\n function exported(s,publicName){const target=s.flags&ts.SymbolFlags.Alias?ck.getAliasedSymbol(s):s;const decls=target.declarations||[];const row={key:mod+'.'+publicName,name:s.getName(),flags:target.flags,canonicalTarget:ck.getFullyQualifiedName(target).split(base).join('@core'),alias:!!(s.flags&ts.SymbolFlags.Alias),exportDeclarations:locations(s),targetDeclarations:locations(target),declaredType:null,valueType:null,namespaceExports:[]};exportRows.push(row);\n if(target.flags&ts.SymbolFlags.Type)row.declaredType=shape(ck.getDeclaredTypeOfSymbol(target));if(target.flags&ts.SymbolFlags.Value){const loc=target.valueDeclaration||decls[0]||sf;row.valueType=shape(ck.getTypeOfSymbolAtLocation(target,loc));}\n if(target.flags&ts.SymbolFlags.Namespace){for(const child of ck.getExportsOfModule(target)){row.namespaceExports.push(mod+'.'+publicName+'.'+child.getName());exported(child,publicName+'.'+child.getName());}}\n }\n for(const s of ck.getExportsOfModule(ms))exported(s,s.getName());}\nconst useGroups=new Map();\nfor(const tf of x.tests){const sf=program.getSourceFile(path.join(base,tf.path));const calls=[];\nfunction visit(n){if(ts.isCallExpression(n)){\nconst sig=ck.getResolvedSignature(n),symbol=ck.getSymbolAtLocation(n.expression),decls=symbol?.declarations||[],origin=decls.filter(coreDecl).filter(d=>d.getSourceFile().fileName.includes('/src/'));\nconst sl=sig?.declaration?sourceLoc(sig.declaration):null;\nconst category=origin.length||sl?.file.startsWith('src/')?'pinned-core operation':sl?.file.startsWith('test/')||sl?.file.startsWith('dtslint/')?'authored test/static helper':sl?.file.startsWith('host/')?'host standard-library operation':'unresolved test infrastructure or dynamic callable';\nconst loc=sourceLoc(n),callee=n.expression.getText(sf),key=origin.length?origin.map(d=>sourceLoc(d).file+':'+sourceLoc(d).line+':'+(symbol?.getName()||callee)).join('|'):sl?sl.file+':'+sl.line+':'+callee:category+':'+callee;\nconst row={callee,line:loc.line,endLine:loc.endLine,category,operationKey:key,coreDeclarations:origin.map(sourceLoc),resolvedSignature:sl,owner:'#61',verification:'Source use only; exact independent public Bend coverage remains unmapped/UNMET.'};calls.push(row);\nif(!useGroups.has(key))useGroups.set(key,{key,category,coreDeclarations:origin.map(sourceLoc),uses:[]});useGroups.get(key).uses.push({file:tf.path,line:loc.line,callee});\n}ts.forEachChild(n,visit);}visit(sf);tf.classifiedCalls=calls;\nfor(const c of tf.cases)c.enclosedOperationKeys=[...new Set(calls.filter(q=>q.line>=c.line&&q.endLine<=c.endLine).map(q=>q.operationKey))];\nfor(const m of tf.rejectionMarkers){const after=calls.filter(c=>c.line>m.line);m.nextCall=after[0]||null;let candidates=[];function seek(n){const l=sourceLoc(n);if(l.line>m.line&&(ts.isStatement(n)||ts.isVariableDeclaration(n)||ts.isPropertyAssignment(n)))candidates.push({location:l,text:n.getText(sf)});ts.forEachChild(n,seek);}seek(sf);candidates.sort((a,b)=>a.location.line-b.location.line||(a.location.endLine-a.location.line)-(b.location.endLine-b.location.line));m.boundary=candidates[0]||null;}\n}\n\nconst inspectionInputs=program.getSourceFiles().map(sf=>({path:sourceLoc(sf).file,absoluteSource:sf.fileName,sha256:crypto.createHash('sha256').update(fs.readFileSync(sf.fileName)).digest('hex')}));const unresolvedImports=[];for(const sf of program.getSourceFiles().filter(sf=>sf.fileName.includes('/.references/bevy-ts/'))){for(const stmt of sf.statements){if(ts.isImportDeclaration(stmt)&&ts.isStringLiteral(stmt.moduleSpecifier)){const spec=stmt.moduleSpecifier.text;if(!resolve(spec,sf.fileName))unresolvedImports.push({from:sourceLoc(stmt),specifier:spec,scope:'Absent read-only host test/type dependency; not installed or typechecked; contextual source boundaries retained separately.'});}}}\nx.semanticClosure={method:'Read-only TypeScript symbol/type API expansion; no semantic diagnostics requested, no tsc/Bend check or emit; core-origin property closure including inherited properties, public aliases/reexports, overload call signatures and inferred shapes. External host prototypes classified separately. Generic conditional/indexed contracts remain symbolic with exact source declarations.',inspectionInputs,unresolvedImports,resolutionOverrides,exports:exportRows,useGroups:[...useGroups.values()],typeNodes:[...nodes.values()],counts:{publicExportKeys:exportRows.length,canonicalExportTargets:new Set(exportRows.map(e=>e.canonicalTarget)).size,useOperationGroups:useGroups.size,coreUseOperationGroups:[...useGroups.values()].filter(g=>g.category==='pinned-core operation').length,classifiedUseCalls:x.tests.reduce((n,t)=>n+t.classifiedCalls.length,0),typeNodes:nodes.size,propertyOccurrences:[...nodes.values()].reduce((s,n)=>s+n.properties.length,0),callOverloads:[...nodes.values()].reduce((s,n)=>s+n.calls.length,0),constructorOverloads:[...nodes.values()].reduce((s,n)=>s+n.constructs.length,0),inheritedBaseEdges:[...nodes.values()].reduce((s,n)=>s+n.bases.length,0),indexSignatures:[...nodes.values()].reduce((s,n)=>s+n.indexes.length,0)},generatorSource:fs.readFileSync('/tmp/bendvy61-semantic.cjs','utf8')};\nfs.writeFileSync(p,JSON.stringify(x,null,2)+'\\n');console.log(x.semanticClosure.counts);\n",
+    "selectedCurrentJoins": "import json,pathlib,hashlib,zipfile,tarfile\np=pathlib.Path('docs/reference/core-export-inventory.json');x=json.loads(p.read_text());root=pathlib.Path('/workspace/formal-proofs/bendvy');wrk=pathlib.Path('/workspace/formal-proofs/bendvy-worktrees/parity-54-inspector');H=lambda b:hashlib.sha256(b).hexdigest()\ndef read(p):return json.loads(p.read_text())\ndef check_sources(pins,base):\n rows=[]\n for file,entry in pins.items():\n  expected=entry.get('sha256') if isinstance(entry,dict) else entry\n  if not isinstance(expected,str) or len(expected)!=64:continue\n  loc=pathlib.Path(file);loc=loc if loc.is_absolute() else base/loc\n  rows.append({'path':str(loc),'recordedSHA256':expected,'currentSHA256':H(loc.read_bytes()) if loc.is_file() else None})\n return {'matched':sum(r['recordedSHA256']==r['currentSHA256'] for r in rows),'different':sum(r['currentSHA256'] is not None and r['recordedSHA256']!=r['currentSHA256'] for r in rows),'unavailable':sum(r['currentSHA256'] is None for r in rows),'records':rows}\ndef archive_check(file,expected,entries,mode):\n matches=[];mismatches=[];absent=[];receipts=[];raw=[]\n if mode=='zip':\n  a=zipfile.ZipFile(file);names=a.namelist();get=a.read\n else:\n  a=tarfile.open(file,'r:gz');names=[m.name for m in a.getmembers() if m.isfile()];get=lambda n:a.extractfile(n).read()\n for name,entry in entries.items():\n  h=entry.get('sha256') if isinstance(entry,dict) else entry\n  if name not in names:absent.append(name);continue\n  b=get(name);got=H(b);(matches if got==h else mismatches).append({'path':name,'sha256':got,'expected':h})\n  # Private environments are hashed only and never decoded/reported.\n  if 'receipt' in name and name.endswith('.json') and not any(w in name.lower() for w in ['environment','private','env-map']):\n   try:\n    d=json.loads(b);receipts.append({'path':name,'sha256':got,'status':d.get('status'),'commands':len(d.get('commands',[])) if isinstance(d.get('commands',[]),list) else None,'subjectCount':d.get('subjects'), 'probeCount':d.get('probeCount')})\n   except (ValueError,TypeError):pass\n  if name.endswith(('.stdout','.raw','.stderr')) and any(q in name.lower() for q in ['full20','native','driver','runtime','ts-public','consume','case','stdout.raw']):raw.append({'path':name,'sha256':got,'bytes':len(b),'lines':b.count(b'\\n')})\n a.close();return {'path':str(file),'archiveSHA256':H(file.read_bytes()),'expectedArchiveSHA256':expected,'archiveHashMatches':H(file.read_bytes())==expected,'memberCount':len(names),'indexedMembers':len(entries),'matchedMembers':len(matches),'differentMembers':mismatches,'unavailableMembers':absent,'receiptMetadata':receipts,'rawObservationMetadata':raw}\nrows=[]\nf=root/'experiments/public-bundles/owned-public-result-v1/surface-delivery.json';d=read(f);z=f.parent/'surface-evidence-v1.zip'\nr={'issue':'#41','scope':'Selected finite full20 TS/JS/Native independent bundle surface; current manifest adds source-only integration mapping. No production/core acceptance.','manifest':str(f),'manifestSHA256':H(f.read_bytes()),'recordedStatus':d['status'],'priorManifestSHA256':d['sourceOnlyIntegrationMapping']['priorManifestSHA256'],'sourceJoin':check_sources(d['selectedLiveFiles'],f.parent),'consumedSourceJoin':check_sources(d['consumedSourceObjects'],f.parent),'counts':{k:d[k] for k in ['backendSubjects','executionProbes','preparationProbes','physicalRowsPerBendConsumer','actualTSApplications','actualTSPublicCheckpoints']},'archive':archive_check(z,d['archiveSHA256'],d['archiveEntries'],'zip'),'fullIssueAccepted':False};rows.append(r)\nf=root/'experiments/public-machine-handlers/candidate-v1/delivery-driver-native-v1/manifest.json';d=read(f)\nr={'issue':'#49','scope':d['scope'],'manifest':str(f),'manifestSHA256':H(f.read_bytes()),'recordedStatus':d['status'],'sourceJoin':check_sources(d['source'],f.parent.parent),'archives':[archive_check(f.parent/a['archive'],a['sha256'],a['members'],'tar') for a in d['archives'].values()],'fullIssueAccepted':d['completeIssue49'],'performanceQualified':d['performanceQualified']};rows.append(r)\nf=root/'experiments/public-relations/timing/current-qualification-v1/phase2/delivery-files.json';d=read(f);i=f.parent/'evidence-v1/index.json';ind=read(i)\n# content-addressed objects map SHA to size; names inside tar inspected explicitly rather than assumed to match logical paths.\na=f.parent/'evidence-v1/objects.tar.gz';t=tarfile.open(a,'r:gz');members={m.name:t.extractfile(m).read() for m in t.getmembers() if m.isfile()};t.close();checks=[]\nfor h,size in ind['objects'].items():\n candidates=[(n,b) for n,b in members.items() if pathlib.Path(n).name==h];checks.append({'sha256':h,'bytes':size,'matched':any(H(b)==h and len(b)==size for n,b in candidates)})\nreceipts=[]\nfor name,h in ind['files'].items():\n if 'receipt' not in name or not name.endswith('.json'):continue\n candidate=[b for n,b in members.items() if pathlib.Path(n).name==h]\n if candidate:\n  body=json.loads(candidate[0]);receipts.append({'path':name,'sha256':h,'status':body.get('status'),'commands':len(body.get('commands',[])),'subjectCount':body.get('subjects'),'probeCount':body.get('probeCount')})\nr={'issue':'#42','scope':d['scope'],'manifest':str(f),'manifestSHA256':H(f.read_bytes()),'sourceJoin':check_sources(d['files'],root),'indexSHA256':H(i.read_bytes()),'archiveSHA256':H(a.read_bytes()),'expectedArchiveSHA256':ind['archiveSHA256'],'objectRecords':checks,'objectCount':len(checks),'matchingObjects':sum(v['matched'] for v in checks),'receiptMetadata':receipts,'fullIssueAccepted':False};rows.append(r)\nf=wrk/'experiments/public-inspect/promotion-stage/controls/handoff-manifest.json';d=read(f);i=f.parent/'portable-handoff-index.json';ind=read(i)\nr={'issue':'#54','scope':'EXPERIMENTAL uncommitted promotion worktree: source/node/CLI and standalone JS/Native cardinality/check; selected old retainer controls separate; no production acceptance.','manifest':str(f),'manifestSHA256':H(f.read_bytes()),'recordedManifestStatus':d['status'],'portableIndexSHA256':H(i.read_bytes()),'portableIndexStatus':ind['status'],'receipts':[],'fullIssueAccepted':False}\nselected=d['currentReceipts']+[{ 'kind':'standalone-JS','receipt':str(wrk/'.artifacts/inspect54-promotion-js-1791407565827907353/receipt.json')},{'kind':'standalone-Native','receipt':str(wrk/'.artifacts/inspect54-promotion-native-1791408120998364026/receipt.json')}]\nseen=set()\nfor e in selected:\n if e['receipt'] in seen:continue\n seen.add(e['receipt'])\n file=pathlib.Path(e['receipt']);rc=read(file);plan=file.parent/'plan.json';pl=read(plan);src=read(pathlib.Path(pl['sourceInventory'])) if isinstance(pl.get('sourceInventory'),str) else {}\n # Inspect source inventory shapes without private environment values.\n pins=src.get('files',src.get('sources',src.get('hashes',pl.get('inventory',pl.get('inputs',src))))) if isinstance(src,dict) else {}\n if isinstance(pins,list):pins={q['path']:q.get('sha256',q.get('sourceSHA256')) for q in pins if isinstance(q,dict) and 'path' in q}\n r['receipts'].append({'kind':e['kind'],'path':str(file),'receiptSHA256':H(file.read_bytes()),'selectedSHA256':e.get('sha256'),'recordedStatus':rc['status'],'planSHA256':H(plan.read_bytes()),'recordedPlanSHA256':rc.get('planSHA256'),'sourceInventoryPath':pl.get('sourceInventory'),'sourceInventorySHA256':H(pathlib.Path(pl['sourceInventory']).read_bytes()) if isinstance(pl.get('sourceInventory'),str) else None,'sourceJoin':check_sources(pins,wrk) if isinstance(pins,dict) else {},'commands':len(rc.get('commands',[])),'probeCount':rc.get('probeCount'),'rawLogJoin':check_sources(rc.get('logs',{}),file.parent),'generatedJoin':check_sources(rc.get('generated',{}),file.parent)})\nrows.append(r);x['selectedCurrentEvidenceJoins']=rows;x['currentEvidenceJoinGeneratorSource']=pathlib.Path('/tmp/bendvy61-current-joins.py').read_text();p.write_text(json.dumps(x,indent=2)+'\\n')\nfor r in rows:print(r['issue'],r['manifestSHA256'],r.get('sourceJoin',{}).get('matched'),r.get('sourceJoin',{}).get('different'),r.get('sourceJoin',{}).get('unavailable'),[(a['matchedMembers'],len(a['differentMembers']),len(a['unavailableMembers'])) for a in r.get('archives',[])],r.get('matchingObjects'),[(a['kind'],a['recordedStatus'],a['commands'],a.get('sourceJoin',{}).get('matched'),a.get('sourceJoin',{}).get('different'),a.get('rawLogJoin',{}).get('matched')) for a in r.get('receipts',[])])\n",
+    "enrichment": "const fs=require('fs'),path=require('path'),vm=require('vm');const p='docs/reference/core-export-inventory.json';const x=JSON.parse(fs.readFileSync(p));\nconst src=x.generation.syntaxGeneratorSource;const env={};vm.createContext(env);vm.runInContext(src.slice(src.indexOf('const profiles='),src.indexOf('function parse('))+'\\nthis.route=mapping;',env);const route=(mod,name)=>{try{return env.route(mod,name);}catch{return {...env.route('index',name),gap:'Package-public alias reaches blocked internal declaration '+mod+'; retain exact source boundary and assign unmatched behavior to #61.'};}};\nfor(const m of x.modules)for(const d of [...m.declarations,...m.members])Object.assign(d,route(m.module,d.name));\nx.generation.syntaxGeneratorSHA256=require('crypto').createHash('sha256').update(x.generation.syntaxGeneratorSource).digest('hex');\nconst currentRoot='/workspace/formal-proofs/bendvy';const currentHead=require('child_process').execFileSync('git',['-C',currentRoot,'rev-parse','HEAD'],{encoding:'utf8'}).trim();const changes=require('child_process').execFileSync('git',['-C',currentRoot,'status','--porcelain','--','src/ecs'],{encoding:'utf8'}).trim();x.currentRootSourceSnapshot={root:currentRoot,commit:currentHead,uncommittedCoreStatus:changes,scope:'Read-only source snapshot supplement; base audit remains2296bb5e. Untracked relation modules are candidates, not delivered API or executable acceptance.',files:fs.readdirSync(currentRoot+'/src/ecs').filter(f=>fs.statSync(currentRoot+'/src/ecs/'+f).isFile()).sort().map(f=>({path:'src/ecs/'+f,sha256:require('crypto').createHash('sha256').update(fs.readFileSync(currentRoot+'/src/ecs/'+f)).digest('hex')}))};\nconst evidenceByOwner={'#34':['experiments/public-nested-provision/evidence/integrated-current/receipt.json','#34 finite31 commands; current-base source pin mismatches retained'],'#35':['experiments/public-schedule-readers/evidence/worldio-current/receipt.json','#35 finite99 commands; current-base source pin mismatches retained'],'#39':['experiments/public-schema-fragments/evidence/archive-index.json','#39 archived finite two-schema fragment evidence; no source-current full-core acceptance'],'#40':['experiments/public-features/evidence/live-current/receipt.json','#40 finite61 commands,16 applications; whole current core not qualified'],'#41':['selectedCurrentEvidenceJoins:#41','full20 TS/JS/Native selected capsule; source-only production integration mapping'],'#42':['selectedCurrentEvidenceJoins:#42','three full30 same-artifact JS runtime-input cases; no phase2 Native or production acceptance'],'#47':['experiments/public-component-state/evidence-live-qualified-v1/receipt.json.gz','#47 finite87-command component state slice; JS product qualification remains open'],'#49':['selectedCurrentEvidenceJoins:#49','full96/12 JS and split Native; failures/timeouts retained, negatives/mutations remain'],'#54':['selectedCurrentEvidenceJoins:#54','experimental finite cardinality/check JS/Native; no full54 adoption']};\nconst implementationPaths={'#38':['src/ecs/world-io.bend','src/ecs/world.bend'],'#39':['src/ecs/schema-fragments.bend'],'#40':['src/ecs/feature.bend','src/ecs/feature-provision.bend'],'#41':['src/ecs/commands.bend','src/ecs/structural.bend'],'#42':['src/ecs/relation-types.bend','src/ecs/relation-query.bend','src/ecs/relation-commands.bend','src/ecs/relation-graph.bend'],'#44':['src/ecs/relation-reorder.bend','src/ecs/relation-cleanup.bend'],'#47':['src/ecs/state.bend'],'#49':['experiments/public-machine-handlers/candidate-v1/handlers-tracked.bend','experiments/public-machine-handlers/candidate-v1/full-marker.bend'],'#51':['src/ecs/component.bend','src/ecs/resource.bend','src/ecs/transaction.bend'],'#53':['src/ecs/event-runtime.bend'],'#34':['src/ecs/schedule-provision.bend','src/ecs/schedule.bend'],'#35':['src/ecs/reader-domains.bend','src/ecs/removals.bend','src/ecs/event-runtime.bend']};\nfunction subjects(mod,owner){let paths=implementationPaths[owner]||[];if(owner==='#61'&&['Query','Runtime','System','Entity','Command'].includes(mod))paths=['src/ecs/'+({Query:'query-contract',Runtime:'world',System:'system',Entity:'world',Command:'commands'}[mod])+'.bend'];const entries=paths.map(file=>({path:file,root:fs.existsSync(file)?'audit-base':fs.existsSync(currentRoot+'/'+file)?'current-root':'unavailable',sha256:fs.existsSync(file)?require('crypto').createHash('sha256').update(fs.readFileSync(file)).digest('hex'):fs.existsSync(currentRoot+'/'+file)?require('crypto').createHash('sha256').update(fs.readFileSync(currentRoot+'/'+file)).digest('hex'):null,state:owner==='#42'||owner==='#44'||owner==='#49'?'experimental/archive candidate; integration acceptance UNMET':'related bounded public implementation; complete capability acceptance UNMET'}));return {implementationSubjects:entries,relatedExecutableEvidence:evidenceByOwner[owner]?{id:evidenceByOwner[owner][0],scope:evidenceByOwner[owner][1]}:null,exactCapabilityAcceptance:'UNMET; use approved divergence or concrete owner for remaining contract; never infer whole symbol/type acceptance from related slice.'};}\nconst graph=new Map(x.semanticClosure.typeNodes.map(n=>[n.id,n]));const all=x.modules.flatMap(m=>[...m.declarations,...m.members].map(d=>({...d,file:'src/'+m.module+'.ts'})));\nconst declarations=new Map();for(const d of all){const k=d.file+':'+d.line;if(!declarations.has(k))declarations.set(k,[]);declarations.get(k).push(d);}\nfor(const e of x.semanticClosure.exports){const mod=e.targetDeclarations.find(d=>d.file.startsWith('src/'))?.file.split('/').at(-1).slice(0,-3)||e.key.split('.')[0];const local=e.canonicalTarget.replace(/\"[^\\\"]*\"\\./,'');const r=route(mod,local);Object.assign(e,r,subjects(mod,e.owner));e.overloadDeclarations=e.targetDeclarations.filter(d=>d.kind==='FunctionDeclaration');}\nfor(const n of x.semanticClosure.typeNodes){n.coreContractOwners=[...new Set(n.declarations.filter(d=>d.file.startsWith('src/')).map(d=>route(d.file.split('/').at(-1).slice(0,-3),n.alias||n.symbol||n.display).owner))];for(const m of n.properties){m.contractKeys=[...new Set(m.declarations.flatMap(d=>(declarations.get(d.file+':'+d.line)||[]).map(z=>z.name)))];m.owners=[...new Set(m.declarations.filter(d=>d.file.startsWith('src/')).map(d=>route(d.file.split('/').at(-1).slice(0,-3),m.contractKeys[0]||m.name).owner))];m.implementationSubjects=m.owners.flatMap(owner=>subjects(m.declarations.find(d=>d.file.startsWith('src/'))?.file.split('/').at(-1).slice(0,-3)||'index',owner).implementationSubjects);if(!m.owners.length)m.owners=['#61'];m.verification='Exact full-boundary acceptance UNMET; see related mapped bounded evidence and selected manifest joins.';}}\nconst bound=[];for(const e of x.semanticClosure.exports.filter(e=>['Schema.Schema.Game','Runtime.Runtime'].includes(e.key))){const node=graph.get(e.declaredType);for(const prop of node.properties){const prefix=e.key+'.'+prop.name,n=graph.get(prop.type);const push=(name,m,t)=>bound.push({name,declarations:m.declarations,category:t.calls.length?'callable public operation':t.properties.length?'public namespace/data':'public metadata/value',callOverloads:t.calls,type:t.id,...route(e.key.startsWith('Schema')?'Schema':'Runtime',name)});push(prefix,prop,n);if(['Entity','Query','Command','Condition','System','Schedule','Runtime','StateMachine'].includes(prop.name)&&e.key==='Schema.Schema.Game')for(const child of n.properties)push(prefix+'.'+child.name,child,graph.get(child.type));}}\nx.semanticClosure.boundOperations=bound;x.semanticClosure.counts.boundOperationAndMetadataKeys=bound.length;x.semanticClosure.counts.callableBoundOperationKeys=bound.filter(r=>r.callOverloads.length).length;\nfor(const g of x.semanticClosure.useGroups){if(g.category==='unresolved test infrastructure or dynamic callable'||g.unresolved){const c=g.uses[0]?.callee||'';g.category=/^(expect(?:TypeOf)?(?:\\(|<|\\.|$)|describe(?:\\.|$)|it(?:\\.|$)|test(?:\\.|$))/.test(c)?'test-framework declaration/assertion':/^(Game|runtime|queries|resources|commands|machines|transitionEvents|relationFailures|match\\.data|data\\.|context\\.|single|singleOptional|fromHandle|direct\\.|child\\.|descendant\\.)/.test(c)?'unresolved public operation or intended static refusal':'unresolved authored/dynamic callable';g.unresolved=true;}const ds=g.coreDeclarations.length?g.coreDeclarations:[];g.contractKeys=[...new Set(ds.flatMap(d=>(declarations.get(d.file+':'+d.line)||[]).map(z=>z.name)))];g.owners=[...new Set(ds.map(d=>route(d.file.split('/').at(-1).slice(0,-3),g.contractKeys[0]||g.key).owner))];if(!g.owners.length)g.owners=['#61'];\n if(g.unresolved&&g.category!=='test-framework declaration/assertion'){const c=g.uses[0]?.callee||'';\n  if(c==='runConcepts'){g.category='authored test/static helper';g.manualSourceBoundary={contract:'Pinned examples/concepts.ts:111 runConcepts application helper',owner:'#63'};g.owners=['#63'];}\n  else if(c==='saved.entities.some'){g.category='host standard-library operation';g.manualSourceBoundary={contract:'Snapshot.WorldSnapshot.entities → Array.some host predicate',source:'test/Runtime.snapshot.test.ts:160',owner:'#58'};g.owners=['#58'];}\n  else if(/setRaw|updateRaw/.test(c)&&c!=='resources.time.setRaw'){g.category='manually expanded constructed-cell operation';g.manualSourceBoundary={contracts:['System.ResourceWriteView (src/System.ts:333)','Query.ConstructedWriteCell.setRaw/updateRaw (src/Query.ts:532,539)'],reason:'Generic branded fixture conditional return is unresolved by symbol lookup; exact exported conditional/source signature identifies raw write.'};g.contractKeys=['System.ResourceWriteView','Query.ConstructedWriteCell'];g.owners=['#46'];}\n  else if(g.category==='unresolved public operation or intended static refusal'){g.category='intended static refusal at absent/read-only/undeclared member';g.manualSourceBoundary={contract:/context\\./.test(c)?'Condition.CheckContext read-only resource':'resources.time.setRaw'===c?'System.ResourceReadView excludes raw writes':/push/.test(c)?'Query.ReadonlyValue excludes array mutation':c==='data.health.get'?'Query.OptionalReadCell requires present narrowing':'Query.Query.Cells excludes undeclared velocity',reason:'Invalid operation has no valid resolved member by design; source rejection marker/location retained, no diagnostics checked.'};g.owners=[/context\\./.test(c)?'#54':/child|descendant/.test(c)?'#44':'#61'];}\n }g.scope='Source-authored use boundary, not observed Bend parity.';}\nconst groups=new Map(x.semanticClosure.useGroups.map(g=>[g.key,g]));for(const t of x.tests){for(const c of t.classifiedCalls){const g=groups.get(c.operationKey);c.owners=g.owners;c.contractKeys=g.contractKeys;c.category=g.category;}for(const c of t.cases){c.capabilityOwners=[...new Set(c.enclosedOperationKeys.flatMap(k=>groups.get(k).owners))];c.sourceOnly=true;}for(const r of t.rejectionMarkers)r.owner='#61';}\nfor(const f of x.coreFiles)for(const e of f.errorBoundaries)Object.assign(e,route(f.path.split('/').at(-1).slice(0,-3),e.text));\nfor(const f of x.bendFiles){const txt=fs.readFileSync(f.path,'utf8');f.declarations=txt.split('\\n').flatMap((line,i)=>/^(type|def)\\s+/.test(line)?[{line:i+1,signature:line,name:line.match(/^(?:type|def)\\s+([^\\s(<]+)/)[1]}]:[]);}\nx.semanticClosure.counts.useClassification=Object.fromEntries([...new Set(x.semanticClosure.useGroups.map(g=>g.category))].map(k=>[k,x.semanticClosure.useGroups.filter(g=>g.category===k).reduce((s,g)=>s+g.uses.length,0)]));\nx.scope='PREPARATION ONLY: complete pinned public symbol/signature/use/error source inventory with canonical aliases, inherited core members and inferred shapes; exact full-core executable acceptance remains UNMET.';\nx.limitations=['Canonical source generic conditional/indexed contracts are retained symbolically; this is not an enumeration of all possible type instantiations.','Builtin host primitive/collection prototypes are classified external, not silently claimed as ECS-owned APIs.','Documentation and source-test use boundaries are source-only; unresolved imported test framework/dynamic callable sites stay explicit.','Existing bounded implementation/evidence is related by contract; no full #61 per-boundary execution/negative/mutation acceptance is inferred.','Selected current41/42/49/54 manifests are independently hash-joined without replaying validators or backends.'];\nconst architectureFiles=['crates/bevy_ecs/src/system/system_param.rs','crates/bevy_ecs/src/system/function_system.rs','crates/bevy_ecs/src/system/query.rs','crates/bevy_ecs/src/query/fetch.rs','crates/bevy_ecs/src/system/commands/mod.rs','crates/bevy_ecs/src/message/message_reader.rs','crates/bevy_ecs/src/relationship/mod.rs','crates/bevy_ecs/src/change_detection/params.rs'];const hashFile=file=>require('crypto').createHash('sha256').update(fs.readFileSync(file)).digest('hex');x.architectureSourcePins=architectureFiles.map(file=>({reference:'bevy',path:file,sha256:hashFile('.references/bevy/'+file)})).concat(['guide/GUIDE.md','bend2/base.bend','bend2/comp.ts'].map(file=>({reference:'bend2',path:file,sha256:hashFile('.references/bend2/'+file)})));x.installedBaseReadOnlyPin={path:'/home/node/.bend/bend2/base.bend',sha256:hashFile('/home/node/.bend/bend2/base.bend'),scope:'Read-only hash; installed tool version and behavior not probed.'};\nx.enrichmentGeneratorSource=fs.readFileSync('/tmp/bendvy61-enrich.cjs','utf8');fs.writeFileSync(p,JSON.stringify(x,null,2)+'\\n');console.log(x.semanticClosure.counts);\n",
+    "nativeExtension": "import pathlib,json,gzip,hashlib,tarfile\np=pathlib.Path('docs/reference/core-export-inventory.json');x=json.loads(p.read_text());x=json.loads(gzip.decompress(p.with_suffix('.json.gz').read_bytes())) if 'payload' in x else x;root=pathlib.Path('/workspace/formal-proofs/bendvy');f=root/'experiments/public-relations/timing/current-qualification-v1/phase2/remainder-v1/native-files.json';d=json.loads(f.read_text());i=f.parent/'native-evidence-v1/index.json';ind=json.loads(i.read_text());a=i.parent/'objects.tar.gz';H=lambda b:hashlib.sha256(b).hexdigest()\nwith tarfile.open(a,'r:gz') as t: objs={pathlib.Path(m.name).name:t.extractfile(m).read() for m in t.getmembers() if m.isfile()}\nchecks=[{'sha256':h,'bytes':n,'matched':h in objs and H(objs[h])==h and len(objs[h])==n} for h,n in ind['objects'].items()];sources=[{'path':k,'recordedSHA256':v,'currentSHA256':H((root/k).read_bytes())} for k,v in d['files'].items()];rc=json.loads(objs[ind['files']['native/receipt.json']]);r={'issue':'#42','scope':d['scope'],'integrationCommit':'de91f711','manifest':str(f),'manifestSHA256':H(f.read_bytes()),'sourceJoin':{'records':sources,'matched':sum(z['recordedSHA256']==z['currentSHA256'] for z in sources),'different':sum(z['recordedSHA256']!=z['currentSHA256'] for z in sources)},'archiveSHA256':H(a.read_bytes()),'expectedArchiveSHA256':ind['archiveSHA256'],'objectRecords':checks,'objectCount':len(checks),'matchingObjects':sum(z['matched'] for z in checks),'receiptMetadata':[{'sha256':ind['files']['native/receipt.json'],'status':rc.get('status'),'commands':len(rc.get('commands',[]))}],'fullIssueAccepted':False,'historicalJSSeparation':'Earlier phase2 selected JS40+1 EOF source scope remains separate; unchanged Native closure independently joined.','pendingNewerEvidence':'#49 mutation74 and #54 final95 handoffs pending root review at cutoff, not joined or accepted.'};x['selectedCurrentEvidenceJoins'].append(r);x['nativeExtensionJoinGeneratorSource']=pathlib.Path('/tmp/bendvy61-native-add.py').read_text();p.write_text(json.dumps(x,indent=2)+'\\n');print(r['manifestSHA256'],r['sourceJoin']['matched'],r['matchingObjects'],r['objectCount'],r['receiptMetadata'])\n",
+    "approvedExtensions": "import json,pathlib,gzip,hashlib,tarfile\np=pathlib.Path('docs/reference/core-export-inventory.json');x=json.loads(p.read_text());x=json.loads(gzip.decompress(p.with_suffix('.json.gz').read_bytes())) if 'payload' in x else x\nhelpers=pathlib.Path('/tmp/bendvy61-current-joins.py').read_text();ns={};exec(helpers[helpers.index('def read(p):'):helpers.index('rows=[]\\nf=root')],dict(pathlib=pathlib,json=json,tarfile=tarfile,zipfile=__import__('zipfile'),H=lambda b:hashlib.sha256(b).hexdigest()),ns);H=lambda b:hashlib.sha256(b).hexdigest();check=ns['check_sources'];archive=ns['archive_check']\nw=pathlib.Path('/workspace/formal-proofs/bendvy-worktrees/parity-49-handlers');f=w/'experiments/public-machine-handlers/candidate-v1/delivery-mutants-v1/manifest.json';d=json.loads(f.read_text());r={'issue':'#49','scope':'Independently approved bounded three full96/12 JS semantic variants; six subjects, all24 strings and two schema witnesses. Worker commit82d6d424; actual resolver/Native variants/full49/proof/performance UNMET.','manifest':str(f),'manifestSHA256':H(f.read_bytes()),'sourceJoin':check(d['source'],f.parent.parent),'archives':[archive(f.parent/a['archive'],a['sha256'],a['members'],'tar') for a in d['archives'].values()],'fullIssueAccepted':False};x['selectedCurrentEvidenceJoins'].append(r);print('#49',r['sourceJoin']['matched'],sum(a['matchedMembers'] for a in r['archives']))\nw=pathlib.Path('/workspace/formal-proofs/bendvy-worktrees/parity-54-inspector');f=w/'experiments/public-inspect/promotion-stage/final-evidence-v1/DELIVERY-FILES.json';d=json.loads(f.read_text());i=f.parent/'index.json';ind=json.loads(i.read_text());a=f.parent/'objects.tar.gz'\nwith tarfile.open(a,'r:gz') as t:objs={m.name:t.extractfile(m).read() for m in t.getmembers() if m.isfile()}\nchecks=[{'path':name,'sha256':v['sha256'],'bytes':v['bytes'],'object':v['object'],'matched':v['object'] in objs and H(objs[v['object']])==v['sha256'] and len(objs[v['object']])==v['bytes']} for name,v in ind['records'].items()];receipts=[]\nfor v in checks:\n if v['path'].endswith('/receipt.json') and not any(z in v['path'].lower() for z in ['private','environment']):\n  b=json.loads(objs[v['object']]);receipts.append({'path':v['path'],'sha256':v['sha256'],'status':b.get('status'),'commands':len(b.get('commands',[]))})\nr={'issue':'#54','scope':'Independently approved final95 experimental promotion slice: baseline JS/Native, three positive/six negative source controls, reached JS reader-consumption mutant with12 semantic observations. Awaiting worker commit/integration at cutoff; full54/Native mutant/proof/performance/production adoption UNMET.','manifest':str(f),'manifestSHA256':H(f.read_bytes()),'recordedManifestStatus':d['status'],'sourceJoin':check(d['files'],w),'indexSHA256':H(i.read_bytes()),'archiveSHA256':H(a.read_bytes()),'expectedArchiveSHA256':ind['objectsArchiveSHA256'],'objectCount':len(objs),'indexedRecords':len(checks),'matchingRecords':sum(v['matched'] for v in checks),'objectRecords':checks,'receiptMetadata':receipts,'privateEnvironmentPolicy':'Excluded environments hash-only, not decoded. All objects hash checked; only receipt metadata read.','fullIssueAccepted':False};x['selectedCurrentEvidenceJoins'].append(r);print('#54',r['sourceJoin']['matched'],r['sourceJoin']['different'],r['sourceJoin']['unavailable'],len(objs),len(checks),r['matchingRecords']);x['approvedExtensionJoinGeneratorSource']=pathlib.Path('/tmp/bendvy61-approved-add.py').read_text();p.write_text(json.dumps(x,indent=2)+'\\n')\n",
+    "selectionDelta": "import pathlib,json,gzip,hashlib\np=pathlib.Path('docs/reference/core-export-inventory.json');x=json.loads(p.read_text());x=json.loads(gzip.decompress(p.with_suffix('.json.gz').read_bytes())) if 'payload' in x else x\nw=pathlib.Path('/workspace/formal-proofs/bendvy-worktrees/parity-54-inspector');f=w/'experiments/public-inspect/promotion-stage/final-evidence-v1/SELECTED-DELIVERY-FILES.json';d=json.loads(f.read_text());H=lambda b:hashlib.sha256(b).hexdigest();rows=[{'path':k,'recordedSHA256':v,'currentSHA256':H((w/k).read_bytes())} for k,v in d['files'].items()];r=x['selectedCurrentEvidenceJoins'][-1];assert r['issue']=='#54';r['originalReviewed95']={'manifest':r['manifest'],'manifestSHA256':r['manifestSHA256'],'sourceJoin':r['sourceJoin']};r['manifest']=str(f);r['manifestSHA256']=H(f.read_bytes());r['recordedManifestStatus']=d['status'];r['scope']='Final bounded Inspector promotion selected path delta:91 listed plus self92; original95 review retained historical. Qualification unchanged. Selection delta pending independent review; full54/Native mutation/proof/performance/production integration UNMET.';r['sourceJoin']={'records':rows,'matched':sum(z['recordedSHA256']==z['currentSHA256'] for z in rows),'different':sum(z['recordedSHA256']!=z['currentSHA256'] for z in rows),'unavailable':0};r['selectedCommitPathCount']=d['commitPathCount'];r['selfManifest']=d['selfManifest'];r['selectionRemoved']=d['removed'];r['selectionRule']=d['selectionRule'];x['selectionDeltaJoinGeneratorSource']=pathlib.Path('/tmp/bendvy61-selection-add.py').read_text();p.write_text(json.dumps(x,indent=2)+'\\n');print(r['manifestSHA256'],r['sourceJoin']['matched'],r['selectedCommitPathCount'])\n",
+    "pack": "import json,gzip,hashlib,pathlib\np=pathlib.Path('docs/reference/core-export-inventory.json');dataset=json.loads(p.read_text());digest=lambda b:hashlib.sha256(b).hexdigest()\nraw=(json.dumps(dataset,sort_keys=True,separators=(',',':'),ensure_ascii=False)+'\\n').encode();packed=gzip.compress(raw,compresslevel=9,mtime=0);target=p.with_name(p.name+'.gz');target.write_bytes(packed)\nassert gzip.decompress(packed)==raw\nassert json.loads(gzip.decompress(packed))==dataset\nindex={\n 'formatVersion':2,'scope':dataset['scope'],'baseCommit':dataset['baseCommit'],\n 'payload':{'path':'core-export-inventory.json.gz','encoding':'deterministic gzip (mtime=0); UTF-8 canonical sorted-key JSON, compact separators, terminal LF','sha256':digest(packed),'bytes':len(packed),'uncompressedSHA256':digest(raw),'uncompressedBytes':len(raw),'roundTrip':'Exact compressed→uncompressed bytes and parsed data equality PASS'},\n 'references':dataset['references'],'syntaxCounts':dataset['counts'],'semanticCounts':dataset['semanticClosure']['counts'],\n 'publicModules':[{'module':m['module'],'entrypoint':m['entrypoint'],'rootNamespace':m['rootNamespace'],'path':m['path'],'sha256':m['sha256'],'declarationOccurrences':len(m['declarations']),'nestedMemberOccurrences':len(m['members'])} for m in dataset['modules']],\n 'testStaticSources':[{'path':t['path'],'sha256':t['sha256'],'testSuiteOccurrences':len(t['cases']),'callOccurrences':len(t['calls']),'rejectionMarkers':len(t['rejectionMarkers'])} for t in dataset['tests']],\n 'auditBaseCoreSources':[{'path':f['path'],'sha256':f['sha256']} for f in dataset['bendFiles']],\n 'rootSourceSnapshot':{'root':dataset['currentRootSourceSnapshot']['root'],'commit':dataset['currentRootSourceSnapshot']['commit'],'scope':dataset['currentRootSourceSnapshot']['scope'],'uncommittedCoreStatus':dataset['currentRootSourceSnapshot']['uncommittedCoreStatus'],'sourceCount':len(dataset['currentRootSourceSnapshot']['files'])},\n 'architectureSourcePins':dataset['architectureSourcePins'],'installedBaseReadOnlyPin':dataset['installedBaseReadOnlyPin'],\n 'selectedCurrentEvidenceJoins':[{'issue':r['issue'],'manifest':r['manifest'],'manifestSHA256':r['manifestSHA256'],'scope':r['scope'],'fullIssueAccepted':r['fullIssueAccepted']} for r in dataset['selectedCurrentEvidenceJoins']],\n 'limitations':dataset['limitations'],\n 'regeneration':{'instructions':'Extract generator sources below to temporary files. From matching audit checkout run syntax→historicalJoins→semantic→selectedCurrentJoins→enrichment→nativeExtension→approvedExtensions→selectionDelta→pack; syntax replaces this index with the full intermediate dataset. Uses already-present cached TypeScript 5.9.3 and Python stdlib only; no installation, diagnostic typecheck, backend or test execution. Later root/worktree sources must match retained hashes for identical output.',\n 'syntax':dataset['generation']['syntaxGeneratorSource'],'historicalJoins':dataset['generation']['joinGeneratorSource'],'semantic':dataset['semanticClosure']['generatorSource'],'selectedCurrentJoins':dataset['currentEvidenceJoinGeneratorSource'],'enrichment':dataset['enrichmentGeneratorSource'],'nativeExtension':dataset['nativeExtensionJoinGeneratorSource'],'approvedExtensions':dataset['approvedExtensionJoinGeneratorSource'],'selectionDelta':dataset['selectionDeltaJoinGeneratorSource'],'pack':pathlib.Path('/tmp/bendvy61-pack.py').read_text()}}\np.write_text(json.dumps(index,indent=2,ensure_ascii=False)+'\\n')\nre=json.loads(p.read_text());decoded=json.loads(gzip.decompress(target.read_bytes()));assert re['syntaxCounts']==decoded['counts'];assert re['semanticCounts']==decoded['semanticClosure']['counts'];assert digest(target.read_bytes())==re['payload']['sha256'];assert digest(gzip.decompress(target.read_bytes()))==re['payload']['uncompressedSHA256'];print(json.dumps(re['payload']))\n"
+  }
+}
