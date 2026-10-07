@@ -34,7 +34,10 @@ See [regression evidence](reports/core-integrated-regression.md) and
 - #34 is delivered and closed at `5caa6b2d`: current nested/flat controls,
   corrected actual-command timing and independent final reviews are retained.
   #40 and #48 now proceed; exact metadata laws remain unapproved.
-- #35 current reader semantics pass; the heavy reader workload still takes
+- #35's bounded slice is delivered and ready for closure: fresh 99-command
+  replay passes against exact 35-module inventory, with final independent
+  Spec/Standards inspection. See [completion](reports/schedule-readers-completion.md).
+  The heavy reader workload still takes
   approximately 3.8–4.1 times TS in JS and 1.1–2.0 times TS in Native. Sampled
   allocation decreased from 922 to 341 MB across diagnostic profiles. This gap
   remains a consequential performance obligation, not qualified full performance.
