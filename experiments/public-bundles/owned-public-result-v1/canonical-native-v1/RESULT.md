@@ -1,0 +1,11 @@
+# #41 canonical owned capability — finite Native result
+
+All six actual Native subjects passed through the same59-file canonical core/provider/body closure already qualified in JS: complete22 and20 physical rows, plus20 declared pinned-TS public checkpoint joins. Native outputs equal the unchanged complete independently authored oracles and canonical JS outputs. Root alone adopts shared core; this is an experimental capability candidate, not full #41 delivery.
+
+Actual plan4495f8bd2d262f619a14a54ddf75a7d3929b38b28879786fe97704655a97780a; receipt0d230e3b56791c5c1cd077b7eb6a504270ff730eb1e872c64376179a52ab225f. Emit30/approved private Clang19 compile120/Native5 twice, one thread/GPUoff,13 ordinary tool guards,39 execution probes and3 preparation probes. Before/after exact source-directory membership, all ancestor/config/environment/helper/tool/resource/library/loader/raw/generated/oracle guards were checked under the shared heavy lock. No system compiler replacement, new dependency or comparative timing.
+
+The portable archive contains complete plans, raw outputs, generated C, ordinary snapshots/probes and reviewed helper bytes. Both local compiled binaries and private environment files are excluded; hashes and actual execution receipts remain. No fresh-checkout backend replay is implied. The same canonical JS source trace remains a committed external dependency, not a substitute for these six actual Native subjects.
+
+Arbitrary affine payloads, two schemas, real Worlds/foreign peer, rejected constructor/returned-owner retry, deferred visibility, replacement inverse/rollback and cleanup remain observed. Legacy experimental Request and core Data APIs stay compatible. Safe type checks and expected IO boundaries are not proofs. Source constructor sites and compiler specialization do not establish dynamic allocation rate or speed.
+
+Remaining: source-current reached omitted-value control in JS/Native, root integration, unchanged #28 on combined executable production source, complete feature timing/scaling and appropriate before/after call/allocation profiles. Existing identity/cancellation/failed-activation/general recovery policy gaps are unchanged. No mathematical proof, performance acceptance, full parity or ticket closure.
