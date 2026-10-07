@@ -79,3 +79,7 @@ confinement checks, and ten complete public closure cases on JS/Native. The latt
 includes partial-fuel view/get, mutating projection, wrapped recovery, producer
 fuel and refusal observations. These guards bind Column `dd7ead`; they do not
 change the public old phase semantics or provide performance acceptance.
+
+## Rejected promotion — 2026-10-07
+
+The fused `dd7ead14` promotion is rejected: additional complexity did not produce meaningful measured latency improvement. Live Column is restored exactly to committed `3fec368b`. All `core-current` evidence above is historical evidence for the rejected source, not acceptance of the restored source. Exact source is retained under `evidence/frozen-dd7ead/` and `../node-profiles/evidence/fused-rejected-source/`. The small erased-helper canary was canceled before code generation; do not treat its design as selected work.
