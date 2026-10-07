@@ -1,7 +1,7 @@
 """Source-bound public nested provisioning observations; no timings/profiles."""
-import argparse,pathlib,hashlib,json,subprocess,os,shutil,tempfile,gzip,re
+import argparse,pathlib,hashlib,json,subprocess,os,shutil,tempfile,gzip,re,sys,importlib.util
 HERE=pathlib.Path(__file__).resolve().parent;ROOT=HERE.parents[1]
-p=argparse.ArgumentParser();p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args();OUT=a.output.resolve();OUT.mkdir(parents=True,exist_ok=False)
+p=argparse.ArgumentParser();p.add_argument('--output',type=pathlib.Path,required=True);p.add_argument('--cpu',type=int,choices=[5,10],default=10);a=p.parse_args();OUT=a.output.resolve();OUT.mkdir(parents=True,exist_ok=False)
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def inputs():
  found=set();pending=list(HERE.glob('*.bend'))
@@ -12,18 +12,33 @@ def inputs():
   for token in re.findall(r'^import\s+(\S+)',p.read_text(),re.M):
    if token=='Base':continue
    assert token.endswith('.bend'),token;pending.append((p.parent/token).resolve())
- found.update([HERE/'reference.mjs',HERE/'run.py'])
+ found.update((ROOT/'src/ecs').glob('*.bend'))
+ found.update([HERE/'reference.mjs',HERE/'run.py',ROOT/'.references/sources.json',ROOT/'benchmarks/parity-features/supervise.py',ROOT/'benchmarks/parity-features/tool-pins.py',ROOT/'experiments/s-prep/fivehour-connected-gates/supervisor.py'])
  return {str(p.relative_to(ROOT)):sha(p) for p in sorted(found)}
 SNAP=inputs();refs=ROOT/'.references';manifest=json.loads((refs/'sources.json').read_text())['sources'];r={'status':'INCOMPLETE','sources':SNAP,'commands':[],'mutants':{},'limits':'Finite two nominal schema traces, actual public owners, no timing/profiling/production refinement claim'}
 EXTERNAL={str(p):sha(p) for p in sorted((refs/'bevy-ts/packages/core/src').rglob('*.ts'))};EXTERNAL[str(pathlib.Path('/home/node/.bend/bend2/base.bend'))]=sha(pathlib.Path('/home/node/.bend/bend2/base.bend'))
 r['external_hashes']=EXTERNAL
+sys.path.insert(0,str(ROOT/'benchmarks/parity-features'));import supervise
+spec=importlib.util.spec_from_file_location('nested_tool_pins',ROOT/'benchmarks/parity-features/tool-pins.py');tools=importlib.util.module_from_spec(spec);spec.loader.exec_module(tools)
+INSTALLED=tools.snapshot();r.update(installedTools=INSTALLED,cpu=a.cpu,childEnvironmentFixed={'BEND_NO_TELEMETRY':'1'},artifacts={})
+assert a.cpu in os.sched_getaffinity(0)
+def save(): (OUT/'receipt.json').write_text(json.dumps(r,indent=2)+'\n')
+def pin(path):r['artifacts'][path.name]=sha(path)
+
 
 def inventory(stage):return {str(p.relative_to(stage)):sha(p) for p in sorted(stage.rglob('*')) if p.is_file()}
 def guard(stage,expected):
- assert inputs()==SNAP,'root source drift';assert inventory(stage)==expected,'staged input drift';assert all(sha(pathlib.Path(p))==v for p,v in EXTERNAL.items()),'external source drift'
+ tools.verify(INSTALLED);assert all(sha(OUT/name)==digest for name,digest in r['artifacts'].items()),'artifact/log drift';assert inputs()==SNAP,'root source drift';assert inventory(stage)==expected,'staged input drift';assert all(sha(pathlib.Path(p))==v for p,v in EXTERNAL.items()),'external source drift'
 def run(stage,expected,label,cmd,cap,good=True):
- guard(stage,expected);q=subprocess.run(list(map(str,cmd)),capture_output=True,text=True,timeout=cap,env=dict(os.environ,BENDVY_CLANG19_ROOT='/tmp/bendvy-clang19-diagnostic/root'))
- gzip.open(OUT/(label+'.stdout.gz'),'wb').write(q.stdout.encode());(OUT/(label+'.stderr')).write_text(q.stderr);r['commands'].append({'label':label,'command':list(map(str,cmd)),'cap_seconds':cap,'exit':q.returncode});assert (q.returncode==0)==good,(label,q.stdout,q.stderr);guard(stage,expected);return q.stdout if good else q.stdout+q.stderr
+ guard(stage,expected)
+ assert not (OUT/(label+'.stdout.gz')).exists() and not (OUT/(label+'.stderr')).exists(),'log label reused'
+ command=['taskset','-c',str(a.cpu),*map(str,cmd)]
+ try:q=supervise.execute(command,cap,dict(os.environ,BENDVY_CLANG19_ROOT='/tmp/bendvy-clang19-diagnostic/root'))
+ except Exception as error:r['commands'].append({'label':label,'command':command,'cap_seconds':cap,'error':repr(error)});save();raise
+ stdout=q.stdout.decode();stderr=q.stderr.decode()
+ gzip.open(OUT/(label+'.stdout.gz'),'wb').write(q.stdout);(OUT/(label+'.stderr')).write_bytes(q.stderr)
+ pin(OUT/(label+'.stdout.gz'));pin(OUT/(label+'.stderr'))
+ r['commands'].append({'label':label,'command':command,'cap_seconds':cap,'exit':q.returncode});save();assert (q.returncode==0)==good,(label,stdout,stderr);guard(stage,expected);return stdout if good else stdout+stderr
 
 def parse(text):
  blocks=text.strip().split('schema-B\n');assert len(blocks)==2;assert blocks[0].startswith('schema-A\n');blocks[0]=blocks[0][len('schema-A\n'):];parts=[b.strip().splitlines() for b in blocks];assert parts[0]==parts[1],'nominal schema observations differ'
@@ -100,9 +115,11 @@ try:
   def backend(label,expected,validate):
    observations=[]
    for role in ['JS','Native']:
-    target=OUT/(label+('.js' if role=='JS' else '.c'));run(stage,expected,label+'-emit-'+role,['bend',fixture,'-o',target],30)
-    if role=='Native':run(stage,expected,label+'-compile',['/tmp/bendvy-clang19-diagnostic/clang19','-O3',target,'-o',OUT/label,'-pthread','-lm'],120)
-    observed=run(stage,expected,label+'-run-'+role,['node',target] if role=='JS' else [OUT/label],5);validate(observed,role);observations.append(observed)
+    target=OUT/(label+('.js' if role=='JS' else '.c'));assert not target.exists(),'prospective output exists';run(stage,expected,label+'-emit-'+role,['bend',fixture,'-o',target],30);pin(target)
+    if role=='Native':
+     assert not (OUT/label).exists(),'prospective binary exists'
+     run(stage,expected,label+'-compile',['/tmp/bendvy-clang19-diagnostic/clang19','-O3',target,'-o',OUT/label,'-pthread','-lm'],120);pin(OUT/label)
+    observed=run(stage,expected,label+'-run-'+role,['node',target] if role=='JS' else [OUT/label,'--threads','1','--gpu','off'],5);validate(observed,role);observations.append(observed)
    assert observations[0]==observations[1],label+' JS/Native differ'
   backend('normal',expected,lambda text,role:check(text))
   # Reached validator controls corrupt BOTH nominal schemas identically, so
@@ -133,8 +150,8 @@ try:
    backend(name,mutated,detected);guard(stage,mutated);core.write_text(original);guard(stage,expected)
   guard(stage,expected)
  assert inputs()==SNAP;r['status']='PASS';r['nominal_schemas']=2;r['scenarios_per_schema']=12
-except subprocess.TimeoutExpired as error:
- r['status']='INCONCLUSIVE_TIMEOUT';r['timeout']={'command':list(map(str,error.cmd)),'seconds':error.timeout};raise
+except TimeoutError as error:
+ r['status']='INCONCLUSIVE_TIMEOUT';r['timeout']=str(error);raise
 finally:
  r['artifacts']={p.name:sha(p) for p in sorted(OUT.iterdir()) if p.is_file() and p.name!='receipt.json'};(OUT/'receipt.json').write_text(json.dumps(r,indent=2)+'\n')
 print(r['status'])

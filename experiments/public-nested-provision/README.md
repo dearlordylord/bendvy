@@ -100,3 +100,46 @@ complete access list and cursor. Its 24 observation-corruption controls change
 both nominal schemas identically before retry and require rejection; these are
 validator controls, distinct from the two reached actual-core mutants. Earlier
 receipts retain their earlier validator scope.
+
+## Integrated-current replay and equivalent work
+
+[evidence/integrated-current/receipt.json](evidence/integrated-current/receipt.json)
+passes all 31 original commands against the integrated 33-module core, including
+both nominal schemas, all 12 scenarios and repairs, five access/type/affine
+negatives, both reached actual-core mutants on JS/Native and all 24 complete
+refusal-observation corruption controls. The repaired runner binds installed
+binaries/resources/resolved libraries, the actual descendant supervisor,
+reference sources/commits, all 33 core files, generated artifacts and logs.
+Every child is supervised under the existing 5/30/120/5 second caps; Native uses
+one thread with GPU off. `--cpu 5` or `--cpu 10` selects a bounded semantic lane.
+The daily Bend update-notice cache is not a compiler configuration; children set
+`BEND_NO_TELEMETRY=1`. No dependencies or core semantics changed.
+
+The original application above deliberately observes identity callbacks. The
+separately frozen [corrected feature cohort](../../benchmarks/parity-features/evidence/integrated-nested-paired-v1/summary.md)
+performs actual `Cmd.tx_spawn`/`tx_finish`, matches actual TS empty-spawn work and
+retains returned reservations, event publication, refusal, service repair/retry
+and before/after barrier liveness. It passes complete TS/JS/Native observations
+before all 120 timing pairs. Resource-only Bend repair is excluded from common
+measurement; public TS observer cursor/frame effects are explicit. The original
+v10 timing cohort is retained historical evidence, not actual command-work parity.
+
+[Delivery reconciliation](../../docs/reports/nested-provision-completion.md)
+records the full issue checklist, timing limits and remaining integrator gates.
+Five metadata law drafts remain unapproved; no proof or full-product performance
+qualification follows from these finite results.
+
+The fresh [flat-consumer compatibility replay](evidence/flat-integrated-current/receipt.json)
+passes 42 guarded commands: the original 39 plus three pinned reference-head
+checks. It retains all 23 normal output rows, original negative diagnostics,
+repeated foreign-world refusal and all three actual compiling mutations on both
+backends. Original `experiments/public-schedules` files are byte-unchanged.
+`flat-replay.py` replaces only the orchestration function and fresh output path
+in an AST copy and inserts the reference-head guard; every original semantic
+assertion and mutation body executes unchanged. Every command uses the same
+reviewed supervisor/tool/source/log/artifact guards and existing caps.
+
+```
+python3 experiments/public-nested-provision/flat-replay.py \
+  --output .artifacts/nested-flat-replay --cpu 10
+```

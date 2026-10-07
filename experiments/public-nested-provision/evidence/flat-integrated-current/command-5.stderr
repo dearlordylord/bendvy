@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : W.World<D.Schema, Unit, U32, U32>
+- observed : W.World<Other, Unit, U32, U32>
+Context:
+- schedule : Sch.Schedule<D.Schema, Unit, U32, U32, D.Owners>
+- world    : W.World<Other, Unit, U32, U32>
+Location: wrong
+ 8 | def wrong(schedule: Sch.Schedule<D.Schema,Unit,U32,U32,D.Owners>,world: W.World<Other,Unit,U32,U32>) -> Sch.RunResult<D.Schema,Unit,U32,U32,D.Owners,String>:
+ 9>|   Sch.run(~D.Schema,~Unit,~U32,~U32,~D.Owners,~String,~D.dispatch,~D.condition,schedule,world)
+   |                                                                                         ^^^^^
+10 | 

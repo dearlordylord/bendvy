@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : schedule
+- observed : schedule (consumed more than once)
+Location: duplicate
+4 | 
+5>| def duplicate(schedule: Sch.Schedule<D.Schema,Unit,U32,U32,D.Owners>) -> Sch.Schedule<D.Schema,Unit,U32,U32,D.Owners> & Sch.Schedule<D.Schema,Unit,U32,U32,D.Owners>:
+  |               ^^^^^^^^
+6 |   (schedule,schedule)

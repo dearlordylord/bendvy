@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- expected : Cap.ValueWrite<gameplay_read~H, U32, U32>
+- observed : Cap.ValueRead<gameplay_read~H, U32>
+Context:
+- ctx : gameplay_read~H
+Location: gameplay_read
+93 | def gameplay_read(~H: Type,~cap: Cap.ValueRead<H,U32>,ctx: H) -> H & U32:
+94>|   Cap.value_set(~H,~U32,~U32,~cap,ctx,0)
+   |                               ^^^
+95 | def condition_observed(observed: W.World<Schema,Unit,U32,U32> & U32,slot: U32) -> W.World<Schema,Unit,U32,U32> & Bool:

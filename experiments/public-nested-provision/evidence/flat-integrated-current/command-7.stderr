@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- expected : W.World<Schema, Unit, U32, U32>
+- observed : gameplay_read~H
+Context:
+- ctx : gameplay_read~H
+Location: gameplay_read
+93 | def gameplay_read(~H: Type,~cap: Cap.ValueRead<H,U32>,ctx: H) -> H & U32:
+94>|   W.observe_resource(~Schema,~Unit,~U32,~U32,~U32,~project_counter,ctx)
+   |                                                                    ^^^
+95 | def condition_observed(observed: W.World<Schema,Unit,U32,U32> & U32,slot: U32) -> W.World<Schema,Unit,U32,U32> & Bool:
