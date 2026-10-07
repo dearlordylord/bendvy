@@ -18,6 +18,11 @@ the frozen source, negative, mutation and backend delivery gates still apply.
 
 For API changes, require negative controls for undeclared access, cross-schema misuse and writes through read.
 
+## Evidence runner development
+
+Use [check policy](check-policy.md) for cheap consumer preflight, immutable
+dependency stages and focused failure reproduction before complete cohorts.
+
 ## Approval requirements
 
 Read [SPEC](SPEC.md) for approval requirements on specific laws, numerical performance thresholds and new dependencies. Record the exact outstanding request and why it is needed in the task report.
