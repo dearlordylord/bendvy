@@ -12,8 +12,10 @@ root = Path(__file__).resolve().parents[1]
 failed = False
 for receipt in args.receipts:
     data = json.loads(receipt.read_text())
-    sources = data.get('sources', data.get('source'))
-    if not isinstance(sources, dict) or not sources:
+    sources = data.get('currentSourceHashes', data.get('sources', data.get('source')))
+    if (not isinstance(sources, dict) or not sources
+            or not all(isinstance(name, str) and isinstance(value, str)
+                       and len(value) == 64 for name, value in sources.items())):
         print(f'{receipt}: FAIL: no source hash inventory')
         failed = True
         continue
