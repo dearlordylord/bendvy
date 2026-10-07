@@ -1,0 +1,121 @@
+{
+  "canonicalArchiveSha256": "4d1d5d89580cf43758f61dfc25a60870dce69db6df1b95d017ee8cb1e92305cb",
+  "normalSourceBindingSha256": "022114652d560a28bce59022b74ea6b2d06e882120c55d436b7b48f6c6b6a64e",
+  "candidates": {
+    "bundle-pack.bend": {
+      "source": "experiments/public-bundles/prototype.bend",
+      "qualifiedSourceSha256": "26b708098689d7f3bc544ced0dfcde1f79f42003db6839658e564dde833f59c9",
+      "candidateSha256": "a900386d18d9e741ec9001dee0c8203366e6feac706b15db9db755a95e96f8f0",
+      "group": 1,
+      "imports": [
+        "import Base"
+      ],
+      "scope": "Source-only relocation/extraction; not typechecked or adopted"
+    },
+    "bundle-construction.bend": {
+      "source": "experiments/public-bundles/constructor-stage.bend",
+      "qualifiedSourceSha256": "de8fea03493d43b6da0008284aba5c46bb2aaa77f1f1b8b1574bb8ef183b4a29",
+      "candidateSha256": "659fbf766f2d4d3768a0342ab30925c52b83fd28e79facc9868b5382a5048a59",
+      "group": 1,
+      "imports": [
+        "import Base",
+        "import bundle-pack.bend as B"
+      ],
+      "scope": "Source-only relocation/extraction; not typechecked or adopted"
+    },
+    "bundle-install.bend": {
+      "source": "experiments/public-bundles/fallible-install.bend",
+      "qualifiedSourceSha256": "5e139adfb7b0ef6c0f7baafb8dde5bff83c8d1a1c6fac50564c09b8cb5c38498",
+      "candidateSha256": "69845857ee62856ffdd72a876fa5c259034ee512a0d1d430c26169b5ffb6061e",
+      "group": 2,
+      "imports": [
+        "import Base",
+        "import bundle-pack.bend as B",
+        "import world.bend as W"
+      ],
+      "scope": "Source-only relocation/extraction; not typechecked or adopted"
+    },
+    "bundle-component-install.bend": {
+      "source": "experiments/public-bundles/component-install.bend",
+      "qualifiedSourceSha256": "2d0ddb4a4ea20c639453e70715b73b8f30cafdec25b73e523eefd007e5abc2ad",
+      "candidateSha256": "cc5f6bccf5c012c7ffc5f104fa174e5f36194aba7a644d409f4caaf929fce938",
+      "group": 2,
+      "imports": [
+        "import Base",
+        "import world.bend as W",
+        "import component.bend as C",
+        "import column.bend as Col",
+        "import lifecycle.bend as L",
+        "import bundle-install.bend as F"
+      ],
+      "scope": "Source-only relocation/extraction; not typechecked or adopted"
+    },
+    "bundle-delivery.bend": {
+      "source": "experiments/public-bundles/prototype.bend",
+      "qualifiedSourceSha256": "26b708098689d7f3bc544ced0dfcde1f79f42003db6839658e564dde833f59c9",
+      "candidateSha256": "6b1be6a1b2ec3ad82914963fb20e2884f26006c8462cf492b0afc9604259e511",
+      "group": 3,
+      "imports": [
+        "import Base",
+        "import world.bend as W",
+        "import transaction.bend as T"
+      ],
+      "scope": "Source-only relocation/extraction; not typechecked or adopted"
+    },
+    "bundle-batch.bend": {
+      "source": "experiments/public-bundles/production-candidate/transactions/batch.bend",
+      "qualifiedSourceSha256": "e49feb7d6ab5e20c47ca11074b6a47dc27c02754e82d435543b6ef4866c3dfc4",
+      "candidateSha256": "613f148063fe8f3411acdc828a12377394e465868f197bfccf9ef877d4aba12d",
+      "group": 3,
+      "imports": [
+        "import Base",
+        "import bundle-delivery.bend as B",
+        "import world.bend as W",
+        "import transaction.bend as T",
+        "import commands.bend as Cmd"
+      ],
+      "scope": "Source-only relocation/extraction; not typechecked or adopted"
+    },
+    "bundle-insert-adapter.bend": {
+      "source": "experiments/public-bundles/owned-public-result-v1/adapter.bend",
+      "qualifiedSourceSha256": "5f6677c6f28a4c18724979e3b064863cbc096345bb78cdf7b7092f5d497c356d",
+      "candidateSha256": "a7ed3cc40a904e516cdf8c63dc2afa066598c47ba6760b558e0646dc3958ad67",
+      "group": 4,
+      "imports": [
+        "import Base",
+        "import bundle-batch.bend as BT",
+        "import bundle-construction.bend as CS",
+        "import world.bend as W",
+        "import schema-fragments.bend as SF"
+      ],
+      "scope": "Source-only relocation/extraction; not typechecked or adopted"
+    },
+    "bundle-requests.bend": {
+      "source": "experiments/public-bundles/owned-public-result-v1/commands.bend",
+      "qualifiedSourceSha256": "4eec975a87efb248c5270e070c76eae9016abc1d3b6e1483f13340e8edd6ea24",
+      "candidateSha256": "7fbf0265e2b48af86f62ba936f24964b1f6b20b6ed92029433ea02c0a77c353c",
+      "group": 4,
+      "imports": [
+        "import Base",
+        "import bundle-insert-adapter.bend as AD",
+        "import bundle-construction.bend as CS",
+        "import bundle-batch.bend as BT",
+        "import world.bend as W"
+      ],
+      "scope": "Source-only relocation/extraction; not typechecked or adopted"
+    },
+    "bundle-provider.bend": {
+      "source": "experiments/public-bundles/owned-public-result-v1/public.bend",
+      "qualifiedSourceSha256": "e7b945dec6fa43d2a4bbbdd10c81dd6d91413738ea8692693bc0a6eb9e4d045c",
+      "candidateSha256": "3aa34afa2cd7c3f1ac3e1c9a66df5be1518d3c763e76e26e61cd24c95e1d39fc",
+      "group": 4,
+      "imports": [
+        "import Base",
+        "import schema-fragments.bend as SF",
+        "import capabilities.bend as Owned"
+      ],
+      "scope": "Source-only relocation/extraction; not typechecked or adopted"
+    }
+  },
+  "retainedLegacy": "No prototype SpawnResult/spawn_reserved/spawn definitions or schema-specific family/Mail included; original experimental modules unchanged"
+}

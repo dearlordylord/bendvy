@@ -1,0 +1,881 @@
+{
+  "bundle-pack.bend": [
+    {
+      "source": "experiments/public-bundles/combined-control.bend",
+      "alias": "B",
+      "usedNames": [
+        "Pack",
+        "SpawnQueued",
+        "SpawnRefused",
+        "SpawnResult"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/combined-other.bend",
+      "alias": "B",
+      "usedNames": [
+        "Pack",
+        "SpawnQueued",
+        "SpawnRefused",
+        "SpawnResult"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/constructor-control.bend",
+      "alias": "B",
+      "usedNames": [
+        "Pack"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/constructor-stage.bend",
+      "alias": "B",
+      "usedNames": [
+        "Pack"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/fallible-install.bend",
+      "alias": "B",
+      "usedNames": [
+        "Pack"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/fallible-spawn.bend",
+      "alias": "B",
+      "usedNames": [
+        "SpawnQueued",
+        "SpawnRefused",
+        "SpawnResult"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/schema-a.bend",
+      "alias": "B",
+      "usedNames": [
+        "Pack"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/schema-b.bend",
+      "alias": "B",
+      "usedNames": [
+        "Pack"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/production-candidate/schema-a.bend",
+      "alias": "B",
+      "usedNames": [
+        "Delivered",
+        "Delivery",
+        "Pack",
+        "SpawnQueued",
+        "SpawnRefused",
+        "SpawnResult",
+        "Undelivered",
+        "apply",
+        "enqueue"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/production-candidate/schema-b.bend",
+      "alias": "B",
+      "usedNames": [
+        "Delivered",
+        "Delivery",
+        "Pack",
+        "SpawnQueued",
+        "SpawnRefused",
+        "SpawnResult",
+        "Undelivered",
+        "apply",
+        "enqueue"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/production-candidate/transactions/batch.bend",
+      "alias": "B",
+      "usedNames": [
+        "Delivery",
+        "enqueue"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/production-candidate/transactions/schema-a.bend",
+      "alias": "B",
+      "usedNames": [
+        "Pack"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/production-candidate/transactions/schema-b.bend",
+      "alias": "B",
+      "usedNames": [
+        "Pack"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/public-client/declared-other.bend",
+      "alias": "Pack",
+      "usedNames": [
+        "Pack"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/public-client/declared.bend",
+      "alias": "Pack",
+      "usedNames": [
+        "Pack"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/public-client/gameplay-other.bend",
+      "alias": "Pack",
+      "usedNames": [
+        "Pack"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/public-client/gameplay.bend",
+      "alias": "Pack",
+      "usedNames": [
+        "Pack"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/public-client/trusted-other.bend",
+      "alias": "Pack",
+      "usedNames": [
+        "Pack"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/public-client/trusted.bend",
+      "alias": "Pack",
+      "usedNames": [
+        "Pack"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/queue.bend",
+      "alias": "B",
+      "usedNames": [
+        "Delivery",
+        "enqueue"
+      ]
+    }
+  ],
+  "bundle-construction.bend": [
+    {
+      "source": "experiments/public-bundles/combined-control.bend",
+      "alias": "S",
+      "usedNames": [
+        "Failed",
+        "Staged",
+        "Valid"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/combined-other.bend",
+      "alias": "S",
+      "usedNames": [
+        "Failed",
+        "Staged",
+        "Valid"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/constructor-control.bend",
+      "alias": "S",
+      "usedNames": [
+        "Constructed",
+        "Construction",
+        "Failed",
+        "Invalid",
+        "Staged",
+        "Valid",
+        "stage",
+        "terminal"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/adapter.bend",
+      "alias": "CS",
+      "usedNames": [
+        "Failed",
+        "Staged",
+        "Valid"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/commands.bend",
+      "alias": "CS",
+      "usedNames": [
+        "Failed",
+        "Staged",
+        "Valid"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/schema-a.bend",
+      "alias": "CS",
+      "usedNames": []
+    },
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/schema-b.bend",
+      "alias": "CS",
+      "usedNames": []
+    },
+    {
+      "source": "experiments/public-bundles/production-candidate/schema-a.bend",
+      "alias": "S",
+      "usedNames": [
+        "Failed",
+        "Staged",
+        "Valid"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/production-candidate/schema-b.bend",
+      "alias": "S",
+      "usedNames": [
+        "Failed",
+        "Staged",
+        "Valid"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/production-candidate/transactions/schema-a.bend",
+      "alias": "S",
+      "usedNames": [
+        "Failed",
+        "Staged",
+        "Valid"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/production-candidate/transactions/schema-b.bend",
+      "alias": "S",
+      "usedNames": [
+        "Failed",
+        "Staged",
+        "Valid"
+      ]
+    }
+  ],
+  "bundle-install.bend": [
+    {
+      "source": "experiments/public-bundles/combined-control.bend",
+      "alias": "F",
+      "usedNames": [
+        "Attempt",
+        "Installed",
+        "Pending",
+        "Quarantined",
+        "Recovery",
+        "Refused",
+        "Restore",
+        "Restored",
+        "install",
+        "terminal"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/combined-other.bend",
+      "alias": "F",
+      "usedNames": [
+        "Attempt",
+        "Installed",
+        "Pending",
+        "Quarantined",
+        "Recovery",
+        "Refused",
+        "Restore",
+        "Restored",
+        "install",
+        "terminal"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/component-install.bend",
+      "alias": "F",
+      "usedNames": [
+        "Attempt",
+        "Installed",
+        "Pending",
+        "Refused",
+        "Restore",
+        "Restored"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/production-candidate/transactions/drain-recovery.bend",
+      "alias": "F",
+      "usedNames": [
+        "HeadPending",
+        "Pending",
+        "Recovery",
+        "Restore",
+        "Restored",
+        "TailPending"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/production-candidate/transactions/schema-a.bend",
+      "alias": "F",
+      "usedNames": [
+        "Attempt",
+        "Installed",
+        "Quarantined",
+        "Recovery",
+        "Refused"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/production-candidate/transactions/schema-b.bend",
+      "alias": "F",
+      "usedNames": [
+        "Attempt",
+        "Installed",
+        "Quarantined",
+        "Recovery",
+        "Refused"
+      ]
+    }
+  ],
+  "bundle-component-install.bend": [
+    {
+      "source": "experiments/public-bundles/combined-control.bend",
+      "alias": "I",
+      "usedNames": [
+        "Entry",
+        "Recovery",
+        "install"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/combined-other.bend",
+      "alias": "I",
+      "usedNames": [
+        "Entry",
+        "Recovery",
+        "install"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/production-candidate/transactions/schema-a.bend",
+      "alias": "I",
+      "usedNames": [
+        "Entry",
+        "Recovery"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/production-candidate/transactions/schema-b.bend",
+      "alias": "I",
+      "usedNames": [
+        "Entry",
+        "Recovery"
+      ]
+    }
+  ],
+  "bundle-delivery.bend": [
+    {
+      "source": "experiments/public-bundles/combined-control.bend",
+      "alias": "B",
+      "usedNames": [
+        "Pack",
+        "SpawnQueued",
+        "SpawnRefused",
+        "SpawnResult"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/combined-other.bend",
+      "alias": "B",
+      "usedNames": [
+        "Pack",
+        "SpawnQueued",
+        "SpawnRefused",
+        "SpawnResult"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/constructor-control.bend",
+      "alias": "B",
+      "usedNames": [
+        "Pack"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/constructor-stage.bend",
+      "alias": "B",
+      "usedNames": [
+        "Pack"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/fallible-install.bend",
+      "alias": "B",
+      "usedNames": [
+        "Pack"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/fallible-spawn.bend",
+      "alias": "B",
+      "usedNames": [
+        "SpawnQueued",
+        "SpawnRefused",
+        "SpawnResult"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/schema-a.bend",
+      "alias": "B",
+      "usedNames": [
+        "Pack"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/schema-b.bend",
+      "alias": "B",
+      "usedNames": [
+        "Pack"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/production-candidate/schema-a.bend",
+      "alias": "B",
+      "usedNames": [
+        "Delivered",
+        "Delivery",
+        "Pack",
+        "SpawnQueued",
+        "SpawnRefused",
+        "SpawnResult",
+        "Undelivered",
+        "apply",
+        "enqueue"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/production-candidate/schema-b.bend",
+      "alias": "B",
+      "usedNames": [
+        "Delivered",
+        "Delivery",
+        "Pack",
+        "SpawnQueued",
+        "SpawnRefused",
+        "SpawnResult",
+        "Undelivered",
+        "apply",
+        "enqueue"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/production-candidate/transactions/batch.bend",
+      "alias": "B",
+      "usedNames": [
+        "Delivery",
+        "enqueue"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/production-candidate/transactions/schema-a.bend",
+      "alias": "B",
+      "usedNames": [
+        "Pack"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/production-candidate/transactions/schema-b.bend",
+      "alias": "B",
+      "usedNames": [
+        "Pack"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/public-client/declared-other.bend",
+      "alias": "Pack",
+      "usedNames": [
+        "Pack"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/public-client/declared.bend",
+      "alias": "Pack",
+      "usedNames": [
+        "Pack"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/public-client/gameplay-other.bend",
+      "alias": "Pack",
+      "usedNames": [
+        "Pack"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/public-client/gameplay.bend",
+      "alias": "Pack",
+      "usedNames": [
+        "Pack"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/public-client/trusted-other.bend",
+      "alias": "Pack",
+      "usedNames": [
+        "Pack"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/public-client/trusted.bend",
+      "alias": "Pack",
+      "usedNames": [
+        "Pack"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/queue.bend",
+      "alias": "B",
+      "usedNames": [
+        "Delivery",
+        "enqueue"
+      ]
+    }
+  ],
+  "bundle-batch.bend": [
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/adapter.bend",
+      "alias": "BT",
+      "usedNames": [
+        "Batch",
+        "Inserted",
+        "Refused",
+        "insert"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/commands.bend",
+      "alias": "BT",
+      "usedNames": [
+        "Batch",
+        "Inserted",
+        "Refused",
+        "SpawnRefused",
+        "Spawned",
+        "insert",
+        "spawn"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/schema-a.bend",
+      "alias": "BT",
+      "usedNames": [
+        "Batch",
+        "Committed",
+        "Failed",
+        "Finished",
+        "Prepared",
+        "ReservationReceipt",
+        "finish"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/schema-b.bend",
+      "alias": "BT",
+      "usedNames": [
+        "Batch",
+        "Committed",
+        "Failed",
+        "Finished",
+        "Prepared",
+        "ReservationReceipt",
+        "finish"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/surface-a.bend",
+      "alias": "BT",
+      "usedNames": [
+        "Batch",
+        "Committed",
+        "Failed",
+        "Finished",
+        "Prepared",
+        "ReservationReceipt",
+        "finish"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/surface-b.bend",
+      "alias": "BT",
+      "usedNames": [
+        "Batch",
+        "Committed",
+        "Failed",
+        "Finished",
+        "Prepared",
+        "ReservationReceipt",
+        "finish"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/production-candidate/transactions/schema-a.bend",
+      "alias": "BT",
+      "usedNames": [
+        "Batch",
+        "Committed",
+        "Failed",
+        "Finished",
+        "Inserted",
+        "Prepared",
+        "Refused",
+        "ReservationReceipt",
+        "SpawnRefused",
+        "Spawned",
+        "begin",
+        "finish",
+        "insert",
+        "spawn"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/production-candidate/transactions/schema-b.bend",
+      "alias": "BT",
+      "usedNames": [
+        "Batch",
+        "Committed",
+        "Failed",
+        "Finished",
+        "Inserted",
+        "Prepared",
+        "Refused",
+        "ReservationReceipt",
+        "SpawnRefused",
+        "Spawned",
+        "begin",
+        "finish",
+        "insert",
+        "spawn"
+      ]
+    }
+  ],
+  "bundle-insert-adapter.bend": [
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/commands.bend",
+      "alias": "AD",
+      "usedNames": [
+        "ConstructionRefused",
+        "EntityRefused",
+        "Owner",
+        "Refusal"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/negatives/cross-schema-request.bend",
+      "alias": "AD",
+      "usedNames": [
+        "Input"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/negatives/cross-schema.bend",
+      "alias": "AD",
+      "usedNames": [
+        "Input"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/schema-a.bend",
+      "alias": "AD",
+      "usedNames": [
+        "Accepted",
+        "ConstructionRefused",
+        "DeclarationRefused",
+        "EntityRefused",
+        "Input",
+        "Output",
+        "Owner",
+        "Refusal",
+        "Refused",
+        "request"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/schema-b.bend",
+      "alias": "AD",
+      "usedNames": [
+        "Accepted",
+        "ConstructionRefused",
+        "DeclarationRefused",
+        "EntityRefused",
+        "Input",
+        "Output",
+        "Owner",
+        "Refusal",
+        "Refused",
+        "request"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/surface-a.bend",
+      "alias": "AD",
+      "usedNames": [
+        "DeclarationRefused",
+        "Owner",
+        "Refusal"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/surface-b.bend",
+      "alias": "AD",
+      "usedNames": [
+        "DeclarationRefused",
+        "Owner",
+        "Refusal"
+      ]
+    }
+  ],
+  "bundle-requests.bend": [
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/composition.bend",
+      "alias": "Cmd",
+      "usedNames": [
+        "Accepted",
+        "Input",
+        "Insert",
+        "Output",
+        "Refused",
+        "Spawn"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/surface-a.bend",
+      "alias": "Cmd",
+      "usedNames": [
+        "Accepted",
+        "Input",
+        "Insert",
+        "Output",
+        "Refused",
+        "request"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/surface-b.bend",
+      "alias": "Cmd",
+      "usedNames": [
+        "Accepted",
+        "Input",
+        "Insert",
+        "Output",
+        "Refused",
+        "request"
+      ]
+    }
+  ],
+  "bundle-provider.bend": [
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/commands.bend",
+      "alias": "Public",
+      "usedNames": []
+    },
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/composition.bend",
+      "alias": "Public",
+      "usedNames": []
+    },
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/negatives/cross-schema-request.bend",
+      "alias": "Public",
+      "usedNames": []
+    },
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/negatives/duplicate-context.bend",
+      "alias": "Public",
+      "usedNames": [
+        "provide_owned"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/negatives/duplicate-input.bend",
+      "alias": "Public",
+      "usedNames": [
+        "provide_owned"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/negatives/duplicate-result.bend",
+      "alias": "Public",
+      "usedNames": [
+        "provide_owned"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/negatives/opaque-h-escape.bend",
+      "alias": "Public",
+      "usedNames": [
+        "provide_owned"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/negatives/read-authority.bend",
+      "alias": "Public",
+      "usedNames": [
+        "provide_owned"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/negatives/reconstruct-owner.bend",
+      "alias": "Public",
+      "usedNames": [
+        "provide_owned"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/negatives/support.bend",
+      "alias": "Public",
+      "usedNames": [
+        "provide_owned"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/schema-a.bend",
+      "alias": "Public",
+      "usedNames": [
+        "provide_owned",
+        "provision_declared"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/schema-b.bend",
+      "alias": "Public",
+      "usedNames": [
+        "provide_owned",
+        "provision_declared"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/surface-a.bend",
+      "alias": "Public",
+      "usedNames": [
+        "provide_owned",
+        "provision_declared"
+      ]
+    },
+    {
+      "source": "experiments/public-bundles/owned-public-result-v1/surface-b.bend",
+      "alias": "Public",
+      "usedNames": [
+        "provide_owned",
+        "provision_declared"
+      ]
+    }
+  ]
+}

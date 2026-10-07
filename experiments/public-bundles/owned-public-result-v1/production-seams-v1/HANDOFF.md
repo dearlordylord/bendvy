@@ -1,0 +1,18 @@
+# #41 additive production seams — source proposal only
+
+Root owns all shared `src/ecs` writes. Four patch sets contain nine new modules extracted from the qualified canonical59 archive; MAPPING binds the archive, original sources and proposed bytes. No Bend source checker, backend or proof has run for these relocated types. Existing canonical receipts remain evidence for their archived source, not these new module identities.
+
+| Patch | New production modules | Dependencies and contract |
+|---|---|---|
+| 01 | bundle-pack, bundle-construction | Base; constructor context and arbitrary Type owners, authored Cooked→Raw inverse and every position/error remain exact. Only Pack is extracted from prototype. |
+| 02 | bundle-install, bundle-component-install | 01, World/Component/Column/Lifecycle; exact typed Refused/Quarantined/Pending owners and inverse stamp restoration. No storage representation or limits change. |
+| 03 | bundle-delivery, bundle-batch | World/Transaction/Commands; genuine reservation receipt, authored FIFO positions, deferred validation and typed recovery callbacks. Actual Packet stays outside low-level Unit reservation; original separate prototype spawn route is excluded. |
+| 04 | bundle-insert-adapter, bundle-requests, bundle-provider | 01/03, SchemaFragments and root's additive OwnedRequest leaf; constructor refusal returns Raw, accepted Spawn returns genuine handle, Insert preserves target. Provider uses actual core OwnedRequest/invoke_owned. Legacy experimental Request/Data APIs remain in their existing modules. |
+
+Candidates change imports and module placement only, with selective extraction for Pack/Delivery/provider. No schema-specific family, Mail, Co.run gameplay body or demo constructor is copied into core. Batch's existing retained-reservation and recovery observations do not select failed activation, cancellation or default recovery destination policies (#38/#46).
+
+AFFECTED lists exact direct imports and qualified alias uses for every original source. Prototype mixes Pack and Delivery under B: downstream imports must split those names, not blindly replace its entire module. Module relocation changes nominal types: constructor, installer, packet/family helpers, schema bodies, provider calls and negatives must switch consistently in one frozen candidate closure. The original wrapper remains compatibility source; canonical callers use bundle-provider.provide_owned with actual core capabilities. The old Request-based experimental negatives remain archived; fresh affected negative entrypoints must test the current production type boundary and retain exact diagnostics.
+
+Proposed qualification, after interface review: freeze the exact relocated full closure plus both authored foreign sidecars, root draft capability bytes, all imports and helpers. Run support source5 and eight intentional static negatives source5; the two full mains retain expected IO-boundary classification. Preserve old diagnostics and record fresh import-path/type-name diagnostics. Then qualify complete22 and complete20 actual JS/Native outputs against unchanged independent oracles and pinned actual TS joins. Requalify the exact two omitted-value installation mutations against newly imported component installers; old mutant PASS is not transferable. CLI IO and unchanged #28/equivalent-feature timing/profiles remain root's combined-delivery queue. No tolerance, workload, new law or dependency change is proposed.
+
+This is a patch proposal within the existing surface-COVERAGE map, not a second plan, production adoption, complete #41, proof or performance acceptance. Source feasibility and actual runtime/profile conclusions require separate evidence.
