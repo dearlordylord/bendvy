@@ -1,0 +1,5 @@
+# Complete readers before profiles
+
+Existing frozen v10 readers-4 generated JS ran on CPU11 with complete four-lifecycle outputs and digest validation under the unchanged source/stage/tool/supervisor guards. CPU sampling includes process startup, so self-time totals are diagnostic, not region timing. Default Node heap profiling retained only surviving loader buffers; its profile is retained but is not allocation evidence. The separate inspector profile includes objects collected by both minor and major GC, sampling every 32768 bytes; its estimated self allocations total 922.0MB, with event-runtime.append 490.2MB, List.reverse 113.0MB and append_loop 82.6MB. These estimates justify investigating materialization in size/sync/capacity, without a performance claim or core mutation.
+
+The inspector wrapper starts sampling before importing the unchanged generated program and synchronously records the profile during its real process-exit hook. All 65535 publications and complete outputs remain present. Generated program bytes are retained in paired-v10; input hashes are in the receipts. Earlier incomplete attempts are not credited.
