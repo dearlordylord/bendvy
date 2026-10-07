@@ -1,5 +1,12 @@
 """Source-bound public nested provisioning observations; no timings/profiles."""
 import argparse,pathlib,hashlib,json,subprocess,os,shutil,tempfile,gzip,re,sys,importlib.util
+
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+import task_runner
+
 HERE=pathlib.Path(__file__).resolve().parent;ROOT=HERE.parents[1]
 p=argparse.ArgumentParser();p.add_argument('--output',type=pathlib.Path,required=True);p.add_argument('--cpu',type=int,choices=[5,10],default=10);a=p.parse_args();OUT=a.output.resolve();OUT.mkdir(parents=True,exist_ok=False)
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
@@ -13,12 +20,12 @@ def inputs():
    if token=='Base':continue
    assert token.endswith('.bend'),token;pending.append((p.parent/token).resolve())
  found.update((ROOT/'src/ecs').glob('*.bend'))
- found.update([HERE/'reference.mjs',HERE/'run.py',ROOT/'.references/sources.json',ROOT/'benchmarks/parity-features/supervise.py',ROOT/'benchmarks/parity-features/tool-pins.py',ROOT/'experiments/s-prep/fivehour-connected-gates/supervisor.py'])
+ found.update([HERE/'reference.mjs',HERE/'run.py',ROOT/'.references/sources.json',ROOT/'scripts/task_runner.py',ROOT/'benchmarks/parity-features/tool-pins.py',ROOT/'scripts/task_runner.py'])
  return {str(p.relative_to(ROOT)):sha(p) for p in sorted(found)}
 SNAP=inputs();refs=ROOT/'.references';manifest=json.loads((refs/'sources.json').read_text())['sources'];r={'status':'INCOMPLETE','sources':SNAP,'commands':[],'mutants':{},'limits':'Finite two nominal schema traces, actual public owners, no timing/profiling/production refinement claim'}
 EXTERNAL={str(p):sha(p) for p in sorted((refs/'bevy-ts/packages/core/src').rglob('*.ts'))};EXTERNAL[str(pathlib.Path('/home/node/.bend/bend2/base.bend'))]=sha(pathlib.Path('/home/node/.bend/bend2/base.bend'))
 r['external_hashes']=EXTERNAL
-sys.path.insert(0,str(ROOT/'benchmarks/parity-features'));import supervise
+sys.path.insert(0,str(ROOT/'benchmarks/parity-features'));import task_runner
 spec=importlib.util.spec_from_file_location('nested_tool_pins',ROOT/'benchmarks/parity-features/tool-pins.py');tools=importlib.util.module_from_spec(spec);spec.loader.exec_module(tools)
 INSTALLED=tools.snapshot();r.update(installedTools=INSTALLED,cpu=a.cpu,childEnvironmentFixed={'BEND_NO_TELEMETRY':'1'},artifacts={})
 assert a.cpu in os.sched_getaffinity(0)
@@ -33,7 +40,7 @@ def run(stage,expected,label,cmd,cap,good=True):
  guard(stage,expected)
  assert not (OUT/(label+'.stdout.gz')).exists() and not (OUT/(label+'.stderr')).exists(),'log label reused'
  command=['taskset','-c',str(a.cpu),*map(str,cmd)]
- try:q=supervise.execute(command,cap,dict(os.environ,BENDVY_CLANG19_ROOT='/tmp/bendvy-clang19-diagnostic/root'))
+ try:q=task_runner.execute_completed(command,cap,dict(os.environ,BEND_NO_TELEMETRY='1',BENDVY_CLANG19_ROOT='/tmp/bendvy-clang19-diagnostic/root'))
  except Exception as error:r['commands'].append({'label':label,'command':command,'cap_seconds':cap,'error':repr(error)});save();raise
  stdout=q.stdout.decode();stderr=q.stderr.decode()
  gzip.open(OUT/(label+'.stdout.gz'),'wb').write(q.stdout);(OUT/(label+'.stderr')).write_bytes(q.stderr)

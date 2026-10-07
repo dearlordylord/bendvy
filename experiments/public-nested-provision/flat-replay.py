@@ -1,13 +1,20 @@
 #!/usr/bin/env python3
 """Guard every original flat-consumer command; original files remain byte-identical."""
 import argparse,ast,gzip,hashlib,importlib.util,json,os,pathlib,sys
+
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+import task_runner
+
 ROOT=pathlib.Path(__file__).resolve().parents[2]
 p=argparse.ArgumentParser();p.add_argument('--output',type=pathlib.Path,required=True);p.add_argument('--cpu',type=int,choices=[5,10],default=10);a=p.parse_args();OUT=a.output.resolve();assert not OUT.exists()
-sys.path.insert(0,str(ROOT/'benchmarks/parity-features'));import supervise
+sys.path.insert(0,str(ROOT/'benchmarks/parity-features'));import task_runner
 spec=importlib.util.spec_from_file_location('flat_tools',ROOT/'benchmarks/parity-features/tool-pins.py');tools=importlib.util.module_from_spec(spec);spec.loader.exec_module(tools)
 sha=lambda path:hashlib.sha256(pathlib.Path(path).read_bytes()).hexdigest()
 source=ROOT/'experiments/public-schedules/run.py'
-files=set((ROOT/'src/ecs').glob('*.bend'))|{x for x in source.parent.iterdir() if x.is_file()}|{pathlib.Path(__file__).resolve(),ROOT/'.references/sources.json',ROOT/'benchmarks/parity-features/supervise.py',ROOT/'benchmarks/parity-features/tool-pins.py',ROOT/'experiments/s-prep/fivehour-connected-gates/supervisor.py'}
+files=set((ROOT/'src/ecs').glob('*.bend'))|{x for x in source.parent.iterdir() if x.is_file()}|{pathlib.Path(__file__).resolve(),ROOT/'.references/sources.json',ROOT/'scripts/task_runner.py',ROOT/'benchmarks/parity-features/tool-pins.py',ROOT/'scripts/task_runner.py'}
 PINS={str(x):sha(x) for x in sorted(files)}
 def external():return {str(x):sha(x) for x in sorted((ROOT/'.references/bevy-ts/packages/core/src').rglob('*')) if x.is_file()}
 EXTERNAL=external()
@@ -33,7 +40,7 @@ def guarded_run(args,cap,expect=0):
   target=pathlib.Path(args[args.index('-o')+1]);assert not target.exists(),'prospective output exists'
  label='command-'+str(len(commands));logs=[OUT/(label+'.stdout.gz'),OUT/(label+'.stderr')];assert not any(x.exists() for x in logs)
  actual=['taskset','-c',str(a.cpu),*args]
- q=supervise.execute(actual,cap,dict(os.environ,BENDVY_CLANG19_ROOT='/tmp/bendvy-clang19-diagnostic/root',BEND_NO_TELEMETRY='1'))
+ q=task_runner.execute_completed(actual,cap,dict(os.environ,BEND_NO_TELEMETRY='1',BENDVY_CLANG19_ROOT='/tmp/bendvy-clang19-diagnostic/root',BEND_NO_TELEMETRY='1'))
  gzip.open(logs[0],'wb').write(q.stdout);logs[1].write_bytes(q.stderr)
  for x in logs:artifacts[str(x)]=sha(x)
  if target is not None:assert target.is_file();artifacts[str(target)]=sha(target)

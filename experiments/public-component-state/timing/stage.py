@@ -6,7 +6,7 @@ HERE=pathlib.Path(__file__).resolve().parent;ROOT=HERE.parents[2];APP=HERE.paren
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def inventory(p):return {str(q.relative_to(p)):sha(q) for q in sorted(p.rglob('*')) if q.is_file()}
 def sources():
- closure=set()
+ closure={ROOT/'scripts/task_runner.py'}
  def visit(p):
   p=p.resolve()
   if p in closure:return

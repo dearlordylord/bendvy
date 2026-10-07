@@ -1,5 +1,12 @@
 """Finite literal comparison; no law proof or performance measurement."""
 import pathlib,hashlib,json,subprocess,tempfile,shutil,re,os,argparse,time
+
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+import task_runner
+
 HERE=pathlib.Path(__file__).resolve().parent;ROOT=HERE.parents[2];parser=argparse.ArgumentParser();parser.add_argument('--output',type=pathlib.Path);args=parser.parse_args();OUT=(args.output or ROOT/'.artifacts'/('nested-provision-laws-'+str(time.time_ns()))).resolve();OUT.mkdir(parents=True,exist_ok=False)
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 found=set();pending=list(HERE.glob('*.bend'))
@@ -13,7 +20,7 @@ found.add(HERE/'run.py');SNAP={str(p.relative_to(ROOT)):sha(p) for p in found};r
 def run(stage,expected,label,cmd,cap,exit=0):
  assert all(sha(ROOT/p)==v for p,v in SNAP.items())
  assert all(sha(stage/p)==v for p,v in expected.items())
- q=subprocess.run(list(map(str,cmd)),capture_output=True,text=True,timeout=cap,env=dict(os.environ,BENDVY_CLANG19_ROOT='/tmp/bendvy-clang19-diagnostic/root'))
+ q=task_runner.run(list(map(str,cmd)),capture_output=True,text=True,timeout=cap,env=dict(os.environ,BENDVY_CLANG19_ROOT='/tmp/bendvy-clang19-diagnostic/root'))
  (OUT/(label+'.stdout')).write_text(q.stdout);(OUT/(label+'.stderr')).write_text(q.stderr);r['commands'].append({'label':label,'command':list(map(str,cmd)),'cap':cap,'exit':q.returncode});assert q.returncode==exit,(label,q.stderr)
  assert all(sha(stage/p)==v for p,v in expected.items());assert all(sha(ROOT/p)==v for p,v in SNAP.items());return q.stdout
 try:

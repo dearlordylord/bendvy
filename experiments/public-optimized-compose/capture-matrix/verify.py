@@ -1,6 +1,14 @@
 #!/usr/bin/env python3
 """Finite exact old-seek/new-capture equivalence; no performance measurements."""
 import argparse,hashlib,json,os,pathlib,re,shutil,subprocess,tempfile,time
+
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+import task_runner
+from task_runner import run as _run_command
+
 ROOT=pathlib.Path(__file__).resolve().parents[3];HERE=pathlib.Path(__file__).resolve().parent
 parser=argparse.ArgumentParser();parser.add_argument('--output',type=pathlib.Path);args=parser.parse_args();OUT=(args.output or ROOT/'.artifacts'/('capture-matrix-'+str(time.time_ns()))).resolve();OUT.mkdir(parents=True,exist_ok=False)
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
@@ -20,7 +28,7 @@ receipt={'status':'INCOMPLETE','sourceHashes':{str(p.relative_to(ROOT)):sha(p) f
 env=dict(os.environ,BENDVY_CLANG19_ROOT='/tmp/bendvy-clang19-diagnostic/root')
 def save():(OUT/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
 def run(cmd,limit,name):
- p=subprocess.run([str(x) for x in cmd],env=env,text=True,capture_output=True,timeout=limit)
+ p=_run_command([str(x) for x in cmd],env=env,text=True,capture_output=True,timeout=limit)
  (OUT/(name+'.stdout')).write_text(p.stdout);(OUT/(name+'.stderr')).write_text(p.stderr);receipt['commands'].append({'command':[str(x) for x in cmd],'limit':limit,'exit':p.returncode,'stdout':name+'.stdout','stderr':name+'.stderr'});save();assert p.returncode==0,(name,p.stdout,p.stderr);return p.stdout
 with tempfile.TemporaryDirectory(prefix='capture-matrix-') as td:
  td=pathlib.Path(td)

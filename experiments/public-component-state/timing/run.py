@@ -1,7 +1,14 @@
 #!/usr/bin/env python3
 """Standalone guarded #47 application preflight/semantics/paired observations."""
 import argparse,hashlib,json,os,pathlib,random,statistics,time,runpy
-import stage,supervise
+import stage
+
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+import task_runner
+
 HERE=pathlib.Path(__file__).resolve().parent;ROOT=stage.ROOT
 
 def digest(p):return hashlib.sha256(p.read_bytes()).hexdigest()
@@ -34,7 +41,7 @@ class Harness:
   assert digest(ROOT/'.references/sources.json')==self.staged['manifestHash']
   self.tools['verify'](self.receipt['installedTools'])
   for n,h in self.receipt['referenceHeads'].items():
-   checked=supervise.execute(['git','-C',str(ROOT/'.references'/n),'rev-parse','HEAD'],5,dict(os.environ,BENDVY_CLANG19_ROOT='/tmp/bendvy-clang19-diagnostic/root'));assert checked.returncode==0 and checked.stdout.decode().strip()==h,'reference HEAD drift'
+   checked=task_runner.execute_completed(['git','-C',str(ROOT/'.references'/n),'rev-parse','HEAD'],5,dict(os.environ,BEND_NO_TELEMETRY='1',BENDVY_CLANG19_ROOT='/tmp/bendvy-clang19-diagnostic/root'));assert checked.returncode==0 and checked.stdout.decode().strip()==h,'reference HEAD drift'
   for n,h in self.receipt['fixedInputs'].items():assert digest(pathlib.Path(n))==h,'config/package drift'
   assert all(not pathlib.Path(n).exists() for n in self.receipt['absentInputs']),'prospective config appeared'
   for group in ['artifactHashes','logHashes']:
@@ -44,7 +51,7 @@ class Harness:
   for suffix in ['.stdout','.stderr']:assert not (self.args.output/(label+suffix)).exists(),'prospective log exists'
   if '-o' in command:assert not pathlib.Path(command[command.index('-o')+1]).exists(),'prospective generated output exists'
   before=time.perf_counter_ns()
-  try:result=supervise.execute(command,cap,dict(os.environ,BENDVY_CLANG19_ROOT='/tmp/bendvy-clang19-diagnostic/root'))
+  try:result=task_runner.execute_completed(command,cap,dict(os.environ,BEND_NO_TELEMETRY='1',BENDVY_CLANG19_ROOT='/tmp/bendvy-clang19-diagnostic/root'))
   except Exception as error:
    self.receipt['commands'].append({'label':label,'command':command,'capSeconds':cap,'error':repr(error),'wholeProcessNs':time.perf_counter_ns()-before});self.save();self.guard();raise
   processNs=time.perf_counter_ns()-before

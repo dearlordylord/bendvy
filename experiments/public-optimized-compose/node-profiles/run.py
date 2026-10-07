@@ -6,6 +6,14 @@ import json
 from pathlib import Path
 import subprocess
 
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+import task_runner
+from task_runner import run as _run_command
+
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--generated', type=Path, required=True)
 parser.add_argument('--expected', type=Path, required=True)
@@ -37,7 +45,7 @@ process.exit=code=>{if(code!==0)throw Error('Nonzero generated exit: '+code);zer
 function freshProgram(){
 """
 try:
-    receipt['nodeVersion'] = subprocess.run(['node', '--version'], capture_output=True, text=True, check=True, timeout=5).stdout.strip()
+    receipt['nodeVersion'] = _run_command(['node', '--version'], capture_output=True, text=True, check=True, timeout=5).stdout.strip()
     for mode in ['cpu', 'heap']:
         start = "await post('Profiler.enable');await post('Profiler.setSamplingInterval',{interval:100});await post('Profiler.start');" if mode == 'cpu' else "await post('HeapProfiler.enable');await post('HeapProfiler.startSampling',{samplingInterval:16384,includeObjectsCollectedByMajorGC:true,includeObjectsCollectedByMinorGC:true});"
         stop = "const result=await post('Profiler.stop');" if mode == 'cpu' else "const result=await post('HeapProfiler.stopSampling');"
@@ -46,7 +54,7 @@ try:
         wrapper = out / (mode + '.js')
         wrapper.write_text(header + source.read_text() + tail)
         command = ['taskset', '-c', str(args.cpu), 'node', str(wrapper)]
-        result = subprocess.run(command, capture_output=True, text=True, timeout=5)
+        result = _run_command(command, capture_output=True, text=True, timeout=5)
         (out / (mode + '.stderr')).write_text(result.stderr)
         with gzip.open(out / (mode + '.stdout.gz'), 'wt') as f:
             f.write(result.stdout)

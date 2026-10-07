@@ -1,5 +1,12 @@
 """Literal falsification of three unapproved Data-metadata subjects; no proofs."""
 import hashlib,json,os,pathlib,subprocess
+
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+import task_runner
+
 HERE=pathlib.Path(__file__).resolve().parent; ROOT=HERE.parents[2]
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 kinds=['Component','Resource','Event','Relation','Service']
@@ -66,7 +73,7 @@ def main():
  receipt={'status':'INCOMPLETE','approval':'UNAPPROVED_DRAFT_NO_PROOFS','coreSHA256':corehash,'sources':{n:sha(HERE/n) for n in ['model.bend','LAWS.bend','falsify.py']},'cpu':11,'commands':[],'subjects':{},'mutants':[]}
  def save():(out/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
  def run(cmd,cap,label):
-  command=['taskset','-c','11',*map(str,cmd)];r=subprocess.run(command,cwd=stage,capture_output=True,text=True,timeout=cap)
+  command=['taskset','-c','11',*map(str,cmd)];r=task_runner.run(command,cwd=stage,capture_output=True,text=True,timeout=cap)
   (out/(label+'.stdout')).write_text(r.stdout);(out/(label+'.stderr')).write_text(r.stderr);receipt['commands'].append({'command':command,'capSeconds':cap,'exit':r.returncode});save();assert r.returncode==0,(label,r.stdout,r.stderr);return r.stdout
  def build(subject,label):
   src=stage/(subject+'.bend');src.write_text(fixture(subject));run(['bend',src,'--check-only'],5,label+'-check');run(['bend',src,'-o',out/(label+'.js')],30,label+'-emit');return json.loads(run(['node',out/(label+'.js')],5,label+'-run'))

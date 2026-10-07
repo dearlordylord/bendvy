@@ -1,6 +1,13 @@
 #!/usr/bin/env python3
 """Replay adopted canonical core creator in a guarded stage; no live core edits."""
 import pathlib,hashlib,json,os,re,shutil,subprocess,signal,tempfile,time,sys,runpy
+
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+import task_runner
+
 ROOT=pathlib.Path(__file__).resolve().parents[4];LOCAL=pathlib.Path('experiments/public-identity/production-candidate')
 os.sched_setaffinity(0,{10})
 OUT=ROOT/'.artifacts'/('identity-creator-live-'+str(time.time_ns()));OUT.mkdir()
@@ -12,10 +19,10 @@ def imports(p,seen):
  seen.add(p)
  for name in re.findall(r'^\s*import\s+(\S+)',p.read_text(),re.M):
   if name!='Base':imports(p.parent/name.strip('"'),seen)
-files=set()
+files={ROOT/'scripts/task_runner.py'}
 for p in (ROOT/LOCAL).glob('*.bend'):imports(p,files)
 files.update(p for p in (ROOT/LOCAL).iterdir() if p.is_file() and p.suffix in {'.py','.json','.mjs','.stdout'})
-files.add(ROOT/'experiments/s-prep/fivehour-connected-gates/supervisor.py')
+files.add(ROOT/'scripts/task_runner.py')
 files.update(p for p in (ROOT/LOCAL/'promotion').iterdir() if p.is_file() and p.suffix in {'.py','.patch','.json'})
 manifest=json.loads((ROOT/LOCAL/'promotion/manifest.json').read_text())
 for name,h in manifest['prospectiveNewFiles'].items():
@@ -33,10 +40,6 @@ with tempfile.TemporaryDirectory(prefix='bendvy-world-io-') as tmp:
  for rel in sources:
   dest=stage/rel;dest.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(ROOT/rel,dest)
  staged=dict(sources)
- provenance=json.loads((stage/LOCAL/'promotion/supervisor-provenance.json').read_text())
- originalSupervisor=(stage/provenance['origin']).read_bytes();copiedSupervisor=(stage/LOCAL/'promotion/supervisor.py').read_bytes()
- assert hashlib.sha256(originalSupervisor).hexdigest()==provenance['originSHA256'] and copiedSupervisor[:provenance['unchangedPrefixBytes']]==originalSupervisor
- supervisor=runpy.run_path(str(stage/LOCAL/'promotion/supervisor.py'));r['supervisorProvenance']=provenance
  def guard():
   tool['verify'](toolSnapshot)
   assert all(sha(ROOT/p)==h for p,h in sources.items()),'live source drift'
@@ -51,7 +54,7 @@ with tempfile.TemporaryDirectory(prefix='bendvy-world-io-') as tmp:
   guard()
   if emits:assert not (OUT/emits).exists(),'prospective output exists'
   argv=['taskset','-c','10']+list(map(str,args))
-  try:code,out,err=supervisor['execute_split'](argv,cap,env=env,cwd=cwd)
+  try:code,out,err=task_runner.execute_split(argv,cap,env=env,cwd=cwd)
   except (TimeoutError,RuntimeError) as error:
    out=getattr(error,'stdout',b'');err=getattr(error,'stderr',b'')
    for suffix,data in [('.stdout',out),('.stderr',err)]:
@@ -79,10 +82,10 @@ with tempfile.TemporaryDirectory(prefix='bendvy-world-io-') as tmp:
   rawOut,rawErr=run('supervisor-raw-control',[sys.executable,stage/LOCAL/'promotion/supervisor-control.py','raw'],5)
   assert rawOut=='raw-out\n' and rawErr=='raw-err\n'
   guard()
-  try:supervisor['execute_split'](['taskset','-c','10',sys.executable,str(stage/LOCAL/'promotion/supervisor-control.py'),'escape'],0.5,env=env)
+  try:task_runner.execute_split(['taskset','-c','10',sys.executable,str(stage/LOCAL/'promotion/supervisor-control.py'),'escape'],0.5,env=env)
   except TimeoutError as error:
    out=error.stdout;err=error.stderr;assert out.startswith(b'escaped:') and not err
-   escaped=int(out.decode().strip().split(':')[1]);assert not pathlib.Path('/proc',str(escaped)).exists() and not supervisor['child_pids'](os.getpid())
+   escaped=int(out.decode().strip().split(':')[1]);assert not pathlib.Path('/proc',str(escaped)).exists() and not task_runner.child_pids(os.getpid())
    for suffix,data in [('.stdout',out),('.stderr',err)]:
     log='supervisor-escape-control'+suffix;assert not (OUT/log).exists();(OUT/log).write_bytes(data);r['immutableLogs'][log]=sha(OUT/log)
    r['commands'].append({'label':'supervisor-escape-control','cap':0.5,'expectedTimeoutControl':True,'escapedPID':escaped,'reaped':True,'stdoutSHA256':sha(OUT/'supervisor-escape-control.stdout'),'stderrSHA256':sha(OUT/'supervisor-escape-control.stderr')})

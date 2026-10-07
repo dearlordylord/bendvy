@@ -1,6 +1,13 @@
 #!/usr/bin/env python3
 """Read-only source freeze; deliberately performs no builds or measurements."""
 import argparse, hashlib, json, pathlib, re, subprocess
+
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+import task_runner
+
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 HERE = pathlib.Path(__file__).resolve().parent
 FEATURES = ['public-nested-provision', 'public-schedule-readers', 'public-schema-fragments']
@@ -27,7 +34,7 @@ def closure(entries):
     return found
 
 def snapshot():
-    inputs = set(HERE.glob('*')) | {p for p in (HERE/'nested-candidate').glob('*') if p.is_file()} | {ROOT / 'experiments/s-prep/fivehour-connected-gates/supervisor.py', ROOT / '.references/bend2/bend2/main.ts'}
+    inputs = set(HERE.glob('*')) | {p for p in (HERE/'nested-candidate').glob('*') if p.is_file()} | {ROOT / 'scripts/task_runner.py', ROOT / '.references/bend2/bend2/main.ts'}
     inputs |= set((ROOT/'src/ecs').rglob('*.bend'))
     for feature in FEATURES:
         directory = ROOT / 'experiments' / feature
@@ -56,7 +63,7 @@ def main():
     manifest = json.loads((ROOT / '.references/sources.json').read_text())['sources']
     heads = {}
     for name, entry in manifest.items():
-        actual = subprocess.check_output(['git', '-C', str(ROOT / '.references' / name), 'rev-parse', 'HEAD'], timeout=5, text=True).strip()
+        actual = task_runner.check_output(['git', '-C', str(ROOT / '.references' / name), 'rev-parse', 'HEAD'], timeout=5, text=True).strip()
         assert actual == entry['commit'], (name, actual, entry['commit'])
         heads[name] = actual
     assert sources == snapshot() and dependencies == external(), 'Source drift during freeze'

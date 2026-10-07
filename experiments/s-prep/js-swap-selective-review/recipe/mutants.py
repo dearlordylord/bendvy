@@ -1,8 +1,0 @@
-#!/usr/bin/env python3
-from pathlib import Path
-import json,sys,os,hashlib
-R=Path('/workspace/formal-proofs/bendvy');sys.path.insert(0,str(R/'experiments/s-prep/fivehour-connected-gates'));from supervisor import execute
-out=Path(sys.argv[1]);out.mkdir(exist_ok=False);os.sched_setaffinity(0,{9});src=Path('/tmp/bendvy-swap-selective-independent-v1/scope/position-retained-order-derived.js');s=src.read_text();baseline=Path('/tmp/bendvy-swap-selective-independent-v1/scope/position-retained-order-observed.txt').read_text();cases=[('old-after-write','const __swap_snd = __swap_fst[__swap_at];\n __swap_fst[__swap_at] = __swap_value;','__swap_fst[__swap_at] = __swap_value;\n const __swap_snd = __swap_fst[__swap_at];'),('wrong-index','const __swap_at = __swap_index % __swap_fst.length;','const __swap_at = __swap_index;'),('omit-write','__swap_fst[__swap_at] = __swap_value;',''),('wrong-replacement','__swap_fst[__swap_at] = __swap_value;','__swap_fst[__swap_at] = __swap_snd;')];rows=[]
-for name,old,new in cases:
- assert old in s;p=out/(name+'.js');p.write_text(s.replace(old,new));code,log=execute(['node','--check',str(p)],5);assert code==0;code,observed=execute(['node',str(p)],5);assert code in [0,1] and observed!=baseline;(out/(name+'.txt')).write_text(observed);rows.append({'name':name,'compiles':True,'exit':code,'programSHA':hashlib.sha256(p.read_bytes()).hexdigest(),'observationSHA':hashlib.sha256(observed.encode()).hexdigest()})
-(out/'evidence.json').write_text(json.dumps({'status':'FOUR_COMPILING_TRUEOLD_WRITE_INDEX_REPLACEMENT_COUNTEREXAMPLES_DETECTED','cap':5,'cpu':9,'scope':'Literal retained/order fixture of exact scalar bridge; no core/Bend mutant','rows':rows},indent=2)+'\n');print({'status':'PASS','mutants':len(rows)})

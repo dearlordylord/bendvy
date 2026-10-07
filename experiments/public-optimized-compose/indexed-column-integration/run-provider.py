@@ -1,5 +1,13 @@
 """Source-current indexed provider, unchanged gameplay; correctness only."""
 import argparse,pathlib,subprocess,hashlib,json,os,shutil,tempfile,re
+
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+import task_runner
+from task_runner import run as _run_command
+
 HERE=pathlib.Path(__file__).resolve().parent;ROOT=HERE.parents[2];BASE=HERE.parent;WORK=BASE/'workshop'
 p=argparse.ArgumentParser();p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args();out=a.output.resolve();out.mkdir(exist_ok=False)
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
@@ -16,7 +24,7 @@ def stage_guard(label):
   r.setdefault('stage_guards',[]).append(label)
 def run(label,cmd,cap):
  stage_guard(label)
- q=subprocess.run(list(map(str,cmd)),capture_output=True,text=True,timeout=cap,env=dict(os.environ,BENDVY_CLANG19_ROOT='/tmp/bendvy-clang19-diagnostic/root'));(out/(label+'.stdout')).write_text(q.stdout);(out/(label+'.stderr')).write_text(q.stderr);r['commands'].append({'label':label,'command':list(map(str,cmd)),'cap':cap,'exit':q.returncode});assert q.returncode==0,(label,q.stderr);return q.stdout
+ q=_run_command(list(map(str,cmd)),capture_output=True,text=True,timeout=cap,env=dict(os.environ,BENDVY_CLANG19_ROOT='/tmp/bendvy-clang19-diagnostic/root'));(out/(label+'.stdout')).write_text(q.stdout);(out/(label+'.stderr')).write_text(q.stderr);r['commands'].append({'label':label,'command':list(map(str,cmd)),'cap':cap,'exit':q.returncode});assert q.returncode==0,(label,q.stderr);return q.stdout
 expected_path=BASE/'evidence/view-fusion/workshop-main-run-JS.stdout';expected=json.loads(expected_path.read_text());r['Workshop_oracle']={'path':str(expected_path.relative_to(ROOT)),'sha256':sha(expected_path),'scope':'Historical complete observations with unchanged normative inputs'}
 try:
  with tempfile.TemporaryDirectory(prefix='indexed-provider-') as temp:

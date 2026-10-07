@@ -2,6 +2,14 @@
 """Freeze source; replay full pinned observations, capabilities and reached mutants."""
 import argparse, gzip, hashlib, json, os, platform, shutil, subprocess, time
 from pathlib import Path
+
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+import task_runner
+from task_runner import run as _run_command
+
 ROOT=Path(__file__).resolve().parents[2]
 HERE=Path('experiments/public-event-readers')
 def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
@@ -12,7 +20,7 @@ def main():
  def save(): (evidence/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
  def run(cmd,limit,cwd=ROOT,allow=False):
   started=time.perf_counter();env=os.environ.copy();env['BENDVY_CLANG19_ROOT']='/tmp/bendvy-clang19-diagnostic/root'
-  q=subprocess.run([str(x) for x in cmd],cwd=cwd,env=env,capture_output=True,text=True,timeout=limit)
+  q=_run_command([str(x) for x in cmd],cwd=cwd,env=env,capture_output=True,text=True,timeout=limit)
   receipt['commands'].append({'argv':[str(x) for x in cmd],'limit':limit,'exit':q.returncode,'elapsedSeconds':time.perf_counter()-started,'stdoutSha256':hashlib.sha256(q.stdout.encode()).hexdigest(),'stderr':q.stderr[:2000]})
   save()
   if not allow and q.returncode: raise AssertionError(q.stderr+q.stdout)
@@ -59,7 +67,7 @@ def main():
  for name,words in diagnostics.items():
   q=run(['bend',stage/HERE/'controls'/(name+'.bend'),'--check-only'],5,stage,True);assert q.returncode==1 and all(w in q.stdout+q.stderr for w in words);(evidence/(name+'.log')).write_text(q.stdout+q.stderr)
  receipt['negativeControls']=list(diagnostics)
- run(['python3',ROOT/'experiments/query-composition/run-controls.py','--source-root',stage,'--output',a.output/'public-controls'],30)
+ run(['python3',ROOT/'scripts/query-controls.py','--source-root',stage,'--output',a.output/'public-controls'],30)
  old=json.loads((a.output/'public-controls/receipt.json').read_text());assert all(x['passed'] for x in old['results']);receipt['priorPublicControls']=old
  for label,filename,old,new in [
   ('mutant-publication','world.bend','event_append(~E,events,published)','events'),

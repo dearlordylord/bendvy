@@ -2,6 +2,8 @@
 """Bounded, source-current schedule-reader semantics; no performance claim."""
 import gzip,hashlib,json,os,pathlib,re,shutil,subprocess,tempfile,time,signal,sys
 ROOT=pathlib.Path(__file__).resolve().parents[2]
+sys.path.insert(0,str(ROOT/'scripts'))
+from task_runner import execute_result, _raise_failure
 LOCAL=pathlib.Path('experiments/public-schedule-readers')
 OUT=ROOT/'.artifacts'/('public-schedule-readers-'+str(time.time_ns()));OUT.mkdir(parents=True)
 FIXED={};STAGES={};INVENTORIES={}
@@ -23,12 +25,11 @@ def run(args,cap,cwd=ROOT,expected=0):
   file=pathlib.Path(arg)
   if i and args[i-1]=='-o':continue
   if file.is_file():inputs[str(file.resolve())]=sha(file)
- proc=subprocess.Popen(args,cwd=cwd,env=env,stdout=subprocess.PIPE,stderr=subprocess.PIPE,start_new_session=True)
- try:stdout,stderr=proc.communicate(timeout=cap)
- except subprocess.TimeoutExpired:
-  os.killpg(proc.pid,signal.SIGKILL);stdout,stderr=proc.communicate()
-  receipt['commands'].append({'args':args,'cap':cap,'timeout':True,'stdoutSHA':hashlib.sha256(stdout).hexdigest(),'stderr':stderr.decode()});raise
- p=subprocess.CompletedProcess(args,proc.returncode,stdout,stderr)
+ result=execute_result(args,cap,env,cwd,capture='split')
+ p=subprocess.CompletedProcess(args,result['exit'],result['stdout'],result['stderr'])
+ if result['failure']:
+  receipt['commands'].append({'args':args,'cap':cap,'failure':result['failure'],'stdoutSHA':hashlib.sha256(p.stdout).hexdigest(),'stderr':p.stderr.decode(errors='replace')})
+  _raise_failure(result)
  receipt['commands'].append({'args':args,'cap':cap,'exit':p.returncode,'inputs':inputs,'stdoutSHA':hashlib.sha256(p.stdout).hexdigest(),'stderr':p.stderr.decode()})
  guard();assert all(sha(pathlib.Path(k))==v for k,v in inputs.items()),'command input drift'
  if expected is not None:assert p.returncode==expected,(args,p.stdout.decode(),p.stderr.decode())

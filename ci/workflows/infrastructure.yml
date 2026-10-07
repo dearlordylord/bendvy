@@ -1,0 +1,15 @@
+name: Infrastructure checks
+on:
+  push:
+    branches: [master]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  functional:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Runner, logs, tool pins and statistics
+        run: sh .githooks/pre-commit

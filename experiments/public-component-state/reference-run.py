@@ -1,6 +1,14 @@
 #!/usr/bin/env python3
 """Node-only pinned State observations; fresh source-bound receipt, stdlib only."""
 import argparse,hashlib,json,pathlib,subprocess,time
+
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+import task_runner
+from task_runner import run as _run_command
+
 HERE=pathlib.Path(__file__).resolve().parent
 ROOT=HERE.parents[1]
 p=argparse.ArgumentParser();p.add_argument('--output',type=pathlib.Path);a=p.parse_args()
@@ -11,7 +19,7 @@ def inventory(p):return {str(q.relative_to(p)):sha(q) for q in sorted(p.rglob('*
 receipt={'status':'INCOMPLETE','commands':[],'sourceHashes':{q.name:sha(q) for q in HERE.iterdir() if q.suffix in {'.mjs','.py'}},'manifestHash':sha(ROOT/'.references/sources.json'),'referenceHeads':{}}
 def save():(OUT/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
 def run(cmd,name):
- try:r=subprocess.run([str(x) for x in cmd],cwd=ROOT,text=True,capture_output=True,timeout=5)
+ try:r=_run_command([str(x) for x in cmd],cwd=ROOT,text=True,capture_output=True,timeout=5)
  except subprocess.TimeoutExpired:
   receipt['status']='INCONCLUSIVE_TIMEOUT';save();raise
  (OUT/(name+'.stdout')).write_text(r.stdout);(OUT/(name+'.stderr')).write_text(r.stderr)

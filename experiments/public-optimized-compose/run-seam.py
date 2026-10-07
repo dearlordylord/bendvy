@@ -5,6 +5,14 @@ import subprocess
 import tempfile
 from freeze import ROOT, freeze
 
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+import task_runner
+from task_runner import run as _run_command
+
+
 with tempfile.TemporaryDirectory(prefix="bendvy-compose30-") as temporary:
     stage = pathlib.Path(temporary) / "stage"
     receipt = freeze(stage)
@@ -25,7 +33,7 @@ with tempfile.TemporaryDirectory(prefix="bendvy-compose30-") as temporary:
                  (["node", str(stage / "extracted-seam.js")], 5)]
     receipt["commands"] = []
     for command, limit in commands:
-        result = subprocess.run(command, timeout=limit, capture_output=True, text=True)
+        result = _run_command(command, timeout=limit, capture_output=True, text=True)
         receipt["commands"].append({"command": command, "limit": limit,
                                     "exit": result.returncode, "stdout": result.stdout,
                                     "stderr": result.stderr})

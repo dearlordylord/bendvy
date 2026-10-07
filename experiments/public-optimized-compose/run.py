@@ -9,6 +9,14 @@ import shutil
 import subprocess
 from freeze import ROOT
 
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+import task_runner
+from task_runner import run as _run_command
+
+
 parser = argparse.ArgumentParser()
 parser.add_argument("--output", type=pathlib.Path, required=True)
 args = parser.parse_args()
@@ -23,7 +31,7 @@ def sources():
 receipt = {"sourceHashes": sources(), "runnerSHA256": digest(pathlib.Path(__file__)), "commands": [], "status": "INCOMPLETE"}
 env = dict(os.environ, BENDVY_CLANG19_ROOT="/tmp/bendvy-clang19-diagnostic/root")
 def run(label, command, limit):
-    result = subprocess.run(command, timeout=limit, capture_output=True, text=True, env=env)
+    result = _run_command(command, timeout=limit, capture_output=True, text=True, env=env)
     (output / (label + ".stdout")).write_text(result.stdout)
     (output / (label + ".stderr")).write_text(result.stderr)
     receipt["commands"].append({"label": label, "command": list(map(str, command)),

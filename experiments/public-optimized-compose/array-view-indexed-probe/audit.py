@@ -1,5 +1,13 @@
 """Generated transport and actual route counts; no timing/allocation estimate."""
 import argparse,pathlib,json,re,hashlib,subprocess
+
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+import task_runner
+from task_runner import run as _run_command
+
 p=argparse.ArgumentParser();p.add_argument('--artifacts',type=pathlib.Path,required=True);a=p.parse_args();d=a.artifacts;s=(d/'controls.js').read_text();native=(d/'controls.c').read_text()
 def sha(data):return hashlib.sha256(data).hexdigest()
 def body(name):
@@ -19,7 +27,7 @@ for signature,insert in [
 ('function $view$058finished$(_collected_0) {','__probe[_collected_0.$ === "view.Complete" ? "complete" : "refused"]++;')]:
  assert instrumented.count(signature)==1;instrumented=instrumented.replace(signature,signature+'\n  '+insert)
 (d/'instrumented.js').write_text(counts+instrumented)
-q=subprocess.run(['node',str(d/'instrumented.js')],capture_output=True,text=True,timeout=5);assert q.returncode==0,q.stderr;assert q.stdout==(d/'run-JS.stdout').read_text();observed=json.loads(q.stderr)['array_view_probe'];assert observed=={'views':576,'read_true':18360,'read_false':3,'complete':576,'refused':0},observed
+q=_run_command(['node',str(d/'instrumented.js')],capture_output=True,text=True,timeout=5);assert q.returncode==0,q.stderr;assert q.stdout==(d/'run-JS.stdout').read_text();observed=json.loads(q.stderr)['array_view_probe'];assert observed=={'views':576,'read_true':18360,'read_false':3,'complete':576,'refused':0},observed
 (d/'instrumented.stdout').write_text(q.stdout);(d/'instrumented.stderr').write_text(q.stderr)
 # Preserve exact generated helper text and identifiable owned block-read snippets.
 (d/'generated-view-functions.js.txt').write_text('\n\n'.join(blocks.values()))

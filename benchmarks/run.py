@@ -17,6 +17,13 @@ import time
 from pathlib import Path
 from decision import assess
 
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+import task_runner
+
+
 ROOT = Path(__file__).resolve().parents[1]
 HERE = Path(__file__).resolve().parent
 
@@ -62,6 +69,7 @@ def main():
         receipt["providerDeclarations"] = args.candidate_declarations
         receipt["candidateProvider"] = str(provider.relative_to(ROOT))
         receipt["scope"] = "Reviewed optimized-provider variant; same frozen baseline gameplay, inputs, observations and statistical contract"
+    monitored.append(ROOT/'scripts/task_runner.py')
     initial = {str(p.relative_to(ROOT)): sha(p) for p in monitored}
     receipt["currentSourceHashes"] = initial
     env = os.environ.copy()
@@ -73,7 +81,7 @@ def main():
     def run(argv, seconds, label):
         argv = list(map(str, argv))
         started = time.perf_counter_ns()
-        result = subprocess.run(["timeout", f"{seconds}s", *argv], cwd=ROOT,
+        result = task_runner.run(argv, timeout=seconds, cwd=ROOT,
                                 env=env, capture_output=True)
         elapsed = (time.perf_counter_ns() - started) / 1_000_000
         text = result.stdout.decode()
@@ -99,7 +107,7 @@ def main():
             raise ValueError("Modified reference sources")
         receipt["referenceHashes"] = {str(p.relative_to(ref)): sha(p)
                                       for p in (ref / "packages/core/src").rglob("*") if p.is_file()}
-        archive = subprocess.run(["git", "archive", contract["baselineCommit"], "src/ecs",
+        archive = task_runner.run(["git", "archive", contract["baselineCommit"], "src/ecs",
                                   "examples/query-composition"], cwd=ROOT, check=True,
                                  capture_output=True, timeout=15).stdout
         receipt["baselineArchiveSHA256"] = hashlib.sha256(archive).hexdigest()

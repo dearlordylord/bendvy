@@ -1,8 +1,15 @@
 #!/usr/bin/env python3
 """Finite source-current application controls, no timing or proof acceptance."""
 import hashlib,json,os,pathlib,re,shutil,sys,time
+
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+import task_runner
+
 ROOT=pathlib.Path(__file__).resolve().parents[2];HERE=pathlib.Path(__file__).resolve().parent
-sys.path.insert(0,str(ROOT/'experiments/s-prep/fivehour-connected-gates'));import supervisor
+sys.path.insert(0,str(ROOT/'scripts'));import task_runner
 OUT=HERE/'evidence'/str(time.time_ns());OUT.mkdir(parents=True)
 STAGE=None;EXPECTED=None;ARTIFACTS={}
 r={'status':'INCOMPLETE','limits':{'checker':5,'emit':30,'clang':120,'runtime':5},'commands':[],'pins':{},'cases':[]}
@@ -18,7 +25,7 @@ def guard():
 def run(argv,limit,expected=0):
  guard()
  argv=list(map(str,argv));name='command-'+str(len(r['commands']))+'.txt'
- try:code,out=supervisor.execute(argv,limit,env={**os.environ,'BENDVY_CLANG19_ROOT':'/tmp/bendvy-clang19-diagnostic/root'})
+ try:code,out=task_runner.execute(argv,limit,env={**os.environ,'BENDVY_CLANG19_ROOT':'/tmp/bendvy-clang19-diagnostic/root'})
  except Exception as error:
   guard();r['commands'].append({'argv':argv,'limitSeconds':limit,'error':repr(error)});save();raise
  guard()
@@ -34,7 +41,7 @@ try:
   for item in re.findall(r'^import\s+(\S+)',p.read_text(),re.M):
    if item!='Base':imports(p.parent/item)
  for p in HERE.glob('*.bend'):imports(p)
- for p in seen|{pathlib.Path(supervisor.__file__).resolve()}|set(HERE.glob('*.py'))|set(HERE.glob('*.mjs'))|set(HERE.glob('negative*.bend')):r['pins'][str(p)]=sha(p)
+ for p in seen|{pathlib.Path(task_runner.__file__).resolve()}|set(HERE.glob('*.py'))|set(HERE.glob('*.mjs'))|set(HERE.glob('negative*.bend')):r['pins'][str(p)]=sha(p)
  r['externalPins']={str(p):sha(p) for p in sorted((ROOT/'.references/bevy-ts/packages/core/src').rglob('*.ts'))}
  r['externalPins']['/home/node/.bend/bend2/base.bend']=sha('/home/node/.bend/bend2/base.bend')
  run(['bend','version'],5);run(['bend','guide'],5)

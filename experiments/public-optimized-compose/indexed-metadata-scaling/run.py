@@ -11,6 +11,14 @@ import statistics
 import subprocess
 import time
 
+from pathlib import Path as _runner_Path
+import sys as _runner_sys
+_runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'scripts/task_runner.py').is_file())
+_runner_sys.path.insert(0, str(_runner_root/'scripts'))
+import task_runner
+from task_runner import run as _run_command
+
+
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
 CLANG = Path('/tmp/bendvy-clang19-diagnostic/clang19')
@@ -91,7 +99,7 @@ def main():
     def run(cmd, cap, name):
         started = time.perf_counter()
         try:
-            r = subprocess.run(list(map(str, cmd)), cwd=stage, text=True, capture_output=True, timeout=cap)
+            r = _run_command(list(map(str, cmd)), cwd=stage, text=True, capture_output=True, timeout=cap)
         except subprocess.TimeoutExpired as e:
             stdout = e.stdout or b''
             stderr = e.stderr or b''
