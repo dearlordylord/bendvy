@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : @-H:Type -> @-cap:Public.Request<H, Array<U32>, Array<U32>> -> @_:Array<U32> -> @_:H -> Sigma<&1, &1, H, _ => Array<U32>>
+- observed : @-H:Type -> @-cap:Public.Request<H, Array<U32>, Array<U32>> -> @args:Array<U32> -> @ctx:H -> Sigma<&1, &1, H, _ => @_:H -> H>
+Location: bad
+7 | def bad(owner:P.Owner,input:Array<U32>) -> P.Owner & Array<U32>:
+8>|   Public.provide(~P.Owner,~Array<U32>,~Array<U32>,~Array<U32>,~Array<U32>,~P.request,~body,input,owner)
+  |                                                                                       ^^^^
+9 | 
+bend 2.0.36 is available: run bend update

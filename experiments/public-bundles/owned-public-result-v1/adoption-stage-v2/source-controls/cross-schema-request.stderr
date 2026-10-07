@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : AD.Input<Schema, Array<U32>>
+- observed : AD.Input<Other, Array<U32>>
+Context:
+- ctx   : bad~H
+- input : AD.Input<Other, Array<U32>>
+Location: bad
+ 8 | def bad(~H:Type,~cap:Public.Request<H,AD.Input<Schema,Array<U32>>,Array<U32>>,ctx:H,input:AD.Input<Other,Array<U32>>) -> H & Array<U32>:
+ 9>|   Public.apply(~H,~AD.Input<Schema,Array<U32>>,~Array<U32>,~cap,ctx,input)
+   |                                                                     ^^^^^
+10 | 
+bend 2.0.36 is available: run bend update

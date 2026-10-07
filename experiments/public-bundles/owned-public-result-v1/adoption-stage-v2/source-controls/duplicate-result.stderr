@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : returned
+- observed : returned (consumed more than once)
+Context:
+- ctx : seen~H
+Location: seen
+5 |   match result:
+6>|     case (ctx,returned): (ctx,(returned,returned))
+  |               ^^^^^^^^
+7 | def body(~H:Type,~cap:Public.Request<H,Array<U32>,Array<U32>>,input:Array<U32>,ctx:H) -> H & (Array<U32> & Array<U32>):
+bend 2.0.36 is available: run bend update
