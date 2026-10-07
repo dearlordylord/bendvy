@@ -1,0 +1,19 @@
+{
+  "scope": "Single actual component installation omitted in each nominal schema; retain typed incoming entry in inverse, return same owner on undo, no production edit",
+  "changes": [
+    {
+      "path": "experiments/public-bundles/combined-control.bend",
+      "baseSHA256": "47811be3b6a059e065e77f06bc95149c333bfefc0c53fbf203252b3e6362197c",
+      "replace": "  I.install(~Schema,~Store,~Mail,~U32,~Rest_value,~U32,~U32,~Token,~take_value,~put_value,~project_value,family_value(),world,entry)",
+      "withText": "  F.Installed{world,w => F.Restored{w,entry}}",
+      "mutantSHA256": "46c05471a1aa5fc21022469e5757ef0bc300d4c8e6c0356b0b581bcb195c5c41"
+    },
+    {
+      "path": "experiments/public-bundles/combined-other.bend",
+      "baseSHA256": "47811be3b6a059e065e77f06bc95149c333bfefc0c53fbf203252b3e6362197c",
+      "replace": "  I.install(~Schema,~Store,~Mail,~U32,~Rest_value,~U32,~U32,~Token,~take_value,~put_value,~project_value,family_value(),world,entry)",
+      "withText": "  F.Installed{world,w => F.Restored{w,entry}}",
+      "mutantSHA256": "46c05471a1aa5fc21022469e5757ef0bc300d4c8e6c0356b0b581bcb195c5c41"
+    }
+  ]
+}

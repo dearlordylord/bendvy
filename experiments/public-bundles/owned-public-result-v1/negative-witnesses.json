@@ -1,0 +1,59 @@
+{
+  "duplicate-context": {
+    "contains": [
+      "expected : ctx",
+      "observed : ctx (consumed more than once)",
+      "Location: body"
+    ]
+  },
+  "duplicate-input": {
+    "contains": [
+      "expected : input",
+      "observed : input (consumed more than once)",
+      "Location: body"
+    ]
+  },
+  "duplicate-result": {
+    "contains": [
+      "expected : returned",
+      "observed : returned (consumed more than once)",
+      "Location: seen"
+    ]
+  },
+  "read-authority": {
+    "contains": [
+      "expected : Public.Request<body~H, Array<U32>, Array<U32>>",
+      "observed : Cap.Read<body~H, Unit>",
+      "Location: body"
+    ]
+  },
+  "reconstruct-owner": {
+    "contains": [
+      "expected : body~H",
+      "observed : P.Owner",
+      "Location: body"
+    ]
+  },
+  "cross-schema": {
+    "contains": [
+      "expected : AD.Input<Schema, Array<U32>>",
+      "observed : AD.Input<Other, Array<U32>>",
+      "Location: bad"
+    ]
+  },
+  "cross-schema-request": {
+    "contains": [
+      "expected : AD.Input<Schema, Array<U32>>",
+      "observed : AD.Input<Other, Array<U32>>",
+      "Location: bad",
+      "Public.apply(~H,~AD.Input<Schema,Array<U32>>,~Array<U32>,~cap,ctx,input)"
+    ]
+  },
+  "opaque-h-escape": {
+    "contains": [
+      "Sigma<&1, &1, H, _ => Array<U32>>",
+      "Sigma<&1, &1, H, _ => @_:H -> H>",
+      "Location: bad"
+    ]
+  }
+}
