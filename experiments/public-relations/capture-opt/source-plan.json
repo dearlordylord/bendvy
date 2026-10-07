@@ -1,0 +1,19 @@
+{
+  "scope": "Harness-only bytewise FNV loop optimization, applied to both roles. No ECS operations, serialization, output bytes, timers or workload counts change. No speed acceptance.",
+  "files": {
+    "timing.js": {
+      "source": "experiments/public-relations/timing/timing.js",
+      "baselineSHA256": "5b4c1c6d1ba415bf8c89b663cfecfbd662267f1cd40da0e98cc5523bbf938508",
+      "candidateSHA256": "38883dbf23cd7646d497bde3b5f686634ff0fac79832946e084a87fa77ad394b",
+      "old": "for (const byte of bytes) featureDigest = Math.imul(featureDigest ^ byte, 16777619) >>> 0;",
+      "new": "for (let index = 0; index < bytes.length; index++) featureDigest = Math.imul(featureDigest ^ bytes[index], 16777619) >>> 0;"
+    },
+    "capture.mjs": {
+      "source": "experiments/public-relations/timing/capture.mjs",
+      "baselineSHA256": "9ce05abba1068752354cee18a3ddffc973369b57796a3efaf8d19702744b6976",
+      "candidateSHA256": "ddabbc8fb92a0f7f25eb6bd8247a70766b9648346d041597b08e86bccaac2b74",
+      "old": "for (const byte of chunk) digest = Math.imul(digest ^ byte, 16777619) >>> 0;",
+      "new": "for (let index = 0; index < chunk.length; index++) digest = Math.imul(digest ^ chunk[index], 16777619) >>> 0;"
+    }
+  }
+}
