@@ -1,0 +1,22 @@
+--- a/src/ecs/world.bend
++++ b/src/ecs/world.bend
+@@ -1,4 +1,5 @@
+ import Base
++import string-equality.bend as SE
+ 
+ # Framework-owned metadata. Independent factory roots are not globally unique.
+ type Handle<Schema: Data> is Data:
+@@ -206,11 +207,11 @@
+     case Nil{} Nil{}: True{}
+     case Nil{} Con{_,_}: False{}
+     case Con{_,_} Nil{}: False{}
+-    case Con{x,xs} Con{y,ys}: Bool.and(String.eq(x,y),access_equal(xs,ys))
++    case Con{x,xs} Con{y,ys}: Bool.and(SE.equal(x,y),access_equal(xs,ys))
+ 
+ def registration_meta_matches(meta: RegistrationMeta,+id: U32,+name: String,+access: List<&2,String>) -> Bool:
+   match meta:
+-    case RegistrationMeta{mid,mname,maccess}: Bool.and(U32.is_eq(mid,id),Bool.and(String.eq(mname,name),access_equal(maccess,access)))
++    case RegistrationMeta{mid,mname,maccess}: Bool.and(U32.is_eq(mid,id),Bool.and(SE.equal(mname,name),access_equal(maccess,access)))
+ 
+ def registration_list_matches(registrations: List<&2,RegistrationMeta>,+id: U32,+name: String,+access: List<&2,String>) -> Bool:
+   match registrations:
