@@ -1,0 +1,334 @@
+{
+  "status": "PASS",
+  "scope": "Published planning artifacts, labels, bodies and native dependency graph only; no executable or parity acceptance",
+  "specification": 37,
+  "tickets": [
+    {
+      "number": 38,
+      "key": "identity",
+      "bodySHA256": "16bcbb79ee9c0df67315c71a94c3d69fd96f231e4a06dab05fc134856558b2be",
+      "expectedBlockers": [],
+      "verifiedNativeBlockers": []
+    },
+    {
+      "number": 39,
+      "key": "fragments",
+      "bodySHA256": "efa554d2efc267a456ba6c5748dfd325ea63f8c875896e83144ff3fde98ec0a4",
+      "expectedBlockers": [],
+      "verifiedNativeBlockers": []
+    },
+    {
+      "number": 40,
+      "key": "features",
+      "bodySHA256": "edc8b5d530893653f590b19cbbf9776b347117eb23646cc2b72f9dbc431c0371",
+      "expectedBlockers": [
+        39,
+        34
+      ],
+      "verifiedNativeBlockers": [
+        34,
+        39
+      ]
+    },
+    {
+      "number": 41,
+      "key": "bundles",
+      "bodySHA256": "52baf23757c359fda0cb0223045ff4ce52e17d6ebed73727c2677f5c4d834620",
+      "expectedBlockers": [],
+      "verifiedNativeBlockers": []
+    },
+    {
+      "number": 42,
+      "key": "relations",
+      "bodySHA256": "cd8c0b33ca10e5354585ce67b8067185bb4d4c33c6247dfdfcff29ea7ffe3a55",
+      "expectedBlockers": [],
+      "verifiedNativeBlockers": []
+    },
+    {
+      "number": 43,
+      "key": "relation-readers",
+      "bodySHA256": "b761ebda92cde168a7f45e2c34f8b45ff53c885bc95aa6ebd0310d2717d46536",
+      "expectedBlockers": [
+        42,
+        35
+      ],
+      "verifiedNativeBlockers": [
+        35,
+        42
+      ]
+    },
+    {
+      "number": 44,
+      "key": "hierarchy",
+      "bodySHA256": "4dd3bda38e13eaf46820cc3efdeef0c2dca7ee8688ab9bd2d0b0f5dd487e6b5c",
+      "expectedBlockers": [
+        42
+      ],
+      "verifiedNativeBlockers": [
+        42
+      ]
+    },
+    {
+      "number": 45,
+      "key": "scopes",
+      "bodySHA256": "a6ed30b6e49e9a16b7fb01e2732651df1b4019de97274a86e726477c398f23f6",
+      "expectedBlockers": [
+        44
+      ],
+      "verifiedNativeBlockers": [
+        44
+      ]
+    },
+    {
+      "number": 46,
+      "key": "validation",
+      "bodySHA256": "d06b4e339e7a57272115f65f7e2d41456a037d736bd0496b37be153637c24271",
+      "expectedBlockers": [],
+      "verifiedNativeBlockers": []
+    },
+    {
+      "number": 47,
+      "key": "component-state",
+      "bodySHA256": "71ba0246ef439c8b4bd34a81b5bf2c25fd6127524c5fac2dfcf5ded49b8d6557",
+      "expectedBlockers": [],
+      "verifiedNativeBlockers": []
+    },
+    {
+      "number": 48,
+      "key": "machines",
+      "bodySHA256": "6d88a121e29226e7c17de05eb5f9c04e186a50bdef8a8735646b481082f6ebee",
+      "expectedBlockers": [
+        34
+      ],
+      "verifiedNativeBlockers": [
+        34
+      ]
+    },
+    {
+      "number": 49,
+      "key": "handlers",
+      "bodySHA256": "77005df073ffeb5d32107b31db48e8e19982db23b2348add6c2bc6a73ccaa6ad",
+      "expectedBlockers": [
+        48,
+        35
+      ],
+      "verifiedNativeBlockers": [
+        35,
+        48
+      ]
+    },
+    {
+      "number": 50,
+      "key": "captures",
+      "bodySHA256": "f172f20da67498541769795e1990ef077b3350ea4a1020e3728f0a6ecbdd9f45",
+      "expectedBlockers": [
+        36
+      ],
+      "verifiedNativeBlockers": [
+        36
+      ]
+    },
+    {
+      "number": 51,
+      "key": "captured-schedules",
+      "bodySHA256": "7dd495bd609d59b98b5af7efbda117396558ab289eaa796d7f5a0fd6f708cc21",
+      "expectedBlockers": [
+        50,
+        34,
+        35
+      ],
+      "verifiedNativeBlockers": [
+        34,
+        35,
+        50
+      ]
+    },
+    {
+      "number": 52,
+      "key": "recovery",
+      "bodySHA256": "53f0770bd40b42f962bcda6a0460d88c3eecd8a1aedaa05b3915fee9629ed70c",
+      "expectedBlockers": [
+        50
+      ],
+      "verifiedNativeBlockers": [
+        50
+      ]
+    },
+    {
+      "number": 53,
+      "key": "affine-events",
+      "bodySHA256": "ee2d10359582025f33a3bbe58fb76764e4a744524834ee730064bb087ed2c18c",
+      "expectedBlockers": [
+        31
+      ],
+      "verifiedNativeBlockers": [
+        31
+      ]
+    },
+    {
+      "number": 54,
+      "key": "inspect",
+      "bodySHA256": "cbf797e9c3c68dcdf5f063b9978d946473229a579ad3923601b1e9b4a43a71bf",
+      "expectedBlockers": [
+        35
+      ],
+      "verifiedNativeBlockers": [
+        35
+      ]
+    },
+    {
+      "number": 55,
+      "key": "inspect-extended",
+      "bodySHA256": "641a560fa5e9783c8719753e30f62e9c3a0287d6fdcaa40fd42c0d613e0317be",
+      "expectedBlockers": [
+        54,
+        44,
+        49,
+        43
+      ],
+      "verifiedNativeBlockers": [
+        43,
+        44,
+        49,
+        54
+      ]
+    },
+    {
+      "number": 56,
+      "key": "debug",
+      "bodySHA256": "d912d8a6e2fa02e1fae5e88a49cf1c543e6fc48cf836c24cef4f8461479dc9b4",
+      "expectedBlockers": [
+        55
+      ],
+      "verifiedNativeBlockers": [
+        55
+      ]
+    },
+    {
+      "number": 57,
+      "key": "debug-trace",
+      "bodySHA256": "5da699fb655abce7ec25a33afacdcbdb0929ab5608825b2b955686edf9389e04",
+      "expectedBlockers": [
+        56
+      ],
+      "verifiedNativeBlockers": [
+        56
+      ]
+    },
+    {
+      "number": 58,
+      "key": "snapshot-export",
+      "bodySHA256": "c38e92f7bc1c51da3bd8179ca6a44e6a1a835354e5f4f8ba6ac5a7c6b8053f2f",
+      "expectedBlockers": [
+        46,
+        38
+      ],
+      "verifiedNativeBlockers": [
+        38,
+        46
+      ]
+    },
+    {
+      "number": 59,
+      "key": "restore-basic",
+      "bodySHA256": "64c3adf32351dcf174ec901679fa92d2a0ac240f7944a26cb101dd6941fd84e0",
+      "expectedBlockers": [
+        58
+      ],
+      "verifiedNativeBlockers": [
+        58
+      ]
+    },
+    {
+      "number": 60,
+      "key": "restore-graph",
+      "bodySHA256": "222e9cbc325e8b0d8cb9c4ec6ede01abd27478c09da45226f5da8b55ca58ef70",
+      "expectedBlockers": [
+        59,
+        44,
+        49
+      ],
+      "verifiedNativeBlockers": [
+        44,
+        49,
+        59
+      ]
+    },
+    {
+      "number": 61,
+      "key": "coverage",
+      "bodySHA256": "bafb312c27f8d160b3a27419371221f97d1962af1ba4e40dcadc05122f6d15bd",
+      "expectedBlockers": [
+        40,
+        41,
+        45,
+        47,
+        52,
+        53,
+        56,
+        60,
+        34,
+        35,
+        51,
+        57,
+        43
+      ],
+      "verifiedNativeBlockers": [
+        34,
+        35,
+        40,
+        41,
+        43,
+        45,
+        47,
+        51,
+        52,
+        53,
+        56,
+        57,
+        60
+      ]
+    },
+    {
+      "number": 62,
+      "key": "laws",
+      "bodySHA256": "7bcd55b28df441c57797ba73c22ba14333a1c1a9954d64b484f3e0a664d965b0",
+      "expectedBlockers": [
+        61
+      ],
+      "verifiedNativeBlockers": [
+        61
+      ]
+    },
+    {
+      "number": 63,
+      "key": "simulation",
+      "bodySHA256": "23ae6257131ca5993656ce13ec75b447213964a6dcd643fe5b2efc3680ae0ca2",
+      "expectedBlockers": [
+        35,
+        41
+      ],
+      "verifiedNativeBlockers": [
+        35,
+        41
+      ]
+    },
+    {
+      "number": 64,
+      "key": "defense-plan",
+      "bodySHA256": "df384983f5fed4be09c0e89f0bde5eb1efa223ddb03e7752ec18b9c798df34c6",
+      "expectedBlockers": [
+        63,
+        61
+      ],
+      "verifiedNativeBlockers": [
+        61,
+        63
+      ]
+    }
+  ],
+  "ticketCount": 27,
+  "nativeEdgeCount": 46,
+  "acyclic": true,
+  "existingParentsUnmodifiedByPublication": true
+}

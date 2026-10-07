@@ -497,3 +497,7 @@ User authorized12:56:58–15:56:58UTC for implementing persistent Slot Host inte
 
 
 Three-hour outcome: current Slot Host4baa selective-Fold→positioned-swap pipeline has fresh finite gates and independent review. Current-source raw Dense JS/TS medians1.0581/1.0393 and Native/TS0.4179/0.4097; no parity, qualified keep or fullmatrix acceptance. Canonical20 remains exhausted. Next: sealed owner cursor-to-row handoff, canonical aggregate reconciliation and quiet non-Dense observer transport, then protected5×3 qualification. [Outcome/evidence ledger](reports/threehour-slot-host-profile.md).
+
+## Published remaining-core scope — 2026-10-07
+
+User-authorized to-spec/to-tickets delivers [specification #37 and tickets #38–#64](parity/README.md), grounded in pinned bevy-ts, Rust Bevy ECS and Bend guide/compiler/Base. #34/#35 remain immediate next work; independent new tasks can also start once their explicit contract gates are resolved. Full scope remains #1. No actual feature work or measurement was performed by this publication. Exact law approval and copied-integration requirements gate their later execution tickets.

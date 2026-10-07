@@ -1,0 +1,231 @@
+[
+  {
+    "key": "identity",
+    "title": "P-IDENTITY: Complete public identity, reservation and capacity contracts",
+    "blockers": [],
+    "delivery": "An application safely creates independent worlds, reserves and materializes entities, grows storage and receives precise exhaustion/refusal results without losing owners."
+  },
+  {
+    "key": "fragments",
+    "title": "P-FRAGMENTS: Compose typed schema fragments without descriptor collisions",
+    "blockers": [],
+    "delivery": "Two independently authored schema fragments form a usable public world with component, resource, event and service access confined to the composed schema."
+  },
+  {
+    "key": "features",
+    "title": "P-FEATURES: Execute reusable features with declared dependencies",
+    "blockers": [
+      "fragments",
+      34
+    ],
+    "delivery": "An application selects reusable features, binds their declared dependencies to its final schema and executes bootstrap/update schedules in authored feature order."
+  },
+  {
+    "key": "bundles",
+    "title": "P-BUNDLES: Spawn and insert heterogeneous typed component bundles",
+    "blockers": [],
+    "delivery": "A caller authors reusable heterogeneous component bundles and uses them in public spawn/insert commands without consuming payloads on refusal."
+  },
+  {
+    "key": "relations",
+    "title": "P-RELATIONS: Maintain directed links and inverse queries through barriers",
+    "blockers": [],
+    "delivery": "Systems create, replace and remove typed directed entity links and query both ends with consistent inverse results."
+  },
+  {
+    "key": "relation-readers",
+    "title": "P-RELATION-READERS: Observe deferred relation failures independently",
+    "blockers": [
+      "relations",
+      35
+    ],
+    "delivery": "Registered systems independently consume ordered relation mutation failures without conflating them with system transaction failure."
+  },
+  {
+    "key": "hierarchy",
+    "title": "P-HIERARCHY: Preserve ordered traversal, cycle rejection and linked cleanup",
+    "blockers": [
+      "relations"
+    ],
+    "delivery": "An application reparents an ordered hierarchy, traverses it and removes linked subtrees with exact cleanup and diagnostics."
+  },
+  {
+    "key": "scopes",
+    "title": "P-SCOPES: Clean entity lifetime groups while preserving persistent entities",
+    "blockers": [
+      "hierarchy"
+    ],
+    "delivery": "A scene-style lifetime scope owns a group of spawned entities and queues cleanup without deleting persistent entities."
+  },
+  {
+    "key": "validation",
+    "title": "P-DECODE: Validate constructed and transient descriptor boundaries",
+    "blockers": [],
+    "delivery": "Applications construct components/resources from typed raw input and receive exact failures before invalid values or partial work enter the world."
+  },
+  {
+    "key": "component-state",
+    "title": "P-COMPONENT-STATE: Execute typed finite component states",
+    "blockers": [],
+    "delivery": "Systems author finite-valued state components, query them and update them transactionally using typed values."
+  },
+  {
+    "key": "machines",
+    "title": "P-MACHINES: Queue and apply global state transitions with conditions",
+    "blockers": [
+      34
+    ],
+    "delivery": "An application declares finite machines, reads committed states, queues changes and gates schedules by machine conditions at explicit transition markers."
+  },
+  {
+    "key": "handlers",
+    "title": "P-TRANSITION-HANDLERS: Preserve exit, transition and enter failure boundaries",
+    "blockers": [
+      "machines",
+      35
+    ],
+    "delivery": "Applications attach typed exit/transition/enter schedules and retry failed transitions without undoing already committed work."
+  },
+  {
+    "key": "captures",
+    "title": "P-CAPTURES: Repeatedly execute systems with owned runtime capture state",
+    "blockers": [
+      36
+    ],
+    "delivery": "Independently authored systems retain runtime affine capture state across repeated registration, execution, failure and disposal."
+  },
+  {
+    "key": "captured-schedules",
+    "title": "P-CAPTURE-SCHEDULES: Compose heterogeneous captured system instances",
+    "blockers": [
+      "captures",
+      34,
+      35
+    ],
+    "delivery": "An application reuses typed heterogeneous captured systems across nested schedules with safe registration, disposal and refusal."
+  },
+  {
+    "key": "recovery",
+    "title": "P-RECOVERY: Restore general affine payload operations through explicit inverses",
+    "blockers": [
+      "captures"
+    ],
+    "delivery": "Systems perform recoverable operations on caller-owned affine component/resource payloads and preserve exact state after failed ECS transactions."
+  },
+  {
+    "key": "affine-events",
+    "title": "P-AFFINE-EVENTS: Publish and read owned event payloads without illicit copies",
+    "blockers": [
+      31
+    ],
+    "delivery": "Event publishers and multiple independent readers use useful affine Type payloads under an explicit ownership-safe publication and projection contract."
+  },
+  {
+    "key": "inspect",
+    "title": "P-INSPECT: Read public world projections without consuming system visibility",
+    "blockers": [
+      35
+    ],
+    "delivery": "Host code repeatedly inspects components, resources and event/removal streams while leaving system reader positions and retention unchanged."
+  },
+  {
+    "key": "inspect-extended",
+    "title": "P-INSPECT-GRAPH: Inspect relations, machines and failure streams safely",
+    "blockers": [
+      "inspect",
+      "hierarchy",
+      "handlers",
+      "relation-readers"
+    ],
+    "delivery": "Read-only inspectors observe hierarchy, machine states, transition events and relation failures without affecting schedules or readers."
+  },
+  {
+    "key": "debug",
+    "title": "P-DEBUG-DESCRIBE: Describe and dump public ECS structure without side effects",
+    "blockers": [
+      "inspect-extended"
+    ],
+    "delivery": "A developer enables schema/system/schedule descriptions, lints, access indexes and filtered world dumps without changing ECS behavior."
+  },
+  {
+    "key": "debug-trace",
+    "title": "P-DEBUG-TRACE: Observe execution, failure and barrier traces with disposal",
+    "blockers": [
+      "debug"
+    ],
+    "delivery": "A developer subscribes to ordered execution observations and unsubscribes/resets them without interfering with ECS execution."
+  },
+  {
+    "key": "snapshot-export",
+    "title": "P-SAVE: Export validated basic world snapshots with independent payload data",
+    "blockers": [
+      "validation",
+      "identity"
+    ],
+    "delivery": "An application exports basic entities, components, resources and allocator progress into an independent save value while preserving the live world."
+  },
+  {
+    "key": "restore-basic",
+    "title": "P-RESTORE: Validate and atomically restore basic saved worlds",
+    "blockers": [
+      "snapshot-export"
+    ],
+    "delivery": "An application loads a basic save, rejects invalid input before mutation and resumes normal entity/lifecycle operations."
+  },
+  {
+    "key": "restore-graph",
+    "title": "P-RESTORE-GRAPH: Save and restore ordered relations and committed machines",
+    "blockers": [
+      "restore-basic",
+      "hierarchy",
+      "handlers"
+    ],
+    "delivery": "A complete public save restores ordered relation graphs and committed machine values with the exact runtime omissions and stream-clearing boundary."
+  },
+  {
+    "key": "coverage",
+    "title": "P-PARITY-AUDIT: Execute the complete pinned core capability matrix",
+    "blockers": [
+      "features",
+      "bundles",
+      "scopes",
+      "component-state",
+      "recovery",
+      "affine-events",
+      "debug",
+      "restore-graph",
+      34,
+      35,
+      "captured-schedules",
+      "debug-trace",
+      "relation-readers"
+    ],
+    "delivery": "An independent public consumer verifies the whole pinned core surface and reports exact remaining differences before full parity is claimed."
+  },
+  {
+    "key": "laws",
+    "title": "P-LAWS-PLAN: Draft and falsify remaining exact core laws",
+    "blockers": [
+      "coverage"
+    ],
+    "delivery": "Maintainers receive a source-bound set of precise remaining laws with falsification evidence and explicit approval status."
+  },
+  {
+    "key": "simulation",
+    "title": "P-SIMULATION: Execute the complete deterministic fixed-step ECS scenario",
+    "blockers": [
+      35,
+      "bundles"
+    ],
+    "delivery": "A reproducible console simulation spawns entities, moves them toward a goal, applies damage, removes them and reports hit/death events through the public ECS API."
+  },
+  {
+    "key": "defense-plan",
+    "title": "P-DEFENSE-PLAN: Freeze copied Tower Defense integration requirements",
+    "blockers": [
+      "simulation",
+      "coverage"
+    ],
+    "delivery": "A concrete integration plan identifies the exact ECS contracts needed by a separate copy of Canonical Tower Defense without modifying its original repository."
+  }
+]

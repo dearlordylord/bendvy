@@ -49,8 +49,7 @@ Do not close it with only a feasibility report.
 
 ## Retained later implementation frontier
 
-Draft detailed tracer bullets when the stated prerequisite exists. These are
-coverage reservations, not agent-ready implementation tickets.
+Draft detailed tracer bullets when the stated prerequisite exists. These historical reservations are now mapped to [published remaining-core specification and tickets #37–#64](../parity/README.md). The published map supersedes the reservation status; its exact decision gates remain binding.
 
 | Capability | Return condition / likely slices |
 | --- | --- |
@@ -71,3 +70,7 @@ coverage reservations, not agent-ready implementation tickets.
 
 Browser/render adapters, schema generation and parallel/GPU orchestration retain
 separate revisit conditions. They are not silently added as core parity blockers.
+
+## Remaining frontier publication — 2026-10-07
+
+The user authorized to-spec/to-tickets for the remaining identifiable scope. Specification #37 and 27 vertical tickets #38–#64 now cover these rows, with native blocking links and English local issue bodies. Existing #34/#35 and performance parents are retained unchanged. See the [complete numbered execution map](../parity/README.md). No interview, new law approval, dependency or numerical gate waiver is implied.
