@@ -26,6 +26,12 @@ consumer dependency and oracle; undeclared inputs are not automatically inferred
 After failure, reproduce the exact failed stage before repeating full preparation.
 After two attempts without new evidence, change the experiment.
 
+## Preparing a focused runner
+
+Start from the guard composition in the [constructor runner](../experiments/public-bundles/production-candidate/transactions/invalid-constructor-v1/run.py), adapting the consumer and command plan. Before requesting execution review, prepare the concrete wrapper, source/helper inventories, ordinary installed-tool snapshot, environment binding, ancestor configuration presence states, generated-output guards and full oracle. Completion means the reviewer can trace every planned command through central `Runner` and the same before/after guards. A list of planned commands is preparation evidence only.
+
+Use `owned-tool-pins.py` snapshot/verify for the ordinary path. Historical binary hashes alone do not establish current resource membership, resolver or configuration state. Preserve the original failed or unadmitted plan when preparing its replacement. Reuse retained positive evidence when sources and its scope still match; concentrate new commands on changed behavior and missing controls.
+
 ## Immutable dependency stages
 
 `owned-tool-pins.py:verify` retains its complete discovery behavior. Use the
