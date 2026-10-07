@@ -112,6 +112,24 @@ class Contract(unittest.TestCase):
         text = (ROOT/'scripts/owned-tool-pins.py').read_text()
         self.assertNotIn('subprocess', text); self.assertNotIn('Popen', text)
 
+    def test_pinned_stage_checks_do_not_probe_and_boundary_does(self):
+        session = pins.PinnedTools(resolver_inputs=[self.root], **self.cfg)
+        self.assertEqual(len(self.calls), 1)
+        for _ in range(20): session.check()
+        self.assertEqual(len(self.calls), 1)
+        session.boundary()
+        self.assertEqual(len(self.calls), 2)
+        (self.root/'new-shadow-library').write_bytes(b'new')
+        with self.assertRaises(RuntimeError): session.check()
+        self.assertEqual(len(self.calls), 2)
+
+    def test_pinned_stage_rejects_bytes_env_resources_and_unknown_namespace(self):
+        with self.assertRaises(ValueError): pins.PinnedTools(resolver_inputs=[], **self.cfg)
+        session = pins.PinnedTools(resolver_inputs=[self.root], **self.cfg)
+        with self.assertRaises(RuntimeError): session.check(**dict(self.cfg, env={}))
+        self.library.write_bytes(b'changed')
+        with self.assertRaises(RuntimeError): session.check()
+
     def test_actual_reviewed_executor_raw_merged_and_five_second_argument(self):
         # Actual child invocation under the reviewed cleanup policy, not a mock.
         script = self.root/'ldd-fixture'; script.write_text('#!/bin/sh\nprintf "out\\n"\nprintf "err\\n" >&2\n'); script.chmod(0o755)

@@ -2,12 +2,12 @@
 from pathlib import Path
 import argparse,functools,hashlib,json,os,re,runpy,shutil,sys,tempfile,time
 ROOT=Path(__file__).resolve().parents[5];LOCAL=Path('experiments/public-bundles/production-candidate/transactions/invalid-constructor-v1');HERE=ROOT/LOCAL
-parser=argparse.ArgumentParser();parser.add_argument('--prepare-only',action='store_true');parser.add_argument('--preflight-only',action='store_true');args=parser.parse_args()
+parser=argparse.ArgumentParser();parser.add_argument('--prepare-only',action='store_true');parser.add_argument('--preflight-only',action='store_true');parser.add_argument('--consumer-preflight',type=Path);parser.add_argument('--development-only',action='store_true');parser.add_argument('--resolver-input',action='append',default=[]);args=parser.parse_args()
 os.sched_setaffinity(0,{5})
 sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
 def inventory(p):return {str(f.relative_to(p)):sha(f) for f in sorted(p.rglob('*')) if f.is_file()}
 def core_inventory():return {str(f.relative_to(ROOT)):sha(f) for f in sorted((ROOT/'src/ecs').iterdir()) if f.is_file() and f.suffix in ('.bend','.c','.js')}
-core=core_inventory();assert sum(n.endswith('.bend') for n in core)==46
+core=core_inventory()
 files=set()
 def closure(p):
  p=p.resolve()
@@ -19,7 +19,7 @@ def closure(p):
 closure(HERE/'main.bend')
 RUNNER=Path('scripts/task_runner.py')
 files.update(p for p in HERE.iterdir() if p.is_file())
-files.update(ROOT/p for p in [RUNNER,Path('scripts/owned-tool-pins.py'),Path('scripts/receipt-logs.py'),Path('scripts/bend-check')])
+files.update(ROOT/p for p in [RUNNER,Path('scripts/owned-tool-pins.py'),Path('scripts/receipt-logs.py'),Path('scripts/bend-check'),Path('scripts/check_preflight.py')])
 sources={str(p.relative_to(ROOT)):sha(p) for p in files}
 configNames=['bend.json','bend.config.json','bunfig.toml','package.json','.clang','clang.cfg']
 def config_inventory(roots):return {str(root/name):(sha(root/name) if (root/name).is_file() else None) for root in roots for name in configNames}
@@ -28,6 +28,25 @@ rootConfigs=config_inventory(configurationRoots)
 external={str(p):inventory(p) for p in [ROOT/'.references/bevy-ts/packages/core/src',Path('/home/node/.bend/bend2')]}
 fixed={str(p):sha(p) for p in [Path('/home/node/.bend/check.json'),ROOT/'.references/sources.json',ROOT/'.references/bevy-ts/package.json',ROOT/'.references/bevy-ts/packages/core/package.json']}
 labels=['runner-raw','runner-escape','bend-version','bend-guide','reference-bevy-ts','reference-bevy','reference-bend2','constructor-proof-boundary','TS-current-constructors','constructor-live','constructor-JS-emit','constructor-JS-run','constructor-Native-emit','constructor-Native-clang','constructor-Native-run']
+# Real fixture/oracle checks precede installed-library discovery and cohort setup.
+sys.path.insert(0,str(ROOT/'scripts'))
+import check_preflight
+preflightEnv=dict(os.environ,BEND_NO_TELEMETRY='1',BENDVY_CLANG19_ROOT='/tmp/bendvy-clang19-diagnostic/root')
+checks=[{'label':'proof-boundary','argv':['bend',str(HERE/'main.bend'),'--check-only'],'seconds':5,'exit':1,'stderr':str(LOCAL/'expected-check-only.stderr')},
+        {'label':'TS','argv':['node',str(HERE/'reference.mjs')],'seconds':5,'stdout':str(LOCAL/'expected-reference.stdout')},
+        {'label':'Bend','argv':['bend',str(HERE/'main.bend')],'seconds':5,'stdout':str(LOCAL/'expected.stdout')}]
+preflightConfig=dict(root=ROOT,files=list(sources)+list(core),directories=['.references/bevy-ts/packages/core/src','/home/node/.bend/bend2'],checks=checks,env=preflightEnv)
+preflightConfig['files'] += list(fixed)+[str(Path(shutil.which(n)).resolve()) for n in ['bend','node']]
+if args.consumer_preflight:
+ check_preflight.verify(args.consumer_preflight,**preflightConfig)
+ preflightReceipt=args.consumer_preflight
+else:
+ preflightReceipt=check_preflight.run(ROOT/'.artifacts'/('constructor-development-'+str(time.time_ns())),**preflightConfig)
+if args.development_only:
+ print(preflightReceipt);sys.exit(0)
+# The full cohort independently imports its byte-exact staged execution owner.
+sys.modules.pop('task_runner',None)
+assert sum(n.endswith('.bend') for n in core)==46
 OUT=ROOT/'.artifacts'/('bundles41-invalid-constructors-'+str(time.time_ns()));OUT.mkdir();logs=runpy.run_path(str(ROOT/'scripts/receipt-logs.py'))['CommandLogs'](OUT,labels)
 r={'status':'INCOMPLETE','sources':sources,'coreInventory':core,'coreBendModules':46,'coreEffectAssets':2,'externalInventories':external,'fixedInputs':fixed,'plannedLabels':labels,'rootConfigurations':rootConfigs,'commands':[],'generated':{},'immutableLogs':{},'cases':{},'caps':{'checker/interpreter':5,'emit':30,'clang':120,'runtime':5},'affinity':[5],'hostObservations':[],'scope':'Fourteen current public invalid-constructor owner/refusal/barrier/retry observations in two schemas plus eight actual TS applications; no repeated unchanged mutations/negatives, failed-activation policy/proofs/production/timing approval'}
 env=dict(os.environ,BEND_NO_TELEMETRY='1',BENDVY_CLANG19_ROOT='/tmp/bendvy-clang19-diagnostic/root')
@@ -49,9 +68,14 @@ try:
   r['runnerSHA256']=runner.IMPLEMENTATION_SHA256
   tools=runpy.run_path(str(stage/'scripts/owned-tool-pins.py'))
   toolConfig=dict(execute=functools.partial(runner.execute_result,capture='split'),tools={'bend':Path(shutil.which('bend')).resolve(),'node':Path(shutil.which('node')).resolve(),'python':Path(sys.executable).resolve(),'taskset':Path(shutil.which('taskset')).resolve(),'git':Path(shutil.which('git')).resolve(),'clang-wrapper':Path('/tmp/bendvy-clang19-diagnostic/clang19'),'clang-native':CLANG_ROOT/'usr/lib/llvm-19/bin/clang'},resource_roots=[Path('/home/node/.bend/bend2'),CLANG_ROOT/'usr/lib/llvm-19/lib/clang/19'],ldd=Path(shutil.which('ldd')).resolve(),taskset=Path(shutil.which('taskset')).resolve(),cpu=5,env=toolEnv,skip_ldd=('clang-wrapper',),capture_mode='split')
-  toolSnapshot=tools['snapshot'](**toolConfig);r['toolSnapshot']=toolSnapshot
+  check_preflight.verify(preflightReceipt,**preflightConfig)
+  r['consumerPreflightSHA256']=sha(preflightReceipt)
+  pinned=tools['PinnedTools'](resolver_inputs=args.resolver_input,**toolConfig) if args.resolver_input else None
+  toolSnapshot=pinned.expected if pinned else tools['snapshot'](**toolConfig);r['toolSnapshot']=toolSnapshot
+  if pinned:r['resolverInputs']=pinned.resolver_inputs;r['resolverInventory']=pinned.resolver
   def guard():
-   tools['verify'](toolSnapshot,**toolConfig);logs.guard()
+   pinned.check(**toolConfig) if pinned else tools['verify'](toolSnapshot,**toolConfig)
+   logs.guard()
    assert core_inventory()==core,'46-module/effect inventory drift'
    assert config_inventory(configurationRoots)==rootConfigs,'root/cwd config drift'
    assert config_inventory({stage,stage/LOCAL})==stageConfigs,'stage config drift'
@@ -71,6 +95,7 @@ try:
    if emits:r['generated'][emits]=sha(OUT/emits)
    guard();host('after-'+label);return out.decode(),err.decode()
   guard();host('prepared')
+  if pinned:r.setdefault('toolBoundarySnapshots',[]).append(pinned.boundary())
   if args.prepare_only:r['status']='PREPARED_NOT_EXECUTED'
   else:
    out,err=run('runner-raw',[sys.executable,stage/LOCAL/'runner-control.py','raw'],5);assert out=='raw-out\n' and err=='raw-err\n'
@@ -96,5 +121,8 @@ try:
      seen,err=run(label+'-run',['node',OUT/(label+'.js')] if backend=='JS' else [OUT/(label+'.native'),'--threads','1','--gpu','off'],5);assert not err and seen==expected;r['cases'][backend]={'fullLiteralMatch':True,'rows':14,'stdoutSHA256':hashlib.sha256(seen.encode()).hexdigest()}
     r['status']='CURRENT_PUBLIC_BATCH_CONSTRUCTOR_FINITE_PASS';r['nativeExecuted']=True
   guard()
+  if pinned:r.setdefault('toolBoundarySnapshots',[]).append(pinned.boundary())
+except BaseException:
+ r['status']='INCOMPLETE';raise
 finally:
  host('terminal');(OUT/'receipt.json').write_text(json.dumps(r,indent=2,default=encoded)+'\n');print(OUT)

@@ -120,3 +120,69 @@ def verify(expected, **configuration):
     if _verification_view(current) != _verification_view(expected):
         raise RuntimeError("installed tool/resource/library set, bytes, logs or configuration changed")
     return current
+
+
+class PinnedTools:
+    """One discovery per stage; immutable declared resolver inputs between commands.
+
+    resolver_inputs must cover the caller's closed resolution boundary (loader,
+    cache/preload/config, search directories including RPATH/RUNPATH and env).
+    Directory contents and symlink targets are hashed, not metadata-memoized.
+    This API never guesses a closed namespace or silently adopts changed inputs.
+    Keep verify() for consumers without a reviewed resolver-input inventory.
+    """
+    def __init__(self, *, resolver_inputs, **configuration):
+        if not resolver_inputs:
+            raise ValueError('explicit closed resolver inputs are required')
+        self.configuration = dict(configuration)
+        self.resolver_inputs = tuple(map(str, resolver_inputs))
+        self.resolver = self._resolver()
+        self.expected = snapshot(**configuration)
+        self.check()
+
+    def _resolver(self):
+        result = {}
+        roots = [Path(p).resolve() for p in self.resolver_inputs]
+        for name in self.resolver_inputs:
+            root = Path(name).absolute()
+            paths = [root] + (sorted(root.rglob('*')) if root.is_dir() else [])
+            for path in paths:
+                entry = {'symlink': str(path.readlink()) if path.is_symlink() else None}
+                if path.is_file():
+                    entry.update(kind='file', resolved=str(path.resolve()), sha256=_sha(path))
+                elif path.is_dir():
+                    if path.is_symlink() and not any(path.resolve().is_relative_to(r) for r in roots):
+                        raise RuntimeError('directory symlink escapes declared resolver namespace')
+                    entry.update(kind='directory', resolved=str(path.resolve()))
+                elif not path.exists() and not path.is_symlink():
+                    entry.update(kind='absent')
+                else:
+                    raise RuntimeError('unsupported resolver input')
+                result[str(path)] = entry
+        return result
+
+    def check(self, **configuration):
+        cfg = configuration or self.configuration
+        view = {'tools': {n: str(_file(p)) for n, p in cfg['tools'].items()},
+                'resource_roots': [str(Path(p).resolve(strict=True)) for p in cfg['resource_roots']],
+                'skip_ldd': list(cfg.get('skip_ldd', ())), 'ldd': str(_file(cfg['ldd'])),
+                'taskset': str(_file(cfg['taskset'])), 'cpu': cfg['cpu'],
+                'capture_mode': cfg['capture_mode'],
+                'environment_sha256': hashlib.sha256(json.dumps(cfg['env'], sort_keys=True,
+                    separators=(',', ':'), ensure_ascii=True).encode()).hexdigest()}
+        if any(self.expected[k] != v for k, v in view.items()) or self._resolver() != self.resolver:
+            raise RuntimeError('resolver/configuration changed; discard this stage')
+        if any(str(_file(p)) != p for p in self.expected['pins']):
+            raise RuntimeError('pinned path resolution changed')
+        files = {Path(p) for p in self.expected['pins']}
+        resources = {_file(p) for root in self.expected['resource_roots']
+                     for p in Path(root).rglob('*') if p.is_file()}
+        old_resources = {Path(p) for p in self.expected['pins']
+                         if any(Path(p).is_relative_to(root) for root in self.expected['resource_roots'])}
+        if resources != old_resources or any(_sha(p) != self.expected['pins'][str(p)] for p in files):
+            raise RuntimeError('pinned tool/resource/library bytes or membership changed')
+        return self.expected
+
+    def boundary(self):
+        self.check()
+        return verify(self.expected, **self.configuration)
