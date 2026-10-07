@@ -35,6 +35,14 @@ standalone emitted JS and Native artifacts retain their separate gates.
 
 ## Preparing a focused runner
 
+Before freezing a delivery capsule, run `python3 scripts/check-python-source.py`
+with its exact selected Python paths, including new untracked candidates. This
+uses the same entrypoint execution policy as the commit hook. Check selected
+live text for whitespace before archiving; run the configured staged checks on
+the exact delivery selection before committing. Exclude generated caches from
+the selection. If qualified bytes already exist, preserve them and record any
+live-source correction separately rather than modifying historical evidence.
+
 When reusing a delivered reference, select the comparator from its delivery
 manifest before freezing the plan. Use `selected_reference.binding(root,
 manifest, entry)` and freeze both returned files; verify that binding at stage
