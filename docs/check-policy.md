@@ -26,6 +26,13 @@ consumer dependency and oracle; undeclared inputs are not automatically inferred
 After failure, reproduce the exact failed stage before repeating full preparation.
 After two attempts without new evidence, change the experiment.
 
+Name CLI evidence by the actual runtime path. In the pinned Bend source,
+`book_run` uses `term_snf` for a pure main, but routes `IO` mains through
+`Comp.io_run`, which emits JS and evaluates it in-process. An IO CLI pass is
+a generated-JS IO consumer, not independent pure-interpreter coverage. Retain
+historical receipt labels and qualify their scope in the current report;
+standalone emitted JS and Native artifacts retain their separate gates.
+
 ## Preparing a focused runner
 
 When reusing a delivered reference, select the comparator from its delivery
