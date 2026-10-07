@@ -46,7 +46,7 @@ src/ecs changes; its scope does not replace the full performance matrix.
 
 #29/#31/#32/#33/#36 are delivered and closed on master in `bfb4360d`. Fresh complete JS/Native reference/control/mutation replays, five feature timing observations per backend, the old-consumer suite and independent final Spec/Standards reviews pass. All 34 current core hashes match the passing default #28 gate. English completion reports are posted to each issue. #36 retains the approved persistent-on-failure Local policy.
 
-#30 remains open pending reconciliation and final review under the user-approved scoped amendment: complete Workshop JS <= pinned bevy-ts and Native <= 0.5 * pinned bevy-ts. The extra historical Bend comparator no longer determines #30 acceptance; the default #28 gate and full-core qualification remain unchanged.
+#30 is delivered under the user-approved scoped amendment: complete Workshop JS <= pinned bevy-ts and Native <= 0.5 * pinned bevy-ts. Independent Spec and Standards reconciliation pass on the restored exact source. See [completion](reports/p-compose-storage-completion.md). The default #28 gate and full-core qualification remain unchanged.
 
 The fused Inspect experiment was rejected: its additional complexity produced no meaningful measured latency improvement. Column is restored exactly to committed `3fec368b`; all 34 live core hashes again match the passing default regression receipt. Rejected `dd7ead14` source, finite controls, profiles and original failed gate are archived, not current-source acceptance. The selected indexed array projection remains `0903e05d`.
 
@@ -61,7 +61,7 @@ User pre-approved remaining-feature ticket publication after Astra discussion.
 and [breakdown](design/parity-ticket-breakdown.md) separate public integrated
 capabilities from historical probes. #29–#36 cover exact query contracts,
 optimized public Compose, event/removal readers, schedules/provisioning and Local.
-Active implementation: #30. #29/#31/#32/#33/#36 are delivered; #34/#35 are now eligible but not started.
+The six-ticket implementation slice #29/#30/#31/#32/#33/#36 is delivered; #34/#35 are now eligible but not started.
 Explicit source/policy prerequisites remain binding even for unblocked issues.
 No ticket publication approves unreviewed laws/dependencies, a small slowdown
 allowance or a renewed experiment budget. #1 and #21/#23/#24 remain open.
