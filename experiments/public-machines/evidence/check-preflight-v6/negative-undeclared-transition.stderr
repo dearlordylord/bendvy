@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- expected : Cap.ValueRead<gameplay~H, R.View<P.SchemaA, P.FlowToken, P.Flow>>
+- observed : Cap.ValueRead<gameplay~H, R.View<P.SchemaA, P.LevelToken, P.Level>>
+Context:
+- ctx : gameplay~H
+Location: gameplay
+6 | def gameplay(~H: Type,~level: Cap.ValueRead<H,R.View<P.SchemaA,P.LevelToken,P.Level>>,ctx: H) -> H & R.View<P.SchemaA,P.FlowToken,P.Flow>:
+7>|   Cap.value_read(~H,~R.View<P.SchemaA,P.FlowToken,P.Flow>,~level,ctx)
+  |                                                            ^^^^^
+8 | 

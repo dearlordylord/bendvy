@@ -1,0 +1,8 @@
+SOME PROOFS FAIL
+Error:
+- message  : 'rest' can't be matched in this position (it is matched after a local statement or after a match on a later binder, it was already matched, or it is a def)
+Location:
+114 | def skip_selected(~S: Data,rest: Owners<S>,world: W.World<S,P.Store<S>,P.Resources<S>,Unit>,key: U32,selected: Slots.Selected<R.Instance<S,(world => input => R.runner(~S,world,input))>>) -> Owners<S> & Sys.Outcome<W.World<S,P.Store<S>,P.Resources<S>,Unit>,String,Unit>:
+115>|   match selected rest:
+    |                  ^^^^
+116 |     case Slots.Selected{Some{instance},entries}, rest: skip_returned(~S,rest,key,entries,R.skip(~S,~(world => input => R.runner(~S,world,input)),instance,world))

@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : reader
+- observed : reader (consumed more than once)
+Location: misuse
+4 | 
+5>| def misuse(reader: St.Reader<P.SchemaA,P.FlowToken>) -> St.Reader<P.SchemaA,P.FlowToken> & St.Reader<P.SchemaA,P.FlowToken>:
+  |            ^^^^^^
+6 |   (reader,reader)

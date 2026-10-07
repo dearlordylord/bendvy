@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : St.Reader<P.SchemaB, P.FlowToken>
+- observed : St.Reader<P.SchemaA, P.FlowToken>
+Context:
+- reader : St.Reader<P.SchemaA, P.FlowToken>
+- stream : St.Stream<P.Flow>
+Location: misuse
+5 | def misuse(reader: St.Reader<P.SchemaA,P.FlowToken>,stream: St.Stream<P.Flow>) -> St.Reader<P.SchemaB,P.FlowToken> & St.Stream<P.Flow>:
+6>|   St.finish(~P.SchemaB,~P.FlowToken,~P.Flow,reader,stream,0n,True{})
+  |                                             ^^^^^^
+7 | 

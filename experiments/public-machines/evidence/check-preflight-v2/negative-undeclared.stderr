@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- expected : Ctx.Frame<P.SchemaA>
+- observed : gameplay~H
+Context:
+- ctx : gameplay~H
+Location: gameplay
+ 8 | def gameplay(~H: Type,ctx: H) -> H:
+ 9>|   Ctx.flow_next(~P.SchemaA,ctx,M.Set{P.Play{},False{}})
+   |                            ^^^
+10 | 

@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : M.Family<P.SchemaB, P.FlowToken, P.Flow, W.World<P.SchemaB, P.Store<P.SchemaB>, P.Resources<P.SchemaB>, Unit>, world => world.take(P.SchemaB, P.FlowToken, P.Flow, P.Store<P.SchemaB>, P.Resources<P.SchemaB>, Unit, r => P.flow_take_resource(P.SchemaB, r), world), world => slot => world.put(P.SchemaB, P.FlowToken, P.Flow, P.Store<P.SchemaB>, P.Resources<P.SchemaB>, Unit, r => s => P.flow_put_resource(P.SchemaB, r, s), world, slot)>
+- observed : M.Family<P.SchemaA, P.FlowToken, P.Flow, W.World<P.SchemaA, P.Store<P.SchemaA>, P.Resources<P.SchemaA>, Unit>, world => world.take(P.SchemaA, P.FlowToken, P.Flow, P.Store<P.SchemaA>, P.Resources<P.SchemaA>, Unit, r => P.flow_take_resource(P.SchemaA, r), world), world => slot => world.put(P.SchemaA, P.FlowToken, P.Flow, P.Store<P.SchemaA>, P.Resources<P.SchemaA>, Unit, r => s => P.flow_put_resource(P.SchemaA, r, s), world, slot)>
+Context:
+- family : M.Family<P.SchemaA, P.FlowToken, P.Flow, W.World<P.SchemaA, P.Store<P.SchemaA>, P.Resources<P.SchemaA>, Unit>, world => world.take(P.SchemaA, P.FlowToken, P.Flow, P.Store<P.SchemaA>, P.Resources<P.SchemaA>, Unit, r => P.flow_take_resource(P.SchemaA, r), world), world => slot => world.put(P.SchemaA, P.FlowToken, P.Flow, P.Store<P.SchemaA>, P.Resources<P.SchemaA>, Unit, r => s => P.flow_put_resource(P.SchemaA, r, s), world, slot)>
+- tx     : Tx.Tx<W.World<P.SchemaB, P.Store<P.SchemaB>, P.Resources<P.SchemaB>, Unit>, Unit>
+Location: gameplay
+7 | def gameplay(family: M.Family<P.SchemaA,P.FlowToken,P.Flow,W.World<P.SchemaA,P.Store<P.SchemaA>,P.Resources<P.SchemaA>,Unit>,(world => P.flow_take(~P.SchemaA,world)),(world => slot => P.flow_put(~P.SchemaA,world,slot))>,tx: Tx.Tx<W.World<P.SchemaB,P.Store<P.SchemaB>,P.Resources<P.SchemaB>,Unit>,Unit>) -> Tx.Tx<W.World<P.SchemaB,P.Store<P.SchemaB>,P.Resources<P.SchemaB>,Unit>,Unit>:
+8>|   M.next_declared(~P.SchemaB,~P.FlowToken,~P.Flow,~W.World<P.SchemaB,P.Store<P.SchemaB>,P.Resources<P.SchemaB>,Unit>,~Unit,~(world => P.flow_take(~P.SchemaB,world)),~(world => slot => P.flow_put(~P.SchemaB,world,slot)),family,tx,M.Set{P.Play{},False{}})
+  |                                                                                                                                                                                                                            ^^^^^^
+9 | 

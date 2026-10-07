@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : name
+- observed : name (consumed more than once)
+Context:
+- owners : Owners<gate_checked~S>
+- key    : U32
+Location: gate_checked
+128 |     case result: result
+129>| def gate_checked(~S: Data,owners: Owners<S>,key: U32,name: String,checked: W.World<S,P.Store<S>,P.Resources<S>,Unit> & P.ConditionCheck) -> Owners<S> & Sys.Outcome<W.World<S,P.Store<S>,P.Resources<S>,Unit>,String,Unit>:
+    |                                                      ^^^^
+130 |   match checked:

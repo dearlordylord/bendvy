@@ -1,0 +1,1076 @@
+{
+  "applications": [
+    {
+      "schema": "A",
+      "observations": [
+        {
+          "label": "initial",
+          "result": {
+            "ok": true
+          },
+          "world": {
+            "version": 1,
+            "frame": 1,
+            "tick": 2,
+            "entityCount": 1,
+            "entities": [
+              {
+                "id": 1,
+                "components": {
+                  "Cells": [
+                    10,
+                    99
+                  ]
+                },
+                "relations": {}
+              }
+            ],
+            "resources": {
+              "Owned": [
+                30,
+                130
+              ]
+            },
+            "machines": {
+              "Flow": {
+                "current": "Boot"
+              },
+              "Level": {
+                "current": 0
+              }
+            },
+            "pendingCommands": []
+          },
+          "streams": [],
+          "hooks": []
+        },
+        {
+          "label": "queued",
+          "result": {
+            "ok": true
+          },
+          "world": {
+            "version": 1,
+            "frame": 2,
+            "tick": 3,
+            "entityCount": 1,
+            "entities": [
+              {
+                "id": 1,
+                "components": {
+                  "Cells": [
+                    10,
+                    99
+                  ]
+                },
+                "relations": {}
+              }
+            ],
+            "resources": {
+              "Owned": [
+                30,
+                130
+              ]
+            },
+            "machines": {
+              "Flow": {
+                "current": "Boot",
+                "pending": "Pause"
+              },
+              "Level": {
+                "current": 0,
+                "pending": 1
+              }
+            },
+            "pendingCommands": [
+              {
+                "tag": "spawn",
+                "system": "machine-work"
+              }
+            ]
+          },
+          "streams": [],
+          "hooks": []
+        },
+        {
+          "label": "deferred-only",
+          "result": {
+            "ok": true
+          },
+          "world": {
+            "version": 1,
+            "frame": 3,
+            "tick": 4,
+            "entityCount": 2,
+            "entities": [
+              {
+                "id": 1,
+                "components": {
+                  "Cells": [
+                    10,
+                    99
+                  ]
+                },
+                "relations": {}
+              },
+              {
+                "id": 2,
+                "components": {},
+                "relations": {}
+              }
+            ],
+            "resources": {
+              "Owned": [
+                30,
+                130
+              ]
+            },
+            "machines": {
+              "Flow": {
+                "current": "Boot",
+                "pending": "Pause"
+              },
+              "Level": {
+                "current": 0,
+                "pending": 1
+              }
+            },
+            "pendingCommands": []
+          },
+          "streams": [],
+          "hooks": []
+        },
+        {
+          "label": "committed",
+          "result": {
+            "ok": true
+          },
+          "world": {
+            "version": 1,
+            "frame": 4,
+            "tick": 7,
+            "entityCount": 2,
+            "entities": [
+              {
+                "id": 1,
+                "components": {
+                  "Cells": [
+                    10,
+                    99
+                  ]
+                },
+                "relations": {}
+              },
+              {
+                "id": 2,
+                "components": {},
+                "relations": {}
+              }
+            ],
+            "resources": {
+              "Owned": [
+                30,
+                130
+              ]
+            },
+            "machines": {
+              "Flow": {
+                "current": "Pause",
+                "previous": "Boot"
+              },
+              "Level": {
+                "current": 1,
+                "previous": 0
+              }
+            },
+            "pendingCommands": []
+          },
+          "streams": [
+            {
+              "kind": "transitionEvent",
+              "stream": "Flow",
+              "size": 1,
+              "capacity": 65536,
+              "readers": []
+            },
+            {
+              "kind": "transitionEvent",
+              "stream": "Level",
+              "size": 1,
+              "capacity": 65536,
+              "readers": []
+            }
+          ],
+          "hooks": []
+        },
+        {
+          "label": "old-pending",
+          "result": {
+            "ok": true
+          },
+          "world": {
+            "version": 1,
+            "frame": 5,
+            "tick": 8,
+            "entityCount": 2,
+            "entities": [
+              {
+                "id": 1,
+                "components": {
+                  "Cells": [
+                    10,
+                    99
+                  ]
+                },
+                "relations": {}
+              },
+              {
+                "id": 2,
+                "components": {},
+                "relations": {}
+              }
+            ],
+            "resources": {
+              "Owned": [
+                30,
+                130
+              ]
+            },
+            "machines": {
+              "Flow": {
+                "current": "Pause",
+                "pending": "Boot",
+                "previous": "Boot"
+              },
+              "Level": {
+                "current": 1,
+                "previous": 0
+              }
+            },
+            "pendingCommands": []
+          },
+          "streams": [
+            {
+              "kind": "transitionEvent",
+              "stream": "Flow",
+              "size": 1,
+              "capacity": 65536,
+              "readers": []
+            },
+            {
+              "kind": "transitionEvent",
+              "stream": "Level",
+              "size": 1,
+              "capacity": 65536,
+              "readers": []
+            }
+          ],
+          "hooks": []
+        },
+        {
+          "label": "publisher-failed",
+          "result": {
+            "ok": false,
+            "error": {
+              "kind": "SystemFailure",
+              "system": "failed-publisher",
+              "error": "Boom"
+            }
+          },
+          "world": {
+            "version": 1,
+            "frame": 6,
+            "tick": 9,
+            "entityCount": 2,
+            "entities": [
+              {
+                "id": 1,
+                "components": {
+                  "Cells": [
+                    10,
+                    99
+                  ]
+                },
+                "relations": {}
+              },
+              {
+                "id": 2,
+                "components": {},
+                "relations": {}
+              }
+            ],
+            "resources": {
+              "Owned": [
+                30,
+                130
+              ]
+            },
+            "machines": {
+              "Flow": {
+                "current": "Pause",
+                "pending": "Boot",
+                "previous": "Boot"
+              },
+              "Level": {
+                "current": 1,
+                "previous": 0
+              }
+            },
+            "pendingCommands": []
+          },
+          "streams": [
+            {
+              "kind": "transitionEvent",
+              "stream": "Flow",
+              "size": 0,
+              "capacity": 65536,
+              "readers": []
+            },
+            {
+              "kind": "transitionEvent",
+              "stream": "Level",
+              "size": 0,
+              "capacity": 65536,
+              "readers": []
+            }
+          ],
+          "hooks": []
+        },
+        {
+          "label": "marker-queued",
+          "result": {
+            "ok": true
+          },
+          "world": {
+            "version": 1,
+            "frame": 7,
+            "tick": 10,
+            "entityCount": 2,
+            "entities": [
+              {
+                "id": 1,
+                "components": {
+                  "Cells": [
+                    10,
+                    99
+                  ]
+                },
+                "relations": {}
+              },
+              {
+                "id": 2,
+                "components": {},
+                "relations": {}
+              }
+            ],
+            "resources": {
+              "Owned": [
+                30,
+                130
+              ]
+            },
+            "machines": {
+              "Flow": {
+                "current": "Pause",
+                "pending": "Pause",
+                "previous": "Boot"
+              },
+              "Level": {
+                "current": 1,
+                "pending": 1,
+                "previous": 0
+              }
+            },
+            "pendingCommands": []
+          },
+          "streams": [
+            {
+              "kind": "transitionEvent",
+              "stream": "Flow",
+              "size": 0,
+              "capacity": 65536,
+              "readers": []
+            },
+            {
+              "kind": "transitionEvent",
+              "stream": "Level",
+              "size": 0,
+              "capacity": 65536,
+              "readers": []
+            }
+          ],
+          "hooks": []
+        },
+        {
+          "label": "marker-exception",
+          "result": {
+            "ok": true
+          },
+          "world": {
+            "version": 1,
+            "frame": 8,
+            "tick": 15,
+            "entityCount": 2,
+            "entities": [
+              {
+                "id": 1,
+                "components": {
+                  "Cells": [
+                    10,
+                    99
+                  ]
+                },
+                "relations": {}
+              },
+              {
+                "id": 2,
+                "components": {},
+                "relations": {}
+              }
+            ],
+            "resources": {
+              "Owned": [
+                30,
+                130
+              ]
+            },
+            "machines": {
+              "Flow": {
+                "current": "Pause",
+                "pending": "Boot",
+                "previous": "Pause"
+              },
+              "Level": {
+                "current": 1,
+                "previous": 1
+              }
+            },
+            "pendingCommands": []
+          },
+          "streams": [
+            {
+              "kind": "transitionEvent",
+              "stream": "Flow",
+              "size": 1,
+              "capacity": 65536,
+              "readers": []
+            },
+            {
+              "kind": "transitionEvent",
+              "stream": "Level",
+              "size": 1,
+              "capacity": 65536,
+              "readers": []
+            }
+          ],
+          "hooks": [
+            "Flow",
+            "Level"
+          ]
+        },
+        {
+          "label": "next-marker",
+          "result": {
+            "ok": true
+          },
+          "world": {
+            "version": 1,
+            "frame": 9,
+            "tick": 17,
+            "entityCount": 2,
+            "entities": [
+              {
+                "id": 1,
+                "components": {
+                  "Cells": [
+                    10,
+                    99
+                  ]
+                },
+                "relations": {}
+              },
+              {
+                "id": 2,
+                "components": {},
+                "relations": {}
+              }
+            ],
+            "resources": {
+              "Owned": [
+                30,
+                130
+              ]
+            },
+            "machines": {
+              "Flow": {
+                "current": "Boot",
+                "previous": "Pause"
+              },
+              "Level": {
+                "current": 1,
+                "previous": 1
+              }
+            },
+            "pendingCommands": []
+          },
+          "streams": [
+            {
+              "kind": "transitionEvent",
+              "stream": "Flow",
+              "size": 2,
+              "capacity": 65536,
+              "readers": []
+            },
+            {
+              "kind": "transitionEvent",
+              "stream": "Level",
+              "size": 1,
+              "capacity": 65536,
+              "readers": []
+            }
+          ],
+          "hooks": [
+            "Flow",
+            "Level"
+          ]
+        }
+      ]
+    },
+    {
+      "schema": "B",
+      "observations": [
+        {
+          "label": "initial",
+          "result": {
+            "ok": true
+          },
+          "world": {
+            "version": 1,
+            "frame": 1,
+            "tick": 2,
+            "entityCount": 1,
+            "entities": [
+              {
+                "id": 1,
+                "components": {
+                  "Cells": [
+                    10,
+                    99
+                  ]
+                },
+                "relations": {}
+              }
+            ],
+            "resources": {
+              "Owned": [
+                30,
+                130
+              ]
+            },
+            "machines": {
+              "Flow": {
+                "current": "Boot"
+              },
+              "Level": {
+                "current": 0
+              }
+            },
+            "pendingCommands": []
+          },
+          "streams": [],
+          "hooks": []
+        },
+        {
+          "label": "queued",
+          "result": {
+            "ok": true
+          },
+          "world": {
+            "version": 1,
+            "frame": 2,
+            "tick": 3,
+            "entityCount": 1,
+            "entities": [
+              {
+                "id": 1,
+                "components": {
+                  "Cells": [
+                    10,
+                    99
+                  ]
+                },
+                "relations": {}
+              }
+            ],
+            "resources": {
+              "Owned": [
+                30,
+                130
+              ]
+            },
+            "machines": {
+              "Flow": {
+                "current": "Boot",
+                "pending": "Pause"
+              },
+              "Level": {
+                "current": 0,
+                "pending": 1
+              }
+            },
+            "pendingCommands": [
+              {
+                "tag": "spawn",
+                "system": "machine-work"
+              }
+            ]
+          },
+          "streams": [],
+          "hooks": []
+        },
+        {
+          "label": "deferred-only",
+          "result": {
+            "ok": true
+          },
+          "world": {
+            "version": 1,
+            "frame": 3,
+            "tick": 4,
+            "entityCount": 2,
+            "entities": [
+              {
+                "id": 1,
+                "components": {
+                  "Cells": [
+                    10,
+                    99
+                  ]
+                },
+                "relations": {}
+              },
+              {
+                "id": 2,
+                "components": {},
+                "relations": {}
+              }
+            ],
+            "resources": {
+              "Owned": [
+                30,
+                130
+              ]
+            },
+            "machines": {
+              "Flow": {
+                "current": "Boot",
+                "pending": "Pause"
+              },
+              "Level": {
+                "current": 0,
+                "pending": 1
+              }
+            },
+            "pendingCommands": []
+          },
+          "streams": [],
+          "hooks": []
+        },
+        {
+          "label": "committed",
+          "result": {
+            "ok": true
+          },
+          "world": {
+            "version": 1,
+            "frame": 4,
+            "tick": 7,
+            "entityCount": 2,
+            "entities": [
+              {
+                "id": 1,
+                "components": {
+                  "Cells": [
+                    10,
+                    99
+                  ]
+                },
+                "relations": {}
+              },
+              {
+                "id": 2,
+                "components": {},
+                "relations": {}
+              }
+            ],
+            "resources": {
+              "Owned": [
+                30,
+                130
+              ]
+            },
+            "machines": {
+              "Flow": {
+                "current": "Pause",
+                "previous": "Boot"
+              },
+              "Level": {
+                "current": 1,
+                "previous": 0
+              }
+            },
+            "pendingCommands": []
+          },
+          "streams": [
+            {
+              "kind": "transitionEvent",
+              "stream": "Flow",
+              "size": 1,
+              "capacity": 65536,
+              "readers": []
+            },
+            {
+              "kind": "transitionEvent",
+              "stream": "Level",
+              "size": 1,
+              "capacity": 65536,
+              "readers": []
+            }
+          ],
+          "hooks": []
+        },
+        {
+          "label": "old-pending",
+          "result": {
+            "ok": true
+          },
+          "world": {
+            "version": 1,
+            "frame": 5,
+            "tick": 8,
+            "entityCount": 2,
+            "entities": [
+              {
+                "id": 1,
+                "components": {
+                  "Cells": [
+                    10,
+                    99
+                  ]
+                },
+                "relations": {}
+              },
+              {
+                "id": 2,
+                "components": {},
+                "relations": {}
+              }
+            ],
+            "resources": {
+              "Owned": [
+                30,
+                130
+              ]
+            },
+            "machines": {
+              "Flow": {
+                "current": "Pause",
+                "pending": "Boot",
+                "previous": "Boot"
+              },
+              "Level": {
+                "current": 1,
+                "previous": 0
+              }
+            },
+            "pendingCommands": []
+          },
+          "streams": [
+            {
+              "kind": "transitionEvent",
+              "stream": "Flow",
+              "size": 1,
+              "capacity": 65536,
+              "readers": []
+            },
+            {
+              "kind": "transitionEvent",
+              "stream": "Level",
+              "size": 1,
+              "capacity": 65536,
+              "readers": []
+            }
+          ],
+          "hooks": []
+        },
+        {
+          "label": "publisher-failed",
+          "result": {
+            "ok": false,
+            "error": {
+              "kind": "SystemFailure",
+              "system": "failed-publisher",
+              "error": "Boom"
+            }
+          },
+          "world": {
+            "version": 1,
+            "frame": 6,
+            "tick": 9,
+            "entityCount": 2,
+            "entities": [
+              {
+                "id": 1,
+                "components": {
+                  "Cells": [
+                    10,
+                    99
+                  ]
+                },
+                "relations": {}
+              },
+              {
+                "id": 2,
+                "components": {},
+                "relations": {}
+              }
+            ],
+            "resources": {
+              "Owned": [
+                30,
+                130
+              ]
+            },
+            "machines": {
+              "Flow": {
+                "current": "Pause",
+                "pending": "Boot",
+                "previous": "Boot"
+              },
+              "Level": {
+                "current": 1,
+                "previous": 0
+              }
+            },
+            "pendingCommands": []
+          },
+          "streams": [
+            {
+              "kind": "transitionEvent",
+              "stream": "Flow",
+              "size": 0,
+              "capacity": 65536,
+              "readers": []
+            },
+            {
+              "kind": "transitionEvent",
+              "stream": "Level",
+              "size": 0,
+              "capacity": 65536,
+              "readers": []
+            }
+          ],
+          "hooks": []
+        },
+        {
+          "label": "marker-queued",
+          "result": {
+            "ok": true
+          },
+          "world": {
+            "version": 1,
+            "frame": 7,
+            "tick": 10,
+            "entityCount": 2,
+            "entities": [
+              {
+                "id": 1,
+                "components": {
+                  "Cells": [
+                    10,
+                    99
+                  ]
+                },
+                "relations": {}
+              },
+              {
+                "id": 2,
+                "components": {},
+                "relations": {}
+              }
+            ],
+            "resources": {
+              "Owned": [
+                30,
+                130
+              ]
+            },
+            "machines": {
+              "Flow": {
+                "current": "Pause",
+                "pending": "Pause",
+                "previous": "Boot"
+              },
+              "Level": {
+                "current": 1,
+                "pending": 1,
+                "previous": 0
+              }
+            },
+            "pendingCommands": []
+          },
+          "streams": [
+            {
+              "kind": "transitionEvent",
+              "stream": "Flow",
+              "size": 0,
+              "capacity": 65536,
+              "readers": []
+            },
+            {
+              "kind": "transitionEvent",
+              "stream": "Level",
+              "size": 0,
+              "capacity": 65536,
+              "readers": []
+            }
+          ],
+          "hooks": []
+        },
+        {
+          "label": "marker-exception",
+          "result": {
+            "ok": true
+          },
+          "world": {
+            "version": 1,
+            "frame": 8,
+            "tick": 15,
+            "entityCount": 2,
+            "entities": [
+              {
+                "id": 1,
+                "components": {
+                  "Cells": [
+                    10,
+                    99
+                  ]
+                },
+                "relations": {}
+              },
+              {
+                "id": 2,
+                "components": {},
+                "relations": {}
+              }
+            ],
+            "resources": {
+              "Owned": [
+                30,
+                130
+              ]
+            },
+            "machines": {
+              "Flow": {
+                "current": "Pause",
+                "pending": "Boot",
+                "previous": "Pause"
+              },
+              "Level": {
+                "current": 1,
+                "previous": 1
+              }
+            },
+            "pendingCommands": []
+          },
+          "streams": [
+            {
+              "kind": "transitionEvent",
+              "stream": "Flow",
+              "size": 1,
+              "capacity": 65536,
+              "readers": []
+            },
+            {
+              "kind": "transitionEvent",
+              "stream": "Level",
+              "size": 1,
+              "capacity": 65536,
+              "readers": []
+            }
+          ],
+          "hooks": [
+            "Flow",
+            "Level"
+          ]
+        },
+        {
+          "label": "next-marker",
+          "result": {
+            "ok": true
+          },
+          "world": {
+            "version": 1,
+            "frame": 9,
+            "tick": 17,
+            "entityCount": 2,
+            "entities": [
+              {
+                "id": 1,
+                "components": {
+                  "Cells": [
+                    10,
+                    99
+                  ]
+                },
+                "relations": {}
+              },
+              {
+                "id": 2,
+                "components": {},
+                "relations": {}
+              }
+            ],
+            "resources": {
+              "Owned": [
+                30,
+                130
+              ]
+            },
+            "machines": {
+              "Flow": {
+                "current": "Boot",
+                "previous": "Pause"
+              },
+              "Level": {
+                "current": 1,
+                "previous": 1
+              }
+            },
+            "pendingCommands": []
+          },
+          "streams": [
+            {
+              "kind": "transitionEvent",
+              "stream": "Flow",
+              "size": 2,
+              "capacity": 65536,
+              "readers": []
+            },
+            {
+              "kind": "transitionEvent",
+              "stream": "Level",
+              "size": 1,
+              "capacity": 65536,
+              "readers": []
+            }
+          ],
+          "hooks": [
+            "Flow",
+            "Level"
+          ]
+        }
+      ]
+    }
+  ]
+}
