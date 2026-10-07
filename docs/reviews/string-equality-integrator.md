@@ -23,3 +23,14 @@ Retain the failure and separate valid-Unicode long controls from that canary.
 No compiler/Base/runtime modification, new policy, threshold or law is approved.
 After candidate validation, staged World adoption must replay affected public
 semantics, paired regression and the equivalent full application/profile protocol.
+
+## Staged full application checkpoint
+
+The admitted staged World patch now passes the unchanged complete 87-command
+state cohort, including five reached mutants on JS/Native. Child receipt SHA256
+`2fe828d607287a7758953060570007e1bca7a5e948f16978a9250edc131e6591`;
+outer orchestration receipt
+`ed881853beddbaaf652b5f1c5c9595c4bee62f850c4ec16a44731a0ee6b936e1`.
+Root independently inspected both terminal statuses/counts. Three-scale complete
+semantic/build controls are in progress. Live World remains unchanged; profile,
+equivalent timing, regression, final review and delivery remain required.
