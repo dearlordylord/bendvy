@@ -1,0 +1,307 @@
+--- a/experiments/public-bundles/owned-public-result-v1/public.bend
++++ b/experiments/public-bundles/owned-public-result-v1/public.bend
+@@ -1,5 +1,6 @@
+ import Base
+ import ../../../src/ecs/schema-fragments.bend as SF
++import ../../../src/ecs/capabilities.bend as Owned
+ 
+ # Additive owned input/result capability. The existing Data-result API is intact.
+ type Request<-H:Type,-Input:Type,-Output:Type> is Type:
+@@ -15,3 +16,7 @@
+   body(Owner,Request{request},args,ctx)
+ def provision_declared(~S:Data,~Owners:Type,~Output:Type,~build:Owners -> Output,fragment:SF.Fragment<S,Owners>,required:List<&2,SF.Entry<S>>) -> SF.Bound<S,Owners,Output>:
+   SF.bind_declared(~S,~Owners,~Output,~build,fragment,required)
++
++# Canonical owned provider; existing Request/apply/provide remain compatible.
++def provide_owned(~Owner:Type,~Input:Type,~Output:Type,~Args:Type,~BodyOutput:Type,~request:Owner -> Input -> Owner & Output,~body:@-H:Type -> @-cap:Owned.OwnedRequest<H,Input,Output> -> Args -> H -> H & BodyOutput,args:Args,ctx:Owner) -> Owner & BodyOutput:
++  Owned.invoke_owned(~h => Owned.OwnedRequest<h,Input,Output>,~Args,~BodyOutput,~body,~Owner,~Owned.OwnedRequest{request},args,ctx)
+--- a/experiments/public-bundles/owned-public-result-v1/composition.bend
++++ b/experiments/public-bundles/owned-public-result-v1/composition.bend
+@@ -1,4 +1,5 @@
+ import Base
++import ../../../src/ecs/capabilities.bend as Owned
+ import public.bend as Public
+ import commands.bend as Cmd
+ import ../../../src/ecs/world.bend as W
+@@ -13,10 +14,10 @@
+ def inserted(~S:Data,~Raw:Type,~Error:Data,~H:Type,target:W.Handle<S>,spawned:Bool,result:H & Cmd.Output<S,Raw,Error>) -> H & Composed<S,Raw,Error>:
+   match result:
+     case (ctx,second): (ctx,Composed{Cmd.Accepted{target,spawned},Some{second},None{}})
+-def spawned(~S:Data,~Raw:Type,~Error:Data,~H:Type,~cap:Public.Request<H,Cmd.Input<S,Raw>,Cmd.Output<S,Raw,Error>>,replacement:Raw,result:H & Cmd.Output<S,Raw,Error>) -> H & Composed<S,Raw,Error>:
++def spawned(~S:Data,~Raw:Type,~Error:Data,~H:Type,~cap:Owned.OwnedRequest<H,Cmd.Input<S,Raw>,Cmd.Output<S,Raw,Error>>,replacement:Raw,result:H & Cmd.Output<S,Raw,Error>) -> H & Composed<S,Raw,Error>:
+   match result:
+     case (ctx,Cmd.Refused{raw,error}): (ctx,Composed{Cmd.Refused{raw,error},None{},Some{replacement}})
+-    case (ctx,Cmd.Accepted{+target,spawned}): inserted(~S,~Raw,~Error,~H,target,spawned,Public.apply(~H,~Cmd.Input<S,Raw>,~Cmd.Output<S,Raw,Error>,~cap,ctx,Cmd.Input{Cmd.Insert{target},replacement}))
+-def run(~S:Data,~Raw:Type,~Error:Data,~H:Type,~cap:Public.Request<H,Cmd.Input<S,Raw>,Cmd.Output<S,Raw,Error>>,input:Input<Raw>,ctx:H) -> H & Composed<S,Raw,Error>:
++    case (ctx,Cmd.Accepted{+target,spawned}): inserted(~S,~Raw,~Error,~H,target,spawned,Owned.owned_request(~H,~Cmd.Input<S,Raw>,~Cmd.Output<S,Raw,Error>,~cap,ctx,Cmd.Input{Cmd.Insert{target},replacement}))
++def run(~S:Data,~Raw:Type,~Error:Data,~H:Type,~cap:Owned.OwnedRequest<H,Cmd.Input<S,Raw>,Cmd.Output<S,Raw,Error>>,input:Input<Raw>,ctx:H) -> H & Composed<S,Raw,Error>:
+   match input:
+-    case Input{initial,replacement}: spawned(~S,~Raw,~Error,~H,~cap,replacement,Public.apply(~H,~Cmd.Input<S,Raw>,~Cmd.Output<S,Raw,Error>,~cap,ctx,Cmd.Input{Cmd.Spawn{},initial}))
++    case Input{initial,replacement}: spawned(~S,~Raw,~Error,~H,~cap,replacement,Owned.owned_request(~H,~Cmd.Input<S,Raw>,~Cmd.Output<S,Raw,Error>,~cap,ctx,Cmd.Input{Cmd.Spawn{},initial}))
+--- a/experiments/public-bundles/owned-public-result-v1/negatives/cross-schema-request.bend
++++ b/experiments/public-bundles/owned-public-result-v1/negatives/cross-schema-request.bend
+@@ -1,9 +1,10 @@
+ import Base
++import ../../../../src/ecs/capabilities.bend as Owned
+ import ../public.bend as Public
+ import ../adapter.bend as AD
+ type Schema is Data:
+   Schema{}
+ type Other is Data:
+   Other{}
+-def bad(~H:Type,~cap:Public.Request<H,AD.Input<Schema,Array<U32>>,Array<U32>>,ctx:H,input:AD.Input<Other,Array<U32>>) -> H & Array<U32>:
+-  Public.apply(~H,~AD.Input<Schema,Array<U32>>,~Array<U32>,~cap,ctx,input)
++def bad(~H:Type,~cap:Owned.OwnedRequest<H,AD.Input<Schema,Array<U32>>,Array<U32>>,ctx:H,input:AD.Input<Other,Array<U32>>) -> H & Array<U32>:
++  Owned.owned_request(~H,~AD.Input<Schema,Array<U32>>,~Array<U32>,~cap,ctx,input)
+--- a/experiments/public-bundles/owned-public-result-v1/negatives/duplicate-context.bend
++++ b/experiments/public-bundles/owned-public-result-v1/negatives/duplicate-context.bend
+@@ -1,10 +1,11 @@
+ import Base
++import ../../../../src/ecs/capabilities.bend as Owned
+ import ../public.bend as Public
+ import support.bend as P
+ def again(~H:Type,ctx:H,seen:H & Array<U32>) -> H & Array<U32>:
+   match seen:
+     case (returned,out): (ctx,out)
+-def body(~H:Type,~cap:Public.Request<H,Array<U32>,Array<U32>>,input:Array<U32>,ctx:H) -> H & Array<U32>:
+-  again(~H,ctx,Public.apply(~H,~Array<U32>,~Array<U32>,~cap,ctx,input))
++def body(~H:Type,~cap:Owned.OwnedRequest<H,Array<U32>,Array<U32>>,input:Array<U32>,ctx:H) -> H & Array<U32>:
++  again(~H,ctx,Owned.owned_request(~H,~Array<U32>,~Array<U32>,~cap,ctx,input))
+ def bad(owner:P.Owner,input:Array<U32>) -> P.Owner & Array<U32>:
+-  Public.provide(~P.Owner,~Array<U32>,~Array<U32>,~Array<U32>,~Array<U32>,~P.request,~body,input,owner)
++  Public.provide_owned(~P.Owner,~Array<U32>,~Array<U32>,~Array<U32>,~Array<U32>,~P.request,~body,input,owner)
+--- a/experiments/public-bundles/owned-public-result-v1/negatives/duplicate-input.bend
++++ b/experiments/public-bundles/owned-public-result-v1/negatives/duplicate-input.bend
+@@ -1,10 +1,11 @@
+ import Base
++import ../../../../src/ecs/capabilities.bend as Owned
+ import ../public.bend as Public
+ import support.bend as P
+-def again(~H:Type,~cap:Public.Request<H,Array<U32>,Array<U32>>,input:Array<U32>,seen:H & Array<U32>) -> H & Array<U32>:
++def again(~H:Type,~cap:Owned.OwnedRequest<H,Array<U32>,Array<U32>>,input:Array<U32>,seen:H & Array<U32>) -> H & Array<U32>:
+   match seen:
+-    case (ctx,returned): Public.apply(~H,~Array<U32>,~Array<U32>,~cap,ctx,input)
+-def body(~H:Type,~cap:Public.Request<H,Array<U32>,Array<U32>>,input:Array<U32>,ctx:H) -> H & Array<U32>:
+-  again(~H,~cap,input,Public.apply(~H,~Array<U32>,~Array<U32>,~cap,ctx,input))
++    case (ctx,returned): Owned.owned_request(~H,~Array<U32>,~Array<U32>,~cap,ctx,input)
++def body(~H:Type,~cap:Owned.OwnedRequest<H,Array<U32>,Array<U32>>,input:Array<U32>,ctx:H) -> H & Array<U32>:
++  again(~H,~cap,input,Owned.owned_request(~H,~Array<U32>,~Array<U32>,~cap,ctx,input))
+ def bad(owner:P.Owner,input:Array<U32>) -> P.Owner & Array<U32>:
+-  Public.provide(~P.Owner,~Array<U32>,~Array<U32>,~Array<U32>,~Array<U32>,~P.request,~body,input,owner)
++  Public.provide_owned(~P.Owner,~Array<U32>,~Array<U32>,~Array<U32>,~Array<U32>,~P.request,~body,input,owner)
+--- a/experiments/public-bundles/owned-public-result-v1/negatives/duplicate-result.bend
++++ b/experiments/public-bundles/owned-public-result-v1/negatives/duplicate-result.bend
+@@ -1,10 +1,11 @@
+ import Base
++import ../../../../src/ecs/capabilities.bend as Owned
+ import ../public.bend as Public
+ import support.bend as P
+ def seen(~H:Type,result:H & Array<U32>) -> H & (Array<U32> & Array<U32>):
+   match result:
+     case (ctx,returned): (ctx,(returned,returned))
+-def body(~H:Type,~cap:Public.Request<H,Array<U32>,Array<U32>>,input:Array<U32>,ctx:H) -> H & (Array<U32> & Array<U32>):
+-  seen(~H,Public.apply(~H,~Array<U32>,~Array<U32>,~cap,ctx,input))
++def body(~H:Type,~cap:Owned.OwnedRequest<H,Array<U32>,Array<U32>>,input:Array<U32>,ctx:H) -> H & (Array<U32> & Array<U32>):
++  seen(~H,Owned.owned_request(~H,~Array<U32>,~Array<U32>,~cap,ctx,input))
+ def bad(owner:P.Owner,input:Array<U32>) -> P.Owner & (Array<U32> & Array<U32>):
+-  Public.provide(~P.Owner,~Array<U32>,~Array<U32>,~Array<U32>,~(Array<U32> & Array<U32>),~P.request,~body,input,owner)
++  Public.provide_owned(~P.Owner,~Array<U32>,~Array<U32>,~Array<U32>,~(Array<U32> & Array<U32>),~P.request,~body,input,owner)
+--- a/experiments/public-bundles/owned-public-result-v1/negatives/opaque-h-escape.bend
++++ b/experiments/public-bundles/owned-public-result-v1/negatives/opaque-h-escape.bend
+@@ -1,8 +1,9 @@
+ import Base
++import ../../../../src/ecs/capabilities.bend as Owned
+ import ../public.bend as Public
+ import support.bend as P
+ # Body output is closed before H; H cannot escape as the owned result.
+-def body(~H:Type,~cap:Public.Request<H,Array<U32>,Array<U32>>,args:Array<U32>,ctx:H) -> H & (H -> H):
++def body(~H:Type,~cap:Owned.OwnedRequest<H,Array<U32>,Array<U32>>,args:Array<U32>,ctx:H) -> H & (H -> H):
+   (ctx,other => other)
+ def bad(owner:P.Owner,input:Array<U32>) -> P.Owner & Array<U32>:
+-  Public.provide(~P.Owner,~Array<U32>,~Array<U32>,~Array<U32>,~Array<U32>,~P.request,~body,input,owner)
++  Public.provide_owned(~P.Owner,~Array<U32>,~Array<U32>,~Array<U32>,~Array<U32>,~P.request,~body,input,owner)
+--- a/experiments/public-bundles/owned-public-result-v1/negatives/read-authority.bend
++++ b/experiments/public-bundles/owned-public-result-v1/negatives/read-authority.bend
+@@ -1,8 +1,9 @@
+ import Base
++import ../../../../src/ecs/capabilities.bend as Owned
+ import ../public.bend as Public
+ import ../../../../src/ecs/capabilities.bend as Cap
+ import support.bend as P
+ def body(~H:Type,~cap:Cap.Read<H,Unit>,input:Array<U32>,ctx:H) -> H & Array<U32>:
+-  Public.apply(~H,~Array<U32>,~Array<U32>,~cap,ctx,input)
++  Owned.owned_request(~H,~Array<U32>,~Array<U32>,~cap,ctx,input)
+ def bad(owner:P.Owner,input:Array<U32>) -> P.Owner & Array<U32>:
+-  Public.provide(~P.Owner,~Array<U32>,~Array<U32>,~Array<U32>,~Array<U32>,~P.request,~body,input,owner)
++  Public.provide_owned(~P.Owner,~Array<U32>,~Array<U32>,~Array<U32>,~Array<U32>,~P.request,~body,input,owner)
+--- a/experiments/public-bundles/owned-public-result-v1/negatives/reconstruct-owner.bend
++++ b/experiments/public-bundles/owned-public-result-v1/negatives/reconstruct-owner.bend
+@@ -1,7 +1,8 @@
+ import Base
++import ../../../../src/ecs/capabilities.bend as Owned
+ import ../public.bend as Public
+ import support.bend as P
+-def body(~H:Type,~cap:Public.Request<H,Array<U32>,Array<U32>>,input:Array<U32>,ctx:H) -> H & Array<U32>:
+-  Public.apply(~H,~Array<U32>,~Array<U32>,~cap,P.Owner{ALeaf{99}},input)
++def body(~H:Type,~cap:Owned.OwnedRequest<H,Array<U32>,Array<U32>>,input:Array<U32>,ctx:H) -> H & Array<U32>:
++  Owned.owned_request(~H,~Array<U32>,~Array<U32>,~cap,P.Owner{ALeaf{99}},input)
+ def bad(owner:P.Owner,input:Array<U32>) -> P.Owner & Array<U32>:
+-  Public.provide(~P.Owner,~Array<U32>,~Array<U32>,~Array<U32>,~Array<U32>,~P.request,~body,input,owner)
++  Public.provide_owned(~P.Owner,~Array<U32>,~Array<U32>,~Array<U32>,~Array<U32>,~P.request,~body,input,owner)
+--- a/experiments/public-bundles/owned-public-result-v1/negatives/support.bend
++++ b/experiments/public-bundles/owned-public-result-v1/negatives/support.bend
+@@ -1,10 +1,11 @@
+ import Base
++import ../../../../src/ecs/capabilities.bend as Owned
+ import ../public.bend as Public
+ type Owner is Type:
+   Owner{cells:Array<U32>}
+ def request(owner:Owner,input:Array<U32>) -> Owner & Array<U32>:
+   (owner,input)
+-def body(~H:Type,~cap:Public.Request<H,Array<U32>,Array<U32>>,args:Array<U32>,ctx:H) -> H & Array<U32>:
+-  Public.apply(~H,~Array<U32>,~Array<U32>,~cap,ctx,args)
++def body(~H:Type,~cap:Owned.OwnedRequest<H,Array<U32>,Array<U32>>,args:Array<U32>,ctx:H) -> H & Array<U32>:
++  Owned.owned_request(~H,~Array<U32>,~Array<U32>,~cap,ctx,args)
+ def good(owner:Owner,input:Array<U32>) -> Owner & Array<U32>:
+-  Public.provide(~Owner,~Array<U32>,~Array<U32>,~Array<U32>,~Array<U32>,~request,~body,input,owner)
++  Public.provide_owned(~Owner,~Array<U32>,~Array<U32>,~Array<U32>,~Array<U32>,~request,~body,input,owner)
+--- a/experiments/public-bundles/owned-public-result-v1/schema-a.bend
++++ b/experiments/public-bundles/owned-public-result-v1/schema-a.bend
+@@ -1,4 +1,5 @@
+ import Base
++import ../../../src/ecs/capabilities.bend as Owned
+ import public.bend as Public
+ import adapter.bend as AD
+ import ../prototype.bend as B
+@@ -64,20 +65,20 @@
+ def retry_done(~H:Type,first:AD.Refusal<String>,returned:String,result:H & Output()) -> H & GameResult:
+   match result:
+     case (ctx,out): (ctx,GameResult{out,Some{first},returned})
+-def retry_seen(~H:Type,~cap:Public.Request<H,Input(),Output()>,ctx:H,target:W.Handle<A.Schema>,retry:Bool,+error:AD.Refusal<String>,seen:Raw() & String) -> H & GameResult:
++def retry_seen(~H:Type,~cap:Owned.OwnedRequest<H,Input(),Output()>,ctx:H,target:W.Handle<A.Schema>,retry:Bool,+error:AD.Refusal<String>,seen:Raw() & String) -> H & GameResult:
+   match retry seen:
+     case False{}, (raw,text): (ctx,GameResult{AD.Refused{raw,error},Some{error},text})
+-    case True{}, (raw,text): retry_done(~H,error,text,Public.apply(~H,~Input(),~Output(),~cap,ctx,AD.Input{target,repaired(raw)}))
+-def requested(~H:Type,~cap:Public.Request<H,Input(),Output()>,target:W.Handle<A.Schema>,retry:Bool,result:H & Output()) -> H & GameResult:
++    case True{}, (raw,text): retry_done(~H,error,text,Owned.owned_request(~H,~Input(),~Output(),~cap,ctx,AD.Input{target,repaired(raw)}))
++def requested(~H:Type,~cap:Owned.OwnedRequest<H,Input(),Output()>,target:W.Handle<A.Schema>,retry:Bool,result:H & Output()) -> H & GameResult:
+   match result:
+     case (ctx,AD.Accepted{}): (ctx,GameResult{AD.Accepted{},None{},""})
+     case (ctx,AD.Refused{raw,error}): retry_seen(~H,~cap,ctx,target,retry,error,raw_0(raw))
+-def body(~H:Type,~cap:Public.Request<H,Input(),Output()>,args:Args,ctx:H) -> H & GameResult:
++def body(~H:Type,~cap:Owned.OwnedRequest<H,Input(),Output()>,args:Args,ctx:H) -> H & GameResult:
+   match args:
+-    case Args{input,target,retry,_}: requested(~H,~cap,target,retry,Public.apply(~H,~Input(),~Output(),~cap,ctx,input))
++    case Args{input,target,retry,_}: requested(~H,~cap,target,retry,Owned.owned_request(~H,~Input(),~Output(),~cap,ctx,input))
+ def provided(owners:Owner() & Args) -> Owner() & GameResult:
+   match owners:
+-    case (owner,args): Public.provide(~Owner(),~Input(),~Output(),~Args,~GameResult,~request,~body,args,owner)
++    case (owner,args): Public.provide_owned(~Owner(),~Input(),~Output(),~Args,~GameResult,~request,~body,args,owner)
+ def declaration_returned(owner:Owner(),+error:SF.Error,seen:Raw() & String) -> Owner() & GameResult:
+   match seen:
+     case (raw,text): (owner,GameResult{AD.Refused{raw,AD.DeclarationRefused{error}},Some{AD.DeclarationRefused{error}},text})
+--- a/experiments/public-bundles/owned-public-result-v1/schema-b.bend
++++ b/experiments/public-bundles/owned-public-result-v1/schema-b.bend
+@@ -1,4 +1,5 @@
+ import Base
++import ../../../src/ecs/capabilities.bend as Owned
+ import public.bend as Public
+ import adapter.bend as AD
+ import ../prototype.bend as B
+@@ -64,20 +65,20 @@
+ def retry_done(~H:Type,first:AD.Refusal<String>,returned:String,result:H & Output()) -> H & GameResult:
+   match result:
+     case (ctx,out): (ctx,GameResult{out,Some{first},returned})
+-def retry_seen(~H:Type,~cap:Public.Request<H,Input(),Output()>,ctx:H,target:W.Handle<A.Schema>,retry:Bool,+error:AD.Refusal<String>,seen:Raw() & String) -> H & GameResult:
++def retry_seen(~H:Type,~cap:Owned.OwnedRequest<H,Input(),Output()>,ctx:H,target:W.Handle<A.Schema>,retry:Bool,+error:AD.Refusal<String>,seen:Raw() & String) -> H & GameResult:
+   match retry seen:
+     case False{}, (raw,text): (ctx,GameResult{AD.Refused{raw,error},Some{error},text})
+-    case True{}, (raw,text): retry_done(~H,error,text,Public.apply(~H,~Input(),~Output(),~cap,ctx,AD.Input{target,repaired(raw)}))
+-def requested(~H:Type,~cap:Public.Request<H,Input(),Output()>,target:W.Handle<A.Schema>,retry:Bool,result:H & Output()) -> H & GameResult:
++    case True{}, (raw,text): retry_done(~H,error,text,Owned.owned_request(~H,~Input(),~Output(),~cap,ctx,AD.Input{target,repaired(raw)}))
++def requested(~H:Type,~cap:Owned.OwnedRequest<H,Input(),Output()>,target:W.Handle<A.Schema>,retry:Bool,result:H & Output()) -> H & GameResult:
+   match result:
+     case (ctx,AD.Accepted{}): (ctx,GameResult{AD.Accepted{},None{},""})
+     case (ctx,AD.Refused{raw,error}): retry_seen(~H,~cap,ctx,target,retry,error,raw_0(raw))
+-def body(~H:Type,~cap:Public.Request<H,Input(),Output()>,args:Args,ctx:H) -> H & GameResult:
++def body(~H:Type,~cap:Owned.OwnedRequest<H,Input(),Output()>,args:Args,ctx:H) -> H & GameResult:
+   match args:
+-    case Args{input,target,retry,_}: requested(~H,~cap,target,retry,Public.apply(~H,~Input(),~Output(),~cap,ctx,input))
++    case Args{input,target,retry,_}: requested(~H,~cap,target,retry,Owned.owned_request(~H,~Input(),~Output(),~cap,ctx,input))
+ def provided(owners:Owner() & Args) -> Owner() & GameResult:
+   match owners:
+-    case (owner,args): Public.provide(~Owner(),~Input(),~Output(),~Args,~GameResult,~request,~body,args,owner)
++    case (owner,args): Public.provide_owned(~Owner(),~Input(),~Output(),~Args,~GameResult,~request,~body,args,owner)
+ def declaration_returned(owner:Owner(),+error:SF.Error,seen:Raw() & String) -> Owner() & GameResult:
+   match seen:
+     case (raw,text): (owner,GameResult{AD.Refused{raw,AD.DeclarationRefused{error}},Some{AD.DeclarationRefused{error}},text})
+--- a/experiments/public-bundles/owned-public-result-v1/surface-a.bend
++++ b/experiments/public-bundles/owned-public-result-v1/surface-a.bend
+@@ -1,4 +1,5 @@
+ import Base
++import ../../../src/ecs/capabilities.bend as Owned
+ import public.bend as Public
+ import adapter.bend as AD
+ import commands.bend as Cmd
+@@ -35,21 +36,21 @@
+ def retried(~H:Type,error:AD.Refusal<String>,returned:String,result:H & Output()) -> H & GameResult:
+   match result:
+     case (ctx,out): (ctx,GameResult{out,Some{error},returned})
+-def retry_seen(~H:Type,~cap:Public.Request<H,RequestInput(),RequestOutput()>,ctx:H,retry:Bool,replacement:O.Raw(),+error:AD.Refusal<String>,seen:O.Raw() & String) -> H & GameResult:
++def retry_seen(~H:Type,~cap:Owned.OwnedRequest<H,RequestInput(),RequestOutput()>,ctx:H,retry:Bool,replacement:O.Raw(),+error:AD.Refusal<String>,seen:O.Raw() & String) -> H & GameResult:
+   match retry seen:
+     case False{}, (raw,text): (ctx,GameResult{Co.Composed{Cmd.Refused{raw,error},None{},Some{replacement}},Some{error},text})
+     case True{}, (raw,text): retried(~H,error,text,Co.run(~A.Schema,~O.Raw(),~String,~H,~cap,Co.Input{O.repaired(raw),replacement},ctx))
+-def attempted(~H:Type,~cap:Public.Request<H,RequestInput(),RequestOutput()>,retry:Bool,result:H & Output()) -> H & GameResult:
++def attempted(~H:Type,~cap:Owned.OwnedRequest<H,RequestInput(),RequestOutput()>,retry:Bool,result:H & Output()) -> H & GameResult:
+   match result:
+     case (ctx,Co.Composed{Cmd.Refused{raw,error},None{},Some{replacement}}): retry_seen(~H,~cap,ctx,retry,replacement,error,O.raw_0(raw))
+     case (ctx,out): (ctx,GameResult{out,None{},""})
+-def body(~H:Type,~cap:Public.Request<H,RequestInput(),RequestOutput()>,args:Args,ctx:H) -> H & GameResult:
++def body(~H:Type,~cap:Owned.OwnedRequest<H,RequestInput(),RequestOutput()>,args:Args,ctx:H) -> H & GameResult:
+   match args:
+     case Args{input,retry,_,_}: attempted(~H,~cap,retry,Co.run(~A.Schema,~O.Raw(),~String,~H,~cap,input,ctx))
+ def provided(owner:O.Owner(),args:Args,cleanup:Bool) -> O.Owner() & GameResult:
+   match cleanup:
+-    case False{}: Public.provide(~O.Owner(),~RequestInput(),~RequestOutput(),~Args,~GameResult,~request,~body,args,owner)
+-    case True{}: Public.provide(~O.Owner(),~RequestInput(),~RequestOutput(),~Args,~GameResult,~request_clean,~body,args,owner)
++    case False{}: Public.provide_owned(~O.Owner(),~RequestInput(),~RequestOutput(),~Args,~GameResult,~request,~body,args,owner)
++    case True{}: Public.provide_owned(~O.Owner(),~RequestInput(),~RequestOutput(),~Args,~GameResult,~request_clean,~body,args,owner)
+ 
+ def provisioned(owners:O.Owner() & Args) -> O.Owner() & GameResult:
+   match owners:
+--- a/experiments/public-bundles/owned-public-result-v1/surface-b.bend
++++ b/experiments/public-bundles/owned-public-result-v1/surface-b.bend
+@@ -1,4 +1,5 @@
+ import Base
++import ../../../src/ecs/capabilities.bend as Owned
+ import public.bend as Public
+ import adapter.bend as AD
+ import commands.bend as Cmd
+@@ -35,21 +36,21 @@
+ def retried(~H:Type,error:AD.Refusal<String>,returned:String,result:H & Output()) -> H & GameResult:
+   match result:
+     case (ctx,out): (ctx,GameResult{out,Some{error},returned})
+-def retry_seen(~H:Type,~cap:Public.Request<H,RequestInput(),RequestOutput()>,ctx:H,retry:Bool,replacement:O.Raw(),+error:AD.Refusal<String>,seen:O.Raw() & String) -> H & GameResult:
++def retry_seen(~H:Type,~cap:Owned.OwnedRequest<H,RequestInput(),RequestOutput()>,ctx:H,retry:Bool,replacement:O.Raw(),+error:AD.Refusal<String>,seen:O.Raw() & String) -> H & GameResult:
+   match retry seen:
+     case False{}, (raw,text): (ctx,GameResult{Co.Composed{Cmd.Refused{raw,error},None{},Some{replacement}},Some{error},text})
+     case True{}, (raw,text): retried(~H,error,text,Co.run(~A.Schema,~O.Raw(),~String,~H,~cap,Co.Input{O.repaired(raw),replacement},ctx))
+-def attempted(~H:Type,~cap:Public.Request<H,RequestInput(),RequestOutput()>,retry:Bool,result:H & Output()) -> H & GameResult:
++def attempted(~H:Type,~cap:Owned.OwnedRequest<H,RequestInput(),RequestOutput()>,retry:Bool,result:H & Output()) -> H & GameResult:
+   match result:
+     case (ctx,Co.Composed{Cmd.Refused{raw,error},None{},Some{replacement}}): retry_seen(~H,~cap,ctx,retry,replacement,error,O.raw_0(raw))
+     case (ctx,out): (ctx,GameResult{out,None{},""})
+-def body(~H:Type,~cap:Public.Request<H,RequestInput(),RequestOutput()>,args:Args,ctx:H) -> H & GameResult:
++def body(~H:Type,~cap:Owned.OwnedRequest<H,RequestInput(),RequestOutput()>,args:Args,ctx:H) -> H & GameResult:
+   match args:
+     case Args{input,retry,_,_}: attempted(~H,~cap,retry,Co.run(~A.Schema,~O.Raw(),~String,~H,~cap,input,ctx))
+ def provided(owner:O.Owner(),args:Args,cleanup:Bool) -> O.Owner() & GameResult:
+   match cleanup:
+-    case False{}: Public.provide(~O.Owner(),~RequestInput(),~RequestOutput(),~Args,~GameResult,~request,~body,args,owner)
+-    case True{}: Public.provide(~O.Owner(),~RequestInput(),~RequestOutput(),~Args,~GameResult,~request_clean,~body,args,owner)
++    case False{}: Public.provide_owned(~O.Owner(),~RequestInput(),~RequestOutput(),~Args,~GameResult,~request,~body,args,owner)
++    case True{}: Public.provide_owned(~O.Owner(),~RequestInput(),~RequestOutput(),~Args,~GameResult,~request_clean,~body,args,owner)
+ 
+ def provisioned(owners:O.Owner() & Args) -> O.Owner() & GameResult:
+   match owners:

@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : AD.Input<Schema, Array<U32>>
+- observed : AD.Input<Other, Array<U32>>
+Context:
+- input : AD.Input<Other, Array<U32>>
+Location: bad
+ 8 | def bad(input:AD.Input<Other,Array<U32>>) -> AD.Input<Schema,Array<U32>>:
+ 9>|   input
+   |   ^^^^^
+10 | 
+bend 2.0.36 is available: run bend update

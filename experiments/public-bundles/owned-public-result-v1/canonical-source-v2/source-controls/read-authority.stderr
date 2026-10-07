@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : Owned.OwnedRequest<body~H, Array<U32>, Array<U32>>
+- observed : Owned.Read<body~H, Unit>
+Context:
+- input : Array<U32>
+- ctx   : body~H
+Location: body
+6 | def body(~H:Type,~cap:Cap.Read<H,Unit>,input:Array<U32>,ctx:H) -> H & Array<U32>:
+7>|   Owned.owned_request(~H,~Array<U32>,~Array<U32>,~cap,ctx,input)
+  |                                                   ^^^
+8 | def bad(owner:P.Owner,input:Array<U32>) -> P.Owner & Array<U32>:
+bend 2.0.36 is available: run bend update

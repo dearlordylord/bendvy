@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : AD.Input<Schema, Array<U32>>
+- observed : AD.Input<Other, Array<U32>>
+Context:
+- ctx   : bad~H
+- input : AD.Input<Other, Array<U32>>
+Location: bad
+ 9 | def bad(~H:Type,~cap:Owned.OwnedRequest<H,AD.Input<Schema,Array<U32>>,Array<U32>>,ctx:H,input:AD.Input<Other,Array<U32>>) -> H & Array<U32>:
+10>|   Owned.owned_request(~H,~AD.Input<Schema,Array<U32>>,~Array<U32>,~cap,ctx,input)
+   |                                                                            ^^^^^
+11 | 
+bend 2.0.36 is available: run bend update
