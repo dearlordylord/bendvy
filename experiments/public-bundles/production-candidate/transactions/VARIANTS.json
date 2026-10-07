@@ -1,0 +1,176 @@
+{
+  "status": "PROSPECTIVE_BEFORE_CHECKS",
+  "variants": [
+    {
+      "name": "body-owner-dropped",
+      "path": "experiments/public-bundles/production-candidate/transactions/batch.bend",
+      "anchor": "originals(~S,~P,List.reverse(&1,Prepared<S,P>,prepared))",
+      "replacement": "[]",
+      "witness": "A-failed-after",
+      "contains": "|raw=[]|",
+      "reason": "Failed outcome must retain the actual constructed pack and convert its inverse into original raw cells.",
+      "edits": [
+        {
+          "path": "experiments/public-bundles/production-candidate/transactions/batch.bend",
+          "anchor": "originals(~S,~P,List.reverse(&1,Prepared<S,P>,prepared))",
+          "replacement": "[]",
+          "count": 1,
+          "originalSHA256": "e49feb7d6ab5e20c47ca11074b6a47dc27c02754e82d435543b6ef4866c3dfc4",
+          "intendedSHA256": "3a9ec2768b0f0ace93d2c95e6676fd1b149756d589fe8b68ae1794168288dadf"
+        }
+      ],
+      "baselineLiteralRow": "A-failed-after=Failed|disposed=True|registry=4:1:bundle.tx:[write:a, write:b, write:tag, write:value, bundle.insert, bundle.spawn]:0|next-system=2|registrations=0|[[1031, 1032]]@[1:1:2]|[[1041, 1042]]@[1:3:3]|[tag]@[1:4:4]|[17]@[1:5:5]|clock=6|live=[False, True]|ns=4|next=2|high=1|capacity=2|events=[801, 802]|context=[2, 2, 2, 2]/[0, 1, 2, 3, 0, 1, 2, 3]|raw=[True:[71, 72]/True:27/True:tag/True:[91, 92]:[101, 102]:[[111, 112]]/end][]|installed=1|quarantine=0|pending=0|errors=[body-failed]"
+    },
+    {
+      "name": "rollback-omitted",
+      "path": "experiments/public-bundles/production-candidate/transactions/batch.bend",
+      "anchor": "tx,T.Failure{error}))",
+      "replacement": "tx,T.Success{}))",
+      "witness": "A-failed-after",
+      "contains": "[[501, 502]]@[1:1:6]",
+      "reason": "Actual C.tx_set inverse must restore the preceding seeded Array and stamp; no allocator changes involved.",
+      "edits": [
+        {
+          "path": "experiments/public-bundles/production-candidate/transactions/batch.bend",
+          "anchor": "tx,T.Failure{error}))",
+          "replacement": "tx,T.Success{}))",
+          "count": 1,
+          "originalSHA256": "e49feb7d6ab5e20c47ca11074b6a47dc27c02754e82d435543b6ef4866c3dfc4",
+          "intendedSHA256": "d53207414433b46c063209c50291179e04aaa93300495f3ad7773cc871e83ba9"
+        }
+      ],
+      "baselineLiteralRow": "A-failed-after=Failed|disposed=True|registry=4:1:bundle.tx:[write:a, write:b, write:tag, write:value, bundle.insert, bundle.spawn]:0|next-system=2|registrations=0|[[1031, 1032]]@[1:1:2]|[[1041, 1042]]@[1:3:3]|[tag]@[1:4:4]|[17]@[1:5:5]|clock=6|live=[False, True]|ns=4|next=2|high=1|capacity=2|events=[801, 802]|context=[2, 2, 2, 2]/[0, 1, 2, 3, 0, 1, 2, 3]|raw=[True:[71, 72]/True:27/True:tag/True:[91, 92]:[101, 102]:[[111, 112]]/end][]|installed=1|quarantine=0|pending=0|errors=[body-failed]"
+    },
+    {
+      "name": "cold-owner-dropped",
+      "path": "experiments/public-bundles/component-install.bend",
+      "anchor": "Recovery{Entry{handle,previous},stamp},W.MissingEntity{}",
+      "replacement": "Recovery{Entry{handle,None{}},stamp},W.MissingEntity{}",
+      "witness": "A-hostile-cold",
+      "contains": "pending(7:1:absent@1:1,MissingEntity)",
+      "reason": "Executing the actual retained duplicate-head inverse on the invalid owner must retain cold cooked Array1011,1012.",
+      "edits": [
+        {
+          "path": "experiments/public-bundles/component-install.bend",
+          "anchor": "Recovery{Entry{handle,previous},stamp},W.MissingEntity{}",
+          "replacement": "Recovery{Entry{handle,None{}},stamp},W.MissingEntity{}",
+          "count": 1,
+          "originalSHA256": "2d0ddb4a4ea20c639453e70715b73b8f30cafdec25b73e523eefd007e5abc2ad",
+          "intendedSHA256": "f397ef88334be8ae14aa2f0f682c45d7ad76da24cd58f600c093588db475194c"
+        }
+      ],
+      "baselineLiteralRow": "A-hostile-cold=[[1031, 1032]]@[1:1:2]|[[1041, 1042]]@[1:3:3]|[tag]@[1:4:4]|[17]@[1:5:5]|clock=5|live=[False, False]|ns=7|next=2|high=1|capacity=2|events=[]|context=[1, 1, 1, 1]/[0, 1, 2, 3]|raw=[]|installed=0|quarantine=0|pending=0|errors=[quarantined]|cold=pending(7:1:absent@0:0,MissingEntity)|pending(7:1:[1011, 1012]@1:1,MissingEntity)|pending(7:1:absent@0:0,MissingEntity)|pending(7:1:absent@0:0,MissingEntity)|head-pending(7:1:absent@0:0)|tail-payload(end)|queued=[[51, 52]]|constructor-inverse=consumed-terminally-unapplied"
+    },
+    {
+      "name": "namespace-collision",
+      "path": "src/ecs/world-namespace.js",
+      "anchor": "return bendvy_namespace_next++;",
+      "replacement": "return 1;",
+      "witness": "A-foreign-receiver",
+      "contains": "|prepared=[1:1:",
+      "reason": "Actual canonical namespace collision must change foreign refusal into an accepted prepared pack; namespace witness literal will use1 in the collision cohort.",
+      "extraEdits": [
+        {
+          "path": "src/ecs/world-namespace.c",
+          "anchor": "return (Term)old;",
+          "replacement": "return (Term)1;",
+          "count": 1,
+          "originalSHA256": "b218011c7738b7ac8ca94963b8c8cacd97006af6fa1c6ab6f4ac506c612b4521",
+          "intendedSHA256": "3bebfe9ca549453ea0e25279eaadcf5772d755df13aa45b1b20221bb9bdd25dc"
+        }
+      ],
+      "edits": [
+        {
+          "path": "src/ecs/world-namespace.js",
+          "anchor": "return bendvy_namespace_next++;",
+          "replacement": "return 1;",
+          "count": 1,
+          "originalSHA256": "2731ad76f78bcdfe51714a1562fe487d5808b9300394ec0aebd89e24b00163f3",
+          "intendedSHA256": "bd25f0f83bb6ef1032a9f6c09913c81545e2cf1112e54aebf85cdb43917dd47e"
+        },
+        {
+          "path": "src/ecs/world-namespace.c",
+          "anchor": "return (Term)old;",
+          "replacement": "return (Term)1;",
+          "count": 1,
+          "originalSHA256": "b218011c7738b7ac8ca94963b8c8cacd97006af6fa1c6ab6f4ac506c612b4521",
+          "intendedSHA256": "3bebfe9ca549453ea0e25279eaadcf5772d755df13aa45b1b20221bb9bdd25dc"
+        }
+      ],
+      "baselineLiteralRow": "A-foreign-receiver=[[501, 502]]@[1:1:6]|[[1041, 1042]]@[1:3:3]|[tag]@[1:4:4]|[17]@[1:5:5]|clock=6|live=[False, True]|ns=16|next=2|high=1|capacity=2|events=[]|context=[2, 2, 2, 2]/[0, 1, 2, 3, 0, 1, 2, 3]|raw=[True:[71, 72]/True:27/True:tag/True:[91, 92]:[101, 102]:[[111, 112]]/end][]|installed=1|quarantine=0|pending=1|errors=[immediate-refusal]|undo=1|txcommands=1|txevents=[43]|prepared=[]"
+    },
+    {
+      "name": "command-position-ignored",
+      "witness": "A-interleaved-fifo",
+      "contains": "events=[43, 801, 802, 901, 902, 37]",
+      "reason": "Moving both bundle installers ahead of the actual ordinary Value99 command changes its observed value and the final Value owner.",
+      "edits": [
+        {
+          "path": "experiments/public-bundles/production-candidate/transactions/batch.bend",
+          "anchor": "Nat.sub(position,current)",
+          "replacement": "0n",
+          "count": 1,
+          "originalSHA256": "e49feb7d6ab5e20c47ca11074b6a47dc27c02754e82d435543b6ef4866c3dfc4",
+          "intendedSHA256": "100a6fd6913de4db4b06c113f548cfe209a825c71f3ca2d814fae91e00005e87"
+        }
+      ],
+      "baselineLiteralRow": "A-interleaved-fifo=[[1191, 1192]]@[1:1:14]|[[1201, 1202]]@[1:3:15]|[tag]@[1:4:16]|[37]@[1:5:17]|clock=17|live=[False, True]|ns=17|next=2|high=1|capacity=2|events=[43, 801, 802, 901, 902, 27]|context=[3, 3, 3, 3]/[0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3]|raw=[]|installed=3|quarantine=0|pending=0|errors=[null, null, null, null]"
+    },
+    {
+      "name": "typed-cleanup-omitted",
+      "witness": "A-cleanup-refusal",
+      "contains": "[[501, 502]]@[1:1:6]",
+      "reason": "Skipping the real Array family clear retains its owner/stamp after gameplay despawn; the incoming bundle is still returned by barrier revalidation.",
+      "edits": [
+        {
+          "path": "experiments/public-bundles/production-candidate/transactions/schema-a.bend",
+          "anchor": "cleared(~Array<U32>,Col.clear(~A.Schema,~Array<U32>,a,id))",
+          "replacement": "a",
+          "count": 1,
+          "originalSHA256": "5fcc846953c72fad614516ceae7c3d2d990f1ebd9f48f8385259262a23d92d66",
+          "intendedSHA256": "ba20f627016327dddacac48a8f4e01cd1432699d2fa8c1ac30f609b984db4874"
+        }
+      ],
+      "baselineLiteralRow": "A-cleanup-refusal=[absent]@[]|[absent]@[]|[absent]@[]|[absent]@[]|clock=6|live=[False, False]|ns=23|next=2|high=1|capacity=2|events=[43, 801, 802, 901, 902]|context=[2, 2, 2, 2]/[0, 1, 2, 3, 0, 1, 2, 3]|raw=[True:[71, 72]/True:27/True:tag/True:[91, 92]:[101, 102]:[[111, 112]]/end][]|installed=1|quarantine=0|pending=0|errors=[insert-refusal]"
+    },
+    {
+      "name": "receipt-namespace-ignored",
+      "witness": "A-pending-foreign-receiver",
+      "contains": "errors=[insert-refusal]",
+      "reason": "An ID-only receipt match captures a foreign payload for later rejection instead of immediate refusal with the original queue owners unchanged.",
+      "edits": [
+        {
+          "path": "experiments/public-bundles/production-candidate/transactions/batch.bend",
+          "anchor": "Bool.and(U32.is_eq(ns,otherNs),U32.is_eq(id,otherId))",
+          "replacement": "U32.is_eq(id,otherId)",
+          "count": 1,
+          "originalSHA256": "e49feb7d6ab5e20c47ca11074b6a47dc27c02754e82d435543b6ef4866c3dfc4",
+          "intendedSHA256": "97a092aa3d4e52dc5d3b3f76bcb589d24f8982b6567938790c36d5d6dc09632b"
+        }
+      ],
+      "baselineLiteralRow": "A-pending-foreign-receiver=[[1031, 1032]]@[1:1:2]|[[1041, 1042]]@[1:3:3]|[tag]@[1:4:4]|[17]@[1:5:5]|clock=5|live=[False, True]|ns=34|next=2|high=1|capacity=2|events=[801, 802]|context=[2, 2, 2, 2]/[0, 1, 2, 3, 0, 1, 2, 3]|raw=[True:[71, 72]/True:27/True:tag/True:[91, 92]:[101, 102]:[[111, 112]]/end][]|installed=1|quarantine=0|pending=0|errors=[immediate-refusal]"
+    },
+    {
+      "name": "receipt-not-recognized",
+      "witness": "A-unified-pending-after",
+      "contains": "[17]@[1:5:5]",
+      "reason": "Refusing this Batch's actual Reserved receipt prevents the second public insert, retaining the first payload instead of Value37.",
+      "edits": [
+        {
+          "path": "experiments/public-bundles/production-candidate/transactions/batch.bend",
+          "anchor": "Bool.and(U32.is_eq(ns,otherNs),U32.is_eq(id,otherId))",
+          "replacement": "False{}",
+          "count": 1,
+          "originalSHA256": "e49feb7d6ab5e20c47ca11074b6a47dc27c02754e82d435543b6ef4866c3dfc4",
+          "intendedSHA256": "1a7ab242dc977afb1dfda635bd8703a8ccda66f213870271e3e455d350236eb9"
+        }
+      ],
+      "baselineLiteralRow": "A-unified-pending-after=Succeeded|disposed=True|registry=28:1:bundle.tx:[write:a, write:b, write:tag, write:value, bundle.insert, bundle.spawn]:0|next-system=2|registrations=0|[[1191, 1192]]@[1:1:7]|[[1201, 1202]]@[1:3:8]|[tag]@[1:4:9]|[37]@[1:5:10]|clock=10|live=[False, True]|ns=28|next=2|high=1|capacity=2|events=[801, 802]|context=[2, 2, 2, 2]/[0, 1, 2, 3, 0, 1, 2, 3]|raw=[]|installed=2|quarantine=0|pending=0|errors=[null, null, null, null]"
+    }
+  ],
+  "negativeIntent": {
+    "owner": "actual batch consumed more than once; bad binder line6/spanbatch",
+    "schema": "W.Handle<Schema> expected/W.Handle<Other> observed at target argument line9",
+    "read-write": "Cap.Request<H,Array<U32>,Unit> expected/Cap.Read<H,Unit> observed at cap argument line5"
+  }
+}
