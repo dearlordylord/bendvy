@@ -38,6 +38,107 @@ Publication is complete scope tracking, not capability acceptance. Every issue i
 
 #38, #41, #42, #46, #48, #50 and #53. #34, #35, #39, #40 and #47 are closed; their dependencies permit #40/#48 and the reader side of #43, whose #42 prerequisite remains open. #45 has actual TS preparation while #44 remains prerequisite. Explicit unresolved identity/capture/affine-event contract choices must still be resolved before implementation; there is no blanket approval of divergence.
 
+## Parallel delivery coordination — 2026-10-07
+
+This is the execution checkpoint for the existing #37 specification and issues,
+not a second parity plan. Issue acceptance and approved contracts remain
+unchanged. Coordination base: `14494e25`. Each worker owns one branch/worktree;
+only the coordinator edits this table and shared contracts or integrates
+`src/ecs`, common runners, laws, specifications and issue status.
+
+Worktree prefix: `/workspace/formal-proofs/bendvy-worktrees/`.
+
+| Task | Agent / worktree / branch | Dependencies | State | Next step |
+| --- | --- | --- | --- | --- |
+| #41 bundles | `readers43_mixed`; `parity-41-bundles`; `parity/41-bundles-delivery` | Existing constructor-stage, Batch, canonical WorldIO; #38/#46 unresolved policies cannot be inferred | Owned request implementation; interpreter full22 PASS; eight focused development refusals. Owned copy hash-verified; old receipts remain historical. | Fix snapshot serialization; emitted JS/full22, affected Native, actual capability negatives and reached omitted-component mutant; commit bounded delivery, then complete remaining spawn/duplicate/rollback/deferred-failure surface. |
+| #49 handlers | `handlers49_finish`; `parity-49-handlers`; `parity/49-handlers-delivery` | #48 and #35; approved #36 Local policy; no dependence on choosing #50 captures | Full96 source/oracle prepared; hash-verified isolated copy; earlier72 JS receipt is historical | Complete actual registered readers/actions/requirements and independent oracle; qualify current full96 on JS/Native and required mutants/refusals. |
+| #42 relations | `inspector54_finish` (currently assigned #42); `parity-42-relations`; `parity/42-relations-delivery` | Exact staged eight relation modules and live World; core adoption owned by coordinator | Begin-enabled full30 TS/JS anchor PASS; isolated copy hash-verified; current falsifiers and Native remain | Qualify Begin/completion ordering and full-tree forcing on JS/Native; prepare real population/fanout/depth families, then fair serial timing when host permits. |
+| #54 Inspector | `inspector54_retention_fail_skip`; `parity-54-inspector`; `parity/54-inspector-delivery` | #35; existing typed candidate/retention capsules; foreign-instance and held-view policy unresolved | Prior finite query/resource/retention delivery retained; new owner assigned to remaining public coverage | Reconcile pinned public export/behavior coverage and prepare safe remaining API/integration gaps without inventing ownership policy or replaying all retained positives. |
+| Shared core/integration | `/root`; main worktree `bendvy`, `master` | Reviewed worker commits and exact dependency joins | Single writer for `src/ecs` and contracts; unrelated root WIP preserved | Review/cherry-pick small commits; shared changes once, targeted affected checks, unchanged #28 on combined executable result. |
+| #50 / #53 research | `/root` with idle `evidence_review` after delivery review; main worktree | #50: #36; #53: #31; explicit ownership decisions | TS studies delivered; #50 draft pending approval, #53 recommendation unselected | Continue source/contract research; consolidate exact decisions into one approval packet before dependent implementation. |
+
+### Fixed assignment contracts
+
+Common requirements: read the governing issue and source-bound existing evidence;
+use pinned bevy-ts, Rust Bevy and Bend sources. Preserve arbitrary affine `Type`
+payloads, opaque-handle confinement, nominal schemas and actual independent
+worlds. Never amend shared contracts, limits, baselines, dependency versions,
+laws or unresolved policy to make a check pass. Report a proposed interface
+change to the coordinator first. No proof against unapproved laws. Historical
+receipts remain immutable; migration is not a current-source rerun or a silent
+rebase. Private environments and generated caches must stay out of Git.
+
+- **#41 ownership:** only `experiments/public-bundles/owned-public-result-v1/`.
+  Contract: closed reusable request with independently fixed `Input`, `Output`,
+  `Args`, `BodyOutput: Type` before abstract `H`; immediate refusal returns actual
+  Raw owner to gameplay and allows retry; accepted packet/inverse transfers into
+  existing Batch. Complete the issue's public spawn/insert and heterogeneous
+  duplicate/construction/replacement/deferred-order surface; the current22-row
+  insert slice alone does not finish it. Required evidence: full independent
+  two-schema outputs, actual TS coverage joins, JS/Native, undeclared provisioning,
+  actual cross-schema request, read authority, owner/context duplication and
+  H escape controls; reached omitted-component mutation; exact cleanup/rollback.
+  Escalate failed activation/reservation ownership policies rather than choosing.
+- **#49 ownership:** only `experiments/public-machine-handlers/candidate-v1/`.
+  Contract: exit/transition failure preserves old state and retries queued change;
+  earlier successful handler effects stay committed. Enter failure happens after
+  state/event commit and is not automatically retried. Handler-enqueued changes
+  wait for a later marker. Use genuine System registrations/cursors, independent
+  stream domains, actual affine components/resources and approved Local cells;
+  no new capture contract. Required evidence: all96/eight checkpoints and12
+  requirement refusals, definition/handler order, complete owner/pending/event
+  state; JS/Native; whole-marker rollback, premature-publication and lost-retry
+  compiling mutants; authority/ownership negatives.
+- **#42 ownership:** only `experiments/public-relations/timing/current-qualification-v1/`.
+  Contract: same complete public trace and actual registered operations in both
+  roles; all immutable trace fields forced between Begin/completion, serialization
+  and independent full validation afterwards. Preserve deferred inverse/order,
+  future reservations, failures and rollback. Required evidence: full30 anchor,
+  last-leaf/moved-walk falsifiers, generated JS/C effect-order review and Native;
+  real population/fanout/depth correctness families and later equivalent-work
+  serial timing. Existing semantic capsules are reused only through exact joins.
+  Eight untracked relation modules are immutable dependencies, not worker-owned
+  production edits; coordinator alone decides their reviewed adoption.
+- **#54 ownership:** only new `experiments/public-inspect/promotion-stage/`.
+  Contract: repeated read-only projections return World/affine owners; no writes,
+  barrier flush, System reader advancement/registration or retention participation.
+  Required evidence: source-backed coverage of all pinned Inspector read and
+  condition/error categories; complete two-schema output/actual TS comparison,
+  exact missing/undeclared/read-only negatives and reached reader-consumption
+  mutation. Reuse delivered retention/optional-resource capsules with precise
+  source joins. Implement confirmed gaps in this owned candidate directory;
+  foreign Inspector association and held-view ownership remain approval gates.
+  Relation/machine inspection stays dependent #55, not silently substituted for #54.
+
+### Resource and handoff protocol
+
+Four workers may implement/research/prepare concurrently. With external CPU
+contention, one executable/check/backend/probe stage runs at a time; coordinator
+assigns the next slot. Run an admitted stage under
+`flock /tmp/bendvy-parity-heavy.lock COMMAND...` and retain normal receipts/guards.
+The lock serializes our processes; it cannot remove external contention. No
+comparative timing is admitted yet. Performance/profiling gets one exclusive
+coordinator slot after live host assessment, with all our other child checks
+paused. Native remains one thread/GPU off. Limits stay checker5, emit30,
+compile120, runtime5; timeouts are inconclusive, not grounds to raise caps.
+
+A copied worktree must hash-join owned sources and read-only dependency overlays
+before resuming. Original absolute-path receipts are preserved as historical;
+new execution freezes its actual worktree paths/tool/config/environment. Never
+commit another worker's dependency overlay or private environment. All workers
+are not alone in the repository and must preserve others' changes.
+
+Handoff: exact commit SHA, owned file list, source/dependency joins, commands and
+terminal receipts/full oracles, intended negative diagnostics, reached mutants,
+and explicit remaining issue gates. Workers commit only their owned deliverable;
+they do not push/close issues or merge shared core. Coordinator obtains independent
+Spec/Standards review, integrates small commits and posts English issue updates.
+A bounded experiment is not full issue completion. Shared module/interface requests
+are agreed before editing; `src/ecs` has one writer. General regression gates run
+on the combined executable result, not redundantly per planning/evidence commit.
+Full equivalent JS≤TS and Native≤0.5×TS remains #21/#23/#24; the unchanged default
+#28 gate remains required. No performance tolerance is added here.
+
 ## Implementation checkpoint — 2026-10-07
 
 | Issue | Current evidence | Remaining delivery boundary |
