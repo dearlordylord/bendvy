@@ -62,3 +62,8 @@ The explicitly confirmed persistent Local policy passes the independent root ver
 Fresh root replay passes on Column `3fec368b`, captured-column `340efc23` and indexed-lifecycle `e997f3b0`: per-instance affine Local isolation, skip/failure persistence, ECS rollback, foreign recovery, disposal and namespace mutation. Source-bound receipts, full observations and retention hashes are in `experiments/public-local-owner/evidence/indexed-core-current/`. Five complete feature timing observations per backend are retained in `evidence/indexed-core-timing/`; they include process startup/output and do not qualify hot-path performance. Historical receipts remain historical.
 
 Independent final Spec and Standards reviews identify no blocking bounded-feature functional defect. The unchanged default #28 gate passes on the current core; all recorded source hashes match. The additional prepared-provider gate remains failed for #30 and is not this ticket's shared regression requirement. Commit/push and governing issue reporting remain pending; this update does not close the issue or parent qualification tasks.
+
+
+## Delivery
+
+Delivered in [bfb4360d](https://github.com/dearlordylord/bendvy/commit/bfb4360d) on master and pushed to the project repository. The governing issue now has an English acceptance/evidence report and is closed. The bounded scope is complete; #30, full parity and product qualification remain open.

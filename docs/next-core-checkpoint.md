@@ -44,13 +44,11 @@ src/ecs changes; its scope does not replace the full performance matrix.
 
 ## Active parity implementation checkpoint
 
-#29/#31/#32/#33/#36 have fresh root finite JS/Native receipts and scoped Spec review on the shared-live closure. They remain open pending the final shared source gate and delivery. #36 Local persistence on error is explicitly confirmed by the user.
+#29/#31/#32/#33/#36 are delivered and closed on master in `bfb4360d`. Fresh complete JS/Native reference/control/mutation replays, five feature timing observations per backend, the old-consumer suite and independent final Spec/Standards reviews pass. All 34 current core hashes match the passing default #28 gate. English completion reports are posted to each issue. #36 retains the approved persistent-on-failure Local policy.
 
-#30 remains open: the selected indexed provider passes 23 complete Workshop checkpoints, 14 legacy/indexed transaction/access pairs, and 2,430 capture pairs per backend, with source-current confinement controls and reached restoration mutants. Indexed metadata is active only through the selected schema's five empty-column provisioning calls. The unchanged default paired regression gate passes (JS ratio 0.996465; Native 0.999347). The prepared-provider gate fails for JS (1.297299, statistically confirmed); Native 1.021101 is not a confirmed slowdown. Large-world metadata microbenchmarks do not establish application acceptance.
+#30 remains open. Indexed ordinary/prepared/capture and full application gates pass; the selected scalar-array projection also passes full rollback/owner/trace controls. Matched profiles reduce sampled node-self allocation from 930.48 to 829.44 MB over 200 applications. The latest unchanged prepared paired gate still fails JS (1.297879, confirmed); Native 0.984415 has no confirmed slowdown. These diagnostics do not establish full-core qualification or amend the baseline.
 
-Matched application CPU/allocation profiles identify structural scalar-array projection as a remaining cost. An isolated indexed projection passes 576 complete physical-value, prefix, returned-owner and snapshot comparisons per backend, bounds refusals and reached omission/order mutations. Independent Spec and Standards reviews permit selected schema promotion, subject to full application rollback/access replays and unchanged performance gates. No measured gain follows from the prototype. Source, evidence and historical failures are recorded in [the acceptance ledger](reports/parity-frontier-implementation.md).
-
-Fresh current-core replays for #29, #31, #32, #33 and #36 pass their finite semantic/negative/mutation checks. They remain open pending final evidence, review and delivery; feature timing is separate from qualification. The old-consumer replay is in progress. User separately accepts up to 10% aggregate loss at full parity with final JS <= TS and Native <= 0.5 TS; this does not amend the bounded gate or close parent tasks.
+A reviewed isolated fused Inspect read-seek prototype is in progress. It preserves the public phase-based helper, exact low-fuel/Nil observations, affine ownership, history order, bounds and backward recovery. Require source-bound complete old/new observations, mutating projections, reached mutants and emitted Native transport evidence before promotion. Then run full application/current authority controls, paired gates and matched profiles. See the [acceptance ledger](reports/parity-frontier-implementation.md). Full parity and parent qualification remain open. #34/#35 prerequisites are delivered, but neither is part of this active six-ticket goal.
 
 ## Published parity frontier
 
@@ -59,7 +57,7 @@ User pre-approved remaining-feature ticket publication after Astra discussion.
 and [breakdown](design/parity-ticket-breakdown.md) separate public integrated
 capabilities from historical probes. #29–#36 cover exact query contracts,
 optimized public Compose, event/removal readers, schedules/provisioning and Local.
-Frontier: #29/#30/#31/#32/#33/#36; #34 waits for #33, #35 for #31/#32/#33.
+Active implementation: #30. #29/#31/#32/#33/#36 are delivered; #34/#35 are now eligible but not started.
 Explicit source/policy prerequisites remain binding even for unblocked issues.
 No ticket publication approves unreviewed laws/dependencies, a small slowdown
 allowance or a renewed experiment budget. #1 and #21/#23/#24 remain open.

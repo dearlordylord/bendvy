@@ -198,3 +198,8 @@ Matched Node profiles validate 200 complete applications per run with unchanged 
 Fresh five-sample whole-process feature diagnostics also pass complete observation checks: removal readers TS 84.340281 ms / JS 19.083537 ms / Native 4.581654 ms; Local TS state-adapter 121.335348 ms / JS 20.410461 ms / Native 4.879656 ms; schedules TS 90.409195 ms / JS 18.681785 ms / Native 4.622696 ms. Receipts and full outputs are retained under the respective `evidence/indexed-core-timing/` directories. These small startup/output-inclusive diagnostics have no historical Bend baseline and do not establish hot-path performance or a statistical speedup.
 
 The #31 main event trace's five complete observations per backend pass at 65,535 inputs: medians TS 94.611475 ms / JS 78.431873 ms / Native 44.647617 ms. `public-event-readers/evidence/indexed-core-timing-v2/` retains the passing receipt/full outputs. The initial diagnostic omitted the required count argument and JS refused before executing work; its ERROR receipt and prior partial TS outputs remain separate. Late-registration and disposal observations remain in the current semantic gate, not this main-trace timing scope.
+
+
+## Delivery checkpoint
+
+Commit [bfb4360d](https://github.com/dearlordylord/bendvy/commit/bfb4360d) is pushed to master. #29/#31/#32/#33/#36 are closed after English governing-issue completion reports with direct semantic, timing, review and default regression evidence. Experimental #30 source and all failed gates remain explicitly experimental; #30 is open and its performance acceptance is not waived. The full six-ticket objective remains incomplete.

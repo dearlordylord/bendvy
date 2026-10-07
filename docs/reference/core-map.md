@@ -132,20 +132,20 @@ The user approved publication on 2026-10-06 after Astra review. See the
 
 | Issue | Vertical slice | Current status / dependency |
 | --- | --- | --- |
-| #29 | Public query cardinality and exact entity lookup | Implemented; fresh root JS/Native replay and Spec review pass on shared-live closure; final common-source gate/delivery pending |
+| #29 | Public query cardinality and exact entity lookup | Closed; delivered on master in [bfb4360d](https://github.com/dearlordylord/bendvy/commit/bfb4360d), with fresh semantic/timing evidence and independent review |
 | #30 | Public Compose on exact optimized owned storage | Indexed ordinary/prepared/capture and full application controls pass; default paired gate passes, selected prepared JS gate fails; reviewed array projection optimization is being integrated |
-| #31 | Registered event readers, retention and lag | Implemented; fresh root JS/Native replay and Spec review pass on shared-live closure; final common-source gate/delivery pending |
-| #32 | Registered removal/despawn readers | Implemented; fresh root JS/Native replay and Spec review pass on shared-live closure; final common-source gate/delivery pending |
-| #33 | Basic deterministic phases/conditions/barriers | Implemented; fresh root JS/Native replay and Spec review pass on shared-live closure; final common-source gate/delivery pending |
-| #34 | Nested schedules and checked requirement unions | Waiting for #33 delivery |
-| #35 | Transactional reader visibility in schedules | Waiting for #31/#32/#33 delivery |
-| #36 | Per-system affine Local lifetime/retry/disposal | Policy explicitly confirmed; source review and fresh root JS/Native replay pass; final shared-source delivery pending |
+| #31 | Registered event readers, retention and lag | Closed; delivered on master in [bfb4360d](https://github.com/dearlordylord/bendvy/commit/bfb4360d), with fresh semantic/timing evidence and independent review |
+| #32 | Registered removal/despawn readers | Closed; delivered on master in [bfb4360d](https://github.com/dearlordylord/bendvy/commit/bfb4360d), with fresh semantic/timing evidence and independent review |
+| #33 | Basic deterministic phases/conditions/barriers | Closed; delivered on master in [bfb4360d](https://github.com/dearlordylord/bendvy/commit/bfb4360d), with fresh semantic/timing evidence and independent review |
+| #34 | Nested schedules and checked requirement unions | Prerequisite #33 delivered; not started |
+| #35 | Transactional reader visibility in schedules | Prerequisites #31/#32/#33 delivered; not started |
+| #36 | Per-system affine Local lifetime/retry/disposal | Closed; delivered on master in [bfb4360d](https://github.com/dearlordylord/bendvy/commit/bfb4360d), with fresh semantic/timing evidence and independent review |
 
-All six active slices remain **in progress**. Fresh current-core semantic, negative and mutation replays pass for #29/#31/#32/#33/#36. Indexed storage passes complete ordinary/prepared/capture controls, 2,430 capture pairs per backend, and the 23-checkpoint Workshop/14-pair transaction gate. The unchanged default paired gate passes (JS 0.996465; Native 0.999347). Selected prepared-provider JS fails (1.297299, confirmed); Native 1.021101 is unconfirmed. Neither the passing default route nor the large-world metadata microbenchmarks substitutes for selected-provider acceptance.
+Five bounded feature slices (#29/#31/#32/#33/#36) are **delivered and closed**; #30 remains **in progress**. Fresh current-core semantic, negative and mutation replays pass for #29/#31/#32/#33/#36. Indexed storage passes complete ordinary/prepared/capture controls, 2,430 capture pairs per backend, and the 23-checkpoint Workshop/14-pair transaction gate. The unchanged default paired gate passes (JS 0.996465; Native 0.999347). Latest selected prepared-provider JS fails (1.297879, confirmed); Native 0.984415 has no confirmed slowdown. Neither the passing default route nor the large-world metadata microbenchmarks substitutes for selected-provider acceptance.
 
 Dense 1,024-entity metadata diagnostics improve versus the previous Bend list implementation by about 5.00× JS and 8.34× Native. Sparse/high-water 64-entity Native is about 10% slower, with more sampled allocation. Complete dense/mixed cohorts and earlier failures are retained. These are metadata diagnostics, not TS comparisons or application qualification. Matched application profiles instead identify structural scalar-array projection as a remaining cost; its reviewed equivalent indexed prototype is being integrated before another unchanged gate. Historical Plan/Frame/capability experiments and failed gates remain in the ledger. No bounded allowance or baseline update is selected.
 
-Final source-current consumer controls, feature timings, reviews, commit/push and English issue reports remain required. [Acceptance ledger](../reports/parity-frontier-implementation.md).
+The five feature slices have source-current consumer controls, timings, reviews, commit/push and English completion reports. #30 still requires its passing selected-provider gate and final delivery. [Acceptance ledger](../reports/parity-frontier-implementation.md).
 
 Existing #21/#23/#24 retain optimization/qualification responsibility; feature
 slices do not duplicate those tasks or blanket-block independent feature work on
