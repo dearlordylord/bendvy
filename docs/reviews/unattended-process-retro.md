@@ -44,3 +44,34 @@ omission, so repair that runner before Native rather than inventing another
 execution framework. Preserve failed freezes and scope the repair to the runner.
 After #34/#39 delivery, reuse their executor for #48/#40 respectively; do not
 create additional concurrent fronts while existing executors remain occupied.
+
+## Repeated runner defects — 2026-10-07
+
+#40 and #42 repeated missing immutable-log guards after the earlier correction.
+#40's repaired guard then caught a duplicate command label before Native work.
+The remaining defect is reuse of a legacy harness whose generated-file guard
+does not cover command logs, rather than unavailable instructions.
+
+For new runners, `scripts/receipt-logs.py` supplies prospective label uniqueness,
+raw-byte recording, overwrite refusal and exact log membership/hash guards.
+Bind that helper in the task receipt and call its guard alongside source/stage/
+tool checks before and after every command. Plan all labels, including inherited
+backend labels, before executing. This helper executes no child and establishes
+no source, supervisor, oracle, negative-span or mutation coverage by itself.
+Frozen runners retain their reviewed task-local guards; migrating them solely
+for consistency would invalidate evidence without improving their subjects.
+
+Four deterministic controls reproduce duplicate labels, overwritten/deleted/
+extra logs, channel corruption and unplanned captures. The tracked local
+`.githooks/pre-commit` runs these controls, the existing statistical controls and
+source whitespace checks; raw evidence bytes are preserved. This checkout had
+no active pre-commit hook or CI workflow. The local hook is enabled through
+`core.hooksPath=.githooks`; other clones opt in using that same Git setting.
+CI performance qualification remains separate; no noisy shared runner is
+silently accepted as the paired performance environment.
+
+#40's next failure was semantic: its fixture combined bootstrap/update into one
+schedule with repeated registration IDs. The actual emitted JS checkpoint
+rejected this before Native. Preserve that failure and run the two phases with
+their returned owners, matching the actual TS phase sequence. Generic labels
+and guards cannot replace a complete executable application oracle.
