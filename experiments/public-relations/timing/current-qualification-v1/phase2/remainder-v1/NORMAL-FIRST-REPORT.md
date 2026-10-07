@@ -1,0 +1,13 @@
+# First missing normal-family control
+
+Fanout256/span1/seed0 passed actual TS, retained standalone JS and current-source Native. All three outputs are exactly the independent full30 oracle SHA `30c17d77030a09661e4d08df2925ab29fd67e6b6feb9876e591fe7b134cf38a7`; all Begin/full-forcing/completion records match. No performance comparison was measured. Each subject completed its fixed5s cap; durations were not stored as timing evidence.
+
+Actual plan `ec9f749a67b8ed0c31b66810f084cff72c27b8026f03720e351185ffecdecf9b`, receipt `649ac7a9b16761ca245d9fa1fbd1f477d68d34771c7fd307c37ce0a44e7d43f8`, local `.artifacts/relations-normal-first-1791414087998466835`. Five preparation and35 execution ordinary owned probes passed. No emission or compilation occurred.
+
+Actual TS reference selection is bound to the phase2 delivery manifest and the installed pinned33-file core import root. Reused JS is the exact historical artifact5d5bf988 with40 unchanged sources plus the approved archived eight-EOF-LF join; this does not relabel historical JS bytes as current-byte compilation. Native binary3dc7dcf7 joins the exact current41-source closure. Actual historical private environments, raw receipts/logs, tool/config/stage states and artifacts were guarded, together with a fresh explicit private environment and owned tool snapshot. Mainproduction capability drafts outside this immutable closure were not adopted.
+
+The initial28e source-only proposal lacked some historical environment/log/composition pins; its exact wrapper/binding remain under normal-first-review-history/28e90875. Corrected preparation bindingbf4a9036 was reviewed before preparation; actualec9f plan was reviewed before execution. Wrapper owns the shared heavy flock; invoke without an external flock.
+
+`normal-first-evidence-v1/verify.py` reconciles full source/oracle/raw/probe/history/forcing/EOF joins without children. It preserves independently authored original expected bytes. Private environments, generated artifacts, installed tools/libraries and caches are excluded; portable verification is not fresh execution. Source overlay adoption remains coordinator-owned. Operation counts are frozen from the independent authored model and source-qualified actual fixtures; no separate runtime-counter instrumentation was added.
+
+Remaining seven inputs (fanout spans16/128, depth spans1/16/128, population1024 seed0 and wrap-crossing seed4294966000) and forcing refusal/last-leaf/moved-walk variants are not qualified. Each remaining input needs actual TS/retainedJS/Native full30 comparisons, split into separately admitted groups. No timing or automatic emission/compile fallback is authorized.
