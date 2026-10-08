@@ -1,0 +1,49 @@
+{
+  "scope": "Source-only failed callback/nonempty retained batch cleanup; existingcontracts only, no executable credit",
+  "sources": {
+    "model.py": "a55035b20f311681eb071ff5669c8a2380bd659fda08d5bd55e07c890f0d65bc",
+    "expected.json": "e84c2dfb3c3cf133ada1971295e0d90fad07dddf5f56cc94b15321cb442e5dc2",
+    "validate.py": "c9bb2476b9f974d458b5dff450fd746b6142ac74fb1be5166ecbdd32a5b3c28e",
+    "caller.bend": "30bfbb636666c8f32a8b5c6c32056c2a9168a3c0c1f827832e5e7e4467cc192d",
+    "caller-core.bend": "56f7d910d78bb63fb8b449a48f8923139157feebeb49d07d0a510ae97eff018c"
+  },
+  "baselineHelpers": {
+    "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend": "b1504cfced8f59acaa01d8b3d2b76ce4fa613c46ceebc86e9dfc16a21de787c1"
+  },
+  "independentOracleBeforeOutputs": true,
+  "worldRows": 32,
+  "instanceRecords": 16,
+  "schemaCount": 2,
+  "distinctSameWorldReaderIDs": [
+    5,
+    6
+  ],
+  "operationOrder": [
+    "seeded",
+    "published",
+    "two-same-world-readers",
+    "reader-failed",
+    "foreign-disposal-rejected",
+    "first-owned-cleanup",
+    "same-world-survivor-read",
+    "survivor-owned-cleanup"
+  ],
+  "quantityOwners": "ActualreturnedSys.registry+twoStream.Reader caps; first owner moves foreignrefusal\u2192localaccepteddisposal, distinctsameworld survivor retained",
+  "notCovered": "No Local/newcapture/affineArgs/ownedEvents/laterkey/FIFOadoption/proof/performance contract",
+  "sourceAuthority": [
+    "readers.bend:31-34,61-74,100-110",
+    "system.bend:104-115",
+    "qualifiedcleanup adapter acceptedonly St.dispose"
+  ],
+  "sourceCollectorSHA256": "f88c47171601eb51e7c25edef32d0341de00b8e3dd74b5bfcac012e39fa809d9",
+  "failurePayload": "Actual R.Failure Some{Delivery} Data views; original nonempty transition Batch stays in owning world stream, no new owned-batch contract",
+  "inventoryAssociation": "Qualified immutable normalJS90 stage +2 additive caller files=92, no oldruntimecredittransfer; root/src bytes unchanged",
+  "developmentRepair": {
+    "oldSHA256": "ac01e41dc89f9cb61706e49733f03cc48f5caccb5212125fd97aa688624ec259",
+    "newSHA256": "56f7d910d78bb63fb8b449a48f8923139157feebeb49d07d0a510ae97eff018c",
+    "diff": "Two comma separators between F.Observed constructor and tuple patterns; no body/model/oraclechange",
+    "failedPlanSHA256": "e9b708dae3ea91ab0b460a036484bfd19927497e112e1ac7c6de33a01d0194ba",
+    "failedReceiptSHA256": "9e50c77b8f0c9f233580bbc7d58e7c89bec1e8e2594a74f029871b35799c0aff"
+  },
+  "unexecutedRepairPlanSHA256": "3665a1f2e8c55e2fa91bc7c9fc53927e7654484398cd58576e40529ebdcbf88d"
+}
