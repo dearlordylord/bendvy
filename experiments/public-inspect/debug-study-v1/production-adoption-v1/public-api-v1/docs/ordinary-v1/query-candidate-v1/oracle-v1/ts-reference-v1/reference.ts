@@ -6,7 +6,7 @@ function scene(category:string) {
  const descriptor=(name:string)=>category==='plain'?Descriptor.Component<number[]>()(name):category==='transient'?Descriptor.TransientComponent<number[]>()(name):Descriptor.ConstructedComponent(Decode.array(Decode.integer))(name);
  const Position=descriptor('Position'),Velocity=descriptor('Velocity'),Health=descriptor('Health');
  const G=Schema.bind(Schema.fragment({components:{Position,Velocity,Health},resources:{},events:{},relations:{}}));
- const runtime=G.Runtime.make({debug:true});
+ const runtime=G.Runtime.make({debug:true,services:G.Runtime.services()});
  let fail=false;let attempts:any[]=[];
  const selection={position:G.Query.read(Position),velocity:G.Query.write(Velocity),health:G.Query.optional(Health)};
  const queries=[G.Query({selection}),G.Query({selection,filters:[G.Query.added(Position)]}),G.Query({selection,filters:[G.Query.changed(Position)]}),G.Query({selection,without:[Health]}),G.Query({selection,with:[Health]})];
@@ -40,7 +40,7 @@ function scene(category:string) {
  const before=copy(runtime.debug.dump());
  observe('app-enabled-descriptions',{kind:'describe'},[runtime.debug.describe(),runtime.debug.describe()]);
  assert.deepEqual(runtime.debug.dump(),before);
- const disabled=G.Runtime.make({debug:false});
+ const disabled=G.Runtime.make({debug:false,services:G.Runtime.services()});
  observe('app-disabled-description',{kind:'disabledRuntime',hasDebug:'debug' in disabled},[]);
  observe('foreign-registration-refusal',{kind:'notExpressible',reason:'No public nominal World/System registration refusal API'},[]);
  return {category,phases};

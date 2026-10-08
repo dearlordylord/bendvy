@@ -23,3 +23,21 @@ Internal queries.ts required read/write slots include Position and Velocity; opt
 Internal debug.ts describes named Update only; seed and replacePosition are not named schedule members. Placements Update#0..4 are retained. Position and Health have all five readers, Velocity has all five readers/writers: write slots also enter the public read index. Set insertion removes repeated Health/Position metadata reads. The sole lint is component-never-read Velocity with the exact independently recorded message; no read-before-write lint applies because every Velocity reader is also a writer, and no event/machine lints apply. Schedule barrier remains applyDeferred; no invented Phase marker. All other public Description fields and empty collections are preserved.
 
 This audit used source only. No Node child or observed report was consulted, and no expected observation changed.
+
+## First actual attempt and focused repair
+
+Attempt-1 executed Node and failed before emitting a complete report: describe
+called Object.keys on omitted services (Runtime.ts:1978). Its raw streams and
+INCOMPLETE receipt are retained. The fixture now supplies the ordinary empty
+G.Runtime.services() pack in both runtimes, as existing debug fixtures do. No
+expected observation, workload or upstream source changed. This is fixture
+configuration repair, not an ECS implementation or comparator change.
+
+## Actual repaired reference
+
+Attempt-2 is DEVELOPMENT_PASS: the complete three-category, fifteen-phase public
+report matches the unchanged independent oracle with type-sensitive comparison.
+Raw stdout SHA256 `b57468aac93e65db22f1cdf49cee90341e5bcf6e74bff64b473a9e27894be627`, 48693 bytes;
+stderr is empty. The exact original/staged source, import-only rewrite, tools,
+configuration and environment joins passed at acquisition and after execution.
+Attempt-1 remains failed. No Bend runtime, #56 closure or performance follows.
