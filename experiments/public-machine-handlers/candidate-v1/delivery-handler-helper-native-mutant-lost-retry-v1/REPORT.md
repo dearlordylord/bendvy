@@ -1,0 +1,7 @@
+# #49 staged helpers: lost-retry Native mutation
+
+Fresh actual lost-retry runs retain the original full-A emission timeout as inconclusive. Narrowing changes only the driver partition: first exit-A16+2, remaining transition/enter-A32+4, then exit/transition/enter-B48+6. Source5/emit30/Clang120/run5 caps are unchanged; first emitted C is reused for its two-subject compile/runtime stage. Source checks provide typing, not mathematical validity.
+
+The diagnostic passed2 subjects/25 ordinary probes; first runtime passed2/25, remaining-A8/85 and B12/125. A separate read/hash-only reconciliation joins every current-source inventory, actual raw output, generated hash, configuration, environment and probe ledger. The six original16+2 subsets concatenate all24 observations,96 physical checkpoints and12 refusals, exactly matching the unchanged fresh JS independent model. No old C or old semantic kills transfer.
+
+The old full-A timeout, initially unexecuted diagnostic plan, and zero-child lock refusal are preserved. The later queue shim changes only blocking flock acquisition; actual runner/plan bytes are unchanged. Generic frozen runner prose85/205 is stale; actual A/B probe counts85/125 above are authoritative. Finite refusal metadata equivalence does not assert predicate/owner type identity. Private environments, binaries and installed dependencies are excluded from portable archives; their historical hashes remain. No proof, performance, two-helper root adoption or issue closure is claimed.
