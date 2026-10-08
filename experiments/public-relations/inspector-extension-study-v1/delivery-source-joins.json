@@ -1,0 +1,178 @@
+{
+  "scope": "Exact current source delivery/import closure; trusted fixture provider/ID truth, no core adoption. Independent oracles predate candidate output.",
+  "draftSources": {
+    "machine-current-adapter.bend": "b75a6143de61176bcee4bb9a5ac208c82fc08a9f688116fb9ced3bf599647dc9",
+    "machine-check-adapter.bend": "203c5b5780bd697c5590c2fad2dec88d595d5b4996b474e4073dbe75bca1177b",
+    "machine-requirements.bend": "9d7385c4b73f01954108a883c2b807ec4ce1a0d014d86ed5305ddb8258f90266",
+    "fixture-state.bend": "3ea59813a0c6f243580b4bb66064497339a9b6db786b981c3522ac75a87bdc68",
+    "fixture-consumer.bend": "a71dc35f9d64d344e932d7fce890b332924dc7b64e8af01b212a75606205a849",
+    "fixture-registration.bend": "861f8479eff4a39d46db1c2f8b453e23e477b6d5ad38ed3b0d1831c732b76c65",
+    "fixture-operations.bend": "bd13b0ea0cfab72ac25f4a90eefa0e098e1fba13950dcffed69f4635921d13bc",
+    "fixture-driver.bend": "1bb25f2f5a145173377ed8e8f45f291c612dc20b83fc5eed2cbfc2ece9e8f27c",
+    "fixture-missing.bend": "f95ac2b1bffadc1362fb01d39f328a0853bf1039fba0b11a9856e63feaff6bcf",
+    "fixture-dump.bend": "5eaf4f5636eba062de79f08c5e09d3bc468cc18deaf68883708f601422055a28",
+    "format-output.bend": "fd8de5c305ce1489ac19d574b9995dcdc35eaa62b8c61bf85f1e0962fd213688",
+    "check-observations.bend": "5021b1f29d8ed64f758a24f6bc13d7447cff9d60164a312fb8674f5c7d41650a",
+    "metadata-controls-v2.bend": "20b4932e7fe11c8080977143deb8afb8e89fb1987c69ccdcbd7e48d3ca3f2807",
+    "check-output-v2.bend": "a268bf43101019d451a74cb1cf8c207a593d45df02136b63c1b6fba7c4991bda",
+    "boundary-io.bend": "5552b525c3d1d15ba686077702f046638e9cab4fa89707a84f80e9eebfd79a09"
+  },
+  "rootJoins": [
+    {
+      "copy": "root-source/capabilities.bend",
+      "copySHA256": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+      "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend",
+      "rootSHA256": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+      "byteExact": true
+    },
+    {
+      "copy": "root-source/column.bend",
+      "copySHA256": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+      "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/column.bend",
+      "rootSHA256": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+      "byteExact": true
+    },
+    {
+      "copy": "root-source/component.bend",
+      "copySHA256": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+      "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/component.bend",
+      "rootSHA256": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+      "byteExact": true
+    },
+    {
+      "copy": "root-source/event-runtime.bend",
+      "copySHA256": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+      "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend",
+      "rootSHA256": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+      "byteExact": true
+    },
+    {
+      "copy": "root-source/indexed-lifecycle.bend",
+      "copySHA256": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+      "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/indexed-lifecycle.bend",
+      "rootSHA256": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+      "byteExact": true
+    },
+    {
+      "copy": "root-source/inspector-metadata.bend",
+      "copySHA256": "a2c715edcfefff6f3f5abcd84e5293c7ebf29521708f2298fe90bff36b96ad4a",
+      "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/inspector-metadata.bend",
+      "rootSHA256": "a2c715edcfefff6f3f5abcd84e5293c7ebf29521708f2298fe90bff36b96ad4a",
+      "byteExact": true
+    },
+    {
+      "copy": "root-source/inspector.bend",
+      "copySHA256": "31302fa8b9f68c560e744f613948613218c5ef1f4564c4236c5655a6bf2ab597",
+      "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/inspector.bend",
+      "rootSHA256": "31302fa8b9f68c560e744f613948613218c5ef1f4564c4236c5655a6bf2ab597",
+      "byteExact": true
+    },
+    {
+      "copy": "root-source/lifecycle.bend",
+      "copySHA256": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+      "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend",
+      "rootSHA256": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+      "byteExact": true
+    },
+    {
+      "copy": "root-source/machine-stream.bend",
+      "copySHA256": "c47ff38671eb67b4369311408c81a2ef388ed971923419625c36f92219eb0fe4",
+      "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend",
+      "rootSHA256": "c47ff38671eb67b4369311408c81a2ef388ed971923419625c36f92219eb0fe4",
+      "byteExact": true
+    },
+    {
+      "copy": "root-source/machine-world.bend",
+      "copySHA256": "8b8610e7ae42eea066639b5cb970a2885dd2fa14024efedef9fbc28dd6ba1816",
+      "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/machine-world.bend",
+      "rootSHA256": "8b8610e7ae42eea066639b5cb970a2885dd2fa14024efedef9fbc28dd6ba1816",
+      "byteExact": true
+    },
+    {
+      "copy": "root-source/machine.bend",
+      "copySHA256": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed",
+      "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend",
+      "rootSHA256": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed",
+      "byteExact": true
+    },
+    {
+      "copy": "root-source/owner-handoff.bend",
+      "copySHA256": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+      "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/owner-handoff.bend",
+      "rootSHA256": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+      "byteExact": true
+    },
+    {
+      "copy": "root-source/registration.bend",
+      "copySHA256": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+      "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/registration.bend",
+      "rootSHA256": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+      "byteExact": true
+    },
+    {
+      "copy": "root-source/schedule-provision.bend",
+      "copySHA256": "45d8b7d2c11d9fe28a6ee2a4cd460bad2b8591dbc8546daa68ae29d66d3979e9",
+      "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/schedule-provision.bend",
+      "rootSHA256": "45d8b7d2c11d9fe28a6ee2a4cd460bad2b8591dbc8546daa68ae29d66d3979e9",
+      "byteExact": true
+    },
+    {
+      "copy": "root-source/schedule.bend",
+      "copySHA256": "e7c1f18bcb27ba6b5d6c7de88e81d0fe41c000b8d16fcd4d500d72655de86da3",
+      "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/schedule.bend",
+      "rootSHA256": "e7c1f18bcb27ba6b5d6c7de88e81d0fe41c000b8d16fcd4d500d72655de86da3",
+      "byteExact": true
+    },
+    {
+      "copy": "root-source/string-equality.bend",
+      "copySHA256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+      "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/string-equality.bend",
+      "rootSHA256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+      "byteExact": true
+    },
+    {
+      "copy": "root-source/system.bend",
+      "copySHA256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+      "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/system.bend",
+      "rootSHA256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+      "byteExact": true
+    },
+    {
+      "copy": "root-source/transaction.bend",
+      "copySHA256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+      "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+      "rootSHA256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+      "byteExact": true
+    },
+    {
+      "copy": "root-source/world.bend",
+      "copySHA256": "a20b0f2363dab12b73109354ebddf5c9126d3e786031cf9232a0c68c5ffc3b5c",
+      "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+      "rootSHA256": "a20b0f2363dab12b73109354ebddf5c9126d3e786031cf9232a0c68c5ffc3b5c",
+      "byteExact": true
+    }
+  ],
+  "oracles": {
+    "expected-public.json": "f986f607c5171493f19284734fa187322358f07f680d88f423821e890cc0ff42",
+    "expected-bend-worlds.json": "30a88c63449b8182fd9c08445ab9ad4b3bc548568c40b7bbed6b6cb35e12709f",
+    "expected-metadata.json": "5920b3ab34ab00e185f2f68bd7891c340b1dea82c28db7b450d1f212d1bffe93",
+    "expected-check-boundaries.json": "3f1456f4b26e204690ef79df83c7d417f1af2ba41e97e3b227fcd6eda2a3e5c5"
+  },
+  "historicalJSONSources": "Original metadata-controls.bend/check-output.bend remain immutable archive source; v2 siblings change only explicit lowercase Bool JSON rendering.",
+  "APIconstraints": [
+    "Machine requirement metadata injective schema-local id\u2192K mapping trusted; nominal K preserved in grants, names descriptive",
+    "Separate cursor-free Check.Context, no Inspector.Frame/Instance cursor reuse",
+    "Resource/Machine facade only; unchanged legacy Resource API order/constructors",
+    "Missing ordered preflight retains World/Instance/args, zero callbacks/ticks",
+    "Actual machine marker transition publications retained; no retention/handler policy selected"
+  ],
+  "knownGaps": [
+    "Streamed machines/transitions/relation failures and general query categories not implemented here",
+    "Public machine declaration/metadata normalization/root integration still coordinator-owned",
+    "Source confinement negatives/reached semantic mutants/emittedJS/Native delivery gate remain",
+    "TS supplemental check public snapshots unexecuted; private TS cursor unavailable",
+    "DirectCheck observations separately invoked, not instrumentation of Sch.run callback",
+    "Bend arbitrary Store cells differ TS component entity; no equal-operation/performance claim",
+    "Whole pending closure identity not covered (closed snapshots have pending count0)"
+  ]
+}

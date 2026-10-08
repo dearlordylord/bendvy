@@ -1,0 +1,112 @@
+{
+  "format": 1,
+  "application": "InspectorMachineMetadata",
+  "schemas": [
+    {
+      "schema": "Workshop",
+      "canonicalMachines": [
+        {
+          "token": "FlowToken",
+          "id": 1
+        },
+        {
+          "token": "LevelToken",
+          "id": 2
+        }
+      ],
+      "sameResourceMachineId": false,
+      "sameMachineId": true,
+      "differentMachineId": false,
+      "missingWhenOnlyFlowProvided": [
+        {
+          "kind": "Machine",
+          "id": 2,
+          "name": "Workshop/Level"
+        }
+      ],
+      "missingAllDeclarationOrder": [
+        {
+          "kind": "Machine",
+          "id": 2,
+          "name": "Workshop/Level"
+        },
+        {
+          "kind": "Resource",
+          "id": 1,
+          "name": "Workshop/Owned"
+        },
+        {
+          "kind": "Machine",
+          "id": 1,
+          "name": "Workshop/Flow"
+        }
+      ],
+      "missingBodies": 0,
+      "argsPreserved": [
+        91,
+        19
+      ],
+      "ownerCellsPreserved": [
+        7,
+        17
+      ],
+      "ownerResourcePreserved": [
+        3,
+        13
+      ]
+    },
+    {
+      "schema": "Garden",
+      "canonicalMachines": [
+        {
+          "token": "FlowToken",
+          "id": 1
+        },
+        {
+          "token": "LevelToken",
+          "id": 2
+        }
+      ],
+      "sameResourceMachineId": false,
+      "sameMachineId": true,
+      "differentMachineId": false,
+      "missingWhenOnlyFlowProvided": [
+        {
+          "kind": "Machine",
+          "id": 2,
+          "name": "Garden/Level"
+        }
+      ],
+      "missingAllDeclarationOrder": [
+        {
+          "kind": "Machine",
+          "id": 2,
+          "name": "Garden/Level"
+        },
+        {
+          "kind": "Resource",
+          "id": 1,
+          "name": "Garden/Owned"
+        },
+        {
+          "kind": "Machine",
+          "id": 1,
+          "name": "Garden/Flow"
+        }
+      ],
+      "missingBodies": 0,
+      "argsPreserved": [
+        91,
+        19
+      ],
+      "ownerCellsPreserved": [
+        7,
+        17
+      ],
+      "ownerResourcePreserved": [
+        3,
+        13
+      ]
+    }
+  ]
+}

@@ -1,0 +1,241 @@
+{
+  "format": 1,
+  "application": "InspectorCommittedMachinesBoundary",
+  "records": [
+    {
+      "schema": "Workshop",
+      "label": "initial",
+      "current": [
+        0,
+        10
+      ],
+      "inspections": 1,
+      "world": "world(1,1,0,L(False),1,0,N(L(7),L(17)),N(L(3),L(13));slot(0,none,none,False);slot(10,none,none,False);ran=0;stream([],[],0,0);stream([],[],0,0),events=[],pending=0,regs=[1:InspectorMachineBody:[]],nextSystem=2,clock=1)",
+      "inspector": "1:0",
+      "system": "1:1:InspectorMachineBody:[]:0"
+    },
+    {
+      "schema": "Workshop",
+      "label": "repeat",
+      "current": [
+        0,
+        10
+      ],
+      "inspections": 2,
+      "world": "world(1,1,0,L(False),1,0,N(L(7),L(17)),N(L(3),L(13));slot(0,none,none,False);slot(10,none,none,False);ran=0;stream([],[],0,0);stream([],[],0,0),events=[],pending=0,regs=[1:InspectorMachineBody:[]],nextSystem=2,clock=2)",
+      "inspector": "2:0",
+      "system": "1:1:InspectorMachineBody:[]:0"
+    },
+    {
+      "schema": "Workshop",
+      "label": "queued",
+      "current": [
+        0,
+        10
+      ],
+      "inspections": 3,
+      "world": "world(1,1,0,L(False),1,0,N(L(7),L(17)),N(L(3),L(13));slot(0,next(1,False),none,False);slot(10,next(11,False),none,False);ran=0;stream([],[],0,0);stream([],[],0,0),events=[],pending=0,regs=[1:InspectorMachineBody:[]],nextSystem=2,clock=3)",
+      "inspector": "3:0",
+      "system": "1:1:InspectorMachineBody:[]:0"
+    },
+    {
+      "schema": "Workshop",
+      "label": "structural-barrier",
+      "current": [
+        0,
+        10
+      ],
+      "inspections": 4,
+      "world": "world(1,1,0,L(False),1,0,N(L(7),L(17)),N(L(3),L(13));slot(0,next(1,False),none,False);slot(10,next(11,False),none,False);ran=0;stream([],[],0,0);stream([],[],0,0),events=[],pending=0,regs=[1:InspectorMachineBody:[]],nextSystem=2,clock=4)",
+      "inspector": "4:0",
+      "system": "1:1:InspectorMachineBody:[]:0"
+    },
+    {
+      "schema": "Workshop",
+      "label": "marker",
+      "current": [
+        1,
+        11
+      ],
+      "inspections": 5,
+      "world": "world(1,1,0,L(False),1,0,N(L(7),L(17)),N(L(3),L(13));slot(1,none,0,True);slot(11,none,10,True);ran=0;stream([5:[0>1]],[],0,0);stream([6:[10>11]],[],0,0),events=[],pending=0,regs=[1:InspectorMachineBody:[]],nextSystem=2,clock=7)",
+      "inspector": "7:0",
+      "system": "1:1:InspectorMachineBody:[]:0"
+    },
+    {
+      "schema": "Workshop",
+      "label": "check-false",
+      "current": [
+        1,
+        11
+      ],
+      "inspections": 5,
+      "world": "world(1,1,0,L(False),1,0,N(L(7),L(17)),N(L(3),L(13));slot(1,none,0,True);slot(11,none,10,True);ran=0;stream([5:[0>1]],[],0,0);stream([6:[10>11]],[],0,0),events=[],pending=0,regs=[1:InspectorMachineBody:[]],nextSystem=2,clock=7)",
+      "inspector": "7:0",
+      "system": "1:1:InspectorMachineBody:[]:0"
+    },
+    {
+      "schema": "Workshop",
+      "label": "check-true",
+      "current": [
+        1,
+        11
+      ],
+      "inspections": 5,
+      "world": "world(1,1,0,L(False),1,0,N(L(7),L(17)),N(L(3),L(13));slot(1,none,0,True);slot(11,none,10,True);ran=1;stream([5:[0>1]],[],0,0);stream([6:[10>11]],[],0,0),events=[],pending=0,regs=[1:InspectorMachineBody:[]],nextSystem=2,clock=7)",
+      "inspector": "7:0",
+      "system": "1:1:InspectorMachineBody:[]:0"
+    },
+    {
+      "schema": "Workshop",
+      "label": "failed-next-rollback",
+      "current": [
+        1,
+        11
+      ],
+      "inspections": 6,
+      "world": "world(1,1,0,L(False),1,0,N(L(7),L(17)),N(L(3),L(13));slot(1,none,0,True);slot(11,none,10,True);ran=1;stream([5:[0>1]],[],0,0);stream([6:[10>11]],[],0,0),events=[],pending=0,regs=[1:InspectorMachineBody:[]],nextSystem=2,clock=8)",
+      "inspector": "8:0",
+      "system": "1:1:InspectorMachineBody:[]:0"
+    },
+    {
+      "schema": "Garden",
+      "label": "initial",
+      "current": [
+        0,
+        10
+      ],
+      "inspections": 1,
+      "world": "world(1,1,0,L(False),1,0,N(L(7),L(17)),N(L(3),L(13));slot(0,none,none,False);slot(10,none,none,False);ran=0;stream([],[],0,0);stream([],[],0,0),events=[],pending=0,regs=[1:InspectorMachineBody:[]],nextSystem=2,clock=1)",
+      "inspector": "1:0",
+      "system": "1:1:InspectorMachineBody:[]:0"
+    },
+    {
+      "schema": "Garden",
+      "label": "repeat",
+      "current": [
+        0,
+        10
+      ],
+      "inspections": 2,
+      "world": "world(1,1,0,L(False),1,0,N(L(7),L(17)),N(L(3),L(13));slot(0,none,none,False);slot(10,none,none,False);ran=0;stream([],[],0,0);stream([],[],0,0),events=[],pending=0,regs=[1:InspectorMachineBody:[]],nextSystem=2,clock=2)",
+      "inspector": "2:0",
+      "system": "1:1:InspectorMachineBody:[]:0"
+    },
+    {
+      "schema": "Garden",
+      "label": "queued",
+      "current": [
+        0,
+        10
+      ],
+      "inspections": 3,
+      "world": "world(1,1,0,L(False),1,0,N(L(7),L(17)),N(L(3),L(13));slot(0,next(1,False),none,False);slot(10,next(11,False),none,False);ran=0;stream([],[],0,0);stream([],[],0,0),events=[],pending=0,regs=[1:InspectorMachineBody:[]],nextSystem=2,clock=3)",
+      "inspector": "3:0",
+      "system": "1:1:InspectorMachineBody:[]:0"
+    },
+    {
+      "schema": "Garden",
+      "label": "structural-barrier",
+      "current": [
+        0,
+        10
+      ],
+      "inspections": 4,
+      "world": "world(1,1,0,L(False),1,0,N(L(7),L(17)),N(L(3),L(13));slot(0,next(1,False),none,False);slot(10,next(11,False),none,False);ran=0;stream([],[],0,0);stream([],[],0,0),events=[],pending=0,regs=[1:InspectorMachineBody:[]],nextSystem=2,clock=4)",
+      "inspector": "4:0",
+      "system": "1:1:InspectorMachineBody:[]:0"
+    },
+    {
+      "schema": "Garden",
+      "label": "marker",
+      "current": [
+        1,
+        11
+      ],
+      "inspections": 5,
+      "world": "world(1,1,0,L(False),1,0,N(L(7),L(17)),N(L(3),L(13));slot(1,none,0,True);slot(11,none,10,True);ran=0;stream([5:[0>1]],[],0,0);stream([6:[10>11]],[],0,0),events=[],pending=0,regs=[1:InspectorMachineBody:[]],nextSystem=2,clock=7)",
+      "inspector": "7:0",
+      "system": "1:1:InspectorMachineBody:[]:0"
+    },
+    {
+      "schema": "Garden",
+      "label": "check-false",
+      "current": [
+        1,
+        11
+      ],
+      "inspections": 5,
+      "world": "world(1,1,0,L(False),1,0,N(L(7),L(17)),N(L(3),L(13));slot(1,none,0,True);slot(11,none,10,True);ran=0;stream([5:[0>1]],[],0,0);stream([6:[10>11]],[],0,0),events=[],pending=0,regs=[1:InspectorMachineBody:[]],nextSystem=2,clock=7)",
+      "inspector": "7:0",
+      "system": "1:1:InspectorMachineBody:[]:0"
+    },
+    {
+      "schema": "Garden",
+      "label": "check-true",
+      "current": [
+        1,
+        11
+      ],
+      "inspections": 5,
+      "world": "world(1,1,0,L(False),1,0,N(L(7),L(17)),N(L(3),L(13));slot(1,none,0,True);slot(11,none,10,True);ran=1;stream([5:[0>1]],[],0,0);stream([6:[10>11]],[],0,0),events=[],pending=0,regs=[1:InspectorMachineBody:[]],nextSystem=2,clock=7)",
+      "inspector": "7:0",
+      "system": "1:1:InspectorMachineBody:[]:0"
+    },
+    {
+      "schema": "Garden",
+      "label": "failed-next-rollback",
+      "current": [
+        1,
+        11
+      ],
+      "inspections": 6,
+      "world": "world(1,1,0,L(False),1,0,N(L(7),L(17)),N(L(3),L(13));slot(1,none,0,True);slot(11,none,10,True);ran=1;stream([5:[0>1]],[],0,0);stream([6:[10>11]],[],0,0),events=[],pending=0,regs=[1:InspectorMachineBody:[]],nextSystem=2,clock=8)",
+      "inspector": "8:0",
+      "system": "1:1:InspectorMachineBody:[]:0"
+    }
+  ],
+  "missing": [
+    {
+      "schema": "Workshop",
+      "world": "world(1,1,0,L(False),1,0,N(L(7),L(17)),N(L(3),L(13));slot(0,none,none,False);missing;ran=0;stream([],[],0,0);stream([],[],0,0),events=[],pending=0,regs=[],nextSystem=1,clock=0)",
+      "instance": "fresh",
+      "args": [
+        91,
+        19
+      ],
+      "missing": [
+        {
+          "kind": "Machine",
+          "id": 2,
+          "name": "Workshop/Level"
+        }
+      ],
+      "bodies": 0,
+      "result": null
+    },
+    {
+      "schema": "Garden",
+      "world": "world(1,1,0,L(False),1,0,N(L(7),L(17)),N(L(3),L(13));slot(0,none,none,False);missing;ran=0;stream([],[],0,0);stream([],[],0,0),events=[],pending=0,regs=[],nextSystem=1,clock=0)",
+      "instance": "fresh",
+      "args": [
+        91,
+        19
+      ],
+      "missing": [
+        {
+          "kind": "Machine",
+          "id": 2,
+          "name": "Garden/Level"
+        }
+      ],
+      "bodies": 0,
+      "result": null
+    }
+  ],
+  "schemaErrors": {
+    "Workshop": [],
+    "Garden": []
+  },
+  "scope": "Independent closed-fixture whole owner/metadata boundary strings before outputs; pending closures absent, count0; no reconstruction of arbitrary closures or arbitrary schema truth"
+}

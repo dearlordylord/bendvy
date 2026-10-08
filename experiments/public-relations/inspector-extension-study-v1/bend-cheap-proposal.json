@@ -1,0 +1,33 @@
+{
+  "scope": "Source-only proposal before metadata freeze and reviewer admission; no children",
+  "wrapperSHA256": "4ff0896fc3a153b78094b514e788c374cae97b37cd9403cd128f165e8487f2c8",
+  "commands": [
+    {
+      "entry": "format-output.bend",
+      "oracle": "expected-bend-worlds.json",
+      "sourceSHA256": "fd8de5c305ce1489ac19d574b9995dcdc35eaa62b8c61bf85f1e0962fd213688",
+      "oracleSHA256": "30a88c63449b8182fd9c08445ab9ad4b3bc548568c40b7bbed6b6cb35e12709f",
+      "seconds": 5
+    },
+    {
+      "entry": "metadata-controls.bend",
+      "oracle": "expected-metadata.json",
+      "sourceSHA256": "a54b8c80fa6b930ce214202f6e92f8c51cfe8c245362831860350d5da5b14ca4",
+      "oracleSHA256": "5920b3ab34ab00e185f2f68bd7891c340b1dea82c28db7b450d1f212d1bffe93",
+      "seconds": 5
+    },
+    {
+      "entry": "check-output.bend",
+      "oracle": "expected-check-boundaries.json",
+      "sourceSHA256": "443b268ab0b8794ae05e14d137a8165d4689cab72ef50c4a690572a2768d1a3b",
+      "oracleSHA256": "3f1456f4b26e204690ef79df83c7d417f1af2ba41e97e3b227fcd6eda2a3e5c5",
+      "seconds": 5
+    }
+  ],
+  "boundaryHelper": {
+    "path": "/workspace/formal-proofs/bendvy/scripts/evidence_boundary.py",
+    "SHA256": "f65bec69285b71014fd6a750146e535a0128233b926248cd92ee04afeafd0122"
+  },
+  "limits": "Pure CLI only. Original oracles authored before outputs. Actual TS18 finitePASS reused; no broad resolver discovery/backend/proof/performance/full55 claim. External coordinator holds flock.",
+  "correction": "Recursive consumed imports including actual Base; installed Bend resource bytes/membership; all consumed ancestor config names; LD/DYLD/Node injection stripping; strict JSON bool/number types. Old64fb retained unexecuted."
+}
