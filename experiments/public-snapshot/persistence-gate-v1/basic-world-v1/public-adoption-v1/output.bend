@@ -1,5 +1,5 @@
 import Base
-import ../fixture.bend as F
+import /workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/fixture.bend as F
 import ./driver.bend as Driver
 import ./format.bend as Format
 import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W

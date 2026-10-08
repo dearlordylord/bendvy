@@ -1,8 +1,8 @@
 import Base
 import ./schema.bend as Schema
 import /workspace/formal-proofs/bendvy/experiments/public-decode/typed.bend as D
-import /workspace/formal-proofs/bendvy-worktrees/parity-61-audit/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-product.bend as Product
-import /workspace/formal-proofs/bendvy-worktrees/parity-61-audit/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-schema-product.bend as Ordinary
+import /workspace/formal-proofs/bendvy/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-product.bend as Product
+import /workspace/formal-proofs/bendvy/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-schema-product.bend as Ordinary
 def joined_components(~LC:Type,~RC:Type,left:LC,fields:List<&2,D.Field>,observed:RC & List<&2,D.Field>) -> Product.Owner<LC,RC> & List<&2,D.Field>:
   match observed:
     case (right,more):(Product.Owner{left,right},List.append(&2,D.Field,fields,more))

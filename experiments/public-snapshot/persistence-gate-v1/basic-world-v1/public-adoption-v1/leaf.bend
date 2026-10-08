@@ -1,9 +1,9 @@
 import Base
 import ./declaration.bend as Decl
-import ../public-gate-v1/gate.bend as Gate
+import /workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-gate-v1/gate.bend as Gate
 import /workspace/formal-proofs/bendvy/experiments/public-decode/typed.bend as D
 import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col
-import /workspace/formal-proofs/bendvy-worktrees/parity-61-audit/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-component-declaration.bend as Canonical
+import /workspace/formal-proofs/bendvy/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-component-declaration.bend as Canonical
 
 # Ordinary leaf stores retain the recipe used for admission and export together.
 type Component<-S:Data,-P:Type,-identity:Canonical.Declaration<S,P>,-project:P -> P & D.Raw> is Type:

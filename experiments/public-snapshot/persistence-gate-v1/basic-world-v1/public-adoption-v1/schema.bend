@@ -4,9 +4,9 @@ import ./declaration.bend as Decl
 import /workspace/formal-proofs/bendvy/experiments/public-decode/typed.bend as D
 import /workspace/formal-proofs/bendvy/src/ecs/schema-fragments.bend as Fragment
 import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col
-import /workspace/formal-proofs/bendvy-worktrees/parity-61-audit/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-component-declaration.bend as Canonical
-import /workspace/formal-proofs/bendvy-worktrees/parity-61-audit/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-product.bend as Product
-import /workspace/formal-proofs/bendvy-worktrees/parity-61-audit/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-schema-product.bend as Ordinary
+import /workspace/formal-proofs/bendvy/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-component-declaration.bend as Canonical
+import /workspace/formal-proofs/bendvy/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-product.bend as Product
+import /workspace/formal-proofs/bendvy/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-schema-product.bend as Ordinary
 
 # The same schema factory derives ordinary inventory, physical product and save
 # eligibility/closed traversal. Runtime recipes live in the leaf owners.

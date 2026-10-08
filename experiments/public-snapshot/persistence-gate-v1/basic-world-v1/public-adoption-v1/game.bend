@@ -4,13 +4,13 @@ import ./leaf.bend as Leaf
 import ./schema.bend as Schema
 import ./schema-product.bend as Join
 import ./save.bend as Save
-import ../fixture.bend as F
-import ../export.bend as Export
+import /workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/fixture.bend as F
+import /workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/export.bend as Export
 import /workspace/formal-proofs/bendvy/experiments/public-decode/typed.bend as D
 import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
 import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col
-import /workspace/formal-proofs/bendvy-worktrees/parity-61-audit/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-component-declaration.bend as Canonical
-import /workspace/formal-proofs/bendvy-worktrees/parity-61-audit/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-product.bend as Product
+import /workspace/formal-proofs/bendvy/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-component-declaration.bend as Canonical
+import /workspace/formal-proofs/bendvy/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-product.bend as Product
 
 def scratch(~S:Data) -> Canonical.Declaration<S,F.Payload>:
   Canonical.component(~S,~F.Payload,"Scratch")

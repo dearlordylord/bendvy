@@ -2,8 +2,8 @@ import Base
 import ./schema.bend as Schema
 import ./leaf.bend as Leaf
 import ./save.bend as Save
-import ../fixture.bend as F
-import ../export.bend as Export
+import /workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/fixture.bend as F
+import /workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/export.bend as Export
 import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
 
 def wrong(world:W.World<F.Garden,Leaf.Component<F.Garden,F.Payload,F.declaration(~F.Garden),F.project>,Unit,Unit>) -> W.World<F.Workshop,Leaf.Component<F.Workshop,F.Payload,F.declaration(~F.Workshop),F.project>,Unit,Unit> & Export.Snapshot:

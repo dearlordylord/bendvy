@@ -1,8 +1,8 @@
 import Base
-import ../fixture.bend as F
+import /workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/fixture.bend as F
 import ./game.bend as Game
 import ./owner.bend as Owner
-import ../owner.bend as Old
+import /workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/owner.bend as Old
 import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
 
 type Observed<-S:Data> is Data:

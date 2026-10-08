@@ -3,12 +3,12 @@ import ./game.bend as Game
 import ./declaration.bend as Decl
 import ./leaf.bend as Leaf
 import ./admission.bend as Admission
-import ../fixture.bend as F
-import ../setup.bend as Old
+import /workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/fixture.bend as F
+import /workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/setup.bend as Old
 import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
 import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col
 import /workspace/formal-proofs/bendvy/experiments/public-decode/typed.bend as D
-import /workspace/formal-proofs/bendvy-worktrees/parity-61-audit/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-product.bend as Product
+import /workspace/formal-proofs/bendvy/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-product.bend as Product
 
 type Filled<-S:Data> is Type:
   ColumnReady{leaf:Game.Saved(~S)}

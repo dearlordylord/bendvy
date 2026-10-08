@@ -4,13 +4,13 @@ import ./declaration.bend as Decl
 import ./admission.bend as Admission
 import ./schema.bend as Schema
 import ./format.bend as Format
-import ../fixture.bend as F
+import /workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/fixture.bend as F
 import /workspace/formal-proofs/bendvy/experiments/public-decode/typed.bend as D
 import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col
 import /workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend as L
 import /workspace/formal-proofs/bendvy/src/ecs/schema-fragments.bend as Fragment
-import /workspace/formal-proofs/bendvy-worktrees/parity-61-audit/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-component-declaration.bend as Canonical
-import /workspace/formal-proofs/bendvy-worktrees/parity-61-audit/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-schema-product.bend as Ordinary
+import /workspace/formal-proofs/bendvy/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-component-declaration.bend as Canonical
+import /workspace/formal-proofs/bendvy/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-schema-product.bend as Ordinary
 
 def kind(value:Fragment.RegistryKind) -> String:
   match value:

@@ -2,7 +2,7 @@ import Base
 import /workspace/formal-proofs/bendvy/experiments/public-decode/typed.bend as D
 import /workspace/formal-proofs/bendvy/experiments/public-decode/public.bend as Public
 import /workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/decode.bend as Complete
-import /workspace/formal-proofs/bendvy-worktrees/parity-61-audit/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-component-declaration.bend as Canonical
+import /workspace/formal-proofs/bendvy/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-component-declaration.bend as Canonical
 
 # Extensions of ONE ordinary nominal identity, shared with ordinary query paths.
 # Schema authoring is trusted; no language-wide constructor secrecy is asserted.

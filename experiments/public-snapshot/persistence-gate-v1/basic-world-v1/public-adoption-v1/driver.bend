@@ -1,12 +1,12 @@
 import Base
-import ../fixture.bend as F
+import /workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/fixture.bend as F
 import ./game.bend as Game
 import ./leaf.bend as Leaf
 import ./declaration.bend as Decl
-import /workspace/formal-proofs/bendvy-worktrees/parity-61-audit/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-product.bend as Product
+import /workspace/formal-proofs/bendvy/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-product.bend as Product
 import ./setup.bend as Setup
 import ./consumer.bend as Consumer
-import ../export.bend as Export
+import /workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/export.bend as Export
 import ./world-owner.bend as Owner
 import ./validation.bend as Validation
 import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
