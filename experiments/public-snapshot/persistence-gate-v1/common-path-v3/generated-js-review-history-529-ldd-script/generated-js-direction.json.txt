@@ -1,0 +1,115 @@
+{
+  "scope": "Finite provider-leaf generated JS development; no Runtime.snapshot/static Gate/full58 acceptance",
+  "status": "SOURCE_DIRECTION_ONLY_NOT_EXECUTED",
+  "entry": "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-snapshot/persistence-gate-v1/common-path-v3/consumer-io.bend",
+  "oracle": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-snapshot/persistence-gate-v1/common-path-v3/expected-leaf.stdout",
+    "sha256": "f5922ca4a8a476325eb73079f93cce9dd111aff11435b23220786d1296718475",
+    "bytes": 682,
+    "rows": 12
+  },
+  "prerequisite": {
+    "plan": "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/.artifacts/snapshot58-reference-cheap-1791476540315442878/plan.json",
+    "planSHA256": "faef55f29a5aff3f9c86ac4acb5bf9ecf736e31a96d31eaf7f3a1eb3342e94cd",
+    "receipt": "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/.artifacts/snapshot58-reference-cheap-1791476540315442878/receipt.json",
+    "receiptSHA256": "81b5f744bc00ac03e8166b824a26767f1c30a3494c7a45dd2d667d633077fa38",
+    "requiredStatus": "DEVELOPMENT_PASS",
+    "rawPins": {
+      "reference.stdout": "f5922ca4a8a476325eb73079f93cce9dd111aff11435b23220786d1296718475",
+      "reference.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "subjects": [
+    {
+      "label": "emit",
+      "argvShape": [
+        "taskset",
+        "-c",
+        "5",
+        "bend",
+        "STAGED_CONSUMER_IO",
+        "-o",
+        "FRESH_OUTPUT/consumer.js"
+      ],
+      "capSeconds": 30,
+      "stdout": "EMPTY",
+      "stderr": "EMPTY or exact pinned 42-byte notice"
+    },
+    {
+      "label": "consumer",
+      "argvShape": [
+        "taskset",
+        "-c",
+        "5",
+        "node",
+        "FRESH_OUTPUT/consumer.js"
+      ],
+      "capSeconds": 5,
+      "stdout": "exact whole authored oracle; no truncation",
+      "stderr": "EMPTY"
+    }
+  ],
+  "preparation": {
+    "ordinaryOwnedProbes": 4,
+    "tools": [
+      "bend",
+      "node",
+      "taskset"
+    ],
+    "resources": [
+      "/home/node/.bend/bend2"
+    ],
+    "executor": "existing task_runner owned cleanup; full result/raw before predicates",
+    "noWideDiscovery": true
+  },
+  "stage": {
+    "singleNominalLeaf": "Both gate and any consumed canonical component resolve to ONE staged canonical-component-declaration.bend; retain actual external 6912 source join",
+    "closure": "Recursive actual imports plus installed Base/resource membership; exact import target/source/copy SHA joins",
+    "entryAssertions": [
+      "literal is_file",
+      "no .. components",
+      "source SHA equals exact staged inventory member"
+    ],
+    "immutability": "Freeze source/current root/helper/history/config/env before probes; recheck after every child"
+  },
+  "boundaries": [
+    "ReceiptBoundary encloses initialization and private environment load; literal admitted plan SHA first",
+    "ATTEMPTED command before executor; preserve every non-byte result field and exact stream hashes",
+    "Record logs/probe metadata before their guards",
+    "Per-emit artifact absence; output namespace inventory exact",
+    "First unconditional post-child callback registers partial/full generated artifact and rebuilds central Inputs, including failed emission",
+    "All-finally primary/secondary failure retention; first failure stops cohort"
+  ],
+  "acceptance": [
+    "Full twelve observations: both nominal schemas, accepted integer, complete validation error, transient validation, saved field, omitted field, detached field after actual owner write",
+    "Both Array cells observed after every leaf operation; full original oracle unchanged",
+    "No public export validation added; retained codec used only internal validate_projection"
+  ],
+  "remaining": [
+    "Plain gate and cross-schema matched source refusal controls need actual collection/classification",
+    "No resource or World facade, allocator/entity/relation/machine export or full-payload codec qualification",
+    "No Native/runtime save policy, reversibility, constructor secrecy or performance claim"
+  ],
+  "sourceBindings": {
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-snapshot/persistence-gate-v1/common-path-v3/consumer-io.bend": "d56391f3f76f0425c4d8e3f05f30f9340c1a989b3151a85344950156a686a961",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-snapshot/persistence-gate-v1/common-path-v3/consumer.bend": "663e187ca19c5c12d0c463af9bb2a818255e010304031932027336386e43e45c",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-snapshot/persistence-gate-v1/common-path-v3/format.bend": "726a379553ab3f38f1706994c0c9479b53de398f9300ffa666ada2873bcc2883",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-snapshot/persistence-gate-v1/common-path-v3/gate.bend": "cfcae590986f88166750abc0e03bc9b40436037961c69226cf518ea8ea861ecf",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-snapshot/persistence-gate-v1/common-path-v3/fixture.bend": "303e4d4e2d729fcc25556005ee47479c497da27e51c8a74fb83cbd465bc865ac",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-snapshot/persistence-gate-v1/common-path-v3/consumer-direction.json": "313b5583056c89a2f8b5b3e8504f488dee0957c30e103d60ab5bf6dd01333da9",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-snapshot/persistence-gate-v1/common-path-v3/source-proposal.json": "9dd3b2b49391641366606842c53e2f8c4f26d79e27fcbf3141e695d9443d58c1",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-snapshot/persistence-gate-v1/common-path-v3/reference-cheap.py": "13eb44d61db99a0c73252140a1195e84629ce18821735377df3180156f5f1cbb"
+  },
+  "concreteHelpers": {
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-snapshot/persistence-gate-v1/common-path-v3/generated-js.py": "5290d88bcbf666b3c8798cfda6dab3d4a7d40bb6af2804d6faa7fbd7966aeda0",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-snapshot/persistence-gate-v1/common-path-v3/generated-js-stage.py": "1fa59575128b24fd620c8488766c84604360a8d6cfda575f0cf0d91f2c04360f"
+  },
+  "reviewHistory": "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-snapshot/persistence-gate-v1/common-path-v3/generated-js-review-history-e75",
+  "zeroProbePreparationHistory": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/.artifacts/snapshot58-generated-js-1791477969057420368/preparation.json",
+    "sha256": "7c7dbb8733fe0b092842980d5f2cc06e1e13d168af7b1cdea506212cd036668e",
+    "status": "INCOMPLETE",
+    "commands": [],
+    "reason": "wrong receipt.logs SHA-string shape; no tool children"
+  }
+}

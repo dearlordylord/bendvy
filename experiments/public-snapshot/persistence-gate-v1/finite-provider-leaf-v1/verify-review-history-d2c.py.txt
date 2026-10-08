@@ -1,0 +1,101 @@
+"""Portable read/hash-only verification of finite provider-leaf evidence."""
+import hashlib
+import json
+from pathlib import Path
+import tarfile
+HERE=Path(__file__).resolve().parent
+OWN=HERE.parents[3]
+def sha(data):return hashlib.sha256(data).hexdigest()
+def main():
+ index=json.loads((HERE/'index.json').read_text());objects={}
+ with tarfile.open(HERE/'evidence.tar.gz','r:gz') as archive:
+  for member in archive.getmembers():
+   assert member.isfile() and member.name not in objects and member.name.startswith('objects/')
+   data=archive.extractfile(member).read();assert member.name=='objects/'+sha(data)
+   assert not data.startswith(b'\x7fELF');objects[member.name]=data
+ records=index['records']
+ def read(path):
+  row=records[str(path)];data=objects[row['object']]
+  assert sha(data)==row['sha256'] and len(data)==row['bytes'];return data
+ def js(path):return json.loads(read(path))
+ assert set(objects)=={r['object'] for r in records.values()}
+ for path in records:read(path)
+ # Each disposition is independently authorized by the actual recorded plan, not its own label.
+ for name,rows in index['pinDispositions'].items():
+  plan=js(name);pins=plan.get('pins') or plan.get('sourcePins') or {}
+  assert set(rows)==set(pins)
+  for path,h in pins.items():
+   row=rows[path];assert row['sha256']==h
+   if row['disposition']=='archived':assert sha(read(row['record']))==h
+   elif row['disposition']=='excluded-private-environment':
+    association=row['association'];assert association['sha256']==h
+    candidates=[js(n) for n in index['pinDispositions']]
+    assert any(p.get('privateEnvironment')==path and p.get('environmentSHA256')==h for p in candidates)
+   elif row['disposition']=='excluded-installed-identity':
+    association=row['association'];owner=js(association['plan'])
+    authorized=dict(owner.get('resourceMembers',{}));authorized.update(owner.get('snapshot',{}).get('pins',{}))
+    if isinstance(owner.get('command'),dict):
+     argv=owner['command']['argv']
+     for binary in (argv[0],argv[3]):
+      if binary in owner.get('pins',{}):authorized[binary]=owner['pins'][binary]
+    assert authorized.get(path)==h
+   else:raise AssertionError('unclassified pin disposition')
+ base=index['historicalOwnRoot']+'/.artifacts/'
+ normal=base+'snapshot58-generated-js-1791478856688446160/'
+ np=js(normal+'plan.json');nr=js(normal+'receipt.json');pr=js(normal+'preparation.json')
+ assert sha(read(normal+'plan.json'))=='ec10e97c451678c2aa20b4c33aa690c008004f8ee4b49d83ac5e8ff35187eaaa'
+ assert sha(read(normal+'receipt.json'))=='352c5e5813b8a5b2f22d49cce4310bbaef7082921e88433e7cc69d6cae7e7291'
+ assert nr['status']=='DEVELOPMENT_PASS' and nr.get('guardFailures',[])==[]
+ assert pr['status']=='PREPARATION_PASS' and pr.get('guardFailures',[])==[] and len(pr['commands'])==4
+ assert pr['planSHA256']==nr['planSHA256']==sha(read(normal+'plan.json'))
+ assert len(nr['commands'])==22
+ for record,directory in ((pr,normal),(nr,normal+'execution/')):
+  assert all(c['exit']==0 and c['failure'] is None and c['runnerSHA256']==np['runnerSHA256'] for c in record['commands'])
+  labels=[c['label'] for c in record['commands']]
+  assert len(set(labels))==len(labels)
+  assert set(record['logs'])=={label+'.'+stream for label in labels for stream in ('stdout','stderr')}
+  for name,h in record['logs'].items():assert sha(read(directory+name))==h
+ expected=read(np['oracle']);assert len(expected)==682 and expected.count(b'\n')==12
+ assert sha(expected)=='f5922ca4a8a476325eb73079f93cce9dd111aff11435b23220786d1296718475'
+ assert read(normal+'execution/consumer.stdout')==expected and read(normal+'execution/consumer.stderr')==b''
+ subjects=[c for c in nr['commands'] if c['label'] in ('emit','consumer')]
+ assert [c['label'] for c in subjects]==['emit','consumer']
+ assert [c['capSeconds'] for c in subjects]==[30,5]
+ assert subjects[0]['argv']==[np['taskset'],'-c','5',np['tools']['bend'],np['stage']['entry'],'-o',np['artifact']]
+ assert subjects[1]['argv']==[np['taskset'],'-c','5',np['tools']['node'],np['artifact']]
+ assert set(nr['generated'])=={np['artifact']} and sha(read(np['artifact']))==nr['generated'][np['artifact']]['sha256']
+ for row in np['stage']['sources']:
+  assert sha(read(row['copy']))==row['copySHA256']
+  assert np['pins'][row['source']]==row['sourceSHA256']
+ for edge in np['stage']['importJoins']:
+  assert sha(read(edge['copyTarget']))==edge['copyTargetSHA256'] and np['pins'][edge['target']]==edge['targetSHA256']
+ assert len(np['stage']['inventory'])==8
+ authority=base+'snapshot58-authority-source-1791478959216460698/'
+ ap=js(authority+'plan.json');ar=js(authority+'receipt.json')
+ assert sha(read(authority+'receipt.json'))=='909db252fd1b61cc67e014321f2bbb3e350d4796051b590584f918afb1c4e74a'
+ assert ar['status']=='SOURCE_COLLECTION_COMPLETE_RAW_NEGATIVES_UNCLASSIFIED' and ar.get('guardFailures',[])==[]
+ assert len(ar['commands'])==4
+ assert [c['label'] for c in ar['commands']]==['positive-plain-counterpart','positive-schema-counterpart','negative-plain','negative-schema']
+ assert [c['exit'] for c in ar['commands']]==[0,0,1,1] and all(c['failure'] is None and c['capSeconds']==5 and c['argv'][-1]=='--check-only' for c in ar['commands'])
+ for observed,wanted in zip(ar['commands'],ap['commands']):assert observed['argv']==wanted['argv']
+ for name,h in ar['logs'].items():assert sha(read(authority+name))==h
+ assert set(ar['logs'])=={c['label']+'.'+stream for c in ar['commands'] for stream in ('stdout','stderr')}
+ for label in ('positive-plain-counterpart','positive-schema-counterpart'):
+  assert read(authority+label+'.stdout')==b'ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n' and read(authority+label+'.stderr')==b''
+ assert read(authority+'negative-plain.stdout')==b'' and sha(read(authority+'negative-plain.stderr'))=='3520f9bd6d637d8b4599d4a8be1f6cdd5d0dccd51e80c3fc1f534bb4cf2a8ec5'
+ assert read(authority+'negative-schema.stdout')==b'' and sha(read(authority+'negative-schema.stderr'))=='70870bb35d4d715135587a27ef03bd6587f986e5ba42736491adcdaf137854bc'
+ classification=js(index['historicalSourceRoot']+'/common-path-v3/authority-classification.json')
+ assert classification['receiptSHA256']==sha(read(authority+'receipt.json'))
+ for row in classification['negatives']:
+  assert ar['logs'][row['label']+'.stderr']==row['stderrSHA256']
+  assert ar['logs'][row['label']+'.stdout']==row['stdoutSHA256']
+ # All retained failures remain nonpassing; no historical receipt is rewritten into qualification.
+ assert js(base+'snapshot58-generated-js-1791478155693803437/receipt.json')['status']=='INCOMPLETE'
+ assert js(base+'snapshot58-generated-js-1791477969057420368/preparation.json')['commands']==[]
+ assert js(base+'snapshot58-generated-js-1791478058783669172/preparation.json')['status']=='INCOMPLETE'
+ # Delivery source joins use root-relative paths, never require old worktrees or installed tools.
+ live=json.loads((HERE/'live-source.json').read_text())
+ for relative,row in live.items():
+  assert sha((OWN/relative).read_bytes())==row['sha256']==sha(read(row['record']))
+ print('PASS: finite provider-leaf JS12 + matched nominal source controls; no World Snapshot/full58 credit')
+if __name__=='__main__':main()

@@ -1,0 +1,20 @@
+{
+  "format": "snapshot58-reference-cheap-source-direction-v1",
+  "scope": "ONE NodeCPU5 runtime5 DEVELOPMENT full12rows; only pinned Decode callbacks are TS core operations; no Snapshot API/full58",
+  "wrapper": "experiments/public-snapshot/persistence-gate-v1/common-path-v3/reference-cheap.py",
+  "wrapperSHA256": "13eb44d61db99a0c73252140a1195e84629ce18821735377df3180156f5f1cbb",
+  "sourceOracleDirection": "experiments/public-snapshot/persistence-gate-v1/common-path-v3/consumer-direction.json",
+  "sourceOracleDirectionSHA256": "313b5583056c89a2f8b5b3e8504f488dee0957c30e103d60ab5bf6dd01333da9",
+  "preparation": "metadata-only file/env/config/current consumer-source-pass joins; no probes/versions/discovery",
+  "execution": "separate exact frozen plan admission; wrapper does not own flock, coordinator encloses prepare/run; run requires expected reviewed plan SHA CLI",
+  "guards": "central ReceiptBoundary/GuardBoundary, explicit private0600 whitelistenv, full-kind file/directory/symlink inventory with recursivebyteSHA/config target ancestry, all scalar/ownplan/raw beforeafter; structuredresult recorded before predicates",
+  "expected": "wholeindependent12row stdout byte equality, stderr empty",
+  "noClaim": [
+    "World save or TS Snapshot.Gate",
+    "static refusals or proof",
+    "codec inverse/truthful arbitrary projection",
+    "quantitative performance"
+  ],
+  "preservedUnexecutedReviewHistory": "experiments/public-snapshot/persistence-gate-v1/common-path-v3/reference-cheap-review-history",
+  "reviewDelta": "ATTEMPTED command before execute_result, all nonbyte results+stream hashes+exceptions retained; recursive symlink states target ancestry fixedpoint"
+}

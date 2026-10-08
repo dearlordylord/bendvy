@@ -1,0 +1,18 @@
+{
+  "format": "snapshot58-reference-cheap-source-direction-v1",
+  "scope": "ONE NodeCPU5 runtime5 DEVELOPMENT full12rows; only pinned Decode callbacks are TS core operations; no Snapshot API/full58",
+  "wrapper": "experiments/public-snapshot/persistence-gate-v1/common-path-v3/reference-cheap.py",
+  "wrapperSHA256": "e2401cd3fb3a2eb31486883b651db7552cac489d468448eeafee63404d67045c",
+  "sourceOracleDirection": "experiments/public-snapshot/persistence-gate-v1/common-path-v3/consumer-direction.json",
+  "sourceOracleDirectionSHA256": "313b5583056c89a2f8b5b3e8504f488dee0957c30e103d60ab5bf6dd01333da9",
+  "preparation": "metadata-only file/env/config/current consumer-source-pass joins; no probes/versions/discovery",
+  "execution": "separate exact frozen plan admission; wrapper does not own flock, coordinator encloses prepare/run; run requires expected reviewed plan SHA CLI",
+  "guards": "central ReceiptBoundary/GuardBoundary, explicit private0600 whitelistenv, full-kind file/directory/symlink inventory with recursivebyteSHA/config target ancestry, all scalar/ownplan/raw beforeafter; structuredresult recorded before predicates",
+  "expected": "wholeindependent12row stdout byte equality, stderr empty",
+  "noClaim": [
+    "World save or TS Snapshot.Gate",
+    "static refusals or proof",
+    "codec inverse/truthful arbitrary projection",
+    "quantitative performance"
+  ]
+}

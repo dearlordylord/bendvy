@@ -1,0 +1,212 @@
+"""Finite provider-leaf JS qualification; preparation and semantics are separate admissions."""
+import argparse
+import base64
+import importlib.util
+import json
+import os
+from pathlib import Path
+import shutil
+import sys
+import time
+
+HERE = Path(__file__).resolve().parent
+ROOT = Path('/workspace/formal-proofs/bendvy')
+SELF = Path(__file__).resolve()
+sys.path.insert(0,str(ROOT/'scripts'))
+from evidence_boundary import ReceiptBoundary, GuardBoundary
+import task_runner
+
+def load(name,path):
+    spec=importlib.util.spec_from_file_location(name,path)
+    module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+    return module
+common=load('snapshot58_reference_common',HERE/'reference-cheap.py')
+staging=load('snapshot58_stage',HERE/'generated-js-stage.py')
+tools_module=load('snapshot58_tools',ROOT/'scripts/owned-tool-pins.py')
+logs_module=load('snapshot58_logs',ROOT/'scripts/receipt-logs.py')
+sha=common.sha
+NOTICE=b'bend 2.0.36 is available: run bend update\n'
+NOTICE_SHA='57f1325a11b98d00f4bdbb487bda0cc9787e2baa240266722596845baee2e494'
+
+def encode(value):
+    if isinstance(value,bytes):return {'base64Bytes':base64.b64encode(value).decode()}
+    if isinstance(value,dict):return {k:encode(v) for k,v in value.items()}
+    if isinstance(value,list):return [encode(v) for v in value]
+    return value
+
+def decode(value):
+    if isinstance(value,dict):
+        if set(value)=={'base64Bytes'}:return base64.b64decode(value['base64Bytes'],validate=True)
+        return {k:decode(v) for k,v in value.items()}
+    if isinstance(value,list):return [decode(v) for v in value]
+    return value
+
+def execute(record,logs,label,argv,cap,env,cwd):
+    attempt={'label':label,'argv':list(argv),'capSeconds':cap,'attemptState':'ATTEMPTED'}
+    record['commands'].append(attempt)
+    try:result=task_runner.execute_result(argv,cap,env,cwd,'split')
+    except BaseException as error:
+        attempt['exception']=f'{type(error).__name__}: {error}';raise
+    attempt.update({k:v for k,v in result.items() if not isinstance(v,bytes)})
+    attempt['attemptState']='RETURNED'
+    attempt['streams']={k:{'sha256':__import__('hashlib').sha256(result[k]).hexdigest(),'bytes':len(result[k])} for k in ('stdout','stderr')}
+    logs.record(label,result['stdout'],result['stderr'])
+    record['logs']=dict(logs.hashes)
+    return result
+
+def configuration(plan,env,probe):
+    return {'execute':probe,'tools':plan['tools'],'resource_roots':plan['resourceRoots'],
+            'ldd':plan['ldd'],'taskset':plan['taskset'],'cpu':5,'env':env,'capture_mode':'split'}
+
+def prepare():
+    out=common.OWN_ROOT/'.artifacts'/('snapshot58-generated-js-'+str(time.time_ns()));out.mkdir(parents=True)
+    record={'status':'INCOMPLETE','commands':[],'logs':{}}
+    frozen=None;inputs=None;logs=None;env=None;files=set();plan={};staged=None
+    def guard():
+        if frozen is not None:
+            assert all(sha(p)==h for p,h in frozen.items())
+            assert common.configs(frozen,env['HOME'])==plan['configurationBefore']
+        if staged is not None:assert staging.inventory(out/'stage')==staged['inventory']
+        if inputs is not None:inputs.guard()
+    def rawguard():
+        if logs is not None:
+            record['logs']=dict(logs.hashes);logs.guard()
+    with ReceiptBoundary(record,out/'preparation.json',[('inputs',guard),('raw',rawguard)]):
+        direction=json.loads((HERE/'generated-js-direction.json').read_text())
+        expected=Path(direction['oracle']['path']);assert sha(expected)==direction['oracle']['sha256']
+        history=direction['prerequisite'];hp=Path(history['plan']);hr=Path(history['receipt'])
+        assert sha(hp)==history['planSHA256'] and sha(hr)==history['receiptSHA256']
+        oldplan=json.loads(hp.read_text());oldreceipt=json.loads(hr.read_text())
+        assert oldreceipt['status']=='DEVELOPMENT_PASS' and oldreceipt.get('guardFailures',[])==[]
+        assert len(oldreceipt['commands'])==1 and oldreceipt['commands'][0]['exit']==0 and oldreceipt['commands'][0]['failure'] is None
+        assert oldreceipt['planSHA256']==sha(hp)
+        assert all(sha(p)==h for p,h in oldplan['pins'].items())
+        assert all(sha(hr.parent/n)==digest for n,digest in oldreceipt['logs'].items())
+        assert (hr.parent/'reference.stdout').read_bytes()==expected.read_bytes() and (hr.parent/'reference.stderr').read_bytes()==b''
+        env={k:os.environ[k] for k in ('HOME','PATH','LANG','LC_ALL','TZ') if k in os.environ};env['BEND_NO_TELEMETRY']='1'
+        private=out/'private-environment.json';private.write_text(json.dumps(env,sort_keys=True)+'\n');private.chmod(0o600)
+        names=('bend','node','taskset','shell')
+        ldd=Path(shutil.which('ldd')).resolve(strict=True)
+        assert ldd.read_bytes().splitlines()[0]==b'#!/bin/bash'
+        shell=Path('/bin/bash');assert shell.is_file();shell=shell.resolve(strict=True)
+        tools={name:str(shell if name=='shell' else Path(shutil.which(name)).resolve(strict=True)) for name in names}
+        entry=HERE/'consumer-io.bend';sources,_=staging.consumed(entry)
+        files={SELF,HERE/'generated-js-direction.json',HERE/'generated-js-stage.py',HERE/'reference-cheap.py',Path(task_runner.__file__),ROOT/'scripts/evidence_boundary.py',ROOT/'scripts/receipt-logs.py',ROOT/'scripts/owned-tool-pins.py',expected,hp,hr,private}
+        failed=direction['zeroProbePreparationHistory'];fp=Path(failed['path'])
+        assert sha(fp)==failed['sha256']
+        fr=json.loads(fp.read_text());assert fr['status']=='INCOMPLETE' and fr['commands']==[]
+        files.add(fp)
+        second=direction['scriptProbePreparationHistory'];second_path=Path(second['path'])
+        assert sha(second_path)==second['sha256']
+        second_record=json.loads(second_path.read_text());assert second_record['status']=='INCOMPLETE' and len(second_record['commands'])==4
+        assert second_record['commands'][-1]['exit']==1 and second_record['commands'][-1]['failure'] is None
+        files.add(second_path)
+        for name,digest in second_record['logs'].items():
+            raw=second_path.parent/name;assert sha(raw)==digest;files.add(raw)
+        files.update(p for p in (HERE/'generated-js-review-history-529-ldd-script').iterdir() if p.is_file())
+        files.update(p for p in (HERE/'generated-js-review-history-aa6-zero-probe').iterdir() if p.is_file())
+        files.update(Path(p) for p in oldplan['pins']);files.update(hr.parent/n for n in oldreceipt['logs']);files.update(sources);files.update(Path(p) for p in tools.values());files.add(ldd)
+        resources=Path('/home/node/.bend/bend2');files.update(p.resolve() for p in resources.rglob('*') if p.is_file())
+        for p,h in direction['sourceBindings'].items():assert sha(p)==h;files.add(Path(p))
+        frozen={str(p):sha(p) for p in sorted(files)}
+        plan={'tools':tools,'ldd':str(ldd),'taskset':tools['taskset'],'resourceRoots':[str(resources)],'configurationBefore':common.configs(files,env['HOME'])}
+        inputs=task_runner.Inputs(files=frozen)
+        staged=staging.stage(entry,out/'stage',{str(p):h for p,h in sources.items()})
+        guard()
+        labels=['prep-'+n for n in names];logs=logs_module.CommandLogs(out,labels)
+        index=iter(labels)
+        def probe(argv,cap,env):
+            with GuardBoundary([('inputs',guard),('raw',rawguard)]):
+                return execute(record,logs,next(index),argv,cap,env,str(HERE))
+        snapshot=tools_module.snapshot(**configuration(plan,env,probe))
+        guard();rawguard()
+        assert len(record['commands'])==4
+        for command in record['commands']:assert command['exit']==0 and command['failure'] is None
+        files.update(Path(p) for p in snapshot['pins']);files.update(Path(row['copy']) for row in staged['sources'])
+        generated=out/'generated';generated.mkdir()
+        artifact=generated/'consumer.js';assert not artifact.exists()
+        pins={str(p):sha(p) for p in sorted(files)}
+        plan.update({'pins':pins,'configuration':common.configs(files,env['HOME']),'stage':staged,'generatedDirectory':str(generated),'artifact':str(artifact),
+          'privateEnvironment':str(private),'environmentSHA256':sha(private),'snapshot':encode(snapshot),'preparationReceipt':str(out/'preparation.json'),
+          'wrapperSHA256':sha(SELF),'runnerSHA256':sha(task_runner.__file__),'oracle':str(expected),'oracleSHA256':sha(expected),'cwd':str(out/'stage'),
+          'commands':[{'label':'emit','argv':[tools['taskset'],'-c','5',tools['bend'],staged['entry'],'-o',str(artifact)],'capSeconds':30},
+                      {'label':'consumer','argv':[tools['taskset'],'-c','5',tools['node'],str(artifact)],'capSeconds':5}]})
+        record['status']='PREPARATION_PASS'
+        path=out/'plan.json';path.write_text(json.dumps(plan,indent=2)+'\n')
+        record['planSHA256']=sha(path)
+    print(json.dumps({'preparation':str(out/'preparation.json'),'status':record['status'],'plan':str(out/'plan.json'),'planSHA256':record.get('planSHA256')}))
+
+def run(path,expected_plan_sha):
+    path=Path(path).resolve();out=path.parent
+    record={'status':'INCOMPLETE','planSHA256':expected_plan_sha,'commands':[],'logs':{},'generated':{}}
+    plan=None;env=None;inputs=None;logs=None
+    def guard():
+        assert sha(path)==expected_plan_sha
+        if plan is not None:
+            assert all(sha(p)==h for p,h in plan['pins'].items())
+            assert sha(plan['privateEnvironment'])==plan['environmentSHA256']
+            if env is not None:assert common.configs(plan['pins'],env['HOME'])==plan['configuration']
+            assert staging.inventory(out/'stage')==plan['stage']['inventory']
+            expected={Path(p).name:row['sha256'] for p,row in record['generated'].items()}
+            assert staging.inventory(plan['generatedDirectory'])==expected
+        if inputs is not None:inputs.guard()
+    def rawguard():
+        if logs is not None:record['logs']=dict(logs.hashes);logs.guard()
+    def tools_guard(group):
+        if plan is None or logs is None:return
+        guard()
+        labels=iter(group+'-'+n for n in ('bend','node','taskset','shell'))
+        def probe(argv,cap,env):
+            with GuardBoundary([('inputs',guard),('raw',rawguard)]):
+                return execute(record,logs,next(labels),argv,cap,env,plan['cwd'])
+        tools_module.verify(decode(plan['snapshot']),**configuration(plan,env,probe))
+    def final_tools():
+        tools_guard('final')
+    with ReceiptBoundary(record,out/'receipt.json',[('inputs',guard),('raw',rawguard),('tools',final_tools)]):
+        assert isinstance(expected_plan_sha,str) and len(expected_plan_sha)==64 and sha(path)==expected_plan_sha
+        plan=json.loads(path.read_text())
+        assert sha(SELF)==plan['wrapperSHA256'] and sha(task_runner.__file__)==plan['runnerSHA256']
+        assert sha(plan['privateEnvironment'])==plan['environmentSHA256']
+        env=json.loads(Path(plan['privateEnvironment']).read_text())
+        assert not any(k.startswith(('LD_','DYLD_','NODE_')) for k in env)
+        guard()
+        prep=Path(plan['preparationReceipt']);pr=json.loads(prep.read_text())
+        assert pr['status']=='PREPARATION_PASS' and pr.get('guardFailures',[])==[] and pr['planSHA256']==expected_plan_sha
+        assert len(pr['commands'])==4 and all(c['exit']==0 and c['failure'] is None for c in pr['commands'])
+        assert all(sha(prep.parent/n)==digest for n,digest in pr['logs'].items())
+        inputs=task_runner.Inputs(files=(*plan['pins'],str(path),str(prep),*(str(prep.parent/n) for n in pr['logs'])))
+        # Execution raw namespace is separate from the immutable preparation raw namespace.
+        raw=out/'execution';raw.mkdir();record['rawDirectory']=str(raw)
+        labels=['emit','consumer']+[g+'-'+n for g in ('before-emit','after-emit','before-consumer','after-consumer','final') for n in ('bend','node','taskset','shell')]
+        logs=logs_module.CommandLogs(raw,labels)
+        artifact=Path(plan['artifact']);assert not artifact.exists()
+        for command in plan['commands']:
+            label=command['label'];tools_guard('before-'+label)
+            if label=='emit':assert not artifact.exists() and staging.inventory(plan['generatedDirectory'])=={}
+            def register_generated():
+                nonlocal inputs
+                # First unconditional post-child callback; preserve primary executor errors.
+                if label=='emit' and artifact.exists():
+                    assert artifact.is_file() and not artifact.is_symlink()
+                    record['generated'][str(artifact)]={'sha256':sha(artifact),'bytes':artifact.stat().st_size}
+                if inputs is not None:inputs.guard()
+                guard()  # Full plan/source/config/stage/generated guard BEFORE rebuilding Inputs.
+                inputs=task_runner.Inputs(files=(*plan['pins'],str(path),str(prep),*(str(prep.parent/n) for n in pr['logs']),*record['generated']),directories=[plan['generatedDirectory']])
+            with GuardBoundary([('generated',register_generated),('inputs',guard),('raw',rawguard)]):
+                result=execute(record,logs,label,command['argv'],command['capSeconds'],env,plan['cwd'])
+            tools_guard('after-'+label)
+            assert result['failure'] is None and result['exit']==0
+            if label=='emit':
+                assert result['stdout']==b'' and result['stderr'] in (b'',NOTICE)
+                assert __import__('hashlib').sha256(NOTICE).hexdigest()==NOTICE_SHA
+                assert artifact.is_file()
+            else:
+                assert result['stderr']==b'' and sha(plan['oracle'])==plan['oracleSHA256']
+                assert result['stdout']==Path(plan['oracle']).read_bytes()
+        record['status']='DEVELOPMENT_PASS'
+    print(json.dumps({'receipt':str(out/'receipt.json'),'sha256':sha(out/'receipt.json'),'status':record['status']}))
+
+if __name__=='__main__':
+    parser=argparse.ArgumentParser();parser.add_argument('action',choices=['prepare','run']);parser.add_argument('plan',nargs='?');parser.add_argument('--expected-plan-sha');args=parser.parse_args()
+    if args.action=='prepare':prepare()
+    else:run(args.plan,args.expected_plan_sha)

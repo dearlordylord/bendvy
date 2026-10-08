@@ -1,0 +1,80 @@
+{
+  "format": "persistence-gate-source-proposal-v1",
+  "qualification": "unexecuted source proposal only",
+  "contract": "docs/parity/snapshot-export.md unchanged",
+  "sourceRoot": "d928e8103d9c2bbfbe2b327c1acd2b8b9b79126c",
+  "copiedReferences": [
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/parity-61-audit/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-component.bend",
+      "copy": "experiments/public-snapshot/persistence-gate-v1/reference-source/canonical-component.bend",
+      "sha256": "e4c9c53e024935c2865a33db3f2085f7bb22b99b1fe8da24e867a258238ad640"
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy/experiments/public-decode/typed.bend",
+      "copy": "experiments/public-snapshot/persistence-gate-v1/reference-source/typed.bend",
+      "sha256": "bbba271bff35d94e564c0b33f994737c8698942c3d05f9ffc71697c5c8185d26"
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy/experiments/public-decode/utf16.bend",
+      "copy": "experiments/public-snapshot/persistence-gate-v1/reference-source/utf16.bend",
+      "sha256": "343820522ad7d9724154d48266a3b6c30626cc62f83ec85038c96242c9d96539"
+    }
+  ],
+  "selectedSource": [
+    {
+      "path": "experiments/public-snapshot/persistence-gate-v1/fixture.bend",
+      "sha256": "5efab8335a79bf14ce54322217792934bb926038151b8fbd80e886cceb186b87"
+    },
+    {
+      "path": "experiments/public-snapshot/persistence-gate-v1/gate.bend",
+      "sha256": "b27298c221359fa1346e065312984f6329eccba643fc14c8bb1b5ccc750e9ea8"
+    },
+    {
+      "path": "experiments/public-snapshot/persistence-gate-v1/negative-plain.bend",
+      "sha256": "19721ac8733e5d2f90664f6fc7ba0de86d60332d816fe0c85e3a4b5dce71182f"
+    },
+    {
+      "path": "experiments/public-snapshot/persistence-gate-v1/negative-schema.bend",
+      "sha256": "8c2ea8811aa5039548678c6865d8ab3a15656523c2faee23a7274585af293ae8"
+    },
+    {
+      "path": "experiments/public-snapshot/persistence-gate-v1/positive-persisted.bend",
+      "sha256": "0d4ea07d2d95536d9cbc3e48124b3db00ff4dd65735acd95fc9d548eb02e7544"
+    },
+    {
+      "path": "experiments/public-snapshot/persistence-gate-v1/positive-schema.bend",
+      "sha256": "1f1ba042626bd78e8b7e305df59fe0111cd3229d06f45075c02747c30b7e8380"
+    },
+    {
+      "path": "experiments/public-snapshot/persistence-gate-v1/positive-transient.bend",
+      "sha256": "2e022a2344be9c2ec634c72c89c770235597d5a48cb484afae0534dee70dcb9d"
+    },
+    {
+      "path": "experiments/public-snapshot/persistence-gate-v1/reference-source/canonical-component.bend",
+      "sha256": "e4c9c53e024935c2865a33db3f2085f7bb22b99b1fe8da24e867a258238ad640"
+    },
+    {
+      "path": "experiments/public-snapshot/persistence-gate-v1/reference-source/typed.bend",
+      "sha256": "bbba271bff35d94e564c0b33f994737c8698942c3d05f9ffc71697c5c8185d26"
+    },
+    {
+      "path": "experiments/public-snapshot/persistence-gate-v1/reference-source/utf16.bend",
+      "sha256": "343820522ad7d9724154d48266a3b6c30626cc62f83ec85038c96242c9d96539"
+    }
+  ],
+  "proposedSourceSubjects": [
+    "positive-persisted",
+    "positive-transient",
+    "positive-schema",
+    "negative-plain",
+    "negative-schema"
+  ],
+  "sourceCapSeconds": 5,
+  "backendAdmission": false,
+  "limitations": [
+    "Trusted public Gate constructors can be fabricated by schema authors; no constructor-unforgeability claim",
+    "Codec witness validates Data descriptions only; no descriptor construction or arbitrary inverse",
+    "No World exporter, allocator coverage, resource facade, retained repeatable Gate or independent snapshot application yet",
+    "No runtime/proof/mutation or static refusal credit before observations and independent diagnostic classification"
+  ]
+}

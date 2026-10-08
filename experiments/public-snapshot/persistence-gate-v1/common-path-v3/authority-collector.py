@@ -1,0 +1,93 @@
+"""Four matched --check-only source subjects; raw negatives remain unclassified."""
+import argparse
+import importlib.util
+import json
+import os
+from pathlib import Path
+import shutil
+import sys
+import time
+HERE=Path(__file__).resolve().parent
+ROOT=Path('/workspace/formal-proofs/bendvy')
+sys.path.insert(0,str(ROOT/'scripts'))
+from evidence_boundary import ReceiptBoundary,GuardBoundary
+import task_runner
+
+def load(name,path):
+    spec=importlib.util.spec_from_file_location(name,path);module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);return module
+common=load('gate_source_common',HERE/'reference-cheap.py')
+staging=load('gate_source_closure',HERE/'generated-js-stage.py')
+logs_module=load('gate_source_logs',ROOT/'scripts/receipt-logs.py')
+sha=common.sha
+BANNER=b'ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n'
+NOTICE=b'bend 2.0.36 is available: run bend update\n'
+
+
+def prepare():
+    out=common.OWN_ROOT/'.artifacts'/('snapshot58-authority-source-'+str(time.time_ns()));out.mkdir(parents=True)
+    direction=json.loads((HERE/'authority-direction.json').read_text())
+    files={Path(__file__).resolve(),HERE/'authority-direction.json',HERE/'reference-cheap.py',HERE/'generated-js-stage.py',ROOT/'scripts/evidence_boundary.py',ROOT/'scripts/task_runner.py',ROOT/'scripts/receipt-logs.py'}
+    commands=[]
+    bend=Path(shutil.which('bend')).resolve(strict=True);taskset=Path(shutil.which('taskset')).resolve(strict=True)
+    files.update((bend,taskset))
+    for role in ('positive','negative'):
+        for pair in direction['subjects']:
+            entry=HERE/pair[role];assert entry.is_file()
+            sources,edges=staging.consumed(entry);files.update(sources)
+            label=entry.stem
+            commands.append({'label':label,'role':role,'argv':[str(taskset),'-c','5',str(bend),str(entry),'--check-only'],'capSeconds':5,'sourcePins':{str(p):h for p,h in sources.items()},'importJoins':edges})
+    for p,h in direction['sourcePins'].items():assert sha(p)==h
+    resources=Path('/home/node/.bend/bend2')
+    members={str(p.resolve()):sha(p) for p in resources.rglob('*') if p.is_file()};files.update(Path(p) for p in members)
+    env={k:os.environ[k] for k in ('HOME','PATH','LANG','LC_ALL','TZ') if k in os.environ};env['BEND_NO_TELEMETRY']='1'
+    private=out/'private-environment.json';private.write_text(json.dumps(env,sort_keys=True)+'\n');private.chmod(0o600);files.add(private)
+    plan={'pins':{str(p):sha(p) for p in sorted(files)},'configuration':common.configs(files,env['HOME']),'resources':str(resources),'resourceMembers':members,'commands':commands,'privateEnvironment':str(private),'environmentSHA256':sha(private),'wrapperSHA256':sha(__file__),'runnerSHA256':sha(task_runner.__file__),'cwd':str(HERE)}
+    path=out/'plan.json';path.write_text(json.dumps(plan,indent=2)+'\n');print(json.dumps({'plan':str(path),'sha256':sha(path)}))
+
+
+def run(path,expected_sha):
+    path=Path(path).resolve();out=path.parent
+    record={'status':'INCOMPLETE','planSHA256':expected_sha,'commands':[],'logs':{}}
+    plan=None;env=None;inputs=None;logs=None
+    def guard():
+        assert sha(path)==expected_sha
+        if plan is not None:
+            assert all(sha(p)==h for p,h in plan['pins'].items())
+            assert sha(plan['privateEnvironment'])==plan['environmentSHA256']
+            if env is not None:assert common.configs(plan['pins'],env['HOME'])==plan['configuration']
+            assert {str(p.resolve()):sha(p) for p in Path(plan['resources']).rglob('*') if p.is_file()}==plan['resourceMembers']
+            for command in plan['commands']:
+                literal=Path(command['argv'][4]);assert literal.is_file()
+                sources,edges=staging.consumed(literal)
+                assert {str(p):h for p,h in sources.items()}==command['sourcePins'] and edges==command['importJoins']
+        if inputs is not None:inputs.guard()
+    def rawguard():
+        if logs is not None:record['logs']=dict(logs.hashes);logs.guard()
+    with ReceiptBoundary(record,out/'receipt.json',[('inputs',guard),('raw',rawguard)]):
+        assert sha(path)==expected_sha
+        plan=json.loads(path.read_text());env=json.loads(Path(plan['privateEnvironment']).read_text())
+        assert sha(__file__)==plan['wrapperSHA256'] and sha(task_runner.__file__)==plan['runnerSHA256']
+        assert not any(k.startswith(('LD_','DYLD_','NODE_')) for k in env)
+        guard();inputs=task_runner.Inputs(files=(*plan['pins'],str(path)))
+        logs=logs_module.CommandLogs(out,[c['label'] for c in plan['commands']])
+        for command in plan['commands']:
+            with GuardBoundary([('inputs',guard),('raw',rawguard)]):
+                item={**command,'attemptState':'ATTEMPTED'};record['commands'].append(item)
+                try:result=task_runner.execute_result(command['argv'],5,env,plan['cwd'],'split')
+                except BaseException as error:item['exception']=f'{type(error).__name__}: {error}';raise
+                item.update({k:v for k,v in result.items() if not isinstance(v,bytes)});item['attemptState']='RETURNED'
+                item['streams']={k:{'sha256':__import__('hashlib').sha256(result[k]).hexdigest(),'bytes':len(result[k])} for k in ('stdout','stderr')}
+                logs.record(command['label'],result['stdout'],result['stderr']);rawguard()
+                assert result['failure'] is None
+                if command['role']=='positive':
+                    assert result['exit']==0 and result['stdout']==BANNER and result['stderr'] in (b'',NOTICE)
+                else:
+                    assert result['exit']==1
+                    item['classification']='RAW_UNCLASSIFIED'
+        record['status']='SOURCE_COLLECTION_COMPLETE_RAW_NEGATIVES_UNCLASSIFIED'
+    print(json.dumps({'receipt':str(out/'receipt.json'),'sha256':sha(out/'receipt.json'),'status':record['status']}))
+
+if __name__=='__main__':
+    parser=argparse.ArgumentParser();parser.add_argument('action',choices=['prepare','run']);parser.add_argument('plan',nargs='?');parser.add_argument('--expected-plan-sha');args=parser.parse_args()
+    if args.action=='prepare':prepare()
+    else:run(args.plan,args.expected_plan_sha)

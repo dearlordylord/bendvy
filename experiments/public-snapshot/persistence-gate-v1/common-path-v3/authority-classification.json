@@ -1,0 +1,33 @@
+{
+  "status": "FINITE_INTENDED_REFUSALS_CLASSIFIED",
+  "reviewer": "/root/evidence_review",
+  "receipt": "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/.artifacts/snapshot58-authority-source-1791478959216460698/receipt.json",
+  "receiptSHA256": "909db252fd1b61cc67e014321f2bbb3e350d4796051b590584f918afb1c4e74a",
+  "originalStatusPreserved": "SOURCE_COLLECTION_COMPLETE_RAW_NEGATIVES_UNCLASSIFIED",
+  "positives": [
+    "positive-plain-counterpart",
+    "positive-schema-counterpart"
+  ],
+  "negatives": [
+    {
+      "label": "negative-plain",
+      "sourceSHA256": "19721ac8733e5d2f90664f6fc7ba0de86d60332d816fe0c85e3a4b5dce71182f",
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "3520f9bd6d637d8b4599d4a8be1f6cdd5d0dccd51e80c3fc1f534bb4cf2a8ec5",
+      "location": "illegal line 5",
+      "classification": "Expected Gate; observed ordinary Declaration in same export_owner argument"
+    },
+    {
+      "label": "negative-schema",
+      "sourceSHA256": "8c2ea8811aa5039548678c6865d8ab3a15656523c2faee23a7274585af293ae8",
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "70870bb35d4d715135587a27ef03bd6587f986e5ba42736491adcdaf137854bc",
+      "location": "illegal line 5",
+      "classification": "Expected Workshop Gate; observed Garden Gate in same export_owner argument"
+    }
+  ],
+  "limits": [
+    "Finite intended source authority only",
+    "No proof, public constructor secrecy, inverse, ownership-policy or general grant claim"
+  ]
+}

@@ -1,0 +1,148 @@
+{
+  "scope": "independently authored prospective provider-leaf observations only; NOT full basic World-save acceptance or backend plan",
+  "authoredBeforeOutputs": true,
+  "schemas": [
+    "Workshop",
+    "Garden"
+  ],
+  "cases": [
+    {
+      "case": "validated-number",
+      "codec": "Integer",
+      "initialOwner": [
+        7,
+        9
+      ],
+      "projectedRaw": {
+        "Number": {
+          "value": 7
+        }
+      },
+      "checked": {
+        "Accepted": {
+          "value": {
+            "Number": {
+              "value": 7
+            }
+          }
+        }
+      },
+      "returnedOwner": [
+        7,
+        9
+      ]
+    },
+    {
+      "case": "validation-error",
+      "codec": "StringValue",
+      "initialOwner": [
+        7,
+        9
+      ],
+      "projectedRaw": {
+        "Number": {
+          "value": 7
+        }
+      },
+      "checked": {
+        "Rejected": {
+          "error": {
+            "Invalid": {
+              "path": "$",
+              "expected": "string",
+              "actual": {
+                "Number": {
+                  "value": 7
+                }
+              }
+            }
+          }
+        }
+      },
+      "returnedOwner": [
+        7,
+        9
+      ]
+    },
+    {
+      "case": "transient-validation",
+      "initialOwner": [
+        7,
+        9
+      ],
+      "validation": "Skipped",
+      "returnedOwner": [
+        7,
+        9
+      ],
+      "projectorInvocations": 0
+    },
+    {
+      "case": "export",
+      "codec": "Integer",
+      "initialOwner": [
+        7,
+        9
+      ],
+      "field": {
+        "Saved": {
+          "name": "Payload",
+          "value": {
+            "Number": {
+              "value": 7
+            }
+          }
+        }
+      },
+      "returnedOwner": [
+        7,
+        9
+      ],
+      "decoderInvocations": 0
+    },
+    {
+      "case": "transient-export",
+      "initialOwner": [
+        7,
+        9
+      ],
+      "field": {
+        "Omitted": {
+          "name": "Payload"
+        }
+      },
+      "returnedOwner": [
+        7,
+        9
+      ],
+      "projectorInvocations": 0
+    },
+    {
+      "case": "save-view-lifetime",
+      "initialOwner": [
+        7,
+        9
+      ],
+      "savedView": {
+        "Number": {
+          "value": 7
+        }
+      },
+      "afterMutationOwner": [
+        11,
+        9
+      ],
+      "savedViewAfterMutation": {
+        "Number": {
+          "value": 7
+        }
+      }
+    }
+  ],
+  "pendingBeforeBackend": [
+    "Complete leaf driver/source-positive/actual TS comparator where applicable and guarded proposal review",
+    "Every Array owner field independently observed and disposal returned/consumed explicitly",
+    "Real complete World exporter/resources/allocator/fullpayload codecs remain #58 implementation gaps, not provided by these six component-view cases",
+    "No projector truthfulness/universal alias theorem, no saved wire format or inverse selection"
+  ]
+}
