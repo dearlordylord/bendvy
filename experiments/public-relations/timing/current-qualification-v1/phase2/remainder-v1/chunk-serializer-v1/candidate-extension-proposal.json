@@ -1,0 +1,92 @@
+{
+  "scope": "Source-only bounded candidate extension proposal; no children admitted by this file",
+  "candidateFirst": {
+    "plan": "/workspace/formal-proofs/bendvy-worktrees/parity-42-relations/.artifacts/relations-phase2-standalone-js-1791418616178805603/plan.json",
+    "planSHA256": "c4f7b28060d96af1d031c3cdbb85a8c20401ba14afdc038c02a33e5cc588dcab",
+    "receipt": "/workspace/formal-proofs/bendvy-worktrees/parity-42-relations/.artifacts/relations-phase2-standalone-js-1791418616178805603/receipt.json",
+    "receiptSHA256": "786b9e236ca0a9090902544300edea7944751957968bf304c3865addad94c17b",
+    "generatedJS": "/workspace/formal-proofs/bendvy-worktrees/parity-42-relations/.artifacts/relations-phase2-standalone-js-1791418616178805603/trace.js",
+    "generatedJSSHA256": "3874ce25fe86ebf8b935488a0880dfcdf086c4ebd6a7f2cb2fcf1d883195e67e"
+  },
+  "sourcePins": {
+    "/workspace/formal-proofs/bendvy-worktrees/parity-42-relations/experiments/public-relations/timing/current-qualification-v1/phase2/remainder-v1/chunk-serializer-v1/driver.bend": "dca3d47f6bad0e0aff27d60968016085d53f5599567eccfcc710005b48daf1b3",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-42-relations/experiments/public-relations/timing/current-qualification-v1/phase2/remainder-v1/chunk-serializer-v1/serialize.bend": "70793fcdc6f8ba0d91659251abd8be570a5d519e10190eb9fd77de7118a32834",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-42-relations/experiments/public-relations/timing/current-qualification-v1/phase2/remainder-v1/chunk-serializer-v1/driver-exhaustion.bend": "dec03b45a96f3dd17d9b4e789c71c25de87a8ed1b693b1c5c5fc9631743b9ab4",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-42-relations/experiments/public-relations/timing/current-qualification-v1/phase2/remainder-v1/chunk-serializer-v1/exhaustion-source-plan.json": "4b1be98c26c0a34b5b6cef1606ae363098386398dbc851c79fb938f9e77599b2"
+  },
+  "subjects": [
+    {
+      "role": "TS",
+      "input": [
+        "population",
+        "64",
+        "0",
+        "4294967295"
+      ],
+      "seconds": 5,
+      "oracle": "Existing independently authored phase2/expected/population-64-seed-4294967295.json; actual TS missing, run once"
+    },
+    {
+      "role": "retained candidateJS",
+      "input": [
+        "depth",
+        "256",
+        "1",
+        "0"
+      ],
+      "seconds": 5,
+      "oracle": "Original full30 independent depth1 JSON and already qualified TS1 positive"
+    },
+    {
+      "role": "retained candidateJS",
+      "input": [
+        "depth",
+        "256",
+        "16",
+        "0"
+      ],
+      "seconds": 5,
+      "oracle": "Original full30 independent depth16 JSON and already qualified TS16 positive"
+    },
+    {
+      "role": "retained candidateJS",
+      "input": [
+        "population",
+        "64",
+        "0",
+        "4294967295"
+      ],
+      "seconds": 5,
+      "oracle": "Original full30 independent64max JSON; bind actual preceding TS positive"
+    },
+    {
+      "role": "retained candidateJS",
+      "input": [
+        "population",
+        "7",
+        "0",
+        "0"
+      ],
+      "seconds": 5,
+      "oracle": "INPUT_REFUSED newline stdout; EMPTY stderr (no Begin)"
+    },
+    {
+      "role": "emit candidate exhaustionJS",
+      "seconds": 30,
+      "source": "driver-exhaustion.bend; source4b1 diagnostic reached only IO boundary"
+    },
+    {
+      "role": "candidate exhaustionJS",
+      "input": [
+        "depth",
+        "256",
+        "1",
+        "0"
+      ],
+      "seconds": 5,
+      "oracle": "TRACE_SERIALIZATION_INCOMPLETE newline stdout; exact authored Begin/wholefull30force/completion stderr"
+    }
+  ],
+  "freeze": "All consumed independently authored fulloracles + qualified TS1/16 constituents/raw/source33imports + firstcandidateplan/receipt/allraw/artifact/privateenv + sourceclosure/tools/config before ordinary snapshot and after. Private bytes excluded from portable delivery. Coordinator enclosing flock. Actual frozen plan review before runtimes. Firstfailurestop; no repeats/fallback/capraise",
+  "limits": "No N1024/fanout/native/perf/wholequalification claim; original failures retained; no query/operation/forcing/output omission"
+}
