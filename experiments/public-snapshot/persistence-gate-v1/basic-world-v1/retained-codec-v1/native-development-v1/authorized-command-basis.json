@@ -1,0 +1,54 @@
+[
+  {
+    "label": "emit",
+    "argv": [
+      "taskset",
+      "-c",
+      "5",
+      "bend",
+      "experiments/public-simulation/bend-v1/main.bend",
+      "-o",
+      "/workspace/formal-proofs/bendvy-worktrees/parity-63-fixed-step-reference/experiments/public-simulation/bend-v1/development/full-native-v1/main.c"
+    ],
+    "capSeconds": 30,
+    "returncode": 0,
+    "timeout": false,
+    "seconds": 8.670754616992781
+  },
+  {
+    "label": "build",
+    "argv": [
+      "taskset",
+      "-c",
+      "5",
+      "/tmp/bendvy-clang19-diagnostic/clang19",
+      "-O3",
+      "/workspace/formal-proofs/bendvy-worktrees/parity-63-fixed-step-reference/experiments/public-simulation/bend-v1/development/full-native-v1/main.c",
+      "-o",
+      "/workspace/formal-proofs/bendvy-worktrees/parity-63-fixed-step-reference/experiments/public-simulation/bend-v1/development/full-native-v1/main.native",
+      "-pthread",
+      "-lm"
+    ],
+    "capSeconds": 120,
+    "returncode": 0,
+    "timeout": false,
+    "seconds": 26.849803338991478
+  },
+  {
+    "label": "run",
+    "argv": [
+      "taskset",
+      "-c",
+      "5",
+      "/workspace/formal-proofs/bendvy-worktrees/parity-63-fixed-step-reference/experiments/public-simulation/bend-v1/development/full-native-v1/main.native",
+      "--threads",
+      "1",
+      "--gpu",
+      "off"
+    ],
+    "capSeconds": 5,
+    "returncode": 0,
+    "timeout": false,
+    "seconds": 0.011546260997420177
+  }
+]
