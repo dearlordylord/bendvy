@@ -838,5 +838,147 @@
     "approvedExtensions": "import json,pathlib,gzip,hashlib,tarfile\np=pathlib.Path('docs/reference/core-export-inventory.json');x=json.loads(p.read_text());x=json.loads(gzip.decompress(p.with_suffix('.json.gz').read_bytes())) if 'payload' in x else x\nhelpers=pathlib.Path('/tmp/bendvy61-current-joins.py').read_text();ns={};exec(helpers[helpers.index('def read(p):'):helpers.index('rows=[]\\nf=root')],dict(pathlib=pathlib,json=json,tarfile=tarfile,zipfile=__import__('zipfile'),H=lambda b:hashlib.sha256(b).hexdigest()),ns);H=lambda b:hashlib.sha256(b).hexdigest();check=ns['check_sources'];archive=ns['archive_check']\nw=pathlib.Path('/workspace/formal-proofs/bendvy-worktrees/parity-49-handlers');f=w/'experiments/public-machine-handlers/candidate-v1/delivery-mutants-v1/manifest.json';d=json.loads(f.read_text());r={'issue':'#49','scope':'Independently approved bounded three full96/12 JS semantic variants; six subjects, all24 strings and two schema witnesses. Worker commit82d6d424; actual resolver/Native variants/full49/proof/performance UNMET.','manifest':str(f),'manifestSHA256':H(f.read_bytes()),'sourceJoin':check(d['source'],f.parent.parent),'archives':[archive(f.parent/a['archive'],a['sha256'],a['members'],'tar') for a in d['archives'].values()],'fullIssueAccepted':False};x['selectedCurrentEvidenceJoins'].append(r);print('#49',r['sourceJoin']['matched'],sum(a['matchedMembers'] for a in r['archives']))\nw=pathlib.Path('/workspace/formal-proofs/bendvy-worktrees/parity-54-inspector');f=w/'experiments/public-inspect/promotion-stage/final-evidence-v1/DELIVERY-FILES.json';d=json.loads(f.read_text());i=f.parent/'index.json';ind=json.loads(i.read_text());a=f.parent/'objects.tar.gz'\nwith tarfile.open(a,'r:gz') as t:objs={m.name:t.extractfile(m).read() for m in t.getmembers() if m.isfile()}\nchecks=[{'path':name,'sha256':v['sha256'],'bytes':v['bytes'],'object':v['object'],'matched':v['object'] in objs and H(objs[v['object']])==v['sha256'] and len(objs[v['object']])==v['bytes']} for name,v in ind['records'].items()];receipts=[]\nfor v in checks:\n if v['path'].endswith('/receipt.json') and not any(z in v['path'].lower() for z in ['private','environment']):\n  b=json.loads(objs[v['object']]);receipts.append({'path':v['path'],'sha256':v['sha256'],'status':b.get('status'),'commands':len(b.get('commands',[]))})\nr={'issue':'#54','scope':'Independently approved final95 experimental promotion slice: baseline JS/Native, three positive/six negative source controls, reached JS reader-consumption mutant with12 semantic observations. Awaiting worker commit/integration at cutoff; full54/Native mutant/proof/performance/production adoption UNMET.','manifest':str(f),'manifestSHA256':H(f.read_bytes()),'recordedManifestStatus':d['status'],'sourceJoin':check(d['files'],w),'indexSHA256':H(i.read_bytes()),'archiveSHA256':H(a.read_bytes()),'expectedArchiveSHA256':ind['objectsArchiveSHA256'],'objectCount':len(objs),'indexedRecords':len(checks),'matchingRecords':sum(v['matched'] for v in checks),'objectRecords':checks,'receiptMetadata':receipts,'privateEnvironmentPolicy':'Excluded environments hash-only, not decoded. All objects hash checked; only receipt metadata read.','fullIssueAccepted':False};x['selectedCurrentEvidenceJoins'].append(r);print('#54',r['sourceJoin']['matched'],r['sourceJoin']['different'],r['sourceJoin']['unavailable'],len(objs),len(checks),r['matchingRecords']);x['approvedExtensionJoinGeneratorSource']=pathlib.Path('/tmp/bendvy61-approved-add.py').read_text();p.write_text(json.dumps(x,indent=2)+'\\n')\n",
     "selectionDelta": "import pathlib,json,gzip,hashlib\np=pathlib.Path('docs/reference/core-export-inventory.json');x=json.loads(p.read_text());x=json.loads(gzip.decompress(p.with_suffix('.json.gz').read_bytes())) if 'payload' in x else x\nw=pathlib.Path('/workspace/formal-proofs/bendvy-worktrees/parity-54-inspector');f=w/'experiments/public-inspect/promotion-stage/final-evidence-v1/SELECTED-DELIVERY-FILES.json';d=json.loads(f.read_text());H=lambda b:hashlib.sha256(b).hexdigest();rows=[{'path':k,'recordedSHA256':v,'currentSHA256':H((w/k).read_bytes())} for k,v in d['files'].items()];r=x['selectedCurrentEvidenceJoins'][-1];assert r['issue']=='#54';r['originalReviewed95']={'manifest':r['manifest'],'manifestSHA256':r['manifestSHA256'],'sourceJoin':r['sourceJoin']};r['manifest']=str(f);r['manifestSHA256']=H(f.read_bytes());r['recordedManifestStatus']=d['status'];r['scope']='Final bounded Inspector promotion selected path delta:91 listed plus self92; original95 review retained historical. Qualification unchanged. Selection delta pending independent review; full54/Native mutation/proof/performance/production integration UNMET.';r['sourceJoin']={'records':rows,'matched':sum(z['recordedSHA256']==z['currentSHA256'] for z in rows),'different':sum(z['recordedSHA256']!=z['currentSHA256'] for z in rows),'unavailable':0};r['selectedCommitPathCount']=d['commitPathCount'];r['selfManifest']=d['selfManifest'];r['selectionRemoved']=d['removed'];r['selectionRule']=d['selectionRule'];x['selectionDeltaJoinGeneratorSource']=pathlib.Path('/tmp/bendvy61-selection-add.py').read_text();p.write_text(json.dumps(x,indent=2)+'\\n');print(r['manifestSHA256'],r['sourceJoin']['matched'],r['selectedCommitPathCount'])\n",
     "pack": "import json,gzip,hashlib,pathlib\np=pathlib.Path('docs/reference/core-export-inventory.json');dataset=json.loads(p.read_text());digest=lambda b:hashlib.sha256(b).hexdigest()\nraw=(json.dumps(dataset,sort_keys=True,separators=(',',':'),ensure_ascii=False)+'\\n').encode();packed=gzip.compress(raw,compresslevel=9,mtime=0);target=p.with_name(p.name+'.gz');target.write_bytes(packed)\nassert gzip.decompress(packed)==raw\nassert json.loads(gzip.decompress(packed))==dataset\nindex={\n 'formatVersion':2,'scope':dataset['scope'],'baseCommit':dataset['baseCommit'],\n 'payload':{'path':'core-export-inventory.json.gz','encoding':'deterministic gzip (mtime=0); UTF-8 canonical sorted-key JSON, compact separators, terminal LF','sha256':digest(packed),'bytes':len(packed),'uncompressedSHA256':digest(raw),'uncompressedBytes':len(raw),'roundTrip':'Exact compressed→uncompressed bytes and parsed data equality PASS'},\n 'references':dataset['references'],'syntaxCounts':dataset['counts'],'semanticCounts':dataset['semanticClosure']['counts'],\n 'publicModules':[{'module':m['module'],'entrypoint':m['entrypoint'],'rootNamespace':m['rootNamespace'],'path':m['path'],'sha256':m['sha256'],'declarationOccurrences':len(m['declarations']),'nestedMemberOccurrences':len(m['members'])} for m in dataset['modules']],\n 'testStaticSources':[{'path':t['path'],'sha256':t['sha256'],'testSuiteOccurrences':len(t['cases']),'callOccurrences':len(t['calls']),'rejectionMarkers':len(t['rejectionMarkers'])} for t in dataset['tests']],\n 'auditBaseCoreSources':[{'path':f['path'],'sha256':f['sha256']} for f in dataset['bendFiles']],\n 'rootSourceSnapshot':{'root':dataset['currentRootSourceSnapshot']['root'],'commit':dataset['currentRootSourceSnapshot']['commit'],'scope':dataset['currentRootSourceSnapshot']['scope'],'uncommittedCoreStatus':dataset['currentRootSourceSnapshot']['uncommittedCoreStatus'],'sourceCount':len(dataset['currentRootSourceSnapshot']['files'])},\n 'architectureSourcePins':dataset['architectureSourcePins'],'installedBaseReadOnlyPin':dataset['installedBaseReadOnlyPin'],\n 'selectedCurrentEvidenceJoins':[{'issue':r['issue'],'manifest':r['manifest'],'manifestSHA256':r['manifestSHA256'],'scope':r['scope'],'fullIssueAccepted':r['fullIssueAccepted']} for r in dataset['selectedCurrentEvidenceJoins']],\n 'limitations':dataset['limitations'],\n 'regeneration':{'instructions':'Extract generator sources below to temporary files. From matching audit checkout run syntax→historicalJoins→semantic→selectedCurrentJoins→enrichment→nativeExtension→approvedExtensions→selectionDelta→pack; syntax replaces this index with the full intermediate dataset. Uses already-present cached TypeScript 5.9.3 and Python stdlib only; no installation, diagnostic typecheck, backend or test execution. Later root/worktree sources must match retained hashes for identical output.',\n 'syntax':dataset['generation']['syntaxGeneratorSource'],'historicalJoins':dataset['generation']['joinGeneratorSource'],'semantic':dataset['semanticClosure']['generatorSource'],'selectedCurrentJoins':dataset['currentEvidenceJoinGeneratorSource'],'enrichment':dataset['enrichmentGeneratorSource'],'nativeExtension':dataset['nativeExtensionJoinGeneratorSource'],'approvedExtensions':dataset['approvedExtensionJoinGeneratorSource'],'selectionDelta':dataset['selectionDeltaJoinGeneratorSource'],'pack':pathlib.Path('/tmp/bendvy61-pack.py').read_text()}}\np.write_text(json.dumps(index,indent=2,ensure_ascii=False)+'\\n')\nre=json.loads(p.read_text());decoded=json.loads(gzip.decompress(target.read_bytes()));assert re['syntaxCounts']==decoded['counts'];assert re['semanticCounts']==decoded['semanticClosure']['counts'];assert digest(target.read_bytes())==re['payload']['sha256'];assert digest(gzip.decompress(target.read_bytes()))==re['payload']['uncompressedSHA256'];print(json.dumps(re['payload']))\n"
+  },
+  "currentMappingMaintenance": {
+    "baseCommit": "58760e45",
+    "scope": "Source-only named #48/#55/#56 mapping refresh; compressed census/auditbase and all other rows unchanged; integrated evidence != adopted executable core.",
+    "referenceCommits": {
+      "bend2": "a950fd683c0d76f09794078e6174fe98a1492876",
+      "bevy": "ad678262ce53b5d142fe49ee5e08caff6f00ab60",
+      "bevy-ts": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334"
+    },
+    "sourcePins": [
+      {
+        "reference": "bevy-ts",
+        "path": "packages/core/src/Runtime.ts",
+        "sha256": "c744aa5c52845bd3323358c5085161b40a452c6802a1653e3851bfd34c69f5b4"
+      },
+      {
+        "reference": "bevy-ts",
+        "path": "packages/core/src/Condition.ts",
+        "sha256": "1b4c8c906cab11745535ffe84f169a48767c88c26336f3b46f45cf7d59f08083"
+      },
+      {
+        "reference": "bevy-ts",
+        "path": "packages/core/src/Debug.ts",
+        "sha256": "942fc7e3bdf1b15f31708bad0ab02c0789a037b707a566e2cb860b43f9b5c3ff"
+      },
+      {
+        "reference": "bevy",
+        "path": "crates/bevy_ecs/src/system/system_param.rs",
+        "sha256": "e7c04fb01eebff746876ab65a5db9e3e36184a872057408f2e8ac11b694a3d26"
+      },
+      {
+        "reference": "bevy",
+        "path": "crates/bevy_ecs/src/system/function_system.rs",
+        "sha256": "e4090247301cc611c7289f2f5c105a6121390fcacf7920cb25f43b5a2f1eaf77"
+      },
+      {
+        "reference": "bend2",
+        "path": "bend2/bend.ts",
+        "sha256": "1d133151652b597a1a035c77c172475e6de096da37f3b9e3adc23c2f75bdfe49"
+      },
+      {
+        "reference": "bend2",
+        "path": "bend2/comp.ts",
+        "sha256": "32fb66e09f608ce9e4b173384bcfeec453db8c5bc96650e26ad861bef815a8d9"
+      }
+    ],
+    "mappings": [
+      {
+        "owner": "#48",
+        "integratedCommits": [
+          "9fa4c37c",
+          "de39b16c"
+        ],
+        "contract": "Foreign disposal refuses without changing foreign reader positions; failed callback preserves the original nonempty batch and local survivor readers.",
+        "implementation": "Experimental stream cleanup helper and actual registered caller, not adopted core API.",
+        "implementationPins": [
+          {
+            "path": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+            "sha256": "b1504cfced8f59acaa01d8b3d2b76ce4fa613c46ceebc86e9dfc16a21de787c1"
+          },
+          {
+            "path": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/failed-batch-v1/caller-core.bend",
+            "sha256": "56f7d910d78bb63fb8b449a48f8923139157feebeb49d07d0a510ae97eff018c"
+          }
+        ],
+        "evidence": [
+          {
+            "path": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/delivery-mutant-native-v1/selection.json",
+            "sha256": "ffae11b2efd758b430f1ebf8ccff2f7d7412021aeffd262cb7b135b39f641d6c"
+          },
+          {
+            "path": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/failed-batch-v1/delivery-v1/selection.json",
+            "sha256": "7a77e5c4bbb7f3c942cd73890c4a2409c14ab70d60c34689489a6e6c8eb78eee"
+          }
+        ],
+        "observations": "Foreign-disposal Native defect:36 complete world/22 instance records. Failed-batch normal JS/Native:32 complete world/16 instance records, two schemas/two worlds, readers5/6, actual R.invoke(True), foreign refusal/local disposal/survivor consume.",
+        "remainingGap": "No public/core adoption, broad stream policy or #48 completion; later-key/owned-event/capture contracts remain #48/#50/#53; full cross-feature matrix #61."
+      },
+      {
+        "owner": "#55",
+        "integratedCommits": [
+          "df123b2e"
+        ],
+        "contract": "Stateless Check forbids nonempty lifecycle filters/read-write selections; readonly relation queries retain namespaces/liveness/order, World and registered gates.",
+        "implementation": "Experimental Check relation adapter with current copied core; concrete availability predicate trusted ready=[].",
+        "implementationPins": [
+          {
+            "path": "src/ecs/check.bend",
+            "sha256": "9b0bef9ab0d3c4905138916d1c6a89cc7669b460c86c985d3dcc9d3424d7252f"
+          },
+          {
+            "path": "experiments/public-relations/inspector-extension-study-v1/relation-query-v1/next-qualification/check-relations-v1/adapter.bend",
+            "sha256": "823e7fa47cc07a744a89a7d13ee1c2d973b0c588596b7d0a0597df7de6472425"
+          },
+          {
+            "path": "experiments/public-relations/inspector-extension-study-v1/relation-query-v1/next-qualification/check-relations-v1/fixture-query.bend",
+            "sha256": "75dd95fb69d99152470f38c8309ea9d4434dd46d5319b290c8174a2e64aa655f"
+          }
+        ],
+        "evidence": [
+          {
+            "path": "experiments/public-relations/inspector-extension-study-v1/relation-query-v1/next-qualification/check-relations-v1/all-phase-check-v2/chunked-expectations-v3/reached-check-controls-v1/finite-js-evidence-v1/delivery-files.json",
+            "sha256": "b6dc42390be11b4e48716bfc8c46f3f4aed0f98dc249c53ea62bf97364c4f2db"
+          }
+        ],
+        "observations": "Normal+three controls, eight JS subjects; ten K.run callbacks/320 declarations plus192 diagnostics per two-schema fixture; exact witnesses334/372/588 leaves.",
+        "remainingGap": "This integration adds JS only, no Native transfer. Complete Check Native controls and wider categories/adoption remain #55; generic availability #54 and audit #61. Full World metadata not observed."
+      },
+      {
+        "owner": "#56",
+        "integratedCommits": [
+          "c79730d6",
+          "baf59226",
+          "5f4e37a9"
+        ],
+        "contract": "Detached Debug Description/access-index/lint/registered metadata reads preserve complete qualified application World/Registry/Provisioned owners and optional declared needs.",
+        "implementation": "Eight candidate debug modules,13-file core-only client,21 root dependencies; integrated evidence and source-only final adoption map, not src adoption.",
+        "implementationPins": [
+          {
+            "path": "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/candidate/src/ecs/debug-registered.bend",
+            "sha256": "32bf019b88930cf030150c919d7a8380bc11d1671c107039868b54752f18e356"
+          }
+        ],
+        "evidence": [
+          {
+            "path": "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/NORMAL-FILES.json",
+            "sha256": "dd2ef17b8a0b287be946b0d9365fc510a137abf20115a960be22378f23980093"
+          },
+          {
+            "path": "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/REACHED-FILES.json",
+            "sha256": "dddb3297dbf5c4c5bc8a23f64604af4e97e7f02352643b218586d297b55d78c2"
+          },
+          {
+            "path": "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/FINAL-ADOPTION-MAP.json",
+            "sha256": "de7a591506e1efa9c2e45bb1a51554f2d82770aa9abb6def856090f21c415062"
+          }
+        ],
+        "observations": "Fresh CLI/JS/Native full9205-byte15-line oracle; two independently authored needs-omission/cursor defects reached on JS/Native; five intended body refusals.",
+        "remainingGap": "Eight-module adoption/root #28 still required. Full-nine relocated execution, nonempty When/Machine/graph/event/query/naming/service/capture and disabled scenario remain #56 and existing #48/#50/#53/#55 owners. No universal descriptor truth or #61 closure."
+      }
+    ],
+    "acceptance": "#61 full two-application matrix UNMET; no runtime replay/timing/new contract/law/proof/closure"
   }
 }
