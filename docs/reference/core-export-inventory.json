@@ -1256,5 +1256,1653 @@
       }
     ],
     "acceptance": "No #61 closure. Complete two independently authored public cross-feature applications, full per-boundary controls and numeric qualification remain unmet. No backends/proofs/performance were executed by this refresh."
+  },
+  "currentSnapshotAuditPreparation": {
+    "baseCommit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+    "scope": "#61 PREPARATION ONLY; additive full-module disposition overlay. Immutable export/use/test census and previous base-specific overlays unchanged. Actual src branch development is not master delivery or full frozen qualification. No source/checker/backend/reference/performance execution in this refresh.",
+    "referenceCommits": [
+      {
+        "reference": "bend2",
+        "commit": "a950fd683c0d76f09794078e6174fe98a1492876"
+      },
+      {
+        "reference": "bevy",
+        "commit": "ad678262ce53b5d142fe49ee5e08caff6f00ab60"
+      },
+      {
+        "reference": "bevy-ts",
+        "commit": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334"
+      }
+    ],
+    "pinnedTSCoreFilesVerified": [
+      {
+        "path": "packages/core/src/Brand.ts",
+        "sha256": "85090ad2253694526dda4e2e54802158cf229d98477169bc25e77396bdc963b9"
+      },
+      {
+        "path": "packages/core/src/Command.ts",
+        "sha256": "de5db2093401e24ce54fae8166e7f686c153852094b6446dc0ee22cfa28cef28"
+      },
+      {
+        "path": "packages/core/src/Condition.ts",
+        "sha256": "1b4c8c906cab11745535ffe84f169a48767c88c26336f3b46f45cf7d59f08083"
+      },
+      {
+        "path": "packages/core/src/Debug.ts",
+        "sha256": "942fc7e3bdf1b15f31708bad0ab02c0789a037b707a566e2cb860b43f9b5c3ff"
+      },
+      {
+        "path": "packages/core/src/Decode.ts",
+        "sha256": "a8e8e91e5dffc15718ba8d3ecbea1007b386117af12764df4238356600bd82df"
+      },
+      {
+        "path": "packages/core/src/Definition.ts",
+        "sha256": "96054da50280f6dca44fd97dbd126e597f1492c9737e34329adf3f1cda1b325f"
+      },
+      {
+        "path": "packages/core/src/Descriptor.ts",
+        "sha256": "03e7339516d9f6bd455763a8dcdf7244d0c11f7165e493aa895aaa64225acab7"
+      },
+      {
+        "path": "packages/core/src/Entity.ts",
+        "sha256": "05d724f241b2d662a7a03ce82da5f133c4b587df92e5e22fdfdb7484edbca68e"
+      },
+      {
+        "path": "packages/core/src/EntityScope.ts",
+        "sha256": "3241a13ed0c337434e193e80a790498a9130ea31d4aca1f73294a5af2c50b04a"
+      },
+      {
+        "path": "packages/core/src/Feature.ts",
+        "sha256": "bf3be7437c63c1f12d8b0ff0f1a4965408331fad7a279669ef7c9b2cb29140a8"
+      },
+      {
+        "path": "packages/core/src/Fx.ts",
+        "sha256": "75242b8513225601589f4658d59c86100351557fef39cc8d17506c958dd2c5b3"
+      },
+      {
+        "path": "packages/core/src/Inspector.ts",
+        "sha256": "21757eb340c0ae192a36726538d0a87aefbd455859d196dab36aa3515c1addb3"
+      },
+      {
+        "path": "packages/core/src/Machine.ts",
+        "sha256": "a0007e841e07afb10a40ab8f3056691a3555cd6815b4564f5f1326e0e956ceb3"
+      },
+      {
+        "path": "packages/core/src/Query.ts",
+        "sha256": "45e2fe513f66e336f97d40b41b3c866363a1af17ecbc90087086e00c08b28414"
+      },
+      {
+        "path": "packages/core/src/Relation.ts",
+        "sha256": "7c2cbe93d90c6ca4f173932c9bb7e4536323d6b5bf17dc64c1c8fda83c3a7aa4"
+      },
+      {
+        "path": "packages/core/src/Requirement.ts",
+        "sha256": "0397bbf69285e1f50edafdceab81b48208c0127fe53ff0305e52d6a1b4766783"
+      },
+      {
+        "path": "packages/core/src/Result.ts",
+        "sha256": "96b098025e5e84b26bc97355ed1c463fe17f652954d2f83a83058e9817f7766c"
+      },
+      {
+        "path": "packages/core/src/Runtime.ts",
+        "sha256": "c744aa5c52845bd3323358c5085161b40a452c6802a1653e3851bfd34c69f5b4"
+      },
+      {
+        "path": "packages/core/src/Schedule.ts",
+        "sha256": "ab1610c356bfbcedf6ac85758e04c7032cda1f2458ff13c8a483c53d94b55c2a"
+      },
+      {
+        "path": "packages/core/src/Schema.ts",
+        "sha256": "26e7c140a6f3c2a98ea4e43c1f067a18e47c03ff6f56939c8139f1535ae1a0ec"
+      },
+      {
+        "path": "packages/core/src/Snapshot.ts",
+        "sha256": "249f57c429d97e57088ebb1e959b6258dd97ca71c9cc66a0a4ed6ac35ad04a3b"
+      },
+      {
+        "path": "packages/core/src/System.ts",
+        "sha256": "ae53852dbd815ad441446cbcfc663d25aed6c2bd0afcfacbc3c20e0c40dc2ba7"
+      },
+      {
+        "path": "packages/core/src/index.ts",
+        "sha256": "a74d79748f5eff6e9f732b54ed6efc0a42826e4cf8ffc7ab9504d11257e6d61f"
+      },
+      {
+        "path": "packages/core/src/internal/brand.ts",
+        "sha256": "7b888113edd48ea9777880fa85fc159428b78ac82587ca43eda8f1bbec4cc1b0"
+      },
+      {
+        "path": "packages/core/src/internal/cells.ts",
+        "sha256": "adbf5e99cb1d40e284aee9ce3b1ddeefdcb10e0e1420be5bda91f58a96afe41e"
+      },
+      {
+        "path": "packages/core/src/internal/debug.ts",
+        "sha256": "944a9858586dcf8ad58e66efd92b05c437c0be23afe517fabe00642d7bf4e338"
+      },
+      {
+        "path": "packages/core/src/internal/definition.ts",
+        "sha256": "543dee934661802fb57cb75a8faec653112433a566ce31231fca33ffa8d36f92"
+      },
+      {
+        "path": "packages/core/src/internal/fragments.ts",
+        "sha256": "4220e09fcc78e50cecd05ec373f57a278a5c33fbd51c53cbb2f7d57c6593ba68"
+      },
+      {
+        "path": "packages/core/src/internal/game.ts",
+        "sha256": "b1584dbe4c579783e4b2fae802a25e6af95384972e15ffccd2b868d6ba879773"
+      },
+      {
+        "path": "packages/core/src/internal/queries.ts",
+        "sha256": "382ce3b334df1bb7f4d0c4c19c17827b2343cae8a68ba7f562e9e732b6a5a4ab"
+      },
+      {
+        "path": "packages/core/src/internal/result.ts",
+        "sha256": "87570330858b0b41bed22be9661bd9e3b04f67e7004998082e6a83cbb1ce1c89"
+      },
+      {
+        "path": "packages/core/src/internal/streams.ts",
+        "sha256": "3e817555dddf937c51b51014ceb6422f068aeca4a40328281dbb774b8880168e"
+      },
+      {
+        "path": "packages/core/src/internal/world.ts",
+        "sha256": "e71b4b060fec85fae690957104c14051e4bea0d857bacd648993ea69a6fe27d7"
+      }
+    ],
+    "historicalCensusCompressedSHA256": "1b0aacb8c756b5d7b87508f07d5c31f1a5eaa8e32716cea11661a3b33475d25f",
+    "historicalCensusUncompressedSHA256": "f086bf0e7b2385fd647cdf33028d0e41f6a2ad162b78db93a300813dfde395e3",
+    "rootCoreSourcePins": [
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/bundle-batch.bend",
+        "sha256": "613f148063fe8f3411acdc828a12377394e465868f197bfccf9ef877d4aba12d"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/bundle-component-install.bend",
+        "sha256": "cc5f6bccf5c012c7ffc5f104fa174e5f36194aba7a644d409f4caaf929fce938"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/bundle-construction.bend",
+        "sha256": "659fbf766f2d4d3768a0342ab30925c52b83fd28e79facc9868b5382a5048a59"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/bundle-delivery.bend",
+        "sha256": "6b1be6a1b2ec3ad82914963fb20e2884f26006c8462cf492b0afc9604259e511"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/bundle-insert-adapter.bend",
+        "sha256": "a7ed3cc40a904e516cdf8c63dc2afa066598c47ba6760b558e0646dc3958ad67"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/bundle-install.bend",
+        "sha256": "69845857ee62856ffdd72a876fa5c259034ee512a0d1d430c26169b5ffb6061e"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/bundle-pack.bend",
+        "sha256": "a900386d18d9e741ec9001dee0c8203366e6feac706b15db9db755a95e96f8f0"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/bundle-provider.bend",
+        "sha256": "3aa34afa2cd7c3f1ac3e1c9a66df5be1518d3c763e76e26e61cd24c95e1d39fc"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/bundle-requests.bend",
+        "sha256": "7fbf0265e2b48af86f62ba936f24964b1f6b20b6ed92029433ea02c0a77c353c"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/capabilities.bend",
+        "sha256": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/captured-column.bend",
+        "sha256": "340efc234a5681adb2ccd35da22a1cbe3fbde4d15f0e6a3f8a75e76c4852df0a"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/check.bend",
+        "sha256": "9b0bef9ab0d3c4905138916d1c6a89cc7669b460c86c985d3dcc9d3424d7252f"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/column.bend",
+        "sha256": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/commands.bend",
+        "sha256": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/component.bend",
+        "sha256": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/compose.bend",
+        "sha256": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/event-runtime.bend",
+        "sha256": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/events.bend",
+        "sha256": "fffc3ec427072c4ba1c880f2ba8a73c1fcd1db66550cf63cdce56ba9e10bdc63"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/feature-provision.bend",
+        "sha256": "430b9a1a382c4b78e4eaeb11a838b3f1cd01b5c3042ec83a72364815886a2b9d"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/feature.bend",
+        "sha256": "be03fb80093190ed1bc963a7f6516195c189921a56694b998ec3325e35c9091d"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/indexed-lifecycle.bend",
+        "sha256": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/inspector-declaration.bend",
+        "sha256": "835bedcfac18d3a567b06fc5ee4e4cfdfcb804d0701ca86e6e155b2760189997"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/inspector-definition.bend",
+        "sha256": "d4f269a5da1f98203e2466744b31d581c3ed7b7d9dbdbce7a08ea70232133d5c"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/inspector-metadata.bend",
+        "sha256": "a2c715edcfefff6f3f5abcd84e5293c7ebf29521708f2298fe90bff36b96ad4a"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/inspector-query-projection.bend",
+        "sha256": "fe11471686751792c2939bea532f26138492f097d61c9b6200dc58a4580ef614"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/inspector-query.bend",
+        "sha256": "c6b0f092e6271f3ee8c8ec3552f159ee65821440ef0561d4b63d16544991ea00"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/inspector.bend",
+        "sha256": "31302fa8b9f68c560e744f613948613218c5ef1f4564c4236c5655a6bf2ab597"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/internal/machine-handler-events.bend",
+        "sha256": "c0e605e1b707e9e344d2f19172daa348b8467d6db5b7596960a3649318f44c74"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/lifecycle.bend",
+        "sha256": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/local.bend",
+        "sha256": "8cc5b3c9d3597c60d8a1b9b7fd206a92b289669c3cd9a8575db65ce9af37bd47"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/machine-conditions.bend",
+        "sha256": "610912561009d08c5b554371c140ec1267d0744cb941f860199dee469df6ac4f"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/machine-handler-bundle.bend",
+        "sha256": "04003a6575f7d478111062d83af0839bd402bfe1d2118c56fab0a609cd8173a8"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/machine-handlers.bend",
+        "sha256": "a63c3847277c69e1513346f35f43c9a482bd3af25373858b2e8df957f75e5fd8"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/machine-stream.bend",
+        "sha256": "c47ff38671eb67b4369311408c81a2ef388ed971923419625c36f92219eb0fe4"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/machine-world.bend",
+        "sha256": "8b8610e7ae42eea066639b5cb970a2885dd2fa14024efedef9fbc28dd6ba1816"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/machine.bend",
+        "sha256": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/optimized-compose.bend",
+        "sha256": "ac9c98457c7d6890f1f30dd82f41658a5d3ae962a7fb9022062af5b9d581ca25"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/owned-compose.bend",
+        "sha256": "1115ffe6db7a1940b53889f53df09cff7fd43a3d244e07b843ea9094f62d31c7"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/owned-family.bend",
+        "sha256": "1fe504b1130eed24fb0c1dfc9bf7c6de0ab0f855d4adf30694a1f6b3c634f7e1"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/owned-optimized-compose.bend",
+        "sha256": "3e651cc49f4d6cfb37ea5af07a4b4668a8983911a7547a03aec193f9ca305fff"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/owner-handoff.bend",
+        "sha256": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/provider.bend",
+        "sha256": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/query-contract.bend",
+        "sha256": "de8eb5a047d2ca82e5832513798a6590a2cd025296b80b154da65a51270c4e91"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/query.bend",
+        "sha256": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/reader-domains.bend",
+        "sha256": "1771e9a969c2533e4b38f27d7a8d4752f07f31f45cb9442625f44175e0beb314"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/registration.bend",
+        "sha256": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/relation-cleanup.bend",
+        "sha256": "88ebedf43b8cde2d8e4effd7413ec49bdb213352de72dd8815274935eaa1a5f3"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/relation-commands.bend",
+        "sha256": "941d8f3b11dfad4088ac324cd2d07759c6650f108c584f34bdac80e5c96403bb"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/relation-graph.bend",
+        "sha256": "61a67454a456969463a68b4571bcc3426a5df8016dca8889cd26acaf1fc22e8d"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/relation-providers.bend",
+        "sha256": "6a69de7d29d0a150446689228878f19df5b6d2fdefdfcb2eb1ce1048246ac594"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/relation-query.bend",
+        "sha256": "e9c129a5404ab2eabc0d39f57364036cfc3f3c8c68e520cb679419b39bd98800"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/relation-reorder-core.bend",
+        "sha256": "be833923be7481a6bf002723b857d69ebfae6861394021947138d2bb01166f6a"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/relation-reorder.bend",
+        "sha256": "2d58a3d76aaa955044b39f6cafcfdbbda6a4b20415bea8b4041193072a35d9dd"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/relation-types.bend",
+        "sha256": "63f433974a2650c34c84fbab359b0301a91b96f7bf3ff5d19f3f05911e869057"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/removals.bend",
+        "sha256": "98a5f5cf42372d8eab35f3927539079e4412886eeaa3e07bbb2113f2286222f6"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/resource.bend",
+        "sha256": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/restored-row.bend",
+        "sha256": "9a1e25359a7775e230ad1b720180db622c12c2e9757cba98acef9c89e8d0f2d5"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/row-column.bend",
+        "sha256": "f3846a5378958c522d4053f13f7af4898a8a60c76f7534b060f020adca631f72"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/schedule-provision.bend",
+        "sha256": "45d8b7d2c11d9fe28a6ee2a4cd460bad2b8591dbc8546daa68ae29d66d3979e9"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/schedule.bend",
+        "sha256": "e7c1f18bcb27ba6b5d6c7de88e81d0fe41c000b8d16fcd4d500d72655de86da3"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/schema-fragments.bend",
+        "sha256": "83525f185b6099d48af4e3a14f30149cd94069ad5e29663c63e44a15a866cfe6"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/state.bend",
+        "sha256": "301fc0aea3ecfd95b1253fe48f51b3a11e23345bfc0bb449b3287ddbc997f694"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/string-equality.bend",
+        "sha256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/structural.bend",
+        "sha256": "e8e813dc6de2f8a38ca61f51c0cbc5aeaf243fcc9cd399303e2adca2674480d4"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/system.bend",
+        "sha256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/transaction.bend",
+        "sha256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/world-io.bend",
+        "sha256": "4cb99615ad5177439b60cb659be2d5bc95ff02dc9cf55c162c2470e6d0f19a2a"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/world-namespace.bend",
+        "sha256": "92f7205a5d4d633289348960e139f5797354ff7dbfb0627b5d9435e17c5f48d7"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "src/ecs/world.bend",
+        "sha256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310"
+      }
+    ],
+    "proposedSrcStageCommit": "fc37a04df5af6e1b46eca64ce4672b4d1d4fd4a2",
+    "proposedSrcPins": [
+      {
+        "commit": "fc37a04df5af6e1b46eca64ce4672b4d1d4fd4a2",
+        "path": "src/ecs/declared-family.bend",
+        "sha256": "e7ca976eba58fcc0bb5f2fd98456a8d391c05a79511fe1860700b0c147bee5d2"
+      },
+      {
+        "commit": "fc37a04df5af6e1b46eca64ce4672b4d1d4fd4a2",
+        "path": "src/ecs/decode-capabilities.bend",
+        "sha256": "a7ddbf52e79924dec4c31eaa2d6abacb015f612dce1b528f5b6e0e7812999d65"
+      },
+      {
+        "commit": "fc37a04df5af6e1b46eca64ce4672b4d1d4fd4a2",
+        "path": "src/ecs/decode-data.bend",
+        "sha256": "1d1891b034450c041125027bd04f902418378787852864147b1bccb9f58b95d4"
+      },
+      {
+        "commit": "fc37a04df5af6e1b46eca64ce4672b4d1d4fd4a2",
+        "path": "src/ecs/decode-size.bend",
+        "sha256": "dbab191e20936ea5508dfb5ebdcaefa96790d6f73d0e8ed70bea78abcfbe8281"
+      },
+      {
+        "commit": "fc37a04df5af6e1b46eca64ce4672b4d1d4fd4a2",
+        "path": "src/ecs/decode-utf16.bend",
+        "sha256": "343820522ad7d9724154d48266a3b6c30626cc62f83ec85038c96242c9d96539"
+      },
+      {
+        "commit": "fc37a04df5af6e1b46eca64ce4672b4d1d4fd4a2",
+        "path": "src/ecs/decode.bend",
+        "sha256": "13761fdc9607f9e1873be01858da8517badea6dbfa58a116038fbb30afdeb793"
+      },
+      {
+        "commit": "fc37a04df5af6e1b46eca64ce4672b4d1d4fd4a2",
+        "path": "src/ecs/ordinary-declaration.bend",
+        "sha256": "6912b9c2dd0d163fc7d9f73ed6d2374ddbc0fb05342a97fb4aac968c8e75ecd5"
+      },
+      {
+        "commit": "fc37a04df5af6e1b46eca64ce4672b4d1d4fd4a2",
+        "path": "src/ecs/ordinary-schema.bend",
+        "sha256": "a713826ed240aca0fec5502d21682ea9adb75ac9b0653b76f5efb3ace1f058d0"
+      },
+      {
+        "commit": "fc37a04df5af6e1b46eca64ce4672b4d1d4fd4a2",
+        "path": "src/ecs/owner-product.bend",
+        "sha256": "5f5babe4c53da424a2ebaa8e61157b3bedd6dbbd49c93be5600a780833f1fb1f"
+      },
+      {
+        "commit": "fc37a04df5af6e1b46eca64ce4672b4d1d4fd4a2",
+        "path": "src/ecs/persistence-declaration.bend",
+        "sha256": "06921c755feee8944f2a33b920dca5df00e9d693057a6842ffef4ebc5c9ddc76"
+      },
+      {
+        "commit": "fc37a04df5af6e1b46eca64ce4672b4d1d4fd4a2",
+        "path": "src/ecs/snapshot-data.bend",
+        "sha256": "9d86378d30177b9412a8443ca21cbc4c0181ed3e09c72001c638522bf1d4489e"
+      },
+      {
+        "commit": "fc37a04df5af6e1b46eca64ce4672b4d1d4fd4a2",
+        "path": "src/ecs/snapshot-gate.bend",
+        "sha256": "60bb2ad60f0e3c426e464097f4f992ea321533a5bbeb9dc27df9756b1f57a128"
+      },
+      {
+        "commit": "fc37a04df5af6e1b46eca64ce4672b4d1d4fd4a2",
+        "path": "src/ecs/snapshot-leaf.bend",
+        "sha256": "9350b9e04ce8ad5c8ad0a24c1fe0bf65d3f5e054c95d1a3f33c64e33dfcc603f"
+      },
+      {
+        "commit": "fc37a04df5af6e1b46eca64ce4672b4d1d4fd4a2",
+        "path": "src/ecs/snapshot-product.bend",
+        "sha256": "7bea0f24bfb3051f5349494307364707a19a916bbfe684d5cb02da7c9fa7b999"
+      },
+      {
+        "commit": "fc37a04df5af6e1b46eca64ce4672b4d1d4fd4a2",
+        "path": "src/ecs/snapshot-schema.bend",
+        "sha256": "c5eb06160ceb018b7d820a10164f83e53f54894e654db55a62d6dbca21bf4298"
+      },
+      {
+        "commit": "fc37a04df5af6e1b46eca64ce4672b4d1d4fd4a2",
+        "path": "src/ecs/snapshot.bend",
+        "sha256": "cd10bf6002f09c377e084faa2a303e38446384f4cdd658f054dc6486dac2ebcf"
+      }
+    ],
+    "integrationStates": [
+      {
+        "commit": "26202ff1",
+        "meaning": "Ordinary query source-only candidate, no runtime credit"
+      },
+      {
+        "commit": "fc37a04d",
+        "meaning": "Proposed16src modules+consuming apps; final snapshot source5 deadline INCOMPLETE"
+      },
+      {
+        "commit": "ef5f1700",
+        "meaning": "Five intended static refusal diagnostics; no src body changes"
+      },
+      {
+        "commit": "b1f5e5bd",
+        "meaning": "Six whole actualsrc application JSNative development reports"
+      },
+      {
+        "commit": "9f6d2554",
+        "meaning": "Master retained development evidence handoff, not16src adoption"
+      },
+      {
+        "commit": "13347b24",
+        "meaning": "Independent development actualsrc evidence review"
+      }
+    ],
+    "authorityPins": [
+      {
+        "reference": "bevy-ts",
+        "path": "packages/core/src/Decode.ts",
+        "sha256": "a8e8e91e5dffc15718ba8d3ecbea1007b386117af12764df4238356600bd82df"
+      },
+      {
+        "reference": "bevy-ts",
+        "path": "packages/core/src/Snapshot.ts",
+        "sha256": "249f57c429d97e57088ebb1e959b6258dd97ca71c9cc66a0a4ed6ac35ad04a3b"
+      },
+      {
+        "reference": "bevy-ts",
+        "path": "packages/core/src/Descriptor.ts",
+        "sha256": "03e7339516d9f6bd455763a8dcdf7244d0c11f7165e493aa895aaa64225acab7"
+      },
+      {
+        "reference": "bevy-ts",
+        "path": "packages/core/src/Entity.ts",
+        "sha256": "05d724f241b2d662a7a03ce82da5f133c4b587df92e5e22fdfdb7484edbca68e"
+      },
+      {
+        "reference": "bevy-ts",
+        "path": "packages/core/src/Runtime.ts",
+        "sha256": "c744aa5c52845bd3323358c5085161b40a452c6802a1653e3851bfd34c69f5b4"
+      },
+      {
+        "reference": "bevy-ts",
+        "path": "packages/core/src/Schema.ts",
+        "sha256": "26e7c140a6f3c2a98ea4e43c1f067a18e47c03ff6f56939c8139f1535ae1a0ec"
+      },
+      {
+        "reference": "bevy-ts",
+        "path": "packages/core/src/index.ts",
+        "sha256": "a74d79748f5eff6e9f732b54ed6efc0a42826e4cf8ffc7ab9504d11257e6d61f"
+      },
+      {
+        "reference": "bevy",
+        "path": "crates/bevy_ecs/src/entity/mod.rs",
+        "sha256": "4acf9bdf352ae2a925ea0a22d2f8ceb7542a8ea1fde164b2efe6c48a1ba3f0ab"
+      },
+      {
+        "reference": "bevy",
+        "path": "crates/bevy_ecs/src/component/mod.rs",
+        "sha256": "cdb443d568087e32853017c73d1827c57d77fa4b1beafb95ec82baaf42d94a6e"
+      },
+      {
+        "reference": "bevy",
+        "path": "crates/bevy_ecs/src/world/mod.rs",
+        "sha256": "c1dcc047448d6e3caa2fdda7ee9d4443b22bf6638b4cca6095d8a7eeb7970712"
+      },
+      {
+        "reference": "bevy",
+        "path": "crates/bevy_ecs/src/system/system_param.rs",
+        "sha256": "e7c04fb01eebff746876ab65a5db9e3e36184a872057408f2e8ac11b694a3d26"
+      },
+      {
+        "reference": "bend2",
+        "path": "bend2/bend.ts",
+        "sha256": "1d133151652b597a1a035c77c172475e6de096da37f3b9e3adc23c2f75bdfe49"
+      },
+      {
+        "reference": "bend2",
+        "path": "bend2/comp.ts",
+        "sha256": "32fb66e09f608ce9e4b173384bcfeec453db8c5bc96650e26ad861bef815a8d9"
+      },
+      {
+        "reference": "bend2",
+        "path": "bend2/base.bend",
+        "sha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661"
+      }
+    ],
+    "currentEvidencePins": [
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/src-consumer-v1/development/evidence-v1/index.json",
+        "sha256": "f8b3aa49614d88ab5545b8a23fb9ea43ebbe184638595c97cb2bc3b12d6f68a4"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/src-consumer-v1/development/evidence-v1/RESULT.md",
+        "sha256": "4277992feeceb377ba6d2fb3f3b482fa9aa31705803969662df2e757071335d9"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/src-consumer-v1/development/evidence-v1/verify.py",
+        "sha256": "95b5a7dba094b3ac71d74243df55cee61b78f1f9927ee852f1e9bcf832c02729"
+      },
+      {
+        "commit": "1ebb743cc3845b83e6177684a8b3baa24caee884",
+        "path": "experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/src-consumer-v1/development/evidence-v1/evidence.tar.gz",
+        "sha256": "c1ac091c5df25785763801885bbda8a050d9074b674d2c27b3e8a78ce40e05e3"
+      },
+      {
+        "commit": "fc37a04df5af6e1b46eca64ce4672b4d1d4fd4a2",
+        "path": "experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/src-consumer-v1/INTEGRATION.json",
+        "sha256": "c060a34ffa9e294bde5a4b2ab533e9d852b8019786b2527bd62cafb4479a5c9f"
+      }
+    ],
+    "moduleDispositions": [
+      {
+        "module": "Brand",
+        "pinnedSource": "src/Brand.ts",
+        "pinnedSourceSHA256": "85090ad2253694526dda4e2e54802158cf229d98477169bc25e77396bdc963b9",
+        "declarationOccurrences": 5,
+        "signatureMemberOccurrences": 3,
+        "exportOccurrenceIds": [
+          "src/Brand.ts:39:Brand.Brand",
+          "src/Brand.ts:45:Brand.Branded",
+          "src/Brand.ts:56:Brand.Constructor",
+          "src/Brand.ts:79:Brand.refine",
+          "src/Brand.ts:90:Brand.all"
+        ],
+        "existingOwners": [
+          "#61"
+        ],
+        "contractAndExactGaps": "Existing compressed census declarations/members and semanticClosure remain authoritative per-symbol source/type/use/error obligations.",
+        "implementation": "Existing integrated core/evidence leads in census plus later named core-map maintenance; no full current per-symbol acceptance inferred.",
+        "evidence": "Historical bounded leads/selected receipts; exact full-core joined application and per-symbol negative acceptance remain UNMET.",
+        "remainingGap": "Complete source-current public two-application/export/use/error matrix is owned by existing capability tickets and #61; helper-only algebra remains #61 pending assignment.",
+        "specificCurrentDisposition": "Nominal schema/ordinary declaration indices and Family descriptor are typed boundaries, not complete Brand refinement/combinator parity or language-wide authority. Independent Factory collision gap remains #38; helper algebra #61."
+      },
+      {
+        "module": "Command",
+        "pinnedSource": "src/Command.ts",
+        "pinnedSourceSHA256": "de5db2093401e24ce54fae8166e7f686c153852094b6446dc0ee22cfa28cef28",
+        "declarationOccurrences": 19,
+        "signatureMemberOccurrences": 22,
+        "exportOccurrenceIds": [
+          "src/Command.ts:76:Command.Draft",
+          "src/Command.ts:83:Command.Draft.Insert",
+          "src/Command.ts:94:Command.Draft.InsertEntry",
+          "src/Command.ts:105:Command.Entry",
+          "src/Command.ts:124:Command.SchemaEntry",
+          "src/Command.ts:130:Command.SpawnEntry",
+          "src/Command.ts:142:Command.FoldEntries",
+          "src/Command.ts:156:Command.EntryErrors",
+          "src/Command.ts:165:Command.DraftFor",
+          "src/Command.ts:180:Command.DeferredCommand",
+          "src/Command.ts:197:Command.InternalWorld",
+          "src/Command.ts:259:Command.entry",
+          "src/Command.ts:268:Command.entryResult",
+          "src/Command.ts:290:Command.entryRaw",
+          "src/Command.ts:301:Command.insert",
+          "src/Command.ts:367:Command.spawn",
+          "src/Command.ts:384:Command.relate",
+          "src/Command.ts:412:Command.CommandsApi",
+          "src/Command.ts:486:Command.makeCommands"
+        ],
+        "existingOwners": [
+          "#41",
+          "#42"
+        ],
+        "contractAndExactGaps": "Existing compressed census declarations/members and semanticClosure remain authoritative per-symbol source/type/use/error obligations.",
+        "implementation": "Existing integrated core/evidence leads in census plus later named core-map maintenance; no full current per-symbol acceptance inferred.",
+        "evidence": "Historical bounded leads/selected receipts; exact full-core joined application and per-symbol negative acceptance remain UNMET.",
+        "remainingGap": "Complete source-current public two-application/export/use/error matrix is owned by existing capability tickets and #61; helper-only algebra remains #61 pending assignment.",
+        "specificCurrentDisposition": "Existing bundle/queued operations remain bounded integrated evidence. New save consumer observes queue metadata unchanged but does not execute raw-command constructor pipeline; pending insertion/Raw callback and reservation/exhaustion full paths remain #41/#46/#38/#61."
+      },
+      {
+        "module": "Condition",
+        "pinnedSource": "src/Condition.ts",
+        "pinnedSourceSHA256": "1b4c8c906cab11745535ffe84f169a48767c88c26336f3b46f45cf7d59f08083",
+        "declarationOccurrences": 4,
+        "signatureMemberOccurrences": 4,
+        "exportOccurrenceIds": [
+          "src/Condition.ts:46:Condition.CheckAccessInput",
+          "src/Condition.ts:69:Condition.ExactCheckAccess",
+          "src/Condition.ts:78:Condition.CheckContext",
+          "src/Condition.ts:87:Condition.check"
+        ],
+        "existingOwners": [
+          "#54"
+        ],
+        "contractAndExactGaps": "Existing compressed census declarations/members and semanticClosure remain authoritative per-symbol source/type/use/error obligations.",
+        "implementation": "Existing integrated core/evidence leads in census plus later named core-map maintenance; no full current per-symbol acceptance inferred.",
+        "evidence": "Historical bounded leads/selected receipts; exact full-core joined application and per-symbol negative acceptance remain UNMET.",
+        "remainingGap": "Complete source-current public two-application/export/use/error matrix is owned by existing capability tickets and #61; helper-only algebra remains #61 pending assignment.",
+        "specificCurrentDisposition": "Existing adopted Check/condition callbacks are finite; source query metadata does not qualify optional/gated complete scheduling combinations. Full stateless restrictions and mixed machine/relation requirements remain #54/#55/#61."
+      },
+      {
+        "module": "Debug",
+        "pinnedSource": "src/Debug.ts",
+        "pinnedSourceSHA256": "942fc7e3bdf1b15f31708bad0ab02c0789a037b707a566e2cb860b43f9b5c3ff",
+        "declarationOccurrences": 42,
+        "signatureMemberOccurrences": 206,
+        "exportOccurrenceIds": [
+          "src/Debug.ts:54:Debug.formatVersion",
+          "src/Debug.ts:59:Debug.Handle",
+          "src/Debug.ts:91:Debug.Storage",
+          "src/Debug.ts:93:Debug.ComponentDescription",
+          "src/Debug.ts:98:Debug.ResourceDescription",
+          "src/Debug.ts:105:Debug.RelationDescription",
+          "src/Debug.ts:113:Debug.MachineDescription",
+          "src/Debug.ts:120:Debug.ServiceDescription",
+          "src/Debug.ts:126:Debug.QueryDescription",
+          "src/Debug.ts:140:Debug.SystemDescription",
+          "src/Debug.ts:161:Debug.StepDescription",
+          "src/Debug.ts:166:Debug.ScheduleDescription",
+          "src/Debug.ts:175:Debug.Lint",
+          "src/Debug.ts:188:Debug.AccessIndexEntry",
+          "src/Debug.ts:194:Debug.Description",
+          "src/Debug.ts:217:Debug.Population",
+          "src/Debug.ts:226:Debug.DumpFilter",
+          "src/Debug.ts:235:Debug.EntityDump",
+          "src/Debug.ts:243:Debug.MachineDump",
+          "src/Debug.ts:250:Debug.PendingCommand",
+          "src/Debug.ts:256:Debug.WorldDump",
+          "src/Debug.ts:270:Debug.StreamReaderStatus",
+          "src/Debug.ts:278:Debug.StreamStatus",
+          "src/Debug.ts:294:Debug.ComponentWrite",
+          "src/Debug.ts:301:Debug.ResourceWrite",
+          "src/Debug.ts:309:Debug.EventEmit",
+          "src/Debug.ts:314:Debug.NextStateWrite",
+          "src/Debug.ts:324:Debug.MissedRead",
+          "src/Debug.ts:330:Debug.Effect",
+          "src/Debug.ts:340:Debug.AppliedCommand",
+          "src/Debug.ts:346:Debug.FrameEvent",
+          "src/Debug.ts:352:Debug.ScheduleStartEvent",
+          "src/Debug.ts:358:Debug.ScheduleEndEvent",
+          "src/Debug.ts:366:Debug.SystemEvent",
+          "src/Debug.ts:390:Debug.SystemSkippedEvent",
+          "src/Debug.ts:402:Debug.DeferredEvent",
+          "src/Debug.ts:411:Debug.TransitionEvent",
+          "src/Debug.ts:427:Debug.RestoreEvent",
+          "src/Debug.ts:435:Debug.TraceEvent",
+          "src/Debug.ts:448:Debug.Option",
+          "src/Debug.ts:453:Debug.Member",
+          "src/Debug.ts:458:Debug.MemberFor"
+        ],
+        "existingOwners": [
+          "#56",
+          "#57"
+        ],
+        "contractAndExactGaps": "Existing compressed census declarations/members and semanticClosure remain authoritative per-symbol source/type/use/error obligations.",
+        "implementation": "Existing integrated core/evidence leads in census plus later named core-map maintenance; no full current per-symbol acceptance inferred.",
+        "evidence": "Historical bounded leads/selected receipts; exact full-core joined application and per-symbol negative acceptance remain UNMET.",
+        "remainingGap": "Complete source-current public two-application/export/use/error matrix is owned by existing capability tickets and #61; helper-only algebra remains #61 pending assignment.",
+        "specificCurrentDisposition": "User-required automatic metadata from ordinary ECS declarations is not supplied by low-level adapter evidence. Generic query-retained source candidate at26202ff1 removes persistence prerequisite but is not complete debug-enable/App/System integration. Existing #56/#57 own missing behavior; precise impossibility would require explicit skip rather than low-level completion."
+      },
+      {
+        "module": "Decode",
+        "pinnedSource": "src/Decode.ts",
+        "pinnedSourceSHA256": "a8e8e91e5dffc15718ba8d3ecbea1007b386117af12764df4238356600bd82df",
+        "declarationOccurrences": 12,
+        "signatureMemberOccurrences": 6,
+        "exportOccurrenceIds": [
+          "src/Decode.ts:32:Decode.DecodeError",
+          "src/Decode.ts:43:Decode.Codec",
+          "src/Decode.ts:51:Decode.Type",
+          "src/Decode.ts:96:Decode.number",
+          "src/Decode.ts:99:Decode.integer",
+          "src/Decode.ts:101:Decode.string",
+          "src/Decode.ts:103:Decode.boolean",
+          "src/Decode.ts:113:Decode.literal",
+          "src/Decode.ts:124:Decode.nullable",
+          "src/Decode.ts:132:Decode.array",
+          "src/Decode.ts:161:Decode.struct",
+          "src/Decode.ts:193:Decode.handle"
+        ],
+        "existingOwners": [
+          "#46"
+        ],
+        "contractAndExactGaps": "Existing compressed census declarations/members and semanticClosure remain authoritative per-symbol source/type/use/error obligations.",
+        "implementation": "Existing integrated core/evidence leads in census plus later named core-map maintenance; no full current per-symbol acceptance inferred.",
+        "evidence": "Historical bounded leads/selected receipts; exact full-core joined application and per-symbol negative acceptance remain UNMET.",
+        "remainingGap": "Complete source-current public two-application/export/use/error matrix is owned by existing capability tickets and #61; helper-only algebra remains #61 pending assignment.",
+        "specificCurrentDisposition": "Complete owner projection derives structural budget; generic recipe + actual Raw codecs pass finite long-array/struct and ordinary save scenarios in experiments. Proposed public src stage fc37a04d has complete snapshot/Family application JSNative development, not master delivery. Generic Raw-to-arbitrary-Type constructor/admission integration and full codec/handle/custom validator matrix remain #46/#41/#59."
+      },
+      {
+        "module": "Definition",
+        "pinnedSource": "src/Definition.ts",
+        "pinnedSourceSHA256": "96054da50280f6dca44fd97dbd126e597f1492c9737e34329adf3f1cda1b325f",
+        "declarationOccurrences": 7,
+        "signatureMemberOccurrences": 0,
+        "exportOccurrenceIds": [
+          "src/Definition.ts:39:Definition.Entry",
+          "src/Definition.ts:45:Definition.Entries",
+          "src/Definition.ts:51:Definition.ResultConstructor",
+          "src/Definition.ts:57:Definition.SuccessOf",
+          "src/Definition.ts:63:Definition.ErrorOf",
+          "src/Definition.ts:79:Definition.entry",
+          "src/Definition.ts:104:Definition.all"
+        ],
+        "existingOwners": [
+          "#61"
+        ],
+        "contractAndExactGaps": "Existing compressed census declarations/members and semanticClosure remain authoritative per-symbol source/type/use/error obligations.",
+        "implementation": "Existing integrated core/evidence leads in census plus later named core-map maintenance; no full current per-symbol acceptance inferred.",
+        "evidence": "Historical bounded leads/selected receipts; exact full-core joined application and per-symbol negative acceptance remain UNMET.",
+        "remainingGap": "Complete source-current public two-application/export/use/error matrix is owned by existing capability tickets and #61; helper-only algebra remains #61 pending assignment."
+      },
+      {
+        "module": "Descriptor",
+        "pinnedSource": "src/Descriptor.ts",
+        "pinnedSourceSHA256": "03e7339516d9f6bd455763a8dcdf7244d0c11f7165e493aa895aaa64225acab7",
+        "declarationOccurrences": 46,
+        "signatureMemberOccurrences": 29,
+        "exportOccurrenceIds": [
+          "src/Descriptor.ts:55:Descriptor.DescriptorTypeId",
+          "src/Descriptor.ts:56:Descriptor.DescriptorConstructionTypeId",
+          "src/Descriptor.ts:57:Descriptor.DescriptorDecodeTypeId",
+          "src/Descriptor.ts:73:Descriptor.DescriptorKind",
+          "src/Descriptor.ts:81:Descriptor.Descriptor",
+          "src/Descriptor.ts:97:Descriptor.ResultConstructor",
+          "src/Descriptor.ts:108:Descriptor.Decoder",
+          "src/Descriptor.ts:119:Descriptor.ConstructedDescriptor",
+          "src/Descriptor.ts:137:Descriptor.DecodableDescriptor",
+          "src/Descriptor.ts:160:Descriptor.TransientDescriptor",
+          "src/Descriptor.ts:171:Descriptor.Descriptor",
+          "src/Descriptor.ts:175:Descriptor.Descriptor.Any",
+          "src/Descriptor.ts:176:Descriptor.Descriptor.AnyConstructed",
+          "src/Descriptor.ts:177:Descriptor.Descriptor.AnyTransient",
+          "src/Descriptor.ts:181:Descriptor.Descriptor.Value",
+          "src/Descriptor.ts:185:Descriptor.Descriptor.Name",
+          "src/Descriptor.ts:186:Descriptor.Descriptor.Raw",
+          "src/Descriptor.ts:189:Descriptor.Descriptor.ConstructionError",
+          "src/Descriptor.ts:193:Descriptor.Descriptor.Constructor",
+          "src/Descriptor.ts:258:Descriptor.Component",
+          "src/Descriptor.ts:275:Descriptor.ConstructedComponent",
+          "src/Descriptor.ts:293:Descriptor.TransientComponent",
+          "src/Descriptor.ts:309:Descriptor.Tag",
+          "src/Descriptor.ts:315:Descriptor.StateValue",
+          "src/Descriptor.ts:321:Descriptor.StateTransitions",
+          "src/Descriptor.ts:329:Descriptor.StateDescriptor",
+          "src/Descriptor.ts:358:Descriptor.State",
+          "src/Descriptor.ts:375:Descriptor.isState",
+          "src/Descriptor.ts:396:Descriptor.Resource",
+          "src/Descriptor.ts:403:Descriptor.ConstructedResource",
+          "src/Descriptor.ts:419:Descriptor.TransientResource",
+          "src/Descriptor.ts:441:Descriptor.Event",
+          "src/Descriptor.ts:462:Descriptor.Service",
+          "src/Descriptor.ts:469:Descriptor.isTransient",
+          "src/Descriptor.ts:477:Descriptor.StandardSchema",
+          "src/Descriptor.ts:486:Descriptor.StandardSchema",
+          "src/Descriptor.ts:487:Descriptor.StandardSchema.Result",
+          "src/Descriptor.ts:490:Descriptor.StandardSchema.Issue",
+          "src/Descriptor.ts:513:Descriptor.fromStandardSchema",
+          "src/Descriptor.ts:536:Descriptor.decoderOf",
+          "src/Descriptor.ts:544:Descriptor.hasConstructor",
+          "src/Descriptor.ts:552:Descriptor.constructorOf",
+          "src/Descriptor.ts:555:Descriptor.constructorOf",
+          "src/Descriptor.ts:558:Descriptor.constructorOf",
+          "src/Descriptor.ts:573:Descriptor.Hierarchy",
+          "src/Descriptor.ts:582:Descriptor.Relation"
+        ],
+        "existingOwners": [
+          "#41",
+          "#44",
+          "#46",
+          "#47",
+          "#58"
+        ],
+        "contractAndExactGaps": "Existing compressed census declarations/members and semanticClosure remain authoritative per-symbol source/type/use/error obligations.",
+        "implementation": "Existing integrated core/evidence leads in census plus later named core-map maintenance; no full current per-symbol acceptance inferred.",
+        "evidence": "Historical bounded leads/selected receipts; exact full-core joined application and per-symbol negative acceptance remain UNMET.",
+        "remainingGap": "Complete source-current public two-application/export/use/error matrix is owned by existing capability tickets and #61; helper-only algebra remains #61 pending assignment.",
+        "specificCurrentDisposition": "Same ordinary identity retains actual runtime codec and typed Plain/Transient/Constructed eligibility. Trusted constructors/lenses remain visible; no language-wide secrecy or arbitrary Raw inverse. Public src proposed stage tested, not adopted master. Generic constructor use across commands/query/provisioning remains #46/#41/#47/#58."
+      },
+      {
+        "module": "Entity",
+        "pinnedSource": "src/Entity.ts",
+        "pinnedSourceSHA256": "05d724f241b2d662a7a03ce82da5f133c4b587df92e5e22fdfdb7484edbca68e",
+        "declarationOccurrences": 20,
+        "signatureMemberOccurrences": 29,
+        "exportOccurrenceIds": [
+          "src/Entity.ts:63:Entity.EntityTypeId",
+          "src/Entity.ts:77:Entity.ComponentProof",
+          "src/Entity.ts:89:Entity.EntityId",
+          "src/Entity.ts:105:Entity.Handle",
+          "src/Entity.ts:118:Entity.Handle",
+          "src/Entity.ts:119:Entity.Handle.Root",
+          "src/Entity.ts:120:Entity.Handle.Intent",
+          "src/Entity.ts:130:Entity.EntityDraft",
+          "src/Entity.ts:160:Entity.StagedComponent",
+          "src/Entity.ts:167:Entity.EntityRef",
+          "src/Entity.ts:189:Entity.EntityMut",
+          "src/Entity.ts:221:Entity.makeEntityId",
+          "src/Entity.ts:235:Entity.makeHandle",
+          "src/Entity.ts:250:Entity.HandleTarget",
+          "src/Entity.ts:270:Entity.handle",
+          "src/Entity.ts:283:Entity.InvalidHandle",
+          "src/Entity.ts:307:Entity.decodeHandle",
+          "src/Entity.ts:326:Entity.draft",
+          "src/Entity.ts:343:Entity.ref",
+          "src/Entity.ts:356:Entity.mut"
+        ],
+        "existingOwners": [
+          "#38"
+        ],
+        "contractAndExactGaps": "Existing compressed census declarations/members and semanticClosure remain authoritative per-symbol source/type/use/error obligations.",
+        "implementation": "Existing integrated core/evidence leads in census plus later named core-map maintenance; no full current per-symbol acceptance inferred.",
+        "evidence": "Historical bounded leads/selected receipts; exact full-core joined application and per-symbol negative acceptance remain UNMET.",
+        "remainingGap": "Complete source-current public two-application/export/use/error matrix is owned by existing capability tickets and #61; helper-only algebra remains #61 pending assignment.",
+        "specificCurrentDisposition": "world.factory() returns Factory{1}; independent Factory roots are not globally unique. Family foreign MissingEntity controls use two actual worlds from one threaded Factory only. Separate-root collisions and caller-fabricated authority remain explicit #38/#45 gap, not qualified by nominal schema or finite foreign tests."
+      },
+      {
+        "module": "EntityScope",
+        "pinnedSource": "src/EntityScope.ts",
+        "pinnedSourceSHA256": "3241a13ed0c337434e193e80a790498a9130ea31d4aca1f73294a5af2c50b04a",
+        "declarationOccurrences": 6,
+        "signatureMemberOccurrences": 4,
+        "exportOccurrenceIds": [
+          "src/EntityScope.ts:15:EntityScope.EntityScope",
+          "src/EntityScope.ts:26:EntityScope.EntityScope",
+          "src/EntityScope.ts:27:EntityScope.EntityScope.Any",
+          "src/EntityScope.ts:28:EntityScope.EntityScope.Name",
+          "src/EntityScope.ts:29:EntityScope.EntityScope.Root",
+          "src/EntityScope.ts:38:EntityScope.make"
+        ],
+        "existingOwners": [
+          "#45"
+        ],
+        "contractAndExactGaps": "Existing compressed census declarations/members and semanticClosure remain authoritative per-symbol source/type/use/error obligations.",
+        "implementation": "Existing integrated core/evidence leads in census plus later named core-map maintenance; no full current per-symbol acceptance inferred.",
+        "evidence": "Historical bounded leads/selected receipts; exact full-core joined application and per-symbol negative acceptance remain UNMET.",
+        "remainingGap": "Complete source-current public two-application/export/use/error matrix is owned by existing capability tickets and #61; helper-only algebra remains #61 pending assignment."
+      },
+      {
+        "module": "Feature",
+        "pinnedSource": "src/Feature.ts",
+        "pinnedSourceSHA256": "bf3be7437c63c1f12d8b0ff0f1a4965408331fad7a279669ef7c9b2cb29140a8",
+        "declarationOccurrences": 7,
+        "signatureMemberOccurrences": 19,
+        "exportOccurrenceIds": [
+          "src/Feature.ts:47:Feature.FeatureBuildOutput",
+          "src/Feature.ts:57:Feature.FeatureBuildGame",
+          "src/Feature.ts:65:Feature.FeatureDefinition",
+          "src/Feature.ts:145:Feature.ComposedFeatureProject",
+          "src/Feature.ts:162:Feature.define",
+          "src/Feature.ts:190:Feature.compose",
+          "src/Feature.ts:238:Feature.Feature"
+        ],
+        "existingOwners": [
+          "#40"
+        ],
+        "contractAndExactGaps": "Existing compressed census declarations/members and semanticClosure remain authoritative per-symbol source/type/use/error obligations.",
+        "implementation": "Existing integrated core/evidence leads in census plus later named core-map maintenance; no full current per-symbol acceptance inferred.",
+        "evidence": "Historical bounded leads/selected receipts; exact full-core joined application and per-symbol negative acceptance remain UNMET.",
+        "remainingGap": "Complete source-current public two-application/export/use/error matrix is owned by existing capability tickets and #61; helper-only algebra remains #61 pending assignment."
+      },
+      {
+        "module": "Fx",
+        "pinnedSource": "src/Fx.ts",
+        "pinnedSourceSHA256": "75242b8513225601589f4658d59c86100351557fef39cc8d17506c958dd2c5b3",
+        "declarationOccurrences": 15,
+        "signatureMemberOccurrences": 5,
+        "exportOccurrenceIds": [
+          "src/Fx.ts:42:Fx.FxTypeId",
+          "src/Fx.ts:55:Fx.Fx",
+          "src/Fx.ts:67:Fx.Fx",
+          "src/Fx.ts:71:Fx.Fx.Success",
+          "src/Fx.ts:75:Fx.Fx.Error",
+          "src/Fx.ts:79:Fx.Fx.Context",
+          "src/Fx.ts:104:Fx.succeed",
+          "src/Fx.ts:113:Fx.sync",
+          "src/Fx.ts:119:Fx.fail",
+          "src/Fx.ts:125:Fx.map",
+          "src/Fx.ts:136:Fx.flatMap",
+          "src/Fx.ts:149:Fx.access",
+          "src/Fx.ts:158:Fx.accessService",
+          "src/Fx.ts:164:Fx.provide",
+          "src/Fx.ts:175:Fx.runSync"
+        ],
+        "existingOwners": [
+          "#61"
+        ],
+        "contractAndExactGaps": "Existing compressed census declarations/members and semanticClosure remain authoritative per-symbol source/type/use/error obligations.",
+        "implementation": "Existing integrated core/evidence leads in census plus later named core-map maintenance; no full current per-symbol acceptance inferred.",
+        "evidence": "Historical bounded leads/selected receipts; exact full-core joined application and per-symbol negative acceptance remain UNMET.",
+        "remainingGap": "Complete source-current public two-application/export/use/error matrix is owned by existing capability tickets and #61; helper-only algebra remains #61 pending assignment."
+      },
+      {
+        "module": "Inspector",
+        "pinnedSource": "src/Inspector.ts",
+        "pinnedSourceSHA256": "21757eb340c0ae192a36726538d0a87aefbd455859d196dab36aa3515c1addb3",
+        "declarationOccurrences": 9,
+        "signatureMemberOccurrences": 17,
+        "exportOccurrenceIds": [
+          "src/Inspector.ts:33:Inspector.InspectorAccessInput",
+          "src/Inspector.ts:46:Inspector.ExactInspectorAccess",
+          "src/Inspector.ts:54:Inspector.InspectorContext",
+          "src/Inspector.ts:68:Inspector.InspectorDefinition",
+          "src/Inspector.ts:84:Inspector.Inspector",
+          "src/Inspector.ts:85:Inspector.Inspector.Any",
+          "src/Inspector.ts:86:Inspector.Inspector.Value",
+          "src/Inspector.ts:87:Inspector.Inspector.Needs",
+          "src/Inspector.ts:91:Inspector.make"
+        ],
+        "existingOwners": [
+          "#54"
+        ],
+        "contractAndExactGaps": "Existing compressed census declarations/members and semanticClosure remain authoritative per-symbol source/type/use/error obligations.",
+        "implementation": "Existing integrated core/evidence leads in census plus later named core-map maintenance; no full current per-symbol acceptance inferred.",
+        "evidence": "Historical bounded leads/selected receipts; exact full-core joined application and per-symbol negative acceptance remain UNMET.",
+        "remainingGap": "Complete source-current public two-application/export/use/error matrix is owned by existing capability tickets and #61; helper-only algebra remains #61 pending assignment.",
+        "specificCurrentDisposition": "Adopted Inspector/Check at61e85364 has finite source-current evidence documented above; full categories/ordinary authority/nonretention and joined debug/relations/machines remain #54/#55/#56/#61. New snapshot route grants no Inspector coverage."
+      },
+      {
+        "module": "Machine",
+        "pinnedSource": "src/Machine.ts",
+        "pinnedSourceSHA256": "a0007e841e07afb10a40ab8f3056691a3555cd6815b4564f5f1326e0e956ceb3",
+        "declarationOccurrences": 41,
+        "signatureMemberOccurrences": 61,
+        "exportOccurrenceIds": [
+          "src/Machine.ts:47:Machine.StateValue",
+          "src/Machine.ts:52:Machine.StateMachineDefinition",
+          "src/Machine.ts:67:Machine.TransitionSnapshot",
+          "src/Machine.ts:75:Machine.MachineView",
+          "src/Machine.ts:83:Machine.NextMachineView",
+          "src/Machine.ts:96:Machine.TransitionView",
+          "src/Machine.ts:107:Machine.TransitionEventView",
+          "src/Machine.ts:114:Machine.MachineRead",
+          "src/Machine.ts:121:Machine.NextMachineWrite",
+          "src/Machine.ts:128:Machine.TransitionRead",
+          "src/Machine.ts:135:Machine.TransitionEventRead",
+          "src/Machine.ts:142:Machine.Condition",
+          "src/Machine.ts:150:Machine.InStateCondition",
+          "src/Machine.ts:158:Machine.StateChangedCondition",
+          "src/Machine.ts:165:Machine.NotCondition",
+          "src/Machine.ts:175:Machine.AndCondition",
+          "src/Machine.ts:185:Machine.OrCondition",
+          "src/Machine.ts:206:Machine.CheckCondition",
+          "src/Machine.ts:225:Machine.CheckProjection",
+          "src/Machine.ts:233:Machine.TransitionScheduleDefinition",
+          "src/Machine.ts:258:Machine.StateMachine",
+          "src/Machine.ts:259:Machine.StateMachine.Any",
+          "src/Machine.ts:260:Machine.StateMachine.Value",
+          "src/Machine.ts:261:Machine.StateMachine.Root",
+          "src/Machine.ts:262:Machine.StateMachine.AnyCondition",
+          "src/Machine.ts:263:Machine.StateMachine.AnyTransitionSchedule",
+          "src/Machine.ts:275:Machine.ConditionNeeds",
+          "src/Machine.ts:281:Machine.ConditionNeedsFromConditions",
+          "src/Machine.ts:285:Machine.MachineNeedsFromCondition",
+          "src/Machine.ts:288:Machine.MachineNeedsFromRecord",
+          "src/Machine.ts:292:Machine.MachineNeedsFromConditions",
+          "src/Machine.ts:308:Machine.StateMachine",
+          "src/Machine.ts:328:Machine.read",
+          "src/Machine.ts:338:Machine.write",
+          "src/Machine.ts:345:Machine.transition",
+          "src/Machine.ts:355:Machine.readTransitionEvent",
+          "src/Machine.ts:366:Machine.inState",
+          "src/Machine.ts:379:Machine.stateChanged",
+          "src/Machine.ts:390:Machine.not",
+          "src/Machine.ts:399:Machine.and",
+          "src/Machine.ts:408:Machine.or"
+        ],
+        "existingOwners": [
+          "#48"
+        ],
+        "contractAndExactGaps": "Existing compressed census declarations/members and semanticClosure remain authoritative per-symbol source/type/use/error obligations.",
+        "implementation": "Existing integrated core/evidence leads in census plus later named core-map maintenance; no full current per-symbol acceptance inferred.",
+        "evidence": "Historical bounded leads/selected receipts; exact full-core joined application and per-symbol negative acceptance remain UNMET.",
+        "remainingGap": "Complete source-current public two-application/export/use/error matrix is owned by existing capability tickets and #61; helper-only algebra remains #61 pending assignment."
+      },
+      {
+        "module": "Query",
+        "pinnedSource": "src/Query.ts",
+        "pinnedSourceSHA256": "45e2fe513f66e336f97d40b41b3c866363a1af17ecbc90087086e00c08b28414",
+        "declarationOccurrences": 44,
+        "signatureMemberOccurrences": 52,
+        "exportOccurrenceIds": [
+          "src/Query.ts:113:Query.ReadAccess",
+          "src/Query.ts:129:Query.WriteAccess",
+          "src/Query.ts:143:Query.OptionalReadAccess",
+          "src/Query.ts:154:Query.Access",
+          "src/Query.ts:159:Query.SelectionAccess",
+          "src/Query.ts:168:Query.AddedFilter",
+          "src/Query.ts:177:Query.ChangedFilter",
+          "src/Query.ts:182:Query.Filter",
+          "src/Query.ts:194:Query.read",
+          "src/Query.ts:207:Query.write",
+          "src/Query.ts:232:Query.optional",
+          "src/Query.ts:257:Query.added",
+          "src/Query.ts:280:Query.changed",
+          "src/Query.ts:291:Query.QuerySpec",
+          "src/Query.ts:343:Query.Query",
+          "src/Query.ts:347:Query.Query.NonEmptyReadonlyArray",
+          "src/Query.ts:352:Query.Query.Any",
+          "src/Query.ts:367:Query.Query.Root",
+          "src/Query.ts:380:Query.Query.ProvesComponent",
+          "src/Query.ts:390:Query.Query.ReadProof",
+          "src/Query.ts:401:Query.Query.WriteProof",
+          "src/Query.ts:410:Query.Query.Cells",
+          "src/Query.ts:425:Query.Query.MissingEntityError",
+          "src/Query.ts:433:Query.Query.QueryMismatchError",
+          "src/Query.ts:441:Query.Query.NoEntitiesError",
+          "src/Query.ts:448:Query.Query.MultipleEntitiesError",
+          "src/Query.ts:456:Query.Query.LookupError",
+          "src/Query.ts:461:Query.Query.SingleError",
+          "src/Query.ts:465:Query.ReadonlyValue",
+          "src/Query.ts:480:Query.ReadCell",
+          "src/Query.ts:492:Query.WriteCell",
+          "src/Query.ts:517:Query.ConstructedWriteCell",
+          "src/Query.ts:546:Query.StateMismatchError",
+          "src/Query.ts:564:Query.StateWriteCell",
+          "src/Query.ts:588:Query.WriteCellForDescriptor",
+          "src/Query.ts:598:Query.PresentOptionalReadCell",
+          "src/Query.ts:605:Query.AbsentOptionalReadCell",
+          "src/Query.ts:614:Query.OptionalReadCell",
+          "src/Query.ts:622:Query.QueryMatch",
+          "src/Query.ts:636:Query.missingEntityError",
+          "src/Query.ts:644:Query.queryMismatchError",
+          "src/Query.ts:652:Query.noEntitiesError",
+          "src/Query.ts:659:Query.multipleEntitiesError",
+          "src/Query.ts:688:Query.Query"
+        ],
+        "existingOwners": [
+          "#46",
+          "#47",
+          "#61"
+        ],
+        "contractAndExactGaps": "Existing compressed census declarations/members and semanticClosure remain authoritative per-symbol source/type/use/error obligations.",
+        "implementation": "Existing integrated core/evidence leads in census plus later named core-map maintenance; no full current per-symbol acceptance inferred.",
+        "evidence": "Historical bounded leads/selected receipts; exact full-core joined application and per-symbol negative acceptance remain UNMET.",
+        "remainingGap": "Complete source-current public two-application/export/use/error matrix is owned by existing capability tickets and #61; helper-only algebra remains #61 pending assignment.",
+        "specificCurrentDisposition": "New declared-family bridge preserves recipe during Core component get/replace, not complete query-combination qualification. Ordinary generic query declaration candidate at26202ff1 is source-only; System/App/debug binding and generic all-query metadata remain #56/#61."
+      },
+      {
+        "module": "Relation",
+        "pinnedSource": "src/Relation.ts",
+        "pinnedSourceSHA256": "7c2cbe93d90c6ca4f173932c9bb7e4536323d6b5bf17dc64c1c8fda83c3a7aa4",
+        "declarationOccurrences": 43,
+        "signatureMemberOccurrences": 72,
+        "exportOccurrenceIds": [
+          "src/Relation.ts:41:Relation.RelationTypeId",
+          "src/Relation.ts:45:Relation.RelationKind",
+          "src/Relation.ts:53:Relation.RelatedDefinition",
+          "src/Relation.ts:69:Relation.RelationDefinition",
+          "src/Relation.ts:89:Relation.Relation",
+          "src/Relation.ts:90:Relation.Relation.Any",
+          "src/Relation.ts:91:Relation.Relation.AnyRelated",
+          "src/Relation.ts:92:Relation.Relation.Hierarchy",
+          "src/Relation.ts:93:Relation.Relation.MutationOperation",
+          "src/Relation.ts:95:Relation.Relation.MissingEntityError",
+          "src/Relation.ts:100:Relation.Relation.MissingRelationError",
+          "src/Relation.ts:106:Relation.Relation.MissingTargetEntityError",
+          "src/Relation.ts:113:Relation.Relation.SelfRelationNotAllowedError",
+          "src/Relation.ts:119:Relation.Relation.HierarchyCycleError",
+          "src/Relation.ts:126:Relation.Relation.MissingChildEntityError",
+          "src/Relation.ts:133:Relation.Relation.DuplicateChildError",
+          "src/Relation.ts:140:Relation.Relation.ChildNotRelatedToParentError",
+          "src/Relation.ts:147:Relation.Relation.ChildSetMismatchError",
+          "src/Relation.ts:153:Relation.Relation.LookupError",
+          "src/Relation.ts:154:Relation.Relation.MutationError",
+          "src/Relation.ts:164:Relation.Relation.MutationFailure",
+          "src/Relation.ts:178:Relation.missingEntityError",
+          "src/Relation.ts:183:Relation.missingRelationError",
+          "src/Relation.ts:192:Relation.missingTargetEntityError",
+          "src/Relation.ts:203:Relation.selfRelationNotAllowedError",
+          "src/Relation.ts:212:Relation.hierarchyCycleError",
+          "src/Relation.ts:223:Relation.missingChildEntityError",
+          "src/Relation.ts:234:Relation.duplicateChildError",
+          "src/Relation.ts:245:Relation.childNotRelatedToParentError",
+          "src/Relation.ts:256:Relation.childSetMismatchError",
+          "src/Relation.ts:265:Relation.mutationFailure",
+          "src/Relation.ts:329:Relation.Hierarchy",
+          "src/Relation.ts:337:Relation.Relation",
+          "src/Relation.ts:345:Relation.RelationReadAccess",
+          "src/Relation.ts:356:Relation.OptionalRelationReadAccess",
+          "src/Relation.ts:367:Relation.RelatedReadAccess",
+          "src/Relation.ts:378:Relation.OptionalRelatedReadAccess",
+          "src/Relation.ts:389:Relation.SelectionAccess",
+          "src/Relation.ts:395:Relation.read",
+          "src/Relation.ts:402:Relation.optional",
+          "src/Relation.ts:409:Relation.readRelated",
+          "src/Relation.ts:416:Relation.optionalRelated",
+          "src/Relation.ts:423:Relation.StagedRelation"
+        ],
+        "existingOwners": [
+          "#42",
+          "#44"
+        ],
+        "contractAndExactGaps": "Existing compressed census declarations/members and semanticClosure remain authoritative per-symbol source/type/use/error obligations.",
+        "implementation": "Existing integrated core/evidence leads in census plus later named core-map maintenance; no full current per-symbol acceptance inferred.",
+        "evidence": "Historical bounded leads/selected receipts; exact full-core joined application and per-symbol negative acceptance remain UNMET.",
+        "remainingGap": "Complete source-current public two-application/export/use/error matrix is owned by existing capability tickets and #61; helper-only algebra remains #61 pending assignment."
+      },
+      {
+        "module": "Requirement",
+        "pinnedSource": "src/Requirement.ts",
+        "pinnedSourceSHA256": "0397bbf69285e1f50edafdceab81b48208c0127fe53ff0305e52d6a1b4766783",
+        "declarationOccurrences": 4,
+        "signatureMemberOccurrences": 4,
+        "exportOccurrenceIds": [
+          "src/Requirement.ts:25:Requirement.Requirement",
+          "src/Requirement.ts:30:Requirement.RequirementValue",
+          "src/Requirement.ts:37:Requirement.Of",
+          "src/Requirement.ts:42:Requirement.collect"
+        ],
+        "existingOwners": [
+          "#34"
+        ],
+        "contractAndExactGaps": "Existing compressed census declarations/members and semanticClosure remain authoritative per-symbol source/type/use/error obligations.",
+        "implementation": "Existing integrated core/evidence leads in census plus later named core-map maintenance; no full current per-symbol acceptance inferred.",
+        "evidence": "Historical bounded leads/selected receipts; exact full-core joined application and per-symbol negative acceptance remain UNMET.",
+        "remainingGap": "Complete source-current public two-application/export/use/error matrix is owned by existing capability tickets and #61; helper-only algebra remains #61 pending assignment."
+      },
+      {
+        "module": "Result",
+        "pinnedSource": "src/Result.ts",
+        "pinnedSourceSHA256": "96b098025e5e84b26bc97355ed1c463fe17f652954d2f83a83058e9817f7766c",
+        "declarationOccurrences": 12,
+        "signatureMemberOccurrences": 2,
+        "exportOccurrenceIds": [
+          "src/Result.ts:50:Result.Success",
+          "src/Result.ts:56:Result.Failure",
+          "src/Result.ts:62:Result.Result",
+          "src/Result.ts:68:Result.MatchReturn",
+          "src/Result.ts:79:Result.AllSuccess",
+          "src/Result.ts:86:Result.AllError",
+          "src/Result.ts:94:Result.success",
+          "src/Result.ts:100:Result.failure",
+          "src/Result.ts:106:Result.isSuccess",
+          "src/Result.ts:112:Result.isFailure",
+          "src/Result.ts:129:Result.match",
+          "src/Result.ts:155:Result.all"
+        ],
+        "existingOwners": [
+          "#61"
+        ],
+        "contractAndExactGaps": "Existing compressed census declarations/members and semanticClosure remain authoritative per-symbol source/type/use/error obligations.",
+        "implementation": "Existing integrated core/evidence leads in census plus later named core-map maintenance; no full current per-symbol acceptance inferred.",
+        "evidence": "Historical bounded leads/selected receipts; exact full-core joined application and per-symbol negative acceptance remain UNMET.",
+        "remainingGap": "Complete source-current public two-application/export/use/error matrix is owned by existing capability tickets and #61; helper-only algebra remains #61 pending assignment."
+      },
+      {
+        "module": "Runtime",
+        "pinnedSource": "src/Runtime.ts",
+        "pinnedSourceSHA256": "c744aa5c52845bd3323358c5085161b40a452c6802a1653e3851bfd34c69f5b4",
+        "declarationOccurrences": 23,
+        "signatureMemberOccurrences": 33,
+        "exportOccurrenceIds": [
+          "src/Runtime.ts:124:Runtime.RuntimeServicesTypeId",
+          "src/Runtime.ts:134:Runtime.RuntimeMachinesTypeId",
+          "src/Runtime.ts:147:Runtime.RuntimeResources",
+          "src/Runtime.ts:164:Runtime.ProvidedResources",
+          "src/Runtime.ts:171:Runtime.RuntimeConstructionError",
+          "src/Runtime.ts:183:Runtime.WithDebug",
+          "src/Runtime.ts:190:Runtime.MakeRuntimeResult",
+          "src/Runtime.ts:207:Runtime.MachineProvision",
+          "src/Runtime.ts:231:Runtime.RuntimeMachines",
+          "src/Runtime.ts:245:Runtime.ServiceProvision",
+          "src/Runtime.ts:276:Runtime.RuntimeServices",
+          "src/Runtime.ts:377:Runtime.ValidateSchedules",
+          "src/Runtime.ts:392:Runtime.ValidateScheduleArray",
+          "src/Runtime.ts:445:Runtime.AnyRequirements",
+          "src/Runtime.ts:448:Runtime.MissingRuntimeRequirement",
+          "src/Runtime.ts:454:Runtime.MissingRuntimeRequirements",
+          "src/Runtime.ts:539:Runtime.Runtime",
+          "src/Runtime.ts:657:Runtime.streamCapacity",
+          "src/Runtime.ts:2029:Runtime.make",
+          "src/Runtime.ts:2084:Runtime.services",
+          "src/Runtime.ts:2102:Runtime.service",
+          "src/Runtime.ts:2118:Runtime.machines",
+          "src/Runtime.ts:2146:Runtime.machine"
+        ],
+        "existingOwners": [
+          "#61"
+        ],
+        "contractAndExactGaps": "Existing compressed census declarations/members and semanticClosure remain authoritative per-symbol source/type/use/error obligations.",
+        "implementation": "Existing integrated core/evidence leads in census plus later named core-map maintenance; no full current per-symbol acceptance inferred.",
+        "evidence": "Historical bounded leads/selected receipts; exact full-core joined application and per-symbol negative acceptance remain UNMET.",
+        "remainingGap": "Complete source-current public two-application/export/use/error matrix is owned by existing capability tickets and #61; helper-only algebra remains #61 pending assignment.",
+        "specificCurrentDisposition": "Actual src save consumer is World/Store/Family route, not complete bound Runtime orchestration. Queue/events/registration/lifecycle/resource owner fields are observed unchanged by save, but this is not serialization of runtime owners. Full provisioning/stream/restore/debug compositions remain #34/#48/#58/#59/#60/#61."
+      },
+      {
+        "module": "Schedule",
+        "pinnedSource": "src/Schedule.ts",
+        "pinnedSourceSHA256": "ab1610c356bfbcedf6ac85758e04c7032cda1f2458ff13c8a483c53d94b55c2a",
+        "declarationOccurrences": 29,
+        "signatureMemberOccurrences": 16,
+        "exportOccurrenceIds": [
+          "src/Schedule.ts:31:Schedule.ApplyDeferredStep",
+          "src/Schedule.ts:35:Schedule.ApplyStateTransitionsStep",
+          "src/Schedule.ts:44:Schedule.ScheduleMarkerStep",
+          "src/Schedule.ts:50:Schedule.ScheduleStep",
+          "src/Schedule.ts:52:Schedule.TransitionBundleDefinition",
+          "src/Schedule.ts:67:Schedule.ExecutableScheduleDefinition",
+          "src/Schedule.ts:83:Schedule.ScheduleDefinition",
+          "src/Schedule.ts:91:Schedule.Schedule",
+          "src/Schedule.ts:92:Schedule.Schedule.Definition",
+          "src/Schedule.ts:99:Schedule.Schedule.Step",
+          "src/Schedule.ts:100:Schedule.Schedule.TransitionBundle",
+          "src/Schedule.ts:114:Schedule.ScheduleEntry",
+          "src/Schedule.ts:138:Schedule.FailureOf",
+          "src/Schedule.ts:146:Schedule.EntryFailure",
+          "src/Schedule.ts:151:Schedule.CompositionFailure",
+          "src/Schedule.ts:154:Schedule.CompositionExactRequirements",
+          "src/Schedule.ts:157:Schedule.AnonymousScheduleBuildFor",
+          "src/Schedule.ts:173:Schedule.ConditionalScheduleBuildFor",
+          "src/Schedule.ts:186:Schedule.TransitionBundleInput",
+          "src/Schedule.ts:195:Schedule.FlattenTransitionEntries",
+          "src/Schedule.ts:199:Schedule.TransitionBundleRequirements",
+          "src/Schedule.ts:203:Schedule.TransitionBundleFailure",
+          "src/Schedule.ts:212:Schedule.applyDeferred",
+          "src/Schedule.ts:214:Schedule.transitions",
+          "src/Schedule.ts:243:Schedule.applyStateTransitions",
+          "src/Schedule.ts:258:Schedule.Schedule",
+          "src/Schedule.ts:268:Schedule.make",
+          "src/Schedule.ts:296:Schedule.when",
+          "src/Schedule.ts:324:Schedule.isSystemStep"
+        ],
+        "existingOwners": [
+          "#34"
+        ],
+        "contractAndExactGaps": "Existing compressed census declarations/members and semanticClosure remain authoritative per-symbol source/type/use/error obligations.",
+        "implementation": "Existing integrated core/evidence leads in census plus later named core-map maintenance; no full current per-symbol acceptance inferred.",
+        "evidence": "Historical bounded leads/selected receipts; exact full-core joined application and per-symbol negative acceptance remain UNMET.",
+        "remainingGap": "Complete source-current public two-application/export/use/error matrix is owned by existing capability tickets and #61; helper-only algebra remains #61 pending assignment."
+      },
+      {
+        "module": "Schema",
+        "pinnedSource": "src/Schema.ts",
+        "pinnedSourceSHA256": "26e7c140a6f3c2a98ea4e43c1f067a18e47c03ff6f56939c8139f1535ae1a0ec",
+        "declarationOccurrences": 37,
+        "signatureMemberOccurrences": 88,
+        "exportOccurrenceIds": [
+          "src/Schema.ts:68:Schema.{ Feature }",
+          "src/Schema.ts:73:Schema.Registry",
+          "src/Schema.ts:79:Schema.SchemaDefinition",
+          "src/Schema.ts:93:Schema.RootToken",
+          "src/Schema.ts:107:Schema.MergeSchemaDefinitions",
+          "src/Schema.ts:120:Schema.BuildFragments",
+          "src/Schema.ts:181:Schema.ValidateFragments",
+          "src/Schema.ts:203:Schema.defineRoot",
+          "src/Schema.ts:214:Schema.empty",
+          "src/Schema.ts:231:Schema.fragment",
+          "src/Schema.ts:255:Schema.merge",
+          "src/Schema.ts:276:Schema.bind",
+          "src/Schema.ts:279:Schema.bind",
+          "src/Schema.ts:283:Schema.bind",
+          "src/Schema.ts:286:Schema.bind",
+          "src/Schema.ts:290:Schema.bind",
+          "src/Schema.ts:383:Schema.Schema",
+          "src/Schema.ts:387:Schema.Schema.Any",
+          "src/Schema.ts:389:Schema.Schema.Components",
+          "src/Schema.ts:390:Schema.Schema.Resources",
+          "src/Schema.ts:391:Schema.Schema.Events",
+          "src/Schema.ts:392:Schema.Schema.Relations",
+          "src/Schema.ts:394:Schema.Schema.ComponentValue",
+          "src/Schema.ts:395:Schema.Schema.ResourceValue",
+          "src/Schema.ts:396:Schema.Schema.EventValue",
+          "src/Schema.ts:399:Schema.Schema.ComponentDescriptor",
+          "src/Schema.ts:401:Schema.Schema.ResourceDescriptor",
+          "src/Schema.ts:403:Schema.Schema.EventDescriptor",
+          "src/Schema.ts:405:Schema.Schema.RelationDescriptor",
+          "src/Schema.ts:410:Schema.Schema.BoundSystem",
+          "src/Schema.ts:421:Schema.Schema.BoundInspector",
+          "src/Schema.ts:433:Schema.Schema.BoundSchedule",
+          "src/Schema.ts:443:Schema.Schema.BoundStateMachine",
+          "src/Schema.ts:449:Schema.Schema.BoundTransitionSchedule",
+          "src/Schema.ts:457:Schema.Schema.BoundTransitionBundle",
+          "src/Schema.ts:468:Schema.Schema.BoundRuntime",
+          "src/Schema.ts:479:Schema.Schema.Game"
+        ],
+        "existingOwners": [
+          "#39",
+          "#42"
+        ],
+        "contractAndExactGaps": "Existing compressed census declarations/members and semanticClosure remain authoritative per-symbol source/type/use/error obligations.",
+        "implementation": "Existing integrated core/evidence leads in census plus later named core-map maintenance; no full current per-symbol acceptance inferred.",
+        "evidence": "Historical bounded leads/selected receipts; exact full-core joined application and per-symbol negative acceptance remain UNMET.",
+        "remainingGap": "Complete source-current public two-application/export/use/error matrix is owned by existing capability tickets and #61; helper-only algebra remains #61 pending assignment.",
+        "specificCurrentDisposition": "One ordinary identity/inventory derives product fields and Family descriptor, with existing SF/capability contracts; no second numeric/name registry. Caller-authored schema lenses and duplicate validation remain trusted. Full bound Game surface and mixed feature/root authority remain #39/#40/#61."
+      },
+      {
+        "module": "Snapshot",
+        "pinnedSource": "src/Snapshot.ts",
+        "pinnedSourceSHA256": "249f57c429d97e57088ebb1e959b6258dd97ca71c9cc66a0a4ed6ac35ad04a3b",
+        "declarationOccurrences": 6,
+        "signatureMemberOccurrences": 39,
+        "exportOccurrenceIds": [
+          "src/Snapshot.ts:63:Snapshot.Unvalidated",
+          "src/Snapshot.ts:73:Snapshot.Gate",
+          "src/Snapshot.ts:78:Snapshot.EntitySnapshot",
+          "src/Snapshot.ts:84:Snapshot.WorldSnapshot",
+          "src/Snapshot.ts:100:Snapshot.RestoreError",
+          "src/Snapshot.ts:126:Snapshot.parse"
+        ],
+        "existingOwners": [
+          "#58"
+        ],
+        "contractAndExactGaps": "Existing compressed census declarations/members and semanticClosure remain authoritative per-symbol source/type/use/error obligations.",
+        "implementation": "Existing integrated core/evidence leads in census plus later named core-map maintenance; no full current per-symbol acceptance inferred.",
+        "evidence": "Historical bounded leads/selected receipts; exact full-core joined application and per-symbol negative acceptance remain UNMET.",
+        "remainingGap": "Complete source-current public two-application/export/use/error matrix is owned by existing capability tickets and #61; helper-only algebra remains #61 pending assignment.",
+        "specificCurrentDisposition": "Basic detached entity/component/resource/allocator save + eligibility and retained codec boundaries pass full staged src JSNative and reached codec-restoration control. RestoreError/parse and relations/machines/runtime checkpoint are not implemented by this save route; existing #58/#59/#60 remain open."
+      },
+      {
+        "module": "System",
+        "pinnedSource": "src/System.ts",
+        "pinnedSourceSHA256": "ae53852dbd815ad441446cbcfc663d25aed6c2bd0afcfacbc3c20e0c40dc2ba7",
+        "declarationOccurrences": 49,
+        "signatureMemberOccurrences": 97,
+        "exportOccurrenceIds": [
+          "src/System.ts:121:System.ServiceRead",
+          "src/System.ts:133:System.service",
+          "src/System.ts:142:System.ResourceRead",
+          "src/System.ts:150:System.ResourceWrite",
+          "src/System.ts:163:System.readResource",
+          "src/System.ts:190:System.writeResource",
+          "src/System.ts:200:System.EventRead",
+          "src/System.ts:208:System.EventWrite",
+          "src/System.ts:233:System.readEvent",
+          "src/System.ts:262:System.writeEvent",
+          "src/System.ts:277:System.machine",
+          "src/System.ts:292:System.nextState",
+          "src/System.ts:299:System.transition",
+          "src/System.ts:312:System.readTransitionEvent",
+          "src/System.ts:328:System.ResourceReadView",
+          "src/System.ts:333:System.ResourceWriteView",
+          "src/System.ts:341:System.EventReadView",
+          "src/System.ts:356:System.EventWriteView",
+          "src/System.ts:363:System.MachineReadView",
+          "src/System.ts:371:System.NextMachineWriteView",
+          "src/System.ts:381:System.TransitionReadView",
+          "src/System.ts:388:System.TransitionEventReadView",
+          "src/System.ts:403:System.RemovedRead",
+          "src/System.ts:410:System.DespawnedRead",
+          "src/System.ts:420:System.RelationFailureRead",
+          "src/System.ts:451:System.readRemoved",
+          "src/System.ts:460:System.readRelationFailures",
+          "src/System.ts:487:System.readDespawned",
+          "src/System.ts:494:System.RemovedReadView",
+          "src/System.ts:501:System.DespawnedReadView",
+          "src/System.ts:508:System.RelationFailureReadView",
+          "src/System.ts:530:System.QueryHandle",
+          "src/System.ts:572:System.LookupApi",
+          "src/System.ts:663:System.SystemOrderingSpec",
+          "src/System.ts:678:System.SystemAccessInput",
+          "src/System.ts:698:System.SystemAccessSpec",
+          "src/System.ts:701:System.ExactAccess",
+          "src/System.ts:718:System.SystemSpec",
+          "src/System.ts:742:System.AnySystemSpec",
+          "src/System.ts:831:System.SystemContext",
+          "src/System.ts:850:System.SystemDependencies",
+          "src/System.ts:861:System.SystemNeeds",
+          "src/System.ts:883:System.SystemAccessNeeds",
+          "src/System.ts:898:System.SystemFailure",
+          "src/System.ts:908:System.FailureOf",
+          "src/System.ts:916:System.SystemDefinition",
+          "src/System.ts:968:System.SystemRun",
+          "src/System.ts:1032:System.System",
+          "src/System.ts:1046:System.System"
+        ],
+        "existingOwners": [
+          "#35",
+          "#42",
+          "#43",
+          "#51",
+          "#53"
+        ],
+        "contractAndExactGaps": "Existing compressed census declarations/members and semanticClosure remain authoritative per-symbol source/type/use/error obligations.",
+        "implementation": "Existing integrated core/evidence leads in census plus later named core-map maintenance; no full current per-symbol acceptance inferred.",
+        "evidence": "Historical bounded leads/selected receipts; exact full-core joined application and per-symbol negative acceptance remain UNMET.",
+        "remainingGap": "Complete source-current public two-application/export/use/error matrix is owned by existing capability tickets and #61; helper-only algebra remains #61 pending assignment.",
+        "specificCurrentDisposition": "Family bridge uses existing component authority rather than inventing a System API. Static read-as-write, cross-schema and owner duplication refusals are finite; public System scheduling/captured affine callback/event combinations remain #50/#51/#52/#53/#61."
+      },
+      {
+        "module": "index",
+        "pinnedSource": "src/index.ts",
+        "pinnedSourceSHA256": "a74d79748f5eff6e9f732b54ed6efc0a42826e4cf8ffc7ab9504d11257e6d61f",
+        "declarationOccurrences": 13,
+        "signatureMemberOccurrences": 0,
+        "exportOccurrenceIds": [
+          "src/index.ts:10:index.* as Brand",
+          "src/index.ts:14:index.* as Decode",
+          "src/index.ts:18:index.* as Debug",
+          "src/index.ts:22:index.* as Descriptor",
+          "src/index.ts:26:index.* as Definition",
+          "src/index.ts:30:index.* as Entity",
+          "src/index.ts:34:index.* as EntityScope",
+          "src/index.ts:38:index.* as Fx",
+          "src/index.ts:42:index.* as Inspector",
+          "src/index.ts:46:index.* as Result",
+          "src/index.ts:50:index.* as Requirement",
+          "src/index.ts:54:index.* as Snapshot",
+          "src/index.ts:58:index.* as Schema"
+        ],
+        "existingOwners": [
+          "#45",
+          "#61"
+        ],
+        "contractAndExactGaps": "Existing compressed census declarations/members and semanticClosure remain authoritative per-symbol source/type/use/error obligations.",
+        "implementation": "Existing integrated core/evidence leads in census plus later named core-map maintenance; no full current per-symbol acceptance inferred.",
+        "evidence": "Historical bounded leads/selected receipts; exact full-core joined application and per-symbol negative acceptance remain UNMET.",
+        "remainingGap": "Complete source-current public two-application/export/use/error matrix is owned by existing capability tickets and #61; helper-only algebra remains #61 pending assignment."
+      }
+    ],
+    "concreteUnmetScenarioRoutes": [
+      {
+        "owners": [
+          "#38",
+          "#45",
+          "#61"
+        ],
+        "contract": "Foreign handles and caller authority across independently rooted factories",
+        "gap": "Factory{1} restarts namespace; current same-factory foreign controls cannot qualify independent roots or secrecy."
+      },
+      {
+        "owners": [
+          "#46",
+          "#41",
+          "#59",
+          "#61"
+        ],
+        "contract": "All Codec.result/decode/constructor/raw insertion/handle/custom schema boundaries",
+        "gap": "Finite owner-projection validation does not supply automatic arbitrary Type construction; full custom/handle/error matrix remains."
+      },
+      {
+        "owners": [
+          "#58",
+          "#59",
+          "#60",
+          "#61"
+        ],
+        "contract": "Full Snapshot.WorldSnapshot/RestoreError/parse and restore across graph/machines/runtime state",
+        "gap": "Basic export has no whole relations/machines restore/parse route; save does not encode live runtime function owners."
+      },
+      {
+        "owners": [
+          "#56",
+          "#57",
+          "#61"
+        ],
+        "contract": "User enables debug and ordinary ECS declarations derive structure/access/schedules",
+        "gap": "Retained ordinary query source candidate alone does not establish App/System integration or enabled/disabled runtime noninterference."
+      },
+      {
+        "owners": [
+          "#61"
+        ],
+        "contract": "Every helper export and inherited/bound Game/Runtime use/error/static scenario",
+        "gap": "All historical exact per-export/helper acceptance remains UNMET; module coverage is routing, not semantic proof or frozen two-application audit."
+      }
+    ],
+    "gateDisposition": "#28 regression and full numeric #21/#23/#24 remain separate; CPU contention defers comparison, not semantics. No new gates/tolerances/laws/dependencies/contracts."
   }
 }
