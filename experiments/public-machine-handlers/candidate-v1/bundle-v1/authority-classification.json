@@ -1,0 +1,45 @@
+{
+  "status": "SEPARATE_INDEPENDENT_FULL_DIAGNOSTIC_CLASSIFICATION",
+  "rawReceipt": "experiments/public-machine-handlers/candidate-v1/bundle-v1/bundle-source-1791435890088394562/receipt.json",
+  "rawReceiptSHA256": "c134cf6c4ed8300182605ba620bac052262e6d833e69e12d2a0cd9c5c8e293fb",
+  "rawReceiptStatusPreserved": "CURRENT_BUNDLE_MATCHED_SOURCE_AND_FIVE_RAW_REFUSALS_COLLECTED_UNCLASSIFIED",
+  "reviewer": "/root/evidence_review",
+  "classifications": {
+    "negative-other-machine": {
+      "classification": "INDEPENDENT_REVIEW_INTENDED_CONCRETE_REFUSAL",
+      "stderrSHA256": "800a224ab9a06f39daa85e99f0d075330ae18c4f38f5edd4ee58be53daba238d",
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceSHA256": "e53cd1d3e16899f7caa4001b8849012af072b00c8bd31acc8e77c23bd3226b1c",
+      "reason": "OtherMachineKey nominal Selector refused at denied line11"
+    },
+    "negative-cross-schema-requirements": {
+      "classification": "INDEPENDENT_REVIEW_INTENDED_CONCRETE_REFUSAL",
+      "stderrSHA256": "d7c80300454cf2ee617ff0884743692547d3322e030712c23bad69acb711bc0c",
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceSHA256": "9a83f9e54cbb8e227c0cfd05f940d8592023f93b693bbdfb49649016f66a1548",
+      "reason": "SchemaB requirements refused for SchemaA Scheduled at denied line11"
+    },
+    "negative-owner-duplication": {
+      "classification": "INDEPENDENT_REVIEW_INTENDED_CONCRETE_REFUSAL",
+      "stderrSHA256": "3cade0d43e355f922fb116d644edd0e3315dd72f1643887411620f6167e30bfb",
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceSHA256": "96e0a73f953ac9308a2b81781ea05582a10c35004e6b1a0b9aedbfc97bf9a37e",
+      "reason": "Affine Bundle owner binder line10 consumed twice at tuple line11"
+    },
+    "negative-read-write": {
+      "classification": "INDEPENDENT_REVIEW_INTENDED_CONCRETE_REFUSAL",
+      "stderrSHA256": "bf4fdc8478ec440e900cc4d872f2551c18994464ddd1f342e4efcff6c4a12fad",
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceSHA256": "da30ae6824c0e593f9df1d74f535abeeba977a59a24c8008dc919015622834ba",
+      "reason": "ValueRead refused for ValueWrite at denied line11"
+    },
+    "negative-undeclared": {
+      "classification": "INDEPENDENT_REVIEW_INTENDED_CONCRETE_REFUSAL",
+      "stderrSHA256": "ee363aa57db6abbe25034d5a8c6ed252017300ef5fe74782f257ccd9b3d8d28b",
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceSHA256": "faec694ca4851a8ca31d0979946c34b811515b311aef5f149f5708faf3a39955",
+      "reason": "Abstract F refused for concrete World App.frame at denied line11"
+    }
+  },
+  "scope": "Five concrete nominal/affine/capability refusals only; no mathematical proof, runtime or universal metadata-truth credit."
+}
