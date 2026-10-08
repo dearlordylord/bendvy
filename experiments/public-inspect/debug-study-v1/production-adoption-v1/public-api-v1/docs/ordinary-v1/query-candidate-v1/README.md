@@ -162,3 +162,23 @@ across the remaining phase continuation and return it in `Delivery.detached`.
 It ends its fixture lifetime alongside the final World and registered owners.
 A rejected fixture also retains its complete detached observation. The full
 entry still passes source5; `source-checks-v5` retains the additive check.
+
+`parse-scenario.py` joins only the 47 exact constructor identities from the
+original entrypoint's 42-source import graph. Typed raw-field checks preserve
+Mode versus String, Bool versus U32, Nat, List, Maybe, Result, Access and Codec
+before neutral conversion. Every field, payload tail, lifecycle value, owner
+cursor, phase and description is compared with the independent complete oracle.
+Python-only synthetic and corruption controls are retained in `parser-checks-v1`.
+
+On success, detached payload owners return in `Delivery.detached` until the
+entrypoint ends the fixture. On unexpected rejection, `retain_*` stores the
+complete detached observation in Failure and ends that owner's fixture lifetime
+in the helper. Rejected is not a public owner-recovery receipt.
+
+`development-js.py prepare` freezes the original entry, exact source/import graph,
+constructor identities, independent oracle, existing runner helpers, known Bend /
+Node / Python binaries, installed Base and a narrow environment. Separate `run`
+uses the admitted plan digest, shared child lock, source/tool/oracle guards before
+and after every child, and unconditional receipts with raw stdout/stderr. Emit
+has cap30 and JS execution cap5; no Native, performance or complete installed
+resolver qualification is implied by this direct development route.
