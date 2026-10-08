@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : @-H:Type -> @-read:Cap.Request<H, U32, U32> -> @_:H -> Sigma<&1, &1, H, _ => Cap.Request<Controls.Payload, U32, U32>>
+- observed : @-H:Type -> @-read:Cap.Request<H, U32, U32> -> @owner:H -> Sigma<&1, &1, H, _ => Cap.Request<H, U32, U32>>
+Location: reached
+ 8 | def reached(owner:Controls.Payload) -> Controls.Payload & Cap.Request<Controls.Payload,U32,U32>:
+ 9>|   Read.provide(~Controls.Payload,~Cap.Request<Controls.Payload,U32,U32>,~Controls.at,~escape,owner)
+   |                                                                                       ^^^^^^
+10 | 

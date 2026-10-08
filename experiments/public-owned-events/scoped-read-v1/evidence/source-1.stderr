@@ -1,0 +1,8 @@
+SOME PROOFS FAIL
+Error:
+- message  : a parameter or field scrutinee (a match cannot scrutinize a computed value: give it its own def)
+Location:
+18 |     case index <> rest:
+19>|       (owner,value)=Read.at(~H,~read,owner,index)
+   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+20 |       prepend(~H,value,scan(~H,~read,rest,owner))

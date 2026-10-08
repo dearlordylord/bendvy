@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : Data
+- observed : Type
+Location: reached
+ 8 | def reached(owner:Controls.Payload) -> Controls.Payload & Cap.Request<Controls.Payload,U32,U32>:
+ 9>|   Read.provide(~Controls.Payload,~Cap.Request<Controls.Payload,U32,U32>,~Controls.at,~escape,owner)
+   |                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+10 | 
