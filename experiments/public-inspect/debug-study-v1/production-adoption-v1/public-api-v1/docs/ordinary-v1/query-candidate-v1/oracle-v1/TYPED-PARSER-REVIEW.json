@@ -1,0 +1,23 @@
+{
+  "scope": "Independent Python-only final typedraw parser admission; no actual output/backend",
+  "fixtureCommit": "79ba25ec",
+  "parserSHA256": "b4c8f5691974ba754c258d8528f1d1a5c786ac1ce78d32e4989fa4db0db2bc34",
+  "identitiesSHA256": "3540d76e2e4534c132078f24f5e8d9498f845068a2ac33d2c824d1cb4b9daa0d",
+  "sourceInventory": "exact build_identities equality PASS",
+  "fullSyntheticSHA256": "7a51cb4d60f2b2d1209a822cc02eb8f08d58c06030574139ced5311a4e4a978b",
+  "expectedSHA256": "6974fefb4552f2602654922168900acfd1811c899ab627e8d513c779d67adc28",
+  "whole45phaseTypedRoundtrip": "PASS",
+  "typedRefusalControls": {
+    "stringMasqueradesMode": "Expected exact Data constructor",
+    "integerMasqueradesBool": "Expected exact Data constructor",
+    "U32MasqueradesNat": "Expected exact finite Nat",
+    "NatMasqueradesU32": "Expected exact U32",
+    "listMasqueradesString": "Expected exact String",
+    "constructorMasqueradesList": "Expected exact List",
+    "ModeMasqueradesCodec": "Wrong nominal Data constructor: Read for Codec",
+    "UnitMasqueradesMaybe": "Wrong generic Data constructor: Unit",
+    "stringMasqueradesResult": "Expected exact Data constructor",
+    "UnitMasqueradesAccess": "Wrong generic Data constructor: Unit",
+    "wrongMaybePayload": "Wrong nominal Data constructor: Unit for FullCell"
+  }
+}
