@@ -1,0 +1,7 @@
+# #49 staged package helpers: fresh full JS trace
+
+Two proposed generic helper modules and the sole provider import migration on byte-pinned current root core executed on fresh generated JS: all96 complete physical checkpoints plus12 requirement refusals and both schemas'7 foreign-world rows exactly matched unchanged independent oracles. Four subjects emit30/Node5 twice and45 ordinary guards passed with empty stderr. Prior developmental seven-source zero-probe capsule joins this stage without source replay. Refusal instantiations retain finite observable metadata, not erased predicate/owner type identity.
+
+Selected reference-v3 manifest/source and successful historical TS capsule remain pinned and archived; TS was not rerun. Full Bend oracle/consumer bytes join the prior qualified closure before copying. Actual tracked Sys cursors, affine gameplay/commands/Local owners and old-handler commit/publication boundaries retain complete observed traces. Internal raw event IDs remain trusted integration, not general public event ownership policy. No stream/later-key/captured-owner changes.
+
+Root alone adopts production modules. These two helper modules remain staged; fresh Native normal/foreign and three changed-closure mutation variants plus root regression remain required. This finite trace is not mathematical proof, performance qualification or completeIssue49 closure. Archives exclude private environments and installed dependencies; historical path pins are provenance, not offline replay promises.
