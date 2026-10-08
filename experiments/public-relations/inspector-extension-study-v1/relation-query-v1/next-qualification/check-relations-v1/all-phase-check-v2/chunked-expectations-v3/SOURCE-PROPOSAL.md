@@ -1,0 +1,7 @@
+The failed all-phase-v2 emission is retained as INCOMPLETE (4dbb74c6): RangeError-derived 89-byte stack-overflow diagnostic, no JS artifact or Node execution.
+
+Pinned Bend sources support this finite representation candidate: bend.ts:1089 unfolds String literals into SCon plus the remaining literal; comp.ts:646/861 forces that layer; comp.ts:2968 recursively emits every constructor field through js_expr. A complete ~20–26 KB literal therefore admits a deep recursive emission path. main.ts:867 maps any RangeError to the observed diagnostic, so the actual failing stack site and installed ELF equivalence to these source functions remain unproved.
+
+This sibling splits only the independently authored full expected Strings into at-most-256-codepoint literals joined by ordinary runtime String.append (`++`). Base:1806 preserves concatenation, and comp.ts:220 emits the string_append intrinsic as JS addition. Four exact UTF-8 matrix hashes and reconstructions are recorded. Every expected field, actual320 K.run declaration, separate192 diagnostic, owner observation, registration/gate and full output remains present. This is a test-harness representation change, with no speed, universal proof, public API or compiler-cause claim. No cap increase or output cut.
+
+Next: source5 feasibility, then fresh guarded standalone emit30/Node5 with the same complete oracle, after independent plan review. No unchanged emission retry and no Native qualification transfer.
