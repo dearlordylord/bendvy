@@ -84,3 +84,91 @@ All references are the pinned local checkouts from `.references/sources.json`.
 Root owns every production source change. First implement a minimal canonical schema + component/resource/query parameter product and ordinary system/schedule/application facade, then affected five-second source checks. Fresh matched positives and refusals must cover undeclared access, cross-schema, wrong category, labels used as tokens, writes through read, affine duplication and opaque frame escape. Independently author a complete multi-system oracle before outputs: same declaration requirements versus grants/description, duplicate labels with real IDs, schedule placement/barriers, owner/marker/cursor preservation, enabled repeated descriptions and disabled no-description work. Fresh IO/JS/Native and reached divergence controls qualify the actual ordinary path; old experimental receipts cannot transfer acceptance. Executable delivery also retains #28; full overhead qualification remains separate under contention.
 
 Full #56 still includes all published info/list/get/dump/description formats and population/naming, graph/machine/transient/plain observations and its dependency boundaries. Nonempty condition declarations need the same retained ordinary spec and actual Check preflight/grants; no general adopted When facade currently exists. Service/captured-owner invocation and #50/#53 policies are not chosen here. Machine provisioning must use an approved existing contract, not a fabricated SP token. These limits do not prevent implementing the independent component/resource/query/system/schedule ordinary slice, but do prevent calling it full #56.
+
+
+## Next implementation slice: ordinary query metadata (source-only, 2026-10-08)
+
+This extends the existing proposal, not a second plan or an approved new contract.
+Base inspected: `59c7bf64`. No source implementation or backend qualification is
+claimed. Coordination confirmed `snapshot58_retained_codecs` owns the candidate
+`core-promotion-v1/library` ordinary declaration/product/schema and declared-family
+bridge; root owns production promotion. This slice consumes that bridge, never
+creates another Family/descriptor identity or edits those modules independently.
+
+### Concrete seam and ownership
+
+| Owner | Module boundary | Required change |
+| --- | --- | --- |
+| Root integrator | `src/ecs/compose.bend:17-18,94-122,184-195` | Couple ordinary selection/access constructors to their executable capability and matcher; retain canonical descriptor identity plus access/filter syntax before lowering. Current Plan contains only capabilities and an opaque selector. |
+| Assigned #56 query implementer | Isolated ordinary query candidate alongside `ordinary-v1` | Implement constructors consuming the declared-family bridge and canonical descriptor. Produce one typed declaration whose library projections supply execution and debug structure. No constructor accepts a caller-authored metadata record. |
+| Existing declaration owner | `core-promotion-v1/library/declared-family.bend` and ordinary schema/declaration modules | Supply the same canonical identity and typed Family already used for actual Column access; no query-specific duplicate schema inventory. |
+| Root integrator | Ordinary system facade and actual `system.bend:9-32` registration | Consume retained query declarations to derive registration access and descriptions once, binding actual returned system IDs. Raw legacy string registration is not interpreted as a complete query declaration. |
+| Root integrator | Ordinary App and actual `schedule.bend:6-15` / provisioned schedule | Preserve actual owners/steps; only debug request expands descriptions. No parallel schedule graph. |
+
+An executable capability is affine Type; descriptor identity/access/filter syntax
+is reusable Data. A retained declaration must thread the former while observing
+the latter, following `inspector-metadata.bend:9-10,make/read/into_plan`. That
+existing metadata API alone is insufficient: ordinary constructors, rather than
+application callers, must generate its metadata argument. Do not add metadata
+fields independently to raw Plan and call the resulting adapter automatic debug.
+
+### Constructor coupling to implement
+
+- Required read and write lower to the existing `compose.read_family` /
+  `write_family` capability paths and required membership matcher. The mode and
+  descriptor recorded for debug come from that exact constructor invocation.
+- Optional read preserves absence as a returned optional value and does not turn
+  absent components into a system-level missing-resource preflight. Its declared
+  optional mode must survive alongside the executable selection.
+- With/without membership and added/changed clauses retain their syntax while
+  lowering to existing presence/lifecycle matchers. Filter-only clauses must not
+  fabricate body read/write grants. Added/changed use the actual runner cursor.
+- Product composition combines typed grants and selection in authored order;
+  it also combines the structural declaration. It must not discard duplicate
+  query slots or conflate labels with canonical descriptor identity.
+
+Existing general read-only selection machinery lives in
+`promotion-stage/component-query-v1/selection.bend` (Selection/Predicate, pair,
+constrain and both predicates) and `query.bend` (each/get/single/single_optional). It is an
+experimental executable seam, not evidence of general mutable ordinary query
+metadata. Its opaque matching/projection functions cannot supply descriptions
+retrospectively. Reuse their semantics where applicable, not a manual adapter.
+
+### Minimal consumed application change and completion controls
+
+Extend the existing ordinary application fixture to declare one query using
+canonical components: required read Position, write Velocity, optional Health,
+plus with/without and separate added/changed scenario variants. Declare its
+query slot and system name once; use that same declaration for registration,
+execution and description. The only debug-specific application difference is
+Enabled versus Disabled. Opaque payload presenters remain optional value views.
+The fixture must contain multiple entities, absent optional components and
+nonzero lifecycle cursors, so metadata-only placeholders cannot pass.
+
+Before output inspection, author the whole expected query/system/schedule
+structure from the ordinary declarations, including each selected slot, mode,
+canonical descriptor name, filter, actual system identity and placement. Check:
+
+1. Enabled/Disabled executions produce identical complete world, owner markers,
+   journal, pending visibility, cursor and failure results; repeated descriptions
+   preserve owners. Disabled requests perform no description/presentation work.
+2. The description lists read/write/optional and with/without/added/changed from
+   the reached declaration; filters and optional absence match actual rows.
+3. Source-negative controls reject cross-schema declarations, writes through
+   read grants and duplicated affine query/registration owners.
+4. Reached mutants changing only a mode/filter metadata projection fail the
+   structural oracle; changing only the executable matcher fails row/world
+   results. Preserve independent controls for both directions of the coupling.
+5. Existing five-second source and supervised backend policies, exact-source
+   guards and #28 regression/equal-work gates remain mandatory before delivery.
+
+Source basis: pinned bevy-ts `internal/debug.ts:74-112` reads modes and clauses
+from query.selection/with/without/filters; Rust Bevy
+`system/function_system.rs:575-590` derives access through SystemParam initialization.
+Bend `guide/GUIDE.md:205` erases type indices: retain the operational Data declaration
+at construction rather than reflecting erased types or introspecting callbacks.
+
+Remaining gaps: canonical general mutable query facade, production integration,
+complete enabled/disabled semantics and backend/performance qualification. This
+slice does not deliver relation/machine descriptions or resolve #50/#53 ownership.
+No technical impossibility has been demonstrated; #56 remains open.
