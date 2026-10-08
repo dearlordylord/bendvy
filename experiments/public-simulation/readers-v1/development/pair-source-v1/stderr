@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : a fresh name (duplicate declaration: Pair)
+- observed : 'Pair'
+Location:
+ 9 |   Skipped{}
+10>| type Pair<S: Data,C: Type,R: Type,E: Data> is Type:
+   |      ^^^^
+11 |   Pair{runtime: ER.Runtime<S,C,R,E>,a: R.Owner<S,C,R,E>,b: R.Owner<S,C,R,E>,journalA: List<&2,ER.Reading<E>>,journalB: List<&2,ER.Reading<E>>}

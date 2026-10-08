@@ -1,0 +1,8 @@
+SOME PROOFS FAIL
+Error:
+- message  : a parameter or field scrutinee (a match cannot scrutinize a computed value: give it its own def)
+Location:
+30 |   match result:
+31>|     case R.Returned{runtime,b,outcome}: (journalB,statusB) = completion(~E,outcome); Returned{ReaderPair{runtime,a,b,journalA,journalB},statusA,statusB}
+   |                                                              ^^^^^^^^^^^^^^^^^^^^^^
+32 | 

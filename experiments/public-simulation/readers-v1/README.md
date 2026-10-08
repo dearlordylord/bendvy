@@ -9,3 +9,11 @@ The journal is an explicit Data fixture observation, not a persistent affine cap
 ## Development evidence
 
 `development/source-v1/` retains the unchanged five-second `scripts/bend-check readers.bend` output (`BEND_NO_TELEMETRY=1`, shared `/tmp/bendvy-parity-heavy.lock`). Exit 0, `ALL PROOFS CHECK`. This establishes source parsing/type/affine checking only. No new laws or proofs were introduced. The complete #63 application oracle, runtime execution, negatives, mutation and backend delivery gates remain consumer work; this seam does not complete #63.
+
+## Pair consumer
+
+`pair.bend` carries `ReaderPair<S,C,R,E>{runtime,a,b,journalA,journalB}`. `ReaderPair` avoids the existing Base `Pair` declaration. `register(runtime)` lazily registers `Simulation/ReaderA` and `Simulation/ReaderB`, then actually executes both readers. `Ready{Returned{pair,a,b}}` therefore includes their initial observations. A registration refusal returns the runtime; a B registration refusal also returns the already registered A owner. The caller can retain and recover these states without dropping owners.
+
+`run(pair, failB)` runs A followed by B, preserving per-reader statuses. `retry_b(pair)` runs only B with failure disabled and marks A `Skipped{}`. Each status retains the full successful journal, failure error (including its updated journal), or rejected arguments. Updated journals remain in the returned carrier, so the consumer can continue a failed B journal on retry while ER owns cursor advancement. The root driver may destructure/rebuild the carrier to supply its runtime to independent gameplay operations.
+
+`development/pair-source-v1/` retains the duplicate Base `Pair` declaration failure; v2 retains the computed destructuring failure. v3 passes the unchanged five-second source checker under the shared lock with telemetry disabled. These are development source checks, not observed execution of the complete #63 consumer.
