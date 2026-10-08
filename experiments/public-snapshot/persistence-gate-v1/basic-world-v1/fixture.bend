@@ -4,7 +4,7 @@ import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col
 import /workspace/formal-proofs/bendvy/experiments/public-decode/typed.bend as D
 import ./export.bend as Export
 import ./column-provider.bend as Provider
-import /workspace/formal-proofs/bendvy-worktrees/parity-61-audit/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-component-declaration.bend as Definition
+import /workspace/formal-proofs/bendvy/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-component-declaration.bend as Definition
 
 type Workshop is Data:
   Workshop{}

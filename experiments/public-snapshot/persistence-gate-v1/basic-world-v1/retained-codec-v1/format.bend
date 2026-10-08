@@ -1,6 +1,6 @@
 import Base
 import ../fixture.bend as F
-import /workspace/formal-proofs/bendvy-worktrees/parity-61-audit/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-component-declaration.bend as Declaration
+import /workspace/formal-proofs/bendvy/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-component-declaration.bend as Declaration
 import ./save.bend as Save
 import ../public-gate-v1/gate.bend as Gate
 import ../export.bend as Export

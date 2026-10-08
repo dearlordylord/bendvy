@@ -6,7 +6,7 @@ import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col
 import /workspace/formal-proofs/bendvy/experiments/public-decode/typed.bend as D
 import ../public-gate-v1/gate.bend as Gate
 import /workspace/formal-proofs/bendvy/experiments/public-decode/typed.bend as GD
-import /workspace/formal-proofs/bendvy-worktrees/parity-61-audit/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-component-declaration.bend as Declaration
+import /workspace/formal-proofs/bendvy/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-component-declaration.bend as Declaration
 
 def projected_second(first:U32,observed:Array<U32> & U32) -> F.Payload & GD.Raw:
   match observed:
