@@ -1,39 +1,35 @@
 # Captured systems — ownership decision draft
 
-Status: proposed for discussion and explicit #50 approval. No law, proof or implementation approval is inferred.
+Status: discussion candidates for #50/#53/#38/#59, reconciled at `753c99c6`.
+No unresolved contract, law, width, cleanup protocol or implementation is approved
+by this document. Apply the [SPEC reference order](../SPEC.md#implementation-decisions):
+Rust Bevy semantics, Bend constraints, then bevy-ts feature inventory/inspiration.
+TS observations below describe TS; they do not choose Bendvy behavior.
 
-## Proposed public behavior
+## #50 — instance-owned captures and explicit recovery
 
-1. A capture pack is an arbitrary affine `Type` owner, separate from the reusable closed runner definition and from World-specific registration. Every actual run consumes and returns this same pack on success and system failure. The runner cannot copy a closure or discard the pack to report failure.
-2. Capture changes survive a failing system invocation; the ECS transaction still rolls back its component/resource/command/event changes. Capture state and Local remain distinct APIs. A skipped or refused invocation never calls the body and returns the capture pack unchanged.
-3. Independently created packs remain independent. The same pack can be threaded sequentially through valid registrations in two compatible Worlds, preserving its updates across those runs. Registering or scheduling the closed definition does not implicitly copy an affine pack; explicit fresh packs create independent instances. Registration authority stays World-specific.
-4. For invocation and disposal, the registration and capture pack are paired affine owners. Explicit detach returns them separately; reattachment can move the pack to a compatible runner/schema registration without moving registration authority or reader positions. Successful disposal consumes both owners exactly once. Release is a caller-supplied reusable closed finalizer `Capture -> Unit`: it consumes the pack, returns no capture owner and has no recoverable-failure result in this API. Rejected disposal returns both owners unchanged and does not call release. A disposed owner cannot be reused or disposed again. Mutable capture aliases are not exposed. Exactly-once finalization means one invocation and consumption of the pack; physical cleanup is the caller finalizer's responsibility, not an implicit runtime destructor guarantee.
+**Trigger:** a registered system changes an owned capture, fails, runs again, or
+is unregistered. The [actual TS trace](../../experiments/public-captures/README.md)
+observes persistent changes, skipped calls and the same host callback shared by
+two runtimes. The sharing is evidence about JS aliases, not a requirement to
+introduce cross-World capture transfer.
 
-The cross-World case preserves the observed shared-capture behavior through explicit ownership transfer. It does not permit simultaneous aliases or transfer a registration into another World. Public refusal and reader-cursor behavior must preserve the existing System contract; captures must be returned even when execution refuses before entering the body.
+**Current candidate:** each registered instance owns its capture pack. A reusable
+closed runner consumes/returns that arbitrary `Type` pack on an entered call;
+pre-entry skip/refusal preserves it. Capture failure persistence remains an
+explicit contract candidate coordinated with approved Local and ECS rollback.
+Pinned [FunctionSystem](../../.references/bevy/crates/bevy_ecs/src/system/function_system.rs)
+(495–503) stores function and parameter state in the instance. Bend's
+[single-use closure rule](../../.references/bend2/guide/GUIDE.md) (83–86) motivates
+an explicit persistent owner plus closed runner, rather than copying a closure.
 
-## Source basis and acceptance
-
-The actual [TS reference](../../experiments/public-captures/README.md) observes failure persistence, condition skip, independent callbacks and the same callback shared by two runtimes. Pinned Rust Bevy stores the persistent function/parameter state in `FunctionSystem`; pinned Bend permits at most one call to a closure, including Data captures. Explicit affine pack threading reconciles those constraints. TS does not establish Bend release semantics; disposal above is a proposed ownership-visible decision.
-
-[#50](https://github.com/dearlordylord/bendvy/issues/50) requires: “Obtain approval for any new ownership-visible decision before implementation.” This draft is the concrete approval subject, separate from the already approved Local behavior.
-
-After approval, implement the generic reusable runner and actual two-Array consumers, preserving closed-template callers. Verify repeated runs, failure, skip, refusal/retry, sequential two-World sharing, independent packs and one-time release in two nominal schemas on JS/Native. Include undeclared access, cross-schema, writes-through-read and owner-duplication negatives, a reached compiling lost-capture defect and a double-release refusal; complete equivalent feature performance and unchanged production regression remain required. New proofs require their own specific law approval.
-
-## Consolidated decision packet — #50/#53/#38/#59
-
-**UNSELECTED; prepared for one user discussion.** This extends the existing drafts/studies, not their acceptance criteria. Source base `be3235f7`; no implementation, law, dependency, numerical performance change or user approval follows. Five observable choices below are the approval subjects. Confidence expresses confidence in the recommendation, not permission to adopt it.
-
-### 1. #50 — captured owner across failure, transfer and disposal
-
-**Trigger:** a registered system modifies two captured Arrays, then fails; later it runs again or the capture is moved to another compatible World.
-
-**Current evidence:** the [actual TS capture trace](../../experiments/public-captures/README.md) has eight complete checkpoints in each of two schemas. Failure retains both host capture changes while the Ledger write rolls back; false condition leaves captures unchanged; the same callback in a second runtime advances the same host captures. Rust FunctionSystem retains function/parameter state. Bend closures are single-use even with Data captures. Neither TS nor approved Local semantics supplies a public capture disposal contract.
-
-**Recommended choice:** approve the four proposed public-behavior clauses above as one capture lifecycle contract: reusable closed runner plus affine capture pack; return the actual pack on every success/failure/refusal; entered-body changes survive ECS rollback; skip/refusal before entry preserves it. Explicit detach/reattach moves one pack sequentially across compatible registrations without moving World registration or reader authority. Fresh packs are independent. Disposal consumes the paired registration/pack once through a caller-supplied closed `Capture -> Unit` finalizer; rejected disposal returns both untouched. Confidence **high (0.94)**: matches observed persistence/sharing through explicit ownership; disposal is the new part needing consent.
-
-**Alternative:** bind capture permanently to one registered instance and refuse detach/cross-World transfer. This simplifies lifetime pairing but does not expose the observed shared-callback use case. Failure-persistence versus rollback is still a separate observable contract; generic capture rollback would require an explicit caller journal/clone, since arbitrary Type cannot be copied automatically.
-
-**Core changes/dependencies:** generic runner consumes/returns Capture; paired registration owner and explicit detach/release operations; #36 Local remains distinct, #35/#48 reader cleanup remains World-local, #51/#52 retain their own transaction/recovery contracts. No arbitrary host IO rewind or physical destructor guarantee.
+Explicit unregister-return is a candidate for recovering an available capture
+owner. Whether unregister returns it, consumes it, or exposes a separate
+effectful cleanup operation remains unresolved; reader/registration cleanup must
+remain World-local. A pure `Capture -> Unit` does not guarantee external cleanup.
+No cross-World detach/reattach API is required by the current candidate.
+Dependencies: #36, #35/#48 and #51/#52. Repeated success/failure/skip/refusal,
+independent instances and complete owner recovery need actual public evidence.
 
 ### 2. #53 — notifications and recoverable transferred data
 
@@ -67,55 +63,91 @@ be validated. Returning ownership may permit buffer reuse; it does not itself
 prove fewer allocations or lower retained memory. No law/proof or full #53
 acceptance is inferred from this design direction.
 
-### 3. #38 — independent world identity domain and canonical creation seam
+### 3. #38 — canonical checked World creation
 
-**Trigger:** two modules independently call a world creator, each creates live entity1, then one sends its handle into the other.
+**Trigger:** independent callers create same-schema Worlds with matching local
+entity numbers, then exchange a handle. Foreign-world `MissingEntity` is already
+approved; allocator representation and creation contract are not.
 
-**Current behavior:** existing pure `world.factory()` returns `Factory{1}`. The [actual independent-root controls](../../experiments/public-identity/README.md) confirm both roots create namespace1 and foreign handle acceptance on JS/Native; this is retained as EXPECTED_IDENTITY_FAILURE_CONFIRMED. Shared-Factory controls reject the foreign handle. The [checked host allocator experiment](../../experiments/public-identity/host-namespace/README.md) and [canonical candidate](../../experiments/public-identity/production-candidate/README.md) demonstrate independent creator calls with distinct namespaces and real lookup/command MissingEntity refusal. Rust WorldId uses a checked process-local atomic source and does not reuse dropped identifiers. TS foreign-ID acceptance is already an explicitly approved Bend divergence; do not reopen that choice.
+The pure Factory1 root collision is observed in the
+[independent-root controls](../../experiments/public-identity/README.md).
+The [checked IO candidate](../../experiments/public-identity/production-candidate/README.md)
+demonstrates distinct roots and lookup/command refusal, not full production
+qualification. Pinned [WorldId](../../.references/bevy/crates/bevy_ecs/src/world/identifier.rs)
+(24–52) uses checked process-local allocation and does not reuse dropped IDs.
+A canonical checked World IO creator is the current Bevy/Bend-first candidate;
+trusted raw/scoped constructors must not be advertised as independent safe roots.
+Process/domain, exhaustion, concurrency and returned-owner contracts remain #38
+choices; this document selects neither a numeric width nor a new law.
 
-**Recommended choice:** one checked IO creation seam owns namespace allocation for all canonical independent-world calls in one emitted application/process identity domain. Successful allocations are never reused within that domain, including after disposal; exhaustion refuses without wrapping and returns incoming owners. Existing pure Factory/raw constructors remain explicitly trusted scoped/admin construction, not independently safe canonical roots or language-wide secret constructors. Separate emitted programs/processes are separate domains; no IPC/save-file global identity is promised. Confidence **high (0.93)**: already executable experimental architecture, aligned with Rust WorldId and Bend's effect boundary.
+### 4. #38 — generational entity reuse
 
-**Alternative:** require one affine application allocator explicitly threaded into every world-creation call; independently restarted allocators are separate unsupported domains. The core remains pure, but applications must coordinate the allocator and cannot treat free-standing fresh Factory calls as globally independent safe worlds.
+**Trigger:** despawn or cancel a reserved entity, then allocate while an earlier
+handle survives. TS source and the historical local trace consume IDs
+monotonically; that is an observation, not the current recommendation.
+Pinned [Bevy entity lifecycle](../../.references/bevy/crates/bevy_ecs/src/entity/mod.rs)
+(65–74, 238–246) recycles indices and changes generations, while documenting wrap.
 
-**Core changes/dependencies:** promote/migrate the checked creator effect versus expose an explicit application allocator; actual lookup/commands must preserve receiver queue and all owners on refusal. Legacy administrative construction remains documented. Concurrency, numeric/storage/clock exhaustion and production gates remain #38; schema confinement #45; restore entity-epoch behavior depends on this decision but must not dispose/recreate Runtime registration authority.
+**Current candidate:** generational reuse with stale handles rejected on every
+lookup/command/relation/codec boundary. Allocation, cancellation and rollback must
+preserve all owners and queue state under the selected contract. Generation
+width, exhaustion/wrap policy and reservation failure ordering remain unresolved;
+copying Bevy's wrap or TS's unchecked Number counter is not approved.
+Dependencies: #38/#41 and restore #59/#60. Physical reuse and complete identity
+validation need source-current scenarios, negatives and reached mutations.
 
-### 4. #38 — numeric entity reuse and failed reservations
+### 5. #59/#38 — fresh identities and mapped restored references
 
-**Trigger:** reserve an entity ID, fail before its queued spawn materializes, or despawn an entity, then reserve again while an earlier handle still exists.
+**Trigger:** restore a save while an old handle survives. The
+[actual TS restore reference](../../experiments/public-restore/reference-v1/README.md)
+at `ad751731` reconstructs Handles from retained pre-restore IDs **after** restore:
+id1 resolves the restored entity; id2 and canceled3–6 are missing; allocator7
+is not rewound to saved next2 and next spawn is7. It does not literally retain a
+pre-created Handle object. These are TS observations, not a selected Bend policy.
 
-**Current TS basis:** retained local `experiments/public-identity/reference-notes.md` (outside the pinned Git base, explicitly not a delivery receipt) records immediate reservation, pending absence until a barrier, no reuse in the tested despawn/cancel/failure sequence, and failed reserved3 followed by successful4. Pinned `internal/world.ts` allocates before queueing and does not rewind nextEntity in rollback; these source facts independently explain that trace. The committed [identity candidate](../../experiments/public-identity/production-candidate/README.md) qualifies separate-root lookup/command refusal, not failed reservation. TS's Number allocator has no safe-integer exhaustion guard in the inspected source; this is not a recommendation to copy its unchecked numerical domain. Rust normally recycles entity indices with generations (generation wrap is documented). Current Bend prototypes vary; their reservation-state proposals are not production policy approval.
+**Current candidate:** restore constructs fresh live entity identities and maps
+saved references to those identities through explicit typed constructor/codec
+operations. Old live handles then cannot accidentally name replacements. A
+separate restore epoch is not intrinsically needed if the selected generational
+identity and mapping enforce this. The exact stale-handle result, atomic failure
+behavior and reference mapping remain #59/#38 decisions, coordinated with
+#46/#58/#60. Do not rotate stable Runtime registration authority or automatically
+rewrite arbitrary `Type` payloads. Restore failure must retain the governing
+transactional ownership guarantees.
 
-**Recommended choice:** monotonically allocate logical entity IDs within an entity lifetime epoch; reserved IDs remain consumed after failure/cancellation/despawn and are not silently reused. Refuse checked numeric/storage exhaustion with complete owner/queue preservation, without wrap or accidental masked Array access. Restore may start a new entity epoch only according to choice5. Confidence **high (0.96)**: matches actual TS observations and keeps stale ordinary handles from naming later entities without requiring a new per-slot generation policy.
+## Superseded proposals and remaining decisions
 
-**Alternative:** recycle slots with checked generations included in handles and every lookup/command/relation/decoder path; define generation exhaustion before reuse. Recycling alone without generations can make a stale handle operate on a different entity and is not recommended. Physical storage reuse can still be an internal optimization under monotonically unique logical IDs.
+The earlier cross-World capture pack transfer, mandatory pure finalizer,
+monotonically consumed TS-style entity IDs and separate restore epoch were
+historical discussion proposals. They are superseded recommendations, not
+approvals or implementation requirements. The indivisible Data-view/mandatory
+abort-release proposal for #53 is likewise superseded by the user direction above.
 
-**Core changes/dependencies:** unify reservation/activation/cancellation/FIFO and rollback ownership around the selected logical policy; current prototype state laws are not approved by selecting this prose. #38 owns domains/exhaustion, #41 pending activation and #59/#60 restored allocator/handle behavior. No new numerical limit, error precedence or specific law is silently selected here.
+Outstanding decisions are the observable capture lifecycle/unregister recovery,
+scoped reader/publication semantics, identity creation/reuse/exhaustion and stale
+restore/reference mapping. Do not ask again about incidental implementation
+choices or infer approval from this reconciliation. Existing owning tickets keep
+full application, mutation, JS/Native, independent review and regression gates;
+the detached source-checked recovery prototype does not complete #53.
 
-### 5. #59/#38 — handles held before successful restore
+## Bend ownership and cleanup source basis
 
-**Trigger:** keep a live handle for entity7, successfully restore a save containing numeric entity7, then perform lookup or queue a command using the old handle. A failed restore is a distinct case and must preserve all current identity/owners.
-
-**Actual current comparison:** the subsequently integrated [TS restore reference](../../experiments/public-restore/reference-v1/README.md) at `ad751731` retains a complete 47,826B two-schema report, SHA `f1cdcad7…`, against an independently authored whole oracle. Old pre-restore EntityId values are converted to Handles **after** restore: id1 resolves restored `Name`, id2 and canceled reservations3–6 return MissingEntity; saved next2 does not rewind prior allocator7, and next spawn is7. The fixture does not literally retain a Handle object created before restore; source equivalence is narrower than another executed case. Pinned TS handles have no generation/restore-epoch, and Runtime validates before mutation then clears pending/events, despawns old entities and respawns saved IDs in the same runtime. Those source facts support the same-ID result, while the exact pre-created-handle-object case remains an explicit reference follow-up. Rust normal despawn/reallocation generations avoid ordinary stale-index reuse; they do not supply an automatic snapshot policy. Existing #59 explicitly asks to select Bend stale pre-restore semantics.
-
-**Recommended choice (pending explicit divergence review):** successful restore invalidates all previously held live entity handles, even if a saved number coincides, by changing an entity-lifetime epoch distinct from stable Runtime/registration authority. Restore failure leaves that epoch unchanged. Internal saved references are validated/reconstructed to the restored entity epoch through explicit codec/constructor operations; this is not an automatic Raw-to-arbitrary-Type rewrite. System registrations, Local/capture owners and reader authority remain the same Runtime owners. Confidence **moderate (0.82)**: prevents accidental old-handle actions on replacement entities; it is stronger than the observed TS old-ID resolution and needs explicit user selection; retain the exact pre-created-handle case as a reference control.
-
-**Alternative:** same-root numeric handles remain valid whenever the restored entity exists and satisfies their intent, matching the source-derived TS behavior. Applications must then understand restore replaces payloads while old handles can continue naming the saved ID; numeric collision is deliberate, not a liveness proof.
-
-**Core changes/dependencies:** add/check separate entity epoch in handles, commands, lookup, relation/handle codecs and saved-reference reconstruction versus preserve existing numeric handle identity. Coordinate with #38 creation/reuse and #46 typed constructor callbacks, #58 export, #59 staged validation/lifecycle and #60 graph/machine references. Do not rotate the sole World registration namespace and thereby invalidate registrations/capture/reader owners; restore is not a fresh Runtime.
-
-## User answer to collect once
-
-1. #50: approve the existing four-clause capture lifecycle, or choose instance-bound capture without cross-World detach?
-2. #53: business direction is now recorded above: soft preference for recoverable data with a simple API. Validate scoped reads and the smallest owned recovery transport before asking about a concrete remaining observable choice.
-3. #38 creation: checked canonical IO allocator per emitted-program/process domain, or one explicitly threaded application allocator?
-4. #38 IDs: monotonically consumed logical IDs including failed reservations, or checked generational recycling?
-5. #59 restore: invalidate pre-restore entity handles while keeping Runtime owners, or deliberately preserve same-root/same-ID handle resolution?
-
-The #53 business direction has been supplied; other concrete contracts remain under discussion. Historical recommendations in this packet are not approvals and must be checked against the updated Bevy/Bend-first specification and Astra consultation. Exact laws, feature observations, source-current two-schema/type/refusal/mutation checks, JS/Native production and unchanged regression gates remain after a user choice; this source-only packet does not close any owning issue.
+Pinned [guide](../../.references/bend2/guide/GUIDE.md) (55–59) defines affine usage
+as **at most once**: dropping is permitted. It neither guarantees exactly-once
+finalization nor that a returned owner is the original owner. Pinned
+[Base File.close](../../.references/bend2/bend2/base.bend) (299–301) consumes File
+and returns `IO(Unit)`; effectful external cleanup cannot be claimed from a pure
+`Owner -> Unit`. Rust [Messages.drain](../../.references/bevy/crates/bevy_ecs/src/message/messages.rs)
+(247) returns removed payload owners, while
+[MessageReader.read](../../.references/bevy/crates/bevy_ecs/src/message/message_reader.rs)
+(56) lends messages. These motivate recovery/scoped-read candidates without
+selecting a Bend fan-out or disposal contract.
 
 ## Exact source/evidence pins for this packet
 
-Root source base `be3235f78e7487745537d083b7494084267cb2cc`; later restore observation is explicitly pinned to `ad751731`, not rebound to the earlier base. Reference commits TS `3040a3b2a3f28fa8554d856f9ccb6bf5433fa334`, Rust Bevy `ad678262ce53b5d142fe49ee5e08caff6f00ab60`, Bend `a950fd683c0d76f09794078e6174fe98a1492876` were checked against the tracked manifest. Existing raw/receipts were read, not rerun. Local identity notes are separately classified; inspected source is not new executable evidence.
+The table retains historical observation pins, not current delivery qualification.
+Reconciliation base `753c99c6`; source links use the exact reference commits below.
+Historical root source base `be3235f78e7487745537d083b7494084267cb2cc`; later restore observation is explicitly pinned to `ad751731`, not rebound to the earlier base. Reference commits TS `3040a3b2a3f28fa8554d856f9ccb6bf5433fa334`, Rust Bevy `ad678262ce53b5d142fe49ee5e08caff6f00ab60`, Bend `a950fd683c0d76f09794078e6174fe98a1492876` were checked against the tracked manifest. Existing raw/receipts were read, not rerun. Local identity notes are separately classified; inspected source is not new executable evidence.
 
 | Source or retained evidence | Availability/scope | SHA256 |
 | --- | --- | --- |
