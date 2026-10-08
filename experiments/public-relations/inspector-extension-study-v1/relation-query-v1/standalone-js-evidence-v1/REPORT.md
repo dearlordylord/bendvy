@@ -1,0 +1,11 @@
+# Standalone generated-JS relation read qualification
+
+Development scope: two nominal schemas, three graph phases, all 32 declarations per phase; complete 192 observations and affine component/resource endpoints. All public query methods, inverse order, live/stale/foreign outcomes and retained snapshots are included. Normal output exactly matches qualified Bend IO (whose original receipt remains INCOMPLETE and separately reconciled); TS raw-ID foreign alias is an explicit intentional divergence.
+
+Frozen plan fb5920b7; actual receipt e029881f. Four preparation probes, eight ordered subjects (emit30/Node5 per normal and three mutants), 68 execution probes. Every subject qualified. Exact full counterfactual witnesses: outgoing filter 322, inverse order 360, omitted public validity 576. This adds actual standalone generated JS evidence; IO execution was not relabeled as JavaScript.
+
+The compact capsule includes complete actual raw outputs, all frozen scalar input bytes or explicit hash-bound tool/private exclusions, preparation/execution probe triples, staged import/source closure, and actual generated JS bytes. Private environment and executable/library binaries are excluded. Historical prerequisite records are pinned identities, not new backend requalification. Telemetry CHECK timestamp reconciliation remains the previously reviewed literal old2701→current2323 join; no source/runtime policy was changed.
+
+Run `python3 experiments/public-relations/inspector-extension-study-v1/relation-query-v1/standalone-js-evidence-v1/verify.py` for read/hash-only portable verification. It starts no backend child. The first verifier draft's witness traversal incorrectly assumed identical dictionary keys; preserved review-verifier-witness-v0.py records that no-child failure. The corrected traversal is the exact independently authored original mutant witness traversal, with unchanged expected files.
+
+This closes only the named standalone JS fixture/control gap. No full #55, production API adoption, universal owner preservation, timing, stream policy or Check relation runtime qualification claim. The generic copied provider closure remains frozen; newer component candidates are not substituted. Cursor-free Check bridge source work is separate and excluded from this delivery.
