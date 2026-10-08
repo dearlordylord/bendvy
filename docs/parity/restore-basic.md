@@ -118,3 +118,17 @@ No #59 acceptance box or delivery gate is satisfied by this appendix.
 | `experiments/public-snapshot/persistence-gate-v1/basic-world-v1/export.bend` | `8b01d09dc623f9d52d34114c5e0ffec9c2680b7bd5a0581a1fd424db5c12cdc8` |
 | `src/ecs/world.bend` | `f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310` |
 | `docs/SPEC.md` | `71b2744f51a218790bfe75255e64250627d82f9d780006bd9edbe232d00abd0d` |
+
+## Pinned TS development observations
+
+[reference-v1](../../experiments/public-restore/reference-v1/README.md) now retains
+one actual Node24.20.0 run against the pinned bevy-ts source, with an independent
+pre-execution oracle and complete raw receipts. Workshop/Garden each execute20
+rejection/precedence cases without live/pending/reader changes, followed by
+successful lifecycle/queue/event/transient/omitted-resource/allocator observations.
+The old allocator7 remains7 despite saved next2; the next spawn is7. Old same-world
+id1 resolves its restored entity, while removed id2 and canceled reservations3–6
+are MissingEntity. These are TS observations, not approval of Bend's stale-ID
+policy or arbitrary Type restore factories. No #59 checkbox is closed; failed
+system/Local/capture, Bend, negatives/mutants and full backend/performance gates
+remain due. Full graph/machine restore stays #60.
