@@ -1,0 +1,2396 @@
+{
+  "status": "FINITE_THREE_REACHED_BUNDLE_JS_VARIANTS",
+  "source": {
+    "mutations-v1/manifest.json": "d92c81fbb7470a9fb7a94eb609e59a6ec8c9c8d63f92077c9a11538e6737f810",
+    "mutations-v1/PLAN.md": "60547be0a050c320bbd4d9ad50dced691d89aa8916db77dc802981f0fb17a0e2",
+    "run-mutant-source.py": "d3c96fb95f34d8ed103595e9e96cd0127e49bda345031466179fdb5bb28600d5",
+    "run-mutant-js.py": "9274a074f51e252e8d5c133c6642eec522cdf512da5069f041a939a5b69ae016",
+    "consumer-mutant.mjs": "a8e3cd58a31719d7ffb3aace291c52ef69a1fdd66927aa8406977963ed764fb4",
+    "prepare-mutants-handoff.py": "20ca66ebb8fd710e76548a1279536d95cfab40a8ac14a0a4951bacf1ce44012b",
+    "verify-mutants-handoff.py": "6648b90d5a4a75b0a72aef704ca78ec7ed45c53ae6c8d597e6ccbd5bd2930e0c",
+    "mutations-v1/wrong-exit-selector/bundle.bend": "dd4c7f3ed0e7ee21fa0b7d2cb1e69f22a6e4d1d5c95fe4ea57d9de64d0682abf",
+    "mutations-v1/wrong-exit-selector/source.patch": "3360b117a3a04a4b18ca5f2a68150ff79bddb3edf5cd2fd5732d3936b8ef4fb8",
+    "mutations-v1/wrong-exit-selector/oracle.py": "ce0615b836fd5c9356800940923891aba786ea737aaa33686c50b7309cf4effe",
+    "mutations-v1/wrong-exit-selector/expected.json": "ce1f8ed1e13ac3b563538359171199df2928b78b55003c78ae42a9cd9c20581e",
+    "mutations-v1/reverse-phase-order/bundle.bend": "b181cc81f3ef718f98548e028dbf40722ad4ec254b0fad9ddc977ec52da6bcd6",
+    "mutations-v1/reverse-phase-order/source.patch": "5bc0a9a9e6b7bf56a0226d38a124a6940740fad6762f310c59f1007b78bad7e1",
+    "mutations-v1/reverse-phase-order/oracle.py": "dec11c7ba204883bd724381f8e29345be42a94598accb06ec2af64218745f3b4",
+    "mutations-v1/reverse-phase-order/expected.json": "f7d7374ad7bbda2f757ee3b3360364c3b40758fc161ae1fbea8936d55be129e5",
+    "mutations-v1/omit-inactive-requirement/application.bend": "bff2ba0cb93090638d39af29cd0bb89cefd23b381e424142abb20b3966621bca",
+    "mutations-v1/omit-inactive-requirement/source.patch": "ebd45f4a5a62c254087afec671cd7fd8a15eba9edb4bfffb1e21a786473d415e",
+    "mutations-v1/omit-inactive-requirement/oracle.py": "33fb3426a7ebe33aae459eb382a5ea6f201d7ed0e81947b6ca8ad70d8bf86dc5",
+    "mutations-v1/omit-inactive-requirement/expected.json": "80d67a29ef2da4eea5c091e83bfb1e8b0d2b77291127c33de87c9e16977b8556"
+  },
+  "reportSHA256": "0e4784ce69e6777445e8fdc8832a9caf95a7d7c4fd9c70c4e83328e5975b712b",
+  "archive": {
+    "name": "source-js.tar.gz",
+    "sha256": "fe8d4035f546e33556223be5de909f1b8c6ad5738e4cd9c15ed839483a645d1a",
+    "members": {
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-0-ldd-bend.json": {
+        "sha256": "644908a1f963e07b2985dfabf25e6974e7fca96475fa6591f8061cb6a8e204ec",
+        "bytes": 249
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-0-ldd-bend.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-0-ldd-bend.stdout": {
+        "sha256": "a9584539f15c8e2ac0ab01fd816f82fbd86d671af507bb00102b6df86d89fea8",
+        "bytes": 373
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-0-ldd-clang.json": {
+        "sha256": "cb5a3f4e37d85927e4de2a5075f2e8a7a9c775bceddfaff72915e533d05c3631",
+        "bytes": 285
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-0-ldd-clang.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-0-ldd-clang.stdout": {
+        "sha256": "7bdcfbae30d8c422392258bd19425b907bf763f4b15b9521dd6908aa7960e815",
+        "bytes": 1546
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-0-ldd-node.json": {
+        "sha256": "71d94ba4b6c8dc883d0982c6328c0a1f1acda01a77c9b11b8af42a04eb9297d1",
+        "bytes": 283
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-0-ldd-node.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-0-ldd-node.stdout": {
+        "sha256": "a1db79cefb7ba23b8196abb4c898a5072cec239886aebe30202382c247e7da65",
+        "bytes": 527
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-0-ldd-python.json": {
+        "sha256": "1c576250c178d93a4e36ad2e0e075e7a4fb34d98b0d7b281c097a4fb6df76ff6",
+        "bytes": 243
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-0-ldd-python.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-0-ldd-python.stdout": {
+        "sha256": "87c888771e341b6653c1c22762e2d43c3fb38f24952e61ee9c568f94b7502562",
+        "bytes": 367
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-0-ldd-taskset.json": {
+        "sha256": "53bd0b040f4634f6b9264be01f87e6596ae777d540722188dbe74e5395d9694b",
+        "bytes": 240
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-0-ldd-taskset.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-0-ldd-taskset.stdout": {
+        "sha256": "f70cca4bdc24533832fc851d0a9b513567793c1aa8b1b4d14b0f2d4f027944b2",
+        "bytes": 155
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-1-ldd-bend.json": {
+        "sha256": "644908a1f963e07b2985dfabf25e6974e7fca96475fa6591f8061cb6a8e204ec",
+        "bytes": 249
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-1-ldd-bend.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-1-ldd-bend.stdout": {
+        "sha256": "7496ccc0dc29c0360cf7d01b7c040a244cd26461899e248bcb4447ed3823ace8",
+        "bytes": 373
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-1-ldd-clang.json": {
+        "sha256": "cb5a3f4e37d85927e4de2a5075f2e8a7a9c775bceddfaff72915e533d05c3631",
+        "bytes": 285
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-1-ldd-clang.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-1-ldd-clang.stdout": {
+        "sha256": "a68df93b70d9de0cfc83199036f106363cd6568a860909cadd01c8255dc67b21",
+        "bytes": 1546
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-1-ldd-node.json": {
+        "sha256": "71d94ba4b6c8dc883d0982c6328c0a1f1acda01a77c9b11b8af42a04eb9297d1",
+        "bytes": 283
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-1-ldd-node.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-1-ldd-node.stdout": {
+        "sha256": "008245b29545e11e5d22ab291304c26e9e2c2116bb4e9b23f79db40f399a0a2c",
+        "bytes": 527
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-1-ldd-python.json": {
+        "sha256": "1c576250c178d93a4e36ad2e0e075e7a4fb34d98b0d7b281c097a4fb6df76ff6",
+        "bytes": 243
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-1-ldd-python.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-1-ldd-python.stdout": {
+        "sha256": "6279443a7070c8e9e7a2ffb7106d4e014334db111a5415420f8544e0672000d8",
+        "bytes": 367
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-1-ldd-taskset.json": {
+        "sha256": "53bd0b040f4634f6b9264be01f87e6596ae777d540722188dbe74e5395d9694b",
+        "bytes": 240
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-1-ldd-taskset.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-1-ldd-taskset.stdout": {
+        "sha256": "98d8b0d09c25d6f93607f3beb1028f9863d3bc37e169f3c82474bb463b9abe2e",
+        "bytes": 155
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-10-ldd-bend.json": {
+        "sha256": "644908a1f963e07b2985dfabf25e6974e7fca96475fa6591f8061cb6a8e204ec",
+        "bytes": 249
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-10-ldd-bend.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-10-ldd-bend.stdout": {
+        "sha256": "55c78493edc16e6943794d72258db489c12940f8675016871bce365e80d75732",
+        "bytes": 373
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-10-ldd-clang.json": {
+        "sha256": "cb5a3f4e37d85927e4de2a5075f2e8a7a9c775bceddfaff72915e533d05c3631",
+        "bytes": 285
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-10-ldd-clang.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-10-ldd-clang.stdout": {
+        "sha256": "a75968a32370e96d0b91fc7dccba2fd21bb73163e448c528d9a0f3fb53db4a67",
+        "bytes": 1546
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-10-ldd-node.json": {
+        "sha256": "71d94ba4b6c8dc883d0982c6328c0a1f1acda01a77c9b11b8af42a04eb9297d1",
+        "bytes": 283
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-10-ldd-node.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-10-ldd-node.stdout": {
+        "sha256": "e4ac74ba37e6693e53f16555c774e1761a994c5496302961580a35edfc72c2ca",
+        "bytes": 527
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-10-ldd-python.json": {
+        "sha256": "1c576250c178d93a4e36ad2e0e075e7a4fb34d98b0d7b281c097a4fb6df76ff6",
+        "bytes": 243
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-10-ldd-python.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-10-ldd-python.stdout": {
+        "sha256": "12b41ab7548b9a79b8d09cd6c76c0dfb8019e21f8f4dd28e51e2c2dc66de6991",
+        "bytes": 367
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-10-ldd-taskset.json": {
+        "sha256": "53bd0b040f4634f6b9264be01f87e6596ae777d540722188dbe74e5395d9694b",
+        "bytes": 240
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-10-ldd-taskset.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-10-ldd-taskset.stdout": {
+        "sha256": "1991c2e02f8f5ccd8f185e0f1314b08f706dad35bcd126edd94b4207e5ed5b9e",
+        "bytes": 155
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-11-ldd-bend.json": {
+        "sha256": "644908a1f963e07b2985dfabf25e6974e7fca96475fa6591f8061cb6a8e204ec",
+        "bytes": 249
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-11-ldd-bend.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-11-ldd-bend.stdout": {
+        "sha256": "f6181d493261225c7cca09faecd96b1ea0005a112a26640a29a8929f6f9718b2",
+        "bytes": 373
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-11-ldd-clang.json": {
+        "sha256": "cb5a3f4e37d85927e4de2a5075f2e8a7a9c775bceddfaff72915e533d05c3631",
+        "bytes": 285
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-11-ldd-clang.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-11-ldd-clang.stdout": {
+        "sha256": "6a43a889bdac73027cbf9c9475e76f2b89dd6f3702acbe44715391587666d3c4",
+        "bytes": 1546
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-11-ldd-node.json": {
+        "sha256": "71d94ba4b6c8dc883d0982c6328c0a1f1acda01a77c9b11b8af42a04eb9297d1",
+        "bytes": 283
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-11-ldd-node.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-11-ldd-node.stdout": {
+        "sha256": "f5dde871e01060c75a5bf82b7c6f5f7b661001ca49e3dd7cc6cd56ab4239a200",
+        "bytes": 527
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-11-ldd-python.json": {
+        "sha256": "1c576250c178d93a4e36ad2e0e075e7a4fb34d98b0d7b281c097a4fb6df76ff6",
+        "bytes": 243
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-11-ldd-python.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-11-ldd-python.stdout": {
+        "sha256": "af6f39f23839b527c9b9f8b8161b44685fb01f3a2da687e472591ab7f7468a9b",
+        "bytes": 367
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-11-ldd-taskset.json": {
+        "sha256": "53bd0b040f4634f6b9264be01f87e6596ae777d540722188dbe74e5395d9694b",
+        "bytes": 240
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-11-ldd-taskset.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-11-ldd-taskset.stdout": {
+        "sha256": "c80a67702de9f32efb54485ad3b096e09ed66991911106b74f7894f5a2eaaebb",
+        "bytes": 155
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-12-ldd-bend.json": {
+        "sha256": "644908a1f963e07b2985dfabf25e6974e7fca96475fa6591f8061cb6a8e204ec",
+        "bytes": 249
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-12-ldd-bend.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-12-ldd-bend.stdout": {
+        "sha256": "b5045afea0dddc9829a4b522521232b7bdfb124889bc6a44e123f7467439807b",
+        "bytes": 373
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-12-ldd-clang.json": {
+        "sha256": "cb5a3f4e37d85927e4de2a5075f2e8a7a9c775bceddfaff72915e533d05c3631",
+        "bytes": 285
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-12-ldd-clang.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-12-ldd-clang.stdout": {
+        "sha256": "9deba1057f990befe395cb476d8024b2e9cb0fb8256c0365500afcd7998f2739",
+        "bytes": 1546
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-12-ldd-node.json": {
+        "sha256": "71d94ba4b6c8dc883d0982c6328c0a1f1acda01a77c9b11b8af42a04eb9297d1",
+        "bytes": 283
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-12-ldd-node.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-12-ldd-node.stdout": {
+        "sha256": "943c5ebd055201730a39586c4680f26bc618b25e9af3b9cff9ef3db59589b0e8",
+        "bytes": 527
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-12-ldd-python.json": {
+        "sha256": "1c576250c178d93a4e36ad2e0e075e7a4fb34d98b0d7b281c097a4fb6df76ff6",
+        "bytes": 243
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-12-ldd-python.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-12-ldd-python.stdout": {
+        "sha256": "183029cf07860001d70866202b4c5eb1fb116722c831d8ecd45060125b81b42b",
+        "bytes": 367
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-12-ldd-taskset.json": {
+        "sha256": "53bd0b040f4634f6b9264be01f87e6596ae777d540722188dbe74e5395d9694b",
+        "bytes": 240
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-12-ldd-taskset.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-12-ldd-taskset.stdout": {
+        "sha256": "04b698cbf00c71d07a73e47350b606d9b84d4eb557ad04312a03faef9cf487c5",
+        "bytes": 155
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-2-ldd-bend.json": {
+        "sha256": "644908a1f963e07b2985dfabf25e6974e7fca96475fa6591f8061cb6a8e204ec",
+        "bytes": 249
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-2-ldd-bend.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-2-ldd-bend.stdout": {
+        "sha256": "86a271915a56cec585d7bdc9e720e16807a4a9e02785ffb80897a0f27a30a836",
+        "bytes": 373
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-2-ldd-clang.json": {
+        "sha256": "cb5a3f4e37d85927e4de2a5075f2e8a7a9c775bceddfaff72915e533d05c3631",
+        "bytes": 285
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-2-ldd-clang.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-2-ldd-clang.stdout": {
+        "sha256": "543ba1aa57d6c85bb864325684b45e6a64e610a6a430095966f0cda2f8a10996",
+        "bytes": 1546
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-2-ldd-node.json": {
+        "sha256": "71d94ba4b6c8dc883d0982c6328c0a1f1acda01a77c9b11b8af42a04eb9297d1",
+        "bytes": 283
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-2-ldd-node.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-2-ldd-node.stdout": {
+        "sha256": "1d0832d9e68e0c59d209c2af01dfde5f8b39565a843a056edf043e2d2bf2b3e0",
+        "bytes": 527
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-2-ldd-python.json": {
+        "sha256": "1c576250c178d93a4e36ad2e0e075e7a4fb34d98b0d7b281c097a4fb6df76ff6",
+        "bytes": 243
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-2-ldd-python.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-2-ldd-python.stdout": {
+        "sha256": "0486c0ecb28a06f63da87418195e3d74d94723519e11e7bca31bfd8d0de7611e",
+        "bytes": 367
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-2-ldd-taskset.json": {
+        "sha256": "53bd0b040f4634f6b9264be01f87e6596ae777d540722188dbe74e5395d9694b",
+        "bytes": 240
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-2-ldd-taskset.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-2-ldd-taskset.stdout": {
+        "sha256": "4b2af1de87a506c55da4d5215ecdd0357f68dd45683eb72edd0a5de349e0e91e",
+        "bytes": 155
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-3-ldd-bend.json": {
+        "sha256": "644908a1f963e07b2985dfabf25e6974e7fca96475fa6591f8061cb6a8e204ec",
+        "bytes": 249
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-3-ldd-bend.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-3-ldd-bend.stdout": {
+        "sha256": "ec90e28b695944c0acae0000923e98f8ac1d25ce4a28a1455aa1a1a2cf157f4e",
+        "bytes": 373
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-3-ldd-clang.json": {
+        "sha256": "cb5a3f4e37d85927e4de2a5075f2e8a7a9c775bceddfaff72915e533d05c3631",
+        "bytes": 285
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-3-ldd-clang.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-3-ldd-clang.stdout": {
+        "sha256": "4303845b781f2cbf84fad42b70bd0200d0c1a9187386f2589685f1a960104f06",
+        "bytes": 1546
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-3-ldd-node.json": {
+        "sha256": "71d94ba4b6c8dc883d0982c6328c0a1f1acda01a77c9b11b8af42a04eb9297d1",
+        "bytes": 283
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-3-ldd-node.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-3-ldd-node.stdout": {
+        "sha256": "94ec71ac069fb9284bbeb1b057ca80597394b5a2f607f2975996df2ba52d7b55",
+        "bytes": 527
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-3-ldd-python.json": {
+        "sha256": "1c576250c178d93a4e36ad2e0e075e7a4fb34d98b0d7b281c097a4fb6df76ff6",
+        "bytes": 243
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-3-ldd-python.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-3-ldd-python.stdout": {
+        "sha256": "4f3e285ca366f48e90aeaff6a643421120fb020056f8b6e5e5f1c5df81936437",
+        "bytes": 367
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-3-ldd-taskset.json": {
+        "sha256": "53bd0b040f4634f6b9264be01f87e6596ae777d540722188dbe74e5395d9694b",
+        "bytes": 240
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-3-ldd-taskset.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-3-ldd-taskset.stdout": {
+        "sha256": "acca36a7b85572d2ef34eca0272c21aca993371d1e402255597c827f6ed4e407",
+        "bytes": 155
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-4-ldd-bend.json": {
+        "sha256": "644908a1f963e07b2985dfabf25e6974e7fca96475fa6591f8061cb6a8e204ec",
+        "bytes": 249
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-4-ldd-bend.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-4-ldd-bend.stdout": {
+        "sha256": "8b128efe2eb8c7ce75afa1c95ca509915d3b5ce1b52970b4b46d327b92bd5a86",
+        "bytes": 373
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-4-ldd-clang.json": {
+        "sha256": "cb5a3f4e37d85927e4de2a5075f2e8a7a9c775bceddfaff72915e533d05c3631",
+        "bytes": 285
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-4-ldd-clang.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-4-ldd-clang.stdout": {
+        "sha256": "62e9024deffd5591c5356e0bca6ec348d455b0379af351cfe37c9e814a8f639c",
+        "bytes": 1546
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-4-ldd-node.json": {
+        "sha256": "71d94ba4b6c8dc883d0982c6328c0a1f1acda01a77c9b11b8af42a04eb9297d1",
+        "bytes": 283
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-4-ldd-node.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-4-ldd-node.stdout": {
+        "sha256": "c774bbce11b1c92c35b475b696d4d57947ee3e42394eba2e1598b9b99d185a92",
+        "bytes": 527
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-4-ldd-python.json": {
+        "sha256": "1c576250c178d93a4e36ad2e0e075e7a4fb34d98b0d7b281c097a4fb6df76ff6",
+        "bytes": 243
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-4-ldd-python.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-4-ldd-python.stdout": {
+        "sha256": "0efc92ec53aeae096f811b45fa433ff69cb2a9752bc57232676c51a1ee5b8f59",
+        "bytes": 367
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-4-ldd-taskset.json": {
+        "sha256": "53bd0b040f4634f6b9264be01f87e6596ae777d540722188dbe74e5395d9694b",
+        "bytes": 240
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-4-ldd-taskset.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-4-ldd-taskset.stdout": {
+        "sha256": "d93007ac118e15f274136af0eef9a853ae33ffe2e82af8a4dcc8ebac00e17cc3",
+        "bytes": 155
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-5-ldd-bend.json": {
+        "sha256": "644908a1f963e07b2985dfabf25e6974e7fca96475fa6591f8061cb6a8e204ec",
+        "bytes": 249
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-5-ldd-bend.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-5-ldd-bend.stdout": {
+        "sha256": "d2e8b4edce6619356f2a4f869ddd60749d720de8747746d0dedc72737858f670",
+        "bytes": 373
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-5-ldd-clang.json": {
+        "sha256": "cb5a3f4e37d85927e4de2a5075f2e8a7a9c775bceddfaff72915e533d05c3631",
+        "bytes": 285
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-5-ldd-clang.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-5-ldd-clang.stdout": {
+        "sha256": "ee800b9efe3aab81d0d0690552279eab00fa946c504238b764898054ad6db32e",
+        "bytes": 1546
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-5-ldd-node.json": {
+        "sha256": "71d94ba4b6c8dc883d0982c6328c0a1f1acda01a77c9b11b8af42a04eb9297d1",
+        "bytes": 283
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-5-ldd-node.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-5-ldd-node.stdout": {
+        "sha256": "0e93dc39261a649b641ef22f7a1f95d7a313fbb0498bef55c764ed32eba4d847",
+        "bytes": 527
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-5-ldd-python.json": {
+        "sha256": "1c576250c178d93a4e36ad2e0e075e7a4fb34d98b0d7b281c097a4fb6df76ff6",
+        "bytes": 243
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-5-ldd-python.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-5-ldd-python.stdout": {
+        "sha256": "5939114c71df112577d7af5f74d2abd618c718723d89df9ee1c2dafaf50d3cd1",
+        "bytes": 367
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-5-ldd-taskset.json": {
+        "sha256": "53bd0b040f4634f6b9264be01f87e6596ae777d540722188dbe74e5395d9694b",
+        "bytes": 240
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-5-ldd-taskset.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-5-ldd-taskset.stdout": {
+        "sha256": "13d358d87bacf88f1bb8fead31253ac00a11366d4e44f0b935dd61b4026fe0d7",
+        "bytes": 155
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-6-ldd-bend.json": {
+        "sha256": "644908a1f963e07b2985dfabf25e6974e7fca96475fa6591f8061cb6a8e204ec",
+        "bytes": 249
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-6-ldd-bend.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-6-ldd-bend.stdout": {
+        "sha256": "dfa105accb28bc8df95c9e11d21b671f5e85723d4d051d1f983f8777872b14b6",
+        "bytes": 373
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-6-ldd-clang.json": {
+        "sha256": "cb5a3f4e37d85927e4de2a5075f2e8a7a9c775bceddfaff72915e533d05c3631",
+        "bytes": 285
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-6-ldd-clang.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-6-ldd-clang.stdout": {
+        "sha256": "2c1ac267a71116b45c9b42fd3b7867e28ae8524dee3bd1be855aed585d7cd7eb",
+        "bytes": 1546
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-6-ldd-node.json": {
+        "sha256": "71d94ba4b6c8dc883d0982c6328c0a1f1acda01a77c9b11b8af42a04eb9297d1",
+        "bytes": 283
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-6-ldd-node.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-6-ldd-node.stdout": {
+        "sha256": "92f41c26be688e3edf77e63a298e96260103f8c42e25ccff96fc219e3b583cee",
+        "bytes": 527
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-6-ldd-python.json": {
+        "sha256": "1c576250c178d93a4e36ad2e0e075e7a4fb34d98b0d7b281c097a4fb6df76ff6",
+        "bytes": 243
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-6-ldd-python.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-6-ldd-python.stdout": {
+        "sha256": "19b5ac5e9952a3c2ce033c7d18a5bcd1a2c9fb5cb939ef329e3b0e5eaebc152f",
+        "bytes": 367
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-6-ldd-taskset.json": {
+        "sha256": "53bd0b040f4634f6b9264be01f87e6596ae777d540722188dbe74e5395d9694b",
+        "bytes": 240
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-6-ldd-taskset.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-6-ldd-taskset.stdout": {
+        "sha256": "9e1456a6e270e50013fc8d892b0133ea44f8898cb478e977e1dc8150460fb2f4",
+        "bytes": 155
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-7-ldd-bend.json": {
+        "sha256": "644908a1f963e07b2985dfabf25e6974e7fca96475fa6591f8061cb6a8e204ec",
+        "bytes": 249
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-7-ldd-bend.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-7-ldd-bend.stdout": {
+        "sha256": "54120351293262d265327639cea4216eac51733e0353c4878dbe02b5c5a8155e",
+        "bytes": 373
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-7-ldd-clang.json": {
+        "sha256": "cb5a3f4e37d85927e4de2a5075f2e8a7a9c775bceddfaff72915e533d05c3631",
+        "bytes": 285
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-7-ldd-clang.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-7-ldd-clang.stdout": {
+        "sha256": "f4073d626e0554105a30135962dc7d71ffb50cc2ea8213fe120fd51cd711887f",
+        "bytes": 1546
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-7-ldd-node.json": {
+        "sha256": "71d94ba4b6c8dc883d0982c6328c0a1f1acda01a77c9b11b8af42a04eb9297d1",
+        "bytes": 283
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-7-ldd-node.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-7-ldd-node.stdout": {
+        "sha256": "c1c90de284518b43d381d26000217238308cbebce8935ad04c6136b368fb9f26",
+        "bytes": 527
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-7-ldd-python.json": {
+        "sha256": "1c576250c178d93a4e36ad2e0e075e7a4fb34d98b0d7b281c097a4fb6df76ff6",
+        "bytes": 243
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-7-ldd-python.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-7-ldd-python.stdout": {
+        "sha256": "3c31c4bf7fcd1f483002b88f93ca0d24bf90b066bce0e8f169ec61b1e0c0c6f0",
+        "bytes": 367
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-7-ldd-taskset.json": {
+        "sha256": "53bd0b040f4634f6b9264be01f87e6596ae777d540722188dbe74e5395d9694b",
+        "bytes": 240
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-7-ldd-taskset.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-7-ldd-taskset.stdout": {
+        "sha256": "f56c2d4c8a20e434f00d20fe26986e59f22ef2a732cf6f75ef1a4fc7f21afc2e",
+        "bytes": 155
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-8-ldd-bend.json": {
+        "sha256": "644908a1f963e07b2985dfabf25e6974e7fca96475fa6591f8061cb6a8e204ec",
+        "bytes": 249
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-8-ldd-bend.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-8-ldd-bend.stdout": {
+        "sha256": "2fcc1ac0b4cbe59f138073345baf03fcb98e80c2de9f869b14d840d2171fc842",
+        "bytes": 373
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-8-ldd-clang.json": {
+        "sha256": "cb5a3f4e37d85927e4de2a5075f2e8a7a9c775bceddfaff72915e533d05c3631",
+        "bytes": 285
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-8-ldd-clang.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-8-ldd-clang.stdout": {
+        "sha256": "8bad01de8f05d20537c05cf84ec51b95a0bb896b79701d8eae4d92175641585b",
+        "bytes": 1546
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-8-ldd-node.json": {
+        "sha256": "71d94ba4b6c8dc883d0982c6328c0a1f1acda01a77c9b11b8af42a04eb9297d1",
+        "bytes": 283
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-8-ldd-node.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-8-ldd-node.stdout": {
+        "sha256": "6b898ef2c31601be9794741bc2f3fb35c3cf3777dce11b8bbedc89bb6b430072",
+        "bytes": 527
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-8-ldd-python.json": {
+        "sha256": "1c576250c178d93a4e36ad2e0e075e7a4fb34d98b0d7b281c097a4fb6df76ff6",
+        "bytes": 243
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-8-ldd-python.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-8-ldd-python.stdout": {
+        "sha256": "ba023c3c5df59709ed794a89dd476dabe657d4766b3736c488795ff84db7520c",
+        "bytes": 367
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-8-ldd-taskset.json": {
+        "sha256": "53bd0b040f4634f6b9264be01f87e6596ae777d540722188dbe74e5395d9694b",
+        "bytes": 240
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-8-ldd-taskset.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-8-ldd-taskset.stdout": {
+        "sha256": "0c07184d54f21b330720054a43463384a55b503b4e5444e342d0239dfde53e13",
+        "bytes": 155
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-9-ldd-bend.json": {
+        "sha256": "644908a1f963e07b2985dfabf25e6974e7fca96475fa6591f8061cb6a8e204ec",
+        "bytes": 249
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-9-ldd-bend.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-9-ldd-bend.stdout": {
+        "sha256": "b6a0f94f9da95c506be1c96358e21e2d398451b7229a39a7853a3f07b9f19fd0",
+        "bytes": 373
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-9-ldd-clang.json": {
+        "sha256": "cb5a3f4e37d85927e4de2a5075f2e8a7a9c775bceddfaff72915e533d05c3631",
+        "bytes": 285
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-9-ldd-clang.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-9-ldd-clang.stdout": {
+        "sha256": "6ae7be99408a6f794cbc4cc65452d672c26798d7125b225f7c6bd787573f5907",
+        "bytes": 1546
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-9-ldd-node.json": {
+        "sha256": "71d94ba4b6c8dc883d0982c6328c0a1f1acda01a77c9b11b8af42a04eb9297d1",
+        "bytes": 283
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-9-ldd-node.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-9-ldd-node.stdout": {
+        "sha256": "981c7d4cfd657e01a20352fe00bdff8f459ecd6697aedce0061a747ad703cb5e",
+        "bytes": 527
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-9-ldd-python.json": {
+        "sha256": "1c576250c178d93a4e36ad2e0e075e7a4fb34d98b0d7b281c097a4fb6df76ff6",
+        "bytes": 243
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-9-ldd-python.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-9-ldd-python.stdout": {
+        "sha256": "811e6b8b7d0be6b34d32dc13270369cbcea5b1c76d59dd745de4051f3b4c585f",
+        "bytes": 367
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-9-ldd-taskset.json": {
+        "sha256": "53bd0b040f4634f6b9264be01f87e6596ae777d540722188dbe74e5395d9694b",
+        "bytes": 240
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-9-ldd-taskset.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/execution-probes/guard-9-ldd-taskset.stdout": {
+        "sha256": "96bc662b429d7e6ffe68ed970332fea54fbc7c4dea8eaf5ddcebb3208124b209",
+        "bytes": 155
+      },
+      "bundle-mutant-JS-1791438058480149128/omit-inactive-requirement-consume.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/omit-inactive-requirement-consume.stdout": {
+        "sha256": "2ff370a83d907c0d3ce0e76ad8004f2a650ae63989f26fea305574a0c28412d6",
+        "bytes": 96298
+      },
+      "bundle-mutant-JS-1791438058480149128/omit-inactive-requirement-emit.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/omit-inactive-requirement-emit.stdout": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/omit-inactive-requirement.mjs": {
+        "sha256": "34cb01b537f6b1b56e4df2d8ee94cd5ceb3e4125e931b29602760f85fd920651",
+        "bytes": 589343
+      },
+      "bundle-mutant-JS-1791438058480149128/plan.json": {
+        "sha256": "4503c5eb202851aeb8852ef830ffec0fe55278bb19ba1435bfc3d8bfbe76aae4",
+        "bytes": 439567
+      },
+      "bundle-mutant-JS-1791438058480149128/receipt.json": {
+        "sha256": "310f94a64fee2dff9bbb25208cc5e045508c61c31d4e4775ed28b586c0e9e6bd",
+        "bytes": 57111
+      },
+      "bundle-mutant-JS-1791438058480149128/reverse-phase-order-consume.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/reverse-phase-order-consume.stdout": {
+        "sha256": "f6e5ac163c32b8a3b961a31b50099e15851852911695b6d3bb6d5f2b015d427c",
+        "bytes": 96418
+      },
+      "bundle-mutant-JS-1791438058480149128/reverse-phase-order-emit.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/reverse-phase-order-emit.stdout": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/reverse-phase-order.mjs": {
+        "sha256": "2aa37fec78de75f19d9e4f33f71fa89f12b630b667cd8270fa43a699be5cf5ea",
+        "bytes": 591789
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/application-source-joins.json": {
+        "sha256": "4e3385a8626de4a097529bbc1f426f9d2d5d5045f7495e60b79954fcb2b5ce2e",
+        "bytes": 1121
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/application.bend": {
+        "sha256": "bff2ba0cb93090638d39af29cd0bb89cefd23b381e424142abb20b3966621bca",
+        "bytes": 20239
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/authority-positive.bend": {
+        "sha256": "32340997eca71478dac793e3cdd4221aae62e3afbb974ba639da831d4d41e499",
+        "bytes": 822
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/bundle.bend": {
+        "sha256": "974a7323654ad7a73e9777595aae5a9ac628436522aa753f0c05e814669109fe",
+        "bytes": 18641
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/consumer-mutant.mjs": {
+        "sha256": "a8e3cd58a31719d7ffb3aace291c52ef69a1fdd66927aa8406977963ed764fb4",
+        "bytes": 1103
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/consumer.mjs": {
+        "sha256": "4877ebe3374211b85b21f57fac8c5a3e6e84efeeb5fa4d670618418431dd4b76",
+        "bytes": 832
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/expected.json": {
+        "sha256": "80d67a29ef2da4eea5c091e83bfb1e8b0d2b77291127c33de87c9e16977b8556",
+        "bytes": 225914
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/main.bend": {
+        "sha256": "98270d78025edc33245360d70c4374be567426eb561cd77008baa1ecdef3bf67",
+        "bytes": 6711
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/negative-cross-schema-requirements.bend": {
+        "sha256": "9a83f9e54cbb8e227c0cfd05f940d8592023f93b693bbdfb49649016f66a1548",
+        "bytes": 710
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/negative-other-machine.bend": {
+        "sha256": "e53cd1d3e16899f7caa4001b8849012af072b00c8bd31acc8e77c23bd3226b1c",
+        "bytes": 460
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/negative-owner-duplication.bend": {
+        "sha256": "96e0a73f953ac9308a2b81781ea05582a10c35004e6b1a0b9aedbfc97bf9a37e",
+        "bytes": 776
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/negative-read-write.bend": {
+        "sha256": "da30ae6824c0e593f9df1d74f535abeeba977a59a24c8008dc919015622834ba",
+        "bytes": 417
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/negative-undeclared.bend": {
+        "sha256": "faec694ca4851a8ca31d0979946c34b811515b311aef5f149f5708faf3a39955",
+        "bytes": 380
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/normal-expected.json": {
+        "sha256": "339c9ccb2a7316f946db19408b64cad89b8c152d80bc1135264c19a6034e2aff",
+        "bytes": 228827
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/observe.bend": {
+        "sha256": "921b1c60ae09dba926952d81abe4ca04e281d13ddc549e3732bdc4b4e668b75f",
+        "bytes": 13946
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/oracle-before-source.json": {
+        "sha256": "c66738dd073e7d5c3f0bb719647c28b0273051ffd23a0b739efaed22b67398f2",
+        "bytes": 616
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/oracle.py": {
+        "sha256": "33fb3426a7ebe33aae459eb382a5ea6f201d7ed0e81947b6ca8ad70d8bf86dc5",
+        "bytes": 5014
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/systems.bend": {
+        "sha256": "933d970a85f46a37dd852b248c0e1d7b065ba9312c5dcc162ea0c0f266e79125",
+        "bytes": 25559
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/types.bend": {
+        "sha256": "813ddcf9ceda7172ae9f5d8fd1e4ab7733621e6608917502ddee02202af41f0b",
+        "bytes": 1675
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/world.bend": {
+        "sha256": "177e97222a05ff08323253d5c35c026347d2a017c6a571e2b75c1cf9f6853336",
+        "bytes": 1457
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/application.bend": {
+        "sha256": "eb6dd860702331ac0f7d17d2f21d327552b848698c84ed696fc14f55eacc8c51",
+        "bytes": 12290
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/consumer.mjs": {
+        "sha256": "1277dbcb152e37fc23ccc3a3efd390fbe2c696f51e8476d0e51dfa1837728902",
+        "bytes": 747
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/expected-draft.json": {
+        "sha256": "064b02b9e68dfe0b189ead2f9680e4fdc152f4ec4689644bb46cef63ad2eab97",
+        "bytes": 12877
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/main.bend": {
+        "sha256": "f027905bcc1482d7a0c70a68b015ded1420e958f42014a2451b90682d11a1600",
+        "bytes": 13417
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/systems.bend": {
+        "sha256": "7c974dc849adbe20f2883683b1f9a18802735a692535f2c1a36abcd526642462",
+        "bytes": 22725
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/types.bend": {
+        "sha256": "05cc721c81bf579ae7a162f737a0c35b0bf049f0ea2de959ffd918b4656dbe51",
+        "bytes": 1473
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/world.bend": {
+        "sha256": "c11d7f8a309dfd110046cabaee01f5e9f2a0c4b3da0e83cf21e75dc7dd914650",
+        "bytes": 1358
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/src/ecs/capabilities.bend": {
+        "sha256": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+        "bytes": 4096
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/src/ecs/column.bend": {
+        "sha256": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+        "bytes": 45638
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/src/ecs/component.bend": {
+        "sha256": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+        "bytes": 31351
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/src/ecs/event-runtime.bend": {
+        "sha256": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+        "bytes": 25508
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/src/ecs/indexed-lifecycle.bend": {
+        "sha256": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+        "bytes": 3862
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/src/ecs/lifecycle.bend": {
+        "sha256": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+        "bytes": 1591
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/src/ecs/local.bend": {
+        "sha256": "8cc5b3c9d3597c60d8a1b9b7fd206a92b289669c3cd9a8575db65ce9af37bd47",
+        "bytes": 8940
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/src/ecs/machine-conditions.bend": {
+        "sha256": "610912561009d08c5b554371c140ec1267d0744cb941f860199dee469df6ac4f",
+        "bytes": 1487
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/src/ecs/machine-handlers.bend": {
+        "sha256": "a63c3847277c69e1513346f35f43c9a482bd3af25373858b2e8df957f75e5fd8",
+        "bytes": 10112
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/src/ecs/machine-stream.bend": {
+        "sha256": "c47ff38671eb67b4369311408c81a2ef388ed971923419625c36f92219eb0fe4",
+        "bytes": 4396
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/src/ecs/machine-world.bend": {
+        "sha256": "8b8610e7ae42eea066639b5cb970a2885dd2fa14024efedef9fbc28dd6ba1816",
+        "bytes": 1887
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/src/ecs/machine.bend": {
+        "sha256": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed",
+        "bytes": 9883
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/src/ecs/owner-handoff.bend": {
+        "sha256": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+        "bytes": 6475
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/src/ecs/registration.bend": {
+        "sha256": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+        "bytes": 1768
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/src/ecs/string-equality.bend": {
+        "sha256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+        "bytes": 897
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/src/ecs/system.bend": {
+        "sha256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+        "bytes": 12147
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/src/ecs/transaction.bend": {
+        "sha256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+        "bytes": 2199
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/omit-inactive-requirement/src/ecs/world.bend": {
+        "sha256": "a20b0f2363dab12b73109354ebddf5c9126d3e786031cf9232a0c68c5ffc3b5c",
+        "bytes": 22261
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/application-source-joins.json": {
+        "sha256": "4e3385a8626de4a097529bbc1f426f9d2d5d5045f7495e60b79954fcb2b5ce2e",
+        "bytes": 1121
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/application.bend": {
+        "sha256": "2ec5f59ccc93adf3129ba6c51e731534ffc12be03ae46b0b2399fca69da46a46",
+        "bytes": 20260
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/authority-positive.bend": {
+        "sha256": "32340997eca71478dac793e3cdd4221aae62e3afbb974ba639da831d4d41e499",
+        "bytes": 822
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/bundle.bend": {
+        "sha256": "b181cc81f3ef718f98548e028dbf40722ad4ec254b0fad9ddc977ec52da6bcd6",
+        "bytes": 19740
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/consumer-mutant.mjs": {
+        "sha256": "a8e3cd58a31719d7ffb3aace291c52ef69a1fdd66927aa8406977963ed764fb4",
+        "bytes": 1103
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/consumer.mjs": {
+        "sha256": "4877ebe3374211b85b21f57fac8c5a3e6e84efeeb5fa4d670618418431dd4b76",
+        "bytes": 832
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/expected.json": {
+        "sha256": "f7d7374ad7bbda2f757ee3b3360364c3b40758fc161ae1fbea8936d55be129e5",
+        "bytes": 226507
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/main.bend": {
+        "sha256": "98270d78025edc33245360d70c4374be567426eb561cd77008baa1ecdef3bf67",
+        "bytes": 6711
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/negative-cross-schema-requirements.bend": {
+        "sha256": "9a83f9e54cbb8e227c0cfd05f940d8592023f93b693bbdfb49649016f66a1548",
+        "bytes": 710
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/negative-other-machine.bend": {
+        "sha256": "e53cd1d3e16899f7caa4001b8849012af072b00c8bd31acc8e77c23bd3226b1c",
+        "bytes": 460
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/negative-owner-duplication.bend": {
+        "sha256": "96e0a73f953ac9308a2b81781ea05582a10c35004e6b1a0b9aedbfc97bf9a37e",
+        "bytes": 776
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/negative-read-write.bend": {
+        "sha256": "da30ae6824c0e593f9df1d74f535abeeba977a59a24c8008dc919015622834ba",
+        "bytes": 417
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/negative-undeclared.bend": {
+        "sha256": "faec694ca4851a8ca31d0979946c34b811515b311aef5f149f5708faf3a39955",
+        "bytes": 380
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/normal-expected.json": {
+        "sha256": "339c9ccb2a7316f946db19408b64cad89b8c152d80bc1135264c19a6034e2aff",
+        "bytes": 228827
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/observe.bend": {
+        "sha256": "921b1c60ae09dba926952d81abe4ca04e281d13ddc549e3732bdc4b4e668b75f",
+        "bytes": 13946
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/oracle-before-source.json": {
+        "sha256": "c66738dd073e7d5c3f0bb719647c28b0273051ffd23a0b739efaed22b67398f2",
+        "bytes": 616
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/oracle.py": {
+        "sha256": "dec11c7ba204883bd724381f8e29345be42a94598accb06ec2af64218745f3b4",
+        "bytes": 5037
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/systems.bend": {
+        "sha256": "933d970a85f46a37dd852b248c0e1d7b065ba9312c5dcc162ea0c0f266e79125",
+        "bytes": 25559
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/types.bend": {
+        "sha256": "813ddcf9ceda7172ae9f5d8fd1e4ab7733621e6608917502ddee02202af41f0b",
+        "bytes": 1675
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/world.bend": {
+        "sha256": "177e97222a05ff08323253d5c35c026347d2a017c6a571e2b75c1cf9f6853336",
+        "bytes": 1457
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/application.bend": {
+        "sha256": "eb6dd860702331ac0f7d17d2f21d327552b848698c84ed696fc14f55eacc8c51",
+        "bytes": 12290
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/consumer.mjs": {
+        "sha256": "1277dbcb152e37fc23ccc3a3efd390fbe2c696f51e8476d0e51dfa1837728902",
+        "bytes": 747
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/expected-draft.json": {
+        "sha256": "064b02b9e68dfe0b189ead2f9680e4fdc152f4ec4689644bb46cef63ad2eab97",
+        "bytes": 12877
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/main.bend": {
+        "sha256": "f027905bcc1482d7a0c70a68b015ded1420e958f42014a2451b90682d11a1600",
+        "bytes": 13417
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/systems.bend": {
+        "sha256": "7c974dc849adbe20f2883683b1f9a18802735a692535f2c1a36abcd526642462",
+        "bytes": 22725
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/types.bend": {
+        "sha256": "05cc721c81bf579ae7a162f737a0c35b0bf049f0ea2de959ffd918b4656dbe51",
+        "bytes": 1473
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/world.bend": {
+        "sha256": "c11d7f8a309dfd110046cabaee01f5e9f2a0c4b3da0e83cf21e75dc7dd914650",
+        "bytes": 1358
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/src/ecs/capabilities.bend": {
+        "sha256": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+        "bytes": 4096
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/src/ecs/column.bend": {
+        "sha256": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+        "bytes": 45638
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/src/ecs/component.bend": {
+        "sha256": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+        "bytes": 31351
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/src/ecs/event-runtime.bend": {
+        "sha256": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+        "bytes": 25508
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/src/ecs/indexed-lifecycle.bend": {
+        "sha256": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+        "bytes": 3862
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/src/ecs/lifecycle.bend": {
+        "sha256": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+        "bytes": 1591
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/src/ecs/local.bend": {
+        "sha256": "8cc5b3c9d3597c60d8a1b9b7fd206a92b289669c3cd9a8575db65ce9af37bd47",
+        "bytes": 8940
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/src/ecs/machine-conditions.bend": {
+        "sha256": "610912561009d08c5b554371c140ec1267d0744cb941f860199dee469df6ac4f",
+        "bytes": 1487
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/src/ecs/machine-handlers.bend": {
+        "sha256": "a63c3847277c69e1513346f35f43c9a482bd3af25373858b2e8df957f75e5fd8",
+        "bytes": 10112
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/src/ecs/machine-stream.bend": {
+        "sha256": "c47ff38671eb67b4369311408c81a2ef388ed971923419625c36f92219eb0fe4",
+        "bytes": 4396
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/src/ecs/machine-world.bend": {
+        "sha256": "8b8610e7ae42eea066639b5cb970a2885dd2fa14024efedef9fbc28dd6ba1816",
+        "bytes": 1887
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/src/ecs/machine.bend": {
+        "sha256": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed",
+        "bytes": 9883
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/src/ecs/owner-handoff.bend": {
+        "sha256": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+        "bytes": 6475
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/src/ecs/registration.bend": {
+        "sha256": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+        "bytes": 1768
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/src/ecs/string-equality.bend": {
+        "sha256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+        "bytes": 897
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/src/ecs/system.bend": {
+        "sha256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+        "bytes": 12147
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/src/ecs/transaction.bend": {
+        "sha256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+        "bytes": 2199
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/reverse-phase-order/src/ecs/world.bend": {
+        "sha256": "a20b0f2363dab12b73109354ebddf5c9126d3e786031cf9232a0c68c5ffc3b5c",
+        "bytes": 22261
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/application-source-joins.json": {
+        "sha256": "4e3385a8626de4a097529bbc1f426f9d2d5d5045f7495e60b79954fcb2b5ce2e",
+        "bytes": 1121
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/application.bend": {
+        "sha256": "2ec5f59ccc93adf3129ba6c51e731534ffc12be03ae46b0b2399fca69da46a46",
+        "bytes": 20260
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/authority-positive.bend": {
+        "sha256": "32340997eca71478dac793e3cdd4221aae62e3afbb974ba639da831d4d41e499",
+        "bytes": 822
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/bundle.bend": {
+        "sha256": "dd4c7f3ed0e7ee21fa0b7d2cb1e69f22a6e4d1d5c95fe4ea57d9de64d0682abf",
+        "bytes": 18639
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/consumer-mutant.mjs": {
+        "sha256": "a8e3cd58a31719d7ffb3aace291c52ef69a1fdd66927aa8406977963ed764fb4",
+        "bytes": 1103
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/consumer.mjs": {
+        "sha256": "4877ebe3374211b85b21f57fac8c5a3e6e84efeeb5fa4d670618418431dd4b76",
+        "bytes": 832
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/expected.json": {
+        "sha256": "ce1f8ed1e13ac3b563538359171199df2928b78b55003c78ae42a9cd9c20581e",
+        "bytes": 226683
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/main.bend": {
+        "sha256": "98270d78025edc33245360d70c4374be567426eb561cd77008baa1ecdef3bf67",
+        "bytes": 6711
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/negative-cross-schema-requirements.bend": {
+        "sha256": "9a83f9e54cbb8e227c0cfd05f940d8592023f93b693bbdfb49649016f66a1548",
+        "bytes": 710
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/negative-other-machine.bend": {
+        "sha256": "e53cd1d3e16899f7caa4001b8849012af072b00c8bd31acc8e77c23bd3226b1c",
+        "bytes": 460
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/negative-owner-duplication.bend": {
+        "sha256": "96e0a73f953ac9308a2b81781ea05582a10c35004e6b1a0b9aedbfc97bf9a37e",
+        "bytes": 776
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/negative-read-write.bend": {
+        "sha256": "da30ae6824c0e593f9df1d74f535abeeba977a59a24c8008dc919015622834ba",
+        "bytes": 417
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/negative-undeclared.bend": {
+        "sha256": "faec694ca4851a8ca31d0979946c34b811515b311aef5f149f5708faf3a39955",
+        "bytes": 380
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/normal-expected.json": {
+        "sha256": "339c9ccb2a7316f946db19408b64cad89b8c152d80bc1135264c19a6034e2aff",
+        "bytes": 228827
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/observe.bend": {
+        "sha256": "921b1c60ae09dba926952d81abe4ca04e281d13ddc549e3732bdc4b4e668b75f",
+        "bytes": 13946
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/oracle-before-source.json": {
+        "sha256": "c66738dd073e7d5c3f0bb719647c28b0273051ffd23a0b739efaed22b67398f2",
+        "bytes": 616
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/oracle.py": {
+        "sha256": "ce0615b836fd5c9356800940923891aba786ea737aaa33686c50b7309cf4effe",
+        "bytes": 5029
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/systems.bend": {
+        "sha256": "933d970a85f46a37dd852b248c0e1d7b065ba9312c5dcc162ea0c0f266e79125",
+        "bytes": 25559
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/types.bend": {
+        "sha256": "813ddcf9ceda7172ae9f5d8fd1e4ab7733621e6608917502ddee02202af41f0b",
+        "bytes": 1675
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/world.bend": {
+        "sha256": "177e97222a05ff08323253d5c35c026347d2a017c6a571e2b75c1cf9f6853336",
+        "bytes": 1457
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/application.bend": {
+        "sha256": "eb6dd860702331ac0f7d17d2f21d327552b848698c84ed696fc14f55eacc8c51",
+        "bytes": 12290
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/consumer.mjs": {
+        "sha256": "1277dbcb152e37fc23ccc3a3efd390fbe2c696f51e8476d0e51dfa1837728902",
+        "bytes": 747
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/expected-draft.json": {
+        "sha256": "064b02b9e68dfe0b189ead2f9680e4fdc152f4ec4689644bb46cef63ad2eab97",
+        "bytes": 12877
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/main.bend": {
+        "sha256": "f027905bcc1482d7a0c70a68b015ded1420e958f42014a2451b90682d11a1600",
+        "bytes": 13417
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/systems.bend": {
+        "sha256": "7c974dc849adbe20f2883683b1f9a18802735a692535f2c1a36abcd526642462",
+        "bytes": 22725
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/types.bend": {
+        "sha256": "05cc721c81bf579ae7a162f737a0c35b0bf049f0ea2de959ffd918b4656dbe51",
+        "bytes": 1473
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/world.bend": {
+        "sha256": "c11d7f8a309dfd110046cabaee01f5e9f2a0c4b3da0e83cf21e75dc7dd914650",
+        "bytes": 1358
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/src/ecs/capabilities.bend": {
+        "sha256": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+        "bytes": 4096
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/src/ecs/column.bend": {
+        "sha256": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+        "bytes": 45638
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/src/ecs/component.bend": {
+        "sha256": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+        "bytes": 31351
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/src/ecs/event-runtime.bend": {
+        "sha256": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+        "bytes": 25508
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/src/ecs/indexed-lifecycle.bend": {
+        "sha256": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+        "bytes": 3862
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/src/ecs/lifecycle.bend": {
+        "sha256": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+        "bytes": 1591
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/src/ecs/local.bend": {
+        "sha256": "8cc5b3c9d3597c60d8a1b9b7fd206a92b289669c3cd9a8575db65ce9af37bd47",
+        "bytes": 8940
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/src/ecs/machine-conditions.bend": {
+        "sha256": "610912561009d08c5b554371c140ec1267d0744cb941f860199dee469df6ac4f",
+        "bytes": 1487
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/src/ecs/machine-handlers.bend": {
+        "sha256": "a63c3847277c69e1513346f35f43c9a482bd3af25373858b2e8df957f75e5fd8",
+        "bytes": 10112
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/src/ecs/machine-stream.bend": {
+        "sha256": "c47ff38671eb67b4369311408c81a2ef388ed971923419625c36f92219eb0fe4",
+        "bytes": 4396
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/src/ecs/machine-world.bend": {
+        "sha256": "8b8610e7ae42eea066639b5cb970a2885dd2fa14024efedef9fbc28dd6ba1816",
+        "bytes": 1887
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/src/ecs/machine.bend": {
+        "sha256": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed",
+        "bytes": 9883
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/src/ecs/owner-handoff.bend": {
+        "sha256": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+        "bytes": 6475
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/src/ecs/registration.bend": {
+        "sha256": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+        "bytes": 1768
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/src/ecs/string-equality.bend": {
+        "sha256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+        "bytes": 897
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/src/ecs/system.bend": {
+        "sha256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+        "bytes": 12147
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/src/ecs/transaction.bend": {
+        "sha256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+        "bytes": 2199
+      },
+      "bundle-mutant-JS-1791438058480149128/stage/wrong-exit-selector/src/ecs/world.bend": {
+        "sha256": "a20b0f2363dab12b73109354ebddf5c9126d3e786031cf9232a0c68c5ffc3b5c",
+        "bytes": 22261
+      },
+      "bundle-mutant-JS-1791438058480149128/wrong-exit-selector-consume.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/wrong-exit-selector-consume.stdout": {
+        "sha256": "d93a74f49481e799e96fc831d64a99ff8a13f8756c4a2eb6eacccaef8bd0fa6d",
+        "bytes": 96388
+      },
+      "bundle-mutant-JS-1791438058480149128/wrong-exit-selector-emit.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/wrong-exit-selector-emit.stdout": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-JS-1791438058480149128/wrong-exit-selector.mjs": {
+        "sha256": "f01d41186161193a3a73e8047fd987ca0bf8c5e73e57dd042d07d90f100d0de1",
+        "bytes": 589457
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-0-ldd-bend.json": {
+        "sha256": "644908a1f963e07b2985dfabf25e6974e7fca96475fa6591f8061cb6a8e204ec",
+        "bytes": 249
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-0-ldd-bend.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-0-ldd-bend.stdout": {
+        "sha256": "349c9cf304063d02d95048deefd3b5a5f0a011305fd94f4a3609f937d7d95f88",
+        "bytes": 373
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-0-ldd-clang.json": {
+        "sha256": "cb5a3f4e37d85927e4de2a5075f2e8a7a9c775bceddfaff72915e533d05c3631",
+        "bytes": 285
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-0-ldd-clang.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-0-ldd-clang.stdout": {
+        "sha256": "a797a8aec280b1d4ec49de71e099b6d5276b91c9afffc6aa5b9713d029c80c9c",
+        "bytes": 1546
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-0-ldd-node.json": {
+        "sha256": "71d94ba4b6c8dc883d0982c6328c0a1f1acda01a77c9b11b8af42a04eb9297d1",
+        "bytes": 283
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-0-ldd-node.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-0-ldd-node.stdout": {
+        "sha256": "10da4ed85d8a41ec884a11557d3fd1c3c32bbd942cc386246bbc6c384fa692a2",
+        "bytes": 527
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-0-ldd-python.json": {
+        "sha256": "1c576250c178d93a4e36ad2e0e075e7a4fb34d98b0d7b281c097a4fb6df76ff6",
+        "bytes": 243
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-0-ldd-python.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-0-ldd-python.stdout": {
+        "sha256": "81686779aa954a4d3a5ccf3d435f427fa95ba435b98e4bd46e43c4b531b89470",
+        "bytes": 367
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-0-ldd-taskset.json": {
+        "sha256": "53bd0b040f4634f6b9264be01f87e6596ae777d540722188dbe74e5395d9694b",
+        "bytes": 240
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-0-ldd-taskset.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-0-ldd-taskset.stdout": {
+        "sha256": "2b3564cadf78627e3327c13c4a09058bc0828e67caa4b93c56c89b70ade72a93",
+        "bytes": 155
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-1-ldd-bend.json": {
+        "sha256": "644908a1f963e07b2985dfabf25e6974e7fca96475fa6591f8061cb6a8e204ec",
+        "bytes": 249
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-1-ldd-bend.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-1-ldd-bend.stdout": {
+        "sha256": "c4fc94105cdb7de774a56e0d1668ce8f6c13c84cb6b30581ac9c553aa83c9e12",
+        "bytes": 373
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-1-ldd-clang.json": {
+        "sha256": "cb5a3f4e37d85927e4de2a5075f2e8a7a9c775bceddfaff72915e533d05c3631",
+        "bytes": 285
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-1-ldd-clang.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-1-ldd-clang.stdout": {
+        "sha256": "6f2e9789055da6bf7bde45b0058835262487ee57101d08d8b67ed088b198917b",
+        "bytes": 1546
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-1-ldd-node.json": {
+        "sha256": "71d94ba4b6c8dc883d0982c6328c0a1f1acda01a77c9b11b8af42a04eb9297d1",
+        "bytes": 283
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-1-ldd-node.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-1-ldd-node.stdout": {
+        "sha256": "6160600a5f514af45d3f4236605f0edef6ef5b132da667a51df2ce2edb486698",
+        "bytes": 527
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-1-ldd-python.json": {
+        "sha256": "1c576250c178d93a4e36ad2e0e075e7a4fb34d98b0d7b281c097a4fb6df76ff6",
+        "bytes": 243
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-1-ldd-python.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-1-ldd-python.stdout": {
+        "sha256": "8350e9dc78b7e1f4856c906c171126ae78236c0a72ff244e1e5509fde061a0dc",
+        "bytes": 367
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-1-ldd-taskset.json": {
+        "sha256": "53bd0b040f4634f6b9264be01f87e6596ae777d540722188dbe74e5395d9694b",
+        "bytes": 240
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-1-ldd-taskset.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-1-ldd-taskset.stdout": {
+        "sha256": "91c75b1f84408832a04b1e0409aa5c1cf876c52a75ac508eff25753222c17439",
+        "bytes": 155
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-2-ldd-bend.json": {
+        "sha256": "644908a1f963e07b2985dfabf25e6974e7fca96475fa6591f8061cb6a8e204ec",
+        "bytes": 249
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-2-ldd-bend.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-2-ldd-bend.stdout": {
+        "sha256": "0e62be8716696dbb583e54b6b0ed41221803ff68cdc067ddd71ae5f3a470350e",
+        "bytes": 373
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-2-ldd-clang.json": {
+        "sha256": "cb5a3f4e37d85927e4de2a5075f2e8a7a9c775bceddfaff72915e533d05c3631",
+        "bytes": 285
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-2-ldd-clang.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-2-ldd-clang.stdout": {
+        "sha256": "e6a3ca229354c897099d54dca996ecee5c43f360886a5c3fc055e3dd689f7912",
+        "bytes": 1546
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-2-ldd-node.json": {
+        "sha256": "71d94ba4b6c8dc883d0982c6328c0a1f1acda01a77c9b11b8af42a04eb9297d1",
+        "bytes": 283
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-2-ldd-node.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-2-ldd-node.stdout": {
+        "sha256": "7b893fbee0a1ca2a420dec8d477a89f17a6fd16a89a163c3a08482c34ea87340",
+        "bytes": 527
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-2-ldd-python.json": {
+        "sha256": "1c576250c178d93a4e36ad2e0e075e7a4fb34d98b0d7b281c097a4fb6df76ff6",
+        "bytes": 243
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-2-ldd-python.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-2-ldd-python.stdout": {
+        "sha256": "940de38d549dbd78335853933129a9c22189afae2a02c67a61d640c433be7f76",
+        "bytes": 367
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-2-ldd-taskset.json": {
+        "sha256": "53bd0b040f4634f6b9264be01f87e6596ae777d540722188dbe74e5395d9694b",
+        "bytes": 240
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-2-ldd-taskset.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-2-ldd-taskset.stdout": {
+        "sha256": "0324207c516ed347ffc5828015b123188465f617c6d840fd9443f10aae442a30",
+        "bytes": 155
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-3-ldd-bend.json": {
+        "sha256": "644908a1f963e07b2985dfabf25e6974e7fca96475fa6591f8061cb6a8e204ec",
+        "bytes": 249
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-3-ldd-bend.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-3-ldd-bend.stdout": {
+        "sha256": "5f1664b57a4a13b3c56e0200a199ce9052079e85c99614f6d81c53eea633e81b",
+        "bytes": 373
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-3-ldd-clang.json": {
+        "sha256": "cb5a3f4e37d85927e4de2a5075f2e8a7a9c775bceddfaff72915e533d05c3631",
+        "bytes": 285
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-3-ldd-clang.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-3-ldd-clang.stdout": {
+        "sha256": "67f60ea24a79a9e06d600cb2ee57f11934c8c1b4b1454d6b40f5b3c557b797dc",
+        "bytes": 1546
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-3-ldd-node.json": {
+        "sha256": "71d94ba4b6c8dc883d0982c6328c0a1f1acda01a77c9b11b8af42a04eb9297d1",
+        "bytes": 283
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-3-ldd-node.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-3-ldd-node.stdout": {
+        "sha256": "b3a48ee7d2fa2a1f59218b694271cc4c52dbbfd9b061d2f77f80f12bdce3513b",
+        "bytes": 527
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-3-ldd-python.json": {
+        "sha256": "1c576250c178d93a4e36ad2e0e075e7a4fb34d98b0d7b281c097a4fb6df76ff6",
+        "bytes": 243
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-3-ldd-python.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-3-ldd-python.stdout": {
+        "sha256": "c872333521ea5f326c234b9ecf1f76e3dcc119415cc3a71d32cb2dd657a53647",
+        "bytes": 367
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-3-ldd-taskset.json": {
+        "sha256": "53bd0b040f4634f6b9264be01f87e6596ae777d540722188dbe74e5395d9694b",
+        "bytes": 240
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-3-ldd-taskset.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-3-ldd-taskset.stdout": {
+        "sha256": "306b3bf7cd97ec26e40fbf3bb914a8b11fb75378e847df3afdf830a910fca8c4",
+        "bytes": 155
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-4-ldd-bend.json": {
+        "sha256": "644908a1f963e07b2985dfabf25e6974e7fca96475fa6591f8061cb6a8e204ec",
+        "bytes": 249
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-4-ldd-bend.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-4-ldd-bend.stdout": {
+        "sha256": "75622cf1ab4499279b67ffd628fff9cdfc0c437df2c07ef845a3dac1b98db936",
+        "bytes": 373
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-4-ldd-clang.json": {
+        "sha256": "cb5a3f4e37d85927e4de2a5075f2e8a7a9c775bceddfaff72915e533d05c3631",
+        "bytes": 285
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-4-ldd-clang.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-4-ldd-clang.stdout": {
+        "sha256": "aa633c8193544460e3866aaa3cba8528083166e30b1a19ff7640dd093a031e2d",
+        "bytes": 1546
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-4-ldd-node.json": {
+        "sha256": "71d94ba4b6c8dc883d0982c6328c0a1f1acda01a77c9b11b8af42a04eb9297d1",
+        "bytes": 283
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-4-ldd-node.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-4-ldd-node.stdout": {
+        "sha256": "ffc29b874f7d199c4ff9eddc5e6048f9514121247b4afa22afc740cb62aca14e",
+        "bytes": 527
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-4-ldd-python.json": {
+        "sha256": "1c576250c178d93a4e36ad2e0e075e7a4fb34d98b0d7b281c097a4fb6df76ff6",
+        "bytes": 243
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-4-ldd-python.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-4-ldd-python.stdout": {
+        "sha256": "dddf97b179f8017f21faa6fc09ac39bfc61bd7df643acd9c9db01e369dd7ccd7",
+        "bytes": 367
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-4-ldd-taskset.json": {
+        "sha256": "53bd0b040f4634f6b9264be01f87e6596ae777d540722188dbe74e5395d9694b",
+        "bytes": 240
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-4-ldd-taskset.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-4-ldd-taskset.stdout": {
+        "sha256": "28cad57673df783314c4eeb80078fb37808ccecfae1ca084f6a032f0fc1e8afb",
+        "bytes": 155
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-5-ldd-bend.json": {
+        "sha256": "644908a1f963e07b2985dfabf25e6974e7fca96475fa6591f8061cb6a8e204ec",
+        "bytes": 249
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-5-ldd-bend.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-5-ldd-bend.stdout": {
+        "sha256": "140ed84f9f562fa6a067f0b2421c5cf4080ab0b299f4900a4e5d3fcc07b3af43",
+        "bytes": 373
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-5-ldd-clang.json": {
+        "sha256": "cb5a3f4e37d85927e4de2a5075f2e8a7a9c775bceddfaff72915e533d05c3631",
+        "bytes": 285
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-5-ldd-clang.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-5-ldd-clang.stdout": {
+        "sha256": "51fbef06c0fcfd3530ac1010a8f8fdb81fe5c176e45bdd4d15e2f5fa60326fd2",
+        "bytes": 1546
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-5-ldd-node.json": {
+        "sha256": "71d94ba4b6c8dc883d0982c6328c0a1f1acda01a77c9b11b8af42a04eb9297d1",
+        "bytes": 283
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-5-ldd-node.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-5-ldd-node.stdout": {
+        "sha256": "fc07e102de1b81326709a8fface1f5aabbb685a92f4a41ef61856aa00f45ea70",
+        "bytes": 527
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-5-ldd-python.json": {
+        "sha256": "1c576250c178d93a4e36ad2e0e075e7a4fb34d98b0d7b281c097a4fb6df76ff6",
+        "bytes": 243
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-5-ldd-python.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-5-ldd-python.stdout": {
+        "sha256": "d21c22d881c49f8ff538ed56df3b863567c95ebc5e3820c6595d02c56a95dc0a",
+        "bytes": 367
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-5-ldd-taskset.json": {
+        "sha256": "53bd0b040f4634f6b9264be01f87e6596ae777d540722188dbe74e5395d9694b",
+        "bytes": 240
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-5-ldd-taskset.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-5-ldd-taskset.stdout": {
+        "sha256": "a7e1379f6d29c99f0e70a5e18a83e5f49894b4c0658b2d80f9b16a62838bcc65",
+        "bytes": 155
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-6-ldd-bend.json": {
+        "sha256": "644908a1f963e07b2985dfabf25e6974e7fca96475fa6591f8061cb6a8e204ec",
+        "bytes": 249
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-6-ldd-bend.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-6-ldd-bend.stdout": {
+        "sha256": "920edc586693a6f0ebcd2a4ff7483d00a9f70dc1f86cf8cd70a7346b73cb997e",
+        "bytes": 373
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-6-ldd-clang.json": {
+        "sha256": "cb5a3f4e37d85927e4de2a5075f2e8a7a9c775bceddfaff72915e533d05c3631",
+        "bytes": 285
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-6-ldd-clang.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-6-ldd-clang.stdout": {
+        "sha256": "8630e311da3494663f379ef1ff95f026333bed0fd71c0a154351c5079248809c",
+        "bytes": 1546
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-6-ldd-node.json": {
+        "sha256": "71d94ba4b6c8dc883d0982c6328c0a1f1acda01a77c9b11b8af42a04eb9297d1",
+        "bytes": 283
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-6-ldd-node.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-6-ldd-node.stdout": {
+        "sha256": "f85a72c2522fc96beee84da02a7499516c91adae29d7b851b76167b38d4ba991",
+        "bytes": 527
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-6-ldd-python.json": {
+        "sha256": "1c576250c178d93a4e36ad2e0e075e7a4fb34d98b0d7b281c097a4fb6df76ff6",
+        "bytes": 243
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-6-ldd-python.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-6-ldd-python.stdout": {
+        "sha256": "f1fea44069b0a73b0464c56764a0f46cb2739b391be1cc53a105d8a0ba73ec74",
+        "bytes": 367
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-6-ldd-taskset.json": {
+        "sha256": "53bd0b040f4634f6b9264be01f87e6596ae777d540722188dbe74e5395d9694b",
+        "bytes": 240
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-6-ldd-taskset.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/execution-probes/guard-6-ldd-taskset.stdout": {
+        "sha256": "08c2528c6b33f3d2375f6ba00f51b5c01b4da7e4831a9e064955457ee741c229",
+        "bytes": 155
+      },
+      "bundle-mutant-source-1791437789551147879/omit-inactive-requirement.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/omit-inactive-requirement.stdout": {
+        "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+        "bytes": 58
+      },
+      "bundle-mutant-source-1791437789551147879/plan.json": {
+        "sha256": "553e5d064c38afa4aca149e6f7979cce87e0e8279551e8dbcabb4813ce2471f3",
+        "bytes": 361588
+      },
+      "bundle-mutant-source-1791437789551147879/receipt.json": {
+        "sha256": "61aa7e341a3251371091f6e6411a485b9418a916ea5cc8d771c5b542f1757011",
+        "bytes": 30992
+      },
+      "bundle-mutant-source-1791437789551147879/reverse-phase-order.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/reverse-phase-order.stdout": {
+        "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+        "bytes": 58
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/application-source-joins.json": {
+        "sha256": "4e3385a8626de4a097529bbc1f426f9d2d5d5045f7495e60b79954fcb2b5ce2e",
+        "bytes": 1121
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/application.bend": {
+        "sha256": "bff2ba0cb93090638d39af29cd0bb89cefd23b381e424142abb20b3966621bca",
+        "bytes": 20239
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/authority-positive.bend": {
+        "sha256": "32340997eca71478dac793e3cdd4221aae62e3afbb974ba639da831d4d41e499",
+        "bytes": 822
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/bundle.bend": {
+        "sha256": "974a7323654ad7a73e9777595aae5a9ac628436522aa753f0c05e814669109fe",
+        "bytes": 18641
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/consumer.mjs": {
+        "sha256": "4877ebe3374211b85b21f57fac8c5a3e6e84efeeb5fa4d670618418431dd4b76",
+        "bytes": 832
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/expected.json": {
+        "sha256": "80d67a29ef2da4eea5c091e83bfb1e8b0d2b77291127c33de87c9e16977b8556",
+        "bytes": 225914
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/main.bend": {
+        "sha256": "98270d78025edc33245360d70c4374be567426eb561cd77008baa1ecdef3bf67",
+        "bytes": 6711
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/negative-cross-schema-requirements.bend": {
+        "sha256": "9a83f9e54cbb8e227c0cfd05f940d8592023f93b693bbdfb49649016f66a1548",
+        "bytes": 710
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/negative-other-machine.bend": {
+        "sha256": "e53cd1d3e16899f7caa4001b8849012af072b00c8bd31acc8e77c23bd3226b1c",
+        "bytes": 460
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/negative-owner-duplication.bend": {
+        "sha256": "96e0a73f953ac9308a2b81781ea05582a10c35004e6b1a0b9aedbfc97bf9a37e",
+        "bytes": 776
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/negative-read-write.bend": {
+        "sha256": "da30ae6824c0e593f9df1d74f535abeeba977a59a24c8008dc919015622834ba",
+        "bytes": 417
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/negative-undeclared.bend": {
+        "sha256": "faec694ca4851a8ca31d0979946c34b811515b311aef5f149f5708faf3a39955",
+        "bytes": 380
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/observe.bend": {
+        "sha256": "921b1c60ae09dba926952d81abe4ca04e281d13ddc549e3732bdc4b4e668b75f",
+        "bytes": 13946
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/oracle-before-source.json": {
+        "sha256": "c66738dd073e7d5c3f0bb719647c28b0273051ffd23a0b739efaed22b67398f2",
+        "bytes": 616
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/oracle.py": {
+        "sha256": "33fb3426a7ebe33aae459eb382a5ea6f201d7ed0e81947b6ca8ad70d8bf86dc5",
+        "bytes": 5014
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/systems.bend": {
+        "sha256": "933d970a85f46a37dd852b248c0e1d7b065ba9312c5dcc162ea0c0f266e79125",
+        "bytes": 25559
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/types.bend": {
+        "sha256": "813ddcf9ceda7172ae9f5d8fd1e4ab7733621e6608917502ddee02202af41f0b",
+        "bytes": 1675
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/bundle-v1/world.bend": {
+        "sha256": "177e97222a05ff08323253d5c35c026347d2a017c6a571e2b75c1cf9f6853336",
+        "bytes": 1457
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/application.bend": {
+        "sha256": "eb6dd860702331ac0f7d17d2f21d327552b848698c84ed696fc14f55eacc8c51",
+        "bytes": 12290
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/consumer.mjs": {
+        "sha256": "1277dbcb152e37fc23ccc3a3efd390fbe2c696f51e8476d0e51dfa1837728902",
+        "bytes": 747
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/expected-draft.json": {
+        "sha256": "064b02b9e68dfe0b189ead2f9680e4fdc152f4ec4689644bb46cef63ad2eab97",
+        "bytes": 12877
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/main.bend": {
+        "sha256": "f027905bcc1482d7a0c70a68b015ded1420e958f42014a2451b90682d11a1600",
+        "bytes": 13417
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/systems.bend": {
+        "sha256": "7c974dc849adbe20f2883683b1f9a18802735a692535f2c1a36abcd526642462",
+        "bytes": 22725
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/types.bend": {
+        "sha256": "05cc721c81bf579ae7a162f737a0c35b0bf049f0ea2de959ffd918b4656dbe51",
+        "bytes": 1473
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/world.bend": {
+        "sha256": "c11d7f8a309dfd110046cabaee01f5e9f2a0c4b3da0e83cf21e75dc7dd914650",
+        "bytes": 1358
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/src/ecs/capabilities.bend": {
+        "sha256": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+        "bytes": 4096
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/src/ecs/column.bend": {
+        "sha256": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+        "bytes": 45638
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/src/ecs/component.bend": {
+        "sha256": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+        "bytes": 31351
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/src/ecs/event-runtime.bend": {
+        "sha256": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+        "bytes": 25508
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/src/ecs/indexed-lifecycle.bend": {
+        "sha256": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+        "bytes": 3862
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/src/ecs/lifecycle.bend": {
+        "sha256": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+        "bytes": 1591
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/src/ecs/local.bend": {
+        "sha256": "8cc5b3c9d3597c60d8a1b9b7fd206a92b289669c3cd9a8575db65ce9af37bd47",
+        "bytes": 8940
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/src/ecs/machine-conditions.bend": {
+        "sha256": "610912561009d08c5b554371c140ec1267d0744cb941f860199dee469df6ac4f",
+        "bytes": 1487
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/src/ecs/machine-handlers.bend": {
+        "sha256": "a63c3847277c69e1513346f35f43c9a482bd3af25373858b2e8df957f75e5fd8",
+        "bytes": 10112
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/src/ecs/machine-stream.bend": {
+        "sha256": "c47ff38671eb67b4369311408c81a2ef388ed971923419625c36f92219eb0fe4",
+        "bytes": 4396
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/src/ecs/machine-world.bend": {
+        "sha256": "8b8610e7ae42eea066639b5cb970a2885dd2fa14024efedef9fbc28dd6ba1816",
+        "bytes": 1887
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/src/ecs/machine.bend": {
+        "sha256": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed",
+        "bytes": 9883
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/src/ecs/owner-handoff.bend": {
+        "sha256": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+        "bytes": 6475
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/src/ecs/registration.bend": {
+        "sha256": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+        "bytes": 1768
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/src/ecs/string-equality.bend": {
+        "sha256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+        "bytes": 897
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/src/ecs/system.bend": {
+        "sha256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+        "bytes": 12147
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/src/ecs/transaction.bend": {
+        "sha256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+        "bytes": 2199
+      },
+      "bundle-mutant-source-1791437789551147879/stage/omit-inactive-requirement/src/ecs/world.bend": {
+        "sha256": "a20b0f2363dab12b73109354ebddf5c9126d3e786031cf9232a0c68c5ffc3b5c",
+        "bytes": 22261
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/application-source-joins.json": {
+        "sha256": "4e3385a8626de4a097529bbc1f426f9d2d5d5045f7495e60b79954fcb2b5ce2e",
+        "bytes": 1121
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/application.bend": {
+        "sha256": "2ec5f59ccc93adf3129ba6c51e731534ffc12be03ae46b0b2399fca69da46a46",
+        "bytes": 20260
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/authority-positive.bend": {
+        "sha256": "32340997eca71478dac793e3cdd4221aae62e3afbb974ba639da831d4d41e499",
+        "bytes": 822
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/bundle.bend": {
+        "sha256": "b181cc81f3ef718f98548e028dbf40722ad4ec254b0fad9ddc977ec52da6bcd6",
+        "bytes": 19740
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/consumer.mjs": {
+        "sha256": "4877ebe3374211b85b21f57fac8c5a3e6e84efeeb5fa4d670618418431dd4b76",
+        "bytes": 832
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/expected.json": {
+        "sha256": "f7d7374ad7bbda2f757ee3b3360364c3b40758fc161ae1fbea8936d55be129e5",
+        "bytes": 226507
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/main.bend": {
+        "sha256": "98270d78025edc33245360d70c4374be567426eb561cd77008baa1ecdef3bf67",
+        "bytes": 6711
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/negative-cross-schema-requirements.bend": {
+        "sha256": "9a83f9e54cbb8e227c0cfd05f940d8592023f93b693bbdfb49649016f66a1548",
+        "bytes": 710
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/negative-other-machine.bend": {
+        "sha256": "e53cd1d3e16899f7caa4001b8849012af072b00c8bd31acc8e77c23bd3226b1c",
+        "bytes": 460
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/negative-owner-duplication.bend": {
+        "sha256": "96e0a73f953ac9308a2b81781ea05582a10c35004e6b1a0b9aedbfc97bf9a37e",
+        "bytes": 776
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/negative-read-write.bend": {
+        "sha256": "da30ae6824c0e593f9df1d74f535abeeba977a59a24c8008dc919015622834ba",
+        "bytes": 417
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/negative-undeclared.bend": {
+        "sha256": "faec694ca4851a8ca31d0979946c34b811515b311aef5f149f5708faf3a39955",
+        "bytes": 380
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/observe.bend": {
+        "sha256": "921b1c60ae09dba926952d81abe4ca04e281d13ddc549e3732bdc4b4e668b75f",
+        "bytes": 13946
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/oracle-before-source.json": {
+        "sha256": "c66738dd073e7d5c3f0bb719647c28b0273051ffd23a0b739efaed22b67398f2",
+        "bytes": 616
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/oracle.py": {
+        "sha256": "dec11c7ba204883bd724381f8e29345be42a94598accb06ec2af64218745f3b4",
+        "bytes": 5037
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/systems.bend": {
+        "sha256": "933d970a85f46a37dd852b248c0e1d7b065ba9312c5dcc162ea0c0f266e79125",
+        "bytes": 25559
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/types.bend": {
+        "sha256": "813ddcf9ceda7172ae9f5d8fd1e4ab7733621e6608917502ddee02202af41f0b",
+        "bytes": 1675
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/bundle-v1/world.bend": {
+        "sha256": "177e97222a05ff08323253d5c35c026347d2a017c6a571e2b75c1cf9f6853336",
+        "bytes": 1457
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/application.bend": {
+        "sha256": "eb6dd860702331ac0f7d17d2f21d327552b848698c84ed696fc14f55eacc8c51",
+        "bytes": 12290
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/consumer.mjs": {
+        "sha256": "1277dbcb152e37fc23ccc3a3efd390fbe2c696f51e8476d0e51dfa1837728902",
+        "bytes": 747
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/expected-draft.json": {
+        "sha256": "064b02b9e68dfe0b189ead2f9680e4fdc152f4ec4689644bb46cef63ad2eab97",
+        "bytes": 12877
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/main.bend": {
+        "sha256": "f027905bcc1482d7a0c70a68b015ded1420e958f42014a2451b90682d11a1600",
+        "bytes": 13417
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/systems.bend": {
+        "sha256": "7c974dc849adbe20f2883683b1f9a18802735a692535f2c1a36abcd526642462",
+        "bytes": 22725
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/types.bend": {
+        "sha256": "05cc721c81bf579ae7a162f737a0c35b0bf049f0ea2de959ffd918b4656dbe51",
+        "bytes": 1473
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/world.bend": {
+        "sha256": "c11d7f8a309dfd110046cabaee01f5e9f2a0c4b3da0e83cf21e75dc7dd914650",
+        "bytes": 1358
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/src/ecs/capabilities.bend": {
+        "sha256": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+        "bytes": 4096
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/src/ecs/column.bend": {
+        "sha256": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+        "bytes": 45638
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/src/ecs/component.bend": {
+        "sha256": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+        "bytes": 31351
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/src/ecs/event-runtime.bend": {
+        "sha256": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+        "bytes": 25508
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/src/ecs/indexed-lifecycle.bend": {
+        "sha256": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+        "bytes": 3862
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/src/ecs/lifecycle.bend": {
+        "sha256": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+        "bytes": 1591
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/src/ecs/local.bend": {
+        "sha256": "8cc5b3c9d3597c60d8a1b9b7fd206a92b289669c3cd9a8575db65ce9af37bd47",
+        "bytes": 8940
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/src/ecs/machine-conditions.bend": {
+        "sha256": "610912561009d08c5b554371c140ec1267d0744cb941f860199dee469df6ac4f",
+        "bytes": 1487
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/src/ecs/machine-handlers.bend": {
+        "sha256": "a63c3847277c69e1513346f35f43c9a482bd3af25373858b2e8df957f75e5fd8",
+        "bytes": 10112
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/src/ecs/machine-stream.bend": {
+        "sha256": "c47ff38671eb67b4369311408c81a2ef388ed971923419625c36f92219eb0fe4",
+        "bytes": 4396
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/src/ecs/machine-world.bend": {
+        "sha256": "8b8610e7ae42eea066639b5cb970a2885dd2fa14024efedef9fbc28dd6ba1816",
+        "bytes": 1887
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/src/ecs/machine.bend": {
+        "sha256": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed",
+        "bytes": 9883
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/src/ecs/owner-handoff.bend": {
+        "sha256": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+        "bytes": 6475
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/src/ecs/registration.bend": {
+        "sha256": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+        "bytes": 1768
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/src/ecs/string-equality.bend": {
+        "sha256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+        "bytes": 897
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/src/ecs/system.bend": {
+        "sha256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+        "bytes": 12147
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/src/ecs/transaction.bend": {
+        "sha256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+        "bytes": 2199
+      },
+      "bundle-mutant-source-1791437789551147879/stage/reverse-phase-order/src/ecs/world.bend": {
+        "sha256": "a20b0f2363dab12b73109354ebddf5c9126d3e786031cf9232a0c68c5ffc3b5c",
+        "bytes": 22261
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/application-source-joins.json": {
+        "sha256": "4e3385a8626de4a097529bbc1f426f9d2d5d5045f7495e60b79954fcb2b5ce2e",
+        "bytes": 1121
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/application.bend": {
+        "sha256": "2ec5f59ccc93adf3129ba6c51e731534ffc12be03ae46b0b2399fca69da46a46",
+        "bytes": 20260
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/authority-positive.bend": {
+        "sha256": "32340997eca71478dac793e3cdd4221aae62e3afbb974ba639da831d4d41e499",
+        "bytes": 822
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/bundle.bend": {
+        "sha256": "dd4c7f3ed0e7ee21fa0b7d2cb1e69f22a6e4d1d5c95fe4ea57d9de64d0682abf",
+        "bytes": 18639
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/consumer.mjs": {
+        "sha256": "4877ebe3374211b85b21f57fac8c5a3e6e84efeeb5fa4d670618418431dd4b76",
+        "bytes": 832
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/expected.json": {
+        "sha256": "ce1f8ed1e13ac3b563538359171199df2928b78b55003c78ae42a9cd9c20581e",
+        "bytes": 226683
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/main.bend": {
+        "sha256": "98270d78025edc33245360d70c4374be567426eb561cd77008baa1ecdef3bf67",
+        "bytes": 6711
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/negative-cross-schema-requirements.bend": {
+        "sha256": "9a83f9e54cbb8e227c0cfd05f940d8592023f93b693bbdfb49649016f66a1548",
+        "bytes": 710
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/negative-other-machine.bend": {
+        "sha256": "e53cd1d3e16899f7caa4001b8849012af072b00c8bd31acc8e77c23bd3226b1c",
+        "bytes": 460
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/negative-owner-duplication.bend": {
+        "sha256": "96e0a73f953ac9308a2b81781ea05582a10c35004e6b1a0b9aedbfc97bf9a37e",
+        "bytes": 776
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/negative-read-write.bend": {
+        "sha256": "da30ae6824c0e593f9df1d74f535abeeba977a59a24c8008dc919015622834ba",
+        "bytes": 417
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/negative-undeclared.bend": {
+        "sha256": "faec694ca4851a8ca31d0979946c34b811515b311aef5f149f5708faf3a39955",
+        "bytes": 380
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/observe.bend": {
+        "sha256": "921b1c60ae09dba926952d81abe4ca04e281d13ddc549e3732bdc4b4e668b75f",
+        "bytes": 13946
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/oracle-before-source.json": {
+        "sha256": "c66738dd073e7d5c3f0bb719647c28b0273051ffd23a0b739efaed22b67398f2",
+        "bytes": 616
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/oracle.py": {
+        "sha256": "ce0615b836fd5c9356800940923891aba786ea737aaa33686c50b7309cf4effe",
+        "bytes": 5029
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/systems.bend": {
+        "sha256": "933d970a85f46a37dd852b248c0e1d7b065ba9312c5dcc162ea0c0f266e79125",
+        "bytes": 25559
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/types.bend": {
+        "sha256": "813ddcf9ceda7172ae9f5d8fd1e4ab7733621e6608917502ddee02202af41f0b",
+        "bytes": 1675
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/bundle-v1/world.bend": {
+        "sha256": "177e97222a05ff08323253d5c35c026347d2a017c6a571e2b75c1cf9f6853336",
+        "bytes": 1457
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/application.bend": {
+        "sha256": "eb6dd860702331ac0f7d17d2f21d327552b848698c84ed696fc14f55eacc8c51",
+        "bytes": 12290
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/consumer.mjs": {
+        "sha256": "1277dbcb152e37fc23ccc3a3efd390fbe2c696f51e8476d0e51dfa1837728902",
+        "bytes": 747
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/expected-draft.json": {
+        "sha256": "064b02b9e68dfe0b189ead2f9680e4fdc152f4ec4689644bb46cef63ad2eab97",
+        "bytes": 12877
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/main.bend": {
+        "sha256": "f027905bcc1482d7a0c70a68b015ded1420e958f42014a2451b90682d11a1600",
+        "bytes": 13417
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/systems.bend": {
+        "sha256": "7c974dc849adbe20f2883683b1f9a18802735a692535f2c1a36abcd526642462",
+        "bytes": 22725
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/types.bend": {
+        "sha256": "05cc721c81bf579ae7a162f737a0c35b0bf049f0ea2de959ffd918b4656dbe51",
+        "bytes": 1473
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/experiments/public-machine-handlers/candidate-v1/public-caller-v1/capability-v2/world.bend": {
+        "sha256": "c11d7f8a309dfd110046cabaee01f5e9f2a0c4b3da0e83cf21e75dc7dd914650",
+        "bytes": 1358
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/src/ecs/capabilities.bend": {
+        "sha256": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+        "bytes": 4096
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/src/ecs/column.bend": {
+        "sha256": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+        "bytes": 45638
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/src/ecs/component.bend": {
+        "sha256": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+        "bytes": 31351
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/src/ecs/event-runtime.bend": {
+        "sha256": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+        "bytes": 25508
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/src/ecs/indexed-lifecycle.bend": {
+        "sha256": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+        "bytes": 3862
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/src/ecs/lifecycle.bend": {
+        "sha256": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+        "bytes": 1591
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/src/ecs/local.bend": {
+        "sha256": "8cc5b3c9d3597c60d8a1b9b7fd206a92b289669c3cd9a8575db65ce9af37bd47",
+        "bytes": 8940
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/src/ecs/machine-conditions.bend": {
+        "sha256": "610912561009d08c5b554371c140ec1267d0744cb941f860199dee469df6ac4f",
+        "bytes": 1487
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/src/ecs/machine-handlers.bend": {
+        "sha256": "a63c3847277c69e1513346f35f43c9a482bd3af25373858b2e8df957f75e5fd8",
+        "bytes": 10112
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/src/ecs/machine-stream.bend": {
+        "sha256": "c47ff38671eb67b4369311408c81a2ef388ed971923419625c36f92219eb0fe4",
+        "bytes": 4396
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/src/ecs/machine-world.bend": {
+        "sha256": "8b8610e7ae42eea066639b5cb970a2885dd2fa14024efedef9fbc28dd6ba1816",
+        "bytes": 1887
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/src/ecs/machine.bend": {
+        "sha256": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed",
+        "bytes": 9883
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/src/ecs/owner-handoff.bend": {
+        "sha256": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+        "bytes": 6475
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/src/ecs/registration.bend": {
+        "sha256": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+        "bytes": 1768
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/src/ecs/string-equality.bend": {
+        "sha256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+        "bytes": 897
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/src/ecs/system.bend": {
+        "sha256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+        "bytes": 12147
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/src/ecs/transaction.bend": {
+        "sha256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+        "bytes": 2199
+      },
+      "bundle-mutant-source-1791437789551147879/stage/wrong-exit-selector/src/ecs/world.bend": {
+        "sha256": "a20b0f2363dab12b73109354ebddf5c9126d3e786031cf9232a0c68c5ffc3b5c",
+        "bytes": 22261
+      },
+      "bundle-mutant-source-1791437789551147879/wrong-exit-selector.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "bundle-mutant-source-1791437789551147879/wrong-exit-selector.stdout": {
+        "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+        "bytes": 58
+      },
+      "history/run-mutant-js-metadata-before-source-receipt-shape.py.txt": {
+        "sha256": "006282a9d631179f2c4eeb1ad301ce946fbd966cf819b96422fc146fb9b2b4df",
+        "bytes": 11232
+      }
+    }
+  },
+  "historicalRoot": "/workspace/formal-proofs/bendvy-worktrees/parity-49-handlers/experiments/public-machine-handlers/candidate-v1/bundle-v1",
+  "baselineManifestSHA256": "d5e2e797b982a7e3f48af933adbd89be91c276c892b7769ee1475f9fa2993796",
+  "completeIssue49": false,
+  "proofCredit": false,
+  "performanceQualified": false
+}

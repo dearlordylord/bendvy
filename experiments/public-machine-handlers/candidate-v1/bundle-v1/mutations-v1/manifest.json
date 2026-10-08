@@ -1,0 +1,36 @@
+{
+  "status": "SOURCE_ONLY_THREE_BUNDLE_MUTATION_PROPOSALS",
+  "baselineSourceManifestSHA256": "3d7c5224bbf27173a0488a8ebccb64eca0a82dcf3be23059a855ac80c470ad3b",
+  "baselineOracleSHA256": "339c9ccb2a7316f946db19408b64cad89b8c152d80bc1135264c19a6034e2aff",
+  "variants": {
+    "wrong-exit-selector": {
+      "changedFile": "bundle.bend",
+      "baselineSHA256": "974a7323654ad7a73e9777595aae5a9ac628436522aa753f0c05e814669109fe",
+      "variantSHA256": "dd4c7f3ed0e7ee21fa0b7d2cb1e69f22a6e4d1d5c95fe4ea57d9de64d0682abf",
+      "patchSHA256": "3360b117a3a04a4b18ca5f2a68150ff79bddb3edf5cd2fd5732d3936b8ef4fb8",
+      "modelSHA256": "ce0615b836fd5c9356800940923891aba786ea737aaa33686c50b7309cf4effe",
+      "expectedSHA256": "ce1f8ed1e13ac3b563538359171199df2928b78b55003c78ae42a9cd9c20581e",
+      "witness": "boot_Play_applied"
+    },
+    "reverse-phase-order": {
+      "changedFile": "bundle.bend",
+      "baselineSHA256": "974a7323654ad7a73e9777595aae5a9ac628436522aa753f0c05e814669109fe",
+      "variantSHA256": "b181cc81f3ef718f98548e028dbf40722ad4ec254b0fad9ddc977ec52da6bcd6",
+      "patchSHA256": "5bc0a9a9e6b7bf56a0226d38a124a6940740fad6762f310c59f1007b78bad7e1",
+      "modelSHA256": "dec11c7ba204883bd724381f8e29345be42a94598accb06ec2af64218745f3b4",
+      "expectedSHA256": "f7d7374ad7bbda2f757ee3b3360364c3b40758fc161ae1fbea8936d55be129e5",
+      "witness": "boot_Play_applied"
+    },
+    "omit-inactive-requirement": {
+      "changedFile": "application.bend",
+      "baselineSHA256": "2ec5f59ccc93adf3129ba6c51e731534ffc12be03ae46b0b2399fca69da46a46",
+      "variantSHA256": "bff2ba0cb93090638d39af29cd0bb89cefd23b381e424142abb20b3966621bca",
+      "patchSHA256": "ebd45f4a5a62c254087afec671cd7fd8a15eba9edb4bfffb1e21a786473d415e",
+      "modelSHA256": "33fb3426a7ebe33aae459eb382a5ea6f201d7ed0e81947b6ca8ad70d8bf86dc5",
+      "expectedSHA256": "80d67a29ef2da4eea5c091e83bfb1e8b0d2b77291127c33de87c9e16977b8556",
+      "witness": "inactive_missing"
+    }
+  },
+  "executedSubjects": 0,
+  "scope": "Independent predicted full48 variants; no typing/proof/compilation/runtime kill. All actual owner payloads/registries/Local/phase commit boundaries preserved; reversed phase execution reverses returned owners again before zipper to isolate order rather than owner corruption."
+}

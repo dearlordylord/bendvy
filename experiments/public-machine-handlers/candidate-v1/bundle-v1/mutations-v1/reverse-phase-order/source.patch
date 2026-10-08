@@ -1,0 +1,27 @@
+--- a/bundle.bend
++++ b/bundle.bend
+@@ -112,6 +112,15 @@
+   match recovery:
+     case Recovery{entries,[],[],H.Owners{[],[],[]}}: Returned{Bundle{namespace,entries},world,status}
+     case recovery: InternalOwnerRemainder{namespace,recovery,world,status}
++# Controlled order defect: reverse execution, then reverse returned owners before the original zipper.
++def reversed_owners(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,owners:H.Owners<S,C,R,E,V,runner>) -> H.Owners<S,C,R,E,V,runner>:
++  match owners:
++    case H.Owners{exit,transition,enter}: H.Owners{List.reverse(&1,H.Entry<S,C,R,E,V,runner>,exit),List.reverse(&1,H.Entry<S,C,R,E,V,runner>,transition),List.reverse(&1,H.Entry<S,C,R,E,V,runner>,enter)}
++def restored_order_result(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,result:H.HandlerResult<S,C,R,E,V,runner>) -> H.HandlerResult<S,C,R,E,V,runner>:
++  match result:
++    case H.Completed{owners,world}: H.Completed{reversed_owners(~S,~C,~R,~E,~V,~runner,owners),world}
++    case H.Stopped{owners,world,phase,error}: H.Stopped{reversed_owners(~S,~C,~R,~E,~V,~runner,owners),world,phase,error}
++
+ def finished(~S:Data,~K:Data,~V:Data,~Q:Data,~C:Type,~R:Type,~E:Data,~runner:W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,namespace:U32,positions:List<&2,Position<S,K,V,Q>>,kept:List<&1,H.Entry<S,C,R,E,V,runner>>,result:H.HandlerResult<S,C,R,E,V,runner>) -> BundleResult<S,K,V,Q,C,R,E,runner>:
+   match result:
+     case H.Completed{owners,world}: recovered(~S,~K,~V,~Q,~C,~R,~E,~runner,namespace,recover(~S,~K,~V,~Q,~C,~R,~E,~runner,positions,kept,owners),world,Completed{})
+@@ -134,7 +143,7 @@
+ 
+ def partitioned_run(~S:Data,~K:Data,~V:Data,~Q:Data,~C:Type,~R:Type,~E:Data,~runner:W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,~take:W.World<S,C,R,E> -> W.World<S,C,R,E> & M.Slot<S,K,V>,~put:W.World<S,C,R,E> -> M.Slot<S,K,V> -> W.World<S,C,R,E>,~publish:W.World<S,C,R,E> -> M.Transition<V> -> W.World<S,C,R,E>,~same:V -> V -> Bool,namespace:U32,world:W.World<S,C,R,E>,captured:M.Snapshot<V>,selected:Partition<S,K,V,Q,C,R,E,runner>) -> BundleResult<S,K,V,Q,C,R,E,runner>:
+   match selected:
+-    case Partition{positions,kept,owners}: finished(~S,~K,~V,~Q,~C,~R,~E,~runner,namespace,positions,kept,H.run(~S,~C,~R,~E,~V,~runner,~K,~take,~put,~publish,~same,owners,world,captured))
++    case Partition{positions,kept,owners}: finished(~S,~K,~V,~Q,~C,~R,~E,~runner,namespace,positions,kept,restored_order_result(~S,~C,~R,~E,~V,~runner,H.run(~S,~C,~R,~E,~V,~runner,~K,~take,~put,~publish,~same,reversed_owners(~S,~C,~R,~E,~V,~runner,owners),world,captured)))
+ def selected_target(~S:Data,~K:Data,~V:Data,~Q:Data,~C:Type,~R:Type,~E:Data,~runner:W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,~take:W.World<S,C,R,E> -> W.World<S,C,R,E> & M.Slot<S,K,V>,~put:W.World<S,C,R,E> -> M.Slot<S,K,V> -> W.World<S,C,R,E>,~publish:W.World<S,C,R,E> -> M.Transition<V> -> W.World<S,C,R,E>,~same:V -> V -> Bool,namespace:U32,entries:List<&1,Scheduled<S,K,V,Q,C,R,E,runner>>,world:W.World<S,C,R,E>,+slot:M.Slot<S,K,V>,+current:V,pending:M.Pending<V>) -> BundleResult<S,K,V,Q,C,R,E,runner>:
+   match pending:
+     case M.NoPending{}: Returned{Bundle{namespace,entries},put(world,M.clear_changed(~S,~K,~V,slot)),Completed{}}

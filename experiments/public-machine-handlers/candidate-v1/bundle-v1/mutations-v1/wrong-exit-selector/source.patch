@@ -1,0 +1,11 @@
+--- a/bundle.bend
++++ b/bundle.bend
+@@ -69,7 +69,7 @@
+     case False{}: Kept{}
+ def choose(~S:Data,~K:Data,~V:Data,~same:V -> V -> Bool,selector:Selector<S,K,V>,from:V,to:V) -> Choice:
+   match selector:
+-    case ExitFrom{value}: exit_choice(same(value,from))
++    case ExitFrom{value}: exit_choice(same(value,to))
+     case TransitionPair{old,new}: transition_choice(Bool.and(same(old,from),same(new,to)))
+     case EnterTo{value}: enter_choice(same(value,to))
+ def placed(~S:Data,~K:Data,~V:Data,~Q:Data,~C:Type,~R:Type,~E:Data,~runner:W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,+choice:Choice,selector:Selector<S,K,V>,needs:List<&2,Q>,entry:H.Entry<S,C,R,E,V,runner>,tail:Partition<S,K,V,Q,C,R,E,runner>) -> Partition<S,K,V,Q,C,R,E,runner>:

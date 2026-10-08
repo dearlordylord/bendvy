@@ -1,0 +1,11 @@
+# Three compiling composition controls (draft, source-only)
+
+Retain the qualified baseline source/JS48/Native48 and all prior handler-kernel mutants. These three candidates isolate the newly added composition seam. Predicted full48 variant models were authored before any mutant checker/compiler/runtime outputs; they retain every physical payload, Local owner, system cursor, publication/reader state, deferred action and paired foreign world.
+
+1. Wrong exit selector compares the declared exit state to the target rather than current state. Existing nominal indexes stay unchanged; actual selected callbacks run through the unchanged kernel. Both boot_Play_applied rows witness missing exits.
+2. Reverse each selected phase's actual registry list before the single kernel call, then reverse every returned phase list before the original zipper. This changes execution order while preserving entry metadata/IDs and every failed/unexecuted owner's position. boot_Play_applied witnesses reversed exit and enter attempts/prefix/cursors; failure cases additionally pin earlier-commit/selfqueue effects.
+3. Omit only the inactive entry's authored Extra requirement, retaining Owned/Machine and its actual extra:read access declaration. The complete requirement union changes; inactive_missing then executes matched handlers despite missing Extra. This is an intentionally invalid declaration control, not a suggested contract or removal of real Owned effects.
+
+First review concrete source patches and independent models, then freeze three main source5 typing subjects with ordinary source/tool/config/environment/raw guards (35 tool probes). Source feasibility alone grants no runtime kill. If all qualify, prepare separately reviewed three emit30/Node5 pairs against each complete48 variant model and assert baseline full48 disagreement at both schema witnesses. Capture complete actual observations before refusal assertions where possible.
+
+Native follows actual JS kills in small mutation groups, using the already successful one-schema A/B driver shape and source-current variant closures. Start one-schema source5/Cemit30 if necessary; no blind broad-root repetition, cap raise, output filtering, scalar proxy, transfer of old kill credit or new policy/law. Production integration remains root-owned after fresh qualification and unchanged regression gate.
