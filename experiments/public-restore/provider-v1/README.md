@@ -27,3 +27,24 @@ with `owner (consumed more than once)`. Source commands used the existing shared
 ordinary direct development shell boundary, not a frozen collector protocol.
 Absolute imports intentionally select root canonical nominal modules. This
 worktree source check is not clean-checkout portable dependency qualification.
+
+## Concrete schema-author witness
+
+`witness.bend` now supplies an actual detached constructor for a Boolean cell in
+an affine `Array<Bool>`. It invokes the complete decoder on the original Raw and
+the callback's retained Codec **before** allocating the payload. Acceptance
+constructs its Array from the validated Boolean, then `roundtrip` consumes that
+payload through the same ordinary declaration's projection/complete validator.
+The projection reads the owned Array using `Array.get`, returning its owner and
+Boolean Raw. Refusal returns the entire original Raw, original affine Context,
+and Issues containing the exact decoder error plus an affine Array sentinel.
+No stored/prebuilt accepted Payload is passed into this constructor.
+
+`accepted_control` and `refused_control` are source-consuming complete paths,
+not executed output comparisons or universal round-trip proofs. The witness
+callback's fallback for a wrong accepted shape is schema-author behavior only;
+the generic provider neither constrains Payload nor introduces an error policy.
+The first source check rejected the reusable `+raw` function argument annotation
+against the affine callback type. The correction copies Data only inside its
+match; source attempt2 PASS, cap5/telemetry off. Both raw attempts are retained.
+No World transaction, allocation rollback, release or capture policy is added.

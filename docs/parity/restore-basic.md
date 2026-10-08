@@ -155,3 +155,12 @@ The prototype deliberately leaves partial-success recovery, release of replaced
 live owners, stale same-world identity, events/captures and multi-entry transaction
 ownership to the existing approval package and owning tickets. It supplies no
 Raw-to-arbitrary-Type inverse, law/proof, backend or #59 completion claim.
+
+The provider prototype additionally has an actual trusted Boolean-cell
+constructor: original detached Raw is completely decoded under the retained
+Codec before creating an affine Array payload; acceptance then consumes that
+payload through the same declaration's save projection and complete validator.
+Refusal carries original Raw, unchanged affine Context, exact decoder error and
+owned Issues sentinel. Both paths source-check; this is concrete constructor
+preparation rather than transport of a prebuilt owner. Executed application
+controls, transaction recovery/release and public restore remain outstanding.
