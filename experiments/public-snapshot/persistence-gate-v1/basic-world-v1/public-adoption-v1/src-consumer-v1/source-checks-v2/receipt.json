@@ -1,9 +1,16 @@
 {
-  "scope": "integration branch development only; no master delivery or performance acceptance",
-  "base": "b2ef9608",
-  "candidateCommentRevision": "0124bdee",
-  "changes": "reviewed module promotion; import-only canonicalization to relative imports; reviewed comment corrections",
-  "files": {
+  "scope": "direct exact-current source5 development retry only; no delivery/runtime/performance credit",
+  "argv": [
+    "/usr/bin/taskset",
+    "-c",
+    "5",
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-snapshot-integration/scripts/bend-check",
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-snapshot-integration/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/src-consumer-v1/consumer-io.bend"
+  ],
+  "exit": 0,
+  "elapsedSeconds": 2.7037882739969064,
+  "status": "PASS",
+  "sourceHashes": {
     "src/ecs/declared-family.bend": "e7ca976eba58fcc0bb5f2fd98456a8d391c05a79511fe1860700b0c147bee5d2",
     "src/ecs/decode-capabilities.bend": "a7ddbf52e79924dec4c31eaa2d6abacb015f612dce1b528f5b6e0e7812999d65",
     "src/ecs/decode-data.bend": "1d1891b034450c041125027bd04f902418378787852864147b1bccb9f58b95d4",
@@ -47,34 +54,9 @@
     "experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/src-consumer-v1/physical-column.bend": "83891a35985ac17aa0410bad80ef6ad68a3a316a1980cbbcdad9115c0a952bad",
     "experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/src-consumer-v1/setup.bend": "aeeecd0c2bd2eea51a757c10d0a28006e42ebe24b4fadde3f70d20eff8f0ca3b"
   },
-  "sourceChecks": {
-    "family": "exit0 source5 on exact listed sources including reviewed comment corrections",
-    "snapshot": "Before comment-only corrections: exit0. Initial final-source attempt exit137 remains retained in source-checks-v1. Exact-current direct retry: exit0 in 2.704 seconds, unchanged 42-file source hashes and raw retained in source-checks-v2; source development only."
-  },
-  "remaining": [
-    "closed installed-tool/resolver and frozen delivery qualification as required by governing issues",
-    "unchanged paired regression before executable core delivery",
-    "complete constructor/admission provider and remaining full #46/#58 acceptance"
-  ],
-  "developmentEvidence": {
-    "commit": "b1f5e5bd",
-    "scope": "actual proposed src consumer observations only; not frozen delivery or performance acceptance",
-    "wholeSnapshot": {
-      "JS": "PASS",
-      "Native": "PASS",
-      "stdoutSha256": "c381bdeab1e75d6ecbe893baabc2e901ee162499c2e59d838f7cdaa0a9a201dc"
-    },
-    "wholeFamily": {
-      "JS": "PASS",
-      "Native": "PASS",
-      "stdoutSha256": "4bd6d9336e5216708725059bffd10d87313e517a71a1ae49cbbeaed38b284e1f"
-    },
-    "reachedRecipeMutation": {
-      "JS": "PASS",
-      "Native": "PASS",
-      "stdoutSha256": "4fcf8855636da6f90803b2203340f125db92564488d5526340dd6e32e73a7bc7"
-    },
-    "authorityControls": "ef5f1700: five intended static refusals on promoted nominal identities; scope documented per control",
-    "review": "master 13347b24: independent actual-src development review"
+  "postSourceUnchanged": true,
+  "rawHashes": {
+    "snapshot.stdout": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+    "snapshot.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   }
 }

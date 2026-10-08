@@ -11,10 +11,11 @@ whole counterfactual oracle on both backends. The six retained results are in
 refusals on the promoted nominal identities. The independent review is integrated
 in master at 13347b24. These are development results, not full delivery credit.
 
-The Family entrypoint passed the final five-second source check. The full snapshot
-passed before comment-only corrections; its final attempt hit the unchanged
-deadline (exit137, empty streams) and remains INCOMPLETE. Passing emitted runtime
-does not rewrite that source-check receipt. Closed installed-tool/resolver and
-frozen delivery qualification, the unchanged paired regression gate, and full
-constructor/admission and governing-issue acceptance remain outstanding.
+Both final Family and snapshot entrypoints now pass the five-second development
+source check. The earlier snapshot timeout (exit137, empty streams) stays retained
+in source-checks-v1. A direct exact-current retry passed in 2.704 seconds with all
+42 source hashes unchanged; its raw streams and receipt are in source-checks-v2.
+This does not rewrite or qualify the earlier attempt. Closed installed-tool/
+resolver and frozen delivery qualification, the unchanged paired regression gate,
+and full constructor/admission and governing-issue acceptance remain outstanding.
 No master executable-core delivery, #46/#58 closure or performance claim follows.
