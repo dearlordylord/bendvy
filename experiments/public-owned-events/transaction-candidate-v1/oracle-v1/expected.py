@@ -10,7 +10,7 @@ EXISTING=event('existing',[71,72])
 FIRST=event('first',[41,42]);SECOND=event('second',[51,52])
 def stamp(id,added,changed):return {'id':id,'stamp':{'added':added,'changed':changed}}
 def snapshot(payloads,stamps,clock,log,marks,pending,events):
- return copy.deepcopy({'metadata':{'namespace':1,'nextId':3,'highWater':2,'capacity':4,'depth':{'nat':2},'events':events,'registrations':[],'nextSystemId':1,'clock':clock},'live':[False,True,True,False],'column':{'supported':True,'slots':[NONE,some(payloads[0]),some(payloads[1]),NONE],'stamps':stamps},'log':log,'marks':marks,'pending':pending})
+ return copy.deepcopy({'metadata':{'namespace':1,'nextId':3,'highWater':2,'capacity':4,'depth':{'nat':2},'events':events,'registrations':[],'nextSystemId':1,'clock':clock},'live':[False,True,True,False],'column':{'supported':True,'slots':[some(payloads[0]),some(payloads[1]),NONE,NONE],'stamps':stamps},'log':log,'marks':marks,'pending':pending})
 def owners(rejected=None,errors=None):return copy.deepcopy({'seedPrevious':[NONE,NONE],'rejected':rejected or [],'errors':errors or []})
 def expected():
  seeded=snapshot([[11,12],[21,22]],[stamp(2,2,2),stamp(1,1,1)],2,[EXISTING],[7],0,[])

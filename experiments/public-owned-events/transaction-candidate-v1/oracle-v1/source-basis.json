@@ -18,11 +18,11 @@
     "/workspace/formal-proofs/bendvy/.references/bend2/bend2/bend.ts": "1d133151652b597a1a035c77c172475e6de096da37f3b9e3adc23c2f75bdfe49",
     "/workspace/formal-proofs/bendvy/.references/bend2/bend2/comp.ts": "32fb66e09f608ce9e4b173384bcfeec453db8c5bc96650e26ad861bef815a8d9"
   },
-  "expectedSHA256": "692443d027f27a4c249de0b901e1b28d6425c794ef052de0234173c53a6b5244",
+  "expectedSHA256": "88a831432428c592da2d3e2029233c22ba31a12b56e5dbb25722868103431faf",
   "expectedBytes": 16396,
-  "expectedRawSHA256": "1d96981b418539133c65f3216f086411bd5d84dd510d994641a4ed6366dd98dd",
+  "expectedRawSHA256": "4df56e7cd82baf2731d4ef1bedc49ff57872ac34521faa2d856a6eb9d5761ce5",
   "expectedRawBytes": 6139,
-  "authorSHA256": "d9a5715095e4d4e9becb32b64a86a41d021d2c34b49be4774cd993609df8d2be",
+  "authorSHA256": "13c5dc10a3ae62df886f4088c52228473a4acbe362cc79dd521c33fcb80d8542",
   "rawAuthorSHA256": "d88f4b9669614f128077aba5ee147435792458cc7480d4716dddfc78b61c4560",
   "sourceModelChecks": [
     "Complete publicDTO fields/constructororder from frozen source",
@@ -41,5 +41,10 @@
     "Observer supports ordinaryColumn only and reports supportedBool; expectedTrue forbids a fallbackacceptedresult",
     "Only complete frozen source scope; canonicalcore/Stage stillneed actualbackend/reachedmutation gates",
     "No fanout/readers/retention ownership selection, no dependency/performance/law/proof claim"
-  ]
+  ],
+  "physicalSlotCorrection": {
+    "previousExpectedSHA256": "692443d027f27a4c249de0b901e1b28d6425c794ef052de0234173c53a6b5244",
+    "previousRawSHA256": "1d96981b418539133c65f3216f086411bd5d84dd510d994641a4ed6366dd98dd",
+    "correctedSourceReason": "canonical Column.swap_checked Array.swap uses id-1; observer slots traverses physical left/right leaforder. World.live remains direct id index; these representations differ intentionally. No output consulted."
+  }
 }
