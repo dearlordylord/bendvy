@@ -1,0 +1,2542 @@
+function word_to_u32(w) {
+  let x = 0;
+  for (let i = 0; w.$ === "WCon"; i++) {
+    x |= Number(w.head) << i;
+    w = w.tail;
+  }
+  return x >>> 0;
+}
+
+function u32_to_word(x) {
+  let w = {$: "WNil"};
+  for (let i = 31; i >= 0; i--) {
+    w = {$: "WCon", head: ((x >>> i) & 1) === 1, tail: w};
+  }
+  return w;
+}
+
+function cmp_new(a, b) {
+  return {$: a < b ? "LT"
+    : a === b ? "EQ" : "GT"};
+}
+
+function nat_divmod(a, b) {
+  return b === 0 ? {$: "Tuple", fst: 0, snd: a}
+    : {$: "Tuple", fst: Math.trunc(a / b), snd: a % b};
+}
+
+function nat_chk(n) {
+  if (n > 281474976710655) {
+    throw "bend: a Nat past the largest immediate 2^48-1";
+  }
+  return n;
+}
+
+function nat_host(n) {
+  const int = typeof n === "bigint" || Number.isInteger(n);
+  if (int && n >= 0 && n <= 2 ** 53) {
+    return Number(n);
+  }
+  return { [Symbol.toPrimitive]() { throw "bend: a Nat past the largest immediate 2^48-1"; } };
+}
+
+function f32_show(x) {
+  if (x !== x) {
+    return "nan";
+  }
+  if (!Number.isFinite(x) || Object.is(x, -0)) {
+    return x < 0 ? "-inf"
+      : x === 0 ? "-0" : "inf";
+  }
+  let s = "x";
+  for (let p = 1; p <= 9 && f32_round(s) !== x; p += 1) {
+    s = String(Number(x.toExponential(p - 1)));
+  }
+  return s;
+}
+
+function f32_bits(x) {
+  return new Uint32Array(new Float32Array([x]).buffer)[0];
+}
+
+function f32_from_bits(u) {
+  return new Float32Array(new Uint32Array([u]).buffer)[0];
+}
+
+function f32_read(s) {
+  const re = /^\s*[+-]?((\d+\.?\d*|\.\d+)(e[+-]?\d+)?|inf(inity)?|nan)$/i;
+  const v = f32_round(s.replace(/inf\w*/i, "Infinity"));
+  return re.test(s) ? {$: "Some", value: v} : {$: "None"};
+}
+
+const f32_round = function f32_round(s) {
+  const d = Number(s);
+  const a = Math.abs(d);
+  const f = Math.fround(a);
+  const g = 2 * a - Math.min(f, 2 ** 128);
+  if (g === f || Math.fround(g) !== g || g === Infinity) {
+    return Math.sign(d) * f;
+  }
+  let k = 0;
+  while (a * 2 ** k % 1 !== 0) {
+    k += 1;
+  }
+  const [, i, r, e] = /(\d*)\.?(\d*)(?:e([+-]?\d+))?$/i.exec(s);
+  const n = Number(e ?? 0) - r.length;
+  const x = BigInt(i + r) * 2n ** BigInt(k) * 10n ** BigInt(Math.max(n, 0));
+  const y = BigInt(a * 2 ** k) * 10n ** BigInt(Math.max(-n, 0));
+  return Math.sign(d) * (x === y || x > y !== g > f ? f : g);
+};
+
+function char_new(code) {
+  if (code > 0x10FFFF || (code >= 0xD800 && code <= 0xDFFF)) {
+    throw "bend: " + code + " is not a Unicode scalar value";
+  }
+  return String.fromCodePoint(code);
+}
+
+// Array
+// =====
+
+function array_new(d, v) {
+  if (d > 31) {
+    throw "bend: an array past the deepest block class 31";
+  }
+  return Array(2 ** d).fill(v);
+}
+
+function array_node(a, b) {
+  if (a.length !== b.length) {
+    throw "bend: runtime fail-stop";
+  }
+  return a.concat(b);
+}
+
+function array_rmw(a, i, f) {
+  const at = i % a.length;
+  const old = a[at];
+  a[at] = f(old);
+  return {$: "Tuple", fst: a, snd: old};
+}
+
+// Run
+// ===
+
+function run_tail(f, x) {
+  return {$: "$JMP", f: f.j?.f === f ? f.j : f, x: [x]};
+}
+
+function run_clo(j) {
+  const f = (x) => run_loop(j(x));
+  f.j = j;
+  j.f = f;
+  return f;
+}
+
+function run_loop(r) {
+  while (r !== null && typeof r === "object" && r.$ === "$JMP") {
+    r = r.f(...r.x);
+  }
+  return r;
+}
+
+function run_lib(f, n) {
+  return (...a) => a.length < n ? run_lib((...b) => f(...a, ...b), n - a.length)
+    : f(...a);
+}
+
+// Effect
+// ======
+
+const $0eff = Object.create(null);
+
+function io_eff(k, run, need) {
+  if (k in $0eff) {
+    throw new Error("bend: two effects register " + k);
+  }
+  $0eff[k] = { run, need };
+}
+(() => {
+// IO
+// ==
+
+function io_print(text) {
+  io_out(1, io_bytes(text + "\n"));
+  return { $: "Unit" };
+}
+
+io_eff("IO.print", io_print);
+
+})();
+
+for (const k of ["IO.print"]) {
+  if (!(k in $0eff)) {
+    throw new Error("bend: no effect registers " + k);
+  }
+}
+
+// Program
+// =======
+
+function $main$() {
+  return (_x_0) => $IO$print$(($adoption$045driver$045main$058main$()), _x_0);
+}
+
+function $IO$print$(_text_0, _k_0) {
+  return { $: "$FFI", run: $0eff["IO.print"].run, need: $0eff["IO.print"].need, args: [(_text_0)], kont: (_k_0) };
+}
+function $adoption$045driver$045main$058main$() {
+  const _x_0 = ($adoption$045driver$045workshop$058main$());
+  const _x_1 = ($adoption$045driver$045garden$058main$());
+  return (_x_0 + _x_1);
+}
+
+function $adoption$045driver$045workshop$058main$() {
+  return $adoption$045driver$045workshop$058created$(($$$$047$$$047$$$047$$$047src$047ecs$047world$058create$1261$(($$$$047$$$047$$$047$$$047src$047ecs$047world$058factory$()), {$: "binding-fixtures/workshop.Resources", "score": {$: "../../bend-candidate/consumer.Resource", "cells": ($binding$045format$058cells$(101))}, "bonus": {$: "../../bend-candidate/consumer.Resource", "cells": ($binding$045format$058cells$(201))}})));
+}
+
+function $adoption$045driver$045garden$058main$() {
+  return $adoption$045driver$045garden$058created$(($$$$047$$$047$$$047$$$047src$047ecs$047world$058create$1263$(($$$$047$$$047$$$047$$$047src$047ecs$047world$058factory$()), {$: "binding-fixtures/garden.Resources", "score": {$: "../../bend-candidate/query-consumer.Resource", "cells": ($binding$045format$058cells$(101))}, "bonus": {$: "../../bend-candidate/query-consumer.Resource", "cells": ($binding$045format$058cells$(201))}})));
+}
+
+function $adoption$045driver$045workshop$058created$(_creation_0) {
+  if (_creation_0.$ === "../../../../src/ecs/world.Created") {
+    const _world_0 = _creation_0["world"];
+    return $adoption$045driver$045workshop$058finish$(($adoption$045driver$045workshop$058project$("projection-repeat", ($adoption$045driver$045workshop$058project$("projection-first", ($adoption$045driver$045workshop$058checkpoint$("metadata-repeat", ($adoption$045driver$045workshop$058checkpoint$("metadata-first", {$: "adoption-driver-workshop.State", "definition": ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045definition$058attach$1260$({$: "adoption-positive-workshop.Owner", "left": ($binding$045format$058cells$(401)), "right": ($binding$045format$058cells$(501)), "extra": ($binding$045format$058cells$(601))})), "instance": {$: "../../../../src/ecs/inspector.Fresh"}, "world": _world_0, "text": ""})))))))));
+  } else {
+    return "setup creation rejected\n";
+  }
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047world$058create$1261$(_factory_0, _resource_0) {
+  const _namespace_0 = _factory_0["nextNamespace"];
+  return $$$$047$$$047$$$047$$$047src$047ecs$047world$058create_checked$1261$((_namespace_0 < 4294967295), _namespace_0, _resource_0);
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047world$058factory$() {
+  return {$: "../../../../src/ecs/world.Factory", "nextNamespace": 1};
+}
+
+function $binding$045format$058cells$(_base_0) {
+  const _x_0 = array_new(2, _base_0);
+  const _x_1 = ((_base_0 + 1) >>> 0);
+  const _x_2 = (_x_0[1 % _x_0.length] = _x_1, _x_0);
+  const _x_3 = ((_base_0 + 2) >>> 0);
+  const _x_4 = (_x_2[2 % _x_2.length] = _x_3, _x_2);
+  const _x_5 = ((_base_0 + 3) >>> 0);
+  return (_x_4[3 % _x_4.length] = _x_5, _x_4);
+}
+
+function $adoption$045driver$045garden$058created$(_creation_0) {
+  if (_creation_0.$ === "../../../../src/ecs/world.Created") {
+    const _world_0 = _creation_0["world"];
+    return $adoption$045driver$045garden$058finish$(($adoption$045driver$045garden$058project$("projection-repeat", ($adoption$045driver$045garden$058project$("projection-first", ($adoption$045driver$045garden$058checkpoint$("metadata-repeat", ($adoption$045driver$045garden$058checkpoint$("metadata-first", {$: "adoption-driver-garden.State", "definition": ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045definition$058attach$1261$({$: "adoption-positive-garden.Owner", "left": ($binding$045format$058cells$(401)), "right": ($binding$045format$058cells$(501)), "extra": ($binding$045format$058cells$(601))})), "instance": {$: "../../../../src/ecs/inspector.Fresh"}, "world": _world_0, "text": ""})))))))));
+  } else {
+    return "setup creation rejected\n";
+  }
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047world$058create$1263$(_factory_0, _resource_0) {
+  const _namespace_0 = _factory_0["nextNamespace"];
+  return $$$$047$$$047$$$047$$$047src$047ecs$047world$058create_checked$1263$((_namespace_0 < 4294967295), _namespace_0, _resource_0);
+}
+
+function $adoption$045driver$045workshop$058finish$(_state_0) {
+  const _text_0 = _state_0["text"];
+  return _text_0;
+}
+
+function $adoption$045driver$045workshop$058project$(_phase_0, _state_0) {
+  const _definition_0 = _state_0["definition"];
+  const _instance_0 = _state_0["instance"];
+  const _world_0 = _state_0["world"];
+  const _text_0 = _state_0["text"];
+  return $adoption$045driver$045workshop$058projected$(_phase_0, _text_0, ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045definition$058invoke$1260$(_definition_0, _instance_0, {$: "Unit"}, _world_0)));
+}
+
+function $adoption$045driver$045workshop$058checkpoint$(_phase_0, _state_0) {
+  const _definition_0 = _state_0["definition"];
+  const _instance_0 = _state_0["instance"];
+  const _world_0 = _state_0["world"];
+  const _text_0 = _state_0["text"];
+  return $adoption$045driver$045workshop$058metadata_observed$(_phase_0, _instance_0, {$: "None"}, _world_0, _text_0, ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045definition$058read$1260$(_definition_0)));
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045definition$058attach$1260$(_owner_0) {
+  return {$: "../../../../src/ecs/inspector-definition.State", "owner": _owner_0};
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047world$058create_checked$1261$(_available_0, _namespace_0, _resource_0) {
+  if (!_available_0) {
+    return {$: "../../../../src/ecs/world.CreateRejected", "factory": {$: "../../../../src/ecs/world.Factory", "nextNamespace": _namespace_0}, "resource": _resource_0};
+  } else {
+    return {$: "../../../../src/ecs/world.Created", "factory": {$: "../../../../src/ecs/world.Factory", "nextNamespace": ((_namespace_0 + 1) >>> 0)}, "world": {$: "../../../../src/ecs/world.World", "namespace": _namespace_0, "nextId": 1, "highWater": 0, "live": array_new(0, false), "capacity": 1, "depth": 0, "store": ($$$$047$$$047bend$045candidate$047consumer$058empty$({$: "Unit"})), "resource": _resource_0, "events": {$: "Nil"}, "pending": {$: "Nil"}, "registrations": {$: "Nil"}, "nextSystemId": 1, "clock": 0}};
+  }
+}
+
+function $adoption$045driver$045garden$058finish$(_state_0) {
+  const _text_0 = _state_0["text"];
+  return _text_0;
+}
+
+function $adoption$045driver$045garden$058project$(_phase_0, _state_0) {
+  const _definition_0 = _state_0["definition"];
+  const _instance_0 = _state_0["instance"];
+  const _world_0 = _state_0["world"];
+  const _text_0 = _state_0["text"];
+  return $adoption$045driver$045garden$058projected$(_phase_0, _text_0, ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045definition$058invoke$1261$(_definition_0, _instance_0, {$: "Unit"}, _world_0)));
+}
+
+function $adoption$045driver$045garden$058checkpoint$(_phase_0, _state_0) {
+  const _definition_0 = _state_0["definition"];
+  const _instance_0 = _state_0["instance"];
+  const _world_0 = _state_0["world"];
+  const _text_0 = _state_0["text"];
+  return $adoption$045driver$045garden$058metadata_observed$(_phase_0, _instance_0, {$: "None"}, _world_0, _text_0, ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045definition$058read$1261$(_definition_0)));
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045definition$058attach$1261$(_owner_0) {
+  return {$: "../../../../src/ecs/inspector-definition.State", "owner": _owner_0};
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047world$058create_checked$1263$(_available_0, _namespace_0, _resource_0) {
+  if (!_available_0) {
+    return {$: "../../../../src/ecs/world.CreateRejected", "factory": {$: "../../../../src/ecs/world.Factory", "nextNamespace": _namespace_0}, "resource": _resource_0};
+  } else {
+    return {$: "../../../../src/ecs/world.Created", "factory": {$: "../../../../src/ecs/world.Factory", "nextNamespace": ((_namespace_0 + 1) >>> 0)}, "world": {$: "../../../../src/ecs/world.World", "namespace": _namespace_0, "nextId": 1, "highWater": 0, "live": array_new(0, false), "capacity": 1, "depth": 0, "store": ($$$$047$$$047bend$045candidate$047query$045consumer$058empty$({$: "Unit"})), "resource": _resource_0, "events": {$: "Nil"}, "pending": {$: "Nil"}, "registrations": {$: "Nil"}, "nextSystemId": 1, "clock": 0}};
+  }
+}
+
+function $adoption$045driver$045workshop$058projected$(_phase_0, _text_0, _observed_0) {
+  const _definition_0 = _observed_0["fst"];
+  const _result_0 = _observed_0["snd"];
+  return $adoption$045driver$045workshop$058projection_observed$(_phase_0, _text_0, _definition_0, _result_0);
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045definition$058invoke$1260$(_state_0, _instance_0, _args_0, _world_0) {
+  return {$: "Tuple", "fst": _state_0, "snd": ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$058run$1261$(_instance_0, _args_0, _world_0))};
+}
+
+function $adoption$045driver$045workshop$058metadata_observed$(_phase_0, _instance_0, _fieldView_0, _world_0, _prior_0, _observed_0) {
+  const _definition_0 = _observed_0["fst"];
+  const _metadata_0 = _observed_0["snd"];
+  return $adoption$045driver$045workshop$058owner_observed$(_phase_0, _metadata_0, _instance_0, _fieldView_0, _world_0, _prior_0, ($adoption$045driver$045workshop$058definition_view$(_definition_0)));
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045definition$058read$1260$(_state_0) {
+  return {$: "Tuple", "fst": _state_0, "snd": ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045definition$058metadata$1260$())};
+}
+
+function $$$$047$$$047bend$045candidate$047consumer$058empty$(_unit_0) {
+  return {$: "../../bend-candidate/consumer.Store", "column": ($$$$047$$$047$$$047$$$047src$047ecs$047column$058empty$1260$())};
+}
+
+function $adoption$045driver$045garden$058projected$(_phase_0, _text_0, _observed_0) {
+  const _definition_0 = _observed_0["fst"];
+  const _result_0 = _observed_0["snd"];
+  return $adoption$045driver$045garden$058projection_observed$(_phase_0, _text_0, _definition_0, _result_0);
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045definition$058invoke$1261$(_state_0, _instance_0, _args_0, _world_0) {
+  return {$: "Tuple", "fst": _state_0, "snd": ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$058run$1263$(_instance_0, _args_0, _world_0))};
+}
+
+function $adoption$045driver$045garden$058metadata_observed$(_phase_0, _instance_0, _fieldView_0, _world_0, _prior_0, _observed_0) {
+  const _definition_0 = _observed_0["fst"];
+  const _metadata_0 = _observed_0["snd"];
+  return $adoption$045driver$045garden$058owner_observed$(_phase_0, _metadata_0, _instance_0, _fieldView_0, _world_0, _prior_0, ($adoption$045driver$045garden$058definition_view$(_definition_0)));
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045definition$058read$1261$(_state_0) {
+  return {$: "Tuple", "fst": _state_0, "snd": ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045definition$058metadata$1261$())};
+}
+
+function $$$$047$$$047bend$045candidate$047query$045consumer$058empty$(_unit_0) {
+  return {$: "../../bend-candidate/query-consumer.Store", "column": ($$$$047$$$047$$$047$$$047src$047ecs$047column$058empty$1261$())};
+}
+
+function $adoption$045driver$045workshop$058projection_observed$(_phase_0, _text_0, _definition_0, _observed_0) {
+  const _world_0 = _observed_0["world"];
+  const _instance_0 = _observed_0["instance"];
+  const _result_0 = _observed_0["result"];
+  return $adoption$045driver$045workshop$058metadata_observed$(_phase_0, _instance_0, {$: "Some", "value": _result_0}, _world_0, _text_0, ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045definition$058read$1260$(_definition_0)));
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058run$1261$(_instance_0, _args_0, _world_0) {
+  if (_instance_0.$ === "../../../../src/ecs/inspector.Fresh") {
+    return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058first$1261$(_args_0, ($$$$047$$$047$$$047$$$047src$047ecs$047world$058clock$1261$(_world_0)));
+  } else {
+    const _cursor_0 = _instance_0["cursor"];
+    const _registeredAt_0 = _instance_0["registeredAt"];
+    return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058initialized$1261$(_args_0, _cursor_0, _registeredAt_0, _world_0);
+  }
+}
+
+function $adoption$045driver$045workshop$058owner_observed$(_phase_0, _metadata_0, _instance_0, _fieldView_0, _world_0, _prior_0, _observed_0) {
+  const _definition_0 = _observed_0["fst"];
+  const _ownerText_0 = _observed_0["snd"];
+  return $adoption$045driver$045workshop$058world_observed$(_phase_0, _metadata_0, _instance_0, _fieldView_0, _ownerText_0, _prior_0, _definition_0, ($adoption$045driver$045workshop$058world_meta$(_world_0)));
+}
+
+function $adoption$045driver$045workshop$058definition_view$(_definition_0) {
+  const _t_0 = _definition_0["owner"];
+  const _left_0 = _t_0["left"];
+  const _right_0 = _t_0["right"];
+  const _extra_0 = _t_0["extra"];
+  return $adoption$045driver$045workshop$058owners_left$(_right_0, _extra_0, ($$$$047$$$047bend$045candidate$047consumer$058array_project$(_left_0)));
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045definition$058metadata$1260$() {
+  return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045definition$058metadata_field$1260$(($binding$045fixtures$047workshop$058canonical_definition$()));
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047column$058empty$1260$() {
+  return {$: "../../../../src/ecs/column.Column", "values": [{$: "None"}], "stamps": {$: "Nil"}};
+}
+
+function $adoption$045driver$045garden$058projection_observed$(_phase_0, _text_0, _definition_0, _observed_0) {
+  const _world_0 = _observed_0["world"];
+  const _instance_0 = _observed_0["instance"];
+  const _result_0 = _observed_0["result"];
+  return $adoption$045driver$045garden$058metadata_observed$(_phase_0, _instance_0, {$: "Some", "value": _result_0}, _world_0, _text_0, ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045definition$058read$1261$(_definition_0)));
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058run$1263$(_instance_0, _args_0, _world_0) {
+  if (_instance_0.$ === "../../../../src/ecs/inspector.Fresh") {
+    return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058first$1263$(_args_0, ($$$$047$$$047$$$047$$$047src$047ecs$047world$058clock$1263$(_world_0)));
+  } else {
+    const _cursor_0 = _instance_0["cursor"];
+    const _registeredAt_0 = _instance_0["registeredAt"];
+    return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058initialized$1263$(_args_0, _cursor_0, _registeredAt_0, _world_0);
+  }
+}
+
+function $adoption$045driver$045garden$058owner_observed$(_phase_0, _metadata_0, _instance_0, _fieldView_0, _world_0, _prior_0, _observed_0) {
+  const _definition_0 = _observed_0["fst"];
+  const _ownerText_0 = _observed_0["snd"];
+  return $adoption$045driver$045garden$058world_observed$(_phase_0, _metadata_0, _instance_0, _fieldView_0, _ownerText_0, _prior_0, _definition_0, ($adoption$045driver$045garden$058world_meta$(_world_0)));
+}
+
+function $adoption$045driver$045garden$058definition_view$(_definition_0) {
+  const _t_0 = _definition_0["owner"];
+  const _left_0 = _t_0["left"];
+  const _right_0 = _t_0["right"];
+  const _extra_0 = _t_0["extra"];
+  return $adoption$045driver$045garden$058owners_left$(_right_0, _extra_0, ($$$$047$$$047bend$045candidate$047query$045consumer$058array_project$(_left_0)));
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045definition$058metadata$1261$() {
+  return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045definition$058metadata_field$1261$(($binding$045fixtures$047garden$058canonical_definition$()));
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047column$058empty$1261$() {
+  return {$: "../../../../src/ecs/column.Column", "values": [{$: "None"}], "stamps": {$: "Nil"}};
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058first$1261$(_args_0, _observed_0) {
+  const _world_0 = _observed_0["fst"];
+  const _registeredAt_0 = _observed_0["snd"];
+  return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058initialized$1261$(_args_0, 0, _registeredAt_0, _world_0);
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047world$058clock$1261$(_world_0) {
+  const _namespace_0 = _world_0["namespace"];
+  const _nextId_0 = _world_0["nextId"];
+  const _highWater_0 = _world_0["highWater"];
+  const _live_0 = _world_0["live"];
+  const _capacity_0 = _world_0["capacity"];
+  const _depth_0 = _world_0["depth"];
+  const _store_0 = _world_0["store"];
+  const _resource_0 = _world_0["resource"];
+  const _events_0 = _world_0["events"];
+  const _pending_0 = _world_0["pending"];
+  const _registrations_0 = _world_0["registrations"];
+  const _nextSystemId_0 = _world_0["nextSystemId"];
+  const _clock_0 = _world_0["clock"];
+  return {$: "Tuple", "fst": {$: "../../../../src/ecs/world.World", "namespace": _namespace_0, "nextId": _nextId_0, "highWater": _highWater_0, "live": _live_0, "capacity": _capacity_0, "depth": _depth_0, "store": _store_0, "resource": _resource_0, "events": _events_0, "pending": _pending_0, "registrations": _registrations_0, "nextSystemId": _nextSystemId_0, "clock": _clock_0}, "snd": _clock_0};
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058initialized$1261$(_args_0, _cursor_0, _registeredAt_0, _world_0) {
+  return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058invoked$1261$(_cursor_0, _registeredAt_0, ($$$$047$$$047$$$047$$$047src$047ecs$047capabilities$058invoke$1261$(_args_0, {$: "../../../../src/ecs/inspector.Frame", "world": _world_0, "cursor": _cursor_0})));
+}
+
+function $adoption$045driver$045workshop$058world_observed$(_phase_0, _metadata_0, _instance_0, _fieldView_0, _ownerText_0, _prior_0, _definition_0, _observed_0) {
+  const _world_0 = _observed_0["fst"];
+  const _worldText_0 = _observed_0["snd"];
+  return $adoption$045driver$045workshop$058emitted$(_phase_0, _metadata_0, _instance_0, _fieldView_0, _ownerText_0, _worldText_0, _prior_0, _definition_0, ($$$$047$$$047$$$047$$$047src$047ecs$047world$058observe_resource$1263$(_world_0)));
+}
+
+function $adoption$045driver$045workshop$058world_meta$(_world_0) {
+  const _namespace_0 = _world_0["namespace"];
+  const _nextId_0 = _world_0["nextId"];
+  const _highWater_0 = _world_0["highWater"];
+  const _live_0 = _world_0["live"];
+  const _capacity_0 = _world_0["capacity"];
+  const _depth_0 = _world_0["depth"];
+  const _store_0 = _world_0["store"];
+  const _resource_0 = _world_0["resource"];
+  const _events_0 = _world_0["events"];
+  const _pending_0 = _world_0["pending"];
+  const _registrations_0 = _world_0["registrations"];
+  const _nextSystemId_0 = _world_0["nextSystemId"];
+  const _clock_0 = _world_0["clock"];
+  return $adoption$045driver$045workshop$058world_live$(_namespace_0, _nextId_0, _highWater_0, _capacity_0, _depth_0, _store_0, _resource_0, _events_0, _pending_0, _registrations_0, _nextSystemId_0, _clock_0, {$: "Tuple", fst: _live_0, snd: _live_0[0 % _live_0.length]});
+}
+
+function $adoption$045driver$045workshop$058owners_left$(_right_0, _extra_0, _observed_0) {
+  const _left_0 = _observed_0["fst"];
+  const _leftView_0 = _observed_0["snd"];
+  return $adoption$045driver$045workshop$058owners_right$(_left_0, _extra_0, _leftView_0, ($$$$047$$$047bend$045candidate$047consumer$058array_project$(_right_0)));
+}
+
+function $$$$047$$$047bend$045candidate$047consumer$058array_project$(_cells_0) {
+  return $$$$047$$$047bend$045candidate$047consumer$058array_one$({$: "Tuple", fst: _cells_0, snd: _cells_0[0 % _cells_0.length]});
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045definition$058metadata_field$1260$(_definition_0) {
+  const _metadata_0 = _definition_0["metadata"];
+  return _metadata_0;
+}
+
+function $binding$045fixtures$047workshop$058canonical_definition$() {
+  return $binding$045fixtures$047workshop$058define$("Workshop/BoundMetadata", ($binding$045fixtures$047workshop$058bonus$()), ($binding$045fixtures$047workshop$058score$()));
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058first$1263$(_args_0, _observed_0) {
+  const _world_0 = _observed_0["fst"];
+  const _registeredAt_0 = _observed_0["snd"];
+  return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058initialized$1263$(_args_0, 0, _registeredAt_0, _world_0);
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047world$058clock$1263$(_world_0) {
+  const _namespace_0 = _world_0["namespace"];
+  const _nextId_0 = _world_0["nextId"];
+  const _highWater_0 = _world_0["highWater"];
+  const _live_0 = _world_0["live"];
+  const _capacity_0 = _world_0["capacity"];
+  const _depth_0 = _world_0["depth"];
+  const _store_0 = _world_0["store"];
+  const _resource_0 = _world_0["resource"];
+  const _events_0 = _world_0["events"];
+  const _pending_0 = _world_0["pending"];
+  const _registrations_0 = _world_0["registrations"];
+  const _nextSystemId_0 = _world_0["nextSystemId"];
+  const _clock_0 = _world_0["clock"];
+  return {$: "Tuple", "fst": {$: "../../../../src/ecs/world.World", "namespace": _namespace_0, "nextId": _nextId_0, "highWater": _highWater_0, "live": _live_0, "capacity": _capacity_0, "depth": _depth_0, "store": _store_0, "resource": _resource_0, "events": _events_0, "pending": _pending_0, "registrations": _registrations_0, "nextSystemId": _nextSystemId_0, "clock": _clock_0}, "snd": _clock_0};
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058initialized$1263$(_args_0, _cursor_0, _registeredAt_0, _world_0) {
+  return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058invoked$1263$(_cursor_0, _registeredAt_0, ($$$$047$$$047$$$047$$$047src$047ecs$047capabilities$058invoke$1263$(_args_0, {$: "../../../../src/ecs/inspector.Frame", "world": _world_0, "cursor": _cursor_0})));
+}
+
+function $adoption$045driver$045garden$058world_observed$(_phase_0, _metadata_0, _instance_0, _fieldView_0, _ownerText_0, _prior_0, _definition_0, _observed_0) {
+  const _world_0 = _observed_0["fst"];
+  const _worldText_0 = _observed_0["snd"];
+  return $adoption$045driver$045garden$058emitted$(_phase_0, _metadata_0, _instance_0, _fieldView_0, _ownerText_0, _worldText_0, _prior_0, _definition_0, ($$$$047$$$047$$$047$$$047src$047ecs$047world$058observe_resource$1267$(_world_0)));
+}
+
+function $adoption$045driver$045garden$058world_meta$(_world_0) {
+  const _namespace_0 = _world_0["namespace"];
+  const _nextId_0 = _world_0["nextId"];
+  const _highWater_0 = _world_0["highWater"];
+  const _live_0 = _world_0["live"];
+  const _capacity_0 = _world_0["capacity"];
+  const _depth_0 = _world_0["depth"];
+  const _store_0 = _world_0["store"];
+  const _resource_0 = _world_0["resource"];
+  const _events_0 = _world_0["events"];
+  const _pending_0 = _world_0["pending"];
+  const _registrations_0 = _world_0["registrations"];
+  const _nextSystemId_0 = _world_0["nextSystemId"];
+  const _clock_0 = _world_0["clock"];
+  return $adoption$045driver$045garden$058world_live$(_namespace_0, _nextId_0, _highWater_0, _capacity_0, _depth_0, _store_0, _resource_0, _events_0, _pending_0, _registrations_0, _nextSystemId_0, _clock_0, {$: "Tuple", fst: _live_0, snd: _live_0[0 % _live_0.length]});
+}
+
+function $adoption$045driver$045garden$058owners_left$(_right_0, _extra_0, _observed_0) {
+  const _left_0 = _observed_0["fst"];
+  const _leftView_0 = _observed_0["snd"];
+  return $adoption$045driver$045garden$058owners_right$(_left_0, _extra_0, _leftView_0, ($$$$047$$$047bend$045candidate$047query$045consumer$058array_project$(_right_0)));
+}
+
+function $$$$047$$$047bend$045candidate$047query$045consumer$058array_project$(_cells_0) {
+  return $$$$047$$$047bend$045candidate$047query$045consumer$058array_one$({$: "Tuple", fst: _cells_0, snd: _cells_0[0 % _cells_0.length]});
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045definition$058metadata_field$1261$(_definition_0) {
+  const _metadata_0 = _definition_0["metadata"];
+  return _metadata_0;
+}
+
+function $binding$045fixtures$047garden$058canonical_definition$() {
+  return $binding$045fixtures$047garden$058define$("Garden/BoundMetadata", ($binding$045fixtures$047garden$058bonus$()), ($binding$045fixtures$047garden$058score$()));
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058invoked$1261$(_cursor_0, _registeredAt_0, _result_0) {
+  const _frame_0 = _result_0["fst"];
+  const _result_1 = _result_0["snd"];
+  return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058finished$1261$(_cursor_0, _registeredAt_0, _frame_0, _result_1);
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047capabilities$058invoke$1261$(_args_0, _ctx_0) {
+  return $binding$045static$045workshop$058body$1260$(_args_0, _ctx_0);
+}
+
+function $adoption$045driver$045workshop$058emitted$(_phase_0, _metadata_0, _instance_0, _fieldView_0, _ownerText_0, _worldText_0, _prior_0, _definition_0, _observed_0) {
+  const _world_0 = _observed_0["fst"];
+  const _resourceView_0 = _observed_0["snd"];
+  return $adoption$045driver$045workshop$058emitted_instance$(_phase_0, _metadata_0, _fieldView_0, _ownerText_0, _worldText_0, _prior_0, _definition_0, _world_0, _resourceView_0, ($adoption$045driver$045workshop$058instance_text$(_instance_0)));
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047world$058observe_resource$1263$(_world_0) {
+  const _namespace_0 = _world_0["namespace"];
+  const _nextId_0 = _world_0["nextId"];
+  const _highWater_0 = _world_0["highWater"];
+  const _live_0 = _world_0["live"];
+  const _capacity_0 = _world_0["capacity"];
+  const _depth_0 = _world_0["depth"];
+  const _store_0 = _world_0["store"];
+  const _resource_0 = _world_0["resource"];
+  const _events_0 = _world_0["events"];
+  const _pending_0 = _world_0["pending"];
+  const _registrations_0 = _world_0["registrations"];
+  const _nextSystemId_0 = _world_0["nextSystemId"];
+  const _clock_0 = _world_0["clock"];
+  return $$$$047$$$047$$$047$$$047src$047ecs$047world$058observe_resource_finish$1262$(($adoption$045driver$045workshop$058resources$(_resource_0)), _namespace_0, _nextId_0, _highWater_0, _live_0, _capacity_0, _depth_0, _store_0, _events_0, _pending_0, _registrations_0, _nextSystemId_0, _clock_0);
+}
+
+function $adoption$045driver$045workshop$058world_live$(_namespace_0, _nextId_0, _highWater_0, _capacity_0, _depth_0, _store_0, _resource_0, _events_0, _pending_0, _registrations_0, _nextSystemId_0, _clock_0, _observed_0) {
+  const _live_0 = _observed_0["fst"];
+  const _liveValue_0 = _observed_0["snd"];
+  return $adoption$045driver$045workshop$058world_pending$(_namespace_0, _nextId_0, _highWater_0, _live_0, _capacity_0, _depth_0, _store_0, _resource_0, _events_0, _registrations_0, _nextSystemId_0, _clock_0, _liveValue_0, ($binding$045format$058pending$1260$(_pending_0)));
+}
+
+function $adoption$045driver$045workshop$058owners_right$(_left_0, _extra_0, _leftView_0, _observed_0) {
+  const _right_0 = _observed_0["fst"];
+  const _rightView_0 = _observed_0["snd"];
+  return $adoption$045driver$045workshop$058owners_extra$(_left_0, _right_0, _leftView_0, _rightView_0, ($$$$047$$$047bend$045candidate$047consumer$058array_project$(_extra_0)));
+}
+
+function $$$$047$$$047bend$045candidate$047consumer$058array_one$(_observed_0) {
+  const _cells_0 = _observed_0["fst"];
+  const _a_0 = _observed_0["snd"];
+  return $$$$047$$$047bend$045candidate$047consumer$058array_two$(_a_0, {$: "Tuple", fst: _cells_0, snd: _cells_0[1 % _cells_0.length]});
+}
+
+function $binding$045fixtures$047workshop$058define$(_name_0, _bonus_0, _score_0) {
+  return $binding$045fixtures$047workshop$058finish$(_name_0, ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045declaration$058split$1260$(($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045declaration$058bind$1260$(_bonus_0)))), ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045declaration$058split$1260$(($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045declaration$058bind$1260$(_bonus_0)))), ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045declaration$058split$1260$(($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045declaration$058bind$1261$(_score_0)))));
+}
+
+function $binding$045fixtures$047workshop$058bonus$() {
+  return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045declaration$058canonical$1261$(2, "Workshop/Bonus");
+}
+
+function $binding$045fixtures$047workshop$058score$() {
+  return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045declaration$058canonical$1260$(1, "Workshop/Score");
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058invoked$1263$(_cursor_0, _registeredAt_0, _result_0) {
+  const _frame_0 = _result_0["fst"];
+  const _result_1 = _result_0["snd"];
+  return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058finished$1263$(_cursor_0, _registeredAt_0, _frame_0, _result_1);
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047capabilities$058invoke$1263$(_args_0, _ctx_0) {
+  return $binding$045static$045garden$058body$1260$(_args_0, _ctx_0);
+}
+
+function $adoption$045driver$045garden$058emitted$(_phase_0, _metadata_0, _instance_0, _fieldView_0, _ownerText_0, _worldText_0, _prior_0, _definition_0, _observed_0) {
+  const _world_0 = _observed_0["fst"];
+  const _resourceView_0 = _observed_0["snd"];
+  return $adoption$045driver$045garden$058emitted_instance$(_phase_0, _metadata_0, _fieldView_0, _ownerText_0, _worldText_0, _prior_0, _definition_0, _world_0, _resourceView_0, ($adoption$045driver$045garden$058instance_text$(_instance_0)));
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047world$058observe_resource$1267$(_world_0) {
+  const _namespace_0 = _world_0["namespace"];
+  const _nextId_0 = _world_0["nextId"];
+  const _highWater_0 = _world_0["highWater"];
+  const _live_0 = _world_0["live"];
+  const _capacity_0 = _world_0["capacity"];
+  const _depth_0 = _world_0["depth"];
+  const _store_0 = _world_0["store"];
+  const _resource_0 = _world_0["resource"];
+  const _events_0 = _world_0["events"];
+  const _pending_0 = _world_0["pending"];
+  const _registrations_0 = _world_0["registrations"];
+  const _nextSystemId_0 = _world_0["nextSystemId"];
+  const _clock_0 = _world_0["clock"];
+  return $$$$047$$$047$$$047$$$047src$047ecs$047world$058observe_resource_finish$1265$(($adoption$045driver$045garden$058resources$(_resource_0)), _namespace_0, _nextId_0, _highWater_0, _live_0, _capacity_0, _depth_0, _store_0, _events_0, _pending_0, _registrations_0, _nextSystemId_0, _clock_0);
+}
+
+function $adoption$045driver$045garden$058world_live$(_namespace_0, _nextId_0, _highWater_0, _capacity_0, _depth_0, _store_0, _resource_0, _events_0, _pending_0, _registrations_0, _nextSystemId_0, _clock_0, _observed_0) {
+  const _live_0 = _observed_0["fst"];
+  const _liveValue_0 = _observed_0["snd"];
+  return $adoption$045driver$045garden$058world_pending$(_namespace_0, _nextId_0, _highWater_0, _live_0, _capacity_0, _depth_0, _store_0, _resource_0, _events_0, _registrations_0, _nextSystemId_0, _clock_0, _liveValue_0, ($binding$045format$058pending$1261$(_pending_0)));
+}
+
+function $adoption$045driver$045garden$058owners_right$(_left_0, _extra_0, _leftView_0, _observed_0) {
+  const _right_0 = _observed_0["fst"];
+  const _rightView_0 = _observed_0["snd"];
+  return $adoption$045driver$045garden$058owners_extra$(_left_0, _right_0, _leftView_0, _rightView_0, ($$$$047$$$047bend$045candidate$047query$045consumer$058array_project$(_extra_0)));
+}
+
+function $$$$047$$$047bend$045candidate$047query$045consumer$058array_one$(_observed_0) {
+  const _cells_0 = _observed_0["fst"];
+  const _a_0 = _observed_0["snd"];
+  return $$$$047$$$047bend$045candidate$047query$045consumer$058array_two$(_a_0, {$: "Tuple", fst: _cells_0, snd: _cells_0[1 % _cells_0.length]});
+}
+
+function $binding$045fixtures$047garden$058define$(_name_0, _bonus_0, _score_0) {
+  return $binding$045fixtures$047garden$058finish$(_name_0, ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045declaration$058split$1261$(($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045declaration$058bind$1262$(_bonus_0)))), ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045declaration$058split$1261$(($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045declaration$058bind$1262$(_bonus_0)))), ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045declaration$058split$1261$(($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045declaration$058bind$1263$(_score_0)))));
+}
+
+function $binding$045fixtures$047garden$058bonus$() {
+  return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045declaration$058canonical$1263$(2, "Garden/Bonus");
+}
+
+function $binding$045fixtures$047garden$058score$() {
+  return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045declaration$058canonical$1262$(1, "Garden/Score");
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058finished$1261$(_cursor_0, _registeredAt_0, _frame_0, _result_0) {
+  const _world_0 = _frame_0["world"];
+  if (_result_0.$ === "Fail") {
+    const _error_0 = _result_0["error"];
+    return {$: "../../../../src/ecs/inspector.Observed", "world": _world_0, "instance": {$: "../../../../src/ecs/inspector.Active", "cursor": _cursor_0, "registeredAt": _registeredAt_0}, "result": {$: "Fail", "error": _error_0}};
+  } else {
+    const _value_0 = _result_0["value"];
+    return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058succeeded$1261$(_registeredAt_0, _value_0, ($$$$047$$$047$$$047$$$047src$047ecs$047world$058advance_clock$1261$(_world_0)));
+  }
+}
+
+function $binding$045static$045workshop$058body$1260$(_args_0, _ctx_0) {
+  return $binding$045static$045workshop$058with_bonus$1260$(run_loop($$$$047$$$047$$$047$$$047src$047ecs$047capabilities$058value_read$1263$(_ctx_0)));
+}
+
+function $adoption$045driver$045workshop$058emitted_instance$(_phase_0, _metadata_0, _fieldView_0, _ownerText_0, _worldText_0, _prior_0, _definition_0, _world_0, _resourceView_0, _observed_0) {
+  const _instance_0 = _observed_0["fst"];
+  const _instanceText_0 = _observed_0["snd"];
+  const _x_0 = (_instanceText_0 + "\n");
+  const _x_1 = ("|instance=" + _x_0);
+  const _x_2 = (_worldText_0 + _x_1);
+  const _x_3 = ($adoption$045driver$045workshop$058fields$(_fieldView_0));
+  const _x_4 = ("|" + _x_2);
+  const _x_5 = (_x_3 + _x_4);
+  const _x_6 = ($adoption$045driver$045workshop$058resources_text$(_resourceView_0));
+  const _x_7 = ("|fields=" + _x_5);
+  const _x_8 = (_x_6 + _x_7);
+  const _x_9 = ("|" + _x_8);
+  const _x_10 = (_ownerText_0 + _x_9);
+  const _x_11 = ($List$show$1263$(($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058requirements$1260$(_metadata_0))));
+  const _x_12 = ("|" + _x_10);
+  const _x_13 = (_x_11 + _x_12);
+  const _x_14 = ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058name$1260$(_metadata_0));
+  const _x_15 = ("|requirements=" + _x_13);
+  const _x_16 = (_x_14 + _x_15);
+  const _x_17 = ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058kind$1260$(_metadata_0));
+  const _x_18 = ("|name=" + _x_16);
+  const _x_19 = (_x_17 + _x_18);
+  const _x_20 = ("|kind=" + _x_19);
+  const _x_21 = (_phase_0 + _x_20);
+  const _x_22 = ("Workshop|" + _x_21);
+  return {$: "adoption-driver-workshop.State", "definition": _definition_0, "instance": _instance_0, "world": _world_0, "text": (_prior_0 + _x_22)};
+}
+
+function $adoption$045driver$045workshop$058instance_text$(_value_0) {
+  if (_value_0.$ === "../../../../src/ecs/inspector.Fresh") {
+    return {$: "Tuple", "fst": {$: "../../../../src/ecs/inspector.Fresh"}, "snd": "Fresh"};
+  } else {
+    const _cursor_0 = _value_0["cursor"];
+    const _registeredAt_0 = _value_0["registeredAt"];
+    const _x_0 = ($U32$show$(_registeredAt_0));
+    const _x_1 = ($U32$show$(_cursor_0));
+    const _x_2 = (":" + _x_0);
+    const _x_3 = (_x_1 + _x_2);
+    return {$: "Tuple", "fst": {$: "../../../../src/ecs/inspector.Active", "cursor": _cursor_0, "registeredAt": _registeredAt_0}, "snd": ("Active:" + _x_3)};
+  }
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047world$058observe_resource_finish$1262$(_observed_0, _namespace_0, _nextId_0, _highWater_0, _live_0, _capacity_0, _depth_0, _store_0, _events_0, _pending_0, _registrations_0, _nextSystemId_0, _clock_0) {
+  const _resource_0 = _observed_0["fst"];
+  const _value_0 = _observed_0["snd"];
+  return {$: "Tuple", "fst": {$: "../../../../src/ecs/world.World", "namespace": _namespace_0, "nextId": _nextId_0, "highWater": _highWater_0, "live": _live_0, "capacity": _capacity_0, "depth": _depth_0, "store": _store_0, "resource": _resource_0, "events": _events_0, "pending": _pending_0, "registrations": _registrations_0, "nextSystemId": _nextSystemId_0, "clock": _clock_0}, "snd": _value_0};
+}
+
+function $adoption$045driver$045workshop$058resources$(_resources_0) {
+  return $adoption$045driver$045workshop$058resources_bonus$(($binding$045fixtures$047workshop$058project_bonus$(_resources_0)));
+}
+
+function $adoption$045driver$045workshop$058world_pending$(_namespace_0, _nextId_0, _highWater_0, _live_0, _capacity_0, _depth_0, _store_0, _resource_0, _events_0, _registrations_0, _nextSystemId_0, _clock_0, _liveValue_0, _observed_0) {
+  const _pending_0 = _observed_0["fst"];
+  const _count_0 = _observed_0["snd"];
+  return $adoption$045driver$045workshop$058world_done$(_namespace_0, _nextId_0, _highWater_0, _live_0, _capacity_0, _depth_0, _store_0, _resource_0, _events_0, _pending_0, _count_0, _registrations_0, _nextSystemId_0, _clock_0, _liveValue_0);
+}
+
+function $binding$045format$058pending$1260$(_list_0) {
+  if (_list_0.$ === "Nil") {
+    return {$: "Tuple", "fst": {$: "Nil"}, "snd": 0};
+  } else {
+    const _head_0 = _list_0["head"];
+    const _tail_0 = _list_0["tail"];
+    return $binding$045format$058pending_join$1260$(_head_0, ($binding$045format$058pending$1260$(_tail_0)));
+  }
+}
+
+function $adoption$045driver$045workshop$058owners_extra$(_left_0, _right_0, _leftView_0, _rightView_0, _observed_0) {
+  const _extra_0 = _observed_0["fst"];
+  const _extraView_0 = _observed_0["snd"];
+  return {$: "Tuple", "fst": {$: "../../../../src/ecs/inspector-definition.State", "owner": {$: "adoption-positive-workshop.Owner", "left": _left_0, "right": _right_0, "extra": _extra_0}}, "snd": ($binding$045format$058arrays$(_leftView_0, _rightView_0, _extraView_0))};
+}
+
+function $$$$047$$$047bend$045candidate$047consumer$058array_two$(_a_0, _observed_0) {
+  const _cells_0 = _observed_0["fst"];
+  const _b_0 = _observed_0["snd"];
+  return $$$$047$$$047bend$045candidate$047consumer$058array_three$(_a_0, _b_0, {$: "Tuple", fst: _cells_0, snd: _cells_0[2 % _cells_0.length]});
+}
+
+function $binding$045fixtures$047workshop$058finish$(_name_0, _bonus_0, _alias_0, _score_0) {
+  const _bonusMeta_0 = _bonus_0["fst"];
+  const _bonusRead_0 = _bonus_0["snd"];
+  const _aliasMeta_0 = _alias_0["fst"];
+  const _aliasRead_0 = _alias_0["snd"];
+  const _scoreMeta_0 = _score_0["fst"];
+  const _scoreRead_0 = _score_0["snd"];
+  return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058make$1260$(_name_0, {$: "Con", "head": _bonusMeta_0, "tail": {$: "Con", "head": _aliasMeta_0, "tail": {$: "Con", "head": _scoreMeta_0, "tail": {$: "Nil"}}}}, {$: "../../../../src/ecs/inspector.Plan", "caps": {$: "binding-fixtures/workshop.Reads", "bonus": _bonusRead_0, "bonusAlias": _aliasRead_0, "score": _scoreRead_0}});
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045declaration$058split$1260$(_bound_0) {
+  const _metadata_0 = _bound_0["metadata"];
+  const _read_0 = _bound_0["read"];
+  return {$: "Tuple", "fst": _metadata_0, "snd": _read_0};
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045declaration$058bind$1260$(_declaration_0) {
+  const _id_0 = _declaration_0["id"];
+  const _name_0 = _declaration_0["name"];
+  return {$: "../../../../src/ecs/inspector-declaration.BoundRead", "metadata": {$: "../../../../src/ecs/inspector-metadata.Resource", "id": _id_0, "name": _name_0}, "read": ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$058read_resource$1261$())};
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045declaration$058bind$1261$(_declaration_0) {
+  const _id_0 = _declaration_0["id"];
+  const _name_0 = _declaration_0["name"];
+  return {$: "../../../../src/ecs/inspector-declaration.BoundRead", "metadata": {$: "../../../../src/ecs/inspector-metadata.Resource", "id": _id_0, "name": _name_0}, "read": ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$058read_resource$1262$())};
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045declaration$058canonical$1261$(_id_0, _name_0) {
+  return {$: "../../../../src/ecs/inspector-declaration.Declaration", "id": _id_0, "name": _name_0};
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045declaration$058canonical$1260$(_id_0, _name_0) {
+  return {$: "../../../../src/ecs/inspector-declaration.Declaration", "id": _id_0, "name": _name_0};
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058finished$1263$(_cursor_0, _registeredAt_0, _frame_0, _result_0) {
+  const _world_0 = _frame_0["world"];
+  if (_result_0.$ === "Fail") {
+    const _error_0 = _result_0["error"];
+    return {$: "../../../../src/ecs/inspector.Observed", "world": _world_0, "instance": {$: "../../../../src/ecs/inspector.Active", "cursor": _cursor_0, "registeredAt": _registeredAt_0}, "result": {$: "Fail", "error": _error_0}};
+  } else {
+    const _value_0 = _result_0["value"];
+    return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058succeeded$1263$(_registeredAt_0, _value_0, ($$$$047$$$047$$$047$$$047src$047ecs$047world$058advance_clock$1263$(_world_0)));
+  }
+}
+
+function $binding$045static$045garden$058body$1260$(_args_0, _ctx_0) {
+  return $binding$045static$045garden$058with_bonus$1260$(run_loop($$$$047$$$047$$$047$$$047src$047ecs$047capabilities$058value_read$1268$(_ctx_0)));
+}
+
+function $adoption$045driver$045garden$058emitted_instance$(_phase_0, _metadata_0, _fieldView_0, _ownerText_0, _worldText_0, _prior_0, _definition_0, _world_0, _resourceView_0, _observed_0) {
+  const _instance_0 = _observed_0["fst"];
+  const _instanceText_0 = _observed_0["snd"];
+  const _x_0 = (_instanceText_0 + "\n");
+  const _x_1 = ("|instance=" + _x_0);
+  const _x_2 = (_worldText_0 + _x_1);
+  const _x_3 = ($adoption$045driver$045garden$058fields$(_fieldView_0));
+  const _x_4 = ("|" + _x_2);
+  const _x_5 = (_x_3 + _x_4);
+  const _x_6 = ($adoption$045driver$045garden$058resources_text$(_resourceView_0));
+  const _x_7 = ("|fields=" + _x_5);
+  const _x_8 = (_x_6 + _x_7);
+  const _x_9 = ("|" + _x_8);
+  const _x_10 = (_ownerText_0 + _x_9);
+  const _x_11 = ($List$show$1265$(($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058requirements$1261$(_metadata_0))));
+  const _x_12 = ("|" + _x_10);
+  const _x_13 = (_x_11 + _x_12);
+  const _x_14 = ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058name$1261$(_metadata_0));
+  const _x_15 = ("|requirements=" + _x_13);
+  const _x_16 = (_x_14 + _x_15);
+  const _x_17 = ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058kind$1261$(_metadata_0));
+  const _x_18 = ("|name=" + _x_16);
+  const _x_19 = (_x_17 + _x_18);
+  const _x_20 = ("|kind=" + _x_19);
+  const _x_21 = (_phase_0 + _x_20);
+  const _x_22 = ("Garden|" + _x_21);
+  return {$: "adoption-driver-garden.State", "definition": _definition_0, "instance": _instance_0, "world": _world_0, "text": (_prior_0 + _x_22)};
+}
+
+function $adoption$045driver$045garden$058instance_text$(_value_0) {
+  if (_value_0.$ === "../../../../src/ecs/inspector.Fresh") {
+    return {$: "Tuple", "fst": {$: "../../../../src/ecs/inspector.Fresh"}, "snd": "Fresh"};
+  } else {
+    const _cursor_0 = _value_0["cursor"];
+    const _registeredAt_0 = _value_0["registeredAt"];
+    const _x_0 = ($U32$show$(_registeredAt_0));
+    const _x_1 = ($U32$show$(_cursor_0));
+    const _x_2 = (":" + _x_0);
+    const _x_3 = (_x_1 + _x_2);
+    return {$: "Tuple", "fst": {$: "../../../../src/ecs/inspector.Active", "cursor": _cursor_0, "registeredAt": _registeredAt_0}, "snd": ("Active:" + _x_3)};
+  }
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047world$058observe_resource_finish$1265$(_observed_0, _namespace_0, _nextId_0, _highWater_0, _live_0, _capacity_0, _depth_0, _store_0, _events_0, _pending_0, _registrations_0, _nextSystemId_0, _clock_0) {
+  const _resource_0 = _observed_0["fst"];
+  const _value_0 = _observed_0["snd"];
+  return {$: "Tuple", "fst": {$: "../../../../src/ecs/world.World", "namespace": _namespace_0, "nextId": _nextId_0, "highWater": _highWater_0, "live": _live_0, "capacity": _capacity_0, "depth": _depth_0, "store": _store_0, "resource": _resource_0, "events": _events_0, "pending": _pending_0, "registrations": _registrations_0, "nextSystemId": _nextSystemId_0, "clock": _clock_0}, "snd": _value_0};
+}
+
+function $adoption$045driver$045garden$058resources$(_resources_0) {
+  return $adoption$045driver$045garden$058resources_bonus$(($binding$045fixtures$047garden$058project_bonus$(_resources_0)));
+}
+
+function $adoption$045driver$045garden$058world_pending$(_namespace_0, _nextId_0, _highWater_0, _live_0, _capacity_0, _depth_0, _store_0, _resource_0, _events_0, _registrations_0, _nextSystemId_0, _clock_0, _liveValue_0, _observed_0) {
+  const _pending_0 = _observed_0["fst"];
+  const _count_0 = _observed_0["snd"];
+  return $adoption$045driver$045garden$058world_done$(_namespace_0, _nextId_0, _highWater_0, _live_0, _capacity_0, _depth_0, _store_0, _resource_0, _events_0, _pending_0, _count_0, _registrations_0, _nextSystemId_0, _clock_0, _liveValue_0);
+}
+
+function $binding$045format$058pending$1261$(_list_0) {
+  if (_list_0.$ === "Nil") {
+    return {$: "Tuple", "fst": {$: "Nil"}, "snd": 0};
+  } else {
+    const _head_0 = _list_0["head"];
+    const _tail_0 = _list_0["tail"];
+    return $binding$045format$058pending_join$1261$(_head_0, ($binding$045format$058pending$1261$(_tail_0)));
+  }
+}
+
+function $adoption$045driver$045garden$058owners_extra$(_left_0, _right_0, _leftView_0, _rightView_0, _observed_0) {
+  const _extra_0 = _observed_0["fst"];
+  const _extraView_0 = _observed_0["snd"];
+  return {$: "Tuple", "fst": {$: "../../../../src/ecs/inspector-definition.State", "owner": {$: "adoption-positive-garden.Owner", "left": _left_0, "right": _right_0, "extra": _extra_0}}, "snd": ($binding$045format$058arrays$(_leftView_0, _rightView_0, _extraView_0))};
+}
+
+function $$$$047$$$047bend$045candidate$047query$045consumer$058array_two$(_a_0, _observed_0) {
+  const _cells_0 = _observed_0["fst"];
+  const _b_0 = _observed_0["snd"];
+  return $$$$047$$$047bend$045candidate$047query$045consumer$058array_three$(_a_0, _b_0, {$: "Tuple", fst: _cells_0, snd: _cells_0[2 % _cells_0.length]});
+}
+
+function $binding$045fixtures$047garden$058finish$(_name_0, _bonus_0, _alias_0, _score_0) {
+  const _bonusMeta_0 = _bonus_0["fst"];
+  const _bonusRead_0 = _bonus_0["snd"];
+  const _aliasMeta_0 = _alias_0["fst"];
+  const _aliasRead_0 = _alias_0["snd"];
+  const _scoreMeta_0 = _score_0["fst"];
+  const _scoreRead_0 = _score_0["snd"];
+  return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058make$1261$(_name_0, {$: "Con", "head": _bonusMeta_0, "tail": {$: "Con", "head": _aliasMeta_0, "tail": {$: "Con", "head": _scoreMeta_0, "tail": {$: "Nil"}}}}, {$: "../../../../src/ecs/inspector.Plan", "caps": {$: "binding-fixtures/garden.Reads", "bonus": _bonusRead_0, "bonusAlias": _aliasRead_0, "score": _scoreRead_0}});
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045declaration$058split$1261$(_bound_0) {
+  const _metadata_0 = _bound_0["metadata"];
+  const _read_0 = _bound_0["read"];
+  return {$: "Tuple", "fst": _metadata_0, "snd": _read_0};
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045declaration$058bind$1262$(_declaration_0) {
+  const _id_0 = _declaration_0["id"];
+  const _name_0 = _declaration_0["name"];
+  return {$: "../../../../src/ecs/inspector-declaration.BoundRead", "metadata": {$: "../../../../src/ecs/inspector-metadata.Resource", "id": _id_0, "name": _name_0}, "read": ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$058read_resource$1264$())};
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045declaration$058bind$1263$(_declaration_0) {
+  const _id_0 = _declaration_0["id"];
+  const _name_0 = _declaration_0["name"];
+  return {$: "../../../../src/ecs/inspector-declaration.BoundRead", "metadata": {$: "../../../../src/ecs/inspector-metadata.Resource", "id": _id_0, "name": _name_0}, "read": ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$058read_resource$1265$())};
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045declaration$058canonical$1263$(_id_0, _name_0) {
+  return {$: "../../../../src/ecs/inspector-declaration.Declaration", "id": _id_0, "name": _name_0};
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045declaration$058canonical$1262$(_id_0, _name_0) {
+  return {$: "../../../../src/ecs/inspector-declaration.Declaration", "id": _id_0, "name": _name_0};
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058succeeded$1261$(_registeredAt_0, _value_0, _observed_0) {
+  const _world_0 = _observed_0["fst"];
+  const _cursor_0 = _observed_0["snd"];
+  return {$: "../../../../src/ecs/inspector.Observed", "world": _world_0, "instance": {$: "../../../../src/ecs/inspector.Active", "cursor": _cursor_0, "registeredAt": _registeredAt_0}, "result": {$: "Done", "value": _value_0}};
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047world$058advance_clock$1261$(_world_0) {
+  const _namespace_0 = _world_0["namespace"];
+  const _nextId_0 = _world_0["nextId"];
+  const _highWater_0 = _world_0["highWater"];
+  const _live_0 = _world_0["live"];
+  const _capacity_0 = _world_0["capacity"];
+  const _depth_0 = _world_0["depth"];
+  const _store_0 = _world_0["store"];
+  const _resource_0 = _world_0["resource"];
+  const _events_0 = _world_0["events"];
+  const _pending_0 = _world_0["pending"];
+  const _registrations_0 = _world_0["registrations"];
+  const _nextSystemId_0 = _world_0["nextSystemId"];
+  const _clock_0 = _world_0["clock"];
+  return {$: "Tuple", "fst": {$: "../../../../src/ecs/world.World", "namespace": _namespace_0, "nextId": _nextId_0, "highWater": _highWater_0, "live": _live_0, "capacity": _capacity_0, "depth": _depth_0, "store": _store_0, "resource": _resource_0, "events": _events_0, "pending": _pending_0, "registrations": _registrations_0, "nextSystemId": _nextSystemId_0, "clock": ($$$$047$$$047$$$047$$$047src$047ecs$047world$058next_clock$((_clock_0 < 4294967295), _clock_0))}, "snd": ($$$$047$$$047$$$047$$$047src$047ecs$047world$058next_clock$((_clock_0 < 4294967295), _clock_0))};
+}
+
+function $binding$045static$045workshop$058with_bonus$1260$(_observed_0) {
+  const _ctx_0 = _observed_0["fst"];
+  const _bonus_0 = _observed_0["snd"];
+  return $binding$045static$045workshop$058with_alias$1260$(_bonus_0, run_loop($$$$047$$$047$$$047$$$047src$047ecs$047capabilities$058value_read$1262$(_ctx_0)));
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047capabilities$058value_read$1263$(_ctx_0) {
+  return run_tail(($$$$047$$$047$$$047$$$047src$047ecs$047capabilities$058value_read_field$1261$(($binding$045static$045workshop$058bonus$1260$(($$$$047$$$047$$$047$$$047src$047ecs$047inspector$058plan_caps$1261$(($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045definition$058plan$1260$()))))))), _ctx_0);
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058kind$1260$(_metadata_0) {
+  return "inspector";
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058name$1260$(_metadata_0) {
+  const _name_0 = _metadata_0["name"];
+  return _name_0;
+}
+
+function $List$show$1263$(_xs_0) {
+  if (_xs_0.$ === "Nil") {
+    return "[]";
+  } else {
+    const _h_0 = _xs_0["head"];
+    const _t_0 = _xs_0["tail"];
+    const _x_0 = ($binding$045format$058resource$1260$(_h_0));
+    const _x_1 = ($List$show$go$1263$(_t_0));
+    const _x_2 = (_x_0 + _x_1);
+    return ("[" + _x_2);
+  }
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058requirements$1260$(_metadata_0) {
+  const _requirements_0 = _metadata_0["requirements"];
+  return _requirements_0;
+}
+
+function $adoption$045driver$045workshop$058resources_text$(_view_0) {
+  const _bonus_0 = _view_0["bonus"];
+  const _score_0 = _view_0["score"];
+  const _x_0 = ($List$show$1260$(_score_0));
+  const _x_1 = ($List$show$1260$(_bonus_0));
+  const _x_2 = ("|resourceScore=" + _x_0);
+  const _x_3 = (_x_1 + _x_2);
+  return ("resourceBonus=" + _x_3);
+}
+
+function $adoption$045driver$045workshop$058fields$(_value_0) {
+  if (_value_0.$ === "None") {
+    return "None";
+  } else {
+    const _t_0 = _value_0["value"];
+    if (_t_0.$ === "Done") {
+      const _t_1 = _t_0["value"];
+      const _bonus_0 = _t_1["bonus"];
+      const _alias_0 = _t_1["bonusAlias"];
+      const _score_0 = _t_1["score"];
+      const _x_0 = ($List$show$1260$(_score_0));
+      const _x_1 = ($List$show$1260$(_alias_0));
+      const _x_2 = (";score=" + _x_0);
+      const _x_3 = (_x_1 + _x_2);
+      const _x_4 = ($List$show$1260$(_bonus_0));
+      const _x_5 = (";bonusAlias=" + _x_3);
+      const _x_6 = (_x_4 + _x_5);
+      return ("Done:bonus=" + _x_6);
+    } else {
+      const _t_2 = _t_0["error"];
+      const _bonus_1 = _t_2["bonus"];
+      const _alias_1 = _t_2["bonusAlias"];
+      const _score_1 = _t_2["score"];
+      const _x_7 = ($List$show$1260$(_score_1));
+      const _x_8 = ($List$show$1260$(_alias_1));
+      const _x_9 = (";score=" + _x_7);
+      const _x_10 = (_x_8 + _x_9);
+      const _x_11 = ($List$show$1260$(_bonus_1));
+      const _x_12 = (";bonusAlias=" + _x_10);
+      const _x_13 = (_x_11 + _x_12);
+      return ("Fail:bonus=" + _x_13);
+    }
+  }
+}
+
+function $U32$show$(_a_0) {
+  const _b_0 = _a_0;
+  return $U32$show$if$(_b_0, (_b_0 === 0));
+}
+
+function $adoption$045driver$045workshop$058resources_bonus$(_observed_0) {
+  const _resources_0 = _observed_0["fst"];
+  const _bonus_0 = _observed_0["snd"];
+  return $adoption$045driver$045workshop$058resources_score$(_bonus_0, ($binding$045fixtures$047workshop$058project_score$(_resources_0)));
+}
+
+function $binding$045fixtures$047workshop$058project_bonus$(_owner_0) {
+  const _score_0 = _owner_0["score"];
+  const _bonus_0 = _owner_0["bonus"];
+  return $binding$045fixtures$047workshop$058bonus_join$(_score_0, ($$$$047$$$047bend$045candidate$047consumer$058project_resource$(_bonus_0)));
+}
+
+function $adoption$045driver$045workshop$058world_done$(_namespace_0, _nextId_0, _highWater_0, _live_0, _capacity_0, _depth_0, _store_0, _resource_0, _events_0, _pending_0, _pendingCount_0, _registrations_0, _nextSystemId_0, _clock_0, _liveValue_0) {
+  const _x_0 = ($U32$show$(_nextSystemId_0));
+  const _x_1 = ($List$show$1262$(_registrations_0));
+  const _x_2 = (";nextSystem:" + _x_0);
+  const _x_3 = (_x_1 + _x_2);
+  const _x_4 = ($Nat$show$(_pendingCount_0));
+  const _x_5 = (";registrations:" + _x_3);
+  const _x_6 = (_x_4 + _x_5);
+  const _x_7 = ($List$show$1260$(_events_0));
+  const _x_8 = (";pending:" + _x_6);
+  const _x_9 = (_x_7 + _x_8);
+  const _x_10 = ($U32$show$(_clock_0));
+  const _x_11 = (";events:" + _x_9);
+  const _x_12 = (_x_10 + _x_11);
+  const _x_13 = ($Bool$show$(_liveValue_0));
+  const _x_14 = ("];clock:" + _x_12);
+  const _x_15 = (_x_13 + _x_14);
+  const _x_16 = ($Nat$show$(_depth_0));
+  const _x_17 = (";live:[" + _x_15);
+  const _x_18 = (_x_16 + _x_17);
+  const _x_19 = ($U32$show$(_capacity_0));
+  const _x_20 = (";depth:" + _x_18);
+  const _x_21 = (_x_19 + _x_20);
+  const _x_22 = ($U32$show$(_highWater_0));
+  const _x_23 = (";capacity:" + _x_21);
+  const _x_24 = (_x_22 + _x_23);
+  const _x_25 = ($U32$show$(_nextId_0));
+  const _x_26 = (";high:" + _x_24);
+  const _x_27 = (_x_25 + _x_26);
+  const _x_28 = ($U32$show$(_namespace_0));
+  const _x_29 = (";next:" + _x_27);
+  const _x_30 = (_x_28 + _x_29);
+  return {$: "Tuple", "fst": {$: "../../../../src/ecs/world.World", "namespace": _namespace_0, "nextId": _nextId_0, "highWater": _highWater_0, "live": _live_0, "capacity": _capacity_0, "depth": _depth_0, "store": _store_0, "resource": _resource_0, "events": _events_0, "pending": _pending_0, "registrations": _registrations_0, "nextSystemId": _nextSystemId_0, "clock": _clock_0}, "snd": ("world=ns:" + _x_30)};
+}
+
+function $binding$045format$058pending_join$1260$(_head_0, _result_0) {
+  const _tail_0 = _result_0["fst"];
+  const _count_0 = _result_0["snd"];
+  return {$: "Tuple", "fst": {$: "Con", "head": _head_0, "tail": _tail_0}, "snd": nat_chk(_count_0 + 1)};
+}
+
+function $binding$045format$058arrays$(_left_0, _right_0, _extra_0) {
+  const _x_0 = ($List$show$1260$(_extra_0));
+  const _x_1 = ($List$show$1260$(_right_0));
+  const _x_2 = ("|extra=" + _x_0);
+  const _x_3 = (_x_1 + _x_2);
+  const _x_4 = ($List$show$1260$(_left_0));
+  const _x_5 = ("|right=" + _x_3);
+  const _x_6 = (_x_4 + _x_5);
+  return ("left=" + _x_6);
+}
+
+function $$$$047$$$047bend$045candidate$047consumer$058array_three$(_a_0, _b_0, _observed_0) {
+  const _cells_0 = _observed_0["fst"];
+  const _c_0 = _observed_0["snd"];
+  return $$$$047$$$047bend$045candidate$047consumer$058array_four$(_a_0, _b_0, _c_0, {$: "Tuple", fst: _cells_0, snd: _cells_0[3 % _cells_0.length]});
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058make$1260$(_name_0, _requirements_0, _plan_0) {
+  return {$: "../../../../src/ecs/inspector-metadata.Definition", "metadata": {$: "../../../../src/ecs/inspector-metadata.Metadata", "name": _name_0, "requirements": ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058normalize$1260$(_requirements_0))}, "plan": _plan_0};
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058read_resource$1261$() {
+  return {$: "../../../../src/ecs/capabilities.ValueRead", "get": run_clo((_x_0) => {
+  return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058resource_get$1261$(_x_0);
+})};
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058read_resource$1262$() {
+  return {$: "../../../../src/ecs/capabilities.ValueRead", "get": run_clo((_x_0) => {
+  return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058resource_get$1262$(_x_0);
+})};
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058succeeded$1263$(_registeredAt_0, _value_0, _observed_0) {
+  const _world_0 = _observed_0["fst"];
+  const _cursor_0 = _observed_0["snd"];
+  return {$: "../../../../src/ecs/inspector.Observed", "world": _world_0, "instance": {$: "../../../../src/ecs/inspector.Active", "cursor": _cursor_0, "registeredAt": _registeredAt_0}, "result": {$: "Done", "value": _value_0}};
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047world$058advance_clock$1263$(_world_0) {
+  const _namespace_0 = _world_0["namespace"];
+  const _nextId_0 = _world_0["nextId"];
+  const _highWater_0 = _world_0["highWater"];
+  const _live_0 = _world_0["live"];
+  const _capacity_0 = _world_0["capacity"];
+  const _depth_0 = _world_0["depth"];
+  const _store_0 = _world_0["store"];
+  const _resource_0 = _world_0["resource"];
+  const _events_0 = _world_0["events"];
+  const _pending_0 = _world_0["pending"];
+  const _registrations_0 = _world_0["registrations"];
+  const _nextSystemId_0 = _world_0["nextSystemId"];
+  const _clock_0 = _world_0["clock"];
+  return {$: "Tuple", "fst": {$: "../../../../src/ecs/world.World", "namespace": _namespace_0, "nextId": _nextId_0, "highWater": _highWater_0, "live": _live_0, "capacity": _capacity_0, "depth": _depth_0, "store": _store_0, "resource": _resource_0, "events": _events_0, "pending": _pending_0, "registrations": _registrations_0, "nextSystemId": _nextSystemId_0, "clock": ($$$$047$$$047$$$047$$$047src$047ecs$047world$058next_clock$((_clock_0 < 4294967295), _clock_0))}, "snd": ($$$$047$$$047$$$047$$$047src$047ecs$047world$058next_clock$((_clock_0 < 4294967295), _clock_0))};
+}
+
+function $binding$045static$045garden$058with_bonus$1260$(_observed_0) {
+  const _ctx_0 = _observed_0["fst"];
+  const _bonus_0 = _observed_0["snd"];
+  return $binding$045static$045garden$058with_alias$1260$(_bonus_0, run_loop($$$$047$$$047$$$047$$$047src$047ecs$047capabilities$058value_read$1267$(_ctx_0)));
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047capabilities$058value_read$1268$(_ctx_0) {
+  return run_tail(($$$$047$$$047$$$047$$$047src$047ecs$047capabilities$058value_read_field$1264$(($binding$045static$045garden$058bonus$1260$(($$$$047$$$047$$$047$$$047src$047ecs$047inspector$058plan_caps$1263$(($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045definition$058plan$1261$()))))))), _ctx_0);
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058kind$1261$(_metadata_0) {
+  return "inspector";
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058name$1261$(_metadata_0) {
+  const _name_0 = _metadata_0["name"];
+  return _name_0;
+}
+
+function $List$show$1265$(_xs_0) {
+  if (_xs_0.$ === "Nil") {
+    return "[]";
+  } else {
+    const _h_0 = _xs_0["head"];
+    const _t_0 = _xs_0["tail"];
+    const _x_0 = ($binding$045format$058resource$1261$(_h_0));
+    const _x_1 = ($List$show$go$1265$(_t_0));
+    const _x_2 = (_x_0 + _x_1);
+    return ("[" + _x_2);
+  }
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058requirements$1261$(_metadata_0) {
+  const _requirements_0 = _metadata_0["requirements"];
+  return _requirements_0;
+}
+
+function $adoption$045driver$045garden$058resources_text$(_view_0) {
+  const _bonus_0 = _view_0["bonus"];
+  const _score_0 = _view_0["score"];
+  const _x_0 = ($List$show$1260$(_score_0));
+  const _x_1 = ($List$show$1260$(_bonus_0));
+  const _x_2 = ("|resourceScore=" + _x_0);
+  const _x_3 = (_x_1 + _x_2);
+  return ("resourceBonus=" + _x_3);
+}
+
+function $adoption$045driver$045garden$058fields$(_value_0) {
+  if (_value_0.$ === "None") {
+    return "None";
+  } else {
+    const _t_0 = _value_0["value"];
+    if (_t_0.$ === "Done") {
+      const _t_1 = _t_0["value"];
+      const _bonus_0 = _t_1["bonus"];
+      const _alias_0 = _t_1["bonusAlias"];
+      const _score_0 = _t_1["score"];
+      const _x_0 = ($List$show$1260$(_score_0));
+      const _x_1 = ($List$show$1260$(_alias_0));
+      const _x_2 = (";score=" + _x_0);
+      const _x_3 = (_x_1 + _x_2);
+      const _x_4 = ($List$show$1260$(_bonus_0));
+      const _x_5 = (";bonusAlias=" + _x_3);
+      const _x_6 = (_x_4 + _x_5);
+      return ("Done:bonus=" + _x_6);
+    } else {
+      const _t_2 = _t_0["error"];
+      const _bonus_1 = _t_2["bonus"];
+      const _alias_1 = _t_2["bonusAlias"];
+      const _score_1 = _t_2["score"];
+      const _x_7 = ($List$show$1260$(_score_1));
+      const _x_8 = ($List$show$1260$(_alias_1));
+      const _x_9 = (";score=" + _x_7);
+      const _x_10 = (_x_8 + _x_9);
+      const _x_11 = ($List$show$1260$(_bonus_1));
+      const _x_12 = (";bonusAlias=" + _x_10);
+      const _x_13 = (_x_11 + _x_12);
+      return ("Fail:bonus=" + _x_13);
+    }
+  }
+}
+
+function $adoption$045driver$045garden$058resources_bonus$(_observed_0) {
+  const _resources_0 = _observed_0["fst"];
+  const _bonus_0 = _observed_0["snd"];
+  return $adoption$045driver$045garden$058resources_score$(_bonus_0, ($binding$045fixtures$047garden$058project_score$(_resources_0)));
+}
+
+function $binding$045fixtures$047garden$058project_bonus$(_owner_0) {
+  const _score_0 = _owner_0["score"];
+  const _bonus_0 = _owner_0["bonus"];
+  return $binding$045fixtures$047garden$058bonus_join$(_score_0, ($$$$047$$$047bend$045candidate$047query$045consumer$058project_resource$(_bonus_0)));
+}
+
+function $adoption$045driver$045garden$058world_done$(_namespace_0, _nextId_0, _highWater_0, _live_0, _capacity_0, _depth_0, _store_0, _resource_0, _events_0, _pending_0, _pendingCount_0, _registrations_0, _nextSystemId_0, _clock_0, _liveValue_0) {
+  const _x_0 = ($U32$show$(_nextSystemId_0));
+  const _x_1 = ($List$show$1262$(_registrations_0));
+  const _x_2 = (";nextSystem:" + _x_0);
+  const _x_3 = (_x_1 + _x_2);
+  const _x_4 = ($Nat$show$(_pendingCount_0));
+  const _x_5 = (";registrations:" + _x_3);
+  const _x_6 = (_x_4 + _x_5);
+  const _x_7 = ($List$show$1260$(_events_0));
+  const _x_8 = (";pending:" + _x_6);
+  const _x_9 = (_x_7 + _x_8);
+  const _x_10 = ($U32$show$(_clock_0));
+  const _x_11 = (";events:" + _x_9);
+  const _x_12 = (_x_10 + _x_11);
+  const _x_13 = ($Bool$show$(_liveValue_0));
+  const _x_14 = ("];clock:" + _x_12);
+  const _x_15 = (_x_13 + _x_14);
+  const _x_16 = ($Nat$show$(_depth_0));
+  const _x_17 = (";live:[" + _x_15);
+  const _x_18 = (_x_16 + _x_17);
+  const _x_19 = ($U32$show$(_capacity_0));
+  const _x_20 = (";depth:" + _x_18);
+  const _x_21 = (_x_19 + _x_20);
+  const _x_22 = ($U32$show$(_highWater_0));
+  const _x_23 = (";capacity:" + _x_21);
+  const _x_24 = (_x_22 + _x_23);
+  const _x_25 = ($U32$show$(_nextId_0));
+  const _x_26 = (";high:" + _x_24);
+  const _x_27 = (_x_25 + _x_26);
+  const _x_28 = ($U32$show$(_namespace_0));
+  const _x_29 = (";next:" + _x_27);
+  const _x_30 = (_x_28 + _x_29);
+  return {$: "Tuple", "fst": {$: "../../../../src/ecs/world.World", "namespace": _namespace_0, "nextId": _nextId_0, "highWater": _highWater_0, "live": _live_0, "capacity": _capacity_0, "depth": _depth_0, "store": _store_0, "resource": _resource_0, "events": _events_0, "pending": _pending_0, "registrations": _registrations_0, "nextSystemId": _nextSystemId_0, "clock": _clock_0}, "snd": ("world=ns:" + _x_30)};
+}
+
+function $binding$045format$058pending_join$1261$(_head_0, _result_0) {
+  const _tail_0 = _result_0["fst"];
+  const _count_0 = _result_0["snd"];
+  return {$: "Tuple", "fst": {$: "Con", "head": _head_0, "tail": _tail_0}, "snd": nat_chk(_count_0 + 1)};
+}
+
+function $$$$047$$$047bend$045candidate$047query$045consumer$058array_three$(_a_0, _b_0, _observed_0) {
+  const _cells_0 = _observed_0["fst"];
+  const _c_0 = _observed_0["snd"];
+  return $$$$047$$$047bend$045candidate$047query$045consumer$058array_four$(_a_0, _b_0, _c_0, {$: "Tuple", fst: _cells_0, snd: _cells_0[3 % _cells_0.length]});
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058make$1261$(_name_0, _requirements_0, _plan_0) {
+  return {$: "../../../../src/ecs/inspector-metadata.Definition", "metadata": {$: "../../../../src/ecs/inspector-metadata.Metadata", "name": _name_0, "requirements": ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058normalize$1261$(_requirements_0))}, "plan": _plan_0};
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058read_resource$1264$() {
+  return {$: "../../../../src/ecs/capabilities.ValueRead", "get": run_clo((_x_0) => {
+  return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058resource_get$1264$(_x_0);
+})};
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058read_resource$1265$() {
+  return {$: "../../../../src/ecs/capabilities.ValueRead", "get": run_clo((_x_0) => {
+  return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058resource_get$1265$(_x_0);
+})};
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047world$058next_clock$(_available_0, _clock_0) {
+  if (!_available_0) {
+    return _clock_0;
+  } else {
+    return ((_clock_0 + 1) >>> 0);
+  }
+}
+
+function $binding$045static$045workshop$058with_alias$1260$(_bonus_0, _observed_0) {
+  const _ctx_0 = _observed_0["fst"];
+  const _alias_0 = _observed_0["snd"];
+  return $binding$045static$045workshop$058with_score$1260$(_bonus_0, _alias_0, run_loop($$$$047$$$047$$$047$$$047src$047ecs$047capabilities$058value_read$1261$(_ctx_0)));
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047capabilities$058value_read$1262$(_ctx_0) {
+  return run_tail(($$$$047$$$047$$$047$$$047src$047ecs$047capabilities$058value_read_field$1261$(($binding$045static$045workshop$058alias$1260$(($$$$047$$$047$$$047$$$047src$047ecs$047inspector$058plan_caps$1261$(($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045definition$058plan$1260$()))))))), _ctx_0);
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047capabilities$058value_read_field$1261$(_cap_0) {
+  const _get_0 = _cap_0["get"];
+  return _get_0;
+}
+
+function $binding$045static$045workshop$058bonus$1260$(_reads_0) {
+  const _bonus_0 = _reads_0["bonus"];
+  return _bonus_0;
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058plan_caps$1261$(_plan_0) {
+  const _caps_0 = _plan_0["caps"];
+  return _caps_0;
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045definition$058plan$1260$() {
+  return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058into_plan$1260$(($binding$045fixtures$047workshop$058canonical_definition$()));
+}
+
+function $binding$045format$058resource$1260$(_value_0) {
+  const _id_0 = _value_0["id"];
+  const _name_0 = _value_0["name"];
+  const _x_0 = ($U32$show$(_id_0));
+  const _x_1 = (":" + _name_0);
+  const _x_2 = (_x_0 + _x_1);
+  return ("resource:" + _x_2);
+}
+
+function $List$show$go$1263$(_xs_0) {
+  if (_xs_0.$ === "Nil") {
+    return "]";
+  } else {
+    const _h_0 = _xs_0["head"];
+    const _t_0 = _xs_0["tail"];
+    const _x_0 = ($binding$045format$058resource$1260$(_h_0));
+    const _x_1 = ($List$show$go$1263$(_t_0));
+    const _x_2 = (_x_0 + _x_1);
+    return (", " + _x_2);
+  }
+}
+
+function $List$show$1260$(_xs_0) {
+  if (_xs_0.$ === "Nil") {
+    return "[]";
+  } else {
+    const _h_0 = _xs_0["head"];
+    const _t_0 = _xs_0["tail"];
+    const _x_0 = ($U32$show$(_h_0));
+    const _x_1 = ($List$show$go$1260$(_t_0));
+    const _x_2 = (_x_0 + _x_1);
+    return ("[" + _x_2);
+  }
+}
+
+function $U32$show$if$(_a_0, _z_0) {
+  if (_z_0) {
+    return "0";
+  } else {
+    return $U32$show$go$(10, _a_0, "");
+  }
+}
+
+function $adoption$045driver$045workshop$058resources_score$(_bonus_0, _observed_0) {
+  const _resources_0 = _observed_0["fst"];
+  const _score_0 = _observed_0["snd"];
+  return {$: "Tuple", "fst": _resources_0, "snd": {$: "adoption-driver-workshop.ResourcesView", "bonus": _bonus_0, "score": _score_0}};
+}
+
+function $binding$045fixtures$047workshop$058project_score$(_owner_0) {
+  const _score_0 = _owner_0["score"];
+  const _bonus_0 = _owner_0["bonus"];
+  return $binding$045fixtures$047workshop$058score_join$(_bonus_0, ($$$$047$$$047bend$045candidate$047consumer$058project_resource$(_score_0)));
+}
+
+function $binding$045fixtures$047workshop$058bonus_join$(_score_0, _observed_0) {
+  const _bonus_0 = _observed_0["fst"];
+  const _values_0 = _observed_0["snd"];
+  return {$: "Tuple", "fst": {$: "binding-fixtures/workshop.Resources", "score": _score_0, "bonus": _bonus_0}, "snd": _values_0};
+}
+
+function $$$$047$$$047bend$045candidate$047consumer$058project_resource$(_owner_0) {
+  const _cells_0 = _owner_0["cells"];
+  return $$$$047$$$047bend$045candidate$047consumer$058resource_join$(($$$$047$$$047bend$045candidate$047consumer$058array_project$(_cells_0)));
+}
+
+function $Nat$show$(_n_0) {
+  const _m_0 = _n_0;
+  return $Nat$show$fin$(_m_0, "", ($Nat$show$put$(nat_divmod(_m_0, 10))));
+}
+
+function $Bool$show$(_b_0) {
+  if (!_b_0) {
+    return "False";
+  } else {
+    return "True";
+  }
+}
+
+function $List$show$1262$(_xs_0) {
+  if (_xs_0.$ === "Nil") {
+    return "[]";
+  } else {
+    const _h_0 = _xs_0["head"];
+    const _t_0 = _xs_0["tail"];
+    const _x_0 = ($binding$045format$058registration$(_h_0));
+    const _x_1 = ($List$show$go$1262$(_t_0));
+    const _x_2 = (_x_0 + _x_1);
+    return ("[" + _x_2);
+  }
+}
+
+function $$$$047$$$047bend$045candidate$047consumer$058array_four$(_a_0, _b_0, _c_0, _observed_0) {
+  const _cells_0 = _observed_0["fst"];
+  const _d_0 = _observed_0["snd"];
+  return {$: "Tuple", "fst": _cells_0, "snd": {$: "Con", "head": _a_0, "tail": {$: "Con", "head": _b_0, "tail": {$: "Con", "head": _c_0, "tail": {$: "Con", "head": _d_0, "tail": {$: "Nil"}}}}}};
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058normalize$1260$(_values_0) {
+  return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058names$1260$(($$$$047$$$047$$$047$$$047src$047ecs$047schedule$045provision$058unique$1260$(($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058tokens$1260$(_values_0)))), _values_0);
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058resource_get$1261$(_frame_0) {
+  const _world_0 = _frame_0["world"];
+  const _cursor_0 = _frame_0["cursor"];
+  return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058resource_join$1261$(_cursor_0, ($$$$047$$$047$$$047$$$047src$047ecs$047world$058observe_resource$1261$(_world_0)));
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058resource_get$1262$(_frame_0) {
+  const _world_0 = _frame_0["world"];
+  const _cursor_0 = _frame_0["cursor"];
+  return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058resource_join$1261$(_cursor_0, ($$$$047$$$047$$$047$$$047src$047ecs$047world$058observe_resource$1262$(_world_0)));
+}
+
+function $binding$045static$045garden$058with_alias$1260$(_bonus_0, _observed_0) {
+  const _ctx_0 = _observed_0["fst"];
+  const _alias_0 = _observed_0["snd"];
+  return $binding$045static$045garden$058with_score$1260$(_bonus_0, _alias_0, run_loop($$$$047$$$047$$$047$$$047src$047ecs$047capabilities$058value_read$1266$(_ctx_0)));
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047capabilities$058value_read$1267$(_ctx_0) {
+  return run_tail(($$$$047$$$047$$$047$$$047src$047ecs$047capabilities$058value_read_field$1264$(($binding$045static$045garden$058alias$1260$(($$$$047$$$047$$$047$$$047src$047ecs$047inspector$058plan_caps$1263$(($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045definition$058plan$1261$()))))))), _ctx_0);
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047capabilities$058value_read_field$1264$(_cap_0) {
+  const _get_0 = _cap_0["get"];
+  return _get_0;
+}
+
+function $binding$045static$045garden$058bonus$1260$(_reads_0) {
+  const _bonus_0 = _reads_0["bonus"];
+  return _bonus_0;
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058plan_caps$1263$(_plan_0) {
+  const _caps_0 = _plan_0["caps"];
+  return _caps_0;
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045definition$058plan$1261$() {
+  return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058into_plan$1261$(($binding$045fixtures$047garden$058canonical_definition$()));
+}
+
+function $binding$045format$058resource$1261$(_value_0) {
+  const _id_0 = _value_0["id"];
+  const _name_0 = _value_0["name"];
+  const _x_0 = ($U32$show$(_id_0));
+  const _x_1 = (":" + _name_0);
+  const _x_2 = (_x_0 + _x_1);
+  return ("resource:" + _x_2);
+}
+
+function $List$show$go$1265$(_xs_0) {
+  if (_xs_0.$ === "Nil") {
+    return "]";
+  } else {
+    const _h_0 = _xs_0["head"];
+    const _t_0 = _xs_0["tail"];
+    const _x_0 = ($binding$045format$058resource$1261$(_h_0));
+    const _x_1 = ($List$show$go$1265$(_t_0));
+    const _x_2 = (_x_0 + _x_1);
+    return (", " + _x_2);
+  }
+}
+
+function $adoption$045driver$045garden$058resources_score$(_bonus_0, _observed_0) {
+  const _resources_0 = _observed_0["fst"];
+  const _score_0 = _observed_0["snd"];
+  return {$: "Tuple", "fst": _resources_0, "snd": {$: "adoption-driver-garden.ResourcesView", "bonus": _bonus_0, "score": _score_0}};
+}
+
+function $binding$045fixtures$047garden$058project_score$(_owner_0) {
+  const _score_0 = _owner_0["score"];
+  const _bonus_0 = _owner_0["bonus"];
+  return $binding$045fixtures$047garden$058score_join$(_bonus_0, ($$$$047$$$047bend$045candidate$047query$045consumer$058project_resource$(_score_0)));
+}
+
+function $binding$045fixtures$047garden$058bonus_join$(_score_0, _observed_0) {
+  const _bonus_0 = _observed_0["fst"];
+  const _values_0 = _observed_0["snd"];
+  return {$: "Tuple", "fst": {$: "binding-fixtures/garden.Resources", "score": _score_0, "bonus": _bonus_0}, "snd": _values_0};
+}
+
+function $$$$047$$$047bend$045candidate$047query$045consumer$058project_resource$(_owner_0) {
+  const _cells_0 = _owner_0["cells"];
+  return $$$$047$$$047bend$045candidate$047query$045consumer$058resource_join$(($$$$047$$$047bend$045candidate$047query$045consumer$058array_project$(_cells_0)));
+}
+
+function $$$$047$$$047bend$045candidate$047query$045consumer$058array_four$(_a_0, _b_0, _c_0, _observed_0) {
+  const _cells_0 = _observed_0["fst"];
+  const _d_0 = _observed_0["snd"];
+  return {$: "Tuple", "fst": _cells_0, "snd": {$: "Con", "head": _a_0, "tail": {$: "Con", "head": _b_0, "tail": {$: "Con", "head": _c_0, "tail": {$: "Con", "head": _d_0, "tail": {$: "Nil"}}}}}};
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058normalize$1261$(_values_0) {
+  return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058names$1261$(($$$$047$$$047$$$047$$$047src$047ecs$047schedule$045provision$058unique$1261$(($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058tokens$1261$(_values_0)))), _values_0);
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058resource_get$1264$(_frame_0) {
+  const _world_0 = _frame_0["world"];
+  const _cursor_0 = _frame_0["cursor"];
+  return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058resource_join$1263$(_cursor_0, ($$$$047$$$047$$$047$$$047src$047ecs$047world$058observe_resource$1265$(_world_0)));
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058resource_get$1265$(_frame_0) {
+  const _world_0 = _frame_0["world"];
+  const _cursor_0 = _frame_0["cursor"];
+  return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058resource_join$1263$(_cursor_0, ($$$$047$$$047$$$047$$$047src$047ecs$047world$058observe_resource$1266$(_world_0)));
+}
+
+function $binding$045static$045workshop$058with_score$1260$(_bonus_0, _alias_0, _observed_0) {
+  const _ctx_0 = _observed_0["fst"];
+  const _score_0 = _observed_0["snd"];
+  return {$: "Tuple", "fst": _ctx_0, "snd": {$: "Done", "value": {$: "binding-static-workshop.Fields", "bonus": _bonus_0, "bonusAlias": _alias_0, "score": _score_0}}};
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047capabilities$058value_read$1261$(_ctx_0) {
+  return run_tail(($$$$047$$$047$$$047$$$047src$047ecs$047capabilities$058value_read_field$1261$(($binding$045static$045workshop$058score$1260$(($$$$047$$$047$$$047$$$047src$047ecs$047inspector$058plan_caps$1261$(($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045definition$058plan$1260$()))))))), _ctx_0);
+}
+
+function $binding$045static$045workshop$058alias$1260$(_reads_0) {
+  const _alias_0 = _reads_0["bonusAlias"];
+  return _alias_0;
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058into_plan$1260$(_definition_0) {
+  const _plan_0 = _definition_0["plan"];
+  return _plan_0;
+}
+
+function $List$show$go$1260$(_xs_0) {
+  if (_xs_0.$ === "Nil") {
+    return "]";
+  } else {
+    const _h_0 = _xs_0["head"];
+    const _t_0 = _xs_0["tail"];
+    const _x_0 = ($U32$show$(_h_0));
+    const _x_1 = ($List$show$go$1260$(_t_0));
+    const _x_2 = (_x_0 + _x_1);
+    return (", " + _x_2);
+  }
+}
+
+function $U32$show$go$($0, $1, $2, $3) {
+  let $pc = 0;
+  for (;;) switch ($pc) {
+    case 0: {
+      const _f_0 = $0;
+      const _n_0 = $1;
+      const _acc_0 = $2;
+      if (_f_0 === 0) {
+        return _acc_0;
+      } else {
+        const _g_0 = (_f_0 - 1);
+        $0 = _g_0;
+        $1 = _acc_0;
+        $2 = _n_0;
+        $3 = (_n_0 === 0);
+        $pc = 1; continue;
+      }
+    }
+    case 1: {
+      const _g_0 = $0;
+      const _acc_0 = $1;
+      const _n_0 = $2;
+      const _z_0 = $3;
+      if (_z_0) {
+        return _acc_0;
+      } else {
+        const _x_0 = (10 === 0 ? _n_0 : _n_0 % 10);
+        $0 = _g_0;
+        $1 = (10 === 0 ? 0 : (_n_0 / 10) >>> 0);
+        $2 = (char_new(((48 + _x_0) >>> 0)) + _acc_0);
+        $pc = 0; continue;
+      }
+    }
+  }
+}
+
+function $binding$045fixtures$047workshop$058score_join$(_bonus_0, _observed_0) {
+  const _score_0 = _observed_0["fst"];
+  const _values_0 = _observed_0["snd"];
+  return {$: "Tuple", "fst": {$: "binding-fixtures/workshop.Resources", "score": _score_0, "bonus": _bonus_0}, "snd": _values_0};
+}
+
+function $$$$047$$$047bend$045candidate$047consumer$058resource_join$(_observed_0) {
+  const _cells_0 = _observed_0["fst"];
+  const _values_0 = _observed_0["snd"];
+  return {$: "Tuple", "fst": {$: "../../bend-candidate/consumer.Resource", "cells": _cells_0}, "snd": _values_0};
+}
+
+function $Nat$show$fin$($0, $1, $2) {
+  let $pc = 0;
+  for (;;) switch ($pc) {
+    case 0: {
+      const _g_0 = $0;
+      const _acc_0 = $1;
+      const _dq_0 = $2;
+      const _d_0 = _dq_0["fst"];
+      const _t_0 = _dq_0["snd"];
+      if (_t_0 === 0) {
+        return (_d_0 + _acc_0);
+      } else {
+        const _p_0 = (_t_0 - 1);
+        $0 = _g_0;
+        $1 = nat_chk(_p_0 + 1);
+        $2 = (_d_0 + _acc_0);
+        $pc = 1; continue;
+      }
+    }
+    case 1: {
+      const _f_0 = $0;
+      const _n_0 = $1;
+      const _acc_0 = $2;
+      if (_f_0 === 0) {
+        return _acc_0;
+      } else {
+        const _g_0 = (_f_0 - 1);
+        $0 = _g_0;
+        $1 = _acc_0;
+        $2 = ($Nat$show$put$(nat_divmod(_n_0, 10)));
+        $pc = 0; continue;
+      }
+    }
+  }
+}
+
+function $Nat$show$put$(_qr_0) {
+  const _q_0 = _qr_0["fst"];
+  const _r_0 = _qr_0["snd"];
+  const _x_0 = nat_chk(48 + _r_0);
+  return {$: "Tuple", "fst": char_new((_x_0 >>> 0)), "snd": _q_0};
+}
+
+function $binding$045format$058registration$(_value_0) {
+  const _id_0 = _value_0["id"];
+  const _name_0 = _value_0["name"];
+  const _access_0 = _value_0["access"];
+  const _x_0 = ($List$show$1261$(_access_0));
+  const _x_1 = (":" + _x_0);
+  const _x_2 = (_name_0 + _x_1);
+  const _x_3 = ($U32$show$(_id_0));
+  const _x_4 = (":" + _x_2);
+  return (_x_3 + _x_4);
+}
+
+function $List$show$go$1262$(_xs_0) {
+  if (_xs_0.$ === "Nil") {
+    return "]";
+  } else {
+    const _h_0 = _xs_0["head"];
+    const _t_0 = _xs_0["tail"];
+    const _x_0 = ($binding$045format$058registration$(_h_0));
+    const _x_1 = ($List$show$go$1262$(_t_0));
+    const _x_2 = (_x_0 + _x_1);
+    return (", " + _x_2);
+  }
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058names$1260$($0, $1) {
+  for (;;) {
+    {
+      const _keys_0 = $0;
+      const _values_0 = $1;
+      if (_keys_0.$ === "Nil") {
+        return {$: "Nil"};
+      } else {
+        const _t_0 = _keys_0["head"];
+        if (_t_0.$ === "../../../../src/ecs/schedule-provision.Resource") {
+          const _id_0 = _t_0["id"];
+          const _rest_0 = _keys_0["tail"];
+          return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058keep$1260$(($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058first$1260$(_id_0, _values_0)), ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058names$1260$(_rest_0, _values_0)));
+        } else {
+          const _rest_1 = _keys_0["tail"];
+          $0 = _rest_1;
+          $1 = _values_0;
+          continue;
+        }
+      }
+    }
+  }
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047schedule$045provision$058unique$1260$(_items_0) {
+  return $$$$047$$$047$$$047$$$047src$047ecs$047schedule$045provision$058unique_seen$1260$(_items_0, {$: "Nil"});
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058tokens$1260$(_values_0) {
+  if (_values_0.$ === "Nil") {
+    return {$: "Nil"};
+  } else {
+    const _value_0 = _values_0["head"];
+    const _rest_0 = _values_0["tail"];
+    return {$: "Con", "head": ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058token$1260$(_value_0)), "tail": ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058tokens$1260$(_rest_0))};
+  }
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058resource_join$1261$(_cursor_0, _observed_0) {
+  const _world_0 = _observed_0["fst"];
+  const _value_0 = _observed_0["snd"];
+  return {$: "Tuple", "fst": {$: "../../../../src/ecs/inspector.Frame", "world": _world_0, "cursor": _cursor_0}, "snd": _value_0};
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047world$058observe_resource$1261$(_world_0) {
+  const _namespace_0 = _world_0["namespace"];
+  const _nextId_0 = _world_0["nextId"];
+  const _highWater_0 = _world_0["highWater"];
+  const _live_0 = _world_0["live"];
+  const _capacity_0 = _world_0["capacity"];
+  const _depth_0 = _world_0["depth"];
+  const _store_0 = _world_0["store"];
+  const _resource_0 = _world_0["resource"];
+  const _events_0 = _world_0["events"];
+  const _pending_0 = _world_0["pending"];
+  const _registrations_0 = _world_0["registrations"];
+  const _nextSystemId_0 = _world_0["nextSystemId"];
+  const _clock_0 = _world_0["clock"];
+  return $$$$047$$$047$$$047$$$047src$047ecs$047world$058observe_resource_finish$1261$(($binding$045fixtures$047workshop$058project_bonus$(_resource_0)), _namespace_0, _nextId_0, _highWater_0, _live_0, _capacity_0, _depth_0, _store_0, _events_0, _pending_0, _registrations_0, _nextSystemId_0, _clock_0);
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047world$058observe_resource$1262$(_world_0) {
+  const _namespace_0 = _world_0["namespace"];
+  const _nextId_0 = _world_0["nextId"];
+  const _highWater_0 = _world_0["highWater"];
+  const _live_0 = _world_0["live"];
+  const _capacity_0 = _world_0["capacity"];
+  const _depth_0 = _world_0["depth"];
+  const _store_0 = _world_0["store"];
+  const _resource_0 = _world_0["resource"];
+  const _events_0 = _world_0["events"];
+  const _pending_0 = _world_0["pending"];
+  const _registrations_0 = _world_0["registrations"];
+  const _nextSystemId_0 = _world_0["nextSystemId"];
+  const _clock_0 = _world_0["clock"];
+  return $$$$047$$$047$$$047$$$047src$047ecs$047world$058observe_resource_finish$1261$(($binding$045fixtures$047workshop$058project_score$(_resource_0)), _namespace_0, _nextId_0, _highWater_0, _live_0, _capacity_0, _depth_0, _store_0, _events_0, _pending_0, _registrations_0, _nextSystemId_0, _clock_0);
+}
+
+function $binding$045static$045garden$058with_score$1260$(_bonus_0, _alias_0, _observed_0) {
+  const _ctx_0 = _observed_0["fst"];
+  const _score_0 = _observed_0["snd"];
+  return {$: "Tuple", "fst": _ctx_0, "snd": {$: "Done", "value": {$: "binding-static-garden.Fields", "bonus": _bonus_0, "bonusAlias": _alias_0, "score": _score_0}}};
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047capabilities$058value_read$1266$(_ctx_0) {
+  return run_tail(($$$$047$$$047$$$047$$$047src$047ecs$047capabilities$058value_read_field$1264$(($binding$045static$045garden$058score$1260$(($$$$047$$$047$$$047$$$047src$047ecs$047inspector$058plan_caps$1263$(($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045definition$058plan$1261$()))))))), _ctx_0);
+}
+
+function $binding$045static$045garden$058alias$1260$(_reads_0) {
+  const _alias_0 = _reads_0["bonusAlias"];
+  return _alias_0;
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058into_plan$1261$(_definition_0) {
+  const _plan_0 = _definition_0["plan"];
+  return _plan_0;
+}
+
+function $binding$045fixtures$047garden$058score_join$(_bonus_0, _observed_0) {
+  const _score_0 = _observed_0["fst"];
+  const _values_0 = _observed_0["snd"];
+  return {$: "Tuple", "fst": {$: "binding-fixtures/garden.Resources", "score": _score_0, "bonus": _bonus_0}, "snd": _values_0};
+}
+
+function $$$$047$$$047bend$045candidate$047query$045consumer$058resource_join$(_observed_0) {
+  const _cells_0 = _observed_0["fst"];
+  const _values_0 = _observed_0["snd"];
+  return {$: "Tuple", "fst": {$: "../../bend-candidate/query-consumer.Resource", "cells": _cells_0}, "snd": _values_0};
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058names$1261$($0, $1) {
+  for (;;) {
+    {
+      const _keys_0 = $0;
+      const _values_0 = $1;
+      if (_keys_0.$ === "Nil") {
+        return {$: "Nil"};
+      } else {
+        const _t_0 = _keys_0["head"];
+        if (_t_0.$ === "../../../../src/ecs/schedule-provision.Resource") {
+          const _id_0 = _t_0["id"];
+          const _rest_0 = _keys_0["tail"];
+          return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058keep$1261$(($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058first$1261$(_id_0, _values_0)), ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058names$1261$(_rest_0, _values_0)));
+        } else {
+          const _rest_1 = _keys_0["tail"];
+          $0 = _rest_1;
+          $1 = _values_0;
+          continue;
+        }
+      }
+    }
+  }
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047schedule$045provision$058unique$1261$(_items_0) {
+  return $$$$047$$$047$$$047$$$047src$047ecs$047schedule$045provision$058unique_seen$1261$(_items_0, {$: "Nil"});
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058tokens$1261$(_values_0) {
+  if (_values_0.$ === "Nil") {
+    return {$: "Nil"};
+  } else {
+    const _value_0 = _values_0["head"];
+    const _rest_0 = _values_0["tail"];
+    return {$: "Con", "head": ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058token$1261$(_value_0)), "tail": ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058tokens$1261$(_rest_0))};
+  }
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$058resource_join$1263$(_cursor_0, _observed_0) {
+  const _world_0 = _observed_0["fst"];
+  const _value_0 = _observed_0["snd"];
+  return {$: "Tuple", "fst": {$: "../../../../src/ecs/inspector.Frame", "world": _world_0, "cursor": _cursor_0}, "snd": _value_0};
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047world$058observe_resource$1265$(_world_0) {
+  const _namespace_0 = _world_0["namespace"];
+  const _nextId_0 = _world_0["nextId"];
+  const _highWater_0 = _world_0["highWater"];
+  const _live_0 = _world_0["live"];
+  const _capacity_0 = _world_0["capacity"];
+  const _depth_0 = _world_0["depth"];
+  const _store_0 = _world_0["store"];
+  const _resource_0 = _world_0["resource"];
+  const _events_0 = _world_0["events"];
+  const _pending_0 = _world_0["pending"];
+  const _registrations_0 = _world_0["registrations"];
+  const _nextSystemId_0 = _world_0["nextSystemId"];
+  const _clock_0 = _world_0["clock"];
+  return $$$$047$$$047$$$047$$$047src$047ecs$047world$058observe_resource_finish$1264$(($binding$045fixtures$047garden$058project_bonus$(_resource_0)), _namespace_0, _nextId_0, _highWater_0, _live_0, _capacity_0, _depth_0, _store_0, _events_0, _pending_0, _registrations_0, _nextSystemId_0, _clock_0);
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047world$058observe_resource$1266$(_world_0) {
+  const _namespace_0 = _world_0["namespace"];
+  const _nextId_0 = _world_0["nextId"];
+  const _highWater_0 = _world_0["highWater"];
+  const _live_0 = _world_0["live"];
+  const _capacity_0 = _world_0["capacity"];
+  const _depth_0 = _world_0["depth"];
+  const _store_0 = _world_0["store"];
+  const _resource_0 = _world_0["resource"];
+  const _events_0 = _world_0["events"];
+  const _pending_0 = _world_0["pending"];
+  const _registrations_0 = _world_0["registrations"];
+  const _nextSystemId_0 = _world_0["nextSystemId"];
+  const _clock_0 = _world_0["clock"];
+  return $$$$047$$$047$$$047$$$047src$047ecs$047world$058observe_resource_finish$1264$(($binding$045fixtures$047garden$058project_score$(_resource_0)), _namespace_0, _nextId_0, _highWater_0, _live_0, _capacity_0, _depth_0, _store_0, _events_0, _pending_0, _registrations_0, _nextSystemId_0, _clock_0);
+}
+
+function $binding$045static$045workshop$058score$1260$(_reads_0) {
+  const _score_0 = _reads_0["score"];
+  return _score_0;
+}
+
+function $U32$show$fin$($0, $1, $2, $3) {
+  let $pc = 1;
+  for (;;) switch ($pc) {
+    case 0: {
+      const _f_0 = $0;
+      const _n_0 = $1;
+      const _acc_0 = $2;
+      if (_f_0 === 0) {
+        return _acc_0;
+      } else {
+        const _g_0 = (_f_0 - 1);
+        $0 = _g_0;
+        $1 = _acc_0;
+        $2 = _n_0;
+        $3 = (_n_0 === 0);
+        $pc = 1; continue;
+      }
+    }
+    case 1: {
+      const _g_0 = $0;
+      const _acc_0 = $1;
+      const _n_0 = $2;
+      const _z_0 = $3;
+      if (_z_0) {
+        return _acc_0;
+      } else {
+        const _x_0 = (10 === 0 ? _n_0 : _n_0 % 10);
+        $0 = _g_0;
+        $1 = (10 === 0 ? 0 : (_n_0 / 10) >>> 0);
+        $2 = (char_new(((48 + _x_0) >>> 0)) + _acc_0);
+        $pc = 0; continue;
+      }
+    }
+  }
+}
+
+function $Nat$show$go$($0, $1, $2) {
+  let $pc = 1;
+  for (;;) switch ($pc) {
+    case 0: {
+      const _g_0 = $0;
+      const _acc_0 = $1;
+      const _dq_0 = $2;
+      const _d_0 = _dq_0["fst"];
+      const _t_0 = _dq_0["snd"];
+      if (_t_0 === 0) {
+        return (_d_0 + _acc_0);
+      } else {
+        const _p_0 = (_t_0 - 1);
+        $0 = _g_0;
+        $1 = nat_chk(_p_0 + 1);
+        $2 = (_d_0 + _acc_0);
+        $pc = 1; continue;
+      }
+    }
+    case 1: {
+      const _f_0 = $0;
+      const _n_0 = $1;
+      const _acc_0 = $2;
+      if (_f_0 === 0) {
+        return _acc_0;
+      } else {
+        const _g_0 = (_f_0 - 1);
+        $0 = _g_0;
+        $1 = _acc_0;
+        $2 = ($Nat$show$put$(nat_divmod(_n_0, 10)));
+        $pc = 0; continue;
+      }
+    }
+  }
+}
+
+function $List$show$1261$(_xs_0) {
+  if (_xs_0.$ === "Nil") {
+    return "[]";
+  } else {
+    const _h_0 = _xs_0["head"];
+    const _t_0 = _xs_0["tail"];
+    const _x_0 = ($binding$045format$058text$(_h_0));
+    const _x_1 = ($List$show$go$1261$(_t_0));
+    const _x_2 = (_x_0 + _x_1);
+    return ("[" + _x_2);
+  }
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058keep$1260$(_value_0, _rest_0) {
+  if (_value_0.$ === "None") {
+    return _rest_0;
+  } else {
+    const _value_1 = _value_0["value"];
+    return {$: "Con", "head": _value_1, "tail": _rest_0};
+  }
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058first$1260$(_id_0, _values_0) {
+  if (_values_0.$ === "Nil") {
+    return {$: "None"};
+  } else {
+    const _t_0 = _values_0["head"];
+    const _key_0 = _t_0["id"];
+    const __0 = _t_0["name"];
+    const _rest_0 = _values_0["tail"];
+    return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058choose_first$1260$((_id_0 === _key_0), {$: "../../../../src/ecs/inspector-metadata.Resource", "id": _key_0, "name": __0}, ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058first$1260$(_id_0, _rest_0)));
+  }
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047schedule$045provision$058unique_seen$1260$(_items_0, _seen_0) {
+  if (_items_0.$ === "Nil") {
+    return {$: "Nil"};
+  } else {
+    const _head_0 = _items_0["head"];
+    const _rest_0 = _items_0["tail"];
+    return $$$$047$$$047$$$047$$$047src$047ecs$047schedule$045provision$058unique_add$1260$(($$$$047$$$047$$$047$$$047src$047ecs$047schedule$045provision$058contains$1260$(_seen_0, _head_0)), _head_0, ($$$$047$$$047$$$047$$$047src$047ecs$047schedule$045provision$058unique_seen$1260$(_rest_0, {$: "Con", "head": _head_0, "tail": _seen_0})));
+  }
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058token$1260$(_value_0) {
+  const _id_0 = _value_0["id"];
+  return {$: "../../../../src/ecs/schedule-provision.Resource", "id": _id_0};
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047world$058observe_resource_finish$1261$(_observed_0, _namespace_0, _nextId_0, _highWater_0, _live_0, _capacity_0, _depth_0, _store_0, _events_0, _pending_0, _registrations_0, _nextSystemId_0, _clock_0) {
+  const _resource_0 = _observed_0["fst"];
+  const _value_0 = _observed_0["snd"];
+  return {$: "Tuple", "fst": {$: "../../../../src/ecs/world.World", "namespace": _namespace_0, "nextId": _nextId_0, "highWater": _highWater_0, "live": _live_0, "capacity": _capacity_0, "depth": _depth_0, "store": _store_0, "resource": _resource_0, "events": _events_0, "pending": _pending_0, "registrations": _registrations_0, "nextSystemId": _nextSystemId_0, "clock": _clock_0}, "snd": _value_0};
+}
+
+function $binding$045static$045garden$058score$1260$(_reads_0) {
+  const _score_0 = _reads_0["score"];
+  return _score_0;
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058keep$1261$(_value_0, _rest_0) {
+  if (_value_0.$ === "None") {
+    return _rest_0;
+  } else {
+    const _value_1 = _value_0["value"];
+    return {$: "Con", "head": _value_1, "tail": _rest_0};
+  }
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058first$1261$(_id_0, _values_0) {
+  if (_values_0.$ === "Nil") {
+    return {$: "None"};
+  } else {
+    const _t_0 = _values_0["head"];
+    const _key_0 = _t_0["id"];
+    const __0 = _t_0["name"];
+    const _rest_0 = _values_0["tail"];
+    return $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058choose_first$1261$((_id_0 === _key_0), {$: "../../../../src/ecs/inspector-metadata.Resource", "id": _key_0, "name": __0}, ($$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058first$1261$(_id_0, _rest_0)));
+  }
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047schedule$045provision$058unique_seen$1261$(_items_0, _seen_0) {
+  if (_items_0.$ === "Nil") {
+    return {$: "Nil"};
+  } else {
+    const _head_0 = _items_0["head"];
+    const _rest_0 = _items_0["tail"];
+    return $$$$047$$$047$$$047$$$047src$047ecs$047schedule$045provision$058unique_add$1261$(($$$$047$$$047$$$047$$$047src$047ecs$047schedule$045provision$058contains$1261$(_seen_0, _head_0)), _head_0, ($$$$047$$$047$$$047$$$047src$047ecs$047schedule$045provision$058unique_seen$1261$(_rest_0, {$: "Con", "head": _head_0, "tail": _seen_0})));
+  }
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058token$1261$(_value_0) {
+  const _id_0 = _value_0["id"];
+  return {$: "../../../../src/ecs/schedule-provision.Resource", "id": _id_0};
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047world$058observe_resource_finish$1264$(_observed_0, _namespace_0, _nextId_0, _highWater_0, _live_0, _capacity_0, _depth_0, _store_0, _events_0, _pending_0, _registrations_0, _nextSystemId_0, _clock_0) {
+  const _resource_0 = _observed_0["fst"];
+  const _value_0 = _observed_0["snd"];
+  return {$: "Tuple", "fst": {$: "../../../../src/ecs/world.World", "namespace": _namespace_0, "nextId": _nextId_0, "highWater": _highWater_0, "live": _live_0, "capacity": _capacity_0, "depth": _depth_0, "store": _store_0, "resource": _resource_0, "events": _events_0, "pending": _pending_0, "registrations": _registrations_0, "nextSystemId": _nextSystemId_0, "clock": _clock_0}, "snd": _value_0};
+}
+
+function $binding$045format$058text$(_value_0) {
+  return _value_0;
+}
+
+function $List$show$go$1261$(_xs_0) {
+  if (_xs_0.$ === "Nil") {
+    return "]";
+  } else {
+    const _h_0 = _xs_0["head"];
+    const _t_0 = _xs_0["tail"];
+    const _x_0 = ($binding$045format$058text$(_h_0));
+    const _x_1 = ($List$show$go$1261$(_t_0));
+    const _x_2 = (_x_0 + _x_1);
+    return (", " + _x_2);
+  }
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058choose_first$1260$(_matched_0, _value_0, _alternative_0) {
+  if (_matched_0) {
+    return {$: "Some", "value": _value_0};
+  } else {
+    return _alternative_0;
+  }
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047schedule$045provision$058unique_add$1260$(_present_0, _item_0, _rest_0) {
+  if (_present_0) {
+    return _rest_0;
+  } else {
+    return {$: "Con", "head": _item_0, "tail": _rest_0};
+  }
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047schedule$045provision$058contains$1260$(_items_0, _item_0) {
+  if (_items_0.$ === "Nil") {
+    return false;
+  } else {
+    const _head_0 = _items_0["head"];
+    const _rest_0 = _items_0["tail"];
+    const _x_0 = ($$$$047$$$047$$$047$$$047src$047ecs$047schedule$045provision$058same$1260$(_head_0, _item_0));
+    const _x_1 = ($$$$047$$$047$$$047$$$047src$047ecs$047schedule$045provision$058contains$1260$(_rest_0, _item_0));
+    return (_x_0 || _x_1);
+  }
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047inspector$045metadata$058choose_first$1261$(_matched_0, _value_0, _alternative_0) {
+  if (_matched_0) {
+    return {$: "Some", "value": _value_0};
+  } else {
+    return _alternative_0;
+  }
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047schedule$045provision$058unique_add$1261$(_present_0, _item_0, _rest_0) {
+  if (_present_0) {
+    return _rest_0;
+  } else {
+    return {$: "Con", "head": _item_0, "tail": _rest_0};
+  }
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047schedule$045provision$058contains$1261$(_items_0, _item_0) {
+  if (_items_0.$ === "Nil") {
+    return false;
+  } else {
+    const _head_0 = _items_0["head"];
+    const _rest_0 = _items_0["tail"];
+    const _x_0 = ($$$$047$$$047$$$047$$$047src$047ecs$047schedule$045provision$058same$1261$(_head_0, _item_0));
+    const _x_1 = ($$$$047$$$047$$$047$$$047src$047ecs$047schedule$045provision$058contains$1261$(_rest_0, _item_0));
+    return (_x_0 || _x_1);
+  }
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047schedule$045provision$058same$1260$(_a_0, _b_0) {
+  if (_a_0.$ === "../../../../src/ecs/schedule-provision.Component") {
+    const _a_1 = _a_0["id"];
+    if (_b_0.$ === "../../../../src/ecs/schedule-provision.Component") {
+      const _b_1 = _b_0["id"];
+      return (_a_1 === _b_1);
+    } else {
+      return false;
+    }
+  } else if (_a_0.$ === "../../../../src/ecs/schedule-provision.Resource") {
+    const _a_2 = _a_0["id"];
+    if (_b_0.$ === "../../../../src/ecs/schedule-provision.Resource") {
+      const _b_2 = _b_0["id"];
+      return (_a_2 === _b_2);
+    } else {
+      return false;
+    }
+  } else {
+    const _a_3 = _a_0["id"];
+    if (_b_0.$ === "../../../../src/ecs/schedule-provision.Service") {
+      const _b_3 = _b_0["id"];
+      return (_a_3 === _b_3);
+    } else {
+      return false;
+    }
+  }
+}
+
+function $$$$047$$$047$$$047$$$047src$047ecs$047schedule$045provision$058same$1261$(_a_0, _b_0) {
+  if (_a_0.$ === "../../../../src/ecs/schedule-provision.Component") {
+    const _a_1 = _a_0["id"];
+    if (_b_0.$ === "../../../../src/ecs/schedule-provision.Component") {
+      const _b_1 = _b_0["id"];
+      return (_a_1 === _b_1);
+    } else {
+      return false;
+    }
+  } else if (_a_0.$ === "../../../../src/ecs/schedule-provision.Resource") {
+    const _a_2 = _a_0["id"];
+    if (_b_0.$ === "../../../../src/ecs/schedule-provision.Resource") {
+      const _b_2 = _b_0["id"];
+      return (_a_2 === _b_2);
+    } else {
+      return false;
+    }
+  } else {
+    const _a_3 = _a_0["id"];
+    if (_b_0.$ === "../../../../src/ecs/schedule-provision.Service") {
+      const _b_3 = _b_0["id"];
+      return (_a_3 === _b_3);
+    } else {
+      return false;
+    }
+  }
+}
+
+// Cli
+// ===
+
+let cli_args = [];
+
+function cli(argv) {
+  cli_args.push(argv[0]);
+  for (let i = 1; i < argv.length; i += 1) {
+    if (argv[i] === "--") {
+      cli_args.push(...argv.slice(i + 1));
+      break;
+    } else if (argv[i] === "--bend-help") {
+      io_out(1, io_bytes("usage: " + argv[0] + "\n"));
+      process.exit(0);
+    } else if (argv[i] === "--threads" || argv[i] === "--gpu") {
+      i += 1;
+    } else {
+      cli_args.push(argv[i]);
+    }
+  }
+}
+
+// Show
+// ====
+
+// show_val prints a pure main's value as term_show does (see show_main);
+// chain is the bracket it continues, or 0. show_chr escapes as char_show.
+
+function show_chr(c, q) {
+  const k = { 10: "n", 9: "t", 13: "r", 0: "0", 92: "\\" }[c]
+    ?? (c === q.codePointAt(0) ? q : null);
+  return k !== null ? "\\" + k : c < 32 || c === 127
+    || (c >= 0xD800 && c <= 0xDFFF) || c > 0x10FFFF
+    ? "\\u{" + c.toString(16) + "}" : String.fromCodePoint(c);
+}
+
+function show_val(D, N, d, v, chain) {
+  if (D[d] === 7) {
+    const fs = Object.values(typeof v === "boolean"
+      ? { $: v ? "True" : "False" } : v);
+    let a = d + 3;
+    for (; N[D[a]] !== fs[0]; a += 4 + 2 * D[a + 2]) {}
+    const o = "{[("[D[a + 3]];
+    let s = o === "{" ? fs[0] + "{" : chain === o ? "" : o;
+    for (const [j, f] of fs.slice(1).entries()) {
+      if (o === "[" ? j === 0 && chain === o : j > 0) {
+        s += ", ";
+      }
+      s += show_val(D, N, D[a + 5 + 2 * j], f, j === 1 && o !== "{" ? o : 0);
+    }
+    return o === "{" || chain !== o ? s + "}])"[D[a + 3]] : s;
+  }
+  return D[d] === 0 ? String(v)
+    : D[d] === 1 ? f32_show(v).replace(/^-?\d+(?=e|$)/, "$&.0")
+    : D[d] === 2 ? v + "n"
+    : D[d] === 3 ? "'" + show_chr(v.codePointAt(0), "'") + "'"
+    : D[d] === 4 ? "\"" + [...v].map((c) =>
+      show_chr(c.codePointAt(0), "\"")).join("") + "\""
+    : D[d] === 5 ? "{==}"
+    : "[" + v.map((x) => show_val(D, N, D[d + 1], x, 0)).join(", ") + "]";
+}
+
+// Io
+// ==
+
+// Apple arm64 passes variadic fcntl flags on the stack, so io_sys
+// binds fcntl there with the flags as the ninth fixed argument. A
+// parked effect waits for fd (a write when out) or until at
+// (performance.now()), either one undefined when unused; io_wake
+// resumes k with the value of more, and undefined parks it again. The
+// waits stay in deadline order, as io_park does in C.
+
+function io_exit(main, show) {
+  try {
+    if (show !== null) {
+      io_out(1, io_bytes(show_val(...show, 0, run_loop(main()), 0) + "\n"));
+      process.exit(0);
+    }
+    process.exit(io_run(main));
+  } catch (e) {
+    io_errs(String(e));
+    process.exit(1);
+  }
+}
+
+function io_out(fd, data) {
+  const fs = require("fs");
+  let at = 0;
+  while (at < data.length) {
+    try {
+      at += fs.writeSync(fd, data, at, data.length - at);
+    } catch (e) {
+      if (e.code === "EAGAIN" || e.code === "EINTR") {
+        continue;
+      }
+      try {
+        fs.writeSync(2, "bend: a short write on a standard stream\n");
+      } catch (o) {
+      }
+      process.exit(1);
+    }
+  }
+}
+
+function io_errs(message) {
+  io_out(2, io_bytes(message + "\n"));
+}
+
+function io_sys() {
+  if (globalThis.BEND_SYS === undefined) {
+    const ffi = require("bun:ffi");
+    const mac = process.platform === "darwin";
+    const err = mac ? "__error" : "__errno_location";
+    const sel = mac ? "select$DARWIN_EXTSN" : "select";
+    const T = { i: "i32", u: "u32", U: "u64", I: "i64", p: "ptr",
+      c: "cstring" };
+    const vari = mac && process.arch === "arm64";
+    const lib = ffi.dlopen(mac ? "libSystem.dylib" : "libc.so.6",
+      Object.fromEntries(("socket:iii>i bind:ipu>i listen:ii>i connect:ipu>i"
+        + " accept:ipp>i send:ipUi>I recv:ipUi>I read:ipU>I pread:ipUI>I"
+        + " sendto:ipUipu>I recvfrom:ipUipp>I close:i>i setsockopt:iiipu>i"
+        + " " + sel + ":ipppp>i"
+        + (vari ? " fcntl:iiiiiiiii>i" : " fcntl:iii>i") + " getsockopt:iiipp>i"
+        + " strerror:i>c " + err + ":>p").split(" ").map((s) => {
+        const [name, args, ret] = s.split(/[:>]/);
+        return [name, { args: [...args].map((a) => T[a]), returns: T[ret] }];
+      }))).symbols;
+    const fcntl = (fd, cmd, arg) => vari
+      ? lib.fcntl(fd, cmd, 0, 0, 0, 0, 0, 0, arg)
+      : lib.fcntl(fd, cmd, arg);
+    globalThis.BEND_SYS = { ...lib, fcntl, select: lib[sel],
+      ptr: ffi.ptr, mac,
+      errno: () => ffi.read.i32(lib[err](), 0) };
+  }
+  return globalThis.BEND_SYS;
+}
+
+// strerror needs bun:ffi; a host without it (node) gets the bare errno.
+function io_strerror(code) {
+  try {
+    return String(io_sys().strerror(code));
+  } catch (_) {
+    return "errno " + code;
+  }
+}
+
+function io_fail(code) {
+  return { $: "Fail",
+    error: io_tup(code >>> 0, io_strerror(code)) };
+}
+
+function io_done(value) {
+  return { $: "Done", value };
+}
+
+function io_tup(...xs) {
+  return xs.reduceRight((snd, fst) => ({ $: "Tuple", fst, snd }));
+}
+
+function io_bytes(text) {
+  return new TextEncoder().encode(text);
+}
+
+function io_text(b, n) {
+  return new TextDecoder("utf-8", { ignoreBOM: true }).decode(b.subarray(0, n));
+}
+
+// Bytes cross as they are (0..255), one List cell each, with no UTF-8 in
+// either direction; io_unlist answers null if a value is past 255.
+function io_list(b, n) {
+  let xs = { $: "Nil" };
+  while (n > 0) {
+    xs = { $: "Con", head: b[--n], tail: xs };
+  }
+  return xs;
+}
+
+function io_unlist(xs) {
+  const b = [];
+  for (; xs.$ === "Con"; xs = xs.tail) {
+    b.push(xs.head);
+  }
+  return b.some((x) => x > 255) ? null : Uint8Array.from(b);
+}
+
+function io_addr(host, port) {
+  const part = host.split(".");
+  const deci = (p) => /^(0|[1-9]\d{0,2})$/.test(p) && Number(p) < 256;
+  if (port > 65535 || part.length !== 4 || !part.every(deci)) {
+    return null;
+  }
+  const b = new Uint8Array(16);
+  const head = io_sys().mac ? [16, 2] : [2, 0];
+  b.set([...head, port >> 8, port & 255, ...part.map(Number)]);
+  return b;
+}
+
+function io_push(fun, arg, fresh) {
+  const io = globalThis.BEND_IO;
+  io.runs.push({ fun, arg });
+  io.live += fresh ? 1 : 0;
+}
+
+function io_wait(io, block) {
+  const soon = io.waits[0]?.at ?? Infinity;
+  const ms = !block ? 0 : soon === Infinity ? -1
+    : Math.max(0, Math.ceil(soon - performance.now()));
+  const fds = io.waits.filter((w) => w.fd !== undefined);
+  const top = fds.reduce((m, w) => Math.max(m, w.fd), 0);
+  const len = (top >> 6 << 3) + 8;
+  const set = new Uint8Array(2 * len);
+  const at = (w) => (w.out ? len : 0) + (w.fd >> 3);
+  for (const w of fds) {
+    set[at(w)] |= 1 << (w.fd & 7);
+  }
+  const tv = new BigInt64Array([BigInt(ms / 1000 | 0),
+    BigInt(ms % 1000 * 1000)]);
+  const sys = io_sys();
+  if (sys.select(top + 1, sys.ptr(set), sys.ptr(set, len), null,
+    ms < 0 ? null : sys.ptr(tv)) < 0) {
+    if (sys.errno() !== 4) {
+      throw "bend: the poller failed";
+    }
+    set.fill(0);
+  }
+  const now = performance.now();
+  io.waits = io.waits.filter((w) => {
+    const ready = w.at <= now || w.fd !== undefined
+      && set[at(w)] & 1 << (w.fd & 7);
+    if (ready) {
+      io_push(io_wake, w, false);
+    }
+    return !ready;
+  });
+}
+
+function io_wake(w) {
+  const x = w.more();
+  return x === undefined ? undefined : w.k(x);
+}
+
+function io_park_on(fd, out, k, more, at) {
+  const ws = globalThis.BEND_IO.waits;
+  const i = ws.findLastIndex((w) => (w.at ?? Infinity) <= (at ?? Infinity));
+  ws.splice(i + 1, 0, { fd, out, k, more, at });
+}
+
+function io_run(m) {
+  const io = { runs: [], live: 0, waits: [] };
+  globalThis.BEND_IO = io;
+  try {
+    io_push(run_loop(m()), (x) => ({ $: "Emit", value: x }), true);
+    let look = 0;
+    for (let n = 0;; n += 1) {
+      if (io.runs.length === 0) {
+        if (io.live === 0) {
+          return 0;
+        }
+        if (io.waits.length === 0) {
+          io_errs("bend: deadlock: every computation waits on a channel");
+          return 1;
+        }
+        io_wait(io, true);
+        continue;
+      }
+      if ((n & 63) === 0 && io.waits.length > 0) {
+        const now = performance.now();
+        if (now >= look || io.waits[0].at <= now) {
+          look = now + 10;
+          io_wait(io, false);
+        }
+      }
+      const s = io.runs.shift();
+      let op = s.fun(s.arg);
+      while (op !== undefined) {
+        if (op.$ === "Emit") {
+          io.live -= 1;
+          break;
+        }
+        if (op.$ === "Halt") {
+          io_errs(op.message);
+          return op.code;
+        }
+        const need = op.need?.() ?? {};
+        if (need.time || need.read) {
+          const more = () => op.run(...op.args, op.kont);
+          io_park_on(need.read ? op.args[0] : undefined, false, op.kont, more,
+            need.read ? undefined : performance.now() + Number(op.args[0]));
+          break;
+        }
+        const x = op.run(...op.args, op.kont);
+        if (x === undefined) {
+          break;
+        }
+        op = op.kont(x);
+      }
+    }
+  } catch (req) {
+    if (req instanceof RangeError) {
+      throw "bend: memory fault (machine stack overflow?)";
+    }
+    if (req?.$ !== "$FFI") {
+      throw req;
+    }
+    io_errs("bend: runtime fail-stop");
+    return 1;
+  }
+}
+
+cli(process.argv.slice(1));
+io_exit($main$, null);
