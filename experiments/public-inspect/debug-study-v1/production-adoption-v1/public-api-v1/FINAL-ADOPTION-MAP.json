@@ -1,0 +1,301 @@
+{
+  "scope": "Source-only final8 adoption readiness; root sole core writer, no adoption/performance/newcontracts",
+  "productionPatchSHA256": "45d04c4ca1c5d65cd390b705ad5c937d3cbf67e9273a2ba67d185d2ce272ee27",
+  "sourceProposalSHA256": "0d5828b5fe642b5e037b724fdfee0c3d2abf4ce9b090e024c6aa97510497d27e",
+  "modules": {
+    "src/ecs/debug-metadata.bend": {
+      "candidateSHA256": "74d3a600fadf1464956e27e75054ce81ab93059ee613dc7e6e12c0d2e981c9b4",
+      "imports": [
+        "Base"
+      ],
+      "declaredTypes": [
+        "Storage",
+        "Component",
+        "Resource",
+        "RelationKind",
+        "Relation",
+        "Machine",
+        "Service",
+        "Access",
+        "Query",
+        "MachineAccess",
+        "System",
+        "Step",
+        "Schedule",
+        "Entry",
+        "Indexes",
+        "Severity",
+        "Code",
+        "Lint",
+        "ResolvedStep",
+        "ResolvedSchedule"
+      ],
+      "functions": [],
+      "qualification": "fresh source7, IO1, JS2, Native3 plus source-current reached typing2/JS4/Native6; complete9205 normal/full15 defect oracles",
+      "scope": "Trusted schema adapter and detached Data; not opaque-body permission introspection"
+    },
+    "src/ecs/debug-description.bend": {
+      "candidateSHA256": "62072417bd01f2cfca2e4c9625d37fd8196e3cbb44d2cb67a67e1dc8388e2345",
+      "imports": [
+        "Base",
+        "debug-metadata.bend as M",
+        "debug-state-metadata.bend as State",
+        "debug-services.bend as Services",
+        "debug-index.bend as Index",
+        "debug-lints.bend as Lints"
+      ],
+      "declaredTypes": [
+        "DebugEvent",
+        "Description"
+      ],
+      "functions": [
+        "component_names",
+        "resource_names",
+        "event_names",
+        "assembled",
+        "describe"
+      ],
+      "qualification": "fresh source7, IO1, JS2, Native3 plus source-current reached typing2/JS4/Native6; complete9205 normal/full15 defect oracles",
+      "scope": "Trusted schema adapter and detached Data; not opaque-body permission introspection"
+    },
+    "src/ecs/debug-services.bend": {
+      "candidateSHA256": "c8f702dc40d5a9a29905f59f1a643e5f445de1427bcf31bc5f6e728e32270a06",
+      "imports": [
+        "Base",
+        "debug-metadata.bend as M",
+        "debug-index.bend as I"
+      ],
+      "declaredTypes": [],
+      "functions": [
+        "service_names",
+        "declared_names",
+        "contains",
+        "dedup",
+        "entries",
+        "describe"
+      ],
+      "qualification": "fresh source7, IO1, JS2, Native3 plus source-current reached typing2/JS4/Native6; complete9205 normal/full15 defect oracles",
+      "scope": "Trusted schema adapter and detached Data; not opaque-body permission introspection"
+    },
+    "src/ecs/debug-index.bend": {
+      "candidateSHA256": "d8bee61f2299c0e2b92ab8b5f560840cd2f68916ad167d6bcac28bf33f1aa290",
+      "imports": [
+        "Base",
+        "debug-metadata.bend as M"
+      ],
+      "declaredTypes": [],
+      "functions": [
+        "contains",
+        "append_unique",
+        "unique",
+        "blank_step",
+        "blank_go",
+        "blank",
+        "updated",
+        "update",
+        "entry_name",
+        "touch",
+        "touch_names",
+        "append",
+        "query_reads",
+        "lint_reads",
+        "query_writes",
+        "queries",
+        "access",
+        "system",
+        "build"
+      ],
+      "qualification": "fresh source7, IO1, JS2, Native3 plus source-current reached typing2/JS4/Native6; complete9205 normal/full15 defect oracles",
+      "scope": "Trusted schema adapter and detached Data; not opaque-body permission introspection"
+    },
+    "src/ecs/debug-registered.bend": {
+      "candidateSHA256": "32bf019b88930cf030150c919d7a8380bc11d1671c107039868b54752f18e356",
+      "imports": [
+        "Base",
+        "world.bend as W",
+        "system.bend as Sys",
+        "debug-metadata.bend as M",
+        "debug-declaration.bend as Declaration",
+        "schedule.bend as Schedule",
+        "schedule-provision.bend as Provision"
+      ],
+      "declaredTypes": [
+        "Bound",
+        "Registration",
+        "Observation"
+      ],
+      "functions": [
+        "joined",
+        "register",
+        "observe",
+        "schedule_entry"
+      ],
+      "qualification": "fresh source7, IO1, JS2, Native3 plus source-current reached typing2/JS4/Native6; complete9205 normal/full15 defect oracles",
+      "scope": "Trusted schema adapter and detached Data; not opaque-body permission introspection"
+    },
+    "src/ecs/debug-state-metadata.bend": {
+      "candidateSHA256": "97432074c224b86661add7cf7a6c66c6ccb27e517eb35614f1b8e8714cc60122",
+      "imports": [
+        "Base"
+      ],
+      "declaredTypes": [
+        "Value",
+        "Machine"
+      ],
+      "functions": [
+        "spelling"
+      ],
+      "qualification": "fresh source7, IO1, JS2, Native3 plus source-current reached typing2/JS4/Native6; complete9205 normal/full15 defect oracles",
+      "scope": "Trusted schema adapter and detached Data; not opaque-body permission introspection"
+    },
+    "src/ecs/debug-lints.bend": {
+      "candidateSHA256": "2cfd47a604ddfc1ad436e2de9c8b2afa1babb4827fb4cdf734c7ee62b7a8bb9b",
+      "imports": [
+        "Base",
+        "debug-metadata.bend as M",
+        "debug-index.bend as I"
+      ],
+      "declaredTypes": [
+        "AccessKind",
+        "Witness",
+        "Scan"
+      ],
+      "functions": [
+        "empty",
+        "all_in",
+        "cat",
+        "append",
+        "if_lint",
+        "event_one",
+        "events",
+        "component_one",
+        "components",
+        "queuer",
+        "next_names",
+        "queued_step",
+        "queued",
+        "queue_names",
+        "next_index_one",
+        "next_index",
+        "transitions_steps",
+        "transitions",
+        "next_one",
+        "next_entries",
+        "next_if",
+        "qreads",
+        "qwrites",
+        "system_access",
+        "system_name",
+        "lookup_step",
+        "readers",
+        "witness_subjects",
+        "witness_step",
+        "record_writes",
+        "include_read",
+        "readonly_reads",
+        "scan_step",
+        "scan",
+        "system_steps",
+        "singular",
+        "runs",
+        "pronoun",
+        "sees",
+        "message",
+        "witness_lint",
+        "witness_lints",
+        "schedule_lints",
+        "read_before",
+        "assemble"
+      ],
+      "qualification": "fresh source7, IO1, JS2, Native3 plus source-current reached typing2/JS4/Native6; complete9205 normal/full15 defect oracles",
+      "scope": "Trusted schema adapter and detached Data; not opaque-body permission introspection"
+    },
+    "src/ecs/debug-declaration.bend": {
+      "candidateSHA256": "fc3b78d94d31ddae386c51d85723160d0ce2a22b0af9441896f4571301447f28",
+      "imports": [
+        "Base",
+        "schedule-provision.bend as Provision",
+        "debug-metadata.bend as M"
+      ],
+      "declaredTypes": [
+        "Query",
+        "Definition"
+      ],
+      "functions": [
+        "labels",
+        "query",
+        "queries",
+        "metadata",
+        "name",
+        "needs",
+        "provision_needs",
+        "access"
+      ],
+      "qualification": "fresh source7, IO1, JS2, Native3 plus source-current reached typing2/JS4/Native6; complete9205 normal/full15 defect oracles",
+      "scope": "Trusted schema adapter and detached Data; not opaque-body permission introspection"
+    }
+  },
+  "currentRoot21": {
+    "/workspace/formal-proofs/bendvy/src/ecs/world.bend": "a20b0f2363dab12b73109354ebddf5c9126d3e786031cf9232a0c68c5ffc3b5c",
+    "/workspace/formal-proofs/bendvy/src/ecs/string-equality.bend": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+    "/workspace/formal-proofs/bendvy/src/ecs/world-io.bend": "4cb99615ad5177439b60cb659be2d5bc95ff02dc9cf55c162c2470e6d0f19a2a",
+    "/workspace/formal-proofs/bendvy/src/ecs/world-namespace.bend": "92f7205a5d4d633289348960e139f5797354ff7dbfb0627b5d9435e17c5f48d7",
+    "/workspace/formal-proofs/bendvy/src/ecs/world-namespace.c": "b218011c7738b7ac8ca94963b8c8cacd97006af6fa1c6ab6f4ac506c612b4521",
+    "/workspace/formal-proofs/bendvy/src/ecs/world-namespace.js": "2731ad76f78bcdfe51714a1562fe487d5808b9300394ec0aebd89e24b00163f3",
+    "/workspace/formal-proofs/bendvy/src/ecs/machine.bend": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed",
+    "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "/workspace/formal-proofs/bendvy/src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+    "/workspace/formal-proofs/bendvy/src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+    "/workspace/formal-proofs/bendvy/src/ecs/schedule-provision.bend": "45d8b7d2c11d9fe28a6ee2a4cd460bad2b8591dbc8546daa68ae29d66d3979e9",
+    "/workspace/formal-proofs/bendvy/src/ecs/schedule.bend": "e7c1f18bcb27ba6b5d6c7de88e81d0fe41c000b8d16fcd4d500d72655de86da3",
+    "/workspace/formal-proofs/bendvy/src/ecs/check.bend": "9b0bef9ab0d3c4905138916d1c6a89cc7669b460c86c985d3dcc9d3424d7252f",
+    "/workspace/formal-proofs/bendvy/src/ecs/inspector.bend": "31302fa8b9f68c560e744f613948613218c5ef1f4564c4236c5655a6bf2ab597",
+    "/workspace/formal-proofs/bendvy/src/ecs/component.bend": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+    "/workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "/workspace/formal-proofs/bendvy/src/ecs/column.bend": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+    "/workspace/formal-proofs/bendvy/src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+    "/workspace/formal-proofs/bendvy/src/ecs/indexed-lifecycle.bend": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+    "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+    "/workspace/formal-proofs/bendvy/src/ecs/inspector-query-projection.bend": "fe11471686751792c2939bea532f26138492f097d61c9b6200dc58a4580ef614"
+  },
+  "normalSelectionSHA256": "dd2ef17b8a0b287be946b0d9365fc510a137abf20115a960be22378f23980093",
+  "reachedSelectionSHA256": "dddb3297dbf5c4c5bc8a23f64604af4e97e7f02352643b218586d297b55d78c2",
+  "applicationClient13": {
+    "scheduled-view.bend": "138db2c8162a99b92172d08513dc9b6c3e84c008c34778a45fc41bb494cafd74",
+    "physical-world-snapshot.bend": "ffb9da3fd9398a8d511be567104d01231cc0533ff97a450404a59ebd0257ed29",
+    "resource-read.bend": "fd3f8884c3ee425324bf5dbfa1bb144f80c24f59c06d1be26ce36d89011632f6",
+    "multi-registered.bend": "68699bb4e2e0e8ee6b31d8e2e8f77c7f7afea6db0c8a85a52f5a29e02cf608ad",
+    "resource-observation.bend": "f7ce9e67f50437a7ac3fde009dda3c0753d8ae5e326a3deeb2fc1d6022a06824",
+    "render-fixture.bend": "a89bc0da20385daa74f54cebf20f8936b2050e4f207d8ac64c30f3efcf61c39a",
+    "main.bend": "fd7714f5370a72c41669e7ec4dadf12f3863feed087d3e3a644ce9ec1ec264d0",
+    "namespace-world-snapshot.bend": "c3436bd3b2b2a6d4fc835ff5b911e7a69743f49b1219f006041a930cae3dc774",
+    "consumer.bend": "b6088b9704b4cb33877fd8079f1e4430f078bcbd9538dc807f6822997e6b1c39",
+    "registered-owner-snapshot.bend": "6f449df67a7dacd497296d8b72231148614e712478db17eb092e81c34d8aee58",
+    "physical-owner-snapshot.bend": "f65e9ae2ff43d16ed3880eac8f5c54c414c6d645a398d17c096c517a443843ea",
+    "render.bend": "9bbad54a015d81d336c0c205300f58550c7790d173eb45fa783e35a18636d433",
+    "owner-observation.bend": "384812c6cde0909bd1042c96b1c2b0d22acd0d415019403d383e925db9dcb7ad"
+  },
+  "remainingAcceptanceOwners": {
+    "#56": [
+      "Complete format/population/naming inventory and public observations including graph, machine, transient/plain values",
+      "Source-current repeated dump/filter/noninterference controls for the remaining full dump API",
+      "Disabled debug no description work; enabled feature-specific overhead/timing during fairCPUconditions",
+      "Broader naming/graph/query/condition combinations and any published formatting boundary"
+    ],
+    "#55": [
+      "Machine dependency; no invented Machine SystemParam or frame/current/queued/previous identity"
+    ],
+    "#50/#53": [
+      "Callable/capture ownership contracts remain independently owned; do not select new semantics"
+    ],
+    "#28": [
+      "Required unchanged paired gate for actual proposed executable core source; previous source inventory cannot waive newly adopted modules"
+    ],
+    "#21/#23/#24": [
+      "Full performance qualification remains separately owned"
+    ]
+  },
+  "nextIndependentScenario": "Creation-time disabled/enabled Description projection gate over actual multi-owner application; existing approved no-projection behavior, no capture/When policy; see NEXT-SCENARIO-PROPOSAL.md",
+  "productionPatchFormat": "apply_patch Begin Patch/Add File format, not git-apply unified diff; immutable qualified bytes. Root separately parsed all eight entries as byte-equal candidate and confirmed targets absent.",
+  "nextScenarioProposalSHA256": "b810fbb0a57475416822ff0379ef93e806da2489c28cc19345aba32cc5332a18"
+}
