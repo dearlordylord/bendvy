@@ -1,0 +1,29 @@
+import Base
+import ./canonical-schema.bend as Schema
+import ./canonical-grants.bend as Grants
+import /workspace/formal-proofs/bendvy/src/ecs/inspector.bend as I
+import /workspace/formal-proofs/bendvy/src/ecs/system.bend as Sys
+import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
+import /workspace/formal-proofs/bendvy/src/ecs/schedule-provision.bend as SP
+
+def completed(~S:Data,~Store:Type,~R:Type,~E:Data,observed:I.Observed<S,Store,R,E,Unit,Bool>) -> Sys.Outcome<W.World<S,Store,R,E>,Unit,I.Instance<S> & Result<&2,&2,Unit,Bool>>:
+  match observed:
+    case I.Observed{world,instance,result}:Sys.Succeeded{world,(instance,result)}
+
+def invoke(~S:Data,~Store:Type,~P:Type,~Q:Type,~E:Data,~layout:Schema.Layout<S,P,Q>,~V:Data,~U:Data,~showP:P -> P & V,~showQ:Q -> Q & U,~spec:Schema.Params<S,P,Q,layout>,~body:@-H:Type -> @-caps:Grants.Ops(~V,~U,Schema.first(~S,~P,~Q,~layout,spec),Schema.second(~S,~P,~Q,~layout,spec),H) -> Unit -> H -> H & Result<&2,&2,Unit,Bool>,world:W.World<S,Store,Schema.Owner<S,P,Q,layout>,E>,args:I.Instance<S> & Unit) -> Sys.Outcome<W.World<S,Store,Schema.Owner<S,P,Q,layout>,E>,Unit,I.Instance<S> & Result<&2,&2,Unit,Bool>>:
+  match args:
+    case (instance,unit):completed(~S,~Store,~Schema.Owner<S,P,Q,layout>,~E,I.run(~S,~Store,~Schema.Owner<S,P,Q,layout>,~E,~(H => Grants.Ops(~V,~U,Schema.first(~S,~P,~Q,~layout,spec),Schema.second(~S,~P,~Q,~layout,spec),H)),~Unit,~Unit,~Bool,~I.Plan{Grants.pair(~S,~Store,~P,~Q,~E,~layout,~V,~U,~showP,~showQ,Schema.first(~S,~P,~Q,~layout,spec),Schema.second(~S,~P,~Q,~layout,spec))},~body,instance,unit,world))
+
+type Registered<-S:Data,-P:Type,-Q:Type,-layout:Schema.Layout<S,P,Q>,Registry:Type> is Type:
+  Registered{registry:Registry,declaration:Schema.Params<S,P,Q,layout>,entries:List<&2,Schema.Entry<S>>,needs:List<&2,SP.Requirement<S>>}
+type Defined<-S:Data,World:Type,Owner:Type> is Type:
+  Defined{world:World,owner:Owner}
+  Rejected{world:World}
+
+def registered(~S:Data,~Store:Type,~P:Type,~Q:Type,~E:Data,~layout:Schema.Layout<S,P,Q>,~V:Data,~U:Data,~showP:P -> P & V,~showQ:Q -> Q & U,~spec:Schema.Params<S,P,Q,layout>,~body:@-H:Type -> @-caps:Grants.Ops(~V,~U,Schema.first(~S,~P,~Q,~layout,spec),Schema.second(~S,~P,~Q,~layout,spec),H) -> Unit -> H -> H & Result<&2,&2,Unit,Bool>,result:Sys.RegistrationResult<S,Store,Schema.Owner<S,P,Q,layout>,E,I.Instance<S> & Unit,Unit,I.Instance<S> & Result<&2,&2,Unit,Bool>,(world => args => invoke(~S,~Store,~P,~Q,~E,~layout,~V,~U,~showP,~showQ,~spec,~body,world,args))>) -> Defined<S,W.World<S,Store,Schema.Owner<S,P,Q,layout>,E>,Registered<S,P,Q,layout,Sys.Registry<S,Store,Schema.Owner<S,P,Q,layout>,E,I.Instance<S> & Unit,Unit,I.Instance<S> & Result<&2,&2,Unit,Bool>,(world => args => invoke(~S,~Store,~P,~Q,~E,~layout,~V,~U,~showP,~showQ,~spec,~body,world,args))>>>:
+  match result:
+    case Sys.RegistrationFailed{world}:Rejected{world}
+    case Sys.Registered{world,registry}:Defined{world,Registered{registry,spec,Schema.entries(~S,~P,~Q,~layout,spec),SP.unique(~S,Schema.needs(~S,Schema.entries(~S,~P,~Q,~layout,spec)))}}
+
+def define(~S:Data,~Store:Type,~P:Type,~Q:Type,~E:Data,~layout:Schema.Layout<S,P,Q>,~V:Data,~U:Data,~showP:P -> P & V,~showQ:Q -> Q & U,~spec:Schema.Params<S,P,Q,layout>,~body:@-H:Type -> @-caps:Grants.Ops(~V,~U,Schema.first(~S,~P,~Q,~layout,spec),Schema.second(~S,~P,~Q,~layout,spec),H) -> Unit -> H -> H & Result<&2,&2,Unit,Bool>,world:W.World<S,Store,Schema.Owner<S,P,Q,layout>,E>,name:String) -> Defined<S,W.World<S,Store,Schema.Owner<S,P,Q,layout>,E>,Registered<S,P,Q,layout,Sys.Registry<S,Store,Schema.Owner<S,P,Q,layout>,E,I.Instance<S> & Unit,Unit,I.Instance<S> & Result<&2,&2,Unit,Bool>,(world => args => invoke(~S,~Store,~P,~Q,~E,~layout,~V,~U,~showP,~showQ,~spec,~body,world,args))>>>:
+  registered(~S,~Store,~P,~Q,~E,~layout,~V,~U,~showP,~showQ,~spec,~body,Sys.register(~S,~Store,~Schema.Owner<S,P,Q,layout>,~E,~(I.Instance<S> & Unit),~Unit,~(I.Instance<S> & Result<&2,&2,Unit,Bool>),~(world => args => invoke(~S,~Store,~P,~Q,~E,~layout,~V,~U,~showP,~showQ,~spec,~body,world,args)),world,name,Schema.names(~S,Schema.entries(~S,~P,~Q,~layout,spec))))

@@ -1,0 +1,39 @@
+import Base
+import ./canonical-schema.bend as Schema
+import ./canonical-system.bend as System
+import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
+import /workspace/formal-proofs/bendvy/src/ecs/system.bend as Sys
+import /workspace/formal-proofs/bendvy/src/ecs/schedule.bend as Sch
+import /workspace/formal-proofs/bendvy/src/ecs/schedule-provision.bend as SP
+
+type Debug is Data:
+  Enabled{}
+  Disabled{}
+type App<-S:Data,C:Type,R:Type,E:Data,H:Type> is Type:
+  App{debug:Debug,provisioned:SP.Provisioned<S,C,R,E,H>}
+type Build<-S:Data,C:Type,R:Type,E:Data,H:Type> is Type:
+  Built{app:App<S,C,R,E,H>}
+  Invalid{owners:H}
+type Description<-S:Data> is Data:
+  Description{namespace:U32,scheduleName:String,steps:List<&2,Sch.Step>,systemNamespace:U32,systemID:U32,systemName:String,access:List<&2,String>,declarationPaths:Schema.Path & Schema.Path,entries:List<&2,Schema.Entry<S>>,needs:List<&2,SP.Requirement<S>>}
+def built(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,result:SP.Build<S,C,R,E,H>,debug:Debug) -> Build<S,C,R,E,H>:
+  match result:
+    case SP.Invalid{owners}:Invalid{owners}
+    case SP.Built{provisioned}:Built{App{debug,provisioned}}
+
+def build(~S:Data,~Store:Type,~P:Type,~Q:Type,~E:Data,~layout:Schema.Layout<S,P,Q>,~A:Type,~Error:Data,~Out:Type,~runner:W.World<S,Store,Schema.Owner<S,P,Q,layout>,E> -> A -> Sys.Outcome<W.World<S,Store,Schema.Owner<S,P,Q,layout>,E>,Error,Out>,registered:System.Registered<S,P,Q,layout,Sys.Registry<S,Store,Schema.Owner<S,P,Q,layout>,E,A,Error,Out,runner>>,name:String,debug:Debug) -> Build<S,Store,Schema.Owner<S,P,Q,layout>,E,System.Registered<S,P,Q,layout,Sys.Registry<S,Store,Schema.Owner<S,P,Q,layout>,E,A,Error,Out,runner>>>:
+  match registered:
+    case System.Registered{Sys.Registry{+namespace,+id,+systemName,+access,+cursor},+declaration,+entries,+needs}:built(~S,~Store,~Schema.Owner<S,P,Q,layout>,~E,~System.Registered<S,P,Q,layout,Sys.Registry<S,Store,Schema.Owner<S,P,Q,layout>,E,A,Error,Out,runner>>,SP.build(~S,~Store,~Schema.Owner<S,P,Q,layout>,~E,~System.Registered<S,P,Q,layout,Sys.Registry<S,Store,Schema.Owner<S,P,Q,layout>,E,A,Error,Out,runner>>,namespace,name,SP.Entry{Sch.System{id,0},needs},[id],System.Registered{Sys.Registry{namespace,id,systemName,access,cursor},declaration,entries,needs}),debug)
+
+def observed(~S:Data,~Store:Type,~P:Type,~Q:Type,~E:Data,~layout:Schema.Layout<S,P,Q>,~A:Type,~Error:Data,~Out:Type,~runner:W.World<S,Store,Schema.Owner<S,P,Q,layout>,E> -> A -> Sys.Outcome<W.World<S,Store,Schema.Owner<S,P,Q,layout>,E>,Error,Out>,app:App<S,Store,Schema.Owner<S,P,Q,layout>,E,System.Registered<S,P,Q,layout,Sys.Registry<S,Store,Schema.Owner<S,P,Q,layout>,E,A,Error,Out,runner>>>) -> App<S,Store,Schema.Owner<S,P,Q,layout>,E,System.Registered<S,P,Q,layout,Sys.Registry<S,Store,Schema.Owner<S,P,Q,layout>,E,A,Error,Out,runner>>> & Description<S>:
+  match app:
+    case App{debug,SP.Provisioned{Sch.Schedule{+namespace,+scheduleName,+steps,System.Registered{Sys.Registry{+systemNamespace,+id,+systemName,+access,+cursor},Schema.Params{+first,+second},+entries,+ownerNeeds}},+needs}}:(App{debug,SP.Provisioned{Sch.Schedule{namespace,scheduleName,steps,System.Registered{Sys.Registry{systemNamespace,id,systemName,access,cursor},Schema.Params{first,second},entries,ownerNeeds}},needs}},Description{namespace,scheduleName,steps,systemNamespace,id,systemName,access,(first,second),entries,needs})
+
+def enabled_done(~S:Data,~Store:Type,~P:Type,~Q:Type,~E:Data,~layout:Schema.Layout<S,P,Q>,~A:Type,~Error:Data,~Out:Type,~runner:W.World<S,Store,Schema.Owner<S,P,Q,layout>,E> -> A -> Sys.Outcome<W.World<S,Store,Schema.Owner<S,P,Q,layout>,E>,Error,Out>,observed:App<S,Store,Schema.Owner<S,P,Q,layout>,E,System.Registered<S,P,Q,layout,Sys.Registry<S,Store,Schema.Owner<S,P,Q,layout>,E,A,Error,Out,runner>>> & Description<S>) -> App<S,Store,Schema.Owner<S,P,Q,layout>,E,System.Registered<S,P,Q,layout,Sys.Registry<S,Store,Schema.Owner<S,P,Q,layout>,E,A,Error,Out,runner>>> & Maybe<&2,Description<S>>:
+  match observed:
+    case (app,description):(app,Some{description})
+
+def describe(~S:Data,~Store:Type,~P:Type,~Q:Type,~E:Data,~layout:Schema.Layout<S,P,Q>,~A:Type,~Error:Data,~Out:Type,~runner:W.World<S,Store,Schema.Owner<S,P,Q,layout>,E> -> A -> Sys.Outcome<W.World<S,Store,Schema.Owner<S,P,Q,layout>,E>,Error,Out>,app:App<S,Store,Schema.Owner<S,P,Q,layout>,E,System.Registered<S,P,Q,layout,Sys.Registry<S,Store,Schema.Owner<S,P,Q,layout>,E,A,Error,Out,runner>>>) -> App<S,Store,Schema.Owner<S,P,Q,layout>,E,System.Registered<S,P,Q,layout,Sys.Registry<S,Store,Schema.Owner<S,P,Q,layout>,E,A,Error,Out,runner>>> & Maybe<&2,Description<S>>:
+  match app:
+    case App{Disabled{},provisioned}:(App{Disabled{},provisioned},None{})
+    case App{Enabled{},provisioned}:enabled_done(~S,~Store,~P,~Q,~E,~layout,~A,~Error,~Out,~runner,observed(~S,~Store,~P,~Q,~E,~layout,~A,~Error,~Out,~runner,App{Enabled{},provisioned}))

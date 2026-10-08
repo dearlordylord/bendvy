@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a declared constructor (unknown: Left)
+Location:
+6 |   match path:
+7>|     case Left{}:I.read_resource(~S,~Store,~Schema.Owner<S,P,Q,layout>,~E,~V,~(owner => Schema.left_value(~S,~P,~Q,~layout,~V,~showP,owner)))
+  |          ^^^^^^
+8 |     case Right{}:I.read_resource(~S,~Store,~Schema.Owner<S,P,Q,layout>,~E,~U,~(owner => Schema.right_value(~S,~P,~Q,~layout,~U,~showQ,owner)))
+bend 2.0.36 is available: run bend update

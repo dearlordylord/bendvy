@@ -1,0 +1,1 @@
+Source development only. First attempt: parser rejects reserved Kind at line 9. Second attempt: checker rejects Base duplicate Pair at line 14. Earlier diagnostics are retained as transcription/source history, not a raw frozen receipt. No proof/runtime credit.

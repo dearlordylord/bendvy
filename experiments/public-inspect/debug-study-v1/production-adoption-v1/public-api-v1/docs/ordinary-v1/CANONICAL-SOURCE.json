@@ -1,0 +1,56 @@
+{
+  "scope": "SOURCE_DEVELOPMENT_ONLY",
+  "files": {
+    "canonical-schema.bend": "ddfd545c29c9b8d5e136722e1af4da3b257060a53213d8b8b0bec79501732c8f",
+    "canonical-provision.bend": "23bbb7a3d61068967e0547e5c6c44318859cd053e162e910dfa1c9e627d3abc3",
+    "canonical-grants.bend": "8bfea1ddcc0f6d835a913ebb2c367e1858e04d791887fd2b0b92a84f4fa1e4e0",
+    "canonical-retained.bend": "2da8c5ed8117ca2dab6af6e90e0d26f5117880973930311e043b88c99682ca00",
+    "canonical-system.bend": "b24245e22d35cf707908258e559e6823f396df66ddaae039a33cf5dfba0705b7",
+    "canonical-app.bend": "ccf4aa86409ffc18b867105bc327a2cba82dbfe421d6bf5793a3ca6eaa60a5a7",
+    "CANONICAL-STATUS.md": "ba9f240b5ca31d67f96fcbf7ce9230f337d57321c5b0f652366a3eded55171fb",
+    "canonical-provision.stdout": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+    "canonical-provision.stderr": "57f1325a11b98d00f4bdbb487bda0cc9787e2baa240266722596845baee2e494",
+    "canonical-grants.stdout": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+    "canonical-grants.stderr": "57f1325a11b98d00f4bdbb487bda0cc9787e2baa240266722596845baee2e494",
+    "canonical-system.stdout": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+    "canonical-system.stderr": "57f1325a11b98d00f4bdbb487bda0cc9787e2baa240266722596845baee2e494",
+    "canonical-app.stdout": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+    "canonical-app.stderr": "57f1325a11b98d00f4bdbb487bda0cc9787e2baa240266722596845baee2e494"
+  },
+  "checks": {
+    "canonical-provision": {
+      "exitCode": 0,
+      "capSeconds": 5,
+      "command": [
+        "scripts/bend-check",
+        "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-provision.bend"
+      ]
+    },
+    "canonical-grants": {
+      "exitCode": 0,
+      "capSeconds": 5,
+      "command": [
+        "scripts/bend-check",
+        "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-grants.bend"
+      ]
+    },
+    "canonical-system": {
+      "exitCode": 0,
+      "capSeconds": 5,
+      "command": [
+        "scripts/bend-check",
+        "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-system.bend"
+      ]
+    },
+    "canonical-app": {
+      "exitCode": 0,
+      "capSeconds": 5,
+      "command": [
+        "scripts/bend-check",
+        "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-app.bend"
+      ]
+    }
+  },
+  "formattingJoin": "EOF-FORMAT-JOIN.json",
+  "checksScope": "Original pre-format source checks. Exactly one LF deletion joined separately; no fresh source check claimed."
+}

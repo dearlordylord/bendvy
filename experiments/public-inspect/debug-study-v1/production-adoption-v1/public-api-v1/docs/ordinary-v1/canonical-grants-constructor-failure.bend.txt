@@ -1,0 +1,14 @@
+import Base
+import ./canonical-schema.bend as Schema
+import /workspace/formal-proofs/bendvy/src/ecs/capabilities.bend as Cap
+import /workspace/formal-proofs/bendvy/src/ecs/inspector.bend as I
+def grant(~S:Data,~Store:Type,~P:Type,~Q:Type,~E:Data,~layout:Schema.Layout<S,P,Q>,~V:Data,~U:Data,~showP:P -> P & V,~showQ:Q -> Q & U,path:Schema.Path) -> Cap.ValueRead<I.Frame<S,Store,Schema.Owner<S,P,Q,layout>,E>,Schema.Value(~V,~U,path)>:
+  match path:
+    case Left{}:I.read_resource(~S,~Store,~Schema.Owner<S,P,Q,layout>,~E,~V,~(owner => Schema.left_value(~S,~P,~Q,~layout,~V,~showP,owner)))
+    case Right{}:I.read_resource(~S,~Store,~Schema.Owner<S,P,Q,layout>,~E,~U,~(owner => Schema.right_value(~S,~P,~Q,~layout,~U,~showQ,owner)))
+
+
+def Ops(~V:Data,~U:Data,first:Schema.Path,second:Schema.Path,H:Type) -> Type:
+  Cap.Bundle<Cap.ValueRead<H,Schema.Value(~V,~U,first)>,Cap.ValueRead<H,Schema.Value(~V,~U,second)>>
+def pair(~S:Data,~Store:Type,~P:Type,~Q:Type,~E:Data,~layout:Schema.Layout<S,P,Q>,~V:Data,~U:Data,~showP:P -> P & V,~showQ:Q -> Q & U,first:Schema.Path,second:Schema.Path) -> Ops(~V,~U,first,second,I.Frame<S,Store,Schema.Owner<S,P,Q,layout>,E>):
+  Cap.Bundle{grant(~S,~Store,~P,~Q,~E,~layout,~V,~U,~showP,~showQ,first),grant(~S,~Store,~P,~Q,~E,~layout,~V,~U,~showP,~showQ,second)}

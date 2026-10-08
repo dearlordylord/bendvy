@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a fresh name (duplicate declaration: App)
+- observed : 'App'
+Location:
+11 |   Disabled{}
+12>| type App<-S:Data,C:Type,R:Type,E:Data,H:Type> is Type:
+   |      ^^^
+13 |   App{debug:Debug,provisioned:SP.Provisioned<S,C,R,E,H>}
+bend 2.0.36 is available: run bend update

@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : _
+- observed : _ (consumed more than once)
+Context:
+- key : String
+Location: entry
+27 |   match layout path:
+28>|     case Layout{key,_},Left{}:Entry{left_id(),key,key}
+   |                     ^
+29 |     case Layout{_,key},Right{}:Entry{right_id(),key,key}
+bend 2.0.36 is available: run bend update
