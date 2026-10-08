@@ -1,0 +1,722 @@
+diff --git a/src/ecs/declared-family.bend b/src/ecs/declared-family.bend
+new file mode 100644
+--- /dev/null
++++ b/src/ecs/declared-family.bend
+@@ -0,0 +1,24 @@
++import Base
++import ./ordinary-declaration.bend as Identity
++import ./persistence-declaration.bend as Decl
++import ./snapshot-leaf.bend as Leaf
++import ./decode-data.bend as D
++import ./component.bend as Cmp
++import ./column.bend as Col
++import ./schema-fragments.bend as SF
++
++# Closed trusted schema lenses, as in existing component.Family. The retained
++# recipe becomes part of Family's Rest and survives ordinary column operations.
++def split(~S:Data,~P:Type,~Rest:Type,~identity:Identity.Declaration<S,P>,~save:P -> P & D.Raw,observed:Rest & Leaf.Component<S,P,identity,save>) -> (Rest & Decl.Constructed<S,P,identity,save>) & Col.Column<S,P>:
++  match observed:
++    case (rest,Leaf.Component{column,declaration}):((rest,declaration),column)
++def take_column(~S:Data,~P:Type,~Store:Type,~Rest:Type,~identity:Identity.Declaration<S,P>,~save:P -> P & D.Raw,~take:Store -> Rest & Leaf.Component<S,P,identity,save>,owner:Store) -> (Rest & Decl.Constructed<S,P,identity,save>) & Col.Column<S,P>:
++  split(~S,~P,~Rest,~identity,~save,take(owner))
++def put_column(~S:Data,~P:Type,~Store:Type,~Rest:Type,~identity:Identity.Declaration<S,P>,~save:P -> P & D.Raw,~put:Rest -> Leaf.Component<S,P,identity,save> -> Store,rest:Rest & Decl.Constructed<S,P,identity,save>,column:Col.Column<S,P>) -> Store:
++  match rest:
++    case (rest,declaration):put(rest,Leaf.Component{column,declaration})
++def family(~S:Data,~P:Type,~Store:Type,~Rest:Type,~V:Data,~Token:Data,~identity:Identity.Declaration<S,P>,~save:P -> P & D.Raw,~view:P -> P & V,~take:Store -> Rest & Leaf.Component<S,P,identity,save>,~put:Rest -> Leaf.Component<S,P,identity,save> -> Store) -> Cmp.Family<S,Store,Rest & Decl.Constructed<S,P,identity,save>,P,V,Token,take_column(~S,~P,~Store,~Rest,~identity,~save,~take),put_column(~S,~P,~Store,~Rest,~identity,~save,~put),view>:
++  Cmp.Family{Identity.key(~S,~P,identity)}
++def descriptor(~S:Data,~P:Type,~Token:Data,~identity:Identity.Declaration<S,P>) -> SF.Descriptor<S,Token,P>:
++  +key=Identity.key(~S,~P,identity)
++  SF.Descriptor{SF.Component{},key,key}
+diff --git a/src/ecs/decode-capabilities.bend b/src/ecs/decode-capabilities.bend
+new file mode 100644
+--- /dev/null
++++ b/src/ecs/decode-capabilities.bend
+@@ -0,0 +1,22 @@
++import Base
++import ./decode-data.bend as D
++import ./capabilities.bend as Cap
++import ./schema-fragments.bend as SF
++# Generic admission provider. Only the trusted schema author closes decoder,
++# owner lens and admitted/refused transition; gameplay is universal in H.
++# No callback truthfulness or universal Raw->Output inverse is asserted.
++def apply(-H:Type,-Raw:Type,-Observation:Data,cap:Cap.Request<H,Raw,Observation>,raw:Raw,ctx:H) -> H & Observation:
++  match cap:
++    case Cap.Request{run}: run(ctx,raw)
++def provide(~Raw:Type,~Owners:Type,~Observation:Data,~request:Owners -> Raw -> Owners & Observation,~body:@-H:Type -> Cap.Request<H,Raw,Observation> -> Raw -> H -> H & Observation,ctx:Owners,raw:Raw) -> Owners & Observation:
++  body(Owners,Cap.Request{request},raw,ctx)
++def decoded(~Raw:Type,~Owners:Type,~Observation:Data,~admit:Owners -> D.Receipt<Raw> -> Owners & Observation,value:Owners & D.Receipt<Raw>) -> Owners & Observation:
++  match value:
++    case (owners,receipt): admit(owners,receipt)
++def request(~Raw:Type,~Owners:Type,~Observation:Data,~decode:Owners -> Raw -> Owners & D.Receipt<Raw>,~admit:Owners -> D.Receipt<Raw> -> Owners & Observation,owners:Owners,raw:Raw) -> Owners & Observation:
++  decoded(~Raw,~Owners,~Observation,~admit,decode(owners,raw))
++def constructed(~Raw:Type,~Owners:Type,~Observation:Data,~decode:Owners -> Raw -> Owners & D.Receipt<Raw>,~admit:Owners -> D.Receipt<Raw> -> Owners & Observation,~body:@-H:Type -> Cap.Request<H,Raw,Observation> -> Raw -> H -> H & Observation,owners:Owners,raw:Raw) -> Owners & Observation:
++  provide(~Raw,~Owners,~Observation,~request(~Raw,~Owners,~Observation,~decode,~admit),~body,owners,raw)
++# Complete availability is checked before registering or running any callback.
++def provision_declared(~S:Data,~Owners:Type,~Output:Type,~launch:Owners -> Output,fragment:SF.Fragment<S,Owners>,required:List<&2,SF.Entry<S>>) -> SF.Bound<S,Owners,Output>:
++  SF.bind_declared(~S,~Owners,~Output,~launch,fragment,required)
+diff --git a/src/ecs/decode-data.bend b/src/ecs/decode-data.bend
+new file mode 100644
+--- /dev/null
++++ b/src/ecs/decode-data.bend
+@@ -0,0 +1,212 @@
++import Base
++import ./decode-utf16.bend as Utf16
++# Raw is a typed Data description. Arbitrary affine payload ownership is a
++# separate explicit receipt; this validator never invents an inverse Raw -> C.
++type Raw is Data:
++  Missing{}
++  Null{}
++  Number{value:U32}
++  SignedInteger{negative:Bool,magnitude:Nat}
++  Float{value:F32}
++  Binary64{high:U32,low:U32}
++  Text{value:String}
++  Utf16Text{units:List<&2,U32>}
++  Boolean{value:Bool}
++  Handle{namespace:U32,id:U32}
++  Array{items:List<&2,Raw>}
++  Object{fields:List<&2,Field>}
++type Field is Data:
++  Field{name:String,value:Raw}
++type Codec is Data:
++  FiniteNumber{}
++  Integer{}
++  StringValue{}
++  BoolValue{}
++  Literal{value:Raw}
++  LiteralValues{values:List<&2,Raw>}
++  LiteralRendered{values:List<&2,Raw>,expected:String}
++  Nullable{inner:Codec}
++  ArrayValue{inner:Codec}
++  Struct{fields:List<&2,NamedCodec>}
++  HandleValue{namespace:U32}
++type NamedCodec is Data:
++  NamedCodec{name:String,codec:Codec}
++type Error is Data:
++  Invalid{path:String,expected:String,actual:Raw}
++  FuelExhausted{path:String}
++type Checked is Data:
++  Accepted{value:Raw}
++  Rejected{error:Error}
++type Owned<Owner:Type> is Type:
++  Owned{owner:Owner,description:Raw}
++type Receipt<Owner:Type> is Type:
++  Receipt{owner:Owner,checked:Checked}
++def field_choose(equal:Bool,value:Raw,next:Unit -> Raw) -> Raw:
++  match equal:
++    case True{}: value
++    case False{}: next(Unit{})
++def field(+name:String,fields:List<&2,Field>) -> Raw:
++  match fields:
++    case []: Missing{}
++    case Field{key,value} <> rest: field_choose(String.eq(name,key),value,_ => field(name,rest))
++type Work is Data:
++  Work{codec:Codec,raw:Raw,path:String}
++type Step is Data:
++  Continue{work:List<&2,Work>}
++  Stop{error:Error}
++# Exact SameValueZero numeric equality uses a 53-bit mantissa pair, avoiding
++# impossible runtime Nat immediates above Bend's 2^48-1 emitter limit.
++type Numeric is Data:
++  Finite{negative:Bool,high:U32,low:U32,exponent:U32}
++  Infinity{negative:Bool}
++  NotNumber{}
++  NaN{}
++def normalize_checked(fuel:Nat,+negative:Bool,+high:U32,+low:U32,+exponent:U32,zero:Bool,even:Bool) -> Numeric:
++  match fuel zero even:
++    case _ True{} _: Finite{False{},0,0,0}
++    case _ False{} False{}: Finite{negative,high,low,exponent}
++    case 0n False{} True{}: Finite{negative,high,low,exponent}
++    case 1n+more False{} True{}: normalize_checked(more,negative,U32.div(high,2),U32.add(U32.div(low,2),U32.mul(U32.mod(high,2),2147483648)),U32.add(exponent,1),False{},U32.is_eq(U32.mod(U32.div(low,2),2),0))
++def normalize(fuel:Nat,+negative:Bool,+high:U32,+low:U32,+exponent:U32) -> Numeric:
++  normalize_checked(fuel,negative,high,low,exponent,U32.is_eq(high,0) && U32.is_eq(low,0),U32.is_eq(U32.mod(low,2),0))
++def numeric_special(negative:Bool,infinite:Bool) -> Numeric:
++  match infinite:
++    case True{}: Infinity{negative}
++    case False{}: NaN{}
++def float_parts(+bits:U32,+exponent:U32,+fraction:U32,special:Bool,zero:Bool) -> Numeric:
++  match special zero:
++    case True{} _: numeric_special(U32.is_ge(bits,2147483648),U32.is_eq(fraction,0))
++    case False{} True{}: normalize(64n,U32.is_ge(bits,2147483648),0,fraction,925)
++    case False{} False{}: normalize(64n,U32.is_ge(bits,2147483648),0,U32.add(fraction,8388608),U32.add(exponent,924))
++def float_numeric(+bits:U32) -> Numeric:
++  float_parts(bits,U32.mod(U32.div(bits,8388608),256),U32.mod(bits,8388608),U32.is_eq(U32.mod(U32.div(bits,8388608),256),255),U32.is_eq(U32.mod(U32.div(bits,8388608),256),0))
++def binary_parts(+negative:Bool,+exponent:U32,+high:U32,+low:U32,special:Bool,zero:Bool) -> Numeric:
++  match special zero:
++    case True{} _: numeric_special(negative,U32.is_eq(high,0) && U32.is_eq(low,0))
++    case False{} True{}: normalize(64n,negative,high,low,0)
++    case False{} False{}: normalize(64n,negative,U32.add(high,1048576),low,U32.sub(exponent,1))
++def binary_numeric(+high:U32,+low:U32) -> Numeric:
++  binary_parts(U32.is_ge(high,2147483648),U32.mod(U32.div(high,1048576),2048),U32.mod(high,1048576),low,U32.is_eq(U32.mod(U32.div(high,1048576),2048),2047),U32.is_eq(U32.mod(U32.div(high,1048576),2048),0))
++def numeric(raw:Raw) -> Numeric:
++  match raw:
++    case Number{value}: normalize(64n,False{},0,value,1074)
++    case SignedInteger{negative,+value}: normalize(64n,negative,U32.from_nat(Nat.div(value,Nat.mul(65536n,65536n))),U32.from_nat(Nat.mod(value,Nat.mul(65536n,65536n))),1074)
++    case Float{value}: float_numeric(F32.bits(value))
++    case Binary64{high,low}: binary_numeric(high,low)
++    case _: NotNumber{}
++def same_bool(a:Bool,b:Bool) -> Bool:
++  match a b:
++    case True{} True{}: True{}
++    case False{} False{}: True{}
++    case _ _: False{}
++def same_numeric(a:Numeric,b:Numeric) -> Bool:
++  match a b:
++    case Finite{an,ah,al,ae} Finite{bn,bh,bl,be}: same_bool(an,bn) && U32.is_eq(ah,bh) && U32.is_eq(al,bl) && U32.is_eq(ae,be)
++    case Infinity{a} Infinity{b}: same_bool(a,b)
++    case NaN{} NaN{}: True{}
++    case _ _: False{}
++def equal(+a:Raw,+b:Raw) -> Bool:
++  match a b:
++    case Null{} Null{}: True{}
++    case Text{a} Text{b}: String.eq(a,b)
++    case Utf16Text{a} Utf16Text{b}: Utf16.checked(a,b)
++    case Utf16Text{a} Text{b}: Utf16.checked(a,Utf16.text(b))
++    case Text{a} Utf16Text{b}: Utf16.checked(Utf16.text(a),b)
++    case Boolean{a} Boolean{b}: same_bool(a,b)
++    case _ _: same_numeric(numeric(a),numeric(b))
++def alternatives(values:List<&2,Raw>,+raw:Raw) -> Bool:
++  match values:
++    case []: False{}
++    case value <> tail: equal(value,raw) || alternatives(tail,raw)
++def choose_checked(valid:Bool,+path:String,+expected:String,raw:Raw,rest:List<&2,Work>) -> Step:
++  match valid:
++    case True{}: Continue{rest}
++    case False{}: Stop{Invalid{path,expected,raw}}
++def array_work(+codec:Codec,items:List<&2,Raw>,+path:String,+index:U32,rest:List<&2,Work>) -> List<&2,Work>:
++  match items:
++    case []: rest
++    case value <> tail: Work{codec,value,path ++ "[" ++ U32.show(index) ++ "]"} <> array_work(codec,tail,path,U32.add(index,1),rest)
++def struct_work(fields:List<&2,NamedCodec>,+values:List<&2,Field>,+path:String,rest:List<&2,Work>) -> List<&2,Work>:
++  match fields:
++    case []: rest
++    case NamedCodec{+name,codec} <> tail: Work{codec,field(name,values),path ++ "." ++ name} <> struct_work(tail,values,path,rest)
++def binary64_exponent(high:U32) -> U32:
++  U32.mod(U32.div(high,1048576),2048)
++def binary_integer_normal(result:Numeric) -> Bool:
++  match result:
++    case Finite{_,high,low,+exponent}: (U32.is_eq(high,0) && U32.is_eq(low,0)) || (U32.is_ge(exponent,1074) && U32.is_le(exponent,1126))
++    case _: False{}
++def binary_integer_checked(result:Numeric,small:Bool) -> Bool:
++  small && binary_integer_normal(result)
++def binary_integer(+high:U32,+low:U32) -> Bool:
++  binary_integer_checked(binary_numeric(high,low),U32.is_lt(binary64_exponent(high),1076))
++def expand(codec:Codec,+raw:Raw,+path:String,rest:List<&2,Work>) -> Step:
++  match codec raw:
++    case Integer{} Number{_}: Continue{rest}
++    case Integer{} SignedInteger{_,magnitude}: choose_checked(Nat.is_lt(Nat.div(magnitude,Nat.mul(65536n,65536n)),2097152n),path,"integer",raw,rest)
++    case Integer{} Float{+value}: choose_checked(F32.is_eq(F32.floor(value),value) && F32.is_lt(F32.abs(value),9007199254740992.0),path,"integer",raw,rest)
++    case Integer{} Binary64{high,low}: choose_checked(binary_integer(high,low),path,"integer",raw,rest)
++    case FiniteNumber{} Number{_}: Continue{rest}
++    case FiniteNumber{} SignedInteger{_,_}: Continue{rest}
++    case FiniteNumber{} Float{value}: choose_checked(F32.is_le(F32.abs(value),3.4028234e38),path,"finite number",raw,rest)
++    case FiniteNumber{} Binary64{high,_}: choose_checked(U32.is_lt(binary64_exponent(high),2047),path,"finite number",raw,rest)
++    case StringValue{} Text{_}: Continue{rest}
++    case StringValue{} Utf16Text{units}: choose_checked(Utf16.valid(units),path,"string",raw,rest)
++    case BoolValue{} Boolean{_}: Continue{rest}
++    case Literal{value} _: choose_checked(equal(value,raw),path,"literal",raw,rest)
++    case LiteralValues{values} _: choose_checked(alternatives(values,raw),path,"literal",raw,rest)
++    case LiteralRendered{values,expected} _: choose_checked(alternatives(values,raw),path,expected,raw,rest)
++    case Nullable{_} Null{}: Continue{rest}
++    case Nullable{inner} _: Continue{Work{inner,raw,path} <> rest}
++    case ArrayValue{inner} Array{items}: Continue{array_work(inner,items,path,0,rest)}
++    case Struct{fields} Object{values}: Continue{struct_work(fields,values,path,rest)}
++    case HandleValue{ns} Handle{actual,id}: choose_checked(U32.is_eq(ns,actual) && U32.is_gt(id,0),path,"same-world handle",raw,rest)
++    case Integer{} _: Stop{Invalid{path,"integer",raw}}
++    case FiniteNumber{} _: Stop{Invalid{path,"finite number",raw}}
++    case StringValue{} _: Stop{Invalid{path,"string",raw}}
++    case BoolValue{} _: Stop{Invalid{path,"boolean",raw}}
++    case ArrayValue{_} _: Stop{Invalid{path,"array",raw}}
++    case Struct{_} _: Stop{Invalid{path,"object",raw}}
++    case HandleValue{_} _: Stop{Invalid{path,"same-world handle",raw}}
++def validate(fuel:Nat,step:Step,+original:Raw) -> Checked:
++  match fuel step:
++    case _ Stop{error}: Rejected{error}
++    case _ Continue{[]}: Accepted{original}
++    case 0n Continue{Work{_,_,path} <> _}: Rejected{FuelExhausted{path}}
++    case 1n+more Continue{Work{codec,raw,path} <> rest}: validate(more,expand(codec,raw,path,rest),original)
++def owned(~Owner:Type,fuel:Nat,codec:Codec,input:Owned<Owner>) -> Receipt<Owner>:
++  match input:
++    case Owned{owner,+description}: Receipt{owner,validate(fuel,Continue{[Work{codec,description,"$"}]},description)}
++
++def associated(~Owner:Type,fuel:Nat,codec:Codec,observed:Owner & Raw) -> Receipt<Owner>:
++  match observed:
++    case (owner,description): owned(~Owner,fuel,codec,Owned{owner,description})
++# The closed schema projection must inspect the actual owner. It returns that
++# owner rather than caller-supplied unrelated metadata. Its semantics are trusted.
++def validate_owner(~Owner:Type,~project:Owner -> Owner & Raw,fuel:Nat,codec:Codec,owner:Owner) -> Receipt<Owner>:
++  associated(~Owner,fuel,codec,project(owner))
++
++def canonical_array_join(head:Raw,tail:Raw) -> Raw:
++  match tail:
++    case Array{values}: Array{head <> values}
++    case other: other
++def canonical_struct_join(name:String,head:Raw,tail:Raw) -> Raw:
++  match tail:
++    case Object{fields}: Object{Field{name,head} <> fields}
++    case other: other
++def canonical(fuel:Nat,codec:Codec,raw:Raw) -> Raw:
++  match fuel codec raw:
++    case 0n _ raw: raw
++    case 1n+more Nullable{inner} Null{}: Null{}
++    case 1n+more Nullable{inner} raw: canonical(more,inner,raw)
++    case 1n+more ArrayValue{_} Array{[]}: Array{[]}
++    case 1n++more ArrayValue{+inner} Array{head <> tail}: canonical_array_join(canonical(more,inner,head),canonical(more,ArrayValue{inner},Array{tail}))
++    case 1n+more Struct{[]} Object{_}: Object{[]}
++    case 1n++more Struct{NamedCodec{+name,codec} <> rest} Object{+values}: canonical_struct_join(name,canonical(more,codec,field(name,values)),canonical(more,Struct{rest},Object{values}))
++    case _ _ raw: raw
++def normalized(~Owner:Type,+fuel:Nat,+codec:Codec,result:Receipt<Owner>) -> Receipt<Owner>:
++  match result:
++    case Receipt{owner,Accepted{value}}: Receipt{owner,Accepted{canonical(fuel,codec,value)}}
++    case Receipt{owner,Rejected{error}}: Receipt{owner,Rejected{error}}
++def decode_owner(~Owner:Type,~project:Owner -> Owner & Raw,+fuel:Nat,+codec:Codec,owner:Owner) -> Receipt<Owner>:
++  normalized(~Owner,fuel,codec,validate_owner(~Owner,~project,fuel,codec,owner))
+diff --git a/src/ecs/decode-size.bend b/src/ecs/decode-size.bend
+new file mode 100644
+--- /dev/null
++++ b/src/ecs/decode-size.bend
+@@ -0,0 +1,21 @@
++import Base
++import ./decode-data.bend as D
++
++def codec_size(codec:D.Codec) -> Nat:
++  match codec:
++    case D.Nullable{inner}: Nat.add(1n,codec_size(inner))
++    case D.ArrayValue{inner}: Nat.add(1n,codec_size(inner))
++    case D.Struct{[]}: 1n
++    case D.Struct{D.NamedCodec{_,child} <> rest}: Nat.add(1n,Nat.add(codec_size(child),codec_size(D.Struct{rest})))
++    case _: 1n
++
++def raw_size(raw:D.Raw) -> Nat:
++  match raw:
++    case D.Array{[]}: 1n
++    case D.Array{head <> rest}: Nat.add(raw_size(head),raw_size(D.Array{rest}))
++    case D.Object{[]}: 1n
++    case D.Object{D.Field{_,child} <> rest}: Nat.add(raw_size(child),raw_size(D.Object{rest}))
++    case _: 1n
++
++def budget(codec:D.Codec,raw:D.Raw) -> Nat:
++  Nat.mul(4n,Nat.mul(codec_size(codec),Nat.add(raw_size(raw),1n)))
+diff --git a/src/ecs/decode-utf16.bend b/src/ecs/decode-utf16.bend
+new file mode 100644
+--- /dev/null
++++ b/src/ecs/decode-utf16.bend
+@@ -0,0 +1,31 @@
++import Base
++# JS strings are UTF-16 code-unit sequences, including lone surrogates.
++# Bend String is Unicode-scalar text; no invalid Chr is constructed here.
++def valid(units:List<&2,U32>) -> Bool:
++  match units:
++    case []: True{}
++    case unit <> tail: U32.is_le(unit,65535) && valid(tail)
++def empty(units:List<&2,U32>) -> Bool:
++  match units:
++    case []: True{}
++    case _ <> _: False{}
++def compared(+head:U32,other:List<&2,U32>,next:List<&2,U32> -> Bool) -> Bool:
++  match other:
++    case []: False{}
++    case value <> tail: U32.is_eq(head,value) && next(tail)
++def equal(left:List<&2,U32>,right:List<&2,U32>) -> Bool:
++  match left:
++    case []: empty(right)
++    case head <> tail: compared(head,right,rest => equal(tail,rest))
++def scalar(+code:U32,rest:List<&2,U32>,bmp:Bool) -> List<&2,U32>:
++  match bmp:
++    case True{}: code <> rest
++    case False{}: U32.add(55296,U32.div(U32.sub(code,65536),1024)) <> U32.add(56320,U32.mod(U32.sub(code,65536),1024)) <> rest
++def text(value:String) -> List<&2,U32>:
++  match value:
++    case SNil{}: []
++    case SCon{Chr{+code},tail}: scalar(code,text(tail),U32.is_lt(code,65536))
++def checked(+left:List<&2,U32>,+right:List<&2,U32>) -> Bool:
++  valid(left) && valid(right) && equal(left,right)
++def show(units:List<&2,U32>) -> String:
++  List.show(&2,U32,U32.show,units)
+diff --git a/src/ecs/decode.bend b/src/ecs/decode.bend
+new file mode 100644
+--- /dev/null
++++ b/src/ecs/decode.bend
+@@ -0,0 +1,13 @@
++import Base
++import ./decode-data.bend as D
++import ./decode-size.bend as Size
++
++# All operations use the one Raw returned by the closed actual-owner projection.
++# No Raw-to-Owner inverse is invented and no caller-supplied fixed fuel is needed.
++def decode_budget(~Owner:Type,+codec:D.Codec,raw:D.Raw,+fuel:Nat,owner:Owner) -> D.Receipt<Owner>:
++  D.normalized(~Owner,fuel,codec,D.owned(~Owner,fuel,codec,D.Owned{owner,raw}))
++def decode_projected(~Owner:Type,+codec:D.Codec,observed:Owner & D.Raw) -> D.Receipt<Owner>:
++  match observed:
++    case (owner,+raw): decode_budget(~Owner,codec,raw,Size.budget(codec,raw),owner)
++def decode_owner(~Owner:Type,~project:Owner -> Owner & D.Raw,codec:D.Codec,owner:Owner) -> D.Receipt<Owner>:
++  decode_projected(~Owner,codec,project(owner))
+diff --git a/src/ecs/ordinary-declaration.bend b/src/ecs/ordinary-declaration.bend
+new file mode 100644
+--- /dev/null
++++ b/src/ecs/ordinary-declaration.bend
+@@ -0,0 +1,10 @@
++import Base
++# One nominal ordinary schema declaration shared by component grants and gates.
++# No storage/runtime imports and no user debug metadata adapter.
++type Declaration<-S:Data,-P:Type> is Data:
++  Declaration{key:String}
++def component(~S:Data,~P:Type,key:String) -> Declaration<S,P>:
++  Declaration{key}
++def key(~S:Data,~P:Type,declaration:Declaration<S,P>) -> String:
++  match declaration:
++    case Declaration{key}:key
+diff --git a/src/ecs/ordinary-schema.bend b/src/ecs/ordinary-schema.bend
+new file mode 100644
+--- /dev/null
++++ b/src/ecs/ordinary-schema.bend
+@@ -0,0 +1,29 @@
++import Base
++import ./owner-product.bend as Product
++import ./ordinary-declaration.bend as Component
++import ./column.bend as Col
++import ./schema-fragments.bend as Fragment
++# One normal declaration drives schema entries and physical Store/Resources types.
++# Names default to the one ordinary key. No user metadata or lens input.
++type Schema<-S:Data,-Store:Type,-Resources:Type> is Data:
++  Schema{entries:List<&2,Fragment.Entry<S>>}
++type Resource<-S:Data,-P:Type> is Data:
++  Resource{key:String}
++def resource(~S:Data,~P:Type,key:String) -> Resource<S,P>:
++  Resource{key}
++def resource_key(~S:Data,~P:Type,value:Resource<S,P>) -> String:
++  match value:
++    case Resource{key}:key
++def component(~S:Data,~P:Type,declaration:Component.Declaration<S,P>) -> Schema<S,Col.Column<S,P>,Unit>:
++  +key=Component.key(~S,~P,declaration)
++  Schema{[Fragment.Entry{Fragment.Component{},key,key}]}
++def resource_schema(~S:Data,~P:Type,declaration:Resource<S,P>) -> Schema<S,Unit,P>:
++  +key=resource_key(~S,~P,declaration)
++  Schema{[Fragment.Entry{Fragment.Resource{},key,key}]}
++def entries(~S:Data,~C:Type,~R:Type,value:Schema<S,C,R>) -> List<&2,Fragment.Entry<S>>:
++  match value:
++    case Schema{entries}:entries
++def product(~S:Data,~LC:Type,~LR:Type,~RC:Type,~RR:Type,left:Schema<S,LC,LR>,right:Schema<S,RC,RR>) -> Schema<S,Product.Owner<LC,RC>,Product.Owner<LR,RR>>:
++  Schema{List.append(&2,Fragment.Entry<S>,entries(~S,~LC,~LR,left),entries(~S,~RC,~RR,right))}
++def validate(~S:Data,~C:Type,~R:Type,value:Schema<S,C,R>) -> Fragment.Validation:
++  Fragment.validate_loop(~S,entries(~S,~C,~R,value),[])
+diff --git a/src/ecs/owner-product.bend b/src/ecs/owner-product.bend
+new file mode 100644
+--- /dev/null
++++ b/src/ecs/owner-product.bend
+@@ -0,0 +1,48 @@
++import Base
++# Generic heterogeneous owner product, not a registry metadata adapter.
++# Library-generated paths retain the physical type through arbitrary nesting.
++type Owner<-L:Type,-R:Type> is Type:
++  Owner{left:L,right:R}
++type Path is Data:
++  Left{}
++  Right{}
++def Part(~L:Type,~R:Type,path:Path) -> Type:
++  match path:
++    case Left{}:L
++    case Right{}:R
++def Rest(~L:Type,~R:Type,path:Path) -> Type:
++  match path:
++    case Left{}:R
++    case Right{}:L
++def take(~L:Type,~R:Type,path:Path,owner:Owner<L,R>) -> Rest(~L,~R,path) & Part(~L,~R,path):
++  match path owner:
++    case Left{} Owner{left,right}:(right,left)
++    case Right{} Owner{left,right}:(left,right)
++def put(~L:Type,~R:Type,path:Path,rest:Rest(~L,~R,path),part:Part(~L,~R,path)) -> Owner<L,R>:
++  match path:
++    case Left{}:Owner{part,rest}
++    case Right{}:Owner{rest,part}
++# Canonical setup composes these fields; user systems only receive opaque caps.
++type Lens<-Whole:Type,-Part:Type,-Rest:Type> is Type:
++  Lens{take:Whole -> Rest & Part,put:Rest -> Part -> Whole}
++def lens(~L:Type,~R:Type,~path:Path) -> Lens<Owner<L,R>,Part(~L,~R,path),Rest(~L,~R,path)>:
++  Lens{owner=>take(~L,~R,path,owner),rest=>part=>put(~L,~R,path,rest,part)}
++def get_field(~W:Type,~P:Type,~R:Type,value:Lens<W,P,R>) -> W -> R & P:
++  match value:
++    case Lens{get,_}:get
++def put_field(~W:Type,~P:Type,~R:Type,value:Lens<W,P,R>) -> R -> P -> W:
++  match value:
++    case Lens{_,put}:put
++def joined(~A:Type,~B:Type,~P:Type,outer:A,observed:B & P) -> (A & B) & P:
++  match observed:
++    case (inner,part):((outer,inner),part)
++def inward(~W:Type,~M:Type,~A:Type,~P:Type,~B:Type,~inner:Lens<M,P,B>,observed:A & M) -> (A & B) & P:
++  match observed:
++    case (rest,middle):joined(~A,~B,~P,rest,get_field(~M,~P,~B,inner)(middle))
++def composed_take(~W:Type,~M:Type,~A:Type,~P:Type,~B:Type,~outer:Lens<W,M,A>,~inner:Lens<M,P,B>,owner:W) -> (A & B) & P:
++  inward(~W,~M,~A,~P,~B,~inner,get_field(~W,~M,~A,outer)(owner))
++def composed_put(~W:Type,~M:Type,~A:Type,~P:Type,~B:Type,~outer:Lens<W,M,A>,~inner:Lens<M,P,B>,rest:A & B,part:P) -> W:
++  match rest:
++    case (outerRest,innerRest):put_field(~W,~M,~A,outer)(outerRest,put_field(~M,~P,~B,inner)(innerRest,part))
++def compose(~W:Type,~M:Type,~A:Type,~P:Type,~B:Type,~outer:Lens<W,M,A>,~inner:Lens<M,P,B>) -> Lens<W,P,A & B>:
++  Lens{owner=>composed_take(~W,~M,~A,~P,~B,~outer,~inner,owner),rest=>part=>composed_put(~W,~M,~A,~P,~B,~outer,~inner,rest,part)}
+diff --git a/src/ecs/persistence-declaration.bend b/src/ecs/persistence-declaration.bend
+new file mode 100644
+--- /dev/null
++++ b/src/ecs/persistence-declaration.bend
+@@ -0,0 +1,43 @@
++import Base
++import ./decode-data.bend as D
++import ./decode-capabilities.bend as Public
++import ./decode.bend as Complete
++import ./ordinary-declaration.bend as Canonical
++
++# Extensions of ONE ordinary nominal identity, shared with ordinary query paths.
++# Schema authoring is trusted; no language-wide constructor secrecy is asserted.
++type Plain<-S:Data,-P:Type,-identity:Canonical.Declaration<S,P>> is Data:
++  Plain{}
++type Transient<-S:Data,-P:Type,-identity:Canonical.Declaration<S,P>> is Data:
++  Transient{}
++type Constructed<-S:Data,-P:Type,-identity:Canonical.Declaration<S,P>,-project:P -> P & D.Raw> is Data:
++  Constructed{codec:D.Codec}
++def plain(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>) -> Plain<S,P,identity>:
++  Plain{}
++def transient(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>) -> Transient<S,P,identity>:
++  Transient{}
++def constructed(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>,~project:P -> P & D.Raw,codec:D.Codec) -> Constructed<S,P,identity,project>:
++  Constructed{codec}
++def codec(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>,~project:P -> P & D.Raw,declaration:Constructed<S,P,identity,project>) -> D.Codec:
++  match declaration:
++    case Constructed{codec}:codec
++
++# The SAME retained declaration supplies complete #46 validation and save codec.
++# Projects once; no caller fuel/depth and no automatic Raw -> arbitrary P inverse.
++def validate(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>,~project:P -> P & D.Raw,declaration:Constructed<S,P,identity,project>,owner:P) -> D.Receipt<P>:
++  Complete.decode_owner(~P,~project,codec(~S,~P,~identity,~project,declaration),owner)
++def prepare(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>,~project:P -> P & D.Raw,+declaration:Constructed<S,P,identity,project>,owner:P) -> Constructed<S,P,identity,project> & D.Receipt<P>:
++  (declaration,validate(~S,~P,~identity,~project,declaration,owner))
++
++# Actual generic public admission callback retains every incoming affine owner.
++# The retained list is a transport context, never the live ECS Store.
++type Context<-S:Data,-P:Type,-identity:Canonical.Declaration<S,P>,-project:P -> P & D.Raw> is Type:
++  Context{declaration:Constructed<S,P,identity,project>,retained:List<P>}
++def decode(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>,~project:P -> P & D.Raw,context:Context<S,P,identity,project>,owner:P) -> Context<S,P,identity,project> & D.Receipt<P>:
++  match context:
++    case Context{+declaration,retained}:(Context{declaration,retained},validate(~S,~P,~identity,~project,declaration,owner))
++def admit(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>,~project:P -> P & D.Raw,context:Context<S,P,identity,project>,receipt:D.Receipt<P>) -> Context<S,P,identity,project> & D.Checked:
++  match context receipt:
++    case Context{declaration,retained} D.Receipt{owner,checked}:(Context{declaration,owner <> retained},checked)
++def request(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>,~project:P -> P & D.Raw,context:Context<S,P,identity,project>,owner:P) -> Context<S,P,identity,project> & D.Checked:
++  Public.request(~P,~Context<S,P,identity,project>,~D.Checked,~decode(~S,~P,~identity,~project),~admit(~S,~P,~identity,~project),context,owner)
+diff --git a/src/ecs/snapshot-data.bend b/src/ecs/snapshot-data.bend
+new file mode 100644
+--- /dev/null
++++ b/src/ecs/snapshot-data.bend
+@@ -0,0 +1,34 @@
++import Base
++import ./world.bend as W
++import ./decode-data.bend as D
++
++# Basic detached Data only; runtime checkpoint state is intentionally not encoded.
++type Entity is Data:
++  Entity{id:U32,components:List<&2,D.Field>}
++type Snapshot is Data:
++  Snapshot{version:U32,nextEntity:U32,entities:List<&2,Entity>,resources:List<&2,D.Field>}
++
++# Internal experimental accessor: exact actual allocator, no inferred live count.
++# Rebuild the SAME owner with every field returned unchanged.
++def allocator(~S:Data,~C:Type,~R:Type,~E:Data,world:W.World<S,C,R,E>) -> W.World<S,C,R,E> & U32:
++  match world:
++    case W.World{+namespace,+nextId,+highWater,live,+capacity,+depth,store,resource,+events,pending,+registrations,+nextSystemId,+clock}:
++      (W.World{namespace,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId,clock},nextId)
++
++# Closed schema providers must return the actual store/resource owners. Their
++# projections, transient omission and name bindings are trusted author inputs.
++# This is NOT the still-missing public constructed-descriptor validation gate.
++def finish(~S:Data,~C:Type,~R:Type,~E:Data,nextEntity:U32,entities:List<&2,Entity>,observed:W.World<S,C,R,E> & List<&2,D.Field>) -> W.World<S,C,R,E> & Snapshot:
++  match observed:
++    case (world,fields):(world,Snapshot{1,nextEntity,entities,fields})
++def with_entities(~S:Data,~C:Type,~R:Type,~E:Data,~resources:R -> R & List<&2,D.Field>,nextEntity:U32,observed:W.World<S,C,R,E> & List<&2,Entity>) -> W.World<S,C,R,E> & Snapshot:
++  match observed:
++    case (world,entities):finish(~S,~C,~R,~E,nextEntity,entities,W.observe_resource(~S,~C,~R,~E,~List<&2,D.Field>,~resources,world))
++def with_handles(~S:Data,~C:Type,~R:Type,~E:Data,~rows:List<&2,W.Handle<S>> -> C -> C & List<&2,Entity>,~resources:R -> R & List<&2,D.Field>,nextEntity:U32,observed:W.World<S,C,R,E> & List<&2,W.Handle<S>>) -> W.World<S,C,R,E> & Snapshot:
++  match observed:
++    case (world,handles):with_entities(~S,~C,~R,~E,~resources,nextEntity,W.with_store(~S,~C,~R,~E,~List<&2,Entity>,rows(handles),world))
++def with_allocator(~S:Data,~C:Type,~R:Type,~E:Data,~rows:List<&2,W.Handle<S>> -> C -> C & List<&2,Entity>,~resources:R -> R & List<&2,D.Field>,observed:W.World<S,C,R,E> & U32) -> W.World<S,C,R,E> & Snapshot:
++  match observed:
++    case (world,nextEntity):with_handles(~S,~C,~R,~E,~rows,~resources,nextEntity,W.handles(~S,~C,~R,~E,world))
++def basic(~S:Data,~C:Type,~R:Type,~E:Data,~rows:List<&2,W.Handle<S>> -> C -> C & List<&2,Entity>,~resources:R -> R & List<&2,D.Field>,world:W.World<S,C,R,E>) -> W.World<S,C,R,E> & Snapshot:
++  with_allocator(~S,~C,~R,~E,~rows,~resources,allocator(~S,~C,~R,~E,world))
+diff --git a/src/ecs/snapshot-gate.bend b/src/ecs/snapshot-gate.bend
+new file mode 100644
+--- /dev/null
++++ b/src/ecs/snapshot-gate.bend
+@@ -0,0 +1,25 @@
++import Base
++import ./ordinary-declaration.bend as C
++import ./decode-data.bend as D
++
++# Trusted schema-author witness, not an unforgeable public constructor.
++# Decoder describes untrusted DATA validation; no implicit Raw -> P inverse.
++type Gate<-S:Data,-P:Type,-declaration:C.Declaration<S,P>> is Type:
++  Transient{}
++  Persisted{codec:D.Codec,project:P -> P & D.Raw}
++type Field is Data:
++  Omitted{name:String}
++  Saved{name:String,value:D.Raw}
++def transient(~S:Data,~P:Type,~declaration:C.Declaration<S,P>) -> Gate<S,P,declaration>:
++  Transient{}
++def persisted(~S:Data,~P:Type,~declaration:C.Declaration<S,P>,codec:D.Codec,project:P -> P & D.Raw) -> Gate<S,P,declaration>:
++  Persisted{codec,project}
++def projected(~P:Type,name:String,observed:P & D.Raw) -> P & Field:
++  match observed:
++    case (owner,value):(owner,Saved{name,value})
++# Static eligibility mirrors TS Gate: export itself does not run its decoder.
++# Gate consumed here: retained multi-save capability is future integration.
++def export_owner(~S:Data,~P:Type,~declaration:C.Declaration<S,P>,gate:Gate<S,P,declaration>,owner:P) -> P & Field:
++  match gate:
++    case Transient{}:(owner,Omitted{C.key(~S,~P,declaration)})
++    case Persisted{_,project}:projected(~P,C.key(~S,~P,declaration),project(owner))
+diff --git a/src/ecs/snapshot-leaf.bend b/src/ecs/snapshot-leaf.bend
+new file mode 100644
+--- /dev/null
++++ b/src/ecs/snapshot-leaf.bend
+@@ -0,0 +1,46 @@
++import Base
++import ./persistence-declaration.bend as Decl
++import ./snapshot-gate.bend as Gate
++import ./decode-data.bend as D
++import ./column.bend as Col
++import ./ordinary-declaration.bend as Canonical
++
++# Ordinary leaf stores retain the recipe used for admission and export together.
++type Component<-S:Data,-P:Type,-identity:Canonical.Declaration<S,P>,-project:P -> P & D.Raw> is Type:
++  Component{column:Col.Column<S,P>,declaration:Decl.Constructed<S,P,identity,project>}
++type TransientComponent<-S:Data,-P:Type,-identity:Canonical.Declaration<S,P>> is Type:
++  TransientComponent{column:Col.Column<S,P>,declaration:Decl.Transient<S,P,identity>}
++type Resource<-S:Data,-P:Type,-identity:Canonical.Declaration<S,P>,-project:P -> P & D.Raw> is Type:
++  Resource{owner:P,declaration:Decl.Constructed<S,P,identity,project>}
++type TransientResource<-S:Data,-P:Type,-identity:Canonical.Declaration<S,P>> is Type:
++  TransientResource{owner:P,declaration:Decl.Transient<S,P,identity>}
++def factory(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>,~project:P -> P & D.Raw,declaration:Decl.Constructed<S,P,identity,project>) -> Gate.Gate<S,P,identity>:
++  Gate.persisted(~S,~P,~identity,Decl.codec(~S,~P,~identity,~project,declaration),project)
++def fields(field:Gate.Field) -> List<&2,D.Field>:
++  match field:
++    case Gate.Omitted{_}:[]
++    case Gate.Saved{name,value}:[D.Field{name,value}]
++def component_restored(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>,~project:P -> P & D.Raw,declaration:Decl.Constructed<S,P,identity,project>,observed:Col.Column<S,P> & Maybe<&2,Gate.Field>) -> Component<S,P,identity,project> & List<&2,D.Field>:
++  match observed:
++    case (column,None{}):(Component{column,declaration},[])
++    case (column,Some{field}):(Component{column,declaration},fields(field))
++def component_taken(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>,~project:P -> P & D.Raw,+id:U32,+declaration:Decl.Constructed<S,P,identity,project>,outcome:Col.SwapOutcome<S,P>) -> Component<S,P,identity,project> & List<&2,D.Field>:
++  match outcome:
++    case Col.Rejected{column,_}:(Component{column,declaration},[])
++    case Col.Accepted{column,None{}}:(Component{column,declaration},[])
++    case Col.Accepted{column,Some{owner}}:component_restored(~S,~P,~identity,~project,declaration,Col.viewed(~S,~P,~Gate.Field,Gate.export_owner(~S,~P,~identity,factory(~S,~P,~identity,~project,declaration),owner),column,id))
++def component_fields_owned(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>,~project:P -> P & D.Raw,+id:U32,value:Component<S,P,identity,project>) -> Component<S,P,identity,project> & List<&2,D.Field>:
++  match value:
++    case Component{column,declaration}:component_taken(~S,~P,~identity,~project,id,declaration,Col.swap(~S,~P,column,id,None{}))
++def component_fields(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>,~project:P -> P & D.Raw,id:U32,value:Component<S,P,identity,project>) -> Component<S,P,identity,project> & List<&2,D.Field>:
++  component_fields_owned(~S,~P,~identity,~project,id,value)
++def transient_component_fields(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>,id:U32,value:TransientComponent<S,P,identity>) -> TransientComponent<S,P,identity> & List<&2,D.Field>:
++  (value,[])
++def resource_restored(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>,~project:P -> P & D.Raw,declaration:Decl.Constructed<S,P,identity,project>,observed:P & Gate.Field) -> Resource<S,P,identity,project> & List<&2,D.Field>:
++  match observed:
++    case (owner,field):(Resource{owner,declaration},fields(field))
++def resource_fields(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>,~project:P -> P & D.Raw,value:Resource<S,P,identity,project>) -> Resource<S,P,identity,project> & List<&2,D.Field>:
++  match value:
++    case Resource{owner,+declaration}:resource_restored(~S,~P,~identity,~project,declaration,Gate.export_owner(~S,~P,~identity,factory(~S,~P,~identity,~project,declaration),owner))
++def transient_resource_fields(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>,value:TransientResource<S,P,identity>) -> TransientResource<S,P,identity> & List<&2,D.Field>:
++  (value,[])
+diff --git a/src/ecs/snapshot-product.bend b/src/ecs/snapshot-product.bend
+new file mode 100644
+--- /dev/null
++++ b/src/ecs/snapshot-product.bend
+@@ -0,0 +1,24 @@
++import Base
++import ./snapshot-schema.bend as Schema
++import ./decode-data.bend as D
++import ./owner-product.bend as Product
++import ./ordinary-schema.bend as Ordinary
++def joined_components(~LC:Type,~RC:Type,left:LC,fields:List<&2,D.Field>,observed:RC & List<&2,D.Field>) -> Product.Owner<LC,RC> & List<&2,D.Field>:
++  match observed:
++    case (right,more):(Product.Owner{left,right},List.append(&2,D.Field,fields,more))
++def right_components(~LC:Type,~RC:Type,~right:U32 -> RC -> RC & List<&2,D.Field>,id:U32,owner:RC,observed:LC & List<&2,D.Field>) -> Product.Owner<LC,RC> & List<&2,D.Field>:
++  match observed:
++    case (left,fields):joined_components(~LC,~RC,left,fields,right(id,owner))
++def product_components_owned(~LC:Type,~RC:Type,~left:U32 -> LC -> LC & List<&2,D.Field>,~right:U32 -> RC -> RC & List<&2,D.Field>,+id:U32,owner:Product.Owner<LC,RC>) -> Product.Owner<LC,RC> & List<&2,D.Field>:
++  match owner:
++    case Product.Owner{a,b}:right_components(~LC,~RC,~right,id,b,left(id,a))
++def product_components(~LC:Type,~RC:Type,~left:U32 -> LC -> LC & List<&2,D.Field>,~right:U32 -> RC -> RC & List<&2,D.Field>,id:U32,owner:Product.Owner<LC,RC>) -> Product.Owner<LC,RC> & List<&2,D.Field>:
++  product_components_owned(~LC,~RC,~left,~right,id,owner)
++def right_resources(~LR:Type,~RR:Type,~right:RR -> RR & List<&2,D.Field>,owner:RR,observed:LR & List<&2,D.Field>) -> Product.Owner<LR,RR> & List<&2,D.Field>:
++  match observed:
++    case (left,fields):joined_components(~LR,~RR,left,fields,right(owner))
++def product_resources(~LR:Type,~RR:Type,~left:LR -> LR & List<&2,D.Field>,~right:RR -> RR & List<&2,D.Field>,owner:Product.Owner<LR,RR>) -> Product.Owner<LR,RR> & List<&2,D.Field>:
++  match owner:
++    case Product.Owner{a,b}:right_resources(~LR,~RR,~right,b,left(a))
++def product(~S:Data,~LC:Type,~LR:Type,~RC:Type,~RR:Type,~leftEligible:Bool,~rightEligible:Bool,~leftComponents:U32 -> LC -> LC & List<&2,D.Field>,~leftResources:LR -> LR & List<&2,D.Field>,~rightComponents:U32 -> RC -> RC & List<&2,D.Field>,~rightResources:RR -> RR & List<&2,D.Field>,left:Schema.Schema<S,LC,LR,leftEligible,leftComponents,leftResources>,right:Schema.Schema<S,RC,RR,rightEligible,rightComponents,rightResources>) -> Schema.Schema<S,Product.Owner<LC,RC>,Product.Owner<LR,RR>,Bool.and(leftEligible,rightEligible),product_components(~LC,~RC,~leftComponents,~rightComponents),product_resources(~LR,~RR,~leftResources,~rightResources)>:
++  Schema.Schema{Ordinary.product(~S,~LC,~LR,~RC,~RR,Schema.inventory(~S,~LC,~LR,~leftEligible,~leftComponents,~leftResources,left),Schema.inventory(~S,~RC,~RR,~rightEligible,~rightComponents,~rightResources,right))}
+diff --git a/src/ecs/snapshot-schema.bend b/src/ecs/snapshot-schema.bend
+new file mode 100644
+--- /dev/null
++++ b/src/ecs/snapshot-schema.bend
+@@ -0,0 +1,40 @@
++import Base
++import ./snapshot-leaf.bend as Leaf
++import ./persistence-declaration.bend as Decl
++import ./decode-data.bend as D
++import ./schema-fragments.bend as Fragment
++import ./column.bend as Col
++import ./ordinary-declaration.bend as Canonical
++import ./owner-product.bend as Product
++import ./ordinary-schema.bend as Ordinary
++
++# The same schema factory derives ordinary inventory, physical product and save
++# eligibility/closed traversal. Runtime recipes live in the leaf owners.
++type Schema<-S:Data,-C:Type,-R:Type,-eligible:Bool,-components:U32 -> C -> C & List<&2,D.Field>,-resources:R -> R & List<&2,D.Field>> is Data:
++  Schema{ordinary:Ordinary.Schema<S,C,R>}
++def unit_component(id:U32,value:Unit) -> Unit & List<&2,D.Field>:
++  (value,[])
++def unit_resource(value:Unit) -> Unit & List<&2,D.Field>:
++  (value,[])
++def plain_component_fields(~S:Data,~P:Type,id:U32,value:Col.Column<S,P>) -> Col.Column<S,P> & List<&2,D.Field>:
++  (value,[])
++def entry(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>,kind:Fragment.RegistryKind) -> Fragment.Entry<S>:
++  +key=Canonical.key(~S,~P,identity)
++  Fragment.Entry{kind,key,key}
++def component(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>,~project:P -> P & D.Raw) -> Schema<S,Leaf.Component<S,P,identity,project>,Unit,True{},Leaf.component_fields(~S,~P,~identity,~project),unit_resource>:
++  Schema{Ordinary.Schema{[entry(~S,~P,~identity,Fragment.Component{})]}}
++def transient_component(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>) -> Schema<S,Leaf.TransientComponent<S,P,identity>,Unit,True{},Leaf.transient_component_fields(~S,~P,~identity),unit_resource>:
++  Schema{Ordinary.Schema{[entry(~S,~P,~identity,Fragment.Component{})]}}
++def plain_component(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>) -> Schema<S,Col.Column<S,P>,Unit,False{},plain_component_fields(~S,~P),unit_resource>:
++  Schema{Ordinary.Schema{[entry(~S,~P,~identity,Fragment.Component{})]}}
++def resource(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>,~project:P -> P & D.Raw) -> Schema<S,Unit,Leaf.Resource<S,P,identity,project>,True{},unit_component,Leaf.resource_fields(~S,~P,~identity,~project)>:
++  Schema{Ordinary.Schema{[entry(~S,~P,~identity,Fragment.Resource{})]}}
++def transient_resource(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>) -> Schema<S,Unit,Leaf.TransientResource<S,P,identity>,True{},unit_component,Leaf.transient_resource_fields(~S,~P,~identity)>:
++  Schema{Ordinary.Schema{[entry(~S,~P,~identity,Fragment.Resource{})]}}
++def plain_resource_fields(~P:Type,value:P) -> P & List<&2,D.Field>:
++  (value,[])
++def plain_resource(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>) -> Schema<S,Unit,P,False{},unit_component,plain_resource_fields(~P)>:
++  Schema{Ordinary.Schema{[entry(~S,~P,~identity,Fragment.Resource{})]}}
++def inventory(~S:Data,~C:Type,~R:Type,~eligible:Bool,~components:U32 -> C -> C & List<&2,D.Field>,~resources:R -> R & List<&2,D.Field>,schema:Schema<S,C,R,eligible,components,resources>) -> Ordinary.Schema<S,C,R>:
++  match schema:
++    case Schema{ordinary}:ordinary
+diff --git a/src/ecs/snapshot.bend b/src/ecs/snapshot.bend
+new file mode 100644
+--- /dev/null
++++ b/src/ecs/snapshot.bend
+@@ -0,0 +1,20 @@
++import Base
++import ./snapshot-schema.bend as Schema
++import ./snapshot-data.bend as Export
++import ./decode-data.bend as D
++import ./world.bend as W
++
++def prepend(~C:Type,entity:Export.Entity,observed:C & List<&2,Export.Entity>) -> C & List<&2,Export.Entity>:
++  match observed:
++    case (owner,entities):(owner,entity <> entities)
++def stepped(~C:Type,next:C -> C & List<&2,Export.Entity>,id:U32,observed:C & List<&2,D.Field>) -> C & List<&2,Export.Entity>:
++  match observed:
++    case (owner,fields):prepend(~C,Export.Entity{id,fields},next(owner))
++def rows(~S:Data,~C:Type,~components:U32 -> C -> C & List<&2,D.Field>,handles:List<&2,W.Handle<S>>,owner:C) -> C & List<&2,Export.Entity>:
++  match handles:
++    case []:(owner,[])
++    case W.Handle{_,+id} <> rest:stepped(~C,next => rows(~S,~C,~components,rest,next),id,components(id,owner))
++# Public call requires the SAME complete ordinary schema to be save-eligible.
++# Plain leaves propagate False through product and cannot call this method.
++def save(~S:Data,~C:Type,~R:Type,~E:Data,~components:U32 -> C -> C & List<&2,D.Field>,~resources:R -> R & List<&2,D.Field>,schema:Schema.Schema<S,C,R,True{},components,resources>,world:W.World<S,C,R,E>) -> W.World<S,C,R,E> & Export.Snapshot:
++  Export.basic(~S,~C,~R,~E,~rows(~S,~C,~components),~resources,world)

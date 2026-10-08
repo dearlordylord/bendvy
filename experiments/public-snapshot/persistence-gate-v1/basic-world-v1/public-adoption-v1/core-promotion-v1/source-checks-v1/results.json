@@ -1,0 +1,54 @@
+{
+  "scope": "development source check only; no frozen runtime or proof",
+  "command": [
+    "flock",
+    "/tmp/bendvy-parity-heavy.lock",
+    "env",
+    "BEND_NO_TELEMETRY=1",
+    "scripts/bend-check",
+    "ENTRYPOINT"
+  ],
+  "results": [
+    {
+      "entrypoint": "application/consumer-io.bend",
+      "sha256": "43fd3d6ee16ed59e395f0aa77c065e72dc2d246bb566706899e58ecbaca62b82",
+      "exit": 0
+    },
+    {
+      "entrypoint": "application/family-consumer.bend",
+      "sha256": "6c5d66ce51aee30d90ff3304a15e2db18f624328235177af3ba2938bddc5c60e",
+      "exit": 0
+    },
+    {
+      "entrypoint": "application/negative-plain.bend",
+      "sha256": "dc557cd1f8dd2774335b8021fd2fe58b7915ebf31381ea00a58dd7e66b3951b3",
+      "exit": 1
+    },
+    {
+      "entrypoint": "application/negative-plain-resource.bend",
+      "sha256": "c9c33bdf130d8c351e11ec188ee1e5b10441d5d960c5601dff6970a3aafd9a3a",
+      "exit": 1
+    },
+    {
+      "entrypoint": "application/negative-cross-schema.bend",
+      "sha256": "a8fa0112f1ea30c5fe835be5c3a0325d1adbaa4c5a159cf0ef3f6d0c6e346b40",
+      "exit": 1
+    },
+    {
+      "entrypoint": "application/negative-owner-duplication.bend",
+      "sha256": "10703844100be0c1edbcc027658593f6ae47c1aad7fe0fcf197d71c7e8ae3af8",
+      "exit": 1
+    },
+    {
+      "entrypoint": "application/negative-read-as-write.bend",
+      "sha256": "ccc2a76dfd2156d69ce764c82cfc995d8190b5cf84088f7d0e26ccfd1da741ac",
+      "exit": 1
+    },
+    {
+      "entrypoint": "application/undeclared-descriptor.bend",
+      "sha256": "5676d9976513bd09fd322cabbb693a2f5a8863e0815701061f9a5e4a5fbfd7be",
+      "exit": 0,
+      "scope": "source authoring only; actual rejection outcome not executed"
+    }
+  ]
+}

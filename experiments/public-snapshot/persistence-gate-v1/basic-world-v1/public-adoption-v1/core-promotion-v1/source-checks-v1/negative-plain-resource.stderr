@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- expected : Schema.Schema<F.Workshop, Unit, F.Payload, True{}, Schema.unit_component, Schema.plain_resource_fields(F.Payload)>
+- observed : Schema.Schema<F.Workshop, Unit, F.Payload, False{}, Schema.unit_component, Schema.plain_resource_fields(F.Payload)>
+Context:
+- world : W.World<F.Workshop, Unit, F.Payload, Unit>
+Location: wrong
+ 8 | def wrong(world:W.World<F.Workshop,Unit,F.Payload,Unit>) -> W.World<F.Workshop,Unit,F.Payload,Unit> & Export.Snapshot:
+ 9>|   Save.save(~F.Workshop,~Unit,~F.Payload,~Unit,~Schema.unit_component,~Schema.plain_resource_fields(~F.Payload),Schema.plain_resource(~F.Workshop,~F.Payload,~F.declaration(~F.Workshop)),world)
+   |                                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+10 | def main() -> U32:

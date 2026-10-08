@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- expected : Schema.Schema<F.Workshop, Col.Column<F.Workshop, F.Payload>, Unit, True{}, Schema.plain_component_fields(F.Workshop, F.Payload), Schema.unit_resource>
+- observed : Schema.Schema<F.Workshop, Col.Column<F.Workshop, F.Payload>, Unit, False{}, Schema.plain_component_fields(F.Workshop, F.Payload), Schema.unit_resource>
+Context:
+- world : W.World<F.Workshop, Col.Column<F.Workshop, F.Payload>, Unit, Unit>
+Location: refused
+ 9 | def refused(world:W.World<F.Workshop,Col.Column<F.Workshop,F.Payload>,Unit,Unit>) -> W.World<F.Workshop,Col.Column<F.Workshop,F.Payload>,Unit,Unit> & Export.Snapshot:
+10>|   Save.save(~F.Workshop,~Col.Column<F.Workshop,F.Payload>,~Unit,~Unit,~Schema.plain_component_fields(~F.Workshop,~F.Payload),~Schema.unit_resource,Schema.plain_component(~F.Workshop,~F.Payload,~F.declaration(~F.Workshop)),world)
+   |                                                                                                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+11 | def main() -> U32:

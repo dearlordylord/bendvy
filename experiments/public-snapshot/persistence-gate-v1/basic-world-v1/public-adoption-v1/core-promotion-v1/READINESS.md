@@ -1,0 +1,16 @@
+# Core promotion candidate — draft for integration review
+
+The manifest proposes 16 library modules under `src/ecs`; the patch is unapplied. `git apply --check` against the root checkout passes. The root integrator owns shared code and final admission. Application fixtures, renderer, independent oracles and observations remain experiments.
+
+One ordinary declaration supplies nominal identity, runtime codec, persistence eligibility, schema inventory and the existing component Family bridge. `declared-family.family` transports the retained declaration in Family.Rest through the existing Core column get/replace operations. It neither creates another registry nor duplicates affine runtime functions. Existing schema-fragments and capabilities retain their admission and access contracts; trusted caller-authored lenses remain trusted.
+
+`decode.decode_owner` is the complete structural-budget endpoint. `decode-data` retains internal bounded helpers and their existing receipt/error types; bounded helper calls must not be advertised as complete validation. Arbitrary Type payload owners stay affine; there is no automatic Raw-to-arbitrary-payload inverse. Caller admission, duplicate validation and save-does-not-decode policy remain unchanged.
+
+Executable application routes:
+
+- `application/consumer-io.bend`: complete migrated snapshot/ordinary-admission consumer. Historical runtime evidence belongs to earlier module identities and does not qualify these new paths.
+- `application/family-consumer.bend`: two nominal schemas, each with two actual worlds. Observe complete World owners, retained recipes, physical component arrays/stamps and inventory before/after actual Core Family get/replace; include Found, ComponentAbsent and foreign-world MissingEntity. The previous payload returned by replacement is observed before disposal.
+
+Current source-only checks are retained in `source-checks-v1`: both complete entrypoints pass; Plain component/resource save eligibility, cross-schema World and double affine-owner controls fail at their intended type/quantity boundary. A Read capability passed to Cap.set also fails with expected Write / observed Read. No parser failures or timeouts are credited. These are authoring checks, not mathematical proofs, delivery qualification or performance results.
+
+Before promotion: independent complete Family oracle and reached bridge-control review; the derived-descriptor route in application/undeclared-descriptor.bend is source-checked, but its expected existing bind_declared refusal has not executed. After root applies the patch, migrate all nominal module imports coherently and run the admitted full application checks and unchanged regression/performance gates. No backend has run for this candidate. Full #58/#46 acceptance remains open, including generic constructor/admission integration owned by #46/#41 and broader checkpoint scope governed by #38.

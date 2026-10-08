@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : world
+- observed : world (consumed more than once)
+Location: wrong
+12 |   Unit{}
+13>| def wrong(world:W.World<F.Workshop,Leaf.Component<F.Workshop,F.Payload,F.declaration(~F.Workshop),F.project>,Unit,Unit>) -> Unit:
+   |           ^^^^^
+14 |   ignored(workshop(world),workshop(world))
