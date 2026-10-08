@@ -1,0 +1,7 @@
+# #41 actual relocated production Native
+
+All six admitted subjects passed for exact68 relocated files/root26: complete22/full20 physical rows equal unchanged independent oracles and actual production JS; full20 joins all20 pinned actual TS public checkpoints. Planbcfa0c8d0816e0a7b7776d576fad69becdd9f2ffc2044f92536e1fe8f23d5d89; receipt0fdb021845d9256679b72db6a4e169fcc5b20225d597189fc287caaf06108dbc. Emit30/approved privateClang19 compile120/Native5 twice;13 ordinary guards39 execution probes/3 fresh preparation probes; one thread/GPUoff. Previous canonical Native evidence is not transferred.
+
+Complete staged source membership/foreign sidecars, root26 draft bytes, ancestor configurations/environment/tool/resource/library/loader/helper/raw/generated/oracle/comparator/source-control/actual-JS archive bindings passed before/after subjects under shared lock. No system compiler replacement or new dependency. Archive includes full raw results/generatedC/plans/receipt/joins/helper bytes. Both local binaries and private environment are excluded; exact binary hashes/actual run evidence remain. Source DELIVERY stays immutable with separate finite manifest.
+
+The source-current two-installer reached mutant remains mandatory, followed by root's combined #28 and fair full-feature timing/scaling/call/allocation profiles. No new law, policy, workload or acceptance gate changed. No theorem, comparative performance, fresh-checkout binary replay, full #41/parity or production adoption claim.
