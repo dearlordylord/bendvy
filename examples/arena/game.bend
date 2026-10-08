@@ -105,8 +105,8 @@ def nearest(rows: List<&2,Body>,+px: F32,+py: F32,+wanted: U32,+visited: List<&2
     case Body{+x,+y,1,+seed,_,_,_,_,_} <> rest:
       nearest(rest,px,py,wanted,visited,candidate(Bool.and(Bool.not(contains(visited,seed)),F32.is_lt(prefer(U32.is_eq(seed,wanted),distance2(x,y,px,py)),best_distance(target))),seed,x,y,prefer(U32.is_eq(seed,wanted),distance2(x,y,px,py)),target))
     case _ <> rest: nearest(rest,px,py,wanted,visited,target)
-# 100 enemies => seven bounces, plus the initial impact. Zero enemies => zero.
-def bounce_budget(count: U32) -> U32: F32.to_u32(F32.ceil(F32.log2(U32.to_f32(U32.max(1,count)))))
+# 100 enemies => 21 bounces, plus the initial impact. Zero enemies => zero.
+def bounce_budget(count: U32) -> U32: (3 * F32.to_u32(F32.ceil(F32.log2(U32.to_f32(U32.max(1,count))))) : U32)
 def shot_rate(count: U32) -> F32: (10.0 + U32.to_f32(count) * 0.25 : F32)
 def lose_health(+hp: U32,damage: U32) -> U32: U32.sub(hp,U32.min(hp,damage))
 def cooled(cooldown: U32) -> U32:
@@ -237,7 +237,7 @@ def packet(state: State) -> Packet:
       Packet{State{world,px,py,hp,score,kills,tick,cooldown,charge,pulseClock,chainClock,nextEnemy,nextProjectile,count,projectiles,bodies},"{\"hp\":" ++ U32.show(hp) ++ ",\"score\":" ++ U32.show(score) ++ ",\"kills\":" ++ U32.show(kills) ++ ",\"enemies\":" ++ U32.show(count) ++ ",\"projectiles\":" ++ U32.show(projectiles) ++ ",\"tick\":" ++ U32.show(tick) ++ ",\"cooldown\":" ++ U32.show(cooldown) ++ ",\"shotRate\":" ++ F32.show(shot_rate(count)) ++ ",\"bounces\":" ++ U32.show(bounce_budget(count)) ++ ",\"bodies\":[" ++ rows_json(bodies) ++ "]}"}
 def started(result: Boot) -> Packet:
   match result:
-    case Boot{world,+bodies}: packet(State{W.barrier(~Schema,~Store,~Unit,~Unit,world),400.0,250.0,5,0,0,0,0,0.0,180,360,513,1000000,512,0,bodies})
+    case Boot{world,+bodies}: packet(State{W.barrier(~Schema,~Store,~Unit,~Unit,world),400.0,250.0,5,0,0,0,0,0.0,180,60,513,1000000,512,0,bodies})
     case BootRefused{}: Failed{"World creation refused"}
 def start() -> Packet: started(setup(W.create(~Schema,~Store,~Unit,~Unit,~empty,W.factory(),Unit{})))
 def damage(active: Bool,+hp: U32,+cooldown: U32) -> U32 & U32:
@@ -272,7 +272,7 @@ def emit_chain(fired: Bool,emission: Emission,+px: F32,+py: F32,+count: U32) -> 
 def emitted(+px: F32,+py: F32,+hp: U32,+score: U32,+kills: U32,+tick: U32,+cooldown: U32,+charge: F32,+pulseClock: U32,+chainClock: U32,+nextEnemy: U32,emission: Emission) -> Packet:
   match emission:
     case Emission{world,+bodies,+nextProjectile}:
-      executed(px,py,hp,score,kills,tick,cooled(cooldown),charge,reset_clock(U32.is_le(pulseClock,1),180,pulseClock),reset_clock(U32.is_le(chainClock,1),360,chainClock),nextEnemy,nextProjectile,execute(W.barrier(~Schema,~Store,~Unit,~Unit,world),Args{px,py,hp,tick,U32.is_le(pulseClock,1),impacts(bodies,bodies,[])}))
+      executed(px,py,hp,score,kills,tick,cooled(cooldown),charge,reset_clock(U32.is_le(pulseClock,1),180,pulseClock),reset_clock(U32.is_le(chainClock,1),60,chainClock),nextEnemy,nextProjectile,execute(W.barrier(~Schema,~Store,~Unit,~Unit,world),Args{px,py,hp,tick,U32.is_le(pulseClock,1),impacts(bodies,bodies,[])}))
 def armed(world: World(),+px: F32,+py: F32,+hp: U32,+score: U32,+kills: U32,+tick: U32,+cooldown: U32,+charge: F32,+pulseClock: U32,+chainClock: U32,+nextEnemy: U32,+nextProjectile: U32,+count: U32,+bodies: List<&2,Body>) -> Packet:
   emitted(px,py,hp,score,kills,tick,cooldown,(charge + shot_rate(count) / 60.0 - U32.to_f32(F32.to_u32((charge + shot_rate(count) / 60.0 : F32))) : F32),pulseClock,chainClock,nextEnemy,emit_chain(Bool.and(U32.is_le(chainClock,1),U32.is_lt(0,count)),emit_pulse(U32.is_le(pulseClock,1),emit_bolts(U32.to_nat(F32.to_u32((charge + shot_rate(count) / 60.0 : F32))),world,bodies,nextProjectile,px,py,target_seed(nearest(bodies,px,py,0,[],ArenaNoAim{}))),px,py),px,py,count))
 def spawn_reinforcement(shouldSpawn: Bool,world: World(),+px: F32,+py: F32,+hp: U32,+score: U32,+kills: U32,+tick: U32,+cooldown: U32,+charge: F32,+pulseClock: U32,+chainClock: U32,+nextEnemy: U32,+nextProjectile: U32,+count: U32,+bodies: List<&2,Body>) -> Packet:

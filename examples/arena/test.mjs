@@ -9,9 +9,9 @@ const player=frame=>frame.bodies.find(body=>body[2]===0);
 const enemy=(frame,id)=>frame.bodies.find(body=>body[2]===1&&body[5]===id);
 const ofKind=(frame,kind)=>frame.bodies.filter(body=>body[2]===kind);
 // Scaling uses real logarithms and preserves speed assigned at birth.
-assert.equal(Game.bounce_budget(100),7);
+assert.equal(Game.bounce_budget(100),21);
 assert.equal(Game.bounce_budget(1),0);
-assert.equal(Game.bounce_budget(512),9);
+assert.equal(Game.bounce_budget(512),27);
 assert.ok(Game.spawn_speed(100)>Game.spawn_speed(512));
 assert.ok(Game.spawn_speed(512)>Game.spawn_speed(1024));
 assert.ok(Game.spawn_speed(1024)>0);
@@ -43,17 +43,19 @@ assert.equal(enemy(frame,1)[3],2);
 assert.equal(enemy(frame,2)[3],4);
 assert.equal(ofKind(frame,5).length,1);
 assert.equal(packet.state.pulseClock,180);
-assert.equal(packet.state.chainClock,359);
-// Three-enemy chain: initial impact plus two distinct bounces, never revisit.
+assert.equal(packet.state.chainClock,59);
+// Three-enemy chain: stops after exhausting unique targets, never revisits.
 packet=Fixture.chain();
 for(let i=1;i<=3;i++) {
   packet=Fixture.advance(packet);frame=JSON.parse(packet.frame);
   assert.equal(enemy(frame,i)[3],3);
   const chain=ofKind(frame,4)[0];
-  if(i<3) assert.equal(chain[8],i,'each impact adds one unique visited enemy');
-  else assert.equal(ofKind(frame,4).length,0);
+  assert.equal(chain[8],i,'each impact adds one unique visited enemy');
 }
-assert.equal(packet.state.chainClock,358); // firing reset to 360, then two ticks
+assert.equal(packet.state.chainClock,58); // firing reset to 60, then two ticks
+packet=Fixture.advance(packet);frame=JSON.parse(packet.frame);
+assert.equal(ofKind(frame,4).length,0,'no unvisited targets remain');
+for(let i=1;i<=3;i++) assert.equal(enemy(frame,i)[3],3,'no enemy receives a second chain hit');
 assert.equal(Fixture.live_count(packet),4,'expired chain leaves no live phantom projectile');
 // Explicit no-revisit boundary: even a preferred/closest old target is excluded.
 const list=values=>values.reduceRight((tail,head)=>({$: 'Con',head,tail}),{$:'Nil'});

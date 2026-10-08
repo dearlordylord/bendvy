@@ -17,9 +17,9 @@ def prepared(packet: G.Packet,+rows: List<&2,G.Body>) -> G.Packet:
     case G.Failed{error}: G.Failed{error}
 def scenario(+rows: List<&2,G.Body>,count: U32,charge: F32,pulseClock: U32,chainClock: U32) -> G.Packet:
   prepared(begin(rows,count,charge,pulseClock,chainClock,W.create(~G.Schema,~G.Store,~Unit,~Unit,~G.empty,W.factory(),Unit{})),rows)
-def regular() -> G.Packet: scenario([G.Body{405.0,250.0,1,1,4,0.0,0,[],0},G.Body{420.0,250.0,1,2,4,0.0,0,[],0}],2,0.9,180,360)
-def lethal() -> G.Packet: scenario([G.Body{405.0,250.0,1,1,1,0.0,0,[],0},G.Body{420.0,250.0,1,2,4,0.0,0,[],0}],2,0.9,180,360)
-def aoe() -> G.Packet: scenario([G.Body{480.0,250.0,1,1,4,0.0,0,[],0},G.Body{491.0,250.0,1,2,4,0.0,0,[],0}],2,0.0,1,360)
+def regular() -> G.Packet: scenario([G.Body{405.0,250.0,1,1,4,0.0,0,[],0},G.Body{420.0,250.0,1,2,4,0.0,0,[],0}],2,0.9,180,60)
+def lethal() -> G.Packet: scenario([G.Body{405.0,250.0,1,1,1,0.0,0,[],0},G.Body{420.0,250.0,1,2,4,0.0,0,[],0}],2,0.9,180,60)
+def aoe() -> G.Packet: scenario([G.Body{480.0,250.0,1,1,4,0.0,0,[],0},G.Body{491.0,250.0,1,2,4,0.0,0,[],0}],2,0.0,1,60)
 def chain() -> G.Packet: scenario([G.Body{405.0,250.0,1,1,4,0.0,0,[],0},G.Body{412.0,250.0,1,2,4,0.0,0,[],0},G.Body{420.0,250.0,1,3,4,0.0,0,[],0}],3,0.0,180,1)
 def advance(packet: G.Packet) -> G.Packet:
   match packet:

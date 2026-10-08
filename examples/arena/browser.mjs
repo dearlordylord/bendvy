@@ -72,7 +72,7 @@ function render() {
   }
   ctx.globalAlpha = 1;
   status.textContent = `Enemies ${frame.enemies} · Projectiles ${frame.projectiles} · Health ${frame.hp}/5 · Kills ${frame.kills} · Gold ${frame.score} · ${(frame.tick/60).toFixed(1)}s${paused ? ' · Paused' : ''}`;
-  weapons.textContent = `Bolts ${frame.shotRate.toFixed(0)}/s · ¼ damage | AoE every 3s · ½ damage | Chain every 6s · ${frame.bounces} bounces`;
+  weapons.textContent = `Bolts ${frame.shotRate.toFixed(0)}/s · ¼ damage | AoE every 3s · ½ damage | Chain every 1s · ${frame.bounces} bounces`;
   if (!frame.hp || paused) {
     ctx.fillStyle = '#10151ccc'; ctx.fillRect(0, 0, 800, 500);
     ctx.textAlign = 'center'; ctx.fillStyle = '#eef4ff'; ctx.font = 'bold 32px system-ui';

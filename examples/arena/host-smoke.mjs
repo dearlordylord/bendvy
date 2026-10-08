@@ -21,7 +21,7 @@ assert.equal(error.hidden,true);
 assert.ok(status.textContent.includes('Health 5/5'));
 assert.equal(ctx.circles.length,513); // 512 actual enemies and one player
 assert.equal(ctx.bars.filter(bar=>bar.color==='#4ade80').length,512);
-assert.ok(weapons.textContent.includes('Chain every 6s'));
+assert.ok(weapons.textContent.includes('Chain every 1s'));
 function player(){return ctx.circles.find(circle=>circle.r===5);}
 function key(code,type='keydown'){events.get(type)({code,repeat:false,preventDefault(){}});}
 let now=0;

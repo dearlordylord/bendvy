@@ -1,5 +1,7 @@
 # ECS swarm example
 
+![Bendvy ECS swarm gameplay](arena.gif)
+
 A playable browser ECS example with 512 starting enemies, reinforcements, and
 actual projectile entities. The HUD counts live enemies and projectiles.
 WASD/arrows move, Space pauses, and R restarts. Keyboard required.
@@ -21,8 +23,8 @@ Three weapons fire automatically:
   several real projectile spawns per simulation tick.
 - AoE fires every three seconds, damages enemies within 90 pixels for ½ maximum
   health once, and leaves an expanding pulse entity. Its rate does not scale.
-- Chain fires every six seconds, dealing ¼ maximum health per impact. It gets
-  `ceil(log₂(enemyCount))` bounces after the initial hit: seven at 100 enemies.
+- Chain fires every second, dealing ¼ maximum health per impact. It gets
+  `3 × ceil(log₂(enemyCount))` bounces after the initial hit: 21 at 100 enemies.
   Each chain carries its own visited-enemy list and never hits an enemy twice.
 
 Enemies have four health units. Bars are green at full health, yellow at
