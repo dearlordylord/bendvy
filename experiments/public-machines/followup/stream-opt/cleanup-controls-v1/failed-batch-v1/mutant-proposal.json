@@ -1,0 +1,15 @@
+{
+  "scope": "Source-only one reached acceptedcleanup batch-erasure defect, no execution/newpolicy",
+  "baseSourceSHA256": "56f7d910d78bb63fb8b449a48f8923139157feebeb49d07d0a510ae97eff018c",
+  "mutantSHA256": "c2d037ed25882bc4401747949cb76e6971d41a091d93f078a9db346f3333b208",
+  "oldBody": "F.checkpoint(~S,\"first-owned-cleanup\",ar,A.FrameResult{ao,aw,\"cleaned\"})",
+  "newBody": "F.checkpoint(~S,\"first-owned-cleanup\",ar,A.FrameResult{ao,erased_unread_batches(~S,aw),\"cleaned\"})",
+  "helper": "# Intentional fixture-only mutant; no Type clone or public stream policy.\ndef erased_unread_batches(~S: Data,world: W.World<S,P.Store<S>,P.Resources<S>,Unit>) -> W.World<S,P.Store<S>,P.Resources<S>,Unit>:\n  match world:\n    case W.World{ns,next,high,live,capacity,depth,store,P.Resources{owned,flow,level,St.Stream{_,fp,fd,fb},St.Stream{_,lp,ld,lb},frame,tick,trace},events,commands,regs,nextSystem,clock}:\n      W.World{ns,next,high,live,capacity,depth,store,P.Resources{owned,flow,level,St.Stream{[],fp,fd,fb},St.Stream{[],lp,ld,lb},frame,tick,trace},events,commands,regs,nextSystem,clock}\n",
+  "additionalImport": "import ../../../../stream.bend as St",
+  "independentOracleSHA256": "22b1ec5d9bf20650e65b0ae41d71f2795e2532f92ef97ea9948e0afefee33bef",
+  "unchanged": "All32world16instance fields except3Aflowbatch views andsurvivorDelivery; allaffinecomponent/resource/world/registration/readerowners kept",
+  "witnesses": [
+    "Bothschemaacceptedfirstcleanup wronglyerases unreadBootPlay",
+    "Bothschemareal sameworldsurvivor6 receivesemptyflow insteadBootPlay"
+  ]
+}
