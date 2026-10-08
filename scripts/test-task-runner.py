@@ -273,11 +273,19 @@ class Evidence(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             logger = logs.CommandLogs(directory, ['timeout', 'next'])
             runner = Runner(logger, inputs=Inputs())
-            with self.assertRaises(TimeoutError):
-                runner.run('timeout', command('import os,time; os.write(1,b"partial"); time.sleep(60)'), .15)
-            self.assertEqual((Path(directory)/'timeout.stdout').read_bytes(), b'partial')
-            (Path(directory)/'timeout.stdout').write_bytes(b'fake')
-            with self.assertRaises(AssertionError): runner.run('next', command('pass'), 3)
+            # Logging/refusal is independent of child startup speed; Execution
+            # controls separately exercise real deadlines and partial capture.
+            result = {'exit': None, 'failure': 'child deadline',
+                      'stdout': b'partial', 'stderr': b'', 'capture': 'split',
+                      'runnerSHA256': task_runner.IMPLEMENTATION_SHA256}
+            with mock.patch.object(task_runner, 'execute_result', return_value=result) as execute_mock:
+                with self.assertRaises(TimeoutError) as caught:
+                    runner.run('timeout', command('pass'), .15)
+                self.assertIs(caught.exception.result, result)
+                self.assertEqual((Path(directory)/'timeout.stdout').read_bytes(), b'partial')
+                (Path(directory)/'timeout.stdout').write_bytes(b'fake')
+                with self.assertRaises(AssertionError): runner.run('next', command('pass'), 3)
+                execute_mock.assert_called_once_with(command('pass'), .15, None, None, 'split')
 
 
 if __name__ == '__main__':
