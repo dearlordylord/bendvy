@@ -58,12 +58,24 @@ checks; child or guard failure records INCOMPLETE and propagates the failure.
 Set the cohort success status inside this boundary only after complete oracle
 validation. Register raw outputs with the planned log owner; keep derived
 outputs outside that log namespace. Freeze this helper as a command input.
+Reference adapters print the complete observed DTO and required raw diagnostics
+before asserting equality, so a failed comparison retains the actual result.
 The commit hook injects child, guard, write and cancellation failures into these
 boundaries. Previously frozen wrappers retain their reviewed bytes.
 
 Start from the guard composition in the [constructor runner](../experiments/public-bundles/production-candidate/transactions/invalid-constructor-v1/run.py), adapting the consumer and command plan. Before requesting execution review, prepare the concrete wrapper, source/helper inventories, ordinary installed-tool snapshot, environment binding, ancestor configuration presence states, generated-output guards and full oracle. Completion means the reviewer can trace every planned command through central `Runner` and the same before/after guards. A list of planned commands is preparation evidence only.
 
 Use `owned-tool-pins.py` snapshot/verify for the ordinary path. Historical binary hashes alone do not establish current resource membership, resolver or configuration state. Preserve the original failed or unadmitted plan when preparing its replacement. Reuse retained positive evidence when sources and its scope still match; concentrate new commands on changed behavior and missing controls.
+
+## Portable evidence verification
+
+Portable capsule verifiers check each source, JS and Native cohort against its
+literal admitted plan: exact terminal status, command count and labels, raw log
+membership and receipt digests, and archived probe membership (JSON, stdout and
+stderr for every probe). Apply these checks equally to prerequisite cohorts.
+An archive hash or a positive output length does not replace exact raw joins or
+the expected output bytes. Preserve historical helpers when strengthening a live
+verifier; do not rewrite original receipts or archives.
 
 ## Immutable dependency stages
 
