@@ -1,0 +1,1427 @@
+{
+  "scope": "Read-only literal consumed import closure of immutable actual JS stage; no backend replay or receipt editing",
+  "planSHA256": "7d6eebac780568eeebb7ea15b6b5fa935331c901b0c24d1440d49f11b2419098",
+  "actualStage": "/workspace/formal-proofs/bendvy-worktrees/parity-49-handlers/experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/js-post-consumption-1791468765672786234/stage",
+  "entries": {
+    "typing": {
+      "entry": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/caller.bend",
+      "ownedConsumed": {
+        "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/caller.bend": "7d72938fc4524a4672a86f5a7ce5869e27feec0a58b6506aeea8d5a840cc545e",
+        "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend": "c47ff38671eb67b4369311408c81a2ef388ed971923419625c36f92219eb0fe4",
+        "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+        "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+        "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+        "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend": "a20b0f2363dab12b73109354ebddf5c9126d3e786031cf9232a0c68c5ffc3b5c",
+        "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/string-equality.bend": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+        "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed",
+        "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+        "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/ports.bend": "4af24d9a4502fe2fa118b2691c90fe5b6edc4a4df200288bb10e7e0952ec4d49",
+        "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/adapter.bend": "fec532ea6de5601ec0297936e05d9f2f5e4084786e1033b37f24b2e5cc740b4f"
+      },
+      "imports": [
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/caller.bend",
+          "token": "adapter.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/adapter.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/caller.bend",
+          "token": "ports.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/ports.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/caller.bend",
+          "token": "current-core/ecs/world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/caller.bend",
+          "token": "current-core/ecs/system.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/caller.bend",
+          "token": "current-core/ecs/machine-stream.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "token": "machine.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "token": "event-runtime.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend",
+          "token": "./world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend",
+          "token": "./system.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "token": "./world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "token": "./registration.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/registration.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/registration.bend",
+          "token": "./world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "token": "string-equality.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/string-equality.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "token": "transaction.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/ports.bend",
+          "token": "current-core/ecs/machine-stream.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/adapter.bend",
+          "token": "current-core/ecs/world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/adapter.bend",
+          "token": "current-core/ecs/system.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend"
+        }
+      ],
+      "baseLibrary": "Separately pinned installed Base resource; no library resolution claim by this lexical audit"
+    },
+    "post-runtime": {
+      "entry": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller.bend",
+      "ownedConsumed": {
+        "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller.bend": "0ef0a3d9e7bee3d375c6c8468e68c1926f1e64414727ea73644ff570c28d8b8d",
+        "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend": "ae0165234d5b2c497791f54ab143eae0af51c26c2b0d03230940209c443f30bc",
+        "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+        "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+        "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend": "a20b0f2363dab12b73109354ebddf5c9126d3e786031cf9232a0c68c5ffc3b5c",
+        "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/string-equality.bend": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+        "experiments/public-machines/followup/observations.bend": "65559f1c33689527fece7c8658a01cd196a78edbf2ffddd02c84c986bacbc13a",
+        "experiments/public-machines/conditions.bend": "610912561009d08c5b554371c140ec1267d0744cb941f860199dee469df6ac4f",
+        "experiments/public-machines/observe.bend": "8410090149b24e71fb8a054256d59ef8756d243cc81f43c1f22aa03a2d8bfe20",
+        "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+        "src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+        "src/ecs/column.bend": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+        "src/ecs/indexed-lifecycle.bend": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+        "src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+        "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend": "c47ff38671eb67b4369311408c81a2ef388ed971923419625c36f92219eb0fe4",
+        "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed",
+        "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+        "experiments/public-machines/provider.bend": "0c008a47d386e9ad2942d6b37c65f1a78fdf1b2b120caaa8019f51c2d14f5dd6",
+        "src/ecs/component.bend": "bf7d3598dc93cca357248db8147fcb6f7be33639af244e4652664bfa53bcad15",
+        "experiments/public-machines/world.bend": "af8fd70580c93ddad6336fe4d750d4b32a641e43958585600889875c6fad6c48",
+        "experiments/public-machines/slots.bend": "cd1f1acbc0e012b85347085642a6ced6f2b90962115648390e76364e86706f86",
+        "experiments/public-machines/catalog.bend": "8764e2499a0888903a2f7fa49f7a87d5120d35223439fd249c6e98325c7e2172",
+        "experiments/public-machines/hooks.bend": "9920a129d889a07df8eb7bb7935c18134f3f894398d59ae5c3293865c5f1d649",
+        "experiments/public-machines/marker.bend": "d2dd1e2a15ff94c3715753b36a9666da418ae7da5ec5ae39f2427224d570e282",
+        "experiments/public-machines/context.bend": "af30a0dc3d8720302db3bd03c70d543304d3f1ff38ff78f48dcb7681a30b99b9",
+        "src/ecs/commands.bend": "e6d81d9710b796d17ea0c44abba7715236aeb9cfd22ce9a71a78ef622d99f4c0",
+        "src/ecs/capabilities.bend": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+        "experiments/public-machines/gameplay.bend": "980a155825ea1f2a4499cbefe48bdb3d6687fd4c8aea7cc4f711fc9e34edc2f4",
+        "experiments/public-machines/readers.bend": "86c01aea86e2353d07727d6010f16568b43385a73afe876ea0cf91d0a97ab984",
+        "experiments/public-machines/application.bend": "aa7bdb1644ed31b5d8fa1716682baf7ba2dabadd97a4178176c40f7010db28bc",
+        "src/ecs/schedule.bend": "a30a16619324b14048fea7639f6c143ee8bbf99daa6a9a91655ffa2438bf312d",
+        "src/ecs/world-io.bend": "e005ed03789557d907cfcef43ae605da2b4fa524092e86d0ec7764cb240083f0",
+        "src/ecs/world-namespace.bend": "92f7205a5d4d633289348960e139f5797354ff7dbfb0627b5d9435e17c5f48d7"
+      },
+      "imports": [
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller.bend",
+          "token": "../../../provider.bend",
+          "target": "experiments/public-machines/provider.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller.bend",
+          "token": "../../../context.bend",
+          "target": "experiments/public-machines/context.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller.bend",
+          "token": "../../../hooks.bend",
+          "target": "experiments/public-machines/hooks.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller.bend",
+          "token": "../../../../../src/ecs/world-io.bend",
+          "target": "src/ecs/world-io.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller.bend",
+          "token": "caller-core.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+          "token": "../../../provider.bend",
+          "target": "experiments/public-machines/provider.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+          "token": "../../../gameplay.bend",
+          "target": "experiments/public-machines/gameplay.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+          "token": "../../../context.bend",
+          "target": "experiments/public-machines/context.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+          "token": "../../../application.bend",
+          "target": "experiments/public-machines/application.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+          "token": "../../../catalog.bend",
+          "target": "experiments/public-machines/catalog.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+          "token": "../../../hooks.bend",
+          "target": "experiments/public-machines/hooks.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+          "token": "../../../readers.bend",
+          "target": "experiments/public-machines/readers.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+          "token": "public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+          "token": "../../../slots.bend",
+          "target": "experiments/public-machines/slots.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+          "token": "../../observations.bend",
+          "target": "experiments/public-machines/followup/observations.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+          "token": "public-cleanup-v1/current-core/ecs/world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+          "token": "public-cleanup-v1/current-core/ecs/system.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "token": "./world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "token": "./registration.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/registration.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/registration.bend",
+          "token": "./world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "token": "string-equality.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/string-equality.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/observations.bend",
+          "token": "../application.bend",
+          "target": "experiments/public-machines/application.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/observations.bend",
+          "token": "../provider.bend",
+          "target": "experiments/public-machines/provider.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/observations.bend",
+          "token": "../gameplay.bend",
+          "target": "experiments/public-machines/gameplay.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/observations.bend",
+          "token": "../context.bend",
+          "target": "experiments/public-machines/context.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/observations.bend",
+          "token": "../readers.bend",
+          "target": "experiments/public-machines/readers.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/observations.bend",
+          "token": "../hooks.bend",
+          "target": "experiments/public-machines/hooks.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/observations.bend",
+          "token": "../catalog.bend",
+          "target": "experiments/public-machines/catalog.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/observations.bend",
+          "token": "../slots.bend",
+          "target": "experiments/public-machines/slots.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/observations.bend",
+          "token": "stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/observations.bend",
+          "token": "../observe.bend",
+          "target": "experiments/public-machines/observe.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/observations.bend",
+          "token": "../conditions.bend",
+          "target": "experiments/public-machines/conditions.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/observations.bend",
+          "token": "stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/observations.bend",
+          "token": "stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend"
+        },
+        {
+          "source": "experiments/public-machines/observe.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend"
+        },
+        {
+          "source": "experiments/public-machines/observe.bend",
+          "token": "provider.bend",
+          "target": "experiments/public-machines/provider.bend"
+        },
+        {
+          "source": "experiments/public-machines/observe.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend"
+        },
+        {
+          "source": "experiments/public-machines/observe.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/observe.bend",
+          "token": "../../src/ecs/column.bend",
+          "target": "src/ecs/column.bend"
+        },
+        {
+          "source": "experiments/public-machines/observe.bend",
+          "token": "../../src/ecs/lifecycle.bend",
+          "target": "src/ecs/lifecycle.bend"
+        },
+        {
+          "source": "experiments/public-machines/observe.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend",
+          "token": "./world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend",
+          "token": "./system.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend"
+        },
+        {
+          "source": "src/ecs/column.bend",
+          "token": "lifecycle.bend",
+          "target": "src/ecs/lifecycle.bend"
+        },
+        {
+          "source": "src/ecs/column.bend",
+          "token": "owner-handoff.bend",
+          "target": "src/ecs/owner-handoff.bend"
+        },
+        {
+          "source": "src/ecs/column.bend",
+          "token": "indexed-lifecycle.bend",
+          "target": "src/ecs/indexed-lifecycle.bend"
+        },
+        {
+          "source": "src/ecs/indexed-lifecycle.bend",
+          "token": "lifecycle.bend",
+          "target": "src/ecs/lifecycle.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "token": "machine.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "token": "event-runtime.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "token": "transaction.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend"
+        },
+        {
+          "source": "experiments/public-machines/provider.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend"
+        },
+        {
+          "source": "experiments/public-machines/provider.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend"
+        },
+        {
+          "source": "experiments/public-machines/provider.bend",
+          "token": "world.bend",
+          "target": "experiments/public-machines/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/provider.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/provider.bend",
+          "token": "../../src/ecs/column.bend",
+          "target": "src/ecs/column.bend"
+        },
+        {
+          "source": "experiments/public-machines/provider.bend",
+          "token": "../../src/ecs/component.bend",
+          "target": "src/ecs/component.bend"
+        },
+        {
+          "source": "experiments/public-machines/provider.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend"
+        },
+        {
+          "source": "experiments/public-machines/provider.bend",
+          "token": "conditions.bend",
+          "target": "experiments/public-machines/conditions.bend"
+        },
+        {
+          "source": "src/ecs/component.bend",
+          "token": "lifecycle.bend",
+          "target": "src/ecs/lifecycle.bend"
+        },
+        {
+          "source": "src/ecs/component.bend",
+          "token": "column.bend",
+          "target": "src/ecs/column.bend"
+        },
+        {
+          "source": "src/ecs/component.bend",
+          "token": "../../experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "src/ecs/component.bend",
+          "token": "../../experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend"
+        },
+        {
+          "source": "experiments/public-machines/world.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend"
+        },
+        {
+          "source": "experiments/public-machines/world.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/catalog.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/catalog.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend"
+        },
+        {
+          "source": "experiments/public-machines/hooks.bend",
+          "token": "provider.bend",
+          "target": "experiments/public-machines/provider.bend"
+        },
+        {
+          "source": "experiments/public-machines/hooks.bend",
+          "token": "gameplay.bend",
+          "target": "experiments/public-machines/gameplay.bend"
+        },
+        {
+          "source": "experiments/public-machines/hooks.bend",
+          "token": "context.bend",
+          "target": "experiments/public-machines/context.bend"
+        },
+        {
+          "source": "experiments/public-machines/hooks.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend"
+        },
+        {
+          "source": "experiments/public-machines/hooks.bend",
+          "token": "marker.bend",
+          "target": "experiments/public-machines/marker.bend"
+        },
+        {
+          "source": "experiments/public-machines/hooks.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/hooks.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend"
+        },
+        {
+          "source": "experiments/public-machines/marker.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend"
+        },
+        {
+          "source": "experiments/public-machines/marker.bend",
+          "token": "provider.bend",
+          "target": "experiments/public-machines/provider.bend"
+        },
+        {
+          "source": "experiments/public-machines/marker.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend"
+        },
+        {
+          "source": "experiments/public-machines/marker.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/context.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend"
+        },
+        {
+          "source": "experiments/public-machines/context.bend",
+          "token": "provider.bend",
+          "target": "experiments/public-machines/provider.bend"
+        },
+        {
+          "source": "experiments/public-machines/context.bend",
+          "token": "gameplay.bend",
+          "target": "experiments/public-machines/gameplay.bend"
+        },
+        {
+          "source": "experiments/public-machines/context.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/context.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend"
+        },
+        {
+          "source": "experiments/public-machines/context.bend",
+          "token": "../../src/ecs/capabilities.bend",
+          "target": "src/ecs/capabilities.bend"
+        },
+        {
+          "source": "experiments/public-machines/context.bend",
+          "token": "../../src/ecs/component.bend",
+          "target": "src/ecs/component.bend"
+        },
+        {
+          "source": "experiments/public-machines/context.bend",
+          "token": "../../src/ecs/commands.bend",
+          "target": "src/ecs/commands.bend"
+        },
+        {
+          "source": "experiments/public-machines/context.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend"
+        },
+        {
+          "source": "src/ecs/commands.bend",
+          "token": "../../experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "src/ecs/commands.bend",
+          "token": "../../experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend"
+        },
+        {
+          "source": "src/ecs/capabilities.bend",
+          "token": "component.bend",
+          "target": "src/ecs/component.bend"
+        },
+        {
+          "source": "experiments/public-machines/gameplay.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend"
+        },
+        {
+          "source": "experiments/public-machines/gameplay.bend",
+          "token": "provider.bend",
+          "target": "experiments/public-machines/provider.bend"
+        },
+        {
+          "source": "experiments/public-machines/gameplay.bend",
+          "token": "../../src/ecs/capabilities.bend",
+          "target": "src/ecs/capabilities.bend"
+        },
+        {
+          "source": "experiments/public-machines/gameplay.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend"
+        },
+        {
+          "source": "experiments/public-machines/readers.bend",
+          "token": "provider.bend",
+          "target": "experiments/public-machines/provider.bend"
+        },
+        {
+          "source": "experiments/public-machines/readers.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend"
+        },
+        {
+          "source": "experiments/public-machines/readers.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend"
+        },
+        {
+          "source": "experiments/public-machines/readers.bend",
+          "token": "context.bend",
+          "target": "experiments/public-machines/context.bend"
+        },
+        {
+          "source": "experiments/public-machines/readers.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/readers.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend"
+        },
+        {
+          "source": "experiments/public-machines/readers.bend",
+          "token": "../../src/ecs/capabilities.bend",
+          "target": "src/ecs/capabilities.bend"
+        },
+        {
+          "source": "experiments/public-machines/readers.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend"
+        },
+        {
+          "source": "experiments/public-machines/readers.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend"
+        },
+        {
+          "source": "experiments/public-machines/application.bend",
+          "token": "provider.bend",
+          "target": "experiments/public-machines/provider.bend"
+        },
+        {
+          "source": "experiments/public-machines/application.bend",
+          "token": "gameplay.bend",
+          "target": "experiments/public-machines/gameplay.bend"
+        },
+        {
+          "source": "experiments/public-machines/application.bend",
+          "token": "context.bend",
+          "target": "experiments/public-machines/context.bend"
+        },
+        {
+          "source": "experiments/public-machines/application.bend",
+          "token": "conditions.bend",
+          "target": "experiments/public-machines/conditions.bend"
+        },
+        {
+          "source": "experiments/public-machines/application.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend"
+        },
+        {
+          "source": "experiments/public-machines/application.bend",
+          "token": "hooks.bend",
+          "target": "experiments/public-machines/hooks.bend"
+        },
+        {
+          "source": "experiments/public-machines/application.bend",
+          "token": "readers.bend",
+          "target": "experiments/public-machines/readers.bend"
+        },
+        {
+          "source": "experiments/public-machines/application.bend",
+          "token": "catalog.bend",
+          "target": "experiments/public-machines/catalog.bend"
+        },
+        {
+          "source": "experiments/public-machines/application.bend",
+          "token": "slots.bend",
+          "target": "experiments/public-machines/slots.bend"
+        },
+        {
+          "source": "experiments/public-machines/application.bend",
+          "token": "observe.bend",
+          "target": "experiments/public-machines/observe.bend"
+        },
+        {
+          "source": "experiments/public-machines/application.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/application.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend"
+        },
+        {
+          "source": "experiments/public-machines/application.bend",
+          "token": "../../src/ecs/schedule.bend",
+          "target": "src/ecs/schedule.bend"
+        },
+        {
+          "source": "src/ecs/schedule.bend",
+          "token": "../../experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "src/ecs/schedule.bend",
+          "token": "../../experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend"
+        },
+        {
+          "source": "src/ecs/world-io.bend",
+          "token": "../../experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "src/ecs/world-io.bend",
+          "token": "./world-namespace.bend",
+          "target": "src/ecs/world-namespace.bend"
+        }
+      ],
+      "baseLibrary": "Separately pinned installed Base resource; no library resolution claim by this lexical audit"
+    },
+    "failed-runtime": {
+      "entry": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/failed-batch-v1/caller.bend",
+      "ownedConsumed": {
+        "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/failed-batch-v1/caller.bend": "30bfbb636666c8f32a8b5c6c32056c2a9168a3c0c1f827832e5e7e4467cc192d",
+        "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/failed-batch-v1/caller-core.bend": "b40c7c816e471f2eda51fdc7e9f805c1f73466a838aea8ece513fdcb9ca15484",
+        "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend": "ae0165234d5b2c497791f54ab143eae0af51c26c2b0d03230940209c443f30bc",
+        "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+        "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+        "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend": "a20b0f2363dab12b73109354ebddf5c9126d3e786031cf9232a0c68c5ffc3b5c",
+        "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/string-equality.bend": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+        "experiments/public-machines/followup/observations.bend": "65559f1c33689527fece7c8658a01cd196a78edbf2ffddd02c84c986bacbc13a",
+        "experiments/public-machines/conditions.bend": "610912561009d08c5b554371c140ec1267d0744cb941f860199dee469df6ac4f",
+        "experiments/public-machines/observe.bend": "8410090149b24e71fb8a054256d59ef8756d243cc81f43c1f22aa03a2d8bfe20",
+        "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+        "src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+        "src/ecs/column.bend": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+        "src/ecs/indexed-lifecycle.bend": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+        "src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+        "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend": "c47ff38671eb67b4369311408c81a2ef388ed971923419625c36f92219eb0fe4",
+        "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed",
+        "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+        "experiments/public-machines/provider.bend": "0c008a47d386e9ad2942d6b37c65f1a78fdf1b2b120caaa8019f51c2d14f5dd6",
+        "src/ecs/component.bend": "bf7d3598dc93cca357248db8147fcb6f7be33639af244e4652664bfa53bcad15",
+        "experiments/public-machines/world.bend": "af8fd70580c93ddad6336fe4d750d4b32a641e43958585600889875c6fad6c48",
+        "experiments/public-machines/slots.bend": "cd1f1acbc0e012b85347085642a6ced6f2b90962115648390e76364e86706f86",
+        "experiments/public-machines/catalog.bend": "8764e2499a0888903a2f7fa49f7a87d5120d35223439fd249c6e98325c7e2172",
+        "experiments/public-machines/hooks.bend": "9920a129d889a07df8eb7bb7935c18134f3f894398d59ae5c3293865c5f1d649",
+        "experiments/public-machines/marker.bend": "d2dd1e2a15ff94c3715753b36a9666da418ae7da5ec5ae39f2427224d570e282",
+        "experiments/public-machines/context.bend": "af30a0dc3d8720302db3bd03c70d543304d3f1ff38ff78f48dcb7681a30b99b9",
+        "src/ecs/commands.bend": "e6d81d9710b796d17ea0c44abba7715236aeb9cfd22ce9a71a78ef622d99f4c0",
+        "src/ecs/capabilities.bend": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+        "experiments/public-machines/gameplay.bend": "980a155825ea1f2a4499cbefe48bdb3d6687fd4c8aea7cc4f711fc9e34edc2f4",
+        "experiments/public-machines/readers.bend": "86c01aea86e2353d07727d6010f16568b43385a73afe876ea0cf91d0a97ab984",
+        "experiments/public-machines/application.bend": "aa7bdb1644ed31b5d8fa1716682baf7ba2dabadd97a4178176c40f7010db28bc",
+        "src/ecs/schedule.bend": "a30a16619324b14048fea7639f6c143ee8bbf99daa6a9a91655ffa2438bf312d",
+        "src/ecs/world-io.bend": "e005ed03789557d907cfcef43ae605da2b4fa524092e86d0ec7764cb240083f0",
+        "src/ecs/world-namespace.bend": "92f7205a5d4d633289348960e139f5797354ff7dbfb0627b5d9435e17c5f48d7"
+      },
+      "imports": [
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/failed-batch-v1/caller.bend",
+          "token": "../../../../provider.bend",
+          "target": "experiments/public-machines/provider.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/failed-batch-v1/caller.bend",
+          "token": "../../../../context.bend",
+          "target": "experiments/public-machines/context.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/failed-batch-v1/caller.bend",
+          "token": "../../../../hooks.bend",
+          "target": "experiments/public-machines/hooks.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/failed-batch-v1/caller.bend",
+          "token": "../../../../../../src/ecs/world-io.bend",
+          "target": "src/ecs/world-io.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/failed-batch-v1/caller.bend",
+          "token": "../caller-core.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/failed-batch-v1/caller.bend",
+          "token": "caller-core.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/failed-batch-v1/caller-core.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/failed-batch-v1/caller-core.bend",
+          "token": "../../../../provider.bend",
+          "target": "experiments/public-machines/provider.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/failed-batch-v1/caller-core.bend",
+          "token": "../../../../application.bend",
+          "target": "experiments/public-machines/application.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/failed-batch-v1/caller-core.bend",
+          "token": "../../../../readers.bend",
+          "target": "experiments/public-machines/readers.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/failed-batch-v1/caller-core.bend",
+          "token": "../../../../slots.bend",
+          "target": "experiments/public-machines/slots.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/failed-batch-v1/caller-core.bend",
+          "token": "../../../observations.bend",
+          "target": "experiments/public-machines/followup/observations.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/failed-batch-v1/caller-core.bend",
+          "token": "../public-cleanup-v1/current-core/ecs/world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/failed-batch-v1/caller-core.bend",
+          "token": "../caller-core.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+          "token": "../../../provider.bend",
+          "target": "experiments/public-machines/provider.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+          "token": "../../../gameplay.bend",
+          "target": "experiments/public-machines/gameplay.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+          "token": "../../../context.bend",
+          "target": "experiments/public-machines/context.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+          "token": "../../../application.bend",
+          "target": "experiments/public-machines/application.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+          "token": "../../../catalog.bend",
+          "target": "experiments/public-machines/catalog.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+          "token": "../../../hooks.bend",
+          "target": "experiments/public-machines/hooks.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+          "token": "../../../readers.bend",
+          "target": "experiments/public-machines/readers.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+          "token": "public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+          "token": "../../../slots.bend",
+          "target": "experiments/public-machines/slots.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+          "token": "../../observations.bend",
+          "target": "experiments/public-machines/followup/observations.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+          "token": "public-cleanup-v1/current-core/ecs/world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+          "token": "public-cleanup-v1/current-core/ecs/system.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "token": "./world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "token": "./registration.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/registration.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/registration.bend",
+          "token": "./world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "token": "string-equality.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/string-equality.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/observations.bend",
+          "token": "../application.bend",
+          "target": "experiments/public-machines/application.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/observations.bend",
+          "token": "../provider.bend",
+          "target": "experiments/public-machines/provider.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/observations.bend",
+          "token": "../gameplay.bend",
+          "target": "experiments/public-machines/gameplay.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/observations.bend",
+          "token": "../context.bend",
+          "target": "experiments/public-machines/context.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/observations.bend",
+          "token": "../readers.bend",
+          "target": "experiments/public-machines/readers.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/observations.bend",
+          "token": "../hooks.bend",
+          "target": "experiments/public-machines/hooks.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/observations.bend",
+          "token": "../catalog.bend",
+          "target": "experiments/public-machines/catalog.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/observations.bend",
+          "token": "../slots.bend",
+          "target": "experiments/public-machines/slots.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/observations.bend",
+          "token": "stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/observations.bend",
+          "token": "../observe.bend",
+          "target": "experiments/public-machines/observe.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/observations.bend",
+          "token": "../conditions.bend",
+          "target": "experiments/public-machines/conditions.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/observations.bend",
+          "token": "stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/observations.bend",
+          "token": "stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend"
+        },
+        {
+          "source": "experiments/public-machines/observe.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend"
+        },
+        {
+          "source": "experiments/public-machines/observe.bend",
+          "token": "provider.bend",
+          "target": "experiments/public-machines/provider.bend"
+        },
+        {
+          "source": "experiments/public-machines/observe.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend"
+        },
+        {
+          "source": "experiments/public-machines/observe.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/observe.bend",
+          "token": "../../src/ecs/column.bend",
+          "target": "src/ecs/column.bend"
+        },
+        {
+          "source": "experiments/public-machines/observe.bend",
+          "token": "../../src/ecs/lifecycle.bend",
+          "target": "src/ecs/lifecycle.bend"
+        },
+        {
+          "source": "experiments/public-machines/observe.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend",
+          "token": "./world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend",
+          "token": "./system.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend"
+        },
+        {
+          "source": "src/ecs/column.bend",
+          "token": "lifecycle.bend",
+          "target": "src/ecs/lifecycle.bend"
+        },
+        {
+          "source": "src/ecs/column.bend",
+          "token": "owner-handoff.bend",
+          "target": "src/ecs/owner-handoff.bend"
+        },
+        {
+          "source": "src/ecs/column.bend",
+          "token": "indexed-lifecycle.bend",
+          "target": "src/ecs/indexed-lifecycle.bend"
+        },
+        {
+          "source": "src/ecs/indexed-lifecycle.bend",
+          "token": "lifecycle.bend",
+          "target": "src/ecs/lifecycle.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "token": "machine.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "token": "event-runtime.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend"
+        },
+        {
+          "source": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "token": "transaction.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend"
+        },
+        {
+          "source": "experiments/public-machines/provider.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend"
+        },
+        {
+          "source": "experiments/public-machines/provider.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend"
+        },
+        {
+          "source": "experiments/public-machines/provider.bend",
+          "token": "world.bend",
+          "target": "experiments/public-machines/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/provider.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/provider.bend",
+          "token": "../../src/ecs/column.bend",
+          "target": "src/ecs/column.bend"
+        },
+        {
+          "source": "experiments/public-machines/provider.bend",
+          "token": "../../src/ecs/component.bend",
+          "target": "src/ecs/component.bend"
+        },
+        {
+          "source": "experiments/public-machines/provider.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend"
+        },
+        {
+          "source": "experiments/public-machines/provider.bend",
+          "token": "conditions.bend",
+          "target": "experiments/public-machines/conditions.bend"
+        },
+        {
+          "source": "src/ecs/component.bend",
+          "token": "lifecycle.bend",
+          "target": "src/ecs/lifecycle.bend"
+        },
+        {
+          "source": "src/ecs/component.bend",
+          "token": "column.bend",
+          "target": "src/ecs/column.bend"
+        },
+        {
+          "source": "src/ecs/component.bend",
+          "token": "../../experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "src/ecs/component.bend",
+          "token": "../../experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend"
+        },
+        {
+          "source": "experiments/public-machines/world.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend"
+        },
+        {
+          "source": "experiments/public-machines/world.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/catalog.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/catalog.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend"
+        },
+        {
+          "source": "experiments/public-machines/hooks.bend",
+          "token": "provider.bend",
+          "target": "experiments/public-machines/provider.bend"
+        },
+        {
+          "source": "experiments/public-machines/hooks.bend",
+          "token": "gameplay.bend",
+          "target": "experiments/public-machines/gameplay.bend"
+        },
+        {
+          "source": "experiments/public-machines/hooks.bend",
+          "token": "context.bend",
+          "target": "experiments/public-machines/context.bend"
+        },
+        {
+          "source": "experiments/public-machines/hooks.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend"
+        },
+        {
+          "source": "experiments/public-machines/hooks.bend",
+          "token": "marker.bend",
+          "target": "experiments/public-machines/marker.bend"
+        },
+        {
+          "source": "experiments/public-machines/hooks.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/hooks.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend"
+        },
+        {
+          "source": "experiments/public-machines/marker.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend"
+        },
+        {
+          "source": "experiments/public-machines/marker.bend",
+          "token": "provider.bend",
+          "target": "experiments/public-machines/provider.bend"
+        },
+        {
+          "source": "experiments/public-machines/marker.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend"
+        },
+        {
+          "source": "experiments/public-machines/marker.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/context.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend"
+        },
+        {
+          "source": "experiments/public-machines/context.bend",
+          "token": "provider.bend",
+          "target": "experiments/public-machines/provider.bend"
+        },
+        {
+          "source": "experiments/public-machines/context.bend",
+          "token": "gameplay.bend",
+          "target": "experiments/public-machines/gameplay.bend"
+        },
+        {
+          "source": "experiments/public-machines/context.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/context.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend"
+        },
+        {
+          "source": "experiments/public-machines/context.bend",
+          "token": "../../src/ecs/capabilities.bend",
+          "target": "src/ecs/capabilities.bend"
+        },
+        {
+          "source": "experiments/public-machines/context.bend",
+          "token": "../../src/ecs/component.bend",
+          "target": "src/ecs/component.bend"
+        },
+        {
+          "source": "experiments/public-machines/context.bend",
+          "token": "../../src/ecs/commands.bend",
+          "target": "src/ecs/commands.bend"
+        },
+        {
+          "source": "experiments/public-machines/context.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend"
+        },
+        {
+          "source": "src/ecs/commands.bend",
+          "token": "../../experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "src/ecs/commands.bend",
+          "token": "../../experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend"
+        },
+        {
+          "source": "src/ecs/capabilities.bend",
+          "token": "component.bend",
+          "target": "src/ecs/component.bend"
+        },
+        {
+          "source": "experiments/public-machines/gameplay.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend"
+        },
+        {
+          "source": "experiments/public-machines/gameplay.bend",
+          "token": "provider.bend",
+          "target": "experiments/public-machines/provider.bend"
+        },
+        {
+          "source": "experiments/public-machines/gameplay.bend",
+          "token": "../../src/ecs/capabilities.bend",
+          "target": "src/ecs/capabilities.bend"
+        },
+        {
+          "source": "experiments/public-machines/gameplay.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend"
+        },
+        {
+          "source": "experiments/public-machines/readers.bend",
+          "token": "provider.bend",
+          "target": "experiments/public-machines/provider.bend"
+        },
+        {
+          "source": "experiments/public-machines/readers.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend"
+        },
+        {
+          "source": "experiments/public-machines/readers.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend"
+        },
+        {
+          "source": "experiments/public-machines/readers.bend",
+          "token": "context.bend",
+          "target": "experiments/public-machines/context.bend"
+        },
+        {
+          "source": "experiments/public-machines/readers.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/readers.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend"
+        },
+        {
+          "source": "experiments/public-machines/readers.bend",
+          "token": "../../src/ecs/capabilities.bend",
+          "target": "src/ecs/capabilities.bend"
+        },
+        {
+          "source": "experiments/public-machines/readers.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend"
+        },
+        {
+          "source": "experiments/public-machines/readers.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend"
+        },
+        {
+          "source": "experiments/public-machines/application.bend",
+          "token": "provider.bend",
+          "target": "experiments/public-machines/provider.bend"
+        },
+        {
+          "source": "experiments/public-machines/application.bend",
+          "token": "gameplay.bend",
+          "target": "experiments/public-machines/gameplay.bend"
+        },
+        {
+          "source": "experiments/public-machines/application.bend",
+          "token": "context.bend",
+          "target": "experiments/public-machines/context.bend"
+        },
+        {
+          "source": "experiments/public-machines/application.bend",
+          "token": "conditions.bend",
+          "target": "experiments/public-machines/conditions.bend"
+        },
+        {
+          "source": "experiments/public-machines/application.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend"
+        },
+        {
+          "source": "experiments/public-machines/application.bend",
+          "token": "hooks.bend",
+          "target": "experiments/public-machines/hooks.bend"
+        },
+        {
+          "source": "experiments/public-machines/application.bend",
+          "token": "readers.bend",
+          "target": "experiments/public-machines/readers.bend"
+        },
+        {
+          "source": "experiments/public-machines/application.bend",
+          "token": "catalog.bend",
+          "target": "experiments/public-machines/catalog.bend"
+        },
+        {
+          "source": "experiments/public-machines/application.bend",
+          "token": "slots.bend",
+          "target": "experiments/public-machines/slots.bend"
+        },
+        {
+          "source": "experiments/public-machines/application.bend",
+          "token": "observe.bend",
+          "target": "experiments/public-machines/observe.bend"
+        },
+        {
+          "source": "experiments/public-machines/application.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "experiments/public-machines/application.bend",
+          "token": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend"
+        },
+        {
+          "source": "experiments/public-machines/application.bend",
+          "token": "../../src/ecs/schedule.bend",
+          "target": "src/ecs/schedule.bend"
+        },
+        {
+          "source": "src/ecs/schedule.bend",
+          "token": "../../experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "src/ecs/schedule.bend",
+          "token": "../../experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend"
+        },
+        {
+          "source": "src/ecs/world-io.bend",
+          "token": "../../experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "target": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend"
+        },
+        {
+          "source": "src/ecs/world-io.bend",
+          "token": "./world-namespace.bend",
+          "target": "src/ecs/world-namespace.bend"
+        }
+      ],
+      "baseLibrary": "Separately pinned installed Base resource; no library resolution claim by this lexical audit"
+    }
+  },
+  "correction": "Runtime inputs include current-public core copies but not generic adapter/ports or patched foreign-core. Source0 typing only consumes generic adapter. Old fullruntime/generic labeling is overbroad; original receipt/archive unchanged.",
+  "nextActualTarget": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+  "nativeScope": "d5/002825 emits/attempts current-public baseline cleanup; no generic-runtime or Native acceptance"
+}
