@@ -986,5 +986,275 @@
       }
     ],
     "acceptance": "#61 full two-application matrix UNMET; no runtime replay/timing/new contract/law/proof/closure"
+  },
+  "currentRootMappingRefresh": {
+    "baseCommit": "c5b0d7eef52eff968b753333c31e818b036db0c5",
+    "scope": "Read-only #61 mapping refresh of integrated root evidence at base c5b0d7ee only. Compressed complete export/use/test/static census and previous mapping overlays are historical and unchanged; these base-specific dispositions update earlier inventory prose only. Later unintegrated worktree observations and independently reviewed receipts are excluded, including newer #48/#56 observations; this snapshot does not supersede newer coordination or actual receipts. Integrated repository evidence is distinct from adopted production API and complete parity.",
+    "referenceCommits": {
+      "bend2": "a950fd683c0d76f09794078e6174fe98a1492876",
+      "bevy": "ad678262ce53b5d142fe49ee5e08caff6f00ab60",
+      "bevy-ts": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334"
+    },
+    "authorityPins": [
+      {
+        "reference": "bevy-ts",
+        "path": "packages/core/src/Inspector.ts",
+        "sha256": "21757eb340c0ae192a36726538d0a87aefbd455859d196dab36aa3515c1addb3"
+      },
+      {
+        "reference": "bevy-ts",
+        "path": "packages/core/src/Condition.ts",
+        "sha256": "1b4c8c906cab11745535ffe84f169a48767c88c26336f3b46f45cf7d59f08083"
+      },
+      {
+        "reference": "bevy-ts",
+        "path": "packages/core/src/Debug.ts",
+        "sha256": "942fc7e3bdf1b15f31708bad0ab02c0789a037b707a566e2cb860b43f9b5c3ff"
+      },
+      {
+        "reference": "bevy-ts",
+        "path": "packages/core/src/Snapshot.ts",
+        "sha256": "249f57c429d97e57088ebb1e959b6258dd97ca71c9cc66a0a4ed6ac35ad04a3b"
+      },
+      {
+        "reference": "bevy-ts",
+        "path": "packages/core/src/Runtime.ts",
+        "sha256": "c744aa5c52845bd3323358c5085161b40a452c6802a1653e3851bfd34c69f5b4"
+      },
+      {
+        "reference": "bevy",
+        "path": "crates/bevy_ecs/src/system/system_param.rs",
+        "sha256": "e7c04fb01eebff746876ab65a5db9e3e36184a872057408f2e8ac11b694a3d26"
+      },
+      {
+        "reference": "bend2",
+        "path": "bend2/bend.ts",
+        "sha256": "1d133151652b597a1a035c77c172475e6de096da37f3b9e3adc23c2f75bdfe49"
+      },
+      {
+        "reference": "bend2",
+        "path": "bend2/comp.ts",
+        "sha256": "32fb66e09f608ce9e4b173384bcfeec453db8c5bc96650e26ad861bef815a8d9"
+      },
+      {
+        "reference": "bend2",
+        "path": "bend2/base.bend",
+        "sha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661"
+      }
+    ],
+    "mappings": [
+      {
+        "owner": "#48",
+        "inventoryAnchors": [
+          "Machine.TransitionRead",
+          "Machine.TransitionEventRead",
+          "System",
+          "Runtime"
+        ],
+        "currentStatus": "EXPERIMENTAL_TYPING; PRIOR_IMPLEMENTATION_RUNTIME_ONLY",
+        "sourceAndEvidencePins": [
+          {
+            "path": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/adapter.bend",
+            "sha256": "fec532ea6de5601ec0297936e05d9f2f5e4084786e1033b37f24b2e5cc740b4f"
+          },
+          {
+            "path": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/caller.bend",
+            "sha256": "7d72938fc4524a4672a86f5a7ce5869e27feec0a58b6506aeea8d5a840cc545e"
+          },
+          {
+            "path": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/SCOPE-CORRECTION.md",
+            "sha256": "be4a4e6c4f9edc6a7cc5f45ac03dbd89a30952c2072b3bbad7f95c10ab4963a2"
+          },
+          {
+            "path": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/CONSUMED-CLOSURE-AUDIT.json",
+            "sha256": "0976f953bfce99428b5cc286bb03e5c42a246e0899dd31099d9b6ac16a9794ab"
+          },
+          {
+            "path": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/delivery-js-v1/selection.json",
+            "sha256": "e8f30bd0a54940bc96bf19e24c11c51662784fc889a941d0b82dde0f5e434e23"
+          }
+        ],
+        "qualifiedScope": "Integrated c9458fb5 generic cleanup source/JS packet was corrected by 94c90b4d and 52d1e96f. The typing caller consumes the adapter; both runtime entries consume the previous caller-core.cleanup -> Sys.dispose implementation. The selected foreign-core file, including its duplicate alias, is not a consumed runtime/compiler namespace observation. Historical full36 world/22 instance and32 world/16 instance outputs remain intact; Native post emitted previous-implementation C then compilation timed out; second Native plan unexecuted.",
+        "remainingGap": "Actual generic adapter callsite plus reached semantic mutation and fresh JS/Native qualification remain #48; affine captures/events #50/#53; combined applications #61. No generic runtime/adoption claim follows from selected imports."
+      },
+      {
+        "owner": "#54",
+        "inventoryAnchors": [
+          "Inspector.make",
+          "Condition.check",
+          "Schema.Game.Inspector",
+          "Schema.Game.Condition"
+        ],
+        "currentStatus": "BOUNDED_ADOPTED_CORE_PLUS_EXPERIMENTAL_RECURSIVE_QUERY",
+        "sourceAndEvidencePins": [
+          {
+            "path": "src/ecs/inspector.bend",
+            "sha256": "31302fa8b9f68c560e744f613948613218c5ef1f4564c4236c5655a6bf2ab597"
+          },
+          {
+            "path": "src/ecs/check.bend",
+            "sha256": "9b0bef9ab0d3c4905138916d1c6a89cc7669b460c86c985d3dcc9d3424d7252f"
+          },
+          {
+            "path": "src/ecs/inspector-declaration.bend",
+            "sha256": "835bedcfac18d3a567b06fc5ee4e4cfdfcb804d0701ca86e6e155b2760189997"
+          },
+          {
+            "path": "src/ecs/inspector-metadata.bend",
+            "sha256": "a2c715edcfefff6f3f5abcd84e5293c7ebf29521708f2298fe90bff36b96ad4a"
+          },
+          {
+            "path": "experiments/public-inspect/promotion-stage/component-query-v1/RUNTIME-BOUNDARY.md",
+            "sha256": "93511eb26e302b4ce343cc1017b3987f753d20063ea4bf3c584c85aad9c6c4ce"
+          },
+          {
+            "path": "src/ecs/inspector-definition.bend",
+            "sha256": "d4f269a5da1f98203e2466744b31d581c3ed7b7d9dbdbce7a08ea70232133d5c"
+          },
+          {
+            "path": "src/ecs/inspector-query.bend",
+            "sha256": "c6b0f092e6271f3ee8c8ec3552f159ee65821440ef0561d4b63d16544991ea00"
+          },
+          {
+            "path": "src/ecs/inspector-query-projection.bend",
+            "sha256": "fe11471686751792c2939bea532f26138492f097d61c9b6200dc58a4580ef614"
+          },
+          {
+            "path": "experiments/public-inspect/promotion-stage/component-query-v1/portable-component-v1/SELECTED-DELIVERY-FILES.json",
+            "sha256": "49ac2814bc339e36cdf386cfeed54e83f89f19e4c242d60ba491b319f63dab30"
+          }
+        ],
+        "qualifiedScope": "Seven Inspector/Check production modules exist. Earlier selectedCurrentEvidenceJoins entries naming uncommitted promotion state are retained historical descriptors, not current status. Whole recursive component-selection/filter adapter and complete physical observations remain separate experiments; existing source/TS/derived-JS qualification does not establish Native completion or automatic ordinary declarations.",
+        "remainingGap": "Recursive adapter adoption, source-current Native and remaining declaration/category/error/retry surfaces remain #54; relation/machine extensions #55, automatic debug #56, held/capture/service boundaries #50/#53. Trusted canonical constructors are not universal declaration truth."
+      },
+      {
+        "owner": "#55",
+        "inventoryAnchors": [
+          "Query",
+          "Condition.check",
+          "Inspector.make",
+          "Machine.MachineView"
+        ],
+        "currentStatus": "EXPERIMENTAL_RELATION_BRIDGES; DETACHED_CHECK_NORMAL_JS_ONLY",
+        "sourceAndEvidencePins": [
+          {
+            "path": "experiments/public-relations/inspector-extension-study-v1/DELIVERY-GAPS-SNAPSHOT-v1.md",
+            "sha256": "467a1d0f054e5005ab84ee787984be8167fc6c7edb4b6a7c267c873fe747b96a"
+          },
+          {
+            "path": "experiments/public-relations/inspector-extension-study-v1/delivery-gaps-source-snapshot-v1.json",
+            "sha256": "b46dba6f346b82b1df88cf7d9e52e4550a2387008c563f96781ee1baee61b448"
+          },
+          {
+            "path": "experiments/public-relations/inspector-extension-study-v1/relation-query-v1/adapter.bend",
+            "sha256": "e457c44aec1d2dfc21d9df2b6ed37ca072ab81571db53254a55bc403b7c4ac21"
+          },
+          {
+            "path": "src/ecs/relation-query.bend",
+            "sha256": "e9c129a5404ab2eabc0d39f57364036cfc3f3c8c68e520cb679419b39bd98800"
+          },
+          {
+            "path": "src/ecs/check.bend",
+            "sha256": "9b0bef9ab0d3c4905138916d1c6a89cc7669b460c86c985d3dcc9d3424d7252f"
+          },
+          {
+            "path": "experiments/public-relations/inspector-extension-study-v1/relation-query-v1/next-qualification/check-relations-v1/all-phase-check-v2/chunked-expectations-v3/reached-check-native-controls-v1/detached-observation-v1/finite-js-evidence-v1/delivery-files.json",
+            "sha256": "5048843851244874feaddee7d18dfa665b867ee72f32786278120fe97b04101c"
+          }
+        ],
+        "qualifiedScope": "Integrated97dcb227 maps complete192 relation Inspector observations and prior Native controls separately. Integrated f1a5e612 detached Check normal JS equals the unchanged151386-byte oracle (10 callbacks/320 declaration evaluations plus192 diagnostics). Retained Result28f9 and detached541 Native attempts each stopped at first Workshop C30 with no C/runtime/Garden; no Native transfer from normal Inspector or older Check branches.",
+        "remainingGap": "Production-import readonly bridge and category-aware machine facade, generic availability, current false-control Native and streams remain #55; underlying relation core #42/#43, transient streams #48, Inspector #54, automatic Debug #56."
+      },
+      {
+        "owner": "#56",
+        "inventoryAnchors": [
+          "Debug.Description",
+          "Debug.AccessIndexEntry",
+          "Debug.Handle",
+          "Schema.Game",
+          "Runtime"
+        ],
+        "currentStatus": "LOW_LEVEL_CANDIDATE_QUALIFIED; ORDINARY_USER_REQUIREMENT_NOT_MET",
+        "sourceAndEvidencePins": [
+          {
+            "path": "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/FINAL-ADOPTION-MAP.json",
+            "sha256": "de7a591506e1efa9c2e45bb1a51554f2d82770aa9abb6def856090f21c415062"
+          },
+          {
+            "path": "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ORDINARY-DECLARATION-PROPOSAL.md",
+            "sha256": "8622bebea19d2cc7ea8c372282a0c6002b331ed496aea0cce5e9aff05d4d56bf"
+          },
+          {
+            "path": "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/CANONICAL-STATUS.md",
+            "sha256": "ba9f240b5ca31d67f96fcbf7ce9230f337d57321c5b0f652366a3eded55171fb"
+          },
+          {
+            "path": "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/FILES.json",
+            "sha256": "410f68e0e888e26a721bcc43e4dd8de627df072f78070a629851f7cbad0f2f50"
+          }
+        ],
+        "qualifiedScope": "c79730d6/baf59226 low-level candidate normal and two reached JS/Native controls remain qualified only for their exact frozen descriptions. Integrated9a82da6c ordinary declaration retained schema/resource path/bootstrap/registration prototype is source development only. c5b0d7ee user requirement is enable-debug-only automatic structure/access/schedule derivation, without repeated metadata/manual adapters; payload display functions may be explicit.",
+        "remainingGap": "Ordinary declarations must retain and derive grants/requirements/descriptions and registered schedule structure from one input, then actual public full observations/authority/mutants/backends. Low-level module adoption alone is insufficient. #56 stays open; skip only for demonstrated technical impossibility, not absent implementation. #57 trace remains separate."
+      },
+      {
+        "owner": "#57",
+        "inventoryAnchors": [
+          "Debug.Handle.observe",
+          "Debug.Handle",
+          "Debug.TraceEvent"
+        ],
+        "currentStatus": "PINNED_TS_DEVELOPMENT_OBSERVED; NO_BEND_DELIVERY",
+        "sourceAndEvidencePins": [
+          {
+            "path": "experiments/public-debug-trace/lifecycle-reference-v1/RESULT.md",
+            "sha256": "035a576bfca5c22e4f6aae2bd14302805d314550df2d7dedb16a77b5ef22ebb3"
+          },
+          {
+            "path": "experiments/public-debug-trace/lifecycle-reference-v1/expected.json",
+            "sha256": "9aeac632cde590acd4aa57877f3215042dc10dee05ad1c604ab575c583ee757a"
+          },
+          {
+            "path": "experiments/public-debug-trace/lifecycle-reference-v1/evidence/receipt.json",
+            "sha256": "03b3bacf957cfce54dea45e31f475df1a663f85931791ac68434353f6623467d"
+          },
+          {
+            "path": "experiments/public-debug-trace/lifecycle-reference-v1/evidence/FILES.json",
+            "sha256": "1f2f7b1f96d1ece12916c7af82494c247040a757da479baea856286ba95bfe02"
+          }
+        ],
+        "qualifiedScope": "Integrated43f6bd04 five-second Node consumer observed six empty-schedule phases: duplicate callback Set membership, unsubscribe/resubscribe/idempotent stop and external collector reset. Complete two journals/world dumps are compared; only elapsed ms normalized. STATUS.md retains pre-execution hypothesis prose; RESULT.md and literal receipt are the observed authority. No reset method exists on Debug.Handle.",
+        "remainingGap": "System/skip/failure/barrier/relation/transition/restore traces, mutation during delivery, exceptions, Bend typed observers/noninterference and enabled/disabled work remain #57 with #56/#50. Historical environment is not a portable delivery capsule; no timing acceptance."
+      },
+      {
+        "owner": "#58",
+        "inventoryAnchors": [
+          "Snapshot.WorldSnapshot",
+          "Snapshot.parse",
+          "Runtime.snapshot"
+        ],
+        "currentStatus": "SOURCE_READINESS_ONLY; NO_PUBLIC_SNAPSHOT_DELIVERY",
+        "sourceAndEvidencePins": [
+          {
+            "path": "docs/research/basic-snapshot-readiness-v1.md",
+            "sha256": "99b1ecf6e8e1cf9880b43b7c9296f72d5b80f8a0f45010e6b3240f239aae9312"
+          },
+          {
+            "path": "docs/research/basic-snapshot-readiness-v1.json",
+            "sha256": "114b456ab13ccc8405ef4af7608b455f3378fd86e485144581cbe1447463a6c5"
+          },
+          {
+            "path": "src/ecs/restored-row.bend",
+            "sha256": "9a1e25359a7775e230ad1b720180db622c12c2e9757cba98acef9c89e8d0f2d5"
+          },
+          {
+            "path": "src/ecs/captured-column.bend",
+            "sha256": "340efc234a5681adb2ccd35da22a1cbe3fbde4d15f0e6a3f8a75e76c4852df0a"
+          }
+        ],
+        "qualifiedScope": "Integrated d928e810 readiness audit identifies explicit owner-returned Data projection and codecs as possible primitives; neither restored-row live restoration closures nor generic Array access constitutes an independent save. No wire format/ownership/descriptor-validation contract was selected and no execution took place.",
+        "remainingGap": "Public independent save preserving arbitrary Type owners, schema/descriptors/codec validation and complete observations remain #58; validated restore/import #59/#60. Source feasibility does not satisfy runtime/negative/mutation/native gates."
+      }
+    ],
+    "acceptance": "No #61 closure. Complete two independently authored public cross-feature applications, full per-boundary controls and numeric qualification remain unmet. No backends/proofs/performance were executed by this refresh."
   }
 }
