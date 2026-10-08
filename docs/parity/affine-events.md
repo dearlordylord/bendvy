@@ -92,3 +92,18 @@ cursor/retention semantics and World admission remain separate existing bounds;
 they are not forced into this staging representation. Existing Data events remain
 unchanged. Executed application, negative/mutation/backend/performance and
 independent delivery review gates are outstanding.
+
+## Scoped read implementation preparation
+
+[scoped-read-v1](../../experiments/public-owned-events/scoped-read-v1/README.md)
+uses the existing abstract capability pattern with arbitrary affine Owner and
+independently fixed Observation:Type. Two readers sequentially access the same
+owner; another constructs its own affine output. Source controls reject owner
+duplication, writes through the read capability and concrete capability escape.
+Actual JS/Native complete observations match all 89 bytes, including the returned
+payload and sentinel; independent review and source/output/oracle joins pass.
+
+The trusted read lens must preserve ownership and read-only behavior: Request
+alone does not prove either. This is threaded scoped access, not simultaneous
+Rust borrowing. Public World log admission, cursor/retention/fan-out integration,
+transactional ownership and delivery/performance acceptance remain outstanding.
