@@ -1,0 +1,158 @@
+{
+  "status": "SOURCE_ONLY_ROOT_ADOPTION_READINESS_NOT_PRODUCTION_ADOPTED",
+  "files": {
+    "src/ecs/inspector.bend": {
+      "ownedDraft": "experiments/public-inspect/promotion-stage/metadata-v1/core-adoption-proposal-v1/inspector.bend",
+      "sha256": "31302fa8b9f68c560e744f613948613218c5ef1f4564c4236c5655a6bf2ab597",
+      "imports": [
+        "Base",
+        "world.bend as W",
+        "component.bend as C",
+        "column.bend as Col",
+        "lifecycle.bend as L",
+        "capabilities.bend as Cap"
+      ],
+      "sameAsNormalStage": true
+    },
+    "src/ecs/inspector-query-projection.bend": {
+      "ownedDraft": "experiments/public-inspect/promotion-stage/metadata-v1/core-adoption-proposal-v1/inspector-query-projection.bend",
+      "sha256": "fe11471686751792c2939bea532f26138492f097d61c9b6200dc58a4580ef614",
+      "imports": [
+        "Base",
+        "inspector.bend as I",
+        "world.bend as W",
+        "component.bend as C",
+        "column.bend as Col",
+        "capabilities.bend as Cap"
+      ],
+      "sameAsNormalStage": true
+    },
+    "src/ecs/inspector-query.bend": {
+      "ownedDraft": "experiments/public-inspect/promotion-stage/metadata-v1/core-adoption-proposal-v1/inspector-query.bend",
+      "sha256": "c6b0f092e6271f3ee8c8ec3552f159ee65821440ef0561d4b63d16544991ea00",
+      "imports": [
+        "Base",
+        "inspector.bend as I",
+        "inspector-query-projection.bend as Q",
+        "world.bend as W",
+        "component.bend as C",
+        "column.bend as Col",
+        "capabilities.bend as Cap"
+      ],
+      "sameAsNormalStage": true
+    },
+    "src/ecs/check.bend": {
+      "ownedDraft": "experiments/public-inspect/promotion-stage/metadata-v1/core-adoption-proposal-v1/check.bend",
+      "sha256": "9b0bef9ab0d3c4905138916d1c6a89cc7669b460c86c985d3dcc9d3424d7252f",
+      "imports": [
+        "Base",
+        "inspector.bend as I",
+        "inspector-query-projection.bend as Q",
+        "world.bend as W",
+        "component.bend as C",
+        "column.bend as Col",
+        "capabilities.bend as Cap"
+      ],
+      "sameAsNormalStage": true
+    },
+    "src/ecs/inspector-metadata.bend": {
+      "ownedDraft": "experiments/public-inspect/promotion-stage/metadata-v1/core-adoption-proposal-v1/inspector-metadata.bend",
+      "sha256": "a2c715edcfefff6f3f5abcd84e5293c7ebf29521708f2298fe90bff36b96ad4a",
+      "imports": [
+        "Base",
+        "schedule-provision.bend as Provision"
+      ],
+      "sameAsNormalStage": true
+    },
+    "src/ecs/inspector-declaration.bend": {
+      "ownedDraft": "experiments/public-inspect/promotion-stage/metadata-v1/core-adoption-proposal-v1/inspector-declaration.bend",
+      "sha256": "835bedcfac18d3a567b06fc5ee4e4cfdfcb804d0701ca86e6e155b2760189997",
+      "imports": [
+        "Base",
+        "inspector-metadata.bend as Meta",
+        "inspector.bend as I",
+        "capabilities.bend as Cap"
+      ],
+      "sameAsNormalStage": true
+    },
+    "src/ecs/inspector-definition.bend": {
+      "ownedDraft": "experiments/public-inspect/promotion-stage/metadata-v1/core-adoption-proposal-v1/inspector-definition.bend",
+      "sha256": "d4f269a5da1f98203e2466744b31d581c3ed7b7d9dbdbce7a08ea70232133d5c",
+      "imports": [
+        "Base",
+        "inspector.bend as I",
+        "inspector-metadata.bend as Meta",
+        "world.bend as W"
+      ],
+      "sameAsNormalStage": true
+    }
+  },
+  "currentRootDependencyJoin": {
+    "path": "experiments/public-inspect/promotion-stage/metadata-v1/core-adoption-proposal-v1/CURRENT-ROOT-DEPENDENCY-JOIN.json",
+    "sha256": "6979d583c5db0a8eefd85eedc2f723e8097fa28512c88d762ee4983d58f192c1"
+  },
+  "currentGateVerifiers": {
+    "normal8": "core-adoption-normal-evidence.py",
+    "query74Check84": "core-adoption-query-check-native-evidence.py",
+    "reader75Lens8Order8Retainer20": "core-adoption-controls-native-evidence.py"
+  },
+  "limits": [
+    "Canonical token/name/lens/finish constructors remain trusted and forgeable; no universal public metadata truth proof.",
+    "State closed descriptor type-index owns arbitrary Type Arrays/Extra at runtime; no runtime capability-plan invocation, rebuild, manual Frame or captured Owner.",
+    "Inspector success advances own reader and physical World tick; Check.run preserves whole World within boundary; diagnostic writes outside Check.run.",
+    "Six source refusals are independently classified concrete diagnostics, not general proofs.",
+    "No service alias, foreign Inspector instance, held-view, capture or borrow policy selected.",
+    "Production root sole writer; seven files remain proposal. Broader #54 reflection/filter/category/exception retry and #55/#56/#57/#50/#53 dependencies remain outside this finite adoption slice."
+  ],
+  "nativeControls": "All four current Native controls actualPASS3/35 each: reader75 exact12 semantic rows; lens8 exact4; order8 exact8; genuine retainer20. Completeoriginalindependentoracles+exactLF; fresh5PREP/config equality each. Finite review/commit pending; production root adoption separately required.",
+  "finiteGateJoins": {
+    "sourceAuthorityCLI8": {
+      "path": "experiments/public-inspect/promotion-stage/metadata-v1/core-adoption-current-root-evidence-v1/index.json",
+      "sha256": "739bd05cb757ecd7e8c277cddcc5954fedae092b5c3141659ac45fbc3601955c",
+      "records": 418,
+      "objects": 92
+    },
+    "normalJSNative8": {
+      "path": "experiments/public-inspect/promotion-stage/metadata-v1/core-adoption-normal-evidence-v1/index.json",
+      "sha256": "862cad3077e7948f37ba33136d249abef7bf6c6c8bdc253c4012bd0a5152bb4c",
+      "records": 309,
+      "objects": 127
+    },
+    "queryCheckSourceCLI": {
+      "path": "experiments/public-inspect/promotion-stage/metadata-v1/core-adoption-query-check-evidence-v1/index.json",
+      "sha256": "81dd9f6d7338f15423e103a1235570ec519ba035176b667cf71ca895d2d95d24",
+      "records": 251,
+      "objects": 66
+    },
+    "queryCheckJS": {
+      "path": "experiments/public-inspect/promotion-stage/metadata-v1/core-adoption-query-check-js-evidence-v1/index.json",
+      "sha256": "36cf3b7596c365433cd8ca811767815285fb617e07fec14d0c6fa940e1ef9f95",
+      "records": 206,
+      "objects": 105
+    },
+    "queryCheckNative": {
+      "path": "experiments/public-inspect/promotion-stage/metadata-v1/core-adoption-query-check-native-evidence-v2/index.json",
+      "sha256": "6608cc0c91a19f3fad5a17250086651228334c7323c2b0ed277b9c9d93c00f99",
+      "records": 271,
+      "objects": 126
+    },
+    "controlsSourceCLI": {
+      "path": "experiments/public-inspect/promotion-stage/metadata-v1/core-adoption-controls-cli-evidence-v1/index.json",
+      "sha256": "7718b81b1062a361ecb3978e8f420b4078057205775ac2491baa6e854f8c7d60",
+      "records": 611,
+      "objects": 106
+    },
+    "controlsJS": {
+      "path": "experiments/public-inspect/promotion-stage/metadata-v1/core-adoption-controls-js-evidence-v1/index.json",
+      "sha256": "fdcf1e23fcf6fbe842d8bffe2d03950b8dddb2b245297269ac297e63871d0cc6",
+      "records": 541,
+      "objects": 216
+    },
+    "controlsNative": {
+      "path": "experiments/public-inspect/promotion-stage/metadata-v1/core-adoption-controls-native-evidence-v1/index.json",
+      "sha256": "04b3927b5bd660f9c8d68d53321a19d58dcdba9c50c892ce45de7da338e219e7",
+      "records": 670,
+      "objects": 257
+    }
+  }
+}
