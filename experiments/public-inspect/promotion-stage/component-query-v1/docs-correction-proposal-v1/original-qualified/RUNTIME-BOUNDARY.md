@@ -18,7 +18,7 @@ allowed, and there is no Check lifecycle factory or TxFrame conversion.
 COMPONENT-ORACLE-v2 literal records. It binds two schemas, all sixteen component
 presence subsets, fourteen query combinations, get for seventeen real public
 entity targets, both cardinality operations, five mutation/read phases, complete
-payload cells and nine genuine structural Check/Schedule gates. A separate
+payload cells and eight genuine structural Check/Schedule gates. A separate
 throwing Inspector definition observes the bootstrap Added-both records before
 throw, observes those same records on retry, then observes the empty repeated
 window. Runtime.ts 1695–1703 advances its own reader and World tick only after the
@@ -33,23 +33,20 @@ true/false dispatch and callback failure/refusal paths. The earlier literal mode
 supplied by the TS payload comparison.
 
 Actual source development dc69a0a9 returned exit 0 for all fourteen Inspector and
-nine structural Check declarations instantiated in both schemas. Each
+eight structural Check declarations instantiated in both schemas. Each
 heterogeneous selection is a recursive Product (including a five-slot alias), not
 a bounded arity implementation. This establishes typing feasibility, not runtime,
-proof or delivery qualification. The actual pinned TS consumer 6948534b passed its complete independent oracle.
-This TS result does not qualify Bend execution or whole-World physical fields.
-Source refusals, reached mutations and Native qualification remain separate gates.
+proof or delivery qualification. The current full TS plan is separately frozen and
+unexecuted pending independent review/root admission. Full Bend complete owner and
+cursor observations, source refusals, reached mutations and standalone TS/JS/Native
+qualification remain required before adoption.
 
 
 The complete source consumer now instantiates both nominal schema factories,
 all fourteen public queries in five phases with seventeen genuine targets,
 nine registered System/Schedule gates per phase, and a separate failing
 Inspector body followed by successful retry and repeat. The source checks are
-feasibility evidence only. The standalone JS consumer executed its complete
-output; reviewed derived reconciliation 80f9968c accepted the independently
-corrected physical model against those unchanged raw bytes. Root integrated
-that finite delivery at 8259d9c5. Original execution 5b6ef2f9 remains INCOMPLETE
-with its original model mismatch; no backend replay or receipt rewrite occurred.
+feasibility evidence only; no Bend runtime output has yet been accepted.
 
 `physical-oracle.py` authors the finite physical model independently of Bend
 execution and joins public records only to the pre-output literal semantic
@@ -68,9 +65,5 @@ The physical expected bytes were frozen before first Bend runtime output.
 The output protocol carries full strings, not hashes or reduced booleans, for
 World, Instance, registry/arguments and diagnostics alongside every complete
 query result. One additive IO.print newline is part of the byte oracle. The
-CLI attempts remain limited or incomplete. The derived standalone JS qualification
-covers all 5,077,477 exact bytes and 25 execution probes. Native attempt a2a48a56
-stopped at the C-emission deadline with empty output; compilation and execution
-were not attempted. Static refusal classification is separate from runtime
-qualification. Reached mutations and Native runtime remain unqualified here;
-there is no proof, adoption, or whole-ticket completion claim.
+pending CLI plan uses in-process generated JS and carries no pure-normalizer,
+standalone JS/Native, proof, adoption, or whole-ticket completion credit.

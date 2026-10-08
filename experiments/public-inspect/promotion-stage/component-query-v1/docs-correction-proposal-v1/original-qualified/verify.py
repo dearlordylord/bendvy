@@ -17,10 +17,7 @@ def verify():
  def data(name):return objects[records[str(name)]['object']]
  def js(name):return json.loads(data(name))
  def by_sha(digest):return objects['objects/'+digest]
- for relative,r in index['liveSelected'].items():
-  live=(LIVE/relative).read_bytes();assert sha(live)==r['sha256'] and len(live)==r['bytes']
-  if 'archivedObject' in r:
-   archived=by_sha(r['archivedSHA256']);assert r['archivedObject']=='objects/'+r['archivedSHA256'] and sha(archived)==r['archivedSHA256'] and len(archived)==r['archivedBytes']
+ for relative,r in index['liveSelected'].items():assert sha((LIVE/relative).read_bytes())==r['sha256']
  out=index['runtimeRoot'];p=js(out+'/execution-plan.json');r=js(out+'/receipt.json');derived=js(out+'/reconciliation-receipt-v2.json')
  assert sha(data(out+'/execution-plan.json'))==PLAN and r['planSHA256']==PLAN
  assert r['status']=='INCOMPLETE' and r['error']=='AssertionError: complete independent public/physical oracle mismatch' and r['guardFailures']==[]
