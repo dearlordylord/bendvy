@@ -123,3 +123,30 @@ removed until that integration and an actual #48 receipt demonstrate it.
 Full semantic, backend, raw-log, timeout, law and performance gates remain
 unchanged. A passing preflight cannot bypass them. No new dependencies or
 numerical acceptance thresholds are introduced.
+
+### Explicit shallow loader search directories
+
+`PinnedTools(..., loader_search_directories=[...], resolver_inputs=[...])`
+optionally inventories loader search directories shallowly. Each selected root's
+resolved directory identity and symlink chain, and every immediate entry's name,
+kind, resolved identity or file bytes are pinned. Filenames are unrestricted.
+Nested directories, including directory aliases, are metadata-only: their
+contents are neither traversed nor adopted as search scope. Declare searched
+hwcap and other nested directories separately. Broken or cyclic links refuse the
+stage. Non-link absent search paths are retained, including ancestor aliases.
+
+Selected root aliases and file candidate symlink targets require explicit target
+coverage by the declared recursive resolver inputs or shallow search namespaces;
+no parent directory is implicitly trusted. Relevant intermediate links are
+retained, so equal final bytes cannot hide alias changes. Child directory aliases
+are recorded without granting target coverage. Directory identity uses device and
+inode rather than timestamps; irrelevant nested documentation edits are ignored.
+
+The default recursive resolver inventory and recursive resource inventory are
+unchanged. Continue declaring loader/cache/preload/config and absent optional
+inputs through `resolver_inputs`, and freeze the complete environment. Initial
+and terminal discovery remain mandatory; intermediate checks launch no probes.
+This API does not establish a closed host-specific list: actual loader defaults,
+hwcaps, RPATH/RUNPATH, DT_NEEDED paths, cache, configuration and environment require
+call-site review before adoption. No aarch64 inventory or collector is approved
+by these mock tests, and no backend or performance gate is waived.

@@ -3,6 +3,7 @@ from pathlib import Path
 import hashlib
 import re
 import json
+import os
 
 
 class ProbeFailure(RuntimeError):
@@ -131,11 +132,12 @@ class PinnedTools:
     This API never guesses a closed namespace or silently adopts changed inputs.
     Keep verify() for consumers without a reviewed resolver-input inventory.
     """
-    def __init__(self, *, resolver_inputs, **configuration):
+    def __init__(self, *, resolver_inputs, loader_search_directories=(), **configuration):
         if not resolver_inputs:
             raise ValueError('explicit closed resolver inputs are required')
         self.configuration = dict(configuration)
         self.resolver_inputs = tuple(map(str, resolver_inputs))
+        self.loader_search_directories = tuple(map(str, loader_search_directories))
         self.resolver = self._resolver()
         self.expected = snapshot(**configuration)
         self.check()
@@ -159,6 +161,74 @@ class PinnedTools:
                 else:
                     raise RuntimeError('unsupported resolver input')
                 result[str(path)] = entry
+        if self.loader_search_directories:
+            result["loader_search_directories"] = self._loader_directories()
+        return result
+
+    def _loader_directories(self):
+        """Explicit shallow search scopes; nested directories confer no coverage."""
+        recursive = [Path(os.path.abspath(p)) for p in self.resolver_inputs]
+        searches = [Path(os.path.abspath(p)) for p in self.loader_search_directories]
+
+        def covered(path):
+            return any(path == root or (root.is_dir() and not root.is_symlink()
+                       and path.is_relative_to(root)) for root in recursive) or any(
+                       path == root or path.parent == root for root in searches)
+
+        def chain(path, *, require_coverage, allow_absent=False):
+            # Walk every component so intermediate aliases cannot disappear behind
+            # Path.resolve(). A repeated link is a cycle, never an absent input.
+            remaining = list(path.parts[1:]); current = Path("/"); links = []
+            seen = set()
+            while remaining:
+                component = remaining.pop(0)
+                if component == "..":
+                    current = current.parent
+                    continue
+                current /= component
+                if current.is_symlink():
+                    if current in seen:
+                        raise RuntimeError("cyclic loader-search symlink")
+                    seen.add(current)
+                    literal = str(current.readlink())
+                    target = current.parent / literal
+                    if require_coverage and not covered(Path(os.path.abspath(target))):
+                        raise RuntimeError("loader-search symlink target outside declared namespace")
+                    links.append({"path": str(current), "target": literal})
+                    # A symlink itself must resolve, even when the requested
+                    # non-link suffix is explicitly declared absent.
+                    current.resolve(strict=True)
+                    remaining = list(target.parts[1:]) + remaining
+                    current = Path("/")
+            resolved = path.resolve(strict=not allow_absent)
+            return resolved, links
+
+        def entry(path, *, searched=False):
+            if not path.exists() and not path.is_symlink():
+                resolved, links = chain(path, require_coverage=True, allow_absent=True)
+                return {"kind": "absent", "resolved": str(resolved), "links": links}
+            is_directory = path.is_dir()
+            resolved, links = chain(path, require_coverage=searched or not is_directory)
+            stat = resolved.stat()
+            value = {"resolved": str(resolved), "links": links}
+            if resolved.is_file():
+                if not covered(resolved):
+                    raise RuntimeError("loader-search file outside declared namespace")
+                value.update(kind="file", sha256=_sha(resolved))
+            elif resolved.is_dir():
+                value.update(kind="directory", identity=[stat.st_dev, stat.st_ino])
+            else:
+                raise RuntimeError("unsupported loader-search input")
+            return value
+
+        result = {}
+        for root in searches:
+            result[str(root)] = entry(root, searched=True)
+            if root.exists() and not root.is_dir():
+                raise RuntimeError("loader-search root is not a directory")
+            if root.is_dir():
+                for child in sorted(root.iterdir()):
+                    result[str(child)] = entry(child)
         return result
 
     def check(self, **configuration):

@@ -130,6 +130,84 @@ class Contract(unittest.TestCase):
         self.library.write_bytes(b'changed')
         with self.assertRaises(RuntimeError): session.check()
 
+    def shallow(self, searches, extra=()):
+        config = self.root/'loader-config'
+        if not config.exists(): config.write_bytes(b'config')
+        return pins.PinnedTools(resolver_inputs=[config, *extra],
+                                loader_search_directories=searches, **self.cfg)
+
+    def test_shallow_arbitrary_names_bytes_config_and_no_probes(self):
+        search = self.root/'search'; search.mkdir()
+        candidate = search/'arbitrary-name'; candidate.write_bytes(b'candidate')
+        session = self.shallow([search])
+        for _ in range(4): session.check()
+        self.assertEqual(len(self.calls), 1)
+        candidate.write_bytes(b'changed')
+        with self.assertRaises(RuntimeError): session.check()
+        session = self.shallow([search])
+        (search/'not-a-so-shadow').write_bytes(b'shadow')
+        with self.assertRaises(RuntimeError): session.check()
+        session = self.shallow([search])
+        (self.root/'loader-config').write_bytes(b'changed')
+        with self.assertRaises(RuntimeError): session.check()
+        self.assertEqual(len(self.calls), 3)
+
+    def test_shallow_nested_docs_ignored_and_hwcap_explicit(self):
+        search = self.root/'search'; search.mkdir()
+        docs = self.root/'outside-docs'; docs.mkdir()
+        (search/'docs').symlink_to(docs, target_is_directory=True)
+        hwcap = search/'hwcap'; hwcap.mkdir()
+        file = hwcap/'candidate'; file.write_bytes(b'old')
+        session = self.shallow([search])
+        (docs/'new').write_bytes(b'irrelevant'); file.write_bytes(b'new')
+        session.check()
+        session = self.shallow([search, hwcap])
+        file.write_bytes(b'changed')
+        with self.assertRaises(RuntimeError): session.check()
+        # Merely naming a child directory does not adopt its descendants.
+        self.assertNotIn(str(docs/'new'), session.resolver['loader_search_directories'])
+
+    def test_shallow_link_chain_coverage_drift_and_invalid_links(self):
+        search = self.root/'search'; search.mkdir()
+        target = self.root/'explicit-target'; target.write_bytes(b'bytes')
+        middle = self.root/'middle'; middle.symlink_to(target)
+        link = search/'candidate'; link.symlink_to(middle)
+        with self.assertRaises(RuntimeError): self.shallow([search])
+        session = self.shallow([search], [middle, target])
+        replacement = self.root/'replacement'; replacement.write_bytes(b'bytes')
+        middle.unlink(); middle.symlink_to(replacement)
+        with self.assertRaises(RuntimeError): session.check()
+        middle.unlink(); middle.symlink_to(link)
+        with self.assertRaises(RuntimeError): self.shallow([search], [middle, target])
+        middle.unlink(); middle.symlink_to(self.root/'missing')
+        with self.assertRaises((RuntimeError, OSError)): self.shallow([search], [middle, target])
+
+    def test_shallow_root_alias_requires_explicit_target_and_identity(self):
+        search = self.root/'search'; search.mkdir()
+        (search/'candidate').write_bytes(b'bytes')
+        alias = self.root/'alias'; alias.symlink_to(search, target_is_directory=True)
+        with self.assertRaises(RuntimeError): self.shallow([alias])
+        session = self.shallow([alias, search])
+        # Keep the original inode allocated, making replacement deterministic.
+        other = self.root/'other'; search.rename(other); search.mkdir()
+        (search/'candidate').write_bytes(b'bytes')
+        with self.assertRaises(RuntimeError): session.check()
+
+    def test_shallow_absence_recursive_default_and_resources_preserved(self):
+        missing = self.root/'absent-search'
+        session = self.shallow([missing]); session.check()
+        missing.mkdir()
+        with self.assertRaises(RuntimeError): session.check()
+        directory = self.root/'recursive'; directory.mkdir()
+        nested = directory/'nested'; nested.mkdir(); (nested/'file').write_bytes(b'old')
+        session = pins.PinnedTools(resolver_inputs=[directory], **self.cfg)
+        self.assertNotIn('loader_search_directories', session.resolver)
+        (nested/'file').write_bytes(b'new')
+        with self.assertRaises(RuntimeError): session.check()
+        session = self.shallow([missing])
+        (self.resource/'base').write_bytes(b'changed')
+        with self.assertRaises(RuntimeError): session.check()
+
     def test_actual_reviewed_executor_raw_merged_and_five_second_argument(self):
         # Actual child invocation under the reviewed cleanup policy, not a mock.
         script = self.root/'ldd-fixture'; script.write_text('#!/bin/sh\nprintf "out\\n"\nprintf "err\\n" >&2\n'); script.chmod(0o755)
