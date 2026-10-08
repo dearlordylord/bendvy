@@ -43,3 +43,8 @@ scheduler execution. Ordinary debug with no manual metadata adapters remains the
 #56 product requirement. This finite oracle is not full #56 delivery, proof,
 source-current negatives/mutation/backend qualification or performance acceptance.
 No new failure contract, law, dependency or numerical gate is selected here.
+
+
+## Pre-backend physical liveness correction
+
+The original pre-run oracle mistakenly shifted entity liveness to positions0..2. World.set_live_checked writes Array.set(live,id,value), and setup reserves/activates IDs1,2,3. scenario-observation.bits explicitly starts at index0 and reads all four physical indices. Base Array.swap.at masks indices by size-1 and descends by their numerical half; capacity4 indices1,2,3 are distinct and index0 remains its initial False. Therefore every original-world physical liveBits is [False,True,True,True]. The empty foreign-world bit remains [False]. Corrected only this field across all45 phases; a complete structural comparison verifies every other observation unchanged. The old oracle remains in Git commit3ea49dd8. Correction source digests are recorded in source-basis.json; no backend observations exist.

@@ -15,7 +15,7 @@ def world(category,state,clock,registered=True):
     for name in ['Position','Velocity','Health']:
         columns[name.lower()]={'storage':copy.deepcopy(storage),'cells':[{'id':i,'payload':{'None':{}} if i not in state[name] else {'Some':full(state[name][i][0])},'stamp':{'added':0,'changed':0} if i not in state[name] else {'added':state[name][i][1],'changed':state[name][i][2]}} for i in [1,2,3]]}
     regs=[{'id':i+1,'name':NAMES[i],'access':[x['name'] for x in clauses(i)]} for i in reversed(range(5))] if registered else []
-    return {'namespace':1,'nextId':4,'highWater':3,'capacity':4,'depth':{'nat':2},'liveBits':[True,True,True,False],'resource':{'Unit':{}},'events':[],'pendingCount':0,'registrations':regs,'nextSystemId':6 if registered else 1,'clock':clock,'columns':columns}
+    return {'namespace':1,'nextId':4,'highWater':3,'capacity':4,'depth':{'nat':2},'liveBits':[False,True,True,True],'resource':{'Unit':{}},'events':[],'pendingCount':0,'registrations':regs,'nextSystemId':6 if registered else 1,'clock':clock,'columns':columns}
 def description():return {'namespace':1,'name':'Update','steps':[{'Phase':{'name':'Update'}}]+[{'System':{'id':i,'condition':0}} for i in range(1,6)]+[{'Barrier':{}}],'systems':[{'id':i+1,'name':NAMES[i],'slot':'entities','clauses':clauses(i)} for i in range(5)]}
 def scenario(category):
     state={'Position':{1:[[1,101],1,1],2:[[2,102],4,4],3:[[3,103],6,6]},'Velocity':{1:[[10,201],2,2],2:[[20,202],5,5]},'Health':{1:[[100,301],3,3],3:[[300,303],7,7]}}

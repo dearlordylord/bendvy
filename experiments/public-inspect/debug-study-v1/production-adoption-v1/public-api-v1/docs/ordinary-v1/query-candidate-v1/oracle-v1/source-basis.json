@@ -7,5 +7,16 @@
     "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/declaration.bend": "d814be4eb96003efc746994500211c9c83cb4e4db21a4eb08e6f73dd2aaccf6b",
     "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/system.bend": "306eb4a35fe1b2b71276263c8716f15858e7bc9b74b8418461da4f4205812ea1",
     "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app.bend": "aa55ae27b742e62718b5452c0176ebe5e0d479d896e62737b8a35142ff538f64"
+  },
+  "preBackendPhysicalLivenessCorrection": {
+    "previousExpectedSHA256": "eda8eafec5208aad1924d0d99b0bf439d8b791466cfd9ed50ccbb99ea40de802",
+    "expectedSHA256": "6974fefb4552f2602654922168900acfd1811c899ab627e8d513c779d67adc28",
+    "sourceSHA256": {
+      "/workspace/formal-proofs/bendvy/src/ecs/world.bend": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310",
+      "/workspace/formal-proofs/bendvy/.references/bend2/bend2/base.bend": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+      "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-observation.bend": "7b00800fc9d120973429a84dd019324fae9f893f250a09b46129b11586f4586b",
+      "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-setup.bend": "05d0db891ee77013bfad08c0fec19f5950407824708976d77c44134c624fd138"
+    },
+    "reason": "World Array.set uses entity IDs1,2,3; observer enumerates physicalindices0..capacity-1; index0 remainsfalse. No backend outputs."
   }
 }
