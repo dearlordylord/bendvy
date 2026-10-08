@@ -1,0 +1,17 @@
+--- a/experiments/public-machine-handlers/candidate-v1/full-provider.bend
++++ b/experiments/public-machine-handlers/candidate-v1/full-provider.bend
+@@ -3,12 +3,12 @@
+ import ../../../src/ecs/local.bend as Local
+ import ../../../src/ecs/machine.bend as M
+ import ../../../src/ecs/machine-stream.bend as St
+-import ../../public-machines/world.bend as MW
++import ../../../src/ecs/machine-world.bend as MW
+ import ../../../src/ecs/world.bend as W
+ import ../../../src/ecs/column.bend as Col
+ import ../../../src/ecs/component.bend as Cmp
+ import ../../../src/ecs/transaction.bend as Tx
+-import ../../public-machines/conditions.bend as Cond
++import ../../../src/ecs/machine-conditions.bend as Cond
+ 
+ type SchemaA is Data:
+   SchemaA{}

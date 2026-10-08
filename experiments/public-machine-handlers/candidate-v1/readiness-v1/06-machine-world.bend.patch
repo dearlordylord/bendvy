@@ -1,0 +1,33 @@
+--- /dev/null
++++ b/src/ecs/machine-world.bend
+@@ -0,0 +1,30 @@
++import Base
++import machine.bend as M
++import world.bend as W
++
++# Closed resource lenses adapt machine slots to the existing actual ECS world.
++# No component store or affine resource is projected to Data or copied.
++def take_join(~S: Data,~K: Data,~V: Data,~C: Type,~R: Type,~E: Data,
++  +ns: U32,+next: U32,+high: U32,live: Array<Bool>,+capacity: U32,+depth: Nat,
++  store: C,split: R & M.Slot<S,K,V>,+events: List<&2,E>,commands: List<&1,(W.World<S,C,R,E> -> W.World<S,C,R,E>)>,
++  +registrations: List<&2,W.RegistrationMeta>,+nextSystem: U32,+clock: U32
++) -> W.World<S,C,R,E> & M.Slot<S,K,V>:
++  (resources,slot)=split
++  (W.World{ns,next,high,live,capacity,depth,store,resources,events,commands,registrations,nextSystem,clock},slot)
++
++def take(~S: Data,~K: Data,~V: Data,~C: Type,~R: Type,~E: Data,
++  ~take_resource: R -> R & M.Slot<S,K,V>,world: W.World<S,C,R,E>) -> W.World<S,C,R,E> & M.Slot<S,K,V>:
++  match world:
++    case W.World{ns,next,high,live,capacity,depth,store,resources,events,commands,registrations,nextSystem,clock}:
++      take_join(~S,~K,~V,~C,~R,~E,ns,next,high,live,capacity,depth,store,take_resource(resources),events,commands,registrations,nextSystem,clock)
++
++def put(~S: Data,~K: Data,~V: Data,~C: Type,~R: Type,~E: Data,
++  ~put_resource: R -> M.Slot<S,K,V> -> R,world: W.World<S,C,R,E>,slot: M.Slot<S,K,V>) -> W.World<S,C,R,E>:
++  match world:
++    case W.World{ns,next,high,live,capacity,depth,store,resources,events,commands,registrations,nextSystem,clock}:
++      W.World{ns,next,high,live,capacity,depth,store,put_resource(resources,slot),events,commands,registrations,nextSystem,clock}
++
++# ApplyDeferred only drains structural commands. Machine commits require the
++# separate marker; callers must not conflate the two public operations.
++def structural_flush(~S: Data,~C: Type,~R: Type,~E: Data,world: W.World<S,C,R,E>) -> W.World<S,C,R,E>:
++  W.barrier(~S,~C,~R,~E,world)

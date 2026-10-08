@@ -1,0 +1,64 @@
+{
+  "status": "SOURCE_ONLY_UNEXECUTED_READINESS_ADDENDUM",
+  "rootSrcWriter": "root",
+  "newLaws": false,
+  "approvedContractsChanged": false,
+  "currentModuleBindings": {
+    "machine.bend": {
+      "root": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend",
+      "qualifiedStage": "/workspace/formal-proofs/bendvy-worktrees/parity-49-handlers/experiments/public-machine-handlers/candidate-v1/development/adoption-normal-native-1791418734208022501/stage/src/ecs/machine.bend",
+      "sha256": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed"
+    },
+    "machine-stream.bend": {
+      "root": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend",
+      "qualifiedStage": "/workspace/formal-proofs/bendvy-worktrees/parity-49-handlers/experiments/public-machine-handlers/candidate-v1/development/adoption-normal-native-1791418734208022501/stage/src/ecs/machine-stream.bend",
+      "sha256": "c47ff38671eb67b4369311408c81a2ef388ed971923419625c36f92219eb0fe4"
+    },
+    "machine-handlers.bend": {
+      "root": "/workspace/formal-proofs/bendvy/src/ecs/machine-handlers.bend",
+      "qualifiedStage": "/workspace/formal-proofs/bendvy-worktrees/parity-49-handlers/experiments/public-machine-handlers/candidate-v1/development/adoption-normal-native-1791418734208022501/stage/src/ecs/machine-handlers.bend",
+      "sha256": "a63c3847277c69e1513346f35f43c9a482bd3af25373858b2e8df957f75e5fd8"
+    },
+    "internal/machine-handler-events.bend": {
+      "root": "/workspace/formal-proofs/bendvy/src/ecs/internal/machine-handler-events.bend",
+      "qualifiedStage": "/workspace/formal-proofs/bendvy-worktrees/parity-49-handlers/experiments/public-machine-handlers/candidate-v1/development/adoption-normal-native-1791418734208022501/stage/src/ecs/internal/machine-handler-events.bend",
+      "sha256": "c0e605e1b707e9e344d2f19172daa348b8467d6db5b7596960a3649318f44c74"
+    }
+  },
+  "optionalHelperExtraction": {
+    "machine-world.bend": {
+      "live": "/workspace/formal-proofs/bendvy/experiments/public-machines/world.bend",
+      "liveSHA256": "fbb282b8ae8568e9647042517115114ab8a42b7829871051600a685f7dd181af",
+      "qualifiedStage": "/workspace/formal-proofs/bendvy-worktrees/parity-49-handlers/experiments/public-machine-handlers/candidate-v1/development/adoption-normal-native-1791418734208022501/stage/experiments/public-machines/world.bend",
+      "qualifiedSHA256": "648d9238007d2fbdc9ab22d2fbb7f0d991ede3a154c25c12b3156c5ac85106eb",
+      "proposedSHA256": "8b8610e7ae42eea066639b5cb970a2885dd2fa14024efedef9fbc28dd6ba1816",
+      "patch": "06-machine-world.bend.patch",
+      "patchSHA256": "b0c22e066681fe1353a1726a4949e740734ab9702f6468ca6c6c9cd5f3f8f1b3",
+      "scope": "Existing generic helper; import-only extraction. Caller-owned capability/namespace validation unchanged. NOT applied or qualified."
+    },
+    "machine-conditions.bend": {
+      "live": "/workspace/formal-proofs/bendvy/experiments/public-machines/conditions.bend",
+      "liveSHA256": "610912561009d08c5b554371c140ec1267d0744cb941f860199dee469df6ac4f",
+      "qualifiedStage": "/workspace/formal-proofs/bendvy-worktrees/parity-49-handlers/experiments/public-machine-handlers/candidate-v1/development/adoption-normal-native-1791418734208022501/stage/experiments/public-machines/conditions.bend",
+      "qualifiedSHA256": "610912561009d08c5b554371c140ec1267d0744cb941f860199dee469df6ac4f",
+      "proposedSHA256": "610912561009d08c5b554371c140ec1267d0744cb941f860199dee469df6ac4f",
+      "patch": "07-machine-conditions.bend.patch",
+      "patchSHA256": "22531edc42812af9589f92962e340e3a573da1e972dce45af9d56f3956b16e5c",
+      "scope": "Existing generic helper; import-only extraction. Caller-owned capability/namespace validation unchanged. NOT applied or qualified."
+    }
+  },
+  "consumerImportChanges": {
+    "full-provider.bend": {
+      "qualifiedStage": "/workspace/formal-proofs/bendvy-worktrees/parity-49-handlers/experiments/public-machine-handlers/candidate-v1/development/adoption-normal-native-1791418734208022501/stage/experiments/public-machine-handlers/candidate-v1/full-provider.bend",
+      "beforeSHA256": "6741a471f147ec21fa5c676ebb8d66ddcc5503be2055174bf315711f25682829",
+      "afterSHA256": "fa02bd682298f1f5077a6150be2d6fd32313c8c8e48ca5b518591173672e71da"
+    }
+  },
+  "consumerPatchSHA256": "148ba1fe475e299102418aa9c66cd9e90d367226a2e03c36d1c63ef122f55284",
+  "readinessSHA256": "a9c5bbcd16b9b88757f18b2c5827e4b035d4067e2215e7f708d601fbdc7a0ba1",
+  "selection": "Root selected06\u201308 source-only helper extraction; later-key policy still unselected; no checks/adoption",
+  "coreAdoption": {
+    "commit": "12710fab",
+    "scope": "Root narrow four machine modules plus bundle9/capability draft, reviewed API/semantics and unchanged #28 named-workload reconciliation; not full #48/#49 or proposed helpers adoption"
+  }
+}
