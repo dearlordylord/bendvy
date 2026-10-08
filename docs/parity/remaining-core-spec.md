@@ -46,7 +46,7 @@ Extend the existing full-core specification with executable vertical slices for 
 ## Implementation Decisions
 
 - This is an additive remaining-core specification under #1, not a reduction or replacement of the original full scope. Closed slices #29/#30/#31/#32/#33/#36 are prerequisites/evidence, not proof of complete core parity.
-- Pinned bevy-ts specifies behavior; Rust Bevy ECS informs entity/component/query/schedule/relationship architecture; Bend guide, compiler and Base decide kinds, ownership, closure reuse and runtime representation. Record all three exact commits. Rust-only renderer/assets/audio/editor APIs are not introduced.
+- Rust Bevy ECS is the architecture and ECS semantics reference; pinned bevy-ts shows the target feature subset and provides porting inspiration and comparative scenarios; Bend guide, compiler and Base decide kinds, ownership, closure reuse and runtime representation. Record all three exact commits. Rust-only renderer/assets/audio/editor APIs are not introduced.
 - Keep explicit typed declarations and sequential CPU orchestration. Data-only components are unapproved. Template functions, consumed-and-returned affine state and explicit safe projections must replace any impossible JS aliasing; behavioral divergence needs approval.
 - Relationships maintain one authoritative source edge with protected inverse consistency; hierarchy and scope cleanup preserve explicit structural barriers and per-system transaction boundaries.
 - Separate entity state from machines. Transition markers flush deferred work; exit/transition failures requeue, enter failures retain committed state/publication. Do not implement whole-marker rollback.

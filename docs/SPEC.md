@@ -58,7 +58,7 @@ Deliver a simple reproducible CPU console simulation first. Later, validate inte
 
 ## Implementation Decisions
 
-- The end goal is the complete core of the pinned bevy-ts reference. Rust Bevy is a conceptual and secondary behavioral reference. API similarity is not a requirement; agreed behavioral divergences are explicit and do not count as achieved parity.
+- The end goal is the complete Bevy ECS feature subset covered by the pinned bevy-ts core. Rust Bevy is the architecture and ECS semantics reference; bevy-ts is inspiration for subset selection and porting to another language. Bend types, affine ownership and runtime determine the native API and representation. API similarity and bug-for-bug TypeScript behavior are not requirements. Existing approved contracts remain binding; reference differences require explicit decisions and coverage evidence.
 - Preserve the agreed ECS model: entities, components, queries, resources, declared system capabilities and controlled structural changes. Design representations for Bend's types, affine ownership and runtime.
 - Begin with explicit typed world declarations, without a schema DSL or generator. Revisit declaration ergonomics after two schemas and a second application provide evidence.
 - Require check-time rejection of undeclared component access, cross-schema misuse and writes through read capabilities. Positive examples alone are insufficient evidence.

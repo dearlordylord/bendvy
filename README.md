@@ -15,15 +15,11 @@ These pieces have scoped tests and examples. They don't yet add up to complete p
 
 ## Parity and performance
 
-The goal is full **bevy-ts ECS core parity**, with idiomatic Bend APIs. Remaining work includes debug tooling, snapshots/restore, hierarchy/scopes, broader ownership support and complete cross-feature coverage. See the [parity tracker](docs/parity/README.md) and [spec](docs/SPEC.md).
+The goal is the full **Bevy ECS subset covered by bevy-ts**, with idiomatic Bend APIs. Remaining work includes debug tooling, snapshots/restore, hierarchy/scopes, broader ownership support and complete cross-feature coverage. See the [parity tracker](docs/parity/README.md) and [spec](docs/SPEC.md).
 
 Performance targets: JS at least as fast as bevy-ts, native at least 2× faster on equivalent workloads. Current benchmark wins are workload-specific; full parity performance is still to be qualified.
 
 ## How we're building it
 
-- [Rust Bevy](https://github.com/bevyengine/bevy) for ECS architecture, [bevy-ts](https://github.com/SandroMaglione/bevy-ts) for executable behavior, and Bend's source/compiler for language and runtime details. [Reference versions](.references/sources.json) are pinned.
-- Law-driven development: falsification, approved laws, proofs where available, and mutation tests.
-- Independent API reviews and complete reference comparisons, including ownership and error cases.
+- [Rust Bevy](https://github.com/bevyengine/bevy) for ECS architecture and semantics; [bevy-ts](https://github.com/SandroMaglione/bevy-ts) for inspiration on feature scope and porting ECS to another language; Bend's source/compiler for types and runtime.
 - Autoresearch performance loops guided by JS CPU/allocation profiles, native measurements and regression benchmarks.
-
-Contributions, advice and awkward ECS edge cases are welcome!
