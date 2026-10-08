@@ -1,0 +1,11 @@
+# Relation-query Frame bridge source proposal
+
+adapter.bend retains actual I.Frame world/cursor through W.with_store(RQ.graph_read). The adopted RQ.spec_rows matcher supplies the exact required/optional outgoing/incoming and presence/absence filter behavior and ordered detached cells. No Tx.begin or graph mutation occurs. Query-only descriptor lists are closed at trusted schema provisioning.
+
+The exact independent component-query-v1 Selection/Query/Families/Traversal modules are copied without body/import changes. Their core-v1 dependencies are actual current coordinator sources, joined explicitly; this transfers no old runtime credit. Reuse recursive Selection.pair/map and predicates for heterogeneous fields, arbitrary Type owner-returned component projections and lifecycle filters. A single generic component-selected callback is not the extent of the implementation: the copied unbounded typed composer is the shared seam.
+
+Public Query.grant combines component and relation selection and uses actual WorldRead namespace/liveness validation before get; each uses canonical live handles. All four methods share this declaration. Unchecked low-level Selection/project functions remain provider implementation details, not substitute lookup grants. MissingEntity, QueryMismatch and empty/single/multiple cardinality retain the existing read adapter contracts. Before/after owner and cursor controls must qualify the trusted providers: affine return alone does not prove purity.
+
+Next source fixture instantiates two nominal schemas, two unrelated arbitrary Type component owners/resources, heterogeneous named fields, every relation selection/filter and four facade methods, foreign-world equal IDs, empty/single/multiple, lifecycle predicates and retained snapshots after relation mutation. Independent full oracles must precede outputs. Existing component source feasibility/TS evidence does not qualify this new relation bridge; no runtime, proof, performance or full #55 claim.
+
+No new stream retention, transition/failure disposal, foreign Inspector association, held mutable view or arbitrary owned-event policy is selected. Query projection can proceed independently; streamed categories remain dependent on their proper #43/#44/#48/#50/#53 contracts.

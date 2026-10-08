@@ -1,0 +1,154 @@
+{
+  "scope": "source-derived model delta only; not actual-output acceptance; historical INCOMPLETE unchanged",
+  "sources": {
+    "author-oracle.py": "4e03133f056f537b690517a62a2af982d25ba5025e461e80780609c14b46202d",
+    "expected-relations.json": "8806cea54c284a51fbd613a3c6e849bb7cd39e89b8c67d5ea7240266b8d06862",
+    "author-oracle-v2.py": "693ed45e0a29e43bb2628d8f54b4a8bf2166e2dd4870cafcb01a77b9f2d14ccc",
+    "expected-relations-v2.json": "d9602b8262c4061190752472c2571eaf94699c720a446aec1392df394654dd4d",
+    "fixture-build.bend": "62ce459495b1e6245e7cf1ffbffd5bf5937187ab304c4b223df29ec244f5ad60",
+    "fixture-driver.bend": "dadddd5cbbd25ef80bac66af1880cbbb787c2cedebe41b869b4692eb650cabff",
+    "core-v1/src/ecs/component.bend": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+    "core-v1/src/ecs/inspector.bend": "31302fa8b9f68c560e744f613948613218c5ef1f4564c4236c5655a6bf2ab597",
+    "core-v1/src/ecs/world.bend": "a20b0f2363dab12b73109354ebddf5c9126d3e786031cf9232a0c68c5ffc3b5c",
+    "source-joins.json": "92c8f684aa5959ed8d53ca47ddcdf138fb9e90d031a07bba7f43d8edcc2caebe"
+  },
+  "differencesOldToV2": [
+    [
+      "/schemas/0/phases/0/worldClockBefore",
+      0,
+      6
+    ],
+    [
+      "/schemas/0/phases/0/worldClockAfter",
+      0,
+      6
+    ],
+    [
+      "/schemas/0/phases/1/cursorBefore",
+      1,
+      7
+    ],
+    [
+      "/schemas/0/phases/1/cursorAfter",
+      1,
+      7
+    ],
+    [
+      "/schemas/0/phases/1/worldClockBefore",
+      1,
+      7
+    ],
+    [
+      "/schemas/0/phases/1/worldClockAfter",
+      1,
+      7
+    ],
+    [
+      "/schemas/0/phases/2/cursorBefore",
+      2,
+      8
+    ],
+    [
+      "/schemas/0/phases/2/cursorAfter",
+      2,
+      8
+    ],
+    [
+      "/schemas/0/phases/2/worldClockBefore",
+      2,
+      8
+    ],
+    [
+      "/schemas/0/phases/2/worldClockAfter",
+      2,
+      8
+    ],
+    [
+      "/schemas/0/finalInspectorCursor",
+      3,
+      9
+    ],
+    [
+      "/schemas/0/finalWorldClock",
+      3,
+      9
+    ],
+    [
+      "/schemas/1/phases/0/worldClockBefore",
+      0,
+      6
+    ],
+    [
+      "/schemas/1/phases/0/worldClockAfter",
+      0,
+      6
+    ],
+    [
+      "/schemas/1/phases/1/cursorBefore",
+      1,
+      7
+    ],
+    [
+      "/schemas/1/phases/1/cursorAfter",
+      1,
+      7
+    ],
+    [
+      "/schemas/1/phases/1/worldClockBefore",
+      1,
+      7
+    ],
+    [
+      "/schemas/1/phases/1/worldClockAfter",
+      1,
+      7
+    ],
+    [
+      "/schemas/1/phases/2/cursorBefore",
+      2,
+      8
+    ],
+    [
+      "/schemas/1/phases/2/cursorAfter",
+      2,
+      8
+    ],
+    [
+      "/schemas/1/phases/2/worldClockBefore",
+      2,
+      8
+    ],
+    [
+      "/schemas/1/phases/2/worldClockAfter",
+      2,
+      8
+    ],
+    [
+      "/schemas/1/finalInspectorCursor",
+      3,
+      9
+    ],
+    [
+      "/schemas/1/finalWorldClock",
+      3,
+      9
+    ]
+  ],
+  "differenceCount": 24,
+  "queryObservationsUnchanged": 192,
+  "ordering": {
+    "successfulSetupReplacements": 6,
+    "bodyWorldClocks": [
+      6,
+      7,
+      8
+    ],
+    "bodyCursors": [
+      0,
+      7,
+      8
+    ],
+    "successfulInspectorCompletions": 3,
+    "finalClockAndCursor": 9
+  }
+}
