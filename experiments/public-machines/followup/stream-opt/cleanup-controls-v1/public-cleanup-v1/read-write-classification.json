@@ -1,0 +1,19 @@
+{
+  "basis": "Independent complete raw diagnostic review by /root/evidence_review",
+  "planSHA256": "50eee7588f1600b46edbb434a49ecf486cfbc1d5d2da47eb6796976a8d24aae9",
+  "receiptSHA256": "eccba059ff79e9fa13fe5f4d3924dff2fb3f1e1636ced39c2e72b93a26b16f9b",
+  "positive": {
+    "exit": 0,
+    "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+    "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "meaning": "Legal ValueWrite callback typing only; no mathematical validity claim"
+  },
+  "negative": {
+    "exit": 1,
+    "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderrSHA256": "cc93394653a260fc6037a38ae1b24a7fcc4ac2f3861147b3518450136d6cbafe",
+    "classification": "Single intended ValueRead cannot satisfy ValueWrite at denied Cap.value_set ~read line5"
+  },
+  "originalRAWPreserved": true,
+  "earlierParserAndImportFailuresReceiveNoRefusalCredit": true
+}

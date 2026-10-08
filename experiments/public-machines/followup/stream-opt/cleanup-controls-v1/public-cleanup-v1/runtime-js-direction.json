@@ -1,0 +1,36 @@
+{
+  "scope": "Two separately reviewed JS correctness groups over current generic cleanup adapter; no clocks/Native/proof/adoption/old runtime credit",
+  "sourcePlan": "/workspace/formal-proofs/bendvy-worktrees/parity-49-handlers/experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/source-controls-1791467652294787850/plan.json",
+  "sourcePlanSHA256": "8c0a68c369d5b1a8cfbb61c8471f32c07466a38812a1fbf4f850b145cbfc227e",
+  "sourceReceiptSHA256": "73aca2007556b170afafcc547f3cce21359384507bb5e3b17063b6da2ab7f9e1",
+  "stageMembers": 108,
+  "modelsDirectionSHA256": "00f30d196a3b4c8a570ab55934a75080673ca885cdfb74a06dd1cb7097c8f573",
+  "groups": [
+    {
+      "name": "post-consumption",
+      "root": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller.bend",
+      "completeWorldRows": 36,
+      "completeInstanceRecords": 22
+    },
+    {
+      "name": "failed-batch",
+      "root": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/failed-batch-v1/caller.bend",
+      "completeWorldRows": 32,
+      "completeInstanceRecords": 16
+    }
+  ],
+  "commandsEach": [
+    "CPU8 emitJS30",
+    "CPU8 Node5 actual IO application"
+  ],
+  "guardsEach": 35,
+  "requirements": [
+    "Literal source receipt/raw/stage identity, separate full FFI classification; no safeproof claim",
+    "Complete independent model closure and expected JSON pinned before generated output",
+    "Canonical full participating configuration kinds/ancestors and frozen private Node environment",
+    "Initial/failure postguards under ReceiptBoundary; raw output retained before assertions",
+    "Generated output absence before emission, hash/register in both subject and probe Runner inputs after emission",
+    "Complete strict physical world/instance oracle comparison, all same-owner rejection/retry/survivor observations",
+    "Each actual plan independently reviewed before child; serial collector-owned lock; no normal historical runtime replay"
+  ]
+}
