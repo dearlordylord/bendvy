@@ -1,0 +1,2108 @@
+{
+  "status": "INDEPENDENT_TS_COMMON_ORACLE_BEFORE_EXECUTABLE_OUTPUT",
+  "comparable": {
+    "A": {
+      "boot_Play_queued": {
+        "component": [
+          0,
+          7
+        ],
+        "resource": [
+          0,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Boot",
+        "previous": null,
+        "locals": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "attempts": [],
+        "prefix": [],
+        "pendingStructural": 0,
+        "structuralApplied": 0,
+        "deliveries": [],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "idle",
+        "pending": "Play"
+      },
+      "boot_Play_applied": {
+        "component": [
+          1141,
+          7
+        ],
+        "resource": [
+          1141,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Play",
+        "previous": "Boot",
+        "locals": [
+          1,
+          1,
+          0,
+          1,
+          1,
+          1,
+          0,
+          0
+        ],
+        "attempts": [
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay",
+          "enterPlay1",
+          "enterPlay0"
+        ],
+        "prefix": [
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay",
+          "enterPlay1",
+          "enterPlay0"
+        ],
+        "pendingStructural": 5,
+        "structuralApplied": 0,
+        "deliveries": [
+          {
+            "from": "Boot",
+            "to": "Play"
+          }
+        ],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "ok",
+        "pending": "Pause"
+      },
+      "boot_Pause_queued": {
+        "component": [
+          0,
+          7
+        ],
+        "resource": [
+          0,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Boot",
+        "previous": null,
+        "locals": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "attempts": [],
+        "prefix": [],
+        "pendingStructural": 0,
+        "structuralApplied": 0,
+        "deliveries": [],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "idle",
+        "pending": "Pause"
+      },
+      "boot_Pause_applied": {
+        "component": [
+          231,
+          7
+        ],
+        "resource": [
+          231,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Pause",
+        "previous": "Boot",
+        "locals": [
+          0,
+          1,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0
+        ],
+        "attempts": [
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPause",
+          "enterPause"
+        ],
+        "prefix": [
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPause",
+          "enterPause"
+        ],
+        "pendingStructural": 4,
+        "structuralApplied": 0,
+        "deliveries": [
+          {
+            "from": "Boot",
+            "to": "Pause"
+          }
+        ],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "ok",
+        "pending": null
+      },
+      "self_queued_next": {
+        "component": [
+          1341,
+          7
+        ],
+        "resource": [
+          1341,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Pause",
+        "previous": "Play",
+        "locals": [
+          1,
+          1,
+          0,
+          1,
+          1,
+          1,
+          1,
+          0
+        ],
+        "attempts": [
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay",
+          "enterPlay1",
+          "enterPlay0",
+          "enterPause"
+        ],
+        "prefix": [
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay",
+          "enterPlay1",
+          "enterPlay0",
+          "enterPause"
+        ],
+        "pendingStructural": 1,
+        "structuralApplied": 5,
+        "deliveries": [
+          {
+            "from": "Boot",
+            "to": "Play"
+          },
+          {
+            "from": "Play",
+            "to": "Pause"
+          }
+        ],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "ok",
+        "pending": null
+      },
+      "same_Boot_false": {
+        "component": [
+          11,
+          7
+        ],
+        "resource": [
+          11,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Boot",
+        "previous": "Boot",
+        "locals": [
+          0,
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        "attempts": [
+          "exitBoot0",
+          "exitBoot1"
+        ],
+        "prefix": [
+          "exitBoot0",
+          "exitBoot1"
+        ],
+        "pendingStructural": 2,
+        "structuralApplied": 0,
+        "deliveries": [
+          {
+            "from": "Boot",
+            "to": "Boot"
+          }
+        ],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "ok",
+        "pending": null
+      },
+      "same_Boot_true": {
+        "component": [
+          0,
+          7
+        ],
+        "resource": [
+          0,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Boot",
+        "previous": null,
+        "locals": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "attempts": [],
+        "prefix": [],
+        "pendingStructural": 0,
+        "structuralApplied": 0,
+        "deliveries": [],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "ok",
+        "pending": null
+      },
+      "same_Play_false": {
+        "component": [
+          1100,
+          7
+        ],
+        "resource": [
+          1100,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Play",
+        "previous": "Play",
+        "locals": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "attempts": [
+          "enterPlay1",
+          "enterPlay0"
+        ],
+        "prefix": [
+          "enterPlay1",
+          "enterPlay0"
+        ],
+        "pendingStructural": 2,
+        "structuralApplied": 0,
+        "deliveries": [
+          {
+            "from": "Play",
+            "to": "Play"
+          }
+        ],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "ok",
+        "pending": "Pause"
+      },
+      "same_Play_true": {
+        "component": [
+          0,
+          7
+        ],
+        "resource": [
+          0,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Play",
+        "previous": null,
+        "locals": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "attempts": [],
+        "prefix": [],
+        "pendingStructural": 0,
+        "structuralApplied": 0,
+        "deliveries": [],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "ok",
+        "pending": null
+      },
+      "failed_exitBoot0": {
+        "component": [
+          0,
+          7
+        ],
+        "resource": [
+          0,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Boot",
+        "previous": "Boot",
+        "locals": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "attempts": [
+          "exitBoot0"
+        ],
+        "prefix": [],
+        "pendingStructural": 0,
+        "structuralApplied": 0,
+        "deliveries": [],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "failed:exitBoot0",
+        "pending": "Play"
+      },
+      "later_exitBoot0": {
+        "component": [
+          1141,
+          7
+        ],
+        "resource": [
+          1141,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Play",
+        "previous": "Boot",
+        "locals": [
+          1,
+          2,
+          0,
+          1,
+          1,
+          1,
+          0,
+          0
+        ],
+        "attempts": [
+          "exitBoot0",
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay",
+          "enterPlay1",
+          "enterPlay0"
+        ],
+        "prefix": [
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay",
+          "enterPlay1",
+          "enterPlay0"
+        ],
+        "pendingStructural": 5,
+        "structuralApplied": 0,
+        "deliveries": [
+          {
+            "from": "Boot",
+            "to": "Play"
+          }
+        ],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "ok",
+        "pending": "Pause"
+      },
+      "failed_exitBoot1": {
+        "component": [
+          1,
+          7
+        ],
+        "resource": [
+          1,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Boot",
+        "previous": "Boot",
+        "locals": [
+          0,
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        "attempts": [
+          "exitBoot0",
+          "exitBoot1"
+        ],
+        "prefix": [
+          "exitBoot0"
+        ],
+        "pendingStructural": 1,
+        "structuralApplied": 0,
+        "deliveries": [],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "failed:exitBoot1",
+        "pending": "Play"
+      },
+      "later_exitBoot1": {
+        "component": [
+          1142,
+          7
+        ],
+        "resource": [
+          1142,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Play",
+        "previous": "Boot",
+        "locals": [
+          1,
+          2,
+          0,
+          1,
+          2,
+          1,
+          0,
+          0
+        ],
+        "attempts": [
+          "exitBoot0",
+          "exitBoot1",
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay",
+          "enterPlay1",
+          "enterPlay0"
+        ],
+        "prefix": [
+          "exitBoot0",
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay",
+          "enterPlay1",
+          "enterPlay0"
+        ],
+        "pendingStructural": 5,
+        "structuralApplied": 1,
+        "deliveries": [
+          {
+            "from": "Boot",
+            "to": "Play"
+          }
+        ],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "ok",
+        "pending": "Pause"
+      },
+      "failed_transitionBootPlay": {
+        "component": [
+          11,
+          7
+        ],
+        "resource": [
+          11,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Boot",
+        "previous": "Boot",
+        "locals": [
+          0,
+          1,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0
+        ],
+        "attempts": [
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay"
+        ],
+        "prefix": [
+          "exitBoot0",
+          "exitBoot1"
+        ],
+        "pendingStructural": 2,
+        "structuralApplied": 0,
+        "deliveries": [],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "failed:transitionBootPlay",
+        "pending": "Play"
+      },
+      "later_transitionBootPlay": {
+        "component": [
+          1152,
+          7
+        ],
+        "resource": [
+          1152,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Play",
+        "previous": "Boot",
+        "locals": [
+          1,
+          2,
+          0,
+          1,
+          2,
+          2,
+          0,
+          0
+        ],
+        "attempts": [
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay",
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay",
+          "enterPlay1",
+          "enterPlay0"
+        ],
+        "prefix": [
+          "exitBoot0",
+          "exitBoot1",
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay",
+          "enterPlay1",
+          "enterPlay0"
+        ],
+        "pendingStructural": 5,
+        "structuralApplied": 2,
+        "deliveries": [
+          {
+            "from": "Boot",
+            "to": "Play"
+          }
+        ],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "ok",
+        "pending": "Pause"
+      },
+      "failed_enterPlay1": {
+        "component": [
+          41,
+          7
+        ],
+        "resource": [
+          41,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Play",
+        "previous": "Boot",
+        "locals": [
+          1,
+          1,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0
+        ],
+        "attempts": [
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay",
+          "enterPlay1"
+        ],
+        "prefix": [
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay"
+        ],
+        "pendingStructural": 3,
+        "structuralApplied": 0,
+        "deliveries": [],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "failed:enterPlay1",
+        "pending": null
+      },
+      "later_enterPlay1": {
+        "component": [
+          41,
+          7
+        ],
+        "resource": [
+          41,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Play",
+        "previous": "Boot",
+        "locals": [
+          1,
+          1,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0
+        ],
+        "attempts": [
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay",
+          "enterPlay1"
+        ],
+        "prefix": [
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay"
+        ],
+        "pendingStructural": 0,
+        "structuralApplied": 3,
+        "deliveries": [
+          {
+            "from": "Boot",
+            "to": "Play"
+          }
+        ],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "ok",
+        "pending": null
+      },
+      "failed_enterPlay0": {
+        "component": [
+          1041,
+          7
+        ],
+        "resource": [
+          1041,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Play",
+        "previous": "Boot",
+        "locals": [
+          1,
+          1,
+          0,
+          1,
+          1,
+          1,
+          0,
+          0
+        ],
+        "attempts": [
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay",
+          "enterPlay1",
+          "enterPlay0"
+        ],
+        "prefix": [
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay",
+          "enterPlay1"
+        ],
+        "pendingStructural": 4,
+        "structuralApplied": 0,
+        "deliveries": [],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "failed:enterPlay0",
+        "pending": "Pause"
+      },
+      "later_enterPlay0": {
+        "component": [
+          1241,
+          7
+        ],
+        "resource": [
+          1241,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Pause",
+        "previous": "Play",
+        "locals": [
+          1,
+          1,
+          0,
+          1,
+          1,
+          1,
+          1,
+          0
+        ],
+        "attempts": [
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay",
+          "enterPlay1",
+          "enterPlay0",
+          "enterPause"
+        ],
+        "prefix": [
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay",
+          "enterPlay1",
+          "enterPause"
+        ],
+        "pendingStructural": 1,
+        "structuralApplied": 4,
+        "deliveries": [
+          {
+            "from": "Boot",
+            "to": "Play"
+          },
+          {
+            "from": "Play",
+            "to": "Pause"
+          }
+        ],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "ok",
+        "pending": null
+      },
+      "missing_queued": {
+        "component": [
+          0,
+          7
+        ],
+        "resource": [
+          0,
+          19
+        ],
+        "extraPresent": false,
+        "extraPayload": null,
+        "current": "Boot",
+        "previous": null,
+        "locals": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "attempts": [],
+        "prefix": [],
+        "pendingStructural": 0,
+        "structuralApplied": 0,
+        "deliveries": [],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "idle",
+        "pending": "Play"
+      },
+      "inactive_missing": {
+        "component": [
+          0,
+          7
+        ],
+        "resource": [
+          0,
+          19
+        ],
+        "extraPresent": false,
+        "extraPayload": null,
+        "current": "Boot",
+        "previous": null,
+        "locals": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "attempts": [],
+        "prefix": [],
+        "pendingStructural": 0,
+        "structuralApplied": 0,
+        "deliveries": [],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [
+          "extra"
+        ],
+        "outcome": "requirements",
+        "pending": "Play"
+      }
+    },
+    "B": {
+      "boot_Play_queued": {
+        "component": [
+          0,
+          7
+        ],
+        "resource": [
+          0,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Boot",
+        "previous": null,
+        "locals": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "attempts": [],
+        "prefix": [],
+        "pendingStructural": 0,
+        "structuralApplied": 0,
+        "deliveries": [],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "idle",
+        "pending": "Play"
+      },
+      "boot_Play_applied": {
+        "component": [
+          1141,
+          7
+        ],
+        "resource": [
+          1141,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Play",
+        "previous": "Boot",
+        "locals": [
+          1,
+          1,
+          0,
+          1,
+          1,
+          1,
+          0,
+          0
+        ],
+        "attempts": [
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay",
+          "enterPlay1",
+          "enterPlay0"
+        ],
+        "prefix": [
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay",
+          "enterPlay1",
+          "enterPlay0"
+        ],
+        "pendingStructural": 5,
+        "structuralApplied": 0,
+        "deliveries": [
+          {
+            "from": "Boot",
+            "to": "Play"
+          }
+        ],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "ok",
+        "pending": "Pause"
+      },
+      "boot_Pause_queued": {
+        "component": [
+          0,
+          7
+        ],
+        "resource": [
+          0,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Boot",
+        "previous": null,
+        "locals": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "attempts": [],
+        "prefix": [],
+        "pendingStructural": 0,
+        "structuralApplied": 0,
+        "deliveries": [],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "idle",
+        "pending": "Pause"
+      },
+      "boot_Pause_applied": {
+        "component": [
+          231,
+          7
+        ],
+        "resource": [
+          231,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Pause",
+        "previous": "Boot",
+        "locals": [
+          0,
+          1,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0
+        ],
+        "attempts": [
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPause",
+          "enterPause"
+        ],
+        "prefix": [
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPause",
+          "enterPause"
+        ],
+        "pendingStructural": 4,
+        "structuralApplied": 0,
+        "deliveries": [
+          {
+            "from": "Boot",
+            "to": "Pause"
+          }
+        ],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "ok",
+        "pending": null
+      },
+      "self_queued_next": {
+        "component": [
+          1341,
+          7
+        ],
+        "resource": [
+          1341,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Pause",
+        "previous": "Play",
+        "locals": [
+          1,
+          1,
+          0,
+          1,
+          1,
+          1,
+          1,
+          0
+        ],
+        "attempts": [
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay",
+          "enterPlay1",
+          "enterPlay0",
+          "enterPause"
+        ],
+        "prefix": [
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay",
+          "enterPlay1",
+          "enterPlay0",
+          "enterPause"
+        ],
+        "pendingStructural": 1,
+        "structuralApplied": 5,
+        "deliveries": [
+          {
+            "from": "Boot",
+            "to": "Play"
+          },
+          {
+            "from": "Play",
+            "to": "Pause"
+          }
+        ],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "ok",
+        "pending": null
+      },
+      "same_Boot_false": {
+        "component": [
+          11,
+          7
+        ],
+        "resource": [
+          11,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Boot",
+        "previous": "Boot",
+        "locals": [
+          0,
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        "attempts": [
+          "exitBoot0",
+          "exitBoot1"
+        ],
+        "prefix": [
+          "exitBoot0",
+          "exitBoot1"
+        ],
+        "pendingStructural": 2,
+        "structuralApplied": 0,
+        "deliveries": [
+          {
+            "from": "Boot",
+            "to": "Boot"
+          }
+        ],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "ok",
+        "pending": null
+      },
+      "same_Boot_true": {
+        "component": [
+          0,
+          7
+        ],
+        "resource": [
+          0,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Boot",
+        "previous": null,
+        "locals": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "attempts": [],
+        "prefix": [],
+        "pendingStructural": 0,
+        "structuralApplied": 0,
+        "deliveries": [],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "ok",
+        "pending": null
+      },
+      "same_Play_false": {
+        "component": [
+          1100,
+          7
+        ],
+        "resource": [
+          1100,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Play",
+        "previous": "Play",
+        "locals": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "attempts": [
+          "enterPlay1",
+          "enterPlay0"
+        ],
+        "prefix": [
+          "enterPlay1",
+          "enterPlay0"
+        ],
+        "pendingStructural": 2,
+        "structuralApplied": 0,
+        "deliveries": [
+          {
+            "from": "Play",
+            "to": "Play"
+          }
+        ],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "ok",
+        "pending": "Pause"
+      },
+      "same_Play_true": {
+        "component": [
+          0,
+          7
+        ],
+        "resource": [
+          0,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Play",
+        "previous": null,
+        "locals": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "attempts": [],
+        "prefix": [],
+        "pendingStructural": 0,
+        "structuralApplied": 0,
+        "deliveries": [],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "ok",
+        "pending": null
+      },
+      "failed_exitBoot0": {
+        "component": [
+          0,
+          7
+        ],
+        "resource": [
+          0,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Boot",
+        "previous": "Boot",
+        "locals": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "attempts": [
+          "exitBoot0"
+        ],
+        "prefix": [],
+        "pendingStructural": 0,
+        "structuralApplied": 0,
+        "deliveries": [],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "failed:exitBoot0",
+        "pending": "Play"
+      },
+      "later_exitBoot0": {
+        "component": [
+          1141,
+          7
+        ],
+        "resource": [
+          1141,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Play",
+        "previous": "Boot",
+        "locals": [
+          1,
+          2,
+          0,
+          1,
+          1,
+          1,
+          0,
+          0
+        ],
+        "attempts": [
+          "exitBoot0",
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay",
+          "enterPlay1",
+          "enterPlay0"
+        ],
+        "prefix": [
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay",
+          "enterPlay1",
+          "enterPlay0"
+        ],
+        "pendingStructural": 5,
+        "structuralApplied": 0,
+        "deliveries": [
+          {
+            "from": "Boot",
+            "to": "Play"
+          }
+        ],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "ok",
+        "pending": "Pause"
+      },
+      "failed_exitBoot1": {
+        "component": [
+          1,
+          7
+        ],
+        "resource": [
+          1,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Boot",
+        "previous": "Boot",
+        "locals": [
+          0,
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        "attempts": [
+          "exitBoot0",
+          "exitBoot1"
+        ],
+        "prefix": [
+          "exitBoot0"
+        ],
+        "pendingStructural": 1,
+        "structuralApplied": 0,
+        "deliveries": [],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "failed:exitBoot1",
+        "pending": "Play"
+      },
+      "later_exitBoot1": {
+        "component": [
+          1142,
+          7
+        ],
+        "resource": [
+          1142,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Play",
+        "previous": "Boot",
+        "locals": [
+          1,
+          2,
+          0,
+          1,
+          2,
+          1,
+          0,
+          0
+        ],
+        "attempts": [
+          "exitBoot0",
+          "exitBoot1",
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay",
+          "enterPlay1",
+          "enterPlay0"
+        ],
+        "prefix": [
+          "exitBoot0",
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay",
+          "enterPlay1",
+          "enterPlay0"
+        ],
+        "pendingStructural": 5,
+        "structuralApplied": 1,
+        "deliveries": [
+          {
+            "from": "Boot",
+            "to": "Play"
+          }
+        ],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "ok",
+        "pending": "Pause"
+      },
+      "failed_transitionBootPlay": {
+        "component": [
+          11,
+          7
+        ],
+        "resource": [
+          11,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Boot",
+        "previous": "Boot",
+        "locals": [
+          0,
+          1,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0
+        ],
+        "attempts": [
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay"
+        ],
+        "prefix": [
+          "exitBoot0",
+          "exitBoot1"
+        ],
+        "pendingStructural": 2,
+        "structuralApplied": 0,
+        "deliveries": [],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "failed:transitionBootPlay",
+        "pending": "Play"
+      },
+      "later_transitionBootPlay": {
+        "component": [
+          1152,
+          7
+        ],
+        "resource": [
+          1152,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Play",
+        "previous": "Boot",
+        "locals": [
+          1,
+          2,
+          0,
+          1,
+          2,
+          2,
+          0,
+          0
+        ],
+        "attempts": [
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay",
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay",
+          "enterPlay1",
+          "enterPlay0"
+        ],
+        "prefix": [
+          "exitBoot0",
+          "exitBoot1",
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay",
+          "enterPlay1",
+          "enterPlay0"
+        ],
+        "pendingStructural": 5,
+        "structuralApplied": 2,
+        "deliveries": [
+          {
+            "from": "Boot",
+            "to": "Play"
+          }
+        ],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "ok",
+        "pending": "Pause"
+      },
+      "failed_enterPlay1": {
+        "component": [
+          41,
+          7
+        ],
+        "resource": [
+          41,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Play",
+        "previous": "Boot",
+        "locals": [
+          1,
+          1,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0
+        ],
+        "attempts": [
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay",
+          "enterPlay1"
+        ],
+        "prefix": [
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay"
+        ],
+        "pendingStructural": 3,
+        "structuralApplied": 0,
+        "deliveries": [],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "failed:enterPlay1",
+        "pending": null
+      },
+      "later_enterPlay1": {
+        "component": [
+          41,
+          7
+        ],
+        "resource": [
+          41,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Play",
+        "previous": "Boot",
+        "locals": [
+          1,
+          1,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0
+        ],
+        "attempts": [
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay",
+          "enterPlay1"
+        ],
+        "prefix": [
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay"
+        ],
+        "pendingStructural": 0,
+        "structuralApplied": 3,
+        "deliveries": [
+          {
+            "from": "Boot",
+            "to": "Play"
+          }
+        ],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "ok",
+        "pending": null
+      },
+      "failed_enterPlay0": {
+        "component": [
+          1041,
+          7
+        ],
+        "resource": [
+          1041,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Play",
+        "previous": "Boot",
+        "locals": [
+          1,
+          1,
+          0,
+          1,
+          1,
+          1,
+          0,
+          0
+        ],
+        "attempts": [
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay",
+          "enterPlay1",
+          "enterPlay0"
+        ],
+        "prefix": [
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay",
+          "enterPlay1"
+        ],
+        "pendingStructural": 4,
+        "structuralApplied": 0,
+        "deliveries": [],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "failed:enterPlay0",
+        "pending": "Pause"
+      },
+      "later_enterPlay0": {
+        "component": [
+          1241,
+          7
+        ],
+        "resource": [
+          1241,
+          19
+        ],
+        "extraPresent": true,
+        "extraPayload": [
+          5,
+          29
+        ],
+        "current": "Pause",
+        "previous": "Play",
+        "locals": [
+          1,
+          1,
+          0,
+          1,
+          1,
+          1,
+          1,
+          0
+        ],
+        "attempts": [
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay",
+          "enterPlay1",
+          "enterPlay0",
+          "enterPause"
+        ],
+        "prefix": [
+          "exitBoot0",
+          "exitBoot1",
+          "transitionBootPlay",
+          "enterPlay1",
+          "enterPause"
+        ],
+        "pendingStructural": 1,
+        "structuralApplied": 4,
+        "deliveries": [
+          {
+            "from": "Boot",
+            "to": "Play"
+          },
+          {
+            "from": "Play",
+            "to": "Pause"
+          }
+        ],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "ok",
+        "pending": null
+      },
+      "missing_queued": {
+        "component": [
+          0,
+          7
+        ],
+        "resource": [
+          0,
+          19
+        ],
+        "extraPresent": false,
+        "extraPayload": null,
+        "current": "Boot",
+        "previous": null,
+        "locals": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "attempts": [],
+        "prefix": [],
+        "pendingStructural": 0,
+        "structuralApplied": 0,
+        "deliveries": [],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [],
+        "outcome": "idle",
+        "pending": "Play"
+      },
+      "inactive_missing": {
+        "component": [
+          0,
+          7
+        ],
+        "resource": [
+          0,
+          19
+        ],
+        "extraPresent": false,
+        "extraPayload": null,
+        "current": "Boot",
+        "previous": null,
+        "locals": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "attempts": [],
+        "prefix": [],
+        "pendingStructural": 0,
+        "structuralApplied": 0,
+        "deliveries": [],
+        "requirements": [
+          "owned",
+          "machine",
+          "extra"
+        ],
+        "missing": [
+          "extra"
+        ],
+        "outcome": "requirements",
+        "pending": "Play"
+      }
+    }
+  },
+  "bendOnly": {
+    "A": [
+      "inactive_restored",
+      "foreign_refused",
+      "foreign_legitimate_retry"
+    ],
+    "B": [
+      "inactive_restored",
+      "foreign_refused",
+      "foreign_legitimate_retry"
+    ]
+  },
+  "scope": "42 common semantic records plus six unchanged mandatory Bend-only authority/restoration records. Representation-specific clocks/IDs/namespace/cursors remain full Bend checks and raw TS evidence; no fabrication."
+}
