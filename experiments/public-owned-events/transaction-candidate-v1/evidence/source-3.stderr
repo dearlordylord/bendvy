@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : a template applied to closed ~ arguments (owners is a variable here, not comptime: pass it at run time)
+- observed : W.observe_resource
+Context:
+- world  : W.World<Schema, Store, Resource, Unit>
+- owners : List<&1, OwnedEvent>
+Location: publish
+54 | def publish(world:W.World<Schema,Store,Resource,Unit>,owners:List<OwnedEvent>) -> W.World<Schema,Store,Resource,Unit>:
+55>|   changed(W.observe_resource(~Schema,~Store,~Resource,~Unit,~Unit,~resource_publish(owners),world))
+   |           ^^^^^^^^^^^^^^^^^^
+56 | def mark(world:W.World<Schema,Store,Resource,Unit>) -> W.World<Schema,Store,Resource,Unit>:

@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : a fresh name (duplicate declaration: Event)
+- observed : 'Event'
+Location:
+13 | type Store is Type: Store{column:Col.Column<Schema,Array<U32>>}
+14>| type Event is Type: Event{tag:String,cells:Array<U32>}
+   |      ^^^^^
+15 | type Resource is Type: Resource{log:List<Event>,marks:List<&2,U32>}

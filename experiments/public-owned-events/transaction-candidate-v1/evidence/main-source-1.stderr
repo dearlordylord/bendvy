@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : a fresh name (duplicate declaration: Result)
+- observed : 'Result'
+Location:
+87 | type OwnersView is Data: OwnersView{seedPrevious:List<&2,Maybe<&2,List<&2,U32>>>,rejected:List<&2,List<&2,U32>>,errors:List<&2,W.WorldError>}
+88>| type Result is Data: Result{outcome:T.Outcome<String>,owners:OwnersView,recovered:List<&2,EventView>,beforeFlush:Snapshot,afterFlush:Snapshot,final:Snapshot}
+   |      ^^^^^^
+89 | type SeedView is Data: SeedView{world:Snapshot,owners:OwnersView}

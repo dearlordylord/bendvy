@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : 2 patterns (one per scrutinee)
+- observed : '(left,a) (right,b)'
+Location:
+22 |   match left right:
+23>|     case (left,a) (right,b): (ANode{left,right},List.append(&2,U32,a,b))
+   |          ^^^^^^^^^^^^^^^^^^
+24 | def project(owner:Array<U32>) -> Array<U32> & List<&2,U32>:
