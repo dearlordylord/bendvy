@@ -1,0 +1,461 @@
+*** Begin Patch
+*** Add File: src/ecs/debug-declaration.bend
++import Base
++import schedule-provision.bend as Provision
++import debug-metadata.bend as M
++# Schema-owned nominal Data tokens. None of the projected names is authority.
++# Pure closed setup functions project these same tokens to labels/requirements.
++type Query<C:Data,L:Data> is Data:
++  Query{slot:String,reads:List<&2,C>,writes:List<&2,C>,optional:List<&2,C>,with:List<&2,C>,without:List<&2,C>,added:List<&2,C>,changed:List<&2,C>,relations:List<&2,L>}
++type Definition<-S:Data,C:Data,R:Data,E:Data,Mach:Data,L:Data,V:Data,K:Data> is Data:
++  Definition{name:String,queries:List<&2,Query<C,L>>,readResources:List<&2,R>,writeResources:List<&2,R>,readEvents:List<&2,E>,writeEvents:List<&2,E>,readMachines:List<&2,Mach>,nextMachines:List<&2,Mach>,transitions:List<&2,Mach>,transitionEvents:List<&2,Mach>,removed:List<&2,C>,despawned:Bool,relationFailures:List<&2,L>,services:List<&2,V>,when:List<&2,K>}
++def labels(~T:Data,~name:T->String,values:List<&2,T>) -> List<&2,String>:
++  match values:
++    case []:[]
++    case head<>tail:name(head)<>labels(~T,~name,tail)
++def query(~C:Data,~L:Data,~cn:C->String,~ln:L->String,value:Query<C,L>) -> M.Query:
++  match value:
++    case Query{slot,rs,ws,opts,with,without,added,changed,rels}:M.Query{slot,labels(~C,~cn,rs),labels(~C,~cn,ws),labels(~C,~cn,opts),labels(~C,~cn,with),labels(~C,~cn,without),labels(~C,~cn,added),labels(~C,~cn,changed),labels(~L,~ln,rels)}
++def queries(~C:Data,~L:Data,~cn:C->String,~ln:L->String,values:List<&2,Query<C,L>>) -> List<&2,M.Query>:
++  match values:
++    case []:[]
++    case head<>tail:query(~C,~L,~cn,~ln,head)<>queries(~C,~L,~cn,~ln,tail)
++def metadata(~S:Data,~C:Data,~R:Data,~E:Data,~Mach:Data,~L:Data,~V:Data,~K:Data,~cn:C->String,~rn:R->String,~en:E->String,~mn:Mach->String,~ln:L->String,~vn:V->String,~kn:K->String,value:Definition<S,C,R,E,Mach,L,V,K>,positions:List<&2,String>) -> M.System:
++  match value:
++    case Definition{name,qs,rr,rw,er,ew,mr,mnxt,mt,me,removed,despawned,failures,services,when}:M.System{name,positions,queries(~C,~L,~cn,~ln,qs),M.Access{labels(~R,~rn,rr),labels(~R,~rn,rw)},M.Access{labels(~E,~en,er),labels(~E,~en,ew)},M.MachineAccess{labels(~Mach,~mn,mr),labels(~Mach,~mn,mnxt),labels(~Mach,~mn,mt),labels(~Mach,~mn,me)},labels(~C,~cn,removed),despawned,labels(~L,~ln,failures),labels(~V,~vn,services),labels(~K,~kn,when)}
++def name(~S:Data,~C:Data,~R:Data,~E:Data,~Mach:Data,~L:Data,~V:Data,~K:Data,value:Definition<S,C,R,E,Mach,L,V,K>) -> String:
++  match value:
++    case Definition{name,_,_,_,_,_,_,_,_,_,_,_,_,_,_}:name
++# Requirements come from the actual schema binding, not a global fixture id.
++# Query optional/components/events do not become mandatory SP requirements.
++# SP has no Machine variant; no machine key is recast as a Resource id.
++def needs(~S:Data,~T:Data,~requirement:T->Provision.Requirement<S>,values:List<&2,T>) -> List<&2,Provision.Requirement<S>>:
++  match values:
++    case []:[]
++    case head<>tail:requirement(head)<>needs(~S,~T,~requirement,tail)
++def provision_needs(~S:Data,~C:Data,~R:Data,~E:Data,~Mach:Data,~L:Data,~V:Data,~K:Data,~resource:R->Provision.Requirement<S>,~service:V->Provision.Requirement<S>,value:Definition<S,C,R,E,Mach,L,V,K>) -> List<&2,Provision.Requirement<S>>:
++  match value:
++    case Definition{_,_,rr,rw,_,_,_,_,_,_,_,_,_,services,_}:Provision.unique(~S,List.append(&2,Provision.Requirement<S>,needs(~S,~V,~service,services),List.append(&2,Provision.Requirement<S>,needs(~S,~R,~resource,rr),needs(~S,~R,~resource,rw))))
++# The access-record encoding is author-selected descriptive data, not a format.
++# Registration and debug must call this same metadata projection, retained with
++# the actual Registry. Physical grants remain existing core capabilities.
++def access(~encode:M.System->List<&2,String>,value:M.System) -> List<&2,String>:
++  encode(value)
+*** Add File: src/ecs/debug-description.bend
++import Base
++import debug-metadata.bend as M
++import debug-state-metadata.bend as State
++import debug-services.bend as Services
++import debug-index.bend as Index
++import debug-lints.bend as Lints
++# Typed detached Description output; no format publication/owner access here.
++type DebugEvent is Data:
++  DebugEvent{name:String}
++type Description is Data:
++  Description{version:U32,components:List<&2,M.Component>,resources:List<&2,M.Resource>,events:List<&2,DebugEvent>,relations:List<&2,M.Relation>,machines:List<&2,State.Machine>,services:List<&2,M.Service>,schedules:List<&2,M.Schedule>,systems:List<&2,M.System>,access:M.Indexes,lints:List<&2,M.Lint>}
++def component_names(cs:List<&2,M.Component>) -> List<&2,String>:
++  match cs:
++    case []:[]
++    case M.Component{name,storage}<>tail:name<>component_names(tail)
++def resource_names(rs:List<&2,M.Resource>) -> List<&2,String>:
++  match rs:
++    case []:[]
++    case M.Resource{name,storage,present}<>tail:name<>resource_names(tail)
++def event_names(es:List<&2,DebugEvent>) -> List<&2,String>:
++  match es:
++    case []:[]
++    case DebugEvent{name}<>tail:name<>event_names(tail)
++def assembled(cs:List<&2,M.Component>,rs:List<&2,M.Resource>,es:List<&2,DebugEvent>,relations:List<&2,M.Relation>,machines:List<&2,State.Machine>,provided:List<&2,String>,schedules:List<&2,M.Schedule>,+systems:List<&2,M.System>,resolved:List<&2,M.ResolvedSchedule>,+access:M.Indexes) -> Description:
++  Description{1,cs,rs,es,relations,machines,Services.describe(provided,systems),schedules,systems,access,Lints.assemble(resolved,systems,access)}
++# Registry/provider supplies genuine observations and actual-identity placements.
++# No inferred registration identity or arbitrary affine payload cloning.
++def describe(+cs:List<&2,M.Component>,+rs:List<&2,M.Resource>,+es:List<&2,DebugEvent>,relations:List<&2,M.Relation>,machines:List<&2,State.Machine>,provided:List<&2,String>,schedules:List<&2,M.Schedule>,+systems:List<&2,M.System>,resolved:List<&2,M.ResolvedSchedule>) -> Description:
++  assembled(cs,rs,es,relations,machines,provided,schedules,systems,resolved,Index.build(systems,M.Indexes{Index.blank(component_names(cs)),Index.blank(resource_names(rs)),Index.blank(event_names(es))}))
+*** Add File: src/ecs/debug-index.bend
++import Base
++import debug-metadata.bend as M
++
++def contains(xs:List<&2,String>,+needle:String) -> Bool:
++  match xs:
++    case []:False{}
++    case head<>tail:Bool.or(String.eq(head,needle),contains(tail,needle))
++def append_unique(found:Bool,+name:String,xs:List<&2,String>) -> List<&2,String>:
++  match found:
++    case True{}:xs
++    case False{}:List.append(&2,String,xs,[name])
++def unique(+name:String,+xs:List<&2,String>) -> List<&2,String>:
++  append_unique(contains(xs,name),name,xs)
++def blank_step(found:Bool,name:String,entries:List<&2,M.Entry>) -> List<&2,M.Entry>:
++  match found:
++    case True{}:entries
++    case False{}:M.Entry{name,[],[]}<>entries
++def blank_go(names:List<&2,String>,+seen:List<&2,String>) -> List<&2,M.Entry>:
++  match names:
++    case []:[]
++    case +name<>tail:blank_step(contains(seen,name),name,blank_go(tail,name<>seen))
++def blank(names:List<&2,String>) -> List<&2,M.Entry>:
++  blank_go(names,[])
++def updated(write:Bool,entry:M.Entry,+system:String) -> M.Entry:
++  match write entry:
++    case False{} M.Entry{name,reads,writes}:M.Entry{name,unique(system,reads),writes}
++    case True{} M.Entry{name,reads,writes}:M.Entry{name,reads,unique(system,writes)}
++def update(found:Bool,+system:String,write:Bool,entry:M.Entry,tail:List<&2,M.Entry>,missed:List<&2,M.Entry>) -> List<&2,M.Entry>:
++  match found:
++    case False{}:entry<>missed
++    case True{}:updated(write,entry,system)<>tail
++def entry_name(entry:M.Entry) -> String:
++  match entry:
++    case M.Entry{name,reads,writes}:name
++def touch(entries:List<&2,M.Entry>,+name:String,+system:String,+write:Bool) -> List<&2,M.Entry>:
++  match entries:
++    case []:[updated(write,M.Entry{name,[],[]},system)]
++    case +entry<>+tail:update(String.eq(entry_name(entry),name),system,write,entry,tail,touch(tail,name,system,write))
++def touch_names(names:List<&2,String>,entries:List<&2,M.Entry>,+system:String,+write:Bool) -> List<&2,M.Entry>:
++  match names:
++    case []:entries
++    case name<>tail:touch_names(tail,touch(entries,name,system,write),system,write)
++def append(a:List<&2,String>,b:List<&2,String>) -> List<&2,String>:
++  List.append(&2,String,a,b)
++# General component index reads presence-with and write slots; without is excluded.
++def query_reads(q:M.Query) -> List<&2,String>:
++  match q:
++    case M.Query{slot,reads,writes,optional,with,without,added,changed,relations}:append(reads,append(optional,append(with,append(added,append(changed,writes)))))
++def lint_reads(q:M.Query) -> List<&2,String>:
++  match q:
++    case M.Query{slot,reads,writes,optional,with,without,added,changed,relations}:append(reads,append(optional,append(added,changed)))
++def query_writes(q:M.Query) -> List<&2,String>:
++  match q:
++    case M.Query{slot,reads,writes,optional,with,without,added,changed,relations}:writes
++def queries(qs:List<&2,M.Query>,entries:List<&2,M.Entry>,+name:String) -> List<&2,M.Entry>:
++  match qs:
++    case []:entries
++    case +q<>tail:queries(tail,touch_names(query_writes(q),touch_names(query_reads(q),entries,name,False{}),name,True{}),name)
++def access(a:M.Access,entries:List<&2,M.Entry>,+name:String) -> List<&2,M.Entry>:
++  match a:
++    case M.Access{reads,writes}:touch_names(writes,touch_names(reads,entries,name,False{}),name,True{})
++def system(s:M.System,indexes:M.Indexes) -> M.Indexes:
++  match s indexes:
++    case M.System{+name,placements,qs,resources,events,machines,removed,despawned,relationFailures,services,when} M.Indexes{components,resIndex,eventIndex}:M.Indexes{touch_names(removed,queries(qs,components,name),name,False{}),access(resources,resIndex,name),access(events,eventIndex,name)}
++def build(systems:List<&2,M.System>,indexes:M.Indexes) -> M.Indexes:
++  match systems:
++    case []:indexes
++    case head<>tail:build(tail,system(head,indexes))
+*** Add File: src/ecs/debug-lints.bend
++import Base
++import debug-metadata.bend as M
++import debug-index.bend as I
++
++def empty(xs:List<&2,String>) -> Bool:
++  match xs:
++    case []:True{}
++    case head<>tail:False{}
++def all_in(xs:List<&2,String>,+ys:List<&2,String>) -> Bool:
++  match xs:
++    case []:True{}
++    case head<>tail:Bool.and(I.contains(ys,head),all_in(tail,ys))
++def cat(a:String,b:String) -> String:
++  String.append(a,b)
++def append(a:List<&2,M.Lint>,b:List<&2,M.Lint>) -> List<&2,M.Lint>:
++  List.append(&2,M.Lint,a,b)
++def if_lint(active:Bool,lint:M.Lint) -> List<&2,M.Lint>:
++  match active:
++    case False{}:[]
++    case True{}:[lint]
++def event_one(entry:M.Entry) -> List<&2,M.Lint>:
++  match entry:
++    case M.Entry{+name,+readers,+writers}:append(if_lint(Bool.and(Bool.not(empty(writers)),empty(readers)),M.Lint{M.Warning{},M.EventNeverRead{},cat(name,cat(" is emitted by ",cat(String.join(writers,", ")," but no described system reads it"))),name}),if_lint(Bool.and(Bool.not(empty(readers)),empty(writers)),M.Lint{M.Warning{},M.EventNeverWritten{},cat(name,cat(" is read by ",cat(String.join(readers,", ")," but no described system emits it"))),name}))
++def events(entries:List<&2,M.Entry>) -> List<&2,M.Lint>:
++  match entries:
++    case []:[]
++    case head<>tail:append(event_one(head),events(tail))
++def component_one(entry:M.Entry) -> List<&2,M.Lint>:
++  match entry:
++    case M.Entry{+name,readers,+writers}:if_lint(Bool.and(Bool.not(empty(writers)),all_in(readers,writers)),M.Lint{M.Info{},M.ComponentNeverRead{},cat(name,cat(" is written by ",cat(String.join(writers,", ")," but read by no other described system"))),name})
++def components(entries:List<&2,M.Entry>) -> List<&2,M.Lint>:
++  match entries:
++    case []:[]
++    case head<>tail:append(component_one(head),components(tail))
++def queuer(s:M.System) -> String:
++  match s:
++    case M.System{name,placements,qs,resources,events,machines,removed,despawned,relationFailures,services,when}:cat(name,cat(" @ ",String.join(placements,", ")))
++def next_names(m:M.MachineAccess) -> List<&2,String>:
++  match m:
++    case M.MachineAccess{reads,next,transitions,transitionEvents}:next
++def queued_step(found:Bool,name:String,values:List<&2,String>,writes:List<&2,String>,tail:List<&2,M.Entry>,missed:List<&2,M.Entry>,value:String) -> List<&2,M.Entry>:
++  match found:
++    case True{}:M.Entry{name,I.append(values,[value]),writes}<>tail
++    case False{}:M.Entry{name,values,writes}<>missed
++def queued(index:List<&2,M.Entry>,+subject:String,+value:String) -> List<&2,M.Entry>:
++  match index:
++    case []:[M.Entry{subject,[value],[]}]
++    case M.Entry{+name,values,writes}<>+tail:queued_step(String.eq(name,subject),name,values,writes,tail,queued(tail,subject,value),value)
++def queue_names(names:List<&2,String>,index:List<&2,M.Entry>,+value:String) -> List<&2,M.Entry>:
++  match names:
++    case []:index
++    case name<>tail:queue_names(tail,queued(index,name,value),value)
++def next_index_one(+s:M.System,index:List<&2,M.Entry>) -> List<&2,M.Entry>:
++  match s:
++    case M.System{name,placements,qs,resources,events,machines,removed,despawned,relationFailures,services,when}:queue_names(next_names(machines),index,queuer(s))
++def next_index(systems:List<&2,M.System>,index:List<&2,M.Entry>) -> List<&2,M.Entry>:
++  match systems:
++    case []:index
++    case head<>tail:next_index(tail,next_index_one(head,index))
++def transitions_steps(steps:List<&2,M.ResolvedStep>) -> Bool:
++  match steps:
++    case []:False{}
++    case M.ResolvedTransitions{schedules}<>tail:True{}
++    case head<>tail:transitions_steps(tail)
++def transitions(schedules:List<&2,M.ResolvedSchedule>) -> Bool:
++  match schedules:
++    case []:False{}
++    case M.ResolvedSchedule{name,steps}<>tail:Bool.or(transitions_steps(steps),transitions(tail))
++def next_one(entry:M.Entry) -> M.Lint:
++  match entry:
++    case M.Entry{+name,readers,writers}:M.Lint{M.Warning{},M.NextStateNeverApplied{},cat("next states of ",cat(name,cat(" are queued by ",cat(String.join(readers,"; "),", but no described schedule has an applyStateTransitions() marker, so they never take effect")))),name}
++def next_entries(entries:List<&2,M.Entry>) -> List<&2,M.Lint>:
++  match entries:
++    case []:[]
++    case head<>tail:next_one(head)<>next_entries(tail)
++def next_if(applies:Bool,entries:List<&2,M.Entry>) -> List<&2,M.Lint>:
++  match applies:
++    case True{}:[]
++    case False{}:next_entries(entries)
++
++type AccessKind is Data:
++  Components{}
++  Resources{}
++  Events{}
++type Witness is Data:
++  Witness{subject:String,writer:String,readers:List<&2,String>}
++def qreads(qs:List<&2,M.Query>) -> List<&2,String>:
++  match qs:
++    case []:[]
++    case q<>tail:I.append(I.lint_reads(q),qreads(tail))
++def qwrites(qs:List<&2,M.Query>) -> List<&2,String>:
++  match qs:
++    case []:[]
++    case q<>tail:I.append(I.query_writes(q),qwrites(tail))
++def system_access(kind:AccessKind,s:M.System) -> M.Access:
++  match kind s:
++    case Components{} M.System{name,placements,+qs,resources,events,machines,removed,despawned,relationFailures,services,when}:M.Access{qreads(qs),qwrites(qs)}
++    case Resources{} M.System{name,placements,qs,resources,events,machines,removed,despawned,relationFailures,services,when}:resources
++    case Events{} M.System{name,placements,qs,resources,events,machines,removed,despawned,relationFailures,services,when}:events
++def system_name(s:M.System) -> String:
++  match s:
++    case M.System{name,placements,qs,resources,events,machines,removed,despawned,relationFailures,services,when}:name
++def lookup_step(found:Bool,readers:List<&2,String>,otherwise:List<&2,String>) -> List<&2,String>:
++  match found:
++    case True{}:readers
++    case False{}:otherwise
++def readers(index:List<&2,M.Entry>,+subject:String) -> List<&2,String>:
++  match index:
++    case []:[]
++    case M.Entry{name,reads,writes}<>tail:lookup_step(String.eq(name,subject),reads,readers(tail,subject))
++def witness_subjects(ws:List<&2,Witness>) -> List<&2,String>:
++  match ws:
++    case []:[]
++    case Witness{subject,writer,readers}<>tail:subject<>witness_subjects(tail)
++def witness_step(seen:Bool,subject:String,writer:String,reads:List<&2,String>,ws:List<&2,Witness>) -> List<&2,Witness>:
++  match seen:
++    case True{}:ws
++    case False{}:List.append(&2,Witness,ws,[Witness{subject,writer,reads}])
++def record_writes(writes:List<&2,String>,+writer:String,+index:List<&2,M.Entry>,+ws:List<&2,Witness>) -> List<&2,Witness>:
++  match writes:
++    case []:ws
++    case +subject<>tail:record_writes(tail,writer,index,witness_step(I.contains(witness_subjects(ws),subject),subject,writer,readers(index,subject),ws))
++def include_read(is_write:Bool,subject:String,remaining:List<&2,String>) -> List<&2,String>:
++  match is_write:
++    case True{}:remaining
++    case False{}:subject<>remaining
++def readonly_reads(reads:List<&2,String>,+writes:List<&2,String>) -> List<&2,String>:
++  match reads:
++    case []:[]
++    case +subject<>tail:include_read(I.contains(writes,subject),subject,readonly_reads(tail,writes))
++type Scan is Data:
++  Scan{index:List<&2,M.Entry>,witnesses:List<&2,Witness>}
++def scan_step(a:M.Access,+name:String,+index:List<&2,M.Entry>,ws:List<&2,Witness>) -> Scan:
++  match a:
++    case M.Access{reads,+writes}:Scan{I.touch_names(readonly_reads(reads,writes),index,name,False{}),record_writes(writes,name,index,ws)}
++def scan(systems:List<&2,M.System>,+kind:AccessKind,state:Scan) -> List<&2,Witness>:
++  match systems state:
++    case [] Scan{index,ws}:ws
++    case +head<>tail Scan{index,ws}:scan(tail,kind,scan_step(system_access(kind,head),system_name(head),index,ws))
++def system_steps(steps:List<&2,M.ResolvedStep>) -> List<&2,M.System>:
++  match steps:
++    case []:[]
++    case M.ResolvedSystem{metadata}<>tail:metadata<>system_steps(tail)
++    case head<>tail:system_steps(tail)
++def singular(readers:List<&2,String>) -> Bool:
++  match readers:
++    case name<>[]:True{}
++    case other:False{}
++def runs(one:Bool) -> String:
++  match one:
++    case True{}:"runs"
++    case False{}:"run"
++def pronoun(one:Bool) -> String:
++  match one:
++    case True{}:"it sees"
++    case False{}:"they see"
++def sees(kind:AccessKind,subject:String) -> String:
++  match kind:
++    case Events{}:cat(subject," events one run late")
++    case other:cat("the ",cat(subject," value from the previous run"))
++def message(schedule:String,kind:AccessKind,+subject:String,writer:String,+reads:List<&2,String>) -> String:
++  String.join(["in ",schedule,", ",String.join(reads,", ")," ",runs(singular(reads))," before ",writer," writes ",subject,", so ",pronoun(singular(reads))," ",sees(kind,subject)],"")
++def witness_lint(schedule:String,kind:AccessKind,w:Witness) -> List<&2,M.Lint>:
++  match w:
++    case Witness{+subject,writer,+reads}:if_lint(Bool.not(empty(reads)),M.Lint{M.Info{},M.ReadBeforeWrite{},message(schedule,kind,subject,writer,reads),subject})
++def witness_lints(ws:List<&2,Witness>,+schedule:String,+kind:AccessKind) -> List<&2,M.Lint>:
++  match ws:
++    case []:[]
++    case head<>tail:append(witness_lint(schedule,kind,head),witness_lints(tail,schedule,kind))
++def schedule_lints(schedule:M.ResolvedSchedule) -> List<&2,M.Lint>:
++  match schedule:
++    case M.ResolvedSchedule{+name,+steps}:append(witness_lints(scan(system_steps(steps),Components{},Scan{[],[]}),name,Components{}),append(witness_lints(scan(system_steps(steps),Resources{},Scan{[],[]}),name,Resources{}),witness_lints(scan(system_steps(steps),Events{},Scan{[],[]}),name,Events{})))
++def read_before(schedules:List<&2,M.ResolvedSchedule>) -> List<&2,M.Lint>:
++  match schedules:
++    case []:[]
++    case head<>tail:append(schedule_lints(head),read_before(tail))
++def assemble(schedules:List<&2,M.ResolvedSchedule>,systems:List<&2,M.System>,indexes:M.Indexes) -> List<&2,M.Lint>:
++  match schedules indexes:
++    case [] M.Indexes{cs,rs,es}:[]
++    case +schedules M.Indexes{cs,rs,es}:append(events(es),append(next_if(transitions(schedules),next_index(systems,[])),append(read_before(schedules),components(cs))))
+*** Add File: src/ecs/debug-metadata.bend
++import Base
++# Trusted declaration observations only. Strings are labels, never access grants.
++type Storage is Data:
++  Constructed{}
++  Transient{}
++  Plain{}
++type Component is Data:
++  Component{name:String,storage:Storage}
++type Resource is Data:
++  Resource{name:String,storage:Storage,present:Bool}
++type RelationKind is Data:
++  Hierarchy{}
++  GeneralRelation{}
++type Relation is Data:
++  Relation{name:String,relatedName:String,kind:RelationKind,linkedDespawn:Bool,ordered:Bool}
++type Machine is Data:
++  Machine{name:String,states:List<&2,String>,current:Maybe<&2,String>}
++type Service is Data:
++  Service{name:String,provided:Bool}
++type Access is Data:
++  Access{reads:List<&2,String>,writes:List<&2,String>}
++type Query is Data:
++  Query{slot:String,reads:List<&2,String>,writes:List<&2,String>,optional:List<&2,String>,with:List<&2,String>,without:List<&2,String>,added:List<&2,String>,changed:List<&2,String>,relations:List<&2,String>}
++type MachineAccess is Data:
++  MachineAccess{reads:List<&2,String>,next:List<&2,String>,transitions:List<&2,String>,transitionEvents:List<&2,String>}
++type System is Data:
++  System{name:String,placements:List<&2,String>,queries:List<&2,Query>,resources:Access,events:Access,machines:MachineAccess,removed:List<&2,String>,despawned:Bool,relationFailures:List<&2,String>,services:List<&2,String>,when:List<&2,String>}
++type Step is Data:
++  Run{system:String}
++  ApplyDeferred{}
++  ApplyStateTransitions{schedules:List<&2,String>}
++type Schedule is Data:
++  Schedule{name:String,steps:List<&2,Step>}
++type Entry is Data:
++  Entry{name:String,readers:List<&2,String>,writers:List<&2,String>}
++type Indexes is Data:
++  Indexes{components:List<&2,Entry>,resources:List<&2,Entry>,events:List<&2,Entry>}
++type Severity is Data:
++  Warning{}
++  Info{}
++type Code is Data:
++  EventNeverRead{}
++  EventNeverWritten{}
++  NextStateNeverApplied{}
++  ComponentNeverRead{}
++  ReadBeforeWrite{}
++type Lint is Data:
++  Lint{severity:Severity,code:Code,message:String,subject:String}
++# Machine states are String observations in this draft, not full upstream StateValue.
++# No Description format publication until actual state-value owner mapping exists.
++# Trusted closed setup resolves actual system instances into detached metadata.
++# Embedding their metadata avoids guessing runtime identity from display names.
++type ResolvedStep is Data:
++  ResolvedSystem{metadata:System}
++  ResolvedDeferred{}
++  ResolvedTransitions{schedules:List<&2,String>}
++type ResolvedSchedule is Data:
++  ResolvedSchedule{name:String,steps:List<&2,ResolvedStep>}
+*** Add File: src/ecs/debug-registered.bend
++import Base
++import world.bend as W
++import system.bend as Sys
++import debug-metadata.bend as M
++import debug-declaration.bend as Declaration
++import schedule.bend as Schedule
++import schedule-provision.bend as Provision
++# The retained declaration accompanies the actual affine registered owner.
++# C/R/Args/Output remain arbitrary Type; no runtime owner is captured or cloned.
++type Bound<CT:Data,RT:Data,ET:Data,MT:Data,LT:Data,VT:Data,KT:Data,S:Data,C:Type,R:Type,E:Data,Args:Type,Error:Data,Output:Type,-runner:W.World<S,C,R,E>->Args->Sys.Outcome<W.World<S,C,R,E>,Error,Output>> is Type:
++  Bound{owner:Sys.Registry<S,C,R,E,Args,Error,Output,runner>,declaration:Declaration.Definition<S,CT,RT,ET,MT,LT,VT,KT>}
++type Registration<CT:Data,RT:Data,ET:Data,MT:Data,LT:Data,VT:Data,KT:Data,S:Data,C:Type,R:Type,E:Data,Args:Type,Error:Data,Output:Type,-runner:W.World<S,C,R,E>->Args->Sys.Outcome<W.World<S,C,R,E>,Error,Output>> is Type:
++  Registered{world:W.World<S,C,R,E>,owner:Bound<CT,RT,ET,MT,LT,VT,KT,S,C,R,E,Args,Error,Output,runner>}
++  Rejected{world:W.World<S,C,R,E>}
++type Observation<S:Data> is Data:
++  Observation{namespace:U32,id:U32,cursor:U32,actualName:String,actualAccess:List<&2,String>,system:M.System,valid:Bool}
++def joined(~CT:Data,~RT:Data,~ET:Data,~MT:Data,~LT:Data,~VT:Data,~KT:Data,~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Output:Type,~runner:W.World<S,C,R,E>->Args->Sys.Outcome<W.World<S,C,R,E>,Error,Output>,declaration:Declaration.Definition<S,CT,RT,ET,MT,LT,VT,KT>,result:Sys.RegistrationResult<S,C,R,E,Args,Error,Output,runner>) -> Registration<CT,RT,ET,MT,LT,VT,KT,S,C,R,E,Args,Error,Output,runner>:
++  match result:
++    case Sys.Registered{world,owner}:Registered{world,Bound{owner,declaration}}
++    case Sys.RegistrationFailed{world}:Rejected{world}
++def register(~CT:Data,~RT:Data,~ET:Data,~MT:Data,~LT:Data,~VT:Data,~KT:Data,~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Output:Type,~runner:W.World<S,C,R,E>->Args->Sys.Outcome<W.World<S,C,R,E>,Error,Output>,~name:Declaration.Definition<S,CT,RT,ET,MT,LT,VT,KT>->String,~access:Declaration.Definition<S,CT,RT,ET,MT,LT,VT,KT>->List<&2,String>,world:W.World<S,C,R,E>,+declaration:Declaration.Definition<S,CT,RT,ET,MT,LT,VT,KT>) -> Registration<CT,RT,ET,MT,LT,VT,KT,S,C,R,E,Args,Error,Output,runner>:
++  joined(~CT,~RT,~ET,~MT,~LT,~VT,~KT,~S,~C,~R,~E,~Args,~Error,~Output,~runner,declaration,Sys.register(~S,~C,~R,~E,~Args,~Error,~Output,~runner,world,name(declaration),access(declaration)))
++def observe(~CT:Data,~RT:Data,~ET:Data,~MT:Data,~LT:Data,~VT:Data,~KT:Data,~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Output:Type,~runner:W.World<S,C,R,E>->Args->Sys.Outcome<W.World<S,C,R,E>,Error,Output>,~name:Declaration.Definition<S,CT,RT,ET,MT,LT,VT,KT>->String,~access:Declaration.Definition<S,CT,RT,ET,MT,LT,VT,KT>->List<&2,String>,~metadata:Declaration.Definition<S,CT,RT,ET,MT,LT,VT,KT>->List<&2,String>->M.System,value:Bound<CT,RT,ET,MT,LT,VT,KT,S,C,R,E,Args,Error,Output,runner>,positions:List<&2,String>) -> Bound<CT,RT,ET,MT,LT,VT,KT,S,C,R,E,Args,Error,Output,runner> & Observation<S>:
++  match value:
++    case Bound{Sys.Registry{+namespace,+id,+actualName,+actualAccess,+cursor},+declaration}:(Bound{Sys.Registry{namespace,id,actualName,actualAccess,cursor},declaration},Observation{namespace,id,cursor,actualName,actualAccess,metadata(declaration,positions),Bool.and(String.eq(actualName,name(declaration)),W.access_equal(actualAccess,access(declaration)))})
++
++# The actual registered id and the retained nominal declaration jointly supply
++# the schedule entry. No display label lookup or cloned registered owner.
++# Condition ids are supplied by the actual scheduler binding; this helper does
++# not derive Check requirements or validate callable condition metadata.
++def schedule_entry(~CT:Data,~RT:Data,~ET:Data,~MT:Data,~LT:Data,~VT:Data,~KT:Data,~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Output:Type,~runner:W.World<S,C,R,E>->Args->Sys.Outcome<W.World<S,C,R,E>,Error,Output>,~resource:RT->Provision.Requirement<S>,~service:VT->Provision.Requirement<S>,condition:U32,value:Bound<CT,RT,ET,MT,LT,VT,KT,S,C,R,E,Args,Error,Output,runner>) -> Bound<CT,RT,ET,MT,LT,VT,KT,S,C,R,E,Args,Error,Output,runner> & Provision.Plan<S>:
++  match value:
++    case Bound{Sys.Registry{namespace,+id,name,access,cursor},+declaration}:(Bound{Sys.Registry{namespace,id,name,access,cursor},declaration},Provision.Entry{Schedule.System{id,condition},Declaration.provision_needs(~S,~CT,~RT,~ET,~MT,~LT,~VT,~KT,~resource,~service,declaration)})
+*** Add File: src/ecs/debug-services.bend
++import Base
++import debug-metadata.bend as M
++import debug-index.bend as I
++# Detached static labels: no service value alias, invocation, or access grant.
++def service_names(system:M.System) -> List<&2,String>:
++  match system:
++    case M.System{name,placements,queries,resources,events,machines,removed,despawned,relationFailures,services,when}:services
++def declared_names(systems:List<&2,M.System>) -> List<&2,String>:
++  match systems:
++    case []:[]
++    case head<>tail:List.append(&2,String,service_names(head),declared_names(tail))
++def contains(names:List<&2,String>,+name:String) -> Bool:
++  match names:
++    case []:False{}
++    case head<>tail:Bool.or(String.eq(head,name),contains(tail,name))
++def dedup(names:List<&2,String>,output:List<&2,String>) -> List<&2,String>:
++  match names:
++    case []:output
++    case head<>tail:dedup(tail,I.unique(head,output))
++def entries(names:List<&2,String>,+provided:List<&2,String>) -> List<&2,M.Service>:
++  match names:
++    case []:[]
++    case +head<>tail:M.Service{head,contains(provided,head)}<>entries(tail,provided)
++def describe(+provided:List<&2,String>,systems:List<&2,M.System>) -> List<&2,M.Service>:
++  entries(dedup(List.append(&2,String,provided,declared_names(systems)),[]),provided)
+*** Add File: src/ecs/debug-state-metadata.bend
++import Base
++# Detached lossless observation of pinned TS StateValue = string | number.
++# NumberBits are IEEE754 binary64 low/high words, never a F32/U32 conversion.
++# spelling is the actual trusted String(value) label for diagnostic conditions.
++# Native consumes normalized observations; no native JS Number parser claim.
++type Value is Data:
++  Text{value:String}
++  NumberBits{low:U32,high:U32,spelling:String}
++type Machine is Data:
++  Machine{name:String,states:List<&2,Value>,current:Maybe<&2,Value>}
++def spelling(value:Value) -> String:
++  match value:
++    case Text{value}:value
++    case NumberBits{low,high,spelling}:spelling
++# Registration token equality and runtime state equality are not inferred here.
++# An arbitrary affine actual state owner must be projected and returned by its
++# trusted read provider; this detached Data record does not clone that owner.
+*** End Patch
