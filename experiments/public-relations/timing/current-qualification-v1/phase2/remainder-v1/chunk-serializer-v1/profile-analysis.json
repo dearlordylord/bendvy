@@ -1,0 +1,312 @@
+{
+  "scope": "One original/candidate matched depth16 instrumented full30; CPU100us and matchedHeap1MiB sampling. ReportedselfSize/sample counts and source locations, not totalallocation/RSS/fairtiming/speed/cause/statisticalacceptance. Failed16KiB allocation remainsinconclusive.",
+  "method": "Leaf frame source URL andzero-basedline mapped to enclosing generated top-level function declaration; anonymous continuation allocations inside serialize.walk are included by lexical location. Earliernearestnamedancestor heuristics undercounted these. Externalframes preserve functionname. Lexical enclosure is source-location attribution, not operationcausality; helperList.append allocations stay other. Generatedwrappers/source review remain local/hash-bound if artifactbytes excluded.",
+  "roles": {
+    "original": {
+      "cpuProfileSHA256": "ef19de6c164138355886feba63a274fc81371d46a1f29833eeff237d75bbcbc1",
+      "allocationProfileSHA256": "3e30ff62187660192514a0f48c68d90d5c16b673927c786b8450160402f7e665",
+      "CPUWrapperSHA256": "670e971ed34f9663eb24dc452bcd11a991a77cbb1d74993b81f0836fd5fb8a0c",
+      "allocationWrapperSHA256": "4b9c4bd61ebdb78cc518385735709815e61d1a1b98cbcd44e77c03aa220ea711",
+      "CPUtotalSamples": 8409,
+      "CPUbyLexicalDeclarationGroup": {
+        "other": 5128,
+        "GC": 2014,
+        "forcing lexical declaration": 297,
+        "serializer lexical declaration": 970
+      },
+      "allocationReportedSelfSizeSum": 5415605976,
+      "allocationByLexicalDeclarationGroup": {
+        "other": 3241685864,
+        "serializer lexical declaration": 1601336272,
+        "forcing lexical declaration": 572583840
+      },
+      "topCPUEnclosingDeclarations": [
+        {
+          "declaration": "(garbage collector)",
+          "selfSamples": 2014
+        },
+        {
+          "declaration": "$serialize$058walk$",
+          "selfSamples": 855
+        },
+        {
+          "declaration": "$List$append$",
+          "selfSamples": 600
+        },
+        {
+          "declaration": "$$$$047$$$047$$$047promotion$045stage$047application$047next$045version$047v1$047owned$045world$058project_cells$",
+          "selfSamples": 289
+        },
+        {
+          "declaration": "$$$$047$$$047$$$047$$$047$$$047src$047ecs$047relation$045query$058scan$12610$",
+          "selfSamples": 262
+        },
+        {
+          "declaration": "$$$$047$$$047$$$047$$$047$$$047src$047ecs$047relation$045query$058scan$12621$",
+          "selfSamples": 260
+        },
+        {
+          "declaration": "encodeUtf8String",
+          "selfSamples": 258
+        },
+        {
+          "declaration": "$$$$047$$$047$$$047$$$047$$$047src$047ecs$047relation$045query$058scan$1263$",
+          "selfSamples": 240
+        },
+        {
+          "declaration": "run_loop",
+          "selfSamples": 209
+        },
+        {
+          "declaration": "$force$058walk$",
+          "selfSamples": 178
+        }
+      ],
+      "topAllocationEnclosingDeclarations": [
+        {
+          "declaration": "$serialize$058walk$",
+          "reportedSelfSize": 1601336272
+        },
+        {
+          "declaration": "$force$058walk$",
+          "reportedSelfSize": 505472232
+        },
+        {
+          "declaration": "$List$append$",
+          "reportedSelfSize": 447754080
+        },
+        {
+          "declaration": "$$$$047$$$047$$$047$$$047$$$047src$047ecs$047relation$045graph$058target_edges$1261$",
+          "reportedSelfSize": 377568000
+        },
+        {
+          "declaration": "$$$$047$$$047$$$047promotion$045stage$047application$047next$045version$047v1$047owned$045world$058project_cells$",
+          "reportedSelfSize": 343958376
+        },
+        {
+          "declaration": "$$$$047$$$047$$$047$$$047$$$047src$047ecs$047relation$045graph$058target_edges$1260$",
+          "reportedSelfSize": 332469400
+        },
+        {
+          "declaration": "$$$$047$$$047$$$047$$$047$$$047src$047ecs$047relation$045graph$058inverse_entries$1260$",
+          "reportedSelfSize": 308346896
+        },
+        {
+          "declaration": "$$$$047$$$047$$$047$$$047$$$047src$047ecs$047relation$045graph$058inverse_entries$1261$",
+          "reportedSelfSize": 270590016
+        },
+        {
+          "declaration": "$$$$047trace$045value$058reversed_string$",
+          "reportedSelfSize": 138414144
+        },
+        {
+          "declaration": "$$$$047trace$045value$058tokens$",
+          "reportedSelfSize": 134226168
+        }
+      ],
+      "topAllocationSites": [
+        {
+          "declaration": "$serialize$058walk$",
+          "lineNumberZeroBased": 1384,
+          "columnNumberZeroBased": 17,
+          "reportedSelfSize": 1047616544
+        },
+        {
+          "declaration": "$serialize$058walk$",
+          "lineNumberZeroBased": 1383,
+          "columnNumberZeroBased": 59,
+          "reportedSelfSize": 552671128
+        },
+        {
+          "declaration": "$List$append$",
+          "lineNumberZeroBased": 1767,
+          "columnNumberZeroBased": 22,
+          "reportedSelfSize": 447754080
+        },
+        {
+          "declaration": "$$$$047$$$047$$$047$$$047$$$047src$047ecs$047relation$045graph$058target_edges$1261$",
+          "lineNumberZeroBased": 3607,
+          "columnNumberZeroBased": 165,
+          "reportedSelfSize": 348201600
+        },
+        {
+          "declaration": "$$$$047$$$047$$$047promotion$045stage$047application$047next$045version$047v1$047owned$045world$058project_cells$",
+          "lineNumberZeroBased": 12055,
+          "columnNumberZeroBased": 202,
+          "reportedSelfSize": 329277576
+        },
+        {
+          "declaration": "$$$$047$$$047$$$047$$$047$$$047src$047ecs$047relation$045graph$058target_edges$1260$",
+          "lineNumberZeroBased": 3535,
+          "columnNumberZeroBased": 165,
+          "reportedSelfSize": 321981600
+        },
+        {
+          "declaration": "$$$$047$$$047$$$047$$$047$$$047src$047ecs$047relation$045graph$058inverse_entries$1260$",
+          "lineNumberZeroBased": 4114,
+          "columnNumberZeroBased": 167,
+          "reportedSelfSize": 296810496
+        },
+        {
+          "declaration": "$force$058walk$",
+          "lineNumberZeroBased": 817,
+          "columnNumberZeroBased": 17,
+          "reportedSelfSize": 294681128
+        }
+      ]
+    },
+    "candidate": {
+      "cpuProfileSHA256": "9122d783c343afc0a5e89e4a61f6b1376d329c842123561d8f3b760210bb7785",
+      "allocationProfileSHA256": "d8f633decc3941d7d1566d39ac12b5baaa12f75561c8a125093e8c09c0c4b6f4",
+      "CPUWrapperSHA256": "01a27c3e5d6f11651cf4ebd16c2947ba6c09dd28e6d2913c917ad541f8f356fa",
+      "allocationWrapperSHA256": "9957726cb5748b373bf39652347edaccfa52bc26a0f5869bd8b1229df368a874",
+      "CPUtotalSamples": 6391,
+      "CPUbyLexicalDeclarationGroup": {
+        "other": 4692,
+        "GC": 763,
+        "forcing lexical declaration": 318,
+        "serializer lexical declaration": 618
+      },
+      "allocationReportedSelfSizeSum": 5055972240,
+      "allocationByLexicalDeclarationGroup": {
+        "other": 2922886464,
+        "forcing lexical declaration": 576785488,
+        "serializer lexical declaration": 1556300288
+      },
+      "topCPUEnclosingDeclarations": [
+        {
+          "declaration": "(garbage collector)",
+          "selfSamples": 763
+        },
+        {
+          "declaration": "$List$append$",
+          "selfSamples": 559
+        },
+        {
+          "declaration": "$serialize$058walk$",
+          "selfSamples": 537
+        },
+        {
+          "declaration": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047src$047ecs$047relation$045query$058scan$12621$",
+          "selfSamples": 264
+        },
+        {
+          "declaration": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047src$047ecs$047relation$045query$058scan$12616$",
+          "selfSamples": 238
+        },
+        {
+          "declaration": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047src$047ecs$047relation$045query$058scan$1263$",
+          "selfSamples": 223
+        },
+        {
+          "declaration": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047src$047ecs$047relation$045query$058scan$12610$",
+          "selfSamples": 202
+        },
+        {
+          "declaration": "$$$$047$$$047$$$047$$$047$$$047promotion$045stage$047application$047next$045version$047v1$047owned$045world$058project_cells$",
+          "selfSamples": 200
+        },
+        {
+          "declaration": "$$$$047$$$047force$058walk$",
+          "selfSamples": 196
+        },
+        {
+          "declaration": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047src$047ecs$047relation$045graph$058inverse_entries$1260$",
+          "selfSamples": 182
+        }
+      ],
+      "topAllocationEnclosingDeclarations": [
+        {
+          "declaration": "$serialize$058walk$",
+          "reportedSelfSize": 1504919264
+        },
+        {
+          "declaration": "$$$$047$$$047force$058walk$",
+          "reportedSelfSize": 504423960
+        },
+        {
+          "declaration": "$List$append$",
+          "reportedSelfSize": 422587488
+        },
+        {
+          "declaration": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047src$047ecs$047relation$045graph$058target_edges$1260$",
+          "reportedSelfSize": 385958208
+        },
+        {
+          "declaration": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047src$047ecs$047relation$045graph$058target_edges$1261$",
+          "reportedSelfSize": 384909400
+        },
+        {
+          "declaration": "$$$$047$$$047$$$047$$$047$$$047promotion$045stage$047application$047next$045version$047v1$047owned$045world$058project_cells$",
+          "reportedSelfSize": 330324880
+        },
+        {
+          "declaration": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047src$047ecs$047relation$045graph$058inverse_entries$1261$",
+          "reportedSelfSize": 291566008
+        },
+        {
+          "declaration": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047src$047ecs$047relation$045graph$058inverse_entries$1260$",
+          "reportedSelfSize": 265346200
+        },
+        {
+          "declaration": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047src$047ecs$047column$058plain_view_taken$1261$",
+          "reportedSelfSize": 106965408
+        },
+        {
+          "declaration": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047src$047ecs$047column$058plain_view_checked$1260$",
+          "reportedSelfSize": 67116680
+        }
+      ],
+      "topAllocationSites": [
+        {
+          "declaration": "$serialize$058walk$",
+          "lineNumberZeroBased": 1384,
+          "columnNumberZeroBased": 17,
+          "reportedSelfSize": 1110603928
+        },
+        {
+          "declaration": "$List$append$",
+          "lineNumberZeroBased": 1767,
+          "columnNumberZeroBased": 22,
+          "reportedSelfSize": 422587488
+        },
+        {
+          "declaration": "$serialize$058walk$",
+          "lineNumberZeroBased": 1383,
+          "columnNumberZeroBased": 59,
+          "reportedSelfSize": 394315336
+        },
+        {
+          "declaration": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047src$047ecs$047relation$045graph$058target_edges$1260$",
+          "lineNumberZeroBased": 3517,
+          "columnNumberZeroBased": 177,
+          "reportedSelfSize": 363933600
+        },
+        {
+          "declaration": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047src$047ecs$047relation$045graph$058target_edges$1261$",
+          "lineNumberZeroBased": 3589,
+          "columnNumberZeroBased": 177,
+          "reportedSelfSize": 355543200
+        },
+        {
+          "declaration": "$$$$047$$$047$$$047$$$047$$$047promotion$045stage$047application$047next$045version$047v1$047owned$045world$058project_cells$",
+          "lineNumberZeroBased": 12037,
+          "columnNumberZeroBased": 214,
+          "reportedSelfSize": 303060264
+        },
+        {
+          "declaration": "$$$$047$$$047force$058walk$",
+          "lineNumberZeroBased": 817,
+          "columnNumberZeroBased": 17,
+          "reportedSelfSize": 282097176
+        },
+        {
+          "declaration": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047src$047ecs$047relation$045graph$058inverse_entries$1261$",
+          "lineNumberZeroBased": 4138,
+          "columnNumberZeroBased": 179,
+          "reportedSelfSize": 271639200
+        }
+      ]
+    }
+  }
+}

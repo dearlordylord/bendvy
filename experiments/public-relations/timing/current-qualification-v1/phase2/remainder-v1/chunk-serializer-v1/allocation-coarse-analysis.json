@@ -1,0 +1,250 @@
+{
+  "scope": "Matched1MiB sampledcollectedobjects diagnostics only; summedreportedselfSize/callstacks notmeasuredtotalallocation/RSS/speed/causalverdict; oneinvocationperrole unchangedfull30",
+  "samplingIntervalBytes": 1048576,
+  "includeObjectsCollectedByMajorGC": true,
+  "includeObjectsCollectedByMinorGC": true,
+  "failedPriorIntervalBytes": 16384,
+  "failedPriorOutcome": "INCOMPLETE afterfulloutput/noheapprofile; no comparison to missingdata",
+  "roles": {
+    "original": {
+      "profileSHA256": "3e30ff62187660192514a0f48c68d90d5c16b673927c786b8450160402f7e665",
+      "nodes": 37259,
+      "samples": 5161,
+      "sampledSelfSizeSum": 5415605976,
+      "sampleSizeSum": 5415767368,
+      "nearestFrameSelfSize": {
+        "other/generic": 5133529008,
+        "nearest serializer frame": 199235384,
+        "nearest trace-forcing frame": 82841584
+      },
+      "topSelfFunctions": [
+        {
+          "function": "",
+          "sampledSelfSize": 3691493456
+        },
+        {
+          "function": "$List$append$",
+          "sampledSelfSize": 447754080
+        },
+        {
+          "function": "$$$$047trace$045value$058reversed_string$",
+          "sampledSelfSize": 138414144
+        },
+        {
+          "function": "$$$$047trace$045value$058tokens$",
+          "sampledSelfSize": 134226168
+        },
+        {
+          "function": "$$$$047$$$047$$$047$$$047$$$047src$047ecs$047column$058plain_view_taken$1260$",
+          "sampledSelfSize": 108013920
+        },
+        {
+          "function": "$$$$047$$$047$$$047$$$047$$$047src$047ecs$047column$058plain_view_taken$1261$",
+          "sampledSelfSize": 94379568
+        },
+        {
+          "function": "run_tail",
+          "sampledSelfSize": 50334208
+        },
+        {
+          "function": "$$$$047trace$045value$058array_tail$",
+          "sampledSelfSize": 45092080
+        },
+        {
+          "function": "$force$058fields$",
+          "sampledSelfSize": 36702296
+        },
+        {
+          "function": "$$$$047$$$047$$$047$$$047$$$047src$047ecs$047component$058get$1261$",
+          "sampledSelfSize": 31459536
+        },
+        {
+          "function": "$$$$047$$$047$$$047$$$047$$$047src$047ecs$047component$058get$1260$",
+          "sampledSelfSize": 30411264
+        },
+        {
+          "function": "$$$$047$$$047$$$047$$$047$$$047src$047ecs$047relation$045graph$058target_edges$1261$",
+          "sampledSelfSize": 29366400
+        }
+      ],
+      "topLocations": [
+        {
+          "function": "",
+          "url": "/workspace/formal-proofs/bendvy-worktrees/parity-42-relations/.artifacts/relations-chunk-coarse-profiles-1791420272919275021/wrappers/original-allocation.cjs",
+          "lineNumberZeroBased": 1384,
+          "columnNumberZeroBased": 17,
+          "sampledSelfSize": 1047616544
+        },
+        {
+          "function": "",
+          "url": "/workspace/formal-proofs/bendvy-worktrees/parity-42-relations/.artifacts/relations-chunk-coarse-profiles-1791420272919275021/wrappers/original-allocation.cjs",
+          "lineNumberZeroBased": 1383,
+          "columnNumberZeroBased": 59,
+          "sampledSelfSize": 552671128
+        },
+        {
+          "function": "$List$append$",
+          "url": "/workspace/formal-proofs/bendvy-worktrees/parity-42-relations/.artifacts/relations-chunk-coarse-profiles-1791420272919275021/wrappers/original-allocation.cjs",
+          "lineNumberZeroBased": 1767,
+          "columnNumberZeroBased": 22,
+          "sampledSelfSize": 447754080
+        },
+        {
+          "function": "",
+          "url": "/workspace/formal-proofs/bendvy-worktrees/parity-42-relations/.artifacts/relations-chunk-coarse-profiles-1791420272919275021/wrappers/original-allocation.cjs",
+          "lineNumberZeroBased": 3607,
+          "columnNumberZeroBased": 165,
+          "sampledSelfSize": 348201600
+        },
+        {
+          "function": "",
+          "url": "/workspace/formal-proofs/bendvy-worktrees/parity-42-relations/.artifacts/relations-chunk-coarse-profiles-1791420272919275021/wrappers/original-allocation.cjs",
+          "lineNumberZeroBased": 12055,
+          "columnNumberZeroBased": 202,
+          "sampledSelfSize": 329277576
+        },
+        {
+          "function": "",
+          "url": "/workspace/formal-proofs/bendvy-worktrees/parity-42-relations/.artifacts/relations-chunk-coarse-profiles-1791420272919275021/wrappers/original-allocation.cjs",
+          "lineNumberZeroBased": 3535,
+          "columnNumberZeroBased": 165,
+          "sampledSelfSize": 321981600
+        },
+        {
+          "function": "",
+          "url": "/workspace/formal-proofs/bendvy-worktrees/parity-42-relations/.artifacts/relations-chunk-coarse-profiles-1791420272919275021/wrappers/original-allocation.cjs",
+          "lineNumberZeroBased": 4114,
+          "columnNumberZeroBased": 167,
+          "sampledSelfSize": 296810496
+        },
+        {
+          "function": "",
+          "url": "/workspace/formal-proofs/bendvy-worktrees/parity-42-relations/.artifacts/relations-chunk-coarse-profiles-1791420272919275021/wrappers/original-allocation.cjs",
+          "lineNumberZeroBased": 817,
+          "columnNumberZeroBased": 17,
+          "sampledSelfSize": 294681128
+        }
+      ]
+    },
+    "candidate": {
+      "profileSHA256": "d8f633decc3941d7d1566d39ac12b5baaa12f75561c8a125093e8c09c0c4b6f4",
+      "nodes": 35067,
+      "samples": 4818,
+      "sampledSelfSizeSum": 5055972240,
+      "sampleSizeSum": 5055922704,
+      "nearestFrameSelfSize": {
+        "other/generic": 4890282848,
+        "nearest serializer frame": 76549136,
+        "nearest trace-forcing frame": 89140256
+      },
+      "topSelfFunctions": [
+        {
+          "function": "",
+          "sampledSelfSize": 3590882984
+        },
+        {
+          "function": "$List$append$",
+          "sampledSelfSize": 422587488
+        },
+        {
+          "function": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047src$047ecs$047column$058plain_view_taken$1261$",
+          "sampledSelfSize": 106965408
+        },
+        {
+          "function": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047src$047ecs$047column$058plain_view_checked$1260$",
+          "sampledSelfSize": 67116680
+        },
+        {
+          "function": "$serialize$058reversed_chunks$",
+          "sampledSelfSize": 50332416
+        },
+        {
+          "function": "$$$$047$$$047$$$047trace$045value$058object_tokens$",
+          "sampledSelfSize": 46138504
+        },
+        {
+          "function": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047src$047ecs$047component$058get_live_owned$1260$",
+          "sampledSelfSize": 37751320
+        },
+        {
+          "function": "$$$$047$$$047force$058force_text$",
+          "sampledSelfSize": 33555056
+        },
+        {
+          "function": "$$$$047$$$047force$058fields$",
+          "sampledSelfSize": 32507624
+        },
+        {
+          "function": "run_tail",
+          "sampledSelfSize": 32507416
+        },
+        {
+          "function": "$$$$047$$$047$$$047trace$045value$058array_tail$",
+          "sampledSelfSize": 31459288
+        },
+        {
+          "function": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047src$047ecs$047relation$045graph$058target_edges$1261$",
+          "sampledSelfSize": 29366200
+        }
+      ],
+      "topLocations": [
+        {
+          "function": "",
+          "url": "/workspace/formal-proofs/bendvy-worktrees/parity-42-relations/.artifacts/relations-chunk-coarse-profiles-1791420272919275021/wrappers/candidate-allocation.cjs",
+          "lineNumberZeroBased": 1384,
+          "columnNumberZeroBased": 17,
+          "sampledSelfSize": 1110603928
+        },
+        {
+          "function": "$List$append$",
+          "url": "/workspace/formal-proofs/bendvy-worktrees/parity-42-relations/.artifacts/relations-chunk-coarse-profiles-1791420272919275021/wrappers/candidate-allocation.cjs",
+          "lineNumberZeroBased": 1767,
+          "columnNumberZeroBased": 22,
+          "sampledSelfSize": 422587488
+        },
+        {
+          "function": "",
+          "url": "/workspace/formal-proofs/bendvy-worktrees/parity-42-relations/.artifacts/relations-chunk-coarse-profiles-1791420272919275021/wrappers/candidate-allocation.cjs",
+          "lineNumberZeroBased": 1383,
+          "columnNumberZeroBased": 59,
+          "sampledSelfSize": 394315336
+        },
+        {
+          "function": "",
+          "url": "/workspace/formal-proofs/bendvy-worktrees/parity-42-relations/.artifacts/relations-chunk-coarse-profiles-1791420272919275021/wrappers/candidate-allocation.cjs",
+          "lineNumberZeroBased": 3517,
+          "columnNumberZeroBased": 177,
+          "sampledSelfSize": 363933600
+        },
+        {
+          "function": "",
+          "url": "/workspace/formal-proofs/bendvy-worktrees/parity-42-relations/.artifacts/relations-chunk-coarse-profiles-1791420272919275021/wrappers/candidate-allocation.cjs",
+          "lineNumberZeroBased": 3589,
+          "columnNumberZeroBased": 177,
+          "sampledSelfSize": 355543200
+        },
+        {
+          "function": "",
+          "url": "/workspace/formal-proofs/bendvy-worktrees/parity-42-relations/.artifacts/relations-chunk-coarse-profiles-1791420272919275021/wrappers/candidate-allocation.cjs",
+          "lineNumberZeroBased": 12037,
+          "columnNumberZeroBased": 214,
+          "sampledSelfSize": 303060264
+        },
+        {
+          "function": "",
+          "url": "/workspace/formal-proofs/bendvy-worktrees/parity-42-relations/.artifacts/relations-chunk-coarse-profiles-1791420272919275021/wrappers/candidate-allocation.cjs",
+          "lineNumberZeroBased": 817,
+          "columnNumberZeroBased": 17,
+          "sampledSelfSize": 282097176
+        },
+        {
+          "function": "",
+          "url": "/workspace/formal-proofs/bendvy-worktrees/parity-42-relations/.artifacts/relations-chunk-coarse-profiles-1791420272919275021/wrappers/candidate-allocation.cjs",
+          "lineNumberZeroBased": 4138,
+          "columnNumberZeroBased": 179,
+          "sampledSelfSize": 271639200
+        }
+      ]
+    }
+  }
+}

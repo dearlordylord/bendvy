@@ -1,0 +1,79 @@
+{
+  "scope": "Original depth16 single instrumented CPU consumer only; leafself samples and nearest named serializer/force ancestor sample grouping, not walltime/cause/paired verdict",
+  "profileSHA256": "ef19de6c164138355886feba63a274fc81371d46a1f29833eeff237d75bbcbc1",
+  "nodes": 109627,
+  "samples": 8409,
+  "selfHitCount": 7337,
+  "groupedSamples": {
+    "other/generic runtime": 5474,
+    "garbage collector": 2014,
+    "nearest trace-forcing frame": 257,
+    "nearest serializer frame": 664
+  },
+  "topSelfFunctions": [
+    {
+      "function": "",
+      "selfSamples": 2820
+    },
+    {
+      "function": "(garbage collector)",
+      "selfSamples": 2014
+    },
+    {
+      "function": "$List$append$",
+      "selfSamples": 600
+    },
+    {
+      "function": "encodeUtf8String",
+      "selfSamples": 258
+    },
+    {
+      "function": "run_loop",
+      "selfSamples": 209
+    },
+    {
+      "function": "$$$$047$$$047$$$047$$$047$$$047src$047ecs$047relation$045query$058output_join$1260$",
+      "selfSamples": 154
+    },
+    {
+      "function": "f",
+      "selfSamples": 118
+    },
+    {
+      "function": "$serialize$058step$",
+      "selfSamples": 115
+    },
+    {
+      "function": "$$$$047trace$045value$058tokens$",
+      "selfSamples": 91
+    },
+    {
+      "function": "$$$$047trace$045value$058array_tail$",
+      "selfSamples": 87
+    },
+    {
+      "function": "$$$$047trace$045value$058reversed_string$",
+      "selfSamples": 60
+    },
+    {
+      "function": "$$$$047trace$045value$058numbers$",
+      "selfSamples": 59
+    },
+    {
+      "function": "$$$$047$$$047$$$047$$$047$$$047src$047ecs$047relation$045query$058spec_rows$1260$",
+      "selfSamples": 50
+    },
+    {
+      "function": "$materialized$",
+      "selfSamples": 48
+    },
+    {
+      "function": "$force$058force_text$",
+      "selfSamples": 46
+    }
+  ],
+  "inspectorElapsedMicroseconds": 1799685,
+  "samplingIntervalMicroseconds": 100,
+  "allocationAttemptIntervalBytes": 16384,
+  "allocationOutcome": "Runtime5 timeout after full30 output and forcing; no heapprofile bytes or allocation ratio available"
+}
