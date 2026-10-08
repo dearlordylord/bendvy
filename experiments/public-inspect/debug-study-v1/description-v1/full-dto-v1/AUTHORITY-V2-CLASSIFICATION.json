@@ -1,0 +1,43 @@
+{
+  "scope": "Separate independent evidence_review classification; original receipt remains RAW_UNCLASSIFIED, no proof/full56",
+  "planSHA256": "64256e4e061dee05ee22a6cbb8aee0d9084e7dd835908e21edcf03f3775cfdbc",
+  "receiptSHA256": "e4149ea5d8f07e8978a77f943c4d9d2f5ed86afe9da7b7e7afb306a03e857376",
+  "cases": [
+    {
+      "label": "cross-schema",
+      "stderrSHA256": "ed0e7b5f8ed5bed7f525c40240838e0922ee25a7b53ed1c9168c42c6f58a9d15",
+      "classification": "INTENDED_SCHEMA_REFUSAL",
+      "reason": "Definition schema mismatch line11"
+    },
+    {
+      "label": "component-token",
+      "stderrSHA256": "9b2aaf8446b59eef2a80039d11e61595782c823545e048e5110ef9da6cd50e24",
+      "classification": "INTENDED_COMPONENT_TOKEN_REFUSAL",
+      "reason": "Resource to Component line9"
+    },
+    {
+      "label": "label-authority",
+      "stderrSHA256": "86852642bf82f70ec570150a574687032e71479c2f0a69b59e8b18dcc457fc14",
+      "classification": "INTENDED_LABEL_AUTHORITY_REFUSAL",
+      "reason": "String to Component line9"
+    },
+    {
+      "label": "owner-duplicate",
+      "stderrSHA256": "438d944c9ca99bad11f6493e6527e29a498f146ae4f017c15de0c944300855af",
+      "classification": "INTENDED_AFFINE_DUPLICATION_REFUSAL",
+      "reason": "World binder8 tuple9"
+    },
+    {
+      "label": "opaque-frame",
+      "stderrSHA256": "565d1812ec9892a0a336fa69048ab6da98e0c2d99289076adf18464aedd24e66",
+      "classification": "INTENDED_OPAQUE_FRAME_REFUSAL",
+      "reason": "H to Check.Frame owner9"
+    },
+    {
+      "label": "read-write",
+      "stderrSHA256": "a167c840a858b6990566ad9d152ab9626b5e82ab64e245c8df425596d14cc709",
+      "classification": "REJECTED_NOT_AUTHORITY_EVIDENCE",
+      "reason": "ValueWrite expected3 parameters got2 return type error; no Read to Write body check"
+    }
+  ]
+}

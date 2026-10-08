@@ -1,0 +1,51 @@
+{
+  "scope": "Independent whole-counterfactual source proposal; no mutation children/claims/new laws",
+  "normalIOPlan": "d2036f262c4de1462729b41320a929dc0c1e21916daf9f4896179150223fef71",
+  "normalIOReceipt": "36fa439a795b31b46810ad7f0ffa518d219450a43ae89d586b797dc87bc6d9b5",
+  "variants": [
+    {
+      "name": "metadata-resource-modes",
+      "source": "definition-v2.bend",
+      "normalSHA256": "62c82dfea8752ead37ce21cf302e06e46f7ec84026ed944c45399e57f6c321b1",
+      "old": "M.Access{resource_names(readResources),resource_names(writeResources)}",
+      "new": "M.Access{resource_names(writeResources),resource_names(readResources)}",
+      "mutantSHA256": "227cb8c04ce6ef9777609871431e99b419efac4dfac55b916cccad08707d49bb",
+      "oracle": "experiments/public-inspect/debug-study-v1/description-v1/full-dto-v1/counterfactual-v2/metadata-resource-modes/ORACLE.json",
+      "ownerOracle": "experiments/public-inspect/debug-study-v1/description-v1/full-dto-v1/counterfactual-v2/metadata-resource-modes/OWNER-ORACLE.json",
+      "stdout": "experiments/public-inspect/debug-study-v1/description-v1/full-dto-v1/counterfactual-v2/metadata-resource-modes/EXPECTED.stdout",
+      "exactChangedCheckpointIndices": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "name": "missing-service-needs",
+      "source": "definition-v2.bend",
+      "normalSHA256": "62c82dfea8752ead37ce21cf302e06e46f7ec84026ed944c45399e57f6c321b1",
+      "old": "service_needs(~S,services),List.append",
+      "new": "[],List.append",
+      "mutantSHA256": "afd076580be8631901483ea240df3af2a9cc4ae81587414a09c0284b9e90a953",
+      "oracle": "experiments/public-inspect/debug-study-v1/description-v1/full-dto-v1/counterfactual-v2/missing-service-needs/ORACLE.json",
+      "ownerOracle": "experiments/public-inspect/debug-study-v1/description-v1/full-dto-v1/counterfactual-v2/missing-service-needs/OWNER-ORACLE.json",
+      "stdout": "experiments/public-inspect/debug-study-v1/description-v1/full-dto-v1/counterfactual-v2/missing-service-needs/EXPECTED.stdout",
+      "exactChangedCheckpointIndices": [
+        5
+      ]
+    },
+    {
+      "name": "resource-cursor-write",
+      "source": "owner-observation.bend",
+      "normalSHA256": "857114c987089f524c57214e4b599e3941764cb28583ff49cbd916969f358407",
+      "old": "Owner{plain,missing,constructed,transient,text,numeric,cursor},Observation",
+      "new": "Owner{plain,missing,constructed,transient,text,numeric,(cursor + 1 : U32)},Observation",
+      "mutantSHA256": "1fd4bc43bbf7e9f7e0df9f34f25be9fcedec22593316c6973c7ba4423aae1b84",
+      "oracle": "experiments/public-inspect/debug-study-v1/description-v1/full-dto-v1/counterfactual-v2/resource-cursor-write/ORACLE.json",
+      "ownerOracle": "experiments/public-inspect/debug-study-v1/description-v1/full-dto-v1/counterfactual-v2/resource-cursor-write/OWNER-ORACLE.json",
+      "stdout": "experiments/public-inspect/debug-study-v1/description-v1/full-dto-v1/counterfactual-v2/resource-cursor-write/EXPECTED.stdout",
+      "exactChangedCheckpointIndices": [
+        3
+      ]
+    }
+  ]
+}
