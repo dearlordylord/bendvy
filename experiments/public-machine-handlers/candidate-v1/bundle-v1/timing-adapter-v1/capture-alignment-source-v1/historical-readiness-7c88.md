@@ -18,12 +18,6 @@ The root's unchanged Workshop #28 receipt `.artifacts/regression-handler-bundle-
 | #48 multi-machine marker | Existing actual TS definition-order/later-key observations are delivered. | Existing human choice remains unanswered: preserve TS later-key pending loss or approve stronger blanket retention. This is a contract conflict, not a new implementation preference. |
 | #50/#53 | Closed callback templates and machine Data transition streams use already-approved bounds. Internal raw reader metadata is not a general owned-event API. | Arbitrary capture ownership/general owned-event disposal is not selected by #49. These pending contracts do not block the existing single-machine bundle/timing preparation; do not promote internal helpers or invent ownership policy. |
 
-## Current no-clock adapter qualification / prerequisites
-
-The same-owner complete IO ledger now passes actual JS and Native physical42/common42, retaining 13 setups/45 operations/21 checkpoints per schema. Root integrated the Native packet as `15cc58a9` and its advertised portable verifier passes. This qualifies correctness, not time: TS captures seed/every operation while the current Bend ledger captures checkpoints. The source-only [capture-alignment proposal](../bundle-v1/timing-adapter-v1/CAPTURE-ALIGNMENT-PROPOSAL.md) addresses that existing instrumentation gap without changing the operation ledger or acceptance oracle.
-
-Live governing issues read on 2026-10-08 remain #49 OPEN and #48 OPEN. #49 explicitly depends on #48 and #35; #35 is CLOSED. #48 depends on #34, which is CLOSED. Therefore #48 is the remaining named prerequisite for #49, alongside #49's own equivalent complete feature timing/scaling and final current-source review/delivery report. Existing #21/#23/#24 own full performance; #62 owns pending specific-law proposals. #50/#53 pending ownership choices are not new prerequisites for the approved single-machine handler work. No new followup is created or requirement waived by this audit.
-
 ## Pending policy provenance
 
 [#48](https://github.com/dearlordylord/bendvy/issues/48), acceptance bullet2, says marker-created changes remain until the next marker. The existing unanswered packet is `experiments/public-machines/contract.md` → “Governing conflict — approval pending”, repeated in `docs/reports/machines-progress.md` and #48's initial milestone.
