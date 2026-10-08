@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : owners
+- observed : owners (consumed more than once)
+Location: duplicate
+6 |   match outcome:
+7>|     case Controls.Aborted{Stage.Aborted{owners}}: (owners,owners)
+  |                                         ^^^^^^
+8 |     case _: ([],[])

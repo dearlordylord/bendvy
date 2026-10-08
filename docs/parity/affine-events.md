@@ -64,3 +64,23 @@ introducing per-event modes, mandatory finalizers or a second event framework.
 - Use before/after JS call and allocation profiles for a consequential performance change; report allocation sampling separately from physical/RSS memory. Optimize demonstrated bottlenecks while completing features. The scoped #30 amendment is not a global gate waiver; full performance remains under #21/#23/#24.
 - Specific new laws require drafting, falsification with planted defects and human approval before ECS proofs. New dependencies and unresolved contract changes require the existing SPEC approvals. Checker default remains five seconds; retain separately approved diagnostic scope without generalizing it.
 - Commit verified work directly on master, obtain independent Spec/Standards review, push and post an English governing-issue completion report before closing. Preserve unrelated edits/processes, read-only references and canonical jev. Document any remaining limitation with a concrete owning task; do not close on a feasibility report or silently narrow this acceptance.
+
+## Detached staging implementation preparation
+
+[owned-recovery-v1](../../experiments/public-owned-events/owned-recovery-v1/README.md)
+implements the simplest generic Type ownership seam: immediate admission refusal
+returns the incoming owner and unchanged Stage; accepted commit transfers the
+complete FIFO list; abort returns every still-staged owner in a typed receipt.
+There is no runtime notification/expensive classification, clone, mandatory
+finalizer/IO cleanup or automatic reinsertion. Source-consuming controls contain
+complete affine Array payloads; intended duplication of recovered owners is
+refused. Raw five-second checker results are retained. No backend or #53
+acceptance is claimed.
+
+Scope is invocation-created payloads or explicitly transferred owners from
+surviving external state. This seam neither extracts transactional components/
+resources nor changes #51/#52 rollback. Independent fan-out projections, reader
+cursor/retention semantics and World admission remain separate existing bounds;
+they are not forced into this staging representation. Existing Data events remain
+unchanged. Executed application, negative/mutation/backend/performance and
+independent delivery review gates are outstanding.
