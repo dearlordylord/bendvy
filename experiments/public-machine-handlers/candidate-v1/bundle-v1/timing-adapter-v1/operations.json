@@ -1,0 +1,310 @@
+{
+  "status": "INDEPENDENT_SOURCE_OPERATION_LEDGER_BEFORE_TIMING_OUTPUTS",
+  "schemas": [
+    "A",
+    "B"
+  ],
+  "setupCountPerSchema": 13,
+  "checkpointCountPerSchema": 21,
+  "scenarios": [
+    {
+      "scenario": "boot_Play",
+      "current": "Boot",
+      "extra": true,
+      "failureId": 0,
+      "steps": [
+        {
+          "kind": "queue",
+          "value": "Play",
+          "skip": false,
+          "checkpoint": "boot_Play_queued"
+        },
+        {
+          "kind": "marker"
+        },
+        {
+          "kind": "read",
+          "checkpoint": "boot_Play_applied"
+        }
+      ]
+    },
+    {
+      "scenario": "boot_Pause",
+      "current": "Boot",
+      "extra": true,
+      "failureId": 0,
+      "steps": [
+        {
+          "kind": "queue",
+          "value": "Pause",
+          "skip": false,
+          "checkpoint": "boot_Pause_queued"
+        },
+        {
+          "kind": "marker"
+        },
+        {
+          "kind": "read",
+          "checkpoint": "boot_Pause_applied"
+        }
+      ]
+    },
+    {
+      "scenario": "self_queued",
+      "current": "Boot",
+      "extra": true,
+      "failureId": 0,
+      "steps": [
+        {
+          "kind": "queue",
+          "value": "Play",
+          "skip": false
+        },
+        {
+          "kind": "marker"
+        },
+        {
+          "kind": "read"
+        },
+        {
+          "kind": "marker"
+        },
+        {
+          "kind": "read",
+          "checkpoint": "self_queued_next"
+        }
+      ]
+    },
+    {
+      "scenario": "same_Boot_false",
+      "current": "Boot",
+      "extra": true,
+      "failureId": 0,
+      "steps": [
+        {
+          "kind": "queue",
+          "value": "Boot",
+          "skip": false
+        },
+        {
+          "kind": "marker"
+        },
+        {
+          "kind": "read",
+          "checkpoint": "same_Boot_false"
+        }
+      ]
+    },
+    {
+      "scenario": "same_Boot_true",
+      "current": "Boot",
+      "extra": true,
+      "failureId": 0,
+      "steps": [
+        {
+          "kind": "queue",
+          "value": "Boot",
+          "skip": true
+        },
+        {
+          "kind": "marker"
+        },
+        {
+          "kind": "read",
+          "checkpoint": "same_Boot_true"
+        }
+      ]
+    },
+    {
+      "scenario": "same_Play_false",
+      "current": "Play",
+      "extra": true,
+      "failureId": 0,
+      "steps": [
+        {
+          "kind": "queue",
+          "value": "Play",
+          "skip": false
+        },
+        {
+          "kind": "marker"
+        },
+        {
+          "kind": "read",
+          "checkpoint": "same_Play_false"
+        }
+      ]
+    },
+    {
+      "scenario": "same_Play_true",
+      "current": "Play",
+      "extra": true,
+      "failureId": 0,
+      "steps": [
+        {
+          "kind": "queue",
+          "value": "Play",
+          "skip": true
+        },
+        {
+          "kind": "marker"
+        },
+        {
+          "kind": "read",
+          "checkpoint": "same_Play_true"
+        }
+      ]
+    },
+    {
+      "scenario": "failure_exitBoot0",
+      "current": "Boot",
+      "extra": true,
+      "failureId": 2,
+      "steps": [
+        {
+          "kind": "queue",
+          "value": "Play",
+          "skip": false
+        },
+        {
+          "kind": "marker",
+          "checkpoint": "failed_exitBoot0"
+        },
+        {
+          "kind": "marker"
+        },
+        {
+          "kind": "read",
+          "checkpoint": "later_exitBoot0"
+        }
+      ]
+    },
+    {
+      "scenario": "failure_exitBoot1",
+      "current": "Boot",
+      "extra": true,
+      "failureId": 5,
+      "steps": [
+        {
+          "kind": "queue",
+          "value": "Play",
+          "skip": false
+        },
+        {
+          "kind": "marker",
+          "checkpoint": "failed_exitBoot1"
+        },
+        {
+          "kind": "marker"
+        },
+        {
+          "kind": "read",
+          "checkpoint": "later_exitBoot1"
+        }
+      ]
+    },
+    {
+      "scenario": "failure_transitionBootPlay",
+      "current": "Boot",
+      "extra": true,
+      "failureId": 6,
+      "steps": [
+        {
+          "kind": "queue",
+          "value": "Play",
+          "skip": false
+        },
+        {
+          "kind": "marker",
+          "checkpoint": "failed_transitionBootPlay"
+        },
+        {
+          "kind": "marker"
+        },
+        {
+          "kind": "read",
+          "checkpoint": "later_transitionBootPlay"
+        }
+      ]
+    },
+    {
+      "scenario": "failure_enterPlay1",
+      "current": "Boot",
+      "extra": true,
+      "failureId": 1,
+      "steps": [
+        {
+          "kind": "queue",
+          "value": "Play",
+          "skip": false
+        },
+        {
+          "kind": "marker",
+          "checkpoint": "failed_enterPlay1"
+        },
+        {
+          "kind": "marker"
+        },
+        {
+          "kind": "read",
+          "checkpoint": "later_enterPlay1"
+        }
+      ]
+    },
+    {
+      "scenario": "failure_enterPlay0",
+      "current": "Boot",
+      "extra": true,
+      "failureId": 4,
+      "steps": [
+        {
+          "kind": "queue",
+          "value": "Play",
+          "skip": false
+        },
+        {
+          "kind": "marker",
+          "checkpoint": "failed_enterPlay0"
+        },
+        {
+          "kind": "marker"
+        },
+        {
+          "kind": "read",
+          "checkpoint": "later_enterPlay0"
+        }
+      ]
+    },
+    {
+      "scenario": "missing",
+      "current": "Boot",
+      "extra": false,
+      "failureId": 0,
+      "steps": [
+        {
+          "kind": "queue",
+          "value": "Play",
+          "skip": false,
+          "checkpoint": "missing_queued"
+        },
+        {
+          "kind": "marker",
+          "checkpoint": "inactive_missing"
+        }
+      ]
+    }
+  ],
+  "outsideIntervals": [
+    "history capture",
+    "public observer",
+    "common DTO projection",
+    "JSON rendering",
+    "oracle assertions"
+  ],
+  "separateBendCorrectness": [
+    "inactive_restored",
+    "foreign_refused",
+    "foreign_legitimate_retry"
+  ],
+  "scope": "Same owner through paired checkpoints; no outputs or timings executed, no size/sample count or numerical gate selected."
+}
