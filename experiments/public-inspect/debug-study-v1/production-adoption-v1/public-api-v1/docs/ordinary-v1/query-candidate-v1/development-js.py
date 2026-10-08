@@ -38,7 +38,7 @@ def prepare(out, oracle):
         raise ValueError('Frozen original source/constructor inventory changed')
     if sha(oracle / 'expected.json') != EXPECTED:
         raise ValueError('Independent whole oracle changed')
-    tools = {'bend': '/home/node/.bend/bin/bend', 'node': '/home/node/.local/share/mise/installs/node/24.20.0/bin/node', 'python': str(Path(sys.executable).resolve())}
+    tools = {'bend': '/home/node/.bend/bin/bend', 'node': '/home/node/.local/share/mise/installs/node/24.20.0/bin/node', 'python': str(Path(sys.executable).resolve()), 'taskset': str(Path('/usr/bin/taskset').resolve(strict=True))}
     extra = [Path(__file__), HERE / 'parse-scenario.py', HERE / 'constructor-identities.json',
              ROOT / 'scripts/task_runner.py', ROOT / 'scripts/evidence_boundary.py',
              Path('/home/node/.bend/bend2/base.bend'), oracle / 'expected.json', oracle / 'CONSTRUCTOR-JOIN.json',
@@ -53,8 +53,8 @@ def prepare(out, oracle):
             'pins': pins, 'environment': env, 'cwd': str(HERE), 'oracle': str(oracle / 'expected.json'),
             'join': str(oracle / 'CONSTRUCTOR-JOIN.json'), 'generated': str(generated),
             'tools': tools, 'commands': [
-                {'label': 'emit', 'argv': [tools['bend'], identities['entrypoint'], '-o', str(generated)], 'capSeconds': 30},
-                {'label': 'consumer', 'argv': [tools['node'], str(generated)], 'capSeconds': 5}],
+                {'label': 'emit', 'argv': [tools['taskset'], '-c', '5', tools['bend'], identities['entrypoint'], '-o', str(generated)], 'capSeconds': 30},
+                {'label': 'consumer', 'argv': [tools['taskset'], '-c', '5', tools['node'], str(generated)], 'capSeconds': 5}],
             'postConsumer': 'Strict complete parser join against independent ddeda9 oracle; Native waits for JS equality'}
     out.mkdir(parents=True, exist_ok=False)
     (out / 'plan.json').write_text(json.dumps(plan, indent=2) + '\n')
@@ -79,6 +79,8 @@ def run(plan_path, expected_sha):
     record = {'scope': plan['scope'], 'planSHA256': expected_sha, 'commands': [], 'guards': []}
 
     def guard(label):
+        if str(generated) in pins and (generated.is_symlink() or not generated.is_file()):
+            raise ValueError('Generated artifact must be a regular non-symlink file')
         actual = {path: sha(path) for path in pins}
         unchanged = actual == pins and parser.build_identities(plan['entrypoint']) == inventory
         receipt = {'label': label, 'actualPins': actual, 'unchanged': unchanged}
@@ -97,7 +99,7 @@ def run(plan_path, expected_sha):
                     fcntl.flock(lock, fcntl.LOCK_EX)
                     try:
                         guard(label + '-acquired')
-                        if label == 'emit' and generated.exists():
+                        if label == 'emit' and (generated.exists() or generated.is_symlink()):
                             raise ValueError('Generated output must start absent')
                         result = runner.execute_result(command['argv'], command['capSeconds'], plan['environment'], plan['cwd'], 'split')
                     finally:
@@ -114,6 +116,8 @@ def run(plan_path, expected_sha):
                 if result['exit'] != 0 or result['failure'] is not None:
                     raise ValueError('Owned child failed: ' + label)
                 if label == 'emit':
+                    if generated.is_symlink() or not generated.is_file():
+                        raise ValueError('Emit did not produce a regular non-symlink artifact')
                     pins[str(generated)] = sha(generated)
                     record['generatedSHA256'] = pins[str(generated)]
                 else:
