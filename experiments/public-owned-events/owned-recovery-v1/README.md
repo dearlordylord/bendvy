@@ -29,3 +29,38 @@ source checks use existing scripts/bend-check cap5, telemetry off and the shared
 attempt1 exit1. No backend, law/proof, World integration, numeric gate or #53
 completion claim. Frozen delivery/reader/projection/retention/rollback evidence
 remains due; this direct development shell lock is not a frozen collector.
+
+## Executed detached development controls
+
+A complete byte oracle was authored from the fixture's cells/order before the
+first child: commit and abort each return first[11,12], second[21,22,23,24];
+immediate refusal returns staged first[11,12] and incoming second[21,22,23,24].
+`main.bend` consumes all owners through the complete observer. Actual JS and
+Native stdout are byte-identical,132bytes,SHA256
+`ed73cad108507ba89f20870d8b6cbda757e0d66e8e81d08b202e6870aade838d`.
+Runtime stderr is empty. Node24.20.0 and approved private Clang19 are used.
+
+The first JS whole-byte gate failed because `IO.print` appended a terminal LF
+omitted by the pre-run oracle. All other bytes match exactly. Original oracle,
+executed runner, raw outputs and failed receipt remain immutable under
+`evidence/js-1`; `expected-1.stdout` retains that original expectation.
+`expected.stdout` differs only by one terminal LF; retained JS raw was compared
+without a backend replay. No semantic expectation was derived from stdout.
+Native subsequently passed the repaired complete oracle on its first execution.
+
+`development-run.py` narrowly adapts the existing complete-decoder development
+runner and reuses task_runner, ReceiptBoundary/GuardBoundary and CommandLogs.
+Sources/Base/resources/tools/helper bytes, explicit approved environment, oracle,
+raw outputs and generated hashes are guarded initially, after acquiring the
+heavy child lock and terminally. Commands are CPU5; JS/C emit cap30, private
+Clang build cap120, Node/Native cap5; Native threads1/GPUoff. Retained source5
+entry check PASS. No cap increases or concurrent heavy children were used.
+Only raw/plan/receipts are committed, not generated binaries or local environment
+files. Plans retain historical absolute paths and tool/resource hashes; this is
+scoped direct development evidence, not portable tool-resolver qualification.
+
+Run `python3 experiments/public-owned-events/owned-recovery-v1/verify.py` for a
+no-child full raw/source/oracle join, including historical LF-only repair. Its
+scope does not certify host tools or reconstruct omitted generated artifacts.
+No new proof, mutation execution, Type fan-out, World admission, #51/#52 rollback,
+retention/readers/performance or #53 completion is claimed.
