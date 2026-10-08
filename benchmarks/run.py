@@ -220,6 +220,7 @@ def main():
             if sha(ROOT / relative) != digest:
                 raise ValueError("Source changed during benchmark: " + relative)
         current = list((ROOT / "src/ecs").glob("*.bend")) + list(HERE.glob("*.py")) + [HERE / "contract.json"]
+        current.append(ROOT / 'scripts/task_runner.py')
         if args.candidate_provider:
             final_provider_names = ["schema.bend", args.candidate_declarations] + [
                 name for name in ("owned-rows.bend", "reference-declarations.bend")
