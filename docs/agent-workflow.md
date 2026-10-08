@@ -10,6 +10,10 @@ During source development, use `scripts/bend-check source.bend` to find parser,
 type and affine-binder errors before preparing a complete receipt cohort. This
 five-second development check grants no proof or delivery acceptance. Once the
 source is ready, freeze and run the governing task's unchanged evidence gates.
+Retain the raw development output. Repair ordinary parser/type/binder errors
+with this direct check; prepare a frozen delivery cohort when the actual
+consuming application and its complete oracle are ready. Intermediate template
+checks do not require a new delivery wrapper or portable capsule.
 
 For application fixtures, run the existing Node adapter and runnable Bend seam
 against their complete observation oracle before broad installed-tool discovery.
