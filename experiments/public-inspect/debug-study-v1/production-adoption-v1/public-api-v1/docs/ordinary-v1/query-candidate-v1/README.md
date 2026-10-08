@@ -5,8 +5,8 @@ complete #56. No backend has been run and no new contract or law is adopted.
 
 `declaration.bend` constructs read/write/optional and with/without/added/changed
 clauses together with actual Compose grants and matchers. Inputs are the ordinary
-canonical declaration and closed storage/view recipes. Family is constructed
-internally through the existing declared-family bridge; there is no user metadata
+canonical declaration and existing closed Column take/put/view lenses. Generic
+constructors build the existing typed Core Family from that same identity; there is no user metadata
 argument, separate descriptor inventory or manual debug adapter. Arbitrary Type
 payloads remain affine. `pair` combines typed grants, ordered clauses and
 short-circuit matching. Filter-only constructors give Unit, never body writes.
@@ -27,7 +27,7 @@ Existing canonical declaration/Family ownership remains with its assigned owner.
 
 Development checks use `scripts/bend-check` at the existing five-second limit,
 `BEND_NO_TELEMETRY=1`. Raw stdout and compressed unmodified stderr are retained.
-Final application source check passes; three source negatives terminate at the
+Final Constructed and Plain/Transient consuming source checks pass; source negatives terminate at the
 intended boundaries: wrong schema, write grant from read declaration, duplicated
 affine declaration. JSON records bind candidate bytes, not a full installed-tool
 or dependency-closure delivery qualification. The first invalid Absent spelling
@@ -50,3 +50,25 @@ Remaining work, not narrowed away:
   JS/Native delivery, and unchanged regression/equal-work performance gates.
 - Complete remaining relation/machine and public debug surface obligations under
   existing tickets; do not resolve #50/#53 policy through this experiment.
+
+
+## Persistence-independent query constructors
+
+The unprefixed seven constructors accept arbitrary Type payload Column lenses;
+none requires a save function, Raw codec, Leaf.Component or Constructed recipe.
+Plain and Transient declarations therefore use the same query modes and matchers.
+`constructed_*` convenience constructors retain the existing recipe-aware Family
+bridge where the store has persistence-capable leaves. Their previous application
+continues to source-check; historical v1 diagnostics remain unchanged.
+
+`plain-transient-application.bend` consumes required reads and writes on an actual
+plain Column store and actual Leaf.TransientComponent respectively. It specializes
+all seven modes for each storage category. Payload contains affine Array<U32>;
+its owner-preserving value view returns U32 without a serialization codec.
+The generic Plain read-as-write negative is separate from the retained Constructed
+negative. Raw v2 controls and source digests are retained in source-checks-v2.
+
+These fixtures author trusted storage lenses as existing Core Family requires;
+they do not author a duplicate debug descriptor or access inventory. The ordinary
+product-schema owner must eventually derive these lenses for its safe public
+facade. Root owns that shared promotion; this candidate does not alter it.

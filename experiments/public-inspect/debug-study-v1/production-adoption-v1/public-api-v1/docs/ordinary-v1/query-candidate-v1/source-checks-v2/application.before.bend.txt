@@ -10,25 +10,25 @@ import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
 import /workspace/formal-proofs/bendvy/src/ecs/component.bend as Cmp
 
 def read(~S:Data) -> Query.Declaration<S,Q.Frame<S,Game.Store(~S),Game.ResourceStore(~S),Unit>,Cap.Read<Q.Frame<S,Game.Store(~S),Game.ResourceStore(~S),Unit>,D.Raw>>:
-  Query.constructed_read(~S,~F.Payload,~Game.Store(~S),~Game.ResourceStore(~S),~Unit,~(Game.Scratch(~S) & Product.Owner<Unit,Unit>),~D.Raw,~S,~F.declaration(~S),~F.project,~F.project,~Game.take_saved(~S),~Game.put_saved(~S))
+  Query.read(~S,~F.Payload,~Game.Store(~S),~Game.ResourceStore(~S),~Unit,~(Game.Scratch(~S) & Product.Owner<Unit,Unit>),~D.Raw,~S,~F.declaration(~S),~F.project,~F.project,~Game.take_saved(~S),~Game.put_saved(~S))
 
 def write(~S:Data) -> Query.Declaration<S,Q.Frame<S,Game.Store(~S),Game.ResourceStore(~S),Unit>,Cap.Write<Q.Frame<S,Game.Store(~S),Game.ResourceStore(~S),Unit>,F.Payload,D.Raw>>:
-  Query.constructed_write(~S,~F.Payload,~Game.Store(~S),~Game.ResourceStore(~S),~Unit,~(Game.Scratch(~S) & Product.Owner<Unit,Unit>),~D.Raw,~S,~F.declaration(~S),~F.project,~F.project,~Game.take_saved(~S),~Game.put_saved(~S))
+  Query.write(~S,~F.Payload,~Game.Store(~S),~Game.ResourceStore(~S),~Unit,~(Game.Scratch(~S) & Product.Owner<Unit,Unit>),~D.Raw,~S,~F.declaration(~S),~F.project,~F.project,~Game.take_saved(~S),~Game.put_saved(~S))
 
 def optional(~S:Data) -> Query.Declaration<S,Q.Frame<S,Game.Store(~S),Game.ResourceStore(~S),Unit>,Cap.Read<Q.Frame<S,Game.Store(~S),Game.ResourceStore(~S),Unit>,D.Raw>>:
-  Query.constructed_optional(~S,~F.Payload,~Game.Store(~S),~Game.ResourceStore(~S),~Unit,~(Game.Scratch(~S) & Product.Owner<Unit,Unit>),~D.Raw,~S,~F.declaration(~S),~F.project,~F.project,~Game.take_saved(~S),~Game.put_saved(~S))
+  Query.optional(~S,~F.Payload,~Game.Store(~S),~Game.ResourceStore(~S),~Unit,~(Game.Scratch(~S) & Product.Owner<Unit,Unit>),~D.Raw,~S,~F.declaration(~S),~F.project,~F.project,~Game.take_saved(~S),~Game.put_saved(~S))
 
 def with_component(~S:Data) -> Query.Declaration<S,Q.Frame<S,Game.Store(~S),Game.ResourceStore(~S),Unit>,Unit>:
-  Query.constructed_with_component(~S,~F.Payload,~Game.Store(~S),~Game.ResourceStore(~S),~Unit,~(Game.Scratch(~S) & Product.Owner<Unit,Unit>),~D.Raw,~S,~F.declaration(~S),~F.project,~F.project,~Game.take_saved(~S),~Game.put_saved(~S))
+  Query.with_component(~S,~F.Payload,~Game.Store(~S),~Game.ResourceStore(~S),~Unit,~(Game.Scratch(~S) & Product.Owner<Unit,Unit>),~D.Raw,~S,~F.declaration(~S),~F.project,~F.project,~Game.take_saved(~S),~Game.put_saved(~S))
 
 def without_component(~S:Data) -> Query.Declaration<S,Q.Frame<S,Game.Store(~S),Game.ResourceStore(~S),Unit>,Unit>:
-  Query.constructed_without_component(~S,~F.Payload,~Game.Store(~S),~Game.ResourceStore(~S),~Unit,~(Game.Scratch(~S) & Product.Owner<Unit,Unit>),~D.Raw,~S,~F.declaration(~S),~F.project,~F.project,~Game.take_saved(~S),~Game.put_saved(~S))
+  Query.without_component(~S,~F.Payload,~Game.Store(~S),~Game.ResourceStore(~S),~Unit,~(Game.Scratch(~S) & Product.Owner<Unit,Unit>),~D.Raw,~S,~F.declaration(~S),~F.project,~F.project,~Game.take_saved(~S),~Game.put_saved(~S))
 
 def added(~S:Data) -> Query.Declaration<S,Q.Frame<S,Game.Store(~S),Game.ResourceStore(~S),Unit>,Unit>:
-  Query.constructed_added(~S,~F.Payload,~Game.Store(~S),~Game.ResourceStore(~S),~Unit,~(Game.Scratch(~S) & Product.Owner<Unit,Unit>),~D.Raw,~S,~F.declaration(~S),~F.project,~F.project,~Game.take_saved(~S),~Game.put_saved(~S))
+  Query.added(~S,~F.Payload,~Game.Store(~S),~Game.ResourceStore(~S),~Unit,~(Game.Scratch(~S) & Product.Owner<Unit,Unit>),~D.Raw,~S,~F.declaration(~S),~F.project,~F.project,~Game.take_saved(~S),~Game.put_saved(~S))
 
 def changed(~S:Data) -> Query.Declaration<S,Q.Frame<S,Game.Store(~S),Game.ResourceStore(~S),Unit>,Unit>:
-  Query.constructed_changed(~S,~F.Payload,~Game.Store(~S),~Game.ResourceStore(~S),~Unit,~(Game.Scratch(~S) & Product.Owner<Unit,Unit>),~D.Raw,~S,~F.declaration(~S),~F.project,~F.project,~Game.take_saved(~S),~Game.put_saved(~S))
+  Query.changed(~S,~F.Payload,~Game.Store(~S),~Game.ResourceStore(~S),~Unit,~(Game.Scratch(~S) & Product.Owner<Unit,Unit>),~D.Raw,~S,~F.declaration(~S),~F.project,~F.project,~Game.take_saved(~S),~Game.put_saved(~S))
 
 # Actual arbitrary-Type component access using the ordinary declaration above.
 def application(~S:Data,frame:Q.Frame<S,Game.Store(~S),Game.ResourceStore(~S),Unit>) -> Q.Frame<S,Game.Store(~S),Game.ResourceStore(~S),Unit> & Cmp.Access<D.Raw>:

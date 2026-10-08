@@ -1,0 +1,74 @@
+[
+  {
+    "source": "negative-cross-schema.bend",
+    "exit_code": 1,
+    "intended_diagnostic": "F.Garden",
+    "cap_seconds": 5,
+    "candidate_source_sha256": {
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-cross-schema.bend": "ff22a5c394916955f3110bee6ba6630cb5ddcf147273edba82c93b34cb371500",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/application.bend": "fd107f2163ced8827702c94384fef4a69af2e7ce28027b0cf5d9e288df35268f",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/plain-transient-application.bend": "1d35de822da9f0be964855005ac5724e9a6987ede0b4f570cc5dbfe86b81edd4",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-plain-write-through-read.bend": "419e83f4f3aa194b4f67448c7ebe41741c395dd0eb9ce168f03b8bb2c7b04f7e",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-write-through-read.bend": "8f53e11da7bf7b2e056d85ea32923bbbaa696268e03d916729af8d232e1ab442",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/declaration.bend": "d814be4eb96003efc746994500211c9c83cb4e4db21a4eb08e6f73dd2aaccf6b",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-duplicate-owner.bend": "f410a6061a3b24a9d51b3c2e4be0ba162271607c2c3d7c63a9bf7e01b2546c2d"
+    }
+  },
+  {
+    "source": "negative-write-through-read.bend",
+    "exit_code": 1,
+    "intended_diagnostic": "Cap.Write",
+    "cap_seconds": 5,
+    "candidate_source_sha256": {
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-cross-schema.bend": "ff22a5c394916955f3110bee6ba6630cb5ddcf147273edba82c93b34cb371500",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/application.bend": "fd107f2163ced8827702c94384fef4a69af2e7ce28027b0cf5d9e288df35268f",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/plain-transient-application.bend": "1d35de822da9f0be964855005ac5724e9a6987ede0b4f570cc5dbfe86b81edd4",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-plain-write-through-read.bend": "419e83f4f3aa194b4f67448c7ebe41741c395dd0eb9ce168f03b8bb2c7b04f7e",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-write-through-read.bend": "8f53e11da7bf7b2e056d85ea32923bbbaa696268e03d916729af8d232e1ab442",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/declaration.bend": "d814be4eb96003efc746994500211c9c83cb4e4db21a4eb08e6f73dd2aaccf6b",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-duplicate-owner.bend": "f410a6061a3b24a9d51b3c2e4be0ba162271607c2c3d7c63a9bf7e01b2546c2d"
+    }
+  },
+  {
+    "source": "negative-duplicate-owner.bend",
+    "exit_code": 1,
+    "intended_diagnostic": "consumed more than once",
+    "cap_seconds": 5,
+    "candidate_source_sha256": {
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-cross-schema.bend": "ff22a5c394916955f3110bee6ba6630cb5ddcf147273edba82c93b34cb371500",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/application.bend": "fd107f2163ced8827702c94384fef4a69af2e7ce28027b0cf5d9e288df35268f",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/plain-transient-application.bend": "1d35de822da9f0be964855005ac5724e9a6987ede0b4f570cc5dbfe86b81edd4",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-plain-write-through-read.bend": "419e83f4f3aa194b4f67448c7ebe41741c395dd0eb9ce168f03b8bb2c7b04f7e",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-write-through-read.bend": "8f53e11da7bf7b2e056d85ea32923bbbaa696268e03d916729af8d232e1ab442",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/declaration.bend": "d814be4eb96003efc746994500211c9c83cb4e4db21a4eb08e6f73dd2aaccf6b",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-duplicate-owner.bend": "f410a6061a3b24a9d51b3c2e4be0ba162271607c2c3d7c63a9bf7e01b2546c2d"
+    }
+  },
+  {
+    "source": "negative-plain-write-through-read.bend",
+    "exit_code": 1,
+    "intended_diagnostic": "Cap.Write",
+    "cap_seconds": 5,
+    "candidate_source_sha256": {
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-cross-schema.bend": "ff22a5c394916955f3110bee6ba6630cb5ddcf147273edba82c93b34cb371500",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/application.bend": "fd107f2163ced8827702c94384fef4a69af2e7ce28027b0cf5d9e288df35268f",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/plain-transient-application.bend": "1d35de822da9f0be964855005ac5724e9a6987ede0b4f570cc5dbfe86b81edd4",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-plain-write-through-read.bend": "419e83f4f3aa194b4f67448c7ebe41741c395dd0eb9ce168f03b8bb2c7b04f7e",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-write-through-read.bend": "8f53e11da7bf7b2e056d85ea32923bbbaa696268e03d916729af8d232e1ab442",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/declaration.bend": "d814be4eb96003efc746994500211c9c83cb4e4db21a4eb08e6f73dd2aaccf6b",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-duplicate-owner.bend": "f410a6061a3b24a9d51b3c2e4be0ba162271607c2c3d7c63a9bf7e01b2546c2d"
+    }
+  },
+  {
+    "source": "application.bend",
+    "exit_code": 0,
+    "cap_seconds": 5,
+    "scope": "development source-only; not full tool/dependency delivery receipt"
+  },
+  {
+    "source": "plain-transient-application.bend",
+    "exit_code": 0,
+    "cap_seconds": 5,
+    "scope": "development source-only; not full tool/dependency delivery receipt"
+  }
+]
