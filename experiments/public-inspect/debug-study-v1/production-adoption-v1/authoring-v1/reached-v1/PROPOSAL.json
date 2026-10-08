@@ -1,0 +1,38 @@
+{
+  "scope": "Source-only full 15-line counterfactuals; no checks/runtime/reach/proof yet",
+  "originalSourceSHA256": "1dcd085b55c663f39aabd4fe28ba7c8acd0af3dabbbc4188fbf8307387b2d3a7",
+  "originalExpectedSHA256": "a940e1b778f2749507e642dab274c98cb7ed0d77aed4b9de195be0a77a183f6f",
+  "variants": [
+    {
+      "name": "omitted-needs",
+      "source": "registered.bend",
+      "old": "Declaration.provision_needs(~S,~CT,~RT,~ET,~MT,~LT,~VT,~KT,~resource,~service,declaration)",
+      "new": "[]",
+      "changedRows": [
+        10,
+        11,
+        12,
+        13
+      ],
+      "reason": "Actual Provision.Entry needs omitted while metadata still names resource plain; full both Provisioned owner snapshots detect detached requirements mismatch. DTOs and World unchanged.",
+      "sourceSHA256": "5305f580a64f8d664bfb1c72dd19c27055c3d8f249fdb237c30e336fefc650f2",
+      "expectedSHA256": "fcc53f7c563a34ca9a8d294d4ce7cf39717bee2336eb1d0efddd582aaec52a50"
+    },
+    {
+      "name": "cursor-mutated",
+      "source": "registered.bend",
+      "old": "Bound{Sys.Registry{namespace,id,actualName,actualAccess,cursor},declaration},Observation{namespace,id,cursor",
+      "new": "Bound{Sys.Registry{namespace,id,actualName,actualAccess,U32.add(cursor,1)},declaration},Observation{namespace,id,cursor",
+      "changedRows": [
+        6,
+        11,
+        13,
+        14
+      ],
+      "reason": "Returned owner cursor increments at actual observation; Main Reader/Writer once, Again Reader twice. Detached cursor rows retain incoming cursor, all actual owner snapshots and preservation predicate remain present.",
+      "sourceSHA256": "634f4e7915916674f027c8c65003501d8884579779f7201320f133b6fbb6aa8e",
+      "expectedSHA256": "b96ef1c772437834835e814e4863183d072f09e16b75143367eca636107ecf6a"
+    }
+  ],
+  "constraints": "Change only copied registered.bend exact single source occurrence; retain full DTO/World/allRegistry/bothProvisioned oracle. Source typing first, then reviewed fresh JS and Native plans. No new policy/law."
+}
