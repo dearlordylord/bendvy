@@ -1,0 +1,1087 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+... Skipped lines
+
+  [
+    {
+      phases: [
+        {
+          dump: {
+...
+            },
++           tick: 7,
+-           tick: 6,
+            version: 1
+          },
+          label: 'step-1-damage',
+          readers: {
+            a: [
+...
+            },
++           tick: 9,
+-           tick: 8,
+            version: 1
+          },
+          label: 'step-1-readers',
+          readers: {
+            a: [
+...
+            },
++           tick: 10,
+-           tick: 9,
+            version: 1
+          },
+          label: 'step-1-barrier',
+          readers: {
+            a: [
+...
+            },
++           tick: 13,
+-           tick: 11,
+            version: 1
+          },
+          label: 'step-2-damage',
+          readers: {
+            a: [
+...
+            },
++           tick: 15,
+-           tick: 13,
+            version: 1
+          },
+          label: 'step-2-reader-failure',
+          readers: {
+            a: [
+...
+            },
++           tick: 16,
+-           tick: 14,
+            version: 1
+          },
+          label: 'step-2-reader-retry',
+          readers: {
+            a: [
+...
+            },
++           tick: 17,
+-           tick: 15,
+            version: 1
+          },
+          label: 'step-2-barrier',
+          readers: {
+            a: [
+...
+            },
++           tick: 20,
+-           tick: 17,
+            version: 1
+          },
+          label: 'step-3-damage',
+          readers: {
+            a: [
+...
+            },
++           tick: 22,
+-           tick: 19,
+            version: 1
+          },
+          label: 'step-3-readers',
+          readers: {
+            a: [
+...
+            },
++           tick: 23,
+-           tick: 20,
+            version: 1
+          },
+          label: 'step-3-barrier',
+          readers: {
+            a: [
+...
+            },
++           tick: 25,
+-           tick: 22,
+            version: 1
+          },
+          label: 'empty-readers',
+          readers: {
+            a: [
+...
+            },
++           tick: 7,
+-           tick: 6,
+            version: 1
+          },
+          label: 'step-1-damage',
+          readers: {
+            a: [
+...
+            },
++           tick: 9,
+-           tick: 8,
+            version: 1
+          },
+          label: 'step-1-readers',
+          readers: {
+            a: [
+...
+            },
++           tick: 10,
+-           tick: 9,
+            version: 1
+          },
+          label: 'step-1-barrier',
+          readers: {
+            a: [
+...
+            },
++           tick: 13,
+-           tick: 11,
+            version: 1
+          },
+          label: 'step-2-damage',
+          readers: {
+            a: [
+...
+            },
++           tick: 15,
+-           tick: 13,
+            version: 1
+          },
+          label: 'step-2-reader-failure',
+          readers: {
+            a: [
+...
+            },
++           tick: 16,
+-           tick: 14,
+            version: 1
+          },
+          label: 'step-2-reader-retry',
+          readers: {
+            a: [
+...
+            },
++           tick: 17,
+-           tick: 15,
+            version: 1
+          },
+          label: 'step-2-barrier',
+          readers: {
+            a: [
+...
+            },
++           tick: 20,
+-           tick: 17,
+            version: 1
+          },
+          label: 'step-3-damage',
+          readers: {
+            a: [
+...
+            },
++           tick: 22,
+-           tick: 19,
+            version: 1
+          },
+          label: 'step-3-readers',
+          readers: {
+            a: [
+...
+            },
++           tick: 23,
+-           tick: 20,
+            version: 1
+          },
+          label: 'step-3-barrier',
+          readers: {
+            a: [
+...
+            },
++           tick: 25,
+-           tick: 22,
+            version: 1
+          },
+          label: 'empty-readers',
+          readers: {
+            a: [
+
+    at file:///workspace/formal-proofs/bendvy-worktrees/parity-63-fixed-step-reference/experiments/public-simulation/reference-v1/reference.mjs:65:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+    at async node:internal/modules/esm/loader:647:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: [
+    {
+      root: 'Workshop',
+      phases: [
+        {
+          label: 'register-readers',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 1,
+            tick: 2,
+            entityCount: 0,
+            entities: [],
+            resources: [Object],
+            machines: {},
+            pendingCommands: []
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'queue-spawn',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 2,
+            tick: 3,
+            entityCount: 0,
+            entities: [],
+            resources: [Object],
+            machines: {},
+            pendingCommands: [Array]
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'spawn-barrier',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 3,
+            tick: 4,
+            entityCount: 3,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: []
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-1-damage',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 4,
+            tick: 7,
+            entityCount: 3,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: [Array]
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-1-readers',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 5,
+            tick: 9,
+            entityCount: 3,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: [Array]
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-1-barrier',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 6,
+            tick: 10,
+            entityCount: 2,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: []
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-2-damage',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 7,
+            tick: 13,
+            entityCount: 2,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: [Array]
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-2-reader-failure',
+          result: { ok: false, error: [Object] },
+          dump: {
+            version: 1,
+            frame: 8,
+            tick: 15,
+            entityCount: 2,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: [Array]
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-2-reader-retry',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 9,
+            tick: 16,
+            entityCount: 2,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: [Array]
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-2-barrier',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 10,
+            tick: 17,
+            entityCount: 1,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: []
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-3-damage',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 11,
+            tick: 20,
+            entityCount: 1,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: [Array]
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-3-readers',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 12,
+            tick: 22,
+            entityCount: 1,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: [Array]
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-3-barrier',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 13,
+            tick: 23,
+            entityCount: 0,
+            entities: [],
+            resources: [Object],
+            machines: {},
+            pendingCommands: []
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'empty-readers',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 14,
+            tick: 25,
+            entityCount: 0,
+            entities: [],
+            resources: [Object],
+            machines: {},
+            pendingCommands: []
+          },
+          readers: { a: [Array], b: [Array] }
+        }
+      ]
+    },
+    {
+      root: 'Garden',
+      phases: [
+        {
+          label: 'register-readers',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 1,
+            tick: 2,
+            entityCount: 0,
+            entities: [],
+            resources: [Object],
+            machines: {},
+            pendingCommands: []
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'queue-spawn',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 2,
+            tick: 3,
+            entityCount: 0,
+            entities: [],
+            resources: [Object],
+            machines: {},
+            pendingCommands: [Array]
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'spawn-barrier',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 3,
+            tick: 4,
+            entityCount: 3,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: []
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-1-damage',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 4,
+            tick: 7,
+            entityCount: 3,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: [Array]
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-1-readers',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 5,
+            tick: 9,
+            entityCount: 3,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: [Array]
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-1-barrier',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 6,
+            tick: 10,
+            entityCount: 2,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: []
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-2-damage',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 7,
+            tick: 13,
+            entityCount: 2,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: [Array]
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-2-reader-failure',
+          result: { ok: false, error: [Object] },
+          dump: {
+            version: 1,
+            frame: 8,
+            tick: 15,
+            entityCount: 2,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: [Array]
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-2-reader-retry',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 9,
+            tick: 16,
+            entityCount: 2,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: [Array]
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-2-barrier',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 10,
+            tick: 17,
+            entityCount: 1,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: []
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-3-damage',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 11,
+            tick: 20,
+            entityCount: 1,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: [Array]
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-3-readers',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 12,
+            tick: 22,
+            entityCount: 1,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: [Array]
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-3-barrier',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 13,
+            tick: 23,
+            entityCount: 0,
+            entities: [],
+            resources: [Object],
+            machines: {},
+            pendingCommands: []
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'empty-readers',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 14,
+            tick: 25,
+            entityCount: 0,
+            entities: [],
+            resources: [Object],
+            machines: {},
+            pendingCommands: []
+          },
+          readers: { a: [Array], b: [Array] }
+        }
+      ]
+    }
+  ],
+  expected: [
+    {
+      root: 'Workshop',
+      phases: [
+        {
+          label: 'register-readers',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 1,
+            tick: 2,
+            entityCount: 0,
+            entities: [],
+            resources: [Object],
+            machines: {},
+            pendingCommands: []
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'queue-spawn',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 2,
+            tick: 3,
+            entityCount: 0,
+            entities: [],
+            resources: [Object],
+            machines: {},
+            pendingCommands: [Array]
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'spawn-barrier',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 3,
+            tick: 4,
+            entityCount: 3,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: []
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-1-damage',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 4,
+            tick: 6,
+            entityCount: 3,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: [Array]
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-1-readers',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 5,
+            tick: 8,
+            entityCount: 3,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: [Array]
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-1-barrier',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 6,
+            tick: 9,
+            entityCount: 2,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: []
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-2-damage',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 7,
+            tick: 11,
+            entityCount: 2,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: [Array]
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-2-reader-failure',
+          result: { ok: false, error: [Object] },
+          dump: {
+            version: 1,
+            frame: 8,
+            tick: 13,
+            entityCount: 2,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: [Array]
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-2-reader-retry',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 9,
+            tick: 14,
+            entityCount: 2,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: [Array]
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-2-barrier',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 10,
+            tick: 15,
+            entityCount: 1,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: []
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-3-damage',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 11,
+            tick: 17,
+            entityCount: 1,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: [Array]
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-3-readers',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 12,
+            tick: 19,
+            entityCount: 1,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: [Array]
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-3-barrier',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 13,
+            tick: 20,
+            entityCount: 0,
+            entities: [],
+            resources: [Object],
+            machines: {},
+            pendingCommands: []
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'empty-readers',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 14,
+            tick: 22,
+            entityCount: 0,
+            entities: [],
+            resources: [Object],
+            machines: {},
+            pendingCommands: []
+          },
+          readers: { a: [Array], b: [Array] }
+        }
+      ]
+    },
+    {
+      root: 'Garden',
+      phases: [
+        {
+          label: 'register-readers',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 1,
+            tick: 2,
+            entityCount: 0,
+            entities: [],
+            resources: [Object],
+            machines: {},
+            pendingCommands: []
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'queue-spawn',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 2,
+            tick: 3,
+            entityCount: 0,
+            entities: [],
+            resources: [Object],
+            machines: {},
+            pendingCommands: [Array]
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'spawn-barrier',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 3,
+            tick: 4,
+            entityCount: 3,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: []
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-1-damage',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 4,
+            tick: 6,
+            entityCount: 3,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: [Array]
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-1-readers',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 5,
+            tick: 8,
+            entityCount: 3,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: [Array]
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-1-barrier',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 6,
+            tick: 9,
+            entityCount: 2,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: []
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-2-damage',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 7,
+            tick: 11,
+            entityCount: 2,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: [Array]
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-2-reader-failure',
+          result: { ok: false, error: [Object] },
+          dump: {
+            version: 1,
+            frame: 8,
+            tick: 13,
+            entityCount: 2,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: [Array]
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-2-reader-retry',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 9,
+            tick: 14,
+            entityCount: 2,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: [Array]
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-2-barrier',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 10,
+            tick: 15,
+            entityCount: 1,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: []
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-3-damage',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 11,
+            tick: 17,
+            entityCount: 1,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: [Array]
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-3-readers',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 12,
+            tick: 19,
+            entityCount: 1,
+            entities: [Array],
+            resources: [Object],
+            machines: {},
+            pendingCommands: [Array]
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'step-3-barrier',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 13,
+            tick: 20,
+            entityCount: 0,
+            entities: [],
+            resources: [Object],
+            machines: {},
+            pendingCommands: []
+          },
+          readers: { a: [Array], b: [Array] }
+        },
+        {
+          label: 'empty-readers',
+          result: { ok: true },
+          dump: {
+            version: 1,
+            frame: 14,
+            tick: 22,
+            entityCount: 0,
+            entities: [],
+            resources: [Object],
+            machines: {},
+            pendingCommands: []
+          },
+          readers: { a: [Array], b: [Array] }
+        }
+      ]
+    }
+  ],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.20.0
