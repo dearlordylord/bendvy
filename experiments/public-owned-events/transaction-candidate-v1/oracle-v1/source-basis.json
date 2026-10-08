@@ -1,0 +1,45 @@
+{
+  "scope": "Independent complete source-only prebackend canonicaltransaction candidate oracle; no public #53 completion/reader/retention/identity policies or backend results",
+  "candidateCommit": "b23ca01b4421babf8ddecfd542d02f96595936e4",
+  "fourCandidateSourcesMatchFrozenCommit": "PASS",
+  "sourceSHA256": {
+    "/workspace/formal-proofs/bendvy-worktrees/parity-63-loader-resolver/experiments/public-owned-events/transaction-candidate-v1/adapter.bend": "eb9e88bab2dc9a22b876cee3faa8517f517db949a708a573e6fa6d221678cd26",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-63-loader-resolver/experiments/public-owned-events/transaction-candidate-v1/controls.bend": "b5f4559b58036b7a0700bde7b77d33ba2e01393f358c22d17eed10658cb2a4f0",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-63-loader-resolver/experiments/public-owned-events/transaction-candidate-v1/observation.bend": "00546dcd574bb8f622520e14a55a3ccd187c0c5f06ac21c5bddd99ce89cbda9b",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-63-loader-resolver/experiments/public-owned-events/transaction-candidate-v1/main.bend": "3b16218943a48200cdeaee3736edd3ae199ccfd4cbb2dd5ed759e414e1be4beb",
+    "/workspace/formal-proofs/bendvy/src/ecs/world.bend": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310",
+    "/workspace/formal-proofs/bendvy/src/ecs/column.bend": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+    "/workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "/workspace/formal-proofs/bendvy/src/ecs/component.bend": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+    "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "/workspace/formal-proofs/bendvy/src/ecs/commands.bend": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+    "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+    "/workspace/formal-proofs/bendvy/experiments/public-owned-events/owned-recovery-v1/staging.bend": "c11c592f130a8be21802632e67d5cf6e43cbda9a9b48fa3d953845248cc4c76b",
+    "/workspace/formal-proofs/bendvy/.references/bend2/bend2/bend.ts": "1d133151652b597a1a035c77c172475e6de096da37f3b9e3adc23c2f75bdfe49",
+    "/workspace/formal-proofs/bendvy/.references/bend2/bend2/comp.ts": "32fb66e09f608ce9e4b173384bcfeec453db8c5bc96650e26ad861bef815a8d9"
+  },
+  "expectedSHA256": "692443d027f27a4c249de0b901e1b28d6425c794ef052de0234173c53a6b5244",
+  "expectedBytes": 16396,
+  "expectedRawSHA256": "1d96981b418539133c65f3216f086411bd5d84dd510d994641a4ed6366dd98dd",
+  "expectedRawBytes": 6139,
+  "authorSHA256": "d9a5715095e4d4e9becb32b64a86a41d021d2c34b49be4774cd993609df8d2be",
+  "rawAuthorSHA256": "d88f4b9669614f128077aba5ee147435792458cc7480d4716dddfc78b61c4560",
+  "sourceModelChecks": [
+    "Complete publicDTO fields/constructororder from frozen source",
+    "All4physicalColumnslots and complete raw lifecyclelist order",
+    "AllBool/U32/Nat/Maybe/Outcome values distinct and exact",
+    "Repeatedindependent authorcalls equal checkedin expected",
+    "Detached beforeFlush mutations cannotchange afterFlush/final",
+    "Canonicalseed/txwrite/undo tick arithmetic and sourcecurrent rawstamporder",
+    "FullFIFO existing+new affineevents/recovered payloads",
+    "SeedforeignRefused31/32 and TxforeignRejected301/302, MissingEntity and no clockchange",
+    "Successonependingmark/deferred resource mutation; failedcommands/Dataevents/owned publication suppressed"
+  ],
+  "remaining": [
+    "Explicit developer World constructor fixes liveIDs/schema/resources; no general publicworld identity inference",
+    "Observed pendingcount plus actualbarriereffect; opaque functionclosures notserialized",
+    "Observer supports ordinaryColumn only and reports supportedBool; expectedTrue forbids a fallbackacceptedresult",
+    "Only complete frozen source scope; canonicalcore/Stage stillneed actualbackend/reachedmutation gates",
+    "No fanout/readers/retention ownership selection, no dependency/performance/law/proof claim"
+  ]
+}
