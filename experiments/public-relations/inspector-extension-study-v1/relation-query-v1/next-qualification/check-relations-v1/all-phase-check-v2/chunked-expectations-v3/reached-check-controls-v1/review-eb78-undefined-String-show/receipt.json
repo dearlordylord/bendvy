@@ -1,0 +1,27 @@
+{
+  "status": "INCOMPLETE",
+  "planSHA256": "eb78cdf3b60f0ac5cc9c63052d51d3c3ba5bea7fdb0bb9d9879562f6576a4e80",
+  "commands": [
+    {
+      "label": "normal",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-42-relations/experiments/public-relations/inspector-extension-study-v1/relation-query-v1/next-qualification/check-relations-v1/all-phase-check-v2/chunked-expectations-v3/reached-check-controls-v1/normal/source-positive.bend",
+        "--check-only"
+      ],
+      "seconds": 5,
+      "role": "positive",
+      "exit": 1,
+      "failure": null
+    }
+  ],
+  "logs": {
+    "normal.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "normal.stderr": "d0aed9c5e57f94cfd8984f626543788ad24197c1faf06e1a186ed9bb56e980f6"
+  },
+  "error": "AssertionError: ",
+  "guardFailures": []
+}

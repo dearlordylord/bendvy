@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : a defined name
+- observed : String.show
+Location: check_error
+15 |   match error:
+16>|     case K.MissingRuntimeRequirements{resources}:"{\"missingRuntimeRequirements\":" ++ List.show(&2,String,String.show,resources) ++ "}"
+   |                                                                                                            ^^^^^^^^^^^
+17 | def check_result(value:Result<&2,&2,K.Error,Bool>) -> String:

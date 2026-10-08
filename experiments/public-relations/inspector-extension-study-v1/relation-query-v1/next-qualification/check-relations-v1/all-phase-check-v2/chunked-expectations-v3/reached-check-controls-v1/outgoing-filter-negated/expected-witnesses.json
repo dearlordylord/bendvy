@@ -1,0 +1,2536 @@
+[
+  {
+    "path": "/schemas/0/gate/allowed/0/ran",
+    "normal": 1,
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/gate/allowed/0/skipped",
+    "normal": null,
+    "mutant": 1
+  },
+  {
+    "path": "/schemas/0/gate/bodyMarkers",
+    "normal": 1,
+    "mutant": 0
+  },
+  {
+    "path": "/schemas/0/phaseChecks/0/done",
+    "normal": true,
+    "mutant": false
+  },
+  {
+    "path": "/schemas/0/phaseChecks/1/done",
+    "normal": true,
+    "mutant": false
+  },
+  {
+    "path": "/schemas/0/phaseChecks/2/done",
+    "normal": true,
+    "mutant": false
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/4/each",
+    "normal": [
+      {
+        "entity": 1,
+        "stock": 11,
+        "title": null,
+        "cells": []
+      },
+      {
+        "entity": 2,
+        "stock": 12,
+        "title": "22",
+        "cells": []
+      },
+      {
+        "entity": 3,
+        "stock": null,
+        "title": "23",
+        "cells": []
+      }
+    ],
+    "mutant": [
+      {
+        "entity": 4,
+        "stock": 14,
+        "title": "24",
+        "cells": []
+      }
+    ]
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/4/get/0/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/4/get/0/row",
+    "normal": {
+      "entity": 1,
+      "stock": 11,
+      "title": null,
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/4/get/1/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/4/get/1/row",
+    "normal": {
+      "entity": 2,
+      "stock": 12,
+      "title": "22",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/4/get/2/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/4/get/2/row",
+    "normal": {
+      "entity": 3,
+      "stock": null,
+      "title": "23",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/4/get/3/error",
+    "normal": "QueryMismatch",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/4/get/3/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 14,
+      "title": "24",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/4/single/count",
+    "normal": 3,
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/4/single/error",
+    "normal": "MultipleEntities",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/4/single/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 14,
+      "title": "24",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/4/singleOptional/count",
+    "normal": 3,
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/4/singleOptional/error",
+    "normal": "MultipleEntities",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/4/singleOptional/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 14,
+      "title": "24",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/12/each",
+    "normal": [
+      {
+        "entity": 1,
+        "stock": 11,
+        "title": null,
+        "cells": []
+      },
+      {
+        "entity": 2,
+        "stock": 12,
+        "title": "22",
+        "cells": []
+      }
+    ],
+    "mutant": [
+      {
+        "entity": 4,
+        "stock": 14,
+        "title": "24",
+        "cells": []
+      }
+    ]
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/12/get/0/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/12/get/0/row",
+    "normal": {
+      "entity": 1,
+      "stock": 11,
+      "title": null,
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/12/get/1/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/12/get/1/row",
+    "normal": {
+      "entity": 2,
+      "stock": 12,
+      "title": "22",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/12/get/3/error",
+    "normal": "QueryMismatch",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/12/get/3/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 14,
+      "title": "24",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/12/single/count",
+    "normal": 2,
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/12/single/error",
+    "normal": "MultipleEntities",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/12/single/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 14,
+      "title": "24",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/12/singleOptional/count",
+    "normal": 2,
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/12/singleOptional/error",
+    "normal": "MultipleEntities",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/12/singleOptional/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 14,
+      "title": "24",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/20/each",
+    "normal": [
+      {
+        "entity": 2,
+        "stock": 12,
+        "title": "22",
+        "cells": []
+      },
+      {
+        "entity": 3,
+        "stock": null,
+        "title": "23",
+        "cells": []
+      }
+    ],
+    "mutant": [
+      {
+        "entity": 4,
+        "stock": 14,
+        "title": "24",
+        "cells": []
+      }
+    ]
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/20/get/1/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/20/get/1/row",
+    "normal": {
+      "entity": 2,
+      "stock": 12,
+      "title": "22",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/20/get/2/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/20/get/2/row",
+    "normal": {
+      "entity": 3,
+      "stock": null,
+      "title": "23",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/20/get/3/error",
+    "normal": "QueryMismatch",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/20/get/3/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 14,
+      "title": "24",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/20/single/count",
+    "normal": 2,
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/20/single/error",
+    "normal": "MultipleEntities",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/20/single/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 14,
+      "title": "24",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/20/singleOptional/count",
+    "normal": 2,
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/20/singleOptional/error",
+    "normal": "MultipleEntities",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/20/singleOptional/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 14,
+      "title": "24",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/28/each/0/entity",
+    "normal": 2,
+    "mutant": 4
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/28/each/0/stock",
+    "normal": 12,
+    "mutant": 14
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/28/each/0/title",
+    "normal": "22",
+    "mutant": "24"
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/28/get/1/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/28/get/1/row",
+    "normal": {
+      "entity": 2,
+      "stock": 12,
+      "title": "22",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/28/get/3/error",
+    "normal": "QueryMismatch",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/28/get/3/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 14,
+      "title": "24",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/28/single/row/entity",
+    "normal": 2,
+    "mutant": 4
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/28/single/row/stock",
+    "normal": 12,
+    "mutant": 14
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/28/single/row/title",
+    "normal": "22",
+    "mutant": "24"
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/28/singleOptional/row/entity",
+    "normal": 2,
+    "mutant": 4
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/28/singleOptional/row/stock",
+    "normal": 12,
+    "mutant": 14
+  },
+  {
+    "path": "/schemas/0/phases/0/queries/28/singleOptional/row/title",
+    "normal": "22",
+    "mutant": "24"
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/4/each",
+    "normal": [
+      {
+        "entity": 1,
+        "stock": 11,
+        "title": null,
+        "cells": []
+      },
+      {
+        "entity": 2,
+        "stock": 12,
+        "title": "22",
+        "cells": []
+      },
+      {
+        "entity": 3,
+        "stock": null,
+        "title": "23",
+        "cells": []
+      }
+    ],
+    "mutant": [
+      {
+        "entity": 4,
+        "stock": 14,
+        "title": "24",
+        "cells": []
+      }
+    ]
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/4/get/0/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/4/get/0/row",
+    "normal": {
+      "entity": 1,
+      "stock": 11,
+      "title": null,
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/4/get/1/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/4/get/1/row",
+    "normal": {
+      "entity": 2,
+      "stock": 12,
+      "title": "22",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/4/get/2/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/4/get/2/row",
+    "normal": {
+      "entity": 3,
+      "stock": null,
+      "title": "23",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/4/get/3/error",
+    "normal": "QueryMismatch",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/4/get/3/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 14,
+      "title": "24",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/4/single/count",
+    "normal": 3,
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/4/single/error",
+    "normal": "MultipleEntities",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/4/single/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 14,
+      "title": "24",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/4/singleOptional/count",
+    "normal": 3,
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/4/singleOptional/error",
+    "normal": "MultipleEntities",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/4/singleOptional/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 14,
+      "title": "24",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/12/each",
+    "normal": [
+      {
+        "entity": 1,
+        "stock": 11,
+        "title": null,
+        "cells": []
+      },
+      {
+        "entity": 2,
+        "stock": 12,
+        "title": "22",
+        "cells": []
+      }
+    ],
+    "mutant": [
+      {
+        "entity": 4,
+        "stock": 14,
+        "title": "24",
+        "cells": []
+      }
+    ]
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/12/get/0/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/12/get/0/row",
+    "normal": {
+      "entity": 1,
+      "stock": 11,
+      "title": null,
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/12/get/1/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/12/get/1/row",
+    "normal": {
+      "entity": 2,
+      "stock": 12,
+      "title": "22",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/12/get/3/error",
+    "normal": "QueryMismatch",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/12/get/3/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 14,
+      "title": "24",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/12/single/count",
+    "normal": 2,
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/12/single/error",
+    "normal": "MultipleEntities",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/12/single/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 14,
+      "title": "24",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/12/singleOptional/count",
+    "normal": 2,
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/12/singleOptional/error",
+    "normal": "MultipleEntities",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/12/singleOptional/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 14,
+      "title": "24",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/20/each",
+    "normal": [
+      {
+        "entity": 2,
+        "stock": 12,
+        "title": "22",
+        "cells": []
+      },
+      {
+        "entity": 3,
+        "stock": null,
+        "title": "23",
+        "cells": []
+      }
+    ],
+    "mutant": [
+      {
+        "entity": 4,
+        "stock": 14,
+        "title": "24",
+        "cells": []
+      }
+    ]
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/20/get/1/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/20/get/1/row",
+    "normal": {
+      "entity": 2,
+      "stock": 12,
+      "title": "22",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/20/get/2/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/20/get/2/row",
+    "normal": {
+      "entity": 3,
+      "stock": null,
+      "title": "23",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/20/get/3/error",
+    "normal": "QueryMismatch",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/20/get/3/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 14,
+      "title": "24",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/20/single/count",
+    "normal": 2,
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/20/single/error",
+    "normal": "MultipleEntities",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/20/single/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 14,
+      "title": "24",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/20/singleOptional/count",
+    "normal": 2,
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/20/singleOptional/error",
+    "normal": "MultipleEntities",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/20/singleOptional/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 14,
+      "title": "24",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/28/each/0/entity",
+    "normal": 2,
+    "mutant": 4
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/28/each/0/stock",
+    "normal": 12,
+    "mutant": 14
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/28/each/0/title",
+    "normal": "22",
+    "mutant": "24"
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/28/get/1/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/28/get/1/row",
+    "normal": {
+      "entity": 2,
+      "stock": 12,
+      "title": "22",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/28/get/3/error",
+    "normal": "QueryMismatch",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/28/get/3/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 14,
+      "title": "24",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/28/single/row/entity",
+    "normal": 2,
+    "mutant": 4
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/28/single/row/stock",
+    "normal": 12,
+    "mutant": 14
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/28/single/row/title",
+    "normal": "22",
+    "mutant": "24"
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/28/singleOptional/row/entity",
+    "normal": 2,
+    "mutant": 4
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/28/singleOptional/row/stock",
+    "normal": 12,
+    "mutant": 14
+  },
+  {
+    "path": "/schemas/0/phases/1/queries/28/singleOptional/row/title",
+    "normal": "22",
+    "mutant": "24"
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/4/each/0/entity",
+    "normal": 1,
+    "mutant": 3
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/4/each/0/stock",
+    "normal": 11,
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/4/each/0/title",
+    "normal": null,
+    "mutant": "23"
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/4/each/1/entity",
+    "normal": 2,
+    "mutant": 4
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/4/each/1/stock",
+    "normal": 12,
+    "mutant": 14
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/4/each/1/title",
+    "normal": "22",
+    "mutant": "24"
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/4/get/0/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/4/get/0/row",
+    "normal": {
+      "entity": 1,
+      "stock": 11,
+      "title": null,
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/4/get/1/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/4/get/1/row",
+    "normal": {
+      "entity": 2,
+      "stock": 12,
+      "title": "22",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/4/get/2/error",
+    "normal": "QueryMismatch",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/4/get/2/row",
+    "normal": null,
+    "mutant": {
+      "entity": 3,
+      "stock": null,
+      "title": "23",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/4/get/3/error",
+    "normal": "QueryMismatch",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/4/get/3/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 14,
+      "title": "24",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/12/each",
+    "normal": [
+      {
+        "entity": 1,
+        "stock": 11,
+        "title": null,
+        "cells": []
+      },
+      {
+        "entity": 2,
+        "stock": 12,
+        "title": "22",
+        "cells": []
+      }
+    ],
+    "mutant": [
+      {
+        "entity": 4,
+        "stock": 14,
+        "title": "24",
+        "cells": []
+      }
+    ]
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/12/get/0/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/12/get/0/row",
+    "normal": {
+      "entity": 1,
+      "stock": 11,
+      "title": null,
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/12/get/1/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/12/get/1/row",
+    "normal": {
+      "entity": 2,
+      "stock": 12,
+      "title": "22",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/12/get/3/error",
+    "normal": "QueryMismatch",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/12/get/3/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 14,
+      "title": "24",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/12/single/count",
+    "normal": 2,
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/12/single/error",
+    "normal": "MultipleEntities",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/12/single/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 14,
+      "title": "24",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/12/singleOptional/count",
+    "normal": 2,
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/12/singleOptional/error",
+    "normal": "MultipleEntities",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/12/singleOptional/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 14,
+      "title": "24",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/20/each",
+    "normal": [
+      {
+        "entity": 2,
+        "stock": 12,
+        "title": "22",
+        "cells": []
+      }
+    ],
+    "mutant": [
+      {
+        "entity": 3,
+        "stock": null,
+        "title": "23",
+        "cells": []
+      },
+      {
+        "entity": 4,
+        "stock": 14,
+        "title": "24",
+        "cells": []
+      }
+    ]
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/20/get/1/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/20/get/1/row",
+    "normal": {
+      "entity": 2,
+      "stock": 12,
+      "title": "22",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/20/get/2/error",
+    "normal": "QueryMismatch",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/20/get/2/row",
+    "normal": null,
+    "mutant": {
+      "entity": 3,
+      "stock": null,
+      "title": "23",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/20/get/3/error",
+    "normal": "QueryMismatch",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/20/get/3/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 14,
+      "title": "24",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/20/single/count",
+    "normal": null,
+    "mutant": 2
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/20/single/error",
+    "normal": null,
+    "mutant": "MultipleEntities"
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/20/single/row",
+    "normal": {
+      "entity": 2,
+      "stock": 12,
+      "title": "22",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/20/singleOptional/count",
+    "normal": null,
+    "mutant": 2
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/20/singleOptional/error",
+    "normal": null,
+    "mutant": "MultipleEntities"
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/20/singleOptional/row",
+    "normal": {
+      "entity": 2,
+      "stock": 12,
+      "title": "22",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/28/each/0/entity",
+    "normal": 2,
+    "mutant": 4
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/28/each/0/stock",
+    "normal": 12,
+    "mutant": 14
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/28/each/0/title",
+    "normal": "22",
+    "mutant": "24"
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/28/get/1/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/28/get/1/row",
+    "normal": {
+      "entity": 2,
+      "stock": 12,
+      "title": "22",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/28/get/3/error",
+    "normal": "QueryMismatch",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/28/get/3/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 14,
+      "title": "24",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/28/single/row/entity",
+    "normal": 2,
+    "mutant": 4
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/28/single/row/stock",
+    "normal": 12,
+    "mutant": 14
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/28/single/row/title",
+    "normal": "22",
+    "mutant": "24"
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/28/singleOptional/row/entity",
+    "normal": 2,
+    "mutant": 4
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/28/singleOptional/row/stock",
+    "normal": 12,
+    "mutant": 14
+  },
+  {
+    "path": "/schemas/0/phases/2/queries/28/singleOptional/row/title",
+    "normal": "22",
+    "mutant": "24"
+  },
+  {
+    "path": "/schemas/1/gate/allowed/0/ran",
+    "normal": 1,
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/gate/allowed/0/skipped",
+    "normal": null,
+    "mutant": 1
+  },
+  {
+    "path": "/schemas/1/gate/bodyMarkers",
+    "normal": 1,
+    "mutant": 0
+  },
+  {
+    "path": "/schemas/1/phaseChecks/0/done",
+    "normal": true,
+    "mutant": false
+  },
+  {
+    "path": "/schemas/1/phaseChecks/1/done",
+    "normal": true,
+    "mutant": false
+  },
+  {
+    "path": "/schemas/1/phaseChecks/2/done",
+    "normal": true,
+    "mutant": false
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/4/each",
+    "normal": [
+      {
+        "entity": 1,
+        "stock": 111,
+        "title": null,
+        "cells": []
+      },
+      {
+        "entity": 2,
+        "stock": 112,
+        "title": "122",
+        "cells": []
+      },
+      {
+        "entity": 3,
+        "stock": null,
+        "title": "123",
+        "cells": []
+      }
+    ],
+    "mutant": [
+      {
+        "entity": 4,
+        "stock": 114,
+        "title": "124",
+        "cells": []
+      }
+    ]
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/4/get/0/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/4/get/0/row",
+    "normal": {
+      "entity": 1,
+      "stock": 111,
+      "title": null,
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/4/get/1/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/4/get/1/row",
+    "normal": {
+      "entity": 2,
+      "stock": 112,
+      "title": "122",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/4/get/2/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/4/get/2/row",
+    "normal": {
+      "entity": 3,
+      "stock": null,
+      "title": "123",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/4/get/3/error",
+    "normal": "QueryMismatch",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/4/get/3/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 114,
+      "title": "124",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/4/single/count",
+    "normal": 3,
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/4/single/error",
+    "normal": "MultipleEntities",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/4/single/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 114,
+      "title": "124",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/4/singleOptional/count",
+    "normal": 3,
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/4/singleOptional/error",
+    "normal": "MultipleEntities",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/4/singleOptional/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 114,
+      "title": "124",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/12/each",
+    "normal": [
+      {
+        "entity": 1,
+        "stock": 111,
+        "title": null,
+        "cells": []
+      },
+      {
+        "entity": 2,
+        "stock": 112,
+        "title": "122",
+        "cells": []
+      }
+    ],
+    "mutant": [
+      {
+        "entity": 4,
+        "stock": 114,
+        "title": "124",
+        "cells": []
+      }
+    ]
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/12/get/0/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/12/get/0/row",
+    "normal": {
+      "entity": 1,
+      "stock": 111,
+      "title": null,
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/12/get/1/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/12/get/1/row",
+    "normal": {
+      "entity": 2,
+      "stock": 112,
+      "title": "122",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/12/get/3/error",
+    "normal": "QueryMismatch",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/12/get/3/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 114,
+      "title": "124",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/12/single/count",
+    "normal": 2,
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/12/single/error",
+    "normal": "MultipleEntities",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/12/single/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 114,
+      "title": "124",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/12/singleOptional/count",
+    "normal": 2,
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/12/singleOptional/error",
+    "normal": "MultipleEntities",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/12/singleOptional/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 114,
+      "title": "124",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/20/each",
+    "normal": [
+      {
+        "entity": 2,
+        "stock": 112,
+        "title": "122",
+        "cells": []
+      },
+      {
+        "entity": 3,
+        "stock": null,
+        "title": "123",
+        "cells": []
+      }
+    ],
+    "mutant": [
+      {
+        "entity": 4,
+        "stock": 114,
+        "title": "124",
+        "cells": []
+      }
+    ]
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/20/get/1/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/20/get/1/row",
+    "normal": {
+      "entity": 2,
+      "stock": 112,
+      "title": "122",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/20/get/2/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/20/get/2/row",
+    "normal": {
+      "entity": 3,
+      "stock": null,
+      "title": "123",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/20/get/3/error",
+    "normal": "QueryMismatch",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/20/get/3/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 114,
+      "title": "124",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/20/single/count",
+    "normal": 2,
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/20/single/error",
+    "normal": "MultipleEntities",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/20/single/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 114,
+      "title": "124",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/20/singleOptional/count",
+    "normal": 2,
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/20/singleOptional/error",
+    "normal": "MultipleEntities",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/20/singleOptional/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 114,
+      "title": "124",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/28/each/0/entity",
+    "normal": 2,
+    "mutant": 4
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/28/each/0/stock",
+    "normal": 112,
+    "mutant": 114
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/28/each/0/title",
+    "normal": "122",
+    "mutant": "124"
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/28/get/1/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/28/get/1/row",
+    "normal": {
+      "entity": 2,
+      "stock": 112,
+      "title": "122",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/28/get/3/error",
+    "normal": "QueryMismatch",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/28/get/3/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 114,
+      "title": "124",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/28/single/row/entity",
+    "normal": 2,
+    "mutant": 4
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/28/single/row/stock",
+    "normal": 112,
+    "mutant": 114
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/28/single/row/title",
+    "normal": "122",
+    "mutant": "124"
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/28/singleOptional/row/entity",
+    "normal": 2,
+    "mutant": 4
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/28/singleOptional/row/stock",
+    "normal": 112,
+    "mutant": 114
+  },
+  {
+    "path": "/schemas/1/phases/0/queries/28/singleOptional/row/title",
+    "normal": "122",
+    "mutant": "124"
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/4/each",
+    "normal": [
+      {
+        "entity": 1,
+        "stock": 111,
+        "title": null,
+        "cells": []
+      },
+      {
+        "entity": 2,
+        "stock": 112,
+        "title": "122",
+        "cells": []
+      },
+      {
+        "entity": 3,
+        "stock": null,
+        "title": "123",
+        "cells": []
+      }
+    ],
+    "mutant": [
+      {
+        "entity": 4,
+        "stock": 114,
+        "title": "124",
+        "cells": []
+      }
+    ]
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/4/get/0/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/4/get/0/row",
+    "normal": {
+      "entity": 1,
+      "stock": 111,
+      "title": null,
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/4/get/1/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/4/get/1/row",
+    "normal": {
+      "entity": 2,
+      "stock": 112,
+      "title": "122",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/4/get/2/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/4/get/2/row",
+    "normal": {
+      "entity": 3,
+      "stock": null,
+      "title": "123",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/4/get/3/error",
+    "normal": "QueryMismatch",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/4/get/3/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 114,
+      "title": "124",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/4/single/count",
+    "normal": 3,
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/4/single/error",
+    "normal": "MultipleEntities",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/4/single/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 114,
+      "title": "124",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/4/singleOptional/count",
+    "normal": 3,
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/4/singleOptional/error",
+    "normal": "MultipleEntities",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/4/singleOptional/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 114,
+      "title": "124",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/12/each",
+    "normal": [
+      {
+        "entity": 1,
+        "stock": 111,
+        "title": null,
+        "cells": []
+      },
+      {
+        "entity": 2,
+        "stock": 112,
+        "title": "122",
+        "cells": []
+      }
+    ],
+    "mutant": [
+      {
+        "entity": 4,
+        "stock": 114,
+        "title": "124",
+        "cells": []
+      }
+    ]
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/12/get/0/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/12/get/0/row",
+    "normal": {
+      "entity": 1,
+      "stock": 111,
+      "title": null,
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/12/get/1/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/12/get/1/row",
+    "normal": {
+      "entity": 2,
+      "stock": 112,
+      "title": "122",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/12/get/3/error",
+    "normal": "QueryMismatch",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/12/get/3/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 114,
+      "title": "124",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/12/single/count",
+    "normal": 2,
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/12/single/error",
+    "normal": "MultipleEntities",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/12/single/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 114,
+      "title": "124",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/12/singleOptional/count",
+    "normal": 2,
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/12/singleOptional/error",
+    "normal": "MultipleEntities",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/12/singleOptional/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 114,
+      "title": "124",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/20/each",
+    "normal": [
+      {
+        "entity": 2,
+        "stock": 112,
+        "title": "122",
+        "cells": []
+      },
+      {
+        "entity": 3,
+        "stock": null,
+        "title": "123",
+        "cells": []
+      }
+    ],
+    "mutant": [
+      {
+        "entity": 4,
+        "stock": 114,
+        "title": "124",
+        "cells": []
+      }
+    ]
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/20/get/1/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/20/get/1/row",
+    "normal": {
+      "entity": 2,
+      "stock": 112,
+      "title": "122",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/20/get/2/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/20/get/2/row",
+    "normal": {
+      "entity": 3,
+      "stock": null,
+      "title": "123",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/20/get/3/error",
+    "normal": "QueryMismatch",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/20/get/3/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 114,
+      "title": "124",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/20/single/count",
+    "normal": 2,
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/20/single/error",
+    "normal": "MultipleEntities",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/20/single/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 114,
+      "title": "124",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/20/singleOptional/count",
+    "normal": 2,
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/20/singleOptional/error",
+    "normal": "MultipleEntities",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/20/singleOptional/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 114,
+      "title": "124",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/28/each/0/entity",
+    "normal": 2,
+    "mutant": 4
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/28/each/0/stock",
+    "normal": 112,
+    "mutant": 114
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/28/each/0/title",
+    "normal": "122",
+    "mutant": "124"
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/28/get/1/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/28/get/1/row",
+    "normal": {
+      "entity": 2,
+      "stock": 112,
+      "title": "122",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/28/get/3/error",
+    "normal": "QueryMismatch",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/28/get/3/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 114,
+      "title": "124",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/28/single/row/entity",
+    "normal": 2,
+    "mutant": 4
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/28/single/row/stock",
+    "normal": 112,
+    "mutant": 114
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/28/single/row/title",
+    "normal": "122",
+    "mutant": "124"
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/28/singleOptional/row/entity",
+    "normal": 2,
+    "mutant": 4
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/28/singleOptional/row/stock",
+    "normal": 112,
+    "mutant": 114
+  },
+  {
+    "path": "/schemas/1/phases/1/queries/28/singleOptional/row/title",
+    "normal": "122",
+    "mutant": "124"
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/4/each/0/entity",
+    "normal": 1,
+    "mutant": 3
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/4/each/0/stock",
+    "normal": 111,
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/4/each/0/title",
+    "normal": null,
+    "mutant": "123"
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/4/each/1/entity",
+    "normal": 2,
+    "mutant": 4
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/4/each/1/stock",
+    "normal": 112,
+    "mutant": 114
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/4/each/1/title",
+    "normal": "122",
+    "mutant": "124"
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/4/get/0/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/4/get/0/row",
+    "normal": {
+      "entity": 1,
+      "stock": 111,
+      "title": null,
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/4/get/1/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/4/get/1/row",
+    "normal": {
+      "entity": 2,
+      "stock": 112,
+      "title": "122",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/4/get/2/error",
+    "normal": "QueryMismatch",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/4/get/2/row",
+    "normal": null,
+    "mutant": {
+      "entity": 3,
+      "stock": null,
+      "title": "123",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/4/get/3/error",
+    "normal": "QueryMismatch",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/4/get/3/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 114,
+      "title": "124",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/12/each",
+    "normal": [
+      {
+        "entity": 1,
+        "stock": 111,
+        "title": null,
+        "cells": []
+      },
+      {
+        "entity": 2,
+        "stock": 112,
+        "title": "122",
+        "cells": []
+      }
+    ],
+    "mutant": [
+      {
+        "entity": 4,
+        "stock": 114,
+        "title": "124",
+        "cells": []
+      }
+    ]
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/12/get/0/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/12/get/0/row",
+    "normal": {
+      "entity": 1,
+      "stock": 111,
+      "title": null,
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/12/get/1/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/12/get/1/row",
+    "normal": {
+      "entity": 2,
+      "stock": 112,
+      "title": "122",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/12/get/3/error",
+    "normal": "QueryMismatch",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/12/get/3/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 114,
+      "title": "124",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/12/single/count",
+    "normal": 2,
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/12/single/error",
+    "normal": "MultipleEntities",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/12/single/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 114,
+      "title": "124",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/12/singleOptional/count",
+    "normal": 2,
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/12/singleOptional/error",
+    "normal": "MultipleEntities",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/12/singleOptional/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 114,
+      "title": "124",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/20/each",
+    "normal": [
+      {
+        "entity": 2,
+        "stock": 112,
+        "title": "122",
+        "cells": []
+      }
+    ],
+    "mutant": [
+      {
+        "entity": 3,
+        "stock": null,
+        "title": "123",
+        "cells": []
+      },
+      {
+        "entity": 4,
+        "stock": 114,
+        "title": "124",
+        "cells": []
+      }
+    ]
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/20/get/1/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/20/get/1/row",
+    "normal": {
+      "entity": 2,
+      "stock": 112,
+      "title": "122",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/20/get/2/error",
+    "normal": "QueryMismatch",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/20/get/2/row",
+    "normal": null,
+    "mutant": {
+      "entity": 3,
+      "stock": null,
+      "title": "123",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/20/get/3/error",
+    "normal": "QueryMismatch",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/20/get/3/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 114,
+      "title": "124",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/20/single/count",
+    "normal": null,
+    "mutant": 2
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/20/single/error",
+    "normal": null,
+    "mutant": "MultipleEntities"
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/20/single/row",
+    "normal": {
+      "entity": 2,
+      "stock": 112,
+      "title": "122",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/20/singleOptional/count",
+    "normal": null,
+    "mutant": 2
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/20/singleOptional/error",
+    "normal": null,
+    "mutant": "MultipleEntities"
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/20/singleOptional/row",
+    "normal": {
+      "entity": 2,
+      "stock": 112,
+      "title": "122",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/28/each/0/entity",
+    "normal": 2,
+    "mutant": 4
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/28/each/0/stock",
+    "normal": 112,
+    "mutant": 114
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/28/each/0/title",
+    "normal": "122",
+    "mutant": "124"
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/28/get/1/error",
+    "normal": null,
+    "mutant": "QueryMismatch"
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/28/get/1/row",
+    "normal": {
+      "entity": 2,
+      "stock": 112,
+      "title": "122",
+      "cells": []
+    },
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/28/get/3/error",
+    "normal": "QueryMismatch",
+    "mutant": null
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/28/get/3/row",
+    "normal": null,
+    "mutant": {
+      "entity": 4,
+      "stock": 114,
+      "title": "124",
+      "cells": []
+    }
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/28/single/row/entity",
+    "normal": 2,
+    "mutant": 4
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/28/single/row/stock",
+    "normal": 112,
+    "mutant": 114
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/28/single/row/title",
+    "normal": "122",
+    "mutant": "124"
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/28/singleOptional/row/entity",
+    "normal": 2,
+    "mutant": 4
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/28/singleOptional/row/stock",
+    "normal": 112,
+    "mutant": 114
+  },
+  {
+    "path": "/schemas/1/phases/2/queries/28/singleOptional/row/title",
+    "normal": "122",
+    "mutant": "124"
+  }
+]
