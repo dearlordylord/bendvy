@@ -35,6 +35,31 @@ def main():
         for path, digest in plan['pins'].items():
             if sha(path) != digest:
                 raise ValueError('Category frozen input drift')
+        if receipt.get('guardFailures'):
+            raise ValueError('Category boundary guard failed')
+        commands = receipt['commands']
+        if len(commands) != 3 or len(plan['commands']) != 3:
+            raise ValueError('All three owned stages required')
+        for command, planned, label, cap in zip(commands, plan['commands'], ('emit', 'build', 'consumer'), (30, 120, 5)):
+            if command['label'] != label or command['exit'] != 0 or command['failure'] is not None or command['capSeconds'] != cap:
+                raise ValueError('Category owned stage refused')
+            if command['argv'] != planned['argv'] or command['argv'][:3] != ['/usr/bin/taskset', '-c', '5']:
+                raise ValueError('Category stage command/CPU binding changed')
+            for stream in ('stdout', 'stderr'):
+                if sha(command[stream]['path']) != command[stream]['sha256']:
+                    raise ValueError('Category stage raw drift')
+        required_guards = {label + '-' + stage for label in ('emit', 'build', 'consumer') for stage in ('pre', 'acquired', 'post')} | {'final'}
+        observed_guards = set()
+        for guard in receipt['guards']:
+            guard_path = Path(guard['path'])
+            if sha(guard_path) != guard['sha256']:
+                raise ValueError('Category guard receipt drift')
+            state = json.loads(guard_path.read_text())
+            if state['unchanged'] is not True or state['label'] in observed_guards:
+                raise ValueError('Category boundary unchanged flag/identity refused')
+            observed_guards.add(state['label'])
+        if observed_guards != required_guards:
+            raise ValueError('All exact boundary guards required')
         row = receipt['commands'][-1]
         if row['label'] != 'consumer' or row['exit'] != 0 or row['failure'] is not None:
             raise ValueError('Consumer did not succeed')
