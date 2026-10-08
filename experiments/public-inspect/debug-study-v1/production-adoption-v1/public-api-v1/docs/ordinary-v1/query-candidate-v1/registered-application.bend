@@ -33,7 +33,7 @@ def plain_run(owner:System.Owner<Plain.Schema,plain_registry()>,world:W.World<Pl
 def plain_application(owner:System.Owner<Plain.Schema,plain_registry()>,debug:App.Debug) -> App.Built<Plain.Schema,Plain.Plain,Unit,Unit,Unit & System.Owner<Plain.Schema,plain_registry()>>:
   match owner:
     case System.Owner{Sys.Registry{+namespace,+id,+name,+access,+cursor},+slot,+clauses}:
-      App.build(~Plain.Schema,~Plain.Plain,~Unit,~Unit,~(Unit & System.Owner<Plain.Schema,plain_registry()>),debug,"Update",SP.Sequence{SP.Entry{Sch.Phase{"Update"},[]},SP.Sequence{SP.Entry{Sch.System{id,0},[]},SP.Entry{Sch.Barrier{},[]}}},App.add(~Plain.Schema,~Plain.Plain,~Unit,~Unit,~plain_ops,~Unit,~Unit,~U32,~Plain.plain_read(),~(H => caps => args => owner => plain_body(~H,~caps,args,owner)),~Unit,App.empty(~Plain.Schema,namespace),System.Owner{Sys.Registry{namespace,id,name,access,cursor},slot,clauses}))
+      App.build(~Plain.Schema,~Plain.Plain,~Unit,~Unit,~(Unit & System.Owner<Plain.Schema,plain_registry()>),"Update",SP.Sequence{SP.Entry{Sch.Phase{"Update"},[]},SP.Sequence{SP.Entry{Sch.System{id,0},[]},SP.Entry{Sch.Barrier{},[]}}},App.add(~Plain.Schema,~Plain.Plain,~Unit,~Unit,~plain_ops,~Unit,~Unit,~U32,~Plain.plain_read(),~(H => caps => args => owner => plain_body(~H,~caps,args,owner)),~Unit,App.empty(~Plain.Schema,namespace,debug),System.Owner{Sys.Registry{namespace,id,name,access,cursor},slot,clauses}))
 
 def transient_ops(H:Type) -> Type:
   Cap.Read<H,U32>
@@ -52,7 +52,7 @@ def transient_run(owner:System.Owner<Plain.Schema,transient_registry()>,world:W.
 def transient_application(owner:System.Owner<Plain.Schema,transient_registry()>,debug:App.Debug) -> App.Built<Plain.Schema,Plain.Transient(),Unit,Unit,Unit & System.Owner<Plain.Schema,transient_registry()>>:
   match owner:
     case System.Owner{Sys.Registry{+namespace,+id,+name,+access,+cursor},+slot,+clauses}:
-      App.build(~Plain.Schema,~Plain.Transient(),~Unit,~Unit,~(Unit & System.Owner<Plain.Schema,transient_registry()>),debug,"Update",SP.Sequence{SP.Entry{Sch.Phase{"Update"},[]},SP.Sequence{SP.Entry{Sch.System{id,0},[]},SP.Entry{Sch.Barrier{},[]}}},App.add(~Plain.Schema,~Plain.Transient(),~Unit,~Unit,~transient_ops,~Unit,~Unit,~U32,~Plain.transient_read(),~(H => caps => args => owner => transient_body(~H,~caps,args,owner)),~Unit,App.empty(~Plain.Schema,namespace),System.Owner{Sys.Registry{namespace,id,name,access,cursor},slot,clauses}))
+      App.build(~Plain.Schema,~Plain.Transient(),~Unit,~Unit,~(Unit & System.Owner<Plain.Schema,transient_registry()>),"Update",SP.Sequence{SP.Entry{Sch.Phase{"Update"},[]},SP.Sequence{SP.Entry{Sch.System{id,0},[]},SP.Entry{Sch.Barrier{},[]}}},App.add(~Plain.Schema,~Plain.Transient(),~Unit,~Unit,~transient_ops,~Unit,~Unit,~U32,~Plain.transient_read(),~(H => caps => args => owner => transient_body(~H,~caps,args,owner)),~Unit,App.empty(~Plain.Schema,namespace,debug),System.Owner{Sys.Registry{namespace,id,name,access,cursor},slot,clauses}))
 
 def constructed_ops(H:Type) -> Type:
   Cap.Read<H,D.Raw>
@@ -71,4 +71,4 @@ def constructed_run(owner:System.Owner<F.Workshop,constructed_registry()>,world:
 def constructed_application(owner:System.Owner<F.Workshop,constructed_registry()>,debug:App.Debug) -> App.Built<F.Workshop,Game.Store(~F.Workshop),Game.ResourceStore(~F.Workshop),Unit,Unit & System.Owner<F.Workshop,constructed_registry()>>:
   match owner:
     case System.Owner{Sys.Registry{+namespace,+id,+name,+access,+cursor},+slot,+clauses}:
-      App.build(~F.Workshop,~Game.Store(~F.Workshop),~Game.ResourceStore(~F.Workshop),~Unit,~(Unit & System.Owner<F.Workshop,constructed_registry()>),debug,"Update",SP.Sequence{SP.Entry{Sch.Phase{"Update"},[]},SP.Sequence{SP.Entry{Sch.System{id,0},[]},SP.Entry{Sch.Barrier{},[]}}},App.add(~F.Workshop,~Game.Store(~F.Workshop),~Game.ResourceStore(~F.Workshop),~Unit,~constructed_ops,~Unit,~Unit,~D.Raw,~Constructed.read(~F.Workshop),~(H => caps => args => owner => constructed_body(~H,~caps,args,owner)),~Unit,App.empty(~F.Workshop,namespace),System.Owner{Sys.Registry{namespace,id,name,access,cursor},slot,clauses}))
+      App.build(~F.Workshop,~Game.Store(~F.Workshop),~Game.ResourceStore(~F.Workshop),~Unit,~(Unit & System.Owner<F.Workshop,constructed_registry()>),"Update",SP.Sequence{SP.Entry{Sch.Phase{"Update"},[]},SP.Sequence{SP.Entry{Sch.System{id,0},[]},SP.Entry{Sch.Barrier{},[]}}},App.add(~F.Workshop,~Game.Store(~F.Workshop),~Game.ResourceStore(~F.Workshop),~Unit,~constructed_ops,~Unit,~Unit,~D.Raw,~Constructed.read(~F.Workshop),~(H => caps => args => owner => constructed_body(~H,~caps,args,owner)),~Unit,App.empty(~F.Workshop,namespace,debug),System.Owner{Sys.Registry{namespace,id,name,access,cursor},slot,clauses}))

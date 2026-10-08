@@ -88,10 +88,12 @@ schedule_dispatch transport distinguishes a reached outcome from registration
 refusal and preserves rejected args. It does not pretend refusal ran a body.
 
 `app.bend` grows heterogeneous registered-owner products without fixed arity.
-Catalog and structural entries derive from actual Registry IDs/names and the same
+Catalog derives from actual Registry IDs. Enabled-only structural entries derive
+from actual Registry IDs/names and the same
 slot/clauses; build rejects mixed runtime namespaces preserving owners. Existing
-SP.build/Sch retain the real plan, phase/barrier positions and owners. Disabled
-describe returns None without constructing Description; Enabled observes the
+SP.build/Sch retain the real plan, phase/barrier positions and owners. Disabled collection does not construct debug Entry copies; Disabled describe
+returns None without constructing Description. Necessary operational declarations
+and access lists remain. Enabled observes the
 actual retained schedule. App.run delegates to existing SP.run with its closed
 ordinary dispatch/condition/provision hooks, retaining debug and structural data.
 
@@ -116,3 +118,39 @@ retry, skip and rejected registration. Then consume the exact System/App route
 and qualify mutants, guards, JS/Native and unchanged performance gates. v3 source
 negatives additionally reject duplicated System/App owners and nominal system
 schema mismatch. Historical failed source attempts/raw diagnostics are retained.
+
+## Full source-consuming scenario (v4)
+
+`scenario-main.bend` consumes Plain, Transient and Constructed declarations with
+arbitrary affine Array component payloads. Each uses actual creation, three
+reserve/activate operations and seven inserts. The same ordinary query grants and
+selectors drive five actual registered systems: read Position, write Velocity,
+optional Health, combined with Added/Changed/Without/With filters.
+
+The fifteen phases cover seed, registration, body failure after a write, retry,
+second execution, Added execution/empty, actual Position replacement, Changed
+execution/empty, Without/With execution, real App build with two Enabled
+descriptions, a rebuild with one Disabled description, and actual foreign-world
+registration refusal. No Sch refusal-to-body-error mapping is selected.
+
+`scenario-driver.bend` returns the actual final World, Factory and five retained
+registered owners together with observations. Only `scenario-main.bend` ends their
+fixture lifetime after full observations. Success has the same Report fields as
+the independently specified neutral oracle. Unexpected setup or registration
+refusals produce a distinct Failure; returned/incoming payloads, handles, world,
+registration cursors and relevant errors are observed before fixture teardown.
+
+`scenario-observation.bend` reads every allocated entity slot, complete payload
+arrays, lifecycle stamps, actual retained recipe/codec, full live-bit capacity,
+World headers/events/pending count/registration metadata, and each actual system
+owner. `scenario-returned.bend` preserves previous/incoming affine owners while
+observing them. Debug entries are derived by ordinary declarations, not caller
+metadata adapters.
+
+The complete source entry passes the default five-second check under the shared
+lock. Its preceding exact-source timeout and the single authorized serialized
+retry are both retained in `source-checks-v4/full-scenario-source.json`. Source
+checks are development evidence; no JS/Native execution, performance result or
+full #56 completion is claimed. Independent whole-oracle/source admission must
+precede backend development. Final Sch dispatch mapping, canonical promotion and
+emitted-JS Disabled allocation evidence remain integration requirements.

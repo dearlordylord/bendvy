@@ -1,0 +1,62 @@
+import Base
+import /workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/ordinary-declaration.bend as Identity
+import /workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/persistence-declaration.bend as Recipe
+import /workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/snapshot-leaf.bend as Leaf
+import /workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-data.bend as D
+import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col
+import /workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/owner-view.bend as View
+
+type Category is Data:
+  Plain{}
+  Transient{}
+  Constructed{}
+type Schema is Data:
+  Schema{}
+def identity(key:String) -> Identity.Declaration<Schema,Array<U32>>:
+  Identity.component(~Schema,~Array<U32>,key)
+def numbers(values:List<&2,U32>) -> List<&2,D.Raw>:
+  match values:
+    case []:[]
+    case value <> rest:D.Number{value} <> numbers(rest)
+def save_fetched(observed:Array<U32> & View.FullCell) -> Array<U32> & D.Raw:
+  match observed:
+    case (owner,View.FullCell{_,values}):(owner,D.Array{numbers(values)})
+def save(owner:Array<U32>) -> Array<U32> & D.Raw:
+  save_fetched(View.view(owner))
+type PlainSlot<-key:String> is Type:
+  PlainSlot{column:Col.Column<Schema,Array<U32>>,declaration:Recipe.Plain<Schema,Array<U32>,identity(key)>}
+def Slot(kind:Category,key:String) -> Type:
+  match kind:
+    case Plain{}:PlainSlot<key>
+    case Transient{}:Leaf.TransientComponent<Schema,Array<U32>,identity(key)>
+    case Constructed{}:Leaf.Component<Schema,Array<U32>,identity(key),save>
+def RecipeType(kind:Category,key:String) -> Data:
+  match kind:
+    case Plain{}:Recipe.Plain<Schema,Array<U32>,identity(key)>
+    case Transient{}:Recipe.Transient<Schema,Array<U32>,identity(key)>
+    case Constructed{}:Recipe.Constructed<Schema,Array<U32>,identity(key),save>
+def take(kind:Category,key:String,owner:Slot(kind,key)) -> RecipeType(kind,key) & Col.Column<Schema,Array<U32>>:
+  match kind:
+    case Plain{}:
+      match owner:
+        case PlainSlot{column,declaration}:(declaration,column)
+    case Transient{}:
+      match owner:
+        case Leaf.TransientComponent{column,declaration}:(declaration,column)
+    case Constructed{}:
+      match owner:
+        case Leaf.Component{column,declaration}:(declaration,column)
+def put(kind:Category,key:String,declaration:RecipeType(kind,key),column:Col.Column<Schema,Array<U32>>) -> Slot(kind,key):
+  match kind:
+    case Plain{}:PlainSlot{column,declaration}
+    case Transient{}:Leaf.TransientComponent{column,declaration}
+    case Constructed{}:Leaf.Component{column,declaration}
+def empty_slot(~key:String,kind:Category) -> Slot(kind,key):
+  match kind:
+    case Plain{}:PlainSlot{Col.ensure(~Schema,~Array<U32>,Col.empty(~Schema,~Array<U32>),3),Recipe.plain(~Schema,~Array<U32>,~identity(key))}
+    case Transient{}:Leaf.TransientComponent{Col.ensure(~Schema,~Array<U32>,Col.empty(~Schema,~Array<U32>),3),Recipe.transient(~Schema,~Array<U32>,~identity(key))}
+    case Constructed{}:Leaf.Component{Col.ensure(~Schema,~Array<U32>,Col.empty(~Schema,~Array<U32>),3),Recipe.constructed(~Schema,~Array<U32>,~identity(key),~save,D.ArrayValue{D.Integer{}})}
+type Store<-kind:Category> is Type:
+  Store{position:Slot(kind,"Position"),velocity:Slot(kind,"Velocity"),health:Slot(kind,"Health")}
+def empty(~kind:Category,_:Unit) -> Store<kind>:
+  Store{empty_slot(~"Position",kind),empty_slot(~"Velocity",kind),empty_slot(~"Health",kind)}

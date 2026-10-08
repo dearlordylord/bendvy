@@ -1,0 +1,47 @@
+{
+  "scope": "direct source negatives, not frozen qualification",
+  "receipts": [
+    {
+      "source": "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-system-owner-duplication.bend",
+      "sourceSha256": "89bcfae27144549fad6550013701c4ccc32d5c1dce5ac63e8833c0a255114325",
+      "command": [
+        "flock",
+        "/tmp/bendvy-parity-heavy.lock",
+        "timeout",
+        "5",
+        "/home/node/.bend/bin/bend",
+        "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-system-owner-duplication.bend",
+        "--check-only"
+      ],
+      "exitCode": 1
+    },
+    {
+      "source": "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-app-owner-duplication.bend",
+      "sourceSha256": "d75728b9092934a611322135c3b78288dec903e5b237b859f5719c13c94f867b",
+      "command": [
+        "flock",
+        "/tmp/bendvy-parity-heavy.lock",
+        "timeout",
+        "5",
+        "/home/node/.bend/bin/bend",
+        "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-app-owner-duplication.bend",
+        "--check-only"
+      ],
+      "exitCode": 1
+    },
+    {
+      "source": "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-system-schema.bend",
+      "sourceSha256": "bada3cf3af6cc6e3fec7733fe95b1ead10030b513aa0e44d02917c2286dea292",
+      "command": [
+        "flock",
+        "/tmp/bendvy-parity-heavy.lock",
+        "timeout",
+        "5",
+        "/home/node/.bend/bin/bend",
+        "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-system-schema.bend",
+        "--check-only"
+      ],
+      "exitCode": 1
+    }
+  ]
+}
