@@ -87,6 +87,14 @@ Independent expectation updates exactly phase8 operation fields in all3 categori
 
 ## Source-established oracle model repair after retained JS mismatch
 
+Clock audit follow-up: the existing delivered [#27 lifecycle controls](../../../../../../../../query-composition/lifecycle-controls/README.md)
+explicitly specify restoration of component owners/stamps while the bounded
+monotonic world clock retains unused failed-write positions. Their retained
+JS/Native fixtures cover failure, retry and last-clock rollback. This supports
+the corrected observation as the existing bounded behavior; it is not a new
+rollback policy. Historical receipts do not qualify this candidate's current
+source, and full-core clock/exhaustion policy remains outside this debug check.
+
 The expected Python model had an alias bug: full(values) stored the live mutable list, row() retained that same Velocity list as its supposedly pre-write value, and observe() retained undetached snapshots. Later in-place += updates rewrote earlier expected payloads, including seed to final15/36 despite explicit setup10/20. This was an oracle error. Earlier synthetic/parser passes established mechanical agreement with that model, not semantic correctness of its historical payload values; they must not be credited as application success. The original ddeda oracle and failed JS receipt remain immutable in Git/raw evidence.
 
 Fixed full(values) and observe() to detach complete values at their observation point. Independently derived source assertions check initial10/20, retry before10/20, each intermediate write and final15/36. Separately, source Cmp.replace advances World.clock for the first failed body write; Cmp restore_world/restore_stamp retain that current clock while restoring payload and lifecycle stamps, Tx.rollback only executes those inverse closures, and Sys.run_tracked preserves the failed reader cursor. Therefore this existing implementation's clock observations are7,7,8,10,12,14,14,15,17,17,18,19, and returned main cursor12. This is an observation of current source, not a selected global-clock failure contract or full rollback acceptance. #35/#56 contract audit remains explicit; docs/reports/relations-application-initial.md already records monotonic clock restoration but does not replace that contract audit.
