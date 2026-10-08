@@ -59,3 +59,12 @@ Driver threads each returned actual World and five System owners through each ob
 App is built from actual collected registry owners plus Phase Update, Systems1..5 condition0, Barrier through SP/Sch build. Enabled describes twice before returning those same owners; Disabled describes once and returns None. This is actual ordinary App build/description and registered System execution, not Sch.run execution. Foreign creation consumes the same Factory, reaching namespace2/nextNamespace3. Original world18 and all owner cursors remain explicit in the final refusal report.
 
 Source-semantic oracle admission has no remaining mismatch after the documented liveness correction. Backend admission still needs a frozen exact final source closure and actual strict constructor parser implementing this join; this review neither runs a backend nor qualifies installed-tool resolution, proofs, scheduler failure mapping or full #56 closure.
+
+
+## Strict parser synthetic conformance
+
+Before any backend output, independently reversed all45 corrected expected phases into full raw Data using typed source records and the pinned book_load/name_key namespace formula. Pinned show_val uses comma-space delimiters; the synthetic generator uses that exact spelling. synthetic-complete.stdout is explicitly synthetic parser input, never runtime evidence. Every field is generated, without selection or defaults.
+
+Read-only parser review and Python-only conformance PASS: parse→normalize→type-sensitive whole equality against complete6974; identity inventory exactly equals an independent source-current rebuild; truncated term, trailing term, forged nominal root, missing category, Bool→U32 substitution and U32 overflow all reject. Parser insists canonical byte roundtrip and exact namespace identity before applying every admitted constructor join; final recursive equality compares actual Python types as well as every list element/dict field. No real term was inspected.
+
+SYNTHETIC-REVIEW.json records exact parser, identity, synthetic, author and current fixture source digests against frozen source79ba25ec. It supplements the prior pre-freeze source join: scenario-queries whitespace cleanup is not silently rebound into historical runtime evidence. There is no backend evidence yet. The actual source-stage constructor inventory must be derived again after import rewriting/relocation and guarded before/after the child, since displayed namespaces depend on the real entry directory.
