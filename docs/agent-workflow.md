@@ -24,6 +24,10 @@ For API changes, require negative controls for undeclared access, cross-schema m
 
 ## Evidence runner development
 
+Classify the next run first: application development follows the direct fixture
+checks above; frozen delivery uses the collector recipe below. Resolve behavior
+and oracle errors before preparing full installed-tool qualification.
+
 Start new collectors from the [focused runner recipe](check-policy.md#preparing-a-focused-runner).
 Before execution review, complete its source, tool, environment, output and
 oracle inventories. For child-only locking, select the existing
