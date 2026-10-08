@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : owner
+- observed : owner (consumed more than once)
+Location: illegal
+4 | 
+5>| def illegal(owner:F.Payload) -> (F.Payload & Gate.Field) & (F.Payload & Gate.Field):
+  |             ^^^^^
+6 |   (Save.saved(~F.Workshop,owner),Save.saved(~F.Workshop,owner))

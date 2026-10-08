@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- expected : G.Gate<F.Workshop, F.Payload, ../../../../../../parity-61-audit/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-component-declaration.Declaration{"Payload"}>
+- observed : G.Gate<F.Garden, F.Payload, ../../../../../../parity-61-audit/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-component-declaration.Declaration{"Payload"}>
+Context:
+- owner : F.Payload
+Location: illegal
+4 | def illegal(owner:F.Payload) -> F.Payload & G.Field:
+5>|   G.export_owner(~F.Workshop,~F.Payload,~F.declaration(~F.Workshop),G.transient(~F.Garden,~F.Payload,~F.declaration(~F.Garden)),owner)
+  |                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+6 | def main() -> U32:

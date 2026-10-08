@@ -1,0 +1,11 @@
+The candidate consumes the existing Gate implementation from `common-path-v3/gate.bend`, copied here with exactly one decoder import changed to the canonical `experiments/public-decode/typed.bend`. `gate-import-only.diff` and `gate-source-join.json` bind the exact delta and both source hashes. All Gate definitions remain unchanged. The original Gate and prior frozen packets remain untouched.
+
+`Gate<S,P,declaration>` carries either Transient or a Codec and an owner-returning projection. `export_owner` consumes this witness, returns the affine owner with an Omitted/Saved Data field, and intentionally does not run its decoder. `validate_projection` remains an internal diagnostic. Schema-authored factories are rebuilt per save without duplicating Gate witnesses. This candidate unifies the nominal Raw/Codec identity with BasicWorld; it is an integration seam, not production adoption.
+
+`save.bend` observes physical persisted and transient column cells through `Col.view`, and persisted and transient resource owners, through actual Gate.export_owner. The complete BasicWorld consumer's repeated saves, owner observations, post-save mutation, retained earlier data, allocator and two schemas are reused. Retained actual codecs and separate validation observations are preserved. The unchanged complete expected-consumer.json oracle remains the target; runtime execution for this candidate has not yet been admitted or performed.
+
+The five-second complete consumer source check passes. Plain descriptor misuse, nominal schema misuse and affine owner duplication each fail at their intended boundary. source-development-v1 retains commands, source pins, import edges and raw diagnostics. These development checks are neither proofs nor backend delivery qualification.
+
+The initial nominal split prevented a recursive adapter from checking. Its failed drafts and raw diagnostics are preserved in source-development-v1/failed-attempts.tar.gz. The final candidate has no adapter, arbitrary fuel, unsafe recursion or omitted-constructor fallback. No public save error policy, new law, dependency or depth bound is added.
+
+Full #58 requires source-current JS/Native and TS observations, reached compiling mutants, arbitrary registry coverage and actual public adoption under #46/#38. This fixture does not close #58.
