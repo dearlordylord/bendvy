@@ -1,0 +1,1029 @@
+{
+  "scope": "PROPOSED_COMPLETE_NORMAL_RESOURCE_SCENARIO_NOT_FULL56",
+  "authoredBeforeOutputs": true,
+  "cases": [
+    {
+      "name": "enabled",
+      "request": 1,
+      "beforeWorld": {
+        "namespace": 1,
+        "nextId": 1,
+        "highWater": 0,
+        "live": [
+          false
+        ],
+        "capacity": 1,
+        "depth": 0,
+        "store": "unit",
+        "schemaEntries": [
+          {
+            "id": 1,
+            "key": "settings",
+            "name": "settings"
+          },
+          {
+            "id": 2,
+            "key": "clock",
+            "name": "clock"
+          }
+        ],
+        "settingsCells": [
+          17
+        ],
+        "clockCells": [
+          23
+        ],
+        "events": [
+          17
+        ],
+        "pendingCount": 2,
+        "registrations": [
+          {
+            "id": 1,
+            "name": "Reader",
+            "access": [
+              "clock",
+              "settings"
+            ]
+          }
+        ],
+        "nextSystemId": 2,
+        "clock": 41
+      },
+      "afterWorld": {
+        "namespace": 1,
+        "nextId": 1,
+        "highWater": 0,
+        "live": [
+          false
+        ],
+        "capacity": 1,
+        "depth": 0,
+        "store": "unit",
+        "schemaEntries": [
+          {
+            "id": 1,
+            "key": "settings",
+            "name": "settings"
+          },
+          {
+            "id": 2,
+            "key": "clock",
+            "name": "clock"
+          }
+        ],
+        "settingsCells": [
+          17
+        ],
+        "clockCells": [
+          23
+        ],
+        "events": [
+          17
+        ],
+        "pendingCount": 2,
+        "registrations": [
+          {
+            "id": 1,
+            "name": "Reader",
+            "access": [
+              "clock",
+              "settings"
+            ]
+          }
+        ],
+        "nextSystemId": 2,
+        "clock": 41
+      },
+      "beforeApp": {
+        "debug": "Enabled",
+        "schedule": {
+          "namespace": 1,
+          "name": "Update",
+          "steps": [
+            {
+              "kind": "System",
+              "id": 1,
+              "condition": 0
+            }
+          ]
+        },
+        "registry": {
+          "namespace": 1,
+          "id": 1,
+          "name": "Reader",
+          "access": [
+            "clock",
+            "settings"
+          ],
+          "cursor": 0
+        },
+        "paths": [
+          "Right",
+          "Left"
+        ],
+        "entries": [
+          {
+            "id": 2,
+            "key": "clock",
+            "name": "clock"
+          },
+          {
+            "id": 1,
+            "key": "settings",
+            "name": "settings"
+          }
+        ],
+        "ownerNeeds": [
+          {
+            "kind": "Resource",
+            "id": 2
+          },
+          {
+            "kind": "Resource",
+            "id": 1
+          }
+        ],
+        "provisionedNeeds": [
+          {
+            "kind": "Resource",
+            "id": 2
+          },
+          {
+            "kind": "Resource",
+            "id": 1
+          }
+        ]
+      },
+      "afterApp": {
+        "debug": "Enabled",
+        "schedule": {
+          "namespace": 1,
+          "name": "Update",
+          "steps": [
+            {
+              "kind": "System",
+              "id": 1,
+              "condition": 0
+            }
+          ]
+        },
+        "registry": {
+          "namespace": 1,
+          "id": 1,
+          "name": "Reader",
+          "access": [
+            "clock",
+            "settings"
+          ],
+          "cursor": 0
+        },
+        "paths": [
+          "Right",
+          "Left"
+        ],
+        "entries": [
+          {
+            "id": 2,
+            "key": "clock",
+            "name": "clock"
+          },
+          {
+            "id": 1,
+            "key": "settings",
+            "name": "settings"
+          }
+        ],
+        "ownerNeeds": [
+          {
+            "kind": "Resource",
+            "id": 2
+          },
+          {
+            "kind": "Resource",
+            "id": 1
+          }
+        ],
+        "provisionedNeeds": [
+          {
+            "kind": "Resource",
+            "id": 2
+          },
+          {
+            "kind": "Resource",
+            "id": 1
+          }
+        ]
+      },
+      "available": [
+        {
+          "kind": "Resource",
+          "id": 1
+        },
+        {
+          "kind": "Resource",
+          "id": 2
+        }
+      ],
+      "description": {
+        "namespace": 1,
+        "scheduleName": "Update",
+        "steps": [
+          {
+            "kind": "System",
+            "id": 1,
+            "condition": 0
+          }
+        ],
+        "systemNamespace": 1,
+        "systemID": 1,
+        "systemName": "Reader",
+        "access": [
+          "clock",
+          "settings"
+        ],
+        "firstPath": "Right",
+        "secondPath": "Left",
+        "entries": [
+          {
+            "id": 2,
+            "key": "clock",
+            "name": "clock"
+          },
+          {
+            "id": 1,
+            "key": "settings",
+            "name": "settings"
+          }
+        ],
+        "needs": [
+          {
+            "kind": "Resource",
+            "id": 2
+          },
+          {
+            "kind": "Resource",
+            "id": 1
+          }
+        ]
+      }
+    },
+    {
+      "name": "enabled",
+      "request": 2,
+      "beforeWorld": {
+        "namespace": 1,
+        "nextId": 1,
+        "highWater": 0,
+        "live": [
+          false
+        ],
+        "capacity": 1,
+        "depth": 0,
+        "store": "unit",
+        "schemaEntries": [
+          {
+            "id": 1,
+            "key": "settings",
+            "name": "settings"
+          },
+          {
+            "id": 2,
+            "key": "clock",
+            "name": "clock"
+          }
+        ],
+        "settingsCells": [
+          17
+        ],
+        "clockCells": [
+          23
+        ],
+        "events": [
+          17
+        ],
+        "pendingCount": 2,
+        "registrations": [
+          {
+            "id": 1,
+            "name": "Reader",
+            "access": [
+              "clock",
+              "settings"
+            ]
+          }
+        ],
+        "nextSystemId": 2,
+        "clock": 41
+      },
+      "afterWorld": {
+        "namespace": 1,
+        "nextId": 1,
+        "highWater": 0,
+        "live": [
+          false
+        ],
+        "capacity": 1,
+        "depth": 0,
+        "store": "unit",
+        "schemaEntries": [
+          {
+            "id": 1,
+            "key": "settings",
+            "name": "settings"
+          },
+          {
+            "id": 2,
+            "key": "clock",
+            "name": "clock"
+          }
+        ],
+        "settingsCells": [
+          17
+        ],
+        "clockCells": [
+          23
+        ],
+        "events": [
+          17
+        ],
+        "pendingCount": 2,
+        "registrations": [
+          {
+            "id": 1,
+            "name": "Reader",
+            "access": [
+              "clock",
+              "settings"
+            ]
+          }
+        ],
+        "nextSystemId": 2,
+        "clock": 41
+      },
+      "beforeApp": {
+        "debug": "Enabled",
+        "schedule": {
+          "namespace": 1,
+          "name": "Update",
+          "steps": [
+            {
+              "kind": "System",
+              "id": 1,
+              "condition": 0
+            }
+          ]
+        },
+        "registry": {
+          "namespace": 1,
+          "id": 1,
+          "name": "Reader",
+          "access": [
+            "clock",
+            "settings"
+          ],
+          "cursor": 0
+        },
+        "paths": [
+          "Right",
+          "Left"
+        ],
+        "entries": [
+          {
+            "id": 2,
+            "key": "clock",
+            "name": "clock"
+          },
+          {
+            "id": 1,
+            "key": "settings",
+            "name": "settings"
+          }
+        ],
+        "ownerNeeds": [
+          {
+            "kind": "Resource",
+            "id": 2
+          },
+          {
+            "kind": "Resource",
+            "id": 1
+          }
+        ],
+        "provisionedNeeds": [
+          {
+            "kind": "Resource",
+            "id": 2
+          },
+          {
+            "kind": "Resource",
+            "id": 1
+          }
+        ]
+      },
+      "afterApp": {
+        "debug": "Enabled",
+        "schedule": {
+          "namespace": 1,
+          "name": "Update",
+          "steps": [
+            {
+              "kind": "System",
+              "id": 1,
+              "condition": 0
+            }
+          ]
+        },
+        "registry": {
+          "namespace": 1,
+          "id": 1,
+          "name": "Reader",
+          "access": [
+            "clock",
+            "settings"
+          ],
+          "cursor": 0
+        },
+        "paths": [
+          "Right",
+          "Left"
+        ],
+        "entries": [
+          {
+            "id": 2,
+            "key": "clock",
+            "name": "clock"
+          },
+          {
+            "id": 1,
+            "key": "settings",
+            "name": "settings"
+          }
+        ],
+        "ownerNeeds": [
+          {
+            "kind": "Resource",
+            "id": 2
+          },
+          {
+            "kind": "Resource",
+            "id": 1
+          }
+        ],
+        "provisionedNeeds": [
+          {
+            "kind": "Resource",
+            "id": 2
+          },
+          {
+            "kind": "Resource",
+            "id": 1
+          }
+        ]
+      },
+      "available": [
+        {
+          "kind": "Resource",
+          "id": 1
+        },
+        {
+          "kind": "Resource",
+          "id": 2
+        }
+      ],
+      "description": {
+        "namespace": 1,
+        "scheduleName": "Update",
+        "steps": [
+          {
+            "kind": "System",
+            "id": 1,
+            "condition": 0
+          }
+        ],
+        "systemNamespace": 1,
+        "systemID": 1,
+        "systemName": "Reader",
+        "access": [
+          "clock",
+          "settings"
+        ],
+        "firstPath": "Right",
+        "secondPath": "Left",
+        "entries": [
+          {
+            "id": 2,
+            "key": "clock",
+            "name": "clock"
+          },
+          {
+            "id": 1,
+            "key": "settings",
+            "name": "settings"
+          }
+        ],
+        "needs": [
+          {
+            "kind": "Resource",
+            "id": 2
+          },
+          {
+            "kind": "Resource",
+            "id": 1
+          }
+        ]
+      }
+    },
+    {
+      "name": "disabled",
+      "request": 1,
+      "beforeWorld": {
+        "namespace": 2,
+        "nextId": 1,
+        "highWater": 0,
+        "live": [
+          false
+        ],
+        "capacity": 1,
+        "depth": 0,
+        "store": "unit",
+        "schemaEntries": [
+          {
+            "id": 1,
+            "key": "settings",
+            "name": "settings"
+          },
+          {
+            "id": 2,
+            "key": "clock",
+            "name": "clock"
+          }
+        ],
+        "settingsCells": [
+          17
+        ],
+        "clockCells": [
+          23
+        ],
+        "events": [
+          17
+        ],
+        "pendingCount": 2,
+        "registrations": [
+          {
+            "id": 1,
+            "name": "Reader",
+            "access": [
+              "clock",
+              "settings"
+            ]
+          }
+        ],
+        "nextSystemId": 2,
+        "clock": 41
+      },
+      "afterWorld": {
+        "namespace": 2,
+        "nextId": 1,
+        "highWater": 0,
+        "live": [
+          false
+        ],
+        "capacity": 1,
+        "depth": 0,
+        "store": "unit",
+        "schemaEntries": [
+          {
+            "id": 1,
+            "key": "settings",
+            "name": "settings"
+          },
+          {
+            "id": 2,
+            "key": "clock",
+            "name": "clock"
+          }
+        ],
+        "settingsCells": [
+          17
+        ],
+        "clockCells": [
+          23
+        ],
+        "events": [
+          17
+        ],
+        "pendingCount": 2,
+        "registrations": [
+          {
+            "id": 1,
+            "name": "Reader",
+            "access": [
+              "clock",
+              "settings"
+            ]
+          }
+        ],
+        "nextSystemId": 2,
+        "clock": 41
+      },
+      "beforeApp": {
+        "debug": "Disabled",
+        "schedule": {
+          "namespace": 2,
+          "name": "Update",
+          "steps": [
+            {
+              "kind": "System",
+              "id": 1,
+              "condition": 0
+            }
+          ]
+        },
+        "registry": {
+          "namespace": 2,
+          "id": 1,
+          "name": "Reader",
+          "access": [
+            "clock",
+            "settings"
+          ],
+          "cursor": 0
+        },
+        "paths": [
+          "Right",
+          "Left"
+        ],
+        "entries": [
+          {
+            "id": 2,
+            "key": "clock",
+            "name": "clock"
+          },
+          {
+            "id": 1,
+            "key": "settings",
+            "name": "settings"
+          }
+        ],
+        "ownerNeeds": [
+          {
+            "kind": "Resource",
+            "id": 2
+          },
+          {
+            "kind": "Resource",
+            "id": 1
+          }
+        ],
+        "provisionedNeeds": [
+          {
+            "kind": "Resource",
+            "id": 2
+          },
+          {
+            "kind": "Resource",
+            "id": 1
+          }
+        ]
+      },
+      "afterApp": {
+        "debug": "Disabled",
+        "schedule": {
+          "namespace": 2,
+          "name": "Update",
+          "steps": [
+            {
+              "kind": "System",
+              "id": 1,
+              "condition": 0
+            }
+          ]
+        },
+        "registry": {
+          "namespace": 2,
+          "id": 1,
+          "name": "Reader",
+          "access": [
+            "clock",
+            "settings"
+          ],
+          "cursor": 0
+        },
+        "paths": [
+          "Right",
+          "Left"
+        ],
+        "entries": [
+          {
+            "id": 2,
+            "key": "clock",
+            "name": "clock"
+          },
+          {
+            "id": 1,
+            "key": "settings",
+            "name": "settings"
+          }
+        ],
+        "ownerNeeds": [
+          {
+            "kind": "Resource",
+            "id": 2
+          },
+          {
+            "kind": "Resource",
+            "id": 1
+          }
+        ],
+        "provisionedNeeds": [
+          {
+            "kind": "Resource",
+            "id": 2
+          },
+          {
+            "kind": "Resource",
+            "id": 1
+          }
+        ]
+      },
+      "available": [
+        {
+          "kind": "Resource",
+          "id": 1
+        },
+        {
+          "kind": "Resource",
+          "id": 2
+        }
+      ],
+      "description": null
+    },
+    {
+      "name": "disabled",
+      "request": 2,
+      "beforeWorld": {
+        "namespace": 2,
+        "nextId": 1,
+        "highWater": 0,
+        "live": [
+          false
+        ],
+        "capacity": 1,
+        "depth": 0,
+        "store": "unit",
+        "schemaEntries": [
+          {
+            "id": 1,
+            "key": "settings",
+            "name": "settings"
+          },
+          {
+            "id": 2,
+            "key": "clock",
+            "name": "clock"
+          }
+        ],
+        "settingsCells": [
+          17
+        ],
+        "clockCells": [
+          23
+        ],
+        "events": [
+          17
+        ],
+        "pendingCount": 2,
+        "registrations": [
+          {
+            "id": 1,
+            "name": "Reader",
+            "access": [
+              "clock",
+              "settings"
+            ]
+          }
+        ],
+        "nextSystemId": 2,
+        "clock": 41
+      },
+      "afterWorld": {
+        "namespace": 2,
+        "nextId": 1,
+        "highWater": 0,
+        "live": [
+          false
+        ],
+        "capacity": 1,
+        "depth": 0,
+        "store": "unit",
+        "schemaEntries": [
+          {
+            "id": 1,
+            "key": "settings",
+            "name": "settings"
+          },
+          {
+            "id": 2,
+            "key": "clock",
+            "name": "clock"
+          }
+        ],
+        "settingsCells": [
+          17
+        ],
+        "clockCells": [
+          23
+        ],
+        "events": [
+          17
+        ],
+        "pendingCount": 2,
+        "registrations": [
+          {
+            "id": 1,
+            "name": "Reader",
+            "access": [
+              "clock",
+              "settings"
+            ]
+          }
+        ],
+        "nextSystemId": 2,
+        "clock": 41
+      },
+      "beforeApp": {
+        "debug": "Disabled",
+        "schedule": {
+          "namespace": 2,
+          "name": "Update",
+          "steps": [
+            {
+              "kind": "System",
+              "id": 1,
+              "condition": 0
+            }
+          ]
+        },
+        "registry": {
+          "namespace": 2,
+          "id": 1,
+          "name": "Reader",
+          "access": [
+            "clock",
+            "settings"
+          ],
+          "cursor": 0
+        },
+        "paths": [
+          "Right",
+          "Left"
+        ],
+        "entries": [
+          {
+            "id": 2,
+            "key": "clock",
+            "name": "clock"
+          },
+          {
+            "id": 1,
+            "key": "settings",
+            "name": "settings"
+          }
+        ],
+        "ownerNeeds": [
+          {
+            "kind": "Resource",
+            "id": 2
+          },
+          {
+            "kind": "Resource",
+            "id": 1
+          }
+        ],
+        "provisionedNeeds": [
+          {
+            "kind": "Resource",
+            "id": 2
+          },
+          {
+            "kind": "Resource",
+            "id": 1
+          }
+        ]
+      },
+      "afterApp": {
+        "debug": "Disabled",
+        "schedule": {
+          "namespace": 2,
+          "name": "Update",
+          "steps": [
+            {
+              "kind": "System",
+              "id": 1,
+              "condition": 0
+            }
+          ]
+        },
+        "registry": {
+          "namespace": 2,
+          "id": 1,
+          "name": "Reader",
+          "access": [
+            "clock",
+            "settings"
+          ],
+          "cursor": 0
+        },
+        "paths": [
+          "Right",
+          "Left"
+        ],
+        "entries": [
+          {
+            "id": 2,
+            "key": "clock",
+            "name": "clock"
+          },
+          {
+            "id": 1,
+            "key": "settings",
+            "name": "settings"
+          }
+        ],
+        "ownerNeeds": [
+          {
+            "kind": "Resource",
+            "id": 2
+          },
+          {
+            "kind": "Resource",
+            "id": 1
+          }
+        ],
+        "provisionedNeeds": [
+          {
+            "kind": "Resource",
+            "id": 2
+          },
+          {
+            "kind": "Resource",
+            "id": 1
+          }
+        ]
+      },
+      "available": [
+        {
+          "kind": "Resource",
+          "id": 1
+        },
+        {
+          "kind": "Resource",
+          "id": 2
+        }
+      ],
+      "description": null
+    }
+  ],
+  "additionalControls": {
+    "reversedPaths": {
+      "grantOrder": [
+        "clock",
+        "settings"
+      ],
+      "viewTypes": [
+        "Bool",
+        "U32"
+      ],
+      "bodyResult": true,
+      "clockValue": true,
+      "settingsValue": 17
+    },
+    "duplicateKey": {
+      "kind": "Resource",
+      "key": "settings",
+      "error": "DuplicateKey",
+      "leftOwnerCells": [
+        17
+      ],
+      "rightOwnerCells": [
+        23
+      ]
+    },
+    "sourceAttempts": [
+      "cross-schema",
+      "wrong-layout",
+      "label-path",
+      "write-through-read",
+      "affine-owner"
+    ]
+  },
+  "basis": [
+    "canonical schema traversal settings1/clock2; parameter Right then Left never renumbers",
+    "world.create_checked: next1/high0/livefalse/capacity1/depth0/system1/clock0",
+    "fixture config: events17, identity pending twice, clock41",
+    "actual System.register assigns ID1 then next2",
+    "actual SP Entry preserves [Resource2,Resource1]",
+    "App.describe disabled branch returns before observed; enabled does not run user body"
+  ]
+}

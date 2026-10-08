@@ -1,0 +1,30 @@
+import Base
+import ./normal-bootstrap.bend as Bootstrap
+import ./normal-application.bend as Application
+import ./normal-consumer.bend as Consumer
+import ./normal-render.bend as Render
+import ./canonical-app.bend as App
+# Owners reach each observation before terminal IO deliberately ends their lifetime.
+def row(name:String,request:U32,observation:Consumer.Observation) -> String:
+  Render.object([Render.field("name",Render.quote(name)),Render.field("request",U32.show(request)),Render.field("observation",Render.observation(observation))])
+def second(name:String,first:String,result:Consumer.Observed) -> String:
+  match result:
+    case Consumer.Observed{world,app,observation}:first++"\n"++row(name,2,observation)
+def first(+name:String,result:Consumer.Observed) -> String:
+  match result:
+    case Consumer.Observed{world,app,observation}:second(name,row(name,1,observation),Consumer.observe(world,app))
+def prepared(name:String,result:Application.Prepared) -> String:
+  match result:
+    case Application.Prepared{world,app}:first(name,Consumer.observe(world,app))
+    case other:"registration-or-schedule-refused"
+def started(name:String,result:Bootstrap.Started) -> String:
+  match result:
+    case Bootstrap.Started{value}:prepared(name,value)
+    case other:"schema-or-namespace-refused"
+def disabled_started(first:String) -> IO(Unit):
+  # Only detached observation text crosses the next actual namespace IO boundary.
+  IO.bind(Bootstrap.Started,Unit,Bootstrap.start(App.Disabled{}),value=>IO.print(first++"\n"++started("disabled",value)))
+def enabled_finished(result:Bootstrap.Started) -> IO(Unit):
+  disabled_started(started("enabled",result))
+def main() -> IO(Unit):
+  IO.bind(Bootstrap.Started,Unit,Bootstrap.start(App.Enabled{}),enabled_finished)
