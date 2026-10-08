@@ -1,0 +1,70 @@
+{
+  "root": "/workspace/formal-proofs/bendvy",
+  "head": "5029f79f6cda54e6d380ffa7e809174f71ff7bb7",
+  "scope": "Exact read-only source snapshot; historical finite qualifications do not transfer to current public APIs",
+  "refresh": {
+    "previousHead": "f1a5e612e581fb7b6df376d454b92fddc5fc8c85",
+    "previousSnapshotSHA256": "664a927c84fff70c41d5591be2d3924e0f9668e71b4978e09dfb76ff48ff78ba",
+    "sourceByteChanges": [],
+    "reason": "Root adopted detached JS72 as f1a5e612 and subsequently clarified ordinary declaration Debug in 5029f79f; refresh does not select contracts."
+  },
+  "files": [
+    {
+      "path": "src/ecs/inspector.bend",
+      "SHA256": "31302fa8b9f68c560e744f613948613218c5ef1f4564c4236c5655a6bf2ab597"
+    },
+    {
+      "path": "src/ecs/inspector-metadata.bend",
+      "SHA256": "a2c715edcfefff6f3f5abcd84e5293c7ebf29521708f2298fe90bff36b96ad4a"
+    },
+    {
+      "path": "src/ecs/inspector-declaration.bend",
+      "SHA256": "835bedcfac18d3a567b06fc5ee4e4cfdfcb804d0701ca86e6e155b2760189997"
+    },
+    {
+      "path": "src/ecs/inspector-query.bend",
+      "SHA256": "c6b0f092e6271f3ee8c8ec3552f159ee65821440ef0561d4b63d16544991ea00"
+    },
+    {
+      "path": "src/ecs/check.bend",
+      "SHA256": "9b0bef9ab0d3c4905138916d1c6a89cc7669b460c86c985d3dcc9d3424d7252f"
+    },
+    {
+      "path": "src/ecs/machine-world.bend",
+      "SHA256": "8b8610e7ae42eea066639b5cb970a2885dd2fa14024efedef9fbc28dd6ba1816"
+    },
+    {
+      "path": "src/ecs/machine-stream.bend",
+      "SHA256": "c47ff38671eb67b4369311408c81a2ef388ed971923419625c36f92219eb0fe4"
+    },
+    {
+      "path": "src/ecs/relation-query.bend",
+      "SHA256": "e9c129a5404ab2eabc0d39f57364036cfc3f3c8c68e520cb679419b39bd98800"
+    }
+  ],
+  "evidence": [
+    {
+      "surface": "detached Check normal JS",
+      "rootCommit": "f1a5e612e581fb7b6df376d454b92fddc5fc8c85",
+      "workerCommit": "2ced48c2a4ae3001f8949c6ba8e2c93eae156483",
+      "planSHA256": "51d894c63fa397fac500ec5722ab34596889af03c7d38ec235d738a32a37cd88",
+      "receiptSHA256": "15eed3b0646b538df4c16057daae6e2ff1187fd42ce711d43f2b16bbecae8eb4",
+      "scope": "Normal only,151386B unchanged whole oracle;10 callbacks/320 declaration evaluations plus192 separate diagnostics;4prep20exec",
+      "status": "QUALIFIED_FINITE_JS_NOT_NATIVE_OR_FULL55"
+    },
+    {
+      "surface": "retained Result Check normal Native",
+      "planSHA256": "88b98c14bbaa3e1424ad54ad48fb8b7986465fd10a4d3751bf9beb7b95abfe89",
+      "receiptSHA256": "28f9fa27dcb2fa0f7eb8a9aa51b94829b8938345661a666ce03010c41188586a",
+      "status": "INCOMPLETE_FIRST_C30_NO_C_OR_RUNTIME",
+      "scope": "FirstWorkshop deadline;15guard5prep;Garden not executed"
+    },
+    {
+      "surface": "detached Check normal Native",
+      "planSHA256": "d5bc6086c06efe0ff917703f9b8f5b99dff60853757ee09a48b199cc8d6348b6",
+      "receiptSHA256": "54103700b9f6ecac5f1e10e0cd3810175a995e98c6ade6df4dab85f4da708c45",
+      "status": "INCOMPLETE_FIRST_C30_NO_C_OR_RUNTIME",
+      "scope": "FirstWorkshop deadline;15guard5prep;Garden not executed;no false variant credit"
+    }
+  ]
+}
