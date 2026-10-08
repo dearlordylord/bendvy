@@ -29,7 +29,8 @@ schedules, resources,
 events, relations or complete parity. Creation uses the existing trusted
 single-world Factory setup; no handles escape to the host or survive restart.
 Gameplay checks are finite executable controls, not new approved laws or proofs.
-No ECS source changes or performance qualification are included.
+The example adds no ECS behavior or performance qualification; its compatibility
+fix only gives internal world-scan constructors distinct names.
 
 Optional browser smoke test, with an already installed Playwright:
 

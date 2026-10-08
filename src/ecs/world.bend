@@ -178,19 +178,19 @@ def handles_finish(~S: Data,~C: Type,~R: Type,~E: Data,scanned: HandleScan<S>,+n
     case HandleScan{live,handles}: (World{namespace,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId,clock},List.reverse(&2,Handle<S>,handles))
 
 type TailScanPhase<S:Data> is Type:
-  Ready{live:Array<Bool>,handles:List<&2,Handle<S>>}
-  Read{checked:Array<Bool> & Bool,handles:List<&2,Handle<S>>}
+  WorldTailScanReady{live:Array<Bool>,handles:List<&2,Handle<S>>}
+  WorldTailScanRead{checked:Array<Bool> & Bool,handles:List<&2,Handle<S>>}
 def collect_tail_loop(~S:Data,fuel:Nat,remaining:Nat,+namespace:U32,phase:TailScanPhase<S>) -> HandleScan<S>:
   match fuel remaining phase:
-    case 0n _ Ready{live,handles}: HandleScan{live,handles}
-    case 0n _ Read{(live,_),handles}: HandleScan{live,handles}
-    case 1n+more 0n Ready{live,handles}: HandleScan{live,handles}
-    case 1n+more 1n++rest Ready{live,handles}: collect_tail_loop(~S,more,1n+rest,namespace,Read{Array.get(Bool,live,U32.from_nat(1n+rest)),handles})
-    case 1n+more 0n Read{(live,_),handles}: HandleScan{live,handles}
-    case 1n+more 1n++rest Read{(live,present),handles}: collect_tail_loop(~S,more,rest,namespace,Ready{live,collect_checked(~S,present,namespace,U32.from_nat(1n+rest),handles)})
+    case 0n _ WorldTailScanReady{live,handles}: HandleScan{live,handles}
+    case 0n _ WorldTailScanRead{(live,_),handles}: HandleScan{live,handles}
+    case 1n+more 0n WorldTailScanReady{live,handles}: HandleScan{live,handles}
+    case 1n+more 1n++rest WorldTailScanReady{live,handles}: collect_tail_loop(~S,more,1n+rest,namespace,WorldTailScanRead{Array.get(Bool,live,U32.from_nat(1n+rest)),handles})
+    case 1n+more 0n WorldTailScanRead{(live,_),handles}: HandleScan{live,handles}
+    case 1n+more 1n++rest WorldTailScanRead{(live,present),handles}: collect_tail_loop(~S,more,rest,namespace,WorldTailScanReady{live,collect_checked(~S,present,namespace,U32.from_nat(1n+rest),handles)})
 
 def collect_tail(~S: Data,+remaining: Nat,+namespace: U32,live: Array<Bool>) -> HandleScan<S>:
-  collect_tail_loop(~S,Nat.mul(2n,remaining),remaining,namespace,Ready{live,[]})
+  collect_tail_loop(~S,Nat.mul(2n,remaining),remaining,namespace,WorldTailScanReady{live,[]})
 
 def handles_tail_finish(~S: Data,~C: Type,~R: Type,~E: Data,scanned: HandleScan<S>,+namespace: U32,+nextId: U32,+highWater: U32,+capacity: U32,+depth: Nat,store: C,resource: R,+events: List<&2,E>,pending: List<(World<S,C,R,E> -> World<S,C,R,E>)>,+registrations: List<&2,RegistrationMeta>,+nextSystemId: U32,+clock: U32) -> World<S,C,R,E> & List<&2,Handle<S>>:
   match scanned:
