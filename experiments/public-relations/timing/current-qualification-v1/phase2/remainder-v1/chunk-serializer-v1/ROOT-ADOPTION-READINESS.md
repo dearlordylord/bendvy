@@ -1,0 +1,18 @@
+# Narrow relation-module adoption readiness
+
+`root-adoption-byte-joins.json` joins all eight modules exactly across this candidate worktree, current coordinator root, root #28 candidate stage, receipt.sources.candidate and the committed regression archive. Actual a8859 Native full30 consumed closure joins the same bytes via relation-readiness-source-joins.json. The original regression receipt remains ERROR; the separate coordinator reconciliation is a narrow workload result. Copied module membership does not establish that the regression benchmark exercised relations, or qualify full-feature performance.
+
+| Evidence | Finite API coverage | Boundary |
+| --- | --- | --- |
+| Actual runtime-input full30 JS/Native | Registered commands, deferred publication, inverse snapshots, relation/component composed query, rollback, linked cleanup and reorder on two worlds; complete immutable snapshots | Named64/256 cases only, source-bound backend receipts; no universal proof |
+| Current normal controls |66 lifetime/query shapes with retained snapshots;36 cleanup checkpoints/219-transition cross-descriptor case; separate131072 carrier | Exact current normal closures, not replayed historical mutants |
+| Query historical reached mutants | Empty inverse present, reversed inverse order and retained query witnesses (eight backend rows) | Consumed query/types/graph/commands join; current World difference addressed by normal controls, not retroactively patched into old receipt |
+| Lifetime historical reached mutants | Reversed inverse order, omitted conjunction and retained lifetime witnesses (eight backend rows) | Same finite historical/source reuse limits |
+| CleanupV5 historical reached mutants | Wrong removal order, survivor drop, omitted component clear, linked order reversal, entered-despawn omission and fixed128 completion (12 backend rows) | Exact graph/type + import relocation for commands/providers/cleanup; neither reorder module is qualified by this mutant slice |
+| Compile-negative source files | Affine/schema boundaries, undeclared/read-only/inverse/cleanup/reorder capability restrictions are authored in retained fixtures | The existing source-reuse manifest joins normal closures, not all negative entrypoint closures; current all-eight negative coverage cannot be inferred merely from these files |
+
+The implemented public query API uses arbitrary requirement lists, immutable Data rows and an affine Type application owner. Providers expose inverse snapshots without an inverse setter; gameplay requests descriptor-bound registered writes. Full30 execution observes visibility before/after barriers and rollback. These tested public API paths show no new semantic gap requiring another core rewrite.
+
+A narrow adoption review can use these exact module bytes and retained normal/reached-mutant scopes, but this reconciliation does not approve adoption. The coordinator must decide against the governing #42 contract and explicitly join any relied-on compile-negative entrypoint closures and reorder mutant witnesses; the old normal-source join alone cannot fill those rows. Fresh-checkout imports still depend on coordinator adoption. Final issue closure additionally needs complete N1024 output, remaining unmatched correctness-family controls and equal-work JS≤TS / Native≤0.5×TS qualification. Neither the narrow #28 reconciliation nor instrumented profiling supplies that full-feature performance gate.
+
+Recommended next authorized work is the existing coordinator relation adoption/coverage review with explicit finite source joins, followed by the already-scoped public API/negative gaps it identifies. No new laws, contracts, source edits, benchmark thresholds or speculative microoptimization are introduced here.

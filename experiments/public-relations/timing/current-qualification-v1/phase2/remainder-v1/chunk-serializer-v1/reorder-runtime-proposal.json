@@ -1,0 +1,92 @@
+{
+  "scope": "Current normal plus three actual registered reorder mutants; independent unchanged52checkpoint oracles/fullpayload/failure/queue output. Freshcurrentgraph/World required; no historicalwholeclosure runtime credit.",
+  "historicalArchive": "experiments/public-relations/evidence/reorder-1791361321007561029.tar.gz",
+  "historicalArchiveSHA256": "1e22faec442ff74e7e4a26760c2cade4cabd8e53124da0e9e029c6a379a5c204",
+  "receiptMember": "reorder-1791361321007561029/receipt.json",
+  "receiptSHA256": "27dd701e28d2154cfd51d0281cd4778310ec67872fb07a27441034aa80a7397e",
+  "mutations": [
+    {
+      "case": "inverse-order-omission",
+      "currentModule": "src/ecs/relation-reorder-core.bend",
+      "currentSHA256": "be833923be7481a6bf002723b857d69ebfae6861394021947138d2bb01166f6a",
+      "before": "case True{} T.Inverse{d,parent,_}: T.Inverse{d,parent,sources} <> rest",
+      "after": "case True{} T.Inverse{d,parent,old}: T.Inverse{d,parent,old} <> rest",
+      "replacementCount": 1,
+      "candidateMutantSHA256": "f6213ff5489c6332f86a5e8ec72e16028fec0355cab8cb8ca5e05bdde0128b38",
+      "historicalMutantMember": "reorder-1791361321007561029/inverse-order-omission/experiments/public-relations/reorder-core.bend",
+      "historicalMutantSHA256": "5f8fa03dcdf25895a330d657c4d644d72b3504618662ffc8447fffc65f89b2ff",
+      "importRelocatedBodyMatches": true,
+      "witnesses": [
+        {
+          "backend": "js",
+          "count": 46,
+          "fullCheckpointCount": 52,
+          "witnessSHA256": "be8c16d2be56d72196384f4e8c67719ca868fb7b4e47568c7f79432a738ed53a"
+        },
+        {
+          "backend": "native",
+          "count": 46,
+          "fullCheckpointCount": 52,
+          "witnessSHA256": "be8c16d2be56d72196384f4e8c67719ca868fb7b4e47568c7f79432a738ed53a"
+        }
+      ]
+    },
+    {
+      "case": "child-before-parent",
+      "currentModule": "src/ecs/relation-reorder-core.bend",
+      "currentSHA256": "be833923be7481a6bf002723b857d69ebfae6861394021947138d2bb01166f6a",
+      "before": "case False{}: Some{T.MissingEntity{parent}}",
+      "after": "case False{}: children_checked(~S,children,graph,d,parent,[])",
+      "replacementCount": 1,
+      "candidateMutantSHA256": "e4331c6ef8ae77417e2be7bf64c9583e83181b48bb1c5326467119751faf0cf7",
+      "historicalMutantMember": "reorder-1791361321007561029/child-before-parent/experiments/public-relations/reorder-core.bend",
+      "historicalMutantSHA256": "9d850b24ba355ece2d15ade62d61e04d14d650201f16a133b7745b25db8c0411",
+      "importRelocatedBodyMatches": true,
+      "witnesses": [
+        {
+          "backend": "js",
+          "count": 42,
+          "fullCheckpointCount": 52,
+          "witnessSHA256": "863174220bdc17fdc956a69bb50bfdef4341b9d8b523a4fc4e2e8b460c343a11"
+        },
+        {
+          "backend": "native",
+          "count": 42,
+          "fullCheckpointCount": 52,
+          "witnessSHA256": "863174220bdc17fdc956a69bb50bfdef4341b9d8b523a4fc4e2e8b460c343a11"
+        }
+      ]
+    },
+    {
+      "case": "wrong-failure-target",
+      "currentModule": "src/ecs/relation-reorder.bend",
+      "currentSHA256": "2d58a3d76aaa955044b39f6cafcfdbbda6a4b20415bea8b4041193072a35d9dd",
+      "before": "parent,error_target(error,parent),error",
+      "after": "parent,parent,error",
+      "replacementCount": 1,
+      "candidateMutantSHA256": "e9f5fa34d85bf331554d3d2ef0952c656e5072a3859e8807ea5c5159e45cee0d",
+      "historicalMutantMember": "reorder-1791361321007561029/wrong-failure-target/experiments/public-relations/reorder-adapter.bend",
+      "historicalMutantSHA256": "d8fda42becf45db3ed36960bf8c1e0b6038408e569c702bd585ea89311e02001",
+      "importRelocatedBodyMatches": true,
+      "witnesses": [
+        {
+          "backend": "js",
+          "count": 38,
+          "fullCheckpointCount": 52,
+          "witnessSHA256": "224bd3e8b671392436c738f2a4a6ded61240c6969bcc7e7b8b4e211fee4a2d05"
+        },
+        {
+          "backend": "native",
+          "count": 38,
+          "fullCheckpointCount": 52,
+          "witnessSHA256": "224bd3e8b671392436c738f2a4a6ded61240c6969bcc7e7b8b4e211fee4a2d05"
+        }
+      ]
+    }
+  ],
+  "sourcePrecondition": "Reviewed cheappositive+threeprecisenegative source5 cohort must terminate before backendpreparation.",
+  "plannedConsumers": "Four isolated currentclosures normal+3mutants, each JSemit30/runtime5 andNativeCemit30/Clang19compile120/runtime5; ordered normalJS first, then rest. Fulloriginal52 checkpoint observer outputs and original46/42/38 witnesssets compared exactly, no droppedfields/observer shortcuts.",
+  "oracleBinding": "Original full normal command19 and complete witness objects are archived, with original receipt and Bend spec. Current reorder-model.py exact hash joins original receipt; old Python encoder source is not archived, current helper changed, only old encoder hash retained. No current output learned as expectations.",
+  "guards": "Actual executablewrapper/currentconsumedclosure/stage/config/tools/privateenv/allhistoricalsource/raw/probe evidence frozen before ordinarysnapshot; exactsource/runtimeplans reviewed before children. Ordinary probes owned, CPU5/runtime5/thread1/GPUoff unchanged; no broadrediscovery/timing/newpolicy/caps/dependencies.",
+  "currentRootClosure": "reorder-current-root-closure.json audits every consumed Bend path. Exactly one root delta: capabilities appends12 OwnedRequest lines to exact legacy prefix; fresh stages overlay actual pinned root bytes. Prior cheap stage/authority diagnostics preserved, unused new leaf does not require negative replay."
+}
