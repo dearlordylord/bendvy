@@ -147,3 +147,14 @@ transaction. Equality, endpoints, decoder and closed checked-write adapters are
 trusted consumer declarations. See
 [`public-component-state`](../../experiments/public-component-state/completion.md)
 for source-bound controls and remaining #47 delivery gates.
+
+`MachineHandlerBundle` (`machine-handler-bundle.bend`) assembles arbitrary nested
+typed exit/transition/enter registrations. It flattens authored order, validates
+the world namespace and the stable union of all authored requirements (including
+inactive entries), selects matching phases, and calls the existing handler kernel
+once. Every registry and affine Local owner is returned on success or refusal.
+Requirements, equality, frame adapters and transaction inverses remain trusted
+closed author declarations. Raw partitions are trusted constructors.
+The [current qualification](../../experiments/public-machine-handlers/candidate-v1/bundle-v1/delivery-relocated-v1/REPORT.md)
+and reached JS/Native mutations establish finite application coverage; full #49,
+#48 policy, universal bundle laws and feature-specific timing remain separate.
