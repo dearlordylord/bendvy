@@ -18,5 +18,16 @@
       "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-setup.bend": "05d0db891ee77013bfad08c0fec19f5950407824708976d77c44134c624fd138"
     },
     "reason": "World Array.set uses entity IDs1,2,3; observer enumerates physicalindices0..capacity-1; index0 remainsfalse. No backend outputs."
+  },
+  "preBackendReplacementOwnerCorrection": {
+    "previousExpectedSHA256": "6974fefb4552f2602654922168900acfd1811c899ab627e8d513c779d67adc28",
+    "expectedSHA256": "ddeda9c7cfd8e4ba4563ba7e9e8868a074e9c8001cc8e989eeadf43baef0a8ce",
+    "sourceSHA256": {
+      "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-dto.bend": "3bde409add49493149b85396d01e0dd83b236c0acb3d2c779a36e447696f6372",
+      "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-driver.bend": "1a7256ed0804d0250ee43f5b62c3329f90fd89ba7ce41912f8db7eb5f1c949cb",
+      "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-main.bend": "82719387db6ff156460997a219067807a294afff55750d65ac7f6f3046205fb5",
+      "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-returned.bend": "cc6dcc2f5924a8594c10ed207dbbbf3fcf4fb969470ba124f718972b843ee4ec"
+    },
+    "sourceReason": "Successful e2 Position replace returns actual previous Some(Array[2,102]); returned owner projected once and retained until Delivery teardown; incoming absent after successful insertion. Three phase8 observations added; allother fields unchanged; no backend."
   }
 }

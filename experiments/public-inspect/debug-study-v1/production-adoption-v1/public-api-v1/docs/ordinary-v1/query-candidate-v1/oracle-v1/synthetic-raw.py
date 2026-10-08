@@ -33,7 +33,7 @@ records={
 }
 # For named fields, require exact shape. For a single flattened field, render the whole tag value.
 sums={
- 'Operation':{'Observed':(DTO,[]),'Run':(DTO,[('result','Result')]),'PositionReplaced':(DTO,[('result','Status')]),'RefusedRegistration':(DTO,[('args','RejectedArgs'),('foreignWorld','WorldSnapshot'),('registry','RegistrySnapshot')])},
+ 'Operation':{'Observed':(DTO,[]),'Run':(DTO,[('result','Result')]),'PositionReplaced':(DTO,[('result','Status'),('previous','MaybeFull'),('incoming','MaybeFull')]),'RefusedRegistration':(DTO,[('args','RejectedArgs'),('foreignWorld','WorldSnapshot'),('registry','RegistrySnapshot')])},
  'Storage':{'Plain':(DTO,[]),'Transient':(DTO,[]),'Constructed':(DTO,[('codec','Codec')])},
  'Codec':{'ArrayValue':(CODEC,'Codec'),'Integer':(CODEC,[])},
  'MaybeFull':{'None':('Base',[]),'Some':('Base','FullCell')},

@@ -34,7 +34,7 @@ def scenario(category):
     observe('seed',{'Observed':{}},False);observe('register',{'Observed':{}})
     run('main-fail',0,[1],True);run('main-retry',0,[1,2]);run('main-second',0,[1,2]);run('added-first',1,[1,2]);run('added-empty',1,[])
     clock+=1;state['Position'][2][0]=[5,102];state['Position'][2][2]=clock
-    observe('position-e2-replace',{'PositionReplaced':{'result':{'Accepted':{}}}})
+    observe('position-e2-replace',{'PositionReplaced':{'result':{'Accepted':{}},'previous':{'Some':full([2,102])},'incoming':{'None':{}}}})
     run('changed-first',2,[1,2]);run('changed-empty',2,[]);run('without-health',3,[2]);run('with-health',4,[1])
     observe('app-enabled-descriptions',{'Observed':{}},descriptions=[{'Some':description()},{'Some':description()}])
     observe('app-disabled-description',{'Observed':{}},descriptions=[{'None':{}}])
