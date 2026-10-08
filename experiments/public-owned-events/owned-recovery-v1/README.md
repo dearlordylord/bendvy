@@ -64,3 +64,11 @@ no-child full raw/source/oracle join, including historical LF-only repair. Its
 scope does not certify host tools or reconstruct omitted generated artifacts.
 No new proof, mutation execution, Type fan-out, World admission, #51/#52 rollback,
 retention/readers/performance or #53 completion is claimed.
+
+A source-current [abort-loss development mutant](mutants/abort-loss-v1/README.md)
+now compiles and actually executes through the same main consuming path in JS.
+Its sole change drops the oldest staged owner on abort. The unchanged complete
+oracle rejects the full output; the independently pre-run exact counterfactual
+matches every retained/returned payload cell. Production staging and baseline
+receipts remain unchanged. This scoped falsifier does not close #53 or replace
+World/reader/rollback/performance delivery evidence.
