@@ -1,27 +1,29 @@
 # Bendvy
 
-Bevy-style ECS for Bend 2. Target: the full core behavior of the pinned bevy-ts reference, with APIs and storage designed for Bend's type system, affine ownership and runtime.
+A Bevy-style ECS built for [Bend 2](https://github.com/bendlang/bend), including its type system, affine ownership and JS/native runtimes. Still a work in progress; the API is evolving.
 
-This repository contains a development specification, executable bounded ECS prototypes, proof evidence and performance diagnostics. It does not yet provide an accepted production ECS API. Start from the [current checkpoint](docs/next-core-checkpoint.md), not historical experiment results.
+## What works so far
 
-The current [blind API audit](docs/tickets/23-blind-ecs-api-audit.md) tests whether an independent application author can use the interfaces without engine-specific workarounds.
+- World-scoped entities, typed components and resources.
+- Heterogeneous queries with required/optional selections, filters and change detection.
+- Declared read/write access, systems, schedules and system-local state.
+- Deferred commands, explicit barriers and transactional rollback.
+- Typed bundles, directed relations, state machines and transition handlers.
+- Read-only Inspector/Check primitives.
 
-- [Specification](docs/SPEC.md)
-- [GitHub task #1](https://github.com/dearlordylord/bendvy/issues/1) (`ready-for-agent`)
-- [Near-term plan](docs/next-stage-plan.md)
-- [Published tickets and dependencies](docs/ticket-breakdown.md)
-- [Agreed scope](docs/planning-scope.md)
-- [Development roadmap](docs/development-roadmap.md)
-- [Follow-up tasks](docs/follow-ups.md)
-- [Bend architecture research](docs/bend2-ecs-port.md)
-- [bevy-ts analysis](docs/bevy-ts-analysis.md)
-- [Core catalogue and six reference traces](docs/reference/core-map.md) (T02; runtime observations pending dependency approval)
-- [Pinned references](.references/sources.json)
+These pieces have scoped tests and examples. They don't yet add up to complete parity.
 
-Performance requirements: low-level native builds must substantially outperform bevy-ts; JavaScript builds must be at least comparable on equivalent workloads. Approved targets are JS/TS elapsed <=1.00 and Native/TS elapsed <=0.50 on equivalent work. These are product requirements; raw diagnostic ratios do not establish full acceptance.
+## Parity and performance
 
-Development follows bend-ldd: candidate laws, falsification, human approval, proofs, and mutation checks. Individual laws are approved before their proofs are written.
+The goal is full **bevy-ts ECS core parity**, with idiomatic Bend APIs. Remaining work includes debug tooling, snapshots/restore, hierarchy/scopes, broader ownership support and complete cross-feature coverage. See the [parity tracker](docs/parity/README.md) and [spec](docs/SPEC.md).
 
-The first application is a small deterministic console simulation on CPU. A later integration check will use a separate copy of canonical-defense; its original repository must remain unchanged.
+Performance targets: JS at least as fast as bevy-ts, native at least 2× faster on equivalent workloads. Current benchmark wins are workload-specific; full parity performance is still to be qualified.
 
-The reference source checkouts are local and excluded from Git. Their URLs and commits are recorded in the reference manifest. The default branch is `master`.
+## How we're building it
+
+- [Rust Bevy](https://github.com/bevyengine/bevy) for ECS architecture, [bevy-ts](https://github.com/SandroMaglione/bevy-ts) for executable behavior, and Bend's source/compiler for language and runtime details. [Reference versions](.references/sources.json) are pinned.
+- Law-driven development: falsification, approved laws, proofs where available, and mutation tests.
+- Independent API reviews and complete reference comparisons, including ownership and error cases.
+- Autoresearch performance loops guided by JS CPU/allocation profiles, native measurements and regression benchmarks.
+
+Contributions, advice and awkward ECS edge cases are welcome!
