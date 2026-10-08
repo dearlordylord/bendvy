@@ -1,0 +1,9 @@
+# Application development result
+
+Actual complete Family JS report matches the independently authored whole oracle `724b69f4…`: 8482 bytes, SHA256 `4bd6d9336e5216708725059bffd10d87313e517a71a1ae49cbbeaed38b284e1f`. Both nominal schemas exercise actual Core Family Found, removal/returned payload, ComponentAbsent and foreign-world MissingEntity while retaining complete World, physical arrays/stamps and recipe observations.
+
+The compiling reached bridge mutant changes only `put_column`: retain the actual column/rest/identity/project but reconstruct the declaration with Array<Integer>. Its complete actual report matches the pre-runtime whole counterfactual `fd8f5204…`: 8472 bytes, SHA256 `4fcf8855636da6f90803b2203340f125db92564488d5526340dd6e32e73a7bc7`. Exactly Workshop/Garden trace.afterA.owner.store.codec change; all other report fields remain equal. Mutant source5 passes. The mutation is private staged source, not library code.
+
+The undeclared-descriptor route returns exact `True{}\n` (7 bytes). The original JSON comparison failed because the default Bend Bool renderer is not JSON; raw, original failed receipt and comparison reconciliation remain retained. Root approved strict True{} / False{} normalization, rejecting every other byte sequence; this maps to the whole independent `true` oracle without backend replay.
+
+Actual children use the existing central task_runner, emit30/Node5 CPU5, telemetry off, heavy lock only for the actual child, source/stage/oracle/tool-byte/environment guards and retained raw. The archive excludes generated JS; its hash is recorded in each receipt. Scope is application development semantics. No complete resolver/tool qualification, Native, performance, mathematical proof or full #58 closure is claimed. `verify.py` checks archive membership/hashes and complete type-sensitive report equality without executing any backend.
