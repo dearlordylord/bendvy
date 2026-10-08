@@ -1,0 +1,13 @@
+# Ordinary snapshot adoption development evidence (#58)
+
+Implementation: `7a1a359f` (24 owned source/document files); independent oracle/review commits `ce5c21d7`, `b54e6ca7`. This is development semantics evidence, not shared-core promotion or #58 completion.
+
+- Whole JS and Native reports match independent `a73fafb4…`: entire prior `9682fe82…` Workshop/Garden scenario plus schema-derived inventory and actual accepted/rejected admission ownership. Both raw reports are 9605 bytes, SHA `c381bdea…`, byte-identical. JS emit30/Node5; Native emit30/approved private Clang19 build120/run5, CPU5/threads1/GPUoff; all exits0/stderr empty.
+- Exact reached product control removes `List.append(fields,more)` in `joined_components`, returning both owners unchanged. Source5/emit30/Node5 exit0; full output matches independent `ea171b92…` and fails the full positive oracle with 30 differences. Snapshots/validation lose persisted fields; every owner, retained codec, metadata, derived declaration and admission observation remains equal to the whole independent counterfactual.
+- Four source-current controls each have one intended refusal: Plain component/resource save eligibility, foreign schema, duplicate affine world. Each exits1 within5s, stdout empty, with exact source/tool/Base/environment pre/post guards. Earlier parser errors/timeouts remain private draft history and count as no boundary evidence.
+
+Historical positive runtime sources precede a sole extra-EOF-blank-line cleanup required by configured hooks. Original and integration hashes are in `cosmetic-eof-delta.json`; no backend replay or current-root runtime qualification is claimed. The mutant freezes the cleaned candidate. Its stage `importJoins` is the original import-only baseline: the mutation row and actual staged graph guard give the changed target digest; the verifier interprets this explicit delta without rewriting receipts.
+
+The archive retains 191 regular members: source snapshots, terminal receipts/raw streams, guards/plans, exact used focused runner texts and source-control inputs. Generated JS/C/native binaries are excluded. It does not establish complete installed-library/resolver qualification, timing performance, laws/proofs, arbitrary Raw-to-Type construction, constructor secrecy, released API portability or full parity. Context admission is owner-retaining transport; the fixture's ECS insertion uses existing receipt/column outcomes and explicit caller policy.
+
+Run `python3 verify.py` for a portable read-only audit. Oracle files in the sibling `oracle-review-v1` directory and this packet are required; no backend runs.
