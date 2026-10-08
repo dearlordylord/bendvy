@@ -1,0 +1,7 @@
+# #49 staged two-helper closure: actual Native whole-marker-rollback semantic mutant
+
+Current source closure freshly checked/emitted/compiled/ran in 2 original successful partition roots. Each source5 is typing only; emit30/allocated private Clang120/run5, CPU8/thread1/GPUoff and 85 ordinary owned guards passed. Complete per-root actual observations equal unchanged independent model subsets; concatenation equals all24 strings/full96 physical checkpoints and12 four-line refusals. Earlier historical timeout roots are not retried, prior C or kills are not transferred. Source and full JS actual qualification on this same staged two-helper closure remain pinned.
+
+The controlled defect is historical source with import relocation only; actual registry/Local owners and full pipeline are retained. Whole-marker's finite Data inverse is fixture-only, not universal Type clone. The internal handler event helper remains trusted and chooses no new public #53 policy. Refusal metadata equivalence does not claim erased predicate/owner type identity.
+
+Lossless source/C/raw/stage/configuration/probe receipts are archived. Private environment maps, binaries and installed dependencies are excluded; binary hashes are historical, not portable replay promises. This capsule qualifies only whole-marker-rollback; other variant receipts remain separate. Paired regression and two-helper root adoption are still pending. No mathematical proof, timing, new laws, adoption or #49 closure is claimed.
