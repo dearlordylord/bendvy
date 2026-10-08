@@ -1,0 +1,22 @@
+"""Freeze reached full-oracle CLI controls; execute only admitted plan."""
+from pathlib import Path
+import argparse,hashlib,json,time,types
+HERE=Path(__file__).resolve().parent
+B=types.ModuleType('mutant_cli');B.__file__=str(HERE.parent/'control-development.py')
+code=(HERE.parent/'control-development.py').read_text().split('p=argparse.ArgumentParser();')[0]
+code=code.replace("   if p['kind']=='negatives':", "   expected=p['oracles'][command['label']].encode();actual=(out/(command['label']+'.stdout')).read_bytes();assert actual==expected,'complete defect oracle mismatch'\n   baseline=Path(p['baselineOracle']);original=json.loads(baseline.read_text())['IOString'].encode();assert actual!=original\n   differences=[i for i,(a,b) in enumerate(zip(actual.decode().splitlines(),original.decode().splitlines())) if a!=b];assert len(differences)==p['semanticRows'][command['label']]\n   receipt.setdefault('reached',{})[command['label']]={'actualSHA256':hashlib.sha256(actual).hexdigest(),'expectedSHA256':hashlib.sha256(expected).hexdigest(),'differentSemanticRows':differences,'completeRows':8,'exactIOFinalLF':True}\n   if p['kind']=='negatives':")
+code=code.replace("'SAFE_SOURCE_'+p['kind'].upper()+'_PASS'", "'FULL8_STATIC_MUTANT_CLI_IO_REACHED_PASS'")
+exec(code,B.__dict__)
+def prepare(source):
+ source=Path(source).resolve();prior=json.loads(source.read_text());receipt=source.parent/'receipt.json';r=json.loads(receipt.read_text());assert r['planSHA256']==B.sha(source);assert len(r['commands'])==2 and all(c['exit']==0 and c['failure'] is None for c in r['commands'])
+ for name,digest in r['logs'].items():assert B.sha(source.parent/name)==digest
+ out=B.ROOT/'.artifacts'/('inspect54-static-mutant-cli-'+str(time.time_ns()));out.mkdir();files=set(map(Path,prior['files']));files.update([source,receipt,*[source.parent/name for name in r['logs']],Path(__file__).resolve(),HERE/'BINDING-ALLFIELD-ORACLE.json']);private=out/'private-environment.json';private.write_bytes(Path(prior['privateEnvironment']).read_bytes());private.chmod(0o600);files.add(private)
+ commands=[];oracles={};rows={};roots=[*map(Path,prior['configurationRoots']),out]
+ for mutant in prior['mutations']:
+  stage=Path(mutant['stage']);assert B.sha(mutant['inventory'])==mutant['inventorySHA256']
+  for record in json.loads(Path(mutant['inventory']).read_text()):assert B.sha(stage/record['path'])==record['stageSHA256']
+  entry=stage/HERE.relative_to(B.ROOT)/'binding-static-driver-io.bend';label=mutant['name']+'-cli-io';commands.append({'label':label,'argv':['/usr/bin/taskset','-c','5','/home/node/.bend/bin/bend',str(entry)],'seconds':5});oracles[label]=mutant['oracleIOString'];rows[label]=mutant['differentSemanticRows'];roots.append(entry.parent)
+ p={'status':'PREPARED_UNADMITTED_MUTANT_CLI_IO','kind':'cli-io','commands':commands,'files':sorted(map(str,files)),'directories':prior['directories'],'inputs':B.task_runner.Inputs(files=files,directories=map(Path,prior['directories'])).expected,'privateEnvironment':str(private),'environmentSHA256':B.sha(private),'configurationRoots':list(map(str,roots)),'configurationStates':B.configurations(roots),'sourceJoin':{'plan':str(source),'planSHA256':B.sha(source),'receipt':str(receipt),'receiptSHA256':B.sha(receipt)},'oracles':oracles,'semanticRows':rows,'baselineOracle':str(HERE/'BINDING-ALLFIELD-ORACLE.json'),'scope':'Two reached actual closed canonical descriptor mutations through genuine I.run, full8 independent defectoracles exactIO LF, all other resource/ArrayExtra/WorldInstance fields unchanged. CLI in-process generatedJS only; no emittedJS/Native mutant/proof/generalcanonicaltruth/full54.'};path=out/'plan.json';path.write_text(json.dumps(p,indent=2)+'\n');print(path);print(B.sha(path))
+p=argparse.ArgumentParser();p.add_argument('--prepare');p.add_argument('--run');a=p.parse_args()
+if a.prepare:prepare(a.prepare)
+else:B.run(a.run)

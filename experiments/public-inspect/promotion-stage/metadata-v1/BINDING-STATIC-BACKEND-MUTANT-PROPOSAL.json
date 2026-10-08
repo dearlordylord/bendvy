@@ -1,0 +1,62 @@
+{
+  "status": "SOURCE_ONLY_DIRECTION_NO_PREP_PROBES_OR_EXECUTION",
+  "sourcePlanSHA256": "fe7e3af243b14de0616fd87e9539b7b8874f6aba16c5c82efc60a20b613d6f27",
+  "CLIPlanSHA256": "dfd5abe4c5dd568b9cef31478fd18f883d659996921bac046d74a5897fbd509a",
+  "entry": "binding-static-driver-io.bend",
+  "oracleSHA256": "d78a550465edf97774e52f26cdf0b9339482d9d1e6c90cbe30ffd2cf7a398efe",
+  "JSSubjects": [
+    {
+      "operation": "emit JS",
+      "capSeconds": 30
+    },
+    {
+      "operation": "Node generated JS",
+      "capSeconds": 5
+    }
+  ],
+  "NativeSubjects": [
+    {
+      "operation": "emit C",
+      "capSeconds": 30
+    },
+    {
+      "operation": "approved private Clang19 compile",
+      "capSeconds": 120
+    },
+    {
+      "operation": "Native CPU5 threads1 GPUoff",
+      "capSeconds": 5
+    }
+  ],
+  "mutants": [
+    {
+      "name": "lens-routing",
+      "patchFiles": {
+        "binding-fixtures/workshop.bend": "153c20b838f9f2e7a4e41ce217222f0443561310f1bd2428fd07681a690b9a72",
+        "binding-fixtures/garden.bend": "e2adc82a25984fa9480b37c6275006d5fa810830430b5a4d3b6c5c7f8cbd9269"
+      },
+      "replace": {
+        "old": "I.Plan{Reads{bonusRead,aliasRead,scoreRead}}",
+        "new": "I.Plan{Reads{scoreRead,aliasRead,bonusRead}}"
+      },
+      "independentFullIOString": "Workshop|metadata-first|kind=inspector|name=Workshop/BoundMetadata|requirements=[resource:2:Workshop/Bonus, resource:1:Workshop/Score]|left=[401, 402, 403, 404]|right=[501, 502, 503, 504]|extra=[601, 602, 603, 604]|resourceBonus=[201, 202, 203, 204]|resourceScore=[101, 102, 103, 104]|fields=None|world=ns:1;next:1;high:0;capacity:1;depth:0;live:[False];clock:0;events:[];pending:0;registrations:[];nextSystem:1|instance=Fresh\nWorkshop|metadata-repeat|kind=inspector|name=Workshop/BoundMetadata|requirements=[resource:2:Workshop/Bonus, resource:1:Workshop/Score]|left=[401, 402, 403, 404]|right=[501, 502, 503, 504]|extra=[601, 602, 603, 604]|resourceBonus=[201, 202, 203, 204]|resourceScore=[101, 102, 103, 104]|fields=None|world=ns:1;next:1;high:0;capacity:1;depth:0;live:[False];clock:0;events:[];pending:0;registrations:[];nextSystem:1|instance=Fresh\nWorkshop|projection-first|kind=inspector|name=Workshop/BoundMetadata|requirements=[resource:2:Workshop/Bonus, resource:1:Workshop/Score]|left=[401, 402, 403, 404]|right=[501, 502, 503, 504]|extra=[601, 602, 603, 604]|resourceBonus=[201, 202, 203, 204]|resourceScore=[101, 102, 103, 104]|fields=Done:bonus=[101, 102, 103, 104];bonusAlias=[201, 202, 203, 204];score=[201, 202, 203, 204]|world=ns:1;next:1;high:0;capacity:1;depth:0;live:[False];clock:1;events:[];pending:0;registrations:[];nextSystem:1|instance=Active:1:0\nWorkshop|projection-repeat|kind=inspector|name=Workshop/BoundMetadata|requirements=[resource:2:Workshop/Bonus, resource:1:Workshop/Score]|left=[401, 402, 403, 404]|right=[501, 502, 503, 504]|extra=[601, 602, 603, 604]|resourceBonus=[201, 202, 203, 204]|resourceScore=[101, 102, 103, 104]|fields=Done:bonus=[101, 102, 103, 104];bonusAlias=[201, 202, 203, 204];score=[201, 202, 203, 204]|world=ns:1;next:1;high:0;capacity:1;depth:0;live:[False];clock:2;events:[];pending:0;registrations:[];nextSystem:1|instance=Active:2:0\nGarden|metadata-first|kind=inspector|name=Garden/BoundMetadata|requirements=[resource:2:Garden/Bonus, resource:1:Garden/Score]|left=[401, 402, 403, 404]|right=[501, 502, 503, 504]|extra=[601, 602, 603, 604]|resourceBonus=[201, 202, 203, 204]|resourceScore=[101, 102, 103, 104]|fields=None|world=ns:1;next:1;high:0;capacity:1;depth:0;live:[False];clock:0;events:[];pending:0;registrations:[];nextSystem:1|instance=Fresh\nGarden|metadata-repeat|kind=inspector|name=Garden/BoundMetadata|requirements=[resource:2:Garden/Bonus, resource:1:Garden/Score]|left=[401, 402, 403, 404]|right=[501, 502, 503, 504]|extra=[601, 602, 603, 604]|resourceBonus=[201, 202, 203, 204]|resourceScore=[101, 102, 103, 104]|fields=None|world=ns:1;next:1;high:0;capacity:1;depth:0;live:[False];clock:0;events:[];pending:0;registrations:[];nextSystem:1|instance=Fresh\nGarden|projection-first|kind=inspector|name=Garden/BoundMetadata|requirements=[resource:2:Garden/Bonus, resource:1:Garden/Score]|left=[401, 402, 403, 404]|right=[501, 502, 503, 504]|extra=[601, 602, 603, 604]|resourceBonus=[201, 202, 203, 204]|resourceScore=[101, 102, 103, 104]|fields=Done:bonus=[101, 102, 103, 104];bonusAlias=[201, 202, 203, 204];score=[201, 202, 203, 204]|world=ns:1;next:1;high:0;capacity:1;depth:0;live:[False];clock:1;events:[];pending:0;registrations:[];nextSystem:1|instance=Active:1:0\nGarden|projection-repeat|kind=inspector|name=Garden/BoundMetadata|requirements=[resource:2:Garden/Bonus, resource:1:Garden/Score]|left=[401, 402, 403, 404]|right=[501, 502, 503, 504]|extra=[601, 602, 603, 604]|resourceBonus=[201, 202, 203, 204]|resourceScore=[101, 102, 103, 104]|fields=Done:bonus=[101, 102, 103, 104];bonusAlias=[201, 202, 203, 204];score=[201, 202, 203, 204]|world=ns:1;next:1;high:0;capacity:1;depth:0;live:[False];clock:2;events:[];pending:0;registrations:[];nextSystem:1|instance=Active:2:0\n\n",
+      "expectedDifferentSemanticRows": 4,
+      "scope": "Single closed canonical descriptor construction, same nominal types/owners; compiling status and reached effect unexecuted. Full actual equals defect oracle and differs baseline required; no framing kill."
+    },
+    {
+      "name": "metadata-order",
+      "patchFiles": {
+        "binding-fixtures/workshop.bend": "153c20b838f9f2e7a4e41ce217222f0443561310f1bd2428fd07681a690b9a72",
+        "binding-fixtures/garden.bend": "e2adc82a25984fa9480b37c6275006d5fa810830430b5a4d3b6c5c7f8cbd9269"
+      },
+      "replace": {
+        "old": "[bonusMeta,aliasMeta,scoreMeta]",
+        "new": "[scoreMeta,aliasMeta,bonusMeta]"
+      },
+      "independentFullIOString": "Workshop|metadata-first|kind=inspector|name=Workshop/BoundMetadata|requirements=[resource:1:Workshop/Score, resource:2:Workshop/Bonus]|left=[401, 402, 403, 404]|right=[501, 502, 503, 504]|extra=[601, 602, 603, 604]|resourceBonus=[201, 202, 203, 204]|resourceScore=[101, 102, 103, 104]|fields=None|world=ns:1;next:1;high:0;capacity:1;depth:0;live:[False];clock:0;events:[];pending:0;registrations:[];nextSystem:1|instance=Fresh\nWorkshop|metadata-repeat|kind=inspector|name=Workshop/BoundMetadata|requirements=[resource:1:Workshop/Score, resource:2:Workshop/Bonus]|left=[401, 402, 403, 404]|right=[501, 502, 503, 504]|extra=[601, 602, 603, 604]|resourceBonus=[201, 202, 203, 204]|resourceScore=[101, 102, 103, 104]|fields=None|world=ns:1;next:1;high:0;capacity:1;depth:0;live:[False];clock:0;events:[];pending:0;registrations:[];nextSystem:1|instance=Fresh\nWorkshop|projection-first|kind=inspector|name=Workshop/BoundMetadata|requirements=[resource:1:Workshop/Score, resource:2:Workshop/Bonus]|left=[401, 402, 403, 404]|right=[501, 502, 503, 504]|extra=[601, 602, 603, 604]|resourceBonus=[201, 202, 203, 204]|resourceScore=[101, 102, 103, 104]|fields=Done:bonus=[201, 202, 203, 204];bonusAlias=[201, 202, 203, 204];score=[101, 102, 103, 104]|world=ns:1;next:1;high:0;capacity:1;depth:0;live:[False];clock:1;events:[];pending:0;registrations:[];nextSystem:1|instance=Active:1:0\nWorkshop|projection-repeat|kind=inspector|name=Workshop/BoundMetadata|requirements=[resource:1:Workshop/Score, resource:2:Workshop/Bonus]|left=[401, 402, 403, 404]|right=[501, 502, 503, 504]|extra=[601, 602, 603, 604]|resourceBonus=[201, 202, 203, 204]|resourceScore=[101, 102, 103, 104]|fields=Done:bonus=[201, 202, 203, 204];bonusAlias=[201, 202, 203, 204];score=[101, 102, 103, 104]|world=ns:1;next:1;high:0;capacity:1;depth:0;live:[False];clock:2;events:[];pending:0;registrations:[];nextSystem:1|instance=Active:2:0\nGarden|metadata-first|kind=inspector|name=Garden/BoundMetadata|requirements=[resource:1:Garden/Score, resource:2:Garden/Bonus]|left=[401, 402, 403, 404]|right=[501, 502, 503, 504]|extra=[601, 602, 603, 604]|resourceBonus=[201, 202, 203, 204]|resourceScore=[101, 102, 103, 104]|fields=None|world=ns:1;next:1;high:0;capacity:1;depth:0;live:[False];clock:0;events:[];pending:0;registrations:[];nextSystem:1|instance=Fresh\nGarden|metadata-repeat|kind=inspector|name=Garden/BoundMetadata|requirements=[resource:1:Garden/Score, resource:2:Garden/Bonus]|left=[401, 402, 403, 404]|right=[501, 502, 503, 504]|extra=[601, 602, 603, 604]|resourceBonus=[201, 202, 203, 204]|resourceScore=[101, 102, 103, 104]|fields=None|world=ns:1;next:1;high:0;capacity:1;depth:0;live:[False];clock:0;events:[];pending:0;registrations:[];nextSystem:1|instance=Fresh\nGarden|projection-first|kind=inspector|name=Garden/BoundMetadata|requirements=[resource:1:Garden/Score, resource:2:Garden/Bonus]|left=[401, 402, 403, 404]|right=[501, 502, 503, 504]|extra=[601, 602, 603, 604]|resourceBonus=[201, 202, 203, 204]|resourceScore=[101, 102, 103, 104]|fields=Done:bonus=[201, 202, 203, 204];bonusAlias=[201, 202, 203, 204];score=[101, 102, 103, 104]|world=ns:1;next:1;high:0;capacity:1;depth:0;live:[False];clock:1;events:[];pending:0;registrations:[];nextSystem:1|instance=Active:1:0\nGarden|projection-repeat|kind=inspector|name=Garden/BoundMetadata|requirements=[resource:1:Garden/Score, resource:2:Garden/Bonus]|left=[401, 402, 403, 404]|right=[501, 502, 503, 504]|extra=[601, 602, 603, 604]|resourceBonus=[201, 202, 203, 204]|resourceScore=[101, 102, 103, 104]|fields=Done:bonus=[201, 202, 203, 204];bonusAlias=[201, 202, 203, 204];score=[101, 102, 103, 104]|world=ns:1;next:1;high:0;capacity:1;depth:0;live:[False];clock:2;events:[];pending:0;registrations:[];nextSystem:1|instance=Active:2:0\n\n",
+      "expectedDifferentSemanticRows": 8,
+      "scope": "Single closed canonical descriptor construction, same nominal types/owners; compiling status and reached effect unexecuted. Full actual equals defect oracle and differs baseline required; no framing kill."
+    }
+  ],
+  "requiredNext": "Guarded concrete source-mutant pure entry first, reached complete CLI defect controls, then emitted stages exact approved snapshots/pins/config/env/source joins; separate review before each child stage. Trusted canonical constructors not universal descriptor truth."
+}
