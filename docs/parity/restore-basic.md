@@ -132,3 +132,26 @@ are MissingEntity. These are TS observations, not approval of Bend's stale-ID
 policy or arbitrary Type restore factories. No #59 checkbox is closed; failed
 system/Local/capture, Bend, negatives/mutants and full backend/performance gates
 remain due. Full graph/machine restore stays #60.
+
+## Detached constructor transport prototype
+
+[provider-v1](../../experiments/public-restore/provider-v1/README.md) source-checks
+a minimal extension of the existing ordinary `Constructed` declaration and
+`standard-owned.Reply`. A closed schema-author callback receives the declaration's
+retained Codec and **original** detached Raw, returning affine Context and either
+arbitrary Type payload or owned rejection input/issues. Accepted payload and
+refusal context/issues are instantiated with actual Array types; duplicating an
+accepted payload is refused by the checker. This is transport preparation, not
+World admission or an implemented restore API.
+
+Original-input delivery and error precedence are already fixed by pinned TS:
+Descriptor.decoderOf selects decode before result, Runtime.validate invokes that
+selected decoder directly, and restore wraps its first opaque failure in entity/
+resource position order before live mutation. Decoder-specific transformations
+belong to that callback; framework canonicalization before arbitrary callbacks
+would change the contract. These mechanics need no new user decision.
+
+The prototype deliberately leaves partial-success recovery, release of replaced
+live owners, stale same-world identity, events/captures and multi-entry transaction
+ownership to the existing approval package and owning tickets. It supplies no
+Raw-to-arbitrary-Type inverse, law/proof, backend or #59 completion claim.
