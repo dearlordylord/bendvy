@@ -6,10 +6,12 @@ Remaining-core specification: #37.
 
 ## What to build
 
-A developer enables schema/system/schedule descriptions, lints, access indexes and filtered world dumps without changing ECS behavior.
+An ordinary ECS application user enables debug. Structure, declared access and schedules derive from the application's ordinary ECS declarations, without repeated descriptions or user-written metadata adapters. Additional presentation functions are allowed for opaque user values. Debug preserves ECS behavior.
 
 ## Acceptance criteria
 
+- [ ] Demonstrate an ordinary public ECS application that only enables debug: existing component/resource/query/system/schedule declarations supply structure, access and schedule descriptions. No parallel metadata declaration or manual metadata adapter is required from the application user; opaque-value presentation functions are allowed.
+- [ ] Determine feasibility against the pinned Bend compiler/runtime and public ECS declaration model, with Rust Bevy as the architecture authority and bevy-ts as the feature-scope reference. The low-level metadata candidate alone does not fulfill this requirement. If automatic behavior is technically impossible, mark #56 as skipped with a precise source-backed obstruction. Missing plumbing or implementation difficulty alone is not impossibility.
 - [ ] Inventory pinned description/lint/access-index/population/dump/naming formats and execute complete public observations including graph, machine and transient/plain values.
 - [ ] Repeated descriptions and dumps neither register/advance readers nor retain events, mutate owners or flush pending work. A dump is not a restorable snapshot.
 - [ ] Disabled debug performs no description work; measure enabled overhead separately. Reject foreign/schema misuse and detect a reached filter/noninterference mutant.
