@@ -82,3 +82,38 @@ bytes, complete immediate symlink chains/file bytes, installed loader/source and
 platform joins, and the ordinary Native compiler inputs above. Keep initial and
 terminal discovery and all semantic/backend receipts. This note authorizes no
 collector use and introduces no gate waiver.
+
+## Concrete configuration preparation
+
+[installed-config.py](../../experiments/public-simulation/delivery-v1/installed-config.py)
+now supplies a complete explicit environment for every future cohort role, the
+three existing approved resource roots, eight ELF discovery tools, and25 literal
+bindings (24 resolved files). It selects actual Node24.20.0, preserves the24 alias
+join, and retains the wrapper, shell, env helper, linker, CRT, libgcc and libc
+script/archive inputs. Ordinary full snapshot/verify remains selected; wrapper
+and ldd scripts are input pins rather than invalid ELF discovery subjects.
+
+The same environment mapping reaches compilers, runtimes and discovery. It uses
+the approved private Clang settings, fixed HOME/PATH, C locale, UTC and telemetry
+off, with no inherited Node options, loader overrides or compiler include flags.
+This is a future semantic cohort configuration, not a performance-baseline change.
+
+Local prepared candidate `/tmp/bendvy-loader-inventory-metadata/installed-config-candidate.json`
+has mode0600 and SHA256
+`1e975ccce5edc8ed9fb2304529076279ee16d07c5c8f4af024824be6a84fad70`;
+environment digest is
+`f32a7cf7ee3ec5cbcb2d0c546c3bf86649ac29bf3b85f543d88cb83fd0afe14e`.
+Preparation resolved every named file, joined the Node alias, checked discovery
+subjects and retained exactly the three existing resource roots. Injected
+inherited NODE_OPTIONS/LD_PRELOAD/CPATH sentinels did not affect its environment.
+No child tools or recursive resource scans were executed during preparation.
+
+Use existing `task_runner.Inputs(files=candidate['inputFiles'])` and the existing
+recursive `owned-tool-pins` resource guards, then bind the actual source/oracle,
+helper bytes, complete raw observations and all launch/terminal checks in the
+runner. Those guards were prepared as scopes, not executed or admitted here.
+The module records observed header/link search paths and unresolved compiler
+selection explicitly: generated C consumed headers, search membership/absence,
+GCC version selection, default linker script and generated executable closure
+still need review. This candidate therefore cannot authorize Native execution
+or substitute a closed PinnedTools inventory.
