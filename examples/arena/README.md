@@ -2,8 +2,8 @@
 
 ![Bendvy ECS swarm gameplay](arena.gif)
 
-A playable browser ECS example with 512 starting enemies, reinforcements, and
-actual projectile entities. The HUD counts live enemies and projectiles.
+A playable browser ECS example: enemies, pickups, bolts, area pulses and chains.
+Movement, targeting, damage and cleanup run through the ECS.
 WASD/arrows move, Space pauses, and R restarts. Keyboard required.
 
 From the repository root:
@@ -16,36 +16,67 @@ python3 -m http.server 8000 --directory examples/arena
 Open <http://localhost:8000>. No npm packages or external assets are needed.
 `dist/` is generated and ignored. The build is checked with Bend 2.0.36.
 
-Three weapons fire automatically:
+## Components and entities
 
-- Bolts target the closest enemy, travel toward it, and deal ¼ maximum health.
-  Rate is `10 + enemyCount / 4` shots/second; a fractional accumulator supports
-  several real projectile spawns per simulation tick.
-- AoE fires every three seconds, damages enemies within 90 pixels for ½ maximum
-  health once, and leaves an expanding pulse entity. Its rate does not scale.
-- Chain fires every second, dealing ¼ maximum health per impact. It gets
-  `3 × ceil(log₂(enemyCount))` bounces after the initial hit: 21 at 100 enemies.
-  Each chain carries its own visited-enemy list and never hits an enemy twice.
+These are excerpts from [game.bend](game.bend), with its existing imports and
+helpers. `Body` is the demo's compound component; `Store` owns its typed column.
 
-Enemies have four health units. Bars are green at full health, yellow at
-¾/½, and red at ¼. Newborn speed is `1.8 / (1 + 0.35 × ln(1 + enemyCount))`
-pixels/tick; existing enemies retain their birth speed. Enemy reinforcements
-arrive at 30/second, up to 1,024 live enemies.
+```bend
+type Schema is Data: Schema{}
+type Body is Data: Body{x: F32,y: F32,kind: U32,seed: U32,hp: U32,speed: F32,target: U32,visited: List<&2,U32>,age: U32}
+type Token is Data: Token{}
+type Store is Type: Store{bodies: Col.Column<Schema,Body>}
+```
 
-`game.bend` owns movement, aiming, damage, cooldowns and the ECS world. A typed
-Body family uses indexed columns and a required query with declared write and
-despawn capabilities. Spawn commands become visible at a pre-query barrier;
-impacts commit transactionally, then dead enemies and expired projectiles are
-removed and their component owners cleared at the post-query barrier.
-`browser.mjs` supplies input, a fixed 60 Hz clock, and canvas rendering/trails.
+An entity is a world-scoped `W.Handle<Schema>`. Spawn accepts a component value
+and queues a structural command; the explicit barrier makes it visible.
 
-This is one compound component family and direct `Compose.each` orchestration.
-It does not demonstrate System registration, schedules, resources, events,
-relations, complete parity or qualified performance. World creation uses the
-existing trusted single-world Factory setup; no handles escape to the host.
-The bounded allocator does not recycle IDs: reinforcements stop after 8,191
-lifetime enemies, and the demo asks for restart around 100,000 lifetime
-projectiles, before its allocation budget can be exhausted. Projectile lifetime is bounded.
+```bend
+def spawn(world: World(),body: Body) -> World():
+  spawn_finish(Cmd.tx_spawn(~Schema,~Store,~Unit,~Unit,~Body,~populate,T.Tx{world,[],[],[]},body))
+```
+
+The [populate helper](game.bend) installs `Body` on the reserved entity. Despawn
+clears its column through `clear` at the post-query barrier.
+
+## System and query
+
+The system receives declared capabilities: read/write `Body` and queue despawn.
+Its callback works with abstract `H`, rather than accessing storage directly.
+
+```bend
+type Ops<-H: Type> is Type: Ops{body: Cap.Write<H,Body,Body>,despawn: Cap.Action<H>}
+def OpsType(H: Type) -> Type: Ops<H>
+def body_cap(~H: Type,ops: Ops<H>) -> Cap.Write<H,Body,Body>:
+  match ops:
+    case Ops{body,_}: body
+def despawn_cap(~H: Type,ops: Ops<H>) -> Cap.Action<H>:
+  match ops:
+    case Ops{_,despawn}: despawn
+```
+
+The required query binds those capabilities to the world and runs the callback:
+
+```bend
+def body_system(~H: Type,~ops: Ops<H>,args: Args,ctx: H) -> H & (T.Outcome<Error> & Row):
+  observed(~H,~ops,args,Cap.get(~H,~Body,~Body,~body_cap(~H,ops),ctx))
+def Frame() -> Type: Q.Frame<Schema,Store,Unit,Unit>
+def selected(frame: Frame()) -> Frame() & Bool:
+  Q.family_match(~Schema,~Store,~Unit,~Unit,~Unit,~Body,~Body,~Token,~take,~put,~project,~family(),~Q.Required{},frame)
+def plan() -> Q.Plan<Schema,Store,Unit,Unit,OpsType>:
+  Q.Plan{Ops{Q.write_family(~Schema,~Store,~Unit,~Unit,~Unit,~Body,~Body,~Token,~take,~put,~project,~family()),Q.command_despawn(~Schema,~Store,~Unit,~Unit,~clear)},selected}
+def execute(world: World(),args: Args) -> Q.Executed<World(),Q.Error<Error>,Row>:
+  Q.each(~Schema,~Store,~Unit,~Unit,~OpsType,~Args,~Error,~Row,~plan(),~body_system,args,world)
+```
+
+`observed` reads the component, calls `update`, and writes the result through
+`Cap.set`; `dispose_dead` queues removal through `Cap.action`. The gameplay
+functions remain in [game.bend](game.bend).
+
+This demo uses direct `Compose.each` orchestration. Registered systems and
+schedules are covered by other examples; this one demonstrates component
+storage, entity commands, declared query access and transactional updates.
+`browser.mjs` supplies input, the fixed-step clock and rendering.
 
 Run focused checks (also builds the finite controlled scenarios):
 
