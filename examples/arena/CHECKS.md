@@ -1,37 +1,52 @@
-# Example checks — 2026-10-08
+# Swarm example checks — 2026-10-08
 
-- Installed Bend 2.0.35: development type/ownership check passed within the
-  existing five-second checker wrapper; `.mjs` emission succeeded separately.
-- `node test.mjs`: actual emitted Bend controls passed for deferred bootstrap,
-  movement, pickup collection, damage/cooldown, game-over, bounds, deterministic
-  replay and fresh-game reset.
-- `node host-smoke.mjs`: actual browser module plus emitted Bend passed in a
-  lightweight DOM/canvas harness, including keyboard movement, draw calls,
-  pause/resume, blur, hidden tab and button/key restart.
-- Real Chromium smoke: **blocked before page loading** by missing
-  `libatk-1.0.so.0`. No browser packages or system libraries were installed.
-  `browser-smoke.mjs` remains available for an environment with Chromium's
-  runtime dependencies. No real-browser screenshot or rendering pass is claimed.
-- No new approved laws, mathematical proofs, native execution or performance
-  results are claimed by this example. The build compatibility fix below only
-  renames internal ECS constructors.
+## Passed with Bend 2.0.36
 
-Authored inputs checked:
+Used the official 2.0.36 Linux arm64 release in a separate temporary installation.
+The installer verified its release checksum; the main thread's toolchain was
+not changed. Base 2.0.36 defines `Ready`, confirming the prior world-constructor
+collision; the distinct world-scan names compile with this version.
 
-- `game.bend`: `09d00be92ce6d7cdef0114fefb24e3111d9c01675def31314c323dd2c5f93e76`
-- `browser.mjs`: `e138df519c4ce0ef26bc4030cc74ad5b7be6355b38e5949ec48cc59fe61fcb63`
-- `test.mjs`: `8762b230999bdcf5fd8e20bf5e07aac1d3179c1a8afe474c398c979ecf31e2c0`
-- `host-smoke.mjs`: `e1f9dc7c6d3a82b6571b670a224c9b51fe38f81ab5f093c4050b97381309cb7b`
-- `browser-smoke.mjs`: `dba4c620d8e3edae1ac195171ccbe0c427faeec66cbd0dd532203aabab03e2c2`
+- The exact `examples/arena/build.sh` command passed: development type/ownership
+  check inside the existing five-second wrapper, then `.mjs` emission.
+- `examples/arena/check.sh` passed: the game build, finite fixture type-check and
+  emission, gameplay checks, and the actual browser-module host harness.
+- Default gameplay: 512 enemy entities and at least 40 live projectile entities
+  after 24 steps; frame counters match actual materialized bodies. Movement,
+  retained birth speed, slower newborns, deterministic replay and reset pass.
+- Source-current ECS fixtures: closest enemy loses exactly one of four health
+  units; AoE loses two inside its radius and none outside, with the fixed 180-tick
+  reset; chain performs distinct impacts and expires after its budget. Live
+  handle counts confirm impact/death cleanup at the real command barrier.
+- Explicit no-revisit control: a chain skips an already visited enemy even when
+  that enemy remains closest and is the projectile's preferred target.
+- Actual renderer/host wiring: keyboard movement, pause/resume, blur, hidden tab,
+  restart, smaller sprites, green/yellow/red bars, expanding pulse and chain.
+  Controlled renderer fixtures stay inside their own emitted Bend module; the
+  fixture wrapper normalizes the outer Packet tag for the UI. This avoids the
+  2.0.36 cross-module constructor-tag boundary while retaining real ECS gameplay.
 
-## Constructor-name compatibility fix
+## Limits
 
-The reported build rejected the generic `Ready` constructor in `world.bend`.
-Renamed that scan phase's constructors to `WorldTailScanReady` and
-`WorldTailScanRead`, including every construction and match. Scan behavior,
-ordering, fields and fuel remain identical.
+Real Chromium smoke remains blocked before page loading by the container's
+missing `libatk-1.0.so.0`. No native-browser screenshot or pixel-rendering pass
+is claimed. The optional browser runner is retained for an equipped environment.
+No new ECS behavior, approved laws, mathematical proofs, native execution or
+qualified performance results are claimed. Checks cover finite examples only.
+The demo's documented lifetime/allocation limits are separate from live counts.
 
-Re-ran the exact `examples/arena/build.sh` command, followed by both Node
-checks above: all passed with the installed Bend 2.0.35. The reporting user's
-compiler version has been requested; compatibility with that exact version
-has not yet been reproduced locally.
+## Authored inputs checked
+
+- `game.bend`: `8e40bf890ef03ce937aed40b9c3f7e793a5a0bc85bd79cc1a706928b995b630a`
+- `fixtures.bend`: `7c01cc64b45277bd7d490b7602e8e1d45b28e06c4ca3291796903e777592b53c`
+- `browser.mjs`: `44bd63cca275ffecb2519392cf2d960c83d73d0cbe68516fc6be614c97f55d51`
+- `index.html`: `fcc16edceb99ed7a400644ed91081eb0b87fbb88b367b6a39dc618d69030f125`
+- `test.mjs`: `8eb703a1c76de883e04db3740d960b30b81f5db8711f330ca3047ad4ac102962`
+- `host-smoke.mjs`: `2a142c09e999ec1e95651c2b1798ff305671a72f350f8e313aea3712a580c016`
+- `build.sh`: `69f849b63d91b92f9fd9c36d8fb86a764ae87a94d3b78fcb67b141ae72399a39`
+- `check.sh`: `d8e31ee99cdf9b8d32a85498af63f8d29b525ecd9e77cad92fe0b0d9401eba4a`
+
+## Generated artifacts checked (ignored, regenerate locally)
+
+- `dist/game.mjs`: `ddd8c24acef18bac0d1fa38a2cc72389af22df3462c60a00b6e5d8f691659f69`
+- `dist/fixtures.mjs`: `6bf1c7895276aaa2c732bc3cd85901740e4c1f16d15f70d1b82ee3a872184c4f`
