@@ -129,13 +129,20 @@ class Imports(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, 'malformed leading import'):
             staged.verify(self.stage, 'main.bend', self.inventory())
 
-    def test_noncanonical_entry_inventory_and_duplicate_alias(self):
-        self.put('main.bend', 'import core.bend as C\nimport core.bend as C\n')
-        self.put('core.bend', '# leaf\n')
+    def test_noncanonical_entry_inventory(self):
+        self.put('main.bend', '# leaf\n')
         with self.assertRaises(ValueError):
             staged.verify(self.stage, './main.bend', self.inventory())
-        with self.assertRaisesRegex(RuntimeError, 'duplicate import alias'):
-            staged.verify(self.stage, 'main.bend', self.inventory())
+
+    def test_shared_alias_keeps_separate_literal_inputs(self):
+        self.put('nested/main.bend', 'import ../adapter.bend as G\nimport ../gameplay.bend as G\n')
+        self.put('adapter.bend', 'def cleanup() -> Unit:\n  ()\n')
+        self.put('gameplay.bend', 'def gameplay() -> Unit:\n  ()\n')
+        result = staged.verify(self.stage, 'nested/main.bend', self.inventory())
+        self.assertEqual({item['relative'] for item in result['consumed']},
+                         {'nested/main.bend', 'adapter.bend', 'gameplay.bend'})
+        self.assertEqual([edge['import'] for edge in result['imports']],
+                         ['../adapter.bend', '../gameplay.bend'])
 
 
 if __name__ == '__main__':

@@ -39,7 +39,6 @@ def _inventory(root, inventory):
 
 
 def _imports(path):
-    aliases = set()
     for number, raw in enumerate(path.read_text(encoding='utf-8').splitlines(), 1):
         line = raw.strip()
         if not line or line.startswith('#'):
@@ -50,10 +49,9 @@ def _imports(path):
         if found is None or (found[2] is None and found[1] != 'Base'):
             raise RuntimeError(f'malformed leading import: {path}:{number}')
         token, alias = found.groups()
-        if alias is not None:
-            if alias in aliases or not token.endswith('.bend'):
-                raise RuntimeError(f'invalid/duplicate import alias: {path}:{number}')
-            aliases.add(alias)
+        if alias is not None and not token.endswith('.bend'):
+            raise RuntimeError(f'invalid import target: {path}:{number}')
+        # Namespace/alias compatibility belongs to Bend, not this path guard.
         yield number, token
 
 
