@@ -1,0 +1,34 @@
+import Base
+import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
+import /workspace/formal-proofs/bendvy/experiments/public-decode/typed.bend as D
+
+# Basic detached Data only; runtime checkpoint state is intentionally not encoded.
+type Entity is Data:
+  Entity{id:U32,components:List<&2,D.Field>}
+type Snapshot is Data:
+  Snapshot{version:U32,nextEntity:U32,entities:List<&2,Entity>,resources:List<&2,D.Field>}
+
+# Internal experimental accessor: exact actual allocator, no inferred live count.
+# Rebuild the SAME owner with every field returned unchanged.
+def allocator(~S:Data,~C:Type,~R:Type,~E:Data,world:W.World<S,C,R,E>) -> W.World<S,C,R,E> & U32:
+  match world:
+    case W.World{+namespace,+nextId,+highWater,live,+capacity,+depth,store,resource,+events,pending,+registrations,+nextSystemId,+clock}:
+      (W.World{namespace,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId,clock},nextId)
+
+# Closed schema providers must return the actual store/resource owners. Their
+# projections, transient omission and name bindings are trusted author inputs.
+# This is NOT the still-missing public constructed-descriptor validation gate.
+def finish(~S:Data,~C:Type,~R:Type,~E:Data,nextEntity:U32,entities:List<&2,Entity>,observed:W.World<S,C,R,E> & List<&2,D.Field>) -> W.World<S,C,R,E> & Snapshot:
+  match observed:
+    case (world,fields):(world,Snapshot{1,nextEntity,entities,fields})
+def with_entities(~S:Data,~C:Type,~R:Type,~E:Data,~resources:R -> R & List<&2,D.Field>,nextEntity:U32,observed:W.World<S,C,R,E> & List<&2,Entity>) -> W.World<S,C,R,E> & Snapshot:
+  match observed:
+    case (world,entities):finish(~S,~C,~R,~E,nextEntity,entities,W.observe_resource(~S,~C,~R,~E,~List<&2,D.Field>,~resources,world))
+def with_handles(~S:Data,~C:Type,~R:Type,~E:Data,~rows:List<&2,W.Handle<S>> -> C -> C & List<&2,Entity>,~resources:R -> R & List<&2,D.Field>,nextEntity:U32,observed:W.World<S,C,R,E> & List<&2,W.Handle<S>>) -> W.World<S,C,R,E> & Snapshot:
+  match observed:
+    case (world,handles):with_entities(~S,~C,~R,~E,~resources,nextEntity,W.with_store(~S,~C,~R,~E,~List<&2,Entity>,rows(handles),world))
+def with_allocator(~S:Data,~C:Type,~R:Type,~E:Data,~rows:List<&2,W.Handle<S>> -> C -> C & List<&2,Entity>,~resources:R -> R & List<&2,D.Field>,observed:W.World<S,C,R,E> & U32) -> W.World<S,C,R,E> & Snapshot:
+  match observed:
+    case (world,nextEntity):with_handles(~S,~C,~R,~E,~rows,~resources,nextEntity,W.handles(~S,~C,~R,~E,world))
+def basic(~S:Data,~C:Type,~R:Type,~E:Data,~rows:List<&2,W.Handle<S>> -> C -> C & List<&2,Entity>,~resources:R -> R & List<&2,D.Field>,world:W.World<S,C,R,E>) -> W.World<S,C,R,E> & Snapshot:
+  with_allocator(~S,~C,~R,~E,~rows,~resources,allocator(~S,~C,~R,~E,world))

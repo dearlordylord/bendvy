@@ -1,0 +1,19 @@
+# Basic World snapshot development slice
+
+Actual TS `Runtime.snapshot` passed the complete independent 1,768-byte basic DTO and retained-alias oracle. Actual emitted Bend JS passed the unchanged complete 23,361-byte JSON oracle (8,026-byte compact output), with both schemas, both cells of affine Array payloads, allocator/live handles, saved resources, transient omissions, immediate owner observations, repeated saves, later mutations, detached old snapshot lifetime and actual retained-codec validation. All two semantic subjects, twenty execution guards and four preparation guards exited successfully.
+
+This is an experimental consumed full-World fixture, not a public Snapshot API or full #58 delivery. `Export.basic` uses trusted closed row/resource providers and an internal allocator observation; it returns the actual World. `Col.view` projects payloads while returning their actual owners. Declaration names and Codec providers are trusted author inputs. No codec truthfulness, constructor secrecy, inverse/load, arbitrary capture, or public save-refusal policy is established. Public constructed eligibility/save Gate (#46), ordinary schema/core adoption (#38/#56), whole basic API integration (#58), and relation/machine snapshot extensions (#59/#60) remain separate work. No Native/performance/proof claim.
+
+The same independent oracle was authored before output and was never changed to match observations. The first JS attempt failed at exactly 26 missing ID2 payload/validation paths: fixture construction wrote ID2 into capacity-one columns without `Col.ensure`. It also retained a separate final-tool deadline. The correction ensures capacity two and explicitly returns actual setup World on rejected insertion; the original mutation continuation remains intact. Source typing of construction and the actual consumer route passed as development checks only. Original source deadlines, IO deadline, all refused development attempts, the isolated proposal that temporarily omitted the mutation helper, and the first failed JS receipt/raw/source are preserved unchanged.
+
+TS snapshots intentionally retain supplied Array aliases: old TS snapshot aliases change after mutation. Bend snapshots retain detached Data and remain unchanged. Both outcomes have separately authored full oracles; no false lifetime equivalence or timed-work equivalence is asserted. Named owner observations cover the complete fixture fields listed in the oracle, not arbitrary pending closure or physical Array serialization.
+
+Current qualification: plan `6f3b6e85`, receipt `0597aef7`; actual JS SHA `f7782523`. Actual TS plan `9496ea6e`, receipt `1ac93522`. Historical failed JS plan `b161b3d5`, receipt `5a3bef94`; failed IO receipt `818a70ba`. The archive includes inspectable actual JS and source bodies. ELF executables/libraries and exact private environments are excluded with plan-bound identities. The initial generic-export refused entry source was not archived; its exact old hash is explicitly metadata-only and grants no qualification credit. Its error/raw and available failed export body remain archived.
+
+The verifier is read/hash-only and works from exactly the selected tracked files in a relocated checkout. It validates archive objects, all historical scalar pin dispositions, exact successful command/probe/raw ledgers, full original-to-stage import-only rewrites, current owned source joins, and full oracles. External production/shared declaration sources are archived historical bytes, not a claim that current installed tools or a fresh checkout can rerun the absolute-path consumer. Metadata/probes/full guards run outside the shared heavy lock; the corrected collector locks only actual compiler/runtime children and revalidates original launch hashes after acquisition.
+
+Run from repository root:
+
+```sh
+python3 experiments/public-snapshot/persistence-gate-v1/basic-world-v1/finite-world-v1/verify.py
+```

@@ -1,0 +1,78 @@
+"""Recursive source-only stage builder; one resolved import path means one nominal type."""
+import hashlib
+import re
+from pathlib import Path
+
+IMPORT = re.compile(r'^(import\s+)(\S+)(.*)$', re.MULTILINE)
+
+def sha(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+def consumed(entry):
+    sources = {}
+    edges = []
+    def visit(path):
+        literal = Path(path)
+        assert literal.is_file(), ('literal source path is not a file', str(literal))
+        path = literal.resolve(strict=True)
+        if path in sources:
+            return
+        assert path.is_file()
+        text = path.read_text()
+        sources[path] = hashlib.sha256(path.read_bytes()).hexdigest()
+        for match in IMPORT.finditer(text):
+            name = match.group(2)
+            if name == 'Base':
+                continue  # Installed Base is independently snapshot/member/config guarded.
+            assert name.endswith('.bend'), ('unclassified import', path, name)
+            literal = Path(name) if Path(name).is_absolute() else path.parent/name
+            assert literal.is_file(), ('literal import target is not a file', path, name)
+            target = literal.resolve(strict=True)
+            edges.append({'source':str(path),'import':name,'target':str(target),'targetSHA256':sha(target)})
+            visit(target)
+    visit(entry)
+    return sources, edges
+
+def inventory(directory):
+    directory = Path(directory)
+    assert not any(p.is_symlink() for p in directory.rglob('*'))
+    return {str(p.relative_to(directory)):sha(p) for p in sorted(directory.rglob('*')) if p.is_file()}
+
+def stage(entry, directory, expected):
+    """Freeze `expected` BEFORE any tool probes; never silently accept a refreshed source."""
+    sources, edges = consumed(entry)
+    assert {str(p):h for p,h in sources.items()} == expected
+    directory = Path(directory).resolve()
+    assert not directory.exists()
+    directory.mkdir(parents=True)
+    # Unique resolved-path mapping deliberately unifies repeated absolute/relative leaf imports.
+    mapping = {p:directory/('source-'+hashlib.sha256(str(p).encode()).hexdigest()[:20]+'-'+p.name) for p in sources}
+    rows = []
+    for source, copy in mapping.items():
+        def rewrite(match):
+            name = match.group(2)
+            if name == 'Base':
+                return match.group(0)
+            literal = Path(name) if Path(name).is_absolute() else source.parent/name
+            assert literal.is_file(), ('literal rewrite target is not a file', source, name)
+            target = literal.resolve(strict=True)
+            return match.group(1)+'./'+mapping[target].name+match.group(3)
+        copy.write_text(IMPORT.sub(rewrite, source.read_text()))
+        rows.append({'source':str(source),'sourceSHA256':sources[source],
+                     'copy':str(copy),'copySHA256':sha(copy),'rewrite':'import paths only'})
+    joins = []
+    for edge in edges:
+        source, target = Path(edge['source']), Path(edge['target'])
+        joins.append({**edge,'copySource':str(mapping[source]),'copyTarget':str(mapping[target]),
+                      'copyTargetSHA256':sha(mapping[target])})
+    staged_entry = mapping[Path(entry).resolve(strict=True)]
+    before = inventory(directory)
+    assert staged_entry.is_file() and '..' not in staged_entry.parts
+    assert sha(staged_entry) == before[str(staged_entry.relative_to(directory))]
+    assert {str(p):sha(p) for p in sources} == expected
+    # Every staged non-Base edge must resolve literally inside the declared stage.
+    staged_sources, staged_edges = consumed(staged_entry)
+    assert set(staged_sources) == set(mapping.values())
+    assert all(Path(e['target']).parent == directory for e in staged_edges)
+    return {'entry':str(staged_entry),'sources':rows,'importJoins':joins,
+            'inventory':before,'sourcePins':expected}
