@@ -78,8 +78,12 @@ complete FIFO list; abort returns every still-staged owner in a typed receipt.
 There is no runtime notification/expensive classification, clone, mandatory
 finalizer/IO cleanup or automatic reinsertion. Source-consuming controls contain
 complete affine Array payloads; intended duplication of recovered owners is
-refused. Raw five-second checker results are retained. No backend or #53
-acceptance is claimed.
+refused. Raw five-second checker results are retained. Complete detached
+commit/abort/refusal observations execute on JS and Native with identical
+132-byte output; independent review and the no-child source/output/oracle join
+pass. The first JS byte gate remains recorded as failed: its oracle omitted
+IO.print's terminal LF. The LF-only repair was checked against retained output
+without replay; Native passed the repaired oracle. No #53 acceptance is claimed.
 
 Scope is invocation-created payloads or explicitly transferred owners from
 surviving external state. This seam neither extracts transactional components/

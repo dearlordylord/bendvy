@@ -26,7 +26,7 @@ the recovered list; source checking refuses `owners (consumed more than once)`.
 Raw guide/source/negative outputs are retained in `evidence`. Guide cap5;
 source checks use existing scripts/bend-check cap5, telemetry off and the shared
 /tmp/bendvy-parity-heavy.lock. Positive source attempt1 exit0; intended negative
-attempt1 exit1. No backend, law/proof, World integration, numeric gate or #53
+attempt1 exit1. That source-stage evidence establishes no backend, law/proof, World integration, numeric gate or #53
 completion claim. Frozen delivery/reader/projection/retention/rollback evidence
 remains due; this direct development shell lock is not a frozen collector.
 
