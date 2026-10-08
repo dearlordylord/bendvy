@@ -1,0 +1,39 @@
+{
+  "scope": "Existing delivered #27 bounded lifecycle clock basis, not new policy/current #56 backend replay",
+  "contract": "README.md17-23: failedtransactions restore exact prior stamps/owners; monotonic Worldclock retains unused positions",
+  "governingReport": "docs/reports/query-composition.md #27 delivered lifecycle and exact evidence link",
+  "documentSHA256": {
+    "experiments/query-composition/lifecycle-controls/README.md": "f6834247cbf79d65173d1b3cafc644b1f21534d748df0d0407f51c71c4fe08a1",
+    "docs/reports/query-composition.md": "6bedf75bc65bba631bfdb21f989e362c72bc403ac7572788c6ddb506b5e4629d"
+  },
+  "historicalReceiptSHA256": "e051d3822162ef2fd3272ae8ce60e7abf77f5d3cd4483b9eb8cbab84621b52b4",
+  "historicalReceiptStatus": "PASS_FINITE_LIFECYCLE_BOTH_BACKENDS",
+  "historicalFrozenSourceSHA256": {
+    "experiments/query-composition/lifecycle-controls/boundaries.bend": "76e538b88edfc1453913845a9759e1c45996dec6751eb79f8120d019140511c0",
+    "experiments/query-composition/lifecycle-controls/stamps.bend": "e17330602171b7046fbae93a9fd4a13bc902e02c90353a324e0f5951b6b63650",
+    "experiments/query-composition/lifecycle-controls/self-writes.bend": "5b1a894db9656940096a545526057f5d01456b586a3fd9a7ab1294575e146d6d"
+  },
+  "currentFixtureSourceMatchesHistoricalPins": "PASS3subjects",
+  "historicalObservationSHA256": {
+    "boundaries": {
+      "JS": "26331a54f2d768f1422e8c5a46c93aab49bfdbc18d7461f38c82f969c91604d5",
+      "Native": "26331a54f2d768f1422e8c5a46c93aab49bfdbc18d7461f38c82f969c91604d5"
+    },
+    "stamps": {
+      "JS": "a7ad81aad18bca4f1d8e15d32af833db9ccd04d0860a3b253de0ebfa3b9a26d5",
+      "Native": "a7ad81aad18bca4f1d8e15d32af833db9ccd04d0860a3b253de0ebfa3b9a26d5"
+    },
+    "self-writes": {
+      "JS": "6df4894fa89dbae1d490ea9dd089dfe5872fe57ff4bbc876bb38e21988d8d6a5",
+      "Native": "6df4894fa89dbae1d490ea9dd089dfe5872fe57ff4bbc876bb38e21988d8d6a5"
+    }
+  },
+  "currentCoreSourceSHA256": {
+    "src/ecs/component.bend": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+    "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "src/ecs/compose.bend": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+    "src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113"
+  },
+  "boundedClaim": "Boundary fixture successful last-clock write followed by failure retains4294967295 while original stamp/incomingowner restoration controls PASS bothbackends; otherstamps/owner/cursor controls PASS. Current restore_world/restore_stamp keepsclock matches documented policy. Historical corebytes not rebound to current optimizations.",
+  "remaining": "Production clockwidth/nonwrapping/scaling/fullcore refinements remain open; this bounded #56 failureclock is not a new #35rollbackdefect or pending semanticselection."
+}
