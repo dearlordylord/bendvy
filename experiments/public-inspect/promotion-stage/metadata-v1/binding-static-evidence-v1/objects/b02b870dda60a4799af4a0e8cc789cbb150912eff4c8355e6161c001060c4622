@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- expected : ExtraReads<bad~H>
+- observed : W.Reads<bad~H>
+Context:
+- actual : W.Reads<bad~H>
+Location: bad
+7 | def bad(~H:Type,actual:W.Reads<H>) -> ExtraReads<H>:
+8>|   actual
+  |   ^^^^^^
+9 | 

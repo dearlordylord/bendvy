@@ -1,0 +1,11 @@
+# Static declaration binding source and CLI milestone
+
+The canonical schema definition is a closed erased State index. Metadata and actual Inspector grants derive from that same definition; runtime State owns two Arrays and arbitrary Extra. Two schemas reached three actual read fields twice in the CLI IO consumer. Full eight-row output exactly matches the independently authored oracle, including resource/Array cells, actual World metadata, Instance cursor, and one IO.print newline. CLI executes in-process generated JavaScript, not pure term normalization or standalone emitted JS.
+
+The first runtime-Plan bridge import check did not instantiate its call. The actual driver exposed the closed-template refusal: a local runtime Plan cannot be supplied as I.run's ~plan. Both that failure and earlier Data-binder failure are retained. Static construction removes the runtime Plan field; it does not assert runtime Plan ownership or rebuilding. Initial static metadata match inference failure was repaired through an ordinary typed helper; both attempts are retained. Old unexecuted CLI proposal is retained separately from the corrected historical-source guards.
+
+Six source negatives have independent single-location classification: wrong closed descriptor name, nominal schema mismatch, undeclared grant expansion, read-to-write escalation, affine State duplication, and State escape as String. Original receipts remain UNCLASSIFIED, with the classification in a separate record. These are source feasibility/refusal observations, not mathematical validity claims.
+
+Canonical token/name/lens constructors and raw State constructors remain trusted and forgeable. No universal arbitrary-caller metadata truth, core adoption, full #54 closure, captured closure/service/foreign-instance/held-view policy, proof, or law is established. Baseline standalone JS/Native and compiling/reached lens/order mutations are source-only proposals outside this selection, awaiting resolver preparation and exact admission. Private environment and binaries are excluded.
+
+Default `binding-static-evidence.py` verifies all 463 archived records/119 unique objects and source-plan/archive/raw/CLI oracle/control classification joins without launching children.

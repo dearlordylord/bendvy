@@ -1,0 +1,51 @@
+{
+  "status": "SOURCE_ONLY_RETURNED_PLAN_PROJECTION_REVIEW_NO_CHECKS",
+  "files": {
+    "binding-projection-workshop.bend": "8c5343f266fe00c3c5ee6b4900ec583c1637009484cbe65e677879e32d7fb14b",
+    "binding-projection-garden.bend": "b81f04ed57f19fcf495dae6b2b6d04b4c03a4764b67062130311a61627de2bca",
+    "binding-projection-source.bend": "f0bde0438a61fe78abfb1b390ff9142d50506e6b7b3103f55ae98c04994a0714",
+    "BINDING-ALLFIELD-LITERAL-MODEL.json": "2d49d789d5a47bda13d323bff6e2be41514dae4fc2a95bdad2b1658c7122755a"
+  },
+  "quantityBoundary": "I.run receives same actual returned Plan viaexisting ~plan argument; samePlan isreturned inOwner exactlyonce. No RuntimePlan/Data conversion/rebuild; sourcechecker must confirm existingquantityrule before any runtime. Stopifrequiresnewcapture/borrowpolicy.",
+  "fieldBoundary": "UniversalopaqueH callback usesexistingValueRead getters for everyactualtypedOpsfield, Datafullviews only; Extra/Arrays stay outsidecallback",
+  "model": "Independent8 plannedfullrows, no actualprojection/runtimecredit",
+  "mutants": [
+    {
+      "schema": "workshop",
+      "kind": "swapped-actual-grant-routing",
+      "file": "binding-fixtures/workshop.bend",
+      "sourceSHA256": "153c20b838f9f2e7a4e41ce217222f0443561310f1bd2428fd07681a690b9a72",
+      "before": "I.Plan{Reads{bonusRead,aliasRead,scoreRead}}",
+      "after": "I.Plan{Reads{scoreRead,aliasRead,bonusRead}}",
+      "exactEffect": "Actual Bonus field reads complete Score101\u2013104; Score field reads complete Bonus201\u2013204; BonusAlias still Bonus201\u2013204. Metadata/declaration inputs and resource/Array/Extra owners unchanged. Compiling mutation inside trustedfinish, not rejected user projection-index mismatch."
+    },
+    {
+      "schema": "workshop",
+      "kind": "reversed-reflected-order",
+      "file": "binding-fixtures/workshop.bend",
+      "sourceSHA256": "153c20b838f9f2e7a4e41ce217222f0443561310f1bd2428fd07681a690b9a72",
+      "before": "[bonusMeta,aliasMeta,scoreMeta]",
+      "after": "[scoreMeta,aliasMeta,bonusMeta]",
+      "exactEffect": "Requirements normalize1then2; actualBonus/alias/Score projections and allresource/Array/Extra owners unchanged."
+    },
+    {
+      "schema": "garden",
+      "kind": "swapped-actual-grant-routing",
+      "file": "binding-fixtures/garden.bend",
+      "sourceSHA256": "e2adc82a25984fa9480b37c6275006d5fa810830430b5a4d3b6c5c7f8cbd9269",
+      "before": "I.Plan{Reads{bonusRead,aliasRead,scoreRead}}",
+      "after": "I.Plan{Reads{scoreRead,aliasRead,bonusRead}}",
+      "exactEffect": "Actual Bonus field reads complete Score101\u2013104; Score field reads complete Bonus201\u2013204; BonusAlias still Bonus201\u2013204. Metadata/declaration inputs and resource/Array/Extra owners unchanged. Compiling mutation inside trustedfinish, not rejected user projection-index mismatch."
+    },
+    {
+      "schema": "garden",
+      "kind": "reversed-reflected-order",
+      "file": "binding-fixtures/garden.bend",
+      "sourceSHA256": "e2adc82a25984fa9480b37c6275006d5fa810830430b5a4d3b6c5c7f8cbd9269",
+      "before": "[bonusMeta,aliasMeta,scoreMeta]",
+      "after": "[scoreMeta,aliasMeta,bonusMeta]",
+      "exactEffect": "Requirements normalize1then2; actualBonus/alias/Score projections and allresource/Array/Extra owners unchanged."
+    }
+  ],
+  "gates": "One pure bridge source5 afterreview. Completeactualdriver/source/fullliteralString oracles then JS/Native/controlcohorts separatelyadmitted; no backend now."
+}

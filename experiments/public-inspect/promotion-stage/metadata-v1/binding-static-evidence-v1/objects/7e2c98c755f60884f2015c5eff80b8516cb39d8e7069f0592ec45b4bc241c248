@@ -1,0 +1,95 @@
+import Base
+import binding-fixtures/workshop.bend as D
+import binding-static-workshop.bend as P
+import definition.bend as Meta
+import binding-format.bend as F
+import ../../bend-candidate/consumer.bend as A
+import ../../bend-candidate/inspect.bend as I
+import ../../../../src/ecs/world.bend as W
+
+type Definition is Type:
+  Definition{definition:P.State<D.canonical_definition(),Array<U32>>}
+type State is Type:
+  State{definition:P.State<D.canonical_definition(),Array<U32>>,instance:I.Instance<A.Schema>,world:W.World<A.Schema,A.Store,D.Resources,U32>,text:String}
+type ResourcesView is Data:
+  ResourcesView{bonus:List<&2,U32>,score:List<&2,U32>}
+def resources_score(bonus:List<&2,U32>,observed:D.Resources & List<&2,U32>) -> D.Resources & ResourcesView:
+  (resources,score)=observed
+  (resources,ResourcesView{bonus,score})
+def resources_bonus(observed:D.Resources & List<&2,U32>) -> D.Resources & ResourcesView:
+  (resources,bonus)=observed
+  resources_score(bonus,D.project_score(resources))
+def resources(resources:D.Resources) -> D.Resources & ResourcesView:
+  resources_bonus(D.project_bonus(resources))
+def resources_text(view:ResourcesView) -> String:
+  match view:
+    case ResourcesView{bonus,score}:"resourceBonus=" ++ List.show(&2,U32,U32.show,bonus) ++ "|resourceScore=" ++ List.show(&2,U32,U32.show,score)
+def instance_text(value:I.Instance<A.Schema>) -> I.Instance<A.Schema> & String:
+  match value:
+    case I.Fresh{}:(I.Fresh{},"Fresh")
+    case I.Active{+cursor,+registeredAt}:(I.Active{cursor,registeredAt},"Active:" ++ U32.show(cursor) ++ ":" ++ U32.show(registeredAt))
+def fields(value:Maybe<&2,Result<&2,&2,P.Fields,P.Fields>>) -> String:
+  match value:
+    case None{}:"None"
+    case Some{Done{P.Fields{bonus,alias,score}}}:"Done:bonus=" ++ List.show(&2,U32,U32.show,bonus) ++ ";bonusAlias=" ++ List.show(&2,U32,U32.show,alias) ++ ";score=" ++ List.show(&2,U32,U32.show,score)
+    case Some{Fail{P.Fields{bonus,alias,score}}}:"Fail:bonus=" ++ List.show(&2,U32,U32.show,bonus) ++ ";bonusAlias=" ++ List.show(&2,U32,U32.show,alias) ++ ";score=" ++ List.show(&2,U32,U32.show,score)
+def owners_extra(left:Array<U32>,right:Array<U32>,leftView:List<&2,U32>,rightView:List<&2,U32>,observed:Array<U32> & List<&2,U32>) -> P.State<D.canonical_definition(),Array<U32>> & String:
+  (extra,extraView)=observed
+  (P.State{left,right,extra},F.arrays(leftView,rightView,extraView))
+def owners_right(left:Array<U32>,extra:Array<U32>,leftView:List<&2,U32>,observed:Array<U32> & List<&2,U32>) -> P.State<D.canonical_definition(),Array<U32>> & String:
+  (right,rightView)=observed
+  owners_extra(left,right,leftView,rightView,A.array_project(extra))
+def owners_left(right:Array<U32>,extra:Array<U32>,observed:Array<U32> & List<&2,U32>) -> P.State<D.canonical_definition(),Array<U32>> & String:
+  (left,leftView)=observed
+  owners_right(left,extra,leftView,A.array_project(right))
+def definition_view(definition:P.State<D.canonical_definition(),Array<U32>>) -> P.State<D.canonical_definition(),Array<U32>> & String:
+  match definition:
+    case P.State{left,right,extra}:owners_left(right,extra,A.array_project(left))
+def world_done(+namespace:U32,+nextId:U32,+highWater:U32,live:Array<Bool>,+capacity:U32,+depth:Nat,store:A.Store,resource:D.Resources,+events:List<&2,U32>,pending:List<(W.World<A.Schema,A.Store,D.Resources,U32> -> W.World<A.Schema,A.Store,D.Resources,U32>)>,pendingCount:Nat,+registrations:List<&2,W.RegistrationMeta>,+nextSystemId:U32,+clock:U32,liveValue:Bool) -> W.World<A.Schema,A.Store,D.Resources,U32> & String:
+  (W.World{namespace,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId,clock},"world=ns:" ++ U32.show(namespace) ++ ";next:" ++ U32.show(nextId) ++ ";high:" ++ U32.show(highWater) ++ ";capacity:" ++ U32.show(capacity) ++ ";depth:" ++ Nat.show(depth) ++ ";live:[" ++ Bool.show(liveValue) ++ "];clock:" ++ U32.show(clock) ++ ";events:" ++ List.show(&2,U32,U32.show,events) ++ ";pending:" ++ Nat.show(pendingCount) ++ ";registrations:" ++ List.show(&2,W.RegistrationMeta,F.registration,registrations) ++ ";nextSystem:" ++ U32.show(nextSystemId))
+def world_pending(namespace:U32,nextId:U32,highWater:U32,live:Array<Bool>,capacity:U32,depth:Nat,store:A.Store,resource:D.Resources,events:List<&2,U32>,registrations:List<&2,W.RegistrationMeta>,nextSystemId:U32,clock:U32,liveValue:Bool,observed:List<(W.World<A.Schema,A.Store,D.Resources,U32> -> W.World<A.Schema,A.Store,D.Resources,U32>)> & Nat) -> W.World<A.Schema,A.Store,D.Resources,U32> & String:
+  (pending,count)=observed
+  world_done(namespace,nextId,highWater,live,capacity,depth,store,resource,events,pending,count,registrations,nextSystemId,clock,liveValue)
+def world_live(namespace:U32,nextId:U32,highWater:U32,capacity:U32,depth:Nat,store:A.Store,resource:D.Resources,events:List<&2,U32>,pending:List<(W.World<A.Schema,A.Store,D.Resources,U32> -> W.World<A.Schema,A.Store,D.Resources,U32>)>,registrations:List<&2,W.RegistrationMeta>,nextSystemId:U32,clock:U32,observed:Array<Bool> & Bool) -> W.World<A.Schema,A.Store,D.Resources,U32> & String:
+  (live,liveValue)=observed
+  world_pending(namespace,nextId,highWater,live,capacity,depth,store,resource,events,registrations,nextSystemId,clock,liveValue,F.pending(~(W.World<A.Schema,A.Store,D.Resources,U32> -> W.World<A.Schema,A.Store,D.Resources,U32>),pending))
+def world_meta(world:W.World<A.Schema,A.Store,D.Resources,U32>) -> W.World<A.Schema,A.Store,D.Resources,U32> & String:
+  match world:
+    case W.World{namespace,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId,clock}:world_live(namespace,nextId,highWater,capacity,depth,store,resource,events,pending,registrations,nextSystemId,clock,Array.get(Bool,live,0))
+def emitted_instance(+phase:String,+metadata:Meta.Metadata<A.Schema>,fieldView:Maybe<&2,Result<&2,&2,P.Fields,P.Fields>>,ownerText:String,worldText:String,prior:String,definition:P.State<D.canonical_definition(),Array<U32>>,world:W.World<A.Schema,A.Store,D.Resources,U32>,resourceView:ResourcesView,observed:I.Instance<A.Schema> & String) -> State:
+  (instance,instanceText)=observed
+  State{definition,instance,world,prior ++ "Workshop|" ++ phase ++ "|kind=" ++ Meta.kind(~A.Schema,metadata) ++ "|name=" ++ Meta.name(~A.Schema,metadata) ++ "|requirements=" ++ List.show(&2,Meta.Resource<A.Schema>,F.resource(~A.Schema),Meta.requirements(~A.Schema,metadata)) ++ "|" ++ ownerText ++ "|" ++ resources_text(resourceView) ++ "|fields=" ++ fields(fieldView) ++ "|" ++ worldText ++ "|instance=" ++ instanceText ++ "\n"}
+def emitted(+phase:String,+metadata:Meta.Metadata<A.Schema>,instance:I.Instance<A.Schema>,fieldView:Maybe<&2,Result<&2,&2,P.Fields,P.Fields>>,ownerText:String,worldText:String,prior:String,definition:P.State<D.canonical_definition(),Array<U32>>,observed:W.World<A.Schema,A.Store,D.Resources,U32> & ResourcesView) -> State:
+  (world,resourceView)=observed
+  emitted_instance(phase,metadata,fieldView,ownerText,worldText,prior,definition,world,resourceView,instance_text(instance))
+def world_observed(phase:String,metadata:Meta.Metadata<A.Schema>,instance:I.Instance<A.Schema>,fieldView:Maybe<&2,Result<&2,&2,P.Fields,P.Fields>>,ownerText:String,prior:String,definition:P.State<D.canonical_definition(),Array<U32>>,observed:W.World<A.Schema,A.Store,D.Resources,U32> & String) -> State:
+  (world,worldText)=observed
+  emitted(phase,metadata,instance,fieldView,ownerText,worldText,prior,definition,W.observe_resource(~A.Schema,~A.Store,~D.Resources,~U32,~ResourcesView,~resources,world))
+def owner_observed(phase:String,metadata:Meta.Metadata<A.Schema>,instance:I.Instance<A.Schema>,fieldView:Maybe<&2,Result<&2,&2,P.Fields,P.Fields>>,world:W.World<A.Schema,A.Store,D.Resources,U32>,prior:String,observed:P.State<D.canonical_definition(),Array<U32>> & String) -> State:
+  (definition,ownerText)=observed
+  world_observed(phase,metadata,instance,fieldView,ownerText,prior,definition,world_meta(world))
+def metadata_observed(phase:String,instance:I.Instance<A.Schema>,fieldView:Maybe<&2,Result<&2,&2,P.Fields,P.Fields>>,world:W.World<A.Schema,A.Store,D.Resources,U32>,prior:String,observed:P.State<D.canonical_definition(),Array<U32>> & Meta.Metadata<A.Schema>) -> State:
+  (definition,metadata)=observed
+  owner_observed(phase,metadata,instance,fieldView,world,prior,definition_view(definition))
+def checkpoint(phase:String,state:State) -> State:
+  match state:
+    case State{definition,instance,world,text}:metadata_observed(phase,instance,None{},world,text,P.read(~D.canonical_definition(),~Array<U32>,definition))
+def projection_observed(phase:String,text:String,definition:P.State<D.canonical_definition(),Array<U32>>,observed:I.Observed<A.Schema,A.Store,D.Resources,U32,P.Fields,P.Fields>) -> State:
+  match observed:
+    case I.Observed{world,instance,result}:metadata_observed(phase,instance,Some{result},world,text,P.read(~D.canonical_definition(),~Array<U32>,definition))
+def projected(phase:String,text:String,observed:P.State<D.canonical_definition(),Array<U32>> & I.Observed<A.Schema,A.Store,D.Resources,U32,P.Fields,P.Fields>) -> State:
+  (definition,result)=observed
+  projection_observed(phase,text,definition,result)
+def project(phase:String,state:State) -> State:
+  match state:
+    case State{definition,instance,world,text}:projected(phase,text,P.invoke(~D.canonical_definition(),~Array<U32>,definition,instance,world))
+def finish(state:State) -> String:
+  match state:
+    case State{_,_,_,text}:text
+# Closed diagnostic driver disposes final owners ONLY after all8 observations.
+def created(creation:W.Creation<A.Schema,A.Store,D.Resources,U32>) -> String:
+  match creation:
+    case W.Created{_,world}:finish(project("projection-repeat",project("projection-first",checkpoint("metadata-repeat",checkpoint("metadata-first",State{P.attach(~D.canonical_definition(),~Array<U32>,F.cells(401),F.cells(501),F.cells(601)),I.Fresh{},world,""})))))
+    case W.CreateRejected{_,_}:"setup creation rejected\n"
+def main() -> String:
+  created(W.create(~A.Schema,~A.Store,~D.Resources,~U32,~A.empty,W.factory(),D.Resources{A.Resource{F.cells(101)},A.Resource{F.cells(201)}}))

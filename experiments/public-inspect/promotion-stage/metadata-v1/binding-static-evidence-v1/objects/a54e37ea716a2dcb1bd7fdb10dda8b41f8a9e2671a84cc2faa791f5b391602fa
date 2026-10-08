@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : Cap.ValueWrite<bad~H, A.Resource, List<&2, U32>>
+- observed : Cap.ValueRead<bad~H, List<&2, U32>>
+Context:
+- _     : Cap.ValueRead<bad~H, List<&2, U32>>
+- _     : Cap.ValueRead<bad~H, List<&2, U32>>
+- score : Cap.ValueRead<bad~H, List<&2, U32>>
+Location: bad
+6 |   match actual:
+7>|     case W.Reads{_,_,score}:score
+  |                             ^^^^^
+8 | 

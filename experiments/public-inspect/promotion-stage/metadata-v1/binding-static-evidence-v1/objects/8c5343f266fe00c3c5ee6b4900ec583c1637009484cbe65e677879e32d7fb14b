@@ -1,0 +1,41 @@
+import Base
+import binding-fixtures/workshop.bend as D
+import binding-witness.bend as Witness
+import definition.bend as Meta
+import ../../bend-candidate/consumer.bend as A
+import ../../bend-candidate/inspect.bend as I
+import ../../../../src/ecs/world.bend as World
+import ../../../../src/ecs/capabilities.bend as Cap
+
+# Source-only actual returned Plan bridge. Uses existing erased grant argument
+# and keeps the SAME owner; no rebuilt Plan, captured Extra or manual Frame.
+type Fields is Data:
+  Fields{bonus:List<&2,U32>,bonusAlias:List<&2,U32>,score:List<&2,U32>}
+def bonus(~H:Type,reads:D.Reads<H>) -> Cap.ValueRead<H,List<&2,U32>>:
+  match reads:
+    case D.Reads{bonus,_,_}:bonus
+def alias(~H:Type,reads:D.Reads<H>) -> Cap.ValueRead<H,List<&2,U32>>:
+  match reads:
+    case D.Reads{_,alias,_}:alias
+def score(~H:Type,reads:D.Reads<H>) -> Cap.ValueRead<H,List<&2,U32>>:
+  match reads:
+    case D.Reads{_,_,score}:score
+def with_score(~H:Type,bonus:List<&2,U32>,alias:List<&2,U32>,observed:H & List<&2,U32>) -> H & Result<&2,&2,Fields,Fields>:
+  (ctx,score)=observed
+  (ctx,Done{Fields{bonus,alias,score}})
+def with_alias(~H:Type,~caps:D.Reads<H>,bonus:List<&2,U32>,observed:H & List<&2,U32>) -> H & Result<&2,&2,Fields,Fields>:
+  (ctx,alias)=observed
+  with_score(~H,bonus,alias,Cap.value_read(~H,~List<&2,U32>,~score(~H,caps),ctx))
+def with_bonus(~H:Type,~caps:D.Reads<H>,observed:H & List<&2,U32>) -> H & Result<&2,&2,Fields,Fields>:
+  (ctx,bonus)=observed
+  with_alias(~H,~caps,bonus,Cap.value_read(~H,~List<&2,U32>,~alias(~H,caps),ctx))
+def body(~H:Type,~caps:D.Reads<H>,args:Unit,ctx:H) -> H & Result<&2,&2,Fields,Fields>:
+  with_bonus(~H,~caps,Cap.value_read(~H,~List<&2,U32>,~bonus(~H,caps),ctx))
+def kept(~Extra:Type,metadata:Meta.Metadata<A.Schema>,owner:Witness.Owner<I.Plan<A.Schema,A.Store,D.Resources,U32,D.Ops>,Extra>,observed:I.Observed<A.Schema,A.Store,D.Resources,U32,Fields,Fields>) -> Meta.Definition<A.Schema,Witness.Owner<I.Plan<A.Schema,A.Store,D.Resources,U32,D.Ops>,Extra>> & I.Observed<A.Schema,A.Store,D.Resources,U32,Fields,Fields>:
+  (Meta.Definition{metadata,owner},observed)
+def invoke_owner(~Extra:Type,metadata:Meta.Metadata<A.Schema>,owner:Witness.Owner<I.Plan<A.Schema,A.Store,D.Resources,U32,D.Ops>,Extra>,instance:I.Instance<A.Schema>,world:World.World<A.Schema,A.Store,D.Resources,U32>) -> Meta.Definition<A.Schema,Witness.Owner<I.Plan<A.Schema,A.Store,D.Resources,U32,D.Ops>,Extra>> & I.Observed<A.Schema,A.Store,D.Resources,U32,Fields,Fields>:
+  match owner:
+    case Witness.Owner{left,right,extra,plan}:kept(~Extra,metadata,Witness.Owner{left,right,extra,plan},I.run(~A.Schema,~A.Store,~D.Resources,~U32,~D.Ops,~Unit,~Fields,~Fields,~plan,~body,instance,Unit{},world))
+def invoke_returned(~Extra:Type,definition:Meta.Definition<A.Schema,Witness.Owner<I.Plan<A.Schema,A.Store,D.Resources,U32,D.Ops>,Extra>>,instance:I.Instance<A.Schema>,world:World.World<A.Schema,A.Store,D.Resources,U32>) -> Meta.Definition<A.Schema,Witness.Owner<I.Plan<A.Schema,A.Store,D.Resources,U32,D.Ops>,Extra>> & I.Observed<A.Schema,A.Store,D.Resources,U32,Fields,Fields>:
+  match definition:
+    case Meta.Definition{metadata,owner}:invoke_owner(~Extra,metadata,owner,instance,world)

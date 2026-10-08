@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : base
+- observed : base (consumed more than once)
+Location: cells
+21 |     case head <> tail:pending_join(~F,head,pending(~F,tail))
+22>| def cells(base:U32) -> Array<U32>:
+   |           ^^^^
+23 |   Array.set(U32,Array.set(U32,Array.set(U32,Array.new(U32,2n,base),1,(base+1:U32)),2,(base+2:U32)),3,(base+3:U32))

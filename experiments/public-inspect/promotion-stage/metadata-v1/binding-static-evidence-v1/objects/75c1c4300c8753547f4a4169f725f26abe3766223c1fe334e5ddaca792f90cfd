@@ -1,0 +1,17 @@
+SOME PROOFS FAIL
+Error:
+- expected : a template applied to closed ~ arguments (plan is a variable here, not comptime: pass it at run time)
+- observed : I.run
+Context:
+- metadata : Meta.Metadata<A.Schema>
+- left     : Array<U32>
+- right    : Array<U32>
+- extra    : Array<U32>
+- plan     : I.Plan<A.Schema, A.Store, D.Resources, U32, D.Ops>
+- instance : I.Instance<A.Schema>
+- world    : World.World<A.Schema, A.Store, D.Resources, U32>
+Location: invoke_owner~0
+37 |   match owner:
+38>|     case Witness.Owner{left,right,extra,plan}:kept(~Extra,metadata,Witness.Owner{left,right,extra,plan},I.run(~A.Schema,~A.Store,~D.Resources,~U32,~D.Ops,~Unit,~Fields,~Fields,~plan,~body,instance,Unit{},world))
+   |                                                                                                         ^^^^^
+39 | def invoke_returned(~Extra:Type,definition:Meta.Definition<A.Schema,Witness.Owner<I.Plan<A.Schema,A.Store,D.Resources,U32,D.Ops>,Extra>>,instance:I.Instance<A.Schema>,world:World.World<A.Schema,A.Store,D.Resources,U32>) -> Meta.Definition<A.Schema,Witness.Owner<I.Plan<A.Schema,A.Store,D.Resources,U32,D.Ops>,Extra>> & I.Observed<A.Schema,A.Store,D.Resources,U32,Fields,Fields>:

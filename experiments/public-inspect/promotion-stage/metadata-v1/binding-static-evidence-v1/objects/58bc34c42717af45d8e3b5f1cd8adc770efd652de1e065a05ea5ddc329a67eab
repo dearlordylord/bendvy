@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : owner
+- observed : owner (consumed more than once)
+Location: bad
+3 | 
+4>| def bad(owner:P.State<D.canonical_definition(),Array<U32>>) -> P.State<D.canonical_definition(),Array<U32>> & P.State<D.canonical_definition(),Array<U32>>:
+  |         ^^^^^
+5 |   (owner,owner)

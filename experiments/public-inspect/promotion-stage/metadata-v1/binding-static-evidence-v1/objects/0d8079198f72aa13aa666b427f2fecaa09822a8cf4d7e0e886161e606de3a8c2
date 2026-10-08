@@ -1,0 +1,33 @@
+{
+  "status": "RAW_NEGATIVE_REJECTIONS_PENDING_DIAGNOSTIC_REVIEW",
+  "planSHA256": "e7cc9832bfd715a2f834dd231af38abb198aaa5cd452c199d8b2929d85bff867",
+  "commands": [
+    {
+      "label": "wrong-descriptor",
+      "exit": 1,
+      "failure": null,
+      "classification": "UNCLASSIFIED"
+    },
+    {
+      "label": "cross-schema",
+      "exit": 1,
+      "failure": null,
+      "classification": "UNCLASSIFIED"
+    },
+    {
+      "label": "undeclared",
+      "exit": 1,
+      "failure": null,
+      "classification": "UNCLASSIFIED"
+    }
+  ],
+  "scope": "Three static source refusals diagnostic collection only. Raw status UNCLASSIFIED; actual single-location independent review required. No generic exit1 acceptance/proof/runtime/trusted canonical truth.",
+  "logs": {
+    "wrong-descriptor.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "wrong-descriptor.stderr": "77c0c4a44b64cfd5a7debea2f7f4fe17ca0bb14a962a95e9857c812e94d848a2",
+    "cross-schema.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cross-schema.stderr": "aea4c2f1fbcee740d0e98d89d313872e193484e9ebda5e9f6a9ab7a2c8bbeb95",
+    "undeclared.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "undeclared.stderr": "b02b870dda60a4799af4a0e8cc789cbb150912eff4c8355e6161c001060c4622"
+  }
+}

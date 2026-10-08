@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- expected : String
+- observed : P.State<../definition.Definition{../definition.Metadata{"Workshop/BoundMetadata", [../definition.Resource{2, "Workshop/Bonus"}, ../definition.Resource{1, "Workshop/Score"}]}, ../../../bend-candidate/inspect.Plan{D.Reads{../../../../../src/ecs/capabilities.ValueRead{frame => ../../../bend-candidate/inspect.resource_get(../../../bend-candidate/consumer.Schema, ../../../bend-candidate/consumer.Store, D.Resources, U32, List<&2, U32>, D.project_bonus, frame)}, ../../../../../src/ecs/capabilities.ValueRead{frame => ../../../bend-candidate/inspect.resource_get(../../../bend-candidate/consumer.Schema, ../../../bend-candidate/consumer.Store, D.Resources, U32, List<&2, U32>, D.project_bonus, frame)}, ../../../../../src/ecs/capabilities.ValueRead{frame => ../../../bend-candidate/inspect.resource_get(../../../bend-candidate/consumer.Schema, ../../../bend-candidate/consumer.Store, D.Resources, U32, List<&2, U32>, D.project_score, frame)}}}}, Array<U32>>
+Context:
+- owner : P.State<../definition.Definition{../definition.Metadata{"Workshop/BoundMetadata", [../definition.Resource{2, "Workshop/Bonus"}, ../definition.Resource{1, "Workshop/Score"}]}, ../../../bend-candidate/inspect.Plan{D.Reads{../../../../../src/ecs/capabilities.ValueRead{frame => ../../../bend-candidate/inspect.resource_get(../../../bend-candidate/consumer.Schema, ../../../bend-candidate/consumer.Store, D.Resources, U32, List<&2, U32>, D.project_bonus, frame)}, ../../../../../src/ecs/capabilities.ValueRead{frame => ../../../bend-candidate/inspect.resource_get(../../../bend-candidate/consumer.Schema, ../../../bend-candidate/consumer.Store, D.Resources, U32, List<&2, U32>, D.project_bonus, frame)}, ../../../../../src/ecs/capabilities.ValueRead{frame => ../../../bend-candidate/inspect.resource_get(../../../bend-candidate/consumer.Schema, ../../../bend-candidate/consumer.Store, D.Resources, U32, List<&2, U32>, D.project_score, frame)}}}}, Array<U32>>
+Location: bad
+4 | def bad(owner:P.State<D.canonical_definition(),Array<U32>>) -> String:
+5>|   owner
+  |   ^^^^^
+6 | 

@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : an annotated term (cannot infer)
+- observed : \{Meta.Definition: (metadata => _ => metadata)}
+Location: metadata
+37 |   match descriptor:
+38>|     case Meta.Definition{metadata,_}:metadata
+   |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+39 | def plan(~descriptor:Meta.Definition<A.Schema,I.Plan<A.Schema,A.Store,D.Resources,U32,D.Ops>>) -> I.Plan<A.Schema,A.Store,D.Resources,U32,D.Ops>:
