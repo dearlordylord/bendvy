@@ -1,0 +1,254 @@
+{
+  "scope": "Independent literal observations proposed before runtime; not candidate-generated outputs",
+  "fixture": {
+    "liveIds": [
+      1,
+      3,
+      6,
+      10
+    ],
+    "left": {
+      "1": [
+        7,
+        9
+      ],
+      "3": [
+        11
+      ],
+      "6": "absent",
+      "10": [
+        13,
+        17
+      ]
+    },
+    "right": {
+      "1": "absent",
+      "3": [
+        29
+      ],
+      "6": "absent",
+      "10": [
+        31
+      ]
+    },
+    "resources": [
+      19,
+      23
+    ],
+    "clock": 41,
+    "pending": 2,
+    "applicationOwnedCursor": 7
+  },
+  "cases": [
+    {
+      "name": "disabled",
+      "projectionCalls": 0,
+      "result": "Disabled"
+    },
+    {
+      "name": "omitted",
+      "ids": [
+        1,
+        3,
+        6,
+        10
+      ]
+    },
+    {
+      "name": "emptyWhitelist",
+      "ids": []
+    },
+    {
+      "name": "emptyWith",
+      "ids": [
+        1,
+        3,
+        6,
+        10
+      ]
+    },
+    {
+      "name": "conjunctionTag",
+      "ids": [
+        3,
+        10
+      ]
+    },
+    {
+      "name": "whitelistUnsortedDuplicatesMissing",
+      "localIds": [
+        10,
+        3,
+        10,
+        0,
+        77
+      ],
+      "ids": [
+        3,
+        10
+      ]
+    },
+    {
+      "name": "zero",
+      "normalized": {
+        "tag": "BoundedDecimal",
+        "digits": []
+      },
+      "ids": []
+    },
+    {
+      "name": "negativeZero",
+      "normalized": {
+        "tag": "BoundedDecimal",
+        "digits": []
+      },
+      "ids": []
+    },
+    {
+      "name": "negativeFinite",
+      "normalized": {
+        "tag": "BoundedDecimal",
+        "digits": []
+      },
+      "ids": []
+    },
+    {
+      "name": "negativeInfinity",
+      "normalized": {
+        "tag": "BoundedDecimal",
+        "digits": []
+      },
+      "ids": []
+    },
+    {
+      "name": "fraction0.25",
+      "normalized": {
+        "tag": "BoundedDecimal",
+        "digits": [
+          1
+        ]
+      },
+      "ids": [
+        1
+      ]
+    },
+    {
+      "name": "fraction1.5WithTag",
+      "normalized": {
+        "tag": "BoundedDecimal",
+        "digits": [
+          2
+        ]
+      },
+      "ids": [
+        3,
+        10
+      ]
+    },
+    {
+      "name": "nan",
+      "normalized": {
+        "tag": "Unbounded"
+      },
+      "ids": [
+        1,
+        3,
+        6,
+        10
+      ]
+    },
+    {
+      "name": "positiveInfinity",
+      "normalized": {
+        "tag": "Unbounded"
+      },
+      "ids": [
+        1,
+        3,
+        6,
+        10
+      ]
+    },
+    {
+      "name": "finite2Power53",
+      "normalized": {
+        "tag": "BoundedDecimal",
+        "digits": [
+          2,
+          9,
+          9,
+          0,
+          4,
+          7,
+          4,
+          5,
+          2,
+          9,
+          9,
+          1,
+          7,
+          0,
+          0,
+          9
+        ]
+      },
+      "ids": [
+        1,
+        3,
+        6,
+        10
+      ]
+    },
+    {
+      "name": "foreignSameIdGet",
+      "error": "MissingEntity",
+      "projectionCalls": 0
+    }
+  ],
+  "everyCaseOwnerReturn": {
+    "liveIds": [
+      1,
+      3,
+      6,
+      10
+    ],
+    "left": {
+      "1": [
+        7,
+        9
+      ],
+      "3": [
+        11
+      ],
+      "6": "absent",
+      "10": [
+        13,
+        17
+      ]
+    },
+    "right": {
+      "1": "absent",
+      "3": [
+        29
+      ],
+      "6": "absent",
+      "10": [
+        31
+      ]
+    },
+    "resources": [
+      19,
+      23
+    ],
+    "clock": 41,
+    "pending": 2,
+    "applicationOwnedCursor": 7
+  },
+  "everyEnabledDump": {
+    "entityCountBeforeFilters": 4,
+    "ascendingIds": true,
+    "dataOutputDetached": true
+  },
+  "limits": "source-only oracle; no complete Dump/Description format, machine/runtime internals, performance, proof or full56 acceptance",
+  "representation": "Canonical little-endian decimal digits; zero=[]; no unaryNat/U32 saturation"
+}
