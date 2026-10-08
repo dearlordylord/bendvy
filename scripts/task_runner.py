@@ -168,6 +168,9 @@ def execute_result(command, timeout, env=None, cwd=None, capture='merged-stdout'
             if time.monotonic() >= end:
                 raise TimeoutError('command owner exceeded command and cleanup budget')
             if not owner.is_alive():
+                # A result may arrive between the earlier poll and owner exit.
+                if receiver.poll(0):
+                    break
                 raise RuntimeError('command owner exited without a result')
         result = receiver.recv()
         owner.join(4)

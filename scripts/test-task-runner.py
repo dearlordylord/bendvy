@@ -115,6 +115,49 @@ class Execution(unittest.TestCase):
         self.assertEqual((result['exit'], result['failure']), (7, None))
         self.assertEqual((result['stdout'], result['stderr']), (b'a\0\xff', b'b\xfe'))
 
+    def test_completed_result_survives_stale_poll_before_owner_death(self):
+        with tempfile.TemporaryDirectory() as directory:
+            release = Path(directory) / 'release'
+            context = task_runner.multiprocessing.get_context('fork')
+            receiver, sender = context.Pipe(duplex=False)
+            owners = []
+            class StaleReceiver:
+                first = True
+                def poll(self, timeout):
+                    if not self.first:
+                        return receiver.poll(timeout)
+                    self.first = False
+                    # The command cannot finish until this readiness check.
+                    self_ready = receiver.poll(0)
+                    if self_ready:
+                        raise AssertionError('result arrived before release')
+                    release.touch()
+                    owners[0].join(3)
+                    if owners[0].is_alive() or not receiver.poll(0):
+                        raise AssertionError('owner did not publish then exit')
+                    return False  # The earlier readiness observation is stale.
+                def recv(self): return receiver.recv()
+                def close(self): receiver.close()
+            def process(*args, **kwargs):
+                owner = context.Process(*args, **kwargs)
+                owners.append(owner)
+                return owner
+            fake_context = mock.Mock()
+            fake_context.Pipe.return_value = (StaleReceiver(), sender)
+            fake_context.Process.side_effect = process
+            code = 'from pathlib import Path; import time; p=Path('+repr(str(release))+'); '
+            code += '\nwhile not p.exists(): time.sleep(.001)\nprint("published")'
+            with mock.patch.object(task_runner.multiprocessing, 'get_context', return_value=fake_context):
+                result = execute_result(command(code), 3)
+            self.assertEqual((result['exit'],result['failure'],result['stdout']), (0,None,b'published\n'))
+
+    def test_abrupt_owner_exit_without_result_refuses(self):
+        def abrupt_exit(connection, *args):
+            os._exit(23)
+        with mock.patch.object(task_runner, '_worker', abrupt_exit):
+            with self.assertRaises(EOFError):
+                execute_result(command('print("must not run")'), 3)
+
     def test_merged_and_compatibility(self):
         cmd = command('import os; os.write(1,b"a"); os.write(2,b"b")')
         result = execute_result(cmd, 3)
