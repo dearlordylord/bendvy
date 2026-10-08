@@ -11,7 +11,7 @@ A Bevy-style ECS built for [Bend 2](https://github.com/bendlang/bend), including
 - Typed bundles, directed relations, state machines and transition handlers.
 - Read-only Inspector/Check primitives.
 
-These pieces have scoped tests and examples. They don't yet add up to complete parity.
+These pieces have scoped tests and examples. They don't yet add up to complete parity. Try the [little browser arena](examples/arena/README.md).
 
 ## Parity and performance
 

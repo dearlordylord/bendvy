@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bendvy · little arena</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,sans-serif;background:#10151c;color:#eef4ff}body{max-width:850px;margin:3rem auto;padding:0 1rem}header{display:flex;justify-content:space-between;align-items:center;gap:1rem}h1{font-size:1.7rem;margin:0}p{color:#a9b8cb;line-height:1.6}button{background:#27384b;color:#eef4ff;border:1px solid #455b74;border-radius:8px;padding:.65rem 1rem;cursor:pointer}button:focus-visible{outline:3px solid #67e8f9}canvas{display:block;width:100%;height:auto;border:1px solid #344457;border-radius:14px;background:#141d28;touch-action:none}#status{min-height:1.6em;font-variant-numeric:tabular-nums}footer{font-size:.85rem;color:#8495ab}a{color:#67e8f9}
+</style>
+</head>
+<body>
+<header><h1>Little arena</h1><button id="restart" type="button">Restart · R</button></header>
+<p>Collect gold. Dodge the coral chasers. Move with <strong>WASD</strong> or <strong>arrow keys</strong>. <strong>Space</strong> pauses.</p>
+<p id="status" role="status" aria-live="polite">Loading Bend ECS…</p>
+<canvas id="arena" width="800" height="500" tabindex="0" aria-label="Arena game. Use WASD or arrow keys to move, Space to pause, R to restart."></canvas>
+<p id="error" role="alert" hidden></p>
+<footer>Gameplay runs in Bendvy ECS compiled from Bend. The browser supplies input and draws the canvas.</footer>
+<script type="module" src="./browser.mjs"></script>
+</body>
+</html>
