@@ -1,0 +1,46 @@
+{
+  "scope": "direct source check of additive full detached-owner observations, no backend",
+  "command": [
+    "flock",
+    "/tmp/bendvy-parity-heavy.lock",
+    "timeout",
+    "5",
+    "/home/node/.bend/bin/bend",
+    "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-main.bend",
+    "--check-only"
+  ],
+  "environmentOverride": {
+    "BEND_NO_TELEMETRY": "1"
+  },
+  "exitCode": 0,
+  "candidateSourceSHA256": {
+    "app.bend": "aa55ae27b742e62718b5452c0176ebe5e0d479d896e62737b8a35142ff538f64",
+    "application.bend": "fd107f2163ced8827702c94384fef4a69af2e7ce28027b0cf5d9e288df35268f",
+    "consumer.bend": "52c382b505c24633ee6c063394e573a7795b6d3eace088c55fb074f230e28b68",
+    "declaration.bend": "d814be4eb96003efc746994500211c9c83cb4e4db21a4eb08e6f73dd2aaccf6b",
+    "negative-app-owner-duplication.bend": "d75728b9092934a611322135c3b78288dec903e5b237b859f5719c13c94f867b",
+    "negative-cross-schema.bend": "ff22a5c394916955f3110bee6ba6630cb5ddcf147273edba82c93b34cb371500",
+    "negative-duplicate-owner.bend": "f410a6061a3b24a9d51b3c2e4be0ba162271607c2c3d7c63a9bf7e01b2546c2d",
+    "negative-plain-write-through-read.bend": "419e83f4f3aa194b4f67448c7ebe41741c395dd0eb9ce168f03b8bb2c7b04f7e",
+    "negative-system-owner-duplication.bend": "89bcfae27144549fad6550013701c4ccc32d5c1dce5ac63e8833c0a255114325",
+    "negative-system-schema.bend": "bada3cf3af6cc6e3fec7733fe95b1ead10030b513aa0e44d02917c2286dea292",
+    "negative-write-through-read.bend": "8f53e11da7bf7b2e056d85ea32923bbbaa696268e03d916729af8d232e1ab442",
+    "nonempty.bend": "c50e423b762d7d404392d574856ab7d3fff1703bf14ad3c1f2b2b6711d9f218e",
+    "plain-transient-application.bend": "1d35de822da9f0be964855005ac5724e9a6987ede0b4f570cc5dbfe86b81edd4",
+    "registered-application.bend": "51cbf11c8be4c4288338686681295f57584d42bf1efd4b06ca25e688b9a0a143",
+    "scenario-body.bend": "ba231ab98b1ae38ed5ba32438f0630deb748c4b3c7d253a3db0edc4822103888",
+    "scenario-driver.bend": "1a7256ed0804d0250ee43f5b62c3329f90fd89ba7ce41912f8db7eb5f1c949cb",
+    "scenario-dto.bend": "3bde409add49493149b85396d01e0dd83b236c0acb3d2c779a36e447696f6372",
+    "scenario-execution.bend": "1000b2661c015c58597e30285b59fab4b03eb561eda0c57c8d79a63b1a320bc7",
+    "scenario-main.bend": "82719387db6ff156460997a219067807a294afff55750d65ac7f6f3046205fb5",
+    "scenario-observation.bend": "7b00800fc9d120973429a84dd019324fae9f893f250a09b46129b11586f4586b",
+    "scenario-queries.bend": "b3683eca66efde4ca3e73d48f047a1c9c8ffca997aa47adaa51359fc6ed3c613",
+    "scenario-returned.bend": "cc6dcc2f5924a8594c10ed207dbbbf3fcf4fb969470ba124f718972b843ee4ec",
+    "scenario-schema.bend": "980bd13f41ee93533bef24af02a407be90047818a9b5c684848aec3bcf904065",
+    "scenario-setup.bend": "05d0db891ee77013bfad08c0fec19f5950407824708976d77c44134c624fd138",
+    "scenario-systems.bend": "ebc51df17a247cacf8e73bc8af308c1bd62b5b53d39c0c91e692b68fd8cc25fa",
+    "system.bend": "306eb4a35fe1b2b71276263c8716f15858e7bc9b74b8418461da4f4205812ea1"
+  },
+  "precedingImmutableFixtureCommit": "79ba25ec",
+  "change": "PositionReplaced observes previous/incoming fullArray owner views; actual returned owner is retained through the remaining execution into Delivery.detached. Full45phase scope unchanged."
+}

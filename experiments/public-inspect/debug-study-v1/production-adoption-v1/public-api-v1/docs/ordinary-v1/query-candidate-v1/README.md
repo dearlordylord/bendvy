@@ -154,3 +154,11 @@ checks are development evidence; no JS/Native execution, performance result or
 full #56 completion is claimed. Independent whole-oracle/source admission must
 precede backend development. Final Sch dispatch mapping, canonical promotion and
 emitted-JS Disabled allocation evidence remain integration requirements.
+
+The additive detached-owner control records `PositionReplaced.result`,
+`previous` and `incoming` as separate complete observations. `Returned.owner`
+preserves the actual Array owner; `retain_previous` / `retain_incoming` hold it
+across the remaining phase continuation and return it in `Delivery.detached`.
+It ends its fixture lifetime alongside the final World and registered owners.
+A rejected fixture also retains its complete detached observation. The full
+entry still passes source5; `source-checks-v5` retains the additive check.

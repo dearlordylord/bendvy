@@ -31,7 +31,7 @@ type RejectedArgs is Data:
 type Operation is Data:
   Observed{}
   Run{result:Result<&2,&2,Q.Error<Unit>,List<&2,RowValues>>}
-  PositionReplaced{result:W.Status}
+  PositionReplaced{result:W.Status,previous:Maybe<&2,View.FullCell>,incoming:Maybe<&2,View.FullCell>}
   RefusedRegistration{args:RejectedArgs,foreignWorld:WorldSnapshot,registry:RegistrySnapshot}
 type Snapshot is Data:
   Snapshot{label:String,factoryNextNamespace:U32,world:WorldSnapshot,registries:List<&2,RegistrySnapshot>,operation:Operation,descriptions:List<&2,Maybe<&2,App.Description<Schema.Schema>>>}
