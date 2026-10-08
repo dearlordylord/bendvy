@@ -39,10 +39,15 @@ def verify():
  old,previous=qualify('historical-normal',m['historicalPlanSHA256'],'INDEPENDENT_BUNDLE_FORTY_EIGHT_COMPLETE_JS_OBSERVATIONS_PASS')
  assert len(p['pins'])==1376
  review=obj('source/source-review-manifest.json');assert sha(data['source/source-review-manifest.json'])==p['sourceReviewManifestSHA256']==m['sourceReviewSHA256']
+ archivedRoots=[Path(name).parent for name,h in p['pins'].items() if name.endswith('/timing-adapter-v1/source-review-manifest.json') and h==m['sourceReviewSHA256']]
+ assert len(archivedRoots)==1;archivedRoot=archivedRoots[0]
+ mapped=set()
  for name,h in review['sourceFiles'].items():
-  relative=Path(name).relative_to(H)
+  relative=Path(name).relative_to(archivedRoot);assert not relative.is_absolute() and '..' not in relative.parts
+  assert str(relative) not in mapped;mapped.add(str(relative))
   archived='inspection/stage/'+str(relative).removeprefix('stage/') if relative.parts[0]=='stage' else 'source/'+str(relative)
-  assert sha(data[archived])==h==p['pins'][name]
+  assert archived in a['members'] and sha(data[archived])==h==p['pins'][name]
+  if str(relative) in {'SOURCE-STATUS.md','run-inspection-js.py'}:assert sha((H/relative).read_bytes())==h
  for name,h in review['compilerAndClockSource'].items():
   suffix=str(name).split('/bend2/bend2/',1)[1];assert sha(data['compiler/'+suffix])==h==p['pins'][name]
  doc=p['historicalDocumentationJoin'];assert sha(data['source/historical-readiness-fe23fd7e.md'])==doc['historicalSHA256']==old['pins'][doc['originalPath']]
@@ -53,6 +58,7 @@ def verify():
   for name,row in actual['physical'][schema].items():
    projected={k:row[k] for k in fields}|{'pending':None if row['pending'] is None else row['pending']['value']}
    assert canonical(projected)==canonical(expected[schema][name])
+ assert sha((H/'GENERATED-INSPECTION.md').read_bytes())==sha(data['source/GENERATED-INSPECTION.md'])
  generated=data['inspection/inspection.mjs'];assert sha(generated)==m['generatedSHA256']
  text=generated.decode();assert 'completed$1260$(($batch$058step$1260$(_batch_0, _operation_0)), _x_2)' in text
  assert '"applications": ($batch$058stepped$1260$(_apps_0, _operation_0))' in text
