@@ -43,8 +43,8 @@ shared heavy lock. Raw guide and all parser/binder development attempts are
 retained; initial Event/Result names collided with Base, pair-pattern syntax and
 runtime owner captured in a closed template were corrected. Owned publication
 now threads runtime owners directly through its schema-owned World lens.
-No backend/output was obtained; independent whole oracle is being authored from
-these source/DTO definitions by the oracle worker before execution admission.
+At the source checkpoint no backend/output had been obtained; the independent
+whole oracle was authored from these source/DTO definitions before execution.
 No law/proof, dependency, shared ECS source or public contract changed. Raw
 trusted World creation is an unqualified fixture setup, not production factory
 coverage. Public readers/retention, source-current negatives/mutation,
@@ -53,3 +53,45 @@ JS/Native/TS applications and performance/full #53 gates remain outstanding.
 Imports use root canonical ECS modules and the integrated canonical Stage
 identity. This source development commit is not clean-checkout portable delivery;
 source qualification must bind those exact canonical dependencies.
+
+## Actual development execution
+
+First JS emit/run completed exit0 and empty stderr. Its whole-byte gate failed
+against the first independent oracle because that model used entity ID as physical
+Column index. Canonical Column.swap_checked uses `U32.sub(id,1)`; World.live uses
+ID directly. The independent author corrected exactly eleven physical slot lists
+from source, froze the entire named v2 oracle before retained-output comparison,
+and preserved the old binding. No fixture/production source or other expected
+field changed. Retained complete JS raw matches v2 without a backend replay;
+the original failed receipt remains INCOMPLETE rather than being rewritten.
+
+First Native emit/build/run then passed the named frozen v2 oracle. Both complete
+outputs are6139bytes SHA256
+`4df56e7cd82baf2731d4ef1bedc49ff57872ac34521faa2d856a6eb9d5761ce5`;
+runtime stderr empty. The independent JSON is SHA256
+`88a831432428c592da2d3e2029233c22ba31a12b56e5dbb25722868103431faf`.
+Original old oracle SHA1d96981b and executed runner are preserved with JS evidence.
+The whole observations cover all five Batch branches, physical slots/lifecycle
+order, full World metadata, log/marks/Data events/pending before and after flush,
+complete final owners, recovery payloads, seed previous/refused owners and errors.
+Rollback restores payloads and stamp values while physical raw stamp-list order
+changes; the complete oracle records this existing canonical behavior instead of
+claiming representation equality. No new rollback policy is introduced.
+
+The narrow runner uses the already-reviewed task_runner/ReceiptBoundary/
+GuardBoundary/CommandLogs recipe and explicit installed configuration. Exact
+original source entry and oracle namespaces are preserved, with no relocation or
+constructor renaming. Initial, post-child-lock and terminal full source/tool/
+resource/environment/oracle/raw/generated guards remain unchanged. CPU5 emit30,
+Clang19build120, Node/Native5; Native threads1/GPUoff. No caps were increased and
+no concurrent heavy child or additional JS replay was used. Plans retain exact
+source/tool/environment hashes and historical commands; binaries and local
+configuration files are excluded. This is direct development evidence, not
+portable installed-tool/compiler-search qualification or a full #53 gate.
+
+Run `python3 experiments/public-owned-events/transaction-candidate-v1/verify.py`
+for no-child exact executed-source/whole-oracle/full-raw joins, identical entire
+JS/Native Bend source closure and original failed-history verification. It does
+not rediscover tools or rerun a backend. Public readers/retention/cursors,
+source-current confinement negatives/reached transaction mutation, TS shared
+observations and performance/regression/full task delivery remain outstanding.
