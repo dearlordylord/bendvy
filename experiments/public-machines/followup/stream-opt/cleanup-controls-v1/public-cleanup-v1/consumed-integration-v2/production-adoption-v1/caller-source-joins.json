@@ -1,0 +1,887 @@
+{
+  "scope": "named-parameter typing only; main Unit, no runtime credit",
+  "entry": "experiments/public-machines/factory-caller.bend",
+  "consumed": [
+    "experiments/public-machines/application.bend",
+    "experiments/public-machines/catalog.bend",
+    "experiments/public-machines/conditions.bend",
+    "experiments/public-machines/context.bend",
+    "experiments/public-machines/factory-caller.bend",
+    "experiments/public-machines/followup/observations.bend",
+    "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+    "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/adapter.bend",
+    "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend",
+    "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+    "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+    "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/registration.bend",
+    "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/string-equality.bend",
+    "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system-cleanup.bend",
+    "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system-instance.bend",
+    "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+    "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+    "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+    "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/ports.bend",
+    "experiments/public-machines/gameplay.bend",
+    "experiments/public-machines/hooks.bend",
+    "experiments/public-machines/marker.bend",
+    "experiments/public-machines/observe.bend",
+    "experiments/public-machines/provider.bend",
+    "experiments/public-machines/reader-factory.bend",
+    "experiments/public-machines/readers.bend",
+    "experiments/public-machines/slots.bend",
+    "experiments/public-machines/world.bend",
+    "src/ecs/capabilities.bend",
+    "src/ecs/column.bend",
+    "src/ecs/commands.bend",
+    "src/ecs/component.bend",
+    "src/ecs/indexed-lifecycle.bend",
+    "src/ecs/lifecycle.bend",
+    "src/ecs/owner-handoff.bend",
+    "src/ecs/schedule.bend"
+  ],
+  "edges": [
+    {
+      "from": "experiments/public-machines/factory-caller.bend",
+      "literal": "reader-factory.bend",
+      "to": "experiments/public-machines/reader-factory.bend",
+      "SHA256": "388247e51160fae72b896164a178707db2c467e34e2579f5bcce24950a209484"
+    },
+    {
+      "from": "experiments/public-machines/reader-factory.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system-instance.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system-instance.bend",
+      "SHA256": "90b1888421d0bc4fd800c2fdc639636b2a782ab07d555997a869f7628198c2e5"
+    },
+    {
+      "from": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system-instance.bend",
+      "literal": "world.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "SHA256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310"
+    },
+    {
+      "from": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "literal": "string-equality.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/string-equality.bend",
+      "SHA256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723"
+    },
+    {
+      "from": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system-instance.bend",
+      "literal": "system.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+      "SHA256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113"
+    },
+    {
+      "from": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+      "literal": "./world.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "SHA256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310"
+    },
+    {
+      "from": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+      "literal": "./registration.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/registration.bend",
+      "SHA256": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5"
+    },
+    {
+      "from": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/registration.bend",
+      "literal": "./world.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "SHA256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310"
+    },
+    {
+      "from": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system-instance.bend",
+      "literal": "system-cleanup.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system-cleanup.bend",
+      "SHA256": "cb545db8883bde3c20b5fbed7422e543f99be0ec2a8d974762e1af0bc089b940"
+    },
+    {
+      "from": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system-cleanup.bend",
+      "literal": "world.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "SHA256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310"
+    },
+    {
+      "from": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system-cleanup.bend",
+      "literal": "system.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+      "SHA256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113"
+    },
+    {
+      "from": "experiments/public-machines/reader-factory.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system-cleanup.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system-cleanup.bend",
+      "SHA256": "cb545db8883bde3c20b5fbed7422e543f99be0ec2a8d974762e1af0bc089b940"
+    },
+    {
+      "from": "experiments/public-machines/reader-factory.bend",
+      "literal": "provider.bend",
+      "to": "experiments/public-machines/provider.bend",
+      "SHA256": "0c008a47d386e9ad2942d6b37c65f1a78fdf1b2b120caaa8019f51c2d14f5dd6"
+    },
+    {
+      "from": "experiments/public-machines/provider.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+      "SHA256": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed"
+    },
+    {
+      "from": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+      "literal": "transaction.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+      "SHA256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b"
+    },
+    {
+      "from": "experiments/public-machines/provider.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+      "SHA256": "c47ff38671eb67b4369311408c81a2ef388ed971923419625c36f92219eb0fe4"
+    },
+    {
+      "from": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+      "literal": "machine.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+      "SHA256": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed"
+    },
+    {
+      "from": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+      "literal": "event-runtime.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend",
+      "SHA256": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557"
+    },
+    {
+      "from": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend",
+      "literal": "./world.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "SHA256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310"
+    },
+    {
+      "from": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend",
+      "literal": "./system.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+      "SHA256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113"
+    },
+    {
+      "from": "experiments/public-machines/provider.bend",
+      "literal": "world.bend",
+      "to": "experiments/public-machines/world.bend",
+      "SHA256": "af8fd70580c93ddad6336fe4d750d4b32a641e43958585600889875c6fad6c48"
+    },
+    {
+      "from": "experiments/public-machines/world.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+      "SHA256": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed"
+    },
+    {
+      "from": "experiments/public-machines/world.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "SHA256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310"
+    },
+    {
+      "from": "experiments/public-machines/provider.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "SHA256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310"
+    },
+    {
+      "from": "experiments/public-machines/provider.bend",
+      "literal": "../../src/ecs/column.bend",
+      "to": "src/ecs/column.bend",
+      "SHA256": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a"
+    },
+    {
+      "from": "src/ecs/column.bend",
+      "literal": "lifecycle.bend",
+      "to": "src/ecs/lifecycle.bend",
+      "SHA256": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0"
+    },
+    {
+      "from": "src/ecs/column.bend",
+      "literal": "owner-handoff.bend",
+      "to": "src/ecs/owner-handoff.bend",
+      "SHA256": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec"
+    },
+    {
+      "from": "src/ecs/column.bend",
+      "literal": "indexed-lifecycle.bend",
+      "to": "src/ecs/indexed-lifecycle.bend",
+      "SHA256": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5"
+    },
+    {
+      "from": "src/ecs/indexed-lifecycle.bend",
+      "literal": "lifecycle.bend",
+      "to": "src/ecs/lifecycle.bend",
+      "SHA256": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0"
+    },
+    {
+      "from": "experiments/public-machines/provider.bend",
+      "literal": "../../src/ecs/component.bend",
+      "to": "src/ecs/component.bend",
+      "SHA256": "bf7d3598dc93cca357248db8147fcb6f7be33639af244e4652664bfa53bcad15"
+    },
+    {
+      "from": "src/ecs/component.bend",
+      "literal": "lifecycle.bend",
+      "to": "src/ecs/lifecycle.bend",
+      "SHA256": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0"
+    },
+    {
+      "from": "src/ecs/component.bend",
+      "literal": "column.bend",
+      "to": "src/ecs/column.bend",
+      "SHA256": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a"
+    },
+    {
+      "from": "src/ecs/component.bend",
+      "literal": "../../experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "SHA256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310"
+    },
+    {
+      "from": "src/ecs/component.bend",
+      "literal": "../../experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+      "SHA256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b"
+    },
+    {
+      "from": "experiments/public-machines/provider.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+      "SHA256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b"
+    },
+    {
+      "from": "experiments/public-machines/provider.bend",
+      "literal": "conditions.bend",
+      "to": "experiments/public-machines/conditions.bend",
+      "SHA256": "610912561009d08c5b554371c140ec1267d0744cb941f860199dee469df6ac4f"
+    },
+    {
+      "from": "experiments/public-machines/reader-factory.bend",
+      "literal": "readers.bend",
+      "to": "experiments/public-machines/readers.bend",
+      "SHA256": "86c01aea86e2353d07727d6010f16568b43385a73afe876ea0cf91d0a97ab984"
+    },
+    {
+      "from": "experiments/public-machines/readers.bend",
+      "literal": "provider.bend",
+      "to": "experiments/public-machines/provider.bend",
+      "SHA256": "0c008a47d386e9ad2942d6b37c65f1a78fdf1b2b120caaa8019f51c2d14f5dd6"
+    },
+    {
+      "from": "experiments/public-machines/readers.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+      "SHA256": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed"
+    },
+    {
+      "from": "experiments/public-machines/readers.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+      "SHA256": "c47ff38671eb67b4369311408c81a2ef388ed971923419625c36f92219eb0fe4"
+    },
+    {
+      "from": "experiments/public-machines/readers.bend",
+      "literal": "context.bend",
+      "to": "experiments/public-machines/context.bend",
+      "SHA256": "af30a0dc3d8720302db3bd03c70d543304d3f1ff38ff78f48dcb7681a30b99b9"
+    },
+    {
+      "from": "experiments/public-machines/context.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+      "SHA256": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed"
+    },
+    {
+      "from": "experiments/public-machines/context.bend",
+      "literal": "provider.bend",
+      "to": "experiments/public-machines/provider.bend",
+      "SHA256": "0c008a47d386e9ad2942d6b37c65f1a78fdf1b2b120caaa8019f51c2d14f5dd6"
+    },
+    {
+      "from": "experiments/public-machines/context.bend",
+      "literal": "gameplay.bend",
+      "to": "experiments/public-machines/gameplay.bend",
+      "SHA256": "980a155825ea1f2a4499cbefe48bdb3d6687fd4c8aea7cc4f711fc9e34edc2f4"
+    },
+    {
+      "from": "experiments/public-machines/gameplay.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+      "SHA256": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed"
+    },
+    {
+      "from": "experiments/public-machines/gameplay.bend",
+      "literal": "provider.bend",
+      "to": "experiments/public-machines/provider.bend",
+      "SHA256": "0c008a47d386e9ad2942d6b37c65f1a78fdf1b2b120caaa8019f51c2d14f5dd6"
+    },
+    {
+      "from": "experiments/public-machines/gameplay.bend",
+      "literal": "../../src/ecs/capabilities.bend",
+      "to": "src/ecs/capabilities.bend",
+      "SHA256": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe"
+    },
+    {
+      "from": "src/ecs/capabilities.bend",
+      "literal": "component.bend",
+      "to": "src/ecs/component.bend",
+      "SHA256": "bf7d3598dc93cca357248db8147fcb6f7be33639af244e4652664bfa53bcad15"
+    },
+    {
+      "from": "experiments/public-machines/gameplay.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+      "SHA256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b"
+    },
+    {
+      "from": "experiments/public-machines/context.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "SHA256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310"
+    },
+    {
+      "from": "experiments/public-machines/context.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+      "SHA256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b"
+    },
+    {
+      "from": "experiments/public-machines/context.bend",
+      "literal": "../../src/ecs/capabilities.bend",
+      "to": "src/ecs/capabilities.bend",
+      "SHA256": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe"
+    },
+    {
+      "from": "experiments/public-machines/context.bend",
+      "literal": "../../src/ecs/component.bend",
+      "to": "src/ecs/component.bend",
+      "SHA256": "bf7d3598dc93cca357248db8147fcb6f7be33639af244e4652664bfa53bcad15"
+    },
+    {
+      "from": "experiments/public-machines/context.bend",
+      "literal": "../../src/ecs/commands.bend",
+      "to": "src/ecs/commands.bend",
+      "SHA256": "e6d81d9710b796d17ea0c44abba7715236aeb9cfd22ce9a71a78ef622d99f4c0"
+    },
+    {
+      "from": "src/ecs/commands.bend",
+      "literal": "../../experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "SHA256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310"
+    },
+    {
+      "from": "src/ecs/commands.bend",
+      "literal": "../../experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+      "SHA256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b"
+    },
+    {
+      "from": "experiments/public-machines/context.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+      "SHA256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113"
+    },
+    {
+      "from": "experiments/public-machines/readers.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "SHA256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310"
+    },
+    {
+      "from": "experiments/public-machines/readers.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+      "SHA256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113"
+    },
+    {
+      "from": "experiments/public-machines/readers.bend",
+      "literal": "../../src/ecs/capabilities.bend",
+      "to": "src/ecs/capabilities.bend",
+      "SHA256": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe"
+    },
+    {
+      "from": "experiments/public-machines/readers.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+      "SHA256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b"
+    },
+    {
+      "from": "experiments/public-machines/readers.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend",
+      "SHA256": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557"
+    },
+    {
+      "from": "experiments/public-machines/reader-factory.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/ports.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/ports.bend",
+      "SHA256": "4af24d9a4502fe2fa118b2691c90fe5b6edc4a4df200288bb10e7e0952ec4d49"
+    },
+    {
+      "from": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/ports.bend",
+      "literal": "current-core/ecs/machine-stream.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+      "SHA256": "c47ff38671eb67b4369311408c81a2ef388ed971923419625c36f92219eb0fe4"
+    },
+    {
+      "from": "experiments/public-machines/reader-factory.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+      "SHA256": "584eb301a7e7041fb8b0a8c5d1faeac47e13c80593f542000225c054102400d7"
+    },
+    {
+      "from": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+      "literal": "public-cleanup-v1/adapter.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/adapter.bend",
+      "SHA256": "fec532ea6de5601ec0297936e05d9f2f5e4084786e1033b37f24b2e5cc740b4f"
+    },
+    {
+      "from": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/adapter.bend",
+      "literal": "current-core/ecs/world.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "SHA256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310"
+    },
+    {
+      "from": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/adapter.bend",
+      "literal": "current-core/ecs/system.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+      "SHA256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113"
+    },
+    {
+      "from": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+      "literal": "public-cleanup-v1/ports.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/ports.bend",
+      "SHA256": "4af24d9a4502fe2fa118b2691c90fe5b6edc4a4df200288bb10e7e0952ec4d49"
+    },
+    {
+      "from": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+      "literal": "../../../provider.bend",
+      "to": "experiments/public-machines/provider.bend",
+      "SHA256": "0c008a47d386e9ad2942d6b37c65f1a78fdf1b2b120caaa8019f51c2d14f5dd6"
+    },
+    {
+      "from": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+      "literal": "../../../gameplay.bend",
+      "to": "experiments/public-machines/gameplay.bend",
+      "SHA256": "980a155825ea1f2a4499cbefe48bdb3d6687fd4c8aea7cc4f711fc9e34edc2f4"
+    },
+    {
+      "from": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+      "literal": "../../../context.bend",
+      "to": "experiments/public-machines/context.bend",
+      "SHA256": "af30a0dc3d8720302db3bd03c70d543304d3f1ff38ff78f48dcb7681a30b99b9"
+    },
+    {
+      "from": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+      "literal": "../../../application.bend",
+      "to": "experiments/public-machines/application.bend",
+      "SHA256": "aa7bdb1644ed31b5d8fa1716682baf7ba2dabadd97a4178176c40f7010db28bc"
+    },
+    {
+      "from": "experiments/public-machines/application.bend",
+      "literal": "provider.bend",
+      "to": "experiments/public-machines/provider.bend",
+      "SHA256": "0c008a47d386e9ad2942d6b37c65f1a78fdf1b2b120caaa8019f51c2d14f5dd6"
+    },
+    {
+      "from": "experiments/public-machines/application.bend",
+      "literal": "gameplay.bend",
+      "to": "experiments/public-machines/gameplay.bend",
+      "SHA256": "980a155825ea1f2a4499cbefe48bdb3d6687fd4c8aea7cc4f711fc9e34edc2f4"
+    },
+    {
+      "from": "experiments/public-machines/application.bend",
+      "literal": "context.bend",
+      "to": "experiments/public-machines/context.bend",
+      "SHA256": "af30a0dc3d8720302db3bd03c70d543304d3f1ff38ff78f48dcb7681a30b99b9"
+    },
+    {
+      "from": "experiments/public-machines/application.bend",
+      "literal": "conditions.bend",
+      "to": "experiments/public-machines/conditions.bend",
+      "SHA256": "610912561009d08c5b554371c140ec1267d0744cb941f860199dee469df6ac4f"
+    },
+    {
+      "from": "experiments/public-machines/application.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+      "SHA256": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed"
+    },
+    {
+      "from": "experiments/public-machines/application.bend",
+      "literal": "hooks.bend",
+      "to": "experiments/public-machines/hooks.bend",
+      "SHA256": "9920a129d889a07df8eb7bb7935c18134f3f894398d59ae5c3293865c5f1d649"
+    },
+    {
+      "from": "experiments/public-machines/hooks.bend",
+      "literal": "provider.bend",
+      "to": "experiments/public-machines/provider.bend",
+      "SHA256": "0c008a47d386e9ad2942d6b37c65f1a78fdf1b2b120caaa8019f51c2d14f5dd6"
+    },
+    {
+      "from": "experiments/public-machines/hooks.bend",
+      "literal": "gameplay.bend",
+      "to": "experiments/public-machines/gameplay.bend",
+      "SHA256": "980a155825ea1f2a4499cbefe48bdb3d6687fd4c8aea7cc4f711fc9e34edc2f4"
+    },
+    {
+      "from": "experiments/public-machines/hooks.bend",
+      "literal": "context.bend",
+      "to": "experiments/public-machines/context.bend",
+      "SHA256": "af30a0dc3d8720302db3bd03c70d543304d3f1ff38ff78f48dcb7681a30b99b9"
+    },
+    {
+      "from": "experiments/public-machines/hooks.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+      "SHA256": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed"
+    },
+    {
+      "from": "experiments/public-machines/hooks.bend",
+      "literal": "marker.bend",
+      "to": "experiments/public-machines/marker.bend",
+      "SHA256": "d2dd1e2a15ff94c3715753b36a9666da418ae7da5ec5ae39f2427224d570e282"
+    },
+    {
+      "from": "experiments/public-machines/marker.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+      "SHA256": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed"
+    },
+    {
+      "from": "experiments/public-machines/marker.bend",
+      "literal": "provider.bend",
+      "to": "experiments/public-machines/provider.bend",
+      "SHA256": "0c008a47d386e9ad2942d6b37c65f1a78fdf1b2b120caaa8019f51c2d14f5dd6"
+    },
+    {
+      "from": "experiments/public-machines/marker.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+      "SHA256": "c47ff38671eb67b4369311408c81a2ef388ed971923419625c36f92219eb0fe4"
+    },
+    {
+      "from": "experiments/public-machines/marker.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "SHA256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310"
+    },
+    {
+      "from": "experiments/public-machines/hooks.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "SHA256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310"
+    },
+    {
+      "from": "experiments/public-machines/hooks.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+      "SHA256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113"
+    },
+    {
+      "from": "experiments/public-machines/application.bend",
+      "literal": "readers.bend",
+      "to": "experiments/public-machines/readers.bend",
+      "SHA256": "86c01aea86e2353d07727d6010f16568b43385a73afe876ea0cf91d0a97ab984"
+    },
+    {
+      "from": "experiments/public-machines/application.bend",
+      "literal": "catalog.bend",
+      "to": "experiments/public-machines/catalog.bend",
+      "SHA256": "8764e2499a0888903a2f7fa49f7a87d5120d35223439fd249c6e98325c7e2172"
+    },
+    {
+      "from": "experiments/public-machines/catalog.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "SHA256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310"
+    },
+    {
+      "from": "experiments/public-machines/catalog.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+      "SHA256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113"
+    },
+    {
+      "from": "experiments/public-machines/application.bend",
+      "literal": "slots.bend",
+      "to": "experiments/public-machines/slots.bend",
+      "SHA256": "cd1f1acbc0e012b85347085642a6ced6f2b90962115648390e76364e86706f86"
+    },
+    {
+      "from": "experiments/public-machines/application.bend",
+      "literal": "observe.bend",
+      "to": "experiments/public-machines/observe.bend",
+      "SHA256": "8410090149b24e71fb8a054256d59ef8756d243cc81f43c1f22aa03a2d8bfe20"
+    },
+    {
+      "from": "experiments/public-machines/observe.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+      "SHA256": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed"
+    },
+    {
+      "from": "experiments/public-machines/observe.bend",
+      "literal": "provider.bend",
+      "to": "experiments/public-machines/provider.bend",
+      "SHA256": "0c008a47d386e9ad2942d6b37c65f1a78fdf1b2b120caaa8019f51c2d14f5dd6"
+    },
+    {
+      "from": "experiments/public-machines/observe.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+      "SHA256": "c47ff38671eb67b4369311408c81a2ef388ed971923419625c36f92219eb0fe4"
+    },
+    {
+      "from": "experiments/public-machines/observe.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "SHA256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310"
+    },
+    {
+      "from": "experiments/public-machines/observe.bend",
+      "literal": "../../src/ecs/column.bend",
+      "to": "src/ecs/column.bend",
+      "SHA256": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a"
+    },
+    {
+      "from": "experiments/public-machines/observe.bend",
+      "literal": "../../src/ecs/lifecycle.bend",
+      "to": "src/ecs/lifecycle.bend",
+      "SHA256": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0"
+    },
+    {
+      "from": "experiments/public-machines/observe.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend",
+      "SHA256": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557"
+    },
+    {
+      "from": "experiments/public-machines/application.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "SHA256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310"
+    },
+    {
+      "from": "experiments/public-machines/application.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+      "SHA256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113"
+    },
+    {
+      "from": "experiments/public-machines/application.bend",
+      "literal": "../../src/ecs/schedule.bend",
+      "to": "src/ecs/schedule.bend",
+      "SHA256": "a30a16619324b14048fea7639f6c143ee8bbf99daa6a9a91655ffa2438bf312d"
+    },
+    {
+      "from": "src/ecs/schedule.bend",
+      "literal": "../../experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "SHA256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310"
+    },
+    {
+      "from": "src/ecs/schedule.bend",
+      "literal": "../../experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+      "SHA256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113"
+    },
+    {
+      "from": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+      "literal": "../../../catalog.bend",
+      "to": "experiments/public-machines/catalog.bend",
+      "SHA256": "8764e2499a0888903a2f7fa49f7a87d5120d35223439fd249c6e98325c7e2172"
+    },
+    {
+      "from": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+      "literal": "../../../hooks.bend",
+      "to": "experiments/public-machines/hooks.bend",
+      "SHA256": "9920a129d889a07df8eb7bb7935c18134f3f894398d59ae5c3293865c5f1d649"
+    },
+    {
+      "from": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+      "literal": "../../../readers.bend",
+      "to": "experiments/public-machines/readers.bend",
+      "SHA256": "86c01aea86e2353d07727d6010f16568b43385a73afe876ea0cf91d0a97ab984"
+    },
+    {
+      "from": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+      "literal": "public-cleanup-v1/current-core/ecs/machine-stream.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+      "SHA256": "c47ff38671eb67b4369311408c81a2ef388ed971923419625c36f92219eb0fe4"
+    },
+    {
+      "from": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+      "literal": "../../../slots.bend",
+      "to": "experiments/public-machines/slots.bend",
+      "SHA256": "cd1f1acbc0e012b85347085642a6ced6f2b90962115648390e76364e86706f86"
+    },
+    {
+      "from": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+      "literal": "../../observations.bend",
+      "to": "experiments/public-machines/followup/observations.bend",
+      "SHA256": "65559f1c33689527fece7c8658a01cd196a78edbf2ffddd02c84c986bacbc13a"
+    },
+    {
+      "from": "experiments/public-machines/followup/observations.bend",
+      "literal": "../application.bend",
+      "to": "experiments/public-machines/application.bend",
+      "SHA256": "aa7bdb1644ed31b5d8fa1716682baf7ba2dabadd97a4178176c40f7010db28bc"
+    },
+    {
+      "from": "experiments/public-machines/followup/observations.bend",
+      "literal": "../provider.bend",
+      "to": "experiments/public-machines/provider.bend",
+      "SHA256": "0c008a47d386e9ad2942d6b37c65f1a78fdf1b2b120caaa8019f51c2d14f5dd6"
+    },
+    {
+      "from": "experiments/public-machines/followup/observations.bend",
+      "literal": "../gameplay.bend",
+      "to": "experiments/public-machines/gameplay.bend",
+      "SHA256": "980a155825ea1f2a4499cbefe48bdb3d6687fd4c8aea7cc4f711fc9e34edc2f4"
+    },
+    {
+      "from": "experiments/public-machines/followup/observations.bend",
+      "literal": "../context.bend",
+      "to": "experiments/public-machines/context.bend",
+      "SHA256": "af30a0dc3d8720302db3bd03c70d543304d3f1ff38ff78f48dcb7681a30b99b9"
+    },
+    {
+      "from": "experiments/public-machines/followup/observations.bend",
+      "literal": "../readers.bend",
+      "to": "experiments/public-machines/readers.bend",
+      "SHA256": "86c01aea86e2353d07727d6010f16568b43385a73afe876ea0cf91d0a97ab984"
+    },
+    {
+      "from": "experiments/public-machines/followup/observations.bend",
+      "literal": "../hooks.bend",
+      "to": "experiments/public-machines/hooks.bend",
+      "SHA256": "9920a129d889a07df8eb7bb7935c18134f3f894398d59ae5c3293865c5f1d649"
+    },
+    {
+      "from": "experiments/public-machines/followup/observations.bend",
+      "literal": "../catalog.bend",
+      "to": "experiments/public-machines/catalog.bend",
+      "SHA256": "8764e2499a0888903a2f7fa49f7a87d5120d35223439fd249c6e98325c7e2172"
+    },
+    {
+      "from": "experiments/public-machines/followup/observations.bend",
+      "literal": "../slots.bend",
+      "to": "experiments/public-machines/slots.bend",
+      "SHA256": "cd1f1acbc0e012b85347085642a6ced6f2b90962115648390e76364e86706f86"
+    },
+    {
+      "from": "experiments/public-machines/followup/observations.bend",
+      "literal": "stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+      "SHA256": "c47ff38671eb67b4369311408c81a2ef388ed971923419625c36f92219eb0fe4"
+    },
+    {
+      "from": "experiments/public-machines/followup/observations.bend",
+      "literal": "../observe.bend",
+      "to": "experiments/public-machines/observe.bend",
+      "SHA256": "8410090149b24e71fb8a054256d59ef8756d243cc81f43c1f22aa03a2d8bfe20"
+    },
+    {
+      "from": "experiments/public-machines/followup/observations.bend",
+      "literal": "../conditions.bend",
+      "to": "experiments/public-machines/conditions.bend",
+      "SHA256": "610912561009d08c5b554371c140ec1267d0744cb941f860199dee469df6ac4f"
+    },
+    {
+      "from": "experiments/public-machines/followup/observations.bend",
+      "literal": "stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "SHA256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310"
+    },
+    {
+      "from": "experiments/public-machines/followup/observations.bend",
+      "literal": "stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+      "SHA256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113"
+    },
+    {
+      "from": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+      "literal": "public-cleanup-v1/current-core/ecs/world.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "SHA256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310"
+    },
+    {
+      "from": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+      "literal": "public-cleanup-v1/current-core/ecs/system.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+      "SHA256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113"
+    },
+    {
+      "from": "experiments/public-machines/reader-factory.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+      "SHA256": "c47ff38671eb67b4369311408c81a2ef388ed971923419625c36f92219eb0fe4"
+    },
+    {
+      "from": "experiments/public-machines/reader-factory.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "SHA256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310"
+    },
+    {
+      "from": "experiments/public-machines/factory-caller.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system-instance.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system-instance.bend",
+      "SHA256": "90b1888421d0bc4fd800c2fdc639636b2a782ab07d555997a869f7628198c2e5"
+    },
+    {
+      "from": "experiments/public-machines/factory-caller.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system-cleanup.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system-cleanup.bend",
+      "SHA256": "cb545db8883bde3c20b5fbed7422e543f99be0ec2a8d974762e1af0bc089b940"
+    },
+    {
+      "from": "experiments/public-machines/factory-caller.bend",
+      "literal": "provider.bend",
+      "to": "experiments/public-machines/provider.bend",
+      "SHA256": "0c008a47d386e9ad2942d6b37c65f1a78fdf1b2b120caaa8019f51c2d14f5dd6"
+    },
+    {
+      "from": "experiments/public-machines/factory-caller.bend",
+      "literal": "readers.bend",
+      "to": "experiments/public-machines/readers.bend",
+      "SHA256": "86c01aea86e2353d07727d6010f16568b43385a73afe876ea0cf91d0a97ab984"
+    },
+    {
+      "from": "experiments/public-machines/factory-caller.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/ports.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/ports.bend",
+      "SHA256": "4af24d9a4502fe2fa118b2691c90fe5b6edc4a4df200288bb10e7e0952ec4d49"
+    },
+    {
+      "from": "experiments/public-machines/factory-caller.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+      "SHA256": "584eb301a7e7041fb8b0a8c5d1faeac47e13c80593f542000225c054102400d7"
+    },
+    {
+      "from": "experiments/public-machines/factory-caller.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+      "SHA256": "c47ff38671eb67b4369311408c81a2ef388ed971923419625c36f92219eb0fe4"
+    },
+    {
+      "from": "experiments/public-machines/factory-caller.bend",
+      "literal": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "to": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+      "SHA256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310"
+    }
+  ],
+  "modelsUnchanged": {
+    "failed-batch/expected.json": "e84c2dfb3c3cf133ada1971295e0d90fad07dddf5f56cc94b15321cb442e5dc2",
+    "failed-batch/model.py": "f41c83a4d36e5e17325c981d885f3a12c8f9af6fe0c7a57b1bde1d6d4c6b422f",
+    "failed-batch/validate.py": "c9bb2476b9f974d458b5dff450fd746b6142ac74fb1be5166ecbdd32a5b3c28e",
+    "post-consumption/expected.json": "8776b2c0bb267eb030d5313f843bd905537018917b6ed359bfe79d978336f919",
+    "post-consumption/model.py": "07d6ec2c63200ad4980e363a83978777e66da339699dd906f922824b9de0ddbd",
+    "post-consumption/validate.py": "b4e1ea8de386e2dfe8e75fb93226e5fa19c2e28baf8d16ec8f1472fd71535860"
+  },
+  "fullSceneRoute": "pending caller conversion, existing normal/control raw not transferred"
+}

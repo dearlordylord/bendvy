@@ -1,0 +1,9 @@
+The ordinary schema factory now binds closed reader ports once, retains the real registered instance through invocation, and exposes disposal without per-call cleanup callbacks. Registration preserves the existing lazy reader activation boundary. Rejected disposal returns the same affine registration and readers; accepted disposal removes only the instance’s stream positions through the executed generic kernel.
+
+Fresh complete JS observations cover both schemas in the post-consumption scene (36 world rows and 22 instance rows) and failed-callback scene (32 world rows and 16 instance rows). The actual consumed public kernel’s accepted-arm counterfactual changes exactly six independently specified componentClock leaves in each scene. All other observations, including surviving-reader deliveries and retained batches, remain equal to their fresh normals.
+
+The initial named source attempt and ordinary development repairs are retained as history. All three direct instance-type source controls ended at the existing five-second deadline with empty stdout and stderr. They remain inconclusive raw development history: neither the matched positive nor the two refusal boundaries qualified. They confer no general proof or runtime credit.
+
+This packet qualifies the selected ordinary factory’s JS normal and reached-control boundaries. Its Native boundary, production adoption, unchanged regression gate, performance acceptance, and unresolved governing #48 policy remain open. Earlier Native receipts use a different factory boundary and confer no transfer. No clocks or performance populations were executed.
+
+The selected cleanup-port helper removes exactly one final blank-line LF from the executed version for the repository whitespace check. The verifier requires the archived executed stage bytes to equal the selected helper plus that single LF; original plans, pins, raw outputs and runtime observations remain unchanged.
