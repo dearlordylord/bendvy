@@ -1,0 +1,71 @@
+{
+  "scope": "Source diagnostic classification only, no proof/runtime/general metadata truth",
+  "negatives": [
+    {
+      "cohort": "negative1",
+      "label": "wrong-descriptor",
+      "stderrSHA256": "68da662bb0acee4bbef0f637d35574ec47b78d1893dd16a2d20b8b16f447a995",
+      "expected": "Workshop/Other",
+      "observed": "Workshop/BoundMetadata",
+      "location": "bad",
+      "line": 8,
+      "classification": "INTENDED_SINGLE_LOCATION_REFUSAL",
+      "authority": "Root relayed independent evidence_review classification; raw receipt remains UNCLASSIFIED"
+    },
+    {
+      "cohort": "negative1",
+      "label": "cross-schema",
+      "stderrSHA256": "e9c50f4fa50a8a8f2bc15d5de31a116e97459f646894fbd7c4bb5d7a5222221f",
+      "expected": "G.State<B.Schema",
+      "observed": "G.State<A.Schema",
+      "location": "bad",
+      "line": 10,
+      "classification": "INTENDED_SINGLE_LOCATION_REFUSAL",
+      "authority": "Root relayed independent evidence_review classification; raw receipt remains UNCLASSIFIED"
+    },
+    {
+      "cohort": "negative1",
+      "label": "undeclared",
+      "stderrSHA256": "7655f1e4c96210d256c06d2ed79d5076bc81ff323a6735a9359a6410ef7db887",
+      "expected": "ExtraReads",
+      "observed": "D.Reads",
+      "location": "bad",
+      "line": 10,
+      "classification": "INTENDED_SINGLE_LOCATION_REFUSAL",
+      "authority": "Root relayed independent evidence_review classification; raw receipt remains UNCLASSIFIED"
+    },
+    {
+      "cohort": "negative2",
+      "label": "write-authority",
+      "stderrSHA256": "080243032c8597cc0417f63c6fb0920c848e7bdd217fa46c6aa410355d0912e2",
+      "expected": "Cap.ValueWrite",
+      "observed": "Cap.ValueRead",
+      "location": "bad",
+      "line": 8,
+      "classification": "INTENDED_SINGLE_LOCATION_REFUSAL",
+      "authority": "Root relayed independent evidence_review classification; raw receipt remains UNCLASSIFIED"
+    },
+    {
+      "cohort": "negative2",
+      "label": "duplicate-owner",
+      "stderrSHA256": "0a770c4c0c22e01aaf01d95ace7ce5ff610d587640907965d8373df152da62e6",
+      "expected": "expected : owner",
+      "observed": "consumed more than once",
+      "location": "bad",
+      "line": 7,
+      "classification": "INTENDED_SINGLE_LOCATION_REFUSAL",
+      "authority": "Root relayed independent evidence_review classification; raw receipt remains UNCLASSIFIED"
+    },
+    {
+      "cohort": "negative2",
+      "label": "escape-owner",
+      "stderrSHA256": "73736efeb15ff8847eea7c3f8bc427d7d5bc1f7374b50a905f982cddb042f306",
+      "expected": "expected : String",
+      "observed": "G.State<A.Schema",
+      "location": "bad",
+      "line": 8,
+      "classification": "INTENDED_SINGLE_LOCATION_REFUSAL",
+      "authority": "Root relayed independent evidence_review classification; raw receipt remains UNCLASSIFIED"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : owner
+- observed : owner (consumed more than once)
+Location: bad
+6 | 
+7>| def bad(owner:G.State<A.Schema,A.Store,D.Resources,U32,D.Ops,D.canonical_definition(),P.Owner>) -> G.State<A.Schema,A.Store,D.Resources,U32,D.Ops,D.canonical_definition(),P.Owner> & G.State<A.Schema,A.Store,D.Resources,U32,D.Ops,D.canonical_definition(),P.Owner>:
+  |         ^^^^^
+8 |   (owner,owner)

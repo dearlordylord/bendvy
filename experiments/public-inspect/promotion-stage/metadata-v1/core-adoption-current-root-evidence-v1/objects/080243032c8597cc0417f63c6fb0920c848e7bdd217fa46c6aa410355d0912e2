@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- expected : Cap.ValueWrite<bad~H, A.Resource, List<&2, U32>>
+- observed : Cap.ValueRead<bad~H, List<&2, U32>>
+Context:
+- actual : Cap.ValueRead<bad~H, List<&2, U32>>
+Location: bad
+7 | def bad(~H:Type,actual:Cap.ValueRead<H,List<&2,U32>>) -> Cap.ValueWrite<H,A.Resource,List<&2,U32>>:
+8>|   actual
+  |   ^^^^^^
+9 | 
