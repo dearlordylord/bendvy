@@ -24,8 +24,12 @@ For API changes, require negative controls for undeclared access, cross-schema m
 
 ## Evidence runner development
 
-Use [check policy](check-policy.md) for cheap consumer preflight, immutable
-dependency stages and focused failure reproduction before complete cohorts.
+Start new collectors from the [focused runner recipe](check-policy.md#preparing-a-focused-runner).
+Before execution review, complete its source, tool, environment, output and
+oracle inventories. For child-only locking, select the existing
+[immutable dependency stage](check-policy.md#immutable-dependency-stages) helper
+with a reviewed resolver inventory: discovery runs outside the lock and its
+static check runs at the launch boundary after acquisition.
 
 For new collectors, hold the shared heavy-work lock around the actual compiler,
 runtime or performance child. Prepare immutable inputs and metadata-only
