@@ -35,24 +35,37 @@ After approval, implement the generic reusable runner and actual two-Array consu
 
 **Core changes/dependencies:** generic runner consumes/returns Capture; paired registration owner and explicit detach/release operations; #36 Local remains distinct, #35/#48 reader cleanup remains World-local, #51/#52 retain their own transaction/recovery contracts. No arbitrary host IO rewind or physical destructor guarantee.
 
-### 2. #53 — one Type event owner, detached read observations, rejected/aborted publication
+### 2. #53 — notifications and recoverable transferred data
 
-**Trigger:** an Array-containing event is published, fast/slow readers inspect it, a reader fails/retries, an accepted publication's transaction aborts, or retention/capacity/disposal removes its record.
+**Updated direction (2026-10-08):** the user prefers returning data after failure
+for reuse, with simplicity and elegance taking precedence over elaborate policy
+machinery. See [the owning requirements](affine-events.md#business-requirements-and-current-direction).
 
-**Current evidence:** the [actual TS owned-event trace](../../experiments/public-owned-events/RESEARCH.md) has 14 complete checkpoints in each of two schemas. Publisher and both readers alias the same object/nested Array; later publisher mutation is visible. Failed reader retry sees the same payload; activated conditional skip discards its backlog; frame trimming and independent runtime readers are observed. TS has no public dispose/unregister method. The historical `erased-cross-schema` label is actually undeclared descriptor access, not a nominal-schema negative. Rust buffered Messages move one payload into storage and lend `&M` to readers; Bend Array is affine Type and cannot be duplicated into multiple independent owners.
+A failed operation must not deliver any staged notification. Ordinary one-shot
+notifications can be recreated on retry; expensive prepared data or reusable
+buffers should remain recoverable. Distinguish these needs in the application,
+without requiring runtime event classes or separate publication frameworks.
 
-**Recommended choice (explicit TS-aliasing divergence):**
+**Current candidate:** one log owner; scoped abstract read capabilities; explicit
+snapshots when useful; immediate refusal returns the payload; commit retains it
+in the log; abort returns staged payloads in an owned recovery result. Callers
+may reuse or discard recovered payloads. No copy, reader-mutable alias, automatic
+reinsertion into Resource/Local/capture, or mandatory pure finalizer is implied.
+Required ECS rollback retains its ownership guarantees: an owner needed to
+restore transactional storage cannot also be returned in the event receipt.
+Coordinate any such transfer with #51/#52 before exposing it publicly.
 
-- Publication transfers one payload owner into the transaction/log; the publisher retains no mutable alias. Readers receive detached Data observations through a trusted, closed owner-preserving `Payload -> Payload & View` projection. Arbitrary Type payloads remain supported; no implicit clone, write grant or original owner escapes to a reader. “Read-only” relies on the same trusted projection-author contract as existing Core Family lenses; it is not a theorem that an arbitrary adapter returns an unchanged payload.
-- Reader cursor/skip/failure/lag/retention follow the existing #31/#35 Data-event contract. A failing reader keeps its cursor; its Data observation does not mutate stored payload state. Detached observations remain usable after log trimming because they do not own or alias the retained Type payload.
-- Immediate rejected publication returns the unpublished owner unchanged. After **accepted staging**, the transaction owns it: commit moves it to the log; transaction abort consumes it once through the closed release operation rather than silently restoring it into a capture/resource or returning an owner out of a failed body. This distinction is part of the decision, not an implementation detail.
-- A record releases its storage owner exactly once when actually removed by the existing retention/capacity/log disposal operation. Disposing a reader removes only reader authority/cursor; it does not independently destroy every record it saw. A caller-supplied closed `Payload -> Unit` finalizer has no recoverable-failure result, as in the proposed #50 release contract; physical cleanup remains caller responsibility.
+Astra's source review found that Rust Messages lends payloads and can drain
+removed owners. Bend's existing abstract-capability pattern is a candidate for
+scoped reads; mandatory detached Data views are not a demonstrated language
+constraint. Rust direct message writes do not determine Bendvy's transaction
+abort contract. The previous indivisible proposal of Data views plus mandatory
+abort release is superseded, not selected.
 
-Confidence **moderate (0.87)**: idiomatic single-owner Bend/Rust-style storage and existing Data cursor semantics; detached views and accepted-stage abort release are deliberate new ownership-visible departures from JS aliases.
-
-**Alternative:** explicitly user-cloned affine payloads per reader, with a declared clone routine and independent release for every clone; failure/trim cannot destroy reader-owned clones. A different abort policy could return accepted-but-aborted payloads in an owned failure receipt instead of releasing them; that requires an explicit producer/runner return channel and cannot silently reinsert owners into a capture or Resource. Immediate rejection still returns the original unpublished owner. This changes allocation and lifetime behavior and supplies no generic clone for arbitrary Type. Opaque scoped borrowing closer to Rust would instead require a separate nonescaping callback/access design; TS mutable sharing is not automatically available from either alternative.
-
-**Core changes/dependencies:** typed log owner, projection-backed read grants, owned staging/refusal/abort receipts and record release; preserve current Data-event API. #31/#35 establish schedule/cursors, #48 owns machine/stream cleanup, #50 governs moved capture state, #51/#52 remain responsible for general resource/transaction recovery. No reader-mutable shared Type aliases are being proposed.
+The recovery result's concrete typed transport and effectful cleanup remain to
+be validated. Returning ownership may permit buffer reuse; it does not itself
+prove fewer allocations or lower retained memory. No law/proof or full #53
+acceptance is inferred from this design direction.
 
 ### 3. #38 — independent world identity domain and canonical creation seam
 
@@ -93,12 +106,12 @@ Confidence **moderate (0.87)**: idiomatic single-owner Bend/Rust-style storage a
 ## User answer to collect once
 
 1. #50: approve the existing four-clause capture lifecycle, or choose instance-bound capture without cross-World detach?
-2. #53: approve single-owned storage + detached Data reads, immediate rejection returns owner, accepted-stage abort releases once, and record finalization as specified; or select explicit per-reader clones/scoped-read work?
+2. #53: business direction is now recorded above: soft preference for recoverable data with a simple API. Validate scoped reads and the smallest owned recovery transport before asking about a concrete remaining observable choice.
 3. #38 creation: checked canonical IO allocator per emitted-program/process domain, or one explicitly threaded application allocator?
 4. #38 IDs: monotonically consumed logical IDs including failed reservations, or checked generational recycling?
 5. #59 restore: invalidate pre-restore entity handles while keeping Runtime owners, or deliberately preserve same-root/same-ID handle resolution?
 
-All five remain unanswered in this packet. Exact laws, feature observations, source-current two-schema/type/refusal/mutation checks, JS/Native production and unchanged regression gates remain after a user choice; this source-only packet does not close any owning issue.
+The #53 business direction has been supplied; other concrete contracts remain under discussion. Historical recommendations in this packet are not approvals and must be checked against the updated Bevy/Bend-first specification and Astra consultation. Exact laws, feature observations, source-current two-schema/type/refusal/mutation checks, JS/Native production and unchanged regression gates remain after a user choice; this source-only packet does not close any owning issue.
 
 ## Exact source/evidence pins for this packet
 

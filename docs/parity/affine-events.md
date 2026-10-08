@@ -8,6 +8,42 @@ Remaining-core specification: #37.
 
 Event publishers and multiple independent readers use useful affine Type payloads under an explicit ownership-safe publication and projection contract.
 
+## Business requirements and current direction
+
+User direction (2026-10-08): prefer returning data after failure so applications
+can reuse it; this is a soft preference, subordinate to a simple, elegant API.
+
+- **Notifications:** a failed operation must not deliver its notifications. A
+  notification such as "enemy killed" may be recreated on retry; the application
+  can discard a recovered payload when it has no further use.
+- **Reusable transferred data:** an expensive path, loaded chunk or reusable
+  buffer should remain recoverable after failed publication, allowing a retry
+  without repeating preparation or allocating a replacement unnecessarily.
+
+These are application requirements, not two new runtime event classes. Prefer
+one typed ownership-return mechanism: immediate refusal returns the payload;
+commit transfers it to the log; abort returns staged payloads through an owned
+recovery result. Do not implicitly copy them or restore them into an arbitrary
+Resource, Local or capture. The application chooses reuse or discard.
+
+Existing ECS rollback takes precedence over exposing recovery ownership. If a
+payload was moved from transactional ECS storage, the same owner cannot both
+restore that storage and appear in the recovery result. Coordinate such moves
+with #51/#52; recover only owners available after the required restoration. This
+event design does not add arbitrary extraction from transactional storage.
+
+Scoped read capabilities are the Bevy/Bend-oriented candidate for readers;
+detached snapshots remain an explicit convenience. Returning ownership does not
+by itself reduce allocations or bound retained memory: recovered data must be
+reused or released, and the implementation needs allocation/profile evidence.
+Effectful cleanup needs an IO-aware protocol. Affine typing alone supplies
+neither automatic cleanup nor exactly-once finalization.
+
+This records the user's business preference and design direction, not approval
+of a particular public recovery signature, cleanup protocol, law or proof. The
+implementation should validate the smallest generic ownership transport before
+introducing per-event modes, mandatory finalizers or a second event framework.
+
 ## Acceptance criteria
 
 - [ ] Observe pinned event-value aliasing and identify where it is incompatible with Bend ownership. Specify storage-owner/projection, independent reader, retention and disposal contracts; seek approval for any behavioral divergence before implementation.
