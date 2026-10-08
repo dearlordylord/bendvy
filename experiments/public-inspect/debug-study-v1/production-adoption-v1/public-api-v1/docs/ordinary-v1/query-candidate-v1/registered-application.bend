@@ -1,0 +1,74 @@
+import Base
+import ./plain-transient-application.bend as Plain
+import ./application.bend as Constructed
+import ./declaration.bend as Query
+import ./system.bend as System
+import ./app.bend as App
+import /workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/application/game.bend as Game
+import /workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/application/legacy-fixture.bend as F
+import /workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-data.bend as D
+import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
+import /workspace/formal-proofs/bendvy/src/ecs/system.bend as Sys
+import /workspace/formal-proofs/bendvy/src/ecs/compose.bend as Q
+import /workspace/formal-proofs/bendvy/src/ecs/transaction.bend as T
+import /workspace/formal-proofs/bendvy/src/ecs/component.bend as Cmp
+import /workspace/formal-proofs/bendvy/src/ecs/capabilities.bend as Cap
+import /workspace/formal-proofs/bendvy/src/ecs/schedule-provision.bend as SP
+import /workspace/formal-proofs/bendvy/src/ecs/schedule.bend as Sch
+
+def plain_ops(H:Type) -> Type:
+  Cap.Read<H,U32>
+def plain_read(~H:Type,observed:H & Cmp.Access<U32>) -> H & (T.Outcome<Unit> & U32):
+  match observed:
+    case (owner,Cmp.Found{value}):(owner,(T.Success{},value))
+    case (owner,_):(owner,(T.Failure{Unit{}},0))
+def plain_body(~H:Type,~caps:plain_ops(H),args:Unit,owner:H) -> H & (T.Outcome<Unit> & U32):
+  plain_read(~H,Cap.read(~H,~U32,~caps,owner))
+def plain_registry() -> Type:
+  Sys.Registry<Plain.Schema,Plain.Plain,Unit,Unit,Unit & U32,Q.Error<Unit>,List<&2,U32>,System.runner(~Plain.Schema,~Plain.Plain,~Unit,~Unit,~plain_ops,~Unit,~Unit,~U32,~Plain.plain_read(),~(H => caps => args => owner => plain_body(~H,~caps,args,owner)))>
+def plain_define(world:W.World<Plain.Schema,Plain.Plain,Unit,Unit>) -> System.Defined<Plain.Schema,W.World<Plain.Schema,Plain.Plain,Unit,Unit>,plain_registry()>:
+  System.define(~Plain.Schema,~Plain.Plain,~Unit,~Unit,~plain_ops,~Unit,~Unit,~U32,~Plain.plain_read(),~(H => caps => args => owner => plain_body(~H,~caps,args,owner)),world,"Reader","entities")
+def plain_run(owner:System.Owner<Plain.Schema,plain_registry()>,world:W.World<Plain.Schema,Plain.Plain,Unit,Unit>) -> Sys.RunResult<Plain.Schema,Plain.Plain,Unit,Unit,Unit & U32,Q.Error<Unit>,List<&2,U32>,System.runner(~Plain.Schema,~Plain.Plain,~Unit,~Unit,~plain_ops,~Unit,~Unit,~U32,~Plain.plain_read(),~(H => caps => args => owner => plain_body(~H,~caps,args,owner)))> & (String & List<&2,Query.Clause<Plain.Schema>>):
+  System.run(~Plain.Schema,~Plain.Plain,~Unit,~Unit,~plain_ops,~Unit,~Unit,~U32,~Plain.plain_read(),~(H => caps => args => owner => plain_body(~H,~caps,args,owner)),owner,world,Unit{})
+def plain_application(owner:System.Owner<Plain.Schema,plain_registry()>,debug:App.Debug) -> App.Built<Plain.Schema,Plain.Plain,Unit,Unit,Unit & System.Owner<Plain.Schema,plain_registry()>>:
+  match owner:
+    case System.Owner{Sys.Registry{+namespace,+id,+name,+access,+cursor},+slot,+clauses}:
+      App.build(~Plain.Schema,~Plain.Plain,~Unit,~Unit,~(Unit & System.Owner<Plain.Schema,plain_registry()>),debug,"Update",SP.Sequence{SP.Entry{Sch.Phase{"Update"},[]},SP.Sequence{SP.Entry{Sch.System{id,0},[]},SP.Entry{Sch.Barrier{},[]}}},App.add(~Plain.Schema,~Plain.Plain,~Unit,~Unit,~plain_ops,~Unit,~Unit,~U32,~Plain.plain_read(),~(H => caps => args => owner => plain_body(~H,~caps,args,owner)),~Unit,App.empty(~Plain.Schema,namespace),System.Owner{Sys.Registry{namespace,id,name,access,cursor},slot,clauses}))
+
+def transient_ops(H:Type) -> Type:
+  Cap.Read<H,U32>
+def transient_read(~H:Type,observed:H & Cmp.Access<U32>) -> H & (T.Outcome<Unit> & U32):
+  match observed:
+    case (owner,Cmp.Found{value}):(owner,(T.Success{},value))
+    case (owner,_):(owner,(T.Failure{Unit{}},0))
+def transient_body(~H:Type,~caps:transient_ops(H),args:Unit,owner:H) -> H & (T.Outcome<Unit> & U32):
+  transient_read(~H,Cap.read(~H,~U32,~caps,owner))
+def transient_registry() -> Type:
+  Sys.Registry<Plain.Schema,Plain.Transient(),Unit,Unit,Unit & U32,Q.Error<Unit>,List<&2,U32>,System.runner(~Plain.Schema,~Plain.Transient(),~Unit,~Unit,~transient_ops,~Unit,~Unit,~U32,~Plain.transient_read(),~(H => caps => args => owner => transient_body(~H,~caps,args,owner)))>
+def transient_define(world:W.World<Plain.Schema,Plain.Transient(),Unit,Unit>) -> System.Defined<Plain.Schema,W.World<Plain.Schema,Plain.Transient(),Unit,Unit>,transient_registry()>:
+  System.define(~Plain.Schema,~Plain.Transient(),~Unit,~Unit,~transient_ops,~Unit,~Unit,~U32,~Plain.transient_read(),~(H => caps => args => owner => transient_body(~H,~caps,args,owner)),world,"Reader","entities")
+def transient_run(owner:System.Owner<Plain.Schema,transient_registry()>,world:W.World<Plain.Schema,Plain.Transient(),Unit,Unit>) -> Sys.RunResult<Plain.Schema,Plain.Transient(),Unit,Unit,Unit & U32,Q.Error<Unit>,List<&2,U32>,System.runner(~Plain.Schema,~Plain.Transient(),~Unit,~Unit,~transient_ops,~Unit,~Unit,~U32,~Plain.transient_read(),~(H => caps => args => owner => transient_body(~H,~caps,args,owner)))> & (String & List<&2,Query.Clause<Plain.Schema>>):
+  System.run(~Plain.Schema,~Plain.Transient(),~Unit,~Unit,~transient_ops,~Unit,~Unit,~U32,~Plain.transient_read(),~(H => caps => args => owner => transient_body(~H,~caps,args,owner)),owner,world,Unit{})
+def transient_application(owner:System.Owner<Plain.Schema,transient_registry()>,debug:App.Debug) -> App.Built<Plain.Schema,Plain.Transient(),Unit,Unit,Unit & System.Owner<Plain.Schema,transient_registry()>>:
+  match owner:
+    case System.Owner{Sys.Registry{+namespace,+id,+name,+access,+cursor},+slot,+clauses}:
+      App.build(~Plain.Schema,~Plain.Transient(),~Unit,~Unit,~(Unit & System.Owner<Plain.Schema,transient_registry()>),debug,"Update",SP.Sequence{SP.Entry{Sch.Phase{"Update"},[]},SP.Sequence{SP.Entry{Sch.System{id,0},[]},SP.Entry{Sch.Barrier{},[]}}},App.add(~Plain.Schema,~Plain.Transient(),~Unit,~Unit,~transient_ops,~Unit,~Unit,~U32,~Plain.transient_read(),~(H => caps => args => owner => transient_body(~H,~caps,args,owner)),~Unit,App.empty(~Plain.Schema,namespace),System.Owner{Sys.Registry{namespace,id,name,access,cursor},slot,clauses}))
+
+def constructed_ops(H:Type) -> Type:
+  Cap.Read<H,D.Raw>
+def constructed_read(~H:Type,observed:H & Cmp.Access<D.Raw>) -> H & (T.Outcome<Unit> & D.Raw):
+  match observed:
+    case (owner,Cmp.Found{value}):(owner,(T.Success{},value))
+    case (owner,_):(owner,(T.Failure{Unit{}},D.Null{}))
+def constructed_body(~H:Type,~caps:constructed_ops(H),args:Unit,owner:H) -> H & (T.Outcome<Unit> & D.Raw):
+  constructed_read(~H,Cap.read(~H,~D.Raw,~caps,owner))
+def constructed_registry() -> Type:
+  Sys.Registry<F.Workshop,Game.Store(~F.Workshop),Game.ResourceStore(~F.Workshop),Unit,Unit & U32,Q.Error<Unit>,List<&2,D.Raw>,System.runner(~F.Workshop,~Game.Store(~F.Workshop),~Game.ResourceStore(~F.Workshop),~Unit,~constructed_ops,~Unit,~Unit,~D.Raw,~Constructed.read(~F.Workshop),~(H => caps => args => owner => constructed_body(~H,~caps,args,owner)))>
+def constructed_define(world:W.World<F.Workshop,Game.Store(~F.Workshop),Game.ResourceStore(~F.Workshop),Unit>) -> System.Defined<F.Workshop,W.World<F.Workshop,Game.Store(~F.Workshop),Game.ResourceStore(~F.Workshop),Unit>,constructed_registry()>:
+  System.define(~F.Workshop,~Game.Store(~F.Workshop),~Game.ResourceStore(~F.Workshop),~Unit,~constructed_ops,~Unit,~Unit,~D.Raw,~Constructed.read(~F.Workshop),~(H => caps => args => owner => constructed_body(~H,~caps,args,owner)),world,"Reader","entities")
+def constructed_run(owner:System.Owner<F.Workshop,constructed_registry()>,world:W.World<F.Workshop,Game.Store(~F.Workshop),Game.ResourceStore(~F.Workshop),Unit>) -> Sys.RunResult<F.Workshop,Game.Store(~F.Workshop),Game.ResourceStore(~F.Workshop),Unit,Unit & U32,Q.Error<Unit>,List<&2,D.Raw>,System.runner(~F.Workshop,~Game.Store(~F.Workshop),~Game.ResourceStore(~F.Workshop),~Unit,~constructed_ops,~Unit,~Unit,~D.Raw,~Constructed.read(~F.Workshop),~(H => caps => args => owner => constructed_body(~H,~caps,args,owner)))> & (String & List<&2,Query.Clause<F.Workshop>>):
+  System.run(~F.Workshop,~Game.Store(~F.Workshop),~Game.ResourceStore(~F.Workshop),~Unit,~constructed_ops,~Unit,~Unit,~D.Raw,~Constructed.read(~F.Workshop),~(H => caps => args => owner => constructed_body(~H,~caps,args,owner)),owner,world,Unit{})
+def constructed_application(owner:System.Owner<F.Workshop,constructed_registry()>,debug:App.Debug) -> App.Built<F.Workshop,Game.Store(~F.Workshop),Game.ResourceStore(~F.Workshop),Unit,Unit & System.Owner<F.Workshop,constructed_registry()>>:
+  match owner:
+    case System.Owner{Sys.Registry{+namespace,+id,+name,+access,+cursor},+slot,+clauses}:
+      App.build(~F.Workshop,~Game.Store(~F.Workshop),~Game.ResourceStore(~F.Workshop),~Unit,~(Unit & System.Owner<F.Workshop,constructed_registry()>),debug,"Update",SP.Sequence{SP.Entry{Sch.Phase{"Update"},[]},SP.Sequence{SP.Entry{Sch.System{id,0},[]},SP.Entry{Sch.Barrier{},[]}}},App.add(~F.Workshop,~Game.Store(~F.Workshop),~Game.ResourceStore(~F.Workshop),~Unit,~constructed_ops,~Unit,~Unit,~D.Raw,~Constructed.read(~F.Workshop),~(H => caps => args => owner => constructed_body(~H,~caps,args,owner)),~Unit,App.empty(~F.Workshop,namespace),System.Owner{Sys.Registry{namespace,id,name,access,cursor},slot,clauses}))

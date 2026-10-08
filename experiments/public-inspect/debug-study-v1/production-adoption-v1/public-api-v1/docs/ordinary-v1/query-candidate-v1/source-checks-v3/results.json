@@ -1,0 +1,119 @@
+[
+  {
+    "label": "system",
+    "exit_code": 0,
+    "cap_seconds": 5,
+    "scope": "historical direct source-only diagnostic; no full installed dependency receipt"
+  },
+  {
+    "label": "app-initial",
+    "exit_code": 0,
+    "cap_seconds": 5,
+    "scope": "historical direct source-only diagnostic; no full installed dependency receipt"
+  },
+  {
+    "label": "app-fields-error",
+    "exit_code": 1,
+    "cap_seconds": 5,
+    "scope": "historical direct source-only diagnostic; no full installed dependency receipt"
+  },
+  {
+    "label": "app-affine-error",
+    "exit_code": 1,
+    "cap_seconds": 5,
+    "scope": "historical direct source-only diagnostic; no full installed dependency receipt"
+  },
+  {
+    "label": "registered-ops-error",
+    "exit_code": 1,
+    "cap_seconds": 5,
+    "scope": "historical direct source-only diagnostic; no full installed dependency receipt"
+  },
+  {
+    "label": "registered",
+    "exit_code": 0,
+    "cap_seconds": 5,
+    "scope": "historical direct source-only diagnostic; no full installed dependency receipt"
+  },
+  {
+    "label": "nonempty",
+    "exit_code": 0,
+    "cap_seconds": 5,
+    "scope": "historical direct source-only diagnostic; no full installed dependency receipt"
+  },
+  {
+    "label": "consumer",
+    "exit_code": 0,
+    "cap_seconds": 5,
+    "scope": "historical direct source-only diagnostic; no full installed dependency receipt"
+  },
+  {
+    "source": "negative-system-owner-duplication.bend",
+    "exit_code": 1,
+    "intended_diagnostic": "consumed more than once",
+    "candidate_source_sha256": {
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-cross-schema.bend": "ff22a5c394916955f3110bee6ba6630cb5ddcf147273edba82c93b34cb371500",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/application.bend": "fd107f2163ced8827702c94384fef4a69af2e7ce28027b0cf5d9e288df35268f",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/nonempty.bend": "c50e423b762d7d404392d574856ab7d3fff1703bf14ad3c1f2b2b6711d9f218e",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/system.bend": "306eb4a35fe1b2b71276263c8716f15858e7bc9b74b8418461da4f4205812ea1",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/plain-transient-application.bend": "1d35de822da9f0be964855005ac5724e9a6987ede0b4f570cc5dbfe86b81edd4",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/registered-application.bend": "a7097ff6f941acfc07cd8426b164eca4287f06c472b01caa6a258eab06cc270c",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-app-owner-duplication.bend": "d75728b9092934a611322135c3b78288dec903e5b237b859f5719c13c94f867b",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-plain-write-through-read.bend": "419e83f4f3aa194b4f67448c7ebe41741c395dd0eb9ce168f03b8bb2c7b04f7e",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-system-schema.bend": "bada3cf3af6cc6e3fec7733fe95b1ead10030b513aa0e44d02917c2286dea292",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-write-through-read.bend": "8f53e11da7bf7b2e056d85ea32923bbbaa696268e03d916729af8d232e1ab442",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/consumer.bend": "52c382b505c24633ee6c063394e573a7795b6d3eace088c55fb074f230e28b68",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/declaration.bend": "d814be4eb96003efc746994500211c9c83cb4e4db21a4eb08e6f73dd2aaccf6b",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-duplicate-owner.bend": "f410a6061a3b24a9d51b3c2e4be0ba162271607c2c3d7c63a9bf7e01b2546c2d",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app.bend": "bb9db47086d8ff94bceac89b10924bb5685f370e00b56e43d0c18db8fe1b3c66",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-system-owner-duplication.bend": "89bcfae27144549fad6550013701c4ccc32d5c1dce5ac63e8833c0a255114325"
+    },
+    "cap_seconds": 5
+  },
+  {
+    "source": "negative-system-schema.bend",
+    "exit_code": 1,
+    "intended_diagnostic": "Other",
+    "candidate_source_sha256": {
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-cross-schema.bend": "ff22a5c394916955f3110bee6ba6630cb5ddcf147273edba82c93b34cb371500",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/application.bend": "fd107f2163ced8827702c94384fef4a69af2e7ce28027b0cf5d9e288df35268f",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/nonempty.bend": "c50e423b762d7d404392d574856ab7d3fff1703bf14ad3c1f2b2b6711d9f218e",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/system.bend": "306eb4a35fe1b2b71276263c8716f15858e7bc9b74b8418461da4f4205812ea1",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/plain-transient-application.bend": "1d35de822da9f0be964855005ac5724e9a6987ede0b4f570cc5dbfe86b81edd4",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/registered-application.bend": "a7097ff6f941acfc07cd8426b164eca4287f06c472b01caa6a258eab06cc270c",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-app-owner-duplication.bend": "d75728b9092934a611322135c3b78288dec903e5b237b859f5719c13c94f867b",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-plain-write-through-read.bend": "419e83f4f3aa194b4f67448c7ebe41741c395dd0eb9ce168f03b8bb2c7b04f7e",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-system-schema.bend": "bada3cf3af6cc6e3fec7733fe95b1ead10030b513aa0e44d02917c2286dea292",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-write-through-read.bend": "8f53e11da7bf7b2e056d85ea32923bbbaa696268e03d916729af8d232e1ab442",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/consumer.bend": "52c382b505c24633ee6c063394e573a7795b6d3eace088c55fb074f230e28b68",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/declaration.bend": "d814be4eb96003efc746994500211c9c83cb4e4db21a4eb08e6f73dd2aaccf6b",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-duplicate-owner.bend": "f410a6061a3b24a9d51b3c2e4be0ba162271607c2c3d7c63a9bf7e01b2546c2d",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app.bend": "bb9db47086d8ff94bceac89b10924bb5685f370e00b56e43d0c18db8fe1b3c66",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-system-owner-duplication.bend": "89bcfae27144549fad6550013701c4ccc32d5c1dce5ac63e8833c0a255114325"
+    },
+    "cap_seconds": 5
+  },
+  {
+    "source": "negative-app-owner-duplication.bend",
+    "exit_code": 1,
+    "intended_diagnostic": "consumed more than once",
+    "candidate_source_sha256": {
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-cross-schema.bend": "ff22a5c394916955f3110bee6ba6630cb5ddcf147273edba82c93b34cb371500",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/application.bend": "fd107f2163ced8827702c94384fef4a69af2e7ce28027b0cf5d9e288df35268f",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/nonempty.bend": "c50e423b762d7d404392d574856ab7d3fff1703bf14ad3c1f2b2b6711d9f218e",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/system.bend": "306eb4a35fe1b2b71276263c8716f15858e7bc9b74b8418461da4f4205812ea1",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/plain-transient-application.bend": "1d35de822da9f0be964855005ac5724e9a6987ede0b4f570cc5dbfe86b81edd4",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/registered-application.bend": "a7097ff6f941acfc07cd8426b164eca4287f06c472b01caa6a258eab06cc270c",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-app-owner-duplication.bend": "d75728b9092934a611322135c3b78288dec903e5b237b859f5719c13c94f867b",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-plain-write-through-read.bend": "419e83f4f3aa194b4f67448c7ebe41741c395dd0eb9ce168f03b8bb2c7b04f7e",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-system-schema.bend": "bada3cf3af6cc6e3fec7733fe95b1ead10030b513aa0e44d02917c2286dea292",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-write-through-read.bend": "8f53e11da7bf7b2e056d85ea32923bbbaa696268e03d916729af8d232e1ab442",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/consumer.bend": "52c382b505c24633ee6c063394e573a7795b6d3eace088c55fb074f230e28b68",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/declaration.bend": "d814be4eb96003efc746994500211c9c83cb4e4db21a4eb08e6f73dd2aaccf6b",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-duplicate-owner.bend": "f410a6061a3b24a9d51b3c2e4be0ba162271607c2c3d7c63a9bf7e01b2546c2d",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app.bend": "bb9db47086d8ff94bceac89b10924bb5685f370e00b56e43d0c18db8fe1b3c66",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/negative-system-owner-duplication.bend": "89bcfae27144549fad6550013701c4ccc32d5c1dce5ac63e8833c0a255114325"
+    },
+    "cap_seconds": 5
+  }
+]
