@@ -1,0 +1,1171 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+... Skipped lines
+
+  [
+    {
+      dump: {
+        entities: [
+          {
+...
+            },
++           id: 4,
+-           id: 2,
+            relations: {}
+          }
+        ],
+        entityCount: 2,
+        frame: 5,
+...
+                  },
++                 entity: 4,
+-                 entity: 2,
+                  kind: 'spawn'
+                }
+              ],
+              system: 'Trace/Spawn',
+              tag: 'spawn'
+
+    at file:///workspace/formal-proofs/bendvy-worktrees/parity-root-trace-reference/experiments/public-debug-trace/skip-defect-reference-v1/reference.mjs:35:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+    at async node:internal/modules/esm/loader:647:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: [
+    {
+      label: 'success',
+      result: { ok: true },
+      events: [
+        { type: 'frame', frame: 1, tick: 0 },
+        { type: 'schedule.start', frame: 1, schedule: 'success' },
+        {
+          type: 'system',
+          frame: 1,
+          tick: 1,
+          schedule: 'success',
+          system: 'Trace/Spawn',
+          outcome: 'ok',
+          ms: 0,
+          writes: [],
+          resources: [],
+          events: [],
+          nextStates: [],
+          commands: [ 'spawn' ],
+          missed: []
+        },
+        {
+          type: 'system',
+          frame: 1,
+          tick: 2,
+          schedule: 'success',
+          system: 'Trace/Increment',
+          outcome: 'ok',
+          ms: 0,
+          writes: [],
+          resources: [ [Object] ],
+          events: [],
+          nextStates: [],
+          commands: [],
+          missed: []
+        },
+        {
+          type: 'deferred',
+          frame: 1,
+          tick: 3,
+          schedule: 'success',
+          marker: 'applyDeferred',
+          commands: [ [Object] ]
+        },
+        {
+          type: 'schedule.end',
+          frame: 1,
+          schedule: 'success',
+          ok: true,
+          ms: 0
+        }
+      ],
+      dump: {
+        version: 1,
+        frame: 1,
+        tick: 3,
+        entityCount: 1,
+        entities: [ { id: 1, components: [Object], relations: {} } ],
+        resources: { 'Trace/Counter': 10 },
+        machines: {},
+        pendingCommands: []
+      }
+    },
+    {
+      label: 'failure',
+      result: {
+        ok: false,
+        error: {
+          kind: 'SystemFailure',
+          system: 'Trace/Fail',
+          error: 'ExpectedFailure'
+        }
+      },
+      events: [
+        { type: 'frame', frame: 1, tick: 0 },
+        { type: 'schedule.start', frame: 1, schedule: 'success' },
+        {
+          type: 'system',
+          frame: 1,
+          tick: 1,
+          schedule: 'success',
+          system: 'Trace/Spawn',
+          outcome: 'ok',
+          ms: 0,
+          writes: [],
+          resources: [],
+          events: [],
+          nextStates: [],
+          commands: [ 'spawn' ],
+          missed: []
+        },
+        {
+          type: 'system',
+          frame: 1,
+          tick: 2,
+          schedule: 'success',
+          system: 'Trace/Increment',
+          outcome: 'ok',
+          ms: 0,
+          writes: [],
+          resources: [ [Object] ],
+          events: [],
+          nextStates: [],
+          commands: [],
+          missed: []
+        },
+        {
+          type: 'deferred',
+          frame: 1,
+          tick: 3,
+          schedule: 'success',
+          marker: 'applyDeferred',
+          commands: [ [Object] ]
+        },
+        {
+          type: 'schedule.end',
+          frame: 1,
+          schedule: 'success',
+          ok: true,
+          ms: 0
+        },
+        { type: 'frame', frame: 2, tick: 3 },
+        { type: 'schedule.start', frame: 2, schedule: 'failure' },
+        {
+          type: 'system',
+          frame: 2,
+          tick: 4,
+          schedule: 'failure',
+          system: 'Trace/Fail',
+          outcome: 'failed',
+          error: 'ExpectedFailure',
+          ms: 0,
+          writes: [],
+          resources: [ [Object] ],
+          events: [],
+          nextStates: [],
+          commands: [ 'spawn' ],
+          missed: []
+        },
+        {
+          type: 'schedule.end',
+          frame: 2,
+          schedule: 'failure',
+          ok: false,
+          ms: 0
+        }
+      ],
+      dump: {
+        version: 1,
+        frame: 2,
+        tick: 4,
+        entityCount: 1,
+        entities: [ { id: 1, components: [Object], relations: {} } ],
+        resources: { 'Trace/Counter': 10 },
+        machines: {},
+        pendingCommands: []
+      }
+    },
+    {
+      label: 'skipped',
+      result: { ok: true },
+      events: [
+        { type: 'frame', frame: 1, tick: 0 },
+        { type: 'schedule.start', frame: 1, schedule: 'success' },
+        {
+          type: 'system',
+          frame: 1,
+          tick: 1,
+          schedule: 'success',
+          system: 'Trace/Spawn',
+          outcome: 'ok',
+          ms: 0,
+          writes: [],
+          resources: [],
+          events: [],
+          nextStates: [],
+          commands: [ 'spawn' ],
+          missed: []
+        },
+        {
+          type: 'system',
+          frame: 1,
+          tick: 2,
+          schedule: 'success',
+          system: 'Trace/Increment',
+          outcome: 'ok',
+          ms: 0,
+          writes: [],
+          resources: [ [Object] ],
+          events: [],
+          nextStates: [],
+          commands: [],
+          missed: []
+        },
+        {
+          type: 'deferred',
+          frame: 1,
+          tick: 3,
+          schedule: 'success',
+          marker: 'applyDeferred',
+          commands: [ [Object] ]
+        },
+        {
+          type: 'schedule.end',
+          frame: 1,
+          schedule: 'success',
+          ok: true,
+          ms: 0
+        },
+        { type: 'frame', frame: 2, tick: 3 },
+        { type: 'schedule.start', frame: 2, schedule: 'failure' },
+        {
+          type: 'system',
+          frame: 2,
+          tick: 4,
+          schedule: 'failure',
+          system: 'Trace/Fail',
+          outcome: 'failed',
+          error: 'ExpectedFailure',
+          ms: 0,
+          writes: [],
+          resources: [ [Object] ],
+          events: [],
+          nextStates: [],
+          commands: [ 'spawn' ],
+          missed: []
+        },
+        {
+          type: 'schedule.end',
+          frame: 2,
+          schedule: 'failure',
+          ok: false,
+          ms: 0
+        },
+        { type: 'frame', frame: 3, tick: 4 },
+        { type: 'schedule.start', frame: 3, schedule: 'skipped' },
+        {
+          type: 'system.skipped',
+          frame: 3,
+          tick: 4,
+          schedule: 'skipped',
+          system: 'Trace/Skipped',
+          condition: 'check(never)',
+          discarded: []
+        },
+        {
+          type: 'schedule.end',
+          frame: 3,
+          schedule: 'skipped',
+          ok: true,
+          ms: 0
+        }
+      ],
+      dump: {
+        version: 1,
+        frame: 3,
+        tick: 4,
+        entityCount: 1,
+        entities: [ { id: 1, components: [Object], relations: {} } ],
+        resources: { 'Trace/Counter': 10 },
+        machines: {},
+        pendingCommands: []
+      }
+    },
+    {
+      label: 'defect',
+      result: { thrown: 'ExpectedDefect' },
+      events: [
+        { type: 'frame', frame: 1, tick: 0 },
+        { type: 'schedule.start', frame: 1, schedule: 'success' },
+        {
+          type: 'system',
+          frame: 1,
+          tick: 1,
+          schedule: 'success',
+          system: 'Trace/Spawn',
+          outcome: 'ok',
+          ms: 0,
+          writes: [],
+          resources: [],
+          events: [],
+          nextStates: [],
+          commands: [ 'spawn' ],
+          missed: []
+        },
+        {
+          type: 'system',
+          frame: 1,
+          tick: 2,
+          schedule: 'success',
+          system: 'Trace/Increment',
+          outcome: 'ok',
+          ms: 0,
+          writes: [],
+          resources: [ [Object] ],
+          events: [],
+          nextStates: [],
+          commands: [],
+          missed: []
+        },
+        {
+          type: 'deferred',
+          frame: 1,
+          tick: 3,
+          schedule: 'success',
+          marker: 'applyDeferred',
+          commands: [ [Object] ]
+        },
+        {
+          type: 'schedule.end',
+          frame: 1,
+          schedule: 'success',
+          ok: true,
+          ms: 0
+        },
+        { type: 'frame', frame: 2, tick: 3 },
+        { type: 'schedule.start', frame: 2, schedule: 'failure' },
+        {
+          type: 'system',
+          frame: 2,
+          tick: 4,
+          schedule: 'failure',
+          system: 'Trace/Fail',
+          outcome: 'failed',
+          error: 'ExpectedFailure',
+          ms: 0,
+          writes: [],
+          resources: [ [Object] ],
+          events: [],
+          nextStates: [],
+          commands: [ 'spawn' ],
+          missed: []
+        },
+        {
+          type: 'schedule.end',
+          frame: 2,
+          schedule: 'failure',
+          ok: false,
+          ms: 0
+        },
+        { type: 'frame', frame: 3, tick: 4 },
+        { type: 'schedule.start', frame: 3, schedule: 'skipped' },
+        {
+          type: 'system.skipped',
+          frame: 3,
+          tick: 4,
+          schedule: 'skipped',
+          system: 'Trace/Skipped',
+          condition: 'check(never)',
+          discarded: []
+        },
+        {
+          type: 'schedule.end',
+          frame: 3,
+          schedule: 'skipped',
+          ok: true,
+          ms: 0
+        },
+        { type: 'frame', frame: 4, tick: 4 },
+        { type: 'schedule.start', frame: 4, schedule: 'defect' },
+        {
+          type: 'system',
+          frame: 4,
+          tick: 5,
+          schedule: 'defect',
+          system: 'Trace/Defect',
+          outcome: 'defect',
+          error: 'ExpectedDefect',
+          ms: 0,
+          writes: [],
+          resources: [ [Object] ],
+          events: [],
+          nextStates: [],
+          commands: [ 'spawn' ],
+          missed: []
+        }
+      ],
+      dump: {
+        version: 1,
+        frame: 4,
+        tick: 5,
+        entityCount: 1,
+        entities: [ { id: 1, components: [Object], relations: {} } ],
+        resources: { 'Trace/Counter': 10 },
+        machines: {},
+        pendingCommands: []
+      }
+    },
+    {
+      label: 'recovery',
+      result: { ok: true },
+      events: [
+        { type: 'frame', frame: 1, tick: 0 },
+        { type: 'schedule.start', frame: 1, schedule: 'success' },
+        {
+          type: 'system',
+          frame: 1,
+          tick: 1,
+          schedule: 'success',
+          system: 'Trace/Spawn',
+          outcome: 'ok',
+          ms: 0,
+          writes: [],
+          resources: [],
+          events: [],
+          nextStates: [],
+          commands: [ 'spawn' ],
+          missed: []
+        },
+        {
+          type: 'system',
+          frame: 1,
+          tick: 2,
+          schedule: 'success',
+          system: 'Trace/Increment',
+          outcome: 'ok',
+          ms: 0,
+          writes: [],
+          resources: [ [Object] ],
+          events: [],
+          nextStates: [],
+          commands: [],
+          missed: []
+        },
+        {
+          type: 'deferred',
+          frame: 1,
+          tick: 3,
+          schedule: 'success',
+          marker: 'applyDeferred',
+          commands: [ [Object] ]
+        },
+        {
+          type: 'schedule.end',
+          frame: 1,
+          schedule: 'success',
+          ok: true,
+          ms: 0
+        },
+        { type: 'frame', frame: 2, tick: 3 },
+        { type: 'schedule.start', frame: 2, schedule: 'failure' },
+        {
+          type: 'system',
+          frame: 2,
+          tick: 4,
+          schedule: 'failure',
+          system: 'Trace/Fail',
+          outcome: 'failed',
+          error: 'ExpectedFailure',
+          ms: 0,
+          writes: [],
+          resources: [ [Object] ],
+          events: [],
+          nextStates: [],
+          commands: [ 'spawn' ],
+          missed: []
+        },
+        {
+          type: 'schedule.end',
+          frame: 2,
+          schedule: 'failure',
+          ok: false,
+          ms: 0
+        },
+        { type: 'frame', frame: 3, tick: 4 },
+        { type: 'schedule.start', frame: 3, schedule: 'skipped' },
+        {
+          type: 'system.skipped',
+          frame: 3,
+          tick: 4,
+          schedule: 'skipped',
+          system: 'Trace/Skipped',
+          condition: 'check(never)',
+          discarded: []
+        },
+        {
+          type: 'schedule.end',
+          frame: 3,
+          schedule: 'skipped',
+          ok: true,
+          ms: 0
+        },
+        { type: 'frame', frame: 4, tick: 4 },
+        { type: 'schedule.start', frame: 4, schedule: 'defect' },
+        {
+          type: 'system',
+          frame: 4,
+          tick: 5,
+          schedule: 'defect',
+          system: 'Trace/Defect',
+          outcome: 'defect',
+          error: 'ExpectedDefect',
+          ms: 0,
+          writes: [],
+          resources: [ [Object] ],
+          events: [],
+          nextStates: [],
+          commands: [ 'spawn' ],
+          missed: []
+        },
+        { type: 'frame', frame: 5, tick: 5 },
+        { type: 'schedule.start', frame: 5, schedule: 'success' },
+        {
+          type: 'system',
+          frame: 5,
+          tick: 6,
+          schedule: 'success',
+          system: 'Trace/Spawn',
+          outcome: 'ok',
+          ms: 0,
+          writes: [],
+          resources: [],
+          events: [],
+          nextStates: [],
+          commands: [ 'spawn' ],
+          missed: []
+        },
+        {
+          type: 'system',
+          frame: 5,
+          tick: 7,
+          schedule: 'success',
+          system: 'Trace/Increment',
+          outcome: 'ok',
+          ms: 0,
+          writes: [],
+          resources: [ [Object] ],
+          events: [],
+          nextStates: [],
+          commands: [],
+          missed: []
+        },
+        {
+          type: 'deferred',
+          frame: 5,
+          tick: 8,
+          schedule: 'success',
+          marker: 'applyDeferred',
+          commands: [ [Object] ]
+        },
+        {
+          type: 'schedule.end',
+          frame: 5,
+          schedule: 'success',
+          ok: true,
+          ms: 0
+        }
+      ],
+      dump: {
+        version: 1,
+        frame: 5,
+        tick: 8,
+        entityCount: 2,
+        entities: [
+          { id: 1, components: [Object], relations: {} },
+          { id: 4, components: [Object], relations: {} }
+        ],
+        resources: { 'Trace/Counter': 11 },
+        machines: {},
+        pendingCommands: []
+      }
+    }
+  ],
+  expected: [
+    {
+      label: 'success',
+      result: { ok: true },
+      events: [
+        { type: 'frame', frame: 1, tick: 0 },
+        { type: 'schedule.start', frame: 1, schedule: 'success' },
+        {
+          type: 'system',
+          frame: 1,
+          tick: 1,
+          schedule: 'success',
+          system: 'Trace/Spawn',
+          outcome: 'ok',
+          ms: 0,
+          writes: [],
+          resources: [],
+          events: [],
+          nextStates: [],
+          commands: [ 'spawn' ],
+          missed: []
+        },
+        {
+          type: 'system',
+          frame: 1,
+          tick: 2,
+          schedule: 'success',
+          system: 'Trace/Increment',
+          outcome: 'ok',
+          ms: 0,
+          writes: [],
+          resources: [ [Object] ],
+          events: [],
+          nextStates: [],
+          commands: [],
+          missed: []
+        },
+        {
+          type: 'deferred',
+          frame: 1,
+          tick: 3,
+          schedule: 'success',
+          marker: 'applyDeferred',
+          commands: [ [Object] ]
+        },
+        {
+          type: 'schedule.end',
+          frame: 1,
+          schedule: 'success',
+          ok: true,
+          ms: 0
+        }
+      ],
+      dump: {
+        version: 1,
+        frame: 1,
+        tick: 3,
+        entityCount: 1,
+        entities: [ { id: 1, components: [Object], relations: {} } ],
+        resources: { 'Trace/Counter': 10 },
+        machines: {},
+        pendingCommands: []
+      }
+    },
+    {
+      label: 'failure',
+      result: {
+        ok: false,
+        error: {
+          kind: 'SystemFailure',
+          system: 'Trace/Fail',
+          error: 'ExpectedFailure'
+        }
+      },
+      events: [
+        { type: 'frame', frame: 1, tick: 0 },
+        { type: 'schedule.start', frame: 1, schedule: 'success' },
+        {
+          type: 'system',
+          frame: 1,
+          tick: 1,
+          schedule: 'success',
+          system: 'Trace/Spawn',
+          outcome: 'ok',
+          ms: 0,
+          writes: [],
+          resources: [],
+          events: [],
+          nextStates: [],
+          commands: [ 'spawn' ],
+          missed: []
+        },
+        {
+          type: 'system',
+          frame: 1,
+          tick: 2,
+          schedule: 'success',
+          system: 'Trace/Increment',
+          outcome: 'ok',
+          ms: 0,
+          writes: [],
+          resources: [ [Object] ],
+          events: [],
+          nextStates: [],
+          commands: [],
+          missed: []
+        },
+        {
+          type: 'deferred',
+          frame: 1,
+          tick: 3,
+          schedule: 'success',
+          marker: 'applyDeferred',
+          commands: [ [Object] ]
+        },
+        {
+          type: 'schedule.end',
+          frame: 1,
+          schedule: 'success',
+          ok: true,
+          ms: 0
+        },
+        { type: 'frame', frame: 2, tick: 3 },
+        { type: 'schedule.start', frame: 2, schedule: 'failure' },
+        {
+          type: 'system',
+          frame: 2,
+          tick: 4,
+          schedule: 'failure',
+          system: 'Trace/Fail',
+          outcome: 'failed',
+          error: 'ExpectedFailure',
+          ms: 0,
+          writes: [],
+          resources: [ [Object] ],
+          events: [],
+          nextStates: [],
+          commands: [ 'spawn' ],
+          missed: []
+        },
+        {
+          type: 'schedule.end',
+          frame: 2,
+          schedule: 'failure',
+          ok: false,
+          ms: 0
+        }
+      ],
+      dump: {
+        version: 1,
+        frame: 2,
+        tick: 4,
+        entityCount: 1,
+        entities: [ { id: 1, components: [Object], relations: {} } ],
+        resources: { 'Trace/Counter': 10 },
+        machines: {},
+        pendingCommands: []
+      }
+    },
+    {
+      label: 'skipped',
+      result: { ok: true },
+      events: [
+        { type: 'frame', frame: 1, tick: 0 },
+        { type: 'schedule.start', frame: 1, schedule: 'success' },
+        {
+          type: 'system',
+          frame: 1,
+          tick: 1,
+          schedule: 'success',
+          system: 'Trace/Spawn',
+          outcome: 'ok',
+          ms: 0,
+          writes: [],
+          resources: [],
+          events: [],
+          nextStates: [],
+          commands: [ 'spawn' ],
+          missed: []
+        },
+        {
+          type: 'system',
+          frame: 1,
+          tick: 2,
+          schedule: 'success',
+          system: 'Trace/Increment',
+          outcome: 'ok',
+          ms: 0,
+          writes: [],
+          resources: [ [Object] ],
+          events: [],
+          nextStates: [],
+          commands: [],
+          missed: []
+        },
+        {
+          type: 'deferred',
+          frame: 1,
+          tick: 3,
+          schedule: 'success',
+          marker: 'applyDeferred',
+          commands: [ [Object] ]
+        },
+        {
+          type: 'schedule.end',
+          frame: 1,
+          schedule: 'success',
+          ok: true,
+          ms: 0
+        },
+        { type: 'frame', frame: 2, tick: 3 },
+        { type: 'schedule.start', frame: 2, schedule: 'failure' },
+        {
+          type: 'system',
+          frame: 2,
+          tick: 4,
+          schedule: 'failure',
+          system: 'Trace/Fail',
+          outcome: 'failed',
+          error: 'ExpectedFailure',
+          ms: 0,
+          writes: [],
+          resources: [ [Object] ],
+          events: [],
+          nextStates: [],
+          commands: [ 'spawn' ],
+          missed: []
+        },
+        {
+          type: 'schedule.end',
+          frame: 2,
+          schedule: 'failure',
+          ok: false,
+          ms: 0
+        },
+        { type: 'frame', frame: 3, tick: 4 },
+        { type: 'schedule.start', frame: 3, schedule: 'skipped' },
+        {
+          type: 'system.skipped',
+          frame: 3,
+          tick: 4,
+          schedule: 'skipped',
+          system: 'Trace/Skipped',
+          condition: 'check(never)',
+          discarded: []
+        },
+        {
+          type: 'schedule.end',
+          frame: 3,
+          schedule: 'skipped',
+          ok: true,
+          ms: 0
+        }
+      ],
+      dump: {
+        version: 1,
+        frame: 3,
+        tick: 4,
+        entityCount: 1,
+        entities: [ { id: 1, components: [Object], relations: {} } ],
+        resources: { 'Trace/Counter': 10 },
+        machines: {},
+        pendingCommands: []
+      }
+    },
+    {
+      label: 'defect',
+      result: { thrown: 'ExpectedDefect' },
+      events: [
+        { type: 'frame', frame: 1, tick: 0 },
+        { type: 'schedule.start', frame: 1, schedule: 'success' },
+        {
+          type: 'system',
+          frame: 1,
+          tick: 1,
+          schedule: 'success',
+          system: 'Trace/Spawn',
+          outcome: 'ok',
+          ms: 0,
+          writes: [],
+          resources: [],
+          events: [],
+          nextStates: [],
+          commands: [ 'spawn' ],
+          missed: []
+        },
+        {
+          type: 'system',
+          frame: 1,
+          tick: 2,
+          schedule: 'success',
+          system: 'Trace/Increment',
+          outcome: 'ok',
+          ms: 0,
+          writes: [],
+          resources: [ [Object] ],
+          events: [],
+          nextStates: [],
+          commands: [],
+          missed: []
+        },
+        {
+          type: 'deferred',
+          frame: 1,
+          tick: 3,
+          schedule: 'success',
+          marker: 'applyDeferred',
+          commands: [ [Object] ]
+        },
+        {
+          type: 'schedule.end',
+          frame: 1,
+          schedule: 'success',
+          ok: true,
+          ms: 0
+        },
+        { type: 'frame', frame: 2, tick: 3 },
+        { type: 'schedule.start', frame: 2, schedule: 'failure' },
+        {
+          type: 'system',
+          frame: 2,
+          tick: 4,
+          schedule: 'failure',
+          system: 'Trace/Fail',
+          outcome: 'failed',
+          error: 'ExpectedFailure',
+          ms: 0,
+          writes: [],
+          resources: [ [Object] ],
+          events: [],
+          nextStates: [],
+          commands: [ 'spawn' ],
+          missed: []
+        },
+        {
+          type: 'schedule.end',
+          frame: 2,
+          schedule: 'failure',
+          ok: false,
+          ms: 0
+        },
+        { type: 'frame', frame: 3, tick: 4 },
+        { type: 'schedule.start', frame: 3, schedule: 'skipped' },
+        {
+          type: 'system.skipped',
+          frame: 3,
+          tick: 4,
+          schedule: 'skipped',
+          system: 'Trace/Skipped',
+          condition: 'check(never)',
+          discarded: []
+        },
+        {
+          type: 'schedule.end',
+          frame: 3,
+          schedule: 'skipped',
+          ok: true,
+          ms: 0
+        },
+        { type: 'frame', frame: 4, tick: 4 },
+        { type: 'schedule.start', frame: 4, schedule: 'defect' },
+        {
+          type: 'system',
+          frame: 4,
+          tick: 5,
+          schedule: 'defect',
+          system: 'Trace/Defect',
+          outcome: 'defect',
+          error: 'ExpectedDefect',
+          ms: 0,
+          writes: [],
+          resources: [ [Object] ],
+          events: [],
+          nextStates: [],
+          commands: [ 'spawn' ],
+          missed: []
+        }
+      ],
+      dump: {
+        version: 1,
+        frame: 4,
+        tick: 5,
+        entityCount: 1,
+        entities: [ { id: 1, components: [Object], relations: {} } ],
+        resources: { 'Trace/Counter': 10 },
+        machines: {},
+        pendingCommands: []
+      }
+    },
+    {
+      label: 'recovery',
+      result: { ok: true },
+      events: [
+        { type: 'frame', frame: 1, tick: 0 },
+        { type: 'schedule.start', frame: 1, schedule: 'success' },
+        {
+          type: 'system',
+          frame: 1,
+          tick: 1,
+          schedule: 'success',
+          system: 'Trace/Spawn',
+          outcome: 'ok',
+          ms: 0,
+          writes: [],
+          resources: [],
+          events: [],
+          nextStates: [],
+          commands: [ 'spawn' ],
+          missed: []
+        },
+        {
+          type: 'system',
+          frame: 1,
+          tick: 2,
+          schedule: 'success',
+          system: 'Trace/Increment',
+          outcome: 'ok',
+          ms: 0,
+          writes: [],
+          resources: [ [Object] ],
+          events: [],
+          nextStates: [],
+          commands: [],
+          missed: []
+        },
+        {
+          type: 'deferred',
+          frame: 1,
+          tick: 3,
+          schedule: 'success',
+          marker: 'applyDeferred',
+          commands: [ [Object] ]
+        },
+        {
+          type: 'schedule.end',
+          frame: 1,
+          schedule: 'success',
+          ok: true,
+          ms: 0
+        },
+        { type: 'frame', frame: 2, tick: 3 },
+        { type: 'schedule.start', frame: 2, schedule: 'failure' },
+        {
+          type: 'system',
+          frame: 2,
+          tick: 4,
+          schedule: 'failure',
+          system: 'Trace/Fail',
+          outcome: 'failed',
+          error: 'ExpectedFailure',
+          ms: 0,
+          writes: [],
+          resources: [ [Object] ],
+          events: [],
+          nextStates: [],
+          commands: [ 'spawn' ],
+          missed: []
+        },
+        {
+          type: 'schedule.end',
+          frame: 2,
+          schedule: 'failure',
+          ok: false,
+          ms: 0
+        },
+        { type: 'frame', frame: 3, tick: 4 },
+        { type: 'schedule.start', frame: 3, schedule: 'skipped' },
+        {
+          type: 'system.skipped',
+          frame: 3,
+          tick: 4,
+          schedule: 'skipped',
+          system: 'Trace/Skipped',
+          condition: 'check(never)',
+          discarded: []
+        },
+        {
+          type: 'schedule.end',
+          frame: 3,
+          schedule: 'skipped',
+          ok: true,
+          ms: 0
+        },
+        { type: 'frame', frame: 4, tick: 4 },
+        { type: 'schedule.start', frame: 4, schedule: 'defect' },
+        {
+          type: 'system',
+          frame: 4,
+          tick: 5,
+          schedule: 'defect',
+          system: 'Trace/Defect',
+          outcome: 'defect',
+          error: 'ExpectedDefect',
+          ms: 0,
+          writes: [],
+          resources: [ [Object] ],
+          events: [],
+          nextStates: [],
+          commands: [ 'spawn' ],
+          missed: []
+        },
+        { type: 'frame', frame: 5, tick: 5 },
+        { type: 'schedule.start', frame: 5, schedule: 'success' },
+        {
+          type: 'system',
+          frame: 5,
+          tick: 6,
+          schedule: 'success',
+          system: 'Trace/Spawn',
+          outcome: 'ok',
+          ms: 0,
+          writes: [],
+          resources: [],
+          events: [],
+          nextStates: [],
+          commands: [ 'spawn' ],
+          missed: []
+        },
+        {
+          type: 'system',
+          frame: 5,
+          tick: 7,
+          schedule: 'success',
+          system: 'Trace/Increment',
+          outcome: 'ok',
+          ms: 0,
+          writes: [],
+          resources: [ [Object] ],
+          events: [],
+          nextStates: [],
+          commands: [],
+          missed: []
+        },
+        {
+          type: 'deferred',
+          frame: 5,
+          tick: 8,
+          schedule: 'success',
+          marker: 'applyDeferred',
+          commands: [ [Object] ]
+        },
+        {
+          type: 'schedule.end',
+          frame: 5,
+          schedule: 'success',
+          ok: true,
+          ms: 0
+        }
+      ],
+      dump: {
+        version: 1,
+        frame: 5,
+        tick: 8,
+        entityCount: 2,
+        entities: [
+          { id: 1, components: [Object], relations: {} },
+          { id: 2, components: [Object], relations: {} }
+        ],
+        resources: { 'Trace/Counter': 11 },
+        machines: {},
+        pendingCommands: []
+      }
+    }
+  ],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.20.0

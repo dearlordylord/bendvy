@@ -1,0 +1,926 @@
+[
+  {
+    "label": "success",
+    "result": {
+      "ok": true
+    },
+    "events": [
+      {
+        "type": "frame",
+        "frame": 1,
+        "tick": 0
+      },
+      {
+        "type": "schedule.start",
+        "frame": 1,
+        "schedule": "success"
+      },
+      {
+        "type": "system",
+        "frame": 1,
+        "tick": 1,
+        "schedule": "success",
+        "system": "Trace/Spawn",
+        "outcome": "ok",
+        "ms": 0,
+        "writes": [],
+        "resources": [],
+        "events": [],
+        "nextStates": [],
+        "commands": [
+          "spawn"
+        ],
+        "missed": []
+      },
+      {
+        "type": "system",
+        "frame": 1,
+        "tick": 2,
+        "schedule": "success",
+        "system": "Trace/Increment",
+        "outcome": "ok",
+        "ms": 0,
+        "writes": [],
+        "resources": [
+          {
+            "resource": "Trace/Counter",
+            "before": 9,
+            "after": 10
+          }
+        ],
+        "events": [],
+        "nextStates": [],
+        "commands": [],
+        "missed": []
+      },
+      {
+        "type": "deferred",
+        "frame": 1,
+        "tick": 3,
+        "schedule": "success",
+        "marker": "applyDeferred",
+        "commands": [
+          {
+            "tag": "spawn",
+            "system": "Trace/Spawn",
+            "effects": [
+              {
+                "kind": "spawn",
+                "entity": 1,
+                "components": {
+                  "Trace/Tag": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "schedule.end",
+        "frame": 1,
+        "schedule": "success",
+        "ok": true,
+        "ms": 0
+      }
+    ],
+    "dump": {
+      "version": 1,
+      "frame": 1,
+      "tick": 3,
+      "entityCount": 1,
+      "entities": [
+        {
+          "id": 1,
+          "components": {
+            "Trace/Tag": true
+          },
+          "relations": {}
+        }
+      ],
+      "resources": {
+        "Trace/Counter": 10
+      },
+      "machines": {},
+      "pendingCommands": []
+    }
+  },
+  {
+    "label": "failure",
+    "result": {
+      "ok": false,
+      "error": {
+        "kind": "SystemFailure",
+        "system": "Trace/Fail",
+        "error": "ExpectedFailure"
+      }
+    },
+    "events": [
+      {
+        "type": "frame",
+        "frame": 1,
+        "tick": 0
+      },
+      {
+        "type": "schedule.start",
+        "frame": 1,
+        "schedule": "success"
+      },
+      {
+        "type": "system",
+        "frame": 1,
+        "tick": 1,
+        "schedule": "success",
+        "system": "Trace/Spawn",
+        "outcome": "ok",
+        "ms": 0,
+        "writes": [],
+        "resources": [],
+        "events": [],
+        "nextStates": [],
+        "commands": [
+          "spawn"
+        ],
+        "missed": []
+      },
+      {
+        "type": "system",
+        "frame": 1,
+        "tick": 2,
+        "schedule": "success",
+        "system": "Trace/Increment",
+        "outcome": "ok",
+        "ms": 0,
+        "writes": [],
+        "resources": [
+          {
+            "resource": "Trace/Counter",
+            "before": 9,
+            "after": 10
+          }
+        ],
+        "events": [],
+        "nextStates": [],
+        "commands": [],
+        "missed": []
+      },
+      {
+        "type": "deferred",
+        "frame": 1,
+        "tick": 3,
+        "schedule": "success",
+        "marker": "applyDeferred",
+        "commands": [
+          {
+            "tag": "spawn",
+            "system": "Trace/Spawn",
+            "effects": [
+              {
+                "kind": "spawn",
+                "entity": 1,
+                "components": {
+                  "Trace/Tag": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "schedule.end",
+        "frame": 1,
+        "schedule": "success",
+        "ok": true,
+        "ms": 0
+      },
+      {
+        "type": "frame",
+        "frame": 2,
+        "tick": 3
+      },
+      {
+        "type": "schedule.start",
+        "frame": 2,
+        "schedule": "failure"
+      },
+      {
+        "type": "system",
+        "frame": 2,
+        "tick": 4,
+        "schedule": "failure",
+        "system": "Trace/Fail",
+        "outcome": "failed",
+        "error": "ExpectedFailure",
+        "ms": 0,
+        "writes": [],
+        "resources": [
+          {
+            "resource": "Trace/Counter",
+            "before": 10,
+            "after": 99
+          }
+        ],
+        "events": [],
+        "nextStates": [],
+        "commands": [
+          "spawn"
+        ],
+        "missed": []
+      },
+      {
+        "type": "schedule.end",
+        "frame": 2,
+        "schedule": "failure",
+        "ok": false,
+        "ms": 0
+      }
+    ],
+    "dump": {
+      "version": 1,
+      "frame": 2,
+      "tick": 4,
+      "entityCount": 1,
+      "entities": [
+        {
+          "id": 1,
+          "components": {
+            "Trace/Tag": true
+          },
+          "relations": {}
+        }
+      ],
+      "resources": {
+        "Trace/Counter": 10
+      },
+      "machines": {},
+      "pendingCommands": []
+    }
+  },
+  {
+    "label": "skipped",
+    "result": {
+      "ok": true
+    },
+    "events": [
+      {
+        "type": "frame",
+        "frame": 1,
+        "tick": 0
+      },
+      {
+        "type": "schedule.start",
+        "frame": 1,
+        "schedule": "success"
+      },
+      {
+        "type": "system",
+        "frame": 1,
+        "tick": 1,
+        "schedule": "success",
+        "system": "Trace/Spawn",
+        "outcome": "ok",
+        "ms": 0,
+        "writes": [],
+        "resources": [],
+        "events": [],
+        "nextStates": [],
+        "commands": [
+          "spawn"
+        ],
+        "missed": []
+      },
+      {
+        "type": "system",
+        "frame": 1,
+        "tick": 2,
+        "schedule": "success",
+        "system": "Trace/Increment",
+        "outcome": "ok",
+        "ms": 0,
+        "writes": [],
+        "resources": [
+          {
+            "resource": "Trace/Counter",
+            "before": 9,
+            "after": 10
+          }
+        ],
+        "events": [],
+        "nextStates": [],
+        "commands": [],
+        "missed": []
+      },
+      {
+        "type": "deferred",
+        "frame": 1,
+        "tick": 3,
+        "schedule": "success",
+        "marker": "applyDeferred",
+        "commands": [
+          {
+            "tag": "spawn",
+            "system": "Trace/Spawn",
+            "effects": [
+              {
+                "kind": "spawn",
+                "entity": 1,
+                "components": {
+                  "Trace/Tag": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "schedule.end",
+        "frame": 1,
+        "schedule": "success",
+        "ok": true,
+        "ms": 0
+      },
+      {
+        "type": "frame",
+        "frame": 2,
+        "tick": 3
+      },
+      {
+        "type": "schedule.start",
+        "frame": 2,
+        "schedule": "failure"
+      },
+      {
+        "type": "system",
+        "frame": 2,
+        "tick": 4,
+        "schedule": "failure",
+        "system": "Trace/Fail",
+        "outcome": "failed",
+        "error": "ExpectedFailure",
+        "ms": 0,
+        "writes": [],
+        "resources": [
+          {
+            "resource": "Trace/Counter",
+            "before": 10,
+            "after": 99
+          }
+        ],
+        "events": [],
+        "nextStates": [],
+        "commands": [
+          "spawn"
+        ],
+        "missed": []
+      },
+      {
+        "type": "schedule.end",
+        "frame": 2,
+        "schedule": "failure",
+        "ok": false,
+        "ms": 0
+      },
+      {
+        "type": "frame",
+        "frame": 3,
+        "tick": 4
+      },
+      {
+        "type": "schedule.start",
+        "frame": 3,
+        "schedule": "skipped"
+      },
+      {
+        "type": "system.skipped",
+        "frame": 3,
+        "tick": 4,
+        "schedule": "skipped",
+        "system": "Trace/Skipped",
+        "condition": "check(never)",
+        "discarded": []
+      },
+      {
+        "type": "schedule.end",
+        "frame": 3,
+        "schedule": "skipped",
+        "ok": true,
+        "ms": 0
+      }
+    ],
+    "dump": {
+      "version": 1,
+      "frame": 3,
+      "tick": 4,
+      "entityCount": 1,
+      "entities": [
+        {
+          "id": 1,
+          "components": {
+            "Trace/Tag": true
+          },
+          "relations": {}
+        }
+      ],
+      "resources": {
+        "Trace/Counter": 10
+      },
+      "machines": {},
+      "pendingCommands": []
+    }
+  },
+  {
+    "label": "defect",
+    "result": {
+      "thrown": "ExpectedDefect"
+    },
+    "events": [
+      {
+        "type": "frame",
+        "frame": 1,
+        "tick": 0
+      },
+      {
+        "type": "schedule.start",
+        "frame": 1,
+        "schedule": "success"
+      },
+      {
+        "type": "system",
+        "frame": 1,
+        "tick": 1,
+        "schedule": "success",
+        "system": "Trace/Spawn",
+        "outcome": "ok",
+        "ms": 0,
+        "writes": [],
+        "resources": [],
+        "events": [],
+        "nextStates": [],
+        "commands": [
+          "spawn"
+        ],
+        "missed": []
+      },
+      {
+        "type": "system",
+        "frame": 1,
+        "tick": 2,
+        "schedule": "success",
+        "system": "Trace/Increment",
+        "outcome": "ok",
+        "ms": 0,
+        "writes": [],
+        "resources": [
+          {
+            "resource": "Trace/Counter",
+            "before": 9,
+            "after": 10
+          }
+        ],
+        "events": [],
+        "nextStates": [],
+        "commands": [],
+        "missed": []
+      },
+      {
+        "type": "deferred",
+        "frame": 1,
+        "tick": 3,
+        "schedule": "success",
+        "marker": "applyDeferred",
+        "commands": [
+          {
+            "tag": "spawn",
+            "system": "Trace/Spawn",
+            "effects": [
+              {
+                "kind": "spawn",
+                "entity": 1,
+                "components": {
+                  "Trace/Tag": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "schedule.end",
+        "frame": 1,
+        "schedule": "success",
+        "ok": true,
+        "ms": 0
+      },
+      {
+        "type": "frame",
+        "frame": 2,
+        "tick": 3
+      },
+      {
+        "type": "schedule.start",
+        "frame": 2,
+        "schedule": "failure"
+      },
+      {
+        "type": "system",
+        "frame": 2,
+        "tick": 4,
+        "schedule": "failure",
+        "system": "Trace/Fail",
+        "outcome": "failed",
+        "error": "ExpectedFailure",
+        "ms": 0,
+        "writes": [],
+        "resources": [
+          {
+            "resource": "Trace/Counter",
+            "before": 10,
+            "after": 99
+          }
+        ],
+        "events": [],
+        "nextStates": [],
+        "commands": [
+          "spawn"
+        ],
+        "missed": []
+      },
+      {
+        "type": "schedule.end",
+        "frame": 2,
+        "schedule": "failure",
+        "ok": false,
+        "ms": 0
+      },
+      {
+        "type": "frame",
+        "frame": 3,
+        "tick": 4
+      },
+      {
+        "type": "schedule.start",
+        "frame": 3,
+        "schedule": "skipped"
+      },
+      {
+        "type": "system.skipped",
+        "frame": 3,
+        "tick": 4,
+        "schedule": "skipped",
+        "system": "Trace/Skipped",
+        "condition": "check(never)",
+        "discarded": []
+      },
+      {
+        "type": "schedule.end",
+        "frame": 3,
+        "schedule": "skipped",
+        "ok": true,
+        "ms": 0
+      },
+      {
+        "type": "frame",
+        "frame": 4,
+        "tick": 4
+      },
+      {
+        "type": "schedule.start",
+        "frame": 4,
+        "schedule": "defect"
+      },
+      {
+        "type": "system",
+        "frame": 4,
+        "tick": 5,
+        "schedule": "defect",
+        "system": "Trace/Defect",
+        "outcome": "defect",
+        "error": "ExpectedDefect",
+        "ms": 0,
+        "writes": [],
+        "resources": [
+          {
+            "resource": "Trace/Counter",
+            "before": 10,
+            "after": 77
+          }
+        ],
+        "events": [],
+        "nextStates": [],
+        "commands": [
+          "spawn"
+        ],
+        "missed": []
+      }
+    ],
+    "dump": {
+      "version": 1,
+      "frame": 4,
+      "tick": 5,
+      "entityCount": 1,
+      "entities": [
+        {
+          "id": 1,
+          "components": {
+            "Trace/Tag": true
+          },
+          "relations": {}
+        }
+      ],
+      "resources": {
+        "Trace/Counter": 10
+      },
+      "machines": {},
+      "pendingCommands": []
+    }
+  },
+  {
+    "label": "recovery",
+    "result": {
+      "ok": true
+    },
+    "events": [
+      {
+        "type": "frame",
+        "frame": 1,
+        "tick": 0
+      },
+      {
+        "type": "schedule.start",
+        "frame": 1,
+        "schedule": "success"
+      },
+      {
+        "type": "system",
+        "frame": 1,
+        "tick": 1,
+        "schedule": "success",
+        "system": "Trace/Spawn",
+        "outcome": "ok",
+        "ms": 0,
+        "writes": [],
+        "resources": [],
+        "events": [],
+        "nextStates": [],
+        "commands": [
+          "spawn"
+        ],
+        "missed": []
+      },
+      {
+        "type": "system",
+        "frame": 1,
+        "tick": 2,
+        "schedule": "success",
+        "system": "Trace/Increment",
+        "outcome": "ok",
+        "ms": 0,
+        "writes": [],
+        "resources": [
+          {
+            "resource": "Trace/Counter",
+            "before": 9,
+            "after": 10
+          }
+        ],
+        "events": [],
+        "nextStates": [],
+        "commands": [],
+        "missed": []
+      },
+      {
+        "type": "deferred",
+        "frame": 1,
+        "tick": 3,
+        "schedule": "success",
+        "marker": "applyDeferred",
+        "commands": [
+          {
+            "tag": "spawn",
+            "system": "Trace/Spawn",
+            "effects": [
+              {
+                "kind": "spawn",
+                "entity": 1,
+                "components": {
+                  "Trace/Tag": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "schedule.end",
+        "frame": 1,
+        "schedule": "success",
+        "ok": true,
+        "ms": 0
+      },
+      {
+        "type": "frame",
+        "frame": 2,
+        "tick": 3
+      },
+      {
+        "type": "schedule.start",
+        "frame": 2,
+        "schedule": "failure"
+      },
+      {
+        "type": "system",
+        "frame": 2,
+        "tick": 4,
+        "schedule": "failure",
+        "system": "Trace/Fail",
+        "outcome": "failed",
+        "error": "ExpectedFailure",
+        "ms": 0,
+        "writes": [],
+        "resources": [
+          {
+            "resource": "Trace/Counter",
+            "before": 10,
+            "after": 99
+          }
+        ],
+        "events": [],
+        "nextStates": [],
+        "commands": [
+          "spawn"
+        ],
+        "missed": []
+      },
+      {
+        "type": "schedule.end",
+        "frame": 2,
+        "schedule": "failure",
+        "ok": false,
+        "ms": 0
+      },
+      {
+        "type": "frame",
+        "frame": 3,
+        "tick": 4
+      },
+      {
+        "type": "schedule.start",
+        "frame": 3,
+        "schedule": "skipped"
+      },
+      {
+        "type": "system.skipped",
+        "frame": 3,
+        "tick": 4,
+        "schedule": "skipped",
+        "system": "Trace/Skipped",
+        "condition": "check(never)",
+        "discarded": []
+      },
+      {
+        "type": "schedule.end",
+        "frame": 3,
+        "schedule": "skipped",
+        "ok": true,
+        "ms": 0
+      },
+      {
+        "type": "frame",
+        "frame": 4,
+        "tick": 4
+      },
+      {
+        "type": "schedule.start",
+        "frame": 4,
+        "schedule": "defect"
+      },
+      {
+        "type": "system",
+        "frame": 4,
+        "tick": 5,
+        "schedule": "defect",
+        "system": "Trace/Defect",
+        "outcome": "defect",
+        "error": "ExpectedDefect",
+        "ms": 0,
+        "writes": [],
+        "resources": [
+          {
+            "resource": "Trace/Counter",
+            "before": 10,
+            "after": 77
+          }
+        ],
+        "events": [],
+        "nextStates": [],
+        "commands": [
+          "spawn"
+        ],
+        "missed": []
+      },
+      {
+        "type": "frame",
+        "frame": 5,
+        "tick": 5
+      },
+      {
+        "type": "schedule.start",
+        "frame": 5,
+        "schedule": "success"
+      },
+      {
+        "type": "system",
+        "frame": 5,
+        "tick": 6,
+        "schedule": "success",
+        "system": "Trace/Spawn",
+        "outcome": "ok",
+        "ms": 0,
+        "writes": [],
+        "resources": [],
+        "events": [],
+        "nextStates": [],
+        "commands": [
+          "spawn"
+        ],
+        "missed": []
+      },
+      {
+        "type": "system",
+        "frame": 5,
+        "tick": 7,
+        "schedule": "success",
+        "system": "Trace/Increment",
+        "outcome": "ok",
+        "ms": 0,
+        "writes": [],
+        "resources": [
+          {
+            "resource": "Trace/Counter",
+            "before": 10,
+            "after": 11
+          }
+        ],
+        "events": [],
+        "nextStates": [],
+        "commands": [],
+        "missed": []
+      },
+      {
+        "type": "deferred",
+        "frame": 5,
+        "tick": 8,
+        "schedule": "success",
+        "marker": "applyDeferred",
+        "commands": [
+          {
+            "tag": "spawn",
+            "system": "Trace/Spawn",
+            "effects": [
+              {
+                "kind": "spawn",
+                "entity": 2,
+                "components": {
+                  "Trace/Tag": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "schedule.end",
+        "frame": 5,
+        "schedule": "success",
+        "ok": true,
+        "ms": 0
+      }
+    ],
+    "dump": {
+      "version": 1,
+      "frame": 5,
+      "tick": 8,
+      "entityCount": 2,
+      "entities": [
+        {
+          "id": 1,
+          "components": {
+            "Trace/Tag": true
+          },
+          "relations": {}
+        },
+        {
+          "id": 2,
+          "components": {
+            "Trace/Tag": true
+          },
+          "relations": {}
+        }
+      ],
+      "resources": {
+        "Trace/Counter": 11
+      },
+      "machines": {},
+      "pendingCommands": []
+    }
+  }
+]
