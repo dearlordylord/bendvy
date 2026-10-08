@@ -1,0 +1,11 @@
+# Independently authored core bundle consumer — source qualification
+
+The concrete two-family consumer passed the exact reviewed source5 check (plan84373001), including Array<U32> and scalar U32 families, Unit-resource constructor/installer/provider/request specialization and Batch.finish with explicit authored callback templates. Actual stdout is the exact58-byte safe CLI report; stderr is the permitted complete compiler update notice. This is parser/type/affine/effect feasibility, not mathematical proof or runtime observation.
+
+Gameplay receives the generic opaque request capability. Schema setup still requires columns, family tokens/lenses, recipe constructors/inverses, installers and recovery destination callbacks. Those obligations follow existing heterogeneous affine ownership and recovery contracts; they were not introduced by request optimization. The example uses no demo schema helper. It does not supply application bootstrap, main, default recovery policy or callback implementation; existing full22+20 production runtime qualification remains a separate receipt.
+
+The cheap scripts/bend-check development check passed before receipt preparation. No fresh library discovery was performed: exact V3 snapshot reuse was guarded by complete current tool/resource membership, configuration, loader and environment equality. Two preparation probes are explicitly inherited; three ordinary executable guards performed six probes around the single source child. Complete source69/root26 guards held.
+
+Historical V1 was unexecuted. V2 failed tuple multi-pattern parsing; V3 corrected the comma and then failed def @- binder parsing. V4 changes only the two def template prefixes to ~, matching the pinned compiler and qualified caller. All historical source bytes, plans, raw diagnostics and receipts are retained in the archive; failures provide no acceptance credit.
+
+The pre-authored optional runtime oracle remains array projection [7,9], scalar11 and constructor positions [None,None] for a supplied valid target with empty families. No backend ran for this consumer and no claim about those runtime values, callback behavior, speed, bootstrap, full #41 completion or #28 regression qualification is made. Private environment bytes are excluded from delivery; guarded digest evidence is retained.
