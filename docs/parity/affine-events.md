@@ -12,6 +12,10 @@ Event publishers and multiple independent readers use useful affine Type payload
 
 User direction (2026-10-08): prefer returning data after failure so applications
 can reuse it; this is a soft preference, subordinate to a simple, elegant API.
+Returning ownership is not a hard requirement for every failure path. If it
+would complicate the public API or conflict with required rollback, choose the
+simpler ownership-safe behavior and document where reuse is unavailable. Do not
+claim a memory improvement merely because an owner is returned.
 
 - **Notifications:** a failed operation must not deliver its notifications. A
   notification such as "enemy killed" may be recreated on retry; the application
