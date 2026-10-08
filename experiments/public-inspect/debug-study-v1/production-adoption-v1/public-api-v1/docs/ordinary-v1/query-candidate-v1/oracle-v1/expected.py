@@ -6,7 +6,7 @@ FILTERS=[None,('Position','Added'),('Position','Changed'),('Health','Without'),(
 def clauses(index):return copy.deepcopy(BASE)+([] if FILTERS[index] is None else [{'name':FILTERS[index][0],'mode':FILTERS[index][1]}])
 def registry(index,cursor=0):
     cs=clauses(index);return {'namespace':1,'id':index+1,'name':NAMES[index],'access':[x['name'] for x in cs],'cursor':cursor,'slot':'entities','clauses':cs}
-def full(values):return {'length':{'nat':len(values)},'values':values}
+def full(values):return {'length':{'nat':len(values)},'values':copy.deepcopy(values)}
 def row(state,i):
     return {'position':full(state['Position'][i][0]),'velocityBefore':full(state['Velocity'][i][0]),'health':{'ComponentAbsent':{}} if i not in state['Health'] else {'Found':full(state['Health'][i][0])}}
 def world(category,state,clock,registered=True):
@@ -21,10 +21,11 @@ def scenario(category):
     state={'Position':{1:[[1,101],1,1],2:[[2,102],4,4],3:[[3,103],6,6]},'Velocity':{1:[[10,201],2,2],2:[[20,202],5,5]},'Health':{1:[[100,301],3,3],3:[[300,303],7,7]}}
     cursor=[0]*5;clock=7;phases=[]
     def observe(label,operation,registered=True,descriptions=None,factory=2):
-        phases.append({'label':label,'factoryNextNamespace':factory,'world':world(category,state,clock,registered),'registries':[registry(i,cursor[i]) for i in range(5)] if registered else [],'operation':operation,'descriptions':descriptions or []})
+        phases.append(copy.deepcopy({'label':label,'factoryNextNamespace':factory,'world':world(category,state,clock,registered),'registries':[registry(i,cursor[i]) for i in range(5)] if registered else [],'operation':operation,'descriptions':descriptions or []}))
     def run(label,index,ids,fail=False):
         nonlocal clock
-        if fail: result={'Fail':{'UserError':{'Unit':{}}}}
+        if fail:
+            clock+=len(ids);result={'Fail':{'UserError':{'Unit':{}}}}
         else:
             values=[]
             for i in ids:
@@ -39,7 +40,7 @@ def scenario(category):
     observe('app-enabled-descriptions',{'Observed':{}},descriptions=[{'Some':description()},{'Some':description()}])
     observe('app-disabled-description',{'Observed':{}},descriptions=[{'None':{}}])
     foreign={'namespace':2,'nextId':1,'highWater':0,'capacity':1,'depth':{'nat':0},'liveBits':[False],'resource':{'Unit':{}},'events':[],'pendingCount':0,'registrations':[],'nextSystemId':1,'clock':0,'columns':{k:{'storage':copy.deepcopy(v['storage']),'cells':[]} for k,v in world(category,state,clock)['columns'].items()}}
-    observe('foreign-registration-refusal',{'RefusedRegistration':{'args':{'fail':False,'cursor':11},'foreignWorld':foreign,'registry':registry(0,11)}},factory=3)
+    observe('foreign-registration-refusal',{'RefusedRegistration':{'args':{'fail':False,'cursor':cursor[0]},'foreignWorld':foreign,'registry':registry(0,cursor[0])}},factory=3)
     return {'category':category.lower(),'phases':phases}
 def expected():return {name:scenario(category) for name,category in [('plain','Plain'),('transient','Transient'),('constructed','Constructed')]}
 if __name__=='__main__':print(json.dumps(expected(),indent=2))
