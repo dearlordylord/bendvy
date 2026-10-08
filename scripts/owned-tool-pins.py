@@ -3,7 +3,6 @@ from pathlib import Path
 import hashlib
 import re
 import json
-import os
 
 
 class ProbeFailure(RuntimeError):
@@ -167,13 +166,19 @@ class PinnedTools:
 
     def _loader_directories(self):
         """Explicit shallow search scopes; nested directories confer no coverage."""
-        recursive = [Path(os.path.abspath(p)) for p in self.resolver_inputs]
-        searches = [Path(os.path.abspath(p)) for p in self.loader_search_directories]
+        recursive = [Path(p).absolute().resolve() for p in self.resolver_inputs]
+        searches = [Path(p).absolute() for p in self.loader_search_directories]
+        resolved_searches = [p.resolve() for p in searches]
 
-        def covered(path):
+        def covered(path, *, link_target=False):
+            path = path.resolve()
+            search_roots = (
+                [resolved for raw, resolved in zip(searches, resolved_searches)
+                 if raw == resolved] if link_target and path.is_dir()
+                else resolved_searches)
             return any(path == root or (root.is_dir() and not root.is_symlink()
                        and path.is_relative_to(root)) for root in recursive) or any(
-                       path == root or path.parent == root for root in searches)
+                       path == root or path.parent == root for root in search_roots)
 
         def chain(path, *, require_coverage, allow_absent=False):
             # Walk every component so intermediate aliases cannot disappear behind
@@ -192,7 +197,7 @@ class PinnedTools:
                     seen.add(current)
                     literal = str(current.readlink())
                     target = current.parent / literal
-                    if require_coverage and not covered(Path(os.path.abspath(target))):
+                    if require_coverage and not covered(target, link_target=True):
                         raise RuntimeError("loader-search symlink target outside declared namespace")
                     links.append({"path": str(current), "target": literal})
                     # A symlink itself must resolve, even when the requested

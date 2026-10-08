@@ -182,6 +182,35 @@ class Contract(unittest.TestCase):
         middle.unlink(); middle.symlink_to(self.root/'missing')
         with self.assertRaises((RuntimeError, OSError)): self.shallow([search], [middle, target])
 
+    def test_shallow_root_symlink_parent_traversal_pins_actual_directory(self):
+        a = self.root/'A'; a.mkdir()
+        b = self.root/'B'; b.mkdir()
+        target = b/'dir'; target.mkdir()
+        (a/'link').symlink_to(target, target_is_directory=True)
+        actual = b/'lib'; actual.mkdir()
+        candidate = actual/'candidate'; candidate.write_bytes(b'old')
+        lexical = a/'lib'; lexical.mkdir()
+        session = self.shallow([a/'link'/'..'/'lib'], [target])
+        candidate.write_bytes(b'new')
+        with self.assertRaises(RuntimeError): session.check()
+
+    def test_shallow_file_link_parent_traversal_refuses_lexical_coverage(self):
+        search = self.root/'search'; search.mkdir()
+        outside = self.root/'outside'; outside.mkdir()
+        directory = outside/'dir'; directory.mkdir()
+        actual = outside/'file'; actual.write_bytes(b'actual')
+        lexical = search/'file'; lexical.write_bytes(b'lexical')
+        (search/'linkdir').symlink_to(directory, target_is_directory=True)
+        (search/'candidate').symlink_to('linkdir/../file')
+        # The lexical search/file is covered, but the actual outside/file is not.
+        with self.assertRaises(RuntimeError): self.shallow([search], [directory])
+        session = self.shallow([search], [directory, actual])
+        links = session.resolver['loader_search_directories'][str(search/'candidate')]['links']
+        self.assertEqual([entry['path'] for entry in links],
+                         [str(search/'candidate'), str(search/'linkdir')])
+        actual.write_bytes(b'changed')
+        with self.assertRaises(RuntimeError): session.check()
+
     def test_shallow_root_alias_requires_explicit_target_and_identity(self):
         search = self.root/'search'; search.mkdir()
         (search/'candidate').write_bytes(b'bytes')

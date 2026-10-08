@@ -150,3 +150,8 @@ This API does not establish a closed host-specific list: actual loader defaults,
 hwcaps, RPATH/RUNPATH, DT_NEEDED paths, cache, configuration and environment require
 call-site review before adoption. No aarch64 inventory or collector is approved
 by these mock tests, and no backend or performance gate is waived.
+
+Search declarations preserve `..` components: traversal after a directory alias
+uses the resolved directory, matching filesystem semantics. Coverage checks use
+resolved paths, while the traversed aliases remain pinned. A search-root alias
+cannot declare its own directory target implicitly; declare that target separately.
