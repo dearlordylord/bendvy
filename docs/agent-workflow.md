@@ -27,6 +27,12 @@ For API changes, require negative controls for undeclared access, cross-schema m
 Use [check policy](check-policy.md) for cheap consumer preflight, immutable
 dependency stages and focused failure reproduction before complete cohorts.
 
+For new collectors, hold the shared heavy-work lock around the actual compiler,
+runtime or performance child. Prepare immutable inputs and metadata-only
+verification probes outside that lock; keep the full pre/post validation and
+unconditional failure receipt. Revalidate the launch boundary after acquiring the lock. Review this
+routing as a collector change before execution; keep frozen in-flight runs intact.
+
 ## Approval requirements
 
 Read [SPEC](SPEC.md) for approval requirements on specific laws, numerical performance thresholds and new dependencies. Record the exact outstanding request and why it is needed in the task report.
