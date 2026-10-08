@@ -1,0 +1,47 @@
+{
+  "positive-schema-handle": {
+    "scope": "post-output whole diagnostic classification from declared type boundary, not runtime oracle/proof",
+    "sourceSHA256": "60de5f8fb21280b6943eba753484e7aa5e594522b2a12d36dee6c4753304bb69",
+    "stdoutBase64": "QUxMIFBST09GUyBDSEVDSwpVc2UgLS12ZXJkaWN0IGZvciBtYXRoZW1hdGljYWwgdmFsaWRpdHkuCg==",
+    "stderrBase64": "YmVuZCAyLjAuMzYgaXMgYXZhaWxhYmxlOiBydW4gYmVuZCB1cGRhdGUK"
+  },
+  "negative-schema-handle": {
+    "scope": "post-output whole diagnostic classification from declared type boundary, not runtime oracle/proof",
+    "sourceSHA256": "b96d4a5e976306de971d978913e301e492d150d393b4c5a8b9500011def404c3",
+    "stdoutBase64": "",
+    "stderrBase64": "U09NRSBQUk9PRlMgRkFJTApFcnJvcjoKLSBleHBlY3RlZCA6IFcuSGFuZGxlPEQuV29ya3Nob3A+Ci0gb2JzZXJ2ZWQgOiBXLkhhbmRsZTxELkdhcmRlbj4KQ29udGV4dDoKLSB0YXJnZXQgOiBXLkhhbmRsZTxELkdhcmRlbj4KTG9jYXRpb246IHdyb25nX3NjaGVtYQo1IHwgZGVmIHdyb25nX3NjaGVtYSh0YXJnZXQ6Vy5IYW5kbGU8RC5HYXJkZW4+KSAtPiBXLkhhbmRsZTxELldvcmtzaG9wPjoKNj58ICAgdGFyZ2V0CiAgfCAgIF5eXl5eXgo3IHwgCmJlbmQgMi4wLjM2IGlzIGF2YWlsYWJsZTogcnVuIGJlbmQgdXBkYXRlCg==",
+    "expected": "W.Handle<D.Workshop>",
+    "observed": "W.Handle<D.Garden>",
+    "location": "wrong_schema"
+  },
+  "positive-detached-data": {
+    "scope": "post-output whole diagnostic classification from declared type boundary, not runtime oracle/proof",
+    "sourceSHA256": "ae234c55b365db16260da014e3e938b1238e557352e25f216acc4e16eed8aa8a",
+    "stdoutBase64": "QUxMIFBST09GUyBDSEVDSwpVc2UgLS12ZXJkaWN0IGZvciBtYXRoZW1hdGljYWwgdmFsaWRpdHkuCg==",
+    "stderrBase64": "YmVuZCAyLjAuMzYgaXMgYXZhaWxhYmxlOiBydW4gYmVuZCB1cGRhdGUK"
+  },
+  "negative-affine-data": {
+    "scope": "post-output whole diagnostic classification from declared type boundary, not runtime oracle/proof",
+    "sourceSHA256": "30874d69d10d6e9740f6b242a1eb4bbb339dc1f6c334ba79045167c4942db8c7",
+    "stdoutBase64": "",
+    "stderrBase64": "U09NRSBQUk9PRlMgRkFJTApFcnJvcjoKLSBleHBlY3RlZCA6IERhdGEKLSBvYnNlcnZlZCA6IFR5cGUKTG9jYXRpb246IGFmZmluZV9kZXRhY2hlZAo0IHwgCjU+fCBkZWYgYWZmaW5lX2RldGFjaGVkKHJvdzpRdWVyeS5Sb3c8RC5Xb3Jrc2hvcCxELlN0b2NrPikgLT4gUXVlcnkuUm93PEQuV29ya3Nob3AsRC5TdG9jaz46CiAgfCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBeXl5eXl5eCjYgfCAgIHJvdwpiZW5kIDIuMC4zNiBpcyBhdmFpbGFibGU6IHJ1biBiZW5kIHVwZGF0ZQo=",
+    "expected": "Data",
+    "observed": "Type",
+    "location": "affine_detached"
+  },
+  "positive-frame-owner": {
+    "scope": "post-output whole diagnostic classification from declared type boundary, not runtime oracle/proof",
+    "sourceSHA256": "2d3f1cdafccfbcdc6c661e15bd154ac8b9f5d28857317dfc98284078e704ad85",
+    "stdoutBase64": "QUxMIFBST09GUyBDSEVDSwpVc2UgLS12ZXJkaWN0IGZvciBtYXRoZW1hdGljYWwgdmFsaWRpdHkuCg==",
+    "stderrBase64": "YmVuZCAyLjAuMzYgaXMgYXZhaWxhYmxlOiBydW4gYmVuZCB1cGRhdGUK"
+  },
+  "negative-frame-transaction": {
+    "scope": "post-output whole diagnostic classification from declared type boundary, not runtime oracle/proof",
+    "sourceSHA256": "0482d4e355981dac98a072415beef5f8f833ccc06c8a60eeb30b65c87fe26b17",
+    "stdoutBase64": "",
+    "stderrBase64": "U09NRSBQUk9PRlMgRkFJTApFcnJvcjoKLSBleHBlY3RlZCA6IFguVHg8Vy5Xb3JsZDxELldvcmtzaG9wLCBVbml0LCBVbml0LCBELkZpeHR1cmVFdmVudD4sIEQuRml4dHVyZUV2ZW50PgotIG9ic2VydmVkIDogSS5GcmFtZTxELldvcmtzaG9wLCBVbml0LCBVbml0LCBELkZpeHR1cmVFdmVudD4KQ29udGV4dDoKLSBmcmFtZSA6IEkuRnJhbWU8RC5Xb3Jrc2hvcCwgVW5pdCwgVW5pdCwgRC5GaXh0dXJlRXZlbnQ+CkxvY2F0aW9uOiB0cmFuc2FjdGlvbl9mcm9tX3JlYWQKNyB8IGRlZiB0cmFuc2FjdGlvbl9mcm9tX3JlYWQoZnJhbWU6SS5GcmFtZTxELldvcmtzaG9wLFVuaXQsVW5pdCxELkZpeHR1cmVFdmVudD4pIC0+IFguVHg8Vy5Xb3JsZDxELldvcmtzaG9wLFVuaXQsVW5pdCxELkZpeHR1cmVFdmVudD4sRC5GaXh0dXJlRXZlbnQ+Ogo4PnwgICBmcmFtZQogIHwgICBeXl5eXgo5IHwgCmJlbmQgMi4wLjM2IGlzIGF2YWlsYWJsZTogcnVuIGJlbmQgdXBkYXRlCg==",
+    "expected": "X.Tx<W.World<D.Workshop, Unit, Unit, D.FixtureEvent>, D.FixtureEvent>",
+    "observed": "I.Frame<D.Workshop, Unit, Unit, D.FixtureEvent>",
+    "location": "transaction_from_read"
+  }
+}

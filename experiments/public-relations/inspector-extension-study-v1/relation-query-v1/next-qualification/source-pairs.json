@@ -1,0 +1,57 @@
+{
+  "scope": "source5 matched type feasibility only; no runtime/proof/whole55 qualification",
+  "directory": "development/next-pairs-1791442773542238478",
+  "pairs": [
+    {
+      "members": {
+        "positive-schema-handle": {
+          "sourceSHA256": "60de5f8fb21280b6943eba753484e7aa5e594522b2a12d36dee6c4753304bb69",
+          "receiptSHA256": "3e3e12ce1084907dd7919c75d8db9b14d688a06e1a0ffe65c15980d125b99a43",
+          "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+          "stderrSHA256": "57f1325a11b98d00f4bdbb487bda0cc9787e2baa240266722596845baee2e494"
+        },
+        "negative-schema-handle": {
+          "sourceSHA256": "b96d4a5e976306de971d978913e301e492d150d393b4c5a8b9500011def404c3",
+          "receiptSHA256": "44bad454ec076c2004bdb08f66364ef3da787073834806725a6b7a4bd7f8738d",
+          "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stderrSHA256": "f8da17c71d7db9dc2fbc508f7eef99c26a9ef9cc1b1a5fd637bc303b5dfad059"
+        }
+      },
+      "intendedNegativeLocation": "expected W.Handle<D.Workshop>, observed W.Handle<D.Garden> at wrong_schema target"
+    },
+    {
+      "members": {
+        "positive-detached-data": {
+          "sourceSHA256": "ae234c55b365db16260da014e3e938b1238e557352e25f216acc4e16eed8aa8a",
+          "receiptSHA256": "a45bfd77f03164051ffc13568a2fbef12373f64c55916f5942850eb3d78eb089",
+          "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+          "stderrSHA256": "57f1325a11b98d00f4bdbb487bda0cc9787e2baa240266722596845baee2e494"
+        },
+        "negative-affine-data": {
+          "sourceSHA256": "30874d69d10d6e9740f6b242a1eb4bbb339dc1f6c334ba79045167c4942db8c7",
+          "receiptSHA256": "4b40a68c53c3e7f8d7d918e697640103c696b30ffed043136be5c460ae52a8c8",
+          "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stderrSHA256": "8b73830bbacebe8683236b6720a85d0e0627055db8d66d183919934128661169"
+        }
+      },
+      "intendedNegativeLocation": "expected Data, observed Type at D.Stock in Query.Row"
+    },
+    {
+      "members": {
+        "positive-frame-owner": {
+          "sourceSHA256": "2d3f1cdafccfbcdc6c661e15bd154ac8b9f5d28857317dfc98284078e704ad85",
+          "receiptSHA256": "c7f049c0e89746d7cf4b784cbed7469d1aa6c9d586fba2071ece61a7081c948f",
+          "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+          "stderrSHA256": "57f1325a11b98d00f4bdbb487bda0cc9787e2baa240266722596845baee2e494"
+        },
+        "negative-frame-transaction": {
+          "sourceSHA256": "0482d4e355981dac98a072415beef5f8f833ccc06c8a60eeb30b65c87fe26b17",
+          "receiptSHA256": "c435793b1bc87dadf4f35ae8227f239eb9ed7a954906cd99be51aa0f26b202bf",
+          "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stderrSHA256": "607b1fabafe4caf33fa3e06d7067c979df2781195a27e079326d0e782c8f4840"
+        }
+      },
+      "intendedNegativeLocation": "expected X.Tx<World,...>, observed I.Frame at transaction_from_read frame"
+    }
+  ]
+}
