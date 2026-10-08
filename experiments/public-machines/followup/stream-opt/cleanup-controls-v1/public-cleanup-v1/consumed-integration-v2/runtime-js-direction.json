@@ -1,0 +1,25 @@
+{
+  "scope": "SOURCE_ONLY_METADATA_DIRECTION_TWO_SEPARATE_NORMAL_JS_SCENARIOS_NO_NATIVE_TIMING_PROOF",
+  "collectorSHA256": "796f68a1bd687ee306456295c5f8b51ea7d48cfb767f1ba6230ac3b55af287ef",
+  "sourcePlanSHA256": "3d4dcdc27dd8b7100c07632fe47d3b8b92c5c0475015fe75a07c43a1f5552b64",
+  "sourceReceiptSHA256": "4354d217e1b718c8afdcdba1e96464fcaa2d057aa6a6c2717e099091a40c32bb",
+  "preservedFullSourceFailure": {
+    "planSHA256": "ad5ccd1e38f56824b66112f80a9d5f2f4eb5e663043ad43a84895ab9f43a5265",
+    "receiptSHA256": "df89c932ddc0ffa3a6708d78017eb123cef8a3198225db92fcd5eee1579cb021"
+  },
+  "scenarios": {
+    "post-consumption": {
+      "worldRows": 36,
+      "instances": 22
+    },
+    "failed-batch": {
+      "worldRows": 32,
+      "instances": 16
+    }
+  },
+  "caps": "Each emit30/Node5 CPU8,35guards,serial collector-owned lock",
+  "functionRoute": "actual caller-core.cleanup -> GC.cleanup -> namespaced -> identified -> ports_checked -> Sys.dispose -> disposal_result -> accepted-only remove",
+  "reachRequirement": "Separate independently modelled actual accepted adapter componentClock mutation cd570 must pass full variant counterfactual and bothschema survivor observations; source/import closure alone gives no runtime reach credit",
+  "oraclePolicy": "Complete existing normal models unchanged; strict full raw before assertions; no old baseline runtime credit",
+  "generatedRegistration": "Failure-generated hash retained first; admitted plan/source/pin/stage/config identities checked before rebuilding any Runner/ProbeLedger Inputs."
+}

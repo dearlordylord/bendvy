@@ -1,0 +1,9 @@
+# Actual consumed cleanup adapter — finite JS qualification
+
+The actual post-consumption and failed-batch entries call caller-core.cleanup, which invokes GC.cleanup through trusted Ports.Two. Both full normal outputs match the independently authored complete models (36 world rows/22 instance records and 32/16 respectively). Each actual accepted-arm counterfactual matches its independent full variant: exactly six componentClock differences across both schemas; every other physical owner/value/instance field is unchanged. This demonstrates execution of the candidate accepted-cleanup branch, including retained-batch surviving-reader observations. No earlier unconsumed-stage runtime credit is transferred.
+
+All four JS groups used CPU8 emit30/Node5 and35 owned guards. Full-source check-only ended INCOMPLETE on its first five-second child deadline; the second subject never ran. Exact named-parameter normal and repaired-mutant bridges separately type-check. The initial mutant operator-annotation refusal and its full raw history remain preserved. Named feasibility is neither closed-scene acceptance, mathematical proof nor timeout-cause evidence.
+
+Complete raw, generated JS, stage inventories, prerequisite scalar bytes and exact private/tool identity dispositions are retained. Excluded installed/private identities are historical SHA associations, not portable installed bytes or current resolver qualification. Original baseline-only packet and scope correction remain immutable. Native candidate qualification remains open; old unconsumed Native observations do not qualify this adapter. No public core adoption, universal arbitrary-port theorem, later-key/capture policy, performance result or issue closure is claimed.
+
+Advertised no-child verification: PYTHONDONTWRITEBYTECODE=1 python3 experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/consumed-integration-v2/verify-js.py

@@ -1,0 +1,166 @@
+{
+  "scope": "Exact preserved actual post-JS stage bytes; failed entry shared stage bytes; no executions",
+  "planSHA256": "7d6eebac780568eeebb7ea15b6b5fa935331c901b0c24d1440d49f11b2419098",
+  "records": [
+    {
+      "original": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller.bend",
+      "copy": "scope-correction-source/0.bend",
+      "SHA256": "0ef0a3d9e7bee3d375c6c8468e68c1926f1e64414727ea73644ff570c28d8b8d",
+      "literalImports": [
+        "import Base",
+        "import ../../../provider.bend as P",
+        "import ../../../context.bend as Ctx",
+        "import ../../../hooks.bend as H",
+        "import ../../../../../src/ecs/world-io.bend as WIO",
+        "import caller-core.bend as Core"
+      ],
+      "cleanupCallsites": []
+    },
+    {
+      "original": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+      "copy": "scope-correction-source/1.bend",
+      "SHA256": "ae0165234d5b2c497791f54ab143eae0af51c26c2b0d03230940209c443f30bc",
+      "literalImports": [
+        "import Base",
+        "import ../../../provider.bend as P",
+        "import ../../../gameplay.bend as G",
+        "import ../../../context.bend as Ctx",
+        "import ../../../application.bend as A",
+        "import ../../../catalog.bend as Cat",
+        "import ../../../hooks.bend as H",
+        "import ../../../readers.bend as R",
+        "import public-cleanup-v1/current-core/ecs/machine-stream.bend as St",
+        "import ../../../slots.bend as Slots",
+        "import ../../observations.bend as F",
+        "import public-cleanup-v1/current-core/ecs/world.bend as W",
+        "import public-cleanup-v1/current-core/ecs/system.bend as Sys"
+      ],
+      "cleanupCallsites": [
+        {
+          "line": 83,
+          "text": "def cleanup(~S: Data,instance: R.Instance<S,(world => input => R.runner(~S,world,input))>,world: W.World<S,P.Store<S>,P.Resources<S>,Unit>) -> Cleanup<S>:"
+        },
+        {
+          "line": 85,
+          "text": "    case R.Instance{registry,flow,level}: cleanup_returned(~S,flow,level,Sys.dispose(~S,~P.Store<S>,~P.Resources<S>,~Unit,~R.Input,~R.Failure,~R.Delivery,~(world => input => R.runner(~S,world,input)),registry,world))"
+        },
+        {
+          "line": 95,
+          "text": "    case F.Observed{bo,bw,br}: b_cleaned(~S,a,bo,br,rows,cleanup(~S,bReader,bw))"
+        },
+        {
+          "line": 108,
+          "text": "    case Scene{F.Observed{ao,aw,ar},b,aReader,bReader,rows}: a_cleaned(~S,ao,ar,b,bReader,rows,cleanup(~S,aReader,aw))"
+        },
+        {
+          "line": 115,
+          "text": "    case Scene{a,F.Observed{bo,bw,br},aReader,bReader,rows}: foreign_cleanup_returned(~S,a,bo,br,bReader,rows,cleanup(~S,aReader,bw))"
+        }
+      ]
+    },
+    {
+      "original": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/failed-batch-v1/caller.bend",
+      "copy": "scope-correction-source/2.bend",
+      "SHA256": "30bfbb636666c8f32a8b5c6c32056c2a9168a3c0c1f827832e5e7e4467cc192d",
+      "literalImports": [
+        "import Base",
+        "import ../../../../provider.bend as P",
+        "import ../../../../context.bend as Ctx",
+        "import ../../../../hooks.bend as H",
+        "import ../../../../../../src/ecs/world-io.bend as WIO",
+        "import ../caller-core.bend as B",
+        "import caller-core.bend as Core"
+      ],
+      "cleanupCallsites": []
+    },
+    {
+      "original": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/failed-batch-v1/caller-core.bend",
+      "copy": "scope-correction-source/3.bend",
+      "SHA256": "b40c7c816e471f2eda51fdc7e9f805c1f73466a838aea8ece513fdcb9ca15484",
+      "literalImports": [
+        "import Base",
+        "import ../../../../provider.bend as P",
+        "import ../../../../application.bend as A",
+        "import ../../../../readers.bend as R",
+        "import ../../../../slots.bend as Slots",
+        "import ../../../observations.bend as F",
+        "import ../public-cleanup-v1/current-core/ecs/world.bend as W",
+        "import ../caller-core.bend as B"
+      ],
+      "cleanupCallsites": [
+        {
+          "line": 20,
+          "text": "def final_cleanup(~S: Data,b: F.Observed<S>,ao: A.Owners<S>,ar: List<&2,String>,rows: List<&2,String>,result: B.Cleanup<S>) -> String:"
+        },
+        {
+          "line": 27,
+          "text": "    case F.Observed{ao,aw,ar}, (survivor,view): final_cleanup(~S,b,ao,ar,List.append(&2,String,rows,[\"same-world-survivor-read|first=disposed|survivor=\" ++ view]),B.cleanup(~S,survivor,aw))"
+        },
+        {
+          "line": 40,
+          "text": "def local_cleanup(~S: Data,scene: Scene<S>) -> String:"
+        },
+        {
+          "line": 42,
+          "text": "    case Scene{F.Observed{ao,aw,ar},b,first,survivor,rows}: first_cleaned(~S,ao,ar,b,survivor,rows,B.cleanup(~S,first,aw))"
+        },
+        {
+          "line": 45,
+          "text": "    case B.CleanupRejected{bw,first}: local_cleanup(~S,record(~S,\"foreign-disposal-rejected\",\"cleanup-rejected\",Scene{a,F.Observed{bo,bw,br},first,survivor,rows}))"
+        },
+        {
+          "line": 47,
+          "text": "def foreign_cleanup(~S: Data,scene: Scene<S>) -> String:"
+        },
+        {
+          "line": 49,
+          "text": "    case Scene{a,F.Observed{bo,bw,br},first,survivor,rows}: foreign_cleanup_returned(~S,a,bo,br,survivor,rows,B.cleanup(~S,first,bw))"
+        },
+        {
+          "line": 52,
+          "text": "    case R.Returned{first,aw,delivery,status}: foreign_cleanup(~S,record(~S,\"reader-failed\",status,Scene{F.Observed{ao,aw,ar},b,first,survivor,List.append(&2,String,rows,[\"failed-delivery=\" ++ B.delivery_view(delivery)])}))"
+        }
+      ]
+    },
+    {
+      "original": "experiments/public-machines/followup/foreign-core.bend",
+      "copy": "scope-correction-source/4.bend",
+      "SHA256": "fec9f375942c17074e19c1c954ae212d62e45cd8f4ff3691cd1eedce02349273",
+      "literalImports": [
+        "import Base",
+        "import stream-opt/cleanup-controls-v1/public-cleanup-v1/adapter.bend as G",
+        "import stream-opt/cleanup-controls-v1/public-cleanup-v1/ports.bend as Ports",
+        "import ../provider.bend as P",
+        "import ../gameplay.bend as G",
+        "import ../context.bend as Ctx",
+        "import ../application.bend as A",
+        "import ../catalog.bend as Cat",
+        "import ../hooks.bend as H",
+        "import ../readers.bend as R",
+        "import stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend as St",
+        "import ../slots.bend as Slots",
+        "import observations.bend as F",
+        "import stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend as W",
+        "import stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend as Sys"
+      ],
+      "cleanupCallsites": [
+        {
+          "line": 88,
+          "text": "def cleanup(~S: Data,instance: R.Instance<S,(world => input => R.runner(~S,world,input))>,world: W.World<S,P.Store<S>,P.Resources<S>,Unit>) -> Cleanup<S>:"
+        },
+        {
+          "line": 91,
+          "text": "      generic_cleanup_returned(~S,G.cleanup(~S,~P.Store<S>,~P.Resources<S>,~Unit,~R.Input,~R.Failure,~R.Delivery,~(world => input => R.runner(~S,world,input)),~Ports.Two<S,P.FlowToken,P.LevelToken>,~(ports => namespace => id => Ports.validate_two(~S,~P.FlowToken,~P.LevelToken,ports,namespace,id)),~(world => ports => remove_ports(~S,world,ports)),G.Instance{registry,Ports.Two{flow,level}},world))"
+        },
+        {
+          "line": 101,
+          "text": "    case F.Observed{bo,bw,br} Cleaned{world}: b_cleaned(~S,F.checkpoint(~S,\"A-owned-cleanup\",ar,A.FrameResult{ao,world,\"cleaned\"}),bo,br,List.append(&2,String,rows,[\"A-owned-cleanup|A=disposed\"]),cleanup(~S,bReader,bw))"
+        },
+        {
+          "line": 105,
+          "text": "    case Scene{F.Observed{ao,aw,ar},b,aReader,bReader,rows}: a_cleaned(~S,ao,ar,b,bReader,rows,cleanup(~S,aReader,aw))"
+        }
+      ]
+    }
+  ]
+}

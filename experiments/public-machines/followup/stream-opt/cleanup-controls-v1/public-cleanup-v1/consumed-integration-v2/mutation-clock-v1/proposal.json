@@ -1,0 +1,122 @@
+{
+  "scope": "SOURCE_ONLY_REACHED_ACTUAL_ADAPTER_SEAM_PROPOSAL_NO_OUTPUTS",
+  "baselineAdapterSHA256": "fec532ea6de5601ec0297936e05d9f2f5e4084786e1033b37f24b2e5cc740b4f",
+  "mutantAdapterSHA256": "642f0587cfff3b89d1f850a4e4bf09a43cd6646f6b143a709854a58c4d9f9f2a",
+  "exactAcceptedReplacement": {
+    "old": "case Sys.Disposed{world}: Cleaned{remove(world,ports)}",
+    "new": "case Sys.Disposed{world}: Cleaned{changed_clock(~S,~C,~R,~E,remove(world,ports))}"
+  },
+  "independentBasis": "Only actual accepted cleanup increments world componentClock once; all arbitrary Type owners and existing removals preserved. Post A and B accepted once; failed worldA accepted twice, worldB never accepted. Values authored from source operation ledger, not executable outputs.",
+  "changes": {
+    "post-consumption": [
+      {
+        "schema": "A",
+        "world": "A",
+        "label": "A-owned-cleanup",
+        "field": "componentClock",
+        "old": "1",
+        "new": "2"
+      },
+      {
+        "schema": "A",
+        "world": "A",
+        "label": "B-survivor-empty",
+        "field": "componentClock",
+        "old": "1",
+        "new": "2"
+      },
+      {
+        "schema": "A",
+        "world": "B",
+        "label": "B-owned-cleanup",
+        "field": "componentClock",
+        "old": "1",
+        "new": "2"
+      },
+      {
+        "schema": "B",
+        "world": "A",
+        "label": "A-owned-cleanup",
+        "field": "componentClock",
+        "old": "1",
+        "new": "2"
+      },
+      {
+        "schema": "B",
+        "world": "A",
+        "label": "B-survivor-empty",
+        "field": "componentClock",
+        "old": "1",
+        "new": "2"
+      },
+      {
+        "schema": "B",
+        "world": "B",
+        "label": "B-owned-cleanup",
+        "field": "componentClock",
+        "old": "1",
+        "new": "2"
+      }
+    ],
+    "failed-batch": [
+      {
+        "schema": "A",
+        "world": "A",
+        "label": "first-owned-cleanup",
+        "field": "componentClock",
+        "old": "1",
+        "new": "2"
+      },
+      {
+        "schema": "A",
+        "world": "A",
+        "label": "same-world-survivor-read",
+        "field": "componentClock",
+        "old": "1",
+        "new": "2"
+      },
+      {
+        "schema": "A",
+        "world": "A",
+        "label": "survivor-owned-cleanup",
+        "field": "componentClock",
+        "old": "1",
+        "new": "3"
+      },
+      {
+        "schema": "B",
+        "world": "A",
+        "label": "first-owned-cleanup",
+        "field": "componentClock",
+        "old": "1",
+        "new": "2"
+      },
+      {
+        "schema": "B",
+        "world": "A",
+        "label": "same-world-survivor-read",
+        "field": "componentClock",
+        "old": "1",
+        "new": "2"
+      },
+      {
+        "schema": "B",
+        "world": "A",
+        "label": "survivor-owned-cleanup",
+        "field": "componentClock",
+        "old": "1",
+        "new": "3"
+      }
+    ]
+  },
+  "expectedSHA256": {
+    "post-consumption": "e5819fbe14aee520709ab8cba00b2c53cdeb406427b1080ba11e8fb9520c2308",
+    "failed-batch": "6517854a5e1ec4b3b06b7b63161e493808bf9d707670a9fa4bb31d8ed3a121c9"
+  },
+  "normalModelsSHA256": {
+    "post-consumption": "8776b2c0bb267eb030d5313f843bd905537018917b6ed359bfe79d978336f919",
+    "failed-batch": "e84c2dfb3c3cf133ada1971295e0d90fad07dddf5f56cc94b15321cb442e5dc2"
+  },
+  "required": "Full36+22 and32+16 independent variant equality plus both-schema changed-clock witnesses after fresh normal generic qualification; no clocks/timing or Native retry.",
+  "modelSHA256": "c071954f40207357bc532a331dac099fe0a22fd74ed60e08c2ff7183783fd037"
+}

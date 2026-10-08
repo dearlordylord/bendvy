@@ -1,0 +1,19 @@
+{
+  "scope": "SOURCE_ONLY_ANNOTATION_REPAIR_ACTUAL_ACCEPTED_CLOCK_MUTANT_NO_CHILD",
+  "oldProposalSHA256": "cd5705207e34916e18a22be343e86df0e416da033ec1dc3399ca290526ec9a12",
+  "failedPlanSHA256": "d4b72575513fa0412e0fdee30459dc00c42d5b51b1d693f97384898a38adb486",
+  "failedReceiptSHA256": "fe56431d04fc4fd552411121c7855ba7279a30de303a607cc53826c56678d81c",
+  "failedStderrSHA256": "03868dc704f17f39230909a3c65086c1f46e5ca707591c54b7bb99809d8715dc",
+  "repair": {
+    "old": "clock+1",
+    "new": "(clock + 1 : U32)"
+  },
+  "oldAdapterSHA256": "642f0587cfff3b89d1f850a4e4bf09a43cd6646f6b143a709854a58c4d9f9f2a",
+  "newAdapterSHA256": "2bae48bfcc26e06a6b661e37ed5cf7cb0780984fcad8531f26c4938c85367308",
+  "unchangedModels": {
+    "model.py": "c071954f40207357bc532a331dac099fe0a22fd74ed60e08c2ff7183783fd037",
+    "post-consumption-expected.json": "e5819fbe14aee520709ab8cba00b2c53cdeb406427b1080ba11e8fb9520c2308",
+    "failed-batch-expected.json": "6517854a5e1ec4b3b06b7b63161e493808bf9d707670a9fa4bb31d8ed3a121c9"
+  },
+  "basis": "Exact diagnostic demands arithmetic operator type. Pinned current-core/ecs/world.bend clock_next uses (clock + 1 : U32). No behavior/oracle change; old raw and stage preserved. No proof/runtime reach."
+}
