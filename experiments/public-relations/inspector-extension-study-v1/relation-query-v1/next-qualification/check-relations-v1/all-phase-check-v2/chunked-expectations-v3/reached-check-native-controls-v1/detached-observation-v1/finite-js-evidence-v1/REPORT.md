@@ -1,0 +1,9 @@
+Detached observation normal JS — finite development evidence
+
+Actual plan51d894c6/receipt15eed3b0 qualified emit30 and Node5 on CPU5. The complete151386-byte output equals the independently authored unchanged normal oracle and the previously qualified normal output byte-for-byte. Four owned preparation guards and20 execution guards passed. Ten actual Check callbacks evaluate320 declarations;192 additional diagnostics run separately. Selected affine primary/foreign owners, three phases and genuine gates remain complete.
+
+The sibling projects actual Result<Check.Error,Bool> to closed detached Observation: Returned preserves actual Bool; Missing preserves every ordered resource String. It returns the same affine World and invokes the same diagnostic continuation. Four copied modules change; all other source bytes remain unchanged. This is an experiment, not shared core adoption or a new error policy.
+
+Preserved failures remain failures: original normal Native470fa lexical path refusal, repaired normal Native28f9 C30 deadline with empty raw/noC/no subsequent subjects, and e8f additive source wrapper parser refusal. Repaired source8478 has development feasibility only. No Native qualification, mutation credit, compiler-cause conclusion, timing or full#55 claim follows from this JS packet. The new detached normal Native cohort is separate and excluded from this selection.
+
+The archive retains complete observed output, actual generated JS, source/stage/import joins, exact raw guards and historical inputs. ELF/private environment/.npmrc bytes are excluded with bound identity metadata. The portable verifier reads and hashes evidence; it does not execute Bend/Node or reconstruct excluded installed artifacts. Live selected source joins remain experimental; root owns shared API adoption.

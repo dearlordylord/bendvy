@@ -1,0 +1,109 @@
+--- experiments/public-relations/inspector-extension-study-v1/relation-query-v1/next-qualification/check-relations-v1/all-phase-check-v2/chunked-expectations-v3/reached-check-controls-v1/normal/closure/experiments/public-relations/inspector-extension-study-v1/relation-query-v1/next-qualification/check-relations-v1/all-phase-check-v2/chunked-expectations-v3/complete-driver.bend
++++ experiments/public-relations/inspector-extension-study-v1/relation-query-v1/next-qualification/check-relations-v1/all-phase-check-v2/chunked-expectations-v3/reached-check-native-controls-v1/detached-observation-v1/normal/closure/experiments/public-relations/inspector-extension-study-v1/relation-query-v1/next-qualification/check-relations-v1/all-phase-check-v2/chunked-expectations-v3/complete-driver.bend
+@@ -1,3 +1,4 @@
++import ../check-observation.bend as CheckObservation
+ import Base
+ import fixture-driver.bend as Driver
+ import ../../fixture-phase.bend as Phase
+@@ -10,12 +11,12 @@
+ import ../../../../core-v1/src/ecs/relation-commands.bend as A
+ 
+ type Delivery<S:Data> is Type:
+-  Delivered{factory:W.Factory,primary:Gate.Observed<S>,foreign:W.World<S,A.Store<S,D.Components<S>>,D.Resources,A.Notice<S,D.FixtureEvent>>,phases:List<&2,Phase.Phase<S>>,checks:List<&2,Result<&2,&2,K.Error,Bool>>,foreignBefore:Snap.Snapshot<S>,foreignAfter:Snap.Snapshot<S>,errors:String}
++  Delivered{factory:W.Factory,primary:Gate.Observed<S>,foreign:W.World<S,A.Store<S,D.Components<S>>,D.Resources,A.Notice<S,D.FixtureEvent>>,phases:List<&2,Phase.Phase<S>>,checks:List<&2,CheckObservation.Observation>,foreignBefore:Snap.Snapshot<S>,foreignAfter:Snap.Snapshot<S>,errors:String}
+   SetupRefused{original:Driver.Delivery<S>}
+-def final(~S:Data,factory:W.Factory,primary:Gate.Observed<S>,phases:List<&2,Phase.Phase<S>>,checks:List<&2,Result<&2,&2,K.Error,Bool>>,first:Snap.Snapshot<S>,errors:String,result:K.Frame<S,A.Store<S,D.Components<S>>,D.Resources,A.Notice<S,D.FixtureEvent>> & Snap.Snapshot<S>) -> Delivery<S>:
++def final(~S:Data,factory:W.Factory,primary:Gate.Observed<S>,phases:List<&2,Phase.Phase<S>>,checks:List<&2,CheckObservation.Observation>,first:Snap.Snapshot<S>,errors:String,result:K.Frame<S,A.Store<S,D.Components<S>>,D.Resources,A.Notice<S,D.FixtureEvent>> & Snap.Snapshot<S>) -> Delivery<S>:
+   match result:
+     case (K.Frame{world},last):Delivered{factory,primary,world,phases,checks,first,last,errors}
+-def before(~S:Data,~condition:W.World<S,A.Store<S,D.Components<S>>,D.Resources,A.Notice<S,D.FixtureEvent>> -> U32 -> W.World<S,A.Store<S,D.Components<S>>,D.Resources,A.Notice<S,D.FixtureEvent>> & Bool,factory:W.Factory,world:W.World<S,A.Store<S,D.Components<S>>,D.Resources,A.Notice<S,D.FixtureEvent>>,phases:List<&2,Phase.Phase<S>>,checks:List<&2,Result<&2,&2,K.Error,Bool>>,errors:String,result:K.Frame<S,A.Store<S,D.Components<S>>,D.Resources,A.Notice<S,D.FixtureEvent>> & Snap.Snapshot<S>) -> Delivery<S>:
++def before(~S:Data,~condition:W.World<S,A.Store<S,D.Components<S>>,D.Resources,A.Notice<S,D.FixtureEvent>> -> U32 -> W.World<S,A.Store<S,D.Components<S>>,D.Resources,A.Notice<S,D.FixtureEvent>> & Bool,factory:W.Factory,world:W.World<S,A.Store<S,D.Components<S>>,D.Resources,A.Notice<S,D.FixtureEvent>>,phases:List<&2,Phase.Phase<S>>,checks:List<&2,CheckObservation.Observation>,errors:String,result:K.Frame<S,A.Store<S,D.Components<S>>,D.Resources,A.Notice<S,D.FixtureEvent>> & Snap.Snapshot<S>) -> Delivery<S>:
+   match result:
+     case (K.Frame{foreign},first):final(~S,factory,Gate.run(~S,~condition,world),phases,checks,first,errors,Snap.observe(~S,K.Frame{foreign}))
+ def run(~S:Data,~condition:W.World<S,A.Store<S,D.Components<S>>,D.Resources,A.Notice<S,D.FixtureEvent>> -> U32 -> W.World<S,A.Store<S,D.Components<S>>,D.Resources,A.Notice<S,D.FixtureEvent>> & Bool,original:Driver.Delivery<S>) -> Delivery<S>:
+--- experiments/public-relations/inspector-extension-study-v1/relation-query-v1/next-qualification/check-relations-v1/all-phase-check-v2/chunked-expectations-v3/reached-check-controls-v1/normal/closure/experiments/public-relations/inspector-extension-study-v1/relation-query-v1/next-qualification/check-relations-v1/all-phase-check-v2/chunked-expectations-v3/complete-format.bend
++++ experiments/public-relations/inspector-extension-study-v1/relation-query-v1/next-qualification/check-relations-v1/all-phase-check-v2/chunked-expectations-v3/reached-check-native-controls-v1/detached-observation-v1/normal/closure/experiments/public-relations/inspector-extension-study-v1/relation-query-v1/next-qualification/check-relations-v1/all-phase-check-v2/chunked-expectations-v3/complete-format.bend
+@@ -1,3 +1,4 @@
++import ../check-observation.bend as CheckObservation
+ import Base
+ import ../../../../core-v1/src/ecs/check.bend as K
+ import complete-driver.bend as Complete
+@@ -14,13 +15,12 @@
+ # Closed fixture canonical resource names; no arbitrary-string serializer claim.
+ def resource_name(value:String) -> String:
+   "\"" ++ value ++ "\""
+-def check_error(error:K.Error) -> String:
+-  match error:
+-    case K.MissingRuntimeRequirements{resources}:"{\"missingRuntimeRequirements\":" ++ List.show(&2,String,resource_name,resources) ++ "}"
+-def check_result(value:Result<&2,&2,K.Error,Bool>) -> String:
++def missing_resources(resources:List<&2,String>) -> String:
++  "{\"missingRuntimeRequirements\":" ++ List.show(&2,String,resource_name,resources) ++ "}"
++def check_result(value:CheckObservation.Observation) -> String:
+   match value:
+-    case Done{value}:"{\"done\":" ++ check_bool(value) ++ "}"
+-    case Fail{error}:check_error(error)
++    case CheckObservation.Returned{value}:"{\"done\":" ++ check_bool(value) ++ "}"
++    case CheckObservation.Missing{resources}:missing_resources(resources)
+ def snapshot(~S:Data,+value:Snap.Snapshot<S>) -> String:
+   "{\"namespace\":" ++ U32.show(F.namespace(~S,value)) ++ ",\"clock\":" ++ U32.show(F.clock(~S,value)) ++ ",\"pending\":" ++ U32.show(F.pending(~S,value)) ++ ",\"owners\":" ++ F.owners(~S,value) ++ "}"
+ def observation(value:Sch.Observation) -> String:
+@@ -43,5 +43,5 @@
+ def render(~S:Data,name:String,delivery:Complete.Delivery<S>) -> Complete.Delivery<S> & String:
+   match delivery:
+     case Complete.Delivered{factory,Gate.Finished{world,schedule,+record},foreign,+values,+checks,+foreignBefore,+foreignAfter,+errors}:
+-      (Complete.Delivered{factory,Gate.Finished{world,schedule,record},foreign,values,checks,foreignBefore,foreignAfter,errors},"{\"schema\":\"" ++ name ++ "\",\"phases\":" ++ phases(~S,values) ++ retained(~S,values) ++ ",\"phaseChecks\":" ++ List.show(&2,Result<&2,&2,K.Error,Bool>,check_result,checks) ++ ",\"gate\":" ++ gate(~S,record) ++ ",\"foreignBefore\":" ++ snapshot(~S,foreignBefore) ++ ",\"foreignAfter\":" ++ snapshot(~S,foreignAfter) ++ ",\"errors\":\"" ++ errors ++ "\"}")
++      (Complete.Delivered{factory,Gate.Finished{world,schedule,record},foreign,values,checks,foreignBefore,foreignAfter,errors},"{\"schema\":\"" ++ name ++ "\",\"phases\":" ++ phases(~S,values) ++ retained(~S,values) ++ ",\"phaseChecks\":" ++ List.show(&2,CheckObservation.Observation,check_result,checks) ++ ",\"gate\":" ++ gate(~S,record) ++ ",\"foreignBefore\":" ++ snapshot(~S,foreignBefore) ++ ",\"foreignAfter\":" ++ snapshot(~S,foreignAfter) ++ ",\"errors\":\"" ++ errors ++ "\"}")
+     case delivery:(delivery,"{\"refused\":true}")
+--- experiments/public-relations/inspector-extension-study-v1/relation-query-v1/next-qualification/check-relations-v1/all-phase-check-v2/chunked-expectations-v3/reached-check-controls-v1/normal/closure/experiments/public-relations/inspector-extension-study-v1/relation-query-v1/next-qualification/check-relations-v1/all-phase-check-v2/chunked-expectations-v3/fixture-driver.bend
++++ experiments/public-relations/inspector-extension-study-v1/relation-query-v1/next-qualification/check-relations-v1/all-phase-check-v2/chunked-expectations-v3/reached-check-native-controls-v1/detached-observation-v1/normal/closure/experiments/public-relations/inspector-extension-study-v1/relation-query-v1/next-qualification/check-relations-v1/all-phase-check-v2/chunked-expectations-v3/fixture-driver.bend
+@@ -1,3 +1,4 @@
++import ../check-observation.bend as CheckObservation
+ import ../phase-v2.bend as Checked
+ import expected-phases.bend as Expected
+ import Base
+@@ -10,17 +11,17 @@
+ import ../../../../core-v1/src/ecs/relation-commands.bend as A
+ 
+ type Delivery<S:Data> is Type:
+-  Delivered{factory:W.Factory,world:W.World<S,A.Store<S,D.Components<S>>,D.Resources,A.Notice<S,D.FixtureEvent>>,foreign:W.World<S,A.Store<S,D.Components<S>>,D.Resources,A.Notice<S,D.FixtureEvent>>,phases:List<&2,Phase.Phase<S>>,checks:List<&2,Result<&2,&2,K.Error,Bool>>,errors:String}
++  Delivered{factory:W.Factory,world:W.World<S,A.Store<S,D.Components<S>>,D.Resources,A.Notice<S,D.FixtureEvent>>,foreign:W.World<S,A.Store<S,D.Components<S>>,D.Resources,A.Notice<S,D.FixtureEvent>>,phases:List<&2,Phase.Phase<S>>,checks:List<&2,CheckObservation.Observation>,errors:String}
+   SetupRefused{setup:Pairing.WorldPair<S>}
+-def last(~S:Data,~wanted:U32 -> String,factory:W.Factory,foreign:W.World<S,A.Store<S,D.Components<S>>,D.Resources,A.Notice<S,D.FixtureEvent>>,earlier:List<&2,Phase.Phase<S>>,checks:List<&2,Result<&2,&2,K.Error,Bool>>,errors:String,result:Checked.Observed<S>) -> Delivery<S>:
++def last(~S:Data,~wanted:U32 -> String,factory:W.Factory,foreign:W.World<S,A.Store<S,D.Components<S>>,D.Resources,A.Notice<S,D.FixtureEvent>>,earlier:List<&2,Phase.Phase<S>>,checks:List<&2,CheckObservation.Observation>,errors:String,result:Checked.Observed<S>) -> Delivery<S>:
+   match result:
+-    case Checked.Observed{world,check,Done{phase}}:Delivered{factory,world,foreign,List.append(&2,Phase.Phase<S>,earlier,[phase]),List.append(&2,Result<&2,&2,K.Error,Bool>,checks,[check]),errors}
+-    case Checked.Observed{world,check,Fail{error}}:Delivered{factory,world,foreign,earlier,List.append(&2,Result<&2,&2,K.Error,Bool>,checks,[check]),errors ++ "last-check-diagnostic-failed:" ++ error}
+-def second(~S:Data,~wanted:U32 -> String,factory:W.Factory,foreign:W.World<S,A.Store<S,D.Components<S>>,D.Resources,A.Notice<S,D.FixtureEvent>>,+lookups:List<&2,W.Handle<S>>,first:Phase.Phase<S>,checks:List<&2,Result<&2,&2,K.Error,Bool>>,errors:String,result:Checked.Observed<S>) -> Delivery<S>:
++    case Checked.Observed{world,check,Done{phase}}:Delivered{factory,world,foreign,List.append(&2,Phase.Phase<S>,earlier,[phase]),List.append(&2,CheckObservation.Observation,checks,[check]),errors}
++    case Checked.Observed{world,check,Fail{error}}:Delivered{factory,world,foreign,earlier,List.append(&2,CheckObservation.Observation,checks,[check]),errors ++ "last-check-diagnostic-failed:" ++ error}
++def second(~S:Data,~wanted:U32 -> String,factory:W.Factory,foreign:W.World<S,A.Store<S,D.Components<S>>,D.Resources,A.Notice<S,D.FixtureEvent>>,+lookups:List<&2,W.Handle<S>>,first:Phase.Phase<S>,checks:List<&2,CheckObservation.Observation>,errors:String,result:Checked.Observed<S>) -> Delivery<S>:
+   match result:
+-    case Checked.Observed{world,check,Done{phase}}:last(~S,~wanted,factory,foreign,[first,phase],List.append(&2,Result<&2,&2,K.Error,Bool>,checks,[check]),errors,Checked.observe_world(~S,wanted(2),lookups,W.barrier(~S,~A.Store<S,D.Components<S>>,~D.Resources,~A.Notice<S,D.FixtureEvent>,world)))
+-    case Checked.Observed{world,check,Fail{error}}:Delivered{factory,world,foreign,[first],List.append(&2,Result<&2,&2,K.Error,Bool>,checks,[check]),errors ++ "second-check-diagnostic-failed:" ++ error}
+-def queued(~S:Data,~wanted:U32 -> String,factory:W.Factory,foreign:W.World<S,A.Store<S,D.Components<S>>,D.Resources,A.Notice<S,D.FixtureEvent>>,+lookups:List<&2,W.Handle<S>>,first:Phase.Phase<S>,checks:List<&2,Result<&2,&2,K.Error,Bool>>,errors:String,observed:W.World<S,A.Store<S,D.Components<S>>,D.Resources,A.Notice<S,D.FixtureEvent>> & String) -> Delivery<S>:
++    case Checked.Observed{world,check,Done{phase}}:last(~S,~wanted,factory,foreign,[first,phase],List.append(&2,CheckObservation.Observation,checks,[check]),errors,Checked.observe_world(~S,wanted(2),lookups,W.barrier(~S,~A.Store<S,D.Components<S>>,~D.Resources,~A.Notice<S,D.FixtureEvent>,world)))
++    case Checked.Observed{world,check,Fail{error}}:Delivered{factory,world,foreign,[first],List.append(&2,CheckObservation.Observation,checks,[check]),errors ++ "second-check-diagnostic-failed:" ++ error}
++def queued(~S:Data,~wanted:U32 -> String,factory:W.Factory,foreign:W.World<S,A.Store<S,D.Components<S>>,D.Resources,A.Notice<S,D.FixtureEvent>>,+lookups:List<&2,W.Handle<S>>,first:Phase.Phase<S>,checks:List<&2,CheckObservation.Observation>,errors:String,observed:W.World<S,A.Store<S,D.Components<S>>,D.Resources,A.Notice<S,D.FixtureEvent>> & String) -> Delivery<S>:
+   (world,error)=observed
+   second(~S,~wanted,factory,foreign,lookups,first,checks,errors ++ error,Checked.observe_world(~S,wanted(1),lookups,world))
+ def first(~S:Data,~wanted:U32 -> String,factory:W.Factory,foreign:W.World<S,A.Store<S,D.Components<S>>,D.Resources,A.Notice<S,D.FixtureEvent>>,+one:W.Handle<S>,+three:W.Handle<S>,+four:W.Handle<S>,+lookups:List<&2,W.Handle<S>>,errors:String,result:Checked.Observed<S>) -> Delivery<S>:
+--- experiments/public-relations/inspector-extension-study-v1/relation-query-v1/next-qualification/check-relations-v1/all-phase-check-v2/chunked-expectations-v3/reached-check-controls-v1/normal/closure/experiments/public-relations/inspector-extension-study-v1/relation-query-v1/next-qualification/check-relations-v1/all-phase-check-v2/phase-v2.bend
++++ experiments/public-relations/inspector-extension-study-v1/relation-query-v1/next-qualification/check-relations-v1/all-phase-check-v2/chunked-expectations-v3/reached-check-native-controls-v1/detached-observation-v1/normal/closure/experiments/public-relations/inspector-extension-study-v1/relation-query-v1/next-qualification/check-relations-v1/all-phase-check-v2/phase-v2.bend
+@@ -1,3 +1,4 @@
++import check-observation.bend as CheckObservation
+ import Base
+ import ../fixture-phase.bend as Phase
+ import ../consumer.bend as Consumer
+@@ -7,10 +8,10 @@
+ import ../../../core-v1/src/ecs/relation-commands.bend as A
+ 
+ type Observed<S:Data> is Type:
+-  Observed{world:W.World<S,A.Store<S,D.Components<S>>,D.Resources,A.Notice<S,D.FixtureEvent>>,check:Result<&2,&2,K.Error,Bool>,value:Result<&2,&2,String,Phase.Phase<S>>}
++  Observed{world:W.World<S,A.Store<S,D.Components<S>>,D.Resources,A.Notice<S,D.FixtureEvent>>,check:CheckObservation.Observation,value:Result<&2,&2,String,Phase.Phase<S>>}
+ def observed(~S:Data,check:Result<&2,&2,K.Error,Bool>,diagnostic:Phase.Observed<S>) -> Observed<S>:
+   match diagnostic:
+-    case Phase.Observed{world,value}:Observed{world,check,value}
++    case Phase.Observed{world,value}:Observed{world,CheckObservation.from_result(check),value}
+ def checked(~S:Data,targets:List<&2,W.Handle<S>>,result:K.Checked<S,A.Store<S,D.Components<S>>,D.Resources,A.Notice<S,D.FixtureEvent>>) -> Observed<S>:
+   match result:
+     case K.Checked{world,check}:observed(~S,check,Phase.observe_world(~S,targets,world))
