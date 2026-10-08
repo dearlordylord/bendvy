@@ -2,8 +2,9 @@ import Base
 import ./decode-data.bend as D
 import ./decode-size.bend as Size
 
-# All operations use the one Raw returned by the closed actual-owner projection.
-# No Raw-to-Owner inverse is invented and no caller-supplied fixed fuel is needed.
+# decode_owner uses the one Raw returned by the closed actual-owner projection.
+# decode_budget is a trusted low-level helper taking separate Raw, fuel and owner.
+# decode_owner derives structural fuel and does not invent a Raw-to-Owner inverse.
 def decode_budget(~Owner:Type,+codec:D.Codec,raw:D.Raw,+fuel:Nat,owner:Owner) -> D.Receipt<Owner>:
   D.normalized(~Owner,fuel,codec,D.owned(~Owner,fuel,codec,D.Owned{owner,raw}))
 def decode_projected(~Owner:Type,+codec:D.Codec,observed:Owner & D.Raw) -> D.Receipt<Owner>:

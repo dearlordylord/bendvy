@@ -337,13 +337,14 @@ diff --git a/src/ecs/decode.bend b/src/ecs/decode.bend
 new file mode 100644
 --- /dev/null
 +++ b/src/ecs/decode.bend
-@@ -0,0 +1,13 @@
+@@ -0,0 +1,14 @@
 +import Base
 +import ./decode-data.bend as D
 +import ./decode-size.bend as Size
 +
-+# All operations use the one Raw returned by the closed actual-owner projection.
-+# No Raw-to-Owner inverse is invented and no caller-supplied fixed fuel is needed.
++# decode_owner uses the one Raw returned by the closed actual-owner projection.
++# decode_budget is a trusted low-level helper taking separate Raw, fuel and owner.
++# decode_owner derives structural fuel and does not invent a Raw-to-Owner inverse.
 +def decode_budget(~Owner:Type,+codec:D.Codec,raw:D.Raw,+fuel:Nat,owner:Owner) -> D.Receipt<Owner>:
 +  D.normalized(~Owner,fuel,codec,D.owned(~Owner,fuel,codec,D.Owned{owner,raw}))
 +def decode_projected(~Owner:Type,+codec:D.Codec,observed:Owner & D.Raw) -> D.Receipt<Owner>:
@@ -544,7 +545,7 @@ diff --git a/src/ecs/snapshot-gate.bend b/src/ecs/snapshot-gate.bend
 new file mode 100644
 --- /dev/null
 +++ b/src/ecs/snapshot-gate.bend
-@@ -0,0 +1,25 @@
+@@ -0,0 +1,26 @@
 +import Base
 +import ./ordinary-declaration.bend as C
 +import ./decode-data.bend as D
@@ -565,7 +566,8 @@ new file mode 100644
 +  match observed:
 +    case (owner,value):(owner,Saved{name,value})
 +# Static eligibility mirrors TS Gate: export itself does not run its decoder.
-+# Gate consumed here: retained multi-save capability is future integration.
++# This low-level operation consumes Gate; snapshot-leaf reconstructs it from
++# the retained ordinary declaration for repeated owner-preserving saves.
 +def export_owner(~S:Data,~P:Type,~declaration:C.Declaration<S,P>,gate:Gate<S,P,declaration>,owner:P) -> P & Field:
 +  match gate:
 +    case Transient{}:(owner,Omitted{C.key(~S,~P,declaration)})

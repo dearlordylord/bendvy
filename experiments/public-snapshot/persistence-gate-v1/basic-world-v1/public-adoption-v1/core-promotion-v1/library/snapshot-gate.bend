@@ -18,7 +18,8 @@ def projected(~P:Type,name:String,observed:P & D.Raw) -> P & Field:
   match observed:
     case (owner,value):(owner,Saved{name,value})
 # Static eligibility mirrors TS Gate: export itself does not run its decoder.
-# Gate consumed here: retained multi-save capability is future integration.
+# This low-level operation consumes Gate; snapshot-leaf reconstructs it from
+# the retained ordinary declaration for repeated owner-preserving saves.
 def export_owner(~S:Data,~P:Type,~declaration:C.Declaration<S,P>,gate:Gate<S,P,declaration>,owner:P) -> P & Field:
   match gate:
     case Transient{}:(owner,Omitted{C.key(~S,~P,declaration)})
