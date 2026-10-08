@@ -1,0 +1,487 @@
+{
+  "scope": "Independent literal full indexes and lint tuples/messages; authored before candidate/reference output",
+  "cases": [
+    {
+      "name": "emptySchedules",
+      "indexes": {
+        "components": [
+          {
+            "name": "A",
+            "readers": [],
+            "writers": []
+          }
+        ],
+        "resources": [
+          {
+            "name": "R",
+            "readers": [],
+            "writers": []
+          }
+        ],
+        "events": [
+          {
+            "name": "E",
+            "readers": [],
+            "writers": []
+          }
+        ]
+      },
+      "lints": []
+    },
+    {
+      "name": "indexCategories",
+      "indexes": {
+        "components": [
+          {
+            "name": "read",
+            "readers": [
+              "All"
+            ],
+            "writers": []
+          },
+          {
+            "name": "write",
+            "readers": [
+              "All"
+            ],
+            "writers": [
+              "All"
+            ]
+          },
+          {
+            "name": "optional",
+            "readers": [
+              "All"
+            ],
+            "writers": []
+          },
+          {
+            "name": "with",
+            "readers": [
+              "All"
+            ],
+            "writers": []
+          },
+          {
+            "name": "without",
+            "readers": [],
+            "writers": []
+          },
+          {
+            "name": "added",
+            "readers": [
+              "All"
+            ],
+            "writers": []
+          },
+          {
+            "name": "changed",
+            "readers": [
+              "All"
+            ],
+            "writers": []
+          },
+          {
+            "name": "removed",
+            "readers": [
+              "All"
+            ],
+            "writers": []
+          },
+          {
+            "name": "unused",
+            "readers": [],
+            "writers": []
+          }
+        ],
+        "resources": [
+          {
+            "name": "RR",
+            "readers": [
+              "All"
+            ],
+            "writers": []
+          },
+          {
+            "name": "RW",
+            "readers": [],
+            "writers": [
+              "All"
+            ]
+          }
+        ],
+        "events": [
+          {
+            "name": "ER",
+            "readers": [
+              "All"
+            ],
+            "writers": []
+          },
+          {
+            "name": "EW",
+            "readers": [],
+            "writers": [
+              "All"
+            ]
+          }
+        ]
+      },
+      "lints": [
+        {
+          "severity": "warning",
+          "code": "event-never-written",
+          "message": "ER is read by All but no described system emits it",
+          "subject": "ER"
+        },
+        {
+          "severity": "warning",
+          "code": "event-never-read",
+          "message": "EW is emitted by All but no described system reads it",
+          "subject": "EW"
+        },
+        {
+          "severity": "info",
+          "code": "component-never-read",
+          "message": "write is written by All but read by no other described system",
+          "subject": "write"
+        }
+      ]
+    },
+    {
+      "name": "allFiveLintFamilies",
+      "indexes": {
+        "components": [
+          {
+            "name": "A",
+            "readers": [
+              "Reader",
+              "Writer"
+            ],
+            "writers": [
+              "Writer"
+            ]
+          },
+          {
+            "name": "B",
+            "readers": [
+              "Writer"
+            ],
+            "writers": [
+              "Writer"
+            ]
+          },
+          {
+            "name": "Unused",
+            "readers": [],
+            "writers": []
+          }
+        ],
+        "resources": [
+          {
+            "name": "R",
+            "readers": [
+              "Reader"
+            ],
+            "writers": [
+              "Writer"
+            ]
+          }
+        ],
+        "events": [
+          {
+            "name": "Emit",
+            "readers": [],
+            "writers": [
+              "Writer"
+            ]
+          },
+          {
+            "name": "Read",
+            "readers": [
+              "Reader"
+            ],
+            "writers": []
+          },
+          {
+            "name": "Flow",
+            "readers": [
+              "Reader"
+            ],
+            "writers": [
+              "Writer"
+            ]
+          }
+        ]
+      },
+      "lints": [
+        {
+          "severity": "warning",
+          "code": "event-never-read",
+          "message": "Emit is emitted by Writer but no described system reads it",
+          "subject": "Emit"
+        },
+        {
+          "severity": "warning",
+          "code": "event-never-written",
+          "message": "Read is read by Reader but no described system emits it",
+          "subject": "Read"
+        },
+        {
+          "severity": "warning",
+          "code": "next-state-never-applied",
+          "message": "next states of Play are queued by Writer @ main#2, but no described schedule has an applyStateTransitions() marker, so they never take effect",
+          "subject": "Play"
+        },
+        {
+          "severity": "info",
+          "code": "read-before-write",
+          "message": "in main, Reader runs before Writer writes A, so it sees the A value from the previous run",
+          "subject": "A"
+        },
+        {
+          "severity": "info",
+          "code": "read-before-write",
+          "message": "in main, Reader runs before Writer writes R, so it sees the R value from the previous run",
+          "subject": "R"
+        },
+        {
+          "severity": "info",
+          "code": "read-before-write",
+          "message": "in main, Reader runs before Writer writes Flow, so it sees Flow events one run late",
+          "subject": "Flow"
+        },
+        {
+          "severity": "info",
+          "code": "component-never-read",
+          "message": "B is written by Writer but read by no other described system",
+          "subject": "B"
+        }
+      ]
+    },
+    {
+      "name": "markerAnywhere",
+      "indexes": {
+        "components": [
+          {
+            "name": "A",
+            "readers": [
+              "Reader",
+              "Writer"
+            ],
+            "writers": [
+              "Writer"
+            ]
+          },
+          {
+            "name": "B",
+            "readers": [
+              "Writer"
+            ],
+            "writers": [
+              "Writer"
+            ]
+          },
+          {
+            "name": "Unused",
+            "readers": [],
+            "writers": []
+          }
+        ],
+        "resources": [
+          {
+            "name": "R",
+            "readers": [
+              "Reader"
+            ],
+            "writers": [
+              "Writer"
+            ]
+          }
+        ],
+        "events": [
+          {
+            "name": "Emit",
+            "readers": [],
+            "writers": [
+              "Writer"
+            ]
+          },
+          {
+            "name": "Read",
+            "readers": [
+              "Reader"
+            ],
+            "writers": []
+          },
+          {
+            "name": "Flow",
+            "readers": [
+              "Reader"
+            ],
+            "writers": [
+              "Writer"
+            ]
+          }
+        ]
+      },
+      "lints": [
+        {
+          "severity": "warning",
+          "code": "event-never-read",
+          "message": "Emit is emitted by Writer but no described system reads it",
+          "subject": "Emit"
+        },
+        {
+          "severity": "warning",
+          "code": "event-never-written",
+          "message": "Read is read by Reader but no described system emits it",
+          "subject": "Read"
+        },
+        {
+          "severity": "info",
+          "code": "read-before-write",
+          "message": "in main, Reader runs before Writer writes A, so it sees the A value from the previous run",
+          "subject": "A"
+        },
+        {
+          "severity": "info",
+          "code": "read-before-write",
+          "message": "in main, Reader runs before Writer writes R, so it sees the R value from the previous run",
+          "subject": "R"
+        },
+        {
+          "severity": "info",
+          "code": "read-before-write",
+          "message": "in main, Reader runs before Writer writes Flow, so it sees Flow events one run late",
+          "subject": "Flow"
+        },
+        {
+          "severity": "info",
+          "code": "component-never-read",
+          "message": "B is written by Writer but read by no other described system",
+          "subject": "B"
+        }
+      ]
+    },
+    {
+      "name": "presenceIsIndexedNotReadBeforeWrite",
+      "indexes": {
+        "components": [
+          {
+            "name": "A",
+            "readers": [
+              "Reader",
+              "Writer"
+            ],
+            "writers": [
+              "Writer"
+            ]
+          },
+          {
+            "name": "Absent",
+            "readers": [],
+            "writers": []
+          }
+        ],
+        "resources": [],
+        "events": []
+      },
+      "lints": []
+    },
+    {
+      "name": "earlierReadWriteExcluded",
+      "indexes": {
+        "components": [
+          {
+            "name": "A",
+            "readers": [
+              "Both",
+              "Writer"
+            ],
+            "writers": [
+              "Both",
+              "Writer"
+            ]
+          }
+        ],
+        "resources": [],
+        "events": []
+      },
+      "lints": [
+        {
+          "severity": "info",
+          "code": "component-never-read",
+          "message": "A is written by Both, Writer but read by no other described system",
+          "subject": "A"
+        }
+      ]
+    },
+    {
+      "name": "readerDedupAndPlural",
+      "indexes": {
+        "components": [
+          {
+            "name": "A",
+            "readers": [
+              "Reader1",
+              "Reader2",
+              "Writer"
+            ],
+            "writers": [
+              "Writer"
+            ]
+          }
+        ],
+        "resources": [],
+        "events": []
+      },
+      "lints": [
+        {
+          "severity": "info",
+          "code": "read-before-write",
+          "message": "in main, Reader1, Reader2 run before Writer writes A, so they see the A value from the previous run",
+          "subject": "A"
+        }
+      ]
+    },
+    {
+      "name": "initialNameDedupAndUnknownAppend",
+      "indexes": {
+        "components": [
+          {
+            "name": "A",
+            "readers": [],
+            "writers": []
+          },
+          {
+            "name": "Unknown",
+            "readers": [
+              "All"
+            ],
+            "writers": []
+          }
+        ],
+        "resources": [],
+        "events": []
+      },
+      "lints": []
+    },
+    {
+      "name": "duplicateNextSlotRetained",
+      "indexes": {
+        "components": [],
+        "resources": [],
+        "events": []
+      },
+      "lints": [
+        {
+          "severity": "warning",
+          "code": "next-state-never-applied",
+          "message": "next states of Play are queued by Writer @ main#0; Writer @ main#0, but no described schedule has an applyStateTransitions() marker, so they never take effect",
+          "subject": "Play"
+        }
+      ]
+    }
+  ]
+}
