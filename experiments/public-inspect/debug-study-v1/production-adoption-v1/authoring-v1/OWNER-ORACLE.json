@@ -1,0 +1,236 @@
+{
+  "scope": "Independently authored actual constructor/registration/schedule physical owner controls, before any new execution",
+  "world": "1|1|0|[false]|1|0|[19,23]|[7]|null|null|null|missing|{\"kind\":\"NumberBits\",\"low\":0,\"high\":1073217536,\"spelling\":\"1.5\"}|queued:{\"kind\":\"NumberBits\",\"low\":0,\"high\":0,\"spelling\":\"0\"}:false|{\"kind\":\"Some\",\"value\":{\"kind\":\"NumberBits\",\"low\":0,\"high\":2147483648,\"spelling\":\"0\"}}|true|7|[17]|2|[\"3:Writer:[\"{\"name\":\"Writer\",\"placements\":[],\"queries\":[],\"resources\":{\"reads\":[],\"writes\":[\"plain\"]},\"events\":{\"reads\":[],\"writes\":[]},\"machines\":{\"reads\":[],\"next\":[],\"transitions\":[],\"transitionEvents\":[]},\"removed\":[],\"despawned\":false,\"relationFailures\":[],\"services\":[],\"when\":[]}\"]\",\"2:Reader:[\"{\"name\":\"Reader\",\"placements\":[],\"queries\":[],\"resources\":{\"reads\":[\"plain\"],\"writes\":[]},\"events\":{\"reads\":[],\"writes\":[]},\"machines\":{\"reads\":[],\"next\":[],\"transitions\":[],\"transitionEvents\":[]},\"removed\":[],\"despawned\":false,\"relationFailures\":[],\"services\":[],\"when\":[]}\"]\",\"1:Reader:[\"{\"name\":\"Reader\",\"placements\":[],\"queries\":[],\"resources\":{\"reads\":[\"plain\"],\"writes\":[]},\"events\":{\"reads\":[],\"writes\":[]},\"machines\":{\"reads\":[],\"next\":[],\"transitions\":[],\"transitionEvents\":[]},\"removed\":[],\"despawned\":false,\"relationFailures\":[],\"services\":[],\"when\":[]}\"]\"]|4|41",
+  "main": {
+    "namespace": 1,
+    "name": "main",
+    "steps": [
+      {
+        "barrier": true
+      },
+      {
+        "system": 1,
+        "condition": 0
+      },
+      {
+        "barrier": true
+      },
+      {
+        "system": 3,
+        "condition": 0
+      },
+      {
+        "phase": "applyStateTransitions"
+      }
+    ],
+    "requirements": [
+      "resource:1"
+    ],
+    "owners": [
+      {
+        "namespace": 1,
+        "id": 1,
+        "name": "Reader",
+        "access": [
+          {
+            "name": "Reader",
+            "placements": [],
+            "queries": [],
+            "resources": {
+              "reads": [
+                "plain"
+              ],
+              "writes": []
+            },
+            "events": {
+              "reads": [],
+              "writes": []
+            },
+            "machines": {
+              "reads": [],
+              "next": [],
+              "transitions": [],
+              "transitionEvents": []
+            },
+            "removed": [],
+            "despawned": false,
+            "relationFailures": [],
+            "services": [],
+            "when": []
+          }
+        ],
+        "cursor": 0,
+        "declaration": {
+          "name": "Reader",
+          "placements": [],
+          "queries": [],
+          "resources": {
+            "reads": [
+              "plain"
+            ],
+            "writes": []
+          },
+          "events": {
+            "reads": [],
+            "writes": []
+          },
+          "machines": {
+            "reads": [],
+            "next": [],
+            "transitions": [],
+            "transitionEvents": []
+          },
+          "removed": [],
+          "despawned": false,
+          "relationFailures": [],
+          "services": [],
+          "when": []
+        }
+      },
+      {
+        "namespace": 1,
+        "id": 3,
+        "name": "Writer",
+        "access": [
+          {
+            "name": "Writer",
+            "placements": [],
+            "queries": [],
+            "resources": {
+              "reads": [],
+              "writes": [
+                "plain"
+              ]
+            },
+            "events": {
+              "reads": [],
+              "writes": []
+            },
+            "machines": {
+              "reads": [],
+              "next": [],
+              "transitions": [],
+              "transitionEvents": []
+            },
+            "removed": [],
+            "despawned": false,
+            "relationFailures": [],
+            "services": [],
+            "when": []
+          }
+        ],
+        "cursor": 0,
+        "declaration": {
+          "name": "Writer",
+          "placements": [],
+          "queries": [],
+          "resources": {
+            "reads": [],
+            "writes": [
+              "plain"
+            ]
+          },
+          "events": {
+            "reads": [],
+            "writes": []
+          },
+          "machines": {
+            "reads": [],
+            "next": [],
+            "transitions": [],
+            "transitionEvents": []
+          },
+          "removed": [],
+          "despawned": false,
+          "relationFailures": [],
+          "services": [],
+          "when": []
+        }
+      }
+    ]
+  },
+  "again": {
+    "namespace": 1,
+    "name": "again",
+    "steps": [
+      {
+        "system": 2,
+        "condition": 0
+      }
+    ],
+    "requirements": [
+      "resource:1"
+    ],
+    "owner": {
+      "namespace": 1,
+      "id": 2,
+      "name": "Reader",
+      "access": [
+        {
+          "name": "Reader",
+          "placements": [],
+          "queries": [],
+          "resources": {
+            "reads": [
+              "plain"
+            ],
+            "writes": []
+          },
+          "events": {
+            "reads": [],
+            "writes": []
+          },
+          "machines": {
+            "reads": [],
+            "next": [],
+            "transitions": [],
+            "transitionEvents": []
+          },
+          "removed": [],
+          "despawned": false,
+          "relationFailures": [],
+          "services": [],
+          "when": []
+        }
+      ],
+      "cursor": 0,
+      "declaration": {
+        "name": "Reader",
+        "placements": [],
+        "queries": [],
+        "resources": {
+          "reads": [
+            "plain"
+          ],
+          "writes": []
+        },
+        "events": {
+          "reads": [],
+          "writes": []
+        },
+        "machines": {
+          "reads": [],
+          "next": [],
+          "transitions": [],
+          "transitionEvents": []
+        },
+        "removed": [],
+        "despawned": false,
+        "relationFailures": [],
+        "services": [],
+        "when": []
+      }
+    }
+  },
+  "registeredIds": [
+    1,
+    2,
+    3
+  ],
+  "sourceBasis": {
+    "namespace": "world-namespace.js/C next=1 and one actual WIO.create",
+    "ids": "World.create nextSystemId=1; register_checked returns current then increments; registry lookup still actual",
+    "world": "Prior independent EXPECTED-V2 physical fixture, same owners/events/pending/clock, exactly3 registrations in prepend order and nextSystemId4",
+    "args": "No Args passed/invoked; Registry phantom type is generic, concrete Unit not affine-payload runtime qualification"
+  }
+}

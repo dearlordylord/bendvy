@@ -1,0 +1,20 @@
+import {Descriptor,Schema} from '/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/index.ts';
+import {readFileSync} from 'node:fs';
+import {isDeepStrictEqual} from 'node:util';
+const expected=JSON.parse(readFileSync(new URL('./ORACLE.json',import.meta.url),'utf8')).cases;
+const Plain=Descriptor.Resource<number>()('plain');
+const G=Schema.bind(Schema.fragment({components:{},resources:{plain:Plain},events:{},relations:{}}));
+const a=G.System('Reader',{resources:{r:G.System.readResource(Plain)}},()=>{});
+const b=G.System('Reader',{resources:{r:G.System.readResource(Plain)}},()=>{});
+const c=G.System('Writer',{resources:{r:G.System.writeResource(Plain)}},()=>{});
+const main=G.Schedule(G.Schedule.applyDeferred(),a,G.Schedule.applyDeferred(),c,G.Schedule.applyStateTransitions());
+const again=G.Schedule(b);
+const runtime=G.Runtime.make({debug:true,resources:{plain:7},services:G.Runtime.services()});
+const observe=(name:string)=>{
+ const before=runtime.debug.describe();const observed=runtime.debug.describe();const after=runtime.debug.describe();
+ console.log(JSON.stringify({name,before,observed,after,dto:observed,beforeDTO:before,afterDTO:after,distinctSystems:a!==b,distinctSchedules:main!==again}));
+ if(!isDeepStrictEqual(observed,expected.find((row:any)=>row.name===name).description))throw new Error(name+': independent complete DTO');
+ if(!isDeepStrictEqual(before,after)||a===b||main===again)throw new Error(name+': identity/noninterference');
+};
+runtime.debug.nameSchedules({main,again});observe('duplicateLabels');
+runtime.debug.nameSchedules({renamed:again});observe('replacement');

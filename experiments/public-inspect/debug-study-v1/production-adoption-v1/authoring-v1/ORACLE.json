@@ -1,0 +1,239 @@
+{
+  "scope": "Independent source-derived public identity/name replacement Description DTOs; not observed evidence",
+  "cases": [
+    {
+      "name": "duplicateLabels",
+      "description": {
+        "version": 1,
+        "components": [],
+        "resources": [
+          {
+            "name": "plain",
+            "storage": "plain",
+            "present": true
+          }
+        ],
+        "events": [],
+        "relations": [],
+        "machines": [],
+        "services": [],
+        "schedules": [
+          {
+            "name": "main",
+            "steps": [
+              {
+                "kind": "applyDeferred"
+              },
+              {
+                "kind": "system",
+                "system": "Reader"
+              },
+              {
+                "kind": "applyDeferred"
+              },
+              {
+                "kind": "system",
+                "system": "Writer"
+              },
+              {
+                "kind": "applyStateTransitions",
+                "schedules": []
+              }
+            ]
+          },
+          {
+            "name": "again",
+            "steps": [
+              {
+                "kind": "system",
+                "system": "Reader"
+              }
+            ]
+          }
+        ],
+        "systems": [
+          {
+            "name": "Reader",
+            "placements": [
+              "main#1"
+            ],
+            "queries": [],
+            "resources": {
+              "reads": [
+                "plain"
+              ],
+              "writes": []
+            },
+            "events": {
+              "reads": [],
+              "writes": []
+            },
+            "machines": {
+              "reads": [],
+              "next": [],
+              "transitions": [],
+              "transitionEvents": []
+            },
+            "removed": [],
+            "despawned": false,
+            "relationFailures": [],
+            "services": [],
+            "when": []
+          },
+          {
+            "name": "Writer",
+            "placements": [
+              "main#3"
+            ],
+            "queries": [],
+            "resources": {
+              "reads": [],
+              "writes": [
+                "plain"
+              ]
+            },
+            "events": {
+              "reads": [],
+              "writes": []
+            },
+            "machines": {
+              "reads": [],
+              "next": [],
+              "transitions": [],
+              "transitionEvents": []
+            },
+            "removed": [],
+            "despawned": false,
+            "relationFailures": [],
+            "services": [],
+            "when": []
+          },
+          {
+            "name": "Reader",
+            "placements": [
+              "again#0"
+            ],
+            "queries": [],
+            "resources": {
+              "reads": [
+                "plain"
+              ],
+              "writes": []
+            },
+            "events": {
+              "reads": [],
+              "writes": []
+            },
+            "machines": {
+              "reads": [],
+              "next": [],
+              "transitions": [],
+              "transitionEvents": []
+            },
+            "removed": [],
+            "despawned": false,
+            "relationFailures": [],
+            "services": [],
+            "when": []
+          }
+        ],
+        "access": {
+          "components": [],
+          "resources": [
+            {
+              "name": "plain",
+              "readers": [
+                "Reader"
+              ],
+              "writers": [
+                "Writer"
+              ]
+            }
+          ],
+          "events": []
+        },
+        "lints": [
+          {
+            "severity": "info",
+            "code": "read-before-write",
+            "subject": "plain",
+            "message": "in main, Reader runs before Writer writes plain, so it sees the plain value from the previous run"
+          }
+        ]
+      }
+    },
+    {
+      "name": "replacement",
+      "description": {
+        "version": 1,
+        "components": [],
+        "resources": [
+          {
+            "name": "plain",
+            "storage": "plain",
+            "present": true
+          }
+        ],
+        "events": [],
+        "relations": [],
+        "machines": [],
+        "services": [],
+        "schedules": [
+          {
+            "name": "renamed",
+            "steps": [
+              {
+                "kind": "system",
+                "system": "Reader"
+              }
+            ]
+          }
+        ],
+        "systems": [
+          {
+            "name": "Reader",
+            "placements": [
+              "renamed#0"
+            ],
+            "queries": [],
+            "resources": {
+              "reads": [
+                "plain"
+              ],
+              "writes": []
+            },
+            "events": {
+              "reads": [],
+              "writes": []
+            },
+            "machines": {
+              "reads": [],
+              "next": [],
+              "transitions": [],
+              "transitionEvents": []
+            },
+            "removed": [],
+            "despawned": false,
+            "relationFailures": [],
+            "services": [],
+            "when": []
+          }
+        ],
+        "access": {
+          "components": [],
+          "resources": [
+            {
+              "name": "plain",
+              "readers": [
+                "Reader"
+              ],
+              "writers": []
+            }
+          ],
+          "events": []
+        },
+        "lints": []
+      }
+    }
+  ]
+}
