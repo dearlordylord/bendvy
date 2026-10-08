@@ -1,7 +1,9 @@
 # Canonical prerequisite readiness
 
-The complete candidate imports these **unchanged, currently untracked** root
-modules to preserve one nominal Raw/Codec identity with #58:
+The complete candidate imports these unchanged root modules to preserve one
+nominal Raw/Codec identity with #58. They were untracked during the retained
+development runs; independent review subsequently admitted the exact bytes
+into Git in `3f56842e` at experimental scope (see [prerequisites](PREREQUISITES.md)).
 
 | Module | Executed SHA256 | Responsibility |
 |---|---|---|
@@ -15,13 +17,11 @@ Installed Base remains a separately bound compiler prerequisite. Receipt/source
 snapshots establish historical development observations, not a currently
 qualified clean-checkout library or a new decoder contract.
 
-Next action: independently review these exact two immutable source snapshots
-against #46's existing contracts and prior controls. The root integrator can
-then admit their exact existing bytes into Git at the canonical paths, after
-checking live bytes still match. If the review requires behavior changes,
-prepare a distinct source candidate and qualify those changes; never rewrite
-old snapshots or assign their receipts to changed code. Public SDK adoption
-and complete delivery remain separate after this prerequisite admission.
+Both live hashes matched the archived sources at admission. This repairs the
+missing Git prerequisites without changing behavior or rebinding historical
+receipts. Future behavior changes require a distinct source candidate and
+qualification; never rewrite old snapshots or assign their receipts to changed
+code. Public SDK adoption and complete delivery remain separate after admission.
 
 The lower-level caller-fuel API stays explicit; this candidate adds automatic
 budget derivation without inventing a generic Raw-to-arbitrary-Type inverse,
