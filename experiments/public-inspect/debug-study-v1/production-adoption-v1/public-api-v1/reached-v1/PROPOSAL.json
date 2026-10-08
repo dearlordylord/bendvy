@@ -1,0 +1,41 @@
+{
+  "scope": "Fresh public relocated source-only full15 counterfactual directions; old reached receipts not transferred",
+  "originalSourceSHA256": "32bf019b88930cf030150c919d7a8380bc11d1671c107039868b54752f18e356",
+  "originalExpectedSHA256": "a940e1b778f2749507e642dab274c98cb7ed0d77aed4b9de195be0a77a183f6f",
+  "variants": [
+    {
+      "name": "omitted-needs",
+      "source": "debug-registered.bend",
+      "old": "Declaration.provision_needs(~S,~CT,~RT,~ET,~MT,~LT,~VT,~KT,~resource,~service,declaration)",
+      "new": "[]",
+      "changedRows": [
+        10,
+        11,
+        12,
+        13
+      ],
+      "reason": "Actual Provision.Entry needs omitted while metadata still names resource plain; full both Provisioned owner snapshots detect detached requirements mismatch. DTOs and World unchanged.",
+      "sourceSHA256": "e6f80f9dd6aa5a1400c55fc7e3711cf4a5a7071670719094e81c6298a45fdae5",
+      "expectedSHA256": "fcc53f7c563a34ca9a8d294d4ce7cf39717bee2336eb1d0efddd582aaec52a50"
+    },
+    {
+      "name": "cursor-mutated",
+      "source": "debug-registered.bend",
+      "old": "Bound{Sys.Registry{namespace,id,actualName,actualAccess,cursor},declaration},Observation{namespace,id,cursor",
+      "new": "Bound{Sys.Registry{namespace,id,actualName,actualAccess,U32.add(cursor,1)},declaration},Observation{namespace,id,cursor",
+      "changedRows": [
+        6,
+        11,
+        13,
+        14
+      ],
+      "reason": "Returned owner cursor increments at actual observation; Main Reader/Writer once, Again Reader twice. Detached cursor rows retain incoming cursor, all actual owner snapshots and preservation predicate remain present.",
+      "sourceSHA256": "6ad1de7d189a8fabb685c68aa2655083d42aa76ba86b56e44a29e9260b888b8c",
+      "expectedSHA256": "b96ef1c772437834835e814e4863183d072f09e16b75143367eca636107ecf6a"
+    }
+  ],
+  "constraints": "Change only copied registered.bend exact single source occurrence; retain full DTO/World/allRegistry/bothProvisioned oracle. Source typing first, then reviewed fresh JS and Native plans. No new policy/law.",
+  "source": "/workspace/formal-proofs/bendvy-worktrees/parity-61-audit/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/candidate/src/ecs/debug-registered.bend",
+  "normalJSPlanSHA256": "435d3c741170fdede0e301d5a317e24db2c083400f225147ba442f3bede26145",
+  "normalNativePlanSHA256": "dd66569388f4ba91e46d4b5e598a561ec8b7a5b1998d2faf75ac3bf9c109db57"
+}
