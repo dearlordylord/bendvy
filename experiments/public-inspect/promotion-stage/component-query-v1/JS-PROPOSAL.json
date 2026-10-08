@@ -1,0 +1,27 @@
+{
+  "status": "SOURCE_ONLY_DIRECTION_FOR_REVIEW_NOT_EXECUTION_ADMISSION",
+  "purpose": "Separate compilation from execution after the complete CLIIO5 child deadline, preserving the whole two-schema workload and independent full oracle.",
+  "preservedAttempt": "cli-execution-history-v1/a61fcd5d-deadline",
+  "consumer": "output-io-main.bend",
+  "pureSourceQualification": "9bcc867ad0af8051da70641e3eea0b128698afa56990b22b41c3d5ee1c99f991",
+  "wrapperSourceQualification": "a7aaf974f4e4fc184220a09ab2233cd295e64bbed812e19cefe2fb36fd334317",
+  "oracle": "BEND-PHYSICAL-EXPECTED-v1.txt",
+  "oracleSHA256": "bcfe4c668e8728917974acdb59c0e600e0b1bac2b1929ccd1af4b5297e1833f1",
+  "oracleBytes": 5077477,
+  "commands": [
+    {"label": "complete-component-emit-js", "argv": ["/usr/bin/taskset", "-c", "5", "/home/node/.bend/bin/bend", "ABSOLUTE/output-io-main.bend", "-o", "OWNED_ARTIFACT/component-complete.js"], "seconds": 30},
+    {"label": "complete-component-run-js", "argv": ["/usr/bin/taskset", "-c", "5", "/home/node/.local/share/mise/installs/node/24.20.0/bin/node", "OWNED_ARTIFACT/component-complete.js"], "seconds": 5, "comparison": "exact original full bytes including one IO.print LF; no trimming or reduced observations"}
+  ],
+  "guards": [
+    "Historical successful pure and wrapper source plans/receipts/raw/archive/current full consumed closure equality",
+    "Current nineteen copied production dependencies byte-equal actual root, frozen separately",
+    "Historical a61 current inputs and private six-name environment equality before copying, plus unchanged original/copy SHA",
+    "Bend binary/library and Node binary source-reference qualification pins; normal resolver-cohort reuse or fresh preparation direction requires separate review before actual execution freeze",
+    "All consumed source ancestors and Base/Node parents established configuration names presence/hash, pre/post equality",
+    "Central named GuardBoundary plus ReceiptBoundary; initial guard inside final receipt; preserve primary error and run all postguards",
+    "Captured full raw stdout/stderr exact membership/hash and receipt binding for both children, unconditional after capture and at final receipt",
+    "Generated JS initially absent; capture hash/membership even partial failed emission, require generated object on successful emission; postguard even absent-file/hash error",
+    "Exact complete stdout oracle and permitted stderr policy; first failure stops, preserves raw and INCOMPLETE"
+  ],
+  "limits": "No workload partition/reduction, cap increase, CLI retry, source replay, proof, Native, adoption, or universal constructor-truth credit. Actual emitted JS match only qualifies this complete finite runtime fixture; other authority/mutation/delivery gates remain open. No child or resolver probe authorized by this document."
+}
