@@ -1,0 +1,19 @@
+{
+  "scope": "Source-only semantic defect/oracle, not execution/admission",
+  "baseSourceSHA256": "b1504cfced8f59acaa01d8b3d2b76ce4fa613c46ceebc86e9dfc16a21de787c1",
+  "mutantSHA256": "4245f9d252bd555a92a55cc2aaa163d1932ad2ebcd7ee27f5f63924970d36f8e",
+  "oldBody": "case flow level Sys.DisposalRejected{world,registry}: CleanupRejected{world,R.Instance{registry,flow,level}}",
+  "newBody": "case St.Reader{a,+id} St.Reader{b,+jd} Sys.DisposalRejected{world,registry}: CleanupRejected{dispose_streams(~S,world,id,jd),R.Instance{registry,St.Reader{a,id},St.Reader{b,jd}}}",
+  "independentOracleSHA256": "08bf802c4639d780bdfda069aed27c7b74436b39810ae5ddf451931416bab199",
+  "witnesses": [
+    "A/schema worldB foreign-disposal-rejected stream positions removed",
+    "B/schema worldB foreign-disposal-rejected stream positions removed",
+    "Both later surviving sameB reader redelivers Boot>Play at registered6 rather than5"
+  ],
+  "sourceAuthority": [
+    "Sys.dispose rejection preserves returned registry/world",
+    "Ev.activate absent Position cursor0/registered previous tick6",
+    "Ev.reading since cursor0 retains tick5 Boot>Play"
+  ],
+  "unaffected": "All other owner/world fields and full36+22 inventory preserved"
+}
