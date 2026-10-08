@@ -26,12 +26,12 @@ extra field, nullable null, nested valid arrays and a missing nested integer.
 entrypoint. Independent complete oracles and actually observed TS behavior are
 owned by `oracle-v1`; exact representation differences remain explicit.
 
-The older `bounded-counterexamples.bend` includes a duplicate Raw field as a
-separate historical diagnostic. It is not a public TS-object parity scenario
+The archived older `bounded-v2/subject.bend` source includes a duplicate Raw
+field as a separate historical diagnostic. It is not a public TS-object parity scenario
 and selects no new duplicate-key contract.
 
-`source-history` preserves failed counting approaches, parser mistakes and the
-successful structural-count/full-application checks. Unsaved source snapshots
+`evidence-v1` contains the archived `source-history` with failed counting
+approaches, parser mistakes and successful structural-count/application checks. Unsaved source snapshots
 are absent, not reconstructed or assigned to old observations. These are
 five-second development checks with telemetry disabled and child-only shared
 lock, not a full frozen tool/environment qualification. The check banner does
