@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- expected : Bind.Declaration<A.Schema, W.Resources, List<&2, U32>, W.BonusToken, W.project_score>
+- observed : Bind.Declaration<A.Schema, W.Resources, List<&2, U32>, W.BonusToken, W.project_bonus>
+Context:
+- declaration : Bind.Declaration<A.Schema, W.Resources, List<&2, U32>, W.BonusToken, W.project_bonus>
+Location: bad
+6 | def bad(declaration:Bind.Declaration<A.Schema,W.Resources,List<&2,U32>,W.BonusToken,W.project_bonus>) -> Bind.BoundRead<A.Schema,I.Frame<A.Schema,A.Store,W.Resources,U32>,List<&2,U32>>:
+7>|   Bind.bind(~A.Schema,~A.Store,~W.Resources,~U32,~List<&2,U32>,~W.BonusToken,~W.project_score,declaration)
+  |                                                                                               ^^^^^^^^^^^
+8 | 

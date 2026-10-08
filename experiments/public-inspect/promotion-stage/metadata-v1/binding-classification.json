@@ -1,0 +1,65 @@
+{
+  "scope": "Trustedcanonicalpath source/type/quantity only, notactualgrantprojection oruniversalcallertruth/proof/coupling",
+  "negatives": [
+    {
+      "label": "cross-schema",
+      "cohort": "negative1",
+      "stderrSHA256": "5e0a25d3bd6e42a31ff96754fdbf22e7378b813d51f170ca1646212781979125",
+      "expected": "expected : Bind.Declaration<A.Schema",
+      "observed": "observed : Bind.Declaration<B.Schema",
+      "location": "bad10",
+      "classification": "INTENDED_SOURCE_TYPE_OR_QUANTITY_REFUSAL",
+      "authority": "Independent evidence_review single-location review confirmed byroot; raw UNCLASSIFIED receipts unchanged"
+    },
+    {
+      "label": "mismatched-index",
+      "cohort": "negative1",
+      "stderrSHA256": "4d38effe066366b2e20aceae971f0bdcb3af3aaed65ec08b9af8bd92444e0eb6",
+      "expected": "W.BonusToken, W.project_score>",
+      "observed": "W.BonusToken, W.project_bonus>",
+      "location": "bad7 declarationargument",
+      "classification": "INTENDED_SOURCE_TYPE_OR_QUANTITY_REFUSAL",
+      "authority": "Independent evidence_review single-location review confirmed byroot; raw UNCLASSIFIED receipts unchanged"
+    },
+    {
+      "label": "undeclared",
+      "cohort": "negative1",
+      "stderrSHA256": "b02b870dda60a4799af4a0e8cc789cbb150912eff4c8355e6161c001060c4622",
+      "expected": "expected : ExtraReads",
+      "observed": "observed : W.Reads",
+      "location": "bad8",
+      "classification": "INTENDED_SOURCE_TYPE_OR_QUANTITY_REFUSAL",
+      "authority": "Independent evidence_review single-location review confirmed byroot; raw UNCLASSIFIED receipts unchanged"
+    },
+    {
+      "label": "write-authority",
+      "cohort": "negative2",
+      "stderrSHA256": "a54e37ea716a2dcb1bd7fdb10dda8b41f8a9e2671a84cc2faa791f5b391602fa",
+      "expected": "expected : Cap.ValueWrite",
+      "observed": "observed : Cap.ValueRead",
+      "location": "bad7",
+      "classification": "INTENDED_SOURCE_TYPE_OR_QUANTITY_REFUSAL",
+      "authority": "Independent evidence_review single-location review confirmed byroot; raw UNCLASSIFIED receipts unchanged"
+    },
+    {
+      "label": "duplicate-owner",
+      "cohort": "negative2",
+      "stderrSHA256": "991d49b19aa2f52c9aa92adf0a9c4c0dfa3cd295e064da04f7e3137730517884",
+      "expected": "expected : owner",
+      "observed": "owner (consumed more than once)",
+      "location": "binder4/tuple5",
+      "classification": "INTENDED_SOURCE_TYPE_OR_QUANTITY_REFUSAL",
+      "authority": "Independent evidence_review single-location review confirmed byroot; raw UNCLASSIFIED receipts unchanged"
+    },
+    {
+      "label": "escape-owner",
+      "cohort": "negative2",
+      "stderrSHA256": "3f7f292016b0617d0597ee5be5d3de5e48686afccefe521ae8146eaca661c778",
+      "expected": "expected : String",
+      "observed": "observed : Witness.Owner",
+      "location": "bad5 actualinto_plan",
+      "classification": "INTENDED_SOURCE_TYPE_OR_QUANTITY_REFUSAL",
+      "authority": "Independent evidence_review single-location review confirmed byroot; raw UNCLASSIFIED receipts unchanged"
+    }
+  ]
+}

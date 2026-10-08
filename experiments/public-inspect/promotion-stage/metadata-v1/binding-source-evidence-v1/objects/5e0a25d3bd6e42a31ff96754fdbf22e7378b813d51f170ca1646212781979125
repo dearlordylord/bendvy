@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- expected : Bind.Declaration<A.Schema, W.Resources, List<&2, U32>, W.BonusToken, W.project_bonus>
+- observed : Bind.Declaration<B.Schema, G.Resources, List<&2, U32>, G.BonusToken, G.project_bonus>
+Context:
+- bonus : Bind.Declaration<B.Schema, G.Resources, List<&2, U32>, G.BonusToken, G.project_bonus>
+Location: bad
+ 9 | def bad(bonus:Bind.Declaration<B.Schema,G.Resources,List<&2,U32>,G.BonusToken,G.project_bonus>) -> Meta.Definition<A.Schema,I.Plan<A.Schema,A.Store,W.Resources,U32,W.Ops>>:
+10>|   W.define("Cross",bonus,W.score())
+   |                    ^^^^^
+11 | 

@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : owner
+- observed : owner (consumed more than once)
+Location: bad
+3 | 
+4>| def bad(~S:Data,~P:Type,~Extra:Type,owner:Meta.Definition<S,Witness.Owner<P,Extra>>) -> Meta.Definition<S,Witness.Owner<P,Extra>> & Meta.Definition<S,Witness.Owner<P,Extra>>:
+  |                                     ^^^^^
+5 |   (owner,owner)

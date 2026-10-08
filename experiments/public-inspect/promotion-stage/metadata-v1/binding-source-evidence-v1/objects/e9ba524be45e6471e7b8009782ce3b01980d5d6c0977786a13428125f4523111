@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- message  : a declared datatype (unknown: Cap.ValueRead)
+Context:
+- H      : Type
+- actual : W.Reads<H>
+Location: read_authority
+16 |   Meta.into_plan(~S,~Witness.Owner<P,Extra>,definition)
+17>| def read_authority(~H:Type,actual:W.Reads<H>) -> Cap.ValueRead<H,List<&2,U32>>:
+   |                                                  ^^^^^^^^^^^^^^^
+18 |   match actual:
