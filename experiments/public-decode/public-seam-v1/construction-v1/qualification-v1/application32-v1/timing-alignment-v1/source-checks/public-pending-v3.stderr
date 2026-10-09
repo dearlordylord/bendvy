@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : system
+- observed : system (consumed more than once)
+Context:
+- kind : String
+Location: known_receipts
+26 |     case []:True{}
+27>|     case App.Queued{kind,system,_,_,App.ComponentPayload{_}} <> rest:Strings.equal(kind,"spawn") && (Strings.equal(system,"seed") || Strings.equal(system,"application32")) && known_receipts(rest)
+   |                          ^^^^^^
+28 |     case App.Queued{kind,system,_,_,App.MarkerPayload{_}} <> rest:Strings.equal(kind,"insert") && Strings.equal(system,"queue") && known_receipts(rest)
+bend 2.0.36 is available: run bend update

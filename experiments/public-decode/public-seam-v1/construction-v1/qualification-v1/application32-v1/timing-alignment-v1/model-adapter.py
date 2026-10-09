@@ -31,7 +31,7 @@ def inventory(entry):
     types['Store'][1]['StoreView'].append(('receipts',['Queued']))
     define('PublicPending','public.bend',{'Pending':fields(kind='String',system='String',target='U32',payload='QueuedPayload')})
     define('PublicEntity','public.bend',{'Entity':fields(id='U32',value=maybe('Owner'),marker=maybe('U32'))})
-    define('PublicState','public.bend',{'State':fields(entities=['PublicEntity'],resource='Owner',pending=['PublicPending'],pendingCount='U32',receiptCountMatches='Bool'),'Unsupported':fields(snapshot='Snapshot')})
+    define('PublicState','public.bend',{'State':fields(entities=['PublicEntity'],resource='Owner',pending=['PublicPending'],logicalPendingCount='U32',receiptLoweringMatches='Bool'),'Unsupported':fields(snapshot='Snapshot')})
     define('PublicChecked','public.bend',{'Accepted':fields(target=maybe('U32'),spawned='Bool',canonical='Raw'),'Refused':fields(input=maybe('Input'),error='RequestError'),'SystemFailed':fields(error='Unit'),'InvocationRefused':fields(input='Input',operation='Mode',namespace='U32',target='U32')})
     define('PublicView','public.bend',{'View':fields(original='Input',before='PublicState',committed='PublicState',barrier='PublicState',checked='PublicChecked'),'SetupRefused':[]})
     define('Whole','public.bend',{'Whole':fields(public='PublicView',native='ApplicationReport')})

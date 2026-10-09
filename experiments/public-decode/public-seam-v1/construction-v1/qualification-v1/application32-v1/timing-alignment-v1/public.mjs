@@ -14,6 +14,11 @@ export function raw(value){
 export function owner(value){exact(value,['value','original','sentinel','flags']);return {$:'View',raw:raw(value.value),original:raw(value.original),words:[...value.sentinel],flags:[...value.flags]};}
 export function input(value){exact(value,['value','original','sentinel','flags']);return {$:'InputView',raw:raw(value.value),words:[...value.sentinel],flags:[...value.flags]};}
 export function state(dump,receipts){
+ for(const entry of receipts){
+  const component=entry.kind==='spawn'&&(entry.system==='seed'||entry.system==='application32')&&entry.payload?.$==='ComponentPayload';
+  const marker=entry.kind==='insert'&&entry.system==='queue'&&entry.payload?.$==='MarkerPayload';
+  if(!component&&!marker)throw Error('unsupported receipt lowering');
+ }
  const pending=receipts.map(entry=>({$:'Pending',kind:entry.kind,system:entry.system,target:entry.target,payload:entry.payload}));
  // Real debug commands independently bind receipt FIFO tags/origins; no closure reflection.
  const agrees=dump.pendingCommands.length===receipts.length&&dump.pendingCommands.every((entry,i)=>entry.tag===receipts[i].kind&&entry.system===receipts[i].system);
@@ -21,7 +26,7 @@ export function state(dump,receipts){
   for(const key of Object.keys(entity.components))if(key!=='Value'&&key!=='Marker')throw Error('unobserved component');
   if(Object.keys(entity.relations).length)throw Error('unobserved relation');
   return {$:'Entity',id:entity.id,value:Object.hasOwn(entity.components,'Value')?some(owner(entity.components.Value)):none(),marker:Object.hasOwn(entity.components,'Marker')?some(entity.components.Marker):none()};
- }),resource:owner(dump.resources.Resource),pending,pendingCount:dump.pendingCommands.length,receiptCountMatches:agrees};
+ }),resource:owner(dump.resources.Resource),pending,logicalPendingCount:receipts.length,receiptLoweringMatches:agrees};
 }
 function checked(trace){
  if(!trace.checked.ok){

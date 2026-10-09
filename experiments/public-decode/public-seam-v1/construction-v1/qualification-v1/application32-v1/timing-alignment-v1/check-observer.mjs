@@ -12,9 +12,10 @@ const receipt={kind:'spawn',system:'application32',target:2,payload:{$:'Componen
 const dump={entities:[],resources:{Resource:{value:0,original:0,sentinel:[333,444],flags:[false,true]}},pendingCommands:[{tag:'spawn',system:'application32'}]};
 const full=state(dump,[receipt]);
 assert.deepEqual(full.pending[0].payload.owner,captured);
-assert.equal(full.receiptCountMatches,true);
-assert.equal(state(dump,[]).receiptCountMatches,false);
-assert.equal(state({...dump,pendingCommands:[{tag:'insert',system:'application32'}]},[receipt]).receiptCountMatches,false);
+assert.equal(full.receiptLoweringMatches,true);
+assert.equal(state(dump,[]).receiptLoweringMatches,false);
+assert.equal(state({...dump,pendingCommands:[{tag:'insert',system:'application32'}]},[receipt]).receiptLoweringMatches,false);
+assert.throws(()=>state(dump,[{...receipt,kind:'unknown'}]));
 assert.deepEqual(raw({z:[null,true],a:'x'}).fields.map(field=>field.name),['z','a']);
 assert.throws(()=>raw(-1));
 assert.throws(()=>owner({...payload,unobserved:1}));

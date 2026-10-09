@@ -103,7 +103,7 @@ def entities(values:List<&2,Public.Entity>) -> List<&2,J.Value>:
     case Public.Entity{id,value,marker} <> rest:record("Entity",[J.Field{"id",J.Number{id}},J.Field{"value",maybe_owner(value)},J.Field{"marker",maybe_number(marker)}]) <> entities(rest)
 def state(value:Public.State) -> J.Value:
   match value:
-    case Public.State{rows,resource,commands,count,consistent}:record("State",[J.Field{"entities",J.Items{entities(rows)}},J.Field{"resource",owner(resource)},J.Field{"pending",J.Items{pending(commands)}},J.Field{"pendingCount",J.Number{count}},J.Field{"receiptCountMatches",J.Truth{consistent}}])
+    case Public.State{rows,resource,commands,count,consistent}:record("State",[J.Field{"entities",J.Items{entities(rows)}},J.Field{"resource",owner(resource)},J.Field{"pending",J.Items{pending(commands)}},J.Field{"logicalPendingCount",J.Number{count}},J.Field{"receiptLoweringMatches",J.Truth{consistent}}])
     case _:record("UnsupportedState",[])
 def error(value:D.Error) -> J.Value:
   match value:
