@@ -1,7 +1,7 @@
 """Execute one exact reviewed narrow metadata cohort using existing helpers."""
 import fcntl
 import hashlib
-import importlib.util
+import types
 import json
 import os
 from pathlib import Path
@@ -20,8 +20,13 @@ def capture(path,raw):
     with os.fdopen(fd,'wb')as stream:
         if not stat.S_ISREG(os.fstat(stream.fileno()).st_mode):raise ValueError('regular metadata output required')
         stream.write(raw)
-def load(name,path):
-    spec=importlib.util.spec_from_file_location(name,path);module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);return module
+def load(name,path,pins):
+    raw=regular_bytes(path)
+    if hashlib.sha256(raw).hexdigest()!=pins[str(Path(path).resolve())]:
+        raise ValueError('metadata helper drift before execution')
+    module=types.ModuleType(name);module.__file__=str(path)
+    exec(compile(raw,str(path),'exec'),module.__dict__)
+    return module
 
 def admitted(plan_path,digest):
     path=Path(plan_path)
@@ -39,9 +44,9 @@ def run(plan_path,digest):
     root=Path('/workspace/formal-proofs/bendvy')
     for path in [HERE/'prepare-metadata.py',root/'scripts/task_runner.py',root/'scripts/evidence_boundary.py']:
         if str(path.resolve())not in pins:raise ValueError('missing transitive helper pin')
-    metadata=load('simulation_metadata',HERE/'prepare-metadata.py')
-    runner=load('simulation_metadata_runner',root/'scripts/task_runner.py')
-    boundary=load('simulation_metadata_boundary',root/'scripts/evidence_boundary.py')
+    metadata=load('simulation_metadata',HERE/'prepare-metadata.py',pins)
+    runner=load('simulation_metadata_runner',root/'scripts/task_runner.py',pins)
+    boundary=load('simulation_metadata_boundary',root/'scripts/evidence_boundary.py',pins)
     out=Path(plan['outputRoot'])
     if out.exists()or out.is_symlink():raise ValueError('metadata output root starts absent')
     out.mkdir(mode=0o700)

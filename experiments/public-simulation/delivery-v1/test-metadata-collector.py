@@ -2,6 +2,8 @@
 import hashlib
 import importlib.util
 import json
+import os
+import py_compile
 from pathlib import Path
 import sys
 import tempfile
@@ -32,18 +34,18 @@ class Controls(unittest.TestCase):
     def test_nonzero_preserves_raw_and_terminal_receipt(self):
         with tempfile.TemporaryDirectory()as directory:
             path,digest,d=self.plan(directory);real_load=collector.load
-            def loaded(name,path):
+            def loaded(name,path,pins):
                 if name=='simulation_metadata_runner':return SimpleNamespace(execute_result=lambda *args:{'stdout':b'partial metadata','stderr':b'refused','exit':7,'failure':None})
-                return real_load(name,path)
+                return real_load(name,path,pins)
             with patch.object(collector,'load',side_effect=loaded):
                 with self.assertRaises(RuntimeError):collector.run(path,digest)
             out=Path(d['outputRoot']);receipt=json.loads((out/'receipt.json').read_text());self.assertEqual(receipt['status'],'INCOMPLETE');self.assertEqual((out/'probe.stdout').read_bytes(),b'partial metadata');self.assertEqual(len(receipt['guards']),4);self.assertEqual(receipt['commands'][0]['exit'],7)
     def test_second_stream_capture_failure_retains_process_and_first_raw(self):
         with tempfile.TemporaryDirectory()as directory:
             path,digest,d=self.plan(directory);real_load=collector.load;real_capture=collector.capture
-            def loaded(name,path):
+            def loaded(name,path,pins):
                 if name=='simulation_metadata_runner':return SimpleNamespace(execute_result=lambda *args:{'stdout':b'completed stdout','stderr':b'refused','exit':7,'failure':None})
-                return real_load(name,path)
+                return real_load(name,path,pins)
             def captured(path,raw):
                 if Path(path).name=='probe.stderr':raise OSError('test-only publication refusal')
                 return real_capture(path,raw)
@@ -56,6 +58,22 @@ class Controls(unittest.TestCase):
             self.assertEqual(row['stderr']['publication'],'FAILED_ABSENT');self.assertEqual(row['captureFailure'],{'stream':'stderr','type':'OSError'})
             self.assertEqual(len(receipt['guards']),4);self.assertEqual(receipt['guardFailures'],[])
             guard=json.loads((out/'final.guard.json').read_text());self.assertEqual(guard['actualPins'][str(out/'probe.stdout')],row['stdout']['sha256'])
+    def test_verified_source_ignores_valid_stale_bytecode(self):
+        with tempfile.TemporaryDirectory()as directory:
+            path=Path(directory)/'helper.py'
+            path.write_text('marker="cached"\n');stamp=path.stat().st_mtime_ns
+            py_compile.compile(str(path),doraise=True)
+            path.write_text('marker="source"\n');os.utime(path,ns=(stamp,stamp))
+            # Equal length/mtime makes the old cache valid to the standard loader.
+            spec=importlib.util.spec_from_file_location('stale_helper',path)
+            stale=importlib.util.module_from_spec(spec);spec.loader.exec_module(stale)
+            self.assertEqual(stale.marker,'cached')
+            pins={str(path.resolve()):collector.sha(path)}
+            exact=collector.load('exact_helper',path,pins)
+            self.assertEqual(exact.marker,'source')
+            path.write_text('marker="mutate"\n')
+            with self.assertRaisesRegex(ValueError,'helper drift before execution'):
+                collector.load('changed_helper',path,pins)
     def test_alias_target_chain_and_dotdot(self):
         with tempfile.TemporaryDirectory()as directory:
             root=Path(directory);(root/'real').mkdir();(root/'real/sub').mkdir();(root/'real/target').write_text('x');(root/'first').symlink_to('second');(root/'second').symlink_to('real/sub');view=metadata.aliases(root/'first/../target')
