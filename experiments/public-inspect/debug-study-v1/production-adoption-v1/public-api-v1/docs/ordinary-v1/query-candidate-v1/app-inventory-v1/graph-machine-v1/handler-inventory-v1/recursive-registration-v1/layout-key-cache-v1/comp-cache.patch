@@ -1,0 +1,24 @@
+--- originalCopied/comp.ts
++++ cacheCopied/comp.ts
+@@ -1,3 +1,4 @@
++import { layoutKey, resetLayoutKeyCache } from './layout-key-cache.mjs';
+ // NOTE: Bend's runtime was designed by humans, but this file was mostly written
+ // by AI's, as it includes a ton of optimizations. It works and tests pass, yet,
+ // bugs ARE expected. It will take some time for the compiler to be stable.
+@@ -1015,7 +1016,7 @@
+ 
+ function lay_eq(a: Lay, b: Lay): boolean {
+   diagnostic_watch("lay_eq");
+-  return a === b || JSON.stringify(a) === JSON.stringify(b);
++  return a === b || layoutKey(a) === layoutKey(b);
+ }
+ 
+ function lay_c(k: Kind): string {
+@@ -1349,6 +1350,7 @@
+   [TELES, SRCS, LOOPS, NODES, LAYS, LAY_IDS, FLATS, FUNS, BRWS, IDS,
+     TAKEN]
+     .forEach((m) => m.clear());
++  resetLayoutKeyCache();
+   "FID_EXIT FID_ENTER FID_T CID_T".split(" ").forEach((id) => TAKEN.add(id));
+   PROBES.length = 1;
+   const fl: File = {
