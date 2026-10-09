@@ -1,0 +1,16 @@
+SOME PROOFS FAIL
+Error:
+- expected : cases for Con
+- observed : \{}
+Context:
+- local : State<finished~S>
+- owner : Request.Owner<finished~S, Store<finished~S>, Input.Owner, Unit, Input.Owner, ../../../../../../../../bendvy/src/ecs/ordinary-declaration.Declaration{"Value"}, Input.project>
+- _     : W.Handle<finished~S>
+- _     : Maybe<&2, W.WorldError>
+- _     : U32
+Location: finished
+105 | def finished(~S:Data,local:State<S>,value:Frame(~S) & Output<S>) -> Local.Outcome<World(~S),State<S>,Unit,Output<S>>:
+106>|   match value:
+    |   ^^^^^^^^^^^^
+107 |     case (F.Frame{owner,_,_,_,[],[]},output):Completion.finish_deferred(~S,~Store<S>,~Input.Owner,~Unit,~Input.Owner,~Unit,~Input.identity(~S),~Input.project,~attempt(~S),~recover(~S),~State<S>,~Output<S>,~retained(~S),local,output,owner,T.Success{})
+bend 2.0.36 is available: run bend update

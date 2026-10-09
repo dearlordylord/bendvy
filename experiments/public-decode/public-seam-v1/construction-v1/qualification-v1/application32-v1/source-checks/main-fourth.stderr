@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : target
+- observed : target (consumed more than once)
+Context:
+- frame : F.Frame<projected~S, Store<projected~S>, Input.Owner, Unit, Input.Owner, Unit, ../../../../../../../../bendvy/src/ecs/ordinary-declaration.Declaration{"Value"}, Input.project>
+Location: projected
+44 |     case (frame,Write.Refused{owner,error}):(frame,Request.Refused{owner,Request.Entity{error}})
+45>| def projected(~S:Data,frame:Frame(~S),target:W.Handle<S>,value:Input.Owner & D.Raw) -> Frame(~S) & Request.Output<S,Input.Owner>:
+   |                                       ^^^^^^
+46 |   match value:
+bend 2.0.36 is available: run bend update

@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : an unambiguous name (the alias App shadows App.run)
+- observed : '('
+Location:
+7 | def done_31(previous:List<&2,Item>,value:Item) -> List<&2,Item>:List.reverse(&2,Item,value <> previous)
+8>| def step_31(previous:List<&2,Item>) -> List<&2,Item>:done_31(previous,Garden{"insert","nestedMissing",App.run(~Owner.Second,~Cases.codec(Cases.nested_missing()),App.Insert{},Cases.input(Cases.nested_missing()),Cases.resource(Cases.nested_missing()))})
+  |                                                                                                              ^
+9 | def done_30(previous:List<&2,Item>,value:Item) -> List<&2,Item>:step_31(value <> previous)
+bend 2.0.36 is available: run bend update

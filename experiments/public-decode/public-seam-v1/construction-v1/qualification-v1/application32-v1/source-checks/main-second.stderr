@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a parameter or field scrutinee (a match cannot scrutinize a computed value: give it its own def)
+Location:
+ 9 | def fields(count:U32) -> List<&2,D.NamedCodec>:
+10>|   match U32.equal(count,64):
+   |         ^^^^^^^^^^^^^^^^^^^
+11 |     case True{}:[]
+bend 2.0.36 is available: run bend update

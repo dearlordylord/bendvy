@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : value
+- observed : value (consumed more than once)
+Location: marker_project
+295 |     case (values,(returned,errors)):Store{values,marker,returned,errors}
+296>| def marker_project(value:U32) -> U32 & U32:(value,value)
+    |                    ^^^^^
+297 | def marker_family(~S:Data) -> Cmp.Family<S,Store<S>,Col.Column<S,Input.Owner> & (List<Request.Packet<Input.Owner>> & List<&2,W.WorldError>),U32,U32,Unit,marker_take(~S),marker_put(~S),marker_project>:Cmp.Family{"Marker"}
+bend 2.0.36 is available: run bend update

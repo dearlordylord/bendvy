@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : Array<Maybe<&1, U32>>
+- observed : Array<Maybe<&2, U32>>
+Context:
+- stamps : List<&2, Lifecycle.Entry>
+- values : Array<Maybe<&2, U32>>
+- view   : List<&2, Maybe<&2, U32>>
+Location: marker_join
+165 |   match value:
+166>|     case (values,view):(Col.Column{values,stamps},MarkerView{view,stamps})
+    |                                    ^^^^^^
+167 | type StoreView is Data:StoreView{values:ColumnView,marker:MarkerView,returned:List<&2,PacketView>,errors:List<&2,W.WorldError>}
+bend 2.0.36 is available: run bend update

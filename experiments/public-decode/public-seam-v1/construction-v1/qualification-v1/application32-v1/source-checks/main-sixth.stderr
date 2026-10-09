@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : an annotated term (cannot infer)
+- observed : \{Ops: (component => resource => args => ctx => body(gameplay~S, gameplay~H, component, resource, args, ctx))}
+Location: gameplay
+78 |   match ops:
+79>|     case Ops{component,resource}:body(~S,~H,~component,~resource,args,ctx)
+   |          ^^^^^^^^^^^^^^^^^^^^^^^
+80 | 
+bend 2.0.36 is available: run bend update

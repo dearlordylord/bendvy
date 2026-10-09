@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : @_:Type -> Type
+- observed : @-H:Type -> Type
+Context:
+- S : Data
+Location: scan_plan
+290 | def ScanOps(~H:Type) -> Type:Unit
+291>| def scan_plan(~S:Data) -> Query.Plan<S,Store<S>,Input.Owner,Unit,ScanOps>:
+    |                                                                  ^^^^^^^
+292 |   Query.Plan{Unit{},Query.family_match(~S,~Store<S>,~Input.Owner,~Unit,~Rest(~S),~Input.Owner,~D.Raw,~Unit,~take(~S),~put(~S),~Input.project,~family(~S),~Query.Required{})}
+bend 2.0.36 is available: run bend update

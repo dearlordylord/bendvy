@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : Data
+- observed : Type
+Context:
+- S : Data
+- H : Type
+Location: Ops
+69 |     case Args{ResourceWrite{},_,input}:resource_returned(~S,~H,Cap.owned_request(~H,~Input.Input,~ResourceConstruction.Output<Input.Input,Input.Owner>,~resource,ctx,input))
+70>| type Ops<S:Data,H:Type> is Data:Ops{component:Cap.OwnedRequest<H,Constructed.Input<S,Input.Input>,Constructed.Output<S,Input.Input,Input.Owner>>,resource:Cap.OwnedRequest<H,Input.Input,ResourceConstruction.Output<Input.Input,Input.Owner>>}
+   |                                               ^^^^^^^^^^^^^^^^^^
+71 | def component_cap(~S:Data,~H:Type,ops:Ops<S,H>) -> Cap.OwnedRequest<H,Constructed.Input<S,Input.Input>,Constructed.Output<S,Input.Input,Input.Owner>>:
+bend 2.0.36 is available: run bend update
