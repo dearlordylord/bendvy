@@ -3,7 +3,7 @@ import importlib.util
 from pathlib import Path
 HERE=Path(__file__).resolve().parent
 spec=importlib.util.spec_from_file_location('decode_complete_transport',HERE.parent/'transport.py')
-BASE=importlib.util.module_from_spec(spec);spec.loader.exec_module(BASE)
+BASE=importlib.util.module_from_spec(spec);exec(compile(Path(spec.origin).read_bytes(),str(spec.origin),"exec"),BASE.__dict__)
 
 def inventory(entry,assembly=False,role="normal"):
  entry=Path(entry).resolve()

@@ -1,0 +1,123 @@
+{
+  "scope": "whole15 generic and whole8 deferred consuming models; no performance or closure",
+  "supersededV1V2": {
+    "status": "BLOCKED_UNLAUNCHED",
+    "reason": "Preserved unused plans pin transitive timestamp loaders; coherent v3 compiles pinned source bytes"
+  },
+  "plans": {
+    "generic-js": {
+      "planSha256": "2e6e464b1e1cdeb26ea77a9c09cc55846b341aeefd5b3784f6c2c6debb2f66b6",
+      "status": "PREPARED_NO_CHILD",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/generic-assembly-v1/complete.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v3/generic-js/generated/complete.js"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v3/generic-js/generated/complete.js"
+        },
+        {
+          "label": "complete-run",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v3/generic-js/generated/complete.js"
+          ],
+          "capSeconds": 5
+        }
+      ],
+      "oracleCommit": "152dc70d9eb5cb715146dfdf9a4fbdf8d2441813",
+      "oracleSha256": "a0b2037dba1943acb7deb49f58007a72ff5d62821559744a8d1f9823c0a3e349",
+      "assemblyBindingSha256": "3b102fdcfb863df9be8e93bd81d11318d5f89cb3bc65cfc38867790e02f3d49d"
+    },
+    "generic-cEmit": {
+      "planSha256": "e6d63e3088ece6344eae8f0399bcb38d1da80f89cb8e19d059aa349c1af73aa7",
+      "status": "PREPARED_NO_CHILD",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/generic-assembly-v1/complete.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v3/generic-cEmit/generated/complete.c"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v3/generic-cEmit/generated/complete.c"
+        }
+      ],
+      "oracleCommit": "152dc70d9eb5cb715146dfdf9a4fbdf8d2441813",
+      "oracleSha256": "a0b2037dba1943acb7deb49f58007a72ff5d62821559744a8d1f9823c0a3e349",
+      "assemblyBindingSha256": "3b102fdcfb863df9be8e93bd81d11318d5f89cb3bc65cfc38867790e02f3d49d"
+    },
+    "deferred-js": {
+      "planSha256": "613f319aebbbccf53b798e82a89e2b94685a4cf7d99a298c1f76207783b6a598",
+      "status": "PREPARED_NO_CHILD",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/deferred-assembly-v1/fixture.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v3/deferred-js/generated/complete.js"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v3/deferred-js/generated/complete.js"
+        },
+        {
+          "label": "complete-run",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v3/deferred-js/generated/complete.js"
+          ],
+          "capSeconds": 5
+        }
+      ],
+      "oracleCommit": "dfdd7d0a7c518fc23acb4ed27d1b2fa4c117f920",
+      "oracleSha256": "8095a1eb678fcf3f9cf985ce33d9e779108f6041fbecdd7ac67cf8f94a2bac42",
+      "assemblyBindingSha256": "d5dec5da74192520b8dd441826adffc665aefafed7ed046fc9f6c09db63494fb"
+    },
+    "deferred-cEmit": {
+      "planSha256": "15981ff3d1e48916133a09b1f3cc24e177d228e5a60974c6d79d845b9cef3d61",
+      "status": "PREPARED_NO_CHILD",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/deferred-assembly-v1/fixture.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v3/deferred-cEmit/generated/complete.c"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v3/deferred-cEmit/generated/complete.c"
+        }
+      ],
+      "oracleCommit": "dfdd7d0a7c518fc23acb4ed27d1b2fa4c117f920",
+      "oracleSha256": "8095a1eb678fcf3f9cf985ce33d9e779108f6041fbecdd7ac67cf8f94a2bac42",
+      "assemblyBindingSha256": "d5dec5da74192520b8dd441826adffc665aefafed7ed046fc9f6c09db63494fb"
+    }
+  }
+}

@@ -65,7 +65,7 @@ def codec(value,typ,types,name,encode):
  tag=matches[0];fs=variants[tag];assert len(value['fields'])==len(fs),'field count differs'
  return {'$':tag,**{k:codec(v,ft,types,name,False) for (k,ft),v in zip(fs,value['fields'])}}
 def parser():
- spec=importlib.util.spec_from_file_location('strict_bend_structural',PARSER);p=importlib.util.module_from_spec(spec);spec.loader.exec_module(p);return p
+ spec=importlib.util.spec_from_file_location('strict_bend_structural',PARSER);p=importlib.util.module_from_spec(spec);exec(compile(PARSER.read_bytes(),str(PARSER),"exec"),p.__dict__);return p
 
 def render(expected,entry):
  types,name=inventory(entry);return (parser().render(codec(expected,'Report',types,name,True))+'\n').encode()

@@ -1,0 +1,57 @@
+[
+  {
+    "script": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/full-assembly-v1/check-collector-bootstrap.py",
+    "sha256": "6d4acb9bda12a1fc5c8a7385df8170cb995fdf364c072acf18573a6363351de4",
+    "result": {
+      "status": "PASS",
+      "native": false,
+      "stdlibOnlyModuleEntry": true,
+      "wrongPythonNoHelperEntry": true,
+      "wrongPlanNoHelperEntry": true,
+      "pinDriftNoHelperEntry": true,
+      "missingHelperPinNoHelperEntry": true,
+      "positiveHelperEntryReached": true,
+      "backendChildren": 0
+    }
+  },
+  {
+    "script": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/generic-assembly-v1/check-transport.py",
+    "sha256": "dd45c0bb946d4f1f12d0f2f9254c898172110059a2bfd2e627f3b703f02bb0a1",
+    "result": {
+      "status": "PASS",
+      "scope": "strict full DTO controls; no backend",
+      "genericRawBytes": 39106,
+      "genericRawSha256": "d657e73d725cab29149577ebf73d30779237ddb484f4e9178c87ba03d45f9113",
+      "deferredRawBytes": 32624,
+      "deferredRawSha256": "e0872735e119e5391acc5cf881bcba5e40b4233025907bb0d44d40677d927317",
+      "rejections": [
+        "missing-row",
+        "missing-owner",
+        "wrong-candidate",
+        "extra-field",
+        "trailing",
+        "cross-nominal",
+        "missing-barrier-owner",
+        "missing-failed-packets",
+        "missing-foreign-output",
+        "missing-refusal",
+        "cross-role"
+      ],
+      "historicalNormalRawUnchanged": true,
+      "backendChildren": 0
+    }
+  },
+  {
+    "script": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/generic-assembly-v1/check-source-loaders.py",
+    "sha256": "209f4b5b5d18173ad877e10cc66abf6cf12b1b1fbf94e5165caba01ab60a5c02",
+    "result": {
+      "status": "PASS",
+      "staleTimestampLoaderPositiveReached": true,
+      "spineBaseUsesPinnedSourceBytes": true,
+      "baseParserUsesPinnedSourceBytes": true,
+      "sameSizeSameMtimePycIgnored": true,
+      "cachedModulesIgnored": true,
+      "backendChildren": 0
+    }
+  }
+]
