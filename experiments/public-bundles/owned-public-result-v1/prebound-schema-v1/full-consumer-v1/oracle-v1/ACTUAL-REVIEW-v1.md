@@ -1,0 +1,9 @@
+# Independent actual semantic review
+
+Scoped PASS for immutable actual packet `f856002fad217a6290d58f028a9df6ce138c9b83`, against the four exact original plans admitted in LAUNCH-REVIEW-v1.md. Reviewer executed no backend or source checker.
+
+All four cohorts completed with exit zero, null failure and empty stderr. Normal JS/Native stdout is the entire independently frozen 16012-byte String; wrong-binding JS/Native stdout is the entire independent 9660-byte refusal/returned-world String. Each backend pair is byte-identical and the mutant differs from the normal model. There was no output normalization or expectation revision.
+
+Independently ran the no-child verify-evidence.py: all 366 lossless members (88/88/95/95) match exact compressed and decompressed hashes, lengths and archive membership, original admitted plan SHA, command argv/caps, raw streams, complete literals and 34 guard receipts. All 294 captured source members (73/73/74/74) match current original files and admitted source pins. Independently checked live final progressive ledgers: 83 pins per JS cohort and 89 per Native cohort, including plan, every raw stream and actual generated JS/C/native artifact; final guard equals the reconstructed full ledger and every current digest matches. Native resource content/membership inventories match the original plans and every resource-bearing guard. Original sessions are 1548, 57764, 43822 and 91912; CPU5, emit30/build120/run5, private approved Clang19, one thread/GPU off and actual-child-only lock remain as admitted.
+
+No evidence blocker found. This is additive experimental semantic qualification, not a public prebound API acceptance, proof, performance improvement or issue completion. Baseline twenty bindings remain twenty. Source checking retains the nine foreign/unsafe IO refusals as incomplete. The wrong-binding cohort qualifies reached declaration refusal and complete returned-world recovery, not forty successful invocations.
