@@ -53,12 +53,13 @@ def assembly_binding(path,digest):
     assert path.is_absolute() and str(path.resolve())==str(path), 'binding path must be canonical'
     binding=admitted_plan(path,digest)
     assert set(binding) in ({'mode','entry','sourcePins','oracle','cEmission'},{'mode','entry','sourcePins','oracle','role','cEmission'}), 'exact assembly binding fields required'
-    assert binding['mode'] in ('registered-decode-assembly-v1','generic-spine-decode-assembly-v1','deferred-spine-decode-assembly-v1','construction-spine-decode-assembly-v1','custom-spine-decode-assembly-v1','completion-spine-decode-assembly-v1','input-codec-spine-decode-assembly-v1'), 'unknown assembly mode'
+    assert binding['mode'] in ('registered-decode-assembly-v1','generic-spine-decode-assembly-v1','deferred-spine-decode-assembly-v1','construction-spine-decode-assembly-v1','custom-spine-decode-assembly-v1','completion-spine-decode-assembly-v1','input-codec-spine-decode-assembly-v1','native-consuming-decode-assembly-v1'), 'unknown assembly mode'
     entry=pinned_file(binding['entry'])
     role=binding.get('role','normal')
-    assert role in ('normal','generic-spine','deferred-spine','construction-spine','custom-spine','completion-spine','input-codec-spine'), 'Native positive complete role only'
-    assert binding['mode']==({'generic-spine':'generic-spine-decode-assembly-v1','deferred-spine':'deferred-spine-decode-assembly-v1','construction-spine':'construction-spine-decode-assembly-v1','custom-spine':'custom-spine-decode-assembly-v1','completion-spine':'completion-spine-decode-assembly-v1','input-codec-spine':'input-codec-spine-decode-assembly-v1'}.get(role,'registered-decode-assembly-v1')), 'Native mode/role mismatch'
-    assert entry.name==('complete-spine.bend' if role in ('construction-spine','custom-spine','completion-spine','input-codec-spine') else ('spine.bend' if role=='normal' else role+'.bend')), 'complete role entry required'
+    assert role in ('normal','generic-spine','deferred-spine','construction-spine','custom-spine','completion-spine','input-codec-spine','native-consuming'), 'Native positive complete role only'
+    assert binding['mode']==({'generic-spine':'generic-spine-decode-assembly-v1','deferred-spine':'deferred-spine-decode-assembly-v1','construction-spine':'construction-spine-decode-assembly-v1','custom-spine':'custom-spine-decode-assembly-v1','completion-spine':'completion-spine-decode-assembly-v1','input-codec-spine':'input-codec-spine-decode-assembly-v1','native-consuming':'native-consuming-decode-assembly-v1'}.get(role,'registered-decode-assembly-v1')), 'Native mode/role mismatch'
+    assert role=='native-consuming' and entry.name=='sequential-spine.bend' or entry.name==('complete-spine.bend' if role in ('construction-spine','custom-spine','completion-spine','input-codec-spine') else ('spine.bend' if role=='normal' else role+'.bend')), 'complete role entry required'
+    if role=='native-consuming':assert entry.name=='sequential-spine.bend' and entry.parent.name=='native-consuming-v1', 'closed Native consuming source differs'
     if role in ('construction-spine','custom-spine','completion-spine','input-codec-spine'):assert entry.parent.name=={'construction-spine':'qualification-v1','custom-spine':'fallible-composition-v1','completion-spine':'completion-addon-v1','input-codec-spine':'input-codec-v1'}[role], 'closed construction role/source differs'
     assert type(binding['sourcePins']) is dict and binding['sourcePins'], 'complete source pins required'
     for filename,sha in binding['sourcePins'].items():pinned_file({'path':filename,'sha256':sha})
@@ -123,7 +124,7 @@ def run_recorded(row,runner,command):
 
 
 def main(out,native=False,execute=False,plan_digest=None,role="normal",binding_path=None,binding_digest=None):
-    assert role in ("normal","generic-spine","deferred-spine","construction-spine","custom-spine","completion-spine","input-codec-spine") and native, "Native-from-C only"
+    assert role in ("normal","generic-spine","deferred-spine","construction-spine","custom-spine","completion-spine","input-codec-spine","native-consuming") and native, "Native-from-C only"
     assert binding_path is not None or role=="normal", "new Native roles require explicit binding"
     binding=assembly_binding(binding_path,binding_digest)
     assembly=binding is not None
@@ -207,6 +208,7 @@ def main(out,native=False,execute=False,plan_digest=None,role="normal",binding_p
     authoring={pinned_file(pin) for pin in binding['oracle']['authoring']} if assembly else {oracle_home/'expected.py',oracle_home/'REVIEW.md'}
     if role in ('generic-spine','deferred-spine'):inputs.update({entries[0].parent/'transport-inventory.py',entries[0].parent.parent/'generic-assembly-v1/transport-inventory.py'})
     if role in ('construction-spine','custom-spine','completion-spine','input-codec-spine'):inputs.add((entries[0].parent if role=='construction-spine' else entries[0].parent.parent/'qualification-v1')/'transport-inventory.py')
+    if role=='native-consuming':inputs.update({entries[0].parent/'transport-inventory.py',entries[0].parent.parent/'transport-inventory.py'})
     inputs.update({*authoring,basis_file,HERE/'transport.py',HERE.parent/'transport.py',ROOT/'experiments/public-simulation/bend-v1/parse-report.py',oracle})
     transport=load('decode_transport',HERE/'transport.py')
     expected=json.loads(oracle.read_text())
@@ -279,7 +281,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--assembly-binding',type=Path,help='Explicit current assembly source/oracle/previous C bindings')
     parser.add_argument('--assembly-binding-sha256')
-    parser.add_argument('--role',choices=['normal','generic-spine','deferred-spine','construction-spine','custom-spine','completion-spine','input-codec-spine'],default='normal')
+    parser.add_argument('--role',choices=['normal','generic-spine','deferred-spine','construction-spine','custom-spine','completion-spine','input-codec-spine','native-consuming'],default='normal')
     parser.add_argument('--native',action='store_true')
     parser.add_argument('--execute',action='store_true',help='Consume existing --output/plan.json after admission; default prepares without a child')
     parser.add_argument('--plan-sha256',help='Required exact admitted plan digest for --execute')
