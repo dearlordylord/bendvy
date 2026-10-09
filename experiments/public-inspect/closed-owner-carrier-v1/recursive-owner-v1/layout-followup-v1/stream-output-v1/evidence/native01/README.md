@@ -1,0 +1,1 @@
+Exact independently admitted484dd2a plan executed once. Installed compiler emit30 deadline, empty raw streams, noC; noClang/runtime/oracle comparison. Four guards unchanged. INCOMPLETE preserved, no retry/capraise.

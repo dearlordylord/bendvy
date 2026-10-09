@@ -1,0 +1,54 @@
+{
+  "scope": "Complete Inspector closed-owner carrier Native development only; no resolver qualification, performance or #54 completion",
+  "planSHA256": "484dd2aad8dc31b8c09c1732bb3656be3055377751dc27a403ba5a0ad6cdb794",
+  "commands": [
+    {
+      "label": "emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-54-boxed-scan/experiments/public-inspect/closed-owner-carrier-v1/recursive-owner-v1/layout-followup-v1/stream-output-v1/stage/output-io-main.bend",
+        "-o",
+        "/tmp/bendvy-inspect54-stream-native01/scenario.c"
+      ],
+      "capSeconds": 30,
+      "exit": null,
+      "failure": "child deadline",
+      "stdout": {
+        "path": "/tmp/bendvy-inspect54-stream-native01/emit.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "/tmp/bendvy-inspect54-stream-native01/emit.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+    }
+  ],
+  "guards": [
+    {
+      "path": "/tmp/bendvy-inspect54-stream-native01/emit-pre.guard.json",
+      "sha256": "24385da73a46b4d8760c5946b8c4dab5fb04ef19220385a7baee2bf1e628f8bf"
+    },
+    {
+      "path": "/tmp/bendvy-inspect54-stream-native01/emit-acquired.guard.json",
+      "sha256": "ff33447b2b6fcb0f40898b033b8813cd9f32626b217b1e34ff23b15856192df7"
+    },
+    {
+      "path": "/tmp/bendvy-inspect54-stream-native01/emit-post.guard.json",
+      "sha256": "a3e5cfcea2404b0febefb2b33b996b053c8204e54573b390a093ac7aebfb573f"
+    },
+    {
+      "path": "/tmp/bendvy-inspect54-stream-native01/final.guard.json",
+      "sha256": "5a20868285eca9d73b7981994ab36c0311d3fb1ea585dbd91a9c066da0027217"
+    }
+  ],
+  "status": "INCOMPLETE",
+  "error": "ValueError: Owned child failed: emit",
+  "guardFailures": []
+}
