@@ -37,10 +37,6 @@ def reserved(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~install:W.World<S,
     case (world,W.Reserved{+target}):activated(~S,~C,~R,~E,~P,~Q,~install,target,payload,undo,commands,events,W.activate(~S,~C,~R,~E,world,target))
     case (world,W.ReservationRejected{error}):(T.Tx{world,undo,commands,events},(Fail{error},(Some{payload},(None{},None{}))))
 
-def reset_clock(~S:Data,~C:Type,~R:Type,~E:Data,clock:U32,world:W.World<S,C,R,E>) -> W.World<S,C,R,E>:
-  match world:
-    case W.World{ns,next,high,live,capacity,depth,store,resource,events,commands,registrations,system,_}:W.World{ns,next,high,live,capacity,depth,store,resource,events,commands,registrations,system,clock}
-
 def spawn(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~install:W.World<S,C,R,E> -> W.Handle<S> -> Request.Packet<P> -> Install.Attempt<W.World<S,C,R,E>,Request.Packet<P>,Q>,tx:T.Tx<W.World<S,C,R,E>,E>,payload:Request.Packet<P>) -> T.Tx<W.World<S,C,R,E>,E> & (Result<&2,&2,W.WorldError,W.Handle<S>> & (Maybe<&1,Request.Packet<P>> & (Maybe<&1,Journal.Receipt<W.World<S,C,R,E>,Request.Packet<P>,Q>> & Maybe<&1,Journal.Pending<Q>>))):
   match tx:
-    case T.Tx{W.World{+ns,+next,+high,live,+capacity,+depth,store,resource,+published,queued,+registrations,+system,+clock},undo,commands,events}:reserved(~S,~C,~R,~E,~P,~Q,~install,payload,(world => reset_clock(~S,~C,~R,~E,clock,world)) <> undo,commands,events,W.reserve_id(~S,~C,~R,~E,W.World{ns,next,high,live,capacity,depth,store,resource,published,queued,registrations,system,clock}))
+    case T.Tx{world,undo,commands,events}:reserved(~S,~C,~R,~E,~P,~Q,~install,payload,undo,commands,events,W.reserve_id(~S,~C,~R,~E,world))
