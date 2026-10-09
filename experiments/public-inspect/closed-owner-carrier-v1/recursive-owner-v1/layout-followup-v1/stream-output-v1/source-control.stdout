@@ -1,0 +1,15 @@
+{
+  "status": "SOURCE_ORDERED_CONCAT_TRANSPORT_PASS",
+  "sourceFiles": 46,
+  "changedFiles": [
+    "output-io-main.bend"
+  ],
+  "blocks": [
+    "\"schema|Workshop\\n\" ++ Output.driver(~D.Workshop,Driver.workshop())",
+    "\"retry|Workshop\\n\" ++ Output.retry(~D.Workshop,Fixture.workshop())",
+    "\"schema|Garden\\n\" ++ Output.driver(~D.Garden,Driver.garden())",
+    "\"retry|Garden\\n\" ++ Output.retry(~D.Garden,Fixture.garden())"
+  ],
+  "transport": "First3 IO.write, final IO.print, identical concatenated expression plus final LF",
+  "limits": "Inspection control only; full actual consumer output equality remains required"
+}

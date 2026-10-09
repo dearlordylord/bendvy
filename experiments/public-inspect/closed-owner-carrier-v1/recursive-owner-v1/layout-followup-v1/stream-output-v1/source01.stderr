@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : a filled definition (an unfilled law is a dead claim: live code cannot use it)
+- observed : after_workshop_retry
+Context:
+- value : Unit
+Location: after_workshop_driver
+15 | def after_workshop_driver(value:Unit) -> IO(Unit):
+16>|   IO.bind(Unit,Unit,workshop_retry(),after_workshop_retry)
+   |                                      ^^^^^^^^^^^^^^^^^^^^
+17 | def after_workshop_retry(value:Unit) -> IO(Unit):
+bend 2.0.36 is available: run bend update
