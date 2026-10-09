@@ -1,0 +1,79 @@
+{
+  "scope": "Full unchanged feature semantics/source-backed serializer transport experiment; no comparative timing or task closure",
+  "planSHA256": "04c197dfd54a4f641cee1f7dbd969650f540b3ce712fcc29d4fdcfb111a51bee",
+  "stage": "runtime",
+  "commands": [
+    {
+      "label": "population-64-0-0",
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44",
+      "completeOraclePass": true,
+      "markerStatGatePass": true,
+      "stdoutBytes": 1058268
+    },
+    {
+      "label": "population-256-0-0",
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44",
+      "completeOraclePass": true,
+      "markerStatGatePass": true,
+      "stdoutBytes": 4367583
+    },
+    {
+      "label": "population-1024-0-0",
+      "exit": null,
+      "failure": "child deadline",
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+    }
+  ],
+  "guards": [
+    {
+      "label": "pre",
+      "unchanged": true
+    },
+    {
+      "label": "acquired-population-64-0-0",
+      "unchanged": true
+    },
+    {
+      "label": "post-population-64-0-0",
+      "unchanged": true
+    },
+    {
+      "label": "acquired-population-256-0-0",
+      "unchanged": true
+    },
+    {
+      "label": "post-population-256-0-0",
+      "unchanged": true
+    },
+    {
+      "label": "acquired-population-1024-0-0",
+      "unchanged": true
+    },
+    {
+      "label": "post-population-1024-0-0",
+      "unchanged": true
+    },
+    {
+      "label": "final",
+      "unchanged": true
+    }
+  ],
+  "status": "INCOMPLETE",
+  "logs": {
+    "population-64-0-0.stdout": "2be9ea3801409981ec799bee9a8aa712d974f2b29096336692a95ba818cccbd6",
+    "population-64-0-0.stderr": "b9f6203a37d8e1f198e98dd058ec29eac4a6ebaf93e87f8052821b298a402165",
+    "population-256-0-0.stdout": "e4148f0ac5b53e7489481d750aed87e993140774c9ad26d109c87f3ad8abda55",
+    "population-256-0-0.stderr": "a6e4369e0c053ace5d0b3d2c0988917daa6b723f441deb15559d9a917241b0bd",
+    "population-1024-0-0.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "population-1024-0-0.stderr": "a94d2558905d2c225b671efcf309446a0a23f1d889e74ea3dd293afcf480a7a3"
+  },
+  "error": "TimeoutError: child deadline",
+  "guardFailures": []
+}

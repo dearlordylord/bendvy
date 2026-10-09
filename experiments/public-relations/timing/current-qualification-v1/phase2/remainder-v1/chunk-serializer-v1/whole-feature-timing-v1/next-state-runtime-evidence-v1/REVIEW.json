@@ -1,0 +1,65 @@
+{
+  "rows": [
+    {
+      "role": "fuel-js",
+      "originalSession": 55997,
+      "status": "NEXT_STATE_FUEL-RUNTIME_PASS_NO_TIMING",
+      "commands": [
+        {
+          "label": "fuel",
+          "exit": 0,
+          "failure": null
+        }
+      ],
+      "guards": 4
+    },
+    {
+      "role": "full-js",
+      "originalSession": 95047,
+      "status": "INCOMPLETE",
+      "commands": [
+        {
+          "label": "population-64-0-0",
+          "exit": 0,
+          "failure": null
+        },
+        {
+          "label": "population-256-0-0",
+          "exit": 0,
+          "failure": null
+        },
+        {
+          "label": "population-1024-0-0",
+          "exit": null,
+          "failure": "child deadline"
+        }
+      ],
+      "guards": 8
+    },
+    {
+      "role": "native-build",
+      "originalSession": 60441,
+      "status": "NEXT_STATE_BUILD_PASS_NO_TIMING",
+      "commands": [
+        {
+          "label": "build",
+          "exit": 0,
+          "failure": null
+        }
+      ],
+      "guards": 4
+    }
+  ],
+  "totalGuards": 16,
+  "JSUnexecuted": [
+    "fanout-256-1-0",
+    "fanout-256-16-0",
+    "fanout-256-128-0",
+    "depth-256-1-0",
+    "depth-256-16-0",
+    "depth-256-128-0"
+  ],
+  "JS1024": "Deadline5 after full Complete marker; stdoutempty. No retry or cap raise. Full9 remains INCOMPLETE.",
+  "nativeRuntimeAcceptance": false,
+  "ratios": null
+}
