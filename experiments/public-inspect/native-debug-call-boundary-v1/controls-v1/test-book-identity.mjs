@@ -21,6 +21,6 @@ try {
  const foreign=make();foreign.tmps.target.set('closed-Array-type','targetSimilar');refuse(()=>capture(Bend,foreign,entry));
  const shifted=make();shifted.tlds['target~1']=shifted.tlds['target~0'];shifted.tmps.target.set('closed-Array-type','target~1');refuse(()=>capture(Bend,shifted,entry));
  refuse(()=>validate('erased-specialization',baseline,candidate,before,{...after,sha256:'altered'}));
- after.verify();
+ after.verify();fs.appendFileSync(entry,'# altered source\n');refuse(()=>after.verify());
  console.log('SYNTHETIC_CHECKED_BOOK_IDENTITY_PASS: exact map, source Def/reference/body/key and similar-name refusals; no compiler');
 }finally{fs.rmSync(root,{recursive:true,force:true});}

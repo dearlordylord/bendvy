@@ -62,7 +62,7 @@ def prepare(out):
  tools={'python':str(Path(sys.executable).resolve()),'node':'/home/node/.local/share/mise/installs/node/24.20.0/bin/node','taskset':'/usr/bin/taskset','clangWrapper':'/tmp/bendvy-clang19-diagnostic/clang19','clangBinary':'/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang'}
  pins={};bindings={}
  ref=Path('/workspace/formal-proofs/bendvy/.references/bend2/bend2')
- for p in [*root.rglob('*'),*stage.iterdir(),config,ROOT/'scripts/task_runner.py',ROOT/'scripts/evidence_boundary.py',*map(Path,tools.values()),*map(Path,configuration.LINK_INPUTS),ref/'comp.ts',ref/'bend.ts',ref/'base.bend',*ref.joinpath('effs').rglob('*')]:
+ for p in [*root.rglob('*'),*stage.iterdir(),config,ROOT/'scripts/task_runner.py',ROOT/'scripts/evidence_boundary.py',ROOT/'scripts/owned-tool-pins.py',*map(Path,tools.values()),*map(Path,configuration.LINK_INPUTS),ref/'comp.ts',ref/'bend.ts',ref/'base.bend',*ref.joinpath('effs').rglob('*')]:
   if p.is_file() and '__pycache__' not in p.parts and p.suffix!='.pyc':
    resolved=p.resolve(strict=True);pins[str(resolved)]=sha(resolved)
    if p.is_symlink():bindings[str(p)]=str(resolved)
