@@ -1,0 +1,98 @@
+{
+  "scope": "Exact one-shot complete registered-lifecycle development preparation; no backend/timing admission yet",
+  "sourceCommit": "cc1d4e52",
+  "independentOracleCommit": "9c80be91",
+  "sourceInventoryFiles": 52,
+  "wholeLiteralBytes": 16012,
+  "wholeLiteralSHA256": "db26a088d15fe4ee897fb3991f03b54ef344897d848cdc32bd47f2aa42e8fd8b",
+  "sequence": "JS wholeString PASS required before Native; no retries/capchanges",
+  "plans": [
+    {
+      "backend": "js",
+      "livePlan": "/tmp/bendvy-bundle41-registered-common-js01/plan.json",
+      "snapshot": "js-prepared-plan-v1.json",
+      "sha256": "0867e48a6ecc9772897622d94882b7eb9c24e223b008e26c1e953999a3006e32",
+      "inputFiles": 76,
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-41-public-readiness/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/registered-lifecycle-v1/main.bend",
+            "-o",
+            "/tmp/bendvy-bundle41-registered-common-js01/scenario.js"
+          ],
+          "capSeconds": 30
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/tmp/bendvy-bundle41-registered-common-js01/scenario.js"
+          ],
+          "capSeconds": 5
+        }
+      ],
+      "expectedWholeStringSHA256": "56d0de7ab8d614c5eccd395d3c7cc349fd7ad20d783d302bea6b4ba98a8956c3"
+    },
+    {
+      "backend": "native",
+      "livePlan": "/tmp/bendvy-bundle41-registered-common-native01/plan.json",
+      "snapshot": "native-prepared-plan-v1.json",
+      "sha256": "c79bec9620c66829549939fc44132eeb12de843a98c1eec223ba1075c1aafd36",
+      "inputFiles": 79,
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-41-public-readiness/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/registered-lifecycle-v1/main.bend",
+            "-o",
+            "/tmp/bendvy-bundle41-registered-common-native01/scenario.c"
+          ],
+          "capSeconds": 30
+        },
+        {
+          "label": "build",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/tmp/bendvy-clang19-diagnostic/clang19",
+            "-O3",
+            "/tmp/bendvy-bundle41-registered-common-native01/scenario.c",
+            "-o",
+            "/tmp/bendvy-bundle41-registered-common-native01/scenario.native",
+            "-pthread",
+            "-lm"
+          ],
+          "capSeconds": 120
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/tmp/bendvy-bundle41-registered-common-native01/scenario.native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "capSeconds": 5
+        }
+      ],
+      "expectedWholeStringSHA256": "56d0de7ab8d614c5eccd395d3c7cc349fd7ad20d783d302bea6b4ba98a8956c3"
+    }
+  ]
+}
