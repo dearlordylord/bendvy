@@ -182,6 +182,23 @@ class Contract(unittest.TestCase):
         middle.unlink(); middle.symlink_to(self.root/'missing')
         with self.assertRaises((RuntimeError, OSError)): self.shallow([search], [middle, target])
 
+    def test_shallow_repeated_directory_alias_is_valid_and_guarded(self):
+        actual = self.root/'usr'/'lib'; actual.mkdir(parents=True)
+        alias = self.root/'lib'; alias.symlink_to('usr/lib', target_is_directory=True)
+        payload = actual/'libthing.so.1'; payload.write_bytes(b'original')
+        candidate = actual/'libthing.so'; candidate.symlink_to(alias/'libthing.so.1')
+        session = self.shallow([alias, actual])
+        observed = session.resolver['loader_search_directories'][str(alias/'libthing.so')]
+        self.assertEqual(observed['resolved'], str(payload))
+        self.assertEqual([row['path'] for row in observed['links']],
+                         [str(alias), str(candidate), str(alias)])
+        payload.write_bytes(b'changed')
+        with self.assertRaises(RuntimeError): session.check()
+        # A true expanding cycle still refuses rather than looping.
+        candidate.unlink(); candidate.symlink_to(alias/'libthing.so'/'tail')
+        with self.assertRaises((RuntimeError, OSError)):
+            self.shallow([alias, actual])
+
     def test_shallow_root_symlink_parent_traversal_pins_actual_directory(self):
         a = self.root/'A'; a.mkdir()
         b = self.root/'B'; b.mkdir()

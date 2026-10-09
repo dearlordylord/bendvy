@@ -192,9 +192,10 @@ class PinnedTools:
                     continue
                 current /= component
                 if current.is_symlink():
-                    if current in seen:
+                    state = (current, tuple(remaining))
+                    if state in seen:
                         raise RuntimeError("cyclic loader-search symlink")
-                    seen.add(current)
+                    seen.add(state)
                     literal = str(current.readlink())
                     target = current.parent / literal
                     if require_coverage and not covered(target, link_target=True):

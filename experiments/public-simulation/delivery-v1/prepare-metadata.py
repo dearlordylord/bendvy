@@ -27,18 +27,22 @@ def configurations(root):
 
 def aliases(literal):
     path=Path(literal).absolute()
+    # Resolve first so expanding cycles cannot grow the pending suffix forever.
+    try:resolved=path.resolve(strict=False)
+    except RuntimeError as error:raise ValueError('cyclic metadata alias') from error
     pending=list(path.parts[1:]);current=Path('/');links=[];seen=set()
     while pending:
         component=pending.pop(0)
         if component=='..':current=current.parent;continue
         current/=component
         if current.is_symlink():
-            if str(current) in seen:raise ValueError('cyclic metadata alias')
-            seen.add(str(current));target=str(current.readlink())
+            state=(str(current),tuple(pending))
+            if state in seen:raise ValueError('cyclic metadata alias')
+            seen.add(state);target=str(current.readlink())
             links.append({'path':str(current),'target':target})
             target_path=Path(target) if Path(target).is_absolute() else current.parent/target
             pending=list(target_path.parts[1:])+pending;current=Path('/')
-    return {'resolved':str(path.resolve(strict=False)),'present':path.exists(),'links':links}
+    return {'resolved':str(resolved),'present':path.exists(),'links':links}
 
 def namespace_state(literals):
     configs,includes=configurations('/etc/ld.so.conf')
