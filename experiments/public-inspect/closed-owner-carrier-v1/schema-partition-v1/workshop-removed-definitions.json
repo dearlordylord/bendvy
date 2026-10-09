@@ -1,0 +1,286 @@
+[
+  {
+    "file": "family-witness.bend",
+    "declaration": "def inspect_garden(frame:I.Frame<D.Garden,D.Store<D.Garden>,Unit,U32>,target:W.Handle<D.Garden>) -> I.Frame<D.Garden,D.Store<D.Garden>,Unit,U32> & Q.Product<Q.Product<Q.Product<C.Access<U32>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>:"
+  },
+  {
+    "file": "family-witness.bend",
+    "declaration": "def check_garden(frame:K.Frame<D.Garden,D.Store<D.Garden>,Unit,U32>,target:W.Handle<D.Garden>) -> K.Frame<D.Garden,D.Store<D.Garden>,Unit,U32> & Q.Product<Q.Product<Q.Product<C.Access<U32>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>:"
+  },
+  {
+    "file": "family-witness.bend",
+    "declaration": "def inspect_match_garden(frame:I.Frame<D.Garden,D.Store<D.Garden>,Unit,U32>,target:W.Handle<D.Garden>) -> I.Frame<D.Garden,D.Store<D.Garden>,Unit,U32> & Bool:"
+  },
+  {
+    "file": "family-witness.bend",
+    "declaration": "def check_match_garden(frame:K.Frame<D.Garden,D.Store<D.Garden>,Unit,U32>,target:W.Handle<D.Garden>) -> K.Frame<D.Garden,D.Store<D.Garden>,Unit,U32> & Bool:"
+  },
+  {
+    "file": "family-witness.bend",
+    "declaration": "def inspect_each_garden(frame:I.Frame<D.Garden,D.Store<D.Garden>,Unit,U32>) -> I.Frame<D.Garden,D.Store<D.Garden>,Unit,U32> & List<&2,Queries.Row<D.Garden,Q.Product<Q.Product<Q.Product<C.Access<U32>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>>>:"
+  },
+  {
+    "file": "family-witness.bend",
+    "declaration": "def check_each_garden(frame:K.Frame<D.Garden,D.Store<D.Garden>,Unit,U32>) -> K.Frame<D.Garden,D.Store<D.Garden>,Unit,U32> & List<&2,Queries.Row<D.Garden,Q.Product<Q.Product<Q.Product<C.Access<U32>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>>>:"
+  },
+  {
+    "file": "family-witness.bend",
+    "declaration": "def inspect_get_garden(frame:I.Frame<D.Garden,D.Store<D.Garden>,Unit,U32>,target:W.Handle<D.Garden>) -> I.Frame<D.Garden,D.Store<D.Garden>,Unit,U32> & Result<&2,&2,Errors.LookupError,Queries.Row<D.Garden,Q.Product<Q.Product<Q.Product<C.Access<U32>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>>>:"
+  },
+  {
+    "file": "family-witness.bend",
+    "declaration": "def inspect_single_garden(frame:I.Frame<D.Garden,D.Store<D.Garden>,Unit,U32>) -> I.Frame<D.Garden,D.Store<D.Garden>,Unit,U32> & Result<&2,&2,Errors.SingleError,Queries.Row<D.Garden,Q.Product<Q.Product<Q.Product<C.Access<U32>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>>>:"
+  },
+  {
+    "file": "family-witness.bend",
+    "declaration": "def inspect_single_optional_garden(frame:I.Frame<D.Garden,D.Store<D.Garden>,Unit,U32>) -> I.Frame<D.Garden,D.Store<D.Garden>,Unit,U32> & Result<&2,&2,Errors.SingleError,Maybe<&2,Queries.Row<D.Garden,Q.Product<Q.Product<Q.Product<C.Access<U32>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>>>>:"
+  },
+  {
+    "file": "family-witness.bend",
+    "declaration": "def check_get_garden(frame:K.Frame<D.Garden,D.Store<D.Garden>,Unit,U32>,target:W.Handle<D.Garden>) -> K.Frame<D.Garden,D.Store<D.Garden>,Unit,U32> & Result<&2,&2,Errors.LookupError,Queries.Row<D.Garden,Q.Product<Q.Product<Q.Product<C.Access<U32>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>>>:"
+  },
+  {
+    "file": "family-witness.bend",
+    "declaration": "def check_single_garden(frame:K.Frame<D.Garden,D.Store<D.Garden>,Unit,U32>) -> K.Frame<D.Garden,D.Store<D.Garden>,Unit,U32> & Result<&2,&2,Errors.SingleError,Queries.Row<D.Garden,Q.Product<Q.Product<Q.Product<C.Access<U32>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>>>:"
+  },
+  {
+    "file": "family-witness.bend",
+    "declaration": "def check_single_optional_garden(frame:K.Frame<D.Garden,D.Store<D.Garden>,Unit,U32>) -> K.Frame<D.Garden,D.Store<D.Garden>,Unit,U32> & Result<&2,&2,Errors.SingleError,Maybe<&2,Queries.Row<D.Garden,Q.Product<Q.Product<Q.Product<C.Access<U32>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>>>>:"
+  },
+  {
+    "file": "five-phase-driver.bend",
+    "declaration": "def garden() -> Built<D.Garden>:"
+  },
+  {
+    "file": "execution.bend",
+    "declaration": "def garden(kind:QueryKind,world:W.World<Families.Garden,Families.Store<Families.Garden>,Owners.Resource<Families.Garden>,U32>,instance:I.Instance<Families.Garden>,targets:List<&2,W.Handle<Families.Garden>>) -> I.Observed<Families.Garden,Families.Store<Families.Garden>,Owners.Resource<Families.Garden>,U32,Unit,String>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def inspect_empty_garden(~Resource:Type,owner:I.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32>) -> I.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32> & List<&2,Queries.Row<Families.Garden,ValueEmpty>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def check_empty_garden(~Resource:Type,owner:K.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32>) -> K.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32> & List<&2,Queries.Row<Families.Garden,ValueEmpty>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def inspect_optionalFour_garden(~Resource:Type,owner:I.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32>) -> I.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32> & List<&2,Queries.Row<Families.Garden,ValueOptionalFour>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def check_optionalFour_garden(~Resource:Type,owner:K.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32>) -> K.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32> & List<&2,Queries.Row<Families.Garden,ValueOptionalFour>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def inspect_requiredPair_garden(~Resource:Type,owner:I.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32>) -> I.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32> & List<&2,Queries.Row<Families.Garden,ValueRequiredPair>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def check_requiredPair_garden(~Resource:Type,owner:K.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32>) -> K.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32> & List<&2,Queries.Row<Families.Garden,ValueRequiredPair>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def inspect_fiveAlias_garden(~Resource:Type,owner:I.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32>) -> I.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32> & List<&2,Queries.Row<Families.Garden,ValueFiveAlias>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def check_fiveAlias_garden(~Resource:Type,owner:K.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32>) -> K.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32> & List<&2,Queries.Row<Families.Garden,ValueFiveAlias>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def inspect_withWithout_garden(~Resource:Type,owner:I.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32>) -> I.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32> & List<&2,Queries.Row<Families.Garden,ValueWithWithout>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def check_withWithout_garden(~Resource:Type,owner:K.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32>) -> K.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32> & List<&2,Queries.Row<Families.Garden,ValueWithWithout>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def inspect_multipleWith_garden(~Resource:Type,owner:I.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32>) -> I.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32> & List<&2,Queries.Row<Families.Garden,ValueMultipleWith>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def check_multipleWith_garden(~Resource:Type,owner:K.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32>) -> K.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32> & List<&2,Queries.Row<Families.Garden,ValueMultipleWith>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def inspect_multipleWithout_garden(~Resource:Type,owner:I.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32>) -> I.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32> & List<&2,Queries.Row<Families.Garden,ValueMultipleWithout>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def check_multipleWithout_garden(~Resource:Type,owner:K.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32>) -> K.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32> & List<&2,Queries.Row<Families.Garden,ValueMultipleWithout>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def inspect_repeated_garden(~Resource:Type,owner:I.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32>) -> I.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32> & List<&2,Queries.Row<Families.Garden,ValueRepeated>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def check_repeated_garden(~Resource:Type,owner:K.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32>) -> K.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32> & List<&2,Queries.Row<Families.Garden,ValueRepeated>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def inspect_contradictory_garden(~Resource:Type,owner:I.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32>) -> I.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32> & List<&2,Queries.Row<Families.Garden,ValueContradictory>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def check_contradictory_garden(~Resource:Type,owner:K.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32>) -> K.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32> & List<&2,Queries.Row<Families.Garden,ValueContradictory>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def inspect_addedBoth_garden(~Resource:Type,owner:I.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32>) -> I.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32> & List<&2,Queries.Row<Families.Garden,ValueAddedBoth>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def inspect_changedBoth_garden(~Resource:Type,owner:I.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32>) -> I.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32> & List<&2,Queries.Row<Families.Garden,ValueChangedBoth>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def inspect_mixedFilters_garden(~Resource:Type,owner:I.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32>) -> I.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32> & List<&2,Queries.Row<Families.Garden,ValueMixedFilters>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def inspect_repeatedAdded_garden(~Resource:Type,owner:I.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32>) -> I.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32> & List<&2,Queries.Row<Families.Garden,ValueRepeatedAdded>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def inspect_optionalUnselectedFilter_garden(~Resource:Type,owner:I.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32>) -> I.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32> & List<&2,Queries.Row<Families.Garden,ValueOptionalUnselectedFilter>>:"
+  },
+  {
+    "file": "consumer-witness.bend",
+    "declaration": "def garden_ops(H:Type) -> Type:"
+  },
+  {
+    "file": "consumer-witness.bend",
+    "declaration": "def garden_plan() -> I.Plan<Families.Garden,Families.Store<Families.Garden>,Unit,U32,garden_ops>:"
+  },
+  {
+    "file": "consumer-witness.bend",
+    "declaration": "def garden_body(~H:Type,~caps:Reads<H,Families.Garden,Selection.Product<Selection.Product<Selection.Product<C.Access<U32>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>>,target:W.Handle<Families.Garden>,owner:H) -> H & Result<&2,&2,Unit,Snapshot<Families.Garden,Selection.Product<Selection.Product<Selection.Product<C.Access<U32>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>>>:"
+  },
+  {
+    "file": "consumer-witness.bend",
+    "declaration": "def garden(world:W.World<Families.Garden,Families.Store<Families.Garden>,Unit,U32>,instance:I.Instance<Families.Garden>,target:W.Handle<Families.Garden>) -> I.Observed<Families.Garden,Families.Store<Families.Garden>,Unit,U32,Unit,Snapshot<Families.Garden,Selection.Product<Selection.Product<Selection.Product<C.Access<U32>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>>>:"
+  },
+  {
+    "file": "check-execution.bend",
+    "declaration": "def garden(kind:CheckKind,args:Args<Families.Garden>,world:W.World<Families.Garden,Families.Store<Families.Garden>,Owners.Resource<Families.Garden>,U32>) -> Check.Checked<Families.Garden,Families.Store<Families.Garden>,Owners.Resource<Families.Garden>,U32>:"
+  },
+  {
+    "file": "phase-driver.bend",
+    "declaration": "def garden(state:State<D.Garden>) -> State<D.Garden>:"
+  },
+  {
+    "file": "gates.bend",
+    "declaration": "def garden(world:W.World<D.Garden,D.Store<D.Garden>,Owners.Resource<D.Garden>,U32>,value:Holder<D.Garden>,slot:U32,targets:List<&2,W.Handle<D.Garden>>,record:String) -> Gate<D.Garden>:"
+  },
+  {
+    "file": "gate-instrumentation.bend",
+    "declaration": "def garden(world:W.World<D.Garden,D.Store<D.Garden>,Owners.Resource<D.Garden>,U32>,key:U32) -> W.World<D.Garden,D.Store<D.Garden>,Owners.Resource<D.Garden>,U32> & Bool:"
+  },
+  {
+    "file": "gate-phase.bend",
+    "declaration": "def garden(state:State<D.Garden>) -> State<D.Garden>:"
+  },
+  {
+    "file": "retry-driver.bend",
+    "declaration": "def garden(world:W.World<D.Garden,D.Store<D.Garden>,Owners.Resource<D.Garden>,U32>,targets:List<&2,W.Handle<D.Garden>>) -> Retry<D.Garden>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def inspect_empty_garden(~Resource:Type,owner:I.Frame<D.Garden,D.Store<D.Garden>,Resource,U32>) -> I.Frame<D.Garden,D.Store<D.Garden>,Resource,U32> & List<&2,Queries.Row<D.Garden,Unit>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def inspect_optionalFour_garden(~Resource:Type,owner:I.Frame<D.Garden,D.Store<D.Garden>,Resource,U32>) -> I.Frame<D.Garden,D.Store<D.Garden>,Resource,U32> & List<&2,Queries.Row<D.Garden,Q.Product<Q.Product<Q.Product<Q.Product<Unit,C.Access<U32>>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def inspect_requiredPair_garden(~Resource:Type,owner:I.Frame<D.Garden,D.Store<D.Garden>,Resource,U32>) -> I.Frame<D.Garden,D.Store<D.Garden>,Resource,U32> & List<&2,Queries.Row<D.Garden,Q.Product<Q.Product<Q.Product<Q.Product<Unit,C.Access<U32>>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def inspect_fiveAlias_garden(~Resource:Type,owner:I.Frame<D.Garden,D.Store<D.Garden>,Resource,U32>) -> I.Frame<D.Garden,D.Store<D.Garden>,Resource,U32> & List<&2,Queries.Row<D.Garden,Q.Product<Q.Product<Q.Product<Q.Product<Q.Product<Unit,C.Access<U32>>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>,C.Access<U32>>>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def inspect_withWithout_garden(~Resource:Type,owner:I.Frame<D.Garden,D.Store<D.Garden>,Resource,U32>) -> I.Frame<D.Garden,D.Store<D.Garden>,Resource,U32> & List<&2,Queries.Row<D.Garden,Unit>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def inspect_multipleWith_garden(~Resource:Type,owner:I.Frame<D.Garden,D.Store<D.Garden>,Resource,U32>) -> I.Frame<D.Garden,D.Store<D.Garden>,Resource,U32> & List<&2,Queries.Row<D.Garden,Unit>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def inspect_multipleWithout_garden(~Resource:Type,owner:I.Frame<D.Garden,D.Store<D.Garden>,Resource,U32>) -> I.Frame<D.Garden,D.Store<D.Garden>,Resource,U32> & List<&2,Queries.Row<D.Garden,Unit>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def inspect_repeated_garden(~Resource:Type,owner:I.Frame<D.Garden,D.Store<D.Garden>,Resource,U32>) -> I.Frame<D.Garden,D.Store<D.Garden>,Resource,U32> & List<&2,Queries.Row<D.Garden,Unit>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def inspect_contradictory_garden(~Resource:Type,owner:I.Frame<D.Garden,D.Store<D.Garden>,Resource,U32>) -> I.Frame<D.Garden,D.Store<D.Garden>,Resource,U32> & List<&2,Queries.Row<D.Garden,Unit>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def inspect_addedBoth_garden(~Resource:Type,owner:I.Frame<D.Garden,D.Store<D.Garden>,Resource,U32>) -> I.Frame<D.Garden,D.Store<D.Garden>,Resource,U32> & List<&2,Queries.Row<D.Garden,Unit>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def inspect_changedBoth_garden(~Resource:Type,owner:I.Frame<D.Garden,D.Store<D.Garden>,Resource,U32>) -> I.Frame<D.Garden,D.Store<D.Garden>,Resource,U32> & List<&2,Queries.Row<D.Garden,Unit>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def inspect_mixedFilters_garden(~Resource:Type,owner:I.Frame<D.Garden,D.Store<D.Garden>,Resource,U32>) -> I.Frame<D.Garden,D.Store<D.Garden>,Resource,U32> & List<&2,Queries.Row<D.Garden,Q.Product<Unit,C.Access<Bool>>>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def inspect_repeatedAdded_garden(~Resource:Type,owner:I.Frame<D.Garden,D.Store<D.Garden>,Resource,U32>) -> I.Frame<D.Garden,D.Store<D.Garden>,Resource,U32> & List<&2,Queries.Row<D.Garden,Unit>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def inspect_optionalUnselectedFilter_garden(~Resource:Type,owner:I.Frame<D.Garden,D.Store<D.Garden>,Resource,U32>) -> I.Frame<D.Garden,D.Store<D.Garden>,Resource,U32> & List<&2,Queries.Row<D.Garden,Q.Product<Unit,C.Access<String>>>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def check_empty_garden(~Resource:Type,owner:K.Frame<D.Garden,D.Store<D.Garden>,Resource,U32>) -> K.Frame<D.Garden,D.Store<D.Garden>,Resource,U32> & List<&2,Queries.Row<D.Garden,Unit>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def check_optionalFour_garden(~Resource:Type,owner:K.Frame<D.Garden,D.Store<D.Garden>,Resource,U32>) -> K.Frame<D.Garden,D.Store<D.Garden>,Resource,U32> & List<&2,Queries.Row<D.Garden,Q.Product<Q.Product<Q.Product<Q.Product<Unit,C.Access<U32>>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def check_requiredPair_garden(~Resource:Type,owner:K.Frame<D.Garden,D.Store<D.Garden>,Resource,U32>) -> K.Frame<D.Garden,D.Store<D.Garden>,Resource,U32> & List<&2,Queries.Row<D.Garden,Q.Product<Q.Product<Q.Product<Q.Product<Unit,C.Access<U32>>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def check_fiveAlias_garden(~Resource:Type,owner:K.Frame<D.Garden,D.Store<D.Garden>,Resource,U32>) -> K.Frame<D.Garden,D.Store<D.Garden>,Resource,U32> & List<&2,Queries.Row<D.Garden,Q.Product<Q.Product<Q.Product<Q.Product<Q.Product<Unit,C.Access<U32>>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>,C.Access<U32>>>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def check_withWithout_garden(~Resource:Type,owner:K.Frame<D.Garden,D.Store<D.Garden>,Resource,U32>) -> K.Frame<D.Garden,D.Store<D.Garden>,Resource,U32> & List<&2,Queries.Row<D.Garden,Unit>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def check_multipleWith_garden(~Resource:Type,owner:K.Frame<D.Garden,D.Store<D.Garden>,Resource,U32>) -> K.Frame<D.Garden,D.Store<D.Garden>,Resource,U32> & List<&2,Queries.Row<D.Garden,Unit>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def check_multipleWithout_garden(~Resource:Type,owner:K.Frame<D.Garden,D.Store<D.Garden>,Resource,U32>) -> K.Frame<D.Garden,D.Store<D.Garden>,Resource,U32> & List<&2,Queries.Row<D.Garden,Unit>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def check_repeated_garden(~Resource:Type,owner:K.Frame<D.Garden,D.Store<D.Garden>,Resource,U32>) -> K.Frame<D.Garden,D.Store<D.Garden>,Resource,U32> & List<&2,Queries.Row<D.Garden,Unit>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def check_contradictory_garden(~Resource:Type,owner:K.Frame<D.Garden,D.Store<D.Garden>,Resource,U32>) -> K.Frame<D.Garden,D.Store<D.Garden>,Resource,U32> & List<&2,Queries.Row<D.Garden,Unit>>:"
+  },
+  {
+    "file": "fixture.bend",
+    "declaration": "def garden() -> Built<D.Garden>:"
+  }
+]

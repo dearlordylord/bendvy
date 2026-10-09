@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a declared constructor (unknown: workshop-stage/runtime-named-declarations.ValueOptionalFour)
+Location:
+39 |   match value:
+40>|     case D.ValueOptionalFour{stock,title,active,count}:"{" ++ "\"stock\":" ++ optional(~U32,~U32.show,stock) ++ ",\"title\":" ++ optional(~String,~string,title) ++ ",\"active\":" ++ optional(~Bool,~boolean,active) ++ ",\"count\":" ++ optional(~List<&2,U32>,~counts,count) ++ "}"
+   |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+41 | def value_requiredPair(value:D.ValueRequiredPair) -> String:
+bend 2.0.36 is available: run bend update

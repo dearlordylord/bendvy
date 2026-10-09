@@ -1,0 +1,286 @@
+[
+  {
+    "file": "family-witness.bend",
+    "declaration": "def inspect_workshop(frame:I.Frame<D.Workshop,D.Store<D.Workshop>,Unit,U32>,target:W.Handle<D.Workshop>) -> I.Frame<D.Workshop,D.Store<D.Workshop>,Unit,U32> & Q.Product<Q.Product<Q.Product<C.Access<U32>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>:"
+  },
+  {
+    "file": "family-witness.bend",
+    "declaration": "def check_workshop(frame:K.Frame<D.Workshop,D.Store<D.Workshop>,Unit,U32>,target:W.Handle<D.Workshop>) -> K.Frame<D.Workshop,D.Store<D.Workshop>,Unit,U32> & Q.Product<Q.Product<Q.Product<C.Access<U32>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>:"
+  },
+  {
+    "file": "family-witness.bend",
+    "declaration": "def inspect_match_workshop(frame:I.Frame<D.Workshop,D.Store<D.Workshop>,Unit,U32>,target:W.Handle<D.Workshop>) -> I.Frame<D.Workshop,D.Store<D.Workshop>,Unit,U32> & Bool:"
+  },
+  {
+    "file": "family-witness.bend",
+    "declaration": "def check_match_workshop(frame:K.Frame<D.Workshop,D.Store<D.Workshop>,Unit,U32>,target:W.Handle<D.Workshop>) -> K.Frame<D.Workshop,D.Store<D.Workshop>,Unit,U32> & Bool:"
+  },
+  {
+    "file": "family-witness.bend",
+    "declaration": "def inspect_each_workshop(frame:I.Frame<D.Workshop,D.Store<D.Workshop>,Unit,U32>) -> I.Frame<D.Workshop,D.Store<D.Workshop>,Unit,U32> & List<&2,Queries.Row<D.Workshop,Q.Product<Q.Product<Q.Product<C.Access<U32>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>>>:"
+  },
+  {
+    "file": "family-witness.bend",
+    "declaration": "def check_each_workshop(frame:K.Frame<D.Workshop,D.Store<D.Workshop>,Unit,U32>) -> K.Frame<D.Workshop,D.Store<D.Workshop>,Unit,U32> & List<&2,Queries.Row<D.Workshop,Q.Product<Q.Product<Q.Product<C.Access<U32>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>>>:"
+  },
+  {
+    "file": "family-witness.bend",
+    "declaration": "def inspect_get_workshop(frame:I.Frame<D.Workshop,D.Store<D.Workshop>,Unit,U32>,target:W.Handle<D.Workshop>) -> I.Frame<D.Workshop,D.Store<D.Workshop>,Unit,U32> & Result<&2,&2,Errors.LookupError,Queries.Row<D.Workshop,Q.Product<Q.Product<Q.Product<C.Access<U32>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>>>:"
+  },
+  {
+    "file": "family-witness.bend",
+    "declaration": "def inspect_single_workshop(frame:I.Frame<D.Workshop,D.Store<D.Workshop>,Unit,U32>) -> I.Frame<D.Workshop,D.Store<D.Workshop>,Unit,U32> & Result<&2,&2,Errors.SingleError,Queries.Row<D.Workshop,Q.Product<Q.Product<Q.Product<C.Access<U32>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>>>:"
+  },
+  {
+    "file": "family-witness.bend",
+    "declaration": "def inspect_single_optional_workshop(frame:I.Frame<D.Workshop,D.Store<D.Workshop>,Unit,U32>) -> I.Frame<D.Workshop,D.Store<D.Workshop>,Unit,U32> & Result<&2,&2,Errors.SingleError,Maybe<&2,Queries.Row<D.Workshop,Q.Product<Q.Product<Q.Product<C.Access<U32>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>>>>:"
+  },
+  {
+    "file": "family-witness.bend",
+    "declaration": "def check_get_workshop(frame:K.Frame<D.Workshop,D.Store<D.Workshop>,Unit,U32>,target:W.Handle<D.Workshop>) -> K.Frame<D.Workshop,D.Store<D.Workshop>,Unit,U32> & Result<&2,&2,Errors.LookupError,Queries.Row<D.Workshop,Q.Product<Q.Product<Q.Product<C.Access<U32>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>>>:"
+  },
+  {
+    "file": "family-witness.bend",
+    "declaration": "def check_single_workshop(frame:K.Frame<D.Workshop,D.Store<D.Workshop>,Unit,U32>) -> K.Frame<D.Workshop,D.Store<D.Workshop>,Unit,U32> & Result<&2,&2,Errors.SingleError,Queries.Row<D.Workshop,Q.Product<Q.Product<Q.Product<C.Access<U32>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>>>:"
+  },
+  {
+    "file": "family-witness.bend",
+    "declaration": "def check_single_optional_workshop(frame:K.Frame<D.Workshop,D.Store<D.Workshop>,Unit,U32>) -> K.Frame<D.Workshop,D.Store<D.Workshop>,Unit,U32> & Result<&2,&2,Errors.SingleError,Maybe<&2,Queries.Row<D.Workshop,Q.Product<Q.Product<Q.Product<C.Access<U32>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>>>>:"
+  },
+  {
+    "file": "five-phase-driver.bend",
+    "declaration": "def workshop() -> Built<D.Workshop>:"
+  },
+  {
+    "file": "execution.bend",
+    "declaration": "def workshop(kind:QueryKind,world:W.World<Families.Workshop,Families.Store<Families.Workshop>,Owners.Resource<Families.Workshop>,U32>,instance:I.Instance<Families.Workshop>,targets:List<&2,W.Handle<Families.Workshop>>) -> I.Observed<Families.Workshop,Families.Store<Families.Workshop>,Owners.Resource<Families.Workshop>,U32,Unit,String>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def inspect_empty_workshop(~Resource:Type,owner:I.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32>) -> I.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32> & List<&2,Queries.Row<Families.Workshop,ValueEmpty>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def check_empty_workshop(~Resource:Type,owner:K.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32>) -> K.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32> & List<&2,Queries.Row<Families.Workshop,ValueEmpty>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def inspect_optionalFour_workshop(~Resource:Type,owner:I.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32>) -> I.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32> & List<&2,Queries.Row<Families.Workshop,ValueOptionalFour>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def check_optionalFour_workshop(~Resource:Type,owner:K.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32>) -> K.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32> & List<&2,Queries.Row<Families.Workshop,ValueOptionalFour>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def inspect_requiredPair_workshop(~Resource:Type,owner:I.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32>) -> I.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32> & List<&2,Queries.Row<Families.Workshop,ValueRequiredPair>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def check_requiredPair_workshop(~Resource:Type,owner:K.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32>) -> K.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32> & List<&2,Queries.Row<Families.Workshop,ValueRequiredPair>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def inspect_fiveAlias_workshop(~Resource:Type,owner:I.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32>) -> I.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32> & List<&2,Queries.Row<Families.Workshop,ValueFiveAlias>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def check_fiveAlias_workshop(~Resource:Type,owner:K.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32>) -> K.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32> & List<&2,Queries.Row<Families.Workshop,ValueFiveAlias>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def inspect_withWithout_workshop(~Resource:Type,owner:I.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32>) -> I.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32> & List<&2,Queries.Row<Families.Workshop,ValueWithWithout>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def check_withWithout_workshop(~Resource:Type,owner:K.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32>) -> K.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32> & List<&2,Queries.Row<Families.Workshop,ValueWithWithout>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def inspect_multipleWith_workshop(~Resource:Type,owner:I.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32>) -> I.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32> & List<&2,Queries.Row<Families.Workshop,ValueMultipleWith>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def check_multipleWith_workshop(~Resource:Type,owner:K.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32>) -> K.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32> & List<&2,Queries.Row<Families.Workshop,ValueMultipleWith>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def inspect_multipleWithout_workshop(~Resource:Type,owner:I.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32>) -> I.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32> & List<&2,Queries.Row<Families.Workshop,ValueMultipleWithout>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def check_multipleWithout_workshop(~Resource:Type,owner:K.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32>) -> K.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32> & List<&2,Queries.Row<Families.Workshop,ValueMultipleWithout>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def inspect_repeated_workshop(~Resource:Type,owner:I.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32>) -> I.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32> & List<&2,Queries.Row<Families.Workshop,ValueRepeated>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def check_repeated_workshop(~Resource:Type,owner:K.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32>) -> K.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32> & List<&2,Queries.Row<Families.Workshop,ValueRepeated>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def inspect_contradictory_workshop(~Resource:Type,owner:I.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32>) -> I.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32> & List<&2,Queries.Row<Families.Workshop,ValueContradictory>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def check_contradictory_workshop(~Resource:Type,owner:K.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32>) -> K.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32> & List<&2,Queries.Row<Families.Workshop,ValueContradictory>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def inspect_addedBoth_workshop(~Resource:Type,owner:I.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32>) -> I.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32> & List<&2,Queries.Row<Families.Workshop,ValueAddedBoth>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def inspect_changedBoth_workshop(~Resource:Type,owner:I.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32>) -> I.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32> & List<&2,Queries.Row<Families.Workshop,ValueChangedBoth>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def inspect_mixedFilters_workshop(~Resource:Type,owner:I.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32>) -> I.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32> & List<&2,Queries.Row<Families.Workshop,ValueMixedFilters>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def inspect_repeatedAdded_workshop(~Resource:Type,owner:I.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32>) -> I.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32> & List<&2,Queries.Row<Families.Workshop,ValueRepeatedAdded>>:"
+  },
+  {
+    "file": "runtime-named-declarations.bend",
+    "declaration": "def inspect_optionalUnselectedFilter_workshop(~Resource:Type,owner:I.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32>) -> I.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32> & List<&2,Queries.Row<Families.Workshop,ValueOptionalUnselectedFilter>>:"
+  },
+  {
+    "file": "consumer-witness.bend",
+    "declaration": "def workshop_ops(H:Type) -> Type:"
+  },
+  {
+    "file": "consumer-witness.bend",
+    "declaration": "def workshop_plan() -> I.Plan<Families.Workshop,Families.Store<Families.Workshop>,Unit,U32,workshop_ops>:"
+  },
+  {
+    "file": "consumer-witness.bend",
+    "declaration": "def workshop_body(~H:Type,~caps:Reads<H,Families.Workshop,Selection.Product<Selection.Product<Selection.Product<C.Access<U32>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>>,target:W.Handle<Families.Workshop>,owner:H) -> H & Result<&2,&2,Unit,Snapshot<Families.Workshop,Selection.Product<Selection.Product<Selection.Product<C.Access<U32>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>>>:"
+  },
+  {
+    "file": "consumer-witness.bend",
+    "declaration": "def workshop(world:W.World<Families.Workshop,Families.Store<Families.Workshop>,Unit,U32>,instance:I.Instance<Families.Workshop>,target:W.Handle<Families.Workshop>) -> I.Observed<Families.Workshop,Families.Store<Families.Workshop>,Unit,U32,Unit,Snapshot<Families.Workshop,Selection.Product<Selection.Product<Selection.Product<C.Access<U32>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>>>:"
+  },
+  {
+    "file": "check-execution.bend",
+    "declaration": "def workshop(kind:CheckKind,args:Args<Families.Workshop>,world:W.World<Families.Workshop,Families.Store<Families.Workshop>,Owners.Resource<Families.Workshop>,U32>) -> Check.Checked<Families.Workshop,Families.Store<Families.Workshop>,Owners.Resource<Families.Workshop>,U32>:"
+  },
+  {
+    "file": "phase-driver.bend",
+    "declaration": "def workshop(state:State<D.Workshop>) -> State<D.Workshop>:"
+  },
+  {
+    "file": "gates.bend",
+    "declaration": "def workshop(world:W.World<D.Workshop,D.Store<D.Workshop>,Owners.Resource<D.Workshop>,U32>,value:Holder<D.Workshop>,slot:U32,targets:List<&2,W.Handle<D.Workshop>>,record:String) -> Gate<D.Workshop>:"
+  },
+  {
+    "file": "gate-instrumentation.bend",
+    "declaration": "def workshop(world:W.World<D.Workshop,D.Store<D.Workshop>,Owners.Resource<D.Workshop>,U32>,key:U32) -> W.World<D.Workshop,D.Store<D.Workshop>,Owners.Resource<D.Workshop>,U32> & Bool:"
+  },
+  {
+    "file": "gate-phase.bend",
+    "declaration": "def workshop(state:State<D.Workshop>) -> State<D.Workshop>:"
+  },
+  {
+    "file": "retry-driver.bend",
+    "declaration": "def workshop(world:W.World<D.Workshop,D.Store<D.Workshop>,Owners.Resource<D.Workshop>,U32>,targets:List<&2,W.Handle<D.Workshop>>) -> Retry<D.Workshop>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def inspect_empty_workshop(~Resource:Type,owner:I.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32>) -> I.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32> & List<&2,Queries.Row<D.Workshop,Unit>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def inspect_optionalFour_workshop(~Resource:Type,owner:I.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32>) -> I.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32> & List<&2,Queries.Row<D.Workshop,Q.Product<Q.Product<Q.Product<Q.Product<Unit,C.Access<U32>>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def inspect_requiredPair_workshop(~Resource:Type,owner:I.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32>) -> I.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32> & List<&2,Queries.Row<D.Workshop,Q.Product<Q.Product<Q.Product<Q.Product<Unit,C.Access<U32>>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def inspect_fiveAlias_workshop(~Resource:Type,owner:I.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32>) -> I.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32> & List<&2,Queries.Row<D.Workshop,Q.Product<Q.Product<Q.Product<Q.Product<Q.Product<Unit,C.Access<U32>>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>,C.Access<U32>>>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def inspect_withWithout_workshop(~Resource:Type,owner:I.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32>) -> I.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32> & List<&2,Queries.Row<D.Workshop,Unit>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def inspect_multipleWith_workshop(~Resource:Type,owner:I.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32>) -> I.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32> & List<&2,Queries.Row<D.Workshop,Unit>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def inspect_multipleWithout_workshop(~Resource:Type,owner:I.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32>) -> I.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32> & List<&2,Queries.Row<D.Workshop,Unit>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def inspect_repeated_workshop(~Resource:Type,owner:I.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32>) -> I.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32> & List<&2,Queries.Row<D.Workshop,Unit>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def inspect_contradictory_workshop(~Resource:Type,owner:I.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32>) -> I.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32> & List<&2,Queries.Row<D.Workshop,Unit>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def inspect_addedBoth_workshop(~Resource:Type,owner:I.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32>) -> I.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32> & List<&2,Queries.Row<D.Workshop,Unit>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def inspect_changedBoth_workshop(~Resource:Type,owner:I.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32>) -> I.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32> & List<&2,Queries.Row<D.Workshop,Unit>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def inspect_mixedFilters_workshop(~Resource:Type,owner:I.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32>) -> I.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32> & List<&2,Queries.Row<D.Workshop,Q.Product<Unit,C.Access<Bool>>>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def inspect_repeatedAdded_workshop(~Resource:Type,owner:I.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32>) -> I.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32> & List<&2,Queries.Row<D.Workshop,Unit>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def inspect_optionalUnselectedFilter_workshop(~Resource:Type,owner:I.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32>) -> I.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32> & List<&2,Queries.Row<D.Workshop,Q.Product<Unit,C.Access<String>>>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def check_empty_workshop(~Resource:Type,owner:K.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32>) -> K.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32> & List<&2,Queries.Row<D.Workshop,Unit>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def check_optionalFour_workshop(~Resource:Type,owner:K.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32>) -> K.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32> & List<&2,Queries.Row<D.Workshop,Q.Product<Q.Product<Q.Product<Q.Product<Unit,C.Access<U32>>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def check_requiredPair_workshop(~Resource:Type,owner:K.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32>) -> K.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32> & List<&2,Queries.Row<D.Workshop,Q.Product<Q.Product<Q.Product<Q.Product<Unit,C.Access<U32>>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def check_fiveAlias_workshop(~Resource:Type,owner:K.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32>) -> K.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32> & List<&2,Queries.Row<D.Workshop,Q.Product<Q.Product<Q.Product<Q.Product<Q.Product<Unit,C.Access<U32>>,C.Access<String>>,C.Access<Bool>>,C.Access<List<&2,U32>>>,C.Access<U32>>>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def check_withWithout_workshop(~Resource:Type,owner:K.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32>) -> K.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32> & List<&2,Queries.Row<D.Workshop,Unit>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def check_multipleWith_workshop(~Resource:Type,owner:K.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32>) -> K.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32> & List<&2,Queries.Row<D.Workshop,Unit>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def check_multipleWithout_workshop(~Resource:Type,owner:K.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32>) -> K.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32> & List<&2,Queries.Row<D.Workshop,Unit>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def check_repeated_workshop(~Resource:Type,owner:K.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32>) -> K.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32> & List<&2,Queries.Row<D.Workshop,Unit>>:"
+  },
+  {
+    "file": "runtime-declarations.bend",
+    "declaration": "def check_contradictory_workshop(~Resource:Type,owner:K.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32>) -> K.Frame<D.Workshop,D.Store<D.Workshop>,Resource,U32> & List<&2,Queries.Row<D.Workshop,Unit>>:"
+  },
+  {
+    "file": "fixture.bend",
+    "declaration": "def workshop() -> Built<D.Workshop>:"
+  }
+]
