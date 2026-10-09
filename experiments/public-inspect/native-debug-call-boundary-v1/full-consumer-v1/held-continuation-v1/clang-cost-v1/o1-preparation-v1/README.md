@@ -1,0 +1,7 @@
+# Changed exact-C O1 preparation only
+
+After independent O0 actual review, this additive plan keeps exact normal71 C b12ec5dc, full source/constructor/parser/whole1f54 model, approved private Clang19/environment and all historical596 source inputs. It adds its own execution code and immutable O0 archived plan/receipt bindings. Only child commands change: CPU5 Clang `-O1 -ftime-report` cap120, then CPU5 runtime cap5 threads1/GPUoff over full unchanged oracle. No syntax repeat or C re-emission. Prior runner/evidence/installed compiler remain untouched.
+
+The supplied exact plan digest and actual resolved Python path/hash are checked before loading the exact previously reviewed execution source; that source remains pinned and supplies existing shared child lock, full pre/acquired/post/final guards, partial binary/raw capture, regular output checks and unconditional failure receipt. Complete binary is retained between build/runtime and guarded before consumption. Runtime must pass whole source-derived positive model; normal acceptance does not imply absent Native omission, O3 delivery, installed Bend acceptance or performance.
+
+PREPARED records the original unused cohort and exact digest. Same/alternate interpreter, wrongdigest and plan-byte-drift controls use no children. Exact plan is prepared but not admitted or executed. O1 reports, if produced, can inform the next source/phase investigation; O0 timing cannot attribute O3 deadline to a particular LLVM pass. Existing caps and numerical criteria are unchanged.
