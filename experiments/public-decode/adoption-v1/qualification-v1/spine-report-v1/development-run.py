@@ -29,8 +29,6 @@ def load(name,path):
 ORACLE_FILES = {'normal':{'name':'expected.json','sha256':'26e965901c73e89804b69c1d3d13d10e512478955cb0541f6ccbe8e49693766d'}}
 ORACLE_COMMIT = '220251bc'
 
-LOGS = load('decode_logs', ROOT/'scripts/receipt-logs.py')
-CONFIG = load('staging_config', ROOT/'experiments/public-simulation/delivery-v1/installed-config.py')
 
 
 def admitted_plan(path,digest):
@@ -41,15 +39,26 @@ def admitted_plan(path,digest):
     return json.loads(raw)
 
 
+def admit_interpreter(plan):
+    actual=Path(sys.executable).resolve(strict=True)
+    assert actual.is_file() and not actual.is_symlink(), 'actual interpreter must resolve to regular file'
+    expected=plan['tools']['python']
+    assert str(actual)==expected, 'actual interpreter path differs from admitted plan'
+    assert hashlib.sha256(actual.read_bytes()).hexdigest()==plan['inputs'][expected], 'actual interpreter bytes differ from admitted plan'
+
+
 def main(out,native=False,execute=False,plan_digest=None,role="normal"):
     assert role == "normal"
     plan_path = out/'plan.json'
     admitted = admitted_plan(plan_path,plan_digest) if execute else None
     if execute:
+        admit_interpreter(admitted)
         assert admitted['native'] == native and admitted['role'] == role, 'backend/role differs from admitted plan'
         assert not (out/'receipt.json').exists(), 'prepared cohort already executed'
     else:
         out.mkdir()
+    LOGS = load('decode_logs', ROOT/'scripts/receipt-logs.py')
+    CONFIG = load('staging_config', ROOT/'experiments/public-simulation/delivery-v1/installed-config.py')
     raw = out/'raw'
     generated = out/'generated'
     if not execute:
