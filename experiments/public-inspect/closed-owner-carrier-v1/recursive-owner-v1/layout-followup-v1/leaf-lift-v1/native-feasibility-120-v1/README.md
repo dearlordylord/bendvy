@@ -1,0 +1,3 @@
+One unused Native feasibility diagnostic on the unchanged full leaf-lift consumer: emission120, build120, runtime5. The old emission30 deadlines remain historical operational diagnostics, not runtime acceptance gates. No further cap ladder is planned. The original 23 grants and 5,077,477-byte oracle remain unchanged.
+
+The collector is a focused copy of the repaired parent collector; only its parent source location, emission cap, scope, and stdlib child CPU accounting differ. RUSAGE_CHILDREN cumulative before/after deltas are retained separately from monotonic wall time while holding the child lock. They describe reaped child CPU accounting, not peak memory, runtime speed or a compiler-pass cause. No launch before independent admission.
