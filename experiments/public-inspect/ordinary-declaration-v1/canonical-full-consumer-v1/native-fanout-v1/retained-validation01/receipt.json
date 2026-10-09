@@ -1,0 +1,98 @@
+{
+  "scope": "Validate immutable failed reference-control02 initial-IR witness only, annotation-child proof and explicit bang tokens; no probe/compiler/backend replay",
+  "planSHA256": "e276cd5df079d453b657b66f817e7b0ea560be16691113cc54802771cd9fb968",
+  "commands": [
+    {
+      "label": "source-retained-validator-controls",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/validation-retained-controls.mjs"
+      ],
+      "capSeconds": 5,
+      "expectedExit": 0,
+      "stderrContains": [],
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/retained-validation01/source-retained-validator-controls.stdout",
+        "sha256": "9259733da9ed206349b79d60a04985fb658942b85ce2a587ee63fb387e938c37",
+        "bytes": 166,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/retained-validation01/source-retained-validator-controls.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "sourceControlPassed": true
+    },
+    {
+      "label": "source-retained-initial-survival",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/validate-retained.mjs",
+        "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/reference-control02/source-reference-survival.stdout"
+      ],
+      "capSeconds": 5,
+      "expectedExit": 0,
+      "stderrContains": [],
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/retained-validation01/source-retained-initial-survival.stdout",
+        "sha256": "d13e6f00fc648edf2f701cd26943025c4ad8f301d5fd5c7665e8008b3a2c0233",
+        "bytes": 13076,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/retained-validation01/source-retained-initial-survival.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "sourceControlPassed": true
+    }
+  ],
+  "guards": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/retained-validation01/source-retained-validator-controls-pre.guard.json",
+      "sha256": "c12b121b5d457ba5085cb85dbd4c2ac0ba4596beb065459d47d0516351f1c69d"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/retained-validation01/source-retained-validator-controls-acquired.guard.json",
+      "sha256": "720058f55679202d798faace08d95d688f5a749b35fe4a0da0b3e04fe9815b46"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/retained-validation01/source-retained-validator-controls-post.guard.json",
+      "sha256": "9c3adbe75cdda3a0978053a20fbced7005f8b8fc6874d6fc8cbea0666a76b066"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/retained-validation01/source-retained-initial-survival-pre.guard.json",
+      "sha256": "acc9ba6357072db735c557db0229cb0027a3e9f0bb8fa304e434608ed3af6c56"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/retained-validation01/source-retained-initial-survival-acquired.guard.json",
+      "sha256": "d1cc010563f31abe7aec0665d0d8173c453ebebb0009b3f355169063696173cb"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/retained-validation01/source-retained-initial-survival-post.guard.json",
+      "sha256": "86f27d152e90c832631d7e7840c81192c39a77d61cbd6caf2c89c81c9a06ceb3"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/retained-validation01/final.guard.json",
+      "sha256": "a24182d6a79516f12768bc786da619e145d29e551ff1a1fa6fe9c9abd2aea5e1"
+    }
+  ],
+  "status": "COMPLETE_SOURCE_CONTROL_PASS"
+}
