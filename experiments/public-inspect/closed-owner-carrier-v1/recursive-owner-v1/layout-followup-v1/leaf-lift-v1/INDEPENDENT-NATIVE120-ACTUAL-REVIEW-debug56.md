@@ -1,0 +1,11 @@
+# Independent Native120 actual evidence review
+
+Scoped evidence PASS for author `f0ab9b5a022db79a1efb3d1c4b232d912015c2e5`, `native-feasibility-120-v1/actual-v1`. The actual Native feasibility outcome remains **INCOMPLETE**. Reviewer ran metadata/archive verification only, with no compiler or runtime child.
+
+Independently decoded and verified all 64 lossless archive members, exact executed plan `6dc7cdc429dd4202b8c3cbbb1811898a6eef5e84867faeaf8a1a3d4860275e2e`, 46-source closure, and unchanged complete 5,077,477-byte independent oracle. All 62 current plan file hashes and resource inventories (70/272/7 members) match. Archive verifier passes. The archived plan equals its original live plan bytes.
+
+Verified exact progressive guard sets, rather than only their unchanged flags: pre/acquired contain all 62 inputs plus plan; post/final add precisely the two captured raw streams (63/63/65/65 pins). Four guard hashes, labels and full actualPins maps match; guardFailures is empty. Completed emit evidence records deadline, null exit and published empty stdout/stderr before the primary failure. Source and collector bindings match the reviewed one-attempt preparation; original emit30 and unused draft evidence remain historical.
+
+The only executed command is CPU5 installed Bend C emission with cap120. It reached its deadline, producing no C. Both planned artifact paths remain absent; no build, Clang invocation or Native consumer appears in the receipt. The retained unconditional receipt reports `ValueError: Owned child failed: emit`, not success. This provides no runtime whole-oracle validation or Native delivery credit.
+
+Accounting recomputes exactly from before/after snapshots: wall 120.820771473 seconds, child user 113.752797 seconds and system 6.952767000000001 seconds. Total reaped child CPU is approximately 99.9046% of wall time. This is evidence of near-full accounted CPU during this bounded attempt; it does not identify a hot compiler function, prove which compiler phase caused the timeout, establish unavoidable complexity, or measure application performance. No memory accounting or installed compiler profiler was captured. No retry, cap ladder, resolver qualification or public #54 completion follows from this review.
