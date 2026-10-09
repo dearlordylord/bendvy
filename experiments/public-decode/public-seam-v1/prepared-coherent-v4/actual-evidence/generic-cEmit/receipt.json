@@ -1,0 +1,33 @@
+{
+  "preparedPlanSha256": "fc4583adf6e0a63073b6751dfa382b035cc174b5dceede816c467973ba86bb15",
+  "status": "INCOMPLETE",
+  "scope": "Complete list-spine JS consuming or installed C-emission development check; no delivery/performance gate.",
+  "commands": [
+    {
+      "label": "complete-emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/generic-assembly-v1/complete.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/generic-cEmit/generated/complete.c"
+      ],
+      "capSeconds": 30,
+      "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/generic-cEmit/generated/complete.c",
+      "error": "RuntimeError: unexpected command exit: 1",
+      "exit": 1,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+    }
+  ],
+  "generated": {},
+  "logs": {
+    "complete-emit.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "complete-emit.stderr": "af95b9da24ddec47e7afcca065f867efc7a546fa2c9716cde785df0ab6541bab"
+  },
+  "error": "RuntimeError: unexpected command exit: 1",
+  "guardFailures": []
+}

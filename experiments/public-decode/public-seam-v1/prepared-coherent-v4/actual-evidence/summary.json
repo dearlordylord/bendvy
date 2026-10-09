@@ -1,0 +1,233 @@
+{
+  "scope": "actual once-only full generic15/deferred8; no performance claim",
+  "results": {
+    "generic-js": {
+      "status": "DEVELOPMENT_JS_PASS",
+      "preparedPlanSha256": "784db9a56bb48e4c24ddb254137882f80f4b177ac7adf0a963dd9b84a9e30cfb",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/generic-assembly-v1/complete.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/generic-js/generated/complete.js"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/generic-js/generated/complete.js",
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+        },
+        {
+          "label": "complete-run",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/generic-js/generated/complete.js"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+        }
+      ],
+      "guardFailures": [],
+      "artifacts": {
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/generic-js/generated/complete.js": {
+          "sha256": "ed0e0852306a78b6f7dd3280b32231e3a4348fc291ba2b7fd3eeb433739395a1",
+          "bytes": 705168,
+          "capture": "actual-evidence/generic-js/complete.js.gz",
+          "captureSha256": "885d8dad6db1035b51d43295586309589c2f9960cda4fae07f6dd5e2daea2cb8"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/generic-js/raw/complete-emit.stderr": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/generic-js/complete-emit.stderr.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/generic-js/raw/complete-emit.stdout": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/generic-js/complete-emit.stdout.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/generic-js/raw/complete-run.stderr": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/generic-js/complete-run.stderr.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/generic-js/raw/complete-run.stdout": {
+          "sha256": "d657e73d725cab29149577ebf73d30779237ddb484f4e9178c87ba03d45f9113",
+          "bytes": 39106,
+          "capture": "actual-evidence/generic-js/complete-run.stdout.gz",
+          "captureSha256": "0b5547b5198ac7d845fd40193dd84fa18fa9a18df845f0eb09290651aa3172a5"
+        }
+      },
+      "interpretation": "Full independent typed/raw oracle PASS"
+    },
+    "deferred-js": {
+      "status": "DEVELOPMENT_JS_PASS",
+      "preparedPlanSha256": "e26b90ada513847f35957a4b160e7189c236e83091bdfb693f794f0ca6ad19f9",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/deferred-assembly-v1/fixture.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/deferred-js/generated/complete.js"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/deferred-js/generated/complete.js",
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+        },
+        {
+          "label": "complete-run",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/deferred-js/generated/complete.js"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+        }
+      ],
+      "guardFailures": [],
+      "artifacts": {
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/deferred-js/generated/complete.js": {
+          "sha256": "8205cd048b47dd79d5265be3f875d58bc22dc0b044f6c2e4c054d531dc09bd7e",
+          "bytes": 343615,
+          "capture": "actual-evidence/deferred-js/complete.js.gz",
+          "captureSha256": "0723a3c053f888eaced8a3220e142c328797a5b785d5dd8444710b22c03a7a25"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/deferred-js/raw/complete-emit.stderr": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/deferred-js/complete-emit.stderr.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/deferred-js/raw/complete-emit.stdout": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/deferred-js/complete-emit.stdout.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/deferred-js/raw/complete-run.stderr": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/deferred-js/complete-run.stderr.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/deferred-js/raw/complete-run.stdout": {
+          "sha256": "e0872735e119e5391acc5cf881bcba5e40b4233025907bb0d44d40677d927317",
+          "bytes": 32624,
+          "capture": "actual-evidence/deferred-js/complete-run.stdout.gz",
+          "captureSha256": "7bbcfa438489758d4bc94c87c8005b2306a621f3bb1dca783167ace70f3e93c6"
+        }
+      },
+      "interpretation": "Full independent typed/raw oracle PASS"
+    },
+    "generic-cEmit": {
+      "status": "INCOMPLETE",
+      "preparedPlanSha256": "fc4583adf6e0a63073b6751dfa382b035cc174b5dceede816c467973ba86bb15",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/generic-assembly-v1/complete.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/generic-cEmit/generated/complete.c"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/generic-cEmit/generated/complete.c",
+          "error": "RuntimeError: unexpected command exit: 1",
+          "exit": 1,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+        }
+      ],
+      "guardFailures": [],
+      "artifacts": {
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/generic-cEmit/raw/complete-emit.stderr": {
+          "sha256": "af95b9da24ddec47e7afcca065f867efc7a546fa2c9716cde785df0ab6541bab",
+          "bytes": 25,
+          "capture": "actual-evidence/generic-cEmit/complete-emit.stderr.gz",
+          "captureSha256": "45ce650cefdf8592366db055776f53014eb25ae9959ee28ffab4d3d394eca2a0"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/generic-cEmit/raw/complete-emit.stdout": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/generic-cEmit/complete-emit.stdout.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        }
+      },
+      "interpretation": "Terminal C emitter exit1: Error: an arity over 247; no Native runtime/artifact"
+    },
+    "deferred-cEmit": {
+      "status": "INCOMPLETE",
+      "preparedPlanSha256": "cebacfda24e48c6617f58ea05bc9cdcb4e0b839878ebf806144d735887113ecf",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/deferred-assembly-v1/fixture.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/deferred-cEmit/generated/complete.c"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/deferred-cEmit/generated/complete.c",
+          "error": "RuntimeError: unexpected command exit: 1",
+          "exit": 1,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+        }
+      ],
+      "guardFailures": [],
+      "artifacts": {
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/deferred-cEmit/raw/complete-emit.stderr": {
+          "sha256": "af95b9da24ddec47e7afcca065f867efc7a546fa2c9716cde785df0ab6541bab",
+          "bytes": 25,
+          "capture": "actual-evidence/deferred-cEmit/complete-emit.stderr.gz",
+          "captureSha256": "45ce650cefdf8592366db055776f53014eb25ae9959ee28ffab4d3d394eca2a0"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/deferred-cEmit/raw/complete-emit.stdout": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/deferred-cEmit/complete-emit.stdout.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        }
+      },
+      "interpretation": "Terminal C emitter exit1: Error: an arity over 247; no Native runtime/artifact"
+    }
+  }
+}
