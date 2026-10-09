@@ -18,6 +18,6 @@ source-basis.json and all independent authoring/raw model bytes are pinned too.
 This is semantic qualification, not performance: the complete raw oracle is
 1,056,756 bytes. Runtime wall time contains interpretation/runtime execution,
 whole observation construction and serialization/IO. Comparison with the TS
-20,675-byte historical dump cannot establish pure ECS speed. A future feature
+historical dump with different observations cannot establish pure ECS speed. A future feature
 interval must normalize observations/operation scope and report setup, conversion,
 world operations and serialization costs explicitly; no new threshold is set here.
