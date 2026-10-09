@@ -1,0 +1,25 @@
+# Retention integration — independent final review
+
+Scoped Spec PASS / Standards PASS for immutable author actual commit `80d11b68e83c9724ce9e086db0321dd578688289` (original hook46575 terminal0). No reviewer target process or replay.
+
+Spec scope: canonical Ev.register/run/skip/frame plus detached Inspector read, complete thirteen-Snapshot normal/artificial-retainer observations. The independently reviewed native adaptation preserves failure/skip/hold-boundary semantics; it does not assert Rust's exact double-buffer lifetime. Raw registrations, all Runtime metadata/positions/batches/streams, four physical resource cells, observed World scalars and clock, and distinct completion tags are required. The final fresh direct-frame leaf lag check is distinct from the persistent Inspector cursor.
+
+Standards scope: the actual affine Type resource owner is threaded through actual read/project/return; declared Inspector capabilities retain opaque H; trusted detach/attach bridge receives whole affine owners and introduces no gameplay raw-World grant. No reader registration by normal inspection, no metadata rewriting or global retention policy. Artificial retainer is an isolated reached mutation, not accepted behavior.
+
+Remaining #54 acceptance is explicit: full live/store/pending owners and two-schema/full public combinations are supplied by separate governing evidence, not proven by this one-schema resource/event fixture. This finite trace does not prove universal refinement, ownership identity, disposal or numerical performance. No shared core edits are delivered by this experiment alone.
+
+## Actual evidence checked
+
+Independent no-backend verification of actual-v1/verify.py completed PASS: all75 lossless member hash/length/gzip joins; all4 exact admitted plan/receipt/binding/source/helper/current tool/resource inventories; ten command exits0/failureNone, empty stderr, receipt statuses DEVELOPMENT_PASS and no guard failures. Exact entire nominal stdout is6130 bytes normal (`16da57f4524c2268d1e3fb9f5d169bcca7c0a432d3d885e8a91b2396cbd61886`) and7213 bytes artificial retainer (`e7f24c907d7055e006f20d2bf9d6358fa7d217201b800fc54290638d1b99701f`). Normal JS equals Native raw/typed; retainer JS equals Native raw/typed. Each matches its independent complete13model and retainer differs from the complete source-relocated normal baseline, with no arbitrary-mismatch attribution.
+
+Independently checked archived Native magic and AArch64 machine183: normal ELF215184 bytes/SHA c913ed578bd7570820649849f7ddf51112d3f3b4985fc867d661d7e92e4c6930, from C887198 bytes; retainer ELF215552 bytes/SHA69146941597deaaa4172f0fe76df10ac485c970c32b3331acaaad88cbb234991, from C889064 bytes. Actual tool is installed pinned2.0.35, Clang19 -O3, CPU5/threads1/GPUoff, original emit30/build120/run5 caps. Inline pre/acquired/post/final guards are source-reviewed collector operations, not separate trace files.
+
+Original sessions17097/46956/8839/58803 are retained. One initial wrong-binding-digest CLI invocation refused before any workload child/raw/generated artifact; author records it separately without inventing a cohort receipt or hiding it as an emitter retry. No scope/model repair followed actual output.
+
+## Reach and remaining acceptance
+
+Normal actual gameplay callback Observer.projected uses abstract H and Cap.value_read against I.grant→I.read inside the real detached Frame. Reattachment returns the same owned Runtime metadata; it does not register a system position. The isolated retainer bridge changes this actual reattachment by Ev.activate(id0,cursor0), and the complete observed retention frontier changes accordingly. This is reached semantic evidence, not helper-import selection. Final leaf uses I.read directly with its own fresh frame and correctly reports lagTrue after normal retirement.
+
+The actual skip occurs immediately after successful fast read with no newer publication; it exercises the skip entry/noninterference but does not independently falsify unread-backlog discard behavior. Failure readers do no writes, so this slice is not a transaction-rollback mutation test. Only four resource cells and observed World scalars/registrations are claimed; resource owner is not duplicated, but owner identity, finalization and full World live/store/pending are unobserved. Inspector registeredAt and Registry owner internals remain excluded. Public general assembly/all23 grant combinations, additional nominal schema, structural/refusal/query authority gates and unchanged combined #28 remain governed by their owning evidence/#54 completion path.
+
+No findings requiring changes within this delivered bounded slice. Source/model/native adaptation was fixed and frozen before output. Tool/resource identities are current-host checks rather than a closed clean-checkout resolver; archived source/raw/C/ELF evidence is complete for this scope. No comparative timing, performance, universal proof or whole #54 closure is inferred. Recommend integrating this experiment/evidence as the bounded actual retention acceptance contribution.
