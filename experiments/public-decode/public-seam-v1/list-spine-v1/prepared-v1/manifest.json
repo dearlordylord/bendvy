@@ -1,0 +1,120 @@
+{
+  "scope": "complete tagged FIFO list15/8 subjects, bijection to unchanged independent models",
+  "sourceCommit": "d4cbefa0",
+  "plans": {
+    "generic-js": {
+      "planSha256": "7691b9fd8914fdcb036bb8d1298d574315ba495be605803b60975c55858f4600",
+      "status": "PREPARED_NO_CHILD",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/generic-spine.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/prepared-v1/generic-js/generated/complete.js"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/prepared-v1/generic-js/generated/complete.js"
+        },
+        {
+          "label": "complete-run",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/prepared-v1/generic-js/generated/complete.js"
+          ],
+          "capSeconds": 5
+        }
+      ],
+      "oracleCommit": "152dc70d9eb5cb715146dfdf9a4fbdf8d2441813",
+      "oracleSha256": "a0b2037dba1943acb7deb49f58007a72ff5d62821559744a8d1f9823c0a3e349",
+      "assemblyBindingSha256": "db92b2f33afbaf8d5917ff1f2704574a61fc90c22ef8dd1e9282f2c596df9762"
+    },
+    "generic-cEmit": {
+      "planSha256": "fd6f181060b25d1f48d0862760ae9ec8cfd73b0065dfb6f43721aa9c65f9d3db",
+      "status": "PREPARED_NO_CHILD",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/generic-spine.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/prepared-v1/generic-cEmit/generated/complete.c"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/prepared-v1/generic-cEmit/generated/complete.c"
+        }
+      ],
+      "oracleCommit": "152dc70d9eb5cb715146dfdf9a4fbdf8d2441813",
+      "oracleSha256": "a0b2037dba1943acb7deb49f58007a72ff5d62821559744a8d1f9823c0a3e349",
+      "assemblyBindingSha256": "db92b2f33afbaf8d5917ff1f2704574a61fc90c22ef8dd1e9282f2c596df9762"
+    },
+    "deferred-js": {
+      "planSha256": "6142f0895f40fe378c4d2e383289b829391e07790e6002b7b845587656d5d0f8",
+      "status": "PREPARED_NO_CHILD",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/deferred-spine.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/prepared-v1/deferred-js/generated/complete.js"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/prepared-v1/deferred-js/generated/complete.js"
+        },
+        {
+          "label": "complete-run",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/prepared-v1/deferred-js/generated/complete.js"
+          ],
+          "capSeconds": 5
+        }
+      ],
+      "oracleCommit": "dfdd7d0a7c518fc23acb4ed27d1b2fa4c117f920",
+      "oracleSha256": "8095a1eb678fcf3f9cf985ce33d9e779108f6041fbecdd7ac67cf8f94a2bac42",
+      "assemblyBindingSha256": "c003a2ac6b1c578786ad972264e756484d4d9a9b28efbed6e01b4d803c8790c6"
+    },
+    "deferred-cEmit": {
+      "planSha256": "13d5518fe5e8e3f6072366852813533e54e893ab4054a0622814dcfcd04c2252",
+      "status": "PREPARED_NO_CHILD",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/deferred-spine.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/prepared-v1/deferred-cEmit/generated/complete.c"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/prepared-v1/deferred-cEmit/generated/complete.c"
+        }
+      ],
+      "oracleCommit": "dfdd7d0a7c518fc23acb4ed27d1b2fa4c117f920",
+      "oracleSha256": "8095a1eb678fcf3f9cf985ce33d9e779108f6041fbecdd7ac67cf8f94a2bac42",
+      "assemblyBindingSha256": "c003a2ac6b1c578786ad972264e756484d4d9a9b28efbed6e01b4d803c8790c6"
+    }
+  }
+}
