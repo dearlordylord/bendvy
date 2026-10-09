@@ -1,0 +1,9 @@
+# Controls10 independent admission
+
+Reviewed 694d305e/root4b9b6429 and exact `/tmp/bendvy-debug56-call-boundary-controls10/plan.json` SHA256 `eefbba0890d7ad3b273a6b20ab4f4aa79472a05ffa26b99b91fa440f22403b72`. **Admit this exact bounded five-control sequence once.** No backend ran in review.
+
+All240 current file pins independently match; complete resources70/272/7 membership and bytes match; all21 report/C/binary artifacts are absent. Collector, source-specific witness gate and all five independent expected models are byte-identical to controls09. Existing CPU5/shared lock, emit30/build120/runtime5, threads1/GPUoff, compiled-source preimports, result/partialartifact preservation and unconditional post/final receipts remain unchanged.
+
+The changed control uses ordinary erased -A rather than compile-time specialized ~A and returns the same concrete Report value. The same121/122 affine array is consumed through existing recursive observe, whose returned owner and list are disposed in sized; the control does not claim those dropped values as observed Report fields. Public owner/control expectations stay exact. Pinned compiler fun_of fills erased arguments with DUMMY; lay_of unknown return A selects BOX, while main's concrete Report has inline constructor arms. Recursive observe grounds prospective nonflat traversal. The existing once guard forbids boxed-return fusion into nonboxed main; differing layout with constructor arms then takes existing cut route. This source reasoning is prospective: exact authored main-to-target cut witness remains mandatory, unchanged, and no emission success is inferred.
+
+Original09 unreached-cut failure remains preserved; this is a changed source subject. Admission is only copied-compiler branch controls, not full71/installed/public/performance qualification. Source5-v8 receipt is retained; it was not rerun by reviewer.
