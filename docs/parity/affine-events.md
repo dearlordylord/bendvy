@@ -155,3 +155,62 @@ case corrupts a namespace rather than constructing independent worlds, and
 public ownership/retirement contracts, authority controls, public integration,
 delivery and performance qualification remain open. No finalizer or memory
 improvement is established.
+
+
+## Public adoption seam audit (2026-10-08)
+
+Source basis: master `dfb549e9`, registered reader `536139a5`, actual paired
+execution `c4ebaec2`, reached retirement-loss `1553df5f`, actual-entry authority
+controls `6fc7692f`. This is implementation preparation under #53, not a selected
+public retention/provider contract or a second plan.
+
+| Existing seam | Demonstrated boundary | Remaining integration |
+| --- | --- | --- |
+| `src/ecs/capabilities.bend` Request / OwnedRequest | Generic affine H; Type input; Data request value; independently owned Type output is already expressible | A trusted provider can mutate or replace its owner. Opaque H prevents consumer extraction; it does not prove provider purity. |
+| `scoped-read-v1/read.bend` provide | Owner and Observation are arbitrary Type, Observation fixed before abstract H | Current lens/index/result signature is U32→U32. Generic payload ownership does not establish a generic value/index projection API. |
+| `registered-read-v1/log.bend` read | One Log<P>, arbitrary Type P/O; missing/duplicate preflight preserves owners; Array output positive and four intended source refusals | U32 keys, permanent seen ledger and schema-authored lens remain fixture choices. Do not silently promote key reuse/retirement policy. |
+| `src/ecs/event-runtime.bend` register/run/skip/frame | Existing Data-key runtime supplies lazy activation, success cursor commit, failure retry, lag and complete-batch trim | `event:read` is supplied metadata. Registration matching verifies it has not changed; it does not authorize arbitrary runner World access. |
+| `transaction-candidate-v1/adapter.bend` and canonical transaction.finish | Created Stage owners publish after commit or return after required rollback | No extraction of owners needed by ECS undo, no second rollback owner and no generic transactional Resource move. |
+
+Smallest authorized integration patch, for the sole core integrator:
+
+1. Reuse the existing capability module for a closed scoped-provider helper,
+   or a small sibling importing it. Preserve the current type ordering
+   `Owner:Type, Observation:Type` before consumer `H:Type`; reuse Request rather
+   than adding another capability registry. A generic Input:Type / Value:Data
+   parameterization is an authoring candidate, not evidence from the U32 fixture.
+   The immediate exact U32 helper can be promoted with its trusted-provider
+   boundary documented; claiming generic projection needs its own consuming case.
+2. Keep event-runtime Data E and its current register/run/skip/frame behavior
+   unchanged. An ordinary schema/system adapter must derive reader access from
+   its existing declaration and deliver only the scoped capability to the body.
+   Use the existing System/query capability-assembly route; merely attaching
+   `event:read` to Registry is insufficient. Do not expose raw World to gameplay
+   and call that declared-access enforcement.
+3. Keep the Type payload log schema-owned, threaded once through Resource,
+   with returned observations fixed independently of H. Adapt the complete
+   registered-reader consumer to that declaration route, preserving all cursors,
+   failures, refused Requests, FIFO payload/sentinel and retirement observations.
+   Keep retirement receipt assembly explicitly experimental until #53 selects
+   its public ownership/cleanup boundary; do not promote the permanent key ledger
+   or raw World constructor as that selection.
+4. Connect existing Stage/transaction transport only at its reviewed post-finish
+   seam. Preserve existing Data events and #51/#52 inverse-owner restoration.
+   An arbitrary affine owner must never appear both in undo and abort recovery.
+
+Ownership: #53 owns typed event log/provider and retirement integration; #31
+owns the existing Data-reader runtime; #50 owns general captured system state;
+#51/#52 own rollback/transfer boundaries; #38 owns independent World authority;
+#61 owns the final source-current parity audit. Core candidates belong beside
+`capabilities.bend` / `event-runtime.bend` and the existing ordinary System
+capability adapter, not in observer/parser/oracle modules. Fixtures, formatting,
+manual packet constructor and trusted namespace-corruption helper remain tests.
+
+Next evidence must use actual ordinary declarations with undeclared-read refusal
+at capability assembly, independently created same-schema foreign runtimes,
+non-U32 projection if generalized, and a malicious trusted-lens counterexample
+or explicit documented author trust. Retain current owner-dup/write/escape/schema
+negatives and reached loss control at migrated callsites. Full declared DTO
+preservation precedes paired backend and unchanged #28 gates; WorldMeta remains
+partial and provider preservation is not established by typing. No new law,
+cleanup protocol, secrecy guarantee, tolerance or dependency is selected here.
