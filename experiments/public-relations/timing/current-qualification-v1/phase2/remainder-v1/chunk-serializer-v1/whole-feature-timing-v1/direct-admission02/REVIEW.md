@@ -1,0 +1,1 @@
+Constructor syntax repair only: multi-match list sugar replaced by existing Nil/Con constructors. No token/fuel/order/owner/workload change. Original source5 parser failures retained in direct-source5-attempt01; old admission01/emission02 unexecuted backend. Repaired source5 and emission03 exact fresh source pins; source5 before any backend.

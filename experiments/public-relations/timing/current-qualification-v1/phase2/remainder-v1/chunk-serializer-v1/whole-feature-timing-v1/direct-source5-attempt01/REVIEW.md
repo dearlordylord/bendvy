@@ -1,0 +1,1 @@
+Both first source5 checks exit1 same parser error at multi-match list sugar case _ []. No checker/backend acceptance or deadline. Eight unchangedguards; original93008 terminal. Repair uses existing List Nil/Con constructors supported by current source; no fuel/transport policy change. Old emission02 remains unlaunched.
