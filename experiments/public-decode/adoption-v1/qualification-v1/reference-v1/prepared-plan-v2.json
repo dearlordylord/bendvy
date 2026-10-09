@@ -1,0 +1,2846 @@
+{
+  "scope": "Pinned TS ordinary decode development reference; prepared admission required.",
+  "oracleCommit": "e2a1097a",
+  "oracleSha256": "3428e431adc007588a59c1efaf4652e06e3bb9d42946b7947e63c1220d488b1d",
+  "sourceBasis": "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/oracle-v1/source-basis-v2.json",
+  "argv": [
+    "/usr/bin/taskset",
+    "-c",
+    "5",
+    "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/reference.mjs"
+  ],
+  "capSeconds": 5,
+  "inputs": {
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/reference.mjs": "06dc1c3823a30cc0e4cb638696eecfcc9d40a494d9d2c86b295d96c82b63114e",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/run.py": "6db1fdc9d341d8f12da804e6361f0143022514d98f45c582a44d3ac02e5d6bba",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/oracle-v1/expected-v2.json": "3428e431adc007588a59c1efaf4652e06e3bb9d42946b7947e63c1220d488b1d",
+    "/tmp/bendvy-decode46-ts-reference-v2/private-environment.json": "76c82cbf4e4318b9edaf45419339511bfa45ec4099f81020046bc4b856d201d3",
+    "/home/node/.local/share/mise/installs/node/24.20.0/bin/node": "23a5637c2470fde09fcc1acc77c1b92e04e3d7e3e6e80ff7df6f5831958d1477",
+    "/usr/bin/taskset": "73fd987f9cdb44d56025aec83b53f9c5f4e9a1dbc9f06679a9f2b59ea75c63a5",
+    "/usr/bin/python3.11": "9a070c8a36e16c152dae21b66aeb707f4d21b506c875e9b15edf4387fca7dcf8",
+    "/workspace/formal-proofs/bendvy/scripts/task_runner.py": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44",
+    "/workspace/formal-proofs/bendvy/scripts/receipt-logs.py": "fdb39388e409f2fe39d5785345739c681982f3aa98c9d5cc03e5544c8d5ec891",
+    "/workspace/formal-proofs/bendvy/scripts/evidence_boundary.py": "f65bec69285b71014fd6a750146e535a0128233b926248cd92ee04afeafd0122",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/installed-config.py": "fce37f7993990c9d233eced8b0ae7a3687cd7657416a713101d5de1d74f2a347",
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/reference-cheap.py": "904c7f943da32bade56b612d4e1114a5ddc5dbef222dcd800c68fab9b01d968d",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Runtime.ts": "c744aa5c52845bd3323358c5085161b40a452c6802a1653e3851bfd34c69f5b4",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Descriptor.ts": "03e7339516d9f6bd455763a8dcdf7244d0c11f7165e493aa895aaa64225acab7",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Decode.ts": "a8e8e91e5dffc15718ba8d3ecbea1007b386117af12764df4238356600bd82df",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Entity.ts": "05d724f241b2d662a7a03ce82da5f133c4b587df92e5e22fdfdb7484edbca68e",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Command.ts": "de5db2093401e24ce54fae8166e7f686c153852094b6446dc0ee22cfa28cef28",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Query.ts": "45e2fe513f66e336f97d40b41b3c866363a1af17ecbc90087086e00c08b28414",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/world.ts": "e71b4b060fec85fae690957104c14051e4bea0d857bacd648993ea69a6fe27d7",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/cells.ts": "adbf5e99cb1d40e284aee9ce3b1ddeefdcb10e0e1420be5bda91f58a96afe41e",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/result.ts": "87570330858b0b41bed22be9661bd9e3b04f67e7004998082e6a83cbb1ce1c89",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/oracle-v1/expected-v2.py": "d16ee2a1c0fcdb78850845c0646c70275d073a9c12f4b7d1a867af92d760d5c4",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/oracle-v1/expected.json": "52333b8b889d44a5ca7fe7cb70736dcfa9b32e1f3aed778801e8eabb22dda672",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/oracle-v1/source-basis-v2.json": "448bee72a4c054599beb4630c4a2f3f7ddd3ec9f5f27950da0c6b8e4cde1bdd2",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/oracle-v1/source-basis.json": "da09c96cbe1d59bdee486a7101186890285a1cd7795df8b80243b6f093524d3b",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/oracle-v1/expected.py": "855b35ce43d253c20fce2f777747894121ec9badcb35dbc1fe145824fc593c25",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/oracle-v1/REVIEW.md": "c95a739a55ca2ef517bcdf4bbf5f993d174dcb4c3d5ef458b51bf6dacb5b878a",
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/oracle-v1/expected-complete.py": "40183a2787140ded8c9920a1836dc65129f3a68127199fbe01242a56a62424c1",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src": {
+      "Brand.ts": "85090ad2253694526dda4e2e54802158cf229d98477169bc25e77396bdc963b9",
+      "Command.ts": "de5db2093401e24ce54fae8166e7f686c153852094b6446dc0ee22cfa28cef28",
+      "Condition.ts": "1b4c8c906cab11745535ffe84f169a48767c88c26336f3b46f45cf7d59f08083",
+      "Debug.ts": "942fc7e3bdf1b15f31708bad0ab02c0789a037b707a566e2cb860b43f9b5c3ff",
+      "Decode.ts": "a8e8e91e5dffc15718ba8d3ecbea1007b386117af12764df4238356600bd82df",
+      "Definition.ts": "96054da50280f6dca44fd97dbd126e597f1492c9737e34329adf3f1cda1b325f",
+      "Descriptor.ts": "03e7339516d9f6bd455763a8dcdf7244d0c11f7165e493aa895aaa64225acab7",
+      "Entity.ts": "05d724f241b2d662a7a03ce82da5f133c4b587df92e5e22fdfdb7484edbca68e",
+      "EntityScope.ts": "3241a13ed0c337434e193e80a790498a9130ea31d4aca1f73294a5af2c50b04a",
+      "Feature.ts": "bf3be7437c63c1f12d8b0ff0f1a4965408331fad7a279669ef7c9b2cb29140a8",
+      "Fx.ts": "75242b8513225601589f4658d59c86100351557fef39cc8d17506c958dd2c5b3",
+      "Inspector.ts": "21757eb340c0ae192a36726538d0a87aefbd455859d196dab36aa3515c1addb3",
+      "Machine.ts": "a0007e841e07afb10a40ab8f3056691a3555cd6815b4564f5f1326e0e956ceb3",
+      "Query.ts": "45e2fe513f66e336f97d40b41b3c866363a1af17ecbc90087086e00c08b28414",
+      "Relation.ts": "7c2cbe93d90c6ca4f173932c9bb7e4536323d6b5bf17dc64c1c8fda83c3a7aa4",
+      "Requirement.ts": "0397bbf69285e1f50edafdceab81b48208c0127fe53ff0305e52d6a1b4766783",
+      "Result.ts": "96b098025e5e84b26bc97355ed1c463fe17f652954d2f83a83058e9817f7766c",
+      "Runtime.ts": "c744aa5c52845bd3323358c5085161b40a452c6802a1653e3851bfd34c69f5b4",
+      "Schedule.ts": "ab1610c356bfbcedf6ac85758e04c7032cda1f2458ff13c8a483c53d94b55c2a",
+      "Schema.ts": "26e7c140a6f3c2a98ea4e43c1f067a18e47c03ff6f56939c8139f1535ae1a0ec",
+      "Snapshot.ts": "249f57c429d97e57088ebb1e959b6258dd97ca71c9cc66a0a4ed6ac35ad04a3b",
+      "System.ts": "ae53852dbd815ad441446cbcfc663d25aed6c2bd0afcfacbc3c20e0c40dc2ba7",
+      "index.ts": "a74d79748f5eff6e9f732b54ed6efc0a42826e4cf8ffc7ab9504d11257e6d61f",
+      "internal/brand.ts": "7b888113edd48ea9777880fa85fc159428b78ac82587ca43eda8f1bbec4cc1b0",
+      "internal/cells.ts": "adbf5e99cb1d40e284aee9ce3b1ddeefdcb10e0e1420be5bda91f58a96afe41e",
+      "internal/debug.ts": "944a9858586dcf8ad58e66efd92b05c437c0be23afe517fabe00642d7bf4e338",
+      "internal/definition.ts": "543dee934661802fb57cb75a8faec653112433a566ce31231fca33ffa8d36f92",
+      "internal/fragments.ts": "4220e09fcc78e50cecd05ec373f57a278a5c33fbd51c53cbb2f7d57c6593ba68",
+      "internal/game.ts": "b1584dbe4c579783e4b2fae802a25e6af95384972e15ffccd2b868d6ba879773",
+      "internal/queries.ts": "382ce3b334df1bb7f4d0c4c19c17827b2343cae8a68ba7f562e9e732b6a5a4ab",
+      "internal/result.ts": "87570330858b0b41bed22be9661bd9e3b04f67e7004998082e6a83cbb1ce1c89",
+      "internal/streams.ts": "3e817555dddf937c51b51014ceb6422f068aeca4a40328281dbb774b8880168e",
+      "internal/world.ts": "e71b4b060fec85fae690957104c14051e4bea0d857bacd648993ea69a6fe27d7"
+    }
+  },
+  "configuration": {
+    "/package.json": {
+      "kind": "absent"
+    },
+    "/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/.npmrc": {
+      "kind": "absent"
+    },
+    "/.node-version": {
+      "kind": "absent"
+    },
+    "/.tool-versions": {
+      "kind": "absent"
+    },
+    "/mise.toml": {
+      "kind": "absent"
+    },
+    "/.mise.toml": {
+      "kind": "absent"
+    },
+    "/bend.json": {
+      "kind": "absent"
+    },
+    "/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/bender.json": {
+      "kind": "absent"
+    },
+    "/.bend.json": {
+      "kind": "absent"
+    },
+    "/bend.config.json": {
+      "kind": "absent"
+    },
+    "/.bend": {
+      "kind": "absent"
+    },
+    "/check.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/package.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/.npmrc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/.node-version": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/.tool-versions": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/.mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/bender.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/.bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/bend.config.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/.bend": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/check.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/scripts/package.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/scripts/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/scripts/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/scripts/.npmrc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/scripts/.node-version": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/scripts/.tool-versions": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/scripts/mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/scripts/.mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/scripts/bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/scripts/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/scripts/bender.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/scripts/.bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/scripts/bend.config.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/scripts/.bend": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/scripts/check.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/package.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/.npmrc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/.node-version": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/.tool-versions": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/.mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/bender.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/.bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/bend.config.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/.bend": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/check.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/package.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/.npmrc": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/.node-version": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/.tool-versions": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise.toml": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/.mise.toml": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bender.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/.bend.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend.config.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/.bend": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/check.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/package.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/.npmrc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/.node-version": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/.tool-versions": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/.mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/bender.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/.bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/bend.config.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/.bend": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/check.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/package.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/.npmrc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/.node-version": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/.tool-versions": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/.mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/bender.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/.bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/bend.config.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/.bend": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/check.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/package.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/.npmrc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/.node-version": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/.tool-versions": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/.mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/bender.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/.bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/bend.config.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/.bend": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/check.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/24.20.0/bin/package.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/24.20.0/bin/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/24.20.0/bin/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/24.20.0/bin/.npmrc": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/24.20.0/bin/.node-version": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/24.20.0/bin/.tool-versions": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/24.20.0/bin/mise.toml": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/24.20.0/bin/.mise.toml": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/24.20.0/bin/bend.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/24.20.0/bin/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/24.20.0/bin/bender.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/24.20.0/bin/.bend.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/24.20.0/bin/bend.config.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/24.20.0/bin/.bend": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/24.20.0/bin/check.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/package.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/.npmrc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/.node-version": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/.tool-versions": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/.mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/bender.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/.bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/bend.config.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/.bend": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/check.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/package.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/.npmrc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/.node-version": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/.tool-versions": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/.mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/bender.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/.bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/bend.config.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/.bend": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/check.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/package.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/.npmrc": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/.node-version": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/.tool-versions": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/mise.toml": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/.mise.toml": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/bend.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/bender.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/.bend.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/bend.config.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/.bend": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/check.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/package.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/.npmrc": {
+      "kind": "absent"
+    },
+    "/home/node/.local/.node-version": {
+      "kind": "absent"
+    },
+    "/home/node/.local/.tool-versions": {
+      "kind": "absent"
+    },
+    "/home/node/.local/mise.toml": {
+      "kind": "absent"
+    },
+    "/home/node/.local/.mise.toml": {
+      "kind": "absent"
+    },
+    "/home/node/.local/bend.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/home/node/.local/bender.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/.bend.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/bend.config.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/.bend": {
+      "kind": "absent"
+    },
+    "/home/node/.local/check.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/package.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/.npmrc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/.node-version": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/.tool-versions": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/.mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/bender.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/.bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/bend.config.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/.bend": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/check.json": {
+      "kind": "absent"
+    },
+    "/usr/package.json": {
+      "kind": "absent"
+    },
+    "/usr/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/usr/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/usr/.npmrc": {
+      "kind": "absent"
+    },
+    "/usr/.node-version": {
+      "kind": "absent"
+    },
+    "/usr/.tool-versions": {
+      "kind": "absent"
+    },
+    "/usr/mise.toml": {
+      "kind": "absent"
+    },
+    "/usr/.mise.toml": {
+      "kind": "absent"
+    },
+    "/usr/bend.json": {
+      "kind": "absent"
+    },
+    "/usr/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/usr/bender.json": {
+      "kind": "absent"
+    },
+    "/usr/.bend.json": {
+      "kind": "absent"
+    },
+    "/usr/bend.config.json": {
+      "kind": "absent"
+    },
+    "/usr/.bend": {
+      "kind": "absent"
+    },
+    "/usr/check.json": {
+      "kind": "absent"
+    },
+    "/home/package.json": {
+      "kind": "absent"
+    },
+    "/home/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/home/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/home/.npmrc": {
+      "kind": "absent"
+    },
+    "/home/.node-version": {
+      "kind": "absent"
+    },
+    "/home/.tool-versions": {
+      "kind": "absent"
+    },
+    "/home/mise.toml": {
+      "kind": "absent"
+    },
+    "/home/.mise.toml": {
+      "kind": "absent"
+    },
+    "/home/bend.json": {
+      "kind": "absent"
+    },
+    "/home/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/home/bender.json": {
+      "kind": "absent"
+    },
+    "/home/.bend.json": {
+      "kind": "absent"
+    },
+    "/home/bend.config.json": {
+      "kind": "absent"
+    },
+    "/home/.bend": {
+      "kind": "absent"
+    },
+    "/home/check.json": {
+      "kind": "absent"
+    },
+    "/tmp/bendvy-decode46-ts-reference-v2/package.json": {
+      "kind": "absent"
+    },
+    "/tmp/bendvy-decode46-ts-reference-v2/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/tmp/bendvy-decode46-ts-reference-v2/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/tmp/bendvy-decode46-ts-reference-v2/.npmrc": {
+      "kind": "absent"
+    },
+    "/tmp/bendvy-decode46-ts-reference-v2/.node-version": {
+      "kind": "absent"
+    },
+    "/tmp/bendvy-decode46-ts-reference-v2/.tool-versions": {
+      "kind": "absent"
+    },
+    "/tmp/bendvy-decode46-ts-reference-v2/mise.toml": {
+      "kind": "absent"
+    },
+    "/tmp/bendvy-decode46-ts-reference-v2/.mise.toml": {
+      "kind": "absent"
+    },
+    "/tmp/bendvy-decode46-ts-reference-v2/bend.json": {
+      "kind": "absent"
+    },
+    "/tmp/bendvy-decode46-ts-reference-v2/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/tmp/bendvy-decode46-ts-reference-v2/bender.json": {
+      "kind": "absent"
+    },
+    "/tmp/bendvy-decode46-ts-reference-v2/.bend.json": {
+      "kind": "absent"
+    },
+    "/tmp/bendvy-decode46-ts-reference-v2/bend.config.json": {
+      "kind": "absent"
+    },
+    "/tmp/bendvy-decode46-ts-reference-v2/.bend": {
+      "kind": "absent"
+    },
+    "/tmp/bendvy-decode46-ts-reference-v2/check.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/package.json": {
+      "kind": "file",
+      "sha256": "ff20948e9c79ec1362eddf348aeb707216b7b2645fdfe09fbe9f1318e7c4a770",
+      "resolvedPath": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/package.json"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/tsconfig.json": {
+      "kind": "file",
+      "sha256": "18aa1b26c03c87a5e8cfb89c487ffbe2cc8b6fd79c5fb873d055dce1e7421c1e",
+      "resolvedPath": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/tsconfig.json"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/.npmrc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/.node-version": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/.tool-versions": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/.mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/bender.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/.bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/bend.config.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/.bend": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/check.json": {
+      "kind": "absent"
+    },
+    "/tmp/package.json": {
+      "kind": "file",
+      "sha256": "f41e971954c8e68c7d664a1153e67e81bbe0302cf1b5bd5ef3dc03496f97fd38",
+      "resolvedPath": "/tmp/package.json"
+    },
+    "/tmp/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/tmp/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/tmp/.npmrc": {
+      "kind": "absent"
+    },
+    "/tmp/.node-version": {
+      "kind": "absent"
+    },
+    "/tmp/.tool-versions": {
+      "kind": "absent"
+    },
+    "/tmp/mise.toml": {
+      "kind": "absent"
+    },
+    "/tmp/.mise.toml": {
+      "kind": "absent"
+    },
+    "/tmp/bend.json": {
+      "kind": "absent"
+    },
+    "/tmp/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/tmp/bender.json": {
+      "kind": "absent"
+    },
+    "/tmp/.bend.json": {
+      "kind": "absent"
+    },
+    "/tmp/bend.config.json": {
+      "kind": "absent"
+    },
+    "/tmp/.bend": {
+      "kind": "absent"
+    },
+    "/tmp/check.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/package.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/.npmrc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/.node-version": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/.tool-versions": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/.mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/bender.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/.bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/bend.config.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/.bend": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/check.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/package.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/.npmrc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/.node-version": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/.tool-versions": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/.mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/bender.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/.bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/bend.config.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/.bend": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/check.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/package.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/.npmrc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/.node-version": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/.tool-versions": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/.mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/bender.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/.bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/bend.config.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/.bend": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/check.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/package.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/.npmrc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/.node-version": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/.tool-versions": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/.mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bender.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/.bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bend.config.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/.bend": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/check.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/package.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/.npmrc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/.node-version": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/.tool-versions": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/.mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/bender.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/.bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/bend.config.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/.bend": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/check.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/package.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/.npmrc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/.node-version": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/.tool-versions": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/.mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bender.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/.bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bend.config.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/.bend": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/check.json": {
+      "kind": "absent"
+    },
+    "/home/node/package.json": {
+      "kind": "absent"
+    },
+    "/home/node/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/home/node/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/home/node/.npmrc": {
+      "kind": "file",
+      "sha256": "10e0720ef9ad6f59170fea8ab03d3d5cac1d6e0add6e18b6b653205dc928bc13",
+      "resolvedPath": "/home/node/.npmrc"
+    },
+    "/home/node/.node-version": {
+      "kind": "absent"
+    },
+    "/home/node/.tool-versions": {
+      "kind": "absent"
+    },
+    "/home/node/mise.toml": {
+      "kind": "absent"
+    },
+    "/home/node/.mise.toml": {
+      "kind": "absent"
+    },
+    "/home/node/bend.json": {
+      "kind": "absent"
+    },
+    "/home/node/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/home/node/bender.json": {
+      "kind": "absent"
+    },
+    "/home/node/.bend.json": {
+      "kind": "absent"
+    },
+    "/home/node/bend.config.json": {
+      "kind": "absent"
+    },
+    "/home/node/.bend": {
+      "kind": "directory",
+      "resolvedPath": "/home/node/.bend",
+      "inventory": {
+        "bend2": {
+          "kind": "directory",
+          "resolvedPath": "/home/node/.bend/bend2",
+          "inventory": {
+            "base.bend": {
+              "kind": "file",
+              "sha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+              "resolvedPath": "/home/node/.bend/bend2/base.bend"
+            },
+            "bendtt.lean": {
+              "kind": "file",
+              "sha256": "e15042434e73aab07ab05cea4b77b5619082c00a6d4924ea2d4a2cdec05facce",
+              "resolvedPath": "/home/node/.bend/bend2/bendtt.lean"
+            },
+            "effs": {
+              "kind": "directory",
+              "resolvedPath": "/home/node/.bend/bend2/effs",
+              "inventory": {
+                "args.c": {
+                  "kind": "file",
+                  "sha256": "2635223ad1d401b07e1834b9341e3f0be254796f6de1d9a0e800ca59fb3000b4",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/args.c"
+                },
+                "args.js": {
+                  "kind": "file",
+                  "sha256": "ed1a7e7b73ae7fe58ac6d428d2762b66f223f4c70a165570fc5d68dc874ddc0b",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/args.js"
+                },
+                "audio.c": {
+                  "kind": "file",
+                  "sha256": "5b77ca51a275e0113cfb6fada35211f767c792a549d3b23375bde853d28d9478",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/audio.c"
+                },
+                "audio_close.js": {
+                  "kind": "file",
+                  "sha256": "c700e2fc0eda1f9a67afd317184999d9283912817aaec00637af41b135b84c62",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/audio_close.js"
+                },
+                "audio_open.js": {
+                  "kind": "file",
+                  "sha256": "6f531ac205dab98dd366111cdcc5eed69fb9058350ca715f3419065cd979b088",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/audio_open.js"
+                },
+                "audio_write.js": {
+                  "kind": "file",
+                  "sha256": "377d3e938ce3cc9f083c662b69d34e3a0cf391c92ddaf3fca8a4b28c78662da7",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/audio_write.js"
+                },
+                "chan.c": {
+                  "kind": "file",
+                  "sha256": "cf026f9d428e83870d046a973ac434ce0a2471f5b93748bb264af84a239eacd3",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/chan.c"
+                },
+                "chan.js": {
+                  "kind": "file",
+                  "sha256": "c228f8c6ac2ef2fc7b09a016f43e894b524eb49f2ac5d0ebd629cef76d4d1248",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/chan.js"
+                },
+                "file_close.c": {
+                  "kind": "file",
+                  "sha256": "08fdd18ef43dff0bc6f7e064eb7ccf7a49f4140c238450f1b5f49ee1a2739dd5",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/file_close.c"
+                },
+                "file_close.js": {
+                  "kind": "file",
+                  "sha256": "2b83f900113776ab875fa3afd29f31000a191fe48645abe78b1d7b34cb12a7fe",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/file_close.js"
+                },
+                "file_open.c": {
+                  "kind": "file",
+                  "sha256": "361322488ad1508478c8a8fc4c0d35434924cd6fe92c02fd0c12b28b37b16726",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/file_open.c"
+                },
+                "file_open.js": {
+                  "kind": "file",
+                  "sha256": "dd549f5f05eb896aef9a3a02ffecf2ee902e653f5463be72781edab1cd1180ae",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/file_open.js"
+                },
+                "file_read.c": {
+                  "kind": "file",
+                  "sha256": "f6b78f6c6060257a91e341fcc38ba6560d5023ded78e3096fa5bfdc50da9538f",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/file_read.c"
+                },
+                "file_read.js": {
+                  "kind": "file",
+                  "sha256": "7aa8a95a0b02f3c8db1167da5a936958a90c64e7df3e327ba5c66766d5e57da7",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/file_read.js"
+                },
+                "file_size.c": {
+                  "kind": "file",
+                  "sha256": "f9d0f2aba9f3e89131b8b4d6d69ab2f33a99b645f403174e60e26238cfee33f1",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/file_size.c"
+                },
+                "file_size.js": {
+                  "kind": "file",
+                  "sha256": "508a931334016f725f0446d9c63f91d7e9de79b9fb347d0e148777dba834ef0b",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/file_size.js"
+                },
+                "file_write.c": {
+                  "kind": "file",
+                  "sha256": "a4d891e392ae0d913a73359fd80a30a64629eb893bf974c08eedb79b5fb9e2db",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/file_write.c"
+                },
+                "file_write.js": {
+                  "kind": "file",
+                  "sha256": "4fe307538beb1047add7646f52df6e382a1da5d8999d8fe96969bd5055bc9b59",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/file_write.js"
+                },
+                "get_env.c": {
+                  "kind": "file",
+                  "sha256": "3c05cb6453d858df9f24d5734defb51afce55da23f5799025782fe8e3191634f",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/get_env.c"
+                },
+                "get_env.js": {
+                  "kind": "file",
+                  "sha256": "2fab2162d5ff9842d1b84bfdc56466a606eeb0b81b04dd29f091652ff715ded6",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/get_env.js"
+                },
+                "listener_close.c": {
+                  "kind": "file",
+                  "sha256": "f3b023a763f62d85c861b9f6e0a717ba05992fe0b9d08bb827722ebaad291310",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/listener_close.c"
+                },
+                "listener_close.js": {
+                  "kind": "file",
+                  "sha256": "1b87fb43c373b1a8a54b5afaf0cf8e3ec2f8d39bdfde131e49527caa19ac0cb8",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/listener_close.js"
+                },
+                "now.c": {
+                  "kind": "file",
+                  "sha256": "268e869a5b5dd667aeb61ee7ef07f832238fb17f93015fe708528e95987c3ec3",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/now.c"
+                },
+                "now.js": {
+                  "kind": "file",
+                  "sha256": "b2c45fdcfeba0f155be5631b25708341c09d3c80929d8467afd5977473b087bf",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/now.js"
+                },
+                "print.c": {
+                  "kind": "file",
+                  "sha256": "28552d3b56aee6f6cdb66326aaa49ad0df35e4476e08c548c908efcbfafbd3e7",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/print.c"
+                },
+                "print.js": {
+                  "kind": "file",
+                  "sha256": "814ceba4efbaa291b7b6a9ff29aa20e3a23c06eb4fa165c69ee0bd22878adaa9",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/print.js"
+                },
+                "print_err.c": {
+                  "kind": "file",
+                  "sha256": "1ae1025f57d14ccc5a593319f9ea82bff061a05b4c468ab1bd0b939d4b98e2c4",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/print_err.c"
+                },
+                "print_err.js": {
+                  "kind": "file",
+                  "sha256": "a7a00612edfe98af1a351e8f7b912af4ee33f4bb888c36f119f7712d72a9394e",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/print_err.js"
+                },
+                "process_run.c": {
+                  "kind": "file",
+                  "sha256": "bf22b58053df01a4a3ac5edacf1593ae6fc0a3c2a2f238de682703a1826a01e8",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/process_run.c"
+                },
+                "process_run.js": {
+                  "kind": "file",
+                  "sha256": "6ebe3b9875ef62ee189209096fb422508e79d34e58913457aefe52a052631e42",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/process_run.js"
+                },
+                "random_u32.c": {
+                  "kind": "file",
+                  "sha256": "bb1e6b2d690590858e4cdbd78ba9b10d349eb3fc7dde0c3265e23af7991623fe",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/random_u32.c"
+                },
+                "random_u32.js": {
+                  "kind": "file",
+                  "sha256": "ab0b37cb6055ad08573d1263aa380c339c3fe7417530cfa63264629dce7744c2",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/random_u32.js"
+                },
+                "sleep.c": {
+                  "kind": "file",
+                  "sha256": "eb9d441b0ec6b11cbc775dd6f85da0aefdf8d9cdcb7f45f316d4f12c7aa1fdbc",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/sleep.c"
+                },
+                "sleep.js": {
+                  "kind": "file",
+                  "sha256": "324704349471cacfb5ba94c1aed2f316d2e5fdbea486478ab1e2e5a278c7ad9d",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/sleep.js"
+                },
+                "socket_close.c": {
+                  "kind": "file",
+                  "sha256": "742b164fecf63abf8b39fe8d2dd027cec4aa5a9cd31184e7d9d7825c91d5d65c",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/socket_close.c"
+                },
+                "socket_close.js": {
+                  "kind": "file",
+                  "sha256": "dc4bf1fa95692c91528d4eb855506dde8dfc9164a90de2c43cd1bd6916e0c380",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/socket_close.js"
+                },
+                "spawn.c": {
+                  "kind": "file",
+                  "sha256": "6d140b2b73b200c4bbd3004528734e7517e87d3f7ed40b901a06bfcbf2449abc",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/spawn.c"
+                },
+                "spawn.js": {
+                  "kind": "file",
+                  "sha256": "8a14c7a7a5ff80b049f0659f9e58d43bf0f3b1a6724d35a199c3f864b3242e4b",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/spawn.js"
+                },
+                "tcp_accept.c": {
+                  "kind": "file",
+                  "sha256": "c72b9f83e2fb8f48b8bf28dc9a3ae95c3c9cee7725a6915797199949d560511c",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/tcp_accept.c"
+                },
+                "tcp_accept.js": {
+                  "kind": "file",
+                  "sha256": "3a9eb2359ec60af942fc0aa0390e1d5213a6c8b050bc832b6c8709f68e57b6ed",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/tcp_accept.js"
+                },
+                "tcp_connect.c": {
+                  "kind": "file",
+                  "sha256": "ec6d1900f4c7ca88890c7e689bd8317e807665eed0c84418bd7e6505addac8e7",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/tcp_connect.c"
+                },
+                "tcp_connect.js": {
+                  "kind": "file",
+                  "sha256": "a20819822e4ce18c8878b94e6ee70466833415eb9ebc2b6a39b65cabfcc553c9",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/tcp_connect.js"
+                },
+                "tcp_listen.c": {
+                  "kind": "file",
+                  "sha256": "e126135c5a7cf46e4b4a57060a83ef1983340502f958c65e5c9faf27787abd8a",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/tcp_listen.c"
+                },
+                "tcp_listen.js": {
+                  "kind": "file",
+                  "sha256": "0da4cfafaa24ba5e17d9fda5e6a5b207b2b36031b2c888944f67b85842d76399",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/tcp_listen.js"
+                },
+                "tcp_poll.c": {
+                  "kind": "file",
+                  "sha256": "1e651ea609d61e1fef86cd07aaca13fa81b04a2159b3a3ef85e788e381c21560",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/tcp_poll.c"
+                },
+                "tcp_poll.js": {
+                  "kind": "file",
+                  "sha256": "b0654046a2bfd27a89a4788eec0d4e61cd24dea4efb992e8924cb17ac4238283",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/tcp_poll.js"
+                },
+                "tcp_recv.c": {
+                  "kind": "file",
+                  "sha256": "18f669d4cac74e862559f39ecb277592d6b0f06da50000e32751b6505e1a7a43",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/tcp_recv.c"
+                },
+                "tcp_recv.js": {
+                  "kind": "file",
+                  "sha256": "642735a0dd844d4ea1c83d4b5d100fec334d6032ba3115f3a41d0bbfe2d93dfd",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/tcp_recv.js"
+                },
+                "tcp_send.c": {
+                  "kind": "file",
+                  "sha256": "571d9790ce5c32b2cae08d69ae83ffa0d2c13e2e149f524d14237a79a2f86410",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/tcp_send.c"
+                },
+                "tcp_send.js": {
+                  "kind": "file",
+                  "sha256": "b5e56fa57d7cd48d7d0ca42d793322971dfc96b77b83b0eef4a528c26e7c326b",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/tcp_send.js"
+                },
+                "thread_count.c": {
+                  "kind": "file",
+                  "sha256": "ff5605b52535484adc10cb800c376ed77ededbddc9adea7064294e2cc0670d49",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/thread_count.c"
+                },
+                "thread_count.js": {
+                  "kind": "file",
+                  "sha256": "f4ef6d8ded95fe3114e50b7d2b6eb873e693419b85150f681b4a54a5043c2de9",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/thread_count.js"
+                },
+                "udp_bind.c": {
+                  "kind": "file",
+                  "sha256": "abffc463de08b76c0a1ca1235af56b463711d91e7f6720a976b414443096da8b",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/udp_bind.c"
+                },
+                "udp_bind.js": {
+                  "kind": "file",
+                  "sha256": "e3afae5bf246184e76703efbcf41cb35bf5289e746cc40dc0300eef98753dfb5",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/udp_bind.js"
+                },
+                "udp_poll.c": {
+                  "kind": "file",
+                  "sha256": "b6b6c6eb0ee4fce361e15df09b6579d30634ceab95d530f1e9e401c06155511b",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/udp_poll.c"
+                },
+                "udp_poll.js": {
+                  "kind": "file",
+                  "sha256": "86a7c4eee06ac487f476589d3137e39c152d6ab87b9208adf18763a1ceb486bd",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/udp_poll.js"
+                },
+                "udp_recv_from.c": {
+                  "kind": "file",
+                  "sha256": "32cab1742c2e5017af56fc97c20db5b38490d05eb4eab39e137ea20cdccf1aa2",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/udp_recv_from.c"
+                },
+                "udp_recv_from.js": {
+                  "kind": "file",
+                  "sha256": "d2ca779e878b5f3f85db5fb56148de955f4d094b312299a33f27b70b5b330b1b",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/udp_recv_from.js"
+                },
+                "udp_send_to.c": {
+                  "kind": "file",
+                  "sha256": "f00dd855ec7120706bd26a4bab6cc44ebd438584b73d479db3e00ec21b95eb2d",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/udp_send_to.c"
+                },
+                "udp_send_to.js": {
+                  "kind": "file",
+                  "sha256": "0eb95a9c026918435f1eabc6d6d04044731d10f56950d06582086250240911c7",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/udp_send_to.js"
+                },
+                "window.c": {
+                  "kind": "file",
+                  "sha256": "617611d994fb7f4c57467f8d1a7e644ba19d4fce35770613dea2711e6cafd65c",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/window.c"
+                },
+                "window_close.js": {
+                  "kind": "file",
+                  "sha256": "be4ef11e9ac57c59aa4aee847f15ece18034ca9fe1c4a68c6e0b0d7bbd7c3590",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/window_close.js"
+                },
+                "window_frame.js": {
+                  "kind": "file",
+                  "sha256": "78baa53aa46e02165c0c94da68d1f6362386ebcfb97dbb36fffb82792a03d34f",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/window_frame.js"
+                },
+                "window_grab.js": {
+                  "kind": "file",
+                  "sha256": "55cfc1925114f2d1f177137fad24d6252fe28707d26a1aae18a98ad97060a668",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/window_grab.js"
+                },
+                "window_open.js": {
+                  "kind": "file",
+                  "sha256": "cd716864b8dfb27ca955c8aa58643c7d693ce76eb56472bd8255ff7ac0656e8d",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/window_open.js"
+                },
+                "window_set_title.js": {
+                  "kind": "file",
+                  "sha256": "eee0bf26b7f381f8800364e22e8c735e47dd6db3f58e23ff3dda8478a8411513",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/window_set_title.js"
+                },
+                "write.c": {
+                  "kind": "file",
+                  "sha256": "3e1dc13b5edbbed0c344df665d68e82c8b9d4b5972166ff2411ec039f76cf943",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/write.c"
+                },
+                "write.js": {
+                  "kind": "file",
+                  "sha256": "e3495066a5d8c53fe1c46cfd2bb32577e3bd7dcae9797808801599073504dacb",
+                  "resolvedPath": "/home/node/.bend/bend2/effs/write.js"
+                }
+              }
+            }
+          }
+        },
+        "bendtt": {
+          "kind": "directory",
+          "resolvedPath": "/home/node/.bend/bendtt",
+          "inventory": {
+            "57dc4b2aa41362ae": {
+              "kind": "directory",
+              "resolvedPath": "/home/node/.bend/bendtt/57dc4b2aa41362ae",
+              "inventory": {
+                "bendtt": {
+                  "kind": "file",
+                  "sha256": "63097ca50a1ab7d62281e697479f35ef948b8eebb7f86c4bf605c2c4270de034",
+                  "resolvedPath": "/home/node/.bend/bendtt/57dc4b2aa41362ae/bendtt"
+                },
+                "bendtt.c": {
+                  "kind": "file",
+                  "sha256": "f01ba52abd9245485b0c8e6a715eb86217d1336a68f722b4c62785f231dfb11e",
+                  "resolvedPath": "/home/node/.bend/bendtt/57dc4b2aa41362ae/bendtt.c"
+                },
+                "bendtt.lean": {
+                  "kind": "file",
+                  "sha256": "c40d2b219c77c64de1fd6c32224cc53fa928436d8ab7df5bf5a7e585d556cc32",
+                  "resolvedPath": "/home/node/.bend/bendtt/57dc4b2aa41362ae/bendtt.lean"
+                }
+              }
+            },
+            "61e0d2d9f4ddd7dd": {
+              "kind": "directory",
+              "resolvedPath": "/home/node/.bend/bendtt/61e0d2d9f4ddd7dd",
+              "inventory": {
+                "bendtt": {
+                  "kind": "file",
+                  "sha256": "d9b3b8799a1aec6c3619998ea5348d7b18401c53139be49d99205c5f1580bea3",
+                  "resolvedPath": "/home/node/.bend/bendtt/61e0d2d9f4ddd7dd/bendtt"
+                },
+                "bendtt.c": {
+                  "kind": "file",
+                  "sha256": "f4d42d8949064200d7cd5b6736760f389ef4aef9805bc928f8a02ec4fdb4fe46",
+                  "resolvedPath": "/home/node/.bend/bendtt/61e0d2d9f4ddd7dd/bendtt.c"
+                },
+                "bendtt.lean": {
+                  "kind": "file",
+                  "sha256": "61e0d2d9f4ddd7dd8bb1497fa612fb49a7274fcac647bf70702ba22321d7c292",
+                  "resolvedPath": "/home/node/.bend/bendtt/61e0d2d9f4ddd7dd/bendtt.lean"
+                }
+              }
+            },
+            "7f6ef51c9f75d7de": {
+              "kind": "directory",
+              "resolvedPath": "/home/node/.bend/bendtt/7f6ef51c9f75d7de",
+              "inventory": {
+                "bendtt": {
+                  "kind": "file",
+                  "sha256": "524729c9d23b391bcfda748f254d90c3380c1eea1fdeee60c81bcb378e391bf1",
+                  "resolvedPath": "/home/node/.bend/bendtt/7f6ef51c9f75d7de/bendtt"
+                },
+                "bendtt.c": {
+                  "kind": "file",
+                  "sha256": "e4bbba5b790966914e7a596b7a6d83f5d7cd0a46f1a74a3ca54971fdb1fe7063",
+                  "resolvedPath": "/home/node/.bend/bendtt/7f6ef51c9f75d7de/bendtt.c"
+                },
+                "bendtt.lean": {
+                  "kind": "file",
+                  "sha256": "7f6ef51c9f75d7de91c15f790fb3385189b1129e7bc13812c9d8aa30a2c73dec",
+                  "resolvedPath": "/home/node/.bend/bendtt/7f6ef51c9f75d7de/bendtt.lean"
+                }
+              }
+            },
+            "e15042434e73aab0": {
+              "kind": "directory",
+              "resolvedPath": "/home/node/.bend/bendtt/e15042434e73aab0",
+              "inventory": {
+                "bendtt": {
+                  "kind": "file",
+                  "sha256": "02908579737daee32461f0c352caebb3c7606b96f648b6adbe88c4bc97b0d0cf",
+                  "resolvedPath": "/home/node/.bend/bendtt/e15042434e73aab0/bendtt"
+                },
+                "bendtt.c": {
+                  "kind": "file",
+                  "sha256": "76ef8506238e2b587dd5c717223e7fcb7e5a37b0a0875c2219901f05bc36b048",
+                  "resolvedPath": "/home/node/.bend/bendtt/e15042434e73aab0/bendtt.c"
+                },
+                "bendtt.lean": {
+                  "kind": "file",
+                  "sha256": "e15042434e73aab07ab05cea4b77b5619082c00a6d4924ea2d4a2cdec05facce",
+                  "resolvedPath": "/home/node/.bend/bendtt/e15042434e73aab0/bendtt.lean"
+                }
+              }
+            }
+          }
+        },
+        "bin": {
+          "kind": "directory",
+          "resolvedPath": "/home/node/.bend/bin",
+          "inventory": {
+            "bend": {
+              "kind": "symlink",
+              "target": "/home/node/.local/share/bend/2.0.36/bin/bend",
+              "resolvedPath": "/home/node/.local/share/bend/2.0.36/bin/bend",
+              "resolved": {
+                "kind": "file",
+                "sha256": "301a69a8e20937b37a431ecff5a80e85fdc5a2224ead972088e4ee9f3f89a300",
+                "resolvedPath": "/home/node/.local/share/bend/2.0.36/bin/bend"
+              }
+            },
+            "bend-2.0.35": {
+              "kind": "file",
+              "sha256": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a",
+              "resolvedPath": "/home/node/.bend/bin/bend-2.0.35"
+            }
+          }
+        },
+        "check.json": {
+          "kind": "file",
+          "sha256": "2323ddd47baf7dd03018bcf923b6c9b4bb306f04c80bce7e21c4e5e62bc3c564",
+          "resolvedPath": "/home/node/.bend/check.json"
+        },
+        "guide": {
+          "kind": "directory",
+          "resolvedPath": "/home/node/.bend/guide",
+          "inventory": {
+            "EFFECTS.md": {
+              "kind": "file",
+              "sha256": "fcb6f99cdbbdaa17b81bf27c2e5586a3da049339b39c05593b8e59b8b603fb59",
+              "resolvedPath": "/home/node/.bend/guide/EFFECTS.md"
+            },
+            "GUIDE.md": {
+              "kind": "file",
+              "sha256": "9001a4ac112e92dc0c069c8b9d5812e114c2557427d9f962cddeef1ef6c292b6",
+              "resolvedPath": "/home/node/.bend/guide/GUIDE.md"
+            },
+            "SHADERS.md": {
+              "kind": "file",
+              "sha256": "9e928e5bd9c0b03dc6c41b6ce1285a181f9e76d6c8d096b3f40cfdfdfc3b337f",
+              "resolvedPath": "/home/node/.bend/guide/SHADERS.md"
+            }
+          }
+        }
+      }
+    },
+    "/home/node/check.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/package.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/.npmrc": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/.node-version": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/.tool-versions": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/mise.toml": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/.mise.toml": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/bend.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/bender.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/.bend.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/bend.config.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/.bend": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/check.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/2.0.36/package.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/2.0.36/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/2.0.36/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/2.0.36/.npmrc": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/2.0.36/.node-version": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/2.0.36/.tool-versions": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/2.0.36/mise.toml": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/2.0.36/.mise.toml": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/2.0.36/bend.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/2.0.36/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/2.0.36/bender.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/2.0.36/.bend.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/2.0.36/bend.config.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/2.0.36/.bend": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/2.0.36/check.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/2.0.36/bin/package.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/2.0.36/bin/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/2.0.36/bin/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/2.0.36/bin/.npmrc": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/2.0.36/bin/.node-version": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/2.0.36/bin/.tool-versions": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/2.0.36/bin/mise.toml": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/2.0.36/bin/.mise.toml": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/2.0.36/bin/bend.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/2.0.36/bin/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/2.0.36/bin/bender.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/2.0.36/bin/.bend.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/2.0.36/bin/bend.config.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/2.0.36/bin/.bend": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/bend/2.0.36/bin/check.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/package.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/.npmrc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/.node-version": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/.tool-versions": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/.mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/bender.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/.bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/bend.config.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/.bend": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/check.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/package.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/.npmrc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/.node-version": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/.tool-versions": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/.mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bender.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/.bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend.config.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/.bend": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/check.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/package.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/.npmrc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/.node-version": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/.tool-versions": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/.mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/bender.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/.bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/bend.config.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/.bend": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/check.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/package.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/.npmrc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/.node-version": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/.tool-versions": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/.mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/bender.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/.bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/bend.config.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/.bend": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/check.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/oracle-v1/package.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/oracle-v1/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/oracle-v1/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/oracle-v1/.npmrc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/oracle-v1/.node-version": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/oracle-v1/.tool-versions": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/oracle-v1/mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/oracle-v1/.mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/oracle-v1/bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/oracle-v1/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/oracle-v1/bender.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/oracle-v1/.bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/oracle-v1/bend.config.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/oracle-v1/.bend": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/oracle-v1/check.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/package.json": {
+      "kind": "file",
+      "sha256": "3f0b043057510024d301b5354ecf4d20ef350fe82d982da58c4f79224a2a5df5",
+      "resolvedPath": "/workspace/formal-proofs/bendvy/.references/bevy-ts/package.json"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/tsconfig.json": {
+      "kind": "file",
+      "sha256": "7d30417a1a8f41dc9c529b3137f5d4b623713f3c242a3ff7e3d401683e2e1a1e",
+      "resolvedPath": "/workspace/formal-proofs/bendvy/.references/bevy-ts/tsconfig.json"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/.npmrc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/.node-version": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/.tool-versions": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/.mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/bender.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/.bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/bend.config.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/.bend": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/check.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/package.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/.npmrc": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/.node-version": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/.tool-versions": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/mise.toml": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/.mise.toml": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/bend.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/bender.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/.bend.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/bend.config.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/.bend": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/check.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/package.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/.npmrc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/.node-version": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/.tool-versions": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/.mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/bender.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/.bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/bend.config.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/.bend": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/check.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/package.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/.npmrc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/.node-version": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/.tool-versions": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/.mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/bender.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/.bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/bend.config.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/.bend": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/check.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/oracle-v1/package.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/oracle-v1/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/oracle-v1/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/oracle-v1/.npmrc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/oracle-v1/.node-version": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/oracle-v1/.tool-versions": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/oracle-v1/mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/oracle-v1/.mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/oracle-v1/bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/oracle-v1/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/oracle-v1/bender.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/oracle-v1/.bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/oracle-v1/bend.config.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/oracle-v1/.bend": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/oracle-v1/check.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/package.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/.npmrc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/.node-version": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/.tool-versions": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/.mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/bender.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/.bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/bend.config.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/.bend": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/check.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/package.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.npmrc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.node-version": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.tool-versions": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/bender.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/bend.config.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.bend": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/check.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/package.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/.npmrc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/.node-version": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/.tool-versions": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/.mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/bender.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/.bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/bend.config.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/.bend": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/check.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/package.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/.npmrc": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/.node-version": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/.tool-versions": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/mise.toml": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/.mise.toml": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/bend.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/bender.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/.bend.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/bend.config.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/.bend": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/check.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/package.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/.npmrc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/.node-version": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/.tool-versions": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/.mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/bender.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/.bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/bend.config.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/.bend": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/check.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/package.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/.npmrc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/.node-version": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/.tool-versions": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/.mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/bender.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/.bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/bend.config.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/.bend": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/check.json": {
+      "kind": "absent"
+    },
+    "/workspace/package.json": {
+      "kind": "absent"
+    },
+    "/workspace/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/.npmrc": {
+      "kind": "absent"
+    },
+    "/workspace/.node-version": {
+      "kind": "absent"
+    },
+    "/workspace/.tool-versions": {
+      "kind": "absent"
+    },
+    "/workspace/mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/.mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/workspace/bender.json": {
+      "kind": "absent"
+    },
+    "/workspace/.bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/bend.config.json": {
+      "kind": "absent"
+    },
+    "/workspace/.bend": {
+      "kind": "absent"
+    },
+    "/workspace/check.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/package.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/.npmrc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/.node-version": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/.tool-versions": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/.mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/bender.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/.bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/bend.config.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/.bend": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/check.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/package.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/.npmrc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/.node-version": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/.tool-versions": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/.mise.toml": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/bender.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/.bend.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/bend.config.json": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/.bend": {
+      "kind": "absent"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/check.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/24.20.0/package.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/24.20.0/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/24.20.0/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/24.20.0/.npmrc": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/24.20.0/.node-version": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/24.20.0/.tool-versions": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/24.20.0/mise.toml": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/24.20.0/.mise.toml": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/24.20.0/bend.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/24.20.0/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/24.20.0/bender.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/24.20.0/.bend.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/24.20.0/bend.config.json": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/24.20.0/.bend": {
+      "kind": "absent"
+    },
+    "/home/node/.local/share/mise/installs/node/24.20.0/check.json": {
+      "kind": "absent"
+    },
+    "/usr/bin/package.json": {
+      "kind": "absent"
+    },
+    "/usr/bin/tsconfig.json": {
+      "kind": "absent"
+    },
+    "/usr/bin/jsconfig.json": {
+      "kind": "absent"
+    },
+    "/usr/bin/.npmrc": {
+      "kind": "absent"
+    },
+    "/usr/bin/.node-version": {
+      "kind": "absent"
+    },
+    "/usr/bin/.tool-versions": {
+      "kind": "absent"
+    },
+    "/usr/bin/mise.toml": {
+      "kind": "absent"
+    },
+    "/usr/bin/.mise.toml": {
+      "kind": "absent"
+    },
+    "/usr/bin/bend.json": {
+      "kind": "absent"
+    },
+    "/usr/bin/bend.jsonc": {
+      "kind": "absent"
+    },
+    "/usr/bin/bender.json": {
+      "kind": "absent"
+    },
+    "/usr/bin/.bend.json": {
+      "kind": "absent"
+    },
+    "/usr/bin/bend.config.json": {
+      "kind": "absent"
+    },
+    "/usr/bin/.bend": {
+      "kind": "absent"
+    },
+    "/usr/bin/check.json": {
+      "kind": "absent"
+    }
+  },
+  "environmentSha256": "76c82cbf4e4318b9edaf45419339511bfa45ec4099f81020046bc4b856d201d3"
+}
