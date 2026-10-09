@@ -1,0 +1,11 @@
+# Matched TS semantic preparation
+
+PASS for immutable652ef1e04d93fa2f7e9f520473ccfcffcf82d5b6 and exact `/tmp/bendvy-bundle41-common-ts01/plan.json` SHA bc5ace9decfd35bdd69fbef628963ab1845bc1b9a5feb4205b2a08f0640e9be4. All92 current file pins match; prepared output contains only plan.json. One Node24 CPU5 cap5 command, shared lock, complete String gate; no emission/build and no resource-root inventory requested by this existing Node-only recipe.
+
+Independent source transport reconstruction verifies all73 original/staged source identity entries, full core src directory membership and package bytes; callable reference differs only exact import relocation. Entrypoint calls completeOutput once. Recomputed prior independently authored surface-ts-oracle.expected() equals the complete4,606-byte expected stdout; JSON String container d3f96 is exact, without normalization. Business callable run is unchanged.
+
+Execution body is unchanged from reviewed registered collector; Node-only prepare removes emit and treats the immutable stage entry as the generated artifact. Actual Python, plan and all pins are checked before captured verified helper byte execution; no cached loading. Pre/acquired/post/final source-stage guards and exclusive raw capture preserve completed results, publication and partial artifact failures with unconditional receipt. Six no-child bootstrap/publication/transport controls pass.
+
+Independent shared join review also passes both actual archived Bend JS and Native complete16,012-byte literals against full Bend oracle first, then the complete source-derived TS literal and all20 ordered before/after public row joins. Two meaningful join tests reject wholebackend corruption before projection and partial/mistyped rows. Shared join is a separate postsemantic metadata step, not executed or pinned by this Node plan; its frozen source must be bound in the subsequent actual crossbackend review. No TS output exists yet.
+
+Admit this single semantic Node run. No timing/work normalization, numerical gate, resource resolver closure or fullissue41 claim. Additional Bend inverse/physical/Delivery work remains disclosed; the shared rows establish only the stated complete semantic correspondence after fullbackend gates.
