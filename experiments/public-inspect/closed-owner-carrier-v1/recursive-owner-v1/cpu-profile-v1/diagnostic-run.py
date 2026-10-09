@@ -32,7 +32,7 @@ def validate_profile(data):
     if not isinstance(samples,list)or not isinstance(deltas,list)or len(samples)!=len(deltas)or not samples:
         raise ValueError('sample/delta mismatch or empty capture')
     if any(sample not in ids for sample in samples):raise ValueError('unknown sampled node')
-    if any(not isinstance(delta,(int,float))or isinstance(delta,bool)or delta<0 for delta in deltas):raise ValueError('invalid sample delta')
+    if any(type(delta) is not int for delta in deltas):raise ValueError('invalid sample delta')
     if data.get('endTime',-1)<data.get('startTime',0):raise ValueError('invalid profile interval')
 
 

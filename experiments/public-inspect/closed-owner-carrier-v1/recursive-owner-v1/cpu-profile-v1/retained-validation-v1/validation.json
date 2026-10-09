@@ -1,0 +1,31 @@
+{
+  "scope": "No-child validation of immutable captured data; original execution remains INCOMPLETE",
+  "profileSHA256": "5c2c1cf78c989016ce4955a22dda1ca8e16e8f812552a79a52e92dae0278dda5",
+  "profileBytes": 49604943,
+  "originalReceiptSHA256": "9dd7595d8321c87776f32712bb7b783091e0f74710f373010f779604cf5c2f00",
+  "planSHA256": "a80058dcb18216100ae8ecad5b00a85fe2da28f16cc8422c692a49ddfbe8e36e",
+  "correctedValidatorSHA256": "4d0ad20bfb88ad08ec46007c4af2cb37884c2462c354c7345c02149e8263af45",
+  "nodes": 153628,
+  "samples": 15056,
+  "signedNegativeDeltas": [
+    {
+      "index": 536,
+      "value": -1
+    }
+  ],
+  "status": "SIGNED_INTEGER_STRUCTURE_PASS",
+  "controls": "test_profile_metadata.py PASS; float/bool rejected; signed values preserved",
+  "protocolSources": [
+    {
+      "url": "https://raw.githubusercontent.com/nodejs/node/v24.20.0/deps/v8/include/js_protocol.pdl",
+      "lines": "837\u2013849",
+      "basis": "timeDeltas array of integer; no nonnegative restriction"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nodejs/node/v24.20.0/deps/v8/src/inspector/v8-profiler-agent-impl.cc",
+      "lines": "100\u2013109",
+      "basis": "serializes static_cast<int>(ts-lastTime), no clamp"
+    }
+  ],
+  "limits": "No normalization, rerun, weighted timing attribution, installed ELF attribution or Native qualification."
+}
