@@ -56,6 +56,7 @@ def prepare(out):
  for p in HERE.glob('*.bend'):capture(stage/p.name,p.read_bytes())
  capture(stage/'emit-controls.mts',(HERE/'emit-controls.mts').read_bytes())
  capture(stage/'witness-gate.mjs',(HERE/'witness-gate.mjs').read_bytes())
+ capture(stage/'checked-book.mjs',(HERE/'checked-book.mjs').read_bytes())
  config=ROOT/'experiments/public-simulation/delivery-v1/installed-config.py'
  configuration=load('existing_configuration',config);runner=load('existing_runner',ROOT/'scripts/task_runner.py')
  tools={'python':str(Path(sys.executable).resolve()),'node':'/home/node/.local/share/mise/installs/node/24.20.0/bin/node','taskset':'/usr/bin/taskset','clangWrapper':'/tmp/bendvy-clang19-diagnostic/clang19','clangBinary':'/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang'}

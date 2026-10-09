@@ -1,5 +1,7 @@
 // Synthetic gate/refusal controls only; no compiler imports or emitter execution.
-import { validate } from './witness-gate.mjs';
+import { validate as validateExact } from './witness-gate.mjs';
+const identity={sha256:'synthetic-book',allowed:{main:['main'],target:['target'],countdown:['countdown']}};
+const validate=(name,b,c)=>validateExact(name,b,c,identity,identity);
 const baseline=[{kind:'decision',caller:'main',callee:'target',oldEligible:true,flat:false},{kind:'fuse',caller:'main',callee:'target',flat:false,tail:true}];
 const candidate=[{kind:'jump',caller:'main',callee:'target'}];
 function reject(name,b,c){try{validate(name,b,c);}catch{return;}throw new Error('unrelated witness accepted: '+name);}

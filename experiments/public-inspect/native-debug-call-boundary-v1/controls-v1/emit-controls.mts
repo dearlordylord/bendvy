@@ -2,6 +2,7 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {validate} from './witness-gate.mjs';
+import {capture,snapshot} from './checked-book.mjs';
 import * as Bend from '/workspace/formal-proofs/bendvy/.references/bend2/bend2/bend.ts';
 import * as Before from './baseline.comp.ts';
 import * as After from './candidate.comp.ts';
@@ -18,14 +19,22 @@ try {
   const entry=path.join(import.meta.dirname,name+'.bend');active={name,entry};
   console.error('BOUNDARY_CONTROL_BEGIN '+name);
   Before.diagnosticBoundaryReset();
-  const baselineC=Before.compile_book(await load(entry));
+  const baselineBook=await load(entry);const baselineSnapshot=snapshot(Bend,baselineBook,entry);
+  Object.assign(active,{baselineCheckedBook:baselineSnapshot.artifact,baselineBookSHA256:baselineSnapshot.sha256});
+  const baselineIdentity=capture(Bend,baselineBook,entry,baselineSnapshot);Object.assign(active,{baselineAllowed:baselineIdentity.allowed});
+  const baselineC=Before.compile_book(baselineBook);
   const baselineWitness=Before.diagnosticBoundaryRows() as any[];
-  Object.assign(active,{baselineC,baselineWitness});
+  Object.assign(active,{baselineC,baselineWitness,baselineCheckedBookAfter:snapshot(Bend,baselineBook,entry)});
+  baselineIdentity.verify();
   After.diagnosticBoundaryReset();
-  const candidateC=After.compile_book(await load(entry));
+  const candidateBook=await load(entry);const candidateSnapshot=snapshot(Bend,candidateBook,entry);
+  Object.assign(active,{candidateCheckedBook:candidateSnapshot.artifact,candidateBookSHA256:candidateSnapshot.sha256});
+  const candidateIdentity=capture(Bend,candidateBook,entry,candidateSnapshot);Object.assign(active,{candidateAllowed:candidateIdentity.allowed});
+  const candidateC=After.compile_book(candidateBook);
   const candidateWitness=After.diagnosticBoundaryRows() as any[];
-  Object.assign(active,{candidateC,candidateWitness});
-  validate(name,baselineWitness,candidateWitness);
+  Object.assign(active,{candidateC,candidateWitness,candidateCheckedBookAfter:snapshot(Bend,candidateBook,entry)});
+  candidateIdentity.verify();
+  validate(name,baselineWitness,candidateWitness,baselineIdentity,candidateIdentity);
   rows.push(active);active=null;console.error('BOUNDARY_CONTROL_EMITTED '+name);
  }
 }catch(error){failure=error;throw error;}
