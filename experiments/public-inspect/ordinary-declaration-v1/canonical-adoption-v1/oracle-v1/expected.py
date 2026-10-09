@@ -1,6 +1,6 @@
 """Independent complete source-derived canonical leaf expectations; no runtime inputs."""
 from pathlib import Path
-import copy, hashlib, json, os
+import copy, gzip, hashlib, json, os
 SOURCE_ROOT=Path('/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public')
 HOME=SOURCE_ROOT/'experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1'
 OUT=Path(__file__).resolve().parent
@@ -36,6 +36,8 @@ def write():
     for name,omit,namespace in [('normal',False,False),('mutant',True,True),('mutant-namespace-normal',False,True)]:
         value=model(omit)
         (OUT/(name+'-expected.json')).write_text(json.dumps(value,indent=2)+'\n')
-        (OUT/(name+'-expected.stdout')).write_text(render(value,namespace)+'\n')
-    (OUT/'SOURCE-BASIS.json').write_text(json.dumps({'sourceCommit':'f5d4165b','coreCommit':'f78d8aa3','inventories':basis['inventories'],'derivation':'expected.py; no runtime or source-check output inputs'},indent=2)+'\n')
+        raw=(render(value,namespace)+'\n').encode()
+        (OUT/(name+'-expected.stdout')).write_bytes(raw)
+        (OUT/(name+'-expected.stdout.gz')).write_bytes(gzip.compress(raw,mtime=0))
+    (OUT/'SOURCE-BASIS.json').write_text(json.dumps({'sourceCommit':'f5d4165b','coreCommit':'f78d8aa3','inventories':basis['inventories'],'printerSource':{str(Path('/workspace/formal-proofs/bendvy/.references/bend2/bend2/comp.ts')):hashlib.sha256(Path('/workspace/formal-proofs/bendvy/.references/bend2/bend2/comp.ts').read_bytes()).hexdigest()},'derivation':'expected.py; no runtime or source-check output inputs'},indent=2)+'\n')
 if __name__=='__main__':write()
