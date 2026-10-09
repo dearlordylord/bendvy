@@ -1,0 +1,35 @@
+{
+  "originalSession": 15492,
+  "originalExit": 0,
+  "outputRoot": "/workspace/formal-proofs/bendvy/.artifacts/canonical-construction-regression-20261009-v1",
+  "command": [
+    "env",
+    "PATH=/tmp/bendvy-regression-pinned-tools-d8eu0w5d:/usr/local/bin:/usr/bin:/bin",
+    "flock",
+    "/tmp/bendvy-parity-heavy.lock",
+    "python3",
+    "benchmarks/run.py",
+    "--output",
+    ".artifacts/canonical-construction-regression-20261009-v1",
+    "--cpu",
+    "5"
+  ],
+  "toolSelectionReason": "Ordinary bend now resolves to2.0.36; isolated PATH selects existing2.0.35 for both baseline and candidate. Global compiler was unchanged.",
+  "tools": [
+    {
+      "path": "/home/node/.bend/bin/bend-2.0.35",
+      "resolvedPath": "/home/node/.bend/bin/bend-2.0.35",
+      "sha256": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a"
+    },
+    {
+      "path": "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+      "resolvedPath": "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+      "sha256": "23a5637c2470fde09fcc1acc77c1b92e04e3d7e3e6e80ff7df6f5831958d1477"
+    },
+    {
+      "path": "/tmp/bendvy-clang19-diagnostic/clang19",
+      "resolvedPath": "/tmp/bendvy-clang19-diagnostic/clang19",
+      "sha256": "3e171a978d6c1decae4e6645e9bfb771cf5af21ff699ea119fdb058936b0af2d"
+    }
+  ]
+}
