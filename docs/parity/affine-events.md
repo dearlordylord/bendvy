@@ -21,8 +21,9 @@ claim a memory improvement merely because an owner is returned.
   notification such as "enemy killed" may be recreated on retry; the application
   can discard a recovered payload when it has no further use.
 - **Reusable transferred data:** an expensive path, loaded chunk or reusable
-  buffer should remain recoverable after failed publication, allowing a retry
-  without repeating preparation or allocating a replacement unnecessarily.
+  buffer is preferably recoverable after failed publication, allowing a retry
+  without repeating preparation or allocating a replacement unnecessarily,
+  provided this keeps the API and rollback simple.
 
 These are application requirements, not two new runtime event classes. Prefer
 one typed ownership-return mechanism: immediate refusal returns the payload;
