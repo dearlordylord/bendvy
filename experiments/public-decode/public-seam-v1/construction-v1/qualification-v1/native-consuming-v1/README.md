@@ -41,3 +41,5 @@ Prepared-native-sequential-v1 binds that exact successful C, emission receipt an
 ## Native actual
 
 Original session84476 terminalPASS: admitted artifact-only Clang19 build120 and runtime5 both exit0 with null failure. Entire22 Native reports parse and roundtrip through pinned source-nominal transport and match the independent pre-output whole oracle; entire raw bytes also equal qualified sequential JS and expected.stdout. Binary/raw/receipt/plan and executed-source archives are prepared-native-sequential-v1/actual-evidence. No re-emission, unchanged retry, cap change, missing-field projection or performance claim. Root owns independent actual audit and broader #46 delivery/performance acceptance.
+
+Current acceptance is reconciled in [NATIVE-COMPLETION](../NATIVE-COMPLETION.md): native92+22 semantics are qualified for their complete finite scenarios; remaining #46 gates are joined reference/performance and delivery/audit, not another generic API or pending TS host implementation. Root owns final actual audit and issue disposition; no closure is claimed.
