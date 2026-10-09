@@ -1,0 +1,16 @@
+SOME PROOFS FAIL
+Error:
+- expected : @_:W.World<S, Store<S>, Input.Owner, Unit> -> @_:W.Handle<S> -> Sys.Outcome<W.World<S, Store<S>, Input.Owner, Unit>, Unit, Unit>
+- observed : @world:W.World<S, Store<S>, Input.Owner, Unit> -> @+target:W.Handle<S> -> Sys.Outcome<W.World<S, Store<S>, Input.Owner, Unit>, Unit, Unit>
+Context:
+- S      : Data
+- codec  : D.Codec
+- op     : Mode
+- target : W.Handle<S>
+- raw    : D.Raw
+Location: queue_ran
+401 | def queue_runner(~S:Data,world:World(~S),+target:W.Handle<S>) -> Sys.Outcome<World(~S),Unit,Unit>:queue_body_done(~S,target,queue_body(~S,~T.Tx<World(~S),Unit>,~Cap.OwnedRequest{queue_lower(~S)},target,T.begin(~World(~S),~Unit,world)))
+402>| def queue_ran(~S:Data,~codec:D.Codec,op:Mode,+target:W.Handle<S>,raw:D.Raw,value:Sys.RunResult<S,Store<S>,Input.Owner,Unit,W.Handle<S>,Unit,Unit,queue_runner(~S)>) -> Report<S>:
+    |                                                                                                                                                  ^^^^^^^^^^^^^^^^
+403 |   match value:
+bend 2.0.36 is available: run bend update

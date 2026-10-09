@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : Cap.OwnedRequest<invalid~H, ../../../../../../../../../../bendvy/src/ecs/decode-constructed-requests.Input<Input.First, Input.Input>, ../../../../../../../../../../bendvy/src/ecs/decode-constructed-requests.Output<Input.First, Input.Input, Input.Owner>>
+- observed : Cap.Read<invalid~H, D.Raw>
+Context:
+- args : Gameplay.Args<Input.First>
+- ctx  : invalid~H
+Location: invalid
+6 | def invalid(~H:Type,~cap:Cap.Read<H,D.Raw>,args:Gameplay.Args<Input.First>,ctx:H) -> H & Gameplay.Output<Input.First>:
+7>|   Gameplay.gameplay(~Input.First,~H,~Gameplay.Ops{cap,cap},args,ctx)
+  |                                                   ^^^
+8 | 
+bend 2.0.36 is available: run bend update

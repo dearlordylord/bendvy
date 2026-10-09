@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a term
+- observed : '~'
+Location:
+50 |     case Cmp.Replaced{world,previous}:Delivery.Delivered{world}
+51>|     case Cmp.ReplaceRejected{world,owner,error}:delivery_refused(~S,world,owner,error,packet)
+   |                                                                  ^
+52 | def attempt(~S:Data,world:World(~S),target:W.Handle<S>,packet:Request.Packet<Input.Owner>) -> Delivery.Delivery<World(~S),Request.Packet<Input.Owner>>:
+bend 2.0.36 is available: run bend update

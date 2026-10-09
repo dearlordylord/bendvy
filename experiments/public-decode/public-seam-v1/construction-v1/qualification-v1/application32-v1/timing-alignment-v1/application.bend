@@ -27,21 +27,52 @@ import /workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend as Lifecycle
 import /workspace/formal-proofs/bendvy/src/ecs/transaction.bend as T
 import /workspace/formal-proofs/bendvy/src/ecs/persistence-declaration.bend as Decl
 
-type Store<S:Data> is Type:Store{values:Col.Column<S,Input.Owner>,marker:Col.Column<S,U32>,returned:List<Request.Packet<Input.Owner>>,errors:List<&2,W.WorldError>}
+type QueuedPayload is Data:ComponentPayload{owner:Input.View} MarkerPayload{value:U32}
+type Queued is Data:Queued{kind:String,system:String,namespace:U32,id:U32,payload:QueuedPayload}
+type Store<S:Data> is Type:Store{values:Col.Column<S,Input.Owner>,marker:Col.Column<S,U32>,returned:List<Request.Packet<Input.Owner>>,errors:List<&2,W.WorldError>,receipts:List<&2,Queued>}
 def World(~S:Data) -> Type:W.World<S,Store<S>,Input.Owner,Unit>
-def Rest(~S:Data) -> Type:Col.Column<S,U32> & (List<Request.Packet<Input.Owner>> & List<&2,W.WorldError>)
+def Rest(~S:Data) -> Type:Col.Column<S,U32> & (List<Request.Packet<Input.Owner>> & (List<&2,W.WorldError> & List<&2,Queued>))
 def take(~S:Data,value:Store<S>) -> Rest(~S) & Col.Column<S,Input.Owner>:
   match value:
-    case Store{values,marker,returned,errors}:((marker,(returned,errors)),values)
+    case Store{values,marker,returned,errors,receipts}:((marker,(returned,(errors,receipts))),values)
 def put(~S:Data,rest:Rest(~S),values:Col.Column<S,Input.Owner>) -> Store<S>:
   match rest:
-    case (marker,(returned,errors)):Store{values,marker,returned,errors}
+    case (marker,(returned,(errors,receipts))):Store{values,marker,returned,errors,receipts}
 def family(~S:Data) -> Cmp.Family<S,Store<S>,Rest(~S),Input.Owner,D.Raw,Unit,take(~S),put(~S),Input.project>:Cmp.Family{"Value"}
 def Frame(~S:Data) -> Type:F.Frame<S,Store<S>,Input.Owner,Unit,Input.Owner,Unit,Input.identity(~S),Input.project>
 def factory(~S:Data,~codec:D.Codec) -> Constructor.Factory<S,Input.Input,Input.Owner,Input.identity(~S),Input.project,Input.incoming,Input.build>:
   Constructor.factory(~S,~Input.Input,~Input.Owner,~Input.identity(~S),~Input.project,~Input.incoming,~Input.build,Decl.constructed(~S,~Input.Owner,~Input.identity(~S),~Input.project,codec))
 def resource_factory(~S:Data,~codec:D.Codec) -> Constructor.Factory<S,Input.Input,Input.Owner,Input.resource_identity(~S),Input.project,Input.incoming,Input.build>:
   Constructor.factory(~S,~Input.Input,~Input.Owner,~Input.resource_identity(~S),~Input.project,~Input.incoming,~Input.build,Decl.constructed(~S,~Input.Owner,~Input.resource_identity(~S),~Input.project,codec))
+def delivery_refused(~S:Data,world:World(~S),owner:Maybe<&1,Input.Owner>,error:W.WorldError,packet:Request.Packet<Input.Owner>) -> Delivery.Delivery<World(~S),Request.Packet<Input.Owner>>:
+  match packet:
+    case Request.Packet{_,original,canonical}:Delivery.Undelivered{world,Request.Packet{owner,original,canonical},error}
+type MarkerView is Data:MarkerView{slots:List<&2,Maybe<&2,U32>>,stamps:List<&2,Lifecycle.Entry>} UnsupportedMarker{}
+def delivered(~S:Data,packet:Request.Packet<Input.Owner>,result:Cmp.Replacement<World(~S),Input.Owner>) -> Delivery.Delivery<World(~S),Request.Packet<Input.Owner>>:
+  match result:
+    case Cmp.Replaced{world,previous}:Delivery.Delivered{world}
+    case Cmp.ReplaceRejected{world,owner,error}:delivery_refused(~S,world,owner,error,packet)
+def attempt(~S:Data,world:World(~S),target:W.Handle<S>,packet:Request.Packet<Input.Owner>) -> Delivery.Delivery<World(~S),Request.Packet<Input.Owner>>:
+  match packet:
+    case Request.Packet{owner,+original,+canonical}:delivered(~S,Request.Packet{None{},original,canonical},Cmp.replace(~S,~Store<S>,~Input.Owner,~Unit,~Rest(~S),~Input.Owner,~D.Raw,~Unit,~take(~S),~put(~S),~Input.project,family(~S),world,target,owner))
+# Deferred refusal recovery owns rejected packets in the Store, outside resource replacement.
+def recovering(~S:Data,packet:Request.Packet<Input.Owner>,error:W.WorldError,store:Store<S>) -> Store<S> & Unit:
+  match store:
+    case Store{values,marker,returned,errors,receipts}:(Store{values,marker,packet <> returned,error <> errors,receipts},Unit{})
+def recovered(~S:Data,value:World(~S) & Unit) -> World(~S):
+  match value:
+    case (world,_):world
+def recover(~S:Data,world:World(~S),packet:Request.Packet<Input.Owner>,error:W.WorldError) -> World(~S):recovered(~S,W.with_store(~S,~Store<S>,~Input.Owner,~Unit,~Unit,recovering(~S,packet,error),world))
+def receipt_store(~S:Data,entry:Queued,store:Store<S>) -> Store<S> & Unit:
+  match store:
+    case Store{values,marker,returned,errors,receipts}:(Store{values,marker,returned,errors,List.append(&2,Queued,receipts,[entry])},Unit{})
+def receipt(~S:Data,kind:String,system:String,target:W.Handle<S>,payload:QueuedPayload,world:World(~S)) -> World(~S):
+  match target:
+    case W.Handle{namespace,id}:recovered(~S,W.with_store(~S,~Store<S>,~Input.Owner,~Unit,~Unit,receipt_store(~S,Queued{kind,system,namespace,id,payload}),world))
+def cleared_receipts(~S:Data,store:Store<S>) -> Store<S> & Unit:
+  match store:
+    case Store{values,marker,returned,errors,_}:(Store{values,marker,returned,errors,[]},Unit{})
+def observed_barrier(~S:Data,world:World(~S)) -> World(~S):recovered(~S,W.with_store(~S,~Store<S>,~Input.Owner,~Unit,~Unit,cleared_receipts(~S),W.barrier(~S,~Store<S>,~Input.Owner,~Unit,world)))
 # Only this trusted schema provider knows Frame; the gameplay body sees H.
 def inserted(~S:Data,+target:W.Handle<S>,+canonical:D.Raw,value:Frame(~S) & Write.Output<Input.Owner>) -> Frame(~S) & Request.Output<S,Input.Owner>:
   match value:
@@ -50,9 +81,29 @@ def inserted(~S:Data,+target:W.Handle<S>,+canonical:D.Raw,value:Frame(~S) & Writ
 def projected(~S:Data,frame:Frame(~S),+target:W.Handle<S>,value:Input.Owner & D.Raw) -> Frame(~S) & Request.Output<S,Input.Owner>:
   match value:
     case (owner,raw):inserted(~S,target,raw,Write.set(~S,~Store<S>,~Input.Owner,~Unit,~Input.Owner,~Unit,~Input.identity(~S),~Input.project,~Rest(~S),~D.Raw,~Unit,~take(~S),~put(~S),~Input.project,~family(~S),frame,Query.Insert{target,owner}))
+def audit_store(~S:Data,entry:Queued,store:Store<S>) -> Store<S> & List<&2,Queued>:
+  match store:
+    case Store{values,marker,returned,errors,+receipts}:(Store{values,marker,returned,errors,List.append(&2,Queued,receipts,[entry])},receipts)
+def audit_restore_store(~S:Data,receipts:List<&2,Queued>,store:Store<S>) -> Store<S> & Unit:
+  match store:
+    case Store{values,marker,returned,errors,_}:(Store{values,marker,returned,errors,receipts},Unit{})
+def audit_restore(~S:Data,receipts:List<&2,Queued>,world:World(~S)) -> World(~S):recovered(~S,W.with_store(~S,~Store<S>,~Input.Owner,~Unit,~Unit,audit_restore_store(~S,receipts),world))
+def audit_join(~S:Data,undo:List<(World(~S) -> World(~S))>,commands:List<(World(~S) -> World(~S))>,events:List<&2,Unit>,value:World(~S) & List<&2,Queued>) -> T.Tx<World(~S),Unit>:
+  match value:
+    case (world,receipts):T.Tx{world,(w => audit_restore(~S,receipts,w)) <> undo,commands,events}
+def audit_tx(~S:Data,target:W.Handle<S>,payload:Input.View,tx:T.Tx<World(~S),Unit>) -> T.Tx<World(~S),Unit>:
+  match target tx:
+    case W.Handle{namespace,id} T.Tx{world,undo,commands,events}:audit_join(~S,undo,commands,events,W.with_store(~S,~Store<S>,~Input.Owner,~Unit,~List<&2,Queued>,audit_store(~S,Queued{"spawn","application32",namespace,id,ComponentPayload{payload}}),world))
+def lower_spawn_done(~S:Data,payload:Input.View,value:Frame(~S) & Request.Output<S,Input.Owner>) -> Frame(~S) & Request.Output<S,Input.Owner>:
+  match value:
+    case (F.Frame{Request.Owner{Batch.Batch{tx,prepared},declaration},handle,error,cursor,receipts,pending},Request.Accepted{+target,True{},canonical}):(F.Frame{Request.Owner{Batch.Batch{audit_tx(~S,target,payload,tx),prepared},declaration},handle,error,cursor,receipts,pending},Request.Accepted{target,True{},canonical})
+    case (frame,out):(frame,out)
+def lower_spawn_view(~S:Data,frame:Frame(~S),value:Input.Owner & Input.View) -> Frame(~S) & Request.Output<S,Input.Owner>:
+  match value:
+    case (owner,payload):lower_spawn_done(~S,payload,F.request(~S,~Store<S>,~Input.Owner,~Unit,~Input.Owner,~Unit,~Input.identity(~S),~Input.project,frame,Request.Input{Commands.Spawn{},owner}))
 def lower(~S:Data,frame:Frame(~S),value:Request.Input<S,Input.Owner>) -> Frame(~S) & Request.Output<S,Input.Owner>:
   match value:
-    case Request.Input{Commands.Spawn{},owner}:F.request(~S,~Store<S>,~Input.Owner,~Unit,~Input.Owner,~Unit,~Input.identity(~S),~Input.project,frame,Request.Input{Commands.Spawn{},owner})
+    case Request.Input{Commands.Spawn{},owner}:lower_spawn_view(~S,frame,Input.view(owner))
     case Request.Input{Commands.Insert{target},owner}:projected(~S,frame,target,Input.project(owner))
 def grants(~S:Data,~codec:D.Codec) -> Cap.OwnedRequest<Frame(~S),Constructed.Input<S,Input.Input>,Constructed.Output<S,Input.Input,Input.Owner>>:
   Constructed.grant(~S,~Input.Input,~Input.Owner,~Input.identity(~S),~Input.project,~Input.incoming,~Input.build,~factory(~S,~codec),~Frame(~S),~Cap.OwnedRequest{lower(~S)})
@@ -83,25 +134,6 @@ def gameplay(~S:Data,~H:Type,~ops:Ops<S,H>,args:Args<S>,ctx:H) -> H & Output<S>:
   body(~S,~H,~component_cap(~S,~H,ops),~resource_cap(~S,~H,ops),args,ctx)
 
 def ops(~S:Data,~codec:D.Codec) -> Ops<S,Frame(~S)>:Ops{grants(~S,~codec),resource_grants(~S,~codec)}
-def delivery_refused(~S:Data,world:World(~S),owner:Maybe<&1,Input.Owner>,error:W.WorldError,packet:Request.Packet<Input.Owner>) -> Delivery.Delivery<World(~S),Request.Packet<Input.Owner>>:
-  match packet:
-    case Request.Packet{_,original,canonical}:Delivery.Undelivered{world,Request.Packet{owner,original,canonical},error}
-type MarkerView is Data:MarkerView{slots:List<&2,Maybe<&2,U32>>,stamps:List<&2,Lifecycle.Entry>} UnsupportedMarker{}
-def delivered(~S:Data,packet:Request.Packet<Input.Owner>,result:Cmp.Replacement<World(~S),Input.Owner>) -> Delivery.Delivery<World(~S),Request.Packet<Input.Owner>>:
-  match result:
-    case Cmp.Replaced{world,previous}:Delivery.Delivered{world}
-    case Cmp.ReplaceRejected{world,owner,error}:delivery_refused(~S,world,owner,error,packet)
-def attempt(~S:Data,world:World(~S),target:W.Handle<S>,packet:Request.Packet<Input.Owner>) -> Delivery.Delivery<World(~S),Request.Packet<Input.Owner>>:
-  match packet:
-    case Request.Packet{owner,+original,+canonical}:delivered(~S,Request.Packet{None{},original,canonical},Cmp.replace(~S,~Store<S>,~Input.Owner,~Unit,~Rest(~S),~Input.Owner,~D.Raw,~Unit,~take(~S),~put(~S),~Input.project,family(~S),world,target,owner))
-# Deferred refusal recovery owns rejected packets in the Store, outside resource replacement.
-def recovering(~S:Data,packet:Request.Packet<Input.Owner>,error:W.WorldError,store:Store<S>) -> Store<S> & Unit:
-  match store:
-    case Store{values,marker,returned,errors}:(Store{values,marker,packet <> returned,error <> errors},Unit{})
-def recovered(~S:Data,value:World(~S) & Unit) -> World(~S):
-  match value:
-    case (world,_):world
-def recover(~S:Data,world:World(~S),packet:Request.Packet<Input.Owner>,error:W.WorldError) -> World(~S):recovered(~S,W.with_store(~S,~Store<S>,~Input.Owner,~Unit,~Unit,recovering(~S,packet,error),world))
 type Recovery<S:Data> is Type:Recovery{output:Output<S>,packets:List<Request.Packet<Input.Owner>>}
 type State<S:Data> is Type:State{recoveries:List<Recovery<S>>,pending:List<Journal.Pending<Unit>>}
 def retained(~S:Data,local:State<S>,output:Output<S>,packets:List<Request.Packet<Input.Owner>>) -> State<S>:
@@ -182,18 +214,18 @@ def marker_slots(value:Array<Maybe<&1,U32>>) -> Array<Maybe<&1,U32>> & List<&2,M
 def marker_join(~S:Data,+stamps:List<&2,Lifecycle.Entry>,value:Array<Maybe<&1,U32>> & List<&2,Maybe<&2,U32>>) -> Col.Column<S,U32> & MarkerView:
   match value:
     case (values,view):(Col.Column{values,stamps},MarkerView{view,stamps})
-type StoreView is Data:StoreView{values:ColumnView,marker:MarkerView,returned:List<&2,PacketView>,errors:List<&2,W.WorldError>}
+type StoreView is Data:StoreView{values:ColumnView,marker:MarkerView,returned:List<&2,PacketView>,errors:List<&2,W.WorldError>,receipts:List<&2,Queued>}
 def marker_view(~S:Data,value:Col.Column<S,U32>) -> Col.Column<S,U32> & MarkerView:
   match value:
     case Col.Column{values,+stamps}:marker_join(~S,stamps,marker_slots(values))
     case value:(value,UnsupportedMarker{})
 
-def store_join(~S:Data,+errors:List<&2,W.WorldError>,values:Col.Column<S,Input.Owner> & ColumnView,marker:Col.Column<S,U32> & MarkerView,returned:List<Request.Packet<Input.Owner>> & List<&2,PacketView>) -> Store<S> & StoreView:
+def store_join(~S:Data,+errors:List<&2,W.WorldError>,+receipts:List<&2,Queued>,values:Col.Column<S,Input.Owner> & ColumnView,marker:Col.Column<S,U32> & MarkerView,returned:List<Request.Packet<Input.Owner>> & List<&2,PacketView>) -> Store<S> & StoreView:
   match values marker returned:
-    case (values,a),(marker,b),(returned,c):(Store{values,marker,returned,errors},StoreView{a,b,c,errors})
+    case (values,a),(marker,b),(returned,c):(Store{values,marker,returned,errors,receipts},StoreView{a,b,c,errors,receipts})
 def store_view(~S:Data,store:Store<S>) -> Store<S> & StoreView:
   match store:
-    case Store{values,marker,returned,+errors}:store_join(~S,errors,column(~S,values),marker_view(~S,marker),packets(returned))
+    case Store{values,marker,returned,+errors,+receipts}:store_join(~S,errors,receipts,column(~S,values),marker_view(~S,marker),packets(returned))
 type Meta is Data:Meta{namespace:U32,nextId:U32,highWater:U32,capacity:U32,depth:Nat,events:List<&2,Unit>,registrations:List<&2,W.RegistrationMeta>,nextSystemId:U32,clock:U32}
 type Snapshot is Data:Snapshot{meta:Meta,live:List<&2,Bool>,store:StoreView,resource:Input.View,pending:U32}
 def snapshot_live(~S:Data,resource:Input.View,store:StoreView,count:U32,+meta:Meta,owner:Store<S>,resource_owner:Input.Owner,pending:List<(World(~S) -> World(~S))>,value:Array<Bool> & List<&2,Bool>) -> World(~S) & Snapshot:
@@ -267,12 +299,16 @@ def result_view(~S:Data,value:Result<&2,&1,Unit,Output<S>>) -> ResultView<S>:
     case Done{out}:Completed{output_view(~S,out)}
     case Fail{error}:Failed{error}
 type Report<S:Data> is Data:Report{original:Input.InputView,before:Snapshot,committed:Snapshot,barrier:Snapshot,instance:InstanceView<S>,result:ResultView<S>} SetupRefused{}
+def published_result(~S:Data,world:World(~S),+result:ResultView<S>) -> World(~S) & ResultView<S>:
+  match result:
+    case Completed{ComponentView{Accepted{_,True{},_,_}}}:(world,result)
+    case _:(world,result)
 def reported(~S:Data,~codec:D.Codec,original:Input.InputView,before:Snapshot,committed:Snapshot,instance:Instance(~S,~codec),result:ResultView<S>,world:World(~S) & Snapshot) -> Report<S>:
   match world:
     case (_,barrier):Report{original,before,committed,barrier,instance_view(~S,~codec,instance),result}
 def barrier(~S:Data,~codec:D.Codec,original:Input.InputView,before:Snapshot,instance:Instance(~S,~codec),result:ResultView<S>,world:World(~S) & Snapshot) -> Report<S>:
   match world:
-    case (world,committed):reported(~S,~codec,original,before,committed,instance,result,snapshot(~S,W.barrier(~S,~Store<S>,~Input.Owner,~Unit,world)))
+    case (world,committed):reported(~S,~codec,original,before,committed,instance,result,snapshot(~S,observed_barrier(~S,world)))
 def invocation_refused_view(~S:Data,~codec:D.Codec,original:Input.InputView,before:Snapshot,world:World(~S),instance:Instance(~S,~codec),op:Mode,target:W.Handle<S>,input:Input.Input & Input.InputView) -> Report<S>:
   match input:
     case (_,view):barrier(~S,~codec,original,before,instance,InvocationRefused{view,op,target},snapshot(~S,world))
@@ -280,9 +316,12 @@ def invocation_refused(~S:Data,~codec:D.Codec,original:Input.InputView,before:Sn
   match args:
     case Args{op,target,owner}:invocation_refused_view(~S,~codec,original,before,world,instance,op,target,Input.input_view(owner))
 
+def published_main(~S:Data,~codec:D.Codec,original:Input.InputView,before:Snapshot,instance:Instance(~S,~codec),value:World(~S) & ResultView<S>) -> Report<S>:
+  match value:
+    case (world,result):barrier(~S,~codec,original,before,instance,result,snapshot(~S,world))
 def ran(~S:Data,~codec:D.Codec,original:Input.InputView,before:Snapshot,value:Local.Run<S,Store<S>,Input.Owner,Unit,State<S>,Args<S>,Unit,Output<S>,runner(~S,~codec)>) -> Report<S>:
   match value:
-    case Local.Completed{world,instance,result}:barrier(~S,~codec,original,before,instance,result_view(~S,result),snapshot(~S,world))
+    case Local.Completed{world,instance,result}:published_main(~S,~codec,original,before,instance,published_result(~S,world,result_view(~S,result)))
     case Local.Refused{world,instance,args}:invocation_refused(~S,~codec,original,before,world,instance,args)
 def started(~S:Data,~codec:D.Codec,op:Mode,target:W.Handle<S>,instance:Instance(~S,~codec),input:Input.Input & Input.InputView,world:World(~S) & Snapshot) -> Report<S>:
   match input world:
@@ -308,23 +347,23 @@ def registered(~S:Data,~codec:D.Codec,op:Mode,target:W.Handle<S>,raw:D.Raw,value
   match value:
     case Local.Registered{world,instance}:ordinary_started(~S,~codec,op,target,raw,instance,world)
     case Local.RegistrationRejected{_,_}:SetupRefused{}
-def marker_take(~S:Data,value:Store<S>) -> (Col.Column<S,Input.Owner> & (List<Request.Packet<Input.Owner>> & List<&2,W.WorldError>)) & Col.Column<S,U32>:
+def marker_take(~S:Data,value:Store<S>) -> (Col.Column<S,Input.Owner> & (List<Request.Packet<Input.Owner>> & (List<&2,W.WorldError> & List<&2,Queued>))) & Col.Column<S,U32>:
   match value:
-    case Store{values,marker,returned,errors}:((values,(returned,errors)),marker)
-def marker_put(~S:Data,rest:Col.Column<S,Input.Owner> & (List<Request.Packet<Input.Owner>> & List<&2,W.WorldError>),marker:Col.Column<S,U32>) -> Store<S>:
+    case Store{values,marker,returned,errors,receipts}:((values,(returned,(errors,receipts))),marker)
+def marker_put(~S:Data,rest:Col.Column<S,Input.Owner> & (List<Request.Packet<Input.Owner>> & (List<&2,W.WorldError> & List<&2,Queued>)),marker:Col.Column<S,U32>) -> Store<S>:
   match rest:
-    case (values,(returned,errors)):Store{values,marker,returned,errors}
+    case (values,(returned,(errors,receipts))):Store{values,marker,returned,errors,receipts}
 def marker_project_inner(value:Maybe<U32>) -> U32 & U32:
   match value:
     case Some{+value}:(value,value)
     case None{}:(0,0)
 def marker_project(value:U32) -> U32 & U32:marker_project_inner(Some{value})
-def marker_family(~S:Data) -> Cmp.Family<S,Store<S>,Col.Column<S,Input.Owner> & (List<Request.Packet<Input.Owner>> & List<&2,W.WorldError>),U32,U32,Unit,marker_take(~S),marker_put(~S),marker_project>:Cmp.Family{"Marker"}
+def marker_family(~S:Data) -> Cmp.Family<S,Store<S>,Col.Column<S,Input.Owner> & (List<Request.Packet<Input.Owner>> & (List<&2,W.WorldError> & List<&2,Queued>)),U32,U32,Unit,marker_take(~S),marker_put(~S),marker_project>:Cmp.Family{"Marker"}
 def marker_done(~S:Data,value:Cmp.Replacement<World(~S),U32>) -> World(~S):
   match value:
     case Cmp.Replaced{world,_}:world
     case Cmp.ReplaceRejected{world,_,_}:world
-def marker_apply(~S:Data,world:World(~S),target:W.Handle<S>) -> World(~S):marker_done(~S,Cmp.replace(~S,~Store<S>,~Input.Owner,~Unit,~(Col.Column<S,Input.Owner> & (List<Request.Packet<Input.Owner>> & List<&2,W.WorldError>)),~U32,~U32,~Unit,~marker_take(~S),~marker_put(~S),~marker_project,marker_family(~S),world,target,Some{1}))
+def marker_apply(~S:Data,world:World(~S),target:W.Handle<S>) -> World(~S):marker_done(~S,Cmp.replace(~S,~Store<S>,~Input.Owner,~Unit,~(Col.Column<S,Input.Owner> & (List<Request.Packet<Input.Owner>> & (List<&2,W.WorldError> & List<&2,Queued>))),~U32,~U32,~Unit,~marker_take(~S),~marker_put(~S),~marker_project,marker_family(~S),world,target,Some{1}))
 def seeded(~S:Data,~codec:D.Codec,op:Mode,raw:D.Raw,+target:W.Handle<S>,value:Cmp.Replacement<World(~S),Input.Owner>) -> Report<S>:
   match value:
     case Cmp.ReplaceRejected{_,_,_}:SetupRefused{}
@@ -337,7 +376,7 @@ def reserved(~S:Data,~codec:D.Codec,op:Mode,raw:D.Raw,value:World(~S) & W.Reserv
   match value:
     case (_,W.ReservationRejected{_}):SetupRefused{}
     case (world,W.Reserved{+target}):active(~S,~codec,op,raw,target,W.activate(~S,~Store<S>,~Input.Owner,~Unit,world,target))
-def empty(~S:Data,u:Unit) -> Store<S>:Store{Col.empty(~S,~Input.Owner),Col.empty(~S,~U32),[],[]}
+def empty(~S:Data,u:Unit) -> Store<S>:Store{Col.empty(~S,~Input.Owner),Col.empty(~S,~U32),[],[],[]}
 def created(~S:Data,~codec:D.Codec,op:Mode,raw:D.Raw,value:W.Creation<S,Store<S>,Input.Owner,Unit>) -> Report<S>:
   match value:
     case W.CreateRejected{_,_}:SetupRefused{}
@@ -348,19 +387,26 @@ def resource_seeded(~S:Data,~codec:D.Codec,op:Mode,raw:D.Raw,value:Build.Constru
     case Build.Constructed{owner,_}:created(~S,~codec,op,raw,W.create(~S,~Store<S>,~Input.Owner,~Unit,~empty(~S),W.factory(),owner))
 # Ordinary registered trusted typed setup; gameplay receives only its grant.
 def SeedBatch(~S:Data) -> Type:Batch.Batch<S,Store<S>,Input.Owner,Unit,Request.Packet<Input.Owner>>
-type SeedOut<S:Data> is Type:SeedAccepted{target:W.Handle<S>} SeedRefused{packet:Request.Packet<Input.Owner>,error:W.WorldError}
-def seed_spawned(~S:Data,value:Batch.Spawned<S,Store<S>,Input.Owner,Unit,Request.Packet<Input.Owner>>) -> SeedBatch(~S) & SeedOut<S>:
+type SeedOut<S:Data> is Type:SeedAccepted{target:W.Handle<S>,payload:Input.View} SeedRefused{packet:Request.Packet<Input.Owner>,error:W.WorldError}
+def seed_spawned(~S:Data,payload:Input.View,value:Batch.Spawned<S,Store<S>,Input.Owner,Unit,Request.Packet<Input.Owner>>) -> SeedBatch(~S) & SeedOut<S>:
   match value:
-    case Batch.Spawned{batch,target}:(batch,SeedAccepted{target})
+    case Batch.Spawned{batch,target}:(batch,SeedAccepted{target,payload})
     case Batch.SpawnRefused{batch,payload,error}:(batch,SeedRefused{payload,error})
-def seed_request(~S:Data,batch:SeedBatch(~S),value:Input.Owner & D.Raw) -> SeedBatch(~S) & SeedOut<S>:
+def seed_request(~S:Data,batch:SeedBatch(~S),payload:Input.View,value:Input.Owner & D.Raw) -> SeedBatch(~S) & SeedOut<S>:
   match value:
-    case (owner,+raw):seed_spawned(~S,Batch.spawn(~S,~Store<S>,~Input.Owner,~Unit,~Request.Packet<Input.Owner>,batch,Request.Packet{Some{owner},raw,raw}))
-def seed_lower(~S:Data,batch:SeedBatch(~S),owner:Input.Owner) -> SeedBatch(~S) & SeedOut<S>:seed_request(~S,batch,Input.project(owner))
+    case (owner,+raw):seed_spawned(~S,payload,Batch.spawn(~S,~Store<S>,~Input.Owner,~Unit,~Request.Packet<Input.Owner>,batch,Request.Packet{Some{owner},raw,raw}))
+def seed_viewed(~S:Data,batch:SeedBatch(~S),value:Input.Owner & Input.View) -> SeedBatch(~S) & SeedOut<S>:
+  match value:
+    case (owner,payload):seed_request(~S,batch,payload,Input.project(owner))
+def seed_lower(~S:Data,batch:SeedBatch(~S),owner:Input.Owner) -> SeedBatch(~S) & SeedOut<S>:seed_viewed(~S,batch,Input.view(owner))
 def seed_body(~S:Data,~H:Type,~cap:Cap.OwnedRequest<H,Input.Owner,SeedOut<S>>,owner:Input.Owner,ctx:H) -> H & SeedOut<S>:Cap.owned_request(~H,~Input.Owner,~SeedOut<S>,~cap,ctx,owner)
+def seed_committed(~S:Data,world:World(~S),out:SeedOut<S>) -> Sys.Outcome<World(~S),Unit,SeedOut<S>>:
+  match out:
+    case SeedAccepted{+target,+payload}:Sys.Succeeded{receipt(~S,"spawn","seed",target,ComponentPayload{payload},world),SeedAccepted{target,payload}}
+    case SeedRefused{packet,error}:Sys.Succeeded{world,SeedRefused{packet,error}}
 def seed_finished(~S:Data,out:SeedOut<S>,value:Batch.Finished<S,Store<S>,Input.Owner,Unit,Request.Packet<Input.Owner>,Unit>) -> Sys.Outcome<World(~S),Unit,SeedOut<S>>:
   match value:
-    case Batch.Committed{world}:Sys.Succeeded{world,out}
+    case Batch.Committed{world}:seed_committed(~S,world,out)
     case Batch.Failed{world,_,error}:Sys.Failed{world,error}
 def seed_body_done(~S:Data,value:SeedBatch(~S) & SeedOut<S>) -> Sys.Outcome<World(~S),Unit,SeedOut<S>>:
   match value:
@@ -369,14 +415,18 @@ def seed_runner(~S:Data,world:World(~S),owner:Input.Owner) -> Sys.Outcome<World(
 # Marker setup uses the same actual deferred World command inside a transaction.
 def queue_lower(~S:Data,tx:T.Tx<World(~S),Unit>,target:W.Handle<S>) -> T.Tx<World(~S),Unit> & Unit:(T.stage(~World(~S),~Unit,tx,w => marker_apply(~S,w,target)),Unit{})
 def queue_body(~S:Data,~H:Type,~cap:Cap.OwnedRequest<H,W.Handle<S>,Unit>,target:W.Handle<S>,ctx:H) -> H & Unit:Cap.owned_request(~H,~W.Handle<S>,~Unit,~cap,ctx,target)
-def queue_finished(~S:Data,value:T.Returned<World(~S),Unit>) -> Sys.Outcome<World(~S),Unit,Unit>:
+def queue_finished(~S:Data,target:W.Handle<S>,value:T.Returned<World(~S),Unit>) -> Sys.Outcome<World(~S),Unit,Unit>:
   match value:
-    case T.Returned{world,T.Success{}}:Sys.Succeeded{world,Unit{}}
+    case T.Returned{world,T.Success{}}:Sys.Succeeded{receipt(~S,"insert","queue",target,MarkerPayload{1},world),Unit{}}
     case T.Returned{world,T.Failure{error}}:Sys.Failed{world,error}
-def queue_body_done(~S:Data,value:T.Tx<World(~S),Unit> & Unit) -> Sys.Outcome<World(~S),Unit,Unit>:
+def queue_body_done(~S:Data,target:W.Handle<S>,value:T.Tx<World(~S),Unit> & Unit) -> Sys.Outcome<World(~S),Unit,Unit>:
   match value:
-    case (tx,_):queue_finished(~S,Deferred.tx_finish(~S,~Store<S>,~Input.Owner,~Unit,~Unit,tx,T.Success{}))
-def queue_runner(~S:Data,world:World(~S),target:W.Handle<S>) -> Sys.Outcome<World(~S),Unit,Unit>:queue_body_done(~S,queue_body(~S,~T.Tx<World(~S),Unit>,~Cap.OwnedRequest{queue_lower(~S)},target,T.begin(~World(~S),~Unit,world)))
+    case (tx,_):queue_finished(~S,target,Deferred.tx_finish(~S,~Store<S>,~Input.Owner,~Unit,~Unit,tx,T.Success{}))
+def queue_runner_inner(~S:Data,world:World(~S),target:Maybe<&2,W.Handle<S>>) -> Sys.Outcome<World(~S),Unit,Unit>:
+  match target:
+    case Some{+target}:queue_body_done(~S,target,queue_body(~S,~T.Tx<World(~S),Unit>,~Cap.OwnedRequest{queue_lower(~S)},target,T.begin(~World(~S),~Unit,world)))
+    case None{}:Sys.Failed{world,Unit{}}
+def queue_runner(~S:Data,world:World(~S),target:W.Handle<S>) -> Sys.Outcome<World(~S),Unit,Unit>:queue_runner_inner(~S,world,Some{target})
 def queue_ran(~S:Data,~codec:D.Codec,op:Mode,+target:W.Handle<S>,raw:D.Raw,value:Sys.RunResult<S,Store<S>,Input.Owner,Unit,W.Handle<S>,Unit,Unit,queue_runner(~S)>) -> Report<S>:
   match value:
     case Sys.Completed{_,Sys.Succeeded{world,_}}:registered(~S,~codec,op,target,raw,Completion.registered(~S,~Store<S>,~Input.Owner,~Unit,~State<S>,~Args<S>,~Unit,~Output<S>,~runner(~S,~codec),world,"application32",["Value","Resource","Marker"],State{[],[]}))
@@ -387,7 +437,7 @@ def queue_registered(~S:Data,~codec:D.Codec,op:Mode,+target:W.Handle<S>,raw:D.Ra
     case _:SetupRefused{}
 def seed_ran(~S:Data,~codec:D.Codec,op:Mode,raw:D.Raw,value:Sys.RunResult<S,Store<S>,Input.Owner,Unit,Input.Owner,Unit,SeedOut<S>,seed_runner(~S)>) -> Report<S>:
   match value:
-    case Sys.Completed{_,Sys.Succeeded{world,SeedAccepted{target}}}:queue_registered(~S,~codec,op,target,raw,Sys.register(~S,~Store<S>,~Input.Owner,~Unit,~W.Handle<S>,~Unit,~Unit,~queue_runner(~S),W.barrier(~S,~Store<S>,~Input.Owner,~Unit,world),"queue",["Marker"]))
+    case Sys.Completed{_,Sys.Succeeded{world,SeedAccepted{target,_}}}:queue_registered(~S,~codec,op,target,raw,Sys.register(~S,~Store<S>,~Input.Owner,~Unit,~W.Handle<S>,~Unit,~Unit,~queue_runner(~S),observed_barrier(~S,world),"queue",["Marker"]))
     case _:SetupRefused{}
 def seed_registered(~S:Data,~codec:D.Codec,op:Mode,raw:D.Raw,value:Sys.RegistrationResult<S,Store<S>,Input.Owner,Unit,Input.Owner,Unit,SeedOut<S>,seed_runner(~S)>) -> Report<S>:
   match value:

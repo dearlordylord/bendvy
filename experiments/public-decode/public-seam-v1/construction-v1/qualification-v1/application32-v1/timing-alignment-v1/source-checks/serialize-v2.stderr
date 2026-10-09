@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : a filled definition (an unfilled law is a dead claim: live code cannot use it)
+- observed : raw
+Context:
+- value : D.Raw
+- rest  : List<&2, D.Raw>
+Location: raws~0
+31 |     case D.Boolean{b}:record("Boolean",[J.Field{"value",J.Truth{b}}])
+32>|     case D.Array{items}:record("Array",[J.Field{"items",J.Items{raws(~raw,items)}}])
+   |                                                                       ^^^
+33 |     case D.Object{fields}:record("Object",[J.Field{"fields",J.Items{raw_fields(~raw,fields)}}])
+bend 2.0.36 is available: run bend update

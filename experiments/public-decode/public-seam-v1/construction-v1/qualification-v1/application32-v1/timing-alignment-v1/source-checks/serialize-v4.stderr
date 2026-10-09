@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : a decreasing self-call (arguments are read left to right: each passed unchanged until one shrinks)
+- observed : raw_walk
+Context:
+- value : D.Raw
+- rest  : List<&2, RawTask>
+- stack : List<&2, J.Value>
+Location: raw_walk
+62 |             case _:record("UnsupportedRawStack",[])
+63>|     case VisitRaw{value} <> rest:raw_walk(List.append(&2,RawTask,expand(value),rest),stack)
+   |                                  ^^^^^^^^
+64 |     case Ready{value} <> rest:raw_walk(rest,value <> stack)
+bend 2.0.36 is available: run bend update

@@ -1,0 +1,23 @@
+// Mock/pre-output observer controls only; no ECS/compiler/runtime workload.
+import assert from 'node:assert/strict';
+import {owner,raw,state} from './public.mjs';
+const payload={value:{x:7},original:{x:7,extra:'retained'},sentinel:[111,222],flags:[true,false]};
+const captured=owner(payload);
+assert.deepEqual(captured.words,[111,222]);
+assert.deepEqual(captured.flags,[true,false]);
+assert.equal(captured.original.fields[1].name,'extra');
+payload.sentinel[0]=999;
+assert.equal(captured.words[0],111);
+const receipt={kind:'spawn',system:'application32',target:2,payload:{$:'ComponentPayload',owner:captured}};
+const dump={entities:[],resources:{Resource:{value:0,original:0,sentinel:[333,444],flags:[false,true]}},pendingCommands:[{tag:'spawn',system:'application32'}]};
+const full=state(dump,[receipt]);
+assert.deepEqual(full.pending[0].payload.owner,captured);
+assert.equal(full.receiptCountMatches,true);
+assert.equal(state(dump,[]).receiptCountMatches,false);
+assert.equal(state({...dump,pendingCommands:[{tag:'insert',system:'application32'}]},[receipt]).receiptCountMatches,false);
+assert.deepEqual(raw({z:[null,true],a:'x'}).fields.map(field=>field.name),['z','a']);
+assert.throws(()=>raw(-1));
+assert.throws(()=>owner({...payload,unobserved:1}));
+assert.throws(()=>state({...dump,entities:[{id:1,components:{Other:1},relations:{}}]},[receipt]));
+assert.throws(()=>state({...dump,entities:[{id:1,components:{},relations:{Other:[]}}]},[receipt]));
+console.log('MOCK_OBSERVER_CONTROLS_PASS');

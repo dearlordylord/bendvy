@@ -12,5 +12,35 @@
     "queue"
   ],
   "mainSystemUnchanged": true,
-  "newPhysicalModelExpected": true
+  "newPhysicalModelExpected": true,
+  "publicModuleSource5": {
+    "exit": 0,
+    "stderr": "source-checks/payload-v2.stderr"
+  },
+  "serializerModuleSource5": {
+    "exit": 0,
+    "stderr": "source-checks/serialize-v6.stderr"
+  },
+  "mockObserverControls": {
+    "exit": 0,
+    "stdout": "source-checks/observer-controls.stdout"
+  },
+  "assemblyNegativeControls": {
+    "affine-owner": 1,
+    "cross-schema": 1,
+    "read-only": 1,
+    "undeclared": 1
+  },
+  "wholeObservationEntrySource5": {
+    "exit": 137,
+    "stderr": "source-checks/whole-source.stderr"
+  },
+  "models": "PENDING_INDEPENDENT_PREOUTPUT",
+  "runtimeOutputsConsulted": false,
+  "commonEntrySource5": {
+    "exit": 137,
+    "stdout": "source-checks/common-source.stdout",
+    "stderr": "source-checks/common-source.stderr",
+    "classification": "deadline; no diagnostic; not backend evidence"
+  }
 }

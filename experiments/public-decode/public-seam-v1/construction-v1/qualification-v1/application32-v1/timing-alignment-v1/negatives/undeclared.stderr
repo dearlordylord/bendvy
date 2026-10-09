@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : Gameplay.Ops<Input.First, invalid~H>
+- observed : Unit
+Context:
+- args : Gameplay.Args<Input.First>
+- ctx  : invalid~H
+Location: invalid
+6 | def invalid(~H:Type,args:Gameplay.Args<Input.First>,ctx:H) -> H & Gameplay.Output<Input.First>:
+7>|   Gameplay.gameplay(~Input.First,~H,~Unit{},args,ctx)
+  |                                      ^^^^^^
+8 | 
+bend 2.0.36 is available: run bend update

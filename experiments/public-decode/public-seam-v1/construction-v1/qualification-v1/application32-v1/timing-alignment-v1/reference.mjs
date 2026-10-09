@@ -1,4 +1,5 @@
 // Source-only matched32 candidate; no backend/timing launch before admission.
+import {owner as receiptOwner} from './public.mjs';
 import {Schema,Descriptor,Decode as D,Result} from '/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/index.ts';
 const clone=value=>JSON.parse(JSON.stringify(value,(_key,value)=>value===undefined?{undefined:true}:value));
 const owner=(value,sentinel=[111,222],flags=[true,false],original=value)=>({value,original,sentinel,flags});
@@ -25,25 +26,25 @@ function actual(root,operation,name,codec,raw){
  const seedRaw=name.startsWith('array')||name==='lateInvalid'?[]:name==='struct64'?values:{items:null};
  const made=G.Runtime.make({resources:{Resource:owner(seedRaw,[555,666],[false,true])},debug:true});
  if(!made.ok)throw Error('runtime make refused');
- const runtime=made.value;let id,checked;
+ const runtime=made.value;let id,checked,spawnedId;const receipts=[];
  const tick=(...steps)=>{const result=runtime.tick(G.Schedule(...steps));if(!result.ok)throw Error(JSON.stringify(result));};
  tick(G.System('seed',{},({commands})=>{
-  id=commands.spawn(G.Command.spawn([Value,owner(9,[333,444],[false,true])]));
- }),G.Schedule.applyDeferred());
- tick(G.System('queue',{},({commands})=>{commands.insert(id,[Marker,1]);}));
- const incoming=owner(raw),original=clone(incoming),before=clone(runtime.debug.dump());
+  const payload=owner(9,[333,444],[false,true]),view=receiptOwner(payload);id=commands.spawn(G.Command.spawn([Value,payload]));receipts.push({kind:"spawn",system:"seed",target:id.value,payload:{$:"ComponentPayload",owner:view}});
+ }),G.Schedule.applyDeferred());receipts.length=0;
+ tick(G.System('queue',{},({commands})=>{commands.insert(id,[Marker,1]);receipts.push({kind:"insert",system:"queue",target:id.value,payload:{$:"MarkerPayload",value:1}});}));
+ const incoming=owner(raw),original=clone(incoming),before=clone(runtime.debug.dump()),beforeReceipts=clone(receipts);
  const selection=G.Query({selection:{value:G.Query.write(Value)}});
- if(operation==='insert')tick(G.System('replace',{queries:{selection}},({queries})=>{
+ if(operation==='insert')tick(G.System('application32',{queries:{selection}},({queries})=>{
   const rows=queries.selection.each();if(rows.length!==1)throw Error('seed selection differs');
   checked=queries.selection.each()[0].data.value.setRaw(incoming);
  }));
- else if(operation==='resource')tick(G.System('resource',{resources:{resource:G.System.writeResource(Resource)}},({resources})=>{checked=resources.resource.setRaw(incoming);}));
- else tick(G.System('spawn',{},({commands})=>{
+ else if(operation==='resource')tick(G.System('application32',{resources:{resource:G.System.writeResource(Resource)}},({resources})=>{checked=resources.resource.setRaw(incoming);}));
+ else tick(G.System('application32',{},({commands})=>{
   checked=G.Command.entryRaw(Value,incoming);
-  if(checked.ok)commands.spawn(G.Command.spawn(checked.value));
+  if(checked.ok){const view=receiptOwner(checked.value[1]);spawnedId=commands.spawn(G.Command.spawn(checked.value));receipts.push({kind:"spawn",system:"application32",target:spawnedId.value,payload:{$:"ComponentPayload",owner:view}});}
  }));
- const after=clone(runtime.debug.dump());tick(G.Schedule.applyDeferred());
- return {root,operation,name,original,checked:clone(checked),incomingAfter:clone(incoming),before,after,flushed:clone(runtime.debug.dump())};
+ const after=clone(runtime.debug.dump()),afterReceipts=clone(receipts);tick(G.Schedule.applyDeferred());receipts.length=0;
+ return {root,operation,name,original,checked:clone(checked),incomingAfter:clone(incoming),before,after,flushed:clone(runtime.debug.dump()),beforeReceipts,afterReceipts,flushedReceipts:clone(receipts),target:operation==='resource'?null:(operation==='spawn'?spawnedId?.value:id.value)};
 }
 
 export function run(){

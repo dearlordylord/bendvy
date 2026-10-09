@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : a defined name
+- observed : next
+Context:
+- value : D.Raw
+Location: raw
+68 |     case FieldEnd{name} <> rest:next(rest,field(name,stack))
+69>| def raw(value:D.Raw) -> J.Value:next([VisitRaw{value}],[])
+   |                                 ^^^^
+70 | def owner(value:Owner.View) -> J.Value:
+bend 2.0.36 is available: run bend update
