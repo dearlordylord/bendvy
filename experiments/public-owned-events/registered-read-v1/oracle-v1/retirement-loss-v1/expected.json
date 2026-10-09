@@ -1,0 +1,6441 @@
+{
+  "standard": {
+    "Trace": {
+      "snapshots": [
+        {
+          "label": "registered",
+          "runtime": {
+            "namespace": 1,
+            "statuses": [],
+            "world": {
+              "namespace": 1,
+              "nextId": 1,
+              "highWater": 0,
+              "capacity": 1,
+              "depth": {
+                "nat": 0
+              },
+              "events": [],
+              "registrations": [
+                {
+                  "id": 2,
+                  "name": "slow",
+                  "access": [
+                    "event:read"
+                  ]
+                },
+                {
+                  "id": 1,
+                  "name": "fast",
+                  "access": [
+                    "event:read"
+                  ]
+                }
+              ],
+              "nextSystemId": 3,
+              "clock": 0
+            },
+            "batches": [],
+            "positions": [],
+            "nextReader": 3,
+            "tick": {
+              "nat": 0
+            },
+            "frameStart": {
+              "nat": 0
+            },
+            "boundary": {
+              "nat": 0
+            },
+            "capacity": {
+              "nat": 8
+            },
+            "droppedThrough": {
+              "nat": 0
+            },
+            "log": {
+              "seen": [],
+              "rows": []
+            }
+          },
+          "fast": {
+            "namespace": 1,
+            "id": 1,
+            "registryId": 1,
+            "registryNamespace": 1,
+            "actualRegistryId": 1,
+            "name": "fast",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "slow": {
+            "namespace": 1,
+            "id": 2,
+            "registryId": 2,
+            "registryNamespace": 1,
+            "actualRegistryId": 2,
+            "name": "slow",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "reads": [],
+          "retired": [],
+          "refused": [],
+          "errors": [],
+          "ok": true
+        },
+        {
+          "label": "skip-inactive",
+          "runtime": {
+            "namespace": 1,
+            "statuses": [],
+            "world": {
+              "namespace": 1,
+              "nextId": 1,
+              "highWater": 0,
+              "capacity": 1,
+              "depth": {
+                "nat": 0
+              },
+              "events": [],
+              "registrations": [
+                {
+                  "id": 2,
+                  "name": "slow",
+                  "access": [
+                    "event:read"
+                  ]
+                },
+                {
+                  "id": 1,
+                  "name": "fast",
+                  "access": [
+                    "event:read"
+                  ]
+                }
+              ],
+              "nextSystemId": 3,
+              "clock": 0
+            },
+            "batches": [],
+            "positions": [],
+            "nextReader": 3,
+            "tick": {
+              "nat": 0
+            },
+            "frameStart": {
+              "nat": 0
+            },
+            "boundary": {
+              "nat": 0
+            },
+            "capacity": {
+              "nat": 8
+            },
+            "droppedThrough": {
+              "nat": 0
+            },
+            "log": {
+              "seen": [],
+              "rows": []
+            }
+          },
+          "fast": {
+            "namespace": 1,
+            "id": 1,
+            "registryId": 1,
+            "registryNamespace": 1,
+            "actualRegistryId": 1,
+            "name": "fast",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "slow": {
+            "namespace": 1,
+            "id": 2,
+            "registryId": 2,
+            "registryNamespace": 1,
+            "actualRegistryId": 2,
+            "name": "slow",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "reads": [],
+          "retired": [],
+          "refused": [],
+          "errors": [],
+          "ok": true
+        },
+        {
+          "label": "activate",
+          "runtime": {
+            "namespace": 1,
+            "statuses": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 2
+                },
+                "registeredAt": {
+                  "nat": 1
+                },
+                "unread": {
+                  "nat": 0
+                },
+                "lagged": false
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 1
+                },
+                "registeredAt": {
+                  "nat": 0
+                },
+                "unread": {
+                  "nat": 0
+                },
+                "lagged": false
+              }
+            ],
+            "world": {
+              "namespace": 1,
+              "nextId": 1,
+              "highWater": 0,
+              "capacity": 1,
+              "depth": {
+                "nat": 0
+              },
+              "events": [],
+              "registrations": [
+                {
+                  "id": 2,
+                  "name": "slow",
+                  "access": [
+                    "event:read"
+                  ]
+                },
+                {
+                  "id": 1,
+                  "name": "fast",
+                  "access": [
+                    "event:read"
+                  ]
+                }
+              ],
+              "nextSystemId": 3,
+              "clock": 0
+            },
+            "batches": [],
+            "positions": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 2
+                },
+                "registeredAt": {
+                  "nat": 1
+                }
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 1
+                },
+                "registeredAt": {
+                  "nat": 0
+                }
+              }
+            ],
+            "nextReader": 3,
+            "tick": {
+              "nat": 2
+            },
+            "frameStart": {
+              "nat": 0
+            },
+            "boundary": {
+              "nat": 0
+            },
+            "capacity": {
+              "nat": 8
+            },
+            "droppedThrough": {
+              "nat": 0
+            },
+            "log": {
+              "seen": [],
+              "rows": []
+            }
+          },
+          "fast": {
+            "namespace": 1,
+            "id": 1,
+            "registryId": 1,
+            "registryNamespace": 1,
+            "actualRegistryId": 1,
+            "name": "fast",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "slow": {
+            "namespace": 1,
+            "id": 2,
+            "registryId": 2,
+            "registryNamespace": 1,
+            "actualRegistryId": 2,
+            "name": "slow",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "reads": [
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            }
+          ],
+          "retired": [],
+          "refused": [],
+          "errors": [],
+          "ok": true
+        },
+        {
+          "label": "publish-first",
+          "runtime": {
+            "namespace": 1,
+            "statuses": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 2
+                },
+                "registeredAt": {
+                  "nat": 1
+                },
+                "unread": {
+                  "nat": 2
+                },
+                "lagged": false
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 1
+                },
+                "registeredAt": {
+                  "nat": 0
+                },
+                "unread": {
+                  "nat": 2
+                },
+                "lagged": false
+              }
+            ],
+            "world": {
+              "namespace": 1,
+              "nextId": 1,
+              "highWater": 0,
+              "capacity": 1,
+              "depth": {
+                "nat": 0
+              },
+              "events": [
+                1,
+                2
+              ],
+              "registrations": [
+                {
+                  "id": 2,
+                  "name": "slow",
+                  "access": [
+                    "event:read"
+                  ]
+                },
+                {
+                  "id": 1,
+                  "name": "fast",
+                  "access": [
+                    "event:read"
+                  ]
+                }
+              ],
+              "nextSystemId": 3,
+              "clock": 0
+            },
+            "batches": [
+              {
+                "tick": {
+                  "nat": 3
+                },
+                "values": [
+                  1,
+                  2
+                ]
+              }
+            ],
+            "positions": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 2
+                },
+                "registeredAt": {
+                  "nat": 1
+                }
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 1
+                },
+                "registeredAt": {
+                  "nat": 0
+                }
+              }
+            ],
+            "nextReader": 3,
+            "tick": {
+              "nat": 3
+            },
+            "frameStart": {
+              "nat": 0
+            },
+            "boundary": {
+              "nat": 0
+            },
+            "capacity": {
+              "nat": 8
+            },
+            "droppedThrough": {
+              "nat": 0
+            },
+            "log": {
+              "seen": [
+                1,
+                2
+              ],
+              "rows": [
+                {
+                  "key": 1,
+                  "payload": {
+                    "cells": [
+                      11,
+                      12,
+                      13,
+                      14
+                    ],
+                    "sentinel": [
+                      111,
+                      112
+                    ]
+                  }
+                },
+                {
+                  "key": 2,
+                  "payload": {
+                    "cells": [
+                      21,
+                      22,
+                      23,
+                      24
+                    ],
+                    "sentinel": [
+                      121,
+                      122
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "fast": {
+            "namespace": 1,
+            "id": 1,
+            "registryId": 1,
+            "registryNamespace": 1,
+            "actualRegistryId": 1,
+            "name": "fast",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "slow": {
+            "namespace": 1,
+            "id": 2,
+            "registryId": 2,
+            "registryNamespace": 1,
+            "actualRegistryId": 2,
+            "name": "slow",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "reads": [
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            }
+          ],
+          "retired": [],
+          "refused": [],
+          "errors": [],
+          "ok": true
+        },
+        {
+          "label": "fast",
+          "runtime": {
+            "namespace": 1,
+            "statuses": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 2
+                },
+                "registeredAt": {
+                  "nat": 1
+                },
+                "unread": {
+                  "nat": 2
+                },
+                "lagged": false
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 4
+                },
+                "registeredAt": {
+                  "nat": 0
+                },
+                "unread": {
+                  "nat": 0
+                },
+                "lagged": false
+              }
+            ],
+            "world": {
+              "namespace": 1,
+              "nextId": 1,
+              "highWater": 0,
+              "capacity": 1,
+              "depth": {
+                "nat": 0
+              },
+              "events": [
+                1,
+                2
+              ],
+              "registrations": [
+                {
+                  "id": 2,
+                  "name": "slow",
+                  "access": [
+                    "event:read"
+                  ]
+                },
+                {
+                  "id": 1,
+                  "name": "fast",
+                  "access": [
+                    "event:read"
+                  ]
+                }
+              ],
+              "nextSystemId": 3,
+              "clock": 0
+            },
+            "batches": [
+              {
+                "tick": {
+                  "nat": 3
+                },
+                "values": [
+                  1,
+                  2
+                ]
+              }
+            ],
+            "positions": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 2
+                },
+                "registeredAt": {
+                  "nat": 1
+                }
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 4
+                },
+                "registeredAt": {
+                  "nat": 0
+                }
+              }
+            ],
+            "nextReader": 3,
+            "tick": {
+              "nat": 4
+            },
+            "frameStart": {
+              "nat": 0
+            },
+            "boundary": {
+              "nat": 0
+            },
+            "capacity": {
+              "nat": 8
+            },
+            "droppedThrough": {
+              "nat": 0
+            },
+            "log": {
+              "seen": [
+                1,
+                2
+              ],
+              "rows": [
+                {
+                  "key": 1,
+                  "payload": {
+                    "cells": [
+                      11,
+                      12,
+                      13,
+                      14
+                    ],
+                    "sentinel": [
+                      111,
+                      112
+                    ]
+                  }
+                },
+                {
+                  "key": 2,
+                  "payload": {
+                    "cells": [
+                      21,
+                      22,
+                      23,
+                      24
+                    ],
+                    "sentinel": [
+                      121,
+                      122
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "fast": {
+            "namespace": 1,
+            "id": 1,
+            "registryId": 1,
+            "registryNamespace": 1,
+            "actualRegistryId": 1,
+            "name": "fast",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "slow": {
+            "namespace": 1,
+            "id": 2,
+            "registryId": 2,
+            "registryNamespace": 1,
+            "actualRegistryId": 2,
+            "name": "slow",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "reads": [
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [
+                    1,
+                    2
+                  ],
+                  "packets": [
+                    {
+                      "key": 1,
+                      "cells": [
+                        11,
+                        12,
+                        13,
+                        14
+                      ]
+                    },
+                    {
+                      "key": 2,
+                      "cells": [
+                        21,
+                        22,
+                        23,
+                        24
+                      ]
+                    }
+                  ],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            }
+          ],
+          "retired": [],
+          "refused": [],
+          "errors": [],
+          "ok": true
+        },
+        {
+          "label": "slow-failed",
+          "runtime": {
+            "namespace": 1,
+            "statuses": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 2
+                },
+                "registeredAt": {
+                  "nat": 1
+                },
+                "unread": {
+                  "nat": 2
+                },
+                "lagged": false
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 4
+                },
+                "registeredAt": {
+                  "nat": 0
+                },
+                "unread": {
+                  "nat": 0
+                },
+                "lagged": false
+              }
+            ],
+            "world": {
+              "namespace": 1,
+              "nextId": 1,
+              "highWater": 0,
+              "capacity": 1,
+              "depth": {
+                "nat": 0
+              },
+              "events": [
+                1,
+                2
+              ],
+              "registrations": [
+                {
+                  "id": 2,
+                  "name": "slow",
+                  "access": [
+                    "event:read"
+                  ]
+                },
+                {
+                  "id": 1,
+                  "name": "fast",
+                  "access": [
+                    "event:read"
+                  ]
+                }
+              ],
+              "nextSystemId": 3,
+              "clock": 0
+            },
+            "batches": [
+              {
+                "tick": {
+                  "nat": 3
+                },
+                "values": [
+                  1,
+                  2
+                ]
+              }
+            ],
+            "positions": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 2
+                },
+                "registeredAt": {
+                  "nat": 1
+                }
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 4
+                },
+                "registeredAt": {
+                  "nat": 0
+                }
+              }
+            ],
+            "nextReader": 3,
+            "tick": {
+              "nat": 5
+            },
+            "frameStart": {
+              "nat": 0
+            },
+            "boundary": {
+              "nat": 0
+            },
+            "capacity": {
+              "nat": 8
+            },
+            "droppedThrough": {
+              "nat": 0
+            },
+            "log": {
+              "seen": [
+                1,
+                2
+              ],
+              "rows": [
+                {
+                  "key": 1,
+                  "payload": {
+                    "cells": [
+                      11,
+                      12,
+                      13,
+                      14
+                    ],
+                    "sentinel": [
+                      111,
+                      112
+                    ]
+                  }
+                },
+                {
+                  "key": 2,
+                  "payload": {
+                    "cells": [
+                      21,
+                      22,
+                      23,
+                      24
+                    ],
+                    "sentinel": [
+                      121,
+                      122
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "fast": {
+            "namespace": 1,
+            "id": 1,
+            "registryId": 1,
+            "registryNamespace": 1,
+            "actualRegistryId": 1,
+            "name": "fast",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "slow": {
+            "namespace": 1,
+            "id": 2,
+            "registryId": 2,
+            "registryNamespace": 1,
+            "actualRegistryId": 2,
+            "name": "slow",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "reads": [
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [
+                    1,
+                    2
+                  ],
+                  "packets": [
+                    {
+                      "key": 1,
+                      "cells": [
+                        11,
+                        12,
+                        13,
+                        14
+                      ]
+                    },
+                    {
+                      "key": 2,
+                      "cells": [
+                        21,
+                        22,
+                        23,
+                        24
+                      ]
+                    }
+                  ],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadBodyFailed": {
+                "error": {
+                  "ReadFailed": {
+                    "view": {
+                      "name": "slow",
+                      "keys": [
+                        1,
+                        2
+                      ],
+                      "packets": [
+                        {
+                          "key": 1,
+                          "cells": [
+                            11,
+                            12,
+                            13,
+                            14
+                          ]
+                        },
+                        {
+                          "key": 2,
+                          "cells": [
+                            21,
+                            22,
+                            23,
+                            24
+                          ]
+                        }
+                      ],
+                      "lagged": false,
+                      "errors": []
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "retired": [],
+          "refused": [],
+          "errors": [],
+          "ok": false
+        },
+        {
+          "label": "slow-retry",
+          "runtime": {
+            "namespace": 1,
+            "statuses": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 6
+                },
+                "registeredAt": {
+                  "nat": 1
+                },
+                "unread": {
+                  "nat": 0
+                },
+                "lagged": false
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 4
+                },
+                "registeredAt": {
+                  "nat": 0
+                },
+                "unread": {
+                  "nat": 0
+                },
+                "lagged": false
+              }
+            ],
+            "world": {
+              "namespace": 1,
+              "nextId": 1,
+              "highWater": 0,
+              "capacity": 1,
+              "depth": {
+                "nat": 0
+              },
+              "events": [
+                1,
+                2
+              ],
+              "registrations": [
+                {
+                  "id": 2,
+                  "name": "slow",
+                  "access": [
+                    "event:read"
+                  ]
+                },
+                {
+                  "id": 1,
+                  "name": "fast",
+                  "access": [
+                    "event:read"
+                  ]
+                }
+              ],
+              "nextSystemId": 3,
+              "clock": 0
+            },
+            "batches": [
+              {
+                "tick": {
+                  "nat": 3
+                },
+                "values": [
+                  1,
+                  2
+                ]
+              }
+            ],
+            "positions": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 6
+                },
+                "registeredAt": {
+                  "nat": 1
+                }
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 4
+                },
+                "registeredAt": {
+                  "nat": 0
+                }
+              }
+            ],
+            "nextReader": 3,
+            "tick": {
+              "nat": 6
+            },
+            "frameStart": {
+              "nat": 0
+            },
+            "boundary": {
+              "nat": 0
+            },
+            "capacity": {
+              "nat": 8
+            },
+            "droppedThrough": {
+              "nat": 0
+            },
+            "log": {
+              "seen": [
+                1,
+                2
+              ],
+              "rows": [
+                {
+                  "key": 1,
+                  "payload": {
+                    "cells": [
+                      11,
+                      12,
+                      13,
+                      14
+                    ],
+                    "sentinel": [
+                      111,
+                      112
+                    ]
+                  }
+                },
+                {
+                  "key": 2,
+                  "payload": {
+                    "cells": [
+                      21,
+                      22,
+                      23,
+                      24
+                    ],
+                    "sentinel": [
+                      121,
+                      122
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "fast": {
+            "namespace": 1,
+            "id": 1,
+            "registryId": 1,
+            "registryNamespace": 1,
+            "actualRegistryId": 1,
+            "name": "fast",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "slow": {
+            "namespace": 1,
+            "id": 2,
+            "registryId": 2,
+            "registryNamespace": 1,
+            "actualRegistryId": 2,
+            "name": "slow",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "reads": [
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [
+                    1,
+                    2
+                  ],
+                  "packets": [
+                    {
+                      "key": 1,
+                      "cells": [
+                        11,
+                        12,
+                        13,
+                        14
+                      ]
+                    },
+                    {
+                      "key": 2,
+                      "cells": [
+                        21,
+                        22,
+                        23,
+                        24
+                      ]
+                    }
+                  ],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadBodyFailed": {
+                "error": {
+                  "ReadFailed": {
+                    "view": {
+                      "name": "slow",
+                      "keys": [
+                        1,
+                        2
+                      ],
+                      "packets": [
+                        {
+                          "key": 1,
+                          "cells": [
+                            11,
+                            12,
+                            13,
+                            14
+                          ]
+                        },
+                        {
+                          "key": 2,
+                          "cells": [
+                            21,
+                            22,
+                            23,
+                            24
+                          ]
+                        }
+                      ],
+                      "lagged": false,
+                      "errors": []
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [
+                    1,
+                    2
+                  ],
+                  "packets": [
+                    {
+                      "key": 1,
+                      "cells": [
+                        11,
+                        12,
+                        13,
+                        14
+                      ]
+                    },
+                    {
+                      "key": 2,
+                      "cells": [
+                        21,
+                        22,
+                        23,
+                        24
+                      ]
+                    }
+                  ],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            }
+          ],
+          "retired": [],
+          "refused": [],
+          "errors": [],
+          "ok": true
+        },
+        {
+          "label": "fast-repeat",
+          "runtime": {
+            "namespace": 1,
+            "statuses": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 6
+                },
+                "registeredAt": {
+                  "nat": 1
+                },
+                "unread": {
+                  "nat": 0
+                },
+                "lagged": false
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 7
+                },
+                "registeredAt": {
+                  "nat": 0
+                },
+                "unread": {
+                  "nat": 0
+                },
+                "lagged": false
+              }
+            ],
+            "world": {
+              "namespace": 1,
+              "nextId": 1,
+              "highWater": 0,
+              "capacity": 1,
+              "depth": {
+                "nat": 0
+              },
+              "events": [
+                1,
+                2
+              ],
+              "registrations": [
+                {
+                  "id": 2,
+                  "name": "slow",
+                  "access": [
+                    "event:read"
+                  ]
+                },
+                {
+                  "id": 1,
+                  "name": "fast",
+                  "access": [
+                    "event:read"
+                  ]
+                }
+              ],
+              "nextSystemId": 3,
+              "clock": 0
+            },
+            "batches": [
+              {
+                "tick": {
+                  "nat": 3
+                },
+                "values": [
+                  1,
+                  2
+                ]
+              }
+            ],
+            "positions": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 6
+                },
+                "registeredAt": {
+                  "nat": 1
+                }
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 7
+                },
+                "registeredAt": {
+                  "nat": 0
+                }
+              }
+            ],
+            "nextReader": 3,
+            "tick": {
+              "nat": 7
+            },
+            "frameStart": {
+              "nat": 0
+            },
+            "boundary": {
+              "nat": 0
+            },
+            "capacity": {
+              "nat": 8
+            },
+            "droppedThrough": {
+              "nat": 0
+            },
+            "log": {
+              "seen": [
+                1,
+                2
+              ],
+              "rows": [
+                {
+                  "key": 1,
+                  "payload": {
+                    "cells": [
+                      11,
+                      12,
+                      13,
+                      14
+                    ],
+                    "sentinel": [
+                      111,
+                      112
+                    ]
+                  }
+                },
+                {
+                  "key": 2,
+                  "payload": {
+                    "cells": [
+                      21,
+                      22,
+                      23,
+                      24
+                    ],
+                    "sentinel": [
+                      121,
+                      122
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "fast": {
+            "namespace": 1,
+            "id": 1,
+            "registryId": 1,
+            "registryNamespace": 1,
+            "actualRegistryId": 1,
+            "name": "fast",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "slow": {
+            "namespace": 1,
+            "id": 2,
+            "registryId": 2,
+            "registryNamespace": 1,
+            "actualRegistryId": 2,
+            "name": "slow",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "reads": [
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [
+                    1,
+                    2
+                  ],
+                  "packets": [
+                    {
+                      "key": 1,
+                      "cells": [
+                        11,
+                        12,
+                        13,
+                        14
+                      ]
+                    },
+                    {
+                      "key": 2,
+                      "cells": [
+                        21,
+                        22,
+                        23,
+                        24
+                      ]
+                    }
+                  ],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadBodyFailed": {
+                "error": {
+                  "ReadFailed": {
+                    "view": {
+                      "name": "slow",
+                      "keys": [
+                        1,
+                        2
+                      ],
+                      "packets": [
+                        {
+                          "key": 1,
+                          "cells": [
+                            11,
+                            12,
+                            13,
+                            14
+                          ]
+                        },
+                        {
+                          "key": 2,
+                          "cells": [
+                            21,
+                            22,
+                            23,
+                            24
+                          ]
+                        }
+                      ],
+                      "lagged": false,
+                      "errors": []
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [
+                    1,
+                    2
+                  ],
+                  "packets": [
+                    {
+                      "key": 1,
+                      "cells": [
+                        11,
+                        12,
+                        13,
+                        14
+                      ]
+                    },
+                    {
+                      "key": 2,
+                      "cells": [
+                        21,
+                        22,
+                        23,
+                        24
+                      ]
+                    }
+                  ],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            }
+          ],
+          "retired": [],
+          "refused": [],
+          "errors": [],
+          "ok": true
+        },
+        {
+          "label": "publish-next",
+          "runtime": {
+            "namespace": 1,
+            "statuses": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 6
+                },
+                "registeredAt": {
+                  "nat": 1
+                },
+                "unread": {
+                  "nat": 1
+                },
+                "lagged": false
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 7
+                },
+                "registeredAt": {
+                  "nat": 0
+                },
+                "unread": {
+                  "nat": 1
+                },
+                "lagged": false
+              }
+            ],
+            "world": {
+              "namespace": 1,
+              "nextId": 1,
+              "highWater": 0,
+              "capacity": 1,
+              "depth": {
+                "nat": 0
+              },
+              "events": [
+                1,
+                2,
+                3
+              ],
+              "registrations": [
+                {
+                  "id": 2,
+                  "name": "slow",
+                  "access": [
+                    "event:read"
+                  ]
+                },
+                {
+                  "id": 1,
+                  "name": "fast",
+                  "access": [
+                    "event:read"
+                  ]
+                }
+              ],
+              "nextSystemId": 3,
+              "clock": 0
+            },
+            "batches": [
+              {
+                "tick": {
+                  "nat": 3
+                },
+                "values": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "tick": {
+                  "nat": 8
+                },
+                "values": [
+                  3
+                ]
+              }
+            ],
+            "positions": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 6
+                },
+                "registeredAt": {
+                  "nat": 1
+                }
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 7
+                },
+                "registeredAt": {
+                  "nat": 0
+                }
+              }
+            ],
+            "nextReader": 3,
+            "tick": {
+              "nat": 8
+            },
+            "frameStart": {
+              "nat": 0
+            },
+            "boundary": {
+              "nat": 0
+            },
+            "capacity": {
+              "nat": 8
+            },
+            "droppedThrough": {
+              "nat": 0
+            },
+            "log": {
+              "seen": [
+                1,
+                2,
+                3
+              ],
+              "rows": [
+                {
+                  "key": 1,
+                  "payload": {
+                    "cells": [
+                      11,
+                      12,
+                      13,
+                      14
+                    ],
+                    "sentinel": [
+                      111,
+                      112
+                    ]
+                  }
+                },
+                {
+                  "key": 2,
+                  "payload": {
+                    "cells": [
+                      21,
+                      22,
+                      23,
+                      24
+                    ],
+                    "sentinel": [
+                      121,
+                      122
+                    ]
+                  }
+                },
+                {
+                  "key": 3,
+                  "payload": {
+                    "cells": [
+                      31,
+                      32,
+                      33,
+                      34
+                    ],
+                    "sentinel": [
+                      131,
+                      132
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "fast": {
+            "namespace": 1,
+            "id": 1,
+            "registryId": 1,
+            "registryNamespace": 1,
+            "actualRegistryId": 1,
+            "name": "fast",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "slow": {
+            "namespace": 1,
+            "id": 2,
+            "registryId": 2,
+            "registryNamespace": 1,
+            "actualRegistryId": 2,
+            "name": "slow",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "reads": [
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [
+                    1,
+                    2
+                  ],
+                  "packets": [
+                    {
+                      "key": 1,
+                      "cells": [
+                        11,
+                        12,
+                        13,
+                        14
+                      ]
+                    },
+                    {
+                      "key": 2,
+                      "cells": [
+                        21,
+                        22,
+                        23,
+                        24
+                      ]
+                    }
+                  ],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadBodyFailed": {
+                "error": {
+                  "ReadFailed": {
+                    "view": {
+                      "name": "slow",
+                      "keys": [
+                        1,
+                        2
+                      ],
+                      "packets": [
+                        {
+                          "key": 1,
+                          "cells": [
+                            11,
+                            12,
+                            13,
+                            14
+                          ]
+                        },
+                        {
+                          "key": 2,
+                          "cells": [
+                            21,
+                            22,
+                            23,
+                            24
+                          ]
+                        }
+                      ],
+                      "lagged": false,
+                      "errors": []
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [
+                    1,
+                    2
+                  ],
+                  "packets": [
+                    {
+                      "key": 1,
+                      "cells": [
+                        11,
+                        12,
+                        13,
+                        14
+                      ]
+                    },
+                    {
+                      "key": 2,
+                      "cells": [
+                        21,
+                        22,
+                        23,
+                        24
+                      ]
+                    }
+                  ],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            }
+          ],
+          "retired": [],
+          "refused": [],
+          "errors": [],
+          "ok": true
+        },
+        {
+          "label": "skip-fast",
+          "runtime": {
+            "namespace": 1,
+            "statuses": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 6
+                },
+                "registeredAt": {
+                  "nat": 1
+                },
+                "unread": {
+                  "nat": 1
+                },
+                "lagged": false
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 8
+                },
+                "registeredAt": {
+                  "nat": 0
+                },
+                "unread": {
+                  "nat": 0
+                },
+                "lagged": false
+              }
+            ],
+            "world": {
+              "namespace": 1,
+              "nextId": 1,
+              "highWater": 0,
+              "capacity": 1,
+              "depth": {
+                "nat": 0
+              },
+              "events": [
+                1,
+                2,
+                3
+              ],
+              "registrations": [
+                {
+                  "id": 2,
+                  "name": "slow",
+                  "access": [
+                    "event:read"
+                  ]
+                },
+                {
+                  "id": 1,
+                  "name": "fast",
+                  "access": [
+                    "event:read"
+                  ]
+                }
+              ],
+              "nextSystemId": 3,
+              "clock": 0
+            },
+            "batches": [
+              {
+                "tick": {
+                  "nat": 3
+                },
+                "values": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "tick": {
+                  "nat": 8
+                },
+                "values": [
+                  3
+                ]
+              }
+            ],
+            "positions": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 6
+                },
+                "registeredAt": {
+                  "nat": 1
+                }
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 8
+                },
+                "registeredAt": {
+                  "nat": 0
+                }
+              }
+            ],
+            "nextReader": 3,
+            "tick": {
+              "nat": 8
+            },
+            "frameStart": {
+              "nat": 0
+            },
+            "boundary": {
+              "nat": 0
+            },
+            "capacity": {
+              "nat": 8
+            },
+            "droppedThrough": {
+              "nat": 0
+            },
+            "log": {
+              "seen": [
+                1,
+                2,
+                3
+              ],
+              "rows": [
+                {
+                  "key": 1,
+                  "payload": {
+                    "cells": [
+                      11,
+                      12,
+                      13,
+                      14
+                    ],
+                    "sentinel": [
+                      111,
+                      112
+                    ]
+                  }
+                },
+                {
+                  "key": 2,
+                  "payload": {
+                    "cells": [
+                      21,
+                      22,
+                      23,
+                      24
+                    ],
+                    "sentinel": [
+                      121,
+                      122
+                    ]
+                  }
+                },
+                {
+                  "key": 3,
+                  "payload": {
+                    "cells": [
+                      31,
+                      32,
+                      33,
+                      34
+                    ],
+                    "sentinel": [
+                      131,
+                      132
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "fast": {
+            "namespace": 1,
+            "id": 1,
+            "registryId": 1,
+            "registryNamespace": 1,
+            "actualRegistryId": 1,
+            "name": "fast",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "slow": {
+            "namespace": 1,
+            "id": 2,
+            "registryId": 2,
+            "registryNamespace": 1,
+            "actualRegistryId": 2,
+            "name": "slow",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "reads": [
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [
+                    1,
+                    2
+                  ],
+                  "packets": [
+                    {
+                      "key": 1,
+                      "cells": [
+                        11,
+                        12,
+                        13,
+                        14
+                      ]
+                    },
+                    {
+                      "key": 2,
+                      "cells": [
+                        21,
+                        22,
+                        23,
+                        24
+                      ]
+                    }
+                  ],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadBodyFailed": {
+                "error": {
+                  "ReadFailed": {
+                    "view": {
+                      "name": "slow",
+                      "keys": [
+                        1,
+                        2
+                      ],
+                      "packets": [
+                        {
+                          "key": 1,
+                          "cells": [
+                            11,
+                            12,
+                            13,
+                            14
+                          ]
+                        },
+                        {
+                          "key": 2,
+                          "cells": [
+                            21,
+                            22,
+                            23,
+                            24
+                          ]
+                        }
+                      ],
+                      "lagged": false,
+                      "errors": []
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [
+                    1,
+                    2
+                  ],
+                  "packets": [
+                    {
+                      "key": 1,
+                      "cells": [
+                        11,
+                        12,
+                        13,
+                        14
+                      ]
+                    },
+                    {
+                      "key": 2,
+                      "cells": [
+                        21,
+                        22,
+                        23,
+                        24
+                      ]
+                    }
+                  ],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            }
+          ],
+          "retired": [],
+          "refused": [],
+          "errors": [],
+          "ok": true
+        },
+        {
+          "label": "fast-after-skip",
+          "runtime": {
+            "namespace": 1,
+            "statuses": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 6
+                },
+                "registeredAt": {
+                  "nat": 1
+                },
+                "unread": {
+                  "nat": 1
+                },
+                "lagged": false
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 9
+                },
+                "registeredAt": {
+                  "nat": 0
+                },
+                "unread": {
+                  "nat": 0
+                },
+                "lagged": false
+              }
+            ],
+            "world": {
+              "namespace": 1,
+              "nextId": 1,
+              "highWater": 0,
+              "capacity": 1,
+              "depth": {
+                "nat": 0
+              },
+              "events": [
+                1,
+                2,
+                3
+              ],
+              "registrations": [
+                {
+                  "id": 2,
+                  "name": "slow",
+                  "access": [
+                    "event:read"
+                  ]
+                },
+                {
+                  "id": 1,
+                  "name": "fast",
+                  "access": [
+                    "event:read"
+                  ]
+                }
+              ],
+              "nextSystemId": 3,
+              "clock": 0
+            },
+            "batches": [
+              {
+                "tick": {
+                  "nat": 3
+                },
+                "values": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "tick": {
+                  "nat": 8
+                },
+                "values": [
+                  3
+                ]
+              }
+            ],
+            "positions": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 6
+                },
+                "registeredAt": {
+                  "nat": 1
+                }
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 9
+                },
+                "registeredAt": {
+                  "nat": 0
+                }
+              }
+            ],
+            "nextReader": 3,
+            "tick": {
+              "nat": 9
+            },
+            "frameStart": {
+              "nat": 0
+            },
+            "boundary": {
+              "nat": 0
+            },
+            "capacity": {
+              "nat": 8
+            },
+            "droppedThrough": {
+              "nat": 0
+            },
+            "log": {
+              "seen": [
+                1,
+                2,
+                3
+              ],
+              "rows": [
+                {
+                  "key": 1,
+                  "payload": {
+                    "cells": [
+                      11,
+                      12,
+                      13,
+                      14
+                    ],
+                    "sentinel": [
+                      111,
+                      112
+                    ]
+                  }
+                },
+                {
+                  "key": 2,
+                  "payload": {
+                    "cells": [
+                      21,
+                      22,
+                      23,
+                      24
+                    ],
+                    "sentinel": [
+                      121,
+                      122
+                    ]
+                  }
+                },
+                {
+                  "key": 3,
+                  "payload": {
+                    "cells": [
+                      31,
+                      32,
+                      33,
+                      34
+                    ],
+                    "sentinel": [
+                      131,
+                      132
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "fast": {
+            "namespace": 1,
+            "id": 1,
+            "registryId": 1,
+            "registryNamespace": 1,
+            "actualRegistryId": 1,
+            "name": "fast",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "slow": {
+            "namespace": 1,
+            "id": 2,
+            "registryId": 2,
+            "registryNamespace": 1,
+            "actualRegistryId": 2,
+            "name": "slow",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "reads": [
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [
+                    1,
+                    2
+                  ],
+                  "packets": [
+                    {
+                      "key": 1,
+                      "cells": [
+                        11,
+                        12,
+                        13,
+                        14
+                      ]
+                    },
+                    {
+                      "key": 2,
+                      "cells": [
+                        21,
+                        22,
+                        23,
+                        24
+                      ]
+                    }
+                  ],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadBodyFailed": {
+                "error": {
+                  "ReadFailed": {
+                    "view": {
+                      "name": "slow",
+                      "keys": [
+                        1,
+                        2
+                      ],
+                      "packets": [
+                        {
+                          "key": 1,
+                          "cells": [
+                            11,
+                            12,
+                            13,
+                            14
+                          ]
+                        },
+                        {
+                          "key": 2,
+                          "cells": [
+                            21,
+                            22,
+                            23,
+                            24
+                          ]
+                        }
+                      ],
+                      "lagged": false,
+                      "errors": []
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [
+                    1,
+                    2
+                  ],
+                  "packets": [
+                    {
+                      "key": 1,
+                      "cells": [
+                        11,
+                        12,
+                        13,
+                        14
+                      ]
+                    },
+                    {
+                      "key": 2,
+                      "cells": [
+                        21,
+                        22,
+                        23,
+                        24
+                      ]
+                    }
+                  ],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            }
+          ],
+          "retired": [],
+          "refused": [],
+          "errors": [],
+          "ok": true
+        },
+        {
+          "label": "slow-next",
+          "runtime": {
+            "namespace": 1,
+            "statuses": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 10
+                },
+                "registeredAt": {
+                  "nat": 1
+                },
+                "unread": {
+                  "nat": 0
+                },
+                "lagged": false
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 9
+                },
+                "registeredAt": {
+                  "nat": 0
+                },
+                "unread": {
+                  "nat": 0
+                },
+                "lagged": false
+              }
+            ],
+            "world": {
+              "namespace": 1,
+              "nextId": 1,
+              "highWater": 0,
+              "capacity": 1,
+              "depth": {
+                "nat": 0
+              },
+              "events": [
+                1,
+                2,
+                3
+              ],
+              "registrations": [
+                {
+                  "id": 2,
+                  "name": "slow",
+                  "access": [
+                    "event:read"
+                  ]
+                },
+                {
+                  "id": 1,
+                  "name": "fast",
+                  "access": [
+                    "event:read"
+                  ]
+                }
+              ],
+              "nextSystemId": 3,
+              "clock": 0
+            },
+            "batches": [
+              {
+                "tick": {
+                  "nat": 3
+                },
+                "values": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "tick": {
+                  "nat": 8
+                },
+                "values": [
+                  3
+                ]
+              }
+            ],
+            "positions": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 10
+                },
+                "registeredAt": {
+                  "nat": 1
+                }
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 9
+                },
+                "registeredAt": {
+                  "nat": 0
+                }
+              }
+            ],
+            "nextReader": 3,
+            "tick": {
+              "nat": 10
+            },
+            "frameStart": {
+              "nat": 0
+            },
+            "boundary": {
+              "nat": 0
+            },
+            "capacity": {
+              "nat": 8
+            },
+            "droppedThrough": {
+              "nat": 0
+            },
+            "log": {
+              "seen": [
+                1,
+                2,
+                3
+              ],
+              "rows": [
+                {
+                  "key": 1,
+                  "payload": {
+                    "cells": [
+                      11,
+                      12,
+                      13,
+                      14
+                    ],
+                    "sentinel": [
+                      111,
+                      112
+                    ]
+                  }
+                },
+                {
+                  "key": 2,
+                  "payload": {
+                    "cells": [
+                      21,
+                      22,
+                      23,
+                      24
+                    ],
+                    "sentinel": [
+                      121,
+                      122
+                    ]
+                  }
+                },
+                {
+                  "key": 3,
+                  "payload": {
+                    "cells": [
+                      31,
+                      32,
+                      33,
+                      34
+                    ],
+                    "sentinel": [
+                      131,
+                      132
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "fast": {
+            "namespace": 1,
+            "id": 1,
+            "registryId": 1,
+            "registryNamespace": 1,
+            "actualRegistryId": 1,
+            "name": "fast",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "slow": {
+            "namespace": 1,
+            "id": 2,
+            "registryId": 2,
+            "registryNamespace": 1,
+            "actualRegistryId": 2,
+            "name": "slow",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "reads": [
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [
+                    1,
+                    2
+                  ],
+                  "packets": [
+                    {
+                      "key": 1,
+                      "cells": [
+                        11,
+                        12,
+                        13,
+                        14
+                      ]
+                    },
+                    {
+                      "key": 2,
+                      "cells": [
+                        21,
+                        22,
+                        23,
+                        24
+                      ]
+                    }
+                  ],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadBodyFailed": {
+                "error": {
+                  "ReadFailed": {
+                    "view": {
+                      "name": "slow",
+                      "keys": [
+                        1,
+                        2
+                      ],
+                      "packets": [
+                        {
+                          "key": 1,
+                          "cells": [
+                            11,
+                            12,
+                            13,
+                            14
+                          ]
+                        },
+                        {
+                          "key": 2,
+                          "cells": [
+                            21,
+                            22,
+                            23,
+                            24
+                          ]
+                        }
+                      ],
+                      "lagged": false,
+                      "errors": []
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [
+                    1,
+                    2
+                  ],
+                  "packets": [
+                    {
+                      "key": 1,
+                      "cells": [
+                        11,
+                        12,
+                        13,
+                        14
+                      ]
+                    },
+                    {
+                      "key": 2,
+                      "cells": [
+                        21,
+                        22,
+                        23,
+                        24
+                      ]
+                    }
+                  ],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [
+                    3
+                  ],
+                  "packets": [
+                    {
+                      "key": 3,
+                      "cells": [
+                        31,
+                        32,
+                        33,
+                        34
+                      ]
+                    }
+                  ],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            }
+          ],
+          "retired": [],
+          "refused": [],
+          "errors": [],
+          "ok": true
+        },
+        {
+          "label": "duplicate-publication",
+          "runtime": {
+            "namespace": 1,
+            "statuses": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 10
+                },
+                "registeredAt": {
+                  "nat": 1
+                },
+                "unread": {
+                  "nat": 0
+                },
+                "lagged": false
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 9
+                },
+                "registeredAt": {
+                  "nat": 0
+                },
+                "unread": {
+                  "nat": 0
+                },
+                "lagged": false
+              }
+            ],
+            "world": {
+              "namespace": 1,
+              "nextId": 1,
+              "highWater": 0,
+              "capacity": 1,
+              "depth": {
+                "nat": 0
+              },
+              "events": [
+                1,
+                2,
+                3
+              ],
+              "registrations": [
+                {
+                  "id": 2,
+                  "name": "slow",
+                  "access": [
+                    "event:read"
+                  ]
+                },
+                {
+                  "id": 1,
+                  "name": "fast",
+                  "access": [
+                    "event:read"
+                  ]
+                }
+              ],
+              "nextSystemId": 3,
+              "clock": 0
+            },
+            "batches": [
+              {
+                "tick": {
+                  "nat": 3
+                },
+                "values": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "tick": {
+                  "nat": 8
+                },
+                "values": [
+                  3
+                ]
+              }
+            ],
+            "positions": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 10
+                },
+                "registeredAt": {
+                  "nat": 1
+                }
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 9
+                },
+                "registeredAt": {
+                  "nat": 0
+                }
+              }
+            ],
+            "nextReader": 3,
+            "tick": {
+              "nat": 11
+            },
+            "frameStart": {
+              "nat": 0
+            },
+            "boundary": {
+              "nat": 0
+            },
+            "capacity": {
+              "nat": 8
+            },
+            "droppedThrough": {
+              "nat": 0
+            },
+            "log": {
+              "seen": [
+                1,
+                2,
+                3
+              ],
+              "rows": [
+                {
+                  "key": 1,
+                  "payload": {
+                    "cells": [
+                      11,
+                      12,
+                      13,
+                      14
+                    ],
+                    "sentinel": [
+                      111,
+                      112
+                    ]
+                  }
+                },
+                {
+                  "key": 2,
+                  "payload": {
+                    "cells": [
+                      21,
+                      22,
+                      23,
+                      24
+                    ],
+                    "sentinel": [
+                      121,
+                      122
+                    ]
+                  }
+                },
+                {
+                  "key": 3,
+                  "payload": {
+                    "cells": [
+                      31,
+                      32,
+                      33,
+                      34
+                    ],
+                    "sentinel": [
+                      131,
+                      132
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "fast": {
+            "namespace": 1,
+            "id": 1,
+            "registryId": 1,
+            "registryNamespace": 1,
+            "actualRegistryId": 1,
+            "name": "fast",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "slow": {
+            "namespace": 1,
+            "id": 2,
+            "registryId": 2,
+            "registryNamespace": 1,
+            "actualRegistryId": 2,
+            "name": "slow",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "reads": [
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [
+                    1,
+                    2
+                  ],
+                  "packets": [
+                    {
+                      "key": 1,
+                      "cells": [
+                        11,
+                        12,
+                        13,
+                        14
+                      ]
+                    },
+                    {
+                      "key": 2,
+                      "cells": [
+                        21,
+                        22,
+                        23,
+                        24
+                      ]
+                    }
+                  ],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadBodyFailed": {
+                "error": {
+                  "ReadFailed": {
+                    "view": {
+                      "name": "slow",
+                      "keys": [
+                        1,
+                        2
+                      ],
+                      "packets": [
+                        {
+                          "key": 1,
+                          "cells": [
+                            11,
+                            12,
+                            13,
+                            14
+                          ]
+                        },
+                        {
+                          "key": 2,
+                          "cells": [
+                            21,
+                            22,
+                            23,
+                            24
+                          ]
+                        }
+                      ],
+                      "lagged": false,
+                      "errors": []
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [
+                    1,
+                    2
+                  ],
+                  "packets": [
+                    {
+                      "key": 1,
+                      "cells": [
+                        11,
+                        12,
+                        13,
+                        14
+                      ]
+                    },
+                    {
+                      "key": 2,
+                      "cells": [
+                        21,
+                        22,
+                        23,
+                        24
+                      ]
+                    }
+                  ],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [
+                    3
+                  ],
+                  "packets": [
+                    {
+                      "key": 3,
+                      "cells": [
+                        31,
+                        32,
+                        33,
+                        34
+                      ]
+                    }
+                  ],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            }
+          ],
+          "retired": [],
+          "refused": [
+            {
+              "key": 1,
+              "payload": {
+                "cells": [
+                  91,
+                  92,
+                  93,
+                  94
+                ],
+                "sentinel": [
+                  191,
+                  192
+                ]
+              }
+            }
+          ],
+          "errors": [
+            {
+              "DuplicateKey": {
+                "key": 1
+              }
+            }
+          ],
+          "ok": false
+        },
+        {
+          "label": "window-first",
+          "runtime": {
+            "namespace": 1,
+            "statuses": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 10
+                },
+                "registeredAt": {
+                  "nat": 1
+                },
+                "unread": {
+                  "nat": 0
+                },
+                "lagged": false
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 9
+                },
+                "registeredAt": {
+                  "nat": 0
+                },
+                "unread": {
+                  "nat": 0
+                },
+                "lagged": false
+              }
+            ],
+            "world": {
+              "namespace": 1,
+              "nextId": 1,
+              "highWater": 0,
+              "capacity": 1,
+              "depth": {
+                "nat": 0
+              },
+              "events": [
+                1,
+                2,
+                3
+              ],
+              "registrations": [
+                {
+                  "id": 2,
+                  "name": "slow",
+                  "access": [
+                    "event:read"
+                  ]
+                },
+                {
+                  "id": 1,
+                  "name": "fast",
+                  "access": [
+                    "event:read"
+                  ]
+                }
+              ],
+              "nextSystemId": 3,
+              "clock": 0
+            },
+            "batches": [
+              {
+                "tick": {
+                  "nat": 3
+                },
+                "values": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "tick": {
+                  "nat": 8
+                },
+                "values": [
+                  3
+                ]
+              }
+            ],
+            "positions": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 10
+                },
+                "registeredAt": {
+                  "nat": 1
+                }
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 9
+                },
+                "registeredAt": {
+                  "nat": 0
+                }
+              }
+            ],
+            "nextReader": 3,
+            "tick": {
+              "nat": 11
+            },
+            "frameStart": {
+              "nat": 11
+            },
+            "boundary": {
+              "nat": 0
+            },
+            "capacity": {
+              "nat": 8
+            },
+            "droppedThrough": {
+              "nat": 0
+            },
+            "log": {
+              "seen": [
+                1,
+                2,
+                3
+              ],
+              "rows": [
+                {
+                  "key": 1,
+                  "payload": {
+                    "cells": [
+                      11,
+                      12,
+                      13,
+                      14
+                    ],
+                    "sentinel": [
+                      111,
+                      112
+                    ]
+                  }
+                },
+                {
+                  "key": 2,
+                  "payload": {
+                    "cells": [
+                      21,
+                      22,
+                      23,
+                      24
+                    ],
+                    "sentinel": [
+                      121,
+                      122
+                    ]
+                  }
+                },
+                {
+                  "key": 3,
+                  "payload": {
+                    "cells": [
+                      31,
+                      32,
+                      33,
+                      34
+                    ],
+                    "sentinel": [
+                      131,
+                      132
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "fast": {
+            "namespace": 1,
+            "id": 1,
+            "registryId": 1,
+            "registryNamespace": 1,
+            "actualRegistryId": 1,
+            "name": "fast",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "slow": {
+            "namespace": 1,
+            "id": 2,
+            "registryId": 2,
+            "registryNamespace": 1,
+            "actualRegistryId": 2,
+            "name": "slow",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "reads": [
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [
+                    1,
+                    2
+                  ],
+                  "packets": [
+                    {
+                      "key": 1,
+                      "cells": [
+                        11,
+                        12,
+                        13,
+                        14
+                      ]
+                    },
+                    {
+                      "key": 2,
+                      "cells": [
+                        21,
+                        22,
+                        23,
+                        24
+                      ]
+                    }
+                  ],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadBodyFailed": {
+                "error": {
+                  "ReadFailed": {
+                    "view": {
+                      "name": "slow",
+                      "keys": [
+                        1,
+                        2
+                      ],
+                      "packets": [
+                        {
+                          "key": 1,
+                          "cells": [
+                            11,
+                            12,
+                            13,
+                            14
+                          ]
+                        },
+                        {
+                          "key": 2,
+                          "cells": [
+                            21,
+                            22,
+                            23,
+                            24
+                          ]
+                        }
+                      ],
+                      "lagged": false,
+                      "errors": []
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [
+                    1,
+                    2
+                  ],
+                  "packets": [
+                    {
+                      "key": 1,
+                      "cells": [
+                        11,
+                        12,
+                        13,
+                        14
+                      ]
+                    },
+                    {
+                      "key": 2,
+                      "cells": [
+                        21,
+                        22,
+                        23,
+                        24
+                      ]
+                    }
+                  ],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [
+                    3
+                  ],
+                  "packets": [
+                    {
+                      "key": 3,
+                      "cells": [
+                        31,
+                        32,
+                        33,
+                        34
+                      ]
+                    }
+                  ],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            }
+          ],
+          "retired": [],
+          "refused": [
+            {
+              "key": 1,
+              "payload": {
+                "cells": [
+                  91,
+                  92,
+                  93,
+                  94
+                ],
+                "sentinel": [
+                  191,
+                  192
+                ]
+              }
+            }
+          ],
+          "errors": [
+            {
+              "DuplicateKey": {
+                "key": 1
+              }
+            }
+          ],
+          "ok": false
+        },
+        {
+          "label": "window-second",
+          "runtime": {
+            "namespace": 1,
+            "statuses": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 10
+                },
+                "registeredAt": {
+                  "nat": 1
+                },
+                "unread": {
+                  "nat": 0
+                },
+                "lagged": false
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 9
+                },
+                "registeredAt": {
+                  "nat": 0
+                },
+                "unread": {
+                  "nat": 0
+                },
+                "lagged": false
+              }
+            ],
+            "world": {
+              "namespace": 1,
+              "nextId": 1,
+              "highWater": 0,
+              "capacity": 1,
+              "depth": {
+                "nat": 0
+              },
+              "events": [],
+              "registrations": [
+                {
+                  "id": 2,
+                  "name": "slow",
+                  "access": [
+                    "event:read"
+                  ]
+                },
+                {
+                  "id": 1,
+                  "name": "fast",
+                  "access": [
+                    "event:read"
+                  ]
+                }
+              ],
+              "nextSystemId": 3,
+              "clock": 0
+            },
+            "batches": [],
+            "positions": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 10
+                },
+                "registeredAt": {
+                  "nat": 1
+                }
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 9
+                },
+                "registeredAt": {
+                  "nat": 0
+                }
+              }
+            ],
+            "nextReader": 3,
+            "tick": {
+              "nat": 11
+            },
+            "frameStart": {
+              "nat": 11
+            },
+            "boundary": {
+              "nat": 11
+            },
+            "capacity": {
+              "nat": 8
+            },
+            "droppedThrough": {
+              "nat": 8
+            },
+            "log": {
+              "seen": [
+                1,
+                2,
+                3
+              ],
+              "rows": []
+            }
+          },
+          "fast": {
+            "namespace": 1,
+            "id": 1,
+            "registryId": 1,
+            "registryNamespace": 1,
+            "actualRegistryId": 1,
+            "name": "fast",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "slow": {
+            "namespace": 1,
+            "id": 2,
+            "registryId": 2,
+            "registryNamespace": 1,
+            "actualRegistryId": 2,
+            "name": "slow",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "reads": [
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [
+                    1,
+                    2
+                  ],
+                  "packets": [
+                    {
+                      "key": 1,
+                      "cells": [
+                        11,
+                        12,
+                        13,
+                        14
+                      ]
+                    },
+                    {
+                      "key": 2,
+                      "cells": [
+                        21,
+                        22,
+                        23,
+                        24
+                      ]
+                    }
+                  ],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadBodyFailed": {
+                "error": {
+                  "ReadFailed": {
+                    "view": {
+                      "name": "slow",
+                      "keys": [
+                        1,
+                        2
+                      ],
+                      "packets": [
+                        {
+                          "key": 1,
+                          "cells": [
+                            11,
+                            12,
+                            13,
+                            14
+                          ]
+                        },
+                        {
+                          "key": 2,
+                          "cells": [
+                            21,
+                            22,
+                            23,
+                            24
+                          ]
+                        }
+                      ],
+                      "lagged": false,
+                      "errors": []
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [
+                    1,
+                    2
+                  ],
+                  "packets": [
+                    {
+                      "key": 1,
+                      "cells": [
+                        11,
+                        12,
+                        13,
+                        14
+                      ]
+                    },
+                    {
+                      "key": 2,
+                      "cells": [
+                        21,
+                        22,
+                        23,
+                        24
+                      ]
+                    }
+                  ],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [
+                    3
+                  ],
+                  "packets": [
+                    {
+                      "key": 3,
+                      "cells": [
+                        31,
+                        32,
+                        33,
+                        34
+                      ]
+                    }
+                  ],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            }
+          ],
+          "retired": [
+            {
+              "key": 2,
+              "payload": {
+                "cells": [
+                  21,
+                  22,
+                  23,
+                  24
+                ],
+                "sentinel": [
+                  121,
+                  122
+                ]
+              }
+            },
+            {
+              "key": 3,
+              "payload": {
+                "cells": [
+                  31,
+                  32,
+                  33,
+                  34
+                ],
+                "sentinel": [
+                  131,
+                  132
+                ]
+              }
+            }
+          ],
+          "refused": [
+            {
+              "key": 1,
+              "payload": {
+                "cells": [
+                  91,
+                  92,
+                  93,
+                  94
+                ],
+                "sentinel": [
+                  191,
+                  192
+                ]
+              }
+            }
+          ],
+          "errors": [
+            {
+              "DuplicateKey": {
+                "key": 1
+              }
+            }
+          ],
+          "ok": false
+        },
+        {
+          "label": "foreign-reader",
+          "runtime": {
+            "namespace": 1,
+            "statuses": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 10
+                },
+                "registeredAt": {
+                  "nat": 1
+                },
+                "unread": {
+                  "nat": 0
+                },
+                "lagged": false
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 9
+                },
+                "registeredAt": {
+                  "nat": 0
+                },
+                "unread": {
+                  "nat": 0
+                },
+                "lagged": false
+              }
+            ],
+            "world": {
+              "namespace": 1,
+              "nextId": 1,
+              "highWater": 0,
+              "capacity": 1,
+              "depth": {
+                "nat": 0
+              },
+              "events": [],
+              "registrations": [
+                {
+                  "id": 2,
+                  "name": "slow",
+                  "access": [
+                    "event:read"
+                  ]
+                },
+                {
+                  "id": 1,
+                  "name": "fast",
+                  "access": [
+                    "event:read"
+                  ]
+                }
+              ],
+              "nextSystemId": 3,
+              "clock": 0
+            },
+            "batches": [],
+            "positions": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 10
+                },
+                "registeredAt": {
+                  "nat": 1
+                }
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 9
+                },
+                "registeredAt": {
+                  "nat": 0
+                }
+              }
+            ],
+            "nextReader": 3,
+            "tick": {
+              "nat": 11
+            },
+            "frameStart": {
+              "nat": 11
+            },
+            "boundary": {
+              "nat": 11
+            },
+            "capacity": {
+              "nat": 8
+            },
+            "droppedThrough": {
+              "nat": 8
+            },
+            "log": {
+              "seen": [
+                1,
+                2,
+                3
+              ],
+              "rows": []
+            }
+          },
+          "fast": {
+            "namespace": 999,
+            "id": 1,
+            "registryId": 1,
+            "registryNamespace": 1,
+            "actualRegistryId": 1,
+            "name": "fast",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "slow": {
+            "namespace": 1,
+            "id": 2,
+            "registryId": 2,
+            "registryNamespace": 1,
+            "actualRegistryId": 2,
+            "name": "slow",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "reads": [
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [
+                    1,
+                    2
+                  ],
+                  "packets": [
+                    {
+                      "key": 1,
+                      "cells": [
+                        11,
+                        12,
+                        13,
+                        14
+                      ]
+                    },
+                    {
+                      "key": 2,
+                      "cells": [
+                        21,
+                        22,
+                        23,
+                        24
+                      ]
+                    }
+                  ],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadBodyFailed": {
+                "error": {
+                  "ReadFailed": {
+                    "view": {
+                      "name": "slow",
+                      "keys": [
+                        1,
+                        2
+                      ],
+                      "packets": [
+                        {
+                          "key": 1,
+                          "cells": [
+                            11,
+                            12,
+                            13,
+                            14
+                          ]
+                        },
+                        {
+                          "key": 2,
+                          "cells": [
+                            21,
+                            22,
+                            23,
+                            24
+                          ]
+                        }
+                      ],
+                      "lagged": false,
+                      "errors": []
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [
+                    1,
+                    2
+                  ],
+                  "packets": [
+                    {
+                      "key": 1,
+                      "cells": [
+                        11,
+                        12,
+                        13,
+                        14
+                      ]
+                    },
+                    {
+                      "key": 2,
+                      "cells": [
+                        21,
+                        22,
+                        23,
+                        24
+                      ]
+                    }
+                  ],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [
+                    3
+                  ],
+                  "packets": [
+                    {
+                      "key": 3,
+                      "cells": [
+                        31,
+                        32,
+                        33,
+                        34
+                      ]
+                    }
+                  ],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadRejected": {
+                "request": {
+                  "name": "fast",
+                  "fail": false
+                }
+              }
+            }
+          ],
+          "retired": [
+            {
+              "key": 2,
+              "payload": {
+                "cells": [
+                  21,
+                  22,
+                  23,
+                  24
+                ],
+                "sentinel": [
+                  121,
+                  122
+                ]
+              }
+            },
+            {
+              "key": 3,
+              "payload": {
+                "cells": [
+                  31,
+                  32,
+                  33,
+                  34
+                ],
+                "sentinel": [
+                  131,
+                  132
+                ]
+              }
+            }
+          ],
+          "refused": [
+            {
+              "key": 1,
+              "payload": {
+                "cells": [
+                  91,
+                  92,
+                  93,
+                  94
+                ],
+                "sentinel": [
+                  191,
+                  192
+                ]
+              }
+            }
+          ],
+          "errors": [
+            {
+              "DuplicateKey": {
+                "key": 1
+              }
+            }
+          ],
+          "ok": false
+        }
+      ]
+    }
+  },
+  "capacity": {
+    "Trace": {
+      "snapshots": [
+        {
+          "label": "registered",
+          "runtime": {
+            "namespace": 1,
+            "statuses": [],
+            "world": {
+              "namespace": 1,
+              "nextId": 1,
+              "highWater": 0,
+              "capacity": 1,
+              "depth": {
+                "nat": 0
+              },
+              "events": [],
+              "registrations": [
+                {
+                  "id": 2,
+                  "name": "slow",
+                  "access": [
+                    "event:read"
+                  ]
+                },
+                {
+                  "id": 1,
+                  "name": "fast",
+                  "access": [
+                    "event:read"
+                  ]
+                }
+              ],
+              "nextSystemId": 3,
+              "clock": 0
+            },
+            "batches": [],
+            "positions": [],
+            "nextReader": 3,
+            "tick": {
+              "nat": 0
+            },
+            "frameStart": {
+              "nat": 0
+            },
+            "boundary": {
+              "nat": 0
+            },
+            "capacity": {
+              "nat": 2
+            },
+            "droppedThrough": {
+              "nat": 0
+            },
+            "log": {
+              "seen": [],
+              "rows": []
+            }
+          },
+          "fast": {
+            "namespace": 1,
+            "id": 1,
+            "registryId": 1,
+            "registryNamespace": 1,
+            "actualRegistryId": 1,
+            "name": "fast",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "slow": {
+            "namespace": 1,
+            "id": 2,
+            "registryId": 2,
+            "registryNamespace": 1,
+            "actualRegistryId": 2,
+            "name": "slow",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "reads": [],
+          "retired": [],
+          "refused": [],
+          "errors": [],
+          "ok": true
+        },
+        {
+          "label": "activate",
+          "runtime": {
+            "namespace": 1,
+            "statuses": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 2
+                },
+                "registeredAt": {
+                  "nat": 1
+                },
+                "unread": {
+                  "nat": 0
+                },
+                "lagged": false
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 1
+                },
+                "registeredAt": {
+                  "nat": 0
+                },
+                "unread": {
+                  "nat": 0
+                },
+                "lagged": false
+              }
+            ],
+            "world": {
+              "namespace": 1,
+              "nextId": 1,
+              "highWater": 0,
+              "capacity": 1,
+              "depth": {
+                "nat": 0
+              },
+              "events": [],
+              "registrations": [
+                {
+                  "id": 2,
+                  "name": "slow",
+                  "access": [
+                    "event:read"
+                  ]
+                },
+                {
+                  "id": 1,
+                  "name": "fast",
+                  "access": [
+                    "event:read"
+                  ]
+                }
+              ],
+              "nextSystemId": 3,
+              "clock": 0
+            },
+            "batches": [],
+            "positions": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 2
+                },
+                "registeredAt": {
+                  "nat": 1
+                }
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 1
+                },
+                "registeredAt": {
+                  "nat": 0
+                }
+              }
+            ],
+            "nextReader": 3,
+            "tick": {
+              "nat": 2
+            },
+            "frameStart": {
+              "nat": 0
+            },
+            "boundary": {
+              "nat": 0
+            },
+            "capacity": {
+              "nat": 2
+            },
+            "droppedThrough": {
+              "nat": 0
+            },
+            "log": {
+              "seen": [],
+              "rows": []
+            }
+          },
+          "fast": {
+            "namespace": 1,
+            "id": 1,
+            "registryId": 1,
+            "registryNamespace": 1,
+            "actualRegistryId": 1,
+            "name": "fast",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "slow": {
+            "namespace": 1,
+            "id": 2,
+            "registryId": 2,
+            "registryNamespace": 1,
+            "actualRegistryId": 2,
+            "name": "slow",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "reads": [
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            }
+          ],
+          "retired": [],
+          "refused": [],
+          "errors": [],
+          "ok": true
+        },
+        {
+          "label": "publish-first",
+          "runtime": {
+            "namespace": 1,
+            "statuses": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 2
+                },
+                "registeredAt": {
+                  "nat": 1
+                },
+                "unread": {
+                  "nat": 2
+                },
+                "lagged": false
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 1
+                },
+                "registeredAt": {
+                  "nat": 0
+                },
+                "unread": {
+                  "nat": 2
+                },
+                "lagged": false
+              }
+            ],
+            "world": {
+              "namespace": 1,
+              "nextId": 1,
+              "highWater": 0,
+              "capacity": 1,
+              "depth": {
+                "nat": 0
+              },
+              "events": [
+                1,
+                2
+              ],
+              "registrations": [
+                {
+                  "id": 2,
+                  "name": "slow",
+                  "access": [
+                    "event:read"
+                  ]
+                },
+                {
+                  "id": 1,
+                  "name": "fast",
+                  "access": [
+                    "event:read"
+                  ]
+                }
+              ],
+              "nextSystemId": 3,
+              "clock": 0
+            },
+            "batches": [
+              {
+                "tick": {
+                  "nat": 3
+                },
+                "values": [
+                  1,
+                  2
+                ]
+              }
+            ],
+            "positions": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 2
+                },
+                "registeredAt": {
+                  "nat": 1
+                }
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 1
+                },
+                "registeredAt": {
+                  "nat": 0
+                }
+              }
+            ],
+            "nextReader": 3,
+            "tick": {
+              "nat": 3
+            },
+            "frameStart": {
+              "nat": 0
+            },
+            "boundary": {
+              "nat": 0
+            },
+            "capacity": {
+              "nat": 2
+            },
+            "droppedThrough": {
+              "nat": 0
+            },
+            "log": {
+              "seen": [
+                1,
+                2
+              ],
+              "rows": [
+                {
+                  "key": 1,
+                  "payload": {
+                    "cells": [
+                      11,
+                      12,
+                      13,
+                      14
+                    ],
+                    "sentinel": [
+                      111,
+                      112
+                    ]
+                  }
+                },
+                {
+                  "key": 2,
+                  "payload": {
+                    "cells": [
+                      21,
+                      22,
+                      23,
+                      24
+                    ],
+                    "sentinel": [
+                      121,
+                      122
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "fast": {
+            "namespace": 1,
+            "id": 1,
+            "registryId": 1,
+            "registryNamespace": 1,
+            "actualRegistryId": 1,
+            "name": "fast",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "slow": {
+            "namespace": 1,
+            "id": 2,
+            "registryId": 2,
+            "registryNamespace": 1,
+            "actualRegistryId": 2,
+            "name": "slow",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "reads": [
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            }
+          ],
+          "retired": [],
+          "refused": [],
+          "errors": [],
+          "ok": true
+        },
+        {
+          "label": "publish-next",
+          "runtime": {
+            "namespace": 1,
+            "statuses": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 2
+                },
+                "registeredAt": {
+                  "nat": 1
+                },
+                "unread": {
+                  "nat": 3
+                },
+                "lagged": false
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 1
+                },
+                "registeredAt": {
+                  "nat": 0
+                },
+                "unread": {
+                  "nat": 3
+                },
+                "lagged": false
+              }
+            ],
+            "world": {
+              "namespace": 1,
+              "nextId": 1,
+              "highWater": 0,
+              "capacity": 1,
+              "depth": {
+                "nat": 0
+              },
+              "events": [
+                1,
+                2,
+                3
+              ],
+              "registrations": [
+                {
+                  "id": 2,
+                  "name": "slow",
+                  "access": [
+                    "event:read"
+                  ]
+                },
+                {
+                  "id": 1,
+                  "name": "fast",
+                  "access": [
+                    "event:read"
+                  ]
+                }
+              ],
+              "nextSystemId": 3,
+              "clock": 0
+            },
+            "batches": [
+              {
+                "tick": {
+                  "nat": 3
+                },
+                "values": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "tick": {
+                  "nat": 4
+                },
+                "values": [
+                  3
+                ]
+              }
+            ],
+            "positions": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 2
+                },
+                "registeredAt": {
+                  "nat": 1
+                }
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 1
+                },
+                "registeredAt": {
+                  "nat": 0
+                }
+              }
+            ],
+            "nextReader": 3,
+            "tick": {
+              "nat": 4
+            },
+            "frameStart": {
+              "nat": 0
+            },
+            "boundary": {
+              "nat": 0
+            },
+            "capacity": {
+              "nat": 2
+            },
+            "droppedThrough": {
+              "nat": 0
+            },
+            "log": {
+              "seen": [
+                1,
+                2,
+                3
+              ],
+              "rows": [
+                {
+                  "key": 1,
+                  "payload": {
+                    "cells": [
+                      11,
+                      12,
+                      13,
+                      14
+                    ],
+                    "sentinel": [
+                      111,
+                      112
+                    ]
+                  }
+                },
+                {
+                  "key": 2,
+                  "payload": {
+                    "cells": [
+                      21,
+                      22,
+                      23,
+                      24
+                    ],
+                    "sentinel": [
+                      121,
+                      122
+                    ]
+                  }
+                },
+                {
+                  "key": 3,
+                  "payload": {
+                    "cells": [
+                      31,
+                      32,
+                      33,
+                      34
+                    ],
+                    "sentinel": [
+                      131,
+                      132
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "fast": {
+            "namespace": 1,
+            "id": 1,
+            "registryId": 1,
+            "registryNamespace": 1,
+            "actualRegistryId": 1,
+            "name": "fast",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "slow": {
+            "namespace": 1,
+            "id": 2,
+            "registryId": 2,
+            "registryNamespace": 1,
+            "actualRegistryId": 2,
+            "name": "slow",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "reads": [
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            }
+          ],
+          "retired": [],
+          "refused": [],
+          "errors": [],
+          "ok": true
+        },
+        {
+          "label": "whole-batch-capacity",
+          "runtime": {
+            "namespace": 1,
+            "statuses": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 2
+                },
+                "registeredAt": {
+                  "nat": 1
+                },
+                "unread": {
+                  "nat": 1
+                },
+                "lagged": true
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 1
+                },
+                "registeredAt": {
+                  "nat": 0
+                },
+                "unread": {
+                  "nat": 1
+                },
+                "lagged": true
+              }
+            ],
+            "world": {
+              "namespace": 1,
+              "nextId": 1,
+              "highWater": 0,
+              "capacity": 1,
+              "depth": {
+                "nat": 0
+              },
+              "events": [
+                3
+              ],
+              "registrations": [
+                {
+                  "id": 2,
+                  "name": "slow",
+                  "access": [
+                    "event:read"
+                  ]
+                },
+                {
+                  "id": 1,
+                  "name": "fast",
+                  "access": [
+                    "event:read"
+                  ]
+                }
+              ],
+              "nextSystemId": 3,
+              "clock": 0
+            },
+            "batches": [
+              {
+                "tick": {
+                  "nat": 4
+                },
+                "values": [
+                  3
+                ]
+              }
+            ],
+            "positions": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 2
+                },
+                "registeredAt": {
+                  "nat": 1
+                }
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 1
+                },
+                "registeredAt": {
+                  "nat": 0
+                }
+              }
+            ],
+            "nextReader": 3,
+            "tick": {
+              "nat": 4
+            },
+            "frameStart": {
+              "nat": 4
+            },
+            "boundary": {
+              "nat": 0
+            },
+            "capacity": {
+              "nat": 2
+            },
+            "droppedThrough": {
+              "nat": 3
+            },
+            "log": {
+              "seen": [
+                1,
+                2,
+                3
+              ],
+              "rows": [
+                {
+                  "key": 3,
+                  "payload": {
+                    "cells": [
+                      31,
+                      32,
+                      33,
+                      34
+                    ],
+                    "sentinel": [
+                      131,
+                      132
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "fast": {
+            "namespace": 1,
+            "id": 1,
+            "registryId": 1,
+            "registryNamespace": 1,
+            "actualRegistryId": 1,
+            "name": "fast",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "slow": {
+            "namespace": 1,
+            "id": 2,
+            "registryId": 2,
+            "registryNamespace": 1,
+            "actualRegistryId": 2,
+            "name": "slow",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "reads": [
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            }
+          ],
+          "retired": [
+            {
+              "key": 2,
+              "payload": {
+                "cells": [
+                  21,
+                  22,
+                  23,
+                  24
+                ],
+                "sentinel": [
+                  121,
+                  122
+                ]
+              }
+            }
+          ],
+          "refused": [],
+          "errors": [],
+          "ok": true
+        },
+        {
+          "label": "fast-lagged",
+          "runtime": {
+            "namespace": 1,
+            "statuses": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 2
+                },
+                "registeredAt": {
+                  "nat": 1
+                },
+                "unread": {
+                  "nat": 1
+                },
+                "lagged": true
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 5
+                },
+                "registeredAt": {
+                  "nat": 0
+                },
+                "unread": {
+                  "nat": 0
+                },
+                "lagged": false
+              }
+            ],
+            "world": {
+              "namespace": 1,
+              "nextId": 1,
+              "highWater": 0,
+              "capacity": 1,
+              "depth": {
+                "nat": 0
+              },
+              "events": [
+                3
+              ],
+              "registrations": [
+                {
+                  "id": 2,
+                  "name": "slow",
+                  "access": [
+                    "event:read"
+                  ]
+                },
+                {
+                  "id": 1,
+                  "name": "fast",
+                  "access": [
+                    "event:read"
+                  ]
+                }
+              ],
+              "nextSystemId": 3,
+              "clock": 0
+            },
+            "batches": [
+              {
+                "tick": {
+                  "nat": 4
+                },
+                "values": [
+                  3
+                ]
+              }
+            ],
+            "positions": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 2
+                },
+                "registeredAt": {
+                  "nat": 1
+                }
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 5
+                },
+                "registeredAt": {
+                  "nat": 0
+                }
+              }
+            ],
+            "nextReader": 3,
+            "tick": {
+              "nat": 5
+            },
+            "frameStart": {
+              "nat": 4
+            },
+            "boundary": {
+              "nat": 0
+            },
+            "capacity": {
+              "nat": 2
+            },
+            "droppedThrough": {
+              "nat": 3
+            },
+            "log": {
+              "seen": [
+                1,
+                2,
+                3
+              ],
+              "rows": [
+                {
+                  "key": 3,
+                  "payload": {
+                    "cells": [
+                      31,
+                      32,
+                      33,
+                      34
+                    ],
+                    "sentinel": [
+                      131,
+                      132
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "fast": {
+            "namespace": 1,
+            "id": 1,
+            "registryId": 1,
+            "registryNamespace": 1,
+            "actualRegistryId": 1,
+            "name": "fast",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "slow": {
+            "namespace": 1,
+            "id": 2,
+            "registryId": 2,
+            "registryNamespace": 1,
+            "actualRegistryId": 2,
+            "name": "slow",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "reads": [
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [
+                    3
+                  ],
+                  "packets": [
+                    {
+                      "key": 3,
+                      "cells": [
+                        31,
+                        32,
+                        33,
+                        34
+                      ]
+                    }
+                  ],
+                  "lagged": true,
+                  "errors": []
+                }
+              }
+            }
+          ],
+          "retired": [
+            {
+              "key": 2,
+              "payload": {
+                "cells": [
+                  21,
+                  22,
+                  23,
+                  24
+                ],
+                "sentinel": [
+                  121,
+                  122
+                ]
+              }
+            }
+          ],
+          "refused": [],
+          "errors": [],
+          "ok": true
+        },
+        {
+          "label": "slow-lagged-failure",
+          "runtime": {
+            "namespace": 1,
+            "statuses": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 2
+                },
+                "registeredAt": {
+                  "nat": 1
+                },
+                "unread": {
+                  "nat": 1
+                },
+                "lagged": true
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 5
+                },
+                "registeredAt": {
+                  "nat": 0
+                },
+                "unread": {
+                  "nat": 0
+                },
+                "lagged": false
+              }
+            ],
+            "world": {
+              "namespace": 1,
+              "nextId": 1,
+              "highWater": 0,
+              "capacity": 1,
+              "depth": {
+                "nat": 0
+              },
+              "events": [
+                3
+              ],
+              "registrations": [
+                {
+                  "id": 2,
+                  "name": "slow",
+                  "access": [
+                    "event:read"
+                  ]
+                },
+                {
+                  "id": 1,
+                  "name": "fast",
+                  "access": [
+                    "event:read"
+                  ]
+                }
+              ],
+              "nextSystemId": 3,
+              "clock": 0
+            },
+            "batches": [
+              {
+                "tick": {
+                  "nat": 4
+                },
+                "values": [
+                  3
+                ]
+              }
+            ],
+            "positions": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 2
+                },
+                "registeredAt": {
+                  "nat": 1
+                }
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 5
+                },
+                "registeredAt": {
+                  "nat": 0
+                }
+              }
+            ],
+            "nextReader": 3,
+            "tick": {
+              "nat": 6
+            },
+            "frameStart": {
+              "nat": 4
+            },
+            "boundary": {
+              "nat": 0
+            },
+            "capacity": {
+              "nat": 2
+            },
+            "droppedThrough": {
+              "nat": 3
+            },
+            "log": {
+              "seen": [
+                1,
+                2,
+                3
+              ],
+              "rows": [
+                {
+                  "key": 3,
+                  "payload": {
+                    "cells": [
+                      31,
+                      32,
+                      33,
+                      34
+                    ],
+                    "sentinel": [
+                      131,
+                      132
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "fast": {
+            "namespace": 1,
+            "id": 1,
+            "registryId": 1,
+            "registryNamespace": 1,
+            "actualRegistryId": 1,
+            "name": "fast",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "slow": {
+            "namespace": 1,
+            "id": 2,
+            "registryId": 2,
+            "registryNamespace": 1,
+            "actualRegistryId": 2,
+            "name": "slow",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "reads": [
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [
+                    3
+                  ],
+                  "packets": [
+                    {
+                      "key": 3,
+                      "cells": [
+                        31,
+                        32,
+                        33,
+                        34
+                      ]
+                    }
+                  ],
+                  "lagged": true,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadBodyFailed": {
+                "error": {
+                  "ReadFailed": {
+                    "view": {
+                      "name": "slow",
+                      "keys": [
+                        3
+                      ],
+                      "packets": [
+                        {
+                          "key": 3,
+                          "cells": [
+                            31,
+                            32,
+                            33,
+                            34
+                          ]
+                        }
+                      ],
+                      "lagged": true,
+                      "errors": []
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "retired": [
+            {
+              "key": 2,
+              "payload": {
+                "cells": [
+                  21,
+                  22,
+                  23,
+                  24
+                ],
+                "sentinel": [
+                  121,
+                  122
+                ]
+              }
+            }
+          ],
+          "refused": [],
+          "errors": [],
+          "ok": false
+        },
+        {
+          "label": "slow-lagged-retry",
+          "runtime": {
+            "namespace": 1,
+            "statuses": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 7
+                },
+                "registeredAt": {
+                  "nat": 1
+                },
+                "unread": {
+                  "nat": 0
+                },
+                "lagged": false
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 5
+                },
+                "registeredAt": {
+                  "nat": 0
+                },
+                "unread": {
+                  "nat": 0
+                },
+                "lagged": false
+              }
+            ],
+            "world": {
+              "namespace": 1,
+              "nextId": 1,
+              "highWater": 0,
+              "capacity": 1,
+              "depth": {
+                "nat": 0
+              },
+              "events": [
+                3
+              ],
+              "registrations": [
+                {
+                  "id": 2,
+                  "name": "slow",
+                  "access": [
+                    "event:read"
+                  ]
+                },
+                {
+                  "id": 1,
+                  "name": "fast",
+                  "access": [
+                    "event:read"
+                  ]
+                }
+              ],
+              "nextSystemId": 3,
+              "clock": 0
+            },
+            "batches": [
+              {
+                "tick": {
+                  "nat": 4
+                },
+                "values": [
+                  3
+                ]
+              }
+            ],
+            "positions": [
+              {
+                "id": 2,
+                "cursor": {
+                  "nat": 7
+                },
+                "registeredAt": {
+                  "nat": 1
+                }
+              },
+              {
+                "id": 1,
+                "cursor": {
+                  "nat": 5
+                },
+                "registeredAt": {
+                  "nat": 0
+                }
+              }
+            ],
+            "nextReader": 3,
+            "tick": {
+              "nat": 7
+            },
+            "frameStart": {
+              "nat": 4
+            },
+            "boundary": {
+              "nat": 0
+            },
+            "capacity": {
+              "nat": 2
+            },
+            "droppedThrough": {
+              "nat": 3
+            },
+            "log": {
+              "seen": [
+                1,
+                2,
+                3
+              ],
+              "rows": [
+                {
+                  "key": 3,
+                  "payload": {
+                    "cells": [
+                      31,
+                      32,
+                      33,
+                      34
+                    ],
+                    "sentinel": [
+                      131,
+                      132
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "fast": {
+            "namespace": 1,
+            "id": 1,
+            "registryId": 1,
+            "registryNamespace": 1,
+            "actualRegistryId": 1,
+            "name": "fast",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "slow": {
+            "namespace": 1,
+            "id": 2,
+            "registryId": 2,
+            "registryNamespace": 1,
+            "actualRegistryId": 2,
+            "name": "slow",
+            "access": [
+              "event:read"
+            ],
+            "cursor": 0
+          },
+          "reads": [
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [],
+                  "packets": [],
+                  "lagged": false,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "fast",
+                  "keys": [
+                    3
+                  ],
+                  "packets": [
+                    {
+                      "key": 3,
+                      "cells": [
+                        31,
+                        32,
+                        33,
+                        34
+                      ]
+                    }
+                  ],
+                  "lagged": true,
+                  "errors": []
+                }
+              }
+            },
+            {
+              "ReadBodyFailed": {
+                "error": {
+                  "ReadFailed": {
+                    "view": {
+                      "name": "slow",
+                      "keys": [
+                        3
+                      ],
+                      "packets": [
+                        {
+                          "key": 3,
+                          "cells": [
+                            31,
+                            32,
+                            33,
+                            34
+                          ]
+                        }
+                      ],
+                      "lagged": true,
+                      "errors": []
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "ReadSucceeded": {
+                "view": {
+                  "name": "slow",
+                  "keys": [
+                    3
+                  ],
+                  "packets": [
+                    {
+                      "key": 3,
+                      "cells": [
+                        31,
+                        32,
+                        33,
+                        34
+                      ]
+                    }
+                  ],
+                  "lagged": true,
+                  "errors": []
+                }
+              }
+            }
+          ],
+          "retired": [
+            {
+              "key": 2,
+              "payload": {
+                "cells": [
+                  21,
+                  22,
+                  23,
+                  24
+                ],
+                "sentinel": [
+                  121,
+                  122
+                ]
+              }
+            }
+          ],
+          "refused": [],
+          "errors": [],
+          "ok": true
+        }
+      ]
+    }
+  },
+  "missing": {
+    "log": {
+      "seen": [
+        1,
+        2
+      ],
+      "rows": [
+        {
+          "key": 1,
+          "payload": {
+            "cells": [
+              11,
+              12,
+              13,
+              14
+            ],
+            "sentinel": [
+              111,
+              112
+            ]
+          }
+        },
+        {
+          "key": 2,
+          "payload": {
+            "cells": [
+              21,
+              22,
+              23,
+              24
+            ],
+            "sentinel": [
+              121,
+              122
+            ]
+          }
+        }
+      ]
+    },
+    "value": {
+      "None": {}
+    },
+    "errors": [
+      {
+        "MissingKey": {
+          "key": 99
+        }
+      }
+    ],
+    "refused": []
+  },
+  "duplicateRows": {
+    "log": {
+      "seen": [
+        1
+      ],
+      "rows": [
+        {
+          "key": 1,
+          "payload": {
+            "cells": [
+              11,
+              12,
+              13,
+              14
+            ],
+            "sentinel": [
+              111,
+              112
+            ]
+          }
+        },
+        {
+          "key": 1,
+          "payload": {
+            "cells": [
+              21,
+              22,
+              23,
+              24
+            ],
+            "sentinel": [
+              121,
+              122
+            ]
+          }
+        }
+      ]
+    },
+    "value": {
+      "None": {}
+    },
+    "errors": [
+      {
+        "DuplicateKey": {
+          "key": 1
+        }
+      }
+    ],
+    "refused": []
+  },
+  "duplicatePublication": {
+    "log": {
+      "seen": [
+        1,
+        2
+      ],
+      "rows": [
+        {
+          "key": 1,
+          "payload": {
+            "cells": [
+              11,
+              12,
+              13,
+              14
+            ],
+            "sentinel": [
+              111,
+              112
+            ]
+          }
+        },
+        {
+          "key": 2,
+          "payload": {
+            "cells": [
+              21,
+              22,
+              23,
+              24
+            ],
+            "sentinel": [
+              121,
+              122
+            ]
+          }
+        }
+      ]
+    },
+    "value": {
+      "None": {}
+    },
+    "errors": [
+      {
+        "DuplicateKey": {
+          "key": 1
+        }
+      }
+    ],
+    "refused": [
+      {
+        "key": 1,
+        "payload": {
+          "cells": [
+            91,
+            92,
+            93,
+            94
+          ],
+          "sentinel": [
+            191,
+            192
+          ]
+        }
+      }
+    ]
+  },
+  "ownedOutput": {
+    "log": {
+      "seen": [
+        1,
+        2
+      ],
+      "rows": [
+        {
+          "key": 1,
+          "payload": {
+            "cells": [
+              11,
+              12,
+              13,
+              14
+            ],
+            "sentinel": [
+              111,
+              112
+            ]
+          }
+        },
+        {
+          "key": 2,
+          "payload": {
+            "cells": [
+              21,
+              22,
+              23,
+              24
+            ],
+            "sentinel": [
+              121,
+              122
+            ]
+          }
+        }
+      ]
+    },
+    "value": {
+      "Some": [
+        13
+      ]
+    },
+    "errors": [],
+    "refused": []
+  }
+}
