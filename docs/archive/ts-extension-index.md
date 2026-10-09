@@ -4,6 +4,11 @@ Preservation tag: `archive/ts-port-inventory-2026-10-09`, commit `2661dda1`.
 The tag retains the complete source tree before active TS-only experiments were removed.
 This archive is reusable research/code, not approved Bendvy ECS scope or delivered libraries.
 
+Transfer/removal approved by the user on 2026-10-09. Classify future reuse by
+consumer purpose, not by the old parity ticket: TS facade, optional adapter,
+wire/codec utility, test tooling, helper library, or reference research.
+Native ECS capabilities stay under their existing owners.
+
 ## Classification
 
 | Future use | Preserved material | State and reuse boundary |
@@ -37,7 +42,7 @@ Preserved provenance: `e472657d` original candidate, `b569ffe3` V2 source/attemp
 `f50bf12b` incomplete oracle draft, `1376ed4b` native/host boundary findings.
 The complete combined root snapshot is `2661dda1`; this is the recovery authority.
 
-Active cleanup removes `standard-schema-v1/**` and the shared reference runner's
+Cleanup commit `e9638d73` removes `standard-schema-v1/**` and the shared reference runner's
 `--standard-schema-host` branch. The ordinary TS ECS reference runner remains.
 Native validation/construction, UTF16 data representation, rollback, Local,
 persistence and the six qualified canonical construction modules remain in core.

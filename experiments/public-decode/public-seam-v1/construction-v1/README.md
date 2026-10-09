@@ -21,7 +21,7 @@ Actual providers alone see the trusted frame. Gameplay bodies universally quanti
 
 Four intended negatives cover actual opaque-H undeclared/read-only operations, nominal schema misuse and raw affine owner duplication. Compiling skip-validator and refused-operation partial-write mutants reach the same consuming callsites; no backend kill is claimed yet. Partial-write mutates the real World clock on validation refusal, exposed by the complete Snapshot.
 
-## Authority and host inventory
+## Authority and archived host work
 
 Reference pins: Rust Bevy `ad678262ce53b5d142fe49ee5e08caff6f00ab60`, Bend `a950fd683c0d76f09794078e6174fe98a1492876`, bevy-ts `3040a3b2a3f28fa8554d856f9ccb6bf5433fa334`.
 
@@ -31,9 +31,8 @@ Reference pins: Rust Bevy `ad678262ce53b5d142fe49ee5e08caff6f00ab60`, Bend `a950
 | Bend Type payload ownership; existing `bundle-construction.bend` reversible result | Arbitrary I/P/R Type; explicit original-owner undo/sink; no duplicating payload/project alias |
 | TS `Descriptor.ts:275,403`: constructed component/resource; `293,420`: transient | Generic declaration-bound construction and resource validation; transient save semantics stay existing core |
 | TS `Descriptor.ts:538–545`: decode preferred over result for untrusted save input | Retained complete Codec is the typed untrusted-input decoder; explicit constructor follows successful admission. This does not automatically implement arbitrary JS constructor-object dispatch |
-| TS `Descriptor.ts:477–535`: Standard Schema v1 validate, issues/path, synchronous output transform; Promise refused | `standard-schema-v1/adapter.mjs` provides synchronous host validation/Promise refusal and explicit checked typed Raw DTO input/output/issue conversion. Original host issue arrays and symbolic/wrapped paths remain observable. It does **not** inject JS schema callbacks into generated Bend ECS; that interoperability seam remains explicitly absent. Native Bend has no JS object/Promise interface; no package/dependency added |
 
-The additive source now implements successful raw-construction materialization and JS Standard Schema compatibility. Remaining acceptance includes independent complete new models, actual TS/JS/Native observations and feature-specific timing/scaling; syntax/type success alone is not acceptance. The adopted complete23 evidence is reused only for its unchanged scope. No new law/policy/dependency, broad replay or performance claim.
+The additive source implements successful raw-construction materialization. TS Standard Schema adapters and host-wire experiments were removed from active ECS work and preserved in the [classified tooling archive](../../../../docs/archive/ts-extension-index.md). Remaining acceptance includes independent complete new models, actual TS/JS/Native observations and feature-specific timing/scaling; syntax/type success alone is not acceptance. The adopted complete23 evidence is reused only for its unchanged scope. No new law/policy/dependency, broad replay or performance claim.
 
 `source-checks.json` and `source-closure.json` retain source-current source5/CPU5/shared-lock checks and exact diagnostics. One outer-harness lock-wait timeout is preserved separately; the harness now acquires the lock before starting the unchanged five-second checker.
 
@@ -41,8 +40,6 @@ The additive source now implements successful raw-construction materialization a
 
 - `materialization-v1/fixture`: ordinary declaration access, real Local registration and opaque-H owned grant; success uses existing deferred completion and actual `World.barrier`. Seven scenarios per schema observe full metadata, physical slots/lifecycle, every Mail owner/error, full Local recovery packets and operation output before/after delivery. Late missing delivery remains an explicit returned packet; skip retains state; abort retains accepted undo plus every returned P in Local. The app-selected Mail installer/sink is the already qualified route, not a new global recovery policy.
 - `constructed-resource`: constructor→resource grant composition. Invalid construction returns I. Resource validation refusal consumes the existing explicit R→I undo. Accepted writes retain undo in the result; transaction failure uses existing `Resource.restore`, which drops the displaced replacement. No automatic abort recovery of its I is promised. `raw-resource-fixture` observes complete snapshots for success/refusal/abort in both schemas.
-- `standard-schema-v1/fixture.mjs`: source-current direct pinned TS comparison, complete synchronous result/issue/path/Promise/thenable/throw/function-precedence cases, plus checked Raw representation/provider boundaries. `constructorDecoderOf` explicitly receives a constructor, unlike TS `Descriptor.decoderOf`, which receives a descriptor carrying its private symbol. It implements the same precedence without pretending their nominal APIs are identical.
-- Native host compatibility is explicit typed Raw/provider code; JS schema objects and Promise rejection remain JS host behavior. Host issue-to-Raw projection is caller-selected; exact host issues are retained separately, without pretending symbol keys are Bend strings.
 
 `source-checks-extension.json` and `source-closure-extension.json` freeze additive full entry/type authority checks without changing historical source receipts. No emitted execution, performance or mathematical law claim is made by this extension.
 
