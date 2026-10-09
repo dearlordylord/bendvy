@@ -27,10 +27,18 @@ def read_plan(path,digest):
  assert re.fullmatch('[a-f0-9]{64}',digest or '') and hashlib.sha256(path.read_bytes()).hexdigest()==digest,'admitted plan digest differs'
  return json.loads(path.read_text())
 
-def run(out,expected_path,expected_sha,oracle_commit,execute=False,plan_sha=None):
+def source_basis(path,expected_sha):
+ assert path.is_file() and not path.is_symlink(),'regular independent source basis required'
+ basis=json.loads(path.read_text());assert basis['expectedSHA256']==expected_sha,'model basis expected digest differs'
+ for filename,digest in basis['sources'].items():
+  p=Path(filename);assert p.is_file() and not p.is_symlink() and hashlib.sha256(p.read_bytes()).hexdigest()==digest,'independent source basis drift'
+ return basis
+
+def run(out,expected_path,expected_sha,oracle_commit,basis_path,execute=False,plan_sha=None):
  assert expected_path.is_file() and not expected_path.is_symlink(),'independent expected file required'
  assert re.fullmatch('[a-f0-9]{64}',expected_sha) and hashlib.sha256(expected_path.read_bytes()).hexdigest()==expected_sha,'independent expected digest differs'
  expected=json.loads(expected_path.read_text())
+ basis=source_basis(basis_path,expected_sha)
  plan_path=out/'plan.json';admitted=read_plan(plan_path,plan_sha) if execute else None
  if not execute:out.mkdir()
  assert not (out/'receipt.json').exists(),'cohort already executed'
@@ -42,10 +50,13 @@ def run(out,expected_path,expected_sha,oracle_commit,execute=False,plan_sha=None
  assert private.is_file() and not private.is_symlink() and private.read_text()==json.dumps(env,sort_keys=True)+'\n','explicit environment drift'
  node=Path(shutil.which('node')).resolve();affinity=Path(shutil.which('taskset')).resolve();python=Path(sys.executable).resolve()
  files=[HERE/'reference.mjs',Path(__file__).resolve(),expected_path,private,node,affinity,python,Path(task_runner.__file__),Path(LOGS.__file__),ROOT/'scripts/evidence_boundary.py',Path(CONFIG.__file__),Path(COMMON.__file__)]
+ files.extend(Path(p) for p in basis['sources'])
+ files.extend(p for p in expected_path.parent.iterdir() if p.is_file() and p.suffix in ('.py','.json','.md'))
+ files.append(ROOT/'experiments/public-decode/complete-v1/oracle-v1/expected-complete.py')
  source=ROOT/'.references/bevy-ts/packages/core/src'
  inputs=task_runner.Inputs(files=files,directories=[source]);configs=COMMON.configs([*files,source],env['HOME'])
  command=[str(affinity),'-c','5',str(node),str(HERE/'reference.mjs')]
- plan={'scope':__doc__,'oracleCommit':oracle_commit,'oracleSha256':expected_sha,'argv':command,'capSeconds':5,'inputs':inputs.expected,'configuration':configs,'environmentSha256':hashlib.sha256(private.read_bytes()).hexdigest()}
+ plan={'scope':__doc__,'oracleCommit':oracle_commit,'oracleSha256':expected_sha,'sourceBasis':str(basis_path),'argv':command,'capSeconds':5,'inputs':inputs.expected,'configuration':configs,'environmentSha256':hashlib.sha256(private.read_bytes()).hexdigest()}
  if execute:assert plan==admitted,'source/tool/config/environment differ from admitted plan'
  else:plan_path.write_text(json.dumps(plan,indent=2)+'\n')
  inputs=task_runner.Inputs(files=[*files,plan_path],directories=[source])
@@ -77,5 +88,5 @@ def run(out,expected_path,expected_sha,oracle_commit,execute=False,plan_sha=None
  print(json.dumps({'receipt':str(out/'receipt.json'),'status':record['status']}))
 
 if __name__=='__main__':
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',type=Path,required=True);p.add_argument('--expected',type=Path,required=True);p.add_argument('--expected-sha256',required=True);p.add_argument('--oracle-commit',required=True);p.add_argument('--execute',action='store_true');p.add_argument('--plan-sha256');a=p.parse_args()
- run(a.output.resolve(),a.expected.resolve(),a.expected_sha256,a.oracle_commit,a.execute,a.plan_sha256)
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',type=Path,required=True);p.add_argument('--expected',type=Path,required=True);p.add_argument('--expected-sha256',required=True);p.add_argument('--oracle-commit',required=True);p.add_argument('--source-basis',type=Path,required=True);p.add_argument('--execute',action='store_true');p.add_argument('--plan-sha256');a=p.parse_args()
+ run(a.output.resolve(),a.expected.resolve(),a.expected_sha256,a.oracle_commit,a.source_basis.resolve(),a.execute,a.plan_sha256)
