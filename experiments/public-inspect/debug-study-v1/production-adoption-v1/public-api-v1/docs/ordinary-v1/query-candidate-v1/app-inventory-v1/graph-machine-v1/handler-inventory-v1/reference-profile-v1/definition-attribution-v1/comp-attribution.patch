@@ -1,0 +1,57 @@
+--- previouscomp
++++ attributedcomp
+@@ -912,6 +912,19 @@
+ const DIAG_COUNTS: Record<string, number> = Object.create(null);
+ let DIAG_CHECKPOINT = 0;
+ let DIAG_OWNER = "";
++type DefinitionDiagnostic = {definition:string,iteration:number,elapsedMs:number,factsBefore:number,factsAfter:number,factDelta:number,counterDeltas:Record<string,number>,completed:boolean};
++const DIAG_TOP: DefinitionDiagnostic[] = [];
++let DIAG_ITERATION = 0;
++let DIAG_DEFINITIONS = 0;
++function diagnostic_definition(row: DefinitionDiagnostic): void {
++  DIAG_DEFINITIONS++;
++  DIAG_TOP.push(row);
++  DIAG_TOP.sort((a,b) => b.elapsedMs-a.elapsedMs || b.factDelta-a.factDelta);
++  if (DIAG_TOP.length > 20) DIAG_TOP.length = 20;
++}
++export function diagnostic_definitions(): void {
++  console.error("REFERENCE_DEFINITIONS " + JSON.stringify({ranking:"elapsed wall milliseconds, factDelta tie break",definitionsObserved:DIAG_DEFINITIONS,top:DIAG_TOP}));
++}
+ function diagnostic_phase(event: string, detail: object = {}): void {
+   console.error("REFERENCE_PHASE " + JSON.stringify({event, elapsedMs: Date.now() - DIAG_START, ...detail}));
+ }
+@@ -2793,6 +2806,7 @@
+     checkBudget();
+     diagnostic_phase("emit_iteration.begin", {facts: facts(), counters: DIAG_COUNTS});
+     was = facts();
++    DIAG_ITERATION++;
+     [fl.lend, fl.spun, fl.clos, fl.tabs, fl.lits, fl.consts, BRWS]
+       .forEach((m) => m.clear());
+     fl.segs = [];
+@@ -2801,10 +2815,22 @@
+     for (const [k, tld] of done_defs(fl).reverse()) {
+       DIAG_OWNER = k;
+       memo_gc();
+-      const [dl, vals] = emit_open({ ...fl, fresh: new Map(),
+-        brwl: new Map(), rest: [] }, k);
+-      fl.segs.push(dl.seg);
+-      emit_body(dl, fun_of(fl, k).h!, tld.T, [], vals, null);
++      const definitionStarted = Date.now();
++      const factsBefore = facts();
++      const countersBefore = {...DIAG_COUNTS};
++      let completed = false;
++      try {
++        const [dl, vals] = emit_open({ ...fl, fresh: new Map(),
++          brwl: new Map(), rest: [] }, k);
++        fl.segs.push(dl.seg);
++        emit_body(dl, fun_of(fl, k).h!, tld.T, [], vals, null);
++        completed = true;
++      } finally {
++        const counters:Record<string,number> = {};
++        for (const [event,count] of Object.entries(DIAG_COUNTS)) counters[event] = count-(countersBefore[event] ?? 0);
++        const factsAfter = facts();
++        diagnostic_definition({definition:k,iteration:DIAG_ITERATION,elapsedMs:Date.now()-definitionStarted,factsBefore,factsAfter,factDelta:factsAfter-factsBefore,counterDeltas:counters,completed});
++      }
+     }
+     reqs = effect_srcs(fl, ".c", "no .c import: ").join("");
+     for (const [k] of done_defs(fl, def_foreign)) {
