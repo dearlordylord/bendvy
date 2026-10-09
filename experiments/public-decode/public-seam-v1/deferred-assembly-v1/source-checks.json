@@ -1,0 +1,111 @@
+{
+  "scope": "Source checks only; no proof or backend acceptance",
+  "cpu": 5,
+  "compilerCapSeconds": 5,
+  "sharedLock": "/tmp/bendvy-parity-heavy.lock",
+  "sourcePins": {
+    "assembly.bend": "6e7cb1ccf5e3d2013602f0a1dec63265cf25ac7dfaf78d85705770d24ad5a018",
+    "fixture.bend": "fa90415fe8616dc5cea1f30b6c3b143528954a0ed54bd6e9e88c4516dde6cda3",
+    "negatives/affine-owner.bend": "ac47cd325100ea667a784f8514340879035deabd062da54295c4f29d03ec4aac",
+    "negatives/cross-schema.bend": "1fafd2c311d327626f910c9f27472dd58a7133d09b714105d74e0d4143e07525",
+    "negatives/read-only.bend": "3f54e13eee6d01f692e5977f56b59760598cae5540dc6f638ea91514223103f9",
+    "negatives/undeclared.bend": "18568014d757e4aa2f04df58ac8fe5ab0d753b2610fd0e28c9ccc3d79aaeebe7"
+  },
+  "checks": [
+    {
+      "entry": "fixture.bend",
+      "argv": [
+        "flock",
+        "/tmp/bendvy-parity-heavy.lock",
+        "taskset",
+        "-c",
+        "5",
+        "timeout",
+        "--signal=KILL",
+        "5s",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/deferred-assembly-v1/fixture.bend",
+        "--check-only"
+      ],
+      "exit": 0,
+      "stdout": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n",
+      "stderr": "bend 2.0.36 is available: run bend update\n"
+    },
+    {
+      "entry": "negatives/undeclared.bend",
+      "argv": [
+        "flock",
+        "/tmp/bendvy-parity-heavy.lock",
+        "taskset",
+        "-c",
+        "5",
+        "timeout",
+        "--signal=KILL",
+        "5s",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/deferred-assembly-v1/negatives/undeclared.bend",
+        "--check-only"
+      ],
+      "exit": 1,
+      "stdout": "",
+      "stderr": "SOME PROOFS FAIL\nError:\n- expected : Cap.OwnedRequest<body~H, Request.Input<Unit, P.Owner>, Request.Output<Unit, P.Owner>>\n- observed : Unit\nContext:\n- input : Request.Input<Unit, P.Owner>\n- ctx   : body~H\nLocation: body\n11 | def body(~H:Type,~cap:Unit,input:Request.Input<Unit,P.Owner>,ctx:H) -> H & Request.Output<Unit,P.Owner>:\n12>|   Cap.owned_request(~H,~Request.Input<Unit,P.Owner>,~Request.Output<Unit,P.Owner>,~cap,ctx,input)\n   |                                                                                    ^^^\n13 | def main(owner:F.Owner(),input:Request.Input<Unit,P.Owner>) -> F.Owner() & Request.Output<Unit,P.Owner>:\nbend 2.0.36 is available: run bend update\n"
+    },
+    {
+      "entry": "negatives/read-only.bend",
+      "argv": [
+        "flock",
+        "/tmp/bendvy-parity-heavy.lock",
+        "taskset",
+        "-c",
+        "5",
+        "timeout",
+        "--signal=KILL",
+        "5s",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/deferred-assembly-v1/negatives/read-only.bend",
+        "--check-only"
+      ],
+      "exit": 1,
+      "stdout": "",
+      "stderr": "SOME PROOFS FAIL\nError:\n- expected : Cap.OwnedRequest<body~H, Request.Input<Unit, P.Owner>, Request.Output<Unit, P.Owner>>\n- observed : Cap.Read<body~H, D.Raw>\nContext:\n- input : Request.Input<Unit, P.Owner>\n- ctx   : body~H\nLocation: body\n11 | def body(~H:Type,~cap:Cap.Read<H,D.Raw>,input:Request.Input<Unit,P.Owner>,ctx:H) -> H & Request.Output<Unit,P.Owner>:\n12>|   Cap.owned_request(~H,~Request.Input<Unit,P.Owner>,~Request.Output<Unit,P.Owner>,~cap,ctx,input)\n   |                                                                                    ^^^\n13 | def main(owner:F.Owner(),input:Request.Input<Unit,P.Owner>) -> F.Owner() & Request.Output<Unit,P.Owner>:\nbend 2.0.36 is available: run bend update\n"
+    },
+    {
+      "entry": "negatives/cross-schema.bend",
+      "argv": [
+        "flock",
+        "/tmp/bendvy-parity-heavy.lock",
+        "taskset",
+        "-c",
+        "5",
+        "timeout",
+        "--signal=KILL",
+        "5s",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/deferred-assembly-v1/negatives/cross-schema.bend",
+        "--check-only"
+      ],
+      "exit": 1,
+      "stdout": "",
+      "stderr": "SOME PROOFS FAIL\nError:\n- expected : W.Handle<Unit>\n- observed : W.Handle<Other>\nContext:\n- target : W.Handle<Other>\n- owner  : P.Owner\n- ctx    : body~H\nLocation: body\n14 |   match input:\n15>|     case Input{target,owner}:F.decode(~H,~ops,ctx,Commands.Insert{target},owner)\n   |                                                                   ^^^^^^\n16 | def main(owner:F.Owner(),input:Input) -> F.Owner() & Request.Output<Unit,P.Owner>:\nbend 2.0.36 is available: run bend update\n"
+    },
+    {
+      "entry": "negatives/affine-owner.bend",
+      "argv": [
+        "flock",
+        "/tmp/bendvy-parity-heavy.lock",
+        "taskset",
+        "-c",
+        "5",
+        "timeout",
+        "--signal=KILL",
+        "5s",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/deferred-assembly-v1/negatives/affine-owner.bend",
+        "--check-only"
+      ],
+      "exit": 1,
+      "stdout": "",
+      "stderr": "SOME PROOFS FAIL\nError:\n- expected : owner\n- observed : owner (consumed more than once)\nLocation: body\n11 | type Duplicated is Type:Duplicated{first:P.Owner,second:P.Owner}\n12>| def body(~H:Type,~ops:F.Ops(~H),owner:P.Owner,ctx:H) -> H & Duplicated:(ctx,Duplicated{owner,owner})\n   |                                 ^^^^^\n13 | def main(owner:F.Owner(),payload:P.Owner) -> F.Owner() & Duplicated:\nbend 2.0.36 is available: run bend update\n"
+    }
+  ]
+}
