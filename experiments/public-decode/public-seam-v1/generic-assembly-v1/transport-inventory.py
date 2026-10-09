@@ -55,3 +55,24 @@ def inventory(entry,base):
   import os
   return tag if module=='Base' or module==str(entry) else os.path.relpath(Path(module).with_suffix(''),entry.parent)+'.'+tag
  return t,name
+
+def deferred_inventory(entry,base):
+ entry=Path(entry).resolve();home=entry.parent
+ types,_=inventory(home.parent/'generic-assembly-v1/complete.bend',base)
+ f=lambda **kw:list(kw.items());maybe=lambda typ:('Base',{'None':[],'Some':[('value',typ)]})
+ def record(key,tag,fields):types[key]=(str(entry),{tag:fields})
+ record('Deferred.Packet','PacketView',f(owner=maybe('Second.Payload'),original='D.Raw',canonical='D.Raw'))
+ record('Deferred.Mail','MailView',f(value='Resource',retired=['Second.Payload'],returned=['Deferred.Packet'],errors=['WorldError']))
+ record('Deferred.Snapshot','Snapshot',f(meta='Second.Meta',live=['Bool'],column='Second.Column',mail='Deferred.Mail',pending='U32'))
+ types['Deferred.Operation']=(str(entry),{'AcceptedView':f(target='Handle',spawned='Bool',canonical='D.Raw'),'RefusedView':f(owner=maybe('Second.Payload'),error='RequestError')})
+ record('Deferred.Recovery','RecoveryView',f(outputs=['Deferred.Operation'],packets=['Deferred.Packet']))
+ record('Deferred.Instance','InstanceView',f(namespace='U32',id='U32',name='String',access=['String'],codec='D.Codec',recoveries=['Deferred.Recovery']))
+ types['Deferred.Command']=(str(base.ROOT/'src/ecs/bundle-requests.bend'),{'Insert':f(target='Handle'),'Spawn':[]})
+ record('Deferred.Args','ArgsView',f(operation='Deferred.Command',first='Second.Payload',second='Second.Payload',fail='Bool'))
+ types['Deferred.Result']=(str(entry),{'Completed':f(outputs=['Deferred.Operation']),'Failed':[],'Refused':[],'InvocationRefused':f(args='Deferred.Args')})
+ types['Deferred.Report']=(str(entry),{'FactoryRefused':f(mail='Deferred.Mail'),'Report':f(before='Deferred.Snapshot',committed='Deferred.Snapshot',barrier='Deferred.Snapshot',instance=maybe('Deferred.Instance'),result='Deferred.Result')})
+ record('Report','Candidate',[(k,'Deferred.Report') for k in ('spawn','insert','failure','foreign','lateMissing','invalid','failedInsert','failedInvalid')])
+ def name(module,tag):
+  import os
+  return tag if module=='Base' or module==str(entry) else os.path.relpath(Path(module).with_suffix(''),entry.parent)+'.'+tag
+ return types,name

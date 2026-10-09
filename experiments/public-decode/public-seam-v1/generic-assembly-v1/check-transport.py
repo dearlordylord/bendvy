@@ -27,4 +27,17 @@ oldentry=HERE.parent/'full-assembly-v1/spine.bend';previous=json.loads(old.read_
 oldraw=transport.render(previous,oldentry,True,'normal')
 assert transport.parse(oldraw,oldentry,True,'normal')==previous
 assert hashlib.sha256(oldraw).hexdigest()=='fa4cf1b57ae33edde49f83cd40410fabce873c51f114885fdce7fa9da9f337f1'
-print(json.dumps({'status':'PASS','scope':'strict full DTO controls; no backend','rawBytes':len(raw),'rawSha256':hashlib.sha256(raw).hexdigest(),'rejections':rejections,'historicalNormalRawUnchanged':True,'backendChildren':0}))
+deferred=ROOT/'experiments/public-decode/public-seam-v1/oracle-v1/deferred-assembly-v1/expected.json'
+assert hashlib.sha256(deferred.read_bytes()).hexdigest()=='8095a1eb678fcf3f9cf985ce33d9e779108f6041fbecdd7ac67cf8f94a2bac42'
+dvalue=json.loads(deferred.read_text());dentry=HERE.parent/'deferred-assembly-v1/fixture.bend'
+draw=transport.render(dvalue,dentry,True,'deferred-assembly')
+assert transport.parse(draw,dentry,True,'deferred-assembly')==dvalue
+for label,mutate in [('missing-barrier-owner',lambda y:y['lateMissing']['barrier']['mail'].pop('returned')),('missing-failed-packets',lambda y:y['failure']['instance']['value']['recoveries'][0].pop('packets')),('missing-foreign-output',lambda y:y['foreign']['result'].pop('outputs')),('missing-refusal',lambda y:y['invalid']['result']['outputs'][0].pop('owner'))]:
+ changed=copy.deepcopy(dvalue);mutate(changed)
+ try:transport.render(changed,dentry,True,'deferred-assembly')
+ except (AssertionError,KeyError):rejections.append(label)
+ else:raise AssertionError(label)
+try:transport.parse(draw,dentry,True,'generic-assembly')
+except (AssertionError,KeyError,ValueError):rejections.append('cross-role')
+else:raise AssertionError('cross-role')
+print(json.dumps({'status':'PASS','scope':'strict full DTO controls; no backend','genericRawBytes':len(raw),'genericRawSha256':hashlib.sha256(raw).hexdigest(),'deferredRawBytes':len(draw),'deferredRawSha256':hashlib.sha256(draw).hexdigest(),'rejections':rejections,'historicalNormalRawUnchanged':True,'backendChildren':0}))
