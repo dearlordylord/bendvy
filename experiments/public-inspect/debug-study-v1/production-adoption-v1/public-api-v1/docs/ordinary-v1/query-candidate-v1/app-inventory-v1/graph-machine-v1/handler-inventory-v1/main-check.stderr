@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a fresh constructor name (duplicate declaration: Returned)
+- observed : 'Returned'
+Location:
+20 | type Delivered is Type:
+21>|   Returned{world:W.World<T.Tag,Unit,T.Resources,Unit>,bundle:B.Bundle<T.Tag,T.Key,T.State,SP.Requirement<T.Tag>,Unit,T.Resources,Unit,Fixture.runner>,report:Report}
+   |   ^^^^^^^^
+22 |   InternalRemainder{world:W.World<T.Tag,Unit,T.Resources,Unit>,recovery:B.Recovery<T.Tag,T.Key,T.State,SP.Requirement<T.Tag>,Unit,T.Resources,Unit,Fixture.runner>,report:Report}
+bend 2.0.36 is available: run bend update

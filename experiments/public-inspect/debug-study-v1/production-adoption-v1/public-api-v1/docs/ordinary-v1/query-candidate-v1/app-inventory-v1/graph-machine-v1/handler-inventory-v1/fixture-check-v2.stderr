@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a parameter or field scrutinee (a match cannot scrutinize a computed value: give it its own def)
+Location:
+3 | def main() -> Unit:
+4>|   match Fixture.main():
+  |         ^^^^^^^^^^^^
+5 |     case delivered:Unit{}
+bend 2.0.36 is available: run bend update

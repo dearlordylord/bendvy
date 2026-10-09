@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : 2 patterns (one per scrutinee)
+- observed : 'M.Family{+name} (bundle,handlers)'
+Location:
+18 |   match family got:
+19>|     case M.Family{+name} (bundle,handlers):(Application{core,M.Family{name},bundle},Some{Description{description,name,handlers}})
+   |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+20 | def projected(~S:Data,~K:Data,~V:Data,~Q:Data,~C:Type,~R:Type,~E:Data,~runner:W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,~Owners:Type,~take:R -> R & M.Slot<S,K,V>,~put:R -> M.Slot<S,K,V> -> R,family:M.Family<S,K,V,R,take,put>,bundle:B.Bundle<S,K,V,Q,C,R,E,runner>,got:Core.Application<S,C,R,E,Owners> & Maybe<&2,Core.Description<S>>) -> Application<S,K,V,Q,C,R,E,Owners,runner,take,put> & Maybe<&2,Description<S,K,V,Q>>:
+bend 2.0.36 is available: run bend update

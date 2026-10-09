@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : 'family' can't be matched in this position (it is matched after a local statement or after a match on a later binder, it was already matched, or it is a def)
+Location:
+18 |   (bundle,handlers)=got
+19>|   match family:
+   |         ^^^^^^
+20 |     case M.Family{+name}:(Application{core,M.Family{name},bundle},Some{Description{description,name,handlers}})
+bend 2.0.36 is available: run bend update

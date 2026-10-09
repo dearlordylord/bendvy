@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : a defined name
+- observed : U32.eq
+Context:
+- world : W.World<T.Tag, Unit, T.Resources, Unit>
+- id    : U32
+Location: has
+26 |   match requirement:
+27>|     case SP.Resource{id}:(world,U32.eq(id,9))
+   |                                 ^^^^^^
+28 |     case _:(world,False{})
+bend 2.0.36 is available: run bend update

@@ -1,0 +1,19 @@
+SOME PROOFS FAIL
+Error:
+- expected : a function type
+- observed : W.Factory
+Context:
+- factory          : W.Factory
+- previous         : ../fixture.Report
+- before           : Observe.Snapshot
+- afterDescription : Observe.Snapshot
+- descriptions     : List<&2, Maybe<&2, HandlerApp.Description<T.Tag, T.Key, T.State, SP.Requirement<T.Tag>>>>
+- result           : B.BundleResult<T.Tag, T.Key, T.State, SP.Requirement<T.Tag>, Unit, T.Resources, Unit, Fixture.runner>
+- core             : ../app.Application<T.Tag, Unit, T.Resources, Unit, Unit>
+- family           : ../../../../../../../../../../../../../bendvy/src/ecs/machine.Family<T.Tag, T.Key, T.State, T.Resources, T.take, T.put>
+Location: consume
+55 |   match delivered:
+56>|     case Fixture.Delivered{factory,previous,before,afterDescription,descriptions,result,core,family}:report(Previous.Complete{Inventory.main(),Resource.main(),Previous.Reported{previous}},factory(factory,before,afterDescription,descriptions,result))
+   |                                                                                                                                                                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+57 |     case other:Failed{"setup failed"}
+bend 2.0.36 is available: run bend update
