@@ -135,3 +135,23 @@ change drops the first recovered payload after canonical rollback; all other
 observations remain unchanged. Independent review and execution joins pass.
 Public reader/retention contracts, independently authored public consumers and
 delivery/performance qualification remain outstanding.
+
+## Registered reader execution preparation
+
+[registered-read-v1](../../experiments/public-owned-events/registered-read-v1/README.md)
+uses canonical event-runtime registration, cursors and retention over Data keys,
+with one affine payload log. Its complete declared 24-snapshot report executes
+identically on JS and Native: 35,254 bytes, matching the independently frozen
+whole oracle. Source, tool, environment, prepared-plan and raw joins pass
+independent review.
+
+An actual JS retirement-owner-loss mutant matches its complete preauthored
+35,716-byte counterfactual and rejects the unchanged whole baseline. Exactly six
+retirement-history arrays lose the first owner; every other observation remains
+unchanged. This is a conservation control, not a selected disposal policy.
+
+This remains experimental: WorldMeta omits live/store/pending, the foreign-reader
+case corrupts a namespace rather than constructing independent worlds, and
+public ownership/retirement contracts, authority controls, public integration,
+delivery and performance qualification remain open. No finalizer or memory
+improvement is established.
