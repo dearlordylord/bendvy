@@ -1,0 +1,41 @@
+{
+  "rows": [
+    {
+      "role": "fuel-js",
+      "originalSession": 34243,
+      "status": "NEXT_STATE_EMIT_PASS_NO_TIMING",
+      "artifact": {
+        "bytes": 23492,
+        "sha256": "3015a8346ae1fb2c7dfab56878b13b759fc3fa27f21071f997d36c36112e0c93"
+      },
+      "guards": 4
+    },
+    {
+      "role": "full-js",
+      "originalSession": 88237,
+      "status": "NEXT_STATE_EMIT_PASS_NO_TIMING",
+      "artifact": {
+        "bytes": 874089,
+        "sha256": "7ee5e05e47ecaa937ed2331ed2a91ec9d1232011bad2f74c87a77a3a9fcbd6d1"
+      },
+      "guards": 4
+    },
+    {
+      "role": "full-native",
+      "originalSession": 3905,
+      "status": "NEXT_STATE_EMIT_PASS_NO_TIMING",
+      "artifact": {
+        "bytes": 5319006,
+        "sha256": "0b7fe36723f32700db80fe42b9ce5e2b11546b49c1a5d2d6b5ffb132096a33c5"
+      },
+      "guards": 4
+    }
+  ],
+  "totalGuards": 12,
+  "runtimeBuildProfileAcceptance": false,
+  "generatedInspection": {
+    "JS": "loop1710 lowers to direct for; step2194 produces Data state without callbacks; completed804 before serializer",
+    "C": "MAIN_C3334 builds primitive Complete args then MAIN_C3335 dispatches serialization; clock176790 after primitive loads"
+  },
+  "scope": "Three successful emits only; whole semantic output/JS1024 still requires execution."
+}
