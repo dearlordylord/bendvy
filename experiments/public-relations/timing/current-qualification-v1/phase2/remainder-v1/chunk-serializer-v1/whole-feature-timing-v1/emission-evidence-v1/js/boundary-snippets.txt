@@ -1,0 +1,158 @@
+Lines 177-194
+177: let publicTraceStart;
+178: function io_public_trace_begin() {
+179:   if (publicTraceBegun) throw Error('Duplicate trace Begin');
+180:   publicTraceBegun = true;
+181:   io_out(2, io_bytes(JSON.stringify({boundary:'begin'}) + '\n'));
+182:   publicTraceStart = process.hrtime.bigint();
+183:   return {$: "Unit"};
+184: }
+185: function io_public_trace_complete(nodes, characters, sum) {
+186:   if (!publicTraceBegun) throw Error('Completion before Begin');
+187:   if (![nodes, characters, sum].every(x => Number.isInteger(x) && x >= 0 && x <= 0xffffffff)) throw Error('Unforced complete-trace controls');
+188:   const elapsedNs = (process.hrtime.bigint() - publicTraceStart).toString();
+189:   io_out(2, io_bytes(JSON.stringify({boundary: 'complete-trace-forced', nodes, characters, sum, region:'whole-feature-setup-operations-full-trace', elapsedNs}) + '\n'));
+190:   return {$: "Unit"};
+191: }
+192: io_eff("boundary.complete", io_public_trace_complete);
+193: 
+194: io_eff("boundary.begin", io_public_trace_begin);
+
+Lines 237-249
+237: function $parsed$(_result_0) {
+238:   if (_result_0.$ === "../../../input.Valid") {
+239:     const _input_0 = _result_0["input"];
+240:     return run_clo((_x_0) => {
+241:   return $IO$bind$((_x_1) => $boundary$058begin$(_x_1), run_clo((_x_2) => {
+242:   return $prepared$(($$$$047$$$047$$$047setup$058run$1260$(_input_0)), ($$$$047$$$047$$$047setup$058run$1261$(_input_0)), _input_0);
+243: }), _x_0);
+244: });
+245:   } else {
+246:     return (_x_3) => $IO$print$("INPUT_REFUSED", _x_3);
+247:   }
+248: }
+249: 
+
+Lines 445-452
+445: function $materialized$(_population_0, _trace_0) {
+446:   return $forced$(run_loop($$$$047$$$047$$$047force$058force$(_population_0, _trace_0)), _population_0, _trace_0);
+447: }
+448: 
+449: function $trace$(_first_0, _second_0, _firstStats_0, _secondStats_0, _input_0) {
+450:   return {$: "../../../../trace-value.Object", "fields": {$: "Con", "head": {$: "../../../../trace-value.Field", "key": "input", "value": ($input_value$(_input_0))}, "tail": {$: "Con", "head": {$: "../../../../trace-value.Field", "key": "setup", "value": {$: "../../../../trace-value.Items", "values": {$: "Con", "head": ($metadata$("Workshop", _firstStats_0)), "tail": {$: "Con", "head": ($metadata$("Other", _secondStats_0)), "tail": {$: "Nil"}}}}}, "tail": {$: "Con", "head": {$: "../../../../trace-value.Field", "key": "roots", "value": {$: "../../../../trace-value.Items", "values": {$: "Con", "head": ($$$$047$$$047$$$047application$058run$1260$(_first_0, "Workshop", _input_0)), "tail": {$: "Con", "head": ($$$$047$$$047$$$047application$058run$1261$(_second_0, "Other", _input_0)), "tail": {$: "Nil"}}}}}, "tail": {$: "Nil"}}}}};
+451: }
+452: 
+
+Lines 804-832
+804: function $completed$(_summary_0, _population_0, _trace_0) {
+805:   const _nodes_0 = _summary_0["nodes"];
+806:   const _characters_0 = _summary_0["characters"];
+807:   const _sum_0 = _summary_0["sum"];
+808:   return run_clo((_x_0) => {
+809:   return $IO$bind$((_x_1) => $boundary$058complete$(_nodes_0, _characters_0, _sum_0, _x_1), run_clo((_x_2) => {
+810:   return $encoded$(run_loop($$$$047serialize$058encode$(_population_0, _trace_0)));
+811: }), _x_0);
+812: });
+813: }
+814: 
+815: function $$$$047$$$047$$$047force$058walk$(_fuel_0, _pending_0, _summary_0) {
+816:   if (_fuel_0 === 0) {
+817:     return $$$$047$$$047$$$047force$058exhausted$(_pending_0, _summary_0);
+818:   } else {
+819:     const _rest_0 = (_fuel_0 - 1);
+820:     return $$$$047$$$047$$$047force$058step$(_pending_0, _summary_0, run_clo((_x_0) => {
+821:   return run_clo((_x_1) => {
+822:   return $$$$047$$$047$$$047force$058walk$(_rest_0, _x_0, _x_1);
+823: });
+824: }));
+825:   }
+826: }
+827: 
+828: function $$$$047$$$047$$$047input$058walk_budget$(_population_0) {
+829:   const _x_0 = ((_population_0 + 1) >>> 0);
+830:   const _x_1 = (Math.imul(2048, _x_0) >>> 0);
+831:   const _x_2 = ((_x_1 + 4096) >>> 0);
+832:   const _x_3 = (Math.imul(30, _x_2) >>> 0);
+
+Lines 1161-1164
+1161: function $boundary$058complete$(_nodes_0, _characters_0, _sum_0, _k_0) {
+1162:   return { $: "$FFI", run: $0eff["boundary.complete"].run, need: $0eff["boundary.complete"].need, args: [(_nodes_0), (_characters_0), (_sum_0)], kont: (_k_0) };
+1163: }
+1164: function $encoded$(_result_0) {
+
+Lines 1185-1197
+1185: function $$$$047$$$047$$$047force$058step$(_pending_0, _summary_0, _next_0) {
+1186:   if (_pending_0.$ === "Nil") {
+1187:     return {$: "../../../force.ForceComplete", "summary": _summary_0};
+1188:   } else {
+1189:     const _value_0 = _pending_0["head"];
+1190:     const _rest_0 = _pending_0["tail"];
+1191:     const _nodes_0 = _summary_0["nodes"];
+1192:     const _characters_0 = _summary_0["characters"];
+1193:     const _sum_0 = _summary_0["sum"];
+1194:     return $$$$047$$$047$$$047force$058visit$(_value_0, _rest_0, ((_nodes_0 + 1) >>> 0), _characters_0, _sum_0, _next_0);
+1195:   }
+1196: }
+1197: 
+
+Lines 1400-1431
+1400:   const _x_4 = (Math.imul(4, _x_3) >>> 0);
+1401:   const _x_5 = ((_x_4 + 64) >>> 0);
+1402:   return _x_5;
+1403: }
+1404: 
+1405: function $$$$047$$$047$$$047force$058visit$(_value_0, _rest_0, _nodes_0, _characters_0, _sum_0, _next_0) {
+1406:   if (_value_0.$ === "../../../../trace-value.Null") {
+1407:     return run_tail(_next_0(_rest_0), {$: "../../../force.Summary", "nodes": _nodes_0, "characters": _characters_0, "sum": ((_sum_0 + 1) >>> 0)});
+1408:   } else if (_value_0.$ === "../../../../trace-value.Number") {
+1409:     const _n_0 = _value_0["value"];
+1410:     const _x_0 = ((_sum_0 + 2) >>> 0);
+1411:     return run_tail(_next_0(_rest_0), {$: "../../../force.Summary", "nodes": _nodes_0, "characters": _characters_0, "sum": ((_x_0 + _n_0) >>> 0)});
+1412:   } else if (_value_0.$ === "../../../../trace-value.Text") {
+1413:     const _s_0 = _value_0["value"];
+1414:     return $$$$047$$$047$$$047force$058continue$(($$$$047$$$047$$$047force$058force_text$(_s_0, _nodes_0, _characters_0, ((_sum_0 + 3) >>> 0))), _rest_0, _next_0);
+1415:   } else if (_value_0.$ === "../../../../trace-value.Truth") {
+1416:     const _t_0 = _value_0["value"];
+1417:     if (_t_0) {
+1418:       return run_tail(_next_0(_rest_0), {$: "../../../force.Summary", "nodes": _nodes_0, "characters": _characters_0, "sum": ((_sum_0 + 5) >>> 0)});
+1419:     } else {
+1420:       return run_tail(_next_0(_rest_0), {$: "../../../force.Summary", "nodes": _nodes_0, "characters": _characters_0, "sum": ((_sum_0 + 4) >>> 0)});
+1421:     }
+1422:   } else if (_value_0.$ === "../../../../trace-value.Items") {
+1423:     const _items_0 = _value_0["values"];
+1424:     return run_tail(_next_0(($List$append$(_items_0, _rest_0))), {$: "../../../force.Summary", "nodes": _nodes_0, "characters": _characters_0, "sum": ((_sum_0 + 6) >>> 0)});
+1425:   } else {
+1426:     const _values_0 = _value_0["fields"];
+1427:     return run_tail(_next_0(($List$append$(($$$$047$$$047$$$047force$058fields$(_values_0)), _rest_0))), {$: "../../../force.Summary", "nodes": _nodes_0, "characters": _characters_0, "sum": ((_sum_0 + 7) >>> 0)});
+1428:   }
+1429: }
+1430: 
+1431: function $$$$047$$$047$$$047application$058first_record$1260$(_result_0, _root_0, _retained_0, _population_0, _input_0) {
+
+Lines 13370-13395
+13370:       let op = s.fun(s.arg);
+13371:       while (op !== undefined) {
+13372:         if (op.$ === "Emit") {
+13373:           io.live -= 1;
+13374:           break;
+13375:         }
+13376:         if (op.$ === "Halt") {
+13377:           io_errs(op.message);
+13378:           return op.code;
+13379:         }
+13380:         const need = op.need?.() ?? {};
+13381:         if (need.time || need.read) {
+13382:           const more = () => op.run(...op.args, op.kont);
+13383:           io_park_on(need.read ? op.args[0] : undefined, false, op.kont, more,
+13384:             need.read ? undefined : performance.now() + Number(op.args[0]));
+13385:           break;
+13386:         }
+13387:         const x = op.run(...op.args, op.kont);
+13388:         if (x === undefined) {
+13389:           break;
+13390:         }
+13391:         op = op.kont(x);
+13392:       }
+13393:     }
+13394:   } catch (req) {
+13395:     if (req instanceof RangeError) {

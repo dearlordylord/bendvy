@@ -1,0 +1,50 @@
+{
+  "status": "COMPLETE_ARTIFACT_UNREVIEWED",
+  "backend": "js",
+  "scope": "Full timing consumer artifact emission and continuation inspection only; no runtime/performance admission",
+  "planSHA256": "d13ebeb7d68514751166c3230b961e4e2f8e6f1ac7dd07cdc93caade0ee611e5",
+  "guards": [
+    {
+      "label": "pre",
+      "unchanged": true
+    },
+    {
+      "label": "acquired",
+      "unchanged": true
+    },
+    {
+      "label": "post",
+      "unchanged": true
+    },
+    {
+      "label": "final",
+      "unchanged": true
+    }
+  ],
+  "command": {
+    "label": "emit",
+    "argv": [
+      "/usr/bin/taskset",
+      "-c",
+      "5",
+      "/home/node/.bend/bin/bend",
+      "/workspace/formal-proofs/bendvy-worktrees/parity-42-adoption-current/experiments/public-relations/timing/current-qualification-v1/phase2/remainder-v1/chunk-serializer-v1/whole-feature-timing-v1/driver.bend",
+      "-o",
+      "/tmp/bendvy-relations42-timing-emission01/js/trace.js"
+    ],
+    "seconds": 30
+  },
+  "artifacts": {
+    "/tmp/bendvy-relations42-timing-emission01/js/trace.js": "3021d5c5cbe72ed3e6105970889790d5b5abb429fcdb135899f7b629fd3b3002"
+  },
+  "logs": {
+    "emit.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "emit.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "result": {
+    "exit": 0,
+    "failure": null,
+    "capture": "split",
+    "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+  }
+}

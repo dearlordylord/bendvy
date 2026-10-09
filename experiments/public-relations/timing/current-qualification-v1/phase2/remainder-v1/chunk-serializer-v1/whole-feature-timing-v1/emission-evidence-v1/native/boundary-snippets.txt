@@ -1,0 +1,248 @@
+Lines 174706-174777
+174706:   WL_CASE(FID_MAIN_C3340)
+174707:   {
+174708:     u32 _h_5 = r0;
+174709:     u32 _h_6 = r1;
+174710:     u32 _h_7 = r2;
+174711:     u32 _h_8 = r3;
+174712:     Term _x_2 = r4;
+174713:     WL_OPEN
+174714:     u64 _nd_1 = heap_alloc(e, cls_fit(4));
+174715:     e.mem[_nd_1 + 0] = _h_5;
+174716:     e.mem[_nd_1 + 1] = _h_6;
+174717:     e.mem[_nd_1 + 2] = _h_7;
+174718:     e.mem[_nd_1 + 3] = _h_8;
+174719:     if (!DEVICE && !seq && fid_nofk(FID_IO_BIND)) {
+174720:       u64 _t_13 = task_node(e, FID_IO_BIND, WL_CONT, WL_IDX, 0);
+174721:       e.mem[_t_13 + 0] = term_clo(FID_BOUNDARY_BEGIN, 0);
+174722:       e.mem[_t_13 + 1] = term_clo(FID_MAIN_C3341, _nd_1);
+174723:       e.mem[_t_13 + 2] = _x_2;
+174724:       return term_tsk(FID_IO_BIND, _t_13);
+174725:     }
+174726:     r0 = term_clo(FID_BOUNDARY_BEGIN, 0);
+174727:     r1 = term_clo(FID_MAIN_C3341, _nd_1);
+174728:     r2 = _x_2;
+174729:     WL_JMP(FID_IO_BIND);
+174730:   }}
+174731: #endif
+174732: 
+174733: #if !DEVICE
+174734:   WL_CASE(FID_MAIN_C3341)
+174735:   {
+174736:     u32 _h_9 = r0;
+174737:     u32 _h_10 = r1;
+174738:     u32 _h_11 = r2;
+174739:     u32 _h_12 = r3;
+174740:     Term _x_3 = r4;
+174741:     WL_OPEN
+174742:     if (seq) {
+174743:       WL_ROOM(5);
+174744:       STK(0) = _h_9;
+174745:       STK(1) = _h_10;
+174746:       STK(2) = _h_11;
+174747:       STK(3) = _h_12;
+174748:       STK(4) = FID_MAIN_K3342;
+174749:       WL_PUSHN(5);
+174750:     } else {
+174751:       u64 _t_2 = task_node(e, FID_MAIN_K3342, WL_CONT, WL_IDX, 1);
+174752:       e.mem[_t_2 + 0] = _h_9;
+174753:       e.mem[_t_2 + 1] = _h_10;
+174754:       e.mem[_t_2 + 2] = _h_11;
+174755:       e.mem[_t_2 + 3] = _h_12;
+174756:       WL_CONT = term_tsk(FID_MAIN_K3342, _t_2);
+174757:       WL_IDX = 4;
+174758:     }
+174759:     if (!DEVICE && !seq && fid_nofk(FID__________SETUP_RUN_0)) {
+174760:       u64 _t_3 = task_node(e, FID__________SETUP_RUN_0, WL_CONT, WL_IDX, 0);
+174761:       e.mem[_t_3 + 0] = _h_9;
+174762:       e.mem[_t_3 + 1] = _h_10;
+174763:       e.mem[_t_3 + 2] = _h_11;
+174764:       e.mem[_t_3 + 3] = _h_12;
+174765:       return term_tsk(FID__________SETUP_RUN_0, _t_3);
+174766:     }
+174767:     r0 = _h_9;
+174768:     r1 = _h_10;
+174769:     r2 = _h_11;
+174770:     r3 = _h_12;
+174771:     WL_JMP(FID__________SETUP_RUN_0);
+174772:   }}
+174773: #endif
+174774: 
+174775: #if !DEVICE
+174776:   WL_CASE(FID_MAIN_K3342)
+174777:   {
+
+Lines 175087-175205
+175087:     WL_POPN(1);
+175088:     u32 _h_85 = STK(0);
+175089:     Term _h_84 = r0;
+175090:     WL_OPEN
+175091:     _h_84 = term_keep(e, _h_84, 1);
+175092:     if (seq) {
+175093:       WL_ROOM(3);
+175094:       STK(0) = _h_85;
+175095:       STK(1) = _h_84;
+175096:       STK(2) = FID_MAIN_K3345;
+175097:       WL_PUSHN(3);
+175098:     } else {
+175099:       u64 _t_8 = task_node(e, FID_MAIN_K3345, WL_CONT, WL_IDX, 1);
+175100:       e.mem[_t_8 + 0] = _h_85;
+175101:       e.mem[_t_8 + 1] = _h_84;
+175102:       WL_CONT = term_tsk(FID_MAIN_K3345, _t_8);
+175103:       WL_IDX = 2;
+175104:     }
+175105:     if (!DEVICE && !seq && fid_nofk(FID__________FORCE_FORCE)) {
+175106:       u64 _t_9 = task_node(e, FID__________FORCE_FORCE, WL_CONT, WL_IDX, 0);
+175107:       e.mem[_t_9 + 0] = _h_85;
+175108:       e.mem[_t_9 + 1] = _h_84;
+175109:       return term_tsk(FID__________FORCE_FORCE, _t_9);
+175110:     }
+175111:     r0 = _h_85;
+175112:     r1 = _h_84;
+175113:     WL_JMP(FID__________FORCE_FORCE);
+175114:   }}
+175115: #endif
+175116: 
+175117: #if !DEVICE
+175118:   WL_CASE(FID_MAIN_K3345)
+175119:   {
+175120:     WL_POPN(2);
+175121:     u32 _h_90 = STK(0);
+175122:     Term _h_91 = STK(1);
+175123:     u32 _h_86 = r0;
+175124:     u32 _h_87 = r1;
+175125:     u32 _h_88 = r2;
+175126:     u32 _h_89 = r3;
+175127:     WL_OPEN
+175128:     if (_h_86 == 0) {
+175129:       u64 _nd_2 = heap_alloc(e, cls_fit(5));
+175130:       e.mem[_nd_2 + 0] = _h_87;
+175131:       e.mem[_nd_2 + 1] = _h_88;
+175132:       e.mem[_nd_2 + 2] = _h_89;
+175133:       e.mem[_nd_2 + 3] = _h_90;
+175134:       e.mem[_nd_2 + 4] = _h_91;
+175135:       r0 = term_clo(FID_MAIN_C3346, _nd_2);
+175136:       WL_RETN(1);
+175137:     } else {
+175138:       term_sink(e, _h_91);
+175139:       u64 _nd_5 = heap_alloc(e, cls_fit(1));
+175140:       e.mem[_nd_5 + 0] = term_ctr(CID_SCON, STAT_OFF + 1623);
+175141:       r0 = term_clo(FID_IO_PRINT, _nd_5);
+175142:       WL_RETN(1);
+175143:     }
+175144:   }}
+175145: #endif
+175146: 
+175147: #if !DEVICE
+175148:   WL_CASE(FID_MAIN_C3346)
+175149:   {
+175150:     u32 _h_92 = r0;
+175151:     u32 _h_93 = r1;
+175152:     u32 _h_94 = r2;
+175153:     u32 _h_95 = r3;
+175154:     Term _h_96 = r4;
+175155:     Term _x_4 = r5;
+175156:     WL_OPEN
+175157:     u64 _nd_3 = heap_alloc(e, cls_fit(3));
+175158:     e.mem[_nd_3 + 0] = _h_92;
+175159:     e.mem[_nd_3 + 1] = _h_93;
+175160:     e.mem[_nd_3 + 2] = _h_94;
+175161:     u64 _nd_4 = heap_alloc(e, cls_fit(2));
+175162:     e.mem[_nd_4 + 0] = _h_95;
+175163:     e.mem[_nd_4 + 1] = _h_96;
+175164:     if (!DEVICE && !seq && fid_nofk(FID_IO_BIND)) {
+175165:       u64 _t_12 = task_node(e, FID_IO_BIND, WL_CONT, WL_IDX, 0);
+175166:       e.mem[_t_12 + 0] = term_clo(FID_BOUNDARY_COMPLETE, _nd_3);
+175167:       e.mem[_t_12 + 1] = term_clo(FID_MAIN_C3347, _nd_4);
+175168:       e.mem[_t_12 + 2] = _x_4;
+175169:       return term_tsk(FID_IO_BIND, _t_12);
+175170:     }
+175171:     r0 = term_clo(FID_BOUNDARY_COMPLETE, _nd_3);
+175172:     r1 = term_clo(FID_MAIN_C3347, _nd_4);
+175173:     r2 = _x_4;
+175174:     WL_JMP(FID_IO_BIND);
+175175:   }}
+175176: #endif
+175177: 
+175178: #if !DEVICE
+175179:   WL_CASE(FID_MAIN_C3347)
+175180:   {
+175181:     u32 _h_97 = r0;
+175182:     Term _h_98 = r1;
+175183:     Term _x_5 = r2;
+175184:     WL_OPEN
+175185:     if (seq) {
+175186:       WL_ROOM(1);
+175187:       STK(0) = FID_MAIN_K3348;
+175188:       WL_PUSHN(1);
+175189:     } else {
+175190:       u64 _t_10 = task_node(e, FID_MAIN_K3348, WL_CONT, WL_IDX, 1);
+175191:       WL_CONT = term_tsk(FID_MAIN_K3348, _t_10);
+175192:       WL_IDX = 0;
+175193:     }
+175194:     if (!DEVICE && !seq && fid_nofk(FID____SERIALIZE_ENCODE)) {
+175195:       u64 _t_11 = task_node(e, FID____SERIALIZE_ENCODE, WL_CONT, WL_IDX, 0);
+175196:       e.mem[_t_11 + 0] = _h_97;
+175197:       e.mem[_t_11 + 1] = _h_98;
+175198:       return term_tsk(FID____SERIALIZE_ENCODE, _t_11);
+175199:     }
+175200:     r0 = _h_97;
+175201:     r1 = _h_98;
+175202:     WL_JMP(FID____SERIALIZE_ENCODE);
+175203:   }}
+175204: #endif
+175205: 
+
+Lines 175262-175277
+175262:   WL_CASE(FID_BOUNDARY_COMPLETE)
+175263:   {
+175264:     Term _nodes_6 = r0;
+175265:     Term _characters_6 = r1;
+175266:     Term _sum_6 = r2;
+175267:     Term _k_27 = r3;
+175268:     WL_OPEN
+175269:     u64 _nd_27 = heap_alloc(e, cls_fit(4));
+175270:     e.mem[_nd_27 + 0] = _nodes_6;
+175271:     e.mem[_nd_27 + 1] = _characters_6;
+175272:     e.mem[_nd_27 + 2] = _sum_6;
+175273:     e.mem[_nd_27 + 3] = _k_27;
+175274:     r0 = term_ctr(CID_BOUNDARY_COMPLETE, _nd_27);
+175275:     WL_RETN(1);
+175276:   }}
+175277: #endif
+
+Lines 176570-176580
+176570:   return IO_PARK;
+176571: }
+176572: 
+176573: static Term io_exec(Env e, IoWork* w) {
+176574:   Term fs[256];
+176575:   u32  c = (u32)term_aux(w->cont);
+176576:   u32  n = cid_arity(c);
+176577:   spare_free(e, cls_fit(n), ctr_take(e, w->cont, n, fs));
+176578:   w->cont = fs[n - 1];
+176579:   return io_eff_rows[c].run(e, fs, w);
+176580: }
+
+Lines 176922-176942
+176922: static bool public_trace_begun = false;
+176923: Term io_public_trace_begin_run(Env e, Term *f, IoWork *w) {
+176924:   if (public_trace_begun) { fputs("Duplicate trace Begin\n",stderr); exit(2); }
+176925:   public_trace_begun = true;
+176926:   fputs("{\"boundary\":\"begin\"}\n",stderr);
+176927:   if (clock_gettime(CLOCK_MONOTONIC,&public_trace_start)) { perror("clock_gettime Begin"); exit(2); }
+176928:   return term_pak(CID_UNIT,0);
+176929: }
+176930: Term io_public_trace_complete_run(Env e, Term *f, IoWork *w) {
+176931:   if (!public_trace_begun) { fputs("Completion before Begin\n",stderr); exit(2); }
+176932:   volatile uint32_t nodes=(uint32_t)f[0], characters=(uint32_t)f[1], sum=(uint32_t)f[2];
+176933:   struct timespec end;
+176934:   if (clock_gettime(CLOCK_MONOTONIC,&end)) { perror("clock_gettime Complete"); exit(2); }
+176935:   int64_t elapsed=(int64_t)(end.tv_sec-public_trace_start.tv_sec)*INT64_C(1000000000)+(int64_t)end.tv_nsec-(int64_t)public_trace_start.tv_nsec;
+176936:   if (elapsed<0) { fputs("Negative monotonic duration\n",stderr); exit(2); }
+176937:   fprintf(stderr,"{\"boundary\":\"complete-trace-forced\",\"nodes\":%" PRIu32 ",\"characters\":%" PRIu32 ",\"sum\":%" PRIu32 ",\"region\":\"whole-feature-setup-operations-full-trace\",\"elapsedNs\":\"%" PRId64 "\"}\n",nodes,characters,sum,elapsed);
+176938:   return term_pak(CID_UNIT,0);
+176939: }
+176940: static void __attribute__((constructor)) io_public_trace_use(void) {
+176941:   io_eff(CID_BOUNDARY_BEGIN,io_public_trace_begin_run,0);
+176942:   io_eff(CID_BOUNDARY_COMPLETE,io_public_trace_complete_run,0);
