@@ -1,3 +1,4 @@
+import ../../../../../library/decode-local.bend as Completion
 import Base
 import ./assembly.bend as A
 import ../../../../../library/decode-requests.bend as Request
@@ -61,19 +62,18 @@ def outcome(fail:Bool) -> T.Outcome<Unit>:
   match fail:
     case False{}:T.Success{}
     case True{}:T.Failure{Unit{}}
-def finished(codec:Decl.Constructed<Unit,P.Owner,P.identity(),P.project>,previous:List<Recovery>,outputs:List<Request.Output<Unit,P.Owner>>,result:Batch.Finished<Unit,P.Store(),A.Mail<R.Owner,P.Owner>,Unit,Request.Packet<P.Owner>,Unit>) -> Local.Outcome<World(),State,Unit,List<Request.Output<Unit,P.Owner>>>:
-  match result:
-    case Batch.Committed{world}:Local.Succeeded{world,State{codec,previous},outputs}
-    case Batch.Failed{world,packets,error}:Local.Failed{world,State{codec,Recovery{outputs,packets} <> previous},error}
+def retained(local:State,outputs:List<Request.Output<Unit,P.Owner>>,packets:List<Request.Packet<P.Owner>>) -> State:
+  match local:
+    case State{codec,previous}:State{codec,Recovery{outputs,packets} <> previous}
 def invoked(codec:Decl.Constructed<Unit,P.Owner,P.identity(),P.project>,previous:List<Recovery>,result:Owner() & (List<Request.Output<Unit,P.Owner>> & Bool)) -> Local.Outcome<World(),State,Unit,List<Request.Output<Unit,P.Owner>>>:
   match result:
-    case (owner,(outputs,fail)):finished(codec,previous,outputs,Request.finish(~Unit,~P.Store(),~A.Mail<R.Owner,P.Owner>,~Unit,~P.Owner,~Unit,~P.identity(),~P.project,~attempt,~recover,owner,outcome(fail)))
+    case (owner,(outputs,fail)):Completion.finish_deferred(~Unit,~P.Store(),~A.Mail<R.Owner,P.Owner>,~Unit,~P.Owner,~Unit,~P.identity(),~P.project,~attempt,~recover,~State,~List<Request.Output<Unit,P.Owner>>,~retained,State{codec,previous},outputs,owner,outcome(fail))
 def runner(world:World(),state:State,args:Args) -> Local.Outcome<World(),State,Unit,List<Request.Output<Unit,P.Owner>>>:
   match state:
-    case State{+codec,previous}:invoked(codec,previous,A.invoke(~Unit,~P.Store(),~R.Owner,~Unit,~P.Owner,~P.identity(),~P.project,~Args,~(List<Request.Output<Unit,P.Owner>> & Bool),~(H => ops => args => ctx => body(~H,~ops,args,ctx)),Request.Owner{Batch.begin(~Unit,~P.Store(),~A.Mail<R.Owner,P.Owner>,~Unit,~Request.Packet<P.Owner>,T.begin(~World(),~Unit,world)),codec},args))
+    case State{+codec,previous}:invoked(codec,previous,A.invoke(~Unit,~P.Store(),~R.Owner,~Unit,~P.Owner,~P.identity(),~P.project,~Args,~(List<Request.Output<Unit,P.Owner>> & Bool),~(H => ops => args => ctx => body(~H,~ops,args,ctx)),Completion.begin_owner(~Unit,~P.Store(),~A.Mail<R.Owner,P.Owner>,~Unit,~P.Owner,~P.identity(),~P.project,world,codec),args))
 def Instance() -> Type:Local.Instance<Unit,P.Store(),A.Mail<R.Owner,P.Owner>,Unit,State,Args,Unit,List<Request.Output<Unit,P.Owner>>,runner>
 def define(world:World()) -> Local.Registered<Unit,P.Store(),A.Mail<R.Owner,P.Owner>,Unit,State,Args,Unit,List<Request.Output<Unit,P.Owner>>,runner>:
-  Local.register(~Unit,~P.Store(),~A.Mail<R.Owner,P.Owner>,~Unit,~State,~Args,~Unit,~List<Request.Output<Unit,P.Owner>>,~runner,world,"declared-deferred-owned",A.access(~Unit,~P.Store(),~R.Owner,~Unit,~P.Owner,~Unit,~Unit,~P.identity(),~resource_identity(),~P.project,~P.take,~P.put),State{Decl.constructed(~Unit,~P.Owner,~P.identity(),~P.project,D.Integer{}),[]})
+  Completion.registered(~Unit,~P.Store(),~A.Mail<R.Owner,P.Owner>,~Unit,~State,~Args,~Unit,~List<Request.Output<Unit,P.Owner>>,~runner,world,"declared-deferred-owned",A.access(~Unit,~P.Store(),~R.Owner,~Unit,~P.Owner,~Unit,~Unit,~P.identity(),~resource_identity(),~P.project,~P.take,~P.put),State{Decl.constructed(~Unit,~P.Owner,~P.identity(),~P.project,D.Integer{}),[]})
 
 type PacketView is Data:PacketView{owner:Maybe<&2,O.PayloadView>,original:D.Raw,canonical:D.Raw}
 def packet_join(+original:D.Raw,+canonical:D.Raw,result:Maybe<&1,P.Owner> & Maybe<&2,O.PayloadView>) -> Request.Packet<P.Owner> & PacketView:

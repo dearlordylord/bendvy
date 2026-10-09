@@ -1,3 +1,4 @@
+import ../../../../../library/decode-local.bend as Completion
 import Base
 import /workspace/formal-proofs/bendvy/src/ecs/commands.bend as Commands
 import /workspace/formal-proofs/bendvy/src/ecs/bundle-install.bend as Install
@@ -63,13 +64,15 @@ def state_join(+during:Maybe<&2,O.Snapshot>,+errors:List<&2,W.WorldError>,owners
 def state_view(state:State) -> State & StateView:
   match state:
     case State{owners,pending,+during,+errors}:state_join(during,errors,packet_views(owners),pending_views(pending))
+def retained(local:State,args:Unit,owners:List<Request.Packet<B.Owner>>,pending:List<Journal.Pending<B.Recovery()>>) -> State:
+  match local:
+    case State{_,_,during,errors}:State{owners,pending,during,errors}
+def committed_state(local:State,args:Unit,rows:Unit) -> State & Unit:(local,Unit{})
+def rejected_state(local:State,args:Unit) -> State:local
 def aborted(+during:O.Snapshot,result:Journal.Returned<B.World(),Request.Packet<B.Owner>,B.Recovery()>) -> Local.Outcome<B.World(),State,Unit,Unit>:
-  match result:
-    case Journal.Returned{world,owners,pending}:Local.Failed{world,State{owners,pending,Some{during},[]},Unit{}}
+  Completion.recovered(~Unit,~B.World(),~State,~Unit,~B.Owner,~B.Recovery(),~Unit,~Unit,~retained,Unit{},State{[],[],Some{during},[]},Unit{},[],[],result)
 def commit_result(during:O.Snapshot,result:T.Returned<B.World(),Unit>) -> Local.Outcome<B.World(),State,Unit,Unit>:
-  match result:
-    case T.Returned{world,T.Success{}}:Local.Succeeded{world,State{[],[],Some{during},[]},Unit{}}
-    case T.Returned{world,T.Failure{error}}:Local.Failed{world,State{[],[],Some{during},[]},error}
+  Completion.committed(~B.World(),~State,~Unit,~Unit,~Unit,~Unit,~committed_state,~rejected_state,State{[],[],Some{during},[]},Unit{},Unit{},result)
 def snap_finished(mode:Mode,during:O.Snapshot,receipts:List<Receipt()>,tx:Tx()) -> Local.Outcome<B.World(),State,Unit,Unit>:
   match mode:
     case Success{}:commit_result(during,Commands.tx_finish(~Unit,~B.Store(),~First.Owner,~Unit,~Unit,tx,T.Success{}))
@@ -172,7 +175,7 @@ def registered(mode:Mode,result:Local.Registered<Unit,B.Store(),First.Owner,Unit
     case Local.Registered{world,instance}:before(mode,instance,O.snapshot(world))
     case Local.RegistrationRejected{world,_}:rejected(O.snapshot(world))
 def provisioned(mode:Mode,world:B.World()) -> Report:
-  registered(mode,Local.register(~Unit,~B.Store(),~First.Owner,~Unit,~State,~Mode,~Unit,~Unit,~runner,world,"immediate-recovery",[Identity.key(~Unit,~B.Owner,B.identity()),Identity.key(~Unit,~First.Owner,Identity.component(~Unit,~First.Owner,"decoded-resource"))],State{[],[],None{},[]}))
+  registered(mode,Completion.registered(~Unit,~B.Store(),~First.Owner,~Unit,~State,~Mode,~Unit,~Unit,~runner,world,"immediate-recovery",[Identity.key(~Unit,~B.Owner,B.identity()),Identity.key(~Unit,~First.Owner,Identity.component(~Unit,~First.Owner,"decoded-resource"))],State{[],[],None{},[]}))
 def setup(+mode:Mode,world:B.World()) -> Report:
   match mode:
     case ReserveRefused{}:provisioned(mode,exhausted(world))
