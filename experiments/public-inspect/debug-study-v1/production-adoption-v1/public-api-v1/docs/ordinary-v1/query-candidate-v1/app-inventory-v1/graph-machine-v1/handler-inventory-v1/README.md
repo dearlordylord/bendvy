@@ -15,3 +15,5 @@ Direct source checks use preserved regular Bend 2.0.35 f774, cap5 and the shared
 ## Actual development evidence
 
 Both original admitted JS v2 cohorts ran once and passed unchanged independent complete oracles: normal518729 bytes and reached omission516991 bytes, with empty stderr and14 total exact progressive guards. Both raw terms equal their pre-run synthetics byte-for-byte. Whole normalized differences are exactly the two Enabled description handler-entry arrays; all world/owner/cursor/marker/barrier and previous-report fields remain unchanged. `js-evidence-v2` retains28 lossless members; `verify-execution.py` checks their whole typed models and exact progressive input sets without replay. No Native, performance or public #56 completion is established by this successor.
+
+The new full Native sequence was attempted once under its exact admitted plan. Emission reached cap30 with no C file and empty stdout/stderr; no Clang build or runtime ran. `native-evidence-v1` retains8 original members and4 unchanged source/resource guards. This is INCOMPLETE, with no retry/cap change/slicing; the timeout does not establish the compiler cause or Native incompatibility.
