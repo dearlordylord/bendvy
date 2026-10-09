@@ -1,0 +1,21 @@
+# Independent native22 launch review
+
+Scoped PASS, no backend child launched by this reviewer. Reviewed source737f3c65, independently authored oracle84e0c2c10cf3b30934ddf184c792fd04702ab4bc and additive collector preparationd45dc1c255b741bc69c1466496096431776448d0 at their frozen author paths. This admits only the three concrete prepared stages below, subject to root's execution queue. It does not admit a Native build/runtime continuation.
+
+| Subject/stage | Exact prepared plan SHA256 |
+| --- | --- |
+| positive JS emit30/run5 | 9f2be31eafbd62b7fdbba60b9f72993450b38d96edb0ab1e556f8fdae23c08ee |
+| positive C emission30 only | 1cee4e6ab927fbeb0ea731d72c7d18d28e6608e024c5cf0da008d8bb516e5e55 |
+| namespace mutant JS emit30/run5 | a705dab60f14d79731fe3e5644ab1ee060f0190265441c20335927c3dcdd1fc5 |
+
+Plan paths and complete invocation arguments remain authoritative in prepared-v1/manifest.json in /workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion. All76 current input entries per plan, including the49-member oracle source closure, interpreter, pinned regular Bend2.0.35, Node24.20.0, taskset, environment file, helper chain, oracle authoring and complete Base resource bytes/membership match. Raw/generated directories are empty and receipts absent. Commands use CPU5 and unchanged caps; the actual-child shared lock surrounds acquired validation and command execution.
+
+The source retains eight complete component modes per nominal schema and three resource cases per schema. Actual registered Cap.owned_request reaches constructor/request and Completion.finish_deferred; failed invocation Local keeps complete output/packets while ECS rollback and pending publication use existing completion semantics. Projection observers reconstruct owners, physical slots/stamps, live/meta/queue/mail and recovery before report teardown. Array words/flags are affine Type payloads; this is finite owner preservation, not a proof of physical identity or universal cleanup. Resource replacement abort preserves its existing replacement-discard semantics; it does not invent returned replacement ownership.
+
+The two-line namespace defect changes both retained component codecs1→2, through the same actual grant/begin_owner route. The full pre-output countermodel changes accepted/refused outcomes, reservation/publication and recoveries; resources and skipped inputs remain unchanged. HandleValue validation is a Raw namespace observation, not entity liveness authority. Full normal ac333817… and mutant c75c7b62… are distinct entire22-model gates, not mismatch-only acceptance.
+
+No-child check-transport.py passed: both entire model/raw typed roundtrips; missing field, wrong Candidate and Bool/numeric refusal; historical input-codec and default normal raw/whole mappings unchanged. Native transport inventory uses actual module identities and exact constructor fields, preserving all Maybe/Result/List/Array observations. Retained source receipts show both positive/mutant exit0 and six intended negative exit1 controls; source check stdout was not used as oracle input and no checker was repeated here.
+
+Collector addition preserves old defaults and roles. Execute validates explicit plan/Python/all file and resource inputs before repository helper execution; helper loading compiles exact source files rather than cached modules. It then reconstructs the exact source closure, binding, environment, nominal transport and commands and requires complete equality with the admitted plan. Acquired/post/final guards include inputs, complete raw logs and generated artifact inventory; generated result capture precedes final validation on failed emits. ReceiptBoundary preserves incomplete failures. Whole JSON and canonical raw bytes are both required; stderr must be empty. No normalization/projection substitutes for the complete model.
+
+C emission success alone is DEVELOPMENT_C_EMIT_PASS. Approved private Clang19 build120/run5, CPU5/thread1/GPUoff may be prepared only from actual guarded emitted-C/receipt bytes and independently admitted as the existing artifact-only continuation. These plans contain no Clang command, so this report gives no Native runtime credit. Public #46 acceptance, unchanged #28, performance/scaling, trusted author purity and proof/law obligations remain separate.
