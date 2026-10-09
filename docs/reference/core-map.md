@@ -442,3 +442,13 @@ full profiles/scaling and independent two-application #61 audit remain unmet by
 these packets. Current experimental results do not establish complete public
 API parity, universal proofs or installed-tool/frozen delivery qualification.
 This refresh reads exact source/evidence pins and JSON/gzip only; no child runs.
+
+## Canonical construction audit overlay — `64807397`
+
+The [current coverage overlay](../parity/coverage.md#construction-audit-overlay--master-64807397)
+maps the six integrated constructor/admission modules to their exact canonical
+JS/Native evidence and owning gaps. It supersedes historical claims that raw-owner
+construction/resource admission are entirely absent; it does not promote the
+scalar host candidate to complete UTF16-key interoperability, experimental debug
+to stock-Native delivery, or #41 readiness to complete bundle parity. Existing
+23-module pinned export inventory remains authoritative; #61 is not closed.

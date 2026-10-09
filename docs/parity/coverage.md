@@ -96,3 +96,30 @@ Reference authority remains the frozen census: bevy-ts `3040a3b2…` (0.3.0) sup
 
 Use the [coordination table](README.md#current-delivery-coordination) for subsequent task state;
 experimental evidence remains distinct from `src/ecs` delivery and performance.
+
+## Construction audit overlay — master `64807397`
+
+This source-only #61 preparation supersedes the earlier constructor-absence entry,
+not the export census or complete parity gates. Reference pins remain bevy-ts
+`3040a3b2`, Rust Bevy `ad678262` and Bend `a950fd68`; installed-runtime evidence
+uses the separately pinned Bend 2.0.35 bytes.
+
+| Contract → integrated API | Actual evidence | Concrete gap → owner |
+| --- | --- | --- |
+| Descriptor raw validation before construction → `decode-construction` retained nominal Factory, separate input codec, typed constructor and schema-authored undo | [Core delivery](../../experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/CORE-DELIVERY.md): all 44+20+16+12 complete reports on JS/Native, four source spines and 14 authority/affine negatives | Arbitrary affine Type has no inferred inverse or reflection. Broader descriptor acceptance, host/generated-runtime interop and feature timing remain #46. |
+| Spawn/insert accepts constructed payload or returns exact raw owner → `decode-constructed-requests`, `decode-fallible-constructed-requests` | Same canonical full reports and three reached full mutation witnesses; custom construction and operation errors remain distinct | Complete reusable heterogeneous bundle delivery/readiness remains #41; these adapters do not choose unresolved global activation/recovery policy. |
+| Resource admission preserves rejected owner → `decode-validated-resource`, `decode-constructed-resource`, `decode-fallible-constructed-resource` | Canonical actual JS/Native reviews and promotion Spec/Standards reviews linked from Core delivery; successful undo retained | Host Standard Schema conversion is a separate finite candidate, not generated ECS execution. Complete UTF16 object-field keys/path representation remains #46/#59. Scalar-host success cannot discharge it. |
+| Ordinary debug derives structure/access/schedule without duplicate metadata → experimental Schema/App/declaration consumers | Existing full JS reports, repeated enabled/disabled controls and reached omission models | Full stock Native consumer remains incomplete; copied compiler controls and partitioned programs do not replace it. Public adoption and remaining debug coverage stay #56/#55/#57. |
+
+Architectural anchors: pinned TS `Decode.ts:161` enumerates actual object keys and
+`Descriptor.ts:513` adapts Standard Schema; Rust `world/mod.rs:1243,2056` uses
+typed Bundle/Resource admission and `bundle/mod.rs:202` defines the unsafe Bundle
+contract. Bend README:226 makes closures/arrays affine. The delivered factories
+therefore use retained nominal declarations and explicit reversible constructors,
+rather than promising TypeScript-style host reflection for arbitrary Type.
+
+The unchanged Workshop regression passes independently (current/frozen Bend
+JS 0.90532474, Native 0.98513866); that bounded workload does not qualify the
+full simulation, whose matched current JS/TS ratio remains 3.34450. #61 stays
+open: two independently authored complete public applications and the remaining
+capability/performance gates are still required.
