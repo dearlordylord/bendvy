@@ -72,11 +72,14 @@ def prepare(out, oracle, expected_sha):
              TRANSPORT / 'wrong-reader-advance-synthetic.stdout', TRANSPORT / 'PREPARATION.json', HERE.parents[1] / 'SOURCE-CLOSURE.json', HERE / 'SOURCE-DELTA.json', oracle / 'expected.json', oracle / 'counterfactuals.py', oracle / 'counterfactual-source-basis.json', *map(Path, tools.values())]
     pins = dict(identities['sourceSHA256'])
     pins.update({str(path.resolve(strict=True)): sha(path) for path in extra})
-    env = load('installed_configuration', config).environment()
+    configuration = load('installed_configuration', config)
+    env = configuration.environment()
+    resources = load('task_runner', ROOT / 'scripts/task_runner.py').Inputs(directories=configuration.RESOURCE_ROOTS)
     generated = out / 'scenario.c'
     native = out / 'scenario.native'
     plan = {'scope': 'direct development only; no complete resolver qualification or #43 completion',
             'expectedSHA256': expected_sha, 'entrypoint': identities['entrypoint'], 'constructorInventory': str(TRANSPORT / 'wrong-reader-advance-identities.json'),
+            'resourceRoots': [str(root) for root in resources.directories], 'resourceInventory': resources.expected,
             'pins': pins, 'environment': env, 'cwd': str(HERE), 'oracle': str(oracle / 'wrong-reader-advance-expected.json'),
             'baseline': str(oracle / 'expected.json'), 'baselineSHA256': BASELINE, 'generated': str(generated), 'native': str(native),
             'tools': tools, 'commands': [
@@ -104,6 +107,9 @@ def run(plan_path, expected_sha):
     runner = load('task_runner', ROOT / 'scripts/task_runner.py')
     boundary = load('evidence_boundary', ROOT / 'scripts/evidence_boundary.py')
     inventory = json.loads(Path(plan['constructorInventory']).read_text())
+    resources = runner.Inputs(directories=plan['resourceRoots'])
+    if resources.expected != plan['resourceInventory']:
+        raise ValueError('Frozen Native resources changed before launch')
     pins = dict(plan['pins'])
     pins[str(plan_path)] = expected_sha
     generated = Path(plan['generated'])
@@ -115,8 +121,9 @@ def run(plan_path, expected_sha):
             if str(artifact) in pins and (artifact.is_symlink() or not artifact.is_file()):
                 raise ValueError('Generated artifact must be a regular non-symlink file')
         actual = {path: sha(path) for path in pins}
-        unchanged = actual == pins and parser.Transport(plan['entrypoint']).inventory() == inventory
-        receipt = {'label': label, 'actualPins': actual, 'unchanged': unchanged}
+        resource_actual = resources.snapshot()
+        unchanged = actual == pins and parser.Transport(plan['entrypoint']).inventory() == inventory and resource_actual == plan['resourceInventory']
+        receipt = {'label': label, 'actualPins': actual, 'actualResources': resource_actual, 'unchanged': unchanged}
         target = out / (label + '.guard.json')
         target.write_text(json.dumps(receipt, indent=2) + '\n')
         record['guards'].append({'path': str(target), 'sha256': sha(target)})

@@ -45,7 +45,7 @@ class Boundary(unittest.TestCase):
 
     def test_failed_emit_partial_artifact_retained_without_consumer(self):
         with tempfile.TemporaryDirectory() as tmp:
-            old = json.loads((HERE / 'development-native-v1/plan.json').read_text())
+            old = json.loads((HERE / 'development-native-v2/plan.json').read_text())
             old['pins'][str(HERE / 'development-native.py')] = N.sha(HERE / 'development-native.py')
             generated = Path(tmp) / 'scenario.c'
             old['generated'] = str(generated)
@@ -61,7 +61,7 @@ class Boundary(unittest.TestCase):
                         'stdout': b'original stdout', 'stderr': b'original stderr'}
             real_load = N.load
             def load(name, path):
-                return SimpleNamespace(execute_result=failed_emit) if name == 'task_runner' else real_load(name, path)
+                return SimpleNamespace(execute_result=failed_emit, Inputs=real_load(name, path).Inputs) if name == 'task_runner' else real_load(name, path)
             with patch.object(N, 'load', load):
                 with self.assertRaisesRegex(ValueError, 'Owned child failed: emit'):
                     N.run(plan, N.sha(plan))
@@ -79,7 +79,7 @@ class Boundary(unittest.TestCase):
 
     def test_failed_build_partial_native_retained(self):
         with tempfile.TemporaryDirectory() as tmp:
-            plan_data = json.loads((HERE / 'development-native-v1/plan.json').read_text())
+            plan_data = json.loads((HERE / 'development-native-v2/plan.json').read_text())
             generated, native = Path(tmp) / 'scenario.c', Path(tmp) / 'scenario.native'
             plan_data.update(generated=str(generated), native=str(native))
             plan = Path(tmp) / 'plan.json'
@@ -93,7 +93,7 @@ class Boundary(unittest.TestCase):
                 native.write_bytes(b'partial native')
                 return {'exit': 1, 'failure': 'controlled build failure', 'stdout': b'build stdout', 'stderr': b'build stderr'}
             real_load = N.load
-            with patch.object(N, 'load', lambda name, path: SimpleNamespace(execute_result=child) if name == 'task_runner' else real_load(name, path)):
+            with patch.object(N, 'load', lambda name, path: SimpleNamespace(execute_result=child, Inputs=real_load(name, path).Inputs) if name == 'task_runner' else real_load(name, path)):
                 with self.assertRaisesRegex(ValueError, 'Owned child failed: build'):
                     N.run(plan, N.sha(plan))
             receipt = json.loads((Path(tmp) / 'receipt.json').read_text())

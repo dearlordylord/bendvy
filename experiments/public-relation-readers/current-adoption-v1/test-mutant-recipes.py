@@ -19,7 +19,7 @@ class Recipes(unittest.TestCase):
                     spec = importlib.util.spec_from_file_location('recipe', folder / ('development-' + backend + '.py'))
                     module = importlib.util.module_from_spec(spec)
                     spec.loader.exec_module(module)
-                    plan = json.loads((folder / ('development-' + backend + '-v1') / 'plan.json').read_text())
+                    plan = json.loads((folder / ('development-' + backend + ('-v2' if backend == 'native' else '-v1')) / 'plan.json').read_text())
                     plan['generated'] = str(Path(tmp) / ('scenario.js' if backend == 'js' else 'scenario.c'))
                     if backend == 'native': plan['native'] = str(Path(tmp) / 'scenario.native')
                     target = Path(tmp) / 'plan.json'
@@ -35,7 +35,7 @@ class Recipes(unittest.TestCase):
                             output = (HERE / 'transport-v1' / (variant + '-synthetic.stdout')).read_bytes()
                         return {'exit': 0, 'failure': None, 'stdout': output, 'stderr': b''}
                     real_load = module.load
-                    with patch.object(module, 'load', lambda name, path: SimpleNamespace(execute_result=child) if name == 'task_runner' else real_load(name, path)):
+                    with patch.object(module, 'load', lambda name, path: SimpleNamespace(execute_result=child, Inputs=real_load(name, path).Inputs) if name == 'task_runner' else real_load(name, path)):
                         module.run(target, module.sha(target))
                     receipt = json.loads((Path(tmp) / 'receipt.json').read_text())
                     self.assertEqual(receipt['status'], 'DEVELOPMENT_PASS')
