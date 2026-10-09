@@ -1,0 +1,9 @@
+# Named-loop candidate
+
+Only scenario.bend changes in the qualified106-source closure. Commands remain the first decreasing loop parameter; its second parameter is the actual owned Application/trace pair returned by command. Helpers execute the same barrier, action and full observation before prepending the same Phase. Loop directly recurses on rest; no per-command runtime `next` closure remains. Initialization/error/refusal owners and final reverse are unchanged.
+
+Source5 full main passes (SOURCE-CHECK.json, complete streams). Earlier forward-reference/match/computed-binding/template attempts failed before backend and are retained; the final parameter-state representation obeys Bend match-order and structural recursion. No new laws/contracts, shared core, compiler or reference changes. A setup-only Python helper-load NameError occurred before any child and was corrected before source execution.
+
+The overlay transform binds original successful v6 stage SHA and exact sole changed source; test-source-overlay.py verifies all other files and operational authority calls. Existing finite ownership/filter/error controls are reused because shared source and declarations are byte-identical; this is no claim of new negative execution. The comparator is the existing complete32-constructor whole-report comparator, with only source-derived stage-overlay validation added; output parsing/oracle are unchanged.
+
+The prepared seven-stage ordinary qualification reuses full source5/TS5/JSemit30/JSrun5/Cemit30/Clang120/Native5, CPU5/sharedlock, tools/resources/environment and unconditional receipts. Full independent oracle f821c682… and all14phases×2schemas are mandatory. No compiler/backend or performance launch has occurred. Source evidence proves typechecking, not generated closure removal or speedup; those require admitted actual artifacts and full output qualification first.

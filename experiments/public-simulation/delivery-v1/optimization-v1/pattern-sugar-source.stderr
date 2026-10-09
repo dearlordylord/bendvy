@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : 2 patterns (one per scrutinee)
+- observed : '[] (app,trace)'
+Location:
+27 |   match commands state:
+28>|     case [] (app,trace): ScenarioRun{app,List.reverse(&2,Phase<S>,trace)}
+   |          ^^^^^^^^^^^^^^
+29 |     case (head <> rest) (app,trace): loop(~S,rest,command(~S,head,app,trace))

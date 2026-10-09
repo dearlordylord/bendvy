@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : a decreasing self-call (arguments are read left to right: each passed unchanged until one shrinks)
+- observed : loop
+Context:
+- remaining : List<&2, Actions.Command>
+- app       : App.Application<geometry.Garden>
+- trace     : List<&2, Phase<geometry.Garden>>
+Location: continued~0
+31 |     case []: ScenarioRun{app,List.reverse(&2,Phase<S>,trace)}
+32>|     case head <> rest: continued(~S,~(remaining => app => trace => loop(~S,remaining,app,trace)),rest,command(~S,head,app,trace))
+   |                                                                    ^^^^
+33 | def initial_observed(~S: Data,result: App.ReaderResults,observed: App.Application<S> & App.Observation) -> ScenarioRun<S>:

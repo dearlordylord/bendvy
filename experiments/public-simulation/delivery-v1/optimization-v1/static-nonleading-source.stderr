@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : a plain binder (only leading binders take ~)
+- observed : '~'
+Location:
+14 |   ScenarioInitializationRefused{result: Start.Initialized<S>}
+15>| def observed(~S: Data,result: Actions.ScenarioResult<S>,trace: List<&2,Phase<S>>,~next: App.Application<S> -> List<&2,Phase<S>> -> ScenarioRun<S>,observation: App.Application<S> & App.Observation) -> ScenarioRun<S>:
+   |                                                                                  ^
+16 |   match observation:
