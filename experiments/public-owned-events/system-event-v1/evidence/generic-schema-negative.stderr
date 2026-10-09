@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : Ordinary.Owner<Other, S.Registration<Other, Array<U32>, Array<Bool>, Bool, Array<U32>, String, Array<U32>, runner>>
+- observed : Ordinary.Owner<Second.Schema, S.Registration<Second.Schema, Array<U32>, Array<Bool>, Bool, Array<U32>, String, Array<U32>, Second.runner>>
+Context:
+- events : Domains.Events<Other, Bool>
+- world  : W.World<Other, Array<U32>, Array<Bool>, Bool>
+- owner  : Ordinary.Owner<Second.Schema, S.Registration<Second.Schema, Array<U32>, Array<Bool>, Bool, Array<U32>, String, Array<U32>, Second.runner>>
+- args   : Array<U32>
+Location: wrong
+14 | def wrong(events:Domains.Events<Other,Bool>,world:W.World<Other,Array<U32>,Array<Bool>,Bool>,owner:Ordinary.Owner<Second.Schema,Second.Registry()>,args:Array<U32>) -> S.Returned<Other,Array<U32>,Array<Bool>,Bool,Array<U32>,String,Array<U32>,runner>:
+15>|   S.run(~Other,~Array<U32>,~Array<Bool>,~Bool,~Array<U32>,~String,~Array<U32>,~runner,events,owner,world,args)
+   |                                                                                              ^^^^^
+16 | 

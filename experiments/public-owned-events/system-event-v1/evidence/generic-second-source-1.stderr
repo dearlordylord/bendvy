@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : a fresh name (duplicate declaration: Result)
+- observed : 'Result'
+Location:
+18 | type EventView is Data: EventView{namespace:U32,batches:List<&2,Ev.Batch<Bool>>,positions:List<&2,Ev.Position>,nextReader:U32,tick:Nat,frameStart:Nat,boundary:Nat,capacity:Nat,dropped:Nat,values:List<&2,Bool>}
+19>| type Result is Data:
+   |      ^^^^^^
+20 |   Success{world:WorldView,events:EventView,owner:OwnerMeta,outputs:List<&2,List<&2,U32>>}

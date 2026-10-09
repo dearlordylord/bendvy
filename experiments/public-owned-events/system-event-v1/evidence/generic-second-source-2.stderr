@@ -1,0 +1,8 @@
+SOME PROOFS FAIL
+Error:
+- message  : a parameter or field scrutinee (a match cannot scrutinize a computed value: give it its own def)
+Location:
+28 | def cells(owner:Array<U32>) -> List<&2,U32>:
+29>|   match O.array(owner):
+   |         ^^^^^^^^^^^^^^
+30 |     case (_,values): values

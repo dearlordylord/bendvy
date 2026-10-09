@@ -1,0 +1,23 @@
+SOME PROOFS FAIL
+Error:
+- expected : Quant
+- observed : Type
+Context:
+- namespace     : U32
+- next          : U32
+- high          : U32
+- live          : Array<Bool>
+- capacity      : U32
+- depth         : Nat
+- store         : Array<U32>
+- resources     : Array<Bool>
+- events        : List<&2, Bool>
+- pending       : List<&1, @_:W.World<Schema, Array<U32>, Array<Bool>, Bool> -> W.World<Schema, Array<U32>, Array<Bool>, Bool>>
+- registrations : List<&2, W.RegistrationMeta>
+- nextSystem    : U32
+- clock         : U32
+Location: world
+37 |   match owner:
+38>|     case W.World{namespace,next,high,live,capacity,depth,store,resources,events,pending,registrations,nextSystem,clock}: WorldView{namespace,next,high,bools(live),capacity,depth,cells(store),bools(resources),events,List.length(W.World<Schema,Array<U32>,Array<Bool>,Bool> -> W.World<Schema,Array<U32>,Array<Bool>,Bool>,pending),registrations,nextSystem,clock}
+   |                                                                                                                                                                                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+39 | def event(owner:Domains.Events<Schema,Bool>) -> EventView:

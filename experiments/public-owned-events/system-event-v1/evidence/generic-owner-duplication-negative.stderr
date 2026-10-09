@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : owner
+- observed : owner (consumed more than once)
+Location: duplicate
+4 | 
+5>| def duplicate(owner:Ordinary.Owner<Second.Schema,Second.Registry()>) -> Ordinary.Owner<Second.Schema,Second.Registry()> & Ordinary.Owner<Second.Schema,Second.Registry()>:
+  |               ^^^^^
+6 |   (owner,owner)
