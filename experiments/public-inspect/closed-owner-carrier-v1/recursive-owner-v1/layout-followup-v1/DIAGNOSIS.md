@@ -33,3 +33,20 @@ instances. Reverse this explicit Map relation, then join the original template's
 namespace to loaded source/lexical locations. Preserve instance and template keys;
 reject ambiguous relations rather than stripping a `~` suffix. This is source-backed
 mapping preparation, not measured compiler attribution or a compiler modification.
+
+## Corrected diagnostic admission — 2026-10-09
+
+Coordinator reviewed `58b51d4e` → `6066c577` (integrated as `b283e3d6` →
+`fd6a1d5f`). Synchronous regular-file publication preserves incomplete artifacts
+and compiler failure. The validator independently recomputes source mapping from
+captured exact template-instance values; it does not trust `originTemplate`.
+Ten focused validation controls pass. Original v4 ran and yielded truncated
+provenance; v5 never ran. Neither is overwritten.
+
+Admit one copied diagnostic using `/tmp/bendvy-inspect54-layout-provenance06/plan.json`,
+SHA256 `29d84873c0877de05addec99c89a025ba8ca127b130952d71ccbd4978da512d5`.
+Coordinator independently checked all 172 current file hashes and absence of C,
+profile and provenance outputs. Preserve the 30s hard/25s cooperative limits,
+full source/oracle, original guards and terminal receipt. Start only after the
+#48 six-plan cohort releases the heavy queue. This admits diagnostic execution,
+not Native delivery, installed-compiler attribution or performance qualification.
