@@ -1,0 +1,62 @@
+{
+  "scope": "Development actual JS wholeoracle gates, no replay/normalization",
+  "cohorts": {
+    "normal": {
+      "status": "DEVELOPMENT_PASS",
+      "planSHA256": "ae7aab0a23f1a2acccee6d3e8020c96b32cacc57f045f133f226782a38b2bb8e",
+      "oracleSHA256": "1f54b6bfa19f6db9a3d08fe030e2debf903ede484c45dd3efbf9d23f1ffe3036",
+      "rawSHA256": "f188fe3ada82e938c9c2c86a3f708090b74f2813f06bba70685b994b4df9278c",
+      "rawBytes": 518729,
+      "guards": 7,
+      "commands": [
+        {
+          "label": "emit",
+          "exit": 0,
+          "failure": null,
+          "capSeconds": 30
+        },
+        {
+          "label": "consumer",
+          "exit": 0,
+          "failure": null,
+          "capSeconds": 5
+        }
+      ],
+      "unchangedBaselineRejected": null,
+      "session": 21406
+    },
+    "mutant": {
+      "status": "DEVELOPMENT_PASS",
+      "planSHA256": "e40b6810efd9c44613c2b4d01b7eec5a89e933a567a65100d0b092fc16091bf5",
+      "oracleSHA256": "f4eb43fd7e1c07e0468f70f2f1cdd787148960107838ec13449b31a39652f14a",
+      "rawSHA256": "0cb099dfb2818b465b1dc2d318552eafa27c0cc663855572ac0aa6da843cca26",
+      "rawBytes": 516991,
+      "guards": 7,
+      "commands": [
+        {
+          "label": "emit",
+          "exit": 0,
+          "failure": null,
+          "capSeconds": 30
+        },
+        {
+          "label": "consumer",
+          "exit": 0,
+          "failure": null,
+          "capSeconds": 5
+        }
+      ],
+      "unchangedBaselineRejected": true,
+      "session": 6640
+    }
+  },
+  "wholeChangedPaths": [
+    "/Reported/report/handlers/descriptions/0/Some/handlers/entries",
+    "/Reported/report/handlers/descriptions/1/Some/handlers/entries"
+  ],
+  "remaining": [
+    "public core adoption",
+    "enumerable complete machine state-universe not declared by Family",
+    "Native full consumer not qualified"
+  ]
+}

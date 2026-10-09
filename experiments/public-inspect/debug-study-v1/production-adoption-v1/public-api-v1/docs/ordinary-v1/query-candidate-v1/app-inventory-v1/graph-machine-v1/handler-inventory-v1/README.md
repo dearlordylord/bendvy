@@ -11,3 +11,7 @@ Enabled description derives each typed selector (ExitFrom/TransitionPair/EnterTo
 Limit: Family has a name and erased nominal type/lens indexes, not an enumerable universe of all states or transitions. This successor reports actual declared handler selectors and transition pairs; it does not infer an undeclared universe. Public core promotion, all-machine general App retention and full #56 closure remain outside this experimental checkpoint.
 
 Direct source checks use preserved regular Bend 2.0.35 f774, cap5 and the shared child lock. Raw unsuccessful syntax checks remain alongside the eventual positive checks. Backend plans and expected models must be independently frozen before execution; no new policy, law, dependency or cap is introduced.
+
+## Actual development evidence
+
+Both original admitted JS v2 cohorts ran once and passed unchanged independent complete oracles: normal518729 bytes and reached omission516991 bytes, with empty stderr and14 total exact progressive guards. Both raw terms equal their pre-run synthetics byte-for-byte. Whole normalized differences are exactly the two Enabled description handler-entry arrays; all world/owner/cursor/marker/barrier and previous-report fields remain unchanged. `js-evidence-v2` retains28 lossless members; `verify-execution.py` checks their whole typed models and exact progressive input sets without replay. No Native, performance or public #56 completion is established by this successor.
