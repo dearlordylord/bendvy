@@ -15,6 +15,13 @@ with this direct check; prepare a frozen delivery cohort when the actual
 consuming application and its complete oracle are ready. Intermediate template
 checks do not require a new delivery wrapper or portable capsule.
 
+Within assigned files and agreed contracts, carry local implementation through
+the complete consuming fixture; report helper/source milestones as progress while
+continuing. Request a handoff at an unresolved contract, shared-file boundary or
+the separately reviewed backend launch, rather than before each local adapter.
+Freeze the consuming source and complete oracle together when that boundary is
+ready.
+
 For application fixtures, run the existing Node adapter and runnable Bend seam
 against their complete observation oracle before broad installed-tool discovery.
 Retain failed development attempts. These checks locate adapter/oracle errors;
