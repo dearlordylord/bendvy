@@ -93,22 +93,26 @@ def resource_snapshot(roots):
             for p in sorted(Path(root).rglob('*')) if p.is_file()} for root in roots}
 
 
-def prepare(out, oracle, expected_sha):
+def prepare(out, oracle, expected_sha, wrong_binding=False):
     out = Path(out).resolve()
     oracle = Path(oracle).resolve()
     parser = load('scenario_parser', TRANSPORT / 'transport.py')
-    identities = json.loads((TRANSPORT / 'constructor-identities.json').read_text())
-    if parser.Transport(ENTRY).inventory() != identities:
+    entry = HERE / ('wrong-binding.bend' if wrong_binding else 'main.bend')
+    inventory_path = TRANSPORT / ('wrong-binding-identities.json' if wrong_binding else 'constructor-identities.json')
+    oracle_name = 'wrong-binding-expected' if wrong_binding else 'expected'
+    expected_pin = '3e3e94825c28523ce544be586aaee998e3ae644f74481ba2d36e87edc7f292d2' if wrong_binding else EXPECTED
+    identities = json.loads(inventory_path.read_text())
+    if parser.Transport(entry).inventory() != identities:
         raise ValueError('Frozen original source/constructor inventory changed')
-    if expected_sha != EXPECTED or sha(oracle / 'expected.json') != EXPECTED:
+    if expected_sha != expected_pin or sha(oracle / (oracle_name + '.json')) != expected_pin:
         raise ValueError('Independent whole oracle changed')
     tools = {'bend': '/home/node/.bend/bin/bend-2.0.35', 'node': '/home/node/.local/share/mise/installs/node/24.20.0/bin/node', 'python': str(Path(sys.executable).resolve()), 'taskset': str(Path('/usr/bin/taskset').resolve(strict=True))}
     tools['clangWrapper'] = '/tmp/bendvy-clang19-diagnostic/clang19'
     tools['clangBinary'] = '/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang'
     config = ROOT / 'experiments/public-simulation/delivery-v1/installed-config.py'
-    extra = [config, Path(__file__), TRANSPORT / 'transport.py', TRANSPORT / 'constructor-identities.json',
+    extra = [config, Path(__file__), TRANSPORT / 'transport.py', inventory_path,
              ROOT / 'scripts/task_runner.py', ROOT / 'scripts/evidence_boundary.py',
-             oracle / 'expected.json', oracle / 'expected.stdout', oracle / 'expected.py', oracle / 'REVIEW.md', oracle / 'source-basis.json', oracle / 'observations.json', oracle / 'test_model.py',
+             oracle / (oracle_name + '.json'), oracle / (oracle_name + '.stdout'), oracle / 'expected.py', oracle / 'REVIEW.md', oracle / 'source-basis.json', oracle / 'test-models.py',
              INHERITED_ORACLE / 'expected.py', INHERITED_ORACLE / 'expected.json', INHERITED_ORACLE / 'expected.stdout', INHERITED_ORACLE / 'observations.json',
              HERE / 'README.md', HERE / 'test-admission.py', HERE / 'test-publication.py', TRANSPORT / 'test-transport.py', *map(Path, tools.values())]
     pins = dict(identities['sourceSHA256'])
@@ -119,9 +123,9 @@ def prepare(out, oracle, expected_sha):
     generated = out / 'scenario.c'
     native = out / 'scenario.native'
     plan = {'scope': 'direct development only; no complete resolver qualification or #41 completion',
-            'expectedSHA256': expected_sha, 'entrypoint': identities['entrypoint'], 'constructorInventory': str(TRANSPORT / 'constructor-identities.json'),
+            'expectedSHA256': expected_sha, 'entrypoint': identities['entrypoint'], 'constructorInventory': str(inventory_path),
             'resourceRoots': [str(root) for root in resources.directories], 'resourceInventory': resources.expected,
-            'pins': pins, 'environment': env, 'cwd': str(HERE), 'oracle': str(oracle / 'expected.json'),
+            'pins': pins, 'environment': env, 'cwd': str(HERE), 'oracle': str(oracle / (oracle_name + '.json')),
             'generated': str(generated), 'native': str(native),
             'tools': tools, 'commands': [
                 {'label': 'emit', 'argv': [tools['taskset'], '-c', '5', tools['bend'], identities['entrypoint'], '-o', str(generated)], 'capSeconds': 30},
@@ -219,12 +223,13 @@ def main():
     preparation.add_argument('output')
     preparation.add_argument('oracle_directory')
     preparation.add_argument('expected_sha256')
+    preparation.add_argument('--wrong-binding', action='store_true')
     execution = sub.add_parser('run')
     execution.add_argument('plan')
     execution.add_argument('admitted_sha256')
     args = parser.parse_args()
     if args.command == 'prepare':
-        prepare(args.output, args.oracle_directory, args.expected_sha256)
+        prepare(args.output, args.oracle_directory, args.expected_sha256, args.wrong_binding)
     else:
         run(args.plan, args.admitted_sha256)
 
