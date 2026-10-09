@@ -40,6 +40,97 @@ def validate_profile(data):
     if data.get('endTime',-1)<data.get('startTime',0):raise ValueError('invalid profile interval')
 
 
+def validate_provenance(data,plan):
+    def natural(value):
+        if type(value) is not int or value<0:raise ValueError('invalid provenance counter')
+        return value
+    if not isinstance(data,dict) or set(data)!={'observed','mapping','loaded','bookDefinitions'}:raise ValueError('provenance top-level fields')
+    observed=data['observed']
+    if set(observed)!={'scope','calls','omitted','errors','unknownCalls','definitionCounts','rows'}:raise ValueError('observed fields')
+    for key in ('calls','omitted','errors','unknownCalls'):natural(observed[key])
+    definitions={}
+    for row in data['bookDefinitions']:
+        if set(row)!={'key','tag','namespace'} or not isinstance(row['key'],str) or row['key'] in definitions:raise ValueError('Book identity rows')
+        if not isinstance(row['tag'],str) or not (row['namespace'] is None or isinstance(row['namespace'],str)):raise ValueError('Book metadata')
+        definitions[row['key']]=row
+    counts={}
+    for key,count in observed['definitionCounts']:
+        if not isinstance(key,str) or key in counts or key not in definitions or natural(count)==0:raise ValueError('definition count membership')
+        counts[key]=count
+    if sum(counts.values())+observed['unknownCalls']!=observed['calls']:raise ValueError('aggregate counter conservation')
+    rows=observed['rows']
+    if not isinstance(rows,list) or len(rows)>256:raise ValueError('shape bound')
+    signatures=set()
+    for row in rows:
+        if set(row)!={'definition','displayedDefinition','from','to','calls'} or not isinstance(row['definition'],str):raise ValueError('shape row')
+        if row['displayedDefinition']!=row['definition'].replace(':','.',1) or natural(row['calls'])==0:raise ValueError('shape spelling/count')
+        for key in ('from','to'):
+            layout=row[key]
+            if set(layout)!={'width','kinds','arms'} or not isinstance(layout['kinds'],list) or natural(layout['width'])!=len(layout['kinds']):raise ValueError('layout width')
+            if layout['arms'] is not None:
+                names=set()
+                for arm in layout['arms']:
+                    if set(arm)!={'name','fields'} or not isinstance(arm['name'],str) or arm['name'] in names:raise ValueError('ordered arm identity')
+                    names.add(arm['name'])
+                    for width in arm['fields']:natural(width)
+        signature=json.dumps({key:value for key,value in row.items() if key!='calls'},sort_keys=True)
+        if signature in signatures:raise ValueError('duplicate shape')
+        signatures.add(signature)
+    if sum(row['calls']for row in rows)+observed['omitted']+observed['errors']!=observed['calls']:raise ValueError('shape counter conservation')
+    loaded={}
+    for source,namespace in data['loaded']:
+        if source in loaded or not isinstance(namespace,str):raise ValueError('loaded namespace identity')
+        loaded[source]=namespace
+        if sha(source)!=plan['pins'][source]:raise ValueError('loaded source changed')
+    if set(loaded)!=set(plan['expectedLoadedSources']):raise ValueError('complete loaded source membership')
+    import re
+    lexical={}
+    for source in loaded:
+        lexical[source]=[(match.group(1),index) for index,line in enumerate(Path(source).read_text().splitlines(),1) if (match:=re.match(r'^def ([A-Za-z_][A-Za-z_0-9]*)',line))]
+    needed=set(counts)|{row['definition']for row in rows};mapped=set()
+    for row in data['mapping']:
+        key=row['definition']
+        if key in mapped or key not in needed:raise ValueError('mapping membership')
+        mapped.add(key)
+        tld=definitions.get(key)
+        expected={'definition':key,'status':'not-declared'}
+        if tld and tld['tag']=='Def':
+            ns=tld['namespace']
+            if not isinstance(ns,str):expected={'definition':key,'status':'missing-namespace'}
+            elif ns and not key.startswith(ns+':'):expected={'definition':key,'status':'namespace-mismatch','namespace':ns}
+            else:
+                local=key if ns=='' else key[len(ns)+1:]
+                sources=[source for source,namespace in loaded.items() if namespace==ns]
+                declarations=[]
+                for source in sources:
+                    declarations.extend((source,index) for name,index in lexical[source] if name==local)
+                if len(declarations)!=1:expected={'definition':key,'status':'ambiguous-source' if declarations else 'no-lexical-source','namespace':ns,'files':sources}
+                else:
+                    source,index=declarations[0]
+                    expected={'definition':key,'status':'mapped','namespace':ns,'localName':local,'source':source,'line':index,'sourceSHA256':plan['pins'][source]}
+        if row!=expected:raise ValueError('exact Book/source mapping differs')
+        if row['status']=='mapped':
+            if not tld or tld['tag']!='Def' or tld['namespace']!=row['namespace']:raise ValueError('mapped Book metadata')
+            namespace=row['namespace'];local=key if namespace=='' else key.removeprefix(namespace+':')
+            if namespace and not key.startswith(namespace+':'):raise ValueError('mapping key prefix')
+            if local!=row['localName'] or loaded.get(row['source'])!=namespace or row['sourceSHA256']!=plan['pins'][row['source']]:raise ValueError('mapping source join')
+            lines=Path(row['source']).read_text().splitlines();line=natural(row['line'])
+            import re
+            match=re.match(r'^def ([A-Za-z_][A-Za-z_0-9]*)',lines[line-1]) if 0<line<=len(lines) else None
+            if not match or match.group(1)!=local:raise ValueError('mapping lexical declaration')
+        elif row['status'] not in ('not-declared','missing-namespace','namespace-mismatch','ambiguous-source','no-lexical-source'):raise ValueError('unknown mapping status')
+        elif row['status']=='not-declared' and tld and tld['tag']=='Def':raise ValueError('false absent definition')
+    if mapped!=needed:raise ValueError('missing mappings')
+    return {'calls':observed['calls'],'definitions':len(counts),'unknownCalls':observed['unknownCalls'],'omitted':observed['omitted'],'errors':observed['errors'],'mapped':sum(row['status']=='mapped'for row in data['mapping']),'unmapped':sum(row['status']!='mapped'for row in data['mapping'])}
+
+def unique_object(pairs):
+    result={}
+    for key,value in pairs:
+        if key in result:raise ValueError('duplicate JSON field')
+        result[key]=value
+    return result
+
+
 def run(plan_path,admitted):
     plan_path=Path(plan_path).resolve(strict=True)
     if sha(plan_path)!=admitted: raise ValueError('plan admission mismatch')
@@ -51,7 +142,7 @@ def run(plan_path,admitted):
     VERIFIED_SOURCES={name:Path(name).read_bytes() for name in pins if name.endswith('.py')}
     if any(hashlib.sha256(raw).hexdigest()!=pins[name] for name,raw in VERIFIED_SOURCES.items()):raise ValueError('captured source drift')
     runner=load('reference_runner',ROOT/'scripts/task_runner.py');boundary=load('reference_boundary',ROOT/'scripts/evidence_boundary.py')
-    out=plan_path.parent;artifact=Path(plan['output']);profile=Path(plan['profile']);record={'scope':plan['scope'],'planSHA256':admitted,'commands':[],'guards':[]}
+    out=plan_path.parent;artifact=Path(plan['output']);profile=Path(plan['profile']);provenance=Path(plan['provenance']) if 'provenance' in plan else None;record={'scope':plan['scope'],'planSHA256':admitted,'commands':[],'guards':[]}
     def guard(label):
         actual={path:sha(path)for path in pins};unchanged=actual==pins
         target=out/(label+'.guard.json');capture(target,(json.dumps({'label':label,'unchanged':unchanged,'actualPins':actual},indent=2)+'\n').encode());record['guards'].append({'path':str(target),'sha256':sha(target)})
@@ -63,7 +154,7 @@ def run(plan_path,admitted):
                 fcntl.flock(lock,fcntl.LOCK_EX)
                 try:
                     guard('emit-acquired')
-                    if any(p.exists() or p.is_symlink() for p in (artifact,profile)): raise ValueError('artifacts start absent')
+                    if any(p.exists() or p.is_symlink() for p in ([artifact,profile]+([provenance] if provenance else []))): raise ValueError('artifacts start absent')
                     result=runner.execute_result(plan['argv'],30,plan['environment'],str(HERE),'split')
                 finally:fcntl.flock(lock,fcntl.LOCK_UN)
             row={'label':'reference-emit','argv':plan['argv'],'capSeconds':30}
@@ -77,6 +168,16 @@ def run(plan_path,admitted):
                 pins[str(profile)]=sha(profile);record['profileSHA256']=pins[str(profile)]
                 data=json.loads(profile.read_text());validate_profile(data);record['profileSamples']=len(data['samples'])
                 record['profileCaptured']=True
+            if provenance is not None:
+                if provenance.exists()or provenance.is_symlink():
+                    pins[str(provenance)]=sha(provenance);record['provenanceSHA256']=pins[str(provenance)]
+                    try:
+                        data=json.loads(provenance.read_text(),object_pairs_hook=unique_object)
+                        record['provenanceSummary']=validate_provenance(data,plan);record['provenanceComplete']=True
+                    except (ValueError,KeyError,TypeError,IndexError)as error:
+                        record['provenanceValidationError']=str(error)
+                else:record['provenanceValidationError']='provenance artifact absent'
             record['status']='REFERENCE_CPU_PROFILE_CAPTURED' if record.get('profileCaptured') and result['failure']is None else 'INCOMPLETE'
+            if provenance is not None and not record.get('provenanceComplete'):record['status']='INCOMPLETE'
             record['qualifiesInstalledCompiler']=False
 if __name__=='__main__':run(sys.argv[1],sys.argv[2])
