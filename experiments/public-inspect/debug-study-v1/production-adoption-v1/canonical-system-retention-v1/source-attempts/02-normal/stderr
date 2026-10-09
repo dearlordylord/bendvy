@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : ../../../../../../../../../src/ecs/ordinary-declaration.Declaration<S.Schema, Array<U32>>
+- observed : ../../../../dependencies/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/ordinary-declaration.Declaration<S.Schema, Array<U32>>
+Location: plain_read
+18 | def plain_read() -> Query.Declaration<S.Schema,Q.Frame<S.Schema,S.plain_store(),Unit,Unit>,Cap.Read<Q.Frame<S.Schema,S.plain_store(),Unit,Unit>,View.FullCell>>:
+19>|    Query.read(~S.Schema,~Array<U32>,~S.plain_store(),~Unit,~Unit,~plain_position_rest(),~View.FullCell,~Unit,~S.identity("Position"),~View.view,~plain_position_take,~plain_position_put)
+   |                                                                                                               ^^^^^^^^^^^^^^^^^^^^^^
+20 |  def plain_added() -> Query.Declaration<S.Schema,Q.Frame<S.Schema,S.plain_store(),Unit,Unit>,Unit>:
+bend 2.0.36 is available: run bend update

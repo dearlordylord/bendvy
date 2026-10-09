@@ -1,0 +1,17 @@
+import Base
+import ../../../dependencies/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/ordinary-schema.bend as Normal
+import ../../../../../../../../src/ecs/relation-types.bend as Relation
+import ../../../../../../../../src/ecs/machine.bend as Machine
+# Normal declaration retention; no description or display adapter is accepted.
+type MachineEntry<S:Data> is Data:
+  MachineEntry{name:String}
+type Declaration<S:Data,C:Type,R:Type> is Data:
+  Declaration{ordinary:Normal.Schema<S,C,R>,relations:List<&2,Relation.Descriptor<S>>,machines:List<&2,MachineEntry<S>>}
+def ordinary(~S:Data,~C:Type,~R:Type,schema:Normal.Schema<S,C,R>) -> Declaration<S,C,R>:
+  Declaration{schema,[],[]}
+def relation(~S:Data,~C:Type,~R:Type,schema:Declaration<S,C,R>,+declaration:Relation.Descriptor<S>) -> Declaration<S,C,R> & Relation.Descriptor<S>:
+  match schema:
+    case Declaration{ordinary,relations,machines}:(Declaration{ordinary,List.append(&2,Relation.Descriptor<S>,relations,[declaration]),machines},declaration)
+def machine_named(~S:Data,~C:Type,~R:Type,~K:Data,~V:Data,~take:R -> R & Machine.Slot<S,K,V>,~put:R -> Machine.Slot<S,K,V> -> R,schema:Declaration<S,C,R>,declaration:Machine.Family<S,K,V,R,take,put>) -> Declaration<S,C,R> & Machine.Family<S,K,V,R,take,put>:
+  match schema declaration:
+    case Declaration{ordinary,relations,machines} Machine.Family{+name}:(Declaration{ordinary,relations,List.append(&2,MachineEntry<S>,machines,[MachineEntry{name}])},Machine.Family{name})

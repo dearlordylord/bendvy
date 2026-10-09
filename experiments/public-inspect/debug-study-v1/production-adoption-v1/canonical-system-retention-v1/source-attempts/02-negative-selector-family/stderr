@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : B.Selector<T.Tag, T.Key, T.State>
+- observed : B.Selector<T.Tag, OtherKey, T.State>
+Context:
+- value : B.Selector<T.Tag, OtherKey, T.State>
+Location: wrong
+6 | def wrong(value:B.Selector<T.Tag,OtherKey,T.State>) -> B.Selector<T.Tag,T.Key,T.State>:
+7>|   value
+  |   ^^^^^
+8 | def main() -> Unit:
+bend 2.0.36 is available: run bend update

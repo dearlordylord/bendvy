@@ -1,0 +1,29 @@
+import Base
+import ./owner-product.bend as Product
+import ./ordinary-declaration.bend as Component
+import ../../../../../../../../../../../../../src/ecs/column.bend as Col
+import ../../../../../../../../../../../../../src/ecs/schema-fragments.bend as Fragment
+# One normal declaration drives schema entries and physical Store/Resources types.
+# Names default to the one ordinary key. No user metadata or lens input.
+type Schema<-S:Data,-Store:Type,-Resources:Type> is Data:
+  Schema{entries:List<&2,Fragment.Entry<S>>}
+type Resource<-S:Data,-P:Type> is Data:
+  Resource{key:String}
+def resource(~S:Data,~P:Type,key:String) -> Resource<S,P>:
+  Resource{key}
+def resource_key(~S:Data,~P:Type,value:Resource<S,P>) -> String:
+  match value:
+    case Resource{key}:key
+def component(~S:Data,~P:Type,declaration:Component.Declaration<S,P>) -> Schema<S,Col.Column<S,P>,Unit>:
+  +key=Component.key(~S,~P,declaration)
+  Schema{[Fragment.Entry{Fragment.Component{},key,key}]}
+def resource_schema(~S:Data,~P:Type,declaration:Resource<S,P>) -> Schema<S,Unit,P>:
+  +key=resource_key(~S,~P,declaration)
+  Schema{[Fragment.Entry{Fragment.Resource{},key,key}]}
+def entries(~S:Data,~C:Type,~R:Type,value:Schema<S,C,R>) -> List<&2,Fragment.Entry<S>>:
+  match value:
+    case Schema{entries}:entries
+def product(~S:Data,~LC:Type,~LR:Type,~RC:Type,~RR:Type,left:Schema<S,LC,LR>,right:Schema<S,RC,RR>) -> Schema<S,Product.Owner<LC,RC>,Product.Owner<LR,RR>>:
+  Schema{List.append(&2,Fragment.Entry<S>,entries(~S,~LC,~LR,left),entries(~S,~RC,~RR,right))}
+def validate(~S:Data,~C:Type,~R:Type,value:Schema<S,C,R>) -> Fragment.Validation:
+  Fragment.validate_loop(~S,entries(~S,~C,~R,value),[])

@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : Col.Column<Schema, Payload>
+- observed : ../../../../../../../../bendvy/src/ecs/column.Column<Schema, Payload>
+Context:
+- column      : ../../../../../../../../bendvy/src/ecs/column.Column<Schema, Payload>
+- declaration : Recipe.Transient<Schema, Payload, Identity.Declaration{"Transient"}>
+Location: transient_take
+35 |   match owner:
+36>|     case Leaf.TransientComponent{column,declaration}:(declaration,column)
+   |                                                                   ^^^^^^
+37 | def transient_put(declaration:Recipe.Transient<Schema,Payload,transient_identity()>,column:Col.Column<Schema,Payload>) -> Transient():
+bend 2.0.36 is available: run bend update
