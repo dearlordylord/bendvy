@@ -1,0 +1,21 @@
+--- promoted runtime import-rebased
++++ premature-publication
+@@ -83,9 +83,17 @@
+       (registry,+id) = identified
+       run_result(~S,~C,~R,~E,~A,~Error,~O,~runner,~classify,run_clocked(~S,~C,~R,~E,~A,~Error,~O,~runner,registry,W.advance_clock(~S,~C,~R,~E,world),Input{Read.all(~S,~E,keys,domains,position_or(Ev.lookup(positions,id),id,tick)),args}),keys,domains,positions,id,tick,frameStart,boundary,capacity)
+ 
++# Planted defect: execute queued structural mutations at reader entry.
++def premature_collected(~S: Data,~C: Type,~R: Type,~E: Data,state: B.BarrierState<S,C,R,E>,positions: List<&2,Ev.Position>,frameStart: Nat,boundary: Nat,capacity: Nat) -> Runtime<S,C,R,E>:
++  match state:
++    case B.BarrierState{world,domains,tick}: Runtime{world,domains,positions,tick,frameStart,boundary,capacity}
++def premature(~S: Data,~C: Type,~R: Type,~E: Data,~classify: E -> Maybe<D.DescriptorKey<S>>,runtime: Runtime<S,C,R,E>) -> Runtime<S,C,R,E>:
++  match runtime:
++    case Runtime{world,domains,positions,_,frameStart,boundary,capacity}: premature_collected(~S,~C,~R,~E,B.barrier(~S,~C,~R,~E,~classify,world,domains),positions,frameStart,boundary,capacity)
++
+ def run(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> Input<S,E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,~classify: E -> Maybe<D.DescriptorKey<S>>,runtime: Runtime<S,C,R,E>,reader: Reader<S,C,R,E,A,Error,O,runner>,args: A) -> RunResult<S,C,R,E,A,Error,O,runner>:
+   match reader:
+-    case Reader{registry,keys}: run_identified(~S,~C,~R,~E,~A,~Error,~O,~runner,~classify,runtime,Sy.identity(~S,~C,~R,~E,~Input<S,E,A>,~Error,~O,~runner,registry),keys,args)
++    case Reader{registry,keys}: run_identified(~S,~C,~R,~E,~A,~Error,~O,~runner,~classify,premature(~S,~C,~R,~E,~classify,runtime),Sy.identity(~S,~C,~R,~E,~Input<S,E,A>,~Error,~O,~runner,registry),keys,args)
+ def skipped_checked(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> Input<S,E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,allowed: Bool,runtime: Runtime<S,C,R,E>,reader: Reader<S,C,R,E,A,Error,O,runner>,+id: U32) -> Runtime<S,C,R,E> & Reader<S,C,R,E,A,Error,O,runner>:
+   match allowed runtime:
+     case False{} runtime: (runtime,reader)

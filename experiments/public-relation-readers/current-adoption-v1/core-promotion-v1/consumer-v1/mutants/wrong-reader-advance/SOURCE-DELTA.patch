@@ -1,0 +1,11 @@
+--- promoted runtime import-rebased
++++ wrong-reader-advance
+@@ -56,7 +56,7 @@
+   Ran{Runtime{world,Read.activate(~S,~E,keys,domains,id),Ev.activate(positions,id,previous),U32.to_nat(clock),frameStart,boundary,capacity},Reader{registry,keys},Failed{error}}
+ def succeeded_clocked(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> Input<S,E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,~classify: E -> Maybe<D.DescriptorKey<S>>,clocked: W.World<S,C,R,E> & U32,registry: Sy.Registry<S,C,R,E,Input<S,E,A>,Error,O,runner>,+keys: List<&2,D.DescriptorKey<S>>,+domains: List<&2,D.Domain<S,E>>,+positions: List<&2,Ev.Position>,+id: U32,+previous: Nat,frameStart: Nat,boundary: Nat,capacity: Nat,output: O) -> RunResult<S,C,R,E,A,Error,O,runner>:
+   (world,+clock) = clocked
+-  succeeded_collected(~S,~C,~R,~E,~A,~Error,~O,~runner,Route.collect(~S,~C,~R,~E,~classify,world,U32.to_nat(clock),Read.activate(~S,~E,keys,domains,id)),registry,keys,Ev.update(Ev.activate(positions,id,previous),id,U32.to_nat(clock),False{}),U32.to_nat(clock),frameStart,boundary,capacity,output)
++  succeeded_collected(~S,~C,~R,~E,~A,~Error,~O,~runner,Route.collect(~S,~C,~R,~E,~classify,world,U32.to_nat(clock),Read.activate(~S,~E,keys,domains,id)),registry,keys,Ev.update(Ev.activate(positions,id,previous),1,U32.to_nat(clock),False{}),U32.to_nat(clock),frameStart,boundary,capacity,output)
+ 
+ def outcome(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> Input<S,E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,~classify: E -> Maybe<D.DescriptorKey<S>>,outcome: Sy.Outcome<W.World<S,C,R,E>,Error,O>,registry: Sy.Registry<S,C,R,E,Input<S,E,A>,Error,O,runner>,+keys: List<&2,D.DescriptorKey<S>>,+domains: List<&2,D.Domain<S,E>>,+positions: List<&2,Ev.Position>,+id: U32,+tick: Nat,+frameStart: Nat,+boundary: Nat,+capacity: Nat) -> RunResult<S,C,R,E,A,Error,O,runner>:
+   match outcome:
