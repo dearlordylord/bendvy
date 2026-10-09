@@ -7,6 +7,11 @@ BASE=importlib.util.module_from_spec(spec);exec(compile(Path(spec.origin).read_b
 
 def spine_helper(entry,role=None):
  parent=Path(entry).resolve().parent
+ if role=="native-consuming":
+  path=parent/"transport-inventory.py"
+  spec=importlib.util.spec_from_file_location("native_consuming_inventory",path)
+  module=importlib.util.module_from_spec(spec);exec(compile(path.read_bytes(),str(path),"exec"),module.__dict__)
+  return module
  path=(parent.parent/'qualification-v1' if role in ('custom-spine','completion-spine','input-codec-spine') else parent)/'transport-inventory.py'
  spec=importlib.util.spec_from_file_location('complete_spine_inventory',path)
  module=importlib.util.module_from_spec(spec);exec(compile(path.read_bytes(),str(path),'exec'),module.__dict__)
@@ -15,6 +20,9 @@ def spine_helper(entry,role=None):
 def inventory(entry,assembly=False,role="normal"):
  role="generic-spine" if role=="completion-omission" else role
  entry=Path(entry).resolve()
+ if role=="native-consuming":
+  assert assembly and entry.name in ("main.bend","mutant-main.bend")
+  return spine_helper(entry,role).inventory(entry,BASE,role)
  if role in ('construction-spine','custom-spine','completion-spine','input-codec-spine'):
   assert assembly and entry.name=='complete-spine.bend','construction role requires complete source'
   return spine_helper(entry,role).inventory(entry,BASE,role)
@@ -72,6 +80,9 @@ def assembly_inventory(entry):
 
 def whole(value,role="normal"):
  role="generic-spine" if role=="completion-omission" else role
+ if role=="native-consuming":
+  assert type(value)is dict and set(value)=={"$","first","second","firstResource","secondResource"} and value["$"]=="Candidate"
+  return value
  if role in ("generic-assembly","generic-spine"):
   assert type(value) is dict and set(value)=={"$","second","first","recovery"} and value["$"]=="Candidate"
   return value
