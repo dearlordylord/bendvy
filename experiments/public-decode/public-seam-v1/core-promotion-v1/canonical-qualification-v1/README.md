@@ -1,0 +1,11 @@
+# Canonical consumer qualification — prepared, unlaunched
+
+Canonical public source: integration/ordinary-snapshot **bb3fa556**, `/workspace/formal-proofs/bendvy-worktrees/ordinary-snapshot-integration/src/ecs`. Complete generic15 and deferred8 consumers now import that one cohort. No copied declaration authority or application gameplay change. The original independent whole models are unchanged. All physical slots, owner sentinels, stamps, retained counters, Local state, Pending, refusals and full reports remain present.
+
+Actual source checks: two complete subjects, reached completion-omission mutant and eight actual opaque-H authority/affine negatives, CPU5/shared lock/source5; PASS. `source-checks.json` records current canonical adapter imports. `check-controls.py` checks whole nominal transport, untouched historical spine raw, and intended witness controls without backend children.
+
+The mutant changes only the **reached completion adapter**: recovered drops original owners before the application Local sink, retaining world/error/args/Pending. Full15 model must disagree and the witness additionally requires the second-schema failed run's two recovered owners become empty with unchanged world/error/args/Pending. Unrelated mismatch alone never kills this control. It is a negative experiment, not production source or a cleanup policy.
+
+`prepared-v1/manifest.json` lists five exact plans from the existing collector: positive generic/deferred JS30emit+5run, canonical C30emit, and completion-omission JS30emit+5run. No backend launched; independent admission required. stdlib bootstrap verifies exact plan/Python/all source/helper/tool pins before helper execution; existing runner/shared CPU5 lock and receipt boundaries retained. C emissions are steps toward Native qualification, not Native runtime claims.
+
+Native uses the SAME existing Native-from-C collector and approved Clang19 build120/run5, one thread/GPUoff/CPU5. Exact artifact-only plans require hashes of successful canonical C/receipts and are prepared after those terminal results; no re-emission or unchanged retry. Historical JS/Native evidence is preserved; this new cohort cannot borrow its nominal output as actual current execution.

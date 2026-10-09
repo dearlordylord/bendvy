@@ -1,0 +1,150 @@
+{
+  "canonicalCommit": "bb3fa556",
+  "admission": "pending independent review; no backend children executed",
+  "plans": [
+    {
+      "cohort": "completion-omission-js",
+      "path": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/core-promotion-v1/canonical-qualification-v1/prepared-v1/completion-omission-js/plan.json",
+      "sha256": "fab64903e1dadb9b3fb8e35b4e0eae23b044e6a5c3ba17f800b6651f9efc563f",
+      "state": "UNLAUNCHED",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/core-promotion-v1/canonical-qualification-v1/completion-omission/source/experiments/public-decode/public-seam-v1/list-spine-v1/generic-spine.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/core-promotion-v1/canonical-qualification-v1/prepared-v1/completion-omission-js/generated/complete.js"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/core-promotion-v1/canonical-qualification-v1/prepared-v1/completion-omission-js/generated/complete.js"
+        },
+        {
+          "label": "complete-run",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/core-promotion-v1/canonical-qualification-v1/prepared-v1/completion-omission-js/generated/complete.js"
+          ],
+          "capSeconds": 5
+        }
+      ]
+    },
+    {
+      "cohort": "generic-spine-cEmit",
+      "path": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/core-promotion-v1/canonical-qualification-v1/prepared-v1/generic-spine-cEmit/plan.json",
+      "sha256": "a974bd6eae2ea02e440aeaa0de478a195ecfecf1aefbe7a50e61a5c564599a38",
+      "state": "UNLAUNCHED",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/core-promotion-v1/canonical-qualification-v1/source/experiments/public-decode/public-seam-v1/list-spine-v1/generic-spine.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/core-promotion-v1/canonical-qualification-v1/prepared-v1/generic-spine-cEmit/generated/complete.c"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/core-promotion-v1/canonical-qualification-v1/prepared-v1/generic-spine-cEmit/generated/complete.c"
+        }
+      ]
+    },
+    {
+      "cohort": "deferred-spine-cEmit",
+      "path": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/core-promotion-v1/canonical-qualification-v1/prepared-v1/deferred-spine-cEmit/plan.json",
+      "sha256": "0ed9ee5e63d81ab86f920d9f367e7e2e358ab344c6d1027cee8edaa651d69b6b",
+      "state": "UNLAUNCHED",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/core-promotion-v1/canonical-qualification-v1/source/experiments/public-decode/public-seam-v1/list-spine-v1/deferred-spine.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/core-promotion-v1/canonical-qualification-v1/prepared-v1/deferred-spine-cEmit/generated/complete.c"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/core-promotion-v1/canonical-qualification-v1/prepared-v1/deferred-spine-cEmit/generated/complete.c"
+        }
+      ]
+    },
+    {
+      "cohort": "generic-spine-js",
+      "path": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/core-promotion-v1/canonical-qualification-v1/prepared-v1/generic-spine-js/plan.json",
+      "sha256": "d8aa161892b8cad95260a11fe6ac059dab7cb3b6f72e7cc58aa3c52de1be74ba",
+      "state": "UNLAUNCHED",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/core-promotion-v1/canonical-qualification-v1/source/experiments/public-decode/public-seam-v1/list-spine-v1/generic-spine.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/core-promotion-v1/canonical-qualification-v1/prepared-v1/generic-spine-js/generated/complete.js"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/core-promotion-v1/canonical-qualification-v1/prepared-v1/generic-spine-js/generated/complete.js"
+        },
+        {
+          "label": "complete-run",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/core-promotion-v1/canonical-qualification-v1/prepared-v1/generic-spine-js/generated/complete.js"
+          ],
+          "capSeconds": 5
+        }
+      ]
+    },
+    {
+      "cohort": "deferred-spine-js",
+      "path": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/core-promotion-v1/canonical-qualification-v1/prepared-v1/deferred-spine-js/plan.json",
+      "sha256": "9c4e3fa5c5d74f9a9f9db77130a77f82fb9fd51b2cc2f165b22a98624c9e27b4",
+      "state": "UNLAUNCHED",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/core-promotion-v1/canonical-qualification-v1/source/experiments/public-decode/public-seam-v1/list-spine-v1/deferred-spine.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/core-promotion-v1/canonical-qualification-v1/prepared-v1/deferred-spine-js/generated/complete.js"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/core-promotion-v1/canonical-qualification-v1/prepared-v1/deferred-spine-js/generated/complete.js"
+        },
+        {
+          "label": "complete-run",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/core-promotion-v1/canonical-qualification-v1/prepared-v1/deferred-spine-js/generated/complete.js"
+          ],
+          "capSeconds": 5
+        }
+      ]
+    }
+  ],
+  "native": "Existing Native-from-C collector: artifact-only Clang19 build120/run5 CPU5/thread1/GPUoff. Exact generated C/receipt-dependent plans freeze after reviewed canonical C succeeds; no re-emission."
+}

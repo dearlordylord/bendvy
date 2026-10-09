@@ -12,6 +12,7 @@ def spine_helper(entry):
  return module
 
 def inventory(entry,assembly=False,role="normal"):
+ role="generic-spine" if role=="completion-omission" else role
  entry=Path(entry).resolve()
  if role in ('generic-spine','deferred-spine'):
   assert assembly and entry.name==role+'.bend','spine role requires exact complete source'
@@ -66,6 +67,7 @@ def assembly_inventory(entry):
  return types
 
 def whole(value,role="normal"):
+ role="generic-spine" if role=="completion-omission" else role
  if role in ("generic-assembly","generic-spine"):
   assert type(value) is dict and set(value)=={"$","second","first","recovery"} and value["$"]=="Candidate"
   return value
@@ -82,12 +84,14 @@ def whole(value,role="normal"):
  return {'$':'Report','baseline':{'$':'Report',**{k:present(value[k]) for k in ('insert','spawn','resource','otherSchema')},'foreign':value['foreign']},'extension':present(value['extension'])}
 
 def render(expected,entry,assembly=False,role="normal"):
+ role="generic-spine" if role=="completion-omission" else role
  whole(expected,role)
  types,name=inventory(entry,assembly,role)
  subject=spine_helper(entry).pack(expected,role) if role in ('generic-spine','deferred-spine') else expected
  return (BASE.parser().render(BASE.codec(subject,types['Report'] if role in ('generic-spine','deferred-spine') else 'Report',types,name,True))+'\n').encode()
 
 def parse(raw,entry,assembly=False,role="normal"):
+ role="generic-spine" if role=="completion-omission" else role
  assert type(raw) is bytes
  p=BASE.parser();term=p.parse(raw.decode())
  assert (p.render(term)+'\n').encode()==raw,'noncanonical complete output'

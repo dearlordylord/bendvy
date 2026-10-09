@@ -57,9 +57,9 @@ def assembly_binding(path,digest):
     assert binding['mode'] in ('registered-decode-assembly-v1','generic-decode-assembly-v1','deferred-decode-assembly-v1','generic-spine-decode-assembly-v1','deferred-spine-decode-assembly-v1'), 'unknown assembly mode'
     entry=pinned_file(binding['entry'])
     role=binding.get('role','normal')
-    assert role in ('normal','local-failure','skip-validation','partial-write','generic-assembly','deferred-assembly','generic-spine','deferred-spine'), 'unknown assembly role'
-    assert binding['mode']==({'generic-assembly':'generic-decode-assembly-v1','deferred-assembly':'deferred-decode-assembly-v1','generic-spine':'generic-spine-decode-assembly-v1','deferred-spine':'deferred-spine-decode-assembly-v1'}.get(role,'registered-decode-assembly-v1')), 'mode/role mismatch'
-    assert entry.name==((role+'.bend') if role in ('generic-spine','deferred-spine') else ('complete.bend' if role=='generic-assembly' else ('fixture.bend' if role=='deferred-assembly' else ('failure-controls.bend' if role=='local-failure' else 'spine.bend')))), 'complete role entry required'
+    assert role in ('normal','local-failure','skip-validation','partial-write','generic-assembly','deferred-assembly','generic-spine','deferred-spine','completion-omission'), 'unknown assembly role'
+    assert binding['mode']==({'generic-assembly':'generic-decode-assembly-v1','deferred-assembly':'deferred-decode-assembly-v1','generic-spine':'generic-spine-decode-assembly-v1','deferred-spine':'deferred-spine-decode-assembly-v1','completion-omission':'generic-spine-decode-assembly-v1'}.get(role,'registered-decode-assembly-v1')), 'mode/role mismatch'
+    assert entry.name==(('generic-spine.bend' if role=='completion-omission' else role+'.bend') if role in ('generic-spine','deferred-spine','completion-omission') else ('complete.bend' if role=='generic-assembly' else ('fixture.bend' if role=='deferred-assembly' else ('failure-controls.bend' if role=='local-failure' else 'spine.bend')))), 'complete role entry required'
     if role in ('skip-validation','partial-write'):assert entry.parent.name==role, 'mutant role/source differs'
     assert type(binding['sourcePins']) is dict and binding['sourcePins'], 'complete source pins required'
     for filename,sha in binding['sourcePins'].items():pinned_file({'path':filename,'sha256':sha})
@@ -78,6 +78,10 @@ def assert_source_pins(binding,source_paths):
 
 
 def mutant_witness(role,observed,expected):
+    if role=='completion-omission':
+        actual=observed['second']['failure'];correct=expected['second']['failure']
+        a=actual['instance']['state']['recovery'];c=correct['instance']['state']['recovery']
+        return len(a)==len(c)==1 and len(c[0]['owners'])==2 and a[0]['owners']==[] and actual['before']==correct['before'] and actual['after']==correct['after'] and actual['result']==correct['result'] and a[0]['args']==c[0]['args'] and a[0]['pending']==c[0]['pending']
     # Same full independent correct oracle, plus a narrow reached discriminator;
     # arbitrary output mismatch is not a mutant-kill criterion.
     actual=observed['insert']['value']['lateInvalid']['result']['trace']
@@ -196,7 +200,7 @@ def main(out,native=False,execute=False,plan_digest=None,role="normal",binding_p
         inputs.add(path)
     authoring={pinned_file(pin) for pin in binding['oracle']['authoring']} if assembly else {oracle_home/'expected.py',oracle_home/'REVIEW.md'}
     if role in ('generic-assembly','deferred-assembly'):inputs.add((entries[0].parent if role=='generic-assembly' else entries[0].parent.parent/'generic-assembly-v1')/'transport-inventory.py')
-    if role in ('generic-spine','deferred-spine'):inputs.update({entries[0].parent/'transport-inventory.py',entries[0].parent.parent/'generic-assembly-v1/transport-inventory.py'})
+    if role in ('generic-spine','deferred-spine','completion-omission'):inputs.update({entries[0].parent/'transport-inventory.py',entries[0].parent.parent/'generic-assembly-v1/transport-inventory.py'})
     inputs.update({*authoring,basis_file,HERE/'transport.py',HERE.parent/'transport.py',ROOT/'experiments/public-simulation/bend-v1/parse-report.py',oracle})
     transport=load('decode_transport',HERE/'transport.py')
     expected=json.loads(oracle.read_text())
@@ -267,7 +271,7 @@ def main(out,native=False,execute=False,plan_digest=None,role="normal",binding_p
         else:
             observed=(raw/'complete-run.stdout').read_bytes()
             parsed=transport.parse(observed,entries[0],assembly,role)
-            if role in ('skip-validation','partial-write'):
+            if role in ('skip-validation','partial-write','completion-omission'):
                 assert transport.render(parsed,entries[0],assembly,role)==observed, 'mutant raw roundtrip differs'
                 assert parsed!=expected and observed!=expected_raw, 'reached mutant survived complete independent oracle'
                 assert mutant_witness(role,parsed,expected), 'complete disagreement lacks intended reached witness'
@@ -276,7 +280,7 @@ def main(out,native=False,execute=False,plan_digest=None,role="normal",binding_p
                 assert observed==expected_raw, 'complete raw output differs from pre-run oracle'
             assert (raw/'complete-run.stderr').read_bytes()==b'', 'unexpected runtime stderr'
             assert transport.whole(expected,role)==json.loads(baseline_oracle.read_text())
-            record['status']='DEVELOPMENT_JS_MUTANT_KILLED' if role in ('skip-validation','partial-write') else 'DEVELOPMENT_JS_PASS'
+            record['status']='DEVELOPMENT_JS_MUTANT_KILLED' if role in ('skip-validation','partial-write','completion-omission') else 'DEVELOPMENT_JS_PASS'
     print(json.dumps({'receipt':str(out/'receipt.json'),'status':record['status']}))
 
 
@@ -284,7 +288,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--assembly-binding',type=Path,help='Explicit complete source/independent oracle binding; default preserves historical cohort')
     parser.add_argument('--assembly-binding-sha256',help='Required exact binding digest')
-    parser.add_argument('--role',choices=['normal','local-failure','skip-validation','partial-write','generic-assembly','deferred-assembly','generic-spine','deferred-spine'],default='normal')
+    parser.add_argument('--role',choices=['normal','local-failure','skip-validation','partial-write','generic-assembly','deferred-assembly','generic-spine','deferred-spine','completion-omission'],default='normal')
     parser.add_argument('--native',action='store_true')
     parser.add_argument('--execute',action='store_true',help='Consume existing --output/plan.json after admission; default prepares without a child')
     parser.add_argument('--plan-sha256',help='Required exact admitted plan digest for --execute')
