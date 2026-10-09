@@ -1,0 +1,239 @@
+{
+  "scope": "Public relation provider full physical two-world rollback integration development only; no #42 completion/performance",
+  "planSHA256": "78731e593d21f35e88f2105afffcc32dfce72c9246714155ba964ad4a12695a4",
+  "commands": [
+    {
+      "label": "emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-42-adoption-current/experiments/public-relations/promotion-stage/adoption-current-v1/physical-v1/controls/absent-slot-omission/stage/experiments/public-relations/promotion-stage/adoption-current-v1/physical-v1/foreign-provider.bend",
+        "-o",
+        "/tmp/bendvy-relations42-physical-backends01/absent-slot-omission-native/scenario.c"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "failure": null,
+      "stdout": {
+        "path": "/tmp/bendvy-relations42-physical-backends01/absent-slot-omission-native/emit.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "/tmp/bendvy-relations42-physical-backends01/absent-slot-omission-native/emit.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+    },
+    {
+      "label": "build",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/bendvy-relations42-physical-backends01/absent-slot-omission-native/scenario.c",
+        "-o",
+        "/tmp/bendvy-relations42-physical-backends01/absent-slot-omission-native/scenario.native",
+        "-pthread",
+        "-lm"
+      ],
+      "capSeconds": 120,
+      "exit": 0,
+      "failure": null,
+      "stdout": {
+        "path": "/tmp/bendvy-relations42-physical-backends01/absent-slot-omission-native/build.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "/tmp/bendvy-relations42-physical-backends01/absent-slot-omission-native/build.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+    },
+    {
+      "label": "consumer",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/tmp/bendvy-relations42-physical-backends01/absent-slot-omission-native/scenario.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "stdout": {
+        "path": "/tmp/bendvy-relations42-physical-backends01/absent-slot-omission-native/consumer.stdout",
+        "sha256": "d7dcb13208484f9fe16514e5fa9a0ee984df6052e2fbb197bc41bea65d01e360",
+        "bytes": 8561
+      },
+      "stderr": {
+        "path": "/tmp/bendvy-relations42-physical-backends01/absent-slot-omission-native/consumer.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+    }
+  ],
+  "guards": [
+    {
+      "path": "/tmp/bendvy-relations42-physical-backends01/absent-slot-omission-native/emit-pre.guard.json",
+      "sha256": "3f90a11e42d41411adc7201f28be1f391c3d24eeec66665bffef67250ae451fd"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-physical-backends01/absent-slot-omission-native/emit-acquired.guard.json",
+      "sha256": "cefa510f2460e606cea70d5c98a212279fa740cf1ed18cb42488c152c64b81a5"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-physical-backends01/absent-slot-omission-native/emit-post.guard.json",
+      "sha256": "f1a7b66f5c9aac63ebac22e4297f2e09e41dd935c68be5bbd2f0acf6c0325d5f"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-physical-backends01/absent-slot-omission-native/build-pre.guard.json",
+      "sha256": "796cdbfce27aa532c71c993a8016b016f246fcd13549e3c2ab7571396b4ffb96"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-physical-backends01/absent-slot-omission-native/build-acquired.guard.json",
+      "sha256": "3bd990c5c7cfde38fc9456d86cacabb1fb01f0665c6bda414de7cacd02bd2843"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-physical-backends01/absent-slot-omission-native/build-post.guard.json",
+      "sha256": "66615cd9fff89d52de127b1bc39db1ad0f6c3980799c2095a0a6f91e57eaa963"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-physical-backends01/absent-slot-omission-native/consumer-pre.guard.json",
+      "sha256": "def50710ef6a4a86b2c6fbdb69cd1c124d393cfd8f515c93392fe8bfaef2534e"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-physical-backends01/absent-slot-omission-native/consumer-acquired.guard.json",
+      "sha256": "58e8a3bd3b44e487f56aad7904171046fb7b75b60be75c12d452c10c6a37674f"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-physical-backends01/absent-slot-omission-native/consumer-post.guard.json",
+      "sha256": "0ebd4b5c6def8cb5ab216449704bc734330c5986823548fdaeef08230095a2ef"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-physical-backends01/absent-slot-omission-native/final.guard.json",
+      "sha256": "3dd9ffa6221d032cdbe4395924004a8b70f399016e43e6315651aca3fa744b5c"
+    }
+  ],
+  "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+  "emitArtifactSHA256": "3da3724a9663e8c4b7c54585444fb6282afc6de3c4060fb447c42fb3705d4217",
+  "buildArtifactSHA256": "63cee2de203ead7840944f7f4dcfaeba05e978197c3c73708e43b2c451b7f949",
+  "witnesses": [
+    {
+      "line1": 2,
+      "expected": "before|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=|meta=1,5,4,8,3,77,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;absent;absent;absent;absent;|lifecycle=1:7:9;|edges=|inverseRows=|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;",
+      "actual": "before|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=|meta=1,5,4,8,3,77,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|lifecycle=1:7:9;|edges=|inverseRows=|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;"
+    },
+    {
+      "line1": 3,
+      "expected": "second|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=|meta=2,5,4,8,3,88,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;absent;absent;absent;absent;|lifecycle=1:7:9;|edges=|inverseRows=|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;",
+      "actual": "second|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=|meta=2,5,4,8,3,88,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|lifecycle=1:7:9;|edges=|inverseRows=|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;"
+    },
+    {
+      "line1": 10,
+      "expected": "queued|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=|meta=1,5,4,8,3,77,2,0|pending=1|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;absent;absent;absent;absent;|lifecycle=1:7:9;|edges=|inverseRows=|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;",
+      "actual": "queued|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=|meta=1,5,4,8,3,77,2,0|pending=1|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|lifecycle=1:7:9;|edges=|inverseRows=|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;"
+    },
+    {
+      "line1": 11,
+      "expected": "second|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=|meta=2,5,4,8,3,88,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;absent;absent;absent;absent;|lifecycle=1:7:9;|edges=|inverseRows=|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;",
+      "actual": "second|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=|meta=2,5,4,8,3,88,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|lifecycle=1:7:9;|edges=|inverseRows=|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;"
+    },
+    {
+      "line1": 12,
+      "expected": "after|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|3,:|events=|meta=1,5,4,8,3,77,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;absent;absent;absent;absent;|lifecycle=1:7:9;|edges=1:Link:LinkedBy:Ordinary:3:1;|inverseRows=1:Link:LinkedBy:Ordinary:1:3,;|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;",
+      "actual": "after|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|3,:|events=|meta=1,5,4,8,3,77,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|lifecycle=1:7:9;|edges=1:Link:LinkedBy:Ordinary:3:1;|inverseRows=1:Link:LinkedBy:Ordinary:1:3,;|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;"
+    },
+    {
+      "line1": 13,
+      "expected": "second|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=|meta=2,5,4,8,3,88,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;absent;absent;absent;absent;|lifecycle=1:7:9;|edges=|inverseRows=|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;",
+      "actual": "second|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=|meta=2,5,4,8,3,88,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|lifecycle=1:7:9;|edges=|inverseRows=|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;"
+    },
+    {
+      "line1": 17,
+      "expected": "rollback|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|3,:|events=|meta=1,5,4,8,3,77,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;absent;absent;absent;absent;|lifecycle=1:7:9;|edges=1:Link:LinkedBy:Ordinary:3:1;|inverseRows=1:Link:LinkedBy:Ordinary:1:3,;|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;",
+      "actual": "rollback|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|3,:|events=|meta=1,5,4,8,3,77,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|lifecycle=1:7:9;|edges=1:Link:LinkedBy:Ordinary:3:1;|inverseRows=1:Link:LinkedBy:Ordinary:1:3,;|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;"
+    },
+    {
+      "line1": 18,
+      "expected": "second|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=|meta=2,5,4,8,3,88,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;absent;absent;absent;absent;|lifecycle=1:7:9;|edges=|inverseRows=|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;",
+      "actual": "second|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=|meta=2,5,4,8,3,88,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|lifecycle=1:7:9;|edges=|inverseRows=|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;"
+    },
+    {
+      "line1": 19,
+      "expected": "rollback-barrier|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|3,:|events=|meta=1,5,4,8,3,77,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;absent;absent;absent;absent;|lifecycle=1:7:9;|edges=1:Link:LinkedBy:Ordinary:3:1;|inverseRows=1:Link:LinkedBy:Ordinary:1:3,;|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;",
+      "actual": "rollback-barrier|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|3,:|events=|meta=1,5,4,8,3,77,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|lifecycle=1:7:9;|edges=1:Link:LinkedBy:Ordinary:3:1;|inverseRows=1:Link:LinkedBy:Ordinary:1:3,;|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;"
+    },
+    {
+      "line1": 20,
+      "expected": "second|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=|meta=2,5,4,8,3,88,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;absent;absent;absent;absent;|lifecycle=1:7:9;|edges=|inverseRows=|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;",
+      "actual": "second|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=|meta=2,5,4,8,3,88,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|lifecycle=1:7:9;|edges=|inverseRows=|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;"
+    },
+    {
+      "line1": 22,
+      "expected": "before|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=|meta=1,5,4,8,3,77,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;absent;absent;absent;absent;|lifecycle=1:7:9;|edges=|inverseRows=|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;",
+      "actual": "before|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=|meta=1,5,4,8,3,77,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|lifecycle=1:7:9;|edges=|inverseRows=|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;"
+    },
+    {
+      "line1": 23,
+      "expected": "second|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=|meta=2,5,4,8,3,88,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;absent;absent;absent;absent;|lifecycle=1:7:9;|edges=|inverseRows=|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;",
+      "actual": "second|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=|meta=2,5,4,8,3,88,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|lifecycle=1:7:9;|edges=|inverseRows=|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;"
+    },
+    {
+      "line1": 30,
+      "expected": "queued|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=|meta=1,5,4,8,3,77,2,0|pending=1|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;absent;absent;absent;absent;|lifecycle=1:7:9;|edges=|inverseRows=|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;",
+      "actual": "queued|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=|meta=1,5,4,8,3,77,2,0|pending=1|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|lifecycle=1:7:9;|edges=|inverseRows=|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;"
+    },
+    {
+      "line1": 31,
+      "expected": "second|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=|meta=2,5,4,8,3,88,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;absent;absent;absent;absent;|lifecycle=1:7:9;|edges=|inverseRows=|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;",
+      "actual": "second|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=|meta=2,5,4,8,3,88,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|lifecycle=1:7:9;|edges=|inverseRows=|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;"
+    },
+    {
+      "line1": 32,
+      "expected": "after|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|3,:|events=|meta=1,5,4,8,3,77,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;absent;absent;absent;absent;|lifecycle=1:7:9;|edges=1:Link:LinkedBy:Ordinary:3:1;|inverseRows=1:Link:LinkedBy:Ordinary:1:3,;|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;",
+      "actual": "after|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|3,:|events=|meta=1,5,4,8,3,77,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|lifecycle=1:7:9;|edges=1:Link:LinkedBy:Ordinary:3:1;|inverseRows=1:Link:LinkedBy:Ordinary:1:3,;|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;"
+    },
+    {
+      "line1": 33,
+      "expected": "second|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=|meta=2,5,4,8,3,88,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;absent;absent;absent;absent;|lifecycle=1:7:9;|edges=|inverseRows=|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;",
+      "actual": "second|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=|meta=2,5,4,8,3,88,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|lifecycle=1:7:9;|edges=|inverseRows=|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;"
+    },
+    {
+      "line1": 37,
+      "expected": "rollback|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|3,:|events=|meta=1,5,4,8,3,77,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;absent;absent;absent;absent;|lifecycle=1:7:9;|edges=1:Link:LinkedBy:Ordinary:3:1;|inverseRows=1:Link:LinkedBy:Ordinary:1:3,;|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;",
+      "actual": "rollback|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|3,:|events=|meta=1,5,4,8,3,77,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|lifecycle=1:7:9;|edges=1:Link:LinkedBy:Ordinary:3:1;|inverseRows=1:Link:LinkedBy:Ordinary:1:3,;|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;"
+    },
+    {
+      "line1": 38,
+      "expected": "second|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=|meta=2,5,4,8,3,88,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;absent;absent;absent;absent;|lifecycle=1:7:9;|edges=|inverseRows=|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;",
+      "actual": "second|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=|meta=2,5,4,8,3,88,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|lifecycle=1:7:9;|edges=|inverseRows=|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;"
+    },
+    {
+      "line1": 39,
+      "expected": "rollback-barrier|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|3,:|events=|meta=1,5,4,8,3,77,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;absent;absent;absent;absent;|lifecycle=1:7:9;|edges=1:Link:LinkedBy:Ordinary:3:1;|inverseRows=1:Link:LinkedBy:Ordinary:1:3,;|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;",
+      "actual": "rollback-barrier|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|3,:|events=|meta=1,5,4,8,3,77,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|lifecycle=1:7:9;|edges=1:Link:LinkedBy:Ordinary:3:1;|inverseRows=1:Link:LinkedBy:Ordinary:1:3,;|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;"
+    },
+    {
+      "line1": 40,
+      "expected": "second|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=|meta=2,5,4,8,3,88,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;absent;absent;absent;absent;|lifecycle=1:7:9;|edges=|inverseRows=|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;",
+      "actual": "second|100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|:|events=|meta=2,5,4,8,3,88,2,0|pending=0|columnVariant=Column|columnSize=8|columnSlots=100,10,;200,20,21,;300,30,31,32,33,;400,40,41,42,43,44,45,46,47,;|lifecycle=1:7:9;|edges=|inverseRows=|liveSize=8|liveBits=False,True,True,True,True,False,False,False,|registrations=1:foreign-provider:relation:Link:write,;"
+    }
+  ],
+  "wholeOracleSHA256": "d7dcb13208484f9fe16514e5fa9a0ee984df6052e2fbb197bc41bea65d01e360"
+}

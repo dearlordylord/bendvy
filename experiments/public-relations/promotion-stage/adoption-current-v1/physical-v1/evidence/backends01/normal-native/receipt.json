@@ -1,0 +1,138 @@
+{
+  "scope": "Public relation provider full physical two-world rollback integration development only; no #42 completion/performance",
+  "planSHA256": "8657c2248a8ed841f611401e7182ccb366e8d48d78adca084ad14d3a8c98b355",
+  "commands": [
+    {
+      "label": "emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-42-adoption-current/experiments/public-relations/promotion-stage/adoption-current-v1/physical-v1/stage/experiments/public-relations/promotion-stage/adoption-current-v1/physical-v1/foreign-provider.bend",
+        "-o",
+        "/tmp/bendvy-relations42-physical-backends01/normal-native/scenario.c"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "failure": null,
+      "stdout": {
+        "path": "/tmp/bendvy-relations42-physical-backends01/normal-native/emit.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "/tmp/bendvy-relations42-physical-backends01/normal-native/emit.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+    },
+    {
+      "label": "build",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/bendvy-relations42-physical-backends01/normal-native/scenario.c",
+        "-o",
+        "/tmp/bendvy-relations42-physical-backends01/normal-native/scenario.native",
+        "-pthread",
+        "-lm"
+      ],
+      "capSeconds": 120,
+      "exit": 0,
+      "failure": null,
+      "stdout": {
+        "path": "/tmp/bendvy-relations42-physical-backends01/normal-native/build.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "/tmp/bendvy-relations42-physical-backends01/normal-native/build.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+    },
+    {
+      "label": "consumer",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/tmp/bendvy-relations42-physical-backends01/normal-native/scenario.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "stdout": {
+        "path": "/tmp/bendvy-relations42-physical-backends01/normal-native/consumer.stdout",
+        "sha256": "891279a5c0fc41acf5419f9a2d1a58c30abf2ae87a807ef0e3ee3d21e4801d1e",
+        "bytes": 9121
+      },
+      "stderr": {
+        "path": "/tmp/bendvy-relations42-physical-backends01/normal-native/consumer.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+    }
+  ],
+  "guards": [
+    {
+      "path": "/tmp/bendvy-relations42-physical-backends01/normal-native/emit-pre.guard.json",
+      "sha256": "3d2bc59698e17cfbca7d110b54e885b17781619834be6a8e291952378926ca40"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-physical-backends01/normal-native/emit-acquired.guard.json",
+      "sha256": "b47e4b8ead42909ca6044f46816b4b99e92aee362930d19ced57cd96b6ea4cfc"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-physical-backends01/normal-native/emit-post.guard.json",
+      "sha256": "4763be882414c1e75c2c245126547a3932405f58de9e39d0d6fc906218ef732a"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-physical-backends01/normal-native/build-pre.guard.json",
+      "sha256": "d138621d7d91cb4e6b183bd2623f6f5721c1337ee12bcd24c19050ab83a07e5e"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-physical-backends01/normal-native/build-acquired.guard.json",
+      "sha256": "d960dd39e2596ca17ac5c418d782e99fc77e71e65ca65eed6a694b9b36c3c024"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-physical-backends01/normal-native/build-post.guard.json",
+      "sha256": "2211be9b75ee2cf8788c6ccdc139e87b5ad3a78af9eba450af5504d15c784ca4"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-physical-backends01/normal-native/consumer-pre.guard.json",
+      "sha256": "2a79edc14d045f249f8a0c069f586fcaf3dc30357840560be953decfaa893ab3"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-physical-backends01/normal-native/consumer-acquired.guard.json",
+      "sha256": "f8d6a10ff2141efb1afc027b086f395d5f7cde248bdcce829ef4ecdbdb2a9d2d"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-physical-backends01/normal-native/consumer-post.guard.json",
+      "sha256": "aa9a0f2f11b0ffd05af6588c464b548aa11d0b6956d93b5e3593b91c775166a6"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-physical-backends01/normal-native/final.guard.json",
+      "sha256": "8a3eb977672b674f49fea7e060e05a2eb502b7963c6d46fa3ec67e2a2a93406e"
+    }
+  ],
+  "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+  "emitArtifactSHA256": "a0b9d3466b5de892b1a85175f0f0d4b7206c0cdcf14345fcb084109df3204f98",
+  "buildArtifactSHA256": "e9eb33e0683df2526c4015f5171d7b12ac43a4c7f03ace1e4562f8c77617ad12",
+  "witnesses": [],
+  "wholeOracleSHA256": "891279a5c0fc41acf5419f9a2d1a58c30abf2ae87a807ef0e3ee3d21e4801d1e"
+}
