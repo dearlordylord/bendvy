@@ -1,0 +1,57 @@
+{
+  "scope": "Full recursive consumer copied-reference comparator hypothesis; exact source-domain equality controls, no installed compiler change or performance qualification",
+  "planSHA256": "b10af1c710bd527852d8510d94e70c7feceef665c9343088075facc3e4904bc0",
+  "commands": [
+    {
+      "label": "reference-emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-54-boxed-scan/experiments/public-inspect/closed-owner-carrier-v1/recursive-owner-v1/layout-followup-v1/comparator-v1/emit.mts",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-54-boxed-scan/experiments/public-inspect/closed-owner-carrier-v1/recursive-owner-v1/stage/output-io-main.bend",
+        "/tmp/bendvy-inspect54-comparator-profile01/reference.c",
+        "/tmp/bendvy-inspect54-comparator-profile01/recursive.cpuprofile"
+      ],
+      "capSeconds": 30,
+      "exit": 1,
+      "failure": null,
+      "stdout": {
+        "path": "/tmp/bendvy-inspect54-comparator-profile01/emit.stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/tmp/bendvy-inspect54-comparator-profile01/emit.stderr",
+        "bytes": 39152,
+        "sha256": "d368b8cd5ad7ee9e038e3bb3f5bcca8c503d38479ad8ef80674077631198942f"
+      },
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+    }
+  ],
+  "guards": [
+    {
+      "path": "/tmp/bendvy-inspect54-comparator-profile01/emit-pre.guard.json",
+      "sha256": "7ce995a7c5d947e1f2ab49266438b29a5aed9343880dd0df01a5dd7686098b7a"
+    },
+    {
+      "path": "/tmp/bendvy-inspect54-comparator-profile01/emit-acquired.guard.json",
+      "sha256": "5827a4f10102ec2553c950e5ae33386954afe2f4d12af090f5861dc39a78aaaa"
+    },
+    {
+      "path": "/tmp/bendvy-inspect54-comparator-profile01/emit-post.guard.json",
+      "sha256": "eb9d1c2d439889e1d58e186bcd28aeba2bc0118cd029bea335b06a618e21dd45"
+    },
+    {
+      "path": "/tmp/bendvy-inspect54-comparator-profile01/final.guard.json",
+      "sha256": "2b1c850ec69b3f9c164ad0c9b512da8d44518f8966a7f091d3d5e82afc6a2902"
+    }
+  ],
+  "status": "REFERENCE_CPU_PROFILE_CAPTURED",
+  "profileSHA256": "498dba2d01e608588a4537d4671528cad5c0207f047ca771d7c7f00c378d64a1",
+  "profileSamples": 19032,
+  "profileCaptured": true,
+  "qualifiesInstalledCompiler": false
+}

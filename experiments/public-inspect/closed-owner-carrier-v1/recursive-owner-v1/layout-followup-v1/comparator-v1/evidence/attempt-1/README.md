@@ -1,0 +1,1 @@
+Exact admitted profile01 executed once. Cooperative diagnostic abort preserved; no C generated. Receipt REFERENCE_CPU_PROFILE_CAPTURED indicates profile capture only. Raw profile gzip is lossless. Four guards retained. No backend, retry or cap change. profile02 was not executed.
