@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : S.PlainSlot<"Health">
+- observed : S.PlainSlot<"Position">
+Context:
+- owner : S.PlainSlot<"Position">
+Location: wrong
+5 | def wrong(owner:S.plain_position()) -> S.plain_position() & Fragment.Entry<S.Schema>:
+6>|   Schema.plain_slot(~"Health",owner)
+  |                               ^^^^^
+7 | 
+bend 2.0.36 is available: run bend update

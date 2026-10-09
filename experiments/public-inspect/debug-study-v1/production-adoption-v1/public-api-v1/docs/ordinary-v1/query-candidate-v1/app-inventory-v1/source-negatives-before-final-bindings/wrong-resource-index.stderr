@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : ../../../../../../../../../../../bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/ordinary-schema.Schema<Tag, Unit, Array<U32>>
+- observed : ../../../../../../../../../../../bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/ordinary-schema.Schema<Tag, Unit, Unit>
+Location: wrong
+6 | def wrong() -> App.Owners<Tag,Unit,Array<U32>,Unit>:
+7>|   App.empty(~Tag,~Unit,~Array<U32>,1,App.Enabled{},Schema.empty(~Tag))
+  |                                                    ^^^^^^^^^^^^^^^^^^
+8 | 
+bend 2.0.36 is available: run bend update
