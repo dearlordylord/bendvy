@@ -73,7 +73,7 @@ def cases(~S:Data,+op:App.Operation) -> Cases:
 type Foreign is Data: Foreign{first:O.Snapshot,result:Observation} ForeignSetupRefused{}
 def foreign_ready(first:O.Snapshot,+foreign:W.Handle<Schema>,result:C.Replacement<App.World(~Schema),Input.Owner>) -> Foreign:
   match result:
-    case C.Replaced{world,previous}: Foreign{first,observed_before(~Schema,foreign,App.Insert{},D.ArrayValue{D.Integer{}},D.Array{Input.items(3n,[])},option(previous),O.snapshot(~Schema,W.enqueue(~Schema,~App.Store(~Schema),~Input.Owner,~Unit,mark(~Schema,world),mark(~Schema))))}
+    case C.Replaced{world,previous}: Foreign{first,observed_before(~Schema,foreign,App.Insert{},D.Struct{Input.codecs(64n,0)},D.Object{Input.fields(64n,0,[D.Field{"extra",D.Text{"drop-me"}}])},option(previous),O.snapshot(~Schema,W.enqueue(~Schema,~App.Store(~Schema),~Input.Owner,~Unit,mark(~Schema,world),mark(~Schema))))}
     case C.ReplaceRejected{world,incoming,error}: ForeignSetupRefused{}
 def foreign_activated(first:O.Snapshot,foreign:W.Handle<Schema>,+local:W.Handle<Schema>,result:App.World(~Schema) & W.Status) -> Foreign:
   match result:

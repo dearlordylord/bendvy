@@ -20,10 +20,16 @@ type Operation is Data: Insert{} Resource{} Spawn{}
 type Output<-S:Data> is Type:
   Replaced{original:D.Raw,previous:Maybe<&1,Input.Owner>,handle:Maybe<&2,W.Handle<S>>}
   OperationRefused{original:D.Raw,incoming:Maybe<&1,Input.Owner>,error:W.WorldError}
+# Concrete payload repair only: normalization changed its description Data,
+# so rejection restores the original description while returning the same sentinel.
+def original_incoming(+original:D.Raw,incoming:Maybe<&1,Input.Owner>) -> Maybe<&1,Input.Owner>:
+  match incoming:
+    case None{}: None{}
+    case Some{Input.Owner{_,sentinel}}: Some{Input.Owner{original,sentinel}}
 def replacement(~S:Data,+original:D.Raw,handle:Maybe<&2,W.Handle<S>>,result:C.Replacement<World(~S),Input.Owner>) -> World(~S) & Output<S>:
   match result:
     case C.Replaced{world,previous}: (world,Replaced{original,previous,handle})
-    case C.ReplaceRejected{world,incoming,error}: (world,OperationRefused{original,incoming,error})
+    case C.ReplaceRejected{world,incoming,error}: (world,OperationRefused{original,original_incoming(original,incoming),error})
 # This witness explicitly constructs its concrete description-owning payload
 # from canonical Raw while retaining the original affine sentinel.
 def normalized(owner:Input.Owner,canonical:D.Raw) -> Input.Owner & D.Raw:
