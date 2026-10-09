@@ -1,6 +1,6 @@
 import Base
 import ./owned-journal.bend as Journal
-import ../full-assembly-v1/request.bend as Request
+import ./request.bend as Request
 import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
 import /workspace/formal-proofs/bendvy/src/ecs/transaction.bend as T
 import /workspace/formal-proofs/bendvy/src/ecs/bundle-install.bend as Install

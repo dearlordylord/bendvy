@@ -1,13 +1,13 @@
 import Base
-import ../full-assembly-v1/request.bend as Request
+import ./request.bend as Request
 import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
 import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col
 import /workspace/formal-proofs/bendvy/src/ecs/component.bend as C
 import /workspace/formal-proofs/bendvy/src/ecs/bundle-component-install.bend as ComponentInstall
 import /workspace/formal-proofs/bendvy/src/ecs/bundle-install.bend as Install
-import /workspace/formal-proofs/bendvy/experiments/public-decode/typed.bend as D
+import /workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-data.bend as D
 import /workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/controls.bend as First
-import /workspace/formal-proofs/bendvy/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-component-declaration.bend as Identity
+import /workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/ordinary-declaration.bend as Identity
 
 type Owner is Type:Owner{raw:D.Raw,words:Array<U32>,flags:Array<Bool>}
 def project(owner:Owner) -> Owner & D.Raw:

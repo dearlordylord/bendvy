@@ -1,6 +1,6 @@
 import Base
 import ./second-owner.bend as Input
-import /workspace/formal-proofs/bendvy/experiments/public-decode/typed.bend as D
+import /workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-data.bend as D
 import /workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/controls.bend as First
 import /workspace/formal-proofs/bendvy/experiments/public-decode/adoption-v1/observation.bend as FirstObservation
 import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W

@@ -1,26 +1,30 @@
 import Base
+import /workspace/formal-proofs/bendvy/experiments/public-decode/typed.bend as OldD
 import ./second-owner.bend as B
 import ./observation.bend as O
 import ./immediate.bend as Immediate
 import ./owned-journal.bend as Journal
-import ../full-assembly-v1/request.bend as Request
+import /workspace/formal-proofs/bendvy/src/ecs/bundle-component-install.bend as ComponentInstall
+import /workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend as Lifecycle
+import ./request.bend as Request
 import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
 import /workspace/formal-proofs/bendvy/src/ecs/transaction.bend as T
 import /workspace/formal-proofs/bendvy/src/ecs/local.bend as Local
 import /workspace/formal-proofs/bendvy/src/ecs/resource.bend as Resource
 import /workspace/formal-proofs/bendvy/src/ecs/component.bend as C
-import /workspace/formal-proofs/bendvy/experiments/public-decode/typed.bend as D
+import /workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-data.bend as D
 import /workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/controls.bend as First
-import /workspace/formal-proofs/bendvy/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-component-declaration.bend as Identity
+import /workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/ordinary-declaration.bend as Identity
 
 def Receipt() -> Type:Journal.Receipt<B.World(),Request.Packet<B.Owner>,B.Recovery()>
 def Tx() -> Type:T.Tx<B.World(),Unit>
 def Spawned() -> Type:Tx() & (Result<&2,&2,W.WorldError,W.Handle<Unit>> & (Maybe<&1,Request.Packet<B.Owner>> & (Maybe<&1,Receipt()> & Maybe<&1,Journal.Pending<B.Recovery()>>)))
 type PacketView is Data:PacketView{owner:Maybe<&2,O.PayloadView>,original:D.Raw,canonical:D.Raw}
 type State is Type:State{owners:List<Request.Packet<B.Owner>>,pending:List<Journal.Pending<B.Recovery()>>,during:Maybe<&2,O.Snapshot>}
-type StateView is Data:StateView{owners:List<&2,PacketView>,pending:Nat,during:Maybe<&2,O.Snapshot>}
+type PendingView is Data:PendingView{target:W.Handle<Unit>,owner:Maybe<&2,O.PayloadView>,stamp:Lifecycle.Stamp,error:W.WorldError}
+type StateView is Data:StateView{owners:List<&2,PacketView>,pending:List<&2,PendingView>,during:Maybe<&2,O.Snapshot>}
 type Report is Data:CreationRejected{} Report{before:O.Snapshot,after:O.Snapshot,local:StateView,result:Result<&2,&2,Unit,Unit>}
-def first(+value:U32) -> First.Owner:First.Owner{D.Number{value},ANode{ALeaf{value},ALeaf{U32.add(value,1)}}}
+def first(+value:U32) -> First.Owner:First.Owner{OldD.Number{value},ANode{ALeaf{value},ALeaf{U32.add(value,1)}}}
 def second(+value:U32) -> B.Owner:B.Owner{D.Number{value},ANode{ALeaf{value},ALeaf{U32.add(value,10)}},ANode{ALeaf{True{}},ALeaf{False{}}}}
 def packet(+value:U32) -> Request.Packet<B.Owner>:Request.Packet{Some{second(value)},D.Number{value},D.Number{value}}
 def packet_view_done(+original:D.Raw,+canonical:D.Raw,result:Maybe<&1,B.Owner> & Maybe<&2,O.PayloadView>) -> Request.Packet<B.Owner> & PacketView:
@@ -36,19 +40,25 @@ def packet_views(values:List<Request.Packet<B.Owner>>) -> List<Request.Packet<B.
   match values:
     case []:([],[])
     case head <> rest:packet_views_join(packet_view(head),packet_views(rest))
-def pending_join(head:Journal.Pending<B.Recovery()>,result:List<Journal.Pending<B.Recovery()>> & Nat) -> List<Journal.Pending<B.Recovery()>> & Nat:
+def pending_view_join(+target:W.Handle<Unit>,+stamp:Lifecycle.Stamp,+error:W.WorldError,result:Maybe<&1,B.Owner> & Maybe<&2,O.PayloadView>) -> Journal.Pending<B.Recovery()> & PendingView:
   match result:
-    case (rest,count):(head <> rest,1n+count)
-def pending_count(values:List<Journal.Pending<B.Recovery()>>) -> List<Journal.Pending<B.Recovery()>> & Nat:
+    case (owner,view):(Journal.Pending{ComponentInstall.Recovery{ComponentInstall.Entry{target,owner},stamp},error},PendingView{target,view,stamp,error})
+def pending_view(value:Journal.Pending<B.Recovery()>) -> Journal.Pending<B.Recovery()> & PendingView:
+  match value:
+    case Journal.Pending{ComponentInstall.Recovery{ComponentInstall.Entry{target,owner},stamp},error}:pending_view_join(target,stamp,error,O.option(owner))
+def pending_join(head:Journal.Pending<B.Recovery()> & PendingView,tail:List<Journal.Pending<B.Recovery()>> & List<&2,PendingView>) -> List<Journal.Pending<B.Recovery()>> & List<&2,PendingView>:
+  match head tail:
+    case (owner,view),(rest,views):(owner <> rest,view <> views)
+def pending_views(values:List<Journal.Pending<B.Recovery()>>) -> List<Journal.Pending<B.Recovery()>> & List<&2,PendingView>:
   match values:
-    case []:([],0n)
-    case head <> rest:pending_join(head,pending_count(rest))
-def state_join(+during:Maybe<&2,O.Snapshot>,owners:List<Request.Packet<B.Owner>> & List<&2,PacketView>,pending:List<Journal.Pending<B.Recovery()>> & Nat) -> State & StateView:
+    case []:([],[])
+    case head <> rest:pending_join(pending_view(head),pending_views(rest))
+def state_join(+during:Maybe<&2,O.Snapshot>,owners:List<Request.Packet<B.Owner>> & List<&2,PacketView>,pending:List<Journal.Pending<B.Recovery()>> & List<&2,PendingView>) -> State & StateView:
   match owners pending:
-    case (owners,views),(pending,count):(State{owners,pending,during},StateView{views,count,during})
+    case (owners,views),(pending,recoveries):(State{owners,pending,during},StateView{views,recoveries,during})
 def state_view(state:State) -> State & StateView:
   match state:
-    case State{owners,pending,+during}:state_join(during,packet_views(owners),pending_count(pending))
+    case State{owners,pending,+during}:state_join(during,packet_views(owners),pending_views(pending))
 def aborted(+during:O.Snapshot,result:Journal.Returned<B.World(),Request.Packet<B.Owner>,B.Recovery()>) -> Local.Outcome<B.World(),State,Unit,Unit>:
   match result:
     case Journal.Returned{world,owners,pending}:Local.Failed{world,State{owners,pending,Some{during}},Unit{}}
@@ -103,7 +113,7 @@ def before(instance:Instance(),result:B.World() & O.Snapshot) -> Report:
     case (world,+view):ran(view,Local.run(~Unit,~B.Store(),~First.Owner,~Unit,~State,~Unit,~Unit,~Unit,~runner,instance,world,Unit{}))
 def rejected(result:B.World() & O.Snapshot) -> Report:
   match result:
-    case (_,+view):Report{view,view,StateView{[],0n,None{}},Fail{Unit{}}}
+    case (_,+view):Report{view,view,StateView{[],[],None{}},Fail{Unit{}}}
 def registered(result:Local.Registered<Unit,B.Store(),First.Owner,Unit,State,Unit,Unit,Unit,runner>) -> Report:
   match result:
     case Local.Registered{world,instance}:before(instance,O.snapshot(world))

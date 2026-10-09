@@ -1,12 +1,12 @@
 import Base
 import ./frame.bend as F
-import ../full-assembly-v1/request.bend as Request
+import ./request.bend as Request
 import /workspace/formal-proofs/bendvy/src/ecs/compose.bend as Query
 import /workspace/formal-proofs/bendvy/src/ecs/world.bend as World
 import /workspace/formal-proofs/bendvy/src/ecs/transaction.bend as T
 import /workspace/formal-proofs/bendvy/src/ecs/capabilities.bend as Cap
-import /workspace/formal-proofs/bendvy/experiments/public-decode/typed.bend as D
-import /workspace/formal-proofs/bendvy/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-component-declaration.bend as Identity
+import /workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-data.bend as D
+import /workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/ordinary-declaration.bend as Identity
 
 # Trusted traversal kernel. A is an explicit application-owned state threaded
 # once across selected rows; the Local adapter retains it on system failure.
