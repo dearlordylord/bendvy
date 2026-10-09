@@ -1,0 +1,14 @@
+--- pinned/comp.ts
++++ copy/comp.ts
+@@ -1729,9 +1729,9 @@
+ 
+ function arr_loc(fl: File, a: string): string {
+   const p = fl.seg.params.indexOf(a);
+-  return fl.seg.ks.reduce((s, k, i) => fl.seg.fid.startsWith("spin_")
++  return "(" + fl.seg.ks.reduce((s, k, i) => fl.seg.fid.startsWith("spin_")
+     && arr_q(fl, k) && (p < 0 || p === i)
+-    ? `${a} == h${i} ? q${i} : ${s}` : s, `blk_loc(e.mem, ${a})`);
++    ? `${a} == h${i} ? q${i} : ${s}` : s, `blk_loc(e.mem, ${a})`) + ")";
+ }
+ 
+ function arr_op(fl: File, k: string, el: Lay, args: Val[]): Val {
