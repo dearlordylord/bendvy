@@ -1,0 +1,49 @@
+{
+  "preparedPlanSha256": "0ba184479007d5bc47587fbcbef229b38fbe3004e25061657eb207156b851d2c",
+  "status": "DEVELOPMENT_PASS",
+  "scope": "Direct reached owned-reader retirement-loss development falsifier; no delivery/performance gate.",
+  "commands": [
+    {
+      "label": "complete-emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-63-loader-resolver/experiments/public-owned-events/registered-read-v1/mutants/retirement-loss-v1/main.bend",
+        "-o",
+        "/tmp/bendvy-owned-reader-retirement-loss-js/generated/complete.js"
+      ],
+      "capSeconds": 30,
+      "artifact": "/tmp/bendvy-owned-reader-retirement-loss-js/generated/complete.js",
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+    },
+    {
+      "label": "complete-run",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy-owned-reader-retirement-loss-js/generated/complete.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+    }
+  ],
+  "generated": {
+    "/tmp/bendvy-owned-reader-retirement-loss-js/generated/complete.js": "399bf26bde9d667eb4dde21a2898aa6bac64c6f4a0d2bc6302e90ae643e3a550"
+  },
+  "logs": {
+    "complete-emit.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "complete-emit.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "complete-run.stdout": "f00d5689f878326dadf13193a99024c74f3a52427469188a55398addba19df57",
+    "complete-run.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}
