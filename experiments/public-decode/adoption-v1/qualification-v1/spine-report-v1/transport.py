@@ -21,7 +21,7 @@ def inventory(entry,assembly=False,role="normal"):
  role="generic-spine" if role=="completion-omission" else role
  entry=Path(entry).resolve()
  if role=="native-consuming":
-  assert assembly and entry.name in ("main.bend","mutant-main.bend")
+  assert assembly and entry.name in ("main.bend","mutant-main.bend","complete-spine.bend","mutant-spine.bend")
   return spine_helper(entry,role).inventory(entry,BASE,role)
  if role in ('construction-spine','custom-spine','completion-spine','input-codec-spine'):
   assert assembly and entry.name=='complete-spine.bend','construction role requires complete source'
@@ -110,7 +110,8 @@ def render(expected,entry,assembly=False,role="normal"):
  whole(expected,role)
  types,name=inventory(entry,assembly,role)
  subject=spine_helper(entry,role).pack(expected,role) if role in ('generic-spine','deferred-spine','construction-spine','custom-spine','completion-spine','input-codec-spine') else expected
- return (BASE.parser().render(BASE.codec(subject,types['Report'] if role in ('generic-spine','deferred-spine','construction-spine','custom-spine','completion-spine','input-codec-spine') else 'Report',types,name,True))+'\n').encode()
+ if role=='native-consuming' and Path(entry).name in ('complete-spine.bend','mutant-spine.bend'):subject=spine_helper(entry,role).pack(expected)
+ return (BASE.parser().render(BASE.codec(subject,types['Report'] if role in ('generic-spine','deferred-spine','construction-spine','custom-spine','completion-spine','input-codec-spine') else types['Report'] if role=='native-consuming' and Path(entry).name in ('complete-spine.bend','mutant-spine.bend') else 'Report',types,name,True))+'\n').encode()
 
 def parse(raw,entry,assembly=False,role="normal"):
  role="generic-spine" if role=="completion-omission" else role
@@ -118,7 +119,8 @@ def parse(raw,entry,assembly=False,role="normal"):
  p=BASE.parser();term=p.parse(raw.decode())
  assert (p.render(term)+'\n').encode()==raw,'noncanonical complete output'
  types,name=inventory(entry,assembly,role)
- value=BASE.codec(term,types['Report'] if role in ('generic-spine','deferred-spine','construction-spine','custom-spine','completion-spine','input-codec-spine') else 'Report',types,name,False)
+ value=BASE.codec(term,types['Report'] if role in ('generic-spine','deferred-spine','construction-spine','custom-spine','completion-spine','input-codec-spine') else types['Report'] if role=='native-consuming' and Path(entry).name in ('complete-spine.bend','mutant-spine.bend') else 'Report',types,name,False)
  if role in ('generic-spine','deferred-spine','construction-spine','custom-spine','completion-spine','input-codec-spine'):value=spine_helper(entry,role).unpack(value,role)
+ if role=='native-consuming' and Path(entry).name in ('complete-spine.bend','mutant-spine.bend'):value=spine_helper(entry,role).unpack(value)
  whole(value,role)
  return value

@@ -50,3 +50,18 @@ default_entry = COLLECTOR.parent / 'spine.bend'
 assert current.render(default_model,default_entry) == old.render(default_model,default_entry)
 assert current.whole(default_model) == old.whole(default_model)
 print('PASS: historical default normal raw and whole mapping unchanged')
+for filename, entry in [('expected.json','complete-spine.bend'),('mutant-expected.json','mutant-spine.bend')]:
+    model = json.loads((ORACLE / filename).read_text())
+    helper = current.spine_helper(HERE / entry, 'native-consuming')
+    packed = helper.pack(model)
+    assert len(packed)==22 and helper.unpack(packed)==model
+    raw = current.render(model,HERE / entry,True,'native-consuming')
+    assert current.parse(raw,HERE / entry,True,'native-consuming')==model
+    for bad in [packed[:-1], [packed[1],packed[0],*packed[2:]], [{**packed[0],'$':'ComponentSecond'},*packed[1:]]]:
+        try:
+            helper.unpack(bad)
+        except (AssertionError, KeyError, TypeError):
+            pass
+        else:
+            raise AssertionError('spine omission/order/nominal corruption accepted')
+print('PASS: same complete22 List spine bijection; omissions/order/schema corruption rejected')

@@ -1,0 +1,44 @@
+{
+  "commands": [
+    {
+      "entry": "experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/native-consuming-v1/complete-spine.bend",
+      "argv": [
+        "flock",
+        "/tmp/bendvy-parity-heavy.lock",
+        "timeout",
+        "--signal=KILL",
+        "5",
+        "taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/native-consuming-v1/complete-spine.bend"
+      ],
+      "exitCode": 0,
+      "originalSession": 11353
+    },
+    {
+      "entry": "experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/native-consuming-v1/mutant-spine.bend",
+      "argv": [
+        "flock",
+        "/tmp/bendvy-parity-heavy.lock",
+        "timeout",
+        "--signal=KILL",
+        "5",
+        "taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/native-consuming-v1/mutant-spine.bend"
+      ],
+      "exitCode": 0,
+      "originalSession": 4969
+    }
+  ],
+  "sourcePins": {
+    "experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/native-consuming-v1/complete-spine.bend": "f69ac9fec643d911973ec9b734752d481e726d796bac137be77c88d4913d800d",
+    "experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/native-consuming-v1/mutant-spine.bend": "a1086e564a1bb2042859f4c6afae459efeba62e54f029b73d6a7653e6f670084",
+    "experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/native-consuming-v1/transport-inventory.py": "93ee5f9658d0560d4b0b18a9838d7d5b559e88629007d6e9345cd38b211643a4"
+  },
+  "wholeOracleUnchanged": "84e0c2c10cf3b30934ddf184c792fd04702ab4bc"
+}

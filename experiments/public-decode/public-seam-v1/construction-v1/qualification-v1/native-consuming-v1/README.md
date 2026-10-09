@@ -25,3 +25,9 @@ Independent oracle `84e0c2c10cf3b30934ddf184c792fd04702ab4bc` supplies normal wh
 ## Actual first cohort
 
 Original session52821 terminal: positiveJS full22 PASS and namespace-mutantJS exact whole independent countermodel PASS. C emission exits1 with `Error: an arity over 247`; empty stdout, no generatedC, honest INCOMPLETE receipt retained. No unchanged retry/Clang. Actual archive is prepared-v1/actual-evidence. Next shape-only List spine must preserve all22 reports and original independent model before fresh reviewed plans.
+
+## Shape-only List22 repair
+
+Original main/handle-fixture/mutant source bytes and first executed attempts remain unchanged. New complete-spine/mutant-spine entries call each original consuming operation exactly once, in the same component-first/resource-last order, returning22 tagged items. Every full Report and field is retained. Transport pack/unpack bijectively rejoins the same immutable84e0 whole model; source5 passes both entries and corruption controls reject missing/reordered/wrong-schema items. This is output-shape repair for C emitter arity, not acceptance reduction or behavioral optimization.
+
+Fresh bindings-spine-v1 and prepared-spine-v1 plans supersede no executed plan: they are new source subjects requiring independent source-to-model mapping and exact launch review. JS/Cemit/mutantJS only; C success is a prerequisite for separately admitted artifact-only Native. Process-runner integration check completed originalsession36322:26 tests PASS. No broad backend replay or cap change.
