@@ -1,0 +1,180 @@
+{
+  "originalSession": 90346,
+  "planSHA256": "f4acf2bee54762887f5da99a3a03597154083fbef6d4cf98b35c5be1a0bd023c",
+  "captureStatus": "REFERENCE_CPU_PROFILE_CAPTURED",
+  "compilerExit": 1,
+  "supervisorFailure": null,
+  "primaryError": "DiagnosticAbort: cooperative profiling cutoff",
+  "compileCompleted": false,
+  "generatedC": false,
+  "profileSamples": 19209,
+  "layoutCache": {
+    "hits": 849021,
+    "misses": 1753
+  },
+  "phases": [
+    {
+      "event": "book_load.begin",
+      "elapsedMs": 17
+    },
+    {
+      "event": "book_load.end",
+      "elapsedMs": 419
+    },
+    {
+      "event": "book_valid.begin",
+      "elapsedMs": 419
+    },
+    {
+      "event": "book_valid.end",
+      "elapsedMs": 1474
+    },
+    {
+      "event": "compile_book.begin",
+      "elapsedMs": 1475
+    },
+    {
+      "event": "file_book.begin",
+      "elapsedMs": 1499
+    },
+    {
+      "event": "file_book.end",
+      "elapsedMs": 4322,
+      "counters": {
+        "lay_of": 14560,
+        "type_adts": 3464032,
+        "fun_of": 22277
+      }
+    },
+    {
+      "event": "emit_iteration.begin",
+      "elapsedMs": 4322,
+      "facts": 0,
+      "counters": {
+        "lay_of": 14560,
+        "type_adts": 3464032,
+        "fun_of": 22277
+      }
+    },
+    {
+      "event": "emit_iteration.end",
+      "elapsedMs": 14943,
+      "facts": 6264,
+      "counters": {
+        "lay_of": 220305,
+        "type_adts": 3464032,
+        "fun_of": 229056,
+        "emit_body": 106654,
+        "val_to": 675291,
+        "lay_eq": 679110,
+        "emit_fuse": 11005
+      }
+    },
+    {
+      "event": "emit_iteration.begin",
+      "elapsedMs": 14943,
+      "facts": 6264,
+      "counters": {
+        "lay_of": 220305,
+        "type_adts": 3464032,
+        "fun_of": 229056,
+        "emit_body": 106654,
+        "val_to": 675291,
+        "lay_eq": 679110,
+        "emit_fuse": 11005
+      }
+    },
+    {
+      "event": "emit_iteration.end",
+      "elapsedMs": 22723,
+      "facts": 6286,
+      "counters": {
+        "lay_of": 415335,
+        "type_adts": 3464032,
+        "fun_of": 442961,
+        "emit_body": 213308,
+        "val_to": 1350582,
+        "lay_eq": 1358220,
+        "emit_fuse": 22010
+      }
+    },
+    {
+      "event": "emit_iteration.begin",
+      "elapsedMs": 22723,
+      "facts": 6286,
+      "counters": {
+        "lay_of": 415335,
+        "type_adts": 3464032,
+        "fun_of": 442961,
+        "emit_body": 213308,
+        "val_to": 1350582,
+        "lay_eq": 1358220,
+        "emit_fuse": 22010
+      }
+    }
+  ],
+  "topSelfSamples": [
+    {
+      "function": "term_key",
+      "selfSamples": 4311
+    },
+    {
+      "function": "",
+      "selfSamples": 2980
+    },
+    {
+      "function": "(garbage collector)",
+      "selfSamples": 1797
+    },
+    {
+      "function": "memo",
+      "selfSamples": 1587
+    },
+    {
+      "function": "facts_hot",
+      "selfSamples": 879
+    },
+    {
+      "function": "term_higher",
+      "selfSamples": 821
+    },
+    {
+      "function": "term_wnf",
+      "selfSamples": 687
+    },
+    {
+      "function": "term_lower",
+      "selfSamples": 559
+    },
+    {
+      "function": "graph_close",
+      "selfSamples": 449
+    },
+    {
+      "function": "type_adts",
+      "selfSamples": 326
+    },
+    {
+      "function": "ty_wnf",
+      "selfSamples": 294
+    },
+    {
+      "function": "emit_body",
+      "selfSamples": 273
+    },
+    {
+      "function": "term_check",
+      "selfSamples": 254
+    },
+    {
+      "function": "emit_ctr",
+      "selfSamples": 202
+    },
+    {
+      "function": "(program)",
+      "selfSamples": 181
+    }
+  ],
+  "guards": 4,
+  "scope": "Copiedreference only. Reached cache reuse; no comparable beforeafter cohort or installedcause/performance/public56 claim."
+}
