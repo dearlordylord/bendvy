@@ -1,0 +1,9 @@
+# Changed exact-C O1 admission
+
+PASS for814601162bc5928f12b80cd1a1b0bb8c4d38ab93, exact unused plan `/tmp/bendvy-debug56-held-clang-O1-v1/plan.json` SHA d5f73fa25834748be6cb6794cfb5e9b444e5af1870eedcbff50afef213d7c549. All599 current regular pins match; file alias bindings retain recorded resolutions; approved resource70/272/7 inventories match. Prepared output contains only plan.json.
+
+Independently reverse-joined the entire derivative plan to archived O0 cost02 c90a241e: only changed scope, O1 flag, two command argv/labels/backend and three additive provenance/entry pins. Exact retained C remains b12ec5dc8a2f316e34a8e9b73304946afeb0480933ebf2ed35c4ec889d9a8552. Original O0 plan/terminalreceipt and full71 source identity/oracle1f54 remain bound. There is no new emission or C transformation.
+
+Preparation wrapper verifies admitted SHA and actual Python, verifies/compiles exact reviewed execution bytes; that module performs only stdlib setup before full plan/alias/interpreter preguards and verified helper loading. Existing execution recipe checks resources/pins before/acquired/post/final, locks each child, requires absent binary, records actual completed result before raw publication, captures partial binary in finally without replacing primary publication failure, and finalizes receipt unconditionally. Strict source-derived nominal transport retains every complete original normal field; runtime stderr must be empty and whole1f54 equality mandatory.
+
+Admit one Clang19 `-O1 -ftime-report -pthread -lm` build120 on CPU5 then one runtime5, threads1/GPUoff under shared lock. Build diagnostic stderr is intentionally retained; runtime still requires empty stderr. This is changed optimization on copied-compiler exact C, not installed Bend qualification, O3 delivery, omission/task closure or a performance result. Failure remains honest INCOMPLETE; no runtime/compiler child was run during review.
