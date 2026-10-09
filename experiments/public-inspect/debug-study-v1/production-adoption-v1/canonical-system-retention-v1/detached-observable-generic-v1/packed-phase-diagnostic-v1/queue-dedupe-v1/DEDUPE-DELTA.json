@@ -1,0 +1,44 @@
+{
+  "scope": "Private compiler algorithm experiment; first-occurrence queue filtering only",
+  "parentCompiler": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/packed-phase-diagnostic-v1/queue-context-v1/packed-compiler.mjs",
+  "parentSHA256": "5ac2e675acd459f889246a5bc94c4bc8bbb7d9b41e50cf21e70c917e97659f3d",
+  "successorCompiler": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/packed-phase-diagnostic-v1/queue-dedupe-v1/packed-compiler.mjs",
+  "successorSHA256": "01f8f7ba8ea6dbd4f55a84e9063e6956d89ea0c797b017de8f6725492c910c2b",
+  "patches": [
+    {
+      "name": "first-occurrence-roots-and-enqueue",
+      "original": "  const queue = roots.slice();",
+      "replacement": "  const BVY_PD_SEEN = new Set(roots);\n  const queue = [...BVY_PD_SEEN];\n  const BVY_PD_ENQUEUE = (xs) => {\n    for (const x of xs) {\n      if (!BVY_PD_SEEN.has(x)) {\n        BVY_PD_SEEN.add(x);\n        queue.push(x);\n      }\n    }\n  };"
+    },
+    {
+      "name": "type-root-enqueue",
+      "original": "      queue.push(...type_adts(fl, x.T));",
+      "replacement": "      BVY_PD_ENQUEUE(type_adts(fl, x.T));"
+    },
+    {
+      "name": "annotation-type-enqueue",
+      "original": "        queue.push(...type_adts(fl, s.T));",
+      "replacement": "        BVY_PD_ENQUEUE(type_adts(fl, s.T));"
+    },
+    {
+      "name": "reference-enqueue",
+      "original": "    queue.push(...refs);",
+      "replacement": "    BVY_PD_ENQUEUE(refs);"
+    }
+  ],
+  "inverseToContextParent": true,
+  "inverseToExactPacked333165Bytes": true,
+  "missingAlgorithmRefusals": [
+    "first-occurrence-roots-and-enqueue",
+    "type-root-enqueue",
+    "annotation-type-enqueue",
+    "reference-enqueue"
+  ],
+  "structuralControls": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/packed-phase-diagnostic-v1/queue-dedupe-v1/STRUCTURAL-CONTROLS.json",
+    "sha256": "074b72d7087332d4452f9271589c4e34eb0fe9123a9b3f781c8139392a9a5731",
+    "status": "PASS"
+  },
+  "sourceArgument": "file_book clears SRCS before roots; duplicate queued keys are skipped by SRCS.has before memo_gc/lookup/types/body. Filtering roots and all three append sites preserves first unique encounter order and unique-definition effects. type_adts call sites and arguments remain evaluated unchanged; refs/fl.sites/term_any remain unchanged.",
+  "boundaries": "Potential queue memory/iteration contribution only. No type_adts traversal reduction, emitter rewrite, universal proof, or speed/bottleneck claim. Existing context now records deduplicated queue lengths. At successful file_book exit queueLength equals uniqueVisited; partial cutoff can include unvisited pending keys."
+}

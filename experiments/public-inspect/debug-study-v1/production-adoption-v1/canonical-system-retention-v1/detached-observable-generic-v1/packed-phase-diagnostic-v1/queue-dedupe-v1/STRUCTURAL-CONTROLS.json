@@ -1,0 +1,789 @@
+{
+  "scope": "Finite first-visit structural controls; no universal compiler proof",
+  "literalSetup": "  const BVY_PD_SEEN = new Set(roots);\n  const queue = [...BVY_PD_SEEN];\n  const BVY_PD_ENQUEUE = (xs) => {\n    for (const x of xs) {\n      if (!BVY_PD_SEEN.has(x)) {\n        BVY_PD_SEEN.add(x);\n        queue.push(x);\n      }\n    }\n  };",
+  "cases": [
+    {
+      "name": "duplicate-roots-self-and-cycle-all-three-appends",
+      "input": {
+        "name": "duplicate-roots-self-and-cycle-all-three-appends",
+        "roots": [
+          "a",
+          "a",
+          "b"
+        ],
+        "edges": {
+          "a": [
+            [
+              "a",
+              "c",
+              "c"
+            ],
+            [
+              "b",
+              "a"
+            ],
+            [
+              "d",
+              "b"
+            ]
+          ],
+          "b": [
+            [
+              "a"
+            ],
+            [
+              "d",
+              "d"
+            ],
+            [
+              "b"
+            ]
+          ],
+          "c": [
+            [
+              "a"
+            ],
+            [
+              "c"
+            ],
+            [
+              "d"
+            ]
+          ],
+          "d": [
+            [
+              "b"
+            ],
+            [],
+            [
+              "a"
+            ]
+          ]
+        },
+        "expected": [
+          "a",
+          "b",
+          "c",
+          "d"
+        ]
+      },
+      "baseline": {
+        "firstVisits": [
+          "a",
+          "b",
+          "c",
+          "d"
+        ],
+        "trace": [
+          [
+            "a",
+            "memo_gc",
+            "lookup",
+            "set"
+          ],
+          [
+            "a",
+            "type_adts",
+            [
+              "a",
+              "c",
+              "c"
+            ]
+          ],
+          [
+            "a",
+            "fun_of",
+            "term_any",
+            [
+              "b",
+              "a"
+            ],
+            [
+              "d",
+              "b"
+            ]
+          ],
+          [
+            "b",
+            "memo_gc",
+            "lookup",
+            "set"
+          ],
+          [
+            "b",
+            "type_adts",
+            [
+              "a"
+            ]
+          ],
+          [
+            "b",
+            "fun_of",
+            "term_any",
+            [
+              "d",
+              "d"
+            ],
+            [
+              "b"
+            ]
+          ],
+          [
+            "c",
+            "memo_gc",
+            "lookup",
+            "set"
+          ],
+          [
+            "c",
+            "type_adts",
+            [
+              "a"
+            ]
+          ],
+          [
+            "c",
+            "fun_of",
+            "term_any",
+            [
+              "c"
+            ],
+            [
+              "d"
+            ]
+          ],
+          [
+            "d",
+            "memo_gc",
+            "lookup",
+            "set"
+          ],
+          [
+            "d",
+            "type_adts",
+            [
+              "b"
+            ]
+          ],
+          [
+            "d",
+            "fun_of",
+            "term_any",
+            [],
+            [
+              "a"
+            ]
+          ]
+        ],
+        "queueLength": 19,
+        "uniqueQueue": 4
+      },
+      "candidate": {
+        "firstVisits": [
+          "a",
+          "b",
+          "c",
+          "d"
+        ],
+        "trace": [
+          [
+            "a",
+            "memo_gc",
+            "lookup",
+            "set"
+          ],
+          [
+            "a",
+            "type_adts",
+            [
+              "a",
+              "c",
+              "c"
+            ]
+          ],
+          [
+            "a",
+            "fun_of",
+            "term_any",
+            [
+              "b",
+              "a"
+            ],
+            [
+              "d",
+              "b"
+            ]
+          ],
+          [
+            "b",
+            "memo_gc",
+            "lookup",
+            "set"
+          ],
+          [
+            "b",
+            "type_adts",
+            [
+              "a"
+            ]
+          ],
+          [
+            "b",
+            "fun_of",
+            "term_any",
+            [
+              "d",
+              "d"
+            ],
+            [
+              "b"
+            ]
+          ],
+          [
+            "c",
+            "memo_gc",
+            "lookup",
+            "set"
+          ],
+          [
+            "c",
+            "type_adts",
+            [
+              "a"
+            ]
+          ],
+          [
+            "c",
+            "fun_of",
+            "term_any",
+            [
+              "c"
+            ],
+            [
+              "d"
+            ]
+          ],
+          [
+            "d",
+            "memo_gc",
+            "lookup",
+            "set"
+          ],
+          [
+            "d",
+            "type_adts",
+            [
+              "b"
+            ]
+          ],
+          [
+            "d",
+            "fun_of",
+            "term_any",
+            [],
+            [
+              "a"
+            ]
+          ]
+        ],
+        "queueLength": 4,
+        "uniqueQueue": 4
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "first-root-order-and-later-discovery",
+      "input": {
+        "name": "first-root-order-and-later-discovery",
+        "roots": [
+          "b",
+          "a",
+          "b"
+        ],
+        "edges": {
+          "b": [
+            [
+              "d",
+              "d"
+            ],
+            [
+              "b"
+            ],
+            [
+              "c",
+              "a"
+            ]
+          ],
+          "a": [
+            [
+              "c"
+            ],
+            [
+              "a",
+              "d"
+            ],
+            [
+              "b"
+            ]
+          ],
+          "d": [
+            [
+              "a"
+            ],
+            [],
+            [
+              "c"
+            ]
+          ],
+          "c": [
+            [],
+            [
+              "d"
+            ],
+            [
+              "b"
+            ]
+          ]
+        },
+        "expected": [
+          "b",
+          "a",
+          "d",
+          "c"
+        ]
+      },
+      "baseline": {
+        "firstVisits": [
+          "b",
+          "a",
+          "d",
+          "c"
+        ],
+        "trace": [
+          [
+            "b",
+            "memo_gc",
+            "lookup",
+            "set"
+          ],
+          [
+            "b",
+            "type_adts",
+            [
+              "d",
+              "d"
+            ]
+          ],
+          [
+            "b",
+            "fun_of",
+            "term_any",
+            [
+              "b"
+            ],
+            [
+              "c",
+              "a"
+            ]
+          ],
+          [
+            "a",
+            "memo_gc",
+            "lookup",
+            "set"
+          ],
+          [
+            "a",
+            "type_adts",
+            [
+              "c"
+            ]
+          ],
+          [
+            "a",
+            "fun_of",
+            "term_any",
+            [
+              "a",
+              "d"
+            ],
+            [
+              "b"
+            ]
+          ],
+          [
+            "d",
+            "memo_gc",
+            "lookup",
+            "set"
+          ],
+          [
+            "d",
+            "type_adts",
+            [
+              "a"
+            ]
+          ],
+          [
+            "d",
+            "fun_of",
+            "term_any",
+            [],
+            [
+              "c"
+            ]
+          ],
+          [
+            "c",
+            "memo_gc",
+            "lookup",
+            "set"
+          ],
+          [
+            "c",
+            "type_adts",
+            []
+          ],
+          [
+            "c",
+            "fun_of",
+            "term_any",
+            [
+              "d"
+            ],
+            [
+              "b"
+            ]
+          ]
+        ],
+        "queueLength": 16,
+        "uniqueQueue": 4
+      },
+      "candidate": {
+        "firstVisits": [
+          "b",
+          "a",
+          "d",
+          "c"
+        ],
+        "trace": [
+          [
+            "b",
+            "memo_gc",
+            "lookup",
+            "set"
+          ],
+          [
+            "b",
+            "type_adts",
+            [
+              "d",
+              "d"
+            ]
+          ],
+          [
+            "b",
+            "fun_of",
+            "term_any",
+            [
+              "b"
+            ],
+            [
+              "c",
+              "a"
+            ]
+          ],
+          [
+            "a",
+            "memo_gc",
+            "lookup",
+            "set"
+          ],
+          [
+            "a",
+            "type_adts",
+            [
+              "c"
+            ]
+          ],
+          [
+            "a",
+            "fun_of",
+            "term_any",
+            [
+              "a",
+              "d"
+            ],
+            [
+              "b"
+            ]
+          ],
+          [
+            "d",
+            "memo_gc",
+            "lookup",
+            "set"
+          ],
+          [
+            "d",
+            "type_adts",
+            [
+              "a"
+            ]
+          ],
+          [
+            "d",
+            "fun_of",
+            "term_any",
+            [],
+            [
+              "c"
+            ]
+          ],
+          [
+            "c",
+            "memo_gc",
+            "lookup",
+            "set"
+          ],
+          [
+            "c",
+            "type_adts",
+            []
+          ],
+          [
+            "c",
+            "fun_of",
+            "term_any",
+            [
+              "d"
+            ],
+            [
+              "b"
+            ]
+          ]
+        ],
+        "queueLength": 4,
+        "uniqueQueue": 4
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "empty-roots",
+      "input": {
+        "name": "empty-roots",
+        "roots": [],
+        "edges": {},
+        "expected": []
+      },
+      "baseline": {
+        "firstVisits": [],
+        "trace": [],
+        "queueLength": 0,
+        "uniqueQueue": 0
+      },
+      "candidate": {
+        "firstVisits": [],
+        "trace": [],
+        "queueLength": 0,
+        "uniqueQueue": 0
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "inactive-type-only-and-cycle",
+      "input": {
+        "name": "inactive-type-only-and-cycle",
+        "roots": [
+          "a",
+          "a"
+        ],
+        "inactive": [
+          "a"
+        ],
+        "edges": {
+          "a": [
+            [
+              "b",
+              "b"
+            ],
+            [
+              "never"
+            ],
+            [
+              "never"
+            ]
+          ],
+          "b": [
+            [
+              "a"
+            ],
+            [
+              "b"
+            ],
+            [
+              "c",
+              "c"
+            ]
+          ],
+          "c": [
+            [],
+            [],
+            [
+              "a"
+            ]
+          ]
+        },
+        "expected": [
+          "a",
+          "b",
+          "c"
+        ]
+      },
+      "baseline": {
+        "firstVisits": [
+          "a",
+          "b",
+          "c"
+        ],
+        "trace": [
+          [
+            "a",
+            "memo_gc",
+            "lookup",
+            "set"
+          ],
+          [
+            "a",
+            "type_adts",
+            [
+              "b",
+              "b"
+            ]
+          ],
+          [
+            "b",
+            "memo_gc",
+            "lookup",
+            "set"
+          ],
+          [
+            "b",
+            "type_adts",
+            [
+              "a"
+            ]
+          ],
+          [
+            "b",
+            "fun_of",
+            "term_any",
+            [
+              "b"
+            ],
+            [
+              "c",
+              "c"
+            ]
+          ],
+          [
+            "c",
+            "memo_gc",
+            "lookup",
+            "set"
+          ],
+          [
+            "c",
+            "type_adts",
+            []
+          ],
+          [
+            "c",
+            "fun_of",
+            "term_any",
+            [],
+            [
+              "a"
+            ]
+          ]
+        ],
+        "queueLength": 8,
+        "uniqueQueue": 3
+      },
+      "candidate": {
+        "firstVisits": [
+          "a",
+          "b",
+          "c"
+        ],
+        "trace": [
+          [
+            "a",
+            "memo_gc",
+            "lookup",
+            "set"
+          ],
+          [
+            "a",
+            "type_adts",
+            [
+              "b",
+              "b"
+            ]
+          ],
+          [
+            "b",
+            "memo_gc",
+            "lookup",
+            "set"
+          ],
+          [
+            "b",
+            "type_adts",
+            [
+              "a"
+            ]
+          ],
+          [
+            "b",
+            "fun_of",
+            "term_any",
+            [
+              "b"
+            ],
+            [
+              "c",
+              "c"
+            ]
+          ],
+          [
+            "c",
+            "memo_gc",
+            "lookup",
+            "set"
+          ],
+          [
+            "c",
+            "type_adts",
+            []
+          ],
+          [
+            "c",
+            "fun_of",
+            "term_any",
+            [],
+            [
+              "a"
+            ]
+          ]
+        ],
+        "queueLength": 3,
+        "uniqueQueue": 3
+      },
+      "status": "PASS"
+    }
+  ],
+  "status": "PASS",
+  "controlSource": "const setup=\"  const BVY_PD_SEEN = new Set(roots);\\n  const queue = [...BVY_PD_SEEN];\\n  const BVY_PD_ENQUEUE = (xs) => {\\n    for (const x of xs) {\\n      if (!BVY_PD_SEEN.has(x)) {\\n        BVY_PD_SEEN.add(x);\\n        queue.push(x);\\n      }\\n    }\\n  };\";\nconst cases=[\n {name:\"duplicate-roots-self-and-cycle-all-three-appends\",roots:[\"a\",\"a\",\"b\"],edges:{a:[[\"a\",\"c\",\"c\"],[\"b\",\"a\"],[\"d\",\"b\"]],b:[[\"a\"],[\"d\",\"d\"],[\"b\"]],c:[[\"a\"],[\"c\"],[\"d\"]],d:[[\"b\"],[],[\"a\"]]},expected:[\"a\",\"b\",\"c\",\"d\"]},\n {name:\"first-root-order-and-later-discovery\",roots:[\"b\",\"a\",\"b\"],edges:{b:[[\"d\",\"d\"],[\"b\"],[\"c\",\"a\"]],a:[[\"c\"],[\"a\",\"d\"],[\"b\"]],d:[[\"a\"],[],[\"c\"]],c:[[],[\"d\"],[\"b\"]]},expected:[\"b\",\"a\",\"d\",\"c\"]},\n {name:\"empty-roots\",roots:[],edges:{},expected:[]},\n {name:\"inactive-type-only-and-cycle\",roots:[\"a\",\"a\"],inactive:[\"a\"],edges:{a:[[\"b\",\"b\"],[\"never\"],[\"never\"]],b:[[\"a\"],[\"b\"],[\"c\",\"c\"]],c:[[],[],[\"a\"]]},expected:[\"a\",\"b\",\"c\"]}\n];\nfunction run(c,dedupe){let queue,enqueue;if(dedupe){({queue,enqueue}=Function(\"roots\",setup+\"\\nreturn {queue,enqueue:BVY_PD_ENQUEUE};\")(c.roots));}else{queue=c.roots.slice();enqueue=xs=>queue.push(...xs);}const visited=new Set,trace=[];for(const d of queue){if(visited.has(d))continue;visited.add(d);trace.push([d,\"memo_gc\",\"lookup\",\"set\"]);const groups=c.edges[d]||[[],[],[]];trace.push([d,\"type_adts\",groups[0]]);enqueue(groups[0]);if(c.inactive?.includes(d))continue;trace.push([d,\"fun_of\",\"term_any\",groups[1],groups[2]]);enqueue(groups[1]);enqueue(new Set(groups[2]));}return {firstVisits:[...visited],trace,queueLength:queue.length,uniqueQueue:new Set(queue).size};}\nconst rows=cases.map(c=>{const baseline=run(c,false),candidate=run(c,true);if(JSON.stringify(baseline.trace)!==JSON.stringify(candidate.trace)||JSON.stringify(candidate.firstVisits)!==JSON.stringify(c.expected)||candidate.queueLength!==candidate.uniqueQueue||candidate.queueLength!==candidate.firstVisits.length)throw Error(c.name);return {name:c.name,input:c,baseline,candidate,status:\"PASS\"};});console.log(JSON.stringify({scope:\"Finite first-visit structural controls; no universal compiler proof\",literalSetup:setup,cases:rows,status:\"PASS\"}));",
+  "successorCompilerSHA256": "01f8f7ba8ea6dbd4f55a84e9063e6956d89ea0c797b017de8f6725492c910c2b"
+}
