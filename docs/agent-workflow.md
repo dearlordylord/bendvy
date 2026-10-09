@@ -48,6 +48,16 @@ verification probes outside that lock; keep the full pre/post validation and
 unconditional failure receipt. Revalidate the launch boundary after acquiring the lock. Review this
 routing as a collector change before execution; keep frozen in-flight runs intact.
 
+## Parallel review routing
+
+The coordinator assigns ready launch reviews to an independent available agent;
+one oracle author need not review every task. Keep oracle authorship, launch
+admission and actual-output review explicit for each frozen cohort. Reviewers
+own evidence reports; implementation authors repair their own runners. Resume a
+completed implementation agent when its exact plan is admitted. Independent
+reviews may overlap; compiler, runtime and performance children retain the
+shared heavy-work lock and existing caps.
+
 ## Approval requirements
 
 Read [SPEC](SPEC.md) for approval requirements on specific laws, numerical performance thresholds and new dependencies. Record the exact outstanding request and why it is needed in the task report.
