@@ -1,0 +1,5 @@
+# Callable TS lifecycle semantic qualifier
+
+The entire pinned core src and package are copied byte-identically; the callable adapter changes only its two import parents. The actual entry invokes completeOutput once, running allten runtimes, five modes each schema, every constructor/raw retry/spawn/insert/rollback/despawn and both checkpoints, then writes its complete original JSON+finalLF. Full original independent4,606-byte TS oracle remains unchanged; only its JSON String container is derived to reuse the established exact wholeString collector.
+
+The existing direct collector run body is unchanged: complete stdlib bootstrap before helper imports, pinned Python/Node/source-stage/oracle/environment, acquired/post/final boundaries, actual completed result ledger before stream publication, regular raw capture and unconditional failure receipt. This direct Node-only preparation has no compiler child or emitted runtime artifact. The immutable generated source-stage entry is already pinned. No timed or public delivery acceptance is claimed; source-stage/container/plan admission and actual full gate are required.
