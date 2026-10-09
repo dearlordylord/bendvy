@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : a filled definition (an unfilled law is a dead claim: live code cannot use it)
+- observed : walk
+Context:
+- fuel    : Nat
+- pending : List<&2, J.Token>
+- chunks  : List<&2, String>
+Location: advance
+26 |     case StepComplete{text}:EncodeComplete{text}
+27>|     case StepNext{pending,chunks}:walk(fuel,pending,chunks)
+   |                                   ^^^^
+28 | def walk(fuel:Nat,pending:List<&2,J.Token>,acc:List<&2,String>) -> EncodeResult:

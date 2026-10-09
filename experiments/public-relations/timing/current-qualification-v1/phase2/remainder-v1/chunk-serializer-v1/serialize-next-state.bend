@@ -21,12 +21,12 @@ def exhausted(pending:List<&2,J.Token>,acc:List<&2,String>) -> EncodeResult:
   match pending:
     case []:EncodeComplete{reversed_chunks(acc,"")}
     case _:EncodeIncomplete{}
+def loop(fuel:Nat,state:EncodeStep) -> EncodeResult:
+  match fuel state:
+    case _ StepComplete{text}:EncodeComplete{text}
+    case 0n StepNext{pending,chunks}:exhausted(pending,chunks)
+    case 1n+rest StepNext{pending,chunks}:loop(rest,step(pending,chunks))
 def walk(fuel:Nat,pending:List<&2,J.Token>,acc:List<&2,String>) -> EncodeResult:
-  match fuel:
-    case 0n:exhausted(pending,acc)
-    case 1n+rest:
-      match step(pending,acc):
-        case StepComplete{text}:EncodeComplete{text}
-        case StepNext{pending,chunks}:walk(rest,pending,chunks)
+  loop(fuel,StepNext{pending,acc})
 def encode(population:U32,value:J.Value) -> EncodeResult:
   walk(Input.serialize_budget(population),[J.Visit{value}],[])

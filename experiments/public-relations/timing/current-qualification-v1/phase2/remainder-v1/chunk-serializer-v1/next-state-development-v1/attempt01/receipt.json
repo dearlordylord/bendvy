@@ -1,0 +1,39 @@
+{
+  "commands": [
+    {
+      "label": "fuel",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-42-adoption-current/experiments/public-relations/timing/current-qualification-v1/phase2/remainder-v1/chunk-serializer-v1/next-state-fuel-controls.bend",
+        "--check-only"
+      ],
+      "seconds": 5,
+      "scope": "direct development source check only",
+      "exit": 1,
+      "failure": null,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "bfe6b65172d0b04c671e625b9cba6ccdfb4400d40fb94b65ade7010152025f8a"
+    },
+    {
+      "label": "consumer",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-42-adoption-current/experiments/public-relations/timing/current-qualification-v1/phase2/remainder-v1/chunk-serializer-v1/whole-feature-timing-v1/driver-next-state.bend",
+        "--check-only"
+      ],
+      "seconds": 5,
+      "scope": "direct development source check only",
+      "exit": 1,
+      "failure": null,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "bfe6b65172d0b04c671e625b9cba6ccdfb4400d40fb94b65ade7010152025f8a"
+    }
+  ],
+  "noBackendAcceptance": true
+}
