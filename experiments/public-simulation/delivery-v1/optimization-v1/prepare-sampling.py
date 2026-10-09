@@ -22,7 +22,7 @@ def prepare(context, scales, qualified_plan, qualified_sha):
     if out.exists()or out.is_symlink():raise ValueError('fresh sampling outputs required')
     roles={'TS':[tools['node'],str(inputs/'reference.mjs')],'JS':[tools['node'],str(inputs/'simulation.js')],'Native':[str(binary),'--threads','1','--gpu','off']}
     commands=[dict(label=r['label'],argv=[tools['taskset'],'-c','5',*roles[r['role']]],capSeconds=5,control=r['role'])for r in rows]
-    files=[HERE.parent/'run-delivery.py',T/'sampling.py',T/'test-sampling.py',HERE/'prepare-sampling.py',T/'SAMPLING-READINESS.md',Path('/tmp/bendvy63-named-loop-cpu5-quiet-context-v1.json'),contract,old,actual/'receipt.json',binary,HERE/'evidence-timing-qualification-v2/MANIFEST.json',HERE/'evidence-timing-qualification-v2/verify.py']
+    files=[HERE.parent/'run-delivery.py',T/'sampling.py',T/'test-sampling.py',HERE/'prepare-sampling.py',HERE/'test-sampling-receipt.py',T/'SAMPLING-READINESS.md',Path('/tmp/bendvy63-named-loop-cpu5-quiet-context-v1.json'),contract,old,actual/'receipt.json',binary,HERE/'evidence-timing-qualification-v2/MANIFEST.json',HERE/'evidence-timing-qualification-v2/verify.py']
     pins=dict(plan['pins'])
     for file in files:pins[str(file.resolve())]=sha(file)
     toolconfig=dict(plan['toolConfiguration']);toolconfig['tools']=dict(tools,qualifiedSimulationNative=str(binary))
