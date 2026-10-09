@@ -1,0 +1,14 @@
+--- before
++++ after
+@@ -2516,7 +2516,10 @@
+       const once = fl.sites.get(ck.k) === 1 && !ck.b
+         && !def_foreign(fl.book.tlds[ck.k])
+         && (!lay_box(ret) || lay_box(fl.seg.ret));
+-      if (fl.seg.def !== ck.k && (flat_call(fl, x) || (dst === null && once))) {
++      if (fl.seg.def !== ck.k && !flat_call(fl, x) && dst === null && once) {
++        Cost.suppressed_once(fl.def,ck.k,fl.seg.fid);
++      }
++      if (fl.seg.def !== ck.k && flat_call(fl, x)) {
+         return emit_fuse(fl, ck, dst, true);
+       }
+       if (!lay_eq(fl.seg.ret, ret)
