@@ -43,8 +43,15 @@ for item in index['plans']:
  outputs[label]=result['stdout'].decode('utf8')
  print(label,'complete archive/raw/guards/full literal/timer protocol PASS')
 join_path=HERE.parent/'shared-public-join.py';join_bytes=join_path.read_bytes();join_sha=hashlib.sha256(join_bytes).hexdigest()
+retained_join_paths=[]
 for label in ['positiveJS','positiveNative','positiveTS']:
- plan=json.loads((HERE/(label+'-prepared-plan-v1.json')).read_bytes());assert plan['pins'][str(join_path)]==join_sha
+ plan=json.loads((HERE/(label+'-prepared-plan-v1.json')).read_bytes())
+ retained=[(name,value) for name,value in plan['pins'].items() if name.endswith('/common20-timing-v1/shared-public-join.py')]
+ assert len(retained)==1 and retained[0][1]==join_sha
+ retained_join_paths.append(retained[0][0])
+assert len(set(retained_join_paths))==1
+# Historical pin keys retain the author checkout; current checkout must supply exact bytes.
+assert join_path.name=='shared-public-join.py' and join_path.parent.name=='common20-timing-v1'
 module=types.ModuleType('join');module.__file__=str(join_path);exec(compile(join_bytes,str(join_path),'exec'),module.__dict__)
 joined={'sourceSHA256':join_sha,'JS':module.compare(outputs['positiveJS'],outputs['positiveTS']),'Native':module.compare(outputs['positiveNative'],outputs['positiveTS'])}
 assert joined==json.loads((HERE/'ACTUAL-PUBLIC-JOIN.json').read_bytes())
