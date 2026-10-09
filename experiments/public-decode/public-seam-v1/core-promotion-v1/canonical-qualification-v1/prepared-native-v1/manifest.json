@@ -1,0 +1,86 @@
+{
+  "scope": "canonical complete15+8 artifact-only Native; existing reviewed execution code/fullmodels/guards unchanged",
+  "previousActualCommit": "b6ee13a9",
+  "plans": [
+    {
+      "role": "generic-spine",
+      "bindingSha256": "5f34536e76e51fba3b44d1fea2ca5250a84758ebaca789e233cb2a1e4783d380",
+      "path": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/core-promotion-v1/canonical-qualification-v1/prepared-native-v1/generic-spine-native/plan.json",
+      "planSha256": "6be3578feb06579850b4bf83d1a8bb5ef8ba5961fc889b9100caf75f628c3c25",
+      "state": "UNLAUNCHED",
+      "commands": [
+        {
+          "label": "complete-build",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/tmp/bendvy-clang19-diagnostic/clang19",
+            "-O3",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/core-promotion-v1/canonical-qualification-v1/prepared-v1/generic-spine-cEmit/generated/complete.c",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/core-promotion-v1/canonical-qualification-v1/prepared-native-v1/generic-spine-native/generated/complete.native",
+            "-pthread",
+            "-lm"
+          ],
+          "capSeconds": 120,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/core-promotion-v1/canonical-qualification-v1/prepared-native-v1/generic-spine-native/generated/complete.native"
+        },
+        {
+          "label": "complete-run",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/core-promotion-v1/canonical-qualification-v1/prepared-native-v1/generic-spine-native/generated/complete.native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "capSeconds": 5
+        }
+      ]
+    },
+    {
+      "role": "deferred-spine",
+      "bindingSha256": "9abc8a34c551599a2a468905e60164b2cb9b9d1a44117a7dec065899e1af9ae5",
+      "path": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/core-promotion-v1/canonical-qualification-v1/prepared-native-v1/deferred-spine-native/plan.json",
+      "planSha256": "0d8d716cd97c32aa36eca6b4a01fb5ce46f66842edf1c25ad76956d338581b38",
+      "state": "UNLAUNCHED",
+      "commands": [
+        {
+          "label": "complete-build",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/tmp/bendvy-clang19-diagnostic/clang19",
+            "-O3",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/core-promotion-v1/canonical-qualification-v1/prepared-v1/deferred-spine-cEmit/generated/complete.c",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/core-promotion-v1/canonical-qualification-v1/prepared-native-v1/deferred-spine-native/generated/complete.native",
+            "-pthread",
+            "-lm"
+          ],
+          "capSeconds": 120,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/core-promotion-v1/canonical-qualification-v1/prepared-native-v1/deferred-spine-native/generated/complete.native"
+        },
+        {
+          "label": "complete-run",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/core-promotion-v1/canonical-qualification-v1/prepared-native-v1/deferred-spine-native/generated/complete.native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "capSeconds": 5
+        }
+      ]
+    }
+  ]
+}
