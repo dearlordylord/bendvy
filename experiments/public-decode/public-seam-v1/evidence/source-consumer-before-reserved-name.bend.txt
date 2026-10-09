@@ -1,0 +1,25 @@
+import Base
+import ./application.bend as App
+import /workspace/formal-proofs/bendvy/experiments/public-decode/adoption-v1/admission.bend as Gate
+import /workspace/formal-proofs/bendvy/experiments/public-decode/typed.bend as D
+import /workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/controls.bend as Input
+import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
+import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col
+
+type Schema is Data: Schema{}
+type OtherSchema is Data: OtherSchema{}
+def empty(unit:Unit) -> App.Store(~Schema): Col.empty(~Schema,~Input.Owner)
+type Result is Type:
+  Observed{result:Gate.Returned<(App.World(~Schema) & W.Handle<Schema>),Input.Owner,App.Output<Schema>>}
+  SetupRefused{world:App.World(~Schema),error:W.WorldError}
+  CreationRefused{owner:Input.Owner}
+def reserved(result:App.World(~Schema) & W.Reservation<Schema>) -> Result:
+  match result:
+    case (world,W.Reserved{handle}): Observed{App.request(~Schema,handle,App.Resource{},D.Integer{},world,Input.Owner{D.Number{7},ANode{ALeaf{111},ALeaf{222}}})}
+    case (world,W.ReservationRejected{error}): SetupRefused{world,error}
+def created(result:W.Creation<Schema,App.Store(~Schema),Input.Owner,Unit>) -> Result:
+  match result:
+    case W.Created{factory,world}: reserved(W.reserve_id(~Schema,~App.Store(~Schema),~Input.Owner,~Unit,world))
+    case W.CreateRejected{factory,resource}: CreationRefused{resource}
+def main() -> Result:
+  created(W.create(~Schema,~App.Store(~Schema),~Input.Owner,~Unit,~empty,W.factory(),Input.Owner{D.Number{9},ALeaf{333}}))

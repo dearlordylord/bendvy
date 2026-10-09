@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a fresh name (duplicate declaration: Result)
+- observed : 'Result'
+Location:
+11 | def empty(unit:Unit) -> App.Store(~Schema): Col.empty(~Schema,~Input.Owner)
+12>| type Result is Type:
+   |      ^^^^^^
+13 |   Observed{result:Gate.Returned<(App.World(~Schema) & W.Handle<Schema>),Input.Owner,App.Output<Schema>>}
+bend 2.0.36 is available: run bend update

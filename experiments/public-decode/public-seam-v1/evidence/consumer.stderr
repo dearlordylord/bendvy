@@ -1,0 +1,15 @@
+SOME PROOFS FAIL
+Error:
+- expected : a template applied to closed ~ arguments (H is a variable here, not comptime: pass it at run time)
+- observed : Cap.owned_request
+Context:
+- H     : Type
+- cap   : Cap.OwnedRequest<H, Input<Schema, ../../../../../bendvy/experiments/public-decode/complete-v1/controls.Owner>, Output<Schema, ../../../../../bendvy/experiments/public-decode/complete-v1/controls.Owner, application.Output<Schema>>>
+- input : Input<Schema, ../../../../../bendvy/experiments/public-decode/complete-v1/controls.Owner>
+- ctx   : H
+Location: gameplay~0
+30 | def gameplay(~S:Data,~P:Type,~O:Type,-H:Type,-cap:Cap.OwnedRequest<H,Input<S,P>,Output<S,P,O>>,input:Input<S,P>,ctx:H) -> H & Output<S,P,O>:
+31>|   Cap.owned_request(~H,~Input<S,P>,~Output<S,P,O>,~cap,ctx,input)
+   |   ^^^^^^^^^^^^^^^^^
+32 | 
+bend 2.0.36 is available: run bend update

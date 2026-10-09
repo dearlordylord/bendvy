@@ -1,0 +1,15 @@
+SOME PROOFS FAIL
+Error:
+- expected : ../../../../../bendvy/src/ecs/world.World<Schema, ../../../../../bendvy/src/ecs/column.Column<Schema, Input.Owner>, Input.Owner, Unit>
+- observed : H
+Context:
+- H     : Type
+- cap   : Cap.OwnedRequest<H, Public.Input<Schema, Input.Owner>, Public.Output<Schema, Input.Owner, App.Output<Schema>>>
+- owner : Input.Owner
+- ctx   : H
+Location: body
+ 9 | def body(-H:Type,cap:Cap.OwnedRequest<H,Public.Input<Schema,Input.Owner>,Public.Output<Schema,Input.Owner,App.Output<Schema>>>,owner:Input.Owner,ctx:H) -> H & App.Output<Schema>:
+10>|   App.resource(~Schema,ctx,owner,D.Number{7})
+   |                        ^^^
+11 | 
+bend 2.0.36 is available: run bend update
