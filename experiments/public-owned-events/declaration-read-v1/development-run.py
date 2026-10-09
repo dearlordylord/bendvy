@@ -168,10 +168,10 @@ def main(out,native=False,execute=False,plan_digest=None,role="generic",binding_
     logs = LOGS.CommandLogs(raw,[c['label'] for c in commands])
     record = {'preparedPlanSha256':plan_digest,'status':'INCOMPLETE','scope':__doc__,'commands':[],'generated':{},'logs':{}}
     def guard():
+        record['logs'] = dict(logs.hashes)
         assert admitted_plan(plan_path,plan_digest) == admitted, 'admitted plan changed'
         frozen.guard()
         logs.guard()
-        record['logs'] = dict(logs.hashes)
         assert {str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in generated.iterdir() if p.is_file()} == record['generated']
         assert not any(p.is_symlink() or not p.is_file() for p in generated.iterdir())
     with ReceiptBoundary(record,out/'receipt.json',[('source/tools/environment/raw/generated',guard)]):

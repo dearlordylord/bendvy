@@ -47,12 +47,14 @@ class Selection(unittest.TestCase):
 
     def test_python_callers_and_shared_infrastructure(self):
         for name in ['experiments/public-debug/run.py', 'scripts/bend-check',
+                     'experiments/public-owned-events/declaration-read-v1/development-run.py',
                      'benchmarks/contract.json', '.githooks/pre-commit',
                      '.github/workflows/check.yml']:
             with self.subTest(name=name):
                 calls = self.check_paths([name])
                 self.assertEqual(calls[0], 'scripts/check-python-source.py --staged')
                 self.assertIn('scripts/test-task-runner.py', calls)
+                self.assertIn('scripts/test-receipt-logs.py', calls)
                 self.assertIn('scripts/run-admission-controls.py', calls)
                 self.assertIn('benchmarks/test-statistics.py', calls)
                 self.assertEqual(calls[-1], 'scripts/test-pre-commit.py')
