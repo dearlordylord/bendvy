@@ -1,0 +1,56 @@
+{
+  "scope": "Complete canonical47-source privateCheck fanout development source5 only; no backend/proof/compiler control acceptance",
+  "planSHA256": "8d1ab276d25b5aac69855a92246957c328452c9ca3881b6beec0ead3b6db4740",
+  "commands": [
+    {
+      "label": "source-normal",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/output-io-main.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "expectedExit": 0,
+      "stderrContains": [],
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/source-attempt03/source-normal.stdout",
+        "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+        "bytes": 58,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/source-attempt03/source-normal.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "sourceControlPassed": true
+    }
+  ],
+  "guards": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/source-attempt03/source-normal-pre.guard.json",
+      "sha256": "6e7cdbda2996285ab34b5b44c899616632978deba79257ce8ef90114ea5d7f30"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/source-attempt03/source-normal-acquired.guard.json",
+      "sha256": "359f7a6289a94cfe7515de8ae83b8ffca3b34cd8d553eb53889deb9361f1235f"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/source-attempt03/source-normal-post.guard.json",
+      "sha256": "4aaa92db59fef5d9578ef2a33d5e8f9f0a3134cf580f4ec601561045ce015af8"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/source-attempt03/final.guard.json",
+      "sha256": "568bb9e43c47b5062b768b457857db37b8eb2e49d7df37cc0102472dccbfcb5f"
+    }
+  ],
+  "status": "COMPLETE_SOURCE_CONTROL_PASS"
+}

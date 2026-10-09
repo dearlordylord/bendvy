@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : @_:CheckOwner<check_predicate~S, check_predicate~Store, check_predicate~R, check_predicate~E> -> @_:W.Handle<check_predicate~S> -> Sigma<&1, &1, CheckOwner<check_predicate~S, check_predicate~Store, check_predicate~R, check_predicate~E>, _ => Bool>
+- observed : @owner:CheckOwner<check_predicate~S, check_predicate~Store, check_predicate~R, check_predicate~E> -> @+target:W.Handle<check_predicate~S> -> Sigma<&1, &1, CheckOwner<check_predicate~S, check_predicate~Store, check_predicate~R, check_predicate~E>, _ => Bool>
+Location: check_predicate
+65 | def check_predicate(~S:Data,~Store:Type,~R:Type,~E:Data,~predicate:D.Predicate<K.Frame<S,Store,R,E>,S>) -> D.Predicate<CheckOwner<S,Store,R,E>,S>:
+66>|   D.Predicate{check_target(~S,~Store,~R,~E,~Bool,~D.predicate_field(~K.Frame<S,Store,R,E>,~S,predicate))}
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+67 | def check_all(~S:Data,~Store:Type,~R:Type,~E:Data,~V:Data,~operation:K.Frame<S,Store,R,E> -> K.Frame<S,Store,R,E> & V,owner:CheckOwner<S,Store,R,E>) -> CheckOwner<S,Store,R,E> & V:
