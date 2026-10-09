@@ -1,0 +1,25 @@
+{
+  "scope": "Additive IO feature timer source preparation; no backend or timing admission",
+  "acceptedSemanticSource": "/workspace/formal-proofs/bendvy-worktrees/parity-41-public-readiness/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/registered-lifecycle-v1/main.bend",
+  "acceptedSourceSHA256": "650794b4b28c7459f664186bd6f544e3131ba2d98608d3640c7ca8ae21ee8b6f",
+  "instrumentedSourceSHA256": "f7a04a11695d972a1813a6d80dffbda94c29606c6ad8c3967f44dcc83ae5e57e",
+  "exactBendDelta": [
+    "Import existing Bench timer",
+    "IO.print \u2192 Bench.capture (complete unchanged expressions)",
+    "Bench.begin first in main IO sequence",
+    "Bench.end last afterten worlds/snapshots/ownerteardown"
+  ],
+  "timerSources": {
+    "/workspace/formal-proofs/bendvy-worktrees/parity-41-public-readiness/benchmarks/parity-features/timing.bend": "9ec42a1e1a7095457b9e2366bec3f57b12325801dbea2d8ea9ac6df08be21ad7",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-41-public-readiness/benchmarks/parity-features/timing.c": "1b86ab0900281ba4b5582c4373effdc8217fcc827ed2390f877a9bcdbbbbdbc2",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-41-public-readiness/benchmarks/parity-features/timing.js": "5b4c1c6d1ba415bf8c89b663cfecfbd662267f1cd40da0e98cc5523bbf938508"
+  },
+  "TSBoundary": "Existing capture.mjs around actualfull application()+JSON stringify, console capture appends exactlyoriginal oneLF; no completeOutput extraLF",
+  "requiresBeforeTiming": [
+    "Retained source5 checks: positive and early-end control exit1 solely for 16 unsafe/foreign effect definitions; no proof qualification",
+    "Whole semanticoutput+bytes/digest qualification",
+    "Reached lateIO/teardown/endboundary controls",
+    "Independent exactplan admission"
+  ],
+  "sourceOracleUnchanged": "Both full backend-specific literals and all20public rows remain mandatory; metadata stderr additional, not replacement"
+}
