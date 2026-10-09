@@ -104,16 +104,16 @@ def prepare(out, case):
     inventory_path=TRANSPORT/(case+'-inventory.json')
     identities=json.loads(inventory_path.read_text())
     if parser.Transport(entry).inventory()!=identities:raise ValueError('Frozen consuming sources changed')
-    if sha(oracle/'expected.json')!=expected_sha:raise ValueError('Independent full model changed')
+    if sha(selection['json'])!=expected_sha:raise ValueError('Independent full model changed')
     tools = {'bend': '/home/node/.bend/bin/bend-2.0.35', 'node': '/home/node/.local/share/mise/installs/node/24.20.0/bin/node', 'python': str(Path(sys.executable).resolve()), 'taskset': str(Path('/usr/bin/taskset').resolve(strict=True))}
     tools['clangWrapper'] = '/tmp/bendvy-clang19-diagnostic/clang19'
     tools['clangBinary'] = '/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang'
     config = ROOT / 'experiments/public-simulation/delivery-v1/installed-config.py'
     extra=[config,Path(__file__),TRANSPORT/'transport.py',inventory_path,
            ROOT/'scripts/task_runner.py',ROOT/'scripts/evidence_boundary.py',
-           HERE/'ORACLE-SELECTION.json',HERE/'RECIPE-REUSE.json',*map(Path,tools.values())]
-    extra += [f for f in oracle.rglob('*') if f.is_file()]
-    extra += [f for f in HERE.parent.rglob('*') if f.is_file() and HERE not in f.parents]
+           HERE/'ORACLE-SELECTION.json',HERE/'RECIPE-REUSE.json',HERE/'test-transport.py',HERE/'test-publication.py',HERE/'test-admission.py',ROOT/'src/ecs/world-namespace.c',ROOT/'src/ecs/world-namespace.js',*map(Path,tools.values())]
+    extra += [f for f in oracle.rglob('*') if f.is_file() and '__pycache__' not in f.parts]
+    extra += [f for f in HERE.parent.rglob('*') if f.is_file() and HERE not in f.parents and '__pycache__' not in f.parts]
     pins = dict(identities['sourceSHA256'])
     pins.update({str(path.resolve(strict=True)): sha(path) for path in extra})
     configuration = load('installed_configuration', config)
@@ -124,7 +124,10 @@ def prepare(out, case):
     plan = {'scope': 'direct development only; no complete resolver qualification or #48 completion',
             'expectedSHA256': expected_sha, 'entrypoint': identities['entrypoint'], 'constructorInventory': str(inventory_path),
             'resourceRoots': [str(root) for root in resources.directories], 'resourceInventory': resources.expected,
-            'pins': pins, 'environment': env, 'cwd': str(HERE), 'oracle': str(oracle / 'expected.json'),
+            'pins': pins, 'environment': env, 'cwd': str(HERE), 'oracle': selection['json'],
+            'stdoutOracle': selection['stdout'], 'stdoutOracleSHA256': selection['stdoutSHA256'],
+            'baselineJSON': selection.get('baselineJSON'), 'baselineSHA256': selection.get('baselineSHA256'),
+            'baselineStdout': selection.get('baselineStdout'), 'baselineStdoutSHA256': selection.get('baselineStdoutSHA256'),
             'generated': str(generated), 'native': str(native),
             'tools': tools, 'commands': [
                 {'label': 'emit', 'argv': [tools['taskset'], '-c', '5', tools['bend'], identities['entrypoint'], '-o', str(generated)], 'capSeconds': 30},
@@ -134,6 +137,28 @@ def prepare(out, case):
     out.mkdir(parents=True, exist_ok=False)
     (out / 'plan.json').write_text(json.dumps(plan, indent=2) + '\n')
     print(sha(out / 'plan.json'))
+
+
+def validate_output(plan, parser, stdout, record):
+    expected_stdout = Path(plan['stdoutOracle']).read_bytes()
+    if hashlib.sha256(expected_stdout).hexdigest() != plan['stdoutOracleSHA256'] or stdout != expected_stdout:
+        raise ValueError('Entire literal stdout differs, including final newline')
+    actual = parser.Transport(plan['entrypoint']).normalize(stdout.decode())
+    expected_bytes = Path(plan['oracle']).read_bytes()
+    if hashlib.sha256(expected_bytes).hexdigest() != plan['expectedSHA256']:
+        raise ValueError('Whole oracle changed')
+    parser.TERM.strict_equal(actual, json.loads(expected_bytes))
+    if plan.get('baselineJSON') is not None:
+        baseline_bytes = Path(plan['baselineJSON']).read_bytes()
+        if hashlib.sha256(baseline_bytes).hexdigest() != plan['baselineSHA256']:
+            raise ValueError('Frozen normal baseline changed')
+        baseline_stdout = Path(plan['baselineStdout']).read_bytes()
+        if hashlib.sha256(baseline_stdout).hexdigest() != plan['baselineStdoutSHA256']:
+            raise ValueError('Frozen normal literal baseline changed')
+        if stdout == baseline_stdout or actual == json.loads(baseline_bytes):
+            raise ValueError('Reached mutant failed to reject normal baseline')
+        record['normalBaselineRejectedSHA256'] = plan['baselineSHA256']
+    record['wholeOracleSHA256'] = plan['expectedSHA256']
 
 
 def run(plan_path, expected_sha):
@@ -206,12 +231,7 @@ def run(plan_path, expected_sha):
                 else:
                     if result['stderr']:
                         raise ValueError('Consumer stderr is not empty')
-                    actual = parser.Transport(plan['entrypoint']).normalize(result['stdout'].decode())
-                    expected_bytes = Path(plan['oracle']).read_bytes()
-                    if hashlib.sha256(expected_bytes).hexdigest() != plan['expectedSHA256']:
-                        raise ValueError('Whole oracle changed')
-                    parser.TERM.strict_equal(actual, json.loads(expected_bytes))
-                    record['wholeOracleSHA256'] = plan['expectedSHA256']
+                    validate_output(plan, parser, result['stdout'], record)
         record['status'] = 'DEVELOPMENT_PASS'
 
 

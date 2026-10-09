@@ -1,0 +1,249 @@
+{
+  "scope": "semantic development only; no public preframe/initialization policy approval; no execution",
+  "oracleCommit": "4f3ab2d9",
+  "plans": {
+    "main-js": {
+      "path": "/tmp/bendvy48-provision-main-js-v1/plan.json",
+      "sha256": "2042d46a2ebd199e279c6cb4a1db57b3ab0344ec450c8d8fcccce40ecc289bc6",
+      "pins": 169,
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/main.bend",
+            "-o",
+            "/tmp/bendvy48-provision-main-js-v1/scenario.js"
+          ],
+          "capSeconds": 30
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/tmp/bendvy48-provision-main-js-v1/scenario.js"
+          ],
+          "capSeconds": 5
+        }
+      ]
+    },
+    "main-mutant-js": {
+      "path": "/tmp/bendvy48-provision-main-mutant-js-v1/plan.json",
+      "sha256": "b64d7d6c4ed18b0c39de3b31e0d43db81c947b192565ec5f081d63b1b0bfac2a",
+      "pins": 169,
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/main-mutant.bend",
+            "-o",
+            "/tmp/bendvy48-provision-main-mutant-js-v1/scenario.js"
+          ],
+          "capSeconds": 30
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/tmp/bendvy48-provision-main-mutant-js-v1/scenario.js"
+          ],
+          "capSeconds": 5
+        }
+      ]
+    },
+    "flow-only-js": {
+      "path": "/tmp/bendvy48-provision-flow-only-js-v1/plan.json",
+      "sha256": "d45c34c278269c490056f7f4a422dc71484aa48cbac2774ad76ac4909d215eec",
+      "pins": 169,
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/flow-only.bend",
+            "-o",
+            "/tmp/bendvy48-provision-flow-only-js-v1/scenario.js"
+          ],
+          "capSeconds": 30
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/tmp/bendvy48-provision-flow-only-js-v1/scenario.js"
+          ],
+          "capSeconds": 5
+        }
+      ]
+    },
+    "main-native": {
+      "path": "/tmp/bendvy48-provision-main-native-v1/plan.json",
+      "sha256": "6c7f009ba953f0ca37048c808bf52bc7855360e41d4fb60f2461daafa7ab8126",
+      "pins": 171,
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/main.bend",
+            "-o",
+            "/tmp/bendvy48-provision-main-native-v1/scenario.c"
+          ],
+          "capSeconds": 30
+        },
+        {
+          "label": "build",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/tmp/bendvy-clang19-diagnostic/clang19",
+            "-O3",
+            "/tmp/bendvy48-provision-main-native-v1/scenario.c",
+            "-o",
+            "/tmp/bendvy48-provision-main-native-v1/scenario.native",
+            "-pthread",
+            "-lm"
+          ],
+          "capSeconds": 120
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/tmp/bendvy48-provision-main-native-v1/scenario.native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "capSeconds": 5
+        }
+      ]
+    },
+    "main-mutant-native": {
+      "path": "/tmp/bendvy48-provision-main-mutant-native-v1/plan.json",
+      "sha256": "fa5d84b4b5b44a99c978455366a6cf4930cedf3d44133e6c3ccbfaceaf0b6fe7",
+      "pins": 171,
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/main-mutant.bend",
+            "-o",
+            "/tmp/bendvy48-provision-main-mutant-native-v1/scenario.c"
+          ],
+          "capSeconds": 30
+        },
+        {
+          "label": "build",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/tmp/bendvy-clang19-diagnostic/clang19",
+            "-O3",
+            "/tmp/bendvy48-provision-main-mutant-native-v1/scenario.c",
+            "-o",
+            "/tmp/bendvy48-provision-main-mutant-native-v1/scenario.native",
+            "-pthread",
+            "-lm"
+          ],
+          "capSeconds": 120
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/tmp/bendvy48-provision-main-mutant-native-v1/scenario.native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "capSeconds": 5
+        }
+      ]
+    },
+    "flow-only-native": {
+      "path": "/tmp/bendvy48-provision-flow-only-native-v1/plan.json",
+      "sha256": "899c09a5d6efedb1ffb897d067b3ade0e098fcaa02732145b962b28d4165488e",
+      "pins": 171,
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/flow-only.bend",
+            "-o",
+            "/tmp/bendvy48-provision-flow-only-native-v1/scenario.c"
+          ],
+          "capSeconds": 30
+        },
+        {
+          "label": "build",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/tmp/bendvy-clang19-diagnostic/clang19",
+            "-O3",
+            "/tmp/bendvy48-provision-flow-only-native-v1/scenario.c",
+            "-o",
+            "/tmp/bendvy48-provision-flow-only-native-v1/scenario.native",
+            "-pthread",
+            "-lm"
+          ],
+          "capSeconds": 120
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/tmp/bendvy48-provision-flow-only-native-v1/scenario.native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "capSeconds": 5
+        }
+      ]
+    }
+  }
+}
