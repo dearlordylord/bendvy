@@ -1,0 +1,23 @@
+{
+  "scope": "actual source/type only; no backend/model/proof claim",
+  "checks": [
+    {
+      "entry": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/completion-addon-v1/complete-spine.bend",
+      "sha256": "d6fe73ee24e33abb84e7f39977beedbc474ef38ff7b552bc2b6765b8d6a4a395",
+      "argv": [
+        "taskset",
+        "-c",
+        "5",
+        "timeout",
+        "--signal=KILL",
+        "5s",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/completion-addon-v1/complete-spine.bend",
+        "--check-only"
+      ],
+      "exit": 0,
+      "stdout": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n",
+      "stderr": "bend 2.0.36 is available: run bend update\n"
+    }
+  ]
+}
