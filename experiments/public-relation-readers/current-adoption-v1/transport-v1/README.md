@@ -1,0 +1,7 @@
+# Complete source-typed transport preparation
+
+`transport.py` reads the exact consuming import graph and Data declarations, including closed Data-valued aliases. Nominal constructor namespaces, ordered fields, generic type parameters and builtin Maybe/List/Nat/U32/Bool are checked against source. It returns the complete independent oracle shape; it never collapses Queue.front/back, drops variants, supplies defaults, or projects prefixes. It reuses the existing committed canonical term parser and type-sensitive equality helper.
+
+The source-derived inverse authors synthetic text from the complete pre-run independent model. Six no-child tests cover the full normal and both compiling mutant models; last world/owner corruption; exact physical queue back; absent category/field; wrong source namespace/datatype; Nat-versus-U32, Bool-versus-U32 and Maybe arity. All three whole roundtrips pass. These are transport controls, not runtime outputs or mutation execution evidence.
+
+The parser covers the actual admitted source syntax and observed Data domain, not general Bend source parsing. Inline nullary Data definitions and one-line closed Data aliases are handled explicitly. Unknown types, constructors, field counts and unsupported source forms refuse. Source/constructor inventories are regenerated exactly before comparing an actual output; launch recipes must additionally bind the helper bytes, source/import/config/tool/input pins and unchanged whole oracle. No backend launch is admitted by these files.

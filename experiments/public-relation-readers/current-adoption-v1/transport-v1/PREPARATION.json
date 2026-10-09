@@ -1,0 +1,17 @@
+{
+  "scope": "Pre-output source-derived exact typed full model controls only, no backend acceptance",
+  "independentOracle": {
+    "expected.json": "12ac1a036e525fa92417129364a03b6212dd241bee3b10e664fd9a840861d01a",
+    "wrong-reader-advance-expected.json": "cd83e13f3f37cdeada6e2d7e02e0e716a658b885fc6ec279f4615b325bdd4cf8",
+    "premature-publication-expected.json": "91031446480783e3e2210a7ff3f977a5f12d92eeb5aa542673bd727742e49941"
+  },
+  "source38OriginalImmutable": "c8ad264e",
+  "sourceControls": "baef2bf5",
+  "tests": 6,
+  "wholeRoundtrips": {
+    "synthetic.stdout": "b2835f6becb46101c0d382fdfc66036b59a9d75fe58ac775d54a6f3fb78a2d39",
+    "wrong-reader-advance-synthetic.stdout": "df971341cc32722f07ac0b242bb5c5e65f2a0ef628334b23a5d6ec8e5effb893",
+    "premature-publication-synthetic.stdout": "0737dc6366e9f8d1c1169b959f48091628564b22768ced5cbfb2df3479db2b9a"
+  },
+  "preserves": "Every source Data field including Queue.front/back, every Maybe variant and exact typed Nat/U32/Bool; nominal namespaces from same consuming route"
+}
