@@ -1,0 +1,103 @@
+{
+  "originalSession": 84476,
+  "status": "DEVELOPMENT_NATIVE_PASS",
+  "planSHA256": "4e1452f219a3f804ef287402207f2820cc55495995d9ffa465c66280a46eb7c7",
+  "commands": [
+    {
+      "label": "complete-build",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/native-consuming-v1/prepared-sequential-v1/positive-cEmit/generated/complete.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/native-consuming-v1/prepared-native-sequential-v1/positive-native/generated/complete.native",
+        "-pthread",
+        "-lm"
+      ],
+      "capSeconds": 120,
+      "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/native-consuming-v1/prepared-native-sequential-v1/positive-native/generated/complete.native",
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+    },
+    {
+      "label": "complete-run",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/native-consuming-v1/prepared-native-sequential-v1/positive-native/generated/complete.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+    }
+  ],
+  "files": [
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/native-consuming-v1/prepared-native-sequential-v1/positive-native/plan.json",
+      "archive": "experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/native-consuming-v1/prepared-native-sequential-v1/actual-evidence/plan.json.gz",
+      "bytes": 59225,
+      "sha256": "4e1452f219a3f804ef287402207f2820cc55495995d9ffa465c66280a46eb7c7"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/native-consuming-v1/prepared-native-sequential-v1/positive-native/receipt.json",
+      "archive": "experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/native-consuming-v1/prepared-native-sequential-v1/actual-evidence/receipt.json.gz",
+      "bytes": 2787,
+      "sha256": "c19f01a8887b0044671cb9ee672a1446cacf61e7d80ac8b4809b343883508afe"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/native-consuming-v1/prepared-native-sequential-v1/positive-native/expected.stdout",
+      "archive": "experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/native-consuming-v1/prepared-native-sequential-v1/actual-evidence/expected.stdout.gz",
+      "bytes": 80800,
+      "sha256": "9c449551329a831cfa440d9f0df9dce64c3adf24a29c174391aed833867fe108"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/native-consuming-v1/prepared-native-sequential-v1/positive-native/raw/complete-build.stderr",
+      "archive": "experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/native-consuming-v1/prepared-native-sequential-v1/actual-evidence/complete-build.stderr.gz",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/native-consuming-v1/prepared-native-sequential-v1/positive-native/raw/complete-build.stdout",
+      "archive": "experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/native-consuming-v1/prepared-native-sequential-v1/actual-evidence/complete-build.stdout.gz",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/native-consuming-v1/prepared-native-sequential-v1/positive-native/raw/complete-run.stderr",
+      "archive": "experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/native-consuming-v1/prepared-native-sequential-v1/actual-evidence/complete-run.stderr.gz",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/native-consuming-v1/prepared-native-sequential-v1/positive-native/raw/complete-run.stdout",
+      "archive": "experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/native-consuming-v1/prepared-native-sequential-v1/actual-evidence/complete-run.stdout.gz",
+      "bytes": 80800,
+      "sha256": "9c449551329a831cfa440d9f0df9dce64c3adf24a29c174391aed833867fe108"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/native-consuming-v1/prepared-native-sequential-v1/positive-native/generated/complete.native",
+      "archive": "experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/native-consuming-v1/prepared-native-sequential-v1/actual-evidence/complete.native.gz",
+      "bytes": 1178320,
+      "sha256": "78893a7b5caffc055007d6ab2ac80cfa5c10fcf47bfee955a4457e87a1b0d7b8"
+    }
+  ],
+  "error": null,
+  "guardFailures": [],
+  "guardFailureFieldPresent": false,
+  "completeNativeEqualsJSAndOracleRaw": true,
+  "rawBytes": 80800,
+  "rawSHA256": "9c449551329a831cfa440d9f0df9dce64c3adf24a29c174391aed833867fe108",
+  "scope": "full22native observations only; no performance/universalproof/fullissueclosure"
+}
