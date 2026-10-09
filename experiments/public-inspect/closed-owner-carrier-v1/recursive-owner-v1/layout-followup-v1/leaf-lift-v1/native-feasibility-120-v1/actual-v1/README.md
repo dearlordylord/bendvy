@@ -1,0 +1,3 @@
+Single admitted Native feasibility attempt; original session11209 terminal1. Emission120 hit child deadline; stdout/stderr empty, no C, no Clang/runtime. Reaped-child accounting: wall120.820771473s, user113.752797s, system6.952767s. No named compiler-pass cause, runtime performance, reached-control/adoption or full #54 acceptance follows. No retry/cap ladder.
+
+Archive includes exact plan/receipt/four guards/full raw/source/helper/oracle bytes; external tools identity-only and resource maps retained in plan, not bundled. No independently serialized resource snapshots or clean-checkout resolver qualification. Historical emission30 records remain unchanged.
