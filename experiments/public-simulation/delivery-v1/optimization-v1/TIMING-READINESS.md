@@ -1,0 +1,7 @@
+# Candidate timing readiness
+
+Actual candidate source/JS/Native qualification passed, original whole reports unchanged. Timing inputs use the exact same reviewed generated pure-main boundary and inverse transformations as original application; reached sequencing controls remain the same timer implementation. Validator reads candidate qualification stdout and candidate stage explicitly; no old-stage/profile acceptance lookup. Historical baseline still governs whole oracle equality.
+
+Four timing-boundary qualification commands (TS5,JS5,Clang120,Native5) must pass complete reports and exact internal-clock protocol before measurements. Source inverse and last-output/Boolean-clock controls pass without children. These controls do not constitute candidate execution. Original before/fine profile validators' hardcoded-directory mistake is preserved separately; this candidate validator is source-bound to actual current stage/output paths.
+
+After independent actual timing qualification review, prepare-sampling.py reuses unchanged schedule20balancedpairs/2warmups/seed20261007 at scale1, freshly observed CPU5 quiet-context and per-command host telemetry. It refuses absent qualification receipts/binary/source hashes; future evidence-timing-qualification-v2 must exist before preparation. No current sampling plan or launch. Whole fresh14×2 application lifecycles and transport clocks stay identical; build/startup are excluded. Scales2/4 and full qualification remain separate; no threshold change or quiet guarantee.
