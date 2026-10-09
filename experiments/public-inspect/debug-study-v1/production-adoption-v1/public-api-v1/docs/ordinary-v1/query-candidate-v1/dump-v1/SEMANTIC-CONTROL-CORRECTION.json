@@ -1,0 +1,13 @@
+{
+  "scope": "Test serialization correction only; no fixture/parser/oracle/actual receipt change",
+  "originalTests": "test-parse-dump.py preserved byte-identical",
+  "correction": "New test-semantic-dump.py uses admitted canonical renderer and requires targeted type/whole-state error messages instead of allowing lexical rejection",
+  "newSemanticTests": 8,
+  "exit": 0,
+  "nativeFirst": "transport-checks/native-first.stderr",
+  "nativeCorrection": "Canonical typed source namespace relocation, full3category whole model now passes",
+  "actualExecutionModelsUnchanged": [
+    "52f3a174f01f8ee1f4746a8887be0579dd70b724366575a5aa5337e5a22b2a82",
+    "9ef86ff784a218f38d9eb7ab2d4844fdee0ad2935f1bbb6b4640fd8b83bdfc4c"
+  ]
+}

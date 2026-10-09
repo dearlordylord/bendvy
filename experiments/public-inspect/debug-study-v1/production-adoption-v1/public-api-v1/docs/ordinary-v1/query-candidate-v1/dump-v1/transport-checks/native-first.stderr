@@ -1,0 +1,39 @@
+E.E
+======================================================================
+ERROR: test_full_three_actual_category_terms_equal_whole_model (__main__.Partition.test_full_three_actual_category_terms_equal_whole_model)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/dump-v1/test-native-transport.py", line 43, in test_full_three_actual_category_terms_equal_whole_model
+    actual={cat:P.normalize(T.term(term),inv,join,cat) for cat,(inv,term) in rows.items()}
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/dump-v1/test-native-transport.py", line 43, in <dictcomp>
+    actual={cat:P.normalize(T.term(term),inv,join,cat) for cat,(inv,term) in rows.items()}
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/dump-v1/parse-native.py", line 48, in normalize
+    parsed=BASE.parse_term(raw)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/parse-scenario.py", line 122, in parse_term
+    raise ValueError("Whole term canonical byte roundtrip failed")
+ValueError: Whole term canonical byte roundtrip failed
+
+======================================================================
+ERROR: test_missing_category_or_wrong_category_refused (__main__.Partition.test_missing_category_or_wrong_category_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/dump-v1/test-native-transport.py", line 47, in test_missing_category_or_wrong_category_refused
+    expected,join,rows=inputs();actual={cat:P.normalize(T.term(term),inv,join,cat) for cat,(inv,term) in rows.items()}
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/dump-v1/test-native-transport.py", line 47, in <dictcomp>
+    expected,join,rows=inputs();actual={cat:P.normalize(T.term(term),inv,join,cat) for cat,(inv,term) in rows.items()}
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/dump-v1/parse-native.py", line 48, in normalize
+    parsed=BASE.parse_term(raw)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/parse-scenario.py", line 122, in parse_term
+    raise ValueError("Whole term canonical byte roundtrip failed")
+ValueError: Whole term canonical byte roundtrip failed
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.932s
+
+FAILED (errors=2)
