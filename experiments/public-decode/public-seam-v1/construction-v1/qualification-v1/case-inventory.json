@@ -1,0 +1,182 @@
+{
+  "sourceCommit": "2a21c384 (subject files); this additive spine preserves each original case call once in original group/order",
+  "scope": "all14 original construction/resource +4custom +6ownedrequest +14materialization +6rawresource; host fixture separately",
+  "cases": [
+    {
+      "position": 0,
+      "expression": "Constructed{\"First\",\"constructed\",Input.construct(~Input.First,Input.nested(),Input.valid())}"
+    },
+    {
+      "position": 1,
+      "expression": "Constructed{\"First\",\"rejected\",Input.construct(~Input.First,Input.nested(),Input.invalid())}"
+    },
+    {
+      "position": 2,
+      "expression": "Constructed{\"First\",\"handle\",Input.construct(~Input.First,D.HandleValue{1},D.Handle{1,4})}"
+    },
+    {
+      "position": 3,
+      "expression": "Constructed{\"First\",\"foreign\",Input.construct(~Input.First,D.HandleValue{1},D.Handle{2,4})}"
+    },
+    {
+      "position": 4,
+      "expression": "ValidatedResource{\"First\",\"resource\",Input.resource(~Input.First,~D.Integer{},D.Number{200},False{})}"
+    },
+    {
+      "position": 5,
+      "expression": "ValidatedResource{\"First\",\"invalidResource\",Input.resource(~Input.First,~Input.nested(),Input.invalid(),False{})}"
+    },
+    {
+      "position": 6,
+      "expression": "ValidatedResource{\"First\",\"abortedResource\",Input.resource(~Input.First,~D.Integer{},D.Number{300},True{})}"
+    },
+    {
+      "position": 7,
+      "expression": "Constructed{\"Second\",\"constructed\",Input.construct(~Input.Second,Input.nested(),Input.valid())}"
+    },
+    {
+      "position": 8,
+      "expression": "Constructed{\"Second\",\"rejected\",Input.construct(~Input.Second,Input.nested(),Input.invalid())}"
+    },
+    {
+      "position": 9,
+      "expression": "Constructed{\"Second\",\"handle\",Input.construct(~Input.Second,D.HandleValue{1},D.Handle{1,4})}"
+    },
+    {
+      "position": 10,
+      "expression": "Constructed{\"Second\",\"foreign\",Input.construct(~Input.Second,D.HandleValue{1},D.Handle{2,4})}"
+    },
+    {
+      "position": 11,
+      "expression": "ValidatedResource{\"Second\",\"resource\",Input.resource(~Input.Second,~D.Integer{},D.Number{200},False{})}"
+    },
+    {
+      "position": 12,
+      "expression": "ValidatedResource{\"Second\",\"invalidResource\",Input.resource(~Input.Second,~Input.nested(),Input.invalid(),False{})}"
+    },
+    {
+      "position": 13,
+      "expression": "ValidatedResource{\"Second\",\"abortedResource\",Input.resource(~Input.Second,~D.Integer{},D.Number{300},True{})}"
+    },
+    {
+      "position": 14,
+      "expression": "CustomError{\"First\",\"constructorDenied\",Custom.run(~Input.First,D.Number{7})}"
+    },
+    {
+      "position": 15,
+      "expression": "CustomError{\"First\",\"decoderRefused\",Custom.run(~Input.First,D.Text{\"bad\"})}"
+    },
+    {
+      "position": 16,
+      "expression": "CustomError{\"Second\",\"constructorDenied\",Custom.run(~Input.Second,D.Number{7})}"
+    },
+    {
+      "position": 17,
+      "expression": "CustomError{\"Second\",\"decoderRefused\",Custom.run(~Input.Second,D.Text{\"bad\"})}"
+    },
+    {
+      "position": 18,
+      "expression": "OwnedRequest{\"First\",\"spawnAbort\",Request.run(~Input.First,~Input.nested(),Commands.Spawn{},Input.valid())}"
+    },
+    {
+      "position": 19,
+      "expression": "OwnedRequest{\"First\",\"foreignInsert\",Request.foreign(~Input.First)}"
+    },
+    {
+      "position": 20,
+      "expression": "OwnedRequest{\"First\",\"invalidSpawn\",Request.run(~Input.First,~Input.nested(),Commands.Spawn{},Input.invalid())}"
+    },
+    {
+      "position": 21,
+      "expression": "OwnedRequest{\"Second\",\"spawnAbort\",Request.run(~Input.Second,~Input.nested(),Commands.Spawn{},Input.valid())}"
+    },
+    {
+      "position": 22,
+      "expression": "OwnedRequest{\"Second\",\"foreignInsert\",Request.foreign(~Input.Second)}"
+    },
+    {
+      "position": 23,
+      "expression": "OwnedRequest{\"Second\",\"invalidSpawn\",Request.run(~Input.Second,~Input.nested(),Commands.Spawn{},Input.invalid())}"
+    },
+    {
+      "position": 24,
+      "expression": "MaterialFirst{\"spawn\",Material.run(~Input.First,Material.Spawn{})}"
+    },
+    {
+      "position": 25,
+      "expression": "MaterialFirst{\"insert\",Material.run(~Input.First,Material.Insert{})}"
+    },
+    {
+      "position": 26,
+      "expression": "MaterialFirst{\"failure\",Material.run(~Input.First,Material.Failure{})}"
+    },
+    {
+      "position": 27,
+      "expression": "MaterialFirst{\"failedInsert\",Material.run(~Input.First,Material.FailedInsert{})}"
+    },
+    {
+      "position": 28,
+      "expression": "MaterialFirst{\"invalid\",Material.run(~Input.First,Material.Invalid{})}"
+    },
+    {
+      "position": 29,
+      "expression": "MaterialFirst{\"lateMissing\",Material.run(~Input.First,Material.LateMissing{})}"
+    },
+    {
+      "position": 30,
+      "expression": "MaterialFirst{\"skip\",Material.run(~Input.First,Material.Skip{})}"
+    },
+    {
+      "position": 31,
+      "expression": "MaterialSecond{\"spawn\",Material.run(~Input.Second,Material.Spawn{})}"
+    },
+    {
+      "position": 32,
+      "expression": "MaterialSecond{\"insert\",Material.run(~Input.Second,Material.Insert{})}"
+    },
+    {
+      "position": 33,
+      "expression": "MaterialSecond{\"failure\",Material.run(~Input.Second,Material.Failure{})}"
+    },
+    {
+      "position": 34,
+      "expression": "MaterialSecond{\"failedInsert\",Material.run(~Input.Second,Material.FailedInsert{})}"
+    },
+    {
+      "position": 35,
+      "expression": "MaterialSecond{\"invalid\",Material.run(~Input.Second,Material.Invalid{})}"
+    },
+    {
+      "position": 36,
+      "expression": "MaterialSecond{\"lateMissing\",Material.run(~Input.Second,Material.LateMissing{})}"
+    },
+    {
+      "position": 37,
+      "expression": "MaterialSecond{\"skip\",Material.run(~Input.Second,Material.Skip{})}"
+    },
+    {
+      "position": 38,
+      "expression": "ConstructedResource{\"First\",\"success\",Resource.run(~Input.First,Input.valid(),False{})}"
+    },
+    {
+      "position": 39,
+      "expression": "ConstructedResource{\"First\",\"refused\",Resource.run(~Input.First,Input.invalid(),False{})}"
+    },
+    {
+      "position": 40,
+      "expression": "ConstructedResource{\"First\",\"abort\",Resource.run(~Input.First,Input.valid(),True{})}"
+    },
+    {
+      "position": 41,
+      "expression": "ConstructedResource{\"Second\",\"success\",Resource.run(~Input.Second,Input.valid(),False{})}"
+    },
+    {
+      "position": 42,
+      "expression": "ConstructedResource{\"Second\",\"refused\",Resource.run(~Input.Second,Input.invalid(),False{})}"
+    },
+    {
+      "position": 43,
+      "expression": "ConstructedResource{\"Second\",\"abort\",Resource.run(~Input.Second,Input.valid(),True{})}"
+    }
+  ]
+}
