@@ -1,0 +1,9 @@
+# Additive custom-error composition and actual Local refusal
+
+Frozen original44 source remains unchanged. This extension supplies typed constructor Custom Data errors through actual spawn/resource grants, preserving `Construction<Constructor.Error<Custom>>` separately from downstream `Operation<Request.Error>` or resource `Admission<D.Error>`. Immediate refusal retains exact I through the existing explicit undo; accepted replacement abort still uses existing resource restore/drop behavior. No ownership policy change.
+
+`Business.build` accepts admitted integers except403, which returns typed Denied403. Full opaque-H request/resource consumers cover accepted owner route, constructor refusal, malformed input validation precedence and transaction abort in both schemas. Request foreign insertion uses a real independent same-schema World and preserves primary World/queue and raw owner; its DTO does not observe the second World, matching the explicitly bounded original request fixture.
+
+`local-refusal-fixture` invokes an ordinary Material instance against a second World: shared factory gives foreign namespace, independent factory gives matching namespace but missing registration. It observes actual retained primary World after invocation, supplied World before/after, complete instance metadata/recoveries before/after, and exact incoming/returned affine args (operation, raw, word/flag sentinels,fail). `UnexpectedCompleted` is an explicit nonacceptance outcome. No reconstructed after snapshot substitutes for an actual projection.
+
+`complete-spine` preserves all20 cases8request+8resource+4refusal, once in original order, with full reports. Source5 and actual body read-only/affine negatives are retained; no backend/model/performance/law claim yet. Independent oracle must derive this separately from unchanged original44+host models.

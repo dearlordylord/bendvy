@@ -1,0 +1,17 @@
+{
+  "scope": "source development diagnostic only; no backend",
+  "refusals": [
+    {
+      "entry": "business.bend",
+      "exit": 1,
+      "diagnostic": "input cannot be matched after later binder canonical",
+      "correction": "match input canonical in binder order"
+    },
+    {
+      "entry": "local-refusal-fixture.bend",
+      "exit": 1,
+      "diagnostic": "before consumed more than once",
+      "correction": "retain actual primary World through invocation and observe it afterward, eliminating duplicated after snapshot"
+    }
+  ]
+}

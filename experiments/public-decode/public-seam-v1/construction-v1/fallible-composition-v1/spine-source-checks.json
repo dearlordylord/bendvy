@@ -1,0 +1,59 @@
+{
+  "scope": "actual source/type only; no backend/model/proof claim",
+  "checks": [
+    {
+      "entry": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/fallible-composition-v1/complete-spine.bend",
+      "sha256": "00a6b122aa9318d85189abe0336d5e2d768a8fbc5727d1cce51f29021c882930",
+      "argv": [
+        "taskset",
+        "-c",
+        "5",
+        "timeout",
+        "--signal=KILL",
+        "5s",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/fallible-composition-v1/complete-spine.bend",
+        "--check-only"
+      ],
+      "exit": 0,
+      "stdout": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n",
+      "stderr": "bend 2.0.36 is available: run bend update\n"
+    },
+    {
+      "entry": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/fallible-composition-v1/negative-readonly.bend",
+      "sha256": "8948c1c2a1ab7bd4a55179987a0f61da51a37c1a773db131ec0371cf8d638cfb",
+      "argv": [
+        "taskset",
+        "-c",
+        "5",
+        "timeout",
+        "--signal=KILL",
+        "5s",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/fallible-composition-v1/negative-readonly.bend",
+        "--check-only"
+      ],
+      "exit": 1,
+      "stdout": "",
+      "stderr": "SOME PROOFS FAIL\nError:\n- expected : Cap.OwnedRequest<body~H, Input.Input, Resource.Output<Input.Input, Input.Owner, Business.Error>>\n- observed : Cap.Read<body~H, D.Raw>\nContext:\n- input : Input.Input\n- ctx   : body~H\nLocation: body\n7 | def body(~H:Type,~cap:Cap.Read<H,D.Raw>,input:Input.Input,ctx:H) -> H & Resource.Output<Input.Input,Input.Owner,Business.Error>:\n8>|   Cap.owned_request(~H,~Input.Input,~Resource.Output<Input.Input,Input.Owner,Business.Error>,~cap,ctx,input)\n  |                                                                                               ^^^\n9 | \nbend 2.0.36 is available: run bend update\n"
+    },
+    {
+      "entry": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/fallible-composition-v1/negative-affine.bend",
+      "sha256": "464b733ec2245e19a926f7f13bddfc3d09299dc0c4b56f46220c144f4a193949",
+      "argv": [
+        "taskset",
+        "-c",
+        "5",
+        "timeout",
+        "--signal=KILL",
+        "5s",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/fallible-composition-v1/negative-affine.bend",
+        "--check-only"
+      ],
+      "exit": 1,
+      "stdout": "",
+      "stderr": "SOME PROOFS FAIL\nError:\n- expected : input\n- observed : input (consumed more than once)\nLocation: body\n5 | \n6>| def body(~S:Data,~H:Type,~cap:Cap.OwnedRequest<H,Request.Input<S,Input.Input>,Request.Output<S,Input.Input,Input.Owner,Business.Error>>,input:Request.Input<S,Input.Input>,ctx:H) -> Request.Input<S,Input.Input> & (H & Request.Output<S,Input.Input,Input.Owner,Business.Error>):\n  |                                                                                                                                         ^^^^^\n7 |   (input,Cap.owned_request(~H,~Request.Input<S,Input.Input>,~Request.Output<S,Input.Input,Input.Owner,Business.Error>,~cap,ctx,input))\nbend 2.0.36 is available: run bend update\n"
+    }
+  ]
+}
