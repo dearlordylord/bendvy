@@ -1,0 +1,19 @@
+{
+  "scope": "bounded source/parser/type diagnostics only, no runtime/proof",
+  "sourceSHA256": "161e4d0169200211efff67e61e8d2437c3feea4a64b8993c9e81aeefd46bed75",
+  "exit": 0,
+  "argv": [
+    "flock",
+    "/tmp/bendvy-parity-heavy.lock",
+    "taskset",
+    "-c",
+    "5",
+    "timeout",
+    "--signal=KILL",
+    "5s",
+    "/home/node/.bend/bin/bend-2.0.35",
+    "experiments/public-bundles/owned-public-result-v1/owned-retry-consumer.bend",
+    "--check-only"
+  ],
+  "failedSourceCapture": "v1 reconstructed exact submitted source before helper extraction; v2 directly copied final source"
+}

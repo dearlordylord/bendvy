@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a parameter or field scrutinee (a match cannot scrutinize a computed value: give it its own def)
+Location:
+12 |     case (ctx,Request.Refused{raw,error}):
+13>|       (ctx,output)=Cap.owned_request(~H,~Request.Input<S,Raw>,~Request.Output<S,Raw,Error>,~cap,ctx,Request.Input{Request.Insert{target},raw})
+   |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+14 |       (ctx,(Some{error},output))
+bend 2.0.36 is available: run bend update
