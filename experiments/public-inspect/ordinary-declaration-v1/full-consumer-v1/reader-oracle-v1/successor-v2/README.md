@@ -1,0 +1,9 @@
+# Complete source-derived successor
+
+Normal generator reconstructs entire5077477/SHA810259 before deriving any countermodel. The same operational model with omitted Inspector projected accesses produces5057139 bytes, SHA `ea9857a0afe61387ecf5948fb11e1f6f7f099263057b963b06ca105ed1640a5b`. No runtime stream is loaded by the generator. Old3f15 prediction/files and failed receipt remain historical.
+
+`expected.py` preserves the existing physical-oracle-v2 World/write/phase/clock/instance/retry operations. The narrow parameterization separates original Check records from Inspector records transformed by the reached leaf omission. Gate allowed is explicit nonempty Check rows AND complete canonical formatted equality with the preloaded Inspector record. Each source-written Diagnostic.record/before/after/same/allowed/checks is generated in sequence; Args.ran increments only if allowed. Later overwrites are retained exactly, so changed diagnostics are not blindly propagated into unrelated final fields.
+
+Optional rows already all absent can still compare equal; selected required values and present optional/alias values do not. Empty/no-field queries preserve original equality but still require nonempty rows. Presence/filter/lifecycle selectors stay unchanged, gate Sys.run is untracked and runner changes Args only, Inspector clock/cursor updates and retry fail/success histories retain their source operations. Complete output remains1367 lines; there is no projection, suffix stripping or output-derived patch list.
+
+Focused tests prove exact full normal hash, allAbsent equality, selected/alias disagreement, empty and filter-only behavior, Args changes, complete diagnostic record propagation and unchanged source-derived instance/retry failure histories. Independent root review is required before this author's model receives any execution admission. No backend run or comparison against failed actual stdout was performed during authoring.
