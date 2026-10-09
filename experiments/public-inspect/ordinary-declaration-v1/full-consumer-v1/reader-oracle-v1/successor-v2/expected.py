@@ -1,6 +1,6 @@
-"""Independent finite fixture model authored before any Bend runtime outputs.
-Public query expectations come exclusively from the pre-output literal model.
-Physical states follow source operations, not executions of the Bend backend.
+"""Source-derived successor after first prediction failed.
+Runtime outputs are not generator inputs; physical states follow source operations.
+Public records come from the retained independent literal model.
 """
 import json,pathlib,hashlib
 HERE=pathlib.Path('/workspace/formal-proofs/bendvy/experiments/public-inspect/promotion-stage/component-query-v1')
