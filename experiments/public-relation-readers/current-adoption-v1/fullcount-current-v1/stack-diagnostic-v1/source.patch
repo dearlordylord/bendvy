@@ -1,0 +1,20 @@
+--- original
++++ diagnostic
+@@ -15728,12 +15728,15 @@
+ function io_exit(main, show) {
+   try {
+     if (show !== null) {
+-      io_out(1, io_bytes(show_val(...show, 0, run_loop(main()), 0) + "\n"));
++      io_errs("CAPACITY_APPLICATION_BEGIN");
++      const value = run_loop(main());
++      io_errs("CAPACITY_APPLICATION_COMPLETE");
++      io_out(1, io_bytes(show_val(...show, 0, value, 0) + "\n"));
+       process.exit(0);
+     }
+     process.exit(io_run(main));
+   } catch (e) {
+-    io_errs(String(e));
++    io_errs(String(e?.stack ?? e));
+     process.exit(1);
+   }
+ }
