@@ -1,0 +1,7 @@
+# Garden partition Native attempt 1
+
+Exact admitted plan `0695130418584c6a85deeba9a678dfa58afcf11c03facea6e040c416f3b63aca` executed once. Confirmed session93675 ended exit1 after its emit30 child deadline. Both raw compiler streams are empty; no C exists. Clang and Native consumer were not attempted. All four pre/acquired/post/final guards remain unchanged, guardFailures empty. Receipt status remains INCOMPLETE.
+
+Garden source5 success does not establish C completion or complete2534183-byte member observations. Workshop was never launched. Neither member, full5077477-byte aggregate, issue54, performance nor compiler cause is qualified by this deadline. No timeout retry, normalization, smaller consumer or cap change occurred. The original full oracle and exact member slice stay unchanged.
+
+The next investigation must identify a source-current compiler phase/operation before another representation change. The existing copied-source stack was captured against the older combined boxed scan consumer, so it cannot attribute this Garden installed-ELF deadline. A separately reviewed copied-source diagnostic can freeze this exact Garden entry/import stage, instrument bounded progress around source `file_book`/`type_adts`/`lay_of`/`emit_body`, and retain an instantaneous source stack under the existing cap. That proposed source diagnostic would not establish installed-ELF equivalence or performance and is not prepared or authorized by this packet. No further child was started.

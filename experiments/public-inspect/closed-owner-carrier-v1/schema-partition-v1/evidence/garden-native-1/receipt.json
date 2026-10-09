@@ -1,0 +1,54 @@
+{
+  "scope": "Complete single nominal-schema Inspector partition Native development only; whole aggregate outstanding; no resolver qualification, performance or #54 completion",
+  "planSHA256": "0695130418584c6a85deeba9a678dfa58afcf11c03facea6e040c416f3b63aca",
+  "commands": [
+    {
+      "label": "emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-54-boxed-scan/experiments/public-inspect/closed-owner-carrier-v1/schema-partition-v1/garden.bend",
+        "-o",
+        "/tmp/bendvy-inspect54-garden-native02/scenario.c"
+      ],
+      "capSeconds": 30,
+      "exit": null,
+      "failure": "child deadline",
+      "stdout": {
+        "path": "/tmp/bendvy-inspect54-garden-native02/emit.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "/tmp/bendvy-inspect54-garden-native02/emit.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+    }
+  ],
+  "guards": [
+    {
+      "path": "/tmp/bendvy-inspect54-garden-native02/emit-pre.guard.json",
+      "sha256": "f84caf15ad7398dcd0ec2d0e2e3f66685bc64e93d45ba2cfbafd80602fecd5eb"
+    },
+    {
+      "path": "/tmp/bendvy-inspect54-garden-native02/emit-acquired.guard.json",
+      "sha256": "4f3ae01d7299ab91ba29fdb2a8be07fe8680ea748c9f13258a8fc5a5ddb825f0"
+    },
+    {
+      "path": "/tmp/bendvy-inspect54-garden-native02/emit-post.guard.json",
+      "sha256": "2a0f106c19c3ef3291989933b574dc453ac885a0766c92ff28a72588d1d389d8"
+    },
+    {
+      "path": "/tmp/bendvy-inspect54-garden-native02/final.guard.json",
+      "sha256": "2267bd1cedbb2da34d256346c7ad8a97bcb38acd2248193938bb08b103a4e6cf"
+    }
+  ],
+  "status": "INCOMPLETE",
+  "error": "ValueError: Owned child failed: emit",
+  "guardFailures": []
+}
