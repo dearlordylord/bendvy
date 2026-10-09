@@ -184,8 +184,9 @@ to claim saved-world restoration from the #48 transaction inverse or to import
 Reuse the existing `Slot`/closed lenses to supply finite typed initial machine
 values and explicit missing slots through an ordinary schema-bound provisioning
 API; preserve the selected no-pending/no-previous/changed=false initialization.
-For duplicate initial provisions preserve the observed last supplied typed value
-within that existing initialization boundary. Preserve definition order separately
+Duplicate initial provisions remain a contract decision: TS last-write-wins
+does not select the Bend API policy. A checked empty-slot provision candidate
+may return its supplied owner when occupied without claiming replacement parity. Preserve definition order separately
 from provision order; do not mint new globally unique IDs or foreign handles.
 Reuse actual `application.frame` refusal/result ownership and extract a generic
 closed declared-requirement preflight seam, with no world mutation or callback
@@ -193,6 +194,15 @@ invocation on failure. Test full worlds with one/both slots missing, no-machine
 operations, hidden condition requirements, and retry after typed provisioning in
 two nominal schemas. Retain exact original owners and all unrelated Type payloads,
 commands, clocks, registration metadata and stream state in complete observations.
+
+Pure conditions are optional reads, not required-body accesses. Pinned Rust
+`condition.rs::state_exists` and `in_state` return false for absent state; negation
+and Boolean composition act on that result. Therefore missing state under
+`not(in_state(...))` may yield true, and a true disjunct may permit execution.
+Do not import the TS blanket condition requirement union into native preflight.
+Explicit required body/reader accesses remain separate; refusing the whole frame
+for those accesses is a candidate adaptation, not proved Bevy scheduling parity.
+
 Generalizing declarations must keep undeclared/cross-schema/write-through-read
 negatives at the actual consumer boundary.
 
